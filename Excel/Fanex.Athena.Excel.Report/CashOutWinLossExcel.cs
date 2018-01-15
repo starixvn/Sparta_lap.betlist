@@ -7,7 +7,6 @@
 namespace Fanex.Athena.Excel.Report
 {
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Base;
     using Base.Entities;
@@ -75,7 +74,6 @@ namespace Fanex.Athena.Excel.Report
             _totalData = viewModel.TotalData;
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed.")]
         protected override void AssignHeader(ISheet sheet)
         {
             // row 1

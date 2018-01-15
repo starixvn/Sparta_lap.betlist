@@ -106,10 +106,7 @@ namespace Fanex.Athena.Excel.Report
                 ViewResources.ProductBA
             };
 
-            for (int i = 0; i < headerTextList.Length; i++)
-            {
-                row.Cells[i].SetCellValue(headerTextList[i]);
-            }
+            SetTextRowHeader(row, headerTextList);
 
             row2.Cells[ColumnCustomerWinLoss].SetCellValue(ViewResources.WinLoss);
             row2.Cells[ColumnCustomerComm].SetCellValue(ViewResources.Comm);

@@ -45,6 +45,13 @@ namespace Fanex.Athena.DataAccess.TotalBet
             }
         }
 
+        private static decimal GetRunningStake(IDataReader reader, string columnOne, string columnTwo)
+        {
+            var oneScore = reader.ToDecimal(columnOne);
+            var twoScore = reader.ToDecimal(columnTwo);
+            return oneScore + twoScore;
+        }
+
         private static decimal GetTotalScore(IDataReader reader, string homeColumnName, string awayColumnName)
         {
             var homeScore = reader.ToDecimal(homeColumnName);
@@ -143,13 +150,6 @@ namespace Fanex.Athena.DataAccess.TotalBet
             }
 
             return new OddEvenDrawNoDraw();
-        }
-
-        private static decimal GetRunningStake(IDataReader reader, string columnOne, string columnTwo)
-        {
-            var onwScore = reader.ToDecimal(columnOne);
-            var twoScore = reader.ToDecimal(columnTwo);
-            return onwScore + twoScore;
         }
     }
 }

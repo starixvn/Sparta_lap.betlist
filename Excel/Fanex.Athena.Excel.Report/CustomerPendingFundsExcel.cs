@@ -44,10 +44,7 @@
                 ViewResources.BetCount,
                 ViewResources.PendingFunds
             };
-            for (int i = 0; i < headerTextList.Length; i++)
-            {
-                row.Cells[i].SetCellValue(headerTextList[i]);
-            }
+            SetTextRowHeader(row, headerTextList);
         }
 
         protected override void AssignNoInfoRow(ISheet sheet)
