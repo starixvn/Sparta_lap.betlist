@@ -110,7 +110,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         public void AssignTitle_WhenCall_CallRelevantMethods()
         {
             // Arrange
-            ExcelTestHelper.MockGetRow(_sheet, ColumnCount);
+            var row = ExcelTestHelper.MockGetRow(_sheet, ColumnCount, 0);
             var excel = CreateExcel();
             var expectedTitle = ReportExcelHelper.GenerateReportTitle(
                 ViewResources.CasinoProgressiveWins,
@@ -123,12 +123,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             excel.Public_AssignTitle(_sheet);
 
             // Assert
-            _sheet.Received().SetTextRowValue(
-                    excel.TemplateSheet,
-                    Arg.Any<int>(),
-                    Arg.Any<int>(),
-                    Arg.Any<int>(),
-                    expectedTitle);
+            row.Cells[0].Received(1).SetCellValue(expectedTitle);
         }
 
         private static CasinoProgressiveWinsExcelTestable CreateExcel()

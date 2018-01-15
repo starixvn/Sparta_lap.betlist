@@ -117,7 +117,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         public void AssignTitle_WhenCall_CallRelevantMethods()
         {
             // Arrange
-            ExcelTestHelper.MockGetRow(_sheet, ColumnCount);
+            var row = ExcelTestHelper.MockGetRow(_sheet, ColumnCount, 0);
             var excel = CreateExcel();
             var reportTitle = string.Format(
                                        ViewResources.DailyRacing12BetTitle,
@@ -130,12 +130,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             // Assert
             Assert.Multiple(() =>
             {
-                _sheet.Received().SetTextRowValue(
-                    excel.TemplateSheet,
-                    Arg.Any<int>(),
-                    Arg.Any<int>(),
-                    Arg.Any<int>(),
-                    reportTitle);
+                row.Cells[0].Received(1).SetCellValue(reportTitle);
                 _sheet.Received(1).CreateFreezePane(0, 3);
                 _sheet.ReceivedWithAnyArgs().DeleteRow(0);
             });
