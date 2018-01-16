@@ -1,9 +1,14 @@
 ﻿namespace Fanex.Athena.Model.Report.MetaModel
 {
     using System;
+    using Extension.Helper;
 
     public class NotificationMetaModel
     {
+        private const int MaximumMonthRangeConst = 6;
+
+        public static int MaximumMonthRange => MaximumMonthRangeConst;
+
         public int LicenseeId { get; set; }
 
         public string UserName { get; set; }
@@ -24,6 +29,6 @@
 
         public string Language { get; set; }
 
-        public bool IsValid => FromDate <= ToDate;
+        public bool IsValid => DateTimeHelper.IsValidMonthRange(FromDate, ToDate, MaximumMonthRange);
     }
 }

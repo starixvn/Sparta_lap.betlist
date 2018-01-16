@@ -17,8 +17,6 @@
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class NotificationApiController : ApiController
     {
-        private const int MaximumMonthDistance = 5;
-
         private readonly IMoveBetService _moveBetService;
 
         private readonly ILanguageService _languageService;
@@ -51,9 +49,11 @@
         [HttpGet]
         public dynamic GetNotificationMessages([FromUri]NotificationMetaModel metaModel)
         {
+            var maximumMonthDistance = NotificationMetaModel.MaximumMonthRange - 1;
+
             var today = DateTime.Today;
             metaModel.IsOnlyUnread = true;
-            metaModel.FromDate = new DateTime(today.Year, today.Month, 1).AddMonths(-MaximumMonthDistance);
+            metaModel.FromDate = new DateTime(today.Year, today.Month, 1).AddMonths(-maximumMonthDistance);
             metaModel.ToDate = today.AddDays(1).AddMilliseconds(-1);
             metaModel.PageSize = 10;
             metaModel.PageIndex = 1;

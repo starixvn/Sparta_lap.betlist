@@ -63,5 +63,12 @@
 
             return numberOfWeeksInRange + 1;
         }
+
+        public static bool IsValidMonthRange(DateTime fromDate, DateTime toDate, int maximumMonthRange)
+        {
+            var maximumDate = fromDate.AddMonths(maximumMonthRange);
+            var validDate = new DateTime(maximumDate.Year, maximumDate.Month, 1);
+            return toDate >= fromDate && toDate < validDate;
+        }
     }
 }
