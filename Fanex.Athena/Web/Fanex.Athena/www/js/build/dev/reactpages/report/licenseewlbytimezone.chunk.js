@@ -8644,9 +8644,11 @@ var DateRange = function (_Component) {
 
 
       if (limitedMonthRange) {
-        var minStartDate = date.endDate.clone().subtract(limitedMonthRange, "month");
+        var startDate = date.startDate;
+        var endDate = date.endDate;
+        var diffMonth = 12 * (endDate.year() - startDate.year()) + endDate.month() - startDate.month() + 1;
 
-        return minStartDate <= date.startDate;
+        return diffMonth <= limitedMonthRange;
       }
 
       return true;
