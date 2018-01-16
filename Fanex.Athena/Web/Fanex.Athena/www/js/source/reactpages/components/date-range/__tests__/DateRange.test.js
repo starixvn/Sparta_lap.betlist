@@ -387,6 +387,30 @@ describe('DateRange ', () => {
 
             expect(result).toBe(false);
         })
+
+        it('limitedMonthRange props is defined - just check by month and ignore date - valid range - return true', () => {
+            const props = Object.assign({}, defaultProps, { limitedMonthRange: 6 });
+            const dateRange = new DateRange(props);
+
+            const startDate = moment([2017, 6, 1]);
+            const endDate = moment([2017, 11, 31]);
+            const range = { startDate, endDate }
+            const result = dateRange.isValidMonthRange(range);
+
+            expect(result).toBe(true);
+        })
+
+        it('limitedMonthRange props is defined - just check by month and ignore date - invalid range - return false', () => {
+            const props = Object.assign({}, defaultProps, { limitedMonthRange: 6 });
+            const dateRange = new DateRange(props);
+
+            const startDate = moment([2017, 6, 1]);
+            const endDate = moment([2018, 0, 1]);
+            const range = { startDate, endDate }
+            const result = dateRange.isValidMonthRange(range);
+
+            expect(result).toBe(false);
+        })
     })
 
     describe('handleLinkChange', () => {
