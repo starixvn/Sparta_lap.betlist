@@ -6418,19 +6418,10 @@ var Table = function (_Component) {
 
         var _this = _possibleConstructorReturn(this, (Table.__proto__ || Object.getPrototypeOf(Table)).call(this, props));
 
-        _this._handleResize = function (event) {
-            event && event.preventDefault();
+        _initialiseProps.call(_this);
 
-            var bodyHeight = _this._calculateBodyHeight();
-            if (_this.state.contentHeight !== bodyHeight) {
-                _this.setState({ contentHeight: bodyHeight });
-            }
-
-            var maxWidth = document.body.clientWidth - _this.diffWidth;
-            if (_this.state.maxWidth !== maxWidth) {
-                _this.setState({ maxWidth: maxWidth });
-            }
-        };
+        _this.bodyWrapper = null;
+        _this.footerWrapper = null;
 
         var headerContainerProps = { className: "header-content", isHeader: true };
         _this.Header = (0, _tableSection2.default)(headerContainerProps);
@@ -6445,13 +6436,19 @@ var Table = function (_Component) {
             } };
         _this.Footer = (0, _tableSection2.default)(footerContainerProps);
 
-        _this.diffWidth = _constants.BODY_WIDTH - props.maxWidth;
+        var _this$props = _this.props,
+            maxWidth = _this$props.maxWidth,
+            bodyHeight = _this$props.bodyHeight,
+            adjustedHeight = _this$props.adjustedHeight;
+
+        _this.diffWidth = _constants.BODY_WIDTH - maxWidth;
         _this.columnsWidth = _this._getColumnsWidth();
+        _this.adjustedHeight = adjustedHeight;
+
         _this.state = {
-            maxWidth: props.maxWidth,
-            contentHeight: props.bodyHeight
+            maxWidth: maxWidth,
+            contentHeight: bodyHeight
         };
-        _this.adjustedHeight = props.adjustedHeight;
         return _this;
     }
 
@@ -6647,8 +6644,30 @@ Table.defaultProps = {
     maxWidth: _constants.MAX_WIDTH,
     autoWidth: true,
     isPaging: false,
-    adjustedHeight: 0
+    adjustedHeight: 0,
+    bodyHeight: 0
 };
+
+var _initialiseProps = function _initialiseProps() {
+    var _this4 = this;
+
+    this._handleResize = function (event) {
+        event && event.preventDefault();
+
+        if (_this4.bodyWrapper) {
+            var bodyHeight = _this4._calculateBodyHeight();
+            if (_this4.state.contentHeight !== bodyHeight) {
+                _this4.setState({ contentHeight: bodyHeight });
+            }
+        }
+
+        var maxWidth = document.body.clientWidth - _this4.diffWidth;
+        if (_this4.state.maxWidth !== maxWidth) {
+            _this4.setState({ maxWidth: maxWidth });
+        }
+    };
+};
+
 exports.default = Table;
 
 /***/ }),
