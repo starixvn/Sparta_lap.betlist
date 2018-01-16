@@ -105,7 +105,7 @@ var _types = __webpack_require__(10);
 
 var types = _interopRequireWildcard(_types);
 
-var _createReducer2 = __webpack_require__(13);
+var _createReducer2 = __webpack_require__(16);
 
 var _createReducer3 = _interopRequireDefault(_createReducer2);
 
@@ -161,32 +161,7 @@ var GET_LICENSEE_NAME = exports.GET_LICENSEE_NAME = "RESULTAMENDMENT_GET_LICENSE
 
 /***/ }),
 
-/***/ 13:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.default = createReducer;
-function createReducer(initialState, handlers) {
-    return function reducer() {
-        var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-        var action = arguments[1];
-
-        if (handlers.hasOwnProperty(action.type)) {
-            return handlers[action.type](state, action);
-        } else {
-            return state;
-        }
-    };
-}
-
-/***/ }),
-
-/***/ 16:
+/***/ 15:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -239,6 +214,31 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 	}
 }());
 
+
+/***/ }),
+
+/***/ 16:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = createReducer;
+function createReducer(initialState, handlers) {
+    return function reducer() {
+        var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+        var action = arguments[1];
+
+        if (handlers.hasOwnProperty(action.type)) {
+            return handlers[action.type](state, action);
+        } else {
+            return state;
+        }
+    };
+}
 
 /***/ }),
 
@@ -644,7 +644,7 @@ var MomentFormat = exports.MomentFormat = {
 
 /***/ }),
 
-/***/ 409:
+/***/ 406:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -655,11 +655,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.ActionCreators = undefined;
 
-var _dataHandlerAction = __webpack_require__(724);
+var _dataHandlerAction = __webpack_require__(719);
 
 var dataHandlerAction = _interopRequireWildcard(_dataHandlerAction);
 
-var _filterHandlerAction = __webpack_require__(725);
+var _filterHandlerAction = __webpack_require__(720);
 
 var filterHandlerAction = _interopRequireWildcard(_filterHandlerAction);
 
@@ -670,29 +670,6 @@ var loaderAction = _interopRequireWildcard(_loaderAction);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 var ActionCreators = exports.ActionCreators = Object.assign({}, dataHandlerAction, filterHandlerAction, loaderAction);
-
-/***/ }),
-
-/***/ 410:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var FETCH_DATA = exports.FETCH_DATA = 'GENERAL_FETCH_DATA';
-var SET_GRID_DATA = exports.SET_GRID_DATA = "GENERAL_SET_GRID_DATA";
-
-var SET_DATE_RANGE = exports.SET_DATE_RANGE = "GENERAL_SET_DATE_RANGE";
-var GET_DATE_CONSTRAINT = exports.GET_DATE_CONSTRAINT = "GENERAL_GET_DATE_CONSTRAINT";
-var CHANGE_CONVERT_ALL = exports.CHANGE_CONVERT_ALL = "GENERAL_CHANGE_CONVERT_ALL";
-
-var SET_NOTIFICATION_TYPE = exports.SET_NOTIFICATION_TYPE = "GENERAL_SET_NOTIFICATION_TYPE";
-var GET_NOTIFICATION_TYPE = exports.GET_NOTIFICATION_TYPE = "GENERAL_GET_NOTIFICATION_TYPE";
-
-var SET_PARAM = exports.SET_PARAM = "GENERAL_SET_PARAM";
 
 /***/ }),
 
@@ -1357,7 +1334,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 720:
+/***/ 716:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1377,7 +1354,7 @@ var _reactDom = __webpack_require__(7);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _AppContainer = __webpack_require__(721);
+var _AppContainer = __webpack_require__(717);
 
 var _AppContainer2 = _interopRequireDefault(_AppContainer);
 
@@ -1391,9 +1368,9 @@ var _reduxThunk = __webpack_require__(111);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-var _reducers = __webpack_require__(729);
+var _resultAmendment = __webpack_require__(724);
 
-var _reducers2 = _interopRequireDefault(_reducers);
+var _resultAmendment2 = _interopRequireDefault(_resultAmendment);
 
 var _config = __webpack_require__(102);
 
@@ -1420,7 +1397,7 @@ function configureStore(initialState) {
     var enhancer = (0, _redux.compose)((0, _redux.applyMiddleware)(_reduxThunk2.default, // lets us dispatch() functions
     loggerMiddleware));
 
-    return (0, _redux.createStore)(_reducers2.default, initialState, enhancer);
+    return (0, _redux.createStore)(_resultAmendment2.default, initialState, enhancer);
 }
 
 var store = configureStore(defaultState);
@@ -1455,7 +1432,7 @@ _reactDom2.default.render(_react2.default.createElement(App, null), document.get
 
 /***/ }),
 
-/***/ 721:
+/***/ 717:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1476,9 +1453,13 @@ var _reactRedux = __webpack_require__(23);
 
 var _redux = __webpack_require__(17);
 
-var _resultAmendment = __webpack_require__(722);
+var _DataGrid = __webpack_require__(718);
 
-var _resultAmendment2 = _interopRequireDefault(_resultAmendment);
+var _DataGrid2 = _interopRequireDefault(_DataGrid);
+
+var _FormFilter = __webpack_require__(723);
+
+var _FormFilter2 = _interopRequireDefault(_FormFilter);
 
 var _Loader = __webpack_require__(99);
 
@@ -1516,7 +1497,8 @@ var AppContainer = exports.AppContainer = function (_Component) {
                 _AppLayout2.default,
                 null,
                 _react2.default.createElement(_Loader2.default, { isLoading: this.props.isLoading }),
-                _react2.default.createElement(_resultAmendment2.default, null)
+                _react2.default.createElement(_FormFilter2.default, null),
+                _react2.default.createElement(_DataGrid2.default, null)
             );
         }
     }]);
@@ -1532,67 +1514,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps)(AppContainer);
 
 /***/ }),
 
-/***/ 722:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _DataGrid = __webpack_require__(723);
-
-var _DataGrid2 = _interopRequireDefault(_DataGrid);
-
-var _FormFilter = __webpack_require__(728);
-
-var _FormFilter2 = _interopRequireDefault(_FormFilter);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var ResultAmendment = function (_Component) {
-  _inherits(ResultAmendment, _Component);
-
-  function ResultAmendment(props) {
-    _classCallCheck(this, ResultAmendment);
-
-    return _possibleConstructorReturn(this, (ResultAmendment.__proto__ || Object.getPrototypeOf(ResultAmendment)).call(this, props));
-  }
-
-  _createClass(ResultAmendment, [{
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(_FormFilter2.default, null),
-        _react2.default.createElement(_DataGrid2.default, null)
-      );
-    }
-  }]);
-
-  return ResultAmendment;
-}(_react.Component);
-
-exports.default = ResultAmendment;
-
-/***/ }),
-
-/***/ 723:
+/***/ 718:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1611,7 +1533,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(23);
 
-var _resultAmendment = __webpack_require__(409);
+var _resultAmendment = __webpack_require__(406);
 
 var _redux = __webpack_require__(17);
 
@@ -1629,7 +1551,7 @@ var _NoDataTitle = __webpack_require__(85);
 
 var _NoDataTitle2 = _interopRequireDefault(_NoDataTitle);
 
-var _resultAmendmentService = __webpack_require__(726);
+var _resultAmendmentService = __webpack_require__(721);
 
 var _resultAmendmentService2 = _interopRequireDefault(_resultAmendmentService);
 
@@ -1637,7 +1559,7 @@ var _site = __webpack_require__(24);
 
 var _site2 = _interopRequireDefault(_site);
 
-var _CollapsibleRow = __webpack_require__(727);
+var _CollapsibleRow = __webpack_require__(722);
 
 var _CollapsibleRow2 = _interopRequireDefault(_CollapsibleRow);
 
@@ -1889,20 +1811,20 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-    var _state$resultAmendmen = state.resultAmendment,
-        gridData = _state$resultAmendmen.gridData,
-        dateRange = _state$resultAmendmen.dateRange,
-        param = _state$resultAmendmen.param,
-        licenseeName = _state$resultAmendmen.licenseeName;
+    var gridData = state.gridData,
+        dateRange = state.dateRange,
+        param = state.param,
+        licenseeName = state.licenseeName,
+        xsrfToken = state.xsrfToken;
 
-    return Object.assign({}, { gridData: gridData, dateRange: dateRange, param: param, xsrfToken: state.xsrfToken, licenseeName: licenseeName });
+    return Object.assign({}, { gridData: gridData, dateRange: dateRange, param: param, xsrfToken: xsrfToken, licenseeName: licenseeName });
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(DataGrid);
 
 /***/ }),
 
-/***/ 724:
+/***/ 719:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2004,7 +1926,7 @@ function exportAttachment(params) {
 
 /***/ }),
 
-/***/ 725:
+/***/ 720:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2042,7 +1964,7 @@ var setParam = exports.setParam = function setParam(param) {
 
 /***/ }),
 
-/***/ 726:
+/***/ 721:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2100,7 +2022,7 @@ exports.default = Service;
 
 /***/ }),
 
-/***/ 727:
+/***/ 722:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2209,7 +2131,7 @@ exports.default = CollapsibleRow;
 
 /***/ }),
 
-/***/ 728:
+/***/ 723:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2228,7 +2150,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(23);
 
-var _resultAmendment = __webpack_require__(409);
+var _resultAmendment = __webpack_require__(406);
 
 var _redux = __webpack_require__(17);
 
@@ -2393,18 +2315,17 @@ function mapDispatchToProps(dispatch) {
     return (0, _redux.bindActionCreators)(_resultAmendment.ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    var _state$resultAmendmen = state.resultAmendment,
-        gridData = _state$resultAmendmen.gridData,
-        rest = _objectWithoutProperties(_state$resultAmendmen, ['gridData']);
+    var gridData = state.gridData,
+        rest = _objectWithoutProperties(state, ['gridData']);
 
-    return Object.assign({}, rest, { xsrfToken: state.xsrfToken });
+    return Object.assign({}, rest);
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(FormFilter);
 
 /***/ }),
 
-/***/ 729:
+/***/ 724:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2416,63 +2337,29 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(17);
 
-var _general = __webpack_require__(730);
+var _dataHandlerReducer = __webpack_require__(725);
 
-var _general2 = _interopRequireDefault(_general);
+var dataHandlerReducer = _interopRequireWildcard(_dataHandlerReducer);
 
-var _resultAmendment = __webpack_require__(733);
+var _filterHandlerReducer = __webpack_require__(726);
 
-var _resultAmendment2 = _interopRequireDefault(_resultAmendment);
+var filterHandlerReducer = _interopRequireWildcard(_filterHandlerReducer);
 
 var _loaderReducer = __webpack_require__(101);
 
 var loaderReducer = _interopRequireWildcard(_loaderReducer);
 
-var _xsrfTokenReducer = __webpack_require__(736);
+var _xsrfTokenReducer = __webpack_require__(727);
 
 var xsrfTokenReducer = _interopRequireWildcard(_xsrfTokenReducer);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var general = (0, _redux.combineReducers)(_general2.default);
-var resultAmendment = (0, _redux.combineReducers)(_resultAmendment2.default);
-
-exports.default = (0, _redux.combineReducers)(Object.assign({}, {
-    general: general,
-    resultAmendment: resultAmendment
-}, loaderReducer, xsrfTokenReducer));
+exports.default = (0, _redux.combineReducers)(Object.assign(dataHandlerReducer, filterHandlerReducer, loaderReducer, xsrfTokenReducer));
 
 /***/ }),
 
-/***/ 730:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _dataHandlerReducer = __webpack_require__(731);
-
-var dataHandlerReducer = _interopRequireWildcard(_dataHandlerReducer);
-
-var _filterHandlerReducer = __webpack_require__(732);
-
-var filterHandlerReducer = _interopRequireWildcard(_filterHandlerReducer);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-exports.default = Object.assign({}, _extends({}, dataHandlerReducer, filterHandlerReducer));
-
-/***/ }),
-
-/***/ 731:
+/***/ 725:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2483,111 +2370,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.gridData = undefined;
 
-var _createReducer2 = __webpack_require__(13);
-
-var _createReducer3 = _interopRequireDefault(_createReducer2);
-
-var _types = __webpack_require__(410);
-
-var types = _interopRequireWildcard(_types);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var gridData = exports.gridData = (0, _createReducer3.default)({}, _defineProperty({}, types.SET_GRID_DATA, function (state, action) {
-    return action.data;
-}));
-
-/***/ }),
-
-/***/ 732:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.param = exports.selectedType = exports.notificationTypes = exports.dateConstraint = exports.dateRange = undefined;
-
-var _createReducer6 = __webpack_require__(13);
-
-var _createReducer7 = _interopRequireDefault(_createReducer6);
-
-var _types = __webpack_require__(410);
-
-var types = _interopRequireWildcard(_types);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var dateRange = exports.dateRange = (0, _createReducer7.default)({}, _defineProperty({}, types.SET_DATE_RANGE, function (state, action) {
-    return action.data;
-}));
-
-var dateConstraint = exports.dateConstraint = (0, _createReducer7.default)({}, _defineProperty({}, types.GET_DATE_CONSTRAINT, function (state, action) {
-    return action.data;
-}));
-
-var notificationTypes = exports.notificationTypes = (0, _createReducer7.default)({}, _defineProperty({}, types.GET_NOTIFICATION_TYPE, function (state, action) {
-    return action.data;
-}));
-
-var selectedType = exports.selectedType = (0, _createReducer7.default)({}, _defineProperty({}, types.SET_NOTIFICATION_TYPE, function (state, action) {
-    return action.data;
-}));
-
-var param = exports.param = (0, _createReducer7.default)({}, _defineProperty({}, types.SET_PARAM, function (state, action) {
-    return action.data;
-}));
-
-/***/ }),
-
-/***/ 733:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _dataHandlerReducer = __webpack_require__(734);
-
-var dataHandlerReducer = _interopRequireWildcard(_dataHandlerReducer);
-
-var _filterHandlerReducer = __webpack_require__(735);
-
-var filterHandlerReducer = _interopRequireWildcard(_filterHandlerReducer);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-exports.default = Object.assign({}, _extends({}, dataHandlerReducer, filterHandlerReducer));
-
-/***/ }),
-
-/***/ 734:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.gridData = undefined;
-
-var _createReducer2 = __webpack_require__(13);
+var _createReducer2 = __webpack_require__(16);
 
 var _createReducer3 = _interopRequireDefault(_createReducer2);
 
@@ -2607,7 +2390,7 @@ var gridData = exports.gridData = (0, _createReducer3.default)({}, _defineProper
 
 /***/ }),
 
-/***/ 735:
+/***/ 726:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2618,7 +2401,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.licenseeName = exports.param = exports.dateConstraint = exports.dateRange = undefined;
 
-var _createReducer5 = __webpack_require__(13);
+var _createReducer5 = __webpack_require__(16);
 
 var _createReducer6 = _interopRequireDefault(_createReducer5);
 
@@ -2650,7 +2433,7 @@ var licenseeName = exports.licenseeName = (0, _createReducer6.default)({}, _defi
 
 /***/ }),
 
-/***/ 736:
+/***/ 727:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2665,7 +2448,7 @@ var _types = __webpack_require__(10);
 
 var types = _interopRequireWildcard(_types);
 
-var _createReducer2 = __webpack_require__(13);
+var _createReducer2 = __webpack_require__(16);
 
 var _createReducer3 = _interopRequireDefault(_createReducer2);
 
@@ -3842,7 +3625,7 @@ var _styles = __webpack_require__(21);
 
 var _styles2 = _interopRequireDefault(_styles);
 
-var _classnames = __webpack_require__(16);
+var _classnames = __webpack_require__(15);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -4252,7 +4035,7 @@ var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _classnames2 = __webpack_require__(16);
+var _classnames2 = __webpack_require__(15);
 
 var _classnames3 = _interopRequireDefault(_classnames2);
 
@@ -4460,7 +4243,7 @@ var _moment = __webpack_require__(0);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _classnames2 = __webpack_require__(16);
+var _classnames2 = __webpack_require__(15);
 
 var _classnames3 = _interopRequireDefault(_classnames2);
 
@@ -4828,5 +4611,5 @@ exports.default = Loader;
 
 /***/ })
 
-},[720]);
+},[716]);
 //# sourceMappingURL=notification.chunk.js.map
