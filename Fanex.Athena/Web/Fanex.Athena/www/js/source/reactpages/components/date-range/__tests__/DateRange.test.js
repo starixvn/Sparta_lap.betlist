@@ -375,6 +375,18 @@ describe('DateRange ', () => {
 
             expect(result).toBe(false);
         })
+
+        it('limitedMonthRange props is defined - pass range between 2 years - return false', () => {
+            const props = Object.assign({}, defaultProps, { limitedMonthRange: 1 });
+            const dateRange = new DateRange(props);
+
+            const startDate = moment([2017, 1, 1]);
+            const endDate = moment([2018, 3, 1]);
+            const range = { startDate, endDate }
+            const result = dateRange.isValidMonthRange(range);
+
+            expect(result).toBe(false);
+        })
     })
 
     describe('handleLinkChange', () => {

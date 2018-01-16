@@ -142,10 +142,9 @@ class DateRange extends Component {
     const { limitedMonthRange } = this.props;
 
     if (limitedMonthRange) {
-      const range = date.endDate.clone().subtract(date.startDate.month(), "month");
-      if (range.month() > limitedMonthRange - 1) {
-        return false;
-      }
+      const minStartDate = date.endDate.clone().subtract(limitedMonthRange, "month");
+
+      return minStartDate <= date.startDate;
     }
 
     return true;
