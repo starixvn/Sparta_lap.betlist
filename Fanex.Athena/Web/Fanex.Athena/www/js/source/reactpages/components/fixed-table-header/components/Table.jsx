@@ -25,6 +25,9 @@ class Table extends Component {
     constructor(props) {
         super(props);
 
+        this.bodyWrapper = null;
+        this.footerWrapper = null;
+
         const headerContainerProps = { className: "header-content", isHeader: true };
         this.Header = createTableSection(headerContainerProps);
 
@@ -34,13 +37,15 @@ class Table extends Component {
         const footerContainerProps = { className: "footer-content", getRef: element => this.footerWrapper = element };
         this.Footer = createTableSection(footerContainerProps);
 
-        this.diffWidth = BODY_WIDTH - props.maxWidth;
+        const { maxWidth, bodyHeight, adjustedHeight } = this.props;
+        this.diffWidth = BODY_WIDTH - maxWidth;
         this.columnsWidth = this._getColumnsWidth();
+        this.adjustedHeight = adjustedHeight;
+
         this.state = {
-            maxWidth: props.maxWidth,
-            contentHeight: props.bodyHeight
+            maxWidth,
+            contentHeight: bodyHeight
         }
-        this.adjustedHeight = props.adjustedHeight;
     }
 
     static propTypes = {
@@ -63,7 +68,8 @@ class Table extends Component {
         maxWidth: MAX_WIDTH,
         autoWidth: true,
         isPaging: false,
-        adjustedHeight: 0
+        adjustedHeight: 0,
+        bodyHeight: 0
     }
 
     _getColumnsWidth() {
@@ -147,9 +153,11 @@ class Table extends Component {
     _handleResize = (event) => {
         event && event.preventDefault();
 
-        const bodyHeight = this._calculateBodyHeight();
-        if (this.state.contentHeight !== bodyHeight) {
-            this.setState({ contentHeight: bodyHeight });
+        if (this.bodyWrapper) {
+            const bodyHeight = this._calculateBodyHeight();
+            if (this.state.contentHeight !== bodyHeight) {
+                this.setState({ contentHeight: bodyHeight });
+            }
         }
 
         const maxWidth = document.body.clientWidth - this.diffWidth;

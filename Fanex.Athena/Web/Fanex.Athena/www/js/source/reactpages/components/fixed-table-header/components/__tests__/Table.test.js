@@ -252,6 +252,7 @@ describe('Table ', () => {
 
         it('maxWidth of state = document.body.clientWidth - this.diffWidth - do nothing', () => {
             const table = new Table(defaultProps);
+            table.bodyWrapper = {};
             table.setState = jest.fn();
 
             const bodyHeight = defaultProps.bodyHeight - 1;
@@ -279,6 +280,16 @@ describe('Table ', () => {
             table._handleResize(event);
 
             expect(table.setState).toHaveBeenCalledWith(expectedState);
+        })
+
+        it("bodyWrapper = null - do not calculate body height", () => {
+            const table = new Table(defaultProps);
+            table.setState = jest.fn();
+            table._calculateBodyHeight = jest.fn();
+
+            table._handleResize(event);
+
+            expect(table._calculateBodyHeight).not.toHaveBeenCalled();
         })
     })
 
