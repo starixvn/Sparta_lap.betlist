@@ -1,10 +1,11 @@
 ﻿import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
-import ResultAmendment from './resultAmendment'
-import Loader from '../../../components/Loader'
-import AppLayout from '../../../layouts/AppLayout'
-import LangHelper from '../../../lib/langHelper'
+import DataGrid from './DataGrid'
+import FormFilter from './FormFilter'
+import Loader from '../../../../components/Loader'
+import AppLayout from '../../../../layouts/AppLayout'
+import LangHelper from '../../../../lib/langHelper'
 
 export class AppContainer extends Component {
     constructor(props) {
@@ -15,7 +16,8 @@ export class AppContainer extends Component {
         return (
             <AppLayout>
                 <Loader isLoading={this.props.isLoading} />
-                <ResultAmendment />
+                <FormFilter />
+                <DataGrid />
             </AppLayout>
         );
     }

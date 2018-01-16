@@ -25,11 +25,9 @@ describe('connect ', () => {
         }
 
         const state = {
-            resultAmendment: {
-                gridData: [],
-                selectedBaseCurrency: "EUR",
-                isLoading: false
-            },
+            gridData: [],
+            selectedBaseCurrency: "EUR",
+            isLoading: false,
             xsrfToken: "token"
         }
 

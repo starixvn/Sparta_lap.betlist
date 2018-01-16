@@ -27,13 +27,11 @@ describe('connect ', () => {
         }
 
         const state = {
-            resultAmendment: {
-                gridData: [],
-                dateRange: {},
-                param: {},
-                licenseeName: "licName",
-                anotherProp: "Not included"
-            },
+            gridData: [],
+            dateRange: {},
+            param: {},
+            licenseeName: "licName",
+            anotherProp: "Not included",
             xsrfToken: "token",
             anotherProp: "Not included"
         }

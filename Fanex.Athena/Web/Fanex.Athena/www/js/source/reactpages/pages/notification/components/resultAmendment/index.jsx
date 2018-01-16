@@ -1,18 +1,50 @@
-﻿import React, { Component } from 'react';
-import DataGrid from './DataGrid'
-import FormFilter from './FormFilter'
+﻿import React from 'react'
+import ReactDOM from 'react-dom';
+import AppContainer from './AppContainer.jsx'
+import { Provider } from 'react-redux'
+import { createLogger } from 'redux-logger'
+import { createStore, applyMiddleware, combineReducers, compose } from 'redux'
+import thunkMiddleware from 'redux-thunk'
+import reducer from '../../reducers/resultAmendment'
+import { debuggingConfig } from '../../../../constants/config'
 
-export default class ResultAmendment extends Component {
-  constructor(props) {
-    super(props);
-  }
+const isDev = process.env.NODE_ENV === "development";
+const configName = debuggingConfig.name;
+// middleware that logs actions
+const loggerMiddleware = createLogger({
+    predicate: (getState, action) => isDev ||
+      (window[configName] &&
+        window[configName].env === debuggingConfig.env &&
+        (!window[configName].actionFilter || window[configName].actionFilter === action.type))
+});
 
-  render() {
-    return (
-      <div>
-        <FormFilter />
-        <DataGrid />
-      </div>
+const defaultState = Object.assign({}, window.initialState);
+
+function configureStore(initialState) {
+    const enhancer = compose(
+      applyMiddleware(
+        thunkMiddleware, // lets us dispatch() functions
+        loggerMiddleware,
+      ),
     );
-  }
+
+    return createStore(reducer, initialState, enhancer);
 }
+
+const store = configureStore(defaultState);
+
+export default class App extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+          <Provider store={store}>
+            <AppContainer />
+          </Provider>
+    );
+}
+}
+
+ReactDOM.render(<App />, document.getElementById("app-container"));

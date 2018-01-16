@@ -186,8 +186,8 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-    const { gridData, dateRange, param, licenseeName } = state.resultAmendment;
-    return Object.assign({}, { gridData, dateRange, param, xsrfToken: state.xsrfToken, licenseeName });
+    const { gridData, dateRange, param, licenseeName, xsrfToken } = state;
+    return Object.assign({}, { gridData, dateRange, param, xsrfToken, licenseeName });
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DataGrid);

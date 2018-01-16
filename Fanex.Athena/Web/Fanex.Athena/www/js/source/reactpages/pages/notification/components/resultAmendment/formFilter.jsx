@@ -105,8 +105,8 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    const { gridData, ...rest } = state.resultAmendment;
-    return Object.assign({}, rest, { xsrfToken: state.xsrfToken });
+    const { gridData, ...rest } = state;
+    return Object.assign({}, rest);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormFilter);
