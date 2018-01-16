@@ -215,7 +215,12 @@
             var currencyId = 3;
             var custId = 4;
 
-            var expectedFileName = $"ColossusBetsWinLoss_{fdate:ddMMMyyy}_All.xls";
+            StubUserSessionData(new UserSession
+            {
+                CurrencyList = new Dictionary<int, string> { { currencyId, "Currency" } },
+            });
+
+            var expectedFileName = $"ColossusBetsWinLoss_{fdate:ddMMMyyy}_Currency.xls";
 
             SetUpForGettingData(level);
 

@@ -119,23 +119,36 @@
             };
         }
 
-        private void StubDataAccessGetMemberData()
+        private SortableList<PlatformWinLossMember> StubDataAccessGetMemberData()
         {
+            var data1 = new PlatformWinLossMember { Index = 5, AmtDueToBA = 5 };
+            var data2 = new PlatformWinLossMember { Index = 2, AmtDueToBA = 2 };
+            var data3 = new PlatformWinLossMember { Index = 3, AmtDueToBA = 3 };
+
             var memberData = new SortableList<PlatformWinLossMember>
             {
-                new PlatformWinLossMember(),
-                new PlatformWinLossMember(),
-                new PlatformWinLossMember()
+                data1,
+                data2,
+                data3
             };
-            _dataAccess.GetMemberData(Arg.Any<PlatformWinLossMetaModel>()).ReturnsForAnyArgs(
-                new SortableReportResultModel<PlatformWinLossMember>
+
+            var result = new SortableReportResultModel<PlatformWinLossMember>
+            {
+                TotalData = new PlatformWinLossMember
                 {
-                    TotalData = new PlatformWinLossMember
-                    {
-                        CustomerComm = ExpectedCustomerComm
-                    },
-                    DataList = memberData
-                });
+                    CustomerComm = ExpectedCustomerComm
+                },
+                DataList = memberData
+            };
+
+            _dataAccess.GetMemberData(Arg.Any<PlatformWinLossMetaModel>()).ReturnsForAnyArgs(result);
+
+            return new SortableList<PlatformWinLossMember>
+            {
+                data1,
+                data2,
+                data3
+            };
         }
 
         private void SetUpDataAccessGetSummaryData()
@@ -145,6 +158,7 @@
                 new PlatformWinLossSummary(),
                 new PlatformWinLossSummary()
             };
+
             _dataAccess.GetSummaryData(Arg.Any<PlatformWinLossMetaModel>()).ReturnsForAnyArgs(
                 new ReportResultModel<PlatformWinLossSummary>
                 {
