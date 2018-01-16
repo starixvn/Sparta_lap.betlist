@@ -66,9 +66,12 @@
 
         public static bool IsValidMonthRange(DateTime fromDate, DateTime toDate, int maximumMonthRange)
         {
-            var maximumDate = fromDate.AddMonths(maximumMonthRange);
-            var validDate = new DateTime(maximumDate.Year, maximumDate.Month, 1);
-            return toDate >= fromDate && toDate < validDate;
+            return toDate >= fromDate && GetMonthDifference(fromDate, toDate) <= maximumMonthRange;
+        }
+
+        private static int GetMonthDifference(DateTime fromDate, DateTime toDate)
+        {
+            return (12 * (toDate.Year - fromDate.Year)) + toDate.Month - fromDate.Month + 1;
         }
     }
 }

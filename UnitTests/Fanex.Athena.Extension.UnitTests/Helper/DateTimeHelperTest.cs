@@ -87,7 +87,7 @@
             var result = DateTimeHelper.IsValidMonthRange(fromDate, toDate, monthRange);
 
             // Assert
-            Assert.That(result, Is.EqualTo(expected));
+            Assert.That(result, Is.EqualTo(expected), $"{fromDate.ToShortDateString()} - {toDate.ToShortDateString()}: {expected}");
         }
     }
 }
