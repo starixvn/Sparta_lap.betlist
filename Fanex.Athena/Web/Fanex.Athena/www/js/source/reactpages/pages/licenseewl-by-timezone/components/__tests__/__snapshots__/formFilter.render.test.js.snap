@@ -1871,13 +1871,6 @@ exports[`FormFilter  render methods render whole component match to snapshot 1`]
                   }
                 }
               >
-                <style
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "input#undefined::-ms-clear {display: none;}",
-                    }
-                  }
-                />
                 <input
                   aria-activedescendant="react-select-ddlTimeZone--value"
                   aria-describedby={undefined}
@@ -2101,13 +2094,6 @@ exports[`FormFilter  render methods render whole component match to snapshot 1`]
                   }
                 }
               >
-                <style
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "input#undefined::-ms-clear {display: none;}",
-                    }
-                  }
-                />
                 <input
                   aria-activedescendant="react-select-ddlCurrency--value"
                   aria-describedby={undefined}
@@ -2230,13 +2216,6 @@ exports[`FormFilter  render methods render whole component match to snapshot 1`]
                   }
                 }
               >
-                <style
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "input#undefined::-ms-clear {display: none;}",
-                    }
-                  }
-                />
                 <input
                   aria-activedescendant="react-select-ddlBased--value"
                   aria-describedby={undefined}
@@ -2402,13 +2381,6 @@ exports[`FormFilter  render methods render whole component match to snapshot 1`]
                   }
                 }
               >
-                <style
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "input#undefined::-ms-clear {display: none;}",
-                    }
-                  }
-                />
                 <input
                   aria-activedescendant="react-select-ddlReportBy--value"
                   aria-describedby={undefined}
