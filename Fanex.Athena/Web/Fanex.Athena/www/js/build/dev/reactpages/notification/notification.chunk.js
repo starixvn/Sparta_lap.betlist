@@ -1625,8 +1625,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
         value: function onExpand(index, item) {
             var _props$gridData = this.props.gridData,
                 Data = _props$gridData.Data,
-                Total = _props$gridData.Total,
-                DownloadFileApi = _props$gridData.DownloadFileApi;
+                Total = _props$gridData.Total;
 
             Data[index].IsExpand = true;
 
@@ -1636,11 +1635,10 @@ var DataGrid = exports.DataGrid = function (_Component) {
                     Id: item.Id,
                     Type: item.Type,
                     Data: Data,
-                    Total: Total,
-                    DownloadFileApi: DownloadFileApi
+                    Total: Total
                 }));
             } else {
-                this.props.setGridData({ Data: Data, Total: Total, DownloadFileApi: DownloadFileApi });
+                this.props.setGridData({ Data: Data, Total: Total });
             }
         }
     }, {
@@ -1649,7 +1647,6 @@ var DataGrid = exports.DataGrid = function (_Component) {
             var _this2 = this;
 
             var params = this._buildParams({
-                api: this.props.gridData.DownloadFileApi,
                 fileName: item.DataFilePath
             });
             var fileName = this.props.licenseeName;
@@ -1877,7 +1874,7 @@ var markNotification = function markNotification(params) {
 
 var downloadData = function downloadData(params) {
     var url = _site2.default.resolveClientUrl('api/NotificationReport/DownLoadFileAttachment');
-    return _axios2.default.post(url, { FileName: params.fileName, Api: params.api }, {
+    return _axios2.default.post(url, { FileName: params.fileName }, {
         headers: header(params.xsrfToken),
         responseType: 'blob'
     });
@@ -1888,8 +1885,7 @@ function getGridData(params) {
         fetchData(params).then(function (response) {
             dispatch(setGridData({
                 Data: response.data.DataList,
-                Total: response.data.TotalRows,
-                DownloadFileApi: response.data.DownloadFileApi
+                Total: response.data.TotalRows
             }));
         });
     };
@@ -1910,8 +1906,7 @@ function markItemAsRead(params) {
 
                 dispatch(setGridData({
                     Data: params.Data,
-                    Total: params.Total,
-                    DownloadFileApi: params.DownloadFileApi
+                    Total: params.Total
                 }));
             }
         });
