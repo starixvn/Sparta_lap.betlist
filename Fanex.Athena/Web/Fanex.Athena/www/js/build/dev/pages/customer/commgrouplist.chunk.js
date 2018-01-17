@@ -1,6 +1,6 @@
 webpackJsonp([60],{
 
-/***/ 164:
+/***/ 161:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
@@ -44,18 +44,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 /***/ }),
 
-/***/ 352:
+/***/ 350:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(353);
+module.exports = __webpack_require__(351);
 
 
 /***/ }),
 
-/***/ 353:
+/***/ 351:
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(354)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerCommGroupList) {
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(352)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerCommGroupList) {
     "use strict";
 
     $(CustomerCommGroupList.initialize);
@@ -65,10 +65,10 @@ module.exports = __webpack_require__(353);
 
 /***/ }),
 
-/***/ 354:
+/***/ 352:
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(123), __webpack_require__(164)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup, CustomerCommGroup) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(120), __webpack_require__(161)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup, CustomerCommGroup) {
         "use strict";
 
         var deleteGroupData = {
@@ -272,5 +272,5 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 /***/ })
 
-},[352]);
+},[350]);
 //# sourceMappingURL=commgrouplist.chunk.js.map

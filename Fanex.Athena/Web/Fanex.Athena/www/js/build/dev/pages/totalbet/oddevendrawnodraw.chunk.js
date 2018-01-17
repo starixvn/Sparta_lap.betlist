@@ -1,6 +1,6 @@
 webpackJsonp([46],{
 
-/***/ 124:
+/***/ 121:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -204,10 +204,10 @@ jQuery.extend({
 
 /***/ }),
 
-/***/ 133:
+/***/ 130:
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(121), __webpack_require__(135)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(118), __webpack_require__(132)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString) {
     "use strict";
 
     var curCountDown = 0;
@@ -334,7 +334,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 /***/ }),
 
-/***/ 135:
+/***/ 132:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -458,10 +458,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 
-/***/ 148:
+/***/ 145:
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(121), __webpack_require__(133), __webpack_require__(124)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, RefreshCountDown) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(118), __webpack_require__(130), __webpack_require__(121)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, RefreshCountDown) {
         "use strict";
 
         var _me = {
@@ -538,18 +538,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 /***/ }),
 
-/***/ 270:
+/***/ 268:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(271);
+module.exports = __webpack_require__(269);
 
 
 /***/ }),
 
-/***/ 271:
+/***/ 269:
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(272)], __WEBPACK_AMD_DEFINE_RESULT__ = function (OddEvenDND) {
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(270)], __WEBPACK_AMD_DEFINE_RESULT__ = function (OddEvenDND) {
     "use strict";
 
     $(OddEvenDND.initialize);
@@ -559,10 +559,10 @@ module.exports = __webpack_require__(271);
 
 /***/ }),
 
-/***/ 272:
+/***/ 270:
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(148), __webpack_require__(123), __webpack_require__(133)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Totalbets, Popup, RefreshCountDown) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(145), __webpack_require__(120), __webpack_require__(130)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Totalbets, Popup, RefreshCountDown) {
     "use strict";
 
     var _me = {
@@ -609,5 +609,5 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 /***/ })
 
-},[270]);
+},[268]);
 //# sourceMappingURL=oddevendrawnodraw.chunk.js.map

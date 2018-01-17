@@ -1,21 +1,21 @@
 webpackJsonp([56],{
 
-/***/ 195:
+/***/ 192:
 /***/ (function(module, exports, __webpack_require__) {
 
+__webpack_require__(193);
+__webpack_require__(194);
+__webpack_require__(195);
 __webpack_require__(196);
-__webpack_require__(197);
-__webpack_require__(198);
-__webpack_require__(199);
-module.exports = __webpack_require__(200);
+module.exports = __webpack_require__(197);
 
 
 /***/ }),
 
-/***/ 196:
+/***/ 193:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 12/19/2017 3:47:38 PM
+﻿// Generated at: 1/5/2018 3:57:38 PM
 window._language_en_US = {
 AA:"AA",
 AB:"AB",
@@ -53,6 +53,7 @@ All:"All",
 AllBetTypes:"All Bet Types",
 AllCurrencies:"All Currencies",
 AllSites:"All Sites",
+Amendment:"Resettlement",
 Amount:"Amount",
 AmountDue:"Amount Due",
 AmountDueTo:"Amount Due To",
@@ -82,6 +83,7 @@ AwayNoBet:"Away No Bet",
 BA:"BA",
 Back:"Back",
 BackToCurrentReport:"Back to current report",
+BackToOldUI:"Back to old UI",
 BAComissionBalanceNote:"BA Commission: Licensee commission income for BA tickets.",
 BACommission:"BA Commission",
 Balance:"Balance",
@@ -173,6 +175,7 @@ Confirm:"Confirm",
 Confirmation:"Confirmation",
 ConfirmCommission:"Confirm Customer&apos;s Commission:",
 ConfirmPassword:"Confirm Password",
+Content:"Content",
 ConvertAll:"Convert All",
 ConvertAllFiguresToBaseCurrency:"Convert all figures to Base Currency",
 ConvertTo:"Convert to",
@@ -315,6 +318,7 @@ Fail:"Fail",
 Feb:"Feb",
 February:"February",
 FGLG:"FG/LG",
+FileIsNotReady:"The file is not ready, please try again later.",
 FinalHand:"Final Hand",
 FinalScore:"Final Score",
 FirstGoal:"First Goal",
@@ -521,6 +525,8 @@ Mar:"Mar",
 March:"March",
 Margin:"Margin",
 Match:"Match",
+MatchDelayDone:"Match Delay-Done",
+MatchDelayNew:"Match Delay-New",
 MatchWinLoss:"Match Win Loss",
 MatchWinLossTitle:"Match Win Loss, {0} - {1}",
 MaxBet:"Max Bet",
@@ -603,6 +609,8 @@ NotAuthorizedMsg:"You are not authorized on this function",
 Note:"Note",
 NotIdenticalPasswordMsg:"Passwords are not identical",
 Notification:"Notification",
+NotificationDateRangeLimitNote:"Data is available within 6 months",
+Notifications:"Notifications",
 NotSupportYet:"This game type has not been supported yet!",
 Nov:"Nov",
 November:"November",
@@ -803,6 +811,7 @@ StartTime:"Start Time",
 Statement:"Statement",
 Status:"Status",
 Su:"Su",
+Subject:"Subject",
 Submit:"Submit",
 Subsidiary:"Subsidiary",
 SubsidiaryPerformance:"Subsidiary Performance",
@@ -825,6 +834,7 @@ ThereIsNoSelectedItem:"There is no selected item.",
 Thursday:"Thursday",
 TicketDetailOf:"Ticket detail of {0}",
 TicketFilter:"Ticket filter",
+TicketList:"Ticket List",
 TicketNo:"Ticket No.",
 TicketPayout:"Ticket Payout",
 Time:"Time",
@@ -924,6 +934,7 @@ View:"View",
 ViewBy:"View by",
 ViewDataInMonth:"View data in month",
 Viewin:"View in {0}",
+ViewNotification:"View Notification",
 VIP:"VIP",
 VirtualCycling:"Virtual Cycling",
 VirtualGreyhounds:"Virtual Greyhounds",
@@ -968,10 +979,10 @@ YouNotChooseAnyCustomerMsg:"You did not choose any customers."
 
 /***/ }),
 
-/***/ 197:
+/***/ 194:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 12/21/2017 11:03:29 AM
+﻿// Generated at: 1/5/2018 3:57:38 PM
 window._language_zh_CN = {
 AA:"客客",
 ABComm:"AllBet 佣金",
@@ -1001,6 +1012,7 @@ All:"全部",
 AllBetTypes:"所有投注类型",
 AllCurrencies:"所有货币",
 AllSites:"所有网站",
+Amendment:"重新结算",
 Amount:"金额",
 AmountDue:"应付金额",
 AmountDueTo:"应付金额",
@@ -1026,6 +1038,7 @@ Away:"客队",
 AwayNoBet:"客队(不获胜球队)",
 BA:"BA",
 BackToCurrentReport:"回到现有报告",
+BackToOldUI:"回到旧版本",
 BAComissionBalanceNote:"投注总计佣金: 承租公司佣金所得于投注总计注单。",
 BACommission:"BA佣金",
 Balance:"余额",
@@ -1103,6 +1116,7 @@ Confirm:"确认",
 Confirmation:"确认",
 ConfirmCommission:"确认会员的佣金:",
 ConfirmPassword:"确认密码",
+Content:"内容",
 ConvertAllFiguresToBaseCurrency:"将所有数据转换为基础货币",
 ConvertTo:"转换为",
 CopyBetSettingFrom:"Copy All Bet Setting from {0}",
@@ -1480,6 +1494,7 @@ NotAllowBA:"此Licensee不允许投注总计",
 NotAuthorizedMsg:"您没有被授权于此功能",
 NotIdenticalPasswordMsg:"密码不相同",
 Notification:"通知",
+NotificationDateRangeLimitNote:"最多可以检索六个月前的资料",
 NotSupportYet:"目前还不支持此游戏",
 Nov:"十一月",
 November:"十一月",
@@ -1668,6 +1683,7 @@ Th:"Th",
 ThereIsNoSelectedItem:"There is no selected item.",
 Thursday:"星期四",
 TicketFilter:"注单筛选",
+TicketList:"注单清单",
 TicketNo:"票劵号码",
 Time:"时间",
 TimeZone:"时区",
@@ -1751,6 +1767,7 @@ View:"检视",
 ViewBy:"查看由",
 ViewDataInMonth:"检阅每月数据",
 Viewin:"以 {0} 查看",
+ViewNotification:"查看通知",
 VirtualCycling:"Virtual Cycling",
 VirtualHorseRacing:"Virtual Horse Racing",
 VirtualSoccer:"Virtual Soccer",
@@ -1787,10 +1804,10 @@ YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
 
 /***/ }),
 
-/***/ 198:
+/***/ 195:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 12/21/2017 11:03:29 AM
+﻿// Generated at: 1/5/2018 3:57:38 PM
 window._language_zh_TW = {
 AA:"客客",
 ABComm:"AllBet 佣金",
@@ -1820,6 +1837,7 @@ All:"全部",
 AllBetTypes:"所有投注類型",
 AllCurrencies:"所有貨幣",
 AllSites:"所有網站",
+Amendment:"重新結算",
 Amount:"金額",
 AmountDue:"應付金額",
 AmountDueTo:"應付金額",
@@ -1845,6 +1863,7 @@ Away:"客隊",
 AwayNoBet:"客隊(不獲胜球隊)",
 BA:"BA",
 BackToCurrentReport:"回到現有報告",
+BackToOldUI:"回到舊版本",
 BAComissionBalanceNote:"投注總計佣金：承租公司金所得於投注總計注單。",
 BACommission:"BA佣金",
 Balance:"餘額",
@@ -1922,6 +1941,7 @@ Confirm:"確認",
 Confirmation:"確認",
 ConfirmCommission:"確認會員的佣金:",
 ConfirmPassword:"確認密碼",
+Content:"内容",
 ConvertAllFiguresToBaseCurrency:"將所有數據轉換為基礎貨幣",
 ConvertTo:"轉換為",
 CopyBetSettingFrom:"Copy All Bet Setting from {0}",
@@ -2299,6 +2319,7 @@ NotAllowBA:"此被許可不允許投注總計",
 NotAuthorizedMsg:"您沒有被授權於此功能",
 NotIdenticalPasswordMsg:"密碼不相同",
 Notification:"通知",
+NotificationDateRangeLimitNote:"最多可以檢索六個月前的資料",
 NotSupportYet:"目前還不支持此遊戲",
 Nov:"十一月",
 November:"十一月",
@@ -2487,6 +2508,7 @@ Th:"Th",
 ThereIsNoSelectedItem:"There is no selected item.",
 Thursday:"星期四",
 TicketFilter:"注單篩選",
+TicketList:"注單清單",
 TicketNo:"票劵號碼",
 Time:"時間",
 TimeZone:"時區",
@@ -2570,6 +2592,7 @@ View:"檢視",
 ViewBy:"查看由",
 ViewDataInMonth:"检阅每月數據",
 Viewin:"以 {0} 查看",
+ViewNotification:"查看通知",
 VirtualCycling:"Virtual Cycling",
 VirtualHorseRacing:"Virtual Horse Racing",
 VirtualSoccer:"Virtual Soccer",
@@ -2606,10 +2629,10 @@ YouNotChooseAnyCustomerMsg:"您還沒有選擇任何會員"
 
 /***/ }),
 
-/***/ 199:
+/***/ 196:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 12/21/2017 11:03:29 AM
+﻿// Generated at: 1/5/2018 3:57:38 PM
 window._language_zh_Hans = {
 AA:"客客",
 ABComm:"AllBet 佣金",
@@ -2639,6 +2662,7 @@ All:"全部",
 AllBetTypes:"所有投注类型",
 AllCurrencies:"所有货币",
 AllSites:"所有网站",
+Amendment:"重新结算",
 Amount:"金额",
 AmountDue:"应付金额",
 AmountDueTo:"应付金额",
@@ -2664,6 +2688,7 @@ Away:"客队",
 AwayNoBet:"客队(不获胜球队)",
 BA:"BA",
 BackToCurrentReport:"回到现有报告",
+BackToOldUI:"回到旧版本",
 BAComissionBalanceNote:"投注总计佣金: 承租公司佣金所得于投注总计注单。",
 BACommission:"BA佣金",
 Balance:"余额",
@@ -2731,6 +2756,7 @@ Confirm:"确认",
 Confirmation:"确认",
 ConfirmCommission:"确认会员的佣金:",
 ConfirmPassword:"确认密码",
+Content:"内容",
 ConvertAllFiguresToBaseCurrency:"将所有数据转换为基础货币",
 ConvertTo:"转换为",
 CopyBetSettingFrom:"Copy All Bet Setting from {0}",
@@ -3106,6 +3132,7 @@ NotAllowBA:"此Licensee不允许投注总计",
 NotAuthorizedMsg:"您没有被授权于此功能",
 NotIdenticalPasswordMsg:"密码不相同",
 Notification:"通知",
+NotificationDateRangeLimitNote:"最多可以检索六个月前的资料",
 NotSupportYet:"目前还不支持此游戏",
 Nov:"十一月",
 November:"十一月",
@@ -3293,6 +3320,7 @@ Th:"Th",
 ThereIsNoSelectedItem:"There is no selected item.",
 Thursday:"星期四",
 TicketFilter:"注单筛选",
+TicketList:"注单清单",
 TicketNo:"票劵号码",
 Time:"时间",
 TimeZone:"时区",
@@ -3375,6 +3403,7 @@ View:"检视",
 ViewBy:"查看由",
 ViewDataInMonth:"检阅每月数据",
 Viewin:"以 {0} 查看",
+ViewNotification:"查看通知",
 VirtualCycling:"Virtual Cycling",
 VirtualHorseRacing:"Virtual Horse Racing",
 VirtualSoccer:"Virtual Soccer",
@@ -3411,7 +3440,7 @@ YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
 
 /***/ }),
 
-/***/ 200:
+/***/ 197:
 /***/ (function(module, exports) {
 
 ﻿// Generated at: 12/19/2017 3:47:38 PM
@@ -4181,5 +4210,5 @@ YouNotChooseAnyCustomerMsg:"고객을 아직 선택하지 않았습니다."
 
 /***/ })
 
-},[195]);
+},[192]);
 //# sourceMappingURL=language.chunk.js.map

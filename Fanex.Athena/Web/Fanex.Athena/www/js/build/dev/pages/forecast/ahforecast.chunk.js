@@ -1,9 +1,9 @@
 webpackJsonp([58],{
 
-/***/ 133:
+/***/ 130:
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(121), __webpack_require__(135)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(118), __webpack_require__(132)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString) {
     "use strict";
 
     var curCountDown = 0;
@@ -130,7 +130,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 /***/ }),
 
-/***/ 135:
+/***/ 132:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -254,18 +254,18 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 
-/***/ 264:
+/***/ 262:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(265);
+module.exports = __webpack_require__(263);
 
 
 /***/ }),
 
-/***/ 265:
+/***/ 263:
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(266)], __WEBPACK_AMD_DEFINE_RESULT__ = function (Forecast) {
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(264)], __WEBPACK_AMD_DEFINE_RESULT__ = function (Forecast) {
     "use strict";
 
     $(Forecast.initialize);
@@ -275,10 +275,10 @@ module.exports = __webpack_require__(265);
 
 /***/ }),
 
-/***/ 266:
+/***/ 264:
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(121), __webpack_require__(123), __webpack_require__(133)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, Popup, RefreshCountDown) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(118), __webpack_require__(120), __webpack_require__(130)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, Popup, RefreshCountDown) {
         "use strict";
 
         var _matchid, _baseCurrency, _currencyid, _currencyName;
@@ -392,5 +392,5 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 /***/ })
 
-},[264]);
+},[262]);
 //# sourceMappingURL=ahforecast.chunk.js.map
