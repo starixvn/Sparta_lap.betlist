@@ -34,7 +34,8 @@ const defaultProps = {
     bodyHeight: undefined,
     header: defaultHeader,
     body: undefined,
-    footer: undefined
+    footer: undefined,
+    adjustedHeight: 0
 }
 
 describe('Table ', () => {
@@ -280,6 +281,7 @@ describe('Table ', () => {
 
         it('contentHeight of state != bodyHeight after calculation - setState should be called with correct parameter', () => {
             const table = new Table(defaultProps);
+            table.bodyWrapper = {}
             table.setState = jest.fn();
             const calculatedBodyHeight = defaultProps.bodyHeight + 1;
             table._calculateBodyHeight = jest.fn(() => calculatedBodyHeight);
