@@ -21,7 +21,7 @@
         {
             using (WebClient webClient = new WebClient())
             {
-                webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
+                webClient.Headers[HttpRequestHeader.ContentType] = "application/json; charset=utf-8";
                 return webClient.DownloadString(url);
             }
         }

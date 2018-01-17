@@ -157,6 +157,7 @@ define(["common/site", "moment", "common/popup", "extensions/jquery.extension"],
                     url: apiUrl,
                     type: "GET",
                     cache: false,
+                    contentType: "application/json; charset=utf-8",
                     success: function (data) {
                         if ($notificationDdl.is(":visible")) {
                             _newMsg = data;
