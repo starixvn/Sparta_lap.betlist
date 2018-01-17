@@ -24,6 +24,7 @@ namespace Fanex.Athena.Controllers.Report
     using Model.Core.DataDomain;
     using Model.Core.ResultModel;
     using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.ReportRacingCommission)]
@@ -33,7 +34,7 @@ namespace Fanex.Athena.Controllers.Report
 
         private readonly IRacingCommissionDataAccess _racingCommissionDataAccess;
 
-        public RacingCommissionReportController() : this(null, null, null, null, null, null)
+        public RacingCommissionReportController() : this(null, null, null, null, null, null, null)
         {
         }
 
@@ -41,10 +42,11 @@ namespace Fanex.Athena.Controllers.Report
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
             IProductService productService,
             IBalanceUpDataAccess balanceUpDataAccess, 
             IRacingCommissionDataAccess racingCommissionDataAccess)
-            : base(languageService, sessionService, appSetting, productService)
+            : base(languageService, sessionService, appSetting, clientViewHelper, productService)
         {
             _balanceUpDataAccess = balanceUpDataAccess ?? new BalanceUpDataAccess();
             _racingCommissionDataAccess = racingCommissionDataAccess ?? new RacingCommissionDataAccess();

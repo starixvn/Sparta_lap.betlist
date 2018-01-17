@@ -22,6 +22,7 @@ namespace Fanex.Athena.Controllers.Report
     using Resources;
     using Service.Core.Common;
     using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.ReportWinLossByLeague)]
@@ -31,19 +32,22 @@ namespace Fanex.Athena.Controllers.Report
         private readonly ILeagueDataAccess _leagueDataAccess;
         private readonly IMatchService _matchService;
 
-        public WinLossByLeagueReportController() : this(null, null, null, null, null, null, null)
+        public WinLossByLeagueReportController() : this(null, null, null, null, null, null, null, null)
         {
         }
 
+#pragma warning disable S107 // Methods should not have too many parameters
         public WinLossByLeagueReportController(
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
             IProductService productService,
             ISportTypeDataAccess sportTypeDataAccess,
             ILeagueDataAccess leagueDataAccess,
             IMatchService matchService)
-            : base(languageService, sessionService, appSetting, productService)
+            : base(languageService, sessionService, appSetting, clientViewHelper, productService)
+#pragma warning restore S107 // Methods should not have too many parameters
         {
             _sportTypeDataAccess = sportTypeDataAccess ?? new SportTypeDataAccess();
             _leagueDataAccess = leagueDataAccess ?? new LeagueDataAccess();

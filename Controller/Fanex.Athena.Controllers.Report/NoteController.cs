@@ -15,6 +15,7 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using ONEbook.UM.Filters;
+    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
 
     [SessionState(SessionStateBehavior.ReadOnly)]
@@ -25,7 +26,7 @@ namespace Fanex.Athena.Controllers.Report
 
         private readonly IProductService _productService;
 
-        public NoteController() : this(null, null, null, null, null)
+        public NoteController() : this(null, null, null, null, null, null)
         {
         }
 
@@ -33,9 +34,10 @@ namespace Fanex.Athena.Controllers.Report
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
             IProductService productService,
             IBalanceUpDataAccess balanceUpDataAccess)
-            : base(languageService, sessionService, appSetting)
+            : base(languageService, sessionService, appSetting, clientViewHelper)
         {
             _balanceUpDataAccess = balanceUpDataAccess ?? new BalanceUpDataAccess();
             _productService = productService ?? new ProductService();

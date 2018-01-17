@@ -20,12 +20,6 @@
             return GenerateReportTitle(reportName, metaModel.FromDate, metaModel.ToDate, title);
         }
 
-        public static string GenerateReportTitle(string reportName, ConvertingOption convertingOption, ThirdPartyWinLossMetaModel metaModel)
-        {
-            var title = GetTitleCurrencyName(convertingOption, metaModel);
-            return GenerateReportTitle(reportName, metaModel.FromDate, metaModel.ToDate, title);
-        }
-
         public static string GenerateReportTitle(string reportName, ConvertingOption convertingOption, DateTime fromDate, DateTime toDate, int currencyId)
         {
             var title = GetExactTitleCurrencyName(convertingOption, currencyId);

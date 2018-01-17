@@ -54,6 +54,7 @@ namespace Fanex.Athena.Controllers
         {
         }
 
+#pragma warning disable S107 // Methods should not have too many parameters
         public AuthorizationController(
             ILanguageService languageService,
             ISessionService sessionService,
@@ -64,6 +65,7 @@ namespace Fanex.Athena.Controllers
             IAuthService authService,
             IFormsAuthenticationService formAuthenticationService)
             : base(languageService, sessionService, appSetting, clientViewHelper)
+#pragma warning restore S107 // Methods should not have too many parameters
         {
             _maintenanceService = maintenanceService ?? new MaintenanceService();
             _userService = userService ?? new UserService();

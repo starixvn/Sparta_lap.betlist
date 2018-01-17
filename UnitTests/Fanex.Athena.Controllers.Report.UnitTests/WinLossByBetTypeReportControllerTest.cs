@@ -185,6 +185,7 @@
                 LangService,
                 SessionService,
                 AppSettings,
+                ClientViewHelper,
                 productService,
                 _balanceUpDataAccess,
                 _winLossByBetTypeDataAccess);

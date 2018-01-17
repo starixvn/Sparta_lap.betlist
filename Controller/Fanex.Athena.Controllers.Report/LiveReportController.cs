@@ -25,6 +25,7 @@ namespace Fanex.Athena.Controllers.Report
     using Model.Core.DTO.Common;
     using Model.Report.ResultModel;
     using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Service.Report.Interfaces;
 
@@ -36,7 +37,7 @@ namespace Fanex.Athena.Controllers.Report
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
         private readonly ILiveReportService _liveReportService;
 
-        public LiveReportController() : this(null, null, null, null, null, null)
+        public LiveReportController() : this(null, null, null, null, null, null, null)
         {
         }
 
@@ -44,10 +45,11 @@ namespace Fanex.Athena.Controllers.Report
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
             IProductService productService,
             IBalanceUpDataAccess balanceUpDataAccess,
             ILiveReportService liveReportService)
-            : base(languageService, sessionService, appSetting, productService)
+            : base(languageService, sessionService, appSetting, clientViewHelper, productService)
         {
             _balanceUpDataAccess = balanceUpDataAccess ?? new BalanceUpDataAccess();
             _liveReportService = liveReportService ?? new LiveReportService();

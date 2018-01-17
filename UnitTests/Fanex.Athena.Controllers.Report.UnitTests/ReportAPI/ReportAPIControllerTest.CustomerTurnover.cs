@@ -120,6 +120,7 @@
             return new ReportAPIController(
                 SessionService,
                 AppSettings,
+                ClientViewHelper,
                 _betTypeService,
                 _customerTurnoverService,
                 _turnoverService);

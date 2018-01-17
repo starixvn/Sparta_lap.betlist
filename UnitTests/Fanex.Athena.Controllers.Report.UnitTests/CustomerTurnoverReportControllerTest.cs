@@ -156,6 +156,7 @@
                 LangService,
                 SessionService,
                 AppSettings,
+                ClientViewHelper,
                 Substitute.For<IProductService>(),
                 _sportTypeDataAccess,
                 _customerTurnoverService);

@@ -23,6 +23,7 @@ namespace Fanex.Athena.Controllers.Report.RNGCasino
     using Fanex.Athena.Service.Casino.Interfaces;
     using Fanex.Athena.Web.ResultExtension;
     using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
 
     [SessionState(SessionStateBehavior.Required)]
@@ -30,7 +31,7 @@ namespace Fanex.Athena.Controllers.Report.RNGCasino
     {
         private readonly IRNGCasinoService _rngCasinoService;
 
-        public HandHistoryController() : this(null, null, null, null)
+        public HandHistoryController() : this(null, null, null, null, null)
         {
         }
 
@@ -38,8 +39,9 @@ namespace Fanex.Athena.Controllers.Report.RNGCasino
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
             IRNGCasinoService rngCasinoService)
-            : base(languageService, sessionService, appSetting)
+            : base(languageService, sessionService, appSetting, clientViewHelper)
         {
             _rngCasinoService = rngCasinoService ?? new RNGCasinoService();
         }

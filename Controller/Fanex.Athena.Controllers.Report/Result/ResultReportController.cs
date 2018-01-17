@@ -28,6 +28,7 @@ namespace Fanex.Athena.Controllers.Report.Result
     using Fanex.Result.Core.Voidbridge;
     using Resources;
     using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Service.Report.Result;
     using Service.Result.Interfaces;
@@ -51,7 +52,7 @@ namespace Fanex.Athena.Controllers.Report.Result
 
         #region Result-Page
 
-        public ResultReportController() : this(null, null, null, null, null, null, null, null)
+        public ResultReportController() : this(null, null, null, null, null, null, null, null, null)
         {
         }
 
@@ -60,13 +61,14 @@ namespace Fanex.Athena.Controllers.Report.Result
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
             IProductService productService,
             IBalanceUpDataAccess balanceUpDataAccess,
             IParserService microGamingParserService,
             IResultService resultService,
             IRNGCasinoSingleWalletService rngCasinoSingleWalletService)
 #pragma warning restore S107 // Methods should not have too many parameters
-            : base(languageService, sessionService, appSetting, productService)
+            : base(languageService, sessionService, appSetting, clientViewHelper, productService)
         {
             _balanceUpDataAccess = balanceUpDataAccess ?? new BalanceUpDataAccess();
             _microGamingParserService = microGamingParserService ?? ParserService.Instance;

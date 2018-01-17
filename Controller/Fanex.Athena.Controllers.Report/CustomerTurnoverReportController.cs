@@ -26,6 +26,7 @@ namespace Fanex.Athena.Controllers.Report
     using Newtonsoft.Json;
     using Resources;
     using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Service.Report.Interfaces;
 
@@ -46,10 +47,11 @@ namespace Fanex.Athena.Controllers.Report
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
             IProductService productService,
             ISportTypeDataAccess sportTypeDataAccess,
             ICustomerTurnoverService customerTurnoverService)
-            : base(languageService, sessionService, appSetting, productService)
+            : base(languageService, sessionService, appSetting, clientViewHelper, productService)
         {
             _sportTypeDataAccess = sportTypeDataAccess;
             _customerTurnoverService = customerTurnoverService;

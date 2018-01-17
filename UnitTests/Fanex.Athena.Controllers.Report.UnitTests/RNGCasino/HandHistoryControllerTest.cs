@@ -89,6 +89,7 @@
                 LangService,
                 SessionService,
                 AppSettings,
+                ClientViewHelper,
                 _rngCasinoService);
             controller.ControllerContext = ControllerContext;
             controller.WhenForAnyArgs(x => x.CreateExcel(string.Empty, null, null, null)).DoNotCallBase();

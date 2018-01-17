@@ -22,6 +22,7 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Web.ResultExtension;
     using Resources;
     using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility;
     using Service.Report.Interfaces;
@@ -31,7 +32,7 @@ namespace Fanex.Athena.Controllers.Report
     {
         private readonly ITurnoverService _turnoverService;
 
-        public TurnoverReportController() : this(null, null, null, null, null)
+        public TurnoverReportController() : this(null, null, null, null, null, null)
         {
         }
 
@@ -39,9 +40,10 @@ namespace Fanex.Athena.Controllers.Report
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
             IProductService productService,
             ITurnoverService turnoverService)
-            : base(languageService, sessionService, appSetting, productService)
+            : base(languageService, sessionService, appSetting, clientViewHelper, productService)
         {
             _turnoverService = turnoverService ?? new TurnoverService();
         }

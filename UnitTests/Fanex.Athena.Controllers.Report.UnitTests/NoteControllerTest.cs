@@ -68,6 +68,7 @@
                 LangService,
                 SessionService,
                 AppSettings,
+                ClientViewHelper,
                 _productService,
                 _balanceUpDataAccess);
         }

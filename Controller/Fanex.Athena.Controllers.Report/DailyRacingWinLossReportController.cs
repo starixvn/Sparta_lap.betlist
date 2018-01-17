@@ -20,6 +20,7 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Web.ResultExtension;
     using Model.Core.DataDomain;
     using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Service.Report.Interfaces;
 
@@ -30,7 +31,7 @@ namespace Fanex.Athena.Controllers.Report
 
         private readonly IDailyRacingWinLossService _dailyRacingWinLossService;
 
-        public DailyRacingWinLossReportController() : this(null, null, null, null, null, null)
+        public DailyRacingWinLossReportController() : this(null, null, null, null, null, null, null)
         {
         }
 
@@ -38,10 +39,11 @@ namespace Fanex.Athena.Controllers.Report
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
             IProductService productService,
             IBalanceUpDataAccess balanceUpDataAccess,
             IDailyRacingWinLossService dailyRacingWinLossService)
-            : base(languageService, sessionService, appSetting, productService)
+            : base(languageService, sessionService, appSetting, clientViewHelper, productService)
         {
             _balanceUpDataAccess = balanceUpDataAccess ?? new BalanceUpDataAccess();
             _dailyRacingWinLossService = dailyRacingWinLossService ?? new DailyRacingWinLossService();

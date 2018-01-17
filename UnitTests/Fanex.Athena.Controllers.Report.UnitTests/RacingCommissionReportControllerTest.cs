@@ -202,6 +202,7 @@
                 LangService,
                 SessionService,
                 AppSettings,
+                ClientViewHelper,
                 Substitute.For<IProductService>(),
                 _balanceUpDataAccess,
                 _racingCommissionDataAccess);

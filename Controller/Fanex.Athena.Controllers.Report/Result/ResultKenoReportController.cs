@@ -7,6 +7,7 @@
     using Model.Core.DataDomain;
     using Model.Report.MetaModel.Keno;
     using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Service.Report.Result;
     using Service.Report.Result.Interfaces;
@@ -19,7 +20,7 @@
 
         private readonly IKenoApi _kenoApi;
 
-        public ResultKenoReportController() : this(null, null, null, null, null, null)
+        public ResultKenoReportController() : this(null, null, null, null, null, null, null)
         {
         }
 
@@ -27,10 +28,11 @@
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
             IProductService productService,
             ILogger logger,
             IKenoApi kenoApi)
-            : base(languageService, sessionService, appSetting, productService)
+            : base(languageService, sessionService, appSetting, clientViewHelper, productService)
         {
             _logger = logger ?? Logger.Log;
             _kenoApi = kenoApi ?? new KenoApi();

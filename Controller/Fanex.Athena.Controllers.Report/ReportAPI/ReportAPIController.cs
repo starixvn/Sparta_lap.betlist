@@ -9,6 +9,7 @@ namespace Fanex.Athena.Controllers.Report
     using Extension.Utility;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Service.Report;
     using Service.Report.Interfaces;
@@ -23,17 +24,18 @@ namespace Fanex.Athena.Controllers.Report
 
         private readonly ITurnoverService _turnoverService;
 
-        public ReportAPIController() : this(null, null, null, null, null)
+        public ReportAPIController() : this(null, null, null, null, null, null)
         {
         }
 
         public ReportAPIController(
             ISessionService sessionService,
             IAppSettings appSettings,
+            IClientViewHelper clientViewHelper,
             IBetTypeService betTypeService,
             ICustomerTurnoverService customerTurnoverService,
             ITurnoverService turnoverService)
-            : base(sessionService, appSettings)
+            : base(sessionService, appSettings, clientViewHelper)
         {
             _betTypeService = betTypeService ?? new BetTypeService();
             _appSettings = appSettings ?? new AppSettings();

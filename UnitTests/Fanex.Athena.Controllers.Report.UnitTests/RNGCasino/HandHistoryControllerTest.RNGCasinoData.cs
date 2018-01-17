@@ -9,8 +9,6 @@
     using Model.Casino.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using Report.RNGCasino;
-    using Service.Casino.Interfaces;
     using UnitTest.Common.Helpers;
     using UnitTest.Common.NUnitExtensions;
 

@@ -26,6 +26,7 @@ namespace Fanex.Athena.Controllers.Report
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
     using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.ReportWinLossByBetType)]
@@ -35,7 +36,7 @@ namespace Fanex.Athena.Controllers.Report
 
         private readonly IWinLossByBetTypeDataAccess _winLossByBetTypeDataAccess;
 
-        public WinLossByBetTypeReportController() : this(null, null, null, null, null, null)
+        public WinLossByBetTypeReportController() : this(null, null, null, null, null, null, null)
         {
         }
 
@@ -43,10 +44,11 @@ namespace Fanex.Athena.Controllers.Report
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
             IProductService productService,
             IBalanceUpDataAccess balanceUpDataAccess,
             IWinLossByBetTypeDataAccess winLossByBetTypeDataAccess)
-            : base(languageService, sessionService, appSetting, productService)
+            : base(languageService, sessionService, appSetting, clientViewHelper, productService)
         {
             _balanceUpDataAccess = balanceUpDataAccess ?? new BalanceUpDataAccess();
             _winLossByBetTypeDataAccess = winLossByBetTypeDataAccess ?? new WinLossByBetTypeDataAccess();

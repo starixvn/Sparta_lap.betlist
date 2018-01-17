@@ -24,6 +24,7 @@
     using Fanex.Common;
     using Resources;
     using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Service.Report.Interfaces;
 
@@ -38,7 +39,7 @@
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
         private readonly IMatchWinLossService _matchWinLossService;
 
-        public MatchWinLossReportController() : this(null, null, null, null, null, null)
+        public MatchWinLossReportController() : this(null, null, null, null, null, null, null)
         {
         }
 
@@ -46,10 +47,11 @@
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
             IProductService productService,
             IBalanceUpDataAccess balanceUpDataAccess,
             IMatchWinLossService matchWinLossService)
-            : base(languageService, sessionService, appSetting, productService)
+            : base(languageService, sessionService, appSetting, clientViewHelper, productService)
         {
             _balanceUpDataAccess = balanceUpDataAccess ?? new BalanceUpDataAccess();
             _matchWinLossService = matchWinLossService ?? new MatchWinLossService();

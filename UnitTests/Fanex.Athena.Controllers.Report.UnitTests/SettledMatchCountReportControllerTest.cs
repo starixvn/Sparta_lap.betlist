@@ -63,6 +63,7 @@
                 LangService,
                 SessionService,
                 AppSettings,
+                ClientViewHelper,
                 productService,
                 _settledMatchCountService);
         }

@@ -26,7 +26,7 @@
         {
             var viewModel = CreateViewModel();
 
-            return ViewForNewUI("~/Views/Report/ExchangeWinLoss/Main.cshtml", viewModel, "ExchangeWinLossReport");
+            return View("~/Views/Report/ExchangeWinLoss/Main.cshtml", viewModel);
         }
 
         private ExchangeWinLossViewModel CreateViewModel()
