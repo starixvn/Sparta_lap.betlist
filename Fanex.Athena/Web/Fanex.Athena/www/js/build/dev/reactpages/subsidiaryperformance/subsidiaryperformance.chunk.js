@@ -5826,7 +5826,7 @@ var Table = function (_Component) {
         value: function _calculateBodyHeight() {
             var windowHeight = window.innerHeight;
             var footerHeight = this.footerWrapper ? this.footerWrapper.offsetHeight : 0;
-            var tableContentHeight = windowHeight - (this.bodyWrapper.offsetTop + footerHeight + 30) - this.adjustedHeight;
+            var tableContentHeight = windowHeight - (this.bodyWrapper.offsetTop + footerHeight + 40) - this.adjustedHeight;
 
             return tableContentHeight;
         }
