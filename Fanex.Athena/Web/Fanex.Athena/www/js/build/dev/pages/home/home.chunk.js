@@ -18182,6 +18182,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
                     url: apiUrl,
                     type: "GET",
                     cache: false,
+                    contentType: "application/json; charset=utf-8",
                     success: function (data) {
                         if ($notificationDdl.is(":visible")) {
                             _newMsg = data;
