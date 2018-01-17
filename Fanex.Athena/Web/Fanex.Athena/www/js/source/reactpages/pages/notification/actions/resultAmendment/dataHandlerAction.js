@@ -26,7 +26,7 @@ const markNotification = (params) => {
 
 const downloadData = (params) => {
     const url = Site.resolveClientUrl('api/NotificationReport/DownLoadFileAttachment');
-    return axios.post(url, { FileName: params.fileName, Api: params.api } ,{
+    return axios.post(url, { FileName: params.fileName } ,{
         headers: header(params.xsrfToken),
         responseType: 'blob'
     });
@@ -37,8 +37,7 @@ export function getGridData(params) {
         fetchData(params).then(response => {
             dispatch(setGridData({
                 Data: response.data.DataList,
-                Total: response.data.TotalRows,
-                DownloadFileApi: response.data.DownloadFileApi
+                Total: response.data.TotalRows
             }));
         });
     };
@@ -60,8 +59,7 @@ export function markItemAsRead(params) {
 
                 dispatch(setGridData({
                     Data: params.Data,
-                    Total: params.Total,
-                    DownloadFileApi: params.DownloadFileApi
+                    Total: params.Total
                 }));
             }
         });

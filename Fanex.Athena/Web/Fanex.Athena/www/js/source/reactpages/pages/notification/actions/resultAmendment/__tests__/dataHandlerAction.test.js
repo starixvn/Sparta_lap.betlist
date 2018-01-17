@@ -26,8 +26,7 @@ describe('dataHandlerAction', () => {
         const fakeDataResponse = {
             data: {
                 DataList: [],
-                TotalRows: 0,
-                DownloadFileApi: 'DownloadFileApi'
+                TotalRows: 0
             }
         }
         const params = {
@@ -50,15 +49,13 @@ describe('dataHandlerAction', () => {
                     type: types.SET_GRID_DATA, 
                     data: { 
                         Data: fakeDataResponse.data.DataList, 
-                        Total: fakeDataResponse.data.TotalRows, 
-                        DownloadFileApi: fakeDataResponse.data.DownloadFileApi 
+                        Total: fakeDataResponse.data.TotalRows
                     } 
                 }
             ];
             const store = mockStore({ gridData: Object.assign({}, { 
                 Data: fakeDataResponse.data.DataList, 
-                Total: fakeDataResponse.data.TotalRows, 
-                DownloadFileApi: fakeDataResponse.data.DownloadFileApi }) });
+                Total: fakeDataResponse.data.TotalRows }) });
             store.dispatch(actions.getGridData({}));
 
             Promise.resolve().then(() => {
@@ -80,8 +77,7 @@ describe('dataHandlerAction', () => {
         it('create an correct action', () => {
             const data = {
                 Data: [],
-                Total: 0,
-                DownloadFileApi: 'DownloadFileApi'
+                Total: 0
             };
             const expectedAction = {
                 type: types.SET_GRID_DATA,
@@ -102,7 +98,6 @@ describe('dataHandlerAction', () => {
             Index: 0,
             Data: [{ Id: 1 }],
             Total: 1,
-            DownloadFileApi: '',
             xsrfToken: 'token'
         };
         const expectedHeader = {
@@ -114,7 +109,7 @@ describe('dataHandlerAction', () => {
             const promise = Promise.resolve({ data: { IsSuccessful: false } });
             axios.post = jest.fn(() => promise);
 
-            const store = mockStore({ gridData: Object.assign({}, { Data: [{ Id: 1 }], Total: 1, DownloadFileApi: '' }) });
+            const store = mockStore({ gridData: Object.assign({}, { Data: [{ Id: 1 }], Total: 1 }) });
             store.dispatch(actions.markItemAsRead(params));
 
             Promise.resolve().then(() => {
@@ -127,9 +122,9 @@ describe('dataHandlerAction', () => {
             axios.post = jest.fn(() => promise);
             const expectedActions = [{ 
                 type: types.SET_GRID_DATA, 
-                data: { Data: [{ Id: 1, IsRead: true }], Total: 1, DownloadFileApi: '' } }
+                data: { Data: [{ Id: 1, IsRead: true }], Total: 1 } }
             ];
-            const store = mockStore({ gridData: Object.assign({}, { Data: [{ Id: 1 }], Total: 1, DownloadFileApi: '' }) });
+            const store = mockStore({ gridData: Object.assign({}, { Data: [{ Id: 1 }], Total: 1 }) });
             store.dispatch(actions.markItemAsRead(params));
 
             Promise.resolve().then(() => {
@@ -142,9 +137,9 @@ describe('dataHandlerAction', () => {
             axios.post = jest.fn(() => promise);
             const expectedActions = [{ 
                 type: types.SET_GRID_DATA, 
-                data: { Data: [{ Id: 1, IsRead: true }], Total: 1, DownloadFileApi: '' } }
+                data: { Data: [{ Id: 1, IsRead: true }], Total: 1 } }
             ];
-            const store = mockStore({ gridData: Object.assign({}, { Data: [{ Id: 1 }], Total: 1, DownloadFileApi: '' }) });
+            const store = mockStore({ gridData: Object.assign({}, { Data: [{ Id: 1 }], Total: 1 }) });
             store.dispatch(actions.markItemAsRead(params));
 
             Promise.resolve().then(() => {

@@ -544,12 +544,14 @@
         public void GetFileAttachmentData_WhenCall_CallApiWithCorrectUrl()
         {
             // Arrange
+            const string Api = "API?name={0}";
+            _appSettings.ResultAmendmentAttachmentApiUrl.Returns(Api);
+
             var metaModel = new NotificationAttachmentMetaModel
             {
-                Api = "API",
                 FileName = "FileName1"
             };
-            var expectedUrl = "API?site=SpecialDelete&name=FileName1";
+            var expectedUrl = "API?name=FileName1";
 
             // Action
             var result = _notificationService.GetFileAttachmentData(metaModel);
@@ -562,12 +564,15 @@
         public void GetFileAttachmentData_WhenCall_ReturnCorrectData()
         {
             // Arrange
+            const string Api = "API?name={0}";
+            _appSettings.ResultAmendmentAttachmentApiUrl.Returns(Api);
+
             var metaModel = new NotificationAttachmentMetaModel
             {
-                Api = "API",
                 FileName = "FileName2"
             };
-            var url = "API?site=SpecialDelete&name=FileName2";
+            var url = "API?name=FileName2";
+
             var jsonString = "{'content':'Test','result':{'errorCode':'1','message':'Error'}}";
             var expectedData = "Test";
 
@@ -584,12 +589,14 @@
         public void GetFileAttachmentData_ApiThrowException_WriteLog()
         {
             // Arrange
+            const string Api = "API?name={0}";
+            _appSettings.ResultAmendmentAttachmentApiUrl.Returns(Api);
+
             var metaModel = new NotificationAttachmentMetaModel
             {
-                Api = "API",
                 FileName = "FileName3"
             };
-            var expectedUrl = "API?site=SpecialDelete&name=FileName3";
+            var expectedUrl = "API?name=FileName3";
 
             var exceptionMsg = "Failure";
             _webClientService.When(x => x.DownloadString(expectedUrl)).Do(x =>

@@ -48,7 +48,7 @@ export class DataGrid extends Component {
     }
 
     onExpand(index, item) {
-        const { Data, Total, DownloadFileApi } = this.props.gridData;
+        const { Data, Total } = this.props.gridData;
         Data[index].IsExpand = true;
 
         if(!item.IsRead) {
@@ -57,18 +57,16 @@ export class DataGrid extends Component {
                 Id: item.Id,
                 Type: item.Type,
                 Data: Data,
-                Total: Total,
-                DownloadFileApi: DownloadFileApi
+                Total: Total
             }));
         }
         else {
-            this.props.setGridData({ Data: Data, Total: Total, DownloadFileApi: DownloadFileApi });
+            this.props.setGridData({ Data: Data, Total: Total });
         }
     }
 
     exportExcel(item) {
         const params = this._buildParams({
-            api: this.props.gridData.DownloadFileApi,
             fileName: item.DataFilePath
         });
         const fileName = this.props.licenseeName;

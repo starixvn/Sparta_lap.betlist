@@ -92,8 +92,7 @@
             return new
             {
                 DataList = result.DataList,
-                TotalRows = result.TotalRows,
-                DownloadFileApi = result.AdditionalInfo
+                TotalRows = result.TotalRows
             };
         }
 

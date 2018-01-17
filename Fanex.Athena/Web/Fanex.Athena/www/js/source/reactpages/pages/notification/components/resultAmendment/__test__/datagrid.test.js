@@ -297,7 +297,6 @@ describe('DataGrid ', () => {
     describe('exportExcel', () => {
         let dataGrid;
         const props = {
-            gridData: { DownloadFileApi: 'DownloadFileApi' },
             dateRange: {},
             xsrfToken: 'token',
             licenseeName: 'test',
@@ -336,7 +335,6 @@ describe('DataGrid ', () => {
             };
 
             const expectedParams = {
-                api: props.gridData.DownloadFileApi,
                 fileName: item.DataFilePath,
                 xsrfToken: props.xsrfToken
             };

@@ -153,7 +153,6 @@
                 metaModel.PageIndex - 1);
             var dataList = new List<ResultAmendment>();
             var totalRecords = 0;
-            var downloadFileApi = string.Empty;
 
             try
             {
@@ -174,7 +173,6 @@
                     var contentKey = "Content" + lang;
 
                     totalRecords = jobject["TotalItems"].Value<int>();
-                    downloadFileApi = jobject["AttachmentFileApi"].Value<string>();
 
                     dataList.AddRange(jobject["Data"].Children().Select(x => MapToResultAmendment(x, subjectKey, contentKey)));                   
                 }
@@ -187,8 +185,7 @@
             return new ReportResultModel<ResultAmendment>
             {
                 DataList = dataList,
-                TotalRows = totalRecords,
-                AdditionalInfo = downloadFileApi
+                TotalRows = totalRecords
             };
         }
 
@@ -231,7 +228,7 @@
 
         public IResultInfo GetFileAttachmentData(NotificationAttachmentMetaModel metaModel)
         {
-            var url = $"{metaModel.Api}?site=SpecialDelete&name={metaModel.FileName}";
+            var url = string.Format(_appSetting.ResultAmendmentAttachmentApiUrl, metaModel.FileName);
             var result = new ResultInfo
             {
                 Code = 1,
