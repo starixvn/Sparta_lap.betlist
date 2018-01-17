@@ -79,6 +79,7 @@
   "author": "Sparta",
   "license": "vn",
   "dependencies": {
+	"@9softstudio/simple-react-tab": "^1.0.0",
     "axios": "^0.16.2",
     "classnames": "^2.2.5",
     "moment": "^2.19.3",
