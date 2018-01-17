@@ -6,6 +6,7 @@
     using Extension.Utility;
     using Model.Core.DataDomain;
     using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Web.ActionFilter;
 
@@ -23,8 +24,9 @@
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
             ILicenseeDataAccess licenseeDataAccess)
-            : base(languageService, sessionService, appSetting)
+        : base(languageService, sessionService, appSetting, clientViewHelper)
         {
             _licenseeDataAccess = licenseeDataAccess;
         }

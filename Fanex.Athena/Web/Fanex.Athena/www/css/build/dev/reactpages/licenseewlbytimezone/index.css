@@ -319,7 +319,8 @@ input[type="checkbox"].checkbox {
 /* Table */
 /* Label Text */
 .table {
-  line-height: 1.15; }
+  line-height: 1.15;
+  table-layout: fixed; }
   .table a {
     color: #147ccc;
     text-decoration: none; }
@@ -373,7 +374,7 @@ input[type="checkbox"].checkbox {
   white-space: normal;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 1px; }
+  min-width: 1px; }
 
 .header-content,
 .body-content,
@@ -567,8 +568,5 @@ input[type="checkbox"].checkbox {
       background-color: #ebeaea;
       height: 1px;
       margin: 0 10px; }
-
-.button-group {
-  margin-left: 15px; }
 
 /*# sourceMappingURL=index.css.map*/

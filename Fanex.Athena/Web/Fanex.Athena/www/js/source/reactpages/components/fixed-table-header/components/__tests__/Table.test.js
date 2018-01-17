@@ -135,7 +135,7 @@ describe('Table ', () => {
                 </Row>
             )
 
-            const props = Object.assign({}, defaultProps, { maxWidth: 300, header });
+            const props = Object.assign({}, defaultProps, { maxWidth: 319, header });
             const table = new Table(props);
 
             const result = table._getUpdatedColumnLayout();
@@ -152,7 +152,7 @@ describe('Table ', () => {
                 </Row>
             )
 
-            const props = Object.assign({}, defaultProps, { autoWidth: false, width: 400, header });
+            const props = Object.assign({}, defaultProps, { autoWidth: false, width: 419, header });
             const table = new Table(props);
 
             const result = table._getUpdatedColumnLayout();
@@ -193,6 +193,36 @@ describe('Table ', () => {
 
             expect(result).toMatchSnapshot();
         })
+
+        it('isPaging is true - return content with paging that match with snapshot', () => {
+            const header = [<Row key="header"><Cell>Header 1</Cell></Row>];
+            const body = [<Row key="body"><Cell>Body 1</Cell></Row>];
+            const footer = [<Row key="footer"><Cell>Footer 1</Cell></Row>];
+            const paging = {
+                isPaging: true,
+                pageOption: {
+                    PageIndex: 1,
+                    PageSize: 5,
+                    PageList: [5, 10, 20],
+                    TotalItem: 15
+                }
+            };
+
+            const options = {
+                createNodeMock: (element) => {
+                    return {
+                        offsetHeight: 1,
+                        offsetTop: 1
+                    };
+                }
+            };
+            const props = Object.assign({}, defaultProps, paging, { header, body, footer });
+            const table = renderer.create(<Table {...props} />, options);
+
+            const result = table.toJSON();
+
+            expect(result).toMatchSnapshot();
+        })
     })
 
     describe('_handleResize', () => {
@@ -222,6 +252,7 @@ describe('Table ', () => {
 
         it('maxWidth of state = document.body.clientWidth - this.diffWidth - do nothing', () => {
             const table = new Table(defaultProps);
+            table.bodyWrapper = {};
             table.setState = jest.fn();
 
             const bodyHeight = defaultProps.bodyHeight - 1;
@@ -249,6 +280,16 @@ describe('Table ', () => {
             table._handleResize(event);
 
             expect(table.setState).toHaveBeenCalledWith(expectedState);
+        })
+
+        it("bodyWrapper = null - do not calculate body height", () => {
+            const table = new Table(defaultProps);
+            table.setState = jest.fn();
+            table._calculateBodyHeight = jest.fn();
+
+            table._handleResize(event);
+
+            expect(table._calculateBodyHeight).not.toHaveBeenCalled();
         })
     })
 

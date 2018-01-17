@@ -11,13 +11,13 @@ namespace Fanex.Athena.Controllers.TotalBets
     using DataAccess.TotalBet;
     using DataAccess.TotalBet.Interfaces;
     using Extension.Utility;
-    using Extension.Utility.Interfaces;
     using Fanex.Athena.Model.TotalBet.DTO;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
     using Model.TotalBet.MetaModel;
     using Model.TotalBet.ViewModel;
     using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.TotalBetHandicapOverUnderLive)]
@@ -34,8 +34,9 @@ namespace Fanex.Athena.Controllers.TotalBets
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
             IHandicapOverUnderDataAccess handicapOverUnderDataAccess)
-            : base(languageService, sessionService, appSetting)
+        : base(languageService, sessionService, appSetting, clientViewHelper)
         {
             _handicapOverUnderDataAccess = handicapOverUnderDataAccess;
         }

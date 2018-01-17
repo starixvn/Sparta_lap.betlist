@@ -46,7 +46,7 @@
                 var viewModel = viewResult.Model as ThirdPartyWinLossViewModel;
 
                 // Assert
-                Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Report/ColossusBetsWinLoss/Main.cshtml"));
+                StringAssert.Contains("Report/ColossusBetsWinLoss/Main.cshtml", viewResult.ViewName);
             }
         }
 
@@ -63,6 +63,7 @@
                 LangService,
                 SessionService,
                 AppSettings,
+                ClientViewHelper,
                 productService);
         }
     }

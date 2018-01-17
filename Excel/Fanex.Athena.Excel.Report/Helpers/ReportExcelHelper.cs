@@ -14,7 +14,7 @@
     {
         private const string FormatDate = "MM/dd/yyyy";
 
-        public static string GenerateReportTitle(string reportName, ConvertingOption convertingOption, BaseDrilldownReportMetaModel metaModel)
+        public static string GenerateReportTitle(string reportName, ConvertingOption convertingOption, ThirdPartyWinLossMetaModel metaModel)
         {
             var title = GetTitleCurrencyName(convertingOption, metaModel);
             return GenerateReportTitle(reportName, metaModel.FromDate, metaModel.ToDate, title);
@@ -73,14 +73,14 @@
                    : string.Format(ViewResources.Viewin, convertingOption.CurrencyName);
         }
 
-        private static string GetTitleCurrencyName(ConvertingOption convertingOption, BaseDrilldownReportMetaModel metaModel)
+        public static string GetTitleCurrencyName(ConvertingOption convertingOption, BaseDrilldownReportMetaModel metaModel)
         {
             return metaModel.DrillDownLevel > 0 && metaModel.CurrencyId == 0
                 ? GetExactTitleCurrencyName(convertingOption, metaModel.DrillDownCurrencyId)
                 : GetExactTitleCurrencyName(convertingOption, metaModel.CurrencyId);
         }
 
-        private static string GenerateReportTitle(string reportName, DateTime fromDate, DateTime toDate, string currencyTitle)
+        public static string GenerateReportTitle(string reportName, DateTime fromDate, DateTime toDate, string currencyTitle)
         {
             var reportTitle = new StringBuilder(reportName);
             reportTitle.Append($", {fromDate.ToString(FormatDate)} --> {toDate.ToString(FormatDate)} - {currencyTitle}");

@@ -73,6 +73,19 @@
             </ul>
         </div>
 
+        @if (Model.IsAllowedNotification)
+        {
+            <div class="notifications-block">
+                <a class="notification-button" href="javascript:void(0)">
+                    <i class="icon-notification"></i>
+                </a>
+
+                <ul id="notificationmsg" class="notification-content">
+                    <li class="first-notification"></li>
+                </ul>
+            </div>
+        }
+
         @if (Model.IsAllowedManagementMember)
         {
             <div class="search-block">

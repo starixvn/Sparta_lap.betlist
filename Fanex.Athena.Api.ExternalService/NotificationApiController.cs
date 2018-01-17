@@ -1,12 +1,16 @@
 ﻿namespace Fanex.Athena.Api.ExternalService
 {
+    using System;
     using System.Web.Http;
     using System.Web.Http.Cors;
     using Base.Attributes;
+    using Model.Report.MetaModel;
     using Service.Core.Common;
     using Service.Core.Common.Interfaces;
     using Service.Core.Configuration;
     using Service.Core.Configuration.Interfaces;
+    using Service.Report;
+    using Service.Report.Interfaces;
 
     [AllowAnonymous]
     [ApiOneAuthorization]
@@ -17,11 +21,22 @@
 
         private readonly ILanguageService _languageService;
 
-        public NotificationApiController()
+        private readonly INotificationService _notificationService;
+
+        public NotificationApiController() : this(null, null, null)
         {
-            _moveBetService = new MoveBetService();
-            _languageService = new LanguageService();
         }
+
+        public NotificationApiController(IMoveBetService moveBetService, ILanguageService languageService, INotificationService notificationService)
+        {
+            _moveBetService = moveBetService ?? new MoveBetService();
+            _languageService = languageService ?? new LanguageService();
+            _notificationService = notificationService ?? new NotificationService();
+        }
+
+        private string UserName => (string)ActionContext.ActionArguments["username"];
+
+        private string SiteName => (string)ActionContext.ActionArguments["sitename"];
 
         [HttpGet]
         public string Index()
@@ -29,6 +44,39 @@
             var language = _languageService.GetCurrentLanguage();
 
             return _moveBetService.GetMoveBetNotification(language);
+        }
+
+        [HttpGet]
+        public dynamic GetNotificationMessages([FromUri]NotificationMetaModel metaModel)
+        {
+            var maximumMonthDistance = NotificationMetaModel.MaximumMonthRange - 1;
+
+            var today = DateTime.Today;
+            metaModel.IsOnlyUnread = true;
+            metaModel.FromDate = new DateTime(today.Year, today.Month, 1).AddMonths(-maximumMonthDistance);
+            metaModel.ToDate = today.AddDays(1).AddMilliseconds(-1);
+            metaModel.PageSize = 10;
+            metaModel.PageIndex = 1;
+            metaModel.UserName = UserName;
+            metaModel.LicenseeName = SiteName;
+
+            return _notificationService.GetNotificationMessages(metaModel);
+        }
+
+        [HttpPost]
+        public dynamic MarkNotificationAsRead(NotificationMarkAsReadMetaModel metaModel)
+        {
+            metaModel.UserName = UserName;
+            metaModel.LicenseeName = SiteName;
+
+            var result = _notificationService.MarkNotificationAsRead(metaModel);
+
+            return new
+            {
+                Code = result.Code,
+                Message = result.Message,
+                IsSuccessful = result.IsSuccessful
+            };
         }
     }
 }

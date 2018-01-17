@@ -45,7 +45,7 @@
         public void Index_WhenCallWithInvalidModel_ReturnEmptyResult()
         {
             // Arrange
-            var metaModel = new AgCasinoBalanceMetaModel
+            var metaModel = new ThirdPartyWinLossMetaModel
             {
                 CurrencyId = 1,
                 DrillDownCurrencyId = 1
@@ -64,7 +64,7 @@
         public void Index_NoDataReturned_ReturnEmptyResult()
         {
             // Arrange
-            var metaModel = new AgCasinoBalanceMetaModel
+            var metaModel = new ThirdPartyWinLossMetaModel
             {
                 CurrencyId = -1
             };
@@ -91,7 +91,7 @@
             // Arrange
             const int CurrencyId = -2;
             const bool IsExcludedTestData = true;
-            var metaModel = new AgCasinoBalanceMetaModel
+            var metaModel = new ThirdPartyWinLossMetaModel
             {
                 CurrencyId = CurrencyId,
                 DrillDownLevel = 0,
@@ -134,7 +134,7 @@
             // Arrange
             const int CurrencyId = -2;
             const bool IsExcludedTestData = true;
-            var metaModel = new AgCasinoBalanceMetaModel
+            var metaModel = new ThirdPartyWinLossMetaModel
             {
                 CurrencyId = CurrencyId,
                 DrillDownLevel = 1,
@@ -164,7 +164,7 @@
             // Arrange
             const int CurrencyId = -2;
             const bool IsExcludedTestData = true;
-            var metaModel = new AgCasinoBalanceMetaModel
+            var metaModel = new ThirdPartyWinLossMetaModel
             {
                 CurrencyId = CurrencyId,
                 DrillDownLevel = 2,
@@ -198,7 +198,7 @@
             // Arrange
             var fromDate = new DateTime(2017, 4, 1);
             var toDate = new DateTime(2017, 4, 18);
-            var metaModel = new AgCasinoBalanceMetaModel
+            var metaModel = new ThirdPartyWinLossMetaModel
             {
                 CurrencyId = currencyId,
                 DrillDownLevel = drillDownLevel,
@@ -216,7 +216,7 @@
             _controller.CreateExcel(
                 Arg.Any<string>(),
                 Arg.Any<ConvertingOption>(),
-                Arg.Any<AgCasinoBalanceMetaModel>(),
+                Arg.Any<ThirdPartyWinLossMetaModel>(),
                 Arg.Any<AgCasinoBalanceViewModel>())
                 .ReturnsForAnyArgs(excel);
             _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();
@@ -239,7 +239,7 @@
             });
         }
 
-        private static void MockDataAccess(IAgCasinoBalanceDataAccess dataAccess, AgCasinoBalanceMetaModel metaModel)
+        private static void MockDataAccess(IAgCasinoBalanceDataAccess dataAccess, ThirdPartyWinLossMetaModel metaModel)
         {
             var resultModel = new SortableReportResultModel<AgCasinoBalance>
             {

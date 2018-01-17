@@ -7,10 +7,13 @@
     using System.Web.Mvc;
     using System.Web.Routing;
     using Extension.Utility;
+    using Model.Core.DataDomain;
+    using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
     using NSubstitute;
     using NUnit.Framework;
     using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Web.RouterConfig;
 
@@ -48,12 +51,20 @@
 
         protected IAppSettings AppSettings { get; set; }
 
+        protected IClientViewHelper ClientViewHelper { get; set; }
+
         [OneTimeSetUp]
         public virtual void FixtureSetUp()
         {
             LangService = Substitute.For<ILanguageService>();
             SessionService = Substitute.For<ISessionService>();
             AppSettings = Substitute.For<IAppSettings>();
+            ClientViewHelper = Substitute.For<IClientViewHelper>();
+            ClientViewHelper.GetViewPath(Arg.Any<string>(), Arg.Any<ClientViewType>()).Returns(x => new ViewByOption
+            {
+                IsNavigationView = false,
+                ViewPath = (string)x[0]
+            });
             SetUpForContexts();
         }
 
@@ -65,6 +76,7 @@
             LangService = null;
             SessionService = null;
             AppSettings = null;
+            ClientViewHelper = null;
         }
 
         protected void SetUpDefaultFakeData()
@@ -101,18 +113,18 @@
             var fakeIdentity = new GenericIdentity(IdentityName);
             var principal = new GenericPrincipal(fakeIdentity, null);
 
-            var httpContext = Substitute.For<HttpContextBase>();
-            httpContext.Request.ApplicationPath.Returns("/");
-            httpContext.Request.Url.Returns(new Uri(TestingRequestDomain));
-            httpContext.Request.Cookies.Returns(new HttpCookieCollection());
-            httpContext.Response.Cookies.Returns(new HttpCookieCollection());
-            httpContext.Server.MapPath(Arg.Any<string>()).Returns(x => (string)x[0]);
-            httpContext.User.Returns(principal);
+            var httpBaseContext = Substitute.For<HttpContextBase>();
+            httpBaseContext.Request.ApplicationPath.Returns("/");
+            httpBaseContext.Request.Url.Returns(new Uri(TestingRequestDomain));
+            httpBaseContext.Request.Cookies.Returns(new HttpCookieCollection());
+            httpBaseContext.Response.Cookies.Returns(new HttpCookieCollection());
+            httpBaseContext.Server.MapPath(Arg.Any<string>()).Returns(x => (string)x[0]);
+            httpBaseContext.User.Returns(principal);
+
+            var requestContext = new RequestContext(httpBaseContext, new RouteData());
 
             ControllerContext = Substitute.For<ControllerContext>();
-            ControllerContext.HttpContext = httpContext;
-
-            var requestContext = new RequestContext(httpContext, new RouteData());
+            ControllerContext.HttpContext = httpBaseContext;
 
             Url = new UrlHelper(requestContext, routes);
         }

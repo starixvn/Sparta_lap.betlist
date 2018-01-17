@@ -22,6 +22,7 @@
     using Model.Core.DataDomain;
     using ONEbook.UM.Filters;
     using Resources;
+    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Service.Customer.Helpers;
 
@@ -52,9 +53,10 @@
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
             IGroupComService groupComService,
             IProductService productService)
-            : base(languageService, sessionService, appSetting)
+        : base(languageService, sessionService, appSetting, clientViewHelper)
         {
             _groupComService = groupComService;
             _productService = productService;

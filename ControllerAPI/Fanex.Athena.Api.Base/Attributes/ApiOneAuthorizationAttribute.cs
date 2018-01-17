@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Api.Base.Attributes
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Net;
     using System.Net.Http;
@@ -45,15 +46,14 @@
         {
             try
             {
-                var tokenParam = actionContext.Request.GetQueryNameValuePairs().FirstOrDefault(x => x.Key.Equals(KeyName, StringComparison.OrdinalIgnoreCase));
-
-                if (tokenParam.Key == null)
+                var tokenValue = GetAuthToken(actionContext.Request);
+                if (string.IsNullOrEmpty(tokenValue))
                 {
-                    LogInfo(actionContext.Request, "TokenKey is null");
+                    LogInfo(actionContext.Request, "Auth Token is null");
                     return UnauthorizeAccessHandlerAsync(actionContext);
                 }
 
-                var token = _oneAuthenticationService.GetTokenInfo(tokenParam.Value);
+                var token = _oneAuthenticationService.GetTokenInfo(tokenValue);
 
                 if (token == null || string.IsNullOrWhiteSpace(token.SiteName) || token.UserSEQ <= 0)
                 {
@@ -71,6 +71,9 @@
                 actionContext.ActionArguments["licenseeid"] = licensee.Id;
                 actionContext.ActionArguments["userid"] = token.UserSEQ;
                 actionContext.ActionArguments["currencyIDList"] = string.Join(",", token.Currency.Select(i => i.CurrencyId).ToArray());
+                actionContext.ActionArguments["username"] = token.UserID;
+                actionContext.ActionArguments["sitename"] = token.SiteName;
+
                 return continuation?.Invoke();
             }
             catch (Exception exception)
@@ -78,6 +81,17 @@
                 LogHelper.WriteError(exception);
                 return UnauthorizeAccessHandlerAsync(actionContext);
             }
+        }
+
+        private static string GetAuthToken(HttpRequestMessage request)
+        {
+            IEnumerable<string> headerValues = null;
+            if (request.Headers.TryGetValues(KeyName, out headerValues))
+            {
+                return headerValues.FirstOrDefault();
+            }
+
+            return request.GetQueryNameValuePairs().FirstOrDefault(x => x.Key.Equals(KeyName, StringComparison.OrdinalIgnoreCase)).Value;
         }
 
         private static Task<HttpResponseMessage> UnauthorizeAccessHandlerAsync(HttpActionContext actionContext)

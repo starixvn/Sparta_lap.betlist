@@ -1,69 +1,25 @@
-webpackJsonp([3],{
+webpackJsonp([4],{
 
-/***/ 15:
+/***/ 700:
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(9);
+__webpack_require__(701);
+__webpack_require__(702);
+__webpack_require__(703);
+__webpack_require__(704);
+module.exports = __webpack_require__(705);
+
+
+/***/ }),
+
+/***/ 701:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var DEFAULT_RESOURCE_NAME = "_language_en_US";
-var langCode = window.PageLanguage || "en-US";
-var resourceName = "_language_" + langCode.replace("-", "_");
-
-var LangHelper = function () {
-    function LangHelper() {
-        _classCallCheck(this, LangHelper);
-    }
-
-    _createClass(LangHelper, null, [{
-        key: "getSingleResource",
-        value: function getSingleResource(key) {
-            var langHandler = window[resourceName];
-
-            return langHandler && langHandler[key] || window[DEFAULT_RESOURCE_NAME] && window[DEFAULT_RESOURCE_NAME][key] || key;
-        }
-    }, {
-        key: "currentLanguage",
-        get: function get() {
-            return langCode;
-        }
-    }]);
-
-    return LangHelper;
-}();
-
-exports.default = LangHelper;
-
-/***/ }),
-
-/***/ 705:
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(15);
-__webpack_require__(706);
-__webpack_require__(707);
-__webpack_require__(708);
-__webpack_require__(709);
-module.exports = __webpack_require__(710);
-
-
-/***/ }),
-
-/***/ 706:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-// Generated at: 12/19/2017 3:47:38 PM
+// Generated at: 1/5/2018 3:57:38 PM
 window._language_en_US = {
   AA: "AA",
   AB: "AB",
@@ -101,6 +57,7 @@ window._language_en_US = {
   AllBetTypes: "All Bet Types",
   AllCurrencies: "All Currencies",
   AllSites: "All Sites",
+  Amendment: "Resettlement",
   Amount: "Amount",
   AmountDue: "Amount Due",
   AmountDueTo: "Amount Due To",
@@ -130,6 +87,7 @@ window._language_en_US = {
   BA: "BA",
   Back: "Back",
   BackToCurrentReport: "Back to current report",
+  BackToOldUI: "Back to old UI",
   BAComissionBalanceNote: "BA Commission: Licensee commission income for BA tickets.",
   BACommission: "BA Commission",
   Balance: "Balance",
@@ -221,6 +179,7 @@ window._language_en_US = {
   Confirmation: "Confirmation",
   ConfirmCommission: "Confirm Customer&apos;s Commission:",
   ConfirmPassword: "Confirm Password",
+  Content: "Content",
   ConvertAll: "Convert All",
   ConvertAllFiguresToBaseCurrency: "Convert all figures to Base Currency",
   ConvertTo: "Convert to",
@@ -363,6 +322,7 @@ window._language_en_US = {
   Feb: "Feb",
   February: "February",
   FGLG: "FG/LG",
+  FileIsNotReady: "The file is not ready, please try again later.",
   FinalHand: "Final Hand",
   FinalScore: "Final Score",
   FirstGoal: "First Goal",
@@ -569,6 +529,8 @@ window._language_en_US = {
   March: "March",
   Margin: "Margin",
   Match: "Match",
+  MatchDelayDone: "Match Delay-Done",
+  MatchDelayNew: "Match Delay-New",
   MatchWinLoss: "Match Win Loss",
   MatchWinLossTitle: "Match Win Loss, {0} - {1}",
   MaxBet: "Max Bet",
@@ -651,6 +613,8 @@ window._language_en_US = {
   Note: "Note",
   NotIdenticalPasswordMsg: "Passwords are not identical",
   Notification: "Notification",
+  NotificationDateRangeLimitNote: "Data is available within 6 months",
+  Notifications: "Notifications",
   NotSupportYet: "This game type has not been supported yet!",
   Nov: "Nov",
   November: "November",
@@ -851,6 +815,7 @@ window._language_en_US = {
   Statement: "Statement",
   Status: "Status",
   Su: "Su",
+  Subject: "Subject",
   Submit: "Submit",
   Subsidiary: "Subsidiary",
   SubsidiaryPerformance: "Subsidiary Performance",
@@ -873,6 +838,7 @@ window._language_en_US = {
   Thursday: "Thursday",
   TicketDetailOf: "Ticket detail of {0}",
   TicketFilter: "Ticket filter",
+  TicketList: "Ticket List",
   TicketNo: "Ticket No.",
   TicketPayout: "Ticket Payout",
   Time: "Time",
@@ -971,6 +937,7 @@ window._language_en_US = {
   ViewBy: "View by",
   ViewDataInMonth: "View data in month",
   Viewin: "View in {0}",
+  ViewNotification: "View Notification",
   VIP: "VIP",
   VirtualCycling: "Virtual Cycling",
   VirtualGreyhounds: "Virtual Greyhounds",
@@ -1014,7 +981,7 @@ window._language_en_US = {
 
 /***/ }),
 
-/***/ 707:
+/***/ 702:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1786,13 +1753,13 @@ window._language_ko_KR = {
 
 /***/ }),
 
-/***/ 708:
+/***/ 703:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 12/21/2017 11:03:29 AM
+// Generated at: 1/5/2018 3:57:38 PM
 window._language_zh_CN = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -1822,6 +1789,7 @@ window._language_zh_CN = {
   AllBetTypes: "所有投注类型",
   AllCurrencies: "所有货币",
   AllSites: "所有网站",
+  Amendment: "重新结算",
   Amount: "金额",
   AmountDue: "应付金额",
   AmountDueTo: "应付金额",
@@ -1847,6 +1815,7 @@ window._language_zh_CN = {
   AwayNoBet: "客队(不获胜球队)",
   BA: "BA",
   BackToCurrentReport: "回到现有报告",
+  BackToOldUI: "回到旧版本",
   BAComissionBalanceNote: "投注总计佣金: 承租公司佣金所得于投注总计注单。",
   BACommission: "BA佣金",
   Balance: "余额",
@@ -1924,6 +1893,7 @@ window._language_zh_CN = {
   Confirmation: "确认",
   ConfirmCommission: "确认会员的佣金:",
   ConfirmPassword: "确认密码",
+  Content: "内容",
   ConvertAllFiguresToBaseCurrency: "将所有数据转换为基础货币",
   ConvertTo: "转换为",
   CopyBetSettingFrom: "Copy All Bet Setting from {0}",
@@ -2301,6 +2271,7 @@ window._language_zh_CN = {
   NotAuthorizedMsg: "您没有被授权于此功能",
   NotIdenticalPasswordMsg: "密码不相同",
   Notification: "通知",
+  NotificationDateRangeLimitNote: "最多可以检索六个月前的资料",
   NotSupportYet: "目前还不支持此游戏",
   Nov: "十一月",
   November: "十一月",
@@ -2489,6 +2460,7 @@ window._language_zh_CN = {
   ThereIsNoSelectedItem: "There is no selected item.",
   Thursday: "星期四",
   TicketFilter: "注单筛选",
+  TicketList: "注单清单",
   TicketNo: "票劵号码",
   Time: "时间",
   TimeZone: "时区",
@@ -2572,6 +2544,7 @@ window._language_zh_CN = {
   ViewBy: "查看由",
   ViewDataInMonth: "检阅每月数据",
   Viewin: "以 {0} 查看",
+  ViewNotification: "查看通知",
   VirtualCycling: "Virtual Cycling",
   VirtualHorseRacing: "Virtual Horse Racing",
   VirtualSoccer: "Virtual Soccer",
@@ -2607,13 +2580,13 @@ window._language_zh_CN = {
 
 /***/ }),
 
-/***/ 709:
+/***/ 704:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 12/21/2017 11:03:29 AM
+// Generated at: 1/5/2018 3:57:38 PM
 window._language_zh_Hans = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -2643,6 +2616,7 @@ window._language_zh_Hans = {
   AllBetTypes: "所有投注类型",
   AllCurrencies: "所有货币",
   AllSites: "所有网站",
+  Amendment: "重新结算",
   Amount: "金额",
   AmountDue: "应付金额",
   AmountDueTo: "应付金额",
@@ -2668,6 +2642,7 @@ window._language_zh_Hans = {
   AwayNoBet: "客队(不获胜球队)",
   BA: "BA",
   BackToCurrentReport: "回到现有报告",
+  BackToOldUI: "回到旧版本",
   BAComissionBalanceNote: "投注总计佣金: 承租公司佣金所得于投注总计注单。",
   BACommission: "BA佣金",
   Balance: "余额",
@@ -2735,6 +2710,7 @@ window._language_zh_Hans = {
   Confirmation: "确认",
   ConfirmCommission: "确认会员的佣金:",
   ConfirmPassword: "确认密码",
+  Content: "内容",
   ConvertAllFiguresToBaseCurrency: "将所有数据转换为基础货币",
   ConvertTo: "转换为",
   CopyBetSettingFrom: "Copy All Bet Setting from {0}",
@@ -3110,6 +3086,7 @@ window._language_zh_Hans = {
   NotAuthorizedMsg: "您没有被授权于此功能",
   NotIdenticalPasswordMsg: "密码不相同",
   Notification: "通知",
+  NotificationDateRangeLimitNote: "最多可以检索六个月前的资料",
   NotSupportYet: "目前还不支持此游戏",
   Nov: "十一月",
   November: "十一月",
@@ -3297,6 +3274,7 @@ window._language_zh_Hans = {
   ThereIsNoSelectedItem: "There is no selected item.",
   Thursday: "星期四",
   TicketFilter: "注单筛选",
+  TicketList: "注单清单",
   TicketNo: "票劵号码",
   Time: "时间",
   TimeZone: "时区",
@@ -3379,6 +3357,7 @@ window._language_zh_Hans = {
   ViewBy: "查看由",
   ViewDataInMonth: "检阅每月数据",
   Viewin: "以 {0} 查看",
+  ViewNotification: "查看通知",
   VirtualCycling: "Virtual Cycling",
   VirtualHorseRacing: "Virtual Horse Racing",
   VirtualSoccer: "Virtual Soccer",
@@ -3414,13 +3393,13 @@ window._language_zh_Hans = {
 
 /***/ }),
 
-/***/ 710:
+/***/ 705:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 12/21/2017 11:03:29 AM
+// Generated at: 1/5/2018 3:57:38 PM
 window._language_zh_TW = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -3450,6 +3429,7 @@ window._language_zh_TW = {
   AllBetTypes: "所有投注類型",
   AllCurrencies: "所有貨幣",
   AllSites: "所有網站",
+  Amendment: "重新結算",
   Amount: "金額",
   AmountDue: "應付金額",
   AmountDueTo: "應付金額",
@@ -3475,6 +3455,7 @@ window._language_zh_TW = {
   AwayNoBet: "客隊(不獲胜球隊)",
   BA: "BA",
   BackToCurrentReport: "回到現有報告",
+  BackToOldUI: "回到舊版本",
   BAComissionBalanceNote: "投注總計佣金：承租公司金所得於投注總計注單。",
   BACommission: "BA佣金",
   Balance: "餘額",
@@ -3552,6 +3533,7 @@ window._language_zh_TW = {
   Confirmation: "確認",
   ConfirmCommission: "確認會員的佣金:",
   ConfirmPassword: "確認密碼",
+  Content: "内容",
   ConvertAllFiguresToBaseCurrency: "將所有數據轉換為基礎貨幣",
   ConvertTo: "轉換為",
   CopyBetSettingFrom: "Copy All Bet Setting from {0}",
@@ -3929,6 +3911,7 @@ window._language_zh_TW = {
   NotAuthorizedMsg: "您沒有被授權於此功能",
   NotIdenticalPasswordMsg: "密碼不相同",
   Notification: "通知",
+  NotificationDateRangeLimitNote: "最多可以檢索六個月前的資料",
   NotSupportYet: "目前還不支持此遊戲",
   Nov: "十一月",
   November: "十一月",
@@ -4117,6 +4100,7 @@ window._language_zh_TW = {
   ThereIsNoSelectedItem: "There is no selected item.",
   Thursday: "星期四",
   TicketFilter: "注單篩選",
+  TicketList: "注單清單",
   TicketNo: "票劵號碼",
   Time: "時間",
   TimeZone: "時區",
@@ -4200,6 +4184,7 @@ window._language_zh_TW = {
   ViewBy: "查看由",
   ViewDataInMonth: "检阅每月數據",
   Viewin: "以 {0} 查看",
+  ViewNotification: "查看通知",
   VirtualCycling: "Virtual Cycling",
   VirtualHorseRacing: "Virtual Horse Racing",
   VirtualSoccer: "Virtual Soccer",
@@ -4233,7 +4218,51 @@ window._language_zh_TW = {
   YouNotChooseAnyCustomerMsg: "您還沒有選擇任何會員"
 };
 
+/***/ }),
+
+/***/ 9:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var DEFAULT_RESOURCE_NAME = "_language_en_US";
+var langCode = window.PageLanguage || "en-US";
+var resourceName = "_language_" + langCode.replace("-", "_");
+
+var LangHelper = function () {
+    function LangHelper() {
+        _classCallCheck(this, LangHelper);
+    }
+
+    _createClass(LangHelper, null, [{
+        key: "getSingleResource",
+        value: function getSingleResource(key) {
+            var langHandler = window[resourceName];
+
+            return langHandler && langHandler[key] || window[DEFAULT_RESOURCE_NAME] && window[DEFAULT_RESOURCE_NAME][key] || key;
+        }
+    }, {
+        key: "currentLanguage",
+        get: function get() {
+            return langCode;
+        }
+    }]);
+
+    return LangHelper;
+}();
+
+exports.default = LangHelper;
+
 /***/ })
 
-},[705]);
+},[700]);
 //# sourceMappingURL=langHelper.chunk.js.map

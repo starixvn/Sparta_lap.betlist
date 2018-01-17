@@ -13,6 +13,14 @@
     {
         protected const int SessionLicenseeId = 1;
 
+        protected const string SessionLicenseeName = "Test";
+
+        protected const int SessionUserId = 1;
+
+        protected const string SessionUserName = "Test User";
+
+        protected const string SessionLanguage = "en";
+
         protected const string AgentListXml = "XmlData";
 
         protected ISessionService SessionService { get; private set; }
@@ -41,13 +49,16 @@
         {
             var userSession = new UserSession
             {
+                UserId = SessionUserId,
+                UserName = SessionUserName,
                 CurrencyList = new Dictionary<int, string> { { -1, "EUR" }, { -2, "USD" } },
-                Language = "en"
+                Language = SessionLanguage
             };
 
             var licenseeSession = new LicenseeSession
             {
-                LicenseeId = SessionLicenseeId
+                LicenseeId = SessionLicenseeId,
+                LicenseeName = SessionLicenseeName
             };
 
             StubUserSessionData(userSession);

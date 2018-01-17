@@ -33,6 +33,7 @@ namespace Fanex.Athena.Controllers
     using ONEbook.UM.Services.Impl;
     using Resources;
     using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
 
     public class AuthorizationController : BaseController
     {
@@ -49,28 +50,25 @@ namespace Fanex.Athena.Controllers
         private readonly IMaintenanceService _maintenanceService;
         private readonly IFormsAuthenticationService _formAuthenticationService;
 
-        public AuthorizationController()
+        public AuthorizationController() : this(null, null, null, null, null, null, null, null)
         {
-            _userService = new UserService();
-            _authService = new AuthService();
-            _maintenanceService = new MaintenanceService();
-            _formAuthenticationService = new FormsAuthenticationService();
         }
 
         public AuthorizationController(
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
             IMaintenanceService maintenanceService,
             IUserService userService,
             IAuthService authService,
             IFormsAuthenticationService formAuthenticationService)
-            : base(languageService, sessionService, appSetting)
+            : base(languageService, sessionService, appSetting, clientViewHelper)
         {
-            _maintenanceService = maintenanceService;
-            _userService = userService;
-            _authService = authService;
-            _formAuthenticationService = formAuthenticationService;
+            _maintenanceService = maintenanceService ?? new MaintenanceService();
+            _userService = userService ?? new UserService();
+            _authService = authService ?? new AuthService();
+            _formAuthenticationService = formAuthenticationService ?? new FormsAuthenticationService();
         }
 
         [CheckUMFilter]

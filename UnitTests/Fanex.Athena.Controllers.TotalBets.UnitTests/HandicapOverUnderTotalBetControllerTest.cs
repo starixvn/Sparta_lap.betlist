@@ -45,7 +45,7 @@
                 var viewResult = controller.Index() as ViewResult;
 
                 // Assert
-                Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/TotalBets/HandicapOverUnder/Main.cshtml"));
+                StringAssert.Contains("TotalBets/HandicapOverUnder/Main.cshtml", viewResult.ViewName);
             }
         }
 
@@ -85,7 +85,7 @@
                 var viewResult = controller.Index(metaModel) as ViewResult;
 
                 // Assert
-                Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/TotalBets/HandicapOverUnder/Main.cshtml"));
+                StringAssert.Contains("TotalBets/HandicapOverUnder/Main.cshtml", viewResult.ViewName);
             }
         }
 
@@ -191,6 +191,7 @@
                             LangService,
                             SessionService,
                             AppSettings,
+                            ClientViewHelper,
                             _handicapOverUnderDataAccess);
         }
     }

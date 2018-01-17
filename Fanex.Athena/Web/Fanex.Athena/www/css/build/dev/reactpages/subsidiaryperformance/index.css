@@ -229,7 +229,8 @@ input[type="checkbox"].checkbox {
 /* Table */
 /* Label Text */
 .table {
-  line-height: 1.15; }
+  line-height: 1.15;
+  table-layout: fixed; }
   .table a {
     color: #147ccc;
     text-decoration: none; }
@@ -283,7 +284,7 @@ input[type="checkbox"].checkbox {
   white-space: normal;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 1px; }
+  min-width: 1px; }
 
 .header-content,
 .body-content,
@@ -400,7 +401,8 @@ input[type="checkbox"].checkbox {
   .multiple-select-item label {
     margin-bottom: 0; }
 
-.button-group {
-  margin-left: 15px; }
+.form-group .button-group {
+  margin-left: 15px;
+  margin-top: 0; }
 
 /*# sourceMappingURL=index.css.map*/

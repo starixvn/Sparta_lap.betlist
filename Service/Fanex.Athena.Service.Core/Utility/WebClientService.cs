@@ -25,5 +25,15 @@
                 return webClient.DownloadString(url);
             }
         }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Sonar Code Smell", "S3994:UriParametersShouldNotBeStrings",
+            Justification = "Reviewed. Suppression is OK here.")]
+        public byte[] DownloadData(string url)
+        {
+            using (WebClient webClient = new WebClient())
+            {
+                return webClient.DownloadData(url);
+            }
+        }
     }
 }

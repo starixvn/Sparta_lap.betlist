@@ -1,0 +1,9 @@
+﻿@import "../../components/date-range/styles";
+@import "../../components/fixed-table-header";
+@import "../../components/collapsibleRow";
+@import "../../components/paging";
+@import "../../vendors/notification";
+
+.unread td {
+    background-color: #f5c0ab !important;
+}

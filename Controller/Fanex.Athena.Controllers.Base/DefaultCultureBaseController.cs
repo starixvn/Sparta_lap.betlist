@@ -15,8 +15,20 @@
     [CheckUMFilter]
     public class DefaultCultureBaseController : Controller
     {
-        private readonly ISessionService _sessionService = new SessionService();
-        private readonly IAppSettings _appSettings = new AppSettings();
+        private readonly ISessionService _sessionService;
+        private readonly IAppSettings _appSettings;
+        private readonly IClientViewHelper _clientViewHelper;
+
+        public DefaultCultureBaseController() : this(null, null, null)
+        {
+        }
+
+        public DefaultCultureBaseController(ISessionService sessionService, IAppSettings appSetting, IClientViewHelper clientViewHelper)
+        {
+            _sessionService = sessionService ?? new SessionService();
+            _appSettings = appSetting ?? new AppSettings();
+            _clientViewHelper = clientViewHelper ?? new ClientViewHelper();
+        }
 
         public ISessionService SessionService
         {
@@ -30,8 +42,14 @@
             var option = userSession != null && userSession.ViewType != ClientViewType.None ?
                 userSession.ViewType : (ClientViewType)int.Parse(_appSettings.ClientViewType);
 
-            var viewByOption = ClientViewHelper.GetViewPath(viewName, option);
-            return base.View(viewByOption, masterName, model);
+            var viewByOption = _clientViewHelper.GetViewPath(viewName, option);
+            if (viewByOption.IsNavigationView)
+            {
+                var returnPath = RouteData.Values["Controller"] + "/" + RouteData.Values["Action"];
+                return base.View(viewByOption.ViewPath, null, returnPath);
+            }
+
+            return base.View(viewByOption.ViewPath, masterName, model);
         }
     }
 }

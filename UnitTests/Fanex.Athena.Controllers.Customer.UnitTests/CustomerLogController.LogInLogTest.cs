@@ -11,13 +11,13 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                var expectedViewName = "~/Views/Customer/CustomerLog/LogInLog/Main.cshtml";
+                const string ExpectedViewName = "Customer/CustomerLog/LogInLog/Main.cshtml";
 
                 // Action
                 var result = controller.LogInLog() as ViewResult;
 
                 // Assert
-                Assert.That(result.ViewName, Is.EqualTo(expectedViewName));
+                StringAssert.Contains(ExpectedViewName, result.ViewName);
             }
         }
     }

@@ -45,7 +45,7 @@
                 var viewResult = controller.Index() as ViewResult;
 
                 // Assert
-                Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/TotalBets/TotalGoal/Main.cshtml"));
+                StringAssert.Contains("TotalBets/TotalGoal/Main.cshtml", viewResult.ViewName);
             }
         }
 
@@ -88,7 +88,7 @@
 
         private TotalGoalTotalBetController CreateController()
         {
-            return new TotalGoalTotalBetController(LangService, SessionService, AppSettings, _totalGoalDataAccess);
+            return new TotalGoalTotalBetController(LangService, SessionService, AppSettings, ClientViewHelper, _totalGoalDataAccess);
         }
 
         private void SepUpForService()

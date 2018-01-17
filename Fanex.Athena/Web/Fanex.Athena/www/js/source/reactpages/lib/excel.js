@@ -29,6 +29,10 @@ export default class Excel {
             type: "application/octet-stream"
         });
 
+        this.downloadFromBolb(blob, fileName);
+    }
+
+    static downloadFromBolb(blob, fileName) {
         const fileNameDownload = `${fileName}.${EXCEL_TYPE}`;
 
         // IE 10+

@@ -21,6 +21,7 @@ namespace Fanex.Athena.Api.CustomerLog
     using Fanex.Athena.Model.Customer.DTO.CustomerLog;
     using Fanex.Athena.Model.Customer.ViewModel.CustomerLog;
     using Model.Core.DataDomain;
+    using Model.Core.DTO.Common;
     using RazorEngine;
     using RazorEngine.Templating;
     using Resources;
@@ -40,6 +41,7 @@ namespace Fanex.Athena.Api.CustomerLog
         private readonly ISessionService _sessionService;
 
         private readonly IAppSettings _appSettings;
+        private readonly IClientViewHelper _clientViewHelper;
 
         private readonly IEnumerable<int> _actionIdListForBA = new List<int> { 2401, 2403, 2801 };
 
@@ -53,6 +55,7 @@ namespace Fanex.Athena.Api.CustomerLog
             _logInLogDataAccess = new LogInLogDataAccess();
             _sessionService = new SessionService();
             _appSettings = new AppSettings();
+            _clientViewHelper = new ClientViewHelper();
         }
 
         #endregion Constructor
@@ -181,15 +184,20 @@ namespace Fanex.Athena.Api.CustomerLog
         /// <param name="actionId">Action id.</param>
         /// <param name="viewModel">View Model.</param>
         /// <returns> HTML string.</returns>
-        private string ParseDictonaryToRazorView(int actionId, ActionViewModel viewModel)
+        private string GenerateDetailedValue(int actionId, ActionViewModel viewModel)
         {
-            var viewName = GetActionViewName(actionId);
-            var templatePath = HostingEnvironment.MapPath(viewName);
+            var viewOption = GetActionViewName(actionId);
+            if (viewOption.IsNavigationView)
+            {
+                return string.Empty;
+            }
+
+            var templatePath = HostingEnvironment.MapPath(viewOption.ViewPath);
             var template = File.ReadAllText(templatePath);
-            return Engine.Razor.RunCompile(template, viewName, model: viewModel);
+            return Engine.Razor.RunCompile(template, viewOption.ViewPath, model: viewModel);
         }
 
-        private string GetActionViewName(int actionId)
+        private ViewByOption GetActionViewName(int actionId)
         {
             var actionView = $"~/Views/Customer/CustomerLog/Action/{actionId}.cshtml";
             var userSession = _sessionService.UserSession;
@@ -197,7 +205,7 @@ namespace Fanex.Athena.Api.CustomerLog
             var option = userSession != null && userSession.ViewType != ClientViewType.None ?
                 userSession.ViewType : (ClientViewType)int.Parse(_appSettings.ClientViewType);
 
-            return ClientViewHelper.GetViewPath(actionView, option);
+            return _clientViewHelper.GetViewPath(actionView, option);
         }
 
         #endregion Parse dictonary to razor view
@@ -238,7 +246,7 @@ namespace Fanex.Athena.Api.CustomerLog
 
                 var dictonary = GetXmlAttr(item.TrackingValue, item.TrackingValueOld);
 
-                item.Details = ParseDictonaryToRazorView(item.ActionId, new ActionViewModel { Data = dictonary, Resource = resourcesMap });
+                item.Details = GenerateDetailedValue(item.ActionId, new ActionViewModel { Data = dictonary, Resource = resourcesMap });
             }
 
             return dataList;

@@ -3102,4 +3102,42 @@
     <value>Back to old UI</value>
     <comment>84932</comment>
   </data>
+  <data name="MatchDelayDone" xml:space="preserve">
+    <value>Match Delay-Done</value>
+  </data>
+  <data name="MatchDelayNew" xml:space="preserve">
+    <value>Match Delay-New</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Notifications</value>
+    <comment>84004</comment>
+  </data>
+  <data name="ViewNotification" xml:space="preserve">
+    <value>View Notification</value>
+    <comment>84004</comment>
+  </data>
+  <data name="TicketList" xml:space="preserve">
+    <value>Ticket List</value>
+    <comment>84004</comment>
+  </data>
+  <data name="Amendment" xml:space="preserve">
+    <value>Resettlement</value>
+    <comment>84004</comment>
+  </data>
+  <data name="NotificationDateRangeLimitNote" xml:space="preserve">
+    <value>Data is available within 6 months</value>
+    <comment>84004</comment>
+  </data>
+  <data name="FileIsNotReady" xml:space="preserve">
+    <value>The file is not ready, please try again later.</value>
+    <comment>84004</comment>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>Subject</value>
+    <comment>84004</comment>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>Content</value>
+    <comment>84004</comment>
+  </data>
 </root>

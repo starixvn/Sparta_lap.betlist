@@ -28,7 +28,7 @@ $paddingRightContainer: 17px;
         white-space: normal;
         overflow: hidden;
         text-overflow: ellipsis;
-        max-width: 1px;
+        min-width: 1px;
     }
 }
 

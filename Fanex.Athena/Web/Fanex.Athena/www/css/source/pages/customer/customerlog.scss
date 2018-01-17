@@ -10,12 +10,6 @@ $bgHeader: #BCC5CC;
 $colorRowText: #404040;
 
 .report-container {
-    margin: 1.5rem;
-    background-color: $white;
-
-    .header-tab {
-        margin: 0 1.5rem;
-    }
 
     .ui-jqgrid .ui-jqgrid-htable thead tr th.ui-th-column {
         background: $bgHeaderTableLevel1;

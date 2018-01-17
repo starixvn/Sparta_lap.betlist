@@ -8,10 +8,10 @@ namespace Fanex.Athena.Controllers
 {
     using System.Web.Mvc;
     using Extension.Utility;
-    using Extension.Utility.Interfaces;
     using Model.Core.DataDomain;
     using ONEbook.UM.Filters;
     using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Web.ActionFilter;
 
@@ -25,8 +25,9 @@ namespace Fanex.Athena.Controllers
         public HomeController(
             ILanguageService languageService,
             ISessionService sessionService,
-            IAppSettings appSetting)
-            : base(languageService, sessionService, appSetting)
+            IAppSettings appSetting,
+            IClientViewHelper clientViewHelper)
+        : base(languageService, sessionService, appSetting, clientViewHelper)
         {
         }
 

@@ -129,7 +129,7 @@
                 var result = controller.Index() as ViewResult;
 
                 // Assert
-                Assert.That(result.ViewName, Is.EqualTo("~/Views/Home/Index.cshtml"));
+                StringAssert.Contains("Home/Index.cshtml", result.ViewName);
             }
         }
 
@@ -145,7 +145,7 @@
                 var result = controller.Index() as ViewResult;
 
                 // Assert
-                Assert.That(result.ViewName, Is.EqualTo("~/Views/Home/Index.cshtml"));
+                StringAssert.Contains("Home/Index.cshtml", result.ViewName);
             }
         }
 
@@ -230,7 +230,7 @@
                 var result = controller.IndexIpad() as ViewResult;
 
                 // Assert
-                Assert.That(result.ViewName, Is.EqualTo("~/Views/Home/IndexIpad.cshtml"));
+                StringAssert.Contains("Home/IndexIpad.cshtml", result.ViewName);
             }
         }
 
@@ -257,7 +257,7 @@
 
         private HomeController CreateController()
         {
-            return new HomeController(LangService, SessionService, AppSettings)
+            return new HomeController(LangService, SessionService, AppSettings, ClientViewHelper)
             {
                 ControllerContext = ControllerContext
             };

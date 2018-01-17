@@ -24,7 +24,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -796,18 +796,27 @@
     <Content Include="www\assets\images\new-system.svg" />
     <Content Include="www\css\build\dev\reactpages\licenseewlbytimezone\index.chunk.js" />
     <Content Include="www\css\build\dev\reactpages\licenseewlbytimezone\index.css" />
+    <Content Include="www\css\build\dev\reactpages\notification\index.chunk.js" />
+    <Content Include="www\css\build\dev\reactpages\notification\index.chunk.js.map" />
+    <Content Include="www\css\build\dev\reactpages\notification\index.css" />
+    <Content Include="www\css\build\dev\reactpages\notification\index.css.map" />
     <Content Include="www\css\build\dev\reactpages\subsidiaryperformance\index.chunk.js" />
     <Content Include="www\css\build\dev\reactpages\subsidiaryperformance\index.css" />
     <Content Include="www\css\build\dev\reactpages\vendor.chunk.js" />
     <Content Include="www\css\build\images\new_icon.gif" />
     <Content Include="www\css\build\pro\reactpages\licenseewlbytimezone\index.css" />
+    <Content Include="www\css\build\pro\reactpages\notification\index.chunk.js" />
+    <Content Include="www\css\build\pro\reactpages\notification\index.css" />
     <Content Include="www\css\build\pro\reactpages\subsidiaryperformance\index.css" />
     <Content Include="www\js\build\dev\reactpages\report\licenseewlbytimezone.chunk.js" />
+    <Content Include="www\js\build\dev\reactpages\notification\notification.chunk.js" />
+    <Content Include="www\js\build\dev\reactpages\notification\notification.chunk.js.map" />
     <Content Include="www\js\build\dev\reactpages\subsidiaryperformance\subsidiaryperformance.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\vendors\excel.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\vendors\reactpages.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\lib\langHelper.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\report\licenseewlbytimezone.chunk.js" />
+    <Content Include="www\js\build\pro\reactpages\notification\notification.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\subsidiaryperformance\subsidiaryperformance.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\vendors\excel.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\vendors\reactpages.chunk.js" />
@@ -817,6 +826,7 @@
     <Content Include="www\js\source\helpers\downloader.js" />
     <Content Include="www\js\source\reactpages\actions\excludeTestAction.js" />
     <Content Include="www\js\source\reactpages\actions\currencyAction.js" />
+    <Content Include="www\js\source\pages\home\notification.js" />
     <Content Include="www\js\source\reactpages\actions\baseCurrencyAction.js" />
     <Content Include="www\js\source\reactpages\actions\loaderAction.js" />
     <Content Include="www\js\source\reactpages\actions\productAction.js" />
@@ -857,16 +867,23 @@
     <Content Include="Views\Desktop\Report\LicenseeWinLossByTimeZone\Main.cshtml" />
     <Content Include="www\js\build\dev\reactpages\report\licenseewlbytimezone.chunk.js.map" />
     <Content Include="www\css\source\reactpages\pages\licenseewl-by-timezone\index.scss" />
-    <Content Include="Views\Desktop\Utility\FunctionNotAvailableOldUI.cshtml" />
+    <Content Include="Views\Shared\FunctionNotAvailableOldUI.cshtml" />
     <Content Include="www\css\build\dev\reactpages\licenseewlbytimezone\index.chunk.js.map" />
     <Content Include="www\css\build\dev\reactpages\licenseewlbytimezone\index.css.map" />
     <Content Include="www\css\source\reactpages\components\forms\_radio-buttons.scss" />
     <Content Include="www\css\source\reactpages\components\_popup.scss" />
+    <Content Include="Views\Desktop\Report\Notification\Notification.cshtml" />
+    <Content Include="www\css\source\reactpages\pages\notification\index.scss" />
+    <Content Include="www\css\source\reactpages\components\_tab.scss" />
+    <Content Include="www\css\source\reactpages\components\_collapsibleRow.scss" />
+    <Content Include="www\css\source\reactpages\components\_paging.scss" />
+    <Content Include="www\css\source\reactpages\vendors\notification.scss" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Row.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.jsx" />
     <Content Include="www\js\source\reactpages\components\fixed-table-header\components\Table.jsx" />
     <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\Cell.test.js" />
+    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\Page.test.js" />
     <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\Row.test.js" />
     <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\RowLayout.test.js" />
     <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\Table.test.js" />
@@ -876,6 +893,7 @@
     <Content Include="www\js\source\reactpages\components\multiple-select\components\__tests__\OptionAll.test.js" />
     <Content Include="www\js\source\reactpages\components\popup\constants.js" />
     <Content Include="www\js\source\reactpages\components\UserGuide.jsx" />
+    <Content Include="www\js\source\reactpages\components\__tests__\CollapsibleRow.test.js" />
     <Content Include="www\js\source\reactpages\components\__tests__\Loader.test.js" />
     <Content Include="www\js\source\reactpages\components\__tests__\NoDataTitle.test.js" />
     <Content Include="www\js\source\reactpages\components\__tests__\Popup.test.js" />
@@ -913,6 +931,23 @@
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\reducers\dataHandlerReducer.js" />
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\reducers\filterHandlerReducer.js" />
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\reducers\index.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\actions\resultAmendment\__tests__\dataHandlerAction.test.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\actions\resultAmendment\__tests__\filterHandlerAction.test.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\__test__\DataGrid.redux.test.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\__test__\DataGrid.test.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\__test__\FormFilter.redux.test.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\__test__\FormFilter.test.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\lib\__test__\resultAmendmentService.test.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\actions\resultAmendment\dataHandlerAction.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\actions\resultAmendment\filterHandlerAction.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\actions\resultAmendment\index.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\actions\resultAmendment\types.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\lib\resultAmendmentService.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\reducers\resultAmendment\dataHandlerReducer.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\reducers\resultAmendment\filterHandlerReducer.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\reducers\resultAmendment\index.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\reducers\resultAmendment\__test__\dataHandlerReducer.test.js" />
+    <Content Include="www\js\source\reactpages\pages\notification\reducers\resultAmendment\__test__\filterHandlerReducer.test.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\dataHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\filterHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\__tests__\dataHandlerAction.test.js" />
@@ -936,6 +971,7 @@
     <Content Include="www\js\source\reactpages\reducers\loaderReducer.js" />
     <Content Include="www\js\source\reactpages\reducers\productReducer.js" />
     <Content Include="www\js\source\reactpages\reducers\userGuideReducer.js" />
+    <Content Include="www\js\source\reactpages\reducers\xsrfTokenReducer.js" />
     <Content Include="www\js\source\reactpages\reducers\__tests__\excludeTestReducer.test.js" />
     <Content Include="www\js\source\reactpages\reducers\__tests__\baseCurrencyReducer.test.js" />
     <Content Include="www\js\source\reactpages\reducers\__tests__\loaderReducer.test.js" />
@@ -2580,6 +2616,19 @@
     <Content Include="www\js\source\reactpages\components\popup\Popup.jsx" />
     <Content Include="www\js\source\reactpages\components\__tests__\__snapshots__\UserGuide.test.js.snap" />
     <Content Include="www\js\source\reactpages\components\__tests__\__snapshots__\Popup.test.js.snap" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\DataGrid.jsx" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\FormFilter.jsx" />
+    <Content Include="www\js\source\reactpages\components\CollapsibleRow.jsx" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\AppContainer.jsx" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\index.jsx" />
+    <Content Include="www\js\source\reactpages\components\tab\Tab.jsx" />
+    <Content Include="www\js\source\reactpages\components\tab\Tabs.jsx" />
+    <Content Include="www\js\source\reactpages\components\tab\index.jsx" />
+    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\Page.jsx" />
+    <Content Include="www\js\source\reactpages\components\__tests__\__snapshots__\CollapsibleRow.test.js.snap" />
+    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\__snapshots__\Page.test.js.snap" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\__test__\__snapshots__\datagrid.test.js.snap" />
+    <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\__test__\__snapshots__\formFilter.test.js.snap" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">
@@ -6236,7 +6285,6 @@
   <ItemGroup>
     <Folder Include="Logs\" />
     <Folder Include="www\css\source\reactpages\lib\" />
-    <Folder Include="www\css\source\reactpages\vendors\" />
     <Folder Include="www\js\source\reactpages\vendors\" />
   </ItemGroup>
   <ItemGroup>

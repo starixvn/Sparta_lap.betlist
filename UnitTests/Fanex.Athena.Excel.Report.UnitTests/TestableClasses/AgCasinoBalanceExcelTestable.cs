@@ -10,7 +10,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests.TestableClasses
         public AgCasinoBalanceExcelTestable(
                                  string templatePath,
                                  ConvertingOption convertingOption,
-                                 AgCasinoBalanceMetaModel metaModel,
+                                 ThirdPartyWinLossMetaModel metaModel,
                                  AgCasinoBalanceViewModel viewModel)
             : base(templatePath, convertingOption, metaModel, viewModel)
         {

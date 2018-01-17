@@ -46,7 +46,7 @@ namespace Fanex.Athena.Api.Report
         }
 
         [HttpPost]
-        public dynamic Index(AgCasinoBalanceMetaModel metaModel)
+        public dynamic Index(ThirdPartyWinLossMetaModel metaModel)
         {
             return ProcessRequest(metaModel);
         }
@@ -55,7 +55,7 @@ namespace Fanex.Athena.Api.Report
         protected internal virtual AgCasinoBalanceExcel CreateExcel(
             string templatePath,
             ConvertingOption convertingOption,
-            AgCasinoBalanceMetaModel metaModel,
+            ThirdPartyWinLossMetaModel metaModel,
             AgCasinoBalanceViewModel viewModel)
         {
             return new AgCasinoBalanceExcel(templatePath, convertingOption, metaModel, viewModel);
@@ -107,7 +107,10 @@ namespace Fanex.Athena.Api.Report
             }
         }
 
-        private HttpResponseMessage ExportExcel(AgCasinoBalanceMetaModel metaModel, IList<AgCasinoBalance> dataList, IDictionary<string, AgCasinoBalance> summaryTotal)
+        private HttpResponseMessage ExportExcel(
+            ThirdPartyWinLossMetaModel metaModel,
+            IList<AgCasinoBalance> dataList,
+            IDictionary<string, AgCasinoBalance> summaryTotal)
         {
             var userSession = SessionService.UserSession;
             const string FileName = "AgCasinoBalance.xls";
@@ -123,7 +126,6 @@ namespace Fanex.Athena.Api.Report
                 CurrencyName = currencyName.Value
             };
 
-            // Update metalModel Value
             if (metaModel.DrillDownLevel > 0)
             {
                 metaModel.FromDate = metaModel.DrillDownFromDate;
@@ -144,7 +146,7 @@ namespace Fanex.Athena.Api.Report
             return ExcelStream(excel.Workbook, FileName);
         }
 
-        private SortableReportResultModel<AgCasinoBalance> GetData(AgCasinoBalanceMetaModel metaModel)
+        private SortableReportResultModel<AgCasinoBalance> GetData(ThirdPartyWinLossMetaModel metaModel)
         {
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(
                 metaModel.DrillDownCurrencyId == 0 ? metaModel.CurrencyId : metaModel.DrillDownCurrencyId,
@@ -163,7 +165,7 @@ namespace Fanex.Athena.Api.Report
             }
         }
 
-        private dynamic ProcessRequest(AgCasinoBalanceMetaModel metaModel)
+        private dynamic ProcessRequest(ThirdPartyWinLossMetaModel metaModel)
         {
             if (IsValidRequest(metaModel, metaModel.DrillDownCurrencyId))
             {

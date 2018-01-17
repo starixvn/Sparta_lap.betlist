@@ -42,7 +42,7 @@
         {
             // Arrange
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_AGCasinoBalance")).Returns(_objectDb);
-            var metaModel = new AgCasinoBalanceMetaModel
+            var metaModel = new ThirdPartyWinLossMetaModel
             {
                 CurrencyId = 1,
                 FromDate = new DateTime(2016, 8, 10),
@@ -63,7 +63,7 @@
         {
             // Arrange
             _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_AGCasinoBalance")).Returns(_objectDb);
-            var metaModel = new AgCasinoBalanceMetaModel
+            var metaModel = new ThirdPartyWinLossMetaModel
             {
                 CurrencyId = 1,
                 FromDate = new DateTime(2016, 8, 10),
@@ -105,7 +105,7 @@
         {
             // Arrange
             _dataAccess.GetObjectDb(Arg.Is<string>("LRF_Rpt_AGCasinoBalance_Mem")).Returns(_objectDb);
-            var metaModel = new AgCasinoBalanceMetaModel
+            var metaModel = new ThirdPartyWinLossMetaModel
             {
                 CurrencyId = 1,
                 FromDate = new DateTime(2016, 8, 10),
@@ -133,7 +133,7 @@
         {
             // Arrange
             _dataAccess.GetObjectDb(Arg.Is<string>("LRF_Rpt_AGCasinoBalance_Mem")).Returns(_objectDb);
-            var metaModel = new AgCasinoBalanceMetaModel
+            var metaModel = new ThirdPartyWinLossMetaModel
             {
                 CurrencyId = 1,
                 FromDate = new DateTime(2016, 8, 10),
@@ -169,7 +169,7 @@
         {
             // Arrange
             _dataAccess.GetObjectDb(Arg.Is<string>("LRF_Rpt_AGCasinoBalance_Ag")).Returns(_objectDb);
-            var metaModel = new AgCasinoBalanceMetaModel
+            var metaModel = new ThirdPartyWinLossMetaModel
             {
                 CurrencyId = 1,
                 FromDate = new DateTime(2016, 8, 10),

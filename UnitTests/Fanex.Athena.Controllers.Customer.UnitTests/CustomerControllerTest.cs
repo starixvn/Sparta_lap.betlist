@@ -85,7 +85,7 @@
             {
                 // Arrange
                 const int CustId = 2;
-                const string ExpectedViewName = "~/Views/Customer/CustomerDialog/LogInfo.cshtml";
+                const string ExpectedViewName = "Customer/CustomerDialog/LogInfo.cshtml";
 
                 StubLicenseeSessionData(DefaultLicenseeSession);
 
@@ -102,7 +102,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(result.ViewName, Is.EqualTo(ExpectedViewName));
+                    StringAssert.Contains(ExpectedViewName, result.ViewName);
                     Assert.That(model.LogInfo, Is.EqualTo(logInfo));
                     Assert.That(model.ProductAccess, Is.EqualTo(productAccess));
                 });
@@ -198,6 +198,7 @@
                 LangService,
                 SessionService,
                 AppSettings,
+                ClientViewHelper,
                 _customerListService,
                 _groupComService,
                 _licenseeDataAccess,

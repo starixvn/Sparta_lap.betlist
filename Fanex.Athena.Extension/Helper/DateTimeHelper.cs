@@ -63,5 +63,15 @@
 
             return numberOfWeeksInRange + 1;
         }
+
+        public static bool IsValidMonthRange(DateTime fromDate, DateTime toDate, int maximumMonthRange)
+        {
+            return toDate >= fromDate && GetMonthDifference(fromDate, toDate) <= maximumMonthRange;
+        }
+
+        private static int GetMonthDifference(DateTime fromDate, DateTime toDate)
+        {
+            return (12 * (toDate.Year - fromDate.Year)) + toDate.Month - fromDate.Month + 1;
+        }
     }
 }

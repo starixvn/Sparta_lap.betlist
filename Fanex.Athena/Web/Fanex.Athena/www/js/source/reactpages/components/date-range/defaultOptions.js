@@ -3,12 +3,6 @@ import LangHelper from "../../lib/langHelper";
 import locale from "./utils/locale";
 import { MomentFormat } from './constants';
 
-function cloneMomentObject(date, defaultValue) {
-    if (date) {
-        return date.clone();
-    }
-}
-
 export default {
     ranges: (today) => {
         if (today && !moment.isMoment(today)) {

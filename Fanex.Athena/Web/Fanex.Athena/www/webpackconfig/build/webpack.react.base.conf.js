@@ -15,17 +15,20 @@ function generateConfig(environment) {
 
             /*  */
             reactpages: ["react", "react-redux", "redux", "react-dom", "redux-thunk", "redux-logger", "axios",
-                "core-js/fn/object/assign", "core-js/fn/promise", "core-js/fn/array/find", "moment"
+                "core-js/fn/object/assign", "core-js/fn/promise", "core-js/fn/array/find", "core-js/fn/array/find-index", "moment"
             ],
             excel: ["xlsx-style-sparta"],
-          
-            [`${jsPath}/subsidiaryperformance/subsidiaryperformance`]: pathConfig.scriptPaths.subsidiaryperformance,
+
             [`${jsPath}/lib/langHelper`]: pathConfig.scriptPaths.languageResource,
+
+            [`${jsPath}/subsidiaryperformance/subsidiaryperformance`]: pathConfig.scriptPaths.subsidiaryperformance,
+            [`${jsPath}/notification/notification`]: pathConfig.scriptPaths.notification,
             [`${jsPath}/report/licenseewlbytimezone`]: pathConfig.scriptPaths.licenseewlbytimezone,
             /*css*/
             [`${cssPath}/vendor`]: pathConfig.cssPaths.layout,
             [`${cssPath}/subsidiaryperformance/index`]: pathConfig.cssPaths.subsidiaryperformance,
-            [`${cssPath}/licenseewlbytimezone/index`]: pathConfig.cssPaths.licenseewlbytimezone
+            [`${cssPath}/licenseewlbytimezone/index`]: pathConfig.cssPaths.licenseewlbytimezone,
+            [`${cssPath}/notification/index`]: pathConfig.cssPaths.notification
         },
         output: {
             path: pathConfig.projectRoot,

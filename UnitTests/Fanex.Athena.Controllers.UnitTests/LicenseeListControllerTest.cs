@@ -126,13 +126,13 @@
                 var result = controller.Index(0) as ViewResult;
 
                 // Assert
-                Assert.That(result.ViewName, Is.EqualTo("~/Views/LicenseeList/Index.cshtml"));
+                StringAssert.Contains("LicenseeList/Index.cshtml", result.ViewName);
             }
         }
 
         private LicenseeListController CreateController()
         {
-            return new LicenseeListController(LangService, SessionService, AppSettings, _licenseeDataAccess);
+            return new LicenseeListController(LangService, SessionService, AppSettings, ClientViewHelper, _licenseeDataAccess);
         }
 
         private void StubLicenseeDataAccessGetByUser(int userId, List<Licensee> fakeResult)

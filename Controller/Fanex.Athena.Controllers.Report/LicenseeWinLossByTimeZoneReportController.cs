@@ -30,7 +30,7 @@ namespace Fanex.Athena.Controllers.Report
                 }).ToList()
             };
 
-            return ViewForNewUI("~/Views/Report/LicenseeWinLossByTimeZone/Main.cshtml", model, "LicenseeWinLossByTimeZoneReport");
+            return View("~/Views/Report/LicenseeWinLossByTimeZone/Main.cshtml", model);
         }
     }
 }

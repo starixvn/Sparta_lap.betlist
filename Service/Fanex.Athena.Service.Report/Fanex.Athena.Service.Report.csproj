@@ -189,9 +189,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\INotificationService.cs" />
     <Compile Include="Interfaces\IColossusBetsWinLossService.cs" />
     <Compile Include="Interfaces\ISubsidiaryPerformanceService.cs" />
     <Compile Include="Interfaces\IWeeklyLiveMatchService.cs" />
+    <Compile Include="NotificationService.cs" />
     <Compile Include="Result\KenoApi.cs" />
     <Compile Include="ColossusBetsWinLossService.cs" />
     <Compile Include="SubsidiaryPerformanceService.cs" />

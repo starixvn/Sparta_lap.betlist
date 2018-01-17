@@ -10,13 +10,13 @@ namespace Fanex.Athena.Controllers.TotalBets
     using DataAccess.TotalBet;
     using DataAccess.TotalBet.Interfaces;
     using Extension.Utility;
-    using Extension.Utility.Interfaces;
     using Fanex.Athena.Model.TotalBet.DTO;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
     using Model.TotalBet.MetaModel;
     using Model.TotalBet.ViewModel;
     using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.TotalBetHalfTimeFullTime)]
@@ -33,8 +33,9 @@ namespace Fanex.Athena.Controllers.TotalBets
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IHalfTimeFullTimeDataAccess halfTimeFullTimeDataAccess)
-            : base(languageService, sessionService, appSetting)
+            IHalfTimeFullTimeDataAccess halfTimeFullTimeDataAccess,
+            IClientViewHelper clientViewHelper)
+        : base(languageService, sessionService, appSetting, clientViewHelper)
         {
             _halfTimeFullTimeDataAccess = halfTimeFullTimeDataAccess;
         }

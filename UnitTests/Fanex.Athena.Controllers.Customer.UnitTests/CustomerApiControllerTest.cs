@@ -300,6 +300,7 @@
                LangService,
                SessionService,
                AppSettings,
+               ClientViewHelper,
                _customerCommService,
                _customerListService,
                _groupComService,

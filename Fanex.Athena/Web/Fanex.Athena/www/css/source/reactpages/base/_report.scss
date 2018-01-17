@@ -12,10 +12,10 @@
     height: 18px;
     cursor: pointer;
     display: inline-block;
+    margin-top: 3px;
 }
 
 .icon-book {
-    line-height: 18px;
     font-size: 18px;
     color: #066CC0;
     cursor: pointer;
@@ -27,4 +27,14 @@
 
 .negative {
     color: #ff0000 !important;
+}
+
+.circle {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #f94a4a;
 }

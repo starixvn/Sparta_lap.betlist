@@ -32,19 +32,19 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                var expectedViewName = "~/Views/Customer/CustomerLog/LogInLog/Main.cshtml";
+                const string ExpectedViewName = "Customer/CustomerLog/LogInLog/Main.cshtml";
 
                 // Action
                 var result = controller.Index() as ViewResult;
 
                 // Assert
-                Assert.That(result.ViewName, Is.EqualTo(expectedViewName));
+                StringAssert.Contains(ExpectedViewName, result.ViewName);
             }
         }
 
         private CustomerLogController CreateController()
         {
-            return new CustomerLogController(LangService, SessionService, AppSettings, _productService);
+            return new CustomerLogController(LangService, SessionService, AppSettings, ClientViewHelper, _productService);
         }
     }
 }

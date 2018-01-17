@@ -4,12 +4,13 @@ define([
     "common/site",
     "./recheckin",
     "components/pluginhelper/autocomplete",
+    "./notification",
     "lib/jquery.cookie",
     "lib/jquery.marquee",
     "materialize-autocomplete",
     "components/selectlist",
     "lib/jquery.jclock"],
-    function (Site, Recheckin, AutoComplete) {
+    function (Site, Recheckin, AutoComplete, Notification) {
         var $searchBox;
 
         function initialize() {
@@ -17,6 +18,7 @@ define([
             initVariables();
             initEvent();
             checkMoveBetNotification();
+            Notification.add();
             activeDefaultMenuItem();
             setTimeout(function () {
                 var $mainFrame = $("#mainFrame");
@@ -90,7 +92,7 @@ define([
             });
 
             $(window).on('blur', function () {
-                $('.dropdown-button').dropdown('close');
+                $('.dropdown-button', '.languages-block').dropdown('close');
                 $('#ddlLicensee').selectList("close");
                 $("#suggestionDropdown").hide();
             });
@@ -135,6 +137,7 @@ define([
 
         function activeDefaultMenuItem() {
             var defaultUrl = $("#DefaultUrl").val();
+            defaultUrl = defaultUrl.replace(/\/index$/i, ''); // remove the last "/Index"
             var $menuItem = $("#left-menu .collapsible-body").find("a[href='" + defaultUrl + "']");
             $('.collapsible2').collapsibleMenu('activeMenuItem', $menuItem);
 

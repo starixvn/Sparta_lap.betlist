@@ -54,4 +54,18 @@ $selected-option-color: #4c6375;
             }
         }
     }
+
+    &-arrow {
+        border-width: 4px 4px 2.5px;
+        border-top-color: $black;
+    }
+}
+
+.is-open {
+    > .Select-control {
+        .Select-arrow {
+            border-bottom-color: $black;
+            border-width: 0 4px 4px;
+        }
+    }
 }

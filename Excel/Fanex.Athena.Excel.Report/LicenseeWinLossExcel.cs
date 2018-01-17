@@ -96,7 +96,7 @@ namespace Fanex.Athena.Excel.Report
                 .Join(
                     OfferedProducts,
                     option => option.Code,
-                    offered => offered, 
+                    offered => offered,
                     (option, offered) => option.Code)
                 .ToArray();
         }
@@ -215,10 +215,13 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignTitle(ISheet sheet)
         {
+            var title = ReportExcelHelper.GetTitleCurrencyName(_excelModel.ConvertingOption, _excelModel.MetaModel);
             var reportTitle = ReportExcelHelper.GenerateReportTitle(
                 ViewResources.LicenseeWinLoss,
-                _excelModel.ConvertingOption,
-                _excelModel.MetaModel);
+                _excelModel.MetaModel.FromDate,
+                _excelModel.MetaModel.ToDate,
+                title);
+
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
 
             // Freeze 2 rows title and header
@@ -266,9 +269,7 @@ namespace Fanex.Athena.Excel.Report
                 sheet.HideColumn(ColumnActualStake);
             }
 
-            if (!_excelModel.BTVisible ||
-                (_excelModel.MetaModel.ProductOptions.Any(x => x.Code == Product.SB) && !_excelModel.SBVisible) ||
-                (_isAllowBA && !_excelModel.BAVisible))
+            if (!_excelModel.BTVisible || IsHideAmtDueToBetTrade())
             {
                 sheet.HideColumn(ColumnAmtDueToBetTrade);
             }
@@ -288,6 +289,11 @@ namespace Fanex.Athena.Excel.Report
             ProcessUILicenseeWinLoss(sheet);
 
             HideColumnsByLevel(sheet);
+        }
+
+        private bool IsHideAmtDueToBetTrade()
+        {
+            return (_isAllowBA && !_excelModel.BAVisible) || (_excelModel.MetaModel.ProductOptions.Any(x => x.Code == Product.SB) && !_excelModel.SBVisible);
         }
 
         protected void AssignCommonData(IRow row, LicenseeWinLoss data)

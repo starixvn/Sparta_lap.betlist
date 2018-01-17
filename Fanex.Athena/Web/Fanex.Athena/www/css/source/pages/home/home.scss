@@ -39,6 +39,74 @@
     }
 }
 
+.view-notification {
+    .subject {
+        font-weight: bold;
+        font-size: 1.2em;
+    }
+
+    .date-time {
+        text-align: right;
+        font-size: 1.2em;
+    }
+
+    .content {
+        padding: 5px;
+        border: solid 1px $colorBorderTable;
+        position: relative;
+        height: 100%;
+        overflow: auto;
+        line-height: 1.42;
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: normal;
+            line-height: 100%;
+        }
+
+        ol li, ul li {
+            padding-left: 1.5em;
+            list-style-position: inside;
+        }
+
+        ol li {
+            list-style-type: decimal;
+        }
+
+        ul li {
+            list-style-type: disc;
+        }
+
+        pre {
+            white-space: pre-wrap;
+            margin: 5px 0 5px 0;
+            padding: 5px 10px;
+            background-color: #f0f0f0;
+            border-radius: 3px;
+            display: block;
+            color: #333;
+        }
+
+        blockquote {
+            border-left: 4px solid #ccc;
+            margin: 5px 0 5px 0;
+            padding-left: 16px;
+            font-size: 1.4em;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+
+        &:after, &:before {
+            clear: both;
+        }
+    }
+
+    .popup-close {
+        display: none;
+    }
+}
+
 /*Hack for IE*/
 .logo {
     .logo-image {
@@ -53,6 +121,6 @@ footer {
     width: 100%;
 }
 
-#clock{
+#clock {
     margin-left: 5px;
 }
