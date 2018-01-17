@@ -29,7 +29,7 @@ function generateConfig(environment) {
             [`${cssPath}/vendor`]: pathConfig.cssPaths.layout,
             [`${cssPath}/subsidiaryperformance/index`]: pathConfig.cssPaths.subsidiaryperformance,
             [`${cssPath}/licenseewlbytimezone/index`]: pathConfig.cssPaths.licenseewlbytimezone,
-            [`${cssPath}/notification/index`]: pathConfig.cssPaths.notification
+            [`${cssPath}/notification/index`]: pathConfig.cssPaths.notification,
             [`${cssPath}/exchangewl/index`]: pathConfig.cssPaths.exchangewl
         },
         output: {

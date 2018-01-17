@@ -163,113 +163,6 @@
 /***/ 122:
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <reference path="/@JSense.js" />
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
-    "use strict";
-
-    var parseQueryString = function (queryString) {
-        var args = queryString.split('&');
-        var argsList = {};
-
-        for (var i = 0; i < args.length; i++) {
-            var arg = unescape(args[i]);
-            if (arg.length > 0) {
-                if (arg.indexOf('=') === -1) {
-                    argsList[$.trim(arg.toLowerCase())] = null;
-                }
-                else {
-                    var keyValuePair = arg.split('=');
-                    argsList[$.trim(keyValuePair[0].toLowerCase())] = $.trim(keyValuePair[1]);
-                }
-            }
-        }
-
-        return argsList;
-    };
-
-    var getQueryString = function (url) {
-        var index = url.indexOf("?");
-        return index < 0 ? "" : url.substring(index + 1, url.length);
-    };
-
-    var getRawUrl = function (url) {
-        var index = url.indexOf("?");
-        return index < 0 ? url : url.substring(0, index);
-    };
-
-    function setParam(url, name, value) {
-        var rawUrl = getRawUrl(url);
-        var queryString = getQueryString(url);
-        var args = parseQueryString(queryString);
-
-        if (name == null || name === undefined) {
-            return url;
-        }
-
-        // Update value
-        var found = false;
-        for (var key in args) {
-            if (key != null && key !== undefined && key.toLowerCase() === name.toLowerCase()) {
-                // Does not update data if value = undefined
-                if (value !== undefined) {
-                    args[key] = value;
-                }
-                found = true;
-            }
-        }
-
-        if (!found) {
-            args[name.toLowerCase()] = value;
-        }
-
-        var queryArray = [];
-
-        // Rebuild query string, ignore null value
-        for (var key1 in args) {
-            if (args[key1] != null && args[key1] !== undefined) {
-                queryArray.push(key1.toLowerCase() + "=" + args[key1]);
-            }
-        }
-
-        return rawUrl + "?" + queryArray.join("&");
-    }
-
-    function setParams(url, parameters) {
-        for (var property in parameters) {
-            if (parameters.hasOwnProperty(property)) {
-                url = setParam(url, property, parameters[property]);
-            }
-        }
-
-        return url;
-    }
-
-    return {
-        getQueryString: getQueryString,
-        getRawUrl: getRawUrl,
-        setParam: setParam,
-        setParams: setParams,
-        getParam: function (url, name) {
-            var queryString = getQueryString(url);
-            var args = parseQueryString(queryString);
-
-            for (var key in args) {
-                if (key != null && key.toLowerCase() === name.toLowerCase()) {
-                    return args[key];
-                }
-            }
-
-            return null;
-        }
-    };
-}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-
-/***/ }),
-
-/***/ 123:
-/***/ (function(module, exports, __webpack_require__) {
-
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(195)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
     "use strict";
     /*
@@ -393,6 +286,113 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     };
 
     return _me;
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 123:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <reference path="/@JSense.js" />
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
+    "use strict";
+
+    var parseQueryString = function (queryString) {
+        var args = queryString.split('&');
+        var argsList = {};
+
+        for (var i = 0; i < args.length; i++) {
+            var arg = unescape(args[i]);
+            if (arg.length > 0) {
+                if (arg.indexOf('=') === -1) {
+                    argsList[$.trim(arg.toLowerCase())] = null;
+                }
+                else {
+                    var keyValuePair = arg.split('=');
+                    argsList[$.trim(keyValuePair[0].toLowerCase())] = $.trim(keyValuePair[1]);
+                }
+            }
+        }
+
+        return argsList;
+    };
+
+    var getQueryString = function (url) {
+        var index = url.indexOf("?");
+        return index < 0 ? "" : url.substring(index + 1, url.length);
+    };
+
+    var getRawUrl = function (url) {
+        var index = url.indexOf("?");
+        return index < 0 ? url : url.substring(0, index);
+    };
+
+    function setParam(url, name, value) {
+        var rawUrl = getRawUrl(url);
+        var queryString = getQueryString(url);
+        var args = parseQueryString(queryString);
+
+        if (name == null || name === undefined) {
+            return url;
+        }
+
+        // Update value
+        var found = false;
+        for (var key in args) {
+            if (key != null && key !== undefined && key.toLowerCase() === name.toLowerCase()) {
+                // Does not update data if value = undefined
+                if (value !== undefined) {
+                    args[key] = value;
+                }
+                found = true;
+            }
+        }
+
+        if (!found) {
+            args[name.toLowerCase()] = value;
+        }
+
+        var queryArray = [];
+
+        // Rebuild query string, ignore null value
+        for (var key1 in args) {
+            if (args[key1] != null && args[key1] !== undefined) {
+                queryArray.push(key1.toLowerCase() + "=" + args[key1]);
+            }
+        }
+
+        return rawUrl + "?" + queryArray.join("&");
+    }
+
+    function setParams(url, parameters) {
+        for (var property in parameters) {
+            if (parameters.hasOwnProperty(property)) {
+                url = setParam(url, property, parameters[property]);
+            }
+        }
+
+        return url;
+    }
+
+    return {
+        getQueryString: getQueryString,
+        getRawUrl: getRawUrl,
+        setParam: setParam,
+        setParams: setParams,
+        getParam: function (url, name) {
+            var queryString = getQueryString(url);
+            var args = parseQueryString(queryString);
+
+            for (var key in args) {
+                if (key != null && key.toLowerCase() === name.toLowerCase()) {
+                    return args[key];
+                }
+            }
+
+            return null;
+        }
+    };
 }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
@@ -798,7 +798,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 __webpack_require__(1);
 __webpack_require__(193);
 __webpack_require__(2);
-module.exports = __webpack_require__(122);
+module.exports = __webpack_require__(123);
 
 
 /***/ }),
@@ -15154,7 +15154,7 @@ Array.prototype.insertBefore = function (value, before) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/*global _language_en_US*/
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(122), __webpack_require__(123), __webpack_require__(196), __webpack_require__(185)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, QueryString, Popup) {// jshint ignore:line
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(123), __webpack_require__(122), __webpack_require__(196), __webpack_require__(185)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, QueryString, Popup) {// jshint ignore:line
         "use strict";
         var BASE_CURRENT_LIST = ["EUR", "USD", "GBP"];
         var REQUEST_VERIFICATION_TOKEN;

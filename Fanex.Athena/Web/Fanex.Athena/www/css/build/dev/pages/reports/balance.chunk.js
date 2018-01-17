@@ -1,19 +1,19 @@
 webpackJsonp([91],{
 
-/***/ 486:
+/***/ 487:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(487);
+module.exports = __webpack_require__(488);
 
 
 /***/ }),
 
-/***/ 487:
+/***/ 488:
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ })
 
-},[486]);
+},[487]);
 //# sourceMappingURL=balance.chunk.js.map
