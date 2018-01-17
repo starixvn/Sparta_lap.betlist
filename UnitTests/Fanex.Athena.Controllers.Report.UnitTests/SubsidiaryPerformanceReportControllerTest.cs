@@ -96,6 +96,7 @@ namespace Fanex.Athena.Controllers.Report.UnitTests
                 _service.GetOperatorList(SessionService.LicenseeSession.LicenseeName).Returns(expectedOperatorList);
 
                 var expectedModel = _serializer.Serialize(viewModelData);
+                var expectedViewName = "~/Views/Report/SubsidiaryPerformance/Main.cshtml";
                 HttpContext.Current = GetHttpContext();
 
                 // Action
@@ -103,6 +104,7 @@ namespace Fanex.Athena.Controllers.Report.UnitTests
                 var modelResult = _serializer.Serialize(viewResult.Model);
 
                 // Assert
+                Assert.That(viewResult.ViewName, Is.EqualTo(expectedViewName));
                 Assert.That(modelResult, Is.EqualTo(expectedModel));
             }
         }
@@ -127,6 +129,7 @@ namespace Fanex.Athena.Controllers.Report.UnitTests
                 LangService,
                 SessionService,
                 AppSettings,
+                ClientViewHelper,
                 productService,
                 _service);
         }

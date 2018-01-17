@@ -7,6 +7,7 @@ using Fanex.Athena.Model.Core.DTO.Common;
 using Fanex.Athena.Model.Core.MetaModel.Product;
 using Fanex.Athena.Model.Report.ViewModel;
 using Fanex.Athena.Service.Core.Common.Interfaces;
+using Fanex.Athena.Service.Core.Helpers;
 using Fanex.Athena.Service.Core.Users.Interfaces;
 using Fanex.Athena.Service.Report;
 using Fanex.Athena.Service.Report.Interfaces;
@@ -19,7 +20,7 @@ namespace Fanex.Athena.Controllers.Report
     {
         private readonly ISubsidiaryPerformanceService _service;
 
-        public SubsidiaryPerformanceReportController() : this(null, null, null, null, null)
+        public SubsidiaryPerformanceReportController() : this(null, null, null, null, null, null)
         {
         }
 
@@ -27,9 +28,10 @@ namespace Fanex.Athena.Controllers.Report
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
             IProductService productService,
             ISubsidiaryPerformanceService service)
-            : base(languageService, sessionService, appSetting, productService)
+            : base(languageService, sessionService, appSetting, clientViewHelper, productService)
         {
             _service = service ?? new SubsidiaryPerformanceService();
         }
