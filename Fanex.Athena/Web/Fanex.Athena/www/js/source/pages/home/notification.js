@@ -57,7 +57,7 @@ define(["common/site", "moment", "common/popup", "extensions/jquery.extension"],
 
             var popupContent = '<div class="view-notification">'
                                 + '<p class="subject">' + Site.getSingleResource("Subject") + ": " + message.Subject + '</p>'
-                                + '<p class="date-time">' + moment(message.DateTime).format("MM/DD/YYYY hh:mm:ss A") + '</p>'
+                                + '<p class="date-time">' + moment(message.DateTime).format("MM/DD/YYYY") + '</p>'
                                 + '<div class="content">' + (message.Content || '') + '</div>'
                                 + '</div>';
 
@@ -71,7 +71,7 @@ define(["common/site", "moment", "common/popup", "extensions/jquery.extension"],
             var $container = $notificationDdl.find(".first-notification").parent();
             if (data.DataList !== null && data.DataList.length > 0) {
                 data.DataList.forEach(function (item, index) {
-                    var time = moment(item.DateTime).format("hh:mm:ss A MM/DD/YYYY");
+                    var time = moment(item.DateTime).format("MM/DD/YYYY");
                     var subject = item.Subject || '';
                     var message = $($.format(NOTIFICATION_ITEM,
                         index,

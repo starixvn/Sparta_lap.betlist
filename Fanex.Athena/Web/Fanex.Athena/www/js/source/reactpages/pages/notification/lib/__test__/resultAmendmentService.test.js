@@ -33,7 +33,7 @@ describe('resultAmendmentService', () => {
             const expectedHeader = {
                 index: '#',
                 ticketList: 'TicketList',
-                dateTime: 'Date/Time',
+                dateTime: 'EventDate',
                 content: 'Content'
             }
 

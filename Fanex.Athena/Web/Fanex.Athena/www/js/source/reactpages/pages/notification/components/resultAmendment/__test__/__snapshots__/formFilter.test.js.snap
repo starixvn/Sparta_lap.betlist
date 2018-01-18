@@ -16,7 +16,7 @@ exports[`FormFilter match to snapshot 1`] = `
         <label
           className="label-text"
         >
-          Date
+          EventDate
         </label>
         <div
           className="daterange-container"

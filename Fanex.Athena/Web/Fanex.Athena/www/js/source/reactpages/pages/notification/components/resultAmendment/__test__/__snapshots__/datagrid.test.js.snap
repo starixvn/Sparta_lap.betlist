@@ -88,9 +88,9 @@ exports[`DataGrid  render  has data - render table 1`] = `
                 #
               </th>
               <th
-                title="Date/Time"
+                title="EventDate"
               >
-                Date/Time
+                EventDate
               </th>
               <th
                 title="Content"
@@ -111,7 +111,7 @@ exports[`DataGrid  render  has data - render table 1`] = `
       className="body-content"
       style={
         Object {
-          "maxHeight": 705,
+          "maxHeight": 695,
           "minWidth": 650,
           "width": -30,
         }
@@ -172,9 +172,9 @@ exports[`DataGrid  render  has data - render table 1`] = `
               </td>
               <td
                 className="center-align"
-                title="01/01/2017 12:00:00 PM"
+                title="01/01/2017"
               >
-                01/01/2017 12:00:00 PM
+                01/01/2017
               </td>
               <td
                 className="notification-content"
