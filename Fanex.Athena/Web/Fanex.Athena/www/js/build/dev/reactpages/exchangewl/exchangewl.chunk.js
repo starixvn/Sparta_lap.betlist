@@ -4823,7 +4823,7 @@ var Table = function (_Component) {
         value: function _calculateBodyHeight() {
             var windowHeight = window.innerHeight;
             var footerHeight = this.footerWrapper ? this.footerWrapper.offsetHeight : 0;
-            var tableContentHeight = windowHeight - (this.bodyWrapper.offsetTop + footerHeight + 30) - this.adjustedHeight;
+            var tableContentHeight = windowHeight - (this.bodyWrapper.offsetTop + footerHeight + 40) - this.adjustedHeight;
 
             return tableContentHeight;
         }
@@ -6388,11 +6388,32 @@ var PredefinedRanges = function (_Component) {
     var _this = _possibleConstructorReturn(this, (PredefinedRanges.__proto__ || Object.getPrototypeOf(PredefinedRanges)).call(this, props, context));
 
     _this.styles = _this.props.theme;
-    _this.selectedItem = null;
+    _this.selectedItem = _this._getSelectedRange();
     return _this;
   }
 
   _createClass(PredefinedRanges, [{
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      if (this.props.range !== nextProps.range) {
+        this.selectedItem = this._getSelectedRange();
+      }
+    }
+  }, {
+    key: '_getSelectedRange',
+    value: function _getSelectedRange() {
+      var _props = this.props,
+          ranges = _props.ranges,
+          range = _props.range;
+
+
+      return Object.keys(ranges).find(function (name) {
+        var currentRange = ranges[name];
+
+        return range.startDate.isSame(currentRange.startDate, "day") && range.endDate.isSame(currentRange.endDate, "day");
+      });
+    }
+  }, {
     key: 'handleSelect',
     value: function handleSelect(name, event) {
       event.preventDefault();
@@ -6417,21 +6438,23 @@ var PredefinedRanges = function (_Component) {
     value: function renderRangeList(classes) {
       var _this2 = this;
 
-      var _props = this.props,
-          ranges = _props.ranges,
-          range = _props.range,
-          onlyClasses = _props.onlyClasses;
+      var _props2 = this.props,
+          ranges = _props2.ranges,
+          range = _props2.range,
+          onlyClasses = _props2.onlyClasses;
       var styles = this.styles;
 
+      var gotActiveRange = false;
 
       return Object.keys(ranges).map(function (name) {
         var _classnames;
 
         var active = _this2.selectedItem === name;
+        gotActiveRange = !gotActiveRange && active;
 
-        var style = _extends({}, styles['PredefinedRangesItem'], active ? styles['PredefinedRangesItemActive'] : {});
+        var style = _extends({}, styles['PredefinedRangesItem'], gotActiveRange ? styles['PredefinedRangesItemActive'] : {});
 
-        var predefinedRangeClass = (0, _classnames3.default)((_classnames = {}, _defineProperty(_classnames, classes.predefinedRangesItem, true), _defineProperty(_classnames, classes.predefinedRangesItemActive, active), _classnames));
+        var predefinedRangeClass = (0, _classnames3.default)((_classnames = {}, _defineProperty(_classnames, classes.predefinedRangesItem, true), _defineProperty(_classnames, classes.predefinedRangesItemActive, gotActiveRange), _classnames));
 
         return _react2.default.createElement(
           'a',
@@ -6453,10 +6476,10 @@ var PredefinedRanges = function (_Component) {
     value: function renderRangeButtons(classes) {
       var _this3 = this;
 
-      var _props2 = this.props,
-          style = _props2.style,
-          onlyClasses = _props2.onlyClasses,
-          locale = _props2.locale;
+      var _props3 = this.props,
+          style = _props3.style,
+          onlyClasses = _props3.onlyClasses,
+          locale = _props3.locale;
 
       var locales = _extends({}, _defaultOptions2.default.locale, locale);
       var styles = this.styles;
@@ -6494,10 +6517,10 @@ var PredefinedRanges = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _props3 = this.props,
-          style = _props3.style,
-          onlyClasses = _props3.onlyClasses,
-          classNames = _props3.classNames;
+      var _props4 = this.props,
+          style = _props4.style,
+          onlyClasses = _props4.onlyClasses,
+          classNames = _props4.classNames;
       var styles = this.styles;
 
 

@@ -18746,7 +18746,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
             var popupContent = '<div class="view-notification">'
                                 + '<p class="subject">' + Site.getSingleResource("Subject") + ": " + message.Subject + '</p>'
-                                + '<p class="date-time">' + moment(message.DateTime).format("MM/DD/YYYY hh:mm:ss A") + '</p>'
+                                + '<p class="date-time">' + moment(message.DateTime).format("MM/DD/YYYY") + '</p>'
                                 + '<div class="content">' + (message.Content || '') + '</div>'
                                 + '</div>';
 
@@ -18760,7 +18760,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
             var $container = $notificationDdl.find(".first-notification").parent();
             if (data.DataList !== null && data.DataList.length > 0) {
                 data.DataList.forEach(function (item, index) {
-                    var time = moment(item.DateTime).format("hh:mm:ss A MM/DD/YYYY");
+                    var time = moment(item.DateTime).format("MM/DD/YYYY");
                     var subject = item.Subject || '';
                     var message = $($.format(NOTIFICATION_ITEM,
                         index,
