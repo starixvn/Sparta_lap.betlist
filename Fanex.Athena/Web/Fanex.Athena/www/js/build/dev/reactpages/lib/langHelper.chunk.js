@@ -1,25 +1,69 @@
 webpackJsonp([4],{
 
-/***/ 700:
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(9);
-__webpack_require__(701);
-__webpack_require__(702);
-__webpack_require__(703);
-__webpack_require__(704);
-module.exports = __webpack_require__(705);
-
-
-/***/ }),
-
-/***/ 701:
+/***/ 10:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 1/5/2018 3:57:38 PM
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var DEFAULT_RESOURCE_NAME = "_language_en_US";
+var langCode = window.PageLanguage || "en-US";
+var resourceName = "_language_" + langCode.replace("-", "_");
+
+var LangHelper = function () {
+    function LangHelper() {
+        _classCallCheck(this, LangHelper);
+    }
+
+    _createClass(LangHelper, null, [{
+        key: "getSingleResource",
+        value: function getSingleResource(key) {
+            var langHandler = window[resourceName];
+
+            return langHandler && langHandler[key] || window[DEFAULT_RESOURCE_NAME] && window[DEFAULT_RESOURCE_NAME][key] || key;
+        }
+    }, {
+        key: "currentLanguage",
+        get: function get() {
+            return langCode;
+        }
+    }]);
+
+    return LangHelper;
+}();
+
+exports.default = LangHelper;
+
+/***/ }),
+
+/***/ 713:
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(10);
+__webpack_require__(714);
+__webpack_require__(715);
+__webpack_require__(716);
+__webpack_require__(717);
+module.exports = __webpack_require__(718);
+
+
+/***/ }),
+
+/***/ 714:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+// Generated at: 1/18/2018 10:33:23 AM
 window._language_en_US = {
   AA: "AA",
   AB: "AB",
@@ -311,6 +355,7 @@ window._language_en_US = {
   Euro: "Euro",
   Even: "Even",
   Event: "Event",
+  EventDate: "Event Date",
   Events: "Events",
   ExcelExceedRowsMsg: "This file exceeded 65535 entries. Please contact administrator for more details.",
   ExcludeTestData: "Exclude Test Data",
@@ -981,13 +1026,13 @@ window._language_en_US = {
 
 /***/ }),
 
-/***/ 702:
+/***/ 715:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 12/19/2017 3:47:38 PM
+// Generated at: 1/18/2018 10:33:23 AM
 window._language_ko_KR = {
   AA: "AA",
   ABComm: "AllBet 수수료",
@@ -1753,13 +1798,13 @@ window._language_ko_KR = {
 
 /***/ }),
 
-/***/ 703:
+/***/ 716:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 1/5/2018 3:57:38 PM
+// Generated at: 1/18/2018 10:33:23 AM
 window._language_zh_CN = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -1999,6 +2044,7 @@ window._language_zh_CN = {
   Euro: "欧洲",
   Even: "双",
   Event: "项目",
+  EventDate: "赛事日期",
   Events: "项目",
   ExcludeTestData: "排除测试数据",
   ExpiredTimeParamMsg: "该网址已过期",
@@ -2580,13 +2626,13 @@ window._language_zh_CN = {
 
 /***/ }),
 
-/***/ 704:
+/***/ 717:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 1/5/2018 3:57:38 PM
+// Generated at: 1/18/2018 10:33:23 AM
 window._language_zh_Hans = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -2816,6 +2862,7 @@ window._language_zh_Hans = {
   Euro: "欧洲",
   Even: "双",
   Event: "项目",
+  EventDate: "赛事日期",
   Events: "项目",
   ExcludeTestData: "排除测试数据",
   ExpiredTimeParamMsg: "该网址已过期",
@@ -3393,13 +3440,13 @@ window._language_zh_Hans = {
 
 /***/ }),
 
-/***/ 705:
+/***/ 718:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 1/5/2018 3:57:38 PM
+// Generated at: 1/18/2018 10:33:23 AM
 window._language_zh_TW = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -3639,6 +3686,7 @@ window._language_zh_TW = {
   Euro: "歐洲",
   Even: "雙",
   Event: "項目",
+  EventDate: "賽事日期",
   Events: "項目",
   ExcludeTestData: "排除測試數據",
   ExpiredTimeParamMsg: "該網址已過期",
@@ -4218,51 +4266,7 @@ window._language_zh_TW = {
   YouNotChooseAnyCustomerMsg: "您還沒有選擇任何會員"
 };
 
-/***/ }),
-
-/***/ 9:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var DEFAULT_RESOURCE_NAME = "_language_en_US";
-var langCode = window.PageLanguage || "en-US";
-var resourceName = "_language_" + langCode.replace("-", "_");
-
-var LangHelper = function () {
-    function LangHelper() {
-        _classCallCheck(this, LangHelper);
-    }
-
-    _createClass(LangHelper, null, [{
-        key: "getSingleResource",
-        value: function getSingleResource(key) {
-            var langHandler = window[resourceName];
-
-            return langHandler && langHandler[key] || window[DEFAULT_RESOURCE_NAME] && window[DEFAULT_RESOURCE_NAME][key] || key;
-        }
-    }, {
-        key: "currentLanguage",
-        get: function get() {
-            return langCode;
-        }
-    }]);
-
-    return LangHelper;
-}();
-
-exports.default = LangHelper;
-
 /***/ })
 
-},[700]);
+},[713]);
 //# sourceMappingURL=langHelper.chunk.js.map
