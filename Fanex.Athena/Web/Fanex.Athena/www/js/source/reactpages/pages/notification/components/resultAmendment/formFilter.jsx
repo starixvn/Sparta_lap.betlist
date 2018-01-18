@@ -78,7 +78,7 @@ export class FormFilter extends Component {
                 <div className="row">
                     <div className="col-12 col-md-4 col-sm-4 col-lg-3 col-xl-3">
                         <div className="form-group">
-                            <label className="label-text">{LangHelper.getSingleResource("Date")}</label>
+                            <label className="label-text">{LangHelper.getSingleResource("EventDate")}</label>
                             {this._renderDateRange()}
                         </div>
                     </div>

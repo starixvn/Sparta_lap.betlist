@@ -33,20 +33,6 @@ namespace Fanex.Athena.Extension.Utility
 
         [SuppressMessage("Sonar Code Smell", "S3996:UriPropertiesShouldNotBeStrings",
             Justification = "Reviewed. Suppression is OK here.")]
-        public string NotificationTypeApiUrl
-        {
-            get { return GetValue(nameof(NotificationTypeApiUrl)); }
-        }
-
-        [SuppressMessage("Sonar Code Smell", "S3996:UriPropertiesShouldNotBeStrings",
-            Justification = "Reviewed. Suppression is OK here.")]
-        public string NotificationApiUrl
-        {
-            get { return GetValue(nameof(NotificationApiUrl)); }
-        }
-
-        [SuppressMessage("Sonar Code Smell", "S3996:UriPropertiesShouldNotBeStrings",
-            Justification = "Reviewed. Suppression is OK here.")]
         public string ResultAmendmentApiUrl
         {
             get { return GetValue(nameof(ResultAmendmentApiUrl)); }

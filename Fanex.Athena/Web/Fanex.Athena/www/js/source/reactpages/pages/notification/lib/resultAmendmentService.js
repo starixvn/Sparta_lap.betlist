@@ -4,7 +4,7 @@ import Site from '../../../lib/site'
 const headerText = {
     index: "#",
     ticketList: LangHelper.getSingleResource("TicketList"),
-    dateTime: `${LangHelper.getSingleResource("Date")}/${LangHelper.getSingleResource("Time")}`,
+    dateTime: LangHelper.getSingleResource("EventDate"),
     content: LangHelper.getSingleResource("Content")
 }
 

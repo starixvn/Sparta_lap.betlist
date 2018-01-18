@@ -644,7 +644,7 @@ var MomentFormat = exports.MomentFormat = {
 
 /***/ }),
 
-/***/ 406:
+/***/ 410:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -655,11 +655,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.ActionCreators = undefined;
 
-var _dataHandlerAction = __webpack_require__(719);
+var _dataHandlerAction = __webpack_require__(723);
 
 var dataHandlerAction = _interopRequireWildcard(_dataHandlerAction);
 
-var _filterHandlerAction = __webpack_require__(720);
+var _filterHandlerAction = __webpack_require__(724);
 
 var filterHandlerAction = _interopRequireWildcard(_filterHandlerAction);
 
@@ -1334,7 +1334,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 716:
+/***/ 720:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1354,7 +1354,7 @@ var _reactDom = __webpack_require__(7);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _AppContainer = __webpack_require__(717);
+var _AppContainer = __webpack_require__(721);
 
 var _AppContainer2 = _interopRequireDefault(_AppContainer);
 
@@ -1368,7 +1368,7 @@ var _reduxThunk = __webpack_require__(111);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-var _resultAmendment = __webpack_require__(724);
+var _resultAmendment = __webpack_require__(728);
 
 var _resultAmendment2 = _interopRequireDefault(_resultAmendment);
 
@@ -1432,7 +1432,7 @@ _reactDom2.default.render(_react2.default.createElement(App, null), document.get
 
 /***/ }),
 
-/***/ 717:
+/***/ 721:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1453,11 +1453,11 @@ var _reactRedux = __webpack_require__(23);
 
 var _redux = __webpack_require__(17);
 
-var _DataGrid = __webpack_require__(718);
+var _DataGrid = __webpack_require__(722);
 
 var _DataGrid2 = _interopRequireDefault(_DataGrid);
 
-var _FormFilter = __webpack_require__(723);
+var _FormFilter = __webpack_require__(727);
 
 var _FormFilter2 = _interopRequireDefault(_FormFilter);
 
@@ -1514,7 +1514,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps)(AppContainer);
 
 /***/ }),
 
-/***/ 718:
+/***/ 722:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1533,7 +1533,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(23);
 
-var _resultAmendment = __webpack_require__(406);
+var _resultAmendment = __webpack_require__(410);
 
 var _redux = __webpack_require__(17);
 
@@ -1551,7 +1551,7 @@ var _NoDataTitle = __webpack_require__(85);
 
 var _NoDataTitle2 = _interopRequireDefault(_NoDataTitle);
 
-var _resultAmendmentService = __webpack_require__(721);
+var _resultAmendmentService = __webpack_require__(725);
 
 var _resultAmendmentService2 = _interopRequireDefault(_resultAmendmentService);
 
@@ -1559,7 +1559,7 @@ var _site = __webpack_require__(24);
 
 var _site2 = _interopRequireDefault(_site);
 
-var _CollapsibleRow = __webpack_require__(722);
+var _CollapsibleRow = __webpack_require__(726);
 
 var _CollapsibleRow2 = _interopRequireDefault(_CollapsibleRow);
 
@@ -1711,7 +1711,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
 
             var _loop = function _loop(i) {
                 var item = data[i];
-                var datetimeString = (0, _moment2.default)(item.DateTime).format("MM/DD/YYYY hh:mm:ss A");
+                var datetimeString = (0, _moment2.default)(item.DateTime).format("MM/DD/YYYY");
                 rows.push(_react2.default.createElement(
                     _fixedTableHeader.Row,
                     { key: 'tr' + i, className: item.IsRead ? "" : "unread" },
@@ -1821,7 +1821,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
 /***/ }),
 
-/***/ 719:
+/***/ 723:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1921,7 +1921,7 @@ function exportAttachment(params) {
 
 /***/ }),
 
-/***/ 720:
+/***/ 724:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1959,7 +1959,7 @@ var setParam = exports.setParam = function setParam(param) {
 
 /***/ }),
 
-/***/ 721:
+/***/ 725:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1986,7 +1986,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var headerText = {
     index: "#",
     ticketList: _langHelper2.default.getSingleResource("TicketList"),
-    dateTime: _langHelper2.default.getSingleResource("Date") + '/' + _langHelper2.default.getSingleResource("Time"),
+    dateTime: _langHelper2.default.getSingleResource("EventDate"),
     content: _langHelper2.default.getSingleResource("Content")
 };
 
@@ -2017,7 +2017,7 @@ exports.default = Service;
 
 /***/ }),
 
-/***/ 722:
+/***/ 726:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2126,7 +2126,7 @@ exports.default = CollapsibleRow;
 
 /***/ }),
 
-/***/ 723:
+/***/ 727:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2145,7 +2145,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(23);
 
-var _resultAmendment = __webpack_require__(406);
+var _resultAmendment = __webpack_require__(410);
 
 var _redux = __webpack_require__(17);
 
@@ -2266,7 +2266,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                             _react2.default.createElement(
                                 'label',
                                 { className: 'label-text' },
-                                _langHelper2.default.getSingleResource("Date")
+                                _langHelper2.default.getSingleResource("EventDate")
                             ),
                             this._renderDateRange()
                         )
@@ -2320,7 +2320,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
 /***/ }),
 
-/***/ 724:
+/***/ 728:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2332,11 +2332,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(17);
 
-var _dataHandlerReducer = __webpack_require__(725);
+var _dataHandlerReducer = __webpack_require__(729);
 
 var dataHandlerReducer = _interopRequireWildcard(_dataHandlerReducer);
 
-var _filterHandlerReducer = __webpack_require__(726);
+var _filterHandlerReducer = __webpack_require__(730);
 
 var filterHandlerReducer = _interopRequireWildcard(_filterHandlerReducer);
 
@@ -2344,7 +2344,7 @@ var _loaderReducer = __webpack_require__(101);
 
 var loaderReducer = _interopRequireWildcard(_loaderReducer);
 
-var _xsrfTokenReducer = __webpack_require__(727);
+var _xsrfTokenReducer = __webpack_require__(731);
 
 var xsrfTokenReducer = _interopRequireWildcard(_xsrfTokenReducer);
 
@@ -2354,7 +2354,7 @@ exports.default = (0, _redux.combineReducers)(Object.assign(dataHandlerReducer, 
 
 /***/ }),
 
-/***/ 725:
+/***/ 729:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2385,7 +2385,7 @@ var gridData = exports.gridData = (0, _createReducer3.default)({}, _defineProper
 
 /***/ }),
 
-/***/ 726:
+/***/ 730:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2428,7 +2428,7 @@ var licenseeName = exports.licenseeName = (0, _createReducer6.default)({}, _defi
 
 /***/ }),
 
-/***/ 727:
+/***/ 731:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2705,7 +2705,7 @@ var Table = function (_Component) {
         value: function _calculateBodyHeight() {
             var windowHeight = window.innerHeight;
             var footerHeight = this.footerWrapper ? this.footerWrapper.offsetHeight : 0;
-            var tableContentHeight = windowHeight - (this.bodyWrapper.offsetTop + footerHeight + 30) - this.adjustedHeight;
+            var tableContentHeight = windowHeight - (this.bodyWrapper.offsetTop + footerHeight + 40) - this.adjustedHeight;
 
             return tableContentHeight;
         }
@@ -4271,11 +4271,32 @@ var PredefinedRanges = function (_Component) {
     var _this = _possibleConstructorReturn(this, (PredefinedRanges.__proto__ || Object.getPrototypeOf(PredefinedRanges)).call(this, props, context));
 
     _this.styles = _this.props.theme;
-    _this.selectedItem = null;
+    _this.selectedItem = _this._getSelectedRange();
     return _this;
   }
 
   _createClass(PredefinedRanges, [{
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      if (this.props.range !== nextProps.range) {
+        this.selectedItem = this._getSelectedRange();
+      }
+    }
+  }, {
+    key: '_getSelectedRange',
+    value: function _getSelectedRange() {
+      var _props = this.props,
+          ranges = _props.ranges,
+          range = _props.range;
+
+
+      return Object.keys(ranges).find(function (name) {
+        var currentRange = ranges[name];
+
+        return range.startDate.isSame(currentRange.startDate, "day") && range.endDate.isSame(currentRange.endDate, "day");
+      });
+    }
+  }, {
     key: 'handleSelect',
     value: function handleSelect(name, event) {
       event.preventDefault();
@@ -4300,21 +4321,23 @@ var PredefinedRanges = function (_Component) {
     value: function renderRangeList(classes) {
       var _this2 = this;
 
-      var _props = this.props,
-          ranges = _props.ranges,
-          range = _props.range,
-          onlyClasses = _props.onlyClasses;
+      var _props2 = this.props,
+          ranges = _props2.ranges,
+          range = _props2.range,
+          onlyClasses = _props2.onlyClasses;
       var styles = this.styles;
 
+      var gotActiveRange = false;
 
       return Object.keys(ranges).map(function (name) {
         var _classnames;
 
         var active = _this2.selectedItem === name;
+        gotActiveRange = !gotActiveRange && active;
 
-        var style = _extends({}, styles['PredefinedRangesItem'], active ? styles['PredefinedRangesItemActive'] : {});
+        var style = _extends({}, styles['PredefinedRangesItem'], gotActiveRange ? styles['PredefinedRangesItemActive'] : {});
 
-        var predefinedRangeClass = (0, _classnames3.default)((_classnames = {}, _defineProperty(_classnames, classes.predefinedRangesItem, true), _defineProperty(_classnames, classes.predefinedRangesItemActive, active), _classnames));
+        var predefinedRangeClass = (0, _classnames3.default)((_classnames = {}, _defineProperty(_classnames, classes.predefinedRangesItem, true), _defineProperty(_classnames, classes.predefinedRangesItemActive, gotActiveRange), _classnames));
 
         return _react2.default.createElement(
           'a',
@@ -4336,10 +4359,10 @@ var PredefinedRanges = function (_Component) {
     value: function renderRangeButtons(classes) {
       var _this3 = this;
 
-      var _props2 = this.props,
-          style = _props2.style,
-          onlyClasses = _props2.onlyClasses,
-          locale = _props2.locale;
+      var _props3 = this.props,
+          style = _props3.style,
+          onlyClasses = _props3.onlyClasses,
+          locale = _props3.locale;
 
       var locales = _extends({}, _defaultOptions2.default.locale, locale);
       var styles = this.styles;
@@ -4377,10 +4400,10 @@ var PredefinedRanges = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _props3 = this.props,
-          style = _props3.style,
-          onlyClasses = _props3.onlyClasses,
-          classNames = _props3.classNames;
+      var _props4 = this.props,
+          style = _props4.style,
+          onlyClasses = _props4.onlyClasses,
+          classNames = _props4.classNames;
       var styles = this.styles;
 
 
@@ -4606,5 +4629,5 @@ exports.default = Loader;
 
 /***/ })
 
-},[716]);
+},[720]);
 //# sourceMappingURL=notification.chunk.js.map

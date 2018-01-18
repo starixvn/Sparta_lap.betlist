@@ -124,7 +124,6 @@
     <Compile Include="DTO\Notification.cs" />
     <Compile Include="DTO\NotificationMessage.cs" />
     <Compile Include="DTO\ResultAmendment.cs" />
-    <Compile Include="DTO\GeneralNotification.cs" />
     <Compile Include="DTO\PlatformWinLossSummary.cs" />
     <Compile Include="DTO\ColossusBetWinLoss.cs" />
     <Compile Include="DTO\LicenseeWinLossByTimeZone.cs" />

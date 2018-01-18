@@ -1,13 +1,12 @@
 ﻿namespace Fanex.Athena.Model.Report.ViewModel
 {
     using System;
-    using System.Collections.Generic;
 
     public class NotificationViewModel
     {
-        public DateTime FromDate { get; set; } = DateTime.Today;
+        public DateTime FromDate { get; set; }
 
-        public DateTime ToDate { get; set; } = DateTime.Today;
+        public DateTime ToDate { get; set; }
 
         public string LicenseeName { get; set; }
     }

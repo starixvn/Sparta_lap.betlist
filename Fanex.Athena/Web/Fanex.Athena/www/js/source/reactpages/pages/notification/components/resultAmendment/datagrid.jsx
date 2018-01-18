@@ -110,7 +110,7 @@ export class DataGrid extends Component {
         let index = ((this.props.param.PageIndex - 1) * this.props.param.PageSize) + 1;
         for (let i = 0; i < data.length; i++) {
             const item = data[i];
-            const datetimeString = moment(item.DateTime).format("MM/DD/YYYY hh:mm:ss A");
+            const datetimeString = moment(item.DateTime).format("MM/DD/YYYY");
             rows.push(
                 <Row key={`tr${i}`} className={ item.IsRead ? "" : "unread" }>
                     <Cell title={index} className="center-align">{index}</Cell>

@@ -1,4 +1,4 @@
-﻿// Generated at: 1/5/2018 3:57:38 PM
+﻿// Generated at: 1/18/2018 10:33:23 AM
 window._language_en_US = {
 AA:"AA",
 AB:"AB",
@@ -290,6 +290,7 @@ EUR:"EUR",
 Euro:"Euro",
 Even:"Even",
 Event:"Event",
+EventDate:"Event Date",
 Events:"Events",
 ExcelExceedRowsMsg:"This file exceeded 65535 entries. Please contact administrator for more details.",
 ExcludeTestData:"Exclude Test Data",

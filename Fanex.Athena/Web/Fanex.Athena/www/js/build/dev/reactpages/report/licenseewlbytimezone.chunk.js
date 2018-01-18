@@ -1686,11 +1686,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.ActionCreators = undefined;
 
-var _dataHandlerAction = __webpack_require__(730);
+var _dataHandlerAction = __webpack_require__(734);
 
 var dataHandlerAction = _interopRequireWildcard(_dataHandlerAction);
 
-var _filterHandlerAction = __webpack_require__(731);
+var _filterHandlerAction = __webpack_require__(735);
 
 var filterHandlerAction = _interopRequireWildcard(_filterHandlerAction);
 
@@ -1698,7 +1698,7 @@ var _productAction = __webpack_require__(171);
 
 var productAction = _interopRequireWildcard(_productAction);
 
-var _currencyAction = __webpack_require__(732);
+var _currencyAction = __webpack_require__(736);
 
 var currencyAction = _interopRequireWildcard(_currencyAction);
 
@@ -1710,11 +1710,11 @@ var _loaderAction = __webpack_require__(76);
 
 var loaderAction = _interopRequireWildcard(_loaderAction);
 
-var _excludeTestAction = __webpack_require__(733);
+var _excludeTestAction = __webpack_require__(737);
 
 var excludeTestAction = _interopRequireWildcard(_excludeTestAction);
 
-var _userGuideAction = __webpack_require__(734);
+var _userGuideAction = __webpack_require__(738);
 
 var userGuideAction = _interopRequireWildcard(_userGuideAction);
 
@@ -4197,7 +4197,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 728:
+/***/ 732:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4217,17 +4217,17 @@ var _reactDom = __webpack_require__(7);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _AppContainer = __webpack_require__(729);
+var _AppContainer = __webpack_require__(733);
 
 var _AppContainer2 = _interopRequireDefault(_AppContainer);
 
 var _reactRedux = __webpack_require__(23);
 
-var _index = __webpack_require__(741);
+var _index = __webpack_require__(745);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _store = __webpack_require__(747);
+var _store = __webpack_require__(751);
 
 var _store2 = _interopRequireDefault(_store);
 
@@ -4272,7 +4272,7 @@ _reactDom2.default.render(_react2.default.createElement(App, null), document.get
 
 /***/ }),
 
-/***/ 729:
+/***/ 733:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4295,11 +4295,11 @@ var _redux = __webpack_require__(17);
 
 var _index = __webpack_require__(188);
 
-var _datagrid = __webpack_require__(735);
+var _datagrid = __webpack_require__(739);
 
 var _datagrid2 = _interopRequireDefault(_datagrid);
 
-var _formFilter = __webpack_require__(736);
+var _formFilter = __webpack_require__(740);
 
 var _formFilter2 = _interopRequireDefault(_formFilter);
 
@@ -4356,7 +4356,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
 /***/ }),
 
-/***/ 730:
+/***/ 734:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4418,7 +4418,7 @@ function setGridData(data) {
 
 /***/ }),
 
-/***/ 731:
+/***/ 735:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4484,7 +4484,7 @@ var changeIsIncludeDrawData = exports.changeIsIncludeDrawData = function changeI
 
 /***/ }),
 
-/***/ 732:
+/***/ 736:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4510,7 +4510,7 @@ var setSelectedCurrency = exports.setSelectedCurrency = function setSelectedCurr
 
 /***/ }),
 
-/***/ 733:
+/***/ 737:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4536,7 +4536,7 @@ var changeIsExcludeTest = exports.changeIsExcludeTest = function changeIsExclude
 
 /***/ }),
 
-/***/ 734:
+/***/ 738:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4591,7 +4591,7 @@ var setUserGuideContent = exports.setUserGuideContent = function setUserGuideCon
 
 /***/ }),
 
-/***/ 735:
+/***/ 739:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4940,7 +4940,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
 /***/ }),
 
-/***/ 736:
+/***/ 740:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4977,7 +4977,7 @@ var _langHelper = __webpack_require__(9);
 
 var _langHelper2 = _interopRequireDefault(_langHelper);
 
-var _reportExcel = __webpack_require__(737);
+var _reportExcel = __webpack_require__(741);
 
 var _reportExcel2 = _interopRequireDefault(_reportExcel);
 
@@ -4991,7 +4991,7 @@ var _service2 = _interopRequireDefault(_service);
 
 var _settingConst = __webpack_require__(190);
 
-var _UserGuide = __webpack_require__(738);
+var _UserGuide = __webpack_require__(742);
 
 var _UserGuide2 = _interopRequireDefault(_UserGuide);
 
@@ -5476,7 +5476,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
 /***/ }),
 
-/***/ 737:
+/***/ 741:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5718,7 +5718,7 @@ exports.default = ReportExcel;
 
 /***/ }),
 
-/***/ 738:
+/***/ 742:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5738,7 +5738,7 @@ var _reactDom = __webpack_require__(7);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _popup = __webpack_require__(739);
+var _popup = __webpack_require__(743);
 
 var _popup2 = _interopRequireDefault(_popup);
 
@@ -5820,7 +5820,7 @@ exports.default = UserGuide;
 
 /***/ }),
 
-/***/ 739:
+/***/ 743:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5840,7 +5840,7 @@ var _reactDom = __webpack_require__(7);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _constants = __webpack_require__(740);
+var _constants = __webpack_require__(744);
 
 var _propTypes = __webpack_require__(2);
 
@@ -5935,7 +5935,7 @@ exports.default = Popup;
 
 /***/ }),
 
-/***/ 740:
+/***/ 744:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5949,7 +5949,7 @@ var DEFAULT_HEIGHT = exports.DEFAULT_HEIGHT = '55%';
 
 /***/ }),
 
-/***/ 741:
+/***/ 745:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5961,11 +5961,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(17);
 
-var _dataHandlerReducer = __webpack_require__(742);
+var _dataHandlerReducer = __webpack_require__(746);
 
 var dataHandlerReducer = _interopRequireWildcard(_dataHandlerReducer);
 
-var _filterHandlerReducer = __webpack_require__(743);
+var _filterHandlerReducer = __webpack_require__(747);
 
 var filterHandlerReducer = _interopRequireWildcard(_filterHandlerReducer);
 
@@ -5973,7 +5973,7 @@ var _productReducer = __webpack_require__(186);
 
 var productReducer = _interopRequireWildcard(_productReducer);
 
-var _currencyReducer = __webpack_require__(744);
+var _currencyReducer = __webpack_require__(748);
 
 var currencyReducer = _interopRequireWildcard(_currencyReducer);
 
@@ -5985,11 +5985,11 @@ var _loaderReducer = __webpack_require__(101);
 
 var loaderReducer = _interopRequireWildcard(_loaderReducer);
 
-var _excludeTestReducer = __webpack_require__(745);
+var _excludeTestReducer = __webpack_require__(749);
 
 var excludeTestReducer = _interopRequireWildcard(_excludeTestReducer);
 
-var _userGuideReducer = __webpack_require__(746);
+var _userGuideReducer = __webpack_require__(750);
 
 var userGuideReducer = _interopRequireWildcard(_userGuideReducer);
 
@@ -5999,7 +5999,7 @@ exports.default = (0, _redux.combineReducers)(Object.assign(dataHandlerReducer, 
 
 /***/ }),
 
-/***/ 742:
+/***/ 746:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6030,7 +6030,7 @@ var gridData = exports.gridData = (0, _createReducer3.default)({}, _defineProper
 
 /***/ }),
 
-/***/ 743:
+/***/ 747:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6097,7 +6097,7 @@ var dateConstraint = exports.dateConstraint = (0, _createReducer12.default)({}, 
 
 /***/ }),
 
-/***/ 744:
+/***/ 748:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6132,7 +6132,7 @@ var currencyList = exports.currencyList = (0, _createReducer4.default)({}, _defi
 
 /***/ }),
 
-/***/ 745:
+/***/ 749:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6163,7 +6163,7 @@ var isExcludeTest = exports.isExcludeTest = (0, _createReducer3.default)({}, _de
 
 /***/ }),
 
-/***/ 746:
+/***/ 750:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6194,7 +6194,7 @@ var userGuideContent = exports.userGuideContent = (0, _createReducer3.default)({
 
 /***/ }),
 
-/***/ 747:
+/***/ 751:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6212,7 +6212,7 @@ var _reduxThunk = __webpack_require__(111);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-var _logger = __webpack_require__(748);
+var _logger = __webpack_require__(752);
 
 var _logger2 = _interopRequireDefault(_logger);
 
@@ -6244,7 +6244,7 @@ exports.default = Store;
 
 /***/ }),
 
-/***/ 748:
+/***/ 752:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6536,7 +6536,7 @@ var Table = function (_Component) {
         value: function _calculateBodyHeight() {
             var windowHeight = window.innerHeight;
             var footerHeight = this.footerWrapper ? this.footerWrapper.offsetHeight : 0;
-            var tableContentHeight = windowHeight - (this.bodyWrapper.offsetTop + footerHeight + 30) - this.adjustedHeight;
+            var tableContentHeight = windowHeight - (this.bodyWrapper.offsetTop + footerHeight + 40) - this.adjustedHeight;
 
             return tableContentHeight;
         }
@@ -9143,11 +9143,32 @@ var PredefinedRanges = function (_Component) {
     var _this = _possibleConstructorReturn(this, (PredefinedRanges.__proto__ || Object.getPrototypeOf(PredefinedRanges)).call(this, props, context));
 
     _this.styles = _this.props.theme;
-    _this.selectedItem = null;
+    _this.selectedItem = _this._getSelectedRange();
     return _this;
   }
 
   _createClass(PredefinedRanges, [{
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      if (this.props.range !== nextProps.range) {
+        this.selectedItem = this._getSelectedRange();
+      }
+    }
+  }, {
+    key: '_getSelectedRange',
+    value: function _getSelectedRange() {
+      var _props = this.props,
+          ranges = _props.ranges,
+          range = _props.range;
+
+
+      return Object.keys(ranges).find(function (name) {
+        var currentRange = ranges[name];
+
+        return range.startDate.isSame(currentRange.startDate, "day") && range.endDate.isSame(currentRange.endDate, "day");
+      });
+    }
+  }, {
     key: 'handleSelect',
     value: function handleSelect(name, event) {
       event.preventDefault();
@@ -9172,21 +9193,23 @@ var PredefinedRanges = function (_Component) {
     value: function renderRangeList(classes) {
       var _this2 = this;
 
-      var _props = this.props,
-          ranges = _props.ranges,
-          range = _props.range,
-          onlyClasses = _props.onlyClasses;
+      var _props2 = this.props,
+          ranges = _props2.ranges,
+          range = _props2.range,
+          onlyClasses = _props2.onlyClasses;
       var styles = this.styles;
 
+      var gotActiveRange = false;
 
       return Object.keys(ranges).map(function (name) {
         var _classnames;
 
         var active = _this2.selectedItem === name;
+        gotActiveRange = !gotActiveRange && active;
 
-        var style = _extends({}, styles['PredefinedRangesItem'], active ? styles['PredefinedRangesItemActive'] : {});
+        var style = _extends({}, styles['PredefinedRangesItem'], gotActiveRange ? styles['PredefinedRangesItemActive'] : {});
 
-        var predefinedRangeClass = (0, _classnames3.default)((_classnames = {}, _defineProperty(_classnames, classes.predefinedRangesItem, true), _defineProperty(_classnames, classes.predefinedRangesItemActive, active), _classnames));
+        var predefinedRangeClass = (0, _classnames3.default)((_classnames = {}, _defineProperty(_classnames, classes.predefinedRangesItem, true), _defineProperty(_classnames, classes.predefinedRangesItemActive, gotActiveRange), _classnames));
 
         return _react2.default.createElement(
           'a',
@@ -9208,10 +9231,10 @@ var PredefinedRanges = function (_Component) {
     value: function renderRangeButtons(classes) {
       var _this3 = this;
 
-      var _props2 = this.props,
-          style = _props2.style,
-          onlyClasses = _props2.onlyClasses,
-          locale = _props2.locale;
+      var _props3 = this.props,
+          style = _props3.style,
+          onlyClasses = _props3.onlyClasses,
+          locale = _props3.locale;
 
       var locales = _extends({}, _defaultOptions2.default.locale, locale);
       var styles = this.styles;
@@ -9249,10 +9272,10 @@ var PredefinedRanges = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _props3 = this.props,
-          style = _props3.style,
-          onlyClasses = _props3.onlyClasses,
-          classNames = _props3.classNames;
+      var _props4 = this.props,
+          style = _props4.style,
+          onlyClasses = _props4.onlyClasses,
+          classNames = _props4.classNames;
       var styles = this.styles;
 
 
@@ -9478,5 +9501,5 @@ exports.default = Loader;
 
 /***/ })
 
-},[728]);
+},[732]);
 //# sourceMappingURL=licenseewlbytimezone.chunk.js.map

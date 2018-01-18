@@ -62,47 +62,6 @@
         }
 
         [Test]
-        public void Index_InValidMetaModel_ReturnEmptyResult()
-        {
-            // Arrange
-            var metaModel = new NotificationMetaModel
-            {
-                FromDate = DateTime.Today,
-                ToDate = DateTime.Today.AddDays(-1)
-            };
-
-            // Action
-            var result = _controller.Index(metaModel);
-
-            // Asset
-            Assert.Multiple(() =>
-            {
-                _service.DidNotReceive().GetGeneral(Arg.Any<NotificationMetaModel>());
-                Assert.That(result.TotalRows, Is.Zero);
-                Assert.That(result.DataList, Is.Empty);
-            });
-        }
-
-        [Test]
-        public void Index_WhenCall_CallServiceWithCorrectParameter()
-        {
-            // Arrange
-            var metaModel = new NotificationMetaModel();
-
-            // Action
-            _controller.Index(metaModel);
-
-            // Asset
-            Assert.Multiple(() =>
-            {
-                _service.Received().GetGeneral(Arg.Any<NotificationMetaModel>());
-                Assert.That(metaModel.UserName, Is.EqualTo(SessionUserName));
-                Assert.That(metaModel.Language, Is.EqualTo(SessionLanguage));
-                Assert.That(metaModel.LicenseeName, Is.EqualTo(SessionLicenseeName));
-            });
-        }
-
-        [Test]
         public void ResultAmendment_InValidMetaModel_ReturnEmptyResult()
         {
             // Arrange
