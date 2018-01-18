@@ -19,7 +19,7 @@ module.exports = __webpack_require__(711);
 "use strict";
 
 
-// Generated at: 1/17/2018 3:46:19 PM
+// Generated at: 1/18/2018 10:33:23 AM
 window._language_en_US = {
   AA: "AA",
   AB: "AB",
@@ -57,7 +57,6 @@ window._language_en_US = {
   AllBetTypes: "All Bet Types",
   AllCurrencies: "All Currencies",
   AllSites: "All Sites",
-  Amendment: "Resettlement",
   Amount: "Amount",
   AmountDue: "Amount Due",
   AmountDueTo: "Amount Due To",
@@ -179,7 +178,6 @@ window._language_en_US = {
   Confirmation: "Confirmation",
   ConfirmCommission: "Confirm Customer&apos;s Commission:",
   ConfirmPassword: "Confirm Password",
-  Content: "Content",
   ConvertAllFiguresToBaseCurrency: "Convert all figures to Base Currency",
   ConvertTo: "Convert to",
   CopyBetSettingFrom: "Copy All Bet Setting from {0}",
@@ -310,6 +308,7 @@ window._language_en_US = {
   Euro: "Euro",
   Even: "Even",
   Event: "Event",
+  EventDate: "Event Date",
   Events: "Events",
   ExcelExceedRowsMsg: "This file exceeded 65535 entries. Please contact administrator for more details.",
   ExcludeTestData: "Exclude Test Data",
@@ -321,7 +320,6 @@ window._language_en_US = {
   Feb: "Feb",
   February: "February",
   FGLG: "FG/LG",
-  FileIsNotReady: "The file is not ready, please try again later.",
   FinalHand: "Final Hand",
   FinalScore: "Final Score",
   FirstGoal: "First Goal",
@@ -528,8 +526,6 @@ window._language_en_US = {
   March: "March",
   Margin: "Margin",
   Match: "Match",
-  MatchDelayDone: "Match Delay-Done",
-  MatchDelayNew: "Match Delay-New",
   MatchWinLoss: "Match Win Loss",
   MatchWinLossTitle: "Match Win Loss, {0} - {1}",
   MaxBet: "Max Bet",
@@ -612,8 +608,6 @@ window._language_en_US = {
   Note: "Note",
   NotIdenticalPasswordMsg: "Passwords are not identical",
   Notification: "Notification",
-  NotificationDateRangeLimitNote: "Data is available within 6 months",
-  Notifications: "Notifications",
   NotSupportYet: "This game type has not been supported yet!",
   Nov: "Nov",
   November: "November",
@@ -814,7 +808,6 @@ window._language_en_US = {
   Statement: "Statement",
   Status: "Status",
   Su: "Su",
-  Subject: "Subject",
   Submit: "Submit",
   Subsidiary: "Subsidiary",
   SubsidiaryPerformance: "Subsidiary Performance",
@@ -837,7 +830,6 @@ window._language_en_US = {
   Thursday: "Thursday",
   TicketDetailOf: "Ticket detail of {0}",
   TicketFilter: "Ticket filter",
-  TicketList: "Ticket List",
   TicketNo: "Ticket No.",
   TicketPayout: "Ticket Payout",
   Time: "Time",
@@ -936,7 +928,6 @@ window._language_en_US = {
   ViewBy: "View by",
   ViewDataInMonth: "View data in month",
   Viewin: "View in {0}",
-  ViewNotification: "View Notification",
   VIP: "VIP",
   VirtualCycling: "Virtual Cycling",
   VirtualGreyhounds: "Virtual Greyhounds",
@@ -986,7 +977,7 @@ window._language_en_US = {
 "use strict";
 
 
-// Generated at: 1/17/2018 3:46:19 PM
+// Generated at: 1/18/2018 10:33:23 AM
 window._language_ko_KR = {
   AA: "AA",
   ABComm: "AllBet 수수료",
@@ -1758,7 +1749,7 @@ window._language_ko_KR = {
 "use strict";
 
 
-// Generated at: 1/17/2018 3:46:19 PM
+// Generated at: 1/18/2018 10:33:23 AM
 window._language_zh_CN = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -1788,7 +1779,6 @@ window._language_zh_CN = {
   AllBetTypes: "所有投注类型",
   AllCurrencies: "所有货币",
   AllSites: "所有网站",
-  Amendment: "重新结算",
   Amount: "金额",
   AmountDue: "应付金额",
   AmountDueTo: "应付金额",
@@ -1892,7 +1882,6 @@ window._language_zh_CN = {
   Confirmation: "确认",
   ConfirmCommission: "确认会员的佣金:",
   ConfirmPassword: "确认密码",
-  Content: "内容",
   ConvertAllFiguresToBaseCurrency: "将所有数据转换为基础货币",
   ConvertTo: "转换为",
   CopyBetSettingFrom: "Copy All Bet Setting from {0}",
@@ -1998,6 +1987,7 @@ window._language_zh_CN = {
   Euro: "欧洲",
   Even: "双",
   Event: "项目",
+  EventDate: "赛事日期",
   Events: "项目",
   ExcludeTestData: "排除测试数据",
   ExpiredTimeParamMsg: "该网址已过期",
@@ -2270,7 +2260,6 @@ window._language_zh_CN = {
   NotAuthorizedMsg: "您没有被授权于此功能",
   NotIdenticalPasswordMsg: "密码不相同",
   Notification: "通知",
-  NotificationDateRangeLimitNote: "最多可以检索六个月前的资料",
   NotSupportYet: "目前还不支持此游戏",
   Nov: "十一月",
   November: "十一月",
@@ -2459,7 +2448,6 @@ window._language_zh_CN = {
   ThereIsNoSelectedItem: "There is no selected item.",
   Thursday: "星期四",
   TicketFilter: "注单筛选",
-  TicketList: "注单清单",
   TicketNo: "票劵号码",
   Time: "时间",
   TimeZone: "时区",
@@ -2543,7 +2531,6 @@ window._language_zh_CN = {
   ViewBy: "查看由",
   ViewDataInMonth: "检阅每月数据",
   Viewin: "以 {0} 查看",
-  ViewNotification: "查看通知",
   VirtualCycling: "Virtual Cycling",
   VirtualHorseRacing: "Virtual Horse Racing",
   VirtualSoccer: "Virtual Soccer",
@@ -2585,7 +2572,7 @@ window._language_zh_CN = {
 "use strict";
 
 
-// Generated at: 1/17/2018 3:46:19 PM
+// Generated at: 1/18/2018 10:33:23 AM
 window._language_zh_Hans = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -2615,7 +2602,6 @@ window._language_zh_Hans = {
   AllBetTypes: "所有投注类型",
   AllCurrencies: "所有货币",
   AllSites: "所有网站",
-  Amendment: "重新结算",
   Amount: "金额",
   AmountDue: "应付金额",
   AmountDueTo: "应付金额",
@@ -2709,7 +2695,6 @@ window._language_zh_Hans = {
   Confirmation: "确认",
   ConfirmCommission: "确认会员的佣金:",
   ConfirmPassword: "确认密码",
-  Content: "内容",
   ConvertAllFiguresToBaseCurrency: "将所有数据转换为基础货币",
   ConvertTo: "转换为",
   CopyBetSettingFrom: "Copy All Bet Setting from {0}",
@@ -2815,6 +2800,7 @@ window._language_zh_Hans = {
   Euro: "欧洲",
   Even: "双",
   Event: "项目",
+  EventDate: "赛事日期",
   Events: "项目",
   ExcludeTestData: "排除测试数据",
   ExpiredTimeParamMsg: "该网址已过期",
@@ -3085,7 +3071,6 @@ window._language_zh_Hans = {
   NotAuthorizedMsg: "您没有被授权于此功能",
   NotIdenticalPasswordMsg: "密码不相同",
   Notification: "通知",
-  NotificationDateRangeLimitNote: "最多可以检索六个月前的资料",
   NotSupportYet: "目前还不支持此游戏",
   Nov: "十一月",
   November: "十一月",
@@ -3273,7 +3258,6 @@ window._language_zh_Hans = {
   ThereIsNoSelectedItem: "There is no selected item.",
   Thursday: "星期四",
   TicketFilter: "注单筛选",
-  TicketList: "注单清单",
   TicketNo: "票劵号码",
   Time: "时间",
   TimeZone: "时区",
@@ -3356,7 +3340,6 @@ window._language_zh_Hans = {
   ViewBy: "查看由",
   ViewDataInMonth: "检阅每月数据",
   Viewin: "以 {0} 查看",
-  ViewNotification: "查看通知",
   VirtualCycling: "Virtual Cycling",
   VirtualHorseRacing: "Virtual Horse Racing",
   VirtualSoccer: "Virtual Soccer",
@@ -3398,7 +3381,7 @@ window._language_zh_Hans = {
 "use strict";
 
 
-// Generated at: 1/17/2018 3:46:19 PM
+// Generated at: 1/18/2018 10:33:23 AM
 window._language_zh_TW = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -3428,7 +3411,6 @@ window._language_zh_TW = {
   AllBetTypes: "所有投注類型",
   AllCurrencies: "所有貨幣",
   AllSites: "所有網站",
-  Amendment: "重新結算",
   Amount: "金額",
   AmountDue: "應付金額",
   AmountDueTo: "應付金額",
@@ -3532,7 +3514,6 @@ window._language_zh_TW = {
   Confirmation: "確認",
   ConfirmCommission: "確認會員的佣金:",
   ConfirmPassword: "確認密碼",
-  Content: "内容",
   ConvertAllFiguresToBaseCurrency: "將所有數據轉換為基礎貨幣",
   ConvertTo: "轉換為",
   CopyBetSettingFrom: "Copy All Bet Setting from {0}",
@@ -3638,6 +3619,7 @@ window._language_zh_TW = {
   Euro: "歐洲",
   Even: "雙",
   Event: "項目",
+  EventDate: "賽事日期",
   Events: "項目",
   ExcludeTestData: "排除測試數據",
   ExpiredTimeParamMsg: "該網址已過期",
@@ -3910,7 +3892,6 @@ window._language_zh_TW = {
   NotAuthorizedMsg: "您沒有被授權於此功能",
   NotIdenticalPasswordMsg: "密碼不相同",
   Notification: "通知",
-  NotificationDateRangeLimitNote: "最多可以檢索六個月前的資料",
   NotSupportYet: "目前還不支持此遊戲",
   Nov: "十一月",
   November: "十一月",
@@ -4099,7 +4080,6 @@ window._language_zh_TW = {
   ThereIsNoSelectedItem: "There is no selected item.",
   Thursday: "星期四",
   TicketFilter: "注單篩選",
-  TicketList: "注單清單",
   TicketNo: "票劵號碼",
   Time: "時間",
   TimeZone: "時區",
@@ -4183,7 +4163,6 @@ window._language_zh_TW = {
   ViewBy: "查看由",
   ViewDataInMonth: "检阅每月數據",
   Viewin: "以 {0} 查看",
-  ViewNotification: "查看通知",
   VirtualCycling: "Virtual Cycling",
   VirtualHorseRacing: "Virtual Horse Racing",
   VirtualSoccer: "Virtual Soccer",

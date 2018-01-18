@@ -1,21 +1,21 @@
-webpackJsonp([57],{
+webpackJsonp([56],{
 
-/***/ 197:
+/***/ 196:
 /***/ (function(module, exports, __webpack_require__) {
 
+__webpack_require__(197);
 __webpack_require__(198);
 __webpack_require__(199);
 __webpack_require__(200);
-__webpack_require__(201);
-module.exports = __webpack_require__(202);
+module.exports = __webpack_require__(201);
 
 
 /***/ }),
 
-/***/ 198:
+/***/ 197:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 1/17/2018 5:36:39 PM
+﻿// Generated at: 1/18/2018 10:33:23 AM
 window._language_en_US = {
 AA:"AA",
 AB:"AB",
@@ -53,7 +53,6 @@ All:"All",
 AllBetTypes:"All Bet Types",
 AllCurrencies:"All Currencies",
 AllSites:"All Sites",
-Amendment:"Resettlement",
 Amount:"Amount",
 AmountDue:"Amount Due",
 AmountDueTo:"Amount Due To",
@@ -148,7 +147,6 @@ ChangePassword:"Change Password",
 ChangeStatus:"Change {0}&apos;s status",
 ChangeStatusOfThisCustomerMsg:"Are you sure you want to change status of this customer?",
 Characters:"Characters",
-ChargeCommission:"Charge Commission",
 CheckAll:"Check All",
 Checkavailability:"Check availability",
 China:"China",
@@ -176,8 +174,6 @@ Confirm:"Confirm",
 Confirmation:"Confirmation",
 ConfirmCommission:"Confirm Customer&apos;s Commission:",
 ConfirmPassword:"Confirm Password",
-Content:"Content",
-ConvertAll:"Convert All",
 ConvertAllFiguresToBaseCurrency:"Convert all figures to Base Currency",
 ConvertTo:"Convert to",
 CopyBetSettingFrom:"Copy All Bet Setting from {0}",
@@ -311,7 +307,6 @@ Event:"Event",
 EventDate:"Event Date",
 Events:"Events",
 ExcelExceedRowsMsg:"This file exceeded 65535 entries. Please contact administrator for more details.",
-ExchangeWinLoss:"Exchange Win Loss",
 ExcludeTestData:"Exclude Test Data",
 ExpiredTimeParamMsg:"The Url is expired",
 ExportToExcel:"Export To Excel",
@@ -321,7 +316,6 @@ Fail:"Fail",
 Feb:"Feb",
 February:"February",
 FGLG:"FG/LG",
-FileIsNotReady:"The file is not ready, please try again later.",
 FinalHand:"Final Hand",
 FinalScore:"Final Score",
 FirstGoal:"First Goal",
@@ -418,7 +412,6 @@ InitialHand:"Initial Hand",
 Internal:"Internal",
 InternalSystem:"Internal System",
 InvalidCaptchaMsg:"You inputed an invalid code.",
-InvalidChargeCommission:"Invalid Charge Commission",
 InvalidParams:"Invalid parameters",
 InvalidRequestMsg:"Request is not valid",
 InvalidRequestOrNotAuthorizedMsg:"Invalid request or you are not authorized to access the requested resource!",
@@ -529,8 +522,6 @@ Mar:"Mar",
 March:"March",
 Margin:"Margin",
 Match:"Match",
-MatchDelayDone:"Match Delay-Done",
-MatchDelayNew:"Match Delay-New",
 MatchWinLoss:"Match Win Loss",
 MatchWinLossTitle:"Match Win Loss, {0} - {1}",
 MaxBet:"Max Bet",
@@ -613,8 +604,6 @@ NotAuthorizedMsg:"You are not authorized on this function",
 Note:"Note",
 NotIdenticalPasswordMsg:"Passwords are not identical",
 Notification:"Notification",
-NotificationDateRangeLimitNote:"Data is available within 6 months",
-Notifications:"Notifications",
 NotSupportYet:"This game type has not been supported yet!",
 Nov:"Nov",
 November:"November",
@@ -691,7 +680,6 @@ ProductAGC:"AG Casino",
 ProductBA:"BA",
 ProductBG:"Bingo",
 ProductBT:"Bet Trade",
-ProductBX:"Exchange",
 ProductCB:"Colossus Bets",
 ProductCO:"Cash Out",
 ProductCS:"RNG Casino",
@@ -816,11 +804,10 @@ StartTime:"Start Time",
 Statement:"Statement",
 Status:"Status",
 Su:"Su",
-Subject:"Subject",
 Submit:"Submit",
 Subsidiary:"Subsidiary",
 SubsidiaryPerformance:"Subsidiary Performance",
-SubsidiaryWL:"Subsidiary WL",
+SubsidiaryWL:"Subsidiary W/L",
 Summary:"Summary",
 Sunday:"Sunday",
 SupportForOnlyNote:"The report only supports",
@@ -839,7 +826,6 @@ ThereIsNoSelectedItem:"There is no selected item.",
 Thursday:"Thursday",
 TicketDetailOf:"Ticket detail of {0}",
 TicketFilter:"Ticket filter",
-TicketList:"Ticket List",
 TicketNo:"Ticket No.",
 TicketPayout:"Ticket Payout",
 Time:"Time",
@@ -938,7 +924,6 @@ View:"View",
 ViewBy:"View by",
 ViewDataInMonth:"View data in month",
 Viewin:"View in {0}",
-ViewNotification:"View Notification",
 VIP:"VIP",
 VirtualCycling:"Virtual Cycling",
 VirtualGreyhounds:"Virtual Greyhounds",
@@ -983,10 +968,10 @@ YouNotChooseAnyCustomerMsg:"You did not choose any customers."
 
 /***/ }),
 
-/***/ 199:
+/***/ 198:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 1/17/2018 5:36:39 PM
+﻿// Generated at: 1/18/2018 10:33:23 AM
 window._language_zh_CN = {
 AA:"客客",
 ABComm:"AllBet 佣金",
@@ -1016,7 +1001,6 @@ All:"全部",
 AllBetTypes:"所有投注类型",
 AllCurrencies:"所有货币",
 AllSites:"所有网站",
-Amendment:"重新结算",
 Amount:"金额",
 AmountDue:"应付金额",
 AmountDueTo:"应付金额",
@@ -1120,7 +1104,6 @@ Confirm:"确认",
 Confirmation:"确认",
 ConfirmCommission:"确认会员的佣金:",
 ConfirmPassword:"确认密码",
-Content:"内容",
 ConvertAllFiguresToBaseCurrency:"将所有数据转换为基础货币",
 ConvertTo:"转换为",
 CopyBetSettingFrom:"Copy All Bet Setting from {0}",
@@ -1499,7 +1482,6 @@ NotAllowBA:"此Licensee不允许投注总计",
 NotAuthorizedMsg:"您没有被授权于此功能",
 NotIdenticalPasswordMsg:"密码不相同",
 Notification:"通知",
-NotificationDateRangeLimitNote:"最多可以检索六个月前的资料",
 NotSupportYet:"目前还不支持此游戏",
 Nov:"十一月",
 November:"十一月",
@@ -1688,7 +1670,6 @@ Th:"Th",
 ThereIsNoSelectedItem:"There is no selected item.",
 Thursday:"星期四",
 TicketFilter:"注单筛选",
-TicketList:"注单清单",
 TicketNo:"票劵号码",
 Time:"时间",
 TimeZone:"时区",
@@ -1772,7 +1753,6 @@ View:"检视",
 ViewBy:"查看由",
 ViewDataInMonth:"检阅每月数据",
 Viewin:"以 {0} 查看",
-ViewNotification:"查看通知",
 VirtualCycling:"Virtual Cycling",
 VirtualHorseRacing:"Virtual Horse Racing",
 VirtualSoccer:"Virtual Soccer",
@@ -1809,10 +1789,10 @@ YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
 
 /***/ }),
 
-/***/ 200:
+/***/ 199:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 1/17/2018 5:36:39 PM
+﻿// Generated at: 1/18/2018 10:33:23 AM
 window._language_zh_TW = {
 AA:"客客",
 ABComm:"AllBet 佣金",
@@ -1842,7 +1822,6 @@ All:"全部",
 AllBetTypes:"所有投注類型",
 AllCurrencies:"所有貨幣",
 AllSites:"所有網站",
-Amendment:"重新結算",
 Amount:"金額",
 AmountDue:"應付金額",
 AmountDueTo:"應付金額",
@@ -1946,7 +1925,6 @@ Confirm:"確認",
 Confirmation:"確認",
 ConfirmCommission:"確認會員的佣金:",
 ConfirmPassword:"確認密碼",
-Content:"内容",
 ConvertAllFiguresToBaseCurrency:"將所有數據轉換為基礎貨幣",
 ConvertTo:"轉換為",
 CopyBetSettingFrom:"Copy All Bet Setting from {0}",
@@ -2325,7 +2303,6 @@ NotAllowBA:"此被許可不允許投注總計",
 NotAuthorizedMsg:"您沒有被授權於此功能",
 NotIdenticalPasswordMsg:"密碼不相同",
 Notification:"通知",
-NotificationDateRangeLimitNote:"最多可以檢索六個月前的資料",
 NotSupportYet:"目前還不支持此遊戲",
 Nov:"十一月",
 November:"十一月",
@@ -2514,7 +2491,6 @@ Th:"Th",
 ThereIsNoSelectedItem:"There is no selected item.",
 Thursday:"星期四",
 TicketFilter:"注單篩選",
-TicketList:"注單清單",
 TicketNo:"票劵號碼",
 Time:"時間",
 TimeZone:"時區",
@@ -2598,7 +2574,6 @@ View:"檢視",
 ViewBy:"查看由",
 ViewDataInMonth:"检阅每月數據",
 Viewin:"以 {0} 查看",
-ViewNotification:"查看通知",
 VirtualCycling:"Virtual Cycling",
 VirtualHorseRacing:"Virtual Horse Racing",
 VirtualSoccer:"Virtual Soccer",
@@ -2635,10 +2610,10 @@ YouNotChooseAnyCustomerMsg:"您還沒有選擇任何會員"
 
 /***/ }),
 
-/***/ 201:
+/***/ 200:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 1/17/2018 5:36:39 PM
+﻿// Generated at: 1/18/2018 10:33:23 AM
 window._language_zh_Hans = {
 AA:"客客",
 ABComm:"AllBet 佣金",
@@ -2668,7 +2643,6 @@ All:"全部",
 AllBetTypes:"所有投注类型",
 AllCurrencies:"所有货币",
 AllSites:"所有网站",
-Amendment:"重新结算",
 Amount:"金额",
 AmountDue:"应付金额",
 AmountDueTo:"应付金额",
@@ -2762,7 +2736,6 @@ Confirm:"确认",
 Confirmation:"确认",
 ConfirmCommission:"确认会员的佣金:",
 ConfirmPassword:"确认密码",
-Content:"内容",
 ConvertAllFiguresToBaseCurrency:"将所有数据转换为基础货币",
 ConvertTo:"转换为",
 CopyBetSettingFrom:"Copy All Bet Setting from {0}",
@@ -3139,7 +3112,6 @@ NotAllowBA:"此Licensee不允许投注总计",
 NotAuthorizedMsg:"您没有被授权于此功能",
 NotIdenticalPasswordMsg:"密码不相同",
 Notification:"通知",
-NotificationDateRangeLimitNote:"最多可以检索六个月前的资料",
 NotSupportYet:"目前还不支持此游戏",
 Nov:"十一月",
 November:"十一月",
@@ -3327,7 +3299,6 @@ Th:"Th",
 ThereIsNoSelectedItem:"There is no selected item.",
 Thursday:"星期四",
 TicketFilter:"注单筛选",
-TicketList:"注单清单",
 TicketNo:"票劵号码",
 Time:"时间",
 TimeZone:"时区",
@@ -3410,7 +3381,6 @@ View:"检视",
 ViewBy:"查看由",
 ViewDataInMonth:"检阅每月数据",
 Viewin:"以 {0} 查看",
-ViewNotification:"查看通知",
 VirtualCycling:"Virtual Cycling",
 VirtualHorseRacing:"Virtual Horse Racing",
 VirtualSoccer:"Virtual Soccer",
@@ -3447,10 +3417,10 @@ YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
 
 /***/ }),
 
-/***/ 202:
+/***/ 201:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 1/17/2018 5:36:39 PM
+﻿// Generated at: 1/18/2018 10:33:23 AM
 window._language_ko_KR = {
 AA:"AA",
 ABComm:"AllBet 수수료",
@@ -4217,5 +4187,5 @@ YouNotChooseAnyCustomerMsg:"고객을 아직 선택하지 않았습니다."
 
 /***/ })
 
-},[197]);
+},[196]);
 //# sourceMappingURL=language.chunk.js.map
