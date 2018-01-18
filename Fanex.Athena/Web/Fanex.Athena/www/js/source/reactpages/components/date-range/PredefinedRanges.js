@@ -12,7 +12,23 @@ class PredefinedRanges extends Component {
     super(props, context);
 
     this.styles = this.props.theme;
-    this.selectedItem = null;
+    this.selectedItem = this._getSelectedRange();
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(this.props.range !== nextProps.range){
+      this.selectedItem = this._getSelectedRange();
+    }
+  }
+
+  _getSelectedRange() {
+    const { ranges, range } = this.props;
+
+    return Object.keys(ranges).find(name => {
+      const currentRange = ranges[name];
+
+      return range.startDate.isSame(currentRange.startDate, "day") && range.endDate.isSame(currentRange.endDate, "day");
+    });
   }
 
   handleSelect(name, event) {
@@ -36,18 +52,20 @@ class PredefinedRanges extends Component {
   renderRangeList(classes) {
     const { ranges, range, onlyClasses } = this.props;
     const { styles } = this;
+    let gotActiveRange = false;
 
     return Object.keys(ranges).map(name => {
       const active = this.selectedItem === name;
+      gotActiveRange = !gotActiveRange && active;
 
       const style = {
         ...styles['PredefinedRangesItem'],
-        ...(active ? styles['PredefinedRangesItemActive'] : {}),
+        ...(gotActiveRange ? styles['PredefinedRangesItemActive'] : {}),
       };
 
       const predefinedRangeClass = classnames({
         [classes.predefinedRangesItem]: true,
-        [classes.predefinedRangesItemActive]: active
+        [classes.predefinedRangesItemActive]: gotActiveRange
       });
 
       return (
