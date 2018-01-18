@@ -1,9 +1,9 @@
 webpackJsonp([59],{
 
-/***/ 166:
+/***/ 170:
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(118)], __WEBPACK_AMD_DEFINE_RESULT__ = function (QueryString) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(122)], __WEBPACK_AMD_DEFINE_RESULT__ = (function (QueryString) {
     "use strict";
     function setSumParams(url, totalValue) {
         url = QueryString.setParam(url, "totalrows", totalValue.BetCount);
@@ -55,35 +55,35 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         setSumParams: setSumParams,
         getMatchListProductOption: getMatchListProductOption,
     };
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
 
-/***/ 239:
+/***/ 243:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(240);
+module.exports = __webpack_require__(244);
 
 
 /***/ }),
 
-/***/ 240:
+/***/ 244:
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(241)], __WEBPACK_AMD_DEFINE_RESULT__ = function (MatchList) {
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(245)], __WEBPACK_AMD_DEFINE_RESULT__ = (function (MatchList) {
     "use strict";
     $(MatchList.initialize);
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
 
-/***/ 241:
+/***/ 245:
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(118), __webpack_require__(2), __webpack_require__(166)], __WEBPACK_AMD_DEFINE_RESULT__ = function (QueryString, Site, Helper) {
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(122), __webpack_require__(2), __webpack_require__(170)], __WEBPACK_AMD_DEFINE_RESULT__ = (function (QueryString, Site, Helper) {
     "use strict";
 
     function initialize() {
@@ -124,11 +124,11 @@ module.exports = __webpack_require__(240);
     return {
         initialize: initialize
     };
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ })
 
-},[239]);
+},[243]);
 //# sourceMappingURL=livereportmatchlist.chunk.js.map

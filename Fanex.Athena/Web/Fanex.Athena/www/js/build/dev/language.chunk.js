@@ -1,21 +1,21 @@
 webpackJsonp([56],{
 
-/***/ 192:
+/***/ 196:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(193);
-__webpack_require__(194);
-__webpack_require__(195);
-__webpack_require__(196);
-module.exports = __webpack_require__(197);
+__webpack_require__(197);
+__webpack_require__(198);
+__webpack_require__(199);
+__webpack_require__(200);
+module.exports = __webpack_require__(201);
 
 
 /***/ }),
 
-/***/ 193:
+/***/ 197:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 1/5/2018 3:57:38 PM
+﻿// Generated at: 1/18/2018 10:33:23 AM
 window._language_en_US = {
 AA:"AA",
 AB:"AB",
@@ -307,6 +307,7 @@ EUR:"EUR",
 Euro:"Euro",
 Even:"Even",
 Event:"Event",
+EventDate:"Event Date",
 Events:"Events",
 ExcelExceedRowsMsg:"This file exceeded 65535 entries. Please contact administrator for more details.",
 ExcludeTestData:"Exclude Test Data",
@@ -979,10 +980,10 @@ YouNotChooseAnyCustomerMsg:"You did not choose any customers."
 
 /***/ }),
 
-/***/ 194:
+/***/ 198:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 1/5/2018 3:57:38 PM
+﻿// Generated at: 1/18/2018 10:33:23 AM
 window._language_zh_CN = {
 AA:"客客",
 ABComm:"AllBet 佣金",
@@ -1222,6 +1223,7 @@ EUR:"EUR",
 Euro:"欧洲",
 Even:"双",
 Event:"项目",
+EventDate:"赛事日期",
 Events:"项目",
 ExcludeTestData:"排除测试数据",
 ExpiredTimeParamMsg:"该网址已过期",
@@ -1804,10 +1806,10 @@ YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
 
 /***/ }),
 
-/***/ 195:
+/***/ 199:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 1/5/2018 3:57:38 PM
+﻿// Generated at: 1/18/2018 10:33:23 AM
 window._language_zh_TW = {
 AA:"客客",
 ABComm:"AllBet 佣金",
@@ -2047,6 +2049,7 @@ EUR:"EUR",
 Euro:"歐洲",
 Even:"雙",
 Event:"項目",
+EventDate:"賽事日期",
 Events:"項目",
 ExcludeTestData:"排除測試數據",
 ExpiredTimeParamMsg:"該網址已過期",
@@ -2629,10 +2632,10 @@ YouNotChooseAnyCustomerMsg:"您還沒有選擇任何會員"
 
 /***/ }),
 
-/***/ 196:
+/***/ 200:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 1/5/2018 3:57:38 PM
+﻿// Generated at: 1/18/2018 10:33:23 AM
 window._language_zh_Hans = {
 AA:"客客",
 ABComm:"AllBet 佣金",
@@ -2862,6 +2865,7 @@ EUR:"EUR",
 Euro:"欧洲",
 Even:"双",
 Event:"项目",
+EventDate:"赛事日期",
 Events:"项目",
 ExcludeTestData:"排除测试数据",
 ExpiredTimeParamMsg:"该网址已过期",
@@ -3440,10 +3444,10 @@ YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
 
 /***/ }),
 
-/***/ 197:
+/***/ 201:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 12/19/2017 3:47:38 PM
+﻿// Generated at: 1/18/2018 10:33:23 AM
 window._language_ko_KR = {
 AA:"AA",
 ABComm:"AllBet 수수료",
@@ -4210,5 +4214,5 @@ YouNotChooseAnyCustomerMsg:"고객을 아직 선택하지 않았습니다."
 
 /***/ })
 
-},[192]);
+},[196]);
 //# sourceMappingURL=language.chunk.js.map

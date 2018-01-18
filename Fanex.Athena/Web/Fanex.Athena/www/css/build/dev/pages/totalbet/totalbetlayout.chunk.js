@@ -1,19 +1,19 @@
 webpackJsonp([68],{
 
-/***/ 466:
+/***/ 470:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(467);
+module.exports = __webpack_require__(471);
 
 
 /***/ }),
 
-/***/ 467:
+/***/ 471:
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ })
 
-},[466]);
+},[470]);
 //# sourceMappingURL=totalbetlayout.chunk.js.map
