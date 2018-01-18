@@ -57,23 +57,6 @@
         }
 
         [HttpPost]
-        public dynamic Index(NotificationMetaModel metaModel)
-        {
-            if (!metaModel.IsValid)
-            {
-                return new ReportResultModel<GeneralNotification>
-                {
-                    DataList = new List<GeneralNotification>(),
-                    TotalRows = 0
-                };
-            }
-
-            UpdateMetaModel(metaModel);
-
-            return _notificationService.GetGeneral(metaModel);
-        }
-
-        [HttpPost]
         public dynamic ResultAmendment(NotificationMetaModel metaModel)
         {
             if (!metaModel.IsValid)
