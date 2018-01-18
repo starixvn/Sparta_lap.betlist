@@ -2596,4 +2596,7 @@
     <value>查看通知</value>
     <comment>84004</comment>
   </data>
+  <data name="EventDate" xml:space="preserve">
+    <value>赛事日期</value>
+  </data>
 </root>
