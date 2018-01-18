@@ -307,7 +307,7 @@
             return new ResultAmendment
             {
                 Id = token["MessageId"].Value<int>(),
-                DateTime = token["Date"].Value<DateTime>(),
+                DateTime = token["EventDate"].Value<DateTime>(),
                 Content = token[contentKey].Value<string>(),
                 Subject = token[subjectKey].Value<string>(),
                 DataFilePath = token["DataFilePath"].Value<string>(),
