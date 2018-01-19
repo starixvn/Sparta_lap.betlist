@@ -35,9 +35,9 @@
             var currencyList = new Dictionary<int, string>
             {
                 { BaseCurrencyType.All, ViewResources.All },
-                { BaseCurrencyType.Eur, ViewResources.Based + " " + ViewResources.EUR },
-                { BaseCurrencyType.Usd, ViewResources.Based + " " + ViewResources.USD },
-                { BaseCurrencyType.Gbp, ViewResources.Based + " " + ViewResources.GBP }
+                { BaseCurrencyType.Eur, $"{ViewResources.Based} {ViewResources.EUR}" },
+                { BaseCurrencyType.Usd, $"{ViewResources.Based} {ViewResources.USD}" },
+                { BaseCurrencyType.Gbp, $"{ViewResources.Based} {ViewResources.GBP}" }
             };
 
             foreach (var item in SessionService.UserSession.CurrencyList)
