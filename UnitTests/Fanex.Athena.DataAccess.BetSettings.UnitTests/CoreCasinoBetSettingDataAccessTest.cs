@@ -3,6 +3,7 @@
     using System.Data;
     using Core.Common.Constants;
     using Core.Common.Interfaces;
+    using Core.UnitTests.TestHelpers;
     using Data;
     using Model.BetSettings.MetaModel;
     using Model.Core.MetaModel.Common;
@@ -10,26 +11,23 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class CoreCasinoBetSettingDataAccessTest
+    public class CoreCasinoBetSettingDataAccessTest : BaseDataAccessHelperTest<CoreCasinoBetSettingDataAccess>
     {
-        private IObjectDb _objectDb;
         private IUserLogDataAccess _userLogDataAccess;
 
-        private CoreCasinoBetSettingDataAccess _dataAccess;
-
         [OneTimeSetUp]
-        public void FixtureSetUp()
+        public override void FixtureSetUp()
         {
-            _objectDb = Substitute.For<IObjectDb>();
+            ObjectDb = Substitute.For<IObjectDb>();
             _userLogDataAccess = Substitute.For<IUserLogDataAccess>();
-            _dataAccess = Substitute.ForPartsOf<CoreCasinoBetSettingDataAccess>(_userLogDataAccess);
+            DataAccess = Substitute.ForPartsOf<CoreCasinoBetSettingDataAccess>(_userLogDataAccess);
         }
 
         [Test]
         public void UpdateCasinoStatus_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_CustomerUpdCasinoStatus")).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerUpdCasinoStatus")).Returns(ObjectDb);
             var metaModel = new CoreCasinoStatusMetaModel
             {
                 UserId = 1,
@@ -41,40 +39,43 @@
             var sportId = 3;
 
             // Action
-            _dataAccess.UpdateCasinoStatus(metaModel, sportId);
+            DataAccess.UpdateCasinoStatus(metaModel, sportId);
 
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received().AddInParameter("userid", DbType.Int32, metaModel.UserId);
-                _objectDb.Received().AddInParameter("custid", DbType.Int32, metaModel.CustId);
-                _objectDb.Received().AddInParameter("sportid", DbType.Int32, sportId);
-                _objectDb.Received().AddInParameter("language", DbType.String, metaModel.Language);
-                _objectDb.Received().AddInParameter("ip", DbType.String, metaModel.Ip);
-                _objectDb.Received().AddInParameter("status", DbType.Int32, metaModel.Status);
-                _objectDb.Received().AddOutParameter("ErrCode", DbType.String, 5);
-                _objectDb.Received().AddOutParameter("ErrMsg", DbType.String, 6000);
+                ObjectDb.Received().AddInParameter("userid", DbType.Int32, metaModel.UserId);
+                ObjectDb.Received().AddInParameter("custid", DbType.Int32, metaModel.CustId);
+                ObjectDb.Received().AddInParameter("sportid", DbType.Int32, sportId);
+                ObjectDb.Received().AddInParameter("language", DbType.String, metaModel.Language);
+                ObjectDb.Received().AddInParameter("ip", DbType.String, metaModel.Ip);
+                ObjectDb.Received().AddInParameter("status", DbType.Int32, metaModel.Status);
+                ObjectDb.Received().AddOutParameter("ErrCode", DbType.String, 5);
+                ObjectDb.Received().AddOutParameter("ErrMsg", DbType.String, 6000);
             });
         }
 
-        [Test]
-        public void WriteLogUpdatingAction_WhenCall_ParametersPassedCorrectly()
+        [TestCase(1, 0)]
+        [TestCase(2, 1)]
+        public void WriteLogUpdatingAction_WhenCall_ParametersPassedCorrectly(int status, int expectedTrackingStatus1)
         {
             // Arrange
+            const string TrackingValueTemplate = "<Lrf_CustomerUpdCasinoStatus UserID=\"1\" CustID=\"2\" SportID=\"3\" "
+                + "Status=\"{0}\" Ip=\"::1\" Lang=\"abc\" RoleID=\"1\" ErrCode=\"0\" ErrMsg=\"\"/>";
             const string SPName = "Lrf_CustomerUpdCasinoStatus";
-            _dataAccess.GetObjectDb(Arg.Is(SPName)).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is(SPName)).Returns(ObjectDb);
             var metaModel = new CoreCasinoStatusMetaModel
             {
                 UserId = 1,
                 CustId = 2,
-                Status = 0,
+                Status = status,
                 Language = "abc",
                 Ip = "::1"
             };
-            var sportId = 3;
+            const int SportId = 3;
 
             // Action
-            _dataAccess.UpdateCasinoStatus(metaModel, sportId);
+            DataAccess.UpdateCasinoStatus(metaModel, SportId);
 
             // Assert
             _userLogDataAccess.Received(1).WriteLog(Arg.Is<UserLogMetaModel>(x =>
@@ -82,10 +83,8 @@
                 x.CustID == metaModel.CustId &&
                 x.UserId == metaModel.UserId &&
                 x.SPName == SPName &&
-                x.TrackingValue1 == 
-                "<Lrf_CustomerUpdCasinoStatus UserID=\"1\" CustID=\"2\" SportID=\"3\" Status=\"1\" Ip=\"::1\" Lang=\"abc\" RoleID=\"1\" ErrCode=\"0\" ErrMsg=\"\"/>" &&
-                x.TrackingValue2 == 
-                "<Lrf_CustomerUpdCasinoStatus UserID=\"1\" CustID=\"2\" SportID=\"3\" Status=\"0\" Ip=\"::1\" Lang=\"abc\" RoleID=\"1\" ErrCode=\"0\" ErrMsg=\"\"/>"));
+                x.TrackingValue1 == string.Format(TrackingValueTemplate, expectedTrackingStatus1) &&
+                x.TrackingValue2 == string.Format(TrackingValueTemplate, status)));
         }
     }
 }

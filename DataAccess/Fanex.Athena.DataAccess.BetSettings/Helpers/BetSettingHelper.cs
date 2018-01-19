@@ -3,8 +3,8 @@
     using System.Collections.Generic;
     using System.Data;
     using Common;
-    using Fanex.Athena.Model.BetSettings.DTO;
-    using Fanex.Athena.Model.Core.Helper;
+    using Model.BetSettings.DTO;
+    using Model.Core.Helper;
     using Resources;
 
     public static class BetSettingHelper

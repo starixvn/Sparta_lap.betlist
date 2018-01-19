@@ -57,5 +57,11 @@
             // Assert
             Assert.Throws<DataAccessException>(testDelegate, Arg.Is<string>(x => x.Contains(uspName)));
         }
+
+        protected void StubGetResultInfo(int errCode, string errMsg)
+        {
+            ObjectDb.GetParameterValue("ErrCode").Returns(errCode);
+            ObjectDb.GetParameterValue("ErrMsg").Returns(errMsg);
+        }
     }
 }
