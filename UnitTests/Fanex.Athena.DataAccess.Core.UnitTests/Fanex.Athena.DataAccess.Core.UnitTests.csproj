@@ -92,6 +92,7 @@
     <Compile Include="Common\MatchDataAccessTest.cs" />
     <Compile Include="Common\ProductDataAccessTest.cs" />
     <Compile Include="Common\SportTypeDataAccessTest.cs" />
+    <Compile Include="Common\UserLogDataAccessTest.cs" />
     <Compile Include="Configuration\BalanceUpDataAccessTest.cs" />
     <Compile Include="Configuration\MoveBetDataAccessTest.cs" />
     <Compile Include="Exception\DataAccessExceptionTest.cs" />
