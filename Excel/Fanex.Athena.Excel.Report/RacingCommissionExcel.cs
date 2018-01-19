@@ -148,7 +148,7 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
         /// <param name="rowIndex">Row index.</param>
-        protected void AssignSumData(ISheet sheet, int rowIndex)
+        protected internal virtual void AssignSumData(ISheet sheet, int rowIndex)
         {
             var totalRow = rowIndex + RowContentTemplate;
 
