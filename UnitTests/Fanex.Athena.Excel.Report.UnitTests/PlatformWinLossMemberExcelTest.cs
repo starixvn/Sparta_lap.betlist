@@ -219,6 +219,31 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         }
 
         [Test]
+        public void ProcessUI_AllOptionsIsVisible_NotCallHideColumn()
+        {
+            // Arrange
+            var showingOption = new ShowingOption
+            {
+                CustomerCommVisible = true,
+                BAVisible = true,
+                RBVisible = true
+            };
+            var excel = CreateExcel(showingOption);
+
+            // Action
+            excel.Public_ProcessUI(_sheet);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                _sheet.DidNotReceive().HideColumn(ColumnCustomerTotal, ColumnCustomerCommission);
+                _sheet.DidNotReceive().HideRow(ReportBase.RowHeaderTemplate + 1);
+                _sheet.DidNotReceive().HideColumn(ColumnBaCommission, ColumnAmtDueToBa);
+                _sheet.DidNotReceive().HideColumn(ColumnRacingRevenue, ColumnAmtDueToRacing);
+            });
+        }
+
+        [Test]
         public void AssignTotal_WhenCall_CallRelevantMethods()
         {
             // Arrange
@@ -236,12 +261,12 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             });
         }
 
-        private static PlatformWinLossMemberExcelTestable CreateExcel()
+        private static PlatformWinLossMemberExcelTestable CreateExcel(ShowingOption showingOption = null)
         {
             var excel = Substitute.ForPartsOf<PlatformWinLossMemberExcelTestable>(
                 string.Empty,
                 ViewModel,
-                new ShowingOption());
+                showingOption ?? new ShowingOption());
             excel.TemplateSheet.Returns(Substitute.For<ISheet>());
             return excel;
         }

@@ -62,6 +62,7 @@
     <Compile Include="AgCasinoBalanceExcelTest.cs" />
     <Compile Include="ActiveCustomerSummaryExcelTest.cs" />
     <Compile Include="MicroGamingWinLossExcelTest.cs" />
+    <Compile Include="PlatformWinLossSummaryExcelTest.cs" />
     <Compile Include="PlatformWinLossMemberExcelTest.cs" />
     <Compile Include="DailyRacingWinLoss12BetExcelTest.cs" />
     <Compile Include="CustomerWinLossExcelTest.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="CashOutWinLossExcelTest.cs" />
     <Compile Include="LiveReportExcelTest.cs" />
     <Compile Include="TestableClasses\MicroGamingWinLossExcelTestable.cs" />
+    <Compile Include="TestableClasses\PlatformWinLossSummaryExcelTestable.cs" />
     <Compile Include="TestableClasses\PlatformWinLossMemberExcelTestable.cs" />
     <Compile Include="TestableClasses\LiveReportExcelTestable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
