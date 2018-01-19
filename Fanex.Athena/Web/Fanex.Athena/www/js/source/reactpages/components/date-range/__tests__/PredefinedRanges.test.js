@@ -20,6 +20,7 @@ describe('PredefinedRanges', () => {
     };
     const defaultProps = {
         ranges: { 'Yesterday': yesterday, 'LastMonth': lastMonth },
+        range: { startDate: moment([2018, 0, 1]), endDate: moment([2018, 0, 19]) },
         onlyClasses: false,
         classNames: {}
     }
@@ -34,7 +35,59 @@ describe('PredefinedRanges', () => {
             const componentInstance = new PredefinedRanges(defaultProps);
 
             expect(componentInstance.styles).toBe(undefined);
-            expect(componentInstance.selectedItem).toBe(null);
+            expect(componentInstance.selectedItem).toBe(undefined);
+        })
+    })
+
+    describe("_getSelectedRange", () => {
+        it("startDate and endDate in state.range not match to any range options - return undefined", () => {
+            const componentInstance = new PredefinedRanges(defaultProps);
+
+            const result = componentInstance._getSelectedRange();
+
+            expect(result).toBe(undefined);
+        })
+
+        it("startDate and endDate in state.range not match to 'yesterday' in range options - return correct range name", () => {
+            const expectedRangeName = "Yesterday";
+            const yesterdayRange = {
+                startDate: yesterday.startDate.clone(),
+                endDate: yesterday.endDate.clone()
+            }
+            const props = Object.assign({}, defaultProps, { range: yesterdayRange });
+            const componentInstance = new PredefinedRanges(props);
+
+            const result = componentInstance._getSelectedRange();
+
+            expect(result).toBe(expectedRangeName);
+        })
+    })
+
+    describe("componentWillReceiveProps", () => {
+        it("Not change range - do nothing", () => {
+            const componentInstance = new PredefinedRanges(defaultProps);
+            componentInstance._getSelectedRange = jest.fn();
+            const expectedRangeName = componentInstance.selectedItem;
+
+            const nextProps = Object.assign({}, defaultProps);
+
+            componentInstance.componentWillReceiveProps(nextProps);
+
+            expect(componentInstance._getSelectedRange).not.toHaveBeenCalled();
+            expect(componentInstance.selectedItem).toBe(expectedRangeName);
+        })
+
+        it("Range is changed - selectedItem value should be correct", () => {
+            const expectedRangeName = "Yesterday";
+
+            const componentInstance = new PredefinedRanges(defaultProps);
+            componentInstance._getSelectedRange = jest.fn(() => expectedRangeName);
+
+            const nextProps = Object.assign({}, defaultProps, { range: {} });
+
+            componentInstance.componentWillReceiveProps(nextProps);
+
+            expect(componentInstance.selectedItem).toBe(expectedRangeName);
         })
     })
 

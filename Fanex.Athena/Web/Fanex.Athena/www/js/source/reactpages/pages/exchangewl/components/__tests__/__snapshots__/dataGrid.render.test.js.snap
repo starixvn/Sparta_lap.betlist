@@ -4,7 +4,6 @@ exports[`Render DataGrid components  Render grid Has data grid data should be re
 <div
   className="result-content"
 >
-  this._renderBreadcrumb()}
   <div
     className="report-title-container"
   >
@@ -50,77 +49,77 @@ exports[`Render DataGrid components  Render grid Has data grid data should be re
               <td
                 style={
                   Object {
-                    "width": "-0.9183673469387755px",
+                    "width": "-1.5px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-3.061224489795918px",
+                    "width": "-5px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-2.142857142857143px",
+                    "width": "-3.5px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-3.061224489795918px",
+                    "width": "-5px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-3.061224489795918px",
+                    "width": "-5px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-2.4489795918367347px",
+                    "width": "-4px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-3.061224489795918px",
+                    "width": "-5px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-3.061224489795918px",
+                    "width": "-5px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-3.061224489795918px",
+                    "width": "-5px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-3.061224489795918px",
+                    "width": "-5px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-3.061224489795918px",
+                    "width": "-5px",
                   }
                 }
               />
@@ -217,7 +216,7 @@ exports[`Render DataGrid components  Render grid Has data grid data should be re
       className="body-content"
       style={
         Object {
-          "maxHeight": 736,
+          "maxHeight": 726,
           "minWidth": 1000,
           "width": -30,
         }
@@ -241,77 +240,77 @@ exports[`Render DataGrid components  Render grid Has data grid data should be re
               <td
                 style={
                   Object {
-                    "width": "-0.9183673469387755px",
+                    "width": "-1.5px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-3.061224489795918px",
+                    "width": "-5px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-2.142857142857143px",
+                    "width": "-3.5px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-3.061224489795918px",
+                    "width": "-5px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-3.061224489795918px",
+                    "width": "-5px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-2.4489795918367347px",
+                    "width": "-4px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-3.061224489795918px",
+                    "width": "-5px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-3.061224489795918px",
+                    "width": "-5px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-3.061224489795918px",
+                    "width": "-5px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-3.061224489795918px",
+                    "width": "-5px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-3.061224489795918px",
+                    "width": "-5px",
                   }
                 }
               />
@@ -421,77 +420,77 @@ exports[`Render DataGrid components  Render grid Has data grid data should be re
               <td
                 style={
                   Object {
-                    "width": "-0.9183673469387755px",
+                    "width": "-1.5px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-3.061224489795918px",
+                    "width": "-5px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-2.142857142857143px",
+                    "width": "-3.5px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-3.061224489795918px",
+                    "width": "-5px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-3.061224489795918px",
+                    "width": "-5px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-2.4489795918367347px",
+                    "width": "-4px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-3.061224489795918px",
+                    "width": "-5px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-3.061224489795918px",
+                    "width": "-5px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-3.061224489795918px",
+                    "width": "-5px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-3.061224489795918px",
+                    "width": "-5px",
                   }
                 }
               />
               <td
                 style={
                   Object {
-                    "width": "-3.061224489795918px",
+                    "width": "-5px",
                   }
                 }
               />

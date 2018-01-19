@@ -346,4 +346,17 @@ describe('Table ', () => {
             window.removeEventListener = originalRemoveEventListenerFunction;
         })
     })
+
+    describe("componentWillReceiveProps", () => {
+        it("column width should has correct value", () => {
+            const expectedWidth = [100, 200];
+            const table = new Table(defaultProps);
+            table._getColumnsWidth = jest.fn(() => expectedWidth);
+
+            const nextProps = Object.assign({}, defaultProps);
+            table.componentWillReceiveProps(nextProps);
+
+            expect(table.columnsWidth).toEqual(expectedWidth);
+        })
+    })
 })

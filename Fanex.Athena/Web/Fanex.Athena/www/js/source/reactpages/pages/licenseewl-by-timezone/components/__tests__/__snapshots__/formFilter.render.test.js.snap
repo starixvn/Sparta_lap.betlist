@@ -54,7 +54,7 @@ exports[`FormFilter  render methods render whole component match to snapshot 1`]
                 style={undefined}
               >
                 <a
-                  className="rdr-PredefinedRangesItem"
+                  className="rdr-PredefinedRangesItem rdr-PredefinedRangesItemActive"
                   href="#"
                   onClick={[Function]}
                   style={undefined}

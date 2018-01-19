@@ -44,7 +44,7 @@ class DateRange extends Component {
     return "";
   }
 
-  show() {
+  show = () => {
     this.step = 0;
     this.setState({ show: true });
   }
@@ -56,25 +56,6 @@ class DateRange extends Component {
   componentDidMount() {
     const { onInit } = this.props;
     onInit && onInit(this.state.range);
-
-    document.addEventListener('click', this._handleDocumentClick)
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('click', this._handleDocumentClick)
-  }
-
-  _handleDocumentClick = (event) => {
-    if (this.dateRangeInput.contains(event.target)) {
-      return;
-    }
-
-    const clickOutside = this.dateRangeContainer &&
-      !this.dateRangeContainer.contains(event.target);
-
-    if (clickOutside && this.state.show) {
-      this.handleCancel();
-    }
   }
 
   orderRange(range) {
@@ -181,10 +162,7 @@ class DateRange extends Component {
       const oldEndDate = this.props.endDate && parseInput(this.props.endDate, format, 'endOf');
 
       if (!startDate.isSame(oldStartDate) || !endDate.isSame(oldEndDate)) {
-        const range = {
-          startDate: startDate || oldStartDate,
-          endDate: endDate || oldEndDate
-        };
+        const range = { startDate, endDate };
 
         this.setRange(range);
       }
@@ -221,7 +199,7 @@ class DateRange extends Component {
 
     return (
       <div className="daterange-container">
-        <div className="daterange-label" onClick={() => this.show()} ref={element => this.dateRangeInput = element}>
+        <div className="daterange-label" onClick={this.show}>
           <input readOnly name="DateRange" id="DateRange" className="input-text datepicker" type="text" autoComplete="off" value={this.dateRangeText} />
           <i className="icon icon-calendar"></i>
         </div>
