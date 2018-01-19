@@ -5,6 +5,8 @@
 
     public interface IAppSettings
     {
+        IEnumerable<int> LicenseeAllowCasinoTransfer { get; }
+
         IEnumerable<int> LicenseeOfferStatusFunction { get; }
 
         string ExchangeProductApiHost { get; }

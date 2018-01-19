@@ -74,7 +74,7 @@ namespace Fanex.Athena.Controllers.Report
                 ProductAccess = productAccess,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 CurrencyList = GetCurrenciesForTurnoverReport(licenseeSession.LicenseeId),
-                IsAllowedCasinoTransfer = licenseeSession.LicenseeId == 1,
+                IsAllowedCasinoTransfer = AppSettings.LicenseeAllowCasinoTransfer.Contains(licenseeSession.LicenseeId),
                 IsFakeLicensee = IsFakeLicensee()
             };
 
@@ -144,10 +144,10 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         protected internal virtual TurnoverExcel CreateExcel(
-            string templatePath, 
-            TurnoverViewModel viewModel, 
-            ConvertingOption convertingOption, 
-            ShowingOption showingOption, 
+            string templatePath,
+            TurnoverViewModel viewModel,
+            ConvertingOption convertingOption,
+            ShowingOption showingOption,
             int licenseeId)
         {
             return new TurnoverExcel(templatePath, convertingOption, showingOption, viewModel) { LicenseeId = licenseeId };
