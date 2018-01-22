@@ -5,6 +5,7 @@
     using System.Data;
     using System.Linq;
     using Core.Configuration.Interfaces;
+    using Core.UnitTests.TestHelpers;
     using Data;
     using Model.Core.DTO.Configuration;
     using Model.Core.MetaModel.Product;
@@ -14,18 +15,15 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class CasinoProgressiveWinsDataAccessTest
+    public class CasinoProgressiveWinsDataAccessTest : BaseDataAccessHelperTest<CasinoProgressiveWinsDataAccess>
     {
-        private IObjectDb _objectDb;
-        private CasinoProgressiveWinsDataAccess _dataAccess;
-        private IDataReader _reader;
+        private const string SpName = "Lrf_Rpt_CasinoProgressiveWins";
+
         private BaseReportMetaModel _metaModel;
 
         [OneTimeSetUp]
-        public void Setup()
-        {
-            _objectDb = Substitute.For<IObjectDb>();
-
+        public override void FixtureSetUp()
+        {       
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             var balanceUp = new BalanceUp
             {
@@ -34,11 +32,9 @@
             };
             balanceUpDataAccess.GetBalanceUp().Returns(balanceUp);
 
-            _dataAccess = Substitute.ForPartsOf<CasinoProgressiveWinsDataAccess>(balanceUpDataAccess);
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_CasinoProgressiveWins")).Returns(_objectDb);
-
-            _reader = Substitute.For<IDataReader>();
-            _objectDb.ExecuteReader().Returns(_reader);
+            ObjectDb = Substitute.For<IObjectDb>();
+            DataAccess = Substitute.ForPartsOf<CasinoProgressiveWinsDataAccess>(balanceUpDataAccess);
+            DataAccess.GetObjectDb(Arg.Is(SpName)).Returns(ObjectDb);
 
             _metaModel = new BaseReportMetaModel
             {
@@ -49,29 +45,23 @@
             };
         }
 
-        [OneTimeTearDown]
-        public void TearDown()
-        {
-            _objectDb = null;
-            _dataAccess = null;
-            _reader = null;
-            _metaModel = null;
-        }
-
         [Test]
         public void GetDataList_WhenCall_ParametersPassedCorrectly()
         {
             // Action
-            _dataAccess.GetDataList(_metaModel);
+            DataAccess.GetDataList(_metaModel);
 
             // Assert
-            _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-            _objectDb.Received().AddInParameter("fromdate", DbType.Date, _metaModel.FromDate.Date);
-            _objectDb.Received().AddInParameter("todate", DbType.Date, _metaModel.ToDate.Date);
-            _objectDb.Received().AddInParameter("movebetsday", DbType.DateTime, new DateTime(2016, 8, 10));
-            _objectDb.Received().AddInParameter("BalanceUpDay", DbType.DateTime, new DateTime(2016, 8, 30));
-            _objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
-            _objectDb.Received().AddInParameter("showNG", DbType.Boolean, false);
+            Assert.Multiple(() =>
+            {
+                ObjectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                ObjectDb.Received().AddInParameter("fromdate", DbType.Date, _metaModel.FromDate.Date);
+                ObjectDb.Received().AddInParameter("todate", DbType.Date, _metaModel.ToDate.Date);
+                ObjectDb.Received().AddInParameter("movebetsday", DbType.DateTime, new DateTime(2016, 8, 10));
+                ObjectDb.Received().AddInParameter("BalanceUpDay", DbType.DateTime, new DateTime(2016, 8, 30));
+                ObjectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
+                ObjectDb.Received().AddInParameter("showNG", DbType.Boolean, false);
+            });
         }
 
         [Test]
@@ -94,19 +84,30 @@
             ConfigureReaderForGetDataListMethod(expected);
 
             // Action
-            var result = _dataAccess.GetDataList(_metaModel).ElementAt(0);
+            var result = DataAccess.GetDataList(_metaModel).ElementAt(0);
 
             // Assert
-            Assert.That(result.SystemId, Is.EqualTo(expected.SystemId));
-            Assert.That(result.ExternalId, Is.EqualTo(expected.ExternalId));
-            Assert.That(result.RefNo, Is.EqualTo(expected.RefNo));
-            Assert.That(result.WinAmount, Is.EqualTo(expected.WinAmount));
-            Assert.That(result.BetType, Is.EqualTo(expected.BetType));
-            Assert.That(result.SportType, Is.EqualTo(expected.SportType));
-            Assert.That(result.TransDesc, Is.EqualTo(expected.TransDesc));
-            Assert.That(result.CurrencyId, Is.EqualTo(expected.CurrencyId));
-            Assert.That(result.CustId, Is.EqualTo(expected.CustId));
-            Assert.That(result.GameId, Is.EqualTo(expected.GameId));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.SystemId, Is.EqualTo(expected.SystemId));
+                Assert.That(result.ExternalId, Is.EqualTo(expected.ExternalId));
+                Assert.That(result.RefNo, Is.EqualTo(expected.RefNo));
+                Assert.That(result.WinAmount, Is.EqualTo(expected.WinAmount));
+                Assert.That(result.BetType, Is.EqualTo(expected.BetType));
+                Assert.That(result.SportType, Is.EqualTo(expected.SportType));
+                Assert.That(result.TransDesc, Is.EqualTo(expected.TransDesc));
+                Assert.That(result.CurrencyId, Is.EqualTo(expected.CurrencyId));
+                Assert.That(result.CustId, Is.EqualTo(expected.CustId));
+                Assert.That(result.GameId, Is.EqualTo(expected.GameId));
+            });
+        }
+
+        [Test]
+        public void GetDataList_WhenObjectDbThrowsException_ThrowDataAccessException()
+        {
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                SpName,
+                () => DataAccess.GetDataList(_metaModel));
         }
 
         private IList<ProductOption> GetProductOptions()
@@ -121,19 +122,19 @@
         private void ConfigureReaderForGetDataListMethod(CasinoProgressiveWins expected)
         {
             _metaModel.BaseCurrency = "UUS";
-            _reader.Read().Returns(true, false);
+            Reader.Read().Returns(true, false);
 
-            _reader["WinlostDate"].Returns(expected.WinlostDate);
-            _reader["SystemId"].Returns(expected.SystemId);
-            _reader["ExternalId"].Returns(expected.ExternalId);
-            _reader["RefNo"].Returns(expected.RefNo);
-            _reader["WinAmountuus"].Returns(expected.WinAmount);
-            _reader["BetType"].Returns(expected.BetType);
-            _reader["SportType"].Returns(expected.SportType);
-            _reader["TransDesc"].Returns(expected.TransDesc);
-            _reader["Currency"].Returns(expected.CurrencyId);
-            _reader["CustId"].Returns(expected.CustId);
-            _reader["TranId3rd"].Returns(expected.GameId);
+            Reader["WinlostDate"].Returns(expected.WinlostDate);
+            Reader["SystemId"].Returns(expected.SystemId);
+            Reader["ExternalId"].Returns(expected.ExternalId);
+            Reader["RefNo"].Returns(expected.RefNo);
+            Reader["WinAmountuus"].Returns(expected.WinAmount);
+            Reader["BetType"].Returns(expected.BetType);
+            Reader["SportType"].Returns(expected.SportType);
+            Reader["TransDesc"].Returns(expected.TransDesc);
+            Reader["Currency"].Returns(expected.CurrencyId);
+            Reader["CustId"].Returns(expected.CustId);
+            Reader["TranId3rd"].Returns(expected.GameId);
         }
     }
 }

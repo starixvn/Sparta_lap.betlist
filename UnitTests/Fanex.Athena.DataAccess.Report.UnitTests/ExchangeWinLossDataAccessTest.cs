@@ -4,8 +4,7 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
-    using Core.Exception;
-    using Fanex.Data;
+    using Core.UnitTests.TestHelpers;
     using Model.Core.DataDomain;
     using Model.Core.ResultModel;
     using Model.Report.DTO;
@@ -13,18 +12,22 @@
     using NSubstitute;
     using NUnit.Framework;
 
-    public class ExchangeWinLossDataAccessTest
+    public class ExchangeWinLossDataAccessTest : BaseDataAccessHelperTest<ExchangeWinLossDataAccess>
     {
-        private IObjectDb _objectDb;
-        private ExchangeWinLossDataAccess _dataAccess;
-        private IDataReader _reader;
+        private const string GetMainWinlossSp = "Lrf_Rpt_ExchangeWinloss";
+
+        private const string GetCustomerWinlossSp = "Lrf_Rpt_ExchangeWinloss_Mem";
+
+        private const string GetLicenseeWinlossSp = "Lrf_Rpt_ExchangeWinloss_Ag";
+
         private ExchangeWinLossMetaModel _metaModel;
+
         private IDictionary<string, decimal> _baseCurrencyExchangeRate;
 
         [OneTimeSetUp]
-        public void OneTimeSetup()
+        public override void FixtureSetUp()
         {
-            _dataAccess = Substitute.ForPartsOf<ExchangeWinLossDataAccess>();
+            base.FixtureSetUp();
 
             _metaModel = new ExchangeWinLossMetaModel
             {
@@ -40,66 +43,38 @@
             {
                 _baseCurrencyExchangeRate.Add(SystemConstants.BaseCurrencyList[i], (i + 1) * 0.1m);
             }
-        }
 
-        [OneTimeTearDown]
-        public void OneTimeTearDown()
-        {
-            _dataAccess = null;
-        }
-
-        [SetUp]
-        public void SetUp()
-        {
-            _objectDb = Substitute.For<IObjectDb>();
-            _reader = Substitute.For<IDataReader>();
-            _objectDb.ExecuteReader().Returns(_reader);
-
-            _dataAccess.GetObjectDb(Arg.Is<string>(x => x.Contains("Lrf_Rpt_ExchangeWinloss"))).Returns(_objectDb);
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            _reader = null;
-            _objectDb = null;
+            DataAccess.GetObjectDb(Arg.Is<string>(x => x.Contains(GetMainWinlossSp))).Returns(ObjectDb);
         }
 
         [Test]
         public void GetMainWinloss_WhenCall_ParametersPassedCorrectly()
         {
             // Action
-            _dataAccess.GetMainWinloss(_metaModel);
+            DataAccess.GetMainWinloss(_metaModel);
 
             // Assert
             Assert.Multiple(() =>
             {
-                _dataAccess.Received().GetObjectDb("Lrf_Rpt_ExchangeWinloss");
-                _objectDb.Received().AddInParameter("ReportType", DbType.Byte, _metaModel.ReportBy);
-                _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received().AddInParameter("Fromdate", DbType.Date, _metaModel.FromDate.Date);
-                _objectDb.Received().AddInParameter("Todate", DbType.Date, _metaModel.ToDate.Date);
+                DataAccess.Received().GetObjectDb(GetMainWinlossSp);
+                ObjectDb.Received().AddInParameter("ReportType", DbType.Byte, _metaModel.ReportBy);
+                AssertCommonSpParameters();
             });
         }
 
         [Test]
         public void GetMainWinloss_WhenReceiveObjectDbException_ThrowDataAccessException()
         {
-            // Arrange
-            _objectDb.ExecuteReader().Returns(x => { throw new ObjectDbException(); });
-
-            // Action
-            TestDelegate result = () => _dataAccess.GetMainWinloss(_metaModel);
-
-            // Assert
-            Assert.Throws<DataAccessException>(result, Arg.Is<string>(x => x.Contains("Lrf_Rpt_ExchangeWinloss")));
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                GetMainWinlossSp,
+                () => DataAccess.GetMainWinloss(_metaModel));
         }
 
         [Test]
         public void GetMainWinloss_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            _reader.Read().Returns(true, true, false);
+            Reader.Read().Returns(true, true, false);
 
             var currencyList = new[] { "USD", "EUR" };
             var expectedList = CreateExpectedResult(currencyList, DateTime.Today);
@@ -109,7 +84,7 @@
             ConfigureReaderForMainResult(firstExpected, expectedList);
 
             // Action
-            var result = _dataAccess.GetMainWinloss(_metaModel);
+            var result = DataAccess.GetMainWinloss(_metaModel);
             var firstItem = result.DataList.First();
 
             // Assert
@@ -126,7 +101,7 @@
         public void GetMainWinloss_WhenCallWithBaseCurrencyUSD_DataConvertedToUSD()
         {
             // Arrange
-            _reader.Read().Returns(true, false, false);
+            Reader.Read().Returns(true, false, false);
 
             var model = new ExchangeWinLossMetaModel
             {
@@ -148,7 +123,7 @@
             ConvertExpectedValueToBaseCurrency(expectedList, model.BaseCurrency.ToUpperInvariant());
 
             // Action
-            var result = _dataAccess.GetMainWinloss(model);
+            var result = DataAccess.GetMainWinloss(model);
             var firstItem = result.DataList.First();
 
             // Assert
@@ -165,36 +140,29 @@
         public void GetLicenseeWinloss_WhenCall_ParametersPassedCorrectly()
         {
             // Action
-            _dataAccess.GetLicenseeWinloss(_metaModel);
+            DataAccess.GetLicenseeWinloss(_metaModel);
 
             // Assert
             Assert.Multiple(() =>
             {
-                _dataAccess.Received().GetObjectDb("Lrf_Rpt_ExchangeWinloss_Ag");
-                _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received().AddInParameter("Fromdate", DbType.Date, _metaModel.FromDate.Date);
-                _objectDb.Received().AddInParameter("Todate", DbType.Date, _metaModel.ToDate.Date);
+                DataAccess.Received().GetObjectDb(GetLicenseeWinlossSp);
+                AssertCommonSpParameters();
             });
         }
 
         [Test]
         public void GetLicenseeWinloss_WhenReceiveObjectDbException_ThrowDataAccessException()
         {
-            // Arrange
-            _objectDb.ExecuteReader().Returns(x => { throw new ObjectDbException(); });
-
-            // Action
-            TestDelegate result = () => _dataAccess.GetLicenseeWinloss(_metaModel);
-
-            // Assert
-            Assert.Throws<DataAccessException>(result, Arg.Is<string>(x => x.Contains("Lrf_Rpt_ExchangeWinloss_Ag")));
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                GetLicenseeWinlossSp,
+                () => DataAccess.GetLicenseeWinloss(_metaModel));
         }
 
         [Test]
         public void GetLicenseeWinloss_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            _reader.Read().Returns(true, true, false);
+            Reader.Read().Returns(true, true, false);
 
             var currencyList = new[] { "AUD", "EUR" };
             var expectedList = CreateExpectedResult(currencyList, DateTime.Today);
@@ -204,7 +172,7 @@
             ConfigureReaderForLicenseeResult(firstExpected, expectedList);
 
             // Action
-            var result = _dataAccess.GetLicenseeWinloss(_metaModel);
+            var result = DataAccess.GetLicenseeWinloss(_metaModel);
             var firstItem = result.DataList.First();
 
             firstExpected.Date = _metaModel.ToDate;
@@ -223,37 +191,30 @@
         public void GetCustomerWinloss_WhenCall_ParametersPassedCorrectly()
         {
             // Action
-            _dataAccess.GetCustomerWinloss(_metaModel);
+            DataAccess.GetCustomerWinloss(_metaModel);
 
             // Assert
             Assert.Multiple(() =>
             {
-                _dataAccess.Received().GetObjectDb("Lrf_Rpt_ExchangeWinloss_Mem");
-                _objectDb.Received().AddInParameter("CustID", DbType.Int32, _metaModel.CustId);
-                _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received().AddInParameter("Fromdate", DbType.Date, _metaModel.FromDate.Date);
-                _objectDb.Received().AddInParameter("Todate", DbType.Date, _metaModel.ToDate.Date);
+                DataAccess.Received().GetObjectDb(GetCustomerWinlossSp);
+                ObjectDb.Received().AddInParameter("CustID", DbType.Int32, _metaModel.CustId);
+                AssertCommonSpParameters();
             });
         }
 
         [Test]
         public void GetCustomerWinloss_WhenReceiveObjectDbException_ThrowDataAccessException()
         {
-            // Arrange
-            _objectDb.ExecuteReader().Returns(x => { throw new ObjectDbException(); });
-
-            // Action
-            TestDelegate result = () => _dataAccess.GetCustomerWinloss(_metaModel);
-
-            // Assert
-            Assert.Throws<DataAccessException>(result, Arg.Is<string>(x => x.Contains("Lrf_Rpt_ExchangeWinloss_Mem")));
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                GetCustomerWinlossSp,
+                () => DataAccess.GetCustomerWinloss(_metaModel));
         }
 
         [Test]
         public void GetCustomerWinloss_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            _reader.Read().Returns(true, true, false);
+            Reader.Read().Returns(true, true, false);
 
             var currencyList = new[] { "AUD", "SSS" };
             var expectedList = CreateExpectedResult(currencyList, DateTime.Today);
@@ -263,7 +224,7 @@
             ConfigureReaderForCustomerResult(firstExpected, expectedList);
 
             // Action
-            var result = _dataAccess.GetCustomerWinloss(_metaModel);
+            var result = DataAccess.GetCustomerWinloss(_metaModel);
             var firstItem = result.DataList.First();
 
             firstExpected.Date = _metaModel.ToDate;
@@ -278,7 +239,7 @@
             });
         }
 
-        private List<ExchangeWinLoss> CreateExpectedResult(string[] currencyList, DateTime date)
+        private static List<ExchangeWinLoss> CreateExpectedResult(string[] currencyList, DateTime date)
         {
             var expectedResult = new List<ExchangeWinLoss>();
 
@@ -308,109 +269,7 @@
             return expectedResult;
         }
 
-        private void ConfigureReaderForResult(ExchangeWinLoss firstExpected, IEnumerable<ExchangeWinLoss> expectedList)
-        {
-            // main data
-            ConfigureDataForReader(firstExpected, expectedList, string.Empty, 1);
-
-            foreach (var currency in SystemConstants.BaseCurrencyList)
-            {
-                ConfigureDataForReader(firstExpected, expectedList, currency, _baseCurrencyExchangeRate[currency]);
-            }
-        }
-
-        private void ConfigureDataForReader(ExchangeWinLoss firstExpected, IEnumerable<ExchangeWinLoss> expectedList, string baseCurrency, decimal rate)
-        {
-            _reader["CurrencyName"].Returns(firstExpected.CurrencyName, expectedList.Select(x => x.CurrencyName).ToArray());
-            _reader["CurrencyID"].Returns(firstExpected.CurrencyId.ToString(), expectedList.Select(x => x.CurrencyId.ToString()).ToArray());
-            _reader["TotalTrans"].Returns(firstExpected.TotalTransaction.ToString(), expectedList.Select(x => x.TotalTransaction.ToString()).ToArray());
-            _reader["TurnOver" + baseCurrency].Returns(
-                (firstExpected.Turnover * rate).ToString(),
-                expectedList.Select(x => (x.Turnover * rate).ToString()).ToArray());
-            _reader["NetTurnOver" + baseCurrency].Returns(
-                (firstExpected.NetTurnover * rate).ToString(),
-                expectedList.Select(x => (x.NetTurnover * rate).ToString()).ToArray());
-            _reader["Winlost" + baseCurrency].Returns(
-                (firstExpected.CustomerWL * rate).ToString(),
-                expectedList.Select(x => (x.CustomerWL * rate).ToString()).ToArray());
-            _reader["CustComm" + baseCurrency].Returns(
-                (firstExpected.CustomerComm * rate).ToString(),
-                expectedList.Select(x => (x.CustomerComm * rate).ToString()).ToArray());
-            _reader["LicenseeWinlost" + baseCurrency].Returns(
-                (firstExpected.LicenseeWL * rate).ToString(),
-                expectedList.Select(x => (x.LicenseeWL * rate).ToString()).ToArray());
-            _reader["LicNetWL" + baseCurrency].Returns(
-                (firstExpected.LicenseeNetWL * rate).ToString(),
-                expectedList.Select(x => (x.LicenseeNetWL * rate).ToString()).ToArray());
-            _reader["AgentComm" + baseCurrency].Returns(
-                (firstExpected.LicenseeComm * rate).ToString(),
-                expectedList.Select(x => (x.LicenseeComm * rate).ToString()).ToArray());
-            _reader["AmountDueTo" + baseCurrency].Returns(
-                (firstExpected.AmountDueTo * rate).ToString(),
-                expectedList.Select(x => (x.AmountDueTo * rate).ToString()).ToArray());
-        }
-
-        private void ConfigureReaderForMainResult(ExchangeWinLoss firstExpected, IEnumerable<ExchangeWinLoss> expectedList)
-        {
-            _reader.FieldCount.Returns(10);
-            _reader.GetName(Arg.Any<int>()).Returns("Winlostdate");
-
-            _reader["Winlostdate"].Returns(firstExpected.Date.ToString("yyyy-MM-dd"), expectedList.Select(x => x.Date.ToString("yyyy-MM-dd")).ToArray());
-        }
-
-        private void ConfigureReaderForLicenseeResult(ExchangeWinLoss firstExpected, IEnumerable<ExchangeWinLoss> expectedList)
-        {
-            _reader.FieldCount.Returns(10);
-            _reader.GetName(Arg.Any<int>()).Returns("username", "CustID");
-
-            _reader["CustID"].Returns(firstExpected.CustId.ToString(), expectedList.Select(x => x.CustId.ToString()).ToArray());
-            _reader["username"].Returns(firstExpected.SystemId, expectedList.Select(x => x.SystemId).ToArray());
-        }
-
-        private void ConfigureReaderForCustomerResult(ExchangeWinLoss firstExpected, IEnumerable<ExchangeWinLoss> expectedList)
-        {
-            _reader.FieldCount.Returns(10);
-            _reader.GetName(Arg.Any<int>()).Returns("username", "nickname");
-
-            _reader["nickname"].Returns(firstExpected.ExternalId, expectedList.Select(x => x.ExternalId).ToArray());
-            _reader["username"].Returns(firstExpected.SystemId, expectedList.Select(x => x.SystemId).ToArray());
-        }
-
-        private void ConvertExpectedValueToBaseCurrency(List<ExchangeWinLoss> expectedList, string baseCurrency)
-        {
-            foreach (var item in expectedList)
-            {
-                var exchangeRate = _baseCurrencyExchangeRate[baseCurrency];
-
-                item.Turnover = item.Turnover * exchangeRate;
-                item.CustomerWL = item.CustomerWL * exchangeRate;
-                item.CustomerComm = item.CustomerComm * exchangeRate;
-                item.LicenseeWL = item.LicenseeWL * exchangeRate;
-                item.LicenseeNetWL = item.LicenseeNetWL * exchangeRate;
-                item.LicenseeComm = item.LicenseeComm * exchangeRate;
-                item.AmountDueTo = item.AmountDueTo * exchangeRate;
-                item.NetTurnover = item.NetTurnover * exchangeRate;
-            }
-        }
-
-        private void AssertMainResultData(
-            ReportResultModel<ExchangeWinLoss> result, 
-            ExchangeWinLoss firstExpected, 
-            List<ExchangeWinLoss> expectedList, 
-            string baseCurrenct = "")
-        {
-            var firstItem = result.DataList.First();
-
-            Assert.That(firstItem.Date, Is.EqualTo(firstExpected.Date));
-            Assert.That(firstItem.CurrencyName, Is.EqualTo(firstExpected.CurrencyName));
-            Assert.That(firstItem.CurrencyId, Is.EqualTo(firstExpected.CurrencyId));
-
-            AssertCommonResultData(firstItem, firstExpected);
-            AssertTotalResultData(result, expectedList);
-            AssertSummaryTotalResultData(result, expectedList, baseCurrenct);
-        }
-
-        private void AssertTotalResultData(ReportResultModel<ExchangeWinLoss> result, IEnumerable<ExchangeWinLoss> expectedList)
+        private static void AssertTotalResultData(ReportResultModel<ExchangeWinLoss> result, IEnumerable<ExchangeWinLoss> expectedList)
         {
             var expectedTotal = expectedList.GroupBy(x => new { x.CurrencyId, x.CurrencyName }).Select(g => new ExchangeWinLoss
             {
@@ -433,6 +292,127 @@
 
                 AssertCommonResultData(actual, expected);
             }
+        }
+
+        private static void AssertCommonResultData(ExchangeWinLoss actual, ExchangeWinLoss expected)
+        {
+            Assert.That(actual.Turnover, Is.EqualTo(expected.Turnover));
+            Assert.That(actual.NetTurnover, Is.EqualTo(expected.NetTurnover));
+            Assert.That(actual.CustomerWL, Is.EqualTo(expected.CustomerWL));
+            Assert.That(actual.CustomerComm, Is.EqualTo(expected.CustomerComm));
+            Assert.That(actual.LicenseeWL, Is.EqualTo(expected.LicenseeWL));
+            Assert.That(actual.LicenseeNetWL, Is.EqualTo(expected.LicenseeNetWL));
+            Assert.That(actual.LicenseeComm, Is.EqualTo(expected.LicenseeComm));
+            Assert.That(actual.AmountDueTo, Is.EqualTo(expected.AmountDueTo));
+        }
+
+        private void ConfigureReaderForResult(ExchangeWinLoss firstExpected, IEnumerable<ExchangeWinLoss> expectedList)
+        {
+            // main data
+            ConfigureDataForReader(firstExpected, expectedList, string.Empty, 1);
+
+            foreach (var currency in SystemConstants.BaseCurrencyList)
+            {
+                ConfigureDataForReader(firstExpected, expectedList, currency, _baseCurrencyExchangeRate[currency]);
+            }
+        }
+
+        private void ConfigureDataForReader(ExchangeWinLoss firstExpected, IEnumerable<ExchangeWinLoss> expectedList, string baseCurrency, decimal rate)
+        {
+            Reader["CurrencyName"].Returns(firstExpected.CurrencyName, expectedList.Select(x => x.CurrencyName).ToArray());
+            Reader["CurrencyID"].Returns(firstExpected.CurrencyId.ToString(), expectedList.Select(x => x.CurrencyId.ToString()).ToArray());
+            Reader["TotalTrans"].Returns(firstExpected.TotalTransaction.ToString(), expectedList.Select(x => x.TotalTransaction.ToString()).ToArray());
+            Reader["TurnOver" + baseCurrency].Returns(
+                (firstExpected.Turnover * rate).ToString(),
+                expectedList.Select(x => (x.Turnover * rate).ToString()).ToArray());
+            Reader["NetTurnOver" + baseCurrency].Returns(
+                (firstExpected.NetTurnover * rate).ToString(),
+                expectedList.Select(x => (x.NetTurnover * rate).ToString()).ToArray());
+            Reader["Winlost" + baseCurrency].Returns(
+                (firstExpected.CustomerWL * rate).ToString(),
+                expectedList.Select(x => (x.CustomerWL * rate).ToString()).ToArray());
+            Reader["CustComm" + baseCurrency].Returns(
+                (firstExpected.CustomerComm * rate).ToString(),
+                expectedList.Select(x => (x.CustomerComm * rate).ToString()).ToArray());
+            Reader["LicenseeWinlost" + baseCurrency].Returns(
+                (firstExpected.LicenseeWL * rate).ToString(),
+                expectedList.Select(x => (x.LicenseeWL * rate).ToString()).ToArray());
+            Reader["LicNetWL" + baseCurrency].Returns(
+                (firstExpected.LicenseeNetWL * rate).ToString(),
+                expectedList.Select(x => (x.LicenseeNetWL * rate).ToString()).ToArray());
+            Reader["AgentComm" + baseCurrency].Returns(
+                (firstExpected.LicenseeComm * rate).ToString(),
+                expectedList.Select(x => (x.LicenseeComm * rate).ToString()).ToArray());
+            Reader["AmountDueTo" + baseCurrency].Returns(
+                (firstExpected.AmountDueTo * rate).ToString(),
+                expectedList.Select(x => (x.AmountDueTo * rate).ToString()).ToArray());
+        }
+
+        private void ConfigureReaderForMainResult(ExchangeWinLoss firstExpected, IEnumerable<ExchangeWinLoss> expectedList)
+        {
+            Reader.FieldCount.Returns(10);
+            Reader.GetName(Arg.Any<int>()).Returns("Winlostdate");
+
+            Reader["Winlostdate"].Returns(firstExpected.Date.ToString("yyyy-MM-dd"), expectedList.Select(x => x.Date.ToString("yyyy-MM-dd")).ToArray());
+        }
+
+        private void ConfigureReaderForLicenseeResult(ExchangeWinLoss firstExpected, IEnumerable<ExchangeWinLoss> expectedList)
+        {
+            Reader.FieldCount.Returns(10);
+            Reader.GetName(Arg.Any<int>()).Returns("username", "CustID");
+
+            Reader["CustID"].Returns(firstExpected.CustId.ToString(), expectedList.Select(x => x.CustId.ToString()).ToArray());
+            Reader["username"].Returns(firstExpected.SystemId, expectedList.Select(x => x.SystemId).ToArray());
+        }
+
+        private void ConfigureReaderForCustomerResult(ExchangeWinLoss firstExpected, IEnumerable<ExchangeWinLoss> expectedList)
+        {
+            Reader.FieldCount.Returns(10);
+            Reader.GetName(Arg.Any<int>()).Returns("username", "nickname");
+
+            Reader["nickname"].Returns(firstExpected.ExternalId, expectedList.Select(x => x.ExternalId).ToArray());
+            Reader["username"].Returns(firstExpected.SystemId, expectedList.Select(x => x.SystemId).ToArray());
+        }
+
+        private void ConvertExpectedValueToBaseCurrency(List<ExchangeWinLoss> expectedList, string baseCurrency)
+        {
+            foreach (var item in expectedList)
+            {
+                var exchangeRate = _baseCurrencyExchangeRate[baseCurrency];
+
+                item.Turnover = item.Turnover * exchangeRate;
+                item.CustomerWL = item.CustomerWL * exchangeRate;
+                item.CustomerComm = item.CustomerComm * exchangeRate;
+                item.LicenseeWL = item.LicenseeWL * exchangeRate;
+                item.LicenseeNetWL = item.LicenseeNetWL * exchangeRate;
+                item.LicenseeComm = item.LicenseeComm * exchangeRate;
+                item.AmountDueTo = item.AmountDueTo * exchangeRate;
+                item.NetTurnover = item.NetTurnover * exchangeRate;
+            }
+        }
+
+        private void AssertMainResultData(
+            ReportResultModel<ExchangeWinLoss> result,
+            ExchangeWinLoss firstExpected,
+            List<ExchangeWinLoss> expectedList,
+            string baseCurrenct = "")
+        {
+            var firstItem = result.DataList.First();
+
+            Assert.That(firstItem.Date, Is.EqualTo(firstExpected.Date));
+            Assert.That(firstItem.CurrencyName, Is.EqualTo(firstExpected.CurrencyName));
+            Assert.That(firstItem.CurrencyId, Is.EqualTo(firstExpected.CurrencyId));
+
+            AssertCommonResultData(firstItem, firstExpected);
+            AssertTotalResultData(result, expectedList);
+            AssertSummaryTotalResultData(result, expectedList, baseCurrenct);
+        }
+
+        private void AssertCommonSpParameters()
+        {
+            ObjectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+            ObjectDb.Received().AddInParameter("Fromdate", DbType.Date, _metaModel.FromDate.Date);
+            ObjectDb.Received().AddInParameter("Todate", DbType.Date, _metaModel.ToDate.Date);
         }
 
         private void AssertSummaryTotalResultData(ReportResultModel<ExchangeWinLoss> result, IEnumerable<ExchangeWinLoss> expectedList, string baseCurrency)
@@ -460,18 +440,6 @@
 
                 AssertCommonResultData(actual, expected);
             }
-        }
-
-        private void AssertCommonResultData(ExchangeWinLoss actual, ExchangeWinLoss expected)
-        {
-            Assert.That(actual.Turnover, Is.EqualTo(expected.Turnover));
-            Assert.That(actual.NetTurnover, Is.EqualTo(expected.NetTurnover));
-            Assert.That(actual.CustomerWL, Is.EqualTo(expected.CustomerWL));
-            Assert.That(actual.CustomerComm, Is.EqualTo(expected.CustomerComm));
-            Assert.That(actual.LicenseeWL, Is.EqualTo(expected.LicenseeWL));
-            Assert.That(actual.LicenseeNetWL, Is.EqualTo(expected.LicenseeNetWL));
-            Assert.That(actual.LicenseeComm, Is.EqualTo(expected.LicenseeComm));
-            Assert.That(actual.AmountDueTo, Is.EqualTo(expected.AmountDueTo));
         }
     }
 }

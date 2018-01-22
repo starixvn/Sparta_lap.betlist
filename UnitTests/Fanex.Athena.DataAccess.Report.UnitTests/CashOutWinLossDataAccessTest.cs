@@ -5,6 +5,7 @@
     using System.Data;
     using System.Web.Script.Serialization;
     using Core.Configuration.Interfaces;
+    using Core.UnitTests.TestHelpers;
     using Data;
     using Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Configuration;
@@ -13,17 +14,18 @@
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using UnitTest.Common.Helpers;
 
-    public class CashOutWinLossDataAccessTest
+    public class CashOutWinLossDataAccessTest : BaseDataAccessHelperTest<CashOutWinLossDataAccess>
     {
-        private CashOutWinLossDataAccess _dataAccess;
+        private const string GetSummarySp = "Lrf_Rpt_CashoutWinloss";
+
+        private const string GetDetailSp = "Lrf_Rpt_CashoutWinloss_Detail";
+
         private BalanceUp _balance;
         private ThirdPartyWinLossMetaModel _metaModel;
-        private IObjectDb _objectDb;
 
-        [SetUp]
-        public void SetUp()
+        [OneTimeSetUp]
+        public override void FixtureSetUp()
         {
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             _balance = new BalanceUp
@@ -32,8 +34,23 @@
             };
             balanceUpDataAccess.GetBalanceUp().Returns(_balance);
 
-            _dataAccess = Substitute.ForPartsOf<CashOutWinLossDataAccess>(balanceUpDataAccess);
-            _objectDb = Substitute.For<IObjectDb>();
+            DataAccess = Substitute.ForPartsOf<CashOutWinLossDataAccess>(balanceUpDataAccess);
+            ObjectDb = Substitute.For<IObjectDb>();
+        }
+
+        [OneTimeTearDown]
+        public override void FixtureTearDown()
+        {
+            _balance = null;
+
+            base.FixtureTearDown();
+        }
+
+        [SetUp]
+        public override void SetUp()
+        {
+            base.SetUp();
+
             _metaModel = new ThirdPartyWinLossMetaModel
             {
                 DrillDownFromDate = new DateTime(2017, 4, 1),
@@ -46,57 +63,48 @@
             };
         }
 
-        [TearDown]
-        public void TearDown()
-        {
-            _dataAccess = null;
-            _balance = null;
-            _metaModel = null;
-            _objectDb = null;
-        }
-
         [Test]
         public void GetSummary_WhenCall_ParameterPassedCorrectly()
         {
             // Arrange
-            var reader = Substitute.For<IDataReader>();
-            reader.Read().Returns(false);
-            _objectDb.ExecuteReader().Returns(reader);
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_CashoutWinloss")).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is(GetSummarySp)).Returns(ObjectDb);
+            Reader.Read().Returns(false);
 
             // Action
-            _dataAccess.GetSummary(_metaModel);
+            DataAccess.GetSummary(_metaModel);
 
             // Assert
-            _objectDb.Received().AddInParameter("fromdate", DbType.Date, _metaModel.FromDate.Date);
-            _objectDb.Received().AddInParameter("todate", DbType.Date, _metaModel.ToDate.Date);
-            _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-            _objectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, _balance.MoveBetsDay);
-            _objectDb.Received().AddInParameter("ReportType", DbType.Int32, _metaModel.ReportBy);
+            Assert.Multiple(() =>
+            {
+                AssertUspParameters();
+                ObjectDb.Received().AddInParameter("ReportType", DbType.Int32, _metaModel.ReportBy);
+            });
         }
 
         [Test]
         public void GetSummary_Level0AndConditionIsTrue_ReturnCorrectData()
         {
             // Arrange
-            var reader = Substitute.For<IDataReader>();
-            reader.Read().Returns(true, false);
-            _objectDb.ExecuteReader().Returns(reader);
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_Rpt_CashoutWinloss")).Returns(_objectDb);
-            ConfigCheckingColumnForReader(reader);
+            DataAccess.GetObjectDb(Arg.Is(GetSummarySp)).Returns(ObjectDb);
+            ConfigCheckingColumnForReader();
+            Reader.Read().Returns(true, false);
 
             var fakeData = CreateFakeData();
-            DataAccessTestHelper.MapReaderData(reader, fakeData);
+            MapReaderData(fakeData);
+
             var serializer = new JavaScriptSerializer();
             var expectedCashoutWinLossData = serializer.Serialize(CreateExpectedCashoutWinLossData(1));
             var expectedSummaryTotal = serializer.Serialize(CreateExpectedSummaryTotalData());
 
             // Action
-            var result = _dataAccess.GetSummary(_metaModel);
+            var result = DataAccess.GetSummary(_metaModel);
 
             // Assert
-            Assert.That(serializer.Serialize(result.DataList), Is.EqualTo(expectedCashoutWinLossData));
-            Assert.That(serializer.Serialize(result.SummaryTotal), Is.EqualTo(expectedSummaryTotal));
+            Assert.Multiple(() =>
+            {
+                Assert.That(serializer.Serialize(result.DataList), Is.EqualTo(expectedCashoutWinLossData));
+                Assert.That(serializer.Serialize(result.SummaryTotal), Is.EqualTo(expectedSummaryTotal));
+            });
         }
 
         [Test]
@@ -104,14 +112,13 @@
         {
             // Arrange
             _metaModel.DrillDownLevel = 1;
-            var reader = Substitute.For<IDataReader>();
-            reader.Read().Returns(true, false);
-            _objectDb.ExecuteReader().Returns(reader);
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_Rpt_CashoutWinloss")).Returns(_objectDb);
-            reader.FieldCount.Returns(0);
+
+            DataAccess.GetObjectDb(Arg.Is(GetSummarySp)).Returns(ObjectDb);
+            Reader.Read().Returns(true, false);
+            Reader.FieldCount.Returns(0);
 
             var fakeData = CreateFakeData();
-            DataAccessTestHelper.MapReaderData(reader, fakeData);
+            MapReaderData(fakeData);
             var serializer = new JavaScriptSerializer();
 
             var cashoutWinLossData = CreateExpectedCashoutWinLossData(1);
@@ -123,43 +130,74 @@
             var expectedCashoutWinLossData = serializer.Serialize(cashoutWinLossData);
 
             // Action
-            var result = _dataAccess.GetSummary(_metaModel);
+            var result = DataAccess.GetSummary(_metaModel);
 
             // Assert
             Assert.That(serializer.Serialize(result.DataList), Is.EqualTo(expectedCashoutWinLossData));
         }
 
         [Test]
+        public void GetSummary_WhenCall_ReturnCorrectRowSpan()
+        {
+            // Arrange
+            DataAccess.GetObjectDb(Arg.Is(GetSummarySp)).Returns(ObjectDb);
+            ConfigCheckingColumnForReader();
+            Reader.Read().Returns(true, true, true, false);
+
+            const string GroupDate1 = "20170120";
+            const string GroupDate2 = "20170122";
+            var fakeData = CreateFakeData();
+            MapReaderData(fakeData);
+            Reader["reporttype"].Returns(GroupDate2, GroupDate1, GroupDate2);
+
+            const int ExpectedRowSpan1 = 1;
+            const int ExpectedRowSpan2 = 2;
+
+            // Action
+            var result = DataAccess.GetSummary(_metaModel);
+            var firstGroupDate1 = result.DataList[0];
+            var firstGroupDate2 = result.DataList[1];
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(firstGroupDate1.RowSpan, Is.EqualTo(ExpectedRowSpan1));
+                Assert.That(firstGroupDate2.RowSpan, Is.EqualTo(ExpectedRowSpan2));
+            });
+        }
+
+        [Test]
+        public void GetSummary_WhenObjectDbThrowsException_ThrowDataAccessException()
+        {
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                GetSummarySp,
+                () => DataAccess.GetSummary(_metaModel));
+        }
+
+        [Test]
         public void GetDetail_WhenCall_ParameterPassedCorrectly()
         {
             // Arrange
-            var reader = Substitute.For<IDataReader>();
-            reader.Read().Returns(false);
-            _objectDb.ExecuteReader().Returns(reader);
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_CashoutWinloss_Detail")).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is(GetDetailSp)).Returns(ObjectDb);
+            Reader.Read().Returns(false);
 
             // Action
-            _dataAccess.GetDetail(_metaModel);
+            DataAccess.GetDetail(_metaModel);
 
             // Assert
-            _objectDb.Received().AddInParameter("fromdate", DbType.Date, _metaModel.DrillDownFromDate);
-            _objectDb.Received().AddInParameter("todate", DbType.Date, _metaModel.DrillDownToDate);
-            _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-            _objectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, _balance.MoveBetsDay);
+            AssertUspParameters();
         }
 
         [Test]
         public void GetDetail_WhenCall_ReturnCorrectData()
         {
             // Arrange
-            var reader = Substitute.For<IDataReader>();
-            reader.Read().Returns(true, false);
-            _objectDb.ExecuteReader().Returns(reader);
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_Rpt_CashoutWinloss_Detail")).Returns(_objectDb);
-            ConfigCheckingColumnForReader(reader);
+            DataAccess.GetObjectDb(Arg.Is(GetDetailSp)).Returns(ObjectDb);
+            Reader.Read().Returns(true, false);
+            ConfigCheckingColumnForReader();
 
             var fakeData = CreateFakeData();
-            DataAccessTestHelper.MapReaderData(reader, fakeData);
+            MapReaderData(fakeData);
             var serializer = new JavaScriptSerializer();
             var expectedResult = new SortableReportResultModel<CashOutWinLoss>
             {
@@ -169,10 +207,18 @@
             };
 
             // Action
-            var result = serializer.Serialize(_dataAccess.GetDetail(_metaModel));
+            var result = serializer.Serialize(DataAccess.GetDetail(_metaModel));
 
             // Assert
             Assert.That(result, Is.EqualTo(serializer.Serialize(expectedResult)));
+        }
+
+        [Test]
+        public void GetDetail_WhenObjectDbThrowsException_ThrowDataAccessException()
+        {
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                GetDetailSp,
+                () => DataAccess.GetDetail(_metaModel));
         }
 
         private static Dictionary<string, object> CreateFakeData()
@@ -288,12 +334,20 @@
             };
         }
 
-        private static void ConfigCheckingColumnForReader(IDataReader reader)
+        private void ConfigCheckingColumnForReader()
         {
-            reader.FieldCount.Returns(3);
-            reader.GetName(0).Returns("systemid");
-            reader.GetName(1).Returns("externalid");
-            reader.GetName(2).Returns("custid");
+            Reader.FieldCount.Returns(3);
+            Reader.GetName(0).Returns("systemid");
+            Reader.GetName(1).Returns("externalid");
+            Reader.GetName(2).Returns("custid");
+        }
+
+        private void AssertUspParameters()
+        {
+            ObjectDb.Received().AddInParameter("fromdate", DbType.Date, _metaModel.DrillDownFromDate);
+            ObjectDb.Received().AddInParameter("todate", DbType.Date, _metaModel.DrillDownToDate);
+            ObjectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+            ObjectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, _balance.MoveBetsDay);
         }
     }
 }

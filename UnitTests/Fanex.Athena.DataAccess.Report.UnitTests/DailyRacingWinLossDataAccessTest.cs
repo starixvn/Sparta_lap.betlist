@@ -1,8 +1,7 @@
 ﻿namespace Fanex.Athena.DataAccess.Report.UnitTests
 {
     using System;
-    using System.Data;
-    using Data;
+    using Core.UnitTests.TestHelpers;
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
@@ -10,29 +9,16 @@
     using UnitTest.Common.NUnitExtensions;
 
     [TestFixture]
-    public class DailyRacingWinLossDataAccessTest
+    public class DailyRacingWinLossDataAccessTest : BaseDataAccessHelperTest<DailyRacingWinLossDataAccess>
     {
-        private IObjectDb _objectDb;
-        private DailyRacingWinLossDataAccess _dataAccess;
-        private IDataReader _reader;
+        private const string SpName = "Lrf_Rpt_WinlostRacing";
 
-        [SetUp]
-        public void Setup()
+        [OneTimeSetUp]
+        public override void FixtureSetUp()
         {
-            _objectDb = Substitute.For<IObjectDb>();
-            _dataAccess = Substitute.ForPartsOf<DailyRacingWinLossDataAccess>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_WinlostRacing")).Returns(_objectDb);
+            base.FixtureSetUp();
 
-            _reader = Substitute.For<IDataReader>();
-            _objectDb.ExecuteReader(Arg.Any<object>()).ReturnsForAnyArgs(_reader);
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            _objectDb = null;
-            _dataAccess = null;
-            _reader = null;
+            DataAccess.GetObjectDb(Arg.Is(SpName)).Returns(ObjectDb);
         }
 
         [Test]
@@ -40,7 +26,7 @@
         {
             // Arrange
             dynamic uspParam = null;
-            _objectDb.ExecuteReader(Arg.Do<dynamic>(arg => uspParam = arg));
+            ObjectDb.ExecuteReader(Arg.Do<dynamic>(arg => uspParam = arg));
 
             var model = new DailyRacingWinLossMetaModel
             {
@@ -55,7 +41,7 @@
             };
 
             // Action
-            _dataAccess.GetDataList(model);
+            DataAccess.GetDataList(model);
 
             // Assert
             Assert.That(uspParam, Tobe.SameProperties(expectedParam));
@@ -65,16 +51,16 @@
         public void GetDataList_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            _reader.Read().Returns(true, false);
+            Reader.Read().Returns(true, false);
             var readerDataMapping = new
             {
                 Currency = 111,
                 LeagueId = 222
             };
-            DataAccessTestHelper.MapReaderData(_reader, readerDataMapping);
+            DataAccessTestHelper.MapReaderData(Reader, readerDataMapping);
 
             // Action
-            var dataList = _dataAccess.GetDataList(new DailyRacingWinLossMetaModel());
+            var dataList = DataAccess.GetDataList(new DailyRacingWinLossMetaModel());
 
             // Assert
             Assert.Multiple(() =>
@@ -83,6 +69,14 @@
                 Assert.That(dataList[0].Currency, Is.EqualTo(111));
                 Assert.That(dataList[0].LeagueId, Is.EqualTo(222));
             });
+        }
+
+        [Test]
+        public void GetDataList_WhenObjectDbThrowsException_ThrowDataAccessException()
+        {
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                SpName,
+                () => DataAccess.GetDataList(new DailyRacingWinLossMetaModel()));
         }
     }
 }

@@ -4,6 +4,7 @@
     using System.Data;
     using System.Linq;
     using Core.Configuration.Interfaces;
+    using Core.UnitTests.TestHelpers;
     using Data;
     using Model.Core.DTO.Configuration;
     using Model.Report.DTO;
@@ -12,19 +13,18 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class CustomerTurnoverDataAccessTest
+    public class CustomerTurnoverDataAccessTest : BaseDataAccessHelperTest<CustomerTurnoverDataAccess>
     {
         private const string LanguageCode = "en-us";
-        private IObjectDb _objectDb;
-        private CustomerTurnoverDataAccess _dataAccess;
+
         private BalanceUp _balance;
-        private IDataReader _reader;
+
         private CustomerTurnoverMetaModel _metaModel;
 
         [OneTimeSetUp]
-        public void Setup()
+        public override void FixtureSetUp()
         {
-            _objectDb = Substitute.For<IObjectDb>();
+            ObjectDb = Substitute.For<IObjectDb>();
 
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             _balance = new BalanceUp
@@ -34,11 +34,8 @@
             };
             balanceUpDataAccess.GetBalanceUp().Returns(_balance);
 
-            _dataAccess = Substitute.ForPartsOf<CustomerTurnoverDataAccess>(balanceUpDataAccess);
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_CustomerTurnOver")).Returns(_objectDb);
-
-            _reader = Substitute.For<IDataReader>();
-            _objectDb.ExecuteReader().Returns(_reader);
+            DataAccess = Substitute.ForPartsOf<CustomerTurnoverDataAccess>(balanceUpDataAccess);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_Rpt_CustomerTurnOver")).Returns(ObjectDb);
 
             _metaModel = new CustomerTurnoverMetaModel
             {
@@ -46,50 +43,93 @@
             };
         }
 
-        [OneTimeTearDown]
-        public void TearDown()
+        [TestCase(null, null)]
+        [TestCase("", null)]
+        [TestCase("User from test", "User from test")]
+        public void GetDataList_WhenCall_ParametersPassedCorrectly(string metaModelUser, string expectedUser)
         {
-            _objectDb = null;
-            _dataAccess = null;
-            _reader = null;
-            _metaModel = null;
-            _balance = null;
+            // Arrange
+            _metaModel.Username = metaModelUser;
+
+            // Action
+            DataAccess.GetDataList(_metaModel, LanguageCode);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                ObjectDb.Received().AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
+                ObjectDb.Received().AddInParameter("userid", DbType.Int32, _metaModel.UserId);
+                ObjectDb.Received().AddInParameter("fromdate", DbType.DateTime, _metaModel.FromDate);
+                ObjectDb.Received().AddInParameter("todate", DbType.DateTime, _metaModel.ToDate);
+                ObjectDb.Received().AddInParameter("odds", DbType.Decimal, _metaModel.Odds);
+                ObjectDb.Received().AddInParameter("reportby", DbType.Int32, _metaModel.ReportBy);
+                ObjectDb.Received().AddInParameter("username", DbType.String, expectedUser);
+                ObjectDb.Received().AddInParameter("movebetsday", DbType.DateTime, _balance.MoveBetsDay);
+                ObjectDb.Received().AddInParameter("balanceupday", DbType.DateTime, _balance.BalanceUpDay);
+                ObjectDb.Received().AddInParameter("Langkey", DbType.String, LanguageCode);
+                ObjectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
+                ObjectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
+                ObjectDb.Received().AddInParameter("currencyid", DbType.Int32, _metaModel.CurrencyId);
+                ObjectDb.Received().AddInParameter("IsExportExcel", DbType.Boolean, _metaModel.IsExportExcel);
+                ObjectDb.Received().AddInParameter("showwin", DbType.Boolean, _metaModel.ShowWin);
+                ObjectDb.Received().AddInParameter("showloss", DbType.Boolean, _metaModel.ShowLoss);
+                ObjectDb.Received().AddInParameter("showdraw", DbType.Boolean, _metaModel.ShowDraw);
+                ObjectDb.Received().AddInParameter("Product", DbType.String, _metaModel.ProductParameters);
+                ObjectDb.Received().AddInParameter("Bettype", DbType.String, _metaModel.BettypeParameters);
+            });
         }
 
         [Test]
-        public void GetDataList_WhenCall_ParametersPassedCorrectly()
+        public void GetDataList_NoData_ReturnEmptyResult()
         {
+            // Arrange
+            Reader.Read().Returns(false);
+            Reader.NextResult().Returns(false);
+
             // Action
-            _dataAccess.GetDataList(_metaModel, LanguageCode);
+            var result = DataAccess.GetDataList(_metaModel, LanguageCode);
 
             // Assert
-            _objectDb.Received().AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
-            _objectDb.Received().AddInParameter("userid", DbType.Int32, _metaModel.UserId);
-            _objectDb.Received().AddInParameter("fromdate", DbType.DateTime, _metaModel.FromDate);
-            _objectDb.Received().AddInParameter("todate", DbType.DateTime, _metaModel.ToDate);
-            _objectDb.Received().AddInParameter("odds", DbType.Decimal, _metaModel.Odds);
-            _objectDb.Received().AddInParameter("reportby", DbType.Int32, _metaModel.ReportBy);
-            _objectDb.Received().AddInParameter("username", DbType.String, _metaModel.Username);
-            _objectDb.Received().AddInParameter("movebetsday", DbType.DateTime, _balance.MoveBetsDay);
-            _objectDb.Received().AddInParameter("balanceupday", DbType.DateTime, _balance.BalanceUpDay);
-            _objectDb.Received().AddInParameter("Langkey", DbType.String, LanguageCode);
-            _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
-            _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
-            _objectDb.Received().AddInParameter("currencyid", DbType.Int32, _metaModel.CurrencyId);
-            _objectDb.Received().AddInParameter("IsExportExcel", DbType.Boolean, _metaModel.IsExportExcel);
-            _objectDb.Received().AddInParameter("showwin", DbType.Boolean, _metaModel.ShowWin);
-            _objectDb.Received().AddInParameter("showloss", DbType.Boolean, _metaModel.ShowLoss);
-            _objectDb.Received().AddInParameter("showdraw", DbType.Boolean, _metaModel.ShowDraw);
-            _objectDb.Received().AddInParameter("Product", DbType.String, _metaModel.ProductParameters);
-            _objectDb.Received().AddInParameter("Bettype", DbType.String, _metaModel.BettypeParameters);
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.DataList, Is.Empty);
+                Assert.That(result.TotalRows, Is.Zero);
+            });
+        }
+
+        [Test]
+        public void GetDataList_NoTotalDataReturned_DataReturnedCorrectly()
+        {
+            // Arrange
+            var expectedResult = new CustTurnover
+            {
+                UserName = "UserNameTest",
+                Currency = "CurrencyTest",
+                Bettype = "BettypeTest"
+            };
+
+            Reader.Read().Returns(true, false);
+            Reader.NextResult().Returns(false);
+            ConfigureReaderForResult(expectedResult);
+
+            // Action
+            var result = DataAccess.GetDataList(_metaModel, LanguageCode);
+            var totalData = result.TotalData;
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.DataList, Is.Not.Empty);
+                Assert.That(result.TotalRows, Is.Zero);
+            });
         }
 
         [Test]
         public void GetDataList_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            _reader.Read().Returns(true, false, true, false);
-            _reader.NextResult().Returns(true);
+            Reader.Read().Returns(true, false, true, false);
+            Reader.NextResult().Returns(true);
             var expectedTotalData = new CustTurnover
             {
                 TotalTransactions = 5,
@@ -98,65 +138,70 @@
             };
             var expectedResult = new CustTurnover
             {
-                UserName = "UserNameTest",
+                UserName = "User name test",
                 Currency = "CurrencyTest",
                 Bettype = "BettypeTest",
                 SportId = 1,
                 ReportBy = new DateTime(2016, 8, 31)
             };
+            const int ExpectedTotalRow = 100;
 
-            ConfigureReaderForTotalData(expectedTotalData);
+            ConfigureReaderForTotalData(expectedTotalData, ExpectedTotalRow);
             ConfigureReaderForResult(expectedResult);
 
             // Action
-            var result = _dataAccess.GetDataList(_metaModel, LanguageCode);
+            var result = DataAccess.GetDataList(_metaModel, LanguageCode);
             var firstItem = result.DataList.First();
             var totalData = result.TotalData;
 
             // Assert
-            Assert.That(firstItem.Turnover, Is.EqualTo(expectedResult.Turnover));
-            Assert.That(firstItem.SportId, Is.EqualTo(expectedResult.SportId));
-            Assert.That(firstItem.ReportBy, Is.EqualTo(expectedResult.ReportBy));
-            Assert.That(firstItem.UserName, Is.EqualTo(expectedResult.UserName));
-            Assert.That(firstItem.Currency, Is.EqualTo(expectedResult.Currency));
-            Assert.That(firstItem.TotalTransactions, Is.EqualTo(expectedResult.TotalTransactions));
-            Assert.That(firstItem.Bettype, Is.EqualTo(expectedResult.Bettype));
-            Assert.That(firstItem.CustomerWinLoss, Is.EqualTo(expectedResult.CustomerWinLoss));
-            Assert.That(firstItem.EffectiveBettingValue, Is.EqualTo(expectedResult.EffectiveBettingValue));
-            Assert.That(firstItem.CustomerComm, Is.EqualTo(expectedResult.CustomerComm));
+            Assert.Multiple(() =>
+            {
+                Assert.That(firstItem.SportId, Is.EqualTo(expectedResult.SportId));
+                Assert.That(firstItem.ReportBy, Is.EqualTo(expectedResult.ReportBy));
+                Assert.That(firstItem.UserName, Is.EqualTo(expectedResult.UserName));
+                Assert.That(firstItem.Currency, Is.EqualTo(expectedResult.Currency));
+                Assert.That(firstItem.Bettype, Is.EqualTo(expectedResult.Bettype));
+                AssertCommonData(firstItem, expectedResult);
 
-            Assert.That(totalData.TotalTransactions, Is.EqualTo(expectedTotalData.TotalTransactions));
-            Assert.That(totalData.Turnover, Is.EqualTo(expectedTotalData.Turnover));
-            Assert.That(totalData.CustomerWinLoss, Is.EqualTo(expectedTotalData.CustomerWinLoss));
-            Assert.That(totalData.CustomerComm, Is.EqualTo(expectedTotalData.CustomerComm));
-            Assert.That(totalData.EffectiveBettingValue, Is.EqualTo(expectedTotalData.EffectiveBettingValue));
+                AssertCommonData(totalData, expectedTotalData);
 
-            Assert.That(result.TotalRows, Is.EqualTo(100));
+                Assert.That(result.TotalRows, Is.EqualTo(ExpectedTotalRow));
+            });
+        }
+
+        private static void AssertCommonData(CustTurnover actual, CustTurnover expected)
+        {
+            Assert.That(actual.TotalTransactions, Is.EqualTo(expected.TotalTransactions));
+            Assert.That(actual.Turnover, Is.EqualTo(expected.Turnover));
+            Assert.That(actual.CustomerWinLoss, Is.EqualTo(expected.CustomerWinLoss));
+            Assert.That(actual.CustomerComm, Is.EqualTo(expected.CustomerComm));
+            Assert.That(actual.EffectiveBettingValue, Is.EqualTo(expected.EffectiveBettingValue));
         }
 
         private void ConfigureReaderForResult(CustTurnover expected)
         {
-            _reader["Turnover"].Returns(expected.Turnover);
-            _reader["sporttype"].Returns(expected.SportId);
-            _reader["ReportBy"].Returns("20160831");
-            _reader["username"].Returns(expected.UserName);
-            _reader["currency"].Returns(expected.Currency);
-            _reader["BetCount"].Returns(expected.TotalTransactions);
-            _reader["Bettype"].Returns(expected.Bettype);
-            _reader["Winlost"].Returns(expected.CustomerWinLoss);
-            _reader["BetEffective"].Returns(expected.EffectiveBettingValue);
-            _reader["PlayerComm"].Returns(expected.CustomerComm);
+            Reader["Turnover"].Returns(expected.Turnover);
+            Reader["sporttype"].Returns(expected.SportId);
+            Reader["ReportBy"].Returns("20160831");
+            Reader["username"].Returns(expected.UserName);
+            Reader["currency"].Returns(expected.Currency);
+            Reader["BetCount"].Returns(expected.TotalTransactions);
+            Reader["Bettype"].Returns(expected.Bettype);
+            Reader["Winlost"].Returns(expected.CustomerWinLoss);
+            Reader["BetEffective"].Returns(expected.EffectiveBettingValue);
+            Reader["PlayerComm"].Returns(expected.CustomerComm);
         }
 
-        private void ConfigureReaderForTotalData(CustTurnover expected)
+        private void ConfigureReaderForTotalData(CustTurnover expected, int expectedTotalRow)
         {
-            _reader["SumBetCount"].Returns(expected.TotalTransactions);
-            _reader["SumTurnover"].Returns(expected.Turnover);
-            _reader["SumWinlost"].Returns(expected.CustomerWinLoss);
-            _reader["SumComm"].Returns(expected.CustomerComm);
-            _reader["SumBetEffective"].Returns(expected.EffectiveBettingValue);
+            Reader["SumBetCount"].Returns(expected.TotalTransactions);
+            Reader["SumTurnover"].Returns(expected.Turnover);
+            Reader["SumWinlost"].Returns(expected.CustomerWinLoss);
+            Reader["SumComm"].Returns(expected.CustomerComm);
+            Reader["SumBetEffective"].Returns(expected.EffectiveBettingValue);
 
-            _reader["TotalRows"].Returns(100);
+            Reader["TotalRows"].Returns(expectedTotalRow);
         }
     }
 }
