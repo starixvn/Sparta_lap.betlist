@@ -8,7 +8,6 @@ namespace Fanex.Athena.Service.BetSettings
 {
     using System;
     using System.Collections.Generic;
-    using System.Web.Script.Serialization;
     using CitiXchangeLibrary;
     using Core.Users.Interfaces;
     using DataAccess.BetSettings;
@@ -75,7 +74,6 @@ namespace Fanex.Athena.Service.BetSettings
             try
             {
                 var result = _apiClient.getProfile(custId, EnvironmentMap[_appSetting.Environment]);
-                _logger.Info(new JavaScriptSerializer().Serialize(result));
                 return CreateApiResult(result.status, (double)result.commission);
             }
             catch (Exception exception)
@@ -102,8 +100,6 @@ namespace Fanex.Athena.Service.BetSettings
             try
             {
                 var result = _apiClient.updateCommission(custId, newCommission, EnvironmentMap[_appSetting.Environment]);
-
-                _logger.Info(new JavaScriptSerializer().Serialize(result));
                 _userLogDataAccess.WriteLog(new UserLogMetaModel
                 {
                     ActionID = UserLogAction.ExchangeCommission,
