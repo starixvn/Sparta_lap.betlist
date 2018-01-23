@@ -58,6 +58,10 @@ namespace Fanex.Athena.Excel.Report.UnitTests
 
         private static readonly PlatformWinLossMetaModel MetaModel = new PlatformWinLossMetaModel
         {
+            Year = 2018,
+            Month = 1,
+            FromDay = 1,
+            ToDay = 19,
             CurrencyName = "UUS",
             ProductOptions = new List<ProductOption>
                 {
