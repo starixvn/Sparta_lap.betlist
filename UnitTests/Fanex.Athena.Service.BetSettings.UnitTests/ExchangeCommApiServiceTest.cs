@@ -3,10 +3,12 @@
     using System;
     using CitiXchangeLibrary;
     using Core.Users.Interfaces;
+    using DataAccess.BetSettings.Interfaces;
     using DataAccess.Core.Common.Constants;
     using DataAccess.Core.Common.Interfaces;
     using Extension.Utility;
     using Logging;
+    using Model.Core.DataDomain;
     using Model.Core.MetaModel.Common;
     using NSubstitute;
     using NUnit.Framework;
@@ -21,6 +23,7 @@
         private IAuthorizationService _authorizationService;
         private ILogger _logger;
         private IUserLogDataAccess _userLogDataAccess;
+        private IDcsBetSettingDataAccess _betSettingDataAccess;
         private IAppSettings _appSetting;
         private ICitiXchangeClient _apiClient;
         private ExchangeCommApiService _service;
@@ -31,9 +34,10 @@
             _authorizationService = Substitute.For<IAuthorizationService>();
             _logger = Substitute.For<ILogger>();
             _userLogDataAccess = Substitute.For<IUserLogDataAccess>();
+            _betSettingDataAccess = Substitute.For<IDcsBetSettingDataAccess>();
             _appSetting = Substitute.For<IAppSettings>();
             _apiClient = Substitute.For<ICitiXchangeClient>();
-            _service = new ExchangeCommApiService(_authorizationService, _logger, _userLogDataAccess, _appSetting, _apiClient);
+            _service = new ExchangeCommApiService(_authorizationService, _logger, _userLogDataAccess, _betSettingDataAccess, _appSetting, _apiClient);
 
             _appSetting.Environment.Returns("PRO");
         }
@@ -127,6 +131,25 @@
             });
         }
 
+        [TestCase(false)]
+        [TestCase(null)]
+        public void UpdateCommission_StatusIsNotEnable_ReturnFailedResult(bool? isEnable)
+        {
+            // Arrange
+            _authorizationService.HasPermissionOnData(0, 0, 0).ReturnsForAnyArgs(true);
+            _betSettingDataAccess.GetStatus(0, 0).ReturnsForAnyArgs(isEnable);
+
+            // Action
+            var result = _service.UpdateCommission(0, 0, 0, 0, 0);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.IsSuccessful, Is.False);
+                _apiClient.DidNotReceiveWithAnyArgs().getProfile(0, Enviro.PRD);
+            });
+        }
+
         [TestCase(1, true)]
         [TestCase(0, false)]
         [TestCase(2, false)]
@@ -135,6 +158,7 @@
             // Arrange
             const double ExpectedComm = 999;
             _authorizationService.HasPermissionOnData(LicenseeId, CustId, 0).Returns(true);
+            _betSettingDataAccess.GetStatus(CustId, ProductTypes.Exchange).Returns(true);
             _apiClient.updateCommission(CustId, ExpectedComm, Enviro.PRD).Returns(new CommissionInfo
             {
                 status = (CitiStatus)returnStatus,
@@ -159,6 +183,7 @@
             // Arrange
             const string ErrorMsg = "something wrong";
             _authorizationService.HasPermissionOnData(0, 0, 0).ReturnsForAnyArgs(true);
+            _betSettingDataAccess.GetStatus(0, 0).ReturnsForAnyArgs(true);
             _apiClient.updateCommission(0, 0, Enviro.PRD).ReturnsForAnyArgs(x => { throw new Exception(ErrorMsg); });
 
             // Action
@@ -179,6 +204,7 @@
             const double OldComm = 2.5;
             const double NewComm = 5.5;
             _authorizationService.HasPermissionOnData(0, 0, 0).ReturnsForAnyArgs(true);
+            _betSettingDataAccess.GetStatus(0, 0).ReturnsForAnyArgs(true);
 
             // Action
             var result = _service.UpdateCommission(LicenseeId, UserId, CustId, OldComm, NewComm);

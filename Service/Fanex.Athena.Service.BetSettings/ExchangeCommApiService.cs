@@ -11,6 +11,8 @@ namespace Fanex.Athena.Service.BetSettings
     using System.Web.Script.Serialization;
     using CitiXchangeLibrary;
     using Core.Users.Interfaces;
+    using DataAccess.BetSettings;
+    using DataAccess.BetSettings.Interfaces;
     using DataAccess.Core.Common;
     using DataAccess.Core.Common.Constants;
     using DataAccess.Core.Common.Interfaces;
@@ -18,6 +20,7 @@ namespace Fanex.Athena.Service.BetSettings
     using Interfaces;
     using Logging;
     using Model.Core.Constants;
+    using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
     using Model.Core.MetaModel.Common;
     using Resources;
@@ -40,7 +43,9 @@ namespace Fanex.Athena.Service.BetSettings
 
         private readonly ICitiXchangeClient _apiClient;
 
-        public ExchangeCommApiService() : this(null, null, null, null, null)
+        private readonly IDcsBetSettingDataAccess _betSettingDataAccess;
+
+        public ExchangeCommApiService() : this(null, null, null, null, null, null)
         {
         }
 
@@ -48,12 +53,14 @@ namespace Fanex.Athena.Service.BetSettings
             IAuthorizationService authorizationService,
             ILogger logger,
             IUserLogDataAccess userLogDataAccess,
+            IDcsBetSettingDataAccess betSettingDataAccess,
             IAppSettings appSetting,
             ICitiXchangeClient apiClient)
             : base(authorizationService)
         {
             _logger = logger ?? Logger.Log;
             _userLogDataAccess = userLogDataAccess ?? new UserLogDataAccess();
+            _betSettingDataAccess = betSettingDataAccess ?? new DcsBetSettingDataAccess();
             _appSetting = appSetting ?? new AppSettings();
             _apiClient = apiClient ?? (ICitiXchangeClient)Activator.GetObject(typeof(ICitiXchangeClient), _appSetting.ExchangeProductApiHost);
         }
@@ -62,7 +69,7 @@ namespace Fanex.Athena.Service.BetSettings
         {
             if (!HasPermissionOnData(licenseeId, custId))
             {
-                return CreateInvalidParamResult();
+                return CreateAccessDeniedResult();
             }
 
             try
@@ -82,7 +89,14 @@ namespace Fanex.Athena.Service.BetSettings
         {
             if (!HasPermissionOnData(licenseeId, custId))
             {
-                return CreateInvalidParamResult();
+                return CreateAccessDeniedResult();
+            }
+
+            var isEnable = _betSettingDataAccess.GetStatus(custId, ProductTypes.Exchange);
+
+            if (isEnable != true)
+            {
+                return CreateAccessDeniedResult();
             }
 
             try
@@ -117,12 +131,12 @@ namespace Fanex.Athena.Service.BetSettings
             };
         }
 
-        private static IResultInfo<double> CreateInvalidParamResult()
+        private static IResultInfo<double> CreateAccessDeniedResult()
         {
             return new ResultInfo<double>
             {
-                Code = 101,
-                Message = ViewResources.InvalidParams
+                Code = 1,
+                Message = ViewResources.FunctionDeniedMsg
             };
         }
 
