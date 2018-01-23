@@ -640,14 +640,14 @@ exports[`Render DataGrid components  Render grid No data gridData length is 0 - 
       href="javascript:;"
       onClick={[Function]}
     >
-      main
+      Main
     </a>
     <a
       className="breadcrumb-item "
       href="javascript:;"
       onClick={[Function]}
     >
-      customer
+      Customer
     </a>
   </div>
   <div

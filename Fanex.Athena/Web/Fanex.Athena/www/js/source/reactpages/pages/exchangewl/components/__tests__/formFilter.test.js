@@ -3,7 +3,7 @@ import { FormFilter } from '../FormFilter';
 import renderer from 'react-test-renderer';
 
 import LangHelper from '../../../../lib/langHelper';
-import service from '../../lib/service';
+import { Service } from '../../lib/service';
 import ReportExcel from '../../lib/reportExcel';
 
 jest.mock('../../lib/reportExcel');
@@ -30,10 +30,10 @@ describe('FormFilter ', () => {
                 return 'DateRangeExceedMsg' + ' {0}';
             }
 
-            return resource
+            return resource;
         });
-        service.getReportTitle = jest.fn(() => reportTitle);
-        service.showErrorMsg = jest.fn();
+        Service.getReportTitle = jest.fn(() => reportTitle);
+        Service.showErrorMsg = jest.fn();
     })
 
     afterAll(() => {
@@ -256,7 +256,7 @@ describe('FormFilter ', () => {
                 const errorHandler = props.getGridData.mock.calls[0][1];
                 errorHandler();
                 
-                expect(service.showErrorMsg).toHaveBeenCalled();
+                expect(Service.showErrorMsg).toHaveBeenCalled();
                 expect(props.toggleLoader).toHaveBeenCalledWith(false);
             })
 
@@ -339,7 +339,7 @@ describe('FormFilter ', () => {
                 });
 
                 Promise.reject().catch(() => {
-                    expect(service.showErrorMsg).toHaveBeenCalled();
+                    expect(Service.showErrorMsg).toHaveBeenCalled();
                     expect(props.toggleLoader).toHaveBeenCalledWith(false);
                 });             
             })
@@ -452,7 +452,7 @@ describe('FormFilter ', () => {
 
                 formFilter._doExportExcel(0, param, isAllowedCustomerComm, data );
 
-                expect(service.getReportTitle).toHaveBeenCalledWith({ fromDate: param.FromDate, toDate: param.ToDate }, param.CurrencyName, param.CurrencyId === 0);
+                expect(Service.getReportTitle).toHaveBeenCalledWith({ fromDate: param.FromDate, toDate: param.ToDate }, param.CurrencyName, param.CurrencyId === 0);
                 expect(reportExcelMock).toHaveBeenCalledWith(data, reportTitle, param.Level, isAllowedCustomerComm, param.ReportBy);
                 expect(exportFnMock.mock.calls.length).toBe(1);
             })
@@ -481,11 +481,11 @@ describe('FormFilter ', () => {
                 const data = {
                     DataList: [firstData]
                 };   
-                service.getDrilldownDateRange = jest.fn((reportBy, fromDate, toDate, drilldownDate) => { return { fromDate: drilldownDate, toDate: drilldownDate };});
+                Service.getDrilldownDateRange = jest.fn((reportBy, fromDate, toDate, drilldownDate) => { return { fromDate: drilldownDate, toDate: drilldownDate };});
 
                 formFilter._doExportExcel(10, param, isAllowedCustomerComm, data );
 
-                expect(service.getReportTitle).toHaveBeenCalledWith({ fromDate: '01/03/2017', toDate: '01/03/2017' }, firstData.CurrencyName, firstData.CurrencyId === 0);
+                expect(Service.getReportTitle).toHaveBeenCalledWith({ fromDate: '01/03/2017', toDate: '01/03/2017' }, firstData.CurrencyName, firstData.CurrencyId === 0);
                 expect(reportExcelMock).toHaveBeenCalledWith(data, reportTitle, 10, isAllowedCustomerComm, param.ReportBy);
                 expect(exportFnMock.mock.calls.length).toBe(1);
             })

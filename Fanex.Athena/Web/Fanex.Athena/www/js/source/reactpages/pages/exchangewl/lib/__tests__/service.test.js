@@ -2,9 +2,9 @@
 import Site from '../../../../lib/site'
 import Report from '../../../../lib/report'
 
-import service from '../service'
+import { Service, HeaderText, TotalText, BreadcrumbText } from '../service'
 
-describe('service ', () => {
+describe('Service ', () => {
     beforeAll(() => {
         LangHelper.getSingleResource = jest.fn(resource => {
             if (resource === "Viewin") {
@@ -29,7 +29,7 @@ describe('service ', () => {
             const expectedResult = `ExchangeWinLoss, ${fromDate} - ${toDate} - Viewin ${selectedCurrency}`
             const dateRange = { fromDate, toDate };
 
-            const result = service.getReportTitle(dateRange, selectedCurrency);
+            const result = Service.getReportTitle(dateRange, selectedCurrency);
 
             expect(result).toBe(expectedResult);
         })
@@ -42,13 +42,13 @@ describe('service ', () => {
             const expectedResult = `ExchangeWinLoss, ${fromDate} - ${toDate} - AllCurrencies`
             const dateRange = { fromDate, toDate };
 
-            const result = service.getReportTitle(dateRange, selectedCurrency, true);
+            const result = Service.getReportTitle(dateRange, selectedCurrency, true);
 
             expect(result).toBe(expectedResult);
         })
     })
 
-    describe('getHeaderText', () => {
+    describe('HeaderText', () => {
         it('header text should has correct content', () => {
             const expectedResult = {
                 index: '#',
@@ -70,26 +70,22 @@ describe('service ', () => {
                 licenseeComm: 'LicenseeComm',
             };
 
-            const result = service.getHeaderText();
-
-            expect(result).toEqual(expectedResult);
+            expect(HeaderText).toEqual(expectedResult);
         })
     })
 
-    describe('getTotalText', () => {
+    describe('TotalText', () => {
         it('text should has correct content', () => {
             const expectedResult = {
                 total: 'Total',
                 totalIn: 'Totalin'
             };
 
-            const result = service.getTotalText();
-
-            expect(result).toEqual(expectedResult);
+            expect(TotalText).toEqual(expectedResult);
         })
     })
 
-    describe('getBreadcrumbText', () => {
+    describe('BreadcrumbText', () => {
         it('text should has correct content', () => {
             const expectedResult = {
                 main: 'Main',
@@ -97,9 +93,7 @@ describe('service ', () => {
                 customer: 'Customer'
             };
 
-            const result = service.getBreadcrumbText();
-
-            expect(result).toEqual(expectedResult);
+            expect(BreadcrumbText).toEqual(expectedResult);
         })
     })
 
@@ -107,7 +101,7 @@ describe('service ', () => {
         it('alert correct message', () => {
             window.alert = jest.fn();
 
-            service.showErrorMsg();
+            Service.showErrorMsg();
 
             expect(alert).toHaveBeenCalledWith('ErrorProcessingMsg');
         })
@@ -122,7 +116,7 @@ describe('service ', () => {
             const toDate = '01/10/2017';
             const drillDownDate = '01/05/2017';
 
-            service.getDrilldownDateRange(reportBy, fromDate, toDate, drillDownDate);
+            Service.getDrilldownDateRange(reportBy, fromDate, toDate, drillDownDate);
 
             expect(Report.getDrilldownDateRange).toHaveBeenCalledWith(reportBy, fromDate, toDate, drillDownDate);
         })

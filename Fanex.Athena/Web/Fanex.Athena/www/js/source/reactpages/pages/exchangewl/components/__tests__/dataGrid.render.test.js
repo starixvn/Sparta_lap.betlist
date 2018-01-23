@@ -1,23 +1,27 @@
 ﻿import React from 'react';
 import { DataGrid } from '../DataGrid';
-import service from '../../lib/service';
+import { Service } from '../../lib/service';
 import NumberFormat from '../../../../lib/numberFormat';
 import renderer from 'react-test-renderer';
 import { ReportLevel, ReportBy } from '../../../../constants/report';
 import { Licensee } from '../../../../constants/licensee';
+import LangHelper from '../../../../lib/langHelper';
 
 const breadCrumbPath = '../../../../components/breadcrumb/Breadcrumb';
 
 describe('Render DataGrid components ', () => {
     describe('Render Bread crumb', () => {
         const breadcrumbText = {
-            main: 'main',
-            licensee: 'licensee',
-            customer: 'customer',
+            main: 'Main',
+            licensee: 'Licensee',
+            customer: 'Customer',
         };
 
         beforeAll(() => {
-            service.getBreadcrumbText = jest.fn(() => breadcrumbText);
+            LangHelper.getSingleResource = jest.fn((resource) => {
+                return resource;
+            });
+
             jest.mock(breadCrumbPath, (props) => (<div {...props}></div>));
         });
 
@@ -100,13 +104,13 @@ describe('Render DataGrid components ', () => {
 
     describe('Render grid', () => {
         beforeAll(() => {
-            service.getReportTitle = jest.fn(() => 'ExchangeWinLoss');
             NumberFormat.formatDecimal = jest.fn((value) => value);
             NumberFormat.format = jest.fn((value) => value);
+            Service.getReportTitle = jest.fn(() => 'ExchangeWinLoss');
         });
 
         describe('No data', () => {
-            it('return null when gridData is undefined', () => {
+            it('return null when gridData is undefined', () => {          
                 const props = { gridData: undefined };
                 const dataGrid = renderer.create(<DataGrid {...props} />);
 
@@ -182,11 +186,7 @@ describe('Render DataGrid components ', () => {
                 licenseeWL: 'LicenseeW_L',
                 amountDueTo: 'AmountDueTo',
                 licenseeComm: 'LicenseeComm',
-            };
-
-            beforeAll(() => {
-                service.getHeaderText = jest.fn(() => headerName);
-            });  
+            };  
 
             it('grid data should be rendered correctly',() => {
                 const props = { 
@@ -388,13 +388,9 @@ describe('Render DataGrid components ', () => {
                 const data = gridData;
 
                 const totalText = {
-                    total: 'total',
-                    totalIn: 'totalIn'
+                    total: 'Total',
+                    totalIn: 'Totalin'
                 };
-
-                beforeAll(() => {
-                    service.getTotalText = jest.fn(() => totalText);
-                });
 
                 it('render with correct text', () => {
                     const props = {

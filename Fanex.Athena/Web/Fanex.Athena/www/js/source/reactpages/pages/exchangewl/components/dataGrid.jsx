@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux'
 import { Table, Row, Cell } from '../../../components/fixed-table-header'
 import NumberFormat from '../../../lib/numberFormat'
 import ReportTitle from '../../../components/ReportTitle'
-import service from '../lib/service'
+import { Service, TotalText, HeaderText, BreadcrumbText } from '../lib/service'
 import { ReportLevel, ReportBy } from '../../../constants/report'
 import { Licensee } from '../../../constants/licensee'
 import NoDataTitle from '../../../components/NoDataTitle'
@@ -32,7 +32,7 @@ export class DataGrid extends Component {
 
         if (this.props.gridData !== nextProps.gridData) {
             const params = this.drillDownParams[nextProps.gridData.level];
-            this.reportTitle = service.getReportTitle({ fromDate: params.FromDate, toDate: params.ToDate }, params.CurrencyName, params.CurrencyId === 0);
+            this.reportTitle = Service.getReportTitle({ fromDate: params.FromDate, toDate: params.ToDate }, params.CurrencyName, params.CurrencyId === 0);
             this.props.toggleLoader(false);
         }
     }
@@ -59,7 +59,7 @@ export class DataGrid extends Component {
             return null;
         }
 
-        const drillDownDate = service.getDrilldownDateRange(mainParam.ReportBy, mainParam.FromDate, mainParam.ToDate, date);
+        const drillDownDate = Service.getDrilldownDateRange(mainParam.ReportBy, mainParam.FromDate, mainParam.ToDate, date);
         const drillDownData = { 
             ...mainParam,
             CurrencyId: currencyId,
@@ -96,7 +96,7 @@ export class DataGrid extends Component {
             this.levelGridData[currentLevel] = this.props.gridData.data;
 
             this.props.getGridData(params, () => {
-                service.showErrorMsg();
+                Service.showErrorMsg();
                 this.props.toggleLoader(false);
             });
         }
@@ -119,48 +119,47 @@ export class DataGrid extends Component {
    }
 
     _buildHeader(level, reportBy) {
-        const headerText = service.getHeaderText();
         let headerRows = [];
 
         headerRows.push(
             <Row style={{ height: 32 }} key='tr-header1'>
-                <Cell colWidth={30} header={true} title={headerText.index} rowSpan='2'>{headerText.index}</Cell>
-                {level === ReportLevel.MAIN && <Cell colWidth={100} header={true} title={reportBy === ReportBy.DAILY ? headerText.date : headerText.month} rowSpan='2'>{reportBy === ReportBy.DAILY ? headerText.date : headerText.month}</Cell>}
-                {level === ReportLevel.CUSTOMER && <Cell colWidth={100} header={true} title={headerText.externalId} rowSpan='2'>{headerText.externalId}</Cell>}
-                {level !== ReportLevel.MAIN && <Cell colWidth={100} header={true} title={headerText.systemId} rowSpan='2'>{headerText.systemId}</Cell>}
-                <Cell colWidth={70} header={true} title={headerText.currency} rowSpan='2'>{headerText.currency}</Cell>
-                <Cell colWidth={100} header={true} title={headerText.turnover} rowSpan='2'>{headerText.turnover}</Cell>
-                <Cell colWidth={100} header={true} title={headerText.netTurnover} rowSpan='2'>{headerText.netTurnover}</Cell>
-                <Cell colWidth={80} header={true} title={headerText.totalTransaction} rowSpan='2'>{headerText.totalTransaction}</Cell>
+                <Cell colWidth={30} header={true} title={HeaderText.index} rowSpan='2'>{HeaderText.index}</Cell>
+                {level === ReportLevel.MAIN && <Cell colWidth={100} header={true} title={reportBy === ReportBy.DAILY ? HeaderText.date : HeaderText.month} rowSpan='2'>{reportBy === ReportBy.DAILY ? HeaderText.date : HeaderText.month}</Cell>}
+                {level === ReportLevel.CUSTOMER && <Cell colWidth={100} header={true} title={HeaderText.externalId} rowSpan='2'>{HeaderText.externalId}</Cell>}
+                {level !== ReportLevel.MAIN && <Cell colWidth={100} header={true} title={HeaderText.systemId} rowSpan='2'>{HeaderText.systemId}</Cell>}
+                <Cell colWidth={70} header={true} title={HeaderText.currency} rowSpan='2'>{HeaderText.currency}</Cell>
+                <Cell colWidth={100} header={true} title={HeaderText.turnover} rowSpan='2'>{HeaderText.turnover}</Cell>
+                <Cell colWidth={100} header={true} title={HeaderText.netTurnover} rowSpan='2'>{HeaderText.netTurnover}</Cell>
+                <Cell colWidth={80} header={true} title={HeaderText.totalTransaction} rowSpan='2'>{HeaderText.totalTransaction}</Cell>
                 {
                     this.isAllowedCustomerComm
-                    ? <Cell colWidth={100} header={true} title={headerText.customer} colSpan='3'>{headerText.customer}</Cell>
-                    : <Cell colWidth={100} header={true} title={headerText.customerWL} rowSpan='2'>{headerText.customerWL}</Cell>
+                    ? <Cell colWidth={100} header={true} title={HeaderText.customer} colSpan='3'>{HeaderText.customer}</Cell>
+                    : <Cell colWidth={100} header={true} title={HeaderText.customerWL} rowSpan='2'>{HeaderText.customerWL}</Cell>
                 }
-                <Cell colWidth={100} header={true} title={headerText.licensee} colSpan='4'>{headerText.licensee}</Cell>
+                <Cell colWidth={100} header={true} title={HeaderText.licensee} colSpan='4'>{HeaderText.licensee}</Cell>
             </Row>
         );
 
         if (this.isAllowedCustomerComm) {
             headerRows.push(
                 <Row style={{ height: 32 }} key='tr-header2'>
-                    <Cell colWidth={100} header={true} title={headerText.customerWL}>{headerText.customerWL}</Cell>
-                    <Cell colWidth={100} header={true} title={headerText.customerComm}>{headerText.customerComm}</Cell>
-                    <Cell colWidth={100} header={true} title={headerText.total}>{headerText.total}</Cell>
-                    <Cell colWidth={100} header={true} title={headerText.licenseeWL}>{headerText.licenseeWL}</Cell>
-                    <Cell colWidth={100} header={true} title={headerText.amountDueTo}>{headerText.amountDueTo}</Cell>
-                    <Cell colWidth={100} header={true} title={headerText.licenseeComm}>{headerText.licenseeComm}</Cell>
-                    <Cell colWidth={100} header={true} title={headerText.total}>{headerText.total}</Cell>
+                    <Cell colWidth={100} header={true} title={HeaderText.customerWL}>{HeaderText.customerWL}</Cell>
+                    <Cell colWidth={100} header={true} title={HeaderText.customerComm}>{HeaderText.customerComm}</Cell>
+                    <Cell colWidth={100} header={true} title={HeaderText.total}>{HeaderText.total}</Cell>
+                    <Cell colWidth={100} header={true} title={HeaderText.licenseeWL}>{HeaderText.licenseeWL}</Cell>
+                    <Cell colWidth={100} header={true} title={HeaderText.amountDueTo}>{HeaderText.amountDueTo}</Cell>
+                    <Cell colWidth={100} header={true} title={HeaderText.licenseeComm}>{HeaderText.licenseeComm}</Cell>
+                    <Cell colWidth={100} header={true} title={HeaderText.total}>{HeaderText.total}</Cell>
                 </Row>
             );
         }
         else {
             headerRows.push(
                 <Row style={{ height: 32 }} key='tr-header2'>
-                    <Cell colWidth={100} header={true} title={headerText.licenseeWL}>{headerText.licenseeWL}</Cell>
-                    <Cell colWidth={100} header={true} title={headerText.amountDueTo}>{headerText.amountDueTo}</Cell>
-                    <Cell colWidth={100} header={true} title={headerText.licenseeComm}>{headerText.licenseeComm}</Cell>
-                    <Cell colWidth={100} header={true} title={headerText.total}>{headerText.total}</Cell>
+                    <Cell colWidth={100} header={true} title={HeaderText.licenseeWL}>{HeaderText.licenseeWL}</Cell>
+                    <Cell colWidth={100} header={true} title={HeaderText.amountDueTo}>{HeaderText.amountDueTo}</Cell>
+                    <Cell colWidth={100} header={true} title={HeaderText.licenseeComm}>{HeaderText.licenseeComm}</Cell>
+                    <Cell colWidth={100} header={true} title={HeaderText.total}>{HeaderText.total}</Cell>
                 </Row>
             );
         }
@@ -205,7 +204,6 @@ export class DataGrid extends Component {
         let totalRows = [];
 
         const data = this.props.gridData.data.TotalDataList,
-            totalText = service.getTotalText(),
             colSpan = this._getColSpan(level),
             rowSpan = data.length;
 
@@ -214,7 +212,7 @@ export class DataGrid extends Component {
            
             totalRows.push(
                 <Row key={`tr-total${i}`} className="fixed-table-total">
-                    {i === 0 && <Cell title={totalText.total} className='center-align' rowSpan={rowSpan} colSpan={colSpan}>{totalText.total}</Cell>}
+                    {i === 0 && <Cell title={TotalText.total} className='center-align' rowSpan={rowSpan} colSpan={colSpan}>{TotalText.total}</Cell>}
                     <Cell title={item.CurrencyName} className='center-align'>{item.CurrencyName}</Cell>
                     {this._buildCell(item)}
                 </Row>
@@ -231,7 +229,7 @@ export class DataGrid extends Component {
            
             totalRows.push(
                 <Row key={`tr-grandtotal${i}`} className="fixed-table-grant-total">
-                    <Cell title={`${totalText.totalIn} ${currency}`} className='center-align' colSpan={colSummarySpan}>{`${totalText.totalIn} ${currency}`}</Cell>
+                    <Cell title={`${TotalText.totalIn} ${currency}`} className='center-align' colSpan={colSummarySpan}>{`${TotalText.totalIn} ${currency}`}</Cell>
                     {this._buildCell(item)}
                 </Row>
             );
@@ -268,21 +266,20 @@ export class DataGrid extends Component {
     }
 
     _renderBreadcrumb() {
-        const breadcrumbText = service.getBreadcrumbText();
         const items = [{
-                    label: breadcrumbText.main,
+                    label: BreadcrumbText.main,
                     value: ReportLevel.MAIN,        
                 }];
 
         if (Number(this.licenseeId) === Licensee.ONE_TWO_BET) {
             items.push({
-                label: breadcrumbText.licensee,
+                label: BreadcrumbText.licensee,
                 value: ReportLevel.LICENSEE,          
             });
         }
 
         items.push({
-            label: breadcrumbText.customer,
+            label: BreadcrumbText.customer,
             value: ReportLevel.CUSTOMER,           
         });
 

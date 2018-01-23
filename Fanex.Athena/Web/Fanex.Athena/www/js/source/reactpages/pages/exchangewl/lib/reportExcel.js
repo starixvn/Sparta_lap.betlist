@@ -3,7 +3,7 @@ import moment from 'moment'
 import Excel from '../../../lib/excel'
 import LangHelper from '../../../lib/langHelper'
 import { titleCellStyle, headerCellStyle, bodyCellStyle, totalCellStyle, grandTotalCellStyle } from '../../../constants/excelStyle'
-import service from '../lib/service'
+import { HeaderText, TotalText } from '../lib/service'
 import { ReportLevel, ReportBy } from '../../../constants/report'
 
 const TITLE_ROW_INDEX = 0;
@@ -44,17 +44,15 @@ export default class ReportExcel {
     }
 
     _getColSpanConfig(level) {
-        const text = service.getTotalText();
-
         return {
             [TOTAL_SECTION]: {
                 colSpan: level === ReportLevel.CUSTOMER ? 3 : 2,
-                text: text.total,
+                text: TotalText.total,
                 style: totalCellStyle.rowspan
             },
             [SUMMARYTOTAL_SECTION]: {
                 colSpan: level === ReportLevel.CUSTOMER ? 4 : 3,
-                text: text.totalIn,
+                text: TotalText.totalIn,
                 style: grandTotalCellStyle.rowspan
             }
         };
@@ -186,8 +184,6 @@ export default class ReportExcel {
     }
 
     _createHeader() {
-        const headerText = service.getHeaderText();
-
         let nextColumnIndex = 0;
         let nextRowIndex = 0;
         const totalCol = this.configColumn.length;
@@ -197,7 +193,7 @@ export default class ReportExcel {
                 nextColumnIndex = column.index_c ? column.index_c : nextColumnIndex;
                 nextRowIndex = column.index_r ? column.index_r : nextRowIndex;
                 const address = Excel.getCellAddress({ c: nextColumnIndex, r: nextRowIndex });
-                const header = headerText[column.title];
+                const header = HeaderText[column.title];
                 this.worksheet[address] = { t: "s", v: header, s: headerCellStyle }
 
                 if (column.colSpan > 1 || column.rowSpan > 1) {

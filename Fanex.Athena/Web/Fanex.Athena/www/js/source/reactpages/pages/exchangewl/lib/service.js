@@ -2,7 +2,7 @@ import LangHelper from '../../../lib/langHelper'
 import Site from '../../../lib/site'
 import Report from '../../../lib/report'
 
-const headerText = {
+export const HeaderText = {
     index: LangHelper.getSingleResource('#'),
     date: LangHelper.getSingleResource('Date'),
     month: LangHelper.getSingleResource('Month'),
@@ -22,18 +22,18 @@ const headerText = {
     licenseeComm: LangHelper.getSingleResource('LicenseeComm'),
 }
 
-const totalText = {
+export const TotalText = {
     total: LangHelper.getSingleResource('Total'),
     totalIn: LangHelper.getSingleResource('Totalin')
 }
 
-const breadcrumbText = {
+export const BreadcrumbText = {
     main: LangHelper.getSingleResource('Main'),
     licensee: LangHelper.getSingleResource('Licensee'),
     customer: LangHelper.getSingleResource('Customer')
 }
 
-export default class Service {
+export class Service {
     static getReportTitle(dateRange, selectedCurrency, allCurrencies) {
         const fromDate = Site.convertDateToString(dateRange.fromDate);
         const toDate = Site.convertDateToString(dateRange.toDate);
@@ -42,18 +42,6 @@ export default class Service {
             : `${LangHelper.getSingleResource('Viewin').replace('{0}', selectedCurrency)}`;
 
         return `${LangHelper.getSingleResource('ExchangeWinLoss')}, ${fromDate} - ${toDate} - ${viewInByCurrency}`;
-    }
-
-    static getHeaderText() {
-        return headerText;
-    }
-
-    static getTotalText() {
-        return totalText;
-    }
-
-    static getBreadcrumbText() {
-        return breadcrumbText;
     }
 
     static showErrorMsg() {

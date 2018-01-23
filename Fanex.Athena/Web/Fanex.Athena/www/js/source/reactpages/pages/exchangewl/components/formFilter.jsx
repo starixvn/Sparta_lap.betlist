@@ -9,7 +9,7 @@ import Site from '../../../lib/site'
 import { ReportLevel } from '../../../constants/report'
 import { BaseCurrency } from '../../../constants/currency'
 import ReportExcel from '../lib/reportExcel'
-import service from '../lib/service'
+import { Service } from '../lib/service'
 import moment from 'moment'
 
 const RANGE_MONTH_CONSTRAINT = 3;
@@ -28,7 +28,7 @@ export class FormFilter extends Component {
 
         this.props.toggleLoader(true);
         this.props.getGridData(params, () => {
-            service.showErrorMsg();
+            Service.showErrorMsg();
             this.props.toggleLoader(false);
         });
 
@@ -51,7 +51,7 @@ export class FormFilter extends Component {
             this.props.exportExcel(params)
                 .then(response => this._doExportExcel(level, params.data, isAllowedCustomerComm, response.data))
                 .catch(() => {
-                    service.showErrorMsg();
+                    Service.showErrorMsg();
                     this.props.toggleLoader(false);
                 });
         }
@@ -73,7 +73,7 @@ export class FormFilter extends Component {
         }
         else {
             const firstRow = gridData.DataList[0];
-            const drillDownDate = service.getDrilldownDateRange(params.ReportBy, params.FromDate, params.ToDate, firstRow.Date);
+            const drillDownDate = Service.getDrilldownDateRange(params.ReportBy, params.FromDate, params.ToDate, firstRow.Date);
 
             excelData = {
                 FromDate: Site.convertDateToString(moment(drillDownDate.fromDate)),
@@ -84,7 +84,7 @@ export class FormFilter extends Component {
             };
         }
 
-        const title = service.getReportTitle({ fromDate: excelData.FromDate, toDate: excelData.ToDate }, excelData.CurrencyName, excelData.CurrencyId === 0);
+        const title = Service.getReportTitle({ fromDate: excelData.FromDate, toDate: excelData.ToDate }, excelData.CurrencyName, excelData.CurrencyId === 0);
         const excel = new ReportExcel(gridData, title, level, isAllowedCustomerComm, excelData.ReportBy);
         excel.export();
         this.props.toggleLoader(false);

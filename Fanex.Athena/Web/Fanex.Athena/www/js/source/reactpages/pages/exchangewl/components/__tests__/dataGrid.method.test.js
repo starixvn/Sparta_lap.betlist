@@ -1,6 +1,6 @@
 ﻿import React from 'react';
 import { DataGrid } from '../DataGrid';
-import service from '../../lib/service';
+import { Service } from '../../lib/service';
 import NumberFormat from '../../../../lib/numberFormat';
 import renderer from 'react-test-renderer';
 import { ReportLevel, ReportBy } from '../../../../constants/report';
@@ -8,7 +8,7 @@ import { Licensee } from '../../../../constants/licensee';
 
 describe('DataGrid methods ', () => {
     beforeAll(() => {
-        service.getReportTitle = jest.fn(() => 'ExchangeWinLoss');
+        Service.getReportTitle = jest.fn(() => 'ExchangeWinLoss');
     });
 
     describe('componentWillReceiveProps ', () => {
@@ -32,7 +32,7 @@ describe('DataGrid methods ', () => {
 
             expect(dataGrid.drillDownParams[ReportLevel.MAIN]).toEqual(nextProps.params);
 
-            expect(service.getReportTitle).toHaveBeenCalledWith({ 
+            expect(Service.getReportTitle).toHaveBeenCalledWith({ 
                 fromDate: dataGrid.drillDownParams[level].FromDate, 
                 toDate: dataGrid.drillDownParams[level].ToDate }, 
                 dataGrid.drillDownParams[level].CurrencyName, 
@@ -358,7 +358,7 @@ describe('DataGrid methods ', () => {
                 toggleLoader: jest.fn(),
                 getGridData: jest.fn()
             };
-            service.showErrorMsg = jest.fn();
+            Service.showErrorMsg = jest.fn();
 
             const dataGrid = new DataGrid(props);
             const params = { level: level };
@@ -368,7 +368,7 @@ describe('DataGrid methods ', () => {
             const errorHandler = props.getGridData.mock.calls[0][1];
             errorHandler();
 
-            expect(service.showErrorMsg).toHaveBeenCalled();
+            expect(Service.showErrorMsg).toHaveBeenCalled();
             expect(props.toggleLoader).toHaveBeenCalledWith(false);
         })
     })
