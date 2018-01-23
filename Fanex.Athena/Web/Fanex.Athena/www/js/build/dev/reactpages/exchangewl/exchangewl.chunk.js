@@ -1389,11 +1389,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.ActionCreators = undefined;
 
-var _dataHandlerAction = __webpack_require__(761);
+var _dataHandlerAction = __webpack_require__(757);
 
 var dataHandlerAction = _interopRequireWildcard(_dataHandlerAction);
 
-var _filterHandlerAction = __webpack_require__(762);
+var _filterHandlerAction = __webpack_require__(758);
 
 var filterHandlerAction = _interopRequireWildcard(_filterHandlerAction);
 
@@ -1409,7 +1409,7 @@ var _excludeTestAction = __webpack_require__(193);
 
 var excludeTestAction = _interopRequireWildcard(_excludeTestAction);
 
-var _dateRangeAction = __webpack_require__(763);
+var _dateRangeAction = __webpack_require__(759);
 
 var dateRangeAction = _interopRequireWildcard(_dateRangeAction);
 
@@ -1428,6 +1428,7 @@ var ActionCreators = exports.ActionCreators = Object.assign({}, dataHandlerActio
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.Service = exports.BreadcrumbText = exports.TotalText = exports.HeaderText = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -1439,7 +1440,7 @@ var _site = __webpack_require__(19);
 
 var _site2 = _interopRequireDefault(_site);
 
-var _report = __webpack_require__(422);
+var _report = __webpack_require__(418);
 
 var _report2 = _interopRequireDefault(_report);
 
@@ -1447,7 +1448,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var headerText = {
+var HeaderText = exports.HeaderText = {
     index: _langHelper2.default.getSingleResource('#'),
     date: _langHelper2.default.getSingleResource('Date'),
     month: _langHelper2.default.getSingleResource('Month'),
@@ -1467,18 +1468,18 @@ var headerText = {
     licenseeComm: _langHelper2.default.getSingleResource('LicenseeComm')
 };
 
-var totalText = {
+var TotalText = exports.TotalText = {
     total: _langHelper2.default.getSingleResource('Total'),
     totalIn: _langHelper2.default.getSingleResource('Totalin')
 };
 
-var breadcrumbText = {
+var BreadcrumbText = exports.BreadcrumbText = {
     main: _langHelper2.default.getSingleResource('Main'),
     licensee: _langHelper2.default.getSingleResource('Licensee'),
     customer: _langHelper2.default.getSingleResource('Customer')
 };
 
-var Service = function () {
+var Service = exports.Service = function () {
     function Service() {
         _classCallCheck(this, Service);
     }
@@ -1491,21 +1492,6 @@ var Service = function () {
             var viewInByCurrency = allCurrencies ? _langHelper2.default.getSingleResource('AllCurrencies') : '' + _langHelper2.default.getSingleResource('Viewin').replace('{0}', selectedCurrency);
 
             return _langHelper2.default.getSingleResource('ExchangeWinLoss') + ', ' + fromDate + ' - ' + toDate + ' - ' + viewInByCurrency;
-        }
-    }, {
-        key: 'getHeaderText',
-        value: function getHeaderText() {
-            return headerText;
-        }
-    }, {
-        key: 'getTotalText',
-        value: function getTotalText() {
-            return totalText;
-        }
-    }, {
-        key: 'getBreadcrumbText',
-        value: function getBreadcrumbText() {
-            return breadcrumbText;
         }
     }, {
         key: 'showErrorMsg',
@@ -1521,8 +1507,6 @@ var Service = function () {
 
     return Service;
 }();
-
-exports.default = Service;
 
 /***/ }),
 
@@ -3567,7 +3551,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 422:
+/***/ 418:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6896,7 +6880,7 @@ exports.default = Loader;
 
 /***/ }),
 
-/***/ 759:
+/***/ 755:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6916,13 +6900,13 @@ var _reactDom = __webpack_require__(3);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _AppContainer = __webpack_require__(760);
+var _AppContainer = __webpack_require__(756);
 
 var _AppContainer2 = _interopRequireDefault(_AppContainer);
 
 var _reactRedux = __webpack_require__(20);
 
-var _index = __webpack_require__(771);
+var _index = __webpack_require__(767);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -6968,6 +6952,209 @@ exports.default = App;
 
 
 _reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById('app-container'));
+
+/***/ }),
+
+/***/ 756:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.AppContainer = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(20);
+
+var _redux = __webpack_require__(14);
+
+var _index = __webpack_require__(200);
+
+var _Datagrid = __webpack_require__(760);
+
+var _Datagrid2 = _interopRequireDefault(_Datagrid);
+
+var _FormFilter = __webpack_require__(764);
+
+var _FormFilter2 = _interopRequireDefault(_FormFilter);
+
+var _Loader = __webpack_require__(75);
+
+var _Loader2 = _interopRequireDefault(_Loader);
+
+var _AppLayout = __webpack_require__(76);
+
+var _AppLayout2 = _interopRequireDefault(_AppLayout);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var AppContainer = exports.AppContainer = function (_Component) {
+    _inherits(AppContainer, _Component);
+
+    function AppContainer(props) {
+        _classCallCheck(this, AppContainer);
+
+        return _possibleConstructorReturn(this, (AppContainer.__proto__ || Object.getPrototypeOf(AppContainer)).call(this, props));
+    }
+
+    _createClass(AppContainer, [{
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                _AppLayout2.default,
+                null,
+                _react2.default.createElement(_Loader2.default, { isLoading: this.props.isLoading }),
+                _react2.default.createElement(_FormFilter2.default, null),
+                _react2.default.createElement(_Datagrid2.default, null)
+            );
+        }
+    }]);
+
+    return AppContainer;
+}(_react.Component);
+
+function mapDispatchToProps(dispatch) {
+    return (0, _redux.bindActionCreators)(_index.ActionCreators, dispatch);
+}
+
+function mapStateToProps(state) {
+    return Object.assign({}, { isLoading: state.isLoading });
+}
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(AppContainer);
+
+/***/ }),
+
+/***/ 757:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.getGridData = getGridData;
+exports.exportExcel = exportExcel;
+exports.setGridData = setGridData;
+
+var _types = __webpack_require__(133);
+
+var types = _interopRequireWildcard(_types);
+
+var _report = __webpack_require__(418);
+
+var _report2 = _interopRequireDefault(_report);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var relativeUrl = 'api/ExchangeWinLossReport/Index';
+
+function getGridData(params, errorHandler) {
+    return function (dispatch) {
+        _report2.default.fetchGridData(relativeUrl, params).then(function (response) {
+            dispatch(setGridData({
+                level: params.data.Level,
+                data: response.data
+            }));
+        }).catch(function (error) {
+            return errorHandler(error);
+        });
+    };
+}
+
+function exportExcel(params) {
+    return function () {
+        return _report2.default.fetchGridData(relativeUrl, params);
+    };
+}
+
+function setGridData(data) {
+    return {
+        type: types.SET_GRID_DATA,
+        data: data
+    };
+}
+
+/***/ }),
+
+/***/ 758:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.setParams = exports.setReportBy = undefined;
+
+var _types = __webpack_require__(133);
+
+var types = _interopRequireWildcard(_types);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var setReportBy = exports.setReportBy = function setReportBy(value) {
+    return {
+        type: types.SET_REPORTBY,
+        data: value
+    };
+};
+
+var setParams = exports.setParams = function setParams(value) {
+    return {
+        type: types.SET_PARAM,
+        data: value
+    };
+};
+
+/***/ }),
+
+/***/ 759:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.setDateRange = undefined;
+
+var _types = __webpack_require__(9);
+
+var types = _interopRequireWildcard(_types);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var setDateRange = exports.setDateRange = function setDateRange(dateRange) {
+    var range = {
+        fromDate: dateRange.startDate,
+        toDate: dateRange.endDate
+    };
+
+    return {
+        type: types.SET_DATE_RANGE,
+        data: range
+    };
+};
 
 /***/ }),
 
@@ -7035,209 +7222,6 @@ exports.default = AppLayout;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.AppContainer = undefined;
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRedux = __webpack_require__(20);
-
-var _redux = __webpack_require__(14);
-
-var _index = __webpack_require__(200);
-
-var _Datagrid = __webpack_require__(764);
-
-var _Datagrid2 = _interopRequireDefault(_Datagrid);
-
-var _FormFilter = __webpack_require__(768);
-
-var _FormFilter2 = _interopRequireDefault(_FormFilter);
-
-var _Loader = __webpack_require__(75);
-
-var _Loader2 = _interopRequireDefault(_Loader);
-
-var _AppLayout = __webpack_require__(76);
-
-var _AppLayout2 = _interopRequireDefault(_AppLayout);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AppContainer = exports.AppContainer = function (_Component) {
-    _inherits(AppContainer, _Component);
-
-    function AppContainer(props) {
-        _classCallCheck(this, AppContainer);
-
-        return _possibleConstructorReturn(this, (AppContainer.__proto__ || Object.getPrototypeOf(AppContainer)).call(this, props));
-    }
-
-    _createClass(AppContainer, [{
-        key: 'render',
-        value: function render() {
-            return _react2.default.createElement(
-                _AppLayout2.default,
-                null,
-                _react2.default.createElement(_Loader2.default, { isLoading: this.props.isLoading }),
-                _react2.default.createElement(_FormFilter2.default, null),
-                _react2.default.createElement(_Datagrid2.default, null)
-            );
-        }
-    }]);
-
-    return AppContainer;
-}(_react.Component);
-
-function mapDispatchToProps(dispatch) {
-    return (0, _redux.bindActionCreators)(_index.ActionCreators, dispatch);
-}
-
-function mapStateToProps(state) {
-    return Object.assign({}, { isLoading: state.isLoading });
-}
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(AppContainer);
-
-/***/ }),
-
-/***/ 761:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.getGridData = getGridData;
-exports.exportExcel = exportExcel;
-exports.setGridData = setGridData;
-
-var _types = __webpack_require__(133);
-
-var types = _interopRequireWildcard(_types);
-
-var _report = __webpack_require__(422);
-
-var _report2 = _interopRequireDefault(_report);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-var relativeUrl = 'api/ExchangeWinLossReport/Index';
-
-function getGridData(params, errorHandler) {
-    return function (dispatch) {
-        _report2.default.fetchGridData(relativeUrl, params).then(function (response) {
-            dispatch(setGridData({
-                level: params.data.Level,
-                data: response.data
-            }));
-        }).catch(function (error) {
-            return errorHandler(error);
-        });
-    };
-}
-
-function exportExcel(params) {
-    return function () {
-        return _report2.default.fetchGridData(relativeUrl, params);
-    };
-}
-
-function setGridData(data) {
-    return {
-        type: types.SET_GRID_DATA,
-        data: data
-    };
-}
-
-/***/ }),
-
-/***/ 762:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.setParams = exports.setReportBy = undefined;
-
-var _types = __webpack_require__(133);
-
-var types = _interopRequireWildcard(_types);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-var setReportBy = exports.setReportBy = function setReportBy(value) {
-    return {
-        type: types.SET_REPORTBY,
-        data: value
-    };
-};
-
-var setParams = exports.setParams = function setParams(value) {
-    return {
-        type: types.SET_PARAM,
-        data: value
-    };
-};
-
-/***/ }),
-
-/***/ 763:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.setDateRange = undefined;
-
-var _types = __webpack_require__(9);
-
-var types = _interopRequireWildcard(_types);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-var setDateRange = exports.setDateRange = function setDateRange(dateRange) {
-    var range = {
-        fromDate: dateRange.startDate,
-        toDate: dateRange.endDate
-    };
-
-    return {
-        type: types.SET_DATE_RANGE,
-        data: range
-    };
-};
-
-/***/ }),
-
-/***/ 764:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
 exports.DataGrid = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -7266,11 +7250,9 @@ var _ReportTitle2 = _interopRequireDefault(_ReportTitle);
 
 var _service = __webpack_require__(201);
 
-var _service2 = _interopRequireDefault(_service);
-
 var _report = __webpack_require__(134);
 
-var _licensee = __webpack_require__(765);
+var _licensee = __webpack_require__(761);
 
 var _NoDataTitle = __webpack_require__(67);
 
@@ -7280,7 +7262,7 @@ var _moment = __webpack_require__(0);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _Breadcrumb = __webpack_require__(766);
+var _Breadcrumb = __webpack_require__(762);
 
 var _Breadcrumb2 = _interopRequireDefault(_Breadcrumb);
 
@@ -7322,7 +7304,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
 
             if (this.props.gridData !== nextProps.gridData) {
                 var params = this.drillDownParams[nextProps.gridData.level];
-                this.reportTitle = _service2.default.getReportTitle({ fromDate: params.FromDate, toDate: params.ToDate }, params.CurrencyName, params.CurrencyId === 0);
+                this.reportTitle = _service.Service.getReportTitle({ fromDate: params.FromDate, toDate: params.ToDate }, params.CurrencyName, params.CurrencyId === 0);
                 this.props.toggleLoader(false);
             }
         }
@@ -7352,7 +7334,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
                 return null;
             }
 
-            var drillDownDate = _service2.default.getDrilldownDateRange(mainParam.ReportBy, mainParam.FromDate, mainParam.ToDate, date);
+            var drillDownDate = _service.Service.getDrilldownDateRange(mainParam.ReportBy, mainParam.FromDate, mainParam.ToDate, date);
             var drillDownData = _extends({}, mainParam, {
                 CurrencyId: currencyId,
                 CurrencyName: currencyName,
@@ -7391,7 +7373,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
                 this.levelGridData[currentLevel] = this.props.gridData.data;
 
                 this.props.getGridData(params, function () {
-                    _service2.default.showErrorMsg();
+                    _service.Service.showErrorMsg();
                     _this2.props.toggleLoader(false);
                 });
             } else {
@@ -7423,7 +7405,6 @@ var DataGrid = exports.DataGrid = function (_Component) {
     }, {
         key: '_buildHeader',
         value: function _buildHeader(level, reportBy) {
-            var headerText = _service2.default.getHeaderText();
             var headerRows = [];
 
             headerRows.push(_react2.default.createElement(
@@ -7431,57 +7412,57 @@ var DataGrid = exports.DataGrid = function (_Component) {
                 { style: { height: 32 }, key: 'tr-header1' },
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { colWidth: 30, header: true, title: headerText.index, rowSpan: '2' },
-                    headerText.index
+                    { colWidth: 30, header: true, title: _service.HeaderText.index, rowSpan: '2' },
+                    _service.HeaderText.index
                 ),
                 level === _report.ReportLevel.MAIN && _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { colWidth: 100, header: true, title: reportBy === _report.ReportBy.DAILY ? headerText.date : headerText.month, rowSpan: '2' },
-                    reportBy === _report.ReportBy.DAILY ? headerText.date : headerText.month
+                    { colWidth: 100, header: true, title: reportBy === _report.ReportBy.DAILY ? _service.HeaderText.date : _service.HeaderText.month, rowSpan: '2' },
+                    reportBy === _report.ReportBy.DAILY ? _service.HeaderText.date : _service.HeaderText.month
                 ),
                 level === _report.ReportLevel.CUSTOMER && _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { colWidth: 100, header: true, title: headerText.externalId, rowSpan: '2' },
-                    headerText.externalId
+                    { colWidth: 100, header: true, title: _service.HeaderText.externalId, rowSpan: '2' },
+                    _service.HeaderText.externalId
                 ),
                 level !== _report.ReportLevel.MAIN && _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { colWidth: 100, header: true, title: headerText.systemId, rowSpan: '2' },
-                    headerText.systemId
+                    { colWidth: 100, header: true, title: _service.HeaderText.systemId, rowSpan: '2' },
+                    _service.HeaderText.systemId
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { colWidth: 70, header: true, title: headerText.currency, rowSpan: '2' },
-                    headerText.currency
+                    { colWidth: 70, header: true, title: _service.HeaderText.currency, rowSpan: '2' },
+                    _service.HeaderText.currency
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { colWidth: 100, header: true, title: headerText.turnover, rowSpan: '2' },
-                    headerText.turnover
+                    { colWidth: 100, header: true, title: _service.HeaderText.turnover, rowSpan: '2' },
+                    _service.HeaderText.turnover
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { colWidth: 100, header: true, title: headerText.netTurnover, rowSpan: '2' },
-                    headerText.netTurnover
+                    { colWidth: 100, header: true, title: _service.HeaderText.netTurnover, rowSpan: '2' },
+                    _service.HeaderText.netTurnover
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { colWidth: 80, header: true, title: headerText.totalTransaction, rowSpan: '2' },
-                    headerText.totalTransaction
+                    { colWidth: 80, header: true, title: _service.HeaderText.totalTransaction, rowSpan: '2' },
+                    _service.HeaderText.totalTransaction
                 ),
                 this.isAllowedCustomerComm ? _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { colWidth: 100, header: true, title: headerText.customer, colSpan: '3' },
-                    headerText.customer
+                    { colWidth: 100, header: true, title: _service.HeaderText.customer, colSpan: '3' },
+                    _service.HeaderText.customer
                 ) : _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { colWidth: 100, header: true, title: headerText.customerWL, rowSpan: '2' },
-                    headerText.customerWL
+                    { colWidth: 100, header: true, title: _service.HeaderText.customerWL, rowSpan: '2' },
+                    _service.HeaderText.customerWL
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { colWidth: 100, header: true, title: headerText.licensee, colSpan: '4' },
-                    headerText.licensee
+                    { colWidth: 100, header: true, title: _service.HeaderText.licensee, colSpan: '4' },
+                    _service.HeaderText.licensee
                 )
             ));
 
@@ -7491,38 +7472,38 @@ var DataGrid = exports.DataGrid = function (_Component) {
                     { style: { height: 32 }, key: 'tr-header2' },
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
-                        { colWidth: 100, header: true, title: headerText.customerWL },
-                        headerText.customerWL
+                        { colWidth: 100, header: true, title: _service.HeaderText.customerWL },
+                        _service.HeaderText.customerWL
                     ),
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
-                        { colWidth: 100, header: true, title: headerText.customerComm },
-                        headerText.customerComm
+                        { colWidth: 100, header: true, title: _service.HeaderText.customerComm },
+                        _service.HeaderText.customerComm
                     ),
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
-                        { colWidth: 100, header: true, title: headerText.total },
-                        headerText.total
+                        { colWidth: 100, header: true, title: _service.HeaderText.total },
+                        _service.HeaderText.total
                     ),
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
-                        { colWidth: 100, header: true, title: headerText.licenseeWL },
-                        headerText.licenseeWL
+                        { colWidth: 100, header: true, title: _service.HeaderText.licenseeWL },
+                        _service.HeaderText.licenseeWL
                     ),
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
-                        { colWidth: 100, header: true, title: headerText.amountDueTo },
-                        headerText.amountDueTo
+                        { colWidth: 100, header: true, title: _service.HeaderText.amountDueTo },
+                        _service.HeaderText.amountDueTo
                     ),
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
-                        { colWidth: 100, header: true, title: headerText.licenseeComm },
-                        headerText.licenseeComm
+                        { colWidth: 100, header: true, title: _service.HeaderText.licenseeComm },
+                        _service.HeaderText.licenseeComm
                     ),
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
-                        { colWidth: 100, header: true, title: headerText.total },
-                        headerText.total
+                        { colWidth: 100, header: true, title: _service.HeaderText.total },
+                        _service.HeaderText.total
                     )
                 ));
             } else {
@@ -7531,23 +7512,23 @@ var DataGrid = exports.DataGrid = function (_Component) {
                     { style: { height: 32 }, key: 'tr-header2' },
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
-                        { colWidth: 100, header: true, title: headerText.licenseeWL },
-                        headerText.licenseeWL
+                        { colWidth: 100, header: true, title: _service.HeaderText.licenseeWL },
+                        _service.HeaderText.licenseeWL
                     ),
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
-                        { colWidth: 100, header: true, title: headerText.amountDueTo },
-                        headerText.amountDueTo
+                        { colWidth: 100, header: true, title: _service.HeaderText.amountDueTo },
+                        _service.HeaderText.amountDueTo
                     ),
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
-                        { colWidth: 100, header: true, title: headerText.licenseeComm },
-                        headerText.licenseeComm
+                        { colWidth: 100, header: true, title: _service.HeaderText.licenseeComm },
+                        _service.HeaderText.licenseeComm
                     ),
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
-                        { colWidth: 100, header: true, title: headerText.total },
-                        headerText.total
+                        { colWidth: 100, header: true, title: _service.HeaderText.total },
+                        _service.HeaderText.total
                     )
                 ));
             }
@@ -7603,7 +7584,6 @@ var DataGrid = exports.DataGrid = function (_Component) {
             var totalRows = [];
 
             var data = this.props.gridData.data.TotalDataList,
-                totalText = _service2.default.getTotalText(),
                 colSpan = this._getColSpan(level),
                 rowSpan = data.length;
 
@@ -7615,8 +7595,8 @@ var DataGrid = exports.DataGrid = function (_Component) {
                     { key: 'tr-total' + i, className: 'fixed-table-total' },
                     i === 0 && _react2.default.createElement(
                         _fixedTableHeader.Cell,
-                        { title: totalText.total, className: 'center-align', rowSpan: rowSpan, colSpan: colSpan },
-                        totalText.total
+                        { title: _service.TotalText.total, className: 'center-align', rowSpan: rowSpan, colSpan: colSpan },
+                        _service.TotalText.total
                     ),
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
@@ -7640,8 +7620,8 @@ var DataGrid = exports.DataGrid = function (_Component) {
                     { key: 'tr-grandtotal' + _i, className: 'fixed-table-grant-total' },
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
-                        { title: totalText.totalIn + ' ' + currency, className: 'center-align', colSpan: colSummarySpan },
-                        totalText.totalIn + ' ' + currency
+                        { title: _service.TotalText.totalIn + ' ' + currency, className: 'center-align', colSpan: colSummarySpan },
+                        _service.TotalText.totalIn + ' ' + currency
                     ),
                     this._buildCell(_item)
                 ));
@@ -7712,21 +7692,20 @@ var DataGrid = exports.DataGrid = function (_Component) {
         value: function _renderBreadcrumb() {
             var _this4 = this;
 
-            var breadcrumbText = _service2.default.getBreadcrumbText();
             var items = [{
-                label: breadcrumbText.main,
+                label: _service.BreadcrumbText.main,
                 value: _report.ReportLevel.MAIN
             }];
 
             if (Number(this.licenseeId) === _licensee.Licensee.ONE_TWO_BET) {
                 items.push({
-                    label: breadcrumbText.licensee,
+                    label: _service.BreadcrumbText.licensee,
                     value: _report.ReportLevel.LICENSEE
                 });
             }
 
             items.push({
-                label: breadcrumbText.customer,
+                label: _service.BreadcrumbText.customer,
                 value: _report.ReportLevel.CUSTOMER
             });
 
@@ -7798,7 +7777,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
 /***/ }),
 
-/***/ 765:
+/***/ 761:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7813,7 +7792,7 @@ var Licensee = exports.Licensee = {
 
 /***/ }),
 
-/***/ 766:
+/***/ 762:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7833,7 +7812,7 @@ var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _BreadcrumbItem = __webpack_require__(767);
+var _BreadcrumbItem = __webpack_require__(763);
 
 var _BreadcrumbItem2 = _interopRequireDefault(_BreadcrumbItem);
 
@@ -7916,7 +7895,7 @@ exports.default = BreadcrumbItem;
 
 /***/ }),
 
-/***/ 767:
+/***/ 763:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7986,7 +7965,7 @@ exports.default = BreadcrumbItem;
 
 /***/ }),
 
-/***/ 768:
+/***/ 764:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8025,15 +8004,13 @@ var _site2 = _interopRequireDefault(_site);
 
 var _report = __webpack_require__(134);
 
-var _currency = __webpack_require__(769);
+var _currency = __webpack_require__(765);
 
-var _reportExcel = __webpack_require__(770);
+var _reportExcel = __webpack_require__(766);
 
 var _reportExcel2 = _interopRequireDefault(_reportExcel);
 
 var _service = __webpack_require__(201);
-
-var _service2 = _interopRequireDefault(_service);
 
 var _moment = __webpack_require__(0);
 
@@ -8068,7 +8045,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
 
             _this.props.toggleLoader(true);
             _this.props.getGridData(params, function () {
-                _service2.default.showErrorMsg();
+                _service.Service.showErrorMsg();
                 _this.props.toggleLoader(false);
             });
 
@@ -8091,7 +8068,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                 _this.props.exportExcel(params).then(function (response) {
                     return _this._doExportExcel(level, params.data, isAllowedCustomerComm, response.data);
                 }).catch(function () {
-                    _service2.default.showErrorMsg();
+                    _service.Service.showErrorMsg();
                     _this.props.toggleLoader(false);
                 });
             } else {
@@ -8134,7 +8111,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                 excelData = params;
             } else {
                 var firstRow = gridData.DataList[0];
-                var drillDownDate = _service2.default.getDrilldownDateRange(params.ReportBy, params.FromDate, params.ToDate, firstRow.Date);
+                var drillDownDate = _service.Service.getDrilldownDateRange(params.ReportBy, params.FromDate, params.ToDate, firstRow.Date);
 
                 excelData = {
                     FromDate: _site2.default.convertDateToString((0, _moment2.default)(drillDownDate.fromDate)),
@@ -8145,7 +8122,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                 };
             }
 
-            var title = _service2.default.getReportTitle({ fromDate: excelData.FromDate, toDate: excelData.ToDate }, excelData.CurrencyName, excelData.CurrencyId === 0);
+            var title = _service.Service.getReportTitle({ fromDate: excelData.FromDate, toDate: excelData.ToDate }, excelData.CurrencyName, excelData.CurrencyId === 0);
             var excel = new _reportExcel2.default(gridData, title, level, isAllowedCustomerComm, excelData.ReportBy);
             excel.export();
             this.props.toggleLoader(false);
@@ -8361,7 +8338,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
 /***/ }),
 
-/***/ 769:
+/***/ 765:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8374,38 +8351,7 @@ var BaseCurrency = exports.BaseCurrency = [{ value: -1, text: "EUR" }, { value: 
 
 /***/ }),
 
-/***/ 77:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.isLoading = undefined;
-
-var _types = __webpack_require__(9);
-
-var types = _interopRequireWildcard(_types);
-
-var _createReducer2 = __webpack_require__(12);
-
-var _createReducer3 = _interopRequireDefault(_createReducer2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var isLoading = exports.isLoading = (0, _createReducer3.default)({}, _defineProperty({}, types.TOGGLE_LOADER, function (state, action) {
-    return action.data;
-}));
-
-/***/ }),
-
-/***/ 770:
+/***/ 766:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8436,8 +8382,6 @@ var _langHelper2 = _interopRequireDefault(_langHelper);
 var _excelStyle = __webpack_require__(114);
 
 var _service = __webpack_require__(201);
-
-var _service2 = _interopRequireDefault(_service);
 
 var _report = __webpack_require__(134);
 
@@ -8498,15 +8442,13 @@ var ReportExcel = function () {
         value: function _getColSpanConfig(level) {
             var _ref;
 
-            var text = _service2.default.getTotalText();
-
             return _ref = {}, _defineProperty(_ref, TOTAL_SECTION, {
                 colSpan: level === _report.ReportLevel.CUSTOMER ? 3 : 2,
-                text: text.total,
+                text: _service.TotalText.total,
                 style: _excelStyle.totalCellStyle.rowspan
             }), _defineProperty(_ref, SUMMARYTOTAL_SECTION, {
                 colSpan: level === _report.ReportLevel.CUSTOMER ? 4 : 3,
-                text: text.totalIn,
+                text: _service.TotalText.totalIn,
                 style: _excelStyle.grandTotalCellStyle.rowspan
             }), _ref;
         }
@@ -8572,8 +8514,6 @@ var ReportExcel = function () {
     }, {
         key: '_createHeader',
         value: function _createHeader() {
-            var headerText = _service2.default.getHeaderText();
-
             var nextColumnIndex = 0;
             var nextRowIndex = 0;
             var totalCol = this.configColumn.length;
@@ -8583,7 +8523,7 @@ var ReportExcel = function () {
                     nextColumnIndex = column.index_c ? column.index_c : nextColumnIndex;
                     nextRowIndex = column.index_r ? column.index_r : nextRowIndex;
                     var address = _excel2.default.getCellAddress({ c: nextColumnIndex, r: nextRowIndex });
-                    var header = headerText[column.title];
+                    var header = _service.HeaderText[column.title];
                     this.worksheet[address] = { t: "s", v: header, s: _excelStyle.headerCellStyle };
 
                     if (column.colSpan > 1 || column.rowSpan > 1) {
@@ -8705,7 +8645,7 @@ exports.default = ReportExcel;
 
 /***/ }),
 
-/***/ 771:
+/***/ 767:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8717,11 +8657,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(14);
 
-var _dataHandlerReducer = __webpack_require__(772);
+var _dataHandlerReducer = __webpack_require__(768);
 
 var dataHandlerReducer = _interopRequireWildcard(_dataHandlerReducer);
 
-var _filterHandlerReducer = __webpack_require__(773);
+var _filterHandlerReducer = __webpack_require__(769);
 
 var filterHandlerReducer = _interopRequireWildcard(_filterHandlerReducer);
 
@@ -8737,7 +8677,7 @@ var _excludeTestReducer = __webpack_require__(197);
 
 var excludeTestReducer = _interopRequireWildcard(_excludeTestReducer);
 
-var _dateRangeReducer = __webpack_require__(774);
+var _dateRangeReducer = __webpack_require__(770);
 
 var dateRangeReducer = _interopRequireWildcard(_dateRangeReducer);
 
@@ -8747,7 +8687,7 @@ exports.default = (0, _redux.combineReducers)(Object.assign(dataHandlerReducer, 
 
 /***/ }),
 
-/***/ 772:
+/***/ 768:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8778,7 +8718,7 @@ var gridData = exports.gridData = (0, _createReducer3.default)({}, _defineProper
 
 /***/ }),
 
-/***/ 773:
+/***/ 769:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8829,7 +8769,38 @@ var isAllowedCustomerComm = exports.isAllowedCustomerComm = (0, _createReducer8.
 
 /***/ }),
 
-/***/ 774:
+/***/ 77:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.isLoading = undefined;
+
+var _types = __webpack_require__(9);
+
+var types = _interopRequireWildcard(_types);
+
+var _createReducer2 = __webpack_require__(12);
+
+var _createReducer3 = _interopRequireDefault(_createReducer2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var isLoading = exports.isLoading = (0, _createReducer3.default)({}, _defineProperty({}, types.TOGGLE_LOADER, function (state, action) {
+    return action.data;
+}));
+
+/***/ }),
+
+/***/ 770:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8962,5 +8933,5 @@ var GET_DATE_CONSTRAINT = exports.GET_DATE_CONSTRAINT = 'GET_DATE_CONSTRAINT';
 
 /***/ })
 
-},[759]);
+},[755]);
 //# sourceMappingURL=exchangewl.chunk.js.map
