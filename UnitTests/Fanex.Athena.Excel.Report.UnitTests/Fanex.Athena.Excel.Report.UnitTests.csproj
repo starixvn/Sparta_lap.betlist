@@ -61,6 +61,8 @@
   <ItemGroup>
     <Compile Include="AgCasinoBalanceExcelTest.cs" />
     <Compile Include="ActiveCustomerSummaryExcelTest.cs" />
+    <Compile Include="TestableClasses\HandHistoryExcelTestable.cs" />
+    <Compile Include="HandHistoryExcelTest.cs" />
     <Compile Include="ThirdPartyWinLossExcelTest.cs" />
     <Compile Include="RacingCommissionExcelTest.cs" />
     <Compile Include="MicroGamingWinLossExcelTest.cs" />
@@ -111,6 +113,10 @@
     <ProjectReference Include="..\..\Fanex.Athena.UnitTest.Common\Fanex.Athena.UnitTest.Common.csproj">
       <Project>{4A5BDDBC-F707-409A-86EC-D9BC6E9D31C4}</Project>
       <Name>Fanex.Athena.UnitTest.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Model\Fanex.Athena.Model.Casino\Fanex.Athena.Model.Casino.csproj">
+      <Project>{840A8298-60ED-40DC-A64E-F9048ABD32B5}</Project>
+      <Name>Fanex.Athena.Model.Casino</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Model\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj">
       <Project>{5F410090-94C0-46A5-9FEC-B6C3B745B7A0}</Project>

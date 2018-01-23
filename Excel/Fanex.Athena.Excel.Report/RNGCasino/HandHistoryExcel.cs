@@ -214,7 +214,7 @@ namespace Fanex.Athena.Excel.Report.RNGCasino
             return Regex.Replace(result.Replace("<BR>", "\n"), @"<[^>]+>|&nbsp;", string.Empty).Trim();
         }
 
-        private void AssignGroupTotal(ISheet sheet, RNGCasinoResult groupTotal, int currentRow)
+        protected internal virtual void AssignGroupTotal(ISheet sheet, RNGCasinoResult groupTotal, int currentRow)
         {
             var row = sheet.CopyRow(TemplateSheet, RowGroupTotal, currentRow);
             row.Cells[ColumnEndBalance].SetCellValue(ViewResources.Total);
@@ -222,7 +222,7 @@ namespace Fanex.Athena.Excel.Report.RNGCasino
             AssignTotalColumns(row, groupTotal);
         }
 
-        private void AssignGrandTotal(ISheet sheet, int currentRow)
+        protected internal virtual void AssignGrandTotal(ISheet sheet, int currentRow)
         {
             var row = sheet.CopyRow(TemplateSheet, RowGrandTotal, currentRow);
             row.Cells[ColumnEndBalance].SetCellValue(ViewResources.GrandTotal);
