@@ -32,6 +32,14 @@
             DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerSelBalance")).Returns(ObjectDb);
         }
 
+        [OneTimeTearDown]
+        public override void FixtureTearDown()
+        {
+            _balanceUpDataAccess = null;
+
+            base.FixtureTearDown();
+        }
+
         [Test]
         public void GetReportData_NoData_ReturnNullList()
         {

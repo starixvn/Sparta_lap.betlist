@@ -1,26 +1,25 @@
 ﻿namespace Fanex.Athena.DataAccess.Report.UnitTests
 {
     using System;
-    using System.Collections.Generic;
-    using System.Data;
     using Core.Configuration.Interfaces;
+    using Core.UnitTests.TestHelpers;
     using Data;
     using Fanex.Athena.UnitTest.Common.NUnitExtensions;
     using Model.Core.DTO.Configuration;
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using UnitTest.Common.Helpers;
 
     [TestFixture]
-    public class RacingCommissionDataAccessTest
+    public class RacingCommissionDataAccessTest : BaseDataAccessHelperTest<RacingCommissionDataAccess>
     {
-        private RacingCommissionDataAccess _dataAccess;
+        private const string SpName = "Lrf_Rpt_CommByBettype_HR";
+
         private BalanceUp _balance;
         private RacingCommissionMetaModel _metaModel;
 
         [OneTimeSetUp]
-        public void Setup()
+        public override void FixtureSetUp()
         {
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             _balance = new BalanceUp
@@ -30,7 +29,8 @@
             };
             balanceUpDataAccess.GetBalanceUp().Returns(_balance);
 
-            _dataAccess = Substitute.ForPartsOf<RacingCommissionDataAccess>(balanceUpDataAccess);
+            ObjectDb = Substitute.For<IObjectDb>();
+            DataAccess = Substitute.ForPartsOf<RacingCommissionDataAccess>(balanceUpDataAccess);
 
             _metaModel = new RacingCommissionMetaModel
             {
@@ -45,21 +45,22 @@
         }
 
         [OneTimeTearDown]
-        public void TearDown()
+        public override void FixtureTearDown()
         {
-            _dataAccess = null;
             _metaModel = null;
             _balance = null;
+
+            base.FixtureTearDown();
         }
 
         [Test]
         public void GetDataList_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_CommByBettype_HR")).Returns(objectDb);
+            DataAccess.GetObjectDb(Arg.Is(SpName)).Returns(ObjectDb);
+
             dynamic uspParam = null;
-            objectDb.ExecuteReader(Arg.Do<dynamic>(arg => uspParam = arg));
+            ObjectDb.ExecuteReader(Arg.Do<dynamic>(arg => uspParam = arg));
             var expectedResult = new
             {
                 AgentList = "xml",
@@ -71,7 +72,7 @@
             };
 
             // Action
-            _dataAccess.GetData(_metaModel);
+            DataAccess.GetData(_metaModel);
 
             // Assert
             Assert.That(uspParam, Tobe.SameProperties(expectedResult));
@@ -81,12 +82,10 @@
         public void GetDataList_WhenCall_ReturnCorrectResult()
         {
             // Arrange
-            var reader = Substitute.For<IDataReader>();
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_CommByBettype_HR")).Returns(objectDb);
-            objectDb.ExecuteReader(Arg.Any<object>()).ReturnsForAnyArgs(reader);
-            reader.Read().Returns(true, false, true, false);
-            reader.NextResult().Returns(true);
+            DataAccess.GetObjectDb(Arg.Is(SpName)).Returns(ObjectDb);
+
+            Reader.Read().Returns(true, false, true, false);
+            Reader.NextResult().Returns(true);
             var readerDataMapping = new
             {
                 custID = 999,
@@ -94,10 +93,10 @@
                 SumTote_WinUSD = 1000
             };
 
-            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
+            MapReaderData(readerDataMapping);
 
             // Action
-            var result = _dataAccess.GetData(_metaModel);
+            var result = DataAccess.GetData(_metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -108,6 +107,14 @@
 
                 Assert.That(result.TotalData.ToteWin, Is.EqualTo(1000));
             });
+        }
+
+        [Test]
+        public void GetDataList_WhenReceiveObjectDbException_ThrowDataAccessException()
+        {
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                SpName,
+                () => DataAccess.GetData(_metaModel));
         }
     }
 }

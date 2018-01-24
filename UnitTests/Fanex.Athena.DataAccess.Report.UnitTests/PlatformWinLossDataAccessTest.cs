@@ -5,6 +5,7 @@
     using System.Data;
     using System.Linq;
     using Core.Configuration.Interfaces;
+    using Core.UnitTests.TestHelpers;
     using Data;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Configuration;
@@ -12,17 +13,18 @@
     using NSubstitute;
     using NUnit.Framework;
     using Resources;
-    using UnitTest.Common.Helpers;
 
     [TestFixture]
-    public class PlatformWinLossDataAccessTest
+    public class PlatformWinLossDataAccessTest : BaseDataAccessHelperTest<PlatformWinLossDataAccess>
     {
-        private PlatformWinLossDataAccess _dataAccess;
+        private const string GetSummaryDataSp = "Lrf_Rpt_PlatformWinloss";
+        private const string GetMemberDataSp = "Lrf_Rpt_PlatformWinlossDetail";
+
         private BalanceUp _balance;
         private PlatformWinLossMetaModel _metaModel;
 
         [OneTimeSetUp]
-        public void Setup()
+        public override void FixtureSetUp()
         {
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             _balance = new BalanceUp
@@ -32,7 +34,8 @@
             };
             balanceUpDataAccess.GetBalanceUp().Returns(_balance);
 
-            _dataAccess = Substitute.ForPartsOf<PlatformWinLossDataAccess>(balanceUpDataAccess);
+            ObjectDb = Substitute.For<IObjectDb>();
+            DataAccess = Substitute.ForPartsOf<PlatformWinLossDataAccess>(balanceUpDataAccess);
 
             _metaModel = new PlatformWinLossMetaModel
             {
@@ -47,109 +50,102 @@
         }
 
         [OneTimeTearDown]
-        public void TearDown()
+        public override void FixtureTearDown()
         {
-            _dataAccess = null;
             _metaModel = null;
             _balance = null;
+
+            base.FixtureTearDown();
         }
 
         [Test]
         public void GetSummaryData_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_PlatformWinloss")).Returns(objectDb);
+            DataAccess.GetObjectDb(Arg.Is(GetSummaryDataSp)).Returns(ObjectDb);
 
             // Action
-            _dataAccess.GetSummaryData(_metaModel);
+            DataAccess.GetSummaryData(_metaModel);
 
             // Assert
-            objectDb.Received().AddInParameter("PlatformType", DbType.Byte, _metaModel.PlatformType);
-            objectDb.Received().AddInParameter("movebetsday", DbType.DateTime, _balance.MoveBetsDay);
-            objectDb.Received().AddInParameter("DrawFilter", DbType.Int16, _metaModel.DrawFilter);
-            objectDb.Received().AddInParameter("FromDate", DbType.DateTime, _metaModel.FromDate);
-            objectDb.Received().AddInParameter("ToDate", DbType.DateTime, _metaModel.ToDate);
-            objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+            AssertSpParameters();
         }
 
         [Test]
         public void GetSummaryData_WhenCall_ReturnCorrectResult()
         {
             // Arrange
-            var reader = Substitute.For<IDataReader>();
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_PlatformWinloss")).Returns(objectDb);
-            objectDb.ExecuteReader().Returns(reader);
-            reader.Read().Returns(true, false);
+            DataAccess.GetObjectDb(Arg.Is(GetSummaryDataSp)).Returns(ObjectDb);
+
+            Reader.Read().Returns(true, true, false);
             var readerDataMapping = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
             {
                 { "PlatformType", PlatformType.Asia },
-                { "TurnoverUSD", 100 },
+                { "TurnoverUSD", 300 },
                 { "productprefix", "SB" }
             };
 
-            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
+            MapReaderData(readerDataMapping);
 
             // Action
-            var result = _dataAccess.GetSummaryData(_metaModel);
+            var result = DataAccess.GetSummaryData(_metaModel);
             var firstItem = result.DataList.First();
             var secondItem = result.DataList.ElementAt(1);
 
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(result.DataList.Count, Is.EqualTo(2));
+                Assert.That(result.DataList.Count, Is.EqualTo(3));
                 Assert.That(firstItem.PlatformType, Is.EqualTo(PlatformType.Asia));
                 Assert.That(firstItem.Name, Is.EqualTo(ViewResources.Asia));
-                Assert.That(firstItem.Turnover, Is.EqualTo(100));
+                Assert.That(firstItem.Turnover, Is.EqualTo(600));
 
                 Assert.That(secondItem.Parent, Is.EqualTo(PlatformType.Asia.ToString()));
                 Assert.That(secondItem.Name, Is.EqualTo(ViewResources.ProductSB));
-                Assert.That(secondItem.Turnover, Is.EqualTo(100));
+                Assert.That(secondItem.Turnover, Is.EqualTo(300));
 
                 Assert.That(result.TotalData.TurnoverPercent, Is.EqualTo(100));
             });
         }
 
         [Test]
+        public void GetSummaryData_WhenReceiveObjectDbException_ThrowDataAccessException()
+        {
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                GetSummaryDataSp,
+                () => DataAccess.GetSummaryData(_metaModel));
+        }
+
+        [Test]
         public void GetMemberData_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_PlatformWinlossDetail")).Returns(objectDb);
+            DataAccess.GetObjectDb(Arg.Is(GetMemberDataSp)).Returns(ObjectDb);
 
             // Action
-            _dataAccess.GetMemberData(_metaModel);
+            DataAccess.GetMemberData(_metaModel);
 
             // Assert
-            objectDb.Received().AddInParameter("PlatformType", DbType.Byte, _metaModel.PlatformType);
-            objectDb.Received().AddInParameter("movebetsday", DbType.DateTime, _balance.MoveBetsDay);
-            objectDb.Received().AddInParameter("DrawFilter", DbType.Int16, _metaModel.DrawFilter);
-            objectDb.Received().AddInParameter("FromDate", DbType.DateTime, _metaModel.FromDate);
-            objectDb.Received().AddInParameter("ToDate", DbType.DateTime, _metaModel.ToDate);
-            objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+            AssertSpParameters();
         }
 
         [Test]
         public void GetMemberData_WhenCall_ReturnCorrectResult()
         {
             // Arrange
-            var reader = Substitute.For<IDataReader>();
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_PlatformWinlossDetail")).Returns(objectDb);
-            objectDb.ExecuteReader().Returns(reader);
-            reader.Read().Returns(true, false);
+            DataAccess.GetObjectDb(Arg.Is(GetMemberDataSp)).Returns(ObjectDb);
+
+            Reader.Read().Returns(true, false);
             var readerDataMapping = new
             {
                 TurnoverUSD = 100,
                 WinlostUSD = 200
             };
 
-            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
+            MapReaderData(readerDataMapping);
 
             // Action
-            var result = _dataAccess.GetMemberData(_metaModel);
+            var result = DataAccess.GetMemberData(_metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -159,6 +155,27 @@
                 Assert.That(result.DataList.ElementAt(0).CustomerWinLoss, Is.EqualTo(200));
 
                 Assert.That(result.TotalData.Turnover, Is.EqualTo(100));
+            });
+        }
+
+        [Test]
+        public void GetMemberData_WhenReceiveObjectDbException_ThrowDataAccessException()
+        {
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                GetMemberDataSp,
+                () => DataAccess.GetMemberData(_metaModel));
+        }
+
+        private void AssertSpParameters()
+        {
+            Assert.Multiple(() =>
+            {
+                ObjectDb.Received().AddInParameter("PlatformType", DbType.Byte, _metaModel.PlatformType);
+                ObjectDb.Received().AddInParameter("movebetsday", DbType.DateTime, _balance.MoveBetsDay);
+                ObjectDb.Received().AddInParameter("DrawFilter", DbType.Int16, _metaModel.DrawFilter);
+                ObjectDb.Received().AddInParameter("FromDate", DbType.DateTime, _metaModel.FromDate);
+                ObjectDb.Received().AddInParameter("ToDate", DbType.DateTime, _metaModel.ToDate);
+                ObjectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
             });
         }
     }

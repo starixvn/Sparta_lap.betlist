@@ -51,6 +51,15 @@
             };
         }
 
+        [OneTimeTearDown]
+        public override void FixtureTearDown()
+        {
+            _balance = null;
+            _metaModel = null;
+
+            base.FixtureTearDown();
+        }
+
         [TestCase(true, 5, PageSizeExcel)]
         [TestCase(false, 5, 5)]
         public void GetDataList_WhenCall_ParametersPassedCorrectly(bool isExportExcel, int pageSize, int expectedPageSize)
@@ -118,7 +127,7 @@
 
                 AssertCommonData(result.TotalData, expectedTotalData);
                 Assert.That(result.TotalData.LicenseeWL, Is.EqualTo(expectedTotalData.LicenseeWL));
-  
+
                 Assert.That(result.TotalRows, Is.EqualTo(ExpectedTotalRow));
             });
         }

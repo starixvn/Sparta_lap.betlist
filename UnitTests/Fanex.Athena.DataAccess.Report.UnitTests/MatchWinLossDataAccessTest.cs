@@ -4,23 +4,27 @@
     using System.Collections.Generic;
     using System.Data;
     using Core.Configuration.Interfaces;
+    using Core.UnitTests.TestHelpers;
     using Data;
     using Model.Core.DTO.Configuration;
     using Model.Core.MetaModel.Product;
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using UnitTest.Common.Helpers;
 
     [TestFixture]
-    public class MatchWinLossDataAccessTest
+    public class MatchWinLossDataAccessTest : BaseDataAccessHelperTest<MatchWinLossDataAccess>
     {
-        private MatchWinLossDataAccess _dataAccess;
+        private const string GetDataListSp = "Lrf_Rpt_MatchWinLoss";
+        private const string GetDetailDataSetSp = "Lrf_Rpt_MatchWinLossDetail";
+        private const string GetDetailDataListSp = "Lrf_Rpt_MatchWinLossByBettype";
+        private const string GetOutrightParlayListSp = "Lrf_Rpt_MatchWinLossByOutrightParlay";
+
         private BalanceUp _balance;
         private MatchWinLossMetaModel _metaModel;
 
         [OneTimeSetUp]
-        public void Setup()
+        public override void FixtureSetUp()
         {
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             _balance = new BalanceUp
@@ -30,7 +34,8 @@
             };
             balanceUpDataAccess.GetBalanceUp().Returns(_balance);
 
-            _dataAccess = Substitute.ForPartsOf<MatchWinLossDataAccess>(balanceUpDataAccess);
+            ObjectDb = Substitute.For<IObjectDb>();
+            DataAccess = Substitute.ForPartsOf<MatchWinLossDataAccess>(balanceUpDataAccess);
 
             _metaModel = new MatchWinLossMetaModel
             {
@@ -48,42 +53,43 @@
         }
 
         [OneTimeTearDown]
-        public void TearDown()
+        public override void FixtureTearDown()
         {
-            _dataAccess = null;
-            _metaModel = null;
             _balance = null;
+            _metaModel = null;
+
+            base.FixtureTearDown();
         }
 
         [Test]
         public void GetDataList_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_MatchWinLoss")).Returns(objectDb);
+            DataAccess.GetObjectDb(Arg.Is(GetDataListSp)).Returns(ObjectDb);
 
             // Action
-            _dataAccess.GetDataList(_metaModel);
+            DataAccess.GetDataList(_metaModel);
 
             // Assert
-            objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-            objectDb.Received().AddInParameter("Date", DbType.DateTime, _metaModel.Date);
-            objectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, _balance.MoveBetsDay);
-            objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
-            objectDb.Received().AddInParameter("showNG", DbType.Boolean, false);
+            Assert.Multiple(() =>
+            {
+                ObjectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                ObjectDb.Received().AddInParameter("Date", DbType.DateTime, _metaModel.Date);
+                ObjectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, _balance.MoveBetsDay);
+                ObjectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
+                ObjectDb.Received().AddInParameter("showNG", DbType.Boolean, false);
+            });
         }
 
         [Test]
-        public void GetDataList_WhenCall_ReturnCorrectResult()
+        public void SetToList_WhenCall_ReturnCorrectResult()
         {
             // Arrange
-            var reader = Substitute.For<IDataReader>();
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_MatchWinLoss")).Returns(objectDb);
-            objectDb.ExecuteReader().Returns(reader);
-            reader.Read().Returns(true, false);
+            DataAccess.GetObjectDb(Arg.Is(GetDataListSp)).Returns(ObjectDb);
 
-            var readerDataMapping = new
+            Reader.Read().Returns(true, false);
+
+            var expected = new
             {
                 leagueid = 1,
                 matchid = 2,
@@ -91,95 +97,275 @@
                 MemberWinLostUSD = 200
             };
 
-            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
+            MapReaderData(expected);
 
             // Action
-            var result = _dataAccess.GetDataList(_metaModel);
+            var result = DataAccess.GetDataList(_metaModel);
 
             // Assert
             Assert.Multiple(() =>
             {
                 Assert.That(result.Count, Is.EqualTo(1));
-                Assert.That(result[0].LeagueId, Is.EqualTo(1));
-                Assert.That(result[0].MatchId, Is.EqualTo(2));
-                Assert.That(result[0].Turnover, Is.EqualTo(100));
-                Assert.That(result[0].CustomerWL, Is.EqualTo(200));
+                Assert.That(result[0].LeagueId, Is.EqualTo(expected.leagueid));
+                Assert.That(result[0].MatchId, Is.EqualTo(expected.matchid));
+                Assert.That(result[0].Turnover, Is.EqualTo(expected.TurnoverUSD));
+                Assert.That(result[0].CustomerWL, Is.EqualTo(expected.MemberWinLostUSD));
             });
+        }
+
+        [Test]
+        public void SetToList_HasCustomerComm_ReturnCorrectData()
+        {
+            // Arrange
+            DataAccess.GetObjectDb(Arg.Is(GetDataListSp)).Returns(ObjectDb);
+
+            Reader.Read().Returns(true, false);
+            Reader.FieldCount.Returns(1);
+            Reader.GetName(0).Returns("PlayerCommUSD");
+
+            var expected = new
+            {
+                PlayerCommUSD = 200
+            };
+            MapReaderData(expected);
+
+            // Action
+            var result = DataAccess.GetDataList(_metaModel);
+
+            // Assert
+            Assert.That(result[0].CustomerComm, Is.EqualTo(expected.PlayerCommUSD));
+        }
+
+        [Test]
+        public void SetToList_HasBetTypeColumn_ReturnCorrectData()
+        {
+            // Arrange
+            DataAccess.GetObjectDb(Arg.Is(GetDataListSp)).Returns(ObjectDb);
+
+            Reader.Read().Returns(true, false);
+            Reader.FieldCount.Returns(1);
+            Reader.GetName(0).Returns("bettype");
+
+            var expected = new
+            {
+                bettype = 2
+            };
+            MapReaderData(expected);
+
+            // Action
+            var result = DataAccess.GetDataList(_metaModel);
+
+            // Assert
+            Assert.That(result[0].BetType, Is.EqualTo(expected.bettype));
+        }
+
+        [Test]
+        public void SetToList_HasProductNameColumn_ReturnCorrectData()
+        {
+            // Arrange
+            DataAccess.GetObjectDb(Arg.Is(GetDataListSp)).Returns(ObjectDb);
+
+            Reader.Read().Returns(true, false);
+            Reader.FieldCount.Returns(1);
+            Reader.GetName(0).Returns("productname");
+
+            var expected = new
+            {
+                productname = "Test"
+            };
+            MapReaderData(expected);
+
+            // Action
+            var result = DataAccess.GetDataList(_metaModel);
+
+            // Assert
+            Assert.That(result[0].ProductName, Is.EqualTo(expected.productname));
+        }
+
+        [Test]
+        public void SetToList_HasLiveIndicatorColumn_ReturnCorrectData()
+        {
+            // Arrange
+            DataAccess.GetObjectDb(Arg.Is(GetDataListSp)).Returns(ObjectDb);
+
+            Reader.Read().Returns(true, false);
+            Reader.FieldCount.Returns(1);
+            Reader.GetName(0).Returns("liveindicator");
+
+            var expected = new
+            {
+                liveindicator = false
+            };
+            MapReaderData(expected);
+
+            // Action
+            var result = DataAccess.GetDataList(_metaModel);
+
+            // Assert
+            Assert.That(result[0].IsLive, Is.EqualTo(expected.liveindicator));
+        }
+
+        [Test]
+        public void SetToList_HasShowTimeColumn_ReturnCorrectData()
+        {
+            // Arrange
+            DataAccess.GetObjectDb(Arg.Is(GetDataListSp)).Returns(ObjectDb);
+
+            Reader.Read().Returns(true, false);
+            Reader.FieldCount.Returns(1);
+            Reader.GetName(0).Returns("showtime");
+
+            var expected = new
+            {
+                showtime = "20170101"
+            };
+            MapReaderData(expected);
+
+            // Action
+            var result = DataAccess.GetDataList(_metaModel);
+
+            // Assert
+            Assert.That(result[0].ShowTime, Is.EqualTo(expected.showtime));
+        }
+
+        [Test]
+        public void SetToList_HasSportTypeColumn_ReturnCorrectData()
+        {
+            // Arrange
+            DataAccess.GetObjectDb(Arg.Is(GetDataListSp)).Returns(ObjectDb);
+
+            Reader.Read().Returns(true, false);
+            Reader.FieldCount.Returns(1);
+            Reader.GetName(0).Returns("sporttype");
+
+            var expected = new
+            {
+                sporttype = 1
+            };
+            MapReaderData(expected);
+
+            // Action
+            var result = DataAccess.GetDataList(_metaModel);
+
+            // Assert
+            Assert.That(result[0].SportType, Is.EqualTo(expected.sporttype));
+        }
+
+        [Test]
+        public void SetToList_HasKickOffTimeColumn_ReturnCorrectData()
+        {
+            // Arrange
+            DataAccess.GetObjectDb(Arg.Is(GetDataListSp)).Returns(ObjectDb);
+
+            Reader.Read().Returns(true, false);
+            Reader.FieldCount.Returns(1);
+            Reader.GetName(0).Returns("KickoffTime");
+
+            var expected = new
+            {
+                KickoffTime = new DateTime(2017, 1, 2)
+            };
+            MapReaderData(expected);
+
+            // Action
+            var result = DataAccess.GetDataList(_metaModel);
+
+            // Assert
+            Assert.That(result[0].KickOffTime, Is.EqualTo(expected.KickoffTime));
+        }
+
+        [Test]
+        public void GetDataList_WhenReceiveObjectDbException_ThrowDataAccessException()
+        {
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                GetDataListSp,
+                () => DataAccess.GetDataList(_metaModel));
         }
 
         [Test]
         public void GetDetailDataSet_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_MatchWinLossDetail")).Returns(objectDb);
+            DataAccess.GetObjectDb(Arg.Is(GetDetailDataSetSp)).Returns(ObjectDb);
 
             // Action
-            _dataAccess.GetDetailDataSet(_metaModel);
+            DataAccess.GetDetailDataSet(_metaModel);
 
             // Assert
-            objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-            objectDb.Received().AddInParameter("FromDate", DbType.DateTime, _metaModel.Date);
-            objectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, _balance.MoveBetsDay);
-            objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
-            objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
-            objectDb.Received().AddInParameter("showNG", DbType.Boolean, false);
+            Assert.Multiple(() =>
+            {
+                ObjectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                ObjectDb.Received().AddInParameter("FromDate", DbType.DateTime, _metaModel.Date);
+                ObjectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, _balance.MoveBetsDay);
+                ObjectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
+                ObjectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
+                ObjectDb.Received().AddInParameter("showNG", DbType.Boolean, false);
+            });
         }
 
         [Test]
-        public void GetDetailDataSet_WhenCall_ReturnCorrectResult()
+        public void GetDetailDataSet_WhenReceiveObjectDbException_ThrowDataAccessException()
         {
-            // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_MatchWinLossDetail")).Returns(objectDb);
-
-            // Action
-            _dataAccess.GetDetailDataSet(_metaModel);
-
-            // Assert
-            objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-            objectDb.Received().AddInParameter("FromDate", DbType.DateTime, _metaModel.Date);
-            objectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, _balance.MoveBetsDay);
-            objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
-            objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
-            objectDb.Received().AddInParameter("showNG", DbType.Boolean, false);
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                GetDetailDataSetSp,
+                () => DataAccess.GetDetailDataSet(_metaModel));
         }
 
         [Test]
         public void GetDetailDataList_WhenCall_ReturnCorrectResult()
         {
             // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_MatchWinLossByBettype")).Returns(objectDb);
+            DataAccess.GetObjectDb(Arg.Is(GetDetailDataListSp)).Returns(ObjectDb);
 
             // Action
-            _dataAccess.GetDetailDataList(_metaModel);
+            DataAccess.GetDetailDataList(_metaModel);
 
             // Assert
-            objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-            objectDb.Received().AddInParameter("MatchId", DbType.Int32, _metaModel.MatchId);
-            objectDb.Received().AddInParameter("Date", DbType.DateTime, _metaModel.Date);
-            objectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, _balance.MoveBetsDay);
-            objectDb.Received().AddInParameter("LeagueId", DbType.Int32, _metaModel.LeagueId);
-            objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
+            Assert.Multiple(() =>
+            {
+                ObjectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                ObjectDb.Received().AddInParameter("MatchId", DbType.Int32, _metaModel.MatchId);
+                ObjectDb.Received().AddInParameter("Date", DbType.DateTime, _metaModel.Date);
+                ObjectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, _balance.MoveBetsDay);
+                ObjectDb.Received().AddInParameter("LeagueId", DbType.Int32, _metaModel.LeagueId);
+                ObjectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
+            });
+        }
+
+        [Test]
+        public void GetDetailDataList_WhenReceiveObjectDbException_ThrowDataAccessException()
+        {
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                GetDetailDataListSp,
+                () => DataAccess.GetDetailDataList(_metaModel));
         }
 
         [Test]
         public void GetOutrightParlayList_WhenCall_ReturnCorrectResult()
         {
             // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_MatchWinLossByOutrightParlay")).Returns(objectDb);
+            DataAccess.GetObjectDb(Arg.Is(GetOutrightParlayListSp)).Returns(ObjectDb);
 
             // Action
-            _dataAccess.GetOutrightParlayList(_metaModel);
+            DataAccess.GetOutrightParlayList(_metaModel);
 
             // Assert
-            objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-            objectDb.Received().AddInParameter("Date", DbType.DateTime, _metaModel.Date);
-            objectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, _balance.MoveBetsDay);
-            objectDb.Received().AddInParameter("showsb", DbType.Boolean, true);
-            objectDb.Received().AddInParameter("showba", DbType.Boolean, false);
+            Assert.Multiple(() =>
+            {
+                ObjectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                ObjectDb.Received().AddInParameter("Date", DbType.DateTime, _metaModel.Date);
+                ObjectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, _balance.MoveBetsDay);
+                ObjectDb.Received().AddInParameter("showsb", DbType.Boolean, true);
+                ObjectDb.Received().AddInParameter("showba", DbType.Boolean, false);
+            });
+        }
+
+        [Test]
+        public void GetOutrightParlayList_WhenReceiveObjectDbException_ThrowDataAccessException()
+        {
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                GetOutrightParlayListSp,
+                () => DataAccess.GetOutrightParlayList(_metaModel));
         }
     }
 }

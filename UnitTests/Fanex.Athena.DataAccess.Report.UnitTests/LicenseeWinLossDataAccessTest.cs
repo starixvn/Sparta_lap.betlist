@@ -5,6 +5,7 @@
     using System.Data;
     using System.Linq;
     using Core.Configuration.Interfaces;
+    using Core.UnitTests.TestHelpers;
     using Data;
     using Extension.Utility;
     using Model.Core.DTO.Configuration;
@@ -12,17 +13,22 @@
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using UnitTest.Common.Helpers;
 
     [TestFixture]
-    public class LicenseeWinLossDataAccessTest
+    public class LicenseeWinLossDataAccessTest : BaseDataAccessHelperTest<LicenseeWinLossDataAccess>
     {
-        private LicenseeWinLossDataAccess _dataAccess;
+        private const string GetSummaryWinlossSp = "Lrf_Rpt_LicWinloss";
+
+        private const string GetCustomerWinlossDetailSp = "Lrf_Rpt_LicWinlossDetail";
+
+        private const string GetAgentWinlossDetailSp = "Lrf_Rpt_LicWinlossDetail_Ag";
+
         private BalanceUp _balance;
+
         private LicenseeWinLossMetaModel _metaModel;
 
         [OneTimeSetUp]
-        public void Setup()
+        public override void FixtureSetUp()
         {
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             _balance = new BalanceUp
@@ -32,7 +38,8 @@
             };
             balanceUpDataAccess.GetBalanceUp().Returns(_balance);
 
-            _dataAccess = Substitute.ForPartsOf<LicenseeWinLossDataAccess>(balanceUpDataAccess);
+            ObjectDb = Substitute.For<IObjectDb>();
+            DataAccess = Substitute.ForPartsOf<LicenseeWinLossDataAccess>(balanceUpDataAccess);
 
             var appSetting = Substitute.For<IAppSettings>();
             appSetting.HistoryDate.Returns(new DateTime(2016, 8, 31));
@@ -53,84 +60,90 @@
         }
 
         [OneTimeTearDown]
-        public void TearDown()
+        public override void FixtureTearDown()
         {
-            _dataAccess = null;
-            _metaModel = null;
             _balance = null;
+            _metaModel = null;
+
+            base.FixtureTearDown();
         }
 
         [Test]
         public void GetSummaryWinloss_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_LicWinloss")).Returns(objectDb);
+            DataAccess.GetObjectDb(Arg.Is(GetSummaryWinlossSp)).Returns(ObjectDb);
 
             // Action
-            _dataAccess.GetSummaryWinloss(_metaModel);
+            DataAccess.GetSummaryWinloss(_metaModel);
 
             // Assert
-            objectDb.Received().AddInParameter("reporttype", DbType.Byte, _metaModel.ReportBy);
-            objectDb.Received().AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
-            objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-            objectDb.Received().AddInParameter("fromdate", DbType.Date, _metaModel.FromDate.Date);
-            objectDb.Received().AddInParameter("todate", DbType.Date, _metaModel.ToDate.Date);
-            objectDb.Received().AddInParameter("drawfilter", DbType.Int32, _metaModel.DrawFilter);
-            objectDb.Received().AddInParameter("movebetsday", DbType.DateTime, _balance.MoveBetsDay);
-            objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
-            objectDb.Received().AddInParameter("showNG", DbType.Boolean, false);
+            Assert.Multiple(() =>
+            {
+                ObjectDb.Received().AddInParameter("reporttype", DbType.Byte, _metaModel.ReportBy);
+                AssertCommonSpParameters();
+            });
         }
 
         [Test]
-        public void GetSummaryWinloss_WhenCall_ReturnCorrectResult()
+        public void GetSummaryWinloss_WhenReceiveObjectDbException_ThrowDataAccessException()
+        {
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                GetSummaryWinlossSp,
+                () => DataAccess.GetSummaryWinloss(_metaModel));
+        }
+
+        [Test]
+        public void ReadData_WhenCall_ReturnCorrectResult()
         {
             // Arrange
-            var reader = Substitute.For<IDataReader>();
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_LicWinloss")).Returns(objectDb);
-            objectDb.ExecuteReader().Returns(reader);
-            reader.Read().Returns(true, false);
-            reader.FieldCount.Returns(3);
-            reader.GetName(0).Returns("LicenseeWLSBUSD");
-            reader.GetName(1).Returns("turnoverSBUSD");
-            reader.GetName(2).Returns("username");
+            DataAccess.GetObjectDb(Arg.Is(GetSummaryWinlossSp)).Returns(ObjectDb);
+
+            Reader.Read().Returns(true, false);
+            Reader.FieldCount.Returns(5);
+            Reader.GetName(0).Returns("LicenseeWLSBUSD");
+            Reader.GetName(1).Returns("turnoverSBUSD");
+            Reader.GetName(2).Returns("username");
+            Reader.GetName(3).Returns("nickname");
+            Reader.GetName(4).Returns("custid");
 
             var readerDataMapping = new
             {
                 username = "testacc",
                 LicenseeWLSBUSD = 100,
                 turnoverSBUSD = 200,
-                reporttype = "20170101"
+                reporttype = "20170101",
+                nickname = "nickname test",
+                custid = 108
             };
-            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
+            MapReaderData(readerDataMapping);
 
             // Action
-            var result = _dataAccess.GetSummaryWinloss(_metaModel);
+            var result = DataAccess.GetSummaryWinloss(_metaModel);
             var firstItem = result.DataList.First();
 
             // Assert
             Assert.Multiple(() =>
             {
                 Assert.That(result.DataList.Count, Is.EqualTo(1));
-                Assert.That(firstItem.SystemId, Is.EqualTo("testacc"));
+                Assert.That(firstItem.SystemId, Is.EqualTo(readerDataMapping.username));
+                Assert.That(firstItem.ExternalId, Is.EqualTo(readerDataMapping.nickname));
+                Assert.That(firstItem.CustomerId, Is.EqualTo(readerDataMapping.custid));
                 Assert.That(firstItem.LicenseeWL["SB"], Is.EqualTo(100));
                 Assert.That(firstItem.TurnOver["SB"], Is.EqualTo(200));
             });
         }
 
         [Test]
-        public void GetSummaryWinloss_WhenCall_ReturnSummaryTotalCorrectly()
+        public void ReadSummaryTotal_WhenCall_ReturnSummaryTotalCorrectly()
         {
             // Arrange
-            var reader = Substitute.For<IDataReader>();
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_LicWinloss")).Returns(objectDb);
-            objectDb.ExecuteReader().Returns(reader);
-            reader.Read().Returns(true, false);
-            reader.FieldCount.Returns(2);
-            reader.GetName(0).Returns("LicenseeWLSBUSD");
-            reader.GetName(1).Returns("turnoverSBUSD");
+            DataAccess.GetObjectDb(Arg.Is(GetSummaryWinlossSp)).Returns(ObjectDb);
+
+            Reader.Read().Returns(true, false);
+            Reader.FieldCount.Returns(2);
+            Reader.GetName(0).Returns("LicenseeWLSBUSD");
+            Reader.GetName(1).Returns("turnoverSBUSD");
 
             var readerDataMapping = new
             {
@@ -138,10 +151,10 @@
                 turnoverSBUSD = 200,
                 reporttype = "20170101"
             };
-            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
+            MapReaderData(readerDataMapping);
 
             // Action
-            var result = _dataAccess.GetSummaryWinloss(_metaModel);
+            var result = DataAccess.GetSummaryWinloss(_metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -155,41 +168,57 @@
         public void GetCustomerWinlossDetail_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_LicWinlossDetail")).Returns(objectDb);
+            DataAccess.GetObjectDb(Arg.Is(GetCustomerWinlossDetailSp)).Returns(ObjectDb);
 
             // Action
-            _dataAccess.GetCustomerWinlossDetail(_metaModel);
+            DataAccess.GetCustomerWinlossDetail(_metaModel);
 
             // Assert
-            objectDb.Received().AddInParameter("custid", DbType.Int32, _metaModel.DrillDownCustomerId);
-            objectDb.Received().AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
-            objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-            objectDb.Received().AddInParameter("fromdate", DbType.Date, _metaModel.DrillDownFromDate);
-            objectDb.Received().AddInParameter("todate", DbType.Date, _metaModel.DrillDownToDate);
-            objectDb.Received().AddInParameter("drawfilter", DbType.Int32, _metaModel.DrawFilter);
-            objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
-            objectDb.Received().AddInParameter("showNG", DbType.Boolean, false);
+            Assert.Multiple(() =>
+            {
+                ObjectDb.Received().AddInParameter("custid", DbType.Int32, _metaModel.DrillDownCustomerId);
+                AssertCommonSpParameters();
+            });
+        }
+
+        [Test]
+        public void GetCustomerWinlossDetail_WhenReceiveObjectDbException_ThrowDataAccessException()
+        {
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                GetCustomerWinlossDetailSp,
+                () => DataAccess.GetCustomerWinlossDetail(_metaModel));
         }
 
         [Test]
         public void GetAgentWinlossDetail_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_LicWinlossDetail_Ag")).Returns(objectDb);
+            DataAccess.GetObjectDb(Arg.Is(GetAgentWinlossDetailSp)).Returns(ObjectDb);
 
             // Action
-            _dataAccess.GetAgentWinlossDetail(_metaModel);
+            DataAccess.GetAgentWinlossDetail(_metaModel);
 
             // Assert
-            objectDb.Received().AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
-            objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-            objectDb.Received().AddInParameter("fromdate", DbType.Date, _metaModel.DrillDownFromDate);
-            objectDb.Received().AddInParameter("todate", DbType.Date, _metaModel.DrillDownToDate);
-            objectDb.Received().AddInParameter("drawfilter", DbType.Int32, _metaModel.DrawFilter);
-            objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
-            objectDb.Received().AddInParameter("showNG", DbType.Boolean, false);
+            AssertCommonSpParameters();
+        }
+
+        [Test]
+        public void GetAgentWinlossDetail_WhenReceiveObjectDbException_ThrowDataAccessException()
+        {
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                GetAgentWinlossDetailSp,
+                () => DataAccess.GetAgentWinlossDetail(_metaModel));
+        }
+
+        private void AssertCommonSpParameters()
+        {
+            ObjectDb.Received().AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
+            ObjectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+            ObjectDb.Received().AddInParameter("fromdate", DbType.Date, _metaModel.DrillDownFromDate);
+            ObjectDb.Received().AddInParameter("todate", DbType.Date, _metaModel.DrillDownToDate);
+            ObjectDb.Received().AddInParameter("drawfilter", DbType.Int32, _metaModel.DrawFilter);
+            ObjectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
+            ObjectDb.Received().AddInParameter("showNG", DbType.Boolean, false);
         }
 
         private IList<ProductOption> GetProductOptions()

@@ -42,6 +42,7 @@
         public override void FixtureTearDown()
         {
             _balance = null;
+            _metaModel = null;
 
             base.FixtureTearDown();
         }

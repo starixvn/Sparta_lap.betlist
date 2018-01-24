@@ -4,24 +4,31 @@
     using System.Data;
     using System.Linq;
     using Core.Configuration.Interfaces;
+    using Core.UnitTests.TestHelpers;
     using Data;
+    using Model.Core.DTO.Common;
     using Model.Core.DTO.Configuration;
+    using Model.Report.DTO;
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using UnitTest.Common.Helpers;
+    using Resources;
 
     [TestFixture]
-    public class LicenseeWinLossByTimeZoneDataAccessTest
+    public class LicenseeWinLossByTimeZoneDataAccessTest : BaseDataAccessHelperTest<LicenseeWinLossByTimeZoneDataAccess>
     {
-        private LicenseeWinLossByTimeZoneDataAccess _dataAccess;
+        private const byte GroupByProduct = 1;
+
+        private const int ReportBySummary = 1;
+
+        private const int ReportByMonthly = 3;
+
         private IBalanceUpDataAccess _balanceUpDataAccess;
-        private IObjectDb _objectDb;
-        private IDataReader _dataReader;
+
         private BalanceUp _balance;
 
-        [SetUp]
-        public void SetUp()
+        [OneTimeSetUp]
+        public override void FixtureSetUp()
         {
             _balance = new BalanceUp
             {
@@ -31,35 +38,33 @@
 
             _balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             _balanceUpDataAccess.GetBalanceUp().Returns(_balance);
-            _dataAccess = Substitute.ForPartsOf<LicenseeWinLossByTimeZoneDataAccess>(_balanceUpDataAccess);
+            DataAccess = Substitute.ForPartsOf<LicenseeWinLossByTimeZoneDataAccess>(_balanceUpDataAccess);
 
-            _objectDb = Substitute.For<IObjectDb>();
-            _dataReader = Substitute.For<IDataReader>();
+            ObjectDb = Substitute.For<IObjectDb>();
 
             const string SpName = "Lrf_Rpt_LicWinlossByTimeZone";
-            _dataAccess.GetObjectDb(Arg.Is(SpName)).Returns(_objectDb);
-            _objectDb.ExecuteReader().Returns(_dataReader);
+            DataAccess.GetObjectDb(Arg.Is(SpName)).Returns(ObjectDb);
         }
 
-        [TearDown]
-        public void TearDown()
+        [OneTimeTearDown]
+        public override void FixtureTearDown()
         {
-            _balanceUpDataAccess = null;
             _balance = null;
-            _dataAccess = null;
-            _objectDb = null;
+            _balanceUpDataAccess = null;
+
+            base.FixtureTearDown();
         }
 
         [Test]
         public void GetData_WhenCall_PassCorrectParams()
         {
             // Arrange
-            _dataReader.Read().Returns(false);
+            Reader.Read().Returns(false);
 
             var metaModel = GetDefaultMetaModel();
 
             // Action
-            _dataAccess.GetData(metaModel);
+            DataAccess.GetData(metaModel);
 
             // Assert
             AssertParamsPassCorrectly(metaModel);
@@ -70,48 +75,172 @@
         {
             // Arrange
             var metaModel = GetDefaultMetaModel();
-            _dataReader.Read().Returns(true, false);
-            DataAccessTestHelper.MapReaderData(
-                _dataReader,
-                new
-                {
-                    ReportBy = "20171122"
-                });
+
+            var expectedData = new LicenseeWinLossByTimeZone
+            {
+                GroupBy = "Group",
+                BetCount = 1,
+                Turnover = 2,
+                CustomerComm = 3,
+                LicenseeWinLoss = 4,
+                LicenseeComm = 5
+            };
+            MapReaderData(expectedData, metaModel.BaseCurrency);
 
             // Action
-            var result = _dataAccess.GetData(metaModel);
+            var result = DataAccess.GetData(metaModel);
+            var firstItem = result.DataList.ElementAt(0);
+            var total = result.TotalData;
 
             // Assert
-            Assert.That(result.DataList.ElementAt(0).ReportBy.Date, Is.EqualTo(new DateTime(2017, 11, 22)));
+            Assert.Multiple(() =>
+            {
+                Assert.That(firstItem.GroupBy, Is.EqualTo(expectedData.GroupBy));
+                AssertData(firstItem, expectedData);
+                AssertData(total, expectedData);
+            });
+        }
+
+        [Test]
+        public void GetData_DoNotConvertAll_ReturnCorrectData()
+        {
+            // Arrange
+            var metaModel = GetDefaultMetaModel();
+            metaModel.BaseCurrency = "BASE";
+            metaModel.IsConvertAll = false;
+
+            var expectedData = new LicenseeWinLossByTimeZone
+            {
+                GroupBy = "Group",
+                BetCount = 1,
+                Turnover = 2,
+                CustomerComm = 3,
+                LicenseeWinLoss = 4,
+                LicenseeComm = 5
+            };
+            MapReaderData(expectedData, string.Empty);
+
+            var expectedBaseData = new LicenseeWinLossByTimeZone
+            {
+                GroupBy = expectedData.GroupBy,
+                BetCount = expectedData.BetCount,
+                Turnover = 20,
+                CustomerComm = 30,
+                LicenseeWinLoss = 40,
+                LicenseeComm = 50
+            };
+            MapReaderData(expectedBaseData, metaModel.BaseCurrency);
+
+            // Action
+            var result = DataAccess.GetData(metaModel);
+            var firstItem = result.DataList.ElementAt(0);
+            var total = result.TotalData;
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(firstItem.GroupBy, Is.EqualTo(expectedData.GroupBy));
+                AssertData(firstItem, expectedData);
+                AssertData(total, expectedBaseData);
+            });
+        }
+
+        [Test]
+        public void GetData_ReportByIsNotSummary_ReturnCorrectReportByData()
+        {
+            // Arrange
+            var metaModel = GetDefaultMetaModel();
+            metaModel.ReportBy = ReportByMonthly;
+
+            const string ReportBy = "20170102";
+            Reader["reportby"].Returns(ReportBy);
+
+            var data = new LicenseeWinLossByTimeZone
+            {
+                GroupBy = "Group",
+            };
+            MapReaderData(data, string.Empty);
+
+            var expected = new DateTime(2017, 1, 1);
+
+            // Action
+            var result = DataAccess.GetData(metaModel);
+            var firstItem = result.DataList.ElementAt(0);
+
+            // Assert
+            Assert.That(firstItem.ReportBy, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void GetData_GroupByProduct_ReturnCorrectGroupByData()
+        {
+            // Arrange
+            var metaModel = GetDefaultMetaModel();
+            metaModel.GroupBy = GroupByProduct;
+
+            var data = new LicenseeWinLossByTimeZone
+            {
+                GroupBy = Product.BA,
+            };
+            MapReaderData(data, string.Empty);
+
+            // Action
+            var result = DataAccess.GetData(metaModel);
+            var firstItem = result.DataList.ElementAt(0);
+
+            // Assert
+            Assert.That(firstItem.GroupBy, Is.EqualTo(ViewResources.ProductBA));
+        }
+
+        private static void AssertData(LicenseeWinLossByTimeZone actual, LicenseeWinLossByTimeZone expected)
+        {
+            Assert.That(actual.BetCount, Is.EqualTo(expected.BetCount));
+            Assert.That(actual.Turnover, Is.EqualTo(expected.Turnover));
+            Assert.That(actual.CustomerComm, Is.EqualTo(expected.CustomerComm));
+            Assert.That(actual.LicenseeWinLoss, Is.EqualTo(expected.LicenseeWinLoss));
+            Assert.That(actual.LicenseeComm, Is.EqualTo(expected.LicenseeComm));
         }
 
         private static LicenseeWinLossByTimeZoneMetaModel GetDefaultMetaModel()
         {
             return new LicenseeWinLossByTimeZoneMetaModel
             {
-                BaseCurrency = "EUR",
+                BaseCurrency = string.Empty,
                 FromDate = new DateTime(2017, 1, 1),
                 ToDate = new DateTime(2017, 2, 2),
                 ProductCodeList = "SB,BA",
                 AgentListXml = "<Param></Param>",
                 TimeZone = -4,
                 IsIncludeDrawData = true,
-                ReportBy = 2,
-                GroupBy = 1
+                ReportBy = ReportBySummary,
+                GroupBy = 2,
+                IsConvertAll = true
             };
         }
 
         private void AssertParamsPassCorrectly(LicenseeWinLossByTimeZoneMetaModel metaModel)
         {
-            _objectDb.Received().AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
-            _objectDb.Received().AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
-            _objectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, _balance.MoveBetsDay);
-            _objectDb.Received().AddInParameter("ProductList", DbType.String, metaModel.ProductCodeList);
-            _objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            _objectDb.Received().AddInParameter("TimeZone", DbType.Int16, metaModel.TimeZone);
-            _objectDb.Received().AddInParameter("ReportBy", DbType.Byte, metaModel.ReportBy);
-            _objectDb.Received().AddInParameter("GroupBy", DbType.Byte, metaModel.GroupBy);
-            _objectDb.Received().AddInParameter("IncludeDraw", DbType.Boolean, metaModel.IsIncludeDrawData);
+            ObjectDb.Received().AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
+            ObjectDb.Received().AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
+            ObjectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, _balance.MoveBetsDay);
+            ObjectDb.Received().AddInParameter("ProductList", DbType.String, metaModel.ProductCodeList);
+            ObjectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            ObjectDb.Received().AddInParameter("TimeZone", DbType.Int16, metaModel.TimeZone);
+            ObjectDb.Received().AddInParameter("ReportBy", DbType.Byte, metaModel.ReportBy);
+            ObjectDb.Received().AddInParameter("GroupBy", DbType.Byte, metaModel.GroupBy);
+            ObjectDb.Received().AddInParameter("IncludeDraw", DbType.Boolean, metaModel.IsIncludeDrawData);
+        }
+
+        private void MapReaderData(LicenseeWinLossByTimeZone data, string baseCurrency)
+        {
+            Reader.Read().Returns(true, false);
+
+            Reader["GroupBy" + baseCurrency].Returns(data.GroupBy);
+            Reader["BetCount" + baseCurrency].Returns(data.BetCount);
+            Reader["Turnover" + baseCurrency].Returns(data.Turnover);
+            Reader["PlayerComm" + baseCurrency].Returns(data.CustomerComm);
+            Reader["LicenseeWL" + baseCurrency].Returns(data.LicenseeWinLoss);
+            Reader["LicenseeComm" + baseCurrency].Returns(data.LicenseeComm);
         }
     }
 }

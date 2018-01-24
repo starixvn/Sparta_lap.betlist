@@ -1,38 +1,24 @@
 ﻿namespace Fanex.Athena.DataAccess.Report.UnitTests
 {
     using System.Collections.Generic;
-    using System.Data;
-    using Data;
+    using Core.UnitTests.TestHelpers;
     using Model.Report.DTO;
     using NSubstitute;
     using NUnit.Framework;
     using UnitTest.Common.NUnitExtensions;
 
     [TestFixture]
-    public class SettledMatchCountDataAccessTest
+    public class SettledMatchCountDataAccessTest : BaseDataAccessHelperTest<SettledMatchCountDataAccess>
     {
-        private SettledMatchCountDataAccess _dataAccess;
-
-        [OneTimeSetUp]
-        public void Setup()
-        {
-            _dataAccess = Substitute.ForPartsOf<SettledMatchCountDataAccess>();
-        }
-
-        [OneTimeTearDown]
-        public void TearDown()
-        {
-            _dataAccess = null;
-        }
+        private const string SpName = "Lrf_Rpt_MatchSelResultEntered";
 
         [Test]
         public void GetDataList_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_MatchSelResultEntered")).Returns(objectDb);
+            DataAccess.GetObjectDb(Arg.Is(SpName)).Returns(ObjectDb);
             dynamic uspParam = null;
-            objectDb.Query<SettledMatchCount>(Arg.Do<dynamic>(arg => uspParam = arg));
+            ObjectDb.Query<SettledMatchCount>(Arg.Do<dynamic>(arg => uspParam = arg));
             var expectedResult = new
             {
                 isShowAll = true,
@@ -40,7 +26,7 @@
             };
 
             // Action
-            _dataAccess.GetDataList(true, 1);
+            DataAccess.GetDataList(true, 1);
 
             // Assert
             Assert.That(uspParam, Tobe.SameProperties(expectedResult));
@@ -50,9 +36,7 @@
         public void GetDataList_WhenCall_ReturnCorrectResult()
         {
             // Arrange
-            var reader = Substitute.For<IDataReader>();
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_MatchSelResultEntered")).Returns(objectDb);
+            DataAccess.GetObjectDb(Arg.Is(SpName)).Returns(ObjectDb);
             var expectedReturnedData = new List<SettledMatchCount>
             {
                 new SettledMatchCount
@@ -62,10 +46,10 @@
                 }
             };
 
-            objectDb.Query<SettledMatchCount>(Arg.Any<object>()).ReturnsForAnyArgs(expectedReturnedData);
+            ObjectDb.Query<SettledMatchCount>(Arg.Any<object>()).ReturnsForAnyArgs(expectedReturnedData);
 
             // Action
-            var result = _dataAccess.GetDataList(Arg.Any<bool>(), Arg.Any<int>());
+            var result = DataAccess.GetDataList(Arg.Any<bool>(), Arg.Any<int>());
 
             // Assert
             Assert.Multiple(() =>

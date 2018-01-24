@@ -4,23 +4,31 @@
     using System.Collections.Generic;
     using System.Data;
     using Core.Configuration.Interfaces;
+    using Core.UnitTests.TestHelpers;
     using Data;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Configuration;
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using UnitTest.Common.Helpers;
 
     [TestFixture]
-    public class LiveReportDataAccessTest
+    public class LiveReportDataAccessTest : BaseDataAccessHelperTest<LiveReportDataAccess>
     {
-        private LiveReportDataAccess _dataAccess;
+        private const string GetLiveReportSummarySp = "Lrf_Rpt_LiveReportSummary";
+
+        private const string GetDetailBySportSp = "Lrf_Rpt_LiveReportBySport";
+
+        private const string GetDetailByCurrencyAndBettypeSp = "Lrf_Rpt_LiveReportSummaryDetail";
+
+        private const string GetLiveReportWinlossByMatch = "Lrf_Rpt_LiveReportWinlossByMatch";
+
         private LiveReportMetaModel _metaModel;
+
         private BalanceUp _balance;
 
         [OneTimeSetUp]
-        public void Setup()
+        public override void FixtureSetUp()
         {
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             _balance = new BalanceUp
@@ -29,7 +37,8 @@
             };
             balanceUpDataAccess.GetBalanceUp().Returns(_balance);
 
-            _dataAccess = Substitute.ForPartsOf<LiveReportDataAccess>(balanceUpDataAccess);
+            ObjectDb = Substitute.For<IObjectDb>();
+            DataAccess = Substitute.ForPartsOf<LiveReportDataAccess>(balanceUpDataAccess);
 
             _metaModel = new LiveReportMetaModel
             {
@@ -43,42 +52,35 @@
         }
 
         [OneTimeTearDown]
-        public void TearDown()
+        public override void FixtureTearDown()
         {
-            _dataAccess = null;
+            _balance = null;
             _metaModel = null;
+
+            base.FixtureTearDown();
         }
 
         [Test]
         public void GetLiveReportSummary_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_LiveReportSummary")).Returns(objectDb);
+            DataAccess.GetObjectDb(Arg.Is(GetLiveReportSummarySp)).Returns(ObjectDb);
             _metaModel.ProductCodeList = "SB,NG";
 
             // Action
-            _dataAccess.GetLiveReportSummary(_metaModel);
+            DataAccess.GetLiveReportSummary(_metaModel);
 
             // Assert
-            objectDb.Received().AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
-            objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-            objectDb.Received().AddInParameter("fromdate", DbType.DateTime, _metaModel.FromDate.Date);
-            objectDb.Received().AddInParameter("todate", DbType.DateTime, _metaModel.ToDate.Date);
-            objectDb.Received().AddInParameter("liveindicator", DbType.Int32, _metaModel.LiveIndicator);
-            objectDb.Received().AddInParameter("movebetsday", DbType.DateTime, _balance.MoveBetsDay);
-            objectDb.Received().AddInParameter("ProductCodes", DbType.String, "SB,NG");
+            AssertCommonAddInParameters();
         }
 
         [Test]
         public void GetLiveReportSummary_WhenCall_ReturnCorrectResult()
         {
             // Arrange
-            var reader = Substitute.For<IDataReader>();
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_LiveReportSummary")).Returns(objectDb);
-            objectDb.ExecuteReader().Returns(reader);
-            reader.Read().Returns(true, false);
+            DataAccess.GetObjectDb(Arg.Is(GetLiveReportSummarySp)).Returns(ObjectDb);
+
+            Reader.Read().Returns(true, false);
 
             var readerDataMapping = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
             {
@@ -86,10 +88,10 @@
                 { "PlayerCommUUS", 300 }, { "CommUUS", 400 }, { "LicenseeWLUUS", 500 }, { "AmtDueto3rdUUS", 600 }, { "Betcount", 700 },
             };
 
-            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
+            MapReaderData(readerDataMapping);
 
             // Action
-            var result = _dataAccess.GetLiveReportSummary(_metaModel);
+            var result = DataAccess.GetLiveReportSummary(_metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -108,45 +110,44 @@
         }
 
         [Test]
+        public void GetLiveReportSummary_WhenReceiveObjectDbException_ThrowDataAccessException()
+        {
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                GetLiveReportSummarySp,
+                () => DataAccess.GetLiveReportSummary(_metaModel));
+        }
+
+        [Test]
         public void GetDetailBySport_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_LiveReportBySport")).Returns(objectDb);
+            DataAccess.GetObjectDb(Arg.Is(GetDetailBySportSp)).Returns(ObjectDb);
             _metaModel.ProductCodeList = "SB,NG";
 
             // Action
-            _dataAccess.GetDetailBySport(_metaModel);
+            DataAccess.GetDetailBySport(_metaModel);
 
             // Assert
-            objectDb.Received().AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
-            objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-            objectDb.Received().AddInParameter("fromdate", DbType.DateTime, _metaModel.FromDate.Date);
-            objectDb.Received().AddInParameter("todate", DbType.DateTime, _metaModel.ToDate.Date);
-            objectDb.Received().AddInParameter("liveindicator", DbType.Int32, _metaModel.LiveIndicator);
-            objectDb.Received().AddInParameter("movebetsday", DbType.DateTime, _balance.MoveBetsDay);
-            objectDb.Received().AddInParameter("ProductCodes", DbType.String, "SB,NG");
+            AssertCommonAddInParameters();
         }
 
         [Test]
         public void GetDetailBySport_WhenCall_ReturnCorrectResult()
         {
             // Arrange
-            var reader = Substitute.For<IDataReader>();
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_LiveReportBySport")).Returns(objectDb);
-            objectDb.ExecuteReader().Returns(reader);
-            reader.Read().Returns(true, false);
+            DataAccess.GetObjectDb(Arg.Is(GetDetailBySportSp)).Returns(ObjectDb);
+
+            Reader.Read().Returns(true, false);
 
             var readerDataMapping = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
             {
                 { "SportType", "1" }, { "ProductCode", "SB" }, { "TurnoverUUS", 100 }, { "WinlostUUS", 200 }
             };
 
-            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
+            MapReaderData(readerDataMapping);
 
             // Action
-            var result = _dataAccess.GetDetailBySport(_metaModel);
+            var result = DataAccess.GetDetailBySport(_metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -159,24 +160,25 @@
         }
 
         [Test]
+        public void GetDetailBySport_WhenReceiveObjectDbException_ThrowDataAccessException()
+        {
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                GetDetailBySportSp,
+                () => DataAccess.GetDetailBySport(_metaModel));
+        }
+
+        [Test]
         public void GetDetailByCurrencyAndBettype_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_LiveReportSummaryDetail")).Returns(objectDb);
+            DataAccess.GetObjectDb(Arg.Is(GetDetailByCurrencyAndBettypeSp)).Returns(ObjectDb);
             _metaModel.ProductCodeList = "SB,NG";
 
             // Action
-            _dataAccess.GetDetailByCurrencyAndBettype(_metaModel, new List<Product>());
+            DataAccess.GetDetailByCurrencyAndBettype(_metaModel, new List<Product>());
 
             // Assert
-            objectDb.Received().AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
-            objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-            objectDb.Received().AddInParameter("fromdate", DbType.DateTime, _metaModel.FromDate.Date);
-            objectDb.Received().AddInParameter("todate", DbType.DateTime, _metaModel.ToDate.Date);
-            objectDb.Received().AddInParameter("liveindicator", DbType.Int32, _metaModel.LiveIndicator);
-            objectDb.Received().AddInParameter("movebetsday", DbType.DateTime, _balance.MoveBetsDay);
-            objectDb.Received().AddInParameter("ProductCodes", DbType.String, "SB,NG");
+            AssertCommonAddInParameters();
         }
 
         [Test]
@@ -187,12 +189,11 @@
             {
                 new Product { ProductCode = "SB", ProductName = "SuperBoy" }
             };
-            var reader = Substitute.For<IDataReader>();
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_LiveReportSummaryDetail")).Returns(objectDb);
-            objectDb.ExecuteReader().Returns(reader);
-            reader.Read().Returns(true, false, true, false);
-            reader.NextResult().Returns(true);
+
+            DataAccess.GetObjectDb(Arg.Is(GetDetailByCurrencyAndBettypeSp)).Returns(ObjectDb);
+
+            Reader.Read().Returns(true, false, true, false);
+            Reader.NextResult().Returns(true);
 
             var readerDataMapping = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
             {
@@ -200,10 +201,10 @@
                 { "WinlostUUS", 200 }, { "bettype", "1" }, { "ProductCode", "SB" }
             };
 
-            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
+            MapReaderData(readerDataMapping);
 
             // Action
-            var result = _dataAccess.GetDetailByCurrencyAndBettype(_metaModel, productList);
+            var result = DataAccess.GetDetailByCurrencyAndBettype(_metaModel, productList);
 
             // Assert
             Assert.Multiple(() =>
@@ -219,11 +220,43 @@
         }
 
         [Test]
+        public void GetDetailByCurrencyAndBettype_NoData_ReturnEmptyResult()
+        {
+            // Arrange
+            var productList = new List<Product>
+            {
+                new Product { ProductCode = "SB", ProductName = "SuperBoy" }
+            };
+
+            DataAccess.GetObjectDb(Arg.Is(GetDetailByCurrencyAndBettypeSp)).Returns(ObjectDb);
+
+            Reader.Read().Returns(false);
+            Reader.NextResult().Returns(true);
+
+            // Action
+            var result = DataAccess.GetDetailByCurrencyAndBettype(_metaModel, productList);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Item1, Is.Empty);
+                Assert.That(result.Item2, Is.Empty);
+            });
+        }
+
+        [Test]
+        public void GetDetailByCurrencyAndBettype_WhenReceiveObjectDbException_ThrowDataAccessException()
+        {
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                GetDetailByCurrencyAndBettypeSp,
+                () => DataAccess.GetDetailByCurrencyAndBettype(_metaModel, null));
+        }
+
+        [Test]
         public void GetLiveReportWinlossByMatch_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_LiveReportWinlossByMatch")).Returns(objectDb);
+            DataAccess.GetObjectDb(Arg.Is(GetLiveReportWinlossByMatch)).Returns(ObjectDb);
             var metaModel = new LiveReportMatchListMetalModel
             {
                 ProductCodeList = "NG",
@@ -235,27 +268,28 @@
             };
 
             // Action
-            _dataAccess.GetLiveReportWinlossByMatch(metaModel);
+            DataAccess.GetLiveReportWinlossByMatch(metaModel);
 
             // Assert
-            objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            objectDb.Received().AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
-            objectDb.Received().AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
-            objectDb.Received().AddInParameter("liveindicator", DbType.Int32, metaModel.LiveIndicator);
-            objectDb.Received().AddInParameter("movebetsday", DbType.DateTime, _balance.MoveBetsDay);
-            objectDb.Received().AddInParameter("sportid", DbType.Int32, metaModel.SportId);
-            objectDb.Received().AddInParameter("showNG", DbType.Boolean, true);
+            Assert.Multiple(() =>
+            {
+                ObjectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+                ObjectDb.Received().AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
+                ObjectDb.Received().AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
+                ObjectDb.Received().AddInParameter("liveindicator", DbType.Int32, metaModel.LiveIndicator);
+                ObjectDb.Received().AddInParameter("movebetsday", DbType.DateTime, _balance.MoveBetsDay);
+                ObjectDb.Received().AddInParameter("sportid", DbType.Int32, metaModel.SportId);
+                ObjectDb.Received().AddInParameter("showNG", DbType.Boolean, true);
+            });
         }
 
         [Test]
         public void GetLiveReportWinlossByMatch_WhenCall_ReturnCorrectResult()
         {
             // Arrange
-            var reader = Substitute.For<IDataReader>();
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_LiveReportWinlossByMatch")).Returns(objectDb);
-            objectDb.ExecuteReader().Returns(reader);
-            reader.Read().Returns(true, false);
+            DataAccess.GetObjectDb(Arg.Is(GetLiveReportWinlossByMatch)).Returns(ObjectDb);
+
+            Reader.Read().Returns(true, false);
 
             var readerDataMapping = new
             {
@@ -264,10 +298,10 @@
                 awayid = 4
             };
 
-            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
+            MapReaderData(readerDataMapping);
 
             // Action
-            var result = _dataAccess.GetLiveReportWinlossByMatch(new LiveReportMatchListMetalModel());
+            var result = DataAccess.GetLiveReportWinlossByMatch(new LiveReportMatchListMetalModel());
 
             // Assert
             Assert.Multiple(() =>
@@ -277,6 +311,25 @@
                 Assert.That(result[0].HomeId, Is.EqualTo(3));
                 Assert.That(result[0].AwayId, Is.EqualTo(4));
             });
+        }
+
+        [Test]
+        public void GetLiveReportWinlossByMatch_WhenReceiveObjectDbException_ThrowDataAccessException()
+        {
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                GetLiveReportWinlossByMatch,
+                () => DataAccess.GetLiveReportWinlossByMatch(new LiveReportMatchListMetalModel()));
+        }
+
+        private void AssertCommonAddInParameters()
+        {
+            ObjectDb.Received().AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
+            ObjectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+            ObjectDb.Received().AddInParameter("fromdate", DbType.DateTime, _metaModel.FromDate.Date);
+            ObjectDb.Received().AddInParameter("todate", DbType.DateTime, _metaModel.ToDate.Date);
+            ObjectDb.Received().AddInParameter("liveindicator", DbType.Int32, _metaModel.LiveIndicator);
+            ObjectDb.Received().AddInParameter("movebetsday", DbType.DateTime, _balance.MoveBetsDay);
+            ObjectDb.Received().AddInParameter("ProductCodes", DbType.String, _metaModel.ProductCodeList);
         }
     }
 }

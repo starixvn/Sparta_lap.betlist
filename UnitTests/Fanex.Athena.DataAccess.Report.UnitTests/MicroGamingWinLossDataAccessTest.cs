@@ -4,23 +4,22 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
-    using Data;
+    using Core.UnitTests.TestHelpers;
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using UnitTest.Common.Helpers;
 
     [TestFixture]
-    public class MicroGamingWinLossDataAccessTest
+    public class MicroGamingWinLossDataAccessTest : BaseDataAccessHelperTest<MicroGamingWinLossDataAccess>
     {
-        private MicroGamingWinLossDataAccess _dataAccess;
+        private const string SpName = "LRF_Rpt_MicroGamingWinloss";
 
         private ThirdPartyWinLossMetaModel _metaModel;
 
         [OneTimeSetUp]
-        public void Setup()
+        public override void FixtureSetUp()
         {
-            _dataAccess = Substitute.ForPartsOf<MicroGamingWinLossDataAccess>();
+            base.FixtureSetUp();
 
             _metaModel = new ThirdPartyWinLossMetaModel
             {
@@ -33,40 +32,33 @@
             };
         }
 
-        [OneTimeTearDown]
-        public void TearDown()
-        {
-            _dataAccess = null;
-            _metaModel = null;
-        }
-
         [Test]
         public void GetSummaryWinloss_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("LRF_Rpt_MicroGamingWinloss")).Returns(objectDb);
+            DataAccess.GetObjectDb(Arg.Is(SpName)).Returns(ObjectDb);
 
             // Action
-            _dataAccess.GetSummaryWinloss(_metaModel);
+            DataAccess.GetSummaryWinloss(_metaModel);
 
             // Assert
-            objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-            objectDb.Received().AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
-            objectDb.Received().AddInParameter("fromdate", DbType.Date, _metaModel.FromDate);
-            objectDb.Received().AddInParameter("todate", DbType.Date, _metaModel.ToDate);
-            objectDb.Received().AddInParameter("ReportType", DbType.Int32, _metaModel.ReportBy);
+            Assert.Multiple(() =>
+            {
+                ObjectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                ObjectDb.Received().AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
+                ObjectDb.Received().AddInParameter("fromdate", DbType.Date, _metaModel.FromDate);
+                ObjectDb.Received().AddInParameter("todate", DbType.Date, _metaModel.ToDate);
+                ObjectDb.Received().AddInParameter("ReportType", DbType.Int32, _metaModel.ReportBy);
+            });
         }
 
         [Test]
         public void GetSummaryWinloss_WhenCall_ReturnCorrectResult()
         {
             // Arrange
-            var reader = Substitute.For<IDataReader>();
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("LRF_Rpt_MicroGamingWinloss")).Returns(objectDb);
-            objectDb.ExecuteReader().Returns(reader);
-            reader.Read().Returns(true, false);
+            DataAccess.GetObjectDb(Arg.Is(SpName)).Returns(ObjectDb);
+
+            Reader.Read().Returns(true, false);
             var readerDataMapping = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
             {
                 { "typeid", 1 },
@@ -74,10 +66,10 @@
                 { "TurnoverUSD", 100 }
             };
 
-            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
+            MapReaderData(readerDataMapping);
 
             // Action
-            var result = _dataAccess.GetSummaryWinloss(_metaModel);
+            var result = DataAccess.GetSummaryWinloss(_metaModel);
             var firstItem = result.DataList.First();
 
             // Assert
@@ -90,6 +82,14 @@
 
                 Assert.That(result.SummaryTotal["USD"].TurnOver, Is.EqualTo(100));
             });
+        }
+
+        [Test]
+        public void GetSummaryWinloss_WhenReceiveObjectDbException_ThrowDataAccessException()
+        {
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                SpName,
+                () => DataAccess.GetSummaryWinloss(_metaModel));
         }
     }
 }

@@ -230,7 +230,7 @@
 
             // Assert
             Assert.That(
-                result.Date, 
+                result.Date,
                 Is.EqualTo(ConvertHelper.ToDateTime(expected.Date.ToString("yyyyMMdd"), metaModel.ReportBy == ReportByType.Monthly)));
         }
 
@@ -256,7 +256,7 @@
 
             // Assert
             Assert.That(
-                result.Date, 
+                result.Date,
                 Is.EqualTo(ConvertHelper.ToDateTime(metaModel.DrillDownFromDate.ToString("yyyyMMdd"), metaModel.ReportBy == ReportByType.Monthly)));
         }
 

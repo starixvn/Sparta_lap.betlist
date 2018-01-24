@@ -23,7 +23,7 @@
 
         [OneTimeSetUp]
         public override void FixtureSetUp()
-        {       
+        {
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             var balanceUp = new BalanceUp
             {

@@ -43,6 +43,15 @@
             };
         }
 
+        [OneTimeTearDown]
+        public override void FixtureTearDown()
+        {
+            _balance = null;
+            _metaModel = null;
+
+            base.FixtureTearDown();
+        }
+
         [TestCase(null, null)]
         [TestCase("", null)]
         [TestCase("User from test", "User from test")]
