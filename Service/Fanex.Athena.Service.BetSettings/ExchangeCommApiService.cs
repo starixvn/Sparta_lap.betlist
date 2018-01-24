@@ -29,7 +29,7 @@ namespace Fanex.Athena.Service.BetSettings
         private static readonly IDictionary<string, Enviro> EnvironmentMap =
             new Dictionary<string, Enviro>(StringComparer.OrdinalIgnoreCase)
         {
-            { SystemEnvironment.Production, Enviro.PRD },
+            { SystemEnvironment.Production, Enviro.UAT },
             { SystemEnvironment.UAT, Enviro.UAT },
             { SystemEnvironment.SIT, Enviro.SIT }
         };
