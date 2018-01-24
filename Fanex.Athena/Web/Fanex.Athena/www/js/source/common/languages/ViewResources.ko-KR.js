@@ -1,4 +1,4 @@
-﻿// Generated at: 1/17/2018 5:36:39 PM
+﻿// Generated at: 1/25/2018 9:00:28 AM
 window._language_ko_KR = {
 AA:"AA",
 ABComm:"AllBet 수수료",
