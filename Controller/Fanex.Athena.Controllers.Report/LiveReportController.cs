@@ -9,9 +9,11 @@ namespace Fanex.Athena.Controllers.Report
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Web.Hosting;
     using System.Web.Mvc;
     using DataAccess.Core.Configuration;
     using DataAccess.Core.Configuration.Interfaces;
+    using Extension.Utility;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Model.Report.MetaModel;
@@ -22,6 +24,9 @@ namespace Fanex.Athena.Controllers.Report
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
     using Model.Report.ResultModel;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
+    using Service.Core.Users.Interfaces;
     using Service.Report.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.ReportLiveReport)]
@@ -32,11 +37,19 @@ namespace Fanex.Athena.Controllers.Report
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
         private readonly ILiveReportService _liveReportService;
 
-        public LiveReportController() : this(null, null)
+        public LiveReportController() : this(null, null, null, null, null, null, null)
         {
         }
 
-        public LiveReportController(IBalanceUpDataAccess balanceUpDataAccess, ILiveReportService liveReportService)
+        public LiveReportController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
+            IProductService productService,
+            IBalanceUpDataAccess balanceUpDataAccess,
+            ILiveReportService liveReportService)
+            : base(languageService, sessionService, appSetting, clientViewHelper, productService)
         {
             _balanceUpDataAccess = balanceUpDataAccess ?? new BalanceUpDataAccess();
             _liveReportService = liveReportService ?? new LiveReportService();
@@ -176,7 +189,7 @@ namespace Fanex.Athena.Controllers.Report
 
         private ActionResult Excel(LiveReportViewModel viewModel)
         {
-            var templatePath = Server.MapPath("~/App_Data/Template/Reports/LiveReport.xls");
+            var templatePath = HostingEnvironment.MapPath("~/App_Data/Template/Reports/LiveReport.xls");
             const string FileName = "LiveReport";
             var productCode = Request.Form["productCode"];
             var licenseeSession = SessionService.LicenseeSession;
@@ -205,15 +218,20 @@ namespace Fanex.Athena.Controllers.Report
                 ByBetType = resultModel.DataByBetType,
                 Param = viewModel.Param,
             };
-            var liveReportExcel = new LiveReportExcel(
-                templatePath,
-                convertingOption,
-                showingOption,
-                viewModel.MainResult,
-                liveReportDetail);
-            liveReportExcel.Export();
+            var excel = CreateExcel(templatePath, viewModel, showingOption, convertingOption, liveReportDetail);
+            excel.Export();
 
-            return new ExcelResult(liveReportExcel.Workbook, FileName);
+            return new ExcelResult(excel.Workbook, FileName);
+        }
+
+        protected internal virtual LiveReportExcel CreateExcel(
+            string templatePath,
+            LiveReportViewModel viewModel,
+            ShowingOption showingOption,
+            ConvertingOption convertingOption,
+            LiveReportDetailViewModel liveReportDetail)
+        {
+            return new LiveReportExcel(templatePath, convertingOption, showingOption, viewModel.MainResult, liveReportDetail);
         }
     }
 }

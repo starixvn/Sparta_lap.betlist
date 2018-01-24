@@ -33,8 +33,6 @@ namespace Fanex.Athena.Model.Report.DTO
 
         public int Index { get; set; }
 
-        public int RowSpan { get; set; }
-
         public string ExternalId { get; set; }
 
         public string SystemId { get; set; }

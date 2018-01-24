@@ -24,7 +24,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -770,6 +770,7 @@
     <Content Include="Content\Report\customertbalance.css" />
     <Content Include="Content\Utility\images\UM.png" />
     <Content Include="jasmine-specs\BetList\lastbet.filter-test.js" />
+    <Content Include="jasmine-specs\Customer\BetSetting\exchange-test.js" />
     <Content Include="jasmine-specs\Customer\CustomerList\customerlist.custoption-test.js" />
     <Content Include="jasmine-specs\Helper\ProductListHelper-test.js" />
     <Content Include="jasmine-specs\Helper\downloader-test.js" />
@@ -780,6 +781,7 @@
     <Content Include="karma-new.conf.js" />
     <Content Include="karma.conf-dev.js" />
     <Content Include="Scripts\BetList\lastbet.filter.js" />
+    <Content Include="Scripts\Customer\BetSetting\exchange.js" />
     <Content Include="Scripts\Extension\ajaxBinaryTransporting.js" />
     <Content Include="Scripts\Helper\downloader.js" />
     <Content Include="Scripts\Helper\datahelper.js" />
@@ -794,6 +796,8 @@
     <Content Include="Scripts\Report\customerbalance.option.js" />
     <Content Include="Views\Desktop\Customer\BetSetting\GoldDeluxe.cshtml" />
     <Content Include="www\assets\images\new-system.svg" />
+    <Content Include="www\css\build\dev\reactpages\exchangewl\index.chunk.js" />
+    <Content Include="www\css\build\dev\reactpages\exchangewl\index.css" />
     <Content Include="www\css\build\dev\reactpages\licenseewlbytimezone\index.chunk.js" />
     <Content Include="www\css\build\dev\reactpages\licenseewlbytimezone\index.css" />
     <Content Include="www\css\build\dev\reactpages\notification\index.chunk.js" />
@@ -804,16 +808,20 @@
     <Content Include="www\css\build\dev\reactpages\subsidiaryperformance\index.css" />
     <Content Include="www\css\build\dev\reactpages\vendor.chunk.js" />
     <Content Include="www\css\build\images\new_icon.gif" />
+    <Content Include="www\css\build\pro\reactpages\exchangewl\index.css" />
     <Content Include="www\css\build\pro\reactpages\licenseewlbytimezone\index.css" />
     <Content Include="www\css\build\pro\reactpages\notification\index.chunk.js" />
     <Content Include="www\css\build\pro\reactpages\notification\index.css" />
     <Content Include="www\css\build\pro\reactpages\subsidiaryperformance\index.css" />
+    <Content Include="www\js\build\dev\reactpages\exchangewl\exchangewl.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\report\licenseewlbytimezone.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\notification\notification.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\notification\notification.chunk.js.map" />
     <Content Include="www\js\build\dev\reactpages\subsidiaryperformance\subsidiaryperformance.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\vendors\excel.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\vendors\reactpages.chunk.js" />
+    <Content Include="www\js\build\pro\pages\customer\exchangebetsetting.chunk.js" />
+    <Content Include="www\js\build\pro\reactpages\exchangewl\exchangewl.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\lib\langHelper.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\report\licenseewlbytimezone.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\notification\notification.chunk.js" />
@@ -824,19 +832,25 @@
     <Content Include="www\js\source\extensions\ajaxBinaryTransporting.js" />
     <Content Include="www\js\source\helpers\datahelper.js" />
     <Content Include="www\js\source\helpers\downloader.js" />
+    <Content Include="www\js\source\reactpages\actions\dateRangeAction.js" />
     <Content Include="www\js\source\reactpages\actions\excludeTestAction.js" />
     <Content Include="www\js\source\reactpages\actions\currencyAction.js" />
     <Content Include="www\js\source\pages\home\notification.js" />
+    <Content Include="www\js\source\pages\customer\betsetting\main-exchange.js" />
+    <Content Include="www\js\source\pages\customer\betsetting\products\exchange.js" />
     <Content Include="www\js\source\reactpages\actions\baseCurrencyAction.js" />
     <Content Include="www\js\source\reactpages\actions\loaderAction.js" />
     <Content Include="www\js\source\reactpages\actions\productAction.js" />
     <Content Include="www\js\source\reactpages\actions\userGuideAction.js" />
+    <Content Include="www\js\source\reactpages\actions\__tests__\dateRangeAction.test.js" />
     <Content Include="www\js\source\reactpages\actions\__tests__\excludeTestAction.test.js" />
     <Content Include="www\js\source\reactpages\actions\__tests__\currencyAction.test.js" />
     <Content Include="www\js\source\reactpages\actions\__tests__\baseCurrencyAction.test.js" />
     <Content Include="www\js\source\reactpages\actions\__tests__\loaderAction.test.js" />
     <Content Include="www\js\source\reactpages\actions\__tests__\productAction.test.js" />
     <Content Include="www\js\source\reactpages\actions\__tests__\userGuideAction.test.js" />
+    <Content Include="www\js\source\reactpages\components\breadcrumb\__tests__\Breadcrumb.test.js" />
+    <Content Include="www\js\source\reactpages\components\breadcrumb\__tests__\BreadcrumbItem.test.js" />
     <Content Include="www\js\source\reactpages\components\date-range\Calendar.js" />
     <Content Include="www\js\source\reactpages\components\date-range\constants.js" />
     <Content Include="www\js\source\reactpages\components\date-range\DateRange.js" />
@@ -878,6 +892,16 @@
     <Content Include="www\css\source\reactpages\components\_collapsibleRow.scss" />
     <Content Include="www\css\source\reactpages\components\_paging.scss" />
     <Content Include="www\css\source\reactpages\vendors\notification.scss" />
+    <Content Include="Views\Customer\BetSetting\Exchange.cshtml" />
+    <Content Include="Views\Desktop\Customer\BetSetting\Exchange.cshtml" />
+    <Content Include="Views\Desktop\Report\ExchangeWinLoss\Main.cshtml" />
+    <Content Include="www\css\source\reactpages\pages\exchangewl\index.scss" />
+    <Content Include="www\js\source\reactpages\components\breadcrumb\Breadcrumb.jsx" />
+    <Content Include="www\js\source\reactpages\components\breadcrumb\BreadcrumbItem.jsx" />
+    <Content Include="www\css\source\reactpages\components\_breadcrumb.scss" />
+    <Content Include="www\js\build\dev\reactpages\exchangewl\exchangewl.chunk.js.map" />
+    <Content Include="www\css\build\dev\reactpages\exchangewl\index.chunk.js.map" />
+    <Content Include="www\css\build\dev\reactpages\exchangewl\index.css.map" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Row.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.jsx" />
@@ -900,18 +924,42 @@
     <Content Include="www\js\source\reactpages\components\__tests__\ReportTitle.test.js" />
     <Content Include="www\js\source\reactpages\components\__tests__\UserGuide.test.js" />
     <Content Include="www\js\source\reactpages\constants\config.js" />
+    <Content Include="www\js\source\reactpages\constants\currency.js" />
+    <Content Include="www\js\source\reactpages\constants\licensee.js" />
+    <Content Include="www\js\source\reactpages\constants\report.js" />
     <Content Include="www\js\source\reactpages\layouts\AppLayout.jsx" />
     <Content Include="www\js\source\reactpages\lib\excel.js" />
     <Content Include="www\js\source\reactpages\constants\excelStyle.js" />
     <Content Include="www\js\source\reactpages\lib\langHelper.js" />
     <Content Include="www\js\source\reactpages\lib\logger.js" />
     <Content Include="www\js\source\reactpages\lib\numberFormat.js" />
+    <Content Include="www\js\source\reactpages\lib\report.js" />
     <Content Include="www\js\source\reactpages\lib\site.js" />
     <Content Include="www\js\source\reactpages\lib\store.js" />
     <Content Include="www\js\source\reactpages\lib\__tests__\excel.test.js" />
     <Content Include="www\js\source\reactpages\lib\__tests__\langHelper.test.js" />
     <Content Include="www\js\source\reactpages\lib\__tests__\numberFormat.test.js" />
+    <Content Include="www\js\source\reactpages\lib\__tests__\report.test.js" />
     <Content Include="www\js\source\reactpages\lib\__tests__\site.test.js" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\actions\dataHandlerAction.js" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\actions\filterHandlerAction.js" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\actions\index.js" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\actions\types.js" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\actions\__tests__\dataHandlerAction.test.js" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\actions\__tests__\filterHandlerAction.test.js" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\DataGrid.method.test.js" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\DataGrid.render.test.js" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\FormFilter.redux.test.js" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\FormFilter.test.js" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\lib\reportExcel.js" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\lib\service.js" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\lib\__tests__\reportExcel.test.js" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\lib\__tests__\service.test.js" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\reducers\dataHandlerReducer.js" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\reducers\filterHandlerReducer.js" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\reducers\index.js" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\reducers\__tests__\dataHandlerReducer.test.js" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\reducers\__tests__\filterHandlerReducer.test.js" />
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\actions\dataHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\actions\filterHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\actions\index.js" />
@@ -965,6 +1013,7 @@
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\reducers\filterHandlerReducer.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\reducers\__tests__\dataHandlerReducer.test.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\reducers\__tests__\filterHandlerReducer.test.js" />
+    <Content Include="www\js\source\reactpages\reducers\dateRangeReducer.js" />
     <Content Include="www\js\source\reactpages\reducers\excludeTestReducer.js" />
     <Content Include="www\js\source\reactpages\reducers\currencyReducer.js" />
     <Content Include="www\js\source\reactpages\reducers\baseCurrencyReducer.js" />
@@ -981,6 +1030,7 @@
     <Content Include="www\js\tests\extensions\ajaxBinaryTransporting-spec.js" />
     <Content Include="www\js\tests\extensions\prototype-spec.js" />
     <Content Include="www\js\tests\helpers\downloader-spec.js" />
+    <Content Include="www\js\tests\pages\customer\betsetting\products\exchange-spec.js" />
     <Content Include="www\webpackconfig\config\pathReact.js" />
     <Content Include="www\webpackconfig\config\pluginReact.js" />
     <None Include="bundleconfig.json" />
@@ -2629,6 +2679,13 @@
     <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\__snapshots__\Page.test.js.snap" />
     <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\__test__\__snapshots__\datagrid.test.js.snap" />
     <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\__test__\__snapshots__\formFilter.test.js.snap" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\components\AppContainer.jsx" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\components\index.jsx" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\components\FormFilter.jsx" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\components\DataGrid.jsx" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\__snapshots__\FormFilter.test.js.snap" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\__snapshots__\DataGrid.render.test.js.snap" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\DataGrid.redux.test.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">
@@ -6291,9 +6348,9 @@
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\index.jsx" />
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\..\..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\Google.Protobuf.dll" />
-    <Analyzer Include="..\..\..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\SonarAnalyzer.CSharp.dll" />
-    <Analyzer Include="..\..\..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\SonarAnalyzer.dll" />
+    <Analyzer Include="..\..\..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\Google.Protobuf.dll" />
+    <Analyzer Include="..\..\..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\SonarAnalyzer.CSharp.dll" />
+    <Analyzer Include="..\..\..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

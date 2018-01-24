@@ -55,6 +55,11 @@ namespace Fanex.Athena.Excel.Report
 
         private readonly ConvertingOption _convertingOption;
 
+        protected internal TurnoverExcel()
+            : base(null, 0)
+        {
+        }
+
         public TurnoverExcel(
                              string templatePath,
                              ConvertingOption convertingOption,
@@ -69,7 +74,7 @@ namespace Fanex.Athena.Excel.Report
             IsMultiSheet = true;
         }
 
-        public int LicenseeId
+        public bool IsShowCasinoTransfer
         {
             get;
             set;
@@ -101,10 +106,7 @@ namespace Fanex.Athena.Excel.Report
                 ViewResources.ProductBA
             };
 
-            for (int i = 0; i < headerTextList.Length; i++)
-            {
-                row.Cells[i].SetCellValue(headerTextList[i]);
-            }
+            SetTextRowHeader(row, headerTextList);
 
             row2.Cells[ColumnCustomerWinLoss].SetCellValue(ViewResources.WinLoss);
             row2.Cells[ColumnCustomerComm].SetCellValue(ViewResources.Comm);
@@ -200,7 +202,7 @@ namespace Fanex.Athena.Excel.Report
                 sheet.HideRow(RowTableHeaderTemplate + 1);
             }
 
-            if (LicenseeId != 1)
+            if (!IsShowCasinoTransfer)
             {
                 sheet.HideColumn(ColumnCasinoTransfer);
             }
@@ -226,7 +228,7 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnAmountDueToBa].SetCellValue(turnover.AmountDueToBA);
         }
 
-        protected void AssignTotalCellData(ISheet sheet, int currentRow)
+        protected internal virtual void AssignTotalCellData(ISheet sheet, int currentRow)
         {
             var row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, currentRow);
             row.Cells[0].SetCellValue(ViewResources.Total);

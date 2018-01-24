@@ -22,13 +22,25 @@ namespace Fanex.Athena.Extension.Utility
 
         #region Configurations
 
+        public IEnumerable<int> LicenseeAllowCasinoTransfer
+        {
+            get
+            {
+                return GetIntegers("LicenseeAllowCasinoTransfer");
+            }
+        }
+
         public IEnumerable<int> LicenseeOfferStatusFunction
         {
             get
             {
-                var value = GetValue("LicenseeOfferStatusFunction");
-                return string.IsNullOrWhiteSpace(value) ? new int[] { } : value.Split(',').Select(n => Convert.ToInt32(n));
+                return GetIntegers("LicenseeOfferStatusFunction");
             }
+        }
+
+        public string ExchangeProductApiHost
+        {
+            get { return GetValue("ExchangeProductApiHost"); }
         }
 
         [SuppressMessage("Sonar Code Smell", "S3996:UriPropertiesShouldNotBeStrings",
@@ -149,6 +161,12 @@ namespace Fanex.Athena.Extension.Utility
         public string GetValue(string key)
         {
             return ConfigurationManager.AppSettings[key];
+        }
+
+        private IEnumerable<int> GetIntegers(string key)
+        {
+            var value = GetValue(key);
+            return string.IsNullOrWhiteSpace(value) ? new int[] { } : value.Split(',').Select(n => Convert.ToInt32(n));
         }
     }
 }

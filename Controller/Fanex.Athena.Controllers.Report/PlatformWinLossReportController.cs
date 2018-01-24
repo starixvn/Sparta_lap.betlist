@@ -6,18 +6,33 @@
 
 namespace Fanex.Athena.Controllers.Report
 {
-    using System.Linq;
     using System.Web.Mvc;
+    using Extension.Utility;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
-    using Model.Core.DTO.Common;
-    using Model.Core.MetaModel.Product;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
+    using Service.Core.Users.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.ReportPlatformWinLoss)]
     public class PlatformWinLossReportController : ReportBaseController
     {
+        public PlatformWinLossReportController()
+        {
+        }
+
+        public PlatformWinLossReportController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
+            IProductService productService)
+            : base(languageService, sessionService, appSetting, clientViewHelper, productService)
+        {
+        }
+
         [HttpGet]
         public ActionResult Index()
         {
@@ -37,7 +52,6 @@ namespace Fanex.Athena.Controllers.Report
 
             var model = new PlatformWinLossViewModel
             {
-                ShowEmptyContent = true,
                 Param = metaModel,
                 CurrencyList = userSession.CurrencyList,
                 ProductAccess = productAccess,

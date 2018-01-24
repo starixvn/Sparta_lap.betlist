@@ -2,7 +2,7 @@
 @{
     Html.RenderPartial("~/Views/TotalBets/FirstGoalLastGoal/ContentHeader.cshtml");
 }
-@if (Model.MainData.Count == 0)
+@if (Model.MainData.Count() == 0)
 {
     Html.RenderPartial("~/Views/TotalBets/FirstGoalLastGoal/ContentNoInfo.cshtml");
 }

@@ -1,19 +1,19 @@
-webpackJsonp([73],{
+webpackJsonp([74],{
 
-/***/ 482:
+/***/ 489:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(483);
+module.exports = __webpack_require__(490);
 
 
 /***/ }),
 
-/***/ 483:
+/***/ 490:
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ })
 
-},[482]);
+},[489]);
 //# sourceMappingURL=weeklylivematch.chunk.js.map

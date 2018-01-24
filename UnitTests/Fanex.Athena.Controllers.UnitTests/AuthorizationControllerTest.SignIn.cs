@@ -148,19 +148,14 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                IResultInfo resultInfo;
                 StubGetValueAppSettings("AllowAutomationCaptchaCode", "1");
                 SessionService.CaptchaCode.Returns("OriginalCaptcha");
 
-                _authService.ValidateUserForLrfSystem(Arg.Any<User>(), Arg.Any<string>(), out resultInfo)
-                    .Returns(x =>
+                _authService.ValidateUserForLrfSystem(Arg.Any<User>(), Arg.Any<string>())
+                    .Returns(new ResultInfo<User>
                     {
-                        x[2] = new ResultInfo
-                        {
-                            Code = 999,
-                            Message = "Error999"
-                        };
-                        return null;
+                        Code = 999,
+                        Message = "Error999"
                     });
 
                 // Action
@@ -185,25 +180,21 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                IResultInfo resultInfo;
                 StubGetValueAppSettings("AllowAutomationCaptchaCode", "0");
                 SessionService.CaptchaCode.Returns("OriginalCaptcha");
                 StubGetValueAppSettings("SecretCaptcha", "SecretCaptcha");
                 StubGetValueAppSettings("CompanyIP", controller.ControllerContext.HttpContext.Request.UserHostAddress);
 
-                _authService.ValidateUserForLrfSystem(Arg.Any<User>(), Arg.Any<string>(), out resultInfo)
-                    .Returns(x =>
+                _authService.ValidateUserForLrfSystem(Arg.Any<User>(), Arg.Any<string>())
+                    .Returns(new ResultInfo<User>
                     {
-                        x[2] = new ResultInfo
-                        {
-                            Code = 0
-                        };
-                        return new User
+                        Code = 0,
+                        ExtendedData = new User
                         {
                             UserID = 111,
                             Role = UserRole.Admin.ToString(),
                             Licensee = new Licensee()
-                        };
+                        }
                     });
 
                 // Action
@@ -229,23 +220,19 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                IResultInfo resultInfo;
                 StubGetValueAppSettings("AllowAutomationCaptchaCode", "1");
                 SessionService.CaptchaCode.Returns("OriginalCaptcha");
 
-                _authService.ValidateUserForLrfSystem(Arg.Any<User>(), Arg.Any<string>(), out resultInfo)
-                    .Returns(x =>
+                _authService.ValidateUserForLrfSystem(Arg.Any<User>(), Arg.Any<string>())
+                    .Returns(new ResultInfo<User>
                     {
-                        x[2] = new ResultInfo
-                        {
-                            Code = 0
-                        };
-                        return new User
+                        Code = 0,
+                        ExtendedData = new User
                         {
                             UserID = 111,
                             Role = UserRole.Admin.ToString(),
                             Licensee = new Licensee()
-                        };
+                        }
                     });
 
                 // Action
@@ -270,23 +257,19 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                IResultInfo resultInfo;
                 StubGetValueAppSettings("AllowAutomationCaptchaCode", "1");
                 SessionService.CaptchaCode.Returns("OriginalCaptcha");
 
-                _authService.ValidateUserForLrfSystem(Arg.Any<User>(), Arg.Any<string>(), out resultInfo)
-                    .Returns(x =>
+                _authService.ValidateUserForLrfSystem(Arg.Any<User>(), Arg.Any<string>())
+                    .Returns(new ResultInfo<User>
                     {
-                        x[2] = new ResultInfo
-                        {
-                            Code = 0
-                        };
-                        return new User
+                        Code = 0,
+                        ExtendedData = new User
                         {
                             UserID = 111,
                             Role = UserRole.Licensee.ToString(),
                             Licensee = new Licensee()
-                        };
+                        }
                     });
 
                 // Action

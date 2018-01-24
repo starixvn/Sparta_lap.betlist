@@ -7,7 +7,7 @@
     {
         private readonly object expected;
 
-        public SamePropertiesConstraint(object expected) : base(new object[]
+        public SamePropertiesConstraint(object expected) : base(new[]
         {
             expected
         })

@@ -24,6 +24,11 @@ namespace Fanex.Athena.Service.Report
             this._colossusBetsWinLossDataAccess = new ColossusBetsWinLossDataAccess();
         }
 
+        public ColossusBetsWinLossService(IColossusBetsWinLossDataAccess dataAccess)
+        {
+            this._colossusBetsWinLossDataAccess = dataAccess;
+        }
+
         public SortableReportResultModel<ColossusBetWinLoss> GetWinlossDetail(ThirdPartyWinLossMetaModel metaModel)
         {
             return _colossusBetsWinLossDataAccess.GetWinlossDetail(metaModel);

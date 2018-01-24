@@ -6,19 +6,12 @@
 
 namespace Fanex.Athena.Controllers.BetList
 {
-    #region Using
-
     using System.Collections.Generic;
     using System.Web.Mvc;
-    using Fanex.Athena.Excel.Base.Entities;
-    using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
-    using Fanex.Athena.Web.ResultExtension;
     using Resources;
     using Web.ActionFilter;
-
-    #endregion Using
 
     [FunctionAuthorization(PermissionKeys.ReportLicenseeWinLoss, PermissionKeys.ReportWinLossByProduct, PermissionKeys.ReportColossusBetsWinLoss)]
     public class LicenseeWinLossBetListController : BetListBaseController
@@ -26,38 +19,14 @@ namespace Fanex.Athena.Controllers.BetList
         [HttpGet]
         public ActionResult Index(BetListMetaModel metaModel)
         {
-            var model = CreateDefaultMetaModel(metaModel);
-
-            if (!model.IsExportExcel)
-            {
-                return View("~/Views/BetList/LicenseeWl/Main.cshtml", model);
-            }
-
-            if (IsValidCurrency(model.CurrencyId))
-            {
-                model.AgentListXml = SessionService.GenerateAgentListXml(model.CurrencyId);
-                return Excel(model);
-            }
-
-            return EmptyExcel();
+            return ProcessDefaultRequest(metaModel, "~/Views/BetList/LicenseeWl/Main.cshtml");
         }
 
-        /// <summary>
-        /// Export excel for licensee win lost.
-        /// </summary>
-        /// <param name="metaModel">The meta model.</param>
-        /// <returns>Workbook for excel.</returns>
-        private ActionResult Excel(BetListMetaModel metaModel)
+        protected override ActionResult ExportExcel(BetListMetaModel metaModel)
         {
             const string UspKey = "Lrf_BetList_SelWinloss_Mem";
             var ticketResult = BetListService.GetBetListData(metaModel, UspKey);
 
-            var showingOption = new ShowingOption
-            {
-                CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
-            };
-
-            // determine currency viewed in
             var curencyId = metaModel.IsConvert ? metaModel.BaseCurrencyId : metaModel.CurrencyId;
             var viewinCurrency = GetViewInCurrency(curencyId, metaModel.CurrencyName);
 
@@ -70,14 +39,10 @@ namespace Fanex.Athena.Controllers.BetList
                 metaModel.IsFakeLicensee ? string.Empty : $"({metaModel.SystemId})",
                 viewinCurrency);
 
-            var colList = new List<int> { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn };
-
-            var excel = new BetListExcel(showingOption, metaModel.LicenseeId, colList);
-
-            var workbook = excel.Export(ticketResult, title);
+            var hiddenColumns = new List<int> { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn };
 
             var fileName = string.IsNullOrWhiteSpace(metaModel.ExcelFileName) ? "LicenseeWinLossBetList" : metaModel.ExcelFileName;
-            return new ExcelResult(workbook, fileName);
+            return ProcessExportExcel(metaModel, ticketResult, hiddenColumns, title, fileName);
         }
     }
 }

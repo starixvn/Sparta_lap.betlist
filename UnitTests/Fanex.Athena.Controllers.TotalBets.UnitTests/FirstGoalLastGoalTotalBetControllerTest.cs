@@ -1,9 +1,11 @@
 ﻿namespace Fanex.Athena.Controllers.TotalBets.UnitTests
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Mvc;
     using Base.UnitTests;
     using DataAccess.TotalBet.Interfaces;
+    using Model.Core.ResultModel;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
     using Model.TotalBet.ViewModel;
@@ -54,9 +56,6 @@
         {
             using (var controller = CreateController())
             {
-                // Arrange
-                FirstGoalLastGoal total;
-
                 // Action
                 var viewResult = controller.Index() as ViewResult;
                 var viewModel = viewResult.Model as FirstGoalLastGoalViewModel;
@@ -64,7 +63,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    _firstGoalLastGoalDataAccess.Received().GetFirstGoalLastGoalDataList(Arg.Any<FirstGoalLastGoalMetaModel>(), out total);
+                    _firstGoalLastGoalDataAccess.Received().GetFirstGoalLastGoalDataList(Arg.Any<FirstGoalLastGoalMetaModel>());
                     Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
                 });
             }
@@ -93,10 +92,9 @@
         {
             _firstGoalLastGoalDataAccess = Substitute.For<IFirstGoalLastGoalDataAccess>();
 
-            FirstGoalLastGoal total;
             _firstGoalLastGoalDataAccess
-                .GetFirstGoalLastGoalDataList(Arg.Any<FirstGoalLastGoalMetaModel>(), out total)
-                .Returns(new List<FirstGoalLastGoal> { new FirstGoalLastGoal() });
+                .GetFirstGoalLastGoalDataList(Arg.Any<FirstGoalLastGoalMetaModel>())
+                .Returns(new ReportResultModel<FirstGoalLastGoal> { DataList = new List<FirstGoalLastGoal> { new FirstGoalLastGoal() } });
         }
 
         private FirstGoalLastGoalTotalBetController CreateController()

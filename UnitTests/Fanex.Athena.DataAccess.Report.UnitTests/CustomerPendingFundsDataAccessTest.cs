@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
-    using Data;
+    using Core.UnitTests.TestHelpers;
     using Model.Core.MetaModel.Product;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
@@ -11,23 +11,18 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class CustomerPendingFundsDataAccessTest
+    public class CustomerPendingFundsDataAccessTest : BaseDataAccessHelperTest<CustomerPendingFundsDataAccess>
     {
-        private IObjectDb _objectDb;
-        private CustomerPendingFundsDataAccess _dataAccess;
-        private IDataReader _reader;
+        private const string SpName = "Lrf_Rpt_Outstanding";
+
         private CustomerPendingFundsMetaModel _metaModel;
 
         [OneTimeSetUp]
-        public void Setup()
+        public override void FixtureSetUp()
         {
-            _objectDb = Substitute.For<IObjectDb>();
+            base.FixtureSetUp();
 
-            _dataAccess = Substitute.ForPartsOf<CustomerPendingFundsDataAccess>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_Outstanding")).Returns(_objectDb);
-
-            _reader = Substitute.For<IDataReader>();
-            _objectDb.ExecuteReader().Returns(_reader);
+            DataAccess.GetObjectDb(Arg.Is(SpName)).Returns(ObjectDb);
 
             _metaModel = new CustomerPendingFundsMetaModel
             {
@@ -36,35 +31,29 @@
             };
         }
 
-        [OneTimeTearDown]
-        public void TearDown()
-        {
-            _objectDb = null;
-            _dataAccess = null;
-            _reader = null;
-            _metaModel = null;
-        }
-
         [Test]
         public void GetDataList_WhenCall_ParametersPassedCorrectly()
         {
             // Action
-            _dataAccess.GetDataList(_metaModel);
+            DataAccess.GetDataList(_metaModel);
 
             // Assert
-            _objectDb.Received().AddInParameter("pagesize", DbType.Int32, _metaModel.PageSize);
-            _objectDb.Received().AddInParameter("pageindex", DbType.Int32, _metaModel.PageIndex);
-            _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-            _objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
-            _objectDb.Received().AddInParameter("showNG", DbType.Boolean, false);
+            Assert.Multiple(() =>
+            {
+                ObjectDb.Received().AddInParameter("pagesize", DbType.Int32, _metaModel.PageSize);
+                ObjectDb.Received().AddInParameter("pageindex", DbType.Int32, _metaModel.PageIndex);
+                ObjectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                ObjectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
+                ObjectDb.Received().AddInParameter("showNG", DbType.Boolean, false);
+            });
         }
 
         [Test]
         public void GetDataList_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            _reader.Read().Returns(true, false, true, false);
-            _reader.NextResult().Returns(true);
+            Reader.Read().Returns(true, false, true, false);
+            Reader.NextResult().Returns(true);
 
             var expectedTotalData = new CustPendingFunds
             {
@@ -80,25 +69,81 @@
                 BetCounts = 10,
                 PendingFunds = 15m
             };
+            const int ExpectedTotalRow = 100;
 
-            ConfigureReaderForTotalData(expectedTotalData);
+            ConfigureReaderForTotalData(expectedTotalData, ExpectedTotalRow);
             ConfigureReaderForResult(expectedResult);
 
             // Action
-            var result = _dataAccess.GetDataList(_metaModel);
+            var result = DataAccess.GetDataList(_metaModel);
             var item = result.DataList.First();
 
             // Assert
-            Assert.That(item.CustId, Is.EqualTo(expectedResult.CustId));
-            Assert.That(item.ExternalId, Is.EqualTo(expectedResult.ExternalId));
-            Assert.That(item.SystemId, Is.EqualTo(expectedResult.SystemId));
-            Assert.That(item.BetCounts, Is.EqualTo(expectedResult.BetCounts));
-            Assert.That(item.PendingFunds, Is.EqualTo(expectedResult.PendingFunds));
+            Assert.Multiple(() =>
+            {
+                Assert.That(item.CustId, Is.EqualTo(expectedResult.CustId));
+                Assert.That(item.ExternalId, Is.EqualTo(expectedResult.ExternalId));
+                Assert.That(item.SystemId, Is.EqualTo(expectedResult.SystemId));
+                Assert.That(item.BetCounts, Is.EqualTo(expectedResult.BetCounts));
+                Assert.That(item.PendingFunds, Is.EqualTo(expectedResult.PendingFunds));
 
-            Assert.That(result.TotalData.BetCounts, Is.EqualTo(expectedTotalData.BetCounts));
-            Assert.That(result.TotalData.PendingFunds, Is.EqualTo(expectedTotalData.PendingFunds));
+                Assert.That(result.TotalData.BetCounts, Is.EqualTo(expectedTotalData.BetCounts));
+                Assert.That(result.TotalData.PendingFunds, Is.EqualTo(expectedTotalData.PendingFunds));
 
-            Assert.That(result.TotalRows, Is.EqualTo(100));
+                Assert.That(result.TotalRows, Is.EqualTo(ExpectedTotalRow));
+            });
+        }
+
+        [Test]
+        public void GetDataList_NoData_ReturnEmptyResult()
+        {
+            // Arrange
+            Reader.Read().Returns(false);
+            Reader.NextResult().Returns(false);
+
+            // Action
+            var result = DataAccess.GetDataList(_metaModel);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.DataList, Is.Empty);
+                Assert.That(result.TotalRows, Is.Zero);
+            });
+        }
+
+        [Test]
+        public void GetDataList_NoTotalDataReturned_DataReturnedCorrectly()
+        {
+            // Arrange
+            var expectedResult = new CustPendingFunds
+            {
+                ExternalId = "ExternalIdTest",
+                SystemId = "SystemIdTest"
+            };
+
+            Reader.Read().Returns(true, false);
+            Reader.NextResult().Returns(false);
+            ConfigureReaderForResult(expectedResult);
+
+            // Action
+            var result = DataAccess.GetDataList(_metaModel);
+            var totalData = result.TotalData;
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.DataList, Is.Not.Empty);
+                Assert.That(result.TotalRows, Is.Zero);
+            });
+        }
+
+        [Test]
+        public void GetDataList_WhenObjectDbThrowsException_ThrowDataAccessException()
+        {
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                SpName,
+                () => DataAccess.GetDataList(_metaModel));
         }
 
         private IList<ProductOption> GetProductOptions()
@@ -114,21 +159,21 @@
         {
             var outstandingColumn = "Outstanding" + _metaModel.BaseCurrency;
 
-            _reader["CustID"].Returns(expected.CustId);
-            _reader["nickname"].Returns(expected.ExternalId);
-            _reader["username"].Returns(expected.SystemId);
-            _reader["BetCounts"].Returns(expected.BetCounts);
-            _reader[outstandingColumn].Returns(expected.PendingFunds);
+            Reader["CustID"].Returns(expected.CustId);
+            Reader["nickname"].Returns(expected.ExternalId);
+            Reader["username"].Returns(expected.SystemId);
+            Reader["BetCounts"].Returns(expected.BetCounts);
+            Reader[outstandingColumn].Returns(expected.PendingFunds);
         }
 
-        private void ConfigureReaderForTotalData(CustPendingFunds expected)
+        private void ConfigureReaderForTotalData(CustPendingFunds expected, int expectedTotalRow)
         {
             var outstandingColumn = "SumOutstanding" + _metaModel.BaseCurrency;
 
-            _reader["SumBetCounts"].Returns(expected.BetCounts);
-            _reader[outstandingColumn].Returns(expected.PendingFunds);
+            Reader["SumBetCounts"].Returns(expected.BetCounts);
+            Reader[outstandingColumn].Returns(expected.PendingFunds);
 
-            _reader["TotalRows"].Returns(100);
+            Reader["TotalRows"].Returns(expectedTotalRow);
         }
     }
 }

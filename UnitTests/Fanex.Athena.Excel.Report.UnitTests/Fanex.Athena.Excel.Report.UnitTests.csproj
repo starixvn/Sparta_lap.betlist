@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>Fanex.Athena.Excel.Report.UnitTests.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -30,6 +31,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>Fanex.Athena.Excel.Report.UnitTests.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
@@ -61,17 +63,44 @@
   <ItemGroup>
     <Compile Include="AgCasinoBalanceExcelTest.cs" />
     <Compile Include="ActiveCustomerSummaryExcelTest.cs" />
+    <Compile Include="BaseReportExcelTest.cs" />
+    <Compile Include="TestableClasses\HandHistoryExcelTestable.cs" />
+    <Compile Include="HandHistoryExcelTest.cs" />
+    <Compile Include="TestableClasses\TurnoverExcelTestable.cs" />
+    <Compile Include="ThirdPartyWinLossExcelTest.cs" />
+    <Compile Include="RacingCommissionExcelTest.cs" />
+    <Compile Include="MicroGamingWinLossExcelTest.cs" />
+    <Compile Include="PlatformWinLossSummaryExcelTest.cs" />
+    <Compile Include="PlatformWinLossMemberExcelTest.cs" />
+    <Compile Include="DailyRacingWinLoss12BetExcelTest.cs" />
+    <Compile Include="CustomerWinLossExcelTest.cs" />
+    <Compile Include="CustomerTurnoverExcelTest.cs" />
+    <Compile Include="CustomerPendingFundsExcelTest.cs" />
+    <Compile Include="CustomerBalanceExcelTest.cs" />
     <Compile Include="ColossusBetsWinLossExcelTest.cs" />
     <Compile Include="CasinoProgressiveWinsExcelTest.cs" />
     <Compile Include="BalanceExcelTest.cs" />
     <Compile Include="CashOutWinLossExcelTest.cs" />
+    <Compile Include="LiveReportExcelTest.cs" />
+    <Compile Include="TestableClasses\ThirdPartyWinLossExcelTestable.cs" />
+    <Compile Include="TestableClasses\RacingCommissionExcelTestable.cs" />
+    <Compile Include="TestableClasses\MicroGamingWinLossExcelTestable.cs" />
+    <Compile Include="TestableClasses\PlatformWinLossSummaryExcelTestable.cs" />
+    <Compile Include="TestableClasses\PlatformWinLossMemberExcelTestable.cs" />
+    <Compile Include="TestableClasses\LiveReportExcelTestable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestableClasses\AgCasinoBalanceExcelTestable.cs" />
     <Compile Include="TestableClasses\ActiveCustomerSummaryExcelTestable.cs" />
+    <Compile Include="TestableClasses\DailyRacingWinLoss12BetExcelTestable.cs" />
+    <Compile Include="TestableClasses\CustomerWinLossExcelTestable.cs" />
+    <Compile Include="TestableClasses\CustomerTurnoverExcelTestable.cs" />
+    <Compile Include="TestableClasses\CustomerPendingFundsExcelTestable.cs" />
+    <Compile Include="TestableClasses\CustomerBalanceExcelTestable.cs" />
     <Compile Include="TestableClasses\ColossusBetsWinLossExcelTestable.cs" />
     <Compile Include="TestableClasses\CasinoProgressiveWinsExcelTestable.cs" />
     <Compile Include="TestableClasses\BalanceExcelTestable.cs" />
     <Compile Include="TestableClasses\CashOutWinLossExcelTestable.cs" />
+    <Compile Include="TurnoverExcelTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Excel\Fanex.Athena.Excel.Base\Fanex.Athena.Excel.Base.csproj">
@@ -90,6 +119,10 @@
       <Project>{4A5BDDBC-F707-409A-86EC-D9BC6E9D31C4}</Project>
       <Name>Fanex.Athena.UnitTest.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Model\Fanex.Athena.Model.Casino\Fanex.Athena.Model.Casino.csproj">
+      <Project>{840A8298-60ED-40DC-A64E-F9048ABD32B5}</Project>
+      <Name>Fanex.Athena.Model.Casino</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Model\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj">
       <Project>{5F410090-94C0-46A5-9FEC-B6C3B745B7A0}</Project>
       <Name>Fanex.Athena.Model.Core</Name>
@@ -105,10 +138,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Fanex.Athena.Excel.Report.UnitTests.ruleset" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\Google.Protobuf.dll" />
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\SonarAnalyzer.CSharp.dll" />
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

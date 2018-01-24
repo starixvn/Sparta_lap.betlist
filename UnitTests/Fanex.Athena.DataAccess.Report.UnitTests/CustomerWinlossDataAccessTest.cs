@@ -5,6 +5,7 @@
     using System.Data;
     using System.Linq;
     using Core.Configuration.Interfaces;
+    using Core.UnitTests.TestHelpers;
     using Data;
     using Extension.Utility;
     using Model.Core.DTO.Configuration;
@@ -15,18 +16,20 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class CustomerWinlossDataAccessTest
+    public class CustomerWinlossDataAccessTest : BaseDataAccessHelperTest<CustomerWinlossDataAccess>
     {
-        private IObjectDb _objectDb;
-        private CustomerWinlossDataAccess _dataAccess;
+        private const string SpName = "Lrf_Rpt_WinLoss";
+
+        private const int PageSizeExcel = int.MaxValue - 1000;
+
         private BalanceUp _balance;
-        private IDataReader _reader;
+
         private CustomerWinLossMetaModel _metaModel;
 
         [OneTimeSetUp]
-        public void Setup()
+        public override void FixtureSetUp()
         {
-            _objectDb = Substitute.For<IObjectDb>();
+            ObjectDb = Substitute.For<IObjectDb>();
 
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             _balance = new BalanceUp
@@ -36,11 +39,8 @@
             };
             balanceUpDataAccess.GetBalanceUp().Returns(_balance);
 
-            _dataAccess = Substitute.ForPartsOf<CustomerWinlossDataAccess>(balanceUpDataAccess);
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_WinLoss")).Returns(_objectDb);
-
-            _reader = Substitute.For<IDataReader>();
-            _objectDb.ExecuteReader().Returns(_reader);
+            DataAccess = Substitute.ForPartsOf<CustomerWinlossDataAccess>(balanceUpDataAccess);
+            DataAccess.GetObjectDb(Arg.Is(SpName)).Returns(ObjectDb);
 
             var appSetting = Substitute.For<IAppSettings>();
             appSetting.HistoryDate.Returns(new DateTime(2016, 8, 31));
@@ -52,39 +52,46 @@
         }
 
         [OneTimeTearDown]
-        public void TearDown()
+        public override void FixtureTearDown()
         {
-            _objectDb = null;
-            _dataAccess = null;
-            _reader = null;
-            _metaModel = null;
             _balance = null;
+            _metaModel = null;
+
+            base.FixtureTearDown();
         }
 
-        [Test]
-        public void GetDataList_WhenCall_ParametersPassedCorrectly()
+        [TestCase(true, 5, PageSizeExcel)]
+        [TestCase(false, 5, 5)]
+        public void GetDataList_WhenCall_ParametersPassedCorrectly(bool isExportExcel, int pageSize, int expectedPageSize)
         {
+            // Arrange
+            _metaModel.PageSize = pageSize;
+            _metaModel.IsExportExcel = isExportExcel;
+
             // Action
-            _dataAccess.GetDataList(_metaModel);
+            DataAccess.GetDataList(_metaModel);
 
             // Assert
-            _objectDb.Received().AddInParameter("fromdate", DbType.DateTime, _metaModel.FromDate);
-            _objectDb.Received().AddInParameter("todate", DbType.DateTime, _metaModel.ToDate);
-            _objectDb.Received().AddInParameter("pagesize", DbType.Int32, _metaModel.PageSize);
-            _objectDb.Received().AddInParameter("pageindex", DbType.Int32, _metaModel.PageIndex);
-            _objectDb.Received().AddInParameter("movebetsday", DbType.DateTime, _balance.MoveBetsDay);
-            _objectDb.Received().AddInParameter("isold", DbType.Boolean, _metaModel.IsOld);
-            _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-            _objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
-            _objectDb.Received().AddInParameter("showNG", DbType.Boolean, false);
+            Assert.Multiple(() =>
+            {
+                ObjectDb.Received().AddInParameter("fromdate", DbType.DateTime, _metaModel.FromDate);
+                ObjectDb.Received().AddInParameter("todate", DbType.DateTime, _metaModel.ToDate);
+                ObjectDb.Received().AddInParameter("pagesize", DbType.Int32, expectedPageSize);
+                ObjectDb.Received().AddInParameter("pageindex", DbType.Int32, _metaModel.PageIndex);
+                ObjectDb.Received().AddInParameter("movebetsday", DbType.DateTime, _balance.MoveBetsDay);
+                ObjectDb.Received().AddInParameter("isold", DbType.Boolean, _metaModel.IsOld);
+                ObjectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                ObjectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
+                ObjectDb.Received().AddInParameter("showNG", DbType.Boolean, false);
+            });
         }
 
         [Test]
         public void GetDataList_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            _reader.Read().Returns(true, false, true, false);
-            _reader.NextResult().Returns(true);
+            Reader.Read().Returns(true, false, true, false);
+            Reader.NextResult().Returns(true);
             var expectedTotalData = new CustomerWinLoss
             {
                 LicenseeWL = 10m,
@@ -100,33 +107,90 @@
                 CustomerTotalWL = 15m,
                 RacingRevenue = 15m
             };
+            const int ExpectedTotalRow = 100;
             ConfigureReaderForResult(expectedResult);
-            ConfigureReaderForTotalData(expectedTotalData);
+            ConfigureReaderForTotalData(expectedTotalData, ExpectedTotalRow);
 
             // Action
-            var result = _dataAccess.GetDataList(_metaModel);
+            var result = DataAccess.GetDataList(_metaModel);
             var firstItem = result.DataList.First();
 
             // Assert
-            Assert.That(firstItem.CustId, Is.EqualTo(expectedResult.CustId));
-            Assert.That(firstItem.ExternalId, Is.EqualTo(expectedResult.ExternalId));
-            Assert.That(firstItem.SystemId, Is.EqualTo(expectedResult.SystemId));
-            Assert.That(firstItem.Turnover, Is.EqualTo(expectedResult.Turnover));
-            Assert.That(firstItem.TotalTransaction, Is.EqualTo(expectedResult.TotalTransaction));
-            Assert.That(firstItem.CustomerWL, Is.EqualTo(expectedResult.CustomerWL));
-            Assert.That(firstItem.BetEffective, Is.EqualTo(expectedResult.BetEffective));
-            Assert.That(firstItem.PlayerComm, Is.EqualTo(expectedResult.PlayerComm));
-            Assert.That(firstItem.CustomerTotalWL, Is.EqualTo(expectedResult.CustomerTotalWL));
-            Assert.That(firstItem.RacingRevenue, Is.EqualTo(expectedResult.RacingRevenue));
+            Assert.Multiple(() =>
+            {
+                Assert.That(firstItem.CustId, Is.EqualTo(expectedResult.CustId));
+                Assert.That(firstItem.ExternalId, Is.EqualTo(expectedResult.ExternalId));
+                Assert.That(firstItem.SystemId, Is.EqualTo(expectedResult.SystemId));
+                Assert.That(firstItem.BetEffective, Is.EqualTo(expectedResult.BetEffective));
+                Assert.That(firstItem.CustomerTotalWL, Is.EqualTo(expectedResult.CustomerTotalWL));
+                AssertCommonData(firstItem, expectedResult);
 
-            Assert.That(result.TotalData.Turnover, Is.EqualTo(expectedTotalData.Turnover));
-            Assert.That(result.TotalData.LicenseeWL, Is.EqualTo(expectedTotalData.LicenseeWL));
-            Assert.That(result.TotalData.RacingRevenue, Is.EqualTo(expectedTotalData.RacingRevenue));
-            Assert.That(result.TotalData.TotalTransaction, Is.EqualTo(expectedTotalData.TotalTransaction));
-            Assert.That(result.TotalData.CustomerWL, Is.EqualTo(expectedTotalData.CustomerWL));
-            Assert.That(result.TotalData.PlayerComm, Is.EqualTo(expectedTotalData.PlayerComm));
+                AssertCommonData(result.TotalData, expectedTotalData);
+                Assert.That(result.TotalData.LicenseeWL, Is.EqualTo(expectedTotalData.LicenseeWL));
 
-            Assert.That(result.TotalRows, Is.EqualTo(100));
+                Assert.That(result.TotalRows, Is.EqualTo(ExpectedTotalRow));
+            });
+        }
+
+        private static void AssertCommonData(CustomerWinLoss actual, CustomerWinLoss expected)
+        {
+            Assert.That(actual.Turnover, Is.EqualTo(expected.Turnover));
+            Assert.That(actual.RacingRevenue, Is.EqualTo(expected.RacingRevenue));
+            Assert.That(actual.TotalTransaction, Is.EqualTo(expected.TotalTransaction));
+            Assert.That(actual.CustomerWL, Is.EqualTo(expected.CustomerWL));
+            Assert.That(actual.PlayerComm, Is.EqualTo(expected.PlayerComm));
+        }
+
+        [Test]
+        public void GetDataList_NoData_ReturnEmptyResult()
+        {
+            // Arrange
+            Reader.Read().Returns(false);
+            Reader.NextResult().Returns(false);
+
+            // Action
+            var result = DataAccess.GetDataList(_metaModel);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.DataList, Is.Empty);
+                Assert.That(result.TotalRows, Is.Zero);
+            });
+        }
+
+        [Test]
+        public void GetDataList_NoTotalDataReturned_DataReturnedCorrectly()
+        {
+            // Arrange
+            var expectedResult = new CustomerWinLoss
+            {
+                ExternalId = "ExternalIdTest",
+                SystemId = "SystemIdTest"
+            };
+
+            Reader.Read().Returns(true, false);
+            Reader.NextResult().Returns(false);
+            ConfigureReaderForResult(expectedResult);
+
+            // Action
+            var result = DataAccess.GetDataList(_metaModel);
+            var totalData = result.TotalData;
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.DataList, Is.Not.Empty);
+                Assert.That(result.TotalRows, Is.Zero);
+            });
+        }
+
+        [Test]
+        public void GetDataList_WhenObjectDbThrowsException_ThrowDataAccessException()
+        {
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                SpName,
+                () => DataAccess.GetDataList(_metaModel));
         }
 
         private IList<ProductOption> GetProductOptions()
@@ -153,25 +217,25 @@
             var customertotalwlColumn = "customertotalwl" + _metaModel.BaseCurrency;
             var racingrevenueColumn = "racingrevenue" + _metaModel.BaseCurrency;
 
-            _reader["CustID"].Returns(expected.CustId);
-            _reader["nickname"].Returns(expected.ExternalId);
-            _reader["username"].Returns(expected.SystemId);
-            _reader[turnoverColumn].Returns(expected.Turnover);
-            _reader["betcount"].Returns(expected.TotalTransaction);
-            _reader[memberWinLostColumn].Returns(expected.CustomerWL);
-            _reader[betEffectiveColumn].Returns(expected.BetEffective);
-            _reader[playerCommColumn].Returns(expected.PlayerComm);
-            _reader[licenseeWinLostColumn].Returns(expected.LicenseeWL);
-            _reader[bacommColumn].Returns(expected.BAComm);
-            _reader[winlossrbColumn].Returns(10m);
-            _reader[commrbColumn].Returns(5m);
-            _reader[amtduetobaColumn].Returns(expected.AmtDueToBA);
-            _reader[amtduetorbColumn].Returns(expected.AmtDueToRacing);
-            _reader[customertotalwlColumn].Returns(expected.CustomerTotalWL);
-            _reader[racingrevenueColumn].Returns(expected.RacingRevenue);
+            Reader["CustID"].Returns(expected.CustId);
+            Reader["nickname"].Returns(expected.ExternalId);
+            Reader["username"].Returns(expected.SystemId);
+            Reader[turnoverColumn].Returns(expected.Turnover);
+            Reader["betcount"].Returns(expected.TotalTransaction);
+            Reader[memberWinLostColumn].Returns(expected.CustomerWL);
+            Reader[betEffectiveColumn].Returns(expected.BetEffective);
+            Reader[playerCommColumn].Returns(expected.PlayerComm);
+            Reader[licenseeWinLostColumn].Returns(expected.LicenseeWL);
+            Reader[bacommColumn].Returns(expected.BAComm);
+            Reader[winlossrbColumn].Returns(10m);
+            Reader[commrbColumn].Returns(5m);
+            Reader[amtduetobaColumn].Returns(expected.AmtDueToBA);
+            Reader[amtduetorbColumn].Returns(expected.AmtDueToRacing);
+            Reader[customertotalwlColumn].Returns(expected.CustomerTotalWL);
+            Reader[racingrevenueColumn].Returns(expected.RacingRevenue);
         }
 
-        private void ConfigureReaderForTotalData(CustomerWinLoss expected)
+        private void ConfigureReaderForTotalData(CustomerWinLoss expected, int expectedTotalRow)
         {
             var turnoverColumn = "sumturnover" + _metaModel.BaseCurrency;
             var memberWinLostColumn = "summemberwinlost" + _metaModel.BaseCurrency;
@@ -186,21 +250,21 @@
             var sumracingrevenueColumn = "sumracingrevenue" + _metaModel.BaseCurrency;
             var sumcustomertotalwlColumn = "sumcustomertotalwl" + _metaModel.BaseCurrency;
 
-            _reader[turnoverColumn].Returns(expected.Turnover);
-            _reader["sumbetcount"].Returns(expected.TotalTransaction);
-            _reader[memberWinLostColumn].Returns(expected.CustomerWL);
-            _reader[betEffectiveColumn].Returns(expected.BetEffective);
-            _reader[playerCommColumn].Returns(expected.PlayerComm);
-            _reader[licenseeWinLostColumn].Returns(expected.LicenseeWL);
-            _reader[bacommColumn].Returns(expected.BAComm);
-            _reader[winlossrbColumn].Returns(15m);
-            _reader[commrbColumn].Returns(5m);
-            _reader[amtduetobaColumn].Returns(expected.AmtDueToBA);
-            _reader[amtduetorbColumn].Returns(expected.AmtDueToRacing);
-            _reader[sumracingrevenueColumn].Returns(expected.RacingRevenue);
-            _reader[sumcustomertotalwlColumn].Returns(expected.CustomerTotalWL);
+            Reader[turnoverColumn].Returns(expected.Turnover);
+            Reader["sumbetcount"].Returns(expected.TotalTransaction);
+            Reader[memberWinLostColumn].Returns(expected.CustomerWL);
+            Reader[betEffectiveColumn].Returns(expected.BetEffective);
+            Reader[playerCommColumn].Returns(expected.PlayerComm);
+            Reader[licenseeWinLostColumn].Returns(expected.LicenseeWL);
+            Reader[bacommColumn].Returns(expected.BAComm);
+            Reader[winlossrbColumn].Returns(15m);
+            Reader[commrbColumn].Returns(5m);
+            Reader[amtduetobaColumn].Returns(expected.AmtDueToBA);
+            Reader[amtduetorbColumn].Returns(expected.AmtDueToRacing);
+            Reader[sumracingrevenueColumn].Returns(expected.RacingRevenue);
+            Reader[sumcustomertotalwlColumn].Returns(expected.CustomerTotalWL);
 
-            _reader["TotalRows"].Returns(100);
+            Reader["TotalRows"].Returns(expectedTotalRow);
         }
     }
 }

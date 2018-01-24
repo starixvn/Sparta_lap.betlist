@@ -2,8 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data;
     using Core.Configuration.Interfaces;
+    using Core.UnitTests.TestHelpers;
     using Data;
     using Extension.Utility;
     using Model.Core.DTO.Configuration;
@@ -13,15 +13,12 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class BalanceDataAccessTest
+    public class BalanceDataAccessTest : BaseDataAccessHelperTest<BalanceDataAccess>
     {
-        private IObjectDb _objectDb;
         private IBalanceUpDataAccess _balanceUpDataAccess;
-        private BalanceDataAccess _dataAccess;
-        private IDataReader _reader;
 
         [OneTimeSetUp]
-        public void Setup()
+        public override void FixtureSetUp()
         {
             _balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             _balanceUpDataAccess.GetBalanceUp().Returns(new BalanceUp
@@ -29,28 +26,41 @@
                 BalanceUpDay = new DateTime(2017, 12, 1),
                 MoveBetsDay = new DateTime(2017, 12, 2)
             });
-            _objectDb = Substitute.For<IObjectDb>();
+            ObjectDb = Substitute.For<IObjectDb>();
 
-            _dataAccess = Substitute.ForPartsOf<BalanceDataAccess>(_balanceUpDataAccess);
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerSelBalance")).Returns(_objectDb);
-
-            _reader = Substitute.For<IDataReader>();
-            _objectDb.ExecuteReader(Arg.Any<object>()).Returns(_reader);
+            DataAccess = Substitute.ForPartsOf<BalanceDataAccess>(_balanceUpDataAccess);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerSelBalance")).Returns(ObjectDb);
         }
 
         [OneTimeTearDown]
-        public void TearDown()
+        public override void FixtureTearDown()
         {
-            _objectDb = null;
-            _dataAccess = null;
-            _reader = null;
+            _balanceUpDataAccess = null;
+
+            base.FixtureTearDown();
+        }
+
+        [Test]
+        public void GetReportData_NoData_ReturnNullList()
+        {
+            // Arrange
+            var appSetting = Substitute.For<IAppSettings>();
+            appSetting.HistoryDate.Returns(new DateTime(2016, 8, 30));
+            var metaModel = new BalanceMetaModel(appSetting) { BaseCurrency = "UUS" };
+            Reader.Read().Returns(false);
+
+            // Action
+            var result = DataAccess.GetReportData(metaModel);
+
+            // Assert
+            Assert.That(result.BalanceList, Is.Null);
         }
 
         [Test]
         public void GetReportData_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            _reader.Read().Returns(true, false);
+            Reader.Read().Returns(true, false);
             var appSetting = Substitute.For<IAppSettings>();
             appSetting.HistoryDate.Returns(new DateTime(2016, 8, 30));
             var metaModel = new BalanceMetaModel(appSetting) { BaseCurrency = "UUS" };
@@ -76,26 +86,31 @@
             ConfigureReaderForAnotherColumns(expected);
 
             // Action
-            var result = _dataAccess.GetReportData(metaModel);
+            var result = DataAccess.GetReportData(metaModel);
+            var actualSelectedMonthBalance = result.BalanceList[0];
+            var actualYesterdayBalance = result.BalanceList[1];
+            var actualTodayBalance = result.BalanceList[2];
 
             // Assert
-            Assert.That(result.BalanceList[0].LicWinLoss, Is.EqualTo(selectedMonthBalance.LicWinLoss));
-            Assert.That(result.BalanceList[0].BetTradeCommission, Is.EqualTo(selectedMonthBalance.BetTradeCommission));
-            Assert.That(result.BalanceList[0].BACommission, Is.EqualTo(selectedMonthBalance.BACommission));
+            Assert.Multiple(() =>
+            {
+                AssertBalanceData(actualSelectedMonthBalance, selectedMonthBalance);
+                AssertBalanceData(actualYesterdayBalance, yesterdayBalance);
+                AssertBalanceData(actualTodayBalance, todayBalance);
 
-            Assert.That(result.BalanceList[1].LicWinLoss, Is.EqualTo(yesterdayBalance.LicWinLoss));
-            Assert.That(result.BalanceList[1].BetTradeCommission, Is.EqualTo(yesterdayBalance.BetTradeCommission));
-            Assert.That(result.BalanceList[1].BACommission, Is.EqualTo(yesterdayBalance.BACommission));
+                Assert.That(result.CustomerPendingFunds, Is.EqualTo(expected.CustomerPendingFunds));
+                Assert.That(result.TotalCustomerActive, Is.EqualTo(expected.TotalCustomerActive));
+                Assert.That(result.TotalCustomerClosed, Is.EqualTo(expected.TotalCustomerClosed));
+                Assert.That(result.TotalCustomerSuspended, Is.EqualTo(expected.TotalCustomerSuspended));
+                Assert.That(result.UserName, Is.EqualTo(expected.UserName));
+            });
+        }
 
-            Assert.That(result.BalanceList[2].LicWinLoss, Is.EqualTo(todayBalance.LicWinLoss));
-            Assert.That(result.BalanceList[2].BetTradeCommission, Is.EqualTo(todayBalance.BetTradeCommission));
-            Assert.That(result.BalanceList[2].BACommission, Is.EqualTo(todayBalance.BACommission));
-
-            Assert.That(result.CustomerPendingFunds, Is.EqualTo(expected.CustomerPendingFunds));
-            Assert.That(result.TotalCustomerActive, Is.EqualTo(expected.TotalCustomerActive));
-            Assert.That(result.TotalCustomerClosed, Is.EqualTo(expected.TotalCustomerClosed));
-            Assert.That(result.TotalCustomerSuspended, Is.EqualTo(expected.TotalCustomerSuspended));
-            Assert.That(result.UserName, Is.EqualTo(expected.UserName));
+        private static void AssertBalanceData(BalanceDetails actual, BalanceDetails expected)
+        {
+            Assert.That(actual.LicWinLoss, Is.EqualTo(expected.LicWinLoss));
+            Assert.That(actual.BetTradeCommission, Is.EqualTo(expected.BetTradeCommission));
+            Assert.That(actual.BACommission, Is.EqualTo(expected.BACommission));
         }
 
         private void ConfigureReaderForBalanceList(BalanceDetails expected, string baseCurrency, string prefix)
@@ -110,24 +125,24 @@
             var amtDueToRacingColumn = prefix + "AmtDuetoRB" + baseCurrency;
             var customerCommColumn = prefix + "PlayerComm" + baseCurrency;
 
-            _reader[monthLicColumn].Returns(expected.LicWinLoss);
-            _reader[betTradeCommColumn].Returns(expected.BetTradeCommission);
-            _reader[bacommColumn].Returns(expected.BACommission);
-            _reader[rbcommColumn].Returns(expected.RBCommission);
-            _reader[racingRevenueColumn].Returns(expected.RacingRevenue);
-            _reader[amtDueToBetTradeColumn].Returns(expected.AmtDueToBetTrade);
-            _reader[amtDueToBaColumn].Returns(expected.AmtDueToBA);
-            _reader[amtDueToRacingColumn].Returns(expected.AmtDueToRacing);
-            _reader[customerCommColumn].Returns(expected.CustomerCommission);
+            Reader[monthLicColumn].Returns(expected.LicWinLoss);
+            Reader[betTradeCommColumn].Returns(expected.BetTradeCommission);
+            Reader[bacommColumn].Returns(expected.BACommission);
+            Reader[rbcommColumn].Returns(expected.RBCommission);
+            Reader[racingRevenueColumn].Returns(expected.RacingRevenue);
+            Reader[amtDueToBetTradeColumn].Returns(expected.AmtDueToBetTrade);
+            Reader[amtDueToBaColumn].Returns(expected.AmtDueToBA);
+            Reader[amtDueToRacingColumn].Returns(expected.AmtDueToRacing);
+            Reader[customerCommColumn].Returns(expected.CustomerCommission);
         }
 
         private void ConfigureReaderForAnotherColumns(Balance expected)
         {
-            _reader["MemberOutstandinguus"].Returns(expected.CustomerPendingFunds);
-            _reader["TotalMemberActive"].Returns(expected.TotalCustomerActive);
-            _reader["TotalMemberClosed"].Returns(expected.TotalCustomerClosed);
-            _reader["TotalMemberSuspended"].Returns(expected.TotalCustomerSuspended);
-            _reader["UserName"].Returns(expected.UserName);
+            Reader["MemberOutstandinguus"].Returns(expected.CustomerPendingFunds);
+            Reader["TotalMemberActive"].Returns(expected.TotalCustomerActive);
+            Reader["TotalMemberClosed"].Returns(expected.TotalCustomerClosed);
+            Reader["TotalMemberSuspended"].Returns(expected.TotalCustomerSuspended);
+            Reader["UserName"].Returns(expected.UserName);
         }
     }
 }

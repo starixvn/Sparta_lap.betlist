@@ -178,6 +178,8 @@
         public void Index_ValidModelLevel1_ReturnCorrectData()
         {
             // Arrange
+            const int Level = 1;
+
             var model = new ThirdPartyWinLossMetaModel
             {
                 CurrencyId = -1
@@ -187,7 +189,7 @@
             var expectedTotal = expectedData.DataList;
 
             // Action
-            var result = _controller.Index(model, DateTime.Now, DateTime.Now.AddDays(1), 1);
+            var result = _controller.Index(model, DateTime.Now, DateTime.Now.AddDays(1), Level);
 
             // Assert
             Assert.Multiple(() =>
@@ -202,6 +204,8 @@
         public void Index_ValidModelLevel2_ReturnCorrectData()
         {
             // Arrange
+            const int Level = 2;
+
             var model = new ThirdPartyWinLossMetaModel
             {
                 CurrencyId = -1
@@ -211,7 +215,7 @@
             var expectedTotal = expectedData.DataList;
 
             // Action
-            var result = _controller.Index(model, DateTime.Now, DateTime.Now.AddDays(1), 2);
+            var result = _controller.Index(model, DateTime.Now, DateTime.Now.AddDays(1), Level);
 
             // Assert
             Assert.Multiple(() =>
@@ -221,6 +225,24 @@
                 Assert.That(result.Total, Is.EqualTo(expectedTotal));
                 Assert.That(result.SummaryTotal, Is.EqualTo(expectedData.SummaryTotal));
             });
+        }
+
+        [Test]
+        public void Index_InvalidLevel_ThrowArgumentException()
+        {
+            // Arrange
+            const int Level = 100;
+
+            var model = new ThirdPartyWinLossMetaModel
+            {
+                CurrencyId = -1
+            };
+
+            // Action
+            TestDelegate testDelegate = () => _controller.Index(model, DateTime.Now, DateTime.Now.AddDays(1), Level);
+
+            // Assert
+            Assert.Throws<ArgumentException>(testDelegate, Arg.Is<string>(x => x.EndsWith(model.DrillDownLevel.ToString())));
         }
 
         [Test]

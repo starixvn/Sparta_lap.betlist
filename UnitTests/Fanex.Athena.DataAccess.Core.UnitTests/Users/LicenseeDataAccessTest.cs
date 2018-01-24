@@ -4,72 +4,66 @@
     using System.Data;
     using System.Linq;
     using Core.Users;
-    using Data;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
     using NSubstitute;
     using NUnit.Framework;
     using TestHelpers;
 
-    [TestFixture]
-    public class LicenseeDataAccessTest
+    public class LicenseeDataAccessTest : BaseDataAccessHelperTest<LicenseeDataAccess>
     {
-        private IObjectDb _objectDb;
-        private LicenseeDataAccess _dataAccess;
-        private IDataReader _reader;
-
-        [OneTimeSetUp]
-        public void Setup()
-        {
-            _objectDb = Substitute.For<IObjectDb>();
-            _dataAccess = Substitute.ForPartsOf<LicenseeDataAccess>();
-            _reader = Substitute.For<IDataReader>();
-        }
-
-        [OneTimeTearDown]
-        public void TearDown()
-        {
-            _objectDb = null;
-            _dataAccess = null;
-            _reader = null;
-        }
+        private const string IsAllowUpdateMemberBAStatusSp = "Lrf_BATimeCheck";
+        private const string IsLicenseeBelongToUserSp = "Lrf_LicenseeSel";
+        private const string GetLicenseeByNameSp = "Lrf_LicenseeSelBySiteName";
+        private const string GetLicenseeSourcedSettingsSp = "LRF_LicenseeSourcedSel";
 
         [Test]
         public void IsAllowUpdateMemberBAStatus_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_BATimeCheck")).Returns(_objectDb);
+            const int LicenseeId = 1;
             var request = new Request { Language = "en-US" };
-            var licenseeId = 1;
-            var isAllow = true;
+
+            DataAccess.GetObjectDb(Arg.Is(IsAllowUpdateMemberBAStatusSp)).Returns(ObjectDb);
 
             // Action
-            _dataAccess.IsAllowUpdateMemberBAStatus(request, licenseeId, out isAllow);
+            DataAccess.IsAllowUpdateMemberBAStatus(request, LicenseeId);
 
             // Assert
-            _objectDb.Received().AddInParameter("langkey", DbType.String, request.Language);
-            _objectDb.Received().AddInParameter("LicenseeID", DbType.Int32, licenseeId);
-            _objectDb.Received().AddOutParameter("isallow", DbType.Boolean, sizeof(bool));
+            Assert.Multiple(() =>
+            {
+                ObjectDb.Received().AddInParameter("langkey", DbType.String, request.Language);
+                ObjectDb.Received().AddInParameter("LicenseeID", DbType.Int32, LicenseeId);
+                ObjectDb.Received().AddOutParameter("isallow", DbType.Boolean, sizeof(bool));
+            });
         }
 
         [Test]
         public void IsAllowUpdateMemberBAStatus_WhenCall_ValueReturnedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_BATimeCheck")).Returns(_objectDb);
-            _objectDb.GetParameterValue("isallow").Returns(false);
-            var request = new Request { Language = "en-US" };
-            var licenseeId = 1;
-            var isAllow = true;
-            ResultInfoHelper.MockResultInfo(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is(IsAllowUpdateMemberBAStatusSp)).Returns(ObjectDb);
+            ObjectDb.GetParameterValue("isallow").Returns(false);
+            ResultInfoHelper.MockResultInfo(ObjectDb);
 
             // Action
-            var result = _dataAccess.IsAllowUpdateMemberBAStatus(request, licenseeId, out isAllow);
+            var result = DataAccess.IsAllowUpdateMemberBAStatus(new Request(), 0);
 
             // Assert
-            Assert.That(isAllow, Is.False);
-            Assert.That(result.Code, Is.EqualTo(ResultInfoHelper.ResultCode));
-            Assert.That(result.Message, Is.EqualTo(ResultInfoHelper.ResultMessage));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.ExtendedData, Is.False);
+                Assert.That(result.Code, Is.EqualTo(ResultInfoHelper.ResultCode));
+                Assert.That(result.Message, Is.EqualTo(ResultInfoHelper.ResultMessage));
+            });
+        }
+
+        [Test]
+        public void IsAllowUpdateMemberBAStatus_WhenObjectDbThrowsException_ThrowDataAccessException()
+        {
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                IsAllowUpdateMemberBAStatusSp,
+                () => DataAccess.IsAllowUpdateMemberBAStatus(new Request(), 0));
         }
 
         [TestCase(1, true)]
@@ -78,13 +72,12 @@
         {
             // Arrange
             const int UserId = 1;
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_LicenseeSel")).Returns(_objectDb);
-            _objectDb.ExecuteReader(Arg.Any<object>()).Returns(_reader);
-            _reader.Read().Returns(true, false);
-            _reader.GetInt32(0).ReturnsForAnyArgs(1);
+            DataAccess.GetObjectDb(Arg.Is(IsLicenseeBelongToUserSp)).Returns(ObjectDb);
+            Reader.Read().Returns(true, false);
+            Reader.GetInt32(0).ReturnsForAnyArgs(1);
 
             // Action
-            var result = _dataAccess.IsLicenseeBelongToUser(licenseeId, UserId);
+            var result = DataAccess.IsLicenseeBelongToUser(licenseeId, UserId);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -94,83 +87,108 @@
         public void GetByUser_WhenCall_ExecuteReaderMethodIsCalled()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_LicenseeSel")).Returns(_objectDb);
-            var userId = 1;
+            const int UserId = 1;
+            DataAccess.GetObjectDb(Arg.Is(IsLicenseeBelongToUserSp)).Returns(ObjectDb);
 
             // Action
-            _dataAccess.GetByUser(userId);
+            DataAccess.GetByUser(UserId);
 
             // Assert
-            _objectDb.ReceivedWithAnyArgs().ExecuteReader(null);
+            ObjectDb.ReceivedWithAnyArgs().ExecuteReader(null);
         }
 
         [Test]
         public void GetByUser_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_LicenseeSel")).Returns(_objectDb);
-            _objectDb.ExecuteReader(Arg.Any<object>()).Returns(_reader);
-            _reader.Read().Returns(true, false);
+            DataAccess.GetObjectDb(Arg.Is(IsLicenseeBelongToUserSp)).Returns(ObjectDb);
+            Reader.Read().Returns(true, false);
 
+            const int UserId = 1;
             var expected = new Licensee
             {
                 Id = 1,
                 Name = "LicenseeTest",
                 IsAllowedCustomerComm = true
             };
-            _reader.GetInt32(Arg.Any<int>()).Returns(expected.Id);
-            _reader.GetString(Arg.Any<int>()).Returns(expected.Name);
-            _reader.GetBoolean(Arg.Any<int>()).Returns(expected.IsAllowedCustomerComm);
-
-            var userId = 1;
+            Reader.GetInt32(Arg.Any<int>()).Returns(expected.Id);
+            Reader.GetString(Arg.Any<int>()).Returns(expected.Name);
+            Reader.GetBoolean(Arg.Any<int>()).Returns(expected.IsAllowedCustomerComm);
 
             // Action
-            var result = _dataAccess.GetByUser(userId);
+            var result = DataAccess.GetByUser(UserId);
 
             // Assert
-            Assert.That(result[0].Id, Is.EqualTo(expected.Id));
-            Assert.That(result[0].Name, Is.EqualTo(expected.Name));
-            Assert.That(result[0].IsAllowedCustomerComm, Is.EqualTo(expected.IsAllowedCustomerComm));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result[0].Id, Is.EqualTo(expected.Id));
+                Assert.That(result[0].Name, Is.EqualTo(expected.Name));
+                Assert.That(result[0].IsAllowedCustomerComm, Is.EqualTo(expected.IsAllowedCustomerComm));
+            });
+        }
+
+        [Test]
+        public void GetByUser_WhenObjectDbThrowsException_ThrowDataAccessException()
+        {
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                IsLicenseeBelongToUserSp,
+                () => DataAccess.GetByUser(0));
         }
 
         [Test]
         public void GetLicenseeByName_WhenCall_ValueReturnedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_LicenseeSelBySiteName")).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is(GetLicenseeByNameSp)).Returns(ObjectDb);
             var expected = new Licensee
             {
                 Id = 100
             };
-            _objectDb.QueryEntity<Licensee>(Arg.Any<object>()).Returns(expected);
+            ObjectDb.QueryEntity<Licensee>(Arg.Any<object>()).Returns(expected);
 
             // Action
-            var result = _dataAccess.GetLicenseeByName(string.Empty);
+            var result = DataAccess.GetLicenseeByName(string.Empty);
 
             // Assert
             Assert.That(result.Id, Is.EqualTo(expected.Id));
         }
 
         [Test]
+        public void GetLicenseeByName_WhenObjectDbThrowsException_ThrowDataAccessException()
+        {
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                GetLicenseeByNameSp,
+                () => DataAccess.GetLicenseeByName(string.Empty));
+        }
+
+        [Test]
         public void GetLicenseeSourcedSettings_WhenCall_ValueReturnedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is("LRF_LicenseeSourcedSel")).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is(GetLicenseeSourcedSettingsSp)).Returns(ObjectDb);
             var expectedItem = new LicenseeSourcedSetting
             {
                 SourcedAgentId = 1
             };
-            _objectDb.Query<LicenseeSourcedSetting>(Arg.Any<object>()).Returns(
+            ObjectDb.Query<LicenseeSourcedSetting>(Arg.Any<object>()).Returns(
                 new List<LicenseeSourcedSetting>
                 {
                     expectedItem
                 });
 
             // Action
-            var result = _dataAccess.GetLicenseeSourcedSettings(0);
+            var result = DataAccess.GetLicenseeSourcedSettings(0);
 
             // Assert
             Assert.That(result.First().SourcedAgentId, Is.EqualTo(expectedItem.SourcedAgentId));
+        }
+
+        [Test]
+        public void GetLicenseeSourcedSettings_WhenObjectDbThrowsException_ThrowDataAccessException()
+        {
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                GetLicenseeSourcedSettingsSp,
+                () => DataAccess.GetLicenseeSourcedSettings(0));
         }
     }
 }

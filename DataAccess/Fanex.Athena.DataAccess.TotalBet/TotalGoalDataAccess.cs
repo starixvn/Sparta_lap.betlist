@@ -13,12 +13,13 @@ namespace Fanex.Athena.DataAccess.TotalBet
     using Extension.Helper;
     using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Common.Extensions;
+    using Model.Core.ResultModel;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
 
     public class TotalGoalDataAccess : BaseDataAccess, ITotalGoalDataAccess
     {
-        public IList<TotalGoal> GetTotalGoalDataList(TotalGoalMetaModel metaModel, out TotalGoal totalData)
+        public ReportResultModel<TotalGoal> GetTotalGoalDataList(TotalGoalMetaModel metaModel)
         {
             const string UspName = "Lrf_TotalBets_Sel6";
             var uspParams = new
@@ -28,18 +29,20 @@ namespace Fanex.Athena.DataAccess.TotalBet
                 PageIndex = metaModel.PageIndex,
                 TotalRows = metaModel.TotalRows
             };
-            IList<TotalGoal> data;
             using (var db = this.GetObjectDb(UspName))
             {
                 using (var reader = db.ExecuteReader(uspParams))
                 {
-                    data = SetToList(reader, metaModel.IsConvert, metaModel.BaseCurrency);
+                    var data = SetToList(reader, metaModel.IsConvert, metaModel.BaseCurrency);
                     reader.NextResult();
-                    totalData = ReadTotalData(reader, metaModel.IsConvert, metaModel.BaseCurrency);
+                    var totalData = ReadTotalData(reader, metaModel.IsConvert, metaModel.BaseCurrency);
+                    return new ReportResultModel<TotalGoal>
+                    {
+                        DataList = data,
+                        TotalData = totalData
+                    };
                 }
             }
-
-            return data;
         }
 
         private static IList<TotalGoal> SetToList(IDataReader reader, bool isConvert, string baseCurrency)

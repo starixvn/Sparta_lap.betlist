@@ -10,19 +10,39 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Service.Report;
     using Model.Core.DataDomain;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
+    using Service.Core.Users.Interfaces;
+    using Service.Report.Interfaces;
     using Web.ActionFilter;
 
     [FunctionAuthorization(PermissionKeys.ReportSettledMatchCount)]
     public class SettledMatchCountReportController : ReportBaseController
     {
+        private readonly ISettledMatchCountService _settledMatchCountService;
+
+        public SettledMatchCountReportController() : this(null, null, null, null, null, null)
+        {
+        }
+
+        public SettledMatchCountReportController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
+            IProductService productService,
+            ISettledMatchCountService settledMatchCountService)
+            : base(languageService, sessionService, appSetting, clientViewHelper, productService)
+        {
+            _settledMatchCountService = settledMatchCountService ?? new SettledMatchCountService();
+        }
+
         [HttpGet]
         public ActionResult Index()
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
             var producAccess = ProductService.GetProductAccess(licenseeId, SessionService.UserSession.Language);
-            var settledMatchCountService = new SettledMatchCountService();
-
-            var model = settledMatchCountService.GetDataList(AppSettings.IsShowAllDataForSettleMatchCountReport, licenseeId, producAccess);
+            var model = _settledMatchCountService.GetDataList(AppSettings.IsShowAllDataForSettleMatchCountReport, licenseeId, producAccess);
 
             return View("~/Views/Report/SettledMatchCount/Main.cshtml", model);
         }

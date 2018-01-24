@@ -192,7 +192,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         /// <param name="rowIndex">The starting row index.</param>
         /// <returns>The last row index after assign data.</returns>
-        private void AssignGrandTotalInEurData(ISheet sheet, int rowIndex)
+        protected internal virtual void AssignGrandTotalInEurData(ISheet sheet, int rowIndex)
         {
             var currencyList = _summaryTotal.Keys.ToList();
             currencyList.Reverse();
@@ -216,7 +216,7 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         /// <param name="rowIndex">The starting row index.</param>
         /// <returns>The last row index after assign data.</returns>
-        private int AssignTotalData(ISheet sheet, int rowIndex)
+        protected internal virtual int AssignTotalData(ISheet sheet, int rowIndex)
         {
             var beginTotalRow = rowIndex;
             var totalCurrencyList = GetTotalCurrency(_winLossList);

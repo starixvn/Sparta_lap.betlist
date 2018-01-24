@@ -51,5 +51,7 @@ namespace Fanex.Athena.Model.Core.DataDomain
         public const int VirtualSports2 = 27;
 
         public const int Lottery = 28;
+
+        public const int Exchange = 31;
     }
 }

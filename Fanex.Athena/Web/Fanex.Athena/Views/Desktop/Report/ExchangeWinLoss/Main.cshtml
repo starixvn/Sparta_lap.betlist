@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "LRF - " + ViewResources.Report +
+    " - " + ViewResources.ExchangeWinLoss;
+    Layout = "~/Views/Desktop/Shared/_ReactPageLayout.cshtml";
+}
+@model Fanex.Athena.Model.Report.ViewModel.ExchangeWinLossViewModel
+@{
+    var currencyList = Model.CurrencyList.Select(c => new { value = c.Key, label = c.Value }).ToList();
+    var reportByOption = Model.ReportByOption.Select(c => new { value = c.Key, label = c.Value }).ToList();
+}
+
+@section pagecss {
+    <link href="@Url.ContentLinkByEnv("/www/css/build/reactpages/exchangewl/index.css")" rel="stylesheet" type="text/css" />
+}
+
+@section pagejs {
+    <script src="@Url.ContentLinkByEnv("/www/js/build/reactpages/exchangewl/exchangewl.chunk.js")"></script>
+}
+
+@section globaljscode{
+    window.initialState = {
+        currencyList: @Html.Raw(currencyList.ToJson()),
+        selectedCurrency: @Html.Raw(currencyList.FirstOrDefault(x => x.value == Model.CurrencyId).ToJson()),
+        dateRange: { fromDate: '@Model.FromDate.ToString("MM/dd/yyyy")', toDate: '@Model.ToDate.ToString("MM/dd/yyyy")'},
+        reportByOption: @Html.Raw(reportByOption.ToJson()),
+        selectedReportBy: @Model.ReportBy,
+        isExcludeTest: true,
+        isAllowedCustomerComm: @Model.IsAllowedCustomerComm.ToJson(),
+        licenseeId: @Model.LicenseeId,
+        xsrfToken: document.querySelector("input[name=__RequestVerificationToken]").value,
+        isLoading: false,
+        dateConstraint: { minDate: '@Model.MinDate.ToString("MM/dd/yyyy")', maxDate: '@Model.MaxDate.ToString("MM/dd/yyyy")'}
+    }
+}
+<div id="app-container">
+</div>

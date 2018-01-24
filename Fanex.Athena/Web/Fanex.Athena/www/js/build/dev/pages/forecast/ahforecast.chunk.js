@@ -1,9 +1,9 @@
-webpackJsonp([58],{
+webpackJsonp([59],{
 
-/***/ 130:
+/***/ 135:
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(118), __webpack_require__(132)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(123), __webpack_require__(136)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, QueryString) {
     "use strict";
 
     var curCountDown = 0;
@@ -125,12 +125,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     };
 
     return _me;
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
 
-/***/ 132:
+/***/ 136:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -254,31 +254,31 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 
-/***/ 262:
+/***/ 267:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(263);
+module.exports = __webpack_require__(268);
 
 
 /***/ }),
 
-/***/ 263:
+/***/ 268:
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(264)], __WEBPACK_AMD_DEFINE_RESULT__ = function (Forecast) {
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(269)], __WEBPACK_AMD_DEFINE_RESULT__ = (function (Forecast) {
     "use strict";
 
     $(Forecast.initialize);
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
 
-/***/ 264:
+/***/ 269:
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(118), __webpack_require__(120), __webpack_require__(130)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, Popup, RefreshCountDown) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(123), __webpack_require__(122), __webpack_require__(135)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, QueryString, Popup, RefreshCountDown) {
         "use strict";
 
         var _matchid, _baseCurrency, _currencyid, _currencyName;
@@ -387,10 +387,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         };
 
         return _me;
-    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ })
 
-},[262]);
+},[267]);
 //# sourceMappingURL=ahforecast.chunk.js.map

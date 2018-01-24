@@ -1,44 +1,28 @@
 ﻿namespace Fanex.Athena.DataAccess.TotalBet.UnitTests
 {
-    using System.Data;
-    using Data;
+    using System.Linq;
+    using Core.UnitTests.TestHelpers;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
     using TotalBet;
 
-    [TestFixture]
-    public class FirstGoalLastGoalDataAccessTest
+    public class FirstGoalLastGoalDataAccessTest : BaseDataAccessHelperTest<FirstGoalLastGoalDataAccess>
     {
-        private IObjectDb _objectDb;
-        private FirstGoalLastGoalDataAccess _dataAccess;
-        private IDataReader _reader;
-
         [OneTimeSetUp]
-        public void Setup()
+        public override void FixtureSetUp()
         {
-            _objectDb = Substitute.For<IObjectDb>();
-            _dataAccess = Substitute.ForPartsOf<FirstGoalLastGoalDataAccess>();
-            _reader = Substitute.For<IDataReader>();
-            _objectDb.ExecuteReader(Arg.Any<object>()).Returns(_reader);
-        }
+            base.FixtureSetUp();
 
-        [OneTimeTearDown]
-        public void TearDown()
-        {
-            _objectDb = null;
-            _dataAccess = null;
-            _reader = null;
+            DataAccess.GetObjectDb(Arg.Is("Lrf_TotalBets_Sel14")).Returns(ObjectDb);
         }
 
         [Test]
         public void GetFirstGoalLastGoalDataList_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_TotalBets_Sel14")).Returns(_objectDb);
             var metaModel = new FirstGoalLastGoalMetaModel();
-            var totalData = new FirstGoalLastGoal();
             var expected = new FirstGoalLastGoal
             {
                 LeagueId = 1,
@@ -57,51 +41,95 @@
             };
 
             ConfigureReaderForGetFirstGoalLastGoalDataListMethod(expected);
+            Reader.Read().Returns(true, false, true, false);
+            Reader.NextResult().Returns(true);
 
             // Action
-            var result = _dataAccess.GetFirstGoalLastGoalDataList(metaModel, out totalData)[0];
+            var result = DataAccess.GetFirstGoalLastGoalDataList(metaModel);
 
             // Assert
-            Assert.That(result.LeagueId, Is.EqualTo(expected.LeagueId));
-            Assert.That(result.MatchId, Is.EqualTo(expected.MatchId));
-            Assert.That(result.ShowTime, Is.EqualTo(expected.ShowTime));
-            Assert.That(result.IsNeutral, Is.EqualTo(expected.IsNeutral));
-            Assert.That(result.HomeId, Is.EqualTo(expected.HomeId));
-            Assert.That(result.AwayId, Is.EqualTo(expected.AwayId));
+            Assert.Multiple(() =>
+            {
+                AssertMainData(result.DataList.ElementAt(0), expected);
+                AssertTotalData(result.TotalData, expected);
+            });
+        }
 
-            Assert.That(result.HomeFirstGoal, Is.EqualTo(expected.HomeFirstGoal));
-            Assert.That(result.HomeLastGoal, Is.EqualTo(expected.HomeLastGoal));
-            Assert.That(result.AwayFirstGoal, Is.EqualTo(expected.AwayFirstGoal));
-            Assert.That(result.AwayLastGoal, Is.EqualTo(expected.AwayLastGoal));
-            Assert.That(result.NoGoal, Is.EqualTo(expected.NoGoal));
-            Assert.That(result.HomeFirstHalfFirstGoal, Is.EqualTo(expected.HomeFirstHalfFirstGoal));
-            Assert.That(result.HomeFirstHalfLastGoal, Is.EqualTo(expected.HomeFirstHalfLastGoal));
-            Assert.That(result.AwayFirstHalfFirstGoal, Is.EqualTo(expected.AwayFirstHalfFirstGoal));
-            Assert.That(result.AwayFirstHalfLastGoal, Is.EqualTo(expected.AwayFirstHalfLastGoal));
-            Assert.That(result.FirstHalfNoGoal, Is.EqualTo(expected.FirstHalfNoGoal));
+        [Test]
+        public void GetFirstGoalLastGoalDataList_NoDataReturned_ReturnEmptyData()
+        {
+            // Arrange
+            var metaModel = new FirstGoalLastGoalMetaModel();
+            var expected = new FirstGoalLastGoal();
+
+            Reader.Read().Returns(false);
+            Reader.NextResult().Returns(false);
+
+            // Action
+            var result = DataAccess.GetFirstGoalLastGoalDataList(metaModel);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.DataList, Is.Empty);
+                AssertTotalData(result.TotalData, expected);
+            });
+        }
+
+        private void AssertMainData(FirstGoalLastGoal actual, FirstGoalLastGoal expected)
+        {
+            Assert.That(actual.LeagueId, Is.EqualTo(expected.LeagueId));
+            Assert.That(actual.MatchId, Is.EqualTo(expected.MatchId));
+            Assert.That(actual.ShowTime, Is.EqualTo(expected.ShowTime));
+            Assert.That(actual.IsNeutral, Is.EqualTo(expected.IsNeutral));
+            Assert.That(actual.HomeId, Is.EqualTo(expected.HomeId));
+            Assert.That(actual.AwayId, Is.EqualTo(expected.AwayId));
+
+            Assert.That(actual.HomeFirstGoal, Is.EqualTo(expected.HomeFirstGoal));
+            Assert.That(actual.HomeLastGoal, Is.EqualTo(expected.HomeLastGoal));
+            Assert.That(actual.AwayFirstGoal, Is.EqualTo(expected.AwayFirstGoal));
+            Assert.That(actual.AwayLastGoal, Is.EqualTo(expected.AwayLastGoal));
+            Assert.That(actual.NoGoal, Is.EqualTo(expected.NoGoal));
+            Assert.That(actual.HomeFirstHalfFirstGoal, Is.EqualTo(expected.HomeFirstHalfFirstGoal));
+            Assert.That(actual.HomeFirstHalfLastGoal, Is.EqualTo(expected.HomeFirstHalfLastGoal));
+            Assert.That(actual.AwayFirstHalfFirstGoal, Is.EqualTo(expected.AwayFirstHalfFirstGoal));
+            Assert.That(actual.AwayFirstHalfLastGoal, Is.EqualTo(expected.AwayFirstHalfLastGoal));
+            Assert.That(actual.FirstHalfNoGoal, Is.EqualTo(expected.FirstHalfNoGoal));
+        }
+
+        private void AssertTotalData(FirstGoalLastGoal actual, FirstGoalLastGoal expected)
+        {
+            var totalHomeFirstGoal = expected.HomeFirstGoal + expected.HomeLastGoal + expected.AwayFirstGoal
+                + expected.AwayLastGoal + expected.NoGoal;
+            var totalHomeFirstHalfFirstGoal = expected.HomeFirstHalfFirstGoal + expected.HomeFirstHalfLastGoal
+                + expected.AwayFirstHalfFirstGoal + expected.AwayFirstHalfLastGoal + expected.FirstHalfNoGoal;
+
+            Assert.That(actual.HomeFirstGoal, Is.EqualTo(totalHomeFirstGoal));
+            Assert.That(actual.HomeFirstHalfFirstGoal, Is.EqualTo(totalHomeFirstHalfFirstGoal));
         }
 
         private void ConfigureReaderForGetFirstGoalLastGoalDataListMethod(FirstGoalLastGoal expected)
         {
-            _reader.Read().Returns(true, false);
+            MapReaderData(new
+            {
+                leagueid = expected.LeagueId,
+                matchid = expected.MatchId,
+                showtime = expected.ShowTime,
+                isNeutral = expected.IsNeutral,
+                homeid = expected.HomeId,
+                awayid = expected.AwayId,
 
-            _reader["leagueid"].Returns(expected.LeagueId);
-            _reader["matchid"].Returns(expected.MatchId);
-            _reader["showtime"].Returns(expected.ShowTime);
-            _reader["isNeutral"].Returns(expected.IsNeutral);
-            _reader["homeid"].Returns(expected.HomeId);
-            _reader["awayid"].Returns(expected.AwayId);
-
-            _reader["winlost_homeFG"].Returns(expected.HomeFirstGoal);
-            _reader["winlost_homeLG"].Returns(expected.HomeLastGoal);
-            _reader["winlost_awayFG"].Returns(expected.AwayFirstGoal);
-            _reader["winlost_awayLG"].Returns(expected.AwayLastGoal);
-            _reader["winlost_NoGoal"].Returns(expected.NoGoal);
-            _reader["winlost_1HhomeFG"].Returns(expected.HomeFirstHalfFirstGoal);
-            _reader["winlost_1HhomeLG"].Returns(expected.HomeFirstHalfLastGoal);
-            _reader["winlost_1HawayFG"].Returns(expected.AwayFirstHalfFirstGoal);
-            _reader["winlost_1HawayLG"].Returns(expected.AwayFirstHalfLastGoal);
-            _reader["winlost_1HNoGoal"].Returns(expected.FirstHalfNoGoal);
+                winlost_homeFG = expected.HomeFirstGoal,
+                winlost_homeLG = expected.HomeLastGoal,
+                winlost_awayFG = expected.AwayFirstGoal,
+                winlost_awayLG = expected.AwayLastGoal,
+                winlost_NoGoal = expected.NoGoal,
+                winlost_1HhomeFG = expected.HomeFirstHalfFirstGoal,
+                winlost_1HhomeLG = expected.HomeFirstHalfLastGoal,
+                winlost_1HawayFG = expected.AwayFirstHalfFirstGoal,
+                winlost_1HawayLG = expected.AwayFirstHalfLastGoal,
+                winlost_1HNoGoal = expected.FirstHalfNoGoal,
+            });
         }
     }
 }

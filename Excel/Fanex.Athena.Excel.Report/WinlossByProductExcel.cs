@@ -71,11 +71,7 @@ namespace Fanex.Athena.Excel.Report
                 ViewResources.Comm,
                 ViewResources.AmountDue,
             };
-
-            for (int i = 0; i < headerTextList.Length; i++)
-            {
-                row.Cells[i].SetCellValue(headerTextList[i]);
-            }
+            SetTextRowHeader(row, headerTextList);
 
             row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
 
@@ -93,13 +89,9 @@ namespace Fanex.Athena.Excel.Report
         protected override void AssignSheetData(ISheet sheet)
         {
             var indexReport = 1;
-
             var currentRow = 3;
-
             var rowCount = _excelModel.DataList.Count();
-
             var date = DateTime.MinValue.ToShortDateString();
-
             var endRowSpan = 2;
 
             for (int index = 0; index < rowCount; index++)
@@ -130,12 +122,10 @@ namespace Fanex.Athena.Excel.Report
                 }
 
                 AssignCommonData(rowContent, winlossByProduct);
-
                 currentRow++;
             }
 
             currentRow = AssignTotalData(sheet, currentRow);
-
             AssignSummaryTotal(sheet, currentRow);
         }
 

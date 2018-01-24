@@ -78,10 +78,6 @@ $paddingRightContainer: 17px;
         > th {
             border: none;
             border-left: 1px solid #fff;
-
-            &:first-child {
-                border-left: none;
-            }
         }
 
         &:nth-child(n + 3) {

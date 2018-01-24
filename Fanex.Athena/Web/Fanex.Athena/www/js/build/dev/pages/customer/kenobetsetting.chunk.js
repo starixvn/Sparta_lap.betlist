@@ -1,11 +1,11 @@
-webpackJsonp([43],{
+webpackJsonp([44],{
 
-/***/ 131:
+/***/ 133:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(120), __webpack_require__(147)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(122), __webpack_require__(149)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Popup) {
     
     function isInteger(text) {
         return /^\+?\d+$/.test(text);
@@ -68,17 +68,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     };
 
     return _me;
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
 
-/***/ 138:
+/***/ 139:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function () {
     var Product = {
         Sportsbook: 0,
         Racing: 1,
@@ -107,12 +107,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     };
 
     return _me;
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
 
-/***/ 142:
+/***/ 144:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -131,7 +131,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
  **/
 
 // Customize to use AMD module
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
     function NumberFormatter() {
         this.defaults = {
             format: "#,###.00",
@@ -438,17 +438,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
     }
 
     return NumberFormatter;
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__))
 
 /***/ }),
 
-/***/ 143:
+/***/ 145:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(131)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BetSettingHelper) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(133)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, BetSettingHelper) {
     var SPORTID_NUMBERGAME = 161;
 
     var _me = {
@@ -556,17 +556,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     };
 
     return _me;
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
 
-/***/ 146:
+/***/ 148:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(120), __webpack_require__(138), __webpack_require__(142), __webpack_require__(131), __webpack_require__(143)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup, Constant, NumberFormatter, BetSettingHelper, BetSettingValidation) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(122), __webpack_require__(139), __webpack_require__(144), __webpack_require__(133), __webpack_require__(145)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Popup, Constant, NumberFormatter, BetSettingHelper, BetSettingValidation) {
         var Product = Constant.Product;
 
         var _me = {
@@ -728,12 +728,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         };
 
         return _me;
-    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
 
-/***/ 147:
+/***/ 149:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
@@ -1016,33 +1016,33 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 /***/ }),
 
-/***/ 400:
+/***/ 404:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(401);
+module.exports = __webpack_require__(405);
 
 
 /***/ }),
 
-/***/ 401:
+/***/ 405:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(402)], __WEBPACK_AMD_DEFINE_RESULT__ = function (KenoBetSetting) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(406)], __WEBPACK_AMD_DEFINE_RESULT__ = (function (KenoBetSetting) {
     $(KenoBetSetting.initialize);
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
 
-/***/ 402:
+/***/ 406:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(146)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BetSettingBase) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(148)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, BetSettingBase) {
     var _me = {
         initialize: function () {
             Site.initialize();
@@ -1077,10 +1077,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     };
 
     return _me;
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ })
 
-},[400]);
+},[404]);
 //# sourceMappingURL=kenobetsetting.chunk.js.map

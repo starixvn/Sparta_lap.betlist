@@ -67,7 +67,12 @@ namespace Fanex.Athena.Controllers
 
         protected void SetConvetedUSDCurrencyId(BaseMetaModel metaModel)
         {
-            metaModel.CurrencyId = GetBaseUsdLicensees().Contains(metaModel.LicenseeId.ToString())
+            metaModel.CurrencyId = GetConvetedUSDCurrencyId(metaModel.LicenseeId);
+        }
+
+        protected int GetConvetedUSDCurrencyId(int licenseeId)
+        {
+            return GetBaseUsdLicensees().Contains(licenseeId.ToString())
                 ? BaseCurrencyType.Usd : BaseCurrencyType.All;
         }
 

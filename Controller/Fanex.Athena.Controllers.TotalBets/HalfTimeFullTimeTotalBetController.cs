@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Controllers.TotalBets
 {
+    using System.Linq;
     using System.Web.Mvc;
     using DataAccess.TotalBet;
     using DataAccess.TotalBet.Interfaces;
@@ -68,12 +69,12 @@ namespace Fanex.Athena.Controllers.TotalBets
             if (metaModel.CurrencyId == 0 || currencies.ContainsKey(metaModel.CurrencyId))
             {
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-                HalfTimeFullTime totalData;
-                var dataList = _halfTimeFullTimeDataAccess.GetHalfTimeFullTimeDataList(metaModel, out totalData);
+                var result = _halfTimeFullTimeDataAccess.GetHalfTimeFullTimeDataList(metaModel);
+                var totalData = result.TotalData;
                 var model = new HalfTimeFullTimeViewModel
                 {
                     Param = metaModel,
-                    MainData = dataList,
+                    MainData = result.DataList.ToList(),
                     CurrencyList = currencies,
                     TotalRunningStake = totalData.HomeHome + totalData.HomeDraw + totalData.HomeAway + totalData.DrawHome +
                                         totalData.DrawDraw + totalData.DrawAway + totalData.AwayHome + totalData.AwayAway

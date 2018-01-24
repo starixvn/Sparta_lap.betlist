@@ -11,27 +11,35 @@ namespace Fanex.Athena.DataAccess.BetSettings
     using System.Linq;
     using Common;
     using Core;
+    using Core.Common;
+    using Core.Common.Constants;
+    using Core.Common.Interfaces;
     using Extension.Helper;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Common.Extensions;
     using Interfaces;
     using Model.BetSettings.DTO;
     using Model.BetSettings.MetaModel;
+    using Model.Core.MetaModel.Common;
 
     public class LiveCasinoBetSettingDataAccess : BaseDataAccess, ILiveCasinoBetSettingDataAccess
     {
         private const int LiveCasinoSportId = 162;
 
+        private readonly IUserLogDataAccess _userLogDataAccess;
+
         private readonly ICoreCasinoBetSettingDataAccess _coreCasinoBetSettingDataAccess;
 
-        public LiveCasinoBetSettingDataAccess()
+        public LiveCasinoBetSettingDataAccess() : this(null, null)
         {
-            _coreCasinoBetSettingDataAccess = new CoreCasinoBetSettingDataAccess();
         }
 
-        public LiveCasinoBetSettingDataAccess(ICoreCasinoBetSettingDataAccess coreCasinoBetSettingDataAccess)
+        public LiveCasinoBetSettingDataAccess(
+            IUserLogDataAccess userLogDataAccess,
+            ICoreCasinoBetSettingDataAccess coreCasinoBetSettingDataAccess)
         {
-            _coreCasinoBetSettingDataAccess = coreCasinoBetSettingDataAccess;
+            _userLogDataAccess = userLogDataAccess ?? new UserLogDataAccess();
+            _coreCasinoBetSettingDataAccess = coreCasinoBetSettingDataAccess ?? new CoreCasinoBetSettingDataAccess();
         }
 
         public IList<LiveCasinoBetSetting> GetBetSetting(int custId, string language)
@@ -98,7 +106,15 @@ namespace Fanex.Athena.DataAccess.BetSettings
                 var newParam = GetLiveCasinoLogParam(custId, param.GameTypeId, language);
                 var trackingValue1 = GetTrackingValue(UspName, custId, newParam, ip, language, result);
 
-                _coreCasinoBetSettingDataAccess.WriteLogUpdatingAction(userId, custId, UspName, trackingValue1, trackingValue2);
+                _userLogDataAccess.WriteLog(new UserLogMetaModel
+                {
+                    UserId = userId,
+                    CustID = custId,
+                    SPName = UspName,
+                    TrackingValue1 = trackingValue1,
+                    TrackingValue2 = trackingValue2,
+                    ActionID = UserLogAction.LiveCasinoBetSetting
+                });
 
                 return new ResultInfo
                 {

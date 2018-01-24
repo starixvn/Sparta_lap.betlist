@@ -49,6 +49,36 @@
         }
 
         [Test]
+        public void GetDataList_ValidModel_NoData_ReturnEmptyData()
+        {
+            // Arrange
+            var metaModel = new CustomerTurnoverMetaModel
+            {
+                FromDate = new DateTime(2017, 1, 1),
+                ToDate = new DateTime(2017, 2, 2),
+                SportProducts = new List<SportProductItem>
+                {
+                    new SportProductItem { Checked = true }
+                },
+                Bettypes = new List<CheckedItem>
+                {
+                    new CheckedItem { Checked = true }
+                }
+            };
+
+            _dataAccess.GetDataList(metaModel, string.Empty).ReturnsForAnyArgs(new ReportResultModel<CustTurnover>
+            {
+                DataList = new List<CustTurnover>()
+            });
+
+            // Action
+            var result = _service.GetDataList(metaModel, string.Empty);
+
+            // Assert
+            Assert.That(result.DataList, Is.Empty);
+        }
+
+        [Test]
         public void GetDataList_ValidMetaModel_ReturnDataFromDataAccess()
         {
             // Arrange
@@ -66,8 +96,14 @@
                     new CheckedItem { Checked = true }
                 }
             };
-            var dataList = new List<CustTurnover>();
-            dataList.Add(new CustTurnover());
+            var dataList = new List<CustTurnover>
+            {
+                new CustTurnover { UserName = "1" },
+                new CustTurnover { UserName = "1" },
+                new CustTurnover { UserName = "2" },
+                new CustTurnover { UserName = "2" },
+                new CustTurnover { UserName = "3" }
+            };
             var expectedResult = new ReportResultModel<CustTurnover>
             {
                 DataList = dataList,

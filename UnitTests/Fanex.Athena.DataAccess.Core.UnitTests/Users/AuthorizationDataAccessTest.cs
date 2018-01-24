@@ -2,32 +2,38 @@
 {
     using System.Data;
     using Core.Users;
-    using Data;
     using NSubstitute;
     using NUnit.Framework;
+    using TestHelpers;
 
-    [TestFixture]
-    public class AuthorizationDataAccessTest
+    public class AuthorizationDataAccessTest : BaseDataAccessHelperTest<AuthorizationDataAccess>
     {
+        private const string UspName = "Lrf_CustomerSelCheckBelonging";
+        private const int LicenseeId = 1;
+        private const int CustId = 2;
+        private const long TransId = 3;
+
+        [OneTimeSetUp]
+        public override void FixtureSetUp()
+        {
+            base.FixtureSetUp();
+            DataAccess.GetObjectDb(Arg.Is(UspName)).Returns(ObjectDb);
+        }
+
         [Test]
         public void IsCustomerBelonging_WhenCall_ParametersPassedCorrectly()
         {
-            // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            var dataAccess = Substitute.ForPartsOf<AuthorizationDataAccess>();
-            dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerSelCheckBelonging")).Returns(objectDb);
-            var licenseeId = 1;
-            var custId = 2;
-            long transId = 3;
-
             // Action
-            dataAccess.IsCustomerBelonging(licenseeId, custId, transId);
+            DataAccess.IsCustomerBelonging(LicenseeId, CustId, TransId);
 
             // Assert
-            objectDb.Received().AddInParameter("licenseeid", DbType.Int32, licenseeId);
-            objectDb.Received().AddInParameter("transid", DbType.Int64, transId);
-            objectDb.Received().AddInParameter("custid", DbType.Int32, custId);
-            objectDb.Received().AddOutParameter("status", DbType.Boolean, sizeof(bool));
+            Assert.Multiple(() =>
+            {
+                ObjectDb.Received().AddInParameter("licenseeid", DbType.Int32, LicenseeId);
+                ObjectDb.Received().AddInParameter("transid", DbType.Int64, TransId);
+                ObjectDb.Received().AddInParameter("custid", DbType.Int32, CustId);
+                ObjectDb.Received().AddOutParameter("status", DbType.Boolean, sizeof(bool));
+            });
         }
 
         [TestCase(true)]
@@ -35,16 +41,10 @@
         public void IsCustomerBelonging_WhenCall_ValueReturnedCorrectly(bool expected)
         {
             // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            var dataAccess = Substitute.ForPartsOf<AuthorizationDataAccess>();
-            dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerSelCheckBelonging")).Returns(objectDb);
-            objectDb.GetParameterValue("status").Returns(expected);
-            var licenseeId = 1;
-            var custId = 2;
-            long transId = 3;
+            ObjectDb.GetParameterValue("status").Returns(expected);
 
             // Action
-            var result = dataAccess.IsCustomerBelonging(licenseeId, custId, transId);
+            var result = DataAccess.IsCustomerBelonging(LicenseeId, CustId, TransId);
 
             // Assert
             Assert.That(result, Is.EqualTo(expected));

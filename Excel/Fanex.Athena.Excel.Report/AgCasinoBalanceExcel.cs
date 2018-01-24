@@ -74,9 +74,9 @@ namespace Fanex.Athena.Excel.Report
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             row.Cells[ColumnIndex].SetCellValue("#");
+            row.Cells[ColumnDate].SetCellValue(ViewResources.Date);
             row.Cells[ColumnExternalId].SetCellValue(ViewResources.ExternalId);
             row.Cells[ColumnSystemId].SetCellValue(ViewResources.SystemId);
-            row.Cells[ColumnDate].SetCellValue(ViewResources.Date);
             row.Cells[ColumnCurrency].SetCellValue(ViewResources.Currency);
             row.Cells[ColumnOpeningBalance].SetCellValue(ViewResources.OpeningBalance);
             row.Cells[ColumnTransferIn].SetCellValue(ViewResources.TransferIn);
@@ -115,9 +115,9 @@ namespace Fanex.Athena.Excel.Report
 
                 var reportDateString = casinoBalance.Date.Value.ToString("MM/dd/yyyy");
 
+                row.Cells[ColumnDate].SetCellValue(reportDateString);
                 row.Cells[ColumnExternalId].SetCellValue(casinoBalance.ExternalId);
                 row.Cells[ColumnSystemId].SetCellValue(casinoBalance.SystemId);
-                row.Cells[ColumnDate].SetCellValue(reportDateString);
                 row.Cells[ColumnCurrency].SetCellValue(casinoBalance.CurrencyName);
                 AssignCommonData(row, casinoBalance);
                 rowIndex++;

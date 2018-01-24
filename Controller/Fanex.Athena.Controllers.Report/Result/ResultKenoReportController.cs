@@ -2,24 +2,39 @@
 {
     using System;
     using System.Web.Mvc;
+    using Extension.Utility;
     using Logging;
     using Model.Core.DataDomain;
     using Model.Report.MetaModel.Keno;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
+    using Service.Core.Users.Interfaces;
     using Service.Report.Result;
     using Service.Report.Result.Interfaces;
     using Web.ActionFilter;
 
-    [FunctionAuthorization(Model.Core.DataDomain.PermissionKeys.ReportResults)]
+    [FunctionAuthorization(PermissionKeys.ReportResults)]
     public class ResultKenoReportController : ReportBaseController
     {
+        private readonly ILogger _logger;
+
         private readonly IKenoApi _kenoApi;
 
-        public ResultKenoReportController() : this(null)
+        public ResultKenoReportController() : this(null, null, null, null, null, null, null)
         {
         }
 
-        public ResultKenoReportController(IKenoApi kenoApi)
+        public ResultKenoReportController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
+            IProductService productService,
+            ILogger logger,
+            IKenoApi kenoApi)
+            : base(languageService, sessionService, appSetting, clientViewHelper, productService)
         {
+            _logger = logger ?? Logger.Log;
             _kenoApi = kenoApi ?? new KenoApi();
         }
 
@@ -44,7 +59,7 @@
         {
             if (string.IsNullOrEmpty(userId) || !SessionService.UserSession.UserId.ToString().Equals(userId))
             {
-                LogService.Error("Keno Result page just submited invalid userId");
+                _logger.Error("Keno Result page just submited invalid userId");
 
                 return Url.Action("AccessDenied", "Utility", null, Request.Url.Scheme);
             }
@@ -53,7 +68,7 @@
 
             if (result.ErrorCode > 0)
             {
-                LogService.Error(result.ErrorMsg);
+                _logger.Error(result.ErrorMsg);
                 return Url.Action("AccessDenied", "Utility", null, Request.Url.Scheme);
             }
 

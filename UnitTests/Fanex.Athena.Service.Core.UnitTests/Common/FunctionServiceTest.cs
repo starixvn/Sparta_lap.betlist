@@ -85,8 +85,11 @@
             var result = _service.GetLicenseeFunctionList(licenseeId);
 
             // Assert
-            Assert.That(result.Count, Is.EqualTo(1));
-            Assert.That(result.ElementAt(0).FunctionId, Is.EqualTo(1));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Count, Is.EqualTo(1));
+                Assert.That(result.ElementAt(0).FunctionId, Is.EqualTo(1));
+            });
         }
 
         [Test]
@@ -111,9 +114,12 @@
             var result = _service.GetUserFunctionList(licenseeId, userId);
 
             // Assert
-            Assert.That(result.Count, Is.EqualTo(2));
-            Assert.That(result.ElementAt(0).FunctionId, Is.EqualTo(2));
-            Assert.That(result.ElementAt(1).FunctionId, Is.EqualTo(1));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Count, Is.EqualTo(2));
+                Assert.That(result.ElementAt(0).FunctionId, Is.EqualTo(2));
+                Assert.That(result.ElementAt(1).FunctionId, Is.EqualTo(1));
+            });
         }
 
         [Test]
@@ -147,8 +153,11 @@
             var result = service.GetUserFunctionList(licenseeId, userId);
 
             // Assert
-            Assert.That(result.Count, Is.EqualTo(1));
-            Assert.That(result.ElementAt(0).FunctionId, Is.EqualTo(2));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Count, Is.EqualTo(1));
+                Assert.That(result.ElementAt(0).FunctionId, Is.EqualTo(2));
+            });
         }
 
         [Test]
@@ -174,9 +183,12 @@
             var result = _service.GetUserFunctionList(licenseeId, userId);
 
             // Assert
-            Assert.That(result.Count, Is.EqualTo(2));
-            Assert.That(result.ElementAt(0).FunctionId, Is.EqualTo(1));
-            Assert.That(result.ElementAt(1).FunctionId, Is.EqualTo(2));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Count, Is.EqualTo(2));
+                Assert.That(result.ElementAt(0).FunctionId, Is.EqualTo(1));
+                Assert.That(result.ElementAt(1).FunctionId, Is.EqualTo(2));
+            });
         }
 
         [Test]
@@ -396,8 +408,11 @@
             var result = _service.GetMasterFunctions(functionList);
 
             // Assert
-            Assert.That(result.Count, Is.EqualTo(1));
-            Assert.That(result.ElementAt(0).FunctionId, Is.EqualTo(1));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Count, Is.EqualTo(1));
+                Assert.That(result.ElementAt(0).FunctionId, Is.EqualTo(1));
+            });
         }
 
         [Test]
@@ -413,9 +428,12 @@
             var result = _service.GetSubMenus(functionList);
 
             // Assert
-            Assert.That(result.Count, Is.EqualTo(1));
-            Assert.That(result[1].Count, Is.EqualTo(1));
-            Assert.That(result[1].ElementAt(0).FunctionId, Is.EqualTo(2));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Count, Is.EqualTo(1));
+                Assert.That(result[1].Count, Is.EqualTo(1));
+                Assert.That(result[1].ElementAt(0).FunctionId, Is.EqualTo(2));
+            });
         }
 
         [Test]
@@ -447,9 +465,12 @@
             var result = _service.GetSubFunctions(functionList);
 
             // Assert
-            Assert.That(result.Count, Is.EqualTo(1));
-            Assert.That(result[1].Count, Is.EqualTo(1));
-            Assert.That(result[1].ElementAt(0).FunctionId, Is.EqualTo(2));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Count, Is.EqualTo(1));
+                Assert.That(result[1].Count, Is.EqualTo(1));
+                Assert.That(result[1].ElementAt(0).FunctionId, Is.EqualTo(2));
+            });
         }
 
         [Test]

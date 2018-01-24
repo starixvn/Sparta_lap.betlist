@@ -165,6 +165,7 @@
     <Compile Include="CustomerPendingFundsReportController.cs" />
     <Compile Include="CustomerWinLossReportController.cs" />
     <Compile Include="CustomerBalanceReportController.cs" />
+    <Compile Include="ExchangeWinLossReportController.cs" />
     <Compile Include="LicenseeWinLossByTimeZoneReportController.cs" />
     <Compile Include="NotificationReportController.cs" />
     <Compile Include="SubsidiaryPerformanceReportController.cs" />
@@ -237,9 +238,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\Google.Protobuf.dll" />
-    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\SonarAnalyzer.CSharp.dll" />
-    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\SonarAnalyzer.dll" />
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\Google.Protobuf.dll" />
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\SonarAnalyzer.CSharp.dll" />
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -6,7 +6,9 @@
 
 namespace Fanex.Athena.Excel.Base
 {
+    using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using Excel.Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
     using NPOI.HSSF.UserModel;
@@ -102,6 +104,14 @@ namespace Fanex.Athena.Excel.Base
         protected static int GetNumberOfSheets(int numberOfItems, int pageSize)
         {
             return numberOfItems % pageSize == 0 ? numberOfItems / pageSize : (numberOfItems / pageSize) + 1;
+        }
+
+        protected static void SetTextRowHeader(IRow row, IEnumerable<string> headerTextList)
+        {
+            for (int i = 0; i < headerTextList.Count(); i++)
+            {
+                row.Cells[i].SetCellValue(headerTextList.ElementAt(i));
+            }
         }
 
         protected internal virtual void AssignData()

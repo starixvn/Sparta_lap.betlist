@@ -43,7 +43,7 @@ class Calendar extends Component {
     const { format, range, theme, offset, firstDayOfWeek, shownDate } = props;
 
     const date = parseInput(props.date, format, 'startOf');
-    let showDate = (shownDate || range && range['endDate'] || date).clone().add(offset, 'months');
+    let showDate = (shownDate || range && range['endDate'] || date).clone();
     const state = {
       date,
       shownDate: showDate,
@@ -59,6 +59,12 @@ class Calendar extends Component {
     onInit && onInit(this.state.date);
   }
 
+  componentWillReceiveProps(newProp) {
+    if (newProp.shownDate !== this.state.shownDate) {
+      this.setState({ shownDate: newProp.shownDate });
+    }
+  }
+
   get limitedDate() {
     const { minDate, maxDate } = this.props;
     const m = moment();
@@ -68,16 +74,14 @@ class Calendar extends Component {
       startDate = moment.isMoment(minDate) ? minDate : moment(minDate, MomentFormat.default);
     }
     else {
-      const startMonth = 0;
-      startDate = moment([m.year() - DEFAULT_YEAR_RANGE, startMonth]);
+      startDate = moment([m.year() - DEFAULT_YEAR_RANGE, START_OF_MONTH]);
     }
 
     if (maxDate) {
       endDate = moment.isMoment(maxDate) ? maxDate : moment(maxDate, MomentFormat.default);
     }
     else {
-      const endMonth = 11;
-      endDate = moment([m.year(), endMonth]).endOf("month");
+      endDate = moment([m.year(), END_OF_MONTH]).endOf("month");
     }
 
 
@@ -201,12 +205,12 @@ class Calendar extends Component {
     );
   }
 
-  _isDisabledMonth(currentMonth){
+  _isDisabledMonth(currentMonth) {
     const range = this.limitedDate;
     const currentYear = this.state.shownDate.year();
 
-    return currentMonth < range.startDate.month()  && currentYear <= range.startDate.year()
-      || currentMonth > range.endDate.month()  && currentYear >= range.endDate.year();
+    return currentMonth < range.startDate.month() && currentYear <= range.startDate.year()
+      || currentMonth > range.endDate.month() && currentYear >= range.endDate.year();
   }
 
   renderYearList(classes) {

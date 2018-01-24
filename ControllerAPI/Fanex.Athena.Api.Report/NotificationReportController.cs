@@ -104,8 +104,10 @@
                 return new HttpResponseMessage(HttpStatusCode.NoContent);
             }
 
-            var result = new HttpResponseMessage(HttpStatusCode.OK);
-            result.Content = new ByteArrayContent(Convert.FromBase64String(data.ExtendedData));
+            var result = new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new ByteArrayContent(Convert.FromBase64String(data.ExtendedData))
+            };
             result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
 
             return result;

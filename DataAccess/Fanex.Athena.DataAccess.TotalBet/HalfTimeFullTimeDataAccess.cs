@@ -12,12 +12,13 @@ namespace Fanex.Athena.DataAccess.TotalBet
     using DataAccess.TotalBet.Interfaces;
     using Extension.Helper;
     using Fanex.Common.Extensions;
+    using Model.Core.ResultModel;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
 
     public class HalfTimeFullTimeDataAccess : BaseDataAccess, IHalfTimeFullTimeDataAccess
     {
-        public IList<HalfTimeFullTime> GetHalfTimeFullTimeDataList(HalfTimeFullTimeMetaModel metaModel, out HalfTimeFullTime totalData)
+        public ReportResultModel<HalfTimeFullTime> GetHalfTimeFullTimeDataList(HalfTimeFullTimeMetaModel metaModel)
         {
             const string SpName = "Lrf_TotalBets_Sel16";
             var uspParams = new
@@ -27,18 +28,20 @@ namespace Fanex.Athena.DataAccess.TotalBet
                 PageIndex = metaModel.PageIndex,
                 TotalRows = metaModel.TotalRows
             };
-            IList<HalfTimeFullTime> data;
             using (var db = this.GetObjectDb(SpName))
             {
                 using (var reader = db.ExecuteReader(uspParams))
                 {
-                    data = SetToList(reader, metaModel.IsConvert, metaModel.BaseCurrency);
+                    var data = SetToList(reader, metaModel.IsConvert, metaModel.BaseCurrency);
                     reader.NextResult();
-                    totalData = ReadTotalData(reader, metaModel.IsConvert, metaModel.BaseCurrency);
+                    var totalData = ReadTotalData(reader, metaModel.IsConvert, metaModel.BaseCurrency);
+                    return new ReportResultModel<HalfTimeFullTime>
+                    {
+                        DataList = data,
+                        TotalData = totalData
+                    };
                 }
             }
-
-            return data;
         }
 
         #region Utility

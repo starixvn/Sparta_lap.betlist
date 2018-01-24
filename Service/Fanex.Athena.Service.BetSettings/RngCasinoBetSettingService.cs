@@ -18,7 +18,6 @@ namespace Fanex.Athena.Service.BetSettings
     using Model.BetSettings.DTO.RngCasino;
     using Model.BetSettings.MetaModel;
     using Model.BetSettings.ViewModel;
-    using Model.Casino.MetaModel;
     using Model.Core.DTO.Common;
     using Model.Customer.DTO;
     using Resources;

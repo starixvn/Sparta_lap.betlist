@@ -2,6 +2,7 @@
 {
     using System.Text;
     using System.Web.Mvc;
+    using Extension.Helper;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Service.Core.Users;
@@ -58,15 +59,7 @@
                 var tokenInfo = _oneAuthenticationService.GetTokenInfo(token);
                 if (tokenInfo != null && VerifyToken(tokenInfo))
                 {
-                    if (IsInternalDomain(tokenInfo.ActionLink))
-                    {
-                        returnUrl += OneAuthorizationErrorCode.LocationRestrictionMsg;
-                    }
-                    else
-                    {
-                        var result = _oneAuthenticationService.SignIn(HttpContext, tokenInfo);
-                        returnUrl = result.IsSuccessful ? "~/" + result.ExtendedData : returnUrl + result.Code;
-                    }
+                    returnUrl = GetReturnPathForValidToken(returnUrl, tokenInfo);
                 }
                 else
                 {
@@ -75,19 +68,28 @@
                 }
             }
 
-            if (_appSetting.GetValue("EnableLogForOneAuthorization") == "1" && !string.IsNullOrEmpty(errMsg))
-            {
-                WriteLog(errMsg);
-            }
+            WriteLog(errMsg);
 
             return Redirect(Url.Content(returnUrl));
         }
 
-        private static bool VerifyToken(OneAuthToken tokenInfo)
+        private static bool VerifyToken(OneAuthToken token)
         {
-            return !string.IsNullOrEmpty(tokenInfo.SiteName) && tokenInfo.UserSEQ > 0
-                && !string.IsNullOrEmpty(tokenInfo.VendorID) && !string.IsNullOrEmpty(tokenInfo.UserID)
-                && !string.IsNullOrEmpty(tokenInfo.Language) && !string.IsNullOrEmpty(tokenInfo.ActionLink);
+            return token.UserSEQ > 0 &&
+                !StringHelper.IsAnyNullOrEmpty(token.SiteName, token.VendorID, token.UserID, token.Language, token.ActionLink);
+        }
+
+        private string GetReturnPathForValidToken(string returnPath, OneAuthToken tokenInfo)
+        {
+            if (IsInternalDomain(tokenInfo.ActionLink))
+            {
+                return returnPath + OneAuthorizationErrorCode.LocationRestrictionMsg;
+            }
+            else
+            {
+                var result = _oneAuthenticationService.SignIn(HttpContext, tokenInfo);
+                return result.IsSuccessful ? "~/" + result.ExtendedData : returnPath + result.Code;
+            }
         }
 
         private bool IsInternalDomain(string actionLink)
@@ -98,6 +100,11 @@
 
         private void WriteLog(string errMsg)
         {
+            if (string.IsNullOrEmpty(errMsg) || _appSetting.GetValue("EnableLogForOneAuthorization") != "1")
+            {
+                return;
+            }
+
             var message = new StringBuilder();
             message.AppendLine("OneAuthorization Token is invalid - Token = " + errMsg);
             message.AppendLine("Url: " + Request.Url);

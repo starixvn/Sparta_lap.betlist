@@ -10,11 +10,8 @@ namespace Fanex.Athena.Controllers.BetList
 
     using System.Collections.Generic;
     using System.Web.Mvc;
-    using Fanex.Athena.Excel.Base.Entities;
-    using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
-    using Fanex.Athena.Web.ResultExtension;
     using Resources;
     using Web.ActionFilter;
 
@@ -26,30 +23,14 @@ namespace Fanex.Athena.Controllers.BetList
         [HttpGet]
         public ActionResult Index(WinLossByLeagueBetListMetaModel metaModel)
         {
-            var model = CreateDefaultMetaModel(metaModel) as WinLossByLeagueBetListMetaModel;
-
-            if (!model.IsExportExcel)
-            {
-                return View("~/Views/BetList/WinlossByLeague/Main.cshtml", model);
-            }
-
-            var currencyList = SessionService.UserSession.CurrencyList;
-
-            if (model.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(model.CurrencyId))
-            {
-                model.AgentListXml = SessionService.GenerateAgentListXml(model.CurrencyId);
-                return Excel(model);
-            }
-
-            return EmptyExcel();
+            return ProcessDefaultRequest(metaModel, "~/Views/BetList/WinlossByLeague/Main.cshtml");
         }
 
-        private ActionResult Excel(BetListMetaModel metaModel)
+        protected override ActionResult ExportExcel(BetListMetaModel metaModel)
         {
             const string UspKey = "Lrf_BetList_WinlostByLeague_Mem";
             var ticketResult = BetListService.GetBetListData(metaModel, UspKey);
 
-            // determine currency viewed in
             var curencyId = metaModel.IsConvert ? metaModel.BaseCurrencyId : metaModel.CurrencyId;
             var viewinCurrency = GetViewInCurrency(curencyId, metaModel.CurrencyName);
             var title = string.Format(
@@ -60,14 +41,8 @@ namespace Fanex.Athena.Controllers.BetList
                 metaModel.ExternalId,
                 metaModel.IsFakeLicensee ? string.Empty : $"({metaModel.SystemId})",
                 viewinCurrency);
-
             var hiddenColumns = new List<int> { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn };
-
-            var excel = new BetListExcel(new ShowingOption { CustomerCommVisible = true }, metaModel.LicenseeId, hiddenColumns);
-
-            var workbook = excel.Export(ticketResult, title);
-
-            return new ExcelResult(workbook, "WinLossByLeagueBetList");
+            return ProcessExportExcel(metaModel, ticketResult, hiddenColumns, title, "WinLossByLeagueBetList");
         }
     }
 }

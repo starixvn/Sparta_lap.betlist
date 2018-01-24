@@ -71,15 +71,14 @@ namespace Fanex.Athena.Controllers.TotalBets
             if (metaModel.CurrencyId == 0 || currencies.ContainsKey(metaModel.CurrencyId))
             {
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-                HandicapOverUnder totalData;
-                var dataList = _handicapOverUnderDataAccess.GetHandicapOverUnderDataList(metaModel, out totalData);
+                var result = _handicapOverUnderDataAccess.GetHandicapOverUnderDataList(metaModel);
 
                 var model = new HandicapOverUnderViewModel
                 {
                     Param = metaModel,
-                    MainData = dataList,
+                    MainData = result.DataList.ToList(),
                     CurrencyList = currencies,
-                    TotalData = totalData
+                    TotalData = result.TotalData
                 };
                 /*set content view follow by licensee*/
                 ViewBag.LicenseeView = "ContentData.cshtml";

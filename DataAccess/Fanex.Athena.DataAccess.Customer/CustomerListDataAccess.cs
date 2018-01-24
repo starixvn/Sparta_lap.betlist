@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Data;
-    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Linq;
     using Fanex.Athena.DataAccess.Core;
@@ -32,69 +31,18 @@
             }
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
-                    Justification = "Reviewed. Suppression is OK here.")]
         public ReportResultModel<CustomerDTO> Search(CustomerListMetaModel metaModel)
         {
             const string UspName = "Lrf_CustomerSel";
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("LicenseeID", DbType.Int32, metaModel.LicenseeId);
-                db.AddInParameter("username", DbType.String, metaModel.Username);
-                db.AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
-                db.AddInParameter("PageIndex ", DbType.Int32, metaModel.PageIndex);
-                db.AddInParameter("BAFilter", DbType.Int32, metaModel.BAFilter);
-                db.AddInParameter("CustStatus", DbType.String, metaModel.CustStatus ?? string.Empty);
-                db.AddInParameter("SpecialLevel", DbType.Int32, metaModel.SpecialLevel);
-                db.AddInParameter("GroupCommId", DbType.Int32, metaModel.GroupCommId);
-                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                db.AddOutParameter("TotalRows", DbType.Int32, 4);
-
+                AddCustomerParam(db, metaModel);
                 AddOddsGroupParam(db, metaModel);
 
-                var dataList = new List<CustomerDTO>();
-
-                using (var reader = db.ExecuteReader())
-                {
-                    var availableFundsCol = "TotalBalance" + metaModel.BaseCurrency;
-                    var pendingFundsCol = "OutStanding" + metaModel.BaseCurrency;
-
-                    var startIndex = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;
-
-                    while (reader.Read())
-                    {
-                        var customer = new CustomerDTO
-                        {
-                            Index = startIndex++,
-                            CustId = reader.ToInt("custid"),
-                            SystemId = reader.ToString("username"),
-                            ExternalId = reader.ToString("nickname"),
-                            IsClosed = reader.ToBool("closed"),
-                            IsSuspended = reader.ToBool("suspended"),
-                            BAStatus = reader.ToBool("BAStatus"),
-                            SpecialLevel = reader.ToInt("SpecialLevel"),
-                            IsPowerBAUserTurnoff = reader.ToBool("IsPowerBAUserTurnoff"),
-                            AvailableFunds = reader.ToDecimal(availableFundsCol),
-                            PendingFunds = reader.ToDecimal(pendingFundsCol),
-                            GroupCommId = reader.ToInt("GroupCommId"),
-                            GroupColor = reader.ToString("GroupColor"),
-                            Group = reader.ToString("GroupName"),
-                            OddsGroup = reader.ToString("OddsGroup"),
-                            SBComm = reader.ToDecimal("SBComm") * 100,
-                            RBComm = reader.ToDecimal("RacingComm") * 100,
-                            NGComm = reader.ToDecimal("NGComm") * 100,
-                            LCComm = reader.ToDecimal("LCComm") * 100,
-                            CSComm = reader.ToDecimal("RNGComm") * 100,
-                            ABComm = reader.ToDecimal("AllbetComm") * 100
-                        };
-
-                        customer.Status = customer.IsClosed ? ViewResources.Closed : customer.IsSuspended ? ViewResources.Suspended : ViewResources.Open;
-                        dataList.Add(customer);
-                    }
-                }
-
+                var dataList = ReadCustomerList(db, metaModel);          
                 var totalRows = Converter.ToInt(db.GetParameterValue("TotalRows"));
+
                 return new ReportResultModel<CustomerDTO>
                 {
                     DataList = dataList,
@@ -212,6 +160,20 @@
 
         #endregion Update
 
+        private static void AddCustomerParam(IObjectDb objectDb, CustomerListMetaModel metaModel)
+        {
+            objectDb.AddInParameter("LicenseeID", DbType.Int32, metaModel.LicenseeId);
+            objectDb.AddInParameter("username", DbType.String, metaModel.Username);
+            objectDb.AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
+            objectDb.AddInParameter("PageIndex ", DbType.Int32, metaModel.PageIndex);
+            objectDb.AddInParameter("BAFilter", DbType.Int32, metaModel.BAFilter);
+            objectDb.AddInParameter("CustStatus", DbType.String, metaModel.CustStatus ?? string.Empty);
+            objectDb.AddInParameter("SpecialLevel", DbType.Int32, metaModel.SpecialLevel);
+            objectDb.AddInParameter("GroupCommId", DbType.Int32, metaModel.GroupCommId);
+            objectDb.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            objectDb.AddOutParameter("TotalRows", DbType.Int32, 4);
+        }
+
         private static void AddOddsGroupParam(IObjectDb objectDb, CustomerListMetaModel metaModel)
         {
             var oddsGroups = metaModel.OddsGroups;
@@ -221,6 +183,50 @@
                 var oddsGroupValues = string.Join(",", selectedOddsGroups);
                 objectDb.AddInParameter("OddsGroups", DbType.String, oddsGroupValues);
             }
+        }
+
+        private List<CustomerDTO> ReadCustomerList(IObjectDb objectDb, CustomerListMetaModel metaModel)
+        {
+            var dataList = new List<CustomerDTO>();
+            using (var reader = objectDb.ExecuteReader())
+            {
+                var availableFundsCol = "TotalBalance" + metaModel.BaseCurrency;
+                var pendingFundsCol = "OutStanding" + metaModel.BaseCurrency;
+
+                var startIndex = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;
+                while (reader.Read())
+                {
+                    var customer = new CustomerDTO
+                    {
+                        Index = startIndex++,
+                        CustId = reader.ToInt("custid"),
+                        SystemId = reader.ToString("username"),
+                        ExternalId = reader.ToString("nickname"),
+                        IsClosed = reader.ToBool("closed"),
+                        IsSuspended = reader.ToBool("suspended"),
+                        BAStatus = reader.ToBool("BAStatus"),
+                        SpecialLevel = reader.ToInt("SpecialLevel"),
+                        IsPowerBAUserTurnoff = reader.ToBool("IsPowerBAUserTurnoff"),
+                        AvailableFunds = reader.ToDecimal(availableFundsCol),
+                        PendingFunds = reader.ToDecimal(pendingFundsCol),
+                        GroupCommId = reader.ToInt("GroupCommId"),
+                        GroupColor = reader.ToString("GroupColor"),
+                        Group = reader.ToString("GroupName"),
+                        OddsGroup = reader.ToString("OddsGroup"),
+                        SBComm = reader.ToDecimal("SBComm") * 100,
+                        RBComm = reader.ToDecimal("RacingComm") * 100,
+                        NGComm = reader.ToDecimal("NGComm") * 100,
+                        LCComm = reader.ToDecimal("LCComm") * 100,
+                        CSComm = reader.ToDecimal("RNGComm") * 100,
+                        ABComm = reader.ToDecimal("AllbetComm") * 100
+                    };
+
+                    customer.Status = customer.IsClosed ? ViewResources.Closed : customer.IsSuspended ? ViewResources.Suspended : ViewResources.Open;
+                    dataList.Add(customer);
+                }
+            }
+
+            return dataList;
         }
 
         private IResultInfo UpdateCustomerStatus(CustomerStatusMetaModel metaModel, string uspName, string statusParamName)

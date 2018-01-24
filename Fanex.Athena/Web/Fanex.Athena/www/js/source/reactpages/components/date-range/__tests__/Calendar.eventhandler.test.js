@@ -38,13 +38,32 @@ describe('Calendar - Event Handler', () => {
 
     describe('constructor', () => {
         it('initial state should be correct', () => {
-            const date = moment("11/22/2017", "MM/DD/YYYY");
+            const date = moment(initialProps.date, defaultProps.format);
             const expectedState = {
                 date,
                 shownDate: date.clone(),
                 firstDayOfWeek: 0
             }
             const componentInstance = new Calendar(initialProps);
+
+            const result = componentInstance.state;
+
+            expect(result).toEqual(expectedState);
+        })
+
+        it('shownDate of props is undefined - get endDate of range - initial state should be correct', () => {
+            const date = moment("01/18/2018", defaultProps.format);
+            const range = {
+                startDate: date.clone().add(-1, "day"),
+                endDate: date.clone()
+            }
+            const props = Object.assign({}, defaultProps, { range, firstDayOfWeek: 0, date: {}, shownDate: undefined });
+            const expectedState = {
+                date: null,
+                shownDate: date.clone(),
+                firstDayOfWeek: 0
+            }
+            const componentInstance = new Calendar(props);
 
             const result = componentInstance.state;
 
@@ -80,6 +99,31 @@ describe('Calendar - Event Handler', () => {
             componentInstance.componentDidMount();
 
             expect(onInit).toHaveBeenCalledWith(date);
+        })
+    })
+
+    describe("componentWillReceiveProps", () => {
+        it("shownDate is not changed - do nothing", () => {
+            const componentInstance = new Calendar(initialProps);
+            const nextProps = Object.assign({}, initialProps, { shownDate: componentInstance.state.shownDate });
+
+            componentInstance.setState = jest.fn();
+
+            componentInstance.componentWillReceiveProps(nextProps);
+
+            expect(componentInstance.setState).not.toHaveBeenCalled();
+        })
+
+        it("shownDate is changed - setState should be called with correct parameter", () => {
+            const shownDate = moment(initialProps.date, MomentFormat.default);
+            const componentInstance = new Calendar(initialProps);
+            const nextProps = Object.assign({}, initialProps, { shownDate });
+
+            componentInstance.setState = jest.fn();
+
+            componentInstance.componentWillReceiveProps(nextProps);
+
+            expect(componentInstance.setState).toHaveBeenCalledWith({ shownDate });
         })
     })
 

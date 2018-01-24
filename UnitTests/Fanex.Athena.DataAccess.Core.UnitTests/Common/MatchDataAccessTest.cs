@@ -1,144 +1,171 @@
 ﻿namespace Fanex.Athena.DataAccess.Core.UnitTests.Common
 {
     using System;
-    using System.Collections.Generic;
-    using System.Data;
     using Core.Common;
-    using Data;
     using Model.Core.DTO.Common;
     using NSubstitute;
     using NUnit.Framework;
+    using TestHelpers;
 
-    [TestFixture]
-    public class MatchDataAccessTest
+    public class MatchDataAccessTest : BaseDataAccessHelperTest<MatchDataAccess>
     {
-        private IObjectDb _objectDb;
-        private MatchDataAccess _dataAccess;
-        private IDataReader _reader;
-
-        [OneTimeSetUp]
-        public void Setup()
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(100)]
+        public void GetForecastMatchListByLeague_WhenCall_ParametersPassedCorrectly(int leagueId)
         {
-            _objectDb = Substitute.For<IObjectDb>();
-            _dataAccess = Substitute.ForPartsOf<MatchDataAccess>();
-            _reader = Substitute.For<IDataReader>();
-            _objectDb.ExecuteReader().Returns(_reader);
-        }
+            // Arrange
+            dynamic param = new { LeagueId = 0 };
+            DataAccess.GetObjectDb(Arg.Is<string>("Lrf_Forecast_MatchList")).Returns(ObjectDb);
+            ObjectDb.When(x => x.ExecuteReader(Arg.Any<object>())).Do(x => param = x[0]);
 
-        [OneTimeTearDown]
-        public void TearDown()
-        {
-            _objectDb = null;
-            _dataAccess = null;
-            _reader = null;
+            // Action
+            DataAccess.GetForecastMatchListByLeague(leagueId);
+
+            // Assert
+            Assert.That(param.LeagueId, Is.EqualTo(leagueId));
         }
 
         [Test]
-        public void GetForecastMatchListByLeague_WhenCall_ExecuteReaderMethodIsCalled()
+        public void GetForecastMatchListByLeague_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Forecast_MatchList")).Returns(_objectDb);
-            var leagueId = 1;
+            const int LeagueId = 1;
+            var expectedMatch = GetFakeMatch();
+
+            DataAccess.GetObjectDb(Arg.Is<string>("Lrf_Forecast_MatchList")).Returns(ObjectDb);
+            MapReaderData(expectedMatch);
+            Reader.Read().Returns(true, false);
 
             // Action
-            _dataAccess.GetForecastMatchListByLeague(leagueId);
+            var result = DataAccess.GetForecastMatchListByLeague(LeagueId);
 
             // Assert
-            _objectDb.ReceivedWithAnyArgs().ExecuteReader(null);
+            Assert.Multiple(() =>
+            {
+                Assert.That(result[0].MatchId, Is.EqualTo(expectedMatch.MatchId));
+                Assert.That(result[0].LeagueId, Is.EqualTo(LeagueId));
+                Assert.That(result[0].IsOutRight, Is.EqualTo(expectedMatch.IsNeutral));
+                Assert.That(result[0].HomeId, Is.EqualTo(expectedMatch.HomeId));
+                Assert.That(result[0].AwayId, Is.EqualTo(expectedMatch.AwayId));
+            });
+        }
+
+        [Test]
+        public void GetForecastMatchListByLeague_ReaderIsNull_ReturnEmptyResult()
+        {
+            // Arrange
+            const int LeagueId = 1;
+            var expectedMatch = GetFakeMatch();
+
+            DataAccess.GetObjectDb(Arg.Is<string>("Lrf_Forecast_MatchList")).Returns(ObjectDb);
+            ObjectDb.ExecuteReader(Arg.Any<object>()).Returns(x => { return null; });
+
+            // Action
+            var result = DataAccess.GetForecastMatchListByLeague(LeagueId);
+
+            // Assert
+            Assert.That(result, Is.Empty);
         }
 
         [Test]
         public void GetAllRunningMatch_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_LeagueMatchSelRunning")).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is<string>("Lrf_LeagueMatchSelRunning")).Returns(ObjectDb);
             var sportId = 1;
 
             // Action
-            _dataAccess.GetAllRunningMatch(sportId);
+            DataAccess.GetAllRunningMatch(sportId);
 
             // Assert
-            _objectDb.Received().AddInParameter("sporttype", System.Data.DbType.Int32, sportId);
+            ObjectDb.Received().AddInParameter("sporttype", System.Data.DbType.Int32, sportId);
         }
 
         [Test]
         public void GetAllRunningMatch_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_LeagueMatchSelRunning")).Returns(_objectDb);
-            ConfigureReader();
-            var sportId = 1;
-            var expected = GetFakeMatchList();
+            const int SportId = 1;
+            var expectedMatch = GetFakeMatch();
+
+            DataAccess.GetObjectDb(Arg.Is<string>("Lrf_LeagueMatchSelRunning")).Returns(ObjectDb);
+            MapReaderData(expectedMatch);
+            Reader.Read().Returns(true, false);
 
             // Action
-            var result = _dataAccess.GetAllRunningMatch(sportId);
+            var result = DataAccess.GetAllRunningMatch(SportId);
 
             // Assert
-            Assert.That(result[0].MatchId, Is.EqualTo(expected[0].MatchId));
-            Assert.That(result[0].LeagueId, Is.EqualTo(expected[0].LeagueId));
-            Assert.That(result[0].IsOutRight, Is.EqualTo(expected[0].IsOutRight));
-            Assert.That(result[0].HomeId, Is.EqualTo(expected[0].HomeId));
-            Assert.That(result[0].AwayId, Is.EqualTo(expected[0].AwayId));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result[0].MatchId, Is.EqualTo(expectedMatch.MatchId));
+                Assert.That(result[0].LeagueId, Is.EqualTo(expectedMatch.LeagueId));
+                Assert.That(result[0].IsOutRight, Is.EqualTo(expectedMatch.IsOutRight));
+                Assert.That(result[0].HomeId, Is.EqualTo(expectedMatch.HomeId));
+                Assert.That(result[0].AwayId, Is.EqualTo(expectedMatch.AwayId));
+            });
         }
 
         [Test]
         public void GetMatchesByLeague_WhenCall_ExecuteReaderMethodIsCalled()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_SelMatchByLeague")).Returns(_objectDb);
             var leagueId = 1;
             var fromDate = new DateTime(2016, 8, 10);
             var toDate = new DateTime(2016, 8, 11);
 
+            dynamic param = new { LeagueId = 0 };
+            DataAccess.GetObjectDb(Arg.Is<string>("Lrf_SelMatchByLeague")).Returns(ObjectDb);
+            ObjectDb.When(x => x.ExecuteReader(Arg.Any<object>())).Do(x => param = x[0]);
+
             // Action
-            _dataAccess.GetMatchesByLeague(leagueId, fromDate, toDate);
+            DataAccess.GetMatchesByLeague(leagueId, fromDate, toDate);
 
             // Assert
-            _objectDb.ReceivedWithAnyArgs().ExecuteReader(null);
+            Assert.Multiple(() =>
+            {
+                Assert.That(param.LeagueID, Is.EqualTo(leagueId));
+                Assert.That(param.FromDate, Is.EqualTo(fromDate));
+                Assert.That(param.ToDate, Is.EqualTo(toDate));
+            });
         }
 
         [Test]
         public void GetMatchesByLeague_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_SelMatchByLeague")).Returns(_objectDb);
-            _objectDb.ExecuteReader(Arg.Any<object>()).Returns(_reader);
-            ConfigureReader();
-            var leagueId = 1;
+            const int LeagueId = 1;
             var fromDate = new DateTime(2016, 8, 10);
             var toDate = new DateTime(2016, 8, 11);
-            var expected = GetFakeMatchList();
+            var expectedMatch = GetFakeMatch();
+
+            DataAccess.GetObjectDb(Arg.Is<string>("Lrf_SelMatchByLeague")).Returns(ObjectDb);
+            MapReaderData(expectedMatch);
+            Reader.Read().Returns(true, false);
 
             // Action
-            var result = _dataAccess.GetMatchesByLeague(leagueId, fromDate, toDate);
+            var result = DataAccess.GetMatchesByLeague(LeagueId, fromDate, toDate);
 
             // Assert
-            Assert.That(result[0].MatchId, Is.EqualTo(expected[0].MatchId));
-            Assert.That(result[0].HomeId, Is.EqualTo(expected[0].HomeId));
-            Assert.That(result[0].AwayId, Is.EqualTo(expected[0].AwayId));
-        }
-
-        private void ConfigureReader()
-        {
-            _reader.Read().Returns(true, false);
-            _reader["matchid"].Returns(1);
-            _reader["leagueid"].Returns(2);
-            _reader["awayid"].Returns(0);
-            _reader["homeid"].Returns(3);
-        }
-
-        private IList<Match> GetFakeMatchList()
-        {
-            return new List<Match>
+            Assert.Multiple(() =>
             {
-                new Match
-                {
-                    MatchId = 1,
-                    LeagueId = 2,
-                    IsOutRight = true,
-                    HomeId = 3,
-                    AwayId = 0
-                }
+                Assert.That(result[0].MatchId, Is.EqualTo(expectedMatch.MatchId));
+                Assert.That(result[0].HomeId, Is.EqualTo(expectedMatch.HomeId));
+                Assert.That(result[0].AwayId, Is.EqualTo(expectedMatch.AwayId));
+            });
+        }
+
+        private Match GetFakeMatch()
+        {
+            return new Match
+            {
+                MatchId = 1,
+                LeagueId = 2,
+                IsOutRight = true,
+                HomeId = 3,
+                AwayId = 0,
+                IsNeutral = false
             };
         }
     }

@@ -12,109 +12,120 @@
     using NUnit.Framework;
     using TestHelpers;
 
-    [TestFixture]
-    public class UserDataAccessTest
+    public class UserDataAccessTest : BaseDataAccessHelperTest<UserDataAccess>
     {
+        private const string ChangePasswordSp = "Licensee_UserPasswordUpd";
+        private const string GetByLicenseeSp = "Lrf_UserAccessSel";
+        private const string GetUserInfoSp = "Lrf_UserInfoSel";
+        private const string RecheckInSp = "Lrf_ReCheckIn";
+        private const string ResetPasswordSp = "Lrf_UserPwdReset";
+        private const string SyncUserInfoSp = "Lrf_SyncInternalUser";
+        private const string UpdateInfoSp = "Lrf_UserUpdAccount";
+
         private ILogger _logger;
-        private IObjectDb _objectDb;
-        private UserDataAccess _dataAccess;
-        private IDataReader _reader;
 
         [OneTimeSetUp]
-        public void Setup()
+        public override void FixtureSetUp()
         {
             _logger = Substitute.For<ILogger>();
-            _objectDb = Substitute.For<IObjectDb>();
-            _dataAccess = Substitute.ForPartsOf<UserDataAccess>(_logger);
-            _reader = Substitute.For<IDataReader>();
-        }
-
-        [OneTimeTearDown]
-        public void TearDown()
-        {
-            _objectDb = null;
-            _dataAccess = null;
-            _reader = null;
+            DataAccess = Substitute.ForPartsOf<UserDataAccess>(_logger);
+            ObjectDb = Substitute.For<IObjectDb>();
         }
 
         [Test]
         public void ChangePassword_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Licensee_UserPasswordUpd")).Returns(_objectDb);
+            const string OldPassword = "123456";
+            const string NewPassword = "1234aa";
+            const string Salt = "abcxyz";
             var requestUser = new User { Username = "test", Request = new Request { Ip = "::1" } };
-            var oldPassword = "123456";
-            var newPassword = "1234aa";
-            var salt = "abcxyz";
+
+            DataAccess.GetObjectDb(Arg.Is(ChangePasswordSp)).Returns(ObjectDb);
 
             // Action
-            _dataAccess.ChangePassword(requestUser, oldPassword, newPassword, salt);
+            DataAccess.ChangePassword(requestUser, OldPassword, NewPassword, Salt);
 
             // Assert
-            _objectDb.Received().AddInParameter("UserName", DbType.String, requestUser.Username);
-            _objectDb.Received().AddInParameter("OldPwd", DbType.String, oldPassword);
-            _objectDb.Received().AddInParameter("NewPwd", DbType.String, newPassword);
-            _objectDb.Received().AddInParameter("LoginIP", DbType.String, requestUser.Request.Ip);
-            _objectDb.Received().AddInParameter("UserSalt", DbType.String, salt);
+            Assert.Multiple(() =>
+            {
+                ObjectDb.Received().AddInParameter("UserName", DbType.String, requestUser.Username);
+                ObjectDb.Received().AddInParameter("OldPwd", DbType.String, OldPassword);
+                ObjectDb.Received().AddInParameter("NewPwd", DbType.String, NewPassword);
+                ObjectDb.Received().AddInParameter("LoginIP", DbType.String, requestUser.Request.Ip);
+                ObjectDb.Received().AddInParameter("UserSalt", DbType.String, Salt);
+            });
         }
 
         [Test]
         public void ChangePassword_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Licensee_UserPasswordUpd")).Returns(_objectDb);
-            var requestUser = new User { Username = "test", Request = new Request { Ip = "::1" } };
-            var oldPassword = "123456";
-            var newPassword = "1234aa";
-            var salt = "abcxyz";
-            ResultInfoHelper.MockResultInfo(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is(ChangePasswordSp)).Returns(ObjectDb);
+            ResultInfoHelper.MockResultInfo(ObjectDb);
 
             // Action
-            var result = _dataAccess.ChangePassword(requestUser, oldPassword, newPassword, salt);
+            var result = DataAccess.ChangePassword(new User { Request = new Request() }, string.Empty, string.Empty, string.Empty);
 
             // Assert
-            Assert.That(result.Code, Is.EqualTo(ResultInfoHelper.ResultCode));
-            Assert.That(result.Message, Is.EqualTo(ResultInfoHelper.ResultMessage));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Code, Is.EqualTo(ResultInfoHelper.ResultCode));
+                Assert.That(result.Message, Is.EqualTo(ResultInfoHelper.ResultMessage));
+            });
         }
 
         [Test]
         public void GetByLicensee_WhenCall_ExecuteReaderMethodIsCalled()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_UserAccessSel")).Returns(_objectDb);
-            var licenseeId = 1;
-            var isInternal = true;
+            const int LicenseeId = 1;
+            const bool IsInternal = true;
+
+            DataAccess.GetObjectDb(Arg.Is(GetByLicenseeSp)).Returns(ObjectDb);
 
             // Action
-            _dataAccess.GetByLicensee(licenseeId, isInternal);
+            DataAccess.GetByLicensee(LicenseeId, IsInternal);
 
             // Assert
-            _objectDb.ReceivedWithAnyArgs().ExecuteReader(null);
+            ObjectDb.ReceivedWithAnyArgs().ExecuteReader(null);
         }
 
         [Test]
         public void GetByLicensee_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_UserAccessSel")).Returns(_objectDb);
-            _objectDb.ExecuteReader(Arg.Any<object>()).Returns(_reader);
-            var licenseeId = 1;
-            var isInternal = true;
-            var expected = GetFakeUserData(licenseeId);
+            const int LicenseeId = 1;
+            const bool IsInternal = true;
+
+            var expected = GetFakeUserData(LicenseeId);
             ConfigureDataReader(expected);
 
+            DataAccess.GetObjectDb(Arg.Is(GetByLicenseeSp)).Returns(ObjectDb);
+
             // Action
-            var result = _dataAccess.GetByLicensee(licenseeId, isInternal);
+            var result = DataAccess.GetByLicensee(LicenseeId, IsInternal);
 
             // Assert
-            Assert.That(result[0].UserID, Is.EqualTo(expected.UserID));
-            Assert.That(result[0].Username, Is.EqualTo(expected.Username));
-            Assert.That(result[0].FirstName, Is.EqualTo(expected.FirstName));
-            Assert.That(result[0].LastName, Is.EqualTo(expected.LastName));
-            Assert.That(result[0].Status, Is.EqualTo(expected.Status));
-            Assert.That(result[0].Licensee.Id, Is.EqualTo(expected.Licensee.Id));
-            Assert.That(result[0].IsManageAccount, Is.EqualTo(expected.IsManageAccount));
-            Assert.That(result[0].IsInternal, Is.EqualTo(expected.IsInternal));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result[0].UserID, Is.EqualTo(expected.UserID));
+                Assert.That(result[0].Username, Is.EqualTo(expected.Username));
+                Assert.That(result[0].FirstName, Is.EqualTo(expected.FirstName));
+                Assert.That(result[0].LastName, Is.EqualTo(expected.LastName));
+                Assert.That(result[0].Status, Is.EqualTo(expected.Status));
+                Assert.That(result[0].Licensee.Id, Is.EqualTo(expected.Licensee.Id));
+                Assert.That(result[0].IsManageAccount, Is.EqualTo(expected.IsManageAccount));
+                Assert.That(result[0].IsInternal, Is.EqualTo(expected.IsInternal));
+            });
+        }
+
+        [Test]
+        public void GetByLicensee_WhenObjectDbThrowsException_ThrowDataAccessException()
+        {
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                GetByLicenseeSp,
+                () => DataAccess.GetByLicensee(1, true));
         }
 
         [TestCase(true, 1)]
@@ -124,14 +135,14 @@
         public void GetByUsername_WhenCall_QueryMethodIsCalled(bool isInternal, int licenseeId)
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_UserInfoSelByUserName")).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is<string>("Lrf_UserInfoSelByUserName")).Returns(ObjectDb);
             var userName = "test";
 
             // Action
-            _dataAccess.GetByUsername(userName, isInternal, licenseeId);
+            DataAccess.GetByUsername(userName, isInternal, licenseeId);
 
             // Assert
-            _objectDb.ReceivedWithAnyArgs().Query<User>(null).FirstOrDefault();
+            ObjectDb.ReceivedWithAnyArgs().Query<User>(null).FirstOrDefault();
         }
 
         [TestCase(true, 1)]
@@ -141,13 +152,15 @@
         public void GetByUsername_WhenCall_DataReturnedCorrectly(bool isInternal, int licenseeId)
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_UserInfoSelByUserName")).Returns(_objectDb);
-            var userName = "test";
+            const string UserName = "test";
+
             var expected = GetFakeUserData();
-            _objectDb.Query<User>(Arg.Any<object>()).Returns(new List<User> { expected });
+            ObjectDb.Query<User>(Arg.Any<object>()).Returns(new List<User> { expected });
+
+            DataAccess.GetObjectDb(Arg.Is("Lrf_UserInfoSelByUserName")).Returns(ObjectDb);
 
             // Action
-            var result = _dataAccess.GetByUsername(userName, isInternal, licenseeId);
+            var result = DataAccess.GetByUsername(UserName, isInternal, licenseeId);
 
             // Assert
             Assert.That(result, Is.EqualTo(expected));
@@ -157,58 +170,61 @@
         public void GetUserInfo_WhenCall_ExecuteReaderMethodIsCalled()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_UserInfoSel")).Returns(_objectDb);
-            var licenseeId = 1;
-            var userId = 2;
+            const int LicenseeId = 1;
+            const int UserId = 2;
+
+            DataAccess.GetObjectDb(Arg.Is(GetUserInfoSp)).Returns(ObjectDb);
 
             // Action
-            _dataAccess.GetUserInfo(licenseeId, userId);
+            DataAccess.GetUserInfo(LicenseeId, UserId);
 
             // Assert
-            _objectDb.ReceivedWithAnyArgs().ExecuteReader(null);
+            ObjectDb.ReceivedWithAnyArgs().ExecuteReader(null);
         }
 
         [Test]
         public void GetUserInfo_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_UserInfoSel")).Returns(_objectDb);
-            _objectDb.ExecuteReader(Arg.Any<object>()).Returns(_reader);
-
-            var licenseeId = 1;
-            var userId = 2;
-            var expected = GetFakeUserData(licenseeId);
+            const int LicenseeId = 1;
+            const int UserId = 2;
+            var expected = GetFakeUserData(LicenseeId);
             ConfigureDataReader(expected);
-            _reader["userid"].Returns(expected.UserID);
+
+            DataAccess.GetObjectDb(Arg.Is(GetUserInfoSp)).Returns(ObjectDb);
 
             // Action
-            var result = _dataAccess.GetUserInfo(licenseeId, userId);
+            var result = DataAccess.GetUserInfo(LicenseeId, UserId);
 
             // Assert
-            Assert.That(result.UserID, Is.EqualTo(expected.UserID));
-            Assert.That(result.Username, Is.EqualTo(expected.Username));
-            Assert.That(result.FirstName, Is.EqualTo(expected.FirstName));
-            Assert.That(result.LastName, Is.EqualTo(expected.LastName));
-            Assert.That(result.Status, Is.EqualTo(expected.Status));
-            Assert.That(result.Licensee.Id, Is.EqualTo(expected.Licensee.Id));
-            Assert.That(result.IsInternal, Is.EqualTo(expected.IsInternal));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.UserID, Is.EqualTo(expected.UserID));
+                Assert.That(result.Username, Is.EqualTo(expected.Username));
+                Assert.That(result.FirstName, Is.EqualTo(expected.FirstName));
+                Assert.That(result.LastName, Is.EqualTo(expected.LastName));
+                Assert.That(result.Status, Is.EqualTo(expected.Status));
+                Assert.That(result.Licensee.Id, Is.EqualTo(expected.Licensee.Id));
+                Assert.That(result.IsInternal, Is.EqualTo(expected.IsInternal));
+            });
         }
 
         [Test]
         public void RecheckIn_WhenCall_ParameterPassesCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_ReCheckIn"), Arg.Any<int>()).Returns(_objectDb);
             const int UserId = 2;
 
+            DataAccess.GetObjectDb(Arg.Is(RecheckInSp), Arg.Any<int>()).Returns(ObjectDb);
+            
             // Action
-            var result = _dataAccess.RecheckIn(UserId);
+            var result = DataAccess.RecheckIn(UserId);
 
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received().AddInParameter("On_Userid", DbType.Int32, UserId);
-                _objectDb.Received().AddOutParameter("IsKickedOut", DbType.Boolean, 0);
+                ObjectDb.Received().AddInParameter("On_Userid", DbType.Int32, UserId);
+                ObjectDb.Received().AddOutParameter("IsKickedOut", DbType.Boolean, 0);
             });
         }
 
@@ -216,11 +232,11 @@
         public void RecheckIn_WhenCall_ReturnDataCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_ReCheckIn"), Arg.Any<int>()).Returns(_objectDb);
-            _objectDb.GetParameterValue("IsKickedOut").Returns(true);
+            DataAccess.GetObjectDb(Arg.Is(RecheckInSp), Arg.Any<int>()).Returns(ObjectDb);
+            ObjectDb.GetParameterValue("IsKickedOut").Returns(true);
 
             // Action
-            var result = _dataAccess.RecheckIn(0);
+            var result = DataAccess.RecheckIn(0);
 
             // Assert
             Assert.That(result, Is.True);
@@ -230,7 +246,8 @@
         public void ResetPassword_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_UserPwdReset")).Returns(_objectDb);
+            const int ResetPwdBy = 2;
+            const string Salt = "abcxyz";
             var user = new User
             {
                 UserID = 1,
@@ -238,44 +255,46 @@
                 Password = "1234aa",
                 Request = new Request { Ip = "::1", Language = "en-US" }
             };
-            var resetPwdBy = 2;
-            var salt = "abcxyz";
+
+            DataAccess.GetObjectDb(Arg.Is(ResetPasswordSp)).Returns(ObjectDb);
 
             // Action
-            _dataAccess.ResetPassword(user, salt, resetPwdBy);
+            DataAccess.ResetPassword(user, Salt, ResetPwdBy);
 
             // Assert
-            _objectDb.Received().AddInParameter("LicenseeID", DbType.Int32, user.Licensee.Id);
-            _objectDb.Received().AddInParameter("UserId", DbType.Int32, user.UserID);
-            _objectDb.Received().AddInParameter("UpdateBy", DbType.Int32, resetPwdBy);
-            _objectDb.Received().AddInParameter("Pwd", DbType.String, user.Password);
-            _objectDb.Received().AddInParameter("UserSalt", DbType.String, salt);
-            _objectDb.Received().AddInParameter("langkey", DbType.String, user.Request.Language);
-            _objectDb.Received().AddInParameter("LoginIP", DbType.String, user.Request.Ip);
+            Assert.Multiple(() =>
+            {
+                ObjectDb.Received().AddInParameter("LicenseeID", DbType.Int32, user.Licensee.Id);
+                ObjectDb.Received().AddInParameter("UserId", DbType.Int32, user.UserID);
+                ObjectDb.Received().AddInParameter("UpdateBy", DbType.Int32, ResetPwdBy);
+                ObjectDb.Received().AddInParameter("Pwd", DbType.String, user.Password);
+                ObjectDb.Received().AddInParameter("UserSalt", DbType.String, Salt);
+                ObjectDb.Received().AddInParameter("langkey", DbType.String, user.Request.Language);
+                ObjectDb.Received().AddInParameter("LoginIP", DbType.String, user.Request.Ip);
+            });
         }
 
         [Test]
         public void ResetPassword_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_UserPwdReset")).Returns(_objectDb);
-            var user = new User
-            {
-                UserID = 1,
-                Licensee = new Licensee { Id = 1 },
-                Password = "1234aa",
-                Request = new Request { Ip = "::1", Language = "en-US" }
-            };
-            var resetPwdBy = 2;
-            var salt = "abcxyz";
-            ResultInfoHelper.MockResultInfo(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is(ResetPasswordSp)).Returns(ObjectDb);
+            ResultInfoHelper.MockResultInfo(ObjectDb);
 
             // Action
-            var result = _dataAccess.ResetPassword(user, salt, resetPwdBy);
+            var user = new User
+            {
+                Licensee = new Licensee(),
+                Request = new Request()
+            };
+            var result = DataAccess.ResetPassword(user, string.Empty, 0);
 
             // Assert
-            Assert.That(result.Code, Is.EqualTo(ResultInfoHelper.ResultCode));
-            Assert.That(result.Message, Is.EqualTo(ResultInfoHelper.ResultMessage));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Code, Is.EqualTo(ResultInfoHelper.ResultCode));
+                Assert.That(result.Message, Is.EqualTo(ResultInfoHelper.ResultMessage));
+            });
         }
 
         [Test]
@@ -284,19 +303,19 @@
             // Arrange
             const string LicenseeName = "spondemo";
             const string UserName = "user1";
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_SyncInternalUser")).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is(SyncUserInfoSp)).Returns(ObjectDb);
 
             // Action
-            _dataAccess.SyncUserInfo(LicenseeName, UserName);
+            DataAccess.SyncUserInfo(LicenseeName, UserName);
 
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received().AddInParameter("LicenseeName", DbType.String, LicenseeName);
-                _objectDb.Received().AddInParameter("Username", DbType.String, UserName);
-                _objectDb.Received().AddInParameter("EncryptedPassword", DbType.String, Arg.Any<string>());
-                _objectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
-                _objectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
+                ObjectDb.Received().AddInParameter("LicenseeName", DbType.String, LicenseeName);
+                ObjectDb.Received().AddInParameter("Username", DbType.String, UserName);
+                ObjectDb.Received().AddInParameter("EncryptedPassword", DbType.String, Arg.Any<string>());
+                ObjectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
+                ObjectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
                 _logger.Received().Info($"Synced user from LAP system - userName={UserName}");
             });
         }
@@ -305,28 +324,33 @@
         public void SyncUserInfo_WhenCall_ReturnDataCorrectly()
         {
             // Arrange
-            const int ErrCode = 1;
-            const string ErrMsg = "Error";
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_SyncInternalUser")).Returns(_objectDb);
-            _objectDb.GetParameterValue("ErrCode").Returns(ErrCode);
-            _objectDb.GetParameterValue("ErrMsg").Returns(ErrMsg);
+            DataAccess.GetObjectDb(Arg.Is(SyncUserInfoSp)).Returns(ObjectDb);
+            ResultInfoHelper.MockResultInfo(ObjectDb);
 
             // Action
-            var result = _dataAccess.SyncUserInfo(null, null);
+            var result = DataAccess.SyncUserInfo(null, null);
 
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(result.Code, Is.EqualTo(ErrCode));
-                Assert.That(result.Message, Is.EqualTo(ErrMsg));
+                Assert.That(result.Code, Is.EqualTo(ResultInfoHelper.ResultCode));
+                Assert.That(result.Message, Is.EqualTo(ResultInfoHelper.ResultMessage));
             });
+        }
+
+        [Test]
+        public void SyncUserInfo_WhenObjectDbThrowsException_ThrowDataAccessException()
+        {
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                SyncUserInfoSp,
+                () => DataAccess.SyncUserInfo(null, null));
         }
 
         [Test]
         public void UpdateInfo_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_UserUpdAccount")).Returns(_objectDb);
+            const int UpdatedBy = 2;
             var user = new User
             {
                 UserID = 1,
@@ -337,48 +361,50 @@
                 Password = "1234aa",
                 Request = new Request { Ip = "::1", Language = "en-US" }
             };
-            var updatedBy = 2;
+
+            DataAccess.GetObjectDb(Arg.Is(UpdateInfoSp)).Returns(ObjectDb);
 
             // Action
-            _dataAccess.UpdateInfo(user, updatedBy);
+            DataAccess.UpdateInfo(user, UpdatedBy);
 
             // Assert
-            _objectDb.Received().AddInParameter("LicenseeID", DbType.Int32, user.Licensee.Id);
-            _objectDb.Received().AddInParameter("UserId", DbType.Int32, user.UserID);
-            _objectDb.Received().AddInParameter("UpdateBy", DbType.Int32, updatedBy);
-            _objectDb.Received().AddInParameter("FirstName", DbType.String, user.FirstName);
-            _objectDb.Received().AddInParameter("LastName", DbType.String, user.LastName);
-            _objectDb.Received().AddInParameter("Status", DbType.String, user.Status);
-            _objectDb.Received().AddInParameter("langkey", DbType.String, user.Request.Language);
-            _objectDb.Received().AddInParameter("LoginIP", DbType.String, user.Request.Ip);
-            _objectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
-            _objectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
+            Assert.Multiple(() =>
+            {
+                ObjectDb.Received().AddInParameter("LicenseeID", DbType.Int32, user.Licensee.Id);
+                ObjectDb.Received().AddInParameter("UserId", DbType.Int32, user.UserID);
+                ObjectDb.Received().AddInParameter("UpdateBy", DbType.Int32, UpdatedBy);
+                ObjectDb.Received().AddInParameter("FirstName", DbType.String, user.FirstName);
+                ObjectDb.Received().AddInParameter("LastName", DbType.String, user.LastName);
+                ObjectDb.Received().AddInParameter("Status", DbType.String, user.Status);
+                ObjectDb.Received().AddInParameter("langkey", DbType.String, user.Request.Language);
+                ObjectDb.Received().AddInParameter("LoginIP", DbType.String, user.Request.Ip);
+                ObjectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
+                ObjectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
+            });
         }
 
         [Test]
         public void UpdateInfo_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_UserUpdAccount")).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is(UpdateInfoSp)).Returns(ObjectDb);
             var user = new User
             {
-                UserID = 1,
-                FirstName = "FirstName",
-                LastName = "LastName",
-                Status = "active",
-                Licensee = new Licensee { Id = 1 },
-                Password = "1234aa",
-                Request = new Request { Ip = "::1", Language = "en-US" }
+                Licensee = new Licensee(),
+                Request = new Request()
             };
             var updatedBy = 2;
-            ResultInfoHelper.MockResultInfo(_objectDb);
+            ResultInfoHelper.MockResultInfo(ObjectDb);
 
             // Action
-            var result = _dataAccess.UpdateInfo(user, updatedBy);
+            var result = DataAccess.UpdateInfo(user, updatedBy);
 
             // Assert
-            Assert.That(result.Code, Is.EqualTo(ResultInfoHelper.ResultCode));
-            Assert.That(result.Message, Is.EqualTo(ResultInfoHelper.ResultMessage));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Code, Is.EqualTo(ResultInfoHelper.ResultCode));
+                Assert.That(result.Message, Is.EqualTo(ResultInfoHelper.ResultMessage));
+            });
         }
 
         private User GetFakeUserData(int licenseeId = 1)
@@ -398,14 +424,8 @@
 
         private void ConfigureDataReader(User expected)
         {
-            _reader.Read().Returns(true, false);
-            _reader["UserID"].Returns(expected.UserID);
-            _reader["username"].Returns(expected.Username);
-            _reader["firstname"].Returns(expected.FirstName);
-            _reader["lastname"].Returns(expected.LastName);
-            _reader["status"].Returns(expected.Status);
-            _reader["ismanageaccount"].Returns(expected.IsManageAccount);
-            _reader["isinternal"].Returns(expected.IsInternal);
+            MapReaderData(expected);
+            Reader.Read().Returns(true, false);
         }
     }
 }

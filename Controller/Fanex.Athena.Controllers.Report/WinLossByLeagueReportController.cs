@@ -12,9 +12,9 @@ namespace Fanex.Athena.Controllers.Report
     using System.Web.Mvc;
     using DataAccess.Core.Common;
     using DataAccess.Core.Common.Interfaces;
+    using Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Model.Core.MetaModel.Product;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
     using Fanex.Athena.Web.ActionFilter;
@@ -22,6 +22,8 @@ namespace Fanex.Athena.Controllers.Report
     using Resources;
     using Service.Core.Common;
     using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
+    using Service.Core.Users.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.ReportWinLossByLeague)]
     public class WinLossByLeagueReportController : ReportBaseController
@@ -30,11 +32,26 @@ namespace Fanex.Athena.Controllers.Report
         private readonly ILeagueDataAccess _leagueDataAccess;
         private readonly IMatchService _matchService;
 
-        public WinLossByLeagueReportController()
+        public WinLossByLeagueReportController() : this(null, null, null, null, null, null, null, null)
         {
-            _sportTypeDataAccess = new SportTypeDataAccess();
-            _leagueDataAccess = new LeagueDataAccess();
-            _matchService = new MatchService();
+        }
+
+#pragma warning disable S107 // Methods should not have too many parameters
+        public WinLossByLeagueReportController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
+            IProductService productService,
+            ISportTypeDataAccess sportTypeDataAccess,
+            ILeagueDataAccess leagueDataAccess,
+            IMatchService matchService)
+            : base(languageService, sessionService, appSetting, clientViewHelper, productService)
+#pragma warning restore S107 // Methods should not have too many parameters
+        {
+            _sportTypeDataAccess = sportTypeDataAccess ?? new SportTypeDataAccess();
+            _leagueDataAccess = leagueDataAccess ?? new LeagueDataAccess();
+            _matchService = matchService ?? new MatchService();
         }
 
         [HttpGet]

@@ -57,9 +57,8 @@
                 _productService.GetProductAccess(
                     SessionService.LicenseeSession.LicenseeId,
                     SessionService.UserSession.Language).Returns(productAccess);
-                bool isAllowUpdateBa = false;
-                _licenseeDataAccess.IsAllowUpdateMemberBAStatus(Arg.Any<Request>(), 0, out isAllowUpdateBa)
-                    .ReturnsForAnyArgs(new ResultInfo
+                _licenseeDataAccess.IsAllowUpdateMemberBAStatus(Arg.Any<Request>(), 0)
+                    .ReturnsForAnyArgs(new ResultInfo<bool>
                     {
                         Message = ResultMessage
                     });

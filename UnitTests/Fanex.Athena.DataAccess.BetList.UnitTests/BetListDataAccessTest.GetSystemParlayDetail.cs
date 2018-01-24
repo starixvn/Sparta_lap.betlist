@@ -8,31 +8,35 @@
     using NUnit.Framework;
     using UnitTest.Common.NUnitExtensions;
 
-    [TestFixture]
     public partial class BetListDataAccessTest
     {
+        private const string GetSystemParlayDetailSp = "Lrf_BetList_SelCombinationParlayDetail";
+
         [Test]
         public void GetSystemParlayDetail_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_BetList_SelCombinationParlayDetail")).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is(GetSystemParlayDetailSp)).Returns(ObjectDb);
             var metaModel = GetSystemParlayDetailMetaModel();
 
             var dataset = new DataSet();
-            _objectDb.ExecuteDataSet().Returns(dataset);
+            ObjectDb.ExecuteDataSet().Returns(dataset);
 
             // Action
-            _dataAccess.GetSystemParlayDetail(metaModel);
+            DataAccess.GetSystemParlayDetail(metaModel);
 
             // Assert
-            _objectDb.Received().AddInParameter("refno", DbType.Int64, metaModel.RefNo);
-            _objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            _objectDb.Received().AddInParameter("movebetsday", DbType.DateTime, metaModel.MoveBetsDay);
-            _objectDb.Received().AddInParameter("balanceupday", DbType.DateTime, metaModel.BalanceUpDay);
-            _objectDb.Received().AddOutParameter("outstanding", DbType.Currency, 8);
-            _objectDb.Received().AddOutParameter("outstandingeur", DbType.Currency, 8);
-            _objectDb.Received().AddOutParameter("outstandingusd", DbType.Currency, 8);
-            _objectDb.Received().AddOutParameter("outstandinggbp", DbType.Currency, 8);
+            Assert.Multiple(() =>
+            {
+                ObjectDb.Received().AddInParameter("refno", DbType.Int64, metaModel.RefNo);
+                ObjectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+                ObjectDb.Received().AddInParameter("movebetsday", DbType.DateTime, metaModel.MoveBetsDay);
+                ObjectDb.Received().AddInParameter("balanceupday", DbType.DateTime, metaModel.BalanceUpDay);
+                ObjectDb.Received().AddOutParameter("outstanding", DbType.Currency, 8);
+                ObjectDb.Received().AddOutParameter("outstandingeur", DbType.Currency, 8);
+                ObjectDb.Received().AddOutParameter("outstandingusd", DbType.Currency, 8);
+                ObjectDb.Received().AddOutParameter("outstandinggbp", DbType.Currency, 8);
+            });
         }
 
         [Test]
@@ -54,11 +58,11 @@
                 WinLostDate = new DateTime(2017, 1, 1)
             };
             var metaModel = GetSystemParlayDetailMetaModel(BaseCurrency);
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_BetList_SelCombinationParlayDetail")).Returns(_objectDb);
-            _objectDb.ExecuteDataSet().Returns(CreateFakeDataSetForSystemParlayTickeData(BaseCurrency, expectedResult));
+            DataAccess.GetObjectDb(Arg.Is(GetSystemParlayDetailSp)).Returns(ObjectDb);
+            ObjectDb.ExecuteDataSet().Returns(CreateFakeDataSetForSystemParlayTickeData(BaseCurrency, expectedResult));
 
             // Action
-            var result = _dataAccess.GetSystemParlayDetail(metaModel);
+            var result = DataAccess.GetSystemParlayDetail(metaModel);
 
             // Assert
             Assert.That(result.TicketList[0], Tobe.SameProperties(expectedResult));
@@ -75,14 +79,22 @@
                 AwayId = 3
             };
             var metaModel = GetSystemParlayDetailMetaModel();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_BetList_SelCombinationParlayDetail")).Returns(_objectDb);
-            _objectDb.ExecuteDataSet().Returns(CreateFakeDataSetForSystemParlaySerialData(expectedResult));
+            DataAccess.GetObjectDb(Arg.Is(GetSystemParlayDetailSp)).Returns(ObjectDb);
+            ObjectDb.ExecuteDataSet().Returns(CreateFakeDataSetForSystemParlaySerialData(expectedResult));
 
             // Action
-            var result = _dataAccess.GetSystemParlayDetail(metaModel);
+            var result = DataAccess.GetSystemParlayDetail(metaModel);
 
             // Assert
             Assert.That(result.SerialList[0], Tobe.SameProperties(expectedResult));
+        }
+
+        [Test]
+        public void GetSystemParlayDetail_WhenObjectDbThrowsException_ThrowDataAccessException()
+        {
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                GetSystemParlayDetailSp,
+                () => DataAccess.GetSystemParlayDetail(new SystemParlayDetailMetaModel()));
         }
 
         private static DataSet CreateFakeDataSetForSystemParlayTickeData(string baseCurrency, SystemParlayTicket data)

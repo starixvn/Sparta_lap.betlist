@@ -52,11 +52,6 @@ namespace Fanex.Athena.Controllers.BetSettings
                     SessionService.UserSession.Language));
         }
 
-        protected IProductService ProductService
-        {
-            get { return _productService; }
-        }
-
         protected ProductAccess ProductAccess
         {
             get

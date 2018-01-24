@@ -42,6 +42,11 @@ namespace Fanex.Athena.Excel.Report
 
         private readonly ConvertingOption _convertingOption;
 
+        protected internal DailyRacingWinLossExcel()
+            : base(string.Empty, 0)
+        {
+        }
+
         public DailyRacingWinLossExcel(
                                        string templatePath,
                                        ConvertingOption convertingOption,
@@ -82,10 +87,7 @@ namespace Fanex.Athena.Excel.Report
                 ViewResources.AmtDueToRacing
             };
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
-            for (int i = 0; i < headerTextList.Length; i++)
-            {
-                row.Cells[i].SetCellValue(headerTextList[i]);
-            }
+            SetTextRowHeader(row, headerTextList);
         }
 
         protected override void AssignNoInfoRow(ISheet sheet)

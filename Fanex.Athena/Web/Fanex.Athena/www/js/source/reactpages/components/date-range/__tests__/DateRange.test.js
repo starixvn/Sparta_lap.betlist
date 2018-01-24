@@ -106,15 +106,15 @@ describe('DateRange ', () => {
             expect(dateRange.dateRangeText).toBe(expectedResult);
         })
 
-        it('currentRange is empty object - return empty string', () => {
-            const dateRange = new DateRange(defaultProps);
-            dateRange.currentRange = {};
+        it('range is null - return empty string', () => {
+            const props = Object.assign({}, defaultProps, { startDate: {}, endDate: {} });
+            const dateRange = new DateRange(props);
 
             expect(dateRange.dateRangeText).toBe("");
         })
     })
 
-    describe('show/ hide', () => {
+    describe('show/ close', () => {
         let dateRange;
         beforeEach(() => {
             dateRange = new DateRange(defaultProps);
@@ -135,10 +135,10 @@ describe('DateRange ', () => {
             expect(dateRange.setState).toHaveBeenCalledWith(expectedState);
         })
 
-        it('hide - setState should be called with correct parameter', () => {
+        it('close - setState should be called with correct parameter', () => {
             const expectedState = { show: false };
 
-            dateRange.hide();
+            dateRange.close();
 
             expect(dateRange.setState).toHaveBeenCalledWith(expectedState);
         })
@@ -433,7 +433,7 @@ describe('DateRange ', () => {
             const onClickApplyButton = jest.fn();
             const props = Object.assign({}, defaultProps, { onClickApplyButton });
             const dateRange = new DateRange(props);
-            dateRange.hide = jest.fn();
+            dateRange.close = jest.fn();
 
             dateRange.handleApply();
 
@@ -447,20 +447,33 @@ describe('DateRange ', () => {
             }
             const dateRange = new DateRange(defaultProps);
             dateRange.state.range = Object.assign({}, selectedRange);
-            dateRange.hide = jest.fn();
+            dateRange.close = jest.fn();
 
             dateRange.handleApply();
 
             expect(dateRange.currentRange).toEqual(selectedRange);
         })
 
-        it('hide should be called', () => {
+        it('close should be called', () => {
             const dateRange = new DateRange(defaultProps);
-            dateRange.hide = jest.fn();
+            dateRange.close = jest.fn();
 
             dateRange.handleApply();
 
-            expect(dateRange.hide).toHaveBeenCalled();
+            expect(dateRange.close).toHaveBeenCalled();
+        })
+    })
+
+    describe("handleCancel", () => {
+        it("setRange should be called with correct parameter", () => {
+            const expectedCurrentRange = {}, show = false, triggerChange = true;
+            const dateRange = new DateRange(defaultProps);
+            dateRange.currentRange = {};
+            dateRange.setRange = jest.fn();
+
+            dateRange.handleCancel();
+
+            expect(dateRange.setRange).toHaveBeenCalledWith(expectedCurrentRange, triggerChange, show);
         })
     })
 

@@ -8,15 +8,28 @@ namespace Fanex.Athena.DataAccess.BetSettings
 {
     using System.Data;
     using Common;
+    using Core.Common;
+    using Core.Common.Constants;
+    using Core.Common.Interfaces;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Interfaces;
     using Model.BetSettings.DTO;
     using Model.BetSettings.MetaModel;
+    using Model.Core.MetaModel.Common;
 
     public class CoreCasinoBetSettingDataAccess : BaseDataAccess, ICoreCasinoBetSettingDataAccess
     {
-        private const int LiveCasinoActionId = 2037;
+        private readonly IUserLogDataAccess _userLogDataAccess;
+
+        public CoreCasinoBetSettingDataAccess() : this(null)
+        {
+        }
+
+        public CoreCasinoBetSettingDataAccess(IUserLogDataAccess userLogDataAccess)
+        {
+            _userLogDataAccess = userLogDataAccess ?? new UserLogDataAccess();
+        }
 
         public IResultInfo UpdateCasinoStatus(CoreCasinoStatusMetaModel metaModel, int sportId)
         {
@@ -40,31 +53,22 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
                 var trackingValue1 = GetTrackingValueForUpdateStatus(metaModel, uspName, sportId, metaModel.Status == 1 ? 0 : 1);
                 var trackingValue2 = GetTrackingValueForUpdateStatus(metaModel, uspName, sportId, metaModel.Status, errorCode, errorMessage);
-                WriteLogUpdatingAction(metaModel.UserId, metaModel.CustId, uspName, trackingValue1, trackingValue2);
+
+                _userLogDataAccess.WriteLog(new UserLogMetaModel
+                {
+                    UserId = metaModel.UserId,
+                    CustID = metaModel.CustId,
+                    ActionID = UserLogAction.LiveCasinoBetSetting,
+                    SPName = uspName,
+                    TrackingValue1 = trackingValue1,
+                    TrackingValue2 = trackingValue2
+                });
 
                 return new ResultInfo
                 {
                     Code = errorCode,
                     Message = errorMessage
                 };
-            }
-        }
-
-        public void WriteLogUpdatingAction(int userId, int custId, string storeProcedureName, string trackingValue1, string trackingValue2)
-        {
-            const string UspName = "WriteLog_UserLog_RunSP";
-
-            using (var db = this.GetObjectDb(UspName))
-            {
-                db.AddInParameter("UserID", DbType.Int32, userId);
-                db.AddInParameter("CustID", DbType.Int32, custId);
-                db.AddInParameter("SPName", DbType.String, storeProcedureName);
-                db.AddInParameter("ActionID", DbType.Int32, LiveCasinoActionId);
-                db.AddInParameter("TrackingValue", DbType.String, trackingValue1);
-                db.AddInParameter("TrackingValue2", DbType.String, trackingValue2);
-                db.AddInParameter("Duration", DbType.Int32, 0);
-
-                db.ExecuteNonQuery();
             }
         }
 

@@ -1,24 +1,24 @@
 ﻿namespace Fanex.Athena.DataAccess.Report.UnitTests
 {
     using System;
-    using System.Data;
     using Core.Configuration.Interfaces;
+    using Core.UnitTests.TestHelpers;
     using Data;
     using Model.Core.DTO.Configuration;
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using UnitTest.Common.Helpers;
     using UnitTest.Common.NUnitExtensions;
 
     [TestFixture]
-    public class WinLossByBetTypeDataAccessTest
+    public class WinLossByBetTypeDataAccessTest : BaseDataAccessHelperTest<WinLossByBetTypeDataAccess>
     {
-        private WinLossByBetTypeDataAccess _dataAccess;
+        private const string SpName = "Lrf_Rpt_WinLossByBettype";
+
         private BalanceUp _balanceUp;
 
         [OneTimeSetUp]
-        public void Setup()
+        public override void FixtureSetUp()
         {
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             _balanceUp = new BalanceUp
@@ -28,13 +28,16 @@
             };
             balanceUpDataAccess.GetBalanceUp().Returns(_balanceUp);
 
-            _dataAccess = Substitute.ForPartsOf<WinLossByBetTypeDataAccess>(balanceUpDataAccess);
+            DataAccess = Substitute.ForPartsOf<WinLossByBetTypeDataAccess>(balanceUpDataAccess);
+            ObjectDb = Substitute.For<IObjectDb>();
         }
 
         [OneTimeTearDown]
-        public void TearDown()
+        public override void FixtureTearDown()
         {
-            _dataAccess = null;
+            _balanceUp = null;
+
+            base.FixtureTearDown();
         }
 
         [Test]
@@ -56,12 +59,11 @@
                 BalanceUpDay = _balanceUp.BalanceUpDay
             };
             dynamic uspParam = null;
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_WinLossByBettype")).Returns(objectDb);
-            objectDb.ExecuteReader(Arg.Do<dynamic>(arg => uspParam = arg));
+            DataAccess.GetObjectDb(Arg.Is(SpName)).Returns(ObjectDb);
+            ObjectDb.ExecuteReader(Arg.Do<dynamic>(arg => uspParam = arg));
 
             // Action
-            _dataAccess.GetDataList(metaModel);
+            DataAccess.GetDataList(metaModel);
 
             // Assert
             Assert.That(uspParam, Tobe.SameProperties(expectedResult));
@@ -71,20 +73,18 @@
         public void GetDataList_WhenCall_ReturnCorrectResult()
         {
             // Arrange
-            var reader = Substitute.For<IDataReader>();
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_WinLossByBettype")).Returns(objectDb);
-            objectDb.ExecuteReader(Arg.Any<object>()).ReturnsForAnyArgs(reader);
-            reader.Read().Returns(true, false);
+            DataAccess.GetObjectDb(Arg.Is(SpName)).Returns(ObjectDb);
+            ObjectDb.ExecuteReader(Arg.Any<object>()).ReturnsForAnyArgs(Reader);
+            Reader.Read().Returns(true, false);
             var readerDataMapping = new
             {
                 TurnoverUSD = 999
             };
 
-            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
+            MapReaderData(readerDataMapping);
 
             // Action
-            var result = _dataAccess.GetDataList(new WinLossByBetTypeMetaModel
+            var result = DataAccess.GetDataList(new WinLossByBetTypeMetaModel
             {
                 BaseCurrency = "USD"
             });
@@ -95,6 +95,14 @@
                 Assert.That(result.Count, Is.EqualTo(1));
                 Assert.That(result[0].Turnover, Is.EqualTo(999));
             });
+        }
+
+        [Test]
+        public void GetDataList_WhenReceiveObjectDbException_ThrowDataAccessException()
+        {
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                SpName,
+                () => DataAccess.GetDataList(new WinLossByBetTypeMetaModel()));
         }
     }
 }

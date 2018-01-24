@@ -24,6 +24,7 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
     using Model.Core.DataDomain;
+    using Model.Report.ResultModel;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
 
@@ -62,8 +63,6 @@ namespace Fanex.Athena.Api.Report
             };
         }
 
-        #region Private Utility
-
         private static void SortData(SortableList<ActiveCustomer> dataList, string sortBy, string sortOrder = "asc")
         {
             if (string.IsNullOrEmpty(sortBy))
@@ -98,7 +97,7 @@ namespace Fanex.Athena.Api.Report
             return new ActiveCustomerSummaryExcel(templatePath, convertingOption, showingOption, metaModel, excelModel);
         }
 
-        private HttpResponseMessage ExportExcel(ActiveCustomerMetaModel metaModel, IList<ActiveCustomer> dataList, int totalCustomer)
+        private HttpResponseMessage ExportExcel(ActiveCustomerMetaModel metaModel, ActiveCustomerSummaryResultModel resultModel)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
@@ -124,8 +123,8 @@ namespace Fanex.Athena.Api.Report
 
             var excelModel = new ActiveCustomerViewModel
             {
-                MainResult = dataList,
-                TotalCustomer = totalCustomer,
+                MainResult = resultModel.DataList,
+                TotalCustomer = resultModel.TotalCustomer,
             };
 
             var excel = CreateExcel(templatePath, convertingOption, showingOption, metaModel, excelModel);
@@ -141,24 +140,27 @@ namespace Fanex.Athena.Api.Report
             {
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludeTest);
 
-                int totalCustomer = 0;
-                var dataList = metaModel.IsValid ?
-                    _activeCustomerSummaryDataAccess.GetActiveCustomers(metaModel, out totalCustomer) :
-                    new SortableList<ActiveCustomer>();
+                var result = metaModel.IsValid ?
+                    _activeCustomerSummaryDataAccess.GetActiveCustomers(metaModel) :
+                    new ActiveCustomerSummaryResultModel
+                    {
+                        DataList = new SortableList<ActiveCustomer>(),
+                        TotalCustomer = 0
+                    };
 
                 if (metaModel.IsExportExcel)
                 {
-                    return ExportExcel(metaModel, dataList, totalCustomer);
+                    return ExportExcel(metaModel, result);
                 }
 
-                if (dataList.Any())
+                if (result.DataList.Any())
                 {
-                    SortData(dataList, metaModel.SortBy, metaModel.SortOrder);
+                    SortData(result.DataList, metaModel.SortBy, metaModel.SortOrder);
 
                     return new
                     {
-                        Data = dataList,
-                        GrantTotalCustomer = totalCustomer,
+                        Data = result.DataList,
+                        GrantTotalCustomer = result.TotalCustomer,
                         ProductOptions = metaModel.ProductOptions.ToJson()
                     };
                 }
@@ -166,7 +168,5 @@ namespace Fanex.Athena.Api.Report
 
             return GetEmptyResult(metaModel);
         }
-
-        #endregion Private Utility
     }
 }

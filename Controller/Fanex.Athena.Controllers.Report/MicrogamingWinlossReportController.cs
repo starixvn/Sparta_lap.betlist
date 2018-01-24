@@ -9,15 +9,33 @@ namespace Fanex.Athena.Controllers.Report
     using System;
     using System.Linq;
     using System.Web.Mvc;
+    using Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
+    using Service.Core.Users.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.ReportMicrogamingWinloss)]
     public class MicrogamingWinlossReportController : ReportBaseController
     {
+        public MicrogamingWinlossReportController()
+        {
+        }
+
+        public MicrogamingWinlossReportController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
+            IProductService productService)
+            : base(languageService, sessionService, appSetting, clientViewHelper, productService)
+        {
+        }
+
         [HttpGet]
         public ActionResult Index()
         {

@@ -1,10 +1,12 @@
 ﻿namespace Fanex.Athena.Controllers.TotalBets.UnitTests
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Mvc;
     using Base.UnitTests;
     using DataAccess.TotalBet.Interfaces;
     using Fanex.Athena.Controllers.TotalBets;
+    using Model.Core.ResultModel;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
     using Model.TotalBet.ViewModel;
@@ -54,15 +56,12 @@
         {
             using (var controller = CreateController())
             {
-                // Arrange
-                TotalGoal total;
-
                 // Action
                 var viewResult = controller.Index() as ViewResult;
                 var viewModel = viewResult.Model as TotalGoalViewModel;
 
                 // Assert
-                _totalGoalDataAccess.ReceivedWithAnyArgs().GetTotalGoalDataList(Arg.Any<TotalGoalMetaModel>(), out total);
+                _totalGoalDataAccess.ReceivedWithAnyArgs().GetTotalGoalDataList(Arg.Any<TotalGoalMetaModel>());
                 Assert.That(viewModel.MainData.Count, Is.EqualTo(1));
             }
         }
@@ -95,13 +94,12 @@
         {
             _totalGoalDataAccess = Substitute.For<ITotalGoalDataAccess>();
 
-            TotalGoal total;
             _totalGoalDataAccess
-                .GetTotalGoalDataList(Arg.Any<TotalGoalMetaModel>(), out total)
-                .Returns(x =>
+                .GetTotalGoalDataList(Arg.Any<TotalGoalMetaModel>())
+                .Returns(new ReportResultModel<TotalGoal>
                 {
-                    x[1] = new TotalGoal();
-                    return new List<TotalGoal> { new TotalGoal() };
+                    TotalData = new TotalGoal(),
+                    DataList = new List<TotalGoal> { new TotalGoal() }
                 });
         }
     }

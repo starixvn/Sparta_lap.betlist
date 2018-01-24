@@ -17,7 +17,7 @@ namespace Fanex.Athena.Model.TotalBet.ViewModel
     {
         public OddEvenDrawNoDrawMetaModel Param { get; set; }
 
-        public IList<OddEvenDrawNoDraw> MainData { get; set; }
+        public IEnumerable<OddEvenDrawNoDraw> MainData { get; set; }
 
         public OddEvenDrawNoDraw TotalData { get; set; }
     }

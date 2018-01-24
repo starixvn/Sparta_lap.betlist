@@ -2,12 +2,13 @@
 {
     using System;
     using System.Collections.Generic;
-    using Core.Configuration;
-    using Core.Configuration.Interfaces;
+    using System.IO;
     using Fanex.Athena.DataAccess.Report;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Report.MetaModel;
+    using Fanex.Result.Core;
+    using Fanex.Result.Core.Base;
     using Fanex.Result.Core.LiveCasino.DTO;
     using Fanex.Result.Core.NumberGame.DTO;
     using Fanex.Result.Core.Racing.DTO;
@@ -24,6 +25,11 @@
             this._dataAccess = new ResultDataAccess();
         }
 
+        public ResultService(IResultDataAccess dataAccess)
+        {
+            this._dataAccess = dataAccess;
+        }
+
         public IList<Outright> GetOutRight(ResultMetalModel metal)
         {
             return this._dataAccess.GetOutRight(metal);
@@ -38,6 +44,25 @@
         {
             return this._dataAccess.GetLeagues(dateValue, sportId);
         }
+
+        #region ResultEngine wrapping
+
+        public MemoryStream ExcelParser<T>(IList<T> dataList, ResultSetting setting)
+        {
+            return ResultEngine.ExcelParser<T>(dataList, setting);
+        }
+
+        public string HtmlGameDetailParser(dynamic data, ResultSetting setting)
+        {
+            return ResultEngine.HtmlGameDetailParser(data, setting);
+        }
+
+        public string HtmlParser<T>(IList<T> dataList, ResultSetting setting)
+        {
+            return ResultEngine.HtmlParser(dataList, setting);
+        }
+
+        #endregion ResultEngine wrapping
 
         #region Report
 

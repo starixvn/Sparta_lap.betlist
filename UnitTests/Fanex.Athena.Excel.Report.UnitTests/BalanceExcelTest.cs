@@ -13,63 +13,53 @@ using NUnit.Framework;
 namespace Fanex.Athena.Excel.Report.UnitTests
 {
     [TestFixture]
-    public class BalanceExcelTest
+    public class BalanceExcelTest : BaseReportExcelTest
     {
+        private const int ColumnDate = 0;
+        private const int ColumnLicenseeWl = 1;
+        private const int ColumnBetTradeCommission = 2;
+        private const int ColumnBaCommission = 3;
+        private const int ColumnRacingRevenue = 4;
+        private const int ColumnAmtDueToBetTrade = 5;
+        private const int ColumnAmtDueToBa = 6;
+        private const int ColumnAmtDueToRacing = 7;
+        private const int ColumnCustomerCommission = 8;
+
         private const string Date = "abc";
 
         private const int ColumnCount = 9;
 
-        private static readonly BalanceDetails DataItem = new BalanceDetails
-        {
-            LicWinLoss = 1,
-            BetTradeCommission = 2,
-            BACommission = 3,
-            RacingRevenue = 100,
-            RBCommission = 200,
-            AmtDueToBetTrade = 6,
-            AmtDueToBA = 7,
-            AmtDueToRacing = 8,
-            CustomerCommission = 9
-        };
+        private static readonly BalanceDetails DataItem = FakeHelper.Create<BalanceDetails>();
 
         private static readonly Balance Balance = new Balance
         {
-            BalanceList = new List<BalanceDetails>
-            {
-                DataItem
-            }
+            BalanceList = new List<BalanceDetails> { DataItem }
         };
-
-        private ISheet _sheet;
-
-        [SetUp]
-        public void Setup()
-        {
-            _sheet = Substitute.For<ISheet>();
-        }
 
         [Test]
         public void AssignSheetData_WhenCall_CallSetValueCorrectly()
         {
             // Arrange
-            var cell = ExcelTestHelper.MockGetRow(_sheet, ColumnCount);
+            var row = ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, 2);
+            ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, 6);
+            ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, 7);
             var excel = CreateExcel();
 
             // Action
-            excel.Public_AssignSheetData(_sheet);
+            excel.Public_AssignSheetData(FakeSheet);
 
             // Assert
             Assert.Multiple(() =>
             {
-                cell.Received(1).SetCellValue(Date);
-                cell.Received(1).SetCellValue(DataItem.LicWinLoss);
-                cell.Received(1).SetCellValue(DataItem.BetTradeCommission);
-                cell.Received(1).SetCellValue(DataItem.BACommission);
-                cell.Received(1).SetCellValue(DataItem.RacingWinLoss);
-                cell.Received(1).SetCellValue(DataItem.AmtDueToBetTrade);
-                cell.Received(1).SetCellValue(DataItem.AmtDueToBA);
-                cell.Received(1).SetCellValue(DataItem.AmtDueToRacing);
-                cell.Received(1).SetCellValue(DataItem.CustomerCommission);
+                row.Cells[ColumnDate].SetCellValue(Date);
+                row.Cells[ColumnLicenseeWl].SetCellValue(DataItem.LicWinLoss);
+                row.Cells[ColumnBetTradeCommission].SetCellValue(DataItem.BetTradeCommission);
+                row.Cells[ColumnBaCommission].SetCellValue(DataItem.BACommission);
+                row.Cells[ColumnRacingRevenue].SetCellValue(DataItem.RacingWinLoss);
+                row.Cells[ColumnAmtDueToBetTrade].SetCellValue(DataItem.AmtDueToBetTrade);
+                row.Cells[ColumnAmtDueToBa].SetCellValue(DataItem.AmtDueToBA);
+                row.Cells[ColumnAmtDueToRacing].SetCellValue(DataItem.AmtDueToRacing);
+                row.Cells[ColumnCustomerCommission].SetCellValue(DataItem.CustomerCommission);
             });
         }
 
@@ -77,46 +67,45 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         public void AssignTitle_WhenCall_CallRelevantMethods()
         {
             // Arrange
-            ExcelTestHelper.MockGetRow(_sheet, ColumnCount);
+            var row = ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, 0);
             var excel = CreateExcel();
             var expectedTitle = string.Format(ViewResources.BalanceTitle, ReportExcelHelper.GetTitleCurrencyName(new ConvertingOption()));
 
             // Action
-            excel.Public_AssignTitle(_sheet);
+            excel.Public_AssignTitle(FakeSheet);
 
             // Assert
-            _sheet.Received().SetTextRowValue(
-                    excel.TemplateSheet,
-                    Arg.Any<int>(),
-                    Arg.Any<int>(),
-                    Arg.Any<int>(),
-                    expectedTitle);
+            row.Cells[0].Received(1).SetCellValue(expectedTitle);
         }
 
         [Test]
         public void AssignHeader_WhenCall_CallRelevantMethods()
         {
             // Arrange
-            var cell = ExcelTestHelper.MockGetRow(_sheet, ColumnCount);
+            var row1 = ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, 1);
+            var row2 = ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, 6);
+            var row3 = ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, 7);
+            ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, 5);
             var excel = CreateExcel();
+            var columIndex = 1;
 
             // Action
-            excel.Public_AssignHeader(_sheet);
+            excel.Public_AssignHeader(FakeSheet);
 
             // Assert
             Assert.Multiple(() =>
             {
-                cell.Received(1).SetCellValue(ViewResources.LicenseeWinLoss);
-                cell.Received(1).SetCellValue(ViewResources.BetTradeCommission);
-                cell.Received(1).SetCellValue(ViewResources.BACommission);
-                cell.Received(1).SetCellValue(ViewResources.RacingRevenue);
-                cell.Received(1).SetCellValue(ViewResources.AmtDueToBetTrade);
-                cell.Received(1).SetCellValue(ViewResources.AmtDueToBA);
-                cell.Received(1).SetCellValue(ViewResources.AmtDueToRacing);
-                cell.Received(1).SetCellValue(ViewResources.CustomerCommission);
+                row1.Cells[columIndex++].Received(1).SetCellValue(ViewResources.LicenseeWinLoss);
+                row1.Cells[columIndex++].Received(1).SetCellValue(ViewResources.BetTradeCommission);
+                row1.Cells[columIndex++].Received(1).SetCellValue(ViewResources.BACommission);
+                row1.Cells[columIndex++].Received(1).SetCellValue(ViewResources.RacingRevenue);
+                row1.Cells[columIndex++].Received(1).SetCellValue(ViewResources.AmtDueToBetTrade);
+                row1.Cells[columIndex++].Received(1).SetCellValue(ViewResources.AmtDueToBA);
+                row1.Cells[columIndex++].Received(1).SetCellValue(ViewResources.AmtDueToRacing);
+                row1.Cells[columIndex].Received(1).SetCellValue(ViewResources.CustomerCommission);
 
-                cell.Received(1).SetCellValue(ViewResources.CustomerPedingFunds);
-                cell.Received(1).SetCellValue(ViewResources.TotalCustomerActiveClosedSuspended);
+                row2.Cells[0].Received(1).SetCellValue(ViewResources.CustomerPedingFunds);
+                row3.Cells[0].Received(1).SetCellValue(ViewResources.TotalCustomerActiveClosedSuspended);
             });
         }
 
@@ -124,26 +113,19 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         public void ProcessUI_WhenCall_CallHideColumnCorrectly()
         {
             // Arrange
-            const int ColumnBetTradeCommission = 2;
-            const int ColumnBaCommission = 3;
-            const int ColumnRacingRevenue = 4;
-            const int ColumnAmtDueToBetTrade = 5;
-            const int ColumnAmtDueToBa = 6;
-            const int ColumnAmtDueToRacing = 7;
-            const int ColumnCustomerCommission = 8;
             var excel = CreateExcel();
 
             // Action
-            excel.Public_ProcessUI(_sheet);
+            excel.Public_ProcessUI(FakeSheet);
 
             // Assert
             Assert.Multiple(() =>
             {
-                _sheet.Received().HideColumn(ColumnBaCommission, ColumnAmtDueToBa);
-                _sheet.Received().HideColumn(ColumnRacingRevenue, ColumnAmtDueToRacing);
-                _sheet.Received().HideColumn(ColumnRacingRevenue, ColumnAmtDueToRacing);
-                _sheet.Received().HideColumn(ColumnBetTradeCommission, ColumnAmtDueToBetTrade);
-                _sheet.Received().HideColumn(ColumnCustomerCommission);
+                AssertHideColumns(FakeSheet, ColumnBaCommission, ColumnAmtDueToBa);
+                AssertHideColumns(FakeSheet, ColumnRacingRevenue, ColumnAmtDueToRacing);
+                AssertHideColumns(FakeSheet, ColumnRacingRevenue, ColumnAmtDueToRacing);
+                AssertHideColumns(FakeSheet, ColumnBetTradeCommission, ColumnAmtDueToBetTrade);
+                AssertHideColumns(FakeSheet, ColumnCustomerCommission);
             });
         }
 
@@ -162,12 +144,12 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             var excel = CreateExcel(showingOption);
 
             // Action
-            excel.Public_ProcessUI(_sheet);
+            excel.Public_ProcessUI(FakeSheet);
 
             // Assert
             Assert.Multiple(() =>
             {
-                _sheet.DidNotReceiveWithAnyArgs().HideColumn(0);
+                FakeSheet.DidNotReceiveWithAnyArgs().SetColumnHidden(0, false);
             });
         }
 

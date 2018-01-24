@@ -12,6 +12,7 @@ namespace Fanex.Athena.Excel.Report
     using Base.Extension;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
+    using Model.Report.ResultModel;
     using NPOI.SS.UserModel;
     using Resources;
 
@@ -26,10 +27,9 @@ namespace Fanex.Athena.Excel.Report
         private const int RowTotalIndex = 3;
         private const int RowNoInfoTemplate = 4;
 
-        private readonly IEnumerable<WeeklyLiveMatch> _dataList;
-
         private readonly WeeklyLiveMatchMetaModel _metaModel;
-        private readonly int[] _totalData;
+        private readonly WeeklyLiveMatchResultModel _resultModel;
+
         private readonly IEnumerable<string> _weekHeaders;
 
         protected internal WeeklyLiveMatchExcel() : base(string.Empty, 0)
@@ -39,14 +39,12 @@ namespace Fanex.Athena.Excel.Report
         public WeeklyLiveMatchExcel(
                 string templatePath,
                 WeeklyLiveMatchMetaModel metaModel,
-                IEnumerable<WeeklyLiveMatch> dataList,
-                int[] totalData,
+                WeeklyLiveMatchResultModel resultModel,
                 IEnumerable<string> weekHeaders)
-            : base(templatePath, dataList.Count())
+            : base(templatePath, resultModel.DataList.Count())
         {
-            _totalData = totalData;
             _metaModel = metaModel;
-            _dataList = dataList;
+            _resultModel = resultModel;
             _weekHeaders = weekHeaders;
         }
 
@@ -92,11 +90,11 @@ namespace Fanex.Athena.Excel.Report
         protected override void AssignSheetData(ISheet sheet)
         {
             int index;
-            var rowCount = _dataList.Count();
+            var rowCount = _resultModel.DataList.Count();
 
             for (index = 0; index < rowCount; index++)
             {
-                var dataItem = _dataList.ElementAt(index);
+                var dataItem = _resultModel.DataList.ElementAt(index);
 
                 var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, index + RowContentTemplate);
 
@@ -122,7 +120,7 @@ namespace Fanex.Athena.Excel.Report
 
             for (int i = 0; i < _metaModel.NumberOfWeeks; i++)
             {
-                row.Cells[cellIndex++].SetCellValue(_totalData[i]);
+                row.Cells[cellIndex++].SetCellValue(_resultModel.TotalData[i]);
             }
         }
     }

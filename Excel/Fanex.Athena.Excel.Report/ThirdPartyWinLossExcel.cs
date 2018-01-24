@@ -41,7 +41,7 @@ namespace Fanex.Athena.Excel.Report
         private const int RowNoInfoTemplate = 6;
 
         // This is drill down of report
-        private readonly IList<ThirdPartyWinLoss> _winLossList;
+        private readonly IList<ThirdPartyWinLoss> _dataList;
 
         private readonly ThirdPartyWinLossMetaModel _metaModel;
         private readonly IDictionary<string, ThirdPartyWinLoss> _summaryTotal;
@@ -57,7 +57,7 @@ namespace Fanex.Athena.Excel.Report
         {
             _convertingOption = convertingOption;
             _metaModel = metaModel;
-            _winLossList = viewModel.MainResult;
+            _dataList = viewModel.MainResult;
             _summaryTotal = viewModel.SummaryTotal;
         }
 
@@ -91,30 +91,30 @@ namespace Fanex.Athena.Excel.Report
         {
             var rowIndex = 1;
             int index;
-            var rowCount = _winLossList.Count;
+            var rowCount = _dataList.Count;
 
             for (index = 0; index < rowCount; index++)
             {
-                var licenseeWinLoss = _winLossList[index];
+                var item = _dataList[index];
 
                 var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, index + RowContentTemplate);
 
                 var dateStringFormat = _metaModel.ReportBy == 1 ? "MM/dd/yyyy" : "MM/yyyy";
-                var reportDateString = licenseeWinLoss.Date.Value.ToString(dateStringFormat);
+                var reportDateString = item.Date.Value.ToString(dateStringFormat);
 
-                row.Cells[ColumnIndex].SetCellValue(licenseeWinLoss.Index);
+                row.Cells[ColumnIndex].SetCellValue(item.Index);
                 row.Cells[ColumnDate].SetCellValue(reportDateString);
-                row.Cells[ColumnExternalId].SetCellValue(licenseeWinLoss.ExternalId);
-                row.Cells[ColumnSystemId].SetCellValue(licenseeWinLoss.SystemId);
-                row.Cells[ColumnCurrency].SetCellValue(licenseeWinLoss.CurrencyName);
-                AssignCommonData(row, licenseeWinLoss);
+                row.Cells[ColumnExternalId].SetCellValue(item.ExternalId);
+                row.Cells[ColumnSystemId].SetCellValue(item.SystemId);
+                row.Cells[ColumnCurrency].SetCellValue(item.CurrencyName);
+                AssignCommonData(row, item);
                 rowIndex++;
 
-                if (licenseeWinLoss.RowSpan > 1)
+                if (item.RowSpan > 1)
                 {
                     var currentRow = index + RowContentTemplate;
-                    sheet.MergeCells(currentRow, ColumnIndex, currentRow + licenseeWinLoss.RowSpan - 1, ColumnIndex);
-                    sheet.MergeCells(currentRow, ColumnDate, currentRow + licenseeWinLoss.RowSpan - 1, ColumnDate);
+                    sheet.MergeCells(currentRow, ColumnIndex, currentRow + item.RowSpan - 1, ColumnIndex);
+                    sheet.MergeCells(currentRow, ColumnDate, currentRow + item.RowSpan - 1, ColumnDate);
                 }
             }
 
@@ -165,7 +165,7 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnLicenseeWl].SetCellValue(data.LicenseeWL);
         }
 
-        protected void AssignGrandTotalInEurData(ISheet sheet, int rowIndex)
+        protected internal virtual void AssignGrandTotalInEurData(ISheet sheet, int rowIndex)
         {
             var currencyList = _summaryTotal.Keys.ToList();
             currencyList.Reverse();
@@ -189,10 +189,10 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         /// <param name="rowIndex">The starting row index.</param>
         /// <returns>The last row index after assign data.</returns>
-        protected int AssignTotalData(ISheet sheet, int rowIndex)
+        protected internal virtual int AssignTotalData(ISheet sheet, int rowIndex)
         {
             var beginTotalRow = rowIndex;
-            var totalCurrencyList = GetTotalCurrency(_winLossList);
+            var totalCurrencyList = GetTotalCurrency(_dataList);
 
             foreach (ThirdPartyWinLoss totalCurrency in totalCurrencyList)
             {

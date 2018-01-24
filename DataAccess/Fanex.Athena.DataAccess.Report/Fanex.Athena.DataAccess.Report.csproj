@@ -142,8 +142,10 @@
     <Compile Include="CashOutWinLossDataAccess.cs" />
     <Compile Include="ActiveCustomerSummaryDataAccess.cs" />
     <Compile Include="CasinoProgressiveWinsDataAccess.cs" />
+    <Compile Include="ExchangeWinLossDataAccess.cs" />
     <Compile Include="Interfaces\ICashOutWinLossDataAccess.cs" />
     <Compile Include="Interfaces\IColossusBetsWinLossDataAccess.cs" />
+    <Compile Include="Interfaces\IExchangeWinLossDataAccess.cs" />
     <Compile Include="Interfaces\ILicenseeWinLossByTimeZoneDataAccess.cs" />
     <Compile Include="Interfaces\ISubsidiaryPerformanceDataAccess.cs" />
     <Compile Include="Interfaces\IWeeklyLiveMatchDataAccess.cs" />
@@ -229,9 +231,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\Google.Protobuf.dll" />
-    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\SonarAnalyzer.CSharp.dll" />
-    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\SonarAnalyzer.dll" />
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\Google.Protobuf.dll" />
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\SonarAnalyzer.CSharp.dll" />
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -2,8 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Report.MetaModel;
+    using Fanex.Result.Core.Base;
     using Fanex.Result.Core.LiveCasino.DTO;
     using Fanex.Result.Core.NumberGame.DTO;
     using Fanex.Result.Core.Racing.DTO;
@@ -12,12 +14,17 @@
     [System.CLSCompliant(false)]
     public interface IResultService
     {
-        /// <summary>
-        /// Get out right.
-        /// </summary>
-        /// <param name="metal">The metal model.</param>
-        /// <returns>The out right list.</returns>
         IList<Outright> GetOutRight(ResultMetalModel metal);
+
+        #region ResultEngine
+
+        MemoryStream ExcelParser<T>(IList<T> dataList, ResultSetting setting);
+
+        string HtmlGameDetailParser(dynamic data, ResultSetting setting);
+
+        string HtmlParser<T>(IList<T> dataList, ResultSetting setting);
+
+        #endregion ResultEngine
 
         #region Filter
 

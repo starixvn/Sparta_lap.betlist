@@ -7,7 +7,6 @@
 namespace Fanex.Athena.Service.Report
 {
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Fanex.Athena.DataAccess.Report;
     using Fanex.Athena.DataAccess.Report.Interfaces;
@@ -52,10 +51,6 @@ namespace Fanex.Athena.Service.Report
             return result;
         }
 
-        [SuppressMessage(
-            "StyleCop.CSharp.StylecopPlus.Rules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         private static IEnumerable<CustTurnover> RestructureData(IEnumerable<CustTurnover> datalist, int startRowIndex)
         {
             var sortedData = datalist.OrderByDescending(i => i.ReportBy).ThenBy(i => i.UserName)
@@ -68,60 +63,70 @@ namespace Fanex.Athena.Service.Report
 
             foreach (var item in groupData)
             {
-                var rowSpanFlag = true;
+                var isFirstRowOfGroup = true;
                 var numOfItem = item.Count();
                 var groupSportdata = item.GroupBy(i => i.SportType);
                 var totalTurnover = item.Sum(i => i.Turnover);
                 foreach (var sports in groupSportdata)
                 {
-                    var rowSpan2Flag = true;
-                    var numOfSportItem = sports.Count();
-
-                    /*processing index value*/
-                    foreach (var col in sports)
-                    {
-                        /* processing rowspan*/
-                        var temp = col;
-                        if (rowSpanFlag && numOfItem > 1)
-                        {
-                            rowIndex++;
-                            temp.RowSpan = numOfItem;
-                            rowSpanFlag = false;
-                        }
-                        else if (numOfItem > 1)
-                        {
-                            temp.RowSpan = -1;
-                        }
-                        else
-                        {
-                            rowIndex++;
-                            temp.RowSpan = 0;
-                        }
-
-                        temp.Index = rowIndex;
-                        /*processing rowspan2*/
-                        if (rowSpan2Flag && numOfSportItem > 1)
-                        {
-                            temp.RowSpan2 = numOfSportItem;
-                            rowSpan2Flag = false;
-                        }
-                        else if (numOfSportItem > 1)
-                        {
-                            temp.RowSpan2 = -1;
-                        }
-                        else
-                        {
-                            temp.RowSpan2 = 0;
-                        }
-
-                        /*update totalturnover column*/
-                        temp.TotalTurnover = totalTurnover;
-                        newDataList.Add(temp);
-                    }
+                    var groupedList = ProcessSportGroup(sports, ref rowIndex, isFirstRowOfGroup, numOfItem, totalTurnover);
+                    isFirstRowOfGroup = false;
+                    newDataList.AddRange(groupedList);
                 }
             }
 
             return newDataList;
+        }
+
+        private static IEnumerable<CustTurnover> ProcessSportGroup(
+            IGrouping<string, CustTurnover> sportGroup,
+            ref int rowIndex,
+            bool isFirstRowOfGroup,
+            int numOfItem,
+            decimal totalTurnover)
+        {
+            var isFirstRowOfSportGroup = true;
+            var numOfSportItem = sportGroup.Count();
+            var list = new List<CustTurnover>();
+            var hasRowSpan = isFirstRowOfGroup;
+
+            foreach (var item in sportGroup)
+            {
+                var temp = item;
+                temp.TotalTurnover = totalTurnover;
+                if (hasRowSpan || numOfItem == 1)
+                {
+                    rowIndex++;
+                }
+
+                temp.Index = rowIndex;
+
+                temp.RowSpan = GetRowSpan(hasRowSpan, numOfItem);
+                hasRowSpan = false;
+
+                temp.RowSpan2 = GetRowSpan(isFirstRowOfSportGroup, numOfSportItem);
+                isFirstRowOfSportGroup = false;
+
+                list.Add(temp);
+            }
+
+            return list;
+        }
+
+        private static int GetRowSpan(bool hasRowSpan, int numOfItems)
+        {
+            if (hasRowSpan && numOfItems > 1)
+            {
+                return numOfItems;
+            }
+            else if (numOfItems > 1)
+            {
+                return -1;
+            }
+            else
+            {
+                return 0;
+            }
         }
     }
 }

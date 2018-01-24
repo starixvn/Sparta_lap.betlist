@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.DataAccess.Core.Configuration
 {
+    using System;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Configuration;
@@ -15,6 +16,19 @@ namespace Fanex.Athena.DataAccess.Core.Configuration
 
     public class MoveBetDataAccess : BaseDataAccess, IMoveBetDataAccess
     {
+        private readonly ILogger _logger;
+
+        public MoveBetDataAccess()
+        {
+            _logger = Logger.Log;
+        }
+
+        [CLSCompliant(false)]
+        public MoveBetDataAccess(ILogger logger)
+        {
+            _logger = logger;
+        }
+
         public MoveBetNotification GetMoveBetNotification()
         {
             const string UspName = "Acc_ShowNotificationWhenProcessingData";
@@ -41,7 +55,7 @@ namespace Fanex.Athena.DataAccess.Core.Configuration
             }
             catch (ObjectDbException sqlException)
             {
-                LogService.Error(sqlException.Message, sqlException);
+                _logger.Error(sqlException.Message, sqlException);
             }
 
             return moveBet;

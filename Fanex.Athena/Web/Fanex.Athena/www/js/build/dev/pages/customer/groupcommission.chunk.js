@@ -1,11 +1,11 @@
 webpackJsonp([33],{
 
-/***/ 119:
+/***/ 124:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <reference path="/@JSense.js" />
 ///
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(126)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BigNumber) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(130)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, BigNumber) {
     "use strict";
     var jqGridAdditional = (function () {
         return {
@@ -452,12 +452,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
     })();
 
     return jqGridAdditional;
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
 
-/***/ 124:
+/***/ 128:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {;(function($){
@@ -635,7 +635,7 @@ $.extend($.jgrid,{
 
 /***/ }),
 
-/***/ 125:
+/***/ 129:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/* 
@@ -986,7 +986,7 @@ jQuery(this).empty();jQuery(this).addClass("scroll");jQuery(this).jqGrid(jQuery.
 
 /***/ }),
 
-/***/ 126:
+/***/ 130:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/MikeMcl/bignumber.js/LICENCE */
@@ -3711,7 +3711,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/Mik
 
     // AMD.
     if ( true ) {
-        !(__WEBPACK_AMD_DEFINE_RESULT__ = function () { return BigNumber; }.call(exports, __webpack_require__, exports, module),
+        !(__WEBPACK_AMD_DEFINE_RESULT__ = (function () { return BigNumber; }).call(exports, __webpack_require__, exports, module),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
     // Node.js and other environments that support module.exports.
@@ -3731,7 +3731,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/Mik
 
 /***/ }),
 
-/***/ 139:
+/***/ 143:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root, factory) {
@@ -4203,11 +4203,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 
-/***/ 144:
+/***/ 150:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿// require option properties: suggestionDropdown, url, target
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(139)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(143)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site) {
     "use strict";
 
     var mainOption = {
@@ -4292,15 +4292,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿// require op
     };
 
     return _me;
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
 
-/***/ 149:
+/***/ 153:
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(150)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(154)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
         "use strict";
         var PICKER_SELECTOR = "#month-picker";
         var FORMAT = "MM/dd/yyyy";
@@ -4358,12 +4358,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             getFromDateString: getFromDateString,
             getToDateString: getToDateString
         };
-    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
 
-/***/ 150:
+/***/ 154:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/// <reference path="/@JSense.js" />
@@ -4376,7 +4376,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 * Version: 0.0.2 (9 Feb 2012)
 * Requires: jQuery v1.7+
 */
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(2)], __WEBPACK_AMD_DEFINE_RESULT__ = function (Site) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(2)], __WEBPACK_AMD_DEFINE_RESULT__ = (function (Site) {
     (function ($) {
         var logger = { error: $.noop };
 
@@ -5198,19 +5198,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             }
         };
     })(jQuery);
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
 
-/***/ 162:
+/***/ 166:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2),
-    __webpack_require__(119), __webpack_require__(124), __webpack_require__(125)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional) {
+    __webpack_require__(124), __webpack_require__(128), __webpack_require__(129)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, jqGridAdditional) {
         var GRID_ID = "ReportGrid";
         var _ajaxRequest = null;
 
@@ -5308,17 +5308,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         };
 
         return _me;
-    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
 
-/***/ 173:
+/***/ 177:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function () {
     var logIdColumn = {
         name: 'LogId',
         index: 'LogId',
@@ -5400,39 +5400,39 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     };
 
     return _me;
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
 
-/***/ 376:
+/***/ 381:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(377);
+module.exports = __webpack_require__(382);
 
 
 /***/ }),
 
-/***/ 377:
+/***/ 382:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(378)], __WEBPACK_AMD_DEFINE_RESULT__ = function (GroupCommission) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(383)], __WEBPACK_AMD_DEFINE_RESULT__ = (function (GroupCommission) {
     $(GroupCommission.initialize);
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
 
-/***/ 378:
+/***/ 383:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(144), __webpack_require__(173),
-    __webpack_require__(149), __webpack_require__(162)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, AutoComplete, CommonOption, MonthPicker, CustomerLogService) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(150), __webpack_require__(177),
+    __webpack_require__(153), __webpack_require__(166)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, AutoComplete, CommonOption, MonthPicker, CustomerLogService) {
         var _me = {
             initialize: function () {
                 CustomerLogService.initialize();
@@ -5475,10 +5475,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         };
 
         return _me;
-    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ })
 
-},[376]);
+},[381]);
 //# sourceMappingURL=groupcommission.chunk.js.map

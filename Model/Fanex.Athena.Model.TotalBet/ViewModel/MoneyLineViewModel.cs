@@ -17,7 +17,7 @@ namespace Fanex.Athena.Model.TotalBet.ViewModel
     {
         public MoneyLineMetaModel Param { get; set; }
 
-        public IList<MoneyLine> MainData { get; set; }
+        public IEnumerable<MoneyLine> MainData { get; set; }
 
         public MoneyLine TotalData { get; set; }
     }

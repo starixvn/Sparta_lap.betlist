@@ -24,11 +24,13 @@ function generateConfig(environment) {
             [`${jsPath}/subsidiaryperformance/subsidiaryperformance`]: pathConfig.scriptPaths.subsidiaryperformance,
             [`${jsPath}/notification/notification`]: pathConfig.scriptPaths.notification,
             [`${jsPath}/report/licenseewlbytimezone`]: pathConfig.scriptPaths.licenseewlbytimezone,
+            [`${jsPath}/exchangewl/exchangewl`]: pathConfig.scriptPaths.exchangewl,
             /*css*/
             [`${cssPath}/vendor`]: pathConfig.cssPaths.layout,
             [`${cssPath}/subsidiaryperformance/index`]: pathConfig.cssPaths.subsidiaryperformance,
             [`${cssPath}/licenseewlbytimezone/index`]: pathConfig.cssPaths.licenseewlbytimezone,
-            [`${cssPath}/notification/index`]: pathConfig.cssPaths.notification
+            [`${cssPath}/notification/index`]: pathConfig.cssPaths.notification,
+            [`${cssPath}/exchangewl/index`]: pathConfig.cssPaths.exchangewl
         },
         output: {
             path: pathConfig.projectRoot,

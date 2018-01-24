@@ -1,8 +1,5 @@
-﻿using System;
-
-namespace Fanex.Athena.Model.Core.DataDomain
+﻿namespace Fanex.Athena.Model.Core.DataDomain
 {
-    [Flags]
     public enum ClientViewType
     {
         None = 0,

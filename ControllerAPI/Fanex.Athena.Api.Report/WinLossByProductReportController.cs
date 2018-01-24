@@ -56,6 +56,7 @@ namespace Fanex.Athena.Api.Report
         }
 
         [HttpPost]
+#pragma warning disable S107 // Methods should not have too many parameters
         public dynamic Index(
            WinLossByProductMetaModel metaModel,
             DateTime? fdate,
@@ -66,6 +67,7 @@ namespace Fanex.Athena.Api.Report
             int memberId = 0,
             string systemId = null,
             string currencyName = null)
+#pragma warning restore S107 // Methods should not have too many parameters
         {
             return ProcessRequest(metaModel, fdate, tdate, level, currencyId, custId, memberId, systemId, currencyName);
         }
@@ -156,6 +158,19 @@ namespace Fanex.Athena.Api.Report
             }
         }
 
+        private static void AssignDrilldownDates(WinLossByProductMetaModel metaModel, DateTime? fdate, DateTime? tdate)
+        {
+            if (fdate.HasValue)
+            {
+                metaModel.DrillDownFromDate = fdate.Value;
+            }
+
+            if (tdate.HasValue)
+            {
+                metaModel.DrillDownToDate = tdate.Value;
+            }
+        }
+
         #region ProcessRequest
 
         private HttpResponseMessage ExportExcel(
@@ -231,6 +246,7 @@ namespace Fanex.Athena.Api.Report
            "StyleCop.CSharp.StylecopPlus.Rules",
            "SP2101:MethodMustNotContainMoreLinesThan",
            Justification = "Reviewed. Suppression is OK here.")]
+#pragma warning disable S107 // Methods should not have too many parameters
         private dynamic ProcessRequest(
             WinLossByProductMetaModel metaModel,
             DateTime? fdate,
@@ -241,20 +257,15 @@ namespace Fanex.Athena.Api.Report
             int memberId = 0,
             string systemId = null,
             string currencyName = null)
+#pragma warning restore S107 // Methods should not have too many parameters
         {
             if (!IsValidRequest(metaModel, currencyId))
             {
                 return BadRequest(ViewResources.InvalidParams);
             }
 
-            var placeholderUsername = _appSettings.FakeLicenseeList.Contains(SessionService.LicenseeSession.LicenseeId) ?
-                ViewResources.ExternalId :
-                ViewResources.ExternalIdOrSystemId;
+            metaModel.Username = ValidateUserName(metaModel.Username);
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(level == 0 ? metaModel.CurrencyId : currencyId, metaModel.IsExcludedTestData);
-            metaModel.Username = !string.IsNullOrWhiteSpace(metaModel.Username)
-                                && metaModel.Username.Equals(placeholderUsername, StringComparison.OrdinalIgnoreCase)
-                                ? string.Empty : metaModel.Username;
-
             metaModel.DrillDownCurrencyId = currencyId;
             metaModel.DrillDownCurrencyName = currencyName;
             metaModel.Level = level;
@@ -265,15 +276,7 @@ namespace Fanex.Athena.Api.Report
                 metaModel.MemberId = drillDownMemberId;
             }
 
-            if (fdate.HasValue)
-            {
-                metaModel.DrillDownFromDate = fdate.Value;
-            }
-
-            if (tdate.HasValue)
-            {
-                metaModel.DrillDownToDate = tdate.Value;
-            }
+            AssignDrilldownDates(metaModel, fdate, tdate);
 
             var result = GetData(metaModel);
 
@@ -305,6 +308,16 @@ namespace Fanex.Athena.Api.Report
                     ErrorMessage = result.ResultInfo.Message
                 }
                 : GetEmptyResult(metaModel.ProductOptions, memberId, drillDownSystemId, result.ResultInfo.Message);
+        }
+
+        private string ValidateUserName(string userName)
+        {
+            var placeholderUsername = _appSettings.FakeLicenseeList.Contains(SessionService.LicenseeSession.LicenseeId) ?
+                            ViewResources.ExternalId :
+                            ViewResources.ExternalIdOrSystemId;
+            return !string.IsNullOrWhiteSpace(userName)
+                                && userName.Equals(placeholderUsername, StringComparison.OrdinalIgnoreCase)
+                                ? string.Empty : userName;
         }
 
         #endregion ProcessRequest

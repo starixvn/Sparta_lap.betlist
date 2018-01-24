@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>Fanex.Athena.DataAccess.Customer.UnitTests.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -30,6 +31,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>Fanex.Athena.DataAccess.Customer.UnitTests.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Fanex.Data, Version=0.5.404.63, Culture=neutral, processorArchitecture=MSIL">
@@ -86,6 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Fanex.Athena.DataAccess.Customer.UnitTests.ruleset" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -113,9 +116,18 @@
       <Project>{17B0022C-4902-4C61-908A-5DB81568DC3A}</Project>
       <Name>Fanex.Athena.Resources</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Fanex.Athena.DataAccess.Core.UnitTests\Fanex.Athena.DataAccess.Core.UnitTests.csproj">
+      <Project>{08a991cd-d102-444f-9dad-8992327306ac}</Project>
+      <Name>Fanex.Athena.DataAccess.Core.UnitTests</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\Google.Protobuf.dll" />
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\SonarAnalyzer.CSharp.dll" />
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

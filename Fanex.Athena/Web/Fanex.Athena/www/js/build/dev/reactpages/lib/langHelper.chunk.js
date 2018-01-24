@@ -1,25 +1,25 @@
-webpackJsonp([4],{
+webpackJsonp([5],{
 
-/***/ 704:
+/***/ 712:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(9);
-__webpack_require__(705);
-__webpack_require__(706);
-__webpack_require__(707);
-__webpack_require__(708);
-module.exports = __webpack_require__(709);
+__webpack_require__(8);
+__webpack_require__(713);
+__webpack_require__(714);
+__webpack_require__(715);
+__webpack_require__(716);
+module.exports = __webpack_require__(717);
 
 
 /***/ }),
 
-/***/ 705:
+/***/ 713:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 1/18/2018 10:33:23 AM
+// Generated at: 1/17/2018 5:36:39 PM
 window._language_en_US = {
   AA: "AA",
   AB: "AB",
@@ -152,6 +152,7 @@ window._language_en_US = {
   ChangeStatus: "Change {0}&apos;s status",
   ChangeStatusOfThisCustomerMsg: "Are you sure you want to change status of this customer?",
   Characters: "Characters",
+  ChargeCommission: "Charge Commission",
   CheckAll: "Check All",
   Checkavailability: "Check availability",
   China: "China",
@@ -314,6 +315,7 @@ window._language_en_US = {
   EventDate: "Event Date",
   Events: "Events",
   ExcelExceedRowsMsg: "This file exceeded 65535 entries. Please contact administrator for more details.",
+  ExchangeWinLoss: "Exchange Win Loss",
   ExcludeTestData: "Exclude Test Data",
   ExpiredTimeParamMsg: "The Url is expired",
   ExportToExcel: "Export To Excel",
@@ -420,6 +422,7 @@ window._language_en_US = {
   Internal: "Internal",
   InternalSystem: "Internal System",
   InvalidCaptchaMsg: "You inputed an invalid code.",
+  InvalidChargeCommission: "Invalid Charge Commission",
   InvalidParams: "Invalid parameters",
   InvalidRequestMsg: "Request is not valid",
   InvalidRequestOrNotAuthorizedMsg: "Invalid request or you are not authorized to access the requested resource!",
@@ -692,6 +695,7 @@ window._language_en_US = {
   ProductBA: "BA",
   ProductBG: "Bingo",
   ProductBT: "Bet Trade",
+  ProductBX: "Exchange",
   ProductCB: "Colossus Bets",
   ProductCO: "Cash Out",
   ProductCS: "RNG Casino",
@@ -982,13 +986,13 @@ window._language_en_US = {
 
 /***/ }),
 
-/***/ 706:
+/***/ 714:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 1/18/2018 10:33:23 AM
+// Generated at: 1/17/2018 5:36:39 PM
 window._language_ko_KR = {
   AA: "AA",
   ABComm: "AllBet 수수료",
@@ -1754,13 +1758,13 @@ window._language_ko_KR = {
 
 /***/ }),
 
-/***/ 707:
+/***/ 715:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 1/18/2018 10:33:23 AM
+// Generated at: 1/17/2018 5:36:39 PM
 window._language_zh_CN = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -2582,13 +2586,13 @@ window._language_zh_CN = {
 
 /***/ }),
 
-/***/ 708:
+/***/ 716:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 1/18/2018 10:33:23 AM
+// Generated at: 1/17/2018 5:36:39 PM
 window._language_zh_Hans = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -3396,13 +3400,13 @@ window._language_zh_Hans = {
 
 /***/ }),
 
-/***/ 709:
+/***/ 717:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 1/18/2018 10:33:23 AM
+// Generated at: 1/17/2018 5:36:39 PM
 window._language_zh_TW = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -4224,7 +4228,7 @@ window._language_zh_TW = {
 
 /***/ }),
 
-/***/ 9:
+/***/ 8:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4268,5 +4272,5 @@ exports.default = LangHelper;
 
 /***/ })
 
-},[704]);
+},[712]);
 //# sourceMappingURL=langHelper.chunk.js.map

@@ -54,6 +54,7 @@ namespace Fanex.Athena.Controllers
         {
         }
 
+#pragma warning disable S107 // Methods should not have too many parameters
         public AuthorizationController(
             ILanguageService languageService,
             ISessionService sessionService,
@@ -64,6 +65,7 @@ namespace Fanex.Athena.Controllers
             IAuthService authService,
             IFormsAuthenticationService formAuthenticationService)
             : base(languageService, sessionService, appSetting, clientViewHelper)
+#pragma warning restore S107 // Methods should not have too many parameters
         {
             _maintenanceService = maintenanceService ?? new MaintenanceService();
             _userService = userService ?? new UserService();
@@ -114,7 +116,6 @@ namespace Fanex.Athena.Controllers
             }
             else
             {
-                IResultInfo resultInfo;
                 var requestUser = new User
                 {
                     Username = model.UserName,
@@ -122,9 +123,11 @@ namespace Fanex.Athena.Controllers
                     Request = new Request { Ip = Request.UserHostAddress },
                 };
 
-                var user = _authService.ValidateUserForLrfSystem(requestUser, model.LogInToken, out resultInfo);
+                var resultInfo = _authService.ValidateUserForLrfSystem(requestUser, model.LogInToken);
+
                 if (resultInfo.IsSuccessful)
                 {
+                    var user = resultInfo.ExtendedData;
                     CreateSession(user);
                     if (user.IsInRole(UserRole.Admin.ToString()))
                     {

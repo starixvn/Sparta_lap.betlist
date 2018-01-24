@@ -1240,6 +1240,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Charge Commission.
+        /// </summary>
+        public static string ChargeCommission {
+            get {
+                return ResourceManager.GetString("ChargeCommission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Check All.
         /// </summary>
         public static string CheckAll {
@@ -2698,6 +2707,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exchange Win Loss.
+        /// </summary>
+        public static string ExchangeWinLoss {
+            get {
+                return ResourceManager.GetString("ExchangeWinLoss", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exclude Test Data.
         /// </summary>
         public static string ExcludeTestData {
@@ -3648,6 +3666,15 @@ namespace Fanex.Athena.Resources {
         public static string InvalidCaptchaMsg {
             get {
                 return ResourceManager.GetString("InvalidCaptchaMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Charge Commission.
+        /// </summary>
+        public static string InvalidChargeCommission {
+            get {
+                return ResourceManager.GetString("InvalidChargeCommission", resourceCulture);
             }
         }
         
@@ -6096,6 +6123,15 @@ namespace Fanex.Athena.Resources {
         public static string ProductBT {
             get {
                 return ResourceManager.GetString("ProductBT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exchange.
+        /// </summary>
+        public static string ProductBX {
+            get {
+                return ResourceManager.GetString("ProductBX", resourceCulture);
             }
         }
         

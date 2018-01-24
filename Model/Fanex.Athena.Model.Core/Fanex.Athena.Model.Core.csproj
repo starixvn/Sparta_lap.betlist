@@ -63,6 +63,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants\SystemEnvironment.cs" />
     <Compile Include="DataDomain\AppMode.cs" />
     <Compile Include="DataDomain\BaseCurrencyType.cs" />
     <Compile Include="DataDomain\BetType.cs" />
@@ -89,11 +90,13 @@
     <Compile Include="DTO\Common\ExChangeRate.cs" />
     <Compile Include="DTO\Common\Function.cs" />
     <Compile Include="DTO\Common\IRequest.cs" />
+    <Compile Include="DTO\Common\IResultInfoGeneric.cs" />
     <Compile Include="DTO\Common\IResultInfo.cs" />
     <Compile Include="DTO\Common\League.cs" />
     <Compile Include="DTO\Common\Licensee.cs" />
     <Compile Include="DTO\Common\Match.cs" />
     <Compile Include="DTO\Common\ViewByOption.cs" />
+    <Compile Include="DTO\Common\ResultInfoGeneric.cs" />
     <Compile Include="DTO\OneAuth\OneAuthCurrency.cs" />
     <Compile Include="DTO\OneAuth\OneAuthPermission.cs" />
     <Compile Include="DTO\OneAuth\OneAuthToken.cs" />
@@ -121,8 +124,10 @@
     <Compile Include="MetaModel\Account\EditPermissionMetaModel.cs" />
     <Compile Include="MetaModel\Account\ResetPasswordMetaModel.cs" />
     <Compile Include="MetaModel\Authorization\LoginMetalModel.cs" />
+    <Compile Include="MetaModel\Authorization\SsoMetaModel.cs" />
     <Compile Include="MetaModel\BaseMetaModel.cs" />
     <Compile Include="MetaModel\Common\LeagueMetaModel.cs" />
+    <Compile Include="MetaModel\Common\UserLogMetaModel.cs" />
     <Compile Include="MetaModel\Product\ProductOption.cs" />
     <Compile Include="MetaModel\Product\ProductOptionMetaModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -152,9 +157,9 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\Google.Protobuf.dll" />
-    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\SonarAnalyzer.CSharp.dll" />
-    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\SonarAnalyzer.dll" />
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\Google.Protobuf.dll" />
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\SonarAnalyzer.CSharp.dll" />
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -23,9 +23,19 @@ namespace Fanex.Athena.DataAccess.Core.Configuration
 
         private readonly IMemoryCacheService _cache;
 
+        private readonly ILogger _logger;
+
         public BalanceUpDataAccess()
         {
             _cache = new MemoryCacheService();
+            _logger = Logger.Log;
+        }
+
+        [CLSCompliant(false)]
+        public BalanceUpDataAccess(ILogger logger, IMemoryCacheService cache)
+        {
+            _logger = logger;
+            _cache = cache;
         }
 
         public BalanceUp GetBalanceUp()
@@ -45,7 +55,7 @@ namespace Fanex.Athena.DataAccess.Core.Configuration
             }
             catch (Exception exception)
             {
-                LogService.Error(exception.Message, exception);
+                _logger.Error(exception.Message, exception);
             }
 
             return balanceup;

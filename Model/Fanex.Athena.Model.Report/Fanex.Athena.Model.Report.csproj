@@ -115,6 +115,7 @@
   <ItemGroup>
     <Compile Include="DTO\CashOutWinLoss.cs" />
     <Compile Include="DTO\CasinoProgressiveWins.cs" />
+    <Compile Include="DTO\ExchangeWinLoss.cs" />
     <Compile Include="DTO\MicroGamingWinLoss.cs" />
     <Compile Include="DTO\Keno\KenoAuthorization.cs" />
     <Compile Include="DTO\Keno\KenoAuthorizedData.cs" />
@@ -156,11 +157,11 @@
     <Compile Include="DTO\TurnoverDTO.cs" />
     <Compile Include="DTO\WinLossByProduct.cs" />
     <Compile Include="MetaModel\BaseDrilldownReportMetaModel.cs" />
+    <Compile Include="MetaModel\ExchangeWinLossMetaModel.cs" />
     <Compile Include="MetaModel\Keno\KenoResultMetaModel.cs" />
     <Compile Include="MetaModel\BalanceMetaModel.cs" />
     <Compile Include="MetaModel\BaseReportMetaModel.cs" />
     <Compile Include="MetaModel\ActiveCustomerMetaModel.cs" />
-    <Compile Include="MetaModel\AgCasinoBalanceMetaModel.cs" />
     <Compile Include="MetaModel\LicenseeWinLossByTimeZoneMetaModel.cs" />
     <Compile Include="MetaModel\NotificationAttachmentMetaModel.cs" />
     <Compile Include="MetaModel\NotificationMarkAsReadMetaModel.cs" />
@@ -186,10 +187,13 @@
     <Compile Include="MetaModel\TurnoverMetaModel.cs" />
     <Compile Include="MetaModel\WinLossByBetTypeMetaModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResultModel\ActiveCustomerSummaryResultModel.cs" />
     <Compile Include="ResultModel\LiveReportDetailResultModel.cs" />
+    <Compile Include="ResultModel\WeeklyLiveMatchResultModel.cs" />
     <Compile Include="ResultModel\WinLossByProductResultModel.cs" />
     <Compile Include="ViewModel\CashOutWinLossViewModel.cs" />
     <Compile Include="ViewModel\CustomerWinlossViewModel.cs" />
+    <Compile Include="ViewModel\ExchangeWinLossViewModel.cs" />
     <Compile Include="ViewModel\Note\NoteViewModel.cs" />
     <Compile Include="ViewModel\BalanceViewModel.cs" />
     <Compile Include="ViewModel\ActiveCustomerViewModel.cs" />
@@ -246,9 +250,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\Google.Protobuf.dll" />
-    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\SonarAnalyzer.CSharp.dll" />
-    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\SonarAnalyzer.dll" />
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\Google.Protobuf.dll" />
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\SonarAnalyzer.CSharp.dll" />
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -5,25 +5,23 @@
     using System.Data;
     using System.Web.Script.Serialization;
     using Core.Configuration.Interfaces;
+    using Core.UnitTests.TestHelpers;
     using Data;
     using Model.Core.DTO.Configuration;
     using Model.Report.DTO.SubsidiaryPerformance;
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using UnitTest.Common.Helpers;
 
     [TestFixture]
-    public class SubsidiaryPerformanceDataAccessTest
+    public class SubsidiaryPerformanceDataAccessTest : BaseDataAccessHelperTest<SubsidiaryPerformanceDataAccess>
     {
-        private SubsidiaryPerformanceDataAccess _dataAccess;
         private IBalanceUpDataAccess _balanceUpDataAccess;
-        private IObjectDb _objectDb;
-        private IDataReader _dataReader;
+
         private BalanceUp _balance;
 
-        [SetUp]
-        public void SetUp()
+        [OneTimeSetUp]
+        public override void FixtureSetUp()
         {
             _balance = new BalanceUp
             {
@@ -33,36 +31,34 @@
 
             _balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             _balanceUpDataAccess.GetBalanceUp().Returns(_balance);
-            _dataAccess = Substitute.ForPartsOf<SubsidiaryPerformanceDataAccess>(_balanceUpDataAccess);
+            DataAccess = Substitute.ForPartsOf<SubsidiaryPerformanceDataAccess>(_balanceUpDataAccess);
 
-            _objectDb = Substitute.For<IObjectDb>();
-            _dataReader = Substitute.For<IDataReader>();
+            ObjectDb = Substitute.For<IObjectDb>();
 
             const string SpName = "Lrf_Rpt_SubsidiaryWinloss";
-            _dataAccess.GetObjectDb(Arg.Is<string>(SpName)).Returns(_objectDb);
-            _objectDb.ExecuteReader().Returns(_dataReader);
+            DataAccess.GetObjectDb(Arg.Is(SpName)).Returns(ObjectDb);
         }
 
-        [TearDown]
-        public void TearDown()
+        [OneTimeTearDown]
+        public override void FixtureTearDown()
         {
             _balanceUpDataAccess = null;
             _balance = null;
-            _dataAccess = null;
-            _objectDb = null;
+
+            base.FixtureTearDown();
         }
 
         [Test]
         public void GetData_WhenCall_PassCorrectParams()
         {
             // Arrange
-            _dataReader.Read().Returns(false);
+            Reader.Read().Returns(false);
 
             var metaModel = GetDefaultMetaModel();
             IEnumerable<SubsidiaryPerformanceEntity> totalList = null;
 
             // Action
-            _dataAccess.GetData(metaModel, out totalList);
+            DataAccess.GetData(metaModel, out totalList);
 
             // Assert
             AssertParamsPassCorrectly(metaModel);
@@ -75,17 +71,17 @@
             var metaModel = GetDefaultMetaModel();
             metaModel.ConvertAll = false;
 
-            _dataReader.Read().Returns(true, false);
+            Reader.Read().Returns(true, false);
 
             var readerDataMapping = GetReaderDataMapping(metaModel.BaseCurrency);
-            DataAccessTestHelper.MapReaderData(_dataReader, readerDataMapping);
+            MapReaderData(readerDataMapping);
 
             var serializer = new JavaScriptSerializer();
             var expectedResult = serializer.Serialize(GetExpectedResult(readerDataMapping));
             IEnumerable<SubsidiaryPerformanceEntity> totalList = null;
 
             // Action
-            var result = serializer.Serialize(_dataAccess.GetData(metaModel, out totalList));
+            var result = serializer.Serialize(DataAccess.GetData(metaModel, out totalList));
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -98,17 +94,17 @@
             var metaModel = GetDefaultMetaModel();
             metaModel.ConvertAll = true;
 
-            _dataReader.Read().Returns(true, false);
+            Reader.Read().Returns(true, false);
 
             var readerDataMapping = GetReaderDataMapping(metaModel.BaseCurrency);
-            DataAccessTestHelper.MapReaderData(_dataReader, readerDataMapping);
+            MapReaderData(readerDataMapping);
 
             var serializer = new JavaScriptSerializer();
             var expectedResult = serializer.Serialize(GetExpectedResult(readerDataMapping, metaModel.BaseCurrency));
             IEnumerable<SubsidiaryPerformanceEntity> totalList = null;
 
             // Action
-            var result = serializer.Serialize(_dataAccess.GetData(metaModel, out totalList));
+            var result = serializer.Serialize(DataAccess.GetData(metaModel, out totalList));
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -122,17 +118,17 @@
             var metaModel = GetDefaultMetaModel();
             metaModel.ConvertAll = false;
 
-            _dataReader.Read().Returns(true, false);
+            Reader.Read().Returns(true, false);
 
             var readerDataMapping = GetReaderDataMapping(metaModel.BaseCurrency);
-            DataAccessTestHelper.MapReaderData(_dataReader, readerDataMapping);
+            MapReaderData(readerDataMapping);
 
             var serializer = new JavaScriptSerializer();
             var total = GetExpectedResult(readerDataMapping, metaModel.BaseCurrency);
             var expectedResult = serializer.Serialize(total);
 
             // Action
-            _dataAccess.GetData(metaModel, out totalList);
+            DataAccess.GetData(metaModel, out totalList);
             var result = serializer.Serialize(totalList);
 
             // Assert
@@ -190,13 +186,13 @@
 
         private void AssertParamsPassCorrectly(SubsidiaryPerformanceMetaModel metaModel)
         {
-            _objectDb.DidNotReceive().AddInParameter("BaseCurrency", Arg.Any<DbType>(), Arg.Any<object>());
-            _objectDb.DidNotReceive().AddInParameter("ConvertAll", Arg.Any<DbType>(), Arg.Any<object>());
-            _objectDb.Received().AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
-            _objectDb.Received().AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
-            _objectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, _balance.MoveBetsDay);
-            _objectDb.Received().AddInParameter("ProductList", DbType.String, metaModel.ProductCodeList);
-            _objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            ObjectDb.DidNotReceive().AddInParameter("BaseCurrency", Arg.Any<DbType>(), Arg.Any<object>());
+            ObjectDb.DidNotReceive().AddInParameter("ConvertAll", Arg.Any<DbType>(), Arg.Any<object>());
+            ObjectDb.Received().AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
+            ObjectDb.Received().AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
+            ObjectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, _balance.MoveBetsDay);
+            ObjectDb.Received().AddInParameter("ProductList", DbType.String, metaModel.ProductCodeList);
+            ObjectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
         }
     }
 }

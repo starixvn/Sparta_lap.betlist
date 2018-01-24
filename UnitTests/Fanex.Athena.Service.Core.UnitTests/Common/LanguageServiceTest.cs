@@ -81,7 +81,7 @@
         }
 
         [Test]
-        public void GetCurrentLanguage_WhenCall_ReturnDefaultLanguage()
+        public void GetCurrentLanguage_SessionLanguageIsEmpty_ReturnDefaultLanguage()
         {
             // Arrange
             const string ExpectedLanguage = "en-US";
@@ -91,6 +91,22 @@
             {
                 Language = string.Empty
             });
+
+            // Action
+            var result = _languageService.GetCurrentLanguage();
+
+            // Assert
+            Assert.That(result, Is.EqualTo(ExpectedLanguage));
+        }
+
+        [Test]
+        public void GetCurrentLanguage_SessionIsNull_ReturnDefaultLanguage()
+        {
+            // Arrange
+            const string ExpectedLanguage = "en-US";
+            HttpContext.Current = GetHttpContext();
+
+            _sessionService.UserSession.Returns(x => { return null; });
 
             // Action
             var result = _languageService.GetCurrentLanguage();

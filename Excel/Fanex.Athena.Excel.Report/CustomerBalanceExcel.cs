@@ -131,10 +131,7 @@ namespace Fanex.Athena.Excel.Report
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             var row2 = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
 
-            for (int i = 0; i < headerTextList.Length; i++)
-            {
-                row.Cells[i].SetCellValue(headerTextList[i]);
-            }
+            SetTextRowHeader(row, headerTextList);
 
             row2.Cells[ColumnCustomerWinLoss].SetCellValue(ViewResources.WinLoss);
             row2.Cells[ColumnCustomerComm].SetCellValue(ViewResources.Comm);
@@ -226,7 +223,7 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        private void AssignTotalData(ISheet sheet, int rowTotal)
+        protected internal virtual void AssignTotalData(ISheet sheet, int rowTotal)
         {
             var row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, rowTotal);
 

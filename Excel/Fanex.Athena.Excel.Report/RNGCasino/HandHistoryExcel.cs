@@ -43,6 +43,11 @@ namespace Fanex.Athena.Excel.Report.RNGCasino
         private readonly RNGCasinoResult _totalData;
         private readonly IList<RNGCasinoResult> _data;
 
+        protected internal HandHistoryExcel()
+            : base(string.Empty, 0)
+        {
+        }
+
         public HandHistoryExcel(
                     string templatePath,
                     RNGCasinoResultMetaModel metaModel,
@@ -98,10 +103,7 @@ namespace Fanex.Athena.Excel.Report.RNGCasino
                 ViewResources.RollingComm,
                 ViewResources.Results
             };
-            for (int i = 0; i < headerTextList.Length; i++)
-            {
-                row.Cells[i].SetCellValue(headerTextList[i]);
-            }
+            SetTextRowHeader(row, headerTextList);
         }
 
         protected override void AssignNoInfoRow(ISheet sheet)
@@ -212,7 +214,7 @@ namespace Fanex.Athena.Excel.Report.RNGCasino
             return Regex.Replace(result.Replace("<BR>", "\n"), @"<[^>]+>|&nbsp;", string.Empty).Trim();
         }
 
-        private void AssignGroupTotal(ISheet sheet, RNGCasinoResult groupTotal, int currentRow)
+        protected internal virtual void AssignGroupTotal(ISheet sheet, RNGCasinoResult groupTotal, int currentRow)
         {
             var row = sheet.CopyRow(TemplateSheet, RowGroupTotal, currentRow);
             row.Cells[ColumnEndBalance].SetCellValue(ViewResources.Total);
@@ -220,7 +222,7 @@ namespace Fanex.Athena.Excel.Report.RNGCasino
             AssignTotalColumns(row, groupTotal);
         }
 
-        private void AssignGrandTotal(ISheet sheet, int currentRow)
+        protected internal virtual void AssignGrandTotal(ISheet sheet, int currentRow)
         {
             var row = sheet.CopyRow(TemplateSheet, RowGrandTotal, currentRow);
             row.Cells[ColumnEndBalance].SetCellValue(ViewResources.GrandTotal);

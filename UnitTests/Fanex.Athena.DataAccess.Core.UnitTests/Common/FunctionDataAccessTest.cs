@@ -1,228 +1,241 @@
 ﻿namespace Fanex.Athena.DataAccess.Core.UnitTests.Common
 {
-    using System;
     using System.Collections.Generic;
     using System.Data;
     using Core.Common;
-    using Data;
     using Extension.Utility;
     using Model.Core.DTO.Common;
     using NSubstitute;
     using NUnit.Framework;
     using TestHelpers;
-    using UnitTest.Common.Helpers;
 
-    [TestFixture]
-    public class FunctionDataAccessTest
+    public class FunctionDataAccessTest : BaseDataAccessHelperTest<FunctionDataAccess>
     {
-        private IObjectDb _objectDb;
-        private FunctionDataAccess _dataAccess;
-        private IDataReader _reader;
+        private const string GetFunctionListSp = "Lrf_FunctionsSel";
+        private const string GetLicenseeFunctionList = "Lrf_LicenseeFunctionsSel";
+        private const string GetUserFunctionList = "Lrf_LicenseeUserFunctionsSel";
+        private const string AssignUserFunction = "Lrf_LicenseeUserFunctionsIns";
+        private const string RemoveUserFunction = "Lrf_LicenseeUserFunctionsDel";
+        private const int LicenseeId = 1;
+        private const int CustId = 2;
+        private const int FunctionId = 3;
+        private const int UserId = 4;
+        private const string Ip = "::1";
+        private const string LangKey = "en-US";
+
         private IAppSettings _appSetting;
 
         [OneTimeSetUp]
-        public void Setup()
+        public override void FixtureSetUp()
         {
             _appSetting = Substitute.For<IAppSettings>();
-            _objectDb = Substitute.For<IObjectDb>();
-            _dataAccess = Substitute.ForPartsOf<FunctionDataAccess>(_appSetting);
-            _reader = Substitute.For<IDataReader>();
-            _objectDb.ExecuteReader().Returns(_reader);
+            DataAccess = Substitute.ForPartsOf<FunctionDataAccess>(_appSetting);
+            ObjectDb = Substitute.For<Data.IObjectDb>();
         }
 
         [OneTimeTearDown]
-        public void TearDown()
+        public override void FixtureTearDown()
         {
-            _objectDb = null;
-            _dataAccess = null;
-            _reader = null;
+            base.FixtureTearDown();
+
+            _appSetting = null;
         }
 
-        [Test]
-        public void GetFunctionList_WhenCall_DataReturnedCorrectly()
+        [TestCase("PRO")]
+        [TestCase("TEST")]
+        public void GetFunctionList_WhenCall_DataReturnedCorrectly(string environment)
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_FunctionsSel")).Returns(_objectDb);
-            var expected = new List<Function> { new Function { FunctionId = 1 }, new Function { FunctionId = 2 } };
-            _reader.Read().Returns(true, false);
+            _appSetting.Environment.Returns(environment);
 
-            var readerDataMapping = new
+            DataAccess.GetObjectDb(Arg.Is<string>(GetFunctionListSp)).Returns(ObjectDb);
+            MapReaderData(new
             {
-                FunctionId = 1
-            };
-
-            DataAccessTestHelper.MapReaderData(_reader, readerDataMapping);
+                FunctionId = 1,
+                Environment = "LIVE"
+            });
+            Reader.Read().Returns(true, false);
 
             // Action
-            var result = _dataAccess.GetFunctionList();
+            var result = DataAccess.GetFunctionList();
 
             // Assert
             Assert.That(result[0].FunctionId, Is.EqualTo(1));
         }
 
         [Test]
+        public void GetFunctionList_OnProduction_FunctionIsNotLive_DataReturnedCorrectly()
+        {
+            // Arrange
+            _appSetting.Environment.Returns("PRO");
+
+            DataAccess.GetObjectDb(Arg.Is<string>(GetFunctionListSp)).Returns(ObjectDb);
+            MapReaderData(new
+            {
+                FunctionId = 1,
+                Environment = "TEST"
+            });
+            Reader.Read().Returns(true, false);
+
+            // Action
+            var result = DataAccess.GetFunctionList();
+
+            // Assert
+            Assert.That(result, Is.Empty);
+        }
+
+        [Test]
         public void GetLicenseeFunctionList_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            var licenseeId = 1;
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_LicenseeFunctionsSel")).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is<string>(GetLicenseeFunctionList)).Returns(ObjectDb);
 
             // Action
-            _dataAccess.GetLicenseeFunctionList(licenseeId);
+            DataAccess.GetLicenseeFunctionList(LicenseeId);
 
             // Assert
-            _objectDb.Received().AddInParameter("licenseeid", DbType.Int32, licenseeId);
+            ObjectDb.Received().AddInParameter("LicenseeID", DbType.Int32, LicenseeId);
         }
 
         [Test]
         public void GetLicenseeFunctionList_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            var licenseeId = 1;
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_LicenseeFunctionsSel")).Returns(_objectDb);
-            _reader.Read().Returns(true, true, false);
-            _reader["FunctionId"].Returns(1, 2);
             var expected = new List<Function> { new Function { FunctionId = 1 }, new Function { FunctionId = 2 } };
 
+            DataAccess.GetObjectDb(Arg.Is<string>(GetLicenseeFunctionList)).Returns(ObjectDb);
+            Reader["FunctionId"].Returns(1, 2);
+            Reader.Read().Returns(true, true, false);
+
             // Action
-            var result = _dataAccess.GetLicenseeFunctionList(licenseeId);
+            var result = DataAccess.GetLicenseeFunctionList(LicenseeId);
 
             // Assert
-            Assert.That(result[0].FunctionId, Is.EqualTo(expected[0].FunctionId));
-            Assert.That(result[1].FunctionId, Is.EqualTo(expected[1].FunctionId));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result[0].FunctionId, Is.EqualTo(expected[0].FunctionId));
+                Assert.That(result[1].FunctionId, Is.EqualTo(expected[1].FunctionId));
+            });
         }
 
         [Test]
         public void GetUserFunctionList_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            var licenseeId = 1;
-            var userId = 2;
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_LicenseeUserFunctionsSel")).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is<string>(GetUserFunctionList)).Returns(ObjectDb);
 
             // Action
-            _dataAccess.GetUserFunctionList(licenseeId, userId);
+            DataAccess.GetUserFunctionList(LicenseeId, UserId);
 
             // Assert
-            _objectDb.Received().AddInParameter("LicenseeId", DbType.Int32, licenseeId);
-            _objectDb.Received().AddInParameter("UserId", DbType.Int32, userId);
+            Assert.Multiple(() =>
+            {
+                ObjectDb.Received().AddInParameter("LicenseeId", DbType.Int32, LicenseeId);
+                ObjectDb.Received().AddInParameter("UserId", DbType.Int32, UserId);
+            });
         }
 
         [Test]
         public void GetUserFunctionList_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            var licenseeId = 1;
-            var userId = 2;
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_LicenseeUserFunctionsSel")).Returns(_objectDb);
-            _reader.Read().Returns(true, true, false);
-            _reader["FunctionId"].Returns(1, 2);
             var expected = new List<Function> { new Function { FunctionId = 1 }, new Function { FunctionId = 2 } };
 
+            DataAccess.GetObjectDb(Arg.Is<string>(GetUserFunctionList)).Returns(ObjectDb);
+            Reader["FunctionId"].Returns(1, 2);
+            Reader.Read().Returns(true, true, false);
+
             // Action
-            var result = _dataAccess.GetUserFunctionList(licenseeId, userId);
+            var result = DataAccess.GetUserFunctionList(LicenseeId, UserId);
 
             // Assert
-            Assert.That(result[0].FunctionId, Is.EqualTo(expected[0].FunctionId));
-            Assert.That(result[1].FunctionId, Is.EqualTo(expected[1].FunctionId));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result[0].FunctionId, Is.EqualTo(expected[0].FunctionId));
+                Assert.That(result[1].FunctionId, Is.EqualTo(expected[1].FunctionId));
+            });
         }
 
         [Test]
         public void AssignUserFunction_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            var licenseeId = 1;
-            var custId = 2;
-            var functionId = 3;
-            var userId = 4;
-            var ip = "::1";
-            var langKey = "en-US";
-
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_LicenseeUserFunctionsIns")).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is<string>(AssignUserFunction)).Returns(ObjectDb);
 
             // Action
-            _dataAccess.AssignUserFunction(licenseeId, custId, functionId, userId, ip, langKey);
+            DataAccess.AssignUserFunction(LicenseeId, CustId, FunctionId, UserId, Ip, LangKey);
 
             // Assert
-            _objectDb.Received().AddInParameter("UserID", DbType.Int32, userId);
-            _objectDb.Received().AddInParameter("LicenseeID", DbType.Int32, licenseeId);
-            _objectDb.Received().AddInParameter("FunctionID", DbType.Int32, functionId);
-            _objectDb.Received().AddInParameter("CustID", DbType.Int32, custId);
-            _objectDb.Received().AddInParameter("LangKey", DbType.String, langKey);
-            _objectDb.Received().AddInParameter("IP", DbType.String, ip);
-            _objectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
-            _objectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
+            Assert.Multiple(() =>
+            {
+                ObjectDb.Received().AddInParameter("UserID", DbType.Int32, UserId);
+                ObjectDb.Received().AddInParameter("LicenseeID", DbType.Int32, LicenseeId);
+                ObjectDb.Received().AddInParameter("FunctionID", DbType.Int32, FunctionId);
+                ObjectDb.Received().AddInParameter("CustID", DbType.Int32, CustId);
+                ObjectDb.Received().AddInParameter("LangKey", DbType.String, LangKey);
+                ObjectDb.Received().AddInParameter("IP", DbType.String, Ip);
+                ObjectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
+                ObjectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
+            });
         }
 
         [Test]
         public void AssignUserFunction_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            var licenseeId = 1;
-            var custId = 2;
-            var functionId = 3;
-            var userId = 4;
-            var ip = "::1";
-            var langKey = "en-US";
-
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_LicenseeUserFunctionsIns")).Returns(_objectDb);
-            ResultInfoHelper.MockResultInfo(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is<string>(AssignUserFunction)).Returns(ObjectDb);
+            ResultInfoHelper.MockResultInfo(ObjectDb);
 
             // Action
-            var result = _dataAccess.AssignUserFunction(licenseeId, custId, functionId, userId, ip, langKey);
+            var result = DataAccess.AssignUserFunction(LicenseeId, CustId, FunctionId, UserId, Ip, LangKey);
 
             // Assert
-            Assert.That(result.Code, Is.EqualTo(ResultInfoHelper.ResultCode));
-            Assert.That(result.Message, Is.EqualTo(ResultInfoHelper.ResultMessage));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Code, Is.EqualTo(ResultInfoHelper.ResultCode));
+                Assert.That(result.Message, Is.EqualTo(ResultInfoHelper.ResultMessage));
+            });
         }
 
         [Test]
         public void RemoveUserFunction_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            var licenseeId = 1;
-            var custId = 2;
-            var functionId = 3;
-            var userId = 4;
-            var ip = "::1";
-            var langKey = "en-US";
-
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_LicenseeUserFunctionsDel")).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is<string>(RemoveUserFunction)).Returns(ObjectDb);
 
             // Action
-            _dataAccess.RemoveUserFunction(licenseeId, userId, custId, ip, functionId, langKey);
+            DataAccess.RemoveUserFunction(LicenseeId, UserId, CustId, Ip, FunctionId, LangKey);
 
             // Assert
-            _objectDb.Received().AddInParameter("UserID", DbType.Int32, userId);
-            _objectDb.Received().AddInParameter("LicenseeID", DbType.Int32, licenseeId);
-            _objectDb.Received().AddInParameter("FunctionID", DbType.Int32, functionId);
-            _objectDb.Received().AddInParameter("CustID", DbType.Int32, custId);
-            _objectDb.Received().AddInParameter("LangKey", DbType.String, langKey);
-            _objectDb.Received().AddInParameter("IP", DbType.String, ip);
-            _objectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
-            _objectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
+            Assert.Multiple(() =>
+            {
+                ObjectDb.Received().AddInParameter("UserID", DbType.Int32, UserId);
+                ObjectDb.Received().AddInParameter("LicenseeID", DbType.Int32, LicenseeId);
+                ObjectDb.Received().AddInParameter("FunctionID", DbType.Int32, FunctionId);
+                ObjectDb.Received().AddInParameter("CustID", DbType.Int32, CustId);
+                ObjectDb.Received().AddInParameter("LangKey", DbType.String, LangKey);
+                ObjectDb.Received().AddInParameter("IP", DbType.String, Ip);
+                ObjectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
+                ObjectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
+            });
         }
 
         [Test]
         public void RemoveUserFunction_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            var licenseeId = 1;
-            var custId = 2;
-            var functionId = 3;
-            var userId = 4;
-            var ip = "::1";
-            var langKey = "en-US";
-
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_LicenseeUserFunctionsDel")).Returns(_objectDb);
-            ResultInfoHelper.MockResultInfo(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is<string>(RemoveUserFunction)).Returns(ObjectDb);
+            ResultInfoHelper.MockResultInfo(ObjectDb);
 
             // Action
-            var result = _dataAccess.RemoveUserFunction(licenseeId, userId, custId, ip, functionId, langKey);
+            var result = DataAccess.RemoveUserFunction(LicenseeId, UserId, CustId, Ip, FunctionId, LangKey);
 
             // Assert
-            Assert.That(result.Code, Is.EqualTo(ResultInfoHelper.ResultCode));
-            Assert.That(result.Message, Is.EqualTo(ResultInfoHelper.ResultMessage));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Code, Is.EqualTo(ResultInfoHelper.ResultCode));
+                Assert.That(result.Message, Is.EqualTo(ResultInfoHelper.ResultMessage));
+            });
         }
     }
 }

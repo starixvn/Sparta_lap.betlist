@@ -68,13 +68,11 @@
             var timeSpan = DateTime.Now.Ticks;
             var decryptedQueryString = "licname=spondemo&username=user1&pwd=123&loginurl=null&lang=en-US&timestamp=" + timeSpan;
             _rsaEncryptor.DecryptString(Arg.Any<string>(), Arg.Any<int>(), Arg.Any<string>()).Returns(decryptedQueryString);
-            IResultInfo resultInfo;
             var onuserId = 12345;
-            _authService.ValidateInternalUser(Arg.Any<User>(), "spondemo", timeSpan, out resultInfo)
-                .Returns(x =>
+            _authService.ValidateInternalUser(Arg.Any<User>(), "spondemo", timeSpan)
+                .Returns(new ResultInfo<User>
                 {
-                    x[3] = new ResultInfo();
-                    return new User
+                    ExtendedData = new User
                     {
                         Username = "user1",
                         UserID = 1,
@@ -83,7 +81,7 @@
                         {
                             Id = 2
                         }
-                    };
+                    }
                 });
             _authService.LoginOnUser(Arg.Any<User>(), HttpContext.Current.Session.SessionID, 999, HttpContext.Current.Request.UserHostAddress)
                 .Returns(onuserId);
@@ -93,7 +91,7 @@
 
             // Assert
             _sessionService.Received().CreateNewSession(1, onuserId, "user1", true, 2, "en-US", viewType: Model.Core.DataDomain.ClientViewType.Default);
-            _formsAuthenticationService.Received().SetAuthCookie("user1", Arg.Any<bool>());
+            _formsAuthenticationService.Received().SetAuthCookie("spondemo_user1", Arg.Any<bool>());
         }
 
         [Test]
@@ -116,13 +114,11 @@
             };
             _sessionService.LicenseeSession.Returns(licenseeSession);
 
-            IResultInfo resultInfo;
             var onuserId = 12345;
-            _authService.ValidateInternalUser(Arg.Any<User>(), "spondemo", timeSpan, out resultInfo)
-                .Returns(x =>
+            _authService.ValidateInternalUser(Arg.Any<User>(), "spondemo", timeSpan)
+                .Returns(new ResultInfo<User>
                 {
-                    x[3] = new ResultInfo();
-                    return new User
+                    ExtendedData = new User
                     {
                         Username = "user1",
                         UserID = 1,
@@ -131,7 +127,7 @@
                         {
                             Id = 2
                         }
-                    };
+                    }
                 });
             _authService.LoginOnUser(Arg.Any<User>(), HttpContext.Current.Session.SessionID, 999, HttpContext.Current.Request.UserHostAddress)
                 .Returns(onuserId);
@@ -140,7 +136,7 @@
             _ssoService.SSO();
 
             // Assert
-            _formsAuthenticationService.Received(1).SetAuthCookie("user2", Arg.Any<bool>());
+            _formsAuthenticationService.Received(1).SetAuthCookie("spondemo_user2", Arg.Any<bool>());
         }
 
         private static void MockHttpContext()

@@ -19,10 +19,11 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
     using Fanex.Data;
+    using Model.Report.ResultModel;
 
     public class ActiveCustomerSummaryDataAccess : BaseDataAccess, IActiveCustomerSummaryDataAccess
     {
-        public SortableList<ActiveCustomer> GetActiveCustomers(ActiveCustomerMetaModel metaModel, out int totalCustomer)
+        public ActiveCustomerSummaryResultModel GetActiveCustomers(ActiveCustomerMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_ActiveMember";
             try
@@ -37,9 +38,13 @@ namespace Fanex.Athena.DataAccess.Report
                         data = GetData(reader, metaModel);
                     }
 
-                    totalCustomer = Convert.ToInt32(db.GetParameterValue("TotalActive"));
+                    var totalCustomer = Convert.ToInt32(db.GetParameterValue("TotalActive"));
 
-                    return data;
+                    return new ActiveCustomerSummaryResultModel
+                    {
+                        DataList = data,
+                        TotalCustomer = totalCustomer
+                    };
                 }
             }
             catch (ObjectDbException sqlException)

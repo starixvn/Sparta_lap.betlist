@@ -1,43 +1,27 @@
 ﻿namespace Fanex.Athena.DataAccess.TotalBet.UnitTests
 {
-    using System.Data;
-    using Data;
+    using System.Linq;
+    using Core.UnitTests.TestHelpers;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
 
-    [TestFixture]
-    public class HandicapOverUnderDataAccessTest
+    public class HandicapOverUnderDataAccessTest : BaseDataAccessHelperTest<HandicapOverUnderDataAccess>
     {
-        private IObjectDb _objectDb;
-        private HandicapOverUnderDataAccess _dataAccess;
-        private IDataReader _reader;
-
         [OneTimeSetUp]
-        public void Setup()
+        public override void FixtureSetUp()
         {
-            _objectDb = Substitute.For<IObjectDb>();
-            _dataAccess = Substitute.ForPartsOf<HandicapOverUnderDataAccess>();
-            _reader = Substitute.For<IDataReader>();
-            _objectDb.ExecuteReader(Arg.Any<object>()).Returns(_reader);
-        }
+            base.FixtureSetUp();
 
-        [OneTimeTearDown]
-        public void TearDown()
-        {
-            _objectDb = null;
-            _dataAccess = null;
-            _reader = null;
+            DataAccess.GetObjectDb(Arg.Is("Lrf_TotalBets_Sel1378")).Returns(ObjectDb);
         }
 
         [Test]
         public void GetHandicapOverUnderDataList_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_TotalBets_Sel1378")).Returns(_objectDb);
             var metaModel = new HandicapOverUnderMetaModel();
-            var totalData = new HandicapOverUnder();
             var expected = new HandicapOverUnder
             {
                 LeagueId = 1,
@@ -54,59 +38,107 @@
                 FirstTimeHandicap = 8m,
                 FirstTimeOverUnder = 8m
             };
+            var expectedTotal = new HandicapOverUnder
+            {
+                FullTimeHandicap = 12m,
+                FullTimeOverUnder = 12m,
+                FirstTimeHandicap = 12m,
+                FirstTimeOverUnder = 12m
+            };
             ConfigureReaderForGetHandicapOverUnderDataListMethod(expected);
+            Reader.Read().Returns(true, false, true, false);
+            Reader.NextResult().Returns(true);
 
             // Action
-            var result = _dataAccess.GetHandicapOverUnderDataList(metaModel, out totalData)[0];
+            var result = DataAccess.GetHandicapOverUnderDataList(metaModel);
 
             // Assert
-            Assert.That(result.ShowTime, Is.EqualTo(expected.ShowTime));
-            Assert.That(result.LeagueId, Is.EqualTo(expected.LeagueId));
-            Assert.That(result.MatchId, Is.EqualTo(expected.MatchId));
-            Assert.That(result.HomeId, Is.EqualTo(expected.HomeId));
-            Assert.That(result.AwayId, Is.EqualTo(expected.AwayId));
-            Assert.That(result.LiveHomeScore, Is.EqualTo(expected.LiveHomeScore));
-            Assert.That(result.LiveAwayScore, Is.EqualTo(expected.LiveAwayScore));
-            Assert.That(result.LiveIndicator, Is.EqualTo(expected.LiveIndicator));
+            Assert.Multiple(() =>
+            {
+                AssertMainData(result.DataList.ElementAt(0), expected);
+                AssertTotalData(result.TotalData, expectedTotal);
+            });
+        }
 
-            Assert.That(result.BetCountHandicap, Is.EqualTo(expected.BetCountHandicap));
-            Assert.That(result.BetCountOverUnder, Is.EqualTo(expected.BetCountOverUnder));
-            Assert.That(result.BetCountHandicap1StHalf, Is.EqualTo(expected.BetCountHandicap1StHalf));
-            Assert.That(result.BetCountOverUnder1StHalf, Is.EqualTo(expected.BetCountOverUnder1StHalf));
+        [Test]
+        public void GetHandicapOverUnderDataList_NoDataReturned_ReturnEmptyData()
+        {
+            // Arrange
+            var metaModel = new HandicapOverUnderMetaModel();
+            var expectedTotal = new HandicapOverUnder();
 
-            Assert.That(result.FullTimeHandicap, Is.EqualTo(expected.FullTimeHandicap));
-            Assert.That(result.FullTimeOverUnder, Is.EqualTo(expected.FullTimeOverUnder));
-            Assert.That(result.FirstTimeHandicap, Is.EqualTo(expected.FirstTimeHandicap));
-            Assert.That(result.FirstTimeOverUnder, Is.EqualTo(expected.FirstTimeOverUnder));
+            Reader.Read().Returns(false);
+            Reader.NextResult().Returns(false);
+
+            // Action
+            var result = DataAccess.GetHandicapOverUnderDataList(metaModel);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.DataList, Is.Empty);
+                AssertTotalData(result.TotalData, expectedTotal);
+            });
+        }
+
+        private void AssertMainData(HandicapOverUnder actual, HandicapOverUnder expected)
+        {
+            Assert.That(actual.ShowTime, Is.EqualTo(expected.ShowTime));
+            Assert.That(actual.LeagueId, Is.EqualTo(expected.LeagueId));
+            Assert.That(actual.MatchId, Is.EqualTo(expected.MatchId));
+            Assert.That(actual.HomeId, Is.EqualTo(expected.HomeId));
+            Assert.That(actual.AwayId, Is.EqualTo(expected.AwayId));
+            Assert.That(actual.LiveHomeScore, Is.EqualTo(expected.LiveHomeScore));
+            Assert.That(actual.LiveAwayScore, Is.EqualTo(expected.LiveAwayScore));
+            Assert.That(actual.LiveIndicator, Is.EqualTo(expected.LiveIndicator));
+
+            Assert.That(actual.BetCountHandicap, Is.EqualTo(expected.BetCountHandicap));
+            Assert.That(actual.BetCountOverUnder, Is.EqualTo(expected.BetCountOverUnder));
+            Assert.That(actual.BetCountHandicap1StHalf, Is.EqualTo(expected.BetCountHandicap1StHalf));
+            Assert.That(actual.BetCountOverUnder1StHalf, Is.EqualTo(expected.BetCountOverUnder1StHalf));
+
+            Assert.That(actual.FullTimeHandicap, Is.EqualTo(expected.FullTimeHandicap));
+            Assert.That(actual.FullTimeOverUnder, Is.EqualTo(expected.FullTimeOverUnder));
+            Assert.That(actual.FirstTimeHandicap, Is.EqualTo(expected.FirstTimeHandicap));
+            Assert.That(actual.FirstTimeOverUnder, Is.EqualTo(expected.FirstTimeOverUnder));
+        }
+
+        private void AssertTotalData(HandicapOverUnder actual, HandicapOverUnder expected)
+        {
+            Assert.That(actual.FullTimeHandicap, Is.EqualTo(expected.FullTimeHandicap));
+            Assert.That(actual.FullTimeOverUnder, Is.EqualTo(expected.FullTimeOverUnder));
+            Assert.That(actual.FirstTimeHandicap, Is.EqualTo(expected.FirstTimeHandicap));
+            Assert.That(actual.FirstTimeOverUnder, Is.EqualTo(expected.FirstTimeOverUnder));
         }
 
         private void ConfigureReaderForGetHandicapOverUnderDataListMethod(HandicapOverUnder expected)
         {
-            _reader.Read().Returns(true, false);
+            MapReaderData(new
+            {
+                showtime = expected.ShowTime,
+                leagueid = expected.LeagueId,
+                matchid = expected.MatchId,
+                homeID = expected.HomeId,
+                awayID = expected.AwayId,
+                livehomescore = expected.LiveHomeScore,
+                liveawayscore = expected.LiveAwayScore,
+                liveindicator = expected.LiveIndicator,
 
-            _reader["showtime"].Returns(expected.ShowTime);
-            _reader["leagueid"].Returns(expected.LeagueId);
-            _reader["matchid"].Returns(expected.MatchId);
-            _reader["homeID"].Returns(expected.HomeId);
-            _reader["awayID"].Returns(expected.AwayId);
-            _reader["livehomescore"].Returns(expected.LiveHomeScore);
-            _reader["liveawayscore"].Returns(expected.LiveAwayScore);
-            _reader["liveindicator"].Returns(expected.LiveIndicator);
+                betcount_hdp = expected.BetCountHandicap,
+                betcount_ou = expected.BetCountOverUnder,
+                BetCount_HTHDP = expected.BetCountHandicap1StHalf,
+                BetCount_HTOU = expected.BetCountOverUnder1StHalf,
 
-            _reader["betcount_hdp"].Returns(expected.BetCountHandicap);
-            _reader["betcount_ou"].Returns(expected.BetCountOverUnder);
-            _reader["BetCount_HTHDP"].Returns(expected.BetCountHandicap1StHalf);
-            _reader["BetCount_HTOU"].Returns(expected.BetCountOverUnder1StHalf);
+                home_odds_HDP = 10,
+                away_odds_HDP = 2,
+                home_odds_OU = 10,
+                away_odds_OU = 2,
 
-            _reader["home_odds_HDP"].Returns(10);
-            _reader["away_odds_HDP"].Returns(2);
-            _reader["home_odds_OU"].Returns(10);
-            _reader["away_odds_OU"].Returns(2);
-
-            _reader["home_odds_HTHDP"].Returns(10);
-            _reader["away_odds_HTHDP"].Returns(2);
-            _reader["home_odds_HTOU"].Returns(10);
-            _reader["away_odds_HTOU"].Returns(2);
+                home_odds_HTHDP = 10,
+                away_odds_HTHDP = 2,
+                home_odds_HTOU = 10,
+                away_odds_HTOU = 2
+            });
         }
     }
 }

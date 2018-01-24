@@ -20,8 +20,6 @@ namespace Fanex.Athena.DataAccess.Core.Common
 
     public class ProductDataAccess : BaseDataAccess, IProductDataAccess
     {
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         public IList<Product> GetProductAccessList(int licenseeId, bool isActiveCustomerSummaryReport = false)
         {
             var uspName = isActiveCustomerSummaryReport ? "Lrf_LicenseeProduct3rdSel_active" : "Lrf_LicenseeProduct3rdSel";

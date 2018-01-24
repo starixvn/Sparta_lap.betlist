@@ -17,7 +17,6 @@ namespace Fanex.Athena.DataAccess.BetSettings
     using Fanex.Data;
     using Helpers;
     using Interfaces;
-    using Logging;
     using Model.BetSettings.DTO;
 
     public class RacingBetSettingDataAccess : BaseDataAccess, IRacingBetSettingDataAccess

@@ -1,21 +1,21 @@
-webpackJsonp([56],{
+webpackJsonp([57],{
 
-/***/ 192:
+/***/ 197:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(193);
-__webpack_require__(194);
-__webpack_require__(195);
-__webpack_require__(196);
-module.exports = __webpack_require__(197);
+__webpack_require__(198);
+__webpack_require__(199);
+__webpack_require__(200);
+__webpack_require__(201);
+module.exports = __webpack_require__(202);
 
 
 /***/ }),
 
-/***/ 193:
+/***/ 198:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 1/18/2018 10:33:23 AM
+﻿// Generated at: 1/17/2018 5:36:39 PM
 window._language_en_US = {
 AA:"AA",
 AB:"AB",
@@ -148,6 +148,7 @@ ChangePassword:"Change Password",
 ChangeStatus:"Change {0}&apos;s status",
 ChangeStatusOfThisCustomerMsg:"Are you sure you want to change status of this customer?",
 Characters:"Characters",
+ChargeCommission:"Charge Commission",
 CheckAll:"Check All",
 Checkavailability:"Check availability",
 China:"China",
@@ -310,6 +311,7 @@ Event:"Event",
 EventDate:"Event Date",
 Events:"Events",
 ExcelExceedRowsMsg:"This file exceeded 65535 entries. Please contact administrator for more details.",
+ExchangeWinLoss:"Exchange Win Loss",
 ExcludeTestData:"Exclude Test Data",
 ExpiredTimeParamMsg:"The Url is expired",
 ExportToExcel:"Export To Excel",
@@ -416,6 +418,7 @@ InitialHand:"Initial Hand",
 Internal:"Internal",
 InternalSystem:"Internal System",
 InvalidCaptchaMsg:"You inputed an invalid code.",
+InvalidChargeCommission:"Invalid Charge Commission",
 InvalidParams:"Invalid parameters",
 InvalidRequestMsg:"Request is not valid",
 InvalidRequestOrNotAuthorizedMsg:"Invalid request or you are not authorized to access the requested resource!",
@@ -688,6 +691,7 @@ ProductAGC:"AG Casino",
 ProductBA:"BA",
 ProductBG:"Bingo",
 ProductBT:"Bet Trade",
+ProductBX:"Exchange",
 ProductCB:"Colossus Bets",
 ProductCO:"Cash Out",
 ProductCS:"RNG Casino",
@@ -979,10 +983,10 @@ YouNotChooseAnyCustomerMsg:"You did not choose any customers."
 
 /***/ }),
 
-/***/ 194:
+/***/ 199:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 1/18/2018 10:33:23 AM
+﻿// Generated at: 1/17/2018 5:36:39 PM
 window._language_zh_CN = {
 AA:"客客",
 ABComm:"AllBet 佣金",
@@ -1805,10 +1809,10 @@ YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
 
 /***/ }),
 
-/***/ 195:
+/***/ 200:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 1/18/2018 10:33:23 AM
+﻿// Generated at: 1/17/2018 5:36:39 PM
 window._language_zh_TW = {
 AA:"客客",
 ABComm:"AllBet 佣金",
@@ -2631,10 +2635,10 @@ YouNotChooseAnyCustomerMsg:"您還沒有選擇任何會員"
 
 /***/ }),
 
-/***/ 196:
+/***/ 201:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 1/18/2018 10:33:23 AM
+﻿// Generated at: 1/17/2018 5:36:39 PM
 window._language_zh_Hans = {
 AA:"客客",
 ABComm:"AllBet 佣金",
@@ -3443,10 +3447,10 @@ YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
 
 /***/ }),
 
-/***/ 197:
+/***/ 202:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 1/18/2018 10:33:23 AM
+﻿// Generated at: 1/17/2018 5:36:39 PM
 window._language_ko_KR = {
 AA:"AA",
 ABComm:"AllBet 수수료",
@@ -4213,5 +4217,5 @@ YouNotChooseAnyCustomerMsg:"고객을 아직 선택하지 않았습니다."
 
 /***/ })
 
-},[192]);
+},[197]);
 //# sourceMappingURL=language.chunk.js.map

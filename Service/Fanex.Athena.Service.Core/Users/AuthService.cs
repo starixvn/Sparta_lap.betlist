@@ -41,33 +41,27 @@ namespace Fanex.Athena.Service.Core.Users
             this._authenticationDataAccess.Logout(onuserId);
         }
 
-        public User ValidateInternalUser(User requestUser, string licenseeName, long timeStamp, out IResultInfo resultInfo)
+        public IResultInfo<User> ValidateInternalUser(User requestUser, string licenseeName, long timeStamp)
         {
-            return this._authenticationDataAccess.ValidateInternalUser(requestUser, timeStamp, licenseeName, out resultInfo);
+            return _authenticationDataAccess.ValidateInternalUser(requestUser, timeStamp, licenseeName);
         }
 
-        public User ValidateUserForLrfSystem(User requestUser, string loginToken, out IResultInfo resultInfo)
+        public IResultInfo<User> ValidateUserForLrfSystem(User requestUser, string loginToken)
         {
             var user = _userDataAccess.GetByUsername(requestUser.Username, isInternal: false);
 
-            if (user != null)
+            if (user == null)
             {
-                var hashPassword = Cryptography.CreateHash(user.Password + loginToken, user.UserSalt);
-                if (requestUser.Password.Equals(hashPassword, StringComparison.OrdinalIgnoreCase))
-                {
-                    user = this._authenticationDataAccess.ValidateUserForLrfSystem(requestUser, out resultInfo);
-                }
-                else
-                {
-                    resultInfo = new ResultInfo { Code = WrongUserNameOrPasswordError, Message = ViewResources.WrongUserNamePassword };
-                }
-            }
-            else
-            {
-                resultInfo = new ResultInfo { Code = UserNotExistError, Message = ViewResources.UserNotExist };
+                return new ResultInfo<User> { Code = UserNotExistError, Message = ViewResources.UserNotExist };
             }
 
-            return user;
+            var hashPassword = Cryptography.CreateHash(user.Password + loginToken, user.UserSalt);
+            if (!requestUser.Password.Equals(hashPassword, StringComparison.OrdinalIgnoreCase))
+            {
+                return new ResultInfo<User> { Code = WrongUserNameOrPasswordError, Message = ViewResources.WrongUserNamePassword };
+            }
+
+            return _authenticationDataAccess.ValidateUserForLrfSystem(requestUser);
         }
     }
 }

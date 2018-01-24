@@ -281,7 +281,8 @@
                 VendorID = "spondemo",
                 ActionLink = "LiceenseeWLReport",
                 Currency = new OneAuthCurrency[] { new OneAuthCurrency() },
-                Permissions = new OneAuthPermission[] { new OneAuthPermission() }
+                Permissions = new OneAuthPermission[] { new OneAuthPermission() },
+                Language = "en"
             };
             var userSession = new UserSession
             {

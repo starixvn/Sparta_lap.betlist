@@ -8,7 +8,6 @@ namespace Fanex.Athena.Service.Core.Users
 {
     using System.Collections.Specialized;
     using System.Configuration;
-    using System.Diagnostics.CodeAnalysis;
     using System.Web;
     using Extension.Utility.Interfaces;
     using Fanex.Athena.Extension.Utility;
@@ -17,6 +16,7 @@ namespace Fanex.Athena.Service.Core.Users
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Model.Core.DataDomain;
+    using Model.Core.MetaModel.Authorization;
     using Utility;
     using Utility.Interfaces;
 
@@ -57,6 +57,8 @@ namespace Fanex.Athena.Service.Core.Users
             _keyPath = ConfigurationManager.AppSettings["SSOKeyPath"] ?? string.Empty;
         }
 
+#pragma warning disable S107 // Methods should not have too many parameters
+
         public SSOService(
             IHttpContextService httpContextService,
             IAuthService authService,
@@ -66,6 +68,7 @@ namespace Fanex.Athena.Service.Core.Users
             IFormsAuthenticationService formsAuthenticationService,
             string deniedPath,
             string keyPath)
+#pragma warning restore S107 // Methods should not have too many parameters
         {
             _context = httpContextService;
             _authService = authService;
@@ -77,7 +80,7 @@ namespace Fanex.Athena.Service.Core.Users
             _keyPath = keyPath;
         }
 
-        private static string CurrentUserName
+        private static string CurrentIdentityName
         {
             get
             {
@@ -111,15 +114,6 @@ namespace Fanex.Athena.Service.Core.Users
             }
         }
 
-        /// <summary>
-        /// Single sign on from internal site.
-        /// </summary>
-        [SuppressMessage(
-            "StyleCop.CSharp.StylecopPlus.Rules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
-        [SuppressMessage("Microsoft.Usage", "CA1806:DoNotIgnoreMethodResults",
-            Justification = "Reviewed. Suppression is OK here.")]
         public void SSO()
         {
             if (string.IsNullOrEmpty(_keyPath))
@@ -127,56 +121,69 @@ namespace Fanex.Athena.Service.Core.Users
                 RedirectToErrorPage(DisableSsoErrorCode);
             }
 
-            var queryParams = GetQueryParams();
-            var licname = queryParams["licname"] ?? string.Empty;
-            var userName = queryParams["username"] ?? string.Empty;
-            var passWord = queryParams["pwd"] ?? string.Empty;
-            var siteOutUrl = queryParams["loginurl"] ?? string.Empty;
-            var languageCode = queryParams["lang"] ?? DefaultLanguage;
-            if (!Util.IsValidLanguage(languageCode))
-            {
-                languageCode = DefaultLanguage;
-            }
+            var metaModel = ParseQueryString();
 
-            if (IsUserAuthenticated && userName == CurrentUserName)
-            {
-                var langService = new LanguageService();
-                langService.ChangeLanguage(languageCode);
-                _formsAuthenticationService.SetAuthCookie(userName, false);
-                _context.Redirect("~/Home/Index");
-                return;
-            }
-
-            if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(passWord))
+            if (string.IsNullOrEmpty(metaModel.UserName) || string.IsNullOrEmpty(metaModel.Password))
             {
                 RedirectToErrorPage(InValidParamErrorCode);
             }
 
-            long timeSpan;
-            long.TryParse(queryParams["timestamp"], out timeSpan);
-            IResultInfo resultInfo;
-            InternalLogin(licname, userName, passWord, timeSpan, siteOutUrl, languageCode, out resultInfo);
+            if (!Util.IsValidLanguage(metaModel.LanguageCode))
+            {
+                metaModel.LanguageCode = DefaultLanguage;
+            }
+
+            if (IsUserAuthenticated && metaModel.IdentityName == CurrentIdentityName)
+            {
+                var langService = new LanguageService();
+                langService.ChangeLanguage(metaModel.LanguageCode);
+                _formsAuthenticationService.SetAuthCookie(metaModel.IdentityName, false);
+                _context.Redirect("~/Home/Index");
+                return;
+            }
+
+            var resultInfo = InternalLogin(metaModel);
             if (resultInfo.IsSuccessful)
             {
-                _formsAuthenticationService.SetAuthCookie(userName, false);
+                _formsAuthenticationService.SetAuthCookie(metaModel.IdentityName, false);
                 _context.Redirect("~/Home/Index");
             }
             else
             {
-                var message = InternalLoginErrorMessage +
-                    "\r\nCode: " + resultInfo.Code +
-                    "\r\nMessage: " + resultInfo.Message +
-                    "\r\nExtendedData: " + resultInfo.ExtendedData +
-                    "\r\nLicensee: " + licname +
-                     "\r\nUserName: " + userName +
-                     "\r\nTimeSpan: " + timeSpan +
-                     "\r\nSiteOutUrl: " + siteOutUrl +
-                     "\r\nLanguageCode: " + languageCode;
-
-                Logging.LogService.Info(message);
-
+                LogFailedLogin(metaModel, resultInfo);
                 RedirectToErrorPage(resultInfo.Code);
             }
+        }
+
+        private static void LogFailedLogin(SsoMetaModel metaModel, IResultInfo resultInfo)
+        {
+            var message = InternalLoginErrorMessage +
+                                "\r\nCode: " + resultInfo.Code +
+                                "\r\nMessage: " + resultInfo.Message +
+                                "\r\nExtendedData: " + resultInfo.ExtendedData +
+                                "\r\nLicensee: " + metaModel.LicenseeName +
+                                 "\r\nUserName: " + metaModel.UserName +
+                                 "\r\nTimeSpan: " + metaModel.TimeStamp +
+                                 "\r\nSiteOutUrl: " + metaModel.LoginUrl +
+                                 "\r\nLanguageCode: " + metaModel.LanguageCode;
+
+            Logging.LogService.Info(message);
+        }
+
+        private SsoMetaModel ParseQueryString()
+        {
+            var queryParams = GetQueryParams();
+            long timeStamp;
+            long.TryParse(queryParams["timestamp"], out timeStamp);
+            return new SsoMetaModel
+            {
+                LicenseeName = queryParams["licname"] ?? string.Empty,
+                UserName = queryParams["username"] ?? string.Empty,
+                Password = queryParams["pwd"] ?? string.Empty,
+                LoginUrl = queryParams["loginurl"] ?? string.Empty,
+                LanguageCode = queryParams["lang"] ?? DefaultLanguage,
+                TimeStamp = timeStamp
+            };
         }
 
         private NameValueCollection GetQueryParams()
@@ -218,45 +225,36 @@ namespace Fanex.Athena.Service.Core.Users
             _context.Redirect(Util.RootPath + string.Format(_deniedPath, code));
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Sonar Code Smell", "S3994:UriParametersShouldNotBeStrings",
-            Justification = "Reviewed. Suppression is OK here.")]
-        private void InternalLogin(
-          string licname,
-          string userName,
-          string passWord,
-          long timeSpan,
-          string siteOutUrl,
-          string languageCode,
-          out IResultInfo resultInfo)
+        private IResultInfo InternalLogin(SsoMetaModel metaModel)
         {
             var requestUser = new User
             {
-                Username = userName,
-                Password = passWord,
+                Username = metaModel.UserName,
+                Password = metaModel.Password,
                 Request = new Request
                 {
                     Ip = _context.Request.UserHostAddress,
                     Browser = _context.Request.Browser?.Browser,
                     Platform = _context.Request.Browser?.Platform,
-                    Domain = siteOutUrl,
+                    Domain = metaModel.LoginUrl,
                 }
             };
-            IResultInfo loginResultInfo;
-            var user = _authService.ValidateInternalUser(requestUser, licname, timeSpan, out loginResultInfo);
+            var resultInfo = _authService.ValidateInternalUser(requestUser, metaModel.LicenseeName, metaModel.TimeStamp);
 
-            if (loginResultInfo.IsSuccessful)
+            if (resultInfo.IsSuccessful)
             {
+                var user = resultInfo.ExtendedData;
                 _sessionService.CreateNewSession(
                     user.UserID,
                     _authService.LoginOnUser(user, _context.Session.SessionID, user.ServerId, _context.Request.UserHostAddress),
                     user.Username,
                     true,
                     user.Licensee.Id,
-                    languageCode,
+                    metaModel.LanguageCode,
                     viewType: ClientViewType.Default);
             }
 
-            resultInfo = loginResultInfo;
+            return resultInfo;
         }
     }
 }

@@ -8,6 +8,7 @@
     using Model.Core.DTO.Users;
     using NSubstitute;
     using NUnit.Framework;
+    using Resources;
 
     [TestFixture]
     public class UserServiceTest
@@ -141,6 +142,40 @@
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
+        }
+
+        [Test]
+        public void ChangePassword_UserDoesNotExist_ReturnErrorResult()
+        {
+            // Arrange
+            const string UserName = "Test", OldPass = "sdkaskger", NewPass = "poujkg", Ip = "1.1.1.1";
+
+            _userDataAccess.GetByUsername(UserName, false).Returns(x => { return null; });
+
+            // Action
+            var result = _userService.ChangePassword(UserName, OldPass, NewPass, Ip);
+
+            // Assert
+            Assert.That(result.Message, Is.EqualTo(ViewResources.UserNotExist));
+        }
+
+        [Test]
+        public void ChangePassword_WhenCall_CallDataAccessMethodToChangePassword()
+        {
+            // Arrange
+            const string UserName = "Test", OldPass = "sdkaskger", NewPass = "poujkg", Ip = "1.1.1.1";
+
+            _userDataAccess.GetByUsername(UserName, false).Returns(new User { UserSalt = "sdwdxz" });
+
+            // Action
+            var result = _userService.ChangePassword(UserName, OldPass, NewPass, Ip);
+
+            // Assert
+            _userDataAccess.Received().ChangePassword(
+                Arg.Is<User>(x => x.Username == UserName && x.Request.Ip == Ip),
+                Arg.Any<string>(),
+                Arg.Any<string>(),
+                Arg.Any<string>());
         }
     }
 }

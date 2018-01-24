@@ -31,11 +31,10 @@
             var metalModel = CreateMetaModel(1, true);
             metalModel.ProductOptions = SetUpProductOption(productOptions);
 
-            StubDataAccessGetMemberData();
+            var data = StubDataAccessGetMemberData();
             StubProductAccess(productAccess);
 
-            ShowingOption expetedShowingOption = null;
-            var actualExcelModel = new PlatformWinLossViewModel();
+            ShowingOption expectedShowingOption = null;
             var excelModel = new PlatformWinLossViewModel
             {
                 Param = metalModel,
@@ -44,7 +43,7 @@
             var excel = Substitute.ForPartsOf<PlatformWinLossMemberExcel>(
                Arg.Any<string>(),
                excelModel,
-               Arg.Do<ShowingOption>(x => expetedShowingOption = x));
+               Arg.Do<ShowingOption>(x => expectedShowingOption = x));
             excel.When(x => x.Export()).DoNotCallBase();
 
             _controller.CreateExcelMember(
@@ -58,9 +57,63 @@
             _controller.Index(metalModel);
 
             // Assert
-            Assert.IsTrue(expetedShowingOption.CustomerCommVisible == hasLicenseeComm);
-            VerifyShowingOption(metalModel.ProductOptions, expetedShowingOption);
-            _controller.Received().CreateExcelMember(Arg.Any<string>(), Arg.Is<PlatformWinLossViewModel>(p => p.Colspan == expectedColSpan), Arg.Any<ShowingOption>());
+            Assert.Multiple(() =>
+            {
+                Assert.IsTrue(expectedShowingOption.CustomerCommVisible == hasLicenseeComm);
+                VerifyShowingOption(metalModel.ProductOptions, expectedShowingOption);
+                _controller.Received().CreateExcelMember(Arg.Any<string>(), Arg.Is<PlatformWinLossViewModel>(p => p.Colspan == expectedColSpan), Arg.Any<ShowingOption>());
+            });
+        }
+
+        [TestCase(null, false)]
+        [TestCase("InvalidProperty", false)]
+        [TestCase(nameof(PlatformWinLossMember.AmtDueToBA), true)]
+        public void Index_ExportExcelMember_SortByNull_DataIsNotSorted(string sortBy, bool toBeSorted)
+        {
+            // Arrange
+            var products = new[] { Product.SB };
+            var metalModel = CreateMetaModel(1, true);
+            metalModel.ProductOptions = SetUpProductOption(products);
+            metalModel.SortBy = sortBy;
+            metalModel.SortOrder = "asc";
+
+            var dataList = StubDataAccessGetMemberData();
+            if (toBeSorted)
+            {
+                dataList.Sort(sortBy, true, nameof(PlatformWinLossMember.Index), true);
+            }
+
+            var expectedSortedData = dataList.Select(x => x.Index).ToArray();
+
+            StubProductAccess(products);
+
+            var excelModel = new PlatformWinLossViewModel
+            {
+                Param = metalModel,
+                MainResult = new PlatformWinLossMember[] { }
+            };
+            var excel = Substitute.ForPartsOf<PlatformWinLossMemberExcel>(
+               Arg.Any<string>(),
+               excelModel,
+               Arg.Any<ShowingOption>());
+            excel.When(x => x.Export()).DoNotCallBase();
+
+            _controller.CreateExcelMember(
+                Arg.Any<string>(),
+                excelModel,
+                Arg.Any<ShowingOption>()).ReturnsForAnyArgs(excel);
+
+            var actualExcelModel = new PlatformWinLossViewModel();
+            _controller.When(x => x.CreateExcelMember(
+               Arg.Any<string>(),
+               Arg.Any<PlatformWinLossViewModel>(),
+               Arg.Any<ShowingOption>())).Do(p => actualExcelModel = (PlatformWinLossViewModel)p[1]);
+
+            // Action
+            _controller.Index(metalModel);
+
+            // Assert
+            Assert.That(actualExcelModel.MainResult.Select(x => x.Index).ToArray(), Is.EqualTo(expectedSortedData));
         }
 
         [Test]

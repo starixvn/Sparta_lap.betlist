@@ -6,17 +6,12 @@
 
 namespace Fanex.Athena.DataAccess.TotalBet.Interfaces
 {
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
+    using Model.Core.ResultModel;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
 
-    /// <summary>
-    /// Handicap Over Under Interface.
-    /// </summary>
     public interface IHandicapOverUnderDataAccess
     {
-        [SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", Justification = "Reviewed.")]
-        IList<HandicapOverUnder> GetHandicapOverUnderDataList(HandicapOverUnderMetaModel metaModel, out HandicapOverUnder totalData);
+        ReportResultModel<HandicapOverUnder> GetHandicapOverUnderDataList(HandicapOverUnderMetaModel metaModel);
     }
 }

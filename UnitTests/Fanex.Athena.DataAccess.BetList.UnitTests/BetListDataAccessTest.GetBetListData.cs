@@ -1,43 +1,50 @@
 ﻿namespace Fanex.Athena.DataAccess.BetList.UnitTests
 {
     using System;
+    using System.Collections;
     using System.Data;
     using Fanex.BetList.Core.Entities;
     using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using UnitTest.Common.Helpers;
     using UnitTest.Common.NUnitExtensions;
 
-    [TestFixture]
     public partial class BetListDataAccessTest
     {
+        private const string LiveReportWinlossByMatchSp = "Lrf_BetList_LiveReport_SelWinlossByMatch";
+        private const string LiveReportWinlossOutrightSp = "Lrf_BetList_LiveReport_SelWinlossOutright";
+        private const string LiveReportWinlossNumberGameSp = "Lrf_BetList_LiveReport_SelWinlossNumberGame";
+        private const string LiveReportWinlossParlaySp = "Lrf_BetList_LiveReport_SelWinlossParlay";
+
         [Test]
         public void GetBetListData_CalledByLiveReportBetListByMatch_ParametersPassedCorrectly()
         {
             // Arrange
-            var uspKey = "Lrf_BetList_LiveReport_SelWinlossByMatch";
-            _dataAccess.GetObjectDb(Arg.Is<string>(uspKey)).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is(LiveReportWinlossByMatchSp)).Returns(ObjectDb);
             var metaModel = GetLiveReportBetListMetaModel();
 
+            ObjectDb.GetOuputParams().Returns(x => { return null; });
+
             // Action
-            _dataAccess.GetBetListData(metaModel, uspKey);
+            DataAccess.GetBetListData(metaModel, LiveReportWinlossByMatchSp);
 
             // Assert
-            _objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            _objectDb.Received().AddInParameter("MatchID", DbType.Int32, metaModel.MatchId);
-            _objectDb.Received().AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
-            _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
-            _objectDb.Received().AddInParameter("LiveIndicator", DbType.Int32, metaModel.LiveIndicator);
-            _objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
-            _objectDb.DidNotReceive().AddInParameter("showNG", DbType.Boolean, true);
+            Assert.Multiple(() =>
+            {
+                ObjectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+                ObjectDb.Received().AddInParameter("MatchID", DbType.Int32, metaModel.MatchId);
+                ObjectDb.Received().AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
+                ObjectDb.Received().AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
+                ObjectDb.Received().AddInParameter("LiveIndicator", DbType.Int32, metaModel.LiveIndicator);
+                ObjectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
+                ObjectDb.DidNotReceive().AddInParameter("showNG", DbType.Boolean, true);
+            });
         }
 
         [Test]
-        public void GetBetListData_CalledByLiveReportBetListByMatch_ReturnCorrectTicketDataList()
+        public void GetBetListData_CalledByLiveReportBetListByMatch_OutSqlParamIsNull_ReturnCorrectTicketDataList()
         {
             // Arrange
-            const string UspKey = "Lrf_BetList_LiveReport_SelWinlossByMatch";
             var expectResult = new TicketData
             {
                 RefNo = "2",
@@ -45,95 +52,137 @@
                 BetTypeId = 4,
                 Odds = 5
             };
-            _dataAccess.GetObjectDb(Arg.Is<string>(UspKey)).Returns(_objectDb);
-            var reader = Substitute.For<IDataReader>();
-            _objectDb.ExecuteReader().Returns(reader);
-            reader.NextResult().Returns(true);
-            reader.Read().Returns(false, true, false);
-            DataAccessTestHelper.MapReaderData(
-                reader,
-                new
-                {
-                    refno = expectResult.RefNo,
-                    status = expectResult.Status,
-                    bettype = expectResult.BetTypeId,
-                    odds = expectResult.Odds
-                });
+            DataAccess.GetObjectDb(Arg.Is(LiveReportWinlossByMatchSp)).Returns(ObjectDb);
+            ObjectDb.GetOuputParams().Returns(x => { return null; });
+            Reader.NextResult().Returns(true);
+            Reader.Read().Returns(false, true, false);
+            MapReaderData(new
+            {
+                refno = expectResult.RefNo,
+                status = expectResult.Status,
+                bettype = expectResult.BetTypeId,
+                odds = expectResult.Odds
+            });
 
             // Action
-            var result = _dataAccess.GetBetListData(new LiveReportBetListMetaModel(), UspKey);
+            var result = DataAccess.GetBetListData(new LiveReportBetListMetaModel(), LiveReportWinlossByMatchSp);
 
             // Assert
-            Assert.That(result.TicketDataList[0], Tobe.SameProperties(expectResult));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.TotalRows, Is.Zero);
+                Assert.That(result.TicketDataList[0], Tobe.SameProperties(expectResult));
+            });
+        }
+
+        [Test]
+        public void GetBetListData_CalledByLiveReportBetListByMatch_ReturnCorrectTicketDataList()
+        {
+            // Arrange
+            var expectResult = new TicketData
+            {
+                RefNo = "2",
+                Status = "3",
+                BetTypeId = 4,
+                Odds = 5
+            };
+            const int TotalRows = 10;
+            DataAccess.GetObjectDb(Arg.Is(LiveReportWinlossByMatchSp)).Returns(ObjectDb);
+            ObjectDb.GetOuputParams().Returns(x => { return new Hashtable { { "totalrows", TotalRows } }; });
+            Reader.NextResult().Returns(true);
+            Reader.Read().Returns(false, true, false);
+            MapReaderData(new
+            {
+                refno = expectResult.RefNo,
+                status = expectResult.Status,
+                bettype = expectResult.BetTypeId,
+                odds = expectResult.Odds
+            });
+
+            // Action
+            var result = DataAccess.GetBetListData(new LiveReportBetListMetaModel(), LiveReportWinlossByMatchSp);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.TotalRows, Is.EqualTo(TotalRows));
+                Assert.That(result.TicketDataList[0], Tobe.SameProperties(expectResult));
+            });
         }
 
         [Test]
         public void GetBetListData_CalledByLiveReportOutRightBetlist_ParametersPassedCorrectly()
         {
             // Arrange
-            var uspKey = "Lrf_BetList_LiveReport_SelWinlossOutright";
-            _dataAccess.GetObjectDb(Arg.Is<string>(uspKey)).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is(LiveReportWinlossOutrightSp)).Returns(ObjectDb);
             var metaModel = GetLiveReportBetListMetaModel();
 
             // Action
-            _dataAccess.GetBetListData(metaModel, uspKey);
+            DataAccess.GetBetListData(metaModel, LiveReportWinlossOutrightSp);
 
             // Assert
-            _objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            _objectDb.Received().AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
-            _objectDb.Received().AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
-            _objectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
-            _objectDb.Received().AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
-            _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
-            _objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
-            _objectDb.DidNotReceive().AddInParameter("showNG", DbType.Boolean, true);
+            Assert.Multiple(() =>
+            {
+                ObjectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+                ObjectDb.Received().AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
+                ObjectDb.Received().AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
+                ObjectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
+                ObjectDb.Received().AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
+                ObjectDb.Received().AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
+                ObjectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
+                ObjectDb.DidNotReceive().AddInParameter("showNG", DbType.Boolean, true);
+            });
         }
 
         [Test]
         public void GetBetListData_CalledByLiveReportNumberGameBetlist_ParametersPassedCorrectly()
         {
             // Arrange
-            var uspKey = "Lrf_BetList_LiveReport_SelWinlossNumberGame";
-            _dataAccess.GetObjectDb(Arg.Is<string>(uspKey)).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is(LiveReportWinlossNumberGameSp)).Returns(ObjectDb);
             var metaModel = GetLiveReportBetListMetaModel();
 
             // Action
-            _dataAccess.GetBetListData(metaModel, uspKey);
+            DataAccess.GetBetListData(metaModel, LiveReportWinlossNumberGameSp);
 
             // Assert
-            _objectDb.Received().AddInParameter("Sort", DbType.String, metaModel.SortBy + metaModel.BaseCurrency + " " + metaModel.SortOrder);
-            _objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            _objectDb.Received().AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
-            _objectDb.Received().AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
-            _objectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
-            _objectDb.Received().AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
-            _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
-            _objectDb.Received().AddInParameter("LiveIndicator", DbType.Int32, metaModel.LiveIndicator);
+            Assert.Multiple(() =>
+            {
+                ObjectDb.Received().AddInParameter("Sort", DbType.String, metaModel.SortBy + metaModel.BaseCurrency + " " + metaModel.SortOrder);
+                ObjectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+                ObjectDb.Received().AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
+                ObjectDb.Received().AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
+                ObjectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
+                ObjectDb.Received().AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
+                ObjectDb.Received().AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
+                ObjectDb.Received().AddInParameter("LiveIndicator", DbType.Int32, metaModel.LiveIndicator);
+            });
         }
 
         [Test]
         public void GetBetListData_CalledByLiveReportParlayBetlist_ParametersPassedCorrectly()
         {
             // Arrange
-            var uspKey = "Lrf_BetList_LiveReport_SelWinlossParlay";
-            _dataAccess.GetObjectDb(Arg.Is<string>(uspKey)).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is(LiveReportWinlossParlaySp)).Returns(ObjectDb);
             var metaModel = GetLiveReportBetListMetaModel();
 
             // Action
-            _dataAccess.GetBetListData(metaModel, uspKey);
+            DataAccess.GetBetListData(metaModel, LiveReportWinlossParlaySp);
 
             // Assert
-            _objectDb.Received().AddInParameter("Sort", DbType.String, metaModel.SortBy + metaModel.BaseCurrency + " " + metaModel.SortOrder);
-            _objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            _objectDb.Received().AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
-            _objectDb.Received().AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
-            _objectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
-            _objectDb.Received().AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
-            _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
-            _objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
-            _objectDb.DidNotReceive().AddInParameter("showNG", DbType.Boolean, true);
-            _objectDb.Received().AddInParameter("Bettype", DbType.Int32, metaModel.BetType);
-            _objectDb.Received().AddInParameter("LiveIndicator", DbType.Int32, metaModel.LiveIndicator);
+            Assert.Multiple(() =>
+            {
+                ObjectDb.Received().AddInParameter("Sort", DbType.String, metaModel.SortBy + metaModel.BaseCurrency + " " + metaModel.SortOrder);
+                ObjectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+                ObjectDb.Received().AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
+                ObjectDb.Received().AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
+                ObjectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
+                ObjectDb.Received().AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
+                ObjectDb.Received().AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
+                ObjectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
+                ObjectDb.DidNotReceive().AddInParameter("showNG", DbType.Boolean, true);
+                ObjectDb.Received().AddInParameter("Bettype", DbType.Int32, metaModel.BetType);
+                ObjectDb.Received().AddInParameter("LiveIndicator", DbType.Int32, metaModel.LiveIndicator);
+            });
         }
 
         [TestCase("Lrf_BetList_LiveReport_SelWinlossRacing")]
@@ -141,29 +190,99 @@
         public void GetBetListData_CalledByLiveReportParlayBetlist_ParametersPassedCorrectly(string uspKey)
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>(key => key.Equals(uspKey))).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is<string>(key => key.Equals(uspKey))).Returns(ObjectDb);
             var metaModel = GetLiveReportBetListMetaModel();
 
             // Action
-            _dataAccess.GetBetListData(metaModel, uspKey);
+            DataAccess.GetBetListData(metaModel, uspKey);
 
             // Assert
-            _objectDb.Received().AddInParameter("Sort", DbType.String, metaModel.SortBy + metaModel.BaseCurrency + " " + metaModel.SortOrder);
-            _objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            _objectDb.Received().AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
-            _objectDb.Received().AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
-            _objectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
-            _objectDb.Received().AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
-            _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
-            _objectDb.Received().AddInParameter("SportType", DbType.Int32, metaModel.SportType);
-            _objectDb.Received().AddOutParameter("SUMWL", DbType.Currency, 8);
-            _objectDb.Received().AddOutParameter("SUMLicenseeWL", DbType.Currency, 8);
-            _objectDb.Received().AddOutParameter("SUMWLUSD", DbType.Currency, 8);
-            _objectDb.Received().AddOutParameter("SUMLicenseeWLUSD", DbType.Currency, 8);
-            _objectDb.Received().AddOutParameter("SUMWLEUR", DbType.Currency, 8);
-            _objectDb.Received().AddOutParameter("SUMLicenseeWLEUR", DbType.Currency, 8);
-            _objectDb.Received().AddOutParameter("SUMWLGBP", DbType.Currency, 8);
-            _objectDb.Received().AddOutParameter("SUMLicenseeWLGBP", DbType.Currency, 8);
+            Assert.Multiple(() =>
+            {
+                ObjectDb.Received().AddInParameter("Sort", DbType.String, metaModel.SortBy + metaModel.BaseCurrency + " " + metaModel.SortOrder);
+                ObjectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+                ObjectDb.Received().AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
+                ObjectDb.Received().AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
+                ObjectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
+                ObjectDb.Received().AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
+                ObjectDb.Received().AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
+                ObjectDb.Received().AddInParameter("SportType", DbType.Int32, metaModel.SportType);
+                ObjectDb.Received().AddOutParameter("SUMWL", DbType.Currency, 8);
+                ObjectDb.Received().AddOutParameter("SUMLicenseeWL", DbType.Currency, 8);
+                ObjectDb.Received().AddOutParameter("SUMWLUSD", DbType.Currency, 8);
+                ObjectDb.Received().AddOutParameter("SUMLicenseeWLUSD", DbType.Currency, 8);
+                ObjectDb.Received().AddOutParameter("SUMWLEUR", DbType.Currency, 8);
+                ObjectDb.Received().AddOutParameter("SUMLicenseeWLEUR", DbType.Currency, 8);
+                ObjectDb.Received().AddOutParameter("SUMWLGBP", DbType.Currency, 8);
+                ObjectDb.Received().AddOutParameter("SUMLicenseeWLGBP", DbType.Currency, 8);
+            });
+        }
+
+        [TestCase(true, "Team1", true, 2)]
+        [TestCase(false, "", false, 0)]
+        public void GetBetListData_ReadLrfReferneceTicket_ReturnCorrectData(bool hasOrdinalBetTeam, string expectedBetTeam, bool hasOrdinalStake, decimal expectedStake)
+        {
+            // Arrange
+            var expectResult = new TicketData
+            {
+                RefNo = "2",
+                Status = "3",
+                BetTypeId = 4,
+                Odds = 5,
+                BetTeam = expectedBetTeam,
+                Stake = expectedStake
+            };
+            DataAccess.GetObjectDb(Arg.Is(LiveReportWinlossByMatchSp)).Returns(ObjectDb);
+            MapReaderData(new
+            {
+                refno = expectResult.RefNo,
+                status = expectResult.Status,
+                bettype = expectResult.BetTypeId,
+                odds = expectResult.Odds,
+                betteam = expectedBetTeam,
+                stake = expectedStake
+            });
+            Reader.NextResult().Returns(true);
+            Reader.Read().Returns(false, true, false);
+            Reader.FieldCount.Returns(2);
+            Reader.GetName(0).Returns(hasOrdinalBetTeam ? "betteam" : string.Empty);
+            Reader.GetName(1).Returns(hasOrdinalStake ? "stake" : string.Empty);
+
+            // Action
+            var result = DataAccess.GetBetListData(new LiveReportBetListMetaModel(), LiveReportWinlossByMatchSp);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.TicketDataList[0], Tobe.SameProperties(expectResult));
+            });
+        }
+
+        [TestCase("WinLoss", "WinLossComm")]
+        [TestCase("LicenseeWL", "LicenseeWLComm")]
+        [TestCase("nickname", "ExternalId")]
+        [TestCase("Status", "Status")]
+        public void GetBetListData_SortData_SortCorrectProperty(string sortBy, string expectedSortedProp)
+        {
+            // Arrange
+            DataAccess.GetObjectDb(Arg.Is(LiveReportWinlossNumberGameSp)).Returns(ObjectDb);
+            var metaModel = GetLiveReportBetListMetaModel();
+            metaModel.SortBy = sortBy;
+
+            // Action
+            DataAccess.GetBetListData(metaModel, LiveReportWinlossNumberGameSp);
+
+            // Assert
+            Assert.That(metaModel.SortBy, Is.EqualTo(expectedSortedProp));
+        }
+
+        [Test]
+        public void GetBetListData_WhenObjectDbThrowsException_ThrowDataAccessException()
+        {
+            const string UspName = "GetBetListData_Sp";
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                UspName,
+                () => DataAccess.GetBetListData(new BetListMetaModel(), UspName));
         }
 
         private static LiveReportBetListMetaModel GetLiveReportBetListMetaModel()

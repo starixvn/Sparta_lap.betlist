@@ -9,7 +9,6 @@ namespace Fanex.Athena.Model.Core.Helper
     using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Threading;
-    using DTO.Common;
     using Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
     using RemotingRef;
@@ -54,8 +53,6 @@ namespace Fanex.Athena.Model.Core.Helper
         /// <param name="betType">Bet type value.</param>
         /// <param name="liveIndicator">Live or NonLive.</param>
         /// <returns>Bet type text.</returns>
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
-                    Justification = "Reviewed. Suppression is OK here.")]
         public static string GetBettype(int betType, bool liveIndicator)
         {
             const int SBMinOfMaxBettype = 120;

@@ -1,4 +1,4 @@
-﻿namespace Fanex.Athena.Service.Customer.UnitTests
+﻿namespace Fanex.Athena.Service.Casino.UnitTests
 {
     using System;
     using Casino;
@@ -115,6 +115,13 @@
                 ModifyUserName = "5"
             };
 
+            _customerApiWrapper.UpdateComm(
+                metaModel.CustomerId,
+                metaModel.Comm,
+                metaModel.FromIp,
+                metaModel.ModifyBy,
+                metaModel.ModifyUserName).Returns(true);
+
             // Action
             var result = _casinoCustomerService.UpdateCommission(metaModel);
 
@@ -125,6 +132,33 @@
                             metaModel.FromIp,
                             metaModel.ModifyBy,
                             metaModel.ModifyUserName);
+        }
+
+        [Test]
+        public void UpdateCommission_CallApi_UpdateFail_LogError()
+        {
+            // Arrange
+            var metaModel = new RNGCasinoUpdateMemberComMetaModel
+            {
+                CustomerId = new[] { "1" },
+                Comm = 2,
+                FromIp = "3",
+                ModifyBy = 4,
+                ModifyUserName = "5"
+            };
+
+            _customerApiWrapper.UpdateComm(
+                metaModel.CustomerId,
+                metaModel.Comm,
+                metaModel.FromIp,
+                metaModel.ModifyBy,
+                metaModel.ModifyUserName).Returns(false);
+
+            // Action
+            var result = _casinoCustomerService.UpdateCommission(metaModel);
+
+            // Assert
+            _logger.Received().Error(Arg.Is<string>(x => x.Contains(string.Join(",", metaModel.CustomerId))));
         }
 
         [Test]

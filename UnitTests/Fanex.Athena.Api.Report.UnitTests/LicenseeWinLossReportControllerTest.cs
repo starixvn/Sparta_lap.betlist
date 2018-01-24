@@ -103,7 +103,7 @@
         {
             // Arrange
             var metaModel = CreateValidMetaModel();
-            var expectedResult = SetUpForGettingData(metaModel);
+            var expectedResult = SetUpForGettingData(metaModel, totalItem: 5);
 
             // Action
             var result = _controller.Index(metaModel);
@@ -114,53 +114,80 @@
 
         [TestCase("ActualStake")]
         [TestCase("ActualStakeSingle")]
-        public void Index_SortByActualStake_ReturnCorrectOrderedData(string sortBy)
+        public void Index_ExportToExcel_SortByActualStake__SortDataByActualStake(string sortBy)
         {
             // Arrange
             var metaModel = CreateValidMetaModel(sortBy: sortBy);
-            var expectedResult = SetUpForGettingData(metaModel);
+            var expectedResult = SetUpForGettingData(metaModel, totalItem: 5);
             expectedResult.DataList.Sort("ActualStake", true);
+
+            var expectedSortResult = expectedResult.DataList.Select(x => x.ActualStake).ToArray();
+
+            SetUpForExportingExcel();
+
+            var actualExcelModel = new LicenseeWinLossExcelModel();
+            _controller.When(x => x.CreateExcel(
+               Arg.Any<string>(),
+               Arg.Any<LicenseeWinLossExcelModel>())).Do(p => actualExcelModel = (LicenseeWinLossExcelModel)p[1]);
 
             // Action
             var result = _controller.Index(metaModel);
             IList<LicenseeWinLossGridViewModel> dataList = result.Data;
 
             // Assert
-            Assert.That(dataList.Select(x => x.ActualStake).ToArray(), Is.EqualTo(expectedResult.DataList.Select(x => x.ActualStake).ToArray()));
+            Assert.That(dataList.Select(x => x.ActualStake).ToArray(), Is.EqualTo(expectedSortResult));
         }
 
         [Test]
-        public void Index_SortByLicenseeWLSB_ReturnCorrectOrderedData()
+        public void Index_ExportToExcel_SortByLicenseeWLSB_SortDataByDictionary()
         {
             // Arrange
             var metaModel = CreateValidMetaModel(sortBy: "LicenseeWLSB");
-            var resultModel = SetUpForGettingData(metaModel);
+            metaModel.IsExportExcel = true;
+
+            var resultModel = SetUpForGettingData(metaModel, totalItem: 5);
             resultModel.DataList.SortByDictionary("SB", "LicenseeWL", true);
+
             var expectedResult = resultModel.DataList.Select(x => x.LicenseeWL["SB"]).ToArray();
+
+            SetUpForExportingExcel();
+
+            var actualExcelModel = new LicenseeWinLossExcelModel();
+            _controller.When(x => x.CreateExcel(
+               Arg.Any<string>(),
+               Arg.Any<LicenseeWinLossExcelModel>())).Do(p => actualExcelModel = (LicenseeWinLossExcelModel)p[1]);
 
             // Action
             var result = _controller.Index(metaModel);
-            IList<LicenseeWinLossGridViewModel> dataList = result.Data;
 
             // Assert
-            Assert.That(dataList.Select(x => x.LicenseeWLSB).ToArray(), Is.EqualTo(expectedResult));
+            Assert.That(actualExcelModel.DataList.SelectMany(x => x.LicenseeWL.Values).ToArray(), Is.EqualTo(expectedResult));
         }
 
         [Test]
-        public void Index_SortByTurnOverSB_ReturnCorrectOrderedData()
+        public void Index_ExportToExcel_SortByTurnOverSB_SortDataByDictionary()
         {
             // Arrange
             var metaModel = CreateValidMetaModel(sortBy: "TurnOverSB");
-            var resultModel = SetUpForGettingData(metaModel);
+            metaModel.IsExportExcel = true;
+
+            var resultModel = SetUpForGettingData(metaModel, totalItem: 5);
             resultModel.DataList.SortByDictionary("SB", "TurnOver", true);
+
             var expectedResult = resultModel.DataList.Select(x => x.TurnOver["SB"]).ToArray();
 
+            SetUpForExportingExcel();
+
+            var actualExcelModel = new LicenseeWinLossExcelModel();
+            _controller.When(x => x.CreateExcel(
+               Arg.Any<string>(),
+               Arg.Any<LicenseeWinLossExcelModel>())).Do(p => actualExcelModel = (LicenseeWinLossExcelModel)p[1]);
+
             // Action
-            var result = _controller.Index(metaModel);
-            IList<LicenseeWinLossGridViewModel> dataList = result.Data;
+            _controller.Index(metaModel);
 
             // Assert
-            Assert.That(dataList.Select(x => x.TurnOverSB).ToArray(), Is.EqualTo(expectedResult));
+            Assert.That(actualExcelModel.DataList.SelectMany(x => x.TurnOver.Values).ToArray(), Is.EqualTo(expectedResult));
         }
 
         [Test]
@@ -170,27 +197,14 @@
             var metaModel = CreateValidMetaModel();
             metaModel.IsExportExcel = true;
 
-            var expectedResult = SetUpForGettingData(metaModel);
+            var expectedResult = SetUpForGettingData(metaModel, totalItem: 5);
 
-            ProductService.GetProductAccess(Arg.Any<int>(), Arg.Any<string>()).Returns(
-                new ProductAccess(
-                    new List<Product>
-                    {
-                        new Product { ProductCode = "SB" },
-                        new Product { ProductCode = "BA" }
-                    }));
+            SetUpForExportingExcel();
 
             var actualExcelModel = new LicenseeWinLossExcelModel();
-            var excel = Substitute.ForPartsOf<LicenseeWinLossExcel>(
-                   string.Empty);
-            excel.When(x => x.Export()).DoNotCallBase();
-
-            _controller.CreateExcel(
-                  string.Empty,
-                  Arg.Any<LicenseeWinLossExcelModel>()).ReturnsForAnyArgs(excel);
             _controller.When(x => x.CreateExcel(
-                   Arg.Any<string>(),
-                   Arg.Any<LicenseeWinLossExcelModel>())).Do(p => actualExcelModel = (LicenseeWinLossExcelModel)p[1]);
+               Arg.Any<string>(),
+               Arg.Any<LicenseeWinLossExcelModel>())).Do(p => actualExcelModel = (LicenseeWinLossExcelModel)p[1]);
 
             // Action
             _controller.Index(metaModel);
@@ -220,27 +234,14 @@
             metaModel.CurrencyId = currencyId;
             metaModel.IsExportExcel = true;
 
-            var expectedResult = SetUpForGettingData(metaModel, level);
+            var expectedResult = SetUpForGettingData(metaModel, level, totalItem: 0);
 
-            ProductService.GetProductAccess(Arg.Any<int>(), Arg.Any<string>()).Returns(
-                new ProductAccess(
-                    new List<Product>
-                    {
-                        new Product { ProductCode = "SB" },
-                        new Product { ProductCode = "BA" }
-                    }));
+            SetUpForExportingExcel();
 
             var actualExcelModel = new LicenseeWinLossExcelModel();
-            var excel = Substitute.ForPartsOf<LicenseeWinLossExcel>(
-                   string.Empty);
-            excel.When(x => x.Export()).DoNotCallBase();
-
-            _controller.CreateExcel(
-                  string.Empty,
-                  Arg.Any<LicenseeWinLossExcelModel>()).ReturnsForAnyArgs(excel);
             _controller.When(x => x.CreateExcel(
-                   Arg.Any<string>(),
-                   Arg.Any<LicenseeWinLossExcelModel>())).Do(p => actualExcelModel = (LicenseeWinLossExcelModel)p[1]);
+               Arg.Any<string>(),
+               Arg.Any<LicenseeWinLossExcelModel>())).Do(p => actualExcelModel = (LicenseeWinLossExcelModel)p[1]);
 
             // Action
             _controller.Index(metaModel, fdate, tdate, level, DrillDownCurrencyId, CustId, CurrencyName);
@@ -253,6 +254,25 @@
                 Assert.That(metaModel.ToDate, Is.EqualTo(metaModel.DrillDownToDate));
                 Assert.That(metaModel.CurrencyId, Is.EqualTo(currencyId > 0 ? metaModel.DrillDownCurrencyId : metaModel.CurrencyId));
             });
+        }
+
+        private void SetUpForExportingExcel()
+        {
+            ProductService.GetProductAccess(Arg.Any<int>(), Arg.Any<string>()).Returns(
+                new ProductAccess(
+                    new List<Product>
+                    {
+                        new Product { ProductCode = "SB" },
+                        new Product { ProductCode = "BA" }
+                    }));
+
+            var excel = Substitute.ForPartsOf<LicenseeWinLossExcel>(
+                   string.Empty);
+            excel.When(x => x.Export()).DoNotCallBase();
+
+            _controller.CreateExcel(
+                  string.Empty,
+                  Arg.Any<LicenseeWinLossExcelModel>()).ReturnsForAnyArgs(excel);
         }
 
         private LicenseeWinLossMetaModel CreateValidMetaModel(string sortBy = null, string sortOrder = "asc")
@@ -287,13 +307,12 @@
             return model;
         }
 
-        private SortableReportResultModel<LicenseeWinLoss> SetUpForGettingData(LicenseeWinLossMetaModel metaModel, int level = 0)
+        private SortableReportResultModel<LicenseeWinLoss> SetUpForGettingData(LicenseeWinLossMetaModel metaModel, int level = 0, int totalItem = 0)
         {
             var dataList = new SortableList<LicenseeWinLoss>();
 
             var random = new Random();
-            var total = random.Next(5, 10);
-            for (int i = 0; i < total; i++)
+            for (int i = 0; i < totalItem; i++)
             {
                 dataList.Add(new LicenseeWinLoss
                 {

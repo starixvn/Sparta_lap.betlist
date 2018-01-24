@@ -24,6 +24,11 @@ namespace Fanex.Athena.Service.Report
             this._thirdPartyWinLossDataAccess = new ThirdPartyWinLossDataAccess();
         }
 
+        public ThirdPartyWinLossService(IThirdPartyWinLossDataAccess dataAccess)
+        {
+            this._thirdPartyWinLossDataAccess = dataAccess;
+        }
+
         public SortableReportResultModel<ThirdPartyWinLoss> GetAgentWinlossDetail(
             ThirdPartyWinLossMetaModel metaModel,
             string spname = null)

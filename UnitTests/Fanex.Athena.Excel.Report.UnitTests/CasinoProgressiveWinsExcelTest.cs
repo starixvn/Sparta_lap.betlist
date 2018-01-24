@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Fanex.Athena.Excel.Base;
 using Fanex.Athena.Excel.Base.Entities;
 using Fanex.Athena.Excel.Base.Extension;
 using Fanex.Athena.Excel.Report.Helpers;
@@ -16,19 +17,18 @@ using NUnit.Framework;
 namespace Fanex.Athena.Excel.Report.UnitTests
 {
     [TestFixture]
-    public class CasinoProgressiveWinsExcelTest
+    public class CasinoProgressiveWinsExcelTest : BaseReportExcelTest
     {
+        private const int ColumnDate = 1;
+        private const int ColumnExternalId = 2;
+        private const int ColumnSystemId = 3;
+        private const int ColumnRefNo = 4;
+        private const int ColumnChoice = 5;
+        private const int ColumnAmount = 6;
+
         private const int ColumnCount = 9;
 
-        private static readonly CasinoProgressiveWins DataItem = new CasinoProgressiveWins
-        {
-            Index = 1,
-            ExternalId = "2",
-            SystemId = "3",
-            WinlostDate = new DateTime(2017, 1, 1),
-            RefNo = 4,
-            WinAmount = 5
-        };
+        private static readonly CasinoProgressiveWins DataItem = FakeHelper.Create<CasinoProgressiveWins>();
 
         private static readonly CasinoProgressiveWinsViewModel ViewModel = new CasinoProgressiveWinsViewModel
         {
@@ -38,40 +38,29 @@ namespace Fanex.Athena.Excel.Report.UnitTests
                 ToDate = new DateTime(2017, 3, 3),
                 CurrencyId = 99
             },
-            DataList = new List<CasinoProgressiveWins>
-            {
-                DataItem
-            }
+            DataList = new List<CasinoProgressiveWins> { DataItem }
         };
-
-        private ISheet _sheet;
-
-        [SetUp]
-        public void Setup()
-        {
-            _sheet = Substitute.For<ISheet>();
-        }
 
         [Test]
         public void AssignHeader_WhenCall_CallRelevantMethods()
         {
             // Arrange
-            var cell = ExcelTestHelper.MockGetRow(_sheet, ColumnCount);
+            var row = ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, ReportBase.RowHeaderTemplate);
             var excel = CreateExcel();
 
             // Action
-            excel.Public_AssignHeader(_sheet);
+            excel.Public_AssignHeader(FakeSheet);
 
             // Assert
             Assert.Multiple(() =>
             {
-                cell.Received(1).SetCellValue("#");
-                cell.Received(1).SetCellValue(ViewResources.Date);
-                cell.Received(1).SetCellValue(ViewResources.ExternalId);
-                cell.Received(1).SetCellValue(ViewResources.SystemId);
-                cell.Received(1).SetCellValue(ViewResources.ReferenceNo);
-                cell.Received(1).SetCellValue(ViewResources.Choice);
-                cell.Received(1).SetCellValue(ViewResources.Amount);
+                row.Cells[0].Received(1).SetCellValue("#");
+                row.Cells[ColumnDate].Received(1).SetCellValue(ViewResources.Date);
+                row.Cells[ColumnExternalId].Received(1).SetCellValue(ViewResources.ExternalId);
+                row.Cells[ColumnSystemId].Received(1).SetCellValue(ViewResources.SystemId);
+                row.Cells[ColumnRefNo].Received(1).SetCellValue(ViewResources.ReferenceNo);
+                row.Cells[ColumnChoice].Received(1).SetCellValue(ViewResources.Choice);
+                row.Cells[ColumnAmount].Received(1).SetCellValue(ViewResources.Amount);
             });
         }
 
@@ -79,22 +68,22 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         public void AssignSheetData_WhenCall_CallSetValueCorrectly()
         {
             // Arrange
-            var cell = ExcelTestHelper.MockGetRow(_sheet, ColumnCount);
+            var row = ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, 2);
             var excel = CreateExcel();
             excel.Workbook.Returns(Substitute.For<IWorkbook>());
 
             // Action
-            excel.Public_AssignSheetData(_sheet);
+            excel.Public_AssignSheetData(FakeSheet);
 
             // Assert
             Assert.Multiple(() =>
             {
-                cell.Received(1).SetCellValue(DataItem.Index);
-                cell.Received(1).SetCellValue(DataItem.ExternalId);
-                cell.Received(1).SetCellValue(DataItem.SystemId);
-                cell.Received(1).SetCellValue(DataItem.WinlostDate.ToShortDateString());
-                cell.Received(1).SetCellValue(DataItem.RefNo);
-                cell.Received(1).SetCellValue(DataItem.WinAmount);
+                row.Cells[0].Received(1).SetCellValue(DataItem.Index);
+                row.Cells[ColumnExternalId].Received(1).SetCellValue(DataItem.ExternalId);
+                row.Cells[ColumnSystemId].Received(1).SetCellValue(DataItem.SystemId);
+                row.Cells[ColumnDate].Received(1).SetCellValue(DataItem.WinlostDate.ToShortDateString());
+                row.Cells[ColumnRefNo].Received(1).SetCellValue(DataItem.RefNo);
+                row.Cells[ColumnAmount].Received(1).SetCellValue(DataItem.WinAmount);
             });
         }
 
@@ -102,7 +91,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         public void AssignTitle_WhenCall_CallRelevantMethods()
         {
             // Arrange
-            ExcelTestHelper.MockGetRow(_sheet, ColumnCount);
+            var row = ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, 0);
             var excel = CreateExcel();
             var expectedTitle = ReportExcelHelper.GenerateReportTitle(
                 ViewResources.CasinoProgressiveWins,
@@ -112,15 +101,10 @@ namespace Fanex.Athena.Excel.Report.UnitTests
                 ViewModel.Param.CurrencyId);
 
             // Action
-            excel.Public_AssignTitle(_sheet);
+            excel.Public_AssignTitle(FakeSheet);
 
             // Assert
-            _sheet.Received().SetTextRowValue(
-                    excel.TemplateSheet,
-                    Arg.Any<int>(),
-                    Arg.Any<int>(),
-                    Arg.Any<int>(),
-                    expectedTitle);
+            row.Cells[0].Received(1).SetCellValue(expectedTitle);
         }
 
         private static CasinoProgressiveWinsExcelTestable CreateExcel()

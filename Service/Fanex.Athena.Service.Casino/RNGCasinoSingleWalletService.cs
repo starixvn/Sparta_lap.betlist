@@ -12,6 +12,8 @@ namespace Fanex.Athena.Service.Casino
     using System.Globalization;
     using System.Net;
     using System.Web;
+    using Core.Utility;
+    using Core.Utility.Interfaces;
     using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Service.Casino.Interfaces;
@@ -33,9 +35,18 @@ namespace Fanex.Athena.Service.Casino
 
         private readonly IAppSettings _appSettings;
 
+        private readonly IWebClientService _webClientService;
+
         public RngCasinoSingleWalletService()
         {
             _appSettings = new AppSettings();
+            _webClientService = new WebClientService();
+        }
+
+        public RngCasinoSingleWalletService(IAppSettings appSettings, IWebClientService webClientService)
+        {
+            _appSettings = appSettings;
+            _webClientService = webClientService;
         }
 
         public dynamic GetResultInfo(string refNo)
@@ -92,12 +103,13 @@ namespace Fanex.Athena.Service.Casino
 
             try
             {
-                using (WebClient webClient = new WebClient())
-                {
-                    webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
-
-                    serverResponse = webClient.UploadString(uri, paramString);
-                }
+                serverResponse = _webClientService.UploadString(
+                    uri,
+                    paramString,
+                    new Dictionary<HttpRequestHeader, string>
+                    {
+                        { HttpRequestHeader.ContentType, "application/json" }
+                    });
             }
             catch (Exception exception)
             {

@@ -6,9 +6,11 @@
 
 namespace Fanex.Athena.Controllers.Report
 {
+    using System.Web.Hosting;
     using System.Web.Mvc;
     using DataAccess.Core.Configuration;
     using DataAccess.Core.Configuration.Interfaces;
+    using Extension.Utility;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Model.Report.MetaModel;
@@ -17,6 +19,9 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
     using Model.Core.DataDomain;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
+    using Service.Core.Users.Interfaces;
     using Service.Report.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.ReportDailyRacingWinLoss)]
@@ -26,11 +31,19 @@ namespace Fanex.Athena.Controllers.Report
 
         private readonly IDailyRacingWinLossService _dailyRacingWinLossService;
 
-        public DailyRacingWinLossReportController() : this(null, null)
+        public DailyRacingWinLossReportController() : this(null, null, null, null, null, null, null)
         {
         }
 
-        public DailyRacingWinLossReportController(IBalanceUpDataAccess balanceUpDataAccess, IDailyRacingWinLossService dailyRacingWinLossService)
+        public DailyRacingWinLossReportController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
+            IProductService productService,
+            IBalanceUpDataAccess balanceUpDataAccess,
+            IDailyRacingWinLossService dailyRacingWinLossService)
+            : base(languageService, sessionService, appSetting, clientViewHelper, productService)
         {
             _balanceUpDataAccess = balanceUpDataAccess ?? new BalanceUpDataAccess();
             _dailyRacingWinLossService = dailyRacingWinLossService ?? new DailyRacingWinLossService();
@@ -89,9 +102,9 @@ namespace Fanex.Athena.Controllers.Report
             const string FileName = "DailyRacingWinLossReport";
 
             var licenseeSession = SessionService.LicenseeSession;
-            var templatePath = licenseeSession.LicenseeId == 1
-                                   ? Server.MapPath("~/App_Data/Template/Reports/DailyRacingWinLoss12Bet.xls")
-                                   : Server.MapPath("~/App_Data/Template/Reports/DailyRacingWinLoss.xls");
+            var templatePath = licenseeSession.LicenseeId == LicenseeIdentity.OneTwoBet
+                                   ? HostingEnvironment.MapPath("~/App_Data/Template/Reports/DailyRacingWinLoss12Bet.xls")
+                                   : HostingEnvironment.MapPath("~/App_Data/Template/Reports/DailyRacingWinLoss.xls");
 
             var currencyConvert = new ConvertingOption
             {
@@ -107,17 +120,35 @@ namespace Fanex.Athena.Controllers.Report
 
             if (licenseeSession.LicenseeId == LicenseeIdentity.OneTwoBet)
             {
-                var racingWinLossExcel12Bet = new DailyRacingWinLoss12BetExcel(templatePath, currencyConvert, showingOption, viewModel);
-                racingWinLossExcel12Bet.Export();
+                var excel12bet = Create12BetExcel(templatePath, viewModel, currencyConvert, showingOption);
+                excel12bet.Export();
 
-                return new ExcelResult(racingWinLossExcel12Bet.Workbook, FileName);
+                return new ExcelResult(excel12bet.Workbook, FileName);
             }
 
-            var dailyRacingWinLossExcel = new DailyRacingWinLossExcel(templatePath, currencyConvert, showingOption, viewModel);
+            var excel = CreateExcel(templatePath, viewModel, currencyConvert, showingOption);
 
-            dailyRacingWinLossExcel.Export();
+            excel.Export();
 
-            return new ExcelResult(dailyRacingWinLossExcel.Workbook, FileName);
+            return new ExcelResult(excel.Workbook, FileName);
+        }
+
+        protected internal virtual DailyRacingWinLossExcel CreateExcel(
+            string templatePath,
+            DailyRacingWinLossViewModel viewModel,
+            ConvertingOption currencyConvert,
+            ShowingOption showingOption)
+        {
+            return new DailyRacingWinLossExcel(templatePath, currencyConvert, showingOption, viewModel);
+        }
+
+        protected internal virtual DailyRacingWinLoss12BetExcel Create12BetExcel(
+            string templatePath,
+            DailyRacingWinLossViewModel viewModel,
+            ConvertingOption currencyConvert,
+            ShowingOption showingOption)
+        {
+            return new DailyRacingWinLoss12BetExcel(templatePath, currencyConvert, showingOption, viewModel);
         }
     }
 }

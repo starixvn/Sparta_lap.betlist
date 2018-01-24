@@ -1,19 +1,19 @@
-webpackJsonp([106],{
+webpackJsonp([107],{
 
-/***/ 506:
+/***/ 513:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(507);
+module.exports = __webpack_require__(514);
 
 
 /***/ }),
 
-/***/ 507:
+/***/ 514:
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ })
 
-},[506]);
+},[513]);
 //# sourceMappingURL=lastbetmonitoring.chunk.js.map

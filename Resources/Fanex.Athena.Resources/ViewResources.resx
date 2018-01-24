@@ -3144,4 +3144,20 @@
     <value>Event Date</value>
     <comment>89670</comment>
   </data>
+  <data name="ProductBX" xml:space="preserve">
+    <value>Exchange</value>
+    <comment>88192</comment>
+  </data>
+  <data name="ChargeCommission" xml:space="preserve">
+    <value>Charge Commission</value>
+    <comment>88192</comment>
+  </data>
+  <data name="InvalidChargeCommission" xml:space="preserve">
+    <value>Invalid Charge Commission</value>
+    <comment>88192</comment>
+  </data>
+  <data name="ExchangeWinLoss" xml:space="preserve">
+    <value>Exchange Win Loss</value>
+    <comment>86640</comment>
+  </data>
 </root>

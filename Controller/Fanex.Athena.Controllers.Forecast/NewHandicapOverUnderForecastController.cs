@@ -107,39 +107,7 @@ namespace Fanex.Athena.Controllers.Forecast
 
                 if (!Request.IsAjaxRequest())
                 {
-                    model.LeagueList = ForecastService.GetForecastRunningLeague(metaModel);
-                    if (model.LeagueList.Any())
-                    {
-                        metaModel.LeagueId = GetLeagueId(metaModel.LeagueId, model.LeagueList);
-                        if (metaModel.LeagueId > 0)
-                        {
-                            model.MatchList = _matchService.GetForecastMatchListByLeague(metaModel.LeagueId).OrderBy(x => x.MatchName).ToList();
-
-                            if (model.MatchList.Count > 0)
-                            {
-                                /*get current match or first match*/
-                                var match = model.MatchList.SingleOrDefault(l => l.MatchId == metaModel.MatchId);
-                                if (match == null)
-                                {
-                                    match = model.MatchList.FirstOrDefault();
-                                }
-
-                                if (match != null)
-                                {
-                                    metaModel.MatchId = match.MatchId;
-                                    metaModel.HomeTeamId = match.HomeId;
-                                    metaModel.AwayTeamId = match.AwayId;
-                                    metaModel.IsNeutral = match.IsNeutral;
-                                }
-                                else
-                                {
-                                    metaModel.MatchId = -1;
-                                }
-                            }
-                        }
-                    }
-
-                    model.Param = metaModel;
+                    AssignDataForNonAjaxRequest(metaModel, model);
                 }
 
                 metaModel.HomeTeamName = CacheRef.GetTeamName(metaModel.HomeTeamId) + (metaModel.IsNeutral ? " (n)" : string.Empty);
@@ -153,6 +121,48 @@ namespace Fanex.Athena.Controllers.Forecast
             }
 
             return model;
+        }
+
+        private void AssignDataForNonAjaxRequest(NewForecastHandicapOverUnderMetaModel metaModel, NewForecastHdpOuViewModel model)
+        {
+            model.LeagueList = ForecastService.GetForecastRunningLeague(metaModel);
+            if (model.LeagueList.Any())
+            {
+                metaModel.LeagueId = GetLeagueId(metaModel.LeagueId, model.LeagueList);
+                if (metaModel.LeagueId > 0)
+                {
+                    AssignMatchData(metaModel, model);
+                }
+            }
+
+            model.Param = metaModel;
+        }
+
+        private void AssignMatchData(NewForecastHandicapOverUnderMetaModel metaModel, NewForecastHdpOuViewModel model)
+        {
+            model.MatchList = _matchService.GetForecastMatchListByLeague(metaModel.LeagueId).OrderBy(x => x.MatchName).ToList();
+
+            if (model.MatchList.Count > 0)
+            {
+                /*get current match or first match*/
+                var match = model.MatchList.SingleOrDefault(l => l.MatchId == metaModel.MatchId);
+                if (match == null)
+                {
+                    match = model.MatchList.FirstOrDefault();
+                }
+
+                if (match != null)
+                {
+                    metaModel.MatchId = match.MatchId;
+                    metaModel.HomeTeamId = match.HomeId;
+                    metaModel.AwayTeamId = match.AwayId;
+                    metaModel.IsNeutral = match.IsNeutral;
+                }
+                else
+                {
+                    metaModel.MatchId = -1;
+                }
+            }
         }
     }
 }

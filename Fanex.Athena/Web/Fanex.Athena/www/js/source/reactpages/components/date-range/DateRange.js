@@ -8,6 +8,7 @@ import getTheme, { defaultClasses } from './styles.js';
 import joiningClassNames from 'classnames';
 import { MomentFormat } from './constants';
 import defaultOptions from './defaultOptions.js';
+import Overlay from '../Overlay';
 
 class DateRange extends Component {
 
@@ -23,8 +24,8 @@ class DateRange extends Component {
     this.locale = { ...defaultOptions.locale, ...props.locale };
     this.ranges = { ...defaultOptions.ranges(props.today), ...props.ranges };
 
-    this.currentRange = { startDate, endDate };
     this.isValid = true;
+    this.currentRange = { startDate, endDate };
 
     this.state = {
       range: { startDate, endDate },
@@ -34,46 +35,27 @@ class DateRange extends Component {
   }
 
   get dateRangeText() {
-    const date = this.currentRange;
-    if (date.startDate && date.endDate) {
-      return `${date.startDate.format(MomentFormat.default)} - ${date.endDate.format(MomentFormat.default)}`;
+    const range = this.state.range;
+    if (range.startDate && range.endDate) {
+      const { format } = this.props;
+      return `${range.startDate.format(format)} - ${range.endDate.format(format)}`;
     }
 
     return "";
   }
 
-  show() {
+  show = () => {
     this.step = 0;
     this.setState({ show: true });
   }
 
-  hide() {
+  close() {
     this.setState({ show: false });
   }
 
   componentDidMount() {
     const { onInit } = this.props;
     onInit && onInit(this.state.range);
-
-    document.addEventListener('click', this._handleDocumentClick)
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('click', this._handleDocumentClick)
-  }
-
-  _handleDocumentClick = (event) => {
-    if (this.dateRangeInput.contains(event.target)) {
-      return;
-    }
-
-    const clickOutside = this.dateRangeContainer &&
-      !this.dateRangeContainer.contains(event.target);
-
-    if (clickOutside && this.state.show) {
-      this.currentRange = Object.assign({}, this.state.range);
-      this.hide();
-    }
   }
 
   orderRange(range) {
@@ -110,7 +92,6 @@ class DateRange extends Component {
     if (date.startDate && date.endDate) { //Select in range
       this.step = 0;
       const showDaterange = false, triggerChange = true;
-      this.currentRange = Object.assign({}, date);
       return this.setRange(date, triggerChange, showDaterange);
     }
 
@@ -158,13 +139,17 @@ class DateRange extends Component {
     });
   }
 
-  handleApply() {
+  handleApply = () => {
     const { onClickApplyButton } = this.props;
     const range = this.state.range;
-    onClickApplyButton && onClickApplyButton(range, this.isValid);
-
     this.currentRange = Object.assign({}, range);
-    this.hide();
+    onClickApplyButton && onClickApplyButton(range, this.isValid);
+    this.close();
+  }
+
+  handleCancel = () => {
+    const show = false, triggerChange = true;
+    this.setRange(this.currentRange, triggerChange, show);
   }
 
   componentWillReceiveProps(newProps) {
@@ -177,10 +162,7 @@ class DateRange extends Component {
       const oldEndDate = this.props.endDate && parseInput(this.props.endDate, format, 'endOf');
 
       if (!startDate.isSame(oldStartDate) || !endDate.isSame(oldEndDate)) {
-        const range = {
-          startDate: startDate || oldStartDate,
-          endDate: endDate || oldEndDate
-        };
+        const range = { startDate, endDate };
 
         this.setRange(range);
       }
@@ -188,87 +170,86 @@ class DateRange extends Component {
   }
 
   render() {
-    const { showRange, format, linkedCalendars, style, calendars, firstDayOfWeek, minDate, maxDate, classNames, onlyClasses, specialDays, lang, disableDaysBeforeToday, offsetPositive, shownDate, showMonthArrow, rangedCalendars } = this.props;
+    const {
+      showRange,
+      format,
+      linkedCalendars,
+      style,
+      calendars,
+      firstDayOfWeek,
+      minDate,
+      maxDate,
+      classNames,
+      onlyClasses,
+      specialDays,
+      lang,
+      disableDaysBeforeToday,
+      showMonthArrow } = this.props;
+
     const { range, link } = this.state;
     const { styles } = this;
 
     const classes = { ...defaultClasses, ...classNames };
-    const yearsDiff = range.endDate.year() - range.startDate.year();
-    const monthsDiff = range.endDate.month() - range.startDate.month();
-    const diff = yearsDiff * 12 + monthsDiff;
     const calendarsCount = Number(calendars) - 1;
 
-    const dateRangeClass = joiningClassNames({
-      [classes.dateRange]: true,
-      [classes.show]: this.state.show,
-      [classes.hide]: !this.state.show
-    });
-
-    const dateRangeStyle = {
-      display: this.state.show ? "block" : "none",
-    }
-
     const buttonHandlers = {
-      apply: this.handleApply.bind(this),
-      cancel: this.hide.bind(this)
+      apply: this.handleApply,
+      cancel: this.handleCancel
     }
 
     return (
       <div className="daterange-container">
-        <div className="daterange-label" onClick={() => this.show()} ref={element => this.dateRangeInput = element}>
+        <div className="daterange-label" onClick={this.show}>
           <input readOnly name="DateRange" id="DateRange" className="input-text datepicker" type="text" autoComplete="off" value={this.dateRangeText} />
           <i className="icon icon-calendar"></i>
         </div>
 
-        <div style={onlyClasses ? undefined : { ...styles['DateRange'], ...style, ...dateRangeStyle }}
-          className={dateRangeClass}
-          ref={element => this.dateRangeContainer = element}>
-          {showRange && (
-            <PredefinedRanges
-              format={format}
-              ranges={this.ranges}
-              range={range}
-              theme={styles}
-              onSelect={this.handleSelect.bind(this)}
-              onlyClasses={onlyClasses}
-              classNames={classes}
-              locale={this.locale}
-              buttonHandlers={buttonHandlers} />
-          )}
+        <Overlay isOpening={this.state.show} onClose={this.handleCancel}>
+          <div className={classes.dateRange}
+            ref={element => this.dateRangeContainer = element}>
+            {showRange && (
+              <PredefinedRanges
+                format={format}
+                ranges={this.ranges}
+                range={range}
+                theme={styles}
+                onSelect={this.handleSelect.bind(this)}
+                onlyClasses={onlyClasses}
+                classNames={classes}
+                locale={this.locale}
+                buttonHandlers={buttonHandlers} />
+            )}
 
-          {(() => {
-            const _calendars = [];
-            const _method = offsetPositive ? 'unshift' : 'push';
-            for (var i = calendarsCount; i >= 0; i--) {
-              const offset = offsetPositive ? i : -i;
-              const realDiff = offsetPositive ? diff : -diff;
-              const realOffset = (rangedCalendars && i == calendarsCount && diff != 0) ? realDiff : offset;
-              _calendars[_method](
-                <Calendar
-                  showMonthArrow={showMonthArrow}
-                  shownDate={shownDate}
-                  disableDaysBeforeToday={disableDaysBeforeToday}
-                  lang={lang}
-                  key={i}
-                  offset={realOffset}
-                  link={linkedCalendars && link}
-                  linkCB={this.handleLinkChange.bind(this)}
-                  range={range}
-                  format={format}
-                  firstDayOfWeek={firstDayOfWeek}
-                  theme={styles}
-                  minDate={minDate}
-                  maxDate={maxDate}
-                  onlyClasses={onlyClasses}
-                  specialDays={specialDays}
-                  classNames={classes}
-                  onChange={this.handleSelect.bind(this)}
-                  locale={this.locale} />
-              );
-            }
-            return _calendars;
-          })()}
-        </div>
+            {(() => {
+              const _calendars = [];
+              for (var i = calendarsCount; i >= 0; i--) {
+                const shownDate = i == calendarsCount ? range.startDate : range.endDate;
+                _calendars.push(
+                  <Calendar
+                    showMonthArrow={showMonthArrow}
+                    shownDate={shownDate}
+                    disableDaysBeforeToday={disableDaysBeforeToday}
+                    lang={lang}
+                    key={i}
+                    link={linkedCalendars && link}
+                    linkCB={this.handleLinkChange.bind(this)}
+                    range={range}
+                    format={format}
+                    firstDayOfWeek={firstDayOfWeek}
+                    theme={styles}
+                    minDate={minDate}
+                    maxDate={maxDate}
+                    onlyClasses={onlyClasses}
+                    specialDays={specialDays}
+                    classNames={classes}
+                    onChange={this.handleSelect.bind(this)}
+                    locale={this.locale} />
+                );
+              }
+              return _calendars;
+            })()}
+          </div>
+        </Overlay>
       </div>
     );
   }
@@ -280,10 +261,8 @@ DateRange.defaultProps = {
   format: MomentFormat.default,
   calendars: 2,
   onlyClasses: true,
-  offsetPositive: false,
   classNames: {},
   specialDays: [],
-  rangedCalendars: false,
   twoStepChange: false,
   showRange: true
 }
@@ -305,9 +284,7 @@ DateRange.propTypes = {
   onChange: PropTypes.func,
   onlyClasses: PropTypes.bool,
   specialDays: PropTypes.array,
-  offsetPositive: PropTypes.bool,
   classNames: PropTypes.object,
-  rangedCalendars: PropTypes.bool,
   onClickApplyButton: PropTypes.func,
   showRange: PropTypes.bool,
   limitedMonthRange: PropTypes.number,

@@ -1,10 +1,9 @@
 ﻿namespace Fanex.Athena.DataAccess.Report.UnitTests
 {
     using System;
-    using System.Collections.Generic;
     using System.Data;
     using System.Linq;
-    using Data;
+    using Core.UnitTests.TestHelpers;
     using Model.Core.DataDomain;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
@@ -12,65 +11,132 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class AgCasinoBalanceDataAccessTest
+    public class AgCasinoBalanceDataAccessTest : BaseDataAccessHelperTest<AgCasinoBalanceDataAccess>
     {
-        private IObjectDb _objectDb;
-        private AgCasinoBalanceDataAccess _dataAccess;
-        private IDataReader _reader;
+        private const string GetSummaryBalanceSp = "Lrf_Rpt_AGCasinoBalance";
 
-        [OneTimeSetUp]
-        public void Setup()
-        {
-            _objectDb = Substitute.For<IObjectDb>();
+        private const string GetCustomerBalanceDetailSp = "LRF_Rpt_AGCasinoBalance_Mem";
 
-            _dataAccess = Substitute.ForPartsOf<AgCasinoBalanceDataAccess>();
-
-            _reader = Substitute.For<IDataReader>();
-            _objectDb.ExecuteReader().Returns(_reader);
-        }
-
-        [OneTimeTearDown]
-        public void TearDown()
-        {
-            _objectDb = null;
-            _dataAccess = null;
-            _reader = null;
-        }
+        private const string GetAgentBalanceDetailSp = "LRF_Rpt_AGCasinoBalance_Ag";
 
         [Test]
         public void GetSummaryBalance_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_AGCasinoBalance")).Returns(_objectDb);
-            var metaModel = new ThirdPartyWinLossMetaModel
-            {
-                CurrencyId = 1,
-                FromDate = new DateTime(2016, 8, 10),
-                ToDate = new DateTime(2016, 8, 29)
-            };
+            DataAccess.GetObjectDb(Arg.Is(GetSummaryBalanceSp)).Returns(ObjectDb);
+            var metaModel = CreateMetaModel();
 
             // Action
-            _dataAccess.GetSummaryBalance(metaModel);
+            DataAccess.GetSummaryBalance(metaModel);
 
             // Assert
-            _objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            _objectDb.Received().AddInParameter("fromdate", DbType.Date, metaModel.FromDate.Date);
-            _objectDb.Received().AddInParameter("todate", DbType.Date, metaModel.ToDate.Date);
+            Assert.Multiple(() =>
+            {
+                ObjectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+                ObjectDb.Received().AddInParameter("fromdate", DbType.Date, metaModel.FromDate.Date);
+                ObjectDb.Received().AddInParameter("todate", DbType.Date, metaModel.ToDate.Date);
+            });
         }
 
         [Test]
         public void GetSummaryBalance_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_AGCasinoBalance")).Returns(_objectDb);
-            var metaModel = new ThirdPartyWinLossMetaModel
+            DataAccess.GetObjectDb(Arg.Is(GetSummaryBalanceSp)).Returns(ObjectDb);
+            var metaModel = CreateMetaModel();
+            var expected = new AgCasinoBalance
             {
-                CurrencyId = 1,
-                FromDate = new DateTime(2016, 8, 10),
-                ToDate = new DateTime(2016, 8, 29),
-                DrillDownFromDate = new DateTime(2016, 8, 29),
-                BaseCurrency = "UUS"
+                SystemId = string.Empty,
+                ExternalId = string.Empty,
+                CurrencyName = "CurrencyNameTest",
+                Date = metaModel.DrillDownFromDate
             };
+            ConfigureReaderForGetSummaryWinlossMethod(expected);
+
+            // Action
+            var result = DataAccess.GetSummaryBalance(metaModel).DataList.First();
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.SystemId, Is.EqualTo(expected.SystemId));
+                Assert.That(result.ExternalId, Is.EqualTo(expected.ExternalId));
+                Assert.That(result.CustomerId, Is.EqualTo(expected.CustomerId));
+                Assert.That(result.CurrencyId, Is.EqualTo(expected.CurrencyId));
+                Assert.That(result.CurrencyName, Is.EqualTo(expected.CurrencyName));
+                Assert.That(result.CustomerWinLoss, Is.EqualTo(expected.CustomerWinLoss));
+                Assert.That(result.LicenseeWL, Is.EqualTo(expected.LicenseeWL));
+                Assert.That(result.TurnOver, Is.EqualTo(expected.TurnOver));
+                Assert.That(result.TotalTransaction, Is.EqualTo(expected.TotalTransaction));
+                Assert.That(result.Date, Is.EqualTo(expected.Date));
+                Assert.That(result.OpeningBalance, Is.EqualTo(expected.OpeningBalance));
+                Assert.That(result.TransferIn, Is.EqualTo(expected.TransferIn));
+                Assert.That(result.TransferOut, Is.EqualTo(expected.TransferOut));
+                Assert.That(result.ClosingBalance, Is.EqualTo(expected.ClosingBalance));
+            });
+        }
+
+        [Test]
+        public void GetCustomerBalanceDetail_WhenCall_ParametersReturnedCorrectly()
+        {
+            // Arrange
+            DataAccess.GetObjectDb(Arg.Is(GetCustomerBalanceDetailSp)).Returns(ObjectDb);
+            var metaModel = CreateMetaModel();
+
+            const int TotalRows = 10;
+            ObjectDb.GetParameterValue("TotalRows").Returns(TotalRows);
+
+            // Action
+            DataAccess.GetCustomerBalanceDetail(metaModel);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                ObjectDb.Received().AddInParameter("custid", DbType.Int32, metaModel.DrillDownCustomerId);
+                ObjectDb.Received().AddInParameter("pagesize", DbType.Int32, metaModel.PageSize);
+                ObjectDb.Received().AddInParameter("pageindex", DbType.Int32, metaModel.PageIndex);
+                ObjectDb.Received().AddOutParameter("TotalRows", DbType.Int32, TotalRows);
+                ObjectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+                ObjectDb.Received().AddInParameter("fromdate", DbType.Date, metaModel.DrillDownFromDate);
+                ObjectDb.Received().AddInParameter("todate", DbType.Date, metaModel.DrillDownToDate);
+            });
+        }
+
+        [Test]
+        public void GetCustomerBalanceDetail_ExportExcel_RemovePagingFromParameters()
+        {
+            // Arrange
+            DataAccess.GetObjectDb(Arg.Is(GetCustomerBalanceDetailSp)).Returns(ObjectDb);
+
+            const int PageIndex = 1;
+            const int PageSize = SystemConstants.PageSizeExcel;
+            var metaModel = CreateMetaModel();
+            metaModel.IsExportExcel = true;
+
+            const int TotalRows = 10;
+            ObjectDb.GetParameterValue("TotalRows").Returns(TotalRows);
+
+            // Action
+            DataAccess.GetCustomerBalanceDetail(metaModel);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                ObjectDb.Received().AddInParameter("pagesize", DbType.Int32, PageSize);
+                ObjectDb.Received().AddInParameter("pageindex", DbType.Int32, PageIndex);
+            });
+        }
+
+        [Test]
+        public void GetCustomerBalanceDetail_WhenCall_DataReturnedCorrectly()
+        {
+            // Arrange
+            DataAccess.GetObjectDb(Arg.Is(GetCustomerBalanceDetailSp)).Returns(ObjectDb);
+            var metaModel = CreateMetaModel();
+
+            const int TotalRows = 10;
+            ObjectDb.GetParameterValue("TotalRows").Returns(TotalRows);
+
             var expected = new AgCasinoBalance
             {
                 SystemId = string.Empty,
@@ -81,59 +147,222 @@
             ConfigureReaderForGetSummaryWinlossMethod(expected);
 
             // Action
-            var result = _dataAccess.GetSummaryBalance(metaModel).DataList.First();
+            var result = DataAccess.GetCustomerBalanceDetail(metaModel).DataList[0];
 
             // Assert
-            Assert.That(result.SystemId, Is.EqualTo(expected.SystemId));
-            Assert.That(result.ExternalId, Is.EqualTo(expected.ExternalId));
-            Assert.That(result.CustomerId, Is.EqualTo(expected.CustomerId));
-            Assert.That(result.CurrencyId, Is.EqualTo(expected.CurrencyId));
-            Assert.That(result.CurrencyName, Is.EqualTo(expected.CurrencyName));
-            Assert.That(result.CustomerWinLoss, Is.EqualTo(expected.CustomerWinLoss));
-            Assert.That(result.LicenseeWL, Is.EqualTo(expected.LicenseeWL));
-            Assert.That(result.TurnOver, Is.EqualTo(expected.TurnOver));
-            Assert.That(result.TotalTransaction, Is.EqualTo(expected.TotalTransaction));
-            Assert.That(result.Date, Is.EqualTo(expected.Date));
-            Assert.That(result.OpeningBalance, Is.EqualTo(expected.OpeningBalance));
-            Assert.That(result.TransferIn, Is.EqualTo(expected.TransferIn));
-            Assert.That(result.TransferOut, Is.EqualTo(expected.TransferOut));
-            Assert.That(result.ClosingBalance, Is.EqualTo(expected.ClosingBalance));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.SystemId, Is.EqualTo(expected.SystemId));
+                Assert.That(result.ExternalId, Is.EqualTo(expected.ExternalId));
+                Assert.That(result.CustomerId, Is.EqualTo(expected.CustomerId));
+                Assert.That(result.CurrencyId, Is.EqualTo(expected.CurrencyId));
+                Assert.That(result.CurrencyName, Is.EqualTo(expected.CurrencyName));
+            });
         }
 
         [Test]
-        public void GetCustomerBalanceDetail_WhenCall_ParametersReturnedCorrectly()
+        public void GetAgentBalanceDetail_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("LRF_Rpt_AGCasinoBalance_Mem")).Returns(_objectDb);
-            var metaModel = new ThirdPartyWinLossMetaModel
+            DataAccess.GetObjectDb(Arg.Is(GetAgentBalanceDetailSp)).Returns(ObjectDb);
+            var metaModel = CreateMetaModel();
+
+            var expected = new AgCasinoBalance
             {
-                CurrencyId = 1,
-                FromDate = new DateTime(2016, 8, 10),
-                ToDate = new DateTime(2016, 8, 29),
-                DrillDownFromDate = new DateTime(2016, 8, 10),
-                DrillDownToDate = new DateTime(2016, 8, 29)
+                SystemId = string.Empty,
+                ExternalId = string.Empty,
+                CurrencyName = "CurrencyNameTest",
+                Date = new DateTime(2016, 8, 29)
             };
-            _objectDb.GetParameterValue("TotalRows").Returns(10);
+            ConfigureReaderForGetSummaryWinlossMethod(expected);
 
             // Action
-            _dataAccess.GetCustomerBalanceDetail(metaModel);
+            var result = DataAccess.GetAgentBalanceDetail(metaModel).DataList[0];
 
             // Assert
-            _objectDb.Received().AddInParameter("custid", DbType.Int32, metaModel.DrillDownCustomerId);
-            _objectDb.Received().AddInParameter("pagesize", DbType.Int32, metaModel.PageSize);
-            _objectDb.Received().AddInParameter("pageindex", DbType.Int32, metaModel.PageIndex);
-            _objectDb.Received().AddOutParameter("TotalRows", DbType.Int32, 10);
-            _objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            _objectDb.Received().AddInParameter("fromdate", DbType.Date, metaModel.DrillDownFromDate);
-            _objectDb.Received().AddInParameter("todate", DbType.Date, metaModel.DrillDownToDate);
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.SystemId, Is.EqualTo(expected.SystemId));
+                Assert.That(result.ExternalId, Is.EqualTo(expected.ExternalId));
+                Assert.That(result.CustomerId, Is.EqualTo(expected.CustomerId));
+                Assert.That(result.CurrencyId, Is.EqualTo(expected.CurrencyId));
+                Assert.That(result.CurrencyName, Is.EqualTo(expected.CurrencyName));
+            });
         }
 
         [Test]
-        public void GetCustomerBalanceDetail_WhenCall_DataReturnedCorrectly()
+        public void GetData_DrillDownLevel2_CalculateIndexByPaging()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("LRF_Rpt_AGCasinoBalance_Mem")).Returns(_objectDb);
-            var metaModel = new ThirdPartyWinLossMetaModel
+            DataAccess.GetObjectDb(Arg.Is(GetAgentBalanceDetailSp)).Returns(ObjectDb);
+            var metaModel = CreateMetaModel();
+            metaModel.PageIndex = 2;
+            metaModel.PageSize = 100;
+            metaModel.DrillDownLevel = 2;
+
+            const int ExpectedIndex = 101;
+
+            var expected = new AgCasinoBalance
+            {
+                SystemId = string.Empty,
+                ExternalId = string.Empty,
+                CurrencyName = "CurrencyNameTest",
+                Date = new DateTime(2016, 8, 29)
+            };
+            ConfigureReaderForGetSummaryWinlossMethod(expected);
+
+            // Action
+            var result = DataAccess.GetAgentBalanceDetail(metaModel).DataList[0];
+
+            // Assert
+            Assert.That(result.Index, Is.EqualTo(ExpectedIndex));
+        }
+
+        [Test]
+        public void GetData_HasUserNameColumn_ReturnCorrectDataForSystemId()
+        {
+            // Arrange
+            DataAccess.GetObjectDb(Arg.Is(GetAgentBalanceDetailSp)).Returns(ObjectDb);
+            var metaModel = CreateMetaModel();
+
+            const string UserName = "User name test";
+
+            var expected = new AgCasinoBalance
+            {
+                SystemId = UserName,
+                ExternalId = string.Empty,
+                CurrencyName = "CurrencyNameTest",
+                Date = new DateTime(2016, 8, 29),
+            };
+            ConfigureReaderForGetSummaryWinlossMethod(expected);
+
+            Reader.FieldCount.Returns(1);
+            Reader.GetName(Arg.Any<int>()).Returns("UserName");
+
+            // Action
+            var result = DataAccess.GetAgentBalanceDetail(metaModel).DataList[0];
+
+            // Assert
+            Assert.That(result.SystemId, Is.EqualTo(UserName));
+        }
+
+        [Test]
+        public void GetData_HasNickNameColumn_ReturnCorrectDataForExternalId()
+        {
+            // Arrange
+            DataAccess.GetObjectDb(Arg.Is(GetAgentBalanceDetailSp)).Returns(ObjectDb);
+            var metaModel = CreateMetaModel();
+
+            const string NickName = "Nick name test";
+
+            var expected = new AgCasinoBalance
+            {
+                SystemId = string.Empty,
+                ExternalId = NickName,
+                CurrencyName = "CurrencyNameTest",
+                Date = new DateTime(2016, 8, 29),
+            };
+            ConfigureReaderForGetSummaryWinlossMethod(expected);
+
+            Reader.FieldCount.Returns(1);
+            Reader.GetName(Arg.Any<int>()).Returns("NickName");
+
+            // Action
+            var result = DataAccess.GetAgentBalanceDetail(metaModel).DataList[0];
+
+            // Assert
+            Assert.That(result.ExternalId, Is.EqualTo(NickName));
+        }
+
+        [Test]
+        public void GetData_HasCustIdColumn_ReturnCorrectDataForCustomerId()
+        {
+            // Arrange
+            DataAccess.GetObjectDb(Arg.Is(GetAgentBalanceDetailSp)).Returns(ObjectDb);
+            var metaModel = CreateMetaModel();
+
+            const int CustId = 100;
+
+            var expected = new AgCasinoBalance
+            {
+                SystemId = string.Empty,
+                ExternalId = string.Empty,
+                CustomerId = CustId,
+                CurrencyName = "CurrencyNameTest",
+                Date = new DateTime(2016, 8, 29),
+            };
+            ConfigureReaderForGetSummaryWinlossMethod(expected);
+
+            Reader.FieldCount.Returns(1);
+            Reader.GetName(Arg.Any<int>()).Returns("CustId");
+
+            // Action
+            var result = DataAccess.GetAgentBalanceDetail(metaModel).DataList[0];
+
+            // Assert
+            Assert.That(result.CustomerId, Is.EqualTo(CustId));
+        }
+
+        [Test]
+        public void GetData_HasCurrencyColumn_ReturnCorrectDataForCurrencyId()
+        {
+            // Arrange
+            DataAccess.GetObjectDb(Arg.Is(GetAgentBalanceDetailSp)).Returns(ObjectDb);
+            var metaModel = CreateMetaModel();
+
+            const int Currency = 8;
+
+            var expected = new AgCasinoBalance
+            {
+                SystemId = string.Empty,
+                ExternalId = string.Empty,
+                CurrencyId = Currency,
+                CurrencyName = "CurrencyNameTest",
+                Date = new DateTime(2016, 8, 29),
+            };
+            ConfigureReaderForGetSummaryWinlossMethod(expected);
+
+            Reader.FieldCount.Returns(1);
+            Reader.GetName(Arg.Any<int>()).Returns("Currency");
+
+            // Action
+            var result = DataAccess.GetAgentBalanceDetail(metaModel).DataList[0];
+
+            // Assert
+            Assert.That(result.CurrencyId, Is.EqualTo(Currency));
+        }
+
+        [Test]
+        public void GetData_HasDateColumn_ReturnCorrectDataForDate()
+        {
+            // Arrange
+            DataAccess.GetObjectDb(Arg.Is(GetAgentBalanceDetailSp)).Returns(ObjectDb);
+            var metaModel = CreateMetaModel();
+
+            var date = new DateTime(2017, 1, 20);
+
+            var expected = new AgCasinoBalance
+            {
+                SystemId = string.Empty,
+                ExternalId = string.Empty,
+                CurrencyName = "CurrencyNameTest",
+                Date = date,
+            };
+            ConfigureReaderForGetSummaryWinlossMethod(expected);
+
+            Reader.FieldCount.Returns(1);
+            Reader.GetName(Arg.Any<int>()).Returns("Date");
+
+            // Action
+            var result = DataAccess.GetAgentBalanceDetail(metaModel).DataList[0];
+
+            // Assert
+            Assert.That(result.Date, Is.EqualTo(date));
+        }
+
+        private static ThirdPartyWinLossMetaModel CreateMetaModel()
+        {
+            return new ThirdPartyWinLossMetaModel
             {
                 CurrencyId = 1,
                 FromDate = new DateTime(2016, 8, 10),
@@ -142,91 +371,36 @@
                 DrillDownToDate = new DateTime(2016, 8, 29),
                 BaseCurrency = "UUS"
             };
-            _objectDb.GetParameterValue("TotalRows").Returns(10);
-
-            var expected = new AgCasinoBalance
-            {
-                SystemId = string.Empty,
-                ExternalId = string.Empty,
-                CurrencyName = "CurrencyNameTest",
-                Date = new DateTime(2016, 8, 29)
-            };
-            ConfigureReaderForGetSummaryWinlossMethod(expected);
-
-            // Action
-            var result = _dataAccess.GetCustomerBalanceDetail(metaModel).DataList[0];
-
-            // Assert
-            Assert.That(result.SystemId, Is.EqualTo(expected.SystemId));
-            Assert.That(result.ExternalId, Is.EqualTo(expected.ExternalId));
-            Assert.That(result.CustomerId, Is.EqualTo(expected.CustomerId));
-            Assert.That(result.CurrencyId, Is.EqualTo(expected.CurrencyId));
-            Assert.That(result.CurrencyName, Is.EqualTo(expected.CurrencyName));
-        }
-
-        [Test]
-        public void GetAgentBalanceDetail_WhenCall_DataReturnedCorrectly()
-        {
-            // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("LRF_Rpt_AGCasinoBalance_Ag")).Returns(_objectDb);
-            var metaModel = new ThirdPartyWinLossMetaModel
-            {
-                CurrencyId = 1,
-                FromDate = new DateTime(2016, 8, 10),
-                ToDate = new DateTime(2016, 8, 29),
-                DrillDownFromDate = new DateTime(2016, 8, 29),
-                BaseCurrency = "UUS"
-            };
-            IDictionary<string, AgCasinoBalance> summaryTotal = new Dictionary<string, AgCasinoBalance>();
-
-            var expected = new AgCasinoBalance
-            {
-                SystemId = string.Empty,
-                ExternalId = string.Empty,
-                CurrencyName = "CurrencyNameTest",
-                Date = new DateTime(2016, 8, 29)
-            };
-            ConfigureReaderForGetSummaryWinlossMethod(expected);
-
-            // Action
-            var result = _dataAccess.GetAgentBalanceDetail(metaModel).DataList[0];
-
-            // Assert
-            Assert.That(result.SystemId, Is.EqualTo(expected.SystemId));
-            Assert.That(result.ExternalId, Is.EqualTo(expected.ExternalId));
-            Assert.That(result.CustomerId, Is.EqualTo(expected.CustomerId));
-            Assert.That(result.CurrencyId, Is.EqualTo(expected.CurrencyId));
-            Assert.That(result.CurrencyName, Is.EqualTo(expected.CurrencyName));
         }
 
         private void ConfigureReaderForGetSummaryWinlossMethod(AgCasinoBalance expected)
         {
-            _reader.Read().Returns(true, false);
+            Reader.Read().Returns(true, false);
 
-            _reader["username"].Returns(expected.SystemId);
-            _reader["nickname"].Returns(expected.ExternalId);
-            _reader["custid"].Returns(expected.CustomerId);
-            _reader["currency"].Returns(expected.CurrencyId);
-            _reader["currencyname"].Returns(expected.CurrencyName);
-            _reader["winlostuus"].Returns(expected.CustomerWinLoss);
-            _reader["licenseewinlostuus"].Returns(expected.LicenseeWL);
-            _reader["turnoveruus"].Returns(expected.TurnOver);
-            _reader["totaltrans"].Returns(expected.TotalTransaction);
-            _reader["date"].Returns(new DateTime(2016, 8, 29));
-            _reader["OpeningBalanceuus"].Returns(expected.OpeningBalance);
-            _reader["TransferInuus"].Returns(expected.TransferIn);
-            _reader["TransferOutuus"].Returns(expected.TransferOut);
-            _reader["ClosingBalanceuus"].Returns(expected.ClosingBalance);
+            Reader["username"].Returns(expected.SystemId);
+            Reader["nickname"].Returns(expected.ExternalId);
+            Reader["custid"].Returns(expected.CustomerId);
+            Reader["currency"].Returns(expected.CurrencyId);
+            Reader["currencyname"].Returns(expected.CurrencyName);
+            Reader["winlostuus"].Returns(expected.CustomerWinLoss);
+            Reader["licenseewinlostuus"].Returns(expected.LicenseeWL);
+            Reader["turnoveruus"].Returns(expected.TurnOver);
+            Reader["totaltrans"].Returns(expected.TotalTransaction);
+            Reader["date"].Returns(expected.Date);
+            Reader["OpeningBalanceuus"].Returns(expected.OpeningBalance);
+            Reader["TransferInuus"].Returns(expected.TransferIn);
+            Reader["TransferOutuus"].Returns(expected.TransferOut);
+            Reader["ClosingBalanceuus"].Returns(expected.ClosingBalance);
 
             foreach (var currencySuffix in SystemConstants.BaseCurrencyList)
             {
-                _reader["winlost" + currencySuffix].Returns(1);
-                _reader["licenseewinlost" + currencySuffix].Returns(0);
-                _reader["turnover" + currencySuffix].Returns(0);
-                _reader["OpeningBalance" + currencySuffix].Returns(0);
-                _reader["TransferIn" + currencySuffix].Returns(0);
-                _reader["TransferOut" + currencySuffix].Returns(0);
-                _reader["ClosingBalance" + currencySuffix].Returns(0);
+                Reader["winlost" + currencySuffix].Returns(1);
+                Reader["licenseewinlost" + currencySuffix].Returns(0);
+                Reader["turnover" + currencySuffix].Returns(0);
+                Reader["OpeningBalance" + currencySuffix].Returns(0);
+                Reader["TransferIn" + currencySuffix].Returns(0);
+                Reader["TransferOut" + currencySuffix].Returns(0);
+                Reader["ClosingBalance" + currencySuffix].Returns(0);
             }
         }
     }

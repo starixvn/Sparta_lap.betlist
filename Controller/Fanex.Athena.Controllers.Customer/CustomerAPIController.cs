@@ -274,8 +274,8 @@ namespace Fanex.Athena.Controllers.Customer
             var specialBaPermission = SessionService.IsAllowedSpecialBA(userSession);
             if (!specialBaPermission)
             {
-                bool isAllowUpdateBa;
-                var isAllowUpdateBaResult = _licenseeDataAccess.IsAllowUpdateMemberBAStatus(request, licenseeSession.LicenseeId, out isAllowUpdateBa);
+                var isAllowUpdateBaResult = _licenseeDataAccess.IsAllowUpdateMemberBAStatus(request, licenseeSession.LicenseeId);
+                bool isAllowUpdateBa = isAllowUpdateBaResult.ExtendedData;
                 if (!isAllowUpdateBa)
                 {
                     return CreateUpdatingBaResult(isAllowBA, false, isAllowUpdateBaResult.Message);

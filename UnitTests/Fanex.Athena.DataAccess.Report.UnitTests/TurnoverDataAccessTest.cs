@@ -1,31 +1,17 @@
 ﻿namespace Fanex.Athena.DataAccess.Report.UnitTests
 {
-    using System;
     using System.Collections.Generic;
     using System.Data;
-    using Data;
+    using Core.UnitTests.TestHelpers;
     using Model.Core.MetaModel.Product;
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using UnitTest.Common.Helpers;
 
     [TestFixture]
-    public class TurnoverDataAccessTest
+    public class TurnoverDataAccessTest : BaseDataAccessHelperTest<TurnoverDataAccess>
     {
-        private TurnoverDataAccess _dataAccess;
-
-        [OneTimeSetUp]
-        public void Setup()
-        {
-            _dataAccess = Substitute.ForPartsOf<TurnoverDataAccess>();
-        }
-
-        [OneTimeTearDown]
-        public void TearDown()
-        {
-            _dataAccess = null;
-        }
+        private const string SpName = "Lrf_Rpt_TurnOver";
 
         [Test]
         public void GetDataList_WhenCall_ParametersPassedCorrectly()
@@ -45,21 +31,20 @@
                     new ProductOption { Code = "NG", Status = false }
                 }
             };
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_TurnOver")).Returns(objectDb);
+            DataAccess.GetObjectDb(Arg.Is(SpName)).Returns(ObjectDb);
 
             // Action
-            _dataAccess.GetDataList(metaModel);
+            DataAccess.GetDataList(metaModel);
 
             // Assert
             Assert.Multiple(() =>
             {
-                objectDb.Received().AddInParameter("username", DbType.String, metaModel.Username);
-                objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                objectDb.Received().AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
-                objectDb.Received().AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
-                objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
-                objectDb.Received().AddInParameter("showNG", DbType.Boolean, false);
+                ObjectDb.Received().AddInParameter("username", DbType.String, metaModel.Username);
+                ObjectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+                ObjectDb.Received().AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
+                ObjectDb.Received().AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
+                ObjectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
+                ObjectDb.Received().AddInParameter("showNG", DbType.Boolean, false);
             });
         }
 
@@ -67,20 +52,18 @@
         public void GetDataList_WhenCall_ReturnCorrectResult()
         {
             // Arrange
-            var reader = Substitute.For<IDataReader>();
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_TurnOver")).Returns(objectDb);
-            objectDb.ExecuteReader().ReturnsForAnyArgs(reader);
-            reader.Read().Returns(true, false);
+            DataAccess.GetObjectDb(Arg.Is(SpName)).Returns(ObjectDb);
+
+            Reader.Read().Returns(true, false);
             var readerDataMapping = new
             {
                 OpeningBalanceUSD = 999
             };
 
-            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
+            MapReaderData(readerDataMapping);
 
             // Action
-            var result = _dataAccess.GetDataList(new TurnoverMetaModel
+            var result = DataAccess.GetDataList(new TurnoverMetaModel
             {
                 BaseCurrency = "USD"
             });

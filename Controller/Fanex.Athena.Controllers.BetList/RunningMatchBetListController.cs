@@ -25,40 +25,16 @@ namespace Fanex.Athena.Controllers.BetList
         [HttpGet]
         public ActionResult Index(BetListMetaModel metaModel)
         {
-            var model = CreateDefaultMetaModel(metaModel);
-
-            if (model.IsExportExcel)
-            {
-                var currencyList = SessionService.UserSession.CurrencyList;
-
-                if (model.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(model.CurrencyId))
-                {
-                    model.AgentListXml = SessionService.GenerateAgentListXml(model.CurrencyId);
-                    return Excel(model);
-                }
-
-                return EmptyExcel();
-            }
-
-            return View("~/Views/BetList/RunningBetListOfMatch/Main.cshtml", model);
+            return ProcessDefaultRequest(metaModel, "~/Views/BetList/RunningBetListOfMatch/Main.cshtml");
         }
 
-        /// <summary>
-        /// Export excel for running bet list of match.
-        /// </summary>
-        /// <param name="metaModel">The metal model.</param>
-        /// <returns>The action result.</returns>
-        private ActionResult Excel(BetListMetaModel metaModel)
+        protected override ActionResult ExportExcel(BetListMetaModel metaModel)
         {
             var uspKey = IsRacing(metaModel.BetType)
                                               ? "Lrf_BetList_SelAllByDateHR"
                                               : "Lrf_BetList_SelRunningByBettypeMatch";
             var ticketResult = this.BetListService.GetBetListData(metaModel, uspKey);
-
-            var showingOption = new ShowingOption
-            {
-                CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
-            };
+            
             var leagueName = string.Empty;
             var firstTicket = ticketResult.MainTicketList.FirstOrDefault();
             if (ticketResult.MainTicketList.Any() && firstTicket != null)
@@ -69,13 +45,9 @@ namespace Fanex.Athena.Controllers.BetList
             var title = leagueName + " - " + string.Format(
                 "{0} - {1}",
                 CacheRef.GetBettype(metaModel.BetType),
-               string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpperInvariant() : metaModel.CurrencyName));
-
-            var excel = new BetListExcel(showingOption, metaModel.LicenseeId, HiddenColumnIndexes, metaModel.IsShowSumStake);
-
-            var workbook = excel.Export(ticketResult, title);
-
-            return new ExcelResult(workbook, "RunningBetList");
+                GetViewInCurrency(metaModel));
+            
+            return ProcessExportExcel(metaModel, ticketResult, HiddenColumnIndexes, title, "RunningBetList");
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿import React from 'react';
 import ReactDOM from 'react-dom';
-import Popup from './popup/popup';
+import Popup from './popup/Popup';
 import PropTypes from 'prop-types';
 
 export default class UserGuide extends React.Component {

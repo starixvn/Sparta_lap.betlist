@@ -23,6 +23,11 @@ namespace Fanex.Athena.Service.Report
             _turnoverDataAccess = new TurnoverDataAccess();
         }
 
+        public TurnoverService(ITurnoverDataAccess dataAccess)
+        {
+            _turnoverDataAccess = dataAccess;
+        }
+
         public IList<TurnoverDTO> GetDataList(TurnoverMetaModel metaModel)
         {
             return metaModel.IsValid

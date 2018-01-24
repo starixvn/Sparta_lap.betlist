@@ -8,7 +8,6 @@ namespace Fanex.Athena.Excel.Report
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Base;
     using Base.Entities;
@@ -33,8 +32,9 @@ namespace Fanex.Athena.Excel.Report
         private const int ColumnTotalTurnover = 9;
         private const int ColumnCustomerWl = 10;
         private const int ColumnCustomerComm = 11;
-        private const int ColumnTemplateCount = 12;
         private const int ColumnCustomerTotal = 12;
+
+        private const int ColumnTemplateCount = 12;
 
         private const int RowContentTemplate = 3;
         private const int RowNoInfoTemplate = 5;
@@ -45,6 +45,11 @@ namespace Fanex.Athena.Excel.Report
         private readonly string _formatDateTime;
         private readonly CustTurnover _total;
         private readonly string _reportTitle;
+
+        protected internal CustomerTurnoverExcel()
+            : base(string.Empty, 0, null)
+        {
+        }
 
         public CustomerTurnoverExcel(
                                      string templatePath,
@@ -80,10 +85,7 @@ namespace Fanex.Athena.Excel.Report
                 ViewResources.Total + " " + ViewResources.Turnover,
                 ViewResources.CustomerW_L,
             };
-            for (int i = 0; i < headerTextList.Length; i++)
-            {
-                row.Cells[i].SetCellValue(headerTextList[i]);
-            }
+            SetTextRowHeader(row, headerTextList);
 
             row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
 
@@ -92,26 +94,12 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnCustomerTotal].SetCellValue(ViewResources.Total);
         }
 
-        /// <summary>
-        /// Assign "no info" to sheet.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected override void AssignNoInfoRow(ISheet sheet)
         {
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
             ProcessUI(sheet);
         }
 
-        /// <summary>
-        /// Assign data to excel sheet.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        /// <param name="pageIndex">Start index.</param>
-        /// <returns>Row index.</returns>
-        [SuppressMessage(
-          "StyleCop.CSharp.StylecopPlus.Rules",
-          "SP2101:MethodMustNotContainMoreLinesThan",
-          Justification = "Reviewed. Suppression is OK here.")]
         protected override void AssignSheetData(ISheet sheet, int pageIndex)
         {
             var rowIndex = 0;
@@ -157,9 +145,7 @@ namespace Fanex.Athena.Excel.Report
                 row.Cells[ColumnTurnover].SetCellValue(customerTurnover.Turnover);
                 row.Cells[ColumnCustomerWl].SetCellValue(customerTurnover.CustomerWinLoss);
                 row.Cells[ColumnCustomerComm].SetCellValue(customerTurnover.CustomerComm);
-                row.Cells[ColumnCustomerTotal].SetCellValue(customerTurnover.CustomerWinLoss +
-                        customerTurnover.CustomerComm);
-
+                row.Cells[ColumnCustomerTotal].SetCellValue(customerTurnover.CustomerWinLoss + customerTurnover.CustomerComm);
                 rowIndex++;
             }
 
@@ -195,7 +181,7 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
         /// <param name="totalRow">The total value.</param>
-        protected void AssignTotalRow(ISheet sheet, int totalRow)
+        protected internal virtual void AssignTotalRow(ISheet sheet, int totalRow)
         {
             var row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, totalRow);
             row.Cells[ColumnCurrency].SetCellValue(string.Empty);

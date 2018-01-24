@@ -29,30 +29,21 @@
         }
 
         [Test]
-        public void GetDataList_WhenCall_ReturnEmptyData()
+        public void GetDataList_SportIsNotAllowed_ReturnEmptyData()
         {
             // Arrange
             var productList = new List<Product>
             {
                 new Product
                 {
-                    ProductCode = Product.RB
-                },
-                new Product
-                {
-                    ProductCode = Product.LC
+                    ProductCode = Product.SB
                 }
             };
             var productAccess = new ProductAccess(productList);
             var dataList = new List<SettledMatchCount>();
             dataList.Add(new SettledMatchCount
             {
-                SportType = (int)SportType.LiveCasino
-            });
-            dataList.Add(new SettledMatchCount
-            {
-                SportType = (int)SportType.HorseRacing,
-                IsToday = 1
+                SportType = (int)SportType.NumberGame
             });
 
             _dataAccess.GetDataList(false, 0).ReturnsForAnyArgs(dataList);
@@ -61,11 +52,42 @@
             var result = _service.GetDataList(false, 0, productAccess);
 
             // Assert
-            Assert.Multiple(() =>
+            Assert.That(result, Is.Empty);
+        }
+
+        [Test]
+        public void GetDataList_WhenCall_ReturnCorrectData()
+        {
+            // Arrange
+            var productList = new List<Product>
             {
-                _dataAccess.Received().GetDataList(false, 0);
-                Assert.That(result, Is.Not.Empty);
-            });
+                new Product { ProductCode = Product.RB },
+                new Product { ProductCode = Product.NG },
+                new Product { ProductCode = Product.LC },
+                new Product { ProductCode = Product.VS }
+            };
+            var productAccess = new ProductAccess(productList);
+            var dataList = new List<SettledMatchCount>
+            {
+                new SettledMatchCount { SportType = (int)SportType.HorseRacing, IsToday = 0, Entered = 1 },
+                new SettledMatchCount { SportType = (int)SportType.HorseRacing, IsToday = 0, NonEntered = 1 },
+                new SettledMatchCount { SportType = (int)SportType.NumberGame, IsToday = 0, Entered = 1 },
+                new SettledMatchCount { SportType = (int)SportType.NumberGame, IsToday = 0, NonEntered = 1 },
+                new SettledMatchCount { SportType = (int)SportType.LiveCasino, IsToday = 1, Entered = 1 },
+                new SettledMatchCount { SportType = (int)SportType.VirtualSport, IsToday = 1, NonEntered = 1 },
+                new SettledMatchCount { SportType = (int)SportType.AllBet, IsToday = 1, NonEntered = 1 },
+                new SettledMatchCount { SportType = (int)SportType.AllBet, IsToday = 0, NonEntered = 1 }
+            };
+
+            _dataAccess.GetDataList(false, 0).ReturnsForAnyArgs(dataList);
+
+            const int ExpectedToDayRecords = 5;
+
+            // Action
+            var result = _service.GetDataList(false, 0, productAccess);
+
+            // Assert
+            Assert.That(result.Count, Is.GreaterThanOrEqualTo(ExpectedToDayRecords));
         }
     }
 }

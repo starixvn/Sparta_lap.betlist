@@ -9,12 +9,8 @@ namespace Fanex.Athena.DataAccess.Core.Users.Interfaces
 
         void Logout(int userId);
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
-            Justification = "Reviewed. Suppression is OK here.")]
-        User ValidateInternalUser(User requestUser, long timeStamp, string licenseeName, out IResultInfo resultInfo);
+        IResultInfo<User> ValidateInternalUser(User requestUser, long timeStamp, string licenseeName);
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
-            Justification = "Reviewed. Suppression is OK here.")]
-        User ValidateUserForLrfSystem(User requestUser, out IResultInfo resultInfo);
+        IResultInfo<User> ValidateUserForLrfSystem(User requestUser);
     }
 }

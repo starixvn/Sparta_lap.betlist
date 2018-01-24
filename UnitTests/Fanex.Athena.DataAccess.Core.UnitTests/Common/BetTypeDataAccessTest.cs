@@ -2,74 +2,72 @@
 {
     using System.Data;
     using Core.Common;
-    using Data;
     using Model.Core.DTO.Common;
     using NSubstitute;
     using NUnit.Framework;
+    using TestHelpers;
 
-    [TestFixture]
-    public class BetTypeDataAccessTest
+    public class BetTypeDataAccessTest : BaseDataAccessHelperTest<BetTypeDataAccess>
     {
-        private IObjectDb _objectDb;
-        private BetTypeDataAccess _dataAccess;
-        private IDataReader _reader;
+        private const string UspName = "Lrf_SelBetTypeBySport";
+        private const int LicenseeId = 1;
+        private const string Sports = "1,2,3";
+        private const string LanguageCode = "en-US";
 
         [OneTimeSetUp]
-        public void Setup()
+        public override void FixtureSetUp()
         {
-            _objectDb = Substitute.For<IObjectDb>();
-            _dataAccess = Substitute.ForPartsOf<BetTypeDataAccess>();
-            _reader = Substitute.For<IDataReader>();
-            _objectDb.ExecuteReader().Returns(_reader);
-        }
+            base.FixtureSetUp();
 
-        [OneTimeTearDown]
-        public void TearDown()
-        {
-            _objectDb = null;
-            _dataAccess = null;
-            _reader = null;
+            DataAccess.GetObjectDb(Arg.Is(UspName)).Returns(ObjectDb);
         }
 
         [Test]
         public void GetBettypes_WhenCall_PassCorrectParameters()
         {
-            // Arrange
-            int licenseeId = 1;
-            var sports = "1,2,3";
-            var languageCode = "en-US";
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_SelBetTypeBySport")).Returns(_objectDb);
-
             // Action
-            _dataAccess.GetBettypes(licenseeId, sports, languageCode);
+            DataAccess.GetBettypes(LicenseeId, Sports, LanguageCode);
 
             // Assert
-            _objectDb.Received().AddInParameter("licenseeid", DbType.Int32, licenseeId);
-            _objectDb.Received().AddInParameter("sportlist", DbType.String, sports);
-            _objectDb.Received().AddInParameter("langkey", DbType.String, languageCode);
+            Assert.Multiple(() =>
+            {
+                ObjectDb.Received().AddInParameter("licenseeid", DbType.Int32, LicenseeId);
+                ObjectDb.Received().AddInParameter("sportlist", DbType.String, Sports);
+                ObjectDb.Received().AddInParameter("langkey", DbType.String, LanguageCode);
+            });
         }
 
         [Test]
         public void GetBettypes_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            int licenseeId = 1;
-            var sports = "1,2,3";
-            var languageCode = "en-US";
             var expected = new CheckedItem { Checked = true, ID = 1, Name = "BettypeNameTest" };
 
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_SelBetTypeBySport")).Returns(_objectDb);
-            _reader.Read().Returns(true, false);
-            _reader["BettypeID"].Returns(expected.ID);
-            _reader["BettypeName"].Returns(expected.Name);
+            MapReaderData(new
+            {
+                BettypeID = expected.ID,
+                BettypeName = expected.Name
+            });
+            Reader.Read().Returns(true, false);
 
             // Action
-            var result = _dataAccess.GetBettypes(licenseeId, sports, languageCode);
+            var result = DataAccess.GetBettypes(LicenseeId, Sports, LanguageCode);
 
             // Assert
-            Assert.That(result[0].Checked, Is.True);
-            Assert.That(result[0].ID, Is.EqualTo(expected.ID));
-            Assert.That(result[0].Name, Is.EqualTo(expected.Name));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result[0].Checked, Is.True);
+                Assert.That(result[0].ID, Is.EqualTo(expected.ID));
+                Assert.That(result[0].Name, Is.EqualTo(expected.Name));
+            });
+        }
+
+        [Test]
+        public void GetBettypes_WhenObjectDbThrowsException_ThrowDataAccessException()
+        {
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                UspName,
+                () => DataAccess.GetBettypes(0, string.Empty, string.Empty));
         }
     }
 }

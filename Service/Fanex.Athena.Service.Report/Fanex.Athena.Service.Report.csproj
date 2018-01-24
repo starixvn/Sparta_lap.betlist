@@ -194,12 +194,13 @@
     <Compile Include="Interfaces\ISubsidiaryPerformanceService.cs" />
     <Compile Include="Interfaces\IWeeklyLiveMatchService.cs" />
     <Compile Include="NotificationService.cs" />
+    <Compile Include="Result\Interfaces\IResultService.cs" />
     <Compile Include="Result\KenoApi.cs" />
     <Compile Include="ColossusBetsWinLossService.cs" />
+    <Compile Include="Result\ResultService.cs" />
     <Compile Include="SubsidiaryPerformanceService.cs" />
     <Compile Include="ThirdPartyWinLossService.cs" />
     <Compile Include="WeeklyLiveMatchService.cs" />
-    <Compile Include="Result\ResultService.cs" />
     <Compile Include="CustomerTurnoverService.cs" />
     <Compile Include="DailyRacingWinLossService.cs" />
     <Compile Include="LiveReportService.cs" />
@@ -208,7 +209,6 @@
     <Compile Include="TurnoverService.cs" />
     <Compile Include="Result\Interfaces\IKenoApi.cs" />
     <Compile Include="Interfaces\IThirdPartyWinLossService.cs" />
-    <Compile Include="Result\Interfaces\IResultService.cs" />
     <Compile Include="Interfaces\ICustomerTurnoverService.cs" />
     <Compile Include="Interfaces\IDailyRacingWinLossService.cs" />
     <Compile Include="Interfaces\ILiveReportService.cs" />
@@ -255,9 +255,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\Google.Protobuf.dll" />
-    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\SonarAnalyzer.CSharp.dll" />
-    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.3.0.2862\analyzers\SonarAnalyzer.dll" />
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\Google.Protobuf.dll" />
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\SonarAnalyzer.CSharp.dll" />
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

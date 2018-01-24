@@ -69,16 +69,13 @@ namespace Fanex.Athena.Excel.Report
                 ViewResources.AmtDueToBA,
                 ViewResources.AmtDueToRacing
             };
-            for (int i = 0; i < headerTextList.Length; i++)
-            {
-                row.Cells[i].SetCellValue(headerTextList[i]);
-            }
+            SetTextRowHeader(row, headerTextList);
 
             row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
 
-            row.Cells[5].SetCellValue(ViewResources.WinLoss);
-            row.Cells[6].SetCellValue(ViewResources.Comm);
-            row.Cells[7].SetCellValue(ViewResources.Total);
+            row.Cells[ColumnCustomerWl].SetCellValue(ViewResources.WinLoss);
+            row.Cells[ColumnCustomerComm].SetCellValue(ViewResources.Comm);
+            row.Cells[ColumnCustomerTotal].SetCellValue(ViewResources.Total);
         }
 
         protected override void AssignNoInfoRow(ISheet sheet)
@@ -168,7 +165,7 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        protected void AssignSumData(ISheet sheet, int startIndex)
+        protected internal virtual void AssignSumData(ISheet sheet, int startIndex)
         {
             var rowTotalNumber = checked(startIndex + RowContentTemplate);
 

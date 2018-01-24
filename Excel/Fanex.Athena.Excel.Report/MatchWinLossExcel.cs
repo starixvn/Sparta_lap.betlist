@@ -63,6 +63,11 @@ namespace Fanex.Athena.Excel.Report
 
         private readonly ConvertingOption _convertingOption;
 
+        protected internal MatchWinLossExcel()
+            : base(string.Empty, 0)
+        {
+        }
+
         public MatchWinLossExcel(
                                 string templatePath,
                                 ConvertingOption convertingOption,
@@ -98,10 +103,7 @@ namespace Fanex.Athena.Excel.Report
                 ViewResources.AmtDueToBA,
                 ViewResources.AmtDueToRacing
             };
-            for (int i = 0; i < headerTextList.Length; i++)
-            {
-                row.Cells[i].SetCellValue(headerTextList[i]);
-            }
+            SetTextRowHeader(row, headerTextList);
 
             row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
 

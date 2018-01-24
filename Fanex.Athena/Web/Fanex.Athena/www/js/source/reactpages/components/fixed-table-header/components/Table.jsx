@@ -39,7 +39,7 @@ class Table extends Component {
 
         const { maxWidth, bodyHeight, adjustedHeight } = this.props;
         this.diffWidth = BODY_WIDTH - maxWidth;
-        this.columnsWidth = this._getColumnsWidth();
+        this.columnsWidth = this._getColumnsWidth(props.header);
         this.adjustedHeight = adjustedHeight;
 
         this.state = {
@@ -72,8 +72,7 @@ class Table extends Component {
         bodyHeight: 0
     }
 
-    _getColumnsWidth() {
-        const headerRows = this.props.header;
+    _getColumnsWidth(headerRows) {
         const headerIsArray = Array.isArray(headerRows);
         if (headerIsArray && headerRows.length === 0) {
             return null;
@@ -147,7 +146,7 @@ class Table extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.columnsWidth = this._getColumnsWidth();
+        this.columnsWidth = this._getColumnsWidth(nextProps.header);
     }
 
     _handleResize = (event) => {

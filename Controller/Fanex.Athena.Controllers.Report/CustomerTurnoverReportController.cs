@@ -8,9 +8,11 @@ namespace Fanex.Athena.Controllers.Report
 {
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using System.Web.Hosting;
     using System.Web.Mvc;
     using DataAccess.Core.Common;
     using DataAccess.Core.Common.Interfaces;
+    using Extension.Utility;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Model.Report.MetaModel;
@@ -19,8 +21,13 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
     using Model.Core.DataDomain;
+    using Model.Core.ResultModel;
+    using Model.Report.DTO;
     using Newtonsoft.Json;
     using Resources;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
+    using Service.Core.Users.Interfaces;
     using Service.Report.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.ReportCustomerTurnover)]
@@ -34,6 +41,20 @@ namespace Fanex.Athena.Controllers.Report
         {
             _sportTypeDataAccess = new SportTypeDataAccess();
             _customerTurnoverService = new CustomerTurnoverService();
+        }
+
+        public CustomerTurnoverReportController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
+            IProductService productService,
+            ISportTypeDataAccess sportTypeDataAccess,
+            ICustomerTurnoverService customerTurnoverService)
+            : base(languageService, sessionService, appSetting, clientViewHelper, productService)
+        {
+            _sportTypeDataAccess = sportTypeDataAccess;
+            _customerTurnoverService = customerTurnoverService;
         }
 
         [HttpGet]
@@ -61,10 +82,6 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         [HttpPost]
-        [SuppressMessage(
-           "StyleCop.CSharp.StylecopPlus.Rules",
-           "SP2101:MethodMustNotContainMoreLinesThan",
-           Justification = "Reviewed. Suppression is OK here.")]
         [ValidateInput(false)]
         [CustomValidateAntiForgery]
         public ActionResult Excel(string excelParam)
@@ -84,12 +101,12 @@ namespace Fanex.Athena.Controllers.Report
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             if (!metaModel.IsValid)
             {
-                Response.Redirect("~/Utility/Error?errCode=400");
+                return Redirect("~/Utility/Error?errCode=400");
             }
 
             metaModel.IsExportExcel = true;
 
-            var templatePath = Server.MapPath(@"~/App_Data/Template/CustomerReports/CustomerTurnover.xls");
+            var templatePath = HostingEnvironment.MapPath(@"~/App_Data/Template/CustomerReports/CustomerTurnover.xls");
             var formatDateTime = metaModel.ReportBy == 1 ? "MM/dd/yyyy" : "MM/yyyy";
 
             var showingOption = new ShowingOption
@@ -101,9 +118,27 @@ namespace Fanex.Athena.Controllers.Report
 
             var result = _customerTurnoverService.GetDataList(metaModel, userSession.Language);
 
+            var reportTitle = GenerateReportTitle(metaModel, currencyName);
+            var excel = CreateExcel(templatePath, formatDateTime, showingOption, result, reportTitle);
+            excel.Export();
+            return new ExcelResult(excel.Workbook, FileName);
+        }
+
+        protected internal virtual CustomerTurnoverExcel CreateExcel(
+            string templatePath,
+            string formatDateTime,
+            ShowingOption showingOption,
+            ReportResultModel<CustTurnover> result,
+            string reportTitle)
+        {
+            return new CustomerTurnoverExcel(templatePath, showingOption, result.DataList, result.TotalData, formatDateTime, reportTitle);
+        }
+
+        private static string GenerateReportTitle(CustomerTurnoverMetaModel metaModel, string currencyName)
+        {
             var usernameExcelTitle = string.IsNullOrEmpty(metaModel.Username) ?
-                string.Empty
-                : "- " + ViewResources.Username + ": " + metaModel.Username;
+                            string.Empty
+                            : "- " + ViewResources.Username + ": " + metaModel.Username;
             var reportTitle = string.Format(
                 "{0}, {1} --> {2} - {3}: {4} - {5}: {6} {7}",
                                             ViewResources.Customer + " " + ViewResources.Turnover,
@@ -114,9 +149,7 @@ namespace Fanex.Athena.Controllers.Report
                                             ViewResources.MinimumOdds,
                                             metaModel.Odds,
                                             usernameExcelTitle);
-            var excel = new CustomerTurnoverExcel(templatePath, showingOption, result.DataList, result.TotalData, formatDateTime, reportTitle);
-            excel.Export();
-            return new ExcelResult(excel.Workbook, FileName);
+            return reportTitle;
         }
     }
 }

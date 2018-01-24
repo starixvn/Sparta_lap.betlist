@@ -9,6 +9,7 @@ namespace Fanex.Athena.Controllers.Report
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Web.Hosting;
     using System.Web.Mvc;
     using DataAccess.Core.Configuration;
     using DataAccess.Core.Configuration.Interfaces;
@@ -24,6 +25,9 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Web.ResultExtension;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
+    using Service.Core.Users.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.ReportWinLossByBetType)]
     public class WinLossByBetTypeReportController : ReportBaseController
@@ -32,11 +36,19 @@ namespace Fanex.Athena.Controllers.Report
 
         private readonly IWinLossByBetTypeDataAccess _winLossByBetTypeDataAccess;
 
-        public WinLossByBetTypeReportController() : this(null, null)
+        public WinLossByBetTypeReportController() : this(null, null, null, null, null, null, null)
         {
         }
 
-        public WinLossByBetTypeReportController(IBalanceUpDataAccess balanceUpDataAccess, IWinLossByBetTypeDataAccess winLossByBetTypeDataAccess)
+        public WinLossByBetTypeReportController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
+            IProductService productService,
+            IBalanceUpDataAccess balanceUpDataAccess,
+            IWinLossByBetTypeDataAccess winLossByBetTypeDataAccess)
+            : base(languageService, sessionService, appSetting, clientViewHelper, productService)
         {
             _balanceUpDataAccess = balanceUpDataAccess ?? new BalanceUpDataAccess();
             _winLossByBetTypeDataAccess = winLossByBetTypeDataAccess ?? new WinLossByBetTypeDataAccess();
@@ -145,7 +157,7 @@ namespace Fanex.Athena.Controllers.Report
         {
             const string FileName = nameof(WinLossByBetType);
 
-            var templatePath = Server.MapPath("~/App_Data/Template/Reports/WinLossByBetType.xls");
+            var templatePath = HostingEnvironment.MapPath("~/App_Data/Template/Reports/WinLossByBetType.xls");
 
             var currencyConvert = new ConvertingOption
             {
@@ -167,11 +179,20 @@ namespace Fanex.Athena.Controllers.Report
                 CustomerCommVisible = this.SessionService.LicenseeSession.IsAllowedCustomerComm
             };
 
-            var winLossByBetTypeExcel = new WinLossByBetTypeExcel(templatePath, currencyConvert, showingOption, viewModel);
+            var excel = CreateExcel(templatePath, viewModel, currencyConvert, showingOption);
 
-            winLossByBetTypeExcel.Export();
+            excel.Export();
 
-            return new ExcelResult(winLossByBetTypeExcel.Workbook, FileName);
+            return new ExcelResult(excel.Workbook, FileName);
+        }
+
+        protected internal virtual WinLossByBetTypeExcel CreateExcel(
+            string templatePath,
+            WinLossByBetTypeViewModel viewModel,
+            ConvertingOption currencyConvert,
+            ShowingOption showingOption)
+        {
+            return new WinLossByBetTypeExcel(templatePath, currencyConvert, showingOption, viewModel);
         }
     }
 }
