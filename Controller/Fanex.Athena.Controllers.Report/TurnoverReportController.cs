@@ -135,8 +135,8 @@ namespace Fanex.Athena.Controllers.Report
             viewModel.Param.CurrencyName = viewModel.Param.IsConvert ?
                 viewModel.Param.BaseCurrency
                 : viewModel.CurrencyList.FirstOrDefault(a => a.Key == viewModel.Param.CurrencyId).Value;
-
-            var excel = CreateExcel(templatePath, viewModel, convertingOption, showingOption, licenseeId);
+            var isShowCasinoTransfer = AppSettings.LicenseeAllowCasinoTransfer.Contains(licenseeId);
+            var excel = CreateExcel(templatePath, viewModel, convertingOption, showingOption, isShowCasinoTransfer);
 
             excel.Export();
 
@@ -148,9 +148,9 @@ namespace Fanex.Athena.Controllers.Report
             TurnoverViewModel viewModel,
             ConvertingOption convertingOption,
             ShowingOption showingOption,
-            int licenseeId)
+            bool isShowCasinoTransfer)
         {
-            return new TurnoverExcel(templatePath, convertingOption, showingOption, viewModel) { LicenseeId = licenseeId };
+            return new TurnoverExcel(templatePath, convertingOption, showingOption, viewModel) { IsShowCasinoTransfer = isShowCasinoTransfer };
         }
 
         private IDictionary<int, string> GetCurrenciesForTurnoverReport(int licenseeId)

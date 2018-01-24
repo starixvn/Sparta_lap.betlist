@@ -197,7 +197,6 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         {
             // Arrange
             const int RowIndex = 99;
-            const int ColumnCurrency = 4;
             var row = ExcelTestHelper.MockGetRow(_sheet, ColumnCount, RowIndex);
             var excel = CreateExcel();
 

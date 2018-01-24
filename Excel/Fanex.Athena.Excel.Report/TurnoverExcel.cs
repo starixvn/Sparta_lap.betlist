@@ -74,7 +74,7 @@ namespace Fanex.Athena.Excel.Report
             IsMultiSheet = true;
         }
 
-        public int LicenseeId
+        public bool IsShowCasinoTransfer
         {
             get;
             set;
@@ -202,7 +202,7 @@ namespace Fanex.Athena.Excel.Report
                 sheet.HideRow(RowTableHeaderTemplate + 1);
             }
 
-            if (LicenseeId != 1)
+            if (!IsShowCasinoTransfer)
             {
                 sheet.HideColumn(ColumnCasinoTransfer);
             }
@@ -228,7 +228,7 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnAmountDueToBa].SetCellValue(turnover.AmountDueToBA);
         }
 
-        protected void AssignTotalCellData(ISheet sheet, int currentRow)
+        protected internal virtual void AssignTotalCellData(ISheet sheet, int currentRow)
         {
             var row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, currentRow);
             row.Cells[0].SetCellValue(ViewResources.Total);

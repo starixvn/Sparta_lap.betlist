@@ -8,7 +8,7 @@
     using NSubstitute;
     using NSubstitute.Core;
 
-    public class DataAccessTestHelper
+    public static class DataAccessTestHelper
     {
         public static void MapReaderData(IDataReader reader, object readerDataMapping)
         {
@@ -19,7 +19,7 @@
         private static Func<CallInfo, object> CreateMappingFunc(object mappingData)
         {
             var dictionary = ToDictionary(mappingData);
-            return new Func<CallInfo, object>(x =>
+            return x =>
             {
                 var paramName = x.ArgAt<string>(0);
                 if (dictionary.ContainsKey(paramName))
@@ -28,7 +28,7 @@
                 }
 
                 return string.Empty;
-            });
+            };
         }
 
         private static IDictionary<string, object> ToDictionary(object data)

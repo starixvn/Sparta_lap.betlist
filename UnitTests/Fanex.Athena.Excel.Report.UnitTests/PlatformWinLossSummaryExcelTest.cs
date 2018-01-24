@@ -26,13 +26,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         private const int ColumnCustomerTotal = 6;
         private const int ColumnLicenseeWinLoss = 7;
 
-        private const int ColumnTemplateCount = 14;
-
-        private const string FormatDate = "MM/dd/yyyy";
-
         private const int ColumnCount = 15;
-
-        private const string CurrencyName = "ABC";
 
         private static readonly PlatformWinLossSummary DataItem = new PlatformWinLossSummary
         {

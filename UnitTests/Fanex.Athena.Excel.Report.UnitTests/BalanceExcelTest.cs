@@ -135,13 +135,6 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         public void ProcessUI_WhenCall_CallHideColumnCorrectly()
         {
             // Arrange
-            const int ColumnBetTradeCommission = 2;
-            const int ColumnBaCommission = 3;
-            const int ColumnRacingRevenue = 4;
-            const int ColumnAmtDueToBetTrade = 5;
-            const int ColumnAmtDueToBa = 6;
-            const int ColumnAmtDueToRacing = 7;
-            const int ColumnCustomerCommission = 8;
             var excel = CreateExcel();
 
             // Action

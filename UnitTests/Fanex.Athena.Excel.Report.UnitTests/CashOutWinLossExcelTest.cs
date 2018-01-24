@@ -176,8 +176,6 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         public void ProcessUI_NotAllowBA_CallHideColumnCorrectly()
         {
             // Arrange
-            const int ColumnBuyBackAmountBA = 9;
-            const int ColumnBuyBackAmountTotal = 10;
             ViewModel.IsLicenseeOfferBA = false;
             var excel = CreateExcel();
 
@@ -207,7 +205,6 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         {
             // Arrange
             const int RowIndex = 100;
-            const int ColumnCurrency = 4;
             var row = ExcelTestHelper.MockGetRow(_sheet, ColumnCount, RowIndex);
             var excel = CreateExcel();
 

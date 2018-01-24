@@ -19,17 +19,10 @@ namespace Fanex.Athena.Excel.Customer.UnitTests
     [TestFixture]
     public class CustomerListExcelTest
     {
-        private const int RowNoInfoTemp = 4;
-        private const int RowContentTemplate = 3;
         private const int GroupColumn = 1;
         private const int ExternalIDColumn = 2;
         private const int SystemIDColumn = 3;
-        private const int AvailableFundsColumn = 4;
-        private const int PendingFundColumn = 5;
-        private const int StatusColumn = 6;
         private const int BAStatusColumn = 7;
-        private const int SpecialLevelColumn = 8;
-        private const int OddsGroupColumn = 9;
         private const int SBCommColumn = 10;
         private const int RCCommColumn = 11;
         private const int NGCommColumn = 12;

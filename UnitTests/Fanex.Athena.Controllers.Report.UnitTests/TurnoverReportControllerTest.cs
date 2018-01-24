@@ -131,7 +131,7 @@
                             x.BaseCurrency == metaModel.BaseCurrency &&
                             x.CurrencyName == CurrencyName),
                         Arg.Is<ShowingOption>(x => x.BAVisible),
-                        SessionService.LicenseeSession.LicenseeId);
+                        false);
                     Assert.That(result, Is.InstanceOf<ExcelResult>());
                 });
             }
@@ -141,7 +141,7 @@
         {
             var excel = Substitute.ForPartsOf<TurnoverExcel>();
             excel.When(x => x.Export()).DoNotCallBase();
-            controller.CreateExcel(string.Empty, null, null, null, 0).ReturnsForAnyArgs(excel);
+            controller.CreateExcel(string.Empty, null, null, null, false).ReturnsForAnyArgs(excel);
         }
 
         private TurnoverReportController CreateController(string productCodeList = null)
@@ -164,7 +164,7 @@
                 ClientViewHelper,
                 productService,
                 _turnoverService);
-            controller.WhenForAnyArgs(x => x.CreateExcel(string.Empty, null, null, null, 0)).DoNotCallBase();
+            controller.WhenForAnyArgs(x => x.CreateExcel(string.Empty, null, null, null, false)).DoNotCallBase();
             return controller;
         }
     }
