@@ -13,7 +13,7 @@ using NUnit.Framework;
 namespace Fanex.Athena.Excel.Report.UnitTests
 {
     [TestFixture]
-    public class BalanceExcelTest
+    public class BalanceExcelTest : BaseReportExcelTest
     {
         private const int ColumnDate = 0;
         private const int ColumnLicenseeWl = 1;
@@ -29,46 +29,24 @@ namespace Fanex.Athena.Excel.Report.UnitTests
 
         private const int ColumnCount = 9;
 
-        private static readonly BalanceDetails DataItem = new BalanceDetails
-        {
-            LicWinLoss = 1,
-            BetTradeCommission = 2,
-            BACommission = 3,
-            RacingRevenue = 100,
-            RBCommission = 200,
-            AmtDueToBetTrade = 6,
-            AmtDueToBA = 7,
-            AmtDueToRacing = 8,
-            CustomerCommission = 9
-        };
+        private static readonly BalanceDetails DataItem = FakeHelper.Create<BalanceDetails>();
 
         private static readonly Balance Balance = new Balance
         {
-            BalanceList = new List<BalanceDetails>
-            {
-                DataItem
-            }
+            BalanceList = new List<BalanceDetails> { DataItem }
         };
-
-        private ISheet _sheet;
-
-        [SetUp]
-        public void Setup()
-        {
-            _sheet = Substitute.For<ISheet>();
-        }
 
         [Test]
         public void AssignSheetData_WhenCall_CallSetValueCorrectly()
         {
             // Arrange
-            var row = ExcelTestHelper.MockGetRow(_sheet, ColumnCount, 2);
-            ExcelTestHelper.MockGetRow(_sheet, ColumnCount, 6);
-            ExcelTestHelper.MockGetRow(_sheet, ColumnCount, 7);
+            var row = ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, 2);
+            ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, 6);
+            ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, 7);
             var excel = CreateExcel();
 
             // Action
-            excel.Public_AssignSheetData(_sheet);
+            excel.Public_AssignSheetData(FakeSheet);
 
             // Assert
             Assert.Multiple(() =>
@@ -89,12 +67,12 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         public void AssignTitle_WhenCall_CallRelevantMethods()
         {
             // Arrange
-            var row = ExcelTestHelper.MockGetRow(_sheet, ColumnCount, 0);
+            var row = ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, 0);
             var excel = CreateExcel();
             var expectedTitle = string.Format(ViewResources.BalanceTitle, ReportExcelHelper.GetTitleCurrencyName(new ConvertingOption()));
 
             // Action
-            excel.Public_AssignTitle(_sheet);
+            excel.Public_AssignTitle(FakeSheet);
 
             // Assert
             row.Cells[0].Received(1).SetCellValue(expectedTitle);
@@ -104,15 +82,15 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         public void AssignHeader_WhenCall_CallRelevantMethods()
         {
             // Arrange
-            var row1 = ExcelTestHelper.MockGetRow(_sheet, ColumnCount, 1);
-            var row2 = ExcelTestHelper.MockGetRow(_sheet, ColumnCount, 6);
-            var row3 = ExcelTestHelper.MockGetRow(_sheet, ColumnCount, 7);
-            ExcelTestHelper.MockGetRow(_sheet, ColumnCount, 5);
+            var row1 = ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, 1);
+            var row2 = ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, 6);
+            var row3 = ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, 7);
+            ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, 5);
             var excel = CreateExcel();
             var columIndex = 1;
 
             // Action
-            excel.Public_AssignHeader(_sheet);
+            excel.Public_AssignHeader(FakeSheet);
 
             // Assert
             Assert.Multiple(() =>
@@ -138,16 +116,16 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             var excel = CreateExcel();
 
             // Action
-            excel.Public_ProcessUI(_sheet);
+            excel.Public_ProcessUI(FakeSheet);
 
             // Assert
             Assert.Multiple(() =>
             {
-                _sheet.Received().HideColumn(ColumnBaCommission, ColumnAmtDueToBa);
-                _sheet.Received().HideColumn(ColumnRacingRevenue, ColumnAmtDueToRacing);
-                _sheet.Received().HideColumn(ColumnRacingRevenue, ColumnAmtDueToRacing);
-                _sheet.Received().HideColumn(ColumnBetTradeCommission, ColumnAmtDueToBetTrade);
-                _sheet.Received().HideColumn(ColumnCustomerCommission);
+                AssertHideColumns(FakeSheet, ColumnBaCommission, ColumnAmtDueToBa);
+                AssertHideColumns(FakeSheet, ColumnRacingRevenue, ColumnAmtDueToRacing);
+                AssertHideColumns(FakeSheet, ColumnRacingRevenue, ColumnAmtDueToRacing);
+                AssertHideColumns(FakeSheet, ColumnBetTradeCommission, ColumnAmtDueToBetTrade);
+                AssertHideColumns(FakeSheet, ColumnCustomerCommission);
             });
         }
 
@@ -166,12 +144,12 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             var excel = CreateExcel(showingOption);
 
             // Action
-            excel.Public_ProcessUI(_sheet);
+            excel.Public_ProcessUI(FakeSheet);
 
             // Assert
             Assert.Multiple(() =>
             {
-                _sheet.DidNotReceiveWithAnyArgs().HideColumn(0);
+                FakeSheet.DidNotReceiveWithAnyArgs().SetColumnHidden(0, false);
             });
         }
 

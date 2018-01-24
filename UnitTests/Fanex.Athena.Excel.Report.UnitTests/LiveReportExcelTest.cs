@@ -575,6 +575,18 @@
             });
         }
 
+        private static void AssertCommonCells(IRow row, LiveReport data)
+        {
+            row.Cells[ColumnCustomerWl].Received().SetCellValue(data.CustomerWinLoss);
+            row.Cells[ColumnCustomerComm].Received().SetCellValue(data.CustomerComm);
+            row.Cells[ColumnCustomerTotal].Received().SetCellValue(data.CustomerTotal);
+            row.Cells[ColumnTurnover].Received().SetCellValue(data.TurnOver);
+            row.Cells[ColumnBetCount].Received().SetCellValue(data.BetCount);
+            row.Cells[ColumnLicenseeComm].Received().SetCellValue(data.LicenseeComm);
+            row.Cells[ColumnLicenseeWl].Received().SetCellValue(data.LicenseeWinLoss);
+            row.Cells[ColumnAmountDue].Received().SetCellValue(data.AmountDue);
+        }
+
         private void AssignSheetData_CustomerCommVisibleIsFalse_MergeCellCustomerWL()
         {
             // Arrange
@@ -620,7 +632,8 @@
             SetUpForAssignCommonHeader(currentRow);
 
             currentRow += 3;
-            //// addition data (data by sport type/bet type/ currency)
+
+            // Addition data (data by sport type/bet type/ currency)
             ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount, currentRow);
 
             var rowHeaderMerge = currentRow - 2;
@@ -652,26 +665,14 @@
             return excel;
         }
 
-        private IEnumerable<IRow> SetUpForAssignCommonHeader(int rowTplIdx)
+        private IEnumerable<IRow> SetUpForAssignCommonHeader(int rowIndex)
         {
             return new List<IRow>
             {
-                ExcelTestHelper.MockGetRow(_sheet, 1, rowTplIdx),
-                ExcelTestHelper.MockGetRow(_sheet, 10, rowTplIdx + 1),
-                ExcelTestHelper.MockGetRow(_sheet, 4, rowTplIdx + 2)
+                ExcelTestHelper.MockGetRow(_sheet, 1, rowIndex),
+                ExcelTestHelper.MockGetRow(_sheet, 10, rowIndex + 1),
+                ExcelTestHelper.MockGetRow(_sheet, 4, rowIndex + 2)
             };
-        }
-
-        private void AssertCommonCells(IRow row, LiveReport data)
-        {
-            row.Cells[ColumnCustomerWl].Received().SetCellValue(data.CustomerWinLoss);
-            row.Cells[ColumnCustomerComm].Received().SetCellValue(data.CustomerComm);
-            row.Cells[ColumnCustomerTotal].Received().SetCellValue(data.CustomerTotal);
-            row.Cells[ColumnTurnover].Received().SetCellValue(data.TurnOver);
-            row.Cells[ColumnBetCount].Received().SetCellValue(data.BetCount);
-            row.Cells[ColumnLicenseeComm].Received().SetCellValue(data.LicenseeComm);
-            row.Cells[ColumnLicenseeWl].Received().SetCellValue(data.LicenseeWinLoss);
-            row.Cells[ColumnAmountDue].Received().SetCellValue(data.AmountDue);
         }
     }
 }

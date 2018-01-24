@@ -17,11 +17,11 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             FakeSheet = Substitute.For<ISheet>();
         }
 
-        protected static void AssertSetTextRowHeader(IRow row, IEnumerable<string> headers)
+        protected static void AssertSetTextRowHeader(IRow row, IEnumerable<string> headers, int startIndex = 0)
         {
             for (int i = 0; i < headers.Count(); i++)
             {
-                row.Cells[i].Received(1).SetCellValue(headers.ElementAt(i));
+                row.Cells[i + startIndex].Received(1).SetCellValue(headers.ElementAt(i));
             }
         }
 

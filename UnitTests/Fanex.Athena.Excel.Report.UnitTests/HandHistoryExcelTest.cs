@@ -14,7 +14,7 @@ using NUnit.Framework;
 namespace Fanex.Athena.Excel.Report.UnitTests
 {
     [TestFixture]
-    public class HandHistoryExcelTest
+    public class HandHistoryExcelTest : BaseReportExcelTest
     {
         private const int ColumnGameId = 1;
         private const int ColumnPlayerHistoryNo = 2;
@@ -32,41 +32,9 @@ namespace Fanex.Athena.Excel.Report.UnitTests
 
         private const int ColumnCount = 14;
 
-        private static readonly RNGCasinoResult DataItem = new RNGCasinoResult
-        {
-            Index = 1,
-            GameId = "2",
-            PlayerHistoryNo = "3",
-            GameTypeName = "4",
-            GameGroupName = "5",
-            StartTime = "6",
-            EndTime = "7",
-            BeginBalance = 8,
-            EndBlance = 9,
-            Stake = 10,
-            Bet = 11,
-            WinLoss = 12,
-            RollingComm = 13,
-            Result = "14"
-        };
+        private static readonly RNGCasinoResult DataItem = FakeHelper.Create<RNGCasinoResult>();
 
-        private static readonly RNGCasinoResult TotalData = new RNGCasinoResult
-        {
-            Index = 11,
-            GameId = "22",
-            PlayerHistoryNo = "33",
-            GameTypeName = "44",
-            GameGroupName = "55",
-            StartTime = "66",
-            EndTime = "77",
-            BeginBalance = 88,
-            EndBlance = 99,
-            Stake = 100,
-            Bet = 111,
-            WinLoss = 122,
-            RollingComm = 133,
-            Result = "144"
-        };
+        private static readonly RNGCasinoResult TotalData = FakeHelper.Create<RNGCasinoResult>();
 
         private static readonly RNGCasinoResultMetaModel MetaModel = new RNGCasinoResultMetaModel
         {
@@ -78,77 +46,57 @@ namespace Fanex.Athena.Excel.Report.UnitTests
 
         private static readonly RNGCasinoResultViewModel ViewModel = new RNGCasinoResultViewModel
         {
-            Data = new List<RNGCasinoResult>
-            {
-                DataItem
-            }
+            Data = new List<RNGCasinoResult> { DataItem }
         };
-
-        private ISheet _sheet;
-
-        [SetUp]
-        public void Setup()
-        {
-            _sheet = Substitute.For<ISheet>();
-        }
 
         [Test]
         public void AssignHeader_WhenCall_CallRelevantMethods()
         {
             // Arrange
-            var row = ExcelTestHelper.MockGetRow(_sheet, ColumnCount, ReportBase.RowHeaderTemplate + 1);
+            var row = ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, ReportBase.RowHeaderTemplate + 1);
             var excel = CreateExcel();
+            var headerTextList = new[]
+            {
+                "#", ViewResources.GameID, ViewResources.PlayerHistoryNo,
+                ViewResources.GameType, ViewResources.GameGroup, ViewResources.StartDate,
+                ViewResources.EndDate, ViewResources.StartBalance, ViewResources.EndBalance,
+                ViewResources.Stake, ViewResources.Bet, ViewResources.WinLoss,
+                ViewResources.RollingComm, ViewResources.Results
+            };
 
             // Action
-            excel.Public_AssignHeader(_sheet);
+            excel.Public_AssignHeader(FakeSheet);
 
             // Assert
-            Assert.Multiple(() =>
-            {
-                _sheet.Received().CopyRow(excel.TemplateSheet, ReportBase.RowHeaderTemplate + 1, ReportBase.RowHeaderTemplate + 1);
-                row.Cells[0].Received(1).SetCellValue("#");
-                row.Cells[1].Received(1).SetCellValue(ViewResources.GameID);
-                row.Cells[2].Received(1).SetCellValue(ViewResources.PlayerHistoryNo);
-                row.Cells[3].Received(1).SetCellValue(ViewResources.GameType);
-                row.Cells[4].Received(1).SetCellValue(ViewResources.GameGroup);
-                row.Cells[5].Received(1).SetCellValue(ViewResources.StartDate);
-                row.Cells[6].Received(1).SetCellValue(ViewResources.EndDate);
-                row.Cells[7].Received(1).SetCellValue(ViewResources.StartBalance);
-                row.Cells[8].Received(1).SetCellValue(ViewResources.EndBalance);
-                row.Cells[9].Received(1).SetCellValue(ViewResources.Stake);
-                row.Cells[10].Received(1).SetCellValue(ViewResources.Bet);
-                row.Cells[11].Received(1).SetCellValue(ViewResources.WinLoss);
-                row.Cells[12].Received(1).SetCellValue(ViewResources.RollingComm);
-                row.Cells[13].Received(1).SetCellValue(ViewResources.Results);
-            });
+            AssertSetTextRowHeader(row, headerTextList);
         }
 
         [Test]
         public void AssignNoInfoRow_WhenCall_CallRelevantMethods()
         {
             // Arrange
-            ExcelTestHelper.MockGetRow(_sheet, ColumnCount);
+            ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount);
             var excel = CreateExcel();
 
             // Action
-            excel.Public_AssignNoInfoRow(_sheet);
+            excel.Public_AssignNoInfoRow(FakeSheet);
 
             // Assert
-            _sheet.Received().SetTextRowValue(excel.TemplateSheet, Arg.Any<int>(), Arg.Any<int>(), Arg.Any<int>(), ViewResources.NoInfo);
+            FakeSheet.Received().SetTextRowValue(excel.TemplateSheet, Arg.Any<int>(), Arg.Any<int>(), Arg.Any<int>(), ViewResources.NoInfo);
         }
 
         [Test]
         public void AssignSheetData_WhenCall_CallSetValueCorrectly()
         {
             // Arrange
-            var row = ExcelTestHelper.MockGetRow(_sheet, ColumnCount, 4);
-            ExcelTestHelper.MockGetRow(_sheet, ColumnCount, 3);
+            var row = ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, 4);
+            ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, 3);
             var excel = CreateExcel();
             excel.When(x => x.AssignGroupTotal(Arg.Any<ISheet>(), Arg.Any<RNGCasinoResult>(), Arg.Any<int>())).DoNotCallBase();
             excel.When(x => x.AssignGrandTotal(Arg.Any<ISheet>(), Arg.Any<int>())).DoNotCallBase();
 
             // Action
-            excel.Public_AssignSheetData(_sheet);
+            excel.Public_AssignSheetData(FakeSheet);
 
             // Assert
             Assert.Multiple(() =>
@@ -180,20 +128,20 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             // Arrange
             MetaModel.CurrencyId = currencyId;
             MetaModel.BaseCurrency = baseCurrency;
-            var row1 = ExcelTestHelper.MockGetRow(_sheet, ColumnCount, 0);
-            var row2 = ExcelTestHelper.MockGetRow(_sheet, ColumnCount, 1);
+            var row1 = ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, 0);
+            var row2 = ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, 1);
             var excel = CreateExcel();
 
             // Action
-            excel.Public_AssignTitle(_sheet);
+            excel.Public_AssignTitle(FakeSheet);
 
             // Assert
             Assert.Multiple(() =>
             {
                 row1.Cells[0].Received(1).SetCellValue(ViewResources.CASINOHANDHISTORY);
                 row2.Cells[0].Received(1).SetCellValue(expectedTitle);
-                _sheet.Received(1).CreateFreezePane(0, 3);
-                _sheet.ReceivedWithAnyArgs().DeleteRow(0);
+                FakeSheet.Received(1).CreateFreezePane(0, 3);
+                FakeSheet.ReceivedWithAnyArgs().DeleteRow(0);
             });
         }
 
@@ -202,11 +150,11 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         {
             // Arrange
             const int RowIndex = 100;
-            var row = ExcelTestHelper.MockGetRow(_sheet, ColumnCount, RowIndex);
+            var row = ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, RowIndex);
             var excel = CreateExcel();
 
             // Action
-            excel.AssignGrandTotal(_sheet, RowIndex);
+            excel.AssignGrandTotal(FakeSheet, RowIndex);
 
             // Assert
             Assert.Multiple(() =>
@@ -224,11 +172,11 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         {
             // Arrange
             const int RowIndex = 100;
-            var row = ExcelTestHelper.MockGetRow(_sheet, ColumnCount, RowIndex);
+            var row = ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, RowIndex);
             var excel = CreateExcel();
 
             // Action
-            excel.AssignGroupTotal(_sheet, TotalData, RowIndex);
+            excel.AssignGroupTotal(FakeSheet, TotalData, RowIndex);
 
             // Assert
             Assert.Multiple(() =>
@@ -241,7 +189,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             });
         }
 
-        private static HandHistoryExcelTestable CreateExcel(int level = 0)
+        private static HandHistoryExcelTestable CreateExcel()
         {
             var excel = Substitute.ForPartsOf<HandHistoryExcelTestable>(
                 string.Empty,
