@@ -254,5 +254,9 @@
   {
     "FunctionId": 76,
     "FunctionKey": "LicenseeWinLossByTimeZone76"
+  },
+  {
+    "FunctionId": 77,
+    "FunctionKey": "ExchangeWinloss77"
   }
 ]
