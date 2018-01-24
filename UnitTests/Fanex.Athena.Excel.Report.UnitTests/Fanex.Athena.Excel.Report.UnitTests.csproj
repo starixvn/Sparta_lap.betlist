@@ -61,8 +61,10 @@
   <ItemGroup>
     <Compile Include="AgCasinoBalanceExcelTest.cs" />
     <Compile Include="ActiveCustomerSummaryExcelTest.cs" />
+    <Compile Include="BaseReportExcelTest.cs" />
     <Compile Include="TestableClasses\HandHistoryExcelTestable.cs" />
     <Compile Include="HandHistoryExcelTest.cs" />
+    <Compile Include="TestableClasses\TurnoverExcelTestable.cs" />
     <Compile Include="ThirdPartyWinLossExcelTest.cs" />
     <Compile Include="RacingCommissionExcelTest.cs" />
     <Compile Include="MicroGamingWinLossExcelTest.cs" />
@@ -96,6 +98,7 @@
     <Compile Include="TestableClasses\CasinoProgressiveWinsExcelTestable.cs" />
     <Compile Include="TestableClasses\BalanceExcelTestable.cs" />
     <Compile Include="TestableClasses\CashOutWinLossExcelTestable.cs" />
+    <Compile Include="TurnoverExcelTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Excel\Fanex.Athena.Excel.Base\Fanex.Athena.Excel.Base.csproj">
