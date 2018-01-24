@@ -1,4 +1,4 @@
-﻿// Generated at: 1/17/2018 5:37:01 PM
+﻿// Generated at: 1/24/2018 5:13:33 PM
 var _language_zh_TW = {
 AA:"客客",
 ABComm:"AllBet 佣金",
@@ -238,6 +238,7 @@ EUR:"EUR",
 Euro:"歐洲",
 Even:"雙",
 Event:"項目",
+EventDate:"賽事日期",
 Events:"項目",
 ExcludeTestData:"排除測試數據",
 ExpiredTimeParamMsg:"該網址已過期",
