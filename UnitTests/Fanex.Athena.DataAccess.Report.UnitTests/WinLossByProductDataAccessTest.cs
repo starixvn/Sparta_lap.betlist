@@ -5,6 +5,7 @@
     using System.Data;
     using System.Linq;
     using Core.Configuration.Interfaces;
+    using Core.UnitTests.TestHelpers;
     using Data;
     using Extension.Utility;
     using Model.Core.DTO.Configuration;
@@ -12,11 +13,14 @@
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using UnitTest.Common.Helpers;
 
     [TestFixture]
-    public class WinLossByProductDataAccessTest
+    public class WinLossByProductDataAccessTest : BaseDataAccessHelperTest<WinLossByProductDataAccess>
     {
+        private const string GetWinlossByProductsSp = "Lrf_Rpt_WinlossByProduct";
+        private const string GetWinlossByProductAgentsSp = "Lrf_Rpt_WinlossByProductDetail_Ag";
+        private const string GetWinlossByProductCustomersSp = "Lrf_Rpt_WinlossByProductDetail";
+
         private readonly BalanceUp _balanceUp = new BalanceUp
         {
             BalanceUpDay = new DateTime(2018, 1, 1),
@@ -25,19 +29,18 @@
 
         private IAppSettings _appSetting;
 
-        private WinLossByProductDataAccess _dataAccess;
-
         private WinLossByProductMetaModel _metaModel;
 
         [OneTimeSetUp]
-        public void Setup()
+        public override void FixtureSetUp()
         {
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             balanceUpDataAccess.GetBalanceUp().Returns(_balanceUp);
 
             _appSetting = Substitute.For<IAppSettings>();
             _appSetting.HistoryDate.Returns(new DateTime(2016, 8, 31));
-            _dataAccess = Substitute.ForPartsOf<WinLossByProductDataAccess>(balanceUpDataAccess);
+            DataAccess = Substitute.ForPartsOf<WinLossByProductDataAccess>(balanceUpDataAccess);
+
             _metaModel = new WinLossByProductMetaModel(_appSetting)
             {
                 ReportBy = 1,
@@ -55,37 +58,33 @@
                     new ProductOption { Code = "SB", Status = true }
                 }
             };
+
+            ObjectDb = Substitute.For<IObjectDb>();
         }
 
         [OneTimeTearDown]
-        public void TearDown()
+        public override void FixtureTearDown()
         {
-            _dataAccess = null;
             _appSetting = null;
+
+            base.FixtureTearDown();
         }
 
         [Test]
         public void GetWinlossByProducts_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_Rpt_WinlossByProduct")).Returns(objectDb);
+            DataAccess.GetObjectDb(Arg.Is(GetWinlossByProductsSp)).Returns(ObjectDb);
 
             // Action
-            _dataAccess.GetWinlossByProducts(_metaModel);
+            DataAccess.GetWinlossByProducts(_metaModel);
 
             // Assert
             Assert.Multiple(() =>
             {
-                objectDb.Received().AddInParameter("reporttype", DbType.Byte, _metaModel.ReportBy);
-                objectDb.Received().AddInParameter("username", DbType.String, _metaModel.Username);
-                objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                objectDb.Received().AddInParameter("fromdate", DbType.Date, _metaModel.FromDate.Date);
-                objectDb.Received().AddInParameter("todate", DbType.Date, _metaModel.ToDate.Date);
-                objectDb.Received().AddInParameter("isold", DbType.Boolean, _metaModel.IsOld);
-                objectDb.Received().AddInParameter("drawfilter", DbType.Int32, _metaModel.DrawFilter);
-                objectDb.Received().AddInParameter("movebetsday", DbType.DateTime, _balanceUp.MoveBetsDay);
-                objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
+                ObjectDb.Received().AddInParameter("reporttype", DbType.Byte, _metaModel.ReportBy);
+                ObjectDb.Received().AddInParameter("username", DbType.String, _metaModel.Username);
+                AssertCommonSpParameters();
             });
         }
 
@@ -93,24 +92,21 @@
         public void GetWinlossByProducts_WhenCall_ReturnCorrectResult()
         {
             // Arrange
-            var reader = Substitute.For<IDataReader>();
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_Rpt_WinlossByProduct")).Returns(objectDb);
-            objectDb.ExecuteReader().ReturnsForAnyArgs(reader);
-            objectDb.GetParameterValue("CustID").Returns(1000);
-            objectDb.GetParameterValue("SystemName").Returns("ABC");
-            reader.Read().Returns(true, false);
+            DataAccess.GetObjectDb(Arg.Is(GetWinlossByProductsSp)).Returns(ObjectDb);
+
+            ObjectDb.GetParameterValue("CustID").Returns(1000);
+            ObjectDb.GetParameterValue("SystemName").Returns("ABC");
+            Reader.Read().Returns(true, false);
 
             var readerDataMapping = new
             {
                 TurnoverUSD = 999,
                 reporttype = 20190101
             };
-
-            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
+            MapReaderData(readerDataMapping);
 
             // Action
-            var result = _dataAccess.GetWinlossByProducts(
+            var result = DataAccess.GetWinlossByProducts(
                 new WinLossByProductMetaModel(_appSetting)
                 {
                     BaseCurrency = "USD"
@@ -128,52 +124,160 @@
         }
 
         [Test]
+        public void GetWinlossByProducts_WhenReceiveObjectDbException_ThrowDataAccessException()
+        {
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                GetWinlossByProductsSp,
+                () => DataAccess.GetWinlossByProducts(_metaModel));
+        }
+
+        [Test]
         public void GetWinlossByProductAgents_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_WinlossByProductDetail_Ag")).Returns(objectDb);
+            DataAccess.GetObjectDb(Arg.Is(GetWinlossByProductAgentsSp)).Returns(ObjectDb);
 
             // Action
-            _dataAccess.GetWinlossByProductAgents(_metaModel);
+            DataAccess.GetWinlossByProductAgents(_metaModel);
 
             // Assert
             Assert.Multiple(() =>
             {
-                objectDb.Received().AddInParameter("CustID", DbType.Int32, _metaModel.MemberId);
-                objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                objectDb.Received().AddInParameter("fromdate", DbType.Date, _metaModel.DrillDownFromDate.Date);
-                objectDb.Received().AddInParameter("todate", DbType.Date, _metaModel.DrillDownToDate.Date);
-                objectDb.Received().AddInParameter("isold", DbType.Boolean, _metaModel.IsOld);
-                objectDb.Received().AddInParameter("drawfilter", DbType.Int32, _metaModel.DrawFilter);
-                objectDb.Received().AddInParameter("movebetsday", DbType.DateTime, _balanceUp.MoveBetsDay);
-                objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
+                ObjectDb.Received().AddInParameter("CustID", DbType.Int32, _metaModel.MemberId);
+                AssertCommonSpParameters();
             });
+        }
+
+        [Test]
+        public void GetWinlossByProductAgents_WhenReceiveObjectDbException_ThrowDataAccessException()
+        {
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                GetWinlossByProductAgentsSp,
+                () => DataAccess.GetWinlossByProductAgents(_metaModel));
         }
 
         [Test]
         public void GetWinlossByProductCustomers_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_WinlossByProductDetail")).Returns(objectDb);
+            DataAccess.GetObjectDb(Arg.Is(GetWinlossByProductCustomersSp)).Returns(ObjectDb);
 
             // Action
-            _dataAccess.GetWinlossByProductCustomers(_metaModel);
+            DataAccess.GetWinlossByProductCustomers(_metaModel);
 
             // Assert
             Assert.Multiple(() =>
             {
-                objectDb.Received().AddInParameter("custid", DbType.Int32, _metaModel.CustomerId);
-                objectDb.Received().AddInParameter("MemberID", DbType.Int32, _metaModel.MemberId);
-                objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                objectDb.Received().AddInParameter("fromdate", DbType.Date, _metaModel.DrillDownFromDate.Date);
-                objectDb.Received().AddInParameter("todate", DbType.Date, _metaModel.DrillDownToDate.Date);
-                objectDb.Received().AddInParameter("isold", DbType.Boolean, _metaModel.IsOld);
-                objectDb.Received().AddInParameter("drawfilter", DbType.Int32, _metaModel.DrawFilter);
-                objectDb.Received().AddInParameter("movebetsday", DbType.DateTime, _balanceUp.MoveBetsDay);
-                objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
+                ObjectDb.Received().AddInParameter("custid", DbType.Int32, _metaModel.CustomerId);
+                ObjectDb.Received().AddInParameter("MemberID", DbType.Int32, _metaModel.MemberId);
+                AssertCommonSpParameters();
             });
+        }
+
+        [Test]
+        public void GetWinlossByProductCustomers_WhenReceiveObjectDbException_ThrowDataAccessException()
+        {
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                GetWinlossByProductCustomersSp,
+                () => DataAccess.GetWinlossByProductCustomers(_metaModel));
+        }
+
+        [Test]
+        public void GetData_HasSystemIdColumn_ReturnCorrectData()
+        {
+            // Arrange
+            DataAccess.GetObjectDb(Arg.Is(GetWinlossByProductCustomersSp)).Returns(ObjectDb);
+
+            Reader.Read().Returns(true, false);
+            Reader.FieldCount.Returns(1);
+            Reader.GetName(0).Returns("username");
+            ObjectDb.GetParameterValue("CustID").Returns(1000);
+            ObjectDb.GetParameterValue("SystemName").Returns("ABC");
+
+            var readerDataMapping = new
+            {
+                username = "Test"
+            };
+            MapReaderData(readerDataMapping);
+
+            // Action
+            var result = DataAccess.GetWinlossByProductCustomers(
+                new WinLossByProductMetaModel(_appSetting)
+                {
+                    BaseCurrency = string.Empty
+                });
+
+            // Assert
+            Assert.That(result.DataList.ElementAt(0).SystemId, Is.EqualTo(readerDataMapping.username));
+        }
+
+        [Test]
+        public void GetData_HasExternalIdColumn_ReturnCorrectData()
+        {
+            // Arrange
+            DataAccess.GetObjectDb(Arg.Is(GetWinlossByProductCustomersSp)).Returns(ObjectDb);
+
+            Reader.Read().Returns(true, false);
+            Reader.FieldCount.Returns(1);
+            Reader.GetName(0).Returns("nickname");
+            ObjectDb.GetParameterValue("CustID").Returns(1000);
+            ObjectDb.GetParameterValue("SystemName").Returns("ABC");
+
+            var readerDataMapping = new
+            {
+                nickname = "Test"
+            };
+            MapReaderData(readerDataMapping);
+
+            // Action
+            var result = DataAccess.GetWinlossByProductCustomers(
+                new WinLossByProductMetaModel(_appSetting)
+                {
+                    BaseCurrency = string.Empty
+                });
+
+            // Assert
+            Assert.That(result.DataList.ElementAt(0).ExternalId, Is.EqualTo(readerDataMapping.nickname));
+        }
+
+        [Test]
+        public void GetData_HasCustomerIdColumn_ReturnCorrectData()
+        {
+            // Arrange
+            DataAccess.GetObjectDb(Arg.Is(GetWinlossByProductCustomersSp)).Returns(ObjectDb);
+
+            Reader.Read().Returns(true, false);
+            Reader.FieldCount.Returns(1);
+            Reader.GetName(0).Returns("custid");
+            ObjectDb.GetParameterValue("CustID").Returns(1000);
+            ObjectDb.GetParameterValue("SystemName").Returns("ABC");
+
+            var readerDataMapping = new
+            {
+                custid = 321
+            };
+            MapReaderData(readerDataMapping);
+
+            // Action
+            var result = DataAccess.GetWinlossByProductCustomers(
+                new WinLossByProductMetaModel(_appSetting)
+                {
+                    BaseCurrency = string.Empty
+                });
+
+            // Assert
+            Assert.That(result.DataList.ElementAt(0).CustomerId, Is.EqualTo(readerDataMapping.custid));
+        }
+
+        private void AssertCommonSpParameters()
+        {
+            ObjectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+            ObjectDb.Received().AddInParameter("fromdate", DbType.Date, _metaModel.DrillDownFromDate.Date);
+            ObjectDb.Received().AddInParameter("todate", DbType.Date, _metaModel.DrillDownToDate.Date);
+            ObjectDb.Received().AddInParameter("isold", DbType.Boolean, _metaModel.IsOld);
+            ObjectDb.Received().AddInParameter("drawfilter", DbType.Int32, _metaModel.DrawFilter);
+            ObjectDb.Received().AddInParameter("movebetsday", DbType.DateTime, _balanceUp.MoveBetsDay);
+            ObjectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
         }
     }
 }

@@ -3,29 +3,14 @@
     using System;
     using System.Data;
     using System.Linq;
-    using Data;
+    using Core.UnitTests.TestHelpers;
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using UnitTest.Common.Helpers;
 
     [TestFixture]
-    public class WeeklyLiveMatchDataAccessTest
+    public class WeeklyLiveMatchDataAccessTest : BaseDataAccessHelperTest<WeeklyLiveMatchDataAccess>
     {
-        private WeeklyLiveMatchDataAccess _dataAccess;
-
-        [OneTimeSetUp]
-        public void Setup()
-        {
-            _dataAccess = Substitute.ForPartsOf<WeeklyLiveMatchDataAccess>();
-        }
-
-        [OneTimeTearDown]
-        public void TearDown()
-        {
-            _dataAccess = null;
-        }
-
         [Test]
         public void GetDataList_WhenCall_ParametersPassedCorrectly()
         {
@@ -37,54 +22,53 @@
                 FromDate = new DateTime(2017, 1, 1),
                 ToDate = new DateTime(2017, 2, 2)
             };
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_Rpt_LiveMatchWeekly")).Returns(objectDb);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_Rpt_LiveMatchWeekly")).Returns(ObjectDb);
 
             // Action
-            _dataAccess.GetDataList(metaModel);
+            DataAccess.GetDataList(metaModel);
 
             // Assert
             Assert.Multiple(() =>
             {
-                objectDb.Received().AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
-                objectDb.Received().AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
-                objectDb.Received().AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
-                objectDb.Received().AddInParameter("UserId", DbType.Int32, metaModel.UserId);
+                ObjectDb.Received().AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
+                ObjectDb.Received().AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
+                ObjectDb.Received().AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
+                ObjectDb.Received().AddInParameter("UserId", DbType.Int32, metaModel.UserId);
             });
         }
 
-        [Test]
-        public void GetDataList_WhenCall_ReturnCorrectResult()
+        [TestCase("Week0", 100, 100)]
+        [TestCase("", 100, 0)]
+        public void GetDataList_WhenCall_ReturnCorrectResult(string sortColumn, int numbersOfMatchs, int expectedNumberOfMatches)
         {
             // Arrange
-            var reader = Substitute.For<IDataReader>();
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_Rpt_LiveMatchWeekly")).Returns(objectDb);
-            objectDb.ExecuteReader().ReturnsForAnyArgs(reader);
-            reader.Read().Returns(true, false);
-            reader.FieldCount.Returns(3);
-            reader.GetInt32(Arg.Any<int>()).Returns(100);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_Rpt_LiveMatchWeekly")).Returns(ObjectDb);
+
+            Reader.Read().Returns(true, false);
+            Reader.FieldCount.Returns(3);
+            Reader.GetInt32(Arg.Any<int>()).Returns(numbersOfMatchs);
+
             var readerDataMapping = new
             {
                 sporttype = 1
             };
-
-            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
+            MapReaderData(readerDataMapping);
 
             // Action
-            var result = _dataAccess.GetDataList(
+            var result = DataAccess.GetDataList(
                 new WeeklyLiveMatchMetaModel
                 {
                     SortDirection = "asc",
-                    SortColumn = "Week0",
+                    SortColumn = sortColumn,
                     BaseCurrency = "USD"
                 });
 
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(result.DataList.Count(), Is.EqualTo(1));
-                Assert.That(result.DataList.ElementAt(0).NumbersOfMatches, Is.EqualTo(new int[] { 100 }));
+                Assert.That(result.DataList.Count, Is.EqualTo(1));
+                Assert.That(result.DataList.ElementAt(0).NumbersOfMatches, Is.EqualTo(new int[] { numbersOfMatchs }));
+                Assert.That(result.DataList.ElementAt(0).SortingWeekValue, Is.EqualTo(expectedNumberOfMatches));
             });
         }
     }

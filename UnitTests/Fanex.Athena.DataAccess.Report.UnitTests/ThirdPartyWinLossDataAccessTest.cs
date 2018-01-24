@@ -3,24 +3,24 @@
     using System;
     using System.Data;
     using System.Linq;
-    using Data;
+    using Core.UnitTests.TestHelpers;
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
     using Report;
-    using UnitTest.Common.Helpers;
 
     [TestFixture]
-    public class ThirdPartyWinLosDataAccessTest
+    public class ThirdPartyWinLosDataAccessTest : BaseDataAccessHelperTest<ThirdPartyWinLossDataAccess>
     {
-        private ThirdPartyWinLossDataAccess _dataAccess;
+        private const string GetSummaryWinlossSp = "Lrf_Rpt_ThirdPartyWinloss";
+        private const string GetCustomerWinlossDetailSp = "LRF_Rpt_ThirdPartyWinloss_Mem";
+        private const string GetAgentWinlossDetailSp = "LRF_Rpt_ThirdPartyWinloss_Ag";
+
         private ThirdPartyWinLossMetaModel _metaModel;
 
-        [OneTimeSetUp]
-        public void Setup()
+        [SetUp]
+        public override void SetUp()
         {
-            _dataAccess = Substitute.ForPartsOf<ThirdPartyWinLossDataAccess>();
-
             _metaModel = new ThirdPartyWinLossMetaModel
             {
                 BaseCurrency = "USD",
@@ -33,158 +33,267 @@
                 DrillDownToDate = new DateTime(2018, 2, 2),
                 DrillDownCustomerId = 999
             };
+
+            base.SetUp();
         }
 
-        [OneTimeTearDown]
-        public void TearDown()
-        {
-            _dataAccess = null;
-            _metaModel = null;
-        }
-
-        [Test]
-        public void GetSummaryWinloss_WhenCall_ParametersPassedCorrectly()
+        [TestCase(null, GetSummaryWinlossSp)]
+        [TestCase("Test", "Test")]
+        public void GetSummaryWinloss_WhenCall_ParametersPassedCorrectly(string spname, string expectedSpName)
         {
             // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_Rpt_ThirdPartyWinloss")).Returns(objectDb);
+            DataAccess.GetObjectDb(Arg.Is(expectedSpName)).Returns(ObjectDb);
 
             // Action
-            _dataAccess.GetSummaryWinloss(_metaModel);
+            DataAccess.GetSummaryWinloss(_metaModel, spname);
 
             // Assert
             Assert.Multiple(() =>
             {
-                objectDb.Received().AddInParameter("ReportType", DbType.Int32, _metaModel.ReportBy);
-                objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                objectDb.Received().AddInParameter("productid", DbType.Int32, _metaModel.ProductId);
-                objectDb.Received().AddInParameter("fromdate", DbType.Date, _metaModel.FromDate);
-                objectDb.Received().AddInParameter("todate", DbType.Date, _metaModel.ToDate);
+                DataAccess.Received().GetObjectDb(expectedSpName);
+                ObjectDb.Received().AddInParameter("ReportType", DbType.Int32, _metaModel.ReportBy);
+                ObjectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                ObjectDb.Received().AddInParameter("productid", DbType.Int32, _metaModel.ProductId);
+                ObjectDb.Received().AddInParameter("fromdate", DbType.Date, _metaModel.FromDate);
+                ObjectDb.Received().AddInParameter("todate", DbType.Date, _metaModel.ToDate);
             });
         }
 
         [Test]
-        public void GetSummaryWinloss_WhenCall_ParametersPassedCorrectly_WhenCall_ReturnCorrectResult()
+        public void GetSummaryWinloss_WhenCall_ReturnCorrectResult()
         {
             // Arrange
-            var reader = Substitute.For<IDataReader>();
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_Rpt_ThirdPartyWinloss")).Returns(objectDb);
-            objectDb.ExecuteReader().ReturnsForAnyArgs(reader);
-            reader.Read().Returns(true, false);
+            DataAccess.GetObjectDb(Arg.Is(GetSummaryWinlossSp)).Returns(ObjectDb);
+
+            Reader.Read().Returns(true, false);
             var readerDataMapping = new
             {
                 winlostUSD = 100
             };
 
-            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
+            MapReaderData(readerDataMapping);
 
             // Action
-            var result = _dataAccess.GetSummaryWinloss(_metaModel);
+            var result = DataAccess.GetSummaryWinloss(_metaModel);
 
             // Assert
             Assert.Multiple(() =>
             {
                 Assert.That(result.DataList.Count, Is.EqualTo(1));
-                Assert.That(result.DataList.First().CustomerWinLoss, Is.EqualTo(100));
+                Assert.That(result.DataList.First().CustomerWinLoss, Is.EqualTo(readerDataMapping.winlostUSD));
 
-                Assert.That(result.SummaryTotal["USD"].CustomerWinLoss, Is.EqualTo(100));
+                Assert.That(result.SummaryTotal["USD"].CustomerWinLoss, Is.EqualTo(readerDataMapping.winlostUSD));
             });
         }
 
         [Test]
-        public void GetCustomerWinlossDetail_WhenCall_ParametersPassedCorrectly()
+        public void GetSummaryWinloss_WhenReceiveObjectDbException_ThrowDataAccessException()
+        {
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                GetSummaryWinlossSp,
+                () => DataAccess.GetSummaryWinloss(_metaModel));
+        }
+
+        [TestCase(null, GetCustomerWinlossDetailSp)]
+        [TestCase("Test", "Test")]
+        public void GetCustomerWinlossDetail_WhenCall_ParametersPassedCorrectly(string spname, string expectedSpName)
         {
             // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("LRF_Rpt_ThirdPartyWinloss_Mem")).Returns(objectDb);
+            DataAccess.GetObjectDb(Arg.Is(expectedSpName)).Returns(ObjectDb);
 
             // Action
-            _dataAccess.GetCustomerWinlossDetail(_metaModel);
+            DataAccess.GetCustomerWinlossDetail(_metaModel, spname);
 
             // Assert
             Assert.Multiple(() =>
             {
-                objectDb.Received().AddInParameter("custid", DbType.Int32, _metaModel.DrillDownCustomerId);
-                objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                objectDb.Received().AddInParameter("productid", DbType.Int32, _metaModel.ProductId);
-                objectDb.Received().AddInParameter("fromdate", DbType.Date, _metaModel.DrillDownFromDate);
-                objectDb.Received().AddInParameter("todate", DbType.Date, _metaModel.DrillDownToDate);
+                DataAccess.Received().GetObjectDb(expectedSpName);
+                ObjectDb.Received().AddInParameter("custid", DbType.Int32, _metaModel.DrillDownCustomerId);
+                ObjectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                ObjectDb.Received().AddInParameter("productid", DbType.Int32, _metaModel.ProductId);
+                ObjectDb.Received().AddInParameter("fromdate", DbType.Date, _metaModel.DrillDownFromDate);
+                ObjectDb.Received().AddInParameter("todate", DbType.Date, _metaModel.DrillDownToDate);
             });
         }
 
         [Test]
-        public void GetCustomerWinlossDetail_WhenCall_ParametersPassedCorrectly_WhenCall_ReturnCorrectResult()
+        public void GetCustomerWinlossDetail_WhenCall_ReturnCorrectResult()
         {
             // Arrange
-            var reader = Substitute.For<IDataReader>();
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("LRF_Rpt_ThirdPartyWinloss_Mem")).Returns(objectDb);
-            objectDb.ExecuteReader().ReturnsForAnyArgs(reader);
-            reader.Read().Returns(true, false);
+            DataAccess.GetObjectDb(Arg.Is(GetAgentWinlossDetailSp)).Returns(ObjectDb);
+
+            Reader.Read().Returns(true, false);
             var readerDataMapping = new
             {
                 winlostUSD = 100
             };
 
-            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
+            MapReaderData(readerDataMapping);
 
             // Action
-            var result = _dataAccess.GetCustomerWinlossDetail(_metaModel);
+            var result = DataAccess.GetCustomerWinlossDetail(_metaModel);
 
             // Assert
             Assert.Multiple(() =>
             {
                 Assert.That(result.DataList.Count, Is.EqualTo(1));
-                Assert.That(result.DataList.First().CustomerWinLoss, Is.EqualTo(100));
+                Assert.That(result.DataList.First().CustomerWinLoss, Is.EqualTo(readerDataMapping.winlostUSD));
             });
         }
 
         [Test]
-        public void GetAgentWinlossDetail_WhenCall_ParametersPassedCorrectly()
+        public void GetCustomerWinlossDetail_WhenReceiveObjectDbException_ThrowDataAccessException()
+        {
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                GetCustomerWinlossDetailSp,
+                () => DataAccess.GetCustomerWinlossDetail(_metaModel));
+        }
+
+        [TestCase(null, GetAgentWinlossDetailSp)]
+        [TestCase("Test", "Test")]
+        public void GetAgentWinlossDetail_WhenCall_ParametersPassedCorrectly(string spname, string expectedSpName)
         {
             // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("LRF_Rpt_ThirdPartyWinloss_Ag")).Returns(objectDb);
+            DataAccess.GetObjectDb(Arg.Is(expectedSpName)).Returns(ObjectDb);
+            _metaModel.ProductId = -1;
 
             // Action
-            _dataAccess.GetAgentWinlossDetail(_metaModel);
+            DataAccess.GetAgentWinlossDetail(_metaModel, spname);
 
             // Assert
             Assert.Multiple(() =>
             {
-                objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                objectDb.Received().AddInParameter("productid", DbType.Int32, _metaModel.ProductId);
-                objectDb.Received().AddInParameter("fromdate", DbType.Date, _metaModel.DrillDownFromDate);
-                objectDb.Received().AddInParameter("todate", DbType.Date, _metaModel.DrillDownToDate);
+                DataAccess.Received().GetObjectDb(expectedSpName);
+                ObjectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                ObjectDb.DidNotReceive().AddInParameter("productid", DbType.Int32, _metaModel.ProductId);
+                ObjectDb.Received().AddInParameter("fromdate", DbType.Date, _metaModel.DrillDownFromDate);
+                ObjectDb.Received().AddInParameter("todate", DbType.Date, _metaModel.DrillDownToDate);
             });
         }
 
         [Test]
-        public void GetAgentWinlossDetail_WhenCall_ParametersPassedCorrectly_WhenCall_ReturnCorrectResult()
+        public void GetAgentWinlossDetail_WhenCall_ReturnCorrectResult()
         {
             // Arrange
-            var reader = Substitute.For<IDataReader>();
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("LRF_Rpt_ThirdPartyWinloss_Ag")).Returns(objectDb);
-            objectDb.ExecuteReader().ReturnsForAnyArgs(reader);
-            reader.Read().Returns(true, false);
+            DataAccess.GetObjectDb(Arg.Is(GetAgentWinlossDetailSp)).Returns(ObjectDb);
+
+            Reader.Read().Returns(true, false);
             var readerDataMapping = new
             {
                 winlostUSD = 100
             };
 
-            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
+            MapReaderData(readerDataMapping);
 
             // Action
-            var result = _dataAccess.GetAgentWinlossDetail(_metaModel);
+            var result = DataAccess.GetAgentWinlossDetail(_metaModel);
 
             // Assert
             Assert.Multiple(() =>
             {
                 Assert.That(result.DataList.Count, Is.EqualTo(1));
-                Assert.That(result.DataList.First().CustomerWinLoss, Is.EqualTo(100));
+                Assert.That(result.DataList.First().CustomerWinLoss, Is.EqualTo(readerDataMapping.winlostUSD));
             });
+        }
+
+        [Test]
+        public void GetData_HasSystemIdColumn_ReturnCorrectData()
+        {
+            // Arrange
+            DataAccess.GetObjectDb(Arg.Is(GetAgentWinlossDetailSp)).Returns(ObjectDb);
+
+            Reader.Read().Returns(true, false);
+            Reader.FieldCount.Returns(1);
+            Reader.GetName(0).Returns("username");
+
+            var readerDataMapping = new
+            {
+                username = "Test"
+            };
+            MapReaderData(readerDataMapping);
+
+            // Action
+            var result = DataAccess.GetAgentWinlossDetail(_metaModel);
+
+            // Assert
+            Assert.That(result.DataList.First().SystemId, Is.EqualTo(readerDataMapping.username));
+        }
+
+        [Test]
+        public void GetData_HasExternalIdColumn_ReturnCorrectData()
+        {
+            // Arrange
+            DataAccess.GetObjectDb(Arg.Is(GetAgentWinlossDetailSp)).Returns(ObjectDb);
+
+            Reader.Read().Returns(true, false);
+            Reader.FieldCount.Returns(1);
+            Reader.GetName(0).Returns("nickname");
+
+            var readerDataMapping = new
+            {
+                nickname = "Test"
+            };
+            MapReaderData(readerDataMapping);
+
+            // Action
+            var result = DataAccess.GetAgentWinlossDetail(_metaModel);
+
+            // Assert
+            Assert.That(result.DataList.First().ExternalId, Is.EqualTo(readerDataMapping.nickname));
+        }
+
+        [Test]
+        public void GetData_HasCustomerIdColumn_ReturnCorrectData()
+        {
+            // Arrange
+            DataAccess.GetObjectDb(Arg.Is(GetAgentWinlossDetailSp)).Returns(ObjectDb);
+
+            Reader.Read().Returns(true, false);
+            Reader.FieldCount.Returns(1);
+            Reader.GetName(0).Returns("custid");
+
+            var readerDataMapping = new
+            {
+                custid = 2
+            };
+            MapReaderData(readerDataMapping);
+
+            // Action
+            var result = DataAccess.GetAgentWinlossDetail(_metaModel);
+
+            // Assert
+            Assert.That(result.DataList.First().CustomerId, Is.EqualTo(readerDataMapping.custid));
+        }
+
+        [Test]
+        public void GetData_HasWinlostDateColumn_ReturnCorrectData()
+        {
+            // Arrange
+            DataAccess.GetObjectDb(Arg.Is(GetAgentWinlossDetailSp)).Returns(ObjectDb);
+
+            Reader.Read().Returns(true, false);
+            Reader.FieldCount.Returns(1);
+            Reader.GetName(0).Returns("winlostdate");
+
+            var readerDataMapping = new
+            {
+                winlostdate = new DateTime(2017, 1, 2)
+            };
+            MapReaderData(readerDataMapping);
+
+            // Action
+            var result = DataAccess.GetAgentWinlossDetail(_metaModel);
+
+            // Assert
+            Assert.That(result.DataList.First().Date, Is.EqualTo(readerDataMapping.winlostdate));
+        }
+
+        [Test]
+        public void GetAgentWinlossDetail_WhenReceiveObjectDbException_ThrowDataAccessException()
+        {
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                GetAgentWinlossDetailSp,
+                () => DataAccess.GetAgentWinlossDetail(_metaModel));
         }
     }
 }
