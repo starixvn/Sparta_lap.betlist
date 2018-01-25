@@ -21,8 +21,6 @@ namespace Fanex.Athena.Model.Core.DTO.Common
 
         public const string BA = "BA";
 
-        public const string LC = "LC";
-
         public const string VS = "VS";
 
         public const string CS = "CS";

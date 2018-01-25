@@ -41,8 +41,7 @@
                 new MatchWinLoss { ProductName = Product.VS2 },
                 new MatchWinLoss { ProductName = Product.VS, SportType = (int)SportType.VirtualCycling },
                 new MatchWinLoss { ProductName = Product.RB },
-                new MatchWinLoss { ProductName = Product.NG },
-                new MatchWinLoss { ProductName = Product.LC, IsNeutral = true }
+                new MatchWinLoss { ProductName = Product.NG }
             };
 
             _dataAccess.GetDataList(metaModel).ReturnsForAnyArgs(dataList);

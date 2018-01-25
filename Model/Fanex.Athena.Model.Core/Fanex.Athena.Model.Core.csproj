@@ -132,7 +132,6 @@
     <Compile Include="MetaModel\Common\LeagueMetaModel.cs" />
     <Compile Include="MetaModel\Common\UserLogMetaModel.cs" />
     <Compile Include="MetaModel\Product\ProductOption.cs" />
-    <Compile Include="MetaModel\Product\ProductOptionMetaModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResultModel\SortableReportResultModel.cs" />
     <Compile Include="ResultModel\ReportResultModel.cs" />

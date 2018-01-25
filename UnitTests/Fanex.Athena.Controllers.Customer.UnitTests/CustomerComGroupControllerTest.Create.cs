@@ -24,7 +24,6 @@
                 {
                     new Product { ProductCode = Product.NG },
                     new Product { ProductCode = Product.RB },
-                    new Product { ProductCode = Product.LC },
                     new Product { ProductCode = Product.CS },
                     new Product { ProductCode = Product.AB },
                 };

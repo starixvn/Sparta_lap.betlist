@@ -148,8 +148,6 @@ namespace Fanex.Athena.Service.Report
             result.AddRange(
                 dataList.Where(p => p.ProductName == Product.NG).OrderBy(m => m.LeagueName).ThenBy(m => m.MatchName));
             result.AddRange(
-                dataList.Where(p => p.ProductName == Product.LC).OrderBy(m => m.LeagueName).ThenBy(m => m.MatchName));
-            result.AddRange(
                 dataList.Where(p => p.ProductName == Product.VS).OrderBy(m => m.LeagueName).ThenBy(m => m.MatchName));
             result.AddRange(
                 dataList.Where(p => p.ProductName == Product.VS2).OrderBy(m => m.LeagueName).ThenBy(m => m.MatchName));
@@ -173,13 +171,6 @@ namespace Fanex.Athena.Service.Report
 
                 case Product.NG:
                     return ViewResources.NumberGameNo + " " + matchWinLoss.MatchCode;
-
-                case Product.LC:
-                    return string.Format(
-                        "{0} {1} {2} ",
-                        CacheRef.GetSportName(matchWinLoss.SportType),
-                        CacheRef.GetBettype(matchWinLoss.BetType),
-                        matchWinLoss.ShowTime);
 
                 default:
 

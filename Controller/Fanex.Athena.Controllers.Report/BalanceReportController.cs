@@ -114,7 +114,6 @@ namespace Fanex.Athena.Controllers.Report
                 BAVisible = productAccess.IsAllow(ProductTypes.BA),
                 NGVisible = productAccess.IsAllow(ProductTypes.NumberGame),
                 SBVisible = productAccess.IsAllow(ProductTypes.Sportsbook),
-                LCVisible = productAccess.IsAllow(ProductTypes.LiveCasino),
                 VSVisible = productAccess.IsAllow(ProductTypes.VirtualSports),
                 CSVisible = productAccess.IsAllow(ProductTypes.RngCasino),
                 BGVisible = productAccess.IsAllow(ProductTypes.Bingo),

@@ -33,8 +33,6 @@
     {
         private const string NewProductIdColumnName = "newproductid";
 
-        private const int LCSport = 162;
-
         private static readonly IList<int> VirtualHrBettypes = new List<int> { 1231, 1232, 1233, 1237, 1238 };
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
         private readonly IMatchWinLossService _matchWinLossService;
@@ -167,7 +165,6 @@
                 BAVisible = productAccess.IsAllowBA,
                 RBVisible = productAccess.IsAllowRB,
                 NGVisible = productAccess.IsAllowNG,
-                LCVisible = productAccess.IsAllowLC,
                 SBVisible = productAccess.IsAllowSB,
                 VSVisible = productAccess.IsAllowVS,
                 KNVisible = productAccess.IsAllowKN,
@@ -279,10 +276,6 @@
 
                 case ProductTypes.NumberGame:
                     row["matchname"] = string.Format("{0} {1}", ViewResources.NumberGameNo, row["matchcode"]);
-                    break;
-
-                case ProductTypes.LiveCasino:
-                    row["matchname"] = string.Format("{0} {1} {2}", CacheRef.GetSportName(LCSport), CacheRef.GetBettype(row["bettype"]), row["showtime"]);
                     break;
 
                 default:

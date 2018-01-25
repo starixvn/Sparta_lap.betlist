@@ -56,14 +56,6 @@ namespace Fanex.Athena.Model.Core.DTO.Common
             }
         }
 
-        public bool IsAllowLC
-        {
-            get
-            {
-                return ProductList.Any(p => p.ProductCode == Product.LC);
-            }
-        }
-
         public bool IsAllowVS
         {
             get

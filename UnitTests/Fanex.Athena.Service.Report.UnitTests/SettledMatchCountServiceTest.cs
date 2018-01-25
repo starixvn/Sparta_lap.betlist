@@ -63,7 +63,6 @@
             {
                 new Product { ProductCode = Product.RB },
                 new Product { ProductCode = Product.NG },
-                new Product { ProductCode = Product.LC },
                 new Product { ProductCode = Product.VS }
             };
             var productAccess = new ProductAccess(productList);

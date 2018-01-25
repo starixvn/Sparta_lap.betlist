@@ -416,7 +416,6 @@ namespace Fanex.Athena.Controllers.Customer
                 SBComm = 0,
                 RCComm = 0,
                 NGComm = 0,
-                LCComm = 0,
                 RNGComm = 0,
                 GroupName = ViewResources.None,
                 GroupColor = "#ffffff",

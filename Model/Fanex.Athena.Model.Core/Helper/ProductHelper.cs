@@ -20,7 +20,6 @@
             new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
             {
                 { Product.BA, nameof(ViewResources.ProductBA) },
-                { Product.LC, nameof(ViewResources.ProductLC) },
                 { Product.NG, nameof(ViewResources.ProductNG) },
                 { Product.RB, nameof(ViewResources.ProductRB) },
                 { Product.SB, nameof(ViewResources.Sportsbook) },
@@ -75,11 +74,6 @@
             if (BetTypeHelper.IsRacing(bettype))
             {
                 return ProductTypes.Racing;
-            }
-
-            if (BetTypeHelper.IsLiveCasino(bettype))
-            {
-                return ProductTypes.LiveCasino;
             }
 
             if (BetTypeHelper.IsVirtualSports(bettype))

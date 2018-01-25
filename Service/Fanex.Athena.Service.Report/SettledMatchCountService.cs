@@ -50,9 +50,6 @@ namespace Fanex.Athena.Service.Report
                 case (int)SportType.NumberGame:
                     return productAccess.IsAllowNG;
 
-                case (int)SportType.LiveCasino:
-                    return productAccess.IsAllowLC;
-
                 case (int)SportType.VirtualSport:
                     return productAccess.IsAllowVS;
 

@@ -271,7 +271,6 @@ namespace Fanex.Athena.Excel.Report
                     break;
 
                 case ProductTypes.NumberGame:
-                case ProductTypes.LiveCasino:
                 case ProductTypes.VirtualSports:
                     formatMatchName = matchName;
                     break;

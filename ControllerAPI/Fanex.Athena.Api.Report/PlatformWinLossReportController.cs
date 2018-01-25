@@ -81,7 +81,6 @@ namespace Fanex.Athena.Api.Report
                 BAVisible = productOptions.Any(p => p.Code == Product.BA && p.Status),
                 RBVisible = productOptions.Any(p => p.Code == Product.RB && p.Status),
                 NGVisible = productOptions.Any(p => p.Code == Product.NG && p.Status),
-                LCVisible = productOptions.Any(p => p.Code == Product.LC && p.Status),
                 SBVisible = productOptions.Any(p => p.Code == Product.SB && p.Status),
                 VSVisible = productOptions.Any(p => p.Code == Product.VS && p.Status),
                 CSVisible = productOptions.Any(p => p.Code == Product.CS && p.Status),

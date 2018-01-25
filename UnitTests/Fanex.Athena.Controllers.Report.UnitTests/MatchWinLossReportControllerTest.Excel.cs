@@ -12,7 +12,7 @@
     [TestFixture]
     public partial class MatchWinLossReportControllerTest : BaseControllerHelperTest
     {
-        [TestCase("BA,RB,NG,LC,SB,VS,KN", true)]
+        [TestCase("BA,RB,NG,SB,VS,KN", true)]
         [TestCase("hihi", false)]
         public void Excel_WhenCall_PassParamsToCreateExcelCorrectly(string productCodeList, bool expectedProductVisible)
         {
@@ -45,7 +45,6 @@
                         Arg.Is<ShowingOption>(x => x.BAVisible == expectedProductVisible &&
                                             x.RBVisible == expectedProductVisible &&
                                             x.NGVisible == expectedProductVisible &&
-                                            x.LCVisible == expectedProductVisible &&
                                             x.SBVisible == expectedProductVisible &&
                                             x.VSVisible == expectedProductVisible &&
                                             x.KNVisible == expectedProductVisible),

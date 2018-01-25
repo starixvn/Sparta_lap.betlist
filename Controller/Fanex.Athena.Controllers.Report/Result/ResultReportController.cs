@@ -295,12 +295,7 @@ namespace Fanex.Athena.Controllers.Report.Result
             {
                 limitedSports = limitedSports.Where(i => i.SportId != (int)SportType.NumberGame);
             }
-
-            if (!productAccess.IsAllowLC)
-            {
-                limitedSports = limitedSports.Where(i => i.SportId != (int)SportType.LiveCasino);
-            }
-
+            
             if (!productAccess.IsAllowRB)
             {
                 limitedSports = limitedSports.Where(i => i.SportId != (int)SportType.HorseRacing
@@ -427,8 +422,7 @@ namespace Fanex.Athena.Controllers.Report.Result
                     SessionService.UserSession.Language,
                     ResultPageGetNormalSportsName);
                 var isAllowAllProducts =
-                    productAccess.IsAllowRB && productAccess.IsAllowLC && productAccess.IsAllowNG
-                    && productAccess.IsAllowVS;
+                    productAccess.IsAllowRB && productAccess.IsAllowNG && productAccess.IsAllowVS;
 
                 var limitedSports = isAllowAllProducts ? sports : RemoveNotAllowedSports(sports, productAccess);
 

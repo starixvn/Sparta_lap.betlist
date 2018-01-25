@@ -14,7 +14,6 @@ namespace Fanex.Athena.Excel.Base.Entities
             RBVisible = false;
             NGVisible = false;
             BAVisible = false;
-            LCVisible = false;
             CSVisible = false;
             BGVisible = false;
             KNVisible = false;
@@ -30,8 +29,6 @@ namespace Fanex.Athena.Excel.Base.Entities
         public bool CSVisible { get; set; }
 
         public bool CustomerCommVisible { get; set; }
-
-        public bool LCVisible { get; set; }
 
         public bool NGVisible { get; set; }
 
