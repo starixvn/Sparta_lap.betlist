@@ -348,7 +348,7 @@ describe('Table ', () => {
         })
 
         beforeEach(() => {
-            window.innerHeight = 100;
+            window.innerHeight = 200;
         })
 
         afterAll(() => {
@@ -360,7 +360,7 @@ describe('Table ', () => {
             table.footerWrapper = footerWrapper;
             table.bodyWrapper = bodyWrapper;
 
-            const expectedResult = 10;
+            const expectedResult = 100;
 
             const result = table._calculateBodyHeight();
 
@@ -372,7 +372,7 @@ describe('Table ', () => {
             table.footerWrapper = undefined;
             table.bodyWrapper = bodyWrapper;
 
-            const expectedResult = 20;
+            const expectedResult = 110;
 
             const result = table._calculateBodyHeight();
 
