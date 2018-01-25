@@ -84,7 +84,6 @@
     <Compile Include="CoreBetSettingDataAccessTest.cs" />
     <Compile Include="KenoBetSettingDataAccessTest.cs" />
     <Compile Include="RngCasinoBetSettingDataAccessTest.cs" />
-    <Compile Include="LiveCasinoBetSettingDataAccessTest.cs" />
     <Compile Include="NumberGameBetSettingDataAccessTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RacingBetSettingDataAccessTest.cs" />

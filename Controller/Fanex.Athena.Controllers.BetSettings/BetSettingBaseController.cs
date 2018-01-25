@@ -149,11 +149,6 @@ namespace Fanex.Athena.Controllers.BetSettings
                 DisableBetSettingProduct(betSettingProducts, ProductTypes.RngCasino);
             }
 
-            if (!customerInfo.SyncLiveCasino)
-            {
-                DisableBetSettingProduct(betSettingProducts, ProductTypes.LiveCasino);
-            }
-
             return betSettingProducts.Where(x => x.IsEnable).ToList();
         }
     }

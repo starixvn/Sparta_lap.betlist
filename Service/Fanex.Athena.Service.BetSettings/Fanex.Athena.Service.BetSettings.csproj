@@ -90,12 +90,10 @@
   <ItemGroup>
     <Compile Include="Interfaces\IExchangeCommApiService.cs" />
     <Compile Include="Interfaces\IKenoBetSettingService.cs" />
-    <Compile Include="Interfaces\ILiveCasinoBetSettingService.cs" />
     <Compile Include="Interfaces\IRngCasinoBetSettingService.cs" />
     <Compile Include="KenoBetSettingService.cs" />
     <Compile Include="ExchangeCommApiService.cs" />
     <Compile Include="RngCasinoBetSettingService.cs" />
-    <Compile Include="LiveCasinoBetSettingService.cs" />
     <Compile Include="Interfaces\IRacingBetSettingService.cs" />
     <Compile Include="RacingBetSettingService.cs" />
     <Compile Include="BetSettingBaseService.cs" />

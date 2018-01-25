@@ -29,10 +29,6 @@ namespace Fanex.Athena.Model.Customer.DTO
 
         public bool DisableCasino { get; set; }
 
-        public bool SyncLiveCasino { get; set; }
-
-        public bool DisableLiveCasino { get; set; }
-
         public bool DisableOutright { get; set; }
 
         public bool IsInternal { get; set; }

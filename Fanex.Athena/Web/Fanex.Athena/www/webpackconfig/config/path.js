@@ -124,7 +124,6 @@ var scriptPaths = {
     dcsbetsetting: "./www/js/source/pages/customer/betsetting/main-dcsbetsetting.js",
     thirdpartybetsetting: "./www/js/source/pages/customer/betsetting/main-thirdparty.js",
     kenobetsetting: "./www/js/source/pages/customer/betsetting/main-keno.js",
-    livecasinobetsetting: "./www/js/source/pages/customer/betsetting/main-livecasino.js",
     numbergamebetsetting: "./www/js/source/pages/customer/betsetting/main-numbergame.js",
     exchangebetsetting: "./www/js/source/pages/customer/betsetting/main-exchange.js",
 

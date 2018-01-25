@@ -1255,7 +1255,6 @@
     <Content Include="Views\Desktop\Customer\BetSetting\Keno.cshtml" />
     <Content Include="Views\Desktop\Customer\BetSetting\RngCasino.cshtml" />
     <Content Include="Views\Desktop\Customer\BetSetting\CashOut.cshtml" />
-    <Content Include="Views\Desktop\Customer\BetSetting\LiveCasino.cshtml" />
     <Content Include="Views\Desktop\Customer\BetSetting\NumberGame.cshtml" />
     <Content Include="Views\Desktop\Shared\_BetSettingLayout.cshtml" />
     <Content Include="www\css\build\dev\pages\customer\betsetting.chunk.js.map" />
@@ -1729,7 +1728,6 @@
     <Content Include="www\js\source\pages\customer\betsetting\main-betsetting.js" />
     <Content Include="www\js\source\pages\customer\betsetting\main-dcsbetsetting.js" />
     <Content Include="www\js\source\pages\customer\betsetting\main-keno.js" />
-    <Content Include="www\js\source\pages\customer\betsetting\main-livecasino.js" />
     <Content Include="www\js\source\pages\customer\betsetting\main-numbergame.js" />
     <Content Include="www\js\source\pages\customer\betsetting\main-rngcasino.js" />
     <Content Include="www\js\source\pages\customer\betsetting\main-thirdparty.js" />
@@ -1737,7 +1735,6 @@
     <Content Include="www\js\source\pages\customer\betsetting\products\dcsbetsetting.js" />
     <Content Include="www\js\source\pages\customer\betsetting\products\betsettingmain.js" />
     <Content Include="www\js\source\pages\customer\betsetting\products\keno.js" />
-    <Content Include="www\js\source\pages\customer\betsetting\products\livecasino.js" />
     <Content Include="www\js\source\pages\customer\betsetting\products\numbergame.js" />
     <Content Include="www\js\source\pages\customer\betsetting\products\rngcasino.js" />
     <Content Include="www\js\source\pages\customer\betsetting\products\thirdparty.js" />
@@ -5983,7 +5980,6 @@
     <Content Include="Views\Customer\BetSetting\Main.cshtml" />
     <Content Include="Views\Shared\_BetSettingLayout.cshtml" />
     <Content Include="Views\Customer\BetSetting\_Menu.cshtml" />
-    <Content Include="Views\Customer\BetSetting\LiveCasino.cshtml" />
     <Content Include="Views\Desktop\Customer\CustomerDialog\LogInfo.cshtml" />
     <Content Include="Views\Customer\BetSetting\NumberGame.cshtml" />
     <Content Include="Views\Report\DailyRacingWinLoss\12Bet\Content.TotalCommon.cshtml" />
