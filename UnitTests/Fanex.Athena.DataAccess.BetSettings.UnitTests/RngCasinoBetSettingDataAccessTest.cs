@@ -17,6 +17,7 @@
         {
             _coreCasinoBetSettingDataAccess = Substitute.For<ICoreCasinoBetSettingDataAccess>();
             DataAccess = Substitute.ForPartsOf<RngCasinoBetSettingDataAccess>(_coreCasinoBetSettingDataAccess);
+            ObjectDb = Substitute.For<IObjectDb>();
         }
 
         [Test]

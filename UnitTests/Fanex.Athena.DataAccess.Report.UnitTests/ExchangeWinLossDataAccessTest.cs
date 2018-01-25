@@ -319,33 +319,35 @@
 
         private void ConfigureDataForReader(ExchangeWinLoss firstExpected, IEnumerable<ExchangeWinLoss> expectedList, string baseCurrency, decimal rate)
         {
+            const string DecimalFormat = "G";
+
             Reader["CurrencyName"].Returns(firstExpected.CurrencyName, expectedList.Select(x => x.CurrencyName).ToArray());
             Reader["CurrencyID"].Returns(firstExpected.CurrencyId.ToString(), expectedList.Select(x => x.CurrencyId.ToString()).ToArray());
             Reader["TotalTrans"].Returns(firstExpected.TotalTransaction.ToString(), expectedList.Select(x => x.TotalTransaction.ToString()).ToArray());
             Reader["TurnOver" + baseCurrency].Returns(
-                firstExpected.Turnover * rate,
-                expectedList.Select(x => x.Turnover * rate).ToArray());
+                (firstExpected.Turnover * rate).ToString(DecimalFormat),
+                expectedList.Select(x => (x.Turnover * rate).ToString(DecimalFormat)).ToArray());
             Reader["NetTurnOver" + baseCurrency].Returns(
-                firstExpected.NetTurnover * rate,
-                expectedList.Select(x => x.NetTurnover * rate).ToArray());
+                (firstExpected.NetTurnover * rate).ToString(DecimalFormat),
+                expectedList.Select(x => (x.NetTurnover * rate).ToString(DecimalFormat)).ToArray());
             Reader["Winlost" + baseCurrency].Returns(
-                firstExpected.CustomerWL * rate,
-                expectedList.Select(x => x.CustomerWL * rate).ToArray());
+                (firstExpected.CustomerWL * rate).ToString(DecimalFormat),
+                expectedList.Select(x => (x.CustomerWL * rate).ToString(DecimalFormat)).ToArray());
             Reader["CustComm" + baseCurrency].Returns(
-                firstExpected.CustomerComm * rate,
-                expectedList.Select(x => x.CustomerComm * rate).ToArray());
+                (firstExpected.CustomerComm * rate).ToString(DecimalFormat),
+                expectedList.Select(x => (x.CustomerComm * rate).ToString(DecimalFormat)).ToArray());
             Reader["LicenseeWinlost" + baseCurrency].Returns(
-                firstExpected.LicenseeWL * rate,
-                expectedList.Select(x => x.LicenseeWL * rate).ToArray());
+                (firstExpected.LicenseeWL * rate).ToString(DecimalFormat),
+                expectedList.Select(x => (x.LicenseeWL * rate).ToString(DecimalFormat)).ToArray());
             Reader["LicNetWL" + baseCurrency].Returns(
-                firstExpected.LicenseeNetWL * rate,
-                expectedList.Select(x => x.LicenseeNetWL * rate).ToArray());
+                (firstExpected.LicenseeNetWL * rate).ToString(DecimalFormat),
+                expectedList.Select(x => (x.LicenseeNetWL * rate).ToString(DecimalFormat)).ToArray());
             Reader["AgentComm" + baseCurrency].Returns(
-                firstExpected.LicenseeComm * rate,
-                expectedList.Select(x => x.LicenseeComm * rate).ToArray());
+                (firstExpected.LicenseeComm * rate).ToString(DecimalFormat),
+                expectedList.Select(x => (x.LicenseeComm * rate).ToString(DecimalFormat)).ToArray());
             Reader["AmountDueTo" + baseCurrency].Returns(
-                firstExpected.AmountDueTo * rate,
-                expectedList.Select(x => x.AmountDueTo * rate).ToArray());
+                (firstExpected.AmountDueTo * rate).ToString(DecimalFormat),
+                expectedList.Select(x => (x.AmountDueTo * rate).ToString(DecimalFormat)).ToArray());
         }
 
         private void ConfigureReaderForMainResult(ExchangeWinLoss firstExpected, IEnumerable<ExchangeWinLoss> expectedList)

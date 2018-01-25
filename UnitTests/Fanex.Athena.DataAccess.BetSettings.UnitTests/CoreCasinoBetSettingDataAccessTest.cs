@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.DataAccess.BetSettings.UnitTests
 {
+    using System;
     using System.Data;
     using Core.Common.Constants;
     using Core.Common.Interfaces;
@@ -61,7 +62,7 @@
         {
             // Arrange
             const string TrackingValueTemplate = "<Lrf_CustomerUpdCasinoStatus UserID=\"1\" CustID=\"2\" SportID=\"3\" "
-                + "Status=\"{0}\" Ip=\"::1\" Lang=\"abc\" RoleID=\"1\" ErrCode=\"0\" ErrMsg=\"\"/>";
+                + "Status=\"{0}\" Ip=\"IP\" Lang=\"abc\" RoleID=\"1\" ErrCode=\"0\" ErrMsg=\"\"/>";
             const string SPName = "Lrf_CustomerUpdCasinoStatus";
             DataAccess.GetObjectDb(Arg.Is(SPName)).Returns(ObjectDb);
             var metaModel = new CoreCasinoStatusMetaModel
@@ -77,14 +78,20 @@
             // Action
             DataAccess.UpdateCasinoStatus(metaModel, SportId);
 
-            // Assert
-            _userLogDataAccess.Received(1).WriteLog(Arg.Is<UserLogMetaModel>(x =>
+            Func<UserLogMetaModel, bool> matchUserInfo = x =>
                 x.ActionID == UserLogAction.LiveCasinoBetSetting &&
                 x.CustID == metaModel.CustId &&
-                x.UserId == metaModel.UserId &&
+                x.UserId == metaModel.UserId;
+
+            Func<UserLogMetaModel, bool> matchTrackingValues = x =>
                 x.SPName == SPName &&
                 x.TrackingValue1 == string.Format(TrackingValueTemplate, expectedTrackingStatus1) &&
-                x.TrackingValue2 == string.Format(TrackingValueTemplate, status)));
+                x.TrackingValue2 == string.Format(TrackingValueTemplate, status);
+
+            // Assert
+            _userLogDataAccess.Received(1).WriteLog(Arg.Is<UserLogMetaModel>(x =>
+                matchUserInfo(x) && 
+                matchTrackingValues(x)));
         }
     }
 }
