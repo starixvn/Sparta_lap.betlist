@@ -26,10 +26,9 @@ namespace Fanex.Athena.Excel.Customer.UnitTests
         private const int SBCommColumn = 10;
         private const int RCCommColumn = 11;
         private const int NGCommColumn = 12;
-        private const int LCCommColumn = 13;
-        private const int CSCommColumn = 14;
+        private const int CSCommColumn = 13;
 
-        private const int ABCommColumn = 15;
+        private const int ABCommColumn = 14;
 
         private const string ReportTitle = "Customer List 123456";
         private const int ColumnCount = 17;
@@ -80,7 +79,6 @@ namespace Fanex.Athena.Excel.Customer.UnitTests
                 row2.Cells[SBCommColumn].Received(1).SetCellValue(ViewResources.SB);
                 row2.Cells[RCCommColumn].Received(1).SetCellValue(ViewResources.RB);
                 row2.Cells[NGCommColumn].Received(1).SetCellValue(ViewResources.NG);
-                row2.Cells[LCCommColumn].Received(1).SetCellValue(ViewResources.LC);
                 row2.Cells[CSCommColumn].Received(1).SetCellValue(ViewResources.CS);
                 row2.Cells[ABCommColumn].Received(1).SetCellValue(ViewResources.ProductAB);
             });
@@ -158,8 +156,7 @@ namespace Fanex.Athena.Excel.Customer.UnitTests
                 ABComm = 2,
                 NGComm = 3,
                 RBComm = 4,
-                LCComm = 5,
-                CSComm = 6
+                CSComm = 5
             };
 
             // Action
@@ -171,7 +168,6 @@ namespace Fanex.Athena.Excel.Customer.UnitTests
                 row.Cells[SBCommColumn].Received(1).SetCellValue(item.SBComm.ToStringExt(2));
                 row.Cells[NGCommColumn].Received(1).SetCellValue(item.NGComm.ToStringExt(2));
                 row.Cells[RCCommColumn].Received(1).SetCellValue(item.RBComm.ToStringExt(2));
-                row.Cells[LCCommColumn].Received(1).SetCellValue(item.LCComm.ToStringExt(2));
                 row.Cells[CSCommColumn].Received(1).SetCellValue(item.CSComm.ToStringExt(2));
                 row.Cells[ABCommColumn].Received(1).SetCellValue(item.ABComm.ToStringExt(2));
             });
@@ -261,7 +257,7 @@ namespace Fanex.Athena.Excel.Customer.UnitTests
 
         private static IList<Product> CreateProductList()
         {
-            var productCodes = new[] { "SB", "BA", "NG", "RB", "LC", "CS", "AB" };
+            var productCodes = new[] { Product.SB, Product.BA, Product.NG, Product.RB, Product.CS, Product.AB };
             return productCodes.Select(x => new Product
             {
                 ProductCode = x

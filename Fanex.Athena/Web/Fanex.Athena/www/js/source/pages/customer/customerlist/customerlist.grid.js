@@ -129,7 +129,7 @@ define([
                 Popup.openPopupWithIframe(url, popupOption);
             },
 
-            updateGridGroupAndComm: function (groupid, groupName, groupColor, sbCom, ngCom, rbCom, lcCom, csCom, abCom) {
+            updateGridGroupAndComm: function (groupid, groupName, groupColor, sbCom, ngCom, rbCom, csCom, abCom) {
                 var count = 0;
                 var length = Object.keys(_state.selectedCustomers).length;
 
@@ -144,7 +144,6 @@ define([
                         item.SBComm = sbCom;
                         item.NGComm = ngCom;
                         item.RBComm = rbCom;
-                        item.LCComm = lcCom;
                         item.CSComm = csCom;
                         item.ABComm = abCom;
                         count++;

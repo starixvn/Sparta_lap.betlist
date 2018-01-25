@@ -133,7 +133,6 @@ namespace Fanex.Athena.Excel.Customer.UnitTests
                 RBVisible = true,
                 NGVisible = true,
                 CSVisible = true,
-                LCVisible = true,
                 ABVisible = true
             });
 
