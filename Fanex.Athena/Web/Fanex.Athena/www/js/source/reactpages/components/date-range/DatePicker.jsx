@@ -27,7 +27,6 @@ export default class DatePicker extends Component {
     }
 
     static propTypes = {
-        shownDate: PropTypes.oneOfType([PropTypes.object, PropTypes.func, PropTypes.string]),
         format: PropTypes.string,
         firstDayOfWeek: PropTypes.number,
         minDate: PropTypes.oneOfType([PropTypes.object, PropTypes.func, PropTypes.string]),
@@ -66,7 +65,7 @@ export default class DatePicker extends Component {
     }
 
     render() {
-        const { format, firstDayOfWeek, minDate, maxDate, classNames, onlyClasses, shownDate } = this.props;
+        const { format, firstDayOfWeek, minDate, maxDate, classNames, onlyClasses } = this.props;
         const classes = { ...defaultClasses, ...classNames };
         const { show } = this.state;
 
@@ -78,9 +77,9 @@ export default class DatePicker extends Component {
                 </div>
 
                 <Overlay isOpening={show}>
-                    <div className={classes.dateRange} ref={element => this.calendarContainer = element}>
+                    <div className={classes.dateRange}>
                         <Calendar
-                            shownDate={shownDate}
+                            shownDate={this.state.selectedDate}
                             format={format}
                             firstDayOfWeek={firstDayOfWeek}
                             minDate={minDate}
