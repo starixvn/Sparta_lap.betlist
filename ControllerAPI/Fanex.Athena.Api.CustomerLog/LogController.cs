@@ -130,7 +130,6 @@ namespace Fanex.Athena.Api.CustomerLog
                 "SBComm",
                 "RacingComm",
                 "NGComm",
-                "LCComm",
                 "RNGComm",
                 "AllbetComm"
             };
@@ -227,7 +226,6 @@ namespace Fanex.Athena.Api.CustomerLog
                 { "SBComm", ViewResources.SBComm },
                 { "RBComm", ViewResources.RBComm },
                 { "NGComm", ViewResources.NGComm },
-                { "LCComm", ViewResources.LCComm },
                 { "CSComm", ViewResources.CSComm },
                 { "ABComm", ViewResources.ABComm },
                 { "Yes", ViewResources.Yes },
