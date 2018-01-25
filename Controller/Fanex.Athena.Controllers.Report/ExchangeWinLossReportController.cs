@@ -7,20 +7,26 @@
     using Fanex.Athena.Model.Report.ViewModel;
     using Model.Core.DataDomain;
     using Resources;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
+    using Service.Core.Users.Interfaces;
     using Web.ActionFilter;
 
     [FunctionAuthorization(PermissionKeys.ReportExchangeWinLoss)]
     public class ExchangeWinLossReportController : ReportBaseController
     {
-        private readonly IAppSettings _appSetting;
-
-        public ExchangeWinLossReportController() : this(null)
+        public ExchangeWinLossReportController()
         {
         }
 
-        public ExchangeWinLossReportController(IAppSettings appSetting)
+        public ExchangeWinLossReportController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
+            IProductService productService)
+        : base(languageService, sessionService, appSetting, clientViewHelper, productService)
         {
-            _appSetting = appSetting ?? new AppSettings();
         }
 
         public ActionResult Index()

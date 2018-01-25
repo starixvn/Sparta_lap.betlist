@@ -180,6 +180,11 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="WeeklyLiveMatchReportControllerTest.cs" />
+    <Compile Include="SubsidiaryPerformanceReportControllerTest.cs" />
+    <Compile Include="NotificationReportControllerTest.cs" />
+    <Compile Include="LicenseeWinLossByTimeZoneReportControllerTest.cs" />
+    <Compile Include="ExchangeWinLossReportControllerTest.cs" />
     <Compile Include="MatchWinLossReportControllerTest.Excel.cs" />
     <Compile Include="MatchWinLossReportControllerTest.Index.cs" />
     <Compile Include="NoteControllerTest.cs" />

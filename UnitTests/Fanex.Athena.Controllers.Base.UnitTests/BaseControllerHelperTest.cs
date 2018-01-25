@@ -53,6 +53,8 @@
 
         protected IClientViewHelper ClientViewHelper { get; set; }
 
+        protected IProductService ProductService { get; set; }
+
         [OneTimeSetUp]
         public virtual void FixtureSetUp()
         {
@@ -65,6 +67,7 @@
                 IsNavigationView = false,
                 ViewPath = (string)x[0]
             });
+            ProductService = Substitute.For<IProductService>();
             SetUpForContexts();
         }
 
