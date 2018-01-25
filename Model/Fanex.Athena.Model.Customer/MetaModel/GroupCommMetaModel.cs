@@ -72,15 +72,6 @@ namespace Fanex.Athena.Model.Customer.MetaModel
         public int NGComm3 { get; set; }
 
         [Required]
-        public decimal LCComm { get; set; }
-
-        public int LCComm1 { get; set; }
-
-        public int LCComm2 { get; set; }
-
-        public int LCComm3 { get; set; }
-
-        [Required]
         public decimal CSComm { get; set; }
 
         public int CSComm1 { get; set; }
@@ -110,8 +101,6 @@ namespace Fanex.Athena.Model.Customer.MetaModel
         public bool IsResetDefault { get; set; }
 
         public bool IsUpdateNG { get; set; }
-
-        public bool IsUpdateLC { get; set; }
 
         public bool IsUpdateCS { get; set; }
 

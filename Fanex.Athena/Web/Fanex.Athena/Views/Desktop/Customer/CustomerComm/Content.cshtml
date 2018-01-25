@@ -3,7 +3,6 @@
 
     var isAllowNg = ViewBag.IsAllowNG;
     var isAllowRc = ViewBag.IsAllowRC;
-    var isAllowLc = ViewBag.IsAllowLC;
     var isAllowCs = ViewBag.IsAllowCS;
     var isAllowAb = ViewBag.IsAllowAB;
 }
@@ -32,10 +31,6 @@
                             @if (isAllowNg)
                             {
                                 <th class="col-child medium">@ViewResources.NGComm (%)</th>
-                            }
-                            @if (isAllowLc)
-                            {
-                                <th class="col-child medium">@ViewResources.LCComm (%)</th>
                             }
                             @if (isAllowCs)
                             {
@@ -81,12 +76,6 @@
                                     {
                                         <td class="center-align">
                                             @(groupComm.NGComm.ToString("P2"))
-                                        </td>
-                                    }
-                                    @if (isAllowLc)
-                                    {
-                                        <td class="center-align">
-                                            @(groupComm.LCComm.ToString("P2"))
                                         </td>
                                     }
                                     @if (isAllowCs)

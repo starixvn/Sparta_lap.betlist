@@ -333,7 +333,6 @@ namespace Fanex.Athena.Controllers.Customer
                                 metaModel.ParlayComm,
                                 metaModel.RCComm,
                                 metaModel.NGComm,
-                                metaModel.LCComm,
                                 metaModel.CSComm,
                                 metaModel.ABComm);
                 var userSession = SessionService.UserSession;
@@ -347,7 +346,6 @@ namespace Fanex.Athena.Controllers.Customer
                     metaModel.Ip = this.Request.UserHostAddress;
                     metaModel.IsAllowedNG = productAccess.IsAllowNG;
                     metaModel.IsAllowedRC = productAccess.IsAllowRB;
-                    metaModel.IsAllowedLC = productAccess.IsAllowLC;
                     metaModel.IsAllowedCS = productAccess.IsAllowCS;
                     metaModel.IsAllowedAB = productAccess.IsAllowAB;
                     metaModel.Language = userSession.Language;
@@ -510,7 +508,6 @@ namespace Fanex.Athena.Controllers.Customer
                 SBComm = NumberHelper.DecFormat(newGroup.SBComm * 100, 2),
                 RCComm = NumberHelper.DecFormat(newGroup.RCComm * 100, 2),
                 NGComm = NumberHelper.DecFormat(newGroup.NGComm * 100, 2),
-                LCComm = NumberHelper.DecFormat(newGroup.LCComm * 100, 2),
                 RNGComm = NumberHelper.DecFormat(newGroup.CSComm * 100, 2),
                 ABComm = NumberHelper.DecFormat(newGroup.ABComm * 100, 2),
                 newGroup.GroupName,
@@ -533,7 +530,7 @@ namespace Fanex.Athena.Controllers.Customer
             var oldGroup = this._groupComService.GetById(metaModel.GroupId);
 #pragma warning disable S1067 // Expressions should not be too complex
             return oldGroup.NGComm == metaModel.NGComm && oldGroup.SBComm == metaModel.SBComm &&
-                               oldGroup.RCComm == metaModel.RCComm && oldGroup.LCComm == metaModel.LCComm &&
+                               oldGroup.RCComm == metaModel.RCComm &&
                                oldGroup.CSComm == metaModel.CSComm && oldGroup.ABComm == metaModel.ABComm;
 #pragma warning restore S1067 // Expressions should not be too complex
         }
@@ -556,7 +553,6 @@ namespace Fanex.Athena.Controllers.Customer
                 SBComm = NumberHelper.DecFormat(metaModel.SBComm * 100, 2),
                 RCComm = NumberHelper.DecFormat(metaModel.RCComm * 100, 2),
                 NGComm = NumberHelper.DecFormat(metaModel.NGComm * 100, 2),
-                LCComm = NumberHelper.DecFormat(metaModel.LCComm * 100, 2),
                 RNGComm = NumberHelper.DecFormat(metaModel.CSComm * 100, 2),
                 ABComm = NumberHelper.DecFormat(metaModel.ABComm * 100, 2),
                 GroupName = ViewResources.None,

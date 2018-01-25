@@ -261,9 +261,6 @@ var GroupComm = (function ($) {
             var ngComm1 = parseInt($('#DdlNGComm1').val());
             var ngComm2 = parseInt($('#DdlNGComm2').val());
             var ngComm3 = parseInt($('#DdlNGComm3').val());
-            var lcComm1 = parseInt($('#DdlLCComm1').val());
-            var lcComm2 = parseInt($('#DdlLCComm2').val());
-            var lcComm3 = parseInt($('#DdlLCComm3').val());
             var csComm1 = parseInt($('#DdlCSComm1').val());
             var csComm2 = parseInt($('#DdlCSComm2').val());
             var csComm3 = parseInt($('#DdlCSComm3').val());
@@ -274,7 +271,6 @@ var GroupComm = (function ($) {
             var parlayComm = parseFloat((parlayComm1 + parlayComm2 / 10 + parlayComm3 / 100) / 100).toFixed(4);
             var rcComm = parseFloat((rcComm1 + rcComm2 / 10 + rcComm3 / 100) / 100).toFixed(4);
             var ngComm = parseFloat((ngComm1 + ngComm2 / 10 + ngComm3 / 100) / 100).toFixed(4);
-            var lcComm = parseFloat((lcComm1 + lcComm2 / 10 + lcComm3 / 100) / 100).toFixed(4);
             var csComm = parseFloat((csComm1 + csComm2 / 10 + csComm3 / 100) / 100).toFixed(4);
             var abComm = parseFloat((abComm1 + abComm2 / 10 + abComm3 / 100) / 100).toFixed(4);
 
@@ -282,7 +278,6 @@ var GroupComm = (function ($) {
             parlayComm = isNaN(parlayComm) ? 0 : parlayComm;
             rcComm = isNaN(rcComm) ? 0 : rcComm;
             ngComm = isNaN(ngComm) ? 0 : ngComm;
-            lcComm = isNaN(lcComm) ? 0 : lcComm;
             csComm = isNaN(csComm) ? 0 : csComm;
             abComm = isNaN(abComm) ? 0 : abComm;
 
@@ -290,7 +285,6 @@ var GroupComm = (function ($) {
             $('#ParlayComm').val(parlayComm);
             $('#RCComm').val(rcComm);
             $('#NGComm').val(ngComm);
-            $('#LCComm').val(lcComm);
             $('#CSComm').val(csComm);
             $('#ABComm').val(abComm);
 
@@ -310,10 +304,6 @@ var GroupComm = (function ($) {
             $('#NGComm1').val(ngComm1);
             $('#NGComm2').val(ngComm2);
             $('#NGComm3').val(ngComm3);
-
-            $('#LCComm1').val(lcComm1);
-            $('#LCComm2').val(lcComm2);
-            $('#LCComm3').val(lcComm3);
 
             $('#CSComm1').val(csComm1);
             $('#CSComm2').val(csComm2);

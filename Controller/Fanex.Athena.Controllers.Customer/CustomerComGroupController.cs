@@ -79,7 +79,6 @@
 
             ViewBag.IsAllowNG = productAccess.IsAllowNG;
             ViewBag.IsAllowRC = productAccess.IsAllowRB;
-            ViewBag.IsAllowLC = productAccess.IsAllowLC;
             ViewBag.IsAllowCS = productAccess.IsAllowCS;
             ViewBag.IsAllowAB = productAccess.IsAllowAB;
 
@@ -278,7 +277,6 @@
                 RBVisible = productAccess.IsAllowRB,
                 NGVisible = productAccess.IsAllowNG,
                 CSVisible = productAccess.IsAllowCS,
-                LCVisible = productAccess.IsAllowLC,
                 ABVisible = productAccess.IsAllowAB
             };
 
@@ -307,7 +305,6 @@
                                 metaModel.ParlayComm,
                                 metaModel.RCComm,
                                 metaModel.NGComm,
-                                metaModel.LCComm,
                                 metaModel.CSComm,
                                 metaModel.ABComm);
         }
@@ -361,7 +358,6 @@
             var decParlayComm = model.ParlayComm;
             var decRcComm = model.RCComm;
             var decNgComm = model.NGComm;
-            var decLcComm = model.LCComm;
             var decCsComm = model.CSComm;
             var decAbComm = model.ABComm;
 
@@ -380,10 +376,6 @@
             model.NGComm1 = SetComm(decNgComm, 1);
             model.NGComm2 = SetComm(decNgComm, 2);
             model.NGComm3 = SetComm(decNgComm, 3);
-
-            model.LCComm1 = SetComm(decLcComm, 1);
-            model.LCComm2 = SetComm(decLcComm, 2);
-            model.LCComm3 = SetComm(decLcComm, 3);
 
             model.CSComm1 = SetComm(decCsComm, 1);
             model.CSComm2 = SetComm(decCsComm, 2);
@@ -409,7 +401,6 @@
                 groupComm.ParlayComm,
                 groupComm.RCComm,
                 groupComm.NGComm,
-                groupComm.LCComm,
                 groupComm.CSComm,
                 groupComm.ABComm
             };
@@ -445,7 +436,6 @@
             metaModel.LicenseeId = licenseeId;
             metaModel.IsUpdateNG = productAccess.IsAllowNG;
             metaModel.IsUpdateRacing = productAccess.IsAllowRB;
-            metaModel.IsUpdateLC = productAccess.IsAllowLC;
             metaModel.IsUpdateCS = productAccess.IsAllowCS;
             metaModel.IsUpdateAB = productAccess.IsAllowAB;
             metaModel.DefaultGroupId = defaultGroupId;

@@ -21,7 +21,6 @@ namespace Fanex.Athena.Model.Customer.MetaModel
         {
             IsAllowedNG = productAccess.IsAllowNG;
             IsAllowedRC = productAccess.IsAllowRB;
-            IsAllowedLC = productAccess.IsAllowLC;
             IsAllowedRNG = productAccess.IsAllowCS;
             IsAllowedAB = productAccess.IsAllowAB;
         }
@@ -31,8 +30,6 @@ namespace Fanex.Athena.Model.Customer.MetaModel
         public bool IsAllowedNG { get; set; }
 
         public bool IsAllowedRC { get; set; }
-
-        public bool IsAllowedLC { get; set; }
 
         public bool IsAllowedRNG { get; set; }
 

@@ -120,23 +120,6 @@
                         </td>
                     </tr>
                 }
-                @if (Model.IsUpdateLC)
-                {
-                    <tr>
-                        <td>
-                        </td>
-                        <td>
-                            <div class="grid_3 product-label">@ViewResources.ProductLC</div>
-                            <div class="grid_5">
-                                @GroupCommRazorHelper.CommDropdowns("DdlLCComm", Model.LCComm1, Model.LCComm2, Model.LCComm3)
-                                @Html.HiddenFor(model => model.LCComm)
-                                @Html.HiddenFor(model => model.LCComm1)
-                                @Html.HiddenFor(model => model.LCComm2)
-                                @Html.HiddenFor(model => model.LCComm3)
-                            </div>
-                        </td>
-                    </tr>
-                }
                 @if (Model.IsUpdateCS)
                 {
                     <tr>
@@ -221,7 +204,6 @@
     @Html.ValidationMessageFor(model => model.GroupCommId)
     @Html.HiddenFor(model => model.IsUpdateNG)
     @Html.HiddenFor(model => model.IsUpdateRacing)
-    @Html.HiddenFor(model => model.IsUpdateLC)
     @Html.HiddenFor(model => model.IsUpdateCS)
     @Html.HiddenFor(model => model.IsUpdateAB)
     }

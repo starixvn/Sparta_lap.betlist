@@ -92,7 +92,6 @@
                 ObjectDb.Received().AddInParameter("SBComm", DbType.Decimal, item.SBComm);
                 ObjectDb.Received().AddInParameter("RacingComm", DbType.Decimal, item.RCComm);
                 ObjectDb.Received().AddInParameter("NGComm", DbType.Decimal, item.NGComm);
-                ObjectDb.Received().AddInParameter("LCComm", DbType.Decimal, item.LCComm);
                 ObjectDb.Received().AddInParameter("RNGComm", DbType.Decimal, item.CSComm);
                 ObjectDb.Received().AddInParameter("GroupColor", DbType.String, item.GroupColor);
                 ObjectDb.Received().AddInParameter("UserID", DbType.Int32, UserId);
@@ -129,11 +128,9 @@
                 ObjectDb.Received().AddInParameter("SbComm", DbType.Decimal, newItem.SBComm);
                 ObjectDb.Received().AddInParameter("NGComm", DbType.Decimal, newItem.NGComm);
                 ObjectDb.Received().AddInParameter("RacingComm", DbType.Decimal, newItem.RCComm);
-                ObjectDb.Received().AddInParameter("LCComm", DbType.Decimal, newItem.LCComm);
                 ObjectDb.Received().AddInParameter("RNGComm", DbType.Decimal, newItem.CSComm);
                 ObjectDb.Received().AddInParameter("IsUpdateNG", DbType.Boolean, newItem.IsUpdateNG);
                 ObjectDb.Received().AddInParameter("IsUpdateRacing", DbType.Boolean, newItem.IsUpdateRacing);
-                ObjectDb.Received().AddInParameter("IsUpdateLC", DbType.Boolean, newItem.IsUpdateLC);
                 ObjectDb.Received().AddInParameter("IsUpdateRNG", DbType.Boolean, newItem.IsUpdateCS);
                 ObjectDb.Received().AddInParameter("GroupColor", DbType.String, newItem.GroupColor);
                 ObjectDb.Received().AddInParameter("UserId", DbType.Int32, UserId);

@@ -17,12 +17,11 @@ namespace Fanex.Athena.Excel.Customer.UnitTests
         private const int ColumnDefaultGroup = 2;
         private const int ColumnGroupName = 1;
         private const int ColumnNgCommission = 6;
-        private const int ColumnLcCommission = 7;
-        private const int ColumnCsCommission = 8;
+        private const int ColumnCsCommission = 7;
         private const int ColumnNoOfCustomer = 3;
         private const int ColumnRbCommission = 5;
         private const int ColumnSbCommission = 4;
-        private const int ColumnAbCommission = 9;
+        private const int ColumnAbCommission = 8;
 
         private const int ColumnCount = 10;
         private ISheet _sheet;
@@ -54,9 +53,8 @@ namespace Fanex.Athena.Excel.Customer.UnitTests
                 row.Cells[4].Received(1).SetCellValue(ViewResources.SBComm + " (%)");
                 row.Cells[5].Received(1).SetCellValue(ViewResources.RacingComm + " (%)");
                 row.Cells[6].Received(1).SetCellValue(ViewResources.NGComm + " (%)");
-                row.Cells[7].Received(1).SetCellValue(ViewResources.LCComm + " (%)");
-                row.Cells[8].Received(1).SetCellValue(ViewResources.CSComm + " (%)");
-                row.Cells[9].Received(1).SetCellValue(ViewResources.ABComm + " (%)");
+                row.Cells[7].Received(1).SetCellValue(ViewResources.CSComm + " (%)");
+                row.Cells[8].Received(1).SetCellValue(ViewResources.ABComm + " (%)");
             });
         }
 
@@ -79,9 +77,8 @@ namespace Fanex.Athena.Excel.Customer.UnitTests
                 row.Cells[ColumnSbCommission].Received(1).SetCellValue("100.00");
                 row.Cells[ColumnRbCommission].Received(1).SetCellValue("200.00");
                 row.Cells[ColumnNgCommission].Received(1).SetCellValue("300.00");
-                row.Cells[ColumnLcCommission].Received(1).SetCellValue("400.00");
-                row.Cells[ColumnCsCommission].Received(1).SetCellValue("500.00");
-                row.Cells[ColumnAbCommission].Received(1).SetCellValue("600.00");
+                row.Cells[ColumnCsCommission].Received(1).SetCellValue("400.00");
+                row.Cells[ColumnAbCommission].Received(1).SetCellValue("500.00");
             });
         }
 
@@ -122,7 +119,7 @@ namespace Fanex.Athena.Excel.Customer.UnitTests
             // Assert
             Assert.Multiple(() =>
             {
-                _sheet.ReceivedWithAnyArgs(6).HideColumn(0);
+                _sheet.ReceivedWithAnyArgs(5).HideColumn(0);
             });
         }
 
@@ -168,13 +165,12 @@ namespace Fanex.Athena.Excel.Customer.UnitTests
             table.Columns.Add("SBComm", typeof(decimal));
             table.Columns.Add("RacingComm", typeof(decimal));
             table.Columns.Add("NGComm", typeof(decimal));
-            table.Columns.Add("LCComm", typeof(decimal));
             table.Columns.Add("RNGComm", typeof(decimal));
             table.Columns.Add("AllbetComm", typeof(decimal));
 
             table.Columns.Add("GroupName", typeof(string));
             table.Columns.Add("NumberOfCustomer", typeof(int));
-            table.Rows.Add(true, 1, 2, 3, 4, 5, 6, "GroupA", 100);
+            table.Rows.Add(true, 1, 2, 3, 4, 5, "GroupA", 100);
             return table;
         }
     }

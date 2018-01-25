@@ -38,10 +38,6 @@
                  commissionOnChange($(this).val(), "NGComm");
              }).change();
 
-             $("#LCComm1").on("change", function () {
-                 commissionOnChange($(this).val(), "LCComm");
-             }).change();
-
              $("#CSComm1").on("change", function () {
                  commissionOnChange($(this).val(), "CSComm");
              }).change();
@@ -134,7 +130,6 @@
              initCommParam("#ParlayComm");
              initCommParam("#RCComm");
              initCommParam("#NGComm");
-             initCommParam("#LCComm");
              initCommParam("#CSComm");
              initCommParam("#ABComm");
 
