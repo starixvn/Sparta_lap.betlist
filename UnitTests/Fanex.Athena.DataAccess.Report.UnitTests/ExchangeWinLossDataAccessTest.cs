@@ -323,29 +323,29 @@
             Reader["CurrencyID"].Returns(firstExpected.CurrencyId.ToString(), expectedList.Select(x => x.CurrencyId.ToString()).ToArray());
             Reader["TotalTrans"].Returns(firstExpected.TotalTransaction.ToString(), expectedList.Select(x => x.TotalTransaction.ToString()).ToArray());
             Reader["TurnOver" + baseCurrency].Returns(
-                (firstExpected.Turnover * rate).ToString(),
-                expectedList.Select(x => (x.Turnover * rate).ToString()).ToArray());
+                firstExpected.Turnover * rate,
+                expectedList.Select(x => x.Turnover * rate).ToArray());
             Reader["NetTurnOver" + baseCurrency].Returns(
-                (firstExpected.NetTurnover * rate).ToString(),
-                expectedList.Select(x => (x.NetTurnover * rate).ToString()).ToArray());
+                firstExpected.NetTurnover * rate,
+                expectedList.Select(x => x.NetTurnover * rate).ToArray());
             Reader["Winlost" + baseCurrency].Returns(
-                (firstExpected.CustomerWL * rate).ToString(),
-                expectedList.Select(x => (x.CustomerWL * rate).ToString()).ToArray());
+                firstExpected.CustomerWL * rate,
+                expectedList.Select(x => x.CustomerWL * rate).ToArray());
             Reader["CustComm" + baseCurrency].Returns(
-                (firstExpected.CustomerComm * rate).ToString(),
-                expectedList.Select(x => (x.CustomerComm * rate).ToString()).ToArray());
+                firstExpected.CustomerComm * rate,
+                expectedList.Select(x => x.CustomerComm * rate).ToArray());
             Reader["LicenseeWinlost" + baseCurrency].Returns(
-                (firstExpected.LicenseeWL * rate).ToString(),
-                expectedList.Select(x => (x.LicenseeWL * rate).ToString()).ToArray());
+                firstExpected.LicenseeWL * rate,
+                expectedList.Select(x => x.LicenseeWL * rate).ToArray());
             Reader["LicNetWL" + baseCurrency].Returns(
-                (firstExpected.LicenseeNetWL * rate).ToString(),
-                expectedList.Select(x => (x.LicenseeNetWL * rate).ToString()).ToArray());
+                firstExpected.LicenseeNetWL * rate,
+                expectedList.Select(x => x.LicenseeNetWL * rate).ToArray());
             Reader["AgentComm" + baseCurrency].Returns(
-                (firstExpected.LicenseeComm * rate).ToString(),
-                expectedList.Select(x => (x.LicenseeComm * rate).ToString()).ToArray());
+                firstExpected.LicenseeComm * rate,
+                expectedList.Select(x => x.LicenseeComm * rate).ToArray());
             Reader["AmountDueTo" + baseCurrency].Returns(
-                (firstExpected.AmountDueTo * rate).ToString(),
-                expectedList.Select(x => (x.AmountDueTo * rate).ToString()).ToArray());
+                firstExpected.AmountDueTo * rate,
+                expectedList.Select(x => x.AmountDueTo * rate).ToArray());
         }
 
         private void ConfigureReaderForMainResult(ExchangeWinLoss firstExpected, IEnumerable<ExchangeWinLoss> expectedList)

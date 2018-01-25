@@ -35,11 +35,9 @@
             CurrencyName = "USD"
         };
 
-        private ISheet _sheet;
+        private readonly ShowingOption _showingOpt = new ShowingOption();
 
-        private ShowingOption _showingOpt = new ShowingOption();
-
-        private IList<LiveReport> _liveReportList = new List<LiveReport>()
+        private readonly IList<LiveReport> _liveReportList = new List<LiveReport>
         {
             new LiveReport
             {
@@ -53,6 +51,8 @@
                 AmountDue = 7
             }
         };
+
+        private ISheet _sheet;
 
         private LiveReportDetailViewModel _excelModel = new LiveReportDetailViewModel();
 
@@ -524,7 +524,7 @@
         public void ProcessUI_CustomerCommVisibleIsFalse_HideCustomerColumn()
         {
             // Arrange
-            var row = ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount, 0);
+            ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount, 0);
             var hiddenRow = ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount, SummarySectionRowIndex + 2);
 
             _sheet.FirstRowNum.Returns(0);
@@ -554,7 +554,7 @@
         public void ProcessUI_BAVisibleAndRBVisibleAreFalse_HideLicenseeColumn()
         {
             // Arrange
-            var row = ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount, 0);
+            ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount, 0);
 
             _sheet.FirstRowNum.Returns(0);
             _sheet.LastRowNum.Returns(0);

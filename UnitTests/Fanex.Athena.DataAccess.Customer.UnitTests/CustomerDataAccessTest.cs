@@ -14,7 +14,7 @@
             // Arrange
             const int CustId = 0;
 
-            DataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerSelStatus")).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerSelStatus")).Returns(ObjectDb);
 
             // Action
             DataAccess.GetCustomerInfo(CustId);

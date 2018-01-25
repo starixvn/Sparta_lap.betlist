@@ -31,7 +31,7 @@
         public void GetBetSetting_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_3rdProductSelCustStatus")).Returns(_objectDb);
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_3rdProductSelCustStatus")).Returns(_objectDb);
             var custId = 1;
             var productId = 2;
 
@@ -50,7 +50,7 @@
         public void GetBetSetting_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_3rdProductSelCustStatus")).Returns(_objectDb);
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_3rdProductSelCustStatus")).Returns(_objectDb);
             var custId = 1;
             var productId = 2;
             var expected = new ThirdPartyBetSetting
@@ -77,12 +77,12 @@
         public void UpdateStatus_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_3rdProductUpdCustStatus")).Returns(_objectDb);
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_3rdProductUpdCustStatus")).Returns(_objectDb);
             var productId = 1;
             var userId = 2;
             var custId = 3;
             var language = "Language Test";
-            var ip = "::1";
+            var ip = "IP";
             var isEnabled = true;
 
             // Action
@@ -102,12 +102,12 @@
         public void UpdateStatus_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_3rdProductUpdCustStatus")).Returns(_objectDb);
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_3rdProductUpdCustStatus")).Returns(_objectDb);
             var productId = 1;
             var userId = 2;
             var custId = 3;
             var language = "Language Test";
-            var ip = "::1";
+            var ip = "IP";
             var isEnabled = true;
 
             var expected = new ResultInfo

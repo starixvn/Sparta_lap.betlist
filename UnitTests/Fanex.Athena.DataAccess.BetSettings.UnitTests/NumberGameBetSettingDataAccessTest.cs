@@ -152,7 +152,7 @@
                 MaxPerMatch = 40m,
                 MaxPerBall = 30m,
                 Language = "LanguageTest",
-                Ip = "::1"
+                Ip = "IP"
             };
         }
     }

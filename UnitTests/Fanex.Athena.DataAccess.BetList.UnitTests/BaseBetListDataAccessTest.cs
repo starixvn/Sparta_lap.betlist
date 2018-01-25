@@ -102,7 +102,7 @@
 
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        private IDictionary<string, object> GetFakeBetListData(string baseCurrency, LrfTicket ticket, object isNeutral)
+        private static IDictionary<string, object> GetFakeBetListData(string baseCurrency, LrfTicket ticket, object isNeutral)
         {
             var columnSuffix = SystemConstants.BaseCurrencyList.Contains(baseCurrency?.ToUpperInvariant()) ? baseCurrency : string.Empty;
 

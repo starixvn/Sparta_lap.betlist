@@ -98,7 +98,7 @@
             _oneAuthenticationService.When(x => x.SetAuthorize(tokenInfo)).DoNotCallBase();
             _oneAuthenticationService.When(x => x.SetAuthorize(tokenInfo)).Do(x => counter++);
             _sessionService.When(x => x.UpdateLanguage(Arg.Any<string>())).Do(x => langCounter++);
-            _sessionService.UpdateLanguage(Arg.Is<string>(newLanguageCode)).Returns(true);
+            _sessionService.UpdateLanguage(Arg.Is(newLanguageCode)).Returns(true);
             _licenseeDataAccess.GetLicenseeByName(tokenInfo.SiteName).Returns(licensee);
 
             // Action

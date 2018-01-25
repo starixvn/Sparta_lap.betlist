@@ -23,8 +23,6 @@
 
         private const int ReportByMonthly = 3;
 
-        private IBalanceUpDataAccess _balanceUpDataAccess;
-
         private BalanceUp _balance;
 
         [OneTimeSetUp]
@@ -36,9 +34,9 @@
                 BalanceUpDay = new DateTime(2017, 8, 31)
             };
 
-            _balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
-            _balanceUpDataAccess.GetBalanceUp().Returns(_balance);
-            DataAccess = Substitute.ForPartsOf<LicenseeWinLossByTimeZoneDataAccess>(_balanceUpDataAccess);
+            var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
+            balanceUpDataAccess.GetBalanceUp().Returns(_balance);
+            DataAccess = Substitute.ForPartsOf<LicenseeWinLossByTimeZoneDataAccess>(balanceUpDataAccess);
 
             ObjectDb = Substitute.For<IObjectDb>();
 
@@ -50,7 +48,6 @@
         public override void FixtureTearDown()
         {
             _balance = null;
-            _balanceUpDataAccess = null;
 
             base.FixtureTearDown();
         }

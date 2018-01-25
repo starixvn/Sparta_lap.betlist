@@ -104,7 +104,7 @@
             // Arrange
             const int CustId = 1;
             const int UserId = 2;
-            const string Ip = "::1";
+            const string Ip = "IP";
             const string XmlData = "XmlData";
 
             DataAccess.GetObjectDb(Arg.Is("Acc_Dep_CustSetting_BetLimitUpd")).Returns(ObjectDb);
@@ -132,7 +132,7 @@
             // Arrange
             const int CustId = 1;
             const int UserId = 2;
-            const string Ip = "::1";
+            const string Ip = "IP";
             const string XmlData = "XmlData";
 
             DataAccess.GetObjectDb(Arg.Is("Acc_Dep_CustSetting_BetLimitUpd")).Returns(ObjectDb);

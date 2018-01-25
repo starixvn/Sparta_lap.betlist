@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Data;
-    using System.Linq;
     using Core.Users;
     using Data;
     using Logging;
@@ -35,7 +34,7 @@
             const string OldPassword = "123456";
             const string NewPassword = "1234aa";
             const string Salt = "abcxyz";
-            var requestUser = new User { Username = "test", Request = new Request { Ip = "::1" } };
+            var requestUser = new User { Username = "test", Request = new Request { Ip = "IP" } };
 
             DataAccess.GetObjectDb(Arg.Is(ChangePasswordSp)).Returns(ObjectDb);
 
@@ -91,7 +90,7 @@
         public void GetByLicensee_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            const int LicenseeId = 1;
+            const int LicenseeId = 2;
             const bool IsInternal = true;
 
             var expected = GetFakeUserData(LicenseeId);
@@ -131,14 +130,14 @@
         public void GetByUsername_WhenCall_QueryMethodIsCalled(bool isInternal, int licenseeId)
         {
             // Arrange
-            DataAccess.GetObjectDb(Arg.Is<string>("Lrf_UserInfoSelByUserName")).Returns(ObjectDb);
-            var userName = "test";
+            DataAccess.GetObjectDb(Arg.Is("Lrf_UserInfoSelByUserName")).Returns(ObjectDb);
+            const string UserName = "test";
 
             // Action
-            DataAccess.GetByUsername(userName, isInternal, licenseeId);
+            DataAccess.GetByUsername(UserName, isInternal, licenseeId);
 
             // Assert
-            ObjectDb.ReceivedWithAnyArgs().Query<User>(null).FirstOrDefault();
+            ObjectDb.Received().Query<User>(Arg.Any<dynamic>());
         }
 
         [TestCase(true, 1)]
@@ -182,7 +181,7 @@
         public void GetUserInfo_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            const int LicenseeId = 1;
+            const int LicenseeId = 3;
             const int UserId = 2;
             var expected = GetFakeUserData(LicenseeId);
             ConfigureDataReader(expected);
@@ -214,7 +213,7 @@
             DataAccess.GetObjectDb(Arg.Is(RecheckInSp), Arg.Any<int>()).Returns(ObjectDb);
             
             // Action
-            var result = DataAccess.RecheckIn(UserId);
+            DataAccess.RecheckIn(UserId);
 
             // Assert
             Assert.Multiple(() =>
@@ -249,7 +248,7 @@
                 UserID = 1,
                 Licensee = new Licensee { Id = 1 },
                 Password = "1234aa",
-                Request = new Request { Ip = "::1", Language = "en-US" }
+                Request = new Request { Ip = "IP", Language = "en-US" }
             };
 
             DataAccess.GetObjectDb(Arg.Is(ResetPasswordSp)).Returns(ObjectDb);
@@ -306,7 +305,7 @@
                 Status = "active",
                 Licensee = new Licensee { Id = 1 },
                 Password = "1234aa",
-                Request = new Request { Ip = "::1", Language = "en-US" }
+                Request = new Request { Ip = "IP", Language = "en-US" }
             };
 
             DataAccess.GetObjectDb(Arg.Is(UpdateInfoSp)).Returns(ObjectDb);

@@ -68,7 +68,7 @@
         {
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
                 SpName,
-                () => DataAccess.GetProductAccessList(LicenseeId, false));
+                () => DataAccess.GetProductAccessList(LicenseeId));
         }
 
         private Product GetFakeProductAccess()

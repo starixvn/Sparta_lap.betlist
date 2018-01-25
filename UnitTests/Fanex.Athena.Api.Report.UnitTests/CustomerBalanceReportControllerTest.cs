@@ -90,7 +90,7 @@
             var expectedDataList = SetUpForGettingData(metaModel);
             const int PageSizeExcel = int.MaxValue - 1000;
 
-            StubSingleWalletProductAccess(new string[] { Product.BA });
+            StubSingleWalletProductAccess(new[] { Product.BA });
 
             var actualDataList = Enumerable.Empty<CustBalance>();
             var excel = Substitute.ForPartsOf<CustomerBalanceExcel>();

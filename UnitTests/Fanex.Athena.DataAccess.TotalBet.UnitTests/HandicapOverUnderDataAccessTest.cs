@@ -81,7 +81,7 @@
             });
         }
 
-        private void AssertMainData(HandicapOverUnder actual, HandicapOverUnder expected)
+        private static void AssertMainData(HandicapOverUnder actual, HandicapOverUnder expected)
         {
             Assert.That(actual.ShowTime, Is.EqualTo(expected.ShowTime));
             Assert.That(actual.LeagueId, Is.EqualTo(expected.LeagueId));
@@ -103,7 +103,7 @@
             Assert.That(actual.FirstTimeOverUnder, Is.EqualTo(expected.FirstTimeOverUnder));
         }
 
-        private void AssertTotalData(HandicapOverUnder actual, HandicapOverUnder expected)
+        private static void AssertTotalData(HandicapOverUnder actual, HandicapOverUnder expected)
         {
             Assert.That(actual.FullTimeHandicap, Is.EqualTo(expected.FullTimeHandicap));
             Assert.That(actual.FullTimeOverUnder, Is.EqualTo(expected.FullTimeOverUnder));

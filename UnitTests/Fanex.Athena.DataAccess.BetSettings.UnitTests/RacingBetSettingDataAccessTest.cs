@@ -148,7 +148,7 @@
             var commonBetSetting = new CommonBetSetting
             {
                 UserId = 2,
-                Ip = "::1",
+                Ip = "IP",
                 Language = "LanguageTest"
             };
 

@@ -12,7 +12,7 @@
         public void GetCustomerSettingList_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            DataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerSettingLog_Sel")).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerSettingLog_Sel")).Returns(ObjectDb);
             var metaModel = new CustomerLogMetaModel();
 
             // Action
@@ -33,7 +33,7 @@
         public void GetGroupCommList_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            DataAccess.GetObjectDb(Arg.Is<string>("Lrf_GroupCommLog_Sel")).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_GroupCommLog_Sel")).Returns(ObjectDb);
             var metaModel = new CustomerLogMetaModel();
 
             // Action

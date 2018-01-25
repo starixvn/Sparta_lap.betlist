@@ -33,7 +33,7 @@
         public void GetBetSetting_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            DataAccess.GetObjectDb(Arg.Is<string>("TP_Admin_StakeLevel_GetCustStakeLevelMulti")).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is("TP_Admin_StakeLevel_GetCustStakeLevelMulti")).Returns(ObjectDb);
             var custId = 1;
             var language = "LanguageTest";
 
@@ -125,7 +125,7 @@
 
             const int CustId = 1;
             const string Language = "lan";
-            const string Ip = "::1";
+            const string Ip = "IP";
 
             var betSetting = new LiveCasinoBetSetting { GameTypeId = 1 };
             var liveCasinoBetSetting = SetUpForUpdateBetSetting(betSetting.GameTypeId, 0, string.Empty);
@@ -158,12 +158,12 @@
 
             const int CustId = 1;
             const string Language = "lan";
-            const string Ip = "::1";
+            const string Ip = "IP";
             const int ErrorCode = 1;
             const string ErrorMrg = "Error";
 
             var betSetting = new LiveCasinoBetSetting { GameTypeId = 1 };
-            var liveCasinoBetSetting = SetUpForUpdateBetSetting(2, ErrorCode, ErrorMrg);
+            SetUpForUpdateBetSetting(2, ErrorCode, ErrorMrg);
 
             UserLogMetaModel logData = null;
             _userLogDataAccess.When(x => x.WriteLog(Arg.Any<UserLogMetaModel>())).Do(x => logData = (UserLogMetaModel)x[0]);

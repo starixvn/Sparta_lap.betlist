@@ -50,7 +50,7 @@
                 };
 
                 StubLicenseeSessionData(DefaultLicenseeSession);
-                AppSettings.FakeLicenseeList.Returns(new int[] { DefaultLicenseeSession.LicenseeId });
+                AppSettings.FakeLicenseeList.Returns(new[] { DefaultLicenseeSession.LicenseeId });
                 _customerListService.Search(metaModel).Returns(new ReportResultModel<CustomerDTO>
                 {
                     DataList = new List<CustomerDTO>(),

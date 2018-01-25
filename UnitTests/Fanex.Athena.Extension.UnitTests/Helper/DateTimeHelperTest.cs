@@ -56,7 +56,7 @@
             TestIsValidMonthRange(new DateTime(fromYear, fromMonth, fromDay), new DateTime(toYear, toMonth, toDay), MaximumMonthRange, true);
         }
 
-        private void TestIsValidMonthRange(DateTime fromDate, DateTime toDate, int monthRange, bool expected)
+        private static void TestIsValidMonthRange(DateTime fromDate, DateTime toDate, int monthRange, bool expected)
         {
             // Action
             var result = DateTimeHelper.IsValidMonthRange(fromDate, toDate, monthRange);

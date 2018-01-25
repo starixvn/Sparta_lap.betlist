@@ -34,7 +34,7 @@
                 CustId = 2,
                 Status = 0,
                 Language = "LanguageTest",
-                Ip = "::1"
+                Ip = "IP"
             };
             var sportId = 3;
 
@@ -70,7 +70,7 @@
                 CustId = 2,
                 Status = status,
                 Language = "abc",
-                Ip = "::1"
+                Ip = "IP"
             };
             const int SportId = 3;
 

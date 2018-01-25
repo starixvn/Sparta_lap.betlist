@@ -76,7 +76,7 @@
             });
         }
 
-        private void AssertMainData(FirstGoalLastGoal actual, FirstGoalLastGoal expected)
+        private static void AssertMainData(FirstGoalLastGoal actual, FirstGoalLastGoal expected)
         {
             Assert.That(actual.LeagueId, Is.EqualTo(expected.LeagueId));
             Assert.That(actual.MatchId, Is.EqualTo(expected.MatchId));
@@ -97,7 +97,7 @@
             Assert.That(actual.FirstHalfNoGoal, Is.EqualTo(expected.FirstHalfNoGoal));
         }
 
-        private void AssertTotalData(FirstGoalLastGoal actual, FirstGoalLastGoal expected)
+        private static void AssertTotalData(FirstGoalLastGoal actual, FirstGoalLastGoal expected)
         {
             var totalHomeFirstGoal = expected.HomeFirstGoal + expected.HomeLastGoal + expected.AwayFirstGoal
                 + expected.AwayLastGoal + expected.NoGoal;

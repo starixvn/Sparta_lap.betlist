@@ -21,7 +21,6 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         private const int ColumnCustomerCommission = 7;
         private const int ColumnExternalId = 1;
         private const int ColumnSystemId = 2;
-        private const int ColumnTemplateCount = 8;
         private const int ColumnTotePlace = 4;
         private const int ColumnToteTotal = 6;
         private const int ColumnToteWin = 3;

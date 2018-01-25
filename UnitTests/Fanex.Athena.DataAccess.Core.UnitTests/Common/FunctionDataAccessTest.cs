@@ -20,7 +20,7 @@
         private const int CustId = 2;
         private const int FunctionId = 3;
         private const int UserId = 4;
-        private const string Ip = "::1";
+        private const string Ip = "IP";
         private const string LangKey = "en-US";
 
         private IAppSettings _appSetting;
@@ -48,7 +48,7 @@
             // Arrange
             _appSetting.Environment.Returns(environment);
 
-            DataAccess.GetObjectDb(Arg.Is<string>(GetFunctionListSp)).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is(GetFunctionListSp)).Returns(ObjectDb);
             MapReaderData(new
             {
                 FunctionId = 1,
@@ -69,7 +69,7 @@
             // Arrange
             _appSetting.Environment.Returns("PRO");
 
-            DataAccess.GetObjectDb(Arg.Is<string>(GetFunctionListSp)).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is(GetFunctionListSp)).Returns(ObjectDb);
             MapReaderData(new
             {
                 FunctionId = 1,
@@ -88,7 +88,7 @@
         public void GetLicenseeFunctionList_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            DataAccess.GetObjectDb(Arg.Is<string>(GetLicenseeFunctionList)).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is(GetLicenseeFunctionList)).Returns(ObjectDb);
 
             // Action
             DataAccess.GetLicenseeFunctionList(LicenseeId);
@@ -103,7 +103,7 @@
             // Arrange
             var expected = new List<Function> { new Function { FunctionId = 1 }, new Function { FunctionId = 2 } };
 
-            DataAccess.GetObjectDb(Arg.Is<string>(GetLicenseeFunctionList)).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is(GetLicenseeFunctionList)).Returns(ObjectDb);
             Reader["FunctionId"].Returns(1, 2);
             Reader.Read().Returns(true, true, false);
 
@@ -122,7 +122,7 @@
         public void GetUserFunctionList_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            DataAccess.GetObjectDb(Arg.Is<string>(GetUserFunctionList)).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is(GetUserFunctionList)).Returns(ObjectDb);
 
             // Action
             DataAccess.GetUserFunctionList(LicenseeId, UserId);
@@ -141,7 +141,7 @@
             // Arrange
             var expected = new List<Function> { new Function { FunctionId = 1 }, new Function { FunctionId = 2 } };
 
-            DataAccess.GetObjectDb(Arg.Is<string>(GetUserFunctionList)).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is(GetUserFunctionList)).Returns(ObjectDb);
             Reader["FunctionId"].Returns(1, 2);
             Reader.Read().Returns(true, true, false);
 
@@ -160,7 +160,7 @@
         public void AssignUserFunction_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            DataAccess.GetObjectDb(Arg.Is<string>(AssignUserFunction)).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is(AssignUserFunction)).Returns(ObjectDb);
 
             // Action
             DataAccess.AssignUserFunction(LicenseeId, CustId, FunctionId, UserId, Ip, LangKey);
@@ -183,7 +183,7 @@
         public void AssignUserFunction_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            DataAccess.GetObjectDb(Arg.Is<string>(AssignUserFunction)).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is(AssignUserFunction)).Returns(ObjectDb);
             ResultInfoHelper.MockResultInfo(ObjectDb);
 
             // Action
@@ -201,7 +201,7 @@
         public void RemoveUserFunction_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            DataAccess.GetObjectDb(Arg.Is<string>(RemoveUserFunction)).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is(RemoveUserFunction)).Returns(ObjectDb);
 
             // Action
             DataAccess.RemoveUserFunction(LicenseeId, UserId, CustId, Ip, FunctionId, LangKey);
@@ -224,7 +224,7 @@
         public void RemoveUserFunction_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            DataAccess.GetObjectDb(Arg.Is<string>(RemoveUserFunction)).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is(RemoveUserFunction)).Returns(ObjectDb);
             ResultInfoHelper.MockResultInfo(ObjectDb);
 
             // Action

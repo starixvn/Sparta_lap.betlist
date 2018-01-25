@@ -175,7 +175,6 @@
 
             // Action
             var result = DataAccess.GetDataList(_metaModel);
-            var totalData = result.TotalData;
 
             // Assert
             Assert.Multiple(() =>

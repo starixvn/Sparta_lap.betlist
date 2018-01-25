@@ -45,8 +45,8 @@
                 new Function { FunctionId = 1, FunctionKey = "Function1" },
                 new Function { FunctionId = 2, FunctionKey = "Function2" }
             };
-            var userFunctions = new int[] { userFunction };
-            var permissionKeys = new string[] { permissionKey };
+            var userFunctions = new[] { userFunction };
+            var permissionKeys = new[] { permissionKey };
             _functionService.Functions.Returns(allFunctions);
 
             // Action
@@ -67,7 +67,7 @@
                 new PortalSystemFunction { FunctionKey = "Function1" },
                 new PortalSystemFunction { FunctionKey = "Function2" }
             };
-            var permissionKeys = new string[] { permissionKey, "unknown_function" };
+            var permissionKeys = new[] { permissionKey, "unknown_function" };
 
             // Action
             var result = _authorizationService.HasPermissions(userFunctions, permissionKeys);

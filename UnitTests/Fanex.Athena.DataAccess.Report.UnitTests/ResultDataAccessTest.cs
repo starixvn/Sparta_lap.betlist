@@ -20,6 +20,11 @@
     [TestFixture]
     public class ResultDataAccessTest
     {
+        private const int MatchId = 1;
+        private const int RaceNo = 2;
+        private const int BettypeId = 5;
+        private const long BetId = 6;
+
         private ResultDataAccess _dataAccess;
         private BalanceUp _balance;
         private ResultMetalModel _metaModel;
@@ -57,7 +62,7 @@
         {
             // Arrange
             var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Result_Outright")).Returns(objectDb);
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_Result_Outright")).Returns(objectDb);
             dynamic param = null;
             objectDb.ExecuteReader(Arg.Do<dynamic>(arg => param = arg));
             var expectedParam = new
@@ -79,7 +84,7 @@
         {
             // Arrange
             var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Result_Outright")).Returns(objectDb);
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_Result_Outright")).Returns(objectDb);
 
             var reader = Substitute.For<IDataReader>();
             objectDb.ExecuteReader(Arg.Any<object>()).Returns(reader);
@@ -123,7 +128,7 @@
         {
             // Arrange
             var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Result_SportSelByDate")).Returns(objectDb);
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_Result_SportSelByDate")).Returns(objectDb);
             var reader = Substitute.For<IDataReader>();
             objectDb.ExecuteReader().Returns(reader);
 
@@ -148,7 +153,7 @@
             // Arrange
             const int SportId = 111;
             var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Result_SportSelByDate")).Returns(objectDb);
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_Result_SportSelByDate")).Returns(objectDb);
             var reader = Substitute.For<IDataReader>();
             objectDb.ExecuteReader().Returns(reader);
             reader.Read().Returns(true, false);
@@ -178,7 +183,7 @@
         {
             // Arrange
             var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Result_LeagueSelByDate")).Returns(objectDb);
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_Result_LeagueSelByDate")).Returns(objectDb);
             dynamic param = null;
             objectDb.ExecuteReader(Arg.Do<dynamic>(arg => param = arg));
 
@@ -205,7 +210,7 @@
         {
             // Arrange
             var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Result_LeagueSelByDate")).Returns(objectDb);
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_Result_LeagueSelByDate")).Returns(objectDb);
             var reader = Substitute.For<IDataReader>();
             objectDb.ExecuteReader(Arg.Any<object>()).Returns(reader);
             reader.Read().Returns(true, false);
@@ -366,21 +371,17 @@
             _dataAccess.GetObjectDb(Arg.Is("Lrf_BetList_SelMatchResult")).Returns(objectDb);
             dynamic result = null;
             objectDb.ExecuteReader(Arg.Do<dynamic>(x => result = x));
-            var matchId = 1;
-            var raceNo = 2;
-            var bettypeId = 5;
-            long? betId = 6;
 
             var expectedResult = new
             {
-                matchid = matchId,
-                raceno = raceNo,
-                bettype = bettypeId,
-                betid = betId
+                matchid = MatchId,
+                raceno = RaceNo,
+                bettype = BettypeId,
+                betid = BetId
             };
 
             // Action
-            _dataAccess.GetPopUpMatches<Sportsbook>(matchId, raceNo, bettypeId, betId);
+            _dataAccess.GetPopUpMatches<Sportsbook>(MatchId, RaceNo, BettypeId, BetId);
 
             // Assert
             Assert.That(result, Tobe.SameProperties(expectedResult));
@@ -406,15 +407,11 @@
             var dataMappingForGameDetail = GetReaderDataMappingForGameDetail();
             MergeReaderDataMapping(dataMapping, dataMappingForGameDetail);
             DataAccessTestHelper.MapReaderData(reader, dataMapping);
-            var matchId = 1;
-            var raceNo = 2;
-            var bettypeId = 5;
-            long? betId = 6;
 
             var expectedResult = new List<Sportsbook> { GetExpectedSportsbookData() };
 
             // Action
-            var result = _dataAccess.GetPopUpMatches<Sportsbook>(matchId, raceNo, bettypeId, betId);
+            var result = _dataAccess.GetPopUpMatches<Sportsbook>(MatchId, RaceNo, BettypeId, BetId);
 
             // Assert
             Assert.Multiple(() =>
@@ -446,8 +443,6 @@
             dataMappingForGameDetail["SettlementStatusID"] = DBNull.Value;
             MergeReaderDataMapping(dataMapping, dataMappingForGameDetail);
             DataAccessTestHelper.MapReaderData(reader, dataMapping);
-            int matchId = 1, raceNo = 2, bettypeId = 5;
-            long? betId = 6;
 
             var sportsbookData = GetExpectedSportsbookData();
             sportsbookData.BetStatus = string.Empty;
@@ -459,7 +454,7 @@
             var expectedResult = new List<Sportsbook> { sportsbookData };
 
             // Action
-            var result = _dataAccess.GetPopUpMatches<Sportsbook>(matchId, raceNo, bettypeId, betId);
+            var result = _dataAccess.GetPopUpMatches<Sportsbook>(MatchId, RaceNo, BettypeId, BetId);
 
             // Assert
             Assert.Multiple(() =>
@@ -490,8 +485,6 @@
             dataMappingForGameDetail["SettlementStatusID"] = DBNull.Value;
             MergeReaderDataMapping(dataMapping, dataMappingForGameDetail);
             DataAccessTestHelper.MapReaderData(reader, dataMapping);
-            int matchId = 1, raceNo = 2, bettypeId = 5;
-            long? betId = 6;
 
             var sportsbookData = GetExpectedSportsbookData();
             sportsbookData.BetStatus = string.Empty;
@@ -503,7 +496,7 @@
             var expectedResult = new List<Sportsbook> { sportsbookData };
 
             // Action
-            var result = _dataAccess.GetPopUpMatches<Sportsbook>(matchId, raceNo, bettypeId, betId);
+            var result = _dataAccess.GetPopUpMatches<Sportsbook>(MatchId, RaceNo, BettypeId, BetId);
 
             // Assert
             Assert.Multiple(() =>
@@ -531,9 +524,6 @@
             };
             DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
-            int matchId = 1, raceNo = 2, bettypeId = 5;
-            long? betId = 6;
-
             var expectedResult = new List<LiveCasino>
             {
                 new LiveCasino
@@ -554,7 +544,7 @@
             };
 
             // Action
-            var result = _dataAccess.GetPopUpMatches<LiveCasino>(matchId, raceNo, bettypeId, betId);
+            var result = _dataAccess.GetPopUpMatches<LiveCasino>(MatchId, RaceNo, BettypeId, BetId);
 
             // Assert
             Assert.Multiple(() =>
@@ -582,9 +572,6 @@
             };
             DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
-            int matchId = 1, raceNo = 2, bettypeId = 5;
-            long? betId = 6;
-
             var expectedResult = new List<LiveCasino>
             {
                 new LiveCasino
@@ -605,7 +592,7 @@
             };
 
             // Action
-            var result = _dataAccess.GetPopUpMatches<LiveCasino>(matchId, raceNo, bettypeId, betId);
+            var result = _dataAccess.GetPopUpMatches<LiveCasino>(MatchId, RaceNo, BettypeId, BetId);
 
             // Assert
             Assert.Multiple(() =>
@@ -633,9 +620,6 @@
             };
             DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
-            int matchId = 1, raceNo = 2, bettypeId = 5;
-            long? betId = 6;
-
             var expectedResult = new List<Racing>
             {
                 new Racing
@@ -658,7 +642,7 @@
             };
 
             // Action
-            var result = _dataAccess.GetPopUpMatches<Racing>(matchId, raceNo, bettypeId, betId);
+            var result = _dataAccess.GetPopUpMatches<Racing>(MatchId, RaceNo, BettypeId, BetId);
 
             // Assert
             Assert.Multiple(() =>
@@ -686,9 +670,6 @@
             };
             DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
 
-            int matchId = 1, raceNo = 2, bettypeId = 5;
-            long? betId = 6;
-
             var expectedResult = new List<Racing>
             {
                 new Racing
@@ -711,7 +692,7 @@
             };
 
             // Action
-            var result = _dataAccess.GetPopUpMatches<Racing>(matchId, raceNo, bettypeId, betId);
+            var result = _dataAccess.GetPopUpMatches<Racing>(MatchId, RaceNo, BettypeId, BetId);
 
             // Assert
             Assert.Multiple(() =>
@@ -730,11 +711,8 @@
             var reader = Substitute.For<IDataReader>();
             objectDb.ExecuteReader(Arg.Any<object>()).Returns(reader);
 
-            int matchId = 1, raceNo = 2, bettypeId = 5;
-            long? betId = 6;
-
             // Action
-            TestDelegate result = () => _dataAccess.GetPopUpMatches<object>(matchId, raceNo, bettypeId, betId);
+            TestDelegate result = () => _dataAccess.GetPopUpMatches<object>(MatchId, RaceNo, BettypeId, BetId);
 
             // Assert
             Assert.Throws<NotSupportedException>(result, "The type 'object' is not supported.");
@@ -948,14 +926,13 @@
             _dataAccess.GetObjectDb(Arg.Is("Lrf_BetList_SelMatchResultNumberGame")).Returns(objectDb);
             dynamic result = null;
             objectDb.ExecuteReader(Arg.Do<dynamic>(x => result = x));
-            var matchId = 1;
             var expected = new
             {
-                matchid = matchId
+                matchid = MatchId
             };
 
             // Action
-            _dataAccess.GetPopUpNumberGameMatch(matchId);
+            _dataAccess.GetPopUpNumberGameMatch(MatchId);
 
             // Assert
             Assert.That(result, Tobe.SameProperties(expected));
@@ -967,12 +944,12 @@
             // Arrange
             var objectDb = Substitute.For<IObjectDb>();
             _dataAccess.GetObjectDb(Arg.Is("Lrf_BetList_SelMatchResultNumberGame")).Returns(objectDb);
-            var matchId = 2;
             var reader = Substitute.For<IDataReader>();
             objectDb.ExecuteReader(Arg.Any<object>()).Returns(reader);
             reader.Read().Returns(true, true, false);
             reader.FieldCount.Returns(1);
             reader.GetName(0).Returns("isrefund");
+            var matchId = 2;
             var readerDataMapping = new Dictionary<string, object>
             {
                 { "leagueid", 1 }, { "matchid", matchId }, { "eventstatus", "win" }, { "eventdate", "03/16/2017" }, { "isrefund", "1" },
@@ -1013,10 +990,10 @@
             // Arrange
             var objectDb = Substitute.For<IObjectDb>();
             _dataAccess.GetObjectDb(Arg.Is("Lrf_BetList_SelMatchResultNumberGame")).Returns(objectDb);
-            var matchId = 2;
             var reader = Substitute.For<IDataReader>();
             objectDb.ExecuteReader(Arg.Any<object>()).Returns(reader);
             reader.Read().Returns(true, true, false);
+            var matchId = 2;
             var readerDataMapping = new Dictionary<string, object>
             {
                 { "leagueid", 1 }, { "matchid", matchId }, { "eventstatus", "win" }, { "eventdate", "03/16/2017" }, { "isrefund", "1" },
@@ -1186,13 +1163,12 @@
             _dataAccess.GetObjectDb(Arg.Is("Lrf_Result_MatchSelByLeague_Detail")).Returns(objectDb);
             var reader = Substitute.For<IDataReader>();
             objectDb.ExecuteReader().Returns(reader);
-            var matchId = 1;
 
             // Action
-            _dataAccess.GetSportsbookGameDetail(matchId);
+            _dataAccess.GetSportsbookGameDetail(MatchId);
 
             // Assert
-            objectDb.Received().AddInParameter("matchid", DbType.Int32, matchId);
+            objectDb.Received().AddInParameter("matchid", DbType.Int32, MatchId);
         }
 
         [Test]

@@ -76,7 +76,7 @@
             });
         }
 
-        private void AssertMainData(TotalGoal actual, TotalGoal expected)
+        private static void AssertMainData(TotalGoal actual, TotalGoal expected)
         {
             Assert.That(actual.MatchId, Is.EqualTo(expected.MatchId));
             Assert.That(actual.HomeId, Is.EqualTo(expected.HomeId));
@@ -92,7 +92,7 @@
             AssertTotalData(actual, expected);
         }
 
-        private void AssertTotalData(TotalGoal actual, TotalGoal expected)
+        private static void AssertTotalData(TotalGoal actual, TotalGoal expected)
         {
             Assert.That(actual.Total01, Is.EqualTo(expected.Total01));
             Assert.That(actual.TotalFirstHalf01, Is.EqualTo(expected.TotalFirstHalf01));

@@ -73,7 +73,7 @@
             });
         }
 
-        private void AssertMainData(MoneyLine actual, MoneyLine expected)
+        private static void AssertMainData(MoneyLine actual, MoneyLine expected)
         {
             Assert.That(actual.ShowTime, Is.EqualTo(expected.ShowTime));
             Assert.That(actual.LeagueId, Is.EqualTo(expected.LeagueId));
@@ -94,7 +94,7 @@
             AssertTotalData(actual, expected);
         }
 
-        private void AssertTotalData(MoneyLine actual, MoneyLine expected)
+        private static void AssertTotalData(MoneyLine actual, MoneyLine expected)
         {
             Assert.That(actual.TotalHomeFt, Is.EqualTo(expected.TotalHomeFt));
             Assert.That(actual.TotalAwayFt, Is.EqualTo(expected.TotalAwayFt));

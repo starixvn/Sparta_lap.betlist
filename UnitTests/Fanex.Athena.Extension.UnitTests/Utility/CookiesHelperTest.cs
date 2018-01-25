@@ -40,7 +40,7 @@
             Assert.That(result, Is.EqualTo(expected));
         }
 
-        private HttpContext GetHttpContext()
+        private static HttpContext GetHttpContext()
         {
             return new HttpContext(
                 new HttpRequest(null, "http://tempuri.org", null),

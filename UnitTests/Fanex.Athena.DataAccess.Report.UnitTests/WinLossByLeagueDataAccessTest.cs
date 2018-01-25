@@ -51,7 +51,7 @@
                 }
             };
             var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_WinlostByLeague")).Returns(objectDb);
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_Rpt_WinlostByLeague")).Returns(objectDb);
 
             // Action
             _dataAccess.GetSummary(metaModel);
@@ -81,7 +81,7 @@
             // Arrange
             var reader = Substitute.For<IDataReader>();
             var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_WinlostByLeague")).Returns(objectDb);
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_Rpt_WinlostByLeague")).Returns(objectDb);
             objectDb.ExecuteReader().ReturnsForAnyArgs(reader);
             reader.Read().Returns(true, false);
             var readerDataMapping = new
@@ -128,7 +128,7 @@
                 }
             };
             var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_WinlossByLeagueDetail")).Returns(objectDb);
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_Rpt_WinlossByLeagueDetail")).Returns(objectDb);
             objectDb.GetParameterValue("totalrows").Returns(1000);
 
             // Action
@@ -160,7 +160,7 @@
             // Arrange
             var reader = Substitute.For<IDataReader>();
             var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Rpt_WinlossByLeagueDetail")).Returns(objectDb);
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_Rpt_WinlossByLeagueDetail")).Returns(objectDb);
             objectDb.ExecuteReader().ReturnsForAnyArgs(reader);
             reader.Read().Returns(true, false, true, false);
             reader.NextResult().Returns(true);

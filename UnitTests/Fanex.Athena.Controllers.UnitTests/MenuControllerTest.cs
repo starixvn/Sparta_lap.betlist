@@ -52,7 +52,7 @@
                 // Arrange
                 SessionService.UserSession.FunctionIdList = new List<int> { 1, 2, 3 };
                 _functionService.Functions.Returns(new List<Function>());
-                AppSettings.FakeLicenseeList.Returns(new int[] { DefaultLicenseeSession.LicenseeId });
+                AppSettings.FakeLicenseeList.Returns(new[] { DefaultLicenseeSession.LicenseeId });
 
                 // Action
                 var result = controller.Index() as ViewResult;

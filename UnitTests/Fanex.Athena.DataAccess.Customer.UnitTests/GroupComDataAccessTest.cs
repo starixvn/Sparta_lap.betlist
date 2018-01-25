@@ -62,7 +62,7 @@
         {
             // Arrange
             const int GroupCommId = 0;
-            DataAccess.GetObjectDb(Arg.Is<string>("Lrf_GroupCommGetById")).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_GroupCommGetById")).Returns(ObjectDb);
 
             // Action
             DataAccess.GetById(GroupCommId);
@@ -77,7 +77,7 @@
             // Arrange
             const int UserId = 1;
 
-            DataAccess.GetObjectDb(Arg.Is<string>("Lrf_LicenseeGroupCommIns")).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_LicenseeGroupCommIns")).Returns(ObjectDb);
             var item = new GroupCommMetaModel();
             var request = new Request();
 
@@ -112,7 +112,7 @@
             // Arrange
             const int UserId = 0;
 
-            DataAccess.GetObjectDb(Arg.Is<string>("Lrf_LicenseeGroupCommUpd")).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_LicenseeGroupCommUpd")).Returns(ObjectDb);
 
             var newItem = new GroupCommMetaModel();
             var request = new Request();

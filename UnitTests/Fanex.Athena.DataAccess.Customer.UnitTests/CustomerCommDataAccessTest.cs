@@ -13,7 +13,7 @@
         public void MoveCustomersToGroup_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            DataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerMoveGroupComm")).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerMoveGroupComm")).Returns(ObjectDb);
             var metaModel = new MoveToGroupComMetaModel();
 
             // Action
@@ -43,7 +43,7 @@
         public void RemoveCustomersFromGroup_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            DataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerRemoveGroupComm")).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerRemoveGroupComm")).Returns(ObjectDb);
             var metaModel = new RemoveFromGroupComMetaModel();
 
             // Action
@@ -68,7 +68,7 @@
         public void UpdateCustomersCommission_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            DataAccess.GetObjectDb(Arg.Is<string>("Lrf_LicenseeCustCommUpd")).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_LicenseeCustCommUpd")).Returns(ObjectDb);
             var metaModel = new UpdatedCustomerComMetaModel();
 
             // Action

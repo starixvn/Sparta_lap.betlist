@@ -23,20 +23,18 @@
 
         private const string GetAgentWinlossDetailSp = "Lrf_Rpt_LicWinlossDetail_Ag";
 
-        private BalanceUp _balance;
-
         private LicenseeWinLossMetaModel _metaModel;
 
         [OneTimeSetUp]
         public override void FixtureSetUp()
         {
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
-            _balance = new BalanceUp
+            var balance = new BalanceUp
             {
                 MoveBetsDay = new DateTime(2016, 8, 10),
                 BalanceUpDay = new DateTime(2016, 8, 31)
             };
-            balanceUpDataAccess.GetBalanceUp().Returns(_balance);
+            balanceUpDataAccess.GetBalanceUp().Returns(balance);
 
             ObjectDb = Substitute.For<IObjectDb>();
             DataAccess = Substitute.ForPartsOf<LicenseeWinLossDataAccess>(balanceUpDataAccess);
@@ -62,7 +60,6 @@
         [OneTimeTearDown]
         public override void FixtureTearDown()
         {
-            _balance = null;
             _metaModel = null;
 
             base.FixtureTearDown();

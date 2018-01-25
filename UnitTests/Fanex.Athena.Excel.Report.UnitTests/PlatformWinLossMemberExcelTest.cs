@@ -32,9 +32,6 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         private const int ColumnRacingRevenue = 11;
         private const int ColumnAmtDueToBa = 12;
         private const int ColumnAmtDueToRacing = 13;
-        private const int ColumnTemplateCount = 14;
-
-        private const string FormatDate = "MM/dd/yyyy";
 
         private const int ColumnCount = 15;
 

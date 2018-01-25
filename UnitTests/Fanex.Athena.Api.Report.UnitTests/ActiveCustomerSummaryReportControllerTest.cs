@@ -170,11 +170,11 @@
             Assert.That(result.GrantTotalCustomer, Is.EqualTo(expectedResult.TotalCustomer));
         }
 
-        [TestCase(new string[] { Product.BA }, Product.BA, true, false)]
-        [TestCase(new string[] { Product.RB }, Product.BA, false, false)]
-        [TestCase(new string[] { Product.BA, Product.RB }, Product.SB, false, false)]
-        [TestCase(new string[] { Product.RB }, Product.RB, false, true)]
-        [TestCase(new string[] { Product.BA }, Product.RB, false, false)]
+        [TestCase(new[] { Product.BA }, Product.BA, true, false)]
+        [TestCase(new[] { Product.RB }, Product.BA, false, false)]
+        [TestCase(new[] { Product.BA, Product.RB }, Product.SB, false, false)]
+        [TestCase(new[] { Product.RB }, Product.RB, false, true)]
+        [TestCase(new[] { Product.BA }, Product.RB, false, false)]
         public void Index_ExportToExcel_ExportWithCorrectData(string[] productCodeOption, string productCode, bool visibleBa, bool visibleRb)
         {
             // Arrange
@@ -280,7 +280,7 @@
 
             var random = new Random();
             var total = random.Next(5, 10);
-            var customerCount = new string[] { "A", "B", "C", "D" };
+            var customerCount = new[] { "A", "B", "C", "D" };
 
             for (int i = 0; i < total; i++)
             {

@@ -184,7 +184,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         {
             // Arrange
             const int RowIndex = 100;
-            const int ColumnCurrency = 4;
+            const int ExpectedColumnCurrency = 4;
             var row = ExcelTestHelper.MockGetRow(_sheet, ColumnCount, RowIndex);
             var excel = CreateExcel();
 
@@ -195,7 +195,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             Assert.Multiple(() =>
             {
                 row.Cells[0].Received(1).SetCellValue(ViewResources.Totalin + " USD");
-                _sheet.ReceivedWithAnyArgs(1).MergeCells(RowIndex, 0, RowIndex, ColumnCurrency);
+                _sheet.ReceivedWithAnyArgs(1).MergeCells(RowIndex, 0, RowIndex, ExpectedColumnCurrency);
             });
         }
 

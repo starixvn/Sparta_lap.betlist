@@ -87,7 +87,7 @@
             metaModel.IsExportExcel = true;
             var expectedDataList = SetUpForGettingData(metaModel);
 
-            StubSingleWalletProductAccess(new string[] { Product.BA });
+            StubSingleWalletProductAccess(new[] { Product.BA });
             AppSetting.FakeLicenseeList.Returns(x => isFakeLicensee ? new int[1] { SessionLicenseeId } : new int[0]);
 
             var excel = Substitute.ForPartsOf<CustomerWinLossExcel>(

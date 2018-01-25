@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.DataAccess.BetSettings.UnitTests
 {
+    using Core.UnitTests.TestHelpers;
     using Data;
     using Interfaces;
     using Model.BetSettings.MetaModel;
@@ -7,25 +8,15 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class RngCasinoBetSettingDataAccessTest
+    public class RngCasinoBetSettingDataAccessTest : BaseDataAccessHelperTest<RngCasinoBetSettingDataAccess>
     {
-        private IObjectDb _objectDb;
         private ICoreCasinoBetSettingDataAccess _coreCasinoBetSettingDataAccess;
-        private RngCasinoBetSettingDataAccess _dataAccess;
 
         [OneTimeSetUp]
-        public void SetUp()
+        public override void FixtureSetUp()
         {
-            _objectDb = Substitute.For<IObjectDb>();
             _coreCasinoBetSettingDataAccess = Substitute.For<ICoreCasinoBetSettingDataAccess>();
-            _dataAccess = Substitute.ForPartsOf<RngCasinoBetSettingDataAccess>(_coreCasinoBetSettingDataAccess);
-        }
-
-        [OneTimeTearDown]
-        public void TearDown()
-        {
-            _objectDb = null;
-            _dataAccess = null;
+            DataAccess = Substitute.ForPartsOf<RngCasinoBetSettingDataAccess>(_coreCasinoBetSettingDataAccess);
         }
 
         [Test]
@@ -43,7 +34,7 @@
             const int RngCasinoSportId = 251;
 
             // Action
-            _dataAccess.UpdateStatus(metaModel);
+            DataAccess.UpdateStatus(metaModel);
 
             // Assert
             _coreCasinoBetSettingDataAccess.Received().UpdateCasinoStatus(metaModel, RngCasinoSportId);

@@ -16,7 +16,7 @@
             // Arrange
             var objectDb = Substitute.For<IObjectDb>();
             var dataAccess = Substitute.ForPartsOf<CoreBetSettingDataAccess>();
-            dataAccess.GetObjectDb(Arg.Is<string>("Lrf_LicenseeProductSel")).Returns(objectDb);
+            dataAccess.GetObjectDb(Arg.Is("Lrf_LicenseeProductSel")).Returns(objectDb);
             var licenseeId = 1;
             var expected = new BetSettingProduct { ProductId = 1, IsEnable = true, ProductCode = "CODE" };
             objectDb.Query<BetSettingProduct>(Arg.Any<object>()).Returns(new List<BetSettingProduct> { expected });

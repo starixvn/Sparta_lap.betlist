@@ -17,10 +17,6 @@
     [TestFixture]
     public class SubsidiaryPerformanceDataAccessTest
     {
-        private SubsidiaryPerformanceDataAccess _dataAccess;
-        private IBalanceUpDataAccess _balanceUpDataAccess;
-        private IObjectDb _objectDb;
-        private IDataReader _dataReader;
         private BalanceUp _balance;
         private JavaScriptSerializer _serialize;
 
@@ -33,9 +29,9 @@
                 BalanceUpDay = new DateTime(2017, 8, 31)
             };
 
-            _balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
-            _balanceUpDataAccess.GetBalanceUp().Returns(_balance);
-            _dataAccess = Substitute.ForPartsOf<SubsidiaryPerformanceDataAccess>(_balanceUpDataAccess);
+            var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
+            balanceUpDataAccess.GetBalanceUp().Returns(_balance);
+            DataAccess = Substitute.ForPartsOf<SubsidiaryPerformanceDataAccess>(balanceUpDataAccess);
 
             _objectDb = Substitute.For<IObjectDb>();
             _dataReader = Substitute.For<IDataReader>();
@@ -45,7 +41,6 @@
         [TearDown]
         public void TearDown()
         {
-            _balanceUpDataAccess = null;
             _balance = null;
             _dataAccess = null;
             _objectDb = null;

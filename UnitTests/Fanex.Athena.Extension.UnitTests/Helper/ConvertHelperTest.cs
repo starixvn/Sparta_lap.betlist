@@ -20,6 +20,7 @@
             Assert.Throws(exceptionType, testDelegate);
         }
 
+        [Test]
         public void ToDateTime_ValidDateParam_ReturnDateTime()
         {
             // Arrange
@@ -32,6 +33,7 @@
             Assert.That(result, Is.EqualTo(new DateTime(2016, 2, 3)));
         }
 
+        [Test]
         public void ToDateTime_MonthlyParamIsTrue_ReturnFirstDayOfMonth()
         {
             // Arrange

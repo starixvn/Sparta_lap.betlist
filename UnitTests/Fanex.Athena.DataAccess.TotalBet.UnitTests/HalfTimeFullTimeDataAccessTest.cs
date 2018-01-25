@@ -68,7 +68,7 @@
             });
         }
 
-        private void AssertInfoData(HalfTimeFullTime actual, HalfTimeFullTime expected)
+        private static void AssertInfoData(HalfTimeFullTime actual, HalfTimeFullTime expected)
         {
             Assert.That(actual.MatchId, Is.EqualTo(expected.MatchId));
             Assert.That(actual.HomeId, Is.EqualTo(expected.HomeId));
@@ -78,7 +78,7 @@
             AssertTotalData(actual, expected);
         }
 
-        private void AssertTotalData(HalfTimeFullTime actual, HalfTimeFullTime expected)
+        private static void AssertTotalData(HalfTimeFullTime actual, HalfTimeFullTime expected)
         {
             Assert.That(actual.HomeHome, Is.EqualTo(expected.HomeHome));
             Assert.That(actual.HomeDraw, Is.EqualTo(expected.HomeDraw));
