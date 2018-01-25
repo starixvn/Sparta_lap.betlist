@@ -108,6 +108,14 @@ namespace Fanex.Athena.Excel.Report
             ProcessUI(sheet);
         }
 
+        protected override int NumberOfSheets
+        {
+            get
+            {
+                return GetNumberOfSheets(_customerTurnoverList.Last().Index, PageSize);
+            }
+        }
+
         protected override void AssignSheetData(ISheet sheet, int pageIndex)
         {
             var rowIndex = 0;
