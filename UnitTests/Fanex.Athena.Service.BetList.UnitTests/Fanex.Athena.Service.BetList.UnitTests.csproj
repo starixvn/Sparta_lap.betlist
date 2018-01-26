@@ -123,6 +123,8 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Extensions\LrfBetListHtmlBuilderTest.cs" />
+    <Compile Include="Helpers\BetListHelperTest.cs" />
     <Compile Include="ExchangeBetListServiceTest.cs" />
     <Compile Include="LastBetsMonitoringBetListServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

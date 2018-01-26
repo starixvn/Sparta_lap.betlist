@@ -12,7 +12,7 @@
     [TestFixture]
     public class RacingBetSettingDataAccessTest : BaseDataAccessHelperTest<RacingBetSettingDataAccess>
     {
-        private static IEnumerable GetUspNameByKey
+        private static IEnumerable UspNameByKeys
         {
             get
             {
@@ -105,7 +105,7 @@
             });
         }
 
-        [TestCaseSource(nameof(GetUspNameByKey))]
+        [TestCaseSource(nameof(UspNameByKeys))]
         public void UpdateBetSetting_WhenCallUpdateMethod_ParametersPassedCorrectly(string key, string uspName)
         {
             // Arrange
@@ -131,7 +131,7 @@
             });
         }
 
-        [TestCaseSource(nameof(GetUspNameByKey))]
+        [TestCaseSource(nameof(UspNameByKeys))]
         public void UpdateBetSetting_WhenObjectDbThrowsException_ThrowDataAccessException(string key, string uspName)
         {
             var racingBetSetting = GetRacingBetSetting();
