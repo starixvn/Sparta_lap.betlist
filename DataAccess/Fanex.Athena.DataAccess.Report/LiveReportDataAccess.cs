@@ -23,6 +23,8 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Data;
     using Model.Core.DataDomain;
     using Model.Core.Helper;
+    using VendorAdapter;
+    using VendorAdapter.Interfaces;
 
     public class LiveReportDataAccess : BaseDataAccess, ILiveReportDataAccess
     {
@@ -33,9 +35,12 @@ namespace Fanex.Athena.DataAccess.Report
 
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
+        private readonly ICacheRefAdapter _cacheRefAdapter;
+
         public LiveReportDataAccess()
         {
             _balanceUpDataAccess = new BalanceUpDataAccess();
+            _cacheRefAdapter = new CacheRefAdapter();
         }
 
         public LiveReportDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
@@ -211,30 +216,6 @@ namespace Fanex.Athena.DataAccess.Report
             db.AddInParameter("liveindicator", DbType.Int32, metaModel.LiveIndicator);
         }
 
-        private static string GetProductNameBySport(string sportType)
-        {
-            var sportId = string.IsNullOrEmpty(sportType) ? 0 : Convert.ToInt32(sportType);
-
-            // 101 -> 104: const from SP to separate names for special bettypes
-            switch (sportId)
-            {
-                case 101:
-                    return CacheRef.GetBettype((int)BetType.MixParlay);
-
-                case 102:
-                    return CacheRef.GetBettype((int)BetType.CombinationMixParlay);
-
-                case 103:
-                    return CacheRef.GetBettype((int)BetType.Outright);
-
-                case 104:
-                    return CacheRef.GetBettypeWithProductName((int)BetType.VirtualSports2MixParlay);
-
-                default:
-                    return CacheRef.GetSportName(sportType);
-            }
-        }
-
         private static IList<LiveReport> ReadDetailByCurrency(IDataReader reader, string currency)
         {
             var list = new List<LiveReport>();
@@ -254,7 +235,7 @@ namespace Fanex.Athena.DataAccess.Report
             return list;
         }
 
-        private static IList<LiveReportByBetType> ReadDetailByBettype(IDataReader reader, IEnumerable<Product> products, string currency)
+        private IList<LiveReportByBetType> ReadDetailByBettype(IDataReader reader, IEnumerable<Product> products, string currency)
         {
             var dataList = new List<LiveReport>();
             while (reader.Read())
@@ -262,7 +243,7 @@ namespace Fanex.Athena.DataAccess.Report
                 var bettype = reader.ToString("bettype");
                 var item = new LiveReport
                 {
-                    ProductName = CacheRef.GetBettype(Convert.ToInt32(bettype), false),
+                    ProductName = _cacheRefAdapter.GetBettype(Convert.ToInt32(bettype), false),
                     ProductCode = reader.ToString("ProductCode")
                 };
                 ReadCommonColumns(reader, currency, item);
@@ -300,6 +281,30 @@ namespace Fanex.Athena.DataAccess.Report
             item.LicenseeWinLoss = reader.ToDecimal("LicenseeWL" + currency);
             item.AmountDue = reader.ToDecimal("AmtDueto3rd" + currency);
             item.BetCount = reader.ToInt("Betcount");
+        }
+
+        private string GetProductNameBySport(string sportType)
+        {
+            var sportId = string.IsNullOrEmpty(sportType) ? 0 : Convert.ToInt32(sportType);
+
+            // 101 -> 104: const from SP to separate names for special bettypes
+            switch (sportId)
+            {
+                case 101:
+                    return _cacheRefAdapter.GetBettype((int)BetType.MixParlay);
+
+                case 102:
+                    return _cacheRefAdapter.GetBettype((int)BetType.CombinationMixParlay);
+
+                case 103:
+                    return _cacheRefAdapter.GetBettype((int)BetType.Outright);
+
+                case 104:
+                    return _cacheRefAdapter.GetBettypeWithProductName((int)BetType.VirtualSports2MixParlay);
+
+                default:
+                    return _cacheRefAdapter.GetSportName(sportType);
+            }
         }
     }
 }

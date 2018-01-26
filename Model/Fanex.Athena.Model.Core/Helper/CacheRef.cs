@@ -6,7 +6,6 @@
 namespace Fanex.Athena.Model.Core.Helper
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Threading;
     using Extension.Utility;
@@ -14,13 +13,9 @@ namespace Fanex.Athena.Model.Core.Helper
     using RemotingRef;
     using Resources;
 
-    public sealed class CacheRef
+    public static class CacheRef
     {
         private const string MicrogamingResourceKey = "MG_Casino";
-
-        private CacheRef()
-        {
-        }
 
         public static string GetMicroGamingGameName(string resourceId)
         {
