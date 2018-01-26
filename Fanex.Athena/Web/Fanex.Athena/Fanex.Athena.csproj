@@ -1893,7 +1893,6 @@
     <Content Include="www\js\tests\pages\customer\betsetting\products\betsettingmain-spec.js" />
     <Content Include="www\js\tests\pages\customer\betsetting\products\dcsbetsetting-spec.js" />
     <Content Include="www\js\tests\pages\customer\betsetting\products\keno-spec.js" />
-    <Content Include="www\js\tests\pages\customer\betsetting\products\livecasino-spec.js" />
     <Content Include="www\js\tests\pages\customer\betsetting\products\numbergame-spec.js" />
     <Content Include="www\js\tests\pages\customer\betsetting\products\thirdparty-spec.js" />
     <Content Include="www\js\tests\pages\customer\customercomm\commgroup-spec.js" />

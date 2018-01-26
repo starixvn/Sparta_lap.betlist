@@ -226,19 +226,6 @@ define(modulePath, function ($, Site, Popup, BetSettingHelper, BetSettingValidat
                 expect(BetSettingBase.showConfirmAction).toHaveBeenCalledWith(resourceMessage, custId, userName, nickName, callback);
             });
 
-            it("When Product is LiveCasino - validation return true - BetSettingBase.showConfirmAction should be called", function () {
-                var liveCasinoProduct = 4;
-                $("#ProductId").val(liveCasinoProduct);
-
-                var $target = $("#current");
-                var resourceMessage = "Message";
-                var callback = function () { };
-
-                BetSettingBase.showComfirm($target, resourceMessage, callback);
-
-                expect(BetSettingBase.showConfirmAction).toHaveBeenCalled();
-            });
-
             it("When Product is NumberGame - validation return true - BetSettingValidation.checkValidationNumberGame() should be called", function () {
                 spyOn(BetSettingValidation, "checkValidationNumberGame").and.returnValue(false);
                 var numberGameProduct = 2;

@@ -328,7 +328,6 @@ define(modulePath, function ($, Site, BetSettingBase, BetSettingStatus, BetSetti
         });
 
         describe("updateStatus($context)", function () {
-            var custId = 1, userName = "username", nickName = "nickname";
             var expectedParam = {};
 
             beforeEach(function () {
