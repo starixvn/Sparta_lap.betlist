@@ -1,6 +1,5 @@
 ﻿@using Fanex.Athena.Extension.Helper
 @using Fanex.Athena.Model.Core.DTO.Common
-@using Fanex.Athena.Model.Core.MetaModel.Product
 @using Fanex.Common
 @model Fanex.Athena.Model.Report.ViewModel.MatchWinLossViewModel
 @{
@@ -25,7 +24,7 @@
                 var awayName = matchWinLoss.AwayName;
                 var maxLength = 36;
                 var racingSportTypes = new List<int> { 181, 182, 183, 184, 185 };
-                if (productName.Equals(Product.RB) || productName.Equals(Product.NG) || productName.Equals(Product.LC))
+                if (productName.Equals(Product.RB) || productName.Equals(Product.NG))
                 {
                     if (matchName.Length > maxLength)
                     {
