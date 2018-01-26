@@ -21,14 +21,6 @@ namespace Fanex.Athena.Model.Report.MetaModel
 
         public string SortColumn { get; set; }
 
-        public int NumberOfWeeks
-        {
-            get
-            {
-                return DateTimeHelper.GetWeeks(FromDate, ToDate);
-            }
-        }
-
         public override bool IsValid
         {
             get

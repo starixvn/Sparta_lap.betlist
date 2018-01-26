@@ -111,7 +111,8 @@
             _service.GetData(Arg.Any<WeeklyLiveMatchMetaModel>()).Returns(new WeeklyLiveMatchResultModel
             {
                 TotalData = totalData,
-                DataList = data
+                DataList = data,
+                NumberOfWeeks = NumberOfWeek
             });
 
             var weekHeaders = new[] { "H1", "H2", "H3" };

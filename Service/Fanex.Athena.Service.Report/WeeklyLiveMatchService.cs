@@ -43,7 +43,8 @@ namespace Fanex.Athena.Service.Report
                 new WeeklyLiveMatchResultModel
                 {
                     TotalData = new int[0],
-                    DataList = new List<WeeklyLiveMatch>()
+                    DataList = new List<WeeklyLiveMatch>(),
+                    NumberOfWeeks = 0
                 };
         }
 
