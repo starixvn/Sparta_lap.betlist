@@ -30,9 +30,10 @@ namespace Fanex.Athena.Service.Report
             _cacheRefAdapter = new CacheRefAdapter();
         }
 
-        public SettledMatchCountService(ISettledMatchCountDataAccess settledMatchCountDataAccess)
+        public SettledMatchCountService(ISettledMatchCountDataAccess settledMatchCountDataAccess, ICacheRefAdapter cacheRefAdapter)
         {
             this._settledMatchCountDataAccess = settledMatchCountDataAccess;
+            _cacheRefAdapter = cacheRefAdapter;
         }
 
         public IList<SettledMatchCountViewModel> GetDataList(bool isShowAll, int licenseeId, ProductAccess producAccess)

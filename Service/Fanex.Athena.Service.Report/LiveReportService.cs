@@ -33,9 +33,10 @@ namespace Fanex.Athena.Service.Report
             _cacheRefAdapter = new CacheRefAdapter();
         }
 
-        public LiveReportService(ILiveReportDataAccess dataAccess)
+        public LiveReportService(ILiveReportDataAccess dataAccess, ICacheRefAdapter cacheRefAdapter)
         {
             this._liveReportDataAccess = dataAccess;
+            _cacheRefAdapter = cacheRefAdapter;
         }
 
         public IList<LiveReport> GetLiveReportSummary(LiveReportMetaModel model)

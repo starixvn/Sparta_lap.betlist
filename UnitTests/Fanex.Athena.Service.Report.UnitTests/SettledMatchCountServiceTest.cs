@@ -8,6 +8,7 @@
     using NSubstitute;
     using NUnit.Framework;
     using Report;
+    using VendorAdapter.Interfaces;
 
     public class SettledMatchCountServiceTest
     {
@@ -18,7 +19,7 @@
         public void SetUp()
         {
             _dataAccess = Substitute.For<ISettledMatchCountDataAccess>();
-            _service = new SettledMatchCountService(_dataAccess);
+            _service = new SettledMatchCountService(_dataAccess, Substitute.For<ICacheRefAdapter>());
         }
 
         [TearDown]

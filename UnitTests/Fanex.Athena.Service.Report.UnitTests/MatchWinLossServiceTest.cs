@@ -10,6 +10,7 @@
     using NSubstitute;
     using NUnit.Framework;
     using Report;
+    using VendorAdapter.Interfaces;
 
     public class MatchWinLossServiceTest
     {
@@ -20,7 +21,7 @@
         public void SetUp()
         {
             _dataAccess = Substitute.For<IMatchWinLossDataAccess>();
-            _service = new MatchWinLossService(_dataAccess);
+            _service = new MatchWinLossService(_dataAccess, Substitute.For<ICacheRefAdapter>());
         }
 
         [TearDown]

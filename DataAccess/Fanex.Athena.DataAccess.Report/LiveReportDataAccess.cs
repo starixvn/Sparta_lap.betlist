@@ -43,9 +43,10 @@ namespace Fanex.Athena.DataAccess.Report
             _cacheRefAdapter = new CacheRefAdapter();
         }
 
-        public LiveReportDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
+        public LiveReportDataAccess(IBalanceUpDataAccess balanceUpDataAccess, ICacheRefAdapter cacheRefAdapter)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
+            _cacheRefAdapter = cacheRefAdapter;
         }
 
         public IList<LiveReport> GetLiveReportSummary(LiveReportMetaModel metaModel)
@@ -235,6 +236,41 @@ namespace Fanex.Athena.DataAccess.Report
             return list;
         }
 
+        private static void ReadCommonColumns(IDataReader reader, string currency, LiveReport item)
+        {
+            item.TurnOver = reader.ToDecimal("Turnover" + currency);
+            item.CustomerWinLoss = reader.ToDecimal("Winlost" + currency);
+            item.CustomerComm = reader.ToDecimal("PlayerComm" + currency);
+            item.LicenseeComm = reader.ToDecimal("Comm" + currency);
+            item.LicenseeWinLoss = reader.ToDecimal("LicenseeWL" + currency);
+            item.AmountDue = reader.ToDecimal("AmtDueto3rd" + currency);
+            item.BetCount = reader.ToInt("Betcount");
+        }
+
+        private string GetProductNameBySport(string sportType)
+        {
+            var sportId = string.IsNullOrEmpty(sportType) ? 0 : Convert.ToInt32(sportType);
+
+            // 101 -> 104: const from SP to separate names for special bettypes
+            switch (sportId)
+            {
+                case 101:
+                    return _cacheRefAdapter.GetBettype((int)BetType.MixParlay);
+
+                case 102:
+                    return _cacheRefAdapter.GetBettype((int)BetType.CombinationMixParlay);
+
+                case 103:
+                    return _cacheRefAdapter.GetBettype((int)BetType.Outright);
+
+                case 104:
+                    return _cacheRefAdapter.GetBettypeWithProductName((int)BetType.VirtualSports2MixParlay);
+
+                default:
+                    return _cacheRefAdapter.GetSportName(sportType);
+            }
+        }
+
         private IList<LiveReportByBetType> ReadDetailByBettype(IDataReader reader, IEnumerable<Product> products, string currency)
         {
             var dataList = new List<LiveReport>();
@@ -270,41 +306,6 @@ namespace Fanex.Athena.DataAccess.Report
             }
 
             return result;
-        }
-
-        private static void ReadCommonColumns(IDataReader reader, string currency, LiveReport item)
-        {
-            item.TurnOver = reader.ToDecimal("Turnover" + currency);
-            item.CustomerWinLoss = reader.ToDecimal("Winlost" + currency);
-            item.CustomerComm = reader.ToDecimal("PlayerComm" + currency);
-            item.LicenseeComm = reader.ToDecimal("Comm" + currency);
-            item.LicenseeWinLoss = reader.ToDecimal("LicenseeWL" + currency);
-            item.AmountDue = reader.ToDecimal("AmtDueto3rd" + currency);
-            item.BetCount = reader.ToInt("Betcount");
-        }
-
-        private string GetProductNameBySport(string sportType)
-        {
-            var sportId = string.IsNullOrEmpty(sportType) ? 0 : Convert.ToInt32(sportType);
-
-            // 101 -> 104: const from SP to separate names for special bettypes
-            switch (sportId)
-            {
-                case 101:
-                    return _cacheRefAdapter.GetBettype((int)BetType.MixParlay);
-
-                case 102:
-                    return _cacheRefAdapter.GetBettype((int)BetType.CombinationMixParlay);
-
-                case 103:
-                    return _cacheRefAdapter.GetBettype((int)BetType.Outright);
-
-                case 104:
-                    return _cacheRefAdapter.GetBettypeWithProductName((int)BetType.VirtualSports2MixParlay);
-
-                default:
-                    return _cacheRefAdapter.GetSportName(sportType);
-            }
         }
     }
 }

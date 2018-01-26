@@ -11,6 +11,7 @@
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using VendorAdapter.Interfaces;
 
     [TestFixture]
     public class LiveReportDataAccessTest : BaseDataAccessHelperTest<LiveReportDataAccess>
@@ -38,7 +39,7 @@
             balanceUpDataAccess.GetBalanceUp().Returns(_balance);
 
             ObjectDb = Substitute.For<IObjectDb>();
-            DataAccess = Substitute.ForPartsOf<LiveReportDataAccess>(balanceUpDataAccess);
+            DataAccess = Substitute.ForPartsOf<LiveReportDataAccess>(balanceUpDataAccess, Substitute.For<ICacheRefAdapter>());
 
             _metaModel = new LiveReportMetaModel
             {

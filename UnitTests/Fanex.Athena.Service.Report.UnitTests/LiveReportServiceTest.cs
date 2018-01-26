@@ -9,6 +9,7 @@
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using VendorAdapter.Interfaces;
 
     public class LiveReportServiceTest
     {
@@ -19,7 +20,7 @@
         public void SetUp()
         {
             _dataAccess = Substitute.For<ILiveReportDataAccess>();
-            _service = new LiveReportService(_dataAccess);
+            _service = new LiveReportService(_dataAccess, Substitute.For<ICacheRefAdapter>());
         }
 
         [TearDown]

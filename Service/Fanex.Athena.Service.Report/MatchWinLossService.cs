@@ -40,9 +40,10 @@ namespace Fanex.Athena.Service.Report
 
         private readonly ICacheRefAdapter _cacheRefAdapter;
 
-        public MatchWinLossService(IMatchWinLossDataAccess matchWinLossDataAccess)
+        public MatchWinLossService(IMatchWinLossDataAccess matchWinLossDataAccess, ICacheRefAdapter cacheRefAdapter)
         {
             this._matchWinLossDataAccess = matchWinLossDataAccess;
+            _cacheRefAdapter = cacheRefAdapter;
         }
 
         public MatchWinLossService()

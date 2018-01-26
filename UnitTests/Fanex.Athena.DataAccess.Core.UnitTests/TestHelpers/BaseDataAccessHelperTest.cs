@@ -8,7 +8,7 @@
     using UnitTest.Common.Helpers;
 
     [TestFixture]
-    public abstract class BaseDataAccessHelperTest<T> where T : BaseDataAccess
+    public class BaseDataAccessHelperTest<T> where T : BaseDataAccess
     {
         protected IObjectDb ObjectDb { get; set; }
 
