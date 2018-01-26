@@ -5,7 +5,6 @@
     using Fanex.Athena.UnitTest.Common.NUnitExtensions;
     using NSubstitute;
     using NUnit.Framework;
-    using Result.Core.LiveCasino.DTO;
     using Result.Core.Sportsbook.DTO;
     using UnitTest.Common.Helpers;
 
@@ -62,52 +61,6 @@
 
             // Action
             var result = DataAccess.GetMatches<Sportsbook>(_metaModel);
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(result.Count, Is.EqualTo(expectedResult.Count));
-                Assert.That(result[0], Tobe.SameProperties(expectedResult[0]));
-            });
-        }
-
-        [Test]
-        public void GetMatches_TypeIsLiveCasino_ReturnCorrectData()
-        {
-            // Arrange
-            DataAccess.GetObjectDb(Arg.Is(GetMatchesSp)).Returns(ObjectDb);
-
-            Reader.Read().Returns(true, false);
-
-            var readerDataMapping = new Dictionary<string, object>
-            {
-                { "showtime", "showtime" }, { "leagueid", 1 }, { "eventstatus", "win" }, { "finalawayscore", 2 }, { "finalhomescore", 3 },
-                { "eventdate", "03/17/2017" }, { "IsPending", true }, { "kickofftime", "01/01/2017" }, { "IsHTCal", true }, { "Calculate", true },
-                { "betstatus", "betstatus" }, { "homeid2", 4 }
-            };
-            MapReaderData(readerDataMapping);
-
-            var expectedResult = new List<LiveCasino>
-            {
-                new LiveCasino
-                {
-                    ShowTime = "showtime",
-                    LeagueId = 1,
-                    EventStatus = "win",
-                    FinalAwayScore = 2,
-                    FinalHomeScore = 3,
-                    EventDate = new DateTime(2017, 3, 17),
-                    IsPending = true,
-                    KickOffTime = new DateTime(2017, 1, 1),
-                    IsHTCal = true,
-                    Calculate = true,
-                    BetStatus = "betstatus",
-                    Bettype = 4
-                }
-            };
-
-            // Action
-            var result = DataAccess.GetMatches<LiveCasino>(_metaModel);
 
             // Assert
             Assert.Multiple(() =>

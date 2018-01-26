@@ -57,6 +57,7 @@ namespace Fanex.Athena.Controllers.Report.Result
         }
 
 #pragma warning disable S107 // Methods should not have too many parameters
+
         public ResultReportController(
             ILanguageService languageService,
             ISessionService sessionService,
@@ -295,7 +296,7 @@ namespace Fanex.Athena.Controllers.Report.Result
             {
                 limitedSports = limitedSports.Where(i => i.SportId != (int)SportType.NumberGame);
             }
-            
+
             if (!productAccess.IsAllowRB)
             {
                 limitedSports = limitedSports.Where(i => i.SportId != (int)SportType.HorseRacing
@@ -370,19 +371,6 @@ namespace Fanex.Athena.Controllers.Report.Result
                         {
                             this._htmlResult = _resultService.HtmlParser(dataRc, setting);
                         }
-                    }
-
-                    break;
-
-                case SportType.LiveCasino:
-
-                    var dataLc = _resultService.GetPopUpLiveCasinoMatch(
-                        metalModel.MatchId,
-                        metalModel.Bettype,
-                        metalModel.BetId);
-                    if (dataLc != null)
-                    {
-                        this._htmlResult = _resultService.HtmlParser(dataLc, setting);
                     }
 
                     break;
@@ -511,11 +499,6 @@ namespace Fanex.Athena.Controllers.Report.Result
                 case SportType.VirtualSpeedway:
                     var dataRc = _resultService.GetRacingMatches(metalModel);
                     ParseResult(dataRc, setting, metalModel.IsExportExcel);
-                    break;
-
-                case SportType.LiveCasino:
-                    var dataLc = _resultService.GetLiveCasinoMatches(metalModel);
-                    ParseResult(dataLc, setting, metalModel.IsExportExcel);
                     break;
 
                 case SportType.NumberGame:

@@ -21,7 +21,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
     using Fanex.Data;
-    using Fanex.Result.Core.LiveCasino.DTO;
     using Fanex.Result.Core.NumberGame.DTO;
     using Fanex.Result.Core.Racing.DTO;
     using Fanex.Result.Core.Sportsbook.DTO;
@@ -219,10 +218,6 @@ namespace Fanex.Athena.DataAccess.Report
                         {
                             return (IList<T>)ReadSportbookMatches(reader, bettypeId, betId.HasValue ? betId.Value : 0);
                         }
-                        else if (type == typeof(LiveCasino))
-                        {
-                            return (IList<T>)ReadLiveCasinoMatches(reader);
-                        }
                         else if (type == typeof(Racing))
                         {
                             return (IList<T>)ReadRacingMatches(reader);
@@ -397,10 +392,6 @@ namespace Fanex.Athena.DataAccess.Report
                         if (type == typeof(Sportsbook))
                         {
                             return (IList<T>)ReadSportbookMatches(reader);
-                        }
-                        else if (type == typeof(LiveCasino))
-                        {
-                            return (IList<T>)ReadLiveCasinoMatches(reader);
                         }
                         else
                         {
@@ -578,37 +569,6 @@ namespace Fanex.Athena.DataAccess.Report
             }
 
             return dataList.OrderBy(x => x.LeagueId).ThenBy(x => x.MatchId).ToList();
-        }
-
-        /// <summary>
-        /// Mapping data to Live casino DTO.
-        /// </summary>
-        /// <param name="reader">The data table.</param>
-        /// <returns>The live casino data list.</returns>
-        private static IList<LiveCasino> ReadLiveCasinoMatches(IDataReader reader)
-        {
-            var dataList = new List<LiveCasino>();
-
-            while (reader.Read())
-            {
-                dataList.Add(new LiveCasino
-                {
-                    ShowTime = reader.ToString("showtime"),
-                    LeagueId = reader.ToInt("leagueid"),
-                    EventStatus = reader.ToString("eventstatus"),
-                    FinalAwayScore = reader.ToNullableInt("finalawayscore"),
-                    FinalHomeScore = reader.ToNullableInt("finalhomescore"),
-                    EventDate = DateTime.Parse(reader.ToString("eventdate")),
-                    IsPending = reader.ToBool("IsPending"),
-                    KickOffTime = DateTime.Parse(reader.ToString("kickofftime")),
-                    IsHTCal = reader.ToBool("IsHTCal"),
-                    Calculate = reader.ToBool("Calculate"),
-                    BetStatus = reader["betstatus"] != DBNull.Value ? reader.ToString("betstatus") : string.Empty,
-                    Bettype = reader.ToInt("homeid2")
-                });
-            }
-
-            return dataList;
         }
 
         /// <summary>
