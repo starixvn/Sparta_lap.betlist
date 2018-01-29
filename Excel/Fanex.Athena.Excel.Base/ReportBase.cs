@@ -76,6 +76,14 @@ namespace Fanex.Athena.Excel.Base
 
         public virtual IWorkbook Workbook { get; private set; }
 
+        protected virtual int NumberOfSheets
+        {
+            get
+            {
+                return GetNumberOfSheets(_totalRows, PageSize);
+            }
+        }
+
         public virtual void Export()
         {
             LoadTemplate();
@@ -147,8 +155,7 @@ namespace Fanex.Athena.Excel.Base
             }
             else
             {
-                var numOfSheet = GetNumberOfSheets(_totalRows, PageSize);
-                for (int i = 0; i < numOfSheet; i++)
+                for (int i = 0; i < NumberOfSheets; i++)
                 {
                     sheet = Workbook.CloneSheet("Template", "Data" + (i + 1).ToString());
                     AssignTitle(sheet);
