@@ -17,5 +17,7 @@
         string GetSportName(object sportId, string languageCode = null);
 
         string GetTeamName(object teamId);
+
+        string GetOddsTypeName(object oddsTypeId);
     }
 }

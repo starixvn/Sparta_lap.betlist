@@ -21,7 +21,6 @@
     using Service.BetList.Interfaces;
     using VendorAdapter;
     using VendorAdapter.Interfaces;
-    using BetListCacheRef = Fanex.BetList.Core.TicketHelper.CacheRef;
 
     [ApiFunctionAuthorization(PermissionKeys.ReportLastBetsMonitoring)]
     public class LastBetMonitoringBetListController : BaseApiController
@@ -124,35 +123,6 @@
             }
         }
 
-        private static void BuildOdds(LastBetsMonitoringMetaModel metaModel, TicketResult ticketResult, LrfTicket ticket, BetListHTMLBuilder builder)
-        {
-            const string OddStr = "<td data-name=\"Odds\" class=\"bl-odds\"><span class=\"underdog {1}\">{0}</span><br><span class=\"oddstype\">{2}</span></td>";
-            if (metaModel == null)
-            {
-                return;
-            }
-
-            if (string.IsNullOrEmpty(metaModel.OddsType)
-                || !ConvertingDecimalOddsBetType.Contains(ticket.BetTypeId))
-            {
-                builder.AddOdds(
-                    ticket,
-                    ticketResult.TicketDataList,
-                    "<td data-name=\"Odds\" class='bl-odds'>",
-                    "</td>",
-                    BetListCacheRef.GetOddsTypeName);
-            }
-            else
-            {
-                builder.Append(
-                    string.Format(
-                        OddStr,
-                        Fanex.BetList.Core.Utils.ConvertByBetType.Odds(ticket.Odds),
-                        ticket.Odds < 0 ? "negative" : string.Empty,
-                        metaModel.OddsType));
-            }
-        }
-
         private static string GetPlatformText(string platformCode)
         {
             var code = platformCode.Trim();
@@ -227,6 +197,35 @@
             }
 
             return string.Empty;
+        }
+
+        private void BuildOdds(LastBetsMonitoringMetaModel metaModel, TicketResult ticketResult, LrfTicket ticket, BetListHTMLBuilder builder)
+        {
+            const string OddStr = "<td data-name=\"Odds\" class=\"bl-odds\"><span class=\"underdog {1}\">{0}</span><br><span class=\"oddstype\">{2}</span></td>";
+            if (metaModel == null)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(metaModel.OddsType)
+                || !ConvertingDecimalOddsBetType.Contains(ticket.BetTypeId))
+            {
+                builder.AddOdds(
+                    ticket,
+                    ticketResult.TicketDataList,
+                    "<td data-name=\"Odds\" class='bl-odds'>",
+                    "</td>",
+                    _cacheRefAdapter.GetOddsTypeName);
+            }
+            else
+            {
+                builder.Append(
+                    string.Format(
+                        OddStr,
+                        Fanex.BetList.Core.Utils.ConvertByBetType.Odds(ticket.Odds),
+                        ticket.Odds < 0 ? "negative" : string.Empty,
+                        metaModel.OddsType));
+            }
         }
     }
 }

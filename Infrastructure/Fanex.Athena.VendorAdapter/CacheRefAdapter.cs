@@ -7,6 +7,7 @@ using Fanex.Athena.Model.Core.Helper;
 using Fanex.Athena.Resources;
 using Fanex.Athena.VendorAdapter.Interfaces;
 using RemotingRef;
+using BetListCacheRef = Fanex.BetList.Core.TicketHelper.CacheRef;
 
 namespace Fanex.Athena.VendorAdapter
 {
@@ -90,6 +91,11 @@ namespace Fanex.Athena.VendorAdapter
         public string[] GetCombinationTypeCombo(string betTeam, string betCheck, decimal handicap1, decimal handicap2)
         {
             return RefData.GetCombinationTypeCombo(betTeam, betCheck, Convert.ToInt32(handicap1), Convert.ToInt32(handicap2), GetCurrentIBCLanguageCode());
+        }
+
+        public string GetOddsTypeName(object oddsTypeId)
+        {
+            return BetListCacheRef.GetOddsTypeName(oddsTypeId);
         }
 
         private static string GetCurrentIBCLanguageCode(string languageCode = null)

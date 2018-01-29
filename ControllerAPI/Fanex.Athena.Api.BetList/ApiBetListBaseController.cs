@@ -26,6 +26,8 @@ namespace Fanex.Athena.Api.BetList
     using Fanex.BetList.Core.TicketHelper;
     using Model.Core.DTO.Configuration;
     using Service.BetList.Helpers;
+    using VendorAdapter;
+    using VendorAdapter.Interfaces;
 
     #endregion Using
 
@@ -39,11 +41,14 @@ namespace Fanex.Athena.Api.BetList
 
         private readonly ITicketHelper _ticketHelper;
 
+        private readonly ICacheRefAdapter _cacheRefAdapter;
+
         public ApiBetListBaseController()
         {
             _betListService = new BetListService();
             _balanceUpDataAccess = new BalanceUpDataAccess();
             _ticketHelper = new TicketHelper();
+            _cacheRefAdapter = new CacheRefAdapter();
         }
 
         [System.CLSCompliant(false)]
@@ -90,7 +95,7 @@ namespace Fanex.Athena.Api.BetList
                     TransTime = builder.BuildTrans(ticket),
                     Status = builder.BuildLrfStatus(ticket, _ticketHelper, ticketResult.TicketDataList, metaModel),
                     Choice = builder.BuildChoice(ticket, _ticketHelper, ticketResult.TicketDataList, false),
-                    Odds = builder.BuildOdds(ticket, ticketResult.TicketDataList, CacheRef.GetOddsTypeName),
+                    Odds = builder.BuildOdds(ticket, ticketResult.TicketDataList, _cacheRefAdapter.GetOddsTypeName),
                     Stake = builder.BuildStake(ticket),
                     LicenseeWL = builder.BuildLicenseeWL(ticket),
                     WinLoss = builder.BuildCustomerWL(ticket, showPlayerComm),
@@ -126,7 +131,7 @@ namespace Fanex.Athena.Api.BetList
             var firstOrDefault = ticketResult.MainTicketList.FirstOrDefault();
             if (firstOrDefault != null)
             {
-                leagueName = CacheRef.GetLeagueName(firstOrDefault.LeagueId);
+                leagueName = _cacheRefAdapter.GetLeagueName(firstOrDefault.LeagueId);
             }
 
             return new
