@@ -15,7 +15,6 @@ namespace Fanex.Athena.Excel.Report
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using VendorAdapter.Interfaces;
     using Base;
     using Base.Entities;
     using Base.Helpers;
@@ -24,11 +23,11 @@ namespace Fanex.Athena.Excel.Report
     using Fanex.Athena.Excel.Base.Extension;
     using Helpers;
     using Model.Core.DataDomain;
-    using Model.Core.Helper;
     using Model.Report.MetaModel;
     using NPOI.SS.UserModel;
     using Resources;
     using VendorAdapter;
+    using VendorAdapter.Interfaces;
 
     /// <summary>
     /// Match Win Loss report - Export excel.
@@ -419,8 +418,8 @@ namespace Fanex.Athena.Excel.Report
                 var dataRow = exportData[i];
                 var betTypeRow = sheet.CopyRow(TemplateSheet, RowSpecialBetTypeTemplate, currentRowIndex);
                 var betType = Converter.ToInt(dataRow["bettype"]);
-                var betTypeName = betType == (int)BetType.VirtualSports2MixParlay ? 
-                    _cacheRefAdapter.GetBettypeWithProductName(betType) : 
+                var betTypeName = betType == (int)BetType.VirtualSports2MixParlay ?
+                    _cacheRefAdapter.GetBettypeWithProductName(betType) :
                     _cacheRefAdapter.GetBettype(betType, false);
 
                 betTypeRow.Cells[0].SetCellValue(betTypeName);

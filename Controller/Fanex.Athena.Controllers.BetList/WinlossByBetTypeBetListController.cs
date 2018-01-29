@@ -56,7 +56,7 @@
             var title = string.Format(
                 "{0} - {1} - {2} → {3} - {4}",
                 ViewResources.BetList,
-                CacheRef.GetBettype(metaModel.BetType),
+                CacheRefAdapter.GetBettype(metaModel.BetType),
                 metaModel.FromDate.ToString(FormatKey.ShortDateFormat),
                 metaModel.ToDate.ToString(FormatKey.ShortDateFormat),
                 viewinCurrency);

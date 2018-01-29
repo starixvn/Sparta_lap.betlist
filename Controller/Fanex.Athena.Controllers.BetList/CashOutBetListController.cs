@@ -113,7 +113,7 @@
                 TransTime = builder.BuildTrans(ticket),
                 Status = statusHtml.ToString(),
                 Choice = builder.BuildChoice(ticket, ticketHelper, null, false),
-                Odds = builder.BuildOdds(ticket, null, CacheRef.GetOddsTypeName),
+                Odds = builder.BuildOdds(ticket, null, CacheRefAdapter.GetOddsTypeName),
                 Stake = builder.BuildStake(ticket),
                 WinLoss = builder.BuildCustomerWL(ticket, showPlayerComm)
             };

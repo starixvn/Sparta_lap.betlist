@@ -108,14 +108,14 @@ namespace Fanex.Athena.Controllers.BetList
             };
 
             var matchName = metaModel.HomeId > 0 && metaModel.AwayId > 0
-                  ? CacheRef.GetTeamName(metaModel.HomeId) + " vs " + CacheRef.GetTeamName(metaModel.AwayId) + " - "
+                  ? CacheRefAdapter.GetTeamName(metaModel.HomeId) + " vs " + CacheRefAdapter.GetTeamName(metaModel.AwayId) + " - "
                   : string.Empty;
             var currencyTitle = GetViewInCurrency(metaModel);
 
             var title = ViewResources.BetList
                 + string.Format(
                 " - {0}{1} - {2}",
-                matchName + (metaModel.BetType > 0 ? CacheRef.GetBettype(metaModel.BetType) + " - " : string.Empty),
+                matchName + (metaModel.BetType > 0 ? CacheRefAdapter.GetBettype(metaModel.BetType) + " - " : string.Empty),
                 metaModel.FromDate.ToShortDateString(),
                 currencyTitle);
 

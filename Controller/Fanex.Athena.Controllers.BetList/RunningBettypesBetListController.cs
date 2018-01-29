@@ -111,7 +111,7 @@ namespace Fanex.Athena.Controllers.BetList
             var firstBettype = metaModel.MultipleBettype.Split(',').FirstOrDefault();
             var title = string.Format(
                "{0} - {1}",
-               CacheRef.GetBettype(firstBettype),
+               CacheRefAdapter.GetBettype(firstBettype),
                GetViewInCurrency(metaModel));
 
             var excel = new BetListExcel(showingOption, metaModel.LicenseeId, HiddenColumnIndexes, true);

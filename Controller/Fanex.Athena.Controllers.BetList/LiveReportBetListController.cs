@@ -8,14 +8,22 @@
     using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
-    using Fanex.Athena.Model.Core.Helper;
     using Fanex.Athena.Web.ResultExtension;
     using Resources;
+    using VendorAdapter;
+    using VendorAdapter.Interfaces;
     using Web.ActionFilter;
 
     [FunctionAuthorization(PermissionKeys.ReportLiveReport)]
     public class LiveReportBetListController : BetListBaseController
     {
+        private readonly ICacheRefAdapter _cacheRefAdapter;
+
+        public LiveReportBetListController()
+        {
+            _cacheRefAdapter = new CacheRefAdapter();
+        }
+
         [HttpGet]
         public ActionResult Match(LiveReportBetListMetaModel metaModel)
         {
@@ -57,7 +65,7 @@
         [HttpGet]
         public ActionResult Racing(LiveReportBetListMetaModel metaModel)
         {
-            var sportName = CacheRef.GetSportName(metaModel.SportType);
+            var sportName = _cacheRefAdapter.GetSportName(metaModel.SportType);
             return ProcessRequest(
                 metaModel,
                 "Lrf_BetList_LiveReport_SelWinlossRacing",
@@ -69,7 +77,7 @@
         [HttpGet]
         public ActionResult VirtualSports(LiveReportBetListMetaModel metaModel)
         {
-            var sportName = CacheRef.GetSportName(metaModel.SportType);
+            var sportName = _cacheRefAdapter.GetSportName(metaModel.SportType);
             return ProcessRequest(
                 metaModel,
                 "Lrf_BetList_LiveReport_SelWinlossVHRacing",
@@ -78,10 +86,10 @@
                 sportName);
         }
 
-        private static string GetMatchName(LiveReportBetListMetaModel model)
+        private string GetMatchName(LiveReportBetListMetaModel model)
         {
             return model.HomeId > 0 && model.AwayId > 0
-                                ? CacheRef.GetTeamName(model.HomeId) + " vs " + CacheRef.GetTeamName(model.AwayId) + " "
+                                ? _cacheRefAdapter.GetTeamName(model.HomeId) + " vs " + _cacheRefAdapter.GetTeamName(model.AwayId) + " "
                                 : string.Empty;
         }
 
@@ -104,7 +112,7 @@
             if (model.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(model.CurrencyId))
             {
                 var betlistCaption = string.IsNullOrEmpty(caption) ?
-                    GetMatchName(model) + CacheRef.GetBettype(model.BetType) :
+                    GetMatchName(model) + _cacheRefAdapter.GetBettype(model.BetType) :
                     caption;
                 var viewInCaption = string.Format(ViewResources.Viewin, model.IsConvert ? model.BaseCurrency.ToUpperInvariant() : model.CurrencyName);
                 var title = ViewResources.BetList

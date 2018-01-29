@@ -38,7 +38,7 @@ namespace Fanex.Athena.Controllers.BetList
             var firstTicket = ticketResult.MainTicketList.FirstOrDefault();
             if (ticketResult.MainTicketList.Any() && firstTicket != null)
             {
-                leagueName = CacheRef.GetLeagueName(firstTicket.LeagueId);
+                leagueName = CacheRefAdapter.GetLeagueName(firstTicket.LeagueId);
             }
 
             var bettype = metaModel.BetType;
@@ -49,7 +49,7 @@ namespace Fanex.Athena.Controllers.BetList
 
             var title = leagueName + " - " + string.Format(
                 "{0} - {1}",
-                CacheRef.GetBettype(bettype),
+                CacheRefAdapter.GetBettype(bettype),
                 GetViewInCurrency(metaModel));
             return ProcessExportExcel(metaModel, ticketResult, HiddenColumnIndexes, title, "RunningBetList");
         }

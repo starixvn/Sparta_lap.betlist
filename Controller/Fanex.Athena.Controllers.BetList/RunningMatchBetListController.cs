@@ -39,12 +39,12 @@ namespace Fanex.Athena.Controllers.BetList
             var firstTicket = ticketResult.MainTicketList.FirstOrDefault();
             if (ticketResult.MainTicketList.Any() && firstTicket != null)
             {
-                leagueName = CacheRef.GetLeagueName(firstTicket.LeagueId);
+                leagueName = CacheRefAdapter.GetLeagueName(firstTicket.LeagueId);
             }
 
             var title = leagueName + " - " + string.Format(
                 "{0} - {1}",
-                CacheRef.GetBettype(metaModel.BetType),
+                CacheRefAdapter.GetBettype(metaModel.BetType),
                 GetViewInCurrency(metaModel));
             
             return ProcessExportExcel(metaModel, ticketResult, HiddenColumnIndexes, title, "RunningBetList");

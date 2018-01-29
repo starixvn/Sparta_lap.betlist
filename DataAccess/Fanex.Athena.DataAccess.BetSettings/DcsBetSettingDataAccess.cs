@@ -10,7 +10,8 @@
     using Model.BetSettings.DTO;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
-    using Model.Core.Helper;
+    using VendorAdapter;
+    using VendorAdapter.Interfaces;
 
     public class DcsBetSettingDataAccess : BaseDataAccess, IDcsBetSettingDataAccess
     {
@@ -37,6 +38,13 @@
             { ProductTypes.Lottery, 1021 },
             { ProductTypes.Exchange, 8001 }
         };
+
+        private readonly ICacheRefAdapter _cacheRefAdapter;
+
+        public DcsBetSettingDataAccess()
+        {
+            _cacheRefAdapter = new CacheRefAdapter();
+        }
 
         public bool? GetStatus(int custId, int productId)
         {
@@ -106,7 +114,7 @@
                         MaxPerMatch = reader.ToDecimal("maxpermatch"),
                         MaxPerMatchMax = reader.ToDecimal("maxpermatchmax"),
                         SportId = sportId,
-                        BetSettingType = CacheRef.GetSportName(sportId),
+                        BetSettingType = _cacheRefAdapter.GetSportName(sportId),
                         BetType = reader.ToInt("bettype")
                     };
 

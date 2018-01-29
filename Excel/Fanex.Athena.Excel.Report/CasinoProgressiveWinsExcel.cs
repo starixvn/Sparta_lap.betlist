@@ -11,7 +11,6 @@ namespace Fanex.Athena.Excel.Report
     using Base;
     using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
-    using Fanex.Athena.Model.Core.Helper;
     using Helpers;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
@@ -20,6 +19,8 @@ namespace Fanex.Athena.Excel.Report
     using NPOI.HSSF.Util;
     using NPOI.SS.UserModel;
     using Resources;
+    using VendorAdapter;
+    using VendorAdapter.Interfaces;
 
     public class CasinoProgressiveWinsExcel : ReportBase
     {
@@ -40,6 +41,8 @@ namespace Fanex.Athena.Excel.Report
 
         private readonly ConvertingOption _convertingOption;
 
+        private readonly ICacheRefAdapter _cacheRefAdapter;
+
         private IFont _boldBlackFont;
         private IFont _boldBlueFont;
 
@@ -49,6 +52,7 @@ namespace Fanex.Athena.Excel.Report
                 CasinoProgressiveWinsViewModel viewModel)
             : base(templatePath, viewModel.DataList.Count())
         {
+            _cacheRefAdapter = new CacheRefAdapter();
             _convertingOption = convertingOption;
             _metaModel = viewModel.Param;
             _dataList = viewModel.DataList;
@@ -115,9 +119,9 @@ namespace Fanex.Athena.Excel.Report
 
         private HSSFRichTextString GetChoiceText(CasinoProgressiveWins data)
         {
-            var gameName = CacheRef.GetMicroGamingGameName(data.TransDesc);
-            var betTypeName = CacheRef.GetBettype(data.BetType);
-            var sportTypeName = CacheRef.GetSportName(data.SportType);
+            var gameName = _cacheRefAdapter.GetMicroGamingGameName(data.TransDesc);
+            var betTypeName = _cacheRefAdapter.GetBettype(data.BetType);
+            var sportTypeName = _cacheRefAdapter.GetSportName(data.SportType);
 
             var choiceText = string.Format("{0}\n{1} {2}", gameName, sportTypeName, betTypeName);
 

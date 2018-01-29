@@ -11,11 +11,12 @@ namespace Fanex.Athena.Excel.Report
     using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
     using Helpers;
-    using Model.Core.Helper;
     using Model.Report.DTO;
     using Model.Report.ViewModel;
     using NPOI.SS.UserModel;
     using Resources;
+    using VendorAdapter;
+    using VendorAdapter.Interfaces;
 
     /// <summary>
     /// Daily racing win loss - Export excel.
@@ -42,6 +43,12 @@ namespace Fanex.Athena.Excel.Report
 
         private readonly ConvertingOption _convertingOption;
 
+        private readonly DailyRacingWinLossViewModel _viewModel;
+
+        private readonly DailyRacingWinLossData _dailyRacingWinLossData;
+
+        private readonly ICacheRefAdapter _cacheRefAdapter;
+
         protected internal DailyRacingWinLossExcel()
             : base(string.Empty, 0)
         {
@@ -54,21 +61,10 @@ namespace Fanex.Athena.Excel.Report
                                        DailyRacingWinLossViewModel viewModel)
             : base(templatePath, viewModel.DailyRacingWinLossData.ContentData.Count, showingOption)
         {
+            _cacheRefAdapter = new CacheRefAdapter();
             _convertingOption = convertingOption;
-            ViewModel = viewModel;
-            DailyRacingWinLossData = viewModel.DailyRacingWinLossData;
-        }
-
-        protected DailyRacingWinLossData DailyRacingWinLossData
-        {
-            get;
-            set;
-        }
-
-        protected DailyRacingWinLossViewModel ViewModel
-        {
-            get;
-            set;
+            _viewModel = viewModel;
+            _dailyRacingWinLossData = viewModel.DailyRacingWinLossData;
         }
 
         protected override void AssignHeader(ISheet sheet)
@@ -101,8 +97,8 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         protected override void AssignSheetData(ISheet sheet)
         {
-            var contentData = DailyRacingWinLossData.ContentData;
-            var contentTotalData = DailyRacingWinLossData.ContentTotalData;
+            var contentData = _dailyRacingWinLossData.ContentData;
+            var contentTotalData = _dailyRacingWinLossData.ContentTotalData;
 
             var currentRow = RowContentStart;
 
@@ -144,7 +140,7 @@ namespace Fanex.Athena.Excel.Report
             var reportTitle = string.Format(
                                         ViewResources.DailyRacingTitle,
                                         string.Empty,
-                                        ViewModel.Param.Date.ToString(FormatDate),
+                                        _viewModel.Param.Date.ToString(FormatDate),
                                         ReportExcelHelper.GetTitleCurrencyName(_convertingOption));
 
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
@@ -258,11 +254,11 @@ namespace Fanex.Athena.Excel.Report
         }
 
         // DataRow exportRow
-        private static string GetMatchName(DailyRacingWinLoss dailyRacingWinLoss)
+        private string GetMatchName(DailyRacingWinLoss dailyRacingWinLoss)
         {
             var leageId = dailyRacingWinLoss.LeagueId;
             var curCurrency = dailyRacingWinLoss.CurrencyName.Trim(); // Save the current Currency
-            return CacheRef.GetLeagueName(leageId) + " - " + curCurrency;
+            return _cacheRefAdapter.GetLeagueName(leageId) + " - " + curCurrency;
         }
 
         /// <summary>
@@ -273,7 +269,7 @@ namespace Fanex.Athena.Excel.Report
         private void AssignTotalData(ISheet sheet, int currentRow)
         {
             // Total currency
-            var currencyTotalData = DailyRacingWinLossData.CurrencyTotalData;
+            var currencyTotalData = _dailyRacingWinLossData.CurrencyTotalData;
             foreach (string currencyName in currencyTotalData.Keys)
             {
                 var currencyRow = sheet.CopyRow(TemplateSheet, RowTotalCurrencyTemplate, currentRow);
@@ -286,22 +282,22 @@ namespace Fanex.Athena.Excel.Report
 
             // Grand Total
             var grandTotalMyrRow = sheet.CopyRow(TemplateSheet, RowGrandTotalTemplate, currentRow);
-            AssignDataMyr(grandTotalMyrRow, DailyRacingWinLossData.GrandTotalData, ViewResources.GrandTotalIn + " " + ViewResources.MYR, string.Empty);
+            AssignDataMyr(grandTotalMyrRow, _dailyRacingWinLossData.GrandTotalData, ViewResources.GrandTotalIn + " " + ViewResources.MYR, string.Empty);
             sheet.MergeCells(currentRow, 0, currentRow, 1);
             currentRow++;
 
             var grandTotalEurRow = sheet.CopyRow(TemplateSheet, RowGrandTotalTemplate + 1, currentRow);
-            AssignDataEur(grandTotalEurRow, DailyRacingWinLossData.GrandTotalData, ViewResources.GrandTotalIn + " " + ViewResources.EUR, string.Empty);
+            AssignDataEur(grandTotalEurRow, _dailyRacingWinLossData.GrandTotalData, ViewResources.GrandTotalIn + " " + ViewResources.EUR, string.Empty);
             sheet.MergeCells(currentRow, 0, currentRow, 1);
             currentRow++;
 
             var grandTotalUsdRow = sheet.CopyRow(TemplateSheet, RowGrandTotalTemplate + 1, currentRow);
-            AssignDataUsd(grandTotalUsdRow, DailyRacingWinLossData.GrandTotalData, ViewResources.GrandTotalIn + " " + ViewResources.USD, string.Empty);
+            AssignDataUsd(grandTotalUsdRow, _dailyRacingWinLossData.GrandTotalData, ViewResources.GrandTotalIn + " " + ViewResources.USD, string.Empty);
             sheet.MergeCells(currentRow, 0, currentRow, 1);
             currentRow++;
 
             var grandTotalGbpRow = sheet.CopyRow(TemplateSheet, RowGrandTotalTemplate + 1, currentRow);
-            AssignDataGbp(grandTotalGbpRow, DailyRacingWinLossData.GrandTotalData, ViewResources.GrandTotalIn + " " + ViewResources.GBP, string.Empty);
+            AssignDataGbp(grandTotalGbpRow, _dailyRacingWinLossData.GrandTotalData, ViewResources.GrandTotalIn + " " + ViewResources.GBP, string.Empty);
             sheet.MergeCells(currentRow, 0, currentRow, 1);
         }
     }

@@ -16,6 +16,8 @@ namespace Fanex.Athena.Excel.Report
     using Model.Report.ViewModel;
     using NPOI.SS.UserModel;
     using Resources;
+    using VendorAdapter;
+    using VendorAdapter.Interfaces;
 
     /// <summary>
     /// Daily racing win-loss.
@@ -51,6 +53,8 @@ namespace Fanex.Athena.Excel.Report
 
         private readonly DailyRacingWinLossData _dailyRacingWinLossData;
 
+        private readonly ICacheRefAdapter _cacheRefAdapter;
+
         protected internal DailyRacingWinLoss12BetExcel()
             : base(string.Empty, 0)
         {
@@ -63,6 +67,7 @@ namespace Fanex.Athena.Excel.Report
                                             DailyRacingWinLossViewModel viewModel)
             : base(templatePath, viewModel.DailyRacingWinLossData.ContentData.Count, showingOption)
         {
+            _cacheRefAdapter = new CacheRefAdapter();
             _convertingOption = convertingOption;
             _viewModel = viewModel;
             _dailyRacingWinLossData = viewModel.DailyRacingWinLossData;
@@ -315,11 +320,11 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         /// <param name="dailyRacingWinLoss">The daily racing win-loss.</param>
         /// <returns>Return the match name.</returns>
-        private static string GetMatchName(DailyRacingWinLoss dailyRacingWinLoss)
+        private string GetMatchName(DailyRacingWinLoss dailyRacingWinLoss)
         {
             var leagueId = dailyRacingWinLoss.LeagueId;
             var curCurrency = dailyRacingWinLoss.CurrencyName;
-            return CacheRef.GetLeagueName(leagueId) + " - " + curCurrency;
+            return _cacheRefAdapter.GetLeagueName(leagueId) + " - " + curCurrency;
         }
 
         /// <summary>

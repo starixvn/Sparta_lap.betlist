@@ -105,7 +105,7 @@ namespace Fanex.Athena.Controllers.BetList
             };
 
             var baseCurrency = GetViewInCurrency(metaModel);
-            var title = $"{CacheRef.GetBettype(metaModel.BetType)} - {baseCurrency}";
+            var title = $"{CacheRefAdapter.GetBettype(metaModel.BetType)} - {baseCurrency}";
 
             var excel = new BetListExcel(showingOption, metaModel.LicenseeId, HiddenColumnIndexes, true);
 

@@ -7,7 +7,6 @@
 namespace Fanex.Athena.Excel.BetList
 {
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Base.Extension;
     using Excel.Base.Entities;
@@ -22,6 +21,8 @@ namespace Fanex.Athena.Excel.BetList
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
     using Resources;
+    using VendorAdapter;
+    using VendorAdapter.Interfaces;
 
     public class BetListExcel
     {
@@ -41,6 +42,8 @@ namespace Fanex.Athena.Excel.BetList
 
         private readonly ShowingOption _showingOption;
 
+        private readonly ICacheRefAdapter _cacheRefAdapter;
+
         private ICellStyle _evenCellStyleLeftAligned;
 
         // Default Fonts
@@ -52,6 +55,7 @@ namespace Fanex.Athena.Excel.BetList
 
         public BetListExcel(ShowingOption showingOption, int licenseeId, IEnumerable<int> hiddenColumnIndexes, bool isShowSumStake = false)
         {
+            _cacheRefAdapter = new CacheRefAdapter();
             _appSettings = new AppSettings();
             _licenseeId = licenseeId;
             _ticketHelper = new TicketHelper();
@@ -150,7 +154,7 @@ namespace Fanex.Athena.Excel.BetList
             .AddSystemId(_ticketHelper, ticket.UserName, _oddCellStyleLeftAligned, _evenCellStyleLeftAligned)
             .AddTrans(ticket, _ticketHelper)
             .AddChoice(ticket, _ticketHelper, ticketResult.TicketDataList)
-            .AddOdds(ticket, ticketResult.TicketDataList, CacheRef.GetOddsTypeName)
+            .AddOdds(ticket, ticketResult.TicketDataList, _cacheRefAdapter.GetOddsTypeName)
             .AddStake(ticket)
             .AddCustomerWL(ticket, _showingOption.CustomerCommVisible, _winLossFont)
             .AddBetEffective(ticket, _winLossFont)

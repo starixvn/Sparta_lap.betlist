@@ -25,6 +25,8 @@
     using Service.Core.Users;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility;
+    using VendorAdapter;
+    using VendorAdapter.Interfaces;
     using Web.ResultExtension;
 
     #endregion Using
@@ -51,6 +53,8 @@
 
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
+        private readonly ICacheRefAdapter _cacheRefAdapter;
+
         private readonly IProductService _productService;
 
         private readonly IBetListService _betListService;
@@ -61,11 +65,17 @@
             this._productService = new ProductService();
             this._betListService = new BetListService();
             this._balanceUpDataAccess = new BalanceUpDataAccess();
+            _cacheRefAdapter = new CacheRefAdapter();
         }
 
         protected IProductService ProductService
         {
             get { return _productService; }
+        }
+
+        protected ICacheRefAdapter CacheRefAdapter
+        {
+            get { return _cacheRefAdapter; }
         }
 
         protected IBetListService BetListService

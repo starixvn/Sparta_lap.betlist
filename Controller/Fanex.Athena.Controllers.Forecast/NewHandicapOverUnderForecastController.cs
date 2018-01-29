@@ -11,7 +11,6 @@ namespace Fanex.Athena.Controllers.Forecast
     using System.Linq;
     using System.Web.Mvc;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Model.Core.Helper;
     using Fanex.Athena.Service.Core.Helpers;
     using Model.Core.DataDomain;
     using Model.Forecast.DTO.NewForecastHdpOu;
@@ -19,15 +18,20 @@ namespace Fanex.Athena.Controllers.Forecast
     using Model.Forecast.ViewModel;
     using Service.Core.Common;
     using Service.Core.Common.Interfaces;
+    using VendorAdapter;
+    using VendorAdapter.Interfaces;
     using Web.ActionFilter;
 
     [FunctionAuthorization(PermissionKeys.ForecastHandicapOverUnderLive)]
     public class NewHandicapOverUnderForecastController : ForecastBaseController
     {
+        private readonly ICacheRefAdapter _cacheRefAdapter;
+
         private readonly IMatchService _matchService;
 
         public NewHandicapOverUnderForecastController()
         {
+            _cacheRefAdapter = new CacheRefAdapter();
             _matchService = new MatchService();
         }
 
@@ -110,8 +114,8 @@ namespace Fanex.Athena.Controllers.Forecast
                     AssignDataForNonAjaxRequest(metaModel, model);
                 }
 
-                metaModel.HomeTeamName = CacheRef.GetTeamName(metaModel.HomeTeamId) + (metaModel.IsNeutral ? " (n)" : string.Empty);
-                metaModel.AwayTeamName = CacheRef.GetTeamName(metaModel.AwayTeamId);
+                metaModel.HomeTeamName = _cacheRefAdapter.GetTeamName(metaModel.HomeTeamId) + (metaModel.IsNeutral ? " (n)" : string.Empty);
+                metaModel.AwayTeamName = _cacheRefAdapter.GetTeamName(metaModel.AwayTeamId);
                 model.MainData = ForecastService.GetNewForecastData(metaModel, headerInfo);
                 model.HeaderInfo = headerInfo;
             }
