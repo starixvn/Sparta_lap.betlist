@@ -58,6 +58,7 @@ namespace Fanex.Athena.DataAccess.Report
             var numberOfWeeks = reader.FieldCount <= StartWeekColumnIndex ? 0 : reader.FieldCount - StartWeekColumnIndex;
             var totalData = new int[numberOfWeeks];
 
+            int index = 1;
             while (reader.Read())
             {
                 var item = new WeeklyLiveMatch
@@ -74,20 +75,21 @@ namespace Fanex.Athena.DataAccess.Report
                 }
 
                 item.NumbersOfMatches = numbersOfMatches;
-                if (sortingWeekIndex >= 0)
+                if (sortingWeekIndex >= 0 && sortingWeekIndex < numberOfWeeks)
                 {
                     item.SortingWeekValue = numbersOfMatches[sortingWeekIndex];
                 }
 
+                item.Index = index++;
                 data.Add(item);
             }
 
             if (!string.IsNullOrEmpty(sortColumnName) && !string.IsNullOrEmpty(sortDirection))
             {
                 data = SortData(data, sortColumnName, sortDirection).ToList();
+                AssignPropertyIndex(data);
             }
-
-            AssignPropertyIndex(data);
+          
             return new WeeklyLiveMatchResultModel
             {
                 DataList = data,

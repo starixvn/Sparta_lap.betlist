@@ -77,6 +77,7 @@
         [TestCase(2, 0)]
         [TestCase(3, 1)]
         [TestCase(4, 2)]
+        [TestCase(2, 0)]
         public void GetDataList_WhenCall_ReturnCorrectNumberOfWeeks(int fieldCount, int expectedNumberOfWeeks)
         {
             // Arrange
