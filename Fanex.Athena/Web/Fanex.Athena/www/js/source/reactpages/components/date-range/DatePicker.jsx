@@ -35,11 +35,10 @@ export default class DatePicker extends Component {
         onChange: PropTypes.func,
         onInit: PropTypes.func,
         locale: PropTypes.object,
-        onlyClasses: PropTypes.bool
+        date: PropTypes.oneOfType([PropTypes.object, PropTypes.func, PropTypes.string])
     }
 
     static defaultProps = {
-        onlyClasses: true,
         format: MomentFormat.default
     }
 
@@ -65,7 +64,7 @@ export default class DatePicker extends Component {
     }
 
     render() {
-        const { format, firstDayOfWeek, minDate, maxDate, classNames, onlyClasses } = this.props;
+        const { format, firstDayOfWeek, minDate, maxDate, classNames } = this.props;
         const classes = { ...defaultClasses, ...classNames };
         const { show } = this.state;
 
