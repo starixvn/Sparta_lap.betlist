@@ -8,13 +8,18 @@
     using Model.Report.ViewModel;
     using NSubstitute;
     using NUnit.Framework;
+    using Service.Core.Common.Interfaces;
 
     public class LicenseeWinLossByTimeZoneReportControllerTest : BaseControllerHelperTest
     {
+        private IProductService _productService;
+
         [OneTimeSetUp]
         public override void FixtureSetUp()
         {
             base.FixtureSetUp();
+
+            _productService = Substitute.For<IProductService>();
 
             StubUserSessionData(DefaultUserSession);
             StubLicenseeSessionData(DefaultLicenseeSession);
@@ -47,7 +52,7 @@
                     }
                 };
 
-                ProductService.GetSingleWalletProductAccess(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<string>())
+                _productService.GetSingleWalletProductAccess(Arg.Any<int>(), Arg.Any<string>(), Arg.Any<string>())
                     .Returns(new ProductAccess(productList));
 
                 // Action
@@ -70,7 +75,7 @@
                 SessionService,
                 AppSettings,
                 ClientViewHelper,
-                ProductService);
+                _productService);
             return controller;
         }
     }

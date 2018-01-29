@@ -4,6 +4,7 @@
     using Base.UnitTests;
     using NSubstitute;
     using NUnit.Framework;
+    using Service.Core.Common.Interfaces;
 
     public class WeeklyLiveMatchReportControllerTest : BaseControllerHelperTest
     {
@@ -31,12 +32,14 @@
 
         private WeeklyLiveMatchReportController CreateController()
         {
+            var productService = Substitute.For<IProductService>();
+
             var controller = Substitute.ForPartsOf<WeeklyLiveMatchReportController>(
                 LangService,
                 SessionService,
                 AppSettings,
                 ClientViewHelper,
-                ProductService);
+                productService);
             return controller;
         }
     }

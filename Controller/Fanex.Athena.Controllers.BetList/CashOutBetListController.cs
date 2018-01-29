@@ -6,12 +6,19 @@
     using System.Web.Mvc;
     using DataAccess.BetList;
     using DataAccess.BetList.Interfaces;
+    using DataAccess.Core.Configuration.Interfaces;
+    using Extension.Utility;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Service.BetList.Extensions;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.TicketHelper;
     using Model.BetList.DTO;
     using Resources;
+    using Service.BetList.Interfaces;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
+    using Service.Core.Users.Interfaces;
+    using VendorAdapter.Interfaces;
 
     public class CashOutBetListController : BetListBaseController
     {
@@ -22,7 +29,27 @@
             _cashOutBetListDataAccess = new CashOutBetListDataAccess();
         }
 
-        public CashOutBetListController(ICashOutBetListDataAccess cashOutBetListDataAccess)
+        public CashOutBetListController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
+            IAuthorizationService authorizationService,
+            IProductService productService,
+            IBetListService betListService,
+            IBalanceUpDataAccess balanceUpDataAccess,
+            ICacheRefAdapter cacheRefAdapter,
+            ICashOutBetListDataAccess cashOutBetListDataAccess)
+        : base(
+            languageService, 
+            sessionService, 
+            appSetting, 
+            clientViewHelper, 
+            authorizationService, 
+            productService, 
+            betListService,             
+            balanceUpDataAccess, 
+            cacheRefAdapter)
         {
             _cashOutBetListDataAccess = cashOutBetListDataAccess;
         }
@@ -43,6 +70,11 @@
 
             viewModel.IsCashOut = metaModel.IsCashOut;
             return this.View("~/Views/BetList/CashOutDetail/Main.cshtml", viewModel);
+        }
+
+        protected internal virtual BetListHTMLBuilder CreateBetListHTMLBuilder()
+        {
+            return new BetListHTMLBuilder();
         }
 
         private static bool IsCashOutBetTicket(long betdaqid, int bettype)
@@ -98,7 +130,7 @@
 
             var licenseeSession = SessionService.LicenseeSession;
             var showPlayerComm = licenseeSession.IsAllowedCustomerComm;
-            var builder = new BetListHTMLBuilder();
+            var builder = CreateBetListHTMLBuilder();
             var ticketHelper = new TicketHelper
             {
                 HideStatusCashOutHistory = true

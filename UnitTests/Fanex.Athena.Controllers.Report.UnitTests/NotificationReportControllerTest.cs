@@ -6,6 +6,7 @@
     using Model.Report.ViewModel;
     using NSubstitute;
     using NUnit.Framework;
+    using Service.Core.Common.Interfaces;
 
     public class NotificationReportControllerTest : BaseControllerHelperTest
     {
@@ -51,12 +52,14 @@
 
         private NotificationReportController CreateController()
         {
+            var productService = Substitute.For<IProductService>();
+
             var controller = Substitute.ForPartsOf<NotificationReportController>(
                 LangService,
                 SessionService,
                 AppSettings,
                 ClientViewHelper,
-                ProductService);
+                productService);
             return controller;
         }
     }

@@ -24,7 +24,7 @@
 
         protected const string IdentityName = "user";
 
-        protected readonly UserSession DefaultUserSession = new UserSession
+        protected static readonly UserSession DefaultUserSession = new UserSession
         {
             CurrencyList = new Dictionary<int, string> { { 1, "UUS" } },
             ViewType = ClientViewType.Default,
@@ -35,7 +35,7 @@
             FunctionIdList = new List<int>()
         };
 
-        protected readonly LicenseeSession DefaultLicenseeSession = new LicenseeSession
+        protected static readonly LicenseeSession DefaultLicenseeSession = new LicenseeSession
         {
             LicenseeId = 100,
             LicenseeName = "Spondemo"
@@ -53,8 +53,6 @@
 
         protected IClientViewHelper ClientViewHelper { get; set; }
 
-        protected IProductService ProductService { get; set; }
-
         [OneTimeSetUp]
         public virtual void FixtureSetUp()
         {
@@ -67,7 +65,6 @@
                 IsNavigationView = false,
                 ViewPath = (string)x[0]
             });
-            ProductService = Substitute.For<IProductService>();
             SetUpForContexts();
         }
 

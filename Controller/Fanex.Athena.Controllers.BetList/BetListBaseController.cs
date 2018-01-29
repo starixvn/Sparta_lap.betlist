@@ -12,6 +12,7 @@
     using Excel.Base.Entities;
     using Excel.Base.Helpers;
     using Excel.BetList;
+    using Extension.Utility;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Service.BetList;
@@ -22,6 +23,7 @@
     using Model.Core.DTO.Configuration;
     using ONEbook.UM.Filters;
     using Resources;
+    using Service.Core.Helpers;
     using Service.Core.Users;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility;
@@ -62,10 +64,32 @@
         public BetListBaseController()
         {
             _authorizationService = new AuthorizationService();
-            this._productService = new ProductService();
-            this._betListService = new BetListService();
-            this._balanceUpDataAccess = new BalanceUpDataAccess();
+            _productService = new ProductService();
+            _betListService = new BetListService();
+            _balanceUpDataAccess = new BalanceUpDataAccess();
             _cacheRefAdapter = new CacheRefAdapter();
+        }
+
+#pragma warning disable S107 // Methods should not have too many parameters
+
+        public BetListBaseController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
+            IAuthorizationService authorizationService,
+            IProductService productService,
+            IBetListService betListService,
+            IBalanceUpDataAccess balanceUpDataAccess,
+            ICacheRefAdapter cacheRefAdapter)
+#pragma warning restore S107 // Methods should not have too many parameters
+        : base(languageService, sessionService, appSetting, clientViewHelper)
+        {
+            _authorizationService = authorizationService;
+            _productService = productService;
+            _betListService = betListService;
+            _balanceUpDataAccess = balanceUpDataAccess;
+            _cacheRefAdapter = cacheRefAdapter;
         }
 
         protected IProductService ProductService

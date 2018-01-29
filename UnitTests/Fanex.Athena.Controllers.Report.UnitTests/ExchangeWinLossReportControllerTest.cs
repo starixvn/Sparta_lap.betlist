@@ -6,6 +6,7 @@
     using Model.Report.ViewModel;
     using NSubstitute;
     using NUnit.Framework;
+    using Service.Core.Common.Interfaces;
 
     public class ExchangeWinLossReportControllerTest : BaseControllerHelperTest
     {
@@ -58,12 +59,14 @@
 
         private ExchangeWinLossReportController CreateController()
         {
+            var productService = Substitute.For<IProductService>();
+
             var controller = Substitute.ForPartsOf<ExchangeWinLossReportController>(
                 LangService,
                 SessionService,
                 AppSettings,
                 ClientViewHelper,
-                ProductService);
+                productService);
             return controller;
         }
     }

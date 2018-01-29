@@ -10,16 +10,50 @@ namespace Fanex.Athena.Controllers.BetList
 
     using System.Collections.Generic;
     using System.Web.Mvc;
+    using DataAccess.Core.Configuration.Interfaces;
+    using Extension.Utility;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Web.ResultExtension;
     using Resources;
+    using Service.BetList.Interfaces;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
+    using Service.Core.Users.Interfaces;
+    using VendorAdapter.Interfaces;
 
     #endregion Using
 
     public class AGCasinoBetListController : BetListBaseController
     {
+        public AGCasinoBetListController()
+        {
+        }
+
+        public AGCasinoBetListController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
+            IAuthorizationService authorizationService,
+            IProductService productService,
+            IBetListService betListService,
+            IBalanceUpDataAccess balanceUpDataAccess,
+            ICacheRefAdapter cacheRefAdapter)
+        : base(
+            languageService, 
+            sessionService, 
+            appSetting, 
+            clientViewHelper, 
+            authorizationService, 
+            productService, 
+            betListService, 
+            balanceUpDataAccess, 
+            cacheRefAdapter)
+        {
+        }
+
         [HttpGet]
         public ActionResult Detail(BetListMetaModel metaModel)
         {
