@@ -19,6 +19,8 @@
     using Service.BetList;
     using Service.BetList.Helpers;
     using Service.BetList.Interfaces;
+    using VendorAdapter;
+    using VendorAdapter.Interfaces;
     using BetListCacheRef = Fanex.BetList.Core.TicketHelper.CacheRef;
 
     [ApiFunctionAuthorization(PermissionKeys.ReportLastBetsMonitoring)]
@@ -48,11 +50,14 @@
 
         private readonly ITicketHelper _ticketHelper;
 
+        private readonly ICacheRefAdapter _cacheRefAdapter;
+
         public LastBetMonitoringBetListController()
         {
             _matchService = new MatchService();
             _lastBetsMonitoringBetListService = new LastBetsMonitoringBetListService();
             _ticketHelper = new TicketHelper();
+            _cacheRefAdapter = new CacheRefAdapter();
         }
 
         [HttpGet]
@@ -65,7 +70,7 @@
                                       {
                                           IsOutRight = false,
                                           LeagueId = l,
-                                          LeagueName = Model.Core.Helper.CacheRef.GetLeagueName(l)
+                                          LeagueName = _cacheRefAdapter.GetLeagueName(l)
                                       }).ToList();
             var leagueListOutRight = matchList.Where(i => i.IsOutRight).Select(m => m.LeagueId).Distinct()
 
@@ -73,7 +78,7 @@
                                       {
                                           IsOutRight = true,
                                           LeagueId = l,
-                                          LeagueName = Model.Core.Helper.CacheRef.GetLeagueName(l)
+                                          LeagueName = _cacheRefAdapter.GetLeagueName(l)
                                       }).ToList();
 
             var leagueList = leagueListNormal.Union(leagueListOutRight);

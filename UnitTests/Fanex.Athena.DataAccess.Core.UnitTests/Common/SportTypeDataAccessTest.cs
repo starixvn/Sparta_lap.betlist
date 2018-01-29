@@ -82,14 +82,6 @@
         }
 
         [Test]
-        public void GetSportsAndProducts_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                "Lrf_SelSportDetail",
-                () => DataAccess.GetSportsAndProducts(0, string.Empty));
-        }
-
-        [Test]
         public void GetAllSports_WhenCall_ReturnCorrectData()
         {
             // Arrange
@@ -123,12 +115,6 @@
                 Assert.That(result.First().SportId, Is.EqualTo(0));
                 Assert.That(result.ElementAt(1).SportId, Is.EqualTo(SportType));
             });
-        }
-
-        [Test]
-        public void GetAllWHSports_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException("Lrf_SportSel", () => DataAccess.GetAllWHSports());
         }
     }
 }

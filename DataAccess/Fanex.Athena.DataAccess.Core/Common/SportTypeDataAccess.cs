@@ -11,53 +11,53 @@ namespace Fanex.Athena.DataAccess.Core.Common
     using System.Data;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
-    using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Model.Core.Helper;
     using Fanex.Common.Extensions;
-    using Fanex.Data;
     using Resources;
+    using VendorAdapter;
+    using VendorAdapter.Interfaces;
 
     /// <summary>
     ///     TODO: Update summary.
     /// </summary>
     public class SportTypeDataAccess : BaseDataAccess, ISportTypeDataAccess
     {
+        private readonly ICacheRefAdapter _cacheRefAdapter;
+
+        public SportTypeDataAccess()
+        {
+            _cacheRefAdapter = new CacheRefAdapter();
+        }
+
         public IEnumerable<SportProductItem> GetSportsAndProducts(int licenseeId, string languageCode, int? productId = null)
         {
             const string UspName = "Lrf_SelSportDetail";
-            try
+
+            using (var db = this.GetObjectDb(UspName))
             {
-                using (var db = this.GetObjectDb(UspName))
+                db.AddInParameter("licenseeId", DbType.Int32, licenseeId);
+                db.AddInParameter("langkey", DbType.String, languageCode);
+                using (var reader = db.ExecuteReader())
                 {
-                    db.AddInParameter("licenseeId", DbType.Int32, licenseeId);
-                    db.AddInParameter("langkey", DbType.String, languageCode);
-                    using (var reader = db.ExecuteReader())
+                    var result = new List<SportProductItem>();
+                    while (reader.Read())
                     {
-                        var result = new List<SportProductItem>();
-                        while (reader.Read())
+                        var parentId = reader["ParentId"] != DBNull.Value ? reader.ToInt("ParentId") : -1;
+
+                        if (!productId.HasValue || productId == parentId)
                         {
-                            var parentId = reader["ParentId"] != DBNull.Value ? reader.ToInt("ParentId") : -1;
-
-                            if (!productId.HasValue || productId == parentId)
+                            result.Add(new SportProductItem
                             {
-                                result.Add(new SportProductItem
-                                {
-                                    Checked = true,
-                                    ID = reader.ToInt("ID"),
-                                    Name = reader.ToString("Name"),
-                                    ParentId = parentId
-                                });
-                            }
+                                Checked = true,
+                                ID = reader.ToInt("ID"),
+                                Name = reader.ToString("Name"),
+                                ParentId = parentId
+                            });
                         }
-
-                        return result;
                     }
+
+                    return result;
                 }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName);
             }
         }
 
@@ -77,7 +77,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
                     while (reader.Read())
                     {
                         var sportId = reader.ToInt("Sporttype");
-                        var sportName = CacheRef.GetSportName(sportId);
+                        var sportName = _cacheRefAdapter.GetSportName(sportId);
 
                         result.Add(sportId, sportName);
                     }
@@ -91,29 +91,22 @@ namespace Fanex.Athena.DataAccess.Core.Common
         {
             const string UspName = "Lrf_SportSel";
 
-            try
+            using (var db = this.GetObjectDb(UspName))
             {
-                using (var db = this.GetObjectDb(UspName))
+                var result = new List<Sport>();
+                using (var reader = db.ExecuteReader())
                 {
-                    var result = new List<Sport>();
-                    using (var reader = db.ExecuteReader())
+                    while (reader.Read())
                     {
-                        while (reader.Read())
-                        {
-                            var sportId = reader.ToInt("Sporttype");
-                            var sportName = CacheRef.GetSportName(sportId);
+                        var sportId = reader.ToInt("Sporttype");
+                        var sportName = _cacheRefAdapter.GetSportName(sportId);
 
-                            result.Add(new Sport(sportId, sportName));
-                        }
+                        result.Add(new Sport(sportId, sportName));
                     }
-
-                    result.Insert(0, new Sport(0, ViewResources.All));
-                    return result;
                 }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName);
+
+                result.Insert(0, new Sport(0, ViewResources.All));
+                return result;
             }
         }
     }
