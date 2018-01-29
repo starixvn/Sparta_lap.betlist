@@ -58,7 +58,7 @@ namespace Fanex.Athena.DataAccess.Report
             var numberOfWeeks = reader.FieldCount <= StartWeekColumnIndex ? 0 : reader.FieldCount - StartWeekColumnIndex;
             var totalData = new int[numberOfWeeks];
 
-            int index = 1;
+            var index = 1;
             while (reader.Read())
             {
                 var item = new WeeklyLiveMatch
@@ -84,12 +84,8 @@ namespace Fanex.Athena.DataAccess.Report
                 data.Add(item);
             }
 
-            if (!string.IsNullOrEmpty(sortColumnName) && !string.IsNullOrEmpty(sortDirection))
-            {
-                data = SortData(data, sortColumnName, sortDirection).ToList();
-                AssignPropertyIndex(data);
-            }
-          
+            data = SortData(data, sortColumnName, sortDirection);
+
             return new WeeklyLiveMatchResultModel
             {
                 DataList = data,
@@ -98,12 +94,21 @@ namespace Fanex.Athena.DataAccess.Report
             };
         }
 
-        private static IEnumerable<WeeklyLiveMatch> SortData(IEnumerable<WeeklyLiveMatch> data, string sortColumn, string sortDirection)
+        private static List<WeeklyLiveMatch> SortData(List<WeeklyLiveMatch> data, string sortColumn, string sortDirection)
         {
+            if (string.IsNullOrEmpty(sortColumn) || string.IsNullOrEmpty(sortDirection))
+            {
+                return data;
+            }
+
             var isAscending = sortDirection.Equals("asc", StringComparison.OrdinalIgnoreCase);
-            return sortColumn.Equals(CustomSortingWeekColumn) ?
+            var result = sortColumn.Equals(CustomSortingWeekColumn) ?
                 Sort(data, x => x.SortingWeekValue, isAscending).ThenBy(x => x.SportName) :
                 Sort(data, x => x.SportName, isAscending);
+
+            AssignPropertyIndex(result);
+
+            return result.ToList();
         }
 
         private static IOrderedEnumerable<T> Sort<T, TKey>(IEnumerable<T> data, Func<T, TKey> keySelector, bool isAscending = true)
