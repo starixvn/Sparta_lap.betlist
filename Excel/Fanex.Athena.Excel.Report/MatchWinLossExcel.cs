@@ -15,6 +15,7 @@ namespace Fanex.Athena.Excel.Report
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using VendorAdapter.Interfaces;
     using Base;
     using Base.Entities;
     using Base.Helpers;
@@ -27,6 +28,7 @@ namespace Fanex.Athena.Excel.Report
     using Model.Report.MetaModel;
     using NPOI.SS.UserModel;
     using Resources;
+    using VendorAdapter;
 
     /// <summary>
     /// Match Win Loss report - Export excel.
@@ -63,6 +65,8 @@ namespace Fanex.Athena.Excel.Report
 
         private readonly ConvertingOption _convertingOption;
 
+        private readonly ICacheRefAdapter _cacheRefAdapter;
+
         protected internal MatchWinLossExcel()
             : base(string.Empty, 0)
         {
@@ -77,6 +81,7 @@ namespace Fanex.Athena.Excel.Report
                                 MatchWinLossMetaModel model)
             : base(templatePath, exportData.Rows.Count, showingOption)
         {
+            _cacheRefAdapter = new CacheRefAdapter();
             _convertingOption = convertingOption;
             _model = model;
             _exportData = exportData;
@@ -260,7 +265,7 @@ namespace Fanex.Athena.Excel.Report
             return cellIndex;
         }
 
-        private static string GetFormatMatchName(DataRow exportRow, string matchName)
+        private string GetFormatMatchName(DataRow exportRow, string matchName)
         {
             string formatMatchName;
 
@@ -276,9 +281,9 @@ namespace Fanex.Athena.Excel.Report
                     break;
 
                 default:
-                    var homeName = CacheRef.GetTeamName(exportRow["homeid"]) +
+                    var homeName = _cacheRefAdapter.GetTeamName(exportRow["homeid"]) +
                                       (Converter.ToBool(exportRow["isneutral"]) ? " " + "(N)" : string.Empty);
-                    var awayName = CacheRef.GetTeamName(exportRow["awayid"]);
+                    var awayName = _cacheRefAdapter.GetTeamName(exportRow["awayid"]);
                     formatMatchName = homeName + "\n" + awayName;
                     break;
             }
@@ -382,7 +387,7 @@ namespace Fanex.Athena.Excel.Report
                 var betTypeRow = sheet.CopyRow(TemplateSheet, RowBetTypeContentTemplate, currentRow);
                 var betType = Converter.ToInt(matchWinloss["bettype"]);
                 var liveIndicator = Converter.To<bool>(matchWinloss["liveindicator"]);
-                var betTypeName = "         " + CacheRef.GetBettype(betType, liveIndicator);
+                var betTypeName = "         " + _cacheRefAdapter.GetBettype(betType, liveIndicator);
 
                 betTypeRow.Cells[1].SetCellValue(betTypeName);
                 ExcelHelper.AssignRowContent(betTypeRow, matchWinloss, columnNameList, 2);
@@ -414,7 +419,9 @@ namespace Fanex.Athena.Excel.Report
                 var dataRow = exportData[i];
                 var betTypeRow = sheet.CopyRow(TemplateSheet, RowSpecialBetTypeTemplate, currentRowIndex);
                 var betType = Converter.ToInt(dataRow["bettype"]);
-                var betTypeName = betType == (int)BetType.VirtualSports2MixParlay ? CacheRef.GetBettypeWithProductName(betType) : CacheRef.GetBettype(betType, false);
+                var betTypeName = betType == (int)BetType.VirtualSports2MixParlay ? 
+                    _cacheRefAdapter.GetBettypeWithProductName(betType) : 
+                    _cacheRefAdapter.GetBettype(betType, false);
 
                 betTypeRow.Cells[0].SetCellValue(betTypeName);
                 ExcelHelper.AssignRowContent(betTypeRow, dataRow, columnNameList, 2);

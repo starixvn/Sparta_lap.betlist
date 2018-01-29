@@ -18,6 +18,7 @@
     using Report;
     using Service.Core.Common.Interfaces;
     using Service.Report.Interfaces;
+    using VendorAdapter.Interfaces;
 
     [TestFixture]
     public partial class MatchWinLossReportControllerTest : BaseControllerHelperTest
@@ -106,6 +107,7 @@
                 ClientViewHelper,
                 productService,
                 _balanceUpDataAccess,
+                Substitute.For<ICacheRefAdapter>(),
                 _matchWinLossService);
             controller.When(x => x.CreateExcel(string.Empty, null, null, null, null, null)).DoNotCallBase();
             return controller;

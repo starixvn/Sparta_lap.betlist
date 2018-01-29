@@ -27,6 +27,8 @@
     using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Service.Report.Interfaces;
+    using VendorAdapter;
+    using VendorAdapter.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.ReportMatchWinLoss)]
     public class MatchWinLossReportController : ReportBaseController
@@ -35,11 +37,14 @@
 
         private static readonly IList<int> VirtualHrBettypes = new List<int> { 1231, 1232, 1233, 1237, 1238 };
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
+        private readonly ICacheRefAdapter _cacheRefAdapter;
         private readonly IMatchWinLossService _matchWinLossService;
 
-        public MatchWinLossReportController() : this(null, null, null, null, null, null, null)
+        public MatchWinLossReportController() : this(null, null, null, null, null, null, null, null)
         {
         }
+
+#pragma warning disable S107 // Methods should not have too many parameters
 
         public MatchWinLossReportController(
             ILanguageService languageService,
@@ -48,10 +53,13 @@
             IClientViewHelper clientViewHelper,
             IProductService productService,
             IBalanceUpDataAccess balanceUpDataAccess,
+            ICacheRefAdapter cacheRefAdapter,
             IMatchWinLossService matchWinLossService)
+#pragma warning restore S107 // Methods should not have too many parameters
             : base(languageService, sessionService, appSetting, clientViewHelper, productService)
         {
             _balanceUpDataAccess = balanceUpDataAccess ?? new BalanceUpDataAccess();
+            _cacheRefAdapter = cacheRefAdapter ?? new CacheRefAdapter();
             _matchWinLossService = matchWinLossService ?? new MatchWinLossService();
         }
 
@@ -245,9 +253,28 @@
             };
         }
 
-        #region Obsolete
+        private static int GetColumnCount(ProductAccess productAccess, bool isAllowedCustomerComm)
+        {
+            var columnCount = 6;
+            if (productAccess.IsAllowBA)
+            {
+                columnCount += 2;
+            }
 
-        private static DataTable AddColumnsForSorting(DataTable mainTable)
+            if (productAccess.IsAllowRB)
+            {
+                columnCount += 2;
+            }
+
+            if (isAllowedCustomerComm)
+            {
+                columnCount += 2;
+            }
+
+            return columnCount;
+        }
+
+        private DataTable AddColumnsForSorting(DataTable mainTable)
         {
             mainTable.Columns.Add(NewProductIdColumnName, typeof(int));
             mainTable.Columns.Add("matchname", typeof(string));
@@ -266,7 +293,7 @@
             return mainTable;
         }
 
-        private static void AssignMatchName(DataRow row, int betType)
+        private void AssignMatchName(DataRow row, int betType)
         {
             switch ((int)row[NewProductIdColumnName])
             {
@@ -289,23 +316,23 @@
                         break;
                     }
 
-                    var homeName = CacheRef.GetTeamName(row["homeid"]) +
+                    var homeName = _cacheRefAdapter.GetTeamName(row["homeid"]) +
                                    (Converter.ToBool(row["isneutral"])
                                         ? " " + ViewResources.IsNeutral
                                         : string.Empty);
-                    var awayName = CacheRef.GetTeamName(row["awayid"]);
+                    var awayName = _cacheRefAdapter.GetTeamName(row["awayid"]);
                     row["matchname"] = homeName + "-vs-" + awayName;
 
                     break;
             }
         }
 
-        private static void AssignLeagueName(DataRow row)
+        private void AssignLeagueName(DataRow row)
         {
             switch ((int)row[NewProductIdColumnName])
             {
                 case ProductTypes.Racing:
-                    row["leaguename"] = ViewResources.ProductRB + "-" + CacheRef.GetLeagueName(row["leagueid"]);
+                    row["leaguename"] = ViewResources.ProductRB + "-" + _cacheRefAdapter.GetLeagueName(row["leagueid"]);
                     break;
 
                 case ProductTypes.NumberGame:
@@ -313,32 +340,9 @@
                     break;
 
                 default:
-                    row["leaguename"] = CacheRef.GetLeagueName(row["leagueid"]);
+                    row["leaguename"] = _cacheRefAdapter.GetLeagueName(row["leagueid"]);
                     break;
             }
-        }
-
-        #endregion Obsolete
-
-        private static int GetColumnCount(ProductAccess productAccess, bool isAllowedCustomerComm)
-        {
-            var columnCount = 6;
-            if (productAccess.IsAllowBA)
-            {
-                columnCount += 2;
-            }
-
-            if (productAccess.IsAllowRB)
-            {
-                columnCount += 2;
-            }
-
-            if (isAllowedCustomerComm)
-            {
-                columnCount += 2;
-            }
-
-            return columnCount;
         }
     }
 }
