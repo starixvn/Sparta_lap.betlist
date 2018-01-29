@@ -45,7 +45,7 @@ namespace Fanex.Athena.Api.Report
                 metaModel.UserId = SessionService.UserSession.UserId;
                 var result = _weeklyLiveMatchService.GetData(metaModel);
 
-                var weekHeaders = _weeklyLiveMatchService.GetWeekHeaders(metaModel.FromDate, metaModel.ToDate, metaModel.NumberOfWeeks);
+                var weekHeaders = _weeklyLiveMatchService.GetWeekHeaders(metaModel.FromDate, metaModel.ToDate, result.NumberOfWeeks);
                 if (metaModel.IsExportExcel)
                 {
                     return ExportExcel(metaModel, result, weekHeaders);
@@ -56,7 +56,7 @@ namespace Fanex.Athena.Api.Report
                     return new
                     {
                         WeekHeaders = weekHeaders,
-                        NumberOfWeeks = metaModel.NumberOfWeeks,
+                        NumberOfWeeks = result.NumberOfWeeks,
                         Data = result.DataList.Select(MapToGridView).ToArray(),
                         TotalData = result.TotalData
                     };

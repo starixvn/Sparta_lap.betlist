@@ -36,19 +36,17 @@ namespace Fanex.Athena.DataAccess.Report
 
                 using (var reader = db.ExecuteReader())
                 {
-                    return ReadData(metaModel.NumberOfWeeks, reader, metaModel.SortColumn, metaModel.SortDirection);
+                    return ReadData(reader, metaModel.SortColumn, metaModel.SortDirection);
                 }
             }
         }
 
         private static WeeklyLiveMatchResultModel ReadData(
-            int numberOfWeeks,
             IDataReader reader,
             string sortColumn,
             string sortDirection)
         {
             var data = new List<WeeklyLiveMatch>();
-            var totalData = new int[numberOfWeeks];
             var sortingWeekIndex = -1;
             var sortColumnName = sortColumn;
             if (!string.IsNullOrEmpty(sortColumn) && sortColumn.StartsWith("Week", StringComparison.OrdinalIgnoreCase))
@@ -57,6 +55,10 @@ namespace Fanex.Athena.DataAccess.Report
                 sortColumnName = CustomSortingWeekColumn;
             }
 
+            var numberOfWeeks = reader.FieldCount <= StartWeekColumnIndex ? 0 : reader.FieldCount - StartWeekColumnIndex;
+            var totalData = new int[numberOfWeeks];
+
+            var index = 1;
             while (reader.Read())
             {
                 var item = new WeeklyLiveMatch
@@ -73,33 +75,40 @@ namespace Fanex.Athena.DataAccess.Report
                 }
 
                 item.NumbersOfMatches = numbersOfMatches;
-                if (sortingWeekIndex >= 0)
+                if (sortingWeekIndex >= 0 && sortingWeekIndex < numberOfWeeks)
                 {
                     item.SortingWeekValue = numbersOfMatches[sortingWeekIndex];
                 }
 
+                item.Index = index++;
                 data.Add(item);
             }
 
-            if (!string.IsNullOrEmpty(sortColumnName) && !string.IsNullOrEmpty(sortDirection))
-            {
-                data = SortData(data, sortColumnName, sortDirection).ToList();
-            }
+            data = SortData(data, sortColumnName, sortDirection);
 
-            AssignPropertyIndex(data);
             return new WeeklyLiveMatchResultModel
             {
                 DataList = data,
-                TotalData = totalData
+                TotalData = totalData,
+                NumberOfWeeks = numberOfWeeks
             };
         }
 
-        private static IEnumerable<WeeklyLiveMatch> SortData(IEnumerable<WeeklyLiveMatch> data, string sortColumn, string sortDirection)
+        private static List<WeeklyLiveMatch> SortData(List<WeeklyLiveMatch> data, string sortColumn, string sortDirection)
         {
+            if (string.IsNullOrEmpty(sortColumn) || string.IsNullOrEmpty(sortDirection))
+            {
+                return data;
+            }
+
             var isAscending = sortDirection.Equals("asc", StringComparison.OrdinalIgnoreCase);
-            return sortColumn.Equals(CustomSortingWeekColumn) ?
+            var result = sortColumn.Equals(CustomSortingWeekColumn) ?
                 Sort(data, x => x.SortingWeekValue, isAscending).ThenBy(x => x.SportName) :
                 Sort(data, x => x.SportName, isAscending);
+
+            AssignPropertyIndex(result);
+
+            return result.ToList();
         }
 
         private static IOrderedEnumerable<T> Sort<T, TKey>(IEnumerable<T> data, Func<T, TKey> keySelector, bool isAscending = true)

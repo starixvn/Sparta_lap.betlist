@@ -10,7 +10,6 @@ namespace Fanex.Athena.Excel.Report
     using System.Linq;
     using Base;
     using Base.Extension;
-    using Model.Report.DTO;
     using Model.Report.MetaModel;
     using Model.Report.ResultModel;
     using NPOI.SS.UserModel;
@@ -51,7 +50,7 @@ namespace Fanex.Athena.Excel.Report
         protected override void ProcessUI(ISheet sheet)
         {
             AssignTotalRow(sheet, TotalRows + 2);
-            var hiddenColumns = Enumerable.Range(_metaModel.NumberOfWeeks + NumberOfStaticColumns, MaxWeekColumns - _metaModel.NumberOfWeeks);
+            var hiddenColumns = Enumerable.Range(_resultModel.NumberOfWeeks + NumberOfStaticColumns, MaxWeekColumns - _resultModel.NumberOfWeeks);
             sheet.HideColumn(hiddenColumns.ToArray());
         }
 
@@ -102,7 +101,7 @@ namespace Fanex.Athena.Excel.Report
                 row.Cells[ColumnSport].SetCellValue(dataItem.SportName);
 
                 var weekColumnIndex = ColumnSport + 1;
-                for (int i = 0; i < _metaModel.NumberOfWeeks; i++)
+                for (int i = 0; i < _resultModel.NumberOfWeeks; i++)
                 {
                     row.Cells[weekColumnIndex++].SetCellValue(dataItem.NumbersOfMatches.ElementAt(i));
                 }
@@ -118,7 +117,7 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnSport].SetCellValue(ViewResources.Total);
             sheet.MergeCells(rowIndex, 0, rowIndex, 1);
 
-            for (int i = 0; i < _metaModel.NumberOfWeeks; i++)
+            for (int i = 0; i < _resultModel.NumberOfWeeks; i++)
             {
                 row.Cells[cellIndex++].SetCellValue(_resultModel.TotalData[i]);
             }
