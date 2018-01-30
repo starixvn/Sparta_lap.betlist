@@ -139,6 +139,7 @@
     <Compile Include="DailyRacingWinLossBetListControllerTest.cs" />
     <Compile Include="CustomerWinLossBetListControllerTest.cs" />
     <Compile Include="DailyBetListControllerTest.cs" />
+    <Compile Include="GlobalGamingBetListControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
