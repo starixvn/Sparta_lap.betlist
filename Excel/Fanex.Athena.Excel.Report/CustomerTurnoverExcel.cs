@@ -41,7 +41,7 @@ namespace Fanex.Athena.Excel.Report
         private const int RowTableHeaderTemplate = 1;
         private const int RowTotalTemplate = 4;
 
-        private readonly IEnumerable<CustTurnover> _customerTurnoverList;
+        private readonly IEnumerable<CustTurnover> _dataList;
         private readonly string _formatDateTime;
         private readonly CustTurnover _total;
         private readonly string _reportTitle;
@@ -54,18 +54,26 @@ namespace Fanex.Athena.Excel.Report
         public CustomerTurnoverExcel(
                                      string templatePath,
                                      ShowingOption showingOption,
-                                     IEnumerable<CustTurnover> customerTurnoverList,
+                                     IEnumerable<CustTurnover> dataList,
                                      CustTurnover total,
                                      string formatDateTime,
                                      string reportTitle)
-            : base(templatePath, customerTurnoverList.Count(), showingOption)
+            : base(templatePath, dataList.Count(), showingOption)
         {
-            _customerTurnoverList = customerTurnoverList;
+            _dataList = dataList;
             _total = total;
             _formatDateTime = formatDateTime;
             _reportTitle = reportTitle;
             PageSize = 1500;
             IsMultiSheet = true;
+        }
+
+        protected override int NumberOfSheets
+        {
+            get
+            {
+                return GetNumberOfSheets(_dataList.Last().Index, PageSize);
+            }
         }
 
         protected override void AssignHeader(ISheet sheet)
@@ -104,8 +112,8 @@ namespace Fanex.Athena.Excel.Report
         {
             var rowIndex = 0;
             var minGroup = checked(pageIndex * PageSize);
-            var maxGroup = Math.Min(_customerTurnoverList.Last().Index, checked((pageIndex + 1) * PageSize));
-            var dataInRange = _customerTurnoverList.Where(x => x.Index > minGroup && x.Index <= maxGroup).ToList();
+            var maxGroup = Math.Min(_dataList.Last().Index, checked((pageIndex + 1) * PageSize));
+            var dataInRange = _dataList.Where(x => x.Index > minGroup && x.Index <= maxGroup).ToList();
 
             foreach (var customerTurnover in dataInRange)
             {

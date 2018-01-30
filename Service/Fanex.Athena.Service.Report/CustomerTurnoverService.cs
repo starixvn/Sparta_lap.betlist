@@ -44,22 +44,20 @@ namespace Fanex.Athena.Service.Report
 
             if (result.DataList.Any())
             {
-                var rowIndex = (metaModel.PageIndex - 1) * metaModel.PageSize;
-                result.DataList = RestructureData(result.DataList, rowIndex);
+                result.DataList = RestructureData(result.DataList);
             }
 
             return result;
         }
 
-        private static IEnumerable<CustTurnover> RestructureData(IEnumerable<CustTurnover> datalist, int startRowIndex)
+        private static IEnumerable<CustTurnover> RestructureData(IEnumerable<CustTurnover> datalist)
         {
             var sortedData = datalist.OrderByDescending(i => i.ReportBy).ThenBy(i => i.UserName)
                 .ThenBy(i => i.SportType).ThenBy(i => i.Bettype).ToArray();
 
             var newDataList = new List<CustTurnover>();
 
-            var rowIndex = startRowIndex;
-            var groupData = sortedData.GroupBy(i => new { i.ReportBy, i.UserName, i.Currency });
+            var groupData = sortedData.GroupBy(i => i.Index);
 
             foreach (var item in groupData)
             {
@@ -69,7 +67,7 @@ namespace Fanex.Athena.Service.Report
                 var totalTurnover = item.Sum(i => i.Turnover);
                 foreach (var sports in groupSportdata)
                 {
-                    var groupedList = ProcessSportGroup(sports, ref rowIndex, isFirstRowOfGroup, numOfItem, totalTurnover);
+                    var groupedList = ProcessSportGroup(sports, isFirstRowOfGroup, numOfItem, totalTurnover);
                     isFirstRowOfGroup = false;
                     newDataList.AddRange(groupedList);
                 }
@@ -80,7 +78,6 @@ namespace Fanex.Athena.Service.Report
 
         private static IEnumerable<CustTurnover> ProcessSportGroup(
             IGrouping<string, CustTurnover> sportGroup,
-            ref int rowIndex,
             bool isFirstRowOfGroup,
             int numOfItem,
             decimal totalTurnover)
@@ -94,12 +91,6 @@ namespace Fanex.Athena.Service.Report
             {
                 var temp = item;
                 temp.TotalTurnover = totalTurnover;
-                if (hasRowSpan || numOfItem == 1)
-                {
-                    rowIndex++;
-                }
-
-                temp.Index = rowIndex;
 
                 temp.RowSpan = GetRowSpan(hasRowSpan, numOfItem);
                 hasRowSpan = false;

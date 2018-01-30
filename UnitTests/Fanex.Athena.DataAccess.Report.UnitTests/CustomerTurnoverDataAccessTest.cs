@@ -123,7 +123,6 @@
 
             // Action
             var result = DataAccess.GetDataList(_metaModel, LanguageCode);
-            var totalData = result.TotalData;
 
             // Assert
             Assert.Multiple(() =>
@@ -190,6 +189,7 @@
 
         private void ConfigureReaderForResult(CustTurnover expected)
         {
+            Reader["RowNo"].Returns(expected.Index);
             Reader["Turnover"].Returns(expected.Turnover);
             Reader["sporttype"].Returns(expected.SportId);
             Reader["ReportBy"].Returns("20160831");
