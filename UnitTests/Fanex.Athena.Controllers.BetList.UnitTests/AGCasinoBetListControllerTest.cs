@@ -4,7 +4,6 @@
     using System.Collections;
     using System.Web.Mvc;
     using Model.BetList.MetaModel;
-    using Model.Core.DTO.Configuration;
     using NSubstitute;
     using NUnit.Framework;
     using Resources;

@@ -136,6 +136,7 @@
     <Compile Include="ColossusBetBetListControllerTest.cs" />
     <Compile Include="CorrectScoreBetListControllerTest.cs" />
     <Compile Include="CustomerOutstandingBetListControllerTest.cs" />
+    <Compile Include="CustomerWinLossBetListControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
