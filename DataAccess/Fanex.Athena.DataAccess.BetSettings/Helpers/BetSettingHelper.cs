@@ -6,6 +6,7 @@
     using Model.BetSettings.DTO;
     using Model.Core.Helper;
     using Resources;
+    using VendorAdapter;
 
     public static class BetSettingHelper
     {
@@ -23,7 +24,7 @@
         public static void RenderSport(IDataReader reader, string sportId, ICollection<BetSetting> resultList, bool isNumberGame = false)
         {
             var sportSuffix = sportId != "1" ? "v" + sportId : string.Empty;
-            var sportName = CacheRef.GetSportName(sportId);
+            var sportName = CacheRefAdapter.Instance.GetSportName(sportId);
 
             sportName = string.IsNullOrEmpty(sportName) ? GetSportName(sportId) : sportName;
 

@@ -11,6 +11,7 @@
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using VendorAdapter.Interfaces;
 
     [TestFixture]
     public class CustomerTurnoverDataAccessTest : BaseDataAccessHelperTest<CustomerTurnoverDataAccess>
@@ -34,7 +35,7 @@
             };
             balanceUpDataAccess.GetBalanceUp().Returns(_balance);
 
-            DataAccess = Substitute.ForPartsOf<CustomerTurnoverDataAccess>(balanceUpDataAccess);
+            DataAccess = Substitute.ForPartsOf<CustomerTurnoverDataAccess>(balanceUpDataAccess, Substitute.For<ICacheRefAdapter>());
             DataAccess.GetObjectDb(Arg.Is("Lrf_Rpt_CustomerTurnOver")).Returns(ObjectDb);
 
             _metaModel = new CustomerTurnoverMetaModel

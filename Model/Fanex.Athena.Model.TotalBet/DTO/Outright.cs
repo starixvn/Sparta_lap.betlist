@@ -6,7 +6,7 @@
 
 namespace Fanex.Athena.Model.TotalBet.DTO
 {
-    using Model.Core.Helper;
+    using VendorAdapter;
 
     /// <summary>
     /// Outright class.
@@ -21,7 +21,7 @@ namespace Fanex.Athena.Model.TotalBet.DTO
         {
             get
             {
-                return _teamName ?? (_teamName = CacheRef.GetTeamName(TeamId));
+                return _teamName ?? (_teamName = CacheRefAdapter.Instance.GetTeamName(TeamId));
             }
         }
 

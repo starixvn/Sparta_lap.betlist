@@ -7,8 +7,8 @@
 namespace Fanex.Athena.Model.Warehouse.DTO
 {
     using System;
-    using Fanex.Athena.Model.Core.Helper;
     using Resources;
+    using VendorAdapter;
 
     /// <summary>
     /// WinLoss class.
@@ -78,12 +78,13 @@ namespace Fanex.Athena.Model.Warehouse.DTO
                                 return ViewResources.Outright + " " + ViewResources.Horse + " " + ViewResources.ProductRB;
 
                             default:
-                                return CacheRef.GetLeagueName(GroupByValue);
+                                return CacheRefAdapter.Instance.GetLeagueName(GroupByValue);
                         }
 
                     case (int)WarehouseReportBy.Bettype:
-                        return BettypeId >= 81 && BettypeId < 120
-                            ? CacheRef.GetBettype(BettypeId, Liveindicator) : CacheRef.GetBettype(GroupByValue);
+                        return BettypeId >= 81 && BettypeId < 120 ?
+                            CacheRefAdapter.Instance.GetBettype(BettypeId, Liveindicator) :
+                            CacheRefAdapter.Instance.GetBettype(GroupByValue);
 
                     default:
                         return string.Empty;

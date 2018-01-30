@@ -7,7 +7,7 @@
 namespace Fanex.Athena.Model.Forecast.DTO.ForecastAH
 {
     using System.Collections.Generic;
-    using Model.Core.Helper;
+    using VendorAdapter;
 
     /// <summary>
     /// ForecastAh class.
@@ -31,7 +31,7 @@ namespace Fanex.Athena.Model.Forecast.DTO.ForecastAH
             get
             {
                 return _homeTeamName ??
-                       (_homeTeamName = CacheRef.GetTeamName(HomeId) + (IsNeutral ? " (N)" : string.Empty));
+                       (_homeTeamName = CacheRefAdapter.Instance.GetTeamName(HomeId) + (IsNeutral ? " (N)" : string.Empty));
             }
         }
 
@@ -41,7 +41,7 @@ namespace Fanex.Athena.Model.Forecast.DTO.ForecastAH
         {
             get
             {
-                return _awayTeamName ?? (_awayTeamName = CacheRef.GetTeamName(AwayId));
+                return _awayTeamName ?? (_awayTeamName = CacheRefAdapter.Instance.GetTeamName(AwayId));
             }
         }
 
