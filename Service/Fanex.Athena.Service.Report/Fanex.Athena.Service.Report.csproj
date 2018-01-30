@@ -222,6 +222,10 @@
       <Project>{5653BC29-0843-4D75-9140-5B370DF2F88C}</Project>
       <Name>Fanex.Athena.DataAccess.Report</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\Fanex.Athena.Constant\Fanex.Athena.Constant.csproj">
+      <Project>{6B1431E0-E513-48BB-BE86-0756E5F6F405}</Project>
+      <Name>Fanex.Athena.Constant</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Infrastructure\Fanex.Athena.VendorAdapter\Fanex.Athena.VendorAdapter.csproj">
       <Project>{CE1F7641-A14D-4AF6-9BD3-CAD4873669B4}</Project>
       <Name>Fanex.Athena.VendorAdapter</Name>

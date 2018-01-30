@@ -83,7 +83,6 @@
     <Compile Include="DataDomain\ResultVendorProductTypes.cs" />
     <Compile Include="DataDomain\ReportByType.cs" />
     <Compile Include="DataDomain\RNGCasinoSetting.cs" />
-    <Compile Include="DataDomain\SportType.cs" />
     <Compile Include="DataDomain\SystemConstants.cs" />
     <Compile Include="DataDomain\ClientViewType.cs" />
     <Compile Include="DTO\Common\CheckedItem.cs" />

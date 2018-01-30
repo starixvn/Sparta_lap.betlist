@@ -1,8 +1,8 @@
 ﻿namespace Fanex.Athena.Service.Report.UnitTests
 {
     using System.Collections.Generic;
+    using Constant.DataDomain;
     using DataAccess.Report.Interfaces;
-    using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
     using Model.Report.DTO;
     using NSubstitute;

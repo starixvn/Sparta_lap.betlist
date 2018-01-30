@@ -9,7 +9,6 @@ namespace Fanex.Athena.Controllers.Report.Result
     using System.Web;
     using System.Web.Hosting;
     using System.Web.Mvc;
-    using Constant.DataDomain;
     using DataAccess.Core.Configuration;
     using DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.Extension.Utility;
@@ -287,7 +286,7 @@ namespace Fanex.Athena.Controllers.Report.Result
 
         private static bool IsPalayBetType(int betType)
         {
-            return betType == ParlayBetType || betType == SystemParlayBetType || betType == (int)BetType.VirtualSports2MixParlay;
+            return betType == ParlayBetType || betType == SystemParlayBetType || betType == (int)Constant.DataDomain.BetType.VirtualSports2MixParlay;
         }
 
         private static IEnumerable<Sport> RemoveNotAllowedSports(IEnumerable<Sport> sports, ProductAccess productAccess)

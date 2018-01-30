@@ -110,6 +110,10 @@
       <Project>{4a5bddbc-f707-409a-86ec-d9bc6e9d31c4}</Project>
       <Name>Fanex.Athena.UnitTest.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\Fanex.Athena.Constant\Fanex.Athena.Constant.csproj">
+      <Project>{6B1431E0-E513-48BB-BE86-0756E5F6F405}</Project>
+      <Name>Fanex.Athena.Constant</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Infrastructure\Fanex.Athena.VendorAdapter\Fanex.Athena.VendorAdapter.csproj">
       <Project>{CE1F7641-A14D-4AF6-9BD3-CAD4873669B4}</Project>
       <Name>Fanex.Athena.VendorAdapter</Name>

@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Xml.Linq;
+    using Constant.DataDomain;
     using Core;
     using Fanex.Common.Extensions;
     using Interfaces;
