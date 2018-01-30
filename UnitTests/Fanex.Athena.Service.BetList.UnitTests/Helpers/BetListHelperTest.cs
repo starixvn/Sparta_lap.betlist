@@ -1,9 +1,9 @@
 ﻿namespace Fanex.Athena.Service.BetList.UnitTests.Helpers
 {
     using BetList.Helpers;
+    using Constant.DataDomain;
     using Fanex.BetList.Core.Entities;
     using Model.BetList.DTO;
-    using Model.Core.DataDomain;
     using NSubstitute;
     using NUnit.Framework;
 

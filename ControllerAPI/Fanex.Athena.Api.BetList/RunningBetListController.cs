@@ -10,6 +10,7 @@ namespace Fanex.Athena.Api.BetList
 
     using System.Web.Http;
     using Base.Attributes;
+    using Constant.DataDomain;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Model.Core.DataDomain;
 

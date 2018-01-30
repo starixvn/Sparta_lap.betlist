@@ -12,12 +12,12 @@ namespace Fanex.Athena.Api.BetList
     using System.Collections.Generic;
     using System.Linq;
     using Base;
+    using Constant.DataDomain;
     using DataAccess.Core.Configuration;
     using DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Model.BetList.DTO;
     using Fanex.Athena.Model.BetList.MetaModel;
-    using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Service.BetList;
     using Fanex.Athena.Service.BetList.Extensions;
     using Fanex.Athena.Service.BetList.Interfaces;

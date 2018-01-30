@@ -8,8 +8,9 @@ namespace Fanex.Athena.Model.Core.Helper
     using System;
     using System.Globalization;
     using System.Threading;
+    using Constant.DataDomain;
+    using Constant.Helper;
     using Extension.Utility;
-    using Fanex.Athena.Model.Core.DataDomain;
     using RemotingRef;
     using Resources;
 

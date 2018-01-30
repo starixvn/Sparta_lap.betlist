@@ -11,6 +11,7 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using Constant.DataDomain;
     using Core.Configuration;
     using Core.Configuration.Interfaces;
     using Fanex.Athena.DataAccess.Core;
@@ -21,7 +22,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
     using Fanex.Data;
-    using Model.Core.DataDomain;
     using Model.Core.Helper;
     using VendorAdapter;
     using VendorAdapter.Interfaces;

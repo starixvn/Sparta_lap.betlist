@@ -6,7 +6,7 @@
 
 namespace Fanex.Athena.Model.Core.DTO.Common
 {
-    using Fanex.Athena.Model.Core.Helper;
+    using VendorAdapter;
 
     /// <summary>
     /// League class.
@@ -23,7 +23,7 @@ namespace Fanex.Athena.Model.Core.DTO.Common
             {
                 if (string.IsNullOrEmpty(_leagueName))
                 {
-                    _leagueName = CacheRef.GetLeagueName(LeagueId);
+                    _leagueName = CacheRefAdapter.Instance.GetLeagueName(LeagueId);
                 }
 
                 return _leagueName;

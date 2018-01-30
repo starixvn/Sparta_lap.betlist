@@ -11,6 +11,8 @@ namespace Fanex.Athena.Service.BetList.Extensions
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
+    using Constant.DataDomain;
+    using Constant.Helper;
     using Fanex.Athena.Model.BetList.DTO;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
@@ -18,7 +20,6 @@ namespace Fanex.Athena.Service.BetList.Extensions
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
     using Helpers;
-    using Model.Core.Helper;
     using Resources;
 
     #endregion Using
@@ -82,7 +83,7 @@ namespace Fanex.Athena.Service.BetList.Extensions
         public static string BuildLicenseeWL(this BetListHTMLBuilder builder, LrfTicket ticket)
         {
             var isRunning = IsRunning(ticket.Status);
-            
+
             if (BetTypeHelper.IsRacing(ticket.BetTypeId) ||
                 BetListHelper.IsBoughtTicket(ticket.BetTypeId) ||
                 BetListHelper.IsColossusBet(ticket.BetTypeId))

@@ -19,6 +19,7 @@ namespace Fanex.Athena.Excel.Report
     using Base.Entities;
     using Base.Helpers;
     using Common;
+    using Constant.DataDomain;
     using Extension.Helper;
     using Fanex.Athena.Excel.Base.Extension;
     using Helpers;

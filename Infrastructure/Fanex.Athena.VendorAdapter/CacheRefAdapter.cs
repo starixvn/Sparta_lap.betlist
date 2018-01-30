@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Globalization;
 using System.Threading;
+using Fanex.Athena.Constant.DataDomain;
+using Fanex.Athena.Constant.Helper;
 using Fanex.Athena.Extension.Utility;
-using Fanex.Athena.Model.Core.DataDomain;
-using Fanex.Athena.Model.Core.Helper;
 using Fanex.Athena.Resources;
 using Fanex.Athena.VendorAdapter.Interfaces;
 using RemotingRef;

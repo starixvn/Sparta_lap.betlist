@@ -9,11 +9,10 @@ namespace Fanex.Athena.Excel.BetList
     using System;
     using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
+    using Constant.Helper;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
     using Model.BetList.DTO;
-    using Model.Core.DataDomain;
-    using Model.Core.Helper;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;

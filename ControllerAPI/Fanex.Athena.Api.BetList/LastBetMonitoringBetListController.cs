@@ -6,6 +6,7 @@
     using System.Web.Http;
     using Base;
     using Base.Attributes;
+    using Constant.DataDomain;
     using Fanex.Athena.Model.BetList.DTO;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;

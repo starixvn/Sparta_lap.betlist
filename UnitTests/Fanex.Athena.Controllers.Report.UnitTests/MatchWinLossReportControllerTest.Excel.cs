@@ -2,6 +2,7 @@
 {
     using System.Data;
     using Base.UnitTests;
+    using Constant.DataDomain;
     using Excel.Base.Entities;
     using Model.Core.DataDomain;
     using Model.Report.MetaModel;
@@ -61,7 +62,7 @@
 
         [TestCase(BetType.Ng1StBallOe, "Number Game No abc", "Number Game")]
         public void Excel_WhenCall_AddColumnsForSortingCorrectly(
-            int bettype, 
+            int bettype,
             string expectedMatchName,
             string expectedLeagueName)
         {

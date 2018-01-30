@@ -7,6 +7,7 @@
 namespace Fanex.Athena.DataAccess.Report
 {
     using System.Data;
+    using Constant.Helper;
     using Core.Configuration;
     using Core.Configuration.Interfaces;
     using Fanex.Athena.DataAccess.Core;
@@ -17,7 +18,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
     using Fanex.Data;
-    using Model.Core.Helper;
     using Resources;
     using VendorAdapter;
     using VendorAdapter.Interfaces;
