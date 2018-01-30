@@ -12,6 +12,7 @@ namespace Fanex.Athena.Controllers
     using System.Text.RegularExpressions;
     using System.Web.Mvc;
     using System.Web.SessionState;
+    using Constant.DataDomain;
     using Extension.Utility;
     using Extension.Utility.Interfaces;
     using Fanex.Athena.Web.ActionFilter;

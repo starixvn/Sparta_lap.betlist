@@ -4,7 +4,7 @@
     using System.Linq;
     using System.Web.Mvc;
     using Base.UnitTests;
-    using Model.Core.DataDomain;
+    using Constant.DataDomain;
     using Model.Core.DTO.Common;
     using Model.Report.ViewModel;
     using NSubstitute;

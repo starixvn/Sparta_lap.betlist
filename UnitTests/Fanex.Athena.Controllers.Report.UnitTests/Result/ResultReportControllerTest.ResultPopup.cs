@@ -2,9 +2,8 @@
 {
     using System.Collections.Generic;
     using System.Web.Mvc;
-    using Constant.DataDomain;
     using Base.UnitTests;
-    using Model.Core.DataDomain;
+    using Constant.DataDomain;
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;

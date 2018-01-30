@@ -11,6 +11,7 @@ namespace Fanex.Athena.Controllers.BetSettings
     using System.Linq;
     using System.Web.Mvc;
     using System.Web.SessionState;
+    using Constant.DataDomain;
     using DataAccess.BetSettings;
     using DataAccess.BetSettings.Interfaces;
     using Fanex.Athena.Model.BetSettings.DTO;

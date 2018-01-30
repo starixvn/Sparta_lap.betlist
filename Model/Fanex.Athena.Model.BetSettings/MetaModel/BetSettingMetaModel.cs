@@ -6,7 +6,7 @@
 
 namespace Fanex.Athena.Model.BetSettings.MetaModel
 {
-    using Fanex.Athena.Model.Core.DataDomain;
+    using Constant.DataDomain;
     using Resources;
 
     /// <summary>

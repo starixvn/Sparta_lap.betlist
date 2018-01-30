@@ -1,9 +1,8 @@
 ﻿namespace Fanex.Athena.DataAccess.BetSettings.UnitTests
 {
     using System.Data;
+    using Constant.DataDomain;
     using Core.UnitTests.TestHelpers;
-    using Data;
-    using Model.Core.DataDomain;
     using NSubstitute;
     using NUnit.Framework;
 

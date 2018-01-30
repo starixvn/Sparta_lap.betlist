@@ -12,6 +12,7 @@ namespace Fanex.Athena.Api.Report
     using System.Net.Http;
     using System.Web.Hosting;
     using System.Web.Http;
+    using Constant.DataDomain;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Model.Report.DTO;

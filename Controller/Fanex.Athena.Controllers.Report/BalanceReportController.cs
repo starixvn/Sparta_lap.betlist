@@ -8,6 +8,7 @@ namespace Fanex.Athena.Controllers.Report
 {
     using System.Web.Hosting;
     using System.Web.Mvc;
+    using Constant.DataDomain;
     using DataAccess.Report;
     using DataAccess.Report.Interfaces;
     using Extension.Utility;

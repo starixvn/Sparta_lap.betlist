@@ -10,12 +10,12 @@ namespace Fanex.Athena.Controllers.BetSettings
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
+    using Constant.DataDomain;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Web.ActionFilter;
     using Model.BetSettings.DTO;
     using Model.BetSettings.MetaModel;
     using Model.BetSettings.ViewModel;
-    using Model.Core.DataDomain;
     using Model.Core.Helper;
     using Resources;
     using Service.BetSettings;

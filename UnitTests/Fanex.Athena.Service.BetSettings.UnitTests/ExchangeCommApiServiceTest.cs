@@ -2,13 +2,13 @@
 {
     using System;
     using CitiXchangeLibrary;
+    using Constant.DataDomain;
     using Core.Users.Interfaces;
     using DataAccess.BetSettings.Interfaces;
     using DataAccess.Core.Common.Constants;
     using DataAccess.Core.Common.Interfaces;
     using Extension.Utility;
     using Logging;
-    using Model.Core.DataDomain;
     using Model.Core.MetaModel.Common;
     using NSubstitute;
     using NUnit.Framework;

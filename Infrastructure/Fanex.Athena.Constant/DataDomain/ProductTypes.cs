@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Athena.Model.Core.DataDomain
+namespace Fanex.Athena.Constant.DataDomain
 {
     public static class ProductTypes
     {
