@@ -4,24 +4,49 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
+    using DataAccess.Core.Configuration.Interfaces;
+    using Extension.Utility;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Web.ResultExtension;
     using Resources;
-    using VendorAdapter;
+    using Service.BetList.Interfaces;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
+    using Service.Core.Users.Interfaces;
     using VendorAdapter.Interfaces;
     using Web.ActionFilter;
 
     [FunctionAuthorization(PermissionKeys.ReportLiveReport)]
     public class LiveReportBetListController : BetListBaseController
     {
-        private readonly ICacheRefAdapter _cacheRefAdapter;
-
         public LiveReportBetListController()
         {
-            _cacheRefAdapter = new CacheRefAdapter();
+        }
+
+        public LiveReportBetListController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
+            IAuthorizationService authorizationService,
+            IProductService productService,
+            IBetListService betListService,
+            IBalanceUpDataAccess balanceUpDataAccess,
+            ICacheRefAdapter cacheRefAdapter)
+        : base(
+            languageService,
+            sessionService,
+            appSetting,
+            clientViewHelper,
+            authorizationService,
+            productService,
+            betListService,
+            balanceUpDataAccess,
+            cacheRefAdapter)
+        {
         }
 
         [HttpGet]
@@ -65,7 +90,7 @@
         [HttpGet]
         public ActionResult Racing(LiveReportBetListMetaModel metaModel)
         {
-            var sportName = _cacheRefAdapter.GetSportName(metaModel.SportType);
+            var sportName = CacheRefAdapter.GetSportName(metaModel.SportType);
             return ProcessRequest(
                 metaModel,
                 "Lrf_BetList_LiveReport_SelWinlossRacing",
@@ -77,7 +102,7 @@
         [HttpGet]
         public ActionResult VirtualSports(LiveReportBetListMetaModel metaModel)
         {
-            var sportName = _cacheRefAdapter.GetSportName(metaModel.SportType);
+            var sportName = CacheRefAdapter.GetSportName(metaModel.SportType);
             return ProcessRequest(
                 metaModel,
                 "Lrf_BetList_LiveReport_SelWinlossVHRacing",
@@ -89,7 +114,7 @@
         private string GetMatchName(LiveReportBetListMetaModel model)
         {
             return model.HomeId > 0 && model.AwayId > 0
-                                ? _cacheRefAdapter.GetTeamName(model.HomeId) + " vs " + _cacheRefAdapter.GetTeamName(model.AwayId) + " "
+                                ? CacheRefAdapter.GetTeamName(model.HomeId) + " vs " + CacheRefAdapter.GetTeamName(model.AwayId) + " "
                                 : string.Empty;
         }
 
@@ -112,7 +137,7 @@
             if (model.CurrencyId == BaseCurrencyType.All || currencyList.ContainsKey(model.CurrencyId))
             {
                 var betlistCaption = string.IsNullOrEmpty(caption) ?
-                    GetMatchName(model) + _cacheRefAdapter.GetBettype(model.BetType) :
+                    GetMatchName(model) + CacheRefAdapter.GetBettype(model.BetType) :
                     caption;
                 var viewInCaption = string.Format(ViewResources.Viewin, model.IsConvert ? model.BaseCurrency.ToUpperInvariant() : model.CurrencyName);
                 var title = ViewResources.BetList
