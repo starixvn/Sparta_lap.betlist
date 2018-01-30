@@ -9,6 +9,7 @@
     using NSubstitute;
     using NUnit.Framework;
     using UnitTest.Common.NUnitExtensions;
+    using VendorAdapter.Interfaces;
 
     [TestFixture]
     public class WinLossByBetTypeDataAccessTest : BaseDataAccessHelperTest<WinLossByBetTypeDataAccess>
@@ -28,7 +29,7 @@
             };
             balanceUpDataAccess.GetBalanceUp().Returns(_balanceUp);
 
-            DataAccess = Substitute.ForPartsOf<WinLossByBetTypeDataAccess>(balanceUpDataAccess);
+            DataAccess = Substitute.ForPartsOf<WinLossByBetTypeDataAccess>(Substitute.For<ICacheRefAdapter>(), balanceUpDataAccess);
             ObjectDb = Substitute.For<IObjectDb>();
         }
 

@@ -33,8 +33,9 @@ namespace Fanex.Athena.DataAccess.Report
             _balanceUpDataAccess = new BalanceUpDataAccess();
         }
 
-        public WinLossByBetTypeDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
+        public WinLossByBetTypeDataAccess(ICacheRefAdapter cacheRefAdapter, IBalanceUpDataAccess balanceUpDataAccess)
         {
+            _cacheRefAdapter = cacheRefAdapter;
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 

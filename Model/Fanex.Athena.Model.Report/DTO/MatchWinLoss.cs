@@ -7,7 +7,6 @@
 namespace Fanex.Athena.Model.Report.DTO
 {
     using System;
-    using Fanex.Athena.Model.Core.Helper;
 
     public class MatchWinLoss
     {
@@ -43,13 +42,7 @@ namespace Fanex.Athena.Model.Report.DTO
 
         public int BetType { get; set; }
 
-        public string BettypeName
-        {
-            get
-            {
-                return CacheRef.GetBettype(BetType, IsLive);
-            }
-        }
+        public string BettypeName { get; set; }
 
         public bool IsNeutral { get; set; }
 

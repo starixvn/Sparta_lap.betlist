@@ -14,14 +14,22 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
-    using Model.Core.Helper;
     using Model.Report.ResultModel;
+    using VendorAdapter;
+    using VendorAdapter.Interfaces;
 
     public class WeeklyLiveMatchDataAccess : BaseDataAccess, IWeeklyLiveMatchDataAccess
     {
         private const int StartWeekColumnIndex = 2;
 
         private const string CustomSortingWeekColumn = "SortingWeekValue";
+
+        private readonly ICacheRefAdapter _cacheRefAdapter;
+
+        public WeeklyLiveMatchDataAccess()
+        {
+            _cacheRefAdapter = new CacheRefAdapter();
+        }
 
         public WeeklyLiveMatchResultModel GetDataList(WeeklyLiveMatchMetaModel metaModel)
         {
@@ -39,59 +47,6 @@ namespace Fanex.Athena.DataAccess.Report
                     return ReadData(reader, metaModel.SortColumn, metaModel.SortDirection);
                 }
             }
-        }
-
-        private static WeeklyLiveMatchResultModel ReadData(
-            IDataReader reader,
-            string sortColumn,
-            string sortDirection)
-        {
-            var data = new List<WeeklyLiveMatch>();
-            var sortingWeekIndex = -1;
-            var sortColumnName = sortColumn;
-            if (!string.IsNullOrEmpty(sortColumn) && sortColumn.StartsWith("Week", StringComparison.OrdinalIgnoreCase))
-            {
-                sortingWeekIndex = int.Parse(sortColumn.Replace("Week", string.Empty));
-                sortColumnName = CustomSortingWeekColumn;
-            }
-
-            var numberOfWeeks = reader.FieldCount <= StartWeekColumnIndex ? 0 : reader.FieldCount - StartWeekColumnIndex;
-            var totalData = new int[numberOfWeeks];
-
-            var index = 1;
-            while (reader.Read())
-            {
-                var item = new WeeklyLiveMatch
-                {
-                    SportName = CacheRef.GetSportName(reader["sporttype"]),
-                    NumbersOfMatches = new List<int>()
-                };
-                var numbersOfMatches = new int[numberOfWeeks];
-                for (int i = StartWeekColumnIndex; i < reader.FieldCount; i++)
-                {
-                    var value = reader.IsDBNull(i) ? 0 : reader.GetInt32(i);
-                    numbersOfMatches[i - StartWeekColumnIndex] = value;
-                    totalData[i - StartWeekColumnIndex] += value;
-                }
-
-                item.NumbersOfMatches = numbersOfMatches;
-                if (sortingWeekIndex >= 0 && sortingWeekIndex < numberOfWeeks)
-                {
-                    item.SortingWeekValue = numbersOfMatches[sortingWeekIndex];
-                }
-
-                item.Index = index++;
-                data.Add(item);
-            }
-
-            data = SortData(data, sortColumnName, sortDirection);
-
-            return new WeeklyLiveMatchResultModel
-            {
-                DataList = data,
-                TotalData = totalData,
-                NumberOfWeeks = numberOfWeeks
-            };
         }
 
         private static List<WeeklyLiveMatch> SortData(List<WeeklyLiveMatch> data, string sortColumn, string sortDirection)
@@ -123,6 +78,59 @@ namespace Fanex.Athena.DataAccess.Report
             {
                 item.Index = index++;
             }
+        }
+
+        private WeeklyLiveMatchResultModel ReadData(
+            IDataReader reader,
+            string sortColumn,
+            string sortDirection)
+        {
+            var data = new List<WeeklyLiveMatch>();
+            var sortingWeekIndex = -1;
+            var sortColumnName = sortColumn;
+            if (!string.IsNullOrEmpty(sortColumn) && sortColumn.StartsWith("Week", StringComparison.OrdinalIgnoreCase))
+            {
+                sortingWeekIndex = int.Parse(sortColumn.Replace("Week", string.Empty));
+                sortColumnName = CustomSortingWeekColumn;
+            }
+
+            var numberOfWeeks = reader.FieldCount <= StartWeekColumnIndex ? 0 : reader.FieldCount - StartWeekColumnIndex;
+            var totalData = new int[numberOfWeeks];
+
+            var index = 1;
+            while (reader.Read())
+            {
+                var item = new WeeklyLiveMatch
+                {
+                    SportName = _cacheRefAdapter.GetSportName(reader["sporttype"]),
+                    NumbersOfMatches = new List<int>()
+                };
+                var numbersOfMatches = new int[numberOfWeeks];
+                for (int i = StartWeekColumnIndex; i < reader.FieldCount; i++)
+                {
+                    var value = reader.IsDBNull(i) ? 0 : reader.GetInt32(i);
+                    numbersOfMatches[i - StartWeekColumnIndex] = value;
+                    totalData[i - StartWeekColumnIndex] += value;
+                }
+
+                item.NumbersOfMatches = numbersOfMatches;
+                if (sortingWeekIndex >= 0 && sortingWeekIndex < numberOfWeeks)
+                {
+                    item.SortingWeekValue = numbersOfMatches[sortingWeekIndex];
+                }
+
+                item.Index = index++;
+                data.Add(item);
+            }
+
+            data = SortData(data, sortColumnName, sortDirection);
+
+            return new WeeklyLiveMatchResultModel
+            {
+                DataList = data,
+                TotalData = totalData,
+                NumberOfWeeks = numberOfWeeks
+            };
         }
     }
 }

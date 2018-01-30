@@ -15,6 +15,16 @@ namespace Fanex.Athena.VendorAdapter
     {
         private const string MicrogamingResourceKey = "MG_Casino";
 
+        private static CacheRefAdapter _instance;
+
+        public static CacheRefAdapter Instance
+        {
+            get
+            {
+                return _instance ?? (_instance = new CacheRefAdapter());
+            }
+        }
+
         public string GetMicroGamingGameName(string resourceId)
         {
             return RefData.GetResourceDataByRefIdAndResourceId(MicrogamingResourceKey, resourceId, GetCurrentIBCLanguageCode(), string.Empty);
