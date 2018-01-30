@@ -6,22 +6,25 @@
 
 namespace Fanex.Athena.Controllers.BetList
 {
-    using System;
-
     #region Using
 
+    using System;
     using System.Web.Mvc;
     using System.Web.UI;
     using DataAccess.BetList;
     using DataAccess.BetList.Interfaces;
+    using DataAccess.Core.Configuration.Interfaces;
+    using Extension.Utility;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Model.Core.DataDomain;
     using Newtonsoft.Json.Linq;
-    using Service.BetList;
     using Service.BetList.Interfaces;
+    using Service.Core.Common.Interfaces;
     using Service.Core.Helpers;
+    using Service.Core.Users.Interfaces;
     using Service.Core.Utility;
     using Service.Core.Utility.Interfaces;
+    using VendorAdapter.Interfaces;
     using Web.ActionFilter;
 
     #endregion Using
@@ -37,6 +40,33 @@ namespace Fanex.Athena.Controllers.BetList
         {
             _colossusBetBetListDataAccess = new ColossusBetBetListDataAccess();
             _webClientService = new WebClientService();
+        }
+
+        public ColossusBetBetListController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
+            IAuthorizationService authorizationService,
+            IProductService productService,
+            IBetListService betListService,
+            IBalanceUpDataAccess balanceUpDataAccess,
+            ICacheRefAdapter cacheRefAdapter,
+            IWebClientService webClientService,
+            IColossusBetBetListDataAccess colossusBetBetListDataAccess)
+        : base(
+            languageService,
+            sessionService,
+            appSetting,
+            clientViewHelper,
+            authorizationService,
+            productService,
+            betListService,
+            balanceUpDataAccess,
+            cacheRefAdapter)
+        {
+            _colossusBetBetListDataAccess = colossusBetBetListDataAccess;
+            _webClientService = webClientService;
         }
 
         [HttpGet]
