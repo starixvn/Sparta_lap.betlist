@@ -16,7 +16,7 @@
             {
                 const long TransTypeYesterday = 0;
                 const long TransTypeTodayRunning = 3;
-                var title = $"{ViewResources.Microgaming} - {ViewResources.ProductCS} - {ViewResources.DetailTickets} - ";
+                var title = $"{ViewResources.Microgaming} - {ViewResources.ProductCS} {ViewResources.BetList} - {ViewResources.DetailTickets} - ";
 
                 yield return new TestCaseData(TransTypeYesterday, title + ViewResources.Yesterday);
                 yield return new TestCaseData(TransTypeTodayRunning, title + ViewResources.Today + " - " + ViewResources.Running);
