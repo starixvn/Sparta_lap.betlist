@@ -72,11 +72,6 @@
             return this.View("~/Views/BetList/CashOutDetail/Main.cshtml", viewModel);
         }
 
-        protected internal virtual BetListHTMLBuilder CreateBetListHTMLBuilder()
-        {
-            return new BetListHTMLBuilder();
-        }
-
         private static bool IsCashOutBetTicket(long betdaqid, int bettype)
         {
             var cashOutBetTypes = new[] { 900, 912 };
@@ -130,7 +125,7 @@
 
             var licenseeSession = SessionService.LicenseeSession;
             var showPlayerComm = licenseeSession.IsAllowedCustomerComm;
-            var builder = CreateBetListHTMLBuilder();
+            var builder = new BetListHTMLBuilder();
             var ticketHelper = new TicketHelper
             {
                 HideStatusCashOutHistory = true
