@@ -30,6 +30,7 @@
             StubGetValueAppSettings("BaseUsdLicensees", "usd");
         }
 
+        [Test]
         public void Index_WhenGet_ReturnCorrectView()
         {
             using (var controller = CreateController())
@@ -96,6 +97,7 @@
             }
         }
 
+        [Test]
         public void Index_WhenPost_ReturnCorrectView()
         {
             using (var controller = CreateController())
