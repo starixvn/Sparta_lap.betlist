@@ -1,7 +1,8 @@
-﻿@using Fanex.Athena.Model.Core.Helper
+﻿@using Fanex.Athena.VendorAdapter;
 @using Fanex.Athena.Extension.Helper;
 @model Fanex.Athena.Model.Report.ViewModel.DailyRacingWinLossViewModel
 @{
+    var _cacheRefAdapter = new CacheRefAdapter();
     var contentData = Model.DailyRacingWinLossData.ContentData;
     var contentTotalData = Model.DailyRacingWinLossData.ContentTotalData;
     var leagueCurrencyList = contentData.Keys;
@@ -12,7 +13,7 @@
         var leagueCurrencyData = contentData[leagueCurrency];
         var firstRow = leagueCurrencyData[0];
         <div class="content-row league" style="width: @ViewBag.ContainerWidth@("px")">
-            <div class="row">@CacheRef.GetLeagueName(firstRow.LeagueId) - @firstRow.CurrencyName</div>
+            <div class="row">@_cacheRefAdapter.GetLeagueName(firstRow.LeagueId) - @firstRow.CurrencyName</div>
         </div>
         
         // Race

@@ -1,9 +1,11 @@
 ﻿@using Fanex.Athena.Model.Core.Helper
+@using Fanex.Athena.VendorAdapter;
 @model Fanex.Athena.Model.Report.ViewModel.LiveReports.LiveReportMatchListViewModel
 @{
     ViewBag.Title = "LRF - " + ViewResources.Report +
     " - " + ViewResources.LiveReport;
     Layout = "~/Views/Desktop/Shared/_ReportLayout.cshtml";
+    var _cacheRefAdapter = new CacheRefAdapter();
 }
 @section pagecss {
     <link href="@Url.ContentLinkByEnv("/www/css/build/pages/reports/livereport.css")" rel="stylesheet" />
@@ -19,7 +21,7 @@
             <div class="panel-heading active">
                 <div class="panel-title">
                     @{var param = Model.Param;}
-                    @CacheRef.GetSportName(param.SportId) -
+                    @_cacheRefAdapter.GetSportName(param.SportId) -
                     @(string.Format(ViewResources.Viewin, param.IsConvert ? param.BaseCurrency.ToUpper() : param.CurrencyName.ToUpper()))
                 </div>
             </div>

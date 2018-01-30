@@ -3,12 +3,14 @@
     Layout = "~/Views/Desktop/Shared/_BetListSimpleLayout.cshtml";
 }
 
-@using Fanex.Athena.Model.Core.Helper
+@using Fanex.Athena.VendorAdapter;
 @model Fanex.Athena.Model.BetList.MetaModel.BetListMetaModel
-
+@{
+    var _cacheRefAdapter = new CacheRefAdapter();
+}
 @section ContentTitle
 {
-    @ViewResources.BetList - @CacheRef.GetBettype(Model.BetType) - @Model.FromDate.ToShortDateString()
+    @ViewResources.BetList - @_cacheRefAdapter.GetBettype(Model.BetType) - @Model.FromDate.ToShortDateString()
     - <span class="base-currency">@DesktopRazorHelper.ViewBaseCurrency(Model.CurrencyName, Model.BaseCurrency)</span>
 }
 @section BackButton

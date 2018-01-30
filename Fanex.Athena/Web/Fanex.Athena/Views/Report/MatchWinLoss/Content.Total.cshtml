@@ -1,6 +1,7 @@
-﻿@using Fanex.Athena.Model.Core.Helper
+﻿@using Fanex.Athena.VendorAdapter;
 @model Fanex.Athena.Model.Report.ViewModel.MatchWinLossViewModel
 @{
+    var _cacheRefAdapter = new CacheRefAdapter();
     var dataTotal = Model.Total;
 
     if (Model.MainResult.Count > 0)
@@ -62,7 +63,7 @@
     {
     <tr>
         <td colspan="2" class="title-text">
-            <span class="downline-link outright-link" onclick="MatchWinLoss.viewOutrightMixParlay(@itemOutRight.BetType)"> @CacheRef.GetBettypeWithProductName(@itemOutRight.BetType, false)</span>
+            <span class="downline-link outright-link" onclick="MatchWinLoss.viewOutrightMixParlay(@itemOutRight.BetType)"> @_cacheRefAdapter.GetBettypeWithProductName(@itemOutRight.BetType, false)</span>
         </td>
         <td style="width: 85px">@NumberHelper.DecFormat(itemOutRight.Turnover)
         </td>
