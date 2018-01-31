@@ -12,7 +12,7 @@ var cssPaths = {
 };
 
 var scriptPaths = {
-    build: "www/js/build/",
+    build: "www/js/build",
 
     languageResource: ["./www/js/source/reactpages/lib/langHelper.js",
         "./www/js/source/common/languages/ViewResources.js",

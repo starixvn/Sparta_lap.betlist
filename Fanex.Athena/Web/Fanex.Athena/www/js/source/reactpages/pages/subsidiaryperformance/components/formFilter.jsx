@@ -49,7 +49,9 @@ export class FormFilter extends Component {
 
             const title = service.getReportTitle(dateRange, selectedBaseCurrency);
             const excel = new ReportExcel(response.data, title);
-            excel.export();
+            excel.export(() =>{
+                this.props.toggleLoader(false);
+            });
         });
     }
 

@@ -106,17 +106,18 @@ export default class ReportExcel {
         this.mergeConfig = [];
     }
 
-    export () {
-        if (!this.gridData.Data || !this.gridData.Data.length) {
-            return;
+    export (onFinished) {
+        if (this.gridData.Data && this.gridData.Data.length) {
+            Excel.process(() => { 
+                this._createTitle();
+                this._createHeader();
+                this._createSheetData();
+                this._createExcelConfig();
+
+                Excel.export(this.worksheet, this.fileName);
+                onFinished && onFinished();
+            });
         }
-
-        this._createTitle();
-        this._createHeader();
-        this._createSheetData();
-        this._createExcelConfig();
-
-        Excel.export(this.worksheet, this.fileName);
     }
 
     _createTitle() {
