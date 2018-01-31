@@ -11,7 +11,7 @@ function generatePlugins(environment) {
         }),
 
          new webpack.optimize.CommonsChunkPlugin({
-             name: ["excel", "reactpages"],
+             name: ["reactpages"],
             filename: "www/js/build/" + environment + "/reactpages/vendors/[name].chunk.js",
             minChunks: Infinity
          })

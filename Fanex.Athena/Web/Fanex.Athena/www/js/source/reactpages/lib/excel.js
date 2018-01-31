@@ -1,27 +1,32 @@
-import * as XLSX from 'xlsx-style-sparta';
-
 const EXCEL_TYPE = "xlsx";
 const MapExcelType = {
     "number": "n", "string": "s", "boolean": "b", "object": "d"
 };
 
+let _XLSX = null;
 export default class Excel {
+    static process(callback){
+        import(/* webpackChunkName: "xlsx-style-sparta" */ 'xlsx-style-sparta').then(XLSX => {
+            _XLSX = XLSX;
+            callback && callback();
+        });
+    }
+
     static export (worksheet, fileName) {
         const option = { bookType: EXCEL_TYPE, bookSST: false, type: 'binary' };
         const workbook = { SheetNames: [fileName], Sheets: {}, Props: {} };
         workbook.Sheets[fileName] = worksheet;
 
-        var workbookOutput = XLSX.write(workbook, option);
+        var workbookOutput = _XLSX.write(workbook, option);
         this.download(workbookOutput, fileName);
     }
 
-    
     static getCellType(value){
         return MapExcelType[typeof value];
     }
 
     static getCellAddress(cellObject) {
-        return XLSX.utils.encode_cell(cellObject);
+        return _XLSX.utils.encode_cell(cellObject);
     }
 
     static download(workbookOut, fileName) {
