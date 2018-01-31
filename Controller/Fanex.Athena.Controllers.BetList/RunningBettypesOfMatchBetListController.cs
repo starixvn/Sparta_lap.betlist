@@ -10,19 +10,47 @@ namespace Fanex.Athena.Controllers.BetList
 
     using System.Linq;
     using System.Web.Mvc;
-    using Fanex.Athena.Excel.Base.Entities;
-    using Fanex.Athena.Excel.BetList;
+    using DataAccess.Core.Configuration.Interfaces;
+    using Extension.Utility;
     using Fanex.Athena.Model.BetList.MetaModel;
-    using Fanex.Athena.Model.Core.DataDomain;
-    using Fanex.Athena.Model.Core.Helper;
-    using Fanex.Athena.Web.ResultExtension;
     using Fanex.Common;
-    using Resources;
+    using Service.BetList.Interfaces;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
+    using Service.Core.Users.Interfaces;
+    using VendorAdapter.Interfaces;
 
     #endregion Using
 
     public class RunningBettypesOfMatchBetListController : BetListBaseController
     {
+        public RunningBettypesOfMatchBetListController()
+        {
+        }
+
+        public RunningBettypesOfMatchBetListController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
+            IAuthorizationService authorizationService,
+            IProductService productService,
+            IBetListService betListService,
+            IBalanceUpDataAccess balanceUpDataAccess,
+            ICacheRefAdapter cacheRefAdapter)
+        : base(
+            languageService,
+            sessionService,
+            appSetting,
+            clientViewHelper,
+            authorizationService,
+            productService,
+            betListService,
+            balanceUpDataAccess,
+            cacheRefAdapter)
+        {
+        }
+
         [HttpGet]
         public ActionResult Index(BetListMetaModel metaModel)
         {
@@ -33,7 +61,7 @@ namespace Fanex.Athena.Controllers.BetList
         {
             const string UspKey = "Lrf_BetList_SelRunningByMultipleBettypeMatch";
             var ticketResult = BetListService.GetBetListData(metaModel, UspKey);
-            
+
             var leagueName = string.Empty;
             var firstTicket = ticketResult.MainTicketList.FirstOrDefault();
             if (ticketResult.MainTicketList.Any() && firstTicket != null)

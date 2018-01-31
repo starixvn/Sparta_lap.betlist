@@ -2,14 +2,13 @@
 {
     using System.Collections;
     using System.Collections.Generic;
-    using Constant.DataDomain;
     using BetList.Extensions;
+    using Constant.DataDomain;
     using Fanex.BetList.Core.App_GlobalResources;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
     using Model.BetList.DTO;
     using Model.BetList.MetaModel;
-    using Model.Core.DataDomain;
     using NSubstitute;
     using NUnit.Framework;
 
@@ -83,8 +82,8 @@
 
         [TestCaseSource(nameof(CasinoHandHistoryParamTestCase))]
         public void BuildLrfStatus_CasinoGamesBetType_GetCasinoHandHistoryParam_ReturnCorrectFormat(
-            Dictionary<string, object> ticket, 
-            Dictionary<string, object> model, 
+            Dictionary<string, object> ticket,
+            Dictionary<string, object> model,
             Dictionary<string, object> expected)
         {
             // Arrange

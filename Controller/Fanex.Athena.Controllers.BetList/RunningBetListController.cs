@@ -10,6 +10,8 @@ namespace Fanex.Athena.Controllers.BetList
 
     using System.Web.Mvc;
     using Constant.DataDomain;
+    using DataAccess.Core.Configuration.Interfaces;
+    using Extension.Utility;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Model.BetList.MetaModel;
@@ -17,6 +19,11 @@ namespace Fanex.Athena.Controllers.BetList
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Web.ResultExtension;
     using Resources;
+    using Service.BetList.Interfaces;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
+    using Service.Core.Users.Interfaces;
+    using VendorAdapter.Interfaces;
     using Web.ActionFilter;
 
     #endregion Using
@@ -33,6 +40,33 @@ namespace Fanex.Athena.Controllers.BetList
     /// </summary>
     public class RunningBetListController : BetListBaseController
     {
+        public RunningBetListController()
+        {
+        }
+
+        public RunningBetListController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
+            IAuthorizationService authorizationService,
+            IProductService productService,
+            IBetListService betListService,
+            IBalanceUpDataAccess balanceUpDataAccess,
+            ICacheRefAdapter cacheRefAdapter)
+        : base(
+            languageService,
+            sessionService,
+            appSetting,
+            clientViewHelper,
+            authorizationService,
+            productService,
+            betListService,
+            balanceUpDataAccess,
+            cacheRefAdapter)
+        {
+        }
+
         [HttpGet]
         [FunctionAuthorization(PermissionKeys.TotalBetCleanSheet)]
         public ActionResult CleanSheet(BetListMetaModel metaModel)

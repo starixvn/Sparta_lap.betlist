@@ -11,6 +11,8 @@ namespace Fanex.Athena.Controllers.BetList
     using System.Linq;
     using System.Web.Mvc;
     using Constant.DataDomain;
+    using DataAccess.Core.Configuration.Interfaces;
+    using Extension.Utility;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Model.BetList.MetaModel;
@@ -19,6 +21,11 @@ namespace Fanex.Athena.Controllers.BetList
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
     using Resources;
+    using Service.BetList.Interfaces;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
+    using Service.Core.Users.Interfaces;
+    using VendorAdapter.Interfaces;
 
     #endregion Using
 
@@ -36,6 +43,33 @@ namespace Fanex.Athena.Controllers.BetList
         private const string DoubleChangeBettypes = "24,151,186,410,431";
 
         private const string BONTeamToScoreBettypes = "26,145,146,170,188,427,433";
+
+        public RunningBettypesBetListController()
+        {
+        }
+
+        public RunningBettypesBetListController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
+            IAuthorizationService authorizationService,
+            IProductService productService,
+            IBetListService betListService,
+            IBalanceUpDataAccess balanceUpDataAccess,
+            ICacheRefAdapter cacheRefAdapter)
+        : base(
+            languageService,
+            sessionService,
+            appSetting,
+            clientViewHelper,
+            authorizationService,
+            productService,
+            betListService,
+            balanceUpDataAccess,
+            cacheRefAdapter)
+        {
+        }
 
         [HttpGet]
         [FunctionAuthorization(PermissionKeys.TotalBetMixParlay)]
