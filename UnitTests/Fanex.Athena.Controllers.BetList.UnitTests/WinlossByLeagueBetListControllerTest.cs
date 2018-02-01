@@ -78,9 +78,10 @@
             }
         }
 
-        [TestCase("USD", null, "USD", true)]
-        [TestCase("USD", "eur", "EUR", false)]
-        public void Index_ExportExcel_PassCorrectParam(string currency, string baseCurrency, string expectedCurrency, bool isFakeLicensee)
+        [TestCase(1, "USD", null, "USD", true)]
+        [TestCase(1, "USD", "eur", "EUR", false)]
+        [TestCase(0, "USD", null, null, false)]
+        public void Index_ExportExcel_PassCorrectParam(int currencyId, string currency, string baseCurrency, string expectedCurrency, bool isFakeLicensee)
         {
             using (var controller = CreateController())
             {
@@ -89,7 +90,7 @@
                 var metaModel = new WinLossByLeagueBetListMetaModel
                 {
                     IsExportExcel = true,
-                    CurrencyId = 1,
+                    CurrencyId = currencyId,
                     CurrencyName = currency,
                     BaseCurrency = baseCurrency,
                     ExternalId = "External",
@@ -101,7 +102,7 @@
                 var fakeLicensees = isFakeLicensee ? new[] { DefaultLicenseeSession.LicenseeId } : Enumerable.Empty<int>();
                 AppSettings.FakeLicenseeList.Returns(fakeLicensees);
 
-                var currencyTitle = string.Format(ViewResources.Viewin, expectedCurrency);
+                var currencyTitle = currencyId == 0 ? ViewResources.AllCurrencies :  string.Format(ViewResources.Viewin, expectedCurrency);
                 var expectedTitle = $"{ViewResources.CustomerBetList} - 1/1/2018 → 1/2/2018 - External{(isFakeLicensee ? "" : "(System)")} - {currencyTitle}";
 
                 var ticketResult = new TicketResult();
