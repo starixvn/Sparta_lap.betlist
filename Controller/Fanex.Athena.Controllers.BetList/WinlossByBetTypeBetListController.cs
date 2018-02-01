@@ -58,30 +58,22 @@
         public ActionResult Index(BetListMetaModel metaModel)
         {
             var model = CreateDefaultMetaModel(metaModel);
-            if (!model.IsExportExcel)
-            {
-                return View("~/Views/BetList/WinlossByBetType/Main.cshtml", model);
-            }
-
-            var currencyList = SessionService.UserSession.CurrencyList;
-
-            if (model.CurrencyId != BaseCurrencyType.All &&
-                currencyList.ContainsKey(model.CurrencyId) &&
-                model.FromDate.Date == model.ToDate.Date)
-            {
-                model.AgentListXml = SessionService.GenerateAgentListXml(model.CurrencyId);
-                return Excel(model);
-            }
-
-            return EmptyExcel();
+            return ProcessDefaultRequest(model, "~/Views/BetList/WinlossByBetType/Main.cshtml", "Lrf_BetList_SelWinLossByBetType");
         }
 
-        private ActionResult Excel(BetListMetaModel metaModel)
+        protected override bool IsValidExportExcel(BetListMetaModel model)
+        {
+            var currencyList = SessionService.UserSession.CurrencyList;
+            return model.CurrencyId != BaseCurrencyType.All &&
+                currencyList.ContainsKey(model.CurrencyId) &&
+                model.FromDate.Date == model.ToDate.Date;
+        }
+
+        protected override ActionResult ExportExcel(BetListMetaModel metaModel, string uspKey)
         {
             metaModel.PageIndex = 1;
             metaModel.PageSize = int.MaxValue - 1;
-            const string UspKey = "Lrf_BetList_SelWinLossByBetType";
-            var ticketResult = BetListService.GetBetListData(metaModel, UspKey);
+            var ticketResult = BetListService.GetBetListData(metaModel, uspKey);
 
             // determine currency viewed in
             var curencyId = metaModel.IsConvert ? metaModel.BaseCurrencyId : metaModel.CurrencyId;
@@ -94,11 +86,7 @@
                 metaModel.ToDate.ToString(FormatKey.ShortDateFormat),
                 viewinCurrency);
 
-            var excel = new BetListExcel(new ShowingOption(), metaModel.LicenseeId, new List<int> { BetEffectiveColumn });
-
-            var workbook = excel.Export(ticketResult, title);
-
-            return new ExcelResult(workbook, "WinLossByBetTypeBetList");
+            return ProcessExportExcel(new ShowingOption(), metaModel, ticketResult, new List<int> { BetEffectiveColumn }, title, "WinLossByBetTypeBetList");
         }
     }
 }

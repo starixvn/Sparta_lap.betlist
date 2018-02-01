@@ -5,9 +5,7 @@
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Excel.Base.Entities;
-    using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Model.BetList.MetaModel;
-    using Fanex.Athena.Web.ResultExtension;
     using Resources;
     using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
@@ -47,31 +45,20 @@
         public ActionResult Detail(BetListMetaModel metaModel)
         {
             var model = CreateDefaultMetaModel(metaModel);
-
-            if (!model.IsExportExcel)
-            {
-                ViewBag.BetListTitle = _title;
-                return View("~/Views/BetList/VoidbridgeDetail/Main.cshtml", model);
-            }
-
-            if (IsValidCurrency(model.CurrencyId))
-            {
-                return ExcelDetail(model);
-            }
-
-            return EmptyExcel();
+            return ProcessDefaultRequest(model, "~/Views/BetList/VoidbridgeDetail/Main.cshtml", "Lrf_BetList_RNG_Detail");
         }
 
-        private ActionResult ExcelDetail(BetListMetaModel metaModel)
+        protected override void AssignViewBag(BetListMetaModel model)
         {
-            const string UspKey = "Lrf_BetList_RNG_Detail";
-            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-            var hiddenColumns = new List<int> { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn, LicenseeWLColumn };
-            var excel = new BetListExcel(new ShowingOption(), SessionService.LicenseeSession.LicenseeId, hiddenColumns);
-            var ticketResult = BetListService.GetBetListData(metaModel, UspKey);
-            var workbook = excel.Export(ticketResult, _title);
+            ViewBag.BetListTitle = _title;
+        }
 
-            return new ExcelResult(workbook, "MacauGamesDetail");
+        protected override ActionResult ExportExcel(BetListMetaModel metaModel, string uspKey)
+        {
+            var hiddenColumns = new List<int> { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn, LicenseeWLColumn };
+            var ticketResult = BetListService.GetBetListData(metaModel, uspKey);
+
+            return ProcessExportExcel(new ShowingOption(), metaModel, ticketResult, hiddenColumns, _title, "MacauGamesDetail");
         }
     }
 }

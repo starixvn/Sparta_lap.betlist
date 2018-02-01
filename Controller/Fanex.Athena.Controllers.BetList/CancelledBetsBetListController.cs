@@ -16,12 +16,10 @@ namespace Fanex.Athena.Controllers.BetList
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Excel.Base.Entities;
-    using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.BetList.ViewModel;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Web.ActionFilter;
-    using Fanex.Athena.Web.ResultExtension;
     using Model.BetList.DTO;
     using Resources;
     using Service.BetList.Interfaces;
@@ -54,14 +52,14 @@ namespace Fanex.Athena.Controllers.BetList
             ICacheRefAdapter cacheRefAdapter,
             ICancelledBetListDataAccess cancelledBetListDataAccess)
         : base(
-            languageService, 
-            sessionService, 
-            appSetting, 
-            clientViewHelper, 
-            authorizationService, 
-            productService, 
-            betListService, 
-            balanceUpDataAccess, 
+            languageService,
+            sessionService,
+            appSetting,
+            clientViewHelper,
+            authorizationService,
+            productService,
+            betListService,
+            balanceUpDataAccess,
             cacheRefAdapter)
         {
             _cancelledBetListDataAccess = cancelledBetListDataAccess;
@@ -133,18 +131,10 @@ namespace Fanex.Athena.Controllers.BetList
                 {
                     CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
                 };
-                var currencyTitle = string.Format(
-                    ViewResources.Viewin,
-                    excelModel.IsConvert ? excelModel.BaseCurrency.ToUpperInvariant() : excelModel.CurrencyName);
-                var title = ViewResources.CancelledBets
-                    + string.Format(" - {0}", currencyTitle);
+                var currencyTitle = GetViewInCurrency(excelModel);
+                var title = $"{ViewResources.CancelledBets} - {currencyTitle}";
 
-                var excel = new BetListExcel(
-                    showingOption, excelModel.LicenseeId, HiddenColumnIndexes);
-
-                var workbook = excel.Export(ticketResult, title);
-
-                return new ExcelResult(workbook, "CancelledBetList");
+                return ProcessExportExcel(showingOption, excelModel, ticketResult, HiddenColumnIndexes, title, "CancelledBetList");
             }
 
             return EmptyExcel();

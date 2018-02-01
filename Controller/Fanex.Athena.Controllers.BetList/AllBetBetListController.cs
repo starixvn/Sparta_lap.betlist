@@ -14,9 +14,7 @@ namespace Fanex.Athena.Controllers.BetList
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Excel.Base.Entities;
-    using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Model.BetList.MetaModel;
-    using Fanex.Athena.Web.ResultExtension;
     using Resources;
     using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
@@ -43,14 +41,14 @@ namespace Fanex.Athena.Controllers.BetList
             IBalanceUpDataAccess balanceUpDataAccess,
             ICacheRefAdapter cacheRefAdapter)
         : base(
-            languageService, 
-            sessionService, 
-            appSetting, 
-            clientViewHelper, 
-            authorizationService, 
-            productService, 
-            betListService, 
-            balanceUpDataAccess, 
+            languageService,
+            sessionService,
+            appSetting,
+            clientViewHelper,
+            authorizationService,
+            productService,
+            betListService,
+            balanceUpDataAccess,
             cacheRefAdapter)
         {
         }
@@ -59,44 +57,33 @@ namespace Fanex.Athena.Controllers.BetList
         public ActionResult Detail(BetListMetaModel metaModel)
         {
             var model = CreateDefaultMetaModel(metaModel);
+            return ProcessDefaultRequest(model, "~/Views/BetList/AGCasinoDetail/Main.cshtml", "Lrf_BetList_LC_Detail");
+        }
 
-            if (!model.IsExportExcel)
+        protected override void AssignViewBag(BetListMetaModel model)
+        {
+            ViewBag.BetListTitle = GetTitle(model.Date);
+        }
+
+        protected override ActionResult ExportExcel(BetListMetaModel metaModel, string uspKey)
+        {
+            var showingOption = new ShowingOption
             {
-                ViewBag.BetListTitle = GetTitle(model.Date);
-                return View("~/Views/BetList/AGCasinoDetail/Main.cshtml", model);
-            }
+                GrandTotalVisible = false,
+                CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
+            };
 
-            if (IsValidCurrency(model.CurrencyId))
-            {
-                return ExcelDetail(model);
-            }
+            var hiddenColumns = new List<int> { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn, LicenseeWLColumn };
 
-            return EmptyExcel();
+            var title = GetTitle(metaModel.Date);
+            var ticketResult = BetListService.GetBetListData(metaModel, uspKey);
+
+            return ProcessExportExcel(showingOption, metaModel, ticketResult, hiddenColumns, title, "AllBetDetail");
         }
 
         private static string GetTitle(DateTime date)
         {
             return ViewResources.ProductAB + " - " + ViewResources.DetailedBetlist + " - " + date.ToString("MM/dd/yyyy");
-        }
-
-        private ActionResult ExcelDetail(BetListMetaModel metaModel)
-        {
-            const string UspKey = "Lrf_BetList_LC_Detail";
-            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-            var licenseeSession = SessionService.LicenseeSession;
-            var showingOption = new ShowingOption
-            {
-                GrandTotalVisible = false,
-                CustomerCommVisible = licenseeSession.IsAllowedCustomerComm
-            };
-
-            var hiddenColumns = new List<int> { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn, LicenseeWLColumn };
-            var excel = new BetListExcel(showingOption, licenseeSession.LicenseeId, hiddenColumns);
-            var title = GetTitle(metaModel.Date);
-            var ticketResult = this.BetListService.GetBetListData(metaModel, UspKey);
-            var workbook = excel.Export(ticketResult, title);
-
-            return new ExcelResult(workbook, "AllBetDetail");
         }
     }
 }

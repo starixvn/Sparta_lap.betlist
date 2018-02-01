@@ -11,6 +11,7 @@ namespace Fanex.Athena.Controllers.BetList
     using System.Collections.Generic;
     using System.Web.Mvc;
     using DataAccess.Core.Configuration.Interfaces;
+    using Excel.Base.Entities;
     using Extension.Utility;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
@@ -57,14 +58,13 @@ namespace Fanex.Athena.Controllers.BetList
         [HttpGet]
         public ActionResult Index(BetListMetaModel metaModel)
         {
-            return ProcessDefaultRequest(metaModel, "~/Views/BetList/RacingCommission/Main.cshtml");
+            var model = CreateDefaultMetaModel(metaModel);
+            return ProcessDefaultRequest(model, "~/Views/BetList/RacingCommission/Main.cshtml", "Lrf_BetList_SelWinLossRacingByDate_Mem");
         }
 
-        protected override ActionResult ExportExcel(BetListMetaModel metaModel)
+        protected override ActionResult ExportExcel(BetListMetaModel metaModel, string uspKey)
         {
-            const string UspKey = "Lrf_BetList_SelWinLossRacingByDate_Mem";
-
-            var ticketResult = BetListService.GetBetListData(metaModel, UspKey);
+            var ticketResult = BetListService.GetBetListData(metaModel, uspKey);
 
             var currencyTitle = GetViewInCurrency(metaModel);
 
@@ -77,8 +77,12 @@ namespace Fanex.Athena.Controllers.BetList
                 currencyTitle);
 
             var hiddenColumns = new List<int> { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn };
+            var showingOption = new ShowingOption
+            {
+                CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
+            };
 
-            return ProcessExportExcel(metaModel, ticketResult, hiddenColumns, title, "CustomerWinLossBetList");
+            return ProcessExportExcel(showingOption, metaModel, ticketResult, hiddenColumns, title, "CustomerWinLossBetList");
         }
     }
 }

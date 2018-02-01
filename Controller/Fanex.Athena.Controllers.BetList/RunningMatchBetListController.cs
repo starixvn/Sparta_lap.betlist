@@ -11,6 +11,7 @@ namespace Fanex.Athena.Controllers.BetList
     using System.Linq;
     using System.Web.Mvc;
     using DataAccess.Core.Configuration.Interfaces;
+    using Excel.Base.Entities;
     using Extension.Utility;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Service.BetList.Interfaces;
@@ -53,29 +54,27 @@ namespace Fanex.Athena.Controllers.BetList
         [HttpGet]
         public ActionResult Index(BetListMetaModel metaModel)
         {
-            return ProcessDefaultRequest(metaModel, "~/Views/BetList/RunningBetListOfMatch/Main.cshtml");
+            var model = CreateDefaultMetaModel(metaModel);
+            return ProcessDefaultRequest(model, "~/Views/BetList/RunningBetListOfMatch/Main.cshtml", null);
         }
 
-        protected override ActionResult ExportExcel(BetListMetaModel metaModel)
+        protected override ActionResult ExportExcel(BetListMetaModel metaModel, string uspKey)
         {
-            var uspKey = IsRacing(metaModel.BetType)
-                                              ? "Lrf_BetList_SelAllByDateHR"
-                                              : "Lrf_BetList_SelRunningByBettypeMatch";
-            var ticketResult = this.BetListService.GetBetListData(metaModel, uspKey);
+            var uspName = IsRacing(metaModel.BetType) ? "Lrf_BetList_SelAllByDateHR" : "Lrf_BetList_SelRunningByBettypeMatch";
 
-            var leagueName = string.Empty;
+            var ticketResult = BetListService.GetBetListData(metaModel, uspName);
+
             var firstTicket = ticketResult.MainTicketList.FirstOrDefault();
-            if (ticketResult.MainTicketList.Any() && firstTicket != null)
+            var leagueName = firstTicket != null ? CacheRefAdapter.GetLeagueName(firstTicket.LeagueId) : string.Empty;
+
+            var title = $"{leagueName} - {CacheRefAdapter.GetBettype(metaModel.BetType)} - {GetViewInCurrency(metaModel)}";
+
+            var showingOption = new ShowingOption
             {
-                leagueName = CacheRefAdapter.GetLeagueName(firstTicket.LeagueId);
-            }
+                CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
+            };
 
-            var title = leagueName + " - " + string.Format(
-                "{0} - {1}",
-                CacheRefAdapter.GetBettype(metaModel.BetType),
-                GetViewInCurrency(metaModel));
-
-            return ProcessExportExcel(metaModel, ticketResult, HiddenColumnIndexes, title, "RunningBetList");
+            return ProcessExportExcel(showingOption, metaModel, ticketResult, HiddenColumnIndexes, title, "RunningBetList");
         }
     }
 }

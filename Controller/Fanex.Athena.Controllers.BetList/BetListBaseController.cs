@@ -232,48 +232,53 @@
                     SessionService.UserSession.CurrencyList, SessionService.LicenseeSession.LicenseeId, currencyId);
         }
 
-        protected FileContentResult EmptyExcel()
+        protected internal virtual FileContentResult EmptyExcel()
         {
-            return this.File(ExcelHelper.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
+            return File(ExcelHelper.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
         }
 
-        protected virtual ActionResult ExportExcel(BetListMetaModel metaModel)
+        protected virtual ActionResult ExportExcel(BetListMetaModel metaModel, string uspKey)
         {
             return null;
         }
 
-        protected ActionResult ProcessExportExcel(
+        protected virtual void AssignViewBag(BetListMetaModel model)
+        {
+        }
+
+        protected virtual bool IsValidExportExcel(BetListMetaModel model)
+        {
+            return IsValidCurrency(model.CurrencyId);
+        }
+
+        protected internal virtual ActionResult ProcessExportExcel(
+            ShowingOption showingOption,
             BetListMetaModel metaModel,
             TicketResult ticketResult,
             IEnumerable<int> hiddenColumns,
             string title,
-            string fileName)
+            string fileName,
+            int startIndex = 1)
         {
-            var showingOption = new ShowingOption
-            {
-                CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
-            };
-
             var excel = new BetListExcel(showingOption, metaModel.LicenseeId, hiddenColumns, metaModel.IsShowSumStake);
 
-            var workbook = excel.Export(ticketResult, title);
+            var workbook = excel.Export(ticketResult, title, startIndex);
 
             return new ExcelResult(workbook, fileName);
         }
 
-        protected ActionResult ProcessDefaultRequest(BetListMetaModel metaModel, string viewPath)
+        protected ActionResult ProcessDefaultRequest(BetListMetaModel model, string viewPath, string uspKey)
         {
-            var model = CreateDefaultMetaModel(metaModel);
-
             if (!model.IsExportExcel)
             {
+                AssignViewBag(model);
                 return View(viewPath, model);
             }
 
-            if (IsValidCurrency(model.CurrencyId))
+            if (IsValidExportExcel(model))
             {
                 model.AgentListXml = SessionService.GenerateAgentListXml(model.CurrencyId);
-                return ExportExcel(model);
+                return ExportExcel(model, uspKey);
             }
 
             return EmptyExcel();

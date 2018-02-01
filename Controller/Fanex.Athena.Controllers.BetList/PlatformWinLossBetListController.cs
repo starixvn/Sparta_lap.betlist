@@ -11,6 +11,7 @@ namespace Fanex.Athena.Controllers.BetList
     using System.Collections.Generic;
     using System.Web.Mvc;
     using DataAccess.Core.Configuration.Interfaces;
+    using Excel.Base.Entities;
     using Extension.Utility;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Model.Core.DataDomain;
@@ -57,14 +58,13 @@ namespace Fanex.Athena.Controllers.BetList
         [HttpGet]
         public ActionResult Index(BetListMetaModel metaModel)
         {
-            return ProcessDefaultRequest(metaModel, "~/Views/BetList/PlatformWinLoss/Main.cshtml");
+            var model = CreateDefaultMetaModel(metaModel);
+            return ProcessDefaultRequest(model, "~/Views/BetList/PlatformWinLoss/Main.cshtml", "Lrf_BetList_PlatformWinLoss_Mem");
         }
 
-        protected override ActionResult ExportExcel(BetListMetaModel metaModel)
+        protected override ActionResult ExportExcel(BetListMetaModel metaModel, string uspKey)
         {
-            const string UspKey = "Lrf_BetList_PlatformWinLoss_Mem";
-            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-            var ticketResult = BetListService.GetBetListData(metaModel, UspKey);
+            var ticketResult = BetListService.GetBetListData(metaModel, uspKey);
 
             var curencyId = metaModel.IsConvert ? metaModel.BaseCurrencyId : metaModel.CurrencyId;
             var viewinCurrency = GetViewInCurrency(curencyId, metaModel.CurrencyName);
@@ -81,8 +81,11 @@ namespace Fanex.Athena.Controllers.BetList
                 viewinCurrency);
 
             var hiddenColumns = new List<int> { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn };
-
-            return ProcessExportExcel(metaModel, ticketResult, hiddenColumns, title, "PlatformWinLossBetList");
+            var showingOption = new ShowingOption
+            {
+                CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
+            };
+            return ProcessExportExcel(showingOption, metaModel, ticketResult, hiddenColumns, title, "PlatformWinLossBetList");
         }
     }
 }

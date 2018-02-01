@@ -11,6 +11,7 @@ namespace Fanex.Athena.Controllers.BetList
     using System.Linq;
     using System.Web.Mvc;
     using DataAccess.Core.Configuration.Interfaces;
+    using Excel.Base.Entities;
     using Extension.Utility;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Common;
@@ -54,32 +55,28 @@ namespace Fanex.Athena.Controllers.BetList
         [HttpGet]
         public ActionResult Index(BetListMetaModel metaModel)
         {
-            return ProcessDefaultRequest(metaModel, "~/Views/BetList/RunningBettypesOfMatchBetList/Main.cshtml");
+            var model = CreateDefaultMetaModel(metaModel);
+            return ProcessDefaultRequest(model, "~/Views/BetList/RunningBettypesOfMatchBetList/Main.cshtml", "Lrf_BetList_SelRunningByMultipleBettypeMatch");
         }
 
-        protected override ActionResult ExportExcel(BetListMetaModel metaModel)
+        protected override ActionResult ExportExcel(BetListMetaModel metaModel, string uspKey)
         {
-            const string UspKey = "Lrf_BetList_SelRunningByMultipleBettypeMatch";
-            var ticketResult = BetListService.GetBetListData(metaModel, UspKey);
+            var ticketResult = BetListService.GetBetListData(metaModel, uspKey);
 
-            var leagueName = string.Empty;
             var firstTicket = ticketResult.MainTicketList.FirstOrDefault();
-            if (ticketResult.MainTicketList.Any() && firstTicket != null)
-            {
-                leagueName = CacheRefAdapter.GetLeagueName(firstTicket.LeagueId);
-            }
+            var leagueName = firstTicket != null ? CacheRefAdapter.GetLeagueName(firstTicket.LeagueId) : string.Empty;
 
-            var bettype = metaModel.BetType;
-            if (metaModel.BetType == 0 && !string.IsNullOrWhiteSpace(metaModel.MultipleBettype))
-            {
-                bettype = Converter.ToInt(metaModel.MultipleBettype.Split(',')[0]);
-            }
+            var bettype = metaModel.BetType == 0 && !string.IsNullOrWhiteSpace(metaModel.MultipleBettype) 
+                ? Converter.ToInt(metaModel.MultipleBettype.Split(',')[0])
+                : metaModel.BetType;
 
-            var title = leagueName + " - " + string.Format(
-                "{0} - {1}",
-                CacheRefAdapter.GetBettype(bettype),
-                GetViewInCurrency(metaModel));
-            return ProcessExportExcel(metaModel, ticketResult, HiddenColumnIndexes, title, "RunningBetList");
+            var title = $"{leagueName} - {CacheRefAdapter.GetBettype(bettype)} - {GetViewInCurrency(metaModel)}";
+            var showingOption = new ShowingOption
+            {
+                CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
+            };
+
+            return ProcessExportExcel(showingOption, metaModel, ticketResult, HiddenColumnIndexes, title, "RunningBetList");
         }
     }
 }

@@ -13,11 +13,9 @@ namespace Fanex.Athena.Controllers.BetList
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Excel.Base.Entities;
-    using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.BetList.ViewModel;
     using Fanex.Athena.Model.Core.DataDomain;
-    using Fanex.Athena.Web.ResultExtension;
     using Resources;
     using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
@@ -141,11 +139,9 @@ namespace Fanex.Athena.Controllers.BetList
             var baseCurrency = GetViewInCurrency(metaModel);
             var title = $"{CacheRefAdapter.GetBettype(metaModel.BetType)} - {baseCurrency}";
 
-            var excel = new BetListExcel(showingOption, metaModel.LicenseeId, HiddenColumnIndexes, true);
+            metaModel.IsShowSumStake = true;
 
-            var workbook = excel.Export(ticketResult, title);
-
-            return new ExcelResult(workbook, "RunningBetList");
+            return ProcessExportExcel(showingOption, metaModel, ticketResult, HiddenColumnIndexes, title, "RunningBetList");
         }
     }
 }
