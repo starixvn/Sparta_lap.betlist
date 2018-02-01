@@ -1245,12 +1245,6 @@
   <data name="lbl7Over" xml:space="preserve">
     <value>7 오버</value>
   </data>
-  <data name="LC" xml:space="preserve">
-    <value>LC</value>
-  </data>
-  <data name="LCCasinoUpdateSettingUnAvailableMsg" xml:space="preserve">
-    <value>실시간 카지노 데이터베이스는 현재 사용할 수 없습니다. 나중에 다시 시도해주십시오. </value>
-  </data>
   <data name="League" xml:space="preserve">
     <value>리그</value>
   </data>
@@ -1313,9 +1307,6 @@
   </data>
   <data name="Live" xml:space="preserve">
     <value>실시간  </value>
-  </data>
-  <data name="LiveCasino" xml:space="preserve">
-    <value>실시간 카지노  </value>
   </data>
   <data name="LiveGame" xml:space="preserve">
     <value>실시간 게임</value>
@@ -1992,15 +1983,6 @@
   <data name="TopCustomer" xml:space="preserve">
     <value>상위 고객</value>
   </data>
-  <data name="TopCustomerNote1" xml:space="preserve">
-    <value>이 보고서는 어제까지의 모든 이력 데이터 보기를 지원할 수 있습니다</value>
-  </data>
-  <data name="TopCustomerNote2" xml:space="preserve">
-    <value>경주 및 실시간 카지노 데이터는 이 보고서에 포함되지 않습니다</value>
-  </data>
-  <data name="TopCustomerNote3" xml:space="preserve">
-    <value>이 보고서는 {0}에서 어제까지 보기가 지원됩니다</value>
-  </data>
   <data name="Total" xml:space="preserve">
     <value>총합</value>
   </data>
@@ -2102,12 +2084,6 @@
   </data>
   <data name="UpdateCustomerCommission" xml:space="preserve">
     <value>고객 수수료 업데이트하기</value>
-  </data>
-  <data name="UpdateLiveCasinoBetSettings" xml:space="preserve">
-    <value>실시간 카지노 배팅 설정을 업데이트하시렵니까?</value>
-  </data>
-  <data name="UpdateLiveCasinoBetSettingSuccessMsg" xml:space="preserve">
-    <value>{0}의 실시간 카지노 배팅 설정이 완료되었습니다</value>
   </data>
   <data name="UpdateNumberGameBetSettings" xml:space="preserve">
     <value>모든 숫자 게임 배팅 설정을 업데이트하시렵니까?</value>
@@ -2226,14 +2202,8 @@
   <data name="YouNotChooseAnyCustomerMsg" xml:space="preserve">
     <value>고객을 아직 선택하지 않았습니다.</value>
   </data>
-  <data name="LCComm" xml:space="preserve">
-    <value>LC 수수료</value>
-  </data>
   <data name="ThereIsNoSelectedItem" xml:space="preserve">
     <value>선택된 항목이 없습니다</value>
-  </data>
-  <data name="LCCommission" xml:space="preserve">
-    <value>LC 수수료</value>
   </data>
   <data name="SelectOptions" xml:space="preserve">
     <value>옵션 선택하기</value>
@@ -2326,12 +2296,6 @@
   <data name="TotalTurnover" xml:space="preserve">
     <value>Total Turnover</value>
   </data>
-  <data name="DisableLiveCasino" xml:space="preserve">
-    <value>Disable Live Casino</value>
-  </data>
-  <data name="EnableLiveCasino" xml:space="preserve">
-    <value>Enable Live Casino</value>
-  </data>
   <data name="DisableRNGCasino" xml:space="preserve">
     <value>Disable RNG Casino</value>
   </data>
@@ -2385,10 +2349,6 @@
   </data>
   <data name="ProductBG" xml:space="preserve">
     <value>빙고</value>
-    <comment>#49196</comment>
-  </data>
-  <data name="ProductLC" xml:space="preserve">
-    <value>실시간 카지노</value>
     <comment>#49196</comment>
   </data>
   <data name="ProductNG" xml:space="preserve">

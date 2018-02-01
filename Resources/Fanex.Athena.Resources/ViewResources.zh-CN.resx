@@ -1010,9 +1010,6 @@
   <data name="lbl7Over" xml:space="preserve">
     <value>7或以上</value>
   </data>
-  <data name="LC" xml:space="preserve">
-    <value>娱乐厅</value>
-  </data>
   <data name="League" xml:space="preserve">
     <value>联赛</value>
   </data>
@@ -1078,9 +1075,6 @@
   </data>
   <data name="Live" xml:space="preserve">
     <value>滚球</value>
-  </data>
-  <data name="LiveCasino" xml:space="preserve">
-    <value>娱乐厅</value>
   </data>
   <data name="LiveGame" xml:space="preserve">
     <value>滚球游戏</value>
@@ -1796,15 +1790,6 @@
     <value>最大会员</value>
     <comment>#27974</comment>
   </data>
-  <data name="TopCustomerNote1" xml:space="preserve">
-    <value>此报告可支持查看历史数据至昨日</value>
-  </data>
-  <data name="TopCustomerNote2" xml:space="preserve">
-    <value>此报告不包含赛马赛事及娱乐厅数据</value>
-  </data>
-  <data name="TopCustomerNote3" xml:space="preserve">
-    <value>此报告可支持查看日期从{0}至昨日</value>
-  </data>
   <data name="Total" xml:space="preserve">
     <value>总和</value>
   </data>
@@ -1910,12 +1895,6 @@
   <data name="UpdateCustomerCommission" xml:space="preserve">
     <value>更新会员的佣金</value>
     <comment>#27974</comment>
-  </data>
-  <data name="UpdateLiveCasinoBetSettings" xml:space="preserve">
-    <value>您确定您要更新真人娱乐场投注设置吗？</value>
-  </data>
-  <data name="UpdateLiveCasinoBetSettingSuccessMsg" xml:space="preserve">
-    <value>{0}的娱乐厅投注设定已成功更新</value>
   </data>
   <data name="UpdateNumberGameBetSettings" xml:space="preserve">
     <value>您确定您要更新的所有百练赛投注设置吗？</value>
@@ -2225,9 +2204,6 @@
   <data name="UpdateUnSuccess" xml:space="preserve">
     <value>Update unsucessfully!</value>
   </data>
-  <data name="LCCasinoUpdateSettingUnAvailableMsg" xml:space="preserve">
-    <value>Live Casino Database is not currently available. Please try again later.</value>
-  </data>
   <data name="RNGCasinoUpdateSettingUnAvailableMsg" xml:space="preserve">
     <value>RNG Casino Database is not currently available. Please try again later.</value>
   </data>
@@ -2262,13 +2238,6 @@
   <data name="Alert" xml:space="preserve">
     <value>Alert</value>
     <comment>new</comment>
-  </data>
-  <data name="LCComm" xml:space="preserve">
-    <value>娱乐厅佣金</value>
-    <comment>6900</comment>
-  </data>
-  <data name="LCCommission" xml:space="preserve">
-    <value>LC 佣金</value>
   </data>
   <data name="Columns" xml:space="preserve">
     <value>Columns</value>
@@ -2365,12 +2334,6 @@
   <data name="TotalTurnover" xml:space="preserve">
     <value>总交易额</value>
   </data>
-  <data name="DisableLiveCasino" xml:space="preserve">
-    <value>Disable Live Casino    </value>
-  </data>
-  <data name="EnableLiveCasino" xml:space="preserve">
-    <value>启用娱乐厅</value>
-  </data>
   <data name="DisableRNGCasino" xml:space="preserve">
     <value>停用娱乐城</value>
   </data>
@@ -2452,10 +2415,6 @@
   </data>
   <data name="ProductBG" xml:space="preserve">
     <value>宾果</value>
-    <comment>#49196</comment>
-  </data>
-  <data name="ProductLC" xml:space="preserve">
-    <value>娱乐厅</value>
     <comment>#49196</comment>
   </data>
   <data name="ProductNG" xml:space="preserve">

@@ -2284,15 +2284,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disable Live Casino .
-        /// </summary>
-        public static string DisableLiveCasino {
-            get {
-                return ResourceManager.GetString("DisableLiveCasino", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Disable Macau.
         /// </summary>
         public static string DisableMacau {
@@ -2550,15 +2541,6 @@ namespace Fanex.Athena.Resources {
         public static string EnableGoldDeluxe {
             get {
                 return ResourceManager.GetString("EnableGoldDeluxe", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Enable Live Casino.
-        /// </summary>
-        public static string EnableLiveCasino {
-            get {
-                return ResourceManager.GetString("EnableLiveCasino", resourceCulture);
             }
         }
         
@@ -4138,42 +4120,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to LC.
-        /// </summary>
-        public static string LC {
-            get {
-                return ResourceManager.GetString("LC", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Live Casino Database is not currently available. Please try again later..
-        /// </summary>
-        public static string LCCasinoUpdateSettingUnAvailableMsg {
-            get {
-                return ResourceManager.GetString("LCCasinoUpdateSettingUnAvailableMsg", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to LC Comm.
-        /// </summary>
-        public static string LCComm {
-            get {
-                return ResourceManager.GetString("LCComm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to LC Commission.
-        /// </summary>
-        public static string LCCommission {
-            get {
-                return ResourceManager.GetString("LCCommission", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to League.
         /// </summary>
         public static string League {
@@ -4431,15 +4377,6 @@ namespace Fanex.Athena.Resources {
         public static string LiveAndNonLive {
             get {
                 return ResourceManager.GetString("LiveAndNonLive", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Live Casino.
-        /// </summary>
-        public static string LiveCasino {
-            get {
-                return ResourceManager.GetString("LiveCasino", resourceCulture);
             }
         }
         
@@ -6253,15 +6190,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Live Casino.
-        /// </summary>
-        public static string ProductLC {
-            get {
-                return ResourceManager.GetString("ProductLC", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Lottery.
         /// </summary>
         public static string ProductLT {
@@ -7639,33 +7567,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This report can support viewing all historical data up to yesterday.
-        /// </summary>
-        public static string TopCustomerNote1 {
-            get {
-                return ResourceManager.GetString("TopCustomerNote1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Racing &amp; Live Casino data not included in this report.
-        /// </summary>
-        public static string TopCustomerNote2 {
-            get {
-                return ResourceManager.GetString("TopCustomerNote2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This report can support viewing from {0} to yesterday.
-        /// </summary>
-        public static string TopCustomerNote3 {
-            get {
-                return ResourceManager.GetString("TopCustomerNote3", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Total.
         /// </summary>
         public static string Total {
@@ -8139,24 +8040,6 @@ namespace Fanex.Athena.Resources {
         public static string UpdateKenoBetSettingSuccessMsg {
             get {
                 return ResourceManager.GetString("UpdateKenoBetSettingSuccessMsg", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to update Live Casino bet settings?.
-        /// </summary>
-        public static string UpdateLiveCasinoBetSettings {
-            get {
-                return ResourceManager.GetString("UpdateLiveCasinoBetSettings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The Live Casino bet setting of {0} was updated successfully.
-        /// </summary>
-        public static string UpdateLiveCasinoBetSettingSuccessMsg {
-            get {
-                return ResourceManager.GetString("UpdateLiveCasinoBetSettingSuccessMsg", resourceCulture);
             }
         }
         
