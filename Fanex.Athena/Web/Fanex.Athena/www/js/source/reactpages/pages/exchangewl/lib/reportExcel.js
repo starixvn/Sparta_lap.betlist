@@ -32,16 +32,19 @@ export default class ReportExcel {
     }
 
     export (onFinished) {
-        if (this.gridData.DataList && this.gridData.DataList.length) {
-            Excel.process(() => { 
-                this._createHeader();
-                this._createSheetData();
-                this._createExcelConfig();
-
-                Excel.export(this.worksheet, this.fileName);
-                onFinished && onFinished();
-            });
+        if (!this.gridData.DataList || !this.gridData.DataList.length) {
+            onFinished && onFinished();
+            return;
         }
+
+        Excel.process(() => { 
+            this._createHeader();
+            this._createSheetData();
+            this._createExcelConfig();
+
+            Excel.export(this.worksheet, this.fileName);
+            onFinished && onFinished();
+        });
     }
 
     _getColSpanConfig(level) {

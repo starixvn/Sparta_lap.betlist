@@ -91,17 +91,20 @@ export default class ReportExcel {
     }
 
     export (onFinished) {
-        if (this.gridData.Data && this.gridData.Data.length) {
-            Excel.process(() => { 
-                this._createTitle();
-                this._createHeader();
-                this._createSheetData();
-                this._createExcelConfig();
-
-                Excel.export(this.worksheet, this.fileName);
-                onFinished && onFinished();
-            });
+        if (!this.gridData.Data || !this.gridData.Data.length) {
+            onFinished && onFinished();
+            return;
         }
+
+        Excel.process(() => { 
+            this._createTitle();
+            this._createHeader();
+            this._createSheetData();
+            this._createExcelConfig();
+
+            Excel.export(this.worksheet, this.fileName);
+            onFinished && onFinished();
+        });
     }
 
     _createTitle() {
