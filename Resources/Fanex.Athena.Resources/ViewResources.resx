@@ -3045,14 +3045,15 @@
   <data name="SubsidiaryPerformance" xml:space="preserve">
     <value>Subsidiary Performance</value>
   </data>
-  <data name="ConvertAll" xml:space="preserve">
-    <value>Convert All</value>
+  <data name="ConvertAllFiguresToBaseCurrency" xml:space="preserve">
+    <value>Convert all figures to Base Currency</value>
+    <comment>84932</comment>
   </data>
   <data name="Subsidiary" xml:space="preserve">
     <value>Subsidiary</value>
   </data>
   <data name="SubsidiaryWL" xml:space="preserve">
-    <value>Subsidiary WL</value>
+    <value>Subsidiary W/L</value>
   </data>
   <data name="NewAsia" xml:space="preserve">
     <value>New Asia</value>
@@ -3065,10 +3066,6 @@
   <data name="AB" xml:space="preserve">
     <value>AB</value>
     <comment>82036</comment>
-  </data>
-  <data name="ConvertAllFiguresToBaseCurrency" xml:space="preserve">
-    <value>Convert all figures to Base Currency</value>
-    <comment>84932</comment>
   </data>
   <data name="IncludeDrawData" xml:space="preserve">
     <value>Include Draw data</value>

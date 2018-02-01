@@ -2,44 +2,18 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using Core.DTO.Common;
     using Core.MetaModel.Product;
-    using Service.Core.Users;
-    using Service.Core.Users.Interfaces;
 
     public class SubsidiaryPerformanceViewModel
     {
-        private readonly ISessionService _sessionService;
-
         public SubsidiaryPerformanceViewModel()
         {
-            _sessionService = new SessionService();
             FromDate = DateTime.Today;
             ToDate = DateTime.Today;
         }
 
-        public IEnumerable<CheckedItem> SubsidiaryList
-        {
-            get
-            {
-                var agentList = _sessionService.UserSession.CurrencyAgentList.SelectMany(x => x.Value).Distinct();
-
-                if (agentList.Any())
-                {
-                    var subsidiaryList = agentList.Select(x => new CheckedItem
-                    {
-                        ID = x,
-                        Name = x.ToString(),
-                        Checked = true
-                    }).ToList();
-
-                    return subsidiaryList;
-                }
-
-                return new List<CheckedItem>();
-            }
-        }
+        public IEnumerable<CheckedItem> SubsidiaryList { get; set; }
 
         public DateTime FromDate { get; set; }
 

@@ -8,6 +8,8 @@
     using Core.Configuration.Interfaces;
     using Data;
     using Fanex.Athena.DataAccess.Report.Interfaces;
+    using Model.Core.ResultModel;
+    using Model.Report.DTO;
     using Model.Report.DTO.SubsidiaryPerformance;
     using Model.Report.MetaModel;
 
@@ -25,11 +27,38 @@
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public IEnumerable<SubsidiaryPerformanceEntity> GetData(SubsidiaryPerformanceMetaModel metaModel, out IEnumerable<SubsidiaryPerformanceEntity> totalDataList)
+        public IEnumerable<Operator> GetOperatorList(string licenseeName)
+        {
+            var operatorList = new List<Operator>();
+
+            const string SpName = "Lrf_SubsidiarySel";
+
+            using (var objectDb = this.GetObjectDb(SpName))
+            {
+                objectDb.AddInParameter("LicenseeName", DbType.String, licenseeName);
+
+                using (var reader = objectDb.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        operatorList.Add(new Operator
+                        {
+                            AgentId = Convert.ToInt32(reader["AgentID"]),
+                            OperatorName = reader["OperatorID"].ToString(),
+                            CurrencyId = Convert.ToInt32(reader["Currency"])
+                        });
+                    }
+                }
+            }
+
+            return operatorList;
+        }
+
+        public ReportResultModel<SubsidiaryPerformanceEntity> GetData(SubsidiaryPerformanceMetaModel metaModel)
         {
             const string SpName = "Lrf_Rpt_SubsidiaryWinloss";
             var dataList = new List<SubsidiaryPerformanceEntity>();
-            var totalDataListTemp = new List<SubsidiaryPerformanceEntity>();
+            var totalDataList = new List<SubsidiaryPerformanceEntity>();
             var baseCurrency = metaModel.ConvertAll ? metaModel.BaseCurrency : string.Empty;
             using (var objectDb = this.GetObjectDb(SpName))
             {
@@ -40,14 +69,16 @@
                     while (reader.Read())
                     {
                         dataList.Add(GetEntityData(reader, baseCurrency));
-                        totalDataListTemp.Add(GetEntityData(reader, metaModel.BaseCurrency));
+                        totalDataList.Add(GetEntityData(reader, metaModel.BaseCurrency));
                     }
                 }
             }
 
-            totalDataList = totalDataListTemp;
-
-            return dataList;
+            return new ReportResultModel<SubsidiaryPerformanceEntity>
+            {
+                DataList = dataList,
+                TotalDataList = totalDataList
+            };
         }
 
         private static SubsidiaryPerformanceEntity GetEntityData(IDataReader reader, string baseCurrency)
@@ -61,7 +92,8 @@
                 BetCount = Convert.ToInt32(reader["BetCount"]),
                 Turnover = Convert.ToDecimal(reader["Turnover" + baseCurrency]),
                 CustomerWinLoss = Convert.ToDecimal(reader["Winlost" + baseCurrency]),
-                SubsidiaryWinLoss = Convert.ToDecimal(reader["LicenseeWL" + baseCurrency])
+                SubsidiaryWinLoss = Convert.ToDecimal(reader["LicenseeWL" + baseCurrency]),
+                SubsidiaryComm = Convert.ToDecimal(reader["SubsidiaryComm" + baseCurrency])
             };
         }
 

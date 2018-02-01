@@ -1823,13 +1823,6 @@ exports[`FormFilter  filter component render whole component match to snapshot 1
                   }
                 }
               >
-                <style
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "input#undefined::-ms-clear {display: none;}",
-                    }
-                  }
-                />
                 <input
                   aria-activedescendant="react-select-ddlCurrency--value"
                   aria-describedby={undefined}

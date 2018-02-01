@@ -6,7 +6,7 @@ import ReportExcel from '../reportExcel'
 
 import { totalData, bodyData } from './fakeData';
 
-const gridData = { Data: bodyData, Total: totalData};
+const gridData = { Data: bodyData, Total: totalData };
 const title = "Report Title";
 const fileName = "WinLossByTimeZone";
 
@@ -102,7 +102,7 @@ describe('reportExcel ', () => {
     })
 
     describe('_createMainData', () => {
-        
+
         it('worksheet should has correct value', () => {
             const expectedWorksheet = {
                 A3: { t: "s", v: 1, s: bodyCellStyle.center },
@@ -141,8 +141,8 @@ describe('reportExcel ', () => {
     describe('_createExcelConfig', () => {
         it('worksheet should has correct value', () => {
             const mergeConfig = ["merge config"];
-            const wscols = [{ wpx: 50 }, { wpx: 100, hidden: true }, 
-            { wpx: 200 }, { wpx: 120 }, { wpx: 180 }, { wpx: 120 }, { wpx: 150 }, 
+            const wscols = [{ wpx: 50 }, { wpx: 100, hidden: true },
+            { wpx: 200 }, { wpx: 120 }, { wpx: 180 }, { wpx: 120 }, { wpx: 150 },
             { wpx: 150 }, { wpx: 150 }, { wpx: 150 }, { wpx: 150 }];
 
             const expectedWorksheet = {
@@ -159,6 +159,91 @@ describe('reportExcel ', () => {
             const result = reportExcel.worksheet;
 
             expect(result).toEqual(expectedWorksheet);
+        })
+    })
+
+    describe("_getCellObject", () => {
+        const item = {
+            "ReportBy": "2018-01-01T00:00:00",
+            "GroupBy": null,
+            "BetCount": 10,
+            "Turnover": 1234.0,
+            "CustomerComm": 5678.0,
+            "LicenseeWinLoss": -23646.17,
+            "LicenseeComm": 72.0,
+            "LicenseeNetWinLoss": 22758.17,
+            "Margin": 15.5
+        }
+        const MAIN_SECTION_STYLE = "mainSectionStyle";
+
+        it("columnIndex = GROUPBY_COLUMN_INDEX and group by product - cell style should be correct", () => {
+            const groupByProduct = 1;
+            const reportExcel = new ReportExcel(undefined, title, 1, groupByProduct);
+            const groupByColumnIndex = 2;
+
+            Excel.getCellAddress = jest.fn(() => {});
+            Excel.getCellType = jest.fn(() => "s");
+
+            const cell = reportExcel._getCellObject(item, MAIN_SECTION_STYLE, groupByColumnIndex);
+
+            expect(cell.style).toEqual(bodyCellStyle.rowspan);
+        })
+
+        it("value of item is null - cell value should be empty string", () => {
+            const expectedValue = "";
+            const groupByProduct = 1;
+            const reportExcel = new ReportExcel(undefined, title, 1, groupByProduct);
+            const groupByColumnIndex = 2;
+
+            Excel.getCellAddress = jest.fn(() => {});
+            Excel.getCellType = jest.fn(() => "s");
+
+            const cell = reportExcel._getCellObject(item, MAIN_SECTION_STYLE, groupByColumnIndex);
+
+            expect(cell.value).toBe(expectedValue);
+        })
+
+        it("columnIndex = LICENSEEWL_COLUMN_INDEX and value is negative number - cell style should be correct", () => {
+            const groupByProduct = 1;
+            const reportExcel = new ReportExcel(undefined, title, 1, groupByProduct);
+            const licenseeWlColumnIndex = 6;
+
+            Excel.getCellAddress = jest.fn(() => {});
+            Excel.getCellType = jest.fn(() => "s");
+
+            const cell = reportExcel._getCellObject(item, MAIN_SECTION_STYLE, licenseeWlColumnIndex);
+
+            expect(cell.style).toEqual(bodyCellStyle.negativeDecimal);
+        })
+
+        it("columnIndex = REPORTBY_COLUMN_INDEX and in ReportByDaily mode - cell value should be correct", () => {
+            const expectedValue = "01/01/2018";
+            const groupByProduct = 1;
+            const reportByDaily = 2;
+            const reportExcel = new ReportExcel(undefined, title, reportByDaily, groupByProduct);
+            const reportByColumnIndex = 1;
+
+            Excel.getCellAddress = jest.fn(() => {});
+            Excel.getCellType = jest.fn(() => "s");
+
+            const cell = reportExcel._getCellObject(item, MAIN_SECTION_STYLE, reportByColumnIndex);
+
+            expect(cell.value).toEqual(expectedValue);
+        })
+
+        it("columnIndex = REPORTBY_COLUMN_INDEX and in ReportBySummary mode - cell value should be correct", () => {
+            const expectedValue = "01/2018";
+            const groupByProduct = 1;
+            const reportBySummary = 1;
+            const reportExcel = new ReportExcel(undefined, title, reportBySummary, groupByProduct);
+            const reportByColumnIndex = 1;
+
+            Excel.getCellAddress = jest.fn(() => {});
+            Excel.getCellType = jest.fn(() => "s");
+
+            const cell = reportExcel._getCellObject(item, MAIN_SECTION_STYLE, reportByColumnIndex);
+
+            expect(cell.value).toEqual(expectedValue);
         })
     })
 })

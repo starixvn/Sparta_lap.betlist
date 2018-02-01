@@ -1,4 +1,4 @@
-﻿// Generated at: 1/17/2018 5:36:39 PM
+﻿// Generated at: 1/25/2018 9:00:28 AM
 window._language_en_US = {
 AA:"AA",
 AB:"AB",
@@ -160,7 +160,6 @@ Confirmation:"Confirmation",
 ConfirmCommission:"Confirm Customer&apos;s Commission:",
 ConfirmPassword:"Confirm Password",
 Content:"Content",
-ConvertAll:"Convert All",
 ConvertAllFiguresToBaseCurrency:"Convert all figures to Base Currency",
 ConvertTo:"Convert to",
 CopyBetSettingFrom:"Copy All Bet Setting from {0}",
@@ -803,7 +802,7 @@ Subject:"Subject",
 Submit:"Submit",
 Subsidiary:"Subsidiary",
 SubsidiaryPerformance:"Subsidiary Performance",
-SubsidiaryWL:"Subsidiary WL",
+SubsidiaryWL:"Subsidiary W/L",
 Summary:"Summary",
 Sunday:"Sunday",
 SupportForOnlyNote:"The report only supports",

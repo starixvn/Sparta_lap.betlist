@@ -6,13 +6,15 @@ const bodyData = [{
         "BetCount": 52,
         "Turnover": 322.0000,
         "CustomerWinLoss": 142.3210,
-        "SubsidiaryWinLoss": -141.7636
+        "SubsidiaryWinLoss": -141.7636,
+        "SubsidiaryComm": 50
     }, {
         "Product": "Cash Out",
         "BetCount": 52,
         "Turnover": 322.0000,
         "CustomerWinLoss": 142.3210,
-        "SubsidiaryWinLoss": 141.7636
+        "SubsidiaryWinLoss": 141.7636,
+        "SubsidiaryComm": 10
     }]
 }]
 
@@ -25,7 +27,8 @@ const totalData = [{
     "BetCount": 894,
     "Turnover": 0.0,
     "CustomerWinLoss": 0.0,
-    "SubsidiaryWinLoss": 0.0
+    "SubsidiaryWinLoss": 0.0,
+    "SubsidiaryComm": 0
 }, {
     "SubsidiaryId": 916515,
     "Subsidiary": "Total 916515",
@@ -35,7 +38,8 @@ const totalData = [{
     "BetCount": 99,
     "Turnover": 0.0,
     "CustomerWinLoss": 0.0,
-    "SubsidiaryWinLoss": -141.7636
+    "SubsidiaryWinLoss": -141.7636,
+    "SubsidiaryComm": 0
 }]
 
 const grandTotalData = {
@@ -47,7 +51,8 @@ const grandTotalData = {
     "BetCount": 13286376,
     "Turnover": 405367913.09429135,
     "CustomerWinLoss": -14046804.028517062,
-    "SubsidiaryWinLoss": 14046469.750504408
+    "SubsidiaryWinLoss": 14046469.750504408,
+    "SubsidiaryComm": 60
 }
 
 export { totalData, bodyData, grandTotalData };

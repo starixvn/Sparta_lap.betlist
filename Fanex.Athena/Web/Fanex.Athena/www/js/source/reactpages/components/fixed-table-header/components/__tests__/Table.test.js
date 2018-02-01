@@ -34,7 +34,8 @@ const defaultProps = {
     bodyHeight: undefined,
     header: defaultHeader,
     body: undefined,
-    footer: undefined
+    footer: undefined,
+    adjustedHeight: 0
 }
 
 describe('Table ', () => {
@@ -68,6 +69,44 @@ describe('Table ', () => {
 
                 const table = new Table(defaultProps);
 
+                const result = table.columnsWidth;
+
+                expect(result).toEqual(expectedResult);
+            })
+
+            it('header include null cell - ignore that cell and columnsWidth should be correct value', () => {
+                const header = [
+                    <Row>
+                        <Cell colWidth={200}>Cell 1</Cell>
+                        {null}
+                        <Cell colWidth={200}>Cell 2</Cell>
+                    </Row>
+                ]
+                const expectedResult = [200, 200];
+
+                const props = Object.assign({}, defaultProps, { header });
+                const table = new Table(props);
+
+                const result = table.columnsWidth;
+
+                expect(result).toEqual(expectedResult);
+            })
+
+            it('componentWillReceiveProps - columnsWidth should be updated with correct values', () => {
+                const header = [
+                    <Row>
+                        <Cell colWidth={200}>Cell 1</Cell>
+                        {null}
+                        <Cell colWidth={200}>Cell 2</Cell>
+                    </Row>
+                ]
+                const expectedResult = [200, 200];
+
+                const table = new Table(defaultProps);
+                const nextProps = Object.assign({}, defaultProps, { header });
+                table.props = nextProps;
+                table.componentWillReceiveProps(nextProps);
+                
                 const result = table.columnsWidth;
 
                 expect(result).toEqual(expectedResult);
@@ -230,7 +269,7 @@ describe('Table ', () => {
             preventDefault: jest.fn()
         }
 
-        it('contentHeight of state = bodyHeight of calculation - do nothing', () => {
+        it('contentHeight of state = bodyHeight after calculation - do nothing', () => {
             const table = new Table(defaultProps);
             table.setState = jest.fn();
             table._calculateBodyHeight = jest.fn(() => defaultProps.bodyHeight);
@@ -240,14 +279,16 @@ describe('Table ', () => {
             expect(table.setState).not.toHaveBeenCalled();
         })
 
-        it('contentHeight of state = bodyHeight of calculation - do nothing', () => {
+        it('contentHeight of state != bodyHeight after calculation - setState should be called with correct parameter', () => {
             const table = new Table(defaultProps);
+            table.bodyWrapper = {}
             table.setState = jest.fn();
-            table._calculateBodyHeight = jest.fn(() => defaultProps.bodyHeight);
+            const calculatedBodyHeight = defaultProps.bodyHeight + 1;
+            table._calculateBodyHeight = jest.fn(() => calculatedBodyHeight);
 
             table._handleResize(event);
 
-            expect(table.setState).not.toHaveBeenCalled();
+            expect(table.setState).toHaveBeenCalledWith({contentHeight: calculatedBodyHeight});
         })
 
         it('maxWidth of state = document.body.clientWidth - this.diffWidth - do nothing', () => {
@@ -267,7 +308,7 @@ describe('Table ', () => {
             expect(table.setState).toHaveBeenCalledWith(expectedState);
         })
 
-        it('maxWidth of state != document.body.clientWidth - this.diffWidth - setState function should be called with correct parameter', () => {
+        it('maxWidth of state != document.body.clientWidth - this.diffWidth - setState should be called with correct parameter', () => {
             const table = new Table(defaultProps);
             table._calculateBodyHeight = jest.fn(() => defaultProps.bodyHeight);
             table.diffWidth = 50;
@@ -290,6 +331,52 @@ describe('Table ', () => {
             table._handleResize(event);
 
             expect(table._calculateBodyHeight).not.toHaveBeenCalled();
+        })
+    })
+
+    describe('_calculateBodyHeight', () => {
+        let windowHeight;
+        const footerWrapper = {
+            offsetHeight: 10
+        }
+        const bodyWrapper = {
+            offsetTop: 50
+        }
+
+        beforeAll(() => {
+            windowHeight = window.innerHeight;
+        })
+
+        beforeEach(() => {
+            window.innerHeight = 200;
+        })
+
+        afterAll(() => {
+            window.innerHeight = windowHeight;
+        })
+
+        it('table has footer section - return correct body height', () => {
+            const table = new Table(defaultProps);
+            table.footerWrapper = footerWrapper;
+            table.bodyWrapper = bodyWrapper;
+
+            const expectedResult = 100;
+
+            const result = table._calculateBodyHeight();
+
+            expect(result).toBe(expectedResult);
+        })
+
+        it('table do not has footer section - return correct body height', () => {
+            const table = new Table(defaultProps);
+            table.footerWrapper = undefined;
+            table.bodyWrapper = bodyWrapper;
+
+            const expectedResult = 110;
+
+            const result = table._calculateBodyHeight();
+
+            expect(result).toBe(expectedResult);
         })
     })
 

@@ -41,12 +41,15 @@ export class FormFilter extends Component {
             return;
         }
 
-        this.props.toggleLoader(true);
         this.props.exportExcel(params).then(response => {
+            if (!response.data.Data.length) {
+                alert(LangHelper.getSingleResource("NoInfo"));
+                return;
+            }
+
             const title = service.getReportTitle(dateRange, selectedBaseCurrency);
             const excel = new ReportExcel(response.data, title);
             excel.export();
-            this.props.toggleLoader(false);
         });
     }
 
@@ -94,7 +97,7 @@ export class FormFilter extends Component {
         return subsidiaryList && subsidiaryList.length ? (
             <MultipleSelect
                 dataSource={this.props.subsidiaryList}
-                keyField={"ID"}
+                keyField={"Name"}
                 valueField={"Name"}
                 statusField={"Checked"}
                 optionAllLabel={LangHelper.getSingleResource("All")}
@@ -168,19 +171,19 @@ export class FormFilter extends Component {
 
                     <div className="col-12 col-md-2 col-sm-4 col-lg-2 col-xl-2">
                         <div className="form-group">
-                            <label className="label-text">{LangHelper.getSingleResource("Based")}</label>
+                            <label className="label-text">{LangHelper.getSingleResource("BaseCurrency")}</label>
                             {this._renderBaseCurrencySelectList()}
                         </div>
                     </div>
                 </div>
 
                 <div className="row">
-                    <div className="col-12 col-md-5 col-sm-5 col-lg-5 col-xl-3">
+                    <div className="col-12 col-md-12 col-sm-12 col-lg-6 col-xl-6">
                         <div className="form-group">
                             <div className="checkbox-group">
                                 <input type="checkbox" className="checkbox" checked={this.props.convertAll} id="IsConvertAll"
                                     onClick={() => this.props.changeConvertAll(!this.props.convertAll)} />
-                                <label htmlFor="IsConvertAll">{LangHelper.getSingleResource("ConvertAll")}</label>
+                                <label htmlFor="IsConvertAll">{LangHelper.getSingleResource("ConvertAllFiguresToBaseCurrency")}</label>
                             </div>
 
                             <div className="button-group">
@@ -202,7 +205,7 @@ function mapDispatchToProps(dispatch) {
 }
 function mapStateToProps(state) {
     const { gridData, ...rest } = state;
-    return Object.assign({}, rest);
+    return rest;
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormFilter);

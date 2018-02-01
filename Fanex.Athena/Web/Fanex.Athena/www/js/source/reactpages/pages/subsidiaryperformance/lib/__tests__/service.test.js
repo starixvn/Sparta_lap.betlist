@@ -25,7 +25,7 @@ describe('service ', () => {
             const toDate = "09/30/2017";
             const selectedBaseCurrency = "EUR";
 
-            const expectedResult = `SubsidiaryPerformance, ${fromDate} - ${toDate} - Viewin ${selectedBaseCurrency}`
+            const expectedResult = `SubsidiaryPerformance, ${fromDate} - ${toDate}, BaseCurrency: ${selectedBaseCurrency}`
             const dateRange = { fromDate, toDate };
 
             const result = service.getReportTitle(dateRange, selectedBaseCurrency);
@@ -43,7 +43,8 @@ describe('service ', () => {
                 betCount: "BetCount",
                 turnover: "Turnover",
                 customerWL: "CustomerW_L",
-                subsidiaryWL_comm: "SubsidiaryWL/ Comm"
+                subsidiaryWL: "SubsidiaryWL",
+                subsidiaryComm: "Subsidiary Comm"
             }
 
             const result = service.getHeaderText();

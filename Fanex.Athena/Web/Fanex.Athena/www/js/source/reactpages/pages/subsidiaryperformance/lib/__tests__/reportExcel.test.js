@@ -10,7 +10,7 @@ const gridData = { Data: bodyData, Total: totalData, GrandTotal: grandTotalData 
 const title = "Report Title";
 const fileName = "SubsidiaryPerformance";
 
-const COLUMN_COUNT = 7;
+const COLUMN_COUNT = 8;
 const TITLE_ROW_INDEX = 0;
 const HEADER_ROW_INDEX = 1;
 const DATA_ROW_INDEX = 2;
@@ -87,7 +87,8 @@ describe('reportExcel ', () => {
                 D2: { t: "s", v: "BetCount", s: headerCellStyle },
                 E2: { t: "s", v: "Turnover", s: headerCellStyle },
                 F2: { t: "s", v: "CustomerW_L", s: headerCellStyle },
-                G2: { t: "s", v: "SubsidiaryWL/ Comm", s: headerCellStyle }
+                G2: { t: "s", v: "SubsidiaryWL", s: headerCellStyle },
+                H2: { t: "s", v: "Subsidiary Comm", s: headerCellStyle }
             };
 
             const reportExcel = new ReportExcel({}, title);
@@ -124,11 +125,13 @@ describe('reportExcel ', () => {
                 E3: { t: "n", v: 322.0000, s: bodyCellStyle.decimal },
                 F3: { t: "n", v: 142.3210, s: bodyCellStyle.decimal },
                 G3: { t: "n", v: -141.7636, s: bodyCellStyle.negativeDecimal },
+                H3: { t: "n", v: 50, s: bodyCellStyle.decimal },
                 C4: { t: "s", v: "Cash Out" },
                 D4: { t: "n", v: 52, s: bodyCellStyle.number },
                 E4: { t: "n", v: 322.0000, s: bodyCellStyle.decimal },
                 F4: { t: "n", v: 142.3210, s: bodyCellStyle.decimal },
-                G4: { t: "n", v: 141.7636, s: bodyCellStyle.decimal }
+                G4: { t: "n", v: 141.7636, s: bodyCellStyle.decimal },
+                H4: { t: "n", v: 10, s: bodyCellStyle.decimal }
             };
 
             const reportExcel = new ReportExcel(gridData, title);
@@ -144,19 +147,21 @@ describe('reportExcel ', () => {
         it('worksheet should has correct value', () => {
             const expectedWorksheet = {
                 A3: { t: "s", v: "Total 858249", s: totalCellStyle.default },
-                B3: { t: "s", v: "Based EUR", s: totalCellStyle.default },
+                B3: { t: "s", v: "Based EUR", s: totalCellStyle.center },
                 C3: { t: "s", v: "", s: undefined },
                 D3: { t: "n", v: 894, s: totalCellStyle.number },
                 E3: { t: "n", v: 0.0, s: totalCellStyle.decimal },
                 F3: { t: "n", v: 0.0, s: totalCellStyle.decimal },
                 G3: { t: "n", v: 0.0, s: totalCellStyle.decimal },
+                H3: { t: "n", v: 0, s: totalCellStyle.decimal },
                 A4: { t: "s", v: "Total 916515", s: totalCellStyle.default },
-                B4: { t: "s", v: "Based EUR", s: totalCellStyle.default },
+                B4: { t: "s", v: "Based EUR", s: totalCellStyle.center },
                 C4: { t: "s", v: "", s: undefined },
                 D4: { t: "n", v: 99, s: totalCellStyle.number },
                 E4: { t: "n", v: 0.0, s: totalCellStyle.decimal },
                 F4: { t: "n", v: 0.0, s: totalCellStyle.decimal },
-                G4: { t: "n", v: -141.7636, s: totalCellStyle.negativeDecimal }
+                G4: { t: "n", v: -141.7636, s: totalCellStyle.negativeDecimal },
+                H4: { t: "n", v: 0, s: totalCellStyle.decimal }
             };
 
             const reportExcel = new ReportExcel(gridData, title);
@@ -166,18 +171,34 @@ describe('reportExcel ', () => {
 
             expect(result).toEqual(expectedWorksheet);
         })
+
+        it('mergeConfig should has correct value', () => {
+            const currentRowIndex = DATA_ROW_INDEX;
+
+            const mergeConfig = [
+                { s: { r: currentRowIndex, c: 1 }, e: { r: currentRowIndex, c: 2 } },
+                { s: { r: currentRowIndex + 1, c: 1 }, e: { r: currentRowIndex + 1, c: 2 } }
+            ];
+
+            const reportExcel = new ReportExcel(gridData, title);
+
+            reportExcel._createFooterData();
+
+            expect(reportExcel.mergeConfig).toEqual(mergeConfig);
+        })
     })
 
     describe('_createGrandTotalData', () => {
         it('worksheet should has correct value', () => {
             const expectedWorksheet = {
                 A3: { t: "s", v: "Total", s: grandTotalCellStyle.default },
-                B3: { t: "s", v: "Based EUR", s: grandTotalCellStyle.default },
+                B3: { t: "s", v: "Based EUR", s: grandTotalCellStyle.center },
                 C3: { t: "s", v: "", s: grandTotalCellStyle.default },
                 D3: { t: "n", v: 13286376, s: grandTotalCellStyle.number },
                 E3: { t: "n", v: 405367913.09429135, s: grandTotalCellStyle.decimal },
                 F3: { t: "n", v: -14046804.028517062, s: grandTotalCellStyle.decimal },
-                G3: { t: "n", v: 14046469.750504408, s: grandTotalCellStyle.decimal }
+                G3: { t: "n", v: 14046469.750504408, s: grandTotalCellStyle.decimal },
+                H3: { t: "n", v: 60, s: grandTotalCellStyle.decimal },
             };
 
             const reportExcel = new ReportExcel(gridData, title);
@@ -199,34 +220,39 @@ describe('reportExcel ', () => {
                 E3: { t: "n", v: 322.0000, s: bodyCellStyle.decimal },
                 F3: { t: "n", v: 142.3210, s: bodyCellStyle.decimal },
                 G3: { t: "n", v: -141.7636, s: bodyCellStyle.negativeDecimal },
+                H3: { t: "n", v: 50, s: bodyCellStyle.decimal },
                 C4: { t: "s", v: "Cash Out" },
                 D4: { t: "n", v: 52, s: bodyCellStyle.number },
                 E4: { t: "n", v: 322.0000, s: bodyCellStyle.decimal },
                 F4: { t: "n", v: 142.3210, s: bodyCellStyle.decimal },
                 G4: { t: "n", v: 141.7636, s: bodyCellStyle.decimal },
+                H4: { t: "n", v: 10, s: bodyCellStyle.decimal },
 
                 A5: { t: "s", v: "Total 858249", s: totalCellStyle.default },
-                B5: { t: "s", v: "Based EUR", s: totalCellStyle.default },
+                B5: { t: "s", v: "Based EUR", s: totalCellStyle.center },
                 C5: { t: "s", v: "", s: undefined },
                 D5: { t: "n", v: 894, s: totalCellStyle.number },
                 E5: { t: "n", v: 0.0, s: totalCellStyle.decimal },
                 F5: { t: "n", v: 0.0, s: totalCellStyle.decimal },
                 G5: { t: "n", v: 0.0, s: totalCellStyle.decimal },
+                H5: { t: "n", v: 0.0, s: totalCellStyle.decimal },
                 A6: { t: "s", v: "Total 916515", s: totalCellStyle.default },
-                B6: { t: "s", v: "Based EUR", s: totalCellStyle.default },
+                B6: { t: "s", v: "Based EUR", s: totalCellStyle.center },
                 C6: { t: "s", v: "", s: undefined },
                 D6: { t: "n", v: 99, s: totalCellStyle.number },
                 E6: { t: "n", v: 0.0, s: totalCellStyle.decimal },
                 F6: { t: "n", v: 0.0, s: totalCellStyle.decimal },
                 G6: { t: "n", v: -141.7636, s: totalCellStyle.negativeDecimal },
+                H6: { t: "n", v: 0.0, s: totalCellStyle.decimal },
 
                 A7: { t: "s", v: "Total", s: grandTotalCellStyle.default },
-                B7: { t: "s", v: "Based EUR", s: grandTotalCellStyle.default },
+                B7: { t: "s", v: "Based EUR", s: grandTotalCellStyle.center },
                 C7: { t: "s", v: "", s: grandTotalCellStyle.default },
                 D7: { t: "n", v: 13286376, s: grandTotalCellStyle.number },
                 E7: { t: "n", v: 405367913.09429135, s: grandTotalCellStyle.decimal },
                 F7: { t: "n", v: -14046804.028517062, s: grandTotalCellStyle.decimal },
-                G7: { t: "n", v: 14046469.750504408, s: grandTotalCellStyle.decimal }
+                G7: { t: "n", v: 14046469.750504408, s: grandTotalCellStyle.decimal },
+                H7: { t: "n", v: 60, s: grandTotalCellStyle.decimal }
             };
 
             const reportExcel = new ReportExcel(gridData, title);
@@ -251,11 +277,11 @@ describe('reportExcel ', () => {
     describe('_createExcelConfig', () => {
         it('worksheet should has correct value', () => {
             const mergeConfig = ["merge config"];
-            const wscols = [{ wpx: 150 }, { wpx: 120 }, { wpx: 180 }, { wpx: 120 }, { wpx: 250 }, { wpx: 250 }, { wpx: 250 }];
+            const wscols = [{ wpx: 150 }, { wpx: 120 }, { wpx: 180 }, { wpx: 120 }, { wpx: 250 }, { wpx: 250 }, { wpx: 250 }, { wpx: 120 }];
 
             const expectedWorksheet = {
                 "!merges": mergeConfig,
-                "!ref": "A1:G6",
+                "!ref": "A1:H6",
                 "!cols": wscols
             };
 

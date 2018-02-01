@@ -1,25 +1,25 @@
 webpackJsonp([5],{
 
-/***/ 712:
+/***/ 716:
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(8);
-__webpack_require__(713);
-__webpack_require__(714);
-__webpack_require__(715);
-__webpack_require__(716);
-module.exports = __webpack_require__(717);
+__webpack_require__(717);
+__webpack_require__(718);
+__webpack_require__(719);
+__webpack_require__(720);
+module.exports = __webpack_require__(721);
 
 
 /***/ }),
 
-/***/ 713:
+/***/ 717:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 1/17/2018 5:36:39 PM
+// Generated at: 1/25/2018 9:00:28 AM
 window._language_en_US = {
   AA: "AA",
   AB: "AB",
@@ -181,7 +181,6 @@ window._language_en_US = {
   ConfirmCommission: "Confirm Customer&apos;s Commission:",
   ConfirmPassword: "Confirm Password",
   Content: "Content",
-  ConvertAll: "Convert All",
   ConvertAllFiguresToBaseCurrency: "Convert all figures to Base Currency",
   ConvertTo: "Convert to",
   CopyBetSettingFrom: "Copy All Bet Setting from {0}",
@@ -824,7 +823,7 @@ window._language_en_US = {
   Submit: "Submit",
   Subsidiary: "Subsidiary",
   SubsidiaryPerformance: "Subsidiary Performance",
-  SubsidiaryWL: "Subsidiary WL",
+  SubsidiaryWL: "Subsidiary W/L",
   Summary: "Summary",
   Sunday: "Sunday",
   SupportForOnlyNote: "The report only supports",
@@ -986,13 +985,13 @@ window._language_en_US = {
 
 /***/ }),
 
-/***/ 714:
+/***/ 718:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 1/17/2018 5:36:39 PM
+// Generated at: 1/25/2018 9:00:28 AM
 window._language_ko_KR = {
   AA: "AA",
   ABComm: "AllBet 수수료",
@@ -1758,13 +1757,13 @@ window._language_ko_KR = {
 
 /***/ }),
 
-/***/ 715:
+/***/ 719:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 1/17/2018 5:36:39 PM
+// Generated at: 1/25/2018 9:00:28 AM
 window._language_zh_CN = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -2586,13 +2585,13 @@ window._language_zh_CN = {
 
 /***/ }),
 
-/***/ 716:
+/***/ 720:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 1/17/2018 5:36:39 PM
+// Generated at: 1/25/2018 9:00:28 AM
 window._language_zh_Hans = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -3400,13 +3399,13 @@ window._language_zh_Hans = {
 
 /***/ }),
 
-/***/ 717:
+/***/ 721:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 1/17/2018 5:36:39 PM
+// Generated at: 1/25/2018 9:00:28 AM
 window._language_zh_TW = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -4272,5 +4271,5 @@ exports.default = LangHelper;
 
 /***/ })
 
-},[712]);
+},[716]);
 //# sourceMappingURL=langHelper.chunk.js.map

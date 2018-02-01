@@ -20,7 +20,7 @@ describe('filterHandlerReducer ', () => {
                 data: expected
             }
 
-            const result = filterHandlerReducer[name](emptyState, action);
+            const result = filterHandlerReducer[name](undefined, action);
 
             expect(result).toEqual(expected);
         })

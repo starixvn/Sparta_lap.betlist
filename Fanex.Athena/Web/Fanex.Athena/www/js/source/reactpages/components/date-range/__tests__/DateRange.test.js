@@ -7,12 +7,18 @@ import getTheme from '../styles'
 import defaultOptions from '../defaultOptions'
 import moment from 'moment'
 
+import PredefinedRanges from '../PredefinedRanges'
 import DateRange from '../DateRange'
 
 jest.mock('../defaultOptions')
 jest.mock('../styles')
 
 describe('DateRange ', () => {
+    const locale = {
+        months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        weekdays: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
+    }
+
     const defaultProps = {
         linkedCalendars: false,
         theme: {},
@@ -27,7 +33,8 @@ describe('DateRange ', () => {
         showRange: true,
 
         startDate: "1/1/2018",
-        endDate: "1/3/2018"
+        endDate: "1/3/2018",
+        locale
     }
 
     const defaultStartDateMoment = moment(defaultProps.startDate, MomentFormat.default)['startOf']('day');
@@ -41,7 +48,15 @@ describe('DateRange ', () => {
     const originalLocale = defaultOptions.locale;
 
     beforeAll(() => {
-        getTheme.mockImplementation(() => { return {}; });
+        getTheme.mockImplementation(() => {
+            return {
+                Day: {
+                    width: 100,
+                    height: 50,
+                    display: "block"
+                }
+            };
+        });
         defaultOptions.locale = {};
         defaultOptions.ranges = jest.fn(() => { });
     })
@@ -52,11 +67,18 @@ describe('DateRange ', () => {
 
     describe('constructor', () => {
         it('initial values should be correct', () => {
+            const expectedStyle = {
+                Day: {
+                    width: 100,
+                    height: 50,
+                    display: "block"
+                }
+            }
             const dateRange = new DateRange(defaultProps);
 
-            expect(dateRange.styles).toEqual({});
+            expect(dateRange.styles).toEqual(expectedStyle);
             expect(dateRange.step).toEqual(0);
-            expect(dateRange.locale).toEqual({});
+            expect(dateRange.locale).toEqual(locale);
             expect(dateRange.ranges).toEqual({});
             expect(dateRange.isValid).toEqual(true);
             expect(dateRange.currentRange).toEqual(defaultRange);
@@ -220,7 +242,9 @@ describe('DateRange ', () => {
             dateRange.setState = jest.fn((newState, callbackFunc) => { callback = callbackFunc });
 
             const range = Object.assign({}, defaultRange);
-            const triggerChange = true, show = true, isValid = true;
+            const triggerChange = true,
+                show = true,
+                isValid = true;
 
             dateRange.setRange(range, triggerChange, show);
 
@@ -239,7 +263,8 @@ describe('DateRange ', () => {
             dateRange.setState = jest.fn((newState, callbackFunc) => { callback = callbackFunc });
 
             const range = Object.assign({}, defaultRange);
-            const triggerChange = false, show = true;
+            const triggerChange = false,
+                show = true;
 
             dateRange.setRange(range, triggerChange, show);
 
@@ -257,7 +282,8 @@ describe('DateRange ', () => {
             dateRange.setState = jest.fn();
 
             const range = Object.assign({}, defaultRange);
-            const triggerChange = false, show = true;
+            const triggerChange = false,
+                show = true;
 
             dateRange.setRange(range, triggerChange, show);
 
@@ -273,7 +299,9 @@ describe('DateRange ', () => {
             dateRange.setState = jest.fn();
 
             const range = Object.assign({}, defaultRange);
-            const triggerChange = false, show = true, isValid = false;
+            const triggerChange = false,
+                show = true,
+                isValid = false;
 
             dateRange.setRange(range, triggerChange, show);
 
@@ -285,7 +313,8 @@ describe('DateRange ', () => {
         it('select ranges which are defined - step should be 0 and setRange should be called with correct parameter', () => {
             const dateRange = new DateRange(defaultProps);
             dateRange.setRange = jest.fn();
-            const showDaterange = false, triggerChange = true;
+            const showDaterange = false,
+                triggerChange = true;
 
             dateRange.handleSelect(defaultRange);
 
@@ -466,7 +495,9 @@ describe('DateRange ', () => {
 
     describe("handleCancel", () => {
         it("setRange should be called with correct parameter", () => {
-            const expectedCurrentRange = {}, show = false, triggerChange = true;
+            const expectedCurrentRange = {},
+                show = false,
+                triggerChange = true;
             const dateRange = new DateRange(defaultProps);
             dateRange.currentRange = {};
             dateRange.setRange = jest.fn();
@@ -515,6 +546,35 @@ describe('DateRange ', () => {
             dateRange.componentWillReceiveProps(newProps);
 
             expect(dateRange.setRange).not.toHaveBeenCalled();
+        })
+    })
+
+    describe("render", () => {
+        it("showRange = false - PredefinedRanges should not be shown - match with snapshot", () => {
+            const props = Object.assign({}, defaultProps, { showRange: false });
+
+            const component = renderer.create(<DateRange {...props} />);
+
+            const result = component.toJSON();
+
+            expect(result).toMatchSnapshot();
+        })
+
+        it("showRange = true - PredefinedRanges should be shown - match with snapshot", () => {
+            const component = renderer.create(<DateRange {...defaultProps} />);
+
+            const result = component.toJSON();
+
+            expect(result).toMatchSnapshot();
+        })
+
+        it("linkedCalendars = true - match with snapshot", () => {
+            const props = Object.assign({}, defaultProps, { linkedCalendars: true });
+            const component = renderer.create(<DateRange {...props} />);
+
+            const result = component.toJSON();
+
+            expect(result).toMatchSnapshot();
         })
     })
 })

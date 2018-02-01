@@ -185,7 +185,8 @@ describe('FormFilter ', () => {
                             ToDate: formFilterPropsForEventHandler.dateRange.toDate,
                             TimeZone: formFilterPropsForEventHandler.selectedTimeZone,
                             ReportBy: formFilterPropsForEventHandler.selectedReportBy,
-                            GroupBy: formFilterPropsForEventHandler.groupBy
+                            GroupBy: formFilterPropsForEventHandler.groupBy,
+                            IsExcludeTestData: formFilterPropsForEventHandler.isExcludeTest
                         }
                     };
                   
@@ -261,6 +262,30 @@ describe('FormFilter ', () => {
                     formFilter.exportExcel(event);
 
                     expect(formFilter.props.toggleLoader).not.toHaveBeenCalled();
+                })
+
+                it('action return promise - data is empty - alert should be shown with correct message', () => {
+                    const originalAlertFunc = window.alert;
+                    window.alert = jest.fn();
+
+                    const formFilter = new FormFilter(formFilterPropsForEventHandler);
+                    formFilter.props.toggleLoader = jest.fn();
+                    
+                    const fakeResponse = { 
+                        data: { 
+                            Data:[]
+                        }
+                    };
+                    const noDataPromise = Promise.resolve(fakeResponse);                    
+                    formFilter.props.exportExcel = jest.fn(() => noDataPromise);
+
+                    formFilter.exportExcel(event);
+
+                    Promise.resolve().then(() => {
+                        expect(window.alert).toHaveBeenCalledWith('NoInfo');
+                        expect(formFilter.props.toggleLoader).toHaveBeenCalledWith(false);
+                        expect(service.getReportTitle).not.toHaveBeenCalled();
+                    })
                 })
 
                 describe('_getParams return data ', () => {
@@ -360,6 +385,48 @@ describe('FormFilter ', () => {
                     xsrfToken: props.xsrfToken,  
                     resourceName: 'LicenseeWLByTimeZone'
                 });
+            })
+        })
+
+        describe('changeGroupBy', () => {
+            const SettingConst = {
+                GroupByProduct: 1,
+                ReportBySummary: 1,
+                ReportByDaily: 2
+            }
+
+            let formFilter;
+
+            beforeEach(() => {
+                formFilter = new FormFilter(formFilterPropsForEventHandler);
+                formFilter.props.changeGroupBy = jest.fn();
+                formFilter.props.changeIsConvertAll = jest.fn();
+            })
+
+            it('props.changeGroupBy should be called with correct parameter', () => {
+                const value = SettingConst.ReportByDaily;
+
+                formFilter.changeGroupBy(value);
+
+                expect(formFilter.props.changeGroupBy).toHaveBeenCalledWith(value);
+            })
+
+            it('props.selectedCurrency.value !== 0 - props.changeIsConvertAll should not be called', () => {
+                const value = SettingConst.ReportByDaily;
+                formFilter.props.selectedCurrency.value = 1;
+
+                formFilter.changeGroupBy(value);
+
+                expect(formFilter.props.changeIsConvertAll).not.toHaveBeenCalled();
+            })
+
+            it('props.selectedCurrency.value === 0 - props.changeIsConvertAll should be called with correct parameter', () => {
+                const value = SettingConst.GroupByProduct;
+                formFilter.props.selectedCurrency.value = 0;
+
+                formFilter.changeGroupBy(value);
+
+                expect(formFilter.props.changeIsConvertAll).toHaveBeenCalledWith(true);
             })
         })
     })

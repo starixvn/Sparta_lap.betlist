@@ -32,8 +32,12 @@
         {
             metaModel.AgentListXml = SessionService.GenerateAgentListXml();
             var viewModel = _cashOutBetListDataAccess.GetDetail(metaModel);
-            viewModel.IsHighlightOriginalTicket = metaModel.TransId == viewModel.OriginalTicket.TransId ||
-                IsCashOutBetTicket(metaModel.BetdaqId, metaModel.BetType);
+            if (viewModel.OriginalTicket != null)
+            {
+                viewModel.IsHighlightOriginalTicket = metaModel.TransId == viewModel.OriginalTicket.TransId ||
+                    IsCashOutBetTicket(metaModel.BetdaqId, metaModel.BetType);
+            }
+
             viewModel.OriginalTicketText = BuilOriginalTicketText(viewModel.OriginalTicket);
             viewModel.CashOutTicketTextList = BuildCashOutTicketTextList(viewModel.CashOutTicketList, metaModel.TransId);
 
@@ -49,6 +53,11 @@
 
         private IList<CashOutTicketText> BuildCashOutTicketTextList(IEnumerable<CashOutTicket> dataList, long transId)
         {
+            if (dataList == null || !dataList.Any())
+            {
+                return new List<CashOutTicketText>();
+            }
+
             var builder = new BetListHTMLBuilder();
             var ticketTextList = new List<CashOutTicketText>();
             var ticketHelper = new TicketHelper
@@ -82,6 +91,11 @@
 
         private TicketText BuilOriginalTicketText(LrfTicket ticket)
         {
+            if (ticket == null)
+            {
+                return new TicketText();
+            }
+
             var licenseeSession = SessionService.LicenseeSession;
             var showPlayerComm = licenseeSession.IsAllowedCustomerComm;
             var builder = new BetListHTMLBuilder();

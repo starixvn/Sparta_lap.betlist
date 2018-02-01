@@ -24,7 +24,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -920,7 +920,7 @@
     <Content Include="www\js\source\reactpages\components\__tests__\CollapsibleRow.test.js" />
     <Content Include="www\js\source\reactpages\components\__tests__\Loader.test.js" />
     <Content Include="www\js\source\reactpages\components\__tests__\NoDataTitle.test.js" />
-    <Content Include="www\js\source\reactpages\components\__tests__\Popup.test.js" />
+    <Content Include="www\js\source\reactpages\components\popup\__tests__\Popup.test.js" />
     <Content Include="www\js\source\reactpages\components\__tests__\ReportTitle.test.js" />
     <Content Include="www\js\source\reactpages\components\__tests__\UserGuide.test.js" />
     <Content Include="www\js\source\reactpages\constants\config.js" />
@@ -966,9 +966,11 @@
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\actions\types.js" />
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\actions\__tests__\dataHandlerAction.test.js" />
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\actions\__tests__\filterHandlerAction.test.js" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\components\__tests__\datagrid.redux.test.js" />
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\components\__tests__\datagrid.test.js" />
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\components\__tests__\fakeData.js" />
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\components\__tests__\formFilter.eventhandler.test.js" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\components\__tests__\formFilter.redux.test.js" />
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\components\__tests__\formFilter.render.test.js" />
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\constants\settingConst.js" />
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\lib\reportExcel.js" />
@@ -1000,10 +1002,12 @@
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\filterHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\__tests__\dataHandlerAction.test.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\__tests__\filterHandlerAction.test.js" />
-    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\datagrid.test.js" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\DataGrid.redux.test.js" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\DataGrid.test.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\fakeData.js" />
-    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\formFilter.eventhandler.test.js" />
-    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\formFilter.render.test.js" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\FormFilter.eventhandler.test.js" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\FormFilter.redux.test.js" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\FormFilter.render.test.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\lib\service.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\lib\reportExcel.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\lib\__tests__\fakeData.js" />
@@ -1061,8 +1065,8 @@
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\index.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\types.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\AppContainer.jsx" />
-    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\datagrid.jsx" />
-    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\formFilter.jsx" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\DataGrid.jsx" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\FormFilter.jsx" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\reducers\index.js" />
     <Content Include="www\webpackconfig\build\webpack.react.base.conf.js" />
     <Content Include="www\webpackconfig\build\webpack.react.dev.conf.js" />
@@ -2665,7 +2669,6 @@
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\components\__tests__\__snapshots__\datagrid.test.js.snap" />
     <Content Include="www\js\source\reactpages\components\popup\Popup.jsx" />
     <Content Include="www\js\source\reactpages\components\__tests__\__snapshots__\UserGuide.test.js.snap" />
-    <Content Include="www\js\source\reactpages\components\__tests__\__snapshots__\Popup.test.js.snap" />
     <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\DataGrid.jsx" />
     <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\FormFilter.jsx" />
     <Content Include="www\js\source\reactpages\components\CollapsibleRow.jsx" />

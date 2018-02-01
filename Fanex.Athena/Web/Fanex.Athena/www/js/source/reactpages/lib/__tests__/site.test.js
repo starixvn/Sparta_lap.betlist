@@ -28,4 +28,36 @@ describe('Site ', () => {
             expect(result).toBe(dateString);
         })
     })
+
+    describe("asNull", () => {
+        it("text is null - return itself", () => {
+            const text = null;
+            const result = Site.asNull(text);
+
+            expect(result).toBe(text);
+        })
+
+        it("text is empty - return null", () => {
+            const text = "";
+            const result = Site.asNull(text);
+
+            expect(result).toBe(null);
+        })
+
+        it("text is white space - return null", () => {
+            const text = " ";
+            const result = Site.asNull(text);
+
+            expect(result).toBe(null);
+        })
+
+        it("text has value - return itself with trimming", () => {
+            const text = "value ";
+            const expectedResult = "value";
+
+            const result = Site.asNull(text);
+
+            expect(result).toBe(expectedResult);
+        })
+    })
 })

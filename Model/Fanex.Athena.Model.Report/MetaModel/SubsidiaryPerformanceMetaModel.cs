@@ -18,6 +18,8 @@
 
         public bool ConvertAll { get; set; }
 
+        public string LicenseeName { get; set; }
+
         public bool IsValid => FromDate <= ToDate &&
                                 !string.IsNullOrEmpty(ProductCodeList) &&
                                 !string.IsNullOrEmpty(BaseCurrency) &&

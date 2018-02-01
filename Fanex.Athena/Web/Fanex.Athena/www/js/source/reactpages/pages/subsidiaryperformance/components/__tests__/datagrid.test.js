@@ -1,5 +1,5 @@
 import React from 'react'
-import { DataGrid } from '../datagrid';
+import { DataGrid } from '../DataGrid';
 import service from '../../lib/service';
 import renderer from 'react-test-renderer';
 

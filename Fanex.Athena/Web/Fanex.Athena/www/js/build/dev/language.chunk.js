@@ -15,7 +15,7 @@ module.exports = __webpack_require__(202);
 /***/ 198:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 1/17/2018 5:36:39 PM
+﻿// Generated at: 1/25/2018 9:00:28 AM
 window._language_en_US = {
 AA:"AA",
 AB:"AB",
@@ -177,7 +177,6 @@ Confirmation:"Confirmation",
 ConfirmCommission:"Confirm Customer&apos;s Commission:",
 ConfirmPassword:"Confirm Password",
 Content:"Content",
-ConvertAll:"Convert All",
 ConvertAllFiguresToBaseCurrency:"Convert all figures to Base Currency",
 ConvertTo:"Convert to",
 CopyBetSettingFrom:"Copy All Bet Setting from {0}",
@@ -820,7 +819,7 @@ Subject:"Subject",
 Submit:"Submit",
 Subsidiary:"Subsidiary",
 SubsidiaryPerformance:"Subsidiary Performance",
-SubsidiaryWL:"Subsidiary WL",
+SubsidiaryWL:"Subsidiary W/L",
 Summary:"Summary",
 Sunday:"Sunday",
 SupportForOnlyNote:"The report only supports",
@@ -986,7 +985,7 @@ YouNotChooseAnyCustomerMsg:"You did not choose any customers."
 /***/ 199:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 1/17/2018 5:36:39 PM
+﻿// Generated at: 1/25/2018 9:00:28 AM
 window._language_zh_CN = {
 AA:"客客",
 ABComm:"AllBet 佣金",
@@ -1812,7 +1811,7 @@ YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
 /***/ 200:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 1/17/2018 5:36:39 PM
+﻿// Generated at: 1/25/2018 9:00:28 AM
 window._language_zh_TW = {
 AA:"客客",
 ABComm:"AllBet 佣金",
@@ -2638,7 +2637,7 @@ YouNotChooseAnyCustomerMsg:"您還沒有選擇任何會員"
 /***/ 201:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 1/17/2018 5:36:39 PM
+﻿// Generated at: 1/25/2018 9:00:28 AM
 window._language_zh_Hans = {
 AA:"客客",
 ABComm:"AllBet 佣金",
@@ -3450,7 +3449,7 @@ YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
 /***/ 202:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 1/17/2018 5:36:39 PM
+﻿// Generated at: 1/25/2018 9:00:28 AM
 window._language_ko_KR = {
 AA:"AA",
 ABComm:"AllBet 수수료",

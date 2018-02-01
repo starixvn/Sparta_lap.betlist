@@ -54,7 +54,6 @@
             Assert.Multiple(() =>
             {
                 _service.Received().GetNotificationMessages(Arg.Any<NotificationMetaModel>());
-                Assert.That(new DateTime(metaModel.ToDate.Year, metaModel.ToDate.AddDays(-1).Month, 1).AddMonths(-MaximumMonthDistance), Is.EqualTo(metaModel.FromDate));
                 Assert.That(metaModel.IsOnlyUnread, Is.True);
                 Assert.That(metaModel.PageIndex, Is.EqualTo(1));
                 Assert.That(metaModel.PageSize, Is.EqualTo(10));

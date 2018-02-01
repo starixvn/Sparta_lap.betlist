@@ -8,7 +8,6 @@
     using Model.Core.DataDomain;
     using Model.Report.DTO.SubsidiaryPerformance;
     using Model.Report.MetaModel;
-    using Resources;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
     using Service.Report;
@@ -34,44 +33,42 @@
         }
 
         [HttpPost]
-        public dynamic Index(SubsidiaryPerformanceMetaModel metaModel)
+        public SubsidiaryResultViewModel Index(SubsidiaryPerformanceMetaModel metaModel)
         {
             if (metaModel.IsValid)
             {
-                var agentIdList = metaModel.SubsidiaryList.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
-                                    .Select(x => Convert.ToInt32(x));
-                metaModel.AgentListXml = SessionService.GenerateAgentListXmlByAgentIdList(agentIdList);
+                var licenseeName = SessionService.LicenseeSession.LicenseeName;
+                metaModel.LicenseeName = licenseeName;
+                var agentIdListByCurrency = GetSelectedSubsidiaryList(metaModel.SubsidiaryList, licenseeName);
 
-                IEnumerable<SubsidiaryPerformanceEntity> totalDataList = null;
-
-                var mainData = _subsidiaryPerformanceService.GetData(metaModel, out totalDataList);
-                var grandTotal = totalDataList.Any() ? GetGrandTotal(metaModel.BaseCurrency.ToUpperInvariant(), totalDataList) : null;
-
-                return new
+                if (agentIdListByCurrency.Any())
                 {
-                    Data = mainData,
-                    Total = totalDataList,
-                    GrandTotal = grandTotal
-                };
+                    metaModel.AgentListXml = SessionService.GenerateAgentListXml(agentIdListByCurrency);
+
+                    return _subsidiaryPerformanceService.GetData(metaModel);
+                }
             }
 
-            return new
+            return new SubsidiaryResultViewModel
             {
                 Data = new List<SubsidiaryPerformanceDataModel>()
             };
         }
 
-        private static SubsidiaryPerformanceEntity GetGrandTotal(string baseCurrency, IEnumerable<SubsidiaryPerformanceEntity> totalDataList)
+        private IDictionary<int, IEnumerable<int>> GetSelectedSubsidiaryList(string selectedOperator, string licenseeName)
         {
-            return new SubsidiaryPerformanceEntity
+            var currencyAgentList = new Dictionary<int, IEnumerable<int>>();
+            var selectedOperatorList = selectedOperator.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+            var subsidiaryData = _subsidiaryPerformanceService.GetOperatorList(licenseeName);
+            var dataGroupByCurrency = subsidiaryData.Where(s => selectedOperatorList.Contains(s.OperatorName)).GroupBy(x => x.CurrencyId);
+
+            foreach (var item in dataGroupByCurrency)
             {
-                Subsidiary = ViewResources.Total,
-                CurrencyName = $"{ViewResources.Based} {baseCurrency}",
-                BetCount = totalDataList.Sum(p => p.BetCount),
-                Turnover = totalDataList.Sum(p => p.Turnover),
-                CustomerWinLoss = totalDataList.Sum(p => p.CustomerWinLoss),
-                SubsidiaryWinLoss = totalDataList.Sum(p => p.SubsidiaryWinLoss)
-            };
+                currencyAgentList.Add(item.Key, item.Select(x => x.AgentId));
+            }
+
+            return currencyAgentList;
         }
     }
 }

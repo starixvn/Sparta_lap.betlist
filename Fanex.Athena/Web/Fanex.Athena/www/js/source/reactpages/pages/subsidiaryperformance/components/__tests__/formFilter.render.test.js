@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormFilter } from '../formFilter';
+import { FormFilter } from '../FormFilter';
 import renderer from 'react-test-renderer';
 
 import LangHelper from '../../../../lib/langHelper';
@@ -38,7 +38,7 @@ describe('FormFilter ', () => {
 
                 const expectedResult = {
                     dataSource: formFilterPropsForRender.subsidiaryList,
-                    keyField: "ID",
+                    keyField: "Name",
                     valueField: "Name",
                     statusField: "Checked",
                     optionAllLabel: "All",

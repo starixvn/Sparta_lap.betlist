@@ -1503,15 +1503,6 @@ namespace Fanex.Athena.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Convert All.
         /// </summary>
-        public static string ConvertAll {
-            get {
-                return ResourceManager.GetString("ConvertAll", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Convert all figures to Base Currency.
-        /// </summary>
         public static string ConvertAllFiguresToBaseCurrency {
             get {
                 return ResourceManager.GetString("ConvertAllFiguresToBaseCurrency", resourceCulture);
@@ -7288,7 +7279,7 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Subsidiary WL.
+        ///   Looks up a localized string similar to Subsidiary W/L.
         /// </summary>
         public static string SubsidiaryWL {
             get {

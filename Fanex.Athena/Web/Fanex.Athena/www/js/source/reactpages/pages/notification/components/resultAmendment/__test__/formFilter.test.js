@@ -92,6 +92,19 @@ describe('FormFilter', () => {
 
                 expect(formFilterProps.setDateRange).toHaveBeenCalledWith(newDateRange);
             })
+
+            it('onChange - isValidMonthRange=undefined - valid month range - update state for Date range', () => {
+                const newDateRange = {
+                    fromDate: '02/01/2017',
+                    toDate: '02/10/2017'
+                };
+                
+                formFilterProps.setDateRange = jest.fn();
+                
+                dateRange.props.onChange(newDateRange);
+
+                expect(formFilterProps.setDateRange).toHaveBeenCalledWith(newDateRange);
+            })
         })
     })
 
