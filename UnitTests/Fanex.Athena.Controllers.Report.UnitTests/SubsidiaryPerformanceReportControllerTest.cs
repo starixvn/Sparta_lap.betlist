@@ -19,11 +19,11 @@ namespace Fanex.Athena.Controllers.Report.UnitTests
     [TestFixture]
     public class SubsidiaryPerformanceReportControllerTest : BaseControllerHelperTest
     {
-        private static readonly ReadOnlyCollection<string> _baseCurrencyList = new ReadOnlyCollection<string>(
-            new List<string> { "EUR", "USD", "GBP", "MYR", "CNY", "THB", "IDR" });
-
         private const string FakeProductCode = "TestingCode";
         private const string FakeProductName = "Testing Product Name";
+
+        private static readonly ReadOnlyCollection<string> BaseCurrencyList = new ReadOnlyCollection<string>(
+            new List<string> { "EUR", "USD", "GBP", "MYR", "CNY", "THB", "IDR" });
 
         private ISubsidiaryPerformanceService _service;
         private JavaScriptSerializer _serializer;
@@ -88,6 +88,13 @@ namespace Fanex.Athena.Controllers.Report.UnitTests
             };
         }
 
+        private static HttpContext GetHttpContext()
+        {
+            return new HttpContext(
+                new HttpRequest(null, "http://tempuri.org", null),
+                new HttpResponse(null));
+        }
+
         private void TestIndexViewModel(IEnumerable<Operator> expectedOperatorList, SubsidiaryPerformanceViewModel viewModelData)
         {
             using (var controller = CreateController())
@@ -107,13 +114,6 @@ namespace Fanex.Athena.Controllers.Report.UnitTests
                 Assert.That(viewResult.ViewName, Is.EqualTo(expectedViewName));
                 Assert.That(modelResult, Is.EqualTo(expectedModel));
             }
-        }
-
-        private static HttpContext GetHttpContext()
-        {
-            return new HttpContext(
-                new HttpRequest(null, "http://tempuri.org", null),
-                new HttpResponse(null));
         }
 
         private SubsidiaryPerformanceReportController CreateController()
