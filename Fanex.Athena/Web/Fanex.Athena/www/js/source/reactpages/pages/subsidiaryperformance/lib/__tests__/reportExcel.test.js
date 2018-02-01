@@ -43,13 +43,13 @@ describe('reportExcel ', () => {
             reportExcel._createSheetData = jest.fn();
             reportExcel._createExcelConfig = jest.fn();
 
-            reportExcel.export();
-
-            expect(reportExcel._createTitle).toHaveBeenCalled();
-            expect(reportExcel._createHeader).toHaveBeenCalled();
-            expect(reportExcel._createSheetData).toHaveBeenCalled();
-            expect(reportExcel._createExcelConfig).toHaveBeenCalled();
-            expect(Excel.export).toHaveBeenCalledWith(expectedWorksheet, fileName);
+            reportExcel.export(() => {
+                expect(reportExcel._createTitle).toHaveBeenCalled();
+                expect(reportExcel._createHeader).toHaveBeenCalled();
+                expect(reportExcel._createSheetData).toHaveBeenCalled();
+                expect(reportExcel._createExcelConfig).toHaveBeenCalled();
+                expect(Excel.export).toHaveBeenCalledWith(expectedWorksheet, fileName);
+            });
         })
     })
 

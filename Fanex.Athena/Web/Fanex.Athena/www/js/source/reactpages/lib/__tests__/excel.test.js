@@ -6,6 +6,9 @@ jest.mock('xlsx-style-sparta');
 const originalDownloadFunction = Excel.download;
 
 describe('Excel ', () => {
+    beforeAll(() => {
+        Excel.process();
+    });
     afterAll(() => {
         jest.resetAllMocks();
     })
