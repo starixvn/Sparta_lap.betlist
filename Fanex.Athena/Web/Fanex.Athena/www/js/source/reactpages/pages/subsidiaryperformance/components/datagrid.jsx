@@ -122,7 +122,7 @@ export class DataGrid extends Component {
                 <Cell title={betcount} className="right-align">{betcount}</Cell>
                 <Cell title={turnover} className="right-align">{turnover}</Cell>
                 <Cell title={customerWinLoss} className="right-align">{customerWinLoss}</Cell>
-                <Cell title={subsidiaryWinLoss} className={`right-align ${subsidiaryWinLoss < 0 ? "negative" : ""}`}>{subsidiaryWinLoss}</Cell>
+                <Cell title={subsidiaryWinLoss} className={`right-align ${grandTotal.SubsidiaryWinLoss < 0 ? "negative" : ""}`}>{subsidiaryWinLoss}</Cell>
                 <Cell title={subsidiaryComm} className="right-align">{subsidiaryComm}</Cell>
             </Row>
         )
