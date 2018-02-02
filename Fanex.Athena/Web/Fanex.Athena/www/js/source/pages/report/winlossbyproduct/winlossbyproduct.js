@@ -5,7 +5,6 @@
     function ($, Site, QueryString, jqGridAdditional, WinLossByProductOption, moment, Popup, DatePicker, Report,
         MultiSelect, AutoComplete, DateHelper, ExcelHelper) {
         "use strict";
-
         var VALID_MONTH_RANGE = 3;
         var _cacheData = [];
         var ajaxRequest = null;
@@ -252,10 +251,6 @@
 
                     onPaging = false;
 
-                    if (WinLossByProductOption.hasCustomerComm) {
-                        jqGridAdditional.setGroupCustomerWLColumns(reportGrid);
-                    }
-
                     //set rowspan for footer row
                     $footerTable.tableRowSpan([WinLossByProductOption.currencyIndex]);
 
@@ -265,6 +260,10 @@
                 };
 
                 reportGrid.jqGrid(gridOption);
+
+                if (WinLossByProductOption.hasCustomerComm) {
+                    jqGridAdditional.setGroupCustomerWLColumns(reportGrid);
+                }
             },
 
             reUpdateGridWidth: function () {
