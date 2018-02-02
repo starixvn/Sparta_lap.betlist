@@ -43,13 +43,16 @@
                 <strong>You're here because of one of those reasons:</strong>
             </div>
             <ol style="list-style-type: decimal;">
+                @if (ViewBag.Message == ViewResources.OneTokenRestrictionDefaultMsg)
+                {
                 <li>
                     Your internet connection might be temporally broken.
                 </li>
                 <li>
                     Your authorization may be no longer valid since web browser's caches are cleared.
                 </li>
-                <li>
+                }
+                <li style="color:red">
                     @ViewBag.Message
                 </li>
             </ol>
