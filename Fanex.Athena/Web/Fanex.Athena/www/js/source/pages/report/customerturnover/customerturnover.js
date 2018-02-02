@@ -15,7 +15,6 @@
     function ($, Site, jqGridAdditional, CustomerTurnoverOption, AutoComplete, DatePicker, DateHelper, PagingHelper) {
         "use strict";
 
-        var VALID_MONTH_RANGE = 1;
         var _sports = [];
         var _bettypes = [];
         var _checkedSports = [];
@@ -65,8 +64,7 @@
                 title: Site.getSingleResource("CustomerTurnover")
             });
             DatePicker.initDateRangePicker();
-            DateHelper.setConstraintMonthRange(VALID_MONTH_RANGE, "/CustomerTurnover");
-
+            
             _me.initSetting();
             _me.initAutoComplete();
             _me.initTicketFilter();
@@ -83,6 +81,7 @@
                 if (!_me.checkValidFilter()) {
                     return;
                 }
+                
                 _pagingOption.pageindex = 1;
                 _submitData = null;
                 _me.submit();
@@ -138,8 +137,25 @@
             });
         }
 
+        function isValidDateRange(fromDate, toDate) {
+            var oneDay = 24 * 60 * 60 * 1000;
+
+            var diffDays = Math.round(Math.abs((new Date(fromDate).getTime() - new Date(toDate).getTime()) / (oneDay)));
+            if(diffDays > 31) {
+                alert(Site.getSingleResource("DateRangeExceedMsg").replace("{0}", 1));
+                return false;
+            }
+
+            return true;
+        }
+
         function submit() {
             buildPostData();
+            
+            if(!isValidDateRange(_submitData.fromdate, _submitData.todate))
+            {
+                return false;
+            }
 
             var option = {
                 type: "POST",
@@ -192,7 +208,7 @@
         }
 
         function exportToExcel() {
-            if (!_me.checkValidFilter()) {
+            if (!isValidDateRange() || !_me.checkValidFilter()) {
                 return false;
             }
             var param = getPostData();
