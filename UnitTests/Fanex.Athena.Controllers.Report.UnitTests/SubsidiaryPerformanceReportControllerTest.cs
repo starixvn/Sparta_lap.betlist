@@ -1,21 +1,21 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Script.Serialization;
-using Fanex.Athena.Controllers.Base.UnitTests;
-using Fanex.Athena.Model.Core.DataDomain;
-using Fanex.Athena.Model.Core.DTO.Common;
-using Fanex.Athena.Model.Core.MetaModel.Product;
-using Fanex.Athena.Model.Report.DTO;
-using Fanex.Athena.Model.Report.ViewModel;
-using Fanex.Athena.Service.Core.Common.Interfaces;
-using Fanex.Athena.Service.Report.Interfaces;
-using NSubstitute;
-using NUnit.Framework;
-
-namespace Fanex.Athena.Controllers.Report.UnitTests
+﻿namespace Fanex.Athena.Controllers.Report.UnitTests
 {
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Web;
+    using System.Web.Mvc;
+    using System.Web.Script.Serialization;
+    using Fanex.Athena.Controllers.Base.UnitTests;
+    using Fanex.Athena.Model.Core.DataDomain;
+    using Fanex.Athena.Model.Core.DTO.Common;
+    using Fanex.Athena.Model.Core.MetaModel.Product;
+    using Fanex.Athena.Model.Report.DTO;
+    using Fanex.Athena.Model.Report.ViewModel;
+    using Fanex.Athena.Service.Core.Common.Interfaces;
+    using Fanex.Athena.Service.Report.Interfaces;
+    using NSubstitute;
+    using NUnit.Framework;
+
     [TestFixture]
     public class SubsidiaryPerformanceReportControllerTest : BaseControllerHelperTest
     {

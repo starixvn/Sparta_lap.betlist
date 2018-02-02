@@ -604,28 +604,13 @@
             // Arrange
             var currencyAgentList = new Dictionary<int, IEnumerable<int>>
             {
-                new CurrencyUser
-                {
-                    IsActive = true,
-                    CurrencyId = 1,
-                    CurrencyName = "USD",
-                    AgentId = 2,
-                    AgentIdList = new[] { 1, 2 }
-                },
-                new CurrencyUser
-                {
-                    IsActive = true,
-                    CurrencyId = 20,
-                    CurrencyName = "UUS",
-                    AgentId = 3,
-                    AgentIdList = new[] { 3 }
-                }
+                [1] = new List<int> { 1 }
             };
             CreateDefaultNewSession();
             var expectedResult = "<ROOT><Agent AgentId=\"1\" Currency=\"1\"/></ROOT>";
 
             // Action
-            var result = _sessionService.GenerateAgentListXmlByAgentIdList(new[] { 1 });
+            var result = _sessionService.GenerateAgentListXml(currencyAgentList);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
