@@ -6,7 +6,6 @@
 
 namespace Fanex.Athena.Controllers.BetList
 {
-    using System.Collections.Generic;
     using System.Web.Mvc;
     using DataAccess.Core.Configuration.Interfaces;
     using Excel.Base.Entities;
@@ -25,6 +24,7 @@ namespace Fanex.Athena.Controllers.BetList
     [BetListAuthorization]
     public class LicenseeWinLossBetListController : BetListBaseController
     {
+		private static readonly int[] HiddenColumns = new[] { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn };
         public LicenseeWinLossBetListController()
         {
         }
@@ -75,14 +75,13 @@ namespace Fanex.Athena.Controllers.BetList
                 metaModel.IsFakeLicensee ? string.Empty : $"({metaModel.SystemId})",
                 viewinCurrency);
 
-            var hiddenColumns = new List<int> { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn };
             var showingOption = new ShowingOption
             {
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
             };
             var fileName = string.IsNullOrWhiteSpace(metaModel.ExcelFileName) ? "LicenseeWinLossBetList" : metaModel.ExcelFileName;
 
-            return ProcessExportExcel(showingOption, metaModel, ticketResult, hiddenColumns, title, fileName);
+            return ProcessExportExcel(showingOption, metaModel, ticketResult, HiddenColumns, title, fileName);
         }
     }
 }

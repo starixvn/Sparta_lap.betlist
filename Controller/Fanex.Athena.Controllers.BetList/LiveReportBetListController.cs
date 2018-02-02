@@ -1,7 +1,6 @@
 ﻿namespace Fanex.Athena.Controllers.BetList
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
     using DataAccess.Core.Configuration.Interfaces;
@@ -21,6 +20,7 @@
     [FunctionAuthorization(PermissionKeys.ReportLiveReport)]
     public class LiveReportBetListController : BetListBaseController
     {
+		private static readonly int[] HiddenColumns = new[] { BetEffectiveColumn };
         public LiveReportBetListController()
         {
         }
@@ -112,9 +112,9 @@
 
         private string GetMatchName(LiveReportBetListMetaModel model)
         {
-            return model.HomeId > 0 && model.AwayId > 0
-                                ? CacheRefAdapter.GetTeamName(model.HomeId) + " vs " + CacheRefAdapter.GetTeamName(model.AwayId) + " "
-                                : string.Empty;
+            return model.HomeId > 0 && model.AwayId > 0 ?
+                CacheRef.GetTeamName(model.HomeId) + " vs " + CacheRef.GetTeamName(model.AwayId) + " " :
+                string.Empty;
         }
 
         private ActionResult ProcessRequest(
@@ -154,7 +154,7 @@
             };
             var startIndex = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;
 
-            return ProcessExportExcel(showingOption, metaModel, ticketResult, new List<int> { BetEffectiveColumn }, title, "LiveReportBetList", startIndex);
+            return ProcessExportExcel(showingOption, metaModel, ticketResult, HiddenColumns, title, "LiveReportBetList", startIndex);
         }
 
         private LiveReportBetListMetaModel CreateDefaultMetaModel(LiveReportBetListMetaModel metaModel = null)

@@ -1,6 +1,5 @@
 ﻿namespace Fanex.Athena.Controllers.BetList
 {
-    using System.Collections.Generic;
     using System.Web.Mvc;
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;
@@ -15,6 +14,8 @@
 
     public class VoidbridgeBetListController : BetListBaseController
     {
+        private static readonly int[] HiddenColumns = new[] { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn, LicenseeWLColumn };
+
         private readonly string _title =
             ViewResources.ProductVB + " - " + ViewResources.BetList + " - " + ViewResources.DetailTickets;
 
@@ -55,10 +56,9 @@
 
         protected override ActionResult ExportExcel(BetListMetaModel metaModel, string uspKey)
         {
-            var hiddenColumns = new List<int> { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn, LicenseeWLColumn };
             var ticketResult = BetListService.GetBetListData(metaModel, uspKey);
 
-            return ProcessExportExcel(new ShowingOption(), metaModel, ticketResult, hiddenColumns, _title, "MacauGamesDetail");
+            return ProcessExportExcel(new ShowingOption(), metaModel, ticketResult, HiddenColumns, _title, "MacauGamesDetail");
         }
     }
 }

@@ -74,6 +74,7 @@ namespace Fanex.Athena.Controllers.BetList
 
             var model = CreateViewModel(viewParam);
 
+
             return View("~/Views/BetList/CancelledBetsBetList/Main.cshtml", model);
         }
 
@@ -100,8 +101,7 @@ namespace Fanex.Athena.Controllers.BetList
 
             if (customers.Any())
             {
-                var customerCancelBetItem = customers.First();
-                viewParam.CustId = customerCancelBetItem.CustId;
+                viewParam.CustId = custList.First().CustId;
             }
 
             var userSession = SessionService.UserSession;

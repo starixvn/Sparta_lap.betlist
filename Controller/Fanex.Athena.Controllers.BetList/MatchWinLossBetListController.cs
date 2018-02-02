@@ -28,6 +28,7 @@ namespace Fanex.Athena.Controllers.BetList
     [FunctionAuthorization(PermissionKeys.ReportMatchWinLoss)]
     public class MatchWinLossBetListController : BetListBaseController
     {
+		private static readonly int[] HiddenColumns = new[] { BetEffectiveColumn };
         public MatchWinLossBetListController()
         {
         }
@@ -113,7 +114,7 @@ namespace Fanex.Athena.Controllers.BetList
                 metaModel.FromDate.ToShortDateString(),
                 currencyTitle);
 
-            return ProcessExportExcel(showingOption, metaModel, ticketResult, new List<int> { BetEffectiveColumn }, title, "MatchWinLossBetList");
+            return ProcessExportExcel(showingOption, metaModel, ticketResult, HiddenColumns, title, "MatchWinLossBetList");
         }
     }
 }

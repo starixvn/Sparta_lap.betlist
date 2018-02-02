@@ -29,8 +29,8 @@ namespace Fanex.Athena.Controllers.BetList
     [FunctionAuthorization(PermissionKeys.ReportCustomerPendingFunds)]
     public class PendingFundsBetListController : BetListBaseController
     {
-        private static readonly List<int> HiddenColList =
-            new List<int> { ExternalIdColumn, SystemIdColumn, WinLostColumn, BetEffectiveColumn, LicenseeWLColumn };
+        private static readonly int[] HiddenColList =
+            new[] { ExternalIdColumn, SystemIdColumn, WinLostColumn, BetEffectiveColumn, LicenseeWLColumn };
 
         public PendingFundsBetListController()
         {

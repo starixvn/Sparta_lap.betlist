@@ -8,7 +8,6 @@ namespace Fanex.Athena.Controllers.BetList
 {
     #region Using
 
-    using System.Collections.Generic;
     using System.Web.Mvc;
     using DataAccess.Core.Configuration.Interfaces;
     using Excel.Base.Entities;
@@ -28,6 +27,7 @@ namespace Fanex.Athena.Controllers.BetList
     [FunctionAuthorization(PermissionKeys.ReportDailyRacingWinLoss)]
     public class DailyRacingWinLossBetListController : BetListBaseController
     {
+````````private static readonly int[] HiddenColumns = new[] { BetEffectiveColumn };
         public DailyRacingWinLossBetListController()
         {
         }
@@ -71,13 +71,12 @@ namespace Fanex.Athena.Controllers.BetList
                 metaModel.CurrencyId == BaseCurrencyType.All || metaModel.IsConvert ? metaModel.BaseCurrency.ToUpperInvariant() : metaModel.CurrencyName);
             var title = $"{ViewResources.DailyRacingWinLoss} {ViewResources.BetList} - {metaModel.Date.ToString("MMM dd, yyyy")} - {currencyTitle}";
 
-            var hiddenColumns = new List<int> { BetEffectiveColumn };
-            var showingOption = new ShowingOption
+			var showingOption = new ShowingOption
             {
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
             };
 
-            return ProcessExportExcel(showingOption, metaModel, ticketResult, hiddenColumns, title, "DailyRacingWinLossBetList");
+            return ProcessExportExcel(showingOption, metaModel, ticketResult, HiddenColumns, title, "DailyRacingWinLossBetList");
         }
     }
 }

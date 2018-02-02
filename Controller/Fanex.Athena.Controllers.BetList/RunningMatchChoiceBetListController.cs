@@ -64,7 +64,7 @@ namespace Fanex.Athena.Controllers.BetList
 
             var leagueName = string.Empty;
             var firstTicket = ticketResult.MainTicketList.FirstOrDefault();
-            if (ticketResult.MainTicketList.Any() && firstTicket != null)
+            if (firstTicket != null)
             {
                 leagueName = CacheRefAdapter.GetLeagueName(firstTicket.LeagueId);
             }

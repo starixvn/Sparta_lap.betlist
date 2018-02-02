@@ -6,7 +6,6 @@
 
 namespace Fanex.Athena.Controllers.BetList
 {
-    using System.Collections.Generic;
     using System.Web.Mvc;
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;
@@ -21,6 +20,7 @@ namespace Fanex.Athena.Controllers.BetList
 
     public class RNGCasinoBetListController : BetListBaseController
     {
+		private static readonly int[] HiddenColumns = new[] { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn, LicenseeWLColumn };
         public RNGCasinoBetListController()
         {
         }
@@ -73,6 +73,18 @@ namespace Fanex.Athena.Controllers.BetList
         {
             var title = ViewResources.ProductCS + " - ";
             return GetTitleByTransType(title, transType);
+        }
+
+        private ActionResult ExcelDetail(BetListMetaModel metaModel)
+        {
+            const string UspKey = "Lrf_BetList_RNG_Detail";
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
+            var excel = new BetListExcel(new ShowingOption(), SessionService.LicenseeSession.LicenseeId, HiddenColumns);
+            var title = GetTitle(metaModel.TransType);
+            var ticketResult = BetListService.GetBetListData(metaModel, UspKey);
+            var workbook = excel.Export(ticketResult, title);
+
+            return new ExcelResult(workbook, "RngCasinoDetail");
         }
     }
 }
