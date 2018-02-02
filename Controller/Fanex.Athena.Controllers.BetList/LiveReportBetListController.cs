@@ -20,7 +20,8 @@
     [FunctionAuthorization(PermissionKeys.ReportLiveReport)]
     public class LiveReportBetListController : BetListBaseController
     {
-		private static readonly int[] HiddenColumns = new[] { BetEffectiveColumn };
+        private static readonly int[] HiddenColumns = new[] { BetEffectiveColumn };
+
         public LiveReportBetListController()
         {
         }
@@ -113,7 +114,7 @@
         private string GetMatchName(LiveReportBetListMetaModel model)
         {
             return model.HomeId > 0 && model.AwayId > 0 ?
-                CacheRef.GetTeamName(model.HomeId) + " vs " + CacheRef.GetTeamName(model.AwayId) + " " :
+                CacheRefAdapter.GetTeamName(model.HomeId) + " vs " + CacheRefAdapter.GetTeamName(model.AwayId) + " " :
                 string.Empty;
         }
 

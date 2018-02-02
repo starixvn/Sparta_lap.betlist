@@ -8,7 +8,6 @@ namespace Fanex.Athena.Controllers.BetList
 {
     #region Using
 
-    using System.Collections.Generic;
     using System.Web.Mvc;
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;
@@ -28,7 +27,8 @@ namespace Fanex.Athena.Controllers.BetList
     [FunctionAuthorization(PermissionKeys.ReportMatchWinLoss)]
     public class MatchWinLossBetListController : BetListBaseController
     {
-		private static readonly int[] HiddenColumns = new[] { BetEffectiveColumn };
+        private static readonly int[] HiddenColumns = new[] { BetEffectiveColumn };
+
         public MatchWinLossBetListController()
         {
         }

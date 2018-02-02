@@ -27,7 +27,8 @@ namespace Fanex.Athena.Controllers.BetList
     [FunctionAuthorization(PermissionKeys.ReportDailyRacingWinLoss)]
     public class DailyRacingWinLossBetListController : BetListBaseController
     {
-````````private static readonly int[] HiddenColumns = new[] { BetEffectiveColumn };
+        private static readonly int[] HiddenColumns = new[] { BetEffectiveColumn };
+
         public DailyRacingWinLossBetListController()
         {
         }
@@ -71,7 +72,7 @@ namespace Fanex.Athena.Controllers.BetList
                 metaModel.CurrencyId == BaseCurrencyType.All || metaModel.IsConvert ? metaModel.BaseCurrency.ToUpperInvariant() : metaModel.CurrencyName);
             var title = $"{ViewResources.DailyRacingWinLoss} {ViewResources.BetList} - {metaModel.Date.ToString("MMM dd, yyyy")} - {currencyTitle}";
 
-			var showingOption = new ShowingOption
+            var showingOption = new ShowingOption
             {
                 CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
             };

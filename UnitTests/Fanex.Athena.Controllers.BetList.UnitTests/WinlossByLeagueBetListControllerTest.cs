@@ -102,7 +102,7 @@
                 var fakeLicensees = isFakeLicensee ? new[] { DefaultLicenseeSession.LicenseeId } : Enumerable.Empty<int>();
                 AppSettings.FakeLicenseeList.Returns(fakeLicensees);
 
-                var currencyTitle = currencyId == 0 ? ViewResources.AllCurrencies :  string.Format(ViewResources.Viewin, expectedCurrency);
+                var currencyTitle = currencyId == 0 ? ViewResources.AllCurrencies : string.Format(ViewResources.Viewin, expectedCurrency);
                 var expectedTitle = $"{ViewResources.CustomerBetList} - 1/1/2018 → 1/2/2018 - External{(isFakeLicensee ? "" : "(System)")} - {currencyTitle}";
 
                 var ticketResult = new TicketResult();

@@ -27,7 +27,8 @@ namespace Fanex.Athena.Controllers.BetList
     [FunctionAuthorization(PermissionKeys.ReportRacingCommission)]
     public class RacingCommissionBetListController : BetListBaseController
     {
-		private static readonly int[] HiddenColumns = new[] { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn };
+        private static readonly int[] HiddenColumns = new[] { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn };
+
         public RacingCommissionBetListController()
         {
         }

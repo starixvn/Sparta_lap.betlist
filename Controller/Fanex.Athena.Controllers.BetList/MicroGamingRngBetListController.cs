@@ -24,7 +24,8 @@ namespace Fanex.Athena.Controllers.BetList
 
     public class MicroGamingRngBetListController : BetListBaseController
     {
-		private static readonly int[] HiddenColumns = new[] { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn, LicenseeWLColumn };
+        private static readonly int[] HiddenColumns = new[] { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn, LicenseeWLColumn };
+
         public MicroGamingRngBetListController()
         {
         }
@@ -71,7 +72,7 @@ namespace Fanex.Athena.Controllers.BetList
                 GrandTotalVisible = false
             };
 
-			var title = GetTitle(metaModel.TransType);
+            var title = GetTitle(metaModel.TransType);
             var ticketResult = this.BetListService.GetBetListData(metaModel, uspKey);
 
             return ProcessExportExcel(showingOption, metaModel, ticketResult, HiddenColumns, title, "MicrogamingRNGDetail");

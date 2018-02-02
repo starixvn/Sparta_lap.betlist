@@ -8,16 +8,14 @@ namespace Fanex.Athena.Controllers.BetList
 {
     #region Using
 
-    using System.Web.Mvc;   
+    using System.Web.Mvc;
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;
-	using Excel.BetList;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.BetList.ViewModel;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Web.ActionFilter;
-    using Fanex.Athena.Web.ResultExtension;
     using Resources;
     using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;

@@ -27,7 +27,8 @@ namespace Fanex.Athena.Controllers.BetList
     [FunctionAuthorization(PermissionKeys.ReportWinLossByLeague)]
     public class WinlossByLeagueBetListController : BetListBaseController
     {
-		private static readonly int[] HiddenColumns = new[] { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn };
+        private static readonly int[] HiddenColumns = new[] { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn };
+
         public WinlossByLeagueBetListController()
         {
         }
