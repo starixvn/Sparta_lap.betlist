@@ -340,11 +340,11 @@ var CustTurnover = (function ($) {
                 odds = 0;
             }
             /* check date range ,only support two month.*/
-            var fromDateTokens = $("#FromDate").val().split("/");
+            var fromDateString = $("#FromDate").val();
+            var fromDate = new Date(fromDateString);
 
-            var fromDate = new Date(fromDateTokens[2], fromDateTokens[0], fromDateTokens[1]);
-            var toDateTokens = $("#ToDate").val().split("/");
-            var toDate = new Date(toDateTokens[2], toDateTokens[0], toDateTokens[1]);
+            var toDateString = $("#ToDate").val();
+            var toDate = new Date(toDateString);
             var oneDay = 24 * 60 * 60 * 1000;
 
             var diffDays = Math.round(Math.abs((fromDate.getTime() - toDate.getTime()) / (oneDay)));
