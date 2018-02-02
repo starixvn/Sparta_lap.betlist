@@ -1,6 +1,7 @@
 ﻿import React from 'react';
 import { FormFilter } from '../FormFilter';
 import renderer from 'react-test-renderer';
+import ShallowRenderer from 'react-test-renderer/shallow';
 
 import LangHelper from '../../../../lib/langHelper';
 import { Service } from '../../lib/service';
@@ -40,13 +41,11 @@ describe('FormFilter ', () => {
         jest.resetAllMocks();
     })
 
-    describe('filter component', () => {
+    describe('ExchangeWL FormFilter', () => {
         describe('render whole component', () => {
             it('match to snapshot', () => {
-                const component = renderer.create(<FormFilter {...props}/>);
-
-                const result = component.toJSON();
-
+                const renderer = new ShallowRenderer();
+                const result = renderer.render(<FormFilter {...props}/>);
                 expect(result).toMatchSnapshot();
             })
         })
@@ -158,7 +157,7 @@ describe('FormFilter ', () => {
 
                 expect(filterProps.setReportBy).toHaveBeenCalledWith(parseInt(newData));
             })
-            
+
             it('onChange - the new state is NaN - do not change "selected report by" state', () => {
                 const filterProps = { ...props, setReportBy: jest.fn() };
                 const newData = 'a';
@@ -230,7 +229,7 @@ describe('FormFilter ', () => {
             })
 
             it('get grid data', () => {
-                const formFilter = new FormFilter({ ...props, params:[] });
+                const formFilter = new FormFilter({ ...props, params: [] });
                 const params = { data: {} };
                 formFilter._getParams = jest.fn((level) => { return params; });
 
@@ -238,7 +237,7 @@ describe('FormFilter ', () => {
                     preventDefault: jest.fn()
                 });
                 const actualParams = props.getGridData.mock.calls[0][0];
-                
+
                 expect(props.toggleLoader).toHaveBeenCalledWith(true);
                 expect(props.getGridData).toHaveBeenCalled();
                 expect(actualParams).toEqual(params);
@@ -246,7 +245,7 @@ describe('FormFilter ', () => {
             })
 
             it('get grid data - alert error when getting data failed', () => {
-                const formFilter = new FormFilter({ ...props, params:[] });
+                const formFilter = new FormFilter({ ...props, params: [] });
                 const params = { data: {} };
                 formFilter._getParams = jest.fn((level) => { return params; });
 
@@ -255,7 +254,7 @@ describe('FormFilter ', () => {
                 });
                 const errorHandler = props.getGridData.mock.calls[0][1];
                 errorHandler();
-                
+
                 expect(Service.showErrorMsg).toHaveBeenCalled();
                 expect(props.toggleLoader).toHaveBeenCalledWith(false);
             })
@@ -341,7 +340,7 @@ describe('FormFilter ', () => {
                 Promise.reject().catch(() => {
                     expect(Service.showErrorMsg).toHaveBeenCalled();
                     expect(props.toggleLoader).toHaveBeenCalledWith(false);
-                });             
+                });
             })
 
             it('level 0 - export data with correct parameter', () => {
@@ -361,7 +360,7 @@ describe('FormFilter ', () => {
 
                 Promise.resolve().then(() => {
                     expect(formFilter._doExportExcel).toHaveBeenCalledWith(level, params.data, props.isAllowedCustomerComm, fakeResponse.data);
-                });             
+                });
             })
 
             it('level 1 - export data with correct parameter', () => {
@@ -377,7 +376,7 @@ describe('FormFilter ', () => {
                     preventDefault: jest.fn()
                 });
 
-                expect(formFilter._doExportExcel).toHaveBeenCalledWith(level, params.data, props.isAllowedCustomerComm, filterProps.gridData.data);          
+                expect(formFilter._doExportExcel).toHaveBeenCalledWith(level, params.data, props.isAllowedCustomerComm, filterProps.gridData.data);
             })
 
             it('_doExportExcel - data is null - alert message', () => {
@@ -396,7 +395,7 @@ describe('FormFilter ', () => {
                 const isAllowedCustomerComm = true;
                 const data = null;
 
-                formFilter._doExportExcel(0, param, isAllowedCustomerComm, data );
+                formFilter._doExportExcel(0, param, isAllowedCustomerComm, data);
 
                 expect(window.alert).toHaveBeenCalledWith('NoInfo');
             })
@@ -419,7 +418,7 @@ describe('FormFilter ', () => {
                     DataList: []
                 };
 
-                formFilter._doExportExcel(0, param, isAllowedCustomerComm, data );
+                formFilter._doExportExcel(0, param, isAllowedCustomerComm, data);
 
                 expect(window.alert).toHaveBeenCalledWith('NoInfo');
             })
@@ -430,7 +429,7 @@ describe('FormFilter ', () => {
                     return {
                         export: exportFnMock
                     }
-                });            
+                });
                 ReportExcel.mockImplementation(reportExcelMock);
 
                 const formFilter = new FormFilter(props);
@@ -450,7 +449,7 @@ describe('FormFilter ', () => {
                     }]
                 };
 
-                formFilter._doExportExcel(0, param, isAllowedCustomerComm, data );
+                formFilter._doExportExcel(0, param, isAllowedCustomerComm, data);
 
                 expect(Service.getReportTitle).toHaveBeenCalledWith({ fromDate: param.FromDate, toDate: param.ToDate }, param.CurrencyName, param.CurrencyId === 0);
                 expect(reportExcelMock).toHaveBeenCalledWith(data, reportTitle, param.Level, isAllowedCustomerComm, param.ReportBy);
@@ -463,7 +462,7 @@ describe('FormFilter ', () => {
                     return {
                         export: exportFnMock
                     }
-                });            
+                });
                 ReportExcel.mockImplementation(reportExcelMock);
 
                 const formFilter = new FormFilter(props);
@@ -480,10 +479,10 @@ describe('FormFilter ', () => {
                 const firstData = { Date: '2017-01-03T00:00:00', CurrencyName: 'EUR', CurrencyId: 1 };
                 const data = {
                     DataList: [firstData]
-                };   
-                Service.getDrilldownDateRange = jest.fn((reportBy, fromDate, toDate, drilldownDate) => { return { fromDate: drilldownDate, toDate: drilldownDate };});
+                };
+                Service.getDrilldownDateRange = jest.fn((reportBy, fromDate, toDate, drilldownDate) => { return { fromDate: drilldownDate, toDate: drilldownDate }; });
 
-                formFilter._doExportExcel(10, param, isAllowedCustomerComm, data );
+                formFilter._doExportExcel(10, param, isAllowedCustomerComm, data);
 
                 expect(Service.getReportTitle).toHaveBeenCalledWith({ fromDate: '01/03/2017', toDate: '01/03/2017' }, firstData.CurrencyName, firstData.CurrencyId === 0);
                 expect(reportExcelMock).toHaveBeenCalledWith(data, reportTitle, 10, isAllowedCustomerComm, param.ReportBy);
