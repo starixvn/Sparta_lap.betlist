@@ -66,7 +66,7 @@ namespace Fanex.Athena.Controllers.BetSettings
                 return Json(resultInfo, JsonRequestBehavior.AllowGet);
             }
 
-            if (!IsBetSettingEditable())
+            if (!ProductAccess.IsAllow(Product.SB) || !IsBetSettingEditable())
             {
                 return AccessDenied();
             }
