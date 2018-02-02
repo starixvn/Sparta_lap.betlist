@@ -30,6 +30,8 @@
                 BalanceUpDay = new DateTime(2017, 8, 31)
             };
 
+            ObjectDb = Substitute.For<IObjectDb>();
+
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             balanceUpDataAccess.GetBalanceUp().Returns(_balance);
             DataAccess = Substitute.ForPartsOf<SubsidiaryPerformanceDataAccess>(balanceUpDataAccess);
