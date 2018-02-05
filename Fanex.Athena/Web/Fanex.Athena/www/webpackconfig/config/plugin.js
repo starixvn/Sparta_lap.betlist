@@ -20,13 +20,12 @@ function generatePlugins(environment) {
             root: process.cwd(),
             exclude: ['images']
         }),
+        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
         new webpack.optimize.CommonsChunkPlugin({
             name: "common",
             filename: "www/js/build/" + environment + "/common.chunk.js",
             minChunks: Infinity
         }),
-
-       
         new webpack.ProvidePlugin({
             $: "jquery",
             jQuery: "jquery",
