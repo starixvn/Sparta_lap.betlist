@@ -34,6 +34,6 @@ namespace Fanex.Athena.Model.BetSettings.DTO
 
         public int CustId { get; set; }
 
-        public ResultInfo ResultInfo { get; set; }
+        public IResultInfo ResultInfo { get; set; }
     }
 }

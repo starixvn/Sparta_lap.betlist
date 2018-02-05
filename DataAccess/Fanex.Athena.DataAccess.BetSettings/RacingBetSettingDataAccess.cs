@@ -11,10 +11,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
     using System.Linq;
     using System.Text;
     using Common;
-    using Core.Exception;
     using Fanex.Athena.DataAccess.Core;
-    using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Data;
     using Helpers;
     using Interfaces;
     using Model.BetSettings.DTO;
@@ -97,49 +94,34 @@ namespace Fanex.Athena.DataAccess.BetSettings
         {
             const string UspName = "Lrf_CheckHRAllowedCurrency";
 
-            try
+            using (var db = this.GetObjectDb(UspName))
             {
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    db.AddInParameter("custid", DbType.Int32, custId);
+                db.AddInParameter("custid", DbType.Int32, custId);
+                db.AddOutParameter("allowed", DbType.Boolean, sizeof(bool));
 
-                    db.AddOutParameter("allowed", DbType.Boolean, sizeof(bool));
+                db.ExecuteNonQuery();
 
-                    db.ExecuteNonQuery();
-
-                    return Converter.ToBool(db.GetParameterValue("allowed"));
-                }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName, new { });
+                return Converter.ToBool(db.GetParameterValue("allowed"));
             }
         }
 
         private void RacingUpdatingProcess(string uspName, CommonBetSetting racingBetSetting)
         {
-            try
+            using (var db = this.GetObjectDb(uspName))
             {
-                using (var db = this.GetObjectDb(uspName))
-                {
-                    db.AddInParameter("custid", DbType.Int32, racingBetSetting.CustId);
-                    db.AddInParameter("userid", DbType.Int32, racingBetSetting.UserId);
-                    db.AddInParameter("minbet", DbType.Decimal, racingBetSetting.MinBet);
-                    db.AddInParameter("maxbet", DbType.Decimal, racingBetSetting.MaxBet);
-                    db.AddInParameter("maxpermatch", DbType.Decimal, racingBetSetting.MaxPerMatch);
-                    db.AddInParameter("language", DbType.String, racingBetSetting.Language);
-                    db.AddInParameter("ip", DbType.String, racingBetSetting.Ip);
-                    AddResultParam(db);
-                    db.ExecuteNonQuery();
+                db.AddInParameter("custid", DbType.Int32, racingBetSetting.CustId);
+                db.AddInParameter("userid", DbType.Int32, racingBetSetting.UserId);
+                db.AddInParameter("minbet", DbType.Decimal, racingBetSetting.MinBet);
+                db.AddInParameter("maxbet", DbType.Decimal, racingBetSetting.MaxBet);
+                db.AddInParameter("maxpermatch", DbType.Decimal, racingBetSetting.MaxPerMatch);
+                db.AddInParameter("language", DbType.String, racingBetSetting.Language);
+                db.AddInParameter("ip", DbType.String, racingBetSetting.Ip);
+                AddResultParam(db);
+                db.ExecuteNonQuery();
 
-                    var result = GetResult(db);
+                var result = GetResult(db);
 
-                    racingBetSetting.ResultInfo = (ResultInfo)result;
-                }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, uspName, "No params");
+                racingBetSetting.ResultInfo = result;
             }
         }
     }
