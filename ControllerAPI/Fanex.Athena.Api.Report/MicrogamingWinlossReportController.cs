@@ -60,7 +60,7 @@ namespace Fanex.Athena.Api.Report
             {
                 return new
                 {
-                    Data = DoRestructureDataMicroGaming(result.DataList.GroupBy(i => new { i.TypeID, i.Date })),
+                    Data = DoRestructureData(result.DataList.GroupBy(i => new { i.TypeID, i.Date })),
                     Total = CalculateTotal(result.DataList),
                     SummaryTotal = result.SummaryTotal
                 };
@@ -69,7 +69,7 @@ namespace Fanex.Athena.Api.Report
             return GetEmptyMicroGamingWinLossResult();
         }
 
-        private static IList<MicroGamingWinLoss> DoRestructureDataMicroGaming(dynamic groupData)
+        private static IList<MicroGamingWinLoss> DoRestructureData(dynamic groupData)
         {
             var newDataList = new List<MicroGamingWinLoss>();
 

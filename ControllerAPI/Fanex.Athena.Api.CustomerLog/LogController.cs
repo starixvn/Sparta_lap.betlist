@@ -7,7 +7,6 @@
 namespace Fanex.Athena.Api.CustomerLog
 {
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.IO;
     using System.Linq;
     using System.Text.RegularExpressions;
@@ -32,7 +31,22 @@ namespace Fanex.Athena.Api.CustomerLog
     [ApiFunctionAuthorization(PermissionKeys.CustomerInfoCustomerLog)]
     public partial class LogController : BaseApiController
     {
-        #region Field
+        private static readonly int[] ActionIdListForBA = new[] { 2401, 2403, 2801 };
+
+        private static readonly string[] ActionTypes = new[]
+            {
+                "Closed",
+                "Suspended",
+                "SpecialLevel",
+                "GroupCommID",
+                "GroupName",
+                "GroupColor",
+                "SBComm",
+                "RacingComm",
+                "NGComm",
+                "RNGComm",
+                "AllbetComm"
+            };
 
         private readonly ICustomerLogDataAccess _customerLogDataAccess;
 
@@ -43,12 +57,6 @@ namespace Fanex.Athena.Api.CustomerLog
         private readonly IAppSettings _appSettings;
         private readonly IClientViewHelper _clientViewHelper;
 
-        private readonly IEnumerable<int> _actionIdListForBA = new List<int> { 2401, 2403, 2801 };
-
-        #endregion Field
-
-        #region Constructor
-
         public LogController()
         {
             _customerLogDataAccess = new CustomerLogDataAccess();
@@ -57,8 +65,6 @@ namespace Fanex.Athena.Api.CustomerLog
             _appSettings = new AppSettings();
             _clientViewHelper = new ClientViewHelper();
         }
-
-        #endregion Constructor
 
         #region Utility
 
@@ -69,7 +75,7 @@ namespace Fanex.Athena.Api.CustomerLog
         /// </summary>
         /// <param name="source">Tracking Value.</param>
         /// <returns>Tracking Value has been removed HTML Tag.</returns>
-        private static string StripTags(string source)
+        private static string RemoveHtmlTags(string source)
         {
             var regex = new Regex("[/<>]");
             return regex.Replace(source, string.Empty);
@@ -94,8 +100,8 @@ namespace Fanex.Athena.Api.CustomerLog
                     var trackingValueOld = item.TrackingValueOld.Substring(1, trackingOldCharCount - 3);
 
                     // Add </> tag after remove all html tag
-                    item.TrackingValue = "<" + StripTags(trackingValue) + "/>";
-                    item.TrackingValueOld = "<" + StripTags(trackingValueOld) + "/>";
+                    item.TrackingValue = "<" + RemoveHtmlTags(trackingValue) + "/>";
+                    item.TrackingValueOld = "<" + RemoveHtmlTags(trackingValueOld) + "/>";
                 }
             }
 
@@ -106,33 +112,10 @@ namespace Fanex.Athena.Api.CustomerLog
 
         #region Get XML attribute
 
-        /// <summary>
-        /// Get XML attribute.
-        /// </summary>
-        /// <param name="trackingValue">Tracking value.</param>
-        /// <param name="trackingValueOld">Tracking value old.</param>
-        /// <returns>XML attributes.</returns>
-        [SuppressMessage(
-            "StyleCop.CSharp.StylecopPlus.Rules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
-        private static Dictionary<string, string> GetXmlAttr(string trackingValue, string trackingValueOld)
+        private static IDictionary<string, string> GetXmlAttr(string trackingValue, string trackingValueOld)
         {
             var dictonary = new Dictionary<string, string>();
-            var actionTypes = new List<string>
-            {
-                "Closed",
-                "Suspended",
-                "SpecialLevel",
-                "GroupCommID",
-                "GroupName",
-                "GroupColor",
-                "SBComm",
-                "RacingComm",
-                "NGComm",
-                "RNGComm",
-                "AllbetComm"
-            };
+
             var doc = new XmlDocument();
             var docOld = new XmlDocument();
             if (!string.IsNullOrEmpty(trackingValue))
@@ -147,30 +130,20 @@ namespace Fanex.Athena.Api.CustomerLog
 
             var root = doc.DocumentElement;
             var rootOld = docOld.DocumentElement;
-            foreach (var attr in actionTypes)
+            foreach (var attr in ActionTypes)
             {
-                if (root != null && root.HasAttribute(attr))
-                {
-                    var value = root.GetAttribute(attr);
-                    dictonary.Add(attr, value);
-                }
-                else
-                {
-                    dictonary.Add(attr, string.Empty);
-                }
-
-                if (rootOld != null && rootOld.HasAttribute(attr))
-                {
-                    var value = rootOld.GetAttribute(attr);
-                    dictonary.Add(attr + "Old", value);
-                }
-                else
-                {
-                    dictonary.Add(attr + "Old", string.Empty);
-                }
+                dictonary.Add(attr, GetAttributeValue(root, attr));
+                dictonary.Add(attr + "Old", GetAttributeValue(rootOld, attr));
             }
 
             return dictonary;
+        }
+
+        private static string GetAttributeValue(XmlElement root, string attribute)
+        {
+            return root != null && root.HasAttribute(attribute) ?
+                root.GetAttribute(attribute) :
+                string.Empty;
         }
 
         #endregion Get XML attribute
@@ -236,15 +209,15 @@ namespace Fanex.Athena.Api.CustomerLog
             foreach (var item in dataList)
             {
                 // No need to read xml data for BA
-                if (_actionIdListForBA.Contains(item.ActionId))
+                if (ActionIdListForBA.Contains(item.ActionId))
                 {
                     item.Details = string.Empty;
-                    continue;
                 }
-
-                var dictonary = GetXmlAttr(item.TrackingValue, item.TrackingValueOld);
-
-                item.Details = GenerateDetailedValue(item.ActionId, new ActionViewModel { Data = dictonary, Resource = resourcesMap });
+                else
+                {
+                    var dictonary = GetXmlAttr(item.TrackingValue, item.TrackingValueOld);
+                    item.Details = GenerateDetailedValue(item.ActionId, new ActionViewModel { Data = dictonary, Resource = resourcesMap });
+                }
             }
 
             return dataList;

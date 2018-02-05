@@ -161,9 +161,7 @@ namespace Fanex.Athena.Api.BetList
 
             var ticketResult = _betListService.GetBetListData(metaModel, uspKey);
 
-            var totalPage = (ticketResult.TotalRows % metaModel.PageSize) == 0
-                ? ticketResult.TotalRows / metaModel.PageSize
-                : (ticketResult.TotalRows / metaModel.PageSize) + 1;
+            var totalPage = (int)Math.Ceiling((double)ticketResult.TotalRows / metaModel.PageSize);
             metaModel.PageIndex = pageIndex > totalPage ? totalPage : pageIndex;
 
             var startIndex = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;

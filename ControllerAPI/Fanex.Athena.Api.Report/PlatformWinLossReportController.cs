@@ -91,17 +91,12 @@ namespace Fanex.Athena.Api.Report
 
         private static void SortMemberData(SortableList<PlatformWinLossMember> dataList, string sortBy, string sortOrder = "asc")
         {
-            if (string.IsNullOrEmpty(sortBy) || string.IsNullOrEmpty(sortOrder))
+            if (!string.IsNullOrEmpty(sortBy) &&
+                !string.IsNullOrEmpty(sortOrder) &&
+                typeof(PlatformWinLossMember).GetProperty(sortBy) != null)
             {
-                return;
+                dataList.Sort(sortBy, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase), nameof(PlatformWinLossMember.Index), true);
             }
-
-            if (typeof(PlatformWinLossMember).GetProperty(sortBy) == null)
-            {
-                return;
-            }
-
-            dataList.Sort(sortBy, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase), nameof(PlatformWinLossMember.Index), true);
         }
 
         private HttpResponseMessage ExportExcelSummary(
