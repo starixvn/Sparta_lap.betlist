@@ -1,19 +1,19 @@
 webpackJsonp([72],{
 
-/***/ 508:
+/***/ 388:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(509);
+module.exports = __webpack_require__(389);
 
 
 /***/ }),
 
-/***/ 509:
+/***/ 389:
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ })
 
-},[508]);
+},[388]);
 //# sourceMappingURL=winlossbybettype.chunk.js.map

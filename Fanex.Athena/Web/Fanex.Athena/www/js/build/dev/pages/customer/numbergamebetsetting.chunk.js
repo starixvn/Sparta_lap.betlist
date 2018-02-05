@@ -1,11 +1,11 @@
-webpackJsonp([42],{
+webpackJsonp([39],{
 
-/***/ 135:
+/***/ 15:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(124), __webpack_require__(151)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Popup) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(5), __webpack_require__(31)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Popup) {
     
     function isInteger(text) {
         return /^\+?\d+$/.test(text);
@@ -73,7 +73,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 /***/ }),
 
-/***/ 140:
+/***/ 20:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -112,7 +112,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 /***/ }),
 
-/***/ 146:
+/***/ 26:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -131,7 +131,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
  **/
 
 // Customize to use AMD module
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
     function NumberFormatter() {
         this.defaults = {
             format: "#,###.00",
@@ -443,12 +443,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
 
 /***/ }),
 
-/***/ 147:
+/***/ 27:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(135)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, BetSettingHelper) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(15)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, BetSettingHelper) {
     var SPORTID_NUMBERGAME = 161;
 
     var _me = {
@@ -561,12 +561,85 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 /***/ }),
 
-/***/ 150:
+/***/ 287:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(288);
+
+
+/***/ }),
+
+/***/ 288:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(289)], __WEBPACK_AMD_DEFINE_RESULT__ = (function (NumberGameBetSetting) {
+    $(NumberGameBetSetting.initialize);
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+
+/***/ 289:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(124), __webpack_require__(140), __webpack_require__(146), __webpack_require__(135), __webpack_require__(147)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Popup, Constant, NumberFormatter, BetSettingHelper, BetSettingValidation) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(30), __webpack_require__(15)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, BetSettingBase, BetSettingHelper) {
+    var SPORT_ID = 161;
+
+    var _me = {
+        initialize: function () {
+            Site.initialize();
+            BetSettingBase.initialize();
+            _me.initEvent();
+
+            BetSettingBase.setEnable();
+            var enable = $("#editable").val() === "True";
+            $("#max-per-ball-161").prop('disabled', !enable);
+        },
+
+        initEvent: function () {
+            $("#btnReset").on("click", function () {
+                BetSettingBase.resetInput();
+            });
+
+            $("#btnSubmitBetSetting").on("click", function () {
+                BetSettingBase.showComfirm($(this), 'UpdateNumberGameBetSettings', _me.updateBetSetting);
+            });
+
+            // Formating number in text box.
+            BetSettingBase.formatInputText();
+        },
+
+        updateBetSetting: function (custId, userName, nickName) {
+            var url = Site.resolveClientUrl('NumberGameBetSetting/UpdateBetSetting');
+
+            var maxperball = BetSettingHelper.convertToFloat($("#max-per-ball-161").val());
+            var params = BetSettingBase.getBetSettingParams(SPORT_ID);
+            params.maxperball = maxperball;
+            params.custid = custId;
+            params.userName = userName;
+            params.nickName = nickName;
+
+            BetSettingBase.updateBetSetting(url, params);
+        }
+    };
+
+    return _me;
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 30:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(5), __webpack_require__(20), __webpack_require__(26), __webpack_require__(15), __webpack_require__(27)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Popup, Constant, NumberFormatter, BetSettingHelper, BetSettingValidation) {
         var Product = Constant.Product;
 
         var _me = {
@@ -733,7 +806,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 /***/ }),
 
-/***/ 151:
+/***/ 31:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
@@ -1012,82 +1085,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         }
     };
 })(jQuery);
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
-
-/***/ }),
-
-/***/ 407:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(408);
-
-
-/***/ }),
-
-/***/ 408:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(409)], __WEBPACK_AMD_DEFINE_RESULT__ = (function (NumberGameBetSetting) {
-    $(NumberGameBetSetting.initialize);
-}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
-
-/***/ }),
-
-/***/ 409:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(150), __webpack_require__(135)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, BetSettingBase, BetSettingHelper) {
-    var SPORT_ID = 161;
-
-    var _me = {
-        initialize: function () {
-            Site.initialize();
-            BetSettingBase.initialize();
-            _me.initEvent();
-
-            BetSettingBase.setEnable();
-            var enable = $("#editable").val() === "True";
-            $("#max-per-ball-161").prop('disabled', !enable);
-        },
-
-        initEvent: function () {
-            $("#btnReset").on("click", function () {
-                BetSettingBase.resetInput();
-            });
-
-            $("#btnSubmitBetSetting").on("click", function () {
-                BetSettingBase.showComfirm($(this), 'UpdateNumberGameBetSettings', _me.updateBetSetting);
-            });
-
-            // Formating number in text box.
-            BetSettingBase.formatInputText();
-        },
-
-        updateBetSetting: function (custId, userName, nickName) {
-            var url = Site.resolveClientUrl('NumberGameBetSetting/UpdateBetSetting');
-
-            var maxperball = BetSettingHelper.convertToFloat($("#max-per-ball-161").val());
-            var params = BetSettingBase.getBetSettingParams(SPORT_ID);
-            params.maxperball = maxperball;
-            params.custid = custId;
-            params.userName = userName;
-            params.nickName = nickName;
-
-            BetSettingBase.updateBetSetting(url, params);
-        }
-    };
-
-    return _me;
-}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ })
 
-},[407]);
+},[287]);
 //# sourceMappingURL=numbergamebetsetting.chunk.js.map

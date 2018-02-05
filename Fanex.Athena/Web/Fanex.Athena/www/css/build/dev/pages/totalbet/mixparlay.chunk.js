@@ -1,19 +1,19 @@
 webpackJsonp([69],{
 
-/***/ 476:
+/***/ 356:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(477);
+module.exports = __webpack_require__(357);
 
 
 /***/ }),
 
-/***/ 477:
+/***/ 357:
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ })
 
-},[476]);
+},[356]);
 //# sourceMappingURL=mixparlay.chunk.js.map

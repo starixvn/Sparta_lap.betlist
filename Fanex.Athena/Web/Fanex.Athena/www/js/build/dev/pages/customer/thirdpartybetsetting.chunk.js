@@ -1,11 +1,11 @@
-webpackJsonp([38],{
+webpackJsonp([33],{
 
-/***/ 135:
+/***/ 15:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(124), __webpack_require__(151)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Popup) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(5), __webpack_require__(31)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Popup) {
     
     function isInteger(text) {
         return /^\+?\d+$/.test(text);
@@ -73,7 +73,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 /***/ }),
 
-/***/ 140:
+/***/ 20:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -112,7 +112,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 /***/ }),
 
-/***/ 146:
+/***/ 26:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -131,7 +131,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
  **/
 
 // Customize to use AMD module
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
     function NumberFormatter() {
         this.defaults = {
             format: "#,###.00",
@@ -443,12 +443,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
 
 /***/ }),
 
-/***/ 147:
+/***/ 27:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(135)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, BetSettingHelper) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(15)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, BetSettingHelper) {
     var SPORTID_NUMBERGAME = 161;
 
     var _me = {
@@ -561,12 +561,117 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 /***/ }),
 
-/***/ 150:
+/***/ 281:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(282);
+
+
+/***/ }),
+
+/***/ 282:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(283)], __WEBPACK_AMD_DEFINE_RESULT__ = (function (ThirdPartyBetSetting) {
+    $(ThirdPartyBetSetting.initialize);
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+
+/***/ 283:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/* Macau, MgcLiveCasino, Colossusbets, MgcRngCasino, BetTrade, Cashout */
+
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(20), __webpack_require__(30), __webpack_require__(38)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Constant, BetSettingBase, BetSettingStatus) {
+        var Product = Constant.Product;
+        var CHECKBOX_SELECTOR = "#enable-product";
+        var PRODUCT_CONTAIN_CHECKBOX = [Product.MgcLiveCasino, Product.MgcRngCasino, Product.BetTrade, Product.Cashout];
+
+        var _me = {
+            initialize: function () {
+                Site.initialize();
+                BetSettingBase.initialize();
+                _me.initEvent();
+            },
+
+            initEvent: function () {
+                $("#btnUpdateStatus").click(function () {
+                    _me.updateStatus($(this));
+                });
+
+                $("#btnReset").on("click", _me.reset);
+            },
+
+            reset: function () {
+                var $checkbox = $(CHECKBOX_SELECTOR);
+                $checkbox.prop("checked", $checkbox.data("original") === 1);
+            },
+
+            updateStatus: function ($context) {
+                var productId = parseInt($("#ProductId").val());
+                var url = _me.getUrlByProduct(productId);
+                if (url === null) {
+                    return;
+                }
+
+                var params = BetSettingStatus.getCommonPostData($context);
+
+                if (PRODUCT_CONTAIN_CHECKBOX.indexOf(productId) > -1) {
+                    params.status = _me.getStatus();
+                }
+
+                BetSettingStatus.update(Site.resolveClientUrl(url), params);
+            },
+
+            getUrlByProduct: function (productId) {
+                var url = null;
+                switch (productId) {
+                    case Product.Macau:
+                        url = "ThirdPartyBetSetting/UpdateMacauStatus";
+                        break;
+                    case Product.MgcLiveCasino:
+                        url = "ThirdPartyBetSetting/UpdateMicroGamingLiveCasinoStatus";
+                        break;
+                    case Product.Colossusbets:
+                        url = "ThirdPartyBetSetting/UpdateColossusBetsStatus";
+                        break;
+                    case Product.MgcRngCasino:
+                        url = "ThirdPartyBetSetting/UpdateMicroGamingRNGCasinoStatus";
+                        break;
+                    case Product.BetTrade:
+                        url = "ThirdPartyBetSetting/UpdateBetTradeStatus";
+                        break;
+                    case Product.Cashout:
+                        url = "ThirdPartyBetSetting/UpdateCashOutStatus";
+                        break;
+                }
+
+                return url;
+            },
+
+            getStatus: function () {
+                return $(CHECKBOX_SELECTOR).is(":checked") ? 1 : 0;
+            }
+        };
+
+        return _me;
+    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 30:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(124), __webpack_require__(140), __webpack_require__(146), __webpack_require__(135), __webpack_require__(147)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Popup, Constant, NumberFormatter, BetSettingHelper, BetSettingValidation) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(5), __webpack_require__(20), __webpack_require__(26), __webpack_require__(15), __webpack_require__(27)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Popup, Constant, NumberFormatter, BetSettingHelper, BetSettingValidation) {
         var Product = Constant.Product;
 
         var _me = {
@@ -733,7 +838,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 /***/ }),
 
-/***/ 151:
+/***/ 31:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
@@ -1012,16 +1117,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         }
     };
 })(jQuery);
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
 
-/***/ 158:
+/***/ 38:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(135)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, BetSettingHelper) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(15)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, BetSettingHelper) {
     var _me = {
         update: function (url, postData) {
             $.ajax({
@@ -1060,112 +1165,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ }),
-
-/***/ 401:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(402);
-
-
-/***/ }),
-
-/***/ 402:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(403)], __WEBPACK_AMD_DEFINE_RESULT__ = (function (ThirdPartyBetSetting) {
-    $(ThirdPartyBetSetting.initialize);
-}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
-
-/***/ }),
-
-/***/ 403:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/* Macau, MgcLiveCasino, Colossusbets, MgcRngCasino, BetTrade, Cashout */
-
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(140), __webpack_require__(150), __webpack_require__(158)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Constant, BetSettingBase, BetSettingStatus) {
-        var Product = Constant.Product;
-        var CHECKBOX_SELECTOR = "#enable-product";
-        var PRODUCT_CONTAIN_CHECKBOX = [Product.MgcLiveCasino, Product.MgcRngCasino, Product.BetTrade, Product.Cashout];
-
-        var _me = {
-            initialize: function () {
-                Site.initialize();
-                BetSettingBase.initialize();
-                _me.initEvent();
-            },
-
-            initEvent: function () {
-                $("#btnUpdateStatus").click(function () {
-                    _me.updateStatus($(this));
-                });
-
-                $("#btnReset").on("click", _me.reset);
-            },
-
-            reset: function () {
-                var $checkbox = $(CHECKBOX_SELECTOR);
-                $checkbox.prop("checked", $checkbox.data("original") === 1);
-            },
-
-            updateStatus: function ($context) {
-                var productId = parseInt($("#ProductId").val());
-                var url = _me.getUrlByProduct(productId);
-                if (url === null) {
-                    return;
-                }
-
-                var params = BetSettingStatus.getCommonPostData($context);
-
-                if (PRODUCT_CONTAIN_CHECKBOX.indexOf(productId) > -1) {
-                    params.status = _me.getStatus();
-                }
-
-                BetSettingStatus.update(Site.resolveClientUrl(url), params);
-            },
-
-            getUrlByProduct: function (productId) {
-                var url = null;
-                switch (productId) {
-                    case Product.Macau:
-                        url = "ThirdPartyBetSetting/UpdateMacauStatus";
-                        break;
-                    case Product.MgcLiveCasino:
-                        url = "ThirdPartyBetSetting/UpdateMicroGamingLiveCasinoStatus";
-                        break;
-                    case Product.Colossusbets:
-                        url = "ThirdPartyBetSetting/UpdateColossusBetsStatus";
-                        break;
-                    case Product.MgcRngCasino:
-                        url = "ThirdPartyBetSetting/UpdateMicroGamingRNGCasinoStatus";
-                        break;
-                    case Product.BetTrade:
-                        url = "ThirdPartyBetSetting/UpdateBetTradeStatus";
-                        break;
-                    case Product.Cashout:
-                        url = "ThirdPartyBetSetting/UpdateCashOutStatus";
-                        break;
-                }
-
-                return url;
-            },
-
-            getStatus: function () {
-                return $(CHECKBOX_SELECTOR).is(":checked") ? 1 : 0;
-            }
-        };
-
-        return _me;
-    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-
 /***/ })
 
-},[401]);
+},[281]);
 //# sourceMappingURL=thirdpartybetsetting.chunk.js.map

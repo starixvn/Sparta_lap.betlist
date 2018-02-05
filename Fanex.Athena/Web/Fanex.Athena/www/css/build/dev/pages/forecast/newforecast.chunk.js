@@ -1,19 +1,19 @@
 webpackJsonp([95],{
 
-/***/ 478:
+/***/ 358:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(479);
+module.exports = __webpack_require__(359);
 
 
 /***/ }),
 
-/***/ 479:
+/***/ 359:
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ })
 
-},[478]);
+},[358]);
 //# sourceMappingURL=newforecast.chunk.js.map
