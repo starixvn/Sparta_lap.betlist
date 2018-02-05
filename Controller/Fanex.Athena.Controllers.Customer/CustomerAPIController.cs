@@ -98,7 +98,6 @@ namespace Fanex.Athena.Controllers.Customer
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         public ActionResult UpdateCustStatus(int custId, bool isClosed, bool isSuspended)
         {
-            IResultInfo result = new ResultInfo { Code = 1, Message = ViewResources.HttpError_Default };
             try
             {
                 var licenseeSession = SessionService.LicenseeSession;
@@ -116,7 +115,7 @@ namespace Fanex.Athena.Controllers.Customer
                         Ip = Request.UserHostAddress
                     };
 
-                    result = _customerListService.UpdateCustClosed(customerStatusMetaModel, userSession.Language);
+                    var result = _customerListService.UpdateCustClosed(customerStatusMetaModel, userSession.Language);
                     if (result.Code == 0)
                     {
                         customerStatusMetaModel.IsOn = isSuspended;
@@ -135,7 +134,7 @@ namespace Fanex.Athena.Controllers.Customer
                 LogHelper.WriteError(exception);
             }
 
-            return Json(result);
+            return Json(new ResultInfo { Code = 1, Message = ViewResources.HttpError_Default });
         }
 
         /// <summary>
@@ -337,8 +336,7 @@ namespace Fanex.Athena.Controllers.Customer
                                 metaModel.ABComm);
                 var userSession = SessionService.UserSession;
 
-                var productAccess =
-                    _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
+                var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
                 if (isvalid)
                 {
                     metaModel.LicenseeId = licenseeSession.LicenseeId;
@@ -385,40 +383,37 @@ namespace Fanex.Athena.Controllers.Customer
                 return AccessDenied();
             }
 
-            var result = new ResultViewModel
-            {
-                Success = false,
-                ErrorMessage = ViewResources.Error
-            };
-
-            var metaModel = new RemoveFromGroupComMetaModel
-            {
-                CustomerIds = customerIds,
-                IsRemovePlayercomm = isRemovePlayercomm
-            };
             var userSession = SessionService.UserSession;
 
             var productAccess = _productService.GetProductAccess(
                 licenseeSession.LicenseeId,
                 userSession.Language,
                 CustomerAPIRemoveFromGroupComName);
-            metaModel.LicenseeId = licenseeSession.LicenseeId;
-            metaModel.UserId = userSession.UserId;
-            metaModel.Ip = Request.UserHostAddress;
-            metaModel.Language = userSession.Language;
-            var temp = _customerCommService.RemoveCustomersFromGroup(metaModel, productAccess.IsAllowCS);
-            result.Success = temp.IsSuccessful;
-            result.Message = ViewResources.MessageSuccess;
-            result.ErrorMessage = temp.Message;
-            result.ErrorCode = temp.Code;
-            result.ExtendedData = new
+            var metaModel = new RemoveFromGroupComMetaModel
             {
-                SBComm = 0,
-                RCComm = 0,
-                NGComm = 0,
-                RNGComm = 0,
-                GroupName = ViewResources.None,
-                GroupColor = "#ffffff",
+                CustomerIds = customerIds,
+                IsRemovePlayercomm = isRemovePlayercomm,
+                LicenseeId = licenseeSession.LicenseeId,
+                UserId = userSession.UserId,
+                Ip = Request.UserHostAddress,
+                Language = userSession.Language
+            };
+            var removalResult = _customerCommService.RemoveCustomersFromGroup(metaModel, productAccess.IsAllowCS);
+            var result = new ResultViewModel
+            {
+                Success = removalResult.IsSuccessful,
+                Message = ViewResources.MessageSuccess,
+                ErrorMessage = removalResult.Message,
+                ErrorCode = removalResult.Code,
+                ExtendedData = new
+                {
+                    SBComm = 0,
+                    RCComm = 0,
+                    NGComm = 0,
+                    RNGComm = 0,
+                    GroupName = ViewResources.None,
+                    GroupColor = "#ffffff",
+                }
             };
 
             return Json(result);

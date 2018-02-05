@@ -11,7 +11,6 @@ namespace Fanex.Athena.Controllers.TotalBets
     using DataAccess.TotalBet;
     using DataAccess.TotalBet.Interfaces;
     using Extension.Utility;
-    using Fanex.Athena.Model.TotalBet.DTO;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
     using Model.TotalBet.MetaModel;
@@ -80,19 +79,10 @@ namespace Fanex.Athena.Controllers.TotalBets
                     CurrencyList = currencies,
                     TotalData = result.TotalData
                 };
-                /*set content view follow by licensee*/
-                ViewBag.LicenseeView = "ContentData.cshtml";
 
-                var items = AppSettings.GetValue("LicenseeOfferNewForecast");
-
-                if (!string.IsNullOrEmpty(items))
-                {
-                    var licenseeOfferNewForecasts = items.Split(',');
-                    if (licenseeOfferNewForecasts.Contains(licenseeSession.LicenseeId.ToString()))
-                    {
-                        ViewBag.LicenseeView = "ContentDataBodog.cshtml";
-                    }
-                }
+                ViewBag.LicenseeView = AppSettings.LicenseeOfferNewForecast.Contains(licenseeSession.LicenseeId) ?
+                    "ContentDataBodog.cshtml" :
+                    "ContentData.cshtml";
 
                 return View("~/Views/TotalBets/HandicapOverUnder/Main.cshtml", model);
             }

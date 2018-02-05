@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Controllers.Forecast
 {
+    using System.Linq;
     using System.Web.Mvc;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
@@ -19,9 +20,7 @@ namespace Fanex.Athena.Controllers.Forecast
         public ActionResult Index()
         {
             var liceseeSession = SessionService.LicenseeSession;
-            var licenseeOfferNewForecastList = GetLicenseeOfferNewForecastList();
-
-            if (licenseeOfferNewForecastList.Contains(liceseeSession.LicenseeId.ToString()))
+            if (AppSettings.LicenseeOfferNewForecast.Contains(liceseeSession.LicenseeId))
             {
                 return this.RedirectToAction("Index", "NewHandicapOverUnderForecast");
             }

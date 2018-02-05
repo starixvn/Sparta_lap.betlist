@@ -41,7 +41,7 @@ namespace Fanex.Athena.Controllers.Report
         {
             var licenseeSession = this.SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
-            var date = DateTime.Now;
+            var date = DateTime.Now.AddDays(-1);
             var productList = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language).ProductList;
 
             var product = productList.SingleOrDefault(p => p.ProductCode == Product.GD);
@@ -53,8 +53,8 @@ namespace Fanex.Athena.Controllers.Report
 
             var metaModel = new ThirdPartyWinLossMetaModel
             {
-                FromDate = date.AddDays(-1),
-                ToDate = date.AddDays(-1),
+                FromDate = date,
+                ToDate = date,
                 LicenseeId = licenseeSession.LicenseeId,
                 ReportBy = 1,
                 IsExcludedTestData = true,

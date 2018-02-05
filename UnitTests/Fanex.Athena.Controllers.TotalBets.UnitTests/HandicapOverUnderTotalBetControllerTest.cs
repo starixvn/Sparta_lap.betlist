@@ -134,7 +134,7 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                StubGetValueAppSettings("LicenseeOfferNewForecast", DefaultLicenseeSession.LicenseeId.ToString());
+                AppSettings.LicenseeOfferNewForecast.Returns(new[] { DefaultLicenseeSession.LicenseeId });
 
                 var metaModel = new HandicapOverUnderMetaModel
                 {
@@ -155,7 +155,7 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                StubGetValueAppSettings("LicenseeOfferNewForecast", string.Empty);
+                AppSettings.LicenseeOfferNewForecast.Returns(new int[] { });
 
                 var metaModel = new HandicapOverUnderMetaModel
                 {

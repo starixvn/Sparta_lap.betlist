@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Controllers.Forecast
 {
+    using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
@@ -38,9 +39,8 @@ namespace Fanex.Athena.Controllers.Forecast
         [HttpGet]
         public ActionResult Index(int leagueId = 0, int matchId = 0, int currencyId = 0, string baseCurrency = null)
         {
-            var licenseeOfferNewForecastList = GetLicenseeOfferNewForecastList();
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
-            if (licenseeOfferNewForecastList.Contains(licenseeId.ToString()))
+            if (AppSettings.LicenseeOfferNewForecast.Contains(licenseeId))
             {
                 var metaModel = new NewForecastHandicapOverUnderMetaModel
                 {
@@ -86,10 +86,6 @@ namespace Fanex.Athena.Controllers.Forecast
             return View("~/Views/Forecast/NewForecastHdpOu/MatchOptionList.cshtml", matchList);
         }
 
-        [SuppressMessage(
-                  "StyleCop.CSharp.StylecopPlus.Rules",
-                  "SP2101:MethodMustNotContainMoreLinesThan",
-                  Justification = "Reviewed. Suppression is OK here.")]
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         private NewForecastHdpOuViewModel GetViewModel(NewForecastHandicapOverUnderMetaModel metaModel)
         {
@@ -119,7 +115,7 @@ namespace Fanex.Athena.Controllers.Forecast
                 model.MainData = ForecastService.GetNewForecastData(metaModel, headerInfo);
                 model.HeaderInfo = headerInfo;
             }
-            catch (System.Exception exception)
+            catch (Exception exception)
             {
                 LogHelper.WriteError(exception);
             }

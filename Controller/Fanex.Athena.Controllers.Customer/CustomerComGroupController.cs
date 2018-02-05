@@ -115,7 +115,7 @@
                     result.Code = 1;
                     result.Message = ViewResources.ChooseGroupNameMsg;
                 }
-                else if (IsValidateCommissions(metaModel))
+                else if (IsValidCommissions(metaModel))
                 {
                     var request = new Request
                     {
@@ -189,7 +189,7 @@
                     result.Code = 1;
                     result.Message = ViewResources.ChooseGroupNameMsg;
                 }
-                else if (IsValidateCommissions(metaModel))
+                else if (IsValidCommissions(metaModel))
                 {
                     result = UpdateGroupComm(metaModel);
                 }
@@ -298,7 +298,7 @@
 
         #region Utility
 
-        private static bool IsValidateCommissions(GroupCommMetaModel metaModel)
+        private static bool IsValidCommissions(GroupCommMetaModel metaModel)
         {
             return GroupCommHelper.IsAllValid(
                                 metaModel.SBComm,
@@ -406,7 +406,7 @@
             };
         }
 
-        private static bool CompareGroupComm(GroupCommMetaModel currentGroup, GroupCommMetaModel editedGroup)
+        private static bool IsSameGroup(GroupCommMetaModel currentGroup, GroupCommMetaModel editedGroup)
         {
             var currentComm = BuildCommissionList(currentGroup);
 
@@ -446,7 +446,7 @@
         {
             var userSession = SessionService.UserSession;
             var currentGroup = _groupComService.GetById(metaModel.GroupCommId);
-            if (currentGroup != null && !CompareGroupComm(currentGroup, metaModel))
+            if (currentGroup != null && !IsSameGroup(currentGroup, metaModel))
             {
                 var request = new Request
                 {

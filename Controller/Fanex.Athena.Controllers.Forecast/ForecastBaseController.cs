@@ -43,16 +43,5 @@ namespace Fanex.Athena.Controllers.Forecast
                 return first != null ? first.LeagueId : -1;
             }
         }
-
-        protected IList<string> GetLicenseeOfferNewForecastList()
-        {
-            var items = AppSettings.GetValue("LicenseeOfferNewForecast");
-            if (!string.IsNullOrEmpty(items))
-            {
-                return items.Split(',');
-            }
-
-            return new List<string>();
-        }
     }
 }

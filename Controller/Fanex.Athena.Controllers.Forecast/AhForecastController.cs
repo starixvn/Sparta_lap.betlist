@@ -29,7 +29,7 @@ namespace Fanex.Athena.Controllers.Forecast
             return View("~/Views/Forecast/ForecastAH/Main.cshtml", model);
         }
 
-        private static List<string> RenderForecastLink(int betType, int currentScore)
+        private static IList<string> RenderForecastLink(int betType, int currentScore)
         {
             var forecastLink = new List<string>();
             var endIndex = 0;
