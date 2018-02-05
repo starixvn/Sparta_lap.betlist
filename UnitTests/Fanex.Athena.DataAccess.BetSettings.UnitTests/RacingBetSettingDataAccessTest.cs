@@ -69,19 +69,6 @@
             });
         }
 
-        [Test]
-        public void GetBetSetting_GetIsAllowedSaToteCurrencyThrowsObjectDbException_ThrowDataAccessException()
-        {
-            // Set up for GetBetSetting
-            DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerSelEditRB")).Returns(ObjectDb);
-            Reader.Read().Returns(true, false);
-
-            // IsAllowedSaToteCurrency method
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                "Lrf_CheckHRAllowedCurrency",
-                () => DataAccess.GetBetSetting(1));
-        }
-
         [TestCase(1, "Error")]
         [TestCase(2, "Error 2")]
         public void UpdateBetSetting_WhenCallUpdateMethodFail_ReturnResultInfo(int errorCode, string errorMsg)
@@ -129,17 +116,6 @@
                 ObjectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
                 ObjectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
             });
-        }
-
-        [TestCaseSource(nameof(UspNameByKeys))]
-        public void UpdateBetSetting_WhenObjectDbThrowsException_ThrowDataAccessException(string key, string uspName)
-        {
-            var racingBetSetting = GetRacingBetSetting();
-            var racingBetSettingList = new Dictionary<string, RacingBetSetting> { { key, racingBetSetting } };
-
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                uspName,
-                () => DataAccess.UpdateBetSetting(racingBetSettingList));
         }
 
         private RacingBetSetting GetRacingBetSetting()

@@ -65,15 +65,6 @@
             Assert.That(result, Is.EqualTo(expected));
         }
 
-        [Test]
-        public void GetMatchList_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            const string MatchListSp = "SPNameTest";
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                MatchListSp,
-                () => DataAccess.GetMatchList(MatchListSp));
-        }
-
         private LastBetsMonitoringMetaModel GetLastBetsMonitoringMetaModel()
         {
             return new LastBetsMonitoringMetaModel
