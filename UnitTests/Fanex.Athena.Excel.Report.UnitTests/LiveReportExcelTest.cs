@@ -40,17 +40,7 @@
 
         private readonly IList<LiveReport> _liveReportList = new List<LiveReport>
         {
-            new LiveReport
-            {
-                ProductName = "Product",
-                CustomerWinLoss = 1,
-                CustomerComm = 2,
-                TurnOver = 3,
-                BetCount = 4,
-                LicenseeComm = 5,
-                LicenseeWinLoss = 6,
-                AmountDue = 7
-            }
+            FakeHelper.Create<LiveReport>()
         };
 
         private LiveReportDetailViewModel _excelModel;

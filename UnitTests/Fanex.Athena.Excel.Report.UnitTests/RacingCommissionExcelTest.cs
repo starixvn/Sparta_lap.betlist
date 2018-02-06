@@ -165,7 +165,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         public void AssignSumData_WhenCall_CallRelevantMethods()
         {
             // Arrange
-            const int RowIndex = 100;
+            const int RowIndex = 10;
             var row = ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, RowIndex + 3);
             var excel = CreateExcel();
             var totalData = ViewModel.Total;

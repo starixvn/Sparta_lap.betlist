@@ -9,7 +9,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
     [TestFixture]
     public class BaseReportExcelTest
     {
-        protected ISheet FakeSheet { get; set; }
+        protected ISheet FakeSheet { get; private set; }
 
         [SetUp]
         public virtual void Setup()

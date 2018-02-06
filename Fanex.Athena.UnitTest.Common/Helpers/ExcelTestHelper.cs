@@ -24,12 +24,11 @@ namespace Fanex.Athena.UnitTest.Common.Helpers
         public static IRow MockGetRow(ISheet sheet, int columnCount, int destRowIndex)
         {
             var row = Substitute.For<IRow>();
-            
-            var cellList = new List<ICell>();
+            var cellList = new List<ICell>(columnCount);
+
             for (int i = 0; i < columnCount; i++)
             {
                 var cell = Substitute.For<ICell>();
-                cell.Row.Returns(row);
                 cellList.Add(cell);
             }
 

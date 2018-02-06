@@ -134,13 +134,13 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         public void AssignTotalRow_WhenCall_CallRelevantMethods()
         {
             // Arrange
-            var rowIndex = FakeHelper.Create<int>();
-            var row = ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, rowIndex);
+            const int RowIndex = 10;
+            var row = ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, RowIndex);
             var excel = CreateExcel();
             int cellIndex = 2;
 
             // Action
-            excel.AssignTotalRow(FakeSheet, rowIndex);
+            excel.AssignTotalRow(FakeSheet, RowIndex);
 
             // Assert
             Assert.Multiple(() =>

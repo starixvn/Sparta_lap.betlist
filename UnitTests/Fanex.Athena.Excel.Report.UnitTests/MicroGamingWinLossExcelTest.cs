@@ -160,7 +160,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         public void AssignGrandTotalInEurData_WhenCall_CallRelevantMethods()
         {
             // Arrange
-            const int RowIndex = 100;
+            const int RowIndex = 10;
             const int ExpectedColumnCurrency = 4;
             var row = ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, RowIndex);
             var excel = CreateExcel();
