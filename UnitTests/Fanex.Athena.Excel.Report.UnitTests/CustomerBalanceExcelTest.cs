@@ -58,6 +58,48 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         };
 
         [Test]
+        public void AssignData_NoData_SetNoinfoText()
+        {
+            // Arrange
+            ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount);
+            var row = ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, 3);
+            var excel = CreateExcel(hasData: false);
+            excel.Workbook.Returns(Substitute.For<IWorkbook>());
+            excel.Workbook.CloneSheet(0).Returns(FakeSheet);
+
+            // Action
+            excel.Public_AssignData();
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                excel.Workbook.Received(1).SetSheetName(0, "Data");
+                row.Cells[0].Received(1).SetCellValue(ViewResources.NoInfo);
+            });
+        }
+
+        [Test]
+        public void AssignData_HasData_SetNoinfoText()
+        {
+            // Arrange
+            ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount);
+            var row = ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, 3);
+            var excel = CreateExcel();
+            excel.Workbook.Returns(Substitute.For<IWorkbook>());
+            excel.Workbook.CloneSheet(0).Returns(FakeSheet);
+
+            // Action
+            excel.Public_AssignData();
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                excel.Workbook.Received(1).SetSheetName(0, "Customer Balance1");
+                AssertAssignSheetData(row);
+            });
+        }
+
+        [Test]
         public void AssignHeader_WhenCall_CallRelevantMethods()
         {
             // Arrange
@@ -102,29 +144,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             excel.Public_AssignSheetData(FakeSheet, 0);
 
             // Assert
-            Assert.Multiple(() =>
-            {
-                row.Cells[0].Received(1).SetCellValue(1);
-                row.Cells[ColumnExternalId].Received(1).SetCellValue(DataItem.ExternalId);
-                row.Cells[ColumnSystemId].Received(1).SetCellValue(DataItem.SystemId);
-                row.Cells[ColumnOpeningBalance].Received(1).SetCellValue(DataItem.OpeningBalance);
-                row.Cells[ColumnDeposit].Received(1).SetCellValue(DataItem.Deposit);
-                row.Cells[ColumnWithdrawal].Received(1).SetCellValue(DataItem.Withdrawal);
-                row.Cells[ColumnBonus].Received(1).SetCellValue(DataItem.Bonus);
-                row.Cells[ColumnAdjustment].Received(1).SetCellValue(DataItem.Adjustment);
-                row.Cells[ColumnTurnOver].Received(1).SetCellValue(DataItem.Turnover);
-                row.Cells[ColumnDrawGame].Received(1).SetCellValue(DataItem.DrawGame);
-                row.Cells[ColumnNetTurnOver].Received(1).SetCellValue(DataItem.NetTurnover);
-                row.Cells[ColumnPendingFunds].Received(1).SetCellValue(DataItem.PendingFunds);
-                row.Cells[ColumnCustomerWinLoss].Received(1).SetCellValue(DataItem.WinLoss);
-                row.Cells[ColumnCustomerComm].Received(1).SetCellValue(DataItem.PlayerComm);
-                row.Cells[ColumnCustomerTotal].Received(1).SetCellValue(DataItem.WinLoss + DataItem.PlayerComm);
-                row.Cells[ColumnClosingBalance].Received(1).SetCellValue(DataItem.ClosingBalance);
-                row.Cells[ColumnAffiliateTransfer].Received(1).SetCellValue(DataItem.AffiliateTransfer);
-                row.Cells[ColumnTurnoverBa].Received(1).SetCellValue(DataItem.TurnoverBA);
-                row.Cells[ColumnCommBa].Received(1).SetCellValue(DataItem.CommBA);
-                row.Cells[ColumnAmountDueToBa].Received(1).SetCellValue(DataItem.AmountDueToBA);
-            });
+            AssertAssignSheetData(row);
         }
 
         [Test]
@@ -221,12 +241,39 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             });
         }
 
-        private static CustomerBalanceExcelTestable CreateExcel(ShowingOption showingOption = null)
+        private static void AssertAssignSheetData(IRow row)
+        {
+            Assert.Multiple(() =>
+            {
+                row.Cells[0].Received(1).SetCellValue(1);
+                row.Cells[ColumnExternalId].Received(1).SetCellValue(DataItem.ExternalId);
+                row.Cells[ColumnSystemId].Received(1).SetCellValue(DataItem.SystemId);
+                row.Cells[ColumnOpeningBalance].Received(1).SetCellValue(DataItem.OpeningBalance);
+                row.Cells[ColumnDeposit].Received(1).SetCellValue(DataItem.Deposit);
+                row.Cells[ColumnWithdrawal].Received(1).SetCellValue(DataItem.Withdrawal);
+                row.Cells[ColumnBonus].Received(1).SetCellValue(DataItem.Bonus);
+                row.Cells[ColumnAdjustment].Received(1).SetCellValue(DataItem.Adjustment);
+                row.Cells[ColumnTurnOver].Received(1).SetCellValue(DataItem.Turnover);
+                row.Cells[ColumnDrawGame].Received(1).SetCellValue(DataItem.DrawGame);
+                row.Cells[ColumnNetTurnOver].Received(1).SetCellValue(DataItem.NetTurnover);
+                row.Cells[ColumnPendingFunds].Received(1).SetCellValue(DataItem.PendingFunds);
+                row.Cells[ColumnCustomerWinLoss].Received(1).SetCellValue(DataItem.WinLoss);
+                row.Cells[ColumnCustomerComm].Received(1).SetCellValue(DataItem.PlayerComm);
+                row.Cells[ColumnCustomerTotal].Received(1).SetCellValue(DataItem.WinLoss + DataItem.PlayerComm);
+                row.Cells[ColumnClosingBalance].Received(1).SetCellValue(DataItem.ClosingBalance);
+                row.Cells[ColumnAffiliateTransfer].Received(1).SetCellValue(DataItem.AffiliateTransfer);
+                row.Cells[ColumnTurnoverBa].Received(1).SetCellValue(DataItem.TurnoverBA);
+                row.Cells[ColumnCommBa].Received(1).SetCellValue(DataItem.CommBA);
+                row.Cells[ColumnAmountDueToBa].Received(1).SetCellValue(DataItem.AmountDueToBA);
+            });
+        }
+
+        private static CustomerBalanceExcelTestable CreateExcel(ShowingOption showingOption = null, bool hasData = true)
         {
             var excel = Substitute.ForPartsOf<CustomerBalanceExcelTestable>(
                 string.Empty,
                 MetaModel,
-                new List<CustBalance> { DataItem },
+                hasData ? new List<CustBalance> { DataItem } : new List<CustBalance>(),
                 DataItem,
                 showingOption ?? new ShowingOption(),
                 new ConvertingOption());
