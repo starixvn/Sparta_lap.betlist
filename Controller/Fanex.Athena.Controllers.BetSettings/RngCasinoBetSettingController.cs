@@ -8,13 +8,18 @@ namespace Fanex.Athena.Controllers.BetSettings
 {
     using System.Data;
     using System.Web.Mvc;
+    using DataAccess.BetSettings.Interfaces;
+    using Extension.Utility;
     using Fanex.Athena.Web.ActionFilter;
     using Model.BetSettings.MetaModel;
-    using Model.Casino.MetaModel;
     using Model.Core.DTO.Common;
     using Resources;
     using Service.BetSettings;
     using Service.BetSettings.Interfaces;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
+    using Service.Core.Users.Interfaces;
+    using Service.Customer.Interfaces;
 
     public class RngCasinoBetSettingController : BetSettingBaseController
     {
@@ -23,6 +28,21 @@ namespace Fanex.Athena.Controllers.BetSettings
         public RngCasinoBetSettingController()
         {
             _betSettingService = new RngCasinoBetSettingService();
+        }
+
+        public RngCasinoBetSettingController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
+            IAuthorizationService authorizationService,
+            ICoreBetSettingDataAccess coreBetSettingDataAccess,
+            ICustomerService customerService,
+            IProductService productService,
+            IRngCasinoBetSettingService betSettingService)
+        : base(languageService, sessionService, appSetting, clientViewHelper, authorizationService, coreBetSettingDataAccess, customerService, productService)
+        {
+            _betSettingService = betSettingService;
         }
 
         [HttpGet]
