@@ -14,6 +14,7 @@ namespace Fanex.Athena.Controllers.BetSettings
     using Constant.DataDomain;
     using DataAccess.BetSettings;
     using DataAccess.BetSettings.Interfaces;
+    using Extension.Utility;
     using Fanex.Athena.Model.BetSettings.DTO;
     using Fanex.Athena.Model.Core.DataDomain;
     using Model.BetSettings.MetaModel;
@@ -24,6 +25,7 @@ namespace Fanex.Athena.Controllers.BetSettings
     using Resources;
     using Service.Core.Common;
     using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
     using Service.Core.Users;
     using Service.Core.Users.Interfaces;
     using Service.Customer;
@@ -41,12 +43,27 @@ namespace Fanex.Athena.Controllers.BetSettings
         private readonly IProductService _productService;
         private readonly Lazy<ProductAccess> _productAccess;
 
-        public BetSettingBaseController()
+        public BetSettingBaseController() : this(null, null, null, null, null, null, null, null)
         {
-            _authorizationService = new AuthorizationService();
-            this._coreBetSettingDataAccess = new CoreBetSettingDataAccess();
-            this._customerService = new CustomerService();
-            this._productService = new ProductService();
+        }
+
+#pragma warning disable S107 // Methods should not have too many parameters
+        protected BetSettingBaseController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
+            IAuthorizationService authorizationService,
+            ICoreBetSettingDataAccess coreBetSettingDataAccess,
+            ICustomerService customerService,
+            IProductService productService)
+#pragma warning restore S107 // Methods should not have too many parameters
+        : base(languageService, sessionService, appSetting, clientViewHelper)
+        {
+            _authorizationService = authorizationService ?? new AuthorizationService();
+            _coreBetSettingDataAccess = coreBetSettingDataAccess ?? new CoreBetSettingDataAccess();
+            _customerService = customerService ?? new CustomerService();
+            _productService = productService ?? new ProductService();
             _productAccess = new Lazy<ProductAccess>(() =>
                 _productService.GetProductAccess(
                     SessionService.LicenseeSession.LicenseeId,

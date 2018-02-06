@@ -20,15 +20,15 @@
             MoveBetsDay = new DateTime(2018, 1, 1)
         };
 
-        protected IAuthorizationService AuthorizationService { get; set; }
+        protected IAuthorizationService AuthorizationService { get; private set; }
 
-        protected IBalanceUpDataAccess BalanceUpDataAccess { get; set; }
+        protected IBalanceUpDataAccess BalanceUpDataAccess { get; private set; }
 
-        protected IProductService ProductService { get; set; }
+        protected IProductService ProductService { get; private set; }
 
-        protected IBetListService BetListService { get; set; }
+        protected IBetListService BetListService { get; private set; }
 
-        protected ICacheRefAdapter CacheRefAdapter { get; set; }
+        protected ICacheRefAdapter CacheRefAdapter { get; private set; }
 
         [OneTimeSetUp]
         public override void FixtureSetUp()
