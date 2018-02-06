@@ -21,8 +21,6 @@
         {
             base.FixtureSetUp();
 
-            _betSettingService = Substitute.For<IAgCasinoBetSettingService>();
-
             SetUpDefaultFakeData();         
         }
 
@@ -232,6 +230,8 @@
 
         private AgCasinoBetSettingController CreateController()
         {
+            _betSettingService = Substitute.For<IAgCasinoBetSettingService>();
+
             var controller = new AgCasinoBetSettingController(
                 LangService,
                 SessionService,

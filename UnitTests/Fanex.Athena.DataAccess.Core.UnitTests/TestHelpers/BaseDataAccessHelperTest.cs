@@ -7,7 +7,6 @@
     using NUnit.Framework;
     using UnitTest.Common.Helpers;
 
-    [TestFixture]
     public class BaseDataAccessHelperTest<T> where T : BaseDataAccess
     {
         protected IObjectDb ObjectDb { get; set; }

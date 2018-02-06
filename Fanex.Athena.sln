@@ -214,7 +214,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Controllers.Be
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Constant", "Infrastructure\Fanex.Athena.Constant\Fanex.Athena.Constant.csproj", "{6B1431E0-E513-48BB-BE86-0756E5F6F405}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Controllers.BetSettings.UnitTests", "Fanex.Athena.Controllers.BetSettings.UnitTests\Fanex.Athena.Controllers.BetSettings.UnitTests.csproj", "{36438283-ECB2-44CA-930F-72E424CD4F77}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Athena.Controllers.BetSettings.UnitTests", "UnitTests\Fanex.Athena.Controllers.BetSettings.UnitTests\Fanex.Athena.Controllers.BetSettings.UnitTests.csproj", "{36438283-ECB2-44CA-930F-72E424CD4F77}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
