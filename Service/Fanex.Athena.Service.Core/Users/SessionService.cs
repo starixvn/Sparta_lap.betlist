@@ -206,7 +206,7 @@ namespace Fanex.Athena.Service.Core.Users
                 {
                     if (currencyAgentList.ContainsKey(currencyId))
                     {
-                        var agentList = currencyAgentList.SingleOrDefault(x => x.Key == currencyId).Value;
+                        var agentList = currencyAgentList.Single(x => x.Key == currencyId).Value;
                         result.Append(GenerateAgentXmlBody(currencyId, agentList));
                     }
                 }
