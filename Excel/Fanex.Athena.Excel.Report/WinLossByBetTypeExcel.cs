@@ -39,7 +39,7 @@ namespace Fanex.Athena.Excel.Report
 
         private readonly WinLossByBetType _total;
         private readonly WinLossByBetTypeViewModel _viewModel;
-        private readonly IList<WinLossByBetType> _winlossByBetTypeList;
+        private readonly IList<WinLossByBetType> _dataList;
 
         private readonly ConvertingOption _convertingOption;
 
@@ -57,7 +57,7 @@ namespace Fanex.Athena.Excel.Report
         {
             _convertingOption = convertingOption;
             _viewModel = viewModel;
-            _winlossByBetTypeList = viewModel.MainResult;
+            _dataList = viewModel.MainResult;
             _total = viewModel.Total;
         }
 
@@ -99,17 +99,17 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         protected override void AssignSheetData(ISheet sheet)
         {
-            var rowCount = _winlossByBetTypeList.Count;
+            var rowCount = _dataList.Count;
 
             for (int index = 0; index < rowCount; index++)
             {
-                var winlossByBetType = _winlossByBetTypeList[index];
+                var dataItem = _dataList[index];
 
                 var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, index + RowContentTemplate);
 
                 row.Cells[ColumnIndex].SetCellValue(index + 1);
-                row.Cells[ColumnGameTypeName].SetCellValue(winlossByBetType.BetTypeName);
-                AssignCommonData(row, winlossByBetType);
+                row.Cells[ColumnGameTypeName].SetCellValue(dataItem.BetTypeName);
+                AssignCommonData(row, dataItem);
             }
 
             AssignSumData(sheet);
@@ -155,26 +155,26 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        private static void AssignCommonData(IRow row, WinLossByBetType winlossByBetType)
+        private static void AssignCommonData(IRow row, WinLossByBetType dataItem)
         {
-            row.Cells[ColumnTurnover].SetCellValue(winlossByBetType.Turnover);
-            row.Cells[ColumnCustomerWinLoss].SetCellValue(winlossByBetType.CustomerWinLoss);
-            row.Cells[ColumnCustomerComm].SetCellValue(winlossByBetType.CustomerComm);
-            row.Cells[ColumnCustomerTotal].SetCellValue(winlossByBetType.CustomerTotal);
-            row.Cells[ColumnLicenseeWl].SetCellValue(winlossByBetType.LicenseeWL);
-            row.Cells[ColumnBaCommission].SetCellValue(winlossByBetType.BACommission);
-            row.Cells[ColumnRacingRevenue].SetCellValue(winlossByBetType.RacingWinLoss);
-            row.Cells[ColumnAmtDueToBa].SetCellValue(winlossByBetType.AmtDueToBA);
-            row.Cells[ColumnAmtDueToRacing].SetCellValue(winlossByBetType.AmtDueToRacing);
+            row.Cells[ColumnTurnover].SetCellValue(dataItem.Turnover);
+            row.Cells[ColumnCustomerWinLoss].SetCellValue(dataItem.CustomerWinLoss);
+            row.Cells[ColumnCustomerComm].SetCellValue(dataItem.CustomerComm);
+            row.Cells[ColumnCustomerTotal].SetCellValue(dataItem.CustomerTotal);
+            row.Cells[ColumnLicenseeWl].SetCellValue(dataItem.LicenseeWL);
+            row.Cells[ColumnBaCommission].SetCellValue(dataItem.BACommission);
+            row.Cells[ColumnRacingRevenue].SetCellValue(dataItem.RacingWinLoss);
+            row.Cells[ColumnAmtDueToBa].SetCellValue(dataItem.AmtDueToBA);
+            row.Cells[ColumnAmtDueToRacing].SetCellValue(dataItem.AmtDueToRacing);
         }
 
         /// <summary>
         /// Assign data to summary section.
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
-        protected void AssignSumData(ISheet sheet)
+        protected internal virtual void AssignSumData(ISheet sheet)
         {
-            var totalRow = _winlossByBetTypeList.Count + RowContentTemplate;
+            var totalRow = _dataList.Count + RowContentTemplate;
 
             var row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, totalRow);
 
