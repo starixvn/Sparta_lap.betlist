@@ -134,7 +134,7 @@
                 Assert.Multiple(() =>
                 {
                     Assert.That(resultInfo.Code, Is.EqualTo(0));
-                    Assert.That(resultInfo.IsSuccessful, Is.True);
+                    Assert.That(resultInfo.Message, Is.EqualTo(string.Format(ViewResources.UpdateKenoBetSettingSuccessMsg, string.Empty)));
                 });
             }
         }
