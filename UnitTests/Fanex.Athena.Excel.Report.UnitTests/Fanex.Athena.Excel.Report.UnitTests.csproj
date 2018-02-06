@@ -64,6 +64,8 @@
     <Compile Include="AgCasinoBalanceExcelTest.cs" />
     <Compile Include="ActiveCustomerSummaryExcelTest.cs" />
     <Compile Include="BaseReportExcelTest.cs" />
+    <Compile Include="WinLossByBetTypeExcelTest.cs" />
+    <Compile Include="TestableClasses\WinLossByBetTypeExcelTestable.cs" />
     <Compile Include="WeeklyLiveMatchExcelTest.cs" />
     <Compile Include="TestableClasses\HandHistoryExcelTestable.cs" />
     <Compile Include="HandHistoryExcelTest.cs" />
