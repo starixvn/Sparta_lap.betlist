@@ -89,6 +89,7 @@
     <Compile Include="DcsBetSettingControllerTest.cs" />
     <Compile Include="ExchangeDcsBetSettingControllerTest.cs" />
     <Compile Include="GoldDeluxeBetSettingControllerTest.cs" />
+    <Compile Include="KenoBetSettingControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
