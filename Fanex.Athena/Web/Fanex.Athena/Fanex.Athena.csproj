@@ -1528,7 +1528,6 @@
     <Content Include="www\js\build\dev\pages\customer\dcsbetsetting.chunk.js" />
     <Content Include="www\js\build\dev\pages\customer\groupcommission.chunk.js" />
     <Content Include="www\js\build\dev\pages\customer\kenobetsetting.chunk.js" />
-    <Content Include="www\js\build\dev\pages\customer\livecasinobetsetting.chunk.js" />
     <Content Include="www\js\build\dev\pages\customer\loginlog.chunk.js" />
     <Content Include="www\js\build\dev\pages\customer\numbergamebetsetting.chunk.js" />
     <Content Include="www\js\build\dev\pages\customer\rngcasinobetsetting.chunk.js" />
@@ -1592,7 +1591,6 @@
     <Content Include="www\js\build\pro\pages\customer\dcsbetsetting.chunk.js" />
     <Content Include="www\js\build\pro\pages\customer\groupcommission.chunk.js" />
     <Content Include="www\js\build\pro\pages\customer\kenobetsetting.chunk.js" />
-    <Content Include="www\js\build\pro\pages\customer\livecasinobetsetting.chunk.js" />
     <Content Include="www\js\build\pro\pages\customer\loginlog.chunk.js" />
     <Content Include="www\js\build\pro\pages\customer\numbergamebetsetting.chunk.js" />
     <Content Include="www\js\build\pro\pages\customer\rngcasinobetsetting.chunk.js" />
@@ -2631,7 +2629,6 @@
     <Content Include="www\js\build\dev\pages\customer\betsettingmain.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\customer\dcsbetsetting.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\customer\kenobetsetting.chunk.js.map" />
-    <Content Include="www\js\build\dev\pages\customer\livecasinobetsetting.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\customer\numbergamebetsetting.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\customer\rngcasinobetsetting.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\customer\thirdpartybetsetting.chunk.js.map" />
