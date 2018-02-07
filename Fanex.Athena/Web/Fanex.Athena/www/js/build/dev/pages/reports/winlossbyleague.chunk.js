@@ -2725,7 +2725,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/Mik
 
     // AMD.
     if ( true ) {
-        !(__WEBPACK_AMD_DEFINE_RESULT__ = (function () { return BigNumber; }).call(exports, __webpack_require__, exports, module),
+        !(__WEBPACK_AMD_DEFINE_RESULT__ = function () { return BigNumber; }.call(exports, __webpack_require__, exports, module),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
     // Node.js and other environments that support module.exports.
@@ -2748,7 +2748,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/Mik
 /***/ 17:
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(5)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Popup) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(5)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup) {
     "use strict";
     var REPORT_BY_MONTHLY = 2;
     var LICENSEE_12BET = 1;
@@ -2905,7 +2905,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     };
 
     return _me;
-}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
@@ -3704,7 +3704,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(18)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(18)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
     var _me = {
         initProductList: function () {
             var selector = "#grid-products-multiselect";
@@ -3756,7 +3756,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     };
 
     return _me;
-}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
@@ -8315,11 +8315,11 @@ module.exports = __webpack_require__(218);
 /***/ 218:
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(219)], __WEBPACK_AMD_DEFINE_RESULT__ = (function (WinLossByLeague) {
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(219)], __WEBPACK_AMD_DEFINE_RESULT__ = function (WinLossByLeague) {
     "use strict";
 
     $(WinLossByLeague.initialize);
-}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
@@ -8330,7 +8330,7 @@ module.exports = __webpack_require__(218);
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(3), __webpack_require__(4), __webpack_require__(220),
     __webpack_require__(221), __webpack_require__(17), __webpack_require__(2), __webpack_require__(32), __webpack_require__(36),
-    __webpack_require__(6), __webpack_require__(8), __webpack_require__(9)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, QueryString, jqGridAdditional, WinLossByLeagueOption, WinLossByLeagueFilter, Report, moment, PagingHeper, ExcelHelper) {
+    __webpack_require__(6), __webpack_require__(8), __webpack_require__(9)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, jqGridAdditional, WinLossByLeagueOption, WinLossByLeagueFilter, Report, moment, PagingHeper, ExcelHelper) {
         "use strict";
 
         var ajaxRequest = null;
@@ -8614,7 +8614,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         };
 
         return _me;
-    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
@@ -8622,7 +8622,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ 220:
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(4)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, jqGridAdditional) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(4)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional) {
     "use strict";
 
     var setDrillDownLink = function (custId, cellvalue, externalid, systemId) {
@@ -8823,7 +8823,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     };
 
     return me;
-}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
@@ -8831,7 +8831,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ 221:
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(33), __webpack_require__(19), __webpack_require__(6)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, MonthPicker, MultiSelect) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(33), __webpack_require__(19), __webpack_require__(6)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, MonthPicker, MultiSelect) {
         "use strict";
         var ajaxLeagues = null;
         var ajaxMatches = null;
@@ -9030,7 +9030,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         };
 
         return _me;
-    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
@@ -9040,7 +9040,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(3)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, QueryString) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(3)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString) {
     var $pagingContainer, $pageIndex, $pageSize;
 
     var me = {};
@@ -9210,7 +9210,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     };
 
     return me;
-}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
@@ -9218,7 +9218,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /***/ 33:
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(34)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(34)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
         "use strict";
         var PICKER_SELECTOR = "#month-picker";
         var FORMAT = "MM/dd/yyyy";
@@ -9276,7 +9276,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             getFromDateString: getFromDateString,
             getToDateString: getToDateString
         };
-    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
@@ -9294,7 +9294,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 * Version: 0.0.2 (9 Feb 2012)
 * Requires: jQuery v1.7+
 */
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = (function (Site) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function (Site) {
     (function ($) {
         var logger = { error: $.noop };
 
@@ -10116,7 +10116,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             }
         };
     })(jQuery);
-}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
@@ -10127,7 +10127,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
     var _me = {
         exportExcel: function (postData, url, method) {
             var data = Site.clone(postData);
@@ -10161,7 +10161,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     };
 
     return _me;
-}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
@@ -10171,7 +10171,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <reference path="/@JSense.js" />
 ///
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(10)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, BigNumber) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(10)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BigNumber) {
     "use strict";
     var jqGridAdditional = (function () {
         return {
@@ -10618,7 +10618,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
     })();
 
     return jqGridAdditional;
-}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
@@ -10766,6 +10766,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
             return x;
         };
 
+        var maxLength = max.toString().length;
+
         this.each(function (i, e) {
             $(e).keydown(function (event) {
                 // Allow: backspace, delete, tab, escape, and enter
@@ -10785,13 +10787,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
                 }
             }).keyup(function (event) {
                 var textBox = event.target;
-                var value = textBox.value;
-                value = value.replace(/,/g, '');
+                var value = textBox.value.replace(/,/g, '');
 
-                var isNotInRange = (value < min) || (value > max);
-                if (isNotInRange) {
-                    textBox.value = textBox.value.slice(0, -1);
-                    value = textBox.value.replace(/,/g, '');
+                if (value.length > maxLength) {
+                    value = value.slice(0, maxLength);
+                }
+
+                if (value < min) {
+                    value = min;
+                }
+                else if (value > max) {
+                    value = max;
                 }
 
                 textBox.value = thousandFormater(value);

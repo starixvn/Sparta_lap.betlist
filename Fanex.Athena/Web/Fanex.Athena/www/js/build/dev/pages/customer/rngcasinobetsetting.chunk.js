@@ -5,7 +5,7 @@ webpackJsonp([24],{
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(5), __webpack_require__(31)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Popup) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(5), __webpack_require__(31)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup) {
     
     function isInteger(text) {
         return /^\+?\d+$/.test(text);
@@ -68,7 +68,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     };
 
     return _me;
-}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
@@ -78,7 +78,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function () {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
     var Product = {
         Sportsbook: 0,
         Racing: 1,
@@ -107,7 +107,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     };
 
     return _me;
-}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
@@ -131,7 +131,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
  **/
 
 // Customize to use AMD module
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
     function NumberFormatter() {
         this.defaults = {
             format: "#,###.00",
@@ -438,7 +438,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
     }
 
     return NumberFormatter;
-}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__))
 
 /***/ }),
@@ -456,7 +456,7 @@ module.exports = __webpack_require__(270);
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(15)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, BetSettingHelper) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(15)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BetSettingHelper) {
     var SPORTID_NUMBERGAME = 161;
 
     var _me = {
@@ -564,7 +564,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     };
 
     return _me;
-}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
@@ -574,9 +574,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(271)], __WEBPACK_AMD_DEFINE_RESULT__ = (function (RngCasinoBetSetting) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(271)], __WEBPACK_AMD_DEFINE_RESULT__ = function (RngCasinoBetSetting) {
     $(RngCasinoBetSetting.initialize);
-}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
@@ -585,7 +585,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /***/ 271:
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(5), __webpack_require__(30), __webpack_require__(38), __webpack_require__(6)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Popup, BetSettingBase, BetSettingStatus) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(5), __webpack_require__(30), __webpack_require__(38), __webpack_require__(6)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup, BetSettingBase, BetSettingStatus) {
         "use strict";
 
         function initialize() {
@@ -782,7 +782,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         };
 
         return _me;
-    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
@@ -792,7 +792,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(5), __webpack_require__(20), __webpack_require__(26), __webpack_require__(15), __webpack_require__(27)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Popup, Constant, NumberFormatter, BetSettingHelper, BetSettingValidation) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(5), __webpack_require__(20), __webpack_require__(26), __webpack_require__(15), __webpack_require__(27)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup, Constant, NumberFormatter, BetSettingHelper, BetSettingValidation) {
         var Product = Constant.Product;
 
         var _me = {
@@ -954,7 +954,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         };
 
         return _me;
-    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
@@ -1247,7 +1247,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(15)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, BetSettingHelper) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(15)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BetSettingHelper) {
     var _me = {
         update: function (url, postData) {
             $.ajax({
@@ -1283,7 +1283,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     };
 
     return _me;
-}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
@@ -1431,6 +1431,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             return x;
         };
 
+        var maxLength = max.toString().length;
+
         this.each(function (i, e) {
             $(e).keydown(function (event) {
                 // Allow: backspace, delete, tab, escape, and enter
@@ -1450,13 +1452,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 }
             }).keyup(function (event) {
                 var textBox = event.target;
-                var value = textBox.value;
-                value = value.replace(/,/g, '');
+                var value = textBox.value.replace(/,/g, '');
 
-                var isNotInRange = (value < min) || (value > max);
-                if (isNotInRange) {
-                    textBox.value = textBox.value.slice(0, -1);
-                    value = textBox.value.replace(/,/g, '');
+                if (value.length > maxLength) {
+                    value = value.slice(0, maxLength);
+                }
+
+                if (value < min) {
+                    value = min;
+                }
+                else if (value > max) {
+                    value = max;
                 }
 
                 textBox.value = thousandFormater(value);

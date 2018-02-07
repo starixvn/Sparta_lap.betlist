@@ -3,7 +3,7 @@ webpackJsonp([44],{
 /***/ 14:
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(3), __webpack_require__(16)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, QueryString) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(3), __webpack_require__(16)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString) {
     "use strict";
 
     var curCountDown = 0;
@@ -125,7 +125,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     };
 
     return _me;
-}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
@@ -141,11 +141,11 @@ module.exports = __webpack_require__(157);
 /***/ 157:
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(158)], __WEBPACK_AMD_DEFINE_RESULT__ = (function (TotalGoal) {
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(158)], __WEBPACK_AMD_DEFINE_RESULT__ = function (TotalGoal) {
     "use strict";
 
     $(TotalGoal.initialize);
-}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
@@ -154,7 +154,7 @@ module.exports = __webpack_require__(157);
 /***/ 158:
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(29), __webpack_require__(14)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Totalbets, RefreshCountDown) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(29), __webpack_require__(14)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Totalbets, RefreshCountDown) {
     "use strict";
 
     var _me = {
@@ -189,7 +189,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     };
 
     return _me;
-}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
@@ -321,7 +321,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /***/ 29:
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(3), __webpack_require__(14), __webpack_require__(6)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, QueryString, RefreshCountDown) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(3), __webpack_require__(14), __webpack_require__(6)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, RefreshCountDown) {
         "use strict";
 
         var _me = {
@@ -393,7 +393,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         };
 
         return _me;
-    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
@@ -541,6 +541,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             return x;
         };
 
+        var maxLength = max.toString().length;
+
         this.each(function (i, e) {
             $(e).keydown(function (event) {
                 // Allow: backspace, delete, tab, escape, and enter
@@ -560,13 +562,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 }
             }).keyup(function (event) {
                 var textBox = event.target;
-                var value = textBox.value;
-                value = value.replace(/,/g, '');
+                var value = textBox.value.replace(/,/g, '');
 
-                var isNotInRange = (value < min) || (value > max);
-                if (isNotInRange) {
-                    textBox.value = textBox.value.slice(0, -1);
-                    value = textBox.value.replace(/,/g, '');
+                if (value.length > maxLength) {
+                    value = value.slice(0, maxLength);
+                }
+
+                if (value < min) {
+                    value = min;
+                }
+                else if (value > max) {
+                    value = max;
                 }
 
                 textBox.value = thousandFormater(value);

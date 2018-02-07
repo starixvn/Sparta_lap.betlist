@@ -5143,7 +5143,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿// require option properties: suggestionDropdown, url, target
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(23)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(23)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
     "use strict";
 
     var mainOption = {
@@ -5228,7 +5228,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿// require op
     };
 
     return _me;
-}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
@@ -5376,6 +5376,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿// require op
             return x;
         };
 
+        var maxLength = max.toString().length;
+
         this.each(function (i, e) {
             $(e).keydown(function (event) {
                 // Allow: backspace, delete, tab, escape, and enter
@@ -5395,13 +5397,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿// require op
                 }
             }).keyup(function (event) {
                 var textBox = event.target;
-                var value = textBox.value;
-                value = value.replace(/,/g, '');
+                var value = textBox.value.replace(/,/g, '');
 
-                var isNotInRange = (value < min) || (value > max);
-                if (isNotInRange) {
-                    textBox.value = textBox.value.slice(0, -1);
-                    value = textBox.value.replace(/,/g, '');
+                if (value.length > maxLength) {
+                    value = value.slice(0, maxLength);
+                }
+
+                if (value < min) {
+                    value = min;
+                }
+                else if (value > max) {
+                    value = max;
                 }
 
                 textBox.value = thousandFormater(value);
@@ -5485,7 +5491,7 @@ module.exports = __webpack_require__(88);
 
 
 
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
 
     var methods = {
         init: function init(options) {
@@ -5856,7 +5862,7 @@ module.exports = __webpack_require__(88);
             $.error('Method ' + methodOrOptions + ' does not exist on jQuery.sideNav');
         }
     }; // Plugin end
-}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 $(document).ready(function () {
@@ -5876,7 +5882,7 @@ $(document).ready(function () {
 
 
 
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
     function activeMenuItem($target) {
         /*jshint validthis: true*/
         $(this).find('.collapsible-body li.active').removeClass('active');
@@ -6143,7 +6149,7 @@ $(document).ready(function () {
             $.error('Method ' + methodOrOptions + ' does not exist on jQuery.collapsibleMenu');
         }
     };
-}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 $(document).ready(function () {
@@ -6407,10 +6413,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /***/ 88:
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(89)], __WEBPACK_AMD_DEFINE_RESULT__ = (function (Home) {
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(89)], __WEBPACK_AMD_DEFINE_RESULT__ = function (Home) {
     "use strict";
     $(Home.initialize);
-}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
@@ -6431,7 +6437,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     __webpack_require__(92),
     __webpack_require__(23),
     __webpack_require__(65),
-    __webpack_require__(93)], __WEBPACK_AMD_DEFINE_RESULT__ = (function (Site, Recheckin, AutoComplete, Notification) {
+    __webpack_require__(93)], __WEBPACK_AMD_DEFINE_RESULT__ = function (Site, Recheckin, AutoComplete, Notification) {
         var $searchBox;
 
         function initialize() {
@@ -6612,7 +6618,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         return {
             initialize: initialize
         };
-    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
@@ -6622,7 +6628,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <reference path="/@JSense.js" />
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = (function (Site) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function (Site) {
     "use strict";
     var _handle;
     var _onUserId;
@@ -6695,7 +6701,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
             _handle = setInterval(reCheckin, 30000);
         }
     };
-}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
@@ -6707,7 +6713,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 "use strict";
 /* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(5), __webpack_require__(6)], __WEBPACK_AMD_DEFINE_RESULT__ = (function (Site, moment, Popup) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(5), __webpack_require__(6)], __WEBPACK_AMD_DEFINE_RESULT__ = function (Site, moment, Popup) {
         var NOTIFICATION_ITEM = "<li class='notification-item' id='notification-item-{0}' title='{1}'>" +
                                 "<a href='javascript:void(0)'>{2}</a><span class='type'>{3}</span><span class='date-time'>{4}</span>" +
                                 "</li>";
@@ -6898,7 +6904,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         return {
             add: addNotification
         };
-    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
