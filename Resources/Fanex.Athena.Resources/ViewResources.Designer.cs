@@ -2977,6 +2977,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Function is under maintenance..
+        /// </summary>
+        public static string FunctionIsUnderMaintenance {
+            get {
+                return ResourceManager.GetString("FunctionIsUnderMaintenance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This function was no longer available!.
         /// </summary>
         public static string FunctionNoAvailableMsg {
