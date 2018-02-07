@@ -2,10 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using DataAccess.Report.Interfaces;
     using Excel.Base.Entities;
     using Excel.Report;
-    using Extension.Utility;
     using Model.Core.DTO.Users;
     using Model.Core.MetaModel.Product;
     using Model.Core.ResultModel;
@@ -56,7 +56,7 @@
             var result = _controller.Index(metaModel);
 
             // Assert
-            Assert.That(result.Data.Count, Is.EqualTo(expectedResult.DataList.Count));
+            Assert.That(result.Data.Count, Is.EqualTo(expectedResult.DataList.Count()));
         }
 
         [Test]
@@ -88,10 +88,7 @@
             _controller.Index(metaModel);
 
             // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(actualExcelModel.MainResult.Count, Is.EqualTo(expectedResult.DataList.Count));
-            });
+            Assert.That(actualExcelModel.MainResult.Count(), Is.EqualTo(expectedResult.DataList.Count()));
         }
 
         private ThirdPartyWinLossMetaModel CreateValidMetaModel()
@@ -124,9 +121,9 @@
             return model;
         }
 
-        private SortableReportResultModel<MicroGamingWinLoss> SetUpForGettingData(ThirdPartyWinLossMetaModel metaModel)
+        private ReportResultModel<MicroGamingWinLoss> SetUpForGettingData(ThirdPartyWinLossMetaModel metaModel)
         {
-            var dataList = new SortableList<MicroGamingWinLoss>();
+            var dataList = new List<MicroGamingWinLoss>();
 
             var random = new Random();
             var total = random.Next(5, 10);
@@ -135,7 +132,7 @@
                 dataList.Add(new MicroGamingWinLoss());
             }
 
-            var result = new SortableReportResultModel<MicroGamingWinLoss>
+            var result = new ReportResultModel<MicroGamingWinLoss>
             {
                 DataList = dataList,
                 TotalDataList = new List<MicroGamingWinLoss>(),

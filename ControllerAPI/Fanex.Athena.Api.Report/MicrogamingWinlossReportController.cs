@@ -146,7 +146,7 @@ namespace Fanex.Athena.Api.Report
 
         private HttpResponseMessage ExportExcel(
             ThirdPartyWinLossMetaModel metaModel,
-            IList<MicroGamingWinLoss> dataList,
+            IEnumerable<MicroGamingWinLoss> dataList,
             IDictionary<string, MicroGamingWinLoss> summaryTotal)
         {
             var userSession = SessionService.UserSession;

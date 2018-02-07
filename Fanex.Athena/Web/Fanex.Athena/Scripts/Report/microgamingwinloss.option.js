@@ -9,7 +9,7 @@ var MicroGamingWinLossOption = (function () {
 
     var indexColumn =
     {
-        name: 'Index',
+        name: 'Index', 
         index: 'Index',
         resizable: false,
         width: 30,
@@ -19,7 +19,7 @@ var MicroGamingWinLossOption = (function () {
         cellattr: jqGridAdditional.rowSpanSetting,
         sortable: false,
         sorttype: function (cellValue, obj) {
-            return obj.Index + '-' + (obj.RowSpan > 1 ? 0 : 1);
+            return obj.TypeId * 1000 + obj.Index;
         }
     };
 

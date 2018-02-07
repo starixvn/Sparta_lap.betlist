@@ -12,7 +12,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Extension.Helper;
-    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
@@ -22,7 +21,7 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class MicroGamingWinLossDataAccess : BaseDataAccess, IMicroGamingWinLossDataAccess
     {
-        public SortableReportResultModel<MicroGamingWinLoss> GetSummaryWinloss(ThirdPartyWinLossMetaModel metaModel)
+        public ReportResultModel<MicroGamingWinLoss> GetSummaryWinloss(ThirdPartyWinLossMetaModel metaModel)
         {
             var uspName = "LRF_Rpt_MicroGamingWinloss";
             try
@@ -46,11 +45,11 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        private static SortableReportResultModel<MicroGamingWinLoss> GetData(
+        private static ReportResultModel<MicroGamingWinLoss> GetData(
             IDataReader reader,
             ThirdPartyWinLossMetaModel metaModel)
         {
-            var result = new SortableList<MicroGamingWinLoss>();
+            var result = new List<MicroGamingWinLoss>();
 
             var summaryTotal = new Dictionary<string, MicroGamingWinLoss>();
             foreach (var currency in SystemConstants.BaseCurrencyList)
@@ -89,10 +88,11 @@ namespace Fanex.Athena.DataAccess.Report
                 };
 
                 result.Add(item);
+
                 ReadSummaryTotal(reader, summaryTotal);
             }
 
-            return new SortableReportResultModel<MicroGamingWinLoss>
+            return new ReportResultModel<MicroGamingWinLoss>
             {
                 DataList = result,
                 SummaryTotal = summaryTotal
