@@ -83,8 +83,10 @@
   <ItemGroup>
     <Compile Include="AgCasinoBetSettingControllerTest.cs" />
     <Compile Include="BetSettingBaseControllerHelperTest.cs" />
+    <Compile Include="BetSettingBaseControllerTest.cs" />
     <Compile Include="DcsBetSettingControllerTest.cs" />
     <Compile Include="ExchangeDcsBetSettingControllerTest.cs" />
+    <Compile Include="FakeBetSettingBaseController.cs" />
     <Compile Include="GoldDeluxeBetSettingControllerTest.cs" />
     <Compile Include="KenoBetSettingControllerTest.cs" />
     <Compile Include="NumberGameBetSettingControllerTest.cs" />
