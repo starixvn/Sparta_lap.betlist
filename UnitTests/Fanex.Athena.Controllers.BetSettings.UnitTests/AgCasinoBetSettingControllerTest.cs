@@ -38,7 +38,8 @@
                 // Arrange
                 var metaModel = new BetSettingMetaModel { CustId = 100 };
 
-                AuthorizationService.HasPermissionOnData(DefaultLicenseeSession.LicenseeId, metaModel.CustId, 0).Returns(false);
+                _betSettingService.GetViewModel(DefaultLicenseeSession.LicenseeId, metaModel.CustId, DefaultLicenseeSession.LicenseeName)
+                    .Returns(x => { return null; });
 
                 // Action
                 var result = controller.Index(metaModel) as RedirectResult;

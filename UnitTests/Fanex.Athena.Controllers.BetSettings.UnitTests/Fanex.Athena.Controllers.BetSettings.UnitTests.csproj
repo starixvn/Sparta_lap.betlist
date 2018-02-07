@@ -92,6 +92,7 @@
     <Compile Include="RacingBetSettingControllerTest.cs" />
     <Compile Include="RngCasinoBetSettingControllerTest.cs" />
     <Compile Include="SportsbookBetSettingControllerTest.cs" />
+    <Compile Include="ThirdPartyBetSettingControllerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Controller\Fanex.Athena.Controllers.Base\Fanex.Athena.Controllers.Base.csproj">
