@@ -148,7 +148,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
                 row.Cells[ColumnSport].Received(1).SetCellValue(ViewResources.Total);
                 for (int i = 0; i < ResultModel.NumberOfWeeks; i++)
                 {
-                    row.Cells[cellIndex++].SetCellValue(ResultModel.TotalData[i]);
+                    row.Cells[cellIndex++].Received(1).SetCellValue(ResultModel.TotalData[i]);
                 }
             });
         }

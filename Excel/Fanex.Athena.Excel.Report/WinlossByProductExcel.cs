@@ -196,11 +196,6 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnAmtDueTo].SetCellValue(dataItem.AmountDue);
         }
 
-        /// <summary>
-        /// Assign data to summary total section.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        /// <param name="currentRow">Excel row index.</param>
         protected internal virtual void AssignSummaryTotal(ISheet sheet, int currentRow)
         {
             var currencyList = _excelModel.SummaryTotal.Keys.ToList();

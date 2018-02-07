@@ -103,7 +103,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             Assert.Multiple(() =>
             {
                 row.Cells[0].Received(1).SetCellValue(1);
-                row.Cells[ColumnGameTypeName].SetCellValue(DataItem.BetTypeName);
+                row.Cells[ColumnGameTypeName].Received(1).SetCellValue(DataItem.BetTypeName);
 
                 AssertAssignCommonData(row, DataItem);
 

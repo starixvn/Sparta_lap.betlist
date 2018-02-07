@@ -146,7 +146,7 @@
                 const decimal MaxBet1 = 3.552m;
                 const decimal MaxPerMatch1 = 12.586m;
 
-                controller.HttpContext.Request[Arg.Any<string>()].Returns("");
+                controller.HttpContext.Request[Arg.Any<string>()].Returns(string.Empty);
                 controller.HttpContext.Request["custid"].Returns("1");
                 controller.HttpContext.Request["minbet1"].Returns(MinBet1.ToString());
                 controller.HttpContext.Request["maxbet1"].Returns(MaxBet1.ToString());
@@ -177,7 +177,7 @@
                     Assert.That(param["updateminmaxbetv2"], Is.True);
 
                     Assert.That(param["updateminmaxbetv3"], Is.True);
-                    Assert.That(param["updateminmaxbetv5"], Is.False); ;
+                    Assert.That(param["updateminmaxbetv5"], Is.False);
                 });
             }
         }

@@ -493,7 +493,9 @@
             excel.Public_AssignTitle(FakeSheet);
 
             // Assert
-            row.Cells[0].SetCellValue(ViewResources.ResourceManager.GetString(expectedTitleKey));
+            row.Cells[0].Received(1).SetCellValue("Live Report - " +
+                ViewResources.ResourceManager.GetString(expectedTitleKey) +
+                " data, 02/07/2018 --> 02/07/2018 - View in EUR");
         }
 
         [Test]

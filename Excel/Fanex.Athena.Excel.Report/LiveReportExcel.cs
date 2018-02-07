@@ -129,8 +129,8 @@ namespace Fanex.Athena.Excel.Report
             var reportTitle = string.Format(
                                         ViewResources.LiveReportTitle,
                                         GetLiveIndicatorString(_liveReportDetailList.Param.LiveIndicator),
-                                        _liveReportDetailList.Param.FromDate.ToString("d MMMM yy"),
-                                        _liveReportDetailList.Param.ToDate.ToString("d MMMM yy"),
+                                        _liveReportDetailList.Param.FromDate.ToString(FormatDate),
+                                        _liveReportDetailList.Param.ToDate.ToString(FormatDate),
                                         ReportExcelHelper.GetTitleCurrencyName(_convertingOption));
 
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);

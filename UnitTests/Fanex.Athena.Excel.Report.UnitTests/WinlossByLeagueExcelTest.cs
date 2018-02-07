@@ -191,8 +191,8 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             Assert.Multiple(() =>
             {
                 AssertAssignCommonData(row, TotalData);
-                row.Cells[ColumnAmtDueTo].SetCellValue(TotalData.AmountDue);
-                row.Cells[ColumnBaComm].SetCellValue(TotalData.BACommission);
+                row.Cells[ColumnAmtDueTo].Received(1).SetCellValue(TotalData.AmountDue);
+                row.Cells[ColumnBaComm].Received(1).SetCellValue(TotalData.BACommission);
             });
         }
 

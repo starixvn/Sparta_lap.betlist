@@ -51,15 +51,15 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             // Assert
             Assert.Multiple(() =>
             {
-                row.Cells[ColumnDate].SetCellValue(Date);
-                row.Cells[ColumnLicenseeWl].SetCellValue(DataItem.LicWinLoss);
-                row.Cells[ColumnBetTradeCommission].SetCellValue(DataItem.BetTradeCommission);
-                row.Cells[ColumnBaCommission].SetCellValue(DataItem.BACommission);
-                row.Cells[ColumnRacingRevenue].SetCellValue(DataItem.RacingWinLoss);
-                row.Cells[ColumnAmtDueToBetTrade].SetCellValue(DataItem.AmtDueToBetTrade);
-                row.Cells[ColumnAmtDueToBa].SetCellValue(DataItem.AmtDueToBA);
-                row.Cells[ColumnAmtDueToRacing].SetCellValue(DataItem.AmtDueToRacing);
-                row.Cells[ColumnCustomerCommission].SetCellValue(DataItem.CustomerCommission);
+                row.Cells[ColumnDate].Received(1).SetCellValue(Date);
+                row.Cells[ColumnLicenseeWl].Received(1).SetCellValue(DataItem.LicWinLoss);
+                row.Cells[ColumnBetTradeCommission].Received(1).SetCellValue(DataItem.BetTradeCommission);
+                row.Cells[ColumnBaCommission].Received(1).SetCellValue(DataItem.BACommission);
+                row.Cells[ColumnRacingRevenue].Received(1).SetCellValue(DataItem.RacingWinLoss);
+                row.Cells[ColumnAmtDueToBetTrade].Received(1).SetCellValue(DataItem.AmtDueToBetTrade);
+                row.Cells[ColumnAmtDueToBa].Received(1).SetCellValue(DataItem.AmtDueToBA);
+                row.Cells[ColumnAmtDueToRacing].Received(1).SetCellValue(DataItem.AmtDueToRacing);
+                row.Cells[ColumnCustomerCommission].Received(1).SetCellValue(DataItem.CustomerCommission);
             });
         }
 
