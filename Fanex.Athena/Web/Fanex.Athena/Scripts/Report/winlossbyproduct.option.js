@@ -234,10 +234,10 @@ var WinLossByProductOption = (function () {
             hasCustomerComm: true,
             IsAllowBA: true,
             IsAllowRB: true,
-            pageSize: 50,
+            pageSize: 5,
             nonePagingSize: 2000,
-            rowNum: 50,
-            rowList: [50, 100, 200, 300, 400, 500, 1000, 2000],
+            rowNum: 5,
+            rowList: [5, 100, 200, 300, 400, 500, 1000, 2000],
             totalColspan: [1, 2, 3],
             totalColspanFakeLicensee: [1, 2, 2],
             //level 0,1,2

@@ -96,19 +96,19 @@ namespace Fanex.Athena.Excel.Report
 
             for (int index = 0; index < rowCount; index++)
             {
-                var winlossByProduct = _excelModel.DataList.ElementAt(index);
+                var dataItem = _excelModel.DataList.ElementAt(index);
 
-                indexReport = SetDateWinLoss(sheet, winlossByProduct, indexReport, ref date, ref currentRow);
+                indexReport = SetDateWinLoss(sheet, dataItem, indexReport, ref date, ref currentRow);
 
                 var rowContent = sheet.CopyRow(TemplateSheet, RowContentTemplate, currentRow);
 
                 rowContent.Cells[ColumnIndex].SetCellValue(indexReport);
-                rowContent.Cells[ColumnExternalId].SetCellValue(winlossByProduct.ExternalId);
-                rowContent.Cells[ColumnSystemId].SetCellValue(winlossByProduct.SystemId);
-                rowContent.Cells[ColumnCurrency].SetCellValue(winlossByProduct.CurrencyName);
-                rowContent.Cells[ColumnProduct].SetCellValue(winlossByProduct.ProductName);
+                rowContent.Cells[ColumnExternalId].SetCellValue(dataItem.ExternalId);
+                rowContent.Cells[ColumnSystemId].SetCellValue(dataItem.SystemId);
+                rowContent.Cells[ColumnCurrency].SetCellValue(dataItem.CurrencyName);
+                rowContent.Cells[ColumnProduct].SetCellValue(dataItem.ProductName);
 
-                var rowSpan = CalculateReportRowSpan(winlossByProduct);
+                var rowSpan = CalculateReportRowSpan(dataItem);
 
                 if (currentRow == 2 || endRowSpan < currentRow)
                 {
@@ -121,7 +121,7 @@ namespace Fanex.Athena.Excel.Report
                     indexReport++;
                 }
 
-                AssignCommonData(rowContent, winlossByProduct);
+                AssignCommonData(rowContent, dataItem);
                 currentRow++;
             }
 
@@ -184,16 +184,16 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        private static void AssignCommonData(IRow row, WinLossByProduct winlossByProduct)
+        private static void AssignCommonData(IRow row, WinLossByProduct dataItem)
         {
-            row.Cells[ColumnTurnover].SetCellValue(winlossByProduct.TurnOver);
-            row.Cells[ColumnTotalTransaction].SetCellValue(winlossByProduct.TotalTransaction);
-            row.Cells[ColumnCustomerWinLoss].SetCellValue(winlossByProduct.CustomerWinLoss);
-            row.Cells[ColumnCustomerComm].SetCellValue(winlossByProduct.CustomerComm);
-            row.Cells[ColumnCustomerTotal].SetCellValue(winlossByProduct.CustomerTotal);
-            row.Cells[ColumnLicenseeWl].SetCellValue(winlossByProduct.LicenseeWL);
-            row.Cells[ColumnComm].SetCellValue(winlossByProduct.LicenseeWLComm);
-            row.Cells[ColumnAmtDueTo].SetCellValue(winlossByProduct.AmountDue);
+            row.Cells[ColumnTurnover].SetCellValue(dataItem.TurnOver);
+            row.Cells[ColumnTotalTransaction].SetCellValue(dataItem.TotalTransaction);
+            row.Cells[ColumnCustomerWinLoss].SetCellValue(dataItem.CustomerWinLoss);
+            row.Cells[ColumnCustomerComm].SetCellValue(dataItem.CustomerComm);
+            row.Cells[ColumnCustomerTotal].SetCellValue(dataItem.CustomerTotal);
+            row.Cells[ColumnLicenseeWl].SetCellValue(dataItem.LicenseeWL);
+            row.Cells[ColumnComm].SetCellValue(dataItem.LicenseeWLComm);
+            row.Cells[ColumnAmtDueTo].SetCellValue(dataItem.AmountDue);
         }
 
         /// <summary>
@@ -201,7 +201,7 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
         /// <param name="currentRow">Excel row index.</param>
-        private void AssignSummaryTotal(ISheet sheet, int currentRow)
+        protected internal virtual void AssignSummaryTotal(ISheet sheet, int currentRow)
         {
             var currencyList = _excelModel.SummaryTotal.Keys.ToList();
             currencyList.Reverse();
@@ -227,13 +227,7 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        /// <summary>
-        /// Assign data to Total section.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        /// <param name="currentRow">Excel row index.</param>
-        /// <returns>The row index after assign data.</returns>
-        private int AssignTotalData(ISheet sheet, int currentRow)
+        protected internal virtual int AssignTotalData(ISheet sheet, int currentRow)
         {
             var rowBegin = currentRow;
             var currencyList = _excelModel.TotalData.GroupBy(a => a.CurrencyName).ToList();
