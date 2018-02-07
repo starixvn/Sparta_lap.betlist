@@ -332,7 +332,7 @@ namespace Fanex.Athena.Excel.Report
         /// </summary>
         /// <param name="sheet">Excel sheet.</param>
         /// <param name="currentRow">The current row index.</param>
-        private void AssignTotalData(ISheet sheet, int currentRow)
+        protected internal virtual void AssignTotalData(ISheet sheet, int currentRow)
         {
             // Total currency
             var currencyTotalData = _dailyRacingWinLossData.CurrencyTotalData;
