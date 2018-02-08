@@ -10,16 +10,35 @@ namespace Fanex.Athena.Controllers.Forecast
     using System.Globalization;
     using System.Web.Mvc;
     using Constant.DataDomain;
+    using Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Forecast.DTO.ForecastAH;
     using Model.Forecast.MetaModel;
     using Model.Forecast.ViewModel;
     using Resources;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
+    using Service.Core.Users.Interfaces;
+    using Service.Forecast.Interfaces;
     using Web.ActionFilter;
 
     [FunctionAuthorization(PermissionKeys.ForecastHandicapOverUnderLive)]
     public class AhForecastController : ForecastBaseController
     {
+        public AhForecastController()
+        {
+        }
+
+        public AhForecastController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
+            IForecastService forecastService)
+        : base(languageService, sessionService, appSetting, clientViewHelper, forecastService)
+        {
+        }
+
         public ActionResult Index(ForecastAHMetaModel metaModel)
         {
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
