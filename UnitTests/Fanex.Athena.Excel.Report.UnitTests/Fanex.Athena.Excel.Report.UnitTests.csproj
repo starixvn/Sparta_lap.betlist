@@ -65,9 +65,13 @@
     <Compile Include="ActiveCustomerSummaryExcelTest.cs" />
     <Compile Include="BaseReportExcelTest.cs" />
     <Compile Include="DailyRacingWinLossExcelTest.cs" />
+    <Compile Include="LicenseeWinLossExcelTest.AssignCommonData.cs" />
+    <Compile Include="LicenseeWinLossExcelTest.AssignHeader.cs" />
     <Compile Include="TestableClasses\DailyRacingWinLossExcelTestable.cs" />
+    <Compile Include="TestableClasses\LicenseeWinLossExcelTestable.cs" />
     <Compile Include="TestableClasses\WinlossByProductExcelTestable.cs" />
     <Compile Include="TestableClasses\WinlossByLeagueExcelTestable.cs" />
+    <Compile Include="LicenseeWinLossExcelTest.cs" />
     <Compile Include="WinlossByProductExcelTest.cs" />
     <Compile Include="WinlossByLeagueExcelTest.cs" />
     <Compile Include="WinLossByBetTypeExcelTest.cs" />

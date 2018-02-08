@@ -68,7 +68,7 @@ namespace Fanex.Athena.Excel.Report
         private static readonly string[] OfferedProducts = new[]
         {
             Product.SB, Product.AB, Product.AGC, Product.BA,
-            Product.BT, Product.FW, Product.KN, 
+            Product.BT, Product.FW, Product.KN,
             Product.VB, Product.MGCLC, Product.MGCRNG, Product.NG,
             Product.RB, Product.CS, Product.VS, Product.VS2, Product.LT
         };
@@ -107,9 +107,9 @@ namespace Fanex.Athena.Excel.Report
             // row 1
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             row.Cells[ColumnIndex].SetCellValue("#");
+            row.Cells[ColumnDate].SetCellValue(ViewResources.Date);
             row.Cells[ColumnExternalId].SetCellValue(ViewResources.ExternalId);
             row.Cells[ColumnSystemId].SetCellValue(ViewResources.SystemId);
-            row.Cells[ColumnDate].SetCellValue(ViewResources.Date);
             row.Cells[ColumnCurrency].SetCellValue(ViewResources.Currency);
             row.Cells[ColumnTurnoverSportBook].SetCellValue(ViewResources.Turnover);
             row.Cells[ColumnTurnoverTotal].SetCellValue(ViewResources.Turnover);
@@ -296,7 +296,7 @@ namespace Fanex.Athena.Excel.Report
             return (_isAllowBA && !_excelModel.BAVisible) || (_excelModel.MetaModel.ProductOptions.Any(x => x.Code == Product.SB) && !_excelModel.SBVisible);
         }
 
-        protected void AssignCommonData(IRow row, LicenseeWinLoss data)
+        protected internal virtual void AssignCommonData(IRow row, LicenseeWinLoss data)
         {
             // Set data for turnover
             for (int i = 0; i < _showProductOptions.Count(); i++)
@@ -341,13 +341,7 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnAmtDueToRacing].SetCellValue(data.AmtDueToRacing);
         }
 
-        /// <summary>
-        /// Assign grand total data of EUR.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        /// <param name="rowIndex">The starting row index.</param>
-        /// <returns>The last row index after assign data.</returns>
-        protected int AssignGrandTotalInEurData(ISheet sheet, int rowIndex)
+        protected internal virtual int AssignGrandTotalInEurData(ISheet sheet, int rowIndex)
         {
             var currencies = _excelModel.SummaryTotal.Keys.Reverse();
 
@@ -366,13 +360,7 @@ namespace Fanex.Athena.Excel.Report
             return rowIndex;
         }
 
-        /// <summary>
-        /// Assign grand total data.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        /// <param name="rowIndex">The starting row index.</param>
-        /// <returns>The last row index after assign data.</returns>
-        protected int AssignTotalData(ISheet sheet, int rowIndex)
+        protected internal virtual int AssignTotalData(ISheet sheet, int rowIndex)
         {
             int beginTotalRow = rowIndex;
 
@@ -403,7 +391,7 @@ namespace Fanex.Athena.Excel.Report
             return rowIndex;
         }
 
-        protected void ProcessUILicenseeWinLoss(ISheet sheet)
+        protected internal virtual void ProcessUILicenseeWinLoss(ISheet sheet)
         {
             int showColumns = _showProductOptions.Count();
 
@@ -441,11 +429,7 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        /// <summary>
-        /// Process UI, hide redundant row and column.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        protected void ProcessUITurnover(ISheet sheet)
+        protected internal virtual void ProcessUITurnover(ISheet sheet)
         {
             int showColumns = _showProductOptions.Count();
 
@@ -483,7 +467,7 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        private void HideColumnsByLevel(ISheet sheet)
+        protected internal virtual void HideColumnsByLevel(ISheet sheet)
         {
             switch (_excelModel.MetaModel.DrillDownLevel)
             {
