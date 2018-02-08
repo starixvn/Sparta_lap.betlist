@@ -86,6 +86,7 @@
   <ItemGroup>
     <Compile Include="AhForecastControllerTest.cs" />
     <Compile Include="HandicapOverUnderForecastControllerTest.cs" />
+    <Compile Include="OneXTwoForecastControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
