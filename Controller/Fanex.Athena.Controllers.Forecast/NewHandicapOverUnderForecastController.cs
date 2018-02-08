@@ -11,6 +11,7 @@ namespace Fanex.Athena.Controllers.Forecast
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web.Mvc;
+    using Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Service.Core.Helpers;
     using Model.Core.DataDomain;
@@ -19,6 +20,8 @@ namespace Fanex.Athena.Controllers.Forecast
     using Model.Forecast.ViewModel;
     using Service.Core.Common;
     using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
+    using Service.Forecast.Interfaces;
     using VendorAdapter;
     using VendorAdapter.Interfaces;
     using Web.ActionFilter;
@@ -34,6 +37,20 @@ namespace Fanex.Athena.Controllers.Forecast
         {
             _cacheRefAdapter = new CacheRefAdapter();
             _matchService = new MatchService();
+        }
+
+        public NewHandicapOverUnderForecastController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
+            IForecastService forecastService,
+            ICacheRefAdapter cacheRefAdapter,
+            IMatchService matchService)
+        : base(languageService, sessionService, appSetting, clientViewHelper, forecastService)
+        {
+            _cacheRefAdapter = cacheRefAdapter;
+            _matchService = matchService;
         }
 
         [HttpGet]
