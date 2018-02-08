@@ -130,6 +130,22 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         }
 
         [Test]
+        public void ProcessUI_AllOptionsIsVisible_NotHideAnyColumn()
+        {
+            // Arrange
+            var excel = CreateExcel(new ShowingOption
+            {
+                CustomerCommVisible = true
+            });
+
+            // Action
+            excel.Public_ProcessUI(FakeSheet);
+
+            // Assert
+            FakeSheet.DidNotReceiveWithAnyArgs().SetColumnHidden(0, false);
+        }
+
+        [Test]
         public void AssignSheetData_WhenCall_CallSetValueCorrectly()
         {
             // Arrange
@@ -266,12 +282,12 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             row.Cells[ColumnAmountDueTo].Received(1).SetCellValue(dailyRacingWinLoss.AmountDueToRacingGBP);
         }
 
-        private static DailyRacingWinLossExcelTestable CreateExcel()
+        private static DailyRacingWinLossExcelTestable CreateExcel(ShowingOption showingOption = null)
         {
             var excel = Substitute.ForPartsOf<DailyRacingWinLossExcelTestable>(
                 string.Empty,
                 new ConvertingOption(),
-                new ShowingOption(),
+                showingOption ?? new ShowingOption(),
                 ViewModel);
             excel.TemplateSheet.Returns(Substitute.For<ISheet>());
             return excel;

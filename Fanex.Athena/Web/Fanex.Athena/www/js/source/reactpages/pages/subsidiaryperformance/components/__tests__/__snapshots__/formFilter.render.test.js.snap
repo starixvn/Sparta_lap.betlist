@@ -122,7 +122,6 @@ exports[`FormFilter  render methods render whole component match to snapshot 1`]
           BaseCurrency
         </label>
         <Select
-          addLabelText="Add \\"{label}\\"?"
           arrowRenderer={[Function]}
           autosize={true}
           backspaceRemoves={true}
@@ -171,11 +170,14 @@ exports[`FormFilter  render methods render whole component match to snapshot 1`]
           }
           pageSize={5}
           placeholder="Select..."
+          removeSelected={true}
           required={false}
+          rtl={false}
           scrollMenuIntoView={true}
           searchable={true}
           simpleValue={false}
           tabSelectsValue={true}
+          trimFilter={true}
           value="EUR"
           valueComponent={[Function]}
           valueKey="value"
