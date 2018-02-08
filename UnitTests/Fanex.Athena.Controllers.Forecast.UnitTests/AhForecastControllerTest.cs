@@ -37,10 +37,7 @@
                 var result = controller.Index(metaModel) as ViewResult;
 
                 // Assert
-                Assert.Multiple(() =>
-                {
-                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Forecast/ForecastAH/Main.cshtml"));
-                });
+                Assert.That(result.ViewName, Is.EqualTo("~/Views/Forecast/ForecastAH/Main.cshtml"));
             }
         }
 
@@ -90,10 +87,7 @@
                 var viewModel = (ForecastAHViewModel)result.Model;
 
                 // Assert
-                Assert.Multiple(() =>
-                {
-                    Assert.That(viewModel.Param.CurrentScore, Is.EqualTo(expectedCurrentCore));
-                });
+                Assert.That(viewModel.Param.CurrentScore, Is.EqualTo(expectedCurrentCore));
             }
         }
 
@@ -121,10 +115,7 @@
                 var viewModel = (ForecastAHViewModel)result.Model;
 
                 // Assert
-                Assert.Multiple(() =>
-                {
-                    Assert.That(viewModel.Param.CurrentScore, Is.EqualTo(expectedCurrentCore));
-                });
+                Assert.That(viewModel.Param.CurrentScore, Is.EqualTo(expectedCurrentCore));
             }
         }
 
@@ -153,10 +144,7 @@
                 var viewModel = (ForecastAHViewModel)result.Model;
 
                 // Assert
-                Assert.Multiple(() =>
-                {
-                    Assert.That(viewModel.ForecastHeaderParam.ForecastName, Is.EqualTo(ViewResources.ResourceManager.GetString(expectedName)));
-                });
+                Assert.That(viewModel.ForecastHeaderParam.ForecastName, Is.EqualTo(ViewResources.ResourceManager.GetString(expectedName)));
             }
         }
 
@@ -183,10 +171,7 @@
                 var viewModel = (ForecastAHViewModel)result.Model;
 
                 // Assert
-                Assert.Multiple(() =>
-                {
-                    Assert.That(viewModel.ForecastValue, Is.EqualTo(foreCastValue));
-                });
+                Assert.That(viewModel.ForecastValue, Is.EqualTo(foreCastValue));
             }
         }
 
@@ -213,10 +198,7 @@
                 var viewModel = (ForecastAHViewModel)result.Model;
 
                 // Assert
-                Assert.Multiple(() =>
-                {
-                    Assert.That(viewModel.ForecastValue, Is.EqualTo(foreCastValue));
-                });
+                Assert.That(viewModel.ForecastValue, Is.EqualTo(foreCastValue));
             }
         }
 
@@ -246,10 +228,7 @@
                 var viewModel = (ForecastAHViewModel)result.Model;
 
                 // Assert
-                Assert.Multiple(() =>
-                {
-                    Assert.That(viewModel.ForecastValue.ForeCastLink, Is.EqualTo(expectedLink));
-                });
+                Assert.That(viewModel.ForecastValue.ForeCastLink, Is.EqualTo(expectedLink));
             }
         }
 
@@ -279,10 +258,7 @@
                 var viewModel = (ForecastAHViewModel)result.Model;
 
                 // Assert
-                Assert.Multiple(() =>
-                {
-                    Assert.That(viewModel.ForecastValue.ForecastHeader, Is.EqualTo(expectedHeader));
-                });
+                Assert.That(viewModel.ForecastValue.ForecastHeader, Is.EqualTo(expectedHeader));
             }
         }
 
