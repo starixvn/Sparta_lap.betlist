@@ -1,11 +1,13 @@
 ﻿namespace Fanex.Athena.Excel.Report.UnitTests
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Base;
     using Base.Entities;
     using Base.Extension;
     using Model.Report.DTO.LiveReports;
+    using Model.Report.MetaModel;
     using Model.Report.ViewModel.LiveReports;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
@@ -485,7 +487,12 @@
             // Arrange
             var row = ExcelTestHelper.MockGetRow(FakeSheet, ColumnTemplateCount, ReportBase.RowTitleTemplate);
 
-            _excelModel.Param = new Model.Report.MetaModel.LiveReportMetaModel { LiveIndicator = liveIndicator };
+            _excelModel.Param = new LiveReportMetaModel
+            {
+                LiveIndicator = liveIndicator,
+                FromDate = new DateTime(2018, 1, 1),
+                ToDate = new DateTime(2018, 2, 2)
+            };
 
             var excel = CreateExcel();
 
@@ -495,7 +502,7 @@
             // Assert
             row.Cells[0].Received(1).SetCellValue("Live Report - " +
                 ViewResources.ResourceManager.GetString(expectedTitleKey) +
-                " data, 02/07/2018 --> 02/07/2018 - View in EUR");
+                " data, 01/01/2018 --> 02/02/2018 - View in EUR");
         }
 
         [Test]

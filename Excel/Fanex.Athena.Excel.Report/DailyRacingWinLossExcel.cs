@@ -18,9 +18,6 @@ namespace Fanex.Athena.Excel.Report
     using VendorAdapter;
     using VendorAdapter.Interfaces;
 
-    /// <summary>
-    /// Daily racing win loss - Export excel.
-    /// </summary>
     public class DailyRacingWinLossExcel : ReportBase
     {
         private const int ColumnAmountDueTo = 9;
@@ -164,13 +161,6 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        /// <summary>
-        /// Assign data to euro section.
-        /// </summary>
-        /// <param name="row">Excel row.</param>
-        /// <param name="dailyRacingWinLoss">Daily Racing win loss data.</param>
-        /// <param name="leagueName">League name.</param>
-        /// <param name="raceName">Race name.</param>
         private static void AssignDataEur(IRow row, DailyRacingWinLoss dailyRacingWinLoss, string leagueName, string raceName)
         {
             row.Cells[ColumnMeetingCurrency].SetCellValue(leagueName);
@@ -216,13 +206,6 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnAmountDueTo].SetCellValue(dailyRacingWinLoss.AmountDueToRacing);
         }
 
-        /// <summary>
-        /// Assign data to USD section.
-        /// </summary>
-        /// <param name="row">Excel row.</param>
-        /// <param name="dailyRacingWinLoss">Daily Racing win loss data.</param>
-        /// <param name="leagueName">League name.</param>
-        /// <param name="raceName">Race name.</param>
         private static void AssignDataUsd(IRow row, DailyRacingWinLoss dailyRacingWinLoss, string leagueName, string raceName)
         {
             row.Cells[ColumnMeetingCurrency].SetCellValue(leagueName);
@@ -253,20 +236,14 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnAmountDueTo].SetCellValue(dailyRacingWinLoss.AmountDueToRacingGBP);
         }
 
-        // DataRow exportRow
         private string GetMatchName(DailyRacingWinLoss dailyRacingWinLoss)
         {
             var leageId = dailyRacingWinLoss.LeagueId;
-            var curCurrency = dailyRacingWinLoss.CurrencyName.Trim(); // Save the current Currency
+            var curCurrency = dailyRacingWinLoss.CurrencyName.Trim();
             return _cacheRefAdapter.GetLeagueName(leageId) + " - " + curCurrency;
         }
 
-        /// <summary>
-        /// Assign data to total section.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        /// <param name="currentRow">The row index of total section.</param>
-        private void AssignTotalData(ISheet sheet, int currentRow)
+        protected internal virtual void AssignTotalData(ISheet sheet, int currentRow)
         {
             // Total currency
             var currencyTotalData = _dailyRacingWinLossData.CurrencyTotalData;

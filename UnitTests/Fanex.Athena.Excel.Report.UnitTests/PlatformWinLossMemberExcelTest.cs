@@ -128,7 +128,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             Assert.Multiple(() =>
             {
                 row.Cells[0].Received(1).SetCellValue(1);
-                row.Cells[ColumnCurrency].Received(1).Received(1).SetCellValue(DataItem.CurrencyName);
+                row.Cells[ColumnCurrency].Received(1).SetCellValue(DataItem.CurrencyName);
                 row.Cells[ColumnExternalId].Received(1).SetCellValue(DataItem.ExternalId);
                 row.Cells[ColumnSystemId].Received(1).SetCellValue(DataItem.SystemId);
                 row.Cells[ColumnTurnover].Received(1).SetCellValue(DataItem.Turnover);

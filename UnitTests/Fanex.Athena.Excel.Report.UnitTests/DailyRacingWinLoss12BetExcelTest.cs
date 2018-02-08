@@ -72,10 +72,10 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             Assert.Multiple(() =>
             {
                 FakeSheet.Received().CopyRow(excel.TemplateSheet, ReportBase.RowHeaderTemplate, ReportBase.RowHeaderTemplate);
-                row1.Cells[0].Received(1).Received(1).SetCellValue(ViewResources.Race);
-                row1.Cells[2].Received(1).Received(1).SetCellValue(ViewResources.CustomerOverall);
-                row1.Cells[8].Received(1).Received(1).SetCellValue(ViewResources.Licensee12Bet);
-                row1.Cells[14].Received(1).Received(1).SetCellValue(ViewResources.AmtDueTo);
+                row1.Cells[0].Received(1).SetCellValue(ViewResources.Race);
+                row1.Cells[2].Received(1).SetCellValue(ViewResources.CustomerOverall);
+                row1.Cells[8].Received(1).SetCellValue(ViewResources.Licensee12Bet);
+                row1.Cells[14].Received(1).SetCellValue(ViewResources.AmtDueTo);
 
                 AssertSetTextRowHeader(row2, headerTextList, 1);
             });
@@ -92,7 +92,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             excel.Public_AssignNoInfoRow(FakeSheet);
 
             // Assert
-            row.Cells[0].Received(1).Received(1).SetCellValue(ViewResources.NoInfo);
+            row.Cells[0].Received(1).SetCellValue(ViewResources.NoInfo);
         }
 
         [Test]
@@ -112,7 +112,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             // Assert
             Assert.Multiple(() =>
             {
-                row.Cells[0].Received(1).Received(1).SetCellValue(reportTitle);
+                row.Cells[0].Received(1).SetCellValue(reportTitle);
                 FakeSheet.Received(1).CreateFreezePane(0, 3);
                 FakeSheet.ReceivedWithAnyArgs().DeleteRow(0);
             });
