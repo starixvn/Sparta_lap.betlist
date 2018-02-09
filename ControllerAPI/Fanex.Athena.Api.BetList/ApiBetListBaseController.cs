@@ -26,6 +26,8 @@ namespace Fanex.Athena.Api.BetList
     using Fanex.BetList.Core.TicketHelper;
     using Model.Core.DTO.Configuration;
     using Service.BetList.Helpers;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
     using VendorAdapter;
     using VendorAdapter.Interfaces;
 
@@ -43,15 +45,28 @@ namespace Fanex.Athena.Api.BetList
 
         private readonly ICacheRefAdapter _cacheRefAdapter;
 
-        public ApiBetListBaseController()
+        public ApiBetListBaseController() : this(null, null, null, null, null, null, null)
         {
-            _betListService = new BetListService();
-            _balanceUpDataAccess = new BalanceUpDataAccess();
-            _ticketHelper = new TicketHelper();
-            _cacheRefAdapter = new CacheRefAdapter();
         }
 
-        [System.CLSCompliant(false)]
+        [CLSCompliant(false)]
+        public ApiBetListBaseController(
+            ISessionService sessionService,
+            IProductService productService,
+            ILanguageService languageService,
+            IBetListService betListService,
+            IBalanceUpDataAccess balanceUpDataAccess,
+            ITicketHelper ticketHelper,
+            ICacheRefAdapter cacheRefAdapter)
+        : base(sessionService, productService, languageService)
+        {
+            _betListService = betListService ?? new BetListService();
+            _balanceUpDataAccess = balanceUpDataAccess ?? new BalanceUpDataAccess();
+            _ticketHelper = ticketHelper ?? new TicketHelper();
+            _cacheRefAdapter = cacheRefAdapter ?? new CacheRefAdapter();
+        }
+
+        [CLSCompliant(false)]
         protected IBetListService BetListService
         {
             get { return _betListService; }
@@ -67,7 +82,7 @@ namespace Fanex.Athena.Api.BetList
             return _balanceUpDataAccess.GetBalanceUp();
         }
 
-        protected List<TicketText> Ticket(TicketResult ticketResult, BetListMetaModel metaModel = null, int startIndex = 1, bool showOdds = false)
+        protected internal virtual List<TicketText> Ticket(TicketResult ticketResult, BetListMetaModel metaModel = null, int startIndex = 1, bool showOdds = false)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var showPlayerComm = licenseeSession.IsAllowedCustomerComm;
@@ -114,7 +129,7 @@ namespace Fanex.Athena.Api.BetList
         /// <param name="metaModel">MetaModel object.</param>
         /// <param name="uspKey">Stored procedure key.</param>
         /// <returns>Dynamic object, contains the bet list result.</returns>
-        protected dynamic GetBetListResult(BetListMetaModel metaModel, string uspKey)
+        protected internal virtual dynamic GetBetListResult(BetListMetaModel metaModel, string uspKey)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var balanceUp = GetBalanceUp();
@@ -148,7 +163,7 @@ namespace Fanex.Athena.Api.BetList
             };
         }
 
-        protected dynamic GetPagingBetListResult(BetListMetaModel metaModel, string uspKey, int pageIndex, int pageSize)
+        protected internal virtual dynamic GetPagingBetListResult(BetListMetaModel metaModel, string uspKey, int pageIndex, int pageSize)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var balanceUp = GetBalanceUp();
