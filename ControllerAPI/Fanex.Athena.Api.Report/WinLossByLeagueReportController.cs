@@ -42,9 +42,10 @@ namespace Fanex.Athena.Api.Report
         public WinLossByLeagueReportController(
             ISessionService sessionService,
             IProductService productService,
+            ILanguageService langService,
             IBalanceUpDataAccess balanceUpDataAccess,
             IWinLossByLeagueDataAccess winlossByLeagueService)
-            : base(sessionService, productService)
+            : base(sessionService, productService, langService)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
             _winlossByLeagueDataAccess = winlossByLeagueService;

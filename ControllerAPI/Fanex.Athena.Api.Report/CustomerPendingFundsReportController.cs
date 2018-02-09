@@ -39,8 +39,9 @@
             IAppSettings appSettings,
             ICustPendingFundsDataAccess custPendingFundsDataAccess,
             ISessionService sessionService,
-            IProductService productService)
-            : base(sessionService, productService)
+            IProductService productService,
+            ILanguageService langService)
+            : base(sessionService, productService, langService)
         {
             _appSettings = appSettings;
             _custPendingFundsDataAccess = custPendingFundsDataAccess;

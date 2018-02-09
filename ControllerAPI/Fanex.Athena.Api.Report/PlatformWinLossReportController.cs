@@ -43,8 +43,9 @@ namespace Fanex.Athena.Api.Report
         public PlatformWinLossReportController(
             ISessionService sessionService,
             IProductService productService,
+            ILanguageService langService,
             IPlatformWinLossDataAccess platformWinLossDataAccess)
-            : base(sessionService, productService)
+            : base(sessionService, productService, langService)
         {
             _platformWinLossDataAccess = platformWinLossDataAccess;
         }

@@ -1,15 +1,15 @@
-﻿namespace Fanex.Athena.Api.Report.UnitTests
+﻿namespace Fanex.Athena.Api.Base.UnitTests
 {
     using System.Collections.Generic;
     using Extension.Utility;
-    using Fanex.Athena.Service.Core.Common.Interfaces;
-    using Fanex.Athena.Service.Core.Users.Interfaces;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
     using NSubstitute;
     using NUnit.Framework;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
 
-    public abstract class BaseApiReportControllerHelperTest
+    public abstract class BaseApiControllerHelperTest
     {
         protected const int SessionLicenseeId = 1;
 
@@ -29,12 +29,18 @@
 
         protected IAppSettings AppSetting { get; private set; }
 
+        protected ILanguageService LangService { get; private set; }
+
         [OneTimeSetUp]
         public virtual void FixtureSetUp()
         {
             SessionService = Substitute.For<ISessionService>();
             ProductService = Substitute.For<IProductService>();
             AppSetting = Substitute.For<IAppSettings>();
+            LangService = Substitute.For<ILanguageService>();
+
+            LangService.GetCurrentLanguage().Returns("en-US");
+            LangService.When(x => x.SetPageCulture(Arg.Any<string>())).DoNotCallBase();
         }
 
         [OneTimeTearDown]
@@ -43,6 +49,7 @@
             SessionService = null;
             ProductService = null;
             AppSetting = null;
+            LangService = null;
         }
 
         protected void MockSessionData()

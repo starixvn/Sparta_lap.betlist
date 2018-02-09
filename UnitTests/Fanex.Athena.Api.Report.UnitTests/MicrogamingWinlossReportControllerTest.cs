@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Base.UnitTests;
     using DataAccess.Report.Interfaces;
     using Excel.Base.Entities;
     using Excel.Report;
@@ -16,7 +17,7 @@
     using NSubstitute;
     using NUnit.Framework;
 
-    public class MicrogamingWinlossReportControllerTest : BaseApiReportControllerHelperTest
+    public class MicrogamingWinlossReportControllerTest : BaseApiControllerHelperTest
     {
         private IMicroGamingWinLossDataAccess _dataAccess;
 
@@ -29,7 +30,7 @@
 
             _dataAccess = Substitute.For<IMicroGamingWinLossDataAccess>();
 
-            _controller = Substitute.ForPartsOf<MicrogamingWinlossReportController>(SessionService, ProductService, _dataAccess);
+            _controller = Substitute.ForPartsOf<MicrogamingWinlossReportController>(SessionService, ProductService, LangService, _dataAccess);
 
             _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();
 

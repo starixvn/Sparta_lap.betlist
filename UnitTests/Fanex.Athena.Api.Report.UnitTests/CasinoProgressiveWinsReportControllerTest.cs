@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using Base.UnitTests;
     using Excel.Base.Entities;
     using Excel.Report;
     using Fanex.Athena.DataAccess.Report.Interfaces;
@@ -14,7 +15,7 @@
     using NUnit.Framework;
     using VendorAdapter.Interfaces;
 
-    public class CasinoProgressiveWinsReportControllerTest : BaseApiReportControllerHelperTest
+    public class CasinoProgressiveWinsReportControllerTest : BaseApiControllerHelperTest
     {
         private ICasinoProgressiveWinsDataAccess _dataAccess;
         private CasinoProgressiveWinsReportController _controller;
@@ -31,6 +32,7 @@
                 _dataAccess,
                 SessionService,
                 ProductService,
+                LangService,
                 Substitute.For<ICacheRefAdapter>());
             _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();
         }

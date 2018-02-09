@@ -44,8 +44,9 @@ namespace Fanex.Athena.Api.Report
             ICasinoProgressiveWinsDataAccess dataAccess,
             ISessionService sessionService,
             IProductService productService,
+            ILanguageService langService,
             ICacheRefAdapter cacheRefAdapter)
-            : base(sessionService, productService)
+            : base(sessionService, productService, langService)
         {
             _casinoProgressiveWinsDataAccess = dataAccess;
             _cacheRefAdapter = cacheRefAdapter;

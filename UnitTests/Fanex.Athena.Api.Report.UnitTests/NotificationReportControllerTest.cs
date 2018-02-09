@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Net;
     using System.Net.Http;
+    using Base.UnitTests;
     using Model.Core.DTO.Common;
     using Model.Core.ResultModel;
     using Model.Report.DTO;
@@ -12,7 +13,7 @@
     using NUnit.Framework;
     using Service.Report.Interfaces;
 
-    public class NotificationReportControllerTest : BaseApiReportControllerHelperTest
+    public class NotificationReportControllerTest : BaseApiControllerHelperTest
     {
         private const int MaximumMonthDistance = 5;
 
@@ -28,7 +29,7 @@
             MockSessionData();
 
             _service = Substitute.For<INotificationService>();
-            _controller = Substitute.ForPartsOf<NotificationReportController>(_service, SessionService, ProductService);
+            _controller = Substitute.ForPartsOf<NotificationReportController>(_service, SessionService, ProductService, LangService);
         }
 
         [OneTimeTearDown]

@@ -26,8 +26,9 @@
         public SubsidiaryPerformanceReportController(
             ISessionService sessionService,
             IProductService productService,
+            ILanguageService langService,
             ISubsidiaryPerformanceService subLicenseePerformanceService)
-            : base(sessionService, productService)
+            : base(sessionService, productService, langService)
         {
             _subsidiaryPerformanceService = subLicenseePerformanceService;
         }

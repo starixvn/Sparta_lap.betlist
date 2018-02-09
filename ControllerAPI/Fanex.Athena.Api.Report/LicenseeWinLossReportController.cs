@@ -52,9 +52,10 @@ namespace Fanex.Athena.Api.Report
             ISessionService sessionService,
             IProductService productService,
             IReportSettingService reportSettingService,
+            ILanguageService langService,
             IAppSettings appSettings,
             ILicenseeWinLossDataAccess licenseeWinLossDataAccess)
-            : base(sessionService, productService)
+            : base(sessionService, productService, langService)
         {
             _reportSettingService = reportSettingService;
             _appSettings = appSettings;

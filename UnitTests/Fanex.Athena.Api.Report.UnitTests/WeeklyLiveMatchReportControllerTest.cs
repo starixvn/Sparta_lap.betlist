@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Base.UnitTests;
     using Excel.Report;
     using Fanex.Athena.Service.Report.Interfaces;
     using Model.Report.DTO;
@@ -12,7 +13,7 @@
     using NSubstitute;
     using NUnit.Framework;
 
-    internal class WeeklyLiveMatchReportControllerTest : BaseApiReportControllerHelperTest
+    internal class WeeklyLiveMatchReportControllerTest : BaseApiControllerHelperTest
     {
         private IWeeklyLiveMatchService _service;
         private WeeklyLiveMatchReportController _controller;
@@ -25,7 +26,7 @@
             MockSessionData();
 
             _service = Substitute.For<IWeeklyLiveMatchService>();
-            _controller = Substitute.ForPartsOf<WeeklyLiveMatchReportController>(_service, SessionService, ProductService);
+            _controller = Substitute.ForPartsOf<WeeklyLiveMatchReportController>(_service, SessionService, ProductService, LangService);
             _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();
         }
 

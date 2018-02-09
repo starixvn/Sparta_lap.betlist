@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Base.UnitTests;
     using Excel.Base.Entities;
     using Excel.Report;
     using Extension.Utility;
@@ -16,7 +17,7 @@
     using NSubstitute;
     using NUnit.Framework;
 
-    public class ColossusBetsWinLossReportControllerTest : BaseApiReportControllerHelperTest
+    public class ColossusBetsWinLossReportControllerTest : BaseApiControllerHelperTest
     {
         private IColossusBetsWinLossService _service;
         private ColossusBetsWinLossReportController _controller;
@@ -28,7 +29,7 @@
 
             _service = Substitute.For<IColossusBetsWinLossService>();
 
-            _controller = Substitute.ForPartsOf<ColossusBetsWinLossReportController>(_service, SessionService, ProductService);
+            _controller = Substitute.ForPartsOf<ColossusBetsWinLossReportController>(_service, SessionService, ProductService, LangService);
 
             _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();
         }

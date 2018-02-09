@@ -37,8 +37,9 @@ namespace Fanex.Athena.Api.Report
         public MicrogamingWinlossReportController(
             ISessionService sessionService,
             IProductService productService,
+            ILanguageService langService,
             IMicroGamingWinLossDataAccess microGamingWinLossDataAccess)
-            : base(sessionService, productService)
+            : base(sessionService, productService, langService)
         {
             _microGamingWinLossDataAccess = microGamingWinLossDataAccess;
         }

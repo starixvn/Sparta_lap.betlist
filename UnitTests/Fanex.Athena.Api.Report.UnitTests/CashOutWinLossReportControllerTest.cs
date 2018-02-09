@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Script.Serialization;
+    using Base.UnitTests;
     using DataAccess.Report.Interfaces;
     using Excel.Base.Entities;
     using Excel.Report;
@@ -17,7 +18,7 @@
     using NUnit.Framework;
     using Report;
 
-    public class CashOutWinLossReportControllerTest : BaseApiReportControllerHelperTest
+    public class CashOutWinLossReportControllerTest : BaseApiControllerHelperTest
     {
         private ICashOutWinLossDataAccess _dataAccess;
         private CashOutWinLossReportController _controller;
@@ -31,7 +32,7 @@
             MockSessionData();
 
             _dataAccess = Substitute.For<ICashOutWinLossDataAccess>();
-            _controller = Substitute.ForPartsOf<CashOutWinLossReportController>(_dataAccess, SessionService, ProductService);
+            _controller = Substitute.ForPartsOf<CashOutWinLossReportController>(_dataAccess, SessionService, ProductService, LangService);
             _serializer = new JavaScriptSerializer();
         }
 

@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Base.UnitTests;
     using DataAccess.Report.Interfaces;
     using Excel.Base.Entities;
     using Excel.Report;
@@ -20,7 +21,7 @@
     using NSubstitute;
     using NUnit.Framework;
 
-    public class ActiveCustomerSummaryReportControllerTest : BaseApiReportControllerHelperTest
+    public class ActiveCustomerSummaryReportControllerTest : BaseApiControllerHelperTest
     {
         private IActiveCustomerSummaryDataAccess _dataAccess;
         private ActiveCustomerSummaryReportController _controller;
@@ -32,7 +33,7 @@
 
             _dataAccess = Substitute.For<IActiveCustomerSummaryDataAccess>();
 
-            _controller = Substitute.ForPartsOf<ActiveCustomerSummaryReportController>(_dataAccess, SessionService, ProductService);
+            _controller = Substitute.ForPartsOf<ActiveCustomerSummaryReportController>(_dataAccess, SessionService, ProductService, LangService);
 
             _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();
 

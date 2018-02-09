@@ -11,8 +11,9 @@
     {
         protected ApiReportBaseController(
             ISessionService sessionService,
-            IProductService productService)
-            : base(sessionService, productService)
+            IProductService productService,
+            ILanguageService langService)
+            : base(sessionService, productService, langService)
         {
         }
 

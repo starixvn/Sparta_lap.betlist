@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Web.Script.Serialization;
+    using Base.UnitTests;
     using DataAccess.Report.Interfaces;
     using Excel.Base.Entities;
     using Excel.Report;
@@ -15,7 +16,7 @@
     using NSubstitute;
     using NUnit.Framework;
 
-    public class AgCasinoBalanceReportControllerTest : BaseApiReportControllerHelperTest
+    public class AgCasinoBalanceReportControllerTest : BaseApiControllerHelperTest
     {
         private IAgCasinoBalanceDataAccess _dataAccess;
         private AgCasinoBalanceReportController _controller;
@@ -29,7 +30,7 @@
 
             _dataAccess = Substitute.For<IAgCasinoBalanceDataAccess>();
 
-            _controller = Substitute.ForPartsOf<AgCasinoBalanceReportController>(_dataAccess, SessionService, ProductService);
+            _controller = Substitute.ForPartsOf<AgCasinoBalanceReportController>(_dataAccess, SessionService, ProductService, LangService);
         }
 
         [OneTimeTearDown]

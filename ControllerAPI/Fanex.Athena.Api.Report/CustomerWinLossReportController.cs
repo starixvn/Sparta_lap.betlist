@@ -36,8 +36,9 @@
             IAppSettings appSettings,
             ICustWinlossDataAccess custWinlossDataAccess,
             ISessionService sessionService,
-            IProductService productService)
-            : base(sessionService, productService)
+            IProductService productService,
+            ILanguageService langService)
+            : base(sessionService, productService, langService)
         {
             _appSettings = appSettings;
             _custWinlossDataAccess = custWinlossDataAccess;

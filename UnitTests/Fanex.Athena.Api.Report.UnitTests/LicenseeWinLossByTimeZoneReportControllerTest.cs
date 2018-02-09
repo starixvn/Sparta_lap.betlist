@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using Base.UnitTests;
     using DataAccess.Report.Interfaces;
     using Model.Core.ResultModel;
     using Model.Report.DTO;
@@ -12,24 +13,24 @@
     using Service.Core.Users.Interfaces;
 
     [TestFixture]
-    public class LicenseeWinLossByTimeZoneReportControllerTest
+    public class LicenseeWinLossByTimeZoneReportControllerTest : BaseApiControllerHelperTest
     {
-        private ISessionService _sessionService;
-
         private ILicenseeWinLossByTimeZoneDataAccess _dataAccess;
 
         [OneTimeSetUp]
-        public void SetUp()
+        public override void FixtureSetUp()
         {
-            _sessionService = Substitute.For<ISessionService>();
+            base.FixtureSetUp();
+
             _dataAccess = Substitute.For<ILicenseeWinLossByTimeZoneDataAccess>();
         }
 
         [OneTimeTearDown]
-        public void FixtureTearDown()
+        public override void FixtureTearDown()
         {
+            base.FixtureTearDown();
+
             _dataAccess = null;
-            _sessionService = null;
         }
 
         [Test]
@@ -63,7 +64,7 @@
             const string AgentListXml = "<Root><Agent AgentId=\"1\" Currency=\"1\"/></Root>";
             var metaModel = CreateValidMetaModel();
             metaModel.CurrencyId = 999;
-            _sessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludeTestData).Returns(AgentListXml);
+            SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludeTestData).Returns(AgentListXml);
             _dataAccess.GetData(metaModel).ReturnsForAnyArgs(new ReportResultModel<LicenseeWinLossByTimeZone>());
 
             // Action
@@ -121,8 +122,9 @@
         private LicenseeWinLossByTimeZoneReportController CreateController()
         {
             return Substitute.ForPartsOf<LicenseeWinLossByTimeZoneReportController>(
-                _sessionService,
-                Substitute.For<IProductService>(),
+                SessionService,
+                ProductService,
+                LangService,
                 _dataAccess);
         }
     }

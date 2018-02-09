@@ -38,8 +38,9 @@ namespace Fanex.Athena.Api.Report
         public ColossusBetsWinLossReportController(
             IColossusBetsWinLossService colossusBetsWinLossService,
             ISessionService sessionService,
-            IProductService productService)
-            : base(sessionService, productService)
+            IProductService productService,
+            ILanguageService langService)
+            : base(sessionService, productService, langService)
         {
             _colossusBetsWinLossService = colossusBetsWinLossService;
         }

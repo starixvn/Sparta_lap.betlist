@@ -93,7 +93,6 @@
     <Compile Include="LicenseeWinLossReportControllerTest.cs" />
     <Compile Include="ActiveCustomerSummaryReportControllerTest.cs" />
     <Compile Include="AgCasinoBalanceReportControllerTest.cs" />
-    <Compile Include="BaseApiReportControllerHelperTest.cs" />
     <Compile Include="ColossusBetsWinLossReportControllerTest.cs" />
     <Compile Include="CustomerBalanceReportControllerTest.cs" />
     <Compile Include="CustomerPendingFundsReportControllerTest.cs" />
@@ -170,6 +169,10 @@
     <ProjectReference Include="..\..\Service\Fanex.Athena.Service.Report\Fanex.Athena.Service.Report.csproj">
       <Project>{AE7D3FED-BFFF-4AD6-816B-3A1644940511}</Project>
       <Name>Fanex.Athena.Service.Report</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.Athena.Api.Base.UnitTests\Fanex.Athena.Api.Base.UnitTests.csproj">
+      <Project>{6314a4e3-6d1b-49fc-85a5-e5dd7a85ab3f}</Project>
+      <Name>Fanex.Athena.Api.Base.UnitTests</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>
