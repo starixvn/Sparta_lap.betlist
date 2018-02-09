@@ -66,6 +66,7 @@
     <Compile Include="BaseReportExcelTest.cs" />
     <Compile Include="DailyRacingWinLossExcelTest.cs" />
     <Compile Include="LicenseeWinLossExcelTest.AssignCommonData.cs" />
+    <Compile Include="LicenseeWinLossExcelTest.ProcessUI.cs" />
     <Compile Include="LicenseeWinLossExcelTest.AssignHeader.cs" />
     <Compile Include="TestableClasses\DailyRacingWinLossExcelTestable.cs" />
     <Compile Include="TestableClasses\LicenseeWinLossExcelTestable.cs" />

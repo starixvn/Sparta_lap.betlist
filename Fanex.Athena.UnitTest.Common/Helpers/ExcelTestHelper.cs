@@ -36,5 +36,10 @@ namespace Fanex.Athena.UnitTest.Common.Helpers
             sheet.GetRow(destRowIndex).Returns(row);
             return row;
         }
+
+        public static ICell MockGetCell(ISheet sheet, int rowIndex, int columnIndex)
+        {
+            return sheet.GetRow(rowIndex).GetCell(columnIndex);
+        }
     }
 }

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Fanex.Athena.Excel.Base;
 using Fanex.Athena.Excel.Report.Helpers;
 using Fanex.Athena.Excel.Report.Models;
 using Fanex.Athena.Excel.Report.UnitTests.TestableClasses;
+using Fanex.Athena.Model.Core.DTO.Common;
 using Fanex.Athena.Model.Core.MetaModel.Product;
 using Fanex.Athena.Model.Report.DTO;
 using Fanex.Athena.Model.Report.MetaModel;
@@ -134,68 +136,6 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         }
 
         [Test]
-        public void ProcessUI_AllOptionsIsInvisible_HideColumnsCorrectly()
-        {
-            // Arrange
-            ExcelModel.SystemIdVisible = false;
-            ExcelModel.CustomerCommVisible = false;
-            ExcelModel.COVisible = false;
-            ExcelModel.BTVisible = false;
-            ExcelModel.BAVisible = false;
-            ExcelModel.RBVisible = false;
-            var excel = CreateExcel();
-            excel.WhenForAnyArgs(x => x.ProcessUITurnover(Arg.Any<ISheet>())).DoNotCallBase();
-            excel.WhenForAnyArgs(x => x.ProcessUILicenseeWinLoss(Arg.Any<ISheet>())).DoNotCallBase();
-            excel.WhenForAnyArgs(x => x.HideColumnsByLevel(Arg.Any<ISheet>())).DoNotCallBase();
-
-            // Action
-            excel.Public_ProcessUI(FakeSheet);
-
-            // Assert
-            AssertHideColumns(
-                FakeSheet,
-                ColumnSystemId,
-                ColumnCustomerTotal,
-                ColumnCustomerComm,
-                ColumnCashOutCommission,
-                ColumnBuyBackAmountTotal,
-                ColumnBuyBackAmountBA,
-                ColumnBetTradeCommission,
-                ColumnBuyBackAmountSportsbook,
-                ColumnBuyBackAmountBA,
-                ColumnBuyBackAmountTotal,
-                ColumnActualStake,
-                ColumnAmtDueToBetTrade,
-                ColumnBaCommission,
-                ColumnAmtDueToBa,
-                ColumnRacingRevenue,
-                ColumnAmtDueToRacing);
-        }
-
-        [Test]
-        public void ProcessUI_AllOptionsIsVisible_HideColumnsCorrectly()
-        {
-            // Arrange
-            ExcelModel.SBVisible = true;
-            ExcelModel.SystemIdVisible = true;
-            ExcelModel.CustomerCommVisible = true;
-            ExcelModel.COVisible = true;
-            ExcelModel.BTVisible = true;
-            ExcelModel.BAVisible = true;
-            ExcelModel.RBVisible = true;
-            var excel = CreateExcel();
-            excel.WhenForAnyArgs(x => x.ProcessUITurnover(Arg.Any<ISheet>())).DoNotCallBase();
-            excel.WhenForAnyArgs(x => x.ProcessUILicenseeWinLoss(Arg.Any<ISheet>())).DoNotCallBase();
-            excel.WhenForAnyArgs(x => x.HideColumnsByLevel(Arg.Any<ISheet>())).DoNotCallBase();
-
-            // Action
-            excel.Public_ProcessUI(FakeSheet);
-
-            // Assert
-            AssertHideColumns(FakeSheet, ColumnBuyBackAmountTotal, ColumnBuyBackAmountBA);
-        }
-
-        [Test]
         public void AssignGrandTotalInEurData_WhenCall_CallRelevantMethods()
         {
             // Arrange
@@ -225,9 +165,11 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         {
             // Arrange
             const int RowIndex = 10;
-            var item = FakeHelper.Create<LicenseeWinLoss>();
-            ExcelModel.TotalData = new List<LicenseeWinLoss> { item };
-            var row = ExcelTestHelper.MockGetRow(FakeSheet, ColumnTemplateCount, RowIndex);
+            var item1 = FakeHelper.Create<LicenseeWinLoss>();
+            var item2 = FakeHelper.Create<LicenseeWinLoss>();
+            ExcelModel.TotalData = new List<LicenseeWinLoss> { item1, item2 };
+            var row1 = ExcelTestHelper.MockGetRow(FakeSheet, ColumnTemplateCount, RowIndex);
+            var row2 = ExcelTestHelper.MockGetRow(FakeSheet, ColumnTemplateCount, RowIndex + 1);
             var excel = CreateExcel();
             excel.WhenForAnyArgs(x => x.AssignCommonData(Arg.Any<IRow>(), Arg.Any<LicenseeWinLoss>())).DoNotCallBase();
 
@@ -237,10 +179,65 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             // Assert
             Assert.Multiple(() =>
             {
-                excel.Received(1).AssignCommonData(row, item);
-                row.Cells[0].Received(1).SetCellValue(ViewResources.Total);
-                row.Cells[ColumnCurrency].SetCellValue(item.CurrencyName);
+                excel.Received(1).AssignCommonData(row1, item1);
+                row1.Cells[0].Received(1).SetCellValue(ViewResources.Total);
+                row1.Cells[ColumnCurrency].SetCellValue(item1.CurrencyName);
+
+                excel.Received(1).AssignCommonData(row2, item2);
+                row2.Cells[0].DidNotReceiveWithAnyArgs().SetCellValue(0);
+                row2.Cells[ColumnCurrency].SetCellValue(item2.CurrencyName);
             });
+        }
+
+        [Test]
+        public void ProcessUILicenseeWinLoss_WhenCall_CallRelevantMethods()
+        {
+            // Arrange
+            var cell = ExcelTestHelper.MockGetCell(FakeSheet, ReportBase.RowHeaderTemplate, ColumnLicenseeWlSportsBook);
+            var excel = CreateExcel(productCodes: new[] { Product.SB, Product.BA });
+
+            // Action
+            excel.ProcessUILicenseeWinLoss(FakeSheet);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                cell.Received(1).SetCellValue(ViewResources.LicenseeW_L);
+                FakeSheet.Received(1).SetColumnHidden(ColumnLicenseeWlSportsBook + 1, true);
+            });
+        }
+
+        [Test]
+        public void ProcessUITurnover_WhenCall_CallRelevantMethods()
+        {
+            // Arrange
+            var cell = ExcelTestHelper.MockGetCell(FakeSheet, ReportBase.RowHeaderTemplate, ColumnTurnoverSportBook);
+            var excel = CreateExcel(productCodes: new[] { Product.SB, Product.BT });
+
+            // Action
+            excel.ProcessUITurnover(FakeSheet);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                cell.Received(1).SetCellValue(ViewResources.Turnover);
+                FakeSheet.Received(1).SetColumnHidden(ColumnTurnoverSportBook + 1, true);
+            });
+        }
+
+        [TestCase(0, new[] { ColumnExternalId, ColumnSystemId })]
+        [TestCase(1, new[] { ColumnExternalId, ColumnDate })]
+        [TestCase(3, new[] { ColumnDate })]
+        public void HideColumnsByLevel_WhenCall_HideColumns(int level, int[] hiddenColumns)
+        {
+            // Arrange
+            var excel = CreateExcel(level);
+
+            // Action
+            excel.HideColumnsByLevel(FakeSheet);
+
+            // Assert
+            AssertHideColumns(FakeSheet, hiddenColumns);
         }
 
         private static LicenseeWinLossExcelTestable CreateExcel(int level = 0, string[] productCodes = null)
