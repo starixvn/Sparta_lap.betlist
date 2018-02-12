@@ -34,6 +34,10 @@
     <CodeAnalysisRuleSet>Fanex.Athena.Excel.Report.UnitTests.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Fanex.Common, Version=1.0.404.97, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Fanex.Athena\Web\Fanex.Athena\Bin\Fanex.Common.dll</HintPath>
+    </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <HintPath>..\..\packages\NPOI.2.0.6\lib\net40\ICSharpCode.SharpZipLib.dll</HintPath>
       <Private>True</Private>
@@ -70,9 +74,11 @@
     <Compile Include="LicenseeWinLossExcelTest.AssignHeader.cs" />
     <Compile Include="TestableClasses\DailyRacingWinLossExcelTestable.cs" />
     <Compile Include="TestableClasses\LicenseeWinLossExcelTestable.cs" />
+    <Compile Include="TestableClasses\MatchWinLossExcelTestable.cs" />
     <Compile Include="TestableClasses\WinlossByProductExcelTestable.cs" />
     <Compile Include="TestableClasses\WinlossByLeagueExcelTestable.cs" />
     <Compile Include="LicenseeWinLossExcelTest.cs" />
+    <Compile Include="MatchWinLossExcelTest.cs" />
     <Compile Include="WinlossByProductExcelTest.cs" />
     <Compile Include="WinlossByLeagueExcelTest.cs" />
     <Compile Include="WinLossByBetTypeExcelTest.cs" />
