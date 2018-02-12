@@ -1,63 +1,19 @@
 webpackJsonp([5],{
 
-/***/ 7:
+/***/ 716:
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var DEFAULT_RESOURCE_NAME = "_language_en_US";
-var langCode = window.PageLanguage || "en-US";
-var resourceName = "_language_" + langCode.replace("-", "_");
-
-var LangHelper = function () {
-    function LangHelper() {
-        _classCallCheck(this, LangHelper);
-    }
-
-    _createClass(LangHelper, null, [{
-        key: "getSingleResource",
-        value: function getSingleResource(key) {
-            var langHandler = window[resourceName];
-
-            return langHandler && langHandler[key] || window[DEFAULT_RESOURCE_NAME] && window[DEFAULT_RESOURCE_NAME][key] || key;
-        }
-    }, {
-        key: "currentLanguage",
-        get: function get() {
-            return langCode;
-        }
-    }]);
-
-    return LangHelper;
-}();
-
-exports.default = LangHelper;
-
-/***/ }),
-
-/***/ 725:
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(7);
-__webpack_require__(726);
-__webpack_require__(727);
-__webpack_require__(728);
-__webpack_require__(729);
-module.exports = __webpack_require__(730);
+__webpack_require__(8);
+__webpack_require__(717);
+__webpack_require__(718);
+__webpack_require__(719);
+__webpack_require__(720);
+module.exports = __webpack_require__(721);
 
 
 /***/ }),
 
-/***/ 726:
+/***/ 717:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1029,7 +985,7 @@ window._language_en_US = {
 
 /***/ }),
 
-/***/ 727:
+/***/ 718:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1801,7 +1757,7 @@ window._language_ko_KR = {
 
 /***/ }),
 
-/***/ 728:
+/***/ 719:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2629,7 +2585,7 @@ window._language_zh_CN = {
 
 /***/ }),
 
-/***/ 729:
+/***/ 720:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3443,7 +3399,7 @@ window._language_zh_Hans = {
 
 /***/ }),
 
-/***/ 730:
+/***/ 721:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4269,7 +4225,51 @@ window._language_zh_TW = {
   YouNotChooseAnyCustomerMsg: "您還沒有選擇任何會員"
 };
 
+/***/ }),
+
+/***/ 8:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var DEFAULT_RESOURCE_NAME = "_language_en_US";
+var langCode = window.PageLanguage || "en-US";
+var resourceName = "_language_" + langCode.replace("-", "_");
+
+var LangHelper = function () {
+    function LangHelper() {
+        _classCallCheck(this, LangHelper);
+    }
+
+    _createClass(LangHelper, null, [{
+        key: "getSingleResource",
+        value: function getSingleResource(key) {
+            var langHandler = window[resourceName];
+
+            return langHandler && langHandler[key] || window[DEFAULT_RESOURCE_NAME] && window[DEFAULT_RESOURCE_NAME][key] || key;
+        }
+    }, {
+        key: "currentLanguage",
+        get: function get() {
+            return langCode;
+        }
+    }]);
+
+    return LangHelper;
+}();
+
+exports.default = LangHelper;
+
 /***/ })
 
-},[725]);
+},[716]);
 //# sourceMappingURL=langHelper.chunk.js.map
