@@ -3571,6 +3571,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var START_OF_MONTH = 0;
 var END_OF_MONTH = 11;
+var START_DAY_OF_MONTH = 1;
 var DEFAULT_YEAR_RANGE = 5;
 
 function checkRange(dayMoment, range) {
@@ -3702,6 +3703,9 @@ var Calendar = function (_Component) {
 
 
       var newDate = (0, _moment2.default)([year, selectedMonth, this.state.shownDate.date()]);
+      if (!newDate.isValid()) {
+        newDate = (0, _moment2.default)([year, selectedMonth, START_DAY_OF_MONTH]);
+      }
 
       if (link && linkCB) {
         return linkCB(newDate);
@@ -3718,6 +3722,9 @@ var Calendar = function (_Component) {
 
       var selectedYear = Number(event.target.value);
       var newDate = (0, _moment2.default)([selectedYear, this.state.shownDate.month(), this.state.shownDate.date()]);
+      if (!newDate.isValid()) {
+        newDate = (0, _moment2.default)([selectedYear, this.state.shownDate.month(), START_DAY_OF_MONTH]);
+      }
 
       this.setState({
         shownDate: newDate

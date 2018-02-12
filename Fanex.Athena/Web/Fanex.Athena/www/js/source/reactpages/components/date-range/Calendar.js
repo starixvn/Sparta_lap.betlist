@@ -8,6 +8,7 @@ import { MomentFormat } from './constants';
 
 const START_OF_MONTH = 0;
 const END_OF_MONTH = 11;
+const START_DAY_OF_MONTH = 1;
 const DEFAULT_YEAR_RANGE = 5;
 
 function checkRange(dayMoment, range) {
@@ -164,7 +165,10 @@ class Calendar extends Component {
 
     const { link, linkCB } = this.props;
 
-    const newDate = moment([year, selectedMonth, this.state.shownDate.date()]);
+    let newDate = moment([year, selectedMonth, this.state.shownDate.date()]);
+    if (!newDate.isValid()) {
+      newDate = moment([year, selectedMonth, START_DAY_OF_MONTH]);
+    }
 
     if (link && linkCB) {
       return linkCB(newDate);
@@ -179,7 +183,10 @@ class Calendar extends Component {
     event.preventDefault();
 
     const selectedYear = Number(event.target.value);
-    const newDate = moment([selectedYear, this.state.shownDate.month(), this.state.shownDate.date()]);
+    let newDate = moment([selectedYear, this.state.shownDate.month(), this.state.shownDate.date()]);
+    if (!newDate.isValid()) {
+      newDate = moment([selectedYear, this.state.shownDate.month(), START_DAY_OF_MONTH]);
+    }
 
     this.setState({
       shownDate: newDate
