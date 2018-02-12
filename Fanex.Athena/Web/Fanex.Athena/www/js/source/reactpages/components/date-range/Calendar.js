@@ -164,7 +164,11 @@ class Calendar extends Component {
 
     const { link, linkCB } = this.props;
 
-    const newDate = moment([year, selectedMonth, this.state.shownDate.date()]);
+    let newDate = moment([year, selectedMonth, this.state.shownDate.date()]);
+    if(!newDate.isValid()){
+        const START_DAY_OF_MONTH = 1;
+        newDate = moment([year, selectedMonth, START_DAY_OF_MONTH]);
+    }
 
     if (link && linkCB) {
       return linkCB(newDate);
