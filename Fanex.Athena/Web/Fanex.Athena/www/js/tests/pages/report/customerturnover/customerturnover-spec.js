@@ -39,7 +39,6 @@
                     expect(Site.initialize).toHaveBeenCalled();
                     expect(Site.addUserGuide).toHaveBeenCalled();
                     expect(DatePicker.initDateRangePicker).toHaveBeenCalled();
-                    expect(DateHelper.setConstraintMonthRange).toHaveBeenCalled();
                     expect(CustomerTurnover.initEvent).toHaveBeenCalled();
                     expect(CustomerTurnover.initSetting).toHaveBeenCalled();
                     expect(CustomerTurnover.initAutoComplete).toHaveBeenCalled();
