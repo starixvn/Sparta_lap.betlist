@@ -399,7 +399,7 @@ namespace Fanex.Athena.Excel.Report
             return currentRowIndex;
         }
 
-        protected internal virtual int AssignTotalSummary(ISheet sheet, IList<string> columnNameList, int currentRow, DataTable sumTable)
+        protected internal virtual int AssignTotalSummary(ISheet sheet, IEnumerable<string> columnNameList, int currentRow, DataTable sumTable)
         {
             var cellIndex = 2;
 

@@ -15,7 +15,7 @@ using NUnit.Framework;
 namespace Fanex.Athena.Excel.Report.UnitTests
 {
     [TestFixture]
-    public class MatchWinLossExcelTest : BaseReportExcelTest
+    public partial class MatchWinLossExcelTest : BaseReportExcelTest
     {
         private const int ColumnCustomerWl = 4;
         private const int ColumnCustomerComm = 5;
@@ -42,9 +42,17 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             base.Setup();
             _contentData = new DataTable();
             _totalData = new DataTable();
+            _contentData.Columns.Add("bettype", typeof(int));
+            _contentData.Columns.Add("liveindicator", typeof(int));
+            _contentData.Columns.Add("turnover", typeof(decimal));
+            _contentData.Columns.Add("betcount", typeof(int));
+            _contentData.Columns.Add("memberwinlost", typeof(decimal));
+            _contentData.Columns.Add("licenseewl", typeof(decimal));
+            _contentData.Columns.Add("commba", typeof(decimal));
+            _contentData.Columns.Add("amtduetoba", typeof(decimal));
+            _contentData.Columns.Add("amtduetorb", typeof(decimal));
             _contentData.Columns.Add("commrb", typeof(decimal));
             _contentData.Columns.Add("winlossrb", typeof(decimal));
-            _contentData.Columns.Add("memberwinlost", typeof(decimal));
             _contentData.Columns.Add("playercomm", typeof(decimal));
 
             _totalData.Columns.Add("sumturnover", typeof(decimal));
@@ -59,7 +67,8 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             _totalData.Columns.Add("sumwinlossrb", typeof(decimal));
             _totalData.Columns.Add("sumplayercomm", typeof(decimal));
 
-            _totalData.Rows.Add(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+            _contentData.Rows.Add(100, 1, 3, 4, 5, 6, 7, 8, 9, 10);
+            _totalData.Rows.Add(11, 12, 13, 14, 15, 16, 17, 18, 19, 20);
         }
 
         [Test]
@@ -194,6 +203,29 @@ namespace Fanex.Athena.Excel.Report.UnitTests
                     row.Cells[cellIndex].Received(1).SetCellValue(Converter.ToDecimal(_totalData.Rows[0][columnName]));
                     cellIndex++;
                 }
+            });
+        }
+
+        [Test]
+        public void AssignTotalSummary_WhenCall_CallRelevantMethods()
+        {
+            // Arrange
+            const int CurrentRow = 10;
+            var row = ExcelTestHelper.MockGetRow(FakeSheet, ColumnTemplateCount, CurrentRow);
+            var excel = CreateExcel();
+            var columns = new[] { "column1" };
+            var sumTable = new DataTable();
+            sumTable.Columns.Add("column1", typeof(decimal));
+            sumTable.Rows.Add(1);
+            sumTable.Rows.Add(2);
+
+            // Action
+            excel.AssignTotalSummary(FakeSheet, columns, CurrentRow, sumTable);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                row.Cells[2].Received(1).SetCellValue(3);
             });
         }
 

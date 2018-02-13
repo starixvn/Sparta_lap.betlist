@@ -29,7 +29,7 @@
             base.FixtureSetUp();
 
             _dataAccess = Substitute.For<IWinLossByProductDataAccess>();
-            _controller = Substitute.ForPartsOf<WinLossByProductReportController>(SessionService, ProductService, LangService, AppSetting, _dataAccess);
+            _controller = Substitute.ForPartsOf<WinLossByProductReportController>(SessionService, ProductService, AppSetting, LangService, _dataAccess);
 
             MockSessionData();
         }
