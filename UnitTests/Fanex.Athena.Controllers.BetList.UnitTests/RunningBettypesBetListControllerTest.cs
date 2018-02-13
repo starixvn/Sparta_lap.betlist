@@ -256,7 +256,6 @@
                 SessionService,
                 AppSettings,
                 ClientViewHelper,
-                AuthorizationService,
                 ProductService,
                 BetListService,
                 BalanceUpDataAccess,

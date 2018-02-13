@@ -20,8 +20,6 @@
             MoveBetsDay = new DateTime(2018, 1, 1)
         };
 
-        protected IAuthorizationService AuthorizationService { get; private set; }
-
         protected IBalanceUpDataAccess BalanceUpDataAccess { get; private set; }
 
         protected IProductService ProductService { get; private set; }
@@ -35,7 +33,6 @@
         {
             base.FixtureSetUp();
 
-            AuthorizationService = Substitute.For<IAuthorizationService>();
             BalanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             ProductService = Substitute.For<IProductService>();
             BetListService = Substitute.For<IBetListService>();
@@ -49,7 +46,6 @@
         {
             base.FixtureTearDown();
 
-            AuthorizationService = null;
             BalanceUpDataAccess = null;
             ProductService = null;
             BetListService = null;

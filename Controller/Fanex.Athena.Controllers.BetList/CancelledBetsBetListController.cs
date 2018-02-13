@@ -25,6 +25,7 @@ namespace Fanex.Athena.Controllers.BetList
     using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Helpers;
+    using Service.Core.Users;
     using Service.Core.Users.Interfaces;
     using VendorAdapter.Interfaces;
 
@@ -33,10 +34,13 @@ namespace Fanex.Athena.Controllers.BetList
     [FunctionAuthorization(PermissionKeys.ReportCancelledBets)]
     public class CancelledBetsBetListController : BetListBaseController
     {
+        private readonly IAuthorizationService _authorizationService;
+
         private readonly ICancelledBetListDataAccess _cancelledBetListDataAccess;
 
         public CancelledBetsBetListController()
         {
+            _authorizationService = new AuthorizationService();
             _cancelledBetListDataAccess = new CancelledBetListDataAccess();
         }
 
@@ -45,23 +49,23 @@ namespace Fanex.Athena.Controllers.BetList
             ISessionService sessionService,
             IAppSettings appSetting,
             IClientViewHelper clientViewHelper,
-            IAuthorizationService authorizationService,
             IProductService productService,
             IBetListService betListService,
             IBalanceUpDataAccess balanceUpDataAccess,
             ICacheRefAdapter cacheRefAdapter,
+            IAuthorizationService authorizationService,
             ICancelledBetListDataAccess cancelledBetListDataAccess)
         : base(
             languageService,
             sessionService,
             appSetting,
             clientViewHelper,
-            authorizationService,
             productService,
             betListService,
             balanceUpDataAccess,
             cacheRefAdapter)
         {
+            _authorizationService = authorizationService;
             _cancelledBetListDataAccess = cancelledBetListDataAccess;
         }
 
@@ -144,6 +148,11 @@ namespace Fanex.Athena.Controllers.BetList
             return HasPermissionOnData(metaModel) ?
                 _cancelledBetListDataAccess.GetCancelBetCustList(metaModel) :
                 new List<CustomerCancelBetItem>();
+        }
+
+        private bool HasPermissionOnData(BetListMetaModel metaModel)
+        {
+            return _authorizationService.HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId, metaModel.TransId);
         }
     }
 }

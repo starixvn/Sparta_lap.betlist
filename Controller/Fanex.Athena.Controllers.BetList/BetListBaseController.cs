@@ -24,7 +24,6 @@
     using ONEbook.UM.Filters;
     using Resources;
     using Service.Core.Helpers;
-    using Service.Core.Users;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility;
     using VendorAdapter;
@@ -51,8 +50,6 @@
         protected static readonly ReadOnlyCollection<int> RacingBetType =
             new ReadOnlyCollection<int>(new[] { 31, 32, 33, 41, 42, 43 });
 
-        private readonly IAuthorizationService _authorizationService;
-
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
         private readonly ICacheRefAdapter _cacheRefAdapter;
@@ -63,7 +60,6 @@
 
         public BetListBaseController()
         {
-            _authorizationService = new AuthorizationService();
             _productService = new ProductService();
             _betListService = new BetListService();
             _balanceUpDataAccess = new BalanceUpDataAccess();
@@ -77,7 +73,6 @@
             ISessionService sessionService,
             IAppSettings appSetting,
             IClientViewHelper clientViewHelper,
-            IAuthorizationService authorizationService,
             IProductService productService,
             IBetListService betListService,
             IBalanceUpDataAccess balanceUpDataAccess,
@@ -85,11 +80,10 @@
 #pragma warning restore S107 // Methods should not have too many parameters
         : base(languageService, sessionService, appSetting, clientViewHelper)
         {
-            _authorizationService = authorizationService;
-            _productService = productService;
-            _betListService = betListService;
-            _balanceUpDataAccess = balanceUpDataAccess;
-            _cacheRefAdapter = cacheRefAdapter;
+            _productService = productService ?? new ProductService();
+            _betListService = betListService ?? new BetListService();
+            _balanceUpDataAccess = balanceUpDataAccess ?? new BalanceUpDataAccess();
+            _cacheRefAdapter = cacheRefAdapter ?? new CacheRefAdapter();
         }
 
         protected IProductService ProductService
@@ -170,11 +164,6 @@
             }
 
             return viewinCurrency;
-        }
-
-        protected bool HasPermissionOnData(BetListMetaModel metaModel)
-        {
-            return _authorizationService.HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId, metaModel.TransId);
         }
 
         protected BalanceUp GetBalanceUp()

@@ -12,16 +12,19 @@
     using NSubstitute;
     using NUnit.Framework;
     using Resources;
+    using Service.Core.Users.Interfaces;
 
     public class CancelledBetsBetListControllerTest : BetListBaseControllerHelperTest
     {
+        private IAuthorizationService _authorizationService;
+
         private ICancelledBetListDataAccess _cancelledBetListDataAccess;
 
         [OneTimeSetUp]
         public override void FixtureSetUp()
         {
             base.FixtureSetUp();
-
+            _authorizationService = Substitute.For<IAuthorizationService>();
             _cancelledBetListDataAccess = Substitute.For<ICancelledBetListDataAccess>();
 
             ProductService.GetProductAccess(Arg.Any<int>(), Arg.Any<string>())
@@ -38,7 +41,7 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                AuthorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(false);
+                _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(false);
 
                 // Action
                 var result = controller.Index() as ViewResult;
@@ -54,7 +57,7 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                AuthorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
+                _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
                 _cancelledBetListDataAccess.GetCancelBetCustList(Arg.Any<BetListMetaModel>())
                     .Returns(new List<CustomerCancelBetItem>());
 
@@ -79,7 +82,7 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                AuthorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
+                _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
 
                 var cancelBetCust = new CustomerCancelBetItem { CustId = 2 };
                 var cancelBetCustList = new List<CustomerCancelBetItem> { cancelBetCust };
@@ -105,7 +108,7 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                AuthorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(false);
+                _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(false);
 
                 // Action
                 var result = controller.Index(new BetListMetaModel()) as ViewResult;
@@ -121,7 +124,7 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                AuthorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
+                _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
                 _cancelledBetListDataAccess.GetCancelBetCustList(Arg.Any<BetListMetaModel>())
                     .Returns(new List<CustomerCancelBetItem>());
 
@@ -227,11 +230,11 @@
                 SessionService,
                 AppSettings,
                 ClientViewHelper,
-                AuthorizationService,
                 ProductService,
                 BetListService,
                 BalanceUpDataAccess,
                 CacheRefAdapter,
+                _authorizationService,
                 _cancelledBetListDataAccess);
             return controller;
         }
