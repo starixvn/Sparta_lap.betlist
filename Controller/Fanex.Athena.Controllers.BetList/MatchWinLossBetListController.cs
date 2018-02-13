@@ -42,15 +42,7 @@ namespace Fanex.Athena.Controllers.BetList
             IBetListService betListService,
             IBalanceUpDataAccess balanceUpDataAccess,
             ICacheRefAdapter cacheRefAdapter)
-        : base(
-            languageService,
-            sessionService,
-            appSetting,
-            clientViewHelper,
-            productService,
-            betListService,
-            balanceUpDataAccess,
-            cacheRefAdapter)
+        : base(languageService, sessionService, appSetting, clientViewHelper, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
         {
         }
 

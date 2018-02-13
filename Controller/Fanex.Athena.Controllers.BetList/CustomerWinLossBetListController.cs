@@ -6,7 +6,6 @@
 
 namespace Fanex.Athena.Controllers.BetList
 {
-    using System.Globalization;
     using System.Web.Mvc;
     using DataAccess.Core.Configuration.Interfaces;
     using Excel.Base.Entities;
@@ -39,15 +38,7 @@ namespace Fanex.Athena.Controllers.BetList
             IBetListService betListService,
             IBalanceUpDataAccess balanceUpDataAccess,
             ICacheRefAdapter cacheRefAdapter)
-        : base(
-            languageService,
-            sessionService,
-            appSetting,
-            clientViewHelper,
-            productService,
-            betListService,
-            balanceUpDataAccess,
-            cacheRefAdapter)
+        : base(languageService, sessionService, appSetting, clientViewHelper, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
         {
         }
 

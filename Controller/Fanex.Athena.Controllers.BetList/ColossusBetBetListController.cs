@@ -53,15 +53,7 @@ namespace Fanex.Athena.Controllers.BetList
             ICacheRefAdapter cacheRefAdapter,
             IWebClientService webClientService,
             IColossusBetBetListDataAccess colossusBetBetListDataAccess)
-        : base(
-            languageService,
-            sessionService,
-            appSetting,
-            clientViewHelper,
-            productService,
-            betListService,
-            balanceUpDataAccess,
-            cacheRefAdapter)
+        : base(languageService, sessionService, appSetting, clientViewHelper, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
         {
             _colossusBetBetListDataAccess = colossusBetBetListDataAccess;
             _webClientService = webClientService;

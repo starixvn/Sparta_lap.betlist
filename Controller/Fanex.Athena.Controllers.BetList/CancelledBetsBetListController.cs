@@ -55,15 +55,7 @@ namespace Fanex.Athena.Controllers.BetList
             ICacheRefAdapter cacheRefAdapter,
             IAuthorizationService authorizationService,
             ICancelledBetListDataAccess cancelledBetListDataAccess)
-        : base(
-            languageService,
-            sessionService,
-            appSetting,
-            clientViewHelper,
-            productService,
-            betListService,
-            balanceUpDataAccess,
-            cacheRefAdapter)
+        : base(languageService, sessionService, appSetting, clientViewHelper, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
         {
             _authorizationService = authorizationService;
             _cancelledBetListDataAccess = cancelledBetListDataAccess;

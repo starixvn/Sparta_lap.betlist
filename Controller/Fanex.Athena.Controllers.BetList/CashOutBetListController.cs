@@ -39,15 +39,7 @@
             IBalanceUpDataAccess balanceUpDataAccess,
             ICacheRefAdapter cacheRefAdapter,
             ICashOutBetListDataAccess cashOutBetListDataAccess)
-        : base(
-            languageService, 
-            sessionService, 
-            appSetting, 
-            clientViewHelper, 
-            productService, 
-            betListService,             
-            balanceUpDataAccess, 
-            cacheRefAdapter)
+        : base(languageService, sessionService, appSetting, clientViewHelper, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
         {
             _cashOutBetListDataAccess = cashOutBetListDataAccess;
         }
