@@ -10,7 +10,7 @@
                 Datetime: datetime
             };
 
-            return '<a class="drilldown" href="javascript:;" data-drill-down=' + JSON.stringify(param) + '>' + cellvalue + '</a>';
+            return '<a class="drilldown" href="javascript:;" data-drill-down=\'' + JSON.stringify(param) + '\'>' + cellvalue + '</a>';
         }
 
         function betlistLink(cellvalue, options, rowObject) {
@@ -24,7 +24,7 @@
                 SystemId: rowObject.SystemId
             };
 
-            return '<a class="bet-list-link" href="javascript:;" data-drill-down=' + JSON.stringify(param) + '>' + cellvalue + '</a>';
+            return '<a class="bet-list-link" href="javascript:;" data-drill-down=\'' + JSON.stringify(param) + '\'>' + cellvalue + '</a>';
         }
 
         function currencyFormatter(cellvalue, options, rowObject, level) {

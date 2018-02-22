@@ -29,8 +29,8 @@ var CustomerWinLossOption = (function () {
         },
         formatter: function (cellvalue, options, rowObject) {
             return '<a class="bet-list-link" href="javascript:;" data-cust-id=' + rowObject.CustId +
-                ' data-system-id=' + rowObject.SystemId +
-                ' data-external-id=' + rowObject.ExternalId + '>' + cellvalue + '</a>';
+                ' data-system-id="' + rowObject.SystemId +
+                '" data-external-id="' + rowObject.ExternalId + '">' + cellvalue + '</a>';
         }
     };
 

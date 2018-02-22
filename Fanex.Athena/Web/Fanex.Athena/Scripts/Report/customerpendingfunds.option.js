@@ -13,7 +13,7 @@ var CustPendingFundsOption = (function () {
             SystemId: rowObject.SystemId
         };
 
-        return '<a class="bet-list-link" href="javascript:;" data-drill-down=' + JSON.stringify(param) + '>' + cellvalue + '</a>';
+        return '<a class="bet-list-link" href="javascript:;" data-drill-down=\'' + JSON.stringify(param) + '\'>' + cellvalue + '</a>';
     };
 
     var indexColumn =

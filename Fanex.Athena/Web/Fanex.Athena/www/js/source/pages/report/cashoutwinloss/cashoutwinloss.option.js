@@ -23,7 +23,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"], functio
             SystemId: rowObject.SystemId
         };
 
-        return '<a class="bet-list-link" href="javascript:;" data-drill-down=' + JSON.stringify(param) + '>' + cellvalue + '</a>';
+        return '<a class="bet-list-link" href="javascript:;" data-drill-down=\'' + JSON.stringify(param) + '\'>' + cellvalue + '</a>';
     };
 
     //#region Columns
