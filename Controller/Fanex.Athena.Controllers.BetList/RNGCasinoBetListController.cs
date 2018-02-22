@@ -43,8 +43,7 @@ namespace Fanex.Athena.Controllers.BetList
         [HttpGet]
         public ActionResult Detail(BetListMetaModel metaModel)
         {
-            var model = CreateDefaultMetaModel(metaModel);
-            return ProcessDefaultRequest(model, "~/Views/BetList/RngCasinoDetail/Main.cshtml", "Lrf_BetList_RNG_Detail");
+            return ProcessDefaultRequest(CreateDefaultMetaModel(metaModel), "~/Views/BetList/RngCasinoDetail/Main.cshtml", "Lrf_BetList_RNG_Detail");
         }
 
         protected override void AssignViewBag(BetListMetaModel model)

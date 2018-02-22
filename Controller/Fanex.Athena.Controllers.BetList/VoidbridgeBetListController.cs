@@ -19,6 +19,10 @@
         private readonly string _title =
             ViewResources.ProductVB + " - " + ViewResources.BetList + " - " + ViewResources.DetailTickets;
 
+        public VoidbridgeBetListController()
+        {
+        }
+
         public VoidbridgeBetListController(
             ILanguageService languageService,
             ISessionService sessionService,
@@ -35,8 +39,7 @@
         [HttpGet]
         public ActionResult Detail(BetListMetaModel metaModel)
         {
-            var model = CreateDefaultMetaModel(metaModel);
-            return ProcessDefaultRequest(model, "~/Views/BetList/VoidbridgeDetail/Main.cshtml", "Lrf_BetList_RNG_Detail");
+            return ProcessDefaultRequest(CreateDefaultMetaModel(metaModel), "~/Views/BetList/VoidbridgeDetail/Main.cshtml", "Lrf_BetList_RNG_Detail");
         }
 
         protected override void AssignViewBag(BetListMetaModel model)

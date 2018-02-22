@@ -166,6 +166,17 @@
             return viewinCurrency;
         }
 
+        protected static string GetCustomerBetListTitle(BetListMetaModel metaModel, string currencyTitle)
+        {
+           return ViewResources.Customer + " " + ViewResources.BetList + string.Format(
+                " - {0} --> {1} - {2}{3} - {4}",
+                metaModel.FromDate.ToString(FormatKey.ShortFormatDate),
+                metaModel.ToDate.ToString(FormatKey.ShortFormatDate),
+                metaModel.ExternalId,
+                metaModel.IsFakeLicensee ? string.Empty : $"({metaModel.SystemId})",
+                currencyTitle);
+        }
+
         protected BalanceUp GetBalanceUp()
         {
             return _balanceUpDataAccess.GetBalanceUp();

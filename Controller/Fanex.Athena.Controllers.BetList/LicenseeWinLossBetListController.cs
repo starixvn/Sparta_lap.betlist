@@ -46,8 +46,7 @@ namespace Fanex.Athena.Controllers.BetList
         [HttpGet]
         public ActionResult Index(BetListMetaModel metaModel)
         {
-            var model = CreateDefaultMetaModel(metaModel);
-            return ProcessDefaultRequest(model, "~/Views/BetList/LicenseeWl/Main.cshtml", "Lrf_BetList_SelWinloss_Mem");
+            return ProcessDefaultRequest(CreateDefaultMetaModel(metaModel), "~/Views/BetList/LicenseeWl/Main.cshtml", "Lrf_BetList_SelWinloss_Mem");
         }
 
         protected override ActionResult ExportExcel(BetListMetaModel metaModel, string uspKey)
@@ -55,7 +54,7 @@ namespace Fanex.Athena.Controllers.BetList
             var ticketResult = BetListService.GetBetListData(metaModel, uspKey);
 
             var curencyId = metaModel.IsConvert ? metaModel.BaseCurrencyId : metaModel.CurrencyId;
-            var viewinCurrency = GetViewInCurrency(curencyId, metaModel.CurrencyName);
+            var title = GetCustomerBetListTitle(metaModel, GetViewInCurrency(curencyId, metaModel.CurrencyName));
 
             var title = ViewResources.Customer + " " + ViewResources.BetList
                 + string.Format(

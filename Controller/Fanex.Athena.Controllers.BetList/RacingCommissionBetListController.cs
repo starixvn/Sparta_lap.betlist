@@ -49,23 +49,14 @@ namespace Fanex.Athena.Controllers.BetList
         [HttpGet]
         public ActionResult Index(BetListMetaModel metaModel)
         {
-            var model = CreateDefaultMetaModel(metaModel);
-            return ProcessDefaultRequest(model, "~/Views/BetList/RacingCommission/Main.cshtml", "Lrf_BetList_SelWinLossRacingByDate_Mem");
+            return ProcessDefaultRequest(CreateDefaultMetaModel(metaModel), "~/Views/BetList/RacingCommission/Main.cshtml", "Lrf_BetList_SelWinLossRacingByDate_Mem");
         }
 
         protected override ActionResult ExportExcel(BetListMetaModel metaModel, string uspKey)
         {
             var ticketResult = BetListService.GetBetListData(metaModel, uspKey);
 
-            var currencyTitle = GetViewInCurrency(metaModel);
-
-            var title = ViewResources.Customer + " " + ViewResources.BetList + string.Format(
-                " - {0} --> {1} - {2}{3} - {4}",
-                metaModel.FromDate.ToShortDateString(),
-                metaModel.ToDate.ToShortDateString(),
-                metaModel.ExternalId,
-                metaModel.IsFakeLicensee ? string.Empty : $"({metaModel.SystemId})",
-                currencyTitle);
+            var title = GetCustomerBetListTitle(metaModel, GetViewInCurrency(metaModel));
 
             var showingOption = new ShowingOption
             {
