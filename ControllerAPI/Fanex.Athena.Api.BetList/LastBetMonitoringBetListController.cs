@@ -20,6 +20,7 @@
     using Service.BetList;
     using Service.BetList.Helpers;
     using Service.BetList.Interfaces;
+    using Service.Core.Users.Interfaces;
     using VendorAdapter;
     using VendorAdapter.Interfaces;
 
@@ -58,6 +59,23 @@
             _lastBetsMonitoringBetListService = new LastBetsMonitoringBetListService();
             _ticketHelper = new TicketHelper();
             _cacheRefAdapter = new CacheRefAdapter();
+        }
+
+        [CLSCompliant(false)]
+        public LastBetMonitoringBetListController(
+            ISessionService sessionService,
+            IProductService productService,
+            ILanguageService languageService,
+            IMatchService matchService,
+            ILastBetsMonitoringBetListService lastBetsMonitoringBetListService,
+            ITicketHelper ticketHelper,
+            ICacheRefAdapter cacheRefAdapter)
+        : base(sessionService, productService, languageService)
+        {
+            _matchService = matchService;
+            _lastBetsMonitoringBetListService = lastBetsMonitoringBetListService;
+            _ticketHelper = ticketHelper;
+            _cacheRefAdapter = cacheRefAdapter;
         }
 
         [HttpGet]
