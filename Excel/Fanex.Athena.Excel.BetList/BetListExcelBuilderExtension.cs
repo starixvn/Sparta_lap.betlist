@@ -23,7 +23,7 @@ namespace Fanex.Athena.Excel.BetList
     {
         private const string NumberFormat = "{0:#,##0.00}";
 
-        public static BetListExcelBuilder AddCustomerWL(this BetListExcelBuilder builder, ITicket ticket, bool showPlayerComm, IFont font)
+        public static IBetListExcelBuilder AddCustomerWL(this IBetListExcelBuilder builder, ITicket ticket, bool showPlayerComm, IFont font)
         {
             var isRunning = string.Compare(ticket.Status, "running", StringComparison.OrdinalIgnoreCase) == 0;
             var winloss = isRunning
@@ -43,7 +43,7 @@ namespace Fanex.Athena.Excel.BetList
             return builder;
         }
 
-        public static BetListExcelBuilder AddBetEffective(this BetListExcelBuilder builder, LrfTicket ticket, IFont font)
+        public static IBetListExcelBuilder AddBetEffective(this IBetListExcelBuilder builder, LrfTicket ticket, IFont font)
         {
             var betEffective = string.Format("{0:#,##0.00}\n", ticket.BetEffective);
 
@@ -54,8 +54,8 @@ namespace Fanex.Athena.Excel.BetList
             return builder;
         }
 
-        public static BetListExcelBuilder AddExternalId(
-                this BetListExcelBuilder builder,
+        public static IBetListExcelBuilder AddExternalId(
+                this IBetListExcelBuilder builder,
                 ITicketHelper ticketHelper,
                 string externalId,
                 ICellStyle oddStyle,
@@ -73,8 +73,8 @@ namespace Fanex.Athena.Excel.BetList
         /// <param name="builder">The current builder.</param>
         /// <param name="sumStake">The sum stake value.</param>
         /// <returns>Return the currency builder.</returns>
-        public static BetListExcelBuilder AddFooterForSumStake(
-            this BetListExcelBuilder builder,
+        public static IBetListExcelBuilder AddFooterForSumStake(
+            this IBetListExcelBuilder builder,
             decimal sumStake)
         {
             var footerStyle = CreateFooterCellStyle(builder);
@@ -110,8 +110,8 @@ namespace Fanex.Athena.Excel.BetList
         /// <param name="redFont">The red font.</param>
         /// <param name="blackFont">The black font.</param>
         /// <returns>Return the currency builder.</returns>
-        public static BetListExcelBuilder AddFooter(
-            this BetListExcelBuilder builder,
+        public static IBetListExcelBuilder AddFooter(
+            this IBetListExcelBuilder builder,
             decimal sumCustomerWL,
             decimal sumBetEffective,
             decimal sumLicenseeWLComm,
@@ -153,7 +153,7 @@ namespace Fanex.Athena.Excel.BetList
             "StyleCop.CSharp.StylecopPlus.Rules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        public static BetListExcelBuilder AddHeader(this BetListExcelBuilder builder, string custWLHeader)
+        public static IBetListExcelBuilder AddHeader(this IBetListExcelBuilder builder, string custWLHeader)
         {
             var headerStyle = builder.CreateCellStyle();
             headerStyle.CloneStyleFrom(builder.EvenCellStyle);
@@ -209,7 +209,7 @@ namespace Fanex.Athena.Excel.BetList
             return builder;
         }
 
-        public static BetListExcelBuilder AddIndex(this BetListExcelBuilder builder, ITicketHelper ticketHelper, int index)
+        public static IBetListExcelBuilder AddIndex(this IBetListExcelBuilder builder, ITicketHelper ticketHelper, int index)
         {
             var rtfNo = new HSSFRichTextString(index.ToString(CultureInfo.InvariantCulture));
             builder.AddCell(
@@ -228,8 +228,8 @@ namespace Fanex.Athena.Excel.BetList
         /// <param name="redFont">The font for negative licensee win lost.</param>
         /// <param name="blackFont">The font for positive licensee win lost.</param>
         /// <returns>Bet list excel builder.</returns>
-        public static BetListExcelBuilder AddLicenseeWL(
-            this BetListExcelBuilder builder,
+        public static IBetListExcelBuilder AddLicenseeWL(
+            this IBetListExcelBuilder builder,
             LrfTicket ticket,
             bool is12Bet,
             IFont redFont,
@@ -269,8 +269,8 @@ namespace Fanex.Athena.Excel.BetList
             return builder;
         }
 
-        public static BetListExcelBuilder AddSystemId(
-            this BetListExcelBuilder builder,
+        public static IBetListExcelBuilder AddSystemId(
+            this IBetListExcelBuilder builder,
             ITicketHelper ticketHelper,
             string systemId,
             ICellStyle oddStyle,
@@ -287,7 +287,7 @@ namespace Fanex.Athena.Excel.BetList
         /// </summary>
         /// <param name="builder">Bet list excel.</param>
         /// <returns>Footer Style.</returns>
-        private static ICellStyle CreateFooterCellStyle(BetListExcelBuilder builder)
+        private static ICellStyle CreateFooterCellStyle(IBetListExcelBuilder builder)
         {
             var footerStyle = builder.CreateCellStyle();
             footerStyle.CloneStyleFrom(builder.EvenCellStyle);
