@@ -148,6 +148,12 @@
     <Compile Include="CancelledBetsBetListControllerTest.cs" />
     <Compile Include="AGCasinoBetListControllerTest.cs" />
     <Compile Include="ApiBetListBaseControllerHelperTest.cs" />
+    <Compile Include="CorrectScoreBetListControllerTest.cs" />
+    <Compile Include="CustomerWinLossBetListControllerTest.cs" />
+    <Compile Include="DailyBetListControllerTest.cs" />
+    <Compile Include="DailyRacingWinLossBetListControllerTest.cs" />
+    <Compile Include="DailyStatementBetListControllerTest.cs" />
+    <Compile Include="GlobalGamingBetListControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

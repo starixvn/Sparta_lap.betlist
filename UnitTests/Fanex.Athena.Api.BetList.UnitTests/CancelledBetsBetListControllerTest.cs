@@ -36,7 +36,7 @@
         }
 
         [Test]
-        public void Detail_InvalidCurrency_ReturnNull()
+        public void Index_InvalidCurrency_ReturnNull()
         {
             // Arrange
             var metaModel = new BetListMetaModel { CurrencyId = 1 };
@@ -53,7 +53,7 @@
         [TestCase(0)]
         [TestCase(1)]
         [TestCase(2)]
-        public void Detail_WhenCall_GetBetListResultWithCorrectParameter(int currencyId)
+        public void Index_WhenCall_GetBetListResultWithCorrectParameter(int currencyId)
         {
             // Arrange
             var metaModel = new BetListMetaModel { CurrencyId = currencyId };
