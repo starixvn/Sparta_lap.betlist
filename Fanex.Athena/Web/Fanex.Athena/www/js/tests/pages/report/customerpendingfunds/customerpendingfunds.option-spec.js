@@ -65,7 +65,7 @@
                 });
 
                 it("returns correct formatter for externalId cell", function () {
-                    var expectedFormat = '<a class="bet-list-link" href="javascript:;" data-drill-down={"CustId":1,"ExternalId":2,"SystemId":3}>0</a>';
+                    var expectedFormat = '<a class="bet-list-link" href="javascript:;" data-drill-down=\'{"CustId":1,"ExternalId":2,"SystemId":3}\'>0</a>';
                     spyOn(Site, "isFakeLicensee").and.returnValue(false);
 
                     var models = CustomerPedingFundsOption.getColModel(2);
@@ -77,8 +77,6 @@
 
                 it("hides systemId if Licensee is fake", function () {
                     spyOn(Site, "isFakeLicensee").and.returnValue(true);
-                    var productAccess = {};
-
                     var models = CustomerPedingFundsOption.getColModel(2);
                     var systemIdColumn = models[2];
 

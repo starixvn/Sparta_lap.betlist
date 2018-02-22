@@ -232,7 +232,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", "pages/r
                         SystemId: 4
                     };
 
-                    var expected = '<a class="bet-list-link" href="javascript:;" data-drill-down=' + JSON.stringify(drillDownObject) + '>CellValue</a>';
+                    var expected = '<a class="bet-list-link" href="javascript:;" data-drill-down=\'' + JSON.stringify(drillDownObject) + '\'>CellValue</a>';
 
                     var result = externalIdColumn.formatter("CellValue", null, cellObject);
 

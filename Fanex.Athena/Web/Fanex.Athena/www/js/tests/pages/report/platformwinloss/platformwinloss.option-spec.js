@@ -269,7 +269,7 @@
                         SystemId: 1
                     };
                     var cellvalue = 0;
-                    var expectedFormatter = '<a class="bet-list-link" href="javascript:;" data-drill-down={"DrillDownCurrencyId":1,"DrillDownCurrencyName":"Test","CustomerId":1,"ExternalId":1,"SystemId":1}>0</a>';
+                    var expectedFormatter = '<a class="bet-list-link" href="javascript:;" data-drill-down=\'{"DrillDownCurrencyId":1,"DrillDownCurrencyName":"Test","CustomerId":1,"ExternalId":1,"SystemId":1}\'>0</a>';
 
                     var formatter = externalIdColumn.formatter(cellvalue, {}, rowObject);
 
@@ -290,7 +290,7 @@
                         ProductCode: "SB"
                     };
                     var cellvalue = 0;
-                    var expectedFormatter = '<a class="drilldown text-bold" href="javascript:;" data-drill-down={"PlatformType":2}>0</a>';
+                    var expectedFormatter = '<a class="drilldown text-bold" href="javascript:;" data-drill-down=\'{"PlatformType":2}\'>0</a>';
 
                     var formatter = platformNameColumn.formatter(cellvalue, {}, rowObject);
 
@@ -309,7 +309,7 @@
                         ProductCode: "SB"
                     };
                     var cellvalue = 0;
-                    var expectedFormatter = '<a class="drilldown" href="javascript:;" data-drill-down={"PlatformType":2,"ProductCode":"SB"}>0</a>';
+                    var expectedFormatter = '<a class="drilldown" href="javascript:;" data-drill-down=\'{"PlatformType":2,"ProductCode":"SB"}\'>0</a>';
 
                     var formatter = platformNameColumn.formatter(cellvalue, {}, rowObject);
 

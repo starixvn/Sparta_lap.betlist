@@ -109,7 +109,7 @@
 
                 it("returns correct formatter for externalId cell", function () {
                     spyOn(Site, "isFakeLicensee").and.returnValue(false);
-                    var expectedFormat = '<a class="bet-list-link" href="javascript:;" data-drill-down={"CustId":1,"ExternalId":2,"SystemId":3}>0</a>';
+                    var expectedFormat = '<a class="bet-list-link" href="javascript:;" data-drill-down=\'{"CustId":1,"ExternalId":2,"SystemId":3}\'>0</a>';
 
                     var models = CustomerWinLossOption.getColModel(2);
                     var externalIdColumn = models[externalIdIndex];

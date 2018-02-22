@@ -68,7 +68,7 @@
                     };
 
                     var cellvalue = 0;
-                    var expectedFormatter = '<a class="drilldown" href="javascript:;" data-drill-down={"Level":0,"CurrencyId":1,"CustId":0,"Datetime":"01/01/2011"}>0</a>';
+                    var expectedFormatter = '<a class="drilldown" href="javascript:;" data-drill-down=\'{"Level":0,"CurrencyId":1,"CustId":0,"Datetime":"01/01/2011"}\'>0</a>';
 
                     var formatter = currencyColumn.formatter(cellvalue, {}, rowObject, level);
 
@@ -78,7 +78,6 @@
 
             describe("systemIdFormatter(cellvalue, options, rowObject)", function () {
                 it("returns correct formatter", function () {
-                    var level = 0;
                     var systemIdColumn = colModelList[1];
                     var rowObject = {
                         CurrencyId: 1,
@@ -87,7 +86,7 @@
                     };
 
                     var cellvalue = 0;
-                    var expectedFormatter = '<a class="drilldown" href="javascript:;" data-drill-down={"Level":2,"CurrencyId":1,"CustId":2,"Datetime":"01/01/2011"}>0</a>';
+                    var expectedFormatter = '<a class="drilldown" href="javascript:;" data-drill-down=\'{"Level":2,"CurrencyId":1,"CustId":2,"Datetime":"01/01/2011"}\'>0</a>';
 
                     var formatter = systemIdColumn.formatter(cellvalue, {}, rowObject);
 
@@ -110,7 +109,7 @@
 
                     var cellvalue = 0;
                     var expectedFormatter = '<a class="bet-list-link" href="javascript:;" '
-                        + 'data-drill-down={"DrillDownDate":"01/01/2011","DrillDownCurrencyId":1,"DrillDownCurrencyName":"usd","CustomerId":2,"ExternalId":3,"SystemId":4}>'
+                        + 'data-drill-down=\'{"DrillDownDate":"01/01/2011","DrillDownCurrencyId":1,"DrillDownCurrencyName":"usd","CustomerId":2,"ExternalId":3,"SystemId":4}\'>'
                         + '0</a>';
 
                     var formatter = betlistColumn.formatter(cellvalue, {}, rowObject);
