@@ -95,7 +95,7 @@
         public void Index_NoCurrency_GenerateAgentListXmlCorrectly()
         {
             // Arrange
-            var metaModel = new LastBetsMonitoringMetaModel { Currency = "" };
+            var metaModel = new LastBetsMonitoringMetaModel { Currency = string.Empty };
 
             const string AgentListXml = "AgentListXmlWithoutCurrency";
 

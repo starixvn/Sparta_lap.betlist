@@ -155,6 +155,9 @@
     <Compile Include="DailyStatementBetListControllerTest.cs" />
     <Compile Include="GlobalGamingBetListControllerTest.cs" />
     <Compile Include="LastBetMonitoringBetListControllerTest.cs" />
+    <Compile Include="PlatformWinLossBetListControllerTest.cs" />
+    <Compile Include="LicenseeWinLossBetListControllerTest.cs" />
+    <Compile Include="MicroGamingRngBetListControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
