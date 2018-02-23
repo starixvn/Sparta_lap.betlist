@@ -7,7 +7,6 @@
 namespace Fanex.Athena.Excel.BetList
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using Constant.Helper;
     using Fanex.BetList.Core.Builder;
@@ -67,12 +66,6 @@ namespace Fanex.Athena.Excel.BetList
             return builder;
         }
 
-        /// <summary>
-        /// Add footer row.
-        /// </summary>
-        /// <param name="builder">The current builder.</param>
-        /// <param name="sumStake">The sum stake value.</param>
-        /// <returns>Return the currency builder.</returns>
         public static IBetListExcelBuilder AddFooterForSumStake(
             this IBetListExcelBuilder builder,
             decimal sumStake)
@@ -100,16 +93,6 @@ namespace Fanex.Athena.Excel.BetList
             return builder;
         }
 
-        /// <summary>
-        /// Add footer row.
-        /// </summary>
-        /// <param name="builder">The current builder.</param>
-        /// <param name="sumCustomerWL">The total customer win-loss.</param>
-        /// <param name="sumBetEffective">The total bet effective.</param>
-        /// <param name="sumLicenseeWLComm">The total licensee win-loss.</param>
-        /// <param name="redFont">The red font.</param>
-        /// <param name="blackFont">The black font.</param>
-        /// <returns>Return the currency builder.</returns>
         public static IBetListExcelBuilder AddFooter(
             this IBetListExcelBuilder builder,
             decimal sumCustomerWL,
@@ -143,16 +126,6 @@ namespace Fanex.Athena.Excel.BetList
             return builder;
         }
 
-        /// <summary>
-        /// Add header row.
-        /// </summary>
-        /// <param name="builder">The current builder.</param>
-        /// <param name="custWLHeader">The customer win-loss header.</param>
-        /// <returns>Return the current builder.</returns>
-        [SuppressMessage(
-            "StyleCop.CSharp.StylecopPlus.Rules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         public static IBetListExcelBuilder AddHeader(this IBetListExcelBuilder builder, string custWLHeader)
         {
             var headerStyle = builder.CreateCellStyle();
@@ -161,50 +134,18 @@ namespace Fanex.Athena.Excel.BetList
             headerStyle.Alignment = HorizontalAlignment.Center;
             headerStyle.VerticalAlignment = VerticalAlignment.Center;
             headerStyle.SetFont(builder.RTFHelper.PosFont);
+            var captions = new[] 
+            {
+                "#", ViewResources.ExternalId, ViewResources.SystemId, ViewResources.TransTime, ViewResources.Choice, ViewResources.Odds, ViewResources.Stake,
+                custWLHeader, ViewResources.EffectiveBettingValue, ViewResources.LicenseeWL + "/" + ViewResources.Comm, ViewResources.Status
+            };
+            var columWidths = new short[] { 1500, 4800, 4800, 5400, 15500, 2600, 4200, 4200, 5400, 5400, 3400 };
 
-            // Index
-            var indexCell = builder.AddCell(new HSSFRichTextString("#"), headerStyle);
-            builder.SetColumnWidth(indexCell.ColumnIndex, 1500);
-
-            // External Id
-            var externalIdCell = builder.AddCell(new HSSFRichTextString(ViewResources.ExternalId), headerStyle);
-            builder.SetColumnWidth(externalIdCell.ColumnIndex, 4800);
-
-            // System Id
-            var systemIdCell = builder.AddCell(new HSSFRichTextString(ViewResources.SystemId), headerStyle);
-            builder.SetColumnWidth(systemIdCell.ColumnIndex, 4800);
-
-            // Trans. Time
-            var transTimeCell = builder.AddCell(new HSSFRichTextString(ViewResources.TransTime), headerStyle);
-            builder.SetColumnWidth(transTimeCell.ColumnIndex, 5400);
-
-            // Choice
-            var choiceCell = builder.AddCell(new HSSFRichTextString(ViewResources.Choice), headerStyle);
-            builder.SetColumnWidth(choiceCell.ColumnIndex, 15500);
-
-            // Odds
-            var oddsCell = builder.AddCell(new HSSFRichTextString(ViewResources.Odds), headerStyle);
-            builder.SetColumnWidth(oddsCell.ColumnIndex, 2600);
-
-            // Stake
-            var stakeCell = builder.AddCell(new HSSFRichTextString(ViewResources.Stake), headerStyle);
-            builder.SetColumnWidth(stakeCell.ColumnIndex, 4200);
-
-            // Customer Wl
-            var customerWlCell = builder.AddCell(new HSSFRichTextString(custWLHeader), headerStyle);
-            builder.SetColumnWidth(customerWlCell.ColumnIndex, 4200);
-
-            // Effective Betting Value
-            var betEffectiveCell = builder.AddCell(new HSSFRichTextString(ViewResources.EffectiveBettingValue), headerStyle);
-            builder.SetColumnWidth(betEffectiveCell.ColumnIndex, 5400);
-
-            // Licensee Wl
-            var licenseeWlCell = builder.AddCell(new HSSFRichTextString(ViewResources.LicenseeWL + "/" + ViewResources.Comm), headerStyle);
-            builder.SetColumnWidth(licenseeWlCell.ColumnIndex, 5400);
-
-            // Status
-            var statusCell = builder.AddCell(new HSSFRichTextString(ViewResources.Status), headerStyle);
-            builder.SetColumnWidth(statusCell.ColumnIndex, 3400);
+            for (int i = 0; i < captions.Length; i++)
+            {
+                var cell = builder.AddCell(new HSSFRichTextString(captions[i]), headerStyle);
+                builder.SetColumnWidth(cell.ColumnIndex, columWidths[i]);
+            }
 
             return builder;
         }
@@ -219,15 +160,6 @@ namespace Fanex.Athena.Excel.BetList
             return builder;
         }
 
-        /// <summary>
-        ///     Add Licensee win lost cell.
-        /// </summary>
-        /// <param name="builder">Bet List Excel builder.</param>
-        /// <param name="ticket">Ticket helper.</param>
-        /// <param name="is12Bet">The licensee is 12bet or not.</param>
-        /// <param name="redFont">The font for negative licensee win lost.</param>
-        /// <param name="blackFont">The font for positive licensee win lost.</param>
-        /// <returns>Bet list excel builder.</returns>
         public static IBetListExcelBuilder AddLicenseeWL(
             this IBetListExcelBuilder builder,
             LrfTicket ticket,
@@ -282,11 +214,6 @@ namespace Fanex.Athena.Excel.BetList
             return builder;
         }
 
-        /// <summary>
-        /// Create Footer Cell.
-        /// </summary>
-        /// <param name="builder">Bet list excel.</param>
-        /// <returns>Footer Style.</returns>
         private static ICellStyle CreateFooterCellStyle(IBetListExcelBuilder builder)
         {
             var footerStyle = builder.CreateCellStyle();
