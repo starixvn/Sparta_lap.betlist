@@ -8,11 +8,18 @@ namespace Fanex.Athena.Api.BetList
 {
     #region Using
 
+    using System;
     using System.Web.Http;
     using Base.Attributes;
     using Constant.DataDomain;
+    using DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.Model.BetList.MetaModel;
+    using Fanex.BetList.Core.Entities;
     using Model.Core.DataDomain;
+    using Service.BetList.Interfaces;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
+    using VendorAdapter.Interfaces;
 
     #endregion Using
 
@@ -30,6 +37,23 @@ namespace Fanex.Athena.Api.BetList
         private const string DoubleChangeBettypes = "24,151,186,431,410";
 
         private const string BONTeamToScoreBettypes = "26,145,146,433,170,188,427";
+
+        public RunningBettypesBetListController()
+        {
+        }
+
+        [CLSCompliant(false)]
+        public RunningBettypesBetListController(
+            ISessionService sessionService,
+            IProductService productService,
+            ILanguageService languageService,
+            IBetListService betListService,
+            IBalanceUpDataAccess balanceUpDataAccess,
+            ITicketHelper ticketHelper,
+            ICacheRefAdapter cacheRefAdapter)
+        : base(sessionService, productService, languageService, betListService, balanceUpDataAccess, ticketHelper, cacheRefAdapter)
+        {
+        }
 
         [HttpPost]
         [ApiFunctionAuthorization(PermissionKeys.TotalBetMixParlay)]

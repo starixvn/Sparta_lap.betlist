@@ -8,11 +8,18 @@ namespace Fanex.Athena.Api.BetList
 {
     #region Using
 
+    using System;
     using System.Web.Http;
     using Base.Attributes;
     using Constant.DataDomain;
+    using DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.Model.BetList.MetaModel;
+    using Fanex.BetList.Core.Entities;
     using Model.Core.DataDomain;
+    using Service.BetList.Interfaces;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
+    using VendorAdapter.Interfaces;
 
     #endregion Using
 
@@ -28,6 +35,23 @@ namespace Fanex.Athena.Api.BetList
     /// </summary>
     public class RunningBetListController : ApiBetListBaseController
     {
+        public RunningBetListController()
+        {
+        }
+
+        [CLSCompliant(false)]
+        public RunningBetListController(
+            ISessionService sessionService,
+            IProductService productService,
+            ILanguageService languageService,
+            IBetListService betListService,
+            IBalanceUpDataAccess balanceUpDataAccess,
+            ITicketHelper ticketHelper,
+            ICacheRefAdapter cacheRefAdapter)
+        : base(sessionService, productService, languageService, betListService, balanceUpDataAccess, ticketHelper, cacheRefAdapter)
+        {
+        }
+
         [HttpPost]
         [ApiFunctionAuthorization(PermissionKeys.TotalBetCleanSheet)]
         public dynamic CleanSheet(BetListMetaModel metaModel)
