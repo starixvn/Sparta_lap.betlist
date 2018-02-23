@@ -10,7 +10,7 @@ define(["jquery", "common/site"], function ($, Site) {
         };
 
         return rowObject.TransTypeHasBetList ?
-            '<a href="javascript:;" class="betlistDrilldown" data-param=' + JSON.stringify(drilldownParam) + '>' + rowObject.FullStatementDate + '</a>'
+            '<a href="javascript:;" class="betlistDrilldown" data-param=\'' + JSON.stringify(drilldownParam) + '\'>' + rowObject.FullStatementDate + '</a>'
             : rowObject.FullStatementDate;
     };
 
