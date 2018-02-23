@@ -148,6 +148,12 @@
     <Compile Include="CancelledBetsBetListControllerTest.cs" />
     <Compile Include="AGCasinoBetListControllerTest.cs" />
     <Compile Include="ApiBetListBaseControllerHelperTest.cs" />
+    <Compile Include="WinlossByBetTypeBetListControllerTest.cs" />
+    <Compile Include="WinlossByLeagueBetListControllerTest.cs" />
+    <Compile Include="VoidbridgeBetListControllerTest.cs" />
+    <Compile Include="RunningMatchChoiceBetListControllerTest.cs" />
+    <Compile Include="RNGCasinoBetListControllerTest.cs" />
+    <Compile Include="RacingCommissionBetListControllerTest.cs" />
     <Compile Include="CorrectScoreBetListControllerTest.cs" />
     <Compile Include="CustomerWinLossBetListControllerTest.cs" />
     <Compile Include="DailyBetListControllerTest.cs" />
