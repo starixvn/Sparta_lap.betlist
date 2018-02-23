@@ -97,10 +97,10 @@
             var metaModel = SetUpForGetBetListResult(1, new Dictionary<int, string>(), SelWinlossByMatchUsp);
 
             // Action
-            var resutl = _controller.Match(metaModel);
+            var result = _controller.Match(metaModel);
 
             // Assert
-            Assert.That(resutl, Is.Null);
+            Assert.That(result, Is.Null);
         }
 
         [Test]
@@ -110,10 +110,10 @@
             var metaModel = SetUpForGetBetListResult(2, new Dictionary<int, string>(), SelWinlossOutrightUsp);
 
             // Action
-            var resutl = _controller.Outright(metaModel);
+            var result = _controller.Outright(metaModel);
 
             // Assert
-            Assert.That(resutl, Is.Null);
+            Assert.That(result, Is.Null);
         }
 
         [Test]
@@ -126,10 +126,10 @@
             var metaModel = SetUpForGetBetListResult(3, new Dictionary<int, string>(), SelWinlossNumberGameUsp);
 
             // Action
-            var resutl = _controller.NumberGame(metaModel, Page, Rows);
+            var result = _controller.NumberGame(metaModel, Page, Rows);
 
             // Assert
-            Assert.That(resutl, Is.Null);
+            Assert.That(result, Is.Null);
         }
 
         [Test]
@@ -142,10 +142,10 @@
             var metaModel = SetUpForGetBetListResult(3, new Dictionary<int, string>(), SelWinlossParlayUsp);
 
             // Action
-            var resutl = _controller.MixParlay(metaModel, Page, Rows);
+            var result = _controller.MixParlay(metaModel, Page, Rows);
 
             // Assert
-            Assert.That(resutl, Is.Null);
+            Assert.That(result, Is.Null);
         }
 
         [Test]
@@ -158,10 +158,10 @@
             var metaModel = SetUpForGetBetListResult(3, new Dictionary<int, string>(), SelWinlossRacingUsp);
 
             // Action
-            var resutl = _controller.Racing(metaModel, Page, Rows);
+            var result = _controller.Racing(metaModel, Page, Rows);
 
             // Assert
-            Assert.That(resutl, Is.Null);
+            Assert.That(result, Is.Null);
         }
 
         [Test]
@@ -174,10 +174,10 @@
             var metaModel = SetUpForGetBetListResult(3, new Dictionary<int, string>(), SelWinlossVHRacingUsp);
 
             // Action
-            var resutl = _controller.VirtualSports(metaModel, Page, Rows);
+            var result = _controller.VirtualSports(metaModel, Page, Rows);
 
             // Assert
-            Assert.That(resutl, Is.Null);
+            Assert.That(result, Is.Null);
         }
 
         [TestCase(0)]
@@ -189,10 +189,10 @@
             var metaModel = SetUpForGetBetListResult(currencyId, new Dictionary<int, string> { { currencyId, "Currency" } }, SelWinlossByMatchUsp);
 
             // Action
-            var resutl = _controller.Match(metaModel);
+            var result = _controller.Match(metaModel);
 
             // Assert
-            AssertData(resutl);
+            AssertData(result);
         }
 
         [TestCase(0)]
@@ -204,10 +204,10 @@
             var metaModel = SetUpForGetBetListResult(currencyId, new Dictionary<int, string> { { currencyId, "Currency" } }, SelWinlossOutrightUsp);
 
             // Action
-            var resutl = _controller.Outright(metaModel);
+            var result = _controller.Outright(metaModel);
 
             // Assert
-            AssertData(resutl);
+            AssertData(result);
         }
 
         [TestCaseSource(nameof(GetPagingDataTestCaseValue))]
@@ -223,11 +223,11 @@
             metaModel.SumComm = testCaseData.SumComm;
 
             // Action
-            var resutl = _controller.NumberGame(metaModel, testCaseData.Page, testCaseData.Rows);
+            var result = _controller.NumberGame(metaModel, testCaseData.Page, testCaseData.Rows);
 
             // Assert
             AssertPagingData(
-                resutl,
+                result,
                 metaModel,
                 testCaseData.MetaModelPageSize,
                 testCaseData.MetaModelPageIndex,
@@ -248,11 +248,11 @@
             metaModel.SumComm = testCaseData.SumComm;
 
             // Action
-            var resutl = _controller.MixParlay(metaModel, testCaseData.Page, testCaseData.Rows);
+            var result = _controller.MixParlay(metaModel, testCaseData.Page, testCaseData.Rows);
 
             // Assert
             AssertPagingData(
-                resutl,
+                result,
                 metaModel,
                 testCaseData.MetaModelPageSize,
                 testCaseData.MetaModelPageIndex,
@@ -273,11 +273,11 @@
             metaModel.SumComm = testCaseData.SumComm;
 
             // Action
-            var resutl = _controller.Racing(metaModel, testCaseData.Page, testCaseData.Rows);
+            var result = _controller.Racing(metaModel, testCaseData.Page, testCaseData.Rows);
 
             // Assert
             AssertPagingData(
-                resutl,
+                result,
                 metaModel,
                 testCaseData.MetaModelPageSize,
                 testCaseData.MetaModelPageIndex,
@@ -298,11 +298,11 @@
             metaModel.SumComm = testCaseData.SumComm;
 
             // Action
-            var resutl = _controller.VirtualSports(metaModel, testCaseData.Page, testCaseData.Rows);
+            var result = _controller.VirtualSports(metaModel, testCaseData.Page, testCaseData.Rows);
 
             // Assert
             AssertPagingData(
-                resutl,
+                result,
                 metaModel,
                 testCaseData.MetaModelPageSize,
                 testCaseData.MetaModelPageIndex,

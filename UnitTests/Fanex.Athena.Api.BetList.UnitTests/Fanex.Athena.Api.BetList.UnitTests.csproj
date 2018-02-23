@@ -149,9 +149,12 @@
     <Compile Include="AGCasinoBetListControllerTest.cs" />
     <Compile Include="ApiBetListBaseControllerHelperTest.cs" />
     <Compile Include="OutStandingCompletedBetListControllerTest.cs" />
+    <Compile Include="OutstandingDailyStatementBetListControllerTest.cs" />
     <Compile Include="PendingFundsBetListControllerTest.cs" />
     <Compile Include="OutstandingRunningBetListControllerTest.cs" />
     <Compile Include="LiveReportBetListControllerTest.cs" />
+    <Compile Include="MatchWinLossBetListControllerTest.cs" />
+    <Compile Include="MixParlayBetListController .cs" />
     <Compile Include="RunningBettypesBetListControllerTest.cs" />
     <Compile Include="RunningBetListControllerTest.cs" />
     <Compile Include="RunningBettypesOfMatchBetListControllerTest.cs" />
@@ -186,6 +189,10 @@
     <ProjectReference Include="..\..\ControllerAPI\Fanex.Athena.Api.BetList\Fanex.Athena.Api.BetList.csproj">
       <Project>{0c22899b-6ce0-4187-9bcf-7f503213f207}</Project>
       <Name>Fanex.Athena.Api.BetList</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess.BetList\Fanex.Athena.DataAccess.BetList.csproj">
+      <Project>{b269f027-9ae1-4969-89d6-56c401b96051}</Project>
+      <Name>Fanex.Athena.DataAccess.BetList</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess.Core\Fanex.Athena.DataAccess.Core.csproj">
       <Project>{a6be21e8-6895-4863-ba3a-e6b21d3ce78d}</Project>

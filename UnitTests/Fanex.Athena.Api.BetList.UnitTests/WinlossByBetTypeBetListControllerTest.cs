@@ -44,10 +44,10 @@
             StubUserSessionData(new Model.Core.DTO.Users.UserSession { CurrencyList = new Dictionary<int, string>() });
 
             // Action
-            var resutl = _controller.Index(1, 50, CurrencyId, string.Empty, string.Empty, DateTime.Today, DateTime.Today, 1);
+            var result = _controller.Index(1, 50, CurrencyId, string.Empty, string.Empty, DateTime.Today, DateTime.Today, 1);
 
             // Assert
-            Assert.That(resutl, Is.Null);
+            Assert.That(result, Is.Null);
         }
 
         [TestCase(0, "usd", "usd")]

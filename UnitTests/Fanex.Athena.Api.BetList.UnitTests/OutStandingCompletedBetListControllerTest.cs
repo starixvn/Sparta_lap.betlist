@@ -49,10 +49,10 @@
             StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string>() });
 
             // Action
-            var resutl = _controller.Index(metaModel);
+            var result = _controller.Index(metaModel);
 
             // Assert
-            Assert.That(resutl, Is.Null);
+            Assert.That(result, Is.Null);
         }
 
         [Test]
@@ -64,10 +64,10 @@
             StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string>() });
 
             // Action
-            var resutl = _controller.Index(metaModel);
+            var result = _controller.Index(metaModel);
 
             // Assert
-            Assert.That(resutl, Is.Null);
+            Assert.That(result, Is.Null);
         }
 
         [Test]
@@ -79,10 +79,10 @@
             StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string> { { metaModel.CurrencyId, "Currency" } } });
 
             // Action
-            var resutl = _controller.Index(metaModel);
+            var result = _controller.Index(metaModel);
 
             // Assert
-            Assert.That(resutl, Is.Null);
+            Assert.That(result, Is.Null);
         }
 
         [TestCase(0)]

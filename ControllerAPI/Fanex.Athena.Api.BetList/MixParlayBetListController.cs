@@ -9,16 +9,30 @@ namespace Fanex.Athena.Api.BetList
     using System;
     using System.Linq;
     using System.Web.Http;
-    using VendorAdapter;
+    using DataAccess.Core.Configuration.Interfaces;
+    using Fanex.BetList.Core.Entities;
+    using Service.BetList.Interfaces;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
     using VendorAdapter.Interfaces;
 
     public class MixParlayBetListController : ApiBetListBaseController
     {
-        private readonly ICacheRefAdapter _cacheRefAdapter;
-
         public MixParlayBetListController()
         {
-            _cacheRefAdapter = new CacheRefAdapter();
+        }
+
+        [CLSCompliant(false)]
+        public MixParlayBetListController(
+            ISessionService sessionService,
+            IProductService productService,
+            ILanguageService languageService,
+            IBetListService betListService,
+            IBalanceUpDataAccess balanceUpDataAccess,
+            ITicketHelper ticketHelper,
+            ICacheRefAdapter cacheRefAdapter)
+        : base(sessionService, productService, languageService, betListService, balanceUpDataAccess, ticketHelper, cacheRefAdapter)
+        {
         }
 
         [HttpGet]
@@ -31,7 +45,7 @@ namespace Fanex.Athena.Api.BetList
         [HttpGet]
         public dynamic NewParlayDetail(long transId, string betTeam, string betCheck, decimal handicap1, decimal handicap2)
         {
-            var texts = _cacheRefAdapter.GetCombinationTypeCombo(betTeam, betCheck, handicap1, handicap2);
+            var texts = CacheRefAdapter.GetCombinationTypeCombo(betTeam, betCheck, handicap1, handicap2);
 
             var ticketResult = BetListService.GetMixParlayDetailTicket(SessionService.LicenseeSession.LicenseeId, transId);
             var tickets = ticketResult.MainTicketList.Where(x => x.Stake != 0).ToList();

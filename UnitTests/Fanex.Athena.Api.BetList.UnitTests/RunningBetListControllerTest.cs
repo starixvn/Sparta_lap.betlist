@@ -44,10 +44,10 @@
             var metaModel = SetUpForGetBetListResult(1, new Dictionary<int, string>());
 
             // Action
-            var resutl = _controller.CleanSheet(metaModel);
+            var result = _controller.CleanSheet(metaModel);
 
             // Assert
-            Assert.That(resutl, Is.Null);
+            Assert.That(result, Is.Null);
         }
 
         [Test]
@@ -57,10 +57,10 @@
             var metaModel = SetUpForGetBetListResult(2, new Dictionary<int, string>());
 
             // Action
-            var resutl = _controller.ToWinToNil(metaModel);
+            var result = _controller.ToWinToNil(metaModel);
 
             // Assert
-            Assert.That(resutl, Is.Null);
+            Assert.That(result, Is.Null);
         }
 
         [Test]
@@ -70,10 +70,10 @@
             var metaModel = SetUpForGetBetListResult(3, new Dictionary<int, string>());
 
             // Action
-            var resutl = _controller.ThreeWayHandicap(metaModel);
+            var result = _controller.ThreeWayHandicap(metaModel);
 
             // Assert
-            Assert.That(resutl, Is.Null);
+            Assert.That(result, Is.Null);
         }
 
         [TestCase(0)]

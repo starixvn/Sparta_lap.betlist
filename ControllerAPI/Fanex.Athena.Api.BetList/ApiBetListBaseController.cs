@@ -72,6 +72,11 @@ namespace Fanex.Athena.Api.BetList
             get { return _betListService; }
         }
 
+        protected ICacheRefAdapter CacheRefAdapter
+        {
+            get { return _cacheRefAdapter; }
+        }
+
         protected static bool IsRacing(int betType)
         {
             return RacingBetType.Contains(betType);

@@ -15,6 +15,7 @@ namespace Fanex.Athena.Api.BetList
     using Fanex.Athena.Model.BetList.MetaModel;
     using Model.BetList.DTO;
     using Model.Core.DataDomain;
+    using Service.Core.Common.Interfaces;
     using Service.Core.Users;
     using Service.Core.Users.Interfaces;
 
@@ -32,8 +33,12 @@ namespace Fanex.Athena.Api.BetList
         }
 
         public OutstandingDailyStatementBetListController(
+            ISessionService sessionService, 
+            IProductService productService, 
+            ILanguageService languageService,
             IAuthorizationService authorizationService,
             IDailyStatementBetListDataAccess dailyStatementBetListDataAccess)
+        : base(sessionService, productService, languageService)
         {
             _authorizationService = authorizationService;
             _dailyStatementBetListDataAccess = dailyStatementBetListDataAccess;

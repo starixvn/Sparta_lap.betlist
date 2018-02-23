@@ -42,10 +42,10 @@
             var metaModel = SetUpForGetBetListResult(1, new Dictionary<int, string>());
 
             // Action
-            var resutl = _controller.MixParlay(metaModel);
+            var result = _controller.MixParlay(metaModel);
 
             // Assert
-            Assert.That(resutl, Is.Null);
+            Assert.That(result, Is.Null);
         }
 
         [Test]
@@ -55,10 +55,10 @@
             var metaModel = SetUpForGetBetListResult(2, new Dictionary<int, string>());
 
             // Action
-            var resutl = _controller.DoubleChange(metaModel);
+            var result = _controller.DoubleChange(metaModel);
 
             // Assert
-            Assert.That(resutl, Is.Null);
+            Assert.That(result, Is.Null);
         }
 
         [Test]
@@ -68,10 +68,10 @@
             var metaModel = SetUpForGetBetListResult(3, new Dictionary<int, string>());
 
             // Action
-            var resutl = _controller.BONTeamToScore(metaModel);
+            var result = _controller.BONTeamToScore(metaModel);
 
             // Assert
-            Assert.That(resutl, Is.Null);
+            Assert.That(result, Is.Null);
         }
 
         [TestCase(0)]
