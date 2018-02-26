@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Api.CustomerLog
 {
+    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
@@ -24,8 +25,8 @@ namespace Fanex.Athena.Api.CustomerLog
     using RazorEngine;
     using RazorEngine.Templating;
     using Resources;
+    using Service.Core.Common.Interfaces;
     using Service.Core.Helpers;
-    using Service.Core.Users;
     using Service.Core.Users.Interfaces;
 
     [ApiFunctionAuthorization(PermissionKeys.CustomerInfoCustomerLog)]
@@ -52,8 +53,6 @@ namespace Fanex.Athena.Api.CustomerLog
 
         private readonly ILogInLogDataAccess _logInLogDataAccess;
 
-        private readonly ISessionService _sessionService;
-
         private readonly IAppSettings _appSettings;
         private readonly IClientViewHelper _clientViewHelper;
 
@@ -61,9 +60,26 @@ namespace Fanex.Athena.Api.CustomerLog
         {
             _customerLogDataAccess = new CustomerLogDataAccess();
             _logInLogDataAccess = new LogInLogDataAccess();
-            _sessionService = new SessionService();
             _appSettings = new AppSettings();
             _clientViewHelper = new ClientViewHelper();
+        }
+
+        [CLSCompliant(false)]
+        public LogController(
+            ISessionService sessionService,
+            IProductService productService,
+            ILanguageService languageService,
+            ICustomerLogDataAccess customerLogDataAccess,
+            ILogInLogDataAccess logInLogDataAccess,
+            IAppSettings appSettings,
+            IClientViewHelper clientViewHelper
+            )
+        : base(sessionService, productService, languageService)
+        {
+            _customerLogDataAccess = customerLogDataAccess;
+            _logInLogDataAccess = logInLogDataAccess;
+            _appSettings = appSettings;
+            _clientViewHelper = clientViewHelper;
         }
 
         #region Utility
@@ -172,7 +188,7 @@ namespace Fanex.Athena.Api.CustomerLog
         private ViewByOption GetActionViewName(int actionId)
         {
             var actionView = $"~/Views/Customer/CustomerLog/Action/{actionId}.cshtml";
-            var userSession = _sessionService.UserSession;
+            var userSession = SessionService.UserSession;
 
             var option = userSession != null && userSession.ViewType != ClientViewType.None ?
                 userSession.ViewType : (ClientViewType)int.Parse(_appSettings.ClientViewType);
