@@ -23,18 +23,23 @@
     {
         private const string KeyName = "X-Auth-Token";
 
+        private readonly ILogger _logger;
+
         private readonly IOneAuthenticationService _oneAuthenticationService;
 
         private readonly ILicenseeDataAccess _licenseeDataAccess;
 
         public ApiOneAuthorizationAttribute()
         {
+            _logger = Logger.Log;
             _oneAuthenticationService = new OneAuthenticationService();
             _licenseeDataAccess = new LicenseeDataAccess();
         }
 
-        public ApiOneAuthorizationAttribute(IOneAuthenticationService oneAuthenticationService, ILicenseeDataAccess licenseeDataAccess)
+        [CLSCompliant(false)]
+        public ApiOneAuthorizationAttribute(ILogger logger, IOneAuthenticationService oneAuthenticationService, ILicenseeDataAccess licenseeDataAccess)
         {
+            _logger = logger ?? Logger.Log;
             _oneAuthenticationService = oneAuthenticationService ?? new OneAuthenticationService();
             _licenseeDataAccess = licenseeDataAccess ?? new LicenseeDataAccess();
         }
@@ -108,12 +113,12 @@
             return source.Task;
         }
 
-        private static void LogInfo(HttpRequestMessage request, string message)
+        private void LogInfo(HttpRequestMessage request, string message)
         {
             var content = new StringBuilder("ApiOneAuthorization: ");
             content.AppendLine(message);
             content.AppendLine("Url: " + request.RequestUri);
-            LogService.Info(content.ToString());
+            _logger.Info(content.ToString());
         }
     }
 }
