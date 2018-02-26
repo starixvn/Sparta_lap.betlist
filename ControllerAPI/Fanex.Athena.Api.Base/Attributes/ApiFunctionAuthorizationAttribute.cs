@@ -10,28 +10,49 @@
     using System.Web.Helpers;
     using System.Web.Http.Controllers;
     using System.Web.Http.Filters;
+    using Extension.Utility;
     using Fanex.Athena.Service.Core.Users;
     using Model.Core.DataDomain;
     using Resources;
+    using Service.Core.Users.Interfaces;
 
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
     public sealed class ApiFunctionAuthorizationAttribute : FilterAttribute, IAuthorizationFilter
     {
         private const string KeyName = "__RequestVerificationToken";
 
+        private readonly IAntiForgeryService _antiForgeryService;
+
+        private readonly ISessionService _sessionService;
+
+        private readonly IAuthorizationService _authorizationService;
+
         public ApiFunctionAuthorizationAttribute(string permissionKey)
+            : this(antiForgeryService: null, sessionService: null, authorizationService: null)
         {
             PermissionKeys = new[] { permissionKey };
         }
 
         public ApiFunctionAuthorizationAttribute(string permissionKey1, string permissionKey2)
+            : this(antiForgeryService: null, sessionService: null, authorizationService: null)
         {
             PermissionKeys = new[] { permissionKey1, permissionKey2 };
         }
 
         public ApiFunctionAuthorizationAttribute(string permissionKey1, string permissionKey2, string permissionKey3)
+            : this(antiForgeryService: null, sessionService: null, authorizationService: null)
         {
             PermissionKeys = new[] { permissionKey1, permissionKey2, permissionKey3 };
+        }
+
+        public ApiFunctionAuthorizationAttribute(
+            IAntiForgeryService antiForgeryService,
+            ISessionService sessionService,
+            IAuthorizationService authorizationService)
+        {
+            _antiForgeryService = antiForgeryService ?? new AntiForgeryService();
+            _sessionService = sessionService ?? new SessionService();
+            _authorizationService = authorizationService ?? new AuthorizationService();
         }
 
         public string[] PermissionKeys { get; set; }
@@ -58,11 +79,11 @@
                         .FirstOrDefault();
 
                     var crfsKey = headers.GetValues(KeyName).FirstOrDefault();
-                    AntiForgery.Validate(cookie != null ? cookie.Value : null, crfsKey);
+                    _antiForgeryService.Validate(cookie != null ? cookie.Value : null, crfsKey);
                 }
                 else
                 {
-                    AntiForgery.Validate();
+                    _antiForgeryService.Validate();
                 }
             }
             catch (Exception)
@@ -104,19 +125,14 @@
 
         private bool AuthorizeRequest()
         {
-            var sessionService = new SessionService();
-            var licenseeSession = sessionService.LicenseeSession;
-            var userSession = sessionService.UserSession;
-            var authorization = new AuthorizationService();
+            var licenseeSession = _sessionService.LicenseeSession;
+            var userSession = _sessionService.UserSession;
             var authorized = true;
             if (userSession != null && licenseeSession != null)
             {
-                authorized =
-              userSession.ApplicationMode == AppMode.Parasitic ?
-
-                    authorization.HasPermissions(userSession.PortalFunctionList, PermissionKeys) :
-
-                    authorization.HasPermissions(userSession.FunctionIdList, PermissionKeys);
+                authorized = userSession.ApplicationMode == AppMode.Parasitic ?
+                    _authorizationService.HasPermissions(userSession.PortalFunctionList, PermissionKeys) :
+                    _authorizationService.HasPermissions(userSession.FunctionIdList, PermissionKeys);
             }
 
             return authorized;
