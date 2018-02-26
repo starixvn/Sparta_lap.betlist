@@ -48,10 +48,7 @@ namespace Fanex.Athena.Api.BetList
             int rows,
             [FromUri]BetListMetaModel metaModel)
         {
-            var userSession = SessionService.UserSession;
-            var currencyList = userSession.CurrencyList;
-
-            if (metaModel.CurrencyId != 0 && !currencyList.ContainsKey(metaModel.CurrencyId))
+            if (!IsValidCurrencyId(metaModel.CurrencyId))
             {
                 return null;
             }
@@ -74,12 +71,8 @@ namespace Fanex.Athena.Api.BetList
         [HttpPost]
         public dynamic Outright(BetListMetaModel metaModel)
         {
-            var userSession = SessionService.UserSession;
-            var currencyList = userSession.CurrencyList;
-
-            if (metaModel.CurrencyId == 0 || currencyList.ContainsKey(metaModel.CurrencyId))
+            if (IsValidCurrencyId(metaModel.CurrencyId))
             {
-                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                 metaModel.IsServerPaging = true;
 
                 const string UspKey = "Lrf_BetList_MatchWL_Outright";
@@ -104,16 +97,13 @@ namespace Fanex.Athena.Api.BetList
             string sortOrder = null)
 #pragma warning restore S107 // Methods should not have too many parameters
         {
-            var userSession = SessionService.UserSession;
-            var currencyList = userSession.CurrencyList;
-
-            if (currencyId == 0 || currencyList.ContainsKey(currencyId))
+            if (IsValidCurrencyId(currencyId))
             {
                 const string UspKey = "Lrf_BetList_MatchWL_Parlay";
                 var metaModel = new BetListMetaModel
                 {
                     LicenseeId = SessionService.LicenseeSession.LicenseeId,
-                    UserId = userSession.UserId,
+                    UserId = SessionService.UserSession.UserId,
                     CurrencyId = currencyId,
                     BetType = betType,
                     BaseCurrency = baseCurrency ?? string.Empty,

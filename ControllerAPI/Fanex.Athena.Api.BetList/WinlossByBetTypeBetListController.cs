@@ -50,7 +50,7 @@
             string sortOrder = null)
 #pragma warning restore S107 // Methods should not have too many parameters
         {
-            if (currencyId != 0 && !SessionService.UserSession.CurrencyList.ContainsKey(currencyId))
+            if (!IsValidCurrencyId(currencyId))
             {
                 return null;
             }

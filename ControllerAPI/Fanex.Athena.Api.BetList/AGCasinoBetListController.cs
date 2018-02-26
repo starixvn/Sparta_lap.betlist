@@ -6,9 +6,9 @@
 
 namespace Fanex.Athena.Api.BetList
 {
-    using System;
     #region Using
 
+    using System;
     using System.Web.Http;
     using DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.Model.BetList.MetaModel;
@@ -17,6 +17,7 @@ namespace Fanex.Athena.Api.BetList
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
     using VendorAdapter.Interfaces;
+
     #endregion Using
 
     public class AGCasinoBetListController : ApiBetListBaseController
@@ -41,7 +42,6 @@ namespace Fanex.Athena.Api.BetList
         [HttpPost]
         public dynamic Detail(BetListMetaModel metaModel)
         {
-            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             const string UspKey = "Lrf_BetList_LC_Detail";
             return GetBetListResult(metaModel, UspKey);
         }

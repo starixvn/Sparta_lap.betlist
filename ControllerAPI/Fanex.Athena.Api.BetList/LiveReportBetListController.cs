@@ -21,6 +21,7 @@ namespace Fanex.Athena.Api.BetList
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
     using VendorAdapter.Interfaces;
+
     #endregion Using
 
     [ApiFunctionAuthorization(PermissionKeys.ReportLiveReport)]
@@ -46,9 +47,7 @@ namespace Fanex.Athena.Api.BetList
         [HttpPost]
         public dynamic Match(LiveReportBetListMetaModel metaModel)
         {
-            var currencyList = SessionService.UserSession.CurrencyList;
-
-            if (metaModel.CurrencyId != 0 && !currencyList.ContainsKey(metaModel.CurrencyId))
+            if (!IsValidCurrencyId(metaModel.CurrencyId))
             {
                 return null;
             }
@@ -63,7 +62,7 @@ namespace Fanex.Athena.Api.BetList
         [HttpPost]
         public dynamic Outright(LiveReportBetListMetaModel metaModel)
         {
-            if (metaModel.CurrencyId == 0 || SessionService.UserSession.CurrencyList.ContainsKey(metaModel.CurrencyId))
+            if (IsValidCurrencyId(metaModel.CurrencyId))
             {
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                 const string UspKey = "Lrf_BetList_LiveReport_SelWinlossOutright";
@@ -76,10 +75,7 @@ namespace Fanex.Athena.Api.BetList
         [HttpGet]
         public dynamic NumberGame([FromUri] LiveReportBetListMetaModel metaModel, int page, int rows)
         {
-            var userSession = SessionService.UserSession;
-            var currencyList = userSession.CurrencyList;
-
-            if (metaModel.CurrencyId == 0 || currencyList.ContainsKey(metaModel.CurrencyId))
+            if (IsValidCurrencyId(metaModel.CurrencyId))
             {
                 const string UspKey = "Lrf_BetList_LiveReport_SelWinlossNumberGame";
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
@@ -92,10 +88,7 @@ namespace Fanex.Athena.Api.BetList
         [HttpGet]
         public dynamic MixParlay([FromUri] LiveReportBetListMetaModel metaModel, int page, int rows)
         {
-            var userSession = SessionService.UserSession;
-            var currencyList = userSession.CurrencyList;
-
-            if (metaModel.CurrencyId == 0 || currencyList.ContainsKey(metaModel.CurrencyId))
+            if (IsValidCurrencyId(metaModel.CurrencyId))
             {
                 const string UspKey = "Lrf_BetList_LiveReport_SelWinlossParlay";
 
@@ -110,13 +103,10 @@ namespace Fanex.Athena.Api.BetList
         [HttpGet]
         public dynamic Racing([FromUri] LiveReportBetListMetaModel metaModel, int page, int rows)
         {
-            const string UspName = "Lrf_BetList_LiveReport_SelWinlossRacing";
-
-            var userSession = SessionService.UserSession;
-            var currencyList = userSession.CurrencyList;
-
-            if (metaModel.CurrencyId == 0 || currencyList.ContainsKey(metaModel.CurrencyId))
+            if (IsValidCurrencyId(metaModel.CurrencyId))
             {
+                const string UspName = "Lrf_BetList_LiveReport_SelWinlossRacing";
+
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                 return GetPagingData(metaModel, UspName, page, rows);
             }
@@ -127,13 +117,10 @@ namespace Fanex.Athena.Api.BetList
         [HttpGet]
         public dynamic VirtualSports([FromUri] LiveReportBetListMetaModel metaModel, int page, int rows)
         {
-            const string UspName = "Lrf_BetList_LiveReport_SelWinlossVHRacing";
-
-            var userSession = SessionService.UserSession;
-            var currencyList = userSession.CurrencyList;
-
-            if (metaModel.CurrencyId == 0 || currencyList.ContainsKey(metaModel.CurrencyId))
+            if (IsValidCurrencyId(metaModel.CurrencyId))
             {
+                const string UspName = "Lrf_BetList_LiveReport_SelWinlossVHRacing";
+
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                 return GetPagingData(metaModel, UspName, page, rows);
             }

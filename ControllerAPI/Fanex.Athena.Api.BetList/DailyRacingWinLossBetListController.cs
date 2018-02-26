@@ -45,8 +45,6 @@ namespace Fanex.Athena.Api.BetList
         [HttpPost]
         public dynamic Index(BetListMetaModel metaModel)
         {
-            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-
             const string UspKey = "Lrf_BetList_SelWinlostRacing";
             return GetBetListResult(metaModel, UspKey);
         }

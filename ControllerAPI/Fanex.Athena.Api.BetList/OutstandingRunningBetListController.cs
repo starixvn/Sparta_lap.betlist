@@ -41,14 +41,12 @@
         [HttpPost]
         public dynamic Index(BetListMetaModel metaModel)
         {
-            if (!metaModel.IsValid ||
-                (metaModel.CurrencyId != 0 && !SessionService.UserSession.CurrencyList.ContainsKey(metaModel.CurrencyId)))
+            if (!metaModel.IsValid || !IsValidCurrencyId(metaModel.CurrencyId))
             {
                 return null;
             }
 
             metaModel.ProductCodeList = RemoveInvalidProducts(metaModel.ProductCodeList, BetListCustomerOutstandingRunningName);
-            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
             const string UspKey = "Lrf_BetList_SelRunningByDate_Mem";
             metaModel.ToDate = metaModel.ToDate.Date.AddDays(1).AddMinutes(-1);

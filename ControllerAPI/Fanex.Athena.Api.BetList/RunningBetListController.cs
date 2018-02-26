@@ -78,15 +78,10 @@ namespace Fanex.Athena.Api.BetList
 
         private dynamic ProcessRequest(BetListMetaModel metaModel, string uspKey = "Lrf_BetList_SelRunningByBettype")
         {
-            var userSession = SessionService.UserSession;
-            var currencyList = userSession.CurrencyList;
-
-            if (metaModel.CurrencyId != 0 && !currencyList.ContainsKey(metaModel.CurrencyId))
+            if (!IsValidCurrencyId(metaModel.CurrencyId))
             {
                 return null;
             }
-
-            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
             return GetBetListResult(metaModel, uspKey);
         }

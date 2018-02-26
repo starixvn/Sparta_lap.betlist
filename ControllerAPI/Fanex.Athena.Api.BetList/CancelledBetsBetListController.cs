@@ -46,12 +46,11 @@ namespace Fanex.Athena.Api.BetList
         [HttpPost]
         public dynamic Index(BetListMetaModel metaModel)
         {
-            if (metaModel.CurrencyId != 0 && !SessionService.UserSession.CurrencyList.ContainsKey(metaModel.CurrencyId))
+            if (!IsValidCurrencyId(metaModel.CurrencyId))
             {
                 return null;
             }
 
-            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             const string UspKey = "Lrf_BetList_SelDeleted";
             metaModel.BetType = 13;
 

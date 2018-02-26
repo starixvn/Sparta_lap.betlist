@@ -144,6 +144,7 @@ namespace Fanex.Athena.Api.BetList
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.BalanceUpDay = DateTime.SpecifyKind(balanceUp.BalanceUpDay.Date, DateTimeKind.Utc);
             metaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUp.MoveBetsDay.Date, DateTimeKind.Utc);
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
             var ticketResult = _betListService.GetBetListData(metaModel, uspKey);
 
@@ -206,6 +207,11 @@ namespace Fanex.Athena.Api.BetList
                     LicenseeWL = sumLicenseeWlText
                 }
             };
+        }
+
+        protected bool IsValidCurrencyId(int currencyId)
+        {
+            return currencyId == 0 || SessionService.UserSession.CurrencyList.ContainsKey(currencyId);
         }
     }
 }

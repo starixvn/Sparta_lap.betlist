@@ -58,8 +58,6 @@
                 return null;
             }
 
-            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-
             const string UspKey = "Lrf_BetList_SelWinloss_Mem";
             return GetBetListResult(metaModel, UspKey);
         }

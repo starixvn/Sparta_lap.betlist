@@ -47,14 +47,12 @@ namespace Fanex.Athena.Api.BetList
         [HttpPost]
         public dynamic Index(BetListMetaModel metaModel)
         {
-            if (!metaModel.IsValid ||
-                (metaModel.CurrencyId != 0 && !SessionService.UserSession.CurrencyList.ContainsKey(metaModel.CurrencyId)))
+            if (!metaModel.IsValid || !IsValidCurrencyId(metaModel.CurrencyId))
             {
                 return null;
             }
 
             metaModel.ProductCodeList = RemoveInvalidProducts(metaModel.ProductCodeList, BetListCustomerOutstandingName);
-            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
             const string UspKey = "Lrf_BetList_SelAllByDate_Mem";
             metaModel.ToDate = metaModel.ToDate.Date.AddDays(1).AddMinutes(-1);    // Need -2 miliseconds, it better than -1.

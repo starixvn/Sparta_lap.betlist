@@ -45,13 +45,11 @@ namespace Fanex.Athena.Api.BetList
         [HttpPost]
         public dynamic Index(BetListMetaModel metaModel)
         {
-            var currencyList = SessionService.UserSession.CurrencyList;
-            if (metaModel.CurrencyId != 0 && !currencyList.ContainsKey(metaModel.CurrencyId))
+            if (!IsValidCurrencyId(metaModel.CurrencyId))
             {
                 return null;
             }
 
-            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             const string UspKey = "Lrf_BetList_SelByDayAll_Mem";
             const string UspKeyOld = "Lrf_BetList_SelByDayAll_Mem_Old";
 
