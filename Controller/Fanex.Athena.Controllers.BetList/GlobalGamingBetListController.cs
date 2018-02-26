@@ -49,9 +49,13 @@
 
         protected override ActionResult ExportExcel(BetListMetaModel metaModel, string uspKey)
         {
-            var ticketResult = BetListService.GetBetListData(metaModel, uspKey);
-
-            return ProcessExportExcel(new ShowingOption { CustomerCommVisible = true }, metaModel, ticketResult, HiddenColumns, _title, "GlobalGamingDetail");
+            return ProcessExportExcel(
+                new ShowingOption { CustomerCommVisible = true },
+                metaModel,
+                BetListService.GetBetListData(metaModel, uspKey),
+                HiddenColumns,
+                _title,
+                "GlobalGamingDetail");
         }
     }
 }

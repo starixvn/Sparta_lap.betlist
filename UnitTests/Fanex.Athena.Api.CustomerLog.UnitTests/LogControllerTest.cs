@@ -43,7 +43,7 @@
                 _customerLogDataAccess,
                 _logInLogDataAccess,
                 _appSettings,
-                _clientViewHelper);     
+                _clientViewHelper);
         }
 
         [OneTimeTearDown]
@@ -90,8 +90,8 @@
 
             var dataList = new List<CustomerLog>
             {
-                new CustomerLog { LogId = 2, ActionId = 1, TrackingValue = "<doc <GroupName=\"Group\"/> />", TrackingValueOld = "<doc <GroupName=\"OldGroup\"/> />"  },
-                new CustomerLog { LogId = 4, ActionId = 2, TrackingValue = "<doc <GroupColor=\"Red\"/> />", TrackingValueOld = "<doc <GroupColor=\"Green\"/> />"  },
+                new CustomerLog { LogId = 2, ActionId = 1, TrackingValue = "<doc <GroupName=\"Group\"/> />", TrackingValueOld = "<doc <GroupName=\"OldGroup\"/> />" },
+                new CustomerLog { LogId = 4, ActionId = 2, TrackingValue = "<doc <GroupColor=\"Red\"/> />", TrackingValueOld = "<doc <GroupColor=\"Green\"/> />" },
                 new CustomerLog { LogId = 3, ActionId = 2401, TrackingValue = string.Empty, TrackingValueOld = string.Empty },
                 new CustomerLog { LogId = 1, ActionId = 2403, TrackingValue = string.Empty, TrackingValueOld = string.Empty }
             };
@@ -132,8 +132,8 @@
 
             var dataList = new List<CustomerLog>
             {
-                new CustomerLog { LogId = 2, ActionId = 1, TrackingValue = string.Empty, TrackingValueOld = string.Empty  },
-                new CustomerLog { LogId = 4, ActionId = 2, TrackingValue = "<doc <GroupColor=\"Red\"/> />", TrackingValueOld = "<doc <GroupColor=\"Green\"/> />"  },
+                new CustomerLog { LogId = 2, ActionId = 1, TrackingValue = string.Empty, TrackingValueOld = string.Empty },
+                new CustomerLog { LogId = 4, ActionId = 2, TrackingValue = "<doc <GroupColor=\"Red\"/> />", TrackingValueOld = "<doc <GroupColor=\"Green\"/> />" },
                 new CustomerLog { LogId = 3, ActionId = 2401, TrackingValue = string.Empty, TrackingValueOld = string.Empty },
                 new CustomerLog { LogId = 1, ActionId = 2403, TrackingValue = string.Empty, TrackingValueOld = string.Empty }
             };

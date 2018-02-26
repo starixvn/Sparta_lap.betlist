@@ -49,9 +49,7 @@
 
         protected override ActionResult ExportExcel(BetListMetaModel metaModel, string uspKey)
         {
-            var ticketResult = BetListService.GetBetListData(metaModel, uspKey);
-
-            return ProcessExportExcel(new ShowingOption(), metaModel, ticketResult, HiddenColumns, _title, "MacauGamesDetail");
+            return ProcessExportExcel(new ShowingOption(), metaModel, BetListService.GetBetListData(metaModel, uspKey), HiddenColumns, _title, "MacauGamesDetail");
         }
     }
 }

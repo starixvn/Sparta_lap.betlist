@@ -72,8 +72,7 @@ namespace Fanex.Athena.Api.CustomerLog
             ICustomerLogDataAccess customerLogDataAccess,
             ILogInLogDataAccess logInLogDataAccess,
             IAppSettings appSettings,
-            IClientViewHelper clientViewHelper
-            )
+            IClientViewHelper clientViewHelper)
         : base(sessionService, productService, languageService)
         {
             _customerLogDataAccess = customerLogDataAccess;
