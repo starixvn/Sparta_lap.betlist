@@ -14,7 +14,6 @@ namespace Fanex.Athena.Controllers.BetList
     using Extension.Utility;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
-    using Resources;
     using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Helpers;

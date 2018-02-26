@@ -20,9 +20,6 @@ namespace Fanex.Athena.Api.BetList
 
     #endregion Using
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public class RunningMatchChoiceBetListController : ApiBetListBaseController
     {
         public RunningMatchChoiceBetListController()
@@ -42,17 +39,10 @@ namespace Fanex.Athena.Api.BetList
         {
         }
 
-        /// <summary>
-        /// Get data for running bet list of a match.
-        /// </summary>
-        /// <param name="metaModel">MetaModel object.</param>
-        /// <returns>Dynamic object, contains the bet list result.</returns>
         [HttpPost]
         public dynamic Index(BetListMetaModel metaModel)
         {
-            var userSession = SessionService.UserSession;
-            var currencyList = userSession.CurrencyList;
-
+            var currencyList = SessionService.UserSession.CurrencyList;
             if (metaModel.CurrencyId != 0 && !currencyList.ContainsKey(metaModel.CurrencyId))
             {
                 return null;
