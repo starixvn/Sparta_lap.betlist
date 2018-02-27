@@ -488,6 +488,27 @@ describe('Calendar - Event Handler', () => {
             expect(componentInstance.setState).toHaveBeenCalledWith(expectedParam);
         })
 
+        it('newDate is invalid when changing - set day to 1 - setState should be called with correct parameter', () => {
+            const event = new Event("click");
+            event.preventDefault = jest.fn();
+
+            const selectedMonth = 1;
+            const currentDate = moment("01/30/2018", "MM/DD/YYYY");
+            const expectedParam = {
+                shownDate: moment([currentDate.year(), selectedMonth, 1])
+            };
+            const newProps = {
+                shownDate: currentDate
+            }
+            const props = Object.assign({}, initialProps, newProps);
+            const componentInstance = new Calendar(props);
+            componentInstance.setState = jest.fn();
+
+            componentInstance.changeMonth(selectedMonth, event);
+
+            expect(componentInstance.setState).toHaveBeenCalledWith(expectedParam);
+        })
+
         it('has linkCB in props - linkCB should be called with correct parameter', () => {
             const event = new Event("click");
             event.preventDefault = jest.fn();
@@ -527,11 +548,36 @@ describe('Calendar - Event Handler', () => {
             expect(preventDefault).toHaveBeenCalled();
         })
 
-        it('event.preventDefault() should be called', () => {
+        it('setState should be called with correct parameter', () => {
             const currentDate = moment("12/01/2016", "MM/DD/YYYY");
             const selectedYear = 2017;
             const expectedState = {
                 shownDate: moment([selectedYear, currentDate.month(), currentDate.date()])
+            }
+
+            const preventDefault = jest.fn();
+            const event = {
+                target: { value: selectedYear },
+                preventDefault
+            };
+
+            const newProps = {
+                shownDate: currentDate
+            }
+            const props = Object.assign({}, initialProps, newProps);
+            const componentInstance = new Calendar(props);
+            componentInstance.setState = jest.fn();
+
+            componentInstance.changeYear(event);
+
+            expect(componentInstance.setState).toHaveBeenCalledWith(expectedState);
+        })
+
+        it('change from leap year to normal year - set day to 1 - setState should be called with correct parameter', () => {
+            const currentDate = moment("02/29/2016", "MM/DD/YYYY");
+            const selectedYear = 2017;
+            const expectedState = {
+                shownDate: moment([selectedYear, currentDate.month(), 1])
             }
 
             const preventDefault = jest.fn();

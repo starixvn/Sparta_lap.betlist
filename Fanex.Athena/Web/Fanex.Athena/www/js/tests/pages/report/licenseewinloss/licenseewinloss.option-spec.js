@@ -124,7 +124,7 @@
                             SystemId: "12BETAUD01159"
                         };
                         var expected = '<a class="bet-list-link" href="javascript:;" ' +
-                            'data-drill-down={"DrillDownFromDate":"2017-03-06T00:00:00","DrillDownToDate":"2017-03-06T00:00:00","DrillDownCurrencyId":9,"DrillDownCurrencyName":"AUD","CustomerId":6507355,"ExternalId":"DEWSNIP","SystemId":"12BETAUD01159"}>ExternalId</a>';
+                            'data-drill-down=\'{"DrillDownFromDate":"2017-03-06T00:00:00","DrillDownToDate":"2017-03-06T00:00:00","DrillDownCurrencyId":9,"DrillDownCurrencyName":"AUD","CustomerId":6507355,"ExternalId":"DEWSNIP","SystemId":"12BETAUD01159"}\'>ExternalId</a>';
 
                         var result = externalIdColumn.formatter("ExternalId", null, rowObject);
 

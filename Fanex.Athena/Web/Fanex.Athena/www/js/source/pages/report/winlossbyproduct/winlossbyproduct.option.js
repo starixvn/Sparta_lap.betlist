@@ -10,7 +10,7 @@
             currencyName: currencyName
         };
 
-        return '<a class="drilldown" href="javascript:;" data-drill-down=' + JSON.stringify(dataDrilldown) + '>' + cellvalue + '</a>';
+        return '<a class="drilldown" href="javascript:;" data-drill-down=\'' + JSON.stringify(dataDrilldown) + '\'>' + cellvalue + '</a>';
     };
     var currencyFormatter = function (cellvalue, options, rowObject) {
         var level = _me.licenseeId === 1 ? 1 : 2;
@@ -29,7 +29,7 @@
             ExternalId: rowObject.ExternalId,
             SystemId: rowObject.SystemId
         };
-        return '<a class="bet-list-link" href="javascript:;" data-drill-down=' + JSON.stringify(param) + '>' + cellvalue + '</a>';
+        return '<a class="bet-list-link" href="javascript:;" data-drill-down=\'' + JSON.stringify(param) + '\'>' + cellvalue + '</a>';
     };
 
     var indexColumn = {

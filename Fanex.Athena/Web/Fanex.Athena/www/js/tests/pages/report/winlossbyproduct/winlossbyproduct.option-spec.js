@@ -178,7 +178,7 @@
                         currencyName: "EUR"
                     };
                     var drilldownJson = JSON.stringify(dataDrilldown);
-                    var expectedResult = '<a class="drilldown" href="javascript:;" data-drill-down=' + drilldownJson + '>' + cellValue + '</a>';
+                    var expectedResult = '<a class="drilldown" href="javascript:;" data-drill-down=\'' + drilldownJson + '\'>' + cellValue + '</a>';
 
                     var currencyColumn = WinLossByProductOption.getColModel(0, 1)[4];
                     var rowObject = {
@@ -203,7 +203,7 @@
                         currencyName: "EUR"
                     };
                     var drilldownJson = JSON.stringify(dataDrilldown);
-                    var expectedResult = '<a class="drilldown" href="javascript:;" data-drill-down=' + drilldownJson + '>' + cellValue + '</a>';
+                    var expectedResult = '<a class="drilldown" href="javascript:;" data-drill-down=\'' + drilldownJson + '\'>' + cellValue + '</a>';
 
                     var currencyColumn = WinLossByProductOption.getColModel(0, 1)[4];
                     var rowObject = {
@@ -228,7 +228,7 @@
                         currencyName: "EUR"
                     };
                     var drilldownJson = JSON.stringify(dataDrilldown);
-                    var expectedResult = '<a class="drilldown" href="javascript:;" data-drill-down=' + drilldownJson + '>' + cellValue + '</a>';
+                    var expectedResult = '<a class="drilldown" href="javascript:;" data-drill-down=\'' + drilldownJson + '\'>' + cellValue + '</a>';
 
                     var systemIdColumn = WinLossByProductOption.getColModel(1, 1)[3];
                     var rowObject = {
@@ -256,7 +256,7 @@
                     SystemId: 4
                 };
                 var paramJson = JSON.stringify(param);
-                var expectedResult = '<a class="bet-list-link" href="javascript:;" data-drill-down=' + paramJson + '>' + cellValue + '</a>';
+                var expectedResult = '<a class="bet-list-link" href="javascript:;" data-drill-down=\'' + paramJson + '\'>' + cellValue + '</a>';
 
                 var systemIdColumn = WinLossByProductOption.getColModel(2, 1)[3];
                 var rowObject = {

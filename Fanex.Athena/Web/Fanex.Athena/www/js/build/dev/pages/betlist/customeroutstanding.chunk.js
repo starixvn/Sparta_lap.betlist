@@ -24387,7 +24387,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         };
 
         return rowObject.TransTypeHasBetList ?
-            '<a href="javascript:;" class="betlistDrilldown" data-param=' + JSON.stringify(drilldownParam) + '>' + rowObject.FullStatementDate + '</a>'
+            '<a href="javascript:;" class="betlistDrilldown" data-param=\'' + JSON.stringify(drilldownParam) + '\'>' + rowObject.FullStatementDate + '</a>'
             : rowObject.FullStatementDate;
     };
 

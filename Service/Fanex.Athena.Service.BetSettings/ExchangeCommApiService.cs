@@ -78,7 +78,7 @@ namespace Fanex.Athena.Service.BetSettings
             }
             catch (Exception exception)
             {
-                _logger.Error("Exchange Api getProfile: " + exception.Message);
+                _logger.Error($"Exchange Api getProfile (custid: {custId}): " + exception.Message);
                 return CreateApiErrorResult();
             }
         }
