@@ -1,11 +1,8 @@
 ﻿namespace Fanex.Athena.Api.Base.Attributes.UnitTests
 {
     using System.Net;
-    using System.Net.Http;
     using System.Threading;
-    using System.Web.Http;
     using System.Web.Http.Controllers;
-    using System.Web.Http.Routing;
     using Attributes;
     using DataAccess.Core.Users.Interfaces;
     using Logging;
@@ -14,6 +11,7 @@
     using NSubstitute;
     using NUnit.Framework;
     using Service.Core.Users.Interfaces;
+    using UnitTest.Common.Helpers;
 
     public class ApiOneAuthorizationAttributeTest
     {
@@ -124,24 +122,14 @@
 
         private static HttpActionContext CreateActionContext(bool hasAuthToken = false)
         {
-            var controllerContext = CreateControllerContext(hasAuthToken);
+            var controllerContext = ApiControllerTestHelper.CreateControllerContext();
+            if (hasAuthToken)
+            {
+                controllerContext.Request.Headers.Add(TokenKey, TokenValue);
+            }
 
             var descriptor = Substitute.ForPartsOf<HttpActionDescriptor>();
             return new HttpActionContext(controllerContext, descriptor);
-        }
-
-        private static HttpControllerContext CreateControllerContext(bool hasAuthToken = false)
-        {
-            var config = new HttpConfiguration();
-            var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost/api/test");
-            var route = config.Routes.MapHttpRoute("default", "api/{controller}/{id}");
-            var routeData = new HttpRouteData(route, new HttpRouteValueDictionary { { "controller", "test" } });
-            if (hasAuthToken)
-            {
-                request.Headers.Add(TokenKey, TokenValue);
-            }
-
-            return new HttpControllerContext(config, routeData, request);
         }
     }
 }

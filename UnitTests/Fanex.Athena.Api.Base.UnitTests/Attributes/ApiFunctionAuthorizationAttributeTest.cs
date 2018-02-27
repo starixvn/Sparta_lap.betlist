@@ -6,15 +6,14 @@
     using System.Net.Http;
     using System.Threading;
     using System.Threading.Tasks;
-    using System.Web.Http;
     using System.Web.Http.Controllers;
-    using System.Web.Http.Routing;
     using Attributes;
     using Extension.Utility;
     using Model.Core.DTO.Users;
     using NSubstitute;
     using NUnit.Framework;
     using Service.Core.Users.Interfaces;
+    using UnitTest.Common.Helpers;
 
     public class ApiFunctionAuthorizationAttributeTest
     {
@@ -131,24 +130,14 @@
 
         private static HttpActionContext CreateActionContext(bool isAjax = false)
         {
-            var controllerContext = CreateControllerContext(isAjax);
+            var controllerContext = ApiControllerTestHelper.CreateControllerContext();
+            if (isAjax)
+            {
+                controllerContext.Request.Headers.Add("X-Requested-With", "XMLHttpRequest");
+            }
 
             var descriptor = Substitute.ForPartsOf<HttpActionDescriptor>();
             return new HttpActionContext(controllerContext, descriptor);
-        }
-
-        private static HttpControllerContext CreateControllerContext(bool isAjax = false)
-        {
-            var config = new HttpConfiguration();
-            var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost/api/test");
-            var route = config.Routes.MapHttpRoute("default", "api/{controller}/{id}");
-            var routeData = new HttpRouteData(route, new HttpRouteValueDictionary { { "controller", "test" } });
-            if (isAjax)
-            {
-                request.Headers.Add("X-Requested-With", "XMLHttpRequest");
-            }
-
-            return new HttpControllerContext(config, routeData, request);
         }
     }
 }

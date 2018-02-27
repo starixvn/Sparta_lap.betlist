@@ -3,15 +3,14 @@
     using System;
     using System.Linq;
     using System.Net.Http;
-    using System.Web.Http;
     using System.Web.Http.Controllers;
     using System.Web.Http.Filters;
-    using System.Web.Http.Routing;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Users;
     using NSubstitute;
     using NUnit.Framework;
     using Service.Core.Users.Interfaces;
+    using UnitTest.Common.Helpers;
 
     public class XFrameOptionApiAttributeTest
     {
@@ -64,7 +63,7 @@
 
         private static HttpActionExecutedContext CreateActionExecutedContext()
         {
-            var controllerContext = CreateControllerContext();
+            var controllerContext = ApiControllerTestHelper.CreateControllerContext();
 
             var descriptor = Substitute.ForPartsOf<HttpActionDescriptor>();
             var actionContext = new HttpActionContext(controllerContext, descriptor);
@@ -72,16 +71,6 @@
             {
                 Response = new HttpResponseMessage()
             };
-        }
-
-        private static HttpControllerContext CreateControllerContext()
-        {
-            var config = new HttpConfiguration();
-            var request = new HttpRequestMessage(HttpMethod.Get, "http://localhost/api/test");
-            var route = config.Routes.MapHttpRoute("default", "api/{controller}/{id}");
-            var routeData = new HttpRouteData(route, new HttpRouteValueDictionary { { "controller", "test" } });
-
-            return new HttpControllerContext(config, routeData, request);
         }
     }
 }
