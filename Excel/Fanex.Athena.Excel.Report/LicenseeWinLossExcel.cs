@@ -190,13 +190,14 @@ namespace Fanex.Athena.Excel.Report
 
                 var indexid = _excelModel.MetaModel.DrillDownLevel == 0 ? rowIndex : indexDetail++;
                 row.Cells[ColumnIndex].SetCellValue(indexid);
-                rowIndex = needMerge ? rowIndex + 1 : rowIndex;
-
                 row.Cells[ColumnExternalId].SetCellValue(item.ExternalId);
                 row.Cells[ColumnSystemId].SetCellValue(item.SystemId);
                 row.Cells[ColumnDate].SetCellValue(reportDateString);
                 row.Cells[ColumnCurrency].SetCellValue(item.CurrencyName);
+
                 AssignCommonData(row, item);
+
+                rowIndex = needMerge ? rowIndex + 1 : rowIndex;
             }
 
             rowIndex = AssignTotalData(sheet, index + 3);
