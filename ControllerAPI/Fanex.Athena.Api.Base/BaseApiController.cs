@@ -32,7 +32,7 @@ namespace Fanex.Athena.Api.Base
         {
         }
 
-        protected BaseApiController(ISessionService sessionService, IProductService productService, ILanguageService languageService)
+        protected internal BaseApiController(ISessionService sessionService, IProductService productService, ILanguageService languageService)
         {
             _sessionService = sessionService ?? new SessionService();
             _productService = productService ?? new ProductService();
