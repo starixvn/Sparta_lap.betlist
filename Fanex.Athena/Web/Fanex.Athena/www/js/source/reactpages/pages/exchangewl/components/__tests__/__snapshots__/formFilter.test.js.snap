@@ -50,6 +50,7 @@ exports[`FormFilter  ExchangeWL FormFilter render whole component match to snaps
           Currency
         </label>
         <Select
+          addLabelText="Add \\"{label}\\"?"
           arrowRenderer={[Function]}
           autosize={true}
           backspaceRemoves={true}
@@ -98,14 +99,11 @@ exports[`FormFilter  ExchangeWL FormFilter render whole component match to snaps
           }
           pageSize={5}
           placeholder="Select..."
-          removeSelected={true}
           required={false}
-          rtl={false}
           scrollMenuIntoView={true}
           searchable={true}
           simpleValue={false}
           tabSelectsValue={true}
-          trimFilter={true}
           value={
             Object {
               "label": "1",
