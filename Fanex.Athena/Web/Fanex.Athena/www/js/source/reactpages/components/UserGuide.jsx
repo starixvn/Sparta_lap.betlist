@@ -44,7 +44,9 @@ export default class UserGuide extends React.Component {
         
         return (<div>
             <i className={className} onClick={this.onClickHandler} title={title}></i>
-            <Popup width={'640px'} height={'480px'} isShow={isShow} content={content} title={contentTitle} onClose={this.onCloseHandler} isHtml={true} />
+            <Popup width={640} height={480} isShow={isShow} title={contentTitle} onClose={this.onCloseHandler} isHtml={true}>
+                {content}
+            </Popup>
         </div>);
     }
 };

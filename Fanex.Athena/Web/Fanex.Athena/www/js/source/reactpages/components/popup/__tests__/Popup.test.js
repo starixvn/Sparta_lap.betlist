@@ -6,11 +6,7 @@ import Popup from '../Popup'
 describe('Popup ', () => {
     describe('render', () => {
         it('isShow is false - popup component is hidden', () => {
-            const props = {
-                content: '<div></div>'
-            };
-
-            const component = renderer.create(<Popup {...props} />);
+            const component = renderer.create(<Popup><div></div></Popup>);
 
             const result = component.toJSON();
         
@@ -20,11 +16,10 @@ describe('Popup ', () => {
 
         it('isShow is true - popup component is shown', () => {
             const props = {
-                content: '<div></div>',
                 isShow: true
             };
 
-            const component = renderer.create(<Popup {...props} />);
+            const component = renderer.create(<Popup {...props}><div></div></Popup>);
 
             const result = component.toJSON();
         
@@ -34,11 +29,10 @@ describe('Popup ', () => {
 
         it('isHtml is false - popup component shows content as text', () => {
             const props = {
-                content: '<div></div>',
                 isShow: true
             };
 
-            const component = renderer.create(<Popup {...props} />);
+            const component = renderer.create(<Popup {...props}><div></div></Popup>);
 
             const result = component.toJSON();
         
@@ -47,12 +41,11 @@ describe('Popup ', () => {
 
         it('isHtml is true - popup component shows content as html', () => {
             const props = {
-                content: '<div></div>',
                 isShow: true,
                 isHtml: true
             };
 
-            const component = renderer.create(<Popup {...props} />);
+            const component = renderer.create(<Popup {...props}><div></div></Popup>);
 
             const result = component.toJSON();
         

@@ -2615,8 +2615,8 @@ exports[`FormFilter  render methods render whole component group by currency - I
             className="flat-popup"
             style={
               Object {
-                "height": "480px",
-                "width": "640px",
+                "height": 480,
+                "width": 640,
               }
             }
           >
@@ -5269,8 +5269,8 @@ exports[`FormFilter  render methods render whole component group by product - Is
             className="flat-popup"
             style={
               Object {
-                "height": "480px",
-                "width": "640px",
+                "height": 480,
+                "width": 640,
               }
             }
           >

@@ -11,7 +11,6 @@ export default class Popup extends React.Component {
     static propTypes = {
         width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
         height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-        content: PropTypes.string,
         title: PropTypes.string,
         isShow: PropTypes.bool,
         onClose: PropTypes.func,
@@ -30,7 +29,7 @@ export default class Popup extends React.Component {
     }
 
     render() {
-        const { content, title, isShow, width, height, isHtml } = this.props;
+        const { title, isShow, width, height, isHtml, children } = this.props;
 
         return (<div className={`popup-container ${isShow ? 'show' : 'hide'}`}>
             <div className='popup-block-body'></div>
@@ -39,9 +38,10 @@ export default class Popup extends React.Component {
                     <div className="txt-title">{title}</div>
                     <a className="popup-close" href="javascript:;" onClick={this.onCloseHandler}><i className="icon-close"></i></a>
                 </div>
-                { isHtml
-                    ? (<div className='popup-content' dangerouslySetInnerHTML={{ __html: content }} />)
-                    : (<div className='popup-content'>{content}</div>)
+                { 
+                    isHtml ? 
+                    (<div className='popup-content' dangerouslySetInnerHTML={{ __html: children }} />) :
+                    (<div className='popup-content'>{children}</div>)
                 }
             </div>
         </div>);

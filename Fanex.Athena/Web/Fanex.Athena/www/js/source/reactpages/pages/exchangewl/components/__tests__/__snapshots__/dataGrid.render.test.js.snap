@@ -625,6 +625,589 @@ exports[`Render DataGrid components  Render grid Has data grid data should be re
       </div>
     </div>
   </div>
+  <div
+    className="popup-container hide"
+  >
+    <div
+      className="popup-block-body"
+    />
+    <div
+      className="flat-popup"
+      style={
+        Object {
+          "height": 600,
+          "width": 900,
+        }
+      }
+    >
+      <div
+        className="popup-title"
+      >
+        <div
+          className="txt-title"
+        >
+          CUSTOMER BET LIST
+        </div>
+        <a
+          className="popup-close"
+          href="javascript:;"
+          onClick={[Function]}
+        >
+          <i
+            className="icon-close"
+          />
+        </a>
+      </div>
+      <div
+        className="popup-content"
+      >
+        <div
+          className="betlist-container"
+        >
+          <div
+            className="betlist-title"
+          >
+            <p>
+              Customer Bet List 2/19/2018 - 2/19/2018 - testABC(12BETMR010101) - 
+              <span
+                className="base-currency-title"
+              >
+                View in MYR
+              </span>
+            </p>
+          </div>
+          <div
+            className="betlist-content"
+          >
+            <div
+              className="table-container"
+              style={
+                Object {
+                  "maxWidth": 870,
+                }
+              }
+            >
+              <div
+                className="header-content"
+                style={
+                  Object {
+                    "maxHeight": undefined,
+                    "minWidth": undefined,
+                    "width": 870,
+                  }
+                }
+              >
+                <div
+                  className="table-wrapper"
+                >
+                  <table
+                    className="table"
+                    style={
+                      Object {
+                        "width": 851,
+                      }
+                    }
+                  >
+                    <thead>
+                      <tr
+                        className="first-row"
+                      >
+                        <td
+                          style={
+                            Object {
+                              "width": "30.945454545454545px",
+                            }
+                          }
+                        />
+                        <td
+                          style={
+                            Object {
+                              "width": "232.0909090909091px",
+                            }
+                          }
+                        />
+                        <td
+                          style={
+                            Object {
+                              "width": "54.154545454545456px",
+                            }
+                          }
+                        />
+                        <td
+                          style={
+                            Object {
+                              "width": "92.83636363636364px",
+                            }
+                          }
+                        />
+                        <td
+                          style={
+                            Object {
+                              "width": "38.68181818181819px",
+                            }
+                          }
+                        />
+                        <td
+                          style={
+                            Object {
+                              "width": "77.36363636363637px",
+                            }
+                          }
+                        />
+                        <td
+                          style={
+                            Object {
+                              "width": "46.41818181818182px",
+                            }
+                          }
+                        />
+                        <td
+                          style={
+                            Object {
+                              "width": "61.89090909090909px",
+                            }
+                          }
+                        />
+                        <td
+                          style={
+                            Object {
+                              "width": "61.89090909090909px",
+                            }
+                          }
+                        />
+                        <td
+                          style={
+                            Object {
+                              "width": "77.36363636363637px",
+                            }
+                          }
+                        />
+                        <td
+                          style={
+                            Object {
+                              "width": "77.36363636363637px",
+                            }
+                          }
+                        />
+                      </tr>
+                      <tr
+                        style={
+                          Object {
+                            "height": 32,
+                          }
+                        }
+                      >
+                        <th>
+                          #
+                        </th>
+                        <th>
+                          Market
+                        </th>
+                        <th>
+                          Bet ID
+                        </th>
+                        <th>
+                          Selection
+                        </th>
+                        <th>
+                          Type
+                        </th>
+                        <th>
+                          Bet Placed
+                        </th>
+                        <th>
+                          Odds avg.
+                        </th>
+                        <th>
+                          Stake
+                        </th>
+                        <th>
+                          Winloss
+                        </th>
+                        <th>
+                          WL /Comm
+                        </th>
+                        <th>
+                          Lic WL /Comm
+                        </th>
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+              </div>
+              <div
+                className="body-content"
+                style={
+                  Object {
+                    "maxHeight": 726,
+                    "minWidth": undefined,
+                    "width": 870,
+                  }
+                }
+              >
+                <div
+                  className="table-wrapper"
+                >
+                  <table
+                    className="table"
+                    style={
+                      Object {
+                        "width": 851,
+                      }
+                    }
+                  >
+                    <tbody>
+                      <tr
+                        className="first-row"
+                      >
+                        <td
+                          style={
+                            Object {
+                              "width": "30.945454545454545px",
+                            }
+                          }
+                        />
+                        <td
+                          style={
+                            Object {
+                              "width": "232.0909090909091px",
+                            }
+                          }
+                        />
+                        <td
+                          style={
+                            Object {
+                              "width": "54.154545454545456px",
+                            }
+                          }
+                        />
+                        <td
+                          style={
+                            Object {
+                              "width": "92.83636363636364px",
+                            }
+                          }
+                        />
+                        <td
+                          style={
+                            Object {
+                              "width": "38.68181818181819px",
+                            }
+                          }
+                        />
+                        <td
+                          style={
+                            Object {
+                              "width": "77.36363636363637px",
+                            }
+                          }
+                        />
+                        <td
+                          style={
+                            Object {
+                              "width": "46.41818181818182px",
+                            }
+                          }
+                        />
+                        <td
+                          style={
+                            Object {
+                              "width": "61.89090909090909px",
+                            }
+                          }
+                        />
+                        <td
+                          style={
+                            Object {
+                              "width": "61.89090909090909px",
+                            }
+                          }
+                        />
+                        <td
+                          style={
+                            Object {
+                              "width": "77.36363636363637px",
+                            }
+                          }
+                        />
+                        <td
+                          style={
+                            Object {
+                              "width": "77.36363636363637px",
+                            }
+                          }
+                        />
+                      </tr>
+                      <tr>
+                        <td
+                          rowSpan={1}
+                        >
+                          1
+                        </td>
+                        <td
+                          rowSpan={1}
+                        >
+                          CRICKET &gt; Ireland A vs Bangladesh A &gt; Match Odds
+                        </td>
+                        <td>
+                          43154
+                        </td>
+                        <td>
+                          Bangladesh A
+                        </td>
+                        <td>
+                          Back
+                        </td>
+                        <td>
+                          10/25/2017 01:05:46
+                        </td>
+                        <td>
+                          1.5
+                        </td>
+                        <td>
+                          30
+                        </td>
+                        <td>
+                          15
+                        </td>
+                        <td
+                          rowSpan={1}
+                        >
+                          15
+                          <br />
+                          -0.45
+                        </td>
+                        <td
+                          rowSpan={1}
+                        >
+                          -9
+                          <br />
+                          0.15
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          rowSpan={3}
+                        >
+                          2
+                        </td>
+                        <td
+                          rowSpan={3}
+                        >
+                          CRICKET &gt; Zimbabwe vs West Indies &gt; Match Odds
+                        </td>
+                        <td>
+                          43116
+                        </td>
+                        <td>
+                          Zimbabwe
+                        </td>
+                        <td>
+                          Lay
+                        </td>
+                        <td>
+                          10/24/2017 05:45:14
+                        </td>
+                        <td>
+                          7
+                        </td>
+                        <td>
+                          30
+                        </td>
+                        <td>
+                          30
+                        </td>
+                        <td
+                          rowSpan={3}
+                        >
+                          30
+                          <br />
+                          0
+                        </td>
+                        <td
+                          rowSpan={3}
+                        >
+                          42
+                          <br />
+                          0
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          43112
+                        </td>
+                        <td>
+                          Zimbabwe
+                        </td>
+                        <td>
+                          Back
+                        </td>
+                        <td>
+                          10/24/2017 05:45:14
+                        </td>
+                        <td>
+                          9.8
+                        </td>
+                        <td>
+                          50
+                        </td>
+                        <td>
+                          -50
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          43118
+                        </td>
+                        <td>
+                          Zimbabwe
+                        </td>
+                        <td>
+                          Back
+                        </td>
+                        <td>
+                          10/24/2017 05:45:14
+                        </td>
+                        <td>
+                          7.8
+                        </td>
+                        <td>
+                          50
+                        </td>
+                        <td>
+                          -50
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div
+                className="footer-content"
+                style={
+                  Object {
+                    "maxHeight": undefined,
+                    "minWidth": undefined,
+                    "width": 870,
+                  }
+                }
+              >
+                <div
+                  className="table-wrapper"
+                >
+                  <table
+                    className="table"
+                    style={
+                      Object {
+                        "width": 851,
+                      }
+                    }
+                  >
+                    <tbody>
+                      <tr
+                        className="first-row"
+                      >
+                        <td
+                          style={
+                            Object {
+                              "width": "30.945454545454545px",
+                            }
+                          }
+                        />
+                        <td
+                          style={
+                            Object {
+                              "width": "232.0909090909091px",
+                            }
+                          }
+                        />
+                        <td
+                          style={
+                            Object {
+                              "width": "54.154545454545456px",
+                            }
+                          }
+                        />
+                        <td
+                          style={
+                            Object {
+                              "width": "92.83636363636364px",
+                            }
+                          }
+                        />
+                        <td
+                          style={
+                            Object {
+                              "width": "38.68181818181819px",
+                            }
+                          }
+                        />
+                        <td
+                          style={
+                            Object {
+                              "width": "77.36363636363637px",
+                            }
+                          }
+                        />
+                        <td
+                          style={
+                            Object {
+                              "width": "46.41818181818182px",
+                            }
+                          }
+                        />
+                        <td
+                          style={
+                            Object {
+                              "width": "61.89090909090909px",
+                            }
+                          }
+                        />
+                        <td
+                          style={
+                            Object {
+                              "width": "61.89090909090909px",
+                            }
+                          }
+                        />
+                        <td
+                          style={
+                            Object {
+                              "width": "77.36363636363637px",
+                            }
+                          }
+                        />
+                        <td
+                          style={
+                            Object {
+                              "width": "77.36363636363637px",
+                            }
+                          }
+                        />
+                      </tr>
+                      <tr>
+                        <td
+                          colSpan="9"
+                        >
+                          Grand Total
+                        </td>
+                        <td>
+                          -55.45
+                        </td>
+                        <td>
+                          33.15
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 `;
 
