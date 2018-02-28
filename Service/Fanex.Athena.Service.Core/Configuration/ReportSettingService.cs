@@ -37,7 +37,7 @@ namespace Fanex.Athena.Service.Core.Configuration
         public ReportSetting GetSetting(string licenseeName, string reportKey)
         {
             var settings = _cache.Get<IEnumerable<ReportSetting>>(CacheKey);
-            if (true || settings == null)
+            if (settings == null)
             {
                 settings = GetSettingList();
                 _cache.Set(CacheKey, settings);

@@ -30,7 +30,7 @@ namespace Fanex.Athena.Service.Core.Configuration
         public FakeLicenseeSetting GetSetting(string licenseeName)
         {
             var settings = _cache.Get<IEnumerable<FakeLicenseeSetting>>(CacheKey);
-            if (true || settings == null)
+            if (settings == null)
             {
                 settings = GetSettingList();
                 _cache.Set(CacheKey, settings);

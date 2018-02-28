@@ -4,6 +4,16 @@
 
     public static class DateTimeHelper
     {
+        public static DateTime GetMaxDate(DateTime dateOne, DateTime dateTwo)
+        {
+            return dateOne > dateTwo ? dateOne : dateTwo;
+        }
+
+        public static DateTime GetMinDate(DateTime dateOne, DateTime dateTwo)
+        {
+            return dateOne < dateTwo ? dateOne : dateTwo;
+        }
+
         public static bool IsBetween(DateTime date, DateTime minDate, DateTime maxDate)
         {
             return date.Date >= minDate.Date && date.Date <= maxDate.Date;

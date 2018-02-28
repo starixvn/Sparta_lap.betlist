@@ -8,6 +8,7 @@ namespace Fanex.Athena.Controllers.Report
 {
     using System;
     using System.Web.Mvc;
+    using Extension.Helper;
     using Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Report.MetaModel;
@@ -50,10 +51,12 @@ namespace Fanex.Athena.Controllers.Report
                 licenseeSession.LicenseeId,
                 userSession.Language,
                 FunctionNames.LicenseeWinLoss);
+            var reportSetting = _reportSettingService.GetSetting(licenseeSession.LicenseeName, PermissionKeys.ReportLicenseeWinLoss);
+            var selectedDate = DateTimeHelper.GetMinDate(reportSetting.MaxDate, DateTime.Now);
             var metaModel = new LicenseeWinLossMetaModel
             {
-                FromDate = DateTime.Now,
-                ToDate = DateTime.Now,
+                FromDate = selectedDate,
+                ToDate = selectedDate,
                 LicenseeId = licenseeSession.LicenseeId,
                 IsExcludedTestData = true,
                 DrawFilter = DrawFilterType.Normal,
@@ -62,7 +65,7 @@ namespace Fanex.Athena.Controllers.Report
             };
 
             SetConvetedUSDCurrencyId(metaModel);
-            var reportSetting = _reportSettingService.GetSetting(licenseeSession.LicenseeName, PermissionKeys.ReportLicenseeWinLoss);
+
             var model = new LicenseeWinLossViewModel
             {
                 Param = metaModel,
