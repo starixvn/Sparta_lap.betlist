@@ -115,7 +115,7 @@
             fakeHttpContext.User.Identity.IsAuthenticated.Returns(false);
             _currencyDataAccess.GetCurrenciesByUser(Arg.Any<int>(), Arg.Any<int>()).Returns(FakeCurrencyListMapByUser());
 
-            _sessionService.When(x => x.CreateNewSession(Arg.Any<UserSession>(), Arg.Any<LicenseeSession>()))
+            _sessionService.When(x => x.AssignSessions(Arg.Any<UserSession>(), Arg.Any<LicenseeSession>()))
                 .Do(
                     x =>
                     {
@@ -135,7 +135,7 @@
             var result = _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
 
             // Assert
-            _sessionService.Received(1).CreateNewSession(Arg.Any<UserSession>(), Arg.Any<LicenseeSession>());
+            _sessionService.Received(1).AssignSessions(Arg.Any<UserSession>(), Arg.Any<LicenseeSession>());
             _formAuthenticationService.Received(1).SetAuthCookie(expectedCookie, false);
             Assert.AreEqual(true, result.IsSuccessful);
             Assert.AreEqual(1, sessionCounter);

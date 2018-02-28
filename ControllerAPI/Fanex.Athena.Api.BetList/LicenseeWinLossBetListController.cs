@@ -7,6 +7,7 @@
     using Service.Core.Utility;
 
     [ApiFunctionAuthorization(PermissionKeys.ReportLicenseeWinLoss, PermissionKeys.ReportWinLossByProduct, PermissionKeys.ReportColossusBetsWinLoss)]
+    [ApiBetListAuthorization]
     public class LicenseeWinLossBetListController : ApiBetListBaseController
     {
         [HttpPost]

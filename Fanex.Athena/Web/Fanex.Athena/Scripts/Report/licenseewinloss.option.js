@@ -363,6 +363,7 @@ var LicenseeWinLossOption = (function () {
 
     var me =
     {
+        isDisableBetList: false,
         licenseeId: 0,
         currencyIndex: 4,
         turnoverIndex: 5,
@@ -568,7 +569,7 @@ var LicenseeWinLossOption = (function () {
         // Row span setting
         // indexColumn.cellattr = level == 0 ? jqGridAdditional.rowSpanSetting : null;
         // dateColumn.cellattr = level == 0 ? jqGridAdditional.rowSpanSetting : null;
-        if (level === 2) {
+        if (level === 2 && !LicenseeWinLossOption.isDisableBetList) {
             externalIdColumn.formatter = betlistLink;
             systemIdColumn.formatter = betlistLink;
         }

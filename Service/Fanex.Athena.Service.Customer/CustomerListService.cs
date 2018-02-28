@@ -227,7 +227,7 @@ namespace Fanex.Athena.Service.Customer
         {
             if (userName != null && licenseeId == LicenseeIdentity.IvoryBet)
             {
-                const string IgnoredLicenseePrefix = "webet88";
+                const string IgnoredLicenseePrefix = "9club";
                 if (userName.StartsWith(IgnoredLicenseePrefix, StringComparison.OrdinalIgnoreCase))
                 {
                     return false;

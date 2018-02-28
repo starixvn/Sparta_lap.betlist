@@ -14,14 +14,19 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Model.Report.ViewModel;
     using Fanex.Athena.Web.ActionFilter;
     using Service.Core.Common.Interfaces;
+    using Service.Core.Configuration;
+    using Service.Core.Configuration.Interfaces;
     using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.ReportLicenseeWinLoss)]
     public class LicenseeWinLossReportController : ReportBaseController
     {
+        private readonly IReportSettingService _reportSettingService;
+
         public LicenseeWinLossReportController()
         {
+            _reportSettingService = new ReportSettingService();
         }
 
         public LicenseeWinLossReportController(
@@ -29,9 +34,11 @@ namespace Fanex.Athena.Controllers.Report
             ISessionService sessionService,
             IAppSettings appSetting,
             IClientViewHelper clientViewHelper,
-            IProductService productService)
+            IProductService productService,
+            IReportSettingService reportSettingService)
         : base(languageService, sessionService, appSetting, clientViewHelper, productService)
         {
+            _reportSettingService = reportSettingService ?? new ReportSettingService();
         }
 
         [HttpGet]
@@ -55,14 +62,15 @@ namespace Fanex.Athena.Controllers.Report
             };
 
             SetConvetedUSDCurrencyId(metaModel);
-
+            var reportSetting = _reportSettingService.GetSetting(licenseeSession.LicenseeName, PermissionKeys.ReportLicenseeWinLoss);
             var model = new LicenseeWinLossViewModel
             {
                 Param = metaModel,
                 CurrencyList = userSession.CurrencyList,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 ProductAccess = productAccess,
-                IsFakeLicensee = IsFakeLicensee()
+                IsFakeLicensee = IsFakeLicensee(),
+                ReportSetting = reportSetting
             };
             return View("~/Views/Report/LicenseeWinLoss/Main.cshtml", model);
         }

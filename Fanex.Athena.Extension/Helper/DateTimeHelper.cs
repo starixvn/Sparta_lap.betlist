@@ -1,10 +1,14 @@
 ﻿namespace Fanex.Athena.Extension.Helper
 {
     using System;
-    using System.Globalization;
 
     public static class DateTimeHelper
     {
+        public static bool IsBetween(DateTime date, DateTime minDate, DateTime maxDate)
+        {
+            return date.Date >= minDate.Date && date.Date <= maxDate.Date;
+        }
+
         public static DateTime GetFirstDateOfWeek(DateTime date, DayOfWeek startOfWeek = DayOfWeek.Monday)
         {
             var diff = date.DayOfWeek - startOfWeek;

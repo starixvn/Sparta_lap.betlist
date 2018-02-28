@@ -10,6 +10,7 @@
     using NUnit.Framework;
     using Report;
     using Service.Core.Common.Interfaces;
+    using Service.Core.Configuration.Interfaces;
 
     [TestFixture]
     public class LicenseeWinLossReportControllerTest : BaseControllerHelperTest
@@ -54,7 +55,8 @@
                 SessionService,
                 AppSettings,
                 ClientViewHelper,
-                productService);
+                productService,
+                Substitute.For<IReportSettingService>());
         }
     }
 }
