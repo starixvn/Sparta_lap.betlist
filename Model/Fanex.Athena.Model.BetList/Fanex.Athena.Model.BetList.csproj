@@ -129,6 +129,8 @@
     <Compile Include="DTO\CashOutTicket.cs" />
     <Compile Include="DTO\CustomerCancelBetItem.cs" />
     <Compile Include="DTO\DailyStatement.cs" />
+    <Compile Include="DTO\ExchangeTicket.cs" />
+    <Compile Include="DTO\ExchangeTicketResult.cs" />
     <Compile Include="DTO\LrfTicket.cs" />
     <Compile Include="DTO\BetListMatch.cs" />
     <Compile Include="DTO\ColossusBetDetail.cs" />

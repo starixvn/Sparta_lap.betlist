@@ -205,6 +205,7 @@
     <Compile Include="AGCasinoBetListController.cs" />
     <Compile Include="BonusBetListController.cs" />
     <Compile Include="DailyStatementBetListController.cs" />
+    <Compile Include="ExchangeWinLossBetListController.cs" />
     <Compile Include="GlobalGamingBetListController.cs" />
     <Compile Include="MixParlayBetListController.cs" />
     <Compile Include="PlatformWinLossBetListController.cs" />
