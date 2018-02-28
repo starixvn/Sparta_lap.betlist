@@ -22,6 +22,7 @@ namespace Fanex.Athena.Service.Core.Configuration
         private const string CacheKey = "LRF_FakeLicenseeSettings";
 
         private readonly IMemoryCacheService _cache;
+
         public FakeLicenseeSettingService()
         {
             _cache = new MemoryCacheService();

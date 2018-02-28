@@ -109,7 +109,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _logger.Received(1).Error("Exchange Api getProfile: " + ErrorMsg);
+                _logger.Received(1).Error("Exchange Api getProfile (custid: 0): " + ErrorMsg);
                 Assert.That(result.IsSuccessful, Is.False);
             });
         }

@@ -54,17 +54,6 @@ namespace Fanex.Athena.Service.Core.Configuration
             return reportSetting;
         }
 
-        private void AssignFakeLicenseeSetting(string licenseeName, ReportSetting reportSetting)
-        {
-            var fakeLicenseeSetting = _fakeLicenseeSettingService.GetSetting(licenseeName);
-            if (fakeLicenseeSetting != null)
-            {
-                reportSetting.MinDateString = fakeLicenseeSetting.MinDate;
-                reportSetting.MaxDateString = fakeLicenseeSetting.MaxDate;
-                reportSetting.IsDisableBetList = fakeLicenseeSetting.DisableBetList;
-            }
-        }
-
         private static DateTime ConvertToDate(string datetime, DateTime? defaultDate)
         {
             if (string.IsNullOrEmpty(datetime))
@@ -83,6 +72,17 @@ namespace Fanex.Athena.Service.Core.Configuration
             }
 
             return Convert.ToDateTime(datetime);
+        }
+
+        private void AssignFakeLicenseeSetting(string licenseeName, ReportSetting reportSetting)
+        {
+            var fakeLicenseeSetting = _fakeLicenseeSettingService.GetSetting(licenseeName);
+            if (fakeLicenseeSetting != null)
+            {
+                reportSetting.MinDateString = fakeLicenseeSetting.MinDate;
+                reportSetting.MaxDateString = fakeLicenseeSetting.MaxDate;
+                reportSetting.IsDisableBetList = fakeLicenseeSetting.DisableBetList;
+            }
         }
 
         private IEnumerable<ReportSetting> GetSettingList()

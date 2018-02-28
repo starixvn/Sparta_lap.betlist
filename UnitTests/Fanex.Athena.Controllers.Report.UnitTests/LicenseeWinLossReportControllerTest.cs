@@ -5,6 +5,7 @@
     using Base.UnitTests;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
+    using Model.Core.DTO.Configuration;
     using Model.Report.ViewModel;
     using NSubstitute;
     using NUnit.Framework;
@@ -45,6 +46,10 @@
 
         private LicenseeWinLossReportController CreateController()
         {
+            var reportSettingService = Substitute.For<IReportSettingService>();
+            reportSettingService.GetSetting(
+                SessionService.LicenseeSession.LicenseeName,
+                PermissionKeys.ReportLicenseeWinLoss).Returns(new ReportSetting());
             var productService = Substitute.For<IProductService>();
             productService.GetSingleWalletProductAccess(
                 SessionService.LicenseeSession.LicenseeId,
@@ -56,7 +61,7 @@
                 AppSettings,
                 ClientViewHelper,
                 productService,
-                Substitute.For<IReportSettingService>());
+                reportSettingService);
         }
     }
 }

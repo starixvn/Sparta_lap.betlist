@@ -10,7 +10,7 @@ namespace Fanex.Athena.Model.Core.DTO.Configuration
 
         public bool DisableBetList { get; set; }
 
-        public string MinDate{ get; set; }
+        public string MinDate { get; set; }
 
         public string MaxDate { get; set; }
     }
