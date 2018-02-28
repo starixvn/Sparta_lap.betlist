@@ -554,7 +554,7 @@ define(
             amtDueToBetTradeColumn.hidden = allowedSb === false || allowedBa === false || !allowedBetTrade;
             cashOutCommissionColumn.hidden = !allowedCashOut;
 
-            if (level === 2 && !LicenseeWinLossOption.isDisableBetList) {
+            if (level === 2 && !_me.isDisableBetList) {
                 externalIdColumn.formatter = betlistLink;
                 systemIdColumn.formatter = betlistLink;
             }

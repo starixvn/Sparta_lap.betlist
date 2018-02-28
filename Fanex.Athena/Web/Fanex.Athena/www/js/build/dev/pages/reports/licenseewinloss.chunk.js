@@ -26446,6 +26446,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             },
 
             initSetting: function () {
+                LicenseeWinLossOption.isDisableBetList = Site.asBool($("#IsDisableBetList").val());
                 LicenseeWinLossOption.hasCustomerComm = Site.asBool($("#IsAllowedCustomerCommission").val());
                 LicenseeWinLossOption.licenseeId = parseInt($("#drillDownLicenseeId").val());
             },
@@ -27395,7 +27396,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
             amtDueToBetTradeColumn.hidden = allowedSb === false || allowedBa === false || !allowedBetTrade;
             cashOutCommissionColumn.hidden = !allowedCashOut;
 
-            if (level === 2 && !LicenseeWinLossOption.isDisableBetList) {
+            if (level === 2 && !_me.isDisableBetList) {
                 externalIdColumn.formatter = betlistLink;
                 systemIdColumn.formatter = betlistLink;
             }
