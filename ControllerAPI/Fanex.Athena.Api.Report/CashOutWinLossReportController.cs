@@ -17,7 +17,6 @@ namespace Fanex.Athena.Api.Report
     using DataAccess.Report.Interfaces;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
-    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
@@ -25,8 +24,6 @@ namespace Fanex.Athena.Api.Report
     using Model.Core.ResultModel;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
-    using Service.Report;
-    using Service.Report.Interfaces;
 
     [ApiFunctionAuthorization(PermissionKeys.ReportCashOutWinLoss)]
     public class CashOutWinLossReportController : ApiReportBaseController
@@ -88,8 +85,8 @@ namespace Fanex.Athena.Api.Report
         }
 
         private HttpResponseMessage ExportExcel(
-            ThirdPartyWinLossMetaModel metaModel, 
-            IList<CashOutWinLoss> dataList, 
+            ThirdPartyWinLossMetaModel metaModel,
+            IList<CashOutWinLoss> dataList,
             IEnumerable<CashOutWinLoss> totalData,
             IDictionary<string, CashOutWinLoss> summaryTotal)
         {
@@ -144,33 +141,46 @@ namespace Fanex.Athena.Api.Report
             int currencyId = 0,
             int custId = 0)
         {
-            if (IsValidRequest(metaModel, currencyId))
+            if (!IsValidRequest(metaModel, currencyId))
             {
-                metaModel.DrillDownCurrencyId = currencyId;
-                metaModel.DrillDownLevel = level;
-                metaModel.DrillDownCustomerId = custId;
-                metaModel.DrillDownFromDate = fdate.HasValue ? fdate.Value : metaModel.DrillDownFromDate;
-                metaModel.DrillDownToDate = tdate.HasValue ? tdate.Value : metaModel.DrillDownToDate;
-                metaModel.AgentListXml = SessionService.GenerateAgentListXml(level > 0 ? currencyId : metaModel.CurrencyId, metaModel.IsExcludedTestData);
-                var result = GetData(metaModel);
+                return GetEmptyResult();
+            }
 
-                if (metaModel.IsExportExcel)
-                {
-                    return ExportExcel(metaModel, result.DataList, result.TotalDataList, result.SummaryTotal);
-                }
+            UpdateMetaModel(metaModel, fdate, tdate, level, currencyId, custId);
+            var result = GetData(metaModel);
 
-                if (result.DataList != null && result.DataList.Any())
+            if (metaModel.IsExportExcel)
+            {
+                return ExportExcel(metaModel, result.DataList, result.TotalDataList, result.SummaryTotal);
+            }
+
+            if (result.DataList != null && result.DataList.Any())
+            {
+                return new
                 {
-                    return new
-                    {
-                        Data = result.DataList,
-                        Total = result.TotalDataList,
-                        SummaryTotal = result.SummaryTotal
-                    };
-                }
+                    Data = result.DataList,
+                    Total = result.TotalDataList,
+                    SummaryTotal = result.SummaryTotal
+                };
             }
 
             return GetEmptyResult();
+        }
+
+        private void UpdateMetaModel(
+            ThirdPartyWinLossMetaModel metaModel,
+            DateTime? fdate,
+            DateTime? tdate,
+            int level,
+            int currencyId,
+            int custId)
+        {
+            metaModel.DrillDownCurrencyId = currencyId;
+            metaModel.DrillDownLevel = level;
+            metaModel.DrillDownCustomerId = custId;
+            metaModel.DrillDownFromDate = fdate.HasValue ? fdate.Value : metaModel.DrillDownFromDate;
+            metaModel.DrillDownToDate = tdate.HasValue ? tdate.Value : metaModel.DrillDownToDate;
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(level > 0 ? currencyId : metaModel.CurrencyId, metaModel.IsExcludedTestData);
         }
 
         private SortableReportResultModel<CashOutWinLoss> GetData(ThirdPartyWinLossMetaModel metaModel)

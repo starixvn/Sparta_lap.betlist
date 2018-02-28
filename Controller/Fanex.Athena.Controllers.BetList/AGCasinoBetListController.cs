@@ -50,7 +50,7 @@ namespace Fanex.Athena.Controllers.BetList
 
         protected override void AssignViewBag(BetListMetaModel model)
         {
-            ViewBag.BetListTitle = GetTitle(model.TransType);
+            ViewBag.BetListTitle = GetAGCasinoBetListTitle(model.TransType);
         }
 
         protected override ActionResult ExportExcel(BetListMetaModel metaModel, string uspKey)
@@ -61,13 +61,13 @@ namespace Fanex.Athena.Controllers.BetList
             };
 
             var hiddenColumns = new List<int> { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn, LicenseeWLColumn };
-            var title = GetTitle(metaModel.TransType);
+            var title = GetAGCasinoBetListTitle(metaModel.TransType);
             var ticketResult = BetListService.GetBetListData(metaModel, uspKey);
 
             return ProcessExportExcel(showingOption, metaModel, ticketResult, hiddenColumns, title, "AGCasinoDetail");
         }
 
-        private static string GetTitle(long transType)
+        private static string GetAGCasinoBetListTitle(long transType)
         {
             return GetTitleByTransType(ViewResources.ProductAGC + " - ", transType);
         }

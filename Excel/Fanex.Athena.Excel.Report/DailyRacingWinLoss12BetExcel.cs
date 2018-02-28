@@ -336,10 +336,10 @@ namespace Fanex.Athena.Excel.Report
         {
             // Total currency
             var currencyTotalData = _dailyRacingWinLossData.CurrencyTotalData;
-            foreach (string currencyName in currencyTotalData.Keys)
+            foreach (var currencyData in currencyTotalData)
             {
                 var currencyRow = sheet.CopyRow(TemplateSheet, RowTotalCurrencyTemplate, currentRow);
-                AssignDataRow(currencyRow, currencyTotalData[currencyName], ViewResources.Total, currencyName);
+                AssignDataRow(currencyRow, currencyData.Value, ViewResources.Total, currencyData.Key);
                 currentRow++;
             }
 

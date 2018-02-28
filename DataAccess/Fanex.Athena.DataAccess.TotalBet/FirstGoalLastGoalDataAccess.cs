@@ -22,21 +22,24 @@ namespace Fanex.Athena.DataAccess.TotalBet
         public ReportResultModel<FirstGoalLastGoal> GetFirstGoalLastGoalDataList(FirstGoalLastGoalMetaModel metaModel)
         {
             const string SpName = "Lrf_TotalBets_Sel14";
-            var uspParams = new
-            {
-                AgentList = metaModel.AgentListXml,
-                PageSize = metaModel.PageSize,
-                PageIndex = metaModel.PageIndex,
-                TotalRows = metaModel.TotalRows
-            };
 
-            using (var db = this.GetObjectDb(SpName))
+            using (var db = GetObjectDb(SpName))
             {
+                var uspParams = new
+                {
+                    AgentList = metaModel.AgentListXml,
+                    PageSize = metaModel.PageSize,
+                    PageIndex = metaModel.PageIndex,
+                    TotalRows = metaModel.TotalRows
+                };
+
                 using (var reader = db.ExecuteReader(uspParams))
                 {
                     var data = SetToList(reader, metaModel.IsConvert, metaModel.BaseCurrency);
+
                     reader.NextResult();
                     var totalData = ReadTotalData(reader, metaModel.IsConvert, metaModel.BaseCurrency);
+
                     return new ReportResultModel<FirstGoalLastGoal>
                     {
                         DataList = data,

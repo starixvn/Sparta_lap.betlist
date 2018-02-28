@@ -6,7 +6,6 @@
 
 namespace Fanex.Athena.Controllers.BetList
 {
-    using System.Collections.Generic;
     using System.Web.Mvc;
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;
@@ -48,18 +47,18 @@ namespace Fanex.Athena.Controllers.BetList
 
         protected override void AssignViewBag(BetListMetaModel model)
         {
-            ViewBag.BetListTitle = GetTitle(model.TransType);
+            ViewBag.BetListTitle = GetRNGCasinoBetListTitle(model.TransType);
         }
 
         protected override ActionResult ExportExcel(BetListMetaModel metaModel, string uspKey)
         {
-            var title = GetTitle(metaModel.TransType);
+            var title = GetRNGCasinoBetListTitle(metaModel.TransType);
             var ticketResult = BetListService.GetBetListData(metaModel, uspKey);
 
             return ProcessExportExcel(new ShowingOption(), metaModel, ticketResult, HiddenColumns, title, "RngCasinoDetail");
         }
 
-        private static string GetTitle(long transType)
+        private static string GetRNGCasinoBetListTitle(long transType)
         {
             var title = ViewResources.ProductCS + " - ";
             return GetTitleByTransType(title, transType);
