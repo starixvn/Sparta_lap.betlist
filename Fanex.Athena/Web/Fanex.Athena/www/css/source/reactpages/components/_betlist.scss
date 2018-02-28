@@ -1,0 +1,28 @@
+﻿@import "../abstracts/variables";
+
+.betlist-container {
+    padding: 0 15px;
+
+    .betlist-title {
+        font-weight: bold;
+        font-size: 15px;
+        padding: 5px 0 10px 0;
+        min-width: 650px;
+        color: #D2592D;
+
+        .base-currency-title {
+            color: #024584;
+        }
+    }
+
+    .betlist-content {
+        .table {
+            > thead {
+                > tr > th {
+                    background: $bgHeaderTableLevel1;
+                    color: $white;
+                }
+            }
+        }
+    }
+}

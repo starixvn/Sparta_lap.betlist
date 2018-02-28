@@ -12,6 +12,8 @@ import NoDataTitle from '../../../components/NoDataTitle'
 import moment from 'moment'
 import Breadcrumb from '../../../components/breadcrumb/Breadcrumb'
 import Site from '../../../lib/site'
+import BetList from './BetList'
+import Popup from "../../../components/popup/Popup";
 
 export class DataGrid extends Component {
     constructor(props) {
@@ -23,6 +25,10 @@ export class DataGrid extends Component {
 
         this.levelGridData = [];
         this.drillDownParams = [];
+
+        this.state = {
+            showBetList: false
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -38,7 +44,7 @@ export class DataGrid extends Component {
     }
 
     _getColSpan(level) {
-        switch(level) {
+        switch (level) {
             case ReportLevel.MAIN:
                 return 2;
             case ReportLevel.LICENSEE:
@@ -60,7 +66,7 @@ export class DataGrid extends Component {
         }
 
         const drillDownDate = Service.getDrilldownDateRange(mainParam.ReportBy, mainParam.FromDate, mainParam.ToDate, date);
-        const drillDownData = { 
+        const drillDownData = {
             ...mainParam,
             CurrencyId: currencyId,
             CurrencyName: currencyName,
@@ -115,8 +121,8 @@ export class DataGrid extends Component {
     }
 
     _renderDrillDownLink(text, level, date, currencyId, currencyName, custId) {
-        return <a onClick={()=>this._drillDownData(level, date, currencyId, currencyName, custId)} href='javascript:;'>{text}</a>
-   }
+        return <a onClick={() => this._drillDownData(level, date, currencyId, currencyName, custId)} href='javascript:;'>{text}</a>
+    }
 
     _buildHeader(level, reportBy) {
         let headerRows = [];
@@ -133,8 +139,8 @@ export class DataGrid extends Component {
                 <Cell colWidth={80} header={true} title={HeaderText.totalTransaction} rowSpan='2'>{HeaderText.totalTransaction}</Cell>
                 {
                     this.isAllowedCustomerComm
-                    ? <Cell colWidth={100} header={true} title={HeaderText.customer} colSpan='3'>{HeaderText.customer}</Cell>
-                    : <Cell colWidth={100} header={true} title={HeaderText.customerWL} rowSpan='2'>{HeaderText.customerWL}</Cell>
+                        ? <Cell colWidth={100} header={true} title={HeaderText.customer} colSpan='3'>{HeaderText.customer}</Cell>
+                        : <Cell colWidth={100} header={true} title={HeaderText.customerWL} rowSpan='2'>{HeaderText.customerWL}</Cell>
                 }
                 <Cell colWidth={100} header={true} title={HeaderText.licensee} colSpan='4'>{HeaderText.licensee}</Cell>
             </Row>
@@ -176,21 +182,26 @@ export class DataGrid extends Component {
 
             rows.push(
                 <Row key={`tr-main${i}`}>
-                    <Cell title={i+1} className='center-align'>{i+1}</Cell>
+                    <Cell title={i + 1} className='center-align'>{i + 1}</Cell>
                     {level === ReportLevel.MAIN && <Cell title={date} className='center-align'>{date}</Cell>}
-                    {level === ReportLevel.CUSTOMER && <Cell title={item.ExternalId} className='left-align'>{item.ExternalId}</Cell>}
+                    {
+                        level === ReportLevel.CUSTOMER &&
+                        <Cell title={item.ExternalId} className='left-align'>
+                            <a href="javascript:;" onClick={this.showBetListPopup}>{item.ExternalId}</a>
+                        </Cell>
+                    }
                     {
                         level !== ReportLevel.MAIN &&
-                            <Cell title={item.SystemId} className='left-align'>
-                                {level === ReportLevel.LICENSEE ? this._renderDrillDownLink(item.SystemId, ReportLevel.CUSTOMER, item.Date, item.CurrencyId, item.CurrencyName, item.CustId) : item.SystemId}
-                            </Cell>
+                        <Cell title={item.SystemId} className='left-align'>
+                            {level === ReportLevel.LICENSEE ? this._renderDrillDownLink(item.SystemId, ReportLevel.CUSTOMER, item.Date, item.CurrencyId, item.CurrencyName, item.CustId) : item.SystemId}
+                        </Cell>
                     }
                     <Cell title={item.CurrencyName} className='center-align'>
-                    {
-                        level === ReportLevel.MAIN 
-                        ? this._renderDrillDownLink(item.CurrencyName, this.licenseeId === Licensee.ONE_TWO_BET ? ReportLevel.LICENSEE : ReportLevel.CUSTOMER, item.Date, item.CurrencyId, item.CurrencyName) 
-                        : item.CurrencyName
-                    }
+                        {
+                            level === ReportLevel.MAIN
+                                ? this._renderDrillDownLink(item.CurrencyName, this.licenseeId === Licensee.ONE_TWO_BET ? ReportLevel.LICENSEE : ReportLevel.CUSTOMER, item.Date, item.CurrencyId, item.CurrencyName)
+                                : item.CurrencyName
+                        }
                     </Cell>
                     {this._buildCell(item)}
                 </Row>
@@ -199,7 +210,7 @@ export class DataGrid extends Component {
 
         return rows;
     }
-     
+
     _buildFooter(level) {
         let totalRows = [];
 
@@ -209,7 +220,7 @@ export class DataGrid extends Component {
 
         for (let i = 0; i < rowSpan; i++) {
             const item = data[i];
-           
+
             totalRows.push(
                 <Row key={`tr-total${i}`} className="fixed-table-total">
                     {i === 0 && <Cell title={TotalText.total} className='center-align' rowSpan={rowSpan} colSpan={colSpan}>{TotalText.total}</Cell>}
@@ -226,7 +237,7 @@ export class DataGrid extends Component {
         for (let i = baseCurrencyList.length - 1; i >= 0; i--) {
             const currency = baseCurrencyList[i],
                 item = dataSummary[currency];
-           
+
             totalRows.push(
                 <Row key={`tr-grandtotal${i}`} className="fixed-table-grant-total">
                     <Cell title={`${TotalText.totalIn} ${currency}`} className='center-align' colSpan={colSummarySpan}>{`${TotalText.totalIn} ${currency}`}</Cell>
@@ -250,7 +261,7 @@ export class DataGrid extends Component {
             licenseeComm = NumberFormat.formatDecimal(item.LicenseeComm),
             licenseeWLTotal = NumberFormat.formatDecimal(item.LicenseeWLTotal);
 
-        let cells = 
+        let cells =
             [<Cell key='turnover' title={turnover} className='right-align'>{turnover}</Cell>,
             <Cell key='netturnover' title={netTurnover} className='right-align'>{netTurnover}</Cell>,
             <Cell key='totalTransaction' title={totalTransaction} className='right-align'>{totalTransaction}</Cell>,
@@ -267,20 +278,20 @@ export class DataGrid extends Component {
 
     _renderBreadcrumb() {
         const items = [{
-                    label: BreadcrumbText.main,
-                    value: ReportLevel.MAIN,        
-                }];
+            label: BreadcrumbText.main,
+            value: ReportLevel.MAIN,
+        }];
 
         if (Number(this.licenseeId) === Licensee.ONE_TWO_BET) {
             items.push({
                 label: BreadcrumbText.licensee,
-                value: ReportLevel.LICENSEE,          
+                value: ReportLevel.LICENSEE,
             });
         }
 
         items.push({
             label: BreadcrumbText.customer,
-            value: ReportLevel.CUSTOMER,           
+            value: ReportLevel.CUSTOMER,
         });
 
         return <Breadcrumb items={items} value={this.props.gridData.level} onChange={(item) => this._drillDownData(item.value)} />
@@ -294,6 +305,14 @@ export class DataGrid extends Component {
                 <NoDataTitle />
             </div>
         )
+    }
+
+    showBetListPopup = () => {
+        this.setState({ showBetList: true });
+    }
+
+    closeBetListPopup = () => {
+        this.setState({ showBetList: false });
     }
 
     render() {
@@ -323,6 +342,10 @@ export class DataGrid extends Component {
                     body={this._buildBody(reportLevel, reportBy)}
                     footer={this._buildFooter(reportLevel)}
                 />
+
+                <Popup isShow={this.state.showBetList} title={"CUSTOMER BET LIST"} width={900} height={600} onClose={this.closeBetListPopup}>
+                    <BetList />
+                </Popup>
             </div>
         );
     }

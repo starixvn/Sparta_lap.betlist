@@ -683,7 +683,7 @@ exports[`Render DataGrid components  Render grid Has data grid data should be re
               className="table-container"
               style={
                 Object {
-                  "maxWidth": 870,
+                  "maxWidth": -30,
                 }
               }
             >
