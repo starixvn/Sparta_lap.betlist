@@ -1,17 +1,11 @@
 ﻿@using Fanex.Athena.Model.Core.DataDomain
 @model Fanex.Athena.Model.Report.ViewModel.LicenseeWinLossViewModel
-@{ 
-    var appSettings = new AppSettings();
-    var minDate = appSettings.HistoryDate;
-    var maxDate = appSettings.MaxDate;
-}
-
 <div class="page-form">
     <form id="licenseewinloss" name="licenseewinloss" method="post" action="">
         @Html.AntiForgeryToken()
         <div class="row">
             <div class="input-field input col l3 m3 s12 calendar date-range">
-                @DesktopRazorHelper.DateRangePicker(Model.Param.FromDate, Model.Param.ToDate, minDate, maxDate)
+                @DesktopRazorHelper.DateRangePicker(Model.Param.FromDate, Model.Param.ToDate, Model.ReportSetting.MinDate, Model.ReportSetting.MaxDate)
             </div>
 
             <div class="input-field col l2 m3 s12">
@@ -87,4 +81,5 @@
     @Html.Hidden("IsAllowedBACommission", Model.ProductAccess.IsAllowBA)
     @Html.Hidden("IsAllowedRacing", Model.ProductAccess.IsAllowRB)
     @Html.Hidden("IsAllowedCustomerCommission", Model.IsAllowedCustomerCommission)
+    @Html.Hidden("IsDisableBetList", Model.ReportSetting.IsDisableBetList)
 </div>

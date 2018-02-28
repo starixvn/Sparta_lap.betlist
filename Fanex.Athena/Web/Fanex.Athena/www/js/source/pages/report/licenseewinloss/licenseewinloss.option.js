@@ -12,6 +12,7 @@ define(
         var IGNORED_TURNOVER_PRODUCTS = ["BT", "CO"];
         var _me =
         {
+            isDisableBetList: false,
             licenseeId: 0,
             currencyIndex: 4,
             turnoverIndex: 5,
@@ -553,7 +554,7 @@ define(
             amtDueToBetTradeColumn.hidden = allowedSb === false || allowedBa === false || !allowedBetTrade;
             cashOutCommissionColumn.hidden = !allowedCashOut;
 
-            if (level === 2) {
+            if (level === 2 && !LicenseeWinLossOption.isDisableBetList) {
                 externalIdColumn.formatter = betlistLink;
                 systemIdColumn.formatter = betlistLink;
             }
