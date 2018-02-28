@@ -307,7 +307,7 @@ namespace Fanex.Athena.Api.Report
             metaModel.DrillDownFromDate = fdate.HasValue ? fdate.Value : metaModel.DrillDownFromDate;
             metaModel.DrillDownToDate = tdate.HasValue ? tdate.Value : metaModel.DrillDownToDate;
 
-            if (IsValidDateRange(metaModel) && IsValidRequest(metaModel, currencyId))
+            if (IsValidParams(metaModel) && IsValidRequest(metaModel, currencyId))
             {
                 metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
                 metaModel.DrillDownCurrencyId = currencyId;
@@ -338,7 +338,7 @@ namespace Fanex.Athena.Api.Report
             return GetEmptyResult(metaModel.ProductOptions);
         }
 
-        private bool IsValidDateRange(LicenseeWinLossMetaModel metaModel)
+        private bool IsValidParams(LicenseeWinLossMetaModel metaModel)
         {
             var setting = _reportSettingService.GetSetting(SessionService.LicenseeSession.LicenseeName, PermissionKeys.ReportLicenseeWinLoss);
             if (setting == null)
