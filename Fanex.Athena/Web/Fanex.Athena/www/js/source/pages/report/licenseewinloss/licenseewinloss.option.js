@@ -554,7 +554,7 @@ define(
             amtDueToBetTradeColumn.hidden = allowedSb === false || allowedBa === false || !allowedBetTrade;
             cashOutCommissionColumn.hidden = !allowedCashOut;
 
-            if (level === 2 && !_me.isDisableBetList) {
+            if (level === 2) {
                 externalIdColumn.formatter = betlistLink;
                 systemIdColumn.formatter = betlistLink;
             }
@@ -566,6 +566,13 @@ define(
                 dateColumn.formatoptions = {
                     newformat: 'm/d/Y'
                 };
+            }
+
+            if (_me.isDisableBetList)
+            {
+                externalIdColumn.formatter = null;
+                systemIdColumn.formatter = null;
+                currencyColumn.formatter = null;
             }
 
             var temp = Site.clone(colModelList);

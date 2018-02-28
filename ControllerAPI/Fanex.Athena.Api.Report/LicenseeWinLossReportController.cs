@@ -346,6 +346,11 @@ namespace Fanex.Athena.Api.Report
                 return true;
             }
 
+            if (metaModel.DrillDownLevel > 0 && setting.IsDisableBetList)
+            {
+                return false;
+            }
+
             var fromDate = metaModel.DrillDownLevel == 0 ? metaModel.FromDate : metaModel.DrillDownFromDate;
             var toDate = metaModel.DrillDownLevel == 0 ? metaModel.ToDate : metaModel.DrillDownToDate;
             return DateTimeHelper.IsBetween(fromDate, setting.MinDate, setting.MaxDate) &&

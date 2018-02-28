@@ -27396,7 +27396,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
             amtDueToBetTradeColumn.hidden = allowedSb === false || allowedBa === false || !allowedBetTrade;
             cashOutCommissionColumn.hidden = !allowedCashOut;
 
-            if (level === 2 && !_me.isDisableBetList) {
+            if (level === 2) {
                 externalIdColumn.formatter = betlistLink;
                 systemIdColumn.formatter = betlistLink;
             }
@@ -27408,6 +27408,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
                 dateColumn.formatoptions = {
                     newformat: 'm/d/Y'
                 };
+            }
+
+            if (_me.isDisableBetList)
+            {
+                externalIdColumn.formatter = null;
+                systemIdColumn.formatter = null;
+                currencyColumn.formatter = null;
             }
 
             var temp = Site.clone(colModelList);

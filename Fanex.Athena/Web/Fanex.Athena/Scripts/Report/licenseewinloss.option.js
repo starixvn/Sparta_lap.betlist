@@ -569,7 +569,7 @@ var LicenseeWinLossOption = (function () {
         // Row span setting
         // indexColumn.cellattr = level == 0 ? jqGridAdditional.rowSpanSetting : null;
         // dateColumn.cellattr = level == 0 ? jqGridAdditional.rowSpanSetting : null;
-        if (level === 2 && !LicenseeWinLossOption.isDisableBetList) {
+        if (level === 2) {
             externalIdColumn.formatter = betlistLink;
             systemIdColumn.formatter = betlistLink;
         }
@@ -581,6 +581,12 @@ var LicenseeWinLossOption = (function () {
             dateColumn.formatoptions = {
                 newformat: 'm/d/Y'
             };
+        }
+
+        if (LicenseeWinLossOption.isDisableBetList) {
+            externalIdColumn.formatter = null;
+            systemIdColumn.formatter = null;
+            currencyColumn.formatter = null;
         }
 
         var temp = Site.clone(colModelList);
