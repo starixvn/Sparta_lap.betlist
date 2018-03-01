@@ -26,7 +26,8 @@
                 BetListService,
                 BalanceUpDataAccess,
                 TicketHelper,
-                CacheRefAdapter);
+                CacheRefAdapter,
+                BetListHTMLBuilder);
 
             var metaModel = new BetListMetaModel();
 

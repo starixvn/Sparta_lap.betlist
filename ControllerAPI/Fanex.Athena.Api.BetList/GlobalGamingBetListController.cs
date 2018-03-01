@@ -4,6 +4,7 @@
     using System.Web.Http;
     using DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.Model.BetList.MetaModel;
+    using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
     using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
@@ -24,8 +25,9 @@
             IBetListService betListService,
             IBalanceUpDataAccess balanceUpDataAccess,
             ITicketHelper ticketHelper,
-            ICacheRefAdapter cacheRefAdapter)
-        : base(sessionService, productService, languageService, betListService, balanceUpDataAccess, ticketHelper, cacheRefAdapter)
+            ICacheRefAdapter cacheRefAdapter,
+            IBetListHTMLBuilder betlistHtmlBuilder)
+        : base(sessionService, productService, languageService, betListService, balanceUpDataAccess, ticketHelper, cacheRefAdapter, betlistHtmlBuilder)
         {
         }
 

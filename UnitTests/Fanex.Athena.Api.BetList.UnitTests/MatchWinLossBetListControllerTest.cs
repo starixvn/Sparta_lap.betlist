@@ -26,7 +26,8 @@
                 BetListService,
                 BalanceUpDataAccess,
                 TicketHelper,
-                CacheRefAdapter);
+                CacheRefAdapter,
+                BetListHTMLBuilder);
 
             _controller.When(x => x.GetBetListResult(Arg.Any<BetListMetaModel>(), Arg.Any<string>())).DoNotCallBase();
             _controller.When(x => x.GetPagingBetListResult(Arg.Any<BetListMetaModel>(), Arg.Any<string>(), Page, Rows)).DoNotCallBase();

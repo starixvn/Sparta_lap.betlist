@@ -7,6 +7,7 @@
     using Extension.Helper;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
+    using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
     using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
@@ -37,9 +38,10 @@
             IBalanceUpDataAccess balanceUpDataAccess,
             ITicketHelper ticketHelper,
             ICacheRefAdapter cacheRefAdapter,
+            IBetListHTMLBuilder betlistHtmlBuilder,
             IReportSettingService reportSettingService)
 #pragma warning restore S107 // Methods should not have too many parameters
-        : base(sessionService, productService, languageService, betListService, balanceUpDataAccess, ticketHelper, cacheRefAdapter)
+        : base(sessionService, productService, languageService, betListService, balanceUpDataAccess, ticketHelper, cacheRefAdapter, betlistHtmlBuilder)
         {
             _reportSettingService = reportSettingService ?? new ReportSettingService();
         }

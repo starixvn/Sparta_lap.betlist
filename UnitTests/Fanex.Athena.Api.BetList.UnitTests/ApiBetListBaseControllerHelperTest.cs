@@ -3,6 +3,7 @@
     using System;
     using DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.Api.Base.UnitTests;
+    using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
     using Model.Core.DTO.Configuration;
     using NSubstitute;
@@ -22,6 +23,8 @@
 
         protected ICacheRefAdapter CacheRefAdapter { get; private set; }
 
+        protected IBetListHTMLBuilder BetListHTMLBuilder { get; private set; }
+
         [OneTimeSetUp]
         public override void FixtureSetUp()
         {
@@ -31,6 +34,7 @@
             BalanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             TicketHelper = Substitute.For<ITicketHelper>();
             CacheRefAdapter = Substitute.For<ICacheRefAdapter>();
+            BetListHTMLBuilder = Substitute.For<IBetListHTMLBuilder>();
 
             BalanceUpDataAccess.GetBalanceUp().Returns(DefaultBalanceUp);
         }

@@ -25,7 +25,8 @@
                 BetListService,
                 BalanceUpDataAccess,
                 TicketHelper,
-                CacheRefAdapter);
+                CacheRefAdapter,
+                BetListHTMLBuilder);
         }
 
         [OneTimeTearDown]

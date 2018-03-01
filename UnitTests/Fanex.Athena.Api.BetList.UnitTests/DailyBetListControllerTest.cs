@@ -21,7 +21,8 @@
                 BetListService,
                 BalanceUpDataAccess,
                 TicketHelper,
-                CacheRefAdapter);
+                CacheRefAdapter,
+                BetListHTMLBuilder);
 
             const int Page = 1;
             const int Rows = 50;

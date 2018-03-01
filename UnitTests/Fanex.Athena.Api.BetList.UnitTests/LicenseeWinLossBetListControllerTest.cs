@@ -29,6 +29,7 @@
                 BalanceUpDataAccess,
                 TicketHelper,
                 CacheRefAdapter,
+                BetListHTMLBuilder,
                 _reportSettingService);
 
             StubLicenseeSessionData(new Model.Core.DTO.Users.LicenseeSession { LicenseeId = SessionLicenseeId });
