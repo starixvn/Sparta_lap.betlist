@@ -13,7 +13,64 @@ import moment from 'moment'
 import Breadcrumb from '../../../components/breadcrumb/Breadcrumb'
 import Site from '../../../lib/site'
 import BetList from './BetList'
-import Popup from "../../../components/popup/Popup";
+import Popup from "../../../components/popup/Popup"
+
+const FakeBetListData = [
+    {
+        Market: "CRICKET > Ireland A vs Bangladesh A > Match Odds",
+        WinLoss: 15,
+        WlComm: -0.45,
+        LicWl: -9,
+        LicWlComm: 0.15,
+        Details: [
+            {
+                BetId: 43154,
+                Selection: "Bangladesh A",
+                Type: "Back",
+                BetPlaced: "10/25/2017 01:05:46",
+                OddAvg: 1.5,
+                Stake: 30,
+                WinLoss: 15
+            }
+        ]
+    },
+    {
+        Market: "CRICKET > Zimbabwe vs West Indies > Match Odds",
+        WinLoss: 30,
+        WlComm: 0,
+        LicWl: 42,
+        LicWlComm: 0,
+        Details: [
+            {
+                BetId: 43116,
+                Selection: "Zimbabwe",
+                Type: "Lay",
+                BetPlaced: "10/24/2017 05:45:14",
+                OddAvg: 7,
+                Stake: 30,
+                WinLoss: 30
+            },
+            {
+                BetId: 43112,
+                Selection: "Zimbabwe",
+                Type: "Back",
+                BetPlaced: "10/24/2017 05:45:14",
+                OddAvg: 9.8,
+                Stake: 50,
+                WinLoss: -50
+            },
+            {
+                BetId: 43118,
+                Selection: "Zimbabwe",
+                Type: "Back",
+                BetPlaced: "10/24/2017 05:45:14",
+                OddAvg: 7.8,
+                Stake: 50,
+                WinLoss: -50
+            }
+        ]
+    }
+]
 
 export class DataGrid extends Component {
     constructor(props) {
@@ -27,7 +84,8 @@ export class DataGrid extends Component {
         this.drillDownParams = [];
 
         this.state = {
-            showBetList: false
+            showBetList: false,
+            betListData: []
         }
     }
 
@@ -124,6 +182,10 @@ export class DataGrid extends Component {
         return <a onClick={() => this._drillDownData(level, date, currencyId, currencyName, custId)} href='javascript:;'>{text}</a>
     }
 
+    _renderBetListLink(text) {
+        return (<a href="javascript:;" onClick={this.showBetListPopup}>{text}</a>);
+    }
+
     _buildHeader(level, reportBy) {
         let headerRows = [];
 
@@ -187,13 +249,17 @@ export class DataGrid extends Component {
                     {
                         level === ReportLevel.CUSTOMER &&
                         <Cell title={item.ExternalId} className='left-align'>
-                            <a href="javascript:;" onClick={this.showBetListPopup}>{item.ExternalId}</a>
+                            {this._renderBetListLink(item.ExternalId)}
                         </Cell>
                     }
                     {
                         level !== ReportLevel.MAIN &&
                         <Cell title={item.SystemId} className='left-align'>
-                            {level === ReportLevel.LICENSEE ? this._renderDrillDownLink(item.SystemId, ReportLevel.CUSTOMER, item.Date, item.CurrencyId, item.CurrencyName, item.CustId) : item.SystemId}
+                            {
+                                level === ReportLevel.LICENSEE ?
+                                    this._renderDrillDownLink(item.SystemId, ReportLevel.CUSTOMER, item.Date, item.CurrencyId, item.CurrencyName, item.CustId) :
+                                    this._renderBetListLink(item.SystemId)
+                            }
                         </Cell>
                     }
                     <Cell title={item.CurrencyName} className='center-align'>
@@ -308,7 +374,7 @@ export class DataGrid extends Component {
     }
 
     showBetListPopup = () => {
-        this.setState({ showBetList: true });
+        this.setState({ showBetList: true, betListData: FakeBetListData });
     }
 
     closeBetListPopup = () => {
@@ -328,6 +394,8 @@ export class DataGrid extends Component {
         const reportLevel = gridData.level;
         const reportBy = this.props.params.ReportBy;
 
+        const { showBetList, betListData } = this.state;
+
         return (
             <div className='result-content'>
                 {this._renderBreadcrumb()}
@@ -343,9 +411,12 @@ export class DataGrid extends Component {
                     footer={this._buildFooter(reportLevel)}
                 />
 
-                <Popup isShow={this.state.showBetList} title={"CUSTOMER BET LIST"} width={900} height={600} onClose={this.closeBetListPopup}>
-                    <BetList />
-                </Popup>
+                {
+                    reportLevel === ReportLevel.CUSTOMER && showBetList && betListData &&
+                    <Popup isShow={showBetList} title={"CUSTOMER BET LIST"} width={900} height={600} onClose={this.closeBetListPopup}>
+                        <BetList data={betListData} />
+                    </Popup>
+                }
             </div>
         );
     }
