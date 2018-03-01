@@ -119,7 +119,8 @@
                 RefNo = 2,
                 BetType = 3,
                 BetdaqId = 4,
-                AgentListXml = "xml"
+                AgentListXml = "xml",
+                BaseCurrency = "USD"
             };
         }
     }
