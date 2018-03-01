@@ -218,7 +218,7 @@ var LastBetFilter = (function () {
                     }
                 }
                 LastBetGrid.stringParam("Currency", selectedCurrency);
-                LastBetGrid.stringParam("BasedCurrency", $("#based-currency option:selected").text());
+                LastBetGrid.stringParam("BasedCurrency", baseCurrencyObj.val());
             }
         });
     };

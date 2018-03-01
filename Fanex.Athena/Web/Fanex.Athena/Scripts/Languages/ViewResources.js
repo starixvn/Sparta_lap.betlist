@@ -1,4 +1,4 @@
-﻿// Generated at: 1/17/2018 5:37:01 PM
+﻿// Generated at: 1/24/2018 5:13:33 PM
 var _language_en_US = {
 AA:"AA",
 AB:"AB",
@@ -291,6 +291,7 @@ EUR:"EUR",
 Euro:"Euro",
 Even:"Even",
 Event:"Event",
+EventDate:"Event Date",
 Events:"Events",
 ExcelExceedRowsMsg:"This file exceeded 65535 entries. Please contact administrator for more details.",
 ExchangeWinLoss:"Exchange Win Loss",
@@ -855,6 +856,7 @@ TotalTurnover:"Total Turnover",
 Tote:"Tote",
 ToViewHistoryRptMsg:"Please click to view history report",
 ToWinToNil:"To Win To Nil",
+TransactionDetail:"Transaction Detail",
 TransactionType:"Transaction Type",
 TransferIn:"Transfer In",
 TransferOut:"Transfer Out",

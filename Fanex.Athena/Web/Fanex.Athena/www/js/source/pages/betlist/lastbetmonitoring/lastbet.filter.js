@@ -217,7 +217,7 @@ define(
                         }
                     }
                     baseCurrencyObj.selectList("update");
-                    LastBetGrid.updateParam(DataType.STRING, "BasedCurrency", $("#BaseCurrency option:selected").text());
+                    LastBetGrid.updateParam(DataType.STRING, "BasedCurrency", baseCurrencyObj.val());
                 }
             });
         };

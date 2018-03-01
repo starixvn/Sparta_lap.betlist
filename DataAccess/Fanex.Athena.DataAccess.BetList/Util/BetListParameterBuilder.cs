@@ -45,7 +45,8 @@
             { "Lrf_BetList_Forecast_SelByMatch", (db, metalModel) => CreateRunningBetListByForeCastMatchParameters(db, metalModel) },
             { "Lrf_BetList_RNG_Detail", (db, metalModel) => CreateMicroGamingRngDetailParameters(db, metalModel) },
             { "Lrf_BetList_LC_Detail", (db, metalModel) => CreateAGCasinoDetailParameters(db, metalModel) },
-            { "Lrf_BetList_SelWinLossByBetType", (db, metalModel) => CreateWinLossByBetTypeParameters(db, metalModel) }
+            { "Lrf_BetList_SelWinLossByBetType", (db, metalModel) => CreateWinLossByBetTypeParameters(db, metalModel) },
+            { "Lrf_BetList_LicenseeBonus_Detail", (db, metalModel) => CreateBonusDetailParameters(db, metalModel) }
         };
 
         public static void CreateBetListParameters(IObjectDb db, string uspKey, BetListMetaModel metaModel)
@@ -440,6 +441,13 @@
             db.AddInParameter("balanceupday", DbType.DateTime, metaModel.BalanceUpDay);
             CreateBetListPagingParameters(db, metaModel);
             CreateBetlistSummaryParameters(db);
+        }
+
+        private static void CreateBonusDetailParameters(IObjectDb db, BetListMetaModel metaModel)
+        {
+            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            db.AddInParameter("TransId", DbType.Int64, metaModel.TransId);
+            db.AddInParameter("RefCode", DbType.Int64, metaModel.RefCode);
         }
 
         private static void CreateBetListSortingParameters(IObjectDb db, BetListMetaModel metaModel)

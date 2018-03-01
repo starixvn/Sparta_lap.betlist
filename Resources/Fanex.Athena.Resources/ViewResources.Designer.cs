@@ -7756,6 +7756,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Transaction Detail.
+        /// </summary>
+        public static string TransactionDetail {
+            get {
+                return ResourceManager.GetString("TransactionDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Transaction Type.
         /// </summary>
         public static string TransactionType {

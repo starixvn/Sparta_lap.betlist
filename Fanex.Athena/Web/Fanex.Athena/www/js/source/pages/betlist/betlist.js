@@ -15,6 +15,7 @@
         var SPORT_ALLBET = 211;
         var SPORT_VOIDBRIDGE = 212;
         var SPORT_GLOBALGAMING = 219;
+        var BETLIST_META_MODEL = "#BetListMetaModel";
 
         var _sortColumnName, _sortOrder;
         var _params, _url;
@@ -596,7 +597,7 @@
                 showDetailPopUp(url, { width: 870, height: popH + 50, title: title });
             },
             showColossusBetsDetails: function (refNo, winlostDate, transId, custId, betCheck) {
-                var params = $.parseJSON($("#BetListMetaModel").val());
+                var params = $.parseJSON($(BETLIST_META_MODEL).val());
                 var url = Site.resolveClientUrl('ColossusBetBetList/Detail');
                 url = QueryString.setParam(url, "refNo", refNo);
                 url = QueryString.setParam(url, "date", winlostDate);
@@ -611,7 +612,7 @@
                 showDetailPopUp(url, { width: 890, height: popH + 50, title: title });
             },
             showGlobalGamingDetails: function (transId, winlostDate, custId, transType) {
-                var params = $.parseJSON($("#BetListMetaModel").val());
+                var params = $.parseJSON($(BETLIST_META_MODEL).val());
                 var url = Site.resolveClientUrl('GlobalGamingBetList/Detail');
                 url = QueryString.setParam(url, "transId", transId);
                 url = QueryString.setParam(url, "winlostDate", winlostDate);
@@ -647,7 +648,7 @@
 
             viewCashOutHistory: function (transId, refNo, betType, betdaqId) {
                 var $baseCurrency = $("#BaseCurrency");
-                var baseCurrency = $baseCurrency.length ? $baseCurrency.val() : $.parseJSON($("#BetListMetaModel").val()).BaseCurrency;
+                var baseCurrency = $baseCurrency.length ? $baseCurrency.val() : $.parseJSON($(BETLIST_META_MODEL).val()).BaseCurrency;
 
                 var isCashOut = betdaqId < 1 || betType === BETTYPE_CASHOUT;
                 var url = Site.resolveClientUrl('CashOutBetList/Detail');
@@ -663,6 +664,22 @@
 
                 showDetailPopUp(url, { width: 890, height: popH + 50, title: title });
             },
+
+            showBonusDetails: function (refCode, transId) {
+                var $baseCurrency = $("#BaseCurrency");
+                var baseCurrency = $baseCurrency.length ? $baseCurrency.val() : $.parseJSON($(BETLIST_META_MODEL).val()).BaseCurrency;
+
+                var url = Site.resolveClientUrl('BonusBetList/Detail');
+                url = QueryString.setParam(url, "RefCode", refCode);
+                url = QueryString.setParam(url, "TransId", transId);
+                url = QueryString.setParam(url, "BaseCurrency", baseCurrency);
+
+                var popH = Math.min($(window).height() - 100, 550), popW = 840;
+                var title = Site.getSingleResource("TransactionDetail");
+
+                showDetailPopUp(url, { width: popW + 50, height: popH + 50, title: title });
+            },
+
             registerBetListGlobalFunctions: function () {
                 window.ViewResult = _me.viewResult;
 
@@ -689,6 +706,7 @@
                 window.showColossusBetsDetails = _me.showColossusBetsDetails;
                 window.showGlobalGaming = _me.showGlobalGamingDetails;
                 window.ViewCashOutHistory = _me.viewCashOutHistory;
+                window.ShowBonusDetails = _me.showBonusDetails;
 
                 var betList = {
                     ViewCasinoHandHistory: _me.ViewCasinoHandHistory

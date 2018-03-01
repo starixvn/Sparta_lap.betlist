@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = string.Format("LRF - {0}", ViewResources.BetList);
+    Layout = "~/Views/Desktop/Shared/_BetListSimpleLayout.cshtml";
+}
+
+@model Fanex.Athena.Model.BetList.MetaModel.BetListMetaModel
+
+@section pagecss {}
+@section pagejs {}
+@section ContentTitle{
+    @ViewResources.TransactionDetail
+}
+@section BackButton{}
+@{
+    <input type="hidden" id="ApiUrl" value="api/BonusBetList/Detail" />
+    <input type="hidden" id="HiddenColumnList" value="externalid,systemid" />
+    <input type="hidden" id="ShowSummary" value="0" />
+    <input type="hidden" id="BetListMetaModel" value="@Model.ToJson()" />
+}

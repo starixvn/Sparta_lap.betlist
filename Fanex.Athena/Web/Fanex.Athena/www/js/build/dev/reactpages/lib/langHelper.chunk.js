@@ -876,6 +876,7 @@ window._language_en_US = {
   Tote: "Tote",
   ToViewHistoryRptMsg: "Please click to view history report",
   ToWinToNil: "To Win To Nil",
+  TransactionDetail: "Transaction Detail",
   TransactionType: "Transaction Type",
   TransferIn: "Transfer In",
   TransferOut: "Transfer Out",

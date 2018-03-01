@@ -43,16 +43,13 @@
 }
 div.match + div.league
 {
-    color: #666666;
-    line-height: 15px;
-    margin-top: 1px;
-}
-div.match + div.league
-{
     background: none repeat scroll 0 0 transparent;
     font-weight: normal;
     text-align: right;
     text-transform: none;
+    color: #666666;
+    line-height: 15px;
+    margin-top: 1px;
 }
 .bettype
 {
@@ -287,17 +284,9 @@ span.active-switch-link
     font-weight: bold;
     cursor: pointer;
     text-decoration: underline;
-}
-
-span.inactive-switch-link
-{
-    color: #88003E;
-}
-
-span.active-switch-link
-{
     color: #3547E3;
 }
+
 .blue
 {
     color: #2673CE;
@@ -333,4 +322,14 @@ div.mx-parlay .system-parlay-ticket-infor{
 }
 div.mx-parlay .system-parlay-ticket-infor .system-parlay-unit-stake{
     color: #003399;
+}
+.bonus-icon {
+    background: url(images/bonus.png) no-repeat scroll center center transparent;
+    display: inline-block;
+    height: 18px;
+    width: 18px;
+}
+
+.bonus-icon:hover {
+    cursor: pointer
 }

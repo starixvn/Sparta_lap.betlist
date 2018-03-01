@@ -196,14 +196,11 @@ body {
     width: 68px;
     color: #ff0000; }
   .result-container table.fn-rs .cl-ht-score {
-    width: 100px;
     color: #0054ff; }
   .result-container table.fn-rs .cl-f-score {
-    width: 100px;
     color: #ff0000; }
   .result-container table.fn-rs .cl-status {
-    text-transform: capitalize;
-    width: 94px; }
+    text-transform: capitalize; }
     .result-container table.fn-rs .cl-status .detail-link {
       color: #0273FF;
       cursor: pointer;

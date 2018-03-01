@@ -91,7 +91,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.BetList.BetTrade, Version=1.0.8.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.45.0\lib\net40\Fanex.BetList.BetTrade.dll</HintPath>
+      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.51.0\lib\net40\Fanex.BetList.BetTrade.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.BetList.CashOut, Version=1.0.0.6, Culture=neutral, processorArchitecture=MSIL">
@@ -102,8 +102,8 @@
       <HintPath>..\..\..\packages\Fanex.BetList.ColossusBets.1.0.1.7\lib\net40\Fanex.BetList.ColossusBets.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.BetList.Core, Version=2.45.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.45.0\lib\net40\Fanex.BetList.Core.dll</HintPath>
+    <Reference Include="Fanex.BetList.Core, Version=2.51.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.51.0\lib\net40\Fanex.BetList.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.BetList.GlobalGaming, Version=1.0.0.6, Culture=neutral, processorArchitecture=MSIL">
@@ -287,7 +287,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="RemotingRef, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\RemotingRef.2.0.0.12\lib\net40\RemotingRef.dll</HintPath>
+      <HintPath>..\..\..\packages\RemotingRef.2.0.0.13\lib\net40\RemotingRef.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
@@ -626,6 +626,7 @@
     <Content Include="CodeAnalysis\CodeAnalysisConfiguration.xml" />
     <Content Include="Content\BetList\AGCasino.css" />
     <Content Include="Content\BetList\colossusbetdetail.css" />
+    <Content Include="Content\BetList\images\bonus.png" />
     <Content Include="Content\BetList\Microgaming.css" />
     <Content Include="Content\Customer\customerlist.css" />
     <Content Include="Content\Fanex.Result\Allbet\css\button.css" />
@@ -1096,6 +1097,7 @@
     <Content Include="www\css\build\dev\pages\betlist\colossusbetdetail.css" />
     <Content Include="www\css\build\dev\pages\betlist\customeroutstanding.chunk.js" />
     <Content Include="www\css\build\dev\pages\betlist\customeroutstanding.css" />
+    <Content Include="www\css\build\dev\pages\betlist\images\bonus.png" />
     <Content Include="www\css\build\dev\pages\betlist\images\goal-icon.png" />
     <Content Include="www\css\build\dev\pages\betlist\images\q_Icon2_1.png" />
     <Content Include="www\css\build\dev\pages\betlist\images\q_Icon_2.png" />
@@ -1342,6 +1344,8 @@
     <Content Include="www\css\source\pages\report\customerpendingfunds.scss" />
     <Content Include="www\css\source\pages\report\customerturnover.scss" />
     <Content Include="www\css\source\pages\report\customerwinloss.scss" />
+    <Content Include="Views\BetList\BonusDetail\Main.cshtml" />
+    <Content Include="Views\Desktop\BetList\BonusDetail\Main.cshtml" />
     <None Include="www\css\source\pages\utility\um.scss" />
     <Content Include="www\css\build\images\bg-login.jpg" />
     <Content Include="www\css\build\images\excel-icon.svg" />
@@ -1355,6 +1359,7 @@
     <Content Include="www\css\build\pro\pages\betlist\betlistSimpleLayout.css" />
     <Content Include="www\css\build\pro\pages\betlist\cashouthistory.css" />
     <Content Include="www\css\build\pro\pages\betlist\colossusbetdetail.css" />
+    <Content Include="www\css\build\pro\pages\betlist\images\bonus.png" />
     <Content Include="www\css\build\pro\pages\betlist\images\goal-icon.png" />
     <Content Include="www\css\build\pro\pages\betlist\images\q_Icon2_1.png" />
     <Content Include="www\css\build\pro\pages\betlist\images\q_Icon_2.png" />
@@ -2185,6 +2190,7 @@
     <Content Include="Scripts\Languages\ViewResources.zh-TW.js">
       <DependentUpon>ViewResources.tt</DependentUpon>
     </Content>
+    <Content Include="Scripts\Library\jquery.marquee.js" />
     <Content Include="Scripts\Library\CryptoJS.js" />
     <Content Include="Scripts\Library\moment.min.js" />
     <Content Include="Scripts\Plugin\FlatPopup\jquery.custom-scrollbar.js" />
