@@ -943,6 +943,35 @@
             });
         }
 
+        [TestCase(true, 1, 100, 1, int.MaxValue - 1)]
+        [TestCase(false, 2, 50, 2, 50)]
+        public void CreateBetListParameters_CalledByLiveReportNumberGameBetlist_ParametersPassedPagingInfoCorrectly(
+            bool isExportExcel,
+            int pageIndex,
+            int pageSize,
+            int expectedIndex,
+            int expectedSize)
+        {
+            // Arrange
+            const string UspKey = "Lrf_BetList_LiveReport_SelWinlossNumberGame";
+            var metaModel = new LiveReportBetListMetaModel
+            {
+                IsExportExcel = isExportExcel,
+                PageIndex = pageIndex,
+                PageSize = pageSize
+            };
+
+            // Action
+            BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, metaModel);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                _objectDb.Received().AddInParameter("PageSize", DbType.Int32, expectedSize);
+                _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, expectedIndex);
+            });
+        }
+
         private static WinLossByLeagueBetListMetaModel GetWinLossByLeagueBetListMetaModel()
         {
             return new WinLossByLeagueBetListMetaModel
