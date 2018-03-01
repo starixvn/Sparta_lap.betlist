@@ -71,7 +71,7 @@ var _Select = __webpack_require__(26);
 
 var _Select2 = _interopRequireDefault(_Select);
 
-var _Async = __webpack_require__(52);
+var _Async = __webpack_require__(54);
 
 var _Async2 = _interopRequireDefault(_Async);
 
@@ -79,11 +79,11 @@ var _AsyncCreatable = __webpack_require__(112);
 
 var _AsyncCreatable2 = _interopRequireDefault(_AsyncCreatable);
 
-var _Creatable = __webpack_require__(53);
+var _Creatable = __webpack_require__(55);
 
 var _Creatable2 = _interopRequireDefault(_Creatable);
 
-var _Value = __webpack_require__(51);
+var _Value = __webpack_require__(53);
 
 var _Value2 = _interopRequireDefault(_Value);
 
@@ -590,11 +590,11 @@ var _Select = __webpack_require__(26);
 
 var _Select2 = _interopRequireDefault(_Select);
 
-var _Async = __webpack_require__(52);
+var _Async = __webpack_require__(54);
 
 var _Async2 = _interopRequireDefault(_Async);
 
-var _Creatable = __webpack_require__(53);
+var _Creatable = __webpack_require__(55);
 
 var _Creatable2 = _interopRequireDefault(_Creatable);
 
@@ -1321,6 +1321,134 @@ var changeIsExcludeTest = exports.changeIsExcludeTest = function changeIsExclude
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(3);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _constants = __webpack_require__(199);
+
+var _propTypes = __webpack_require__(2);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Popup = function (_React$Component) {
+    _inherits(Popup, _React$Component);
+
+    function Popup(props) {
+        _classCallCheck(this, Popup);
+
+        var _this = _possibleConstructorReturn(this, (Popup.__proto__ || Object.getPrototypeOf(Popup)).call(this, props));
+
+        _this.onCloseHandler = function () {
+            _this.props.onClose && _this.props.onClose();
+        };
+
+        return _this;
+    }
+
+    _createClass(Popup, [{
+        key: 'render',
+        value: function render() {
+            var _props = this.props,
+                title = _props.title,
+                isShow = _props.isShow,
+                width = _props.width,
+                height = _props.height,
+                isHtml = _props.isHtml,
+                children = _props.children;
+
+
+            return _react2.default.createElement(
+                'div',
+                { className: 'popup-container ' + (isShow ? 'show' : 'hide') },
+                _react2.default.createElement('div', { className: 'popup-block-body' }),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'flat-popup', style: { height: height, width: width } },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'popup-title' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'txt-title' },
+                            title
+                        ),
+                        _react2.default.createElement(
+                            'a',
+                            { className: 'popup-close', href: 'javascript:;', onClick: this.onCloseHandler },
+                            _react2.default.createElement('i', { className: 'icon-close' })
+                        )
+                    ),
+                    isHtml ? _react2.default.createElement('div', { className: 'popup-content', dangerouslySetInnerHTML: { __html: children } }) : _react2.default.createElement(
+                        'div',
+                        { className: 'popup-content' },
+                        children
+                    )
+                )
+            );
+        }
+    }]);
+
+    return Popup;
+}(_react2.default.Component);
+
+Popup.propTypes = {
+    width: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+    height: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+    title: _propTypes2.default.string,
+    isShow: _propTypes2.default.bool,
+    onClose: _propTypes2.default.func,
+    isHtml: _propTypes2.default.bool
+};
+Popup.defaultProps = {
+    width: _constants.DEFAULT_WIDTH,
+    height: _constants.DEFAULT_HEIGHT,
+    isShow: false,
+    isHtml: false
+};
+exports.default = Popup;
+;
+
+/***/ }),
+
+/***/ 199:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var DEFAULT_WIDTH = exports.DEFAULT_WIDTH = '55%';
+var DEFAULT_HEIGHT = exports.DEFAULT_HEIGHT = '55%';
+
+/***/ }),
+
+/***/ 200:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 exports.currencyList = exports.selectedCurrency = undefined;
 
 var _types = __webpack_require__(9);
@@ -1347,7 +1475,7 @@ var currencyList = exports.currencyList = (0, _createReducer4.default)({}, _defi
 
 /***/ }),
 
-/***/ 199:
+/***/ 201:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1378,7 +1506,7 @@ var isExcludeTest = exports.isExcludeTest = (0, _createReducer3.default)({}, _de
 
 /***/ }),
 
-/***/ 200:
+/***/ 202:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1389,11 +1517,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.ActionCreators = undefined;
 
-var _dataHandlerAction = __webpack_require__(761);
+var _dataHandlerAction = __webpack_require__(762);
 
 var dataHandlerAction = _interopRequireWildcard(_dataHandlerAction);
 
-var _filterHandlerAction = __webpack_require__(762);
+var _filterHandlerAction = __webpack_require__(763);
 
 var filterHandlerAction = _interopRequireWildcard(_filterHandlerAction);
 
@@ -1401,7 +1529,7 @@ var _currencyAction = __webpack_require__(194);
 
 var currencyAction = _interopRequireWildcard(_currencyAction);
 
-var _loaderAction = __webpack_require__(57);
+var _loaderAction = __webpack_require__(59);
 
 var loaderAction = _interopRequireWildcard(_loaderAction);
 
@@ -1409,7 +1537,7 @@ var _excludeTestAction = __webpack_require__(195);
 
 var excludeTestAction = _interopRequireWildcard(_excludeTestAction);
 
-var _dateRangeAction = __webpack_require__(763);
+var _dateRangeAction = __webpack_require__(764);
 
 var dateRangeAction = _interopRequireWildcard(_dateRangeAction);
 
@@ -1419,7 +1547,7 @@ var ActionCreators = exports.ActionCreators = Object.assign({}, dataHandlerActio
 
 /***/ }),
 
-/***/ 201:
+/***/ 203:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1440,7 +1568,7 @@ var _site = __webpack_require__(19);
 
 var _site2 = _interopRequireDefault(_site);
 
-var _report = __webpack_require__(422);
+var _report = __webpack_require__(424);
 
 var _report2 = _interopRequireDefault(_report);
 
@@ -1601,11 +1729,11 @@ var _defaultArrowRenderer = __webpack_require__(109);
 
 var _defaultArrowRenderer2 = _interopRequireDefault(_defaultArrowRenderer);
 
-var _defaultFilterOptions = __webpack_require__(48);
+var _defaultFilterOptions = __webpack_require__(50);
 
 var _defaultFilterOptions2 = _interopRequireDefault(_defaultFilterOptions);
 
-var _defaultMenuRenderer = __webpack_require__(50);
+var _defaultMenuRenderer = __webpack_require__(52);
 
 var _defaultMenuRenderer2 = _interopRequireDefault(_defaultMenuRenderer);
 
@@ -1617,7 +1745,7 @@ var _Option = __webpack_require__(111);
 
 var _Option2 = _interopRequireDefault(_Option);
 
-var _Value = __webpack_require__(51);
+var _Value = __webpack_require__(53);
 
 var _Value2 = _interopRequireDefault(_Value);
 
@@ -3558,7 +3686,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 422:
+/***/ 424:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3646,7 +3774,117 @@ exports.default = Report;
 
 /***/ }),
 
-/***/ 48:
+/***/ 425:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _Popup = __webpack_require__(198);
+
+var _Popup2 = _interopRequireDefault(_Popup);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _Popup2.default;
+
+/***/ }),
+
+/***/ 43:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Cell = exports.Row = exports.Table = undefined;
+
+var _Table = __webpack_require__(60);
+
+var _Table2 = _interopRequireDefault(_Table);
+
+var _Row = __webpack_require__(64);
+
+var _Row2 = _interopRequireDefault(_Row);
+
+var _Cell = __webpack_require__(65);
+
+var _Cell2 = _interopRequireDefault(_Cell);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.Table = _Table2.default;
+exports.Row = _Row2.default;
+exports.Cell = _Cell2.default;
+
+/***/ }),
+
+/***/ 44:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(3);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _langHelper = __webpack_require__(8);
+
+var _langHelper2 = _interopRequireDefault(_langHelper);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var NoDataTitle = function (_Component) {
+    _inherits(NoDataTitle, _Component);
+
+    function NoDataTitle(props) {
+        _classCallCheck(this, NoDataTitle);
+
+        return _possibleConstructorReturn(this, (NoDataTitle.__proto__ || Object.getPrototypeOf(NoDataTitle)).call(this, props));
+    }
+
+    _createClass(NoDataTitle, [{
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'p',
+                { className: 'no-info-row center-align' },
+                _langHelper2.default.getSingleResource("NoInfo")
+            );
+        }
+    }]);
+
+    return NoDataTitle;
+}(_react.Component);
+
+exports.default = NoDataTitle;
+
+/***/ }),
+
+/***/ 50:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3656,7 +3894,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _stripDiacritics = __webpack_require__(49);
+var _stripDiacritics = __webpack_require__(51);
 
 var _stripDiacritics2 = _interopRequireDefault(_stripDiacritics);
 
@@ -3699,7 +3937,7 @@ exports.default = filterOptions;
 
 /***/ }),
 
-/***/ 49:
+/***/ 51:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3720,7 +3958,7 @@ function stripDiacritics(str) {
 
 /***/ }),
 
-/***/ 50:
+/***/ 52:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3792,7 +4030,7 @@ exports.default = menuRenderer;
 
 /***/ }),
 
-/***/ 51:
+/***/ 53:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3946,7 +4184,7 @@ exports.default = Value;
 
 /***/ }),
 
-/***/ 52:
+/***/ 54:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3972,7 +4210,7 @@ var _Select = __webpack_require__(26);
 
 var _Select2 = _interopRequireDefault(_Select);
 
-var _stripDiacritics = __webpack_require__(49);
+var _stripDiacritics = __webpack_require__(51);
 
 var _stripDiacritics2 = _interopRequireDefault(_stripDiacritics);
 
@@ -4216,7 +4454,7 @@ function defaultChildren(props) {
 
 /***/ }),
 
-/***/ 53:
+/***/ 55:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4242,11 +4480,11 @@ var _Select = __webpack_require__(26);
 
 var _Select2 = _interopRequireDefault(_Select);
 
-var _defaultFilterOptions = __webpack_require__(48);
+var _defaultFilterOptions = __webpack_require__(50);
 
 var _defaultFilterOptions2 = _interopRequireDefault(_defaultFilterOptions);
 
-var _defaultMenuRenderer = __webpack_require__(50);
+var _defaultMenuRenderer = __webpack_require__(52);
 
 var _defaultMenuRenderer2 = _interopRequireDefault(_defaultMenuRenderer);
 
@@ -4589,7 +4827,7 @@ exports.default = CreatableSelect;
 
 /***/ }),
 
-/***/ 57:
+/***/ 59:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4615,38 +4853,7 @@ var toggleLoader = exports.toggleLoader = function toggleLoader(show) {
 
 /***/ }),
 
-/***/ 58:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.Cell = exports.Row = exports.Table = undefined;
-
-var _Table = __webpack_require__(59);
-
-var _Table2 = _interopRequireDefault(_Table);
-
-var _Row = __webpack_require__(63);
-
-var _Row2 = _interopRequireDefault(_Row);
-
-var _Cell = __webpack_require__(64);
-
-var _Cell2 = _interopRequireDefault(_Cell);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.Table = _Table2.default;
-exports.Row = _Row2.default;
-exports.Cell = _Cell2.default;
-
-/***/ }),
-
-/***/ 59:
+/***/ 60:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4668,7 +4875,7 @@ var _reactDom = __webpack_require__(3);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _RowLayout = __webpack_require__(60);
+var _RowLayout = __webpack_require__(61);
 
 var _RowLayout2 = _interopRequireDefault(_RowLayout);
 
@@ -4676,13 +4883,13 @@ var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _tableSection = __webpack_require__(61);
+var _tableSection = __webpack_require__(62);
 
 var _tableSection2 = _interopRequireDefault(_tableSection);
 
 var _constants = __webpack_require__(34);
 
-var _Page = __webpack_require__(62);
+var _Page = __webpack_require__(63);
 
 var _Page2 = _interopRequireDefault(_Page);
 
@@ -4929,6 +5136,7 @@ Table.propTypes = {
     minWidth: _propTypes2.default.number,
     autoWidth: _propTypes2.default.bool,
     bodyHeight: _propTypes2.default.number,
+    autoHeight: _propTypes2.default.bool,
     header: _propTypes2.default.oneOfType([_propTypes2.default.object, _propTypes2.default.arrayOf(_propTypes2.default.object)]).isRequired,
     body: _propTypes2.default.arrayOf(_propTypes2.default.object),
     footer: _propTypes2.default.arrayOf(_propTypes2.default.object),
@@ -4943,7 +5151,8 @@ Table.defaultProps = {
     autoWidth: true,
     isPaging: false,
     adjustedHeight: 0,
-    bodyHeight: 0
+    bodyHeight: 0,
+    autoHeight: true
 };
 
 var _initialiseProps = function _initialiseProps() {
@@ -4952,7 +5161,7 @@ var _initialiseProps = function _initialiseProps() {
     this._handleResize = function (event) {
         event && event.preventDefault();
 
-        if (_this4.bodyWrapper) {
+        if (_this4.bodyWrapper && _this4.props.autoHeight) {
             var bodyHeight = _this4._calculateBodyHeight();
             if (_this4.state.contentHeight !== bodyHeight) {
                 _this4.setState({ contentHeight: bodyHeight });
@@ -4970,7 +5179,7 @@ exports.default = Table;
 
 /***/ }),
 
-/***/ 60:
+/***/ 61:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5040,7 +5249,7 @@ exports.default = RowLayout;
 
 /***/ }),
 
-/***/ 61:
+/***/ 62:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5182,7 +5391,7 @@ exports.default = createTableSection;
 
 /***/ }),
 
-/***/ 62:
+/***/ 63:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5396,7 +5605,7 @@ exports.default = Page;
 
 /***/ }),
 
-/***/ 63:
+/***/ 64:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5447,7 +5656,7 @@ exports.default = Row;
 
 /***/ }),
 
-/***/ 64:
+/***/ 65:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5519,7 +5728,7 @@ exports.default = Cell;
 
 /***/ }),
 
-/***/ 65:
+/***/ 66:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5571,65 +5780,6 @@ var NumberFormat = function () {
 }();
 
 exports.default = NumberFormat;
-
-/***/ }),
-
-/***/ 66:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(3);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-var _langHelper = __webpack_require__(8);
-
-var _langHelper2 = _interopRequireDefault(_langHelper);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var NoDataTitle = function (_Component) {
-    _inherits(NoDataTitle, _Component);
-
-    function NoDataTitle(props) {
-        _classCallCheck(this, NoDataTitle);
-
-        return _possibleConstructorReturn(this, (NoDataTitle.__proto__ || Object.getPrototypeOf(NoDataTitle)).call(this, props));
-    }
-
-    _createClass(NoDataTitle, [{
-        key: 'render',
-        value: function render() {
-            return _react2.default.createElement(
-                'p',
-                { className: 'no-info-row center-align' },
-                _langHelper2.default.getSingleResource("NoInfo")
-            );
-        }
-    }]);
-
-    return NoDataTitle;
-}(_react.Component);
-
-exports.default = NoDataTitle;
 
 /***/ }),
 
@@ -6883,81 +7033,6 @@ exports.default = AppLayout;
 
 /***/ }),
 
-/***/ 759:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(3);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-var _AppContainer = __webpack_require__(760);
-
-var _AppContainer2 = _interopRequireDefault(_AppContainer);
-
-var _reactRedux = __webpack_require__(20);
-
-var _index = __webpack_require__(771);
-
-var _index2 = _interopRequireDefault(_index);
-
-var _store = __webpack_require__(115);
-
-var _store2 = _interopRequireDefault(_store);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var defaultState = Object.assign({}, window.initialState);
-var store = _store2.default.createStore(_index2.default, defaultState);
-
-var App = function (_React$Component) {
-    _inherits(App, _React$Component);
-
-    function App(props) {
-        _classCallCheck(this, App);
-
-        return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
-    }
-
-    _createClass(App, [{
-        key: 'render',
-        value: function render() {
-            return _react2.default.createElement(
-                _reactRedux.Provider,
-                { store: store },
-                _react2.default.createElement(_AppContainer2.default, null)
-            );
-        }
-    }]);
-
-    return App;
-}(_react2.default.Component);
-
-exports.default = App;
-
-
-_reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById('app-container'));
-
-/***/ }),
-
 /***/ 76:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7026,6 +7101,81 @@ exports.default = ReportTitle;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(3);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _AppContainer = __webpack_require__(761);
+
+var _AppContainer2 = _interopRequireDefault(_AppContainer);
+
+var _reactRedux = __webpack_require__(20);
+
+var _index = __webpack_require__(775);
+
+var _index2 = _interopRequireDefault(_index);
+
+var _store = __webpack_require__(115);
+
+var _store2 = _interopRequireDefault(_store);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var defaultState = Object.assign({}, window.initialState);
+var store = _store2.default.createStore(_index2.default, defaultState);
+
+var App = function (_React$Component) {
+    _inherits(App, _React$Component);
+
+    function App(props) {
+        _classCallCheck(this, App);
+
+        return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+    }
+
+    _createClass(App, [{
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                _reactRedux.Provider,
+                { store: store },
+                _react2.default.createElement(_AppContainer2.default, null)
+            );
+        }
+    }]);
+
+    return App;
+}(_react2.default.Component);
+
+exports.default = App;
+
+
+_reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById('app-container'));
+
+/***/ }),
+
+/***/ 761:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 exports.AppContainer = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -7038,13 +7188,13 @@ var _reactRedux = __webpack_require__(20);
 
 var _redux = __webpack_require__(14);
 
-var _index = __webpack_require__(200);
+var _index = __webpack_require__(202);
 
-var _Datagrid = __webpack_require__(764);
+var _Datagrid = __webpack_require__(765);
 
 var _Datagrid2 = _interopRequireDefault(_Datagrid);
 
-var _FormFilter = __webpack_require__(768);
+var _FormFilter = __webpack_require__(772);
 
 var _FormFilter2 = _interopRequireDefault(_FormFilter);
 
@@ -7101,7 +7251,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
 /***/ }),
 
-/***/ 761:
+/***/ 762:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7118,7 +7268,7 @@ var _types = __webpack_require__(136);
 
 var types = _interopRequireWildcard(_types);
 
-var _report = __webpack_require__(422);
+var _report = __webpack_require__(424);
 
 var _report2 = _interopRequireDefault(_report);
 
@@ -7156,7 +7306,7 @@ function setGridData(data) {
 
 /***/ }),
 
-/***/ 762:
+/***/ 763:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7189,7 +7339,7 @@ var setParams = exports.setParams = function setParams(value) {
 
 /***/ }),
 
-/***/ 763:
+/***/ 764:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7220,7 +7370,7 @@ var setDateRange = exports.setDateRange = function setDateRange(dateRange) {
 
 /***/ }),
 
-/***/ 764:
+/***/ 765:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7241,13 +7391,13 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(20);
 
-var _index = __webpack_require__(200);
+var _index = __webpack_require__(202);
 
 var _redux = __webpack_require__(14);
 
-var _fixedTableHeader = __webpack_require__(58);
+var _fixedTableHeader = __webpack_require__(43);
 
-var _numberFormat = __webpack_require__(65);
+var _numberFormat = __webpack_require__(66);
 
 var _numberFormat2 = _interopRequireDefault(_numberFormat);
 
@@ -7255,13 +7405,13 @@ var _ReportTitle = __webpack_require__(76);
 
 var _ReportTitle2 = _interopRequireDefault(_ReportTitle);
 
-var _service = __webpack_require__(201);
+var _service = __webpack_require__(203);
 
 var _report = __webpack_require__(137);
 
-var _licensee = __webpack_require__(765);
+var _licensee = __webpack_require__(766);
 
-var _NoDataTitle = __webpack_require__(66);
+var _NoDataTitle = __webpack_require__(44);
 
 var _NoDataTitle2 = _interopRequireDefault(_NoDataTitle);
 
@@ -7269,13 +7419,21 @@ var _moment = __webpack_require__(0);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _Breadcrumb = __webpack_require__(766);
+var _Breadcrumb = __webpack_require__(767);
 
 var _Breadcrumb2 = _interopRequireDefault(_Breadcrumb);
 
 var _site = __webpack_require__(19);
 
 var _site2 = _interopRequireDefault(_site);
+
+var _BetList = __webpack_require__(769);
+
+var _BetList2 = _interopRequireDefault(_BetList);
+
+var _popup = __webpack_require__(425);
+
+var _popup2 = _interopRequireDefault(_popup);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -7285,6 +7443,54 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var FakeBetListData = [{
+    Market: "CRICKET > Ireland A vs Bangladesh A > Match Odds",
+    WinLoss: 15,
+    WlComm: -0.45,
+    LicWl: -9,
+    LicWlComm: 0.15,
+    Details: [{
+        BetId: 43154,
+        Selection: "Bangladesh A",
+        Type: "Back",
+        BetPlaced: "10/25/2017 01:05:46",
+        OddAvg: 1.5,
+        Stake: 30,
+        WinLoss: 15
+    }]
+}, {
+    Market: "CRICKET > Zimbabwe vs West Indies > Match Odds",
+    WinLoss: 30,
+    WlComm: 0,
+    LicWl: 42,
+    LicWlComm: 0,
+    Details: [{
+        BetId: 43116,
+        Selection: "Zimbabwe",
+        Type: "Lay",
+        BetPlaced: "10/24/2017 05:45:14",
+        OddAvg: 7,
+        Stake: 30,
+        WinLoss: 30
+    }, {
+        BetId: 43112,
+        Selection: "Zimbabwe",
+        Type: "Back",
+        BetPlaced: "10/24/2017 05:45:14",
+        OddAvg: 9.8,
+        Stake: 50,
+        WinLoss: -50
+    }, {
+        BetId: 43118,
+        Selection: "Zimbabwe",
+        Type: "Back",
+        BetPlaced: "10/24/2017 05:45:14",
+        OddAvg: 7.8,
+        Stake: 50,
+        WinLoss: -50
+    }]
+}];
+
 var DataGrid = exports.DataGrid = function (_Component) {
     _inherits(DataGrid, _Component);
 
@@ -7293,12 +7499,25 @@ var DataGrid = exports.DataGrid = function (_Component) {
 
         var _this = _possibleConstructorReturn(this, (DataGrid.__proto__ || Object.getPrototypeOf(DataGrid)).call(this, props));
 
+        _this.showBetListPopup = function () {
+            _this.setState({ showBetList: true, betListData: FakeBetListData });
+        };
+
+        _this.closeBetListPopup = function () {
+            _this.setState({ showBetList: false });
+        };
+
         _this.reportTitle = '';
         _this.isAllowedCustomerComm = _this.props.isAllowedCustomerComm;
         _this.licenseeId = _this.props.licenseeId;
 
         _this.levelGridData = [];
         _this.drillDownParams = [];
+
+        _this.state = {
+            showBetList: false,
+            betListData: []
+        };
         return _this;
     }
 
@@ -7406,6 +7625,15 @@ var DataGrid = exports.DataGrid = function (_Component) {
                 { onClick: function onClick() {
                         return _this3._drillDownData(level, date, currencyId, currencyName, custId);
                     }, href: 'javascript:;' },
+                text
+            );
+        }
+    }, {
+        key: '_renderBetListLink',
+        value: function _renderBetListLink(text) {
+            return _react2.default.createElement(
+                'a',
+                { href: 'javascript:;', onClick: this.showBetListPopup },
                 text
             );
         }
@@ -7567,12 +7795,12 @@ var DataGrid = exports.DataGrid = function (_Component) {
                     level === _report.ReportLevel.CUSTOMER && _react2.default.createElement(
                         _fixedTableHeader.Cell,
                         { title: item.ExternalId, className: 'left-align' },
-                        item.ExternalId
+                        this._renderBetListLink(item.ExternalId)
                     ),
                     level !== _report.ReportLevel.MAIN && _react2.default.createElement(
                         _fixedTableHeader.Cell,
                         { title: item.SystemId, className: 'left-align' },
-                        level === _report.ReportLevel.LICENSEE ? this._renderDrillDownLink(item.SystemId, _report.ReportLevel.CUSTOMER, item.Date, item.CurrencyId, item.CurrencyName, item.CustId) : item.SystemId
+                        level === _report.ReportLevel.LICENSEE ? this._renderDrillDownLink(item.SystemId, _report.ReportLevel.CUSTOMER, item.Date, item.CurrencyId, item.CurrencyName, item.CustId) : this._renderBetListLink(item.SystemId)
                     ),
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
@@ -7746,6 +7974,11 @@ var DataGrid = exports.DataGrid = function (_Component) {
             var reportLevel = gridData.level;
             var reportBy = this.props.params.ReportBy;
 
+            var _state = this.state,
+                showBetList = _state.showBetList,
+                betListData = _state.betListData;
+
+
             return _react2.default.createElement(
                 'div',
                 { className: 'result-content' },
@@ -7758,7 +7991,12 @@ var DataGrid = exports.DataGrid = function (_Component) {
                     header: this._buildHeader(reportLevel, reportBy),
                     body: this._buildBody(reportLevel, reportBy),
                     footer: this._buildFooter(reportLevel)
-                })
+                }),
+                reportLevel === _report.ReportLevel.CUSTOMER && showBetList && betListData && _react2.default.createElement(
+                    _popup2.default,
+                    { isShow: showBetList, title: "CUSTOMER BET LIST", width: 900, height: 600, onClose: this.closeBetListPopup },
+                    _react2.default.createElement(_BetList2.default, { data: betListData })
+                )
             );
         }
     }]);
@@ -7784,7 +8022,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
 /***/ }),
 
-/***/ 765:
+/***/ 766:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7799,7 +8037,7 @@ var Licensee = exports.Licensee = {
 
 /***/ }),
 
-/***/ 766:
+/***/ 767:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7819,7 +8057,7 @@ var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _BreadcrumbItem = __webpack_require__(767);
+var _BreadcrumbItem = __webpack_require__(768);
 
 var _BreadcrumbItem2 = _interopRequireDefault(_BreadcrumbItem);
 
@@ -7902,7 +8140,7 @@ exports.default = BreadcrumbItem;
 
 /***/ }),
 
-/***/ 767:
+/***/ 768:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7972,7 +8210,553 @@ exports.default = BreadcrumbItem;
 
 /***/ }),
 
-/***/ 768:
+/***/ 769:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(2);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _BetListPopupLayout = __webpack_require__(770);
+
+var _BetListPopupLayout2 = _interopRequireDefault(_BetListPopupLayout);
+
+var _NoDataTitle = __webpack_require__(44);
+
+var _NoDataTitle2 = _interopRequireDefault(_NoDataTitle);
+
+var _fixedTableHeader = __webpack_require__(43);
+
+var _popup = __webpack_require__(425);
+
+var _popup2 = _interopRequireDefault(_popup);
+
+var _BetListDetail = __webpack_require__(771);
+
+var _BetListDetail2 = _interopRequireDefault(_BetListDetail);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var FakeDetailData = [{
+    BetTaken: "10/23/2017 10:55:15",
+    OddsReq: 6.80,
+    Stake: 50.00,
+    Liability: "-",
+    OddsMacthed: 7.80
+}];
+
+var BetList = function (_Component) {
+    _inherits(BetList, _Component);
+
+    function BetList(props) {
+        _classCallCheck(this, BetList);
+
+        var _this = _possibleConstructorReturn(this, (BetList.__proto__ || Object.getPrototypeOf(BetList)).call(this, props));
+
+        _this._showTicketDetail = function () {
+            _this.setState({ showDetail: true, detailData: FakeDetailData });
+        };
+
+        _this.closeDetailPopup = function () {
+            _this.setState({ showDetail: false, detailData: [] });
+        };
+
+        _this.state = {
+            showDetail: false,
+            detailData: null
+        };
+        return _this;
+    }
+
+    _createClass(BetList, [{
+        key: '_buildHeader',
+        value: function _buildHeader() {
+            return _react2.default.createElement(
+                _fixedTableHeader.Row,
+                { style: { height: 32 } },
+                _react2.default.createElement(
+                    _fixedTableHeader.Cell,
+                    { colWidth: 40, header: true },
+                    "#"
+                ),
+                _react2.default.createElement(
+                    _fixedTableHeader.Cell,
+                    { colWidth: 300, header: true },
+                    "Market"
+                ),
+                _react2.default.createElement(
+                    _fixedTableHeader.Cell,
+                    { colWidth: 70, header: true },
+                    "Bet ID"
+                ),
+                _react2.default.createElement(
+                    _fixedTableHeader.Cell,
+                    { colWidth: 120, header: true },
+                    "Selection"
+                ),
+                _react2.default.createElement(
+                    _fixedTableHeader.Cell,
+                    { colWidth: 50, header: true },
+                    "Type"
+                ),
+                _react2.default.createElement(
+                    _fixedTableHeader.Cell,
+                    { colWidth: 100, header: true },
+                    "Bet Placed"
+                ),
+                _react2.default.createElement(
+                    _fixedTableHeader.Cell,
+                    { colWidth: 60, header: true },
+                    "Odds avg."
+                ),
+                _react2.default.createElement(
+                    _fixedTableHeader.Cell,
+                    { colWidth: 80, header: true },
+                    "Stake"
+                ),
+                _react2.default.createElement(
+                    _fixedTableHeader.Cell,
+                    { colWidth: 80, header: true },
+                    "Winloss"
+                ),
+                _react2.default.createElement(
+                    _fixedTableHeader.Cell,
+                    { colWidth: 100, header: true },
+                    "WL /Comm"
+                )
+            );
+        }
+    }, {
+        key: '_buildBody',
+        value: function _buildBody() {
+            var data = this.props.data;
+
+            var rows = [];
+            for (var i = 0; i < data.length; i++) {
+                var dataItem = data[i];
+                var dataDetails = dataItem.Details;
+                var dataDetailCount = dataDetails.length;
+                var isFirstRow = true;
+
+                for (var j = 0; j < dataDetails.length; j++) {
+                    var detailItem = dataDetails[j];
+
+                    rows.push(_react2.default.createElement(
+                        _fixedTableHeader.Row,
+                        { key: 'row-' + i + '-' + j },
+                        isFirstRow && _react2.default.createElement(
+                            _fixedTableHeader.Cell,
+                            { rowSpan: dataDetailCount },
+                            i + 1
+                        ),
+                        isFirstRow && _react2.default.createElement(
+                            _fixedTableHeader.Cell,
+                            { rowSpan: dataDetailCount },
+                            dataItem.Market
+                        ),
+                        _react2.default.createElement(
+                            _fixedTableHeader.Cell,
+                            null,
+                            detailItem.BetId
+                        ),
+                        _react2.default.createElement(
+                            _fixedTableHeader.Cell,
+                            null,
+                            detailItem.Selection
+                        ),
+                        _react2.default.createElement(
+                            _fixedTableHeader.Cell,
+                            null,
+                            _react2.default.createElement(
+                                'a',
+                                { href: 'javascript:;', onClick: this._showTicketDetail },
+                                detailItem.Type
+                            )
+                        ),
+                        _react2.default.createElement(
+                            _fixedTableHeader.Cell,
+                            null,
+                            detailItem.BetPlaced
+                        ),
+                        _react2.default.createElement(
+                            _fixedTableHeader.Cell,
+                            null,
+                            detailItem.OddAvg
+                        ),
+                        _react2.default.createElement(
+                            _fixedTableHeader.Cell,
+                            null,
+                            detailItem.Stake
+                        ),
+                        _react2.default.createElement(
+                            _fixedTableHeader.Cell,
+                            null,
+                            detailItem.WinLoss
+                        ),
+                        isFirstRow && _react2.default.createElement(
+                            _fixedTableHeader.Cell,
+                            { rowSpan: dataDetailCount },
+                            dataItem.WinLoss,
+                            _react2.default.createElement('br', null),
+                            dataItem.WlComm
+                        )
+                    ));
+
+                    isFirstRow = false;
+                }
+            }
+
+            return rows;
+        }
+    }, {
+        key: '_buildFooter',
+        value: function _buildFooter() {
+            return [_react2.default.createElement(
+                _fixedTableHeader.Row,
+                { key: 'betlist-footer' },
+                _react2.default.createElement(
+                    _fixedTableHeader.Cell,
+                    { colSpan: '8' },
+                    'Grand Total'
+                ),
+                _react2.default.createElement(
+                    _fixedTableHeader.Cell,
+                    null,
+                    '-55.45'
+                ),
+                _react2.default.createElement(
+                    _fixedTableHeader.Cell,
+                    null,
+                    '33.15'
+                )
+            )];
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _state = this.state,
+                showDetail = _state.showDetail,
+                detailData = _state.detailData;
+            var data = this.props.data;
+
+            var title = _react2.default.createElement(
+                'p',
+                null,
+                'Customer Bet List 2/19/2018 - 2/19/2018 - testABC(12BETMR010101) - ',
+                _react2.default.createElement(
+                    'span',
+                    { className: 'base-currency-title' },
+                    'View in MYR'
+                )
+            );
+
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    _BetListPopupLayout2.default,
+                    { title: title },
+                    data && data.length ? _react2.default.createElement(_fixedTableHeader.Table, {
+                        autoWidth: false,
+                        autoHeight: false,
+                        width: 870,
+                        bodyHeight: 430,
+                        header: this._buildHeader(),
+                        body: this._buildBody(),
+                        footer: this._buildFooter()
+                    }) : _react2.default.createElement(_NoDataTitle2.default, null)
+                ),
+                showDetail && detailData && detailData.length && _react2.default.createElement(
+                    _popup2.default,
+                    { isShow: showDetail, title: "DETAIL", width: 730, height: 450, onClose: this.closeDetailPopup },
+                    _react2.default.createElement(_BetListDetail2.default, { data: detailData })
+                )
+            );
+        }
+    }]);
+
+    return BetList;
+}(_react.Component);
+
+BetList.propTypes = {
+    data: _propTypes2.default.arrayOf(_propTypes2.default.object).isRequired
+};
+exports.default = BetList;
+
+/***/ }),
+
+/***/ 77:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.isLoading = undefined;
+
+var _types = __webpack_require__(9);
+
+var types = _interopRequireWildcard(_types);
+
+var _createReducer2 = __webpack_require__(12);
+
+var _createReducer3 = _interopRequireDefault(_createReducer2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var isLoading = exports.isLoading = (0, _createReducer3.default)({}, _defineProperty({}, types.TOGGLE_LOADER, function (state, action) {
+    return action.data;
+}));
+
+/***/ }),
+
+/***/ 770:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(2);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var BetListPopupLayout = function (_Component) {
+    _inherits(BetListPopupLayout, _Component);
+
+    function BetListPopupLayout(props) {
+        _classCallCheck(this, BetListPopupLayout);
+
+        return _possibleConstructorReturn(this, (BetListPopupLayout.__proto__ || Object.getPrototypeOf(BetListPopupLayout)).call(this, props));
+    }
+
+    _createClass(BetListPopupLayout, [{
+        key: 'render',
+        value: function render() {
+            var _props = this.props,
+                title = _props.title,
+                children = _props.children;
+
+
+            return _react2.default.createElement(
+                'div',
+                { className: 'popup-content-default betlist-container' },
+                _react2.default.createElement(
+                    'div',
+                    { className: 'caption' },
+                    title
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'betlist-content' },
+                    children
+                )
+            );
+        }
+    }]);
+
+    return BetListPopupLayout;
+}(_react.Component);
+
+BetListPopupLayout.propTypes = {
+    title: _propTypes2.default.any
+};
+exports.default = BetListPopupLayout;
+
+/***/ }),
+
+/***/ 771:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(2);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _NoDataTitle = __webpack_require__(44);
+
+var _NoDataTitle2 = _interopRequireDefault(_NoDataTitle);
+
+var _fixedTableHeader = __webpack_require__(43);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var BetListDetail = function (_Component) {
+    _inherits(BetListDetail, _Component);
+
+    function BetListDetail(props) {
+        _classCallCheck(this, BetListDetail);
+
+        return _possibleConstructorReturn(this, (BetListDetail.__proto__ || Object.getPrototypeOf(BetListDetail)).call(this, props));
+    }
+
+    _createClass(BetListDetail, [{
+        key: '_buildHeader',
+        value: function _buildHeader() {
+            return _react2.default.createElement(
+                _fixedTableHeader.Row,
+                { style: { height: 32 } },
+                _react2.default.createElement(
+                    _fixedTableHeader.Cell,
+                    { colWidth: 100, header: true },
+                    "Bet taken"
+                ),
+                _react2.default.createElement(
+                    _fixedTableHeader.Cell,
+                    { colWidth: 70, header: true },
+                    "Odds req."
+                ),
+                _react2.default.createElement(
+                    _fixedTableHeader.Cell,
+                    { colWidth: 70, header: true },
+                    "Stake"
+                ),
+                _react2.default.createElement(
+                    _fixedTableHeader.Cell,
+                    { colWidth: 70, header: true },
+                    "Liability"
+                ),
+                _react2.default.createElement(
+                    _fixedTableHeader.Cell,
+                    { colWidth: 70, header: true },
+                    "Odds matched"
+                )
+            );
+        }
+    }, {
+        key: '_buildBody',
+        value: function _buildBody() {
+            var data = this.props.data;
+
+            var rows = [];
+            for (var i = 0; i < data.length; i++) {
+                var dataItem = data[i];
+
+                rows.push(_react2.default.createElement(
+                    _fixedTableHeader.Row,
+                    { key: 'rowDetail-' + i },
+                    _react2.default.createElement(
+                        _fixedTableHeader.Cell,
+                        null,
+                        dataItem.BetTaken
+                    ),
+                    _react2.default.createElement(
+                        _fixedTableHeader.Cell,
+                        null,
+                        dataItem.OddsReq
+                    ),
+                    _react2.default.createElement(
+                        _fixedTableHeader.Cell,
+                        null,
+                        dataItem.Stake
+                    ),
+                    _react2.default.createElement(
+                        _fixedTableHeader.Cell,
+                        null,
+                        dataItem.Liability
+                    ),
+                    _react2.default.createElement(
+                        _fixedTableHeader.Cell,
+                        null,
+                        dataItem.OddsMacthed
+                    )
+                ));
+            }
+
+            return rows;
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var data = this.props.data;
+
+
+            return data && data.length ? _react2.default.createElement(
+                'div',
+                { className: 'popup-content-default popup-detail-default' },
+                _react2.default.createElement(_fixedTableHeader.Table, {
+                    autoWidth: false,
+                    autoHeight: false,
+                    width: 700,
+                    bodyHeight: 350,
+                    header: this._buildHeader(),
+                    body: this._buildBody()
+                })
+            ) : _react2.default.createElement(_NoDataTitle2.default, null);
+        }
+    }]);
+
+    return BetListDetail;
+}(_react.Component);
+
+BetListDetail.propTypes = {
+    data: _propTypes2.default.arrayOf(_propTypes2.default.object).isRequired
+};
+exports.default = BetListDetail;
+
+/***/ }),
+
+/***/ 772:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7991,7 +8775,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(20);
 
-var _index = __webpack_require__(200);
+var _index = __webpack_require__(202);
 
 var _redux = __webpack_require__(14);
 
@@ -8011,13 +8795,13 @@ var _site2 = _interopRequireDefault(_site);
 
 var _report = __webpack_require__(137);
 
-var _currency = __webpack_require__(769);
+var _currency = __webpack_require__(773);
 
-var _reportExcel = __webpack_require__(770);
+var _reportExcel = __webpack_require__(774);
 
 var _reportExcel2 = _interopRequireDefault(_reportExcel);
 
-var _service = __webpack_require__(201);
+var _service = __webpack_require__(203);
 
 var _moment = __webpack_require__(0);
 
@@ -8345,7 +9129,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
 /***/ }),
 
-/***/ 769:
+/***/ 773:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8358,38 +9142,7 @@ var BaseCurrency = exports.BaseCurrency = [{ value: -1, text: "EUR" }, { value: 
 
 /***/ }),
 
-/***/ 77:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.isLoading = undefined;
-
-var _types = __webpack_require__(9);
-
-var types = _interopRequireWildcard(_types);
-
-var _createReducer2 = __webpack_require__(12);
-
-var _createReducer3 = _interopRequireDefault(_createReducer2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var isLoading = exports.isLoading = (0, _createReducer3.default)({}, _defineProperty({}, types.TOGGLE_LOADER, function (state, action) {
-    return action.data;
-}));
-
-/***/ }),
-
-/***/ 770:
+/***/ 774:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8401,7 +9154,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _numberFormat = __webpack_require__(65);
+var _numberFormat = __webpack_require__(66);
 
 var _numberFormat2 = _interopRequireDefault(_numberFormat);
 
@@ -8419,7 +9172,7 @@ var _langHelper2 = _interopRequireDefault(_langHelper);
 
 var _excelStyle = __webpack_require__(114);
 
-var _service = __webpack_require__(201);
+var _service = __webpack_require__(203);
 
 var _report = __webpack_require__(137);
 
@@ -8683,7 +9436,7 @@ exports.default = ReportExcel;
 
 /***/ }),
 
-/***/ 771:
+/***/ 775:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8695,15 +9448,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(14);
 
-var _dataHandlerReducer = __webpack_require__(772);
+var _dataHandlerReducer = __webpack_require__(776);
 
 var dataHandlerReducer = _interopRequireWildcard(_dataHandlerReducer);
 
-var _filterHandlerReducer = __webpack_require__(773);
+var _filterHandlerReducer = __webpack_require__(777);
 
 var filterHandlerReducer = _interopRequireWildcard(_filterHandlerReducer);
 
-var _currencyReducer = __webpack_require__(198);
+var _currencyReducer = __webpack_require__(200);
 
 var currencyReducer = _interopRequireWildcard(_currencyReducer);
 
@@ -8711,11 +9464,11 @@ var _loaderReducer = __webpack_require__(77);
 
 var loaderReducer = _interopRequireWildcard(_loaderReducer);
 
-var _excludeTestReducer = __webpack_require__(199);
+var _excludeTestReducer = __webpack_require__(201);
 
 var excludeTestReducer = _interopRequireWildcard(_excludeTestReducer);
 
-var _dateRangeReducer = __webpack_require__(774);
+var _dateRangeReducer = __webpack_require__(778);
 
 var dateRangeReducer = _interopRequireWildcard(_dateRangeReducer);
 
@@ -8725,7 +9478,7 @@ exports.default = (0, _redux.combineReducers)(Object.assign(dataHandlerReducer, 
 
 /***/ }),
 
-/***/ 772:
+/***/ 776:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8756,7 +9509,7 @@ var gridData = exports.gridData = (0, _createReducer3.default)({}, _defineProper
 
 /***/ }),
 
-/***/ 773:
+/***/ 777:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8807,7 +9560,7 @@ var isAllowedCustomerComm = exports.isAllowedCustomerComm = (0, _createReducer8.
 
 /***/ }),
 
-/***/ 774:
+/***/ 778:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8940,5 +9693,5 @@ var GET_DATE_CONSTRAINT = exports.GET_DATE_CONSTRAINT = 'GET_DATE_CONSTRAINT';
 
 /***/ })
 
-},[759]);
+},[760]);
 //# sourceMappingURL=exchangewl.chunk.js.map
