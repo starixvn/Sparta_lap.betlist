@@ -12,6 +12,7 @@ define(
         var IGNORED_TURNOVER_PRODUCTS = ["BT", "CO"];
         var _me =
         {
+            isDisableBetList: false,
             licenseeId: 0,
             currencyIndex: 4,
             turnoverIndex: 5,
@@ -565,6 +566,13 @@ define(
                 dateColumn.formatoptions = {
                     newformat: 'm/d/Y'
                 };
+            }
+
+            if (_me.isDisableBetList)
+            {
+                externalIdColumn.formatter = null;
+                systemIdColumn.formatter = null;
+                currencyColumn.formatter = null;
             }
 
             var temp = Site.clone(colModelList);

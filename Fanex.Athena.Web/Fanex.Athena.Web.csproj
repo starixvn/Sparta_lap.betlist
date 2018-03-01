@@ -136,6 +136,7 @@
   <ItemGroup>
     <Compile Include="ActionFilter\AuthorizeRestrictionAttribute.cs" />
     <Compile Include="ActionFilter\CustomValidateAntiForgeryAttribute.cs" />
+    <Compile Include="ActionFilter\BetListAuthorizationAttribute.cs" />
     <Compile Include="ActionFilter\FunctionAuthorizationAttribute.cs" />
     <Compile Include="ActionFilter\AjaxRequestAttribute.cs" />
     <Compile Include="ActionFilter\CustomAuthorizeAttribute.cs" />

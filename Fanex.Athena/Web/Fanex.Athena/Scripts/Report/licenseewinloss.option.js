@@ -363,6 +363,7 @@ var LicenseeWinLossOption = (function () {
 
     var me =
     {
+        isDisableBetList: false,
         licenseeId: 0,
         currencyIndex: 4,
         turnoverIndex: 5,
@@ -580,6 +581,12 @@ var LicenseeWinLossOption = (function () {
             dateColumn.formatoptions = {
                 newformat: 'm/d/Y'
             };
+        }
+
+        if (LicenseeWinLossOption.isDisableBetList) {
+            externalIdColumn.formatter = null;
+            systemIdColumn.formatter = null;
+            currencyColumn.formatter = null;
         }
 
         var temp = Site.clone(colModelList);

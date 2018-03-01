@@ -56,25 +56,16 @@ namespace Fanex.Athena.Service.Report
             var nextDate = firstDate.AddDays(DaysInWeek - 1);
 
             var headers = new List<string>();
-            headers.Add(GetMaxDate(firstDate, fromDate).ToString("dd MMM", culture) + " - " + GetMinDate(nextDate, toDate).ToString("dd MMM yyyy", culture));
+            headers.Add(DateTimeHelper.GetMaxDate(firstDate, fromDate).ToString("dd MMM", culture) + " - " + 
+                DateTimeHelper.GetMinDate(nextDate, toDate).ToString("dd MMM yyyy", culture));
             for (int i = 1; i < numberOfWeeks; i++)
             {
                 firstDate = firstDate.AddDays(DaysInWeek);
                 nextDate = firstDate.AddDays(DaysInWeek - 1);
-                headers.Add(firstDate.ToString("dd MMM", culture) + " - " + GetMinDate(nextDate, toDate).ToString("dd MMM yyyy", culture));
+                headers.Add(firstDate.ToString("dd MMM", culture) + " - " + DateTimeHelper.GetMinDate(nextDate, toDate).ToString("dd MMM yyyy", culture));
             }
 
             return headers;
-        }
-
-        private static DateTime GetMaxDate(DateTime dateOne, DateTime dateTwo)
-        {
-            return dateOne > dateTwo ? dateOne : dateTwo;
-        }
-
-        private static DateTime GetMinDate(DateTime dateOne, DateTime dateTwo)
-        {
-            return dateOne < dateTwo ? dateOne : dateTwo;
         }
     }
 }

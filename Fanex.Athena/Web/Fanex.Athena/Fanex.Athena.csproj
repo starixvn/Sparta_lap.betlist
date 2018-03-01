@@ -24,7 +24,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -902,6 +902,8 @@
     <Content Include="www\js\build\dev\reactpages\exchangewl\exchangewl.chunk.js.map" />
     <Content Include="www\css\build\dev\reactpages\exchangewl\index.chunk.js.map" />
     <Content Include="www\css\build\dev\reactpages\exchangewl\index.css.map" />
+    <Content Include="App_Data\FakeLicenseeSetting.json" />
+    <Content Include="App_Data\ReportSetting.json" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Row.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.jsx" />

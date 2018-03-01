@@ -6,7 +6,9 @@
 
 namespace Fanex.Athena.Model.Report.ViewModel
 {
+    using System;
     using System.Collections.Generic;
+    using Core.DTO.Configuration;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Model.Core.ViewModel;
@@ -23,5 +25,7 @@ namespace Fanex.Athena.Model.Report.ViewModel
         public LicenseeWinLossMetaModel Param { get; set; }
 
         public bool IsFakeLicensee { get; set; }
+
+        public ReportSetting ReportSetting { get; set; }
     }
 }

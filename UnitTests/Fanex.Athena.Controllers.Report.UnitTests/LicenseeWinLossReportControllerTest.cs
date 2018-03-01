@@ -5,11 +5,13 @@
     using Base.UnitTests;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
+    using Model.Core.DTO.Configuration;
     using Model.Report.ViewModel;
     using NSubstitute;
     using NUnit.Framework;
     using Report;
     using Service.Core.Common.Interfaces;
+    using Service.Core.Configuration.Interfaces;
 
     [TestFixture]
     public class LicenseeWinLossReportControllerTest : BaseControllerHelperTest
@@ -44,6 +46,10 @@
 
         private LicenseeWinLossReportController CreateController()
         {
+            var reportSettingService = Substitute.For<IReportSettingService>();
+            reportSettingService.GetSetting(
+                SessionService.LicenseeSession.LicenseeName,
+                PermissionKeys.ReportLicenseeWinLoss).Returns(new ReportSetting());
             var productService = Substitute.For<IProductService>();
             productService.GetSingleWalletProductAccess(
                 SessionService.LicenseeSession.LicenseeId,
@@ -54,7 +60,8 @@
                 SessionService,
                 AppSettings,
                 ClientViewHelper,
-                productService);
+                productService,
+                reportSettingService);
         }
     }
 }

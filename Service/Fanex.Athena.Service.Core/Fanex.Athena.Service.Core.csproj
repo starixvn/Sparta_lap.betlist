@@ -114,6 +114,10 @@
     <Compile Include="Common\FunctionService.cs" />
     <Compile Include="Common\FunctionStorage.cs" />
     <Compile Include="Common\Interfaces\IFunctionStorage.cs" />
+    <Compile Include="Configuration\Interfaces\IReportSettingService.cs" />
+    <Compile Include="Configuration\ReportSettingService.cs" />
+    <Compile Include="Configuration\FakeLicenseeSettingService.cs" />
+    <Compile Include="Configuration\Interfaces\IFakeLicenseeSettingService.cs" />
     <Compile Include="Utility\ClientViewHelper.cs" />
     <Compile Include="Users\AuthService.cs" />
     <Compile Include="Users\Interfaces\IAuthService.cs" />

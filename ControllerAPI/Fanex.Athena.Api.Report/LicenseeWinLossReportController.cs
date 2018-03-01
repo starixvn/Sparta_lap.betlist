@@ -28,17 +28,22 @@ namespace Fanex.Athena.Api.Report
     using Model.Core.MetaModel.Product;
     using Model.Core.ResultModel;
     using Service.Core.Common.Interfaces;
+    using Service.Core.Configuration;
+    using Service.Core.Configuration.Interfaces;
     using Service.Core.Users.Interfaces;
 
     [ApiFunctionAuthorization(PermissionKeys.ReportLicenseeWinLoss)]
     public class LicenseeWinLossReportController : ApiReportBaseController
     {
+        private readonly IReportSettingService _reportSettingService;
+
         private readonly IAppSettings _appSettings;
 
         private readonly ILicenseeWinLossDataAccess _licenseeWinLossDataAccess;
 
         public LicenseeWinLossReportController()
         {
+            _reportSettingService = new ReportSettingService();
             _appSettings = new AppSettings();
             _licenseeWinLossDataAccess = new LicenseeWinLossDataAccess();
         }
@@ -46,10 +51,12 @@ namespace Fanex.Athena.Api.Report
         public LicenseeWinLossReportController(
             ISessionService sessionService,
             IProductService productService,
+            IReportSettingService reportSettingService,
             IAppSettings appSettings,
             ILicenseeWinLossDataAccess licenseeWinLossDataAccess)
             : base(sessionService, productService)
         {
+            _reportSettingService = reportSettingService;
             _appSettings = appSettings;
             _licenseeWinLossDataAccess = licenseeWinLossDataAccess;
         }
@@ -296,15 +303,17 @@ namespace Fanex.Athena.Api.Report
             int custId = 0,
             string currencyName = null)
         {
-            if (IsValidRequest(metaModel, currencyId))
+            metaModel.DrillDownLevel = level;
+            metaModel.DrillDownFromDate = fdate.HasValue ? fdate.Value : metaModel.DrillDownFromDate;
+            metaModel.DrillDownToDate = tdate.HasValue ? tdate.Value : metaModel.DrillDownToDate;
+
+            if (IsValidParams(metaModel) && IsValidRequest(metaModel, currencyId))
             {
                 metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
                 metaModel.DrillDownCurrencyId = currencyId;
                 metaModel.DrillDownCurrencyName = currencyName;
-                metaModel.DrillDownLevel = level;
                 metaModel.DrillDownCustomerId = custId;
-                metaModel.DrillDownFromDate = fdate.HasValue ? fdate.Value : metaModel.DrillDownFromDate;
-                metaModel.DrillDownToDate = tdate.HasValue ? tdate.Value : metaModel.DrillDownToDate;
+
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(level == 0 ? metaModel.CurrencyId : currencyId, metaModel.IsExcludedTestData);
                 var result = GetData(metaModel);
 
@@ -327,6 +336,25 @@ namespace Fanex.Athena.Api.Report
             }
 
             return GetEmptyResult(metaModel.ProductOptions);
+        }
+
+        private bool IsValidParams(LicenseeWinLossMetaModel metaModel)
+        {
+            var setting = _reportSettingService.GetSetting(SessionService.LicenseeSession.LicenseeName, PermissionKeys.ReportLicenseeWinLoss);
+            if (setting == null)
+            {
+                return true;
+            }
+
+            if (metaModel.DrillDownLevel > 0 && setting.IsDisableBetList)
+            {
+                return false;
+            }
+
+            var fromDate = metaModel.DrillDownLevel == 0 ? metaModel.FromDate : metaModel.DrillDownFromDate;
+            var toDate = metaModel.DrillDownLevel == 0 ? metaModel.ToDate : metaModel.DrillDownToDate;
+            return DateTimeHelper.IsBetween(fromDate, setting.MinDate, setting.MaxDate) &&
+                DateTimeHelper.IsBetween(toDate, setting.MinDate, setting.MaxDate);
         }
     }
 }

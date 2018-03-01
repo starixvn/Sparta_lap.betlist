@@ -14,6 +14,8 @@ namespace Fanex.Athena.Service.Core.Users
     using System.Linq;
     using System.Text;
     using System.Web;
+    using Configuration;
+    using Configuration.Interfaces;
     using DataAccess.Core.Common;
     using DataAccess.Core.Common.Interfaces;
     using DataAccess.Core.Users;
@@ -55,7 +57,8 @@ namespace Fanex.Athena.Service.Core.Users
             IAppSettings appSettings,
             IFunctionService functionService,
             ILicenseeDataAccess licenseeDataAccess,
-            ICurrencyDataAccess currencyDataAccess)
+            ICurrencyDataAccess currencyDataAccess,
+            IFakeLicenseeSettingService fakeLicenseeSettingService)
         {
             _appSettings = appSettings;
             _functionService = functionService;
@@ -89,7 +92,7 @@ namespace Fanex.Athena.Service.Core.Users
             set { HttpContext.Current.Session[CaptchaCodeKey] = value; }
         }
 
-        public void CreateNewSession(UserSession userSession, LicenseeSession licenseeSession)
+        public void AssignSessions(UserSession userSession, LicenseeSession licenseeSession)
         {
             HttpContext.Current.Session[UserSessionKey] = userSession;
             HttpContext.Current.Session[LicenseeSessionKey] = licenseeSession;
@@ -124,7 +127,7 @@ namespace Fanex.Athena.Service.Core.Users
             var selectedLicensee = licenseeList.SingleOrDefault(i => i.Id == licenseeId);
             var licenseeSession = licenseeId > 0 && selectedLicensee != null ? GenerateLicenseeInfo(selectedLicensee) : null;
 
-            CreateNewSession(userSession, licenseeSession);
+            AssignSessions(userSession, licenseeSession);
         }
 
         public void UpdateLiceseeSession(int licenseeId)
@@ -143,7 +146,7 @@ namespace Fanex.Athena.Service.Core.Users
 
                 AssignCurrenciesToUserSession(userSession, licenseeId);
 
-                CreateNewSession(userSession, GenerateLicenseeInfo(selectedLicensee));
+                AssignSessions(userSession, GenerateLicenseeInfo(selectedLicensee));
             }
         }
 

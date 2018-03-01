@@ -239,7 +239,7 @@
 
             _sessionService.AssignCurrenciesToUserSession(userSession, licenseeInfo.Id, currencyByUser);
 
-            _sessionService.CreateNewSession(userSession, licSession);
+            _sessionService.AssignSessions(userSession, licSession);
         }
 
         private IList<PortalSystemFunction> GetPermissionList(OneAuthToken tokenInfo)

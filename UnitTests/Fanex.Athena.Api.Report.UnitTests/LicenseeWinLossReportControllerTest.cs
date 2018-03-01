@@ -18,9 +18,12 @@
     using NPOI.SS.UserModel;
     using NSubstitute;
     using NUnit.Framework;
+    using Service.Core.Configuration.Interfaces;
 
     public class LicenseeWinLossReportControllerTest : BaseApiReportControllerHelperTest
     {
+        private IReportSettingService _reportSettingService;
+
         private IAppSettings _appSettings;
 
         private ILicenseeWinLossDataAccess _dataAccess;
@@ -34,8 +37,14 @@
 
             _appSettings = Substitute.For<IAppSettings>();
             _dataAccess = Substitute.For<ILicenseeWinLossDataAccess>();
+            _reportSettingService = Substitute.For<IReportSettingService>();
 
-            _controller = Substitute.ForPartsOf<LicenseeWinLossReportController>(SessionService, ProductService, _appSettings, _dataAccess);
+            _controller = Substitute.ForPartsOf<LicenseeWinLossReportController>(
+                SessionService, 
+                ProductService, 
+                _reportSettingService, 
+                _appSettings, 
+                _dataAccess);
 
             _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();
 

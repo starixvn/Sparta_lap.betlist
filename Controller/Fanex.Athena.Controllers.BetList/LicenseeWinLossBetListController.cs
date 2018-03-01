@@ -14,6 +14,7 @@ namespace Fanex.Athena.Controllers.BetList
     using Web.ActionFilter;
 
     [FunctionAuthorization(PermissionKeys.ReportLicenseeWinLoss, PermissionKeys.ReportWinLossByProduct, PermissionKeys.ReportColossusBetsWinLoss)]
+    [BetListAuthorization]
     public class LicenseeWinLossBetListController : BetListBaseController
     {
         [HttpGet]

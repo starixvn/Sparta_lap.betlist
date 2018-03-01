@@ -87,6 +87,7 @@
             },
 
             initSetting: function () {
+                LicenseeWinLossOption.isDisableBetList = Site.asBool($("#IsDisableBetList").val());
                 LicenseeWinLossOption.hasCustomerComm = Site.asBool($("#IsAllowedCustomerCommission").val());
                 LicenseeWinLossOption.licenseeId = parseInt($("#drillDownLicenseeId").val());
             },

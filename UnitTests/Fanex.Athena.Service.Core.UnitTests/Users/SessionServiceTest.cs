@@ -6,6 +6,7 @@
     using System.Web;
     using System.Web.SessionState;
     using Core.Common.Interfaces;
+    using Core.Configuration.Interfaces;
     using Core.Users;
     using Core.Users.Interfaces;
     using DataAccess.Core.Common.Interfaces;
@@ -28,6 +29,7 @@
         private ILicenseeDataAccess _licenseeDataAccess;
         private ICurrencyDataAccess _currencyDataAccess;
         private ISessionService _sessionService;
+        private IFakeLicenseeSettingService _fakeLicenseeSettingService;
 
         [OneTimeSetUp]
         public void SetUp()
@@ -45,7 +47,12 @@
             };
             _licenseeDataAccess.GetByUser(DefaultUserId).Returns<IList<Licensee>>(i => licenseeList);
             _currencyDataAccess = Substitute.For<ICurrencyDataAccess>();
-            _sessionService = new SessionService(_appSettings, _functionService, _licenseeDataAccess, _currencyDataAccess);
+            _sessionService = new SessionService(
+                _appSettings, 
+                _functionService, 
+                _licenseeDataAccess, 
+                _currencyDataAccess,
+                _fakeLicenseeSettingService);
         }
 
         [OneTimeTearDown]
