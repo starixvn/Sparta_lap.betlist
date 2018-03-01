@@ -82,7 +82,7 @@
                     detail,
                     m => new { m.UserId, m.EvenId, m.MarketId },
                     d => new { d.UserId, d.EvenId, d.MarketId },
-                   (main, detailList) => new ExchangeTicketSummary { Ticket = main, TicketList = detailList.ToList() }).ToList();
+                   (main, detailList) => new ExchangeTicketSummary { Ticket = main, TicketList = detailList });
             }
 
             return new List<ExchangeTicketSummary>();

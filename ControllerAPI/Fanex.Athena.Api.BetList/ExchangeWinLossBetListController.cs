@@ -43,7 +43,7 @@
         }
 
         [HttpPost]
-        public IEnumerable<ExchangeTicketDetail> Detail()
+        public IEnumerable<ExchangeTicketDetail> Detail(ExchangeBetListMetaModel metaModel)
         {
             return _dataAccess.GetTicketDetailList();
         }

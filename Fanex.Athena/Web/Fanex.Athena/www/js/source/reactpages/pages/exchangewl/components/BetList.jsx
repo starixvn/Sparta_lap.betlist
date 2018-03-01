@@ -62,7 +62,7 @@ export class BetList extends Component {
                     <Row key={`row-${i}-${j}`}>
                         {isFirstRow && <Cell rowSpan={dataDetailCount} className="center-align">{i + 1}</Cell>}
                         {isFirstRow && <Cell rowSpan={dataDetailCount}>{marketText}</Cell>}
-                        <Cell className="center-align"><a href="javascript:;" onClick={this._showTicketDetail}>{BetId}</a></Cell>
+                        <Cell className="center-align"><a href="javascript:;" onClick={() => this._showTicketDetail(BetId)}>{BetId}</a></Cell>
                         <Cell className="center-align">{Selection}</Cell>
                         <Cell className={`center-align ${Type.toLowerCase() === "lay" && "negative"}`}>{Type}</Cell>
                         <Cell className="center-align">{BetPlaced}</Cell>
@@ -86,11 +86,12 @@ export class BetList extends Component {
         return rows;
     }
 
-    _showTicketDetail = () => {
+    _showTicketDetail = (BetId) => {
+        const { CustId, CurrencyId, BaseCurrency, FromDate, ToDate, CurrencyName, ExcludeTestData } = this.drillDownParams[ReportLevel.CUSTOMER];
         const url = "api/ExchangeWinLossBetList/Detail";
         const params = {
             xsrfToken: this.props.xsrfToken,
-            data: {}
+            data: { CustId, CurrencyId, BaseCurrency, FromDate, ToDate, ExcludeTestData, BetId }
         }
 
         this.props.toggleLoader(true);
