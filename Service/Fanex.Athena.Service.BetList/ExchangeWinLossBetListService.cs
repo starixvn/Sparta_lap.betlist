@@ -21,6 +21,26 @@
             };
         }
 
+        public IEnumerable<ExchangeTicketDetail> GetTicketDetailList()
+        {
+            return GetFakeTicketDetailList();
+        }
+
+        private IEnumerable<ExchangeTicketDetail> GetFakeTicketDetailList()
+        {
+            return new List<ExchangeTicketDetail>
+            {
+                new ExchangeTicketDetail
+                {
+                    BetTaken = "10/23/2017 10:55:15",
+                    OddsReq = 6.80m,
+                    Stake = 50.00m,
+                    Liability = "-",
+                    OddsMatched = 7.80m
+                }
+            };
+        }
+
         private IEnumerable<ExchangeTicketSummary> GetFakeData()
         {
             return new List<ExchangeTicketSummary>

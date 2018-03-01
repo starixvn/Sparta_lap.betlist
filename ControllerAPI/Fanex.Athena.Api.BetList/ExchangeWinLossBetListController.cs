@@ -1,8 +1,10 @@
 ﻿namespace Fanex.Athena.Api.BetList
 {
+    using System.Collections.Generic;
     using System.Web.Http;
     using Base;
     using Base.Attributes;
+    using Model.BetList.DTO;
     using Model.BetList.MetaModel;
     using Model.BetList.ViewModel;
     using Model.Core.DataDomain;
@@ -37,6 +39,12 @@
             var viewModel = _service.GetBetListData(metaModel);
 
             return viewModel;
+        }
+
+        [HttpPost]
+        public IEnumerable<ExchangeTicketDetail> Detail()
+        {
+            return _service.GetTicketDetailList();
         }
     }
 }

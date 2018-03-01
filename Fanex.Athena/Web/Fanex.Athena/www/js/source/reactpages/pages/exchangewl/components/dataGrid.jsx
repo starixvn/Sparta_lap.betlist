@@ -16,63 +16,6 @@ import BetList from './BetList'
 import Popup from '../../../components/popup'
 import Report from '../../../lib/report'
 
-const FakeBetListData = [
-    {
-        Market: "CRICKET > Ireland A vs Bangladesh A > Match Odds",
-        WinLoss: 15,
-        WlComm: -0.45,
-        LicWl: -9,
-        LicWlComm: 0.15,
-        Details: [
-            {
-                BetId: 43154,
-                Selection: "Bangladesh A",
-                Type: "Back",
-                BetPlaced: "10/25/2017 01:05:46",
-                OddAvg: 1.5,
-                Stake: 30,
-                WinLoss: 15
-            }
-        ]
-    },
-    {
-        Market: "CRICKET > Zimbabwe vs West Indies > Match Odds",
-        WinLoss: 30,
-        WlComm: 0,
-        LicWl: 42,
-        LicWlComm: 0,
-        Details: [
-            {
-                BetId: 43116,
-                Selection: "Zimbabwe",
-                Type: "Lay",
-                BetPlaced: "10/24/2017 05:45:14",
-                OddAvg: 7,
-                Stake: 30,
-                WinLoss: 30
-            },
-            {
-                BetId: 43112,
-                Selection: "Zimbabwe",
-                Type: "Back",
-                BetPlaced: "10/24/2017 05:45:14",
-                OddAvg: 9.8,
-                Stake: 50,
-                WinLoss: -50
-            },
-            {
-                BetId: 43118,
-                Selection: "Zimbabwe",
-                Type: "Back",
-                BetPlaced: "10/24/2017 05:45:14",
-                OddAvg: 7.8,
-                Stake: 50,
-                WinLoss: -50
-            }
-        ]
-    }
-]
-
 export class DataGrid extends Component {
     constructor(props) {
         super(props);
@@ -390,7 +333,7 @@ export class DataGrid extends Component {
                 const { MainData, GrandTotal } = response.data;
                 this.setState({
                     showBetList: true,
-                    betListData: { mainData: MainData, grandTotal: GrandTotal }
+                    betListData: { mainData: MainData || [], grandTotal: GrandTotal }
                 });
                 this.props.toggleLoader(false);
             })

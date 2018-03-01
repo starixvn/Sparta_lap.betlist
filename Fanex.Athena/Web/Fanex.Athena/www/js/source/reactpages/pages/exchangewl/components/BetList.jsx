@@ -1,23 +1,18 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import PropTypes from 'prop-types'
 
 import BetListPopupLayout from "../../../layouts/BetListPopupLayout"
 import NoDataTitle from '../../../components/NoDataTitle'
 import { Table, Row, Cell } from '../../../components/fixed-table-header'
-import Popup from "../../../components/popup"
+import Popup from '../../../components/popup'
 import BetListDetail from './BetListDetail'
+import Report from '../../../lib/report'
+import { Service } from '../lib/service'
+import { toggleLoader } from '../../../actions/loaderAction'
 
-const FakeDetailData = [
-    {
-        BetTaken: "10/23/2017 10:55:15",
-        OddsReq: 6.80,
-        Stake: 50.00,
-        Liability: "-",
-        OddsMacthed: 7.80
-    }
-]
-
-export default class BetList extends Component {
+export class BetList extends Component {
     constructor(props) {
         super(props);
 
@@ -68,7 +63,7 @@ export default class BetList extends Component {
                         {isFirstRow && <Cell rowSpan={dataDetailCount}>{marketText}</Cell>}
                         <Cell className="center-align"><a href="javascript:;" onClick={this._showTicketDetail}>{BetId}</a></Cell>
                         <Cell className="center-align">{Selection}</Cell>
-                        <Cell className="center-align">{Type}</Cell>
+                        <Cell className={`center-align ${Type.toLowerCase() === "lay" && "negative"}`}>{Type}</Cell>
                         <Cell className="center-align">{BetPlaced}</Cell>
                         <Cell className="right-align">{MatchAvgOdds}</Cell>
                         <Cell className="right-align">{MatchStake}</Cell>
@@ -76,9 +71,9 @@ export default class BetList extends Component {
                         {
                             isFirstRow &&
                             <Cell rowSpan={dataDetailCount} className="right-align">
-                                <span className={WinLost < 0 ? "negative" : null}>{WinLost}</span>
+                                <span className={WinLost < 0 && "negative"}>{WinLost}</span>
                                 <br />
-                                <span className={Commission < 0 ? "negative" : null}>{Commission}</span>
+                                <span className={Commission < 0 && "negative"}>{Commission}</span>
                             </Cell>}
                     </Row>
                 );
@@ -91,11 +86,26 @@ export default class BetList extends Component {
     }
 
     _showTicketDetail = () => {
-        this.setState({ showDetail: true, detailData: FakeDetailData })
+        const url = "api/ExchangeWinLossBetList/Detail";
+        const params = {
+            xsrfToken: this.props.xsrfToken,
+            data: {}
+        }
+
+        this.props.toggleLoader(true);
+        Report.fetchGridData(url, params)
+            .then(response => {
+                this.setState({ showDetail: true, detailData: response.data || [] })
+                this.props.toggleLoader(false);
+            })
+            .catch(error => {
+                Service.showErrorMsg();
+                this.props.toggleLoader(false);
+            })
     }
 
     closeDetailPopup = () => {
-        this.setState({ showDetail: false, detailData: [] })
+        this.setState({ showDetail: false, detailData: null })
     }
 
     _buildFooter() {
@@ -104,7 +114,7 @@ export default class BetList extends Component {
         return [
             <Row key="betlist-footer">
                 <Cell colSpan='9' className="right-align">Grand Total</Cell>
-                <Cell className={`right-align ${grandTotal < 0 ? "negative" : null}`}>{grandTotal}</Cell>
+                <Cell className={`right-align ${grandTotal < 0 && "negative"}`}>{grandTotal}</Cell>
             </Row >
         ]
     }
@@ -132,7 +142,7 @@ export default class BetList extends Component {
                     }
                 </BetListPopupLayout>
                 {
-                    showDetail && detailData && detailData.length &&
+                    showDetail && detailData &&
                     <Popup isShow={showDetail} title={"DETAIL"} width={730} height={450} onClose={this.closeDetailPopup}>
                         <BetListDetail data={detailData} />
                     </Popup>
@@ -140,5 +150,15 @@ export default class BetList extends Component {
             </div>
         )
     }
-
 }
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ toggleLoader }, dispatch);
+};
+
+function mapStateToProps(state) {
+    const { params, xsrfToken } = state;
+    return Object.assign({}, { params, xsrfToken });
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(BetList);

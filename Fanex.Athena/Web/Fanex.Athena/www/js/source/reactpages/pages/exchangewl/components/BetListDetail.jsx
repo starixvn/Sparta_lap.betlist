@@ -37,7 +37,7 @@ export default class BetListDetail extends Component {
                     <Cell className="right-align">{dataItem.OddsReq}</Cell>
                     <Cell className="right-align">{dataItem.Stake}</Cell>
                     <Cell className="right-align">{dataItem.Liability}</Cell>
-                    <Cell className="right-align">{dataItem.OddsMacthed}</Cell>
+                    <Cell className="right-align">{dataItem.OddsMatched}</Cell>
                 </Row>
             );
         }
