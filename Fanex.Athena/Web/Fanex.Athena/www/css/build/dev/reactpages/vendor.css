@@ -348,6 +348,9 @@ a {
 .right-align {
   text-align: right; }
 
+.text-bold {
+  font-weight: bold; }
+
 .caret-block {
   position: absolute;
   display: flex;

@@ -1556,6 +1556,94 @@ var ActionCreators = exports.ActionCreators = Object.assign({}, dataHandlerActio
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _report = __webpack_require__(137);
+
+var _site = __webpack_require__(19);
+
+var _site2 = _interopRequireDefault(_site);
+
+var _axios = __webpack_require__(83);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var fetchData = function fetchData(relativeUrl, params) {
+    var url = _site2.default.resolveClientUrl(relativeUrl);
+    return _axios2.default.post(url, params.data, {
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            '__RequestVerificationToken': params.xsrfToken
+        }
+    });
+};
+
+var Report = function () {
+    function Report() {
+        _classCallCheck(this, Report);
+    }
+
+    _createClass(Report, null, [{
+        key: 'getDrilldownDateRange',
+        value: function getDrilldownDateRange(reportBy, fromDate, toDate, drilldownDate) {
+            var fdate = typeof drilldownDate === "string" ? new Date(drilldownDate) : drilldownDate;
+            var tdate = fdate;
+
+            if (Number(reportBy) === _report.ReportBy.MONTHLY) {
+                var fday = 1;
+                var month = fdate.getMonth();
+                var year = fdate.getFullYear();
+                var orignalFDate = new Date(fromDate);
+
+                if (month === orignalFDate.getMonth()) {
+                    fday = orignalFDate.getDate();
+                }
+
+                fdate = new Date(year, month, fday, 0, 0, 0, 0);
+
+                var originalTDate = new Date(toDate);
+
+                if (month === originalTDate.getMonth()) {
+                    var tday = originalTDate.getDate();
+                    tdate = new Date(year, month, tday, 0, 0, 0, 0);
+                } else {
+                    tdate = new Date(year, month + 1, 0);
+                }
+            }
+
+            return {
+                fromDate: fdate,
+                toDate: tdate
+            };
+        }
+    }, {
+        key: 'fetchGridData',
+        value: function fetchGridData(relativeUrl, params, callBack, errorHandler) {
+            return fetchData(relativeUrl, params);
+        }
+    }]);
+
+    return Report;
+}();
+
+exports.default = Report;
+
+/***/ }),
+
+/***/ 204:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 exports.Service = exports.BreadcrumbText = exports.TotalText = exports.HeaderText = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -1568,7 +1656,7 @@ var _site = __webpack_require__(19);
 
 var _site2 = _interopRequireDefault(_site);
 
-var _report = __webpack_require__(424);
+var _report = __webpack_require__(203);
 
 var _report2 = _interopRequireDefault(_report);
 
@@ -3683,94 +3771,6 @@ exports.default = {
         cancelLabel: _langHelper2.default.getSingleResource("Cancel")
     }, _locale2.default)
 };
-
-/***/ }),
-
-/***/ 424:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _report = __webpack_require__(137);
-
-var _site = __webpack_require__(19);
-
-var _site2 = _interopRequireDefault(_site);
-
-var _axios = __webpack_require__(83);
-
-var _axios2 = _interopRequireDefault(_axios);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var fetchData = function fetchData(relativeUrl, params) {
-    var url = _site2.default.resolveClientUrl(relativeUrl);
-    return _axios2.default.post(url, params.data, {
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-            '__RequestVerificationToken': params.xsrfToken
-        }
-    });
-};
-
-var Report = function () {
-    function Report() {
-        _classCallCheck(this, Report);
-    }
-
-    _createClass(Report, null, [{
-        key: 'getDrilldownDateRange',
-        value: function getDrilldownDateRange(reportBy, fromDate, toDate, drilldownDate) {
-            var fdate = typeof drilldownDate === "string" ? new Date(drilldownDate) : drilldownDate;
-            var tdate = fdate;
-
-            if (Number(reportBy) === _report.ReportBy.MONTHLY) {
-                var fday = 1;
-                var month = fdate.getMonth();
-                var year = fdate.getFullYear();
-                var orignalFDate = new Date(fromDate);
-
-                if (month === orignalFDate.getMonth()) {
-                    fday = orignalFDate.getDate();
-                }
-
-                fdate = new Date(year, month, fday, 0, 0, 0, 0);
-
-                var originalTDate = new Date(toDate);
-
-                if (month === originalTDate.getMonth()) {
-                    var tday = originalTDate.getDate();
-                    tdate = new Date(year, month, tday, 0, 0, 0, 0);
-                } else {
-                    tdate = new Date(year, month + 1, 0);
-                }
-            }
-
-            return {
-                fromDate: fdate,
-                toDate: tdate
-            };
-        }
-    }, {
-        key: 'fetchGridData',
-        value: function fetchGridData(relativeUrl, params, callBack, errorHandler) {
-            return fetchData(relativeUrl, params);
-        }
-    }]);
-
-    return Report;
-}();
-
-exports.default = Report;
 
 /***/ }),
 
@@ -7268,7 +7268,7 @@ var _types = __webpack_require__(136);
 
 var types = _interopRequireWildcard(_types);
 
-var _report = __webpack_require__(424);
+var _report = __webpack_require__(203);
 
 var _report2 = _interopRequireDefault(_report);
 
@@ -7405,7 +7405,7 @@ var _ReportTitle = __webpack_require__(76);
 
 var _ReportTitle2 = _interopRequireDefault(_ReportTitle);
 
-var _service = __webpack_require__(203);
+var _service = __webpack_require__(204);
 
 var _report = __webpack_require__(137);
 
@@ -7434,6 +7434,10 @@ var _BetList2 = _interopRequireDefault(_BetList);
 var _popup = __webpack_require__(425);
 
 var _popup2 = _interopRequireDefault(_popup);
+
+var _report2 = __webpack_require__(203);
+
+var _report3 = _interopRequireDefault(_report2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -7500,11 +7504,31 @@ var DataGrid = exports.DataGrid = function (_Component) {
         var _this = _possibleConstructorReturn(this, (DataGrid.__proto__ || Object.getPrototypeOf(DataGrid)).call(this, props));
 
         _this.showBetListPopup = function () {
-            _this.setState({ showBetList: true, betListData: FakeBetListData });
+            var url = "api/ExchangeWinLossBetList/Index";
+            var params = {
+                xsrfToken: _this.props.xsrfToken,
+                data: {}
+            };
+
+            _this.props.toggleLoader(true);
+            _report3.default.fetchGridData(url, params).then(function (response) {
+                var _response$data = response.data,
+                    MainData = _response$data.MainData,
+                    GrandTotal = _response$data.GrandTotal;
+
+                _this.setState({
+                    showBetList: true,
+                    betListData: { mainData: MainData, grandTotal: GrandTotal }
+                });
+                _this.props.toggleLoader(false);
+            }).catch(function (error) {
+                _service.Service.showErrorMsg();
+                _this.props.toggleLoader(false);
+            });
         };
 
         _this.closeBetListPopup = function () {
-            _this.setState({ showBetList: false });
+            _this.setState({ showBetList: false, betListData: null });
         };
 
         _this.reportTitle = '';
@@ -7516,7 +7540,10 @@ var DataGrid = exports.DataGrid = function (_Component) {
 
         _this.state = {
             showBetList: false,
-            betListData: []
+            betListData: {
+                mainData: null,
+                grandTotal: 0
+            }
         };
         return _this;
     }
@@ -8348,76 +8375,109 @@ var BetList = function (_Component) {
     }, {
         key: '_buildBody',
         value: function _buildBody() {
-            var data = this.props.data;
+            var mainData = this.props.data.mainData;
 
             var rows = [];
-            for (var i = 0; i < data.length; i++) {
-                var dataItem = data[i];
-                var dataDetails = dataItem.Details;
-                var dataDetailCount = dataDetails.length;
+            for (var i = 0; i < mainData.length; i++) {
+                var _mainData$i = mainData[i],
+                    MarketName = _mainData$i.MarketName,
+                    EventTypeName = _mainData$i.EventTypeName,
+                    EventName = _mainData$i.EventName,
+                    WinLost = _mainData$i.WinLost,
+                    Commission = _mainData$i.Commission,
+                    TicketList = _mainData$i.TicketList;
+
+                var dataDetailCount = TicketList.length;
                 var isFirstRow = true;
 
-                for (var j = 0; j < dataDetails.length; j++) {
-                    var detailItem = dataDetails[j];
+                var marketText = _react2.default.createElement(
+                    'p',
+                    null,
+                    EventTypeName,
+                    ' > ',
+                    _react2.default.createElement(
+                        'span',
+                        { className: 'text-bold' },
+                        EventName
+                    ),
+                    ' > ',
+                    MarketName
+                );
+                for (var j = 0; j < TicketList.length; j++) {
+                    var _TicketList$j = TicketList[j],
+                        BetId = _TicketList$j.BetId,
+                        Selection = _TicketList$j.Selection,
+                        Type = _TicketList$j.Type,
+                        BetPlaced = _TicketList$j.BetPlaced,
+                        MatchAvgOdds = _TicketList$j.MatchAvgOdds,
+                        MatchStake = _TicketList$j.MatchStake;
 
                     rows.push(_react2.default.createElement(
                         _fixedTableHeader.Row,
                         { key: 'row-' + i + '-' + j },
                         isFirstRow && _react2.default.createElement(
                             _fixedTableHeader.Cell,
-                            { rowSpan: dataDetailCount },
+                            { rowSpan: dataDetailCount, className: 'center-align' },
                             i + 1
                         ),
                         isFirstRow && _react2.default.createElement(
                             _fixedTableHeader.Cell,
                             { rowSpan: dataDetailCount },
-                            dataItem.Market
+                            marketText
                         ),
                         _react2.default.createElement(
                             _fixedTableHeader.Cell,
-                            null,
-                            detailItem.BetId
-                        ),
-                        _react2.default.createElement(
-                            _fixedTableHeader.Cell,
-                            null,
-                            detailItem.Selection
-                        ),
-                        _react2.default.createElement(
-                            _fixedTableHeader.Cell,
-                            null,
+                            { className: 'center-align' },
                             _react2.default.createElement(
                                 'a',
                                 { href: 'javascript:;', onClick: this._showTicketDetail },
-                                detailItem.Type
+                                BetId
                             )
                         ),
                         _react2.default.createElement(
                             _fixedTableHeader.Cell,
-                            null,
-                            detailItem.BetPlaced
+                            { className: 'center-align' },
+                            Selection
                         ),
                         _react2.default.createElement(
                             _fixedTableHeader.Cell,
-                            null,
-                            detailItem.OddAvg
+                            { className: 'center-align' },
+                            Type
                         ),
                         _react2.default.createElement(
                             _fixedTableHeader.Cell,
-                            null,
-                            detailItem.Stake
+                            { className: 'center-align' },
+                            BetPlaced
                         ),
                         _react2.default.createElement(
                             _fixedTableHeader.Cell,
-                            null,
-                            detailItem.WinLoss
+                            { className: 'right-align' },
+                            MatchAvgOdds
+                        ),
+                        _react2.default.createElement(
+                            _fixedTableHeader.Cell,
+                            { className: 'right-align' },
+                            MatchStake
+                        ),
+                        _react2.default.createElement(
+                            _fixedTableHeader.Cell,
+                            { className: 'right-align' },
+                            TicketList[j].WinLost
                         ),
                         isFirstRow && _react2.default.createElement(
                             _fixedTableHeader.Cell,
-                            { rowSpan: dataDetailCount },
-                            dataItem.WinLoss,
+                            { rowSpan: dataDetailCount, className: 'right-align' },
+                            _react2.default.createElement(
+                                'span',
+                                { className: WinLost < 0 ? "negative" : null },
+                                WinLost
+                            ),
                             _react2.default.createElement('br', null),
-                            dataItem.WlComm
+                            _react2.default.createElement(
+                                'span',
+                                { className: Commission < 0 ? "negative" : null },
+                                Commission
+                            )
                         )
                     ));
 
@@ -8430,23 +8490,21 @@ var BetList = function (_Component) {
     }, {
         key: '_buildFooter',
         value: function _buildFooter() {
+            var grandTotal = this.props.data.grandTotal;
+
+
             return [_react2.default.createElement(
                 _fixedTableHeader.Row,
                 { key: 'betlist-footer' },
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { colSpan: '8' },
+                    { colSpan: '9', className: 'right-align' },
                     'Grand Total'
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    null,
-                    '-55.45'
-                ),
-                _react2.default.createElement(
-                    _fixedTableHeader.Cell,
-                    null,
-                    '33.15'
+                    { className: 'right-align ' + (grandTotal < 0 ? "negative" : null) },
+                    grandTotal
                 )
             )];
         }
@@ -8456,7 +8514,7 @@ var BetList = function (_Component) {
             var _state = this.state,
                 showDetail = _state.showDetail,
                 detailData = _state.detailData;
-            var data = this.props.data;
+            var mainData = this.props.data.mainData;
 
             var title = _react2.default.createElement(
                 'p',
@@ -8475,7 +8533,7 @@ var BetList = function (_Component) {
                 _react2.default.createElement(
                     _BetListPopupLayout2.default,
                     { title: title },
-                    data && data.length ? _react2.default.createElement(_fixedTableHeader.Table, {
+                    mainData && mainData.length ? _react2.default.createElement(_fixedTableHeader.Table, {
                         autoWidth: false,
                         autoHeight: false,
                         width: 870,
@@ -8498,7 +8556,10 @@ var BetList = function (_Component) {
 }(_react.Component);
 
 BetList.propTypes = {
-    data: _propTypes2.default.arrayOf(_propTypes2.default.object).isRequired
+    data: _propTypes2.default.shape({
+        mainData: _propTypes2.default.arrayOf(_propTypes2.default.object),
+        grandTotal: _propTypes2.default.number
+    }).isRequired
 };
 exports.default = BetList;
 
@@ -8697,27 +8758,27 @@ var BetListDetail = function (_Component) {
                     { key: 'rowDetail-' + i },
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
-                        null,
+                        { className: 'center-align' },
                         dataItem.BetTaken
                     ),
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
-                        null,
+                        { className: 'right-align' },
                         dataItem.OddsReq
                     ),
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
-                        null,
+                        { className: 'right-align' },
                         dataItem.Stake
                     ),
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
-                        null,
+                        { className: 'right-align' },
                         dataItem.Liability
                     ),
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
-                        null,
+                        { className: 'right-align' },
                         dataItem.OddsMacthed
                     )
                 ));
@@ -8801,7 +8862,7 @@ var _reportExcel = __webpack_require__(774);
 
 var _reportExcel2 = _interopRequireDefault(_reportExcel);
 
-var _service = __webpack_require__(203);
+var _service = __webpack_require__(204);
 
 var _moment = __webpack_require__(0);
 
@@ -9172,7 +9233,7 @@ var _langHelper2 = _interopRequireDefault(_langHelper);
 
 var _excelStyle = __webpack_require__(114);
 
-var _service = __webpack_require__(203);
+var _service = __webpack_require__(204);
 
 var _report = __webpack_require__(137);
 

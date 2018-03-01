@@ -1180,7 +1180,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 423:
+/***/ 424:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3528,7 +3528,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(20);
 
-var _resultAmendment = __webpack_require__(423);
+var _resultAmendment = __webpack_require__(424);
 
 var _redux = __webpack_require__(14);
 
@@ -4206,7 +4206,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(20);
 
-var _resultAmendment = __webpack_require__(423);
+var _resultAmendment = __webpack_require__(424);
 
 var _redux = __webpack_require__(14);
 
