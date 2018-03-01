@@ -13,7 +13,7 @@ import moment from 'moment'
 import Breadcrumb from '../../../components/breadcrumb/Breadcrumb'
 import Site from '../../../lib/site'
 import BetList from './BetList'
-import Popup from "../../../components/popup/Popup"
+import Popup from "../../../components/popup"
 
 const FakeBetListData = [
     {

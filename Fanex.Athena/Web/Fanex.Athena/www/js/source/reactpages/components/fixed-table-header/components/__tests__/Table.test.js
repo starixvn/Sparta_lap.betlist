@@ -35,7 +35,8 @@ const defaultProps = {
     header: defaultHeader,
     body: undefined,
     footer: undefined,
-    adjustedHeight: 0
+    adjustedHeight: 0,
+    autoHeight: true
 }
 
 describe('Table ', () => {

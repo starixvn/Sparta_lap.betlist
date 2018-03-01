@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import BetListPopupLayout from "../../../layouts/BetListPopupLayout"
 import NoDataTitle from '../../../components/NoDataTitle'
 import { Table, Row, Cell } from '../../../components/fixed-table-header'
-import Popup from "../../../components/popup/Popup"
+import Popup from "../../../components/popup"
 import BetListDetail from './BetListDetail'
 
 const FakeDetailData = [
