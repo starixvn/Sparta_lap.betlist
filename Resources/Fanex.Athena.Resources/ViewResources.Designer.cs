@@ -943,24 +943,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to BG.
-        /// </summary>
-        public static string BG {
-            get {
-                return ResourceManager.GetString("BG", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bingo.
-        /// </summary>
-        public static string Bingo {
-            get {
-                return ResourceManager.GetString("Bingo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Both/One/Neither Team To Score.
         /// </summary>
         public static string BONTeamToScore {
@@ -6114,15 +6096,6 @@ namespace Fanex.Athena.Resources {
         public static string ProductBA {
             get {
                 return ResourceManager.GetString("ProductBA", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bingo.
-        /// </summary>
-        public static string ProductBG {
-            get {
-                return ResourceManager.GetString("ProductBG", resourceCulture);
             }
         }
         

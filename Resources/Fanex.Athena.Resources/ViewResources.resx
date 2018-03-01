@@ -1518,10 +1518,6 @@
   <data name="LastUpdatedBA" xml:space="preserve">
     <value>Last Updated BA</value>
   </data>
-  <data name="ProductBG" xml:space="preserve">
-    <value>Bingo</value>
-    <comment>#49196</comment>
-  </data>
   <data name="PayAttentionMsg" xml:space="preserve">
     <value>Please pay attention: Customer(s) will be removed from group(s) due to different comm values.</value>
   </data>
@@ -1902,9 +1898,6 @@
   </data>
   <data name="Licenseegrossrevenuefor" xml:space="preserve">
     <value>Licensee gross revenue for {0}</value>
-  </data>
-  <data name="BG" xml:space="preserve">
-    <value>BG</value>
   </data>
   <data name="CS" xml:space="preserve">
     <value>CS</value>
@@ -2673,9 +2666,6 @@
   </data>
   <data name="VirtualSports" xml:space="preserve">
     <value>Virtual Sports</value>
-  </data>
-  <data name="Bingo" xml:space="preserve">
-    <value>Bingo</value>
   </data>
   <data name="Keno" xml:space="preserve">
     <value>Keno</value>

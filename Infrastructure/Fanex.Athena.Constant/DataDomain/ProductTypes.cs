@@ -20,8 +20,6 @@ namespace Fanex.Athena.Constant.DataDomain
 
         public const int RngCasino = 6;
 
-        public const int Bingo = 7;
-
         public const int Keno = 8;
 
         public const int AgCasino = 10;

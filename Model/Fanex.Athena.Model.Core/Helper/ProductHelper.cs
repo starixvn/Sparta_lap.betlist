@@ -35,7 +35,6 @@
                 { "VS185", nameof(ViewResources.VirtualCycling) },
                 { "VS186", nameof(ViewResources.VirtualTennis) },
                 { Product.CS, nameof(ViewResources.ProductCS) },
-                { Product.BG, nameof(ViewResources.ProductBG) },
                 { Product.KN, nameof(ViewResources.ProductKN) },
                 { Product.VB, nameof(ViewResources.ProductVB) },
                 { Product.VS2, nameof(ViewResources.ProductVS2) },

@@ -293,12 +293,6 @@
   <data name="BetType" xml:space="preserve">
     <value>投注类别</value>
   </data>
-  <data name="BG" xml:space="preserve">
-    <value>BG</value>
-  </data>
-  <data name="Bingo" xml:space="preserve">
-    <value>宾果</value>
-  </data>
   <data name="BONTeamToScore" xml:space="preserve">
     <value>双方/一方/两者皆不得分</value>
   </data>
@@ -2412,10 +2406,6 @@
   <data name="TransferOut" xml:space="preserve">
     <value>Transfer Out</value>
     <comment>#26990</comment>
-  </data>
-  <data name="ProductBG" xml:space="preserve">
-    <value>宾果</value>
-    <comment>#49196</comment>
   </data>
   <data name="ProductNG" xml:space="preserve">
     <value>百练赛</value>

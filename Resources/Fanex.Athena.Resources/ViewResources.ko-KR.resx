@@ -303,12 +303,6 @@
   <data name="BetType" xml:space="preserve">
     <value>배팅 유형</value>
   </data>
-  <data name="BG" xml:space="preserve">
-    <value>BG</value>
-  </data>
-  <data name="Bingo" xml:space="preserve">
-    <value>빙고</value>
-  </data>
   <data name="BONTeamToScore" xml:space="preserve">
     <value>양팀/한팀/양측 모두가 아닌 팀이 점수 획득</value>
   </data>
@@ -2346,10 +2340,6 @@
   </data>
   <data name="EffectiveBettingValue" xml:space="preserve">
     <value>Effective Betting Value</value>
-  </data>
-  <data name="ProductBG" xml:space="preserve">
-    <value>빙고</value>
-    <comment>#49196</comment>
   </data>
   <data name="ProductNG" xml:space="preserve">
     <value>숫자 게임</value>

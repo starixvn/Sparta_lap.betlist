@@ -117,7 +117,6 @@ namespace Fanex.Athena.Controllers.Report
                 SBVisible = productAccess.IsAllow(ProductTypes.Sportsbook),
                 VSVisible = productAccess.IsAllow(ProductTypes.VirtualSports),
                 CSVisible = productAccess.IsAllow(ProductTypes.RngCasino),
-                BGVisible = productAccess.IsAllow(ProductTypes.Bingo),
                 KNVisible = productAccess.IsAllow(ProductTypes.Keno),
                 BTVisible = productAccess.IsAllow(ProductTypes.BetTrade),
                 CustomerCommVisible = licenseeSession.IsAllowedCustomerComm

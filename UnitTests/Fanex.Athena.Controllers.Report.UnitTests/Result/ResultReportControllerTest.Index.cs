@@ -15,7 +15,6 @@
     [TestFixture]
     public partial class ResultReportControllerTest : BaseControllerHelperTest
     {
-        [TestCase("BG", true, false, false)]
         [TestCase("CS", true, false, false)]
         [TestCase("KN", false, true, false)]
         [TestCase("LT", false, false, true)]
