@@ -3,7 +3,7 @@
 
 var CommonBetList = (function ($) {
     "use strict";
-    var MAXIMUM_EXCEL_ROWS = 65535;
+    var MAXIMUM_EXCEL_ROWS = 2147483646;
 
     return {
         initialize: function () {

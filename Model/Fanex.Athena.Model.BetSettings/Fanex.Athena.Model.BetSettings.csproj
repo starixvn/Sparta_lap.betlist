@@ -64,7 +64,6 @@
     <Compile Include="DTO\RacingBetSetting.cs" />
     <Compile Include="DTO\RngCasino\GameKind.cs" />
     <Compile Include="DTO\RngCasino\GameType.cs" />
-    <Compile Include="DTO\RngCasino\RngCasinoBetSetting.cs" />
     <Compile Include="DTO\RngCasino\StakeLevel.cs" />
     <Compile Include="DTO\ThirdPartyBetSetting.cs" />
     <Compile Include="DTO\DcsBetSetting.cs" />

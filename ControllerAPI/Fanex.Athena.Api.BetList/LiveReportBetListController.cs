@@ -148,13 +148,10 @@ namespace Fanex.Athena.Api.BetList
         private dynamic GetPagingData(LiveReportBetListMetaModel metaModel, string uspKey, int pageIndex, int pageSize)
         {
             var licenseeSession = SessionService.LicenseeSession;
-            var balanceUp = GetBalanceUp();
 
             metaModel.PageIndex = pageIndex < 1 ? 1 : pageIndex;
             metaModel.PageSize = pageSize < 1 ? 100 : pageSize;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
-            metaModel.BalanceUpDay = DateTime.SpecifyKind(balanceUp.BalanceUpDay.Date, DateTimeKind.Utc);
-            metaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUp.MoveBetsDay.Date, DateTimeKind.Utc);
 
             var ticketResult = BetListService.GetBetListData(metaModel, uspKey);
 
@@ -163,9 +160,10 @@ namespace Fanex.Athena.Api.BetList
                 : (metaModel.TotalRows / metaModel.PageSize) + 1;
             var startIndex = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;
 
-            var sumWinLossText = NumberHelper.DecFormat(metaModel.SumWinlost, 2);
-            var sumLicenseeWlText = NumberHelper.DecFormat(metaModel.SumLicenseeWL + metaModel.SumComm, 2);
-            sumLicenseeWlText = metaModel.SumLicenseeWL < 0
+            var sumLicenseeWl = metaModel.SumLicenseeWL + metaModel.SumComm;
+            var sumWinLossText = NumberHelper.DecFormat(metaModel.SumWinlost + metaModel.SumPlayerComm, 2);
+            var sumLicenseeWlText = NumberHelper.DecFormat(sumLicenseeWl, 2);
+            sumLicenseeWlText = sumLicenseeWl < 0
                 ? string.Format("<span class='negative'>{0}</span>", sumLicenseeWlText)
                 : sumLicenseeWlText;
 

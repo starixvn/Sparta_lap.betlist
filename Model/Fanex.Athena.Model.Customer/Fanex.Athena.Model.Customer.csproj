@@ -52,17 +52,12 @@
     <Compile Include="DTO\CustomerDTO.cs" />
     <Compile Include="DTO\CustomerInfo.cs" />
     <Compile Include="DTO\CustomerLog\CustomerLog.cs" />
-    <Compile Include="DTO\CustomerLog\Details\ClosedSuspended.cs" />
-    <Compile Include="DTO\CustomerLog\Details\GroupComm.cs" />
-    <Compile Include="DTO\CustomerLog\Details\MemberComm.cs" />
-    <Compile Include="DTO\CustomerLog\Details\SpecialLevel.cs" />
     <Compile Include="DTO\CustomerLog\LogInLog.cs" />
     <Compile Include="DTO\LogInfo.cs" />
     <Compile Include="MetaModel\BaseCustomerComMetaModel.cs" />
     <Compile Include="MetaModel\CustomerListMetaModel.cs" />
     <Compile Include="MetaModel\CustomerLog\CustomerLogMetaModel.cs" />
     <Compile Include="MetaModel\CustomerOddsGroupMetaModel.cs" />
-    <Compile Include="MetaModel\CustomerOutstandingMetaModel.cs" />
     <Compile Include="MetaModel\CustomerStatusMetaModel.cs" />
     <Compile Include="MetaModel\DeleteGroupMetaModel.cs" />
     <Compile Include="MetaModel\GroupCommMetaModel.cs" />

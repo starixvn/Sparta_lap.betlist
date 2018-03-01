@@ -289,8 +289,8 @@
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             CreateBetListDateRangeParameters(db, metaModel);
             db.AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
-            db.AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
-            db.AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
+            db.AddInParameter("PageSize", DbType.Int32, metaModel.IsExportExcel ? int.MaxValue - 1 : metaModel.PageSize);
+            db.AddInParameter("PageIndex", DbType.Int32, metaModel.IsExportExcel ? 1 : metaModel.PageIndex);
             db.AddInParameter("LiveIndicator", DbType.Int32, metaModel.LiveIndicator);
         }
 
