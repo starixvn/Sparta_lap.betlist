@@ -28,7 +28,10 @@ export default class BetList extends Component {
     }
 
     static propTypes = {
-        data: PropTypes.arrayOf(PropTypes.object).isRequired
+        data: PropTypes.shape({
+            mainData: PropTypes.arrayOf(PropTypes.object),
+            grandTotal: PropTypes.number
+        }).isRequired
     }
 
     _buildHeader() {
@@ -49,29 +52,34 @@ export default class BetList extends Component {
     }
 
     _buildBody() {
-        const { data } = this.props;
+        const { mainData } = this.props.data;
         const rows = [];
-        for (let i = 0; i < data.length; i++) {
-            const dataItem = data[i];
-            const dataDetails = dataItem.Details;
-            const dataDetailCount = dataDetails.length;
+        for (let i = 0; i < mainData.length; i++) {
+            const { MarketName, EventTypeName, EventName, WinLost, Commission, TicketList } = mainData[i];
+            const dataDetailCount = TicketList.length;
             let isFirstRow = true;
 
-            for (let j = 0; j < dataDetails.length; j++) {
-                const detailItem = dataDetails[j];
-
+            const marketText = (<p>{EventTypeName} > <span className="text-bold">{EventName}</span> > {MarketName}</p>);
+            for (let j = 0; j < TicketList.length; j++) {
+                const { BetId, Selection, Type, BetPlaced, MatchAvgOdds, MatchStake } = TicketList[j];
                 rows.push(
                     <Row key={`row-${i}-${j}`}>
-                        {isFirstRow && <Cell rowSpan={dataDetailCount}>{i + 1}</Cell>}
-                        {isFirstRow && <Cell rowSpan={dataDetailCount}>{dataItem.Market}</Cell>}
-                        <Cell>{detailItem.BetId}</Cell>
-                        <Cell>{detailItem.Selection}</Cell>
-                        <Cell><a href="javascript:;" onClick={this._showTicketDetail}>{detailItem.Type}</a></Cell>
-                        <Cell>{detailItem.BetPlaced}</Cell>
-                        <Cell>{detailItem.OddAvg}</Cell>
-                        <Cell>{detailItem.Stake}</Cell>
-                        <Cell>{detailItem.WinLoss}</Cell>
-                        {isFirstRow && <Cell rowSpan={dataDetailCount}>{dataItem.WinLoss}<br />{dataItem.WlComm}</Cell>}
+                        {isFirstRow && <Cell rowSpan={dataDetailCount} className="center-align">{i + 1}</Cell>}
+                        {isFirstRow && <Cell rowSpan={dataDetailCount}>{marketText}</Cell>}
+                        <Cell className="center-align"><a href="javascript:;" onClick={this._showTicketDetail}>{BetId}</a></Cell>
+                        <Cell className="center-align">{Selection}</Cell>
+                        <Cell className="center-align">{Type}</Cell>
+                        <Cell className="center-align">{BetPlaced}</Cell>
+                        <Cell className="right-align">{MatchAvgOdds}</Cell>
+                        <Cell className="right-align">{MatchStake}</Cell>
+                        <Cell className="right-align">{TicketList[j].WinLost}</Cell>
+                        {
+                            isFirstRow &&
+                            <Cell rowSpan={dataDetailCount} className="right-align">
+                                <span className={WinLost < 0 ? "negative" : null}>{WinLost}</span>
+                                <br />
+                                <span className={Commission < 0 ? "negative" : null}>{Commission}</span>
+                            </Cell>}
                     </Row>
                 );
 
@@ -91,25 +99,26 @@ export default class BetList extends Component {
     }
 
     _buildFooter() {
+        const { grandTotal } = this.props.data;
+
         return [
             <Row key="betlist-footer">
-                <Cell colSpan='8'>Grand Total</Cell>
-                <Cell>-55.45</Cell>
-                <Cell>33.15</Cell>
-            </Row>
+                <Cell colSpan='9' className="right-align">Grand Total</Cell>
+                <Cell className={`right-align ${grandTotal < 0 ? "negative" : null}`}>{grandTotal}</Cell>
+            </Row >
         ]
     }
 
     render() {
         const { showDetail, detailData } = this.state;
-        const { data } = this.props;
+        const { mainData } = this.props.data;
         const title = (<p>Customer Bet List 2/19/2018 - 2/19/2018 - testABC(12BETMR010101) - <span className="base-currency-title">View in MYR</span></p>);
 
         return (
             <div>
                 <BetListPopupLayout title={title}>
                     {
-                        data && data.length ?
+                        mainData && mainData.length ?
                             (<Table
                                 autoWidth={false}
                                 autoHeight={false}

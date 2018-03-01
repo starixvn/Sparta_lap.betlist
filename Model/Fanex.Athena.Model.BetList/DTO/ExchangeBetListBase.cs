@@ -10,6 +10,12 @@
 
         public string MarketName { get; set; }
 
+        public string EventTypeName { get; set; }
+
+        public int EventId { get; set; }
+
+        public string EventName { get; set; }
+
         public decimal WinLost { get; set; }
 
         public decimal Commission { get; set; }

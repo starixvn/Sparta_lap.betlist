@@ -6,11 +6,7 @@
     {
         public long BetId { get; set; }
 
-        public int EventId { get; set; }
-
-        public string EventTypeName { get; set; }
-
-        public string EventName { get; set; }
+        public string Type { get; set; }
 
         public string Selection { get; set; }
 
@@ -19,5 +15,7 @@
         public decimal MatchAvgOdds { get; set; }
 
         public decimal MatchStake { get; set; }
+
+        public string BetPlaced => SettledDate.ToString("MM/dd/yyyy hh:mm:ss");
     }
 }

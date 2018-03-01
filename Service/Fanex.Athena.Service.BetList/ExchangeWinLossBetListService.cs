@@ -28,7 +28,9 @@
                     new ExchangeTicketSummary
                     {
                         MarketId= "1",
-                        MarketName = "CRICKET> Ireland A v Bangladesh A > Match Odds",
+                        MarketName = "Match Odds",
+                        EventTypeName = "CRICKET",
+                        EventName = "Ireland A v Bangladesh A",
                         WinLost = 15,
                         Commission = -0.45m,
                         TicketList = new List<ExchangeBetListEntity>
@@ -37,7 +39,7 @@
                             {
                                 BetId = 43154,
                                 Selection = "Bangladesh A",
-                                EventTypeName = "Black",
+                                Type = "Black",
                                 SettledDate = new DateTime(2017, 10, 25, 1, 5, 46),
                                 MatchAvgOdds = 1.5m,
                                 MatchStake = 30,
@@ -49,7 +51,9 @@
                     new ExchangeTicketSummary
                     {
                         MarketId= "2",
-                        MarketName = "CRICKET> Zimbabwe v Indies > Match Odds",
+                        MarketName = "Match Odds",
+                        EventTypeName = "CRICKET",
+                        EventName = "Zimbabwe v Indies",
                         WinLost = 30,
                         Commission = 0,
                         TicketList = new List<ExchangeBetListEntity>
@@ -58,7 +62,7 @@
                             {
                                 BetId = 43116,
                                 Selection = "Zimbabwe",
-                                EventTypeName = "Lay",
+                                Type = "Lay",
                                 SettledDate = new DateTime(2017, 10, 24, 5, 45, 14),
                                 MatchAvgOdds = 7m,
                                 MatchStake = 30,
@@ -69,7 +73,7 @@
                             {
                                 BetId = 43112,
                                 Selection = "Zimbabwe",
-                                EventTypeName = "Black",
+                                Type = "Black",
                                 SettledDate = new DateTime(2017, 10, 24, 5, 45, 14),
                                 MatchAvgOdds = 9.8m,
                                 MatchStake = 50,
@@ -80,7 +84,7 @@
                             {
                                 BetId = 43118,
                                 Selection = "Zimbabwe",
-                                EventTypeName = "Black",
+                                Type = "Black",
                                 SettledDate = new DateTime(2017, 10, 24, 5, 45, 14),
                                 MatchAvgOdds = 7.8m,
                                 MatchStake = 50,

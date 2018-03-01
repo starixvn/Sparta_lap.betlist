@@ -13,7 +13,8 @@ import moment from 'moment'
 import Breadcrumb from '../../../components/breadcrumb/Breadcrumb'
 import Site from '../../../lib/site'
 import BetList from './BetList'
-import Popup from "../../../components/popup"
+import Popup from '../../../components/popup'
+import Report from '../../../lib/report'
 
 const FakeBetListData = [
     {
@@ -85,7 +86,10 @@ export class DataGrid extends Component {
 
         this.state = {
             showBetList: false,
-            betListData: []
+            betListData: {
+                mainData: null,
+                grandTotal: 0
+            }
         }
     }
 
@@ -374,11 +378,30 @@ export class DataGrid extends Component {
     }
 
     showBetListPopup = () => {
-        this.setState({ showBetList: true, betListData: FakeBetListData });
+        const url = "api/ExchangeWinLossBetList/Index";
+        const params = {
+            xsrfToken: this.props.xsrfToken,
+            data: {}
+        }
+
+        this.props.toggleLoader(true);
+        Report.fetchGridData(url, params)
+            .then(response => {
+                const { MainData, GrandTotal } = response.data;
+                this.setState({
+                    showBetList: true,
+                    betListData: { mainData: MainData, grandTotal: GrandTotal }
+                });
+                this.props.toggleLoader(false);
+            })
+            .catch(error => {
+                Service.showErrorMsg();
+                this.props.toggleLoader(false);
+            })
     }
 
     closeBetListPopup = () => {
-        this.setState({ showBetList: false });
+        this.setState({ showBetList: false, betListData: null });
     }
 
     render() {

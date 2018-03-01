@@ -33,11 +33,11 @@ export default class BetListDetail extends Component {
 
             rows.push(
                 <Row key={`rowDetail-${i}`}>
-                    <Cell>{dataItem.BetTaken}</Cell>
-                    <Cell>{dataItem.OddsReq}</Cell>
-                    <Cell>{dataItem.Stake}</Cell>
-                    <Cell>{dataItem.Liability}</Cell>
-                    <Cell>{dataItem.OddsMacthed}</Cell>
+                    <Cell className="center-align">{dataItem.BetTaken}</Cell>
+                    <Cell className="right-align">{dataItem.OddsReq}</Cell>
+                    <Cell className="right-align">{dataItem.Stake}</Cell>
+                    <Cell className="right-align">{dataItem.Liability}</Cell>
+                    <Cell className="right-align">{dataItem.OddsMacthed}</Cell>
                 </Row>
             );
         }
