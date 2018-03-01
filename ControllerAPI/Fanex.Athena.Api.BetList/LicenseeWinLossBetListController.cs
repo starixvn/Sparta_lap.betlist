@@ -3,15 +3,15 @@
     using System;
     using System.Web.Http;
     using Base.Attributes;
-    using Extension.Helper;
     using DataAccess.Core.Configuration.Interfaces;
+    using Extension.Helper;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
-    using Service.Core.Configuration;
-    using Service.Core.Configuration.Interfaces;
     using Fanex.BetList.Core.Entities;
     using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
+    using Service.Core.Configuration;
+    using Service.Core.Configuration.Interfaces;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility;
     using VendorAdapter.Interfaces;
@@ -28,6 +28,7 @@
         }
 
         [CLSCompliant(false)]
+#pragma warning disable S107 // Methods should not have too many parameters
         public LicenseeWinLossBetListController(
             ISessionService sessionService,
             IProductService productService,
@@ -35,10 +36,12 @@
             IBetListService betListService,
             IBalanceUpDataAccess balanceUpDataAccess,
             ITicketHelper ticketHelper,
-            ICacheRefAdapter cacheRefAdapter)
+            ICacheRefAdapter cacheRefAdapter,
+            IReportSettingService reportSettingService)
+#pragma warning restore S107 // Methods should not have too many parameters
         : base(sessionService, productService, languageService, betListService, balanceUpDataAccess, ticketHelper, cacheRefAdapter)
         {
-            _reportSettingService = new ReportSettingService();
+            _reportSettingService = reportSettingService ?? new ReportSettingService();
         }
 
         [HttpPost]

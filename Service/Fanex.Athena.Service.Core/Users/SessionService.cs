@@ -57,8 +57,7 @@ namespace Fanex.Athena.Service.Core.Users
             IAppSettings appSettings,
             IFunctionService functionService,
             ILicenseeDataAccess licenseeDataAccess,
-            ICurrencyDataAccess currencyDataAccess,
-            IFakeLicenseeSettingService fakeLicenseeSettingService)
+            ICurrencyDataAccess currencyDataAccess)
         {
             _appSettings = appSettings;
             _functionService = functionService;

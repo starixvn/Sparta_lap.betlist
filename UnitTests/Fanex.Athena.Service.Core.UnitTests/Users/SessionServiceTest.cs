@@ -29,7 +29,6 @@
         private ILicenseeDataAccess _licenseeDataAccess;
         private ICurrencyDataAccess _currencyDataAccess;
         private ISessionService _sessionService;
-        private IFakeLicenseeSettingService _fakeLicenseeSettingService;
 
         [OneTimeSetUp]
         public void SetUp()
@@ -52,8 +51,7 @@
                 _appSettings, 
                 _functionService, 
                 _licenseeDataAccess, 
-                _currencyDataAccess,
-                _fakeLicenseeSettingService);
+                _currencyDataAccess);
         }
 
         [OneTimeTearDown]

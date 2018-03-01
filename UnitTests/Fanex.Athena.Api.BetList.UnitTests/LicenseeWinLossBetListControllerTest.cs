@@ -4,6 +4,7 @@
     using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using Service.Core.Configuration.Interfaces;
 
     public class LicenseeWinLossBetListControllerTest : ApiBetListBaseControllerHelperTest
     {
@@ -15,7 +16,7 @@
         public override void FixtureSetUp()
         {
             base.FixtureSetUp();
-
+            var reportSettingService = Substitute.For<IReportSettingService>();
             _controller = Substitute.ForPartsOf<LicenseeWinLossBetListController>(
                 SessionService,
                 ProductService,
@@ -23,7 +24,8 @@
                 BetListService,
                 BalanceUpDataAccess,
                 TicketHelper,
-                CacheRefAdapter);
+                CacheRefAdapter,
+                reportSettingService);
 
             StubLicenseeSessionData(new Model.Core.DTO.Users.LicenseeSession { LicenseeId = SessionLicenseeId });
         }
