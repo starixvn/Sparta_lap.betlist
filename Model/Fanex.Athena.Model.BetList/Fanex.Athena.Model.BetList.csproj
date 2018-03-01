@@ -129,7 +129,7 @@
     <Compile Include="DTO\CashOutTicket.cs" />
     <Compile Include="DTO\CustomerCancelBetItem.cs" />
     <Compile Include="DTO\DailyStatement.cs" />
-    <Compile Include="DTO\ExchangeBetListBase.cs" />
+    <Compile Include="DTO\ExchangeBetList.cs" />
     <Compile Include="DTO\ExchangeBetListEntity.cs" />
     <Compile Include="DTO\ExchangeTicketSummary.cs" />
     <Compile Include="DTO\ExchangeTicketDetail.cs" />
@@ -139,6 +139,7 @@
     <Compile Include="DTO\TicketText.cs" />
     <Compile Include="DTO\TicketResult.cs" />
     <Compile Include="MetaModel\BetListMetaModel.cs" />
+    <Compile Include="MetaModel\ExchangeBetListMetaModel.cs" />
     <Compile Include="MetaModel\WinLossByLeagueBetListMetaModel.cs" />
     <Compile Include="MetaModel\DailyBetListMetaModel.cs" />
     <Compile Include="MetaModel\CashOutBetListDetailMetaModel.cs" />

@@ -4,47 +4,45 @@
     using System.Web.Http;
     using Base;
     using Base.Attributes;
+    using DataAccess.BetList;
+    using DataAccess.BetList.Interfaces;
     using Model.BetList.DTO;
     using Model.BetList.MetaModel;
     using Model.BetList.ViewModel;
     using Model.Core.DataDomain;
-    using Service.BetList;
-    using Service.BetList.Interfaces;
 
     [ApiFunctionAuthorization(PermissionKeys.ReportExchangeWinLoss)]
     public class ExchangeWinLossBetListController : BaseApiController
     {
-        private readonly IExchangeWinLossBetListService _service;
+        private readonly IExchangeBetListDataAccess _dataAccess;
 
         public ExchangeWinLossBetListController()
         {
-            _service = new ExchangeWinLossBetListService();
+            _dataAccess = new ExchangeBetListDataAccess();
         }
 
-        public ExchangeWinLossBetListController(IExchangeWinLossBetListService service)
+        public ExchangeWinLossBetListController(IExchangeBetListDataAccess dataAccess)
         {
-            _service = service;
+            _dataAccess = dataAccess;
         }
 
         [HttpPost]
-        public ExchangeBetListSummaryViewModel Index(BetListMetaModel metaModel)
+        public ExchangeBetListSummaryViewModel Index(ExchangeBetListMetaModel metaModel)
         {
             if (metaModel.CurrencyId != 0 && !SessionService.UserSession.CurrencyList.ContainsKey(metaModel.CurrencyId))
             {
                 return null;
             }
 
-            ////metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.ExcludeTestData);
 
-            var viewModel = _service.GetBetListData(metaModel);
-
-            return viewModel;
+            return _dataAccess.GetBetListData(metaModel);
         }
 
         [HttpPost]
         public IEnumerable<ExchangeTicketDetail> Detail()
         {
-            return _service.GetTicketDetailList();
+            return _dataAccess.GetTicketDetailList();
         }
     }
 }

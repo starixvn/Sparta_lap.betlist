@@ -1,21 +1,28 @@
 ﻿namespace Fanex.Athena.Model.BetList.DTO
 {
     using System;
+    using Core.DataDomain;
 
-    public class ExchangeBetListEntity : ExchangeBetListBase
+    public class ExchangeBetListEntity
     {
+        public string UserId { get; set; }
+
+        public int EvenId { get; set; }
+
         public long BetId { get; set; }
+
+        public string MarketId { get; set; }
+
+        public string SelectionName { get; set; }
+
+        public decimal OddsAvg { get; set; }
+
+        public decimal Stake { get; set; }
 
         public string Type { get; set; }
 
-        public string Selection { get; set; }
+        public DateTime BetPlaced { get; set; }
 
-        public DateTime SettledDate { get; set; }
-
-        public decimal MatchAvgOdds { get; set; }
-
-        public decimal MatchStake { get; set; }
-
-        public string BetPlaced => SettledDate.ToString("MM/dd/yyyy hh:mm:ss");
+        public string BetPlacedDateString => BetPlaced.ToString(FormatKey.FormatDateTime);
     }
 }

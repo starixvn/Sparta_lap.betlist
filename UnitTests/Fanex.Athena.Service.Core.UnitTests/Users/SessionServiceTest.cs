@@ -37,6 +37,7 @@
             _appSettings = Substitute.For<IAppSettings>();
             _functionService = Substitute.For<IFunctionService>();
             _licenseeDataAccess = Substitute.For<ILicenseeDataAccess>();
+            _fakeLicenseeSettingService = Substitute.For<IFakeLicenseeSettingService>();
             var licenseeList = new List<Licensee>
             {
                 new Licensee

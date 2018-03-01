@@ -12,6 +12,8 @@ namespace Fanex.Athena.Model.Core.DataDomain
     {
         public const string ShortFormatDate = "M/d/yyyy";
 
+        public const string FormatDateTime = "MM/dd/yyyy hh:mm:ss";
+
         public const string Eur = "EUR";
 
         public const string Usd = "USD";
