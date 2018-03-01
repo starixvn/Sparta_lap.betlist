@@ -1,7 +1,10 @@
 ﻿namespace Fanex.Athena.Api.BetList.UnitTests
 {
+    using System;
     using System.Collections.Generic;
     using Model.BetList.MetaModel;
+    using Model.Core.DataDomain;
+    using Model.Core.DTO.Configuration;
     using NSubstitute;
     using NUnit.Framework;
     using Service.Core.Configuration.Interfaces;
@@ -9,6 +12,7 @@
     public class LicenseeWinLossBetListControllerTest : ApiBetListBaseControllerHelperTest
     {
         private const string UspKey = "Lrf_BetList_SelWinloss_Mem";
+        private IReportSettingService _reportSettingService;
 
         private LicenseeWinLossBetListController _controller;
 
@@ -16,7 +20,7 @@
         public override void FixtureSetUp()
         {
             base.FixtureSetUp();
-            var reportSettingService = Substitute.For<IReportSettingService>();
+            _reportSettingService = Substitute.For<IReportSettingService>();
             _controller = Substitute.ForPartsOf<LicenseeWinLossBetListController>(
                 SessionService,
                 ProductService,
@@ -25,7 +29,7 @@
                 BalanceUpDataAccess,
                 TicketHelper,
                 CacheRefAdapter,
-                reportSettingService);
+                _reportSettingService);
 
             StubLicenseeSessionData(new Model.Core.DTO.Users.LicenseeSession { LicenseeId = SessionLicenseeId });
         }
@@ -36,6 +40,28 @@
             base.FixtureTearDown();
 
             _controller = null;
+        }
+
+        [Test]
+        public void Index_InvalidDateRange_ReturnNull()
+        {
+            // Arrange
+            var metaModel = new BetListMetaModel { FromDate = new DateTime(2018, 1, 1) };
+
+            StubUserSessionData(new Model.Core.DTO.Users.UserSession { CurrencyList = new Dictionary<int, string>() });
+            _reportSettingService.GetSetting(
+                SessionService.LicenseeSession.LicenseeName,
+                PermissionKeys.ReportLicenseeWinLoss).Returns(new ReportSetting
+                {
+                    MinDate = new DateTime(2018, 2, 2),
+                    MaxDate = new DateTime(2018, 3, 3)
+                });
+
+            // Action
+            var result = _controller.Index(metaModel);
+
+            // Assert
+            Assert.That(result, Is.Null);
         }
 
         [Test]
