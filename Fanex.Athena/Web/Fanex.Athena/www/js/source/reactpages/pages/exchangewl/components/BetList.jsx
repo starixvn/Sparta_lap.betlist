@@ -26,7 +26,8 @@ export class BetList extends Component {
         data: PropTypes.shape({
             mainData: PropTypes.arrayOf(PropTypes.object),
             grandTotal: PropTypes.number
-        }).isRequired
+        }).isRequired,
+        title: PropTypes.any
     }
 
     _buildHeader() {
@@ -122,11 +123,10 @@ export class BetList extends Component {
     render() {
         const { showDetail, detailData } = this.state;
         const { mainData } = this.props.data;
-        const title = (<p>Customer Bet List 2/19/2018 - 2/19/2018 - testABC(12BETMR010101) - <span className="base-currency-title">View in MYR</span></p>);
 
         return (
             <div>
-                <BetListPopupLayout title={title}>
+                <BetListPopupLayout title={this.props.title}>
                     {
                         mainData && mainData.length ?
                             (<Table

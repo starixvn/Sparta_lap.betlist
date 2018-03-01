@@ -26,6 +26,7 @@ export class DataGrid extends Component {
 
         this.levelGridData = [];
         this.drillDownParams = [];
+        this.betlistTitle = null;
 
         this.state = {
             showBetList: false,
@@ -129,10 +130,6 @@ export class DataGrid extends Component {
         return <a onClick={() => this._drillDownData(level, date, currencyId, currencyName, custId)} href='javascript:;'>{text}</a>
     }
 
-    _renderBetListLink(text) {
-        return (<a href="javascript:;" onClick={this.showBetListPopup}>{text}</a>);
-    }
-
     _buildHeader(level, reportBy) {
         let headerRows = [];
 
@@ -196,7 +193,7 @@ export class DataGrid extends Component {
                     {
                         level === ReportLevel.CUSTOMER &&
                         <Cell title={item.ExternalId} className='left-align'>
-                            {this._renderBetListLink(item.ExternalId)}
+                            {this._renderBetListLink(item.ExternalId, item.ExternalId, item.SystemId)}
                         </Cell>
                     }
                     {
@@ -205,7 +202,7 @@ export class DataGrid extends Component {
                             {
                                 level === ReportLevel.LICENSEE ?
                                     this._renderDrillDownLink(item.SystemId, ReportLevel.CUSTOMER, item.Date, item.CurrencyId, item.CurrencyName, item.CustId) :
-                                    this._renderBetListLink(item.SystemId)
+                                    this._renderBetListLink(item.SystemId, item.ExternalId, item.SystemId)
                             }
                         </Cell>
                     }
@@ -320,12 +317,21 @@ export class DataGrid extends Component {
         )
     }
 
-    showBetListPopup = () => {
+    _renderBetListLink(text, externalId, systemId) {
+        return (<a href="javascript:;" onClick={() => this.showBetListPopup(externalId, systemId)}>{text}</a>);
+    }
+
+    showBetListPopup = (externalId, systemId) => {
+        const { CustId, CurrencyId, BaseCurrency, FromDate, ToDate, CurrencyName } = this.drillDownParams[ReportLevel.CUSTOMER];
         const url = "api/ExchangeWinLossBetList/Index";
         const params = {
             xsrfToken: this.props.xsrfToken,
-            data: {}
+            data: { CustId, CurrencyId, BaseCurrency, FromDate, ToDate }
         }
+
+        this.betlistTitle = (
+            <p>Customer Bet List {FromDate} → {ToDate} - {externalId}({systemId}) - <span className="base-currency-title">View in {CurrencyName}</span></p>
+        )
 
         this.props.toggleLoader(true);
         Report.fetchGridData(url, params)
@@ -380,7 +386,7 @@ export class DataGrid extends Component {
                 {
                     reportLevel === ReportLevel.CUSTOMER && showBetList && betListData &&
                     <Popup isShow={showBetList} title={"CUSTOMER BET LIST"} width={900} height={600} onClose={this.closeBetListPopup}>
-                        <BetList data={betListData} />
+                        <BetList data={betListData} title={this.betlistTitle} />
                     </Popup>
                 }
             </div>

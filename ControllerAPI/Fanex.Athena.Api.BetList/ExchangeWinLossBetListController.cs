@@ -31,7 +31,10 @@
         {
             if (metaModel.CurrencyId != 0 && !SessionService.UserSession.CurrencyList.ContainsKey(metaModel.CurrencyId))
             {
-                return null;
+                return new ExchangeBetListSummaryViewModel
+                {
+                    MainData = null
+                };
             }
 
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.ExcludeTestData);

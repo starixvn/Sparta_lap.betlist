@@ -140,6 +140,7 @@
     <Compile Include="DTO\TicketResult.cs" />
     <Compile Include="MetaModel\BetListMetaModel.cs" />
     <Compile Include="MetaModel\ExchangeBetListMetaModel.cs" />
+    <Compile Include="MetaModel\ExchangeBetListSummaryMetaModel.cs" />
     <Compile Include="MetaModel\WinLossByLeagueBetListMetaModel.cs" />
     <Compile Include="MetaModel\DailyBetListMetaModel.cs" />
     <Compile Include="MetaModel\CashOutBetListDetailMetaModel.cs" />
