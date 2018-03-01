@@ -4,10 +4,27 @@ import PropTypes from 'prop-types'
 import BetListPopupLayout from "../../../layouts/BetListPopupLayout"
 import NoDataTitle from '../../../components/NoDataTitle'
 import { Table, Row, Cell } from '../../../components/fixed-table-header'
+import Popup from "../../../components/popup/Popup"
+import BetListDetail from './BetListDetail'
+
+const FakeDetailData = [
+    {
+        BetTaken: "10/23/2017 10:55:15",
+        OddsReq: 6.80,
+        Stake: 50.00,
+        Liability: "-",
+        OddsMacthed: 7.80
+    }
+]
 
 export default class BetList extends Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            showDetail: false,
+            detailData: null
+        }
     }
 
     static propTypes = {
@@ -49,7 +66,7 @@ export default class BetList extends Component {
                         {isFirstRow && <Cell rowSpan={dataDetailCount}>{dataItem.Market}</Cell>}
                         <Cell>{detailItem.BetId}</Cell>
                         <Cell>{detailItem.Selection}</Cell>
-                        <Cell>{detailItem.Type}</Cell>
+                        <Cell><a href="javascript:;" onClick={this._showTicketDetail}>{detailItem.Type}</a></Cell>
                         <Cell>{detailItem.BetPlaced}</Cell>
                         <Cell>{detailItem.OddAvg}</Cell>
                         <Cell>{detailItem.Stake}</Cell>
@@ -65,6 +82,14 @@ export default class BetList extends Component {
         return rows;
     }
 
+    _showTicketDetail = () => {
+        this.setState({ showDetail: true, detailData: FakeDetailData })
+    }
+
+    closeDetailPopup = () => {
+        this.setState({ showDetail: false, detailData: [] })
+    }
+
     _buildFooter() {
         return [
             <Row key="betlist-footer">
@@ -76,23 +101,34 @@ export default class BetList extends Component {
     }
 
     render() {
+        const { showDetail, detailData } = this.state;
         const { data } = this.props;
         const title = (<p>Customer Bet List 2/19/2018 - 2/19/2018 - testABC(12BETMR010101) - <span className="base-currency-title">View in MYR</span></p>);
 
         return (
-            <BetListPopupLayout title={title}>
+            <div>
+                <BetListPopupLayout title={title}>
+                    {
+                        data && data.length ?
+                            (<Table
+                                autoWidth={false}
+                                autoHeight={false}
+                                width={870}
+                                bodyHeight={430}
+                                header={this._buildHeader()}
+                                body={this._buildBody()}
+                                footer={this._buildFooter()}
+                            />) :
+                            <NoDataTitle />
+                    }
+                </BetListPopupLayout>
                 {
-                    data && data.length ?
-                        (<Table
-                            autoWidth={false}
-                            width={870}
-                            header={this._buildHeader()}
-                            body={this._buildBody()}
-                            footer={this._buildFooter()}
-                        />) :
-                        <NoDataTitle />
+                    showDetail && detailData && detailData.length &&
+                    <Popup isShow={showDetail} title={"DETAIL"} width={730} height={450} onClose={this.closeDetailPopup}>
+                        <BetListDetail data={detailData} />
+                    </Popup>
                 }
-            </BetListPopupLayout>
+            </div>
         )
     }
 

@@ -1,9 +1,9 @@
 ﻿@import "../abstracts/variables";
 
-.betlist-container {
-    padding: 0 15px;
+.popup-content-default {
+    padding: 0 15px 10px 15px;
 
-    .betlist-title {
+    .caption {
         font-weight: bold;
         font-size: 15px;
         padding: 5px 0 10px 0;
@@ -15,14 +15,16 @@
         }
     }
 
-    .betlist-content {
-        .table {
-            > thead {
-                > tr > th {
-                    background: $bgHeaderTableLevel1;
-                    color: $white;
-                }
+    .table {
+        > thead {
+            > tr > th {
+                background: $bgHeaderTableLevel1;
+                color: $white;
             }
         }
     }
+}
+
+.popup-detail-default {
+    padding-top: 10px;
 }

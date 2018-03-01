@@ -14,8 +14,8 @@ export default class BetListPopupLayout extends Component {
         const { title, children } = this.props;
 
         return (
-            <div className="betlist-container">
-                <div className="betlist-title">
+            <div className="popup-content-default betlist-container">
+                <div className="caption">
                     {title}
                 </div>
                 <div className="betlist-content">
