@@ -18,7 +18,7 @@
     <Function Name="Turnover" Product="SB,BA,NG,VS,CS,KN,RB,BT,AGC,MGCLC,MGCRNG,VB,AB,CB,FW,CO,VS2,LT"></Function>
     <Function Name="WinLossByProduct" Product="SB,BA,NG,VS,CS,KN,RB,BG,MGCLC,MGCRNG,VB,VS2,LT"></Function>
     <Function Name="ResultPage_GetNormalSports" Product="SB,BA,NG,VS,KN,RB,LT"></Function>
-    <Function Name="Live" Product="SB,BA,RB,NG,VS,BG,KN,CS,VB,FW,AB,VS2,LT"></Function>
+    <Function Name="Live" Product="SB,BA,RB,NG,VS,KN,CS,VB,FW,AB,VS2,LT"></Function>
   </Group>
 
   <Group Name="BetList">
