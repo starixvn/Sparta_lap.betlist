@@ -39,7 +39,7 @@
         public void ReadLrfTicket_WhenCall_DataReturnedCorrectly(string baseCurrency, object isNeutral, bool expectedIsNeutral)
         {
             // Arrange
-            var currency = "UUS";
+            var currency = "USD";
             var expected = GetFakeTicket();
             var dataList = GetFakeBetListData(currency, expected, isNeutral);
             _reader.Read().Returns(true, false);
