@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class ExchangeTicketResult
+    public class ExchangeTicketDetail
     {
         public DateTime BetTaken { get; set; }
 
@@ -12,6 +12,6 @@
 
         public decimal Liability { get; set; }
 
-        public decimal OddsMacthed { get; set; }
+        public decimal OddsMatched { get; set; }
     }
 }

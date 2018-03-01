@@ -2,57 +2,91 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Fanex.Athena.Service.BetList.Interfaces;
     using Model.BetList.DTO;
     using Model.BetList.MetaModel;
+    using Model.BetList.ViewModel;
 
     public class ExchangeWinLossBetListService : IExchangeWinLossBetListService
     {
-        public IEnumerable<ExchangeTicket> GetBetListData(BetListMetaModel metaModel)
+        public ExchangeBetListSummaryViewModel GetBetListData(BetListMetaModel metaModel)
         {
-            return new List<ExchangeTicket>
+            var mainData = GetFakeData();
+
+            return new ExchangeBetListSummaryViewModel
+            {
+                MainData = mainData,
+                GrandTotal = mainData.Sum(p => p.WinLost)
+            };
+        }
+
+        private IEnumerable<ExchangeTicketSummary> GetFakeData()
+        {
+            return new List<ExchangeTicketSummary>
                 {
-                    new ExchangeTicket
+                    new ExchangeTicketSummary
                     {
-                        Market = "CRICKET> Ireland A v Bangladesh A > Match Odds",
-                        BetId = 43154,
-                        Selection = "Bangladesh A",
-                        Type = "Black",
-                        BetPlaced = new DateTime(2017, 10, 25, 1, 5, 46),
-                        OddsAvg = 1.5m,
-                        Stake = 30,
-                        WinLoss = 15,
-                        WlComm = -0.45m,
-                        LicWl = -9,
-                        LicWlComm = 0.15m
+                        MarketId= "1",
+                        MarketName = "CRICKET> Ireland A v Bangladesh A > Match Odds",
+                        WinLost = 15,
+                        Commission = -0.45m,
+                        TicketList = new List<ExchangeBetListEntity>
+                        {
+                            new ExchangeBetListEntity
+                            {
+                                BetId = 43154,
+                                Selection = "Bangladesh A",
+                                EventTypeName = "Black",
+                                SettledDate = new DateTime(2017, 10, 25, 1, 5, 46),
+                                MatchAvgOdds = 1.5m,
+                                MatchStake = 30,
+                                WinLost = 15
+                            }
+                        }
                     },
-                    new ExchangeTicket
+
+                    new ExchangeTicketSummary
                     {
-                        Market = "CRICKET> Zimbabwe v Indies > Match Odds",
-                        BetId = 43116,
-                        Selection = "Zimbabwe",
-                        Type = "Lay",
-                        BetPlaced = new DateTime(2017, 10, 24, 5, 45, 14),
-                        OddsAvg = 7,
-                        Stake = 30,
-                        WinLoss = 30,
-                        WlComm = 0,
-                        LicWl = 14,
-                        LicWlComm = 0
-                    },
-                    new ExchangeTicket
-                    {
-                        Market = "CRICKET> Zimbabwe v Indies > Match Odds",
-                        BetId = 43112,
-                        Selection = "Zimbabwe",
-                        Type = "Black",
-                        BetPlaced = new DateTime(2017, 10, 24, 5, 45, 14),
-                        OddsAvg = 9.8m,
-                        Stake = 50,
-                        WinLoss = -50,
-                        WlComm = 0,
-                        LicWl = 14,
-                        LicWlComm = 0
+                        MarketId= "2",
+                        MarketName = "CRICKET> Zimbabwe v Indies > Match Odds",
+                        WinLost = 30,
+                        Commission = 0,
+                        TicketList = new List<ExchangeBetListEntity>
+                        {
+                            new ExchangeBetListEntity
+                            {
+                                BetId = 43116,
+                                Selection = "Zimbabwe",
+                                EventTypeName = "Lay",
+                                SettledDate = new DateTime(2017, 10, 24, 5, 45, 14),
+                                MatchAvgOdds = 7m,
+                                MatchStake = 30,
+                                WinLost = 30
+                            },
+
+                            new ExchangeBetListEntity
+                            {
+                                BetId = 43112,
+                                Selection = "Zimbabwe",
+                                EventTypeName = "Black",
+                                SettledDate = new DateTime(2017, 10, 24, 5, 45, 14),
+                                MatchAvgOdds = 9.8m,
+                                MatchStake = 50,
+                                WinLost = -50
+                            },
+
+                            new ExchangeBetListEntity
+                            {
+                                BetId = 43118,
+                                Selection = "Zimbabwe",
+                                EventTypeName = "Black",
+                                SettledDate = new DateTime(2017, 10, 24, 5, 45, 14),
+                                MatchAvgOdds = 7.8m,
+                                MatchStake = 50,
+                                WinLost = -50
+                            }
+                        }
                     }
             };
         }
