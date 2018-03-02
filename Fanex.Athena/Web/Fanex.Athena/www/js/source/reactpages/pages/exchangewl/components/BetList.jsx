@@ -146,7 +146,7 @@ export class BetList extends Component {
                 </BetListPopupLayout>
                 {
                     showDetail &&
-                    <Popup isShow={showDetail} title={"DETAIL"} width={730} height={450} onClose={this.closeDetailPopup}>
+                    <Popup isShow={showDetail} title={LangHelper.getSingleResource("Details")} width={730} height={450} onClose={this.closeDetailPopup}>
                         <BetListDetail data={detailData} />
                     </Popup>
                 }

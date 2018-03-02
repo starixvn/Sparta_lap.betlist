@@ -17,6 +17,8 @@ import Popup from '../../../components/popup'
 import Report from '../../../lib/report'
 import LangHelper from '../../../lib/langHelper.js';
 
+const CUSTOMER_BETLIST_TEXT = `${LangHelper.getSingleResource("Customer")} ${LangHelper.getSingleResource("BetList")}`;
+
 const FakeBetListData = [
     {
         EventTypeName: "CRICKET",
@@ -389,19 +391,18 @@ export class DataGrid extends Component {
 
         this.betlistTitle = (
             <p>
-                {LangHelper.getSingleResource("Customer")}{" "}
-                {LangHelper.getSingleResource("BetList")}{" "}
+                {CUSTOMER_BETLIST_TEXT}{" "}
                 {FromDate} → {ToDate} - {externalId}({systemId}) -{" "}
                 <span className="base-currency-title">{LangHelper.getSingleResource("Viewin").replace("{0}", CurrencyName)}</span>
             </p>
         )
 
-        this.setState({
+        /* this.setState({
             showBetList: true,
             betListData: { mainData: FakeBetListData || [], grandTotal: 100 }
-        });
+        }); */
 
-        /* this.props.toggleLoader(true);
+        this.props.toggleLoader(true);
         Report.fetchGridData(url, params)
             .then(response => {
                 console.log(response.data)
@@ -415,7 +416,7 @@ export class DataGrid extends Component {
             .catch(error => {
                 Service.showErrorMsg();
                 this.props.toggleLoader(false);
-            }) */
+            })
     }
 
     closeBetListPopup = () => {
@@ -454,7 +455,7 @@ export class DataGrid extends Component {
 
                 {
                     reportLevel === ReportLevel.CUSTOMER && showBetList &&
-                    <Popup isShow={showBetList} title={"CUSTOMER BET LIST"} width={900} height={600} onClose={this.closeBetListPopup}>
+                    <Popup isShow={showBetList} title={CUSTOMER_BETLIST_TEXT} width={900} height={600} onClose={this.closeBetListPopup}>
                         <BetList data={betListData} title={this.betlistTitle} params={this.drillDownParams[ReportLevel.CUSTOMER]} />
                     </Popup>
                 }
