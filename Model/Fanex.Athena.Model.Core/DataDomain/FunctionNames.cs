@@ -24,6 +24,6 @@
 
         public const string WinLossByTimeZone = "WinLossByTimeZone";
 
-        public const string Live = "Live";
+        public const string LiveReport = "LiveReport";
     }
 }

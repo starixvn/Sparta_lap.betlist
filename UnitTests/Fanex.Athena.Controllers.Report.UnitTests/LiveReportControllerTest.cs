@@ -245,7 +245,7 @@
             productService.GetProductAccess(
                 SessionService.LicenseeSession.LicenseeId,
                 SessionService.UserSession.Language,
-                FunctionNames.Live).Returns(new ProductAccess(productList.ToList()));
+                FunctionNames.LiveReport).Returns(new ProductAccess(productList.ToList()));
             var controller = Substitute.ForPartsOf<LiveReportController>(
                 LangService,
                 SessionService,
