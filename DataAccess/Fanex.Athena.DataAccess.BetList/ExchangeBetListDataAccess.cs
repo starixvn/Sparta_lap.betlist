@@ -51,7 +51,7 @@
             }
         }
 
-        public IEnumerable<ExchangeTicketDetail> GetTicketDetailList(ExchangeBetListMetaModel metaModel)
+        public IEnumerable<ExchangeTicketDetail> GetTicketDetailList(ExchangeBetListDetailMetaModel metaModel)
         {
             const string UspName = "Lrf_BetList_Exchange_Detail";
 
@@ -85,7 +85,7 @@
             {
                 var data = new ExchangeTicketDetail
                 {
-                    BetTaken = reader.ToString("BetTaken"),
+                    BetTaken = reader.ToDateTime("BetTaken"),
                     OddsReq = reader.ToDecimal("OddsRequest"),
                     Stake = reader.ToDecimal("Stake" + baseCurrency),
                     OddsMatched = reader.ToDecimal("OddsMatched")

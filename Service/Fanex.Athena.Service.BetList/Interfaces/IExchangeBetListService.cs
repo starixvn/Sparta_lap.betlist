@@ -9,6 +9,6 @@
     {
         ExchangeBetListViewModel GetBetListData(ExchangeBetListMetaModel metaModel);
 
-        IEnumerable<ExchangeTicketDetail> GetTicketDetailList(ExchangeBetListMetaModel metaModel);
+        IEnumerable<ExchangeTicketDetail> GetTicketDetailList(ExchangeBetListDetailMetaModel metaModel);
     }
 }

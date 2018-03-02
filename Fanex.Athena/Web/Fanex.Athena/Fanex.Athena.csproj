@@ -2698,6 +2698,8 @@
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\__snapshots__\FormFilter.test.js.snap" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\__snapshots__\DataGrid.render.test.js.snap" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\DataGrid.redux.test.js" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\components\BetList.jsx" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\components\BetListDetail.jsx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">

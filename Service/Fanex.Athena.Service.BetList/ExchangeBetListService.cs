@@ -45,7 +45,7 @@
             return new ExchangeBetListViewModel();
         }
 
-        public IEnumerable<ExchangeTicketDetail> GetTicketDetailList(ExchangeBetListMetaModel metaModel)
+        public IEnumerable<ExchangeTicketDetail> GetTicketDetailList(ExchangeBetListDetailMetaModel metaModel)
         {
             return _dataAccess.GetTicketDetailList(metaModel);
         }

@@ -10,15 +10,21 @@
     using Model.Core.DataDomain;
     using Service.BetList;
     using Service.BetList.Interfaces;
+    using Service.Core.Users;
+    using Service.Core.Users.Interfaces;
 
     [ApiFunctionAuthorization(PermissionKeys.ReportExchangeWinLoss)]
     public class ExchangeWinLossBetListController : BaseApiController
     {
         private readonly IExchangeBetListService _service;
 
+        private readonly IAuthorizationService _authorizationService;
+
         public ExchangeWinLossBetListController()
         {
             _service = new ExchangeBetListService();
+
+            _authorizationService = new AuthorizationService();
         }
 
         public ExchangeWinLossBetListController(IExchangeBetListService service)
@@ -29,7 +35,7 @@
         [HttpPost]
         public ExchangeBetListViewModel Index(ExchangeBetListMetaModel metaModel)
         {
-            if (metaModel.CurrencyId != 0 && !SessionService.UserSession.CurrencyList.ContainsKey(metaModel.CurrencyId))
+            if (!IsValidRequest(metaModel))
             {
                 return new ExchangeBetListViewModel
                 {
@@ -43,11 +49,23 @@
         }
 
         [HttpPost]
-        public IEnumerable<ExchangeTicketDetail> Detail(ExchangeBetListMetaModel metaModel)
+        public IEnumerable<ExchangeTicketDetail> Detail(ExchangeBetListDetailMetaModel metaModel)
         {
+            if (!IsValidRequest(metaModel))
+            {
+                return new List<ExchangeTicketDetail>();
+            }
+
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.ExcludeTestData);
 
             return _service.GetTicketDetailList(metaModel);
+        }
+
+        private bool IsValidRequest(BaseExchangeBetListMetaModel metaModel)
+        {
+            return metaModel.IsValid
+                && (metaModel.CurrencyId == 0 || SessionService.UserSession.CurrencyList.ContainsKey(metaModel.CurrencyId))
+                && _authorizationService.HasPermissionOnData(SessionService.LicenseeSession.LicenseeId, metaModel.CustId, 0);
         }
     }
 }

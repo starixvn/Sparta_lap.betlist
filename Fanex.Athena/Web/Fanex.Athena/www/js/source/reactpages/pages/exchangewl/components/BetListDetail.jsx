@@ -34,7 +34,7 @@ export default class BetListDetail extends Component {
 
             rows.push(
                 <Row key={`rowDetail-${i}`}>
-                    <Cell className="center-align">{dataItem.BetTaken}</Cell>
+                    <Cell className="center-align">{dataItem.BetTakenDateString}</Cell>
                     <Cell className="right-align">{dataItem.OddsReq}</Cell>
                     <Cell className="right-align">{dataItem.Stake}</Cell>
                     <Cell className="right-align">{dataItem.Liability}</Cell>
