@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 import NoDataTitle from '../../../components/NoDataTitle'
 import { Table, Row, Cell } from '../../../components/fixed-table-header'
+import LangHelper from '../../../lib/langHelper';
 
 export default class BetListDetail extends Component {
     constructor(props) {
@@ -16,11 +17,11 @@ export default class BetListDetail extends Component {
     _buildHeader() {
         return (
             <Row style={{ height: 32 }}>
-                <Cell colWidth={100} header={true}>{"Bet taken"}</Cell>
-                <Cell colWidth={70} header={true}>{"Odds req."}</Cell>
-                <Cell colWidth={70} header={true}>{"Stake"}</Cell>
-                <Cell colWidth={70} header={true}>{"Liability"}</Cell>
-                <Cell colWidth={70} header={true}>{"Odds matched"}</Cell>
+                <Cell colWidth={100} header={true}>{LangHelper.getSingleResource("BetTaken")}</Cell>
+                <Cell colWidth={70} header={true}>{LangHelper.getSingleResource("OddsReq")}</Cell>
+                <Cell colWidth={70} header={true}>{LangHelper.getSingleResource("Stake")}</Cell>
+                <Cell colWidth={70} header={true}>{LangHelper.getSingleResource("Liability")}</Cell>
+                <Cell colWidth={70} header={true}>{LangHelper.getSingleResource("OddsMatched")}</Cell>
             </Row>
         )
     }

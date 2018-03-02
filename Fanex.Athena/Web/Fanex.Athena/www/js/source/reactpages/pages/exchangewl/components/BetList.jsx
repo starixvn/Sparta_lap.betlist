@@ -11,6 +11,7 @@ import BetListDetail from './BetListDetail'
 import Report from '../../../lib/report'
 import { Service } from '../lib/service'
 import { toggleLoader } from '../../../actions/loaderAction'
+import LangHelper from '../../../lib/langHelper'
 
 export class BetList extends Component {
     constructor(props) {
@@ -26,23 +27,24 @@ export class BetList extends Component {
         data: PropTypes.shape({
             mainData: PropTypes.arrayOf(PropTypes.object),
             grandTotal: PropTypes.number
-        }).isRequired,
-        title: PropTypes.any
+        }),
+        title: PropTypes.any,
+        params: PropTypes.object.isRequired
     }
 
     _buildHeader() {
         return (
             <Row style={{ height: 32 }}>
                 <Cell colWidth={40} header={true}>{"#"}</Cell>
-                <Cell colWidth={300} header={true}>{"Market"}</Cell>
-                <Cell colWidth={70} header={true}>{"Bet ID"}</Cell>
-                <Cell colWidth={120} header={true}>{"Selection"}</Cell>
-                <Cell colWidth={50} header={true}>{"Type"}</Cell>
-                <Cell colWidth={100} header={true}>{"Bet Placed"}</Cell>
-                <Cell colWidth={60} header={true}>{"Odds avg."}</Cell>
-                <Cell colWidth={80} header={true}>{"Stake"}</Cell>
-                <Cell colWidth={80} header={true}>{"Winloss"}</Cell>
-                <Cell colWidth={100} header={true}>{"WL /Comm"}</Cell>
+                <Cell colWidth={300} header={true}>{LangHelper.getSingleResource("Market")}</Cell>
+                <Cell colWidth={70} header={true}>{LangHelper.getSingleResource("BetId")}</Cell>
+                <Cell colWidth={120} header={true}>{LangHelper.getSingleResource("Selection")}</Cell>
+                <Cell colWidth={50} header={true}>{LangHelper.getSingleResource("Type")}</Cell>
+                <Cell colWidth={100} header={true}>{LangHelper.getSingleResource("BetPlaced")}</Cell>
+                <Cell colWidth={60} header={true}>{LangHelper.getSingleResource("OddsAvg")}</Cell>
+                <Cell colWidth={80} header={true}>{LangHelper.getSingleResource("Stake")}</Cell>
+                <Cell colWidth={80} header={true}>{LangHelper.getSingleResource("Winloss")}</Cell>
+                <Cell colWidth={100} header={true}>{LangHelper.getSingleResource("WL")}/{LangHelper.getSingleResource("Comm")}</Cell>
             </Row>
         )
     }
@@ -87,11 +89,11 @@ export class BetList extends Component {
     }
 
     _showTicketDetail = (BetId) => {
-        const { CustId, CurrencyId, BaseCurrency, FromDate, ToDate, CurrencyName, ExcludeTestData } = this.drillDownParams[ReportLevel.CUSTOMER];
+        const { CustId, CurrencyId, BaseCurrency, ExcludeTestData } = this.props.params;
         const url = "api/ExchangeWinLossBetList/Detail";
         const params = {
             xsrfToken: this.props.xsrfToken,
-            data: { CustId, CurrencyId, BaseCurrency, FromDate, ToDate, ExcludeTestData, BetId }
+            data: { CustId, CurrencyId, BaseCurrency, ExcludeTestData, BetId }
         }
 
         this.props.toggleLoader(true);
@@ -115,7 +117,7 @@ export class BetList extends Component {
 
         return [
             <Row key="betlist-footer">
-                <Cell colSpan='9' className="right-align">Grand Total</Cell>
+                <Cell colSpan='9' className="right-align">{LangHelper.getSingleResource("GrandTotal")}</Cell>
                 <Cell className={`right-align ${grandTotal < 0 && "negative"}`}>{grandTotal}</Cell>
             </Row >
         ]
@@ -143,7 +145,7 @@ export class BetList extends Component {
                     }
                 </BetListPopupLayout>
                 {
-                    showDetail && detailData &&
+                    showDetail &&
                     <Popup isShow={showDetail} title={"DETAIL"} width={730} height={450} onClose={this.closeDetailPopup}>
                         <BetListDetail data={detailData} />
                     </Popup>
@@ -158,8 +160,8 @@ function mapDispatchToProps(dispatch) {
 };
 
 function mapStateToProps(state) {
-    const { params, xsrfToken } = state;
-    return Object.assign({}, { params, xsrfToken });
+    const { xsrfToken } = state;
+    return Object.assign({}, { xsrfToken });
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BetList);

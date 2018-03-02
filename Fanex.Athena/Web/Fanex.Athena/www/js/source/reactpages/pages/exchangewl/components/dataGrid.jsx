@@ -15,6 +15,64 @@ import Site from '../../../lib/site'
 import BetList from './BetList'
 import Popup from '../../../components/popup'
 import Report from '../../../lib/report'
+import LangHelper from '../../../lib/langHelper.js';
+
+const FakeBetListData = [
+    {
+        EventTypeName: "CRICKET",
+        EventName: "Ireland A vs Bangladesh A",
+        MarketName: "Match Odds",
+        WinLost: 15,
+        Commission: -0.45,
+        TicketList: [
+            {
+                BetId: 43154,
+                Selection: "Bangladesh A",
+                Type: "Back",
+                BetPlaced: "10/25/2017 01:05:46",
+                MatchAvgOdds: 1.5,
+                MatchStake: 30,
+                WinLost: 15
+            }
+        ]
+    },
+    {
+        EventTypeName: "CRICKET",
+        EventName: "Zimbabwe vs West Indies",
+        MarketName: "Match Odds",
+        WinLost: 30,
+        Commission: 0,
+        TicketList: [
+            {
+                BetId: 43116,
+                Selection: "Zimbabwe",
+                Type: "Lay",
+                BetPlaced: "10/24/2017 05:45:14",
+                MatchAvgOdds: 7,
+                MatchStake: 30,
+                WinLost: 30
+            },
+            {
+                BetId: 43112,
+                Selection: "Zimbabwe",
+                Type: "Back",
+                BetPlaced: "10/24/2017 05:45:14",
+                MatchAvgOdds: 9.8,
+                MatchStake: 50,
+                WinLost: -50
+            },
+            {
+                BetId: 43118,
+                Selection: "Zimbabwe",
+                Type: "Back",
+                BetPlaced: "10/24/2017 05:45:14",
+                MatchAvgOdds: 7.8,
+                MatchStake: 50,
+                WinLost: -50
+            }
+        ]
+    }
+]
 
 export class DataGrid extends Component {
     constructor(props) {
@@ -330,23 +388,34 @@ export class DataGrid extends Component {
         }
 
         this.betlistTitle = (
-            <p>Customer Bet List {FromDate} → {ToDate} - {externalId}({systemId}) - <span className="base-currency-title">View in {CurrencyName}</span></p>
+            <p>
+                {LangHelper.getSingleResource("Customer")}{" "}
+                {LangHelper.getSingleResource("BetList")}{" "}
+                {FromDate} → {ToDate} - {externalId}({systemId}) -{" "}
+                <span className="base-currency-title">{LangHelper.getSingleResource("Viewin").replace("{0}", CurrencyName)}</span>
+            </p>
         )
 
-        this.props.toggleLoader(true);
+        this.setState({
+            showBetList: true,
+            betListData: { mainData: FakeBetListData || [], grandTotal: 100 }
+        });
+
+        /* this.props.toggleLoader(true);
         Report.fetchGridData(url, params)
             .then(response => {
+                console.log(response.data)
                 const { MainData, GrandTotal } = response.data;
                 this.setState({
                     showBetList: true,
-                    betListData: { mainData: MainData || [], grandTotal: GrandTotal }
+                    betListData: { mainData: FakeBetListData || [], grandTotal: 100 }
                 });
                 this.props.toggleLoader(false);
             })
             .catch(error => {
                 Service.showErrorMsg();
                 this.props.toggleLoader(false);
-            })
+            }) */
     }
 
     closeBetListPopup = () => {
@@ -384,9 +453,9 @@ export class DataGrid extends Component {
                 />
 
                 {
-                    reportLevel === ReportLevel.CUSTOMER && showBetList && betListData &&
+                    reportLevel === ReportLevel.CUSTOMER && showBetList &&
                     <Popup isShow={showBetList} title={"CUSTOMER BET LIST"} width={900} height={600} onClose={this.closeBetListPopup}>
-                        <BetList data={betListData} title={this.betlistTitle} />
+                        <BetList data={betListData} title={this.betlistTitle} params={this.drillDownParams[ReportLevel.CUSTOMER]} />
                     </Popup>
                 }
             </div>
