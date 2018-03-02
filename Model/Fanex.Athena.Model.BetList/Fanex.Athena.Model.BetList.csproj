@@ -130,8 +130,9 @@
     <Compile Include="DTO\CustomerCancelBetItem.cs" />
     <Compile Include="DTO\DailyStatement.cs" />
     <Compile Include="DTO\ExchangeBetList.cs" />
-    <Compile Include="DTO\ExchangeBetListEntity.cs" />
-    <Compile Include="DTO\ExchangeTicketSummary.cs" />
+    <Compile Include="DTO\ExchangeSumWinLoss.cs" />
+    <Compile Include="DTO\ExchangeTicket.cs" />
+    <Compile Include="DTO\ExchangeBetListResult.cs" />
     <Compile Include="DTO\ExchangeTicketDetail.cs" />
     <Compile Include="DTO\LrfTicket.cs" />
     <Compile Include="DTO\BetListMatch.cs" />
@@ -152,7 +153,7 @@
     <Compile Include="ViewModel\CancelledBetsBetListViewModel.cs" />
     <Compile Include="ViewModel\CashOutBetListDetailViewModel.cs" />
     <Compile Include="ViewModel\ColossusBetDetailViewModel.cs" />
-    <Compile Include="ViewModel\ExchangeBetListSummaryViewModel.cs" />
+    <Compile Include="ViewModel\ExchangeBetListViewModel.cs" />
     <Compile Include="ViewModel\LastBetsMonitoringViewModel.cs" />
     <Compile Include="ViewModel\SystemParlayDetailViewModel.cs" />
   </ItemGroup>

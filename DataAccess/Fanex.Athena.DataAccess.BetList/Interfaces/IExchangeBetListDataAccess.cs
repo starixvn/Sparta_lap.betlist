@@ -3,12 +3,11 @@
     using System.Collections.Generic;
     using Model.BetList.DTO;
     using Model.BetList.MetaModel;
-    using Model.BetList.ViewModel;
 
     public interface IExchangeBetListDataAccess
     {
-        ExchangeBetListSummaryViewModel GetBetListData(ExchangeBetListMetaModel metaModel);
+        ExchangeBetListResult GetBetListData(ExchangeBetListMetaModel metaModel);
 
-        IEnumerable<ExchangeTicketDetail> GetTicketDetailList();
+        IEnumerable<ExchangeTicketDetail> GetTicketDetailList(ExchangeBetListMetaModel metaModel);
     }
 }

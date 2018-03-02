@@ -2,21 +2,20 @@
 {
     using System.Collections.Generic;
     using System.Data;
-    using System.Linq;
     using Common;
     using Common.Extensions;
     using Core;
     using Core.Exception;
     using Data;
+    using Extension.Helper;
     using Interfaces;
     using Model.BetList.DTO;
     using Model.BetList.MetaModel;
-    using Model.BetList.ViewModel;
     using Model.Core.DataDomain;
 
     public class ExchangeBetListDataAccess : BaseDataAccess, IExchangeBetListDataAccess
     {
-        public ExchangeBetListSummaryViewModel GetBetListData(ExchangeBetListMetaModel metaModel)
+        public ExchangeBetListResult GetBetListData(ExchangeBetListMetaModel metaModel)
         {
             const string UspName = "Lrf_BetList_Exchange_Mem";
 
@@ -32,15 +31,15 @@
                     db.AddOutParameter("SumWinLostEUR", DbType.Currency, 0);
                     db.AddOutParameter("SumWinLostMYR", DbType.Currency, 0);
                     db.AddOutParameter("SumWinLostUSD", DbType.Currency, 0);
-                    db.ExecuteNonQuery();
 
                     using (var reader = db.ExecuteReader())
                     {
                         var baseCurrency = SystemConstants.BaseCurrencyList.Contains(metaModel.BaseCurrency) ? metaModel.BaseCurrency : string.Empty;
 
-                        return new ExchangeBetListSummaryViewModel
+                        return new ExchangeBetListResult
                         {
-                            MainData = GetData(reader, baseCurrency),
+                            SumWinLossList = ReadSumWinLossData(reader, baseCurrency),
+                            TicketList = ReadTicketData(reader, baseCurrency),
                             GrandTotal = Converter.ToDecimal(db.GetParameterValue("SumWinLost" + baseCurrency))
                         };
                     }
@@ -52,49 +51,60 @@
             }
         }
 
-        public IEnumerable<ExchangeTicketDetail> GetTicketDetailList() => GetFakeTicketDetailList();
-
-        private IEnumerable<ExchangeTicketDetail> GetFakeTicketDetailList()
+        public IEnumerable<ExchangeTicketDetail> GetTicketDetailList(ExchangeBetListMetaModel metaModel)
         {
-            return new List<ExchangeTicketDetail>
+            const string UspName = "Lrf_BetList_Exchange_Detail";
+
+            try
             {
-                new ExchangeTicketDetail
+                using (var db = this.GetObjectDb(UspName))
                 {
-                    BetTaken = "10/23/2017 10:55:15",
-                    OddsReq = 6.80m,
-                    Stake = 50.00m,
-                    Liability = "-",
-                    OddsMatched = 7.80m
+                    db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+                    db.AddInParameter("CustId", DbType.Int32, metaModel.CustId);
+                    db.AddInParameter("BetID", DbType.Int64, metaModel.BetId);
+
+                    using (var reader = db.ExecuteReader())
+                    {
+                        var baseCurrency = SystemConstants.BaseCurrencyList.Contains(metaModel.BaseCurrency) ? metaModel.BaseCurrency : string.Empty;
+
+                        return ReadTicketDetailData(reader, baseCurrency, metaModel.Type);
+                    }
                 }
-            };
-        }
-
-        private IEnumerable<ExchangeTicketSummary> GetData(IDataReader reader, string baseCurrency)
-        {
-            var mainData = ReadMainData(reader, baseCurrency);
-
-            reader.NextResult();
-            var detail = ReadDetailData(reader, baseCurrency);
-
-            if (mainData.Any() && detail.Any())
-            {
-                return mainData.GroupJoin(
-                    detail,
-                    m => new { m.UserId, m.EvenId, m.MarketId },
-                    d => new { d.UserId, d.EvenId, d.MarketId },
-                   (main, detailList) => new ExchangeTicketSummary { Ticket = main, TicketList = detailList });
             }
-
-            return new List<ExchangeTicketSummary>();
+            catch (ObjectDbException exception)
+            {
+                throw new DataAccessException(exception, UspName, metaModel);
+            }
         }
 
-        private IEnumerable<ExchangeBetList> ReadMainData(IDataReader reader, string baseCurrency)
+        private IEnumerable<ExchangeTicketDetail> ReadTicketDetailData(IDataReader reader, string baseCurrency, string type)
         {
-            var mainData = new List<ExchangeBetList>();
+            var mainData = new List<ExchangeTicketDetail>();
 
             while (reader.Read())
             {
-                var data = new ExchangeBetList
+                var data = new ExchangeTicketDetail
+                {
+                    BetTaken = reader.ToString("BetTaken"),
+                    OddsReq = reader.ToDecimal("OddsRequest"),
+                    Stake = reader.ToDecimal("Stake" + baseCurrency),
+                    OddsMatched = reader.ToDecimal("OddsMatched")
+                };
+
+                data.Liability = type == ExchangeMatchType.Lay ? NumberHelper.DecFormat((data.OddsMatched - 1) * data.Stake, 2) : "-";
+                mainData.Add(data);
+            }
+
+            return mainData;
+        }
+
+        private IEnumerable<ExchangeSumWinLoss> ReadSumWinLossData(IDataReader reader, string baseCurrency)
+        {
+            var mainData = new List<ExchangeSumWinLoss>();
+
+            while (reader.Read())
+            {
+                var data = new ExchangeSumWinLoss
                 {
                     UserId = reader.ToString("UserId"),
                     EvenId = reader.ToInt("EvenId"),
@@ -111,13 +121,13 @@
             return mainData;
         }
 
-        private IEnumerable<ExchangeBetListEntity> ReadDetailData(IDataReader reader, string baseCurrency)
+        private IEnumerable<ExchangeTicket> ReadTicketData(IDataReader reader, string baseCurrency)
         {
-            var detailData = new List<ExchangeBetListEntity>();
+            var detailData = new List<ExchangeTicket>();
 
             while (reader.Read())
             {
-                var data = new ExchangeBetListEntity
+                var data = new ExchangeTicket
                 {
                     UserId = reader.ToString("UserId"),
                     EvenId = reader.ToInt("EvenId"),

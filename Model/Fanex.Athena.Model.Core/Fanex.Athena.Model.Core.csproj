@@ -71,6 +71,7 @@
     <Compile Include="DataDomain\DrawFilterType.cs" />
     <Compile Include="DataDomain\ErrorType.cs" />
     <Compile Include="DataDomain\EsportSettingType.cs" />
+    <Compile Include="DataDomain\ExchangeMatchType.cs" />
     <Compile Include="DataDomain\FormatKey.cs" />
     <Compile Include="DataDomain\OneAuthorizationErrorCode.cs" />
     <Compile Include="DataDomain\PermissionKeys.cs" />

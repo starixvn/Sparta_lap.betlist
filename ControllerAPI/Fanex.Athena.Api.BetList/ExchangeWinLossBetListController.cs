@@ -4,34 +4,34 @@
     using System.Web.Http;
     using Base;
     using Base.Attributes;
-    using DataAccess.BetList;
-    using DataAccess.BetList.Interfaces;
     using Model.BetList.DTO;
     using Model.BetList.MetaModel;
     using Model.BetList.ViewModel;
     using Model.Core.DataDomain;
+    using Service.BetList;
+    using Service.BetList.Interfaces;
 
     [ApiFunctionAuthorization(PermissionKeys.ReportExchangeWinLoss)]
     public class ExchangeWinLossBetListController : BaseApiController
     {
-        private readonly IExchangeBetListDataAccess _dataAccess;
+        private readonly IExchangeBetListService _service;
 
         public ExchangeWinLossBetListController()
         {
-            _dataAccess = new ExchangeBetListDataAccess();
+            _service = new ExchangeBetListService();
         }
 
-        public ExchangeWinLossBetListController(IExchangeBetListDataAccess dataAccess)
+        public ExchangeWinLossBetListController(IExchangeBetListService service)
         {
-            _dataAccess = dataAccess;
+            _service = service;
         }
 
         [HttpPost]
-        public ExchangeBetListSummaryViewModel Index(ExchangeBetListMetaModel metaModel)
+        public ExchangeBetListViewModel Index(ExchangeBetListMetaModel metaModel)
         {
             if (metaModel.CurrencyId != 0 && !SessionService.UserSession.CurrencyList.ContainsKey(metaModel.CurrencyId))
             {
-                return new ExchangeBetListSummaryViewModel
+                return new ExchangeBetListViewModel
                 {
                     MainData = null
                 };
@@ -39,13 +39,15 @@
 
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.ExcludeTestData);
 
-            return _dataAccess.GetBetListData(metaModel);
+            return _service.GetBetListData(metaModel);
         }
 
         [HttpPost]
         public IEnumerable<ExchangeTicketDetail> Detail(ExchangeBetListMetaModel metaModel)
         {
-            return _dataAccess.GetTicketDetailList();
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.ExcludeTestData);
+
+            return _service.GetTicketDetailList(metaModel);
         }
     }
 }

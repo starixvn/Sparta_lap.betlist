@@ -1,9 +1,7 @@
-﻿
-
-using System;
-
-namespace Fanex.Athena.Model.BetList.MetaModel
+﻿namespace Fanex.Athena.Model.BetList.MetaModel
 {
+    using System;
+
     public class ExchangeBetListMetaModel
     {
         private string _baseCurrency = string.Empty;
@@ -21,6 +19,8 @@ namespace Fanex.Athena.Model.BetList.MetaModel
         public bool ExcludeTestData { get; set; }
 
         public int BetId { get; set; }
+
+        public string Type { get; set; }
 
         public string BaseCurrency
         {

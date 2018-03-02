@@ -3,9 +3,9 @@ using Fanex.Athena.Model.BetList.DTO;
 
 namespace Fanex.Athena.Model.BetList.ViewModel
 {
-    public class ExchangeBetListSummaryViewModel
+    public class ExchangeBetListViewModel
     {
-        public IEnumerable<ExchangeTicketSummary> MainData { get; set; }
+        public IEnumerable<ExchangeBetList> MainData { get; set; }
 
         public decimal GrandTotal { get; set; }
     }

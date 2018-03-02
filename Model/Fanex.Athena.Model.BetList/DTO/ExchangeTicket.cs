@@ -3,7 +3,7 @@
     using System;
     using Core.DataDomain;
 
-    public class ExchangeBetListEntity
+    public class ExchangeTicket
     {
         public string UserId { get; set; }
 
