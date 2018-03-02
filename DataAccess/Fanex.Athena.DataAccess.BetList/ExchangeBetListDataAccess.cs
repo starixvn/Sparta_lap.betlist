@@ -32,7 +32,7 @@
                     db.AddOutParameter("SumWinLostGBP", DbType.Currency, 8);
                     db.AddOutParameter("SumWinLostUSD", DbType.Currency, 8);
 
-                    var baseCurrency = SystemConstants.BaseCurrencyList.Contains(metaModel.BaseCurrency) ? metaModel.BaseCurrency : string.Empty;
+                    var baseCurrency = GetBaseCurrency(metaModel.BaseCurrency);
                     IEnumerable<ExchangeSumWinLoss> sumWinLoss;
                     IEnumerable<ExchangeTicket> ticketList;
 
@@ -70,7 +70,7 @@
 
                     using (var reader = db.ExecuteReader())
                     {
-                        var baseCurrency = SystemConstants.BaseCurrencyList.Contains(metaModel.BaseCurrency) ? metaModel.BaseCurrency : string.Empty;
+                        var baseCurrency = GetBaseCurrency(metaModel.BaseCurrency);
 
                         return ReadTicketDetailData(reader, baseCurrency, metaModel.Type);
                     }
@@ -81,6 +81,8 @@
                 throw new DataAccessException(exception, UspName, metaModel);
             }
         }
+
+        private static string GetBaseCurrency(string baseCurrency) => SystemConstants.BaseCurrencyList.Contains(baseCurrency) ? baseCurrency : string.Empty;
 
         private IEnumerable<ExchangeTicketDetail> ReadTicketDetailData(IDataReader reader, string baseCurrency, string type)
         {
