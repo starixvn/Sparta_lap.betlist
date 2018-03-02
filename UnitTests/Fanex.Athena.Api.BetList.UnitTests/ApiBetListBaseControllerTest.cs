@@ -48,7 +48,7 @@
                     SumComm = 1,
                     SumWinLoss = 3,
                     SumPlayerComm = 4,
-                    SumLicenseeWLText = "<span class='negative'>-1.00</span>",
+                    SumLicenseeWLText = "<span class='negative-number'>-1.00</span>",
                 });
                 yield return new TestCaseData(new
                 {
@@ -63,7 +63,7 @@
                     SumComm = -3,
                     SumWinLoss = 3,
                     SumPlayerComm = 4,
-                    SumLicenseeWLText = "<span class='negative'>-1.00</span>",
+                    SumLicenseeWLText = "<span class='negative-number'>-1.00</span>",
                 });
             }
         }

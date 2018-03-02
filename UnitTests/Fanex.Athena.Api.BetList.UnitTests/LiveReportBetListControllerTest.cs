@@ -60,7 +60,7 @@
                     ResultTotalPage = 1,
                     SumLicenseeWL = -2,
                     SumComm = 1,
-                    SumLicenseeWLText = "<span class='negative'>-1.00</span>",
+                    SumLicenseeWLText = "<span class='negative-number'>-1.00</span>",
                 });
             }
         }
