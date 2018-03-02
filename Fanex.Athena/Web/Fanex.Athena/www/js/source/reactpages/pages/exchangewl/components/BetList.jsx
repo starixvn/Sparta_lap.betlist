@@ -25,8 +25,8 @@ export class BetList extends Component {
 
     static propTypes = {
         data: PropTypes.shape({
-            mainData: PropTypes.arrayOf(PropTypes.object),
-            grandTotal: PropTypes.number
+            MainData: PropTypes.arrayOf(PropTypes.object),
+            GrandTotal: PropTypes.number
         }),
         title: PropTypes.any,
         params: PropTypes.object.isRequired
@@ -50,27 +50,30 @@ export class BetList extends Component {
     }
 
     _buildBody() {
-        const { mainData } = this.props.data;
+        const { MainData } = this.props.data;
         const rows = [];
-        for (let i = 0; i < mainData.length; i++) {
-            const { MarketName, EventTypeName, EventName, WinLost, Commission, TicketList } = mainData[i];
-            const dataDetailCount = TicketList.length;
+        for (let i = 0; i < MainData.length; i++) {
+            const { Ticket, Details } = MainData[i];
+            const { MarketName, EventTypeName, EventName, WinLost, Commission } = Ticket;
+            const dataDetailCount = Details.length;
             let isFirstRow = true;
 
             const marketText = (<p>{EventTypeName} > <span className="text-bold">{EventName}</span> > {MarketName}</p>);
-            for (let j = 0; j < TicketList.length; j++) {
-                const { BetId, Selection, Type, BetPlaced, MatchAvgOdds, MatchStake } = TicketList[j];
+            for (let j = 0; j < Details.length; j++) {
+                const { BetId, SelectionName, Type, BetPlacedDateString, OddsAvg, Stake } = Details[j];
                 rows.push(
                     <Row key={`row-${i}-${j}`}>
                         {isFirstRow && <Cell rowSpan={dataDetailCount} className="center-align">{i + 1}</Cell>}
                         {isFirstRow && <Cell rowSpan={dataDetailCount}>{marketText}</Cell>}
-                        <Cell className="center-align"><a href="javascript:;" onClick={() => this._showTicketDetail(BetId)}>{BetId}</a></Cell>
-                        <Cell className="center-align">{Selection}</Cell>
+                        <Cell className="center-align">
+                            <a href="javascript:;" onClick={() => this._showTicketDetail(BetId, Type)}>{BetId}</a>
+                        </Cell>
+                        <Cell className="center-align">{SelectionName}</Cell>
                         <Cell className={`center-align ${Type.toLowerCase() === "lay" && "negative"}`}>{Type}</Cell>
-                        <Cell className="center-align">{BetPlaced}</Cell>
-                        <Cell className="right-align">{MatchAvgOdds}</Cell>
-                        <Cell className="right-align">{MatchStake}</Cell>
-                        <Cell className="right-align">{TicketList[j].WinLost}</Cell>
+                        <Cell className="center-align">{BetPlacedDateString}</Cell>
+                        <Cell className="right-align">{OddsAvg}</Cell>
+                        <Cell className="right-align">{Stake}</Cell>
+                        <Cell className="right-align">{Details[j].WinLost}</Cell>
                         {
                             isFirstRow &&
                             <Cell rowSpan={dataDetailCount} className="right-align">
@@ -88,12 +91,12 @@ export class BetList extends Component {
         return rows;
     }
 
-    _showTicketDetail = (BetId) => {
+    _showTicketDetail = (betId, type) => {
         const { CustId, CurrencyId, BaseCurrency, ExcludeTestData } = this.props.params;
         const url = "api/ExchangeWinLossBetList/Detail";
         const params = {
             xsrfToken: this.props.xsrfToken,
-            data: { CustId, CurrencyId, BaseCurrency, ExcludeTestData, BetId }
+            data: { CustId, CurrencyId, BaseCurrency, ExcludeTestData, betId, type }
         }
 
         this.props.toggleLoader(true);
@@ -113,25 +116,25 @@ export class BetList extends Component {
     }
 
     _buildFooter() {
-        const { grandTotal } = this.props.data;
+        const { GrandTotal } = this.props.data;
 
         return [
             <Row key="betlist-footer">
                 <Cell colSpan='9' className="right-align">{LangHelper.getSingleResource("GrandTotal")}</Cell>
-                <Cell className={`right-align ${grandTotal < 0 && "negative"}`}>{grandTotal}</Cell>
+                <Cell className={`right-align ${GrandTotal < 0 && "negative"}`}>{GrandTotal}</Cell>
             </Row >
         ]
     }
 
     render() {
         const { showDetail, detailData } = this.state;
-        const { mainData } = this.props.data;
+        const { MainData } = this.props.data;
 
         return (
             <div>
                 <BetListPopupLayout title={this.props.title}>
                     {
-                        mainData && mainData.length ?
+                        MainData && MainData.length ?
                             (<Table
                                 autoWidth={false}
                                 autoHeight={false}

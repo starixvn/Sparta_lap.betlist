@@ -104,7 +104,7 @@
 
             while (reader.Read())
             {
-                var data = new ExchangeSumWinLoss
+                mainData.Add(new ExchangeSumWinLoss
                 {
                     UserId = reader.ToString("UserId"),
                     EvenId = reader.ToInt("EvenId"),
@@ -114,8 +114,7 @@
                     MarketName = reader.ToString("MarketName"),
                     WinLost = reader.ToDecimal("WinLost" + baseCurrency),
                     Commission = reader.ToDecimal("Commission" + baseCurrency)
-                };
-                mainData.Add(data);
+                });
             }
 
             return mainData;
@@ -125,21 +124,24 @@
         {
             var detailData = new List<ExchangeTicket>();
 
-            while (reader.Read())
+            if (reader.NextResult())
             {
-                var data = new ExchangeTicket
+                while (reader.Read())
                 {
-                    UserId = reader.ToString("UserId"),
-                    EvenId = reader.ToInt("EvenId"),
-                    MarketId = reader.ToString("MarketId"),
-                    BetId = reader.ToInt("BetId"),
-                    SelectionName = reader.ToString("SelectionName"),
-                    OddsAvg = reader.ToDecimal("OddsAvg"),
-                    Stake = reader.ToDecimal("Stake" + baseCurrency),
-                    Type = reader.ToString("Type"),
-                    BetPlaced = reader.ToDateTime("BetPlaced")
-                };
-                detailData.Add(data);
+                    detailData.Add(new ExchangeTicket
+                    {
+                        UserId = reader.ToString("UserId"),
+                        EvenId = reader.ToInt("EvenId"),
+                        MarketId = reader.ToString("MarketId"),
+                        BetId = reader.ToInt("BetId"),
+                        SelectionName = reader.ToString("SelectionName"),
+                        OddsAvg = reader.ToDecimal("OddsAvg"),
+                        Stake = reader.ToDecimal("Stake" + baseCurrency),
+                        Type = reader.ToString("Type"),
+                        BetPlaced = reader.ToDateTime("BetPlaced"),
+                        WinLost = reader.ToDecimal("WinLost" + baseCurrency)
+                    });
+                }
             }
 
             return detailData;
