@@ -404,7 +404,7 @@ exports.default = function () {
 
 /***/ }),
 
-/***/ 19:
+/***/ 20:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1199,7 +1199,7 @@ var _filterHandlerAction = __webpack_require__(739);
 
 var filterHandlerAction = _interopRequireWildcard(_filterHandlerAction);
 
-var _loaderAction = __webpack_require__(59);
+var _loaderAction = __webpack_require__(51);
 
 var loaderAction = _interopRequireWildcard(_loaderAction);
 
@@ -1220,15 +1220,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Cell = exports.Row = exports.Table = undefined;
 
-var _Table = __webpack_require__(60);
+var _Table = __webpack_require__(61);
 
 var _Table2 = _interopRequireDefault(_Table);
 
-var _Row = __webpack_require__(64);
+var _Row = __webpack_require__(65);
 
 var _Row2 = _interopRequireDefault(_Row);
 
-var _Cell = __webpack_require__(65);
+var _Cell = __webpack_require__(66);
 
 var _Cell2 = _interopRequireDefault(_Cell);
 
@@ -1240,7 +1240,7 @@ exports.Cell = _Cell2.default;
 
 /***/ }),
 
-/***/ 44:
+/***/ 45:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1299,7 +1299,7 @@ exports.default = NoDataTitle;
 
 /***/ }),
 
-/***/ 59:
+/***/ 51:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1325,7 +1325,7 @@ var toggleLoader = exports.toggleLoader = function toggleLoader(show) {
 
 /***/ }),
 
-/***/ 60:
+/***/ 61:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1347,7 +1347,7 @@ var _reactDom = __webpack_require__(3);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _RowLayout = __webpack_require__(61);
+var _RowLayout = __webpack_require__(62);
 
 var _RowLayout2 = _interopRequireDefault(_RowLayout);
 
@@ -1355,13 +1355,13 @@ var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _tableSection = __webpack_require__(62);
+var _tableSection = __webpack_require__(63);
 
 var _tableSection2 = _interopRequireDefault(_tableSection);
 
 var _constants = __webpack_require__(34);
 
-var _Page = __webpack_require__(63);
+var _Page = __webpack_require__(64);
 
 var _Page2 = _interopRequireDefault(_Page);
 
@@ -1651,7 +1651,7 @@ exports.default = Table;
 
 /***/ }),
 
-/***/ 61:
+/***/ 62:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1721,7 +1721,7 @@ exports.default = RowLayout;
 
 /***/ }),
 
-/***/ 62:
+/***/ 63:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1863,7 +1863,7 @@ exports.default = createTableSection;
 
 /***/ }),
 
-/***/ 63:
+/***/ 64:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2077,7 +2077,7 @@ exports.default = Page;
 
 /***/ }),
 
-/***/ 64:
+/***/ 65:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2128,7 +2128,7 @@ exports.default = Row;
 
 /***/ }),
 
-/***/ 65:
+/***/ 66:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3353,11 +3353,11 @@ var _AppContainer = __webpack_require__(736);
 
 var _AppContainer2 = _interopRequireDefault(_AppContainer);
 
-var _reactRedux = __webpack_require__(20);
+var _reactRedux = __webpack_require__(19);
 
 var _reduxLogger = __webpack_require__(92);
 
-var _redux = __webpack_require__(14);
+var _redux = __webpack_require__(13);
 
 var _reduxThunk = __webpack_require__(91);
 
@@ -3444,9 +3444,9 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(20);
+var _reactRedux = __webpack_require__(19);
 
-var _redux = __webpack_require__(14);
+var _redux = __webpack_require__(13);
 
 var _DataGrid = __webpack_require__(737);
 
@@ -3526,11 +3526,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(20);
+var _reactRedux = __webpack_require__(19);
 
 var _resultAmendment = __webpack_require__(424);
 
-var _redux = __webpack_require__(14);
+var _redux = __webpack_require__(13);
 
 var _fixedTableHeader = __webpack_require__(43);
 
@@ -3542,7 +3542,7 @@ var _ReportTitle = __webpack_require__(76);
 
 var _ReportTitle2 = _interopRequireDefault(_ReportTitle);
 
-var _NoDataTitle = __webpack_require__(44);
+var _NoDataTitle = __webpack_require__(45);
 
 var _NoDataTitle2 = _interopRequireDefault(_NoDataTitle);
 
@@ -3550,7 +3550,7 @@ var _resultAmendmentService = __webpack_require__(740);
 
 var _resultAmendmentService2 = _interopRequireDefault(_resultAmendmentService);
 
-var _site = __webpack_require__(19);
+var _site = __webpack_require__(20);
 
 var _site2 = _interopRequireDefault(_site);
 
@@ -3838,7 +3838,7 @@ var _axios = __webpack_require__(83);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _site = __webpack_require__(19);
+var _site = __webpack_require__(20);
 
 var _site2 = _interopRequireDefault(_site);
 
@@ -4036,7 +4036,7 @@ var _langHelper = __webpack_require__(8);
 
 var _langHelper2 = _interopRequireDefault(_langHelper);
 
-var _site = __webpack_require__(19);
+var _site = __webpack_require__(20);
 
 var _site2 = _interopRequireDefault(_site);
 
@@ -4204,11 +4204,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(20);
+var _reactRedux = __webpack_require__(19);
 
 var _resultAmendment = __webpack_require__(424);
 
-var _redux = __webpack_require__(14);
+var _redux = __webpack_require__(13);
 
 var _dateRange = __webpack_require__(67);
 
@@ -4216,7 +4216,7 @@ var _langHelper = __webpack_require__(8);
 
 var _langHelper2 = _interopRequireDefault(_langHelper);
 
-var _site = __webpack_require__(19);
+var _site = __webpack_require__(20);
 
 var _site2 = _interopRequireDefault(_site);
 
@@ -4391,7 +4391,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _redux = __webpack_require__(14);
+var _redux = __webpack_require__(13);
 
 var _dataHandlerReducer = __webpack_require__(744);
 

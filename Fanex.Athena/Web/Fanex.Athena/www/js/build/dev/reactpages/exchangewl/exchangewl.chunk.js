@@ -71,7 +71,7 @@ var _Select = __webpack_require__(26);
 
 var _Select2 = _interopRequireDefault(_Select);
 
-var _Async = __webpack_require__(54);
+var _Async = __webpack_require__(56);
 
 var _Async2 = _interopRequireDefault(_Async);
 
@@ -79,11 +79,11 @@ var _AsyncCreatable = __webpack_require__(112);
 
 var _AsyncCreatable2 = _interopRequireDefault(_AsyncCreatable);
 
-var _Creatable = __webpack_require__(55);
+var _Creatable = __webpack_require__(57);
 
 var _Creatable2 = _interopRequireDefault(_Creatable);
 
-var _Value = __webpack_require__(53);
+var _Value = __webpack_require__(55);
 
 var _Value2 = _interopRequireDefault(_Value);
 
@@ -590,11 +590,11 @@ var _Select = __webpack_require__(26);
 
 var _Select2 = _interopRequireDefault(_Select);
 
-var _Async = __webpack_require__(54);
+var _Async = __webpack_require__(56);
 
 var _Async2 = _interopRequireDefault(_Async);
 
-var _Creatable = __webpack_require__(55);
+var _Creatable = __webpack_require__(57);
 
 var _Creatable2 = _interopRequireDefault(_Creatable);
 
@@ -753,7 +753,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _redux = __webpack_require__(14);
+var _redux = __webpack_require__(13);
 
 var _reduxThunk = __webpack_require__(91);
 
@@ -896,6 +896,94 @@ var GET_ISALLOWED_CUSTOMERCOMM = exports.GET_ISALLOWED_CUSTOMERCOMM = 'GET_ISALL
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _report = __webpack_require__(138);
+
+var _site = __webpack_require__(20);
+
+var _site2 = _interopRequireDefault(_site);
+
+var _axios = __webpack_require__(83);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var fetchData = function fetchData(relativeUrl, params) {
+    var url = _site2.default.resolveClientUrl(relativeUrl);
+    return _axios2.default.post(url, params.data, {
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            '__RequestVerificationToken': params.xsrfToken
+        }
+    });
+};
+
+var Report = function () {
+    function Report() {
+        _classCallCheck(this, Report);
+    }
+
+    _createClass(Report, null, [{
+        key: 'getDrilldownDateRange',
+        value: function getDrilldownDateRange(reportBy, fromDate, toDate, drilldownDate) {
+            var fdate = typeof drilldownDate === "string" ? new Date(drilldownDate) : drilldownDate;
+            var tdate = fdate;
+
+            if (Number(reportBy) === _report.ReportBy.MONTHLY) {
+                var fday = 1;
+                var month = fdate.getMonth();
+                var year = fdate.getFullYear();
+                var orignalFDate = new Date(fromDate);
+
+                if (month === orignalFDate.getMonth()) {
+                    fday = orignalFDate.getDate();
+                }
+
+                fdate = new Date(year, month, fday, 0, 0, 0, 0);
+
+                var originalTDate = new Date(toDate);
+
+                if (month === originalTDate.getMonth()) {
+                    var tday = originalTDate.getDate();
+                    tdate = new Date(year, month, tday, 0, 0, 0, 0);
+                } else {
+                    tdate = new Date(year, month + 1, 0);
+                }
+            }
+
+            return {
+                fromDate: fdate,
+                toDate: tdate
+            };
+        }
+    }, {
+        key: 'fetchGridData',
+        value: function fetchGridData(relativeUrl, params, callBack, errorHandler) {
+            return fetchData(relativeUrl, params);
+        }
+    }]);
+
+    return Report;
+}();
+
+exports.default = Report;
+
+/***/ }),
+
+/***/ 138:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 var ReportLevel = exports.ReportLevel = {
     MAIN: 0,
     LICENSEE: 1,
@@ -906,6 +994,97 @@ var ReportBy = exports.ReportBy = {
     DAILY: 1,
     MONTHLY: 2
 };
+
+/***/ }),
+
+/***/ 139:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.Service = exports.BreadcrumbText = exports.TotalText = exports.HeaderText = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _langHelper = __webpack_require__(8);
+
+var _langHelper2 = _interopRequireDefault(_langHelper);
+
+var _site = __webpack_require__(20);
+
+var _site2 = _interopRequireDefault(_site);
+
+var _report = __webpack_require__(137);
+
+var _report2 = _interopRequireDefault(_report);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var HeaderText = exports.HeaderText = {
+    index: _langHelper2.default.getSingleResource('#'),
+    date: _langHelper2.default.getSingleResource('Date'),
+    month: _langHelper2.default.getSingleResource('Month'),
+    externalId: _langHelper2.default.getSingleResource('ExternalId'),
+    systemId: _langHelper2.default.getSingleResource('SystemId'),
+    currency: _langHelper2.default.getSingleResource('Currency'),
+    turnover: _langHelper2.default.getSingleResource('Turnover'),
+    netTurnover: _langHelper2.default.getSingleResource('NetTurnover'),
+    totalTransaction: _langHelper2.default.getSingleResource('TotalTransaction'),
+    customer: _langHelper2.default.getSingleResource('Customer'),
+    customerWL: _langHelper2.default.getSingleResource('CustomerW_L'),
+    customerComm: _langHelper2.default.getSingleResource('CustomerComm'),
+    total: _langHelper2.default.getSingleResource('Total'),
+    licensee: _langHelper2.default.getSingleResource('Licensee'),
+    licenseeWL: _langHelper2.default.getSingleResource('LicenseeW_L'),
+    amountDueTo: _langHelper2.default.getSingleResource('AmountDueTo'),
+    licenseeComm: _langHelper2.default.getSingleResource('LicenseeComm')
+};
+
+var TotalText = exports.TotalText = {
+    total: _langHelper2.default.getSingleResource('Total'),
+    totalIn: _langHelper2.default.getSingleResource('Totalin')
+};
+
+var BreadcrumbText = exports.BreadcrumbText = {
+    main: _langHelper2.default.getSingleResource('Main'),
+    licensee: _langHelper2.default.getSingleResource('Licensee'),
+    customer: _langHelper2.default.getSingleResource('Customer')
+};
+
+var Service = exports.Service = function () {
+    function Service() {
+        _classCallCheck(this, Service);
+    }
+
+    _createClass(Service, null, [{
+        key: 'getReportTitle',
+        value: function getReportTitle(dateRange, selectedCurrency, allCurrencies) {
+            var fromDate = _site2.default.convertDateToString(dateRange.fromDate);
+            var toDate = _site2.default.convertDateToString(dateRange.toDate);
+            var viewInByCurrency = allCurrencies ? _langHelper2.default.getSingleResource('AllCurrencies') : '' + _langHelper2.default.getSingleResource('Viewin').replace('{0}', selectedCurrency);
+
+            return _langHelper2.default.getSingleResource('ExchangeWinLoss') + ', ' + fromDate + ' - ' + toDate + ' - ' + viewInByCurrency;
+        }
+    }, {
+        key: 'showErrorMsg',
+        value: function showErrorMsg() {
+            alert(_langHelper2.default.getSingleResource('ErrorProcessingMsg'));
+        }
+    }, {
+        key: 'getDrilldownDateRange',
+        value: function getDrilldownDateRange(reportBy, fromDate, toDate, drilldownDate) {
+            return _report2.default.getDrilldownDateRange(reportBy, fromDate, toDate, drilldownDate);
+        }
+    }]);
+
+    return Service;
+}();
 
 /***/ }),
 
@@ -1208,7 +1387,59 @@ exports.default = function () {
 
 /***/ }),
 
-/***/ 19:
+/***/ 196:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.setSelectedCurrency = undefined;
+
+var _types = __webpack_require__(9);
+
+var types = _interopRequireWildcard(_types);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var setSelectedCurrency = exports.setSelectedCurrency = function setSelectedCurrency(item) {
+    return {
+        type: types.SET_SELECTED_CURRENCY,
+        data: item
+    };
+};
+
+/***/ }),
+
+/***/ 197:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.changeIsExcludeTest = undefined;
+
+var _types = __webpack_require__(9);
+
+var types = _interopRequireWildcard(_types);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var changeIsExcludeTest = exports.changeIsExcludeTest = function changeIsExcludeTest(checked) {
+    return {
+        type: types.CHANGE_IS_EXCLUDE_TEST,
+        data: checked
+    };
+};
+
+/***/ }),
+
+/***/ 20:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1260,59 +1491,7 @@ exports.default = Site;
 
 /***/ }),
 
-/***/ 194:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.setSelectedCurrency = undefined;
-
-var _types = __webpack_require__(9);
-
-var types = _interopRequireWildcard(_types);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-var setSelectedCurrency = exports.setSelectedCurrency = function setSelectedCurrency(item) {
-    return {
-        type: types.SET_SELECTED_CURRENCY,
-        data: item
-    };
-};
-
-/***/ }),
-
-/***/ 195:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.changeIsExcludeTest = undefined;
-
-var _types = __webpack_require__(9);
-
-var types = _interopRequireWildcard(_types);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-var changeIsExcludeTest = exports.changeIsExcludeTest = function changeIsExcludeTest(checked) {
-    return {
-        type: types.CHANGE_IS_EXCLUDE_TEST,
-        data: checked
-    };
-};
-
-/***/ }),
-
-/***/ 198:
+/***/ 200:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1332,7 +1511,7 @@ var _reactDom = __webpack_require__(3);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _constants = __webpack_require__(199);
+var _constants = __webpack_require__(201);
 
 var _propTypes = __webpack_require__(2);
 
@@ -1426,7 +1605,7 @@ exports.default = Popup;
 
 /***/ }),
 
-/***/ 199:
+/***/ 201:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1440,7 +1619,7 @@ var DEFAULT_HEIGHT = exports.DEFAULT_HEIGHT = '55%';
 
 /***/ }),
 
-/***/ 200:
+/***/ 202:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1475,7 +1654,7 @@ var currencyList = exports.currencyList = (0, _createReducer4.default)({}, _defi
 
 /***/ }),
 
-/***/ 201:
+/***/ 203:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1506,7 +1685,7 @@ var isExcludeTest = exports.isExcludeTest = (0, _createReducer3.default)({}, _de
 
 /***/ }),
 
-/***/ 202:
+/***/ 204:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1525,15 +1704,15 @@ var _filterHandlerAction = __webpack_require__(763);
 
 var filterHandlerAction = _interopRequireWildcard(_filterHandlerAction);
 
-var _currencyAction = __webpack_require__(194);
+var _currencyAction = __webpack_require__(196);
 
 var currencyAction = _interopRequireWildcard(_currencyAction);
 
-var _loaderAction = __webpack_require__(59);
+var _loaderAction = __webpack_require__(51);
 
 var loaderAction = _interopRequireWildcard(_loaderAction);
 
-var _excludeTestAction = __webpack_require__(195);
+var _excludeTestAction = __webpack_require__(197);
 
 var excludeTestAction = _interopRequireWildcard(_excludeTestAction);
 
@@ -1544,185 +1723,6 @@ var dateRangeAction = _interopRequireWildcard(_dateRangeAction);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 var ActionCreators = exports.ActionCreators = Object.assign({}, dataHandlerAction, filterHandlerAction, currencyAction, loaderAction, excludeTestAction, dateRangeAction);
-
-/***/ }),
-
-/***/ 203:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _report = __webpack_require__(137);
-
-var _site = __webpack_require__(19);
-
-var _site2 = _interopRequireDefault(_site);
-
-var _axios = __webpack_require__(83);
-
-var _axios2 = _interopRequireDefault(_axios);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var fetchData = function fetchData(relativeUrl, params) {
-    var url = _site2.default.resolveClientUrl(relativeUrl);
-    return _axios2.default.post(url, params.data, {
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-            '__RequestVerificationToken': params.xsrfToken
-        }
-    });
-};
-
-var Report = function () {
-    function Report() {
-        _classCallCheck(this, Report);
-    }
-
-    _createClass(Report, null, [{
-        key: 'getDrilldownDateRange',
-        value: function getDrilldownDateRange(reportBy, fromDate, toDate, drilldownDate) {
-            var fdate = typeof drilldownDate === "string" ? new Date(drilldownDate) : drilldownDate;
-            var tdate = fdate;
-
-            if (Number(reportBy) === _report.ReportBy.MONTHLY) {
-                var fday = 1;
-                var month = fdate.getMonth();
-                var year = fdate.getFullYear();
-                var orignalFDate = new Date(fromDate);
-
-                if (month === orignalFDate.getMonth()) {
-                    fday = orignalFDate.getDate();
-                }
-
-                fdate = new Date(year, month, fday, 0, 0, 0, 0);
-
-                var originalTDate = new Date(toDate);
-
-                if (month === originalTDate.getMonth()) {
-                    var tday = originalTDate.getDate();
-                    tdate = new Date(year, month, tday, 0, 0, 0, 0);
-                } else {
-                    tdate = new Date(year, month + 1, 0);
-                }
-            }
-
-            return {
-                fromDate: fdate,
-                toDate: tdate
-            };
-        }
-    }, {
-        key: 'fetchGridData',
-        value: function fetchGridData(relativeUrl, params, callBack, errorHandler) {
-            return fetchData(relativeUrl, params);
-        }
-    }]);
-
-    return Report;
-}();
-
-exports.default = Report;
-
-/***/ }),
-
-/***/ 204:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.Service = exports.BreadcrumbText = exports.TotalText = exports.HeaderText = undefined;
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _langHelper = __webpack_require__(8);
-
-var _langHelper2 = _interopRequireDefault(_langHelper);
-
-var _site = __webpack_require__(19);
-
-var _site2 = _interopRequireDefault(_site);
-
-var _report = __webpack_require__(203);
-
-var _report2 = _interopRequireDefault(_report);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var HeaderText = exports.HeaderText = {
-    index: _langHelper2.default.getSingleResource('#'),
-    date: _langHelper2.default.getSingleResource('Date'),
-    month: _langHelper2.default.getSingleResource('Month'),
-    externalId: _langHelper2.default.getSingleResource('ExternalId'),
-    systemId: _langHelper2.default.getSingleResource('SystemId'),
-    currency: _langHelper2.default.getSingleResource('Currency'),
-    turnover: _langHelper2.default.getSingleResource('Turnover'),
-    netTurnover: _langHelper2.default.getSingleResource('NetTurnover'),
-    totalTransaction: _langHelper2.default.getSingleResource('TotalTransaction'),
-    customer: _langHelper2.default.getSingleResource('Customer'),
-    customerWL: _langHelper2.default.getSingleResource('CustomerW_L'),
-    customerComm: _langHelper2.default.getSingleResource('CustomerComm'),
-    total: _langHelper2.default.getSingleResource('Total'),
-    licensee: _langHelper2.default.getSingleResource('Licensee'),
-    licenseeWL: _langHelper2.default.getSingleResource('LicenseeW_L'),
-    amountDueTo: _langHelper2.default.getSingleResource('AmountDueTo'),
-    licenseeComm: _langHelper2.default.getSingleResource('LicenseeComm')
-};
-
-var TotalText = exports.TotalText = {
-    total: _langHelper2.default.getSingleResource('Total'),
-    totalIn: _langHelper2.default.getSingleResource('Totalin')
-};
-
-var BreadcrumbText = exports.BreadcrumbText = {
-    main: _langHelper2.default.getSingleResource('Main'),
-    licensee: _langHelper2.default.getSingleResource('Licensee'),
-    customer: _langHelper2.default.getSingleResource('Customer')
-};
-
-var Service = exports.Service = function () {
-    function Service() {
-        _classCallCheck(this, Service);
-    }
-
-    _createClass(Service, null, [{
-        key: 'getReportTitle',
-        value: function getReportTitle(dateRange, selectedCurrency, allCurrencies) {
-            var fromDate = _site2.default.convertDateToString(dateRange.fromDate);
-            var toDate = _site2.default.convertDateToString(dateRange.toDate);
-            var viewInByCurrency = allCurrencies ? _langHelper2.default.getSingleResource('AllCurrencies') : '' + _langHelper2.default.getSingleResource('Viewin').replace('{0}', selectedCurrency);
-
-            return _langHelper2.default.getSingleResource('ExchangeWinLoss') + ', ' + fromDate + ' - ' + toDate + ' - ' + viewInByCurrency;
-        }
-    }, {
-        key: 'showErrorMsg',
-        value: function showErrorMsg() {
-            alert(_langHelper2.default.getSingleResource('ErrorProcessingMsg'));
-        }
-    }, {
-        key: 'getDrilldownDateRange',
-        value: function getDrilldownDateRange(reportBy, fromDate, toDate, drilldownDate) {
-            return _report2.default.getDrilldownDateRange(reportBy, fromDate, toDate, drilldownDate);
-        }
-    }]);
-
-    return Service;
-}();
 
 /***/ }),
 
@@ -1817,11 +1817,11 @@ var _defaultArrowRenderer = __webpack_require__(109);
 
 var _defaultArrowRenderer2 = _interopRequireDefault(_defaultArrowRenderer);
 
-var _defaultFilterOptions = __webpack_require__(50);
+var _defaultFilterOptions = __webpack_require__(52);
 
 var _defaultFilterOptions2 = _interopRequireDefault(_defaultFilterOptions);
 
-var _defaultMenuRenderer = __webpack_require__(52);
+var _defaultMenuRenderer = __webpack_require__(54);
 
 var _defaultMenuRenderer2 = _interopRequireDefault(_defaultMenuRenderer);
 
@@ -1833,7 +1833,7 @@ var _Option = __webpack_require__(111);
 
 var _Option2 = _interopRequireDefault(_Option);
 
-var _Value = __webpack_require__(53);
+var _Value = __webpack_require__(55);
 
 var _Value2 = _interopRequireDefault(_Value);
 
@@ -3784,7 +3784,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Popup = __webpack_require__(198);
+var _Popup = __webpack_require__(200);
 
 var _Popup2 = _interopRequireDefault(_Popup);
 
@@ -3805,15 +3805,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Cell = exports.Row = exports.Table = undefined;
 
-var _Table = __webpack_require__(60);
+var _Table = __webpack_require__(61);
 
 var _Table2 = _interopRequireDefault(_Table);
 
-var _Row = __webpack_require__(64);
+var _Row = __webpack_require__(65);
 
 var _Row2 = _interopRequireDefault(_Row);
 
-var _Cell = __webpack_require__(65);
+var _Cell = __webpack_require__(66);
 
 var _Cell2 = _interopRequireDefault(_Cell);
 
@@ -3826,6 +3826,61 @@ exports.Cell = _Cell2.default;
 /***/ }),
 
 /***/ 44:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var NumberFormat = function () {
+    function NumberFormat() {
+        _classCallCheck(this, NumberFormat);
+    }
+
+    _createClass(NumberFormat, null, [{
+        key: "formatDecimal",
+        value: function formatDecimal(value) {
+            return this.format(value, 2);
+        }
+    }, {
+        key: "format",
+        value: function format(value) {
+            var digits = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+
+            if (typeof value !== "number" || isNaN(value)) {
+                return "";
+            }
+
+            var roundedValue = this.round(value, digits);
+
+            return roundedValue.toFixed(digits).replace(/(\d)(?=(\d{3})+(\.|$))/g, "$1,");
+        }
+    }, {
+        key: "round",
+        value: function round(value, digits) {
+            var sign = value < 0 ? -1 : 1;
+            var absoluteValue = Math.abs(value);
+            var rounded = Number(Math.round(absoluteValue + 'e' + digits) + 'e-' + digits);
+
+            return sign * rounded;
+        }
+    }]);
+
+    return NumberFormat;
+}();
+
+exports.default = NumberFormat;
+
+/***/ }),
+
+/***/ 45:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3884,7 +3939,33 @@ exports.default = NoDataTitle;
 
 /***/ }),
 
-/***/ 50:
+/***/ 51:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.toggleLoader = undefined;
+
+var _types = __webpack_require__(9);
+
+var types = _interopRequireWildcard(_types);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var toggleLoader = exports.toggleLoader = function toggleLoader(show) {
+    return {
+        type: types.TOGGLE_LOADER,
+        data: show
+    };
+};
+
+/***/ }),
+
+/***/ 52:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3894,7 +3975,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _stripDiacritics = __webpack_require__(51);
+var _stripDiacritics = __webpack_require__(53);
 
 var _stripDiacritics2 = _interopRequireDefault(_stripDiacritics);
 
@@ -3937,7 +4018,7 @@ exports.default = filterOptions;
 
 /***/ }),
 
-/***/ 51:
+/***/ 53:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3958,7 +4039,7 @@ function stripDiacritics(str) {
 
 /***/ }),
 
-/***/ 52:
+/***/ 54:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4030,7 +4111,7 @@ exports.default = menuRenderer;
 
 /***/ }),
 
-/***/ 53:
+/***/ 55:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4184,7 +4265,7 @@ exports.default = Value;
 
 /***/ }),
 
-/***/ 54:
+/***/ 56:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4210,7 +4291,7 @@ var _Select = __webpack_require__(26);
 
 var _Select2 = _interopRequireDefault(_Select);
 
-var _stripDiacritics = __webpack_require__(51);
+var _stripDiacritics = __webpack_require__(53);
 
 var _stripDiacritics2 = _interopRequireDefault(_stripDiacritics);
 
@@ -4454,7 +4535,7 @@ function defaultChildren(props) {
 
 /***/ }),
 
-/***/ 55:
+/***/ 57:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4480,11 +4561,11 @@ var _Select = __webpack_require__(26);
 
 var _Select2 = _interopRequireDefault(_Select);
 
-var _defaultFilterOptions = __webpack_require__(50);
+var _defaultFilterOptions = __webpack_require__(52);
 
 var _defaultFilterOptions2 = _interopRequireDefault(_defaultFilterOptions);
 
-var _defaultMenuRenderer = __webpack_require__(52);
+var _defaultMenuRenderer = __webpack_require__(54);
 
 var _defaultMenuRenderer2 = _interopRequireDefault(_defaultMenuRenderer);
 
@@ -4827,33 +4908,7 @@ exports.default = CreatableSelect;
 
 /***/ }),
 
-/***/ 59:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.toggleLoader = undefined;
-
-var _types = __webpack_require__(9);
-
-var types = _interopRequireWildcard(_types);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-var toggleLoader = exports.toggleLoader = function toggleLoader(show) {
-    return {
-        type: types.TOGGLE_LOADER,
-        data: show
-    };
-};
-
-/***/ }),
-
-/***/ 60:
+/***/ 61:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4875,7 +4930,7 @@ var _reactDom = __webpack_require__(3);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _RowLayout = __webpack_require__(61);
+var _RowLayout = __webpack_require__(62);
 
 var _RowLayout2 = _interopRequireDefault(_RowLayout);
 
@@ -4883,13 +4938,13 @@ var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _tableSection = __webpack_require__(62);
+var _tableSection = __webpack_require__(63);
 
 var _tableSection2 = _interopRequireDefault(_tableSection);
 
 var _constants = __webpack_require__(34);
 
-var _Page = __webpack_require__(63);
+var _Page = __webpack_require__(64);
 
 var _Page2 = _interopRequireDefault(_Page);
 
@@ -5179,7 +5234,7 @@ exports.default = Table;
 
 /***/ }),
 
-/***/ 61:
+/***/ 62:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5249,7 +5304,7 @@ exports.default = RowLayout;
 
 /***/ }),
 
-/***/ 62:
+/***/ 63:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5391,7 +5446,7 @@ exports.default = createTableSection;
 
 /***/ }),
 
-/***/ 63:
+/***/ 64:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5605,7 +5660,7 @@ exports.default = Page;
 
 /***/ }),
 
-/***/ 64:
+/***/ 65:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5656,7 +5711,7 @@ exports.default = Row;
 
 /***/ }),
 
-/***/ 65:
+/***/ 66:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5725,61 +5780,6 @@ Cell.defaultProps = {
     header: false
 };
 exports.default = Cell;
-
-/***/ }),
-
-/***/ 66:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var NumberFormat = function () {
-    function NumberFormat() {
-        _classCallCheck(this, NumberFormat);
-    }
-
-    _createClass(NumberFormat, null, [{
-        key: "formatDecimal",
-        value: function formatDecimal(value) {
-            return this.format(value, 2);
-        }
-    }, {
-        key: "format",
-        value: function format(value) {
-            var digits = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-
-            if (typeof value !== "number" || isNaN(value)) {
-                return "";
-            }
-
-            var roundedValue = this.round(value, digits);
-
-            return roundedValue.toFixed(digits).replace(/(\d)(?=(\d{3})+(\.|$))/g, "$1,");
-        }
-    }, {
-        key: "round",
-        value: function round(value, digits) {
-            var sign = value < 0 ? -1 : 1;
-            var absoluteValue = Math.abs(value);
-            var rounded = Number(Math.round(absoluteValue + 'e' + digits) + 'e-' + digits);
-
-            return sign * rounded;
-        }
-    }]);
-
-    return NumberFormat;
-}();
-
-exports.default = NumberFormat;
 
 /***/ }),
 
@@ -7116,7 +7116,7 @@ var _AppContainer = __webpack_require__(761);
 
 var _AppContainer2 = _interopRequireDefault(_AppContainer);
 
-var _reactRedux = __webpack_require__(20);
+var _reactRedux = __webpack_require__(19);
 
 var _index = __webpack_require__(775);
 
@@ -7184,11 +7184,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(20);
+var _reactRedux = __webpack_require__(19);
 
-var _redux = __webpack_require__(14);
+var _redux = __webpack_require__(13);
 
-var _index = __webpack_require__(202);
+var _index = __webpack_require__(204);
 
 var _Datagrid = __webpack_require__(765);
 
@@ -7268,7 +7268,7 @@ var _types = __webpack_require__(136);
 
 var types = _interopRequireWildcard(_types);
 
-var _report = __webpack_require__(203);
+var _report = __webpack_require__(137);
 
 var _report2 = _interopRequireDefault(_report);
 
@@ -7389,15 +7389,15 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(20);
+var _reactRedux = __webpack_require__(19);
 
-var _index = __webpack_require__(202);
+var _index = __webpack_require__(204);
 
-var _redux = __webpack_require__(14);
+var _redux = __webpack_require__(13);
 
 var _fixedTableHeader = __webpack_require__(43);
 
-var _numberFormat = __webpack_require__(66);
+var _numberFormat = __webpack_require__(44);
 
 var _numberFormat2 = _interopRequireDefault(_numberFormat);
 
@@ -7405,13 +7405,13 @@ var _ReportTitle = __webpack_require__(76);
 
 var _ReportTitle2 = _interopRequireDefault(_ReportTitle);
 
-var _service = __webpack_require__(204);
+var _service = __webpack_require__(139);
 
-var _report = __webpack_require__(137);
+var _report = __webpack_require__(138);
 
 var _licensee = __webpack_require__(766);
 
-var _NoDataTitle = __webpack_require__(44);
+var _NoDataTitle = __webpack_require__(45);
 
 var _NoDataTitle2 = _interopRequireDefault(_NoDataTitle);
 
@@ -7423,7 +7423,7 @@ var _Breadcrumb = __webpack_require__(767);
 
 var _Breadcrumb2 = _interopRequireDefault(_Breadcrumb);
 
-var _site = __webpack_require__(19);
+var _site = __webpack_require__(20);
 
 var _site2 = _interopRequireDefault(_site);
 
@@ -7435,9 +7435,13 @@ var _popup = __webpack_require__(425);
 
 var _popup2 = _interopRequireDefault(_popup);
 
-var _report2 = __webpack_require__(203);
+var _report2 = __webpack_require__(137);
 
 var _report3 = _interopRequireDefault(_report2);
+
+var _langHelper = __webpack_require__(8);
+
+var _langHelper2 = _interopRequireDefault(_langHelper);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -7447,53 +7451,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var FakeBetListData = [{
-    Market: "CRICKET > Ireland A vs Bangladesh A > Match Odds",
-    WinLoss: 15,
-    WlComm: -0.45,
-    LicWl: -9,
-    LicWlComm: 0.15,
-    Details: [{
-        BetId: 43154,
-        Selection: "Bangladesh A",
-        Type: "Back",
-        BetPlaced: "10/25/2017 01:05:46",
-        OddAvg: 1.5,
-        Stake: 30,
-        WinLoss: 15
-    }]
-}, {
-    Market: "CRICKET > Zimbabwe vs West Indies > Match Odds",
-    WinLoss: 30,
-    WlComm: 0,
-    LicWl: 42,
-    LicWlComm: 0,
-    Details: [{
-        BetId: 43116,
-        Selection: "Zimbabwe",
-        Type: "Lay",
-        BetPlaced: "10/24/2017 05:45:14",
-        OddAvg: 7,
-        Stake: 30,
-        WinLoss: 30
-    }, {
-        BetId: 43112,
-        Selection: "Zimbabwe",
-        Type: "Back",
-        BetPlaced: "10/24/2017 05:45:14",
-        OddAvg: 9.8,
-        Stake: 50,
-        WinLoss: -50
-    }, {
-        BetId: 43118,
-        Selection: "Zimbabwe",
-        Type: "Back",
-        BetPlaced: "10/24/2017 05:45:14",
-        OddAvg: 7.8,
-        Stake: 50,
-        WinLoss: -50
-    }]
-}];
+var CUSTOMER_BETLIST_TEXT = _langHelper2.default.getSingleResource("Customer") + ' ' + _langHelper2.default.getSingleResource("BetList");
 
 var DataGrid = exports.DataGrid = function (_Component) {
     _inherits(DataGrid, _Component);
@@ -7503,22 +7461,50 @@ var DataGrid = exports.DataGrid = function (_Component) {
 
         var _this = _possibleConstructorReturn(this, (DataGrid.__proto__ || Object.getPrototypeOf(DataGrid)).call(this, props));
 
-        _this.showBetListPopup = function () {
+        _this.showBetListPopup = function (externalId, systemId, custId) {
+            var _this$drillDownParams = _this.drillDownParams[_report.ReportLevel.CUSTOMER],
+                CurrencyId = _this$drillDownParams.CurrencyId,
+                BaseCurrency = _this$drillDownParams.BaseCurrency,
+                FromDate = _this$drillDownParams.FromDate,
+                ToDate = _this$drillDownParams.ToDate,
+                CurrencyName = _this$drillDownParams.CurrencyName,
+                ExcludeTestData = _this$drillDownParams.ExcludeTestData;
+
             var url = "api/ExchangeWinLossBetList/Index";
+            _this.betlistParams = { CustId: custId, CurrencyId: CurrencyId, BaseCurrency: BaseCurrency, FromDate: FromDate, ToDate: ToDate, ExcludeTestData: ExcludeTestData };
+
             var params = {
                 xsrfToken: _this.props.xsrfToken,
-                data: {}
+                data: _this.betlistParams
             };
+
+            _this.betlistTitle = _react2.default.createElement(
+                'p',
+                null,
+                CUSTOMER_BETLIST_TEXT,
+                " ",
+                FromDate,
+                ' \u2192 ',
+                ToDate,
+                ' - ',
+                externalId,
+                '(',
+                systemId,
+                ') -',
+                " ",
+                _react2.default.createElement(
+                    'span',
+                    { className: 'base-currency-title' },
+                    _langHelper2.default.getSingleResource("Viewin").replace("{0}", CurrencyName)
+                )
+            );
 
             _this.props.toggleLoader(true);
             _report3.default.fetchGridData(url, params).then(function (response) {
-                var _response$data = response.data,
-                    MainData = _response$data.MainData,
-                    GrandTotal = _response$data.GrandTotal;
-
+                console.log(response.data);
                 _this.setState({
                     showBetList: true,
-                    betListData: { mainData: MainData, grandTotal: GrandTotal }
+                    betListData: response.data
                 });
                 _this.props.toggleLoader(false);
             }).catch(function (error) {
@@ -7537,13 +7523,12 @@ var DataGrid = exports.DataGrid = function (_Component) {
 
         _this.levelGridData = [];
         _this.drillDownParams = [];
+        _this.betlistTitle = null;
+        _this.betlistParams = {};
 
         _this.state = {
             showBetList: false,
-            betListData: {
-                mainData: null,
-                grandTotal: 0
-            }
+            betListData: {}
         };
         return _this;
     }
@@ -7652,15 +7637,6 @@ var DataGrid = exports.DataGrid = function (_Component) {
                 { onClick: function onClick() {
                         return _this3._drillDownData(level, date, currencyId, currencyName, custId);
                     }, href: 'javascript:;' },
-                text
-            );
-        }
-    }, {
-        key: '_renderBetListLink',
-        value: function _renderBetListLink(text) {
-            return _react2.default.createElement(
-                'a',
-                { href: 'javascript:;', onClick: this.showBetListPopup },
                 text
             );
         }
@@ -7822,12 +7798,12 @@ var DataGrid = exports.DataGrid = function (_Component) {
                     level === _report.ReportLevel.CUSTOMER && _react2.default.createElement(
                         _fixedTableHeader.Cell,
                         { title: item.ExternalId, className: 'left-align' },
-                        this._renderBetListLink(item.ExternalId)
+                        this._renderBetListLink(item.ExternalId, item.ExternalId, item.SystemId, item.CustId)
                     ),
                     level !== _report.ReportLevel.MAIN && _react2.default.createElement(
                         _fixedTableHeader.Cell,
                         { title: item.SystemId, className: 'left-align' },
-                        level === _report.ReportLevel.LICENSEE ? this._renderDrillDownLink(item.SystemId, _report.ReportLevel.CUSTOMER, item.Date, item.CurrencyId, item.CurrencyName, item.CustId) : this._renderBetListLink(item.SystemId)
+                        level === _report.ReportLevel.LICENSEE ? this._renderDrillDownLink(item.SystemId, _report.ReportLevel.CUSTOMER, item.Date, item.CurrencyId, item.CurrencyName, item.CustId) : this._renderBetListLink(item.SystemId, item.ExternalId, item.SystemId, item.CustId)
                     ),
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
@@ -7987,6 +7963,19 @@ var DataGrid = exports.DataGrid = function (_Component) {
             );
         }
     }, {
+        key: '_renderBetListLink',
+        value: function _renderBetListLink(text, externalId, systemId, custId) {
+            var _this5 = this;
+
+            return _react2.default.createElement(
+                'a',
+                { href: 'javascript:;', onClick: function onClick() {
+                        return _this5.showBetListPopup(externalId, systemId, custId);
+                    } },
+                text
+            );
+        }
+    }, {
         key: 'render',
         value: function render() {
             var gridData = this.props.gridData;
@@ -8019,10 +8008,10 @@ var DataGrid = exports.DataGrid = function (_Component) {
                     body: this._buildBody(reportLevel, reportBy),
                     footer: this._buildFooter(reportLevel)
                 }),
-                reportLevel === _report.ReportLevel.CUSTOMER && showBetList && betListData && _react2.default.createElement(
+                reportLevel === _report.ReportLevel.CUSTOMER && showBetList && _react2.default.createElement(
                     _popup2.default,
-                    { isShow: showBetList, title: "CUSTOMER BET LIST", width: 900, height: 600, onClose: this.closeBetListPopup },
-                    _react2.default.createElement(_BetList2.default, { data: betListData })
+                    { isShow: showBetList, title: CUSTOMER_BETLIST_TEXT, width: 900, height: 600, onClose: this.closeBetListPopup },
+                    _react2.default.createElement(_BetList2.default, { data: betListData, title: this.betlistTitle, params: this.betlistParams })
                 )
             );
         }
@@ -8246,12 +8235,17 @@ exports.default = BreadcrumbItem;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.BetList = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(19);
+
+var _redux = __webpack_require__(13);
 
 var _propTypes = __webpack_require__(2);
 
@@ -8261,7 +8255,7 @@ var _BetListPopupLayout = __webpack_require__(770);
 
 var _BetListPopupLayout2 = _interopRequireDefault(_BetListPopupLayout);
 
-var _NoDataTitle = __webpack_require__(44);
+var _NoDataTitle = __webpack_require__(45);
 
 var _NoDataTitle2 = _interopRequireDefault(_NoDataTitle);
 
@@ -8275,6 +8269,22 @@ var _BetListDetail = __webpack_require__(771);
 
 var _BetListDetail2 = _interopRequireDefault(_BetListDetail);
 
+var _report = __webpack_require__(137);
+
+var _report2 = _interopRequireDefault(_report);
+
+var _service = __webpack_require__(139);
+
+var _loaderAction = __webpack_require__(51);
+
+var _langHelper = __webpack_require__(8);
+
+var _langHelper2 = _interopRequireDefault(_langHelper);
+
+var _numberFormat = __webpack_require__(44);
+
+var _numberFormat2 = _interopRequireDefault(_numberFormat);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -8283,15 +8293,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var FakeDetailData = [{
-    BetTaken: "10/23/2017 10:55:15",
-    OddsReq: 6.80,
-    Stake: 50.00,
-    Liability: "-",
-    OddsMacthed: 7.80
-}];
-
-var BetList = function (_Component) {
+var BetList = exports.BetList = function (_Component) {
     _inherits(BetList, _Component);
 
     function BetList(props) {
@@ -8299,12 +8301,31 @@ var BetList = function (_Component) {
 
         var _this = _possibleConstructorReturn(this, (BetList.__proto__ || Object.getPrototypeOf(BetList)).call(this, props));
 
-        _this._showTicketDetail = function () {
-            _this.setState({ showDetail: true, detailData: FakeDetailData });
+        _this._showTicketDetail = function (betId, type) {
+            var _this$props$params = _this.props.params,
+                CustId = _this$props$params.CustId,
+                CurrencyId = _this$props$params.CurrencyId,
+                BaseCurrency = _this$props$params.BaseCurrency,
+                ExcludeTestData = _this$props$params.ExcludeTestData;
+
+            var url = "api/ExchangeWinLossBetList/Detail";
+            var params = {
+                xsrfToken: _this.props.xsrfToken,
+                data: { CustId: CustId, CurrencyId: CurrencyId, BaseCurrency: BaseCurrency, ExcludeTestData: ExcludeTestData, betId: betId, type: type }
+            };
+
+            _this.props.toggleLoader(true);
+            _report2.default.fetchGridData(url, params).then(function (response) {
+                _this.setState({ showDetail: true, detailData: response.data });
+                _this.props.toggleLoader(false);
+            }).catch(function (error) {
+                _service.Service.showErrorMsg();
+                _this.props.toggleLoader(false);
+            });
         };
 
         _this.closeDetailPopup = function () {
-            _this.setState({ showDetail: false, detailData: [] });
+            _this.setState({ showDetail: false, detailData: null });
         };
 
         _this.state = {
@@ -8328,66 +8349,71 @@ var BetList = function (_Component) {
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
                     { colWidth: 300, header: true },
-                    "Market"
+                    _langHelper2.default.getSingleResource("Market")
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
                     { colWidth: 70, header: true },
-                    "Bet ID"
+                    _langHelper2.default.getSingleResource("BetId")
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
                     { colWidth: 120, header: true },
-                    "Selection"
+                    _langHelper2.default.getSingleResource("Selection")
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
                     { colWidth: 50, header: true },
-                    "Type"
+                    _langHelper2.default.getSingleResource("Type")
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
                     { colWidth: 100, header: true },
-                    "Bet Placed"
+                    _langHelper2.default.getSingleResource("BetPlaced")
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
                     { colWidth: 60, header: true },
-                    "Odds avg."
+                    _langHelper2.default.getSingleResource("OddsAvg")
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
                     { colWidth: 80, header: true },
-                    "Stake"
+                    _langHelper2.default.getSingleResource("Stake")
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
                     { colWidth: 80, header: true },
-                    "Winloss"
+                    _langHelper2.default.getSingleResource("Winloss")
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
                     { colWidth: 100, header: true },
-                    "WL /Comm"
+                    _langHelper2.default.getSingleResource("WL"),
+                    '/',
+                    _langHelper2.default.getSingleResource("Comm")
                 )
             );
         }
     }, {
         key: '_buildBody',
         value: function _buildBody() {
-            var mainData = this.props.data.mainData;
+            var _this2 = this;
+
+            var MainData = this.props.data.MainData;
 
             var rows = [];
-            for (var i = 0; i < mainData.length; i++) {
-                var _mainData$i = mainData[i],
-                    MarketName = _mainData$i.MarketName,
-                    EventTypeName = _mainData$i.EventTypeName,
-                    EventName = _mainData$i.EventName,
-                    WinLost = _mainData$i.WinLost,
-                    Commission = _mainData$i.Commission,
-                    TicketList = _mainData$i.TicketList;
+            for (var i = 0; i < MainData.length; i++) {
+                var _MainData$i = MainData[i],
+                    Ticket = _MainData$i.Ticket,
+                    Details = _MainData$i.Details;
+                var MarketName = Ticket.MarketName,
+                    EventTypeName = Ticket.EventTypeName,
+                    EventName = Ticket.EventName,
+                    WinLost = Ticket.WinLost,
+                    Commission = Ticket.Commission;
 
-                var dataDetailCount = TicketList.length;
+                var dataDetailCount = Details.length;
                 var isFirstRow = true;
 
                 var marketText = _react2.default.createElement(
@@ -8403,14 +8429,15 @@ var BetList = function (_Component) {
                     ' > ',
                     MarketName
                 );
-                for (var j = 0; j < TicketList.length; j++) {
-                    var _TicketList$j = TicketList[j],
-                        BetId = _TicketList$j.BetId,
-                        Selection = _TicketList$j.Selection,
-                        Type = _TicketList$j.Type,
-                        BetPlaced = _TicketList$j.BetPlaced,
-                        MatchAvgOdds = _TicketList$j.MatchAvgOdds,
-                        MatchStake = _TicketList$j.MatchStake;
+
+                var _loop = function _loop(j) {
+                    var _Details$j = Details[j],
+                        BetId = _Details$j.BetId,
+                        SelectionName = _Details$j.SelectionName,
+                        Type = _Details$j.Type,
+                        BetPlacedDateString = _Details$j.BetPlacedDateString,
+                        OddsAvg = _Details$j.OddsAvg,
+                        Stake = _Details$j.Stake;
 
                     rows.push(_react2.default.createElement(
                         _fixedTableHeader.Row,
@@ -8430,58 +8457,64 @@ var BetList = function (_Component) {
                             { className: 'center-align' },
                             _react2.default.createElement(
                                 'a',
-                                { href: 'javascript:;', onClick: this._showTicketDetail },
+                                { href: 'javascript:;', onClick: function onClick() {
+                                        return _this2._showTicketDetail(BetId, Type);
+                                    } },
                                 BetId
                             )
                         ),
                         _react2.default.createElement(
                             _fixedTableHeader.Cell,
                             { className: 'center-align' },
-                            Selection
+                            SelectionName
                         ),
                         _react2.default.createElement(
                             _fixedTableHeader.Cell,
-                            { className: 'center-align' },
+                            { className: 'center-align ' + (Type.toLowerCase() === "lay" && "negative") },
                             Type
                         ),
                         _react2.default.createElement(
                             _fixedTableHeader.Cell,
                             { className: 'center-align' },
-                            BetPlaced
+                            BetPlacedDateString
                         ),
                         _react2.default.createElement(
                             _fixedTableHeader.Cell,
                             { className: 'right-align' },
-                            MatchAvgOdds
+                            _numberFormat2.default.formatDecimal(OddsAvg)
                         ),
                         _react2.default.createElement(
                             _fixedTableHeader.Cell,
                             { className: 'right-align' },
-                            MatchStake
+                            _numberFormat2.default.formatDecimal(Stake)
                         ),
                         _react2.default.createElement(
                             _fixedTableHeader.Cell,
                             { className: 'right-align' },
-                            TicketList[j].WinLost
+                            _numberFormat2.default.formatDecimal(Details[j].WinLost)
                         ),
                         isFirstRow && _react2.default.createElement(
                             _fixedTableHeader.Cell,
                             { rowSpan: dataDetailCount, className: 'right-align' },
                             _react2.default.createElement(
                                 'span',
-                                { className: WinLost < 0 ? "negative" : null },
-                                WinLost
+                                { className: WinLost < 0 && "negative" },
+                                _numberFormat2.default.formatDecimal(WinLost)
                             ),
                             _react2.default.createElement('br', null),
                             _react2.default.createElement(
                                 'span',
-                                { className: Commission < 0 ? "negative" : null },
-                                Commission
+                                { className: Commission < 0 && "negative" },
+                                _numberFormat2.default.formatDecimal(Commission)
                             )
                         )
                     ));
 
                     isFirstRow = false;
+                };
+
+                for (var j = 0; j < Details.length; j++) {
+                    _loop(j);
                 }
             }
 
@@ -8490,7 +8523,7 @@ var BetList = function (_Component) {
     }, {
         key: '_buildFooter',
         value: function _buildFooter() {
-            var grandTotal = this.props.data.grandTotal;
+            var GrandTotal = this.props.data.GrandTotal;
 
 
             return [_react2.default.createElement(
@@ -8499,12 +8532,12 @@ var BetList = function (_Component) {
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
                     { colSpan: '9', className: 'right-align' },
-                    'Grand Total'
+                    _langHelper2.default.getSingleResource("GrandTotal")
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { className: 'right-align ' + (grandTotal < 0 ? "negative" : null) },
-                    grandTotal
+                    { className: 'right-align ' + (GrandTotal < 0 && "negative") },
+                    _numberFormat2.default.formatDecimal(GrandTotal)
                 )
             )];
         }
@@ -8514,26 +8547,16 @@ var BetList = function (_Component) {
             var _state = this.state,
                 showDetail = _state.showDetail,
                 detailData = _state.detailData;
-            var mainData = this.props.data.mainData;
+            var MainData = this.props.data.MainData;
 
-            var title = _react2.default.createElement(
-                'p',
-                null,
-                'Customer Bet List 2/19/2018 - 2/19/2018 - testABC(12BETMR010101) - ',
-                _react2.default.createElement(
-                    'span',
-                    { className: 'base-currency-title' },
-                    'View in MYR'
-                )
-            );
 
             return _react2.default.createElement(
                 'div',
                 null,
                 _react2.default.createElement(
                     _BetListPopupLayout2.default,
-                    { title: title },
-                    mainData && mainData.length ? _react2.default.createElement(_fixedTableHeader.Table, {
+                    { title: this.props.title },
+                    MainData && MainData.length ? _react2.default.createElement(_fixedTableHeader.Table, {
                         autoWidth: false,
                         autoHeight: false,
                         width: 870,
@@ -8543,9 +8566,9 @@ var BetList = function (_Component) {
                         footer: this._buildFooter()
                     }) : _react2.default.createElement(_NoDataTitle2.default, null)
                 ),
-                showDetail && detailData && detailData.length && _react2.default.createElement(
+                showDetail && _react2.default.createElement(
                     _popup2.default,
-                    { isShow: showDetail, title: "DETAIL", width: 730, height: 450, onClose: this.closeDetailPopup },
+                    { isShow: showDetail, title: _langHelper2.default.getSingleResource("Details"), width: 730, height: 450, onClose: this.closeDetailPopup },
                     _react2.default.createElement(_BetListDetail2.default, { data: detailData })
                 )
             );
@@ -8557,11 +8580,25 @@ var BetList = function (_Component) {
 
 BetList.propTypes = {
     data: _propTypes2.default.shape({
-        mainData: _propTypes2.default.arrayOf(_propTypes2.default.object),
-        grandTotal: _propTypes2.default.number
-    }).isRequired
+        MainData: _propTypes2.default.arrayOf(_propTypes2.default.object),
+        GrandTotal: _propTypes2.default.number
+    }),
+    title: _propTypes2.default.any,
+    params: _propTypes2.default.object.isRequired
 };
-exports.default = BetList;
+
+
+function mapDispatchToProps(dispatch) {
+    return (0, _redux.bindActionCreators)({ toggleLoader: _loaderAction.toggleLoader }, dispatch);
+};
+
+function mapStateToProps(state) {
+    var xsrfToken = state.xsrfToken;
+
+    return Object.assign({}, { xsrfToken: xsrfToken });
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(BetList);
 
 /***/ }),
 
@@ -8688,11 +8725,19 @@ var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _NoDataTitle = __webpack_require__(44);
+var _NoDataTitle = __webpack_require__(45);
 
 var _NoDataTitle2 = _interopRequireDefault(_NoDataTitle);
 
 var _fixedTableHeader = __webpack_require__(43);
+
+var _langHelper = __webpack_require__(8);
+
+var _langHelper2 = _interopRequireDefault(_langHelper);
+
+var _numberFormat = __webpack_require__(44);
+
+var _numberFormat2 = _interopRequireDefault(_numberFormat);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -8720,27 +8765,27 @@ var BetListDetail = function (_Component) {
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
                     { colWidth: 100, header: true },
-                    "Bet taken"
+                    _langHelper2.default.getSingleResource("BetTaken")
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
                     { colWidth: 70, header: true },
-                    "Odds req."
+                    _langHelper2.default.getSingleResource("OddsReq")
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
                     { colWidth: 70, header: true },
-                    "Stake"
+                    _langHelper2.default.getSingleResource("Stake")
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
                     { colWidth: 70, header: true },
-                    "Liability"
+                    _langHelper2.default.getSingleResource("Liability")
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
                     { colWidth: 70, header: true },
-                    "Odds matched"
+                    _langHelper2.default.getSingleResource("OddsMatched")
                 )
             );
         }
@@ -8759,17 +8804,17 @@ var BetListDetail = function (_Component) {
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
                         { className: 'center-align' },
-                        dataItem.BetTaken
+                        dataItem.BetTakenDateString
                     ),
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
                         { className: 'right-align' },
-                        dataItem.OddsReq
+                        _numberFormat2.default.formatDecimal(dataItem.OddsReq)
                     ),
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
                         { className: 'right-align' },
-                        dataItem.Stake
+                        _numberFormat2.default.formatDecimal(dataItem.Stake)
                     ),
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
@@ -8779,7 +8824,7 @@ var BetListDetail = function (_Component) {
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
                         { className: 'right-align' },
-                        dataItem.OddsMacthed
+                        _numberFormat2.default.formatDecimal(dataItem.OddsMatched)
                     )
                 ));
             }
@@ -8834,11 +8879,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = __webpack_require__(20);
+var _reactRedux = __webpack_require__(19);
 
-var _index = __webpack_require__(202);
+var _index = __webpack_require__(204);
 
-var _redux = __webpack_require__(14);
+var _redux = __webpack_require__(13);
 
 var _reactSelect = __webpack_require__(107);
 
@@ -8850,11 +8895,11 @@ var _langHelper = __webpack_require__(8);
 
 var _langHelper2 = _interopRequireDefault(_langHelper);
 
-var _site = __webpack_require__(19);
+var _site = __webpack_require__(20);
 
 var _site2 = _interopRequireDefault(_site);
 
-var _report = __webpack_require__(137);
+var _report = __webpack_require__(138);
 
 var _currency = __webpack_require__(773);
 
@@ -8862,7 +8907,7 @@ var _reportExcel = __webpack_require__(774);
 
 var _reportExcel2 = _interopRequireDefault(_reportExcel);
 
-var _service = __webpack_require__(204);
+var _service = __webpack_require__(139);
 
 var _moment = __webpack_require__(0);
 
@@ -9215,7 +9260,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _numberFormat = __webpack_require__(66);
+var _numberFormat = __webpack_require__(44);
 
 var _numberFormat2 = _interopRequireDefault(_numberFormat);
 
@@ -9233,9 +9278,9 @@ var _langHelper2 = _interopRequireDefault(_langHelper);
 
 var _excelStyle = __webpack_require__(114);
 
-var _service = __webpack_require__(204);
+var _service = __webpack_require__(139);
 
-var _report = __webpack_require__(137);
+var _report = __webpack_require__(138);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -9507,7 +9552,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _redux = __webpack_require__(14);
+var _redux = __webpack_require__(13);
 
 var _dataHandlerReducer = __webpack_require__(776);
 
@@ -9517,7 +9562,7 @@ var _filterHandlerReducer = __webpack_require__(777);
 
 var filterHandlerReducer = _interopRequireWildcard(_filterHandlerReducer);
 
-var _currencyReducer = __webpack_require__(200);
+var _currencyReducer = __webpack_require__(202);
 
 var currencyReducer = _interopRequireWildcard(_currencyReducer);
 
@@ -9525,7 +9570,7 @@ var _loaderReducer = __webpack_require__(77);
 
 var loaderReducer = _interopRequireWildcard(_loaderReducer);
 
-var _excludeTestReducer = __webpack_require__(201);
+var _excludeTestReducer = __webpack_require__(203);
 
 var excludeTestReducer = _interopRequireWildcard(_excludeTestReducer);
 
