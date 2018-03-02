@@ -107,9 +107,9 @@
                 mainData.Add(new ExchangeSumWinLoss
                 {
                     UserId = reader.ToString("UserId"),
-                    EvenId = reader.ToInt("EvenId"),
-                    EvenName = reader.ToString("EvenName"),
-                    EvenTypeName = reader.ToString("EvenTypeName"),
+                    EvenId = reader.ToInt("EventId"),
+                    EvenName = reader.ToString("EventName"),
+                    EvenTypeName = reader.ToString("EventTypeName"),
                     MarketId = reader.ToString("MarketId"),
                     MarketName = reader.ToString("MarketName"),
                     WinLost = reader.ToDecimal("WinLost" + baseCurrency),
@@ -131,9 +131,9 @@
                     detailData.Add(new ExchangeTicket
                     {
                         UserId = reader.ToString("UserId"),
-                        EvenId = reader.ToInt("EvenId"),
+                        EvenId = reader.ToInt("EventId"),
                         MarketId = reader.ToString("MarketId"),
-                        BetId = reader.ToInt("BetId"),
+                        BetId = reader.ToLong("BetId"),
                         SelectionName = reader.ToString("SelectionName"),
                         OddsAvg = reader.ToDecimal("OddsAvg"),
                         Stake = reader.ToDecimal("Stake" + baseCurrency),
