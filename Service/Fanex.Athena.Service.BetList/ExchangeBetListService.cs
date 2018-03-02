@@ -31,8 +31,8 @@
             {
                 var mainData = betList.SumWinLossList.GroupJoin(
                     betList.TicketList,
-                    m => new { m.UserId, m.EvenId, m.MarketId },
-                    d => new { d.UserId, d.EvenId, d.MarketId },
+                    m => new { m.UserId, m.EventId, m.MarketId },
+                    d => new { d.UserId, d.EventId, d.MarketId },
                    (main, detailList) => new ExchangeBetList { Ticket = main, Details = detailList });
 
                 return new ExchangeBetListViewModel

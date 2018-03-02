@@ -12,6 +12,7 @@ import Report from '../../../lib/report'
 import { Service } from '../lib/service'
 import { toggleLoader } from '../../../actions/loaderAction'
 import LangHelper from '../../../lib/langHelper'
+import NumberFormat from '../../../lib/numberFormat'
 
 export class BetList extends Component {
     constructor(props) {
@@ -71,15 +72,15 @@ export class BetList extends Component {
                         <Cell className="center-align">{SelectionName}</Cell>
                         <Cell className={`center-align ${Type.toLowerCase() === "lay" && "negative"}`}>{Type}</Cell>
                         <Cell className="center-align">{BetPlacedDateString}</Cell>
-                        <Cell className="right-align">{OddsAvg}</Cell>
-                        <Cell className="right-align">{Stake}</Cell>
-                        <Cell className="right-align">{Details[j].WinLost}</Cell>
+                        <Cell className="right-align">{NumberFormat.formatDecimal(OddsAvg)}</Cell>
+                        <Cell className="right-align">{NumberFormat.formatDecimal(Stake)}</Cell>
+                        <Cell className="right-align">{NumberFormat.formatDecimal(Details[j].WinLost)}</Cell>
                         {
                             isFirstRow &&
                             <Cell rowSpan={dataDetailCount} className="right-align">
-                                <span className={WinLost < 0 && "negative"}>{WinLost}</span>
+                                <span className={WinLost < 0 && "negative"}>{NumberFormat.formatDecimal(WinLost)}</span>
                                 <br />
-                                <span className={Commission < 0 && "negative"}>{Commission}</span>
+                                <span className={Commission < 0 && "negative"}>{NumberFormat.formatDecimal(Commission)}</span>
                             </Cell>}
                     </Row>
                 );
@@ -102,7 +103,7 @@ export class BetList extends Component {
         this.props.toggleLoader(true);
         Report.fetchGridData(url, params)
             .then(response => {
-                this.setState({ showDetail: true, detailData: response.data || [] })
+                this.setState({ showDetail: true, detailData: response.data })
                 this.props.toggleLoader(false);
             })
             .catch(error => {
@@ -121,7 +122,7 @@ export class BetList extends Component {
         return [
             <Row key="betlist-footer">
                 <Cell colSpan='9' className="right-align">{LangHelper.getSingleResource("GrandTotal")}</Cell>
-                <Cell className={`right-align ${GrandTotal < 0 && "negative"}`}>{GrandTotal}</Cell>
+                <Cell className={`right-align ${GrandTotal < 0 && "negative"}`}>{NumberFormat.formatDecimal(GrandTotal)}</Cell>
             </Row >
         ]
     }

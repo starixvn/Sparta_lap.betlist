@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 
 import NoDataTitle from '../../../components/NoDataTitle'
 import { Table, Row, Cell } from '../../../components/fixed-table-header'
-import LangHelper from '../../../lib/langHelper';
+import LangHelper from '../../../lib/langHelper'
+import NumberFormat from '../../../lib/numberFormat'
 
 export default class BetListDetail extends Component {
     constructor(props) {
@@ -35,10 +36,10 @@ export default class BetListDetail extends Component {
             rows.push(
                 <Row key={`rowDetail-${i}`}>
                     <Cell className="center-align">{dataItem.BetTakenDateString}</Cell>
-                    <Cell className="right-align">{dataItem.OddsReq}</Cell>
-                    <Cell className="right-align">{dataItem.Stake}</Cell>
+                    <Cell className="right-align">{NumberFormat.formatDecimal(dataItem.OddsReq)}</Cell>
+                    <Cell className="right-align">{NumberFormat.formatDecimal(dataItem.Stake)}</Cell>
                     <Cell className="right-align">{dataItem.Liability}</Cell>
-                    <Cell className="right-align">{dataItem.OddsMatched}</Cell>
+                    <Cell className="right-align">{NumberFormat.formatDecimal(dataItem.OddsMatched)}</Cell>
                 </Row>
             );
         }
@@ -53,13 +54,13 @@ export default class BetListDetail extends Component {
             (
                 <div className="popup-content-default popup-detail-default">
                     <Table
-                    autoWidth={false}
-                    autoHeight={false}
-                    width={700}
-                    bodyHeight={350}
-                    header={this._buildHeader()}
-                    body={this._buildBody()}
-                />
+                        autoWidth={false}
+                        autoHeight={false}
+                        width={700}
+                        bodyHeight={350}
+                        header={this._buildHeader()}
+                        body={this._buildBody()}
+                    />
                 </div>) :
             <NoDataTitle />
     }

@@ -27,22 +27,27 @@
                     db.AddInParameter("CustId", DbType.Int32, metaModel.CustId);
                     db.AddInParameter("FromDate", DbType.Date, metaModel.FromDate);
                     db.AddInParameter("ToDate", DbType.Date, metaModel.ToDate);
-                    db.AddOutParameter("SumWinLost", DbType.Currency, 0);
-                    db.AddOutParameter("SumWinLostEUR", DbType.Currency, 0);
-                    db.AddOutParameter("SumWinLostMYR", DbType.Currency, 0);
-                    db.AddOutParameter("SumWinLostUSD", DbType.Currency, 0);
+                    db.AddOutParameter("SumWinLost", DbType.Currency, 8);
+                    db.AddOutParameter("SumWinLostEUR", DbType.Currency, 8);
+                    db.AddOutParameter("SumWinLostGBP", DbType.Currency, 8);
+                    db.AddOutParameter("SumWinLostUSD", DbType.Currency, 8);
+
+                    var baseCurrency = SystemConstants.BaseCurrencyList.Contains(metaModel.BaseCurrency) ? metaModel.BaseCurrency : string.Empty;
+                    IEnumerable<ExchangeSumWinLoss> sumWinLoss;
+                    IEnumerable<ExchangeTicket> ticketList;
 
                     using (var reader = db.ExecuteReader())
                     {
-                        var baseCurrency = SystemConstants.BaseCurrencyList.Contains(metaModel.BaseCurrency) ? metaModel.BaseCurrency : string.Empty;
-
-                        return new ExchangeBetListResult
-                        {
-                            SumWinLossList = ReadSumWinLossData(reader, baseCurrency),
-                            TicketList = ReadTicketData(reader, baseCurrency),
-                            GrandTotal = Converter.ToDecimal(db.GetParameterValue("SumWinLost" + baseCurrency))
-                        };
+                        sumWinLoss = ReadSumWinLossData(reader, baseCurrency);
+                        ticketList = ReadTicketData(reader, baseCurrency);
                     }
+
+                    return new ExchangeBetListResult
+                    {
+                        SumWinLossList = sumWinLoss,
+                        TicketList = ticketList,
+                        GrandTotal = Converter.ToDecimal(db.GetParameterValue("SumWinLost" + baseCurrency))
+                    };
                 }
             }
             catch (ObjectDbException exception)
@@ -107,9 +112,9 @@
                 mainData.Add(new ExchangeSumWinLoss
                 {
                     UserId = reader.ToString("UserId"),
-                    EvenId = reader.ToInt("EventId"),
-                    EvenName = reader.ToString("EventName"),
-                    EvenTypeName = reader.ToString("EventTypeName"),
+                    EventId = reader.ToInt("EventId"),
+                    EventName = reader.ToString("EventName"),
+                    EventTypeName = reader.ToString("EventTypeName"),
                     MarketId = reader.ToString("MarketId"),
                     MarketName = reader.ToString("MarketName"),
                     WinLost = reader.ToDecimal("WinLost" + baseCurrency),
@@ -131,7 +136,7 @@
                     detailData.Add(new ExchangeTicket
                     {
                         UserId = reader.ToString("UserId"),
-                        EvenId = reader.ToInt("EventId"),
+                        EventId = reader.ToInt("EventId"),
                         MarketId = reader.ToString("MarketId"),
                         BetId = reader.ToLong("BetId"),
                         SelectionName = reader.ToString("SelectionName"),

@@ -7,7 +7,7 @@
     {
         public string UserId { get; set; }
 
-        public int EvenId { get; set; }
+        public int EventId { get; set; }
 
         public long BetId { get; set; }
 

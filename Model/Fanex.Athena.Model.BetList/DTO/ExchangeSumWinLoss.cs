@@ -4,11 +4,11 @@
     {
         public string UserId { get; set; }
 
-        public int EvenId { get; set; }
+        public int EventId { get; set; }
 
-        public string EvenTypeName { get; set; }
+        public string EventTypeName { get; set; }
 
-        public string EvenName { get; set; }
+        public string EventName { get; set; }
 
         public string MarketId { get; set; }
 
