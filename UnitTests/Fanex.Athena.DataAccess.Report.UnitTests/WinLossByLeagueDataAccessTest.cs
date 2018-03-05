@@ -18,7 +18,7 @@
 
         [TestCase(true, true)]
         [TestCase(false, false)]
-        public void GetSummary_WhenCall_ParametersPassedCorrectly(bool showSB, bool showBA)
+        public void GetSummary_WhenCall_ParametersPassedCorrectly(bool isShowSB, bool isShowBA)
         {
             // Arrange
             var metaModel = new WinLossByLeagueMetaModel
@@ -36,7 +36,8 @@
                 MoveBetsDay = new DateTime(2018, 2, 2),
                 ProductOptions = new List<ProductOption>
                 {
-                    new ProductOption { Code = "SB", Status = true }
+                    new ProductOption { Code = "SB", Status = isShowSB },
+                    new ProductOption { Code = "BA", Status = isShowBA }
                 }
             };
             DataAccess.GetObjectDb(Arg.Is(GetSummarySp)).Returns(ObjectDb);
@@ -48,7 +49,7 @@
             Assert.Multiple(() =>
             {
                 ObjectDb.Received().AddInParameter("balanceupday", DbType.DateTime, metaModel.BalanceUpDay);
-                AssertCommonSpParam(metaModel, showSB, showBA);
+                AssertCommonSpParam(metaModel, isShowSB, isShowBA);
             });
         }
 

@@ -5,6 +5,7 @@
     using Model.BetList.MetaModel;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Configuration;
+    using Model.Core.DTO.Users;
     using NSubstitute;
     using NUnit.Framework;
     using Service.Core.Configuration.Interfaces;
@@ -16,8 +17,8 @@
 
         private LicenseeWinLossBetListController _controller;
 
-        [OneTimeSetUp]
-        public override void FixtureSetUp()
+        [SetUp]
+        public void SetUp()
         {
             base.FixtureSetUp();
             _reportSettingService = Substitute.For<IReportSettingService>();
@@ -32,15 +33,7 @@
                 BetListHTMLBuilder,
                 _reportSettingService);
 
-            StubLicenseeSessionData(new Model.Core.DTO.Users.LicenseeSession { LicenseeId = SessionLicenseeId });
-        }
-
-        [OneTimeTearDown]
-        public override void FixtureTearDown()
-        {
-            base.FixtureTearDown();
-
-            _controller = null;
+            StubLicenseeSessionData(new LicenseeSession { LicenseeId = SessionLicenseeId });
         }
 
         [Test]
@@ -49,7 +42,7 @@
             // Arrange
             var metaModel = new BetListMetaModel { FromDate = new DateTime(2018, 1, 1) };
 
-            StubUserSessionData(new Model.Core.DTO.Users.UserSession { CurrencyList = new Dictionary<int, string>() });
+            StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string>() });
             _reportSettingService.GetSetting(
                 SessionService.LicenseeSession.LicenseeName,
                 PermissionKeys.ReportLicenseeWinLoss).Returns(new ReportSetting
@@ -71,7 +64,7 @@
             // Arrange
             var metaModel = new BetListMetaModel { CurrencyId = 1 };
 
-            StubUserSessionData(new Model.Core.DTO.Users.UserSession { CurrencyList = new Dictionary<int, string>() });
+            StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string>() });
 
             // Action
             var result = _controller.Index(metaModel);
@@ -88,10 +81,13 @@
             // Arrange
             var metaModel = new BetListMetaModel { CurrencyId = currencyId };
 
-            StubUserSessionData(new Model.Core.DTO.Users.UserSession { CurrencyList = new Dictionary<int, string> { { currencyId, "Currency" } } });
+            StubUserSessionData(new UserSession
+            {
+                CurrencyList = new Dictionary<int, string> { { currencyId, "Currency" } }
+            });
             SessionService.GenerateAgentListXml(metaModel.CurrencyId).Returns("<Xml/>");
 
-            _controller.When(x => x.GetBetListResult(metaModel, UspKey)).DoNotCallBase();
+            _controller.WhenForAnyArgs(x => x.GetBetListResult(metaModel, UspKey)).DoNotCallBase();
 
             // Action
             _controller.Index(metaModel);

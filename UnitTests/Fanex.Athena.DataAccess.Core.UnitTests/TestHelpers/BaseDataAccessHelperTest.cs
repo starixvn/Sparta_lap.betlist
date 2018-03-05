@@ -32,6 +32,7 @@
         [SetUp]
         public virtual void SetUp()
         {
+            ObjectDb.ClearReceivedCalls();
             Reader = Substitute.For<IDataReader>();
             ObjectDb.ExecuteReader().Returns(Reader);
             ObjectDb.ExecuteReader(Arg.Any<object>()).Returns(Reader);

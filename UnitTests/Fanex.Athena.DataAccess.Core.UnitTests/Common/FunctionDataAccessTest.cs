@@ -94,7 +94,7 @@
             DataAccess.GetLicenseeFunctionList(LicenseeId);
 
             // Assert
-            ObjectDb.Received().AddInParameter("LicenseeID", DbType.Int32, LicenseeId);
+            ObjectDb.Received().AddInParameter("licenseeid", DbType.Int32, LicenseeId);
         }
 
         [Test]
