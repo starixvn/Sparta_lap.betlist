@@ -25,8 +25,6 @@
 
         private BetListMetaModel _metaModel;
 
-        private IBalanceUpDataAccess _balanceUpDataAccess;
-
         private static IEnumerable TestCasesValue
         {
             get
@@ -102,18 +100,11 @@
         public override void FixtureSetUp()
         {
             _metaModel = CreateBetListMetaModel();
-            _balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
-            _balanceUpDataAccess.GetBalanceUp().Returns(BalanceUp);
+            var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
+            balanceUpDataAccess.GetBalanceUp().Returns(BalanceUp);
 
             ObjectDb = Substitute.For<IObjectDb>();
-            DataAccess = Substitute.ForPartsOf<DailyStatementBetListDataAccess>(_balanceUpDataAccess);
-        }
-
-        [OneTimeTearDown]
-        public override void FixtureTearDown()
-        {
-            _balanceUpDataAccess = null;
-            base.FixtureTearDown();
+            DataAccess = Substitute.ForPartsOf<DailyStatementBetListDataAccess>(balanceUpDataAccess);
         }
 
         [Test]

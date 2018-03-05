@@ -33,21 +33,16 @@
                     db.AddOutParameter("SumWinLostUSD", DbType.Currency, 8);
 
                     var baseCurrency = GetBaseCurrency(metaModel.BaseCurrency);
-                    IEnumerable<ExchangeSumWinLoss> sumWinLoss;
-                    IEnumerable<ExchangeTicket> ticketList;
+                    var result = new ExchangeBetListResult();
 
                     using (var reader = db.ExecuteReader())
                     {
-                        sumWinLoss = ReadSumWinLossData(reader, baseCurrency);
-                        ticketList = ReadTicketData(reader, baseCurrency);
+                        result.SumWinLossList = ReadSumWinLossData(reader, baseCurrency);
+                        result.TicketList = ReadTicketData(reader, baseCurrency);
                     }
 
-                    return new ExchangeBetListResult
-                    {
-                        SumWinLossList = sumWinLoss,
-                        TicketList = ticketList,
-                        GrandTotal = Converter.ToDecimal(db.GetParameterValue("SumWinLost" + baseCurrency))
-                    };
+                    result.GrandTotal = Converter.ToDecimal(db.GetParameterValue("SumWinLost" + baseCurrency));
+                    return result;
                 }
             }
             catch (ObjectDbException exception)
