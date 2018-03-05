@@ -33,7 +33,7 @@
                     betList.TicketList,
                     m => new { m.UserId, m.EventId, m.MarketId },
                     d => new { d.UserId, d.EventId, d.MarketId },
-                   (main, detailList) => new ExchangeBetList { Ticket = main, Details = detailList });
+                   (main, detailList) => new ExchangeBetList { Ticket = main, Details = detailList }).Where(x => x.Details.Any());
 
                 return new ExchangeBetListViewModel
                 {
