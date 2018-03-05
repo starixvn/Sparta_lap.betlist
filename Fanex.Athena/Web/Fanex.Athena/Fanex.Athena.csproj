@@ -952,6 +952,7 @@
     <Content Include="www\js\source\reactpages\pages\exchangewl\actions\__tests__\dataHandlerAction.test.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\actions\__tests__\filterHandlerAction.test.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\DataGrid.method.test.js" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\BetList.redux.test.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\DataGrid.render.test.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\FormFilter.redux.test.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\FormFilter.test.js" />
@@ -2697,7 +2698,6 @@
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\DataGrid.jsx" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\__snapshots__\FormFilter.test.js.snap" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\__snapshots__\DataGrid.render.test.js.snap" />
-    <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\DataGrid.redux.test.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\BetList.jsx" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\BetListDetail.jsx" />
   </ItemGroup>

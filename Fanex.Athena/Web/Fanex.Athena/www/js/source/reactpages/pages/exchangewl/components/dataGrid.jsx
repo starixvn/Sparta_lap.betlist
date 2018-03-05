@@ -345,7 +345,6 @@ export class DataGrid extends Component {
         this.props.toggleLoader(true);
         Report.fetchGridData(url, params)
             .then(response => {
-                console.log(response.data)
                 this.setState({
                     showBetList: true,
                     betListData: response.data
