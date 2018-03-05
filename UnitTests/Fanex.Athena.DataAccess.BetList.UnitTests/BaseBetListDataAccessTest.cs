@@ -5,6 +5,7 @@
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
     using Model.BetList.DTO;
+    using Model.Core.DataDomain;
     using NSubstitute;
     using NUnit.Framework;
 
@@ -30,12 +31,12 @@
 
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        [TestCase(null, false)]
-        [TestCase(0, false)]
-        [TestCase(1, true)]
-        [TestCase(1d, false)]
-        [TestCase(true, true)]
-        public void ReadLrfTicket_WhenCall_DataReturnedCorrectly(object isNeutral, bool expectedIsNeutral)
+        [TestCase("", null, false)]
+        [TestCase("UUS", 0, false)]
+        [TestCase(null, 1, true)]
+        [TestCase("USD", 1d, false)]
+        [TestCase("ABC", true, true)]
+        public void ReadLrfTicket_WhenCall_DataReturnedCorrectly(string baseCurrency, object isNeutral, bool expectedIsNeutral)
         {
             // Arrange
             var currency = "UUS";
@@ -103,13 +104,15 @@
             Justification = "Reviewed. Suppression is OK here.")]
         private IDictionary<string, object> GetFakeBetListData(string baseCurrency, LrfTicket ticket, object isNeutral)
         {
-            var playerCommCol = "playercomm" + baseCurrency;
-            var commCol = "comm" + baseCurrency;
-            var licenseeWlCol = "licenseewl" + baseCurrency;
-            var winlostCol = "winlost" + baseCurrency;
-            var beteffectiveCol = "beteffective" + baseCurrency;
-            var stakeCol = "stake" + baseCurrency;
-            var actualStakeCol = "actual_stake" + baseCurrency;
+            var columnSuffix = SystemConstants.BaseCurrencyList.Contains(baseCurrency?.ToUpperInvariant()) ? baseCurrency : string.Empty;
+
+            var playerCommCol = "playercomm" + columnSuffix;
+            var commCol = "comm" + columnSuffix;
+            var licenseeWlCol = "licenseewl" + columnSuffix;
+            var winlostCol = "winlost" + columnSuffix;
+            var beteffectiveCol = "beteffective" + columnSuffix;
+            var stakeCol = "stake" + columnSuffix;
+            var actualStakeCol = "actual_stake" + columnSuffix;
 
             var dataList = new Dictionary<string, object>();
             dataList.Add("username", ticket.UserName);

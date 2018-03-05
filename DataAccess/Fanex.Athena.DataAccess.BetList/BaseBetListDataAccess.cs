@@ -23,7 +23,7 @@ namespace Fanex.Athena.DataAccess.BetList
         [CLSCompliant(false)]
         protected internal SortableList<LrfTicket> ReadBetListTicket(IDataReader dataReader, string baseCurrency, long custId = 0)
         {
-            var columnSuffix = SystemConstants.BaseCurrencyList.Contains(baseCurrency.ToUpperInvariant()) ? baseCurrency : string.Empty;
+            var columnSuffix = SystemConstants.BaseCurrencyList.Contains(baseCurrency?.ToUpperInvariant()) ? baseCurrency : string.Empty;
 
             var playerCommCol = "playercomm" + columnSuffix;
             var commCol = "comm" + columnSuffix;
