@@ -45,7 +45,7 @@ export class DataGrid extends Component {
 
         if (this.props.gridData !== nextProps.gridData) {
             const params = this.drillDownParams[nextProps.gridData.level];
-            this.reportTitle = Service.getReportTitle({ fromDate: params.FromDate, toDate: params.ToDate }, params.CurrencyName, params.CurrencyId === 0);
+            this.reportTitle = Service.getReportTitle({ fromDate: params.FromDate, toDate: params.ToDate }, params.BaseCurrency ? params.BaseCurrency : params.CurrencyName, params.CurrencyId === 0);
             this.props.toggleLoader(false);
         }
     }
@@ -332,11 +332,13 @@ export class DataGrid extends Component {
             data: this.betlistParams
         }
 
+        const viewIn = LangHelper.getSingleResource("Viewin").replace("{0}", BaseCurrency ? BaseCurrency : CurrencyName)
+
         this.betlistTitle = (
             <p>
                 {CUSTOMER_BETLIST_TEXT}{" "}
-                {FromDate} → {ToDate} - {externalId}({systemId}) -{" "}
-                <span className="base-currency-title">{LangHelper.getSingleResource("Viewin").replace("{0}", CurrencyName)}</span>
+                {moment(FromDate).format("M/D/YYYY")} → {moment(ToDate).format("M/D/YYYY")} - {externalId}({systemId}) -{" "}
+                <span className="base-currency-title">{viewIn}</span>
             </p>
         )
 

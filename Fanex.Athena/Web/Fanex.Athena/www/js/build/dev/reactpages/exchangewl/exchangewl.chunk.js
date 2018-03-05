@@ -7478,14 +7478,16 @@ var DataGrid = exports.DataGrid = function (_Component) {
                 data: _this.betlistParams
             };
 
+            var viewIn = _langHelper2.default.getSingleResource("Viewin").replace("{0}", BaseCurrency ? BaseCurrency : CurrencyName);
+
             _this.betlistTitle = _react2.default.createElement(
                 'p',
                 null,
                 CUSTOMER_BETLIST_TEXT,
                 " ",
-                FromDate,
+                (0, _moment2.default)(FromDate).format("M/D/YYYY"),
                 ' \u2192 ',
-                ToDate,
+                (0, _moment2.default)(ToDate).format("M/D/YYYY"),
                 ' - ',
                 externalId,
                 '(',
@@ -7495,7 +7497,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
                 _react2.default.createElement(
                     'span',
                     { className: 'base-currency-title' },
-                    _langHelper2.default.getSingleResource("Viewin").replace("{0}", CurrencyName)
+                    viewIn
                 )
             );
 
@@ -7542,7 +7544,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
 
             if (this.props.gridData !== nextProps.gridData) {
                 var params = this.drillDownParams[nextProps.gridData.level];
-                this.reportTitle = _service.Service.getReportTitle({ fromDate: params.FromDate, toDate: params.ToDate }, params.CurrencyName, params.CurrencyId === 0);
+                this.reportTitle = _service.Service.getReportTitle({ fromDate: params.FromDate, toDate: params.ToDate }, params.BaseCurrency ? params.BaseCurrency : params.CurrencyName, params.CurrencyId === 0);
                 this.props.toggleLoader(false);
             }
         }
