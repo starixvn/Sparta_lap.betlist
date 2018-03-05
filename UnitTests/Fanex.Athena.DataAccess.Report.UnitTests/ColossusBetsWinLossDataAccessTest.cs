@@ -25,8 +25,6 @@
         [OneTimeSetUp]
         public override void FixtureSetUp()
         {
-            ObjectDb = Substitute.For<IObjectDb>();
-
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             var balanceUp = new BalanceUp
             {
@@ -35,6 +33,13 @@
             balanceUpDataAccess.GetBalanceUp().Returns(balanceUp);
 
             DataAccess = Substitute.ForPartsOf<ColossusBetsWinLossDataAccess>(balanceUpDataAccess);
+        }
+
+        [OneTimeSetUp]
+        public override void SetUp()
+        {
+            ObjectDb = Substitute.For<IObjectDb>();
+            base.SetUp();
         }
 
         [Test]
@@ -270,7 +275,8 @@
                 ToDate = new DateTime(2016, 8, 29),
                 DrillDownFromDate = new DateTime(2016, 8, 10),
                 DrillDownToDate = new DateTime(2016, 8, 29),
-                BaseCurrency = "UUS"
+                BaseCurrency = "UUS",
+                TicketType = 2
             };
         }
 
@@ -314,11 +320,12 @@
 
         private void AssertUspParameters(ColossusBetsWinLossMetaModel metaModel)
         {
-            ObjectDb.Received().AddInParameter("fromdate", DbType.Date, metaModel.DrillDownFromDate);
-            ObjectDb.Received().AddInParameter("todate", DbType.Date, metaModel.DrillDownToDate);
-            ObjectDb.Received().AddInParameter("movebetsday", DbType.DateTime, _moveBetsDay);
-            ObjectDb.Received().AddInParameter("ReportType", DbType.Int32, metaModel.ReportBy);
-            ObjectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            ObjectDb.Received(1).AddInParameter("fromdate", DbType.Date, metaModel.DrillDownFromDate);
+            ObjectDb.Received(1).AddInParameter("todate", DbType.Date, metaModel.DrillDownToDate);
+            ObjectDb.Received(1).AddInParameter("movebetsday", DbType.DateTime, _moveBetsDay);
+            ObjectDb.Received(1).AddInParameter("ReportType", DbType.Int32, metaModel.ReportBy);
+            ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            ObjectDb.Received(1).AddInParameter("TicketType", DbType.Int32, metaModel.TicketType);
         }
     }
 }

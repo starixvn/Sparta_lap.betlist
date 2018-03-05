@@ -141,6 +141,7 @@ namespace Fanex.Athena.DataAccess.Report
             db.AddInParameter("movebetsday", DbType.DateTime, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
             db.AddInParameter("ReportType", DbType.Int32, metaModel.ReportBy);
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            db.AddInParameter("TicketType", DbType.Int32, metaModel.TicketType);
         }
     }
 }
