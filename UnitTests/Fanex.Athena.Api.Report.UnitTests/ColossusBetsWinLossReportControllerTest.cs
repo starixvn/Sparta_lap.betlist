@@ -47,7 +47,7 @@
         public void Index_InvalidModel_ReturnEmptyData()
         {
             // Arrange
-            var model = new ThirdPartyWinLossMetaModel
+            var model = new ColossusBetsWinLossMetaModel
             {
                 IsExportExcel = false,
                 CurrencyId = 1,
@@ -76,7 +76,7 @@
             // Arrange
             var metaModel = CreateValidMetaModel();
 
-            _service.GetSummaryWinloss(Arg.Any<ThirdPartyWinLossMetaModel>()).Returns(
+            _service.GetSummaryWinloss(Arg.Any<ColossusBetsWinLossMetaModel>()).Returns(
                 new SortableReportResultModel<ColossusBetWinLoss>());
 
             // Action
@@ -174,7 +174,7 @@
             var excel = Substitute.ForPartsOf<ColossusBetsWinLossExcel>(
                    Arg.Any<string>(),
                    Arg.Any<ConvertingOption>(),
-                   Arg.Any<ThirdPartyWinLossMetaModel>(),
+                   Arg.Any<ColossusBetsWinLossMetaModel>(),
                    new ColossusBetWinLossViewModel
                    {
                        MainResult = new ColossusBetWinLoss[] { }
@@ -184,7 +184,7 @@
             _controller.CreateExcel(
                    Arg.Any<string>(),
                    Arg.Any<ConvertingOption>(),
-                   Arg.Any<ThirdPartyWinLossMetaModel>(),
+                   Arg.Any<ColossusBetsWinLossMetaModel>(),
                    new ColossusBetWinLossViewModel
                    {
                        MainResult = new ColossusBetWinLoss[] { }
@@ -228,7 +228,7 @@
             var excel = Substitute.ForPartsOf<ColossusBetsWinLossExcel>(
                    Arg.Any<string>(),
                    Arg.Any<ConvertingOption>(),
-                   Arg.Any<ThirdPartyWinLossMetaModel>(),
+                   Arg.Any<ColossusBetsWinLossMetaModel>(),
                    new ColossusBetWinLossViewModel
                    {
                        MainResult = new ColossusBetWinLoss[] { }
@@ -238,7 +238,7 @@
             _controller.CreateExcel(
                    Arg.Any<string>(),
                    Arg.Any<ConvertingOption>(),
-                   Arg.Any<ThirdPartyWinLossMetaModel>(),
+                   Arg.Any<ColossusBetsWinLossMetaModel>(),
                    new ColossusBetWinLossViewModel()).ReturnsForAnyArgs(excel);
 
             // Action
@@ -253,9 +253,9 @@
             });
         }
 
-        private ThirdPartyWinLossMetaModel CreateValidMetaModel(int currencyId = 1, int drillDownCurrencyId = 2)
+        private ColossusBetsWinLossMetaModel CreateValidMetaModel(int currencyId = 1, int drillDownCurrencyId = 2)
         {
-            var model = new ThirdPartyWinLossMetaModel
+            var model = new ColossusBetsWinLossMetaModel
             {
                 CurrencyId = currencyId,
                 AgentListXml = string.Empty,
@@ -288,11 +288,11 @@
             };
             if (level == 0)
             {
-                _service.GetSummaryWinloss(Arg.Any<ThirdPartyWinLossMetaModel>()).Returns(expectedResult);
+                _service.GetSummaryWinloss(Arg.Any<ColossusBetsWinLossMetaModel>()).Returns(expectedResult);
             }
             else
             {
-                _service.GetWinlossDetail(Arg.Any<ThirdPartyWinLossMetaModel>()).Returns(expectedResult);
+                _service.GetWinlossDetail(Arg.Any<ColossusBetsWinLossMetaModel>()).Returns(expectedResult);
             }
 
             _service.CalculateTotal(Arg.Any<SortableList<ColossusBetWinLoss>>()).Returns(expectedDataList.AsEnumerable());

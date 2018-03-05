@@ -37,19 +37,19 @@ namespace Fanex.Athena.DataAccess.Report
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public SortableReportResultModel<ColossusBetWinLoss> GetSummaryWinloss(ThirdPartyWinLossMetaModel metaModel)
+        public SortableReportResultModel<ColossusBetWinLoss> GetSummaryWinloss(ColossusBetsWinLossMetaModel metaModel)
         {
             return GetData("Lrf_Rpt_ColossusBetsWinloss", metaModel);
         }
 
-        public SortableReportResultModel<ColossusBetWinLoss> GetWinlossDetail(ThirdPartyWinLossMetaModel metaModel)
+        public SortableReportResultModel<ColossusBetWinLoss> GetWinlossDetail(ColossusBetsWinLossMetaModel metaModel)
         {
             return GetData("Lrf_Rpt_ColossusBetsWinloss_detail", metaModel);
         }
 
         private static SortableReportResultModel<ColossusBetWinLoss> ReadData(
             IDataReader reader,
-            ThirdPartyWinLossMetaModel metaModel)
+            ColossusBetsWinLossMetaModel metaModel)
         {
             var turnoverColumn = "turnover" + metaModel.BaseCurrency;
             var memberWinningColumn = "winningprize" + metaModel.BaseCurrency;
@@ -115,7 +115,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        private SortableReportResultModel<ColossusBetWinLoss> GetData(string spname, ThirdPartyWinLossMetaModel metaModel)
+        private SortableReportResultModel<ColossusBetWinLoss> GetData(string spname, ColossusBetsWinLossMetaModel metaModel)
         {
             try
             {
@@ -134,7 +134,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        private void UpdateUspParams(IObjectDb db, ThirdPartyWinLossMetaModel metaModel, bool drilldown)
+        private void UpdateUspParams(IObjectDb db, ColossusBetsWinLossMetaModel metaModel, bool drilldown)
         {
             db.AddInParameter("fromdate", DbType.Date, drilldown ? metaModel.DrillDownFromDate : metaModel.FromDate.Date);
             db.AddInParameter("todate", DbType.Date, drilldown ? metaModel.DrillDownToDate : metaModel.ToDate.Date);

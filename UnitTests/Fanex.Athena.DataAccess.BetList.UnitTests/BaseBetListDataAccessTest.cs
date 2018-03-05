@@ -49,7 +49,6 @@
 
             // Action
             var result = _dataAccess.ReadBetListTicket(_reader, currency)[0];
-
             // Assert
             Assert.That(result, Tobe.SameProperties(expected));
         }

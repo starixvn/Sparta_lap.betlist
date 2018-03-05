@@ -12,8 +12,8 @@ namespace Fanex.Athena.DataAccess.Report.Interfaces
 
     public interface IColossusBetsWinLossDataAccess
     {
-        SortableReportResultModel<ColossusBetWinLoss> GetWinlossDetail(ThirdPartyWinLossMetaModel metaModel);
+        SortableReportResultModel<ColossusBetWinLoss> GetWinlossDetail(ColossusBetsWinLossMetaModel metaModel);
 
-        SortableReportResultModel<ColossusBetWinLoss> GetSummaryWinloss(ThirdPartyWinLossMetaModel metaModel);
+        SortableReportResultModel<ColossusBetWinLoss> GetSummaryWinloss(ColossusBetsWinLossMetaModel metaModel);
     }
 }

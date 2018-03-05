@@ -47,7 +47,7 @@ namespace Fanex.Athena.Api.Report
 
         [HttpPost]
         public dynamic Index(
-            ThirdPartyWinLossMetaModel metaModel,
+            ColossusBetsWinLossMetaModel metaModel,
             DateTime? fdate,
             DateTime? tdate,
             int level = 0,
@@ -58,7 +58,7 @@ namespace Fanex.Athena.Api.Report
         }
 
         [HttpPost]
-        public dynamic Index([FromBody] ThirdPartyWinLossMetaModel metaModel)
+        public dynamic Index([FromBody] ColossusBetsWinLossMetaModel metaModel)
         {
             return ProcessRequest(metaModel, null, null);
         }
@@ -67,7 +67,7 @@ namespace Fanex.Athena.Api.Report
         protected internal virtual ColossusBetsWinLossExcel CreateExcel(
             string templatePath,
             ConvertingOption convertingOption,
-            ThirdPartyWinLossMetaModel metaModel,
+            ColossusBetsWinLossMetaModel metaModel,
             ColossusBetWinLossViewModel excelModel)
         {
             return new ColossusBetsWinLossExcel(templatePath, convertingOption, metaModel, excelModel);
@@ -84,7 +84,7 @@ namespace Fanex.Athena.Api.Report
         }
 
         private HttpResponseMessage ExportExcel(
-            ThirdPartyWinLossMetaModel metaModel,
+            ColossusBetsWinLossMetaModel metaModel,
             IList<ColossusBetWinLoss> dataList,
             IDictionary<string, ColossusBetWinLoss> summaryTotal)
         {
@@ -126,7 +126,7 @@ namespace Fanex.Athena.Api.Report
             return ExcelStream(excel.Workbook, exportedFileName);
         }
 
-        private SortableReportResultModel<ColossusBetWinLoss> GetData(ThirdPartyWinLossMetaModel metaModel)
+        private SortableReportResultModel<ColossusBetWinLoss> GetData(ColossusBetsWinLossMetaModel metaModel)
         {
             return metaModel.DrillDownLevel == 0 ?
                 _colossusBetsWinLossService.GetSummaryWinloss(metaModel) :
@@ -134,7 +134,7 @@ namespace Fanex.Athena.Api.Report
         }
 
         private dynamic ProcessRequest(
-            ThirdPartyWinLossMetaModel metaModel,
+            ColossusBetsWinLossMetaModel metaModel,
             DateTime? fdate,
             DateTime? tdate,
             int level = 0,

@@ -78,7 +78,7 @@
         {
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
                 GetSummaryWinlossSp,
-                () => DataAccess.GetSummaryWinloss(new ThirdPartyWinLossMetaModel()));
+                () => DataAccess.GetSummaryWinloss(new ColossusBetsWinLossMetaModel()));
         }
 
         [Test]
@@ -124,7 +124,7 @@
         {
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
                 GetWinlossDetailSp,
-                () => DataAccess.GetWinlossDetail(new ThirdPartyWinLossMetaModel()));
+                () => DataAccess.GetWinlossDetail(new ColossusBetsWinLossMetaModel()));
         }
 
         [Test]
@@ -260,9 +260,9 @@
                 Is.EqualTo(ConvertHelper.ToDateTime(metaModel.DrillDownFromDate.ToString("yyyyMMdd"), metaModel.ReportBy == ReportByType.Monthly)));
         }
 
-        private static ThirdPartyWinLossMetaModel CreateMetaModel()
+        private static ColossusBetsWinLossMetaModel CreateMetaModel()
         {
-            return new ThirdPartyWinLossMetaModel
+            return new ColossusBetsWinLossMetaModel
             {
                 CurrencyId = 1,
                 DrillDownCustomerId = 2,
@@ -312,7 +312,7 @@
             }
         }
 
-        private void AssertUspParameters(ThirdPartyWinLossMetaModel metaModel)
+        private void AssertUspParameters(ColossusBetsWinLossMetaModel metaModel)
         {
             ObjectDb.Received().AddInParameter("fromdate", DbType.Date, metaModel.DrillDownFromDate);
             ObjectDb.Received().AddInParameter("todate", DbType.Date, metaModel.DrillDownToDate);
