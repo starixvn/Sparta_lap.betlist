@@ -48,6 +48,7 @@
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(BetListUsp)).Returns(ObjectDb);
             Reader.Read().Returns(false);
+            ObjectDb.GetParameterValue("SumWinLost").Returns(0);
 
             var metaModel = new ExchangeBetListMetaModel();
 
