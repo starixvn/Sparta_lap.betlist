@@ -472,26 +472,24 @@
                 });
 
                 describe("call onCheck function", function () {
-                    var isBasedCurrency = true;
                     beforeEach(function () {
                         appendSetFixtures('<select id="BaseCurrency"><option value="eur">EUR</option><option value="usd">USD</option></select>');
                         spyOn(LastBetFilter, "changeFilterParam");
                         spyOn(LastBetGrid, "updateParam");
                         spyOn($.fn, "selectList");
-                        spyOn(Site, "isBaseCurrency").and.returnValues(isBasedCurrency);
-                    });
-
-                    afterEach(function () {
-                        isBasedCurrency = false;
                     });
 
                     it("LastBetFilter.changeFilterParam should be called with correct parameter", function () {
+                        spyOn(Site, "isBaseCurrency").and.returnValues(false);
+
                         multiselectOption.onCheck();
 
                         expect(LastBetFilter.changeFilterParam).toHaveBeenCalledWith("string", "Currency", "");
                     });
 
                     it("LastBetFilter.changeFilterParam should be called with select multiple currencies", function () {
+                        spyOn(Site, "isBaseCurrency").and.returnValues(false);
+
                         checkedItems = [1, 2];
                         multiselectOption.onCheck();
 
@@ -499,41 +497,49 @@
                     });
 
                     it("selectList jquery function should be called with correct parameter", function () {
+                        spyOn(Site, "isBaseCurrency").and.returnValues(false);
+
                         multiselectOption.onCheck();
 
                         expect($.fn.selectList).toHaveBeenCalledWith("update");
                     });
 
                     it("LastBetGrid.updateParam should be called with correct parameter", function () {
+                        spyOn(Site, "isBaseCurrency").and.returnValues(true);
+
                         multiselectOption.onCheck();
 
-                        expect(LastBetGrid.updateParam).toHaveBeenCalledWith("string", "BasedCurrency", "USD");
+                        expect(LastBetGrid.updateParam).toHaveBeenCalledWith("string", "BasedCurrency", "usd");
                     });
 
                     it("LastBetGrid.updateParam should be called with correct parameter when select multiple currency", function () {
+                        spyOn(Site, "isBaseCurrency").and.returnValues(false);
+
                         checkedItemsByText = [selectedCurrencyText, "EUR"];
                         multiselectOption.onCheck();
 
-                        expect(LastBetGrid.updateParam).toHaveBeenCalledWith("string", "BasedCurrency", "EUR");
+                        expect(LastBetGrid.updateParam).toHaveBeenCalledWith("string", "BasedCurrency", "eur");
                     });
 
                     it("LastBetGrid.updateParam should be called with correct parameter when selected currency is not based", function () {
+                        spyOn(Site, "isBaseCurrency").and.returnValues(false);
+
                         checkedItemsByText = ["UUS"];
-                        isBasedCurrency = false;
                         multiselectOption.onCheck();
 
-                        expect(LastBetGrid.updateParam).toHaveBeenCalledWith("string", "BasedCurrency", "UUS");
+                        expect(LastBetGrid.updateParam).toHaveBeenCalledWith("string", "BasedCurrency", "");
                     });
 
                     it("LastBetGrid.updateParam should be called with correct parameter when selected currency is not based and empty value is existing", function () {
+                        spyOn(Site, "isBaseCurrency").and.returnValues(false);
+
                         spyOn($.fn, "text").and.callThrough();
                         checkedItemsByText = ["AUD"];
-                        isBasedCurrency = false;
                         $("#BaseCurrency").append("<option value=''></option>");
                         multiselectOption.onCheck();
 
                         expect($.fn.text).toHaveBeenCalledWith("AUD");
-                        expect(LastBetGrid.updateParam).toHaveBeenCalledWith("string", "BasedCurrency", "AUD");
+                        expect(LastBetGrid.updateParam).toHaveBeenCalledWith("string", "BasedCurrency", "");
                     });
 
                     it("Nothing happen and LastBetGrid.updateParam should be called with correct parameter when not selecting any currency", function () {
@@ -546,8 +552,8 @@
 
                         expect($.fn.remove).not.toHaveBeenCalled();
                         expect($.fn.appendTo).not.toHaveBeenCalled();
-                        expect($.fn.text.calls.count()).toBe(1);
-                        expect(LastBetGrid.updateParam).toHaveBeenCalledWith("string", "BasedCurrency", "EUR");
+                        expect($.fn.text).not.toHaveBeenCalled();
+                        expect(LastBetGrid.updateParam).toHaveBeenCalledWith("string", "BasedCurrency", "eur");
                     });
                 });
             });
