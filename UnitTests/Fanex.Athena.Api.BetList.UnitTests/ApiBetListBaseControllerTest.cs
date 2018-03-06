@@ -2,7 +2,9 @@
 {
     using System.Collections;
     using System.Collections.Generic;
+    using UnitTest.Common.Helpers;
     using Extension.Helper;
+    using Extension.Utility;
     using Model.BetList.DTO;
     using Model.BetList.MetaModel;
     using NSubstitute;
@@ -92,6 +94,36 @@
             base.FixtureTearDown();
 
             _controller = null;
+        }
+
+        [Test]
+        public void Ticket_WhenCall_ReturnCorrectResult()
+        {
+            // Arrange
+            const string ExpectedTransTime = "Abc";
+            const string ExpectedChoice = "Def";
+            var metaModel = new BetListMetaModel();
+
+            var ticket = FakeHelper.Create<LrfTicket>();
+            var ticketResult = new TicketResult();
+            ticketResult.MainTicketList.Add(ticket);
+
+            BetListHTMLBuilder.BuildTrans(ticket).Returns(ExpectedTransTime);
+            BetListHTMLBuilder.BuildChoice(ticket, TicketHelper, ticketResult.TicketDataList, false).Returns(ExpectedChoice);
+
+            // Action
+            var result = _controller.Ticket(ticketResult, metaModel);
+            var ticketText = result[0];
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(ticketText.Index, Is.EqualTo(1));
+                Assert.That(ticketText.ExternalId, Is.EqualTo(ticket.ExternalId));
+                Assert.That(ticketText.SystemId, Is.EqualTo(ticket.UserName));
+                Assert.That(ticketText.TransTime, Is.EqualTo(ExpectedTransTime));
+                Assert.That(ticketText.Choice, Is.EqualTo(ExpectedChoice));
+            });
         }
 
         [Test]

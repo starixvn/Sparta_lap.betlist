@@ -110,8 +110,6 @@ namespace Fanex.Athena.Api.BetList
                     _ticketHelper.ClientDetailSystemParlayFunction = BetListHelper.GenerateClientDetailSystemParlayFunction(_ticketHelper, baseCurrency, ticket, custid);
                 }
 
-                _ticketHelper.IsShowOddsWithChoice = showOdds;
-
                 var ticketText = new TicketText
                 {
                     Index = startIndex++,

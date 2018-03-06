@@ -92,6 +92,28 @@
             Assert.That(actualExcelModel.MainResult.Count(), Is.EqualTo(expectedResult.DataList.Count()));
         }
 
+        [Test]
+        public void Index_NoData_ReturnEmptyResult()
+        {
+            // Arrange
+            var metaModel = CreateValidMetaModel();
+            _dataAccess.GetSummaryWinloss(metaModel).Returns(new ReportResultModel<MicroGamingWinLoss>
+            {
+                DataList = new List<MicroGamingWinLoss>()
+            });
+
+            // Action
+            var result = _controller.Index(metaModel);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Data, Is.Empty);
+                Assert.That(result.Total, Is.Empty);
+                Assert.That(result.SummaryTotal, Is.Empty);
+            });
+        }
+
         private ThirdPartyWinLossMetaModel CreateValidMetaModel()
         {
             var model = new ThirdPartyWinLossMetaModel
