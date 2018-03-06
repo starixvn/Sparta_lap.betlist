@@ -76,6 +76,28 @@ describe('BetList ', () => {
 
             expect(result).toMatchSnapshot();
         })
+
+        it('click on bet list detail link - show bet list detail popup',() => {
+            const mainData = [
+                {
+                    Ticket : { MarketName : 'market1', EventTypeName : 'Eventtype1', EventName: 'Event1' , WinLost : 1.8, Commission : 0.5 },
+                    Details : [{ BetId : 1, SelectionName : 'select1', Type: 'lay', BetPlacedDateString : '01/01/2018', OddsAvg : 1.2, Stake : 2.4 }]
+                }
+            ];
+
+            const props = {
+                data : { MainData : mainData }
+            };
+
+            const betList = new BetList(props);
+            betList._showTicketDetail = jest.fn();
+            const content = betList._buildBody();
+            const betListDetailComponent = content[0].props.children[2].props.children;
+
+            betListDetailComponent.props.onClick();
+
+            expect(betList._showTicketDetail).toHaveBeenCalled();
+        })
     })
 
     describe('render ', () => {
