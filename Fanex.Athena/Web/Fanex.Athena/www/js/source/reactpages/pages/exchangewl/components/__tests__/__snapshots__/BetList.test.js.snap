@@ -1,0 +1,800 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BetList  _buildBody  match Snapshot 1`] = `
+<div>
+  <tr>
+    <td
+      className="center-align"
+      rowSpan={2}
+    >
+      1
+    </td>
+    <td
+      rowSpan={2}
+    >
+      <p>
+        Eventtype1
+         &gt; 
+        <span
+          className="text-bold"
+        >
+          Event1
+        </span>
+         &gt; 
+        market1
+      </p>
+    </td>
+    <td
+      className="center-align"
+    >
+      <a
+        href="javascript:;"
+        onClick={[Function]}
+      >
+        1
+      </a>
+    </td>
+    <td
+      className="center-align"
+    >
+      select1
+    </td>
+    <td
+      className="center-align false"
+    >
+      type1
+    </td>
+    <td
+      className="center-align"
+    >
+      01/01/2018
+    </td>
+    <td
+      className="right-align"
+    >
+      1.2
+    </td>
+    <td
+      className="right-align"
+    >
+      2.4
+    </td>
+    <td
+      className="right-align"
+    />
+    <td
+      className="right-align"
+      rowSpan={2}
+    >
+      <span
+        className={false}
+      >
+        1.8
+      </span>
+      <br />
+      <span
+        className={false}
+      >
+        0.5
+      </span>
+    </td>
+  </tr>
+  <tr>
+    <td
+      className="center-align"
+    >
+      <a
+        href="javascript:;"
+        onClick={[Function]}
+      >
+        2
+      </a>
+    </td>
+    <td
+      className="center-align"
+    >
+      select2
+    </td>
+    <td
+      className="center-align false"
+    >
+      type2
+    </td>
+    <td
+      className="center-align"
+    >
+      01/01/2018
+    </td>
+    <td
+      className="right-align"
+    >
+      3.25
+    </td>
+    <td
+      className="right-align"
+    >
+      3
+    </td>
+    <td
+      className="right-align"
+    />
+  </tr>
+  <tr>
+    <td
+      className="center-align"
+      rowSpan={1}
+    >
+      2
+    </td>
+    <td
+      rowSpan={1}
+    >
+      <p>
+        Eventtype2
+         &gt; 
+        <span
+          className="text-bold"
+        >
+          Event2
+        </span>
+         &gt; 
+        market2
+      </p>
+    </td>
+    <td
+      className="center-align"
+    >
+      <a
+        href="javascript:;"
+        onClick={[Function]}
+      >
+        3
+      </a>
+    </td>
+    <td
+      className="center-align"
+    >
+      select3
+    </td>
+    <td
+      className="center-align false"
+    >
+      type3
+    </td>
+    <td
+      className="center-align"
+    >
+      01/01/2018
+    </td>
+    <td
+      className="right-align"
+    >
+      10
+    </td>
+    <td
+      className="right-align"
+    >
+      5.55
+    </td>
+    <td
+      className="right-align"
+    />
+    <td
+      className="right-align"
+      rowSpan={1}
+    >
+      <span
+        className="negative"
+      >
+        -1.8
+      </span>
+      <br />
+      <span
+        className="negative"
+      >
+        -0.5
+      </span>
+    </td>
+  </tr>
+</div>
+`;
+
+exports[`BetList  _buildFooter  match Snapshot 1`] = `
+<tr>
+  <td
+    className="right-align"
+    colSpan="9"
+  >
+    GrandTotal
+  </td>
+  <td
+    className="right-align false"
+  >
+    1
+  </td>
+</tr>
+`;
+
+exports[`BetList  _buildHeader  match Snapshot 1`] = `
+<tr
+  style={
+    Object {
+      "height": 32,
+    }
+  }
+>
+  <th>
+    #
+  </th>
+  <th>
+    Market
+  </th>
+  <th>
+    BetId
+  </th>
+  <th>
+    Selection
+  </th>
+  <th>
+    Type
+  </th>
+  <th>
+    BetPlaced
+  </th>
+  <th>
+    OddsAvg
+  </th>
+  <th>
+    Stake
+  </th>
+  <th>
+    Winloss
+  </th>
+  <th>
+    WL
+    /
+    Comm
+  </th>
+</tr>
+`;
+
+exports[`BetList  render  show bet list detail popup when show detail state is true - match snapshot 1`] = `
+<div>
+  <div
+    className="popup-content-default betlist-container"
+  >
+    <div
+      className="caption"
+    />
+    <div
+      className="betlist-content"
+    >
+      <p
+        className="no-info-row center-align"
+      >
+        NoInfo
+      </p>
+    </div>
+  </div>
+  <div
+    className="popup-container show"
+  >
+    <div
+      className="popup-block-body"
+    />
+    <div
+      className="flat-popup"
+      style={
+        Object {
+          "height": 450,
+          "width": 730,
+        }
+      }
+    >
+      <div
+        className="popup-title"
+      >
+        <div
+          className="txt-title"
+        >
+          Details
+        </div>
+        <a
+          className="popup-close"
+          href="javascript:;"
+          onClick={[Function]}
+        >
+          <i
+            className="icon-close"
+          />
+        </a>
+      </div>
+      <div
+        className="popup-content"
+      >
+        <p
+          className="no-info-row center-align"
+        >
+          NoInfo
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`BetList  render  show grid when gridData is not empty - match snapshot 1`] = `
+<div>
+  <div
+    className="popup-content-default betlist-container"
+  >
+    <div
+      className="caption"
+    />
+    <div
+      className="betlist-content"
+    >
+      <div
+        className="table-container"
+        style={
+          Object {
+            "maxWidth": -30,
+          }
+        }
+      >
+        <div
+          className="header-content"
+          style={
+            Object {
+              "maxHeight": undefined,
+              "minWidth": undefined,
+              "width": 870,
+            }
+          }
+        >
+          <div
+            className="table-wrapper"
+          >
+            <table
+              className="table"
+              style={
+                Object {
+                  "width": 851,
+                }
+              }
+            >
+              <thead>
+                <tr
+                  className="first-row"
+                >
+                  <td
+                    style={
+                      Object {
+                        "width": "34.04px",
+                      }
+                    }
+                  />
+                  <td
+                    style={
+                      Object {
+                        "width": "255.29999999999998px",
+                      }
+                    }
+                  />
+                  <td
+                    style={
+                      Object {
+                        "width": "59.57px",
+                      }
+                    }
+                  />
+                  <td
+                    style={
+                      Object {
+                        "width": "102.12px",
+                      }
+                    }
+                  />
+                  <td
+                    style={
+                      Object {
+                        "width": "42.55px",
+                      }
+                    }
+                  />
+                  <td
+                    style={
+                      Object {
+                        "width": "85.1px",
+                      }
+                    }
+                  />
+                  <td
+                    style={
+                      Object {
+                        "width": "51.06px",
+                      }
+                    }
+                  />
+                  <td
+                    style={
+                      Object {
+                        "width": "68.08px",
+                      }
+                    }
+                  />
+                  <td
+                    style={
+                      Object {
+                        "width": "68.08px",
+                      }
+                    }
+                  />
+                  <td
+                    style={
+                      Object {
+                        "width": "85.1px",
+                      }
+                    }
+                  />
+                </tr>
+                <tr
+                  style={
+                    Object {
+                      "height": 32,
+                    }
+                  }
+                >
+                  <th>
+                    #
+                  </th>
+                  <th>
+                    Market
+                  </th>
+                  <th>
+                    BetId
+                  </th>
+                  <th>
+                    Selection
+                  </th>
+                  <th>
+                    Type
+                  </th>
+                  <th>
+                    BetPlaced
+                  </th>
+                  <th>
+                    OddsAvg
+                  </th>
+                  <th>
+                    Stake
+                  </th>
+                  <th>
+                    Winloss
+                  </th>
+                  <th>
+                    WL
+                    /
+                    Comm
+                  </th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+        </div>
+        <div
+          className="body-content"
+          style={
+            Object {
+              "maxHeight": 430,
+              "minWidth": undefined,
+              "width": 870,
+            }
+          }
+        >
+          <div
+            className="table-wrapper"
+          >
+            <table
+              className="table"
+              style={
+                Object {
+                  "width": 851,
+                }
+              }
+            >
+              <tbody>
+                <tr
+                  className="first-row"
+                >
+                  <td
+                    style={
+                      Object {
+                        "width": "34.04px",
+                      }
+                    }
+                  />
+                  <td
+                    style={
+                      Object {
+                        "width": "255.29999999999998px",
+                      }
+                    }
+                  />
+                  <td
+                    style={
+                      Object {
+                        "width": "59.57px",
+                      }
+                    }
+                  />
+                  <td
+                    style={
+                      Object {
+                        "width": "102.12px",
+                      }
+                    }
+                  />
+                  <td
+                    style={
+                      Object {
+                        "width": "42.55px",
+                      }
+                    }
+                  />
+                  <td
+                    style={
+                      Object {
+                        "width": "85.1px",
+                      }
+                    }
+                  />
+                  <td
+                    style={
+                      Object {
+                        "width": "51.06px",
+                      }
+                    }
+                  />
+                  <td
+                    style={
+                      Object {
+                        "width": "68.08px",
+                      }
+                    }
+                  />
+                  <td
+                    style={
+                      Object {
+                        "width": "68.08px",
+                      }
+                    }
+                  />
+                  <td
+                    style={
+                      Object {
+                        "width": "85.1px",
+                      }
+                    }
+                  />
+                </tr>
+                <tr>
+                  <td
+                    className="center-align"
+                    rowSpan={1}
+                  >
+                    1
+                  </td>
+                  <td
+                    rowSpan={1}
+                  >
+                    <p>
+                      Eventtype1
+                       &gt; 
+                      <span
+                        className="text-bold"
+                      >
+                        Event1
+                      </span>
+                       &gt; 
+                      market1
+                    </p>
+                  </td>
+                  <td
+                    className="center-align"
+                  >
+                    <a
+                      href="javascript:;"
+                      onClick={[Function]}
+                    >
+                      1
+                    </a>
+                  </td>
+                  <td
+                    className="center-align"
+                  >
+                    select1
+                  </td>
+                  <td
+                    className="center-align false"
+                  >
+                    type1
+                  </td>
+                  <td
+                    className="center-align"
+                  >
+                    01/01/2018
+                  </td>
+                  <td
+                    className="right-align"
+                  >
+                    1.2
+                  </td>
+                  <td
+                    className="right-align"
+                  >
+                    2.4
+                  </td>
+                  <td
+                    className="right-align"
+                  />
+                  <td
+                    className="right-align"
+                    rowSpan={1}
+                  >
+                    <span
+                      className={false}
+                    >
+                      1.8
+                    </span>
+                    <br />
+                    <span
+                      className={false}
+                    >
+                      0.5
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div
+          className="footer-content"
+          style={
+            Object {
+              "maxHeight": undefined,
+              "minWidth": undefined,
+              "width": 870,
+            }
+          }
+        >
+          <div
+            className="table-wrapper"
+          >
+            <table
+              className="table"
+              style={
+                Object {
+                  "width": 851,
+                }
+              }
+            >
+              <tbody>
+                <tr
+                  className="first-row"
+                >
+                  <td
+                    style={
+                      Object {
+                        "width": "34.04px",
+                      }
+                    }
+                  />
+                  <td
+                    style={
+                      Object {
+                        "width": "255.29999999999998px",
+                      }
+                    }
+                  />
+                  <td
+                    style={
+                      Object {
+                        "width": "59.57px",
+                      }
+                    }
+                  />
+                  <td
+                    style={
+                      Object {
+                        "width": "102.12px",
+                      }
+                    }
+                  />
+                  <td
+                    style={
+                      Object {
+                        "width": "42.55px",
+                      }
+                    }
+                  />
+                  <td
+                    style={
+                      Object {
+                        "width": "85.1px",
+                      }
+                    }
+                  />
+                  <td
+                    style={
+                      Object {
+                        "width": "51.06px",
+                      }
+                    }
+                  />
+                  <td
+                    style={
+                      Object {
+                        "width": "68.08px",
+                      }
+                    }
+                  />
+                  <td
+                    style={
+                      Object {
+                        "width": "68.08px",
+                      }
+                    }
+                  />
+                  <td
+                    style={
+                      Object {
+                        "width": "85.1px",
+                      }
+                    }
+                  />
+                </tr>
+                <tr>
+                  <td
+                    className="right-align"
+                    colSpan="9"
+                  >
+                    GrandTotal
+                  </td>
+                  <td
+                    className="right-align false"
+                  >
+                    1
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`BetList  render  show no data title when gridData is empty - match snapshot 1`] = `
+<div>
+  <div
+    className="popup-content-default betlist-container"
+  >
+    <div
+      className="caption"
+    />
+    <div
+      className="betlist-content"
+    >
+      <p
+        className="no-info-row center-align"
+      >
+        NoInfo
+      </p>
+    </div>
+  </div>
+</div>
+`;
