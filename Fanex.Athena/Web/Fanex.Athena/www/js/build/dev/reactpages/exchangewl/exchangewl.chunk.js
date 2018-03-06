@@ -7503,7 +7503,6 @@ var DataGrid = exports.DataGrid = function (_Component) {
 
             _this.props.toggleLoader(true);
             _report3.default.fetchGridData(url, params).then(function (response) {
-                console.log(response.data);
                 _this.setState({
                     showBetList: true,
                     betListData: response.data

@@ -15,7 +15,7 @@ module.exports = __webpack_require__(202);
 /***/ 198:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 1/25/2018 9:00:28 AM
+﻿// Generated at: 3/2/2018 9:20:40 AM
 window._language_en_US = {
 AA:"AA",
 AB:"AB",
@@ -100,12 +100,15 @@ BestViewResolution:"Resolution 1280x1024",
 BestWinLoss:"Best Win Loss",
 Bet:"Bet",
 BetCount:"Bet Count",
+BetId:"Bet ID",
 BetList:"Bet List",
 BetListRunning:"Bet List (Running)",
 BetPerLine:"Bet Per Line",
+BetPlaced:"Bet Placed",
 BetSetting:"Bet Setting",
 BetSettingGroups:"Bet Setting Groups",
 BetSettings:"Bet Settings",
+BetTaken:"Bet Taken",
 BettingLimit:"Betting Limit",
 BetTrade:"Bet Trade",
 BetTradeComissionBalanceNote:"BetTrade Commission: Licensee commission income for BetTrade tickets.",
@@ -483,6 +486,7 @@ Level7:"Level 7",
 Level8:"Level 8",
 Level9:"Level 9",
 Levels:"levels",
+Liability:"Liability",
 Licensee:"Licensee",
 Licensee12Bet:"12Bet Licensee",
 LicenseeComm:"Licensee Comm",
@@ -527,6 +531,7 @@ ManageCustomer:"Manage Customer",
 Mar:"Mar",
 March:"March",
 Margin:"Margin",
+Market:"Market",
 Match:"Match",
 MatchDelayDone:"Match Delay-Done",
 MatchDelayNew:"Match Delay-New",
@@ -629,7 +634,10 @@ Odd_MY:"MY",
 OddEven:"Odd/Even",
 OddEvenDND:"Odd/Even + 1 X 2 + DND",
 Odds:"Odds",
+OddsAvg:"Odds Avg",
 OddsGroup:"Odds Group",
+OddsMatched:"Odds Matched",
+OddsReq:"Odds Req",
 OddsType:"Odds Type",
 OEFT:"O/E FT",
 of:"of",
@@ -779,6 +787,7 @@ SelectAtLeastOneCurrencyMsg:"Please select at least one currency!",
 SelectCurrency:"Select Currency",
 SelectedItemCount:"# selected",
 SelectGroup:"Select Group",
+Selection:"Selection",
 SelectLicenseeMsg:"Please select a Licensee",
 SelectOptions:"Select options",
 SelectProduct:"Select Product",
@@ -969,6 +978,7 @@ WinLossByTimeZone:"Win Loss By Time Zone",
 WinPlace:"Win Place",
 WinTO:"Win TO",
 Withdrawal:"Withdrawal",
+WL:"WL",
 Won:"Won",
 WorstWinLoss:"Worst Win Loss",
 WPTO:"W/P TO",
@@ -986,7 +996,7 @@ YouNotChooseAnyCustomerMsg:"You did not choose any customers."
 /***/ 199:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 1/25/2018 9:00:28 AM
+﻿// Generated at: 3/2/2018 9:20:40 AM
 window._language_zh_CN = {
 AA:"客客",
 ABComm:"AllBet 佣金",
@@ -1812,7 +1822,7 @@ YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
 /***/ 200:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 1/25/2018 9:00:28 AM
+﻿// Generated at: 3/2/2018 9:20:40 AM
 window._language_zh_TW = {
 AA:"客客",
 ABComm:"AllBet 佣金",
@@ -2638,7 +2648,7 @@ YouNotChooseAnyCustomerMsg:"您還沒有選擇任何會員"
 /***/ 201:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 1/25/2018 9:00:28 AM
+﻿// Generated at: 3/2/2018 9:20:40 AM
 window._language_zh_Hans = {
 AA:"客客",
 ABComm:"AllBet 佣金",
@@ -3450,7 +3460,7 @@ YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
 /***/ 202:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 1/25/2018 9:00:28 AM
+﻿// Generated at: 3/2/2018 9:20:40 AM
 window._language_ko_KR = {
 AA:"AA",
 ABComm:"AllBet 수수료",
