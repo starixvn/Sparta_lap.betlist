@@ -2645,4 +2645,8 @@
   <data name="EventDate" xml:space="preserve">
     <value>賽事日期</value>
   </data>
+  <data name="WL" xml:space="preserve">
+    <value>獨贏</value>
+    <comment>91048</comment>
+  </data>
 </root>

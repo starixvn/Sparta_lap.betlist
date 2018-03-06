@@ -44,7 +44,7 @@ export class BetList extends Component {
                 <Cell colWidth={100} header={true}>{LangHelper.getSingleResource("BetPlaced")}</Cell>
                 <Cell colWidth={60} header={true}>{LangHelper.getSingleResource("OddsAvg")}</Cell>
                 <Cell colWidth={80} header={true}>{LangHelper.getSingleResource("Stake")}</Cell>
-                <Cell colWidth={80} header={true}>{LangHelper.getSingleResource("Winloss")}</Cell>
+                <Cell colWidth={80} header={true}>{LangHelper.getSingleResource("WinLoss")}</Cell>
                 <Cell colWidth={100} header={true}>{LangHelper.getSingleResource("WL")}/{LangHelper.getSingleResource("Comm")}</Cell>
             </Row>
         )

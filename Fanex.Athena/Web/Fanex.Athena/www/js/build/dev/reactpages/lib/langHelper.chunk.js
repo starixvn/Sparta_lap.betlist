@@ -19,7 +19,7 @@ module.exports = __webpack_require__(724);
 "use strict";
 
 
-// Generated at: 3/2/2018 9:20:40 AM
+// Generated at: 3/6/2018 5:12:22 PM
 window._language_en_US = {
   AA: "AA",
   AB: "AB",
@@ -1002,7 +1002,7 @@ window._language_en_US = {
 "use strict";
 
 
-// Generated at: 3/2/2018 9:20:40 AM
+// Generated at: 3/6/2018 5:12:22 PM
 window._language_ko_KR = {
   AA: "AA",
   ABComm: "AllBet 수수료",
@@ -1774,7 +1774,7 @@ window._language_ko_KR = {
 "use strict";
 
 
-// Generated at: 3/2/2018 9:20:40 AM
+// Generated at: 3/6/2018 5:12:22 PM
 window._language_zh_CN = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -2585,6 +2585,7 @@ window._language_zh_CN = {
   WinPlace: "独赢 位置",
   WinTO: "独赢交易额",
   Withdrawal: "提款",
+  WL: "输赢",
   Won: "赢",
   WorstWinLoss: "最差的输赢",
   WPTO: "独赢/位置交易额",
@@ -2602,7 +2603,7 @@ window._language_zh_CN = {
 "use strict";
 
 
-// Generated at: 3/2/2018 9:20:40 AM
+// Generated at: 3/6/2018 5:12:22 PM
 window._language_zh_Hans = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -3399,6 +3400,7 @@ window._language_zh_Hans = {
   WinPlace: "独赢 位置",
   WinTO: "独赢交易额",
   Withdrawal: "提款",
+  WL: "输赢",
   Won: "赢",
   WorstWinLoss: "最差的输赢",
   WPTO: "独赢/位置交易额",
@@ -3416,7 +3418,7 @@ window._language_zh_Hans = {
 "use strict";
 
 
-// Generated at: 3/2/2018 9:20:40 AM
+// Generated at: 3/6/2018 5:12:23 PM
 window._language_zh_TW = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -4227,6 +4229,7 @@ window._language_zh_TW = {
   WinPlace: "獨贏 位置",
   WinTO: "獨贏交易額",
   Withdrawal: "提款",
+  WL: "獨贏",
   Won: "贏",
   WorstWinLoss: "最差的輸贏",
   WPTO: "獨贏/位置交易額",

@@ -463,7 +463,7 @@ describe('DataGrid methods ', () => {
         dataGrid.drillDownParams[ReportLevel.CUSTOMER] = drillDownParamBaseUsd;
             dataGrid.showBetListPopup(externalId, systemId, custId );
  
-            expect(dataGrid.betlistTitle.props.children.join('')).toContain('Customer BetList 1/1/2018 → 1/2/2018 - external(system) -');
+            expect(dataGrid.betlistTitle.props.children.join('')).toContain('CustomerBetList 1/1/2018 → 1/2/2018 - external(system) -');
             expect(dataGrid.betlistTitle.props.children[dataGrid.betlistTitle.props.children.length - 1].props.children).toContain('Viewin USD');
         })
 

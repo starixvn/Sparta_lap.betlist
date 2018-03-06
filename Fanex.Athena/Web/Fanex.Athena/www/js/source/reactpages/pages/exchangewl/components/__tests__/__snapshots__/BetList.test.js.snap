@@ -248,7 +248,7 @@ exports[`BetList  _buildHeader  match Snapshot 1`] = `
     Stake
   </th>
   <th>
-    Winloss
+    WinLoss
   </th>
   <th>
     WL
@@ -470,7 +470,7 @@ exports[`BetList  render  show grid when gridData is not empty - match snapshot 
                     Stake
                   </th>
                   <th>
-                    Winloss
+                    WinLoss
                   </th>
                   <th>
                     WL

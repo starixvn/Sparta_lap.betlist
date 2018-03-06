@@ -17,7 +17,7 @@ import Popup from '../../../components/popup'
 import Report from '../../../lib/report'
 import LangHelper from '../../../lib/langHelper.js';
 
-const CUSTOMER_BETLIST_TEXT = `${LangHelper.getSingleResource("Customer")} ${LangHelper.getSingleResource("BetList")}`;
+const CUSTOMER_BETLIST_TEXT = LangHelper.getSingleResource("CustomerBetList");
 
 export class DataGrid extends Component {
     constructor(props) {

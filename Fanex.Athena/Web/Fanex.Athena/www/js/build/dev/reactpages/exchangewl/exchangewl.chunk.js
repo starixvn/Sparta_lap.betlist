@@ -7451,7 +7451,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var CUSTOMER_BETLIST_TEXT = _langHelper2.default.getSingleResource("Customer") + ' ' + _langHelper2.default.getSingleResource("BetList");
+var CUSTOMER_BETLIST_TEXT = _langHelper2.default.getSingleResource("CustomerBetList");
 
 var DataGrid = exports.DataGrid = function (_Component) {
     _inherits(DataGrid, _Component);
@@ -8385,7 +8385,7 @@ var BetList = exports.BetList = function (_Component) {
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
                     { colWidth: 80, header: true },
-                    _langHelper2.default.getSingleResource("Winloss")
+                    _langHelper2.default.getSingleResource("WinLoss")
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,

@@ -814,6 +814,7 @@
     <Content Include="www\css\build\pro\reactpages\notification\index.chunk.js" />
     <Content Include="www\css\build\pro\reactpages\notification\index.css" />
     <Content Include="www\css\build\pro\reactpages\subsidiaryperformance\index.css" />
+    <Content Include="www\js\build\dev\pages\customer\exchangebetsetting.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\exchangewl\exchangewl.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\report\licenseewlbytimezone.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\notification\notification.chunk.js" />
@@ -906,6 +907,7 @@
     <Content Include="App_Data\FakeLicenseeSetting.json" />
     <Content Include="App_Data\ReportSetting.json" />
     <Content Include="www\css\source\reactpages\components\_popup-content.scss" />
+    <Content Include="www\js\build\dev\pages\customer\exchangebetsetting.chunk.js.map" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Row.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.jsx" />

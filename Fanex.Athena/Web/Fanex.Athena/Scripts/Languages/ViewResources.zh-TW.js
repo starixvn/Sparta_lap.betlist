@@ -1,4 +1,4 @@
-﻿// Generated at: 1/24/2018 5:13:33 PM
+﻿// Generated at: 3/6/2018 5:12:03 PM
 var _language_zh_TW = {
 AA:"客客",
 ABComm:"AllBet 佣金",
@@ -809,6 +809,7 @@ WinLossByTimeZone:"投注時區輸贏",
 WinPlace:"獨贏 位置",
 WinTO:"獨贏交易額",
 Withdrawal:"提款",
+WL:"獨贏",
 Won:"贏",
 WorstWinLoss:"最差的輸贏",
 WPTO:"獨贏/位置交易額",
