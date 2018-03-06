@@ -955,6 +955,7 @@
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\BetList.test.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\DataGrid.method.test.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\BetList.redux.test.js" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\DataGrid.redux.test.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\DataGrid.render.test.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\FormFilter.redux.test.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\FormFilter.test.js" />
