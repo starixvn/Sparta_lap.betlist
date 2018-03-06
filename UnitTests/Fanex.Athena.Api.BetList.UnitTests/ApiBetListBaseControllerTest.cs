@@ -2,13 +2,12 @@
 {
     using System.Collections;
     using System.Collections.Generic;
-    using UnitTest.Common.Helpers;
     using Extension.Helper;
-    using Extension.Utility;
     using Model.BetList.DTO;
     using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
 
     public class ApiBetListBaseControllerTest : ApiBetListBaseControllerHelperTest
     {

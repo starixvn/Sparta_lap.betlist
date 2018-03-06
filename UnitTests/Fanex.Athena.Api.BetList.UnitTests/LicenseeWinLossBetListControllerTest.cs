@@ -20,7 +20,6 @@
         [SetUp]
         public void SetUp()
         {
-            base.FixtureSetUp();
             _reportSettingService = Substitute.For<IReportSettingService>();
             _controller = Substitute.ForPartsOf<LicenseeWinLossBetListController>(
                 SessionService,

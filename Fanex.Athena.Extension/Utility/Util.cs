@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Extension.Utility
 {
+    using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Text.RegularExpressions;
@@ -45,10 +46,7 @@ namespace Fanex.Athena.Extension.Utility
             }
         }
 
-        /// <summary>
-        /// Gets root path of site.
-        /// </summary>
-        /// <value>The root path url.</value>
+        [Obsolete]
         public static string RootPath
         {
             get

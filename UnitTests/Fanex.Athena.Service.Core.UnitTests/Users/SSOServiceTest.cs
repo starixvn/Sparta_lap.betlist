@@ -10,6 +10,7 @@
     using Core.Utility.Interfaces;
     using Extension.Utility;
     using Extension.Utility.Interfaces;
+    using Logging;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
     using NSubstitute;
@@ -24,9 +25,10 @@
         private IRSAEncryptor _rsaEncryptor;
         private IFileSystem _fileSystem;
         private IFormsAuthenticationService _formsAuthenticationService;
+        private ILogger _logger;
         private SSOService _ssoService;
 
-        [OneTimeSetUp]
+        [SetUp]
         public void SetUp()
         {
             MockHttpContext();
@@ -36,6 +38,11 @@
             _rsaEncryptor = Substitute.For<IRSAEncryptor>();
             _fileSystem = Substitute.For<IFileSystem>();
             _formsAuthenticationService = Substitute.For<IFormsAuthenticationService>();
+            _logger = Substitute.For<ILogger>();
+            var appSetting = Substitute.For<IAppSettings>();
+            appSetting.GetValue("SSOUnAuthorizePath").Returns("deniedPath?code={0}");
+            appSetting.GetValue("SSOKeyPath").Returns("keypath");
+
             _ssoService = Substitute.ForPartsOf<SSOService>(
                 _httpContextService,
                 _authService,
@@ -43,14 +50,14 @@
                 _rsaEncryptor,
                 _fileSystem,
                 _formsAuthenticationService,
-                "deniedPath",
-                "keypath");
+                _logger,
+                appSetting);
 
             _httpContextService.When(x => x.Redirect(Arg.Any<string>())).DoNotCallBase();
             _fileSystem.Exists(Arg.Any<string>()).Returns(true);
         }
 
-        [OneTimeTearDown]
+        [TearDown]
         public void TearDown()
         {
             _httpContextService = null;
@@ -59,6 +66,20 @@
             _fileSystem = null;
             _formsAuthenticationService = null;
             _ssoService = null;
+        }
+
+        [Test]
+        public void SSO_EmptyPassword_RedirectToErrorPage()
+        {
+            // Arrange
+            _rsaEncryptor.DecryptString(Arg.Any<string>(), Arg.Any<int>(), Arg.Any<string>())
+                .Returns("licname=spondemo&username=user1");
+
+            // Action
+            _ssoService.SSO();
+
+            // Assert
+            _httpContextService.Received(1).Redirect("~/deniedPath?code=1");
         }
 
         [Test]
@@ -92,6 +113,38 @@
             // Assert
             _sessionService.Received().CreateNewSession(1, onuserId, "user1", true, 2, "en-US", viewType: Model.Core.DataDomain.ClientViewType.Default);
             _formsAuthenticationService.Received().SetAuthCookie("spondemo_user1", Arg.Any<bool>());
+        }
+
+        [Test]
+        public void SSO_LoginFailed_CallReleventMethods()
+        {
+            // Arrange
+            const int TimeSpan = 1234;
+            var decryptedQueryString = "licname=spondemo&username=user1&pwd=123&loginurl=null&lang=en-US&timestamp=" + TimeSpan;
+            _rsaEncryptor.DecryptString(Arg.Any<string>(), Arg.Any<int>(), Arg.Any<string>()).Returns(decryptedQueryString);
+            var resultInfo = new ResultInfo<User>
+            {
+                Code = 1,
+                Message = "Fail",
+                ExtendedData = new User()
+            };
+            _authService.ValidateInternalUser(Arg.Any<User>(), "spondemo", TimeSpan).Returns(resultInfo);
+            var expectedMessage = "Internal login failed." +
+                                "\r\nCode: " + resultInfo.Code +
+                                "\r\nMessage: " + resultInfo.Message +
+                                "\r\nExtendedData: " +
+                                "\r\nLicensee: spondemo" +
+                                 "\r\nUserName: user1" +
+                                 "\r\nTimeSpan: 1234" +
+                                 "\r\nSiteOutUrl: null" +
+                                 "\r\nLanguageCode: en-US";
+
+            // Action
+            _ssoService.SSO();
+
+            // Assert
+            _logger.Received(1).Info(expectedMessage);
+            _httpContextService.Received(1).Redirect("~/deniedPath?code=1");
         }
 
         [Test]
