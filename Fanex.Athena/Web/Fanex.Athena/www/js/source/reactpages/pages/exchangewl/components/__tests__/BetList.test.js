@@ -56,7 +56,7 @@ describe('BetList ', () => {
                 {
                     Ticket : { MarketName : 'market1', EventTypeName : 'Eventtype1', EventName: 'Event1' , WinLost : 1.8, Commission : 0.5 },
                     Details : [
-                        { BetId : 1, SelectionName : 'select1', Type: 'type1', BetPlacedDateString : '01/01/2018', OddsAvg : 1.2, Stake : 2.4 },
+                        { BetId : 1, SelectionName : 'select1', Type: 'lay', BetPlacedDateString : '01/01/2018', OddsAvg : 1.2, Stake : 2.4 },
                         { BetId : 2, SelectionName : 'select2', Type: 'type2', BetPlacedDateString : '01/01/2018', OddsAvg : 3.25, Stake : 3 }
                     ]
                 },
@@ -102,7 +102,7 @@ describe('BetList ', () => {
             ];
 
             const props = {
-                data : { MainData : mainData, GrandTotal : 1 }
+                data : { MainData : mainData, GrandTotal : -1 }
             };
 
             const betList = new BetList(props);
@@ -113,15 +113,6 @@ describe('BetList ', () => {
         })
 
         it('show bet list detail popup when show detail state is true - match snapshot',() => {
-            const mainData = [
-                {
-                    Ticket : { MarketName : 'market1', EventTypeName : 'Eventtype1', EventName: 'Event1' , WinLost : 1.8, Commission : 0.5 },
-                    Details : [
-                        { BetId : 1, SelectionName : 'select1', Type: 'type1', BetPlacedDateString : '01/01/2018', OddsAvg : 1.2, Stake : 2.4 }
-                    ]
-                }
-            ];
-
             const props = {
                 data : { MainData : [] }
             };

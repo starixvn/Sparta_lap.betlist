@@ -951,6 +951,7 @@
     <Content Include="www\js\source\reactpages\pages\exchangewl\actions\types.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\actions\__tests__\dataHandlerAction.test.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\actions\__tests__\filterHandlerAction.test.js" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\BetListDetail.test.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\BetList.test.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\DataGrid.method.test.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\BetList.redux.test.js" />
@@ -2704,6 +2705,7 @@
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\__snapshots__\BetList.test.js.snap" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\__snapshots__\formFilter.test.js.snap" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\__snapshots__\formFilter.render.test.js.snap" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\__snapshots__\BetListDetail.test.js.snap" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">

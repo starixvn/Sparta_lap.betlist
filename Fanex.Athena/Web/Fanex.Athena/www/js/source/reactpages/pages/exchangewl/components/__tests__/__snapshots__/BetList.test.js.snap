@@ -40,9 +40,9 @@ exports[`BetList  _buildBody  match Snapshot 1`] = `
       select1
     </td>
     <td
-      className="center-align false"
+      className="center-align negative"
     >
-      type1
+      lay
     </td>
     <td
       className="center-align"
@@ -763,9 +763,9 @@ exports[`BetList  render  show grid when gridData is not empty - match snapshot 
                     GrandTotal
                   </td>
                   <td
-                    className="right-align false"
+                    className="right-align negative"
                   >
-                    1
+                    -1
                   </td>
                 </tr>
               </tbody>
