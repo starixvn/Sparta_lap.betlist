@@ -120,6 +120,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="BonusBetListControllerTest.cs" />
     <Compile Include="WinlossByLeagueBetListControllerTest.cs" />
     <Compile Include="WinlossByBetTypeBetListControllerTest.cs" />
     <Compile Include="VoidbridgeBetListControllerTest.cs" />

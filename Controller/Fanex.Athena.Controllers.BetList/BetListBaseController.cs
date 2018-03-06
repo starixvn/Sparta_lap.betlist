@@ -260,7 +260,7 @@
             string fileName,
             int startIndex = 1)
         {
-            var excel = new BetListExcel(showingOption, metaModel.LicenseeId, hiddenColumns, metaModel.IsShowSumStake);
+            var excel = new BetListExcel(showingOption, SessionService.LicenseeSession.LicenseeId, hiddenColumns, metaModel.IsShowSumStake);
 
             var workbook = excel.Export(ticketResult, title, startIndex);
 
