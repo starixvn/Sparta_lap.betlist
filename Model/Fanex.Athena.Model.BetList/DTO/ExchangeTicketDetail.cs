@@ -15,6 +15,6 @@
 
         public decimal OddsMatched { get; set; }
 
-        public string BetTakenDateString => BetTaken.ToString(FormatKey.FormatDateTime);
+        public string BetTakenDateString => BetTaken.ToString(FormatKey.DateTimeFormat);
     }
 }

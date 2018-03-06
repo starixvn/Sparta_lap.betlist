@@ -23,7 +23,7 @@
 
         public DateTime BetPlaced { get; set; }
 
-        public string BetPlacedDateString => BetPlaced.ToString(FormatKey.FormatDateTime);
+        public string BetPlacedDateString => BetPlaced.ToString(FormatKey.DateTimeFormat);
 
         public decimal WinLost { get; set; }
     }
