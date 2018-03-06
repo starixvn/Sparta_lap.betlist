@@ -2043,7 +2043,7 @@ exports[`FormFilter  render methods render whole component match to snapshot 1`]
           BaseCurrency
         </label>
         <div
-          className="Select Select--single is-clearable is-searchable has-value"
+          className="Select has-value is-clearable is-searchable Select--single"
           style={undefined}
         >
           <input
@@ -2087,13 +2087,6 @@ exports[`FormFilter  render methods render whole component match to snapshot 1`]
                   }
                 }
               >
-                <style
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "input#undefined::-ms-clear {display: none;}",
-                    }
-                  }
-                />
                 <input
                   aria-activedescendant="react-select-2--value"
                   aria-describedby={undefined}
@@ -2103,7 +2096,7 @@ exports[`FormFilter  render methods render whole component match to snapshot 1`]
                   aria-labelledby={undefined}
                   aria-owns=""
                   className={undefined}
-                  id={undefined}
+                  id="ddlBased"
                   onBlur={[Function]}
                   onChange={[Function]}
                   onFocus={[Function]}

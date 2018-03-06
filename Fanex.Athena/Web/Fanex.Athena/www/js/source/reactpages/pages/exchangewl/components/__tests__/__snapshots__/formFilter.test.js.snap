@@ -1779,7 +1779,7 @@ exports[`FormFilter  filter component render whole component match to snapshot 1
           Currency
         </label>
         <div
-          className="Select Select--single is-clearable is-searchable has-value"
+          className="Select has-value is-clearable is-searchable Select--single"
           style={undefined}
         >
           <input
@@ -1823,13 +1823,6 @@ exports[`FormFilter  filter component render whole component match to snapshot 1
                   }
                 }
               >
-                <style
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "input#undefined::-ms-clear {display: none;}",
-                    }
-                  }
-                />
                 <input
                   aria-activedescendant="react-select-ddlCurrency--value"
                   aria-describedby={undefined}
