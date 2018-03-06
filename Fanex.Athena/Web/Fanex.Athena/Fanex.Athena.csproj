@@ -904,6 +904,7 @@
     <Content Include="www\css\source\reactpages\components\_popup-content.scss" />
     <Content Include="www\js\build\dev\pages\customer\exchangebetsetting.chunk.js.map" />
     <Content Include="www\js\build\dev\reactpages\dynamic-import\xlsx-style-sparta.chunk.js.map" />
+    <Content Include="www\js\build\dev\pages\customer\exchangebetsetting.chunk.js.map" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Row.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.jsx" />
