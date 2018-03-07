@@ -6,8 +6,6 @@
 
     public interface IKenoApi
     {
-        KenoAuthorization Authorize(KenoResultMetaModel setting, string userId);
-
         KenoExtendedToken ExtendToken(KenoResultMetaModel setting, string userId);
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Sonar Code Smell", "S3995:UriReturnValuesShouldNotBeStrings",
