@@ -32,14 +32,17 @@ export default class BetListDetail extends Component {
         const rows = [];
         for (let i = 0; i < data.length; i++) {
             const dataItem = data[i];
+            const OddsReqString = NumberFormat.formatDecimal(dataItem.OddsReq);
+            const StakeString = NumberFormat.formatDecimal(dataItem.Stake);
+            const OddsMatchedString = NumberFormat.formatDecimal(dataItem.OddsMatched);
 
             rows.push(
                 <Row key={`rowDetail-${i}`}>
-                    <Cell className="center-align">{dataItem.BetTakenDateString}</Cell>
-                    <Cell className="right-align">{NumberFormat.formatDecimal(dataItem.OddsReq)}</Cell>
-                    <Cell className="right-align">{NumberFormat.formatDecimal(dataItem.Stake)}</Cell>
-                    <Cell className="right-align">{dataItem.Liability}</Cell>
-                    <Cell className="right-align">{NumberFormat.formatDecimal(dataItem.OddsMatched)}</Cell>
+                    <Cell title={dataItem.BetTakenDateString} className="center-align">{dataItem.BetTakenDateString}</Cell>
+                    <Cell title={OddsReqString} className="right-align">{OddsReqString}</Cell>
+                    <Cell title={StakeString} className="right-align">{StakeString}</Cell>
+                    <Cell title={dataItem.Liability} className="right-align">{dataItem.Liability}</Cell>
+                    <Cell title={OddsMatchedString} className="right-align">{OddsMatchedString}</Cell>
                 </Row>
             );
         }

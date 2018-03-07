@@ -57,30 +57,36 @@ export class BetList extends Component {
             const { Ticket, Details } = MainData[i];
             const { MarketName, EventTypeName, EventName, WinLost, Commission } = Ticket;
             const dataDetailCount = Details.length;
+            const WinLostSumString = NumberFormat.formatDecimal(WinLost);
+            const CommissionString = NumberFormat.formatDecimal(Commission);
             let isFirstRow = true;
 
             const marketText = (<p>{EventTypeName} > <span className="text-bold">{EventName}</span> > {MarketName}</p>);
             for (let j = 0; j < Details.length; j++) {
                 const { BetId, SelectionName, Type, BetPlacedDateString, OddsAvg, Stake } = Details[j];
+                const OddsAvgString = NumberFormat.formatDecimal(OddsAvg);
+                const StakeString = NumberFormat.formatDecimal(Stake);
+                const WinLostDetailString = NumberFormat.formatDecimal(Details[j].WinLost);                
+
                 rows.push(
                     <Row key={`row-${i}-${j}`}>
-                        {isFirstRow && <Cell rowSpan={dataDetailCount} className="center-align">{i + 1}</Cell>}
-                        {isFirstRow && <Cell rowSpan={dataDetailCount}>{marketText}</Cell>}
-                        <Cell className="center-align">
+                        {isFirstRow && <Cell title={i + 1} rowSpan={dataDetailCount} className="center-align">{i + 1}</Cell>}
+                        {isFirstRow && <Cell title={`${EventTypeName} > ${EventName} > ${MarketName}`} rowSpan={dataDetailCount}>{marketText}</Cell>}
+                        <Cell title={BetId} className="center-align">
                             <a href="javascript:;" onClick={() => this._showTicketDetail(BetId, Type)}>{BetId}</a>
                         </Cell>
-                        <Cell className="center-align">{SelectionName}</Cell>
-                        <Cell className={`center-align ${Type.toLowerCase() === "lay" && "negative"}`}>{Type}</Cell>
-                        <Cell className="center-align">{BetPlacedDateString}</Cell>
-                        <Cell className="right-align">{NumberFormat.formatDecimal(OddsAvg)}</Cell>
-                        <Cell className="right-align">{NumberFormat.formatDecimal(Stake)}</Cell>
-                        <Cell className="right-align">{NumberFormat.formatDecimal(Details[j].WinLost)}</Cell>
+                        <Cell title={SelectionName} className="center-align">{SelectionName}</Cell>
+                        <Cell title={Type} className={`center-align ${Type.toLowerCase() === "lay" && "negative"}`}>{Type}</Cell>
+                        <Cell title={BetPlacedDateString} className="center-align">{BetPlacedDateString}</Cell>
+                        <Cell title={OddsAvgString} className="right-align">{OddsAvgString}</Cell>
+                        <Cell title={StakeString} className="right-align">{NumberFormat.formatDecimal(Stake)}</Cell>
+                        <Cell title={WinLostDetailString} className="right-align">{WinLostDetailString}</Cell>
                         {
                             isFirstRow &&
-                            <Cell rowSpan={dataDetailCount} className="right-align">
-                                <span className={WinLost < 0 && "negative"}>{NumberFormat.formatDecimal(WinLost)}</span>
+                            <Cell title={`${WinLostSumString}/${CommissionString}`} rowSpan={dataDetailCount} className="right-align">
+                                <span className={WinLost < 0 && "negative"}>{WinLostSumString}</span>
                                 <br />
-                                <span className={Commission < 0 && "negative"}>{NumberFormat.formatDecimal(Commission)}</span>
+                                <span className={Commission < 0 && "negative"}>{CommissionString}</span>
                             </Cell>}
                     </Row>
                 );
@@ -117,12 +123,12 @@ export class BetList extends Component {
     }
 
     _buildFooter() {
-        const { GrandTotal } = this.props.data;
+        const GrandTotal = NumberFormat.formatDecimal(this.props.data.GrandTotal);
 
         return [
             <Row key="betlist-footer">
                 <Cell colSpan='9' className="right-align">{LangHelper.getSingleResource("GrandTotal")}</Cell>
-                <Cell className={`right-align ${GrandTotal < 0 && "negative"}`}>{NumberFormat.formatDecimal(GrandTotal)}</Cell>
+                <Cell title={GrandTotal} className={`right-align ${GrandTotal < 0 && "negative"}`}>{GrandTotal}</Cell>
             </Row >
         ]
     }
