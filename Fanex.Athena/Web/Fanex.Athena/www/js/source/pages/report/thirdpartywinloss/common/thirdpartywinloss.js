@@ -176,13 +176,13 @@
             Site.blockUI();
             jqGridAdditional.clearGrid(_selector.GridId);
 
-            var numOfRow = response.Data.length;
-
-            if (response == null || numOfRow === 0) {
+            if (response == null || response.Data.length === 0) {
                 jqGridAdditional.setNoInfo();
                 Site.unBlockUI();
                 return;
             }
+
+            var numOfRow = response.Data.length;
 
             var reportGrid = $("#" + _selector.GridId);
 
@@ -225,15 +225,7 @@
             if (response != null) {
                 _cacheData[level] = response;
                 if (level === 0) {
-                    _submitData = {
-                        IsExcludedTestData: param.IsExcludedTestData,
-                        CurrencyId: param.CurrencyId,
-                        FromDate: param.FromDate,
-                        ToDate: param.ToDate,
-                        BaseCurrency: param.BaseCurrency,
-                        ProductId: param.ProductId,
-                        ReportBy: param.ReportBy
-                    };
+                    _submitData = param
                 }
 
                 Report.renderBreadCrumb(level, _thirdPartyWinLossOption.licenseeId);
