@@ -37,9 +37,6 @@
         [HttpPost]
         public ExchangeBetListViewModel Index(ExchangeBetListMetaModel metaModel)
         {
-            var yesterday = DateTime.Today.AddDays(-1);
-            metaModel.FromDate = metaModel.FromDate > yesterday ? yesterday : metaModel.FromDate;
-
             if (!IsValidRequest(metaModel))
             {
                 return new ExchangeBetListViewModel

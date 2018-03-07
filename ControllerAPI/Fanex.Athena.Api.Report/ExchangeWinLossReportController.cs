@@ -36,7 +36,7 @@
         [HttpPost]
         public dynamic Index(ExchangeWinLossMetaModel metaModel)
         {
-            if (ValidateMetaModel(metaModel))
+            if (metaModel.IsValid && IsValidRequest(metaModel, metaModel.CurrencyId))
             {
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.ExcludeTestData);
                 return metaModel.Level == 0 ? _dataAccess.GetMainWinloss(metaModel) :
@@ -51,14 +51,6 @@
                 TotalDataList = Enumerable.Empty<ExchangeWinLoss>(),
                 SummaryTotal = new Dictionary<string, ExchangeWinLoss>()
             };
-        }
-
-        public bool ValidateMetaModel(ExchangeWinLossMetaModel metaModel)
-        {
-            var yesterday = DateTime.Today.AddDays(-1);
-            metaModel.FromDate = metaModel.FromDate > yesterday ? yesterday : metaModel.FromDate;
-
-            return metaModel.IsValid && IsValidRequest(metaModel, metaModel.CurrencyId);
         }
     }
 }
