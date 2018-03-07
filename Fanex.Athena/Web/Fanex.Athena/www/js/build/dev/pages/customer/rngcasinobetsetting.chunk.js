@@ -1,11 +1,215 @@
-webpackJsonp([24],{
+webpackJsonp([36],{
 
-/***/ 15:
+/***/ 125:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(jQuery) {﻿/// <reference path="/@JSense.js" />
+
+(function ($) {
+    $.fn.checkboxgroup = function () {
+        var $parent = $(this).parent();
+        var allChk = this.first();
+        var elseChk = this.slice(1);
+
+        allChk.prop('checked', elseChk.filter(":checked").length === elseChk.length);
+
+        allChk.change(function () {
+            var thisIsChecked = $(this).is(':checked');
+            elseChk.prop('checked', thisIsChecked);
+            $parent.toggleClass("invalid", !thisIsChecked);
+        });
+
+        elseChk.change(function () {
+            if ($(this).is(':checked')) {
+                allChk.prop('checked', elseChk.filter(":checked").length === elseChk.length);
+            } else {
+                allChk.prop('checked', false);
+            }
+
+            $parent.toggleClass("invalid", elseChk.filter(":checked").length === 0);
+        });
+
+        return this;
+    };
+
+    $.fn.showHide = function (isShow) {
+        if (isShow) {
+            this.show();
+        } else {
+            this.hide();
+        }
+
+        return this;
+    };
+
+    jQuery.fn.serializeObject = function () {
+        var o = {};
+        var a = this.serializeArray();
+        $.each(a, function () {
+            if (o[this.name] !== undefined) {
+                if (!o[this.name].push) {
+                    o[this.name] = [o[this.name]];
+                }
+                o[this.name].push(this.value || '');
+            } else {
+                o[this.name] = this.value || '';
+            }
+        });
+        return o;
+    };
+
+    jQuery.fn.tableRowSpan = function (colIndexs, effectToIndex) {
+        /// <summary>
+        /// Created by Alex@20130228
+        /// set table rowspan
+        /// </summary>
+        /// <param name="colIndexs">column indexs</param>
+        /// <param name="effectToIndex">set rowspan for this columns base on lasted column in [colIndexs]</param>
+        if (effectToIndex !== undefined) {
+            if ($.inArray(effectToIndex, colIndexs) > -1) {
+                return;
+            }
+        }
+
+        function process(table, colIdx) {
+            var that;
+            var ethat;
+            var ethis;
+            var rowspan = 1;
+            var len = table.rows.length - 1;
+            for(var index = 0; index <= len; index++)
+            {
+                var currentRow = table.rows[index];                
+                var td = currentRow.cells[colIdx];
+                if(td) {
+                    ethis = currentRow.cells[effectToIndex];
+                    var found = that != null && $(td).html() === $(that).html();
+                    if (found && index < len) {
+                        rowspan++;
+                        $(td).hide();
+                        if (effectToIndex !== undefined) {
+                            $(ethis).hide();
+                        }
+                        //.remove// do your action for the old cell here
+                    }
+                    else if (found && index === len) {
+                        //do your action for lasted row
+                        $(td).hide();
+                        rowspan++;
+                        $(that).attr("rowSpan", rowspan);
+                        that = td;
+                        if (effectToIndex !== undefined) {
+                            $(ethis).hide();
+                            $(ethat).attr("rowSpan", rowspan);
+                            ethat = ethis;
+                        }
+                        rowspan = 1;
+                        // do your action for the colSpan cell here
+                    }
+                    else {
+                        if (effectToIndex !== undefined) {
+                            $(ethat).attr("rowSpan", rowspan);
+                            ethat = ethis;
+                        }
+                        $(that).attr("rowSpan", rowspan);
+                        // do your action for the colSpan cell here
+                        that = td;
+                        rowspan = 1;
+                    }
+                    that = (that == null) ? td : that;
+                    if (effectToIndex !== undefined) {
+                        ethat = (ethat == null) ? ethis : ethat;
+                    }
+                    // set the that if not already set
+                }
+            }
+        }
+
+        return this.each(function () {
+            for (var i = 0; i < colIndexs.length; i++) {
+                process(this, colIndexs[i]);
+            }
+        });
+    };
+
+    jQuery.fn.numbericTextBox = function (min, max) {
+        var thousandFormater = function (x) {
+            x = x.toString();
+            var pattern = /(-?\d+)(\d{3})/;
+            while (pattern.test(x)) {
+                x = x.replace(pattern, "$1,$2");
+            }
+            return x;
+        };
+
+        this.each(function (i, e) {
+            $(e).keydown(function (event) {
+                // Allow: backspace, delete, tab, escape, and enter
+                if (event.keyCode === 46 || event.keyCode === 8 || event.keyCode === 9 || event.keyCode === 27 || event.keyCode === 13 ||
+                // Allow: Ctrl+A
+                    (event.keyCode === 65 && event.ctrlKey === true) ||
+                // Allow: home, end, left, right
+                    (event.keyCode >= 35 && event.keyCode <= 39)) {
+                    // let it happen, don't do anything
+                    return;
+                }
+                else {
+                    // Ensure that it is a number and stop the keypress
+                    if (event.shiftKey || (event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105)) {
+                        event.preventDefault();
+                    }
+                }
+            }).keyup(function (event) {
+                var textBox = event.target;
+                var value = textBox.value;
+                value = value.replace(/,/g, '');
+
+                var isNotInRange = (value < min) || (value > max);
+                if (isNotInRange) {
+                    textBox.value = textBox.value.slice(0, -1);
+                    value = textBox.value.replace(/,/g, '');
+                }
+
+                textBox.value = thousandFormater(value);
+            });
+        });
+
+        return this;
+    };
+
+    $.fn.hasVerticalScrollBar = function () {
+        return this.length > 0 ? this.get(0).scrollHeight > this.height() : false;
+    };
+    $.fn.hasHorizontalScrollBar = function () {
+        return this.length > 0 ? this.get(0).scrollWidth > this.width() : false;
+    };
+})(jQuery);
+
+jQuery.extend({
+    format: function () {
+        /// <summary>
+        /// simply format method
+        /// </summary>
+        /// <returns type="string">formated string</returns>
+        var formatted = arguments[0];
+        var passValue = jQuery.grep(arguments, function (n, i) { return i > 0; });
+        for (var arg in passValue) {
+            formatted = formatted.replace("{" + arg + "}", passValue[arg]);
+        }
+        return formatted;
+    }
+});
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ }),
+
+/***/ 133:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(5), __webpack_require__(31)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Popup) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(122), __webpack_require__(149)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Popup) {
     
     function isInteger(text) {
         return /^\+?\d+$/.test(text);
@@ -73,7 +277,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 /***/ }),
 
-/***/ 20:
+/***/ 139:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -112,7 +316,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 /***/ }),
 
-/***/ 26:
+/***/ 144:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -131,7 +335,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
  **/
 
 // Customize to use AMD module
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
     function NumberFormatter() {
         this.defaults = {
             format: "#,###.00",
@@ -443,20 +647,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
 
 /***/ }),
 
-/***/ 269:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(270);
-
-
-/***/ }),
-
-/***/ 27:
+/***/ 145:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(15)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, BetSettingHelper) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(133)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, BetSettingHelper) {
     var SPORTID_NUMBERGAME = 161;
 
     var _me = {
@@ -569,230 +765,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 /***/ }),
 
-/***/ 270:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(271)], __WEBPACK_AMD_DEFINE_RESULT__ = (function (RngCasinoBetSetting) {
-    $(RngCasinoBetSetting.initialize);
-}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-
-/***/ 271:
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(5), __webpack_require__(30), __webpack_require__(38), __webpack_require__(6)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Popup, BetSettingBase, BetSettingStatus) {
-        "use strict";
-
-        function initialize() {
-            resizeGrid();
-            Site.initialize();
-            BetSettingBase.initialize();
-            _me.initEvent();
-            var isEnabled = $("#isenabled").val() === "True";
-
-            if (!isEnabled) {
-                $("#btnRngCasino, #btnResetRngCasino").prop("disabled", true);
-                $(".body-content input").prop("disabled", true);
-            }
-        }
-
-        function resizeGrid() {
-            if ($(".body-content").hasVerticalScrollBar()) {
-                $(".table-content").addClass("hasScroll");
-            }
-        }
-
-        function initEvent() {
-            $('#btnRngCasino').on('click', function () {
-                var custId = $(this).attr('data-cust-id');
-                var userName = $(this).attr('data-user-name');
-                _me.updateBetSetting(custId, userName);
-            });
-
-            $('#btnResetRngCasino').on('click', function () {
-                _me.resetBettingLimit();
-            });
-
-            $("#btnUpdateStatus").on("click", function () {
-                _me.updateStatus($(this));
-            });
-        }
-
-        function resetBettingLimit() {
-            $("input[type=checkbox]").each(function () {
-                this.checked = $(this).data("ischeck");
-            });
-        }
-
-        function updateStatus($context) {
-            var url = Site.resolveClientUrl("RngCasinoBetSetting/UpdateStatus");
-            var params = BetSettingStatus.getCommonPostData($context);
-
-            BetSettingStatus.update(url, params);
-        }
-
-        function updateBetSetting(custId, userName) {
-            var params = _me.getParams(custId);
-            showConfirmAction(params, userName, Site.getSingleResource('UpdateRNGCasinoBetSettings'));
-        }
-
-        function getParams(custId) {
-            var gameTypeChangedList = [];
-            var params = {
-                custId: custId
-            };
-
-            $('.casino-row').each(function () {
-                var gameTypeId = $(this).attr('data-gametypeid');
-
-                // Original stake level list
-                var originalStake = $(this).attr('data-stake-original');
-
-                // New stakelevel
-                var newStakeLevelList = [];
-
-                // Get stake level list on selecting
-                $('.input-' + gameTypeId).each(function () {
-                    if ($(this).is(':checked')) {
-                        newStakeLevelList.push($(this).attr('data-stakeid'));
-                    }
-                });
-
-                var newStake = newStakeLevelList.join(",");
-                // Compare stake
-                if (originalStake !== newStake) {
-                    gameTypeChangedList.push(gameTypeId);
-                    params['stake' + gameTypeId] = newStake;
-                }
-            });
-
-            // Get params changed list
-            params.gameTypeChangedList = gameTypeChangedList.join(",");
-
-            return params;
-        }
-
-        function showConfirmAction(params, userName, message) {
-            var options = {
-                height: "auto",
-                id: "bet-setting-confirm",
-                title: Site.getSingleResource("Confirmation"),
-                onOpen: function () {
-                    $('#btnRngCasino, #btnResetRngCasino').prop('disabled', true);
-                },
-                onClose: function () {
-                    $('#btnRngCasino, #btnResetRngCasino').removeAttr('disabled');
-                    $("#bet-setting-confirm").remove();
-                },
-                width: 380
-            };
-            var buttons = [
-            {
-                text: Site.getSingleResource("OK"),
-                click: function () {
-                    if (params.gameTypeChangedList.length > 0) {
-                        _me.updateStakeLevel(params, userName);
-                    }
-                    else {
-                        var message = Site.getSingleResource('UpdateRNGCasinoBetSettingSuccessMsg').replace("{0}", userName);
-                        showDialogMesage("Success", message, false);
-                    }
-                },
-                classes: "btn btn-submit",
-                isClosedOnClick: true
-            },
-            {
-                text: Site.getSingleResource("Cancel"),
-                classes: "btn btn-cancel",
-                isClosedOnClick: true
-            }];
-
-            Popup.openPopupWithButton('<div><p>' + message + '</p></div>', options, buttons);
-        }
-
-        function updateStakeLevel(params, userName) {
-            $.ajax({
-                url: Site.resolveClientUrl('RngCasinoBetsetting/UpdateBetSetting'),
-                type: 'POST',
-                cache: false,
-                data: params,
-                dataType: 'json',
-                success: function (result) {
-                    result.Message = getResultMessage(result.Code, userName);
-                    var title = result.Code.toString() === "0" ? "Success" : "Fail";
-                    showDialogMesage(title, result.Message, true);
-                }
-            });
-        }
-
-        function getResultMessage(code, userName) {
-            switch (code) {
-                case 1:
-                    return Site.getSingleResource('RNGCasinoUpdateSettingUnAvailableMsg');
-                case 0:
-                    return Site.getSingleResource('UpdateRNGCasinoBetSettingSuccessMsg').replace("{0}", userName);
-                default:
-                    return Site.getSingleResource('UpdateRNGCasinoBetSettingFailMsg').replace("{0}", userName);
-            }
-        }
-
-        function showDialogMesage(title, message, reloadPage) {
-            var options = {
-                height: "auto",
-                id: "bet-setting-message",
-                title: title,
-                onOpen: function () {
-                    $('#btnRngCasino, #btnResetRngCasino').prop('disabled', true);
-                },
-                onClose: function () {
-                    $('#btnRngCasino, #btnResetRngCasino').removeAttr('disabled');
-                    $("#bet-setting-message").remove();
-                    if (reloadPage) {
-                        setTimeout(function () {
-                            Site.blockUI();
-                            Site.reload();
-                        }, 500);
-                    }
-                },
-                width: 480
-            };
-            var buttons = [
-            {
-                text: Site.getSingleResource("OK"),
-                classes: "btn btn-submit",
-                isClosedOnClick: true
-            }];
-
-            Popup.openPopupWithButton('<div><p>' + message + '</p></div>', options, buttons);
-        }
-
-        var _me = {
-            initialize: initialize,
-            initEvent: initEvent,
-            updateStakeLevel: updateStakeLevel,
-            resetBettingLimit: resetBettingLimit,
-            getParams: getParams,
-            updateBetSetting: updateBetSetting,
-            updateStatus: updateStatus
-        };
-
-        return _me;
-    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-
-/***/ }),
-
-/***/ 30:
+/***/ 148:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(5), __webpack_require__(20), __webpack_require__(26), __webpack_require__(15), __webpack_require__(27)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Popup, Constant, NumberFormatter, BetSettingHelper, BetSettingValidation) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(122), __webpack_require__(139), __webpack_require__(144), __webpack_require__(133), __webpack_require__(145)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Popup, Constant, NumberFormatter, BetSettingHelper, BetSettingValidation) {
         var Product = Constant.Product;
 
         var _me = {
@@ -959,7 +937,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 /***/ }),
 
-/***/ 31:
+/***/ 149:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
@@ -1238,16 +1216,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         }
     };
 })(jQuery);
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
 
-/***/ 38:
+/***/ 156:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(15)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, BetSettingHelper) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(133)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, BetSettingHelper) {
     var _me = {
         update: function (url, postData) {
             $.ajax({
@@ -1288,215 +1266,231 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 /***/ }),
 
-/***/ 6:
+/***/ 389:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(390);
+
+
+/***/ }),
+
+/***/ 390:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(jQuery) {﻿/// <reference path="/@JSense.js" />
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(391)], __WEBPACK_AMD_DEFINE_RESULT__ = (function (RngCasinoBetSetting) {
+    $(RngCasinoBetSetting.initialize);
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
-(function ($) {
-    $.fn.checkboxgroup = function () {
-        var $parent = $(this).parent();
-        var allChk = this.first();
-        var elseChk = this.slice(1);
+/***/ }),
 
-        allChk.prop('checked', elseChk.filter(":checked").length === elseChk.length);
+/***/ 391:
+/***/ (function(module, exports, __webpack_require__) {
 
-        allChk.change(function () {
-            var thisIsChecked = $(this).is(':checked');
-            elseChk.prop('checked', thisIsChecked);
-            $parent.toggleClass("invalid", !thisIsChecked);
-        });
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(122), __webpack_require__(148), __webpack_require__(156), __webpack_require__(125)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Popup, BetSettingBase, BetSettingStatus) {
+        "use strict";
 
-        elseChk.change(function () {
-            if ($(this).is(':checked')) {
-                allChk.prop('checked', elseChk.filter(":checked").length === elseChk.length);
-            } else {
-                allChk.prop('checked', false);
-            }
+        function initialize() {
+            resizeGrid();
+            Site.initialize();
+            BetSettingBase.initialize();
+            _me.initEvent();
+            var isEnabled = $("#isenabled").val() === "True";
 
-            $parent.toggleClass("invalid", elseChk.filter(":checked").length === 0);
-        });
-
-        return this;
-    };
-
-    $.fn.showHide = function (isShow) {
-        if (isShow) {
-            this.show();
-        } else {
-            this.hide();
-        }
-
-        return this;
-    };
-
-    jQuery.fn.serializeObject = function () {
-        var o = {};
-        var a = this.serializeArray();
-        $.each(a, function () {
-            if (o[this.name] !== undefined) {
-                if (!o[this.name].push) {
-                    o[this.name] = [o[this.name]];
-                }
-                o[this.name].push(this.value || '');
-            } else {
-                o[this.name] = this.value || '';
-            }
-        });
-        return o;
-    };
-
-    jQuery.fn.tableRowSpan = function (colIndexs, effectToIndex) {
-        /// <summary>
-        /// Created by Alex@20130228
-        /// set table rowspan
-        /// </summary>
-        /// <param name="colIndexs">column indexs</param>
-        /// <param name="effectToIndex">set rowspan for this columns base on lasted column in [colIndexs]</param>
-        if (effectToIndex !== undefined) {
-            if ($.inArray(effectToIndex, colIndexs) > -1) {
-                return;
+            if (!isEnabled) {
+                $("#btnRngCasino, #btnResetRngCasino").prop("disabled", true);
+                $(".body-content input").prop("disabled", true);
             }
         }
 
-        function process(table, colIdx) {
-            var that;
-            var ethat;
-            var ethis;
-            var rowspan = 1;
-            var len = table.rows.length - 1;
-            for(var index = 0; index <= len; index++)
-            {
-                var currentRow = table.rows[index];                
-                var td = currentRow.cells[colIdx];
-                if(td) {
-                    ethis = currentRow.cells[effectToIndex];
-                    var found = that != null && $(td).html() === $(that).html();
-                    if (found && index < len) {
-                        rowspan++;
-                        $(td).hide();
-                        if (effectToIndex !== undefined) {
-                            $(ethis).hide();
-                        }
-                        //.remove// do your action for the old cell here
+        function resizeGrid() {
+            if ($(".body-content").hasVerticalScrollBar()) {
+                $(".table-content").addClass("hasScroll");
+            }
+        }
+
+        function initEvent() {
+            $('#btnRngCasino').on('click', function () {
+                var custId = $(this).attr('data-cust-id');
+                var userName = $(this).attr('data-user-name');
+                _me.updateBetSetting(custId, userName);
+            });
+
+            $('#btnResetRngCasino').on('click', function () {
+                _me.resetBettingLimit();
+            });
+
+            $("#btnUpdateStatus").on("click", function () {
+                _me.updateStatus($(this));
+            });
+        }
+
+        function resetBettingLimit() {
+            $("input[type=checkbox]").each(function () {
+                this.checked = $(this).data("ischeck");
+            });
+        }
+
+        function updateStatus($context) {
+            var url = Site.resolveClientUrl("RngCasinoBetSetting/UpdateStatus");
+            var params = BetSettingStatus.getCommonPostData($context);
+
+            BetSettingStatus.update(url, params);
+        }
+
+        function updateBetSetting(custId, userName) {
+            var params = _me.getParams(custId);
+            showConfirmAction(params, userName, Site.getSingleResource('UpdateRNGCasinoBetSettings'));
+        }
+
+        function getParams(custId) {
+            var gameTypeChangedList = [];
+            var params = {
+                custId: custId
+            };
+
+            $('.casino-row').each(function () {
+                var gameTypeId = $(this).attr('data-gametypeid');
+
+                // Original stake level list
+                var originalStake = $(this).attr('data-stake-original');
+
+                // New stakelevel
+                var newStakeLevelList = [];
+
+                // Get stake level list on selecting
+                $('.input-' + gameTypeId).each(function () {
+                    if ($(this).is(':checked')) {
+                        newStakeLevelList.push($(this).attr('data-stakeid'));
                     }
-                    else if (found && index === len) {
-                        //do your action for lasted row
-                        $(td).hide();
-                        rowspan++;
-                        $(that).attr("rowSpan", rowspan);
-                        that = td;
-                        if (effectToIndex !== undefined) {
-                            $(ethis).hide();
-                            $(ethat).attr("rowSpan", rowspan);
-                            ethat = ethis;
-                        }
-                        rowspan = 1;
-                        // do your action for the colSpan cell here
+                });
+
+                var newStake = newStakeLevelList.join(",");
+                // Compare stake
+                if (originalStake !== newStake) {
+                    gameTypeChangedList.push(gameTypeId);
+                    params['stake' + gameTypeId] = newStake;
+                }
+            });
+
+            // Get params changed list
+            params.gameTypeChangedList = gameTypeChangedList.join(",");
+
+            return params;
+        }
+
+        function showConfirmAction(params, userName, message) {
+            var options = {
+                height: "auto",
+                id: "bet-setting-confirm",
+                title: Site.getSingleResource("Confirmation"),
+                onOpen: function () {
+                    $('#btnRngCasino, #btnResetRngCasino').prop('disabled', true);
+                },
+                onClose: function () {
+                    $('#btnRngCasino, #btnResetRngCasino').removeAttr('disabled');
+                    $("#bet-setting-confirm").remove();
+                },
+                width: 380
+            };
+            var buttons = [
+            {
+                text: Site.getSingleResource("OK"),
+                click: function () {
+                    if (params.gameTypeChangedList.length > 0) {
+                        _me.updateStakeLevel(params, userName);
                     }
                     else {
-                        if (effectToIndex !== undefined) {
-                            $(ethat).attr("rowSpan", rowspan);
-                            ethat = ethis;
-                        }
-                        $(that).attr("rowSpan", rowspan);
-                        // do your action for the colSpan cell here
-                        that = td;
-                        rowspan = 1;
+                        var message = Site.getSingleResource('UpdateRNGCasinoBetSettingSuccessMsg').replace("{0}", userName);
+                        showDialogMesage("Success", message, false);
                     }
-                    that = (that == null) ? td : that;
-                    if (effectToIndex !== undefined) {
-                        ethat = (ethat == null) ? ethis : ethat;
-                    }
-                    // set the that if not already set
+                },
+                classes: "btn btn-submit",
+                isClosedOnClick: true
+            },
+            {
+                text: Site.getSingleResource("Cancel"),
+                classes: "btn btn-cancel",
+                isClosedOnClick: true
+            }];
+
+            Popup.openPopupWithButton('<div><p>' + message + '</p></div>', options, buttons);
+        }
+
+        function updateStakeLevel(params, userName) {
+            $.ajax({
+                url: Site.resolveClientUrl('RngCasinoBetsetting/UpdateBetSetting'),
+                type: 'POST',
+                cache: false,
+                data: params,
+                dataType: 'json',
+                success: function (result) {
+                    result.Message = getResultMessage(result.Code, userName);
+                    var title = result.Code.toString() === "0" ? "Success" : "Fail";
+                    showDialogMesage(title, result.Message, true);
                 }
+            });
+        }
+
+        function getResultMessage(code, userName) {
+            switch (code) {
+                case 1:
+                    return Site.getSingleResource('RNGCasinoUpdateSettingUnAvailableMsg');
+                case 0:
+                    return Site.getSingleResource('UpdateRNGCasinoBetSettingSuccessMsg').replace("{0}", userName);
+                default:
+                    return Site.getSingleResource('UpdateRNGCasinoBetSettingFailMsg').replace("{0}", userName);
             }
         }
 
-        return this.each(function () {
-            for (var i = 0; i < colIndexs.length; i++) {
-                process(this, colIndexs[i]);
-            }
-        });
-    };
+        function showDialogMesage(title, message, reloadPage) {
+            var options = {
+                height: "auto",
+                id: "bet-setting-message",
+                title: title,
+                onOpen: function () {
+                    $('#btnRngCasino, #btnResetRngCasino').prop('disabled', true);
+                },
+                onClose: function () {
+                    $('#btnRngCasino, #btnResetRngCasino').removeAttr('disabled');
+                    $("#bet-setting-message").remove();
+                    if (reloadPage) {
+                        setTimeout(function () {
+                            Site.blockUI();
+                            Site.reload();
+                        }, 500);
+                    }
+                },
+                width: 480
+            };
+            var buttons = [
+            {
+                text: Site.getSingleResource("OK"),
+                classes: "btn btn-submit",
+                isClosedOnClick: true
+            }];
 
-    jQuery.fn.numbericTextBox = function (min, max) {
-        var thousandFormater = function (x) {
-            x = x.toString();
-            var pattern = /(-?\d+)(\d{3})/;
-            while (pattern.test(x)) {
-                x = x.replace(pattern, "$1,$2");
-            }
-            return x;
+            Popup.openPopupWithButton('<div><p>' + message + '</p></div>', options, buttons);
+        }
+
+        var _me = {
+            initialize: initialize,
+            initEvent: initEvent,
+            updateStakeLevel: updateStakeLevel,
+            resetBettingLimit: resetBettingLimit,
+            getParams: getParams,
+            updateBetSetting: updateBetSetting,
+            updateStatus: updateStatus
         };
 
-        var maxLength = max.toString().length;
-
-        this.each(function (i, e) {
-            $(e).keydown(function (event) {
-                // Allow: backspace, delete, tab, escape, and enter
-                if (event.keyCode === 46 || event.keyCode === 8 || event.keyCode === 9 || event.keyCode === 27 || event.keyCode === 13 ||
-                // Allow: Ctrl+A
-                    (event.keyCode === 65 && event.ctrlKey === true) ||
-                // Allow: home, end, left, right
-                    (event.keyCode >= 35 && event.keyCode <= 39)) {
-                    // let it happen, don't do anything
-                    return;
-                }
-                else {
-                    // Ensure that it is a number and stop the keypress
-                    if (event.shiftKey || (event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105)) {
-                        event.preventDefault();
-                    }
-                }
-            }).keyup(function (event) {
-                var textBox = event.target;
-                var value = textBox.value.replace(/,/g, '');
-
-                if (value.length > maxLength) {
-                    value = value.slice(0, maxLength);
-                }
-
-                if (value < min) {
-                    value = min;
-                }
-                else if (value > max) {
-                    value = max;
-                }
-
-                textBox.value = thousandFormater(value);
-            });
-        });
-
-        return this;
-    };
-
-    $.fn.hasVerticalScrollBar = function () {
-        return this.length > 0 ? this.get(0).scrollHeight > this.height() : false;
-    };
-    $.fn.hasHorizontalScrollBar = function () {
-        return this.length > 0 ? this.get(0).scrollWidth > this.width() : false;
-    };
-})(jQuery);
-
-jQuery.extend({
-    format: function () {
-        /// <summary>
-        /// simply format method
-        /// </summary>
-        /// <returns type="string">formated string</returns>
-        var formatted = arguments[0];
-        var passValue = jQuery.grep(arguments, function (n, i) { return i > 0; });
-        for (var arg in passValue) {
-            formatted = formatted.replace("{" + arg + "}", passValue[arg]);
-        }
-        return formatted;
-    }
-});
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+        return _me;
+    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ })
 
-},[269]);
+},[389]);
 //# sourceMappingURL=rngcasinobetsetting.chunk.js.map
