@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Api.BetList
 {
+    using System;
     using System.Collections.Generic;
     using System.Web.Http;
     using Base;
@@ -36,6 +37,9 @@
         [HttpPost]
         public ExchangeBetListViewModel Index(ExchangeBetListMetaModel metaModel)
         {
+            var yesterday = DateTime.Today.AddDays(-1);
+            metaModel.FromDate = metaModel.FromDate > yesterday ? yesterday : metaModel.FromDate;
+
             if (!IsValidRequest(metaModel))
             {
                 return new ExchangeBetListViewModel

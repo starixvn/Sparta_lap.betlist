@@ -1134,12 +1134,8 @@ var _constants = __webpack_require__(23);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 exports.default = {
-    ranges: function ranges(today) {
-        var _ref;
-
+    ranges: function ranges(today, max) {
         if (today && !_moment2.default.isMoment(today)) {
             today = (0, _moment2.default)(today, _constants.MomentFormat.default);
         }
@@ -1148,28 +1144,48 @@ exports.default = {
             today = (0, _moment2.default)();
         }
 
-        return _ref = {}, _defineProperty(_ref, _langHelper2.default.getSingleResource("Today"), {
-            startDate: today,
-            endDate: today
-        }), _defineProperty(_ref, _langHelper2.default.getSingleResource("Yesterday"), {
+        if (max && !_moment2.default.isMoment(max)) {
+            max = (0, _moment2.default)(max, _constants.MomentFormat.default);
+        }
+
+        if (!max) {
+            max = (0, _moment2.default)();
+        }
+
+        var range = {};
+        if (today <= max) {
+            range[_langHelper2.default.getSingleResource("Today")] = { startDate: today, endDate: today };
+        }
+
+        range[_langHelper2.default.getSingleResource("Yesterday")] = {
             startDate: today.clone().add(-1, 'days'),
             endDate: today.clone().add(-1, 'days')
-        }), _defineProperty(_ref, _langHelper2.default.getSingleResource("Currentweek"), {
+        };
+
+        today = today > max ? max : today;
+
+        range[_langHelper2.default.getSingleResource("Currentweek")] = {
             startDate: today.clone().startOf('week'),
             endDate: today
-        }), _defineProperty(_ref, _langHelper2.default.getSingleResource("Lastweek"), {
+        };
+        range[_langHelper2.default.getSingleResource("Lastweek")] = {
             startDate: today.clone().subtract(1, 'week').startOf('week'),
             endDate: today.clone().subtract(1, 'week').startOf('week').add(6, 'days')
-        }), _defineProperty(_ref, _langHelper2.default.getSingleResource("Currentmonth"), {
+        };
+        range[_langHelper2.default.getSingleResource("Currentmonth")] = {
             startDate: today.clone().startOf('month'),
             endDate: today
-        }), _defineProperty(_ref, _langHelper2.default.getSingleResource("Lastmonth"), {
+        };
+        range[_langHelper2.default.getSingleResource("Lastmonth")] = {
             startDate: today.clone().subtract(1, 'month').startOf('month'),
             endDate: today.clone().subtract(1, 'month').endOf('month')
-        }), _defineProperty(_ref, _langHelper2.default.getSingleResource("Sincelastmonth"), {
+        };
+        range[_langHelper2.default.getSingleResource("Sincelastmonth")] = {
             startDate: today.clone().subtract(1, 'month').startOf('month'),
             endDate: today
-        }), _ref;
+        };
+
+        return range;
     },
 
     locale: _extends({
@@ -2329,7 +2345,7 @@ var DateRange = function (_Component) {
     _this.styles = (0, _styles2.default)(theme);
     _this.step = 0;
     _this.locale = _extends({}, _defaultOptions2.default.locale, props.locale);
-    _this.ranges = _extends({}, _defaultOptions2.default.ranges(props.today), props.ranges);
+    _this.ranges = _extends({}, _defaultOptions2.default.ranges(props.today, props.maxDate), props.ranges);
 
     _this.isValid = true;
     _this.currentRange = { startDate: startDate, endDate: endDate };

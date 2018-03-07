@@ -55,8 +55,8 @@
 
         public bool ValidateMetaModel(ExchangeWinLossMetaModel metaModel)
         {
-            var today = DateTime.Today;
-            metaModel.FromDate = metaModel.FromDate > today ? today : metaModel.FromDate;
+            var yesterday = DateTime.Today.AddDays(-1);
+            metaModel.FromDate = metaModel.FromDate > yesterday ? yesterday : metaModel.FromDate;
 
             return metaModel.IsValid && IsValidRequest(metaModel, metaModel.CurrencyId);
         }
