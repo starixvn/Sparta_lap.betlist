@@ -2649,4 +2649,40 @@
     <value>獨贏</value>
     <comment>91048</comment>
   </data>
+  <data name="BetId" xml:space="preserve">
+    <value>投注單號</value>
+    <comment>91048</comment>
+  </data>
+  <data name="BetPlaced" xml:space="preserve">
+    <value>投注時間</value>
+    <comment>91048</comment>
+  </data>
+  <data name="BetTaken" xml:space="preserve">
+    <value>匹配時間</value>
+    <comment>91048</comment>
+  </data>
+  <data name="Liability" xml:space="preserve">
+    <value>負債</value>
+    <comment>91048</comment>
+  </data>
+  <data name="Market" xml:space="preserve">
+    <value>市場</value>
+    <comment>91048</comment>
+  </data>
+  <data name="OddsAvg" xml:space="preserve">
+    <value>平均賠率</value>
+    <comment>91048</comment>
+  </data>
+  <data name="OddsMatched" xml:space="preserve">
+    <value>匹配賠率</value>
+    <comment>91048</comment>
+  </data>
+  <data name="OddsReq" xml:space="preserve">
+    <value>投注賠率</value>
+    <comment>91048</comment>
+  </data>
+  <data name="Selection" xml:space="preserve">
+    <value>選項</value>
+    <comment>91048</comment>
+  </data>
 </root>
