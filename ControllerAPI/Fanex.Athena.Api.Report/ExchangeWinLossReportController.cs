@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Api.Report
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Http;
@@ -35,7 +36,7 @@
         [HttpPost]
         public dynamic Index(ExchangeWinLossMetaModel metaModel)
         {
-            if (metaModel.IsValid && IsValidRequest(metaModel, metaModel.CurrencyId))
+            if (ValidateMetaModel(metaModel))
             {
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.ExcludeTestData);
                 return metaModel.Level == 0 ? _dataAccess.GetMainWinloss(metaModel) :
@@ -50,6 +51,14 @@
                 TotalDataList = Enumerable.Empty<ExchangeWinLoss>(),
                 SummaryTotal = new Dictionary<string, ExchangeWinLoss>()
             };
+        }
+
+        public bool ValidateMetaModel(ExchangeWinLossMetaModel metaModel)
+        {
+            var today = DateTime.Today;
+            metaModel.FromDate = metaModel.FromDate > today ? today : metaModel.FromDate;
+
+            return metaModel.IsValid && IsValidRequest(metaModel, metaModel.CurrencyId);
         }
     }
 }

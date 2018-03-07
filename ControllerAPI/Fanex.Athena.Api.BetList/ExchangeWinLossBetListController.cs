@@ -12,6 +12,7 @@
     using Service.BetList.Interfaces;
     using Service.Core.Users;
     using Service.Core.Users.Interfaces;
+    using Service.Core.Utility;
 
     [ApiFunctionAuthorization(PermissionKeys.ReportExchangeWinLoss)]
     public class ExchangeWinLossBetListController : BaseApiController
@@ -64,7 +65,8 @@
         private bool IsValidRequest(BaseExchangeBetListMetaModel metaModel)
         {
             return metaModel.IsValid
-                && (metaModel.CurrencyId == 0 || SessionService.UserSession.CurrencyList.ContainsKey(metaModel.CurrencyId))
+                && (metaModel.CurrencyId == BaseCurrencyType.All || KeanOceanBusinessHelper.VerifyKeanOceanCurrencyRequest(
+                    SessionService.UserSession.CurrencyList, SessionService.LicenseeSession.LicenseeId, metaModel.CurrencyId))
                 && _authorizationService.HasPermissionOnData(SessionService.LicenseeSession.LicenseeId, metaModel.CustId, 0);
         }
     }
