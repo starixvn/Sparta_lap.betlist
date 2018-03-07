@@ -1,11 +1,11 @@
 webpackJsonp([6],{
 
-/***/ 780:
+/***/ 778:
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ })
 
-},[780]);
+},[778]);
 //# sourceMappingURL=index.chunk.js.map
