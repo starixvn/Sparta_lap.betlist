@@ -30,12 +30,6 @@
             _webClient = webClient ?? new WebClientService();
         }
 
-        /// <summary>
-        /// Extend token for Keno.
-        /// </summary>
-        /// <param name="setting">Setting value.</param>
-        /// <param name="userId">User Id value.</param>
-        /// <returns>KenoExtendedToken value.</returns>
         public KenoExtendedToken ExtendToken(KenoResultMetaModel setting, string userId)
         {
             try
@@ -44,7 +38,7 @@
                 var data = _webClient.DownloadString(extendedUrl);
                 if (string.IsNullOrEmpty(data))
                 {
-                    throw new ServiceException("Couldn't get authorized data from:" + extendedUrl, GetServiceName(setting.VendorProduct));
+                    throw new ServiceException("Couldn't get authorized data from: " + extendedUrl, GetServiceName(setting.VendorProduct));
                 }
 
                 var serialize = new JavaScriptSerializer();
@@ -87,7 +81,7 @@
             return vendorProductId == ResultVendorProductTypes.Keno ? KENOGAMENAME : LOTTERYGAMENAME;
         }
 
-        private KenoAuthorization Authorize(KenoResultMetaModel setting, string userId)
+        protected internal virtual KenoAuthorization Authorize(KenoResultMetaModel setting, string userId)
         {
             try
             {
@@ -95,7 +89,7 @@
                 var data = _webClient.DownloadString(authorizedUrl);
                 if (string.IsNullOrEmpty(data))
                 {
-                    throw new ServiceException("Couldn't get authorized data from:" + authorizedUrl, GetServiceName(setting.VendorProduct));
+                    throw new ServiceException("Couldn't get authorized data from: " + authorizedUrl, GetServiceName(setting.VendorProduct));
                 }
 
                 var serialize = new JavaScriptSerializer();

@@ -82,6 +82,7 @@
     <Compile Include="NotificationServiceTest.cs" />
     <Compile Include="ColossusBetsWinLossServiceTest.cs" />
     <Compile Include="LiveReportServiceTest.cs" />
+    <Compile Include="KenoApiTest.cs" />
     <Compile Include="ResultServiceTest.cs" />
     <Compile Include="SettledMatchCountServiceTest.cs" />
     <Compile Include="CustomerTurnoverServiceTest.cs" />
