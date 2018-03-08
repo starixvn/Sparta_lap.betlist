@@ -5,6 +5,8 @@ import NumberFormat from '../../../../lib/numberFormat';
 import renderer from 'react-test-renderer';
 import { ReportLevel, ReportBy } from '../../../../constants/report';
 import { Licensee } from '../../../../constants/licensee';
+import Report from '../../../../lib/report';
+import LangHelper from '../../../../lib/langHelper.js';
 
 describe('DataGrid methods ', () => {
     beforeAll(() => {
@@ -12,7 +14,7 @@ describe('DataGrid methods ', () => {
     });
 
     describe('componentWillReceiveProps ', () => {
-        it('gridData update - get title report with correct parameter', () => {
+        it('gridData update - view in base currency - get title report with correct parameter', () => {
             const level = ReportLevel.MAIN;
             const dataGridProps = { 
                 gridData: {},                
@@ -25,12 +27,39 @@ describe('DataGrid methods ', () => {
                 dataGridProps, 
                 { 
                     gridData: { level: level, data: { DataList: ['change'] } },
-                    params: { FromDate: '01/01/2017', ToDate: '02/01/2017', CurrencyName: 'USD', CurrencyId: 0 }
+                    params: { FromDate: '01/01/2017', ToDate: '02/01/2017', BaseCurrency: 'EUR', CurrencyName: 'USD', CurrencyId: 0 }
                 });
 
             dataGrid.componentWillReceiveProps(nextProps);
 
             expect(dataGrid.drillDownParams[ReportLevel.MAIN]).toEqual(nextProps.params);
+
+            expect(Service.getReportTitle).toHaveBeenCalledWith({ 
+                fromDate: dataGrid.drillDownParams[level].FromDate, 
+                toDate: dataGrid.drillDownParams[level].ToDate }, 
+                dataGrid.drillDownParams[level].BaseCurrency, 
+                dataGrid.drillDownParams[level].CurrencyId === 0);
+        })
+
+        it('gridData update - view in selected currency - get title report with correct parameter', () => {
+            const level = ReportLevel.LICENSEE;
+            const dataGridProps = { 
+                gridData: {},                
+                toggleLoader: jest.fn(),
+                params: { FromDate: '01/01/2017', ToDate: '02/01/2017', BaseCurrency: '', CurrencyName: 'USD', CurrencyId: 0 }
+            };
+
+            const dataGrid = new DataGrid(dataGridProps);
+            dataGrid.drillDownParams = [dataGridProps.params, dataGridProps.params];
+
+            const nextProps = Object.assign({}, 
+                dataGridProps, 
+                { 
+                    gridData: { level: level, data: { DataList: ['change'] } },
+                    params: dataGridProps.params
+                });
+
+            dataGrid.componentWillReceiveProps(nextProps);
 
             expect(Service.getReportTitle).toHaveBeenCalledWith({ 
                 fromDate: dataGrid.drillDownParams[level].FromDate, 
@@ -370,6 +399,93 @@ describe('DataGrid methods ', () => {
 
             expect(Service.showErrorMsg).toHaveBeenCalled();
             expect(props.toggleLoader).toHaveBeenCalledWith(false);
+        })
+    })
+
+    describe('closeBetListPopup', () => {
+        it('reset state of bet list', () => {
+            const props = {
+                gridData: { level: 1 },
+                toggleLoader: jest.fn()
+            };
+
+            const dataGrid = new DataGrid(props);
+            dataGrid.setState = jest.fn() ;
+
+            dataGrid.closeBetListPopup();
+
+            expect(dataGrid.setState).toHaveBeenCalledWith({ showBetList: false, betListData: null });
+        })
+    })
+
+    describe('showBetListPopup', () => {
+        const betListData = [1, 2];
+        let dataGrid;
+        const drillDownParam = { CurrencyId : 1, BaseCurrency : "", FromDate : new Date(2018, 0, 1), ToDate : new Date(2018, 0, 2), CurrencyName : "USD", ExcludeTestData : false };            
+        const custId = 2, externalId = 'external', systemId = 'system';
+
+        beforeAll(() => {
+            const fakeReportLib = {
+                then: (func) => { func({ data : betListData}); return {catch: (func) => { func('Error'); }}; }
+            }
+
+            Report.fetchGridData = jest.fn(() => fakeReportLib);
+
+            Service.showErrorMsg = jest.fn();
+
+            LangHelper.getSingleResource = jest.fn((str) => { return str === 'Viewin' ? 'Viewin {0}' : str; });
+
+            const props = {
+                gridData: { level: 1 },
+                toggleLoader: jest.fn()
+            };
+
+            dataGrid = new DataGrid(props);
+            dataGrid.drillDownParams = [{}, {}, drillDownParam];
+            dataGrid.setState = jest.fn();
+        })
+
+        it('update bet list params', () => {
+            dataGrid.showBetListPopup(externalId, systemId, custId );
+
+            expect(dataGrid.betlistParams).toEqual({ 
+                CustId : custId, 
+                CurrencyId : drillDownParam.CurrencyId, 
+                BaseCurrency : drillDownParam.BaseCurrency, 
+                FromDate : drillDownParam.FromDate, 
+                ToDate : drillDownParam.ToDate, 
+                ExcludeTestData : drillDownParam.ExcludeTestData });
+        })
+
+        it('update bet list title - View in base currency', () => {
+            const drillDownParamBaseUsd = { ...drillDownParam, BaseCurrency : 'USD', CurrencyName : 'EUR' };
+
+        dataGrid.drillDownParams[ReportLevel.CUSTOMER] = drillDownParamBaseUsd;
+            dataGrid.showBetListPopup(externalId, systemId, custId );
+ 
+            expect(dataGrid.betlistTitle.props.children.join('')).toContain('CustomerBetList 1/1/2018 → 1/2/2018 - external(system) -');
+            expect(dataGrid.betlistTitle.props.children[dataGrid.betlistTitle.props.children.length - 1].props.children).toContain('Viewin USD');
+        })
+
+        it('update bet list title - View in selected currency', () => {
+            const drillDownParamBaseUsd = { ...drillDownParam, BaseCurrency : '', CurrencyName : 'EUR' };
+
+            dataGrid.drillDownParams[ReportLevel.CUSTOMER] = drillDownParamBaseUsd;
+            dataGrid.showBetListPopup(externalId, systemId, custId );
+
+            expect(dataGrid.betlistTitle.props.children[dataGrid.betlistTitle.props.children.length - 1].props.children).toContain("Viewin EUR");
+        })
+
+        it('Call Report.fetchGridData - update state when calling successfully', () => {
+            dataGrid.showBetListPopup(externalId, systemId, custId );
+
+            expect(dataGrid.setState).toHaveBeenCalledWith({ showBetList: true, betListData: betListData });
+        })
+
+         it('Call Report.fetchGridData - show error when calling failed', () => {
+            dataGrid.showBetListPopup(externalId, systemId, custId );
+
+            expect(Service.showErrorMsg).toHaveBeenCalled();
         })
     })
 });

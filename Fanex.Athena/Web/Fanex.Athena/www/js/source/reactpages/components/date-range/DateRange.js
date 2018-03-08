@@ -22,7 +22,7 @@ class DateRange extends Component {
     this.styles = getTheme(theme);
     this.step = 0;
     this.locale = { ...defaultOptions.locale, ...props.locale };
-    this.ranges = { ...defaultOptions.ranges(props.today), ...props.ranges };
+    this.ranges = { ...defaultOptions.ranges(props.today, props.maxDate), ...props.ranges };
 
     this.isValid = true;
     this.currentRange = { startDate, endDate };

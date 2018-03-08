@@ -123,6 +123,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="ExchangeBetListServiceTest.cs" />
     <Compile Include="LastBetsMonitoringBetListServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BetListServiceTest.cs" />

@@ -54,6 +54,7 @@ class Table extends Component {
         minWidth: PropTypes.number,
         autoWidth: PropTypes.bool,
         bodyHeight: PropTypes.number,
+        autoHeight: PropTypes.bool,
         header: PropTypes.oneOfType([PropTypes.object, PropTypes.arrayOf(PropTypes.object)]).isRequired,
         body: PropTypes.arrayOf(PropTypes.object),
         footer: PropTypes.arrayOf(PropTypes.object),
@@ -69,7 +70,8 @@ class Table extends Component {
         autoWidth: true,
         isPaging: false,
         adjustedHeight: 0,
-        bodyHeight: 0
+        bodyHeight: 0,
+        autoHeight: true
     }
 
     _getColumnsWidth(headerRows) {
@@ -152,7 +154,7 @@ class Table extends Component {
     _handleResize = (event) => {
         event && event.preventDefault();
 
-        if (this.bodyWrapper) {
+        if (this.bodyWrapper && this.props.autoHeight) {
             const bodyHeight = this._calculateBodyHeight();
             if (this.state.contentHeight !== bodyHeight) {
                 this.setState({ contentHeight: bodyHeight });

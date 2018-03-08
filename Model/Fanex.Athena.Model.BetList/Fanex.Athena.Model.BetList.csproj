@@ -129,12 +129,20 @@
     <Compile Include="DTO\CashOutTicket.cs" />
     <Compile Include="DTO\CustomerCancelBetItem.cs" />
     <Compile Include="DTO\DailyStatement.cs" />
+    <Compile Include="DTO\ExchangeBetList.cs" />
+    <Compile Include="DTO\ExchangeSumWinLoss.cs" />
+    <Compile Include="DTO\ExchangeTicket.cs" />
+    <Compile Include="DTO\ExchangeBetListResult.cs" />
+    <Compile Include="DTO\ExchangeTicketDetail.cs" />
     <Compile Include="DTO\LrfTicket.cs" />
     <Compile Include="DTO\BetListMatch.cs" />
     <Compile Include="DTO\ColossusBetDetail.cs" />
     <Compile Include="DTO\TicketText.cs" />
     <Compile Include="DTO\TicketResult.cs" />
+    <Compile Include="MetaModel\ExchangeBetListDetailMetaModel.cs" />
+    <Compile Include="MetaModel\ExchangeBetListMetaModel.cs" />
     <Compile Include="MetaModel\BetListMetaModel.cs" />
+    <Compile Include="MetaModel\BaseExchangeBetListMetaModel.cs" />
     <Compile Include="MetaModel\WinLossByLeagueBetListMetaModel.cs" />
     <Compile Include="MetaModel\DailyBetListMetaModel.cs" />
     <Compile Include="MetaModel\CashOutBetListDetailMetaModel.cs" />
@@ -147,6 +155,7 @@
     <Compile Include="ViewModel\CancelledBetsBetListViewModel.cs" />
     <Compile Include="ViewModel\CashOutBetListDetailViewModel.cs" />
     <Compile Include="ViewModel\ColossusBetDetailViewModel.cs" />
+    <Compile Include="ViewModel\ExchangeBetListViewModel.cs" />
     <Compile Include="ViewModel\LastBetsMonitoringViewModel.cs" />
     <Compile Include="ViewModel\SystemParlayDetailViewModel.cs" />
   </ItemGroup>

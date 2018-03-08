@@ -305,6 +305,7 @@ describe('Render DataGrid components ', () => {
 
             describe('_buildBody', () => {
                 const drillDownLink = '<a>Drill down link</a>';
+                const betListLink = '<a>Bet list link</a>';
                 const cells = '<td>cell</td>';
                 const data = gridData;
 
@@ -371,7 +372,7 @@ describe('Render DataGrid components ', () => {
                         gridData: { data: data }
                     };
                     const grid = new DataGrid(props);
-                    grid._renderDrillDownLink = jest.fn( () => drillDownLink );
+                    grid._renderBetListLink = jest.fn( () => betListLink );
                     grid._buildCell = jest.fn( () => cells );
 
                     const body = renderer.create(<div>{grid._buildBody(ReportLevel.CUSTOMER, ReportBy.DAILY)}</div>);
@@ -642,6 +643,37 @@ describe('Render DataGrid components ', () => {
                     drillDownLink.props.onClick();
 
                     expect(drillDownOnClickHandle).toHaveBeenCalledWith(level, date, currencyId, currencyName, custId);
+                });
+            });
+
+            describe('_renderBetListLink', () => {
+                const text = 'text',
+                    externalId = 'externalId',
+                    systemId = 'systemId',
+                    custId = 1;
+                const showBetListPopup = jest.fn();
+
+                let betListLink = {};
+
+                beforeAll(() => {
+                    const props = {
+                        isAllowedCustomerComm: true,
+                        licenseeId: 1
+                    };
+                    const grid = new DataGrid(props);
+                    grid.showBetListPopup = showBetListPopup;
+
+                    betListLink = renderer.create(grid._renderBetListLink(text, externalId, systemId, custId)).toJSON();
+                });
+
+                it('return correct content', () => {
+                    expect(betListLink.children[0].toString()).toEqual(text);
+                });
+
+                it('onClick - call drill down method', () => {
+                    betListLink.props.onClick();
+
+                    expect(showBetListPopup).toHaveBeenCalledWith(externalId, systemId, custId);
                 });
             });
         });

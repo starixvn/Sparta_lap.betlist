@@ -1841,7 +1841,7 @@ exports[`FormFilter  render methods render whole component group by currency - I
           TimeZone
         </label>
         <div
-          className="Select Select--single is-clearable is-searchable has-value"
+          className="Select has-value is-clearable is-searchable Select--single"
           style={undefined}
         >
           <div
@@ -1879,13 +1879,6 @@ exports[`FormFilter  render methods render whole component group by currency - I
                   }
                 }
               >
-                <style
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "input#undefined::-ms-clear {display: none;}",
-                    }
-                  }
-                />
                 <input
                   aria-activedescendant="react-select-ddlTimeZone--value"
                   aria-describedby={undefined}
@@ -2071,7 +2064,7 @@ exports[`FormFilter  render methods render whole component group by currency - I
           Currency
         </label>
         <div
-          className="Select Select--single is-clearable is-searchable has-value"
+          className="Select has-value is-clearable is-searchable Select--single"
           style={undefined}
         >
           <div
@@ -2109,13 +2102,6 @@ exports[`FormFilter  render methods render whole component group by currency - I
                   }
                 }
               >
-                <style
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "input#undefined::-ms-clear {display: none;}",
-                    }
-                  }
-                />
                 <input
                   aria-activedescendant="react-select-ddlCurrency--value"
                   aria-describedby={undefined}
@@ -2200,7 +2186,7 @@ exports[`FormFilter  render methods render whole component group by currency - I
           BaseCurrency
         </label>
         <div
-          className="Select Select--single is-clearable is-searchable has-value"
+          className="Select has-value is-clearable is-searchable Select--single"
           style={undefined}
         >
           <div
@@ -2238,13 +2224,6 @@ exports[`FormFilter  render methods render whole component group by currency - I
                   }
                 }
               >
-                <style
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "input#undefined::-ms-clear {display: none;}",
-                    }
-                  }
-                />
                 <input
                   aria-activedescendant="react-select-ddlBased--value"
                   aria-describedby={undefined}
@@ -2372,7 +2351,7 @@ exports[`FormFilter  render methods render whole component group by currency - I
           ReportBy
         </label>
         <div
-          className="Select Select--single is-clearable is-searchable has-value"
+          className="Select has-value is-clearable is-searchable Select--single"
           style={undefined}
         >
           <div
@@ -2410,13 +2389,6 @@ exports[`FormFilter  render methods render whole component group by currency - I
                   }
                 }
               >
-                <style
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "input#undefined::-ms-clear {display: none;}",
-                    }
-                  }
-                />
                 <input
                   aria-activedescendant="react-select-ddlReportBy--value"
                   aria-describedby={undefined}
@@ -2615,8 +2587,8 @@ exports[`FormFilter  render methods render whole component group by currency - I
             className="flat-popup"
             style={
               Object {
-                "height": "480px",
-                "width": "640px",
+                "height": 480,
+                "width": 640,
               }
             }
           >
@@ -4495,7 +4467,7 @@ exports[`FormFilter  render methods render whole component group by product - Is
           TimeZone
         </label>
         <div
-          className="Select Select--single is-clearable is-searchable has-value"
+          className="Select has-value is-clearable is-searchable Select--single"
           style={undefined}
         >
           <div
@@ -4533,13 +4505,6 @@ exports[`FormFilter  render methods render whole component group by product - Is
                   }
                 }
               >
-                <style
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "input#undefined::-ms-clear {display: none;}",
-                    }
-                  }
-                />
                 <input
                   aria-activedescendant="react-select-ddlTimeZone--value"
                   aria-describedby={undefined}
@@ -4725,7 +4690,7 @@ exports[`FormFilter  render methods render whole component group by product - Is
           Currency
         </label>
         <div
-          className="Select Select--single is-clearable is-searchable has-value"
+          className="Select has-value is-clearable is-searchable Select--single"
           style={undefined}
         >
           <div
@@ -4763,13 +4728,6 @@ exports[`FormFilter  render methods render whole component group by product - Is
                   }
                 }
               >
-                <style
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "input#undefined::-ms-clear {display: none;}",
-                    }
-                  }
-                />
                 <input
                   aria-activedescendant="react-select-ddlCurrency--value"
                   aria-describedby={undefined}
@@ -4854,7 +4812,7 @@ exports[`FormFilter  render methods render whole component group by product - Is
           BaseCurrency
         </label>
         <div
-          className="Select Select--single is-clearable is-searchable has-value"
+          className="Select has-value is-clearable is-searchable Select--single"
           style={undefined}
         >
           <div
@@ -4892,13 +4850,6 @@ exports[`FormFilter  render methods render whole component group by product - Is
                   }
                 }
               >
-                <style
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "input#undefined::-ms-clear {display: none;}",
-                    }
-                  }
-                />
                 <input
                   aria-activedescendant="react-select-ddlBased--value"
                   aria-describedby={undefined}
@@ -5026,7 +4977,7 @@ exports[`FormFilter  render methods render whole component group by product - Is
           ReportBy
         </label>
         <div
-          className="Select Select--single is-clearable is-searchable has-value"
+          className="Select has-value is-clearable is-searchable Select--single"
           style={undefined}
         >
           <div
@@ -5064,13 +5015,6 @@ exports[`FormFilter  render methods render whole component group by product - Is
                   }
                 }
               >
-                <style
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "input#undefined::-ms-clear {display: none;}",
-                    }
-                  }
-                />
                 <input
                   aria-activedescendant="react-select-ddlReportBy--value"
                   aria-describedby={undefined}
@@ -5269,8 +5213,8 @@ exports[`FormFilter  render methods render whole component group by product - Is
             className="flat-popup"
             style={
               Object {
-                "height": "480px",
-                "width": "640px",
+                "height": 480,
+                "width": 640,
               }
             }
           >

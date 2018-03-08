@@ -24,7 +24,7 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <JSLintSkip>\Scripts\Plugin\|\Scripts\Library\|\Scripts\Languages\|\Form\|\Scripts\_NewScripts\|\Scripts\jasmine\|\Scripts\jasmine-specs\</JSLintSkip>
@@ -814,6 +814,7 @@
     <Content Include="www\css\build\pro\reactpages\notification\index.chunk.js" />
     <Content Include="www\css\build\pro\reactpages\notification\index.css" />
     <Content Include="www\css\build\pro\reactpages\subsidiaryperformance\index.css" />
+    <Content Include="www\js\build\dev\pages\customer\exchangebetsetting.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\exchangewl\exchangewl.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\report\licenseewlbytimezone.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\notification\notification.chunk.js" />
@@ -905,6 +906,8 @@
     <Content Include="www\css\build\dev\reactpages\exchangewl\index.css.map" />
     <Content Include="App_Data\FakeLicenseeSetting.json" />
     <Content Include="App_Data\ReportSetting.json" />
+    <Content Include="www\css\source\reactpages\components\_popup-content.scss" />
+    <Content Include="www\js\build\dev\pages\customer\exchangebetsetting.chunk.js.map" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Row.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.jsx" />
@@ -950,7 +953,11 @@
     <Content Include="www\js\source\reactpages\pages\exchangewl\actions\types.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\actions\__tests__\dataHandlerAction.test.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\actions\__tests__\filterHandlerAction.test.js" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\BetListDetail.test.js" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\BetList.test.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\DataGrid.method.test.js" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\BetList.redux.test.js" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\DataGrid.redux.test.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\DataGrid.render.test.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\FormFilter.redux.test.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\FormFilter.test.js" />
@@ -2694,9 +2701,14 @@
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\index.jsx" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\FormFilter.jsx" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\DataGrid.jsx" />
-    <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\__snapshots__\FormFilter.test.js.snap" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\__snapshots__\DataGrid.render.test.js.snap" />
-    <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\DataGrid.redux.test.js" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\components\BetList.jsx" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\components\BetListDetail.jsx" />
+    <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\components\__tests__\__snapshots__\formFilter.render.test.js.snap" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\__snapshots__\BetList.test.js.snap" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\__snapshots__\formFilter.test.js.snap" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\__snapshots__\formFilter.render.test.js.snap" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\__snapshots__\BetListDetail.test.js.snap" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">

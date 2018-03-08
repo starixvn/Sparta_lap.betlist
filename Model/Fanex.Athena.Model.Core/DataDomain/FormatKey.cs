@@ -10,7 +10,9 @@ namespace Fanex.Athena.Model.Core.DataDomain
     /// </summary>
     public static class FormatKey
     {
-        public const string ShortFormatDate = "M/d/yyyy";
+        public const string ShortDateFormat = "M/d/yyyy";
+
+        public const string DateTimeFormat = "MM/dd/yyyy hh:mm:ss";
 
         public const string Eur = "EUR";
 

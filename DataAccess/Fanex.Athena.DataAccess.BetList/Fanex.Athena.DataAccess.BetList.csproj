@@ -123,10 +123,12 @@
     <Compile Include="BetListDataAccess.cs" />
     <Compile Include="CashOutBetListDataAccess.cs" />
     <Compile Include="DailyStatementBetListDataAccess.cs" />
+    <Compile Include="ExchangeBetListDataAccess.cs" />
     <Compile Include="Interfaces\IDailyStatementBetListDataAccess.cs" />
     <Compile Include="Interfaces\ICashOutBetListDataAccess.cs" />
     <Compile Include="Interfaces\IColossusBetBetListDataAccess.cs" />
     <Compile Include="Interfaces\ICancelledBetListDataAccess.cs" />
+    <Compile Include="Interfaces\IExchangeBetListDataAccess.cs" />
     <Compile Include="Interfaces\ILastBetsMonitoringBetListDataAccess.cs" />
     <Compile Include="ColossusBetBetListDataAccess.cs" />
     <Compile Include="LastBetsMonitoringBetListDataAccess.cs" />

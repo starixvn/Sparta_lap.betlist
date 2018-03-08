@@ -3160,4 +3160,44 @@
   <data name="TransactionDetail" xml:space="preserve">
     <value>Transaction Detail</value>
   </data>
+  <data name="BetId" xml:space="preserve">
+    <value>Bet ID</value>
+    <comment>91048</comment>
+  </data>
+  <data name="BetPlaced" xml:space="preserve">
+    <value>Bet Placed</value>
+    <comment>91048</comment>
+  </data>
+  <data name="BetTaken" xml:space="preserve">
+    <value>Bet Taken</value>
+    <comment>91048</comment>
+  </data>
+  <data name="Liability" xml:space="preserve">
+    <value>Liability</value>
+    <comment>91048</comment>
+  </data>
+  <data name="Market" xml:space="preserve">
+    <value>Market</value>
+    <comment>91048</comment>
+  </data>
+  <data name="OddsAvg" xml:space="preserve">
+    <value>Odds Avg</value>
+    <comment>91048</comment>
+  </data>
+  <data name="OddsMatched" xml:space="preserve">
+    <value>Odds Matched</value>
+    <comment>91048</comment>
+  </data>
+  <data name="OddsReq" xml:space="preserve">
+    <value>Odds Req</value>
+    <comment>91048</comment>
+  </data>
+  <data name="Selection" xml:space="preserve">
+    <value>Selection</value>
+    <comment>91048</comment>
+  </data>
+  <data name="WL" xml:space="preserve">
+    <value>WL</value>
+    <comment>91048</comment>
+  </data>
 </root>

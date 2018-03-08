@@ -1,59 +1,63 @@
-﻿jest.mock('react-redux')
+jest.mock('react-redux')
 jest.mock('redux')
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { ActionCreators } from '../../actions/index.js'
 
 describe('connect ', () => {
-	let mapStateToProps, mapDispatchToProps;
-	const connectMock = jest.fn();
+    let mapStateToProps, mapDispatchToProps;
+    const connectMock = jest.fn();
 
-	beforeAll(() => {
-		connect.mockImplementationOnce((mapStateToPropsFunc, mapDispatchToPropsFunc) => {
-			mapStateToProps = mapStateToPropsFunc;
-			mapDispatchToProps = mapDispatchToPropsFunc;
-			return connectMock;
-		});
-		require('../DataGrid').default;
-	});
+    beforeAll(() => {
+        connect.mockImplementation((mapStateToPropsFunc, mapDispatchToPropsFunc) => {
+            mapStateToProps = mapStateToPropsFunc;
+            mapDispatchToProps = mapDispatchToPropsFunc;
+            return connectMock;
+        });
+        require('../DataGrid').default;
+    });
 
-	it('props should be mapped correctly', () => {
-		const expectedResult = {
-			gridData: [],
-			params: [],
-			xsrfToken: 'token',
-			licenseeId: 1,
-			isAllowedCustomerComm: false
-		};
+    afterAll(() => {
+        jest.resetAllMocks();
+    })
 
-		const state = {
-			gridData: [],
-			params: [],
-			xsrfToken: 'token',
-			licenseeId: 1,
-			isAllowedCustomerComm: false,
-			anotherProp: "Not included"
-		};
+    it('props should be mapped correctly', () => {
+        const expectedResult = {
+            gridData: [],
+            params: [],
+            xsrfToken: 'token',
+            licenseeId: 1,
+            isAllowedCustomerComm: false
+        };
 
-		const result = mapStateToProps(state);
+        const state = {
+            gridData: [],
+            params: [],
+            xsrfToken: 'token',
+            licenseeId: 1,
+            isAllowedCustomerComm: false,
+            anotherProp: "Not included"
+        };
 
-		expect(result).toEqual(expectedResult);
-	})
+        const result = mapStateToProps(state);
 
-	it('bindActionCreators should be called with correct parameter', () => {
-		const mockBindAction = jest.fn();
-		bindActionCreators.mockImplementationOnce(mockBindAction);
+        expect(result).toEqual(expectedResult);
+    })
 
-		const dispatch = {};
+    it('bindActionCreators should be called with correct parameter', () => {
+        const mockBindAction = jest.fn();
+        bindActionCreators.mockImplementationOnce(mockBindAction);
 
-		mapDispatchToProps(dispatch);
+        const dispatch = {};
 
-		expect(mockBindAction).toHaveBeenCalledWith(ActionCreators, dispatch);
-	})
+        mapDispatchToProps(dispatch);
 
-	it('returned function of connect should be called with correct parameter', () => {
-		const DataGrid = require('../DataGrid').DataGrid;
+        expect(mockBindAction).toHaveBeenCalledWith(ActionCreators, dispatch);
+    })
 
-		expect(connectMock).toHaveBeenCalledWith(DataGrid);
-	})
+    it('returned function of connect should be called with correct parameter', () => {
+        const DataGrid = require('../DataGrid').DataGrid;
+
+        expect(connectMock).toHaveBeenCalledWith(DataGrid);
+    })
 })

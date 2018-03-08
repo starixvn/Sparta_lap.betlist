@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Data;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Core.Configuration;
     using Core.Configuration.Interfaces;
@@ -143,8 +142,8 @@
         }
 
         private static SortableReportResultModel<LicenseeWinLoss> ReadData(
-            IDataReader reader, 
-            LicenseeWinLossMetaModel metaModel, 
+            IDataReader reader,
+            LicenseeWinLossMetaModel metaModel,
             IDictionary<string, string> licenseeWLColumns,
             IDictionary<string, string> turnoverColumns,
             bool drilldown)

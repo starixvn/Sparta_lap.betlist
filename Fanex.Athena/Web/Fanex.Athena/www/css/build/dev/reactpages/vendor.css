@@ -348,6 +348,9 @@ a {
 .right-align {
   text-align: right; }
 
+.text-bold {
+  font-weight: bold; }
+
 .caret-block {
   position: absolute;
   display: flex;
@@ -383,10 +386,11 @@ a {
   background: #f94a4a; }
 
 .loading-process {
-  height: 100%;
-  width: 100%;
-  position: absolute;
+  position: fixed;
   left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
   z-index: 1000; }
   .loading-process .icon-loading {
     position: absolute;

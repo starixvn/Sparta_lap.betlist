@@ -17,8 +17,8 @@ exports[`UserGuide  onClickHandler update state to true - content is empty - pop
       className="flat-popup"
       style={
         Object {
-          "height": "480px",
-          "width": "640px",
+          "height": 480,
+          "width": 640,
         }
       }
     >
@@ -68,8 +68,8 @@ exports[`UserGuide  onClickHandler update state to true - content is not empty -
       className="flat-popup"
       style={
         Object {
-          "height": "480px",
-          "width": "640px",
+          "height": 480,
+          "width": 640,
         }
       }
     >
@@ -119,8 +119,8 @@ exports[`UserGuide  render popup component is hidden 1`] = `
       className="flat-popup"
       style={
         Object {
-          "height": "480px",
-          "width": "640px",
+          "height": 480,
+          "width": 640,
         }
       }
     >

@@ -182,11 +182,11 @@ export class FormFilter extends Component {
     _renderUserGuide() {
         const userGuideContent = this.props.userGuideContent;
 
-        return <UserGuide 
-            title={LangHelper.getSingleResource("UserGuide")} 
-            contentTitle={LangHelper.getSingleResource("WinLossByTimeZone")}
-            content={userGuideContent}
-            onClick={this.showUserGuide} />
+        return (<UserGuide 
+                title={LangHelper.getSingleResource("UserGuide")} 
+                contentTitle={LangHelper.getSingleResource("WinLossByTimeZone")}
+                onClick={this.showUserGuide}
+                content={userGuideContent} />)
     }
 
     render() {

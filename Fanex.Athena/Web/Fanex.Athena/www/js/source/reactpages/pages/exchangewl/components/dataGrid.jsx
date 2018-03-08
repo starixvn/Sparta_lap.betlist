@@ -12,6 +12,12 @@ import NoDataTitle from '../../../components/NoDataTitle'
 import moment from 'moment'
 import Breadcrumb from '../../../components/breadcrumb/Breadcrumb'
 import Site from '../../../lib/site'
+import BetList from './BetList'
+import Popup from '../../../components/popup'
+import Report from '../../../lib/report'
+import LangHelper from '../../../lib/langHelper.js';
+
+const CUSTOMER_BETLIST_TEXT = LangHelper.getSingleResource("CustomerBetList");
 
 export class DataGrid extends Component {
     constructor(props) {
@@ -23,6 +29,13 @@ export class DataGrid extends Component {
 
         this.levelGridData = [];
         this.drillDownParams = [];
+        this.betlistTitle = null;
+        this.betlistParams = {};
+
+        this.state = {
+            showBetList: false,
+            betListData: {}
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -32,13 +45,13 @@ export class DataGrid extends Component {
 
         if (this.props.gridData !== nextProps.gridData) {
             const params = this.drillDownParams[nextProps.gridData.level];
-            this.reportTitle = Service.getReportTitle({ fromDate: params.FromDate, toDate: params.ToDate }, params.CurrencyName, params.CurrencyId === 0);
+            this.reportTitle = Service.getReportTitle({ fromDate: params.FromDate, toDate: params.ToDate }, params.BaseCurrency ? params.BaseCurrency : params.CurrencyName, params.CurrencyId === 0);
             this.props.toggleLoader(false);
         }
     }
 
     _getColSpan(level) {
-        switch(level) {
+        switch (level) {
             case ReportLevel.MAIN:
                 return 2;
             case ReportLevel.LICENSEE:
@@ -60,7 +73,7 @@ export class DataGrid extends Component {
         }
 
         const drillDownDate = Service.getDrilldownDateRange(mainParam.ReportBy, mainParam.FromDate, mainParam.ToDate, date);
-        const drillDownData = { 
+        const drillDownData = {
             ...mainParam,
             CurrencyId: currencyId,
             CurrencyName: currencyName,
@@ -115,8 +128,8 @@ export class DataGrid extends Component {
     }
 
     _renderDrillDownLink(text, level, date, currencyId, currencyName, custId) {
-        return <a onClick={()=>this._drillDownData(level, date, currencyId, currencyName, custId)} href='javascript:;'>{text}</a>
-   }
+        return <a onClick={() => this._drillDownData(level, date, currencyId, currencyName, custId)} href='javascript:;'>{text}</a>
+    }
 
     _buildHeader(level, reportBy) {
         let headerRows = [];
@@ -133,8 +146,8 @@ export class DataGrid extends Component {
                 <Cell colWidth={80} header={true} title={HeaderText.totalTransaction} rowSpan='2'>{HeaderText.totalTransaction}</Cell>
                 {
                     this.isAllowedCustomerComm
-                    ? <Cell colWidth={100} header={true} title={HeaderText.customer} colSpan='3'>{HeaderText.customer}</Cell>
-                    : <Cell colWidth={100} header={true} title={HeaderText.customerWL} rowSpan='2'>{HeaderText.customerWL}</Cell>
+                        ? <Cell colWidth={100} header={true} title={HeaderText.customer} colSpan='3'>{HeaderText.customer}</Cell>
+                        : <Cell colWidth={100} header={true} title={HeaderText.customerWL} rowSpan='2'>{HeaderText.customerWL}</Cell>
                 }
                 <Cell colWidth={100} header={true} title={HeaderText.licensee} colSpan='4'>{HeaderText.licensee}</Cell>
             </Row>
@@ -176,21 +189,30 @@ export class DataGrid extends Component {
 
             rows.push(
                 <Row key={`tr-main${i}`}>
-                    <Cell title={i+1} className='center-align'>{i+1}</Cell>
+                    <Cell title={i + 1} className='center-align'>{i + 1}</Cell>
                     {level === ReportLevel.MAIN && <Cell title={date} className='center-align'>{date}</Cell>}
-                    {level === ReportLevel.CUSTOMER && <Cell title={item.ExternalId} className='left-align'>{item.ExternalId}</Cell>}
+                    {
+                        level === ReportLevel.CUSTOMER &&
+                        <Cell title={item.ExternalId} className='left-align'>
+                            {this._renderBetListLink(item.ExternalId, item.ExternalId, item.SystemId, item.CustId)}
+                        </Cell>
+                    }
                     {
                         level !== ReportLevel.MAIN &&
-                            <Cell title={item.SystemId} className='left-align'>
-                                {level === ReportLevel.LICENSEE ? this._renderDrillDownLink(item.SystemId, ReportLevel.CUSTOMER, item.Date, item.CurrencyId, item.CurrencyName, item.CustId) : item.SystemId}
-                            </Cell>
+                        <Cell title={item.SystemId} className='left-align'>
+                            {
+                                level === ReportLevel.LICENSEE ?
+                                    this._renderDrillDownLink(item.SystemId, ReportLevel.CUSTOMER, item.Date, item.CurrencyId, item.CurrencyName, item.CustId) :
+                                    this._renderBetListLink(item.SystemId, item.ExternalId, item.SystemId, item.CustId)
+                            }
+                        </Cell>
                     }
                     <Cell title={item.CurrencyName} className='center-align'>
-                    {
-                        level === ReportLevel.MAIN 
-                        ? this._renderDrillDownLink(item.CurrencyName, this.licenseeId === Licensee.ONE_TWO_BET ? ReportLevel.LICENSEE : ReportLevel.CUSTOMER, item.Date, item.CurrencyId, item.CurrencyName) 
-                        : item.CurrencyName
-                    }
+                        {
+                            level === ReportLevel.MAIN
+                                ? this._renderDrillDownLink(item.CurrencyName, this.licenseeId === Licensee.ONE_TWO_BET ? ReportLevel.LICENSEE : ReportLevel.CUSTOMER, item.Date, item.CurrencyId, item.CurrencyName)
+                                : item.CurrencyName
+                        }
                     </Cell>
                     {this._buildCell(item)}
                 </Row>
@@ -199,7 +221,7 @@ export class DataGrid extends Component {
 
         return rows;
     }
-     
+
     _buildFooter(level) {
         let totalRows = [];
 
@@ -209,7 +231,7 @@ export class DataGrid extends Component {
 
         for (let i = 0; i < rowSpan; i++) {
             const item = data[i];
-           
+
             totalRows.push(
                 <Row key={`tr-total${i}`} className="fixed-table-total">
                     {i === 0 && <Cell title={TotalText.total} className='center-align' rowSpan={rowSpan} colSpan={colSpan}>{TotalText.total}</Cell>}
@@ -226,7 +248,7 @@ export class DataGrid extends Component {
         for (let i = baseCurrencyList.length - 1; i >= 0; i--) {
             const currency = baseCurrencyList[i],
                 item = dataSummary[currency];
-           
+
             totalRows.push(
                 <Row key={`tr-grandtotal${i}`} className="fixed-table-grant-total">
                     <Cell title={`${TotalText.totalIn} ${currency}`} className='center-align' colSpan={colSummarySpan}>{`${TotalText.totalIn} ${currency}`}</Cell>
@@ -250,7 +272,7 @@ export class DataGrid extends Component {
             licenseeComm = NumberFormat.formatDecimal(item.LicenseeComm),
             licenseeWLTotal = NumberFormat.formatDecimal(item.LicenseeWLTotal);
 
-        let cells = 
+        let cells =
             [<Cell key='turnover' title={turnover} className='right-align'>{turnover}</Cell>,
             <Cell key='netturnover' title={netTurnover} className='right-align'>{netTurnover}</Cell>,
             <Cell key='totalTransaction' title={totalTransaction} className='right-align'>{totalTransaction}</Cell>,
@@ -267,20 +289,20 @@ export class DataGrid extends Component {
 
     _renderBreadcrumb() {
         const items = [{
-                    label: BreadcrumbText.main,
-                    value: ReportLevel.MAIN,        
-                }];
+            label: BreadcrumbText.main,
+            value: ReportLevel.MAIN,
+        }];
 
         if (Number(this.licenseeId) === Licensee.ONE_TWO_BET) {
             items.push({
                 label: BreadcrumbText.licensee,
-                value: ReportLevel.LICENSEE,          
+                value: ReportLevel.LICENSEE,
             });
         }
 
         items.push({
             label: BreadcrumbText.customer,
-            value: ReportLevel.CUSTOMER,           
+            value: ReportLevel.CUSTOMER,
         });
 
         return <Breadcrumb items={items} value={this.props.gridData.level} onChange={(item) => this._drillDownData(item.value)} />
@@ -296,6 +318,49 @@ export class DataGrid extends Component {
         )
     }
 
+    _renderBetListLink(text, externalId, systemId, custId) {
+        return (<a href="javascript:;" onClick={() => this.showBetListPopup(externalId, systemId, custId)}>{text}</a>);
+    }
+
+    showBetListPopup = (externalId, systemId, custId) => {
+        const { CurrencyId, BaseCurrency, FromDate, ToDate, CurrencyName, ExcludeTestData } = this.drillDownParams[ReportLevel.CUSTOMER];
+        const url = "api/ExchangeWinLossBetList/Index";
+        this.betlistParams = { CustId : custId , CurrencyId, BaseCurrency, FromDate, ToDate, ExcludeTestData };
+
+        const params = {
+            xsrfToken: this.props.xsrfToken,
+            data: this.betlistParams
+        }
+
+        const viewIn = LangHelper.getSingleResource("Viewin").replace("{0}", BaseCurrency ? BaseCurrency : CurrencyName)
+
+        this.betlistTitle = (
+            <p>
+                {CUSTOMER_BETLIST_TEXT}{" "}
+                {moment(FromDate).format("M/D/YYYY")} → {moment(ToDate).format("M/D/YYYY")} - {externalId}({systemId}) -{" "}
+                <span className="base-currency-title">{viewIn}</span>
+            </p>
+        )
+
+        this.props.toggleLoader(true);
+        Report.fetchGridData(url, params)
+            .then(response => {
+                this.setState({
+                    showBetList: true,
+                    betListData: response.data
+                });
+                this.props.toggleLoader(false);
+            })
+            .catch(error => {
+                Service.showErrorMsg();
+                this.props.toggleLoader(false);
+            })
+    }
+
+    closeBetListPopup = () => {
+        this.setState({ showBetList: false, betListData: null });
+    }
+
     render() {
         const gridData = this.props.gridData;
         if (!gridData || !gridData.data) {
@@ -308,6 +373,8 @@ export class DataGrid extends Component {
 
         const reportLevel = gridData.level;
         const reportBy = this.props.params.ReportBy;
+
+        const { showBetList, betListData } = this.state;
 
         return (
             <div className='result-content'>
@@ -323,6 +390,13 @@ export class DataGrid extends Component {
                     body={this._buildBody(reportLevel, reportBy)}
                     footer={this._buildFooter(reportLevel)}
                 />
+
+                {
+                    reportLevel === ReportLevel.CUSTOMER && showBetList &&
+                    <Popup isShow={showBetList} title={CUSTOMER_BETLIST_TEXT} width={900} height={600} onClose={this.closeBetListPopup}>
+                        <BetList data={betListData} title={this.betlistTitle} params={this.betlistParams} />
+                    </Popup>
+                }
             </div>
         );
     }

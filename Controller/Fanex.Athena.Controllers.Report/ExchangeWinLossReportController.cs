@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Controllers.Report
 {
+    using System;
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Extension.Utility;
@@ -48,7 +49,7 @@
             return new ExchangeWinLossViewModel
             {
                 MinDate = _appSetting.HistoryDate,
-                MaxDate = _appSetting.MaxDate,
+                MaxDate = DateTime.Today.AddDays(-1),
                 CurrencyList = currencyList,
                 CurrencyId = GetConvetedUSDCurrencyId(licensee.LicenseeId),
                 IsAllowedCustomerComm = licensee.IsAllowedCustomerComm,

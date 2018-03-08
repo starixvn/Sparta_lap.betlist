@@ -7,6 +7,7 @@
 @{
     var currencyList = Model.CurrencyList.Select(c => new { value = c.Key, label = c.Value }).ToList();
     var reportByOption = Model.ReportByOption.Select(c => new { value = c.Key, label = c.Value }).ToList();
+    var today = DateTime.Today.ToString("MM/dd/yyyy");
 }
 
 @section pagecss {
@@ -29,7 +30,7 @@
         licenseeId: @Model.LicenseeId,
         xsrfToken: document.querySelector("input[name=__RequestVerificationToken]").value,
         isLoading: false,
-        dateConstraint: { minDate: '@Model.MinDate.ToString("MM/dd/yyyy")', maxDate: '@Model.MaxDate.ToString("MM/dd/yyyy")'}
+        dateConstraint: { minDate: '@Model.MinDate.ToString("MM/dd/yyyy")', maxDate: '@Model.MaxDate.ToString("MM/dd/yyyy")', toDay: '@today'}
     }
 }
 <div id="app-container">
