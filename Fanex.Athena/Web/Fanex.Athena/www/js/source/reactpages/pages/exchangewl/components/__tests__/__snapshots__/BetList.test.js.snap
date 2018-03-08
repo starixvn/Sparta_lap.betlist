@@ -6,11 +6,13 @@ exports[`BetList  _buildBody  match Snapshot 1`] = `
     <td
       className="center-align"
       rowSpan={2}
+      title={1}
     >
       1
     </td>
     <td
       rowSpan={2}
+      title="Eventtype1 > Event1 > market1"
     >
       <p>
         Eventtype1
@@ -26,6 +28,7 @@ exports[`BetList  _buildBody  match Snapshot 1`] = `
     </td>
     <td
       className="center-align"
+      title={1}
     >
       <a
         href="javascript:;"
@@ -36,35 +39,42 @@ exports[`BetList  _buildBody  match Snapshot 1`] = `
     </td>
     <td
       className="center-align"
+      title="select1"
     >
       select1
     </td>
     <td
       className="center-align negative"
+      title="lay"
     >
       lay
     </td>
     <td
       className="center-align"
+      title="01/01/2018"
     >
       01/01/2018
     </td>
     <td
       className="right-align"
+      title={1.2}
     >
       1.2
     </td>
     <td
       className="right-align"
+      title={2.4}
     >
       2.4
     </td>
     <td
       className="right-align"
+      title={undefined}
     />
     <td
       className="right-align"
       rowSpan={2}
+      title="1.8/0.5"
     >
       <span
         className={false}
@@ -82,6 +92,7 @@ exports[`BetList  _buildBody  match Snapshot 1`] = `
   <tr>
     <td
       className="center-align"
+      title={2}
     >
       <a
         href="javascript:;"
@@ -92,42 +103,50 @@ exports[`BetList  _buildBody  match Snapshot 1`] = `
     </td>
     <td
       className="center-align"
+      title="select2"
     >
       select2
     </td>
     <td
       className="center-align false"
+      title="type2"
     >
       type2
     </td>
     <td
       className="center-align"
+      title="01/01/2018"
     >
       01/01/2018
     </td>
     <td
       className="right-align"
+      title={3.25}
     >
       3.25
     </td>
     <td
       className="right-align"
+      title={3}
     >
       3
     </td>
     <td
       className="right-align"
+      title={undefined}
     />
   </tr>
   <tr>
     <td
       className="center-align"
       rowSpan={1}
+      title={2}
     >
       2
     </td>
     <td
       rowSpan={1}
+      title="Eventtype2 > Event2 > market2"
     >
       <p>
         Eventtype2
@@ -143,6 +162,7 @@ exports[`BetList  _buildBody  match Snapshot 1`] = `
     </td>
     <td
       className="center-align"
+      title={3}
     >
       <a
         href="javascript:;"
@@ -153,35 +173,42 @@ exports[`BetList  _buildBody  match Snapshot 1`] = `
     </td>
     <td
       className="center-align"
+      title="select3"
     >
       select3
     </td>
     <td
       className="center-align false"
+      title="type3"
     >
       type3
     </td>
     <td
       className="center-align"
+      title="01/01/2018"
     >
       01/01/2018
     </td>
     <td
       className="right-align"
+      title={10}
     >
       10
     </td>
     <td
       className="right-align"
+      title={5.55}
     >
       5.55
     </td>
     <td
       className="right-align"
+      title={undefined}
     />
     <td
       className="right-align"
       rowSpan={1}
+      title="-1.8/-0.5"
     >
       <span
         className="negative"
@@ -209,6 +236,7 @@ exports[`BetList  _buildFooter  match Snapshot 1`] = `
   </td>
   <td
     className="right-align false"
+    title={1}
   >
     1
   </td>
@@ -582,11 +610,13 @@ exports[`BetList  render  show grid when gridData is not empty - match snapshot 
                   <td
                     className="center-align"
                     rowSpan={1}
+                    title={1}
                   >
                     1
                   </td>
                   <td
                     rowSpan={1}
+                    title="Eventtype1 > Event1 > market1"
                   >
                     <p>
                       Eventtype1
@@ -602,6 +632,7 @@ exports[`BetList  render  show grid when gridData is not empty - match snapshot 
                   </td>
                   <td
                     className="center-align"
+                    title={1}
                   >
                     <a
                       href="javascript:;"
@@ -612,35 +643,42 @@ exports[`BetList  render  show grid when gridData is not empty - match snapshot 
                   </td>
                   <td
                     className="center-align"
+                    title="select1"
                   >
                     select1
                   </td>
                   <td
                     className="center-align false"
+                    title="type1"
                   >
                     type1
                   </td>
                   <td
                     className="center-align"
+                    title="01/01/2018"
                   >
                     01/01/2018
                   </td>
                   <td
                     className="right-align"
+                    title={1.2}
                   >
                     1.2
                   </td>
                   <td
                     className="right-align"
+                    title={2.4}
                   >
                     2.4
                   </td>
                   <td
                     className="right-align"
+                    title={undefined}
                   />
                   <td
                     className="right-align"
                     rowSpan={1}
+                    title="1.8/0.5"
                   >
                     <span
                       className={false}
@@ -764,6 +802,7 @@ exports[`BetList  render  show grid when gridData is not empty - match snapshot 
                   </td>
                   <td
                     className="right-align negative"
+                    title={-1}
                   >
                     -1
                   </td>
