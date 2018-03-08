@@ -1,25 +1,25 @@
 webpackJsonp([5],{
 
-/***/ 388:
+/***/ 391:
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(5);
-__webpack_require__(389);
-__webpack_require__(390);
-__webpack_require__(391);
 __webpack_require__(392);
-module.exports = __webpack_require__(393);
+__webpack_require__(393);
+__webpack_require__(394);
+__webpack_require__(395);
+module.exports = __webpack_require__(396);
 
 
 /***/ }),
 
-/***/ 389:
+/***/ 392:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 2/1/2018 11:03:57 AM
+// Generated at: 3/6/2018 5:12:22 PM
 window._language_en_US = {
   AA: "AA",
   AB: "AB",
@@ -104,12 +104,15 @@ window._language_en_US = {
   BestWinLoss: "Best Win Loss",
   Bet: "Bet",
   BetCount: "Bet Count",
+  BetId: "Bet ID",
   BetList: "Bet List",
   BetListRunning: "Bet List (Running)",
   BetPerLine: "Bet Per Line",
+  BetPlaced: "Bet Placed",
   BetSetting: "Bet Setting",
   BetSettingGroups: "Bet Setting Groups",
   BetSettings: "Bet Settings",
+  BetTaken: "Bet Taken",
   BettingLimit: "Betting Limit",
   BetTrade: "Bet Trade",
   BetTradeComissionBalanceNote: "BetTrade Commission: Licensee commission income for BetTrade tickets.",
@@ -481,6 +484,7 @@ window._language_en_US = {
   Level8: "Level 8",
   Level9: "Level 9",
   Levels: "levels",
+  Liability: "Liability",
   Licensee: "Licensee",
   Licensee12Bet: "12Bet Licensee",
   LicenseeComm: "Licensee Comm",
@@ -524,6 +528,7 @@ window._language_en_US = {
   Mar: "Mar",
   March: "March",
   Margin: "Margin",
+  Market: "Market",
   Match: "Match",
   MatchDelayDone: "Match Delay-Done",
   MatchDelayNew: "Match Delay-New",
@@ -626,7 +631,10 @@ window._language_en_US = {
   OddEven: "Odd/Even",
   OddEvenDND: "Odd/Even + 1 X 2 + DND",
   Odds: "Odds",
+  OddsAvg: "Odds Avg",
   OddsGroup: "Odds Group",
+  OddsMatched: "Odds Matched",
+  OddsReq: "Odds Req",
   OddsType: "Odds Type",
   OEFT: "O/E FT",
   of: "of",
@@ -775,6 +783,7 @@ window._language_en_US = {
   SelectCurrency: "Select Currency",
   SelectedItemCount: "# selected",
   SelectGroup: "Select Group",
+  Selection: "Selection",
   SelectLicenseeMsg: "Please select a Licensee",
   SelectOptions: "Select options",
   SelectProduct: "Select Product",
@@ -960,6 +969,7 @@ window._language_en_US = {
   WinPlace: "Win Place",
   WinTO: "Win TO",
   Withdrawal: "Withdrawal",
+  WL: "WL",
   Won: "Won",
   WorstWinLoss: "Worst Win Loss",
   WPTO: "W/P TO",
@@ -973,13 +983,13 @@ window._language_en_US = {
 
 /***/ }),
 
-/***/ 390:
+/***/ 393:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 2/1/2018 11:03:57 AM
+// Generated at: 3/6/2018 5:12:22 PM
 window._language_ko_KR = {
   AA: "AA",
   ABComm: "AllBet 수수료",
@@ -1732,13 +1742,13 @@ window._language_ko_KR = {
 
 /***/ }),
 
-/***/ 391:
+/***/ 394:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 2/1/2018 11:03:57 AM
+// Generated at: 3/7/2018 2:12:24 PM
 window._language_zh_CN = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -1810,12 +1820,15 @@ window._language_zh_CN = {
   BestWinLoss: "最佳输赢",
   Bet: "下注",
   BetCount: "投注数",
+  BetId: "投注单号",
   BetList: "投注历史",
   BetListRunning: "投注历史 (进行中)",
   BetPerLine: "每行下注",
+  BetPlaced: "投注时间",
   BetSetting: "投注设定",
   BetSettingGroups: "Bet Setting Groups",
   BetSettings: "投注设定",
+  BetTaken: "匹配时间",
   BettingLimit: "投注限额",
   BetType: "投注类别",
   BG: "BG",
@@ -2135,6 +2148,7 @@ window._language_zh_CN = {
   Level8: "8级",
   Level9: "9级",
   Levels: "levels",
+  Liability: "负债",
   Licensee: "承租公司",
   Licensee12Bet: "12Bet Licensee",
   LicenseeComm: "承租公司佣金",
@@ -2173,6 +2187,7 @@ window._language_zh_CN = {
   Mar: "三月",
   March: "三月",
   Margin: "利润",
+  Market: "市场",
   Match: "赛事",
   MatchWinLoss: "球赛输赢",
   MatchWinLossTitle: "球赛输赢, {0} - {1}",
@@ -2260,6 +2275,9 @@ window._language_zh_CN = {
   OddEven: "单双盘",
   OddEvenDND: "单双盘 + 1 X 2 + 平局/不是和局",
   Odds: "赔率",
+  OddsAvg: "平均赔率",
+  OddsMatched: "匹配赔率",
+  OddsReq: "投注赔率",
   OddsType: "赔率类型",
   OEFT: "全场单/双",
   of: "之",
@@ -2383,6 +2401,7 @@ window._language_zh_CN = {
   SelectCurrency: "选择货币",
   SelectedItemCount: "已选  # 个项目",
   SelectGroup: "选择组",
+  Selection: "选项",
   SelectLicenseeMsg: "请选择一个Licensee",
   SelectOptions: "Select options",
   SelectProduct: "选择产品",
@@ -2536,6 +2555,7 @@ window._language_zh_CN = {
   WinPlace: "独赢 位置",
   WinTO: "独赢交易额",
   Withdrawal: "提款",
+  WL: "输赢",
   Won: "赢",
   WorstWinLoss: "最差的输赢",
   WPTO: "独赢/位置交易额",
@@ -2547,13 +2567,13 @@ window._language_zh_CN = {
 
 /***/ }),
 
-/***/ 392:
+/***/ 395:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 2/1/2018 11:03:57 AM
+// Generated at: 3/7/2018 2:12:24 PM
 window._language_zh_Hans = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -2625,12 +2645,15 @@ window._language_zh_Hans = {
   BestWinLoss: "最佳输赢",
   Bet: "下注",
   BetCount: "投注数",
+  BetId: "投注单号",
   BetList: "投注历史",
   BetListRunning: "投注历史 (进行中)",
   BetPerLine: "每行下注",
+  BetPlaced: "投注时间",
   BetSetting: "投注设定",
   BetSettingGroups: "Bet Setting Groups",
   BetSettings: "投注设定",
+  BetTaken: "匹配时间",
   BettingLimit: "投注限额",
   BetType: "投注类别",
   BG: "BG",
@@ -2939,6 +2962,7 @@ window._language_zh_Hans = {
   Level8: "8级",
   Level9: "9级",
   Levels: "levels",
+  Liability: "负债",
   Licensee: "承租公司",
   Licensee12Bet: "12Bet Licensee",
   LicenseeComm: "承租公司佣金",
@@ -2977,6 +3001,7 @@ window._language_zh_Hans = {
   Mar: "三月",
   March: "三月",
   Margin: "利润",
+  Market: "市场",
   Match: "赛事",
   MatchWinLoss: "球赛输赢",
   MatchWinLossTitle: "球赛输赢, {0} - {1}",
@@ -3063,6 +3088,9 @@ window._language_zh_Hans = {
   OddEven: "单双盘",
   OddEvenDND: "单双盘 + 1 X 2 + 平局/不是和局",
   Odds: "赔率",
+  OddsAvg: "平均赔率",
+  OddsMatched: "匹配赔率",
+  OddsReq: "投注赔率",
   OddsType: "赔率类型",
   OEFT: "全场单/双",
   of: "之",
@@ -3185,6 +3213,7 @@ window._language_zh_Hans = {
   SelectCurrency: "选择货币",
   SelectedItemCount: "已选  # 个项目",
   SelectGroup: "选择组",
+  Selection: "选项",
   SelectLicenseeMsg: "请选择一个Licensee",
   SelectOptions: "Select options",
   SelectProduct: "选择产品",
@@ -3337,6 +3366,7 @@ window._language_zh_Hans = {
   WinPlace: "独赢 位置",
   WinTO: "独赢交易额",
   Withdrawal: "提款",
+  WL: "输赢",
   Won: "赢",
   WorstWinLoss: "最差的输赢",
   WPTO: "独赢/位置交易额",
@@ -3348,13 +3378,13 @@ window._language_zh_Hans = {
 
 /***/ }),
 
-/***/ 393:
+/***/ 396:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 2/1/2018 11:03:57 AM
+// Generated at: 3/7/2018 2:12:24 PM
 window._language_zh_TW = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -3426,12 +3456,15 @@ window._language_zh_TW = {
   BestWinLoss: "最佳輸贏",
   Bet: "下注",
   BetCount: "投注數",
+  BetId: "投注單號",
   BetList: "投注歷史",
   BetListRunning: "投注歷史(進行中)",
   BetPerLine: "每行下注",
+  BetPlaced: "投注時間",
   BetSetting: "投注設定",
   BetSettingGroups: "Bet Setting Groups",
   BetSettings: "投注設定",
+  BetTaken: "匹配時間",
   BettingLimit: "投注限額",
   BetType: "投注類別",
   BG: "BG",
@@ -3751,6 +3784,7 @@ window._language_zh_TW = {
   Level8: "8級",
   Level9: "9級",
   Levels: "levels",
+  Liability: "負債",
   Licensee: "承租公司",
   Licensee12Bet: "12Bet Licensee",
   LicenseeComm: "承租公司傭金",
@@ -3789,6 +3823,7 @@ window._language_zh_TW = {
   Mar: "三月",
   March: "三月",
   Margin: "利潤",
+  Market: "市場",
   Match: "賽事",
   MatchWinLoss: "球賽輸贏",
   MatchWinLossTitle: "球賽輸贏, {0} - {1}",
@@ -3876,6 +3911,9 @@ window._language_zh_TW = {
   OddEven: "單雙盤",
   OddEvenDND: "單雙盤 + 1 X 2 + 平局/不是和局",
   Odds: "賠率",
+  OddsAvg: "平均賠率",
+  OddsMatched: "匹配賠率",
+  OddsReq: "投注賠率",
   OddsType: "賠率類型",
   OEFT: "全場單/雙",
   of: "之",
@@ -3999,6 +4037,7 @@ window._language_zh_TW = {
   SelectCurrency: "選擇貨幣",
   SelectedItemCount: "已選  # 個項目",
   SelectGroup: "選擇組",
+  Selection: "選項",
   SelectLicenseeMsg: "請選擇一個被許可",
   SelectOptions: "Select options",
   SelectProduct: "選擇產品",
@@ -4152,6 +4191,7 @@ window._language_zh_TW = {
   WinPlace: "獨贏 位置",
   WinTO: "獨贏交易額",
   Withdrawal: "提款",
+  WL: "獨贏",
   Won: "贏",
   WorstWinLoss: "最差的輸贏",
   WPTO: "獨贏/位置交易額",
@@ -4207,5 +4247,5 @@ exports.default = LangHelper;
 
 /***/ })
 
-},[388]);
+},[391]);
 //# sourceMappingURL=langHelper.chunk.js.map
