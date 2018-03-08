@@ -59,14 +59,6 @@ exports[`FormFilter  filter component render whole component match to snapshot 1
                   onClick={[Function]}
                   style={undefined}
                 >
-                  Today
-                </a>
-                <a
-                  className="rdr-PredefinedRangesItem"
-                  href="#"
-                  onClick={[Function]}
-                  style={undefined}
-                >
                   Yesterday
                 </a>
                 <a

@@ -2,7 +2,7 @@
 /*global Site, QueryString,jqGridAdditional, BetListOption, moment*/
 /*exported showCombMP, showCombMPDetail, showMP, showNewCombMP, ViewBetSlip, ViewResult, showMicroGamingRnGBetsDetails,
 showAGCasinoDetails, showRnGCasinoDetails, showVoidBridgeDetails, showVoidbridgeResult, showTodayRunningBetsDetails,
-showColossusBetsDetails, showGlobalGaming, ViewCashOutHistory*/
+showColossusBetsDetails, showGlobalGaming, ViewCashOutHistory, ShowBonusDetails*/
 
 var BetList = (function ($) {
     "use strict";

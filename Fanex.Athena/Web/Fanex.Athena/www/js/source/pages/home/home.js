@@ -138,7 +138,7 @@ define([
         function activeDefaultMenuItem() {
             var defaultUrl = $("#DefaultUrl").val().toLowerCase();
             defaultUrl = defaultUrl.replace(/\/index$/i, ''); // remove the last "/Index"
-            var $menuItem = $("#left-menu .collapsible-body a").filter(function (index) {
+            var $menuItem = $("#left-menu .collapsible-body a").filter(function () {
                 return $(this).attr('href').toLowerCase() === defaultUrl;
             });
             $('.collapsible2').collapsibleMenu('activeMenuItem', $menuItem);
