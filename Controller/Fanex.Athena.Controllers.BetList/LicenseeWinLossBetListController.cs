@@ -12,7 +12,6 @@ namespace Fanex.Athena.Controllers.BetList
     using Extension.Utility;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
-    using Resources;
     using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Helpers;
@@ -55,15 +54,6 @@ namespace Fanex.Athena.Controllers.BetList
 
             var curencyId = metaModel.IsConvert ? metaModel.BaseCurrencyId : metaModel.CurrencyId;
             var title = GetCustomerBetListTitle(metaModel, GetViewInCurrency(curencyId, metaModel.CurrencyName));
-
-            var title = ViewResources.Customer + " " + ViewResources.BetList
-                + string.Format(
-                " - {0} --> {1} - {2}{3} - {4}",
-                metaModel.FromDate.ToString(FormatKey.ShortDateFormat),
-                metaModel.ToDate.ToString(FormatKey.ShortDateFormat),
-                metaModel.ExternalId,
-                metaModel.IsFakeLicensee ? string.Empty : $"({metaModel.SystemId})",
-                viewinCurrency);
 
             var showingOption = new ShowingOption
             {

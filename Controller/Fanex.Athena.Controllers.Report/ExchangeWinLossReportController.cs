@@ -54,7 +54,7 @@
 
             return new ExchangeWinLossViewModel
             {
-                MinDate = _appSetting.HistoryDate,
+                MinDate = AppSettings.HistoryDate,
                 MaxDate = DateTime.Today.AddDays(-1),
                 CurrencyList = currencyList,
                 CurrencyId = GetConvetedUSDCurrencyId(licensee.LicenseeId),

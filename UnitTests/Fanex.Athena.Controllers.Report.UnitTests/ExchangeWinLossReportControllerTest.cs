@@ -39,10 +39,9 @@
             {
                 // Arrange
                 var minDate = new DateTime(2017, 1, 1);
-                var maxDate = new DateTime(2017, 1, 10);
+                var maxDate = DateTime.Today.AddDays(-1);
 
                 AppSettings.HistoryDate.Returns(minDate);
-                AppSettings.MaxDate.Returns(maxDate);
 
                 // Action
                 var viewResult = controller.Index() as ViewResult;

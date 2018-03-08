@@ -170,8 +170,8 @@
         {
            return ViewResources.Customer + " " + ViewResources.BetList + string.Format(
                 " - {0} --> {1} - {2}{3} - {4}",
-                metaModel.FromDate.ToString(FormatKey.ShortFormatDate),
-                metaModel.ToDate.ToString(FormatKey.ShortFormatDate),
+                metaModel.FromDate.ToString(FormatKey.ShortDateFormat),
+                metaModel.ToDate.ToString(FormatKey.ShortDateFormat),
                 metaModel.ExternalId,
                 metaModel.IsFakeLicensee ? string.Empty : $"({metaModel.SystemId})",
                 currencyTitle);
