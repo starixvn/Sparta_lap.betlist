@@ -123,12 +123,12 @@ export class BetList extends Component {
     }
 
     _buildFooter() {
-        const GrandTotal = NumberFormat.formatDecimal(this.props.data.GrandTotal);
+        const GrandTotalString = NumberFormat.formatDecimal(this.props.data.GrandTotal);
 
         return [
             <Row key="betlist-footer">
                 <Cell colSpan='9' className="right-align">{LangHelper.getSingleResource("GrandTotal")}</Cell>
-                <Cell title={GrandTotal} className={`right-align ${GrandTotal < 0 && "negative"}`}>{GrandTotal}</Cell>
+                <Cell title={GrandTotalString} className={`right-align ${this.props.data.GrandTotal < 0 && "negative"}`}>{GrandTotalString}</Cell>
             </Row >
         ]
     }
