@@ -18544,7 +18544,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         function activeDefaultMenuItem() {
             var defaultUrl = $("#DefaultUrl").val().toLowerCase();
             defaultUrl = defaultUrl.replace(/\/index$/i, ''); // remove the last "/Index"
-            var $menuItem = $("#left-menu .collapsible-body a").filter(function (index) {
+            var $menuItem = $("#left-menu .collapsible-body a").filter(function () {
                 return $(this).attr('href').toLowerCase() === defaultUrl;
             });
             $('.collapsible2').collapsibleMenu('activeMenuItem', $menuItem);

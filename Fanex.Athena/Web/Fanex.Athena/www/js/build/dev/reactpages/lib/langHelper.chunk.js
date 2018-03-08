@@ -1,25 +1,69 @@
 webpackJsonp([5],{
 
-/***/ 391:
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(5);
-__webpack_require__(392);
-__webpack_require__(393);
-__webpack_require__(394);
-__webpack_require__(395);
-module.exports = __webpack_require__(396);
-
-
-/***/ }),
-
-/***/ 392:
+/***/ 6:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 3/19/2018 3:59:04 PM
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var DEFAULT_RESOURCE_NAME = "_language_en_US";
+var langCode = window.PageLanguage || "en-US";
+var resourceName = "_language_" + langCode.replace("-", "_");
+
+var LangHelper = function () {
+    function LangHelper() {
+        _classCallCheck(this, LangHelper);
+    }
+
+    _createClass(LangHelper, null, [{
+        key: "getSingleResource",
+        value: function getSingleResource(key) {
+            var langHandler = window[resourceName];
+
+            return langHandler && langHandler[key] || window[DEFAULT_RESOURCE_NAME] && window[DEFAULT_RESOURCE_NAME][key] || key;
+        }
+    }, {
+        key: "currentLanguage",
+        get: function get() {
+            return langCode;
+        }
+    }]);
+
+    return LangHelper;
+}();
+
+exports.default = LangHelper;
+
+/***/ }),
+
+/***/ 713:
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(6);
+__webpack_require__(714);
+__webpack_require__(715);
+__webpack_require__(716);
+__webpack_require__(717);
+module.exports = __webpack_require__(718);
+
+
+/***/ }),
+
+/***/ 714:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+// Generated at: 3/8/2018 2:35:24 PM
 window._language_en_US = {
   AA: "AA",
   AB: "AB",
@@ -119,6 +163,8 @@ window._language_en_US = {
   BetTradeCommission: "Bet Trade Commission",
   BetTradeNotOfferCurrency: "BetTrade is not offered for this currency.",
   BetType: "Bet type",
+  BG: "BG",
+  Bingo: "Bingo",
   BONTeamToScore: "Both/One/Neither Team To Score",
   Bonus: "Bonus",
   BoughtAmount: "Bought Amount",
@@ -236,7 +282,6 @@ window._language_en_US = {
   DailyStatement: "Daily Statement",
   DailyStatementMsg: "Support data up to 4 months only",
   Data: "data",
-  DataUpToYesterday: "Data is up to yesterday only.",
   DataWareHouse: "Data Warehouse",
   Date: "Date",
   DateRange: "Date Range",
@@ -267,6 +312,7 @@ window._language_en_US = {
   DisableColossusBets: "Disable Colossus Bets",
   DisableFishingWorld: "Disable Fishing World",
   DisableGoldDeluxe: "Disable Gold Deluxe",
+  DisableLiveCasino: "Disable Live Casino",
   DisableMacau: "Disable Macau",
   DisableMacauGames: "Disable Macau Games",
   DisableMicrogaming: "Disable Microgaming",
@@ -296,6 +342,7 @@ window._language_en_US = {
   EnableColossusBets: "Enable Colossus Bets",
   EnableFishingWorld: "Enable Fishing World",
   EnableGoldDeluxe: "Enable Gold Deluxe",
+  EnableLiveCasino: "Enable Live Casino",
   EnableMacau: "Enable Macau",
   EnableMacauGames: "Enable Macau Games",
   EnableMicrogamingLiveCasino: "Enable Microgaming Live Casino",
@@ -334,6 +381,7 @@ window._language_en_US = {
   ForecastAway: "Forecast Away",
   ForecastHome: "Forecast Home",
   Fr: "Fr",
+  FreePlay: "Free Play",
   FreeSpin: "Free Spin",
   Freeze: "Freeze",
   Friday: "Friday",
@@ -344,7 +392,6 @@ window._language_en_US = {
   FullTime: "FullTime",
   Function: "Function",
   FunctionDeniedMsg: "Sorry, you don&apos;t have permission to access this function.",
-  FunctionIsUnderMaintenance: "Function is under maintenance.",
   FunctionNoAvailableMsg: "This function was no longer available!",
   Game: "Game",
   GameGroup: "Game Group",
@@ -472,6 +519,10 @@ window._language_en_US = {
   lbl5s: "5S",
   lbl5th: "5th",
   lbl7Over: "7Over",
+  LC: "LC",
+  LCCasinoUpdateSettingUnAvailableMsg: "Live Casino Database is not currently available. Please try again later.",
+  LCComm: "LC Comm",
+  LCCommission: "LC Commission",
   League: "League",
   Level1: "Level 1",
   Level10: "Level 10",
@@ -501,6 +552,7 @@ window._language_en_US = {
   LineNo: "Line No",
   Live: "Live",
   LiveAndNonLive: "Live and Non-live",
+  LiveCasino: "Live Casino",
   LiveGame: "Live Game",
   LiveReport: "Live Report",
   LiveReportHistoryNote: ". For more historical data, please click to",
@@ -575,6 +627,7 @@ window._language_en_US = {
   Monday: "Monday",
   Money: "Money",
   MoneyLine: "Money Line",
+  MoneyPlay: "Money Play",
   Month: "Month",
   Monthly: "Monthly",
   MoreThanOneCustomerFoundMsg: "More than 1 customer found. Please search for 1 customer only.",
@@ -693,6 +746,7 @@ window._language_en_US = {
   ProductAB: "AllBet",
   ProductAGC: "AG Casino",
   ProductBA: "BA",
+  ProductBG: "Bingo",
   ProductBT: "Bet Trade",
   ProductBX: "Exchange",
   ProductCB: "Colossus Bets",
@@ -701,6 +755,7 @@ window._language_en_US = {
   ProductFW: "Fishing World",
   ProductGD: "Gold Deluxe",
   ProductKN: "Keno",
+  ProductLC: "Live Casino",
   ProductLT: "Lottery",
   ProductMGCLC: "Microgaming-Live Casino",
   ProductMGCRNG: "Microgaming-RNG Casino",
@@ -845,6 +900,7 @@ window._language_en_US = {
   TicketList: "Ticket List",
   TicketNo: "Ticket No.",
   TicketPayout: "Ticket Payout",
+  TicketType: "Ticket Type",
   Time: "Time",
   TimeZone: "Time Zone",
   To: "To",
@@ -854,6 +910,9 @@ window._language_en_US = {
   TokenWasExpired: "Token was expired",
   Top: "Top",
   TopCustomer: "Top Customer",
+  TopCustomerNote1: "This report can support viewing all historical data up to yesterday",
+  TopCustomerNote2: "Racing &amp; Live Casino data not included in this report",
+  TopCustomerNote3: "This report can support viewing from {0} to yesterday",
   Total: "Total",
   TotalActiveCustomer: "Total active customers",
   TotalAway: "Total Away",
@@ -907,6 +966,8 @@ window._language_en_US = {
   UpdateGoldDeluxeBetSettingSuccessMsg: "The Gold Deluxe bet setting of {0} was updated successfully",
   UpdateKenoBetSettings: "Are you sure you want to update all Keno bet settings?",
   UpdateKenoBetSettingSuccessMsg: "The Keno bet setting of {0} was updated successfully",
+  UpdateLiveCasinoBetSettings: "Are you sure you want to update Live Casino bet settings?",
+  UpdateLiveCasinoBetSettingSuccessMsg: "The Live Casino bet setting of {0} was updated successfully",
   UpdateMemberEsportsSuccessMsg: "The E-Sports is {0} successfully.",
   UpdateNumberGameBetSettings: "Are you sure you want to update all Number Game bet settings?",
   UpdateNumberGameBetSettingSuccessMsg: "The Number Game bet setting of {0} was updated successfully",
@@ -982,13 +1043,13 @@ window._language_en_US = {
 
 /***/ }),
 
-/***/ 393:
+/***/ 715:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 3/19/2018 3:59:04 PM
+// Generated at: 3/8/2018 2:35:24 PM
 window._language_ko_KR = {
   AA: "AA",
   ABComm: "AllBet 수수료",
@@ -1058,6 +1119,8 @@ window._language_ko_KR = {
   BetSettings: "배팅 설정들",
   BettingLimit: "배팅 한계",
   BetType: "배팅 유형",
+  BG: "BG",
+  Bingo: "빙고",
   BONTeamToScore: "양팀/한팀/양측 모두가 아닌 팀이 점수 획득",
   Bonus: "보너스",
   ByBetType: "배팅 유형에 따라",
@@ -1164,6 +1227,7 @@ window._language_ko_KR = {
   DH: "DH",
   Disable: "불능시킴",
   DisableAgCasino: "Disable AG Casino",
+  DisableLiveCasino: "Disable Live Casino",
   DisableRNGCasino: "Disable RNG Casino",
   DisableSSOMsg: "SSO기능을 사용할 수 없습니다",
   DividendWon: "배당금을 획득했습니다",
@@ -1182,6 +1246,7 @@ window._language_ko_KR = {
   EffectiveBettingValue: "Effective Betting Value",
   Enable: "활성화시킴",
   EnableAgCasino: "Enable AG Casino",
+  EnableLiveCasino: "Enable Live Casino",
   EnableRNGCasino: "Enable RNG Casino",
   EndBalance: "최종 잔액",
   EndDate: "종료일",
@@ -1334,6 +1399,10 @@ window._language_ko_KR = {
   lbl5s: "5S",
   lbl5th: "다섯번째",
   lbl7Over: "7 오버",
+  LC: "LC",
+  LCCasinoUpdateSettingUnAvailableMsg: "실시간 카지노 데이터베이스는 현재 사용할 수 없습니다. 나중에 다시 시도해주십시오.",
+  LCComm: "LC 수수료",
+  LCCommission: "LC 수수료",
   League: "리그",
   Level1: "수준 1",
   Level10: "수준 10",
@@ -1357,6 +1426,7 @@ window._language_ko_KR = {
   LicenseeWL: "라이선스 사용자 승리 패배",
   LineNo: "라인번호",
   Live: "실시간",
+  LiveCasino: "실시간 카지노",
   LiveGame: "실시간 게임",
   LiveReport: "실시간 보고서",
   LiveReportHistoryNote: ". 더 많은 이력을 보시려면 이곳을 클릭하시기 바랍니다",
@@ -1514,7 +1584,9 @@ window._language_ko_KR = {
   Prev: "이전",
   Previous: "이전의",
   Product: "상품",
+  ProductBG: "빙고",
   ProductCS: "RNG 카지노",
+  ProductLC: "실시간 카지노",
   ProductNG: "숫자 게임",
   ProductRB: "경주하기",
   ProductSB: "스포츠북",
@@ -1638,6 +1710,9 @@ window._language_ko_KR = {
   Today: "오늘",
   Top: "상위",
   TopCustomer: "상위 고객",
+  TopCustomerNote1: "이 보고서는 어제까지의 모든 이력 데이터 보기를 지원할 수 있습니다",
+  TopCustomerNote2: "경주 및 실시간 카지노 데이터는 이 보고서에 포함되지 않습니다",
+  TopCustomerNote3: "이 보고서는 {0}에서 어제까지 보기가 지원됩니다",
   Total: "총합",
   TotalAway: "총 원정팀 점수",
   TotalBets: "총 배팅",
@@ -1683,6 +1758,8 @@ window._language_ko_KR = {
   UpdateFunctionSuccessfulMsg: "기능 업데이트가 성공적으로 완료되었습니다.",
   UpdateKenoBetSettings: "Are you sure you want to update all Keno bet settings?",
   UpdateKenoBetSettingSuccessMsg: "The Keno bet setting of {0} was updated successfully",
+  UpdateLiveCasinoBetSettings: "실시간 카지노 배팅 설정을 업데이트하시렵니까?",
+  UpdateLiveCasinoBetSettingSuccessMsg: "{0}의 실시간 카지노 배팅 설정이 완료되었습니다",
   UpdateNumberGameBetSettings: "모든 숫자 게임 배팅 설정을 업데이트하시렵니까?",
   UpdateNumberGameBetSettingSuccessMsg: "{0}의 숫자게임 배팅 설정이 성공적으로 업데이트 되었습니다. 모든 경주 배팅 설정을 업데이트하시렵니까?",
   UpdateRacingBetSettings: "모든 경주 배팅 설정들을 업데이트하시렵니까?",
@@ -1738,13 +1815,13 @@ window._language_ko_KR = {
 
 /***/ }),
 
-/***/ 394:
+/***/ 716:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 3/19/2018 3:59:04 PM
+// Generated at: 3/8/2018 2:35:24 PM
 window._language_zh_CN = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -1827,6 +1904,8 @@ window._language_zh_CN = {
   BetTaken: "匹配时间",
   BettingLimit: "投注限额",
   BetType: "投注类别",
+  BG: "BG",
+  Bingo: "宾果",
   BONTeamToScore: "双方/一方/两者皆不得分",
   Bonus: "红利",
   BoughtAmount: "买的金额",
@@ -1954,6 +2033,7 @@ window._language_zh_CN = {
   DH: "和主",
   Disable: "Disable",
   DisableAgCasino: "Disable AG Casino",
+  DisableLiveCasino: "Disable Live Casino",
   DisableRNGCasino: "停用娱乐城",
   DisableSSOMsg: "SSO功能被禁用",
   DividendWon: "赢得分红",
@@ -1973,6 +2053,7 @@ window._language_zh_CN = {
   EffectiveBettingValueNote: "有效投注额支援09/01/2014之后数据",
   Enable: "Enable",
   EnableAgCasino: "Enable AG Casino",
+  EnableLiveCasino: "启用娱乐厅",
   EnableRNGCasino: "Enable RNG Casino",
   EndBalance: "结束余额",
   EndDate: "结束日期",
@@ -2003,6 +2084,7 @@ window._language_zh_CN = {
   ForecastAway: "客队预测",
   ForecastHome: "主队预测",
   Fr: "Fr",
+  FreePlay: "免费投注",
   FreeSpin: "免费旋转",
   Freeze: "暂停更新",
   Friday: "星期五",
@@ -2130,6 +2212,10 @@ window._language_zh_CN = {
   lbl5s: "第五盘",
   lbl5th: "第五",
   lbl7Over: "7或以上",
+  LC: "娱乐厅",
+  LCCasinoUpdateSettingUnAvailableMsg: "Live Casino Database is not currently available. Please try again later.",
+  LCComm: "娱乐厅佣金",
+  LCCommission: "LC 佣金",
   League: "联赛",
   Level1: "1级",
   Level10: "10级",
@@ -2156,6 +2242,7 @@ window._language_zh_CN = {
   LicenseeWL: "承租公司輸贏",
   LineNo: "每行号码",
   Live: "滚球",
+  LiveCasino: "娱乐厅",
   LiveGame: "滚球游戏",
   LiveReport: "滚球报告",
   LiveReportHistoryNote: "更多历史数据, 请点击",
@@ -2219,6 +2306,7 @@ window._language_zh_CN = {
   Monday: "星期一",
   Money: "金额",
   MoneyLine: "独赢",
+  MoneyPlay: "普通投注",
   Month: "月份",
   Monthly: "每月",
   MoveSuccessfullyMsg: "成功移动",
@@ -2322,8 +2410,10 @@ window._language_zh_CN = {
   Prev: "上个月",
   Previous: "上个月",
   Product: "产品",
+  ProductBG: "宾果",
   ProductCO: "即时兑现",
   ProductCS: "娱乐城",
+  ProductLC: "娱乐厅",
   ProductNG: "百练赛",
   ProductRB: "赛马",
   ProductSB: "体育博彩",
@@ -2446,6 +2536,7 @@ window._language_zh_CN = {
   TicketFilter: "注单筛选",
   TicketList: "注单清单",
   TicketNo: "票劵号码",
+  TicketType: "注单类型",
   Time: "时间",
   TimeZone: "时区",
   To: "至",
@@ -2453,6 +2544,9 @@ window._language_zh_CN = {
   Today: "今日",
   Top: "顶部",
   TopCustomer: "最大会员",
+  TopCustomerNote1: "此报告可支持查看历史数据至昨日",
+  TopCustomerNote2: "此报告不包含赛马赛事及娱乐厅数据",
+  TopCustomerNote3: "此报告可支持查看日期从{0}至昨日",
   Total: "总和",
   TotalActiveCustomer: "总活跃会员人数",
   TotalAway: "客队总计",
@@ -2501,6 +2595,8 @@ window._language_zh_CN = {
   UpdateFunctionSuccessfulMsg: "更新成功",
   UpdateKenoBetSettings: "Are you sure you want to update all Keno bet settings?",
   UpdateKenoBetSettingSuccessMsg: "The Keno bet setting of {0} was updated successfully",
+  UpdateLiveCasinoBetSettings: "您确定您要更新真人娱乐场投注设置吗？",
+  UpdateLiveCasinoBetSettingSuccessMsg: "{0}的娱乐厅投注设定已成功更新",
   UpdateNumberGameBetSettings: "您确定您要更新的所有百练赛投注设置吗？",
   UpdateNumberGameBetSettingSuccessMsg: "{0}的百练赛投注设定已成功更新",
   UpdateRacingBetSettings: "您确定您要更新所有竞赛的赌注设置吗？",
@@ -2560,13 +2656,13 @@ window._language_zh_CN = {
 
 /***/ }),
 
-/***/ 395:
+/***/ 717:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 3/19/2018 3:59:04 PM
+// Generated at: 3/8/2018 2:35:24 PM
 window._language_zh_Hans = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -2649,6 +2745,8 @@ window._language_zh_Hans = {
   BetTaken: "匹配时间",
   BettingLimit: "投注限额",
   BetType: "投注类别",
+  BG: "BG",
+  Bingo: "宾果",
   BONTeamToScore: "双方/一方/两者皆不得分",
   Bonus: "红利",
   ByBetType: "根据投注类型",
@@ -2766,6 +2864,7 @@ window._language_zh_Hans = {
   DH: "和主",
   Disable: "Disable",
   DisableAgCasino: "Disable AG Casino",
+  DisableLiveCasino: "Disable Live Casino",
   DisableRNGCasino: "停用娱乐城",
   DisableSSOMsg: "SSO功能被禁用",
   DividendWon: "赢得分红",
@@ -2785,6 +2884,7 @@ window._language_zh_Hans = {
   EffectiveBettingValueNote: "有效投注额支援09/01/2014之后数据",
   Enable: "Enable",
   EnableAgCasino: "Enable AG Casino",
+  EnableLiveCasino: "启用娱乐厅",
   EnableRNGCasino: "Enable RNG Casino",
   EndBalance: "结束余额",
   EndDate: "结束日期",
@@ -2815,6 +2915,7 @@ window._language_zh_Hans = {
   ForecastAway: "客队预测",
   ForecastHome: "主队预测",
   Fr: "Fr",
+  FreePlay: "免费投注",
   FreeSpin: "免费旋转",
   Freeze: "暂停更新",
   Friday: "星期五",
@@ -2941,6 +3042,10 @@ window._language_zh_Hans = {
   lbl5s: "第五盘",
   lbl5th: "第五",
   lbl7Over: "7或以上",
+  LC: "娱乐厅",
+  LCCasinoUpdateSettingUnAvailableMsg: "Live Casino Database is not currently available. Please try again later.",
+  LCComm: "娱乐厅佣金",
+  LCCommission: "LC 佣金",
   League: "联赛",
   Level1: "1级",
   Level10: "10级",
@@ -2967,6 +3072,7 @@ window._language_zh_Hans = {
   LicenseeWL: "承租公司輸贏",
   LineNo: "每行号码",
   Live: "滚球",
+  LiveCasino: "娱乐厅",
   LiveGame: "滚球游戏",
   LiveReport: "滚球报告",
   LiveReportHistoryNote: "更多历史数据, 请点击",
@@ -3029,6 +3135,7 @@ window._language_zh_Hans = {
   Monday: "星期一",
   Money: "金额",
   MoneyLine: "独赢",
+  MoneyPlay: "普通投注",
   Month: "月份",
   Monthly: "每月",
   MoveSuccessfullyMsg: "成功移动",
@@ -3132,7 +3239,9 @@ window._language_zh_Hans = {
   Prev: "上个月",
   Previous: "上个月",
   Product: "产品",
+  ProductBG: "宾果",
   ProductCS: "娱乐城",
+  ProductLC: "娱乐厅",
   ProductNG: "百练赛",
   ProductRB: "赛马",
   ProductSB: "体育博彩",
@@ -3255,6 +3364,7 @@ window._language_zh_Hans = {
   TicketFilter: "注单筛选",
   TicketList: "注单清单",
   TicketNo: "票劵号码",
+  TicketType: "注单类型",
   Time: "时间",
   TimeZone: "时区",
   To: "至",
@@ -3262,6 +3372,9 @@ window._language_zh_Hans = {
   Today: "今日",
   Top: "顶部",
   TopCustomer: "最大会员",
+  TopCustomerNote1: "此报告可支持查看历史数据至昨日",
+  TopCustomerNote2: "此报告不包含赛马赛事及娱乐厅数据",
+  TopCustomerNote3: "此报告可支持查看日期从{0}至昨日",
   Total: "总和",
   TotalActiveCustomer: "总活跃会员人数",
   TotalAway: "客队总计",
@@ -3310,6 +3423,8 @@ window._language_zh_Hans = {
   UpdateFunctionSuccessfulMsg: "更新成功",
   UpdateKenoBetSettings: "Are you sure you want to update all Keno bet settings?",
   UpdateKenoBetSettingSuccessMsg: "The Keno bet setting of {0} was updated successfully",
+  UpdateLiveCasinoBetSettings: "您确定您要更新真人娱乐场投注设置吗？",
+  UpdateLiveCasinoBetSettingSuccessMsg: "{0}的娱乐厅投注设定已成功更新",
   UpdateNumberGameBetSettings: "您确定您要更新的所有百练赛投注设置吗？",
   UpdateNumberGameBetSettingSuccessMsg: "{0}的百练赛投注设定已成功更新",
   UpdateRacingBetSettings: "您确定您要更新所有竞赛的赌注设置吗？",
@@ -3368,13 +3483,13 @@ window._language_zh_Hans = {
 
 /***/ }),
 
-/***/ 396:
+/***/ 718:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 3/19/2018 3:59:04 PM
+// Generated at: 3/8/2018 2:35:24 PM
 window._language_zh_TW = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -3457,6 +3572,8 @@ window._language_zh_TW = {
   BetTaken: "匹配時間",
   BettingLimit: "投注限額",
   BetType: "投注類別",
+  BG: "BG",
+  Bingo: "賓果",
   BONTeamToScore: "雙方/一方/兩者皆不得分",
   Bonus: "紅利",
   BoughtAmount: "買的金額",
@@ -3584,6 +3701,7 @@ window._language_zh_TW = {
   DH: "和主",
   Disable: "Disable",
   DisableAgCasino: "Disable AG Casino",
+  DisableLiveCasino: "Disable Live Casino",
   DisableRNGCasino: "停用娛樂城",
   DisableSSOMsg: "SSO功能被禁用",
   DividendWon: "贏得分紅",
@@ -3603,6 +3721,7 @@ window._language_zh_TW = {
   EffectiveBettingValueNote: "有效投注額支援09/01/2014之後數據",
   Enable: "Enable",
   EnableAgCasino: "Enable AG Casino",
+  EnableLiveCasino: "啟用娛樂廳",
   EnableRNGCasino: "Enable RNG Casino",
   EndBalance: "結束餘額",
   EndDate: "結束日期",
@@ -3633,6 +3752,7 @@ window._language_zh_TW = {
   ForecastAway: "客隊預測",
   ForecastHome: "主隊預測",
   Fr: "Fr",
+  FreePlay: "免費投注",
   FreeSpin: "免費旋轉",
   Freeze: "暫停更新",
   Friday: "星期五",
@@ -3760,6 +3880,10 @@ window._language_zh_TW = {
   lbl5s: "第五盤",
   lbl5th: "第五名",
   lbl7Over: "7或以上",
+  LC: "娛樂廰",
+  LCCasinoUpdateSettingUnAvailableMsg: "Live Casino Database is not currently available. Please try again later.",
+  LCComm: "娛樂廰佣金",
+  LCCommission: "LC 佣金",
   League: "聯賽",
   Level1: "1級",
   Level10: "10級",
@@ -3786,6 +3910,7 @@ window._language_zh_TW = {
   LicenseeWL: "承租公司輸贏",
   LineNo: "每行號碼",
   Live: "滾球",
+  LiveCasino: "娛樂廳",
   LiveGame: "滾球遊戲",
   LiveReport: "滾球報告",
   LiveReportHistoryNote: "更多歷史數據，請點擊",
@@ -3849,6 +3974,7 @@ window._language_zh_TW = {
   Monday: "星期一",
   Money: "金額",
   MoneyLine: "獨贏",
+  MoneyPlay: "普通投注",
   Month: "月份",
   Monthly: "每月",
   MoveSuccessfullyMsg: "成功移動",
@@ -3952,8 +4078,10 @@ window._language_zh_TW = {
   Prev: "上個",
   Previous: "上個",
   Product: "產品",
+  ProductBG: "賓果",
   ProductCO: "即時兌現",
   ProductCS: "娛樂城",
+  ProductLC: "娛樂廳",
   ProductNG: "百練賽",
   ProductRB: "賽馬",
   ProductSB: "體育博彩",
@@ -4076,6 +4204,7 @@ window._language_zh_TW = {
   TicketFilter: "注單篩選",
   TicketList: "注單清單",
   TicketNo: "票劵號碼",
+  TicketType: "注單類型",
   Time: "時間",
   TimeZone: "時區",
   To: "至",
@@ -4083,6 +4212,9 @@ window._language_zh_TW = {
   Today: "今日",
   Top: "頂部",
   TopCustomer: "最大客户",
+  TopCustomerNote1: "此報告可支持查看歷史數據至昨日",
+  TopCustomerNote2: "此報告不包含賽馬賽事及娛樂廳數據",
+  TopCustomerNote3: "此報告可支持查看日期從{0}至昨日",
   Total: "總和",
   TotalActiveCustomer: "總活躍會員人數",
   TotalAway: "客隊總計",
@@ -4131,6 +4263,8 @@ window._language_zh_TW = {
   UpdateFunctionSuccessfulMsg: "更新成功",
   UpdateKenoBetSettings: "Are you sure you want to update all Keno bet settings?",
   UpdateKenoBetSettingSuccessMsg: "The Keno bet setting of {0} was updated successfully",
+  UpdateLiveCasinoBetSettings: "您確定您要更新真人娛樂場投注設置嗎？",
+  UpdateLiveCasinoBetSettingSuccessMsg: "{0}的娛樂廳投注設置已成功更新",
   UpdateNumberGameBetSettings: "您確定您要更新的所有百練賽投注設置嗎？",
   UpdateNumberGameBetSettingSuccessMsg: "{0}的百練賽投注設置已成功更新",
   UpdateRacingBetSettings: "您確定您要更新所有競賽的賭注設置嗎？",
@@ -4188,51 +4322,7 @@ window._language_zh_TW = {
   YouNotChooseAnyCustomerMsg: "您還沒有選擇任何會員"
 };
 
-/***/ }),
-
-/***/ 5:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var DEFAULT_RESOURCE_NAME = "_language_en_US";
-var langCode = window.PageLanguage || "en-US";
-var resourceName = "_language_" + langCode.replace("-", "_");
-
-var LangHelper = function () {
-    function LangHelper() {
-        _classCallCheck(this, LangHelper);
-    }
-
-    _createClass(LangHelper, null, [{
-        key: "getSingleResource",
-        value: function getSingleResource(key) {
-            var langHandler = window[resourceName];
-
-            return langHandler && langHandler[key] || window[DEFAULT_RESOURCE_NAME] && window[DEFAULT_RESOURCE_NAME][key] || key;
-        }
-    }, {
-        key: "currentLanguage",
-        get: function get() {
-            return langCode;
-        }
-    }]);
-
-    return LangHelper;
-}();
-
-exports.default = LangHelper;
-
 /***/ })
 
-},[391]);
+},[713]);
 //# sourceMappingURL=langHelper.chunk.js.map
