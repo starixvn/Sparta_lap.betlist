@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Excel.Report
 {
+    using System;
     using System.Globalization;
     using Base;
     using Base.Entities;
@@ -258,24 +259,21 @@ namespace Fanex.Athena.Excel.Report
             sheet.MergeCells(currentRow - currencyTotalData.Count, 0, currentRow - 1, 0);
 
             // Grand Total
-            var grandTotalMyrRow = sheet.CopyRow(TemplateSheet, RowGrandTotalTemplate, currentRow);
-            AssignDataMyr(grandTotalMyrRow, _dailyRacingWinLossData.GrandTotalData, ViewResources.GrandTotalIn + " " + ViewResources.MYR, string.Empty);
-            sheet.MergeCells(currentRow, 0, currentRow, 1);
-            currentRow++;
-
-            var grandTotalEurRow = sheet.CopyRow(TemplateSheet, RowGrandTotalTemplate + 1, currentRow);
-            AssignDataEur(grandTotalEurRow, _dailyRacingWinLossData.GrandTotalData, ViewResources.GrandTotalIn + " " + ViewResources.EUR, string.Empty);
-            sheet.MergeCells(currentRow, 0, currentRow, 1);
-            currentRow++;
-
-            var grandTotalUsdRow = sheet.CopyRow(TemplateSheet, RowGrandTotalTemplate + 1, currentRow);
-            AssignDataUsd(grandTotalUsdRow, _dailyRacingWinLossData.GrandTotalData, ViewResources.GrandTotalIn + " " + ViewResources.USD, string.Empty);
-            sheet.MergeCells(currentRow, 0, currentRow, 1);
-            currentRow++;
-
-            var grandTotalGbpRow = sheet.CopyRow(TemplateSheet, RowGrandTotalTemplate + 1, currentRow);
-            AssignDataGbp(grandTotalGbpRow, _dailyRacingWinLossData.GrandTotalData, ViewResources.GrandTotalIn + " " + ViewResources.GBP, string.Empty);
-            sheet.MergeCells(currentRow, 0, currentRow, 1);
+            var currencies = new[] { ViewResources.MYR, ViewResources.EUR, ViewResources.USD, ViewResources.GBP };
+            var actions = new Action<IRow, DailyRacingWinLoss, string>[]
+            {
+                 (row, item, leagueName) => AssignDataMyr(row, item, leagueName, string.Empty),
+                 (row, item, leagueName) => AssignDataEur(row, item, leagueName, string.Empty),
+                 (row, item, leagueName) => AssignDataUsd(row, item, leagueName, string.Empty),
+                 (row, item, leagueName) => AssignDataGbp(row, item, leagueName, string.Empty)
+            };
+            for (int i = 0; i < currencies.Length; i++)
+            {
+                var totalRow = sheet.CopyRow(TemplateSheet, RowGrandTotalTemplate + (i == 0 ? 0 : 1), currentRow);
+                actions[i](totalRow, _dailyRacingWinLossData.GrandTotalData, ViewResources.GrandTotalIn + " " + currencies[i]);
+                sheet.MergeCells(currentRow, 0, currentRow, 1);
+                currentRow++;
+            }
         }
     }
 }
