@@ -43,9 +43,6 @@ namespace Fanex.Athena.Excel.Warehouse
             _reportTitle = reportTitle;
         }
 
-        /// <summary>
-        /// Assign data to excel sheet.
-        /// </summary>
         protected override void AssignData()
         {
             var sheet = Workbook.CloneSheet("Template", "Data");
@@ -63,7 +60,6 @@ namespace Fanex.Athena.Excel.Warehouse
                 AssignSheetData(sheet);
             }
 
-            // Hide unnecessary column
             ProcessUI(sheet);
         }
 
@@ -81,7 +77,7 @@ namespace Fanex.Athena.Excel.Warehouse
                 ViewResources.CustomerW_L,
                 ViewResources.CustomerW_L,
                 ViewResources.LicenseeW_L,
-                ViewResources.LastActivityDate,
+                ViewResources.LastActivityDate
             };
 
             for (int i = 0; i < headerTextList.Length; i++)
@@ -164,7 +160,7 @@ namespace Fanex.Athena.Excel.Warehouse
             };
         }
 
-        private void AssignTotalData(ISheet sheet, int currentRow)
+        protected internal virtual void AssignTotalData(ISheet sheet, int currentRow)
         {
             var cellIndex = 3;
             var row = sheet.CopyRow(TemplateSheet, RowTotalTemplate, currentRow);

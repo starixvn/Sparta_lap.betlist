@@ -10,5 +10,6 @@ using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("Fanex.Athena.Excel.Base.UnitTests")]
 [assembly: InternalsVisibleTo("Fanex.Athena.Excel.Customer.UnitTests")]
 [assembly: InternalsVisibleTo("Fanex.Athena.Excel.Report.UnitTests")]
+[assembly: InternalsVisibleTo("Fanex.Athena.Excel.Warehouse.UnitTests")]
 [assembly: System.CLSCompliant(false)]
 [assembly: AssemblyVersion("1.0.0.0")]
