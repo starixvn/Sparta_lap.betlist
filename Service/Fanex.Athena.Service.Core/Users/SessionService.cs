@@ -14,7 +14,6 @@ namespace Fanex.Athena.Service.Core.Users
     using System.Linq;
     using System.Text;
     using System.Web;
-    using Configuration;
     using Configuration.Interfaces;
     using DataAccess.Core.Common;
     using DataAccess.Core.Common.Interfaces;
@@ -284,29 +283,9 @@ namespace Fanex.Athena.Service.Core.Users
                 .Where(x => x.IsActive)
                 .Select(x => new { x.CurrencyId, x.AgentIdList })
                 .ToDictionary(x => x.CurrencyId, x => x.AgentIdList);
-            MergeAgentListForFakeLicensees(licenseeId, currencyAgentList);
 
             userSession.CurrencyList = currencyList;
             userSession.CurrencyAgentList = currencyAgentList;
-        }
-
-        private void MergeAgentListForFakeLicensees(int licenseeId, IDictionary<int, IEnumerable<int>> currencyAgentList)
-        {
-            if (!_appSettings.FakeLicenseeList.Contains(licenseeId))
-            {
-                return;
-            }
-
-            var licenseeSourcedSettings = _licenseeDataAccess.GetLicenseeSourcedSettings(licenseeId);
-            var currencyList = currencyAgentList.Keys.ToList();
-            foreach (var key in currencyList)
-            {
-                var mergingAgentList = licenseeSourcedSettings.Where(x => x.SourcedCurrencyId == key).Select(x => x.SourcedAgentId).ToArray();
-                if (mergingAgentList.Any())
-                {
-                    currencyAgentList[key] = currencyAgentList[key].Concat(mergingAgentList).Distinct().ToList();
-                }
-            }
         }
     }
 

@@ -47,9 +47,9 @@
             _licenseeDataAccess.GetByUser(DefaultUserId).Returns<IList<Licensee>>(i => licenseeList);
             _currencyDataAccess = Substitute.For<ICurrencyDataAccess>();
             _sessionService = new SessionService(
-                _appSettings, 
-                _functionService, 
-                _licenseeDataAccess, 
+                _appSettings,
+                _functionService,
+                _licenseeDataAccess,
                 _currencyDataAccess);
         }
 
@@ -683,54 +683,6 @@
                 Assert.That(userSession.CurrencyList.Keys.ElementAt(0), Is.EqualTo(activeCurrencyUsers.ElementAt(0).CurrencyId));
                 Assert.That(userSession.CurrencyAgentList.Keys.ElementAt(0), Is.EqualTo(activeCurrencyUsers.ElementAt(0).CurrencyId));
                 Assert.That(userSession.CurrencyAgentList.Values.ElementAt(0), Is.EqualTo(activeCurrencyUsers.ElementAt(0).AgentIdList));
-            });
-        }
-
-        [Test]
-        public void AssignCurrenciesToUserSession_FakeLicensee_MergeAgentListWithFakeLicenseeData()
-        {
-            // Arrange
-            const int LicenseeId = 1, UserId = 1;
-
-            _appSettings.FakeLicenseeList.Returns(new[] { LicenseeId });
-
-            var currencyUserList = new List<CurrencyUser>
-            {
-                new CurrencyUser
-                {
-                    IsActive = true,
-                    CurrencyId = 1,
-                    AgentId = 2,
-                    AgentIdList = new[] { 1, 2 }
-                },
-                new CurrencyUser
-                {
-                    IsActive = true,
-                    CurrencyId = 2,
-                    AgentId = 3,
-                    AgentIdList = new[] { 1, 2 }
-                }
-            };
-            var activeCurrencyUsers = currencyUserList.Where(x => x.IsActive);
-            _currencyDataAccess.GetCurrenciesByUser(LicenseeId, UserId).Returns(currencyUserList);
-
-            var licenseeSourcedSettings = new List<LicenseeSourcedSetting>
-            {
-                new LicenseeSourcedSetting { SourcedCurrencyId = 1, SourcedAgentId = 3 },
-                new LicenseeSourcedSetting { SourcedCurrencyId = 10, SourcedAgentId = 1 }
-            };
-            _licenseeDataAccess.GetLicenseeSourcedSettings(LicenseeId).Returns(licenseeSourcedSettings);
-
-            var userSession = new UserSession { UserId = UserId };
-
-            // Action
-            _sessionService.AssignCurrenciesToUserSession(userSession, LicenseeId, null);
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(userSession.CurrencyAgentList.Values.ElementAt(0).Contains(licenseeSourcedSettings[0].SourcedAgentId), Is.True);
-                Assert.That(userSession.CurrencyAgentList.Values.ElementAt(1).Contains(licenseeSourcedSettings[0].SourcedAgentId), Is.False);
             });
         }
 

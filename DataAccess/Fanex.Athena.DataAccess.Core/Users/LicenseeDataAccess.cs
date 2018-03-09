@@ -15,7 +15,6 @@ namespace Fanex.Athena.DataAccess.Core.Users
     using Fanex.Athena.DataAccess.Core.Users.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Data;
-    using Model.Core.DTO.Users;
 
     public class LicenseeDataAccess : BaseDataAccess, ILicenseeDataAccess
     {
@@ -102,23 +101,6 @@ namespace Fanex.Athena.DataAccess.Core.Users
                 using (var db = this.GetObjectDb(UspName))
                 {
                     return db.QueryEntity<Licensee>(uspParams);
-                }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName, uspParams);
-            }
-        }
-
-        public IEnumerable<LicenseeSourcedSetting> GetLicenseeSourcedSettings(int licenseeId)
-        {
-            const string UspName = "LRF_LicenseeSourcedSel";
-            var uspParams = new { LicenseeId = licenseeId };
-            try
-            {
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    return db.Query<LicenseeSourcedSetting>(uspParams);
                 }
             }
             catch (ObjectDbException sqlException)
