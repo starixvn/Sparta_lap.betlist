@@ -169,7 +169,7 @@ describe('dataHandlerAction', () => {
             Promise.resolve().then(() => {
                 expect(axios.post).toHaveBeenCalledWith(
                     expectedUrl, 
-                    { FileName: params.fileName, Api: params.api }, 
+                    { FileName: params.fileName }, 
                     { headers: expectedHeader, responseType: 'blob'});
             })
         })
