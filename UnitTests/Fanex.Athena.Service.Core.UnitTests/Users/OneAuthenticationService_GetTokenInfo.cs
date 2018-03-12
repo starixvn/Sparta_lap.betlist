@@ -20,8 +20,6 @@
                 null,
                 null,
                 null,
-                null,
-                Substitute.For<IUserService>(),
                 _oneBookSecurityWrapper);
         }
 
@@ -33,7 +31,7 @@
         }
 
         [Test]
-        public void GetTokenInfo_NotHaveSession_CallSetAuthorize()
+        public void GetTokenInfo_WhenCall_ReturnValidInfo()
         {
             // Arrange
             var expectedResult = new OneAuthToken

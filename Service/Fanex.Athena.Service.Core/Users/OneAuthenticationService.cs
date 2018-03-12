@@ -5,8 +5,6 @@
     using System.Linq;
     using System.Web;
     using System.Web.Hosting;
-    using DataAccess.Core.Common;
-    using DataAccess.Core.Common.Interfaces;
     using DataAccess.Core.Users;
     using DataAccess.Core.Users.Interfaces;
     using Extension.Utility;
@@ -24,28 +22,22 @@
     {
         private readonly ISessionService _sessionService;
         private readonly ILicenseeDataAccess _licenseeDataAccess;
-        private readonly ICurrencyDataAccess _currencyDataAccess;
-        private readonly IUserService _userService;
         private readonly IFormsAuthenticationService _formsAuthenticationService;
         private readonly IOneBookSecurityWrapper _oneBookSecurityWrapper;
 
-        public OneAuthenticationService() : this(null, null, null, null, null, null)
+        public OneAuthenticationService() : this(null, null, null, null)
         {
         }
 
         public OneAuthenticationService(
             ISessionService sessionService,
             ILicenseeDataAccess licenseeDataAccess,
-            ICurrencyDataAccess currencyDataAccess,
             IFormsAuthenticationService formsAuthenticationService,
-            IUserService userService,
             IOneBookSecurityWrapper oneBookSecurityWrapper)
         {
             _sessionService = sessionService ?? new SessionService();
             _licenseeDataAccess = licenseeDataAccess ?? new LicenseeDataAccess();
-            _currencyDataAccess = currencyDataAccess ?? new CurrencyDataAccess();
             _formsAuthenticationService = formsAuthenticationService ?? new FormsAuthenticationService();
-            _userService = userService ?? new UserService();
             _oneBookSecurityWrapper = oneBookSecurityWrapper ?? new OneBookSecurityWrapper();
         }
 
@@ -69,18 +61,7 @@
                 };
             }
 
-            if (tokenInfo.IsAdminstrator)
-            {
-                var userCheckingResult = CheckAndSyncUserInfo(licensee, tokenInfo.UserID);
-                if (!userCheckingResult.IsSuccessful)
-                {
-                    return userCheckingResult;
-                }
-
-                tokenInfo.UserSEQ = int.Parse(userCheckingResult.ExtendedData);
-            }
-
-            var currencyList = GetCurrencyList(tokenInfo, licensee.Id);
+            var currencyList = GetCurrencyList(tokenInfo);
             if (currencyList == null || !currencyList.Any())
             {
                 return new ResultInfo
@@ -160,51 +141,15 @@
             userSession.PortalFunctionList = GetPermissionList(tokenInfo);
         }
 
-        private IEnumerable<CurrencyUser> GetCurrencyList(OneAuthToken tokenInfo, int licenseeId)
+        private IEnumerable<CurrencyUser> GetCurrencyList(OneAuthToken tokenInfo)
         {
-            return tokenInfo.IsAdminstrator ?
-                            _currencyDataAccess.GetCurrenciesByUser(licenseeId, tokenInfo.UserSEQ) :
-                            tokenInfo.Currency?.Select(x => new CurrencyUser
-                            {
-                                IsActive = true,
-                                CurrencyId = x.CurrencyId,
-                                CurrencyName = x.Currency,
-                                AgentIdList = x.AgentId
-                            }).ToList();
-        }
-
-        private IResultInfo CheckAndSyncUserInfo(Licensee licensee, string userName)
-        {
-            var result = GetUser(licensee.Id, userName);
-            if (result.IsSuccessful)
+            return tokenInfo.Currency?.Select(x => new CurrencyUser
             {
-                return result;
-            }
-
-            result = _userService.SyncUserInfo(licensee.Name, userName);
-            return result.IsSuccessful ? GetUser(licensee.Id, userName) : new ResultInfo
-            {
-                Code = OneAuthorizationErrorCode.NotFoundUser,
-                Message = ViewResources.UserNotExist
-            };
-        }
-
-        private IResultInfo GetUser(int licenseeId, string userName)
-        {
-            var user = _userService.GetByUsername(userName, true, licenseeId);
-            if (user != null)
-            {
-                return new ResultInfo
-                {
-                    ExtendedData = user.UserID.ToString()
-                };
-            }
-
-            return new ResultInfo
-            {
-                Code = OneAuthorizationErrorCode.NotFoundUser,
-                Message = ViewResources.UserNotExist
-            };
+                IsActive = true,
+                CurrencyId = x.CurrencyId,
+                CurrencyName = x.Currency,
+                AgentIdList = x.AgentId
+            }).ToList();
         }
 
         private void CreateSession(

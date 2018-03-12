@@ -31,8 +31,6 @@ namespace Fanex.Athena.DataAccess.Core.Users.Interfaces
 
         IResultInfo UpdateInfo(User user, int updatedBy);
 
-        IResultInfo SyncUserInfo(string licenseeName, string userName);
-
         #endregion Public Methods and Operators
     }
 }

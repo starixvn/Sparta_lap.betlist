@@ -21,21 +21,16 @@
         private OneAuthenticationService _oneAuthenticationService;
         private ISessionService _sessionService;
         private ILicenseeDataAccess _licenseeDataAccess;
-        private ICurrencyDataAccess _currencyDataAccess;
         private IFormsAuthenticationService _formAuthenticationService;
-        private IUserService _userService;
 
         [SetUp]
         public void SetUp()
         {
             _sessionService = Substitute.For<ISessionService>();
             _licenseeDataAccess = Substitute.For<ILicenseeDataAccess>();
-            _currencyDataAccess = Substitute.For<ICurrencyDataAccess>();
-            _userService = Substitute.For<IUserService>();
             _licenseeDataAccess.GetLicenseeByName(Arg.Any<string>()).Returns(new Licensee { Id = 1, Name = "spondemo", IsAllowedCustomerComm = true });
             _sessionService.UserSession.Returns(x => null);
             _sessionService.LicenseeSession.Returns(x => null);
-            _userService.GetByUsername(Arg.Any<string>(), Arg.Any<bool>(), Arg.Any<int>()).Returns(new User { UserID = 1 });
             _formAuthenticationService = Substitute.For<IFormsAuthenticationService>();
         }
 
@@ -45,29 +40,7 @@
             _oneAuthenticationService = null;
             _sessionService = null;
             _licenseeDataAccess = null;
-            _currencyDataAccess = null;
             _formAuthenticationService = null;
-        }
-
-        [Test]
-        public void SignIn_SetAuthorize_IfNotAdminNotCallGetCurrencyFromDB()
-        {
-            // Arrange
-            var tokenInfo = new OneAuthToken { IsAdminstrator = false };
-
-            _oneAuthenticationService = new OneAuthenticationService(
-                _sessionService,
-                _licenseeDataAccess,
-                _currencyDataAccess,
-                _formAuthenticationService,
-                _userService,
-                null);
-
-            // Action
-            _oneAuthenticationService.SetAuthorize(tokenInfo);
-
-            // Assert
-            _currencyDataAccess.DidNotReceive().GetCurrenciesByUser(Arg.Any<int>(), Arg.Any<int>());
         }
 
         [Test]
@@ -78,14 +51,10 @@
             var fakeHttpContext = Substitute.For<HttpContextBase>();
             fakeHttpContext.User.Identity.IsAuthenticated.Returns(false);
 
-            _currencyDataAccess.GetCurrenciesByUser(Arg.Any<int>(), Arg.Any<int>()).Returns(new List<CurrencyUser>());
-
             _oneAuthenticationService = new OneAuthenticationService(
                 _sessionService,
                 _licenseeDataAccess,
-                _currencyDataAccess,
                 _formAuthenticationService,
-                _userService,
                 null);
 
             var expectedResult = new ResultInfo { Code = 600, Message = "Not found currency" };
@@ -113,7 +82,6 @@
             var expectedCookie = $"{tokenInfo.VendorID}_{tokenInfo.SiteName}_{tokenInfo.UserID}";
             var fakeHttpContext = Substitute.For<HttpContextBase>();
             fakeHttpContext.User.Identity.IsAuthenticated.Returns(false);
-            _currencyDataAccess.GetCurrenciesByUser(Arg.Any<int>(), Arg.Any<int>()).Returns(FakeCurrencyListMapByUser());
 
             _sessionService.When(x => x.AssignSessions(Arg.Any<UserSession>(), Arg.Any<LicenseeSession>()))
                 .Do(
@@ -127,7 +95,7 @@
             _formAuthenticationService.When(x => x.SetAuthCookie(expectedCookie, false)).Do(x => cookieCounter++);
 
             _oneAuthenticationService = Substitute.ForPartsOf<OneAuthenticationService>(
-                _sessionService, _licenseeDataAccess, _currencyDataAccess, _formAuthenticationService, _userService, null);
+                _sessionService, _licenseeDataAccess, _formAuthenticationService, null);
 
             _oneAuthenticationService.GetStringFromFile(Arg.Any<string>()).Returns(GetJsonSystemFunctionList());
 

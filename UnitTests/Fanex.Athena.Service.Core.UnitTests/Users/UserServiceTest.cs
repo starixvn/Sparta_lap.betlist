@@ -4,7 +4,6 @@
     using Core.Users;
     using Core.Users.Interfaces;
     using DataAccess.Core.Users.Interfaces;
-    using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
     using NSubstitute;
     using NUnit.Framework;
@@ -123,25 +122,6 @@
 
             // Assert
             _userDataAccess.Received().UpdateInfo(Arg.Any<User>(), updatedBy);
-        }
-
-        [Test]
-        public void SyncUserInfo_WhenCall_ReturnCorrectData()
-        {
-            // Arrange
-            var expectedResult = new ResultInfo
-            {
-                Code = 100,
-                Message = "Success"
-            };
-            const string LicenseeName = "12Bet", UserName = "alex";
-            _userDataAccess.SyncUserInfo(LicenseeName, UserName).Returns(expectedResult);
-
-            // Action
-            var result = _userService.SyncUserInfo(LicenseeName, UserName);
-
-            // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
         }
 
         [Test]
