@@ -22,17 +22,6 @@ namespace Fanex.Athena.DataAccess.Core.Users
 
     public class UserDataAccess : BaseDataAccess, IUserDataAccess
     {
-        private readonly ILogger _logger;
-
-        public UserDataAccess() : this(null)
-        {
-        }
-
-        [CLSCompliant(false)]
-        public UserDataAccess(ILogger logger)
-        {
-            _logger = logger ?? Logger.Log;
-        }
 
         public IResultInfo ChangePassword(User requestUser, string oldPassword, string newPassword, string salt)
         {
@@ -168,34 +157,6 @@ namespace Fanex.Athena.DataAccess.Core.Users
                 db.ExecuteNonQuery();
 
                 return GetResult(db);
-            }
-        }
-
-        public IResultInfo SyncUserInfo(string licenseeName, string userName)
-        {
-            const string UspName = "Lrf_SyncInternalUser";
-            const string DefaultPass = "J0NilQZC1ywhNqNu8XMBqIvesaErM+DGia1za8P+tH8=";
-            try
-            {
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    db.AddInParameter("LicenseeName", DbType.String, licenseeName);
-                    db.AddInParameter("Username", DbType.String, userName);
-                    db.AddInParameter("EncryptedPassword", DbType.String, DefaultPass);
-                    AddResultParam(db);
-
-                    db.ExecuteNonQuery();
-
-                    return GetResult(db);
-                }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName);
-            }
-            finally
-            {
-                _logger.Info($"Synced user from LAP system - userName={userName}");
             }
         }
 

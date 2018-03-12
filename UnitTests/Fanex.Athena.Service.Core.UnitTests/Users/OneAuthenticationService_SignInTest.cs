@@ -19,26 +19,19 @@
         private OneAuthenticationService _oneAuthenticationService;
         private ISessionService _sessionService;
         private ILicenseeDataAccess _licenseeDataAccess;
-        private ICurrencyDataAccess _currencyDataAccess;
         private IFormsAuthenticationService _formAuthenticationService;
-        private IUserService _userService;
 
         [SetUp]
         public void SetUp()
         {
             _sessionService = Substitute.For<ISessionService>();
             _licenseeDataAccess = Substitute.For<ILicenseeDataAccess>();
-            _currencyDataAccess = Substitute.For<ICurrencyDataAccess>();
-            _userService = Substitute.For<IUserService>();
-            _userService.GetByUsername(Arg.Any<string>(), Arg.Any<bool>(), Arg.Any<int>()).Returns(new User { UserID = 1 });
 
             _formAuthenticationService = Substitute.For<IFormsAuthenticationService>();
             _oneAuthenticationService = Substitute.ForPartsOf<OneAuthenticationService>(
                 _sessionService,
                 _licenseeDataAccess,
-                _currencyDataAccess,
                 _formAuthenticationService,
-                _userService,
                 null);
         }
 
@@ -48,35 +41,7 @@
             _oneAuthenticationService = null;
             _sessionService = null;
             _licenseeDataAccess = null;
-            _currencyDataAccess = null;
             _formAuthenticationService = null;
-        }
-
-        [Test]
-        public void SignIn_IfAdminCallGetCurrencyFromDB()
-        {
-            // Arrange
-            var tokenInfo = new OneAuthToken { IsAdminstrator = true, UserSEQ = 1 };
-            var licensee = new Licensee
-            {
-                Id = 1
-            };
-            _oneAuthenticationService = new OneAuthenticationService(
-                _sessionService,
-                _licenseeDataAccess,
-                _currencyDataAccess,
-                _formAuthenticationService,
-                _userService,
-                null);
-            _licenseeDataAccess.GetLicenseeByName(tokenInfo.SiteName).Returns(licensee);
-
-            var fakeHttpContext = Substitute.For<HttpContextBase>();
-
-            // Action
-            _oneAuthenticationService.SignIn(fakeHttpContext, tokenInfo);
-
-            // Assert
-            _currencyDataAccess.Received().GetCurrenciesByUser(licensee.Id, tokenInfo.UserSEQ);
         }
 
         [Test]

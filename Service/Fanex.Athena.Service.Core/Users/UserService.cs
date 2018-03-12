@@ -87,11 +87,6 @@ namespace Fanex.Athena.Service.Core.Users
             return this._userDataAccess.ResetPassword(user, salt, resetPwdBy);
         }
 
-        public IResultInfo SyncUserInfo(string licenseeName, string userName)
-        {
-            return _userDataAccess.SyncUserInfo(licenseeName, userName);
-        }
-
         public IResultInfo UpdateInfo(User user, int updatedBy)
         {
             return this._userDataAccess.UpdateInfo(user, updatedBy);

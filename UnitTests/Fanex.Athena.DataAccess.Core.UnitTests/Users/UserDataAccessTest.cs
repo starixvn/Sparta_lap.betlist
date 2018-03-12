@@ -19,16 +19,12 @@
         private const string GetUserInfoSp = "Lrf_UserInfoSel";
         private const string RecheckInSp = "Lrf_ReCheckIn";
         private const string ResetPasswordSp = "Lrf_UserPwdReset";
-        private const string SyncUserInfoSp = "Lrf_SyncInternalUser";
         private const string UpdateInfoSp = "Lrf_UserUpdAccount";
-
-        private ILogger _logger;
 
         [OneTimeSetUp]
         public override void FixtureSetUp()
         {
-            _logger = Substitute.For<ILogger>();
-            DataAccess = Substitute.ForPartsOf<UserDataAccess>(_logger);
+            DataAccess = Substitute.ForPartsOf<UserDataAccess>();
             ObjectDb = Substitute.For<IObjectDb>();
         }
 
@@ -295,55 +291,6 @@
                 Assert.That(result.Code, Is.EqualTo(ResultInfoHelper.ResultCode));
                 Assert.That(result.Message, Is.EqualTo(ResultInfoHelper.ResultMessage));
             });
-        }
-
-        [Test]
-        public void SyncUserInfo_WhenCall_ParametersPassedCorrectly()
-        {
-            // Arrange
-            const string LicenseeName = "spondemo";
-            const string UserName = "user1";
-            DataAccess.GetObjectDb(Arg.Is(SyncUserInfoSp)).Returns(ObjectDb);
-
-            // Action
-            DataAccess.SyncUserInfo(LicenseeName, UserName);
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                ObjectDb.Received().AddInParameter("LicenseeName", DbType.String, LicenseeName);
-                ObjectDb.Received().AddInParameter("Username", DbType.String, UserName);
-                ObjectDb.Received().AddInParameter("EncryptedPassword", DbType.String, Arg.Any<string>());
-                ObjectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
-                ObjectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
-                _logger.Received().Info($"Synced user from LAP system - userName={UserName}");
-            });
-        }
-
-        [Test]
-        public void SyncUserInfo_WhenCall_ReturnDataCorrectly()
-        {
-            // Arrange
-            DataAccess.GetObjectDb(Arg.Is(SyncUserInfoSp)).Returns(ObjectDb);
-            ResultInfoHelper.MockResultInfo(ObjectDb);
-
-            // Action
-            var result = DataAccess.SyncUserInfo(null, null);
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(result.Code, Is.EqualTo(ResultInfoHelper.ResultCode));
-                Assert.That(result.Message, Is.EqualTo(ResultInfoHelper.ResultMessage));
-            });
-        }
-
-        [Test]
-        public void SyncUserInfo_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                SyncUserInfoSp,
-                () => DataAccess.SyncUserInfo(null, null));
         }
 
         [Test]
