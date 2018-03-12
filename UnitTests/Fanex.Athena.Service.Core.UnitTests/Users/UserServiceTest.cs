@@ -4,7 +4,6 @@
     using Core.Users;
     using Core.Users.Interfaces;
     using DataAccess.Core.Users.Interfaces;
-    using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
     using NSubstitute;
     using NUnit.Framework;
@@ -124,7 +123,6 @@
             // Assert
             _userDataAccess.Received().UpdateInfo(Arg.Any<User>(), updatedBy);
         }
-
 
         [Test]
         public void ChangePassword_UserDoesNotExist_ReturnErrorResult()

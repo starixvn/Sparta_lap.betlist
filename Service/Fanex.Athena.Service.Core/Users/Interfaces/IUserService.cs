@@ -28,6 +28,5 @@ namespace Fanex.Athena.Service.Core.Users.Interfaces
         IResultInfo UpdateInfo(User user, int updatedBy);
 
         User GetByUsername(string userName, bool isInternal, int licenseeId = 0);
-
     }
 }

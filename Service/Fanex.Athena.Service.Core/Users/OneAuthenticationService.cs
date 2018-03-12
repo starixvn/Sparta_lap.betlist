@@ -5,8 +5,6 @@
     using System.Linq;
     using System.Web;
     using System.Web.Hosting;
-    using DataAccess.Core.Common;
-    using DataAccess.Core.Common.Interfaces;
     using DataAccess.Core.Users;
     using DataAccess.Core.Users.Interfaces;
     using Extension.Utility;
@@ -145,16 +143,15 @@
 
         private IEnumerable<CurrencyUser> GetCurrencyList(OneAuthToken tokenInfo)
         {
-            return  tokenInfo.Currency?.Select(x => new CurrencyUser
-                            {
-                                IsActive = true,
-                                CurrencyId = x.CurrencyId,
-                                CurrencyName = x.Currency,
-                                AgentIdList = x.AgentId
-                            }).ToList();
+            return tokenInfo.Currency?.Select(x => new CurrencyUser
+            {
+                IsActive = true,
+                CurrencyId = x.CurrencyId,
+                CurrencyName = x.Currency,
+                AgentIdList = x.AgentId
+            }).ToList();
         }
 
-      
         private void CreateSession(
             string languageCode,
             OneAuthToken tokenInfo,
