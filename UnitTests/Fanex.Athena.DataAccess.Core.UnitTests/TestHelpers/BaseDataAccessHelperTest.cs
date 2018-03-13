@@ -2,6 +2,7 @@
 {
     using System.Data;
     using Core.Exception;
+    using Extension.Utility;
     using Fanex.Data;
     using NSubstitute;
     using NUnit.Framework;

@@ -32,7 +32,8 @@
             _balanceUpDataAccess = new BalanceUpDataAccess();
         }
 
-        public LicenseeWinLossDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
+        public LicenseeWinLossDataAccess(IAppSettings appSetting, IBalanceUpDataAccess balanceUpDataAccess)
+            : base(appSetting)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
         }
@@ -40,10 +41,10 @@
         public SortableReportResultModel<LicenseeWinLoss> GetSummaryWinloss(
             LicenseeWinLossMetaModel metaModel)
         {
-            const string UspName = "Lrf_Rpt_LicWinloss";
+            var uspName = GetSpNameForFakeLicensee(metaModel.LicenseeId, "Lrf_Rpt_LicWinloss");
             try
             {
-                using (var db = this.GetObjectDb(UspName))
+                using (var db = this.GetObjectDb(uspName))
                 {
                     db.AddInParameter("reporttype", DbType.Byte, metaModel.ReportBy);
                     UpdateUspParams(db, metaModel, false);
@@ -56,7 +57,7 @@
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException, UspName, metaModel);
+                throw new DataAccessException(sqlException, uspName, metaModel);
             }
         }
 
