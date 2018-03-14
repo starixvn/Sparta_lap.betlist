@@ -9,7 +9,7 @@
             </div>
 
             <div class="input-field col l2 m3 s12">
-                @DesktopRazorHelper.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId, true, true)
+                @DesktopRazorHelper.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId, true, true, Model.IsFakeLicensee)
                 <label>@ViewResources.Currency</label>
             </div>
 

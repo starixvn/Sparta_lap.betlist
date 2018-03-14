@@ -266,7 +266,10 @@ define(["jquery", "common/querystring", "common/popup", "extensions/prototype", 
             }
 
             // Handle inside based currency list in some reports(licensee wl, wl by product)
-            if ($("option[value=-1]", "#CurrencyId").length > 0) {
+            var hasBaseCurrencyInDropdown = $("#CurrencyId option").filter(function () {
+                return $(this).val() < 0;
+            }).length > 0;
+            if (hasBaseCurrencyInDropdown) {
                 var basedCurrencyMap = { "-1": "eur", "-2": "usd", "-3": "gbp" };
                 var basedCurrency = basedCurrencyMap[currency.toString()];
                 basedCurrency = basedCurrency === undefined ? "" : basedCurrency;
