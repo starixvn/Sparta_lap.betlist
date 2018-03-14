@@ -81,7 +81,7 @@
 
                 it("Export All - window.alert should be called when totalRows > MAXIMUM_EXCEL_ROWS", function () {
                     spyOn(window, "alert");
-                    spyOn($.fn, "jqGrid").and.returnValue(66000);
+                    spyOn($.fn, "jqGrid").and.returnValue(2147483647);
 
                     CommonBetList.exportToExcel();
 

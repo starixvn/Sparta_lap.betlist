@@ -20,9 +20,18 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Model.Core.ResultModel;
+    using VendorAdapter;
+    using VendorAdapter.Interfaces;
 
     public class WinLossByLeagueDataAccess : BaseDataAccess, IWinLossByLeagueDataAccess
     {
+        private readonly ICacheRefAdapter _cacheRefAdapter;
+
+        public WinLossByLeagueDataAccess()
+        {
+            _cacheRefAdapter = new CacheRefAdapter();
+        }
+
         public IEnumerable<WinLossByLeague> GetSummary(WinLossByLeagueMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_WinlostByLeague";
@@ -102,35 +111,6 @@ namespace Fanex.Athena.DataAccess.Report
             db.AddInParameter("showdraw", DbType.Boolean, metaModel.ShowDraw);
         }
 
-        private static IEnumerable<WinLossByLeague> GetMatches(IDataReader reader, string baseCurrency)
-        {
-            var result = new List<WinLossByLeague>();
-            var turnOverColumn = "turnover" + baseCurrency;
-            var memberWLColumn = "memberwinlost" + baseCurrency;
-            var licenseeWLColumn = "licenseewl" + baseCurrency;
-            var comBAColumn = "CommBA" + baseCurrency;
-            var amtDueToBAColumn = "amtduetoBa" + baseCurrency;
-            var index = 1;
-            while (reader.Read())
-            {
-                var item = new WinLossByLeague
-                {
-                    Index = index++,
-                    TurnOver = reader.ToDecimal(turnOverColumn),
-                    CustomerWinLoss = reader.ToDecimal(memberWLColumn),
-                    LicenseeWL = reader.ToDecimal(licenseeWLColumn),
-                    BACommission = reader.ToDecimal(comBAColumn),
-                    BetCount = reader.ToInt("betcount"),
-                    AmountDue = reader.ToDecimal(amtDueToBAColumn),
-                    HomeId = reader.ToInt("homeid"),
-                    AwayId = reader.ToInt("awayid")
-                };
-                result.Add(item);
-            }
-
-            return result;
-        }
-
         private static IEnumerable<WinLossByLeague> GetCustomers(IDataReader reader, string baseCurrency)
         {
             var result = new List<WinLossByLeague>();
@@ -183,6 +163,39 @@ namespace Fanex.Athena.DataAccess.Report
             }
 
             return totalData;
+        }
+
+        private IEnumerable<WinLossByLeague> GetMatches(IDataReader reader, string baseCurrency)
+        {
+            var result = new List<WinLossByLeague>();
+            var turnOverColumn = "turnover" + baseCurrency;
+            var memberWLColumn = "memberwinlost" + baseCurrency;
+            var licenseeWLColumn = "licenseewl" + baseCurrency;
+            var comBAColumn = "CommBA" + baseCurrency;
+            var amtDueToBAColumn = "amtduetoBa" + baseCurrency;
+            var index = 1;
+            while (reader.Read())
+            {
+                var homeId = reader.ToInt("homeid");
+                var awayId = reader.ToInt("awayid");
+                var item = new WinLossByLeague
+                {
+                    Index = index++,
+                    TurnOver = reader.ToDecimal(turnOverColumn),
+                    CustomerWinLoss = reader.ToDecimal(memberWLColumn),
+                    LicenseeWL = reader.ToDecimal(licenseeWLColumn),
+                    BACommission = reader.ToDecimal(comBAColumn),
+                    BetCount = reader.ToInt("betcount"),
+                    AmountDue = reader.ToDecimal(amtDueToBAColumn),
+                    HomeId = homeId,
+                    HomeName = _cacheRefAdapter.GetTeamName(homeId),
+                    AwayId = awayId,
+                    AwayName = _cacheRefAdapter.GetTeamName(awayId),
+                };
+                result.Add(item);
+            }
+
+            return result;
         }
     }
 }

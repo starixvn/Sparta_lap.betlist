@@ -5,7 +5,7 @@
 
     internal static class ObjectDumper
     {
-        internal static string Dump(object obj, string separator = ";")
+        internal static string Dump(object obj, string separator = "\n")
         {
             if (obj == null)
             {

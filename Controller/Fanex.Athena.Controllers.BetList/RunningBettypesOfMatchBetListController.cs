@@ -10,48 +10,63 @@ namespace Fanex.Athena.Controllers.BetList
 
     using System.Linq;
     using System.Web.Mvc;
-    using Fanex.Athena.Excel.Base.Entities;
-    using Fanex.Athena.Excel.BetList;
+    using DataAccess.Core.Configuration.Interfaces;
+    using Excel.Base.Entities;
+    using Extension.Utility;
     using Fanex.Athena.Model.BetList.MetaModel;
-    using Fanex.Athena.Model.Core.DataDomain;
-    using Fanex.Athena.Model.Core.Helper;
-    using Fanex.Athena.Web.ResultExtension;
     using Fanex.Common;
-    using Resources;
+    using Service.BetList.Interfaces;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
+    using Service.Core.Users.Interfaces;
+    using VendorAdapter.Interfaces;
 
     #endregion Using
 
     public class RunningBettypesOfMatchBetListController : BetListBaseController
     {
+        public RunningBettypesOfMatchBetListController()
+        {
+        }
+
+        public RunningBettypesOfMatchBetListController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
+            IProductService productService,
+            IBetListService betListService,
+            IBalanceUpDataAccess balanceUpDataAccess,
+            ICacheRefAdapter cacheRefAdapter)
+        : base(languageService, sessionService, appSetting, clientViewHelper, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
+        {
+        }
+
         [HttpGet]
         public ActionResult Index(BetListMetaModel metaModel)
         {
-            return ProcessDefaultRequest(metaModel, "~/Views/BetList/RunningBettypesOfMatchBetList/Main.cshtml");
+            var model = CreateDefaultMetaModel(metaModel);
+            return ProcessDefaultRequest(model, "~/Views/BetList/RunningBettypesOfMatchBetList/Main.cshtml", "Lrf_BetList_SelRunningByMultipleBettypeMatch");
         }
 
-        protected override ActionResult ExportExcel(BetListMetaModel metaModel)
+        protected override ActionResult ExportExcel(BetListMetaModel metaModel, string uspKey)
         {
-            const string UspKey = "Lrf_BetList_SelRunningByMultipleBettypeMatch";
-            var ticketResult = BetListService.GetBetListData(metaModel, UspKey);
-            
-            var leagueName = string.Empty;
+            var ticketResult = BetListService.GetBetListData(metaModel, uspKey);
+
             var firstTicket = ticketResult.MainTicketList.FirstOrDefault();
-            if (ticketResult.MainTicketList.Any() && firstTicket != null)
-            {
-                leagueName = CacheRef.GetLeagueName(firstTicket.LeagueId);
-            }
+            var leagueName = firstTicket != null ? CacheRefAdapter.GetLeagueName(firstTicket.LeagueId) : string.Empty;
 
-            var bettype = metaModel.BetType;
-            if (metaModel.BetType == 0 && !string.IsNullOrWhiteSpace(metaModel.MultipleBettype))
-            {
-                bettype = Converter.ToInt(metaModel.MultipleBettype.Split(',')[0]);
-            }
+            var bettype = metaModel.BetType == 0 && !string.IsNullOrWhiteSpace(metaModel.MultipleBettype) 
+                ? Converter.ToInt(metaModel.MultipleBettype.Split(',')[0])
+                : metaModel.BetType;
 
-            var title = leagueName + " - " + string.Format(
-                "{0} - {1}",
-                CacheRef.GetBettype(bettype),
-                GetViewInCurrency(metaModel));
-            return ProcessExportExcel(metaModel, ticketResult, HiddenColumnIndexes, title, "RunningBetList");
+            var title = $"{leagueName} - {CacheRefAdapter.GetBettype(bettype)} - {GetViewInCurrency(metaModel)}";
+            var showingOption = new ShowingOption
+            {
+                CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
+            };
+
+            return ProcessExportExcel(showingOption, metaModel, ticketResult, HiddenColumnIndexes, title, "RunningBetList");
         }
     }
 }

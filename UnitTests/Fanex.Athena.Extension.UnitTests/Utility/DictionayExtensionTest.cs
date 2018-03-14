@@ -40,7 +40,7 @@
             Assert.That(result, Is.EqualTo(expected));
         }
 
-        private IDictionary<string, decimal> CreateData()
+        private static IDictionary<string, decimal> CreateData()
         {
             var dictionary = new Dictionary<string, decimal>();
             dictionary.Add("SB", 1000m);

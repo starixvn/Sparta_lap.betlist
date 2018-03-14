@@ -12,12 +12,12 @@ namespace Fanex.Athena.Api.BetList
     using System.Collections.Generic;
     using System.Linq;
     using Base;
+    using Constant.DataDomain;
     using DataAccess.Core.Configuration;
     using DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Model.BetList.DTO;
     using Fanex.Athena.Model.BetList.MetaModel;
-    using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Service.BetList;
     using Fanex.Athena.Service.BetList.Extensions;
     using Fanex.Athena.Service.BetList.Interfaces;
@@ -26,6 +26,10 @@ namespace Fanex.Athena.Api.BetList
     using Fanex.BetList.Core.TicketHelper;
     using Model.Core.DTO.Configuration;
     using Service.BetList.Helpers;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
+    using VendorAdapter;
+    using VendorAdapter.Interfaces;
 
     #endregion Using
 
@@ -39,17 +43,44 @@ namespace Fanex.Athena.Api.BetList
 
         private readonly ITicketHelper _ticketHelper;
 
-        public ApiBetListBaseController()
+        private readonly ICacheRefAdapter _cacheRefAdapter;
+
+        private readonly IBetListHTMLBuilder _betlistHtmlBuilder;
+
+        public ApiBetListBaseController() : this(null, null, null, null, null, null, null, null)
         {
-            _betListService = new BetListService();
-            _balanceUpDataAccess = new BalanceUpDataAccess();
-            _ticketHelper = new TicketHelper();
         }
 
-        [System.CLSCompliant(false)]
+        [CLSCompliant(false)]
+#pragma warning disable S107 // Methods should not have too many parameters
+        public ApiBetListBaseController(
+            ISessionService sessionService,
+            IProductService productService,
+            ILanguageService languageService,
+            IBetListService betListService,
+            IBalanceUpDataAccess balanceUpDataAccess,
+            ITicketHelper ticketHelper,
+            ICacheRefAdapter cacheRefAdapter,
+            IBetListHTMLBuilder betlistHtmlBuilder)
+#pragma warning restore S107 // Methods should not have too many parameters
+        : base(sessionService, productService, languageService)
+        {
+            _betListService = betListService ?? new BetListService();
+            _balanceUpDataAccess = balanceUpDataAccess ?? new BalanceUpDataAccess();
+            _ticketHelper = ticketHelper ?? new TicketHelper();
+            _cacheRefAdapter = cacheRefAdapter ?? new CacheRefAdapter();
+            _betlistHtmlBuilder = betlistHtmlBuilder ?? new BetListHTMLBuilder();
+        }
+
+        [CLSCompliant(false)]
         protected IBetListService BetListService
         {
             get { return _betListService; }
+        }
+
+        protected ICacheRefAdapter CacheRefAdapter
+        {
+            get { return _cacheRefAdapter; }
         }
 
         protected static bool IsRacing(int betType)
@@ -62,12 +93,11 @@ namespace Fanex.Athena.Api.BetList
             return _balanceUpDataAccess.GetBalanceUp();
         }
 
-        protected List<TicketText> Ticket(TicketResult ticketResult, BetListMetaModel metaModel = null, int startIndex = 1, bool showOdds = false)
+        protected internal virtual List<TicketText> Ticket(TicketResult ticketResult, BetListMetaModel metaModel = null, int startIndex = 1, bool showOdds = false)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var showPlayerComm = licenseeSession.IsAllowedCustomerComm;
             var baseCurrency = metaModel == null ? string.Empty : metaModel.BaseCurrency;
-            var builder = new BetListHTMLBuilder();
             var ticketTextList = new List<TicketText>();
 
             _ticketHelper.IsShowOddsWithChoice = showOdds;
@@ -80,21 +110,19 @@ namespace Fanex.Athena.Api.BetList
                     _ticketHelper.ClientDetailSystemParlayFunction = BetListHelper.GenerateClientDetailSystemParlayFunction(_ticketHelper, baseCurrency, ticket, custid);
                 }
 
-                _ticketHelper.IsShowOddsWithChoice = showOdds;
-
                 var ticketText = new TicketText
                 {
                     Index = startIndex++,
                     ExternalId = ticket.ExternalId,
                     SystemId = ticket.UserName,
-                    TransTime = builder.BuildTrans(ticket),
-                    Status = builder.BuildLrfStatus(ticket, _ticketHelper, ticketResult.TicketDataList, metaModel),
-                    Choice = builder.BuildChoice(ticket, _ticketHelper, ticketResult.TicketDataList, false),
-                    Odds = builder.BuildOdds(ticket, ticketResult.TicketDataList, CacheRef.GetOddsTypeName),
-                    Stake = builder.BuildStake(ticket),
-                    LicenseeWL = builder.BuildLicenseeWL(ticket),
-                    WinLoss = builder.BuildCustomerWL(ticket, showPlayerComm),
-                    BetEffective = builder.BuildBetEffective(ticket)
+                    TransTime = _betlistHtmlBuilder.BuildTrans(ticket),
+                    Status = _betlistHtmlBuilder.BuildLrfStatus(ticket, _ticketHelper, ticketResult.TicketDataList, metaModel),
+                    Choice = _betlistHtmlBuilder.BuildChoice(ticket, _ticketHelper, ticketResult.TicketDataList, false),
+                    Odds = _betlistHtmlBuilder.BuildOdds(ticket, ticketResult.TicketDataList, _cacheRefAdapter.GetOddsTypeName),
+                    Stake = _betlistHtmlBuilder.BuildStake(ticket),
+                    LicenseeWL = _betlistHtmlBuilder.BuildLicenseeWL(ticket),
+                    WinLoss = _betlistHtmlBuilder.BuildCustomerWL(ticket, showPlayerComm),
+                    BetEffective = _betlistHtmlBuilder.BuildBetEffective(ticket)
                 };
 
                 ticketTextList.Add(ticketText);
@@ -109,7 +137,7 @@ namespace Fanex.Athena.Api.BetList
         /// <param name="metaModel">MetaModel object.</param>
         /// <param name="uspKey">Stored procedure key.</param>
         /// <returns>Dynamic object, contains the bet list result.</returns>
-        protected dynamic GetBetListResult(BetListMetaModel metaModel, string uspKey)
+        protected internal virtual dynamic GetBetListResult(BetListMetaModel metaModel, string uspKey)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var balanceUp = GetBalanceUp();
@@ -119,6 +147,7 @@ namespace Fanex.Athena.Api.BetList
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.BalanceUpDay = DateTime.SpecifyKind(balanceUp.BalanceUpDay.Date, DateTimeKind.Utc);
             metaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUp.MoveBetsDay.Date, DateTimeKind.Utc);
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
             var ticketResult = _betListService.GetBetListData(metaModel, uspKey);
 
@@ -126,7 +155,7 @@ namespace Fanex.Athena.Api.BetList
             var firstOrDefault = ticketResult.MainTicketList.FirstOrDefault();
             if (firstOrDefault != null)
             {
-                leagueName = CacheRef.GetLeagueName(firstOrDefault.LeagueId);
+                leagueName = _cacheRefAdapter.GetLeagueName(firstOrDefault.LeagueId);
             }
 
             return new
@@ -143,7 +172,7 @@ namespace Fanex.Athena.Api.BetList
             };
         }
 
-        protected dynamic GetPagingBetListResult(BetListMetaModel metaModel, string uspKey, int pageIndex, int pageSize)
+        protected internal virtual dynamic GetPagingBetListResult(BetListMetaModel metaModel, string uspKey, int pageIndex, int pageSize)
         {
             var licenseeSession = SessionService.LicenseeSession;
             var balanceUp = GetBalanceUp();
@@ -156,9 +185,7 @@ namespace Fanex.Athena.Api.BetList
 
             var ticketResult = _betListService.GetBetListData(metaModel, uspKey);
 
-            var totalPage = (ticketResult.TotalRows % metaModel.PageSize) == 0
-                ? ticketResult.TotalRows / metaModel.PageSize
-                : (ticketResult.TotalRows / metaModel.PageSize) + 1;
+            var totalPage = (int)Math.Ceiling((double)ticketResult.TotalRows / metaModel.PageSize);
             metaModel.PageIndex = pageIndex > totalPage ? totalPage : pageIndex;
 
             var startIndex = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;
@@ -168,7 +195,7 @@ namespace Fanex.Athena.Api.BetList
             var sumWinLossText = NumberHelper.DecFormat(sumWinLoss, 2);
             var sumLicenseeWlText = NumberHelper.DecFormat(sumLicenseeWl, 2);
             sumLicenseeWlText = sumLicenseeWl < 0
-                ? string.Format("<span class='negative'>{0}</span>", sumLicenseeWlText)
+                ? string.Format("<span class='negative-number'>{0}</span>", sumLicenseeWlText)
                 : sumLicenseeWlText;
 
             return new
@@ -183,6 +210,11 @@ namespace Fanex.Athena.Api.BetList
                     LicenseeWL = sumLicenseeWlText
                 }
             };
+        }
+
+        protected bool IsValidCurrencyId(int currencyId)
+        {
+            return currencyId == 0 || SessionService.UserSession.CurrencyList.ContainsKey(currencyId);
         }
     }
 }

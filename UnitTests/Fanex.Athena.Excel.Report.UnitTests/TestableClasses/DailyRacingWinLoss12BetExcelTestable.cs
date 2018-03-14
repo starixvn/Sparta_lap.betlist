@@ -25,9 +25,9 @@ namespace Fanex.Athena.Excel.Report.UnitTests.TestableClasses
             AssignNoInfoRow(sheet);
         }
 
-        public void Public_AssignSheetData(ISheet sheet, int pageIndex)
+        public void Public_AssignSheetData(ISheet sheet)
         {
-            AssignSheetData(sheet, pageIndex);
+            AssignSheetData(sheet);
         }
 
         public void Public_AssignTitle(ISheet sheet)

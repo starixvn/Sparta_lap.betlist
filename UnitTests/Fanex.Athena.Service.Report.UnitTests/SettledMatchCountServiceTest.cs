@@ -1,13 +1,14 @@
 ﻿namespace Fanex.Athena.Service.Report.UnitTests
 {
     using System.Collections.Generic;
+    using Constant.DataDomain;
     using DataAccess.Report.Interfaces;
-    using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
     using Model.Report.DTO;
     using NSubstitute;
     using NUnit.Framework;
     using Report;
+    using VendorAdapter.Interfaces;
 
     public class SettledMatchCountServiceTest
     {
@@ -18,7 +19,7 @@
         public void SetUp()
         {
             _dataAccess = Substitute.For<ISettledMatchCountDataAccess>();
-            _service = new SettledMatchCountService(_dataAccess);
+            _service = new SettledMatchCountService(_dataAccess, Substitute.For<ICacheRefAdapter>());
         }
 
         [TearDown]
@@ -63,7 +64,6 @@
             {
                 new Product { ProductCode = Product.RB },
                 new Product { ProductCode = Product.NG },
-                new Product { ProductCode = Product.LC },
                 new Product { ProductCode = Product.VS }
             };
             var productAccess = new ProductAccess(productList);

@@ -7,14 +7,33 @@
 namespace Fanex.Athena.Controllers.Forecast
 {
     using System.Web.Mvc;
+    using Extension.Utility;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
     using Model.Forecast.MetaModel;
     using Model.Forecast.ViewModel;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
+    using Service.Core.Users.Interfaces;
+    using Service.Forecast.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.ForecastOneXTwo)]
     public class OneXTwoForecastController : ForecastBaseController
     {
+        public OneXTwoForecastController()
+        {
+        }
+
+        public OneXTwoForecastController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
+            IForecastService forecastService)
+        : base(languageService, sessionService, appSetting, clientViewHelper, forecastService)
+        {
+        }
+
         [HttpGet]
         public ActionResult Index()
         {
@@ -25,9 +44,7 @@ namespace Fanex.Athena.Controllers.Forecast
 
             SetConvetedUSDCurrencyName(metaModel);
 
-            var model = this.GetViewModel(metaModel);
-
-            return View("~/Views/Forecast/Forecast1X2/Main.cshtml", model);
+            return ProcessAction(metaModel);
         }
 
         [HttpPost]
@@ -36,16 +53,19 @@ namespace Fanex.Athena.Controllers.Forecast
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
 
-            var model = this.GetViewModel(metaModel);
-
-            return View("~/Views/Forecast/Forecast1X2/Main.cshtml", model);
+            return ProcessAction(metaModel);
         }
 
         public ActionResult Popup(ForecastOneXTwoMetaModel metaModel)
         {
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
 
-            var model = this.GetViewModel(metaModel);
+            return ProcessAction(metaModel);
+        }
+
+        private ActionResult ProcessAction(ForecastOneXTwoMetaModel metaModel)
+        {
+            var model = GetViewModel(metaModel);
 
             return View("~/Views/Forecast/Forecast1X2/Main.cshtml", model);
         }

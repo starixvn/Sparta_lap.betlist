@@ -17,7 +17,7 @@ using NUnit.Framework;
 namespace Fanex.Athena.Excel.Report.UnitTests
 {
     [TestFixture]
-    public class ThirdPartyWinLossExcelTest
+    public class ThirdPartyWinLossExcelTest : BaseReportExcelTest
     {
         private const int ColumnDate = 1;
         private const int ColumnExternalId = 2;
@@ -28,17 +28,11 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         private const int ColumnCustomerWl = 7;
         private const int ColumnLicenseeWl = 8;
 
+        private const int RowContentTemplate = 2;
+
         private const int ColumnCount = 9;
 
-        private static readonly ThirdPartyWinLoss DataItem = new ThirdPartyWinLoss
-        {
-            Index = 100,
-            Date = new DateTime(2017, 1, 1),
-            ExternalId = "1",
-            SystemId = "2",
-            CurrencyName = "UUS",
-            RowSpan = 2
-        };
+        private static readonly ThirdPartyWinLoss DataItem = FakeHelper.Create<ThirdPartyWinLoss>();
 
         private static readonly ThirdPartyWinLossMetaModel MetaModel = new ThirdPartyWinLossMetaModel
         {
@@ -67,28 +61,20 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             }
         };
 
-        private ISheet _sheet;
-
-        [SetUp]
-        public void Setup()
-        {
-            _sheet = Substitute.For<ISheet>();
-        }
-
         [Test]
         public void AssignHeader_WhenCall_CallRelevantMethods()
         {
             // Arrange
-            var row = ExcelTestHelper.MockGetRow(_sheet, ColumnCount, ReportBase.RowHeaderTemplate);
+            var row = ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, ReportBase.RowHeaderTemplate);
             var excel = CreateExcel();
 
             // Action
-            excel.Public_AssignHeader(_sheet);
+            excel.Public_AssignHeader(FakeSheet);
 
             // Assert
             Assert.Multiple(() =>
             {
-                _sheet.Received().CopyRow(excel.TemplateSheet, ReportBase.RowHeaderTemplate, ReportBase.RowHeaderTemplate);
+                FakeSheet.Received().CopyRow(excel.TemplateSheet, ReportBase.RowHeaderTemplate, ReportBase.RowHeaderTemplate);
                 row.Cells[0].Received(1).SetCellValue("#");
                 row.Cells[ColumnExternalId].Received(1).SetCellValue(ViewResources.ExternalId);
                 row.Cells[ColumnSystemId].Received(1).SetCellValue(ViewResources.SystemId);
@@ -105,14 +91,14 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         public void AssignNoInfoRow_WhenCall_CallRelevantMethods()
         {
             // Arrange
-            ExcelTestHelper.MockGetRow(_sheet, ColumnCount);
+            var row = ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, RowContentTemplate);
             var excel = CreateExcel();
 
             // Action
-            excel.Public_AssignNoInfoRow(_sheet);
+            excel.Public_AssignNoInfoRow(FakeSheet);
 
             // Assert
-            _sheet.Received().SetTextRowValue(excel.TemplateSheet, Arg.Any<int>(), Arg.Any<int>(), Arg.Any<int>(), ViewResources.NoInfo);
+            row.Cells[0].Received(1).SetCellValue(ViewResources.NoInfo);
         }
 
         [TestCase(1, "MM/dd/yyyy")]
@@ -121,13 +107,13 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         {
             // Arrange
             MetaModel.ReportBy = reportBy;
-            var row = ExcelTestHelper.MockGetRow(_sheet, ColumnCount, 2);
+            var row = ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, 2);
             var excel = CreateExcel();
             excel.When(x => x.AssignTotalData(Arg.Any<ISheet>(), Arg.Any<int>())).DoNotCallBase();
             excel.When(x => x.AssignGrandTotalInEurData(Arg.Any<ISheet>(), Arg.Any<int>())).DoNotCallBase();
 
             // Action
-            excel.Public_AssignSheetData(_sheet);
+            excel.Public_AssignSheetData(FakeSheet);
 
             // Assert
             Assert.Multiple(() =>
@@ -147,19 +133,19 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         public void AssignTitle_WhenCall_CallRelevantMethods()
         {
             // Arrange
-            var row = ExcelTestHelper.MockGetRow(_sheet, ColumnCount, 0);
+            var row = ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, 0);
             var excel = CreateExcel();
             var expectedTitle = MetaModel.ProductName + " Win Loss, 01/01/2017 --> 02/02/2017 - All Currencies";
 
             // Action
-            excel.Public_AssignTitle(_sheet);
+            excel.Public_AssignTitle(FakeSheet);
 
             // Assert
             Assert.Multiple(() =>
             {
                 row.Cells[0].Received(1).SetCellValue(expectedTitle);
-                _sheet.Received(1).CreateFreezePane(0, 2);
-                _sheet.ReceivedWithAnyArgs().DeleteRow(0);
+                FakeSheet.Received(1).CreateFreezePane(0, 2);
+                FakeSheet.ReceivedWithAnyArgs().DeleteRow(0);
             });
         }
 
@@ -172,29 +158,29 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             var excel = CreateExcel(level);
 
             // Action
-            excel.Public_ProcessUI(_sheet);
+            excel.Public_ProcessUI(FakeSheet);
 
             // Assert
-            _sheet.Received().HideColumn(hiddenColumnList);
+            FakeSheet.Received().HideColumn(hiddenColumnList);
         }
 
         [Test]
         public void AssignGrandTotalInEurData_WhenCall_CallRelevantMethods()
         {
             // Arrange
-            const int RowIndex = 100;
-            const int ColumnCurrency = 4;
-            var row = ExcelTestHelper.MockGetRow(_sheet, ColumnCount, RowIndex);
+            const int RowIndex = 10;
+            const int ExpectedColumnCurrency = 4;
+            var row = ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, RowIndex);
             var excel = CreateExcel();
 
             // Action
-            excel.AssignGrandTotalInEurData(_sheet, RowIndex);
+            excel.AssignGrandTotalInEurData(FakeSheet, RowIndex);
 
             // Assert
             Assert.Multiple(() =>
             {
                 row.Cells[0].Received(1).SetCellValue(ViewResources.Totalin + " USD");
-                _sheet.ReceivedWithAnyArgs(1).MergeCells(RowIndex, 0, RowIndex, ColumnCurrency);
+                FakeSheet.ReceivedWithAnyArgs(1).MergeCells(RowIndex, 0, RowIndex, ExpectedColumnCurrency);
             });
         }
 
@@ -203,18 +189,18 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         {
             // Arrange
             const int RowIndex = 100;
-            var row = ExcelTestHelper.MockGetRow(_sheet, ColumnCount, RowIndex);
+            var row = ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, RowIndex);
             var excel = CreateExcel();
 
             // Action
-            excel.AssignTotalData(_sheet, RowIndex);
+            excel.AssignTotalData(FakeSheet, RowIndex);
 
             // Assert
             Assert.Multiple(() =>
             {
                 row.Cells[0].Received(1).SetCellValue(ViewResources.Total);
                 row.Cells[ColumnCurrency].Received(1).SetCellValue(DataItem.CurrencyName);
-                _sheet.MergeCells(RowIndex - 1, 0, RowIndex - 1, 3);
+                FakeSheet.MergeCells(RowIndex - 1, 0, RowIndex - 1, 3);
             });
         }
 

@@ -209,20 +209,20 @@
                 });
             });
 
-            describe("updateGridGroupAndComm(groupid, groupName, groupColor, sbCom, ngCom, rbCom, lcCom, csCom)", function () {
+            describe("updateGridGroupAndComm(groupid, groupName, groupColor, sbCom, ngCom, rbCom, csCom)", function () {
                 it("CustomerListService.bindData should be called with correct params", function () {
                     spyOn(CustomerListService, "bindData");
 
                     _state.cachedData = { Data: [{ "CustId": 0, "GroupCommId": 0 }, { "CustId": 1, "GroupCommId": 1 }, { "CustId": 3, "GroupCommId": 3 }] };
                     _state.selectedCustomers = new selectedCustomers({ "1": 1 });
 
-                    var groupid = 3, groupName = "name", groupColor = "#fff", sbCom = "SB", ngCom = "NG", rbCom = "RB", lcCom = "LC", csCom = "CS", abCom = "AB";
-                    CustomerListGrid.updateGridGroupAndComm(groupid, groupName, groupColor, sbCom, ngCom, rbCom, lcCom, csCom, abCom);
+                    var groupid = 3, groupName = "name", groupColor = "#fff", sbCom = "SB", ngCom = "NG", rbCom = "RB", csCom = "CS", abCom = "AB";
+                    CustomerListGrid.updateGridGroupAndComm(groupid, groupName, groupColor, sbCom, ngCom, rbCom, csCom, abCom);
 
                     expect(CustomerListService.bindData).toHaveBeenCalledWith({
                         Data: [
                             { "CustId": 0, "GroupCommId": 0 },
-                            { "CustId": 1, "GroupCommId": 3, "Group": "name", "GroupColor": "#fff", "SBComm": "SB", "NGComm": "NG", "RBComm": "RB", "LCComm": "LC", "CSComm": "CS", "ABComm": "AB" },
+                            { "CustId": 1, "GroupCommId": 3, "Group": "name", "GroupColor": "#fff", "SBComm": "SB", "NGComm": "NG", "RBComm": "RB", "CSComm": "CS", "ABComm": "AB" },
                             { "CustId": 3, "GroupCommId": 3 }]
                     });
                     expect(_state.selectedCustomers).toEqual({ "1": 3 });

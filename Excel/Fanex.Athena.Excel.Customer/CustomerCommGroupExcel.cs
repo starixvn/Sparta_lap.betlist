@@ -22,14 +22,14 @@ namespace Fanex.Athena.Excel.Customer
     {
         private const int ColumnDefaultGroup = 2;
         private const int ColumnGroupName = 1;
-        private const int ColumnNgCommission = 6;
-        private const int ColumnLcCommission = 7;
-        private const int ColumnCsCommission = 8;
         private const int ColumnNoOfCustomer = 3;
-        private const int ColumnRbCommission = 5;
         private const int ColumnSbCommission = 4;
-        private const int ColumnAbCommission = 9;
-        private const int ColumnTemplateCount = 7;
+        private const int ColumnRbCommission = 5;
+        private const int ColumnNgCommission = 6;
+        private const int ColumnCsCommission = 7;
+        private const int ColumnAbCommission = 8;
+
+        private const int ColumnTemplateCount = 8;
         private const int RowContentTemplate = 2;
         private const int RowNoInfoTemplate = 5;
 
@@ -57,7 +57,6 @@ namespace Fanex.Athena.Excel.Customer
                 ViewResources.SBComm + " (%)",
                 ViewResources.RacingComm + " (%)",
                 ViewResources.NGComm + " (%)",
-                ViewResources.LCComm + " (%)",
                 ViewResources.CSComm + " (%)",
                 ViewResources.ABComm + " (%)"
             };
@@ -91,7 +90,6 @@ namespace Fanex.Athena.Excel.Customer
                 var sportsbook = Converter.ToDecimal(exportRow["SBComm"].ToString()) * 100;
                 var racingCommValue = Converter.ToDecimal(exportRow["RacingComm"].ToString()) * 100;
                 var numberGameCommValue = Converter.ToDecimal(exportRow["NGComm"].ToString()) * 100;
-                var liveCasinoCommValue = Converter.ToDecimal(exportRow["LCComm"].ToString()) * 100;
                 var rngCommValue = Converter.ToDecimal(exportRow["RNGComm"].ToString()) * 100;
                 var allbetCommValue = Converter.ToDecimal(exportRow["AllbetComm"].ToString()) * 100;
 
@@ -102,7 +100,6 @@ namespace Fanex.Athena.Excel.Customer
                 row.Cells[ColumnSbCommission].SetCellValue(sportsbook.ToString("#,##0.00"));
                 row.Cells[ColumnRbCommission].SetCellValue(racingCommValue.ToString("#,##0.00"));
                 row.Cells[ColumnNgCommission].SetCellValue(numberGameCommValue.ToString("#,##0.00"));
-                row.Cells[ColumnLcCommission].SetCellValue(liveCasinoCommValue.ToString("#,##0.00"));
                 row.Cells[ColumnCsCommission].SetCellValue(rngCommValue.ToString("#,##0.00"));
                 row.Cells[ColumnAbCommission].SetCellValue(allbetCommValue.ToString("#,##0.00"));
             }
@@ -143,11 +140,6 @@ namespace Fanex.Athena.Excel.Customer
             if (!ShowingOption.CSVisible)
             {
                 sheet.HideColumn(ColumnCsCommission);
-            }
-
-            if (!ShowingOption.LCVisible)
-            {
-                sheet.HideColumn(ColumnLcCommission);
             }
 
             if (!ShowingOption.ABVisible)

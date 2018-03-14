@@ -72,19 +72,17 @@
         public void GetDetail_WhenCall_CashOutTicketListReturnCorrectly()
         {
             // Arrange
-            const int BetType = 1;
-            const decimal Stake = 2;
-
             DataAccess.GetObjectDb(Arg.Is(UspName)).Returns(ObjectDb);
 
             Reader.Read().Returns(false, true, false);
             Reader.NextResult().Returns(true);
 
-            MapReaderData(new
+            var dataReader = new
             {
-                BetType = BetType,
-                StakeUsd = Stake
-            });
+                BetType = 1,
+                StakeUsd = 2
+            };
+            MapReaderData(dataReader);
 
             // Action
             var result = DataAccess.GetDetail(new CashOutBetListDetailMetaModel
@@ -97,8 +95,8 @@
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(firstCashoutTicket.BetType, Is.EqualTo(BetType));
-                Assert.That(firstCashoutTicket.Stake, Is.EqualTo(Stake));
+                Assert.That(firstCashoutTicket.BetType, Is.EqualTo(dataReader.BetType));
+                Assert.That(firstCashoutTicket.Stake, Is.EqualTo(dataReader.StakeUsd));
             });
         }
 
@@ -121,7 +119,8 @@
                 RefNo = 2,
                 BetType = 3,
                 BetdaqId = 4,
-                AgentListXml = "xml"
+                AgentListXml = "xml",
+                BaseCurrency = "USD"
             };
         }
     }

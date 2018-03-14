@@ -21,21 +21,23 @@ namespace Fanex.Athena.DataAccess.TotalBet
         public ReportResultModel<MoneyLine> GetMoneyLineDataList(MoneyLineMetaModel metaModel)
         {
             const string SpName = "Lrf_TotalBets_Sel2021";
-            var uspParams = new
-            {
-                AgentList = metaModel.AgentListXml,
-                PageSize = metaModel.PageSize,
-                PageIndex = metaModel.PageIndex,
-                TotalRows = metaModel.TotalRows
-            };
 
             using (var db = this.GetObjectDb(SpName))
             {
+                var uspParams = new
+                {
+                    AgentList = metaModel.AgentListXml,
+                    PageSize = metaModel.PageSize,
+                    PageIndex = metaModel.PageIndex,
+                    TotalRows = metaModel.TotalRows
+                };
                 using (var reader = db.ExecuteReader(uspParams))
                 {
                     var data = SetToList(reader, metaModel.IsConvert, metaModel.BaseCurrency);
+
                     reader.NextResult();
                     var totalData = ReadTotalData(reader, metaModel.IsConvert, metaModel.BaseCurrency);
+
                     return new ReportResultModel<MoneyLine>
                     {
                         DataList = data,

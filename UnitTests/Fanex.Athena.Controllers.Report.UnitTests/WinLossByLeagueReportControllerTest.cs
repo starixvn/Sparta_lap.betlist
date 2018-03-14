@@ -5,8 +5,8 @@
     using System.Linq;
     using System.Web.Mvc;
     using Base.UnitTests;
+    using Constant.DataDomain;
     using DataAccess.Core.Common.Interfaces;
-    using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
     using Model.Core.MetaModel.Common;
     using Model.Report.ViewModel;

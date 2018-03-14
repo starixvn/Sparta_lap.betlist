@@ -31,7 +31,7 @@
         public void GetBetSettings_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerSelEditKN")).Returns(_objectDb);
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_CustomerSelEditKN")).Returns(_objectDb);
             var custId = 1;
 
             // Action
@@ -45,7 +45,7 @@
         public void GetBetSettings_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerSelEditKN")).Returns(_objectDb);
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_CustomerSelEditKN")).Returns(_objectDb);
             var reader = Substitute.For<IDataReader>();           
             var custId = 1;
             var expected = new BetSetting
@@ -77,11 +77,11 @@
         public void UpdateBetSetting_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerUpdMember_MinMaxBetKN")).Returns(_objectDb);
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_CustomerUpdMember_MinMaxBetKN")).Returns(_objectDb);
             var custId = 1;
             var userId = 2;
             var language = "LanguageTest";
-            var ip = "::1";
+            var ip = "IP";
             var xmlData = "XMLDataTest";
 
             // Action
@@ -101,11 +101,11 @@
         public void UpdateBetSetting_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerUpdMember_MinMaxBetKN")).Returns(_objectDb);
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_CustomerUpdMember_MinMaxBetKN")).Returns(_objectDb);
             var custId = 1;
             var userId = 2;
             var language = "LanguageTest";
-            var ip = "::1";
+            var ip = "IP";
             var xmlData = "XMLDataTest";
             var expected = new ResultInfo
             {

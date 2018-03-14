@@ -7,8 +7,6 @@
     var rbCommOld = Converter.ToDecimal(Model.Data["RacingCommOld"]);
     var ngComm = Converter.ToDecimal(Model.Data["NGComm"]);
     var ngCommOld = Converter.ToDecimal(Model.Data["NGCommOld"]);
-    var lcComm = Converter.ToDecimal(Model.Data["LCComm"]);
-    var lcCommOld = Converter.ToDecimal(Model.Data["LCCommOld"]);
     var csComm = Converter.ToDecimal(Model.Data["RNGComm"]);
     var csCommOld = Converter.ToDecimal(Model.Data["RNGCommOld"]);
     var abComm = Converter.ToDecimal(Model.Data["AllbetComm"]);
@@ -19,7 +17,6 @@
     var isChangeSbComm = sbComm != sbCommOld;
     var isChangeRacingComm = rbComm != rbCommOld;
     var isChangeNgComm = ngComm != ngCommOld;
-    var isChangeLcComm = lcComm != lcCommOld;
     var isChangeCsComm = csComm != csCommOld;
     var isChangeAbComm = abComm != abCommOld;
     var isChangeGroupId = groupId != groupOld;
@@ -27,7 +24,6 @@
     var sbCommTitle = sbCommOld.ToString(FormatComm) + "-->" + sbComm.ToString(FormatComm);
     var RacingCommTitle = rbCommOld.ToString(FormatComm) + "-->" + rbComm.ToString(FormatComm);
     var ngCommTitle = ngCommOld.ToString(FormatComm) + "-->" + ngComm.ToString(FormatComm);
-    var lcCommTitle = lcCommOld.ToString(FormatComm) + "-->" + lcComm.ToString(FormatComm);
     var csCommTitle = csCommOld.ToString(FormatComm) + "-->" + csComm.ToString(FormatComm);
     var abCommTitle = abCommOld.ToString(FormatComm) + "-->" + abComm.ToString(FormatComm);
 }
@@ -51,7 +47,6 @@
             <th>@Model.Resource["SBComm"]</th>
             <th>@Model.Resource["RBComm"]</th>
             <th>@Model.Resource["NGComm"]</th>
-            <th>@Model.Resource["LCComm"]</th>
             <th>@Model.Resource["CSComm"]</th>
             <th>@Model.Resource["ABComm"]</th>
             <th>@Model.Resource["GroupId"]</th>
@@ -72,11 +67,6 @@
             <td  @GetCellStyle(isChangeNgComm, ngCommTitle)>
                 <p>@ngComm.ToString(FormatComm)</p>
                 <p class="@GetClassName(isChangeNgComm)">@ngCommOld.ToString(FormatComm)</p>
-            </td>
-
-            <td  @GetCellStyle(isChangeLcComm, lcCommTitle)>
-                <p>@lcComm.ToString(FormatComm)</p>
-                <p class="@GetClassName(isChangeLcComm)">@lcCommOld.ToString(FormatComm)</p>
             </td>
 
             <td  @GetCellStyle(isChangeCsComm, csCommTitle)>

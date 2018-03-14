@@ -23,20 +23,18 @@
 
         private const string GetAgentWinlossDetailSp = "Lrf_Rpt_LicWinlossDetail_Ag";
 
-        private BalanceUp _balance;
-
         private LicenseeWinLossMetaModel _metaModel;
 
         [OneTimeSetUp]
         public override void FixtureSetUp()
         {
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
-            _balance = new BalanceUp
+            var balance = new BalanceUp
             {
                 MoveBetsDay = new DateTime(2016, 8, 10),
                 BalanceUpDay = new DateTime(2016, 8, 31)
             };
-            balanceUpDataAccess.GetBalanceUp().Returns(_balance);
+            balanceUpDataAccess.GetBalanceUp().Returns(balance);
 
             ObjectDb = Substitute.For<IObjectDb>();
             DataAccess = Substitute.ForPartsOf<LicenseeWinLossDataAccess>(balanceUpDataAccess);
@@ -62,7 +60,6 @@
         [OneTimeTearDown]
         public override void FixtureTearDown()
         {
-            _balance = null;
             _metaModel = null;
 
             base.FixtureTearDown();
@@ -81,7 +78,7 @@
             Assert.Multiple(() =>
             {
                 ObjectDb.Received().AddInParameter("reporttype", DbType.Byte, _metaModel.ReportBy);
-                AssertCommonSpParameters();
+                AssertCommonSpParameters(isDrilldown: false);
             });
         }
 
@@ -177,7 +174,7 @@
             Assert.Multiple(() =>
             {
                 ObjectDb.Received().AddInParameter("custid", DbType.Int32, _metaModel.DrillDownCustomerId);
-                AssertCommonSpParameters();
+                AssertCommonSpParameters(isDrilldown: true);
             });
         }
 
@@ -199,7 +196,7 @@
             DataAccess.GetAgentWinlossDetail(_metaModel);
 
             // Assert
-            AssertCommonSpParameters();
+            AssertCommonSpParameters(isDrilldown: true);
         }
 
         [Test]
@@ -210,12 +207,12 @@
                 () => DataAccess.GetAgentWinlossDetail(_metaModel));
         }
 
-        private void AssertCommonSpParameters()
+        private void AssertCommonSpParameters(bool isDrilldown)
         {
             ObjectDb.Received().AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
             ObjectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-            ObjectDb.Received().AddInParameter("fromdate", DbType.Date, _metaModel.DrillDownFromDate);
-            ObjectDb.Received().AddInParameter("todate", DbType.Date, _metaModel.DrillDownToDate);
+            ObjectDb.Received().AddInParameter("fromdate", DbType.Date, isDrilldown ? _metaModel.DrillDownFromDate : _metaModel.FromDate);
+            ObjectDb.Received().AddInParameter("todate", DbType.Date, isDrilldown ? _metaModel.DrillDownToDate : _metaModel.ToDate);
             ObjectDb.Received().AddInParameter("drawfilter", DbType.Int32, _metaModel.DrawFilter);
             ObjectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
             ObjectDb.Received().AddInParameter("showNG", DbType.Boolean, false);

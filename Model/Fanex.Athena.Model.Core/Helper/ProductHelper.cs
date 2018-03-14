@@ -2,7 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
-    using DataDomain;
+    using Constant.DataDomain;
+    using Constant.Helper;
     using DTO.Common;
     using Resources;
 
@@ -20,7 +21,6 @@
             new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
             {
                 { Product.BA, nameof(ViewResources.ProductBA) },
-                { Product.LC, nameof(ViewResources.ProductLC) },
                 { Product.NG, nameof(ViewResources.ProductNG) },
                 { Product.RB, nameof(ViewResources.ProductRB) },
                 { Product.SB, nameof(ViewResources.Sportsbook) },
@@ -35,7 +35,6 @@
                 { "VS185", nameof(ViewResources.VirtualCycling) },
                 { "VS186", nameof(ViewResources.VirtualTennis) },
                 { Product.CS, nameof(ViewResources.ProductCS) },
-                { Product.BG, nameof(ViewResources.ProductBG) },
                 { Product.KN, nameof(ViewResources.ProductKN) },
                 { Product.VB, nameof(ViewResources.ProductVB) },
                 { Product.VS2, nameof(ViewResources.ProductVS2) },
@@ -75,11 +74,6 @@
             if (BetTypeHelper.IsRacing(bettype))
             {
                 return ProductTypes.Racing;
-            }
-
-            if (BetTypeHelper.IsLiveCasino(bettype))
-            {
-                return ProductTypes.LiveCasino;
             }
 
             if (BetTypeHelper.IsVirtualSports(bettype))

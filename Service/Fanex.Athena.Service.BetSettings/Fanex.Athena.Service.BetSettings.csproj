@@ -90,12 +90,10 @@
   <ItemGroup>
     <Compile Include="Interfaces\IExchangeCommApiService.cs" />
     <Compile Include="Interfaces\IKenoBetSettingService.cs" />
-    <Compile Include="Interfaces\ILiveCasinoBetSettingService.cs" />
     <Compile Include="Interfaces\IRngCasinoBetSettingService.cs" />
     <Compile Include="KenoBetSettingService.cs" />
     <Compile Include="ExchangeCommApiService.cs" />
     <Compile Include="RngCasinoBetSettingService.cs" />
-    <Compile Include="LiveCasinoBetSettingService.cs" />
     <Compile Include="Interfaces\IRacingBetSettingService.cs" />
     <Compile Include="RacingBetSettingService.cs" />
     <Compile Include="BetSettingBaseService.cs" />
@@ -126,6 +124,10 @@
     <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess.BetSettings\Fanex.Athena.DataAccess.BetSettings.csproj">
       <Project>{68f63a3b-062c-4adc-8718-91134a6ffb85}</Project>
       <Name>Fanex.Athena.DataAccess.BetSettings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\Fanex.Athena.Constant\Fanex.Athena.Constant.csproj">
+      <Project>{6B1431E0-E513-48BB-BE86-0756E5F6F405}</Project>
+      <Name>Fanex.Athena.Constant</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Model\Fanex.Athena.Model.BetSettings\Fanex.Athena.Model.BetSettings.csproj">
       <Project>{ac255686-6654-4a34-8f56-f18c502b5b0a}</Project>

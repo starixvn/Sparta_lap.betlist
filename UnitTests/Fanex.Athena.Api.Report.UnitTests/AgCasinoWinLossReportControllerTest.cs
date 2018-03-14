@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using Base.UnitTests;
     using Extension.Utility;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
@@ -15,7 +16,7 @@
     using NSubstitute;
     using NUnit.Framework;
 
-    public class AgCasinoWinLossReportControllerTest : BaseApiReportControllerHelperTest
+    public class AgCasinoWinLossReportControllerTest : BaseApiControllerHelperTest
     {
         private IThirdPartyWinLossService _service;
         private AgCasinoWinLossReportController _controller;
@@ -28,7 +29,7 @@
             MockSessionData();
 
             _service = Substitute.For<IThirdPartyWinLossService>();
-            _controller = Substitute.ForPartsOf<AgCasinoWinLossReportController>(_service, SessionService, ProductService);
+            _controller = Substitute.ForPartsOf<AgCasinoWinLossReportController>(_service, SessionService, ProductService, LangService);
 
             _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();
         }

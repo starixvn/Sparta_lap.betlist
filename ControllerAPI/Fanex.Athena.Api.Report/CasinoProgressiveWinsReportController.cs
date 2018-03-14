@@ -18,28 +18,38 @@ namespace Fanex.Athena.Api.Report
     using DataAccess.Report.Interfaces;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
-    using Fanex.Athena.Model.Core.Helper;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
     using Model.Core.DataDomain;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
+    using VendorAdapter;
+    using VendorAdapter.Interfaces;
 
     [ApiFunctionAuthorization(PermissionKeys.ReportCasinoProgressiveWins)]
     public class CasinoProgressiveWinsReportController : ApiReportBaseController
     {
         private readonly ICasinoProgressiveWinsDataAccess _casinoProgressiveWinsDataAccess;
 
+        private readonly ICacheRefAdapter _cacheRefAdapter;
+
         public CasinoProgressiveWinsReportController()
         {
             _casinoProgressiveWinsDataAccess = new CasinoProgressiveWinsDataAccess();
+            _cacheRefAdapter = new CacheRefAdapter();
         }
 
-        public CasinoProgressiveWinsReportController(ICasinoProgressiveWinsDataAccess _dataAccess, ISessionService sessionService, IProductService productService)
-            : base(sessionService, productService)
+        public CasinoProgressiveWinsReportController(
+            ICasinoProgressiveWinsDataAccess dataAccess,
+            ISessionService sessionService,
+            IProductService productService,
+            ILanguageService langService,
+            ICacheRefAdapter cacheRefAdapter)
+            : base(sessionService, productService, langService)
         {
-            _casinoProgressiveWinsDataAccess = _dataAccess;
+            _casinoProgressiveWinsDataAccess = dataAccess;
+            _cacheRefAdapter = cacheRefAdapter;
         }
 
         [HttpPost]
@@ -48,11 +58,11 @@ namespace Fanex.Athena.Api.Report
             return ProcessRequest(metaModel);
         }
 
-        private static CasinoProgressiveWinsGridViewModel MapToGridView(CasinoProgressiveWins item)
+        private CasinoProgressiveWinsGridViewModel MapToGridView(CasinoProgressiveWins item)
         {
-            var gameName = CacheRef.GetMicroGamingGameName(item.TransDesc);
-            var betTypeName = CacheRef.GetBettype(item.BetType);
-            var sportTypeName = CacheRef.GetSportName(item.SportType);
+            var gameName = _cacheRefAdapter.GetMicroGamingGameName(item.TransDesc);
+            var betTypeName = _cacheRefAdapter.GetBettype(item.BetType);
+            var sportTypeName = _cacheRefAdapter.GetSportName(item.SportType);
 
             var choice = new StringBuilder();
             choice.AppendFormat("<strong>{0}</strong></br>", gameName);

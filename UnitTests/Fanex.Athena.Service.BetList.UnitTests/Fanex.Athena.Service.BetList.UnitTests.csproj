@@ -123,6 +123,8 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Extensions\LrfBetListHtmlBuilderTest.cs" />
+    <Compile Include="Helpers\BetListHelperTest.cs" />
     <Compile Include="ExchangeBetListServiceTest.cs" />
     <Compile Include="LastBetsMonitoringBetListServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -148,6 +150,10 @@
     <ProjectReference Include="..\..\Fanex.Athena.UnitTest.Common\Fanex.Athena.UnitTest.Common.csproj">
       <Project>{4a5bddbc-f707-409a-86ec-d9bc6e9d31c4}</Project>
       <Name>Fanex.Athena.UnitTest.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\Fanex.Athena.Constant\Fanex.Athena.Constant.csproj">
+      <Project>{6B1431E0-E513-48BB-BE86-0756E5F6F405}</Project>
+      <Name>Fanex.Athena.Constant</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Model\Fanex.Athena.Model.BetList\Fanex.Athena.Model.BetList.csproj">
       <Project>{4956fbd7-5f68-4e7b-af6c-db5fb1f255f0}</Project>

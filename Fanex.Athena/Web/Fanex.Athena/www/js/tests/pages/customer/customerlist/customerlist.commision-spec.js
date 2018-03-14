@@ -447,7 +447,6 @@
                         SBComm: "SBComm",
                         NGComm: "NGComm",
                         RCComm: "RCComm",
-                        LCComm: "LCComm",
                         RNGComm: "RNGComm",
                         ABComm: "ABComm"
                     };
@@ -466,7 +465,6 @@
                         extendedData.SBComm,
                         extendedData.NGComm,
                         extendedData.RCComm,
-                        extendedData.LCComm,
                         extendedData.RNGComm,
                         extendedData.ABComm);
                     jasmine.Ajax.uninstall();
@@ -646,7 +644,6 @@
                         SBComm: "SBComm",
                         NGComm: "NGComm",
                         RCComm: "RCComm",
-                        LCComm: "LCComm",
                         RNGComm: "RNGComm",
                         ABComm: "ABComm"
                     };
@@ -665,7 +662,6 @@
                         extendedData.SBComm,
                         extendedData.NGComm,
                         extendedData.RCComm,
-                        extendedData.LCComm,
                         extendedData.RNGComm,
                         extendedData.ABComm);
                     jasmine.Ajax.uninstall();
@@ -973,13 +969,11 @@
                         + '<div id="NewParlayComm"></div>'
                         + '<div id="NewRbComm"></div>'
                         + '<div id="NewNgComm"></div>'
-                        + '<div id="NewLcComm"></div>'
                         + '<div id="NewCsComm"></div>'
                         + '<input id="SBComm1" value="SBComm1">'
                         + '<input id="ParlayComm1" value="ParlayComm1">'
                         + '<input id="RBComm1" value="RBComm1">'
                         + '<input id="NGComm1" value="NGComm1">'
-                        + '<input id="LCComm1" value="LCComm1">'
                         + '<input id="CSComm1" value="CSComm1">');
 
                     CustomerListCommision.newGroupChanged({
@@ -995,7 +989,6 @@
                     expect($("#NewParlayComm").text()).toEqual("ParlayComm1");
                     expect($("#NewRbComm").text()).toEqual("RBComm1");
                     expect($("#NewNgComm").text()).toEqual("NGComm1");
-                    expect($("#NewLcComm").text()).toEqual("LCComm1");
                     expect($("#NewCsComm").text()).toEqual("CSComm1");
                 });
             });

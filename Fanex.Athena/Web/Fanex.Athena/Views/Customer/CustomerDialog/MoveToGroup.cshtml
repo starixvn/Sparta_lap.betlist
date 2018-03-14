@@ -1,5 +1,4 @@
-﻿@using Fanex.Athena.Model.Report.ViewModel
-@model Fanex.Athena.Model.Customer.ViewModel.CustomerListViewModel
+﻿@model Fanex.Athena.Model.Customer.ViewModel.CustomerListViewModel
 <table class="create-new-group-table" style="width: 280px !important">
     <tr>
         <td>
@@ -18,7 +17,6 @@
                 @Html.Hidden("ParlayComm" + @group.GroupCommId, NumberHelper.DecFormat((group.ParlayComm * 100)))
                 @Html.Hidden("RBComm" + @group.GroupCommId, NumberHelper.DecFormat((group.RCComm * 100)))
                 @Html.Hidden("NGComm" + @group.GroupCommId, NumberHelper.DecFormat((group.NGComm * 100)))
-                @Html.Hidden("LCComm" + @group.GroupCommId, NumberHelper.DecFormat((group.LCComm * 100)))
                 @Html.Hidden("CSComm" + @group.GroupCommId, NumberHelper.DecFormat((group.CSComm * 100)))
                 @Html.Hidden("ABComm" + @group.GroupCommId, NumberHelper.DecFormat((group.ABComm * 100)))
             }
@@ -54,14 +52,6 @@
         </td>
         <td>
             <input id="NewNgComm" type="text" disabled='disabled' value="@(Model.GroupCommDataList.Count > 0 ? NumberHelper.DecFormat((Model.GroupCommDataList[0].NGComm * 100), 2) : string.Empty)" />
-        </td>
-    </tr>
-    <tr class="@(!Model.ProductAccess.IsAllowLC ? "hide" : "")">
-        <td>
-            @ViewResources.LCComm (%)
-        </td>
-        <td>
-            <input id="NewLcComm" type="text" disabled='disabled' value="@(Model.GroupCommDataList.Count > 0 ? NumberHelper.DecFormat((Model.GroupCommDataList[0].LCComm * 100), 2) : string.Empty)" />
         </td>
     </tr>
     <tr class="@(!Model.ProductAccess.IsAllowCS ? "hide" : "")">

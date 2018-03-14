@@ -36,6 +36,7 @@ namespace Fanex.Athena.Controllers.Report
         [CustomValidateAntiForgery]
         public ActionResult CustomerTurnover(CustomerTurnoverMetaModel metaModel)
         {
+            metaModel.IsExportExcel = false;
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             metaModel.UserId = SessionService.UserSession.UserId;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);

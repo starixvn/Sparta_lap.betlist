@@ -41,8 +41,6 @@ namespace Fanex.Athena.Controllers.Report
         {
             var licenseeSession = this.SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
-            var date = DateTime.Now;
-
             var products = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language).ProductList;
 
             if (!products.Any(p => p.ProductCode == Product.MGCLC || p.ProductCode == Product.MGCRNG))
@@ -50,6 +48,7 @@ namespace Fanex.Athena.Controllers.Report
                 return this.Redirect("~/Utility/AccessDenied");
             }
 
+            var date = DateTime.Now;
             var metaModel = new ThirdPartyWinLossMetaModel
             {
                 FromDate = date,

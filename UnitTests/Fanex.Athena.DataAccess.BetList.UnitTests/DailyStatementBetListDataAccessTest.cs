@@ -107,6 +107,12 @@
             DataAccess = Substitute.ForPartsOf<DailyStatementBetListDataAccess>(balanceUpDataAccess);
         }
 
+        [OneTimeTearDown]
+        public override void FixtureTearDown()
+        {
+            base.FixtureTearDown();
+        }
+
         [Test]
         public void GetDailyStatementData_WhenCall_ParametersPassedCorrectly()
         {

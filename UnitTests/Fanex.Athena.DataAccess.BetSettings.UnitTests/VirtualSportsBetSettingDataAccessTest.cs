@@ -31,7 +31,7 @@
         public void GetBetSetting_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Acc_Dep_CustSetting_BetLimitSettingSelect")).Returns(_objectDb);
+            _dataAccess.GetObjectDb(Arg.Is("Acc_Dep_CustSetting_BetLimitSettingSelect")).Returns(_objectDb);
             var custId = 1;
             var productId = 5;
 
@@ -47,7 +47,7 @@
         public void GetBetSetting_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Acc_Dep_CustSetting_BetLimitSettingSelect")).Returns(_objectDb);
+            _dataAccess.GetObjectDb(Arg.Is("Acc_Dep_CustSetting_BetLimitSettingSelect")).Returns(_objectDb);
             var custId = 1;
             var productId = 27;
             var expected = new BetSetting
@@ -83,10 +83,10 @@
         public void UpdateBetSetting_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Acc_Dep_CustSetting_BetLimitUpd")).Returns(_objectDb);
+            _dataAccess.GetObjectDb(Arg.Is("Acc_Dep_CustSetting_BetLimitUpd")).Returns(_objectDb);
             var custId = 1;
             var userId = 2;
-            var ip = "::1";
+            var ip = "IP";
             var xmlData = "XMLDataTest";
 
             // Action
@@ -105,10 +105,10 @@
         public void UpdateBetSetting_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Acc_Dep_CustSetting_BetLimitUpd")).Returns(_objectDb);
+            _dataAccess.GetObjectDb(Arg.Is("Acc_Dep_CustSetting_BetLimitUpd")).Returns(_objectDb);
             var custId = 1;
             var userId = 2;
-            var ip = "::1";
+            var ip = "IP";
             var xmlData = "XMLDataTest";
 
             var expected = new ResultInfo

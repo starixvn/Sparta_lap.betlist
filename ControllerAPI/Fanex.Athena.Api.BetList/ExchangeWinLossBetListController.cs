@@ -1,6 +1,5 @@
 ﻿namespace Fanex.Athena.Api.BetList
 {
-    using System;
     using System.Collections.Generic;
     using System.Web.Http;
     using Base;
@@ -11,6 +10,7 @@
     using Model.Core.DataDomain;
     using Service.BetList;
     using Service.BetList.Interfaces;
+    using Service.Core.Common.Interfaces;
     using Service.Core.Users;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility;
@@ -29,9 +29,16 @@
             _authorizationService = new AuthorizationService();
         }
 
-        public ExchangeWinLossBetListController(IExchangeBetListService service)
+        public ExchangeWinLossBetListController(
+            ISessionService sessionService,
+            IProductService productService,
+            ILanguageService languageService,
+            IExchangeBetListService service,
+            IAuthorizationService authorizationService)
+        : base(sessionService, productService, languageService)
         {
             _service = service;
+            _authorizationService = authorizationService;
         }
 
         [HttpPost]

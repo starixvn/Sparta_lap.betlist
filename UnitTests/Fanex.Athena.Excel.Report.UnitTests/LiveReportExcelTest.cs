@@ -1,10 +1,13 @@
 ﻿namespace Fanex.Athena.Excel.Report.UnitTests
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Base;
     using Base.Entities;
     using Base.Extension;
     using Model.Report.DTO.LiveReports;
+    using Model.Report.MetaModel;
     using Model.Report.ViewModel.LiveReports;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
@@ -14,7 +17,7 @@
     using TestableClasses;
     using UnitTest.Common.Helpers;
 
-    public class LiveReportExcelTest
+    public class LiveReportExcelTest : BaseReportExcelTest
     {
         private const int ColumnAmountDue = 8;
         private const int ColumnBetCount = 5;
@@ -35,37 +38,19 @@
             CurrencyName = "USD"
         };
 
-        private ISheet _sheet;
+        private readonly ShowingOption _showingOpt = new ShowingOption();
 
-        private ShowingOption _showingOpt = new ShowingOption();
-
-        private IList<LiveReport> _liveReportList = new List<LiveReport>()
+        private readonly IList<LiveReport> _liveReportList = new List<LiveReport>
         {
-            new LiveReport
-            {
-                ProductName = "Product",
-                CustomerWinLoss = 1,
-                CustomerComm = 2,
-                TurnOver = 3,
-                BetCount = 4,
-                LicenseeComm = 5,
-                LicenseeWinLoss = 6,
-                AmountDue = 7
-            }
+            FakeHelper.Create<LiveReport>()
         };
 
-        private LiveReportDetailViewModel _excelModel = new LiveReportDetailViewModel();
+        private LiveReportDetailViewModel _excelModel;
 
         [SetUp]
-        public void Setup()
+        public override void Setup()
         {
-            _sheet = Substitute.For<ISheet>();
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            _sheet = null;
+            base.Setup();
             _excelModel = new LiveReportDetailViewModel();
         }
 
@@ -81,7 +66,7 @@
             var headerRow2 = headers.ElementAt(2);
 
             // Action
-            excel.Public_AssignHeader(_sheet);
+            excel.Public_AssignHeader(FakeSheet);
 
             // Assert
             Assert.Multiple(() =>
@@ -104,16 +89,14 @@
         public void AssignNoInfoRow_WhenCall_CallRelevantMethods()
         {
             // Arrange
+            var row = ExcelTestHelper.MockGetRow(FakeSheet, ColumnTemplateCount, RowContentTemplate);
             var excel = CreateExcel();
-            excel.When(x => x.ProcessUI(_sheet)).DoNotCallBase();
-
-            ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount);
 
             // Action
-            excel.Public_AssignNoInfoRow(_sheet);
+            excel.Public_AssignNoInfoRow(FakeSheet);
 
             // Assert
-            _sheet.Received().SetTextRowValue(excel.TemplateSheet, Arg.Any<int>(), Arg.Any<int>(), Arg.Any<int>(), ViewResources.NoInfo);
+            row.Cells[0].Received(1).SetCellValue(ViewResources.NoInfo);
         }
 
         [Test]
@@ -122,11 +105,11 @@
             // Arrange
             var excel = CreateExcel();
 
-            var row = ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount, RowContentTemplate);
-            var totalRow = ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount, RowContentTemplate + 1);
+            var row = ExcelTestHelper.MockGetRow(FakeSheet, ColumnTemplateCount, RowContentTemplate);
+            var totalRow = ExcelTestHelper.MockGetRow(FakeSheet, ColumnTemplateCount, RowContentTemplate + 1);
 
             // Action
-            excel.Public_AssignSheetData(_sheet);
+            excel.Public_AssignSheetData(FakeSheet);
 
             var data = _liveReportList[0];
 
@@ -149,13 +132,13 @@
             // Arrange
             var currentRow = RowContentTemplate;
 
-            ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount, currentRow);
-            ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount, ++currentRow);
+            ExcelTestHelper.MockGetRow(FakeSheet, ColumnTemplateCount, currentRow);
+            ExcelTestHelper.MockGetRow(FakeSheet, ColumnTemplateCount, ++currentRow);
 
             currentRow += 3;
             SetUpForAssignCommonHeader(currentRow);
 
-            var sportsTypeRow = ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount, currentRow + 3);
+            var sportsTypeRow = ExcelTestHelper.MockGetRow(FakeSheet, ColumnTemplateCount, currentRow + 3);
 
             _excelModel.BySports = new List<LiveReport>
             {
@@ -175,7 +158,7 @@
             var excel = CreateExcel();
 
             // Action
-            excel.Public_AssignSheetData(_sheet);
+            excel.Public_AssignSheetData(FakeSheet);
 
             var data = _excelModel.BySports.ElementAt(0);
 
@@ -193,8 +176,8 @@
             // Arrange
             var currentRow = RowContentTemplate;
 
-            ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount, currentRow);
-            ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount, ++currentRow);
+            ExcelTestHelper.MockGetRow(FakeSheet, ColumnTemplateCount, currentRow);
+            ExcelTestHelper.MockGetRow(FakeSheet, ColumnTemplateCount, ++currentRow);
 
             var headers = SetUpForAssignCommonHeader(currentRow + 3);
             var groupRow = headers.ElementAt(0);
@@ -204,7 +187,7 @@
             var excel = CreateExcel();
 
             // Action
-            excel.Public_AssignSheetData(_sheet);
+            excel.Public_AssignSheetData(FakeSheet);
 
             // Assert
             groupRow.Cells[ColumnProduct].DidNotReceive().SetCellValue(ViewResources.BySportsType);
@@ -238,13 +221,13 @@
             // Arrange
             var currentRow = RowContentTemplate;
 
-            ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount, currentRow);
-            ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount, ++currentRow);
+            ExcelTestHelper.MockGetRow(FakeSheet, ColumnTemplateCount, currentRow);
+            ExcelTestHelper.MockGetRow(FakeSheet, ColumnTemplateCount, ++currentRow);
 
             currentRow += 3;
             SetUpForAssignCommonHeader(currentRow);
 
-            var currencyRow = ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount, currentRow + 3);
+            var currencyRow = ExcelTestHelper.MockGetRow(FakeSheet, ColumnTemplateCount, currentRow + 3);
 
             _excelModel.ByCurrencies = new List<LiveReport>
             {
@@ -264,7 +247,7 @@
             var excel = CreateExcel();
 
             // Action
-            excel.Public_AssignSheetData(_sheet);
+            excel.Public_AssignSheetData(FakeSheet);
 
             var data = _excelModel.ByCurrencies.ElementAt(0);
 
@@ -282,8 +265,8 @@
             // Arrange
             var currentRow = RowContentTemplate;
 
-            ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount, currentRow);
-            ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount, ++currentRow);
+            ExcelTestHelper.MockGetRow(FakeSheet, ColumnTemplateCount, currentRow);
+            ExcelTestHelper.MockGetRow(FakeSheet, ColumnTemplateCount, ++currentRow);
 
             var headers = SetUpForAssignCommonHeader(currentRow + 3);
             var groupRow = headers.ElementAt(0);
@@ -293,7 +276,7 @@
             var excel = CreateExcel();
 
             // Action
-            excel.Public_AssignSheetData(_sheet);
+            excel.Public_AssignSheetData(FakeSheet);
 
             // Assert
             groupRow.Cells[ColumnProduct].DidNotReceive().SetCellValue(ViewResources.ByCurrency);
@@ -326,15 +309,15 @@
         {
             // Arrange
             var currentRow = RowContentTemplate;
-            ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount, currentRow);
-            ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount, ++currentRow);
+            ExcelTestHelper.MockGetRow(FakeSheet, ColumnTemplateCount, currentRow);
+            ExcelTestHelper.MockGetRow(FakeSheet, ColumnTemplateCount, ++currentRow);
 
             currentRow += 3;
             SetUpForAssignCommonHeader(currentRow);
 
             currentRow += 3;
-            var betTypeRow = ExcelTestHelper.MockGetRow(_sheet, 1, currentRow);
-            var betTypeDetailRow = ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount, ++currentRow);
+            var betTypeRow = ExcelTestHelper.MockGetRow(FakeSheet, 1, currentRow);
+            var betTypeDetailRow = ExcelTestHelper.MockGetRow(FakeSheet, ColumnTemplateCount, ++currentRow);
 
             _excelModel.ByBetType = new List<LiveReportByBetType>
             {
@@ -361,7 +344,7 @@
             var excel = CreateExcel();
 
             // Action
-            excel.Public_AssignSheetData(_sheet);
+            excel.Public_AssignSheetData(FakeSheet);
 
             var data = _excelModel.ByBetType.ElementAt(0).LiveReports.ElementAt(0);
 
@@ -381,14 +364,14 @@
             var expected = ViewResources.Sportsbook;
             var currentRow = RowContentTemplate;
 
-            ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount, currentRow);
-            ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount, ++currentRow);
+            ExcelTestHelper.MockGetRow(FakeSheet, ColumnTemplateCount, currentRow);
+            ExcelTestHelper.MockGetRow(FakeSheet, ColumnTemplateCount, ++currentRow);
 
             currentRow += 3;
             SetUpForAssignCommonHeader(currentRow);
 
             currentRow += 3;
-            var betTypeRow = ExcelTestHelper.MockGetRow(_sheet, 1, currentRow);
+            var betTypeRow = ExcelTestHelper.MockGetRow(FakeSheet, 1, currentRow);
 
             _excelModel.ByBetType = new List<LiveReportByBetType>
             {
@@ -402,7 +385,7 @@
             var excel = CreateExcel();
 
             // Action
-            excel.Public_AssignSheetData(_sheet);
+            excel.Public_AssignSheetData(FakeSheet);
 
             // Assert
             betTypeRow.Cells[ColumnProduct].Received().SetCellValue(expected);
@@ -415,14 +398,14 @@
             var expected = "Not SB";
             var currentRow = RowContentTemplate;
 
-            ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount, currentRow);
-            ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount, ++currentRow);
+            ExcelTestHelper.MockGetRow(FakeSheet, ColumnTemplateCount, currentRow);
+            ExcelTestHelper.MockGetRow(FakeSheet, ColumnTemplateCount, ++currentRow);
 
             currentRow += 3;
             SetUpForAssignCommonHeader(currentRow);
 
             currentRow += 3;
-            var betTypeRow = ExcelTestHelper.MockGetRow(_sheet, 1, currentRow);
+            var betTypeRow = ExcelTestHelper.MockGetRow(FakeSheet, 1, currentRow);
 
             _excelModel.ByBetType = new List<LiveReportByBetType>
             {
@@ -436,7 +419,7 @@
             var excel = CreateExcel();
 
             // Action
-            excel.Public_AssignSheetData(_sheet);
+            excel.Public_AssignSheetData(FakeSheet);
 
             // Assert
             betTypeRow.Cells[ColumnProduct].Received().SetCellValue(expected);
@@ -448,8 +431,8 @@
             // Arrange
             var currentRow = RowContentTemplate;
 
-            ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount, currentRow);
-            ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount, ++currentRow);
+            ExcelTestHelper.MockGetRow(FakeSheet, ColumnTemplateCount, currentRow);
+            ExcelTestHelper.MockGetRow(FakeSheet, ColumnTemplateCount, ++currentRow);
 
             var headers = SetUpForAssignCommonHeader(currentRow + 3);
             var groupRow = headers.ElementAt(0);
@@ -459,7 +442,7 @@
             var excel = CreateExcel();
 
             // Action
-            excel.Public_AssignSheetData(_sheet);
+            excel.Public_AssignSheetData(FakeSheet);
 
             // Assert
             groupRow.Cells[ColumnProduct].DidNotReceive().SetCellValue(ViewResources.ByBetType);
@@ -502,49 +485,47 @@
         public void AssignTitle_IsNonLive_AssignCorrectTitle(int liveIndicator, string expectedTitleKey)
         {
             // Arrange
-            ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount);
+            var row = ExcelTestHelper.MockGetRow(FakeSheet, ColumnTemplateCount, ReportBase.RowTitleTemplate);
 
-            _excelModel.Param = new Model.Report.MetaModel.LiveReportMetaModel { LiveIndicator = liveIndicator };
+            _excelModel.Param = new LiveReportMetaModel
+            {
+                LiveIndicator = liveIndicator,
+                FromDate = new DateTime(2018, 1, 1),
+                ToDate = new DateTime(2018, 2, 2)
+            };
 
             var excel = CreateExcel();
 
             // Action
-            excel.Public_AssignTitle(_sheet);
+            excel.Public_AssignTitle(FakeSheet);
 
             // Assert
-            _sheet.Received().SetTextRowValue(
-                    excel.TemplateSheet,
-                    Arg.Any<int>(),
-                    Arg.Any<int>(),
-                    Arg.Any<int>(),
-                    ViewResources.ResourceManager.GetString(expectedTitleKey));
+            row.Cells[0].Received(1).SetCellValue("Live Report - " +
+                ViewResources.ResourceManager.GetString(expectedTitleKey) +
+                " data, 01/01/2018 --> 02/02/2018 - View in EUR");
         }
 
         [Test]
         public void ProcessUI_CustomerCommVisibleIsFalse_HideCustomerColumn()
         {
             // Arrange
-            var row = ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount, 0);
-            var hiddenRow = ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount, SummarySectionRowIndex + 2);
+            ExcelTestHelper.MockGetRow(FakeSheet, ColumnTemplateCount, 0);
+            var hiddenRow = ExcelTestHelper.MockGetRow(FakeSheet, ColumnTemplateCount, SummarySectionRowIndex + 2);
 
-            _sheet.FirstRowNum.Returns(0);
-            _sheet.LastRowNum.Returns(0);
+            FakeSheet.FirstRowNum.Returns(0);
+            FakeSheet.LastRowNum.Returns(0);
             _showingOpt.CustomerCommVisible = false;
             _showingOpt.BAVisible = true;
 
             var excel = CreateExcel();
 
             // Action
-            excel.Public_ProcessUI(_sheet);
+            excel.Public_ProcessUI(FakeSheet);
 
             // Assert
             Assert.Multiple(() =>
             {
-                _sheet.Received().SetColumnWidth(ColumnCustomerTotal, 0);
-                _sheet.Received().SetColumnHidden(ColumnCustomerTotal, true);
-
-                _sheet.Received().SetColumnWidth(ColumnCustomerComm, 0);
-                _sheet.Received().SetColumnHidden(ColumnCustomerComm, true);
+                AssertHideColumns(FakeSheet, ColumnCustomerTotal, ColumnCustomerComm);
 
                 Assert.That(hiddenRow.ZeroHeight, Is.True);
             });
@@ -554,10 +535,10 @@
         public void ProcessUI_BAVisibleAndRBVisibleAreFalse_HideLicenseeColumn()
         {
             // Arrange
-            var row = ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount, 0);
+            ExcelTestHelper.MockGetRow(FakeSheet, ColumnTemplateCount, 0);
 
-            _sheet.FirstRowNum.Returns(0);
-            _sheet.LastRowNum.Returns(0);
+            FakeSheet.FirstRowNum.Returns(0);
+            FakeSheet.LastRowNum.Returns(0);
             _showingOpt.CustomerCommVisible = true;
             _showingOpt.BAVisible = false;
             _showingOpt.RBVisible = false;
@@ -565,26 +546,22 @@
             var excel = CreateExcel();
 
             // Action
-            excel.Public_ProcessUI(_sheet);
+            excel.Public_ProcessUI(FakeSheet);
 
             // Assert
-            Assert.Multiple(() =>
-            {
-                _sheet.Received().SetColumnWidth(ColumnLicenseeComm, 0);
-                _sheet.Received().SetColumnHidden(ColumnLicenseeComm, true);
-            });
+            AssertHideColumns(FakeSheet, ColumnLicenseeComm);
         }
 
         private static void AssertCommonCells(IRow row, LiveReport data)
         {
-            row.Cells[ColumnCustomerWl].Received().SetCellValue(data.CustomerWinLoss);
-            row.Cells[ColumnCustomerComm].Received().SetCellValue(data.CustomerComm);
-            row.Cells[ColumnCustomerTotal].Received().SetCellValue(data.CustomerTotal);
-            row.Cells[ColumnTurnover].Received().SetCellValue(data.TurnOver);
-            row.Cells[ColumnBetCount].Received().SetCellValue(data.BetCount);
-            row.Cells[ColumnLicenseeComm].Received().SetCellValue(data.LicenseeComm);
-            row.Cells[ColumnLicenseeWl].Received().SetCellValue(data.LicenseeWinLoss);
-            row.Cells[ColumnAmountDue].Received().SetCellValue(data.AmountDue);
+            row.Cells[ColumnCustomerWl].Received(1).SetCellValue(data.CustomerWinLoss);
+            row.Cells[ColumnCustomerComm].Received(1).SetCellValue(data.CustomerComm);
+            row.Cells[ColumnCustomerTotal].Received(1).SetCellValue(data.CustomerTotal);
+            row.Cells[ColumnTurnover].Received(1).SetCellValue(data.TurnOver);
+            row.Cells[ColumnBetCount].Received(1).SetCellValue(data.BetCount);
+            row.Cells[ColumnLicenseeComm].Received(1).SetCellValue(data.LicenseeComm);
+            row.Cells[ColumnLicenseeWl].Received(1).SetCellValue(data.LicenseeWinLoss);
+            row.Cells[ColumnAmountDue].Received(1).SetCellValue(data.AmountDue);
         }
 
         private void AssignSheetData_CustomerCommVisibleIsFalse_MergeCellCustomerWL()
@@ -593,15 +570,15 @@
             var currentRow = RowContentTemplate;
 
             // main data
-            ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount, currentRow);
-            ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount, ++currentRow);
+            ExcelTestHelper.MockGetRow(FakeSheet, ColumnTemplateCount, currentRow);
+            ExcelTestHelper.MockGetRow(FakeSheet, ColumnTemplateCount, ++currentRow);
 
             currentRow += 3;
             SetUpForAssignCommonHeader(currentRow);
 
             currentRow += 3;
             //// addition data (data by sport type/bet type/ currency)
-            ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount, currentRow);
+            ExcelTestHelper.MockGetRow(FakeSheet, ColumnTemplateCount, currentRow);
 
             var rowHeaderMerge = currentRow - 2;
 
@@ -610,10 +587,10 @@
             var excel = CreateExcel();
 
             // Action
-            excel.Public_AssignSheetData(_sheet);
+            excel.Public_AssignSheetData(FakeSheet);
 
             // Assert
-            _sheet.Received().AddMergedRegion(Arg.Is<CellRangeAddress>(x => x.FirstRow == rowHeaderMerge
+            FakeSheet.Received().AddMergedRegion(Arg.Is<CellRangeAddress>(x => x.FirstRow == rowHeaderMerge
                 && x.FirstColumn == ColumnCustomerWl
                 && x.LastRow == rowHeaderMerge + 1
                 && x.LastColumn == ColumnCustomerWl));
@@ -625,8 +602,8 @@
             var currentRow = RowContentTemplate;
 
             // main data
-            ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount, currentRow);
-            ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount, ++currentRow);
+            ExcelTestHelper.MockGetRow(FakeSheet, ColumnTemplateCount, currentRow);
+            ExcelTestHelper.MockGetRow(FakeSheet, ColumnTemplateCount, ++currentRow);
 
             currentRow += 3;
             SetUpForAssignCommonHeader(currentRow);
@@ -634,7 +611,7 @@
             currentRow += 3;
 
             // Addition data (data by sport type/bet type/ currency)
-            ExcelTestHelper.MockGetRow(_sheet, ColumnTemplateCount, currentRow);
+            ExcelTestHelper.MockGetRow(FakeSheet, ColumnTemplateCount, currentRow);
 
             var rowHeaderMerge = currentRow - 2;
 
@@ -643,10 +620,10 @@
             var excel = CreateExcel();
 
             // Action
-            excel.Public_AssignSheetData(_sheet);
+            excel.Public_AssignSheetData(FakeSheet);
 
             // Assert
-            _sheet.DidNotReceive().AddMergedRegion(Arg.Is<CellRangeAddress>(x => x.FirstRow == rowHeaderMerge
+            FakeSheet.DidNotReceive().AddMergedRegion(Arg.Is<CellRangeAddress>(x => x.FirstRow == rowHeaderMerge
                 && x.FirstColumn == ColumnCustomerWl
                 && x.LastRow == rowHeaderMerge + 1
                 && x.LastColumn == ColumnCustomerWl));
@@ -669,9 +646,9 @@
         {
             return new List<IRow>
             {
-                ExcelTestHelper.MockGetRow(_sheet, 1, rowIndex),
-                ExcelTestHelper.MockGetRow(_sheet, 10, rowIndex + 1),
-                ExcelTestHelper.MockGetRow(_sheet, 4, rowIndex + 2)
+                ExcelTestHelper.MockGetRow(FakeSheet, 1, rowIndex),
+                ExcelTestHelper.MockGetRow(FakeSheet, 10, rowIndex + 1),
+                ExcelTestHelper.MockGetRow(FakeSheet, 4, rowIndex + 2)
             };
         }
     }

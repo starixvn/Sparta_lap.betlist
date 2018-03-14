@@ -10,8 +10,12 @@ namespace Fanex.Athena.Controllers.Forecast
     using System.Linq;
     using System.Web.Mvc;
     using System.Web.SessionState;
+    using Extension.Utility;
     using Model.Core.DTO.Common;
     using ONEbook.UM.Filters;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
+    using Service.Core.Users.Interfaces;
     using Service.Forecast;
     using Service.Forecast.Interfaces;
 
@@ -21,9 +25,19 @@ namespace Fanex.Athena.Controllers.Forecast
     {
         private readonly IForecastService _forecastService;
 
-        public ForecastBaseController()
+        public ForecastBaseController() : this(null, null, null, null, null)
         {
-            this._forecastService = new ForecastService();
+        }
+
+        protected ForecastBaseController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
+            IForecastService forecastService)
+        : base(languageService, sessionService, appSetting, clientViewHelper)
+        {
+            _forecastService = forecastService ?? new ForecastService();
         }
 
         protected IForecastService ForecastService
@@ -42,17 +56,6 @@ namespace Fanex.Athena.Controllers.Forecast
                 var first = leagueList.FirstOrDefault();
                 return first != null ? first.LeagueId : -1;
             }
-        }
-
-        protected IList<string> GetLicenseeOfferNewForecastList()
-        {
-            var items = AppSettings.GetValue("LicenseeOfferNewForecast");
-            if (!string.IsNullOrEmpty(items))
-            {
-                return items.Split(',');
-            }
-
-            return new List<string>();
         }
     }
 }

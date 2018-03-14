@@ -9,10 +9,10 @@ namespace Fanex.Athena.Excel.Report.UnitTests
     [TestFixture]
     public class BaseReportExcelTest
     {
-        protected ISheet FakeSheet { get; set; }
+        protected ISheet FakeSheet { get; private set; }
 
         [SetUp]
-        public void Setup()
+        public virtual void Setup()
         {
             FakeSheet = Substitute.For<ISheet>();
         }
@@ -29,6 +29,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         {
             for (int i = 0; i < columns.Length; i++)
             {
+                sheet.Received(1).SetColumnWidth(columns[i], 0);
                 sheet.Received(1).SetColumnHidden(columns[i], true);
             }
         }

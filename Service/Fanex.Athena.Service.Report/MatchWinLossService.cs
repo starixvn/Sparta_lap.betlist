@@ -10,15 +10,16 @@ namespace Fanex.Athena.Service.Report
     using System.Data;
     using System.Globalization;
     using System.Linq;
+    using Constant.DataDomain;
     using DataAccess.Report.Interfaces;
     using Fanex.Athena.DataAccess.Report;
-    using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Model.Core.Helper;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Service.Report.Interfaces;
     using Resources;
+    using VendorAdapter;
+    using VendorAdapter.Interfaces;
 
     public class MatchWinLossService : IMatchWinLossService
     {
@@ -37,14 +38,18 @@ namespace Fanex.Athena.Service.Report
 
         private readonly IMatchWinLossDataAccess _matchWinLossDataAccess;
 
-        public MatchWinLossService(IMatchWinLossDataAccess matchWinLossDataAccess)
+        private readonly ICacheRefAdapter _cacheRefAdapter;
+
+        public MatchWinLossService(IMatchWinLossDataAccess matchWinLossDataAccess, ICacheRefAdapter cacheRefAdapter)
         {
             this._matchWinLossDataAccess = matchWinLossDataAccess;
+            _cacheRefAdapter = cacheRefAdapter;
         }
 
         public MatchWinLossService()
         {
             this._matchWinLossDataAccess = new MatchWinLossDataAccess();
+            _cacheRefAdapter = new CacheRefAdapter();
         }
 
         #region IMatchWinLossService Members
@@ -82,32 +87,6 @@ namespace Fanex.Athena.Service.Report
         #endregion IMatchWinLossService Members
 
         #region Utility
-
-        private static string GetHomeName(MatchWinLoss matchWinLoss)
-        {
-            switch (matchWinLoss.ProductName)
-            {
-                case Product.RB:
-                case Product.NG:
-                    return string.Empty;
-
-                default:
-                    return CacheRef.GetTeamName(matchWinLoss.HomeId) + (matchWinLoss.IsNeutral ? " " + ViewResources.IsNeutral : string.Empty);
-            }
-        }
-
-        private static string GetAwayName(MatchWinLoss matchWinLoss)
-        {
-            switch (matchWinLoss.ProductName)
-            {
-                case Product.RB:
-                case Product.NG:
-                    return string.Empty;
-
-                default:
-                    return CacheRef.GetTeamName(matchWinLoss.AwayId);
-            }
-        }
 
         private static IList<MatchWinLoss> OrderByProduct(IList<MatchWinLoss> dataList)
         {
@@ -148,8 +127,6 @@ namespace Fanex.Athena.Service.Report
             result.AddRange(
                 dataList.Where(p => p.ProductName == Product.NG).OrderBy(m => m.LeagueName).ThenBy(m => m.MatchName));
             result.AddRange(
-                dataList.Where(p => p.ProductName == Product.LC).OrderBy(m => m.LeagueName).ThenBy(m => m.MatchName));
-            result.AddRange(
                 dataList.Where(p => p.ProductName == Product.VS).OrderBy(m => m.LeagueName).ThenBy(m => m.MatchName));
             result.AddRange(
                 dataList.Where(p => p.ProductName == Product.VS2).OrderBy(m => m.LeagueName).ThenBy(m => m.MatchName));
@@ -157,14 +134,40 @@ namespace Fanex.Athena.Service.Report
             return result;
         }
 
-        private static string GetLeagueName(MatchWinLoss matchWinLoss)
+        private string GetHomeName(MatchWinLoss matchWinLoss)
         {
-            return matchWinLoss.ProductName == Product.RB ?
-                ViewResources.ProductRB + " - " + CacheRef.GetLeagueName(matchWinLoss.LeagueId) :
-                CacheRef.GetLeagueName(matchWinLoss.LeagueId);
+            switch (matchWinLoss.ProductName)
+            {
+                case Product.RB:
+                case Product.NG:
+                    return string.Empty;
+
+                default:
+                    return _cacheRefAdapter.GetTeamName(matchWinLoss.HomeId) + (matchWinLoss.IsNeutral ? " " + ViewResources.IsNeutral : string.Empty);
+            }
         }
 
-        private static string GetMatchName(MatchWinLoss matchWinLoss)
+        private string GetAwayName(MatchWinLoss matchWinLoss)
+        {
+            switch (matchWinLoss.ProductName)
+            {
+                case Product.RB:
+                case Product.NG:
+                    return string.Empty;
+
+                default:
+                    return _cacheRefAdapter.GetTeamName(matchWinLoss.AwayId);
+            }
+        }
+
+        private string GetLeagueName(MatchWinLoss matchWinLoss)
+        {
+            return matchWinLoss.ProductName == Product.RB ?
+                ViewResources.ProductRB + " - " + _cacheRefAdapter.GetLeagueName(matchWinLoss.LeagueId) :
+                _cacheRefAdapter.GetLeagueName(matchWinLoss.LeagueId);
+        }
+
+        private string GetMatchName(MatchWinLoss matchWinLoss)
         {
             switch (matchWinLoss.ProductName)
             {
@@ -174,13 +177,6 @@ namespace Fanex.Athena.Service.Report
                 case Product.NG:
                     return ViewResources.NumberGameNo + " " + matchWinLoss.MatchCode;
 
-                case Product.LC:
-                    return string.Format(
-                        "{0} {1} {2} ",
-                        CacheRef.GetSportName(matchWinLoss.SportType),
-                        CacheRef.GetBettype(matchWinLoss.BetType),
-                        matchWinLoss.ShowTime);
-
                 default:
 
                     if (RacingSportTypes.Contains(matchWinLoss.SportType))
@@ -188,9 +184,9 @@ namespace Fanex.Athena.Service.Report
                         return string.Format(EnglishCulture, KickOfTimeFormat, matchWinLoss.KickOffTime);
                     }
 
-                    var homeName = CacheRef.GetTeamName(matchWinLoss.HomeId) +
+                    var homeName = _cacheRefAdapter.GetTeamName(matchWinLoss.HomeId) +
                                    (matchWinLoss.IsNeutral ? " " + ViewResources.IsNeutral : string.Empty);
-                    var awayName = CacheRef.GetTeamName(matchWinLoss.AwayId);
+                    var awayName = _cacheRefAdapter.GetTeamName(matchWinLoss.AwayId);
                     return homeName + "-vs-" + awayName;
             }
         }

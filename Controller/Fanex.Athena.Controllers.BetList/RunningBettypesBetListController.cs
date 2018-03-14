@@ -10,15 +10,20 @@ namespace Fanex.Athena.Controllers.BetList
 
     using System.Linq;
     using System.Web.Mvc;
+    using Constant.DataDomain;
+    using DataAccess.Core.Configuration.Interfaces;
+    using Extension.Utility;
     using Fanex.Athena.Excel.Base.Entities;
-    using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.BetList.ViewModel;
     using Fanex.Athena.Model.Core.DataDomain;
-    using Fanex.Athena.Model.Core.Helper;
     using Fanex.Athena.Web.ActionFilter;
-    using Fanex.Athena.Web.ResultExtension;
     using Resources;
+    using Service.BetList.Interfaces;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
+    using Service.Core.Users.Interfaces;
+    using VendorAdapter.Interfaces;
 
     #endregion Using
 
@@ -36,6 +41,23 @@ namespace Fanex.Athena.Controllers.BetList
         private const string DoubleChangeBettypes = "24,151,186,410,431";
 
         private const string BONTeamToScoreBettypes = "26,145,146,170,188,427,433";
+
+        public RunningBettypesBetListController()
+        {
+        }
+
+        public RunningBettypesBetListController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
+            IProductService productService,
+            IBetListService betListService,
+            IBalanceUpDataAccess balanceUpDataAccess,
+            ICacheRefAdapter cacheRefAdapter)
+        : base(languageService, sessionService, appSetting, clientViewHelper, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
+        {
+        }
 
         [HttpGet]
         [FunctionAuthorization(PermissionKeys.TotalBetMixParlay)]
@@ -109,16 +131,11 @@ namespace Fanex.Athena.Controllers.BetList
             };
 
             var firstBettype = metaModel.MultipleBettype.Split(',').FirstOrDefault();
-            var title = string.Format(
-               "{0} - {1}",
-               CacheRef.GetBettype(firstBettype),
-               GetViewInCurrency(metaModel));
+            var title = $"{CacheRefAdapter.GetBettype(firstBettype)} - {GetViewInCurrency(metaModel)}";
 
-            var excel = new BetListExcel(showingOption, metaModel.LicenseeId, HiddenColumnIndexes, true);
+            metaModel.IsShowSumStake = true;
 
-            var workbook = excel.Export(ticketResult, title);
-
-            return new ExcelResult(workbook, "RunningBetList");
+            return ProcessExportExcel(showingOption, metaModel, ticketResult, HiddenColumnIndexes, title, "RunningBetList");
         }
     }
 }

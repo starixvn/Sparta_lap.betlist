@@ -58,16 +58,9 @@ namespace Fanex.Athena.DataAccess.BetList
 
         public IList<BetListMatch> GetMatchList(string uspKey)
         {
-            try
+            using (var db = this.GetObjectDb(uspKey))
             {
-                using (var db = this.GetObjectDb(uspKey))
-                {
-                    return db.Query<BetListMatch>().ToList();
-                }
-            }
-            catch (ObjectDbException exception)
-            {
-                throw new DataAccessException(exception, uspKey);
+                return db.Query<BetListMatch>().ToList();
             }
         }
     }

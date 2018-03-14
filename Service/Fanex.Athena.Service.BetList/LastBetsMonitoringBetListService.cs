@@ -8,6 +8,7 @@ namespace Fanex.Athena.Service.BetList
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Constant.DataDomain;
     using Extension.Utility;
     using Extension.Utility.Interfaces;
     using Fanex.Athena.DataAccess.BetList;

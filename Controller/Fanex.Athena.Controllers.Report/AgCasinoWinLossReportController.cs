@@ -39,12 +39,12 @@ namespace Fanex.Athena.Controllers.Report
         {
             var licenseeSession = this.SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
-            var date = DateTime.Now;
+            var date = DateTime.Now.AddDays(-1);
 
             var metaModel = new ThirdPartyWinLossMetaModel
             {
-                FromDate = date.AddDays(-1),
-                ToDate = date.AddDays(-1),
+                FromDate = date,
+                ToDate = date,
                 LicenseeId = licenseeSession.LicenseeId,
                 IsExcludedTestData = true,
                 ReportBy = 1

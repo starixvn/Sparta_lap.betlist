@@ -24,10 +24,10 @@
 
         protected const string IdentityName = "user";
 
-        protected readonly UserSession DefaultUserSession = new UserSession
+        protected static readonly UserSession DefaultUserSession = new UserSession
         {
             CurrencyList = new Dictionary<int, string> { { 1, "UUS" } },
-            ViewType = Model.Core.DataDomain.ClientViewType.Default,
+            ViewType = ClientViewType.Default,
             UserId = 1,
             Language = "lan",
             UserName = "alex.vn",
@@ -35,7 +35,7 @@
             FunctionIdList = new List<int>()
         };
 
-        protected readonly LicenseeSession DefaultLicenseeSession = new LicenseeSession
+        protected static readonly LicenseeSession DefaultLicenseeSession = new LicenseeSession
         {
             LicenseeId = 100,
             LicenseeName = "Spondemo"

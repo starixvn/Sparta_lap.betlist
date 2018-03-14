@@ -19,18 +19,16 @@ namespace Fanex.Athena.Excel.Report
     using Base.Entities;
     using Base.Helpers;
     using Common;
+    using Constant.DataDomain;
     using Extension.Helper;
     using Fanex.Athena.Excel.Base.Extension;
     using Helpers;
-    using Model.Core.DataDomain;
-    using Model.Core.Helper;
     using Model.Report.MetaModel;
     using NPOI.SS.UserModel;
     using Resources;
+    using VendorAdapter;
+    using VendorAdapter.Interfaces;
 
-    /// <summary>
-    /// Match Win Loss report - Export excel.
-    /// </summary>
     public class MatchWinLossExcel : ReportBase
     {
         private const int ColumnCustomerWl = 4;
@@ -40,7 +38,7 @@ namespace Fanex.Athena.Excel.Report
         private const int ColumnRacingRevenue = 9;
         private const int ColumnAmtDueToBa = 10;
         private const int ColumnAmtDueToRacing = 11;
-        private const int ColumnTemplateCount = 11;
+        private const int ColumnTemplateCount = 12;
 
         private const int RowTableHeaderTemplate = 1;
         private const int RowMatchTemplate = 3;
@@ -63,6 +61,8 @@ namespace Fanex.Athena.Excel.Report
 
         private readonly ConvertingOption _convertingOption;
 
+        private readonly ICacheRefAdapter _cacheRefAdapter;
+
         protected internal MatchWinLossExcel()
             : base(string.Empty, 0)
         {
@@ -77,6 +77,7 @@ namespace Fanex.Athena.Excel.Report
                                 MatchWinLossMetaModel model)
             : base(templatePath, exportData.Rows.Count, showingOption)
         {
+            _cacheRefAdapter = new CacheRefAdapter();
             _convertingOption = convertingOption;
             _model = model;
             _exportData = exportData;
@@ -117,10 +118,6 @@ namespace Fanex.Athena.Excel.Report
             sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowMatchTemplate, ColumnTemplateCount, ViewResources.NoInfo);
         }
 
-        /// <summary>
-        /// Assign data to excel sheet.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         [SuppressMessage(
                "StyleCop.CSharp.StylecopPlus.Rules",
                "SP2101:MethodMustNotContainMoreLinesThan",
@@ -205,10 +202,6 @@ namespace Fanex.Athena.Excel.Report
             ClearTemplate(sheet, RowContentTemplate);
         }
 
-        /// <summary>
-        /// Process UI, hide redundant row and column.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected override void ProcessUI(ISheet sheet)
         {
             if (!ShowingOption.CustomerCommVisible)
@@ -228,10 +221,6 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        /// <summary>
-        /// Get column name in data table.
-        /// </summary>
-        /// <returns>The list of column name in data table.</returns>
         private static IList<string> GetCommonColumnNameList()
         {
             return new List<string>
@@ -260,7 +249,7 @@ namespace Fanex.Athena.Excel.Report
             return cellIndex;
         }
 
-        private static string GetFormatMatchName(DataRow exportRow, string matchName)
+        private string GetFormatMatchName(DataRow exportRow, string matchName)
         {
             string formatMatchName;
 
@@ -271,15 +260,14 @@ namespace Fanex.Athena.Excel.Report
                     break;
 
                 case ProductTypes.NumberGame:
-                case ProductTypes.LiveCasino:
                 case ProductTypes.VirtualSports:
                     formatMatchName = matchName;
                     break;
 
                 default:
-                    var homeName = CacheRef.GetTeamName(exportRow["homeid"]) +
+                    var homeName = _cacheRefAdapter.GetTeamName(exportRow["homeid"]) +
                                       (Converter.ToBool(exportRow["isneutral"]) ? " " + "(N)" : string.Empty);
-                    var awayName = CacheRef.GetTeamName(exportRow["awayid"]);
+                    var awayName = _cacheRefAdapter.GetTeamName(exportRow["awayid"]);
                     formatMatchName = homeName + "\n" + awayName;
                     break;
             }
@@ -287,9 +275,6 @@ namespace Fanex.Athena.Excel.Report
             return formatMatchName;
         }
 
-        /// <summary>
-        /// Sum column: race book revenue, total win loss, sum total win loss, sum race book revenue.
-        /// </summary>
         private void AddExtraColumns()
         {
             var racebookRevenueExpression = string.Format("{0} + {1}", GetCurrencyColumn("commrb"), GetCurrencyColumn("winlossrb"));
@@ -303,12 +288,7 @@ namespace Fanex.Athena.Excel.Report
             _totalData.Columns.Add(GetCurrencyColumn("sumrbrevenue"), typeof(decimal), revenueExpression);
         }
 
-        /// <summary>
-        /// Assign data to grand total summary section.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        /// <param name="currentRow">Excel row index.</param>
-        private void AssignGrandTotalSummary(ISheet sheet, int currentRow)
+        protected internal virtual void AssignGrandTotalSummary(ISheet sheet, int currentRow)
         {
             var cellIndex = 2;
 
@@ -327,20 +307,11 @@ namespace Fanex.Athena.Excel.Report
             sheet.MergeCells(currentRow, ColumnIndex, currentRow, 1);
         }
 
-        /// <summary>
-        /// Assign match data.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        /// <param name="matchInfoList">Match list.</param>
-        /// <param name="matchName">Match name.</param>
-        /// <param name="currentRow">Excel row index.</param>
-        /// <param name="currentIndex">Index of match.</param>
-        /// <returns>The row index after assign data.</returns>
         [SuppressMessage(
         "StyleCop.CSharp.StylecopPlus.Rules",
         "SP2101:MethodMustNotContainMoreLinesThan",
         Justification = "Reviewed. Suppression is OK here.")]
-        private int AssignMatchData(ISheet sheet, IList<DataRow> matchInfoList, string matchName, int currentRow, int currentIndex)
+        protected internal virtual int AssignMatchData(ISheet sheet, IList<DataRow> matchInfoList, string matchName, int currentRow, int currentIndex)
         {
             if (matchInfoList.Count == 0)
             {
@@ -383,7 +354,7 @@ namespace Fanex.Athena.Excel.Report
                 var betTypeRow = sheet.CopyRow(TemplateSheet, RowBetTypeContentTemplate, currentRow);
                 var betType = Converter.ToInt(matchWinloss["bettype"]);
                 var liveIndicator = Converter.To<bool>(matchWinloss["liveindicator"]);
-                var betTypeName = "         " + CacheRef.GetBettype(betType, liveIndicator);
+                var betTypeName = "         " + _cacheRefAdapter.GetBettype(betType, liveIndicator);
 
                 betTypeRow.Cells[1].SetCellValue(betTypeName);
                 ExcelHelper.AssignRowContent(betTypeRow, matchWinloss, columnNameList, 2);
@@ -415,7 +386,9 @@ namespace Fanex.Athena.Excel.Report
                 var dataRow = exportData[i];
                 var betTypeRow = sheet.CopyRow(TemplateSheet, RowSpecialBetTypeTemplate, currentRowIndex);
                 var betType = Converter.ToInt(dataRow["bettype"]);
-                var betTypeName = betType == (int)BetType.VirtualSports2MixParlay ? CacheRef.GetBettypeWithProductName(betType) : CacheRef.GetBettype(betType, false);
+                var betTypeName = betType == (int)BetType.VirtualSports2MixParlay ?
+                    _cacheRefAdapter.GetBettypeWithProductName(betType) :
+                    _cacheRefAdapter.GetBettype(betType, false);
 
                 betTypeRow.Cells[0].SetCellValue(betTypeName);
                 ExcelHelper.AssignRowContent(betTypeRow, dataRow, columnNameList, 2);
@@ -426,15 +399,7 @@ namespace Fanex.Athena.Excel.Report
             return currentRowIndex;
         }
 
-        /// <summary>
-        /// Assign data to total summary section.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        /// <param name="columnNameList">Column name list.</param>
-        /// <param name="currentRow">Excel row index.</param>
-        /// <param name="sumTable">Summary table.</param>
-        /// <returns>The row index after assign data.</returns>
-        private int AssignTotalSummary(ISheet sheet, IList<string> columnNameList, int currentRow, DataTable sumTable)
+        protected internal virtual int AssignTotalSummary(ISheet sheet, IEnumerable<string> columnNameList, int currentRow, DataTable sumTable)
         {
             var cellIndex = 2;
 
@@ -465,10 +430,6 @@ namespace Fanex.Athena.Excel.Report
                    .ToList();
         }
 
-        /// <summary>
-        /// Get column name in data table for getting the sum value.
-        /// </summary>
-        /// <returns>The list of column name in data table.</returns>
         private IList<string> GetTotalColumnNameList()
         {
             var currencyColumnList = GetCommonColumnNameList();

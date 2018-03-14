@@ -6,12 +6,13 @@
 
 namespace Fanex.Athena.Controllers.Forecast
 {
+    using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web.Mvc;
+    using Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Model.Core.Helper;
     using Fanex.Athena.Service.Core.Helpers;
     using Model.Core.DataDomain;
     using Model.Forecast.DTO.NewForecastHdpOu;
@@ -19,24 +20,44 @@ namespace Fanex.Athena.Controllers.Forecast
     using Model.Forecast.ViewModel;
     using Service.Core.Common;
     using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
+    using Service.Forecast.Interfaces;
+    using VendorAdapter;
+    using VendorAdapter.Interfaces;
     using Web.ActionFilter;
 
     [FunctionAuthorization(PermissionKeys.ForecastHandicapOverUnderLive)]
     public class NewHandicapOverUnderForecastController : ForecastBaseController
     {
+        private readonly ICacheRefAdapter _cacheRefAdapter;
+
         private readonly IMatchService _matchService;
 
         public NewHandicapOverUnderForecastController()
         {
+            _cacheRefAdapter = new CacheRefAdapter();
             _matchService = new MatchService();
+        }
+
+        public NewHandicapOverUnderForecastController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
+            IForecastService forecastService,
+            ICacheRefAdapter cacheRefAdapter,
+            IMatchService matchService)
+        : base(languageService, sessionService, appSetting, clientViewHelper, forecastService)
+        {
+            _cacheRefAdapter = cacheRefAdapter;
+            _matchService = matchService;
         }
 
         [HttpGet]
         public ActionResult Index(int leagueId = 0, int matchId = 0, int currencyId = 0, string baseCurrency = null)
         {
-            var licenseeOfferNewForecastList = GetLicenseeOfferNewForecastList();
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
-            if (licenseeOfferNewForecastList.Contains(licenseeId.ToString()))
+            if (AppSettings.LicenseeOfferNewForecast.Contains(licenseeId))
             {
                 var metaModel = new NewForecastHandicapOverUnderMetaModel
                 {
@@ -82,10 +103,6 @@ namespace Fanex.Athena.Controllers.Forecast
             return View("~/Views/Forecast/NewForecastHdpOu/MatchOptionList.cshtml", matchList);
         }
 
-        [SuppressMessage(
-                  "StyleCop.CSharp.StylecopPlus.Rules",
-                  "SP2101:MethodMustNotContainMoreLinesThan",
-                  Justification = "Reviewed. Suppression is OK here.")]
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         private NewForecastHdpOuViewModel GetViewModel(NewForecastHandicapOverUnderMetaModel metaModel)
         {
@@ -110,12 +127,12 @@ namespace Fanex.Athena.Controllers.Forecast
                     AssignDataForNonAjaxRequest(metaModel, model);
                 }
 
-                metaModel.HomeTeamName = CacheRef.GetTeamName(metaModel.HomeTeamId) + (metaModel.IsNeutral ? " (n)" : string.Empty);
-                metaModel.AwayTeamName = CacheRef.GetTeamName(metaModel.AwayTeamId);
+                metaModel.HomeTeamName = _cacheRefAdapter.GetTeamName(metaModel.HomeTeamId) + (metaModel.IsNeutral ? " (n)" : string.Empty);
+                metaModel.AwayTeamName = _cacheRefAdapter.GetTeamName(metaModel.AwayTeamId);
                 model.MainData = ForecastService.GetNewForecastData(metaModel, headerInfo);
                 model.HeaderInfo = headerInfo;
             }
-            catch (System.Exception exception)
+            catch (Exception exception)
             {
                 LogHelper.WriteError(exception);
             }

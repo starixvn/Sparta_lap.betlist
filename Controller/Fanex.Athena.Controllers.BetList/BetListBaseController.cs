@@ -12,6 +12,7 @@
     using Excel.Base.Entities;
     using Excel.Base.Helpers;
     using Excel.BetList;
+    using Extension.Utility;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Service.BetList;
@@ -22,9 +23,11 @@
     using Model.Core.DTO.Configuration;
     using ONEbook.UM.Filters;
     using Resources;
-    using Service.Core.Users;
+    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility;
+    using VendorAdapter;
+    using VendorAdapter.Interfaces;
     using Web.ResultExtension;
 
     #endregion Using
@@ -47,9 +50,9 @@
         protected static readonly ReadOnlyCollection<int> RacingBetType =
             new ReadOnlyCollection<int>(new[] { 31, 32, 33, 41, 42, 43 });
 
-        private readonly IAuthorizationService _authorizationService;
-
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
+
+        private readonly ICacheRefAdapter _cacheRefAdapter;
 
         private readonly IProductService _productService;
 
@@ -57,15 +60,40 @@
 
         public BetListBaseController()
         {
-            _authorizationService = new AuthorizationService();
-            this._productService = new ProductService();
-            this._betListService = new BetListService();
-            this._balanceUpDataAccess = new BalanceUpDataAccess();
+            _productService = new ProductService();
+            _betListService = new BetListService();
+            _balanceUpDataAccess = new BalanceUpDataAccess();
+            _cacheRefAdapter = new CacheRefAdapter();
+        }
+
+#pragma warning disable S107 // Methods should not have too many parameters
+
+        public BetListBaseController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
+            IProductService productService,
+            IBetListService betListService,
+            IBalanceUpDataAccess balanceUpDataAccess,
+            ICacheRefAdapter cacheRefAdapter)
+#pragma warning restore S107 // Methods should not have too many parameters
+        : base(languageService, sessionService, appSetting, clientViewHelper)
+        {
+            _productService = productService ?? new ProductService();
+            _betListService = betListService ?? new BetListService();
+            _balanceUpDataAccess = balanceUpDataAccess ?? new BalanceUpDataAccess();
+            _cacheRefAdapter = cacheRefAdapter ?? new CacheRefAdapter();
         }
 
         protected IProductService ProductService
         {
             get { return _productService; }
+        }
+
+        protected ICacheRefAdapter CacheRefAdapter
+        {
+            get { return _cacheRefAdapter; }
         }
 
         protected IBetListService BetListService
@@ -138,9 +166,15 @@
             return viewinCurrency;
         }
 
-        protected bool HasPermissionOnData(BetListMetaModel metaModel)
+        protected static string GetCustomerBetListTitle(BetListMetaModel metaModel, string currencyTitle)
         {
-            return _authorizationService.HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId, metaModel.TransId);
+           return ViewResources.Customer + " " + ViewResources.BetList + string.Format(
+                " - {0} --> {1} - {2}{3} - {4}",
+                metaModel.FromDate.ToString(FormatKey.ShortDateFormat),
+                metaModel.ToDate.ToString(FormatKey.ShortDateFormat),
+                metaModel.ExternalId,
+                metaModel.IsFakeLicensee ? string.Empty : $"({metaModel.SystemId})",
+                currencyTitle);
         }
 
         protected BalanceUp GetBalanceUp()
@@ -198,48 +232,53 @@
                     SessionService.UserSession.CurrencyList, SessionService.LicenseeSession.LicenseeId, currencyId);
         }
 
-        protected FileContentResult EmptyExcel()
+        protected internal virtual FileContentResult EmptyExcel()
         {
-            return this.File(ExcelHelper.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
+            return File(ExcelHelper.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
         }
 
-        protected virtual ActionResult ExportExcel(BetListMetaModel metaModel)
+        protected virtual ActionResult ExportExcel(BetListMetaModel metaModel, string uspKey)
         {
             return null;
         }
 
-        protected ActionResult ProcessExportExcel(
+        protected virtual void AssignViewBag(BetListMetaModel model)
+        {
+        }
+
+        protected virtual bool IsValidExportExcel(BetListMetaModel model)
+        {
+            return IsValidCurrency(model.CurrencyId);
+        }
+
+        protected internal virtual ActionResult ProcessExportExcel(
+            ShowingOption showingOption,
             BetListMetaModel metaModel,
             TicketResult ticketResult,
             IEnumerable<int> hiddenColumns,
             string title,
-            string fileName)
+            string fileName,
+            int startIndex = 1)
         {
-            var showingOption = new ShowingOption
-            {
-                CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
-            };
+            var excel = new BetListExcel(showingOption, SessionService.LicenseeSession.LicenseeId, hiddenColumns, metaModel.IsShowSumStake);
 
-            var excel = new BetListExcel(showingOption, metaModel.LicenseeId, hiddenColumns, metaModel.IsShowSumStake);
-
-            var workbook = excel.Export(ticketResult, title);
+            var workbook = excel.Export(ticketResult, title, startIndex);
 
             return new ExcelResult(workbook, fileName);
         }
 
-        protected ActionResult ProcessDefaultRequest(BetListMetaModel metaModel, string viewPath)
+        protected ActionResult ProcessDefaultRequest(BetListMetaModel model, string viewPath, string uspKey)
         {
-            var model = CreateDefaultMetaModel(metaModel);
-
             if (!model.IsExportExcel)
             {
+                AssignViewBag(model);
                 return View(viewPath, model);
             }
 
-            if (IsValidCurrency(model.CurrencyId))
+            if (IsValidExportExcel(model))
             {
                 model.AgentListXml = SessionService.GenerateAgentListXml(model.CurrencyId);
-                return ExportExcel(model);
+                return ExportExcel(model, uspKey);
             }
 
             return EmptyExcel();

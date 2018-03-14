@@ -50,7 +50,6 @@
                 {
                     new Product { ProductCode = Product.NG },
                     new Product { ProductCode = Product.RB },
-                    new Product { ProductCode = Product.LC },
                     new Product { ProductCode = Product.CS },
                     new Product { ProductCode = Product.AB },
                 };
@@ -66,7 +65,6 @@
                 {
                     Assert.That(controller.ViewBag.IsAllowNG, Is.EqualTo(expectedResult));
                     Assert.That(controller.ViewBag.IsAllowRC, Is.EqualTo(expectedResult));
-                    Assert.That(controller.ViewBag.IsAllowLC, Is.EqualTo(expectedResult));
                     Assert.That(controller.ViewBag.IsAllowCS, Is.EqualTo(expectedResult));
                     Assert.That(controller.ViewBag.IsAllowAB, Is.EqualTo(expectedResult));
                 });
@@ -167,7 +165,6 @@
                     new Product { ProductCode = Product.RB },
                     new Product { ProductCode = Product.NG },
                     new Product { ProductCode = Product.CS },
-                    new Product { ProductCode = Product.LC },
                     new Product { ProductCode = Product.AB },
                 };
                 _productService.GetProductAccess(licenseeId, SessionService.UserSession.Language)
@@ -185,7 +182,7 @@
                 controller.Received(1).CreateExcel(
                     Arg.Any<string>(),
                     dataTable,
-                    Arg.Is<ShowingOption>(x => x.SBVisible && x.RBVisible && x.NGVisible && x.CSVisible && x.LCVisible && x.ABVisible));
+                    Arg.Is<ShowingOption>(x => x.SBVisible && x.RBVisible && x.NGVisible && x.CSVisible && x.ABVisible));
             }
         }
 

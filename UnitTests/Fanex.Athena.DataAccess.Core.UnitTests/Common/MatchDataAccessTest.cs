@@ -16,7 +16,7 @@
         {
             // Arrange
             dynamic param = new { LeagueId = 0 };
-            DataAccess.GetObjectDb(Arg.Is<string>("Lrf_Forecast_MatchList")).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_Forecast_MatchList")).Returns(ObjectDb);
             ObjectDb.When(x => x.ExecuteReader(Arg.Any<object>())).Do(x => param = x[0]);
 
             // Action
@@ -33,7 +33,7 @@
             const int LeagueId = 1;
             var expectedMatch = GetFakeMatch();
 
-            DataAccess.GetObjectDb(Arg.Is<string>("Lrf_Forecast_MatchList")).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_Forecast_MatchList")).Returns(ObjectDb);
             MapReaderData(expectedMatch);
             Reader.Read().Returns(true, false);
 
@@ -56,9 +56,8 @@
         {
             // Arrange
             const int LeagueId = 1;
-            var expectedMatch = GetFakeMatch();
 
-            DataAccess.GetObjectDb(Arg.Is<string>("Lrf_Forecast_MatchList")).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_Forecast_MatchList")).Returns(ObjectDb);
             ObjectDb.ExecuteReader(Arg.Any<object>()).Returns(x => { return null; });
 
             // Action
@@ -72,7 +71,7 @@
         public void GetAllRunningMatch_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            DataAccess.GetObjectDb(Arg.Is<string>("Lrf_LeagueMatchSelRunning")).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_LeagueMatchSelRunning")).Returns(ObjectDb);
             var sportId = 1;
 
             // Action
@@ -89,7 +88,7 @@
             const int SportId = 1;
             var expectedMatch = GetFakeMatch();
 
-            DataAccess.GetObjectDb(Arg.Is<string>("Lrf_LeagueMatchSelRunning")).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_LeagueMatchSelRunning")).Returns(ObjectDb);
             MapReaderData(expectedMatch);
             Reader.Read().Returns(true, false);
 
@@ -116,7 +115,7 @@
             var toDate = new DateTime(2016, 8, 11);
 
             dynamic param = new { LeagueId = 0 };
-            DataAccess.GetObjectDb(Arg.Is<string>("Lrf_SelMatchByLeague")).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_SelMatchByLeague")).Returns(ObjectDb);
             ObjectDb.When(x => x.ExecuteReader(Arg.Any<object>())).Do(x => param = x[0]);
 
             // Action
@@ -140,7 +139,7 @@
             var toDate = new DateTime(2016, 8, 11);
             var expectedMatch = GetFakeMatch();
 
-            DataAccess.GetObjectDb(Arg.Is<string>("Lrf_SelMatchByLeague")).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_SelMatchByLeague")).Returns(ObjectDb);
             MapReaderData(expectedMatch);
             Reader.Read().Returns(true, false);
 

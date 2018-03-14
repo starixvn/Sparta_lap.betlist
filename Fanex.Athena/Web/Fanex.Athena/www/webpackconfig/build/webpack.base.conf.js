@@ -76,7 +76,6 @@ function generateConfig(environment) {
             [`${jsPath}/pages/customer/dcsbetsetting`]: [pathConfig.scriptPaths.dcsbetsetting],
             [`${jsPath}/pages/customer/thirdpartybetsetting`]: [pathConfig.scriptPaths.thirdpartybetsetting],
             [`${jsPath}/pages/customer/kenobetsetting`]: [pathConfig.scriptPaths.kenobetsetting],
-            [`${jsPath}/pages/customer/livecasinobetsetting`]: [pathConfig.scriptPaths.livecasinobetsetting],
             [`${jsPath}/pages/customer/numbergamebetsetting`]: [pathConfig.scriptPaths.numbergamebetsetting],
             [`${jsPath}/pages/customer/exchangebetsetting`]: [pathConfig.scriptPaths.exchangebetsetting],
 

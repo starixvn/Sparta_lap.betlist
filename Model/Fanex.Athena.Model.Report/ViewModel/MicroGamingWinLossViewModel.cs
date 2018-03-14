@@ -11,12 +11,9 @@ namespace Fanex.Athena.Model.Report.ViewModel
     using Fanex.Athena.Model.Report.MetaModel;
     using Model.Core.ViewModel;
 
-    /// <summary>
-    /// MicroGamingWinLossViewModel class.
-    /// </summary>
     public class MicroGamingWinLossViewModel : BaseViewModel
     {
-        public IList<MicroGamingWinLoss> MainResult { get; set; }
+        public IEnumerable<MicroGamingWinLoss> MainResult { get; set; }
 
         public IDictionary<string, MicroGamingWinLoss> SummaryTotal { get; set; }
 

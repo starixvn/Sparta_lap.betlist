@@ -30,7 +30,7 @@
         public void GetBetSetting_WhenCall_ParameterPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_AGC_SelCustSetting")).Returns(_objectDb);
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_AGC_SelCustSetting")).Returns(_objectDb);
             var custId = 1;
 
             // Action
@@ -49,11 +49,11 @@
         public void UpdateBetSetting_WhenCall_ParameterPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_AGC_UpdCustSetting")).Returns(_objectDb);
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_AGC_UpdCustSetting")).Returns(_objectDb);
             var group = "GroupTest";
             var data = new CommonBetSetting
             {
-                Ip = "::1",
+                Ip = "IP",
                 Language = "LanguageTest",
                 UserId = 1,
                 CustId = 2
@@ -76,11 +76,11 @@
         public void UpdateStatus_WhenCall_ParameterPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_AGC_UpdCustStatus")).Returns(_objectDb);
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_AGC_UpdCustStatus")).Returns(_objectDb);
             var userId = 1;
             var custId = 2;
             var language = "LanguageTest";
-            var ip = "::1";
+            var ip = "IP";
             var isEnabled = true;
 
             // Action

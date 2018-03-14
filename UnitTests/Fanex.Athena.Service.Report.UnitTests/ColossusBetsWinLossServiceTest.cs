@@ -44,7 +44,7 @@
             };
             _dataAccess.GetSummaryWinloss(metaModel).Returns(new SortableReportResultModel<ColossusBetWinLoss> { DataList = dataList });
 
-            var expectedRowSpan = new int[] { 2, -1, 1 };
+            var expectedRowSpan = new[] { 2, -1, 1 };
 
             // Action
             var result = _service.GetSummaryWinloss(metaModel);

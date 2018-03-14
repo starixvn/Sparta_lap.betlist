@@ -2,14 +2,15 @@
 {
     using System.Collections.Generic;
     using System.Data;
+    using Constant.DataDomain;
     using DataAccess.Report.Interfaces;
-    using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
     using Report;
+    using VendorAdapter.Interfaces;
 
     public class MatchWinLossServiceTest
     {
@@ -20,7 +21,7 @@
         public void SetUp()
         {
             _dataAccess = Substitute.For<IMatchWinLossDataAccess>();
-            _service = new MatchWinLossService(_dataAccess);
+            _service = new MatchWinLossService(_dataAccess, Substitute.For<ICacheRefAdapter>());
         }
 
         [TearDown]
@@ -41,8 +42,7 @@
                 new MatchWinLoss { ProductName = Product.VS2 },
                 new MatchWinLoss { ProductName = Product.VS, SportType = (int)SportType.VirtualCycling },
                 new MatchWinLoss { ProductName = Product.RB },
-                new MatchWinLoss { ProductName = Product.NG },
-                new MatchWinLoss { ProductName = Product.LC, IsNeutral = true }
+                new MatchWinLoss { ProductName = Product.NG }
             };
 
             _dataAccess.GetDataList(metaModel).ReturnsForAnyArgs(dataList);

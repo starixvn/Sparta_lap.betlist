@@ -143,11 +143,11 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         public void AssignGrandTotalData_WhenCall_CallRelevantMethods()
         {
             // Arrange
-            const int RowIndex = 100;
+            const int RowIndex = 10;
             const int ColumnCurrency = 4;
             var row = ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, RowIndex);
             var excel = CreateExcel();
-            var expectedTitle = ReportExcelHelper.GenerateReportTitle(ViewResources.AGCasinoBalance, new ConvertingOption(), MetaModel);
+            ReportExcelHelper.GenerateReportTitle(ViewResources.AGCasinoBalance, new ConvertingOption(), MetaModel);
 
             // Action
             excel.AssignGrandTotalData(FakeSheet, RowIndex);

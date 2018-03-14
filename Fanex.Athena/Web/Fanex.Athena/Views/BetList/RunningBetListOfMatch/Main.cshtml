@@ -3,10 +3,13 @@
     Layout = "~/Views/Shared/_BetListSimpleLayout.cshtml";
 }
 
-@using Fanex.Athena.Model.Core.Helper
+@using Fanex.Athena.VendorAdapter;
 @model Fanex.Athena.Model.BetList.MetaModel.BetListMetaModel
 @section pagecss {}
 @section pagejs {}
+@{
+    var _cacheRefAdapter = new CacheRefAdapter();
+}
 @section ContentTitle
 {
     @{
@@ -16,7 +19,7 @@
             bettype = Model.MultipleBettype.Split(',')[0];
         }
     }
-    <span class="league-name-title"></span>@CacheRef.GetBettype(bettype) <span
+    <span class="league-name-title"></span>@_cacheRefAdapter.GetBettype(bettype) <span
         class="base-currency"> - @RazorHelper.ViewBaseCurrency(Model.CurrencyName, Model.BaseCurrency)</span>
 }
 @section BackButton

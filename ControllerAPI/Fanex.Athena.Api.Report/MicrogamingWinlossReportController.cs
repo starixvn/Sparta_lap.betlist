@@ -37,8 +37,9 @@ namespace Fanex.Athena.Api.Report
         public MicrogamingWinlossReportController(
             ISessionService sessionService,
             IProductService productService,
+            ILanguageService langService,
             IMicroGamingWinLossDataAccess microGamingWinLossDataAccess)
-            : base(sessionService, productService)
+            : base(sessionService, productService, langService)
         {
             _microGamingWinLossDataAccess = microGamingWinLossDataAccess;
         }
@@ -60,7 +61,7 @@ namespace Fanex.Athena.Api.Report
             {
                 return new
                 {
-                    Data = DoRestructureDataMicroGaming(result.DataList.GroupBy(i => new { i.TypeID, i.Date })),
+                    Data = DoRestructureData(result.DataList.GroupBy(i => new { i.TypeID, i.Date })),
                     Total = CalculateTotal(result.DataList),
                     SummaryTotal = result.SummaryTotal
                 };
@@ -69,7 +70,7 @@ namespace Fanex.Athena.Api.Report
             return GetEmptyMicroGamingWinLossResult();
         }
 
-        private static IList<MicroGamingWinLoss> DoRestructureDataMicroGaming(dynamic groupData)
+        private static IList<MicroGamingWinLoss> DoRestructureData(dynamic groupData)
         {
             var newDataList = new List<MicroGamingWinLoss>();
 
@@ -146,7 +147,7 @@ namespace Fanex.Athena.Api.Report
 
         private HttpResponseMessage ExportExcel(
             ThirdPartyWinLossMetaModel metaModel,
-            IList<MicroGamingWinLoss> dataList,
+            IEnumerable<MicroGamingWinLoss> dataList,
             IDictionary<string, MicroGamingWinLoss> summaryTotal)
         {
             var userSession = SessionService.UserSession;

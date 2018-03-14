@@ -22,12 +22,12 @@
     });
 
     describe("checkCommFirstLoad()", function () {
-        it("GroupComm.commissionOnChange(value, id) should be called with 7 times", function () {
+        it("GroupComm.commissionOnChange(value, id) should be called with 6 times", function () {
             spyOn(GroupComm, "commissionOnChange");
 
             UpdateGroup.checkCommFirstLoad();
 
-            expect(GroupComm.commissionOnChange.calls.count()).toBe(7);
+            expect(GroupComm.commissionOnChange.calls.count()).toBe(6);
         });
     });
 
@@ -51,7 +51,6 @@
             affix("input#DdlSBComm1[value=10]");
             affix("input#DdlRCComm1[value=11]");
             affix("input#DdlNGComm1[value=12]");
-            affix("input#DdlLCComm1[value=13]");
             affix("input#DdlCSComm1[value=14]");
             spyOn(GroupComm, "commissionOnChange");
 
@@ -112,12 +111,6 @@
             $("#DdlNGComm1").change();
 
             expect(GroupComm.commissionOnChange).toHaveBeenCalledWith("12", "#DdlNGComm");
-        });
-
-        it("GroupComm.commissionOnChange(value, id) should be called with correct parameters when '#DdlLCComm1' fired change event", function () {
-            $("#DdlLCComm1").change();
-
-            expect(GroupComm.commissionOnChange).toHaveBeenCalledWith("13", "#DdlLCComm");
         });
 
         it("GroupComm.commissionOnChange(value, id) should be called with correct parameters when '#DdlCSComm1' fired change event", function () {

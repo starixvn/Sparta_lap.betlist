@@ -249,15 +249,48 @@
             expect($input.val()).toBe("11,384");
         });
 
-        it("input value should be formated if value is not in range", function () {
+        it("input value should be sliced if value length is larger than max length", function () {
             var $input = $("#input");
             var event = $.Event("keyup");
             $input.val("2000");
 
-            $input.numbericTextBox(0, 1000);
+            $input.numbericTextBox(0, 999);
             $input.trigger(event);
 
             expect($input.val()).toBe("200");
+        });
+
+        it("input value should be min if value is less than min value", function () {
+            var $input = $("#input");
+            var event = $.Event("keyup");
+            $input.val("40");
+
+            $input.numbericTextBox(50, 999);
+            $input.trigger(event);
+
+            expect($input.val()).toBe("50");
+        });
+
+        it("input value should be max if value is greater than max value", function () {
+            var $input = $("#input");
+            var event = $.Event("keyup");
+            $input.val("800");
+
+            $input.numbericTextBox(50, 500);
+            $input.trigger(event);
+
+            expect($input.val()).toBe("500");
+        });
+
+        it("do nothing if value is valid", function () {
+            var $input = $("#input");
+            var event = $.Event("keyup");
+            $input.val("8000");
+
+            $input.numbericTextBox(50, 9999);
+            $input.trigger(event);
+
+            expect($input.val()).toBe("8,000");
         });
     });
 

@@ -21,7 +21,8 @@ namespace Fanex.Athena.Excel.Report.UnitTests
     [TestFixture]
     public class ActiveCustomerSummaryExcelTest : BaseReportExcelTest
     {
-        private const int ColumnCount = 21;
+        private const int ColumnTotalTransaction = 18;
+        private const int ColumnCount = 19;
 
         private static readonly ActiveCustomer DataItem = new ActiveCustomer
         {
@@ -72,7 +73,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             // Arrange
             var offeredProducts = new[]
             {
-                Product.SB, Product.RB, Product.NG, Product.BA, Product.LC, Product.VS, Product.CS, Product.BG, Product.KN, Product.PTCS,
+                Product.SB, Product.RB, Product.NG, Product.BA, Product.VS, Product.CS, Product.KN, Product.PTCS,
                 Product.AGC, Product.MGCLC, Product.CB, Product.MGCRNG, Product.AB, Product.VB, Product.FW, Product.VS2, Product.LT
             };
             var row1 = ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, ReportBase.RowHeaderTemplate);
@@ -88,7 +89,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
                 FakeSheet.Received().CopyRow(excel.TemplateSheet, ReportBase.RowHeaderTemplate, ReportBase.RowHeaderTemplate);
                 row1.Cells[0].Received(1).SetCellValue(ViewResources.Month);
                 row1.Cells[1].Received(1).SetCellValue(ViewResources.Product);
-                row1.Cells[20].Received(1).SetCellValue(ViewResources.Total);
+                row1.Cells[ColumnTotalTransaction].Received(1).SetCellValue(ViewResources.Total);
 
                 for (int i = 0; i < offeredProducts.Length; i++)
                 {
@@ -112,7 +113,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             Assert.Multiple(() =>
             {
                 row.Cells[0].Received(1).SetCellValue(DataItem.TransactionDate.ToString("MM/yyyy"));
-                row.Cells[20].Received(1).SetCellValue(DataItem.TotalCustomer);
+                row.Cells[ColumnTotalTransaction].Received(1).SetCellValue(DataItem.TotalCustomer);
                 row.Cells[1].Received(1).SetCellValue(DataItem.CustomerCount[MetaModel.ProductOptions[0].Code]);
                 totalRow.Cells[0].Received(1).SetCellValue(ViewResources.TotalActiveCustomer + " = " + ViewModel.TotalCustomer.ToString("#,##0"));
             });

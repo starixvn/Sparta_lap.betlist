@@ -10,11 +10,18 @@ namespace Fanex.Athena.Controllers.BetList
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
+    using DataAccess.Core.Configuration.Interfaces;
+    using Extension.Utility;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.MetaModel.Product;
     using Model.BetList.ViewModel;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
+    using Service.BetList.Interfaces;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
+    using Service.Core.Users.Interfaces;
+    using VendorAdapter.Interfaces;
     using Web.ActionFilter;
 
     [FunctionAuthorization(PermissionKeys.CustomerInfoCustomerList)]
@@ -23,9 +30,26 @@ namespace Fanex.Athena.Controllers.BetList
         private const string BetListCustomerOutstandingName = "BetList_CustomerOutstanding";
         private const string BetListCustomerOutstandingRunningName = "BetList_CustomerOutstandingRunning";
 
+        public CustomerOutstandingBetListController()
+        {
+        }
+
+        public CustomerOutstandingBetListController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
+            IProductService productService,
+            IBetListService betListService,
+            IBalanceUpDataAccess balanceUpDataAccess,
+            ICacheRefAdapter cacheRefAdapter)
+        : base(languageService, sessionService, appSetting, clientViewHelper, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
+        {
+        }
+
         public ActionResult Index(BetListMetaModel metaModel)
         {
-            var isRunningBetlist = metaModel.BetListName.Equals("betlistrunning", StringComparison.OrdinalIgnoreCase);
+            var isRunningBetlist = !string.IsNullOrEmpty(metaModel.BetListName) && metaModel.BetListName.Equals("betlistrunning", StringComparison.OrdinalIgnoreCase);
             var viewParam = CreateDefaultMetaModel(metaModel);
 
             viewParam.FromDate = isRunningBetlist ? new DateTime(DateTime.Now.Year - 1, 1, 1) : viewParam.MoveBetsDay.AddDays(1);

@@ -2,7 +2,6 @@
 {
     using System;
     using DataAccess.Report.Interfaces;
-    using Fanex.Result.Core.LiveCasino.DTO;
     using Fanex.Result.Core.Racing.DTO;
     using Fanex.Result.Core.Sportsbook.DTO;
     using Model.Report.MetaModel;
@@ -84,19 +83,6 @@
         }
 
         [Test]
-        public void GetLiveCasinoMatches_WhenCall_ReturnDataFromDataAccess()
-        {
-            // Arrange
-            var metaModel = new ResultMetalModel();
-
-            // Action
-            _service.GetLiveCasinoMatches(metaModel);
-
-            // Assert
-            _dataAccess.Received().GetMatches<LiveCasino>(metaModel);
-        }
-
-        [Test]
         public void GetNumberGameMatches_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
@@ -148,21 +134,6 @@
 
             // Assert
             _dataAccess.Received().GetPopUpMatches<Sportsbook>(MatchId, -1, BettypeId, BetId);
-        }
-
-        [Test]
-        public void GetPopUpLiveCasinoMatch_WhenCall_ReturnDataFromDataAccess()
-        {
-            // Arrange
-            const int MatchId = 1;
-            const int BettypeId = 2;
-            const long BetId = 3;
-
-            // Action
-            _service.GetPopUpLiveCasinoMatch(MatchId, BettypeId, BetId);
-
-            // Assert
-            _dataAccess.Received().GetPopUpMatches<LiveCasino>(MatchId, -1, BettypeId, BetId);
         }
 
         [Test]

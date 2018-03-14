@@ -9,12 +9,15 @@ namespace Fanex.Athena.Controllers.WareHouse
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Web.Hosting;
     using System.Web.Mvc;
     using DataAccess.Core.Common;
     using DataAccess.Core.Common.Interfaces;
+    using DataAccess.Core.Configuration.Interfaces;
     using DataAccess.Warehouse;
     using DataAccess.Warehouse.Interfaces;
-    using Fanex.Athena.Excel.Base.Entities;
+    using Excel.Base.Entities;
+    using Extension.Utility;
     using Fanex.Athena.Excel.Warehouse;
     using Fanex.Athena.Model.Warehouse.MetaModel;
     using Fanex.Athena.Model.Warehouse.ViewModel;
@@ -23,6 +26,9 @@ namespace Fanex.Athena.Controllers.WareHouse
     using Model.Core.DataDomain;
     using Model.Warehouse.DTO;
     using Resources;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
+    using Service.Core.Users.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.WarehouseTopCustomer)]
     public class TopCustomerWareHouseController : WareHouseBaseController
@@ -35,6 +41,24 @@ namespace Fanex.Athena.Controllers.WareHouse
         {
             _sportTypeDataAccess = new SportTypeDataAccess();
             _topCustomerDataAccess = new TopCustomerDataAccess();
+        }
+
+#pragma warning disable S107 // Methods should not have too many parameters
+
+        public TopCustomerWareHouseController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
+            IBalanceUpDataAccess balancUpDataAccess,
+            IProductService productService,
+            ISportTypeDataAccess sportTypeDataAccess,
+            ITopCustomerDataAccess topCustomerDataAccess)
+#pragma warning restore S107 // Methods should not have too many parameters
+        : base(languageService, sessionService, appSetting, clientViewHelper, balancUpDataAccess, productService)
+        {
+            _sportTypeDataAccess = sportTypeDataAccess;
+            _topCustomerDataAccess = topCustomerDataAccess;
         }
 
         [HttpGet]
@@ -83,11 +107,9 @@ namespace Fanex.Athena.Controllers.WareHouse
                 SportList = _sportTypeDataAccess.GetAllWHSports(),
             };
 
-            var totalValues = new Dictionary<string, decimal>();
-
             ViewBag.BalanceUpDay = GetBalanceUp().BalanceUpDay.ToShortDateString();
-            model.MainResult = GetTopCustomerList(metaModel, ref totalValues);
-            model.TotalValues = totalValues;
+            model.MainResult = GetTopCustomerList(metaModel);
+            model.TotalValues = GetTopCustomerTotalInfo(model.MainResult);
 
             ViewBag.MaxDate = GetBalanceUp().MoveBetsDay;
             return View("~/Views/WareHouse/TopCustomer/Main.cshtml", model);
@@ -97,12 +119,10 @@ namespace Fanex.Athena.Controllers.WareHouse
         [CustomValidateAntiForgery]
         public ActionResult Excel(TopCustomerMetaModel metaModel)
         {
-            const string FileName = "TopCustomer";
-            const string FormatTitle = "{0} {1} {2} {3} {4} --> {5} - {6}";
-            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-            var templatePath = Server.MapPath("~/App_Data/Template/DataWareHouse/TopCustomer.xls");
+            var templatePath = HostingEnvironment.MapPath("~/App_Data/Template/DataWareHouse/TopCustomer.xls");
             var showingOption = GetShowingOption();
 
+            const string FormatTitle = "{0} {1} {2} {3} {4} --> {5} - {6}";
             var viewByCurrency =
                 string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpperInvariant() : metaModel.CurrencyName);
             var titleText = string.Format(
@@ -115,14 +135,24 @@ namespace Fanex.Athena.Controllers.WareHouse
                 metaModel.ToDate.ToShortDateString(),
                 viewByCurrency);
 
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             var exportData = metaModel.IsValid
                        ? _topCustomerDataAccess.GetDataForExcel(metaModel)
                        : new DataTable();
 
-            var topCustExcel = new TopCustomerExcel(templatePath, showingOption, exportData, titleText);
+            var topCustExcel = CreateExcel(templatePath, showingOption, exportData, titleText);
 
             topCustExcel.Export();
-            return new ExcelResult(topCustExcel.Workbook, FileName);
+            return new ExcelResult(topCustExcel.Workbook, "TopCustomer");
+        }
+
+        protected internal virtual TopCustomerExcel CreateExcel(
+            string templatePath,
+            ShowingOption showingOption,
+            DataTable exportData,
+            string titleText)
+        {
+            return new TopCustomerExcel(templatePath, showingOption, exportData, titleText);
         }
 
         private static Dictionary<string, decimal> GetTopCustomerTotalInfo(IEnumerable<TopCustomer> dataList)
@@ -138,7 +168,7 @@ namespace Fanex.Athena.Controllers.WareHouse
                         { "totalrows", 0 }
                     };
 
-            if (dataList != null)
+            if (dataList != null && dataList.Any())
             {
                 totalValues["betcount"] = dataList.Sum(x => x.BetCount);
                 totalValues["turnover"] = dataList.Sum(x => x.Turnover);
@@ -153,12 +183,12 @@ namespace Fanex.Athena.Controllers.WareHouse
             return totalValues;
         }
 
-        private IList<TopCustomer> GetTopCustomerList(TopCustomerMetaModel model, ref Dictionary<string, decimal> totalValues)
+        private IList<TopCustomer> GetTopCustomerList(TopCustomerMetaModel model)
         {
             var dataList = model.IsValid
                                ? _topCustomerDataAccess.GetDataList(model)
                                : new List<TopCustomer>();
-            totalValues = GetTopCustomerTotalInfo(dataList);
+
             return dataList;
         }
     }

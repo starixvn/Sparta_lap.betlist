@@ -6,66 +6,69 @@
 
 namespace Fanex.Athena.Controllers.BetList
 {
-    using System.Collections.Generic;
-
     #region Using
 
+    using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
     using DataAccess.BetList;
     using DataAccess.BetList.Interfaces;
+    using DataAccess.Core.Configuration.Interfaces;
+    using Extension.Utility;
     using Fanex.Athena.Excel.Base.Entities;
-    using Fanex.Athena.Excel.BetList;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.BetList.ViewModel;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Web.ActionFilter;
-    using Fanex.Athena.Web.ResultExtension;
     using Model.BetList.DTO;
     using Resources;
+    using Service.BetList.Interfaces;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
+    using Service.Core.Users;
+    using Service.Core.Users.Interfaces;
+    using VendorAdapter.Interfaces;
 
     #endregion Using
 
     [FunctionAuthorization(PermissionKeys.ReportCancelledBets)]
     public class CancelledBetsBetListController : BetListBaseController
     {
+        private readonly IAuthorizationService _authorizationService;
+
         private readonly ICancelledBetListDataAccess _cancelledBetListDataAccess;
 
         public CancelledBetsBetListController()
         {
+            _authorizationService = new AuthorizationService();
             _cancelledBetListDataAccess = new CancelledBetListDataAccess();
+        }
+
+        public CancelledBetsBetListController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
+            IProductService productService,
+            IBetListService betListService,
+            IBalanceUpDataAccess balanceUpDataAccess,
+            ICacheRefAdapter cacheRefAdapter,
+            IAuthorizationService authorizationService,
+            ICancelledBetListDataAccess cancelledBetListDataAccess)
+        : base(languageService, sessionService, appSetting, clientViewHelper, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
+        {
+            _authorizationService = authorizationService;
+            _cancelledBetListDataAccess = cancelledBetListDataAccess;
         }
 
         [HttpGet]
         public ActionResult Index()
         {
-            var metaModel = CreateDefaultMetaModel();
+            var viewParam = CreateDefaultMetaModel();
 
-            SetConvetedUSDCurrencyName(metaModel);
+            SetConvetedUSDCurrencyName(viewParam);
 
-            var licenseeSession = SessionService.LicenseeSession;
-            var userSession = SessionService.UserSession;
-            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-            var customers = GetData(metaModel);
-
-            if (customers.Any())
-            {
-                var customerCancelBetItem = customers.FirstOrDefault();
-                if (customerCancelBetItem != null)
-                {
-                    metaModel.CustId = customerCancelBetItem.CustId;
-                }
-            }
-
-            var model = new CancelledBetsBetListViewModel
-            {
-                ShowEmptyContent = true,
-                Param = metaModel,
-                CurrencyList = userSession.CurrencyList,
-                ProductAccess = ProductService.GetProductAccess(metaModel.LicenseeId, userSession.Language),
-                IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                CustomerList = customers
-            };
+            var model = CreateViewModel(viewParam);
 
             return View("~/Views/BetList/CancelledBetsBetList/Main.cshtml", model);
         }
@@ -79,33 +82,33 @@ namespace Fanex.Athena.Controllers.BetList
                 return Excel(metaModel);
             }
 
-            var licenseeSession = SessionService.LicenseeSession;
-            var userSession = SessionService.UserSession;
-
             var viewParam = CreateDefaultMetaModel(metaModel);
-            viewParam.AgentListXml = SessionService.GenerateAgentListXml(viewParam.CurrencyId);
-            var custList = GetData(viewParam);
 
-            if (custList.Any())
+            var model = CreateViewModel(viewParam);
+
+            return View("~/Views/BetList/CancelledBetsBetList/Main.cshtml", model);
+        }
+
+        private CancelledBetsBetListViewModel CreateViewModel(BetListMetaModel viewParam)
+        {
+            viewParam.AgentListXml = SessionService.GenerateAgentListXml(viewParam.CurrencyId);
+            var customers = GetData(viewParam);
+
+            if (customers.Any())
             {
-                var customerCancelBetItem = custList.FirstOrDefault();
-                if (customerCancelBetItem != null)
-                {
-                    viewParam.CustId = customerCancelBetItem.CustId;
-                }
+                viewParam.CustId = customers.First().CustId;
             }
 
-            var model = new CancelledBetsBetListViewModel
+            var userSession = SessionService.UserSession;
+            return new CancelledBetsBetListViewModel
             {
                 ShowEmptyContent = true,
                 Param = viewParam,
                 CurrencyList = userSession.CurrencyList,
                 ProductAccess = ProductService.GetProductAccess(viewParam.LicenseeId, userSession.Language),
-                IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                CustomerList = custList,
+                IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm,
+                CustomerList = customers
             };
-
-            return View("~/Views/BetList/CancelledBetsBetList/Main.cshtml", model);
         }
 
         private ActionResult Excel(BetListMetaModel metaModel)
@@ -123,18 +126,10 @@ namespace Fanex.Athena.Controllers.BetList
                 {
                     CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
                 };
-                var currencyTitle = string.Format(
-                    ViewResources.Viewin,
-                    excelModel.IsConvert ? excelModel.BaseCurrency.ToUpperInvariant() : excelModel.CurrencyName);
-                var title = ViewResources.CancelledBets
-                    + string.Format(" - {0}", currencyTitle);
+                var currencyTitle = GetViewInCurrency(excelModel);
+                var title = $"{ViewResources.CancelledBets} - {currencyTitle}";
 
-                var excel = new BetListExcel(
-                    showingOption, excelModel.LicenseeId, HiddenColumnIndexes);
-
-                var workbook = excel.Export(ticketResult, title);
-
-                return new ExcelResult(workbook, "CancelledBetList");
+                return ProcessExportExcel(showingOption, excelModel, ticketResult, HiddenColumnIndexes, title, "CancelledBetList");
             }
 
             return EmptyExcel();
@@ -145,6 +140,11 @@ namespace Fanex.Athena.Controllers.BetList
             return HasPermissionOnData(metaModel) ?
                 _cancelledBetListDataAccess.GetCancelBetCustList(metaModel) :
                 new List<CustomerCancelBetItem>();
+        }
+
+        private bool HasPermissionOnData(BetListMetaModel metaModel)
+        {
+            return _authorizationService.HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId, metaModel.TransId);
         }
     }
 }

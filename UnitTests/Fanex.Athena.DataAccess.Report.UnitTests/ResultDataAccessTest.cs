@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Data;
     using Core.Configuration.Interfaces;
+    using Core.UnitTests.TestHelpers;
     using Data;
     using Fanex.Athena.UnitTest.Common.NUnitExtensions;
     using Model.Core.DTO.Common;
@@ -11,21 +12,33 @@
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using Result.Core.LiveCasino.DTO;
     using Result.Core.NumberGame.DTO;
     using Result.Core.Racing.DTO;
     using Result.Core.Sportsbook.DTO;
-    using UnitTest.Common.Helpers;
 
     [TestFixture]
-    public class ResultDataAccessTest
+    public partial class ResultDataAccessTest : BaseDataAccessHelperTest<ResultDataAccess>
     {
-        private ResultDataAccess _dataAccess;
+        private const string GetOutRightSp = "Lrf_Result_Outright";
+        private const string GetSportsSp = "Lrf_Result_SportSelByDate";
+        private const string GetLeaguesSp = "Lrf_Result_LeagueSelByDate";
+        private const string GetNumberGameMatchesSp = "Lrf_Result_MatchSelNumberGameByLeague";
+        private const string GetRacingMatchesSp = "Lrf_Result_RaceSelByMeeting";
+        private const string GetPopUpMatchesSp = "Lrf_BetList_SelMatchResult";
+        private const string GetPopUpParalayMatchSp = "Lrf_BetList_SelMatchResultParlay";
+        private const string GetPopUpNumberGameMatchSp = "Lrf_BetList_SelMatchResultNumberGame";
+        private const string GetMatchesSp = "Lrf_Result_MatchSelByLeague";
+
+        private const int MatchId = 1;
+        private const int RaceNo = 2;
+        private const int BettypeId = 5;
+        private const long BetId = 6;
+
         private BalanceUp _balance;
         private ResultMetalModel _metaModel;
 
         [OneTimeSetUp]
-        public void Setup()
+        public override void FixtureSetUp()
         {
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             _balance = new BalanceUp
@@ -35,7 +48,8 @@
             };
             balanceUpDataAccess.GetBalanceUp().Returns(_balance);
 
-            _dataAccess = Substitute.ForPartsOf<ResultDataAccess>(balanceUpDataAccess);
+            DataAccess = Substitute.ForPartsOf<ResultDataAccess>(balanceUpDataAccess);
+            ObjectDb = Substitute.For<IObjectDb>();
 
             _metaModel = new ResultMetalModel
             {
@@ -45,21 +59,21 @@
         }
 
         [OneTimeTearDown]
-        public void TearDown()
+        public override void FixtureTearDown()
         {
-            _dataAccess = null;
             _metaModel = null;
             _balance = null;
+
+            base.FixtureTearDown();
         }
 
         [Test]
         public void GetOutRight_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Result_Outright")).Returns(objectDb);
+            DataAccess.GetObjectDb(Arg.Is(GetOutRightSp)).Returns(ObjectDb);
             dynamic param = null;
-            objectDb.ExecuteReader(Arg.Do<dynamic>(arg => param = arg));
+            ObjectDb.ExecuteReader(Arg.Do<dynamic>(arg => param = arg));
             var expectedParam = new
             {
                 fromdate = _metaModel.FromDate,
@@ -68,7 +82,7 @@
             };
 
             // Action
-            _dataAccess.GetOutRight(_metaModel);
+            DataAccess.GetOutRight(_metaModel);
 
             // Assert
             Assert.That(param, Tobe.SameProperties(expectedParam));
@@ -78,12 +92,9 @@
         public void GetOutRight_WhenCall_ReturnCorrectData()
         {
             // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Result_Outright")).Returns(objectDb);
+            DataAccess.GetObjectDb(Arg.Is(GetOutRightSp)).Returns(ObjectDb);
 
-            var reader = Substitute.For<IDataReader>();
-            objectDb.ExecuteReader(Arg.Any<object>()).Returns(reader);
-            reader.Read().Returns(true, false);
+            Reader.Read().Returns(true, false);
 
             var readerDataMapping = new
             {
@@ -93,7 +104,7 @@
                 teamid = 3,
                 status = "win"
             };
-            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
+            MapReaderData(readerDataMapping);
 
             var outrights = new List<Outright>
             {
@@ -108,7 +119,7 @@
             };
 
             // Action
-            var result = _dataAccess.GetOutRight(_metaModel);
+            var result = DataAccess.GetOutRight(_metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -119,26 +130,31 @@
         }
 
         [Test]
+        public void GetOutRight_WhenReceiveObjectDbException_ThrowDataAccessException()
+        {
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                GetOutRightSp,
+                () => DataAccess.GetOutRight(_metaModel));
+        }
+
+        [Test]
         public void GetSports_ParameterPassedCorrectly()
         {
             // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Result_SportSelByDate")).Returns(objectDb);
-            var reader = Substitute.For<IDataReader>();
-            objectDb.ExecuteReader().Returns(reader);
+            DataAccess.GetObjectDb(Arg.Is(GetSportsSp)).Returns(ObjectDb);
 
             var date = new DateTime(2017, 3, 16);
             var licenseeId = 1;
 
             // Action
-            _dataAccess.GetSports(date, licenseeId);
+            DataAccess.GetSports(date, licenseeId);
 
             // Assert
             Assert.Multiple(() =>
             {
-                objectDb.Received().AddInParameter("eventdate", DbType.DateTime, date);
-                objectDb.Received().AddInParameter("licenseeid", DbType.Int32, licenseeId);
-                objectDb.Received().AddInParameter("movebetsday", DbType.DateTime, _balance.MoveBetsDay);
+                ObjectDb.Received().AddInParameter("eventdate", DbType.DateTime, date);
+                ObjectDb.Received().AddInParameter("licenseeid", DbType.Int32, licenseeId);
+                ObjectDb.Received().AddInParameter("movebetsday", DbType.DateTime, _balance.MoveBetsDay);
             });
         }
 
@@ -147,40 +163,43 @@
         {
             // Arrange
             const int SportId = 111;
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Result_SportSelByDate")).Returns(objectDb);
-            var reader = Substitute.For<IDataReader>();
-            objectDb.ExecuteReader().Returns(reader);
-            reader.Read().Returns(true, false);
+            DataAccess.GetObjectDb(Arg.Is(GetSportsSp)).Returns(ObjectDb);
 
+            Reader.Read().Returns(true, false);
             var expectedResult = new List<Sport>
             {
                 new Sport(SportId)
             };
-
             var readerDataMapping = new
             {
                 sporttype = SportId
             };
-            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
+            MapReaderData(readerDataMapping);
             var date = new DateTime(2017, 3, 16);
             var licenseeId = 1;
 
             // Action
-            var result = _dataAccess.GetSports(date, licenseeId);
+            var result = DataAccess.GetSports(date, licenseeId);
 
             // Assert
             Assert.That(result[0].SportId, Is.EqualTo(expectedResult[0].SportId));
         }
 
         [Test]
+        public void GetSports_WhenReceiveObjectDbException_ThrowDataAccessException()
+        {
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                GetSportsSp,
+                () => DataAccess.GetSports(new DateTime(), 0));
+        }
+
+        [Test]
         public void GetLeagues_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Result_LeagueSelByDate")).Returns(objectDb);
+            DataAccess.GetObjectDb(Arg.Is(GetLeaguesSp)).Returns(ObjectDb);
             dynamic param = null;
-            objectDb.ExecuteReader(Arg.Do<dynamic>(arg => param = arg));
+            ObjectDb.ExecuteReader(Arg.Do<dynamic>(arg => param = arg));
 
             var date = new DateTime(2017, 3, 16);
             var sportId = 1;
@@ -193,7 +212,7 @@
             };
 
             // Action
-            _dataAccess.GetLeagues(date, sportId);
+            DataAccess.GetLeagues(date, sportId);
             var result = param;
 
             // Assert
@@ -204,43 +223,47 @@
         public void GetLeagues_WhenCall_ReturnCorrectData()
         {
             // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_Result_LeagueSelByDate")).Returns(objectDb);
-            var reader = Substitute.For<IDataReader>();
-            objectDb.ExecuteReader(Arg.Any<object>()).Returns(reader);
-            reader.Read().Returns(true, false);
+            DataAccess.GetObjectDb(Arg.Is(GetLeaguesSp)).Returns(ObjectDb);
+
+            Reader.Read().Returns(true, false);
 
             var expectedResult = new List<League>
             {
                 new League { LeagueId = 1 }
             };
-
             var readerDataMapping = new
             {
                 leagueid = 1
             };
-            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
+            MapReaderData(readerDataMapping);
 
             var date = new DateTime(2017, 3, 16);
             var sportId = 1;
 
             // Action
-            var result = _dataAccess.GetLeagues(date, sportId);
+            var result = DataAccess.GetLeagues(date, sportId);
 
             // Assert
             Assert.That(result[0].LeagueId, Is.EqualTo(expectedResult[0].LeagueId));
         }
 
         [Test]
+        public void GetLeagues_WhenReceiveObjectDbException_ThrowDataAccessException()
+        {
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                GetLeaguesSp,
+                () => DataAccess.GetLeagues(new DateTime(), 0));
+        }
+
+        [Test]
         public void GetNumberGameMatches_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_Result_MatchSelNumberGameByLeague")).Returns(objectDb);
+            DataAccess.GetObjectDb(Arg.Is(GetNumberGameMatchesSp)).Returns(ObjectDb);
             _metaModel.LeagueId = 1;
 
             dynamic result = null;
-            objectDb.ExecuteReader(Arg.Do<dynamic>(x => result = x));
+            ObjectDb.ExecuteReader(Arg.Do<dynamic>(x => result = x));
             var expectedResult = new
             {
                 fromdate = _metaModel.FromDate,
@@ -249,7 +272,7 @@
             };
 
             // Action
-            _dataAccess.GetNumberGameMatches(_metaModel);
+            DataAccess.GetNumberGameMatches(_metaModel);
 
             // Assert
             Assert.That(result, Tobe.SameProperties(expectedResult));
@@ -259,20 +282,19 @@
         public void GetNumberGameMatches_WhenCall_ReturnCorrectData()
         {
             // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_Result_MatchSelNumberGameByLeague")).Returns(objectDb);
+            DataAccess.GetObjectDb(Arg.Is(GetNumberGameMatchesSp)).Returns(ObjectDb);
             _metaModel.LeagueId = 1;
-            var reader = Substitute.For<IDataReader>();
-            objectDb.ExecuteReader(Arg.Any<object>()).Returns(reader);
-            reader.Read().Returns(true, true, false);
-            reader.FieldCount.Returns(1);
-            reader.GetName(0).Returns("isrefund");
+
+            Reader.Read().Returns(true, true, false);
+            Reader.FieldCount.Returns(1);
+            Reader.GetName(0).Returns("isrefund");
+
             var readerDataMapping = new Dictionary<string, object>
             {
                 { "leagueid", 1 }, { "matchid", 2 }, { "eventstatus", "win" }, { "eventdate", "03/16/2017" }, { "isrefund", "1" },
                 { "kickofftime", "1/1/2017" }, { "matchcode", "test" }, { "seq", 3 }, { "number", 4 }
             };
-            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
+            MapReaderData(readerDataMapping);
 
             var expectedResult = new List<NumberGame>
             {
@@ -291,7 +313,7 @@
             };
 
             // Action
-            var result = _dataAccess.GetNumberGameMatches(_metaModel);
+            var result = DataAccess.GetNumberGameMatches(_metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -302,13 +324,20 @@
         }
 
         [Test]
+        public void GetNumberGameMatches_WhenReceiveObjectDbException_ThrowDataAccessException()
+        {
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                GetNumberGameMatchesSp,
+                () => DataAccess.GetNumberGameMatches(_metaModel));
+        }
+
+        [Test]
         public void GetRacingMatches_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_Result_RaceSelByMeeting")).Returns(objectDb);
+            DataAccess.GetObjectDb(Arg.Is(GetRacingMatchesSp)).Returns(ObjectDb);
             dynamic param = null;
-            objectDb.ExecuteReader(Arg.Do<dynamic>(x => param = x));
+            ObjectDb.ExecuteReader(Arg.Do<dynamic>(x => param = x));
             _metaModel.SportId = 1;
             _metaModel.LeagueId = 2;
             var expectedResult = new
@@ -320,7 +349,7 @@
             };
 
             // Action
-            _dataAccess.GetRacingMatches(_metaModel);
+            DataAccess.GetRacingMatches(_metaModel);
             var result = param;
 
             // Assert
@@ -331,11 +360,9 @@
         public void GetRacingMatches_WhenCall_ReturnCorrectData()
         {
             // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_Result_RaceSelByMeeting")).Returns(objectDb);
-            var reader = Substitute.For<IDataReader>();
-            objectDb.ExecuteReader(Arg.Any<object>()).Returns(reader);
-            reader.Read().Returns(true, false);
+            DataAccess.GetObjectDb(Arg.Is(GetRacingMatchesSp)).Returns(ObjectDb);
+
+            Reader.Read().Returns(true, false);
 
             var readerDataMapping = new Dictionary<string, object>
             {
@@ -343,12 +370,12 @@
                 { "place", 2 }, { "placeodds", 10.5m }, { "odds", 0.5m }, { "racename", 4 }, { "kickofftime", "03/16/2017" },
                 { "rowcount", 4 }, { "SCR", "SCR" }, { "TF", "TF" }
             };
-            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
+            MapReaderData(readerDataMapping);
 
             var expectedResult = GetExpectedRacingData();
 
             // Action
-            var result = _dataAccess.GetRacingMatches(_metaModel);
+            var result = DataAccess.GetRacingMatches(_metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -359,870 +386,59 @@
         }
 
         [Test]
-        public void GetPopUpMatches_WhenCall_ParametersPassedCorrectly()
+        public void GetRacingMatches_WhenReceiveObjectDbException_ThrowDataAccessException()
         {
-            // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_BetList_SelMatchResult")).Returns(objectDb);
-            dynamic result = null;
-            objectDb.ExecuteReader(Arg.Do<dynamic>(x => result = x));
-            var matchId = 1;
-            var raceNo = 2;
-            var bettypeId = 5;
-            long? betId = 6;
-
-            var expectedResult = new
-            {
-                matchid = matchId,
-                raceno = raceNo,
-                bettype = bettypeId,
-                betid = betId
-            };
-
-            // Action
-            _dataAccess.GetPopUpMatches<Sportsbook>(matchId, raceNo, bettypeId, betId);
-
-            // Assert
-            Assert.That(result, Tobe.SameProperties(expectedResult));
-        }
-
-        [Test]
-        public void GetPopUpMatches_TypeIsSportsbook_ReturnCorrectData()
-        {
-            // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_BetList_SelMatchResult")).Returns(objectDb);
-            var reader = Substitute.For<IDataReader>();
-            objectDb.ExecuteReader(Arg.Any<object>()).Returns(reader);
-            reader.Read().Returns(true, false, true, false);
-            reader.NextResult().Returns(true);
-
-            reader.FieldCount.Returns(3);
-            reader.GetName(0).Returns("lcolor");
-            reader.GetName(1).Returns("LiveAwayScore");
-            reader.GetName(2).Returns("LiveHomeScore");
-
-            var dataMapping = GetReaderDataMappingForSportsbookType();
-            var dataMappingForGameDetail = GetReaderDataMappingForGameDetail();
-            MergeReaderDataMapping(dataMapping, dataMappingForGameDetail);
-            DataAccessTestHelper.MapReaderData(reader, dataMapping);
-            var matchId = 1;
-            var raceNo = 2;
-            var bettypeId = 5;
-            long? betId = 6;
-
-            var expectedResult = new List<Sportsbook> { GetExpectedSportsbookData() };
-
-            // Action
-            var result = _dataAccess.GetPopUpMatches<Sportsbook>(matchId, raceNo, bettypeId, betId);
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(result.Count, Is.EqualTo(expectedResult.Count));
-                Assert.That(result[0], Tobe.SameProperties(expectedResult[0]));
-            });
-        }
-
-        [Test]
-        public void GetPopUpMatches_TypeIsSportsbookWithSomeReturnedNullValues_ReturnCorrectData()
-        {
-            // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_BetList_SelMatchResult")).Returns(objectDb);
-            var reader = Substitute.For<IDataReader>();
-            objectDb.ExecuteReader(Arg.Any<object>()).Returns(reader);
-            reader.Read().Returns(true, false, true, false);
-            reader.NextResult().Returns(true);
-
-            reader.FieldCount.Returns(1);
-            reader.GetName(0).Returns("lcolor");
-
-            var dataMapping = GetReaderDataMappingForSportsbookType();
-            dataMapping["betstatus"] = DBNull.Value;
-            dataMapping["lcolor"] = DBNull.Value;
-            var dataMappingForGameDetail = GetReaderDataMappingForGameDetail();
-            dataMappingForGameDetail["ResultStatusID"] = DBNull.Value;
-            dataMappingForGameDetail["SettlementStatusID"] = DBNull.Value;
-            MergeReaderDataMapping(dataMapping, dataMappingForGameDetail);
-            DataAccessTestHelper.MapReaderData(reader, dataMapping);
-            int matchId = 1, raceNo = 2, bettypeId = 5;
-            long? betId = 6;
-
-            var sportsbookData = GetExpectedSportsbookData();
-            sportsbookData.BetStatus = string.Empty;
-            sportsbookData.Color = string.Empty;
-            sportsbookData.LiveAwayScore = null;
-            sportsbookData.LiveHomeScore = null;
-            sportsbookData.GameDetails[0].ResultStatusID = 0;
-            sportsbookData.GameDetails[0].SettlementStatusID = 0;
-            var expectedResult = new List<Sportsbook> { sportsbookData };
-
-            // Action
-            var result = _dataAccess.GetPopUpMatches<Sportsbook>(matchId, raceNo, bettypeId, betId);
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(result.Count, Is.EqualTo(expectedResult.Count));
-                Assert.That(result[0], Tobe.SameProperties(expectedResult[0]));
-            });
-        }
-
-        [Test]
-        public void GetPopUpMatches_TypeIsSportsbookWithSomeReturnedNullValuesAndColumnColorNotExist_ReturnCorrectData()
-        {
-            // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_BetList_SelMatchResult")).Returns(objectDb);
-            var reader = Substitute.For<IDataReader>();
-            objectDb.ExecuteReader(Arg.Any<object>()).Returns(reader);
-            reader.Read().Returns(true, false, true, false);
-            reader.NextResult().Returns(true);
-
-            reader.FieldCount.Returns(0);
-
-            var dataMapping = GetReaderDataMappingForSportsbookType();
-            dataMapping["betstatus"] = DBNull.Value;
-            dataMapping["lcolor"] = DBNull.Value;
-            var dataMappingForGameDetail = GetReaderDataMappingForGameDetail();
-            dataMappingForGameDetail["ResultStatusID"] = DBNull.Value;
-            dataMappingForGameDetail["SettlementStatusID"] = DBNull.Value;
-            MergeReaderDataMapping(dataMapping, dataMappingForGameDetail);
-            DataAccessTestHelper.MapReaderData(reader, dataMapping);
-            int matchId = 1, raceNo = 2, bettypeId = 5;
-            long? betId = 6;
-
-            var sportsbookData = GetExpectedSportsbookData();
-            sportsbookData.BetStatus = string.Empty;
-            sportsbookData.Color = string.Empty;
-            sportsbookData.LiveAwayScore = null;
-            sportsbookData.LiveHomeScore = null;
-            sportsbookData.GameDetails[0].ResultStatusID = 0;
-            sportsbookData.GameDetails[0].SettlementStatusID = 0;
-            var expectedResult = new List<Sportsbook> { sportsbookData };
-
-            // Action
-            var result = _dataAccess.GetPopUpMatches<Sportsbook>(matchId, raceNo, bettypeId, betId);
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(result.Count, Is.EqualTo(expectedResult.Count));
-                Assert.That(result[0], Tobe.SameProperties(expectedResult[0]));
-            });
-        }
-
-        [Test]
-        public void GetPopUpMatches_TypeIsLiveCasino_ReturnCorrectData()
-        {
-            // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_BetList_SelMatchResult")).Returns(objectDb);
-            var reader = Substitute.For<IDataReader>();
-            objectDb.ExecuteReader(Arg.Any<object>()).Returns(reader);
-            reader.Read().Returns(true, false);
-
-            var readerDataMapping = new Dictionary<string, object>
-            {
-                { "showtime", "showtime" }, { "leagueid", 1 }, { "eventstatus", "win" }, { "finalawayscore", 2 }, { "finalhomescore", 3 },
-                { "eventdate", "03/17/2017" }, { "IsPending", true }, { "kickofftime", "01/01/2017" }, { "IsHTCal", true }, { "Calculate", true },
-                { "betstatus", "betstatus" }, { "homeid2", 4 }
-            };
-            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
-
-            int matchId = 1, raceNo = 2, bettypeId = 5;
-            long? betId = 6;
-
-            var expectedResult = new List<LiveCasino>
-            {
-                new LiveCasino
-                {
-                    ShowTime = "showtime",
-                    LeagueId = 1,
-                    EventStatus = "win",
-                    FinalAwayScore = 2,
-                    FinalHomeScore = 3,
-                    EventDate = new DateTime(2017, 3, 17),
-                    IsPending = true,
-                    KickOffTime = new DateTime(2017, 1, 1),
-                    IsHTCal = true,
-                    Calculate = true,
-                    BetStatus = "betstatus",
-                    Bettype = 4
-                }
-            };
-
-            // Action
-            var result = _dataAccess.GetPopUpMatches<LiveCasino>(matchId, raceNo, bettypeId, betId);
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(result.Count, Is.EqualTo(expectedResult.Count));
-                Assert.That(result[0], Tobe.SameProperties(expectedResult[0]));
-            });
-        }
-
-        [Test]
-        public void GetPopUpMatches_TypeIsLiveCasinoWithSomeReturnedNullValues_ReturnCorrectData()
-        {
-            // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_BetList_SelMatchResult")).Returns(objectDb);
-            var reader = Substitute.For<IDataReader>();
-            objectDb.ExecuteReader(Arg.Any<object>()).Returns(reader);
-            reader.Read().Returns(true, false);
-
-            var readerDataMapping = new Dictionary<string, object>
-            {
-                { "showtime", "showtime" }, { "leagueid", 1 }, { "eventstatus", "win" }, { "finalawayscore", 2 }, { "finalhomescore", 3 },
-                { "eventdate", "03/17/2017" }, { "IsPending", true }, { "kickofftime", "01/01/2017" }, { "IsHTCal", true }, { "Calculate", true },
-                { "betstatus", DBNull.Value }, { "homeid2", 4 }
-            };
-            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
-
-            int matchId = 1, raceNo = 2, bettypeId = 5;
-            long? betId = 6;
-
-            var expectedResult = new List<LiveCasino>
-            {
-                new LiveCasino
-                {
-                    ShowTime = "showtime",
-                    LeagueId = 1,
-                    EventStatus = "win",
-                    FinalAwayScore = 2,
-                    FinalHomeScore = 3,
-                    EventDate = new DateTime(2017, 3, 17),
-                    IsPending = true,
-                    KickOffTime = new DateTime(2017, 1, 1),
-                    IsHTCal = true,
-                    Calculate = true,
-                    BetStatus = string.Empty,
-                    Bettype = 4
-                }
-            };
-
-            // Action
-            var result = _dataAccess.GetPopUpMatches<LiveCasino>(matchId, raceNo, bettypeId, betId);
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(result.Count, Is.EqualTo(expectedResult.Count));
-                Assert.That(result[0], Tobe.SameProperties(expectedResult[0]));
-            });
-        }
-
-        [Test]
-        public void GetPopUpMatches_TypeIsRacing_ReturnCorrectData()
-        {
-            // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_BetList_SelMatchResult")).Returns(objectDb);
-            var reader = Substitute.For<IDataReader>();
-            objectDb.ExecuteReader(Arg.Any<object>()).Returns(reader);
-            reader.Read().Returns(true, false);
-
-            var readerDataMapping = new Dictionary<string, object>
-            {
-                { "meetingid", 1 }, { "HorseId", "HorseId" }, { "HorseNo", "HorseNo" }, { "IsFavor", "1" }, { "IsSCR", "1" },
-                { "place", 2 }, { "placeodds", 10m }, { "odds", 0.2m }, { "racename", 3 }, { "kickofftime", "03/17/2017" },
-                { "rowcount", 10 }, { "SCR", "SCR" }, { "TF", "TF" }
-            };
-            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
-
-            int matchId = 1, raceNo = 2, bettypeId = 5;
-            long? betId = 6;
-
-            var expectedResult = new List<Racing>
-            {
-                new Racing
-                {
-                    LeagueId = 1,
-                    EngineId = "HorseId",
-                    EngineNo = "HorseNo",
-                    IsFavor = true,
-                    IsSCR = true,
-                    Place = 2,
-                    PlaceOdds = 10m,
-                    WinOdds = 0.2m,
-                    RaceName = 3,
-                    KickOffTime = new DateTime(2017, 3, 17),
-                    Favourite = "1",
-                    RowCount = 10,
-                    SCROfMatch = "SCR",
-                    TFOfMatch = "TF"
-                }
-            };
-
-            // Action
-            var result = _dataAccess.GetPopUpMatches<Racing>(matchId, raceNo, bettypeId, betId);
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(result.Count, Is.EqualTo(expectedResult.Count));
-                Assert.That(result[0], Tobe.SameProperties(expectedResult[0]));
-            });
-        }
-
-        [Test]
-        public void GetPopUpMatches_TypeIsRacingWithSomeReturnedNullValues_ReturnCorrectData()
-        {
-            // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_BetList_SelMatchResult")).Returns(objectDb);
-            var reader = Substitute.For<IDataReader>();
-            objectDb.ExecuteReader(Arg.Any<object>()).Returns(reader);
-            reader.Read().Returns(true, false);
-
-            var readerDataMapping = new Dictionary<string, object>
-            {
-                { "meetingid", 1 }, { "HorseId", "HorseId" }, { "HorseNo", "HorseNo" }, { "IsFavor", DBNull.Value }, { "IsSCR", DBNull.Value },
-                { "place", 2 }, { "placeodds", 10m }, { "odds", 0.2m }, { "racename", 3 }, { "kickofftime", DBNull.Value },
-                { "rowcount", 10 }, { "SCR", "SCR" }, { "TF", "TF" }
-            };
-            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
-
-            int matchId = 1, raceNo = 2, bettypeId = 5;
-            long? betId = 6;
-
-            var expectedResult = new List<Racing>
-            {
-                new Racing
-                {
-                    LeagueId = 1,
-                    EngineId = "HorseId",
-                    EngineNo = "HorseNo",
-                    IsFavor = false,
-                    IsSCR = false,
-                    Place = 2,
-                    PlaceOdds = 10m,
-                    WinOdds = 0.2m,
-                    RaceName = 3,
-                    KickOffTime = DateTime.MinValue,
-                    Favourite = string.Empty,
-                    RowCount = 10,
-                    SCROfMatch = "SCR",
-                    TFOfMatch = "TF"
-                }
-            };
-
-            // Action
-            var result = _dataAccess.GetPopUpMatches<Racing>(matchId, raceNo, bettypeId, betId);
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(result.Count, Is.EqualTo(expectedResult.Count));
-                Assert.That(result[0], Tobe.SameProperties(expectedResult[0]));
-            });
-        }
-
-        [Test]
-        public void GetPopUpMatches_TypeIsNotSupported_ThrowException()
-        {
-            // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_BetList_SelMatchResult")).Returns(objectDb);
-            var reader = Substitute.For<IDataReader>();
-            objectDb.ExecuteReader(Arg.Any<object>()).Returns(reader);
-
-            int matchId = 1, raceNo = 2, bettypeId = 5;
-            long? betId = 6;
-
-            // Action
-            TestDelegate result = () => _dataAccess.GetPopUpMatches<object>(matchId, raceNo, bettypeId, betId);
-
-            // Assert
-            Assert.Throws<NotSupportedException>(result, "The type 'object' is not supported.");
-        }
-
-        [Test]
-        public void GetPopUpParalayMatch_WhenCall_ParameterPassedCorrectly()
-        {
-            // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_BetList_SelMatchResultParlay")).Returns(objectDb);
-            dynamic result = null;
-            objectDb.ExecuteReader(Arg.Do<dynamic>(x => result = x));
-            var refNo = 1;
-            var expected = new
-            {
-                refno = refNo
-            };
-
-            // Action
-            _dataAccess.GetPopUpParalayMatch(refNo);
-
-            // Assert
-            Assert.That(result, Tobe.SameProperties(expected));
-        }
-
-        [Test]
-        public void GetPopUpParalayMatch_WhenCall_ReturnCorrectData()
-        {
-            // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_BetList_SelMatchResultParlay")).Returns(objectDb);
-            var reader = Substitute.For<IDataReader>();
-            objectDb.ExecuteReader(Arg.Any<object>()).Returns(reader);
-            reader.Read().Returns(true, false, true, false);
-            reader.NextResult().Returns(true);
-            reader.FieldCount.Returns(3);
-            reader.GetName(0).Returns("lcolor");
-            reader.GetName(1).Returns("bettype");
-            reader.GetName(2).Returns("betcheck");
-            var refNo = 1;
-
-            var dataMapping = GetReaderDataMappingForSportsbookType();
-            dataMapping["LeagueID"] = 11;
-            dataMapping["sporttype"] = 12;
-            dataMapping["bettype"] = 5;
-            dataMapping["betcheck"] = "6";
-            var dataMappingForGameDetail = GetReaderDataMappingForGameDetail();
-            MergeReaderDataMapping(dataMapping, dataMappingForGameDetail);
-            DataAccessTestHelper.MapReaderData(reader, dataMapping);
-
-            var sportsbookData = GetExpectedSportsbookData();
-            sportsbookData.LeagueId = 11;
-            sportsbookData.RefNo = "1";
-            sportsbookData.LiveHomeScore = null;
-            sportsbookData.LiveAwayScore = null;
-
-            var expectedResult = new List<Parlay>
-            {
-                new Parlay
-                {
-                    LeagueId = sportsbookData.LeagueId,
-                    SportId = 12,
-                    Sportbook = new List<Sportsbook> { sportsbookData }
-                }
-            };
-
-            // Action
-            var result = _dataAccess.GetPopUpParalayMatch(refNo);
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(result.Count, Is.EqualTo(expectedResult.Count));
-                Assert.That(result[0], Tobe.SameProperties(expectedResult[0]));
-            });
-        }
-
-        [Test]
-        public void GetPopUpParalayMatch_SomeColumnsAreNotExist_ReturnCorrectData()
-        {
-            // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_BetList_SelMatchResultParlay")).Returns(objectDb);
-            var reader = Substitute.For<IDataReader>();
-            objectDb.ExecuteReader(Arg.Any<object>()).Returns(reader);
-            reader.Read().Returns(true, false, true, false);
-            reader.NextResult().Returns(true);
-            var refNo = 1;
-
-            var dataMapping = GetReaderDataMappingForSportsbookType();
-            dataMapping["LeagueID"] = 11;
-            dataMapping["sporttype"] = 12;
-            var dataMappingForGameDetail = GetReaderDataMappingForGameDetail();
-            MergeReaderDataMapping(dataMapping, dataMappingForGameDetail);
-            DataAccessTestHelper.MapReaderData(reader, dataMapping);
-
-            var sportsbookData = GetExpectedSportsbookData();
-            sportsbookData.LeagueId = 11;
-            sportsbookData.RefNo = "1";
-            sportsbookData.Bettype = 0;
-            sportsbookData.BetID = string.Empty;
-            sportsbookData.Color = string.Empty;
-            sportsbookData.LiveHomeScore = null;
-            sportsbookData.LiveAwayScore = null;
-
-            var expectedResult = new List<Parlay>
-            {
-                new Parlay
-                {
-                    LeagueId = sportsbookData.LeagueId,
-                    SportId = 12,
-                    Sportbook = new List<Sportsbook> { sportsbookData }
-                }
-            };
-
-            // Action
-            var result = _dataAccess.GetPopUpParalayMatch(refNo);
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(result.Count, Is.EqualTo(expectedResult.Count));
-                Assert.That(result[0], Tobe.SameProperties(expectedResult[0]));
-            });
-        }
-
-        [Test]
-        public void GetPopUpParalayMatch_SomeColumnsReturnedNullValue_ReturnCorrectData()
-        {
-            // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_BetList_SelMatchResultParlay")).Returns(objectDb);
-            var reader = Substitute.For<IDataReader>();
-            objectDb.ExecuteReader(Arg.Any<object>()).Returns(reader);
-            reader.Read().Returns(true, false, true, false);
-            reader.NextResult().Returns(true);
-            reader.FieldCount.Returns(1);
-            reader.GetName(0).Returns("lcolor");
-            var refNo = 1;
-
-            var dataMapping = GetReaderDataMappingForSportsbookType();
-            dataMapping["LeagueID"] = 11;
-            dataMapping["sporttype"] = 12;
-            dataMapping["betstatus"] = DBNull.Value;
-            dataMapping["lcolor"] = DBNull.Value;
-
-            var dataMappingForGameDetail = GetReaderDataMappingForGameDetail();
-            dataMappingForGameDetail["ResultStatusID"] = DBNull.Value;
-            dataMappingForGameDetail["SettlementStatusID"] = DBNull.Value;
-            MergeReaderDataMapping(dataMapping, dataMappingForGameDetail);
-            DataAccessTestHelper.MapReaderData(reader, dataMapping);
-
-            var sportsbookData = GetExpectedSportsbookData();
-            sportsbookData.LeagueId = 11;
-            sportsbookData.RefNo = "1";
-            sportsbookData.Bettype = 0;
-            sportsbookData.BetID = string.Empty;
-            sportsbookData.Color = string.Empty;
-            sportsbookData.BetStatus = string.Empty;
-            sportsbookData.LiveHomeScore = null;
-            sportsbookData.LiveAwayScore = null;
-            sportsbookData.GameDetails[0].ResultStatusID = 0;
-            sportsbookData.GameDetails[0].SettlementStatusID = 0;
-
-            var parlay = new Parlay { LeagueId = sportsbookData.LeagueId, SportId = 12, Sportbook = new List<Sportsbook> { sportsbookData } };
-            var expectedResult = new List<Parlay> { parlay };
-
-            // Action
-            var result = _dataAccess.GetPopUpParalayMatch(refNo);
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(result.Count, Is.EqualTo(expectedResult.Count));
-                Assert.That(result[0], Tobe.SameProperties(expectedResult[0]));
-            });
-        }
-
-        [Test]
-        public void GetPopUpParalayMatch_ParlayItemHasMultipleSportsbookItems_ReturnCorrectLengthOfSportsbookList()
-        {
-            // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_BetList_SelMatchResultParlay")).Returns(objectDb);
-            var reader = Substitute.For<IDataReader>();
-            objectDb.ExecuteReader(Arg.Any<object>()).Returns(reader);
-            reader.Read().Returns(true, true, false, true, false);
-            reader.NextResult().Returns(true);
-            var refNo = 1;
-
-            var dataMapping = GetReaderDataMappingForSportsbookType();
-            dataMapping["LeagueID"] = 11;
-            dataMapping["sporttype"] = 12;
-            var dataMappingForGameDetail = GetReaderDataMappingForGameDetail();
-            MergeReaderDataMapping(dataMapping, dataMappingForGameDetail);
-            DataAccessTestHelper.MapReaderData(reader, dataMapping);
-
-            // Action
-            var result = _dataAccess.GetPopUpParalayMatch(refNo);
-
-            // Assert
-            Assert.That(result[0].Sportbook.Count, Is.EqualTo(2));
-        }
-
-        [Test]
-        public void GetPopUpNumberGameMatch_WhenCall_ParameterPassedCorrectly()
-        {
-            // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_BetList_SelMatchResultNumberGame")).Returns(objectDb);
-            dynamic result = null;
-            objectDb.ExecuteReader(Arg.Do<dynamic>(x => result = x));
-            var matchId = 1;
-            var expected = new
-            {
-                matchid = matchId
-            };
-
-            // Action
-            _dataAccess.GetPopUpNumberGameMatch(matchId);
-
-            // Assert
-            Assert.That(result, Tobe.SameProperties(expected));
-        }
-
-        [Test]
-        public void GetPopUpNumberGameMatch_WhenCall_ReturnCorrectData()
-        {
-            // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_BetList_SelMatchResultNumberGame")).Returns(objectDb);
-            var matchId = 2;
-            var reader = Substitute.For<IDataReader>();
-            objectDb.ExecuteReader(Arg.Any<object>()).Returns(reader);
-            reader.Read().Returns(true, true, false);
-            reader.FieldCount.Returns(1);
-            reader.GetName(0).Returns("isrefund");
-            var readerDataMapping = new Dictionary<string, object>
-            {
-                { "leagueid", 1 }, { "matchid", matchId }, { "eventstatus", "win" }, { "eventdate", "03/16/2017" }, { "isrefund", "1" },
-                { "kickofftime", "1/1/2017" }, { "matchcode", "test" }, { "seq", 3 }, { "number", 4 }
-            };
-            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
-
-            var expectedResult = new List<NumberGame>
-            {
-                new NumberGame
-                {
-                    LeagueId = 1,
-                    MatchId = 2,
-                    EventStatus = "win",
-                    EventDate = new DateTime(2017, 3, 16),
-                    IsPending = true,
-                    KickOffTime = new DateTime(2017, 1, 1),
-                    MatchCode = "test",
-                    Seg = new List<int> { 3, 3 },
-                    Ball = new List<int> { 4, 4 }
-                }
-            };
-
-            // Action
-            var result = _dataAccess.GetPopUpNumberGameMatch(matchId);
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(result.Count, Is.EqualTo(expectedResult.Count));
-                Assert.That(result[0], Tobe.SameProperties(expectedResult[0]));
-            });
-        }
-
-        [Test]
-        public void GetPopUpNumberGameMatch_IsRefundColumnNotExist_ReturnCorrectData()
-        {
-            // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_BetList_SelMatchResultNumberGame")).Returns(objectDb);
-            var matchId = 2;
-            var reader = Substitute.For<IDataReader>();
-            objectDb.ExecuteReader(Arg.Any<object>()).Returns(reader);
-            reader.Read().Returns(true, true, false);
-            var readerDataMapping = new Dictionary<string, object>
-            {
-                { "leagueid", 1 }, { "matchid", matchId }, { "eventstatus", "win" }, { "eventdate", "03/16/2017" }, { "isrefund", "1" },
-                { "kickofftime", "1/1/2017" }, { "matchcode", "test" }, { "seq", 3 }, { "number", 4 }
-            };
-            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
-
-            var expectedResult = new List<NumberGame>
-            {
-                new NumberGame
-                {
-                    LeagueId = 1,
-                    MatchId = 2,
-                    EventStatus = "win",
-                    EventDate = new DateTime(2017, 3, 16),
-                    IsPending = false,
-                    KickOffTime = new DateTime(2017, 1, 1),
-                    MatchCode = "test",
-                    Seg = new List<int> { 3, 3 },
-                    Ball = new List<int> { 4, 4 }
-                }
-            };
-
-            // Action
-            var result = _dataAccess.GetPopUpNumberGameMatch(matchId);
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(result.Count, Is.EqualTo(expectedResult.Count));
-                Assert.That(result[0], Tobe.SameProperties(expectedResult[0]));
-            });
-        }
-
-        [Test]
-        public void GetMatches_WhenCall_ParametersPassedCorrectly()
-        {
-            // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_Result_MatchSelByLeague")).Returns(objectDb);
-            dynamic param = null;
-            objectDb.ExecuteReader(Arg.Do<dynamic>(x => param = x));
-            _metaModel.SportId = 1;
-            _metaModel.LeagueId = 2;
-
-            var expected = new
-            {
-                fromdate = _metaModel.FromDate,
-                sporttype = _metaModel.SportId,
-                leagueid = _metaModel.LeagueId,
-                movebetsday = _balance.MoveBetsDay
-            };
-
-            // Action
-            _dataAccess.GetMatches<Sportsbook>(_metaModel);
-
-            // Assert
-            Assert.That(param, Tobe.SameProperties(expected));
-        }
-
-        [Test]
-        public void GetMatches_TypeIsSportsbook_ReturnCorrectData()
-        {
-            // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_Result_MatchSelByLeague")).Returns(objectDb);
-            var reader = Substitute.For<IDataReader>();
-            objectDb.ExecuteReader(Arg.Any<object>()).Returns(reader);
-            reader.Read().Returns(true, false, true, false);
-            reader.NextResult().Returns(true);
-
-            reader.FieldCount.Returns(3);
-            reader.GetName(0).Returns("lcolor");
-            reader.GetName(1).Returns("LiveAwayScore");
-            reader.GetName(2).Returns("LiveHomeScore");
-
-            var dataMapping = GetReaderDataMappingForSportsbookType();
-            var dataMappingForGameDetail = GetReaderDataMappingForGameDetail();
-            MergeReaderDataMapping(dataMapping, dataMappingForGameDetail);
-            DataAccessTestHelper.MapReaderData(reader, dataMapping);
-
-            var sportsbookData = GetExpectedSportsbookData();
-            sportsbookData.BetID = "0";
-            sportsbookData.Bettype = 0;
-            var expectedResult = new List<Sportsbook> { sportsbookData };
-
-            // Action
-            var result = _dataAccess.GetMatches<Sportsbook>(_metaModel);
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(result.Count, Is.EqualTo(expectedResult.Count));
-                Assert.That(result[0], Tobe.SameProperties(expectedResult[0]));
-            });
-        }
-
-        [Test]
-        public void GetMatches_TypeIsLiveCasino_ReturnCorrectData()
-        {
-            // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_Result_MatchSelByLeague")).Returns(objectDb);
-            var reader = Substitute.For<IDataReader>();
-            objectDb.ExecuteReader(Arg.Any<object>()).Returns(reader);
-            reader.Read().Returns(true, false);
-
-            var readerDataMapping = new Dictionary<string, object>
-            {
-                { "showtime", "showtime" }, { "leagueid", 1 }, { "eventstatus", "win" }, { "finalawayscore", 2 }, { "finalhomescore", 3 },
-                { "eventdate", "03/17/2017" }, { "IsPending", true }, { "kickofftime", "01/01/2017" }, { "IsHTCal", true }, { "Calculate", true },
-                { "betstatus", "betstatus" }, { "homeid2", 4 }
-            };
-            DataAccessTestHelper.MapReaderData(reader, readerDataMapping);
-
-            var expectedResult = new List<LiveCasino>
-            {
-                new LiveCasino
-                {
-                    ShowTime = "showtime",
-                    LeagueId = 1,
-                    EventStatus = "win",
-                    FinalAwayScore = 2,
-                    FinalHomeScore = 3,
-                    EventDate = new DateTime(2017, 3, 17),
-                    IsPending = true,
-                    KickOffTime = new DateTime(2017, 1, 1),
-                    IsHTCal = true,
-                    Calculate = true,
-                    BetStatus = "betstatus",
-                    Bettype = 4
-                }
-            };
-
-            // Action
-            var result = _dataAccess.GetMatches<LiveCasino>(_metaModel);
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(result.Count, Is.EqualTo(expectedResult.Count));
-                Assert.That(result[0], Tobe.SameProperties(expectedResult[0]));
-            });
-        }
-
-        [Test]
-        public void GetMatches_TypeIsNotSupported_ThrowException()
-        {
-            // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_Result_MatchSelByLeague")).Returns(objectDb);
-            var reader = Substitute.For<IDataReader>();
-            objectDb.ExecuteReader(Arg.Any<object>()).Returns(reader);
-
-            // Action
-            TestDelegate result = () => _dataAccess.GetMatches<object>(_metaModel);
-
-            // Assert
-            Assert.Throws<NotSupportedException>(result, "The type 'object' is not supported.");
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                GetRacingMatchesSp,
+                () => DataAccess.GetRacingMatches(_metaModel));
         }
 
         [Test]
         public void GetSportsbookGameDetail_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_Result_MatchSelByLeague_Detail")).Returns(objectDb);
-            var reader = Substitute.For<IDataReader>();
-            objectDb.ExecuteReader().Returns(reader);
-            var matchId = 1;
+            DataAccess.GetObjectDb(Arg.Is("Lrf_Result_MatchSelByLeague_Detail")).Returns(ObjectDb);
 
             // Action
-            _dataAccess.GetSportsbookGameDetail(matchId);
+            DataAccess.GetSportsbookGameDetail(MatchId);
 
             // Assert
-            objectDb.Received().AddInParameter("matchid", DbType.Int32, matchId);
+            ObjectDb.Received().AddInParameter("matchid", DbType.Int32, MatchId);
         }
 
-        [Test]
-        public void GetSportsbookGameDetail_WhenCall_ReturnCorrectData()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GetSportsbookGameDetail_WhenCall_ReturnCorrectData(bool betStatusIsNull)
         {
             // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_Result_MatchSelByLeague_Detail")).Returns(objectDb);
-            var reader = Substitute.For<IDataReader>();
-            objectDb.ExecuteReader().Returns(reader);
-            reader.Read().Returns(true, false, true, false);
-            reader.NextResult().Returns(true);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_Result_MatchSelByLeague_Detail")).Returns(ObjectDb);
 
-            reader.FieldCount.Returns(3);
-            reader.GetName(0).Returns("lcolor");
-            reader.GetName(1).Returns("LiveAwayScore");
-            reader.GetName(2).Returns("LiveHomeScore");
+            Reader.Read().Returns(true, false, true, false);
+            Reader.NextResult().Returns(true);
 
-            var dataMapping = GetReaderDataMappingForSportsbookType();
-            var dataMappingForGameDetail = GetReaderDataMappingForGameDetail();
-            MergeReaderDataMapping(dataMapping, dataMappingForGameDetail);
-            DataAccessTestHelper.MapReaderData(reader, dataMapping);
-            int matchId = 11;
+            Reader.FieldCount.Returns(3);
+            Reader.GetName(0).Returns("lcolor");
+            Reader.GetName(1).Returns("LiveAwayScore");
+            Reader.GetName(2).Returns("LiveHomeScore");
 
             var expectedResult = GetExpectedSportsbookData();
             expectedResult.Bettype = 0;
             expectedResult.BetID = null;
 
+            var dataMapping = GetReaderDataMappingForSportsbookType();
+            var dataMappingForGameDetail = GetreaderDataMappingForGameDetail();
+            MergeReaderDataMapping(dataMapping, dataMappingForGameDetail);
+            MapReaderData(dataMapping);
+            int matchId = 11;
+
+            if (betStatusIsNull)
+            {
+                dataMapping["betstatus"] = DBNull.Value;
+                expectedResult.BetStatus = string.Empty;
+            }
+
             // Action
-            var result = _dataAccess.GetSportsbookGameDetail(matchId);
+            var result = DataAccess.GetSportsbookGameDetail(matchId);
 
             // Assert
             Assert.That(result, Tobe.SameProperties(expectedResult));
@@ -1254,8 +470,8 @@
                 RefNo = string.Empty,
                 LiveAwayScore = 9,
                 LiveHomeScore = 10,
-                BetID = "6",
-                Bettype = 5,
+                BetID = BetId.ToString(),
+                Bettype = BettypeId,
                 GameDetails = GetExpectedGameDetailData()
             };
         }
@@ -1297,7 +513,7 @@
             };
         }
 
-        private static Dictionary<string, object> GetReaderDataMappingForGameDetail()
+        private static Dictionary<string, object> GetreaderDataMappingForGameDetail()
         {
             return new Dictionary<string, object>
             {

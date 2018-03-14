@@ -22,7 +22,7 @@
             _dataAccess = Substitute.ForPartsOf<TopCustomerDataAccess>();
             _reader = Substitute.For<IDataReader>();
 
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_rpt_DWTopCustomerSel")).Returns(_objectDb);
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_rpt_DWTopCustomerSel")).Returns(_objectDb);
             _objectDb.ExecuteReader(Arg.Any<object>()).Returns(_reader);
         }
 

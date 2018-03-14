@@ -88,7 +88,6 @@
                     SBComm = SampleComm,
                     RCComm = SampleComm,
                     NGComm = SampleComm,
-                    LCComm = SampleComm,
                     CSComm = SampleComm,
                     ABComm = SampleComm,
                     GroupName = GroupName,
@@ -106,7 +105,6 @@
                     Assert.That(extendedData.GetValue("SBComm"), Is.EqualTo(ExpectedComm));
                     Assert.That(extendedData.GetValue("RCComm"), Is.EqualTo(ExpectedComm));
                     Assert.That(extendedData.GetValue("NGComm"), Is.EqualTo(ExpectedComm));
-                    Assert.That(extendedData.GetValue("LCComm"), Is.EqualTo(ExpectedComm));
                     Assert.That(extendedData.GetValue("RNGComm"), Is.EqualTo(ExpectedComm));
                     Assert.That(extendedData.GetValue("ABComm"), Is.EqualTo(ExpectedComm));
                     Assert.That(extendedData.GetValue("GroupName"), Is.EqualTo(GroupName));

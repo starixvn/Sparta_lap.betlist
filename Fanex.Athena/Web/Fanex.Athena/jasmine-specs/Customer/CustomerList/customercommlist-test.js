@@ -9,7 +9,6 @@
             affix("input#CustSBComm1[value=5]");
             affix("input#CustRBComm1[value=6]");
             affix("input#CustNGComm1[value=7]");
-            affix("input#CustLCComm1[value=8]");
             affix("input#CustCSComm1[value=9]");
 
             CustomerComm.initialize();
@@ -60,12 +59,6 @@
             $('#CustNGComm1').change();
 
             expect(CustomerComm.commissionOnChange).toHaveBeenCalledWith("7", "#CustNGComm");
-        });
-        it("CustomerComm.commissionOnChange(value, id) should be called with correct parameters when '#CustLCComm1' fired change event", function () {
-            spyOn(CustomerComm, "commissionOnChange");
-            $('#CustLCComm1').change();
-
-            expect(CustomerComm.commissionOnChange).toHaveBeenCalledWith("8", "#CustLCComm");
         });
         it("CustomerComm.commissionOnChange(value, id) should be called with correct parameters when '#CustCSComm1' fired change event", function () {
             spyOn(CustomerComm, "commissionOnChange");

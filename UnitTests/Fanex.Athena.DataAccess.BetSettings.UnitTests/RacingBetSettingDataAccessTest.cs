@@ -12,7 +12,7 @@
     [TestFixture]
     public class RacingBetSettingDataAccessTest : BaseDataAccessHelperTest<RacingBetSettingDataAccess>
     {
-        private static IEnumerable GetUspNameByKey
+        private static IEnumerable UspNameByKeys
         {
             get
             {
@@ -69,19 +69,6 @@
             });
         }
 
-        [Test]
-        public void GetBetSetting_GetIsAllowedSaToteCurrencyThrowsObjectDbException_ThrowDataAccessException()
-        {
-            // Set up for GetBetSetting
-            DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerSelEditRB")).Returns(ObjectDb);
-            Reader.Read().Returns(true, false);
-
-            // IsAllowedSaToteCurrency method
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                "Lrf_CheckHRAllowedCurrency",
-                () => DataAccess.GetBetSetting(1));
-        }
-
         [TestCase(1, "Error")]
         [TestCase(2, "Error 2")]
         public void UpdateBetSetting_WhenCallUpdateMethodFail_ReturnResultInfo(int errorCode, string errorMsg)
@@ -105,7 +92,7 @@
             });
         }
 
-        [TestCaseSource(nameof(GetUspNameByKey))]
+        [TestCaseSource(nameof(UspNameByKeys))]
         public void UpdateBetSetting_WhenCallUpdateMethod_ParametersPassedCorrectly(string key, string uspName)
         {
             // Arrange
@@ -131,24 +118,13 @@
             });
         }
 
-        [TestCaseSource(nameof(GetUspNameByKey))]
-        public void UpdateBetSetting_WhenObjectDbThrowsException_ThrowDataAccessException(string key, string uspName)
-        {
-            var racingBetSetting = GetRacingBetSetting();
-            var racingBetSettingList = new Dictionary<string, RacingBetSetting> { { key, racingBetSetting } };
-
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                uspName,
-                () => DataAccess.UpdateBetSetting(racingBetSettingList));
-        }
-
         private RacingBetSetting GetRacingBetSetting()
         {
             var custId = 1;
             var commonBetSetting = new CommonBetSetting
             {
                 UserId = 2,
-                Ip = "::1",
+                Ip = "IP",
                 Language = "LanguageTest"
             };
 

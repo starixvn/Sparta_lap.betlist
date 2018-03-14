@@ -14,12 +14,16 @@ namespace Fanex.Athena.Controllers.BetList
     using System.Web.SessionState;
     using DataAccess.Core.Common;
     using DataAccess.Core.Common.Interfaces;
+    using Extension.Utility;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.BetList.ViewModel;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Web.ActionFilter;
     using ONEbook.UM.Filters;
     using Resources;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
+    using Service.Core.Users.Interfaces;
 
     #endregion Using
 
@@ -35,11 +39,25 @@ namespace Fanex.Athena.Controllers.BetList
             _sportTypeDataAccess = new SportTypeDataAccess();
         }
 
+        public LastBetsMonitoringBetListController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
+            ISportTypeDataAccess sportTypeDataAccess)
+        : base(
+            languageService,
+            sessionService,
+            appSetting,
+            clientViewHelper)
+        {
+            _sportTypeDataAccess = sportTypeDataAccess;
+        }
+
         [HttpGet]
         public ActionResult Index()
         {
-            var licenseeId = SessionService.LicenseeSession.LicenseeId;
-            var metaModel = new BetListMetaModel { LicenseeId = licenseeId };
+            var metaModel = new BetListMetaModel { LicenseeId = SessionService.LicenseeSession.LicenseeId };
 
             SetConvetedUSDCurrencyName(metaModel);
 

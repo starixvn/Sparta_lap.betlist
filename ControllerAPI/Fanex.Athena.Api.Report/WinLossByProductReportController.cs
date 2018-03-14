@@ -48,8 +48,9 @@ namespace Fanex.Athena.Api.Report
             ISessionService sessionService,
             IProductService productService,
             IAppSettings appSettings,
+            ILanguageService langService,
             IWinLossByProductDataAccess winlossByProductDataAccess)
-            : base(sessionService, productService)
+            : base(sessionService, productService, langService)
         {
             _appSettings = appSettings;
             _winlossByProductDataAccess = winlossByProductDataAccess;

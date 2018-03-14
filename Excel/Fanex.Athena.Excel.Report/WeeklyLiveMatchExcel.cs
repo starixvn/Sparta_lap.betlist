@@ -108,7 +108,7 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        private void AssignTotalRow(ISheet sheet, int rowIndex)
+        protected internal virtual void AssignTotalRow(ISheet sheet, int rowIndex)
         {
             var cellIndex = 2;
 

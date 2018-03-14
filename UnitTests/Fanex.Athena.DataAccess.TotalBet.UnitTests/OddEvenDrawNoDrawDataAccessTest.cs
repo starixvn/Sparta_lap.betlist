@@ -84,7 +84,7 @@
             });
         }
 
-        private void AssertMainData(OddEvenDrawNoDraw actual, OddEvenDrawNoDraw expected)
+        private static void AssertMainData(OddEvenDrawNoDraw actual, OddEvenDrawNoDraw expected)
         {
             Assert.That(actual.ShowTime, Is.EqualTo(expected.ShowTime));
             Assert.That(actual.LeagueId, Is.EqualTo(expected.LeagueId));
@@ -104,7 +104,7 @@
             AssertScoreData(actual, expected);
         }
 
-        private void AssertScoreData(OddEvenDrawNoDraw actual, OddEvenDrawNoDraw expected)
+        private static void AssertScoreData(OddEvenDrawNoDraw actual, OddEvenDrawNoDraw expected)
         {
             Assert.That(actual.OddEvenFt, Is.EqualTo(expected.OddEvenFt));
             Assert.That(actual.OneXTwoFt, Is.EqualTo(expected.OneXTwoFt));

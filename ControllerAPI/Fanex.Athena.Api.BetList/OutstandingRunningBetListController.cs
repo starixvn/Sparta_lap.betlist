@@ -2,10 +2,18 @@
 {
     #region Using
 
+    using System;
     using System.Web.Http;
     using Base.Attributes;
+    using DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.Model.BetList.MetaModel;
+    using Fanex.BetList.Core.Builder;
+    using Fanex.BetList.Core.Entities;
     using Model.Core.DataDomain;
+    using Service.BetList.Interfaces;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
+    using VendorAdapter.Interfaces;
 
     #endregion Using
 
@@ -14,17 +22,33 @@
     {
         private const string BetListCustomerOutstandingRunningName = "BetList_CustomerOutstandingRunning";
 
+        public OutstandingRunningBetListController()
+        {
+        }
+
+        [CLSCompliant(false)]
+        public OutstandingRunningBetListController(
+            ISessionService sessionService,
+            IProductService productService,
+            ILanguageService languageService,
+            IBetListService betListService,
+            IBalanceUpDataAccess balanceUpDataAccess,
+            ITicketHelper ticketHelper,
+            ICacheRefAdapter cacheRefAdapter,
+            IBetListHTMLBuilder betlistHtmlBuilder)
+        : base(sessionService, productService, languageService, betListService, balanceUpDataAccess, ticketHelper, cacheRefAdapter, betlistHtmlBuilder)
+        {
+        }
+
         [HttpPost]
         public dynamic Index(BetListMetaModel metaModel)
         {
-            if (!metaModel.IsValid ||
-                (metaModel.CurrencyId != 0 && !SessionService.UserSession.CurrencyList.ContainsKey(metaModel.CurrencyId)))
+            if (!metaModel.IsValid || !IsValidCurrencyId(metaModel.CurrencyId))
             {
                 return null;
             }
 
             metaModel.ProductCodeList = RemoveInvalidProducts(metaModel.ProductCodeList, BetListCustomerOutstandingRunningName);
-            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
             const string UspKey = "Lrf_BetList_SelRunningByDate_Mem";
             metaModel.ToDate = metaModel.ToDate.Date.AddDays(1).AddMinutes(-1);

@@ -35,7 +35,6 @@ var UpdateGroup = (function ($) {
             GroupComm.commissionOnChange($('#DdlParlayComm1').val(), '#DdlParlayComm');
             GroupComm.commissionOnChange($('#DdlRCComm1').val(), '#DdlRCComm');
             GroupComm.commissionOnChange($('#DdlNGComm1').val(), '#DdlNGComm');
-            GroupComm.commissionOnChange($('#DdlLCComm1').val(), '#DdlLCComm');
             GroupComm.commissionOnChange($('#DdlCSComm1').val(), '#DdlCSComm');
             GroupComm.commissionOnChange($('#DdlABComm1').val(), '#DdlABComm');
         },
@@ -125,10 +124,6 @@ var UpdateGroup = (function ($) {
 
             $('#DdlNGComm1').on('change', function () {
                 GroupComm.commissionOnChange($(this).val(), '#DdlNGComm');
-            });
-
-            $('#DdlLCComm1').on('change', function () {
-                GroupComm.commissionOnChange($(this).val(), '#DdlLCComm');
             });
 
             $('#DdlCSComm1').on('change', function () {

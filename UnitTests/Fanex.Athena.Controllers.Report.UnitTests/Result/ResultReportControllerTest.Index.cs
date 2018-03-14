@@ -8,7 +8,6 @@
     using NSubstitute;
     using NUnit.Framework;
     using Result.Core.Base;
-    using Result.Core.LiveCasino.DTO;
     using Result.Core.NumberGame.DTO;
     using Result.Core.Racing.DTO;
     using Result.Core.Sportsbook.DTO;
@@ -16,7 +15,6 @@
     [TestFixture]
     public partial class ResultReportControllerTest : BaseControllerHelperTest
     {
-        [TestCase("BG", true, false, false)]
         [TestCase("CS", true, false, false)]
         [TestCase("KN", false, true, false)]
         [TestCase("LT", false, false, true)]
@@ -127,29 +125,6 @@
                 var dataList = new List<Racing> { new Racing() };
                 _resultService.GetRacingMatches(metaModel).Returns(dataList);
                 _resultService.HtmlParser(Arg.Any<IList<Racing>>(), Arg.Any<ResultSetting>()).Returns(HtmlResult);
-
-                // Action
-                var viewResult = controller.Index(metaModel) as ContentResult;
-
-                // Assert
-                Assert.That(viewResult.Content, Is.EqualTo(HtmlResult));
-            }
-        }
-
-        [Test]
-        public void IndexPost_LiveCasino_ResultContentIsCorrect()
-        {
-            using (var controller = CreateController())
-            {
-                // Arrange
-                var metaModel = new ResultMetalModel
-                {
-                    SportId = (int)SportType.LiveCasino,
-                    IsOutRight = false
-                };
-                var dataList = new List<LiveCasino> { new LiveCasino() };
-                _resultService.GetLiveCasinoMatches(metaModel).Returns(dataList);
-                _resultService.HtmlParser(Arg.Any<IList<LiveCasino>>(), Arg.Any<ResultSetting>()).Returns(HtmlResult);
 
                 // Action
                 var viewResult = controller.Index(metaModel) as ContentResult;

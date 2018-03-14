@@ -84,7 +84,6 @@
     <Compile Include="CoreBetSettingDataAccessTest.cs" />
     <Compile Include="KenoBetSettingDataAccessTest.cs" />
     <Compile Include="RngCasinoBetSettingDataAccessTest.cs" />
-    <Compile Include="LiveCasinoBetSettingDataAccessTest.cs" />
     <Compile Include="NumberGameBetSettingDataAccessTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RacingBetSettingDataAccessTest.cs" />
@@ -113,6 +112,10 @@
     <ProjectReference Include="..\..\Fanex.Athena.UnitTest.Common\Fanex.Athena.UnitTest.Common.csproj">
       <Project>{4A5BDDBC-F707-409A-86EC-D9BC6E9D31C4}</Project>
       <Name>Fanex.Athena.UnitTest.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\Fanex.Athena.Constant\Fanex.Athena.Constant.csproj">
+      <Project>{6B1431E0-E513-48BB-BE86-0756E5F6F405}</Project>
+      <Name>Fanex.Athena.Constant</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Model\Fanex.Athena.Model.BetSettings\Fanex.Athena.Model.BetSettings.csproj">
       <Project>{ac255686-6654-4a34-8f56-f18c502b5b0a}</Project>

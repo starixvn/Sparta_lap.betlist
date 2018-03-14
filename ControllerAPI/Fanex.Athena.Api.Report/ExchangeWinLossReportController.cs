@@ -27,8 +27,9 @@
         public ExchangeWinLossReportController(
             ISessionService sessionService,
             IProductService productService,
+            ILanguageService langService,
             IExchangeWinLossDataAccess dataAccess)
-            : base(sessionService, productService)
+            : base(sessionService, productService, langService)
         {
             _dataAccess = dataAccess;
         }

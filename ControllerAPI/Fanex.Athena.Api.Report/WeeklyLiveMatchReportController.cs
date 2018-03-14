@@ -30,8 +30,12 @@ namespace Fanex.Athena.Api.Report
             _weeklyLiveMatchService = new WeeklyLiveMatchService();
         }
 
-        public WeeklyLiveMatchReportController(IWeeklyLiveMatchService service, ISessionService sessionService, IProductService productService)
-            : base(sessionService, productService)
+        public WeeklyLiveMatchReportController(
+            IWeeklyLiveMatchService service, 
+            ISessionService sessionService,          
+            IProductService productService,
+            ILanguageService langService)
+            : base(sessionService, productService, langService)
         {
             _weeklyLiveMatchService = service;
         }

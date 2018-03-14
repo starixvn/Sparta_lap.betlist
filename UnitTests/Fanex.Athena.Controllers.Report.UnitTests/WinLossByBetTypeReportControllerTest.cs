@@ -117,7 +117,7 @@
         }
 
         [TestCase(null, false, false)]
-        [TestCase("BA,RB,NG,SB,LC,VS", true, true)]
+        [TestCase("BA,RB,NG,SB,VS", true, true)]
         public void IndexPost_ExportExcel_ReturnCorrectResult(
             string productCodeList, bool expectedProductVisible, bool isAllowCustomerComm)
         {
@@ -154,7 +154,6 @@
                             x.BAVisible == expectedProductVisible &&
                             x.NGVisible == expectedProductVisible &&
                             x.SBVisible == expectedProductVisible &&
-                            x.LCVisible == expectedProductVisible &&
                             x.VSVisible == expectedProductVisible &&
                             x.CustomerCommVisible == isAllowCustomerComm));
                     Assert.That(result, Is.InstanceOf<ExcelResult>());

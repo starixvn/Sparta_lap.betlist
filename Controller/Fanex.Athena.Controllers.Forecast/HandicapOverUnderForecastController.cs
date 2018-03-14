@@ -6,22 +6,40 @@
 
 namespace Fanex.Athena.Controllers.Forecast
 {
+    using System.Linq;
     using System.Web.Mvc;
+    using Extension.Utility;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
     using Model.Forecast.MetaModel;
     using Model.Forecast.ViewModel;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
+    using Service.Core.Users.Interfaces;
+    using Service.Forecast.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.ForecastHandicapOverUnderLive)]
     public class HandicapOverUnderForecastController : ForecastBaseController
     {
+        public HandicapOverUnderForecastController()
+        {
+        }
+
+        public HandicapOverUnderForecastController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
+            IForecastService forecastService)
+        : base(languageService, sessionService, appSetting, clientViewHelper, forecastService)
+        {
+        }
+
         [HttpGet]
         public ActionResult Index()
         {
             var liceseeSession = SessionService.LicenseeSession;
-            var licenseeOfferNewForecastList = GetLicenseeOfferNewForecastList();
-
-            if (licenseeOfferNewForecastList.Contains(liceseeSession.LicenseeId.ToString()))
+            if (AppSettings.LicenseeOfferNewForecast.Contains(liceseeSession.LicenseeId))
             {
                 return this.RedirectToAction("Index", "NewHandicapOverUnderForecast");
             }

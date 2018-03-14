@@ -24,8 +24,9 @@
         public LicenseeWinLossByTimeZoneReportController(
             ISessionService sessionService,
             IProductService productService,
+            ILanguageService langService,
             ILicenseeWinLossByTimeZoneDataAccess licenseeWinLossByTimeZoneDataAccess)
-            : base(sessionService, productService)
+            : base(sessionService, productService, langService)
         {
             _licenseeWinLossByTimeZoneDataAccess = licenseeWinLossByTimeZoneDataAccess;
         }

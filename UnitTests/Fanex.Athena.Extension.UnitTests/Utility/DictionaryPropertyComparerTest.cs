@@ -42,7 +42,7 @@
             Assert.That(result, Is.EqualTo(expected));
         }
 
-        private IDictionary<int, string> CreateData(params string[] names)
+        private static IDictionary<int, string> CreateData(params string[] names)
         {
             var dictionary = new Dictionary<int, string>();
             dictionary.Add(10, names[0]);

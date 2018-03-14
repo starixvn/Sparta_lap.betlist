@@ -9,6 +9,7 @@
     using DataAccess.Core.Configuration.Interfaces;
     using Excel.Base.Entities;
     using Excel.Report;
+    using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Configuration;
     using Model.Report.DTO.LiveReports;
@@ -243,7 +244,8 @@
             var productService = Substitute.For<IProductService>();
             productService.GetProductAccess(
                 SessionService.LicenseeSession.LicenseeId,
-                SessionService.UserSession.Language).Returns(new ProductAccess(productList.ToList()));
+                SessionService.UserSession.Language,
+                FunctionNames.LiveReport).Returns(new ProductAccess(productList.ToList()));
             var controller = Substitute.ForPartsOf<LiveReportController>(
                 LangService,
                 SessionService,

@@ -57,6 +57,7 @@ namespace Fanex.Athena.Controllers.Report.Result
         }
 
 #pragma warning disable S107 // Methods should not have too many parameters
+
         public ResultReportController(
             ILanguageService languageService,
             ISessionService sessionService,
@@ -93,7 +94,7 @@ namespace Fanex.Athena.Controllers.Report.Result
                 }
             };
             var productAccess = ProductService.GetProductAccess(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language);
-            ViewBag.IsAllowedRNG = productAccess.IsAllowBG || productAccess.IsAllowCS;
+            ViewBag.IsAllowedRNG = productAccess.IsAllowCS;
             ViewBag.IsAllowedKeno = productAccess.IsAllowKN;
             ViewBag.IsAllowedLottery = productAccess.IsAllow(Product.LT);
             return View("~/Views/Report/Result/Main.cshtml", model);
@@ -285,7 +286,7 @@ namespace Fanex.Athena.Controllers.Report.Result
 
         private static bool IsPalayBetType(int betType)
         {
-            return betType == ParlayBetType || betType == SystemParlayBetType || betType == (int)Model.Core.DataDomain.BetType.VirtualSports2MixParlay;
+            return betType == ParlayBetType || betType == SystemParlayBetType || betType == (int)Constant.DataDomain.BetType.VirtualSports2MixParlay;
         }
 
         private static IEnumerable<Sport> RemoveNotAllowedSports(IEnumerable<Sport> sports, ProductAccess productAccess)
@@ -294,11 +295,6 @@ namespace Fanex.Athena.Controllers.Report.Result
             if (!productAccess.IsAllowNG)
             {
                 limitedSports = limitedSports.Where(i => i.SportId != (int)SportType.NumberGame);
-            }
-
-            if (!productAccess.IsAllowLC)
-            {
-                limitedSports = limitedSports.Where(i => i.SportId != (int)SportType.LiveCasino);
             }
 
             if (!productAccess.IsAllowRB)
@@ -379,19 +375,6 @@ namespace Fanex.Athena.Controllers.Report.Result
 
                     break;
 
-                case SportType.LiveCasino:
-
-                    var dataLc = _resultService.GetPopUpLiveCasinoMatch(
-                        metalModel.MatchId,
-                        metalModel.Bettype,
-                        metalModel.BetId);
-                    if (dataLc != null)
-                    {
-                        this._htmlResult = _resultService.HtmlParser(dataLc, setting);
-                    }
-
-                    break;
-
                 case SportType.NumberGame:
                     var dataNg = _resultService.GetPopUpNumberGameMatchs(metalModel.MatchId);
                     if (dataNg != null)
@@ -427,8 +410,7 @@ namespace Fanex.Athena.Controllers.Report.Result
                     SessionService.UserSession.Language,
                     ResultPageGetNormalSportsName);
                 var isAllowAllProducts =
-                    productAccess.IsAllowRB && productAccess.IsAllowLC && productAccess.IsAllowNG
-                    && productAccess.IsAllowVS;
+                    productAccess.IsAllowRB && productAccess.IsAllowNG && productAccess.IsAllowVS;
 
                 var limitedSports = isAllowAllProducts ? sports : RemoveNotAllowedSports(sports, productAccess);
 
@@ -517,11 +499,6 @@ namespace Fanex.Athena.Controllers.Report.Result
                 case SportType.VirtualSpeedway:
                     var dataRc = _resultService.GetRacingMatches(metalModel);
                     ParseResult(dataRc, setting, metalModel.IsExportExcel);
-                    break;
-
-                case SportType.LiveCasino:
-                    var dataLc = _resultService.GetLiveCasinoMatches(metalModel);
-                    ParseResult(dataLc, setting, metalModel.IsExportExcel);
                     break;
 
                 case SportType.NumberGame:

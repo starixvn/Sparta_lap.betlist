@@ -6,6 +6,7 @@
     using System.Web.Http;
     using Base;
     using Base.Attributes;
+    using Constant.DataDomain;
     using Fanex.Athena.Model.BetList.DTO;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
@@ -19,7 +20,9 @@
     using Service.BetList;
     using Service.BetList.Helpers;
     using Service.BetList.Interfaces;
-    using BetListCacheRef = Fanex.BetList.Core.TicketHelper.CacheRef;
+    using Service.Core.Users.Interfaces;
+    using VendorAdapter;
+    using VendorAdapter.Interfaces;
 
     [ApiFunctionAuthorization(PermissionKeys.ReportLastBetsMonitoring)]
     public class LastBetMonitoringBetListController : BaseApiController
@@ -48,11 +51,31 @@
 
         private readonly ITicketHelper _ticketHelper;
 
+        private readonly ICacheRefAdapter _cacheRefAdapter;
+
         public LastBetMonitoringBetListController()
         {
             _matchService = new MatchService();
             _lastBetsMonitoringBetListService = new LastBetsMonitoringBetListService();
             _ticketHelper = new TicketHelper();
+            _cacheRefAdapter = new CacheRefAdapter();
+        }
+
+        [CLSCompliant(false)]
+        public LastBetMonitoringBetListController(
+            ISessionService sessionService,
+            IProductService productService,
+            ILanguageService languageService,
+            IMatchService matchService,
+            ILastBetsMonitoringBetListService lastBetsMonitoringBetListService,
+            ITicketHelper ticketHelper,
+            ICacheRefAdapter cacheRefAdapter)
+        : base(sessionService, productService, languageService)
+        {
+            _matchService = matchService;
+            _lastBetsMonitoringBetListService = lastBetsMonitoringBetListService;
+            _ticketHelper = ticketHelper;
+            _cacheRefAdapter = cacheRefAdapter;
         }
 
         [HttpGet]
@@ -65,7 +88,7 @@
                                       {
                                           IsOutRight = false,
                                           LeagueId = l,
-                                          LeagueName = Model.Core.Helper.CacheRef.GetLeagueName(l)
+                                          LeagueName = _cacheRefAdapter.GetLeagueName(l)
                                       }).ToList();
             var leagueListOutRight = matchList.Where(i => i.IsOutRight).Select(m => m.LeagueId).Distinct()
 
@@ -73,7 +96,7 @@
                                       {
                                           IsOutRight = true,
                                           LeagueId = l,
-                                          LeagueName = Model.Core.Helper.CacheRef.GetLeagueName(l)
+                                          LeagueName = _cacheRefAdapter.GetLeagueName(l)
                                       }).ToList();
 
             var leagueList = leagueListNormal.Union(leagueListOutRight);
@@ -116,35 +139,6 @@
                 {
                     NewRow = false
                 };
-            }
-        }
-
-        private static void BuildOdds(LastBetsMonitoringMetaModel metaModel, TicketResult ticketResult, LrfTicket ticket, BetListHTMLBuilder builder)
-        {
-            const string OddStr = "<td data-name=\"Odds\" class=\"bl-odds\"><span class=\"underdog {1}\">{0}</span><br><span class=\"oddstype\">{2}</span></td>";
-            if (metaModel == null)
-            {
-                return;
-            }
-
-            if (string.IsNullOrEmpty(metaModel.OddsType)
-                || !ConvertingDecimalOddsBetType.Contains(ticket.BetTypeId))
-            {
-                builder.AddOdds(
-                    ticket,
-                    ticketResult.TicketDataList,
-                    "<td data-name=\"Odds\" class='bl-odds'>",
-                    "</td>",
-                    BetListCacheRef.GetOddsTypeName);
-            }
-            else
-            {
-                builder.Append(
-                    string.Format(
-                        OddStr,
-                        Fanex.BetList.Core.Utils.ConvertByBetType.Odds(ticket.Odds),
-                        ticket.Odds < 0 ? "negative" : string.Empty,
-                        metaModel.OddsType));
             }
         }
 
@@ -222,6 +216,35 @@
             }
 
             return string.Empty;
+        }
+
+        private void BuildOdds(LastBetsMonitoringMetaModel metaModel, TicketResult ticketResult, LrfTicket ticket, BetListHTMLBuilder builder)
+        {
+            const string OddStr = "<td data-name=\"Odds\" class=\"bl-odds\"><span class=\"underdog {1}\">{0}</span><br><span class=\"oddstype\">{2}</span></td>";
+            if (metaModel == null)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(metaModel.OddsType)
+                || !ConvertingDecimalOddsBetType.Contains(ticket.BetTypeId))
+            {
+                builder.AddOdds(
+                    ticket,
+                    ticketResult.TicketDataList,
+                    "<td data-name=\"Odds\" class='bl-odds'>",
+                    "</td>",
+                    _cacheRefAdapter.GetOddsTypeName);
+            }
+            else
+            {
+                builder.Append(
+                    string.Format(
+                        OddStr,
+                        Fanex.BetList.Core.Utils.ConvertByBetType.Odds(ticket.Odds),
+                        ticket.Odds < 0 ? "negative" : string.Empty,
+                        metaModel.OddsType));
+            }
         }
     }
 }

@@ -21,6 +21,11 @@
             _sessionService = new SessionService();
         }
 
+        public XFrameOptionApiAttribute(ISessionService sessionService)
+        {
+            _sessionService = sessionService ?? new SessionService();
+        }
+
         public override void OnActionExecuted(HttpActionExecutedContext actionExecutedContext)
         {
             AddXFrameOption(actionExecutedContext);

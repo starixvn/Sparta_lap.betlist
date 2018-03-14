@@ -3,12 +3,11 @@
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Base.UnitTests;
-    using Model.Core.DataDomain;
+    using Constant.DataDomain;
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
     using Result.Core.Base;
-    using Result.Core.LiveCasino.DTO;
     using Result.Core.NumberGame.DTO;
     using Result.Core.Racing.DTO;
     using Result.Core.Sportsbook.DTO;
@@ -130,28 +129,6 @@
                 _resultService.GetPopUpRacingMatch(
                     metaModel.MatchId,
                     metaModel.RaceNo.Value,
-                    metaModel.Bettype,
-                    metaModel.BetId).Returns(dataList);
-                _resultService.HtmlParser(dataList, Arg.Any<ResultSetting>()).Returns(HtmlResult);
-
-                // Action
-                var viewResult = controller.ResultPopup(metaModel) as ViewResult;
-
-                // Assert
-                Assert.That(viewResult.ViewBag.Data, Is.EqualTo(HtmlResult));
-            }
-        }
-
-        [Test]
-        public void ResultPopup_LiveCasinoSport_ResultIsCorrect()
-        {
-            using (var controller = CreateController())
-            {
-                // Arrange
-                var metaModel = CreateResultPopupMetaModel(Result.Core.Base.SportType.LiveCasino);
-                var dataList = new List<LiveCasino> { new LiveCasino() };
-                _resultService.GetPopUpLiveCasinoMatch(
-                    metaModel.MatchId,
                     metaModel.Bettype,
                     metaModel.BetId).Returns(dataList);
                 _resultService.HtmlParser(dataList, Arg.Any<ResultSetting>()).Returns(HtmlResult);

@@ -700,9 +700,6 @@
   <data name="lbl5th" xml:space="preserve">
     <value>5th</value>
   </data>
-  <data name="LC" xml:space="preserve">
-    <value>LC</value>
-  </data>
   <data name="League" xml:space="preserve">
     <value>League</value>
   </data>
@@ -729,10 +726,6 @@
   </data>
   <data name="LicenseeW_L" xml:space="preserve">
     <value>Licensee W/L</value>
-  </data>
-  <data name="ProductLC" xml:space="preserve">
-    <value>Live Casino</value>
-    <comment>#49196</comment>
   </data>
   <data name="LiveGame" xml:space="preserve">
     <value>Live Game</value>
@@ -1314,15 +1307,6 @@
   <data name="TopCustomer" xml:space="preserve">
     <value>Top Customer</value>
   </data>
-  <data name="TopCustomerNote1" xml:space="preserve">
-    <value>This report can support viewing all historical data up to yesterday</value>
-  </data>
-  <data name="TopCustomerNote2" xml:space="preserve">
-    <value>Racing &amp; Live Casino data not included in this report</value>
-  </data>
-  <data name="TopCustomerNote3" xml:space="preserve">
-    <value>This report can support viewing from {0} to yesterday</value>
-  </data>
   <data name="Total" xml:space="preserve">
     <value>Total</value>
   </data>
@@ -1397,9 +1381,6 @@
   </data>
   <data name="UpdateAccountSuccessMsg" xml:space="preserve">
     <value>Update account successfully!</value>
-  </data>
-  <data name="UpdateLiveCasinoBetSettingSuccessMsg" xml:space="preserve">
-    <value>The Live Casino bet setting of {0} was updated successfully</value>
   </data>
   <data name="UpdateNumberGameBetSettingSuccessMsg" xml:space="preserve">
     <value>The Number Game bet setting of {0} was updated successfully</value>
@@ -1536,10 +1517,6 @@
   </data>
   <data name="LastUpdatedBA" xml:space="preserve">
     <value>Last Updated BA</value>
-  </data>
-  <data name="ProductBG" xml:space="preserve">
-    <value>Bingo</value>
-    <comment>#49196</comment>
   </data>
   <data name="PayAttentionMsg" xml:space="preserve">
     <value>Please pay attention: Customer(s) will be removed from group(s) due to different comm values.</value>
@@ -1922,9 +1899,6 @@
   <data name="Licenseegrossrevenuefor" xml:space="preserve">
     <value>Licensee gross revenue for {0}</value>
   </data>
-  <data name="BG" xml:space="preserve">
-    <value>BG</value>
-  </data>
   <data name="CS" xml:space="preserve">
     <value>CS</value>
   </data>
@@ -1972,9 +1946,6 @@
   </data>
   <data name="MinBetGreaterThanOrEqual" xml:space="preserve">
     <value>Min Bet must be greater than or equal to</value>
-  </data>
-  <data name="UpdateLiveCasinoBetSettings" xml:space="preserve">
-    <value>Are you sure you want to update Live Casino bet settings?</value>
   </data>
   <data name="UpdateNumberGameBetSettings" xml:space="preserve">
     <value>Are you sure you want to update all Number Game bet settings?</value>
@@ -2237,9 +2208,6 @@
   <data name="DailyStatementMsg" xml:space="preserve">
     <value>Support data up to 4 months only</value>
   </data>
-  <data name="LCCasinoUpdateSettingUnAvailableMsg" xml:space="preserve">
-    <value>Live Casino Database is not currently available. Please try again later.</value>
-  </data>
   <data name="RNGCasinoUpdateSettingUnAvailableMsg" xml:space="preserve">
     <value>RNG Casino Database is not currently available. Please try again later.</value>
   </data>
@@ -2274,13 +2242,6 @@
   <data name="Alert" xml:space="preserve">
     <value>Alert</value>
     <comment>new</comment>
-  </data>
-  <data name="LCComm" xml:space="preserve">
-    <value>LC Comm</value>
-    <comment>6900</comment>
-  </data>
-  <data name="LCCommission" xml:space="preserve">
-    <value>LC Commission</value>
   </data>
   <data name="Columns" xml:space="preserve">
     <value>Columns</value>
@@ -2375,12 +2336,6 @@
   </data>
   <data name="TotalTurnover" xml:space="preserve">
     <value>Total Turnover</value>
-  </data>
-  <data name="DisableLiveCasino" xml:space="preserve">
-    <value>Disable Live Casino </value>
-  </data>
-  <data name="EnableLiveCasino" xml:space="preserve">
-    <value>Enable Live Casino</value>
   </data>
   <data name="DisableRNGCasino" xml:space="preserve">
     <value>Disable RNG Casino</value>
@@ -2700,9 +2655,6 @@
   <data name="BA" xml:space="preserve">
     <value>BA</value>
   </data>
-  <data name="LiveCasino" xml:space="preserve">
-    <value>Live Casino</value>
-  </data>
   <data name="NumberGame" xml:space="preserve">
     <value>Number Game</value>
   </data>
@@ -2714,9 +2666,6 @@
   </data>
   <data name="VirtualSports" xml:space="preserve">
     <value>Virtual Sports</value>
-  </data>
-  <data name="Bingo" xml:space="preserve">
-    <value>Bingo</value>
   </data>
   <data name="Keno" xml:space="preserve">
     <value>Keno</value>
@@ -3199,5 +3148,8 @@
   <data name="WL" xml:space="preserve">
     <value>WL</value>
     <comment>91048</comment>
+  </data>
+  <data name="FunctionIsUnderMaintenance" xml:space="preserve">
+    <value>Function is under maintenance.</value>
   </data>
 </root>

@@ -6,7 +6,7 @@
 
 namespace Fanex.Athena.Model.Core.DTO.Common
 {
-    using Fanex.Athena.Model.Core.Helper;
+    using VendorAdapter;
 
     /// <summary>
     /// Sport class.
@@ -34,7 +34,7 @@ namespace Fanex.Athena.Model.Core.DTO.Common
             {
                 if (string.IsNullOrEmpty(_sportName))
                 {
-                    _sportName = CacheRef.GetSportName(SportId);
+                    _sportName = CacheRefAdapter.Instance.GetSportName(SportId);
                 }
 
                 return _sportName;

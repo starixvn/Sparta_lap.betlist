@@ -7,6 +7,7 @@
     using System.Web.Http;
     using System.Web.Http.Hosting;
     using System.Web.Http.Results;
+    using Base.UnitTests;
     using DataAccess.Core.Configuration.Interfaces;
     using DataAccess.Report.Interfaces;
     using Excel.Report;
@@ -21,7 +22,7 @@
     using Resources;
     using Service.Core.Common.Interfaces;
 
-    public class WinLossByLeagueReportControllerTest : BaseApiReportControllerHelperTest
+    public class WinLossByLeagueReportControllerTest : BaseApiControllerHelperTest
     {
         private IWinLossByLeagueDataAccess _dataAccess;
         private WinLossByLeagueReportController _controller;
@@ -35,7 +36,7 @@
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             _dataAccess = Substitute.For<IWinLossByLeagueDataAccess>();
 
-            _controller = Substitute.ForPartsOf<WinLossByLeagueReportController>(SessionService, ProductService, balanceUpDataAccess, _dataAccess);
+            _controller = Substitute.ForPartsOf<WinLossByLeagueReportController>(SessionService, ProductService, LangService, balanceUpDataAccess, _dataAccess);
             _controller.Request = new HttpRequestMessage();
 
             balanceUpDataAccess.GetBalanceUp().Returns(new BalanceUp());

@@ -39,8 +39,9 @@ namespace Fanex.Athena.Api.Report
         public AgCasinoBalanceReportController(
             IAgCasinoBalanceDataAccess agcasinoBalanceDataAccess,
             ISessionService sessionService,
-            IProductService productService)
-            : base(sessionService, productService)
+            IProductService productService,
+            ILanguageService langService)
+            : base(sessionService, productService, langService)
         {
             _agcasinoBalanceDataAccess = agcasinoBalanceDataAccess;
         }

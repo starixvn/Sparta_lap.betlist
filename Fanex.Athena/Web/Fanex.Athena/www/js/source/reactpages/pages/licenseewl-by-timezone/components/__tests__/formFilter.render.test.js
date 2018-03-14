@@ -1,6 +1,7 @@
 import React from 'react';
 import { FormFilter } from '../formFilter';
 import renderer from 'react-test-renderer';
+import ShallowRenderer from 'react-test-renderer/shallow';
 
 import LangHelper from '../../../../lib/langHelper';
 import service from '../../lib/service';
@@ -145,20 +146,18 @@ describe('FormFilter ', () => {
 
         describe('render whole component', () => {
             it('group by product - IsConverAll checkbox is disabled - match to snapshot', () => {
-                const component = renderer.create(<FormFilter {...formFilterPropsForRender} />);
+                const renderer = new ShallowRenderer();
+                const result = renderer.render(<FormFilter {...formFilterPropsForRender}/>);
 
-                const result = component.toJSON();
-
-                expect(result).toMatchSnapshot()
+                expect(result).toMatchSnapshot();
             })
 
             it('group by currency - IsConverAll checkbox is enabled - match to snapshot', () => {
                 const props = Object.assign({}, formFilterPropsForRender, { groupBy: 2 });
-                const component = renderer.create(<FormFilter {...props} />);
+                const renderer = new ShallowRenderer();
+                const result = renderer.render(<FormFilter {...props}/>);
 
-                const result = component.toJSON();
-
-                expect(result).toMatchSnapshot()
+                expect(result).toMatchSnapshot();
             })
 
             it('GroupBy filter - onChange event fired - changeGroupBy should be called with correct parameter', () => {

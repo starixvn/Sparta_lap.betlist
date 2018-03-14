@@ -18,21 +18,26 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
     using Fanex.Data;
-    using Model.Core.Helper;
     using Model.Core.ResultModel;
+    using VendorAdapter;
+    using VendorAdapter.Interfaces;
 
     public class CustomerTurnoverDataAccess : BaseDataAccess, ICustomerTurnoverDataAccess
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
+        private readonly ICacheRefAdapter _cacheRefAdapter;
+
         public CustomerTurnoverDataAccess()
         {
             _balanceUpDataAccess = new BalanceUpDataAccess();
+            _cacheRefAdapter = new CacheRefAdapter();
         }
 
-        public CustomerTurnoverDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
+        public CustomerTurnoverDataAccess(IBalanceUpDataAccess balanceUpDataAccess, ICacheRefAdapter cacheRefAdapter)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
+            _cacheRefAdapter = cacheRefAdapter;
         }
 
         public ReportResultModel<CustTurnover> GetDataList(CustomerTurnoverMetaModel metaModel, string languageCode)
@@ -54,7 +59,7 @@ namespace Fanex.Athena.DataAccess.Report
                             UserName = reader.ToString("username"),
                             Currency = reader.ToString("currency"),
                             SportId = sportId,
-                            SportType = CacheRef.GetSportName(sportId, languageCode),
+                            SportType = _cacheRefAdapter.GetSportName(sportId, languageCode),
                             TotalTransactions = reader.ToInt("BetCount"),
                             Bettype = reader.ToString("Bettype"),
                             Turnover = turnover,

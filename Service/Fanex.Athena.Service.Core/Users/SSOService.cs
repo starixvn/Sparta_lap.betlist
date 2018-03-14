@@ -7,7 +7,6 @@
 namespace Fanex.Athena.Service.Core.Users
 {
     using System.Collections.Specialized;
-    using System.Configuration;
     using System.Web;
     using Extension.Utility.Interfaces;
     using Fanex.Athena.Extension.Utility;
@@ -15,6 +14,7 @@ namespace Fanex.Athena.Service.Core.Users
     using Fanex.Athena.Model.Core.DTO.Users;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Users.Interfaces;
+    using Logging;
     using Model.Core.DataDomain;
     using Model.Core.MetaModel.Authorization;
     using Utility;
@@ -44,21 +44,15 @@ namespace Fanex.Athena.Service.Core.Users
         private readonly IRSAEncryptor _rsaEncryptor;
         private readonly IFileSystem _fileSystem;
         private readonly IFormsAuthenticationService _formsAuthenticationService;
+        private readonly ILogger _logger;
 
-        public SSOService()
+        public SSOService() : this(null, null, null, null, null, null, null, null)
         {
-            _context = new HttpContextService();
-            _authService = new AuthService();
-            _sessionService = new SessionService();
-            _rsaEncryptor = new RSAEncryptor();
-            _fileSystem = new FileSystem();
-            _formsAuthenticationService = new FormsAuthenticationService();
-            _deniedPath = ConfigurationManager.AppSettings["SSOUnAuthorizePath"];
-            _keyPath = ConfigurationManager.AppSettings["SSOKeyPath"] ?? string.Empty;
         }
 
 #pragma warning disable S107 // Methods should not have too many parameters
 
+        [System.CLSCompliant(false)]
         public SSOService(
             IHttpContextService httpContextService,
             IAuthService authService,
@@ -66,18 +60,21 @@ namespace Fanex.Athena.Service.Core.Users
             IRSAEncryptor rsaEncryptor,
             IFileSystem fileSystem,
             IFormsAuthenticationService formsAuthenticationService,
-            string deniedPath,
-            string keyPath)
+            ILogger logger,
+            IAppSettings appSetting)
 #pragma warning restore S107 // Methods should not have too many parameters
         {
-            _context = httpContextService;
-            _authService = authService;
-            _sessionService = sessionService;
-            _rsaEncryptor = rsaEncryptor;
-            _fileSystem = fileSystem;
-            _formsAuthenticationService = formsAuthenticationService;
-            _deniedPath = deniedPath;
-            _keyPath = keyPath;
+            _context = httpContextService ?? new HttpContextService();
+            _authService = authService ?? new AuthService();
+            _sessionService = sessionService ?? new SessionService();
+            _rsaEncryptor = rsaEncryptor ?? new RSAEncryptor();
+            _fileSystem = fileSystem ?? new FileSystem();
+            _formsAuthenticationService = formsAuthenticationService ?? new FormsAuthenticationService();
+            _logger = logger ?? Logger.Log;
+
+            var setting = appSetting ?? new AppSettings();
+            _deniedPath = setting.GetValue("SSOUnAuthorizePath");
+            _keyPath = setting.GetValue("SSOKeyPath") ?? string.Empty;
         }
 
         private static string CurrentIdentityName
@@ -126,6 +123,7 @@ namespace Fanex.Athena.Service.Core.Users
             if (string.IsNullOrEmpty(metaModel.UserName) || string.IsNullOrEmpty(metaModel.Password))
             {
                 RedirectToErrorPage(InValidParamErrorCode);
+                return;
             }
 
             if (!Util.IsValidLanguage(metaModel.LanguageCode))
@@ -155,7 +153,7 @@ namespace Fanex.Athena.Service.Core.Users
             }
         }
 
-        private static void LogFailedLogin(SsoMetaModel metaModel, IResultInfo resultInfo)
+        private void LogFailedLogin(SsoMetaModel metaModel, IResultInfo resultInfo)
         {
             var message = InternalLoginErrorMessage +
                                 "\r\nCode: " + resultInfo.Code +
@@ -167,7 +165,7 @@ namespace Fanex.Athena.Service.Core.Users
                                  "\r\nSiteOutUrl: " + metaModel.LoginUrl +
                                  "\r\nLanguageCode: " + metaModel.LanguageCode;
 
-            Logging.LogService.Info(message);
+            _logger.Info(message);
         }
 
         private SsoMetaModel ParseQueryString()
@@ -222,7 +220,7 @@ namespace Fanex.Athena.Service.Core.Users
 
         private void RedirectToErrorPage(int code)
         {
-            _context.Redirect(Util.RootPath + string.Format(_deniedPath, code));
+            _context.Redirect("~/" + string.Format(_deniedPath, code));
         }
 
         private IResultInfo InternalLogin(SsoMetaModel metaModel)

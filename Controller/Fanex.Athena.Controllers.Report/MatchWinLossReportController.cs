@@ -6,6 +6,7 @@
     using System.Linq;
     using System.Web.Hosting;
     using System.Web.Mvc;
+    using Constant.DataDomain;
     using DataAccess.Core.Configuration;
     using DataAccess.Core.Configuration.Interfaces;
     using Excel.Base.Helpers;
@@ -27,21 +28,24 @@
     using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Service.Report.Interfaces;
+    using VendorAdapter;
+    using VendorAdapter.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.ReportMatchWinLoss)]
     public class MatchWinLossReportController : ReportBaseController
     {
         private const string NewProductIdColumnName = "newproductid";
 
-        private const int LCSport = 162;
-
         private static readonly IList<int> VirtualHrBettypes = new List<int> { 1231, 1232, 1233, 1237, 1238 };
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
+        private readonly ICacheRefAdapter _cacheRefAdapter;
         private readonly IMatchWinLossService _matchWinLossService;
 
-        public MatchWinLossReportController() : this(null, null, null, null, null, null, null)
+        public MatchWinLossReportController() : this(null, null, null, null, null, null, null, null)
         {
         }
+
+#pragma warning disable S107 // Methods should not have too many parameters
 
         public MatchWinLossReportController(
             ILanguageService languageService,
@@ -50,10 +54,13 @@
             IClientViewHelper clientViewHelper,
             IProductService productService,
             IBalanceUpDataAccess balanceUpDataAccess,
+            ICacheRefAdapter cacheRefAdapter,
             IMatchWinLossService matchWinLossService)
+#pragma warning restore S107 // Methods should not have too many parameters
             : base(languageService, sessionService, appSetting, clientViewHelper, productService)
         {
             _balanceUpDataAccess = balanceUpDataAccess ?? new BalanceUpDataAccess();
+            _cacheRefAdapter = cacheRefAdapter ?? new CacheRefAdapter();
             _matchWinLossService = matchWinLossService ?? new MatchWinLossService();
         }
 
@@ -167,7 +174,6 @@
                 BAVisible = productAccess.IsAllowBA,
                 RBVisible = productAccess.IsAllowRB,
                 NGVisible = productAccess.IsAllowNG,
-                LCVisible = productAccess.IsAllowLC,
                 SBVisible = productAccess.IsAllowSB,
                 VSVisible = productAccess.IsAllowVS,
                 KNVisible = productAccess.IsAllowKN,
@@ -248,85 +254,6 @@
             };
         }
 
-        #region Obsolete
-
-        private static DataTable AddColumnsForSorting(DataTable mainTable)
-        {
-            mainTable.Columns.Add(NewProductIdColumnName, typeof(int));
-            mainTable.Columns.Add("matchname", typeof(string));
-            mainTable.Columns.Add("leaguename", typeof(string));
-
-            foreach (DataRow row in mainTable.Rows)
-            {
-                var betType = Converter.ToInt(row["bettype"]);
-                row[NewProductIdColumnName] = ProductHelper.GetProductId(betType);
-
-                AssignMatchName(row, betType);
-
-                AssignLeagueName(row);
-            }
-
-            return mainTable;
-        }
-
-        private static void AssignMatchName(DataRow row, int betType)
-        {
-            switch ((int)row[NewProductIdColumnName])
-            {
-                case ProductTypes.Racing:
-                    row["matchname"] = ViewResources.Race + Converter.ToString2(row["race"]);
-                    break;
-
-                case ProductTypes.NumberGame:
-                    row["matchname"] = string.Format("{0} {1}", ViewResources.NumberGameNo, row["matchcode"]);
-                    break;
-
-                case ProductTypes.LiveCasino:
-                    row["matchname"] = string.Format("{0} {1} {2}", CacheRef.GetSportName(LCSport), CacheRef.GetBettype(row["bettype"]), row["showtime"]);
-                    break;
-
-                default:
-
-                    if (VirtualHrBettypes.Contains(betType))
-                    {
-                        var culture = new CultureInfo("en-US");
-                        const string TimeFormatter = "{0:MM/dd/yyyy hh:mm:ss tt}";
-                        var kickOffTime = Converter.ToDateTime(row["KickoffTime"]);
-                        row["matchname"] = string.Format(culture, TimeFormatter, kickOffTime);
-                        break;
-                    }
-
-                    var homeName = CacheRef.GetTeamName(row["homeid"]) +
-                                   (Converter.ToBool(row["isneutral"])
-                                        ? " " + ViewResources.IsNeutral
-                                        : string.Empty);
-                    var awayName = CacheRef.GetTeamName(row["awayid"]);
-                    row["matchname"] = homeName + "-vs-" + awayName;
-
-                    break;
-            }
-        }
-
-        private static void AssignLeagueName(DataRow row)
-        {
-            switch ((int)row[NewProductIdColumnName])
-            {
-                case ProductTypes.Racing:
-                    row["leaguename"] = ViewResources.ProductRB + "-" + CacheRef.GetLeagueName(row["leagueid"]);
-                    break;
-
-                case ProductTypes.NumberGame:
-                    row["leaguename"] = ViewResources.ProductNG;
-                    break;
-
-                default:
-                    row["leaguename"] = CacheRef.GetLeagueName(row["leagueid"]);
-                    break;
-            }
-        }
-
-        #endregion Obsolete
-
         private static int GetColumnCount(ProductAccess productAccess, bool isAllowedCustomerComm)
         {
             var columnCount = 6;
@@ -346,6 +273,77 @@
             }
 
             return columnCount;
+        }
+
+        private DataTable AddColumnsForSorting(DataTable mainTable)
+        {
+            mainTable.Columns.Add(NewProductIdColumnName, typeof(int));
+            mainTable.Columns.Add("matchname", typeof(string));
+            mainTable.Columns.Add("leaguename", typeof(string));
+
+            foreach (DataRow row in mainTable.Rows)
+            {
+                var betType = Converter.ToInt(row["bettype"]);
+                row[NewProductIdColumnName] = ProductHelper.GetProductId(betType);
+
+                AssignMatchName(row, betType);
+
+                AssignLeagueName(row);
+            }
+
+            return mainTable;
+        }
+
+        private void AssignMatchName(DataRow row, int betType)
+        {
+            switch ((int)row[NewProductIdColumnName])
+            {
+                case ProductTypes.Racing:
+                    row["matchname"] = ViewResources.Race + Converter.ToString2(row["race"]);
+                    break;
+
+                case ProductTypes.NumberGame:
+                    row["matchname"] = string.Format("{0} {1}", ViewResources.NumberGameNo, row["matchcode"]);
+                    break;
+
+                default:
+
+                    if (VirtualHrBettypes.Contains(betType))
+                    {
+                        var culture = new CultureInfo("en-US");
+                        const string TimeFormatter = "{0:MM/dd/yyyy hh:mm:ss tt}";
+                        var kickOffTime = Converter.ToDateTime(row["KickoffTime"]);
+                        row["matchname"] = string.Format(culture, TimeFormatter, kickOffTime);
+                        break;
+                    }
+
+                    var homeName = _cacheRefAdapter.GetTeamName(row["homeid"]) +
+                                   (Converter.ToBool(row["isneutral"])
+                                        ? " " + ViewResources.IsNeutral
+                                        : string.Empty);
+                    var awayName = _cacheRefAdapter.GetTeamName(row["awayid"]);
+                    row["matchname"] = homeName + "-vs-" + awayName;
+
+                    break;
+            }
+        }
+
+        private void AssignLeagueName(DataRow row)
+        {
+            switch ((int)row[NewProductIdColumnName])
+            {
+                case ProductTypes.Racing:
+                    row["leaguename"] = ViewResources.ProductRB + "-" + _cacheRefAdapter.GetLeagueName(row["leagueid"]);
+                    break;
+
+                case ProductTypes.NumberGame:
+                    row["leaguename"] = ViewResources.ProductNG;
+                    break;
+
+                default:
+                    row["leaguename"] = _cacheRefAdapter.GetLeagueName(row["leagueid"]);
+                    break;
+            }
         }
     }
 }

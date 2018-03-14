@@ -6,20 +6,19 @@
 
 namespace Fanex.Athena.Excel.Report
 {
+    using System;
     using System.Globalization;
     using Base;
     using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
     using Helpers;
-    using Model.Core.Helper;
     using Model.Report.DTO;
     using Model.Report.ViewModel;
     using NPOI.SS.UserModel;
     using Resources;
+    using VendorAdapter;
+    using VendorAdapter.Interfaces;
 
-    /// <summary>
-    /// Daily racing win loss - Export excel.
-    /// </summary>
     public class DailyRacingWinLossExcel : ReportBase
     {
         private const int ColumnAmountDueTo = 9;
@@ -42,6 +41,12 @@ namespace Fanex.Athena.Excel.Report
 
         private readonly ConvertingOption _convertingOption;
 
+        private readonly DailyRacingWinLossViewModel _viewModel;
+
+        private readonly DailyRacingWinLossData _dailyRacingWinLossData;
+
+        private readonly ICacheRefAdapter _cacheRefAdapter;
+
         protected internal DailyRacingWinLossExcel()
             : base(string.Empty, 0)
         {
@@ -54,21 +59,10 @@ namespace Fanex.Athena.Excel.Report
                                        DailyRacingWinLossViewModel viewModel)
             : base(templatePath, viewModel.DailyRacingWinLossData.ContentData.Count, showingOption)
         {
+            _cacheRefAdapter = new CacheRefAdapter();
             _convertingOption = convertingOption;
-            ViewModel = viewModel;
-            DailyRacingWinLossData = viewModel.DailyRacingWinLossData;
-        }
-
-        protected DailyRacingWinLossData DailyRacingWinLossData
-        {
-            get;
-            set;
-        }
-
-        protected DailyRacingWinLossViewModel ViewModel
-        {
-            get;
-            set;
+            _viewModel = viewModel;
+            _dailyRacingWinLossData = viewModel.DailyRacingWinLossData;
         }
 
         protected override void AssignHeader(ISheet sheet)
@@ -101,8 +95,8 @@ namespace Fanex.Athena.Excel.Report
         /// <param name="sheet">Excel sheet.</param>
         protected override void AssignSheetData(ISheet sheet)
         {
-            var contentData = DailyRacingWinLossData.ContentData;
-            var contentTotalData = DailyRacingWinLossData.ContentTotalData;
+            var contentData = _dailyRacingWinLossData.ContentData;
+            var contentTotalData = _dailyRacingWinLossData.ContentTotalData;
 
             var currentRow = RowContentStart;
 
@@ -144,7 +138,7 @@ namespace Fanex.Athena.Excel.Report
             var reportTitle = string.Format(
                                         ViewResources.DailyRacingTitle,
                                         string.Empty,
-                                        ViewModel.Param.Date.ToString(FormatDate),
+                                        _viewModel.Param.Date.ToString(FormatDate),
                                         ReportExcelHelper.GetTitleCurrencyName(_convertingOption));
 
             sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, ColumnTemplateCount, reportTitle);
@@ -168,13 +162,6 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        /// <summary>
-        /// Assign data to euro section.
-        /// </summary>
-        /// <param name="row">Excel row.</param>
-        /// <param name="dailyRacingWinLoss">Daily Racing win loss data.</param>
-        /// <param name="leagueName">League name.</param>
-        /// <param name="raceName">Race name.</param>
         private static void AssignDataEur(IRow row, DailyRacingWinLoss dailyRacingWinLoss, string leagueName, string raceName)
         {
             row.Cells[ColumnMeetingCurrency].SetCellValue(leagueName);
@@ -220,13 +207,6 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnAmountDueTo].SetCellValue(dailyRacingWinLoss.AmountDueToRacing);
         }
 
-        /// <summary>
-        /// Assign data to USD section.
-        /// </summary>
-        /// <param name="row">Excel row.</param>
-        /// <param name="dailyRacingWinLoss">Daily Racing win loss data.</param>
-        /// <param name="leagueName">League name.</param>
-        /// <param name="raceName">Race name.</param>
         private static void AssignDataUsd(IRow row, DailyRacingWinLoss dailyRacingWinLoss, string leagueName, string raceName)
         {
             row.Cells[ColumnMeetingCurrency].SetCellValue(leagueName);
@@ -257,27 +237,21 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnAmountDueTo].SetCellValue(dailyRacingWinLoss.AmountDueToRacingGBP);
         }
 
-        // DataRow exportRow
-        private static string GetMatchName(DailyRacingWinLoss dailyRacingWinLoss)
+        private string GetMatchName(DailyRacingWinLoss dailyRacingWinLoss)
         {
             var leageId = dailyRacingWinLoss.LeagueId;
-            var curCurrency = dailyRacingWinLoss.CurrencyName.Trim(); // Save the current Currency
-            return CacheRef.GetLeagueName(leageId) + " - " + curCurrency;
+            var curCurrency = dailyRacingWinLoss.CurrencyName.Trim();
+            return _cacheRefAdapter.GetLeagueName(leageId) + " - " + curCurrency;
         }
 
-        /// <summary>
-        /// Assign data to total section.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        /// <param name="currentRow">The row index of total section.</param>
-        private void AssignTotalData(ISheet sheet, int currentRow)
+        protected internal virtual void AssignTotalData(ISheet sheet, int currentRow)
         {
             // Total currency
-            var currencyTotalData = DailyRacingWinLossData.CurrencyTotalData;
-            foreach (string currencyName in currencyTotalData.Keys)
+            var currencyTotalData = _dailyRacingWinLossData.CurrencyTotalData;
+            foreach (var currencyData in currencyTotalData)
             {
                 var currencyRow = sheet.CopyRow(TemplateSheet, RowTotalCurrencyTemplate, currentRow);
-                AssignDataRow(currencyRow, currencyTotalData[currencyName], ViewResources.Total, currencyName);
+                AssignDataRow(currencyRow, currencyData.Value, ViewResources.Total, currencyData.Key);
                 currentRow++;
             }
 
@@ -285,24 +259,21 @@ namespace Fanex.Athena.Excel.Report
             sheet.MergeCells(currentRow - currencyTotalData.Count, 0, currentRow - 1, 0);
 
             // Grand Total
-            var grandTotalMyrRow = sheet.CopyRow(TemplateSheet, RowGrandTotalTemplate, currentRow);
-            AssignDataMyr(grandTotalMyrRow, DailyRacingWinLossData.GrandTotalData, ViewResources.GrandTotalIn + " " + ViewResources.MYR, string.Empty);
-            sheet.MergeCells(currentRow, 0, currentRow, 1);
-            currentRow++;
-
-            var grandTotalEurRow = sheet.CopyRow(TemplateSheet, RowGrandTotalTemplate + 1, currentRow);
-            AssignDataEur(grandTotalEurRow, DailyRacingWinLossData.GrandTotalData, ViewResources.GrandTotalIn + " " + ViewResources.EUR, string.Empty);
-            sheet.MergeCells(currentRow, 0, currentRow, 1);
-            currentRow++;
-
-            var grandTotalUsdRow = sheet.CopyRow(TemplateSheet, RowGrandTotalTemplate + 1, currentRow);
-            AssignDataUsd(grandTotalUsdRow, DailyRacingWinLossData.GrandTotalData, ViewResources.GrandTotalIn + " " + ViewResources.USD, string.Empty);
-            sheet.MergeCells(currentRow, 0, currentRow, 1);
-            currentRow++;
-
-            var grandTotalGbpRow = sheet.CopyRow(TemplateSheet, RowGrandTotalTemplate + 1, currentRow);
-            AssignDataGbp(grandTotalGbpRow, DailyRacingWinLossData.GrandTotalData, ViewResources.GrandTotalIn + " " + ViewResources.GBP, string.Empty);
-            sheet.MergeCells(currentRow, 0, currentRow, 1);
+            var currencies = new[] { ViewResources.MYR, ViewResources.EUR, ViewResources.USD, ViewResources.GBP };
+            var actions = new Action<IRow, DailyRacingWinLoss, string>[]
+            {
+                 (row, item, leagueName) => AssignDataMyr(row, item, leagueName, string.Empty),
+                 (row, item, leagueName) => AssignDataEur(row, item, leagueName, string.Empty),
+                 (row, item, leagueName) => AssignDataUsd(row, item, leagueName, string.Empty),
+                 (row, item, leagueName) => AssignDataGbp(row, item, leagueName, string.Empty)
+            };
+            for (int i = 0; i < currencies.Length; i++)
+            {
+                var totalRow = sheet.CopyRow(TemplateSheet, RowGrandTotalTemplate + (i == 0 ? 0 : 1), currentRow);
+                actions[i](totalRow, _dailyRacingWinLossData.GrandTotalData, ViewResources.GrandTotalIn + " " + currencies[i]);
+                sheet.MergeCells(currentRow, 0, currentRow, 1);
+                currentRow++;
+            }
         }
     }
 }

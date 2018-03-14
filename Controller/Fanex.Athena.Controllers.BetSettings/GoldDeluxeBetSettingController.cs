@@ -7,13 +7,19 @@
 namespace Fanex.Athena.Controllers.BetSettings
 {
     using System.Web.Mvc;
+    using Constant.DataDomain;
+    using DataAccess.BetSettings.Interfaces;
+    using Extension.Utility;
     using Fanex.Athena.Web.ActionFilter;
     using Model.BetSettings.MetaModel;
-    using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
     using Resources;
     using Service.BetSettings;
     using Service.BetSettings.Interfaces;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
+    using Service.Core.Users.Interfaces;
+    using Service.Customer.Interfaces;
 
     public class GoldDeluxeBetSettingController : BetSettingBaseController
     {
@@ -22,6 +28,21 @@ namespace Fanex.Athena.Controllers.BetSettings
         public GoldDeluxeBetSettingController()
         {
             _betSettingService = new GoldDeluxeBetSettingService();
+        }
+
+        public GoldDeluxeBetSettingController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
+            IAuthorizationService authorizationService,
+            ICoreBetSettingDataAccess coreBetSettingDataAccess,
+            ICustomerService customerService,
+            IProductService productService,
+            IGoldDeluxeBetSettingService betSettingService)
+        : base(languageService, sessionService, appSetting, clientViewHelper, authorizationService, coreBetSettingDataAccess, customerService, productService)
+        {
+            _betSettingService = betSettingService;
         }
 
         [HttpGet]

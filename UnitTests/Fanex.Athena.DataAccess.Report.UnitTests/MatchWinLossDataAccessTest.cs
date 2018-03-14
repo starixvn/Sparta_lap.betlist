@@ -11,6 +11,7 @@
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using VendorAdapter.Interfaces;
 
     [TestFixture]
     public class MatchWinLossDataAccessTest : BaseDataAccessHelperTest<MatchWinLossDataAccess>
@@ -35,7 +36,7 @@
             balanceUpDataAccess.GetBalanceUp().Returns(_balance);
 
             ObjectDb = Substitute.For<IObjectDb>();
-            DataAccess = Substitute.ForPartsOf<MatchWinLossDataAccess>(balanceUpDataAccess);
+            DataAccess = Substitute.ForPartsOf<MatchWinLossDataAccess>(balanceUpDataAccess, Substitute.For<ICacheRefAdapter>());
 
             _metaModel = new MatchWinLossMetaModel
             {
@@ -275,14 +276,6 @@
         }
 
         [Test]
-        public void GetDataList_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetDataListSp,
-                () => DataAccess.GetDataList(_metaModel));
-        }
-
-        [Test]
         public void GetDetailDataSet_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
@@ -301,14 +294,6 @@
                 ObjectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
                 ObjectDb.Received().AddInParameter("showNG", DbType.Boolean, false);
             });
-        }
-
-        [Test]
-        public void GetDetailDataSet_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetDetailDataSetSp,
-                () => DataAccess.GetDetailDataSet(_metaModel));
         }
 
         [Test]
@@ -333,14 +318,6 @@
         }
 
         [Test]
-        public void GetDetailDataList_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetDetailDataListSp,
-                () => DataAccess.GetDetailDataList(_metaModel));
-        }
-
-        [Test]
         public void GetOutrightParlayList_WhenCall_ReturnCorrectResult()
         {
             // Arrange
@@ -358,14 +335,6 @@
                 ObjectDb.Received().AddInParameter("showsb", DbType.Boolean, true);
                 ObjectDb.Received().AddInParameter("showba", DbType.Boolean, false);
             });
-        }
-
-        [Test]
-        public void GetOutrightParlayList_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetOutrightParlayListSp,
-                () => DataAccess.GetOutrightParlayList(_metaModel));
         }
     }
 }

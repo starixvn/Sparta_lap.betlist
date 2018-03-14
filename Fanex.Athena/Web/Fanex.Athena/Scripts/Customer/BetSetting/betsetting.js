@@ -6,7 +6,6 @@ var BetSetting = (function ($) {
     var TAB_SPORTSBOOK = 0;
     var TAB_RACING = 1;
     var TAB_NUMBERGAME = 2;
-    var TAB_LIVECASINO = 4;
     var TAB_VIRTUALSPORTS = 5;
     var TAB_RNGCASINO = 6;
     var TAB_KENO = 8;
@@ -93,9 +92,6 @@ var BetSetting = (function ($) {
             var url = null;
 
             switch (productId) {
-                case TAB_LIVECASINO:
-                    url = "LiveCasinoBetSetting/UpdateStatus";
-                    break;
                 case TAB_RNGCASINO:
                     url = "RngCasinoBetSetting/UpdateStatus";
                     break;
@@ -190,11 +186,6 @@ var BetSetting = (function ($) {
             });
         },
         checkEnableBetSetting: function (tabId, enable) {
-            if (tabId === TAB_LIVECASINO) {
-                BetSetting.checkEnableLiveCasino(enable);
-                return;
-            }
-
             BetSetting.checkEnable(_sportIds, enable);
 
             if (tabId === TAB_NUMBERGAME) {
@@ -218,20 +209,10 @@ var BetSetting = (function ($) {
                 $("#btnSubmitBetSetting, #btnReset").prop('disabled', true).addClass("button-disabled");
             }
         },
-        checkEnableLiveCasino: function (enable) {
-            var gameTypeCount = $("#gameTypeCount").val();
-            if (!enable) {
-                for (var i = 1; i <= gameTypeCount; i++) {
-                    $("input[name=gameTypeName" + i + "]").prop('disabled', true);
-                }
-                $("#btnSubmitBetSetting, #btnReset").prop('disabled', true).addClass("button-disabled");
-            }
-        },
         updateBetSetting: function () {
             var custId, userName, nickName, productId;
             productId = parseInt($("#ProductId").val());
-            var isValid = productId === TAB_LIVECASINO ? true :
-                         (productId === TAB_NUMBERGAME ? BetSetting.checkValidationNumberGame() : BetSetting.checkValidation());
+            var isValid = productId === TAB_NUMBERGAME ? BetSetting.checkValidationNumberGame() : BetSetting.checkValidation();
             if (!isValid) {
                 return;
             }
@@ -260,9 +241,6 @@ var BetSetting = (function ($) {
                     break;
                 case TAB_VIRTUALSPORTS2:
                     showComfirm(getUpdateProductMessage('VS2'), BetSetting.updateDcsBetSetting);
-                    break;
-                case TAB_LIVECASINO:
-                    showComfirm('UpdateLiveCasinoBetSettings', BetSetting.updateLiveCasinoBetSetting);
                     break;
                 case TAB_KENO:
                     showComfirm('UpdateKenoBetSettings', BetSetting.updateKenoBetSetting);
@@ -457,43 +435,6 @@ var BetSetting = (function ($) {
             });
         },
         
-        updateLiveCasinoBetSetting: function (custId, userName, nickName) {
-            var gameTypeCount = $("#gameTypeCount").val();
-            var params = {};
-            params.custId = custId;
-            params.nickName = nickName;
-            params.gameTypeCount = gameTypeCount;
-            for (var i = 1; i <= gameTypeCount; i++) {
-                var gametypeId = $("#gameTypeId" + i);
-                var stakeLevelNameChecked = $("#stakeLevelName" + i);
-                var betTypeId = $("#betTypeId" + i);
-                var stakeId = $("input[name=gameTypeName" + i + "]:checked").attr("data-stake-id");
-
-                params["stakeId" + i] = stakeId;
-                params["gameTypeId" + i] = gametypeId.val();
-                params["stakeLevelName" + i] = stakeLevelNameChecked.val();
-                params["betTypeId" + i] = betTypeId.val();
-            }
-            $.ajax({
-                type: 'POST',
-                url: Site.resolveClientUrl('LiveCasinoBetSetting/updateBetSetting'),
-                cache: false,
-                data: params,
-                dataType: "json",
-                success: function (result) {
-                    if (result.Code.toString() === "0") {
-                        BetSetting.showDialogMesage(Site.getSingleResource('MessageSuccess'), result.Message, false);
-                    }
-                    else {
-                        BetSetting.showDialogMesage(Site.getSingleResource('Fail'), result.Message, false);
-                    }
-                },
-                error: function (request, status, err) {
-                    BetSetting.showDialogMesage(Site.getSingleResource("Error"), err, false);
-                }
-            });
-        },
-        
         getBetSettingParamsForSports: function (sportsIds) {
             var params = {};
             for (var i in sportsIds) {
@@ -546,9 +487,6 @@ var BetSetting = (function ($) {
             var productId = parseInt($("#ProductId").val());
 
             switch (productId) {
-                case TAB_LIVECASINO:
-                    BetSetting.resetLiveCasinoBetSetting();
-                    break;
                 case TAB_AGCASINO:
                     BetSetting.resetAgCasinoSetting();
                     break;
@@ -599,14 +537,6 @@ var BetSetting = (function ($) {
                 $dropdown.prop("selectedIndex", -1).change();
             } else {
                 $dropdown.val($dropdown.data("default")).change();
-            }
-        },
-        resetLiveCasinoBetSetting: function () {
-            var gameTypeCount = $("#gameTypeCount").val();
-
-            for (var i = 1; i <= gameTypeCount; i++) {
-                var oldCheck = $("#oldCheck" + i).val();
-                $("input[name=gameTypeName" + i + "][data-stake-id=" + oldCheck + "]").prop("checked", true);
             }
         },
         resetCashOutSetting: function () {

@@ -20,9 +20,9 @@ namespace Fanex.Athena.Excel.Base
         public const int RowTitleTemplate = 0;
         public const int MaxRowCount = 30000;
 
-        protected const int ColumnIndex = 0;
+        public const string FormatDate = "MM/dd/yyyy";
 
-        protected const string FormatDate = "MM/dd/yyyy";
+        protected const int ColumnIndex = 0;
 
         private readonly string _templatePath;
 

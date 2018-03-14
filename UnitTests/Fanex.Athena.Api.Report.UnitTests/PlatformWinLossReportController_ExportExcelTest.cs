@@ -14,7 +14,7 @@
 
     public partial class PlatformWinLossReportControllerTest
     {
-        [TestCase(true, new[] { Product.BA, Product.RB, Product.NG, Product.LC }, new[] { Product.BA, Product.RB })]
+        [TestCase(true, new[] { Product.BA, Product.RB, Product.NG }, new[] { Product.BA, Product.RB })]
         [TestCase(false, new[] { Product.SB, Product.VS, Product.CS, Product.KN }, new[] { Product.RB })]
         [TestCase(false, new string[0], new string[0])]
         public void Index_ExportExcelMemberWithLevel1_PassCorrectParamsToCreateExcel(
@@ -156,7 +156,6 @@
                 Product.BA,
                 Product.RB,
                 Product.NG,
-                Product.LC,
                 Product.SB,
                 Product.VS,
                 Product.CS,
@@ -172,11 +171,9 @@
             {
                 Assert.IsTrue(expetedShowingOption.SBVisible == productOptions.Any(i => i.Code == Product.SB && i.Status));
                 Assert.IsTrue(expetedShowingOption.BAVisible == productOptions.Any(i => i.Code == Product.BA && i.Status));
-                Assert.IsTrue(expetedShowingOption.BGVisible == productOptions.Any(i => i.Code == Product.BG && i.Status));
                 Assert.IsTrue(expetedShowingOption.BTVisible == productOptions.Any(i => i.Code == Product.BT && i.Status));
                 Assert.IsTrue(expetedShowingOption.CSVisible == productOptions.Any(i => i.Code == Product.CS && i.Status));
                 Assert.IsTrue(expetedShowingOption.KNVisible == productOptions.Any(i => i.Code == Product.KN && i.Status));
-                Assert.IsTrue(expetedShowingOption.LCVisible == productOptions.Any(i => i.Code == Product.LC && i.Status));
                 Assert.IsTrue(expetedShowingOption.NGVisible == productOptions.Any(i => i.Code == Product.NG && i.Status));
                 Assert.IsTrue(expetedShowingOption.RBVisible == productOptions.Any(i => i.Code == Product.RB && i.Status));
                 Assert.IsTrue(expetedShowingOption.VSVisible == productOptions.Any(i => i.Code == Product.VS && i.Status));

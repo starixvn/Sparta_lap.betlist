@@ -5,6 +5,7 @@
     using System.Web.Script.Serialization;
     using BetSettings;
     using BetSettings.Interfaces;
+    using Constant.DataDomain;
     using Core.Users.Interfaces;
     using Core.Utility.Interfaces;
     using DataAccess.BetSettings.Interfaces;
@@ -12,7 +13,6 @@
     using Model.BetSettings.DTO;
     using Model.BetSettings.DTO.GoldDeluxe;
     using Model.BetSettings.ViewModel;
-    using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
     using NSubstitute;
     using NUnit.Framework;

@@ -9,9 +9,9 @@ function generatePlugins(environment) {
             root: process.cwd(),
             exclude: ['fonts', 'images', 'dev', 'pro']
         }),
-
+        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
          new webpack.optimize.CommonsChunkPlugin({
-             name: ["excel", "reactpages"],
+             name: ["reactpages"],
             filename: "www/js/build/" + environment + "/reactpages/vendors/[name].chunk.js",
             minChunks: Infinity
          })

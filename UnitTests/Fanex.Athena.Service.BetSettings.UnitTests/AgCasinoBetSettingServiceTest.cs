@@ -55,7 +55,7 @@
             _dataAccess.GetBetSetting(custId).Returns(new AgCasinoBetSetting
             {
                 AgGroup = "A",
-                CheckedGroups = new string[] { "B" }
+                CheckedGroups = new[] { "B" }
             });
             _webClientService.UploadString(new Uri("http://api.com"), "SiteName=spondemo&Currency=0")
                 .Returns("<Game GameType='1' Name='A'><Group GroupType='AA'><Min>1</Min><Max>100</Max></Group></Game>");
@@ -81,7 +81,7 @@
             _dataAccess.GetBetSetting(custId).Returns(new AgCasinoBetSetting
             {
                 AgGroup = "B",
-                CheckedGroups = new string[] { "A", "B", "C" },
+                CheckedGroups = new[] { "A", "B", "C" },
                 IsEnabled = true
             });
             _webClientService.UploadString(new Uri("http://api.com"), "SiteName=spondemo&Currency=0")

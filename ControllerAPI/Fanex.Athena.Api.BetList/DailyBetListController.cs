@@ -11,14 +11,39 @@ namespace Fanex.Athena.Api.BetList
     using System;
     using System.Web.Http;
     using Base.Attributes;
+    using DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.Model.BetList.MetaModel;
+    using Fanex.BetList.Core.Builder;
+    using Fanex.BetList.Core.Entities;
     using Model.Core.DataDomain;
+    using Service.BetList.Interfaces;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
+    using VendorAdapter.Interfaces;
 
     #endregion Using
 
     [ApiFunctionAuthorization(PermissionKeys.ReportDailyBetList)]
     public class DailyBetListController : ApiBetListBaseController
     {
+        public DailyBetListController()
+        {
+        }
+
+        [CLSCompliant(false)]
+        public DailyBetListController(
+            ISessionService sessionService,
+            IProductService productService,
+            ILanguageService languageService,
+            IBetListService betListService,
+            IBalanceUpDataAccess balanceUpDataAccess,
+            ITicketHelper ticketHelper,
+            ICacheRefAdapter cacheRefAdapter,
+            IBetListHTMLBuilder betlistHtmlBuilder)
+        : base(sessionService, productService, languageService, betListService, balanceUpDataAccess, ticketHelper, cacheRefAdapter, betlistHtmlBuilder)
+        {
+        }
+
         [HttpGet]
 #pragma warning disable S107 // Methods should not have too many parameters
         public dynamic Index(
@@ -48,9 +73,9 @@ namespace Fanex.Athena.Api.BetList
                 DailyBetListStatus = status,
                 SortBy = sortBy,
                 SortOrder = sortOrder,
-                IsServerPaging = true
+                IsServerPaging = true,
+                AgentListXml = SessionService.GenerateAgentListXml(currencyId)
             };
-            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             return GetPagingBetListResult(metaModel, UspKey, page, rows);
         }
     }

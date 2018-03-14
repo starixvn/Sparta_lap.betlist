@@ -18,1815 +18,24 @@ exports[`FormFilter  render methods render whole component group by currency - I
         >
           Date
         </label>
-        <div
-          className="daterange-container"
-        >
-          <div
-            className="daterange-label"
-            onClick={[Function]}
-          >
-            <input
-              autoComplete="off"
-              className="input-text datepicker"
-              id="DateRange"
-              name="DateRange"
-              readOnly={true}
-              type="text"
-              value="12/12/2017 - 12/12/2017"
-            />
-            <i
-              className="icon icon-calendar"
-            />
-          </div>
-          <div
-            className="overlay"
-            style={
-              Object {
-                "display": "none",
-              }
-            }
-          >
-            <div
-              className="rdr-DateRange"
-            >
-              <div
-                className="rdr-PredefinedRanges"
-                style={undefined}
-              >
-                <a
-                  className="rdr-PredefinedRangesItem rdr-PredefinedRangesItemActive"
-                  href="#"
-                  onClick={[Function]}
-                  style={undefined}
-                >
-                  Today
-                </a>
-                <a
-                  className="rdr-PredefinedRangesItem"
-                  href="#"
-                  onClick={[Function]}
-                  style={undefined}
-                >
-                  Yesterday
-                </a>
-                <a
-                  className="rdr-PredefinedRangesItem"
-                  href="#"
-                  onClick={[Function]}
-                  style={undefined}
-                >
-                  Currentweek
-                </a>
-                <a
-                  className="rdr-PredefinedRangesItem"
-                  href="#"
-                  onClick={[Function]}
-                  style={undefined}
-                >
-                  Lastweek
-                </a>
-                <a
-                  className="rdr-PredefinedRangesItem"
-                  href="#"
-                  onClick={[Function]}
-                  style={undefined}
-                >
-                  Currentmonth
-                </a>
-                <a
-                  className="rdr-PredefinedRangesItem"
-                  href="#"
-                  onClick={[Function]}
-                  style={undefined}
-                >
-                  Lastmonth
-                </a>
-                <a
-                  className="rdr-PredefinedRangesItem"
-                  href="#"
-                  onClick={[Function]}
-                  style={undefined}
-                >
-                  Sincelastmonth
-                </a>
-                <div
-                  className="range-button-group"
-                >
-                  <button
-                    className="rdr-Button rdr-ApplyButton"
-                    onClick={[Function]}
-                    style={undefined}
-                    type="button"
-                  >
-                    OK
-                  </button>
-                  <button
-                    className="rdr-Button rdr-CancelButton"
-                    onClick={[Function]}
-                    style={undefined}
-                    type="button"
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </div>
-              <div
-                className="rdr-Calendar"
-                style={undefined}
-              >
-                <div
-                  className="rdr-MonthAndYear"
-                >
-                  <div
-                    className="rdr-MonthAndYear-innerWrapper"
-                    style={undefined}
-                  >
-                    <button
-                      className="rdr-MonthAndYear-button prev"
-                      disabled={false}
-                      onClick={[Function]}
-                      style={undefined}
-                      type="button"
-                    >
-                      <i
-                        style={undefined}
-                      />
-                    </button>
-                    <span>
-                      <span
-                        className="rdr-MonthAndYear-month"
-                      >
-                        <select
-                          className="rdr-MonthAndYearSelect"
-                          onChange={[Function]}
-                          style={undefined}
-                          value={11}
-                        >
-                          <option
-                            disabled={false}
-                            value={0}
-                          >
-                            Jan
-                          </option>
-                          <option
-                            disabled={false}
-                            value={1}
-                          >
-                            Feb
-                          </option>
-                          <option
-                            disabled={false}
-                            value={2}
-                          >
-                            Mar
-                          </option>
-                          <option
-                            disabled={false}
-                            value={3}
-                          >
-                            Apr
-                          </option>
-                          <option
-                            disabled={false}
-                            value={4}
-                          >
-                            May
-                          </option>
-                          <option
-                            disabled={false}
-                            value={5}
-                          >
-                            Jun
-                          </option>
-                          <option
-                            disabled={false}
-                            value={6}
-                          >
-                            Jul
-                          </option>
-                          <option
-                            disabled={false}
-                            value={7}
-                          >
-                            Aug
-                          </option>
-                          <option
-                            disabled={false}
-                            value={8}
-                          >
-                            Sep
-                          </option>
-                          <option
-                            disabled={false}
-                            value={9}
-                          >
-                            Oct
-                          </option>
-                          <option
-                            disabled={false}
-                            value={10}
-                          >
-                            Nov
-                          </option>
-                          <option
-                            disabled={false}
-                            value={11}
-                          >
-                            Dec
-                          </option>
-                        </select>
-                      </span>
-                      <span
-                        className="rdr-MonthAndYear-divider"
-                      >
-                         
-                      </span>
-                      <span
-                        className="rdr-MonthAndYear-year"
-                      >
-                        <select
-                          className="rdr-MonthAndYearSelect"
-                          onChange={[Function]}
-                          style={undefined}
-                          value={2017}
-                        >
-                          <option
-                            value={2012}
-                          >
-                            2012
-                          </option>
-                          <option
-                            value={2013}
-                          >
-                            2013
-                          </option>
-                          <option
-                            value={2014}
-                          >
-                            2014
-                          </option>
-                          <option
-                            value={2015}
-                          >
-                            2015
-                          </option>
-                          <option
-                            value={2016}
-                          >
-                            2016
-                          </option>
-                          <option
-                            value={2017}
-                          >
-                            2017
-                          </option>
-                        </select>
-                      </span>
-                    </span>
-                    <button
-                      className="rdr-MonthAndYear-button next"
-                      disabled={true}
-                      onClick={[Function]}
-                      style={undefined}
-                      type="button"
-                    >
-                      <i
-                        style={undefined}
-                      />
-                    </button>
-                  </div>
-                </div>
-                <div
-                  className="rdr-WeekDays"
-                >
-                  <span
-                    className="rdr-WeekDay"
-                    style={undefined}
-                  >
-                    Su
-                  </span>
-                  <span
-                    className="rdr-WeekDay"
-                    style={undefined}
-                  >
-                    Mo
-                  </span>
-                  <span
-                    className="rdr-WeekDay"
-                    style={undefined}
-                  >
-                    Tu
-                  </span>
-                  <span
-                    className="rdr-WeekDay"
-                    style={undefined}
-                  >
-                    We
-                  </span>
-                  <span
-                    className="rdr-WeekDay"
-                    style={undefined}
-                  >
-                    Th
-                  </span>
-                  <span
-                    className="rdr-WeekDay"
-                    style={undefined}
-                  >
-                    Fr
-                  </span>
-                  <span
-                    className="rdr-WeekDay"
-                    style={undefined}
-                  >
-                    Sa
-                  </span>
-                </div>
-                <div
-                  className="rdr-Days"
-                >
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive rdr-Sunday"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      26
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      27
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      28
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      29
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      30
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      1
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      2
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day rdr-Sunday"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      3
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      4
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      5
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      6
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      7
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      8
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      9
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day rdr-Sunday"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      10
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      11
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-selected"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      12
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      13
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      14
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      15
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      16
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive rdr-Sunday"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      17
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      18
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      19
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      20
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      21
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      22
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      23
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive rdr-Sunday"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      24
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      25
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      26
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      27
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      28
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      29
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      30
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive rdr-Sunday"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      31
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      1
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      2
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      3
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      4
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      5
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      6
-                    </span>
-                  </span>
-                </div>
-              </div>
-              <div
-                className="rdr-Calendar"
-                style={undefined}
-              >
-                <div
-                  className="rdr-MonthAndYear"
-                >
-                  <div
-                    className="rdr-MonthAndYear-innerWrapper"
-                    style={undefined}
-                  >
-                    <button
-                      className="rdr-MonthAndYear-button prev"
-                      disabled={false}
-                      onClick={[Function]}
-                      style={undefined}
-                      type="button"
-                    >
-                      <i
-                        style={undefined}
-                      />
-                    </button>
-                    <span>
-                      <span
-                        className="rdr-MonthAndYear-month"
-                      >
-                        <select
-                          className="rdr-MonthAndYearSelect"
-                          onChange={[Function]}
-                          style={undefined}
-                          value={11}
-                        >
-                          <option
-                            disabled={false}
-                            value={0}
-                          >
-                            Jan
-                          </option>
-                          <option
-                            disabled={false}
-                            value={1}
-                          >
-                            Feb
-                          </option>
-                          <option
-                            disabled={false}
-                            value={2}
-                          >
-                            Mar
-                          </option>
-                          <option
-                            disabled={false}
-                            value={3}
-                          >
-                            Apr
-                          </option>
-                          <option
-                            disabled={false}
-                            value={4}
-                          >
-                            May
-                          </option>
-                          <option
-                            disabled={false}
-                            value={5}
-                          >
-                            Jun
-                          </option>
-                          <option
-                            disabled={false}
-                            value={6}
-                          >
-                            Jul
-                          </option>
-                          <option
-                            disabled={false}
-                            value={7}
-                          >
-                            Aug
-                          </option>
-                          <option
-                            disabled={false}
-                            value={8}
-                          >
-                            Sep
-                          </option>
-                          <option
-                            disabled={false}
-                            value={9}
-                          >
-                            Oct
-                          </option>
-                          <option
-                            disabled={false}
-                            value={10}
-                          >
-                            Nov
-                          </option>
-                          <option
-                            disabled={false}
-                            value={11}
-                          >
-                            Dec
-                          </option>
-                        </select>
-                      </span>
-                      <span
-                        className="rdr-MonthAndYear-divider"
-                      >
-                         
-                      </span>
-                      <span
-                        className="rdr-MonthAndYear-year"
-                      >
-                        <select
-                          className="rdr-MonthAndYearSelect"
-                          onChange={[Function]}
-                          style={undefined}
-                          value={2017}
-                        >
-                          <option
-                            value={2012}
-                          >
-                            2012
-                          </option>
-                          <option
-                            value={2013}
-                          >
-                            2013
-                          </option>
-                          <option
-                            value={2014}
-                          >
-                            2014
-                          </option>
-                          <option
-                            value={2015}
-                          >
-                            2015
-                          </option>
-                          <option
-                            value={2016}
-                          >
-                            2016
-                          </option>
-                          <option
-                            value={2017}
-                          >
-                            2017
-                          </option>
-                        </select>
-                      </span>
-                    </span>
-                    <button
-                      className="rdr-MonthAndYear-button next"
-                      disabled={true}
-                      onClick={[Function]}
-                      style={undefined}
-                      type="button"
-                    >
-                      <i
-                        style={undefined}
-                      />
-                    </button>
-                  </div>
-                </div>
-                <div
-                  className="rdr-WeekDays"
-                >
-                  <span
-                    className="rdr-WeekDay"
-                    style={undefined}
-                  >
-                    Su
-                  </span>
-                  <span
-                    className="rdr-WeekDay"
-                    style={undefined}
-                  >
-                    Mo
-                  </span>
-                  <span
-                    className="rdr-WeekDay"
-                    style={undefined}
-                  >
-                    Tu
-                  </span>
-                  <span
-                    className="rdr-WeekDay"
-                    style={undefined}
-                  >
-                    We
-                  </span>
-                  <span
-                    className="rdr-WeekDay"
-                    style={undefined}
-                  >
-                    Th
-                  </span>
-                  <span
-                    className="rdr-WeekDay"
-                    style={undefined}
-                  >
-                    Fr
-                  </span>
-                  <span
-                    className="rdr-WeekDay"
-                    style={undefined}
-                  >
-                    Sa
-                  </span>
-                </div>
-                <div
-                  className="rdr-Days"
-                >
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive rdr-Sunday"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      26
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      27
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      28
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      29
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      30
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      1
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      2
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day rdr-Sunday"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      3
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      4
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      5
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      6
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      7
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      8
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      9
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day rdr-Sunday"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      10
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      11
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-selected"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      12
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      13
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      14
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      15
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      16
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive rdr-Sunday"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      17
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      18
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      19
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      20
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      21
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      22
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      23
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive rdr-Sunday"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      24
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      25
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      26
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      27
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      28
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      29
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      30
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive rdr-Sunday"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      31
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      1
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      2
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      3
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      4
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      5
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      6
-                    </span>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <DateRange
+          calendars={2}
+          classNames={Object {}}
+          endDate="12/12/2017"
+          format="MM/DD/YYYY"
+          limitedMonthRange={3}
+          linkedCalendars={false}
+          maxDate="12/12/2017"
+          minDate="06/01/2012"
+          onChange={[Function]}
+          onlyClasses={true}
+          showRange={true}
+          specialDays={Array []}
+          startDate="12/12/2017"
+          theme={Object {}}
+          today="12/12/2017"
+          twoStepChange={false}
+        />
       </div>
     </div>
     <div
@@ -1840,115 +49,66 @@ exports[`FormFilter  render methods render whole component group by currency - I
         >
           TimeZone
         </label>
-        <div
-          className="Select has-value is-clearable is-searchable Select--single"
-          style={undefined}
-        >
-          <div
-            className="Select-control"
-            onKeyDown={[Function]}
-            onMouseDown={[Function]}
-            onTouchEnd={[Function]}
-            onTouchMove={[Function]}
-            onTouchStart={[Function]}
-            style={undefined}
-          >
-            <span
-              className="Select-multi-value-wrapper"
-              id="react-select-ddlTimeZone--value"
-            >
-              <div
-                className="Select-value"
-                style={undefined}
-                title={undefined}
-              >
-                <span
-                  aria-selected="true"
-                  className="Select-value-label"
-                  id="react-select-ddlTimeZone--value-item"
-                  role="option"
-                >
-                  GMT-4
-                </span>
-              </div>
-              <div
-                className="Select-input"
-                style={
-                  Object {
-                    "display": "inline-block",
-                  }
-                }
-              >
-                <input
-                  aria-activedescendant="react-select-ddlTimeZone--value"
-                  aria-describedby={undefined}
-                  aria-expanded="false"
-                  aria-haspopup="false"
-                  aria-label={undefined}
-                  aria-labelledby={undefined}
-                  aria-owns=""
-                  className={undefined}
-                  id={undefined}
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  required={false}
-                  role="combobox"
-                  style={
-                    Object {
-                      "boxSizing": "content-box",
-                      "width": "5px",
-                    }
-                  }
-                  tabIndex={undefined}
-                  value=""
-                />
-                <div
-                  style={
-                    Object {
-                      "height": 0,
-                      "left": 0,
-                      "overflow": "scroll",
-                      "position": "absolute",
-                      "top": 0,
-                      "visibility": "hidden",
-                      "whiteSpace": "pre",
-                    }
-                  }
-                >
-                  
-                </div>
-              </div>
-            </span>
-            <span
-              aria-label="Clear value"
-              className="Select-clear-zone"
-              onMouseDown={[Function]}
-              onTouchEnd={[Function]}
-              onTouchMove={[Function]}
-              onTouchStart={[Function]}
-              title="Clear value"
-            >
-              <span
-                className="Select-clear"
-                dangerouslySetInnerHTML={
-                  Object {
-                    "__html": "&times;",
-                  }
-                }
-              />
-            </span>
-            <span
-              className="Select-arrow-zone"
-              onMouseDown={[Function]}
-            >
-              <span
-                className="Select-arrow"
-                onMouseDown={[Function]}
-              />
-            </span>
-          </div>
-        </div>
+        <Select
+          arrowRenderer={[Function]}
+          autosize={true}
+          backspaceRemoves={true}
+          backspaceToRemoveMessage="Press backspace to remove {label}"
+          clearAllText="Clear all"
+          clearRenderer={[Function]}
+          clearValueText="Clear value"
+          clearable={true}
+          closeOnSelect={true}
+          deleteRemoves={true}
+          delimiter=","
+          disabled={false}
+          escapeClearsValue={true}
+          filterOptions={[Function]}
+          ignoreAccents={true}
+          ignoreCase={true}
+          inputProps={Object {}}
+          instanceId="ddlTimeZone"
+          isLoading={false}
+          joinValues={false}
+          labelKey="label"
+          matchPos="any"
+          matchProp="any"
+          menuBuffer={0}
+          menuRenderer={[Function]}
+          multi={false}
+          noResultsText="No results found"
+          onBlurResetsInput={true}
+          onChange={[Function]}
+          onCloseResetsInput={true}
+          onSelectResetsInput={true}
+          openOnClick={true}
+          optionComponent={[Function]}
+          options={
+            Array [
+              Object {
+                "label": "GMT-4",
+                "value": -4,
+              },
+              Object {
+                "label": "GMT+8",
+                "value": 8,
+              },
+            ]
+          }
+          pageSize={5}
+          placeholder="Select..."
+          removeSelected={true}
+          required={false}
+          rtl={false}
+          scrollMenuIntoView={true}
+          searchable={true}
+          simpleValue={false}
+          tabSelectsValue={true}
+          trimFilter={true}
+          value={-4}
+          valueComponent={[Function]}
+          valueKey="value"
+        />
       </div>
     </div>
     <div
@@ -1962,94 +122,30 @@ exports[`FormFilter  render methods render whole component group by currency - I
         >
           Product
         </label>
-        <div
-          className="multiple-select-container"
-          id="multiple-select-ProductList"
-        >
-          <button
-            className="multiple-select-default multiple-select-label"
-            onClick={[Function]}
-            type="button"
-          >
-            <span
-              className="text-display"
-              title="Sportsbook, BA"
-            >
-              Sportsbook, BA
-            </span>
-            <b
-              className="caret"
-            />
-          </button>
-          <div
-            className="multiple-select-default multiple-select-options-container"
-            style={
+        <MultipleSelect
+          dataSource={
+            Array [
               Object {
-                "display": "none",
-              }
-            }
-          >
-            <ul
-              className="multiple-select-options multiple-select-option-all"
-            >
-              <li
-                className="multiple-select-item"
-              >
-                <input
-                  checked={true}
-                  className="option-checkbox"
-                  id="multiple-select-ProductList-optionItemAll"
-                  onChange={[Function]}
-                  type="checkbox"
-                />
-                <label
-                  className="option-label"
-                  htmlFor="multiple-select-ProductList-optionItemAll"
-                >
-                  All
-                </label>
-              </li>
-            </ul>
-            <ul
-              className="multiple-select-options"
-            >
-              <li
-                className="multiple-select-item"
-              >
-                <input
-                  checked={true}
-                  className="option-checkbox"
-                  id="multiple-select-ProductList-optionItem-0"
-                  onChange={[Function]}
-                  type="checkbox"
-                />
-                <label
-                  className="option-label"
-                  htmlFor="multiple-select-ProductList-optionItem-0"
-                >
-                  Sportsbook
-                </label>
-              </li>
-              <li
-                className="multiple-select-item"
-              >
-                <input
-                  checked={true}
-                  className="option-checkbox"
-                  id="multiple-select-ProductList-optionItem-1"
-                  onChange={[Function]}
-                  type="checkbox"
-                />
-                <label
-                  className="option-label"
-                  htmlFor="multiple-select-ProductList-optionItem-1"
-                >
-                  BA
-                </label>
-              </li>
-            </ul>
-          </div>
-        </div>
+                "Code": "SB",
+                "Name": "Sportsbook",
+                "Status": true,
+              },
+              Object {
+                "Code": "BA",
+                "Name": "BA",
+                "Status": true,
+              },
+            ]
+          }
+          hasAllOption={true}
+          id="ProductList"
+          keyField="Code"
+          noneSelectedLabel="SelectOptions"
+          onChange={[Function]}
+          optionAllLabel="All"
+          statusField="Status"
+          valueField="Name"
+        />
       </div>
     </div>
     <div
@@ -2063,115 +159,106 @@ exports[`FormFilter  render methods render whole component group by currency - I
         >
           Currency
         </label>
-        <div
-          className="Select has-value is-clearable is-searchable Select--single"
-          style={undefined}
-        >
-          <div
-            className="Select-control"
-            onKeyDown={[Function]}
-            onMouseDown={[Function]}
-            onTouchEnd={[Function]}
-            onTouchMove={[Function]}
-            onTouchStart={[Function]}
-            style={undefined}
-          >
-            <span
-              className="Select-multi-value-wrapper"
-              id="react-select-ddlCurrency--value"
-            >
-              <div
-                className="Select-value"
-                style={undefined}
-                title={undefined}
-              >
-                <span
-                  aria-selected="true"
-                  className="Select-value-label"
-                  id="react-select-ddlCurrency--value-item"
-                  role="option"
-                >
-                  All
-                </span>
-              </div>
-              <div
-                className="Select-input"
-                style={
-                  Object {
-                    "display": "inline-block",
-                  }
-                }
-              >
-                <input
-                  aria-activedescendant="react-select-ddlCurrency--value"
-                  aria-describedby={undefined}
-                  aria-expanded="false"
-                  aria-haspopup="false"
-                  aria-label={undefined}
-                  aria-labelledby={undefined}
-                  aria-owns=""
-                  className={undefined}
-                  id={undefined}
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  required={false}
-                  role="combobox"
-                  style={
-                    Object {
-                      "boxSizing": "content-box",
-                      "width": "5px",
-                    }
-                  }
-                  tabIndex={undefined}
-                  value=""
-                />
-                <div
-                  style={
-                    Object {
-                      "height": 0,
-                      "left": 0,
-                      "overflow": "scroll",
-                      "position": "absolute",
-                      "top": 0,
-                      "visibility": "hidden",
-                      "whiteSpace": "pre",
-                    }
-                  }
-                >
-                  
-                </div>
-              </div>
-            </span>
-            <span
-              aria-label="Clear value"
-              className="Select-clear-zone"
-              onMouseDown={[Function]}
-              onTouchEnd={[Function]}
-              onTouchMove={[Function]}
-              onTouchStart={[Function]}
-              title="Clear value"
-            >
-              <span
-                className="Select-clear"
-                dangerouslySetInnerHTML={
-                  Object {
-                    "__html": "&times;",
-                  }
-                }
-              />
-            </span>
-            <span
-              className="Select-arrow-zone"
-              onMouseDown={[Function]}
-            >
-              <span
-                className="Select-arrow"
-                onMouseDown={[Function]}
-              />
-            </span>
-          </div>
-        </div>
+        <Select
+          arrowRenderer={[Function]}
+          autosize={true}
+          backspaceRemoves={true}
+          backspaceToRemoveMessage="Press backspace to remove {label}"
+          clearAllText="Clear all"
+          clearRenderer={[Function]}
+          clearValueText="Clear value"
+          clearable={true}
+          closeOnSelect={true}
+          deleteRemoves={true}
+          delimiter=","
+          disabled={false}
+          escapeClearsValue={true}
+          filterOptions={[Function]}
+          ignoreAccents={true}
+          ignoreCase={true}
+          inputProps={Object {}}
+          instanceId="ddlCurrency"
+          isLoading={false}
+          joinValues={false}
+          labelKey="label"
+          matchPos="any"
+          matchProp="any"
+          menuBuffer={0}
+          menuRenderer={[Function]}
+          multi={false}
+          noResultsText="No results found"
+          onBlurResetsInput={true}
+          onChange={[Function]}
+          onCloseResetsInput={true}
+          onSelectResetsInput={true}
+          openOnClick={true}
+          optionComponent={[Function]}
+          options={
+            Array [
+              Object {
+                "label": "All",
+                "value": 0,
+              },
+              Object {
+                "label": "AUD",
+                "value": 9,
+              },
+              Object {
+                "label": "CHF",
+                "value": 41,
+              },
+              Object {
+                "label": "EUR",
+                "value": 6,
+              },
+              Object {
+                "label": "INH",
+                "value": 51,
+              },
+              Object {
+                "label": "INR",
+                "value": 61,
+              },
+              Object {
+                "label": "JPY",
+                "value": 32,
+              },
+              Object {
+                "label": "KRW",
+                "value": 45,
+              },
+              Object {
+                "label": "MKK",
+                "value": 70,
+              },
+              Object {
+                "label": "THB",
+                "value": 4,
+              },
+              Object {
+                "label": "USD",
+                "value": 3,
+              },
+              Object {
+                "label": "UUS",
+                "value": 20,
+              },
+            ]
+          }
+          pageSize={5}
+          placeholder="Select..."
+          removeSelected={true}
+          required={false}
+          rtl={false}
+          scrollMenuIntoView={true}
+          searchable={true}
+          simpleValue={false}
+          tabSelectsValue={true}
+          trimFilter={true}
+          value={0}
+          valueComponent={[Function]}
+          valueKey="value"
+        />
       </div>
     </div>
     <div
@@ -2185,115 +272,86 @@ exports[`FormFilter  render methods render whole component group by currency - I
         >
           BaseCurrency
         </label>
-        <div
-          className="Select has-value is-clearable is-searchable Select--single"
-          style={undefined}
-        >
-          <div
-            className="Select-control"
-            onKeyDown={[Function]}
-            onMouseDown={[Function]}
-            onTouchEnd={[Function]}
-            onTouchMove={[Function]}
-            onTouchStart={[Function]}
-            style={undefined}
-          >
-            <span
-              className="Select-multi-value-wrapper"
-              id="react-select-ddlBased--value"
-            >
-              <div
-                className="Select-value"
-                style={undefined}
-                title={undefined}
-              >
-                <span
-                  aria-selected="true"
-                  className="Select-value-label"
-                  id="react-select-ddlBased--value-item"
-                  role="option"
-                >
-                  EUR
-                </span>
-              </div>
-              <div
-                className="Select-input"
-                style={
-                  Object {
-                    "display": "inline-block",
-                  }
-                }
-              >
-                <input
-                  aria-activedescendant="react-select-ddlBased--value"
-                  aria-describedby={undefined}
-                  aria-expanded="false"
-                  aria-haspopup="false"
-                  aria-label={undefined}
-                  aria-labelledby={undefined}
-                  aria-owns=""
-                  className={undefined}
-                  id={undefined}
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  required={false}
-                  role="combobox"
-                  style={
-                    Object {
-                      "boxSizing": "content-box",
-                      "width": "5px",
-                    }
-                  }
-                  tabIndex={undefined}
-                  value=""
-                />
-                <div
-                  style={
-                    Object {
-                      "height": 0,
-                      "left": 0,
-                      "overflow": "scroll",
-                      "position": "absolute",
-                      "top": 0,
-                      "visibility": "hidden",
-                      "whiteSpace": "pre",
-                    }
-                  }
-                >
-                  
-                </div>
-              </div>
-            </span>
-            <span
-              aria-label="Clear value"
-              className="Select-clear-zone"
-              onMouseDown={[Function]}
-              onTouchEnd={[Function]}
-              onTouchMove={[Function]}
-              onTouchStart={[Function]}
-              title="Clear value"
-            >
-              <span
-                className="Select-clear"
-                dangerouslySetInnerHTML={
-                  Object {
-                    "__html": "&times;",
-                  }
-                }
-              />
-            </span>
-            <span
-              className="Select-arrow-zone"
-              onMouseDown={[Function]}
-            >
-              <span
-                className="Select-arrow"
-                onMouseDown={[Function]}
-              />
-            </span>
-          </div>
-        </div>
+        <Select
+          arrowRenderer={[Function]}
+          autosize={true}
+          backspaceRemoves={true}
+          backspaceToRemoveMessage="Press backspace to remove {label}"
+          clearAllText="Clear all"
+          clearRenderer={[Function]}
+          clearValueText="Clear value"
+          clearable={true}
+          closeOnSelect={true}
+          deleteRemoves={true}
+          delimiter=","
+          disabled={false}
+          escapeClearsValue={true}
+          filterOptions={[Function]}
+          ignoreAccents={true}
+          ignoreCase={true}
+          inputProps={Object {}}
+          instanceId="ddlBased"
+          isLoading={false}
+          joinValues={false}
+          labelKey="label"
+          matchPos="any"
+          matchProp="any"
+          menuBuffer={0}
+          menuRenderer={[Function]}
+          multi={false}
+          noResultsText="No results found"
+          onBlurResetsInput={true}
+          onChange={[Function]}
+          onCloseResetsInput={true}
+          onSelectResetsInput={true}
+          openOnClick={true}
+          optionComponent={[Function]}
+          options={
+            Array [
+              Object {
+                "label": "EUR",
+                "value": "EUR",
+              },
+              Object {
+                "label": "USD",
+                "value": "USD",
+              },
+              Object {
+                "label": "GBP",
+                "value": "GBP",
+              },
+              Object {
+                "label": "MYR",
+                "value": "MYR",
+              },
+              Object {
+                "label": "CNY",
+                "value": "CNY",
+              },
+              Object {
+                "label": "THB",
+                "value": "THB",
+              },
+              Object {
+                "label": "IDR",
+                "value": "IDR",
+              },
+            ]
+          }
+          pageSize={5}
+          placeholder="Select..."
+          removeSelected={true}
+          required={false}
+          rtl={false}
+          scrollMenuIntoView={true}
+          searchable={true}
+          simpleValue={false}
+          tabSelectsValue={true}
+          trimFilter={true}
+          value="EUR"
+          valueComponent={[Function]}
+          valueKey="value"
+        />
       </div>
     </div>
   </div>
@@ -2350,115 +408,70 @@ exports[`FormFilter  render methods render whole component group by currency - I
         >
           ReportBy
         </label>
-        <div
-          className="Select has-value is-clearable is-searchable Select--single"
-          style={undefined}
-        >
-          <div
-            className="Select-control"
-            onKeyDown={[Function]}
-            onMouseDown={[Function]}
-            onTouchEnd={[Function]}
-            onTouchMove={[Function]}
-            onTouchStart={[Function]}
-            style={undefined}
-          >
-            <span
-              className="Select-multi-value-wrapper"
-              id="react-select-ddlReportBy--value"
-            >
-              <div
-                className="Select-value"
-                style={undefined}
-                title={undefined}
-              >
-                <span
-                  aria-selected="true"
-                  className="Select-value-label"
-                  id="react-select-ddlReportBy--value-item"
-                  role="option"
-                >
-                  Summary
-                </span>
-              </div>
-              <div
-                className="Select-input"
-                style={
-                  Object {
-                    "display": "inline-block",
-                  }
-                }
-              >
-                <input
-                  aria-activedescendant="react-select-ddlReportBy--value"
-                  aria-describedby={undefined}
-                  aria-expanded="false"
-                  aria-haspopup="false"
-                  aria-label={undefined}
-                  aria-labelledby={undefined}
-                  aria-owns=""
-                  className={undefined}
-                  id={undefined}
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  required={false}
-                  role="combobox"
-                  style={
-                    Object {
-                      "boxSizing": "content-box",
-                      "width": "5px",
-                    }
-                  }
-                  tabIndex={undefined}
-                  value=""
-                />
-                <div
-                  style={
-                    Object {
-                      "height": 0,
-                      "left": 0,
-                      "overflow": "scroll",
-                      "position": "absolute",
-                      "top": 0,
-                      "visibility": "hidden",
-                      "whiteSpace": "pre",
-                    }
-                  }
-                >
-                  
-                </div>
-              </div>
-            </span>
-            <span
-              aria-label="Clear value"
-              className="Select-clear-zone"
-              onMouseDown={[Function]}
-              onTouchEnd={[Function]}
-              onTouchMove={[Function]}
-              onTouchStart={[Function]}
-              title="Clear value"
-            >
-              <span
-                className="Select-clear"
-                dangerouslySetInnerHTML={
-                  Object {
-                    "__html": "&times;",
-                  }
-                }
-              />
-            </span>
-            <span
-              className="Select-arrow-zone"
-              onMouseDown={[Function]}
-            >
-              <span
-                className="Select-arrow"
-                onMouseDown={[Function]}
-              />
-            </span>
-          </div>
-        </div>
+        <Select
+          arrowRenderer={[Function]}
+          autosize={true}
+          backspaceRemoves={true}
+          backspaceToRemoveMessage="Press backspace to remove {label}"
+          clearAllText="Clear all"
+          clearRenderer={[Function]}
+          clearValueText="Clear value"
+          clearable={true}
+          closeOnSelect={true}
+          deleteRemoves={true}
+          delimiter=","
+          disabled={false}
+          escapeClearsValue={true}
+          filterOptions={[Function]}
+          ignoreAccents={true}
+          ignoreCase={true}
+          inputProps={Object {}}
+          instanceId="ddlReportBy"
+          isLoading={false}
+          joinValues={false}
+          labelKey="label"
+          matchPos="any"
+          matchProp="any"
+          menuBuffer={0}
+          menuRenderer={[Function]}
+          multi={false}
+          noResultsText="No results found"
+          onBlurResetsInput={true}
+          onChange={[Function]}
+          onCloseResetsInput={true}
+          onSelectResetsInput={true}
+          openOnClick={true}
+          optionComponent={[Function]}
+          options={
+            Array [
+              Object {
+                "label": "Summary",
+                "value": 1,
+              },
+              Object {
+                "label": "Daily",
+                "value": 2,
+              },
+              Object {
+                "label": "Monthly",
+                "value": 3,
+              },
+            ]
+          }
+          pageSize={5}
+          placeholder="Select..."
+          removeSelected={true}
+          required={false}
+          rtl={false}
+          scrollMenuIntoView={true}
+          searchable={true}
+          simpleValue={false}
+          tabSelectsValue={true}
+          trimFilter={true}
+          value={1}
+          valueComponent={[Function]}
+          valueKey="value"
+        />
       </div>
     </div>
     <div
@@ -2571,56 +584,13 @@ exports[`FormFilter  render methods render whole component group by currency - I
         onClick={[Function]}
         title="ExportToExcel"
       />
-      <div>
-        <i
-          className="icon-book right"
-          onClick={[Function]}
-          title="UserGuide"
-        />
-        <div
-          className="popup-container hide"
-        >
-          <div
-            className="popup-block-body"
-          />
-          <div
-            className="flat-popup"
-            style={
-              Object {
-                "height": 480,
-                "width": 640,
-              }
-            }
-          >
-            <div
-              className="popup-title"
-            >
-              <div
-                className="txt-title"
-              >
-                WinLossByTimeZone
-              </div>
-              <a
-                className="popup-close"
-                href="javascript:;"
-                onClick={[Function]}
-              >
-                <i
-                  className="icon-close"
-                />
-              </a>
-            </div>
-            <div
-              className="popup-content"
-              dangerouslySetInnerHTML={
-                Object {
-                  "__html": "",
-                }
-              }
-            />
-          </div>
-        </div>
-      </div>
+      <UserGuide
+        className="icon-book right"
+        content=""
+        contentTitle="WinLossByTimeZone"
+        onClick={[Function]}
+        title="UserGuide"
+      />
     </div>
   </div>
 </div>
@@ -2644,1815 +614,24 @@ exports[`FormFilter  render methods render whole component group by product - Is
         >
           Date
         </label>
-        <div
-          className="daterange-container"
-        >
-          <div
-            className="daterange-label"
-            onClick={[Function]}
-          >
-            <input
-              autoComplete="off"
-              className="input-text datepicker"
-              id="DateRange"
-              name="DateRange"
-              readOnly={true}
-              type="text"
-              value="12/12/2017 - 12/12/2017"
-            />
-            <i
-              className="icon icon-calendar"
-            />
-          </div>
-          <div
-            className="overlay"
-            style={
-              Object {
-                "display": "none",
-              }
-            }
-          >
-            <div
-              className="rdr-DateRange"
-            >
-              <div
-                className="rdr-PredefinedRanges"
-                style={undefined}
-              >
-                <a
-                  className="rdr-PredefinedRangesItem rdr-PredefinedRangesItemActive"
-                  href="#"
-                  onClick={[Function]}
-                  style={undefined}
-                >
-                  Today
-                </a>
-                <a
-                  className="rdr-PredefinedRangesItem"
-                  href="#"
-                  onClick={[Function]}
-                  style={undefined}
-                >
-                  Yesterday
-                </a>
-                <a
-                  className="rdr-PredefinedRangesItem"
-                  href="#"
-                  onClick={[Function]}
-                  style={undefined}
-                >
-                  Currentweek
-                </a>
-                <a
-                  className="rdr-PredefinedRangesItem"
-                  href="#"
-                  onClick={[Function]}
-                  style={undefined}
-                >
-                  Lastweek
-                </a>
-                <a
-                  className="rdr-PredefinedRangesItem"
-                  href="#"
-                  onClick={[Function]}
-                  style={undefined}
-                >
-                  Currentmonth
-                </a>
-                <a
-                  className="rdr-PredefinedRangesItem"
-                  href="#"
-                  onClick={[Function]}
-                  style={undefined}
-                >
-                  Lastmonth
-                </a>
-                <a
-                  className="rdr-PredefinedRangesItem"
-                  href="#"
-                  onClick={[Function]}
-                  style={undefined}
-                >
-                  Sincelastmonth
-                </a>
-                <div
-                  className="range-button-group"
-                >
-                  <button
-                    className="rdr-Button rdr-ApplyButton"
-                    onClick={[Function]}
-                    style={undefined}
-                    type="button"
-                  >
-                    OK
-                  </button>
-                  <button
-                    className="rdr-Button rdr-CancelButton"
-                    onClick={[Function]}
-                    style={undefined}
-                    type="button"
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </div>
-              <div
-                className="rdr-Calendar"
-                style={undefined}
-              >
-                <div
-                  className="rdr-MonthAndYear"
-                >
-                  <div
-                    className="rdr-MonthAndYear-innerWrapper"
-                    style={undefined}
-                  >
-                    <button
-                      className="rdr-MonthAndYear-button prev"
-                      disabled={false}
-                      onClick={[Function]}
-                      style={undefined}
-                      type="button"
-                    >
-                      <i
-                        style={undefined}
-                      />
-                    </button>
-                    <span>
-                      <span
-                        className="rdr-MonthAndYear-month"
-                      >
-                        <select
-                          className="rdr-MonthAndYearSelect"
-                          onChange={[Function]}
-                          style={undefined}
-                          value={11}
-                        >
-                          <option
-                            disabled={false}
-                            value={0}
-                          >
-                            Jan
-                          </option>
-                          <option
-                            disabled={false}
-                            value={1}
-                          >
-                            Feb
-                          </option>
-                          <option
-                            disabled={false}
-                            value={2}
-                          >
-                            Mar
-                          </option>
-                          <option
-                            disabled={false}
-                            value={3}
-                          >
-                            Apr
-                          </option>
-                          <option
-                            disabled={false}
-                            value={4}
-                          >
-                            May
-                          </option>
-                          <option
-                            disabled={false}
-                            value={5}
-                          >
-                            Jun
-                          </option>
-                          <option
-                            disabled={false}
-                            value={6}
-                          >
-                            Jul
-                          </option>
-                          <option
-                            disabled={false}
-                            value={7}
-                          >
-                            Aug
-                          </option>
-                          <option
-                            disabled={false}
-                            value={8}
-                          >
-                            Sep
-                          </option>
-                          <option
-                            disabled={false}
-                            value={9}
-                          >
-                            Oct
-                          </option>
-                          <option
-                            disabled={false}
-                            value={10}
-                          >
-                            Nov
-                          </option>
-                          <option
-                            disabled={false}
-                            value={11}
-                          >
-                            Dec
-                          </option>
-                        </select>
-                      </span>
-                      <span
-                        className="rdr-MonthAndYear-divider"
-                      >
-                         
-                      </span>
-                      <span
-                        className="rdr-MonthAndYear-year"
-                      >
-                        <select
-                          className="rdr-MonthAndYearSelect"
-                          onChange={[Function]}
-                          style={undefined}
-                          value={2017}
-                        >
-                          <option
-                            value={2012}
-                          >
-                            2012
-                          </option>
-                          <option
-                            value={2013}
-                          >
-                            2013
-                          </option>
-                          <option
-                            value={2014}
-                          >
-                            2014
-                          </option>
-                          <option
-                            value={2015}
-                          >
-                            2015
-                          </option>
-                          <option
-                            value={2016}
-                          >
-                            2016
-                          </option>
-                          <option
-                            value={2017}
-                          >
-                            2017
-                          </option>
-                        </select>
-                      </span>
-                    </span>
-                    <button
-                      className="rdr-MonthAndYear-button next"
-                      disabled={true}
-                      onClick={[Function]}
-                      style={undefined}
-                      type="button"
-                    >
-                      <i
-                        style={undefined}
-                      />
-                    </button>
-                  </div>
-                </div>
-                <div
-                  className="rdr-WeekDays"
-                >
-                  <span
-                    className="rdr-WeekDay"
-                    style={undefined}
-                  >
-                    Su
-                  </span>
-                  <span
-                    className="rdr-WeekDay"
-                    style={undefined}
-                  >
-                    Mo
-                  </span>
-                  <span
-                    className="rdr-WeekDay"
-                    style={undefined}
-                  >
-                    Tu
-                  </span>
-                  <span
-                    className="rdr-WeekDay"
-                    style={undefined}
-                  >
-                    We
-                  </span>
-                  <span
-                    className="rdr-WeekDay"
-                    style={undefined}
-                  >
-                    Th
-                  </span>
-                  <span
-                    className="rdr-WeekDay"
-                    style={undefined}
-                  >
-                    Fr
-                  </span>
-                  <span
-                    className="rdr-WeekDay"
-                    style={undefined}
-                  >
-                    Sa
-                  </span>
-                </div>
-                <div
-                  className="rdr-Days"
-                >
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive rdr-Sunday"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      26
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      27
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      28
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      29
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      30
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      1
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      2
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day rdr-Sunday"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      3
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      4
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      5
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      6
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      7
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      8
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      9
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day rdr-Sunday"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      10
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      11
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-selected"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      12
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      13
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      14
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      15
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      16
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive rdr-Sunday"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      17
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      18
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      19
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      20
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      21
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      22
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      23
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive rdr-Sunday"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      24
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      25
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      26
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      27
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      28
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      29
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      30
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive rdr-Sunday"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      31
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      1
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      2
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      3
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      4
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      5
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      6
-                    </span>
-                  </span>
-                </div>
-              </div>
-              <div
-                className="rdr-Calendar"
-                style={undefined}
-              >
-                <div
-                  className="rdr-MonthAndYear"
-                >
-                  <div
-                    className="rdr-MonthAndYear-innerWrapper"
-                    style={undefined}
-                  >
-                    <button
-                      className="rdr-MonthAndYear-button prev"
-                      disabled={false}
-                      onClick={[Function]}
-                      style={undefined}
-                      type="button"
-                    >
-                      <i
-                        style={undefined}
-                      />
-                    </button>
-                    <span>
-                      <span
-                        className="rdr-MonthAndYear-month"
-                      >
-                        <select
-                          className="rdr-MonthAndYearSelect"
-                          onChange={[Function]}
-                          style={undefined}
-                          value={11}
-                        >
-                          <option
-                            disabled={false}
-                            value={0}
-                          >
-                            Jan
-                          </option>
-                          <option
-                            disabled={false}
-                            value={1}
-                          >
-                            Feb
-                          </option>
-                          <option
-                            disabled={false}
-                            value={2}
-                          >
-                            Mar
-                          </option>
-                          <option
-                            disabled={false}
-                            value={3}
-                          >
-                            Apr
-                          </option>
-                          <option
-                            disabled={false}
-                            value={4}
-                          >
-                            May
-                          </option>
-                          <option
-                            disabled={false}
-                            value={5}
-                          >
-                            Jun
-                          </option>
-                          <option
-                            disabled={false}
-                            value={6}
-                          >
-                            Jul
-                          </option>
-                          <option
-                            disabled={false}
-                            value={7}
-                          >
-                            Aug
-                          </option>
-                          <option
-                            disabled={false}
-                            value={8}
-                          >
-                            Sep
-                          </option>
-                          <option
-                            disabled={false}
-                            value={9}
-                          >
-                            Oct
-                          </option>
-                          <option
-                            disabled={false}
-                            value={10}
-                          >
-                            Nov
-                          </option>
-                          <option
-                            disabled={false}
-                            value={11}
-                          >
-                            Dec
-                          </option>
-                        </select>
-                      </span>
-                      <span
-                        className="rdr-MonthAndYear-divider"
-                      >
-                         
-                      </span>
-                      <span
-                        className="rdr-MonthAndYear-year"
-                      >
-                        <select
-                          className="rdr-MonthAndYearSelect"
-                          onChange={[Function]}
-                          style={undefined}
-                          value={2017}
-                        >
-                          <option
-                            value={2012}
-                          >
-                            2012
-                          </option>
-                          <option
-                            value={2013}
-                          >
-                            2013
-                          </option>
-                          <option
-                            value={2014}
-                          >
-                            2014
-                          </option>
-                          <option
-                            value={2015}
-                          >
-                            2015
-                          </option>
-                          <option
-                            value={2016}
-                          >
-                            2016
-                          </option>
-                          <option
-                            value={2017}
-                          >
-                            2017
-                          </option>
-                        </select>
-                      </span>
-                    </span>
-                    <button
-                      className="rdr-MonthAndYear-button next"
-                      disabled={true}
-                      onClick={[Function]}
-                      style={undefined}
-                      type="button"
-                    >
-                      <i
-                        style={undefined}
-                      />
-                    </button>
-                  </div>
-                </div>
-                <div
-                  className="rdr-WeekDays"
-                >
-                  <span
-                    className="rdr-WeekDay"
-                    style={undefined}
-                  >
-                    Su
-                  </span>
-                  <span
-                    className="rdr-WeekDay"
-                    style={undefined}
-                  >
-                    Mo
-                  </span>
-                  <span
-                    className="rdr-WeekDay"
-                    style={undefined}
-                  >
-                    Tu
-                  </span>
-                  <span
-                    className="rdr-WeekDay"
-                    style={undefined}
-                  >
-                    We
-                  </span>
-                  <span
-                    className="rdr-WeekDay"
-                    style={undefined}
-                  >
-                    Th
-                  </span>
-                  <span
-                    className="rdr-WeekDay"
-                    style={undefined}
-                  >
-                    Fr
-                  </span>
-                  <span
-                    className="rdr-WeekDay"
-                    style={undefined}
-                  >
-                    Sa
-                  </span>
-                </div>
-                <div
-                  className="rdr-Days"
-                >
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive rdr-Sunday"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      26
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      27
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      28
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      29
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      30
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      1
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      2
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day rdr-Sunday"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      3
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      4
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      5
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      6
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      7
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      8
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      9
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day rdr-Sunday"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      10
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      11
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-selected"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      12
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      13
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      14
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      15
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      16
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive rdr-Sunday"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      17
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      18
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      19
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      20
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      21
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      22
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      23
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive rdr-Sunday"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      24
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      25
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      26
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      27
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      28
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      29
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      30
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive rdr-Sunday"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      31
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      1
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      2
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      3
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      4
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      5
-                    </span>
-                  </span>
-                  <span
-                    onClick={[Function]}
-                    style={undefined}
-                  >
-                    <span
-                      className="rdr-Day is-passive"
-                      onMouseDown={[Function]}
-                      onMouseEnter={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      style={undefined}
-                    >
-                      6
-                    </span>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <DateRange
+          calendars={2}
+          classNames={Object {}}
+          endDate="12/12/2017"
+          format="MM/DD/YYYY"
+          limitedMonthRange={3}
+          linkedCalendars={false}
+          maxDate="12/12/2017"
+          minDate="06/01/2012"
+          onChange={[Function]}
+          onlyClasses={true}
+          showRange={true}
+          specialDays={Array []}
+          startDate="12/12/2017"
+          theme={Object {}}
+          today="12/12/2017"
+          twoStepChange={false}
+        />
       </div>
     </div>
     <div
@@ -4466,115 +645,66 @@ exports[`FormFilter  render methods render whole component group by product - Is
         >
           TimeZone
         </label>
-        <div
-          className="Select has-value is-clearable is-searchable Select--single"
-          style={undefined}
-        >
-          <div
-            className="Select-control"
-            onKeyDown={[Function]}
-            onMouseDown={[Function]}
-            onTouchEnd={[Function]}
-            onTouchMove={[Function]}
-            onTouchStart={[Function]}
-            style={undefined}
-          >
-            <span
-              className="Select-multi-value-wrapper"
-              id="react-select-ddlTimeZone--value"
-            >
-              <div
-                className="Select-value"
-                style={undefined}
-                title={undefined}
-              >
-                <span
-                  aria-selected="true"
-                  className="Select-value-label"
-                  id="react-select-ddlTimeZone--value-item"
-                  role="option"
-                >
-                  GMT-4
-                </span>
-              </div>
-              <div
-                className="Select-input"
-                style={
-                  Object {
-                    "display": "inline-block",
-                  }
-                }
-              >
-                <input
-                  aria-activedescendant="react-select-ddlTimeZone--value"
-                  aria-describedby={undefined}
-                  aria-expanded="false"
-                  aria-haspopup="false"
-                  aria-label={undefined}
-                  aria-labelledby={undefined}
-                  aria-owns=""
-                  className={undefined}
-                  id={undefined}
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  required={false}
-                  role="combobox"
-                  style={
-                    Object {
-                      "boxSizing": "content-box",
-                      "width": "5px",
-                    }
-                  }
-                  tabIndex={undefined}
-                  value=""
-                />
-                <div
-                  style={
-                    Object {
-                      "height": 0,
-                      "left": 0,
-                      "overflow": "scroll",
-                      "position": "absolute",
-                      "top": 0,
-                      "visibility": "hidden",
-                      "whiteSpace": "pre",
-                    }
-                  }
-                >
-                  
-                </div>
-              </div>
-            </span>
-            <span
-              aria-label="Clear value"
-              className="Select-clear-zone"
-              onMouseDown={[Function]}
-              onTouchEnd={[Function]}
-              onTouchMove={[Function]}
-              onTouchStart={[Function]}
-              title="Clear value"
-            >
-              <span
-                className="Select-clear"
-                dangerouslySetInnerHTML={
-                  Object {
-                    "__html": "&times;",
-                  }
-                }
-              />
-            </span>
-            <span
-              className="Select-arrow-zone"
-              onMouseDown={[Function]}
-            >
-              <span
-                className="Select-arrow"
-                onMouseDown={[Function]}
-              />
-            </span>
-          </div>
-        </div>
+        <Select
+          arrowRenderer={[Function]}
+          autosize={true}
+          backspaceRemoves={true}
+          backspaceToRemoveMessage="Press backspace to remove {label}"
+          clearAllText="Clear all"
+          clearRenderer={[Function]}
+          clearValueText="Clear value"
+          clearable={true}
+          closeOnSelect={true}
+          deleteRemoves={true}
+          delimiter=","
+          disabled={false}
+          escapeClearsValue={true}
+          filterOptions={[Function]}
+          ignoreAccents={true}
+          ignoreCase={true}
+          inputProps={Object {}}
+          instanceId="ddlTimeZone"
+          isLoading={false}
+          joinValues={false}
+          labelKey="label"
+          matchPos="any"
+          matchProp="any"
+          menuBuffer={0}
+          menuRenderer={[Function]}
+          multi={false}
+          noResultsText="No results found"
+          onBlurResetsInput={true}
+          onChange={[Function]}
+          onCloseResetsInput={true}
+          onSelectResetsInput={true}
+          openOnClick={true}
+          optionComponent={[Function]}
+          options={
+            Array [
+              Object {
+                "label": "GMT-4",
+                "value": -4,
+              },
+              Object {
+                "label": "GMT+8",
+                "value": 8,
+              },
+            ]
+          }
+          pageSize={5}
+          placeholder="Select..."
+          removeSelected={true}
+          required={false}
+          rtl={false}
+          scrollMenuIntoView={true}
+          searchable={true}
+          simpleValue={false}
+          tabSelectsValue={true}
+          trimFilter={true}
+          value={-4}
+          valueComponent={[Function]}
+          valueKey="value"
+        />
       </div>
     </div>
     <div
@@ -4588,94 +718,30 @@ exports[`FormFilter  render methods render whole component group by product - Is
         >
           Product
         </label>
-        <div
-          className="multiple-select-container"
-          id="multiple-select-ProductList"
-        >
-          <button
-            className="multiple-select-default multiple-select-label"
-            onClick={[Function]}
-            type="button"
-          >
-            <span
-              className="text-display"
-              title="Sportsbook, BA"
-            >
-              Sportsbook, BA
-            </span>
-            <b
-              className="caret"
-            />
-          </button>
-          <div
-            className="multiple-select-default multiple-select-options-container"
-            style={
+        <MultipleSelect
+          dataSource={
+            Array [
               Object {
-                "display": "none",
-              }
-            }
-          >
-            <ul
-              className="multiple-select-options multiple-select-option-all"
-            >
-              <li
-                className="multiple-select-item"
-              >
-                <input
-                  checked={true}
-                  className="option-checkbox"
-                  id="multiple-select-ProductList-optionItemAll"
-                  onChange={[Function]}
-                  type="checkbox"
-                />
-                <label
-                  className="option-label"
-                  htmlFor="multiple-select-ProductList-optionItemAll"
-                >
-                  All
-                </label>
-              </li>
-            </ul>
-            <ul
-              className="multiple-select-options"
-            >
-              <li
-                className="multiple-select-item"
-              >
-                <input
-                  checked={true}
-                  className="option-checkbox"
-                  id="multiple-select-ProductList-optionItem-0"
-                  onChange={[Function]}
-                  type="checkbox"
-                />
-                <label
-                  className="option-label"
-                  htmlFor="multiple-select-ProductList-optionItem-0"
-                >
-                  Sportsbook
-                </label>
-              </li>
-              <li
-                className="multiple-select-item"
-              >
-                <input
-                  checked={true}
-                  className="option-checkbox"
-                  id="multiple-select-ProductList-optionItem-1"
-                  onChange={[Function]}
-                  type="checkbox"
-                />
-                <label
-                  className="option-label"
-                  htmlFor="multiple-select-ProductList-optionItem-1"
-                >
-                  BA
-                </label>
-              </li>
-            </ul>
-          </div>
-        </div>
+                "Code": "SB",
+                "Name": "Sportsbook",
+                "Status": true,
+              },
+              Object {
+                "Code": "BA",
+                "Name": "BA",
+                "Status": true,
+              },
+            ]
+          }
+          hasAllOption={true}
+          id="ProductList"
+          keyField="Code"
+          noneSelectedLabel="SelectOptions"
+          onChange={[Function]}
+          optionAllLabel="All"
+          statusField="Status"
+          valueField="Name"
+        />
       </div>
     </div>
     <div
@@ -4689,115 +755,106 @@ exports[`FormFilter  render methods render whole component group by product - Is
         >
           Currency
         </label>
-        <div
-          className="Select has-value is-clearable is-searchable Select--single"
-          style={undefined}
-        >
-          <div
-            className="Select-control"
-            onKeyDown={[Function]}
-            onMouseDown={[Function]}
-            onTouchEnd={[Function]}
-            onTouchMove={[Function]}
-            onTouchStart={[Function]}
-            style={undefined}
-          >
-            <span
-              className="Select-multi-value-wrapper"
-              id="react-select-ddlCurrency--value"
-            >
-              <div
-                className="Select-value"
-                style={undefined}
-                title={undefined}
-              >
-                <span
-                  aria-selected="true"
-                  className="Select-value-label"
-                  id="react-select-ddlCurrency--value-item"
-                  role="option"
-                >
-                  All
-                </span>
-              </div>
-              <div
-                className="Select-input"
-                style={
-                  Object {
-                    "display": "inline-block",
-                  }
-                }
-              >
-                <input
-                  aria-activedescendant="react-select-ddlCurrency--value"
-                  aria-describedby={undefined}
-                  aria-expanded="false"
-                  aria-haspopup="false"
-                  aria-label={undefined}
-                  aria-labelledby={undefined}
-                  aria-owns=""
-                  className={undefined}
-                  id={undefined}
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  required={false}
-                  role="combobox"
-                  style={
-                    Object {
-                      "boxSizing": "content-box",
-                      "width": "5px",
-                    }
-                  }
-                  tabIndex={undefined}
-                  value=""
-                />
-                <div
-                  style={
-                    Object {
-                      "height": 0,
-                      "left": 0,
-                      "overflow": "scroll",
-                      "position": "absolute",
-                      "top": 0,
-                      "visibility": "hidden",
-                      "whiteSpace": "pre",
-                    }
-                  }
-                >
-                  
-                </div>
-              </div>
-            </span>
-            <span
-              aria-label="Clear value"
-              className="Select-clear-zone"
-              onMouseDown={[Function]}
-              onTouchEnd={[Function]}
-              onTouchMove={[Function]}
-              onTouchStart={[Function]}
-              title="Clear value"
-            >
-              <span
-                className="Select-clear"
-                dangerouslySetInnerHTML={
-                  Object {
-                    "__html": "&times;",
-                  }
-                }
-              />
-            </span>
-            <span
-              className="Select-arrow-zone"
-              onMouseDown={[Function]}
-            >
-              <span
-                className="Select-arrow"
-                onMouseDown={[Function]}
-              />
-            </span>
-          </div>
-        </div>
+        <Select
+          arrowRenderer={[Function]}
+          autosize={true}
+          backspaceRemoves={true}
+          backspaceToRemoveMessage="Press backspace to remove {label}"
+          clearAllText="Clear all"
+          clearRenderer={[Function]}
+          clearValueText="Clear value"
+          clearable={true}
+          closeOnSelect={true}
+          deleteRemoves={true}
+          delimiter=","
+          disabled={false}
+          escapeClearsValue={true}
+          filterOptions={[Function]}
+          ignoreAccents={true}
+          ignoreCase={true}
+          inputProps={Object {}}
+          instanceId="ddlCurrency"
+          isLoading={false}
+          joinValues={false}
+          labelKey="label"
+          matchPos="any"
+          matchProp="any"
+          menuBuffer={0}
+          menuRenderer={[Function]}
+          multi={false}
+          noResultsText="No results found"
+          onBlurResetsInput={true}
+          onChange={[Function]}
+          onCloseResetsInput={true}
+          onSelectResetsInput={true}
+          openOnClick={true}
+          optionComponent={[Function]}
+          options={
+            Array [
+              Object {
+                "label": "All",
+                "value": 0,
+              },
+              Object {
+                "label": "AUD",
+                "value": 9,
+              },
+              Object {
+                "label": "CHF",
+                "value": 41,
+              },
+              Object {
+                "label": "EUR",
+                "value": 6,
+              },
+              Object {
+                "label": "INH",
+                "value": 51,
+              },
+              Object {
+                "label": "INR",
+                "value": 61,
+              },
+              Object {
+                "label": "JPY",
+                "value": 32,
+              },
+              Object {
+                "label": "KRW",
+                "value": 45,
+              },
+              Object {
+                "label": "MKK",
+                "value": 70,
+              },
+              Object {
+                "label": "THB",
+                "value": 4,
+              },
+              Object {
+                "label": "USD",
+                "value": 3,
+              },
+              Object {
+                "label": "UUS",
+                "value": 20,
+              },
+            ]
+          }
+          pageSize={5}
+          placeholder="Select..."
+          removeSelected={true}
+          required={false}
+          rtl={false}
+          scrollMenuIntoView={true}
+          searchable={true}
+          simpleValue={false}
+          tabSelectsValue={true}
+          trimFilter={true}
+          value={0}
+          valueComponent={[Function]}
+          valueKey="value"
+        />
       </div>
     </div>
     <div
@@ -4811,115 +868,86 @@ exports[`FormFilter  render methods render whole component group by product - Is
         >
           BaseCurrency
         </label>
-        <div
-          className="Select has-value is-clearable is-searchable Select--single"
-          style={undefined}
-        >
-          <div
-            className="Select-control"
-            onKeyDown={[Function]}
-            onMouseDown={[Function]}
-            onTouchEnd={[Function]}
-            onTouchMove={[Function]}
-            onTouchStart={[Function]}
-            style={undefined}
-          >
-            <span
-              className="Select-multi-value-wrapper"
-              id="react-select-ddlBased--value"
-            >
-              <div
-                className="Select-value"
-                style={undefined}
-                title={undefined}
-              >
-                <span
-                  aria-selected="true"
-                  className="Select-value-label"
-                  id="react-select-ddlBased--value-item"
-                  role="option"
-                >
-                  EUR
-                </span>
-              </div>
-              <div
-                className="Select-input"
-                style={
-                  Object {
-                    "display": "inline-block",
-                  }
-                }
-              >
-                <input
-                  aria-activedescendant="react-select-ddlBased--value"
-                  aria-describedby={undefined}
-                  aria-expanded="false"
-                  aria-haspopup="false"
-                  aria-label={undefined}
-                  aria-labelledby={undefined}
-                  aria-owns=""
-                  className={undefined}
-                  id={undefined}
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  required={false}
-                  role="combobox"
-                  style={
-                    Object {
-                      "boxSizing": "content-box",
-                      "width": "5px",
-                    }
-                  }
-                  tabIndex={undefined}
-                  value=""
-                />
-                <div
-                  style={
-                    Object {
-                      "height": 0,
-                      "left": 0,
-                      "overflow": "scroll",
-                      "position": "absolute",
-                      "top": 0,
-                      "visibility": "hidden",
-                      "whiteSpace": "pre",
-                    }
-                  }
-                >
-                  
-                </div>
-              </div>
-            </span>
-            <span
-              aria-label="Clear value"
-              className="Select-clear-zone"
-              onMouseDown={[Function]}
-              onTouchEnd={[Function]}
-              onTouchMove={[Function]}
-              onTouchStart={[Function]}
-              title="Clear value"
-            >
-              <span
-                className="Select-clear"
-                dangerouslySetInnerHTML={
-                  Object {
-                    "__html": "&times;",
-                  }
-                }
-              />
-            </span>
-            <span
-              className="Select-arrow-zone"
-              onMouseDown={[Function]}
-            >
-              <span
-                className="Select-arrow"
-                onMouseDown={[Function]}
-              />
-            </span>
-          </div>
-        </div>
+        <Select
+          arrowRenderer={[Function]}
+          autosize={true}
+          backspaceRemoves={true}
+          backspaceToRemoveMessage="Press backspace to remove {label}"
+          clearAllText="Clear all"
+          clearRenderer={[Function]}
+          clearValueText="Clear value"
+          clearable={true}
+          closeOnSelect={true}
+          deleteRemoves={true}
+          delimiter=","
+          disabled={false}
+          escapeClearsValue={true}
+          filterOptions={[Function]}
+          ignoreAccents={true}
+          ignoreCase={true}
+          inputProps={Object {}}
+          instanceId="ddlBased"
+          isLoading={false}
+          joinValues={false}
+          labelKey="label"
+          matchPos="any"
+          matchProp="any"
+          menuBuffer={0}
+          menuRenderer={[Function]}
+          multi={false}
+          noResultsText="No results found"
+          onBlurResetsInput={true}
+          onChange={[Function]}
+          onCloseResetsInput={true}
+          onSelectResetsInput={true}
+          openOnClick={true}
+          optionComponent={[Function]}
+          options={
+            Array [
+              Object {
+                "label": "EUR",
+                "value": "EUR",
+              },
+              Object {
+                "label": "USD",
+                "value": "USD",
+              },
+              Object {
+                "label": "GBP",
+                "value": "GBP",
+              },
+              Object {
+                "label": "MYR",
+                "value": "MYR",
+              },
+              Object {
+                "label": "CNY",
+                "value": "CNY",
+              },
+              Object {
+                "label": "THB",
+                "value": "THB",
+              },
+              Object {
+                "label": "IDR",
+                "value": "IDR",
+              },
+            ]
+          }
+          pageSize={5}
+          placeholder="Select..."
+          removeSelected={true}
+          required={false}
+          rtl={false}
+          scrollMenuIntoView={true}
+          searchable={true}
+          simpleValue={false}
+          tabSelectsValue={true}
+          trimFilter={true}
+          value="EUR"
+          valueComponent={[Function]}
+          valueKey="value"
+        />
       </div>
     </div>
   </div>
@@ -4976,115 +1004,70 @@ exports[`FormFilter  render methods render whole component group by product - Is
         >
           ReportBy
         </label>
-        <div
-          className="Select has-value is-clearable is-searchable Select--single"
-          style={undefined}
-        >
-          <div
-            className="Select-control"
-            onKeyDown={[Function]}
-            onMouseDown={[Function]}
-            onTouchEnd={[Function]}
-            onTouchMove={[Function]}
-            onTouchStart={[Function]}
-            style={undefined}
-          >
-            <span
-              className="Select-multi-value-wrapper"
-              id="react-select-ddlReportBy--value"
-            >
-              <div
-                className="Select-value"
-                style={undefined}
-                title={undefined}
-              >
-                <span
-                  aria-selected="true"
-                  className="Select-value-label"
-                  id="react-select-ddlReportBy--value-item"
-                  role="option"
-                >
-                  Summary
-                </span>
-              </div>
-              <div
-                className="Select-input"
-                style={
-                  Object {
-                    "display": "inline-block",
-                  }
-                }
-              >
-                <input
-                  aria-activedescendant="react-select-ddlReportBy--value"
-                  aria-describedby={undefined}
-                  aria-expanded="false"
-                  aria-haspopup="false"
-                  aria-label={undefined}
-                  aria-labelledby={undefined}
-                  aria-owns=""
-                  className={undefined}
-                  id={undefined}
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  required={false}
-                  role="combobox"
-                  style={
-                    Object {
-                      "boxSizing": "content-box",
-                      "width": "5px",
-                    }
-                  }
-                  tabIndex={undefined}
-                  value=""
-                />
-                <div
-                  style={
-                    Object {
-                      "height": 0,
-                      "left": 0,
-                      "overflow": "scroll",
-                      "position": "absolute",
-                      "top": 0,
-                      "visibility": "hidden",
-                      "whiteSpace": "pre",
-                    }
-                  }
-                >
-                  
-                </div>
-              </div>
-            </span>
-            <span
-              aria-label="Clear value"
-              className="Select-clear-zone"
-              onMouseDown={[Function]}
-              onTouchEnd={[Function]}
-              onTouchMove={[Function]}
-              onTouchStart={[Function]}
-              title="Clear value"
-            >
-              <span
-                className="Select-clear"
-                dangerouslySetInnerHTML={
-                  Object {
-                    "__html": "&times;",
-                  }
-                }
-              />
-            </span>
-            <span
-              className="Select-arrow-zone"
-              onMouseDown={[Function]}
-            >
-              <span
-                className="Select-arrow"
-                onMouseDown={[Function]}
-              />
-            </span>
-          </div>
-        </div>
+        <Select
+          arrowRenderer={[Function]}
+          autosize={true}
+          backspaceRemoves={true}
+          backspaceToRemoveMessage="Press backspace to remove {label}"
+          clearAllText="Clear all"
+          clearRenderer={[Function]}
+          clearValueText="Clear value"
+          clearable={true}
+          closeOnSelect={true}
+          deleteRemoves={true}
+          delimiter=","
+          disabled={false}
+          escapeClearsValue={true}
+          filterOptions={[Function]}
+          ignoreAccents={true}
+          ignoreCase={true}
+          inputProps={Object {}}
+          instanceId="ddlReportBy"
+          isLoading={false}
+          joinValues={false}
+          labelKey="label"
+          matchPos="any"
+          matchProp="any"
+          menuBuffer={0}
+          menuRenderer={[Function]}
+          multi={false}
+          noResultsText="No results found"
+          onBlurResetsInput={true}
+          onChange={[Function]}
+          onCloseResetsInput={true}
+          onSelectResetsInput={true}
+          openOnClick={true}
+          optionComponent={[Function]}
+          options={
+            Array [
+              Object {
+                "label": "Summary",
+                "value": 1,
+              },
+              Object {
+                "label": "Daily",
+                "value": 2,
+              },
+              Object {
+                "label": "Monthly",
+                "value": 3,
+              },
+            ]
+          }
+          pageSize={5}
+          placeholder="Select..."
+          removeSelected={true}
+          required={false}
+          rtl={false}
+          scrollMenuIntoView={true}
+          searchable={true}
+          simpleValue={false}
+          tabSelectsValue={true}
+          trimFilter={true}
+          value={1}
+          valueComponent={[Function]}
+          valueKey="value"
+        />
       </div>
     </div>
     <div
@@ -5197,56 +1180,13 @@ exports[`FormFilter  render methods render whole component group by product - Is
         onClick={[Function]}
         title="ExportToExcel"
       />
-      <div>
-        <i
-          className="icon-book right"
-          onClick={[Function]}
-          title="UserGuide"
-        />
-        <div
-          className="popup-container hide"
-        >
-          <div
-            className="popup-block-body"
-          />
-          <div
-            className="flat-popup"
-            style={
-              Object {
-                "height": 480,
-                "width": 640,
-              }
-            }
-          >
-            <div
-              className="popup-title"
-            >
-              <div
-                className="txt-title"
-              >
-                WinLossByTimeZone
-              </div>
-              <a
-                className="popup-close"
-                href="javascript:;"
-                onClick={[Function]}
-              >
-                <i
-                  className="icon-close"
-                />
-              </a>
-            </div>
-            <div
-              className="popup-content"
-              dangerouslySetInnerHTML={
-                Object {
-                  "__html": "",
-                }
-              }
-            />
-          </div>
-        </div>
-      </div>
+      <UserGuide
+        className="icon-book right"
+        content=""
+        contentTitle="WinLossByTimeZone"
+        onClick={[Function]}
+        title="UserGuide"
+      />
     </div>
   </div>
 </div>

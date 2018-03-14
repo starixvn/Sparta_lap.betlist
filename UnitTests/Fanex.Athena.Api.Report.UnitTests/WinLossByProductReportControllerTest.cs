@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Web.Http.Results;
+    using Base.UnitTests;
     using DataAccess.Report.Interfaces;
     using Excel.Report;
     using Excel.Report.Models;
@@ -17,7 +18,7 @@
     using Report;
     using Resources;
 
-    public class WinLossByProductReportControllerTest : BaseApiReportControllerHelperTest
+    public class WinLossByProductReportControllerTest : BaseApiControllerHelperTest
     {
         private IWinLossByProductDataAccess _dataAccess;
         private WinLossByProductReportController _controller;
@@ -28,7 +29,7 @@
             base.FixtureSetUp();
 
             _dataAccess = Substitute.For<IWinLossByProductDataAccess>();
-            _controller = Substitute.ForPartsOf<WinLossByProductReportController>(SessionService, ProductService, AppSetting, _dataAccess);
+            _controller = Substitute.ForPartsOf<WinLossByProductReportController>(SessionService, ProductService, AppSetting, LangService, _dataAccess);
 
             MockSessionData();
         }

@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using Base.UnitTests;
     using DataAccess.Report.Interfaces;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Users;
@@ -9,7 +10,7 @@
     using NSubstitute;
     using NUnit.Framework;
 
-    public class ExchangeWinLossReportControllerTest : BaseApiReportControllerHelperTest
+    public class ExchangeWinLossReportControllerTest : BaseApiControllerHelperTest
     {
         private IExchangeWinLossDataAccess _dataAccess;
         private ExchangeWinLossReportController _controller;
@@ -21,7 +22,7 @@
 
             _dataAccess = Substitute.For<IExchangeWinLossDataAccess>();
 
-            _controller = Substitute.ForPartsOf<ExchangeWinLossReportController>(SessionService, ProductService, _dataAccess);
+            _controller = Substitute.ForPartsOf<ExchangeWinLossReportController>(SessionService, ProductService, LangService, _dataAccess);
 
             MockSessionData();
         }

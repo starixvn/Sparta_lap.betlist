@@ -45,8 +45,6 @@ namespace Fanex.Athena.Model.Customer.DTO
 
         public decimal NGComm { get; set; }
 
-        public decimal LCComm { get; set; }
-
         public decimal CSComm { get; set; }
 
         public decimal ABComm { get; set; }

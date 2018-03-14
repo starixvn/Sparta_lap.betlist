@@ -7,6 +7,7 @@
 namespace Fanex.Athena.DataAccess.Report
 {
     using System.Data;
+    using Constant.Helper;
     using Core.Configuration;
     using Core.Configuration.Interfaces;
     using Fanex.Athena.DataAccess.Core;
@@ -17,18 +18,24 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
     using Fanex.Data;
+    using Resources;
+    using VendorAdapter;
+    using VendorAdapter.Interfaces;
 
     public class WinLossByBetTypeDataAccess : BaseDataAccess, IWinLossByBetTypeDataAccess
     {
+        private readonly ICacheRefAdapter _cacheRefAdapter;
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
         public WinLossByBetTypeDataAccess()
         {
+            _cacheRefAdapter = new CacheRefAdapter();
             _balanceUpDataAccess = new BalanceUpDataAccess();
         }
 
-        public WinLossByBetTypeDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
+        public WinLossByBetTypeDataAccess(ICacheRefAdapter cacheRefAdapter, IBalanceUpDataAccess balanceUpDataAccess)
         {
+            _cacheRefAdapter = cacheRefAdapter;
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
@@ -61,7 +68,22 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        private static SortableList<WinLossByBetType> ReadData(IDataReader reader, string baseCurrency)
+        private static string GetSportName(int bettype)
+        {
+            if (BetTypeHelper.IsVirtualSports(bettype))
+            {
+                return " (" + ViewResources.ProductVS + ")";
+            }
+
+            if (BetTypeHelper.IsVirtualSports2(bettype))
+            {
+                return " (" + ViewResources.ProductVS2 + ")";
+            }
+
+            return string.Empty;
+        }
+
+        private SortableList<WinLossByBetType> ReadData(IDataReader reader, string baseCurrency)
         {
             var dataList = new SortableList<WinLossByBetType>();
             var turnoverColumn = "Turnover" + baseCurrency;
@@ -76,10 +98,13 @@ namespace Fanex.Athena.DataAccess.Report
 
             while (reader.Read())
             {
+                var bettype = reader.ToInt("bettype");
+                var liveIndicator = reader.ToBool("liveindicator");
                 var item = new WinLossByBetType
                 {
-                    LiveIndicator = reader.ToBool("liveindicator"),
-                    BetType = reader.ToInt("bettype"),
+                    LiveIndicator = liveIndicator,
+                    BetType = bettype,
+                    BetTypeName = _cacheRefAdapter.GetBettype(bettype, liveIndicator) + GetSportName(bettype),
                     Turnover = reader.ToDecimal(turnoverColumn),
                     CustomerWinLoss = reader.ToDecimal(winlossColumn),
                     CustomerComm = reader.ToDecimal(custCommColumn),

@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Base.UnitTests;
     using DataAccess.Report.Interfaces;
     using Excel.Report;
     using Excel.Report.Models;
@@ -20,7 +21,7 @@
     using NUnit.Framework;
     using Service.Core.Configuration.Interfaces;
 
-    public class LicenseeWinLossReportControllerTest : BaseApiReportControllerHelperTest
+    public class LicenseeWinLossReportControllerTest : BaseApiControllerHelperTest
     {
         private IReportSettingService _reportSettingService;
 
@@ -43,6 +44,7 @@
                 SessionService, 
                 ProductService, 
                 _reportSettingService, 
+                LangService,
                 _appSettings, 
                 _dataAccess);
 

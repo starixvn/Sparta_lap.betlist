@@ -10,16 +10,22 @@ namespace Fanex.Athena.Controllers.BetSettings
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
+    using Constant.DataDomain;
+    using DataAccess.BetSettings.Interfaces;
+    using Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Web.ActionFilter;
     using Model.BetSettings.DTO;
     using Model.BetSettings.MetaModel;
     using Model.BetSettings.ViewModel;
-    using Model.Core.DataDomain;
     using Model.Core.Helper;
     using Resources;
     using Service.BetSettings;
     using Service.BetSettings.Interfaces;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
+    using Service.Core.Users.Interfaces;
+    using Service.Customer.Interfaces;
 
     public class DcsBetSettingController : BetSettingBaseController
     {
@@ -57,6 +63,21 @@ namespace Fanex.Athena.Controllers.BetSettings
         public DcsBetSettingController()
         {
             _betSettingService = new DcsBetSettingService();
+        }
+
+        public DcsBetSettingController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
+            IAuthorizationService authorizationService,
+            ICoreBetSettingDataAccess coreBetSettingDataAccess,
+            ICustomerService customerService,
+            IProductService productService,
+            IDcsBetSettingService betSettingService)
+        : base(languageService, sessionService, appSetting, clientViewHelper, authorizationService, coreBetSettingDataAccess, customerService, productService)
+        {
+            _betSettingService = betSettingService;
         }
 
         [HttpGet]

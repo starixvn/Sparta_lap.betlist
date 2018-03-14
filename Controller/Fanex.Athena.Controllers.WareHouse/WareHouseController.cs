@@ -11,10 +11,13 @@ namespace Fanex.Athena.Controllers.WareHouse
     using DataAccess.Core.Configuration;
     using DataAccess.Core.Configuration.Interfaces;
     using Excel.Base.Entities;
+    using Extension.Utility;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Model.Core.DTO.Configuration;
     using ONEbook.UM.Filters;
+    using Service.Core.Helpers;
+    using Service.Core.Users.Interfaces;
 
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CheckUMFilter]
@@ -24,10 +27,21 @@ namespace Fanex.Athena.Controllers.WareHouse
 
         private readonly IProductService _productService;
 
-        public WareHouseBaseController()
+        public WareHouseBaseController() : this(null, null, null, null, null, null)
         {
-            this._productService = new ProductService();
-            this._balancUpDataAccess = new BalanceUpDataAccess();
+        }
+
+        public WareHouseBaseController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
+            IBalanceUpDataAccess balancUpDataAccess,
+            IProductService productService)
+        : base(languageService, sessionService, appSetting, clientViewHelper)
+        {
+            this._productService = productService ?? new ProductService();
+            this._balancUpDataAccess = balancUpDataAccess ?? new BalanceUpDataAccess();
         }
 
         protected IProductService ProductService

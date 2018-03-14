@@ -93,7 +93,6 @@
     <Compile Include="LicenseeWinLossReportControllerTest.cs" />
     <Compile Include="ActiveCustomerSummaryReportControllerTest.cs" />
     <Compile Include="AgCasinoBalanceReportControllerTest.cs" />
-    <Compile Include="BaseApiReportControllerHelperTest.cs" />
     <Compile Include="ColossusBetsWinLossReportControllerTest.cs" />
     <Compile Include="CustomerBalanceReportControllerTest.cs" />
     <Compile Include="CustomerPendingFundsReportControllerTest.cs" />
@@ -143,6 +142,14 @@
       <Project>{71f95e53-36d0-4091-828d-ed14c9939c35}</Project>
       <Name>Fanex.Athena.Extension</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\Fanex.Athena.Constant\Fanex.Athena.Constant.csproj">
+      <Project>{6B1431E0-E513-48BB-BE86-0756E5F6F405}</Project>
+      <Name>Fanex.Athena.Constant</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\Fanex.Athena.VendorAdapter\Fanex.Athena.VendorAdapter.csproj">
+      <Project>{CE1F7641-A14D-4AF6-9BD3-CAD4873669B4}</Project>
+      <Name>Fanex.Athena.VendorAdapter</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Model\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj">
       <Project>{5F410090-94C0-46A5-9FEC-B6C3B745B7A0}</Project>
       <Name>Fanex.Athena.Model.Core</Name>
@@ -162,6 +169,10 @@
     <ProjectReference Include="..\..\Service\Fanex.Athena.Service.Report\Fanex.Athena.Service.Report.csproj">
       <Project>{AE7D3FED-BFFF-4AD6-816B-3A1644940511}</Project>
       <Name>Fanex.Athena.Service.Report</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.Athena.Api.Base.UnitTests\Fanex.Athena.Api.Base.UnitTests.csproj">
+      <Project>{6314a4e3-6d1b-49fc-85a5-e5dd7a85ab3f}</Project>
+      <Name>Fanex.Athena.Api.Base.UnitTests</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

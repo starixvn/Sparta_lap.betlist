@@ -34,6 +34,10 @@
     <CodeAnalysisRuleSet>Fanex.Athena.Excel.Report.UnitTests.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Fanex.Common, Version=1.0.404.97, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.Common.1.0.404.97\lib\net40\Fanex.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <HintPath>..\..\packages\NPOI.2.0.6\lib\net40\ICSharpCode.SharpZipLib.dll</HintPath>
       <Private>True</Private>
@@ -64,8 +68,26 @@
     <Compile Include="AgCasinoBalanceExcelTest.cs" />
     <Compile Include="ActiveCustomerSummaryExcelTest.cs" />
     <Compile Include="BaseReportExcelTest.cs" />
+    <Compile Include="DailyRacingWinLossExcelTest.cs" />
+    <Compile Include="LicenseeWinLossExcelTest.AssignCommonData.cs" />
+    <Compile Include="LicenseeWinLossExcelTest.ProcessUI.cs" />
+    <Compile Include="LicenseeWinLossExcelTest.AssignHeader.cs" />
+    <Compile Include="MatchWinLossExcelTest.AssignMatchData.cs" />
+    <Compile Include="TestableClasses\DailyRacingWinLossExcelTestable.cs" />
+    <Compile Include="TestableClasses\LicenseeWinLossExcelTestable.cs" />
+    <Compile Include="TestableClasses\MatchWinLossExcelTestable.cs" />
+    <Compile Include="TestableClasses\WinlossByProductExcelTestable.cs" />
+    <Compile Include="TestableClasses\WinlossByLeagueExcelTestable.cs" />
+    <Compile Include="LicenseeWinLossExcelTest.cs" />
+    <Compile Include="MatchWinLossExcelTest.cs" />
+    <Compile Include="WinlossByProductExcelTest.cs" />
+    <Compile Include="WinlossByLeagueExcelTest.cs" />
+    <Compile Include="WinLossByBetTypeExcelTest.cs" />
+    <Compile Include="TestableClasses\WinLossByBetTypeExcelTestable.cs" />
+    <Compile Include="WeeklyLiveMatchExcelTest.cs" />
     <Compile Include="TestableClasses\HandHistoryExcelTestable.cs" />
     <Compile Include="HandHistoryExcelTest.cs" />
+    <Compile Include="TestableClasses\WeeklyLiveMatchExcelTestable.cs" />
     <Compile Include="TestableClasses\TurnoverExcelTestable.cs" />
     <Compile Include="ThirdPartyWinLossExcelTest.cs" />
     <Compile Include="RacingCommissionExcelTest.cs" />
@@ -106,10 +128,6 @@
     <ProjectReference Include="..\..\Excel\Fanex.Athena.Excel.Base\Fanex.Athena.Excel.Base.csproj">
       <Project>{413861ad-068b-4c02-b913-10b1de708fb7}</Project>
       <Name>Fanex.Athena.Excel.Base</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Excel\Fanex.Athena.Excel.Customer\Fanex.Athena.Excel.Customer.csproj">
-      <Project>{C741A329-44B9-4DD1-98C1-4EAAED4A9012}</Project>
-      <Name>Fanex.Athena.Excel.Customer</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Excel\Fanex.Athena.Excel.Report\Fanex.Athena.Excel.Report.csproj">
       <Project>{0FC566E3-C900-4FF7-BC30-922FA73969F7}</Project>

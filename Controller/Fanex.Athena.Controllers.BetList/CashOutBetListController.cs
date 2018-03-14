@@ -6,12 +6,19 @@
     using System.Web.Mvc;
     using DataAccess.BetList;
     using DataAccess.BetList.Interfaces;
+    using DataAccess.Core.Configuration.Interfaces;
+    using Extension.Utility;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Service.BetList.Extensions;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.TicketHelper;
     using Model.BetList.DTO;
     using Resources;
+    using Service.BetList.Interfaces;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
+    using Service.Core.Users.Interfaces;
+    using VendorAdapter.Interfaces;
 
     public class CashOutBetListController : BetListBaseController
     {
@@ -22,7 +29,17 @@
             _cashOutBetListDataAccess = new CashOutBetListDataAccess();
         }
 
-        public CashOutBetListController(ICashOutBetListDataAccess cashOutBetListDataAccess)
+        public CashOutBetListController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
+            IProductService productService,
+            IBetListService betListService,
+            IBalanceUpDataAccess balanceUpDataAccess,
+            ICacheRefAdapter cacheRefAdapter,
+            ICashOutBetListDataAccess cashOutBetListDataAccess)
+        : base(languageService, sessionService, appSetting, clientViewHelper, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
         {
             _cashOutBetListDataAccess = cashOutBetListDataAccess;
         }
@@ -113,7 +130,7 @@
                 TransTime = builder.BuildTrans(ticket),
                 Status = statusHtml.ToString(),
                 Choice = builder.BuildChoice(ticket, ticketHelper, null, false),
-                Odds = builder.BuildOdds(ticket, null, CacheRef.GetOddsTypeName),
+                Odds = builder.BuildOdds(ticket, null, CacheRefAdapter.GetOddsTypeName),
                 Stake = builder.BuildStake(ticket),
                 WinLoss = builder.BuildCustomerWL(ticket, showPlayerComm)
             };

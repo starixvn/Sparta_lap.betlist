@@ -2,10 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using Base.UnitTests;
     using DataAccess.Report.Interfaces;
     using Excel.Base.Entities;
     using Excel.Report;
-    using Extension.Utility;
     using Model.Core.DTO.Users;
     using Model.Core.MetaModel.Product;
     using Model.Core.ResultModel;
@@ -16,7 +17,7 @@
     using NSubstitute;
     using NUnit.Framework;
 
-    public class MicrogamingWinlossReportControllerTest : BaseApiReportControllerHelperTest
+    public class MicrogamingWinlossReportControllerTest : BaseApiControllerHelperTest
     {
         private IMicroGamingWinLossDataAccess _dataAccess;
 
@@ -29,7 +30,7 @@
 
             _dataAccess = Substitute.For<IMicroGamingWinLossDataAccess>();
 
-            _controller = Substitute.ForPartsOf<MicrogamingWinlossReportController>(SessionService, ProductService, _dataAccess);
+            _controller = Substitute.ForPartsOf<MicrogamingWinlossReportController>(SessionService, ProductService, LangService, _dataAccess);
 
             _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();
 
@@ -56,7 +57,7 @@
             var result = _controller.Index(metaModel);
 
             // Assert
-            Assert.That(result.Data.Count, Is.EqualTo(expectedResult.DataList.Count));
+            Assert.That(result.Data.Count, Is.EqualTo(expectedResult.DataList.Count()));
         }
 
         [Test]
@@ -88,9 +89,28 @@
             _controller.Index(metaModel);
 
             // Assert
+            Assert.That(actualExcelModel.MainResult.Count(), Is.EqualTo(expectedResult.DataList.Count()));
+        }
+
+        [Test]
+        public void Index_NoData_ReturnEmptyResult()
+        {
+            // Arrange
+            var metaModel = CreateValidMetaModel();
+            _dataAccess.GetSummaryWinloss(metaModel).Returns(new ReportResultModel<MicroGamingWinLoss>
+            {
+                DataList = new List<MicroGamingWinLoss>()
+            });
+
+            // Action
+            var result = _controller.Index(metaModel);
+
+            // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(actualExcelModel.MainResult.Count, Is.EqualTo(expectedResult.DataList.Count));
+                Assert.That(result.Data, Is.Empty);
+                Assert.That(result.Total, Is.Empty);
+                Assert.That(result.SummaryTotal, Is.Empty);
             });
         }
 
@@ -124,9 +144,9 @@
             return model;
         }
 
-        private SortableReportResultModel<MicroGamingWinLoss> SetUpForGettingData(ThirdPartyWinLossMetaModel metaModel)
+        private ReportResultModel<MicroGamingWinLoss> SetUpForGettingData(ThirdPartyWinLossMetaModel metaModel)
         {
-            var dataList = new SortableList<MicroGamingWinLoss>();
+            var dataList = new List<MicroGamingWinLoss>();
 
             var random = new Random();
             var total = random.Next(5, 10);
@@ -135,7 +155,7 @@
                 dataList.Add(new MicroGamingWinLoss());
             }
 
-            var result = new SortableReportResultModel<MicroGamingWinLoss>
+            var result = new ReportResultModel<MicroGamingWinLoss>
             {
                 DataList = dataList,
                 TotalDataList = new List<MicroGamingWinLoss>(),

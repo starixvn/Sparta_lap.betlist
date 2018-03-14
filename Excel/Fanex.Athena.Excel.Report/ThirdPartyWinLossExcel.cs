@@ -174,8 +174,8 @@ namespace Fanex.Athena.Excel.Report
             {
                 // Copy template
                 var row = sheet.CopyRow(TemplateSheet, RowGrantTotal, rowIndex);
-                AssignCommonData(row, _summaryTotal[currency]);
                 row.Cells[ColumnIndex].SetCellValue(ViewResources.Totalin + " " + currency.ToUpperInvariant());
+                AssignCommonData(row, _summaryTotal[currency]);
 
                 // Merge first two column
                 sheet.MergeCells(rowIndex, ColumnIndex, rowIndex, ColumnCurrency);

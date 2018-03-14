@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Base.UnitTests;
     using Excel.Report;
     using Excel.Report.Models;
     using Extension.Utility;
@@ -16,7 +17,7 @@
     using NSubstitute;
     using NUnit.Framework;
 
-    public class CustomerWinLossReportControllerTest : BaseApiReportControllerHelperTest
+    public class CustomerWinLossReportControllerTest : BaseApiControllerHelperTest
     {
         private ICustWinlossDataAccess _dataAccess;
         private CustomerWinLossReportController _controller;
@@ -28,7 +29,7 @@
 
             _dataAccess = Substitute.For<ICustWinlossDataAccess>();
 
-            _controller = Substitute.ForPartsOf<CustomerWinLossReportController>(AppSetting, _dataAccess, SessionService, ProductService);
+            _controller = Substitute.ForPartsOf<CustomerWinLossReportController>(AppSetting, _dataAccess, SessionService, ProductService, LangService);
 
             _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();
 
@@ -87,7 +88,7 @@
             metaModel.IsExportExcel = true;
             var expectedDataList = SetUpForGettingData(metaModel);
 
-            StubSingleWalletProductAccess(new string[] { Product.BA });
+            StubSingleWalletProductAccess(new[] { Product.BA });
             AppSetting.FakeLicenseeList.Returns(x => isFakeLicensee ? new int[1] { SessionLicenseeId } : new int[0]);
 
             var excel = Substitute.ForPartsOf<CustomerWinLossExcel>(

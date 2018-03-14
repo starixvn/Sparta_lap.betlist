@@ -133,6 +133,8 @@
             return x;
         };
 
+        var maxLength = max.toString().length;
+
         this.each(function (i, e) {
             $(e).keydown(function (event) {
                 // Allow: backspace, delete, tab, escape, and enter
@@ -152,13 +154,17 @@
                 }
             }).keyup(function (event) {
                 var textBox = event.target;
-                var value = textBox.value;
-                value = value.replace(/,/g, '');
+                var value = textBox.value.replace(/,/g, '');
 
-                var isNotInRange = (value < min) || (value > max);
-                if (isNotInRange) {
-                    textBox.value = textBox.value.slice(0, -1);
-                    value = textBox.value.replace(/,/g, '');
+                if (value.length > maxLength) {
+                    value = value.slice(0, maxLength);
+                }
+
+                if (value < min) {
+                    value = min;
+                }
+                else if (value > max) {
+                    value = max;
                 }
 
                 textBox.value = thousandFormater(value);

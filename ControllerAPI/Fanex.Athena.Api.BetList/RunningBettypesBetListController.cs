@@ -8,10 +8,19 @@ namespace Fanex.Athena.Api.BetList
 {
     #region Using
 
+    using System;
     using System.Web.Http;
     using Base.Attributes;
+    using Constant.DataDomain;
+    using DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.Model.BetList.MetaModel;
+    using Fanex.BetList.Core.Builder;
+    using Fanex.BetList.Core.Entities;
     using Model.Core.DataDomain;
+    using Service.BetList.Interfaces;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
+    using VendorAdapter.Interfaces;
 
     #endregion Using
 
@@ -29,6 +38,24 @@ namespace Fanex.Athena.Api.BetList
         private const string DoubleChangeBettypes = "24,151,186,431,410";
 
         private const string BONTeamToScoreBettypes = "26,145,146,433,170,188,427";
+
+        public RunningBettypesBetListController()
+        {
+        }
+
+        [CLSCompliant(false)]
+        public RunningBettypesBetListController(
+            ISessionService sessionService,
+            IProductService productService,
+            ILanguageService languageService,
+            IBetListService betListService,
+            IBalanceUpDataAccess balanceUpDataAccess,
+            ITicketHelper ticketHelper,
+            ICacheRefAdapter cacheRefAdapter,
+            IBetListHTMLBuilder betlistHtmlBuilder)
+        : base(sessionService, productService, languageService, betListService, balanceUpDataAccess, ticketHelper, cacheRefAdapter, betlistHtmlBuilder)
+        {
+        }
 
         [HttpPost]
         [ApiFunctionAuthorization(PermissionKeys.TotalBetMixParlay)]
@@ -56,15 +83,10 @@ namespace Fanex.Athena.Api.BetList
 
         private dynamic ProcessRequest(BetListMetaModel metaModel)
         {
-            var userSession = SessionService.UserSession;
-            var currencyList = userSession.CurrencyList;
-
-            if (metaModel.CurrencyId != 0 && !currencyList.ContainsKey(metaModel.CurrencyId))
+            if (!IsValidCurrencyId(metaModel.CurrencyId))
             {
                 return null;
             }
-
-            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
             const string UspKey = "Lrf_BetList_SelRunningByBettypeList";
             return GetBetListResult(metaModel, UspKey);

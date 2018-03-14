@@ -15,29 +15,19 @@
     [TestFixture]
     public class BalanceDataAccessTest : BaseDataAccessHelperTest<BalanceDataAccess>
     {
-        private IBalanceUpDataAccess _balanceUpDataAccess;
-
         [OneTimeSetUp]
         public override void FixtureSetUp()
         {
-            _balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
-            _balanceUpDataAccess.GetBalanceUp().Returns(new BalanceUp
+            var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
+            balanceUpDataAccess.GetBalanceUp().Returns(new BalanceUp
             {
                 BalanceUpDay = new DateTime(2017, 12, 1),
                 MoveBetsDay = new DateTime(2017, 12, 2)
             });
             ObjectDb = Substitute.For<IObjectDb>();
 
-            DataAccess = Substitute.ForPartsOf<BalanceDataAccess>(_balanceUpDataAccess);
+            DataAccess = Substitute.ForPartsOf<BalanceDataAccess>(balanceUpDataAccess);
             DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerSelBalance")).Returns(ObjectDb);
-        }
-
-        [OneTimeTearDown]
-        public override void FixtureTearDown()
-        {
-            _balanceUpDataAccess = null;
-
-            base.FixtureTearDown();
         }
 
         [Test]

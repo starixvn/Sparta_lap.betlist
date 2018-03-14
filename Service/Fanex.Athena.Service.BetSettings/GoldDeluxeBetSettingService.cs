@@ -11,6 +11,7 @@ namespace Fanex.Athena.Service.BetSettings
     using System.Linq;
     using System.Xml.Linq;
     using Common;
+    using Constant.DataDomain;
     using Core.Helpers;
     using Core.Users.Interfaces;
     using Core.Utility;
@@ -21,7 +22,6 @@ namespace Fanex.Athena.Service.BetSettings
     using Interfaces;
     using Model.BetSettings.DTO.GoldDeluxe;
     using Model.BetSettings.ViewModel;
-    using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
     using Resources;
 

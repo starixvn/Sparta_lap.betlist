@@ -14,7 +14,7 @@
         public void GetLeaguesBySport_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            DataAccess.GetObjectDb(Arg.Is<string>("Lrf_SelLeagueBySport")).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_SelLeagueBySport")).Returns(ObjectDb);
             var metaModel = new LeagueMetaModel
             {
                 AgentListXml = "hello",

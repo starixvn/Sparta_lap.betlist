@@ -18,7 +18,7 @@
         public void SearchCustomers_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            DataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerSelUserSearch")).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerSelUserSearch")).Returns(ObjectDb);
             const int UserId = 0;
             const string UserName = "";
 
@@ -111,7 +111,7 @@
         public void GetCustomerLoginInfo_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            DataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerLoginInfo")).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerLoginInfo")).Returns(ObjectDb);
             const int CustId = 0;
             const int LicenseeId = 0;
 
@@ -127,7 +127,7 @@
         public void UpdateOddsGroup_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            DataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerUpdUgroup")).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerUpdUgroup")).Returns(ObjectDb);
             var metaModel = new CustomerOddsGroupMetaModel();
 
             // Action
@@ -150,7 +150,7 @@
         public void UpdateCustClosed_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            DataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerUpdClosed")).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerUpdClosed")).Returns(ObjectDb);
             var metaModel = new CustomerStatusMetaModel();
 
             // Action
@@ -173,7 +173,7 @@
         public void UpdateCustSuspend_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            DataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerUpdSuspended")).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerUpdSuspended")).Returns(ObjectDb);
             var metaModel = new CustomerStatusMetaModel();
 
             // Action
@@ -197,7 +197,7 @@
         public void UpdateCustomerBAStatus_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            DataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerUpdMemberBAStatus")).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerUpdMemberBAStatus")).Returns(ObjectDb);
             ObjectDb.GetParameterValue("OddsGroup").Returns(string.Empty);
             const int LicenseeId = 0;
             const int CustId = 0;
@@ -225,7 +225,7 @@
         public void UpdateSpecialLevel_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            DataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerUpdSpecialLevel")).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerUpdSpecialLevel")).Returns(ObjectDb);
             const int UserId = 0;
             const int CustId = 0;
             const int Level = 0;
@@ -252,10 +252,12 @@
         public void UpdateOddsGroup_WhenCallWithFiveParameters_ParametersPassedCorrectly()
         {
             // Arrange
-            DataAccess.GetObjectDb(Arg.Is<string>("Lrf_CustomerUpdOddsGroup")).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerUpdOddsGroup")).Returns(ObjectDb);
             const int UserId = 0;
             const int CustId = 0;
-            const string Group = "", Ip = "", Language = "";
+            const string Group = "";
+            const string Ip = "";
+            const string Language = "";
 
             // Action
             DataAccess.UpdateOddsGroup(UserId, CustId, Group, Ip, Language);

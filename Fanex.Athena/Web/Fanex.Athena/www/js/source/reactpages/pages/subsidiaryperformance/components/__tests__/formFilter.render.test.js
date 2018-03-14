@@ -1,6 +1,7 @@
 import React from 'react';
 import { FormFilter } from '../FormFilter';
 import renderer from 'react-test-renderer';
+import ShallowRenderer from 'react-test-renderer/shallow';
 
 import LangHelper from '../../../../lib/langHelper';
 import service from '../../lib/service';
@@ -52,7 +53,7 @@ describe('FormFilter ', () => {
             });
 
             it("_renderSubsidiarySelectList - subsidiaryList is empty - return null", () => {
-                const props = {...formFilterPropsForRender, subsidiaryList: []};
+                const props = { ...formFilterPropsForRender, subsidiaryList: [] };
                 const formFilter = new FormFilter(props);
                 const multipleSelectComponent = formFilter._renderSubsidiarySelectList();
 
@@ -79,7 +80,7 @@ describe('FormFilter ', () => {
             });
 
             it("_renderProductSelectList - productOptions is empty - return null", () => {
-                const props = {...formFilterPropsForRender, productOptions: []};
+                const props = { ...formFilterPropsForRender, productOptions: [] };
                 const formFilter = new FormFilter(props);
                 const multipleSelectComponent = formFilter._renderProductSelectList();
 
@@ -110,7 +111,7 @@ describe('FormFilter ', () => {
             })
 
             it("_renderBaseCurrencySelectList - baseCurrencyList is empty - return null", () => {
-                const props = {...formFilterPropsForRender, baseCurrencyList: []};
+                const props = { ...formFilterPropsForRender, baseCurrencyList: [] };
                 const formFilter = new FormFilter(props);
                 const multipleSelectComponent = formFilter._renderBaseCurrencySelectList();
 
@@ -147,11 +148,11 @@ describe('FormFilter ', () => {
 
         describe('render whole component', () => {
             it('match to snapshot', () => {
-                const component = renderer.create(<FormFilter {...formFilterPropsForRender}/>);
+                const props = Object.assign({}, formFilterPropsForRender, { convertAll: false });
+                const renderer = new ShallowRenderer();
+                const result = renderer.render(<FormFilter {...props}/>);
 
-                const result = component.toJSON();
-
-                expect(result).toMatchSnapshot()
+                expect(result).toMatchSnapshot();
             })
         })
     })

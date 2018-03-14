@@ -61,10 +61,6 @@
       <HintPath>..\..\packages\Fanex.Result.Core.GlobalGaming.1.0.0.2\lib\net40\Fanex.Result.Core.GlobalGaming.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.Result.Core.LiveCasino, Version=1.0.0.8, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.Result.Core-LiveCasino.1.0.0.8\lib\net40\Fanex.Result.Core.LiveCasino.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Fanex.Result.Core.MicroGaming, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.Result.Core-MicroGaming.1.0.0.2\lib\net40\Fanex.Result.Core.MicroGaming.dll</HintPath>
       <Private>True</Private>
@@ -246,6 +242,14 @@
     <ProjectReference Include="..\..\Excel\Fanex.Athena.Excel.Report\Fanex.Athena.Excel.Report.csproj">
       <Project>{0fc566e3-c900-4ff7-bc30-922fa73969f7}</Project>
       <Name>Fanex.Athena.Excel.Report</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\Fanex.Athena.Constant\Fanex.Athena.Constant.csproj">
+      <Project>{6B1431E0-E513-48BB-BE86-0756E5F6F405}</Project>
+      <Name>Fanex.Athena.Constant</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\Fanex.Athena.VendorAdapter\Fanex.Athena.VendorAdapter.csproj">
+      <Project>{CE1F7641-A14D-4AF6-9BD3-CAD4873669B4}</Project>
+      <Name>Fanex.Athena.VendorAdapter</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fanex.Athena.Controllers.Base\Fanex.Athena.Controllers.Base.csproj">
       <Project>{255e120a-83bf-4f72-9e31-6050d5704069}</Project>

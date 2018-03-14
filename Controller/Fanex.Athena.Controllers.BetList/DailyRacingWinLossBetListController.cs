@@ -8,11 +8,18 @@ namespace Fanex.Athena.Controllers.BetList
 {
     #region Using
 
-    using System.Collections.Generic;
     using System.Web.Mvc;
+    using DataAccess.Core.Configuration.Interfaces;
+    using Excel.Base.Entities;
+    using Extension.Utility;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
     using Resources;
+    using Service.BetList.Interfaces;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
+    using Service.Core.Users.Interfaces;
+    using VendorAdapter.Interfaces;
     using Web.ActionFilter;
 
     #endregion Using
@@ -20,29 +27,47 @@ namespace Fanex.Athena.Controllers.BetList
     [FunctionAuthorization(PermissionKeys.ReportDailyRacingWinLoss)]
     public class DailyRacingWinLossBetListController : BetListBaseController
     {
+        private static readonly int[] HiddenColumns = new[] { BetEffectiveColumn };
+
+        public DailyRacingWinLossBetListController()
+        {
+        }
+
+        public DailyRacingWinLossBetListController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
+            IProductService productService,
+            IBetListService betListService,
+            IBalanceUpDataAccess balanceUpDataAccess,
+            ICacheRefAdapter cacheRefAdapter)
+        : base(languageService, sessionService, appSetting, clientViewHelper, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
+        {
+        }
+
         [HttpGet]
         public ActionResult Index(BetListMetaModel metaModel)
         {
-            return ProcessDefaultRequest(metaModel, "~/Views/BetList/DailyRacingWl/Main.cshtml");
+            var model = CreateDefaultMetaModel(metaModel);
+            return ProcessDefaultRequest(model, "~/Views/BetList/DailyRacingWl/Main.cshtml", "Lrf_BetList_SelWinlostRacing");
         }
 
-        protected override ActionResult ExportExcel(BetListMetaModel metaModel)
+        protected override ActionResult ExportExcel(BetListMetaModel metaModel, string uspKey)
         {
-            const string UspKey = "Lrf_BetList_SelWinlostRacing";
-            var ticketResult = BetListService.GetBetListData(metaModel, UspKey);
+            var ticketResult = BetListService.GetBetListData(metaModel, uspKey);
 
             var currencyTitle = string.Format(
                 ViewResources.Viewin,
                 metaModel.CurrencyId == BaseCurrencyType.All || metaModel.IsConvert ? metaModel.BaseCurrency.ToUpperInvariant() : metaModel.CurrencyName);
-            var title = ViewResources.DailyRacingWinLoss + " " + ViewResources.BetList
-                + string.Format(
-                " - {0} - {1}",
-                metaModel.Date.ToString("MMM dd, yyyy"),
-                currencyTitle);
+            var title = $"{ViewResources.DailyRacingWinLoss} {ViewResources.BetList} - {metaModel.Date.ToString("MMM dd, yyyy")} - {currencyTitle}";
 
-            var hiddenColumns = new List<int> { BetEffectiveColumn };
+            var showingOption = new ShowingOption
+            {
+                CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
+            };
 
-            return ProcessExportExcel(metaModel, ticketResult, hiddenColumns, title, "DailyRacingWinLossBetList");
+            return ProcessExportExcel(showingOption, metaModel, ticketResult, HiddenColumns, title, "DailyRacingWinLossBetList");
         }
     }
 }

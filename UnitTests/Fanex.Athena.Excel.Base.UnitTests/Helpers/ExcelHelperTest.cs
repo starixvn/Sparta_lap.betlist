@@ -16,14 +16,14 @@
         public void AssignRowContent_WhenCall_SetCellValueMethodIsCalled()
         {
             // Arrange
-            var columns = new string[] { "Row0", "Row1" };
+            var columns = new[] { "Row0", "Row1" };
             var dataRow = GetDataTable(columns).Rows[0];
             var excelRow = Substitute.For<IRow>();
             var cell = Substitute.For<ICell>();
             excelRow.Cells.Returns(new List<ICell> { cell, cell });
 
             // Action
-            ExcelHelper.AssignRowContent(excelRow, dataRow, columns, 0);
+            ExcelHelper.AssignRowContent(excelRow, dataRow, columns);
 
             // Assert
             cell.Received().SetCellValue("Data1");

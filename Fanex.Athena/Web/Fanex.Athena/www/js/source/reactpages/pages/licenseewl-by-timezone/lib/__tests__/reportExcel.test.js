@@ -37,19 +37,19 @@ describe('reportExcel ', () => {
         it('get data - _Create* functions and Excel.export should be called with correct parameter', () => {
             const expectedWorksheet = {};
             const reportExcel = new ReportExcel(gridData, title);
-
+           
             reportExcel._createTitle = jest.fn();
             reportExcel._createHeader = jest.fn();
             reportExcel._createSheetData = jest.fn();
             reportExcel._createExcelConfig = jest.fn();
 
-            reportExcel.export();
-
-            expect(reportExcel._createTitle).toHaveBeenCalled();
-            expect(reportExcel._createHeader).toHaveBeenCalled();
-            expect(reportExcel._createSheetData).toHaveBeenCalled();
-            expect(reportExcel._createExcelConfig).toHaveBeenCalled();
-            expect(Excel.export).toHaveBeenCalledWith(expectedWorksheet, fileName);
+            reportExcel.export(() => {
+                expect(reportExcel._createTitle).toHaveBeenCalled();
+                expect(reportExcel._createHeader).toHaveBeenCalled();
+                expect(reportExcel._createSheetData).toHaveBeenCalled();
+                expect(reportExcel._createExcelConfig).toHaveBeenCalled();
+                expect(Excel.export).toHaveBeenCalledWith(expectedWorksheet, fileName);
+            });
         })
     })
 

@@ -12,21 +12,44 @@ namespace Fanex.Athena.Api.BetList
     using System;
     using System.Web.Http;
     using Base.Attributes;
+    using DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
+    using Fanex.BetList.Core.Builder;
+    using Fanex.BetList.Core.Entities;
+    using Service.BetList.Interfaces;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
+    using VendorAdapter.Interfaces;
 
     #endregion Using
 
     [ApiFunctionAuthorization(PermissionKeys.ReportLiveReport)]
     public class LiveReportBetListController : ApiBetListBaseController
     {
+        public LiveReportBetListController()
+        {
+        }
+
+        [CLSCompliant(false)]
+        public LiveReportBetListController(
+            ISessionService sessionService,
+            IProductService productService,
+            ILanguageService languageService,
+            IBetListService betListService,
+            IBalanceUpDataAccess balanceUpDataAccess,
+            ITicketHelper ticketHelper,
+            ICacheRefAdapter cacheRefAdapter,
+            IBetListHTMLBuilder betlistHtmlBuilder)
+        : base(sessionService, productService, languageService, betListService, balanceUpDataAccess, ticketHelper, cacheRefAdapter, betlistHtmlBuilder)
+        {
+        }
+
         [HttpPost]
         public dynamic Match(LiveReportBetListMetaModel metaModel)
         {
-            var currencyList = SessionService.UserSession.CurrencyList;
-
-            if (metaModel.CurrencyId != 0 && !currencyList.ContainsKey(metaModel.CurrencyId))
+            if (!IsValidCurrencyId(metaModel.CurrencyId))
             {
                 return null;
             }
@@ -41,7 +64,7 @@ namespace Fanex.Athena.Api.BetList
         [HttpPost]
         public dynamic Outright(LiveReportBetListMetaModel metaModel)
         {
-            if (metaModel.CurrencyId == 0 || SessionService.UserSession.CurrencyList.ContainsKey(metaModel.CurrencyId))
+            if (IsValidCurrencyId(metaModel.CurrencyId))
             {
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                 const string UspKey = "Lrf_BetList_LiveReport_SelWinlossOutright";
@@ -54,10 +77,7 @@ namespace Fanex.Athena.Api.BetList
         [HttpGet]
         public dynamic NumberGame([FromUri] LiveReportBetListMetaModel metaModel, int page, int rows)
         {
-            var userSession = SessionService.UserSession;
-            var currencyList = userSession.CurrencyList;
-
-            if (metaModel.CurrencyId == 0 || currencyList.ContainsKey(metaModel.CurrencyId))
+            if (IsValidCurrencyId(metaModel.CurrencyId))
             {
                 const string UspKey = "Lrf_BetList_LiveReport_SelWinlossNumberGame";
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
@@ -70,10 +90,7 @@ namespace Fanex.Athena.Api.BetList
         [HttpGet]
         public dynamic MixParlay([FromUri] LiveReportBetListMetaModel metaModel, int page, int rows)
         {
-            var userSession = SessionService.UserSession;
-            var currencyList = userSession.CurrencyList;
-
-            if (metaModel.CurrencyId == 0 || currencyList.ContainsKey(metaModel.CurrencyId))
+            if (IsValidCurrencyId(metaModel.CurrencyId))
             {
                 const string UspKey = "Lrf_BetList_LiveReport_SelWinlossParlay";
 
@@ -88,13 +105,10 @@ namespace Fanex.Athena.Api.BetList
         [HttpGet]
         public dynamic Racing([FromUri] LiveReportBetListMetaModel metaModel, int page, int rows)
         {
-            const string UspName = "Lrf_BetList_LiveReport_SelWinlossRacing";
-
-            var userSession = SessionService.UserSession;
-            var currencyList = userSession.CurrencyList;
-
-            if (metaModel.CurrencyId == 0 || currencyList.ContainsKey(metaModel.CurrencyId))
+            if (IsValidCurrencyId(metaModel.CurrencyId))
             {
+                const string UspName = "Lrf_BetList_LiveReport_SelWinlossRacing";
+
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                 return GetPagingData(metaModel, UspName, page, rows);
             }
@@ -105,13 +119,10 @@ namespace Fanex.Athena.Api.BetList
         [HttpGet]
         public dynamic VirtualSports([FromUri] LiveReportBetListMetaModel metaModel, int page, int rows)
         {
-            const string UspName = "Lrf_BetList_LiveReport_SelWinlossVHRacing";
-
-            var userSession = SessionService.UserSession;
-            var currencyList = userSession.CurrencyList;
-
-            if (metaModel.CurrencyId == 0 || currencyList.ContainsKey(metaModel.CurrencyId))
+            if (IsValidCurrencyId(metaModel.CurrencyId))
             {
+                const string UspName = "Lrf_BetList_LiveReport_SelWinlossVHRacing";
+
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                 return GetPagingData(metaModel, UspName, page, rows);
             }
@@ -139,13 +150,10 @@ namespace Fanex.Athena.Api.BetList
         private dynamic GetPagingData(LiveReportBetListMetaModel metaModel, string uspKey, int pageIndex, int pageSize)
         {
             var licenseeSession = SessionService.LicenseeSession;
-            var balanceUp = GetBalanceUp();
 
             metaModel.PageIndex = pageIndex < 1 ? 1 : pageIndex;
             metaModel.PageSize = pageSize < 1 ? 100 : pageSize;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
-            metaModel.BalanceUpDay = DateTime.SpecifyKind(balanceUp.BalanceUpDay.Date, DateTimeKind.Utc);
-            metaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUp.MoveBetsDay.Date, DateTimeKind.Utc);
 
             var ticketResult = BetListService.GetBetListData(metaModel, uspKey);
 
@@ -154,10 +162,11 @@ namespace Fanex.Athena.Api.BetList
                 : (metaModel.TotalRows / metaModel.PageSize) + 1;
             var startIndex = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;
 
-            var sumWinLossText = NumberHelper.DecFormat(metaModel.SumWinlost, 2);
-            var sumLicenseeWlText = NumberHelper.DecFormat(metaModel.SumLicenseeWL + metaModel.SumComm, 2);
-            sumLicenseeWlText = metaModel.SumLicenseeWL < 0
-                ? string.Format("<span class='negative'>{0}</span>", sumLicenseeWlText)
+            var sumLicenseeWl = metaModel.SumLicenseeWL + metaModel.SumComm;
+            var sumWinLossText = NumberHelper.DecFormat(metaModel.SumWinlost + metaModel.SumPlayerComm, 2);
+            var sumLicenseeWlText = NumberHelper.DecFormat(sumLicenseeWl, 2);
+            sumLicenseeWlText = sumLicenseeWl < 0
+                ? string.Format("<span class='negative-number'>{0}</span>", sumLicenseeWlText)
                 : sumLicenseeWlText;
 
             return new

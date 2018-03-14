@@ -203,9 +203,9 @@ namespace Fanex.Athena.Controllers.Customer
         #region Ultilities
 
         protected internal virtual CustomerListExcel CreateExcel(
-        string templatePath,
-        string reportTitle,
-        CustomerListViewModel model)
+            string templatePath,
+            string reportTitle,
+            CustomerListViewModel model)
         {
             return new CustomerListExcel(templatePath, reportTitle, model);
         }

@@ -1,7 +1,7 @@
 ﻿define(['jquery', 'common/site', 'common/querystring', './betlist'], function ($, Site, QueryString, BetList) {
     "use strict";
 
-    var MAXIMUM_EXCEL_ROWS = 65535;
+    var MAXIMUM_EXCEL_ROWS = 2147483646;
 
     var _me = {
         initialize: function () {

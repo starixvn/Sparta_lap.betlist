@@ -1,6 +1,411 @@
-webpackJsonp([47],{
+webpackJsonp([46],{
 
-/***/ 125:
+/***/ 14:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(3), __webpack_require__(16)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, QueryString) {
+    "use strict";
+
+    var curCountDown = 0;
+    var countDownTimer = null;
+    var cookieName = null;
+    var countDownId = null;
+    var defaultCountDown = 0;
+
+    var _me = {
+        initialize: function () {
+            $('.menu-item').on('click', function () {
+                var selectedCountDown = parseInt($(this).attr('data-count-down'));
+                _me.setCountDown(selectedCountDown, true);
+            });
+
+            $('.button-refresh').on('click', function () {
+                _me.refresh();
+            });
+
+            var $hiddenCountdown = $('#count-down-of');
+            countDownId = $hiddenCountdown.attr('name');
+
+            // Get default count down
+            defaultCountDown = parseInt($hiddenCountdown.attr('data-default-value'));
+        },
+        initEvent: function () {
+            cookieName = "RefeshCountDown" + countDownId;
+            //read countdown from cookie
+            var countDownFromCookie = $.cookie(cookieName);
+            if (countDownFromCookie && Number(countDownFromCookie) !== 0) {
+                _me.setCountDown(countDownFromCookie, false);
+            } else {
+                _me.setCountDown(defaultCountDown, true);
+            }
+        },
+        setCountDown: function (countDown, isSetToCookie) {
+            var countDownInt = parseInt(countDown);
+            if (isSetToCookie) {
+                $.cookie(cookieName, countDownInt);
+            }
+            curCountDown = countDownInt;
+            _me.setMenuStatus();
+            _me.tick();
+        },
+        setMenuStatus: function () {
+            var index = curCountDown;
+            $('#countdown-menu .menu-item').removeClass('menu-selected');
+            $('#option-' + index).addClass('menu-selected');
+        },
+        tick: function () {
+            document.getElementById('count').innerHTML = curCountDown;
+            curCountDown--;
+            if (countDownTimer !== null) {
+                clearTimeout(countDownTimer);
+            }
+            countDownTimer = setTimeout(_me.tick, 1000);
+            if (curCountDown < -1) {
+                _me.refresh();
+            }
+        },
+        refresh: function () {
+            var oldScrollTop;
+            if ($(".body-content").length) {
+                oldScrollTop = $(".body-content").scrollTop();
+            }
+
+            if (countDownTimer !== null) {
+                clearTimeout(countDownTimer);
+            }
+            document.getElementById('count').innerHTML = "...";
+
+            // Get param before load data
+            var url = _me.calculateUrl();
+
+            Site.blockUI();
+            $('#reportContent').load(url, {
+                noncache: new Date().getTime()
+            }, function () {
+                Site.unBlockUI();
+                _me.initEvent();
+                
+                // Currency constraint
+                Site.currencyConstraint();
+
+                $(window).resize();
+
+                // Scrollbar still kept current position
+                if ($(".body-content").length) {
+                    $(".body-content").scrollTop(oldScrollTop);
+                }
+            });
+
+            return true;
+        },
+        calculateUrl: function () {
+            var leagueId = $('#LeagueId').val();
+            var matchId = $('#MatchId').val();
+            var betType = $("#BetType").val();
+            var currentScore = $("#CurrentScore").val();
+            var isShowFt = $("#IsShowFt").val();
+            var isShowFh = $("#IsShowFh").val();
+            var homeName = $("#HomeTeamId").val();
+            var awayName = $("#AwayTeamId").val();
+
+            var url = Site.getCurrentUrl();
+            url = Site.setLicenseeOptionOriginalParam(url);
+            url = QueryString.setParam(url, "LeagueId", leagueId);
+            url = QueryString.setParam(url, "MatchId", matchId);
+            url = QueryString.setParam(url, "BetType", betType);
+            url = QueryString.setParam(url, "CurrentScore", currentScore);
+            url = QueryString.setParam(url, "IsShowFt", isShowFt);
+            url = QueryString.setParam(url, "IsShowFh", isShowFh);
+
+            url = QueryString.setParam(url, "HomeTeamId", homeName);
+            url = QueryString.setParam(url, "AwayTeamId", awayName);
+            
+            return encodeURI(url);
+        }
+    };
+
+    return _me;
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 153:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(154);
+
+
+/***/ }),
+
+/***/ 154:
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(155)], __WEBPACK_AMD_DEFINE_RESULT__ = (function (OddEvenDND) {
+    "use strict";
+
+    $(OddEvenDND.initialize);
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+
+/***/ 155:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(29), __webpack_require__(5), __webpack_require__(14)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Totalbets, Popup, RefreshCountDown) {
+    "use strict";
+
+    var _me = {
+        initialize: function () {
+            Site.initialize();
+            Totalbets.initialize();
+            _me.initEvent();
+            Site.addUserGuide({
+                resourceName: "TotalBetsOddEven",
+                title: Site.getSingleResource("TotalBets") + " - " + Site.getSingleResource("OddEvenDND")
+            });
+
+            RefreshCountDown.initEvent();
+        },
+        initEvent: function () {
+            $("#SubmitButton").on("click", function () {
+                _me.submit();
+            });
+
+            $("#reportContent").on("click", '.button-add', function () {
+                var matchId = $(this).attr("data-match-id");
+                var betType = $(this).attr("data-bet-type");
+                _me.viewForecast1X2(matchId, betType);
+            });
+        },
+        viewForecast1X2: function (matchId, betType) {
+            var url = Site.resolveClientUrl("OneXTwoForecast/Popup?matchid=" + matchId + '&bettype=' + betType + '&ispopup=true');
+            url = Site.setLicenseeOptionOriginalParam(url);
+
+            var popH = Math.min(window.innerHeight - 100, 600), popW = 700;
+            var title = Site.getSingleResource("Forecast") + " - " + Site.getSingleResource("OneXTwo");
+
+            Popup.openPopupWithIframe(url, { width: popW, height: popH, title: title, id: "forecast-dialog" });
+        },
+        submit: function () {
+            Site.blockUI();
+            $("#OddEvenDrawNoDrawForm").submit();
+        }
+    };
+
+    return _me;
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 16:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+* jQuery Cookie Plugin v1.4.1
+* https://github.com/carhartl/jquery-cookie
+*
+* Copyright 2006, 2014 Klaus Hartl
+* Released under the MIT license
+*/
+(function (factory) {
+    if (true) {
+        // AMD (Register as an anonymous module)
+        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+    } else if (typeof exports === 'object') {
+        // Node/CommonJS
+        module.exports = factory(require('jquery'));
+    } else {
+        // Browser globals
+        factory(jQuery);
+    }
+} (function ($) {
+
+    var pluses = /\+/g;
+
+    function encode(s) {
+        return config.raw ? s : encodeURIComponent(s);
+    }
+
+    function decode(s) {
+        return config.raw ? s : decodeURIComponent(s);
+    }
+
+    function stringifyCookieValue(value) {
+        return encode(config.json ? JSON.stringify(value) : String(value));
+    }
+
+    function parseCookieValue(s) {
+        if (s.indexOf('"') === 0) {
+            // This is a quoted cookie as according to RFC2068, unescape...
+            s = s.slice(1, -1).replace(/\\"/g, '"').replace(/\\\\/g, '\\');
+        }
+
+        try {
+            // Replace server-side written pluses with spaces.
+            // If we can't decode the cookie, ignore it, it's unusable.
+            // If we can't parse the cookie, ignore it, it's unusable.
+            s = decodeURIComponent(s.replace(pluses, ' '));
+            return config.json ? JSON.parse(s) : s;
+        } catch (e) { }
+    }
+
+    function read(s, converter) {
+        var value = config.raw ? s : parseCookieValue(s);
+        return $.isFunction(converter) ? converter(value) : value;
+    }
+
+    var config = $.cookie = function (key, value, options) {
+
+        // Write
+
+        if (arguments.length > 1 && !$.isFunction(value)) {
+            options = $.extend({}, config.defaults, options);
+
+            if (typeof options.expires === 'number') {
+                var days = options.expires, t = options.expires = new Date();
+                t.setMilliseconds(t.getMilliseconds() + days * 864e+5);
+            }
+
+            return (document.cookie = [
+				encode(key), '=', stringifyCookieValue(value),
+				options.expires ? '; expires=' + options.expires.toUTCString() : '', // use expires attribute, max-age is not supported by IE
+				options.path ? '; path=' + options.path : '',
+				options.domain ? '; domain=' + options.domain : '',
+				options.secure ? '; secure' : ''
+			].join(''));
+        }
+
+        // Read
+
+        var result = key ? undefined : {},
+        // To prevent the for loop in the first place assign an empty array
+        // in case there are no cookies at all. Also prevents odd result when
+        // calling $.cookie().
+			cookies = document.cookie ? document.cookie.split('; ') : [],
+			i = 0,
+			l = cookies.length;
+
+        for (; i < l; i++) {
+            var parts = cookies[i].split('='),
+				name = decode(parts.shift()),
+				cookie = parts.join('=');
+
+            if (key === name) {
+                // If second argument (value) is a function it's a converter...
+                result = read(cookie, value);
+                break;
+            }
+
+            // Prevent storing a cookie that we couldn't decode.
+            if (!key && (cookie = read(cookie)) !== undefined) {
+                result[name] = cookie;
+            }
+        }
+
+        return result;
+    };
+
+    config.defaults = {};
+
+    $.removeCookie = function (key, options) {
+        // Must not alter options, thus extending a fresh object...
+        $.cookie(key, '', $.extend({}, options, { expires: -1 }));
+        return !$.cookie(key);
+    };
+
+}));
+
+
+/***/ }),
+
+/***/ 29:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(3), __webpack_require__(14), __webpack_require__(6)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, QueryString, RefreshCountDown) {
+        "use strict";
+
+        var _me = {
+            resizeGrid: function () {
+                var $grid = $(".body-content");
+                if ($grid.length === 0) {
+                    return;
+                }
+
+                var gridTop = $grid.offset().top;
+                var footerSite = 18;
+
+                var gridHeight = window.innerHeight - gridTop - $(".footer-content").height() - footerSite - 10;
+                gridHeight = Math.max(150, gridHeight);
+                $grid.css("max-height", gridHeight);
+
+                if (!$grid.hasVerticalScrollBar()) {
+                    $grid.addClass("hasScroll");
+                }
+                else {
+                    $grid.find("table").width($grid.width() - 17);
+                }
+            },
+            initEvent: function () {
+                RefreshCountDown.initialize();
+
+                $("#reportContent").on("click", '.forcast-number', function () {
+                    var matchId = $(this).attr("data-match-id");
+                    var betType = $(this).attr("data-bet-type");
+                    _me.viewRunningBetListMatch(matchId, betType);
+                });
+
+                $(document).ajaxComplete(function () {
+                    _me.resizeGrid();
+                });
+
+                $(window).on("resize", function () {
+                    _me.resizeGrid();
+                });
+
+                $(window).on("unload", function () {
+                    $(window).off("resize");
+                });
+            },
+            viewRunningBetListMatch: function (matchId, betType) {
+                var url = Site.resolveClientUrl("RunningMatchBetList/Index");
+                url = Site.setLicenseeOptionOriginalParam(url);
+                url = QueryString.setParam(url, "matchid", matchId);
+                url = QueryString.setParam(url, "bettype", betType);
+                url = QueryString.setParam(url, "isShowSumStake", true);
+
+                Site.redirect(url);
+            },
+            viewRunningBetListMultiBettype: function (matchId, betType) {
+                var url = Site.resolveClientUrl("RunningBettypesOfMatchBetList/Index");
+                url = Site.setLicenseeOptionOriginalParam(url);
+                url = QueryString.setParam(url, "matchid", matchId);
+                url = QueryString.setParam(url, "multiplebettype", betType);
+                url = QueryString.setParam(url, "isShowSumStake", true);
+
+                Site.redirect(url);
+            },
+
+            initialize: function () {
+                _me.initEvent();
+                _me.resizeGrid();
+                Site.unBlockUI();
+            }
+        };
+
+        return _me;
+    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 6:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -143,6 +548,8 @@ webpackJsonp([47],{
             return x;
         };
 
+        var maxLength = max.toString().length;
+
         this.each(function (i, e) {
             $(e).keydown(function (event) {
                 // Allow: backspace, delete, tab, escape, and enter
@@ -162,13 +569,17 @@ webpackJsonp([47],{
                 }
             }).keyup(function (event) {
                 var textBox = event.target;
-                var value = textBox.value;
-                value = value.replace(/,/g, '');
+                var value = textBox.value.replace(/,/g, '');
 
-                var isNotInRange = (value < min) || (value > max);
-                if (isNotInRange) {
-                    textBox.value = textBox.value.slice(0, -1);
-                    value = textBox.value.replace(/,/g, '');
+                if (value.length > maxLength) {
+                    value = value.slice(0, maxLength);
+                }
+
+                if (value < min) {
+                    value = min;
+                }
+                else if (value > max) {
+                    value = max;
                 }
 
                 textBox.value = thousandFormater(value);
@@ -200,414 +611,9 @@ jQuery.extend({
         return formatted;
     }
 });
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
-
-/***/ }),
-
-/***/ 135:
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(123), __webpack_require__(136)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString) {
-    "use strict";
-
-    var curCountDown = 0;
-    var countDownTimer = null;
-    var cookieName = null;
-    var countDownId = null;
-    var defaultCountDown = 0;
-
-    var _me = {
-        initialize: function () {
-            $('.menu-item').on('click', function () {
-                var selectedCountDown = parseInt($(this).attr('data-count-down'));
-                _me.setCountDown(selectedCountDown, true);
-            });
-
-            $('.button-refresh').on('click', function () {
-                _me.refresh();
-            });
-
-            var $hiddenCountdown = $('#count-down-of');
-            countDownId = $hiddenCountdown.attr('name');
-
-            // Get default count down
-            defaultCountDown = parseInt($hiddenCountdown.attr('data-default-value'));
-        },
-        initEvent: function () {
-            cookieName = "RefeshCountDown" + countDownId;
-            //read countdown from cookie
-            var countDownFromCookie = $.cookie(cookieName);
-            if (countDownFromCookie && Number(countDownFromCookie) !== 0) {
-                _me.setCountDown(countDownFromCookie, false);
-            } else {
-                _me.setCountDown(defaultCountDown, true);
-            }
-        },
-        setCountDown: function (countDown, isSetToCookie) {
-            var countDownInt = parseInt(countDown);
-            if (isSetToCookie) {
-                $.cookie(cookieName, countDownInt);
-            }
-            curCountDown = countDownInt;
-            _me.setMenuStatus();
-            _me.tick();
-        },
-        setMenuStatus: function () {
-            var index = curCountDown;
-            $('#countdown-menu .menu-item').removeClass('menu-selected');
-            $('#option-' + index).addClass('menu-selected');
-        },
-        tick: function () {
-            document.getElementById('count').innerHTML = curCountDown;
-            curCountDown--;
-            if (countDownTimer !== null) {
-                clearTimeout(countDownTimer);
-            }
-            countDownTimer = setTimeout(_me.tick, 1000);
-            if (curCountDown < -1) {
-                _me.refresh();
-            }
-        },
-        refresh: function () {
-            var oldScrollTop;
-            if ($(".body-content").length) {
-                oldScrollTop = $(".body-content").scrollTop();
-            }
-
-            if (countDownTimer !== null) {
-                clearTimeout(countDownTimer);
-            }
-            document.getElementById('count').innerHTML = "...";
-
-            // Get param before load data
-            var url = _me.calculateUrl();
-
-            Site.blockUI();
-            $('#reportContent').load(url, {
-                noncache: new Date().getTime()
-            }, function () {
-                Site.unBlockUI();
-                _me.initEvent();
-                
-                // Currency constraint
-                Site.currencyConstraint();
-
-                $(window).resize();
-
-                // Scrollbar still kept current position
-                if ($(".body-content").length) {
-                    $(".body-content").scrollTop(oldScrollTop);
-                }
-            });
-
-            return true;
-        },
-        calculateUrl: function () {
-            var leagueId = $('#LeagueId').val();
-            var matchId = $('#MatchId').val();
-            var betType = $("#BetType").val();
-            var currentScore = $("#CurrentScore").val();
-            var isShowFt = $("#IsShowFt").val();
-            var isShowFh = $("#IsShowFh").val();
-            var homeName = $("#HomeTeamId").val();
-            var awayName = $("#AwayTeamId").val();
-
-            var url = Site.getCurrentUrl();
-            url = Site.setLicenseeOptionOriginalParam(url);
-            url = QueryString.setParam(url, "LeagueId", leagueId);
-            url = QueryString.setParam(url, "MatchId", matchId);
-            url = QueryString.setParam(url, "BetType", betType);
-            url = QueryString.setParam(url, "CurrentScore", currentScore);
-            url = QueryString.setParam(url, "IsShowFt", isShowFt);
-            url = QueryString.setParam(url, "IsShowFh", isShowFh);
-
-            url = QueryString.setParam(url, "HomeTeamId", homeName);
-            url = QueryString.setParam(url, "AwayTeamId", awayName);
-            
-            return encodeURI(url);
-        }
-    };
-
-    return _me;
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-
-/***/ }),
-
-/***/ 136:
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
-* jQuery Cookie Plugin v1.4.1
-* https://github.com/carhartl/jquery-cookie
-*
-* Copyright 2006, 2014 Klaus Hartl
-* Released under the MIT license
-*/
-(function (factory) {
-    if (true) {
-        // AMD (Register as an anonymous module)
-        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
-				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
-				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-    } else if (typeof exports === 'object') {
-        // Node/CommonJS
-        module.exports = factory(require('jquery'));
-    } else {
-        // Browser globals
-        factory(jQuery);
-    }
-} (function ($) {
-
-    var pluses = /\+/g;
-
-    function encode(s) {
-        return config.raw ? s : encodeURIComponent(s);
-    }
-
-    function decode(s) {
-        return config.raw ? s : decodeURIComponent(s);
-    }
-
-    function stringifyCookieValue(value) {
-        return encode(config.json ? JSON.stringify(value) : String(value));
-    }
-
-    function parseCookieValue(s) {
-        if (s.indexOf('"') === 0) {
-            // This is a quoted cookie as according to RFC2068, unescape...
-            s = s.slice(1, -1).replace(/\\"/g, '"').replace(/\\\\/g, '\\');
-        }
-
-        try {
-            // Replace server-side written pluses with spaces.
-            // If we can't decode the cookie, ignore it, it's unusable.
-            // If we can't parse the cookie, ignore it, it's unusable.
-            s = decodeURIComponent(s.replace(pluses, ' '));
-            return config.json ? JSON.parse(s) : s;
-        } catch (e) { }
-    }
-
-    function read(s, converter) {
-        var value = config.raw ? s : parseCookieValue(s);
-        return $.isFunction(converter) ? converter(value) : value;
-    }
-
-    var config = $.cookie = function (key, value, options) {
-
-        // Write
-
-        if (arguments.length > 1 && !$.isFunction(value)) {
-            options = $.extend({}, config.defaults, options);
-
-            if (typeof options.expires === 'number') {
-                var days = options.expires, t = options.expires = new Date();
-                t.setMilliseconds(t.getMilliseconds() + days * 864e+5);
-            }
-
-            return (document.cookie = [
-				encode(key), '=', stringifyCookieValue(value),
-				options.expires ? '; expires=' + options.expires.toUTCString() : '', // use expires attribute, max-age is not supported by IE
-				options.path ? '; path=' + options.path : '',
-				options.domain ? '; domain=' + options.domain : '',
-				options.secure ? '; secure' : ''
-			].join(''));
-        }
-
-        // Read
-
-        var result = key ? undefined : {},
-        // To prevent the for loop in the first place assign an empty array
-        // in case there are no cookies at all. Also prevents odd result when
-        // calling $.cookie().
-			cookies = document.cookie ? document.cookie.split('; ') : [],
-			i = 0,
-			l = cookies.length;
-
-        for (; i < l; i++) {
-            var parts = cookies[i].split('='),
-				name = decode(parts.shift()),
-				cookie = parts.join('=');
-
-            if (key === name) {
-                // If second argument (value) is a function it's a converter...
-                result = read(cookie, value);
-                break;
-            }
-
-            // Prevent storing a cookie that we couldn't decode.
-            if (!key && (cookie = read(cookie)) !== undefined) {
-                result[name] = cookie;
-            }
-        }
-
-        return result;
-    };
-
-    config.defaults = {};
-
-    $.removeCookie = function (key, options) {
-        // Must not alter options, thus extending a fresh object...
-        $.cookie(key, '', $.extend({}, options, { expires: -1 }));
-        return !$.cookie(key);
-    };
-
-}));
-
-
-/***/ }),
-
-/***/ 151:
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(123), __webpack_require__(135), __webpack_require__(125)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, RefreshCountDown) {
-        "use strict";
-
-        var _me = {
-            resizeGrid: function () {
-                var $grid = $(".body-content");
-                if ($grid.length === 0) {
-                    return;
-                }
-
-                var gridTop = $grid.offset().top;
-                var footerSite = 18;
-
-                var gridHeight = window.innerHeight - gridTop - $(".footer-content").height() - footerSite - 10;
-                gridHeight = Math.max(150, gridHeight);
-                $grid.css("max-height", gridHeight);
-
-                if (!$grid.hasVerticalScrollBar()) {
-                    $grid.addClass("hasScroll");
-                }
-                else {
-                    $grid.find("table").width($grid.width() - 17);
-                }
-            },
-            initEvent: function () {
-                RefreshCountDown.initialize();
-
-                $("#reportContent").on("click", '.forcast-number', function () {
-                    var matchId = $(this).attr("data-match-id");
-                    var betType = $(this).attr("data-bet-type");
-                    _me.viewRunningBetListMatch(matchId, betType);
-                });
-
-                $(document).ajaxComplete(function () {
-                    _me.resizeGrid();
-                });
-
-                $(window).on("resize", function () {
-                    _me.resizeGrid();
-                });
-
-                $(window).on("unload", function () {
-                    $(window).off("resize");
-                });
-            },
-            viewRunningBetListMatch: function (matchId, betType) {
-                var url = Site.resolveClientUrl("RunningMatchBetList/Index");
-                url = Site.setLicenseeOptionOriginalParam(url);
-                url = QueryString.setParam(url, "matchid", matchId);
-                url = QueryString.setParam(url, "bettype", betType);
-                url = QueryString.setParam(url, "isShowSumStake", true);
-
-                Site.redirect(url);
-            },
-            viewRunningBetListMultiBettype: function (matchId, betType) {
-                var url = Site.resolveClientUrl("RunningBettypesOfMatchBetList/Index");
-                url = Site.setLicenseeOptionOriginalParam(url);
-                url = QueryString.setParam(url, "matchid", matchId);
-                url = QueryString.setParam(url, "multiplebettype", betType);
-                url = QueryString.setParam(url, "isShowSumStake", true);
-
-                Site.redirect(url);
-            },
-
-            initialize: function () {
-                _me.initEvent();
-                _me.resizeGrid();
-                Site.unBlockUI();
-            }
-        };
-
-        return _me;
-    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-
-/***/ }),
-
-/***/ 273:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(274);
-
-
-/***/ }),
-
-/***/ 274:
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(275)], __WEBPACK_AMD_DEFINE_RESULT__ = function (OddEvenDND) {
-    "use strict";
-
-    $(OddEvenDND.initialize);
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
-
-/***/ }),
-
-/***/ 275:
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(151), __webpack_require__(122), __webpack_require__(135)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Totalbets, Popup, RefreshCountDown) {
-    "use strict";
-
-    var _me = {
-        initialize: function () {
-            Site.initialize();
-            Totalbets.initialize();
-            _me.initEvent();
-            Site.addUserGuide({
-                resourceName: "TotalBetsOddEven",
-                title: Site.getSingleResource("TotalBets") + " - " + Site.getSingleResource("OddEvenDND")
-            });
-
-            RefreshCountDown.initEvent();
-        },
-        initEvent: function () {
-            $("#SubmitButton").on("click", function () {
-                _me.submit();
-            });
-
-            $("#reportContent").on("click", '.button-add', function () {
-                var matchId = $(this).attr("data-match-id");
-                var betType = $(this).attr("data-bet-type");
-                _me.viewForecast1X2(matchId, betType);
-            });
-        },
-        viewForecast1X2: function (matchId, betType) {
-            var url = Site.resolveClientUrl("OneXTwoForecast/Popup?matchid=" + matchId + '&bettype=' + betType + '&ispopup=true');
-            url = Site.setLicenseeOptionOriginalParam(url);
-
-            var popH = Math.min(window.innerHeight - 100, 600), popW = 700;
-            var title = Site.getSingleResource("Forecast") + " - " + Site.getSingleResource("OneXTwo");
-
-            Popup.openPopupWithIframe(url, { width: popW, height: popH, title: title, id: "forecast-dialog" });
-        },
-        submit: function () {
-            Site.blockUI();
-            $("#OddEvenDrawNoDrawForm").submit();
-        }
-    };
-
-    return _me;
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ })
 
-},[273]);
+},[153]);
 //# sourceMappingURL=oddevendrawnodraw.chunk.js.map

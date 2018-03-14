@@ -8,9 +8,6 @@ namespace Fanex.Athena.Model.Report.ViewModel
 {
     using System;
 
-    /// <summary>
-    /// LicenseeWinLossGridViewModel class.
-    /// </summary>
     public class LicenseeWinLossGridViewModel
     {
         public int Index { get; set; }
@@ -87,11 +84,7 @@ namespace Fanex.Athena.Model.Report.ViewModel
 
         public decimal LicenseeWLBA { get; set; }
 
-        public decimal LicenseeWLLC { get; set; }
-
         public decimal LicenseeWLVS { get; set; }
-
-        public decimal LicenseeWLBG { get; set; }
 
         public decimal LicenseeWLCS { get; set; }
 
@@ -119,8 +112,8 @@ namespace Fanex.Athena.Model.Report.ViewModel
         {
             get
             {
-                return LicenseeWLBA + LicenseeWLLC + LicenseeWLNG + LicenseeWLRB + LicenseeWLSB + LicenseeWLVS + LicenseeWLBG + LicenseeWLCS +
-                    LicenseeWLKN + LicenseeWLBT + LicenseeWLAGC + LicenseeWLMGCLC + LicenseeWLMGCRNG + LicenseeWLVB + LicenseeWLAB + LicenseeWLFW + 
+                return LicenseeWLBA + LicenseeWLNG + LicenseeWLRB + LicenseeWLSB + LicenseeWLVS + LicenseeWLCS +
+                    LicenseeWLKN + LicenseeWLBT + LicenseeWLAGC + LicenseeWLMGCLC + LicenseeWLMGCRNG + LicenseeWLVB + LicenseeWLAB + LicenseeWLFW +
                     LicenseeWLVS2 + LicenseeWLLT;
             }
         }
@@ -142,11 +135,7 @@ namespace Fanex.Athena.Model.Report.ViewModel
 
         public decimal TurnOverBA { get; set; }
 
-        public decimal TurnOverLC { get; set; }
-
         public decimal TurnOverVS { get; set; }
-
-        public decimal TurnOverBG { get; set; }
 
         public decimal TurnOverCS { get; set; }
 
@@ -174,8 +163,8 @@ namespace Fanex.Athena.Model.Report.ViewModel
         {
             get
             {
-                return TurnOverBA + TurnOverLC + TurnOverNG + TurnOverRB + TurnOverSB + TurnOverVS + TurnOverBG +
-                    TurnOverCS + TurnOverKN + TurnOverBT + TurnOverAGC + TurnOverMGCLC + TurnOverMGCRNG + TurnOverVB + TurnOverAB + 
+                return TurnOverBA + TurnOverNG + TurnOverRB + TurnOverSB + TurnOverVS + TurnOverCS + 
+                    TurnOverKN + TurnOverBT + TurnOverAGC + TurnOverMGCLC + TurnOverMGCRNG + TurnOverVB + TurnOverAB +
                     TurnOverFW + TurnOverVS2 + TurnOverLT;
             }
         }

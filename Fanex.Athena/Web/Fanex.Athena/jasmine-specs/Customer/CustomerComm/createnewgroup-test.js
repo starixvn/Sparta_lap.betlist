@@ -19,7 +19,6 @@
             affix("input#DdlSBComm1[value=2]");
             affix("input#DdlRCComm1[value=10]");
             affix("input#DdlNGComm1[value=20]");
-            affix("input#DdlLCComm1[value=30]");
             affix("input#DdlCSComm1[value=50]");
 
             spyOn($.fn, "spectrum").and.returnValue({});
@@ -124,14 +123,6 @@
             $("#DdlNGComm1").change();
 
             expect(GroupComm.commissionOnChange).toHaveBeenCalledWith("20", "#DdlNGComm");
-        });
-
-        it("GroupComm.commissionOnChange(value, id) should be called when '#DdlLCComm1' fired change event", function () {
-            spyOn(GroupComm, "commissionOnChange");
-
-            $("#DdlLCComm1").change();
-
-            expect(GroupComm.commissionOnChange).toHaveBeenCalledWith("30", "#DdlLCComm");
         });
 
         it("GroupComm.commissionOnChange(value, id) should be called when '#DdlCSComm1' fired change event", function () {

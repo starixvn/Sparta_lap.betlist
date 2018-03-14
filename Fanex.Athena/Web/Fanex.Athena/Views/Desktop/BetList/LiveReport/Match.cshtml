@@ -3,23 +3,27 @@
     Layout = "~/Views/Desktop/Shared/_BetListSimpleLayout.cshtml";
 }
 
+@using Fanex.Athena.VendorAdapter;
 @using Fanex.Athena.Model.Core.Helper
 @model Fanex.Athena.Model.BetList.MetaModel.LiveReportBetListMetaModel
+@{
+    var _cacheRefAdapter = new CacheRefAdapter();
+}
 @section pagecss {}
 @section pagejs {}
 @section ContentTitle
 {
     @{
         var matchName = Model.HomeId > 0 && Model.AwayId > 0
-                  ? CacheRef.GetTeamName(Model.HomeId) + " vs " + CacheRef.GetTeamName(Model.AwayId) + " - "
+                  ? _cacheRefAdapter.GetTeamName(Model.HomeId) + " vs " + _cacheRefAdapter.GetTeamName(Model.AwayId) + " - "
                   : string.Empty;
-        var betTypeName = CacheRef.GetBettype(Model.BetType);
+        var betTypeName = _cacheRefAdapter.GetBettype(Model.BetType);
         if (!string.IsNullOrWhiteSpace(betTypeName))
         {
             betTypeName = betTypeName + " -";
         }
     }
-    @ViewResources.BetList - @matchName@CacheRef.GetBettype(Model.BetType) @Model.FromDate.ToShortDateString()<span class="header-title-arrow">→</span>@Model.ToDate.ToShortDateString() - <span class="base-currency">@RazorHelper.ViewBaseCurrency(Model.CurrencyName, Model.BaseCurrency)</span>
+    @ViewResources.BetList - @matchName@_cacheRefAdapter.GetBettype(Model.BetType) @Model.FromDate.ToShortDateString()<span class="header-title-arrow">→</span>@Model.ToDate.ToShortDateString() - <span class="base-currency">@RazorHelper.ViewBaseCurrency(Model.CurrencyName, Model.BaseCurrency)</span>
 }
 @section BackButton
 {

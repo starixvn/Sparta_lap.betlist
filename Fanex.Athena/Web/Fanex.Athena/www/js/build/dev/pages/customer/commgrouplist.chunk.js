@@ -1,74 +1,30 @@
-webpackJsonp([61],{
+webpackJsonp([60],{
 
-/***/ 165:
+/***/ 235:
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
-    "use strict";
-
-    function goToCustomerList(groupCommId) {
-        if (isParentSameOrigin()) {
-            // Deactive Commission Group menu (55) and active Customer list menu (43)
-            $("li>#MenuItem55", window.parent.document).parent().removeClass("active");
-            $("li>#MenuItem43", window.parent.document).parent().addClass("active");
-            _me.setPageTitle(Site.getSingleResource("CustomerList"));
-        }
-        Site.redirect(Site.resolveClientUrl("Customer/CustomerList?groupId=" + groupCommId));
-    }
-
-    function setPageTitle(title) {
-        if (isParentSameOrigin()) {
-            $("#page-title", window.parent.document).text(title);
-        }
-    }
-
-    function isParentSameOrigin() {
-        var sameOrigin;
-        try {
-            sameOrigin = window.parent.location.host === window.location.host;
-        }
-        catch (e) {
-            sameOrigin = false;
-        }
-        return sameOrigin;
-    }
-
-    var _me = {
-        goToCustomerList: goToCustomerList,
-        setPageTitle: setPageTitle
-    };
-
-    return _me;
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-
-/***/ }),
-
-/***/ 355:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(356);
+module.exports = __webpack_require__(236);
 
 
 /***/ }),
 
-/***/ 356:
+/***/ 236:
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(357)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerCommGroupList) {
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(237)], __WEBPACK_AMD_DEFINE_RESULT__ = (function (CustomerCommGroupList) {
     "use strict";
 
     $(CustomerCommGroupList.initialize);
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
 
-/***/ 357:
+/***/ 237:
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(122), __webpack_require__(165)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup, CustomerCommGroup) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(5), __webpack_require__(45)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Popup, CustomerCommGroup) {
         "use strict";
 
         var deleteGroupData = {
@@ -267,10 +223,54 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         };
 
         return _me;
-    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 45:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site) {
+    "use strict";
+
+    function goToCustomerList(groupCommId) {
+        if (isParentSameOrigin()) {
+            // Deactive Commission Group menu (55) and active Customer list menu (43)
+            $("li>#MenuItem55", window.parent.document).parent().removeClass("active");
+            $("li>#MenuItem43", window.parent.document).parent().addClass("active");
+            _me.setPageTitle(Site.getSingleResource("CustomerList"));
+        }
+        Site.redirect(Site.resolveClientUrl("Customer/CustomerList?groupId=" + groupCommId));
+    }
+
+    function setPageTitle(title) {
+        if (isParentSameOrigin()) {
+            $("#page-title", window.parent.document).text(title);
+        }
+    }
+
+    function isParentSameOrigin() {
+        var sameOrigin;
+        try {
+            sameOrigin = window.parent.location.host === window.location.host;
+        }
+        catch (e) {
+            sameOrigin = false;
+        }
+        return sameOrigin;
+    }
+
+    var _me = {
+        goToCustomerList: goToCustomerList,
+        setPageTitle: setPageTitle
+    };
+
+    return _me;
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ })
 
-},[355]);
+},[235]);
 //# sourceMappingURL=commgrouplist.chunk.js.map

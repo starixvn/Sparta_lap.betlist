@@ -77,7 +77,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                AssertUspParameters();
+                AssertUspParameters(isDrilldown: false);
                 ObjectDb.Received().AddInParameter("ReportType", DbType.Int32, _metaModel.ReportBy);
             });
         }
@@ -186,7 +186,7 @@
             DataAccess.GetDetail(_metaModel);
 
             // Assert
-            AssertUspParameters();
+            AssertUspParameters(isDrilldown: true);
         }
 
         [Test]
@@ -343,10 +343,10 @@
             Reader.GetName(2).Returns("custid");
         }
 
-        private void AssertUspParameters()
+        private void AssertUspParameters(bool isDrilldown)
         {
-            ObjectDb.Received().AddInParameter("fromdate", DbType.Date, _metaModel.DrillDownFromDate);
-            ObjectDb.Received().AddInParameter("todate", DbType.Date, _metaModel.DrillDownToDate);
+            ObjectDb.Received().AddInParameter("fromdate", DbType.Date, isDrilldown ? _metaModel.DrillDownFromDate : _metaModel.FromDate);
+            ObjectDb.Received().AddInParameter("todate", DbType.Date, isDrilldown ? _metaModel.DrillDownToDate : _metaModel.ToDate);
             ObjectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
             ObjectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, _balance.MoveBetsDay);
         }

@@ -14,9 +14,18 @@ namespace Fanex.Athena.DataAccess.BetSettings
     using Fanex.Common;
     using Interfaces;
     using Model.Core.Helper;
+    using VendorAdapter;
+    using VendorAdapter.Interfaces;
 
     public class KenoBetSettingDataAccess : BaseDataAccess, IKenoBetSettingDataAccess
     {
+        private readonly ICacheRefAdapter _cacheRefAdapter;
+
+        public KenoBetSettingDataAccess()
+        {
+            _cacheRefAdapter = new CacheRefAdapter();
+        }
+
         public IList<BetSetting> GetBetSettings(int custId)
         {
             var uspName = "Lrf_CustomerSelEditKN";
@@ -50,7 +59,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
             }
         }
 
-        private static IList<BetSetting> ReadBetSetting(IDataReader reader)
+        private IList<BetSetting> ReadBetSetting(IDataReader reader)
         {
             var betSettings = new List<BetSetting>();
             while (reader.Read())
@@ -64,7 +73,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
                     MaxPerMatch = Converter.ToDecimal(reader["MaxPerMatch"]),
                     BetValueMax = Converter.ToDecimal(reader["MaxBet_Min"]),
                     BetValueMin = Converter.ToDecimal(reader["MinBet_Max"]),
-                    BetSettingType = CacheRef.GetBettype(Converter.ToString2(reader["IBCBetTypeID"])),
+                    BetSettingType = _cacheRefAdapter.GetBettype(Converter.ToString2(reader["IBCBetTypeID"])),
                     SportId = gameTypeId
                 };
 

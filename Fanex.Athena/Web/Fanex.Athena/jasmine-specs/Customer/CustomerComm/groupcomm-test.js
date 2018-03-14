@@ -231,14 +231,6 @@
             affix("input#NGComm2");
             affix("input#NGComm3");
 
-            affix("input#DdlLCComm1[value=100]");
-            affix("input#DdlLCComm2[value=101]");
-            affix("input#DdlLCComm3[value=102]");
-            affix("input#LCComm");
-            affix("input#LCComm1");
-            affix("input#LCComm2");
-            affix("input#LCComm3");
-
             affix("input#DdlCSComm1[value=110]");
             affix("input#DdlCSComm2[value=120]");
             affix("input#DdlCSComm3[value=130]");
@@ -268,12 +260,6 @@
             expect($("#NGComm3").val()).toBe("10");
         });
 
-        it("'#LCComm1, #LCComm2, #LCComm3' should have correct value", function () {
-            expect($("#LCComm1").val()).toBe("100");
-            expect($("#LCComm2").val()).toBe("101");
-            expect($("#LCComm3").val()).toBe("102");
-        });
-
         it("'#CSComm1, #CSComm2, #CSComm3' should have correct value", function () {
             expect($("#CSComm1").val()).toBe("110");
             expect($("#CSComm2").val()).toBe("120");
@@ -290,10 +276,6 @@
 
         it("'#NGComm' should has correct value", function () {           
             expect($("#NGComm").val()).toBe("0.1110");
-        });
-
-        it("'#LCComm' should has correct value", function () {
-            expect($("#LCComm").val()).toBe("1.1112");
         });
 
         it("'#CSComm' should has correct value", function () {

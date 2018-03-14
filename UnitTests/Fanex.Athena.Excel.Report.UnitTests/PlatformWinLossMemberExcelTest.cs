@@ -17,7 +17,7 @@ using NUnit.Framework;
 namespace Fanex.Athena.Excel.Report.UnitTests
 {
     [TestFixture]
-    public class PlatformWinLossMemberExcelTest
+    public class PlatformWinLossMemberExcelTest : BaseReportExcelTest
     {
         private const int ColumnExternalId = 1;
         private const int ColumnSystemId = 2;
@@ -32,28 +32,12 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         private const int ColumnRacingRevenue = 11;
         private const int ColumnAmtDueToBa = 12;
         private const int ColumnAmtDueToRacing = 13;
-        private const int ColumnTemplateCount = 14;
-
-        private const string FormatDate = "MM/dd/yyyy";
 
         private const int ColumnCount = 15;
 
         private const string CurrencyName = "ABC";
 
-        private static readonly PlatformWinLossMember DataItem = new PlatformWinLossMember
-        {
-            ExternalId = "1",
-            SystemId = "2",
-            Turnover = 3,
-            TotalTransactions = 4,
-            CustomerWinLoss = 5,
-            CustomerComm = 6,
-            LicenseeWL = 7,
-            BACommission = 8,
-            RacingRevenue = 9,
-            AmtDueToBA = 10,
-            AmtDueToRacing = 11
-        };
+        private static readonly PlatformWinLossMember DataItem = FakeHelper.Create<PlatformWinLossMember>();
 
         private static readonly PlatformWinLossViewModel ViewModel = new PlatformWinLossViewModel
         {
@@ -75,43 +59,39 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             }
         };
 
-        private ISheet _sheet;
-
-        [SetUp]
-        public void Setup()
-        {
-            _sheet = Substitute.For<ISheet>();
-        }
-        
         [Test]
         public void AssignHeader_WhenCall_CallRelevantMethods()
         {
             // Arrange
-            var row1 = ExcelTestHelper.MockGetRow(_sheet, ColumnCount, ReportBase.RowHeaderTemplate);
-            var row2 = ExcelTestHelper.MockGetRow(_sheet, ColumnCount, ReportBase.RowHeaderTemplate + 1);
+            var row1 = ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, ReportBase.RowHeaderTemplate);
+            var row2 = ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, ReportBase.RowHeaderTemplate + 1);
             var excel = CreateExcel();
+            var headerTextList = new[]
+            {
+                "#",
+                ViewResources.ExternalId,
+                ViewResources.SystemId,
+                ViewResources.Currency,
+                ViewResources.Turnover,
+                ViewResources.TotalTransaction,
+                ViewResources.CustomerW_L,
+                ViewResources.CustomerW_L,
+                ViewResources.CustomerW_L,
+                ViewResources.LicenseeW_L,
+                ViewResources.BACommission,
+                ViewResources.RacingRevenue,
+                ViewResources.AmtDueToBA,
+                ViewResources.AmtDueToRacing
+            };
 
             // Action
-            excel.Public_AssignHeader(_sheet);
+            excel.Public_AssignHeader(FakeSheet);
 
             // Assert
             Assert.Multiple(() =>
             {
-                _sheet.Received().CopyRow(excel.TemplateSheet, ReportBase.RowHeaderTemplate, ReportBase.RowHeaderTemplate);
-                row1.Cells[0].Received(1).SetCellValue("#");
-                row1.Cells[1].Received(1).SetCellValue(ViewResources.ExternalId);
-                row1.Cells[2].Received(1).SetCellValue(ViewResources.SystemId);
-                row1.Cells[3].Received(1).SetCellValue(ViewResources.Currency);
-                row1.Cells[4].Received(1).SetCellValue(ViewResources.Turnover);
-                row1.Cells[5].Received(1).SetCellValue(ViewResources.TotalTransaction);
-                row1.Cells[6].Received(1).SetCellValue(ViewResources.CustomerW_L);
-                row1.Cells[7].Received(1).SetCellValue(ViewResources.CustomerW_L);
-                row1.Cells[8].Received(1).SetCellValue(ViewResources.CustomerW_L);
-                row1.Cells[9].Received(1).SetCellValue(ViewResources.LicenseeW_L);
-                row1.Cells[10].Received(1).SetCellValue(ViewResources.BACommission);
-                row1.Cells[11].Received(1).SetCellValue(ViewResources.RacingRevenue);
-                row1.Cells[12].Received(1).SetCellValue(ViewResources.AmtDueToBA);
-                row1.Cells[13].Received(1).SetCellValue(ViewResources.AmtDueToRacing);
+                FakeSheet.Received().CopyRow(excel.TemplateSheet, ReportBase.RowHeaderTemplate, ReportBase.RowHeaderTemplate);
+                AssertSetTextRowHeader(row1, headerTextList);
 
                 row2.Cells[ColumnCustomerWl].Received(1).SetCellValue(ViewResources.WinLoss);
                 row2.Cells[ColumnCustomerCommission].Received(1).SetCellValue(ViewResources.Comm);
@@ -123,32 +103,32 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         public void AssignNoInfoRow_WhenCall_CallRelevantMethods()
         {
             // Arrange
-            ExcelTestHelper.MockGetRow(_sheet, ColumnCount);
+            ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount);
             var excel = CreateExcel();
 
             // Action
-            excel.Public_AssignNoInfoRow(_sheet);
+            excel.Public_AssignNoInfoRow(FakeSheet);
 
             // Assert
-            _sheet.Received().SetTextRowValue(excel.TemplateSheet, Arg.Any<int>(), Arg.Any<int>(), Arg.Any<int>(), ViewResources.NoInfo);
+            FakeSheet.Received().SetTextRowValue(excel.TemplateSheet, Arg.Any<int>(), Arg.Any<int>(), Arg.Any<int>(), ViewResources.NoInfo);
         }
 
         [Test]
         public void AssignSheetData_WhenCall_CallSetValueCorrectly()
         {
             // Arrange
-            var row = ExcelTestHelper.MockGetRow(_sheet, ColumnCount, 3);
+            var row = ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, 3);
             var excel = CreateExcel();
             excel.WhenForAnyArgs(x => x.AssignTotal(Arg.Any<ISheet>())).DoNotCallBase();
 
             // Action
-            excel.Public_AssignSheetData(_sheet);
+            excel.Public_AssignSheetData(FakeSheet);
 
             // Assert
             Assert.Multiple(() =>
             {
                 row.Cells[0].Received(1).SetCellValue(1);
-                row.Cells[ColumnCurrency].Received(1).Received(1).SetCellValue(DataItem.CurrencyName);
+                row.Cells[ColumnCurrency].Received(1).SetCellValue(DataItem.CurrencyName);
                 row.Cells[ColumnExternalId].Received(1).SetCellValue(DataItem.ExternalId);
                 row.Cells[ColumnSystemId].Received(1).SetCellValue(DataItem.SystemId);
                 row.Cells[ColumnTurnover].Received(1).SetCellValue(DataItem.Turnover);
@@ -175,7 +155,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             // Arrange
             const string FormatDate = "MM/dd/yyyy";
             ViewModel.Param.BaseCurrency = baseCurrency;
-            var row = ExcelTestHelper.MockGetRow(_sheet, ColumnCount, 0);
+            var row = ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, 0);
             var excel = CreateExcel();
             var platformText = ViewResources.Platform + ": " + PlatformType.GetPlatformName(ViewModel.Param.PlatformType);
 
@@ -188,14 +168,14 @@ namespace Fanex.Athena.Excel.Report.UnitTests
                                          platformText) + ", " + ViewResources.Product + ": SB";
 
             // Action
-            excel.Public_AssignTitle(_sheet);
+            excel.Public_AssignTitle(FakeSheet);
 
             // Assert
             Assert.Multiple(() =>
             {
                 row.Cells[0].Received(1).SetCellValue(reportTitle);
-                _sheet.Received(1).CreateFreezePane(0, 3);
-                _sheet.ReceivedWithAnyArgs().DeleteRow(0);
+                FakeSheet.Received(1).CreateFreezePane(0, 3);
+                FakeSheet.ReceivedWithAnyArgs().DeleteRow(0);
             });
         }
 
@@ -206,16 +186,17 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             var excel = CreateExcel();
 
             // Action
-            excel.Public_ProcessUI(_sheet);
+            excel.Public_ProcessUI(FakeSheet);
 
             // Assert
-            Assert.Multiple(() =>
-            {
-                _sheet.Received().HideColumn(ColumnCustomerTotal, ColumnCustomerCommission);
-                _sheet.Received().HideRow(ReportBase.RowHeaderTemplate + 1);
-                _sheet.Received().HideColumn(ColumnBaCommission, ColumnAmtDueToBa);
-                _sheet.Received().HideColumn(ColumnRacingRevenue, ColumnAmtDueToRacing);
-            });
+            AssertHideColumns(
+                FakeSheet,
+                ColumnCustomerTotal,
+                ColumnCustomerCommission,
+                ColumnBaCommission,
+                ColumnAmtDueToBa,
+                ColumnRacingRevenue,
+                ColumnAmtDueToRacing);
         }
 
         [Test]
@@ -231,33 +212,27 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             var excel = CreateExcel(showingOption);
 
             // Action
-            excel.Public_ProcessUI(_sheet);
+            excel.Public_ProcessUI(FakeSheet);
 
             // Assert
-            Assert.Multiple(() =>
-            {
-                _sheet.DidNotReceive().HideColumn(ColumnCustomerTotal, ColumnCustomerCommission);
-                _sheet.DidNotReceive().HideRow(ReportBase.RowHeaderTemplate + 1);
-                _sheet.DidNotReceive().HideColumn(ColumnBaCommission, ColumnAmtDueToBa);
-                _sheet.DidNotReceive().HideColumn(ColumnRacingRevenue, ColumnAmtDueToRacing);
-            });
+            FakeSheet.DidNotReceiveWithAnyArgs().SetColumnHidden(0, false);
         }
 
         [Test]
         public void AssignTotal_WhenCall_CallRelevantMethods()
         {
             // Arrange
-            var row = ExcelTestHelper.MockGetRow(_sheet, ColumnCount, 4);
+            var row = ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, 4);
             var excel = CreateExcel();
 
             // Action
-            excel.AssignTotal(_sheet);
+            excel.AssignTotal(FakeSheet);
 
             // Assert
             Assert.Multiple(() =>
             {
                 row.Cells[0].Received(1).SetCellValue(ViewResources.Total);
-                _sheet.MergeCells(4, 0, 4, ColumnCurrency);
+                FakeSheet.MergeCells(4, 0, 4, ColumnCurrency);
             });
         }
 

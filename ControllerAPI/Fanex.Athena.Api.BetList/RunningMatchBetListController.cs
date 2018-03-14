@@ -8,24 +8,46 @@ namespace Fanex.Athena.Api.BetList
 {
     #region Using
 
+    using System;
     using System.Web.Http;
+    using DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.Model.BetList.MetaModel;
+    using Fanex.BetList.Core.Builder;
+    using Fanex.BetList.Core.Entities;
+    using Service.BetList.Interfaces;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
+    using VendorAdapter.Interfaces;
 
     #endregion Using
 
     public class RunningMatchBetListController : ApiBetListBaseController
     {
+        public RunningMatchBetListController()
+        {
+        }
+
+        [CLSCompliant(false)]
+        public RunningMatchBetListController(
+            ISessionService sessionService,
+            IProductService productService,
+            ILanguageService languageService,
+            IBetListService betListService,
+            IBalanceUpDataAccess balanceUpDataAccess,
+            ITicketHelper ticketHelper,
+            ICacheRefAdapter cacheRefAdapter,
+            IBetListHTMLBuilder betlistHtmlBuilder)
+        : base(sessionService, productService, languageService, betListService, balanceUpDataAccess, ticketHelper, cacheRefAdapter, betlistHtmlBuilder)
+        {
+        }
+
         [HttpPost]
         public dynamic Index(BetListMetaModel metaModel)
         {
-            var currencyList = SessionService.UserSession.CurrencyList;
-
-            if (metaModel.CurrencyId != 0 && !currencyList.ContainsKey(metaModel.CurrencyId))
+            if (!IsValidCurrencyId(metaModel.CurrencyId))
             {
                 return null;
             }
-
-            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
             var uspKey = IsRacing(metaModel.BetType)
                 ? "Lrf_BetList_SelAllByDateHR"

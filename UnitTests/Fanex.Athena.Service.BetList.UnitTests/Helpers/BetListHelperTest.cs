@@ -1,0 +1,84 @@
+﻿namespace Fanex.Athena.Service.BetList.UnitTests.Helpers
+{
+    using BetList.Helpers;
+    using Constant.DataDomain;
+    using Fanex.BetList.Core.Entities;
+    using Model.BetList.DTO;
+    using NSubstitute;
+    using NUnit.Framework;
+
+    public class BetListHelperTest
+    {
+        [TestCase(BetType.BetTradeBought)]
+        [TestCase(BetType.CashOutBought)]
+        public void IsBoughtTicket_IsBoughtBetType_ReturnTrue(BetType betType)
+        {
+            // Action
+            var result = BetListHelper.IsBoughtTicket((int)betType);
+
+            // Assert
+            Assert.That(result, Is.True);
+        }
+
+        [TestCase(BetType.Handicap)]
+        [TestCase(BetType.Outright)]
+        public void IsBoughtTicket_IsNotBoughtBetType_ReturnFalse(BetType betType)
+        {
+            // Action
+            var result = BetListHelper.IsBoughtTicket((int)betType);
+
+            // Assert
+            Assert.That(result, Is.False);
+        }
+
+        [TestCase(18000)]
+        [TestCase(18001)]
+        [TestCase(18007)]
+        public void IsColossusBet_IsColossusBetBetType_ReturnTrue(int betType)
+        {
+            // Action
+            var result = BetListHelper.IsColossusBet(betType);
+
+            // Assert
+            Assert.That(result, Is.True);
+        }
+
+        [TestCase(17999)]
+        [TestCase(18008)]
+        public void IsColossusBet_IsNotColossusBetBetType_ReturnFalse(int betType)
+        {
+            // Action
+            var result = BetListHelper.IsColossusBet(betType);
+
+            // Assert
+            Assert.That(result, Is.False);
+        }
+
+        [TestCase("Combo", "BetTeam", "BetTeam - Combo")]
+        [TestCase("", "BetTeam", "BetTeam")]
+        public void GenerateClientDetailSystemParlayFunction_WhenCall_ReturnCorrectResult(string comboName, string betTeam, string expectedBetTeam)
+        {
+            // Arrange
+            var tickerHelper = Substitute.For<ITicketHelper>();
+            tickerHelper.GetCombinationMPOfferName(Arg.Any<string>()).Returns(comboName);
+            tickerHelper.GetBetTypeNameById(Arg.Any<int>()).Returns(betTeam);
+
+            var ticket = new LrfTicket
+            {
+                TransId = 1,
+                RefNo = "RefNoTest",
+                BetId = 2,
+            };
+            const long Custid = 3;
+            const string BaseCurrency = "USD";
+
+            var expected = $"showCombMPDetail(1,RefNoTest,2,3,&quot;{expectedBetTeam}&quot;,&quot;USD&quot;)";
+
+            // Action
+            var result = BetListHelper.GenerateClientDetailSystemParlayFunction(tickerHelper, BaseCurrency, ticket, Custid);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(expected));
+        }
+    }
+}

@@ -2,10 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
+    using Base.UnitTests;
     using Excel.Base.Entities;
     using Excel.Report;
     using Fanex.Athena.DataAccess.Report.Interfaces;
-    using Model.Core.DTO.Users;
     using Model.Core.MetaModel.Product;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
@@ -13,8 +13,9 @@
     using NPOI.SS.UserModel;
     using NSubstitute;
     using NUnit.Framework;
+    using VendorAdapter.Interfaces;
 
-    public class CasinoProgressiveWinsReportControllerTest : BaseApiReportControllerHelperTest
+    public class CasinoProgressiveWinsReportControllerTest : BaseApiControllerHelperTest
     {
         private ICasinoProgressiveWinsDataAccess _dataAccess;
         private CasinoProgressiveWinsReportController _controller;
@@ -27,7 +28,12 @@
             MockSessionData();
             SetUpForDataAccess();
 
-            _controller = Substitute.ForPartsOf<CasinoProgressiveWinsReportController>(_dataAccess, SessionService, ProductService);
+            _controller = Substitute.ForPartsOf<CasinoProgressiveWinsReportController>(
+                _dataAccess,
+                SessionService,
+                ProductService,
+                LangService,
+                Substitute.For<ICacheRefAdapter>());
             _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();
         }
 

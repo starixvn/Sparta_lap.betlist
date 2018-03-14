@@ -1,10 +1,11 @@
 ﻿namespace Fanex.Athena.Service.Report.Result
 {
     using System;
-    using System.Net;
     using System.Text;
     using System.Web;
     using System.Web.Script.Serialization;
+    using Core.Utility;
+    using Core.Utility.Interfaces;
     using Fanex.Athena.Model.Report.DTO.Keno;
     using Fanex.Athena.Service.Core.Exception;
     using Interfaces;
@@ -18,41 +19,26 @@
         private const string LOTTERYSERVICENAME = "LotteryApi";
         private const string LOTTERYGAMENAME = "Lottery";
 
-        public KenoAuthorization Authorize(KenoResultMetaModel setting, string userId)
-        {
-            try
-            {
-                var authorizedUrl = string.Format(setting.AuthorizedUrl, setting.Vendor, setting.VenderKey, userId, setting.VendorProduct);
-                var data = DownLoadData(authorizedUrl);
-                if (string.IsNullOrEmpty(data))
-                {
-                    throw new ServiceException("Couldn't get authorized data from:" + authorizedUrl, GetServiceName(setting.VendorProduct));
-                }
+        private readonly IWebClientService _webClient;
 
-                var serialize = new JavaScriptSerializer();
-                return serialize.Deserialize<KenoAuthorization>(data);
-            }
-            catch (Exception exception)
-            {
-                throw new ServiceException(exception.Message, GetServiceName(setting.VendorProduct));
-            }
+        public KenoApi() : this(null)
+        {
         }
 
-        /// <summary>
-        /// Extend token for Keno.
-        /// </summary>
-        /// <param name="setting">Setting value.</param>
-        /// <param name="userId">User Id value.</param>
-        /// <returns>KenoExtendedToken value.</returns>
+        public KenoApi(IWebClientService webClient)
+        {
+            _webClient = webClient ?? new WebClientService();
+        }
+
         public KenoExtendedToken ExtendToken(KenoResultMetaModel setting, string userId)
         {
             try
             {
                 var extendedUrl = string.Format(setting.ExtendTokenUrl, setting.Vendor, setting.VenderKey, userId, setting.VendorProduct);
-                var data = DownLoadData(extendedUrl);
+                var data = _webClient.DownloadString(extendedUrl);
                 if (string.IsNullOrEmpty(data))
                 {
-                    throw new ServiceException("Couldn't get authorized data from:" + extendedUrl, GetServiceName(setting.VendorProduct));
+                    throw new ServiceException("Couldn't get authorized data from: " + extendedUrl, GetServiceName(setting.VendorProduct));
                 }
 
                 var serialize = new JavaScriptSerializer();
@@ -85,17 +71,6 @@
             return kenoResultUrl.ToString();
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Sonar Code Smell", "S3994:UriParametersShouldNotBeStrings",
-            Justification = "Reviewed. Suppression is OK here.")]
-        private static string DownLoadData(string url)
-        {
-            using (var client = new WebClient())
-            {
-                client.Headers[HttpRequestHeader.ContentType] = "application/json";
-                return client.DownloadString(url);
-            }
-        }
-
         private static string GetServiceName(int vendorProductId)
         {
             return vendorProductId == ResultVendorProductTypes.Keno ? KENOSERVICENAME : LOTTERYSERVICENAME;
@@ -104,6 +79,26 @@
         private static string GetGameName(int vendorProductId)
         {
             return vendorProductId == ResultVendorProductTypes.Keno ? KENOGAMENAME : LOTTERYGAMENAME;
+        }
+
+        protected internal virtual KenoAuthorization Authorize(KenoResultMetaModel setting, string userId)
+        {
+            try
+            {
+                var authorizedUrl = string.Format(setting.AuthorizedUrl, setting.Vendor, setting.VenderKey, userId, setting.VendorProduct);
+                var data = _webClient.DownloadString(authorizedUrl);
+                if (string.IsNullOrEmpty(data))
+                {
+                    throw new ServiceException("Couldn't get authorized data from: " + authorizedUrl, GetServiceName(setting.VendorProduct));
+                }
+
+                var serialize = new JavaScriptSerializer();
+                return serialize.Deserialize<KenoAuthorization>(data);
+            }
+            catch (Exception exception)
+            {
+                throw new ServiceException(exception.Message, GetServiceName(setting.VendorProduct));
+            }
         }
     }
 }

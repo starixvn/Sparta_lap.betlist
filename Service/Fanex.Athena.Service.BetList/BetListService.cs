@@ -58,14 +58,14 @@ namespace Fanex.Athena.Service.BetList
 
         public TicketResult GetBetListData(BetListMetaModel metaModel, string uspKey)
         {
-            UpdateCommonInfo(metaModel);
+            AssignBalanceUpDates(metaModel);
 
             return _authorizationService.HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId, metaModel.TransId)
                         ? _betlistDataAccess.GetBetListData(metaModel, uspKey)
                         : new TicketResult();
         }
 
-        private void UpdateCommonInfo(BetListMetaModel metaModel)
+        private void AssignBalanceUpDates(BetListMetaModel metaModel)
         {
             var balanceUp = _balanceUpDataAccess.GetBalanceUp();
             metaModel.MoveBetsDay = balanceUp.MoveBetsDay;

@@ -17,7 +17,7 @@
             // Arrange
             const string CurrencyCode = "USD";
             var datetime = new DateTime(2016, 8, 10);
-            DataAccess.GetObjectDb(Arg.Is<string>(UspName)).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is(UspName)).Returns(ObjectDb);
 
             // Action
             DataAccess.GetExChangeRate(CurrencyCode, datetime);
@@ -31,7 +31,7 @@
         public void GetExChangeRate_WhenCall_DataReturnCorrectly()
         {
             // Arrange
-            DataAccess.GetObjectDb(Arg.Is<string>(UspName)).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is(UspName)).Returns(ObjectDb);
             MapReaderData(new
             {
                 Usd = 1,

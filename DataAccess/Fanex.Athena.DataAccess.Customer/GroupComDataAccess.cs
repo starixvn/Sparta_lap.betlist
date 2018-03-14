@@ -66,7 +66,6 @@ namespace Fanex.Athena.DataAccess.Customer
                 db.AddInParameter("ParlayComm", DbType.Decimal, item.ParlayComm);
                 db.AddInParameter("RacingComm", DbType.Decimal, item.RCComm);
                 db.AddInParameter("NGComm", DbType.Decimal, item.NGComm);
-                db.AddInParameter("LCComm", DbType.Decimal, item.LCComm);
                 db.AddInParameter("RNGComm", DbType.Decimal, item.CSComm);
                 db.AddInParameter("AllbetComm", DbType.Decimal, item.ABComm);
                 db.AddInParameter("GroupColor", DbType.String, item.GroupColor);
@@ -99,12 +98,10 @@ namespace Fanex.Athena.DataAccess.Customer
                 db.AddInParameter("ParlayComm", DbType.Decimal, newItem.ParlayComm);
                 db.AddInParameter("NGComm", DbType.Decimal, newItem.NGComm);
                 db.AddInParameter("RacingComm", DbType.Decimal, newItem.RCComm);
-                db.AddInParameter("LCComm", DbType.Decimal, newItem.LCComm);
                 db.AddInParameter("RNGComm", DbType.Decimal, newItem.CSComm);
                 db.AddInParameter("AllbetComm", DbType.Decimal, newItem.ABComm);
                 db.AddInParameter("IsUpdateNG", DbType.Boolean, newItem.IsUpdateNG);
                 db.AddInParameter("IsUpdateRacing", DbType.Boolean, newItem.IsUpdateRacing);
-                db.AddInParameter("IsUpdateLC", DbType.Boolean, newItem.IsUpdateLC);
                 db.AddInParameter("IsUpdateRNG", DbType.Boolean, newItem.IsUpdateCS);
                 db.AddInParameter("IsUpdateAllbet", DbType.Boolean, newItem.IsUpdateAB);
                 db.AddInParameter("GroupColor", DbType.String, newItem.GroupColor);

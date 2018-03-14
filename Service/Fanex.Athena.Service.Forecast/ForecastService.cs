@@ -58,7 +58,7 @@ namespace Fanex.Athena.Service.Forecast
             var forecastHandicapTable = _forecastDataAccess.GetForecastHandicap(metaModel, userId);
             var forecastResult = new ForecastValue();
 
-            if (forecastHandicapTable.Rows.Count > 0)
+            if (forecastHandicapTable != null && forecastHandicapTable.Rows.Count > 0)
             {
                 foreach (DataRow row in forecastHandicapTable.Rows)
                 {
@@ -109,7 +109,7 @@ namespace Fanex.Athena.Service.Forecast
             var overUnderTable = _forecastDataAccess.GetForecastOverUnder(metaModel, userId);
             var result = new ForecastValue();
 
-            if (overUnderTable.Rows.Count > 0)
+            if (overUnderTable != null && overUnderTable.Rows.Count > 0)
             {
                 foreach (DataRow row in overUnderTable.Rows)
                 {

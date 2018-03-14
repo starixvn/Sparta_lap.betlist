@@ -8,6 +8,8 @@
     using Model.Core.DataDomain;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
+    using UnitTest.Common.NUnitExtensions;
 
     [TestFixture]
     public class BaseBetListDataAccessTest
@@ -31,17 +33,17 @@
 
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        [TestCase("", null, false)]
-        [TestCase("UUS", 0, false)]
-        [TestCase(null, 1, true)]
-        [TestCase("USD", 1d, false)]
-        [TestCase("ABC", true, true)]
-        public void ReadLrfTicket_WhenCall_DataReturnedCorrectly(string baseCurrency, object isNeutral, bool expectedIsNeutral)
+        [TestCase("")]
+        [TestCase("UUS")]
+        [TestCase(null)]
+        [TestCase("USD")]
+        [TestCase("ABC")]
+        public void ReadLrfTicket_WhenCall_DataReturnedCorrectly(string baseCurrency)
         {
             // Arrange
-            var currency = "UUS";
+            var currency = "USD";
             var expected = GetFakeTicket();
-            var dataList = GetFakeBetListData(currency, expected, isNeutral);
+            var dataList = GetFakeBetListData(currency, expected);
             _reader.Read().Returns(true, false);
             ConfigureReader(dataList);
 
@@ -49,60 +51,12 @@
             var result = _dataAccess.ReadBetListTicket(_reader, currency)[0];
 
             // Assert
-            Assert.That(result.UserName, Is.EqualTo(expected.UserName));
-            Assert.That(result.RefNo, Is.EqualTo(expected.RefNo));
-            Assert.That(result.MatchCode, Is.EqualTo(expected.MatchCode));
-            Assert.That(result.Status, Is.EqualTo(expected.Status));
-            Assert.That(result.BetTeam, Is.EqualTo(expected.BetTeam));
-            Assert.That(result.EventStatus, Is.EqualTo(expected.EventStatus));
-            Assert.That(result.ShowTime, Is.EqualTo(expected.ShowTime));
-            Assert.That(result.OddsType, Is.EqualTo(expected.OddsType));
-            Assert.That(result.ExternalId, Is.EqualTo(expected.ExternalId));
-            Assert.That(result.Race, Is.EqualTo(expected.Race));
-            Assert.That(result.BetFrom, Is.EqualTo(expected.BetFrom));
-            Assert.That(result.BetCheck, Is.EqualTo(expected.BetCheck));
-
-            Assert.That(result.IsLive, Is.EqualTo(expected.IsLive));
-            Assert.That(result.IsNeutral, Is.EqualTo(expectedIsNeutral));
-
-            Assert.That(result.SportTypeId, Is.EqualTo(expected.SportTypeId));
-            Assert.That(result.BetTypeId, Is.EqualTo(expected.BetTypeId));
-            Assert.That(result.LeagueId, Is.EqualTo(expected.LeagueId));
-            Assert.That(result.HomeId, Is.EqualTo(expected.HomeId));
-            Assert.That(result.AwayId, Is.EqualTo(expected.AwayId));
-            Assert.That(result.MatchId, Is.EqualTo(expected.MatchId));
-            Assert.That(result.CustId, Is.EqualTo(expected.CustId));
-            Assert.That(result.CurrencyId, Is.EqualTo(expected.CurrencyId));
-            Assert.That(result.LiveHomeScore, Is.EqualTo(expected.LiveHomeScore));
-            Assert.That(result.LiveAwayScore, Is.EqualTo(expected.LiveAwayScore));
-            Assert.That(result.SpecialLevel, Is.EqualTo(expected.SpecialLevel));
-            Assert.That(result.StatusId, Is.EqualTo(expected.StatusId));
-
-            Assert.That(result.TransId, Is.EqualTo(expected.TransId));
-            Assert.That(result.BetId, Is.EqualTo(expected.BetId));
-
-            Assert.That(result.WinlostDate, Is.EqualTo(expected.WinlostDate));
-            Assert.That(result.TransDate, Is.EqualTo(expected.TransDate));
-
-            Assert.That(result.PlayerComm, Is.EqualTo(expected.PlayerComm));
-            Assert.That(result.Comm, Is.EqualTo(expected.Comm));
-            Assert.That(result.LicenseeWL, Is.EqualTo(expected.LicenseeWL));
-            Assert.That(result.Winlost, Is.EqualTo(expected.Winlost));
-            Assert.That(result.BetEffective, Is.EqualTo(expected.BetEffective));
-            Assert.That(result.Stake, Is.EqualTo(expected.Stake));
-            Assert.That(result.ActualStake, Is.EqualTo(expected.ActualStake));
-            Assert.That(result.Odds, Is.EqualTo(expected.Odds));
-            Assert.That(result.MasterOdds, Is.EqualTo(expected.MasterOdds));
-            Assert.That(result.Handicap1, Is.EqualTo(expected.Handicap1));
-            Assert.That(result.Handicap2, Is.EqualTo(expected.Handicap2));
-
-            Assert.That(result.TransDesc, Is.EqualTo(expected.TransDesc));
-            Assert.That(result.Currency, Is.EqualTo(expected.Currency));
+            Assert.That(result, Tobe.SameProperties(expected));
         }
 
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        private IDictionary<string, object> GetFakeBetListData(string baseCurrency, LrfTicket ticket, object isNeutral)
+        private static IDictionary<string, object> GetFakeBetListData(string baseCurrency, LrfTicket ticket)
         {
             var columnSuffix = SystemConstants.BaseCurrencyList.Contains(baseCurrency?.ToUpperInvariant()) ? baseCurrency : string.Empty;
 
@@ -129,7 +83,7 @@
             dataList.Add("betcheck", ticket.BetCheck);
 
             dataList.Add("liveindicator", ticket.IsLive);
-            dataList.Add("isneutral", isNeutral);
+            dataList.Add("isneutral", ticket.IsNeutral);
 
             dataList.Add("sporttype", ticket.SportTypeId);
             dataList.Add("bettype", ticket.BetTypeId);
@@ -185,7 +139,7 @@
         {
             return new LrfTicket
             {
-                UserName = "UserNameTest",
+                UserName = FakeHelper.Create<string>(),
                 RefNo = "RefNoTest",
                 MatchCode = "MatchCodeTest",
                 Status = "StatusTest",
@@ -197,10 +151,10 @@
                 Race = "RaceTest",
                 BetFrom = "BetFromTest",
                 BetCheck = "BetCheckTest",
-                IsLive = true,
-                IsNeutral = true,
-                SportTypeId = 1,
-                BetTypeId = 2,
+                IsLive = FakeHelper.Create<bool>(),
+                IsNeutral = FakeHelper.Create<bool>(),
+                SportTypeId = FakeHelper.Create<int>(),
+                BetTypeId = FakeHelper.Create<int>(),
                 LeagueId = 3,
                 HomeId = 4,
                 AwayId = 5,

@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Model.TotalBet.DTO
 {
     using Model.Core.Helper;
+    using VendorAdapter;
 
     /// <summary>
     /// TotalBetsBase class.
@@ -24,7 +25,7 @@ namespace Fanex.Athena.Model.TotalBet.DTO
 
         public string LeagueName
         {
-            get { return _leagueName ?? (_leagueName = CacheRef.GetLeagueName(LeagueId)); }
+            get { return _leagueName ?? (_leagueName = CacheRefAdapter.Instance.GetLeagueName(LeagueId)); }
         }
 
         public int MatchId { get; set; }
@@ -40,13 +41,13 @@ namespace Fanex.Athena.Model.TotalBet.DTO
             get
             {
                 return _homeTeamName ??
-                       (_homeTeamName = CacheRef.GetTeamName(HomeId) + (IsNeutral == 1 ? " (N)" : string.Empty));
+                       (_homeTeamName = CacheRefAdapter.Instance.GetTeamName(HomeId) + (IsNeutral == 1 ? " (N)" : string.Empty));
             }
         }
 
         public string AwayTeamName
         {
-            get { return _awayTeamName ?? (_awayTeamName = CacheRef.GetTeamName(AwayId)); }
+            get { return _awayTeamName ?? (_awayTeamName = CacheRefAdapter.Instance.GetTeamName(AwayId)); }
         }
 
         public int LiveIndicator { get; set; }

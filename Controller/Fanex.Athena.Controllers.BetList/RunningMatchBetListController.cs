@@ -10,44 +10,61 @@ namespace Fanex.Athena.Controllers.BetList
 
     using System.Linq;
     using System.Web.Mvc;
-    using Fanex.Athena.Excel.Base.Entities;
-    using Fanex.Athena.Excel.BetList;
+    using DataAccess.Core.Configuration.Interfaces;
+    using Excel.Base.Entities;
+    using Extension.Utility;
     using Fanex.Athena.Model.BetList.MetaModel;
-    using Fanex.Athena.Model.Core.DataDomain;
-    using Fanex.Athena.Model.Core.Helper;
-    using Fanex.Athena.Web.ResultExtension;
-    using Resources;
+    using Service.BetList.Interfaces;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
+    using Service.Core.Users.Interfaces;
+    using VendorAdapter.Interfaces;
 
     #endregion Using
 
     public class RunningMatchBetListController : BetListBaseController
     {
+        public RunningMatchBetListController()
+        {
+        }
+
+        public RunningMatchBetListController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
+            IProductService productService,
+            IBetListService betListService,
+            IBalanceUpDataAccess balanceUpDataAccess,
+            ICacheRefAdapter cacheRefAdapter)
+        : base(languageService, sessionService, appSetting, clientViewHelper, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
+        {
+        }
+
         [HttpGet]
         public ActionResult Index(BetListMetaModel metaModel)
         {
-            return ProcessDefaultRequest(metaModel, "~/Views/BetList/RunningBetListOfMatch/Main.cshtml");
+            var model = CreateDefaultMetaModel(metaModel);
+            return ProcessDefaultRequest(model, "~/Views/BetList/RunningBetListOfMatch/Main.cshtml", null);
         }
 
-        protected override ActionResult ExportExcel(BetListMetaModel metaModel)
+        protected override ActionResult ExportExcel(BetListMetaModel metaModel, string uspKey)
         {
-            var uspKey = IsRacing(metaModel.BetType)
-                                              ? "Lrf_BetList_SelAllByDateHR"
-                                              : "Lrf_BetList_SelRunningByBettypeMatch";
-            var ticketResult = this.BetListService.GetBetListData(metaModel, uspKey);
-            
-            var leagueName = string.Empty;
-            var firstTicket = ticketResult.MainTicketList.FirstOrDefault();
-            if (ticketResult.MainTicketList.Any() && firstTicket != null)
-            {
-                leagueName = CacheRef.GetLeagueName(firstTicket.LeagueId);
-            }
+            var uspName = IsRacing(metaModel.BetType) ? "Lrf_BetList_SelAllByDateHR" : "Lrf_BetList_SelRunningByBettypeMatch";
 
-            var title = leagueName + " - " + string.Format(
-                "{0} - {1}",
-                CacheRef.GetBettype(metaModel.BetType),
-                GetViewInCurrency(metaModel));
-            
-            return ProcessExportExcel(metaModel, ticketResult, HiddenColumnIndexes, title, "RunningBetList");
+            var ticketResult = BetListService.GetBetListData(metaModel, uspName);
+
+            var firstTicket = ticketResult.MainTicketList.FirstOrDefault();
+            var leagueName = firstTicket != null ? CacheRefAdapter.GetLeagueName(firstTicket.LeagueId) : string.Empty;
+
+            var title = $"{leagueName} - {CacheRefAdapter.GetBettype(metaModel.BetType)} - {GetViewInCurrency(metaModel)}";
+
+            var showingOption = new ShowingOption
+            {
+                CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
+            };
+
+            return ProcessExportExcel(showingOption, metaModel, ticketResult, HiddenColumnIndexes, title, "RunningBetList");
         }
     }
 }

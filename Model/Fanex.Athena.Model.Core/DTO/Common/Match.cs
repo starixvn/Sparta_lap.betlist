@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Model.Core.DTO.Common
 {
     using Fanex.Athena.Model.Core.Helper;
+    using VendorAdapter;
 
     /// <summary>
     /// Match class.
@@ -29,9 +30,9 @@ namespace Fanex.Athena.Model.Core.DTO.Common
             {
                 if (_matchName == null)
                 {
-                    _matchName = CacheRef.GetTeamName(HomeId) + (IsNeutral ? " (N)" : string.Empty)
+                    _matchName = CacheRefAdapter.Instance.GetTeamName(HomeId) + (IsNeutral ? " (N)" : string.Empty)
                                    + " -vs- "
-                               + CacheRef.GetTeamName(AwayId);
+                               + CacheRefAdapter.Instance.GetTeamName(AwayId);
                 }
 
                 return _matchName;

@@ -8,12 +8,18 @@ namespace Fanex.Athena.Controllers.BetSettings
 {
     using System.Collections.Generic;
     using System.Web.Mvc;
+    using DataAccess.BetSettings.Interfaces;
+    using Extension.Utility;
     using Fanex.Athena.Model.BetSettings.MetaModel;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DTO.Common;
     using Resources;
     using Service.BetSettings;
     using Service.BetSettings.Interfaces;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
+    using Service.Core.Users.Interfaces;
+    using Service.Customer.Interfaces;
 
     public class SportsbookBetSettingController : BetSettingBaseController
     {
@@ -22,6 +28,21 @@ namespace Fanex.Athena.Controllers.BetSettings
         public SportsbookBetSettingController()
         {
             this._betSettingService = new SportsbookBetSettingService();
+        }
+
+        public SportsbookBetSettingController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
+            IAuthorizationService authorizationService,
+            ICoreBetSettingDataAccess coreBetSettingDataAccess,
+            ICustomerService customerService,
+            IProductService productService,
+            ISportsbookBetSettingService betSettingService)
+        : base(languageService, sessionService, appSetting, clientViewHelper, authorizationService, coreBetSettingDataAccess, customerService, productService)
+        {
+            _betSettingService = betSettingService;
         }
 
         [HttpGet]
@@ -62,11 +83,11 @@ namespace Fanex.Athena.Controllers.BetSettings
         {
             if (AppSettings.GetValue("EnableEsportSettingStatus") == "false")
             {
-                var resultInfo = new ResultInfo { Code = -1, Message = "Function is under maintenance." };
+                var resultInfo = new ResultInfo { Code = -1, Message = ViewResources.FunctionIsUnderMaintenance };
                 return Json(resultInfo, JsonRequestBehavior.AllowGet);
             }
 
-            if (!IsBetSettingEditable())
+            if (!ProductAccess.IsAllow(Product.SB) || !IsBetSettingEditable())
             {
                 return AccessDenied();
             }

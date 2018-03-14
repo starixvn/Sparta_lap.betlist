@@ -65,7 +65,7 @@
             var toDate = new DateTime(2018, 1, 26);
             const int NumberOfWeeks = 3;
 
-            var expected = new string[]
+            var expected = new[]
             {
                 "09 Jan - 14 Jan 2018",
                 "15 Jan - 21 Jan 2018",

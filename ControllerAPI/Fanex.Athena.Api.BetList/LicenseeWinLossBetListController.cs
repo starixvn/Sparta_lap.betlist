@@ -3,12 +3,19 @@
     using System;
     using System.Web.Http;
     using Base.Attributes;
+    using DataAccess.Core.Configuration.Interfaces;
     using Extension.Helper;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
+    using Fanex.BetList.Core.Builder;
+    using Fanex.BetList.Core.Entities;
+    using Service.BetList.Interfaces;
+    using Service.Core.Common.Interfaces;
     using Service.Core.Configuration;
     using Service.Core.Configuration.Interfaces;
+    using Service.Core.Users.Interfaces;
     using Service.Core.Utility;
+    using VendorAdapter.Interfaces;
 
     [ApiFunctionAuthorization(PermissionKeys.ReportLicenseeWinLoss, PermissionKeys.ReportWinLossByProduct, PermissionKeys.ReportColossusBetsWinLoss)]
     [ApiBetListAuthorization]
@@ -19,6 +26,24 @@
         public LicenseeWinLossBetListController()
         {
             _reportSettingService = new ReportSettingService();
+        }
+
+        [CLSCompliant(false)]
+#pragma warning disable S107 // Methods should not have too many parameters
+        public LicenseeWinLossBetListController(
+            ISessionService sessionService,
+            IProductService productService,
+            ILanguageService languageService,
+            IBetListService betListService,
+            IBalanceUpDataAccess balanceUpDataAccess,
+            ITicketHelper ticketHelper,
+            ICacheRefAdapter cacheRefAdapter,
+            IBetListHTMLBuilder betlistHtmlBuilder,
+            IReportSettingService reportSettingService)
+#pragma warning restore S107 // Methods should not have too many parameters
+        : base(sessionService, productService, languageService, betListService, balanceUpDataAccess, ticketHelper, cacheRefAdapter, betlistHtmlBuilder)
+        {
+            _reportSettingService = reportSettingService ?? new ReportSettingService();
         }
 
         [HttpPost]
@@ -37,8 +62,6 @@
             {
                 return null;
             }
-
-            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
             const string UspKey = "Lrf_BetList_SelWinloss_Mem";
             return GetBetListResult(metaModel, UspKey);

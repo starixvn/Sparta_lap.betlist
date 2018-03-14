@@ -5,6 +5,7 @@
     using System.Web.Http;
     using System.Web.Http.Hosting;
     using System.Web.Http.Results;
+    using Base.UnitTests;
     using DataAccess.Report.Interfaces;
     using Extension.Utility;
     using Model.Core.DataDomain;
@@ -18,7 +19,7 @@
     using Report;
     using Resources;
 
-    public partial class PlatformWinLossReportControllerTest : BaseApiReportControllerHelperTest
+    public partial class PlatformWinLossReportControllerTest : BaseApiControllerHelperTest
     {
         private const int ExpectedCustomerComm = 999;
 
@@ -33,7 +34,7 @@
             MockSessionData();
 
             _dataAccess = Substitute.For<IPlatformWinLossDataAccess>();
-            _controller = Substitute.ForPartsOf<PlatformWinLossReportController>(SessionService, ProductService, _dataAccess);
+            _controller = Substitute.ForPartsOf<PlatformWinLossReportController>(SessionService, ProductService, LangService, _dataAccess);
             _controller.Request = new HttpRequestMessage();
             _controller.Request.Properties.Add(HttpPropertyKeys.HttpConfigurationKey, new HttpConfiguration());
             _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();

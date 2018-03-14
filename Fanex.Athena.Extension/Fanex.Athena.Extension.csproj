@@ -157,7 +157,9 @@
     <Compile Include="Helper\JSONHelper.cs" />
     <Compile Include="Helper\NumberHelper.cs" />
     <Compile Include="Helper\StringHelper.cs" />
+    <Compile Include="Utility\AntiForgeryService.cs" />
     <Compile Include="Utility\AppSettings.cs" />
+    <Compile Include="Utility\IAntiForgeryService.cs" />
     <Compile Include="Utility\Interfaces\IMemoryCacheService.cs" />
     <Compile Include="Utility\MemoryCacheService.cs" />
     <Compile Include="Utility\CookiesHelper.cs" />

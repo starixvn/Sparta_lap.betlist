@@ -6,50 +6,19 @@
 
 namespace Fanex.Athena.Model.Report.DTO
 {
-    using Fanex.Athena.Model.Core.Helper;
-
-    /// <summary>
-    /// WinLossByProduct class.
-    /// </summary>
     public class WinLossByLeague
     {
-        private string _homeName;
-
-        private string _awayName;
-
         public int Index { get; set; }
 
         public int MatchId { get; set; }
 
         public int HomeId { get; set; }
 
-        public string HomeName
-        {
-            get
-            {
-                if (_homeName == null)
-                {
-                    _homeName = CacheRef.GetTeamName(HomeId);
-                }
-
-                return _homeName;
-            }
-        }
+        public string HomeName { get; set; }
 
         public int AwayId { get; set; }
 
-        public string AwayName
-        {
-            get
-            {
-                if (_awayName == null)
-                {
-                    _awayName = CacheRef.GetTeamName(AwayId);
-                }
-
-                return _awayName;
-            }
-        }
+        public string AwayName { get; set; }
 
         public int BetCount { get; set; }
 

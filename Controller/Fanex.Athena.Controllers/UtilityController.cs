@@ -15,7 +15,6 @@ namespace Fanex.Athena.Controllers
     using Resources;
     using Service.Core.Common;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Helpers;
 
     /// <summary>
     /// Utility controller.

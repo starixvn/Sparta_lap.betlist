@@ -22,13 +22,13 @@
             // Arrange
             const int LicenseeId = 1;
 
-            DataAccess.GetObjectDb(Arg.Is<string>(GetCurrenciesSp)).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is(GetCurrenciesSp)).Returns(ObjectDb);
 
             // Action
             DataAccess.GetCurrencies(LicenseeId);
 
             // Assert
-            ObjectDb.ReceivedWithAnyArgs().Query<CurrencyUser>(null);
+            ObjectDb.ReceivedWithAnyArgs().Query<CurrencyUser>();
         }
 
         [Test]
@@ -42,7 +42,7 @@
                     new CurrencyUser { CurrencyId = 1, AgentId = 100 },
                     new CurrencyUser { CurrencyId = 1, AgentId = 200 }
                 });
-            DataAccess.GetObjectDb(Arg.Is<string>(GetCurrenciesSp)).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is(GetCurrenciesSp)).Returns(ObjectDb);
 
             // Action
             var result = DataAccess.GetCurrencies(LicenseeId);
@@ -65,7 +65,7 @@
         public void AssignCurrenciesByUser_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            DataAccess.GetObjectDb(Arg.Is<string>(AssignCurrenciesByUserSp)).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is(AssignCurrenciesByUserSp)).Returns(ObjectDb);
             var dataModel = new AssignCurrencyMetaModel
             {
                 UserId = 1,
@@ -73,7 +73,7 @@
                 CurrencyList = "USD, UUS, EUR",
                 ModifyBy = 2,
                 LangKey = "en-US",
-                IP = "::1"
+                IP = "IP"
             };
 
             // Action
@@ -97,7 +97,7 @@
         public void AssignCurrenciesByUser_WhenCall_ResultInfoReturnCorrectly()
         {
             // Arrange
-            DataAccess.GetObjectDb(Arg.Is<string>(AssignCurrenciesByUserSp)).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is(AssignCurrenciesByUserSp)).Returns(ObjectDb);
             ResultInfoHelper.MockResultInfo(ObjectDb);
 
             // Action
@@ -125,7 +125,7 @@
             // Arrange
             const int LicenseeId = 1;
             const int UserId = 2;
-            DataAccess.GetObjectDb(Arg.Is<string>(GetCurrenciesByUser)).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is(GetCurrenciesByUser)).Returns(ObjectDb);
 
             // Action
             DataAccess.GetCurrenciesByUser(LicenseeId, UserId);

@@ -1,6 +1,4 @@
-﻿using System.Data;
-using Fanex.Athena.Excel.Base.Entities;
-using Fanex.Athena.Model.Customer.DTO;
+﻿using Fanex.Athena.Model.Customer.DTO;
 using Fanex.Athena.Model.Customer.ViewModel;
 using NPOI.SS.UserModel;
 

@@ -9,10 +9,13 @@ namespace Fanex.Athena.Controllers.WareHouse
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
+    using System.Web.Hosting;
     using System.Web.Mvc;
+    using DataAccess.Core.Configuration.Interfaces;
     using DataAccess.Warehouse;
     using DataAccess.Warehouse.Interfaces;
-    using Fanex.Athena.Excel.Base.Entities;
+    using Excel.Base.Entities;
+    using Extension.Utility;
     using Fanex.Athena.Excel.Warehouse;
     using Fanex.Athena.Model.Warehouse.MetaModel;
     using Fanex.Athena.Model.Warehouse.ViewModel;
@@ -20,6 +23,9 @@ namespace Fanex.Athena.Controllers.WareHouse
     using Model.Core.DataDomain;
     using Model.Warehouse.DTO;
     using Resources;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
+    using Service.Core.Users.Interfaces;
     using Web.ActionFilter;
 
     [FunctionAuthorization(PermissionKeys.WarehouseWinLoss)]
@@ -30,6 +36,19 @@ namespace Fanex.Athena.Controllers.WareHouse
         public WinLossWareHouseController()
         {
             _winLossDataAccess = new WinLossDataAccess();
+        }
+
+        public WinLossWareHouseController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
+            IBalanceUpDataAccess balancUpDataAccess,
+            IProductService productService,
+            IWinLossDataAccess winLossDataAccess)
+        : base(languageService, sessionService, appSetting, clientViewHelper, balancUpDataAccess, productService)
+        {
+            _winLossDataAccess = winLossDataAccess;
         }
 
         [HttpGet]
@@ -61,13 +80,10 @@ namespace Fanex.Athena.Controllers.WareHouse
         [CustomValidateAntiForgery]
         public ActionResult Excel(WinLossMetaModel metaModel)
         {
-            const string FileName = "WinLoss";
-            const string FormatTitle = "{0} {1} {2} {3} --> {4} - {5}";
-            var licenseeSession = SessionService.LicenseeSession;
-            metaModel.LicenseeId = licenseeSession.LicenseeId;
-            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-            var templatePath = Server.MapPath("~/App_Data/Template/DataWareHouse/WinLoss.xls");
+            var templatePath = HostingEnvironment.MapPath("~/App_Data/Template/DataWareHouse/WinLoss.xls");
             var showingOption = GetShowingOption();
+
+            const string FormatTitle = "{0} {1} {2} {3} --> {4} - {5}";
             var viewByCurrency =
                 string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpperInvariant() : metaModel.CurrencyName);
             var groupingList = GroupingMetaModel.GroupingList;
@@ -79,16 +95,16 @@ namespace Fanex.Athena.Controllers.WareHouse
                  metaModel.FromDate.ToString("MM/dd/yyyy"),
                  metaModel.ToDate.ToString("MM/dd/yyyy"),
                  viewByCurrency);
-            IDictionary<string, decimal> totalValues = new Dictionary<string, decimal>();
-            var exportData = GetDataList(metaModel, ref totalValues);
 
-            var winLossExcel = new TopWinLossExcel(templatePath, showingOption, exportData, totalValues, titleText)
-            {
-                GroupingId = metaModel.ReportBy
-            };
+            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
+            var exportData = GetDataList(metaModel);
+            var totalValues = GetWinlossTotalInfo(exportData);
+
+            var winLossExcel = CreateExcel(templatePath, showingOption, exportData, totalValues, titleText, metaModel.ReportBy);
 
             winLossExcel.Export();
-            return new ExcelResult(winLossExcel.Workbook, FileName);
+            return new ExcelResult(winLossExcel.Workbook, "WinLoss");
         }
 
         [HttpPost]
@@ -112,13 +128,25 @@ namespace Fanex.Athena.Controllers.WareHouse
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
             };
 
-            IDictionary<string, decimal> totalValues = new Dictionary<string, decimal>();
-
-            model.MainResult = GetDataList(metaModel, ref totalValues);
-            model.TotalValues = totalValues;
+            model.MainResult = GetDataList(metaModel);
+            model.TotalValues = GetWinlossTotalInfo(model.MainResult);
 
             ViewBag.MaxDate = GetBalanceUp().MoveBetsDay;
             return View("~/Views/WareHouse/WinLoss/Main.cshtml", model);
+        }
+
+        protected internal virtual TopWinLossExcel CreateExcel(
+            string templatePath,
+            ShowingOption showingOption,
+            IList<WinLoss> exportData,
+            IDictionary<string, decimal> totalValues,
+            string titleText,
+            int groupingId)
+        {
+            return new TopWinLossExcel(templatePath, showingOption, exportData, totalValues, titleText)
+            {
+                GroupingId = groupingId
+            };
         }
 
         private static IDictionary<string, decimal> GetWinlossTotalInfo(IEnumerable<WinLoss> dataList)
@@ -134,7 +162,7 @@ namespace Fanex.Athena.Controllers.WareHouse
                         { "totalrows", 0 }
                     };
 
-            if (dataList != null)
+            if (dataList != null && dataList.Any())
             {
                 foreach (var entity in dataList)
                 {
@@ -152,12 +180,11 @@ namespace Fanex.Athena.Controllers.WareHouse
             return totalValues;
         }
 
-        private IList<WinLoss> GetDataList(WinLossMetaModel model, ref IDictionary<string, decimal> totalValues)
+        private IList<WinLoss> GetDataList(WinLossMetaModel model)
         {
             var dataList = model.IsValid
                                ? this._winLossDataAccess.GetDataList(model)
                                : new List<WinLoss>();
-            totalValues = GetWinlossTotalInfo(dataList);
 
             return dataList.OrderBy(x => x.GroupByString).ToList();
         }

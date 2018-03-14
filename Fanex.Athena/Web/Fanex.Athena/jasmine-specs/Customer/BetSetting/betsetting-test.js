@@ -120,11 +120,6 @@
             setUp(11, Url, done)
             expect(request.url).toBe(Url);
         });
-        it("Live Casino: ajax request should be called with correct url", function (done) {
-            const Url = "LiveCasinoBetSetting/UpdateStatus";
-            setUp(4, Url, done)
-            expect(request.url).toBe(Url);
-        });
         it("Cash Out: ajax request should be called with correct url", function (done) {
             const Url = "ThirdPartyBetSetting/UpdateCashOutStatus";
             setUp(25, Url, done)
@@ -167,18 +162,6 @@
             spyOn(BetSetting, "checkEnable");
         });
 
-        it("BetSetting.checkEnableLiveCasino(enable) should be called with correct parameter when tabId is TAB_LIVECASINO", function () {
-            spyOn(BetSetting, "checkEnableLiveCasino");
-            BetSetting.checkEnableBetSetting(4, true);
-
-            expect(BetSetting.checkEnableLiveCasino).toHaveBeenCalledWith(true);
-        });
-        it("BetSetting.checkEnable(sportIds, enable) should not be called when tabId equal TAB_LIVECASINO", function () {
-            BetSetting.checkEnableBetSetting(4, true);
-
-            expect(BetSetting.checkEnable).not.toHaveBeenCalled();
-        });
-
         it("BetSetting.checkEnable() should be called when tabId not equal TAB_LIVECASINO", function () {
             BetSetting.checkEnableBetSetting(2, true);
 
@@ -197,27 +180,6 @@
             BetSetting.checkEnableBetSetting(0, false);
 
             expect($("#copy-settting")).not.toBeVisible();
-        });
-    });
-
-    describe("checkEnableLiveCasino(enable)", function () {
-        it("'input[name=gameTypeName1]' should be disabled when param value is false", function () {
-            affix("input#gameTypeCount[value=2]");
-            affix("input[name=gameTypeName1]");
-
-            BetSetting.checkEnableLiveCasino(false);
-
-            expect($("input[name=gameTypeName1]")).toBeDisabled();
-        });
-
-        it("'#btnSubmitBetSetting, #btnReset' should be disabled when param value is false", function () {
-            affix("button#btnSubmitBetSetting");
-            affix("button#btnReset");
-
-            BetSetting.checkEnableLiveCasino(false);
-
-            expect($("#btnSubmitBetSetting")).toBeDisabled();
-            expect($("#btnReset")).toBeDisabled();
         });
     });
 
@@ -520,41 +482,6 @@
         });
     });
 
-    describe("updateLiveCasinoBetSetting(custId, userName, nickName)", function () {
-        var request;
-        beforeEach(function (done) {
-            affix("input#gameTypeCount[value=2]")
-            spyOn(BetSetting, "showDialogMesage");
-
-            jasmine.Ajax.install();
-            jasmine.Ajax
-                .stubRequest("LiveCasinoBetSetting/updateBetSetting")
-                .andReturn({
-                    'status': 200,
-                    'contentType': 'application/json',
-                    'responseText': '{ Code: "0" }'
-                });
-
-            BetSetting.updateLiveCasinoBetSetting(1, "user01", "walter");
-
-            request = jasmine.Ajax.requests.mostRecent();
-
-            setTimeout(done, 10);
-        });
-
-        afterEach(function () {
-            jasmine.Ajax.uninstall();
-        });
-
-        it("ajax request should be called with url is 'LiveCasinoBetSetting/updateBetSetting?'", function () {
-            expect(request.url).toBe("LiveCasinoBetSetting/updateBetSetting");
-        });
-
-        it("BetSetting.showDialogMesage should be called", function () {
-            expect(BetSetting.showDialogMesage).toHaveBeenCalled();
-        });
-    });
-
     describe("getBetSettingParams(sportId)", function () {
         beforeEach(function () {
             affix("input#min-bet-1[value=10]");
@@ -590,14 +517,7 @@
         beforeEach(function () {
             affix("input#ProductId[value=4]");
 
-            spyOn(BetSetting, "resetLiveCasinoBetSetting");
             spyOn(BetSetting, "resetValues");
-        });
-
-        it("BetSetting.resetLiveCasinoBetSetting() should be called when productId equal TAB_LIVECASINO", function () {
-            BetSetting.resetBetSetting();
-
-            expect(BetSetting.resetLiveCasinoBetSetting).toHaveBeenCalled();
         });
 
         it("BetSetting.resetValues() should be called when productId equal default", function () {
@@ -640,22 +560,6 @@
             BetSetting.resetBetTradeSetting();
 
             expect($checkbox).toBeChecked();
-        });
-    });
-
-    describe("resetLiveCasinoBetSetting()", function () {
-        it("'input[name=gameTypeName1]' should be checked", function () {
-            affix("input#gameTypeCount[value=1]");
-            affix("input#oldCheck1[value=1]");
-            affix("input#checkbox[type=checkbox]");
-
-            var $checkbox = $("#checkbox");
-            $checkbox.attr("name", "gameTypeName1");
-            $checkbox.attr("data-stake-id", 1);
-
-            BetSetting.resetLiveCasinoBetSetting();
-
-            expect(("input[name=gameTypeName1]")).toBeChecked();
         });
     });
 

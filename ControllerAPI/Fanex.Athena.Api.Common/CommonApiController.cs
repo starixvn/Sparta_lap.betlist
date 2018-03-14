@@ -29,6 +29,12 @@ namespace Fanex.Athena.Api.Base
             _languageService = new LanguageService();
         }
 
+        public CommonApiController(IMoveBetService moveBetService, ILanguageService languageService)
+        {
+            _moveBetService = moveBetService;
+            _languageService = languageService;
+        }
+
         [HttpGet]
         public string GetMoveBetNotification()
         {

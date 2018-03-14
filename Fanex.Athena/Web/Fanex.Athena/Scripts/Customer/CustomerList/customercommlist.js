@@ -161,8 +161,7 @@ var CustomerComm = (function ($) {
 
                         CustomerList.updateGridGroupAndComm(groupid, groupNameText, result.ExtendedData.GroupColor,
                                              result.ExtendedData.SBComm, result.ExtendedData.NGComm,
-                                            result.ExtendedData.RCComm, result.ExtendedData.LCComm,
-                                            result.ExtendedData.RNGComm, result.ExtendedData.ABComm);
+                                            result.ExtendedData.RCComm, result.ExtendedData.RNGComm, result.ExtendedData.ABComm);
                     }
                     else {
                         CustomerComm.showMsg(result.ErrorMessage, result.Success);
@@ -266,8 +265,7 @@ var CustomerComm = (function ($) {
 
                         CustomerList.updateGridGroupAndComm(0, result.ExtendedData.GroupName, result.ExtendedData.GroupColor,
                                              result.ExtendedData.SBComm, result.ExtendedData.NGComm,
-                                            result.ExtendedData.RCComm, result.ExtendedData.LCComm,
-                                            result.ExtendedData.RNGComm, result.ExtendedData.ABComm);
+                                            result.ExtendedData.RCComm, result.ExtendedData.RNGComm, result.ExtendedData.ABComm);
                     }
                     else {
                         CustomerComm.showMsg(result.ErrorMessage, result.Success);
@@ -363,8 +361,7 @@ var CustomerComm = (function ($) {
                         if (param.isRemovePlayercomm) {
                             CustomerList.updateGridGroupAndComm(0, result.ExtendedData.GroupName, "",
                                              result.ExtendedData.SBComm, result.ExtendedData.NGComm,
-                                            result.ExtendedData.RCComm, result.ExtendedData.LCComm,
-                                            result.ExtendedData.RNGComm, result.ExtendedData.ABComm);
+                                            result.ExtendedData.RCComm, result.ExtendedData.RNGComm, result.ExtendedData.ABComm);
                         }
                         else {
                             CustomerList.updateGridGroup(0, result.ExtendedData.GroupName, result.ExtendedData.GroupColor);

@@ -29,7 +29,6 @@
         private ILicenseeDataAccess _licenseeDataAccess;
         private ICurrencyDataAccess _currencyDataAccess;
         private ISessionService _sessionService;
-        private IFakeLicenseeSettingService _fakeLicenseeSettingService;
 
         [OneTimeSetUp]
         public void SetUp()
@@ -37,7 +36,6 @@
             _appSettings = Substitute.For<IAppSettings>();
             _functionService = Substitute.For<IFunctionService>();
             _licenseeDataAccess = Substitute.For<ILicenseeDataAccess>();
-            _fakeLicenseeSettingService = Substitute.For<IFakeLicenseeSettingService>();
             var licenseeList = new List<Licensee>
             {
                 new Licensee
@@ -52,8 +50,7 @@
                 _appSettings, 
                 _functionService, 
                 _licenseeDataAccess, 
-                _currencyDataAccess,
-                _fakeLicenseeSettingService);
+                _currencyDataAccess);
         }
 
         [OneTimeTearDown]
@@ -444,7 +441,7 @@
                     CurrencyId = 1,
                     CurrencyName = "USD",
                     AgentId = 2,
-                    AgentIdList = new int[] { 1, 2 }
+                    AgentIdList = new[] { 1, 2 }
                 },
                 new CurrencyUser
                 {
@@ -452,7 +449,7 @@
                     CurrencyId = 20,
                     CurrencyName = "UUS",
                     AgentId = 3,
-                    AgentIdList = new int[] { 3, 4, 5 }
+                    AgentIdList = new[] { 3, 4, 5 }
                 }
             };
             _currencyDataAccess.GetCurrenciesByUser(LicenseeId, UserId).Returns(currencyUserList);
@@ -479,7 +476,7 @@
                     CurrencyId = 1,
                     CurrencyName = "USD",
                     AgentId = 2,
-                    AgentIdList = new int[] { 1, 2 }
+                    AgentIdList = new[] { 1, 2 }
                 }
             };
             _currencyDataAccess.GetCurrenciesByUser(LicenseeId, UserId).Returns(currencyUserList);
@@ -506,7 +503,7 @@
                     CurrencyId = 1,
                     CurrencyName = "USD",
                     AgentId = 2,
-                    AgentIdList = new int[] { 1, 2 }
+                    AgentIdList = new[] { 1, 2 }
                 },
                 new CurrencyUser
                 {
@@ -514,7 +511,7 @@
                     CurrencyId = 2,
                     CurrencyName = "EUR",
                     AgentId = 3,
-                    AgentIdList = new int[] { 3 }
+                    AgentIdList = new[] { 3 }
                 }
             };
             _currencyDataAccess.GetCurrenciesByUser(LicenseeId, UserId).Returns(currencyUserList);
@@ -541,7 +538,7 @@
                     CurrencyId = 1,
                     CurrencyName = "USD",
                     AgentId = 2,
-                    AgentIdList = new int[] { 1, 2 }
+                    AgentIdList = new[] { 1, 2 }
                 },
                 new CurrencyUser
                 {
@@ -549,7 +546,7 @@
                     CurrencyId = 20,
                     CurrencyName = "UUS",
                     AgentId = 3,
-                    AgentIdList = new int[] { 3 }
+                    AgentIdList = new[] { 3 }
                 }
             };
             _currencyDataAccess.GetCurrenciesByUser(LicenseeId, UserId).Returns(currencyUserList);
@@ -557,7 +554,7 @@
             var expectedResult = "<ROOT><Agent AgentId=\"1\" Currency=\"1\"/><Agent AgentId=\"2\" Currency=\"1\"/></ROOT>";
 
             // Action
-            var result = _sessionService.GenerateAgentListXml(new int[] { 1, 20 }, true);
+            var result = _sessionService.GenerateAgentListXml(new[] { 1, 20 }, true);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -576,7 +573,7 @@
                     CurrencyId = 1,
                     CurrencyName = "USD",
                     AgentId = 2,
-                    AgentIdList = new int[] { 1, 2 }
+                    AgentIdList = new[] { 1, 2 }
                 },
                 new CurrencyUser
                 {
@@ -584,7 +581,7 @@
                     CurrencyId = 66,
                     CurrencyName = "EUR",
                     AgentId = 3,
-                    AgentIdList = new int[] { 3 }
+                    AgentIdList = new[] { 3 }
                 }
             };
             _currencyDataAccess.GetCurrenciesByUser(LicenseeId, UserId).Returns(currencyUserList);
@@ -592,7 +589,7 @@
             var expectedResult = "<ROOT><Agent AgentId=\"1\" Currency=\"1\"/><Agent AgentId=\"2\" Currency=\"1\"/><Agent AgentId=\"3\" Currency=\"66\"/></ROOT>";
 
             // Action
-            var result = _sessionService.GenerateAgentListXml(new int[] { 0, 1 }, false);
+            var result = _sessionService.GenerateAgentListXml(new[] { 0, 1 }, false);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -664,7 +661,7 @@
                     IsActive = true,
                     CurrencyId = 1,
                     AgentId = 2,
-                    AgentIdList = new int[] { 1, 2 }
+                    AgentIdList = new[] { 1, 2 }
                 },
                 new CurrencyUser
                 {
@@ -695,7 +692,7 @@
             // Arrange
             const int LicenseeId = 1, UserId = 1;
 
-            _appSettings.FakeLicenseeList.Returns(new int[] { LicenseeId });
+            _appSettings.FakeLicenseeList.Returns(new[] { LicenseeId });
 
             var currencyUserList = new List<CurrencyUser>
             {
@@ -704,14 +701,14 @@
                     IsActive = true,
                     CurrencyId = 1,
                     AgentId = 2,
-                    AgentIdList = new int[] { 1, 2 }
+                    AgentIdList = new[] { 1, 2 }
                 },
                 new CurrencyUser
                 {
                     IsActive = true,
                     CurrencyId = 2,
                     AgentId = 3,
-                    AgentIdList = new int[] { 1, 2 }
+                    AgentIdList = new[] { 1, 2 }
                 }
             };
             var activeCurrencyUsers = currencyUserList.Where(x => x.IsActive);
@@ -752,7 +749,7 @@
                     CurrencyId = CurrencyType.Hkd,
                     CurrencyName = "USD",
                     AgentId = 2,
-                    AgentIdList = new int[] { 1, 2 }
+                    AgentIdList = new[] { 1, 2 }
                 }
             };
             var activeCurrencyUsers = currencyUserList.Where(x => x.IsActive);

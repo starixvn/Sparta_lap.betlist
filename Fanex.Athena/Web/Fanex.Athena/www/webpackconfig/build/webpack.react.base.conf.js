@@ -17,7 +17,6 @@ function generateConfig(environment) {
             reactpages: ["react", "react-redux", "redux", "react-dom", "redux-thunk", "redux-logger", "axios",
                 "core-js/fn/object/assign", "core-js/fn/promise", "core-js/fn/array/find", "core-js/fn/array/find-index", "moment"
             ],
-            excel: ["xlsx-style-sparta"],
 
             [`${jsPath}/lib/langHelper`]: pathConfig.scriptPaths.languageResource,
 
@@ -34,12 +33,13 @@ function generateConfig(environment) {
         },
         output: {
             path: pathConfig.projectRoot,
-            filename: "[name].chunk.js"
+            filename: "[name].chunk.js",
+            chunkFilename: jsPath + '/dynamic-import/[name].chunk.js',
         },
         module: {
             rules: [{
                 test: /\.(js|jsx)$/,
-                loader: "babel-loader",
+                loader: ["babel-loader"],
                 exclude: /node_modules/
             }]
         },

@@ -11,24 +11,46 @@ namespace Fanex.Athena.Api.BetList
     using System;
     using System.Web.Http;
     using Base.Attributes;
+    using DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.Model.BetList.MetaModel;
+    using Fanex.BetList.Core.Builder;
+    using Fanex.BetList.Core.Entities;
     using Model.Core.DataDomain;
+    using Service.BetList.Interfaces;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
+    using VendorAdapter.Interfaces;
 
     #endregion Using
 
     [ApiFunctionAuthorization(PermissionKeys.ReportMatchWinLoss)]
     public class MatchWinLossBetListController : ApiBetListBaseController
     {
+        public MatchWinLossBetListController()
+        {
+        }
+
+        [CLSCompliant(false)]
+        public MatchWinLossBetListController(
+            ISessionService sessionService,
+            IProductService productService,
+            ILanguageService languageService,
+            IBetListService betListService,
+            IBalanceUpDataAccess balanceUpDataAccess,
+            ITicketHelper ticketHelper,
+            ICacheRefAdapter cacheRefAdapter,
+            IBetListHTMLBuilder betlistHtmlBuilder)
+        : base(sessionService, productService, languageService, betListService, balanceUpDataAccess, ticketHelper, cacheRefAdapter, betlistHtmlBuilder)
+        {
+        }
+
         [HttpGet]
         public dynamic MatchBetType(
             int page,
             int rows,
             [FromUri]BetListMetaModel metaModel)
         {
-            var userSession = SessionService.UserSession;
-            var currencyList = userSession.CurrencyList;
-
-            if (metaModel.CurrencyId != 0 && !currencyList.ContainsKey(metaModel.CurrencyId))
+            if (!IsValidCurrencyId(metaModel.CurrencyId))
             {
                 return null;
             }
@@ -51,12 +73,8 @@ namespace Fanex.Athena.Api.BetList
         [HttpPost]
         public dynamic Outright(BetListMetaModel metaModel)
         {
-            var userSession = SessionService.UserSession;
-            var currencyList = userSession.CurrencyList;
-
-            if (metaModel.CurrencyId == 0 || currencyList.ContainsKey(metaModel.CurrencyId))
+            if (IsValidCurrencyId(metaModel.CurrencyId))
             {
-                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                 metaModel.IsServerPaging = true;
 
                 const string UspKey = "Lrf_BetList_MatchWL_Outright";
@@ -81,16 +99,13 @@ namespace Fanex.Athena.Api.BetList
             string sortOrder = null)
 #pragma warning restore S107 // Methods should not have too many parameters
         {
-            var userSession = SessionService.UserSession;
-            var currencyList = userSession.CurrencyList;
-
-            if (currencyId == 0 || currencyList.ContainsKey(currencyId))
+            if (IsValidCurrencyId(currencyId))
             {
                 const string UspKey = "Lrf_BetList_MatchWL_Parlay";
                 var metaModel = new BetListMetaModel
                 {
                     LicenseeId = SessionService.LicenseeSession.LicenseeId,
-                    UserId = userSession.UserId,
+                    UserId = SessionService.UserSession.UserId,
                     CurrencyId = currencyId,
                     BetType = betType,
                     BaseCurrency = baseCurrency ?? string.Empty,

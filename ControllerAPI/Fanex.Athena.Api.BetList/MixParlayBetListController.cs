@@ -9,22 +9,45 @@ namespace Fanex.Athena.Api.BetList
     using System;
     using System.Linq;
     using System.Web.Http;
-    using Model.Core.Helper;
+    using DataAccess.Core.Configuration.Interfaces;
+    using Fanex.BetList.Core.Builder;
+    using Fanex.BetList.Core.Entities;
+    using Service.BetList.Interfaces;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Users.Interfaces;
+    using VendorAdapter.Interfaces;
 
     public class MixParlayBetListController : ApiBetListBaseController
     {
+        public MixParlayBetListController()
+        {
+        }
+
+        [CLSCompliant(false)]
+        public MixParlayBetListController(
+            ISessionService sessionService,
+            IProductService productService,
+            ILanguageService languageService,
+            IBetListService betListService,
+            IBalanceUpDataAccess balanceUpDataAccess,
+            ITicketHelper ticketHelper,
+            ICacheRefAdapter cacheRefAdapter,
+            IBetListHTMLBuilder betlistHtmlBuilder)
+        : base(sessionService, productService, languageService, betListService, balanceUpDataAccess, ticketHelper, cacheRefAdapter, betlistHtmlBuilder)
+        {
+        }
+
         [HttpGet]
         public dynamic Detail(long transId)
         {
             var ticketResult = BetListService.GetMixParlayDetailTicket(SessionService.LicenseeSession.LicenseeId, transId);
-            var ticket = Ticket(ticketResult: ticketResult, showOdds: true);
-            return ticket;
+            return Ticket(ticketResult: ticketResult, showOdds: true);
         }
 
         [HttpGet]
         public dynamic NewParlayDetail(long transId, string betTeam, string betCheck, decimal handicap1, decimal handicap2)
         {
-            var texts = CacheRef.GetCombinationTypeCombo(betTeam, betCheck, handicap1, handicap2);
+            var texts = CacheRefAdapter.GetCombinationTypeCombo(betTeam, betCheck, handicap1, handicap2);
 
             var ticketResult = BetListService.GetMixParlayDetailTicket(SessionService.LicenseeSession.LicenseeId, transId);
             var tickets = ticketResult.MainTicketList.Where(x => x.Stake != 0).ToList();
@@ -33,7 +56,7 @@ namespace Fanex.Athena.Api.BetList
                                     + "<span class='system-parlay-combo-type'>{0}</span> x "
                                     + "<span class='system-parlay-unit-stake'>{1} {2}</span>"
                                     + "</p>";
-            if (tickets.Count > 0)
+            if (tickets.Any())
             {
                 if (handicap1 == 0)
                 {

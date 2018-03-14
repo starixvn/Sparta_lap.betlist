@@ -8,27 +8,32 @@ namespace Fanex.Athena.Service.Report
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Constant.DataDomain;
     using DataAccess.Report.Interfaces;
     using Fanex.Athena.DataAccess.Report;
-    using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Model.Core.Helper;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.ViewModel;
     using Fanex.Athena.Service.Report.Interfaces;
+    using VendorAdapter;
+    using VendorAdapter.Interfaces;
 
     public class SettledMatchCountService : ISettledMatchCountService
     {
         private readonly ISettledMatchCountDataAccess _settledMatchCountDataAccess;
 
+        private readonly ICacheRefAdapter _cacheRefAdapter;
+
         public SettledMatchCountService()
         {
             this._settledMatchCountDataAccess = new SettledMatchCountDataAccess();
+            _cacheRefAdapter = new CacheRefAdapter();
         }
 
-        public SettledMatchCountService(ISettledMatchCountDataAccess settledMatchCountDataAccess)
+        public SettledMatchCountService(ISettledMatchCountDataAccess settledMatchCountDataAccess, ICacheRefAdapter cacheRefAdapter)
         {
             this._settledMatchCountDataAccess = settledMatchCountDataAccess;
+            _cacheRefAdapter = cacheRefAdapter;
         }
 
         public IList<SettledMatchCountViewModel> GetDataList(bool isShowAll, int licenseeId, ProductAccess producAccess)
@@ -50,9 +55,6 @@ namespace Fanex.Athena.Service.Report
                 case (int)SportType.NumberGame:
                     return productAccess.IsAllowNG;
 
-                case (int)SportType.LiveCasino:
-                    return productAccess.IsAllowLC;
-
                 case (int)SportType.VirtualSport:
                     return productAccess.IsAllowVS;
 
@@ -66,12 +68,12 @@ namespace Fanex.Athena.Service.Report
         /// </summary>
         /// <param name="dtoData">The data list.</param>
         /// <returns>The view model.</returns>
-        private static IList<SettledMatchCountViewModel> ConvertDtoDataToViewData(IList<SettledMatchCount> dtoData)
+        private IList<SettledMatchCountViewModel> ConvertDtoDataToViewData(IList<SettledMatchCount> dtoData)
         {
             var resultList = dtoData.Where(x => x.IsToday == 0)
                                     .Select(i => new SettledMatchCountViewModel
                                     {
-                                        SportName = CacheRef.GetSportName(i.SportType),
+                                        SportName = _cacheRefAdapter.GetSportName(i.SportType),
                                         YesterdayEntered = i.Entered,
                                         YesterdayNonEntered = i.NonEntered,
                                         TodayEntered =
@@ -87,7 +89,7 @@ namespace Fanex.Athena.Service.Report
             var resultList2 = dtoData.Where(x => x.IsToday == 1)
                                      .Select(i => new SettledMatchCountViewModel
                                      {
-                                         SportName = CacheRef.GetSportName(i.SportType),
+                                         SportName = _cacheRefAdapter.GetSportName(i.SportType),
                                          TodayEntered = i.Entered,
                                          TodayNonEntered = i.NonEntered,
                                          YesterdayEntered =
@@ -111,7 +113,7 @@ namespace Fanex.Athena.Service.Report
             return resultList;
         }
 
-        private static IList<SettledMatchCountViewModel> FilterValidSports(
+        private IList<SettledMatchCountViewModel> FilterValidSports(
          IEnumerable<SettledMatchCount> settledMatchCountList, ProductAccess productAccess)
         {
             var listAfterCheckProduct = settledMatchCountList.Where(item => IsValidSportType(item.SportType, productAccess)).ToList();

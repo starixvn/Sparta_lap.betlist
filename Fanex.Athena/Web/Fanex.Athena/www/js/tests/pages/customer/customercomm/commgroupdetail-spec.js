@@ -178,34 +178,6 @@
                         expect(actualOptions).toEqual(false);
                     });
 
-                    it("set LCComm2 and LCComm3 to Zero and disable LCComm2 and LCComm3 selection when LCComm1 value is changed to 15", function () {
-                        setFixtures('<select id="LCComm1"><option value="15" selected="selected"></option></select>');
-                        appendSetFixtures('<select id="LCComm2"><option value="0"></option><option value="1" selected="selected"></option><option value="15"></option></select>');
-                        appendSetFixtures('<select id="LCComm3"><option value="0"></option><option value="1" selected="selected"></option><option value="15"></option></select>');
-
-                        CustomerCommGroupDetail.initEvent();
-                        $("#LCComm1").change();
-
-                        expect($("#LCComm2").val()).toEqual('0');
-                        expect($("#LCComm3").val()).toEqual('0');
-                        expect(actualMethod).toEqual("update");
-                        expect(actualOptions.isDisabled).toEqual(true);
-                    });
-
-                    it("enable LCComm2 and LCComm3 selection when LCComm1 value is not changed to 15", function () {
-                        setFixtures('<select id="LCComm1"><option value="1" selected="selected"></option></select>');
-                        appendSetFixtures('<select id="LCComm2"><option value="0"></option><option value="1" selected="selected"></option><option value="15"></option></select>');
-                        appendSetFixtures('<select id="LCComm3"><option value="0"></option><option value="1" selected="selected"></option><option value="15"></option></select>');
-
-                        CustomerCommGroupDetail.initEvent();
-                        $("#LCComm1").change();
-
-                        expect($("#LCComm2").val()).toEqual('1');
-                        expect($("#LCComm3").val()).toEqual('1');
-                        expect(actualMethod).toEqual("disabled");
-                        expect(actualOptions).toEqual(false);
-                    });
-
                     it("set CSComm2 and CSComm3 to Zero and disable CSComm2 and CSComm3 selection when CSComm1 value is changed to 15", function () {
                         setFixtures('<select id="CSComm1"><option value="15" selected="selected"></option></select>');
                         appendSetFixtures('<select id="CSComm2"><option value="0"></option><option value="1" selected="selected"></option><option value="15"></option></select>');
@@ -330,7 +302,6 @@
                     setFixturesForCommGroup("ParlayComm", 2, 2, 5);
                     setFixturesForCommGroup("RCComm", 3, 3, 0);
                     setFixturesForCommGroup("NGComm", 4, 4, 5);
-                    setFixturesForCommGroup("LCComm", 5, 5, 0);
                     setFixturesForCommGroup("CSComm", 6, 6, 5);
 
                     CustomerCommGroupDetail.submit("#formId");
@@ -339,7 +310,6 @@
                     expect($("#ParlayComm").val()).toEqual("0.0225");
                     expect($("#RCComm").val()).toEqual("0.0330");
                     expect($("#NGComm").val()).toEqual("0.0445");
-                    expect($("#LCComm").val()).toEqual("0.0550");
                     expect($("#CSComm").val()).toEqual("0.0665");
                 });
 

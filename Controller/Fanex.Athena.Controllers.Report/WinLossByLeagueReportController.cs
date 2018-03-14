@@ -10,6 +10,7 @@ namespace Fanex.Athena.Controllers.Report
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
+    using Constant.DataDomain;
     using DataAccess.Core.Common;
     using DataAccess.Core.Common.Interfaces;
     using Extension.Utility;
@@ -37,6 +38,7 @@ namespace Fanex.Athena.Controllers.Report
         }
 
 #pragma warning disable S107 // Methods should not have too many parameters
+
         public WinLossByLeagueReportController(
             ILanguageService languageService,
             ISessionService sessionService,

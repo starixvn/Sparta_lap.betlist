@@ -10,25 +10,23 @@
     [TestFixture]
     public class WinLossDataAccessTest
     {
-        private IObjectDb _objectDb;
         private WinLossDataAccess _dataAccess;
         private IDataReader _reader;
 
         [OneTimeSetUp]
         public void Setup()
         {
-            _objectDb = Substitute.For<IObjectDb>();
+            var objectDb = Substitute.For<IObjectDb>();
             _dataAccess = Substitute.ForPartsOf<WinLossDataAccess>();
             _reader = Substitute.For<IDataReader>();
 
-            _dataAccess.GetObjectDb(Arg.Is<string>("Lrf_rpt_DWWinloss")).Returns(_objectDb);
-            _objectDb.ExecuteReader(Arg.Any<object>()).Returns(_reader);
+            _dataAccess.GetObjectDb(Arg.Is("Lrf_rpt_DWWinloss")).Returns(objectDb);
+            objectDb.ExecuteReader(Arg.Any<object>()).Returns(_reader);
         }
 
         [OneTimeTearDown]
         public void TearDown()
         {
-            _objectDb = null;
             _dataAccess = null;
             _reader = null;
         }

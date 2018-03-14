@@ -199,7 +199,7 @@
             CreateBetListDateRangeParameters(db, metaModel);
             CreateBetListPagingParameters(db, metaModel);
             CreateBetlistSummaryParameters(db);
-            var supportedProducts = new[] { Product.SB, Product.NG, Product.BA, Product.LC, Product.VS, Product.VS2 };
+            var supportedProducts = new[] { Product.SB, Product.NG, Product.BA, Product.VS, Product.VS2 };
             CreateProductListParameters(db, metaModel.ProductCodeList, supportedProducts);
         }
 
@@ -227,7 +227,7 @@
             CreateBetlistSummaryParameters(db);
             db.AddInParameter("Date", DbType.DateTime, metaModel.Date);
 
-            var supportedProducts = new[] { Product.SB, Product.NG, Product.BA, Product.LC, Product.VS, Product.VS2 };
+            var supportedProducts = new[] { Product.SB, Product.NG, Product.BA, Product.VS, Product.VS2 };
             CreateProductListParameters(db, metaModel.ProductCodeList, supportedProducts);
         }
 
@@ -252,8 +252,7 @@
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             CreateBetListDateRangeParameters(db, metaModel);
             db.AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
-            db.AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
-            db.AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
+            AddLiveReportPagingParams(db, metaModel);
             db.AddInParameter("SportType", DbType.Int32, metaModel.SportType);
             db.AddOutParameter("SUMWL", DbType.Currency, 8);
             db.AddOutParameter("SUMLicenseeWL", DbType.Currency, 8);
@@ -273,8 +272,7 @@
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             CreateBetListDateRangeParameters(db, metaModel);
             db.AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
-            db.AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
-            db.AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
+            AddLiveReportPagingParams(db, metaModel);
             db.AddInParameter("Bettype", DbType.Int32, metaModel.BetType);
             db.AddInParameter("LiveIndicator", DbType.Int32, metaModel.LiveIndicator);
             var supportedProducts = new[] { Product.SB, Product.BA, Product.VS2 };
@@ -289,8 +287,7 @@
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             CreateBetListDateRangeParameters(db, metaModel);
             db.AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
-            db.AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
-            db.AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
+            AddLiveReportPagingParams(db, metaModel);
             db.AddInParameter("LiveIndicator", DbType.Int32, metaModel.LiveIndicator);
         }
 
@@ -300,10 +297,9 @@
 
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             db.AddInParameter("MatchID", DbType.Int32, metaModel.MatchId);
-            db.AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
-            db.AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
+            AddLiveReportPagingParams(db, metaModel);
             db.AddInParameter("LiveIndicator", DbType.Int32, metaModel.LiveIndicator);
-            var supportedProducts = new[] { Product.SB, Product.BA, Product.LC, Product.VS, Product.MGCLC, Product.MGCRNG, Product.VS2 };
+            var supportedProducts = new[] { Product.SB, Product.BA, Product.VS, Product.MGCLC, Product.MGCRNG, Product.VS2 };
             CreateProductListParameters(db, metaModel.ProductCodeList, supportedProducts);
         }
 
@@ -314,8 +310,7 @@
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             CreateBetListDateRangeParameters(db, metaModel);
             db.AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
-            db.AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
-            db.AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
+            AddLiveReportPagingParams(db, metaModel);
             var supportedProducts = new[] { Product.SB, Product.BA };
             CreateProductListParameters(db, metaModel.ProductCodeList, supportedProducts);
         }
@@ -450,6 +445,14 @@
             db.AddInParameter("RefCode", DbType.Int64, metaModel.RefCode);
         }
 
+        #region Utility
+
+        private static void AddLiveReportPagingParams(IObjectDb db, LiveReportBetListMetaModel metaModel)
+        {
+            db.AddInParameter("PageSize", DbType.Int32, metaModel.IsExportExcel ? int.MaxValue - 1 : metaModel.PageSize);
+            db.AddInParameter("PageIndex", DbType.Int32, metaModel.IsExportExcel ? 1 : metaModel.PageIndex);
+        }
+
         private static void CreateBetListSortingParameters(IObjectDb db, BetListMetaModel metaModel)
         {
             if (!string.IsNullOrWhiteSpace(metaModel.SortBy))
@@ -506,5 +509,7 @@
                 db.AddInParameter("show" + productCode, DbType.Boolean, true);
             }
         }
+
+        #endregion Utility
     }
 }

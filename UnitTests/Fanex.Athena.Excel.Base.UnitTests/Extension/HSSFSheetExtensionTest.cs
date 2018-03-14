@@ -70,7 +70,7 @@
             sheet.GetRow(DestRowIndex).Returns((IRow)null);
 
             // Action
-            var row = sheet.CopyRow(sourceSheet, 0, DestRowIndex);
+            sheet.CopyRow(sourceSheet, 0, DestRowIndex);
 
             // Assert
             sheet.Received().CreateRow(DestRowIndex);
@@ -85,7 +85,7 @@
             var destination = Substitute.For<ICell>();
 
             // Action
-            var cell = sheet.CopyCell(source, destination);
+            sheet.CopyCell(source, destination);
 
             // Assert
             destination.Received().SetCellType(source.CellType);
@@ -183,11 +183,14 @@
         public void MergeCells_WhenCall_AddMergedRegionMethodIsCalled()
         {
             // Arrange
-            int firstRow = 0, firstCol = 0, lastRow = 1, lastCol = 4;
+            const int FirstRow = 0;
+            const int FirstCol = 0;
+            const int LastRow = 1;
+            const int LastCol = 4;
             var sheet = Substitute.For<ISheet>();
 
             // Action
-            sheet.MergeCells(firstRow, firstCol, lastRow, lastCol);
+            sheet.MergeCells(FirstRow, FirstCol, LastRow, LastCol);
 
             // Assert
             sheet.ReceivedWithAnyArgs().AddMergedRegion(null);
@@ -214,7 +217,7 @@
         public void HideRow_WhenCall_SetCellValueMethodCalled()
         {
             // Arrange
-            var rowIndexs = new int[] { 0, 1, 5 };
+            var rowIndexs = new[] { 0, 1, 5 };
             var times = rowIndexs.Length;
             var sheet = Substitute.For<ISheet>();
             var cell = Substitute.For<ICell>();
@@ -234,7 +237,7 @@
         public void HideRow_WhenCall_ZeroHeightIsTrue()
         {
             // Arrange
-            var rowIndexs = new int[] { 0, 1, 5, 8 };
+            var rowIndexs = new[] { 0, 1, 5, 8 };
             var times = rowIndexs.Length;
             var sheet = Substitute.For<ISheet>();
             var row = Substitute.For<IRow>();
@@ -254,7 +257,7 @@
         public void HideColumn_WhenCall_SetCellValueMethodCalled()
         {
             // Arrange
-            var columnIndexs = new int[] { 0, 1, 5 };
+            var columnIndexs = new[] { 0, 1, 5 };
             var times = columnIndexs.Length;
             var sheet = Substitute.For<ISheet>();
             sheet.FirstRowNum.Returns(1);
@@ -277,7 +280,7 @@
         public void HideColumn_WhenCall_SetColumnHiddenMethodCalledWithCorrectParam()
         {
             // Arrange
-            var columnIndexs = new int[] { 0, 1, 5 };
+            var columnIndexs = new[] { 0, 1, 5 };
             var times = columnIndexs.Length;
             var sheet = Substitute.For<ISheet>();
             sheet.FirstRowNum.Returns(1);

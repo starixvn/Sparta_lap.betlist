@@ -43,8 +43,9 @@ namespace Fanex.Athena.Api.Report
         public PlatformWinLossReportController(
             ISessionService sessionService,
             IProductService productService,
+            ILanguageService langService,
             IPlatformWinLossDataAccess platformWinLossDataAccess)
-            : base(sessionService, productService)
+            : base(sessionService, productService, langService)
         {
             _platformWinLossDataAccess = platformWinLossDataAccess;
         }
@@ -81,7 +82,6 @@ namespace Fanex.Athena.Api.Report
                 BAVisible = productOptions.Any(p => p.Code == Product.BA && p.Status),
                 RBVisible = productOptions.Any(p => p.Code == Product.RB && p.Status),
                 NGVisible = productOptions.Any(p => p.Code == Product.NG && p.Status),
-                LCVisible = productOptions.Any(p => p.Code == Product.LC && p.Status),
                 SBVisible = productOptions.Any(p => p.Code == Product.SB && p.Status),
                 VSVisible = productOptions.Any(p => p.Code == Product.VS && p.Status),
                 CSVisible = productOptions.Any(p => p.Code == Product.CS && p.Status),
@@ -92,17 +92,12 @@ namespace Fanex.Athena.Api.Report
 
         private static void SortMemberData(SortableList<PlatformWinLossMember> dataList, string sortBy, string sortOrder = "asc")
         {
-            if (string.IsNullOrEmpty(sortBy) || string.IsNullOrEmpty(sortOrder))
+            if (!string.IsNullOrEmpty(sortBy) &&
+                !string.IsNullOrEmpty(sortOrder) &&
+                typeof(PlatformWinLossMember).GetProperty(sortBy) != null)
             {
-                return;
+                dataList.Sort(sortBy, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase), nameof(PlatformWinLossMember.Index), true);
             }
-
-            if (typeof(PlatformWinLossMember).GetProperty(sortBy) == null)
-            {
-                return;
-            }
-
-            dataList.Sort(sortBy, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase), nameof(PlatformWinLossMember.Index), true);
         }
 
         private HttpResponseMessage ExportExcelSummary(

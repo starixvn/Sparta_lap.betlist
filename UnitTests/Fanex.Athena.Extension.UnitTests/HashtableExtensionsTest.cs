@@ -10,12 +10,12 @@
         public void UpdateWith_DataIsUpdated()
         {
             // Arrange
-            var firstKeys = new int[] { 1, 2, 3 };
-            var firstValues = new string[] { "A", "B", "C" };
+            var firstKeys = new[] { 1, 2, 3 };
+            var firstValues = new[] { "A", "B", "C" };
             var firstHashable = CreateData(firstKeys, firstValues);
 
-            var secondKeys = new int[] { 1, 3, 4 };
-            var secondValues = new string[] { "A", "D", "E" };
+            var secondKeys = new[] { 1, 3, 4 };
+            var secondValues = new[] { "A", "D", "E" };
             var secondHashable = CreateData(secondKeys, secondValues);
 
             // Action
@@ -27,7 +27,7 @@
             Assert.That(firstHashable[3], Is.EqualTo("D"));
         }
 
-        private Hashtable CreateData(int[] keys, string[] values)
+        private static Hashtable CreateData(int[] keys, string[] values)
         {
             var hashtable = new Hashtable();
             for (int i = 0; i < 3; i++)

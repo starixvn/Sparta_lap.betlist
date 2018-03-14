@@ -7,8 +7,7 @@
     using NUnit.Framework;
     using UnitTest.Common.Helpers;
 
-    [TestFixture]
-    public abstract class BaseDataAccessHelperTest<T> where T : BaseDataAccess
+    public class BaseDataAccessHelperTest<T> where T : BaseDataAccess
     {
         protected IObjectDb ObjectDb { get; set; }
 
@@ -33,6 +32,7 @@
         [SetUp]
         public virtual void SetUp()
         {
+            ObjectDb.ClearReceivedCalls();
             Reader = Substitute.For<IDataReader>();
             ObjectDb.ExecuteReader().Returns(Reader);
             ObjectDb.ExecuteReader(Arg.Any<object>()).Returns(Reader);

@@ -21,15 +21,16 @@ namespace Fanex.Athena.DataAccess.TotalBet
         public ReportResultModel<HalfTimeFullTime> GetHalfTimeFullTimeDataList(HalfTimeFullTimeMetaModel metaModel)
         {
             const string SpName = "Lrf_TotalBets_Sel16";
-            var uspParams = new
-            {
-                AgentList = metaModel.AgentListXml,
-                PageSize = metaModel.PageSize,
-                PageIndex = metaModel.PageIndex,
-                TotalRows = metaModel.TotalRows
-            };
+
             using (var db = this.GetObjectDb(SpName))
             {
+                var uspParams = new
+                {
+                    AgentList = metaModel.AgentListXml,
+                    PageSize = metaModel.PageSize,
+                    PageIndex = metaModel.PageIndex,
+                    TotalRows = metaModel.TotalRows
+                };
                 using (var reader = db.ExecuteReader(uspParams))
                 {
                     var data = SetToList(reader, metaModel.IsConvert, metaModel.BaseCurrency);

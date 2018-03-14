@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Base.UnitTests;
     using DataAccess.Report.Interfaces;
     using Excel.Base.Entities;
     using Excel.Report;
@@ -20,7 +21,7 @@
     using NSubstitute;
     using NUnit.Framework;
 
-    public class ActiveCustomerSummaryReportControllerTest : BaseApiReportControllerHelperTest
+    public class ActiveCustomerSummaryReportControllerTest : BaseApiControllerHelperTest
     {
         private IActiveCustomerSummaryDataAccess _dataAccess;
         private ActiveCustomerSummaryReportController _controller;
@@ -32,7 +33,7 @@
 
             _dataAccess = Substitute.For<IActiveCustomerSummaryDataAccess>();
 
-            _controller = Substitute.ForPartsOf<ActiveCustomerSummaryReportController>(_dataAccess, SessionService, ProductService);
+            _controller = Substitute.ForPartsOf<ActiveCustomerSummaryReportController>(_dataAccess, SessionService, ProductService, LangService);
 
             _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();
 
@@ -170,11 +171,11 @@
             Assert.That(result.GrantTotalCustomer, Is.EqualTo(expectedResult.TotalCustomer));
         }
 
-        [TestCase(new string[] { Product.BA }, Product.BA, true, false)]
-        [TestCase(new string[] { Product.RB }, Product.BA, false, false)]
-        [TestCase(new string[] { Product.BA, Product.RB }, Product.SB, false, false)]
-        [TestCase(new string[] { Product.RB }, Product.RB, false, true)]
-        [TestCase(new string[] { Product.BA }, Product.RB, false, false)]
+        [TestCase(new[] { Product.BA }, Product.BA, true, false)]
+        [TestCase(new[] { Product.RB }, Product.BA, false, false)]
+        [TestCase(new[] { Product.BA, Product.RB }, Product.SB, false, false)]
+        [TestCase(new[] { Product.RB }, Product.RB, false, true)]
+        [TestCase(new[] { Product.BA }, Product.RB, false, false)]
         public void Index_ExportToExcel_ExportWithCorrectData(string[] productCodeOption, string productCode, bool visibleBa, bool visibleRb)
         {
             // Arrange
@@ -280,7 +281,7 @@
 
             var random = new Random();
             var total = random.Next(5, 10);
-            var customerCount = new string[] { "A", "B", "C", "D" };
+            var customerCount = new[] { "A", "B", "C", "D" };
 
             for (int i = 0; i < total; i++)
             {

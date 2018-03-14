@@ -41,7 +41,7 @@ namespace Fanex.Athena.Excel.Report
         private const int RowGrantTotal = 6;
         private const int RowNoInfoTemplate = 7;
 
-        private readonly IList<MicroGamingWinLoss> _winLossList;
+        private readonly IEnumerable<MicroGamingWinLoss> _dataList;
         private readonly ThirdPartyWinLossMetaModel _metaModel;
         private readonly IDictionary<string, MicroGamingWinLoss> _summaryTotal;
 
@@ -57,11 +57,11 @@ namespace Fanex.Athena.Excel.Report
                 ConvertingOption convertingOption,
                 ThirdPartyWinLossMetaModel metaModel,
                 MicroGamingWinLossViewModel viewModel)
-            : base(templatePath, viewModel.MainResult.Count)
+            : base(templatePath, viewModel.MainResult.Count())
         {
             _convertingOption = convertingOption;
             _metaModel = metaModel;
-            _winLossList = viewModel.MainResult;
+            _dataList = viewModel.MainResult;
             _summaryTotal = viewModel.SummaryTotal;
         }
 
@@ -91,14 +91,14 @@ namespace Fanex.Athena.Excel.Report
         {
             var indexReport = 1;
             int index;
-            var rowCount = _winLossList.Count;
+            var rowCount = _dataList.Count();
             var endRowSpan = 1;
             var currentRow = 2;
             var typeId = 0;
 
             for (index = 0; index < rowCount; index++)
             {
-                var winloss = _winLossList[index];
+                var winloss = _dataList.ElementAt(index);
 
                 if (typeId != winloss.TypeID)
                 {
@@ -219,7 +219,7 @@ namespace Fanex.Athena.Excel.Report
         protected internal virtual int AssignTotalData(ISheet sheet, int rowIndex)
         {
             var beginTotalRow = rowIndex;
-            var totalCurrencyList = GetTotalCurrency(_winLossList);
+            var totalCurrencyList = GetTotalCurrency(_dataList);
 
             foreach (MicroGamingWinLoss totalCurrency in totalCurrencyList)
             {
@@ -247,7 +247,7 @@ namespace Fanex.Athena.Excel.Report
 
         private int CalculateReportRowSpan(MicroGamingWinLoss winloss)
         {
-            return _winLossList.Count(x => x.TypeID == winloss.TypeID && x.Date.Date == winloss.Date.Date);
+            return _dataList.Count(x => x.TypeID == winloss.TypeID && x.Date.Date == winloss.Date.Date);
         }
     }
 }

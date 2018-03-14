@@ -34,14 +34,6 @@
             @GroupCommRazorHelper.CommDropdowns("CustNGComm")
         </td>
     </tr>
-    <tr class="@(!Model.IsAllowLC ? "hide" : "")">
-        <td>
-            @ViewResources.LCComm (%)
-        </td>
-        <td>
-            @GroupCommRazorHelper.CommDropdowns("CustLCComm")
-        </td>
-    </tr>
     <tr class="@(!Model.IsAllowCS ? "hide" : "")">
         <td>
             @ViewResources.CSComm (%)

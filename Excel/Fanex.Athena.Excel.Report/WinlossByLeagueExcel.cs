@@ -17,9 +17,6 @@ namespace Fanex.Athena.Excel.Report
     using NPOI.SS.UserModel;
     using Resources;
 
-    /// <summary>
-    /// Win loss by product - Export excel.
-    /// </summary>
     public class WinlossByLeagueExcel : ReportBase
     {
         private const int ColumnBetCount = 4;
@@ -35,8 +32,8 @@ namespace Fanex.Athena.Excel.Report
         private const int RowContentTitleTemplate = 3;
         private const int RowNoInfoTemplate = 9;
         private const int RowTotalSolidBorder = 8;
-        private const int NumOfRowLevel0 = 10;
-        private const int NumOfRowLevel1 = 8;
+        private const int NumOfColumnLevel0 = 10;
+        private const int NumOfColumnLevel1 = 8;
 
         private readonly WinLossByLeagueMetaModel _metaModel;
         private readonly IEnumerable<WinLossByLeague> _dataList;
@@ -85,15 +82,9 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignNoInfoRow(ISheet sheet)
         {
-            sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTitleTemplate, Level == 0 ? NumOfRowLevel0 : NumOfRowLevel1, ViewResources.NoInfo);
+            sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemplate, RowContentTitleTemplate, Level == 0 ? NumOfColumnLevel0 : NumOfColumnLevel1, ViewResources.NoInfo);
         }
 
-        /// <summary>
-        /// Assign data to excel sheet.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        /// <param name="pageIndex">Start index.</param>
-        /// <returns>Row index.</returns>
         protected override void AssignSheetData(ISheet sheet, int pageIndex)
         {
             if (Level == 1)
@@ -109,26 +100,25 @@ namespace Fanex.Athena.Excel.Report
 
             for (int index = pageIndex * PageSize; index < rowCount; index++)
             {
-                var winlossByLeague = _dataList.ElementAt(index);
+                var dataItem = _dataList.ElementAt(index);
 
                 var rowContent = sheet.CopyRow(TemplateSheet, RowContentTemplate, currentRow);
 
-                rowContent.Cells[ColumnIndex].SetCellValue(winlossByLeague.Index);
+                rowContent.Cells[ColumnIndex].SetCellValue(dataItem.Index);
                 if (Level == 0)
                 {
-                    rowContent.Cells[ColumnMatch].SetCellValue(winlossByLeague.HomeName + Environment.NewLine + winlossByLeague.AwayName);
-                    rowContent.Cells[ColumnAmtDueTo].SetCellValue(winlossByLeague.AmountDue);
-                    rowContent.Cells[ColumnBaComm].SetCellValue(winlossByLeague.BACommission);
+                    rowContent.Cells[ColumnMatch].SetCellValue(dataItem.HomeName + Environment.NewLine + dataItem.AwayName);
+                    rowContent.Cells[ColumnAmtDueTo].SetCellValue(dataItem.AmountDue);
 
                     rowContent.Height = (short)(rowContent.Height * 2);
                 }
                 else
                 {
-                    rowContent.Cells[ColumnExternalId].SetCellValue(winlossByLeague.ExternalId);
-                    rowContent.Cells[ColumnSystemId].SetCellValue(winlossByLeague.SystemId);
+                    rowContent.Cells[ColumnExternalId].SetCellValue(dataItem.ExternalId);
+                    rowContent.Cells[ColumnSystemId].SetCellValue(dataItem.SystemId);
                 }
 
-                AssignCommonData(rowContent, winlossByLeague);
+                AssignCommonData(rowContent, dataItem);
 
                 currentRow++;
             }
@@ -138,7 +128,7 @@ namespace Fanex.Athena.Excel.Report
 
         protected override void AssignTitle(ISheet sheet)
         {
-            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, Level == 0 ? NumOfRowLevel0 : NumOfRowLevel1, _metaModel.ReportTitle);
+            sheet.SetTextRowValue(TemplateSheet, RowTitleTemplate, RowTitleTemplate, Level == 0 ? NumOfColumnLevel0 : NumOfColumnLevel1, _metaModel.ReportTitle);
 
             // Freeze 2 rows title and header
             sheet.CreateFreezePane(0, 4);
@@ -163,22 +153,16 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        private static void AssignCommonData(IRow row, WinLossByLeague winlossByLeague)
+        private static void AssignCommonData(IRow row, WinLossByLeague dataItem)
         {
-            row.Cells[ColumnTurnover].SetCellValue(winlossByLeague.TurnOver);
-            row.Cells[ColumnBetCount].SetCellValue(winlossByLeague.BetCount);
-            row.Cells[ColumnCustomerWinLoss].SetCellValue(winlossByLeague.CustomerWinLoss);
-            row.Cells[ColumnLicenseeWl].SetCellValue(winlossByLeague.LicenseeWL);
-            row.Cells[ColumnBaComm].SetCellValue(winlossByLeague.BACommission);
+            row.Cells[ColumnTurnover].SetCellValue(dataItem.TurnOver);
+            row.Cells[ColumnBetCount].SetCellValue(dataItem.BetCount);
+            row.Cells[ColumnCustomerWinLoss].SetCellValue(dataItem.CustomerWinLoss);
+            row.Cells[ColumnLicenseeWl].SetCellValue(dataItem.LicenseeWL);
+            row.Cells[ColumnBaComm].SetCellValue(dataItem.BACommission);
         }
 
-        /// <summary>
-        /// Assign data to Total section.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
-        /// <param name="currentRow">Excel row index.</param>
-        /// <returns>The row index after assign data.</returns>
-        protected int AssignTotalData(ISheet sheet, int currentRow)
+        protected internal virtual int AssignTotalData(ISheet sheet, int currentRow)
         {
             var rowTemplate = RowTotalSolidBorder;
             sheet.MergeCells(currentRow, 0, currentRow, Level == 0 ? 1 : 3);
@@ -186,7 +170,6 @@ namespace Fanex.Athena.Excel.Report
             var row = sheet.CopyRow(TemplateSheet, rowTemplate, currentRow);
             AssignCommonData(row, _totalData);
             row.Cells[ColumnAmtDueTo].SetCellValue(_totalData.AmountDue);
-            row.Cells[ColumnBaComm].SetCellValue(_totalData.BACommission);
             return currentRow;
         }
     }

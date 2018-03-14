@@ -2,13 +2,14 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Constant.DataDomain;
     using DataAccess.Report.Interfaces;
-    using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
     using Model.Report.DTO.LiveReports;
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using VendorAdapter.Interfaces;
 
     public class LiveReportServiceTest
     {
@@ -19,7 +20,7 @@
         public void SetUp()
         {
             _dataAccess = Substitute.For<ILiveReportDataAccess>();
-            _service = new LiveReportService(_dataAccess);
+            _service = new LiveReportService(_dataAccess, Substitute.For<ICacheRefAdapter>());
         }
 
         [TearDown]

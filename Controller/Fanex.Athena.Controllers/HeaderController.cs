@@ -6,13 +6,15 @@
 
 namespace Fanex.Athena.Controllers
 {
-    using System.Linq;
     using System.Web.Mvc;
     using DataAccess.Core.Users;
     using DataAccess.Core.Users.Interfaces;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.ViewModel;
     using Model.Core.DataDomain;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
+    using Service.Core.Users.Interfaces;
     using Web.ActionFilter;
 
     [AuthorizeRestriction(AppMode.Self)]
@@ -23,6 +25,17 @@ namespace Fanex.Athena.Controllers
         public HeaderController()
         {
             _licenseeDataAccess = new LicenseeDataAccess();
+        }
+
+        public HeaderController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
+            ILicenseeDataAccess licenseeDataAccess)
+        : base(languageService, sessionService, appSetting, clientViewHelper)
+        {
+            _licenseeDataAccess = licenseeDataAccess;
         }
 
         /// <summary>

@@ -107,7 +107,7 @@
                 LicenseeId = 1,
                 UserId = 2,
                 CustId = 3,
-                Ip = "::1",
+                Ip = "IP",
                 Language = "LanguageTest"
             };
             var setting = new Dictionary<string, object> { { paramterName, parameterValue } };
@@ -139,7 +139,7 @@
                 LicenseeId = 1,
                 UserId = 2,
                 CustId = 3,
-                Ip = "::1",
+                Ip = "IP",
                 Language = "LanguageTest"
             };
             var setting = new Dictionary<string, object> { { "UpdateMinMaxBet", true } };
@@ -172,7 +172,7 @@
                 LicenseeId = 1,
                 UserId = 2,
                 CustId = 3,
-                Ip = "::1",
+                Ip = "IP",
                 Language = "LanguageTest"
             };
             const bool IsDisabled = true;
@@ -203,7 +203,7 @@
                 LicenseeId = 1,
                 UserId = 2,
                 CustId = 3,
-                Ip = "::1",
+                Ip = "IP",
                 Language = "LanguageTest"
             };
             var isDisabled = true;

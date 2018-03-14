@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using Base.UnitTests;
     using Excel.Report;
     using Excel.Report.Models;
     using Fanex.Athena.DataAccess.Report.Interfaces;
@@ -12,7 +13,7 @@
     using NSubstitute;
     using NUnit.Framework;
 
-    public class CustomerPendingFundsReportControllerTest : BaseApiReportControllerHelperTest
+    public class CustomerPendingFundsReportControllerTest : BaseApiControllerHelperTest
     {
         private ICustPendingFundsDataAccess _dataAccess;
         private CustomerPendingFundsReportController _controller;
@@ -24,7 +25,7 @@
 
             _dataAccess = Substitute.For<ICustPendingFundsDataAccess>();
 
-            _controller = Substitute.ForPartsOf<CustomerPendingFundsReportController>(AppSetting, _dataAccess, SessionService, ProductService);
+            _controller = Substitute.ForPartsOf<CustomerPendingFundsReportController>(AppSetting, _dataAccess, SessionService, ProductService, LangService);
 
             _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();
 

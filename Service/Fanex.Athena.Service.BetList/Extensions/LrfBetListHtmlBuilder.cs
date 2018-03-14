@@ -10,33 +10,20 @@ namespace Fanex.Athena.Service.BetList.Extensions
 
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
+    using Constant.DataDomain;
+    using Constant.Helper;
     using Fanex.Athena.Model.BetList.DTO;
     using Fanex.Athena.Model.BetList.MetaModel;
-    using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.BetList.Core.App_GlobalResources;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
     using Helpers;
-    using Model.Core.Helper;
     using Resources;
 
     #endregion Using
 
-    /// <summary>
-    /// Override the Bet List Html Builder.
-    /// </summary>
     public static class LrfBetListHtmlBuilder
     {
-        /// <summary>
-        /// Get ticket status.
-        /// </summary>
-        /// <param name="builder">Bet list builder.</param>
-        /// <param name="ticket">LRF ticket object.</param>
-        /// <param name="ticketHelper">Ticket helper.</param>
-        /// <param name="ticketData">List of ticket data.</param>
-        /// <param name="metaModel">Meta model.</param>
-        /// <returns>Ticket status text.</returns>
         [System.CLSCompliant(false)]
         public static string BuildLrfStatus(
             this IBetListHTMLBuilder builder,
@@ -77,12 +64,10 @@ namespace Fanex.Athena.Service.BetList.Extensions
 
         // when updating this, remember to update Fanex.Athena.Excel.BetList.LrfBetListExcelBuilder as well
         [System.CLSCompliant(false)]
-        [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters",
-            Justification = "Reviewed. Suppression is OK here.")]
-        public static string BuildLicenseeWL(this BetListHTMLBuilder builder, LrfTicket ticket)
+        public static string BuildLicenseeWL(this IBetListHTMLBuilder builder, LrfTicket ticket)
         {
             var isRunning = IsRunning(ticket.Status);
-            
+
             if (BetTypeHelper.IsRacing(ticket.BetTypeId) ||
                 BetListHelper.IsBoughtTicket(ticket.BetTypeId) ||
                 BetListHelper.IsColossusBet(ticket.BetTypeId))
@@ -104,17 +89,8 @@ namespace Fanex.Athena.Service.BetList.Extensions
                         FormatLicenseeWl(ticket.LicenseeWL + ticket.Comm));
         }
 
-        /// <summary>
-        /// Build customer win lost html.
-        /// </summary>
-        /// <param name="builder">Bet list builder.</param>
-        /// <param name="ticket">LRF Ticket object.</param>
-        /// <param name="showPlayerComm">Show player commission or not.</param>
-        /// <returns>Customer win loss text.</returns>
         [System.CLSCompliant(false)]
-        [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters",
-            Justification = "Reviewed. Suppression is OK here.")]
-        public static string BuildCustomerWL(this BetListHTMLBuilder builder, Ticket ticket, bool showPlayerComm)
+        public static string BuildCustomerWL(this IBetListHTMLBuilder builder, Ticket ticket, bool showPlayerComm)
         {
             bool isRunning = IsRunning(ticket.Status);
             var winloss = isRunning
@@ -134,9 +110,7 @@ namespace Fanex.Athena.Service.BetList.Extensions
         }
 
         [System.CLSCompliant(false)]
-        [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters",
-            Justification = "Reviewed. Suppression is OK here.")]
-        public static string BuildBetEffective(this BetListHTMLBuilder builder, LrfTicket ticket)
+        public static string BuildBetEffective(this IBetListHTMLBuilder builder, LrfTicket ticket)
         {
             return string.Format("<div class='underdog'>{0:#,##0.00}</div>", ticket.BetEffective);
         }

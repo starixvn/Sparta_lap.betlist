@@ -1,11 +1,9 @@
-﻿using System.Linq;
-
-namespace Fanex.Athena.Service.BetList.Helpers
+﻿namespace Fanex.Athena.Service.BetList.Helpers
 {
     using System;
+    using Constant.DataDomain;
     using Fanex.Athena.Model.BetList.DTO;
     using Fanex.BetList.Core.Entities;
-    using Model.Core.DataDomain;
 
     public static class BetListHelper
     {

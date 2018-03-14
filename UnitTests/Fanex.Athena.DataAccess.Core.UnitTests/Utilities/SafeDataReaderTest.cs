@@ -11,7 +11,7 @@
     public class SafeDataReaderTest
     {
         private IDataReader _dataReader;
-        private IEnumerable<string> _columns = new string[] { "Column1", "Column2" };
+        private IEnumerable<string> _columns = new[] { "Column1", "Column2" };
 
         [OneTimeSetUp]
         public void Setup()

@@ -23,9 +23,13 @@ namespace Fanex.Athena.Service.Core.Configuration
 
         private readonly IMemoryCacheService _cache;
 
-        public FakeLicenseeSettingService()
+        public FakeLicenseeSettingService() : this(null)
         {
-            _cache = new MemoryCacheService();
+        }
+
+        public FakeLicenseeSettingService(IMemoryCacheService cache)
+        {
+            _cache = cache ?? new MemoryCacheService();
         }
 
         public FakeLicenseeSetting GetSetting(string licenseeName)

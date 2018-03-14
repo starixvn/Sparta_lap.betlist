@@ -3,56 +3,61 @@ import LangHelper from "../../lib/langHelper";
 import locale from "./utils/locale";
 import { MomentFormat } from './constants';
 
+const addRange = (rangeObj, name, start, end) => {
+    rangeObj[LangHelper.getSingleResource(name)] = {
+        startDate: start,
+        endDate: end
+    };
+};
+
+const addOneDay = (rangeObj, name, day, min, max) => {
+    if (day >= min && day <= max) {
+        addRange(rangeObj, name, day, day);
+    }
+};
+
+const addDistanceDays = (rangeObj, name, start, end, min, max) => {
+    if (!(max < start || end < min)) {
+        addRange(rangeObj, name, start < min ? min : start, end > max ? max: end);
+    }
+};
+
 export default {
-    ranges: (today, max) => {
-        if (today && !moment.isMoment(today)) {
-            today = moment(today, MomentFormat.default)
-        }
-
-        if (!today) {
-            today = moment();
-        }
-
-        if (max && !moment.isMoment(max)) {
-            max = moment(max, MomentFormat.default)
-        }
-
-        if (!max) {
-            max = moment();
-        }
+    ranges: (today, min, max) => {
+        today = !today ? moment() : (!moment.isMoment(today) ? moment(today, MomentFormat.default) : today);
+        max = !max ? today : (!moment.isMoment(max) ? moment(max, MomentFormat.default) : max);
+        min = !min ? today : (!moment.isMoment(min) ? moment(min, MomentFormat.default) : min);
 
         const range = {};
-        if (today <= max) {
-            range[LangHelper.getSingleResource("Today")] = { startDate: today, endDate: today };
+
+        if (today < min) {
+            return range;
         }
 
-        range[LangHelper.getSingleResource("Yesterday")] = {
-            startDate: today.clone().add(-1, 'days'),
-            endDate: today.clone().add(-1, 'days')
-        };
+        addOneDay(range, "Today", today, min, max);
 
-        today = today > max ? max : today;
+        const yesterday = today.clone().add(-1, 'days');
+        addOneDay(range, "Yesterday", yesterday, min, max);
 
-        range[LangHelper.getSingleResource("Currentweek")] = {
-            startDate: today.clone().startOf('week'),
-            endDate: today
-        };
-        range[LangHelper.getSingleResource("Lastweek")] = {
-            startDate: today.clone().subtract(1, 'week').startOf('week'),
-            endDate: today.clone().subtract(1, 'week').startOf('week').add(6, 'days')
-        };
-        range[LangHelper.getSingleResource("Currentmonth")] = {
-            startDate: today.clone().startOf('month'),
-            endDate: today
-        };
-        range[LangHelper.getSingleResource("Lastmonth")] = {
-            startDate: today.clone().subtract(1, 'month').startOf('month'),
-            endDate: today.clone().subtract(1, 'month').endOf('month')
-        };
-        range[LangHelper.getSingleResource("Sincelastmonth")] = {
-            startDate: today.clone().subtract(1, 'month').startOf('month'),
-            endDate: today
-        };    
+        const startCurrentWeek = today.clone().startOf('week');
+        const endCurrentWeek = today;
+        addDistanceDays(range, "Currentweek", startCurrentWeek, endCurrentWeek, min, max);
+
+        const startLastWeek = today.clone().subtract(1, 'week').startOf('week');
+        const endLastWeek = startLastWeek.clone().add(6, 'days');
+        addDistanceDays(range, "Lastweek", startLastWeek, endLastWeek, min, max);
+
+        const startCurrentmonth = today.clone().startOf('month');
+        const endCurrentmonth = today;
+        addDistanceDays(range, "Currentmonth", startCurrentmonth, endCurrentmonth, min, max);
+
+        const startLastmonth = today.clone().subtract(1, 'month').startOf('month');
+        const endLastmonth = startLastmonth.clone().endOf('month');
+        addDistanceDays(range, "Lastmonth", startLastmonth, endLastmonth, min, max);
+
+        const startSincelastmonth = today.clone().subtract(1, 'month').startOf('month');
+        const endSincelastmonth = today;
+        addDistanceDays(range, "Sincelastmonth", startSincelastmonth, endSincelastmonth, min, max); 
 
         return range;
     },

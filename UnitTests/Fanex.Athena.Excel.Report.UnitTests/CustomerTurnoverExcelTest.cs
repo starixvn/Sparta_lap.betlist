@@ -57,9 +57,9 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             {
                 AssertSetTextRowHeader(row1, headerTextList);
 
-                row2.Cells[ColumnCustomerWl].Received(1).Received(1).SetCellValue(ViewResources.WinLoss);
-                row2.Cells[ColumnCustomerComm].Received(1).Received(1).SetCellValue(ViewResources.Comm);
-                row2.Cells[ColumnCustomerTotal].Received(1).Received(1).SetCellValue(ViewResources.Total);
+                row2.Cells[ColumnCustomerWl].Received(1).SetCellValue(ViewResources.WinLoss);
+                row2.Cells[ColumnCustomerComm].Received(1).SetCellValue(ViewResources.Comm);
+                row2.Cells[ColumnCustomerTotal].Received(1).SetCellValue(ViewResources.Total);
             });
         }
 
@@ -91,20 +91,20 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             // Assert
             Assert.Multiple(() =>
             {
-                row.Cells[0].Received(1).Received(1).SetCellValue(DataItem.Index);
-                row.Cells[ColumnDate].Received(1).Received(1).SetCellValue(DataItem.ReportBy.ToString(DateTimeFormat));
-                row.Cells[ColumnUserName].Received(1).Received(1).SetCellValue(DataItem.UserName);
-                row.Cells[ColumnCurrency].Received(1).Received(1).SetCellValue(DataItem.Currency);
-                row.Cells[ColumnTotalTurnover].Received(1).Received(1).SetCellValue(DataItem.TotalTurnover);
-                row.Cells[ColumnSport].Received(1).Received(1).SetCellValue(DataItem.SportType);
+                row.Cells[0].Received(1).SetCellValue(DataItem.Index);
+                row.Cells[ColumnDate].Received(1).SetCellValue(DataItem.ReportBy.ToString(DateTimeFormat));
+                row.Cells[ColumnUserName].Received(1).SetCellValue(DataItem.UserName);
+                row.Cells[ColumnCurrency].Received(1).SetCellValue(DataItem.Currency);
+                row.Cells[ColumnTotalTurnover].Received(1).SetCellValue(DataItem.TotalTurnover);
+                row.Cells[ColumnSport].Received(1).SetCellValue(DataItem.SportType);
 
-                row.Cells[ColumnBetType].Received(1).Received(1).SetCellValue(DataItem.Bettype);
-                row.Cells[ColumnEffectiveBettingValue].Received(1).Received(1).SetCellValue(DataItem.EffectiveBettingValue);
-                row.Cells[ColumnTotalTransaction].Received(1).Received(1).SetCellValue(DataItem.TotalTransactions);
-                row.Cells[ColumnTurnover].Received(1).Received(1).SetCellValue(DataItem.Turnover);
-                row.Cells[ColumnCustomerWl].Received(1).Received(1).SetCellValue(DataItem.CustomerWinLoss);
-                row.Cells[ColumnCustomerComm].Received(1).Received(1).SetCellValue(DataItem.CustomerComm);
-                row.Cells[ColumnCustomerTotal].Received(1).Received(1).SetCellValue(DataItem.CustomerWinLoss + DataItem.CustomerComm);
+                row.Cells[ColumnBetType].Received(1).SetCellValue(DataItem.Bettype);
+                row.Cells[ColumnEffectiveBettingValue].Received(1).SetCellValue(DataItem.EffectiveBettingValue);
+                row.Cells[ColumnTotalTransaction].Received(1).SetCellValue(DataItem.TotalTransactions);
+                row.Cells[ColumnTurnover].Received(1).SetCellValue(DataItem.Turnover);
+                row.Cells[ColumnCustomerWl].Received(1).SetCellValue(DataItem.CustomerWinLoss);
+                row.Cells[ColumnCustomerComm].Received(1).SetCellValue(DataItem.CustomerComm);
+                row.Cells[ColumnCustomerTotal].Received(1).SetCellValue(DataItem.CustomerWinLoss + DataItem.CustomerComm);
 
                 excel.Received(1).AssignTotalRow(Arg.Any<ISheet>(), Arg.Any<int>());
             });

@@ -52,9 +52,10 @@ namespace Fanex.Athena.Api.Report
             ISessionService sessionService,
             IProductService productService,
             IReportSettingService reportSettingService,
+            ILanguageService langService,
             IAppSettings appSettings,
             ILicenseeWinLossDataAccess licenseeWinLossDataAccess)
-            : base(sessionService, productService)
+            : base(sessionService, productService, langService)
         {
             _reportSettingService = reportSettingService;
             _appSettings = appSettings;
@@ -173,9 +174,7 @@ namespace Fanex.Athena.Api.Report
             licenseeWinLoss.LicenseeWLSB = licenseeWLProducts.GetValueOrDefault(Product.SB, 0);
             licenseeWinLoss.LicenseeWLRB = licenseeWLProducts.GetValueOrDefault(Product.RB, 0);
             licenseeWinLoss.LicenseeWLNG = licenseeWLProducts.GetValueOrDefault(Product.NG, 0);
-            licenseeWinLoss.LicenseeWLLC = licenseeWLProducts.GetValueOrDefault(Product.LC, 0);
             licenseeWinLoss.LicenseeWLVS = licenseeWLProducts.GetValueOrDefault(Product.VS, 0);
-            licenseeWinLoss.LicenseeWLBG = licenseeWLProducts.GetValueOrDefault(Product.BG, 0);
             licenseeWinLoss.LicenseeWLCS = licenseeWLProducts.GetValueOrDefault(Product.CS, 0);
             licenseeWinLoss.LicenseeWLKN = licenseeWLProducts.GetValueOrDefault(Product.KN, 0);
             licenseeWinLoss.LicenseeWLBT = licenseeWLProducts.GetValueOrDefault(Product.BT, 0);
@@ -195,10 +194,8 @@ namespace Fanex.Athena.Api.Report
             licenseeWinLoss.TurnOverSB = turnOverProducts.GetValueOrDefault(Product.SB, 0);
             licenseeWinLoss.TurnOverRB = turnOverProducts.GetValueOrDefault(Product.RB, 0);
             licenseeWinLoss.TurnOverNG = turnOverProducts.GetValueOrDefault(Product.NG, 0);
-            licenseeWinLoss.TurnOverLC = turnOverProducts.GetValueOrDefault(Product.LC, 0);
             licenseeWinLoss.TurnOverVS = turnOverProducts.GetValueOrDefault(Product.VS, 0);
             licenseeWinLoss.TurnOverCS = turnOverProducts.GetValueOrDefault(Product.CS, 0);
-            licenseeWinLoss.TurnOverBG = turnOverProducts.GetValueOrDefault(Product.BG, 0);
             licenseeWinLoss.TurnOverKN = turnOverProducts.GetValueOrDefault(Product.KN, 0);
             licenseeWinLoss.TurnOverBT = turnOverProducts.GetValueOrDefault(Product.BT, 0);
             licenseeWinLoss.TurnOverAGC = turnOverProducts.GetValueOrDefault(Product.AGC, 0);

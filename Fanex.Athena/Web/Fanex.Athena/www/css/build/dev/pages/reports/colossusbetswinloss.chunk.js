@@ -1,19 +1,19 @@
-webpackJsonp([89],{
+webpackJsonp([88],{
 
-/***/ 537:
+/***/ 414:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(538);
+module.exports = __webpack_require__(415);
 
 
 /***/ }),
 
-/***/ 538:
+/***/ 415:
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ })
 
-},[537]);
+},[414]);
 //# sourceMappingURL=colossusbetswinloss.chunk.js.map

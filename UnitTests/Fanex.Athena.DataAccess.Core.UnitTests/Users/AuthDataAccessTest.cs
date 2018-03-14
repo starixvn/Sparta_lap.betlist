@@ -18,7 +18,7 @@
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_CheckIn")).Returns(ObjectDb);
 
-            var requestUser = new User { UserID = 1, Request = new Request { Ip = "::1" } };
+            var requestUser = new User { UserID = 1, Request = new Request { Ip = "IP" } };
             const string NetSessionId = "1a2b3c";
             const int ServerId = 2;
 
@@ -42,7 +42,7 @@
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_CheckIn")).Returns(ObjectDb);
 
-            var requestUser = new User { UserID = 1, Request = new Request { Ip = "::1" } };
+            var requestUser = new User { UserID = 1, Request = new Request { Ip = "IP" } };
             const string NetSessionId = "1a2b3c";
             const int ServerId = 2;
 
@@ -239,7 +239,7 @@
                 Username = "UserNameTest",
                 Request = new Request
                 {
-                    Ip = "::1",
+                    Ip = "IP",
                     Language = "en-US",
                     Domain = "abc.xyz",
                     Browser = "Chrome",

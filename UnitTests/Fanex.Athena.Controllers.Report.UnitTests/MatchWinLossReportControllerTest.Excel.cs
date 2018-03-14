@@ -2,6 +2,7 @@
 {
     using System.Data;
     using Base.UnitTests;
+    using Constant.DataDomain;
     using Excel.Base.Entities;
     using Model.Core.DataDomain;
     using Model.Report.MetaModel;
@@ -12,7 +13,7 @@
     [TestFixture]
     public partial class MatchWinLossReportControllerTest : BaseControllerHelperTest
     {
-        [TestCase("BA,RB,NG,LC,SB,VS,KN", true)]
+        [TestCase("BA,RB,NG,SB,VS,KN", true)]
         [TestCase("hihi", false)]
         public void Excel_WhenCall_PassParamsToCreateExcelCorrectly(string productCodeList, bool expectedProductVisible)
         {
@@ -45,7 +46,6 @@
                         Arg.Is<ShowingOption>(x => x.BAVisible == expectedProductVisible &&
                                             x.RBVisible == expectedProductVisible &&
                                             x.NGVisible == expectedProductVisible &&
-                                            x.LCVisible == expectedProductVisible &&
                                             x.SBVisible == expectedProductVisible &&
                                             x.VSVisible == expectedProductVisible &&
                                             x.KNVisible == expectedProductVisible),
@@ -62,7 +62,7 @@
 
         [TestCase(BetType.Ng1StBallOe, "Number Game No abc", "Number Game")]
         public void Excel_WhenCall_AddColumnsForSortingCorrectly(
-            int bettype, 
+            int bettype,
             string expectedMatchName,
             string expectedLeagueName)
         {

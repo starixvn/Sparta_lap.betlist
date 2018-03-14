@@ -84,7 +84,7 @@
             {
                 ObjectDb.Received().AddInParameter("reporttype", DbType.Byte, _metaModel.ReportBy);
                 ObjectDb.Received().AddInParameter("username", DbType.String, _metaModel.Username);
-                AssertCommonSpParameters();
+                AssertCommonSpParameters(isDrilldown: false);
             });
         }
 
@@ -144,7 +144,7 @@
             Assert.Multiple(() =>
             {
                 ObjectDb.Received().AddInParameter("CustID", DbType.Int32, _metaModel.MemberId);
-                AssertCommonSpParameters();
+                AssertCommonSpParameters(isDrilldown: true);
             });
         }
 
@@ -170,7 +170,7 @@
             {
                 ObjectDb.Received().AddInParameter("custid", DbType.Int32, _metaModel.CustomerId);
                 ObjectDb.Received().AddInParameter("MemberID", DbType.Int32, _metaModel.MemberId);
-                AssertCommonSpParameters();
+                AssertCommonSpParameters(isDrilldown: true);
             });
         }
 
@@ -269,11 +269,11 @@
             Assert.That(result.DataList.ElementAt(0).CustomerId, Is.EqualTo(readerDataMapping.custid));
         }
 
-        private void AssertCommonSpParameters()
+        private void AssertCommonSpParameters(bool isDrilldown)
         {
             ObjectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-            ObjectDb.Received().AddInParameter("fromdate", DbType.Date, _metaModel.DrillDownFromDate.Date);
-            ObjectDb.Received().AddInParameter("todate", DbType.Date, _metaModel.DrillDownToDate.Date);
+            ObjectDb.Received().AddInParameter("fromdate", DbType.Date, isDrilldown ? _metaModel.DrillDownFromDate.Date : _metaModel.FromDate.Date);
+            ObjectDb.Received().AddInParameter("todate", DbType.Date, isDrilldown ? _metaModel.DrillDownToDate.Date : _metaModel.ToDate.Date);
             ObjectDb.Received().AddInParameter("isold", DbType.Boolean, _metaModel.IsOld);
             ObjectDb.Received().AddInParameter("drawfilter", DbType.Int32, _metaModel.DrawFilter);
             ObjectDb.Received().AddInParameter("movebetsday", DbType.DateTime, _balanceUp.MoveBetsDay);

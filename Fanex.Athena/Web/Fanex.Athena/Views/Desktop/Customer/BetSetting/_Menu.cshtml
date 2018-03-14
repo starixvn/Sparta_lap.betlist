@@ -1,5 +1,5 @@
 ﻿@model Fanex.Athena.Model.BetSettings.ViewModel.BetSettingBaseViewModel
-@using Fanex.Athena.Model.Core.DataDomain
+@using Fanex.Athena.Constant.DataDomain;
 
 @{
     var productControllerNames = new Dictionary<int, string>() {
@@ -13,7 +13,6 @@
         { ProductTypes.MicroGamingLiveCasino, "ThirdParty" },
         { ProductTypes.MicrogamingRNGCasino, "ThirdParty" },
         { ProductTypes.Racing, "Racing" },
-        { ProductTypes.LiveCasino, "LiveCasino" },
         { ProductTypes.RngCasino, "RngCasino" },
         { ProductTypes.Keno, "Keno" },
         { ProductTypes.VirtualSports, "Dcs" },
