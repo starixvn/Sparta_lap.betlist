@@ -4,5 +4,11 @@
     "DisableBetList": true,
     "MinDate": "02/01/2018",
     "MaxDate": "yesterday"
+  },
+  {
+    "SiteName": "Opal88",
+    "DisableBetList": true,
+    "MinDate": "09/01/2017",
+    "MaxDate": "yesterday"
   }
 ]
