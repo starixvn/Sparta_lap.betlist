@@ -31,8 +31,6 @@
             _reader = null;
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         [TestCase("")]
         [TestCase("UUS")]
         [TestCase(null)]
@@ -49,6 +47,7 @@
 
             // Action
             var result = _dataAccess.ReadBetListTicket(_reader, currency)[0];
+
             // Assert
             Assert.That(result, Tobe.SameProperties(expected));
         }
