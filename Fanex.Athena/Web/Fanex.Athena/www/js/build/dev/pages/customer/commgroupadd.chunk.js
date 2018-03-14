@@ -1,9 +1,67 @@
-webpackJsonp([54],{
+webpackJsonp([53],{
 
-/***/ 165:
+/***/ 238:
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site) {
+module.exports = __webpack_require__(239);
+
+
+/***/ }),
+
+/***/ 239:
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(240)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerCommGroupAdd) {
+    "use strict";
+
+    $(CustomerCommGroupAdd.initialize);
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+
+/***/ 240:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(55)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, CommGroupDetail) {
+         "use strict";
+
+         var FORM_SELECTOR = "#customer-comm-group-add";
+         var TITLE = "CreateNewGroup";
+
+         function initialize() {
+             CommGroupDetail.initialize(TITLE);
+
+             _me.initEvent();
+         }
+
+         function initEvent() {
+             $("#Validate").click(function () {
+                 var groupName = $("#GroupName").val();
+                 CommGroupDetail.checkAvailableGroup(groupName);
+             });
+
+             $("#Submit").click(function () {
+                 CommGroupDetail.submit(FORM_SELECTOR);
+             });
+         }
+
+         var _me = {
+             initialize: initialize,
+             initEvent: initEvent
+         };
+
+         return _me;
+     }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 45:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
     "use strict";
 
     function goToCustomerList(groupCommId) {
@@ -39,15 +97,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     };
 
     return _me;
-}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
 
-/***/ 175:
+/***/ 55:
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(2), __webpack_require__(122), __webpack_require__(165), __webpack_require__(176)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Popup, CustomerCommGroup) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(5), __webpack_require__(45), __webpack_require__(56)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup, CustomerCommGroup) {
          "use strict";
 
          function initialize(titleResource) {
@@ -84,10 +142,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
              $("#NGComm1").on("change", function () {
                  commissionOnChange($(this).val(), "NGComm");
-             }).change();
-
-             $("#LCComm1").on("change", function () {
-                 commissionOnChange($(this).val(), "LCComm");
              }).change();
 
              $("#CSComm1").on("change", function () {
@@ -182,7 +236,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
              initCommParam("#ParlayComm");
              initCommParam("#RCComm");
              initCommParam("#NGComm");
-             initCommParam("#LCComm");
              initCommParam("#CSComm");
              initCommParam("#ABComm");
 
@@ -261,12 +314,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
          };
 
          return _me;
-     }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+     }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
 
-/***/ 176:
+/***/ 56:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {﻿/**
@@ -623,67 +676,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 })(jQuery);
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
-
-/***/ }),
-
-/***/ 358:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(359);
-
-
-/***/ }),
-
-/***/ 359:
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(360)], __WEBPACK_AMD_DEFINE_RESULT__ = (function (CustomerCommGroupAdd) {
-    "use strict";
-
-    $(CustomerCommGroupAdd.initialize);
-}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
-
-/***/ }),
-
-/***/ 360:
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(175)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, CommGroupDetail) {
-         "use strict";
-
-         var FORM_SELECTOR = "#customer-comm-group-add";
-         var TITLE = "CreateNewGroup";
-
-         function initialize() {
-             CommGroupDetail.initialize(TITLE);
-
-             _me.initEvent();
-         }
-
-         function initEvent() {
-             $("#Validate").click(function () {
-                 var groupName = $("#GroupName").val();
-                 CommGroupDetail.checkAvailableGroup(groupName);
-             });
-
-             $("#Submit").click(function () {
-                 CommGroupDetail.submit(FORM_SELECTOR);
-             });
-         }
-
-         var _me = {
-             initialize: initialize,
-             initEvent: initEvent
-         };
-
-         return _me;
-     }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ })
 
-},[358]);
+},[238]);
 //# sourceMappingURL=commgroupadd.chunk.js.map

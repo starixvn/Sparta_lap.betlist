@@ -1,4 +1,4 @@
-﻿// Generated at: 3/8/2018 2:35:01 PM
+﻿// Generated at: 3/14/2018 3:25:14 PM
 var _language_ko_KR = {
 AA:"AA",
 ABComm:"AllBet 수수료",
@@ -68,8 +68,6 @@ BetSettingGroups:"Bet Setting Groups",
 BetSettings:"배팅 설정들",
 BettingLimit:"배팅 한계",
 BetType:"배팅 유형",
-BG:"BG",
-Bingo:"빙고",
 BONTeamToScore:"양팀/한팀/양측 모두가 아닌 팀이 점수 획득",
 Bonus:"보너스",
 ByBetType:"배팅 유형에 따라",
@@ -526,7 +524,6 @@ PreGame:"예선전",
 Prev:"이전",
 Previous:"이전의",
 Product:"상품",
-ProductBG:"빙고",
 ProductCS:"RNG 카지노",
 ProductNG:"숫자 게임",
 ProductRB:"경주하기",
