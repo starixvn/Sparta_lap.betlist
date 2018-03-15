@@ -38,7 +38,7 @@ namespace Fanex.Athena.Service.Core.Configuration
             _fakeLicenseeSettingService = fakeLicenseeSettingService ?? new FakeLicenseeSettingService();
         }
 
-        public ReportSetting GetSetting(string licenseeName, string reportKey)
+        public ReportSetting GetSetting(string reportKey)
         {
             var settings = _cache.Get<IEnumerable<ReportSetting>>(CacheKey);
             if (settings == null)
@@ -50,7 +50,7 @@ namespace Fanex.Athena.Service.Core.Configuration
             var reportSetting = settings.FirstOrDefault(x => x.ReportKey.Equals(reportKey, StringComparison.OrdinalIgnoreCase));
             if (reportSetting != null)
             {
-                AssignFakeLicenseeSetting(licenseeName, reportSetting);
+                AssignFakeLicenseeSetting(reportSetting);
                 reportSetting.MinDate = ConvertToDate(reportSetting.MinDateString, _appSettings.HistoryDate);
                 reportSetting.MaxDate = ConvertToDate(reportSetting.MaxDateString, _appSettings.MaxDate);
             }
@@ -78,9 +78,9 @@ namespace Fanex.Athena.Service.Core.Configuration
             return Convert.ToDateTime(datetime);
         }
 
-        private void AssignFakeLicenseeSetting(string licenseeName, ReportSetting reportSetting)
+        private void AssignFakeLicenseeSetting(ReportSetting reportSetting)
         {
-            var fakeLicenseeSetting = _fakeLicenseeSettingService.GetSetting(licenseeName);
+            var fakeLicenseeSetting = _fakeLicenseeSettingService.GetSetting();
             if (fakeLicenseeSetting != null)
             {
                 reportSetting.MinDateString = fakeLicenseeSetting.MinDate;

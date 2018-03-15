@@ -41,7 +41,7 @@
         public SortableReportResultModel<LicenseeWinLoss> GetSummaryWinloss(
             LicenseeWinLossMetaModel metaModel)
         {
-            var uspName = "Lrf_Rpt_LicWinloss";// GetSpNameForFakeLicensee(metaModel.LicenseeId, "Lrf_Rpt_LicWinloss");
+            var uspName = GetSpNameForFakeLicensee(metaModel.LicenseeId, "Lrf_Rpt_LicWinloss");
             try
             {
                 using (var db = this.GetObjectDb(uspName))
@@ -101,8 +101,11 @@
                 throw new DataAccessException(sqlException, UspName, metaModel);
             }
         }
-        private static string[] GetBaseCurrencyList(bool isFakeLicensee) =>  
-            isFakeLicensee ? new[] { "USD" } : SystemConstants.BaseCurrencyList.ToArray();
+
+        private static string[] GetBaseCurrencyList(bool isFakeLicensee)
+        {
+            return isFakeLicensee ? new[] { "USD" } : SystemConstants.BaseCurrencyList.ToArray();
+        }
 
         private static bool IsIgnoredLicenseeWLProduct(string productCode)
         {
@@ -156,9 +159,9 @@
         }
 
         private static void ReadSummaryTotal(
-            IDataReader reader, 
-            IList<ProductOption> productOptions, 
-            IDictionary<string, LicenseeWinLoss> summaryTotal, 
+            IDataReader reader,
+            IList<ProductOption> productOptions,
+            IDictionary<string, LicenseeWinLoss> summaryTotal,
             bool isFakeLicensee)
         {
             var baseCurrencyList = GetBaseCurrencyList(isFakeLicensee);
@@ -294,7 +297,6 @@
             var hasExternalId = reader.HasColumn("nickname");
             var hasCustomerId = reader.HasColumn("custid");
             var baseCurrency = metaModel.BaseCurrency;
-            
             var index = 1;
             while (reader.Read())
             {

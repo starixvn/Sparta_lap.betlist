@@ -47,9 +47,7 @@
         private LicenseeWinLossReportController CreateController()
         {
             var reportSettingService = Substitute.For<IReportSettingService>();
-            reportSettingService.GetSetting(
-                SessionService.LicenseeSession.LicenseeName,
-                PermissionKeys.ReportLicenseeWinLoss).Returns(new ReportSetting());
+            reportSettingService.GetSetting(PermissionKeys.ReportLicenseeWinLoss).Returns(new ReportSetting());
             var productService = Substitute.For<IProductService>();
             productService.GetSingleWalletProductAccess(
                 SessionService.LicenseeSession.LicenseeId,

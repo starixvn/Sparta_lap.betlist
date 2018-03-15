@@ -51,7 +51,7 @@ namespace Fanex.Athena.Controllers.Report
                 licenseeSession.LicenseeId,
                 userSession.Language,
                 FunctionNames.LicenseeWinLoss);
-            var reportSetting = _reportSettingService.GetSetting(licenseeSession.LicenseeName, PermissionKeys.ReportLicenseeWinLoss);
+            var reportSetting = _reportSettingService.GetSetting(PermissionKeys.ReportLicenseeWinLoss);
             var selectedDate = DateTimeHelper.GetMinDate(reportSetting.MaxDate, DateTime.Now);
             var metaModel = new LicenseeWinLossMetaModel
             {

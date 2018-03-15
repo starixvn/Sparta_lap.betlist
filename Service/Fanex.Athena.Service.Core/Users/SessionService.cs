@@ -39,26 +39,22 @@ namespace Fanex.Athena.Service.Core.Users
         private const string UserSessionKey = "UserSessionKey";
         private const string CaptchaCodeKey = "CaptchaCodeKey";
 
-        private readonly IAppSettings _appSettings;
         private readonly IFunctionService _functionService;
         private readonly ILicenseeDataAccess _licenseeDataAccess;
         private readonly ICurrencyDataAccess _currencyDataAccess;
 
         public SessionService()
         {
-            _appSettings = new AppSettings();
             _functionService = new FunctionService();
             _licenseeDataAccess = new LicenseeDataAccess();
             _currencyDataAccess = new CurrencyDataAccess();
         }
 
         public SessionService(
-            IAppSettings appSettings,
             IFunctionService functionService,
             ILicenseeDataAccess licenseeDataAccess,
             ICurrencyDataAccess currencyDataAccess)
         {
-            _appSettings = appSettings;
             _functionService = functionService;
             _licenseeDataAccess = licenseeDataAccess;
             _currencyDataAccess = currencyDataAccess;

@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using Core.Configuration;
+    using Core.Users.Interfaces;
     using Extension.Utility.Interfaces;
     using Fanex.Athena.UnitTest.Common.Helpers;
     using Model.Core.DTO.Configuration;
@@ -21,7 +22,7 @@
         public void SetUp()
         {
             _cache = Substitute.For<IMemoryCacheService>();
-            _fakeLicenseeSettingService = Substitute.ForPartsOf<FakeLicenseeSettingService>(_cache);
+            _fakeLicenseeSettingService = Substitute.ForPartsOf<FakeLicenseeSettingService>(_cache, Substitute.For<ISessionService>());
             _fakeLicenseeSettingService.When(x => x.GetSettingFileContent()).DoNotCallBase();
         }
 
@@ -33,7 +34,7 @@
             _cache.Get<IEnumerable<FakeLicenseeSetting>>(string.Empty).ReturnsForAnyArgs((IEnumerable<FakeLicenseeSetting>)null);
 
             // Action
-            var result = _fakeLicenseeSettingService.GetSetting(string.Empty);
+            var result = _fakeLicenseeSettingService.GetSetting();
 
             // Assert
             Assert.That(result, Is.Null);
@@ -60,7 +61,7 @@
             _cache.Get<IEnumerable<FakeLicenseeSetting>>(string.Empty).ReturnsForAnyArgs((IEnumerable<FakeLicenseeSetting>)null);
 
             // Action
-            _fakeLicenseeSettingService.GetSetting(LicenseeName);
+            _fakeLicenseeSettingService.GetSetting();
 
             // Assert
             _cache.Received(1).Set(
@@ -83,7 +84,7 @@
             _cache.Get<IEnumerable<FakeLicenseeSetting>>(string.Empty).ReturnsForAnyArgs(fakeData);
 
             // Action
-            var result = _fakeLicenseeSettingService.GetSetting(licenseeName);
+            var result = _fakeLicenseeSettingService.GetSetting();
 
             // Assert
             Assert.That(result.SiteName, Is.EqualTo(licenseeName));

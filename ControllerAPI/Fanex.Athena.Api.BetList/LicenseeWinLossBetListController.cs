@@ -69,7 +69,7 @@
 
         private bool IsValidDateRange(DateTime fromDate, DateTime toDate)
         {
-            var setting = _reportSettingService.GetSetting(SessionService.LicenseeSession.LicenseeName, PermissionKeys.ReportLicenseeWinLoss);
+            var setting = _reportSettingService.GetSetting(PermissionKeys.ReportLicenseeWinLoss);
             if (setting == null)
             {
                 return true;

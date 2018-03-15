@@ -337,7 +337,7 @@ namespace Fanex.Athena.Api.Report
 
         private bool IsValidParams(LicenseeWinLossMetaModel metaModel)
         {
-            var setting = _reportSettingService.GetSetting(SessionService.LicenseeSession.LicenseeName, PermissionKeys.ReportLicenseeWinLoss);
+            var setting = _reportSettingService.GetSetting(PermissionKeys.ReportLicenseeWinLoss);
             if (setting == null)
             {
                 return true;

@@ -47,7 +47,6 @@
             _licenseeDataAccess.GetByUser(DefaultUserId).Returns<IList<Licensee>>(i => licenseeList);
             _currencyDataAccess = Substitute.For<ICurrencyDataAccess>();
             _sessionService = new SessionService(
-                _appSettings,
                 _functionService,
                 _licenseeDataAccess,
                 _currencyDataAccess);

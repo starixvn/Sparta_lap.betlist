@@ -4,6 +4,6 @@ namespace Fanex.Athena.Service.Core.Configuration.Interfaces
 {
     public interface IReportSettingService
     {
-        ReportSetting GetSetting(string licenseeName, string reportKey);
+        ReportSetting GetSetting(string reportKey);
     }
 }

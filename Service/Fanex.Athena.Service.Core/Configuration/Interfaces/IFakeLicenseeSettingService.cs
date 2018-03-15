@@ -4,6 +4,8 @@ namespace Fanex.Athena.Service.Core.Configuration.Interfaces
 {
     public interface IFakeLicenseeSettingService
     {
-        FakeLicenseeSetting GetSetting(string licenseeName);
+        bool IsFakeLicensee();
+
+        FakeLicenseeSetting GetSetting();
     }
 }
