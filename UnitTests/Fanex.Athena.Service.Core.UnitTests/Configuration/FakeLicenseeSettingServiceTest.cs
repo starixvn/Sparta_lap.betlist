@@ -6,6 +6,7 @@
     using Extension.Utility.Interfaces;
     using Fanex.Athena.UnitTest.Common.Helpers;
     using Model.Core.DTO.Configuration;
+    using Model.Core.DTO.Users;
     using NSubstitute;
     using NUnit.Framework;
 
@@ -17,12 +18,18 @@
 
         private FakeLicenseeSettingService _fakeLicenseeSettingService;
         private IMemoryCacheService _cache;
-
+        private ISessionService _sessionService;
         [SetUp]
         public void SetUp()
         {
             _cache = Substitute.For<IMemoryCacheService>();
-            _fakeLicenseeSettingService = Substitute.ForPartsOf<FakeLicenseeSettingService>(_cache, Substitute.For<ISessionService>());
+            _sessionService = Substitute.For<ISessionService>();
+            _sessionService.LicenseeSession.Returns(new LicenseeSession
+            {
+                LicenseeName = "IvoryBet"
+            });
+
+            _fakeLicenseeSettingService = Substitute.ForPartsOf<FakeLicenseeSettingService>(_cache, _sessionService);
             _fakeLicenseeSettingService.When(x => x.GetSettingFileContent()).DoNotCallBase();
         }
 
@@ -76,7 +83,10 @@
             // Arrange
             _fakeLicenseeSettingService.GetSettingFileContent().Returns(SettingJsonContent);
             var licenseeName = FakeHelper.Create<string>();
-
+            _sessionService.LicenseeSession.Returns(new LicenseeSession
+            {
+                LicenseeName = licenseeName
+            });
             var fakeData = new[]
             {
                 new FakeLicenseeSetting { SiteName = licenseeName }
