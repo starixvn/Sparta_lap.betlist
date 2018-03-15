@@ -15,7 +15,6 @@
         private const string IsAllowUpdateMemberBAStatusSp = "Lrf_BATimeCheck";
         private const string IsLicenseeBelongToUserSp = "Lrf_LicenseeSel";
         private const string GetLicenseeByNameSp = "Lrf_LicenseeSelBySiteName";
-        private const string GetLicenseeSourcedSettingsSp = "LRF_LicenseeSourcedSel";
 
         [Test]
         public void IsAllowUpdateMemberBAStatus_WhenCall_ParametersPassedCorrectly()

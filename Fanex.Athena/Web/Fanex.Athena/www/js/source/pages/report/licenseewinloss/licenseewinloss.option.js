@@ -446,6 +446,12 @@ define(
             columns.insertAfter(buyBackAmountSBColumn, columnIndex);
         }
 
+        function hideDrilldownLinks() {
+            externalIdColumn.formatter = null;
+            systemIdColumn.formatter = null;
+            currencyColumn.formatter = null;
+        }
+
         _me.setGroupHeaderColumns = function (grid, productOptions) {
             var numOfTurnover = Enumerable.From(productOptions).Count(turnoverProductsFilter) + 1;
             var lastOfTurnover = numOfTurnover > 1 ? Enumerable.From(productOptions).Last(turnoverProductsFilter) : null;
@@ -558,21 +564,11 @@ define(
                 externalIdColumn.formatter = betlistLink;
                 systemIdColumn.formatter = betlistLink;
             }
-            if (reportBy === 2) {
-                dateColumn.formatoptions = {
-                    newformat: 'm/Y'
-                };
-            } else {
-                dateColumn.formatoptions = {
-                    newformat: 'm/d/Y'
-                };
-            }
+            dateColumn.formatoptions = { newformat: reportBy === 2 ? 'm/Y' : 'm/d/Y' };
 
             if (_me.isDisableBetList)
             {
-                externalIdColumn.formatter = null;
-                systemIdColumn.formatter = null;
-                currencyColumn.formatter = null;
+                hideDrilldownLinks();
             }
 
             var temp = Site.clone(colModelList);
