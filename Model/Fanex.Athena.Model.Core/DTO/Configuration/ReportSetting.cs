@@ -17,5 +17,7 @@ namespace Fanex.Athena.Model.Core.DTO.Configuration
         public DateTime MaxDate { get; set; }
 
         public bool IsDisableBetList { get; set; }
+
+        public string BaseCurrencies { get; set; }
     }
 }

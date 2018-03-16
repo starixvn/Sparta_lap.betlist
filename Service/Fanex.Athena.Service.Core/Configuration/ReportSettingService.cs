@@ -86,6 +86,7 @@ namespace Fanex.Athena.Service.Core.Configuration
                 reportSetting.MinDateString = fakeLicenseeSetting.MinDate;
                 reportSetting.MaxDateString = fakeLicenseeSetting.MaxDate;
                 reportSetting.IsDisableBetList = fakeLicenseeSetting.DisableBetList;
+                reportSetting.BaseCurrencies = fakeLicenseeSetting.BaseCurrencies;
             }
         }
 

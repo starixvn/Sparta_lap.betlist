@@ -12,7 +12,7 @@
         </label>
     </div>
     <div class="grid_3 filter-input">
-        @RazorHelper.CurrencyList(Model.CurrencyList, "currency-list", Model.Param.CurrencyId, true, true, Model.IsFakeLicensee)
+        @RazorHelper.CurrencyList(Model.CurrencyList, "currency-list", Model.Param.CurrencyId, true, true, Model.ReportSetting.BaseCurrencies)
     </div>
     <div class="grid_5 userguide-group">
         @if(!Model.IsFakeLicensee)
