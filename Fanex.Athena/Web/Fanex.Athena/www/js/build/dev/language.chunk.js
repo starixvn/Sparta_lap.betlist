@@ -15,7 +15,7 @@ module.exports = __webpack_require__(82);
 /***/ 78:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 3/6/2018 5:12:22 PM
+﻿// Generated at: 3/19/2018 3:59:04 PM
 window._language_en_US = {
 AA:"AA",
 AB:"AB",
@@ -115,8 +115,6 @@ BetTradeComissionBalanceNote:"BetTrade Commission: Licensee commission income fo
 BetTradeCommission:"Bet Trade Commission",
 BetTradeNotOfferCurrency:"BetTrade is not offered for this currency.",
 BetType:"Bet type",
-BG:"BG",
-Bingo:"Bingo",
 BONTeamToScore:"Both/One/Neither Team To Score",
 Bonus:"Bonus",
 BoughtAmount:"Bought Amount",
@@ -234,6 +232,7 @@ DailyRacingWinLoss:"Daily Racing Win Loss",
 DailyStatement:"Daily Statement",
 DailyStatementMsg:"Support data up to 4 months only",
 Data:"data",
+DataUpToYesterday:"Data is up to yesterday only.",
 DataWareHouse:"Data Warehouse",
 Date:"Date",
 DateRange:"Date Range",
@@ -341,6 +340,7 @@ Full:"Full",
 FullTime:"FullTime",
 Function:"Function",
 FunctionDeniedMsg:"Sorry, you don&apos;t have permission to access this function.",
+FunctionIsUnderMaintenance:"Function is under maintenance.",
 FunctionNoAvailableMsg:"This function was no longer available!",
 Game:"Game",
 GameGroup:"Game Group",
@@ -689,7 +689,6 @@ Product:"Product",
 ProductAB:"AllBet",
 ProductAGC:"AG Casino",
 ProductBA:"BA",
-ProductBG:"Bingo",
 ProductBT:"Bet Trade",
 ProductBX:"Exchange",
 ProductCB:"Colossus Bets",
@@ -983,7 +982,7 @@ YouNotChooseAnyCustomerMsg:"You did not choose any customers."
 /***/ 79:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 3/7/2018 2:12:24 PM
+﻿// Generated at: 3/19/2018 3:59:04 PM
 window._language_zh_CN = {
 AA:"客客",
 ABComm:"AllBet 佣金",
@@ -1066,8 +1065,6 @@ BetSettings:"投注设定",
 BetTaken:"匹配时间",
 BettingLimit:"投注限额",
 BetType:"投注类别",
-BG:"BG",
-Bingo:"宾果",
 BONTeamToScore:"双方/一方/两者皆不得分",
 Bonus:"红利",
 BoughtAmount:"买的金额",
@@ -1563,7 +1560,6 @@ PreGame:"游戏开始前",
 Prev:"上个月",
 Previous:"上个月",
 Product:"产品",
-ProductBG:"宾果",
 ProductCO:"即时兑现",
 ProductCS:"娱乐城",
 ProductNG:"百练赛",
@@ -1806,7 +1802,7 @@ YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
 /***/ 80:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 3/7/2018 2:12:24 PM
+﻿// Generated at: 3/19/2018 3:59:04 PM
 window._language_zh_TW = {
 AA:"客客",
 ABComm:"AllBet 佣金",
@@ -1889,8 +1885,6 @@ BetSettings:"投注設定",
 BetTaken:"匹配時間",
 BettingLimit:"投注限額",
 BetType:"投注類別",
-BG:"BG",
-Bingo:"賓果",
 BONTeamToScore:"雙方/一方/兩者皆不得分",
 Bonus:"紅利",
 BoughtAmount:"買的金額",
@@ -2386,7 +2380,6 @@ PreGame:"遊戲開始前",
 Prev:"上個",
 Previous:"上個",
 Product:"產品",
-ProductBG:"賓果",
 ProductCO:"即時兌現",
 ProductCS:"娛樂城",
 ProductNG:"百練賽",
@@ -2629,7 +2622,7 @@ YouNotChooseAnyCustomerMsg:"您還沒有選擇任何會員"
 /***/ 81:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 3/7/2018 2:12:24 PM
+﻿// Generated at: 3/19/2018 3:59:04 PM
 window._language_zh_Hans = {
 AA:"客客",
 ABComm:"AllBet 佣金",
@@ -2712,8 +2705,6 @@ BetSettings:"投注设定",
 BetTaken:"匹配时间",
 BettingLimit:"投注限额",
 BetType:"投注类别",
-BG:"BG",
-Bingo:"宾果",
 BONTeamToScore:"双方/一方/两者皆不得分",
 Bonus:"红利",
 ByBetType:"根据投注类型",
@@ -3197,7 +3188,6 @@ PreGame:"游戏开始前",
 Prev:"上个月",
 Previous:"上个月",
 Product:"产品",
-ProductBG:"宾果",
 ProductCS:"娱乐城",
 ProductNG:"百练赛",
 ProductRB:"赛马",
@@ -3438,7 +3428,7 @@ YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
 /***/ 82:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 3/6/2018 5:12:22 PM
+﻿// Generated at: 3/19/2018 3:59:04 PM
 window._language_ko_KR = {
 AA:"AA",
 ABComm:"AllBet 수수료",
@@ -3508,8 +3498,6 @@ BetSettingGroups:"Bet Setting Groups",
 BetSettings:"배팅 설정들",
 BettingLimit:"배팅 한계",
 BetType:"배팅 유형",
-BG:"BG",
-Bingo:"빙고",
 BONTeamToScore:"양팀/한팀/양측 모두가 아닌 팀이 점수 획득",
 Bonus:"보너스",
 ByBetType:"배팅 유형에 따라",
@@ -3966,7 +3954,6 @@ PreGame:"예선전",
 Prev:"이전",
 Previous:"이전의",
 Product:"상품",
-ProductBG:"빙고",
 ProductCS:"RNG 카지노",
 ProductNG:"숫자 게임",
 ProductRB:"경주하기",

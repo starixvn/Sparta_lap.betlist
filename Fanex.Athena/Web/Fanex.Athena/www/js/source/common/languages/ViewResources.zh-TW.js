@@ -1,4 +1,4 @@
-﻿// Generated at: 3/7/2018 2:12:24 PM
+﻿// Generated at: 3/19/2018 3:59:04 PM
 window._language_zh_TW = {
 AA:"客客",
 ABComm:"AllBet 佣金",
@@ -81,8 +81,6 @@ BetSettings:"投注設定",
 BetTaken:"匹配時間",
 BettingLimit:"投注限額",
 BetType:"投注類別",
-BG:"BG",
-Bingo:"賓果",
 BONTeamToScore:"雙方/一方/兩者皆不得分",
 Bonus:"紅利",
 BoughtAmount:"買的金額",
@@ -578,7 +576,6 @@ PreGame:"遊戲開始前",
 Prev:"上個",
 Previous:"上個",
 Product:"產品",
-ProductBG:"賓果",
 ProductCO:"即時兌現",
 ProductCS:"娛樂城",
 ProductNG:"百練賽",

@@ -4593,6 +4593,17 @@ var FormFilter = exports.FormFilter = function (_Component) {
                 ),
                 _react2.default.createElement(
                     'div',
+                    { className: 'row' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-12 col-sm-7 col-md-4 col-xl-3' },
+                        _react2.default.createElement('span', { className: 'circle' }),
+                        ' ',
+                        _langHelper2.default.getSingleResource('DataUpToYesterday')
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
                     { className: 'caret-block' },
                     _react2.default.createElement('i', { className: 'icon-excel right', onClick: this.exportExcel, title: _langHelper2.default.getSingleResource('ExportToExcel') })
                 )

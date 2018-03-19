@@ -3152,4 +3152,8 @@
   <data name="FunctionIsUnderMaintenance" xml:space="preserve">
     <value>Function is under maintenance.</value>
   </data>
+  <data name="DataUpToYesterday" xml:space="preserve">
+    <value>Data is up to yesterday only.</value>
+    <comment>#92337</comment>
+  </data>
 </root>
