@@ -128,7 +128,7 @@
     describe("initAutoComplete()", function () {
         it("autocomplete function of jquery should be called with correct parameter", function () {
             var $username = affix("input#Username[value=user01]");
-            var url = "CustomerAPI/SearchCustomer";
+            var url = "SearchCustomerAPI/SearchCustomer";
 
             spyOn($.fn, "autocomplete");
 

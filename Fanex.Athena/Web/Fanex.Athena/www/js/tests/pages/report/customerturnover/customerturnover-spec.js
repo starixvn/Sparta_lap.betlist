@@ -446,7 +446,7 @@
                     CustomerTurnover.initAutoComplete();
 
                     expect(AutoComplete.initialize).toHaveBeenCalledWith({
-                        url: "CustomerAPI/SearchCustomer",
+                        url: "SearchCustomerAPI/SearchCustomer",
                         target: "#Username"
                     });
                 });

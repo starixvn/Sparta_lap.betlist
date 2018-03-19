@@ -75,7 +75,7 @@
                     el: '#suggestionDropdown'
                 },
                 getData: function (value, callback) {
-                    var url = Site.resolveClientUrl("CustomerAPI/SearchCustomer?query=" + value);
+                    var url = Site.resolveClientUrl("SearchCustomerAPI/SearchCustomer?query=" + value);
 
                     $.ajax({
                         type: "GET",

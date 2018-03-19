@@ -588,7 +588,7 @@ var CustomerList = (function ($) {
         },
         initAutoComplete: function () {
             var $username = $('#txtUsername');
-            var serUrl = Site.resolveClientUrl("CustomerAPI/SearchCustomer");
+            var serUrl = Site.resolveClientUrl("SearchCustomerAPI/SearchCustomer");
             if ($username.length > 0) {
                 $username.autocomplete({ serviceUrl: serUrl, minChars: 2 });
                 CustomerList.setDefaultUsername();

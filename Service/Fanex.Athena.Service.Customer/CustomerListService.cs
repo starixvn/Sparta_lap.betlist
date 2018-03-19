@@ -67,24 +67,11 @@ namespace Fanex.Athena.Service.Customer
 
         public IEnumerable<string> SearchCustomers(int licenseeId, int userId, string userName, string agentListXml)
         {
-            if (!IsValidUsername(licenseeId, userName))
-            {
-                return new string[] { };
-            }
-
             return _customerListDataAccess.SearchCustomers(userId, userName, agentListXml);
         }
 
         public ReportResultModel<CustomerDTO> Search(CustomerListMetaModel metaModel)
         {
-            if (!IsValidUsername(metaModel.LicenseeId, metaModel.Username))
-            {
-                return new ReportResultModel<CustomerDTO>
-                {
-                    DataList = new List<CustomerDTO>()
-                };
-            }
-
             return _customerListDataAccess.Search(metaModel);
         }
 
@@ -222,21 +209,6 @@ namespace Fanex.Athena.Service.Customer
                 Message = ViewResources.UpdateSpecialLevelMsg
             };
         }
-
-        private static bool IsValidUsername(int licenseeId, string userName)
-        {
-            if (userName != null && licenseeId == LicenseeIdentity.IvoryBet)
-            {
-                const string IgnoredLicenseePrefix = "9club";
-                if (userName.StartsWith(IgnoredLicenseePrefix, StringComparison.OrdinalIgnoreCase))
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
         #endregion Update
     }
 }

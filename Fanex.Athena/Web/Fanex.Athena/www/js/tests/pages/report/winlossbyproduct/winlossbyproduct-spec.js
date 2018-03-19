@@ -86,7 +86,7 @@
                         expect(Site.addUserGuide).toHaveBeenCalledWith({ resourceName: "WinLossByProduct", title: Site.getSingleResource("WinLossByProduct") });
                     });
                     it("AutoComplete.initialize(option) should be called with correct parameter", function () {
-                        expect(AutoComplete.initialize).toHaveBeenCalledWith({ url: Site.resolveClientUrl("CustomerAPI/SearchCustomer"), target: "#Username" });
+                        expect(AutoComplete.initialize).toHaveBeenCalledWith({ url: Site.resolveClientUrl("SearchCustomerAPI/SearchCustomer"), target: "#Username" });
                     });
                 });
 

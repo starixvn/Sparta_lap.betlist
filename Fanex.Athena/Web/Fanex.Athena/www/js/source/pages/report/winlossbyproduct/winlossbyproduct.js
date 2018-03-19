@@ -62,7 +62,7 @@
 
             initAutoComplete: function () {
                 var option = {
-                    url: Site.resolveClientUrl("CustomerAPI/SearchCustomer"),
+                    url: Site.resolveClientUrl("SearchCustomerAPI/SearchCustomer"),
                     target: "#Username"
                 };
 

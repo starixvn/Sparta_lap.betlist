@@ -273,7 +273,7 @@ var CustomerWinLoss = (function ($) {
 
         initAutoComplete: function () {
             var txtUserName = $('#Username');
-            var serUrl = Site.resolveClientUrl("CustomerAPI/SearchCustomer");
+            var serUrl = Site.resolveClientUrl("SearchCustomerAPI/SearchCustomer");
             if (txtUserName.length > 0) {
                 txtUserName.autocomplete({
                     serviceUrl: serUrl,
