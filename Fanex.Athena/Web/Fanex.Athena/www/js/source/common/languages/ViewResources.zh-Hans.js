@@ -1,4 +1,4 @@
-﻿// Generated at: 3/7/2018 2:12:24 PM
+﻿// Generated at: 3/19/2018 3:59:04 PM
 window._language_zh_Hans = {
 AA:"客客",
 ABComm:"AllBet 佣金",
@@ -81,8 +81,6 @@ BetSettings:"投注设定",
 BetTaken:"匹配时间",
 BettingLimit:"投注限额",
 BetType:"投注类别",
-BG:"BG",
-Bingo:"宾果",
 BONTeamToScore:"双方/一方/两者皆不得分",
 Bonus:"红利",
 ByBetType:"根据投注类型",
@@ -566,7 +564,6 @@ PreGame:"游戏开始前",
 Prev:"上个月",
 Previous:"上个月",
 Product:"产品",
-ProductBG:"宾果",
 ProductCS:"娱乐城",
 ProductNG:"百练赛",
 ProductRB:"赛马",
