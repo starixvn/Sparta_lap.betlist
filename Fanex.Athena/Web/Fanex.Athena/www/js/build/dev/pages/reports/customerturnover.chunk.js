@@ -9770,7 +9770,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         var _url = {
             GetSports: "CustomerTurnoverReport/GetSportsAndProducts",
             GetBetTypes: "ReportAPI/GetBettypesBySport",
-            SearchCustomer: "CustomerAPI/SearchCustomer"
+            SearchCustomer: "SearchCustomerAPI/SearchCustomer"
         };
         var _selector = {
             SubmitButton: "#SubmitButton",

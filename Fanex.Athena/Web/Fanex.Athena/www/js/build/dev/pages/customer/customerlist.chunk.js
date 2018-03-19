@@ -4059,7 +4059,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     title: Site.getSingleResource("CustomerList")
                 });
                 AutoComplete.initialize({
-                    url: Site.resolveClientUrl("CustomerAPI/SearchCustomer"),
+                    url: Site.resolveClientUrl("SearchCustomerAPI/SearchCustomer"),
                     target: "#Username"
                 });
                 _me.initEvent();
