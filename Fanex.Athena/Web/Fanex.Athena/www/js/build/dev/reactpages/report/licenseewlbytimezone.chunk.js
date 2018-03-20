@@ -65,9 +65,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 		module.exports = classNames;
 	} else if (true) {
 		// register as 'classnames', consistent with npm package name
-		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function () {
 			return classNames;
-		}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+		}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	} else {
 		window.classNames = classNames;
@@ -2909,7 +2909,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(15);
 
-var _redux = __webpack_require__(10);
+var _redux = __webpack_require__(11);
 
 var _index = __webpack_require__(143);
 
@@ -3182,7 +3182,7 @@ var _reactRedux = __webpack_require__(15);
 
 var _index = __webpack_require__(143);
 
-var _redux = __webpack_require__(10);
+var _redux = __webpack_require__(11);
 
 var _fixedTableHeader = __webpack_require__(32);
 
@@ -3532,7 +3532,7 @@ var _reactRedux = __webpack_require__(15);
 
 var _index = __webpack_require__(143);
 
-var _redux = __webpack_require__(10);
+var _redux = __webpack_require__(11);
 
 var _reactSelect = __webpack_require__(78);
 
@@ -4412,7 +4412,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _redux = __webpack_require__(10);
+var _redux = __webpack_require__(11);
 
 var _dataHandlerReducer = __webpack_require__(429);
 
@@ -9649,7 +9649,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _redux = __webpack_require__(10);
+var _redux = __webpack_require__(11);
 
 var _reduxThunk = __webpack_require__(71);
 
