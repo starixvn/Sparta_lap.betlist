@@ -32,9 +32,21 @@
             @ViewResources.ExcludeTestData
         </label>
     </div>
-    <div class="grid_5 filter-input option-list">
+    <div class="grid_2 filter-input option-list">
         <input type="checkbox" value="true" @(Model.Param.IsExcludedTestData == true ? "checked=checked" : "") name="IsExcludedTestData" id="IsExcludedTestData" />
     </div>
+        <div class="grid_2 filter-label">
+            <label>
+                @ViewResources.TicketType
+            </label>
+        </div>
+        <div class="grid_3 filter-input">
+            <select id="TicketType" name="TicketType">
+                <option value="-1">@ViewResources.All</option>
+                <option value="0">@ViewResources.MoneyPlay</option>
+                <option value="1">@ViewResources.FreePlay</option>
+            </select>
+        </div>
     <div class="grid_2 note-group">
         <div>
             <div class="userguide-icon" id="UserGuide" title="@ViewResources.UserGuide">

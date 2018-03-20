@@ -147,7 +147,8 @@ var ColossusBets = (function ($) {
                         CurrencyName: $("#CurrencyId option:selected").text(),
                         BaseCurrency: $("#BaseCurrency").val(),
                         ProductId: $("#ProductId").val(),
-                        ReportBy: reportBy
+                        ReportBy: reportBy,
+                        TicketType: $("#TicketType").val()
                     };
                     ColossusBets.setReportTitle(_submitData.CurrencyId, _submitData.FromDate, _submitData.ToDate);
                 }
@@ -211,7 +212,8 @@ var ColossusBets = (function ($) {
                 ToDate: _submitData.ToDate,
                 BaseCurrency: _submitData.BaseCurrency,
                 ProductId: _submitData.ProductId,
-                ReportBy: _submitData.ReportBy
+                ReportBy: _submitData.ReportBy,
+                TicketType: _submitData.TicketType
             };
 
             var drilldownDateRange = Report.GetDrilldownDateRange(param.ReportBy, param.FromDate, param.ToDate, datetime);

@@ -156,14 +156,14 @@
                     ThirdPartyWinLoss.submit();
 
                     ThirdPartyWinLoss.initEvent();
-                    $('.bet-list-link').eq(0).click();
+                    $('.bet-list-link:eq(0)').click();
 
                     expect(Popup.openPopupWithIframe).toHaveBeenCalledWith(
-                        "LicenseeWinLossBetList/Index"
-                        + "&fromdate=02/01/2011&todate=02/12/2011&excludetest=false&CurrencyId=0"
-                        + "&CurrencyName=EUR&drawfilter=undefined&custid=1&systemId=2&externalId=3"
-                        + "&BaseCurrency=usd&excelfilename=ColossusBetsWinLossBetList",
-                        { id: "betlist-popup", width: 970, height: 700, title: "Customer Bet List" });
+                        'LicenseeWinLossBetList/Index' +
+                        '&fromdate=02/01/2011&todate=02/12/2011&excludetest=false&CurrencyId=0' + 
+                        '&CurrencyName=EUR&drawfilter=0&custid=1&systemId=2&externalId=3' +
+                        '&BaseCurrency=usd&excelfilename=ColossusBetsWinLossBetList',
+                        { id: 'betlist-popup', width: 970, height: 700, title: 'Customer Bet List' });
                 });
 
                 it("off() jquery function should be called with correct parameter when window fire unload event", function () {

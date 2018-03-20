@@ -31,8 +31,6 @@
             _reader = null;
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         [TestCase("")]
         [TestCase("UUS")]
         [TestCase(null)]

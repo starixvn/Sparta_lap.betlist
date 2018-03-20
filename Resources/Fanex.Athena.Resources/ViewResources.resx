@@ -3156,4 +3156,16 @@
     <value>Data is up to yesterday only.</value>
     <comment>#92337</comment>
   </data>
+  <data name="FreePlay" xml:space="preserve">
+    <value>Free Play</value>
+    <comment>90768</comment>
+  </data>
+  <data name="MoneyPlay" xml:space="preserve">
+    <value>Money Play</value>
+    <comment>90768</comment>
+  </data>
+  <data name="TicketType" xml:space="preserve">
+    <value>Ticket Type</value>
+    <comment>90768</comment>
+  </data>
 </root>

@@ -25,8 +25,6 @@
         [OneTimeSetUp]
         public override void FixtureSetUp()
         {
-            ObjectDb = Substitute.For<IObjectDb>();
-
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             var balanceUp = new BalanceUp
             {
@@ -35,6 +33,13 @@
             balanceUpDataAccess.GetBalanceUp().Returns(balanceUp);
 
             DataAccess = Substitute.ForPartsOf<ColossusBetsWinLossDataAccess>(balanceUpDataAccess);
+        }
+
+        [OneTimeSetUp]
+        public override void SetUp()
+        {
+            ObjectDb = Substitute.For<IObjectDb>();
+            base.SetUp();
         }
 
         [Test]
@@ -78,7 +83,7 @@
         {
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
                 GetSummaryWinlossSp,
-                () => DataAccess.GetSummaryWinloss(new ThirdPartyWinLossMetaModel()));
+                () => DataAccess.GetSummaryWinloss(new ColossusBetsWinLossMetaModel()));
         }
 
         [Test]
@@ -124,7 +129,7 @@
         {
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
                 GetWinlossDetailSp,
-                () => DataAccess.GetWinlossDetail(new ThirdPartyWinLossMetaModel()));
+                () => DataAccess.GetWinlossDetail(new ColossusBetsWinLossMetaModel()));
         }
 
         [Test]
@@ -260,9 +265,9 @@
                 Is.EqualTo(ConvertHelper.ToDateTime(metaModel.DrillDownFromDate.ToString("yyyyMMdd"), metaModel.ReportBy == ReportByType.Monthly)));
         }
 
-        private static ThirdPartyWinLossMetaModel CreateMetaModel()
+        private static ColossusBetsWinLossMetaModel CreateMetaModel()
         {
-            return new ThirdPartyWinLossMetaModel
+            return new ColossusBetsWinLossMetaModel
             {
                 CurrencyId = 1,
                 DrillDownCustomerId = 2,
@@ -270,7 +275,8 @@
                 ToDate = new DateTime(2016, 8, 29),
                 DrillDownFromDate = new DateTime(2016, 8, 10),
                 DrillDownToDate = new DateTime(2016, 8, 29),
-                BaseCurrency = "UUS"
+                BaseCurrency = "UUS",
+                TicketType = 2
             };
         }
 
@@ -312,13 +318,14 @@
             }
         }
 
-        private void AssertUspParameters(ThirdPartyWinLossMetaModel metaModel)
+        private void AssertUspParameters(ColossusBetsWinLossMetaModel metaModel)
         {
-            ObjectDb.Received().AddInParameter("fromdate", DbType.Date, metaModel.DrillDownFromDate);
-            ObjectDb.Received().AddInParameter("todate", DbType.Date, metaModel.DrillDownToDate);
-            ObjectDb.Received().AddInParameter("movebetsday", DbType.DateTime, _moveBetsDay);
-            ObjectDb.Received().AddInParameter("ReportType", DbType.Int32, metaModel.ReportBy);
-            ObjectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            ObjectDb.Received(1).AddInParameter("fromdate", DbType.Date, metaModel.DrillDownFromDate);
+            ObjectDb.Received(1).AddInParameter("todate", DbType.Date, metaModel.DrillDownToDate);
+            ObjectDb.Received(1).AddInParameter("movebetsday", DbType.DateTime, _moveBetsDay);
+            ObjectDb.Received(1).AddInParameter("ReportType", DbType.Int32, metaModel.ReportBy);
+            ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            ObjectDb.Received(1).AddInParameter("TicketType", DbType.Int32, metaModel.TicketType);
         }
     }
 }

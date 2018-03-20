@@ -169,6 +169,7 @@
     <Compile Include="MetaModel\NotificationMarkAsReadMetaModel.cs" />
     <Compile Include="MetaModel\NotificationMetaModel.cs" />
     <Compile Include="MetaModel\SubsidiaryPerformanceMetaModel.cs" />
+    <Compile Include="MetaModel\ColossusBetsWinLossMetaModel.cs" />
     <Compile Include="MetaModel\ThirdPartyWinLossMetaModel.cs" />
     <Compile Include="MetaModel\WeeklyLiveMatchMetaModel.cs" />
     <Compile Include="MetaModel\WinLossByLeagueMetaModel.cs" />

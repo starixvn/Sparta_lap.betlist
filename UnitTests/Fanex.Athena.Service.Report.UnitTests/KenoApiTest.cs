@@ -125,7 +125,7 @@
             _service.WhenForAnyArgs(x => x.Authorize(null, null)).DoNotCallBase();
             _service.Authorize(setting, UserId).Returns(new KenoAuthorization
             {
-                Data = new KenoAuthorizedData {  Authorization = "uber" }
+                Data = new KenoAuthorizedData { Authorization = "uber" }
             });
 
             // Action

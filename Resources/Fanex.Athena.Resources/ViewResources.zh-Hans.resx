@@ -2588,4 +2588,13 @@
     <value>选项</value>
     <comment>91048</comment>
   </data>
+  <data name="TicketType" xml:space="preserve">
+    <value>注单类型</value>
+  </data>
+  <data name="MoneyPlay" xml:space="preserve">
+    <value>普通投注</value>
+  </data>
+  <data name="FreePlay" xml:space="preserve">
+    <value>免费投注</value>
+  </data>
 </root>

@@ -34,7 +34,7 @@
         public void GetSummaryWinloss_WhenCall_ReturnCorrectData()
         {
             // Arrange
-            var metaModel = new ThirdPartyWinLossMetaModel();
+            var metaModel = new ColossusBetsWinLossMetaModel();
 
             var dataList = new SortableList<ColossusBetWinLoss>
             {
@@ -63,7 +63,7 @@
         public void GetWinlossDetail_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
-            var metaModel = new ThirdPartyWinLossMetaModel();
+            var metaModel = new ColossusBetsWinLossMetaModel();
 
             // Action
             _service.GetWinlossDetail(metaModel);

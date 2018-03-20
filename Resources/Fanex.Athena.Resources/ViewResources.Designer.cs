@@ -2878,6 +2878,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Free Play.
+        /// </summary>
+        public static string FreePlay {
+            get {
+                return ResourceManager.GetString("FreePlay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Free Spin.
         /// </summary>
         public static string FreeSpin {
@@ -5043,6 +5052,15 @@ namespace Fanex.Athena.Resources {
         public static string MoneyLine {
             get {
                 return ResourceManager.GetString("MoneyLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Money Play.
+        /// </summary>
+        public static string MoneyPlay {
+            get {
+                return ResourceManager.GetString("MoneyPlay", resourceCulture);
             }
         }
         
@@ -7473,6 +7491,15 @@ namespace Fanex.Athena.Resources {
         public static string TicketPayout {
             get {
                 return ResourceManager.GetString("TicketPayout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ticket Type.
+        /// </summary>
+        public static string TicketType {
+            get {
+                return ResourceManager.GetString("TicketType", resourceCulture);
             }
         }
         
