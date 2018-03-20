@@ -18,8 +18,7 @@
 
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CheckUMFilter]
-    [FunctionAuthorization(
-        PermissionKeys.CustomerInfoCustomerList, PermissionKeys = new[] {
+    [FunctionAuthorization(PermissionKeys = new[] {
         PermissionKeys.ReportTurnover,
         PermissionKeys.ReportWinLossByProduct,
         PermissionKeys.ReportCustomerWinLoss,
