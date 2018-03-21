@@ -9,4 +9,5 @@
   <!--Do not delete this-->
   
   <SpNameConfig Environment="LOCAL,SIT,UAT" SpName="Lrf_CustomerUpdMemberBAStatus" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL,UAT,SIT" SpName="Lrf_BetList_SelWinLossByDate_Mem" EnvironmentText="_UAT3"></SpNameConfig>
 </Root>
