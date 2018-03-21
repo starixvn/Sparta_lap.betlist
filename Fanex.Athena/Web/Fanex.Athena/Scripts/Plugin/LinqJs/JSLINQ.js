@@ -6,7 +6,7 @@
 // This license can be found here: http://jslinq.codeplex.com/license
 //-----------------------------------------------------------------------
 (function () {
-    JSLINQ = window.JSLINQ = function (dataItems) {
+    var JSLINQ = window.JSLINQ = function (dataItems) {
         return new JSLINQ.fn.init(dataItems);
     };
     JSLINQ.fn = JSLINQ.prototype = {
