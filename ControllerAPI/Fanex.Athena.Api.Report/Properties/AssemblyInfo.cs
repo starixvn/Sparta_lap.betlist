@@ -8,5 +8,4 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("Fanex.Athena.Api.Report.UnitTests")]
-[assembly: System.CLSCompliant(true)]
 [assembly: AssemblyVersion("1.0.0.0")]

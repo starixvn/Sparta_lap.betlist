@@ -53,7 +53,6 @@
             return metaModel.IsExportExcel ? ExportExcel(metaModel) : ProcessRequest(metaModel);
         }
 
-        [CLSCompliant(false)]
         protected internal virtual CustomerPendingFundsExcel CreateExcel(string templatePath, CustomerPendingFundsExcelModel excelModel)
         {
             return new CustomerPendingFundsExcel(templatePath, excelModel);

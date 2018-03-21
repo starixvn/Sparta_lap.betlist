@@ -31,7 +31,6 @@ namespace Fanex.Athena.Api.BetList
         {
         }
 
-        [CLSCompliant(false)]
         public PlatformWinLossBetListController(
             ISessionService sessionService,
             IProductService productService,

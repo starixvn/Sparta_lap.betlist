@@ -26,7 +26,6 @@
         {
         }
 
-        [CLSCompliant(false)]
         public OutstandingRunningBetListController(
             ISessionService sessionService,
             IProductService productService,

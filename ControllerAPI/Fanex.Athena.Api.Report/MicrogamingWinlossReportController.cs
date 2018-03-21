@@ -135,7 +135,6 @@ namespace Fanex.Athena.Api.Report
             }).ToList();
         }
 
-        [CLSCompliant(false)]
         protected internal virtual MicroGamingWinLossExcel CreateExcel(
             ThirdPartyWinLossMetaModel metaModel,
             string templatePath,

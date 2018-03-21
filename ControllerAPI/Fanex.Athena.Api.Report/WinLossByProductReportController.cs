@@ -79,7 +79,6 @@ namespace Fanex.Athena.Api.Report
             return ProcessRequest(metaModel, null, null);
         }
 
-        [CLSCompliant(false)]
         protected internal virtual WinlossByProductExcel CreateExcel(string templatePath, WinLossByProductExcelModel excelModel)
         {
             return new WinlossByProductExcel(templatePath, excelModel);

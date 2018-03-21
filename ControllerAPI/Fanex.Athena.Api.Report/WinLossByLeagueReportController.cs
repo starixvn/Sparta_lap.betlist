@@ -89,7 +89,6 @@ namespace Fanex.Athena.Api.Report
             return ExcelStream(winlossByLeague.Workbook, FileName);
         }
 
-        [CLSCompliant(false)]
         protected internal virtual WinlossByLeagueExcel CreateExcel(
             string templatePath,
             ReportResultModel<WinLossByLeague> resultModel,

@@ -50,7 +50,6 @@
             return metaModel.IsExportExcel ? ExportExcel(metaModel) : ProcessRequest(metaModel);
         }
 
-        [CLSCompliant(false)]
         protected internal virtual CustomerWinLossExcel CreateExcel(string templatePath, CustomerWinLossExcelModel excelModel)
         {
             return new CustomerWinLossExcel(templatePath, excelModel);

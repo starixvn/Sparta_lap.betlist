@@ -23,7 +23,6 @@
         {
         }
 
-        [CLSCompliant(false)]
         public WinlossByBetTypeBetListController(
             ISessionService sessionService,
             IProductService productService,

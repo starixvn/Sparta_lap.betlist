@@ -86,7 +86,6 @@ namespace Fanex.Athena.Api.Report
             };
         }
 
-        [CLSCompliant(false)]
         protected internal virtual WeeklyLiveMatchExcel CreateExcel(
             string templatePath,
             WeeklyLiveMatchMetaModel metaModel,

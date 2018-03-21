@@ -18,12 +18,12 @@
 
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CheckUMFilter]
-    [FunctionAuthorization(PermissionKeys = new[] {
+    [FunctionAuthorization(
         PermissionKeys.ReportTurnover,
         PermissionKeys.ReportWinLossByProduct,
         PermissionKeys.ReportCustomerWinLoss,
         PermissionKeys.CustomerInfoCustomerLog,
-        PermissionKeys.CustomerInfoCustomerList })]
+        PermissionKeys.CustomerInfoCustomerList)]
     public class SearchCustomerAPIController : BaseController
     {
         private readonly ICustomerListService _customerListService;

@@ -19,10 +19,10 @@ namespace Fanex.Athena.Controllers.BetList
     using VendorAdapter.Interfaces;
     using Web.ActionFilter;
 
-    [FunctionAuthorization(PermissionKeys = new[] {
+    [FunctionAuthorization(
         PermissionKeys.ReportLicenseeWinLoss,
         PermissionKeys.ReportWinLossByProduct,
-        PermissionKeys.ReportColossusBetsWinLoss })]
+        PermissionKeys.ReportColossusBetsWinLoss)]
     [BetListAuthorization]
     public class LicenseeWinLossBetListController : BetListBaseController
     {

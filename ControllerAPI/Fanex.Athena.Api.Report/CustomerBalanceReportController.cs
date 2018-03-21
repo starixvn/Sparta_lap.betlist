@@ -44,7 +44,6 @@
             return metaModel.IsExportExcel ? ExportExcel(metaModel) : ProcessRequest(metaModel);
         }
 
-        [CLSCompliant(false)]
         protected internal virtual CustomerBalanceExcel CreateExcel(
             string templatePath,
             CustomerBalanceMetaModel metaModel,

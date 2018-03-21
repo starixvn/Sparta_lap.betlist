@@ -265,7 +265,6 @@ namespace Fanex.Athena.Api.Report
             return ExcelStream(excel.Workbook, FileName);
         }
 
-        [CLSCompliant(false)]
         protected internal virtual LicenseeWinLossExcel CreateExcel(string templatePath, LicenseeWinLossExcelModel excelModel)
         {
             return new LicenseeWinLossExcel(templatePath, excelModel);

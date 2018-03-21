@@ -17,7 +17,6 @@
         {
         }
 
-        [CLSCompliant(false)]
         public VoidbridgeBetListController(
             ISessionService sessionService,
             IProductService productService,
