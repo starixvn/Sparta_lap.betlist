@@ -1996,15 +1996,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Data is up to yesterday only..
-        /// </summary>
-        public static string DataUpToYesterday {
-            get {
-                return ResourceManager.GetString("DataUpToYesterday", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Data Warehouse.
         /// </summary>
         public static string DataWareHouse {

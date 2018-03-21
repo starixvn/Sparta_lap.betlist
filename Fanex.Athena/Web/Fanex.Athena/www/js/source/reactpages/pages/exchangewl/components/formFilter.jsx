@@ -216,11 +216,6 @@ export class FormFilter extends Component {
                         </div>
                     </div>
                 </div>
-                <div className='row'>
-                    <div className='col-12 col-sm-7 col-md-4 col-xl-3'>
-                        <span className='circle'></span> {LangHelper.getSingleResource('DataUpToYesterday')}
-                    </div>
-                </div>
                 <div className='caret-block'>
                     <i className='icon-excel right' onClick={this.exportExcel} title={LangHelper.getSingleResource('ExportToExcel')}></i>
                 </div> 

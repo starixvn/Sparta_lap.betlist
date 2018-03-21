@@ -8,8 +8,8 @@
     {
         public ExchangeWinLossViewModel()
         {
-            FromDate = DateTime.Today.AddDays(-1);
-            ToDate = DateTime.Today.AddDays(-1);
+            FromDate = DateTime.Today;
+            ToDate = DateTime.Today;
             ReportBy = ReportByType.Daily;
             ExcludeTestData = true;
         }
