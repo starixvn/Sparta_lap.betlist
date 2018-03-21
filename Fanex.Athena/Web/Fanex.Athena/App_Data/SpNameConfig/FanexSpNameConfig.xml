@@ -22,4 +22,10 @@
   <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_Monitor_BetlistSel_New" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_BetList_SelWinLossByBetType" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_BetList_PlatformWinLoss_Mem" EnvironmentText="_xtest"></SpNameConfig>
+
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_BetList_SelMatchResult" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_Result_LeagueSelByDate" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_Result_MatchSelByLeague" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_Result_MatchSelByLeague_Detail" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_Result_SportSelByDate" EnvironmentText="_xtest"></SpNameConfig>
 </Root>
