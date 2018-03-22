@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using Fanex.Athena.UnitTest.Common.NUnitExtensions;
+    using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
     using Result.Core.Racing.DTO;
@@ -11,27 +12,29 @@
 
     public partial class ResultDataAccessTest
     {
-        [TestCase(-2, null)]
-        [TestCase(-1, null)]
+        [TestCase(null, null)]
         [TestCase(0, "0")]
         [TestCase(1, "1")]
-        public void GetPopUpMatches_WhenCall_ParametersPassedCorrectly(int raceNo, string expectedRaceNo)
+        public void GetPopUpMatches_WhenCall_ParametersPassedCorrectly(int? raceNo, string expectedRaceNo)
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(GetPopUpMatchesSp)).Returns(ObjectDb);
             dynamic result = null;
             ObjectDb.ExecuteReader(Arg.Do<dynamic>(x => result = x));
 
+            var metaModel = BuildResultPopupMetalModel();
+            metaModel.RaceNo = raceNo;
+
             var expectedResult = new
             {
-                matchid = MatchId,
+                matchid = metaModel.MatchId,
                 raceno = expectedRaceNo,
-                bettype = BettypeId,
-                betid = BetId
+                bettype = metaModel.Bettype,
+                betid = metaModel.BetId
             };
 
             // Action
-            DataAccess.GetPopUpMatches<Sportsbook>(MatchId, raceNo, BettypeId, BetId);
+            DataAccess.GetPopUpMatches<Sportsbook>(metaModel);
 
             // Assert
             Assert.That(result, Tobe.SameProperties(expectedResult));
@@ -61,8 +64,11 @@
             expectedData.BetID = expectedBetId;
             var expectedResult = new List<Sportsbook> { expectedData };
 
+            var metaModel = BuildResultPopupMetalModel();
+            metaModel.BetId = betId;
+
             // Action
-            var result = DataAccess.GetPopUpMatches<Sportsbook>(MatchId, RaceNo, BettypeId, betId);
+            var result = DataAccess.GetPopUpMatches<Sportsbook>(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -72,12 +78,56 @@
             });
         }
 
+        [TestCase(221)]
+        [TestCase(222)]
+        [TestCase(223)]
+        [TestCase(224)]
+        [TestCase(225)]
+        [TestCase(226)]
+        [TestCase(227)]
+        public void GetPopUpMatches_TypeIsSportsbookAndFastMarketBetType_ReturnCorrectData(int betType)
+        {
+            // Arrange
+            DataAccess.GetObjectDb(Arg.Is(GetPopUpMatchesSp)).Returns(ObjectDb);
+
+            Reader.Read().Returns(true, false, true, false);
+            Reader.NextResult().Returns(true);
+
+            Reader.FieldCount.Returns(3);
+            Reader.GetName(0).Returns("lcolor");
+            Reader.GetName(1).Returns("LiveAwayScore");
+            Reader.GetName(2).Returns("LiveHomeScore");
+
+            var dataMapping = GetReaderDataMappingForSportsbookType();
+            var dataMappingForGameDetail = GetreaderDataMappingForGameDetail();
+            MergeReaderDataMapping(dataMapping, dataMappingForGameDetail);
+            MapReaderData(dataMapping);
+
+            var metaModel = BuildResultPopupMetalModel();
+            metaModel.Handicap1 = 16;
+            metaModel.Bettype = betType;
+
+            var expectedData = GetExpectedSportsbookData();
+            expectedData.BetID = metaModel.Handicap1.ToString();
+            expectedData.Bettype = betType;
+            var expectedResult = new List<Sportsbook> { expectedData };
+
+            // Action
+            var result = DataAccess.GetPopUpMatches<Sportsbook>(metaModel);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result[0], Tobe.SameProperties(expectedResult[0]));
+            });
+        }
+
         [Test]
         public void GGetPopUpMatches_WhenReceiveObjectDbException_ThrowDataAccessException()
         {
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
                 GetPopUpMatchesSp,
-                () => DataAccess.GetPopUpMatches<Sportsbook>(MatchId, RaceNo, BettypeId, BetId));
+                () => DataAccess.GetPopUpMatches<Sportsbook>(new ResultPopupMetalModel()));
         }
 
         [Test]
@@ -111,7 +161,7 @@
             var expectedResult = new List<Sportsbook> { sportsbookData };
 
             // Action
-            var result = DataAccess.GetPopUpMatches<Sportsbook>(MatchId, RaceNo, BettypeId, BetId);
+            var result = DataAccess.GetPopUpMatches<Sportsbook>(BuildResultPopupMetalModel());
 
             // Assert
             Assert.Multiple(() =>
@@ -150,7 +200,7 @@
             var expectedResult = new List<Sportsbook> { sportsbookData };
 
             // Action
-            var result = DataAccess.GetPopUpMatches<Sportsbook>(MatchId, RaceNo, BettypeId, BetId);
+            var result = DataAccess.GetPopUpMatches<Sportsbook>(BuildResultPopupMetalModel());
 
             // Assert
             Assert.Multiple(() =>
@@ -198,7 +248,7 @@
             };
 
             // Action
-            var result = DataAccess.GetPopUpMatches<Racing>(MatchId, RaceNo, BettypeId, BetId);
+            var result = DataAccess.GetPopUpMatches<Racing>(BuildResultPopupMetalModel());
 
             // Assert
             Assert.Multiple(() =>
@@ -246,7 +296,7 @@
             };
 
             // Action
-            var result = DataAccess.GetPopUpMatches<Racing>(MatchId, RaceNo, BettypeId, BetId);
+            var result = DataAccess.GetPopUpMatches<Racing>(BuildResultPopupMetalModel());
 
             // Assert
             Assert.Multiple(() =>
@@ -263,10 +313,21 @@
             DataAccess.GetObjectDb(Arg.Is(GetPopUpMatchesSp)).Returns(ObjectDb);
 
             // Action
-            TestDelegate result = () => DataAccess.GetPopUpMatches<object>(MatchId, RaceNo, BettypeId, BetId);
+            TestDelegate result = () => DataAccess.GetPopUpMatches<object>(BuildResultPopupMetalModel());
 
             // Assert
             Assert.Throws<NotSupportedException>(result, "The type 'object' is not supported.");
+        }
+
+        private ResultPopupMetalModel BuildResultPopupMetalModel()
+        {
+            return new ResultPopupMetalModel
+            {
+                MatchId = MatchId,
+                RaceNo = RaceNo,
+                Bettype = BettypeId,
+                BetId = BetId
+            };
         }
     }
 }

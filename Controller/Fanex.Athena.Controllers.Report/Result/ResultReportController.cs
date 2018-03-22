@@ -342,10 +342,6 @@ namespace Fanex.Athena.Controllers.Report.Result
             }
         }
 
-        [SuppressMessage(
-           "StyleCop.CSharp.StylecopPlus.Rules",
-           "SP2101:MethodMustNotContainMoreLinesThan",
-           Justification = "Reviewed. Suppression is OK here.")]
 #pragma warning disable S1541 // Methods and properties should not be too complex
         private void GetNormalPopUpData(ResultPopupMetalModel metalModel, SportType sportType, ResultSetting setting)
 #pragma warning restore S1541 // Methods and properties should not be too complex
@@ -362,11 +358,7 @@ namespace Fanex.Athena.Controllers.Report.Result
                 case SportType.VirtualCycling:
                     if (metalModel.RaceNo != null)
                     {
-                        var dataRc = _resultService.GetPopUpRacingMatch(
-                            metalModel.MatchId,
-                            metalModel.RaceNo.Value,
-                            metalModel.Bettype,
-                            metalModel.BetId);
+                        var dataRc = _resultService.GetPopUpRacingMatch(metalModel);
                         if (dataRc != null)
                         {
                             this._htmlResult = _resultService.HtmlParser(dataRc, setting);
@@ -385,7 +377,7 @@ namespace Fanex.Athena.Controllers.Report.Result
                     break;
 
                 default:
-                    var data = _resultService.GetPopUpMatch(metalModel.MatchId, metalModel.Bettype, metalModel.BetId);
+                    var data = _resultService.GetPopUpMatch(metalModel);
                     if (data != null)
                     {
                         _htmlResult = _resultService.HtmlParser(data, setting);

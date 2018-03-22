@@ -126,11 +126,7 @@
                 // Arrange
                 var metaModel = CreateResultPopupMetaModel(sportType);
                 var dataList = new List<Racing> { new Racing() };
-                _resultService.GetPopUpRacingMatch(
-                    metaModel.MatchId,
-                    metaModel.RaceNo.Value,
-                    metaModel.Bettype,
-                    metaModel.BetId).Returns(dataList);
+                _resultService.GetPopUpRacingMatch(metaModel).Returns(dataList);
                 _resultService.HtmlParser(dataList, Arg.Any<ResultSetting>()).Returns(HtmlResult);
 
                 // Action
@@ -150,6 +146,25 @@
                 var metaModel = CreateResultPopupMetaModel(Result.Core.Base.SportType.NumberGame);
                 var dataList = new List<NumberGame> { new NumberGame() };
                 _resultService.GetPopUpNumberGameMatchs(metaModel.MatchId).Returns(dataList);
+                _resultService.HtmlParser(dataList, Arg.Any<ResultSetting>()).Returns(HtmlResult);
+
+                // Action
+                var viewResult = controller.ResultPopup(metaModel) as ViewResult;
+
+                // Assert
+                Assert.That(viewResult.ViewBag.Data, Is.EqualTo(HtmlResult));
+            }
+        }
+
+        [Test]
+        public void ResultPopup_SportBookSports_ResultIsCorrect()
+        {
+            using (var controller = CreateController())
+            {
+                // Arrange
+                var metaModel = CreateResultPopupMetaModel(Result.Core.Base.SportType.Soccer);
+                var dataList = new List<Sportsbook> { new Sportsbook() };
+                _resultService.GetPopUpMatch(metaModel).Returns(dataList);
                 _resultService.HtmlParser(dataList, Arg.Any<ResultSetting>()).Returns(HtmlResult);
 
                 // Action

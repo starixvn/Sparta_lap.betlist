@@ -41,5 +41,9 @@ namespace Fanex.Athena.Model.Report.MetaModel
         public int CustId { get; set; }
 
         public int BetCheck { get; set; }
+
+        public int Handicap1 { get; set; }
+
+        public int Handicap2 { get; set; }
     }
 }
