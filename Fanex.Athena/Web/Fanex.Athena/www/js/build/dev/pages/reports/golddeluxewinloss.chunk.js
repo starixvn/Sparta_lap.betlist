@@ -10237,7 +10237,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             if (response != null) {
                 _cacheData[level] = response;
                 if (level === 0) {
-                    _submitData = param
+                    _submitData = param;
                 }
 
                 Report.renderBreadCrumb(level, _thirdPartyWinLossOption.licenseeId);
