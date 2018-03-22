@@ -7387,7 +7387,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         var BETTYPE_CASHOUT = 911;
         var BETTYPE_MIXPARLAY = 9, BETTYPE_SYSTEMPARLAY = 29, BETTYPE_MIXPARLAY_BETRADAR = 2799;
         var MIN_BETTYPE_FASTMARKET = 221;
-        var MAX_BETTYPE_FASTMARKET = 225;
+        var MAX_BETTYPE_FASTMARKET = 227;
         var SPORT_MICROGAMMING_LC = 203;
         var SPORT_MICROGAMMING_RNG = 205;
         var SPORT_RNG_GAME = 208;
@@ -7685,14 +7685,21 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 return url;
             },
 
-            getSportBookResultUrl: function (matchid, bettype, raceNo, sporttype, league, isOutright, betid) {
+            getSportBookResultUrl: function (matchid, bettype, raceNo, sporttype, league, isOutright, extension1, extension2) {
                 var url = Site.resolveClientUrl('ResultReport/ResultPopup');
                 url = QueryString.setParam(url, "matchid", matchid);
                 url = QueryString.setParam(url, "bettype", bettype);
                 url = QueryString.setParam(url, "raceno", raceNo);
                 url = QueryString.setParam(url, "sporttype", sporttype);
                 url = QueryString.setParam(url, "isoutright", isOutright);
-                url = QueryString.setParam(url, "betid", betid);
+                
+                if (isFastMarket(bettype)) {
+                    url = QueryString.setParam(url, "handicap1", extension1);
+                    url = QueryString.setParam(url, "handicap2", extension2);
+                }
+                else {
+                    url = QueryString.setParam(url, "betid", extension1);
+                }
 
                 return url;
             },
@@ -7778,29 +7785,29 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 });
             },
             viewResult: function (matchid, raceNo, bettype, sporttype, refno,
-                username, winlostdate, refnoMixParlay, league, isOutright, betid, betcheck, custid, transdecs) {
+                username, winlostdate, refnoMixParlay, league, isOutright, extension1, extension2, custid, transdecs) {
                 var title = Site.getSingleResource("Result");
                 if (sporttype === SPORT_MICROGAMMING_RNG || sporttype === SPORT_MICROGAMMING_LC) {
-                    _me.showMicrogamingResultPopup(title, betcheck, custid);
+                    _me.showMicrogamingResultPopup(title, extension2, custid);
                 }
                 else if (sporttype === SPORT_RNG_GAME || sporttype === SPORT_RNG_MINIGAME || sporttype === SPORT_RNG_MOBILE) {
                     _me.viewRngCasinoResult(title, refno);
                 }
                 else if (sporttype === SPORT_VOIDBRIDGE) {
-                    _me.viewVoidbridgeResult(custid, betcheck, title);
+                    _me.viewVoidbridgeResult(custid, extension2, title);
                 }
                 else if (sporttype === SPORT_ALLBET) {
-                    _me.viewAllBetResult(transdecs, betcheck, bettype, title);
+                    _me.viewAllBetResult(transdecs, extension2, bettype, title);
                 }
                 else if (sporttype === SPORT_GLOBALGAMING) {
-                    _me.viewGlobalGamingResult(custid, betcheck, title);
+                    _me.viewGlobalGamingResult(custid, extension2, title);
                 }
                 else {
                     bettype = Number(bettype);
                     var isParlay = bettype === BETTYPE_MIXPARLAY || bettype === BETTYPE_SYSTEMPARLAY || bettype === BETTYPE_MIXPARLAY_BETRADAR;
                     var url = isParlay
                         ? _me.getMixParlayResultUrl(refnoMixParlay, winlostdate, bettype)
-                        : _me.getSportBookResultUrl(matchid, bettype, raceNo, sporttype, league, isOutright, betid, betcheck, custid);
+                        : _me.getSportBookResultUrl(matchid, bettype, raceNo, sporttype, league, isOutright, extension1, extension2, custid);
 
                     var height = isParlay ? 450 : (isFastMarket(bettype) ? 300 : 250);
                     var width = 750;
