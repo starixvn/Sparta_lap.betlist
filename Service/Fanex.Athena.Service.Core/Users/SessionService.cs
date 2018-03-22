@@ -14,7 +14,6 @@ namespace Fanex.Athena.Service.Core.Users
     using System.Linq;
     using System.Text;
     using System.Web;
-    using Configuration;
     using Configuration.Interfaces;
     using DataAccess.Core.Common;
     using DataAccess.Core.Common.Interfaces;
@@ -40,26 +39,22 @@ namespace Fanex.Athena.Service.Core.Users
         private const string UserSessionKey = "UserSessionKey";
         private const string CaptchaCodeKey = "CaptchaCodeKey";
 
-        private readonly IAppSettings _appSettings;
         private readonly IFunctionService _functionService;
         private readonly ILicenseeDataAccess _licenseeDataAccess;
         private readonly ICurrencyDataAccess _currencyDataAccess;
 
         public SessionService()
         {
-            _appSettings = new AppSettings();
             _functionService = new FunctionService();
             _licenseeDataAccess = new LicenseeDataAccess();
             _currencyDataAccess = new CurrencyDataAccess();
         }
 
         public SessionService(
-            IAppSettings appSettings,
             IFunctionService functionService,
             ILicenseeDataAccess licenseeDataAccess,
             ICurrencyDataAccess currencyDataAccess)
         {
-            _appSettings = appSettings;
             _functionService = functionService;
             _licenseeDataAccess = licenseeDataAccess;
             _currencyDataAccess = currencyDataAccess;
@@ -284,29 +279,9 @@ namespace Fanex.Athena.Service.Core.Users
                 .Where(x => x.IsActive)
                 .Select(x => new { x.CurrencyId, x.AgentIdList })
                 .ToDictionary(x => x.CurrencyId, x => x.AgentIdList);
-            MergeAgentListForFakeLicensees(licenseeId, currencyAgentList);
 
             userSession.CurrencyList = currencyList;
             userSession.CurrencyAgentList = currencyAgentList;
-        }
-
-        private void MergeAgentListForFakeLicensees(int licenseeId, IDictionary<int, IEnumerable<int>> currencyAgentList)
-        {
-            if (!_appSettings.FakeLicenseeList.Contains(licenseeId))
-            {
-                return;
-            }
-
-            var licenseeSourcedSettings = _licenseeDataAccess.GetLicenseeSourcedSettings(licenseeId);
-            var currencyList = currencyAgentList.Keys.ToList();
-            foreach (var key in currencyList)
-            {
-                var mergingAgentList = licenseeSourcedSettings.Where(x => x.SourcedCurrencyId == key).Select(x => x.SourcedAgentId).ToArray();
-                if (mergingAgentList.Any())
-                {
-                    currencyAgentList[key] = currencyAgentList[key].Concat(mergingAgentList).Distinct().ToList();
-                }
-            }
         }
     }
 

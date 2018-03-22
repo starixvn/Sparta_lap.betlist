@@ -15,7 +15,6 @@
         private const string IsAllowUpdateMemberBAStatusSp = "Lrf_BATimeCheck";
         private const string IsLicenseeBelongToUserSp = "Lrf_LicenseeSel";
         private const string GetLicenseeByNameSp = "Lrf_LicenseeSelBySiteName";
-        private const string GetLicenseeSourcedSettingsSp = "LRF_LicenseeSourcedSel";
 
         [Test]
         public void IsAllowUpdateMemberBAStatus_WhenCall_ParametersPassedCorrectly()
@@ -159,36 +158,6 @@
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
                 GetLicenseeByNameSp,
                 () => DataAccess.GetLicenseeByName(string.Empty));
-        }
-
-        [Test]
-        public void GetLicenseeSourcedSettings_WhenCall_ValueReturnedCorrectly()
-        {
-            // Arrange
-            DataAccess.GetObjectDb(Arg.Is(GetLicenseeSourcedSettingsSp)).Returns(ObjectDb);
-            var expectedItem = new LicenseeSourcedSetting
-            {
-                SourcedAgentId = 1
-            };
-            ObjectDb.Query<LicenseeSourcedSetting>(Arg.Any<object>()).Returns(
-                new List<LicenseeSourcedSetting>
-                {
-                    expectedItem
-                });
-
-            // Action
-            var result = DataAccess.GetLicenseeSourcedSettings(0);
-
-            // Assert
-            Assert.That(result.First().SourcedAgentId, Is.EqualTo(expectedItem.SourcedAgentId));
-        }
-
-        [Test]
-        public void GetLicenseeSourcedSettings_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetLicenseeSourcedSettingsSp,
-                () => DataAccess.GetLicenseeSourcedSettings(0));
         }
     }
 }

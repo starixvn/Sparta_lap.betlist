@@ -39,7 +39,7 @@
             _cache.Get<IEnumerable<ReportSetting>>(string.Empty).ReturnsForAnyArgs((IEnumerable<ReportSetting>)null);
 
             // Action
-            var result = _fakeLicenseeSettingService.GetSetting(string.Empty);
+            var result = _fakeLicenseeSettingService.GetSetting();
 
             // Assert
             Assert.That(result, Is.Null);
@@ -59,7 +59,7 @@
             _cache.Get<IEnumerable<ReportSetting>>(string.Empty).ReturnsForAnyArgs((IEnumerable<ReportSetting>)null);
 
             // Action
-            _reportSettingService.GetSetting(string.Empty, ReportKey);
+            _reportSettingService.GetSetting(ReportKey);
 
             // Assert
             _cache.Received(1).Set(
@@ -74,7 +74,6 @@
             // Arrange
             const string ReportKey = "Abc";
             _reportSettingService.GetSettingFileContent().Returns(string.Empty);
-            var licenseeName = FakeHelper.Create<string>();
 
             var fakeData = new[]
             {
@@ -83,7 +82,7 @@
             _cache.Get<IEnumerable<ReportSetting>>(string.Empty).ReturnsForAnyArgs(fakeData);
 
             // Action
-            var result = _reportSettingService.GetSetting(licenseeName, ReportKey);
+            var result = _reportSettingService.GetSetting(ReportKey);
 
             // Assert
             Assert.That(result, Is.EqualTo(fakeData[0]));
@@ -108,10 +107,10 @@
                 DisableBetList = true
             };
             _cache.Get<IEnumerable<ReportSetting>>(string.Empty).ReturnsForAnyArgs(fakeData);
-            _fakeLicenseeSettingService.GetSetting(LicenseeName).Returns(fakeLicenseeSetting);
+            _fakeLicenseeSettingService.GetSetting().Returns(fakeLicenseeSetting);
 
             // Action
-            var result = _reportSettingService.GetSetting(LicenseeName, ReportKey);
+            var result = _reportSettingService.GetSetting(ReportKey);
 
             // Assert
             Assert.Multiple(() =>

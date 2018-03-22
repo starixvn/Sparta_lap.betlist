@@ -29,6 +29,7 @@ bin/
 _ReSharper*/
 [Tt]est[Rr]esult*
 /packages
+junit/
 
 *StyleCop.Cache
 /cireport

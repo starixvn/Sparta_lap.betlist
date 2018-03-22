@@ -456,6 +456,12 @@ var LicenseeWinLossOption = (function () {
         columns.insertAfter(buyBackAmountSBColumn, columnIndex);
     }
 
+    function hideDrilldownLinks() {
+        externalIdColumn.formatter = null;
+        systemIdColumn.formatter = null;
+        currencyColumn.formatter = null;
+    }
+
     me.setGroupHeaderColumns = function (grid, productOptions) {
         var numOfTurnover = JSLINQ(productOptions).Count(turnoverProductsFilter) + 1;
         var lastOfTurnover = JSLINQ(productOptions).Last(turnoverProductsFilter);
@@ -536,16 +542,14 @@ var LicenseeWinLossOption = (function () {
     me.getColModel = function (level, reportBy, productOptions) {
         reportBy = Number(reportBy);
 
-        // Column hidden by customer comm
         customerWlTotalColumn.hidden = !me.hasCustomerComm;
         playerCommColumn.hidden = !me.hasCustomerComm;
         level = Number(level);
-        //set width of licenseeWL column
+
         if (!me.hasCustomerComm) { licenseeWlColumn.width = 90; }
         // Column hidden by level
         currencyColumn.formatter = level === 0 ? currencyFormatter : null;
         systemIdColumn.formatter = level === 1 ? systemIdFormatter : null;
-
         dateColumn.hidden = level > 0;
         externalIdColumn.hidden = level < 2;
         systemIdColumn.hidden = level === 0 || Site.isFakeLicensee();
@@ -573,28 +577,15 @@ var LicenseeWinLossOption = (function () {
             externalIdColumn.formatter = betlistLink;
             systemIdColumn.formatter = betlistLink;
         }
-        if (reportBy === 2) {
-            dateColumn.formatoptions = {
-                newformat: 'm/Y'
-            };
-        } else {
-            dateColumn.formatoptions = {
-                newformat: 'm/d/Y'
-            };
-        }
-
+        dateColumn.formatoptions = { newformat: reportBy === 2 ? 'm/Y' : 'm/d/Y' };
+        
         if (LicenseeWinLossOption.isDisableBetList) {
-            externalIdColumn.formatter = null;
-            systemIdColumn.formatter = null;
-            currencyColumn.formatter = null;
+            hideDrilldownLinks();
         }
 
         var temp = Site.clone(colModelList);
-
         var turnOverIndex = me.turnoverIndex;
-
         var licenseeIndex = me.licenseeWlIndex;
-
         var customerWLTotalIndex = me.customerWlTotalIndex;
         $.each(productOptions, function (index, item) {
             //insert turn over column
@@ -626,7 +617,6 @@ var LicenseeWinLossOption = (function () {
         });
 
         //add total
-
         var turnOverTotal = Site.clone(productColumn);
         turnOverTotal.name = "TotalTurnOver";
         turnOverTotal.index = "TotalTurnOver";

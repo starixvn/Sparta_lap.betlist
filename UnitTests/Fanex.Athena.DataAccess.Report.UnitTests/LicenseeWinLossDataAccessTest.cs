@@ -37,7 +37,9 @@
             balanceUpDataAccess.GetBalanceUp().Returns(balance);
 
             ObjectDb = Substitute.For<IObjectDb>();
-            DataAccess = Substitute.ForPartsOf<LicenseeWinLossDataAccess>(balanceUpDataAccess);
+            DataAccess = Substitute.ForPartsOf<LicenseeWinLossDataAccess>(
+                Substitute.For<IAppSettings>(),
+                balanceUpDataAccess);
 
             var appSetting = Substitute.For<IAppSettings>();
             appSetting.HistoryDate.Returns(new DateTime(2016, 8, 31));
@@ -85,6 +87,7 @@
         [Test]
         public void GetSummaryWinloss_WhenReceiveObjectDbException_ThrowDataAccessException()
         {
+            DataAccess.GetSpNameForFakeLicensee(Arg.Is(_metaModel.LicenseeId), Arg.Is(GetSummaryWinlossSp)).Returns(GetSummaryWinlossSp);
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
                 GetSummaryWinlossSp,
                 () => DataAccess.GetSummaryWinloss(_metaModel));

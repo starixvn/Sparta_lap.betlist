@@ -16,6 +16,8 @@ namespace Fanex.Athena.Service.Core.Configuration
     using Fanex.Athena.Model.Core.DTO.Configuration;
     using Interfaces;
     using Newtonsoft.Json;
+    using Users;
+    using Users.Interfaces;
 
     public class FakeLicenseeSettingService : IFakeLicenseeSettingService
     {
@@ -23,17 +25,30 @@ namespace Fanex.Athena.Service.Core.Configuration
 
         private readonly IMemoryCacheService _cache;
 
-        public FakeLicenseeSettingService() : this(null)
+        private readonly ISessionService _sessionService;
+
+        public FakeLicenseeSettingService() : this(null, null)
         {
         }
 
-        public FakeLicenseeSettingService(IMemoryCacheService cache)
+        public FakeLicenseeSettingService(IMemoryCacheService cache, ISessionService sessionService)
         {
             _cache = cache ?? new MemoryCacheService();
+            _sessionService = sessionService ?? new SessionService();
         }
 
-        public FakeLicenseeSetting GetSetting(string licenseeName)
+        public bool IsFakeLicensee()
         {
+            return GetSetting() == null;
+        }
+
+        public FakeLicenseeSetting GetSetting()
+        {
+            if (_sessionService.LicenseeSession == null)
+            {
+                return null;
+            }
+
             var settings = _cache.Get<IEnumerable<FakeLicenseeSetting>>(CacheKey);
             if (settings == null)
             {
@@ -41,6 +56,7 @@ namespace Fanex.Athena.Service.Core.Configuration
                 _cache.Set(CacheKey, settings);
             }
 
+            var licenseeName = _sessionService.LicenseeSession.LicenseeName;
             return settings.FirstOrDefault(x => x.SiteName.Equals(licenseeName, StringComparison.OrdinalIgnoreCase));
         }
 

@@ -56,7 +56,7 @@ namespace Fanex.Athena.Web.ActionFilter
             if (licenseeSession != null)
             {
                 var fakeLicenseeSettingService = new FakeLicenseeSettingService();
-                var setting = fakeLicenseeSettingService.GetSetting(licenseeSession.LicenseeName);
+                var setting = fakeLicenseeSettingService.GetSetting();
                 if (setting != null)
                 {
                     authorized = !setting.DisableBetList;

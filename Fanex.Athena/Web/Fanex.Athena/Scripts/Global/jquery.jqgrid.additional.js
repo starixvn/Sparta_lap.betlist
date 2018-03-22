@@ -1,8 +1,8 @@
 ﻿/*global Site, MathContext, BigDecimal*/
 /// <reference path="/@JSense.js" />
 ///
-"use strict";
 var jqGridAdditional = (function () {
+    "use strict";
     var _resizeTimer;
     return {
         DECIMAL_FORMAT_OPTIONS: {

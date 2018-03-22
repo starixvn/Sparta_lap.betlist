@@ -13,5 +13,7 @@ namespace Fanex.Athena.Model.Core.DTO.Configuration
         public string MinDate { get; set; }
 
         public string MaxDate { get; set; }
+
+        public string BaseCurrencies { get; set; }
     }
 }

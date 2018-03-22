@@ -225,7 +225,7 @@
             if (response != null) {
                 _cacheData[level] = response;
                 if (level === 0) {
-                    _submitData = param
+                    _submitData = param;
                 }
 
                 Report.renderBreadCrumb(level, _thirdPartyWinLossOption.licenseeId);

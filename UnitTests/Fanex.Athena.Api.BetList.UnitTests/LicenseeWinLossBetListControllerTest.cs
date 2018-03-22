@@ -42,9 +42,7 @@
             var metaModel = new BetListMetaModel { FromDate = new DateTime(2018, 1, 1) };
 
             StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string>() });
-            _reportSettingService.GetSetting(
-                SessionService.LicenseeSession.LicenseeName,
-                PermissionKeys.ReportLicenseeWinLoss).Returns(new ReportSetting
+            _reportSettingService.GetSetting(PermissionKeys.ReportLicenseeWinLoss).Returns(new ReportSetting
                 {
                     MinDate = new DateTime(2018, 2, 2),
                     MaxDate = new DateTime(2018, 3, 3)

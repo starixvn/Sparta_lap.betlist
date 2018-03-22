@@ -191,7 +191,8 @@ var currentYear = DateTime.Now.Year;
 @helper CurrencyList(IDictionary<int, string> currencyList,
 string className = "", int selected = 0,
 bool addMoreAllOption = true,
-bool addBasedOption = false)
+bool addBasedOption = false,
+string baseCurrencies = null)
 {
 var selectedName = currencyList.Where(p => p.Key == selected).FirstOrDefault().Key;
 var selectedBaseCurrency = selected == BaseCurrencyType.Gbp ? "gbp" :
@@ -206,27 +207,23 @@ var items = currencyList
  }).ToList();
 if (addBasedOption)
 {
-    items.Insert(0, new System.Web.WebPages.Html.SelectListItem
+    var currencyIdMap = new Dictionary<string, int>
     {
-        Text = ViewResources.Based + " GBP",
-        Value = BaseCurrencyType.Gbp.ToString(),
-        Selected = BaseCurrencyType.Gbp == selected
-    });
-
-    items.Insert(0, new System.Web.WebPages.Html.SelectListItem
+        { "GBP", BaseCurrencyType.Gbp },
+        { "USD", BaseCurrencyType.Usd},
+        { "EUR", BaseCurrencyType.Eur }
+    };
+    var baseCurrencyList = (baseCurrencies ?? "EUR,USD,GBP").Split(',').Reverse();
+    foreach (var currency in baseCurrencyList)
     {
-        Text = ViewResources.Based + " USD",
-        Value = BaseCurrencyType.Usd.ToString(),
-        Selected = BaseCurrencyType.Usd == selected
-    });
-
-    items.Insert(0, new System.Web.WebPages.Html.SelectListItem
-    {
-        Text = ViewResources.Based + " EUR",
-        Value = BaseCurrencyType.Eur.ToString(),
-        Selected = BaseCurrencyType.Eur == selected
-    });
-
+        var currencyId = currencyIdMap[currency];
+        items.Insert(0, new System.Web.WebPages.Html.SelectListItem
+        {
+            Text = ViewResources.Based + " " + currency,
+            Value = currencyId.ToString(),
+            Selected = currencyId == selected
+        });
+    }
 }
 if (addMoreAllOption)
 {

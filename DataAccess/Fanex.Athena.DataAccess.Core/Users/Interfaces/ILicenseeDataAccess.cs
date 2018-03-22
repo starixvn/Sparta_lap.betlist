@@ -15,8 +15,6 @@ namespace Fanex.Athena.DataAccess.Core.Users.Interfaces
 
     public interface ILicenseeDataAccess
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters",
-            Justification = "Reviewed. Suppression is OK here.")]
         IResultInfo<bool> IsAllowUpdateMemberBAStatus(Request request, int licenseeId);
 
         bool IsLicenseeBelongToUser(int licenseeId, int userId);
@@ -24,7 +22,5 @@ namespace Fanex.Athena.DataAccess.Core.Users.Interfaces
         IList<Licensee> GetByUser(int userId);
 
         Licensee GetLicenseeByName(string licenseeName);
-
-        IEnumerable<LicenseeSourcedSetting> GetLicenseeSourcedSettings(int licenseeId);
     }
 }
