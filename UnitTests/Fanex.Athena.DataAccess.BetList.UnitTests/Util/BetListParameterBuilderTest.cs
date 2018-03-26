@@ -114,29 +114,14 @@
             {
                 _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
                 _objectDb.Received().AddInParameter("CustID", DbType.Int32, _metaModel.CustId);
-                _objectDb.Received().AddInParameter("FromDate", DbType.DateTime, _metaModel.FromDate);
-                _objectDb.Received().AddInParameter("ToDate", DbType.DateTime, _metaModel.ToDate);
                 _objectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, _metaModel.MoveBetsDay);
                 _objectDb.Received().AddInParameter("BalanceUpDay", DbType.DateTime, _metaModel.BalanceUpDay);
+                _objectDb.Received().AddInParameter("FromDate", DbType.DateTime, _metaModel.FromDate);
+                _objectDb.Received().AddInParameter("ToDate", DbType.DateTime, _metaModel.ToDate);
                 _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
                 _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
                 _objectDb.Received().AddOutParameter("totalrows", DbType.Int32, 4);
-                _objectDb.Received().AddOutParameter("SumWinlost", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWL", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommGBP", DbType.Currency, 8);
+                AssertReceivedSummaryParameters(_objectDb);
                 _objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
                 _objectDb.Received().AddInParameter("showNG", DbType.Boolean, true);
             });
@@ -163,22 +148,7 @@
                 _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
                 _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
                 _objectDb.Received().AddOutParameter("totalrows", DbType.Int32, 4);
-                _objectDb.Received().AddOutParameter("SumWinlost", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWL", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommGBP", DbType.Currency, 8);
+                AssertReceivedSummaryParameters(_objectDb);
             });
         }
 
@@ -205,22 +175,7 @@
                 _objectDb.Received().AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
                 _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
                 _objectDb.Received().AddOutParameter("totalrows", DbType.Int32, 4);
-                _objectDb.Received().AddOutParameter("SumWinlost", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWL", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommGBP", DbType.Currency, 8);
+                AssertReceivedSummaryParameters(_objectDb);
             });
         }
 
@@ -243,22 +198,7 @@
                 _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
                 _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
                 _objectDb.Received().AddOutParameter("totalrows", DbType.Int32, 4);
-                _objectDb.Received().AddOutParameter("SumWinlost", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWL", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommGBP", DbType.Currency, 8);
+                AssertReceivedSummaryParameters(_objectDb);
                 _objectDb.Received().AddOutParameter("SumStake", DbType.Currency, 8);
                 _objectDb.Received().AddOutParameter("SumStakeUSD", DbType.Currency, 8);
                 _objectDb.Received().AddOutParameter("SumStakeEUR", DbType.Currency, 8);
@@ -289,22 +229,7 @@
                 _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
                 _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
                 _objectDb.Received().AddOutParameter("totalrows", DbType.Int32, 4);
-                _objectDb.Received().AddOutParameter("SumWinlost", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWL", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommGBP", DbType.Currency, 8);
+                AssertReceivedSummaryParameters(_objectDb);
                 _objectDb.Received().AddInParameter("drawfilter", DbType.Int16, _metaModel.DrawFilter);
             });
         }
@@ -372,22 +297,7 @@
                 _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
                 _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
                 _objectDb.Received().AddOutParameter("totalrows", DbType.Int32, 4);
-                _objectDb.Received().AddOutParameter("SumWinlost", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWL", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommGBP", DbType.Currency, 8);
+                AssertReceivedSummaryParameters(_objectDb);
             });
         }
 
@@ -414,22 +324,7 @@
                 _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
                 _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
                 _objectDb.Received().AddOutParameter("totalrows", DbType.Int32, 4);
-                _objectDb.Received().AddOutParameter("SumWinlost", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWL", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommGBP", DbType.Currency, 8);
+                AssertReceivedSummaryParameters(_objectDb);
                 _objectDb.Received().AddInParameter("Date", DbType.DateTime, _metaModel.Date);
                 _objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
                 _objectDb.Received().AddInParameter("showNG", DbType.Boolean, true);
@@ -456,22 +351,7 @@
                 _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
                 _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
                 _objectDb.Received().AddOutParameter("totalrows", DbType.Int32, 4);
-                _objectDb.Received().AddOutParameter("SumWinlost", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWL", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommGBP", DbType.Currency, 8);
+                AssertReceivedSummaryParameters(_objectDb);
                 _objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
                 _objectDb.DidNotReceive().AddInParameter("showNG", DbType.Boolean, true);
             });
@@ -498,22 +378,7 @@
                 _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
                 _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
                 _objectDb.Received().AddOutParameter("totalrows", DbType.Int32, 4);
-                _objectDb.Received().AddOutParameter("SumWinlost", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWL", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommGBP", DbType.Currency, 8);
+                AssertReceivedSummaryParameters(_objectDb);
                 _objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
                 _objectDb.Received().AddInParameter("showNG", DbType.Boolean, true);
             });
@@ -542,22 +407,7 @@
                 _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
                 _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
                 _objectDb.Received().AddOutParameter("totalrows", DbType.Int32, 4);
-                _objectDb.Received().AddOutParameter("SumWinlost", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWL", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommGBP", DbType.Currency, 8);
+                AssertReceivedSummaryParameters(_objectDb);
                 _objectDb.Received().AddInParameter("drawfilter", DbType.Int16, _metaModel.DrawFilter);
                 _objectDb.Received().AddInParameter("PlatformType", DbType.Byte, _metaModel.PlatformType);
             });
@@ -582,22 +432,7 @@
                 _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
                 _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
                 _objectDb.Received().AddOutParameter("totalrows", DbType.Int32, 4);
-                _objectDb.Received().AddOutParameter("SumWinlost", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWL", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommGBP", DbType.Currency, 8);
+                AssertReceivedSummaryParameters(_objectDb);
                 _objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
                 _objectDb.Received().AddInParameter("showNG", DbType.Boolean, true);
             });
@@ -622,22 +457,7 @@
                 _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
                 _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
                 _objectDb.Received().AddOutParameter("totalrows", DbType.Int32, 4);
-                _objectDb.Received().AddOutParameter("SumWinlost", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWL", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommGBP", DbType.Currency, 8);
+                AssertReceivedSummaryParameters(_objectDb);
                 _objectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
                 _objectDb.Received().AddOutParameter("ErrMsg", DbType.String, 8000);
             });
@@ -662,22 +482,7 @@
                 _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
                 _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
                 _objectDb.Received().AddOutParameter("totalrows", DbType.Int32, 4);
-                _objectDb.Received().AddOutParameter("SumWinlost", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWL", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommGBP", DbType.Currency, 8);
+                AssertReceivedSummaryParameters(_objectDb);
             });
         }
 
@@ -723,22 +528,7 @@
                 _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
                 _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
                 _objectDb.Received().AddOutParameter("totalrows", DbType.Int32, 4);
-                _objectDb.Received().AddOutParameter("SumWinlost", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWL", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommGBP", DbType.Currency, 8);
+                AssertReceivedSummaryParameters(_objectDb);
             });
         }
 
@@ -887,22 +677,7 @@
                 _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
                 _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
                 _objectDb.Received().AddOutParameter("totalrows", DbType.Int32, 4);
-                _objectDb.Received().AddOutParameter("SumWinlost", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWL", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommGBP", DbType.Currency, 8);
+                AssertReceivedSummaryParameters(_objectDb);
             });
         }
 
@@ -1033,6 +808,26 @@
                 LiveIndicator = 7,
                 PlatformType = 9
             };
+        }
+
+        private static void AssertReceivedSummaryParameters(IObjectDb objectDb)
+        {
+            objectDb.Received().AddOutParameter("SumWinlost", DbType.Currency, 8);
+            objectDb.Received().AddOutParameter("SumLicenseeWL", DbType.Currency, 8);
+            objectDb.Received().AddOutParameter("SumComm", DbType.Currency, 8);
+            objectDb.Received().AddOutParameter("SumPlayerComm", DbType.Currency, 8);
+            objectDb.Received().AddOutParameter("SumWinlostUSD", DbType.Currency, 8);
+            objectDb.Received().AddOutParameter("SumLicenseeWLUSD", DbType.Currency, 8);
+            objectDb.Received().AddOutParameter("SumCommUSD", DbType.Currency, 8);
+            objectDb.Received().AddOutParameter("SumPlayerCommUSD", DbType.Currency, 8);
+            objectDb.Received().AddOutParameter("SumWinlostEUR", DbType.Currency, 8);
+            objectDb.Received().AddOutParameter("SumLicenseeWLEUR", DbType.Currency, 8);
+            objectDb.Received().AddOutParameter("SumCommEUR", DbType.Currency, 8);
+            objectDb.Received().AddOutParameter("SumPlayerCommEUR", DbType.Currency, 8);
+            objectDb.Received().AddOutParameter("SumWinlostGBP", DbType.Currency, 8);
+            objectDb.Received().AddOutParameter("SumLicenseeWLGBP", DbType.Currency, 8);
+            objectDb.Received().AddOutParameter("SumCommGBP", DbType.Currency, 8);
+            objectDb.Received().AddOutParameter("SumPlayerCommGBP", DbType.Currency, 8);
         }
     }
 }

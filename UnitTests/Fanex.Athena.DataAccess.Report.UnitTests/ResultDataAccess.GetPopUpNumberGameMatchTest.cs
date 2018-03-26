@@ -6,9 +6,29 @@
     using NSubstitute;
     using NUnit.Framework;
     using Result.Core.NumberGame.DTO;
+    using UnitTest.Common.Helpers;
 
     public partial class ResultDataAccessTest
     {
+        private readonly Dictionary<string, object> _readerDataMapping = new Dictionary<string, object>
+            {
+                { "leagueid", 111 }, { "matchid", 222 }, { "eventstatus", "win" }, { "eventdate", "03/16/2017" }, { "isrefund", "1" },
+                { "kickofftime", "1/1/2017" }, { "matchcode", "test" }, { "seq", 3 }, { "number", 4 }
+            };
+
+        private readonly NumberGame _dataItem = new NumberGame
+        {
+            LeagueId = 111,
+            MatchId = 222,
+            EventStatus = "win",
+            EventDate = new DateTime(2017, 3, 16),
+            IsPending = false,
+            KickOffTime = new DateTime(2017, 1, 1),
+            MatchCode = "test",
+            Seg = new List<int> { 3, 3 },
+            Ball = new List<int> { 4, 4 }
+        };
+
         [Test]
         public void GetPopUpNumberGameMatch_WhenCall_ParameterPassedCorrectly()
         {
@@ -37,39 +57,16 @@
             Reader.Read().Returns(true, true, false);
             Reader.FieldCount.Returns(1);
             Reader.GetName(0).Returns("isrefund");
-            var matchId = 2;
-            var readerDataMapping = new Dictionary<string, object>
-            {
-                { "leagueid", 1 }, { "matchid", matchId }, { "eventstatus", "win" }, { "eventdate", "03/16/2017" }, { "isrefund", "1" },
-                { "kickofftime", "1/1/2017" }, { "matchcode", "test" }, { "seq", 3 }, { "number", 4 }
-            };
-            MapReaderData(readerDataMapping);
 
-            var expectedResult = new List<NumberGame>
-            {
-                new NumberGame
-                {
-                    LeagueId = 1,
-                    MatchId = 2,
-                    EventStatus = "win",
-                    EventDate = new DateTime(2017, 3, 16),
-                    IsPending = true,
-                    KickOffTime = new DateTime(2017, 1, 1),
-                    MatchCode = "test",
-                    Seg = new List<int> { 3, 3 },
-                    Ball = new List<int> { 4, 4 }
-                }
-            };
+            MapReaderData(_readerDataMapping);
+            _dataItem.IsPending = true;
+            var expectedResult = new List<NumberGame> { _dataItem };
 
             // Action
-            var result = DataAccess.GetPopUpNumberGameMatch(matchId);
+            var result = DataAccess.GetPopUpNumberGameMatch(222);
 
             // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(result.Count, Is.EqualTo(expectedResult.Count));
-                Assert.That(result[0], Tobe.SameProperties(expectedResult[0]));
-            });
+            Assert.That(ObjectHelper.ToJson(result), Is.EqualTo(ObjectHelper.ToJson(expectedResult)));
         }
 
         [Test]
@@ -79,39 +76,15 @@
             DataAccess.GetObjectDb(Arg.Is(GetPopUpNumberGameMatchSp)).Returns(ObjectDb);
 
             Reader.Read().Returns(true, true, false);
-            var matchId = 2;
-            var readerDataMapping = new Dictionary<string, object>
-            {
-                { "leagueid", 1 }, { "matchid", matchId }, { "eventstatus", "win" }, { "eventdate", "03/16/2017" }, { "isrefund", "1" },
-                { "kickofftime", "1/1/2017" }, { "matchcode", "test" }, { "seq", 3 }, { "number", 4 }
-            };
-            MapReaderData(readerDataMapping);
-
-            var expectedResult = new List<NumberGame>
-            {
-                new NumberGame
-                {
-                    LeagueId = 1,
-                    MatchId = 2,
-                    EventStatus = "win",
-                    EventDate = new DateTime(2017, 3, 16),
-                    IsPending = false,
-                    KickOffTime = new DateTime(2017, 1, 1),
-                    MatchCode = "test",
-                    Seg = new List<int> { 3, 3 },
-                    Ball = new List<int> { 4, 4 }
-                }
-            };
+            MapReaderData(_readerDataMapping);
+            _dataItem.IsPending = false;
+            var expectedResult = new List<NumberGame> { _dataItem };
 
             // Action
-            var result = DataAccess.GetPopUpNumberGameMatch(matchId);
+            var result = DataAccess.GetPopUpNumberGameMatch(222);
 
             // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(result.Count, Is.EqualTo(expectedResult.Count));
-                Assert.That(result[0], Tobe.SameProperties(expectedResult[0]));
-            });
+            Assert.That(ObjectHelper.ToJson(result), Is.EqualTo(ObjectHelper.ToJson(expectedResult)));
         }
 
         [Test]
