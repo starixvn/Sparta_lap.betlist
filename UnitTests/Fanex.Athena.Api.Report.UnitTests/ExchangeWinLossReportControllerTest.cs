@@ -5,13 +5,19 @@
     using Base.UnitTests;
     using DataAccess.Report.Interfaces;
     using Model.Core.DataDomain;
+    using Model.Core.DTO.Configuration;
     using Model.Core.DTO.Users;
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using Service.Core.Configuration.Interfaces;
 
     public class ExchangeWinLossReportControllerTest : BaseApiControllerHelperTest
     {
+        private readonly DateTime _minDate = new DateTime(2018, 2, 3);
+        private readonly DateTime _maxDate = new DateTime(2018, 8, 7);
+
+        private IReportSettingService _reportSettingService;
         private IExchangeWinLossDataAccess _dataAccess;
         private ExchangeWinLossReportController _controller;
 
@@ -19,10 +25,21 @@
         public override void FixtureSetUp()
         {
             base.FixtureSetUp();
+            _reportSettingService = Substitute.For<IReportSettingService>();
+            _reportSettingService.GetSetting(PermissionKeys.ReportExchangeWinLoss).Returns(new ReportSetting
+            {
+                MinDate = _minDate,
+                MaxDate = _maxDate
+            });
 
             _dataAccess = Substitute.For<IExchangeWinLossDataAccess>();
 
-            _controller = Substitute.ForPartsOf<ExchangeWinLossReportController>(SessionService, ProductService, LangService, _dataAccess);
+            _controller = Substitute.ForPartsOf<ExchangeWinLossReportController>(
+                SessionService, 
+                ProductService, 
+                LangService, 
+                _reportSettingService,
+                _dataAccess);
 
             MockSessionData();
         }
