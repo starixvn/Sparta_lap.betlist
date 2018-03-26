@@ -7,4 +7,8 @@
   <SpNameConfig Environment="BACKUPMNL" SpName="Lrf_ReCheckIn" EnvironmentText="_mnl"></SpNameConfig>
   <SpNameConfig Environment="BACKUPMNL" SpName="Lrf_CheckIn" EnvironmentText="_mnl"></SpNameConfig>
   <!--Do not delete this-->
+
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_Rpt_ExchangeWinloss" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_Rpt_ExchangeWinloss_Ag" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_Rpt_ExchangeWinloss_Mem" EnvironmentText="_xpre"></SpNameConfig>
 </Root>
