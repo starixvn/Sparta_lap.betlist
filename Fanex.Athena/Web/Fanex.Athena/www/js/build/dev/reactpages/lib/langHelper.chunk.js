@@ -19,7 +19,7 @@ module.exports = __webpack_require__(396);
 "use strict";
 
 
-// Generated at: 3/19/2018 3:59:04 PM
+// Generated at: 3/27/2018 8:55:30 AM
 window._language_en_US = {
   AA: "AA",
   AB: "AB",
@@ -991,7 +991,7 @@ window._language_en_US = {
 "use strict";
 
 
-// Generated at: 3/19/2018 3:59:04 PM
+// Generated at: 3/27/2018 8:55:30 AM
 window._language_ko_KR = {
   AA: "AA",
   ABComm: "AllBet 수수료",
@@ -1747,7 +1747,7 @@ window._language_ko_KR = {
 "use strict";
 
 
-// Generated at: 3/19/2018 3:59:04 PM
+// Generated at: 3/27/2018 8:55:30 AM
 window._language_zh_CN = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -2572,7 +2572,7 @@ window._language_zh_CN = {
 "use strict";
 
 
-// Generated at: 3/19/2018 3:59:04 PM
+// Generated at: 3/27/2018 8:55:30 AM
 window._language_zh_Hans = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -3383,7 +3383,7 @@ window._language_zh_Hans = {
 "use strict";
 
 
-// Generated at: 3/19/2018 3:59:04 PM
+// Generated at: 3/27/2018 8:55:30 AM
 window._language_zh_TW = {
   AA: "客客",
   ABComm: "AllBet 佣金",

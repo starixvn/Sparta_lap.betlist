@@ -30,7 +30,6 @@ namespace Fanex.Athena.Api.BetList
         {
         }
 
-        [CLSCompliant(false)]
         public DailyBetListController(
             ISessionService sessionService,
             IProductService productService,

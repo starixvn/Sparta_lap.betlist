@@ -204,7 +204,7 @@
             CustTurnover.initAutoComplete();
 
             expect($.fn.autocomplete).toHaveBeenCalledWith({
-                serviceUrl: 'CustomerAPI/SearchCustomer',
+                serviceUrl: 'SearchCustomerAPI/SearchCustomer',
                 minChars: 2
             });
         });

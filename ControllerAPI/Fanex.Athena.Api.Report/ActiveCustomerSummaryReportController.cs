@@ -87,7 +87,6 @@ namespace Fanex.Athena.Api.Report
             }
         }
 
-        [CLSCompliant(false)]
         protected internal virtual ActiveCustomerSummaryExcel CreateExcel(
             string templatePath,
             ConvertingOption convertingOption,

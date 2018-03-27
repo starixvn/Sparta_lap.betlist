@@ -45,7 +45,9 @@
                 userSession.Language,
                 FunctionNames.SubsidiaryPerformance);
             var subsidiaryList = _service.GetOperatorList(licenseeSession.LicenseeName);
-            var operatorNameList = subsidiaryList.Any() ? subsidiaryList.Select(x => x.OperatorName).Distinct() : new List<string>();
+            var filteredSubsidiaryList = subsidiaryList.Where(x => userSession.CurrencyList.ContainsKey(x.CurrencyId));
+
+            var operatorNameList = filteredSubsidiaryList.Any() ? filteredSubsidiaryList.Select(x => x.OperatorName).Distinct() : new List<string>();
 
             var model = new SubsidiaryPerformanceViewModel
             {

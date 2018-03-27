@@ -52,7 +52,6 @@ namespace Fanex.Athena.Api.Report
             return ProcessRequest(metaModel);
         }
 
-        [CLSCompliant(false)]
         protected internal virtual AgCasinoBalanceExcel CreateExcel(
             string templatePath,
             ConvertingOption convertingOption,

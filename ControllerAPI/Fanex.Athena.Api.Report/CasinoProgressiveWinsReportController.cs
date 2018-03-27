@@ -84,7 +84,6 @@ namespace Fanex.Athena.Api.Report
             };
         }
 
-        [CLSCompliant(false)]
         protected internal virtual CasinoProgressiveWinsExcel CreateExcel(
             string templatePath,
             ConvertingOption convertingOption,

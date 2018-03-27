@@ -121,6 +121,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SearchCustomerAPIController.cs" />
     <Compile Include="CustomerAPIController.cs" />
     <Compile Include="CustomerComGroupController.cs" />
     <Compile Include="CustomerController.cs" />

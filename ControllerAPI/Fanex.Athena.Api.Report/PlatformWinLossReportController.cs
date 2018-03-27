@@ -56,7 +56,6 @@ namespace Fanex.Athena.Api.Report
             return ProcessRequest(metaModel);
         }
 
-        [CLSCompliant(false)]
         protected internal virtual PlatformWinLossSummaryExcel CreateExcelSummary(
             string templatePath,
             PlatformWinLossMetaModel metaModel,
@@ -66,7 +65,6 @@ namespace Fanex.Athena.Api.Report
             return new PlatformWinLossSummaryExcel(templatePath, metaModel, dataList, total);
         }
 
-        [CLSCompliant(false)]
         protected internal virtual PlatformWinLossMemberExcel CreateExcelMember(
             string templatePath,
             PlatformWinLossViewModel excelModel,

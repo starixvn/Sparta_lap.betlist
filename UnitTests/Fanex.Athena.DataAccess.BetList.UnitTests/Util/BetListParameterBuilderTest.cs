@@ -44,20 +44,18 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                _objectDb.Received().AddInParameter("CustID", DbType.Int32, metaModel.CustId);
-                _objectDb.Received().AddInParameter("LeagueID", DbType.Int32, metaModel.LeagueId);
-                _objectDb.Received().AddInParameter("MatchId", DbType.Int32, metaModel.MatchId);
-                _objectDb.Received().AddInParameter("Odds", DbType.Decimal, metaModel.Odds);
-                _objectDb.Received().AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
-                _objectDb.Received().AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
-                _objectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
-                _objectDb.Received().AddInParameter("BalanceUpDay", DbType.DateTime, metaModel.BalanceUpDay);
-                _objectDb.Received().AddInParameter("ShowWin", DbType.Boolean, metaModel.ShowWin);
-                _objectDb.Received().AddInParameter("ShowLoss", DbType.Boolean, metaModel.ShowLoss);
-                _objectDb.Received().AddInParameter("ShowDraw", DbType.Boolean, metaModel.ShowDraw);
-                _objectDb.Received().AddInParameter("ShowSB", DbType.Boolean, true);
-                _objectDb.Received().AddInParameter("ShowBA", DbType.Boolean, false);
+                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+                _objectDb.Received(1).AddInParameter("CustID", DbType.Int32, metaModel.CustId);
+                _objectDb.Received(1).AddInParameter("LeagueID", DbType.Int32, metaModel.LeagueId);
+                _objectDb.Received(1).AddInParameter("MatchId", DbType.Int32, metaModel.MatchId);
+                _objectDb.Received(1).AddInParameter("Odds", DbType.Decimal, metaModel.Odds);
+                AssertDateRangeParameters(_objectDb, _metaModel);
+                AssertMoveBetParams(_objectDb, _metaModel);
+                _objectDb.Received(1).AddInParameter("ShowWin", DbType.Boolean, metaModel.ShowWin);
+                _objectDb.Received(1).AddInParameter("ShowLoss", DbType.Boolean, metaModel.ShowLoss);
+                _objectDb.Received(1).AddInParameter("ShowDraw", DbType.Boolean, metaModel.ShowDraw);
+                _objectDb.Received(1).AddInParameter("ShowSB", DbType.Boolean, true);
+                _objectDb.Received(1).AddInParameter("ShowBA", DbType.Boolean, false);
             });
         }
 
@@ -73,11 +71,9 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received().AddInParameter("CustID", DbType.Int32, _metaModel.CustId);
-                _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
-                _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
-                _objectDb.Received().AddOutParameter("totalrows", DbType.Int32, 4);
+                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                _objectDb.Received(1).AddInParameter("CustID", DbType.Int32, _metaModel.CustId);
+                AssertPagingParameters(_objectDb, _metaModel);
             });
         }
 
@@ -93,10 +89,8 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
-                _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
-                _objectDb.Received().AddOutParameter("totalrows", DbType.Int32, 4);
+                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                AssertPagingParameters(_objectDb, _metaModel);
             });
         }
 
@@ -112,33 +106,14 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received().AddInParameter("CustID", DbType.Int32, _metaModel.CustId);
-                _objectDb.Received().AddInParameter("FromDate", DbType.DateTime, _metaModel.FromDate);
-                _objectDb.Received().AddInParameter("ToDate", DbType.DateTime, _metaModel.ToDate);
-                _objectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, _metaModel.MoveBetsDay);
-                _objectDb.Received().AddInParameter("BalanceUpDay", DbType.DateTime, _metaModel.BalanceUpDay);
-                _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
-                _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
-                _objectDb.Received().AddOutParameter("totalrows", DbType.Int32, 4);
-                _objectDb.Received().AddOutParameter("SumWinlost", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWL", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommGBP", DbType.Currency, 8);
-                _objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
-                _objectDb.Received().AddInParameter("showNG", DbType.Boolean, true);
+                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                _objectDb.Received(1).AddInParameter("CustID", DbType.Int32, _metaModel.CustId);
+                AssertMoveBetParams(_objectDb, _metaModel);
+                AssertDateRangeParameters(_objectDb, _metaModel);
+                AssertPagingParameters(_objectDb, _metaModel);
+                AssertSummaryParameters(_objectDb);
+                _objectDb.Received(1).AddInParameter("showSB", DbType.Boolean, true);
+                _objectDb.Received(1).AddInParameter("showNG", DbType.Boolean, true);
             });
         }
 
@@ -154,31 +129,12 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received().AddInParameter("CustID", DbType.Int32, _metaModel.CustId);
-                _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received().AddInParameter("FromDate", DbType.DateTime, _metaModel.FromDate);
-                _objectDb.Received().AddInParameter("ToDate", DbType.DateTime, _metaModel.ToDate);
-                _objectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, _metaModel.MoveBetsDay);
-                _objectDb.Received().AddInParameter("BalanceUpDay", DbType.DateTime, _metaModel.BalanceUpDay);
-                _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
-                _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
-                _objectDb.Received().AddOutParameter("totalrows", DbType.Int32, 4);
-                _objectDb.Received().AddOutParameter("SumWinlost", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWL", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommGBP", DbType.Currency, 8);
+                _objectDb.Received(1).AddInParameter("CustID", DbType.Int32, _metaModel.CustId);
+                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                AssertDateRangeParameters(_objectDb, _metaModel);
+                AssertMoveBetParams(_objectDb, _metaModel);
+                AssertPagingParameters(_objectDb, _metaModel);
+                AssertSummaryParameters(_objectDb);
             });
         }
 
@@ -195,32 +151,14 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received().AddInParameter("Sort", DbType.String, metaModel.SortBy + metaModel.BaseCurrency + " " + metaModel.SortOrder);
-                _objectDb.Received().AddInParameter("date", DbType.DateTime, metaModel.Date);
-                _objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                _objectDb.Received().AddInParameter("product", DbType.String, metaModel.ProductCode);
-                _objectDb.Received().AddInParameter("status", DbType.String, metaModel.DailyBetListStatus);
-                _objectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
-                _objectDb.Received().AddInParameter("BalanceUpDay", DbType.DateTime, metaModel.BalanceUpDay);
-                _objectDb.Received().AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
-                _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
-                _objectDb.Received().AddOutParameter("totalrows", DbType.Int32, 4);
-                _objectDb.Received().AddOutParameter("SumWinlost", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWL", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommGBP", DbType.Currency, 8);
+                _objectDb.Received(1).AddInParameter("Sort", DbType.String, metaModel.SortBy + metaModel.BaseCurrency + " " + metaModel.SortOrder);
+                _objectDb.Received(1).AddInParameter("date", DbType.DateTime, metaModel.Date);
+                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+                _objectDb.Received(1).AddInParameter("product", DbType.String, metaModel.ProductCode);
+                _objectDb.Received(1).AddInParameter("status", DbType.String, metaModel.DailyBetListStatus);
+                AssertMoveBetParams(_objectDb, _metaModel);
+                AssertPagingParameters(_objectDb, _metaModel);
+                AssertSummaryParameters(_objectDb);
             });
         }
 
@@ -236,33 +174,16 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received().AddInParameter("date", DbType.DateTime, _metaModel.Date);
-                _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received().AddInParameter("leagueid", DbType.Int32, _metaModel.LeagueId);
-                _objectDb.Received().AddInParameter("raceNo", DbType.String, _metaModel.RaceNo);
-                _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
-                _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
-                _objectDb.Received().AddOutParameter("totalrows", DbType.Int32, 4);
-                _objectDb.Received().AddOutParameter("SumWinlost", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWL", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumStake", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumStakeUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumStakeEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumStakeGBP", DbType.Currency, 8);
+                _objectDb.Received(1).AddInParameter("date", DbType.DateTime, _metaModel.Date);
+                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                _objectDb.Received(1).AddInParameter("leagueid", DbType.Int32, _metaModel.LeagueId);
+                _objectDb.Received(1).AddInParameter("raceNo", DbType.String, _metaModel.RaceNo);
+                AssertPagingParameters(_objectDb, _metaModel);
+                AssertSummaryParameters(_objectDb);
+                _objectDb.Received(1).AddOutParameter("SumStake", DbType.Currency, 8);
+                _objectDb.Received(1).AddOutParameter("SumStakeUSD", DbType.Currency, 8);
+                _objectDb.Received(1).AddOutParameter("SumStakeEUR", DbType.Currency, 8);
+                _objectDb.Received(1).AddOutParameter("SumStakeGBP", DbType.Currency, 8);
             });
         }
 
@@ -278,34 +199,15 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received().AddInParameter("custid", DbType.Int32, _metaModel.CustId);
-                _objectDb.Received().AddInParameter("FromDate", DbType.DateTime, _metaModel.FromDate);
-                _objectDb.Received().AddInParameter("ToDate", DbType.DateTime, _metaModel.ToDate);
-                _objectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, _metaModel.MoveBetsDay);
-                _objectDb.Received().AddInParameter("BalanceUpDay", DbType.DateTime, _metaModel.BalanceUpDay);
-                _objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
-                _objectDb.Received().AddInParameter("showNG", DbType.Boolean, true);
-                _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
-                _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
-                _objectDb.Received().AddOutParameter("totalrows", DbType.Int32, 4);
-                _objectDb.Received().AddOutParameter("SumWinlost", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWL", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommGBP", DbType.Currency, 8);
-                _objectDb.Received().AddInParameter("drawfilter", DbType.Int16, _metaModel.DrawFilter);
+                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                _objectDb.Received(1).AddInParameter("custid", DbType.Int32, _metaModel.CustId);
+                AssertDateRangeParameters(_objectDb, _metaModel);
+                AssertMoveBetParams(_objectDb, _metaModel);
+                _objectDb.Received(1).AddInParameter("showSB", DbType.Boolean, true);
+                _objectDb.Received(1).AddInParameter("showNG", DbType.Boolean, true);
+                AssertPagingParameters(_objectDb, _metaModel);
+                AssertSummaryParameters(_objectDb);
+                _objectDb.Received(1).AddInParameter("drawfilter", DbType.Int16, _metaModel.DrawFilter);
             });
         }
 
@@ -321,11 +223,9 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received().AddInParameter("bettype", DbType.Int32, _metaModel.BetType);
-                _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
-                _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
-                _objectDb.Received().AddOutParameter("totalrows", DbType.Int32, 4);
+                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                _objectDb.Received(1).AddInParameter("bettype", DbType.Int32, _metaModel.BetType);
+                AssertPagingParameters(_objectDb, _metaModel);
             });
         }
 
@@ -341,11 +241,9 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received().AddInParameter("bettype", DbType.String, _metaModel.MultipleBettype);
-                _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
-                _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
-                _objectDb.Received().AddOutParameter("totalrows", DbType.Int32, 4);
+                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                _objectDb.Received(1).AddInParameter("bettype", DbType.String, _metaModel.MultipleBettype);
+                AssertPagingParameters(_objectDb, _metaModel);
             });
         }
 
@@ -361,33 +259,15 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received().AddInParameter("Bettype", DbType.Int32, _metaModel.BetType);
-                _objectDb.Received().AddInParameter("LeagueId", DbType.Int32, _metaModel.LeagueId);
-                _objectDb.Received().AddInParameter("RaceNo", DbType.String, _metaModel.RaceNo);
-                _objectDb.Received().AddInParameter("FromDate", DbType.DateTime, _metaModel.FromDate);
-                _objectDb.Received().AddInParameter("ToDate", DbType.DateTime, _metaModel.ToDate);
-                _objectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, _metaModel.MoveBetsDay);
-                _objectDb.Received().AddInParameter("Sort", DbType.String, _metaModel.SortBy + _metaModel.BaseCurrency + " " + _metaModel.SortOrder);
-                _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
-                _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
-                _objectDb.Received().AddOutParameter("totalrows", DbType.Int32, 4);
-                _objectDb.Received().AddOutParameter("SumWinlost", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWL", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommGBP", DbType.Currency, 8);
+                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                _objectDb.Received(1).AddInParameter("Bettype", DbType.Int32, _metaModel.BetType);
+                _objectDb.Received(1).AddInParameter("LeagueId", DbType.Int32, _metaModel.LeagueId);
+                _objectDb.Received(1).AddInParameter("RaceNo", DbType.String, _metaModel.RaceNo);
+                AssertDateRangeParameters(_objectDb, _metaModel);
+                _objectDb.Received(1).AddInParameter("MoveBetsDay", DbType.DateTime, _metaModel.MoveBetsDay);
+                _objectDb.Received(1).AddInParameter("Sort", DbType.String, _metaModel.SortBy + _metaModel.BaseCurrency + " " + _metaModel.SortOrder);
+                AssertPagingParameters(_objectDb, _metaModel);
+                AssertSummaryParameters(_objectDb);
             });
         }
 
@@ -406,33 +286,16 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received().AddInParameter("bettype", DbType.Int32, _metaModel.BetType);
-                _objectDb.Received().AddInParameter("MatchID", DbType.Int32, _metaModel.MatchId);
-                _objectDb.Received().AddInParameter("liveindicator", DbType.Int32, expectedLiveIndicator);
-                _objectDb.Received().AddInParameter("Sort", DbType.String, _metaModel.SortBy + _metaModel.BaseCurrency + " " + _metaModel.SortOrder);
-                _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
-                _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
-                _objectDb.Received().AddOutParameter("totalrows", DbType.Int32, 4);
-                _objectDb.Received().AddOutParameter("SumWinlost", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWL", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommGBP", DbType.Currency, 8);
-                _objectDb.Received().AddInParameter("Date", DbType.DateTime, _metaModel.Date);
-                _objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
-                _objectDb.Received().AddInParameter("showNG", DbType.Boolean, true);
+                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                _objectDb.Received(1).AddInParameter("bettype", DbType.Int32, _metaModel.BetType);
+                _objectDb.Received(1).AddInParameter("MatchID", DbType.Int32, _metaModel.MatchId);
+                _objectDb.Received(1).AddInParameter("liveindicator", DbType.Int32, expectedLiveIndicator);
+                _objectDb.Received(1).AddInParameter("Sort", DbType.String, _metaModel.SortBy + _metaModel.BaseCurrency + " " + _metaModel.SortOrder);
+                AssertPagingParameters(_objectDb, _metaModel);
+                AssertSummaryParameters(_objectDb);
+                _objectDb.Received(1).AddInParameter("Date", DbType.DateTime, _metaModel.Date);
+                _objectDb.Received(1).AddInParameter("showSB", DbType.Boolean, true);
+                _objectDb.Received(1).AddInParameter("showNG", DbType.Boolean, true);
             });
         }
 
@@ -448,31 +311,13 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received().AddInParameter("FromDate", DbType.DateTime, _metaModel.FromDate);
-                _objectDb.Received().AddInParameter("ToDate", DbType.DateTime, _metaModel.ToDate);
-                _objectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, _metaModel.MoveBetsDay);
-                _objectDb.Received().AddInParameter("Sort", DbType.String, _metaModel.SortBy + _metaModel.BaseCurrency + " " + _metaModel.SortOrder);
-                _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
-                _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
-                _objectDb.Received().AddOutParameter("totalrows", DbType.Int32, 4);
-                _objectDb.Received().AddOutParameter("SumWinlost", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWL", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommGBP", DbType.Currency, 8);
-                _objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
+                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                AssertDateRangeParameters(_objectDb, _metaModel);
+                _objectDb.Received(1).AddInParameter("MoveBetsDay", DbType.DateTime, _metaModel.MoveBetsDay);
+                _objectDb.Received(1).AddInParameter("Sort", DbType.String, _metaModel.SortBy + _metaModel.BaseCurrency + " " + _metaModel.SortOrder);
+                AssertPagingParameters(_objectDb, _metaModel);
+                AssertSummaryParameters(_objectDb);
+                _objectDb.Received(1).AddInParameter("showSB", DbType.Boolean, true);
                 _objectDb.DidNotReceive().AddInParameter("showNG", DbType.Boolean, true);
             });
         }
@@ -489,33 +334,15 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received().AddInParameter("Sort", DbType.String, _metaModel.SortBy + _metaModel.BaseCurrency + " " + _metaModel.SortOrder);
-                _objectDb.Received().AddInParameter("bettype", DbType.Int32, _metaModel.BetType);
-                _objectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, _metaModel.MoveBetsDay);
-                _objectDb.Received().AddInParameter("FromDate", DbType.DateTime, _metaModel.FromDate);
-                _objectDb.Received().AddInParameter("ToDate", DbType.DateTime, _metaModel.ToDate);
-                _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
-                _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
-                _objectDb.Received().AddOutParameter("totalrows", DbType.Int32, 4);
-                _objectDb.Received().AddOutParameter("SumWinlost", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWL", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommGBP", DbType.Currency, 8);
-                _objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
-                _objectDb.Received().AddInParameter("showNG", DbType.Boolean, true);
+                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                _objectDb.Received(1).AddInParameter("Sort", DbType.String, _metaModel.SortBy + _metaModel.BaseCurrency + " " + _metaModel.SortOrder);
+                _objectDb.Received(1).AddInParameter("bettype", DbType.Int32, _metaModel.BetType);
+                _objectDb.Received(1).AddInParameter("MoveBetsDay", DbType.DateTime, _metaModel.MoveBetsDay);
+                AssertDateRangeParameters(_objectDb, _metaModel);
+                AssertPagingParameters(_objectDb, _metaModel);
+                AssertSummaryParameters(_objectDb);
+                _objectDb.Received(1).AddInParameter("showSB", DbType.Boolean, true);
+                _objectDb.Received(1).AddInParameter("showNG", DbType.Boolean, true);
             });
         }
 
@@ -531,35 +358,16 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received().AddInParameter("custid", DbType.Int32, _metaModel.CustId);
-                _objectDb.Received().AddInParameter("FromDate", DbType.DateTime, _metaModel.FromDate);
-                _objectDb.Received().AddInParameter("ToDate", DbType.DateTime, _metaModel.ToDate);
-                _objectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, _metaModel.MoveBetsDay);
-                _objectDb.Received().AddInParameter("BalanceUpDay", DbType.DateTime, _metaModel.BalanceUpDay);
-                _objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
-                _objectDb.Received().AddInParameter("showNG", DbType.Boolean, true);
-                _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
-                _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
-                _objectDb.Received().AddOutParameter("totalrows", DbType.Int32, 4);
-                _objectDb.Received().AddOutParameter("SumWinlost", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWL", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommGBP", DbType.Currency, 8);
-                _objectDb.Received().AddInParameter("drawfilter", DbType.Int16, _metaModel.DrawFilter);
-                _objectDb.Received().AddInParameter("PlatformType", DbType.Byte, _metaModel.PlatformType);
+                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                _objectDb.Received(1).AddInParameter("custid", DbType.Int32, _metaModel.CustId);
+                AssertDateRangeParameters(_objectDb, _metaModel);
+                AssertMoveBetParams(_objectDb, _metaModel);
+                _objectDb.Received(1).AddInParameter("showSB", DbType.Boolean, true);
+                _objectDb.Received(1).AddInParameter("showNG", DbType.Boolean, true);
+                AssertPagingParameters(_objectDb, _metaModel);
+                AssertSummaryParameters(_objectDb);
+                _objectDb.Received(1).AddInParameter("drawfilter", DbType.Int16, _metaModel.DrawFilter);
+                _objectDb.Received(1).AddInParameter("PlatformType", DbType.Byte, _metaModel.PlatformType);
             });
         }
 
@@ -575,31 +383,13 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received().AddInParameter("custid", DbType.Int32, _metaModel.CustId);
-                _objectDb.Received().AddInParameter("FromDate", DbType.DateTime, _metaModel.FromDate);
-                _objectDb.Received().AddInParameter("ToDate", DbType.DateTime, _metaModel.ToDate);
-                _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
-                _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
-                _objectDb.Received().AddOutParameter("totalrows", DbType.Int32, 4);
-                _objectDb.Received().AddOutParameter("SumWinlost", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWL", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommGBP", DbType.Currency, 8);
-                _objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
-                _objectDb.Received().AddInParameter("showNG", DbType.Boolean, true);
+                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                _objectDb.Received(1).AddInParameter("custid", DbType.Int32, _metaModel.CustId);
+                AssertDateRangeParameters(_objectDb, _metaModel);
+                AssertPagingParameters(_objectDb, _metaModel);
+                AssertSummaryParameters(_objectDb);
+                _objectDb.Received(1).AddInParameter("showSB", DbType.Boolean, true);
+                _objectDb.Received(1).AddInParameter("showNG", DbType.Boolean, true);
             });
         }
 
@@ -615,31 +405,9 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received().AddInParameter("custid", DbType.Int32, _metaModel.CustId);
-                _objectDb.Received().AddInParameter("fromdate", DbType.DateTime, _metaModel.FromDate);
-                _objectDb.Received().AddInParameter("transtype", DbType.Int32, _metaModel.TransType);
-                _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
-                _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
-                _objectDb.Received().AddOutParameter("totalrows", DbType.Int32, 4);
-                _objectDb.Received().AddOutParameter("SumWinlost", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWL", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
-                _objectDb.Received().AddOutParameter("ErrMsg", DbType.String, 8000);
+                AssertDailyStatementBetList(_objectDb, _metaModel);
+                _objectDb.Received(1).AddOutParameter("ErrCode", DbType.Int32, 4);
+                _objectDb.Received(1).AddOutParameter("ErrMsg", DbType.String, 8000);
             });
         }
 
@@ -653,32 +421,7 @@
             BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, _metaModel);
 
             // Assert
-            Assert.Multiple(() =>
-            {
-                _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received().AddInParameter("custid", DbType.Int32, _metaModel.CustId);
-                _objectDb.Received().AddInParameter("fromdate", DbType.DateTime, _metaModel.FromDate);
-                _objectDb.Received().AddInParameter("transtype", DbType.Int32, _metaModel.TransType);
-                _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
-                _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
-                _objectDb.Received().AddOutParameter("totalrows", DbType.Int32, 4);
-                _objectDb.Received().AddOutParameter("SumWinlost", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWL", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommGBP", DbType.Currency, 8);
-            });
+            AssertDailyStatementBetList(_objectDb, _metaModel);
         }
 
         [Test]
@@ -693,15 +436,12 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received().AddInParameter("custid", DbType.Int32, _metaModel.CustId);
-                _objectDb.Received().AddInParameter("FromDate", DbType.DateTime, _metaModel.FromDate);
-                _objectDb.Received().AddInParameter("ToDate", DbType.DateTime, _metaModel.ToDate);
-                _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
-                _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
-                _objectDb.Received().AddOutParameter("totalrows", DbType.Int32, 4);
-                _objectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
-                _objectDb.Received().AddInParameter("showNG", DbType.Boolean, true);
+                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                _objectDb.Received(1).AddInParameter("custid", DbType.Int32, _metaModel.CustId);
+                AssertDateRangeParameters(_objectDb, _metaModel);
+                AssertPagingParameters(_objectDb, _metaModel);
+                _objectDb.Received(1).AddInParameter("showSB", DbType.Boolean, true);
+                _objectDb.Received(1).AddInParameter("showNG", DbType.Boolean, true);
             });
         }
 
@@ -717,28 +457,11 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received().AddInParameter("bettype", DbType.Int32, _metaModel.BetType);
-                _objectDb.Received().AddInParameter("MatchID", DbType.Int32, _metaModel.MatchId);
-                _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
-                _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
-                _objectDb.Received().AddOutParameter("totalrows", DbType.Int32, 4);
-                _objectDb.Received().AddOutParameter("SumWinlost", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWL", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommGBP", DbType.Currency, 8);
+                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                _objectDb.Received(1).AddInParameter("bettype", DbType.Int32, _metaModel.BetType);
+                _objectDb.Received(1).AddInParameter("MatchID", DbType.Int32, _metaModel.MatchId);
+                AssertPagingParameters(_objectDb, _metaModel);
+                AssertSummaryParameters(_objectDb);
             });
         }
 
@@ -757,14 +480,12 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received().AddInParameter("bettype", DbType.Int32, _metaModel.BetType);
-                _objectDb.Received().AddInParameter("MatchID", DbType.Int32, _metaModel.MatchId);
-                _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
-                _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
-                _objectDb.Received().AddOutParameter("totalrows", DbType.Int32, 4);
-                _objectDb.Received().AddInParameter("liveindicator", DbType.Int32, expectedLiveIndicator);
-                _objectDb.Received().AddInParameter("betteam", DbType.String, _metaModel.BetTeam);
+                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                _objectDb.Received(1).AddInParameter("bettype", DbType.Int32, _metaModel.BetType);
+                _objectDb.Received(1).AddInParameter("MatchID", DbType.Int32, _metaModel.MatchId);
+                AssertPagingParameters(_objectDb, _metaModel);
+                _objectDb.Received(1).AddInParameter("liveindicator", DbType.Int32, expectedLiveIndicator);
+                _objectDb.Received(1).AddInParameter("betteam", DbType.String, _metaModel.BetTeam);
             });
         }
 
@@ -788,14 +509,12 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received().AddInParameter("bettype", DbType.String, expectedMultipleBettype);
-                _objectDb.Received().AddInParameter("MatchID", DbType.Int32, _metaModel.MatchId);
-                _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
-                _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
-                _objectDb.Received().AddOutParameter("totalrows", DbType.Int32, 4);
-                _objectDb.Received().AddInParameter("liveindicator", DbType.Int32, expectedLiveIndicator);
-                _objectDb.Received().AddInParameter("betteam", DbType.String, _metaModel.BetTeam);
+                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                _objectDb.Received(1).AddInParameter("bettype", DbType.String, expectedMultipleBettype);
+                _objectDb.Received(1).AddInParameter("MatchID", DbType.Int32, _metaModel.MatchId);
+                AssertPagingParameters(_objectDb, _metaModel);
+                _objectDb.Received(1).AddInParameter("liveindicator", DbType.Int32, expectedLiveIndicator);
+                _objectDb.Received(1).AddInParameter("betteam", DbType.String, _metaModel.BetTeam);
             });
         }
 
@@ -814,16 +533,14 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received().AddInParameter("bettype", DbType.Int32, _metaModel.BetType);
-                _objectDb.Received().AddInParameter("MatchID", DbType.Int32, _metaModel.MatchId);
-                _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
-                _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
-                _objectDb.Received().AddOutParameter("totalrows", DbType.Int32, 4);
-                _objectDb.Received().AddInParameter("liveindicator", DbType.Int32, expectedLiveIndicator);
-                _objectDb.Received().AddInParameter("betteam", DbType.String, _metaModel.BetTeam);
-                _objectDb.Received().AddInParameter("BetChoice", DbType.String, _metaModel.BetChoice);
-                _objectDb.Received().AddInParameter("Handicap", DbType.Decimal, _metaModel.Handicap);
+                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                _objectDb.Received(1).AddInParameter("bettype", DbType.Int32, _metaModel.BetType);
+                _objectDb.Received(1).AddInParameter("MatchID", DbType.Int32, _metaModel.MatchId);
+                AssertPagingParameters(_objectDb, _metaModel);
+                _objectDb.Received(1).AddInParameter("liveindicator", DbType.Int32, expectedLiveIndicator);
+                _objectDb.Received(1).AddInParameter("betteam", DbType.String, _metaModel.BetTeam);
+                _objectDb.Received(1).AddInParameter("BetChoice", DbType.String, _metaModel.BetChoice);
+                _objectDb.Received(1).AddInParameter("Handicap", DbType.Decimal, _metaModel.Handicap);
             });
         }
 
@@ -839,10 +556,10 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received().AddInParameter("refno", DbType.Int64, _metaModel.TransId);
-                _objectDb.Received().AddInParameter("custid", DbType.Int32, _metaModel.CustId);
-                _objectDb.Received().AddInParameter("transtype", DbType.Int16, _metaModel.TransType);
+                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                _objectDb.Received(1).AddInParameter("refno", DbType.Int64, _metaModel.TransId);
+                _objectDb.Received(1).AddInParameter("custid", DbType.Int32, _metaModel.CustId);
+                _objectDb.Received(1).AddInParameter("transtype", DbType.Int16, _metaModel.TransType);
             });
         }
 
@@ -858,10 +575,10 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received().AddInParameter("refno", DbType.Int64, _metaModel.TransId);
-                _objectDb.Received().AddInParameter("custid", DbType.Int32, _metaModel.CustId);
-                _objectDb.Received().AddInParameter("transtype", DbType.Int16, _metaModel.TransType);
+                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                _objectDb.Received(1).AddInParameter("refno", DbType.Int64, _metaModel.TransId);
+                _objectDb.Received(1).AddInParameter("custid", DbType.Int32, _metaModel.CustId);
+                _objectDb.Received(1).AddInParameter("transtype", DbType.Int16, _metaModel.TransType);
             });
         }
 
@@ -877,32 +594,13 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received().AddInParameter("Sort", DbType.String, _metaModel.SortBy + _metaModel.BaseCurrency + " " + _metaModel.SortOrder);
-                _objectDb.Received().AddInParameter("bettype", DbType.Int32, _metaModel.BetType);
-                _objectDb.Received().AddInParameter("fromdate", DbType.DateTime, _metaModel.FromDate);
-                _objectDb.Received().AddInParameter("todate", DbType.DateTime, _metaModel.ToDate);
-                _objectDb.Received().AddInParameter("movebetsday", DbType.DateTime, _metaModel.MoveBetsDay);
-                _objectDb.Received().AddInParameter("balanceupday", DbType.DateTime, _metaModel.BalanceUpDay);
-                _objectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
-                _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
-                _objectDb.Received().AddOutParameter("totalrows", DbType.Int32, 4);
-                _objectDb.Received().AddOutParameter("SumWinlost", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWL", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerComm", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommUSD", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommEUR", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumWinlostGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumLicenseeWLGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumCommGBP", DbType.Currency, 8);
-                _objectDb.Received().AddOutParameter("SumPlayerCommGBP", DbType.Currency, 8);
+                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                _objectDb.Received(1).AddInParameter("Sort", DbType.String, _metaModel.SortBy + _metaModel.BaseCurrency + " " + _metaModel.SortOrder);
+                _objectDb.Received(1).AddInParameter("bettype", DbType.Int32, _metaModel.BetType);
+                AssertDateRangeParameters(_objectDb, _metaModel);
+                AssertMoveBetParams(_objectDb, _metaModel);
+                AssertPagingParameters(_objectDb, _metaModel);
+                AssertSummaryParameters(_objectDb);
             });
         }
 
@@ -921,7 +619,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received().AddInParameter("Sort", DbType.String, expectedSortBy);
+                _objectDb.Received(1).AddInParameter("Sort", DbType.String, expectedSortBy);
             });
         }
 
@@ -967,8 +665,8 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _objectDb.Received().AddInParameter("PageSize", DbType.Int32, expectedSize);
-                _objectDb.Received().AddInParameter("PageIndex", DbType.Int32, expectedIndex);
+                _objectDb.Received(1).AddInParameter("PageSize", DbType.Int32, expectedSize);
+                _objectDb.Received(1).AddInParameter("PageIndex", DbType.Int32, expectedIndex);
             });
         }
 
@@ -1033,6 +731,55 @@
                 LiveIndicator = 7,
                 PlatformType = 9
             };
+        }
+
+        private static void AssertSummaryParameters(IObjectDb objectDb)
+        {
+            objectDb.Received(1).AddOutParameter("SumWinlost", DbType.Currency, 8);
+            objectDb.Received(1).AddOutParameter("SumLicenseeWL", DbType.Currency, 8);
+            objectDb.Received(1).AddOutParameter("SumComm", DbType.Currency, 8);
+            objectDb.Received(1).AddOutParameter("SumPlayerComm", DbType.Currency, 8);
+            objectDb.Received(1).AddOutParameter("SumWinlostUSD", DbType.Currency, 8);
+            objectDb.Received(1).AddOutParameter("SumLicenseeWLUSD", DbType.Currency, 8);
+            objectDb.Received(1).AddOutParameter("SumCommUSD", DbType.Currency, 8);
+            objectDb.Received(1).AddOutParameter("SumPlayerCommUSD", DbType.Currency, 8);
+            objectDb.Received(1).AddOutParameter("SumWinlostEUR", DbType.Currency, 8);
+            objectDb.Received(1).AddOutParameter("SumLicenseeWLEUR", DbType.Currency, 8);
+            objectDb.Received(1).AddOutParameter("SumCommEUR", DbType.Currency, 8);
+            objectDb.Received(1).AddOutParameter("SumPlayerCommEUR", DbType.Currency, 8);
+            objectDb.Received(1).AddOutParameter("SumWinlostGBP", DbType.Currency, 8);
+            objectDb.Received(1).AddOutParameter("SumLicenseeWLGBP", DbType.Currency, 8);
+            objectDb.Received(1).AddOutParameter("SumCommGBP", DbType.Currency, 8);
+            objectDb.Received(1).AddOutParameter("SumPlayerCommGBP", DbType.Currency, 8);
+        }
+
+        private static void AssertPagingParameters(IObjectDb objectDb, BetListMetaModel metaModel)
+        {
+            objectDb.Received(1).AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
+            objectDb.Received(1).AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
+            objectDb.Received(1).AddOutParameter("totalrows", DbType.Int32, 4);
+        }
+
+        private static void AssertDateRangeParameters(IObjectDb objectDb, BetListMetaModel metaModel)
+        {
+            objectDb.Received(1).AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
+            objectDb.Received(1).AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
+        }
+
+        private static void AssertMoveBetParams(IObjectDb objectDb, BetListMetaModel metaModel)
+        {
+            objectDb.Received(1).AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
+            objectDb.Received(1).AddInParameter("BalanceUpDay", DbType.DateTime, metaModel.BalanceUpDay);
+        }
+
+        private static void AssertDailyStatementBetList(IObjectDb objectDb, BetListMetaModel metaModel)
+        {
+            objectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            objectDb.Received(1).AddInParameter("custid", DbType.Int32, metaModel.CustId);
+            objectDb.Received(1).AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
+            objectDb.Received(1).AddInParameter("transtype", DbType.Int32, metaModel.TransType);
+            AssertPagingParameters(objectDb, metaModel);
+            AssertSummaryParameters(objectDb);
         }
     }
 }

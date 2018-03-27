@@ -27,22 +27,15 @@
 
         private readonly IAuthorizationService _authorizationService;
 
-        public ApiFunctionAuthorizationAttribute(string permissionKey)
-            : this(antiForgeryService: null, sessionService: null, authorizationService: null)
+        public ApiFunctionAuthorizationAttribute()
         {
-            PermissionKeys = new[] { permissionKey };
         }
 
-        public ApiFunctionAuthorizationAttribute(string permissionKey1, string permissionKey2)
+        [CLSCompliant(false)]
+        public ApiFunctionAuthorizationAttribute(params string[] permissionKeys)
             : this(antiForgeryService: null, sessionService: null, authorizationService: null)
         {
-            PermissionKeys = new[] { permissionKey1, permissionKey2 };
-        }
-
-        public ApiFunctionAuthorizationAttribute(string permissionKey1, string permissionKey2, string permissionKey3)
-            : this(antiForgeryService: null, sessionService: null, authorizationService: null)
-        {
-            PermissionKeys = new[] { permissionKey1, permissionKey2, permissionKey3 };
+            PermissionKeys = permissionKeys;
         }
 
         public ApiFunctionAuthorizationAttribute(

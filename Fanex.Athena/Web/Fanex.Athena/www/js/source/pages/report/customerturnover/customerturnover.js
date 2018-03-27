@@ -23,7 +23,7 @@
         var _url = {
             GetSports: "CustomerTurnoverReport/GetSportsAndProducts",
             GetBetTypes: "ReportAPI/GetBettypesBySport",
-            SearchCustomer: "CustomerAPI/SearchCustomer"
+            SearchCustomer: "SearchCustomerAPI/SearchCustomer"
         };
         var _selector = {
             SubmitButton: "#SubmitButton",

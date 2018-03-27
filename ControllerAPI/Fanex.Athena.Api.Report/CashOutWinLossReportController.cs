@@ -63,7 +63,6 @@ namespace Fanex.Athena.Api.Report
             return ProcessRequest(metaModel, null, null);
         }
 
-        [CLSCompliant(false)]
         protected internal virtual CashOutWinLossExcel CreateExcel(
             string templatePath,
             string exportingFileName,

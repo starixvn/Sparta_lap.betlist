@@ -10260,7 +10260,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
             initAutoComplete: function () {
                 var option = {
-                    url: Site.resolveClientUrl("CustomerAPI/SearchCustomer"),
+                    url: Site.resolveClientUrl("SearchCustomerAPI/SearchCustomer"),
                     target: "#Username"
                 };
 

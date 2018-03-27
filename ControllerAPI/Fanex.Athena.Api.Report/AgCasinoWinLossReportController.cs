@@ -64,7 +64,6 @@ namespace Fanex.Athena.Api.Report
             return ProcessRequest(metaModel, null, null);
         }
 
-        [CLSCompliant(false)]
         protected internal virtual ThirdPartyWinLossExcel CreateExcel(
             string templatePath,
             ConvertingOption convertingOption,

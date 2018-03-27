@@ -8246,7 +8246,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     el: '#suggestionDropdown'
                 },
                 getData: function (value, callback) {
-                    var url = Site.resolveClientUrl("CustomerAPI/SearchCustomer?query=" + value);
+                    var url = Site.resolveClientUrl("SearchCustomerAPI/SearchCustomer?query=" + value);
 
                     $.ajax({
                         type: "GET",

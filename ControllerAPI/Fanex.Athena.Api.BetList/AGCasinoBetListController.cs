@@ -27,7 +27,6 @@ namespace Fanex.Athena.Api.BetList
         {
         }
 
-        [CLSCompliant(false)]
         public AGCasinoBetListController(
             ISessionService sessionService,
             IProductService productService,

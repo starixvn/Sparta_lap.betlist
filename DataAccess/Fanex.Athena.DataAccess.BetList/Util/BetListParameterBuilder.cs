@@ -430,10 +430,8 @@
             CreateBetListSortingParameters(db, metaModel);
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             db.AddInParameter("bettype", DbType.Int32, metaModel.BetType);
-            db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
-            db.AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
-            db.AddInParameter("movebetsday", DbType.DateTime, metaModel.MoveBetsDay);
-            db.AddInParameter("balanceupday", DbType.DateTime, metaModel.BalanceUpDay);
+            CreateBetListDateRangeParameters(db, metaModel);
+            CreateBetlistBUParameters(db, metaModel);
             CreateBetListPagingParameters(db, metaModel);
             CreateBetlistSummaryParameters(db);
         }

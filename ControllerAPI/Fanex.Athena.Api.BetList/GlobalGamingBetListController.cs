@@ -17,7 +17,6 @@
         {
         }
 
-        [CLSCompliant(false)]
         public GlobalGamingBetListController(
             ISessionService sessionService,
             IProductService productService,

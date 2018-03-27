@@ -11,7 +11,7 @@ define(["jquery", "common/site", "./customerlist.state", "./customerlist.service
                     title: Site.getSingleResource("CustomerList")
                 });
                 AutoComplete.initialize({
-                    url: Site.resolveClientUrl("CustomerAPI/SearchCustomer"),
+                    url: Site.resolveClientUrl("SearchCustomerAPI/SearchCustomer"),
                     target: "#Username"
                 });
                 _me.initEvent();

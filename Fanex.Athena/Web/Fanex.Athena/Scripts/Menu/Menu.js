@@ -161,7 +161,7 @@ function activeDefaultLink() {
 $(function () {
     // auto suggest username
     var txtUserName = $('#txtUserName');
-    var serUrl = "../CustomerAPI/SearchCustomer";
+    var serUrl = "../SearchCustomerAPI/SearchCustomer";
 
     txtUserName.autocomplete({ serviceUrl: serUrl, minChars: 2 });
     $("#search-button").click(function () { return searchByUserName(); });

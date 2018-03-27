@@ -1,4 +1,4 @@
-﻿// Generated at: 3/14/2018 3:25:14 PM
+﻿// Generated at: 3/27/2018 8:55:44 AM
 var _language_zh_CN = {
 AA:"客客",
 ABComm:"AllBet 佣金",

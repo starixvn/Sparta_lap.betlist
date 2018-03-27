@@ -61,7 +61,7 @@
         };
 
         var _url = {
-            SearchCustomer: "CustomerAPI/SearchCustomer"
+            SearchCustomer: "SearchCustomerAPI/SearchCustomer"
         };
 
         var _selector = {

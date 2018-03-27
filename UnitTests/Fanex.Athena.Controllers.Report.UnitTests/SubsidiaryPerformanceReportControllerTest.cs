@@ -45,9 +45,11 @@
         {
             var expectedOperatorList = new List<Operator>
             {
-                new Operator { AgentId = 1, OperatorName = "New York" },
-                new Operator { AgentId = 2, OperatorName = "New York" },
-                new Operator { AgentId = 3, OperatorName = "India" }
+                new Operator { AgentId = 1, OperatorName = "New York", CurrencyId = 1 },
+                new Operator { AgentId = 2, OperatorName = "New York", CurrencyId = 2 },
+                new Operator { AgentId = 3, OperatorName = "India", CurrencyId = 2 },
+                new Operator { AgentId = 4, OperatorName = "Irag", CurrencyId = 3 },
+                new Operator { AgentId = 4, OperatorName = "China", CurrencyId = 1 }
             };
             var expectedViewModelData = new SubsidiaryPerformanceViewModel
             {
@@ -84,7 +86,7 @@
             return new List<CheckedItem>
             {
                 new CheckedItem { Name = "New York", Checked = true },
-                new CheckedItem { Name = "India", Checked = true }
+                new CheckedItem { Name = "China", Checked = true }
             };
         }
 

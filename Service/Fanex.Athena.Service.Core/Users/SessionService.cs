@@ -213,10 +213,13 @@ namespace Fanex.Athena.Service.Core.Users
         public string GenerateAgentListXml(IDictionary<int, IEnumerable<int>> currencyAgentList)
         {
             var result = new StringBuilder("<ROOT>");
-
+            var currencyList = UserSession.CurrencyList;
             foreach (var item in currencyAgentList)
             {
-                result.Append(GenerateAgentXmlBody(item.Key, item.Value));
+                if (currencyList.ContainsKey(item.Key))
+                {
+                    result.Append(GenerateAgentXmlBody(item.Key, item.Value));
+                }
             }
 
             result.Append("</ROOT>");

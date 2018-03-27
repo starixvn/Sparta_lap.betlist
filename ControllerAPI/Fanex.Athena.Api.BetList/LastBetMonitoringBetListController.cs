@@ -61,7 +61,6 @@
             _cacheRefAdapter = new CacheRefAdapter();
         }
 
-        [CLSCompliant(false)]
         public LastBetMonitoringBetListController(
             ISessionService sessionService,
             IProductService productService,

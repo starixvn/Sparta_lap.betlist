@@ -27,7 +27,6 @@ namespace Fanex.Athena.Api.BetList
         {
         }
 
-        [CLSCompliant(false)]
         public RunningMatchChoiceBetListController(
             ISessionService sessionService,
             IProductService productService,

@@ -51,7 +51,6 @@ namespace Fanex.Athena.Api.BetList
         {
         }
 
-        [CLSCompliant(false)]
 #pragma warning disable S107 // Methods should not have too many parameters
         public ApiBetListBaseController(
             ISessionService sessionService,
@@ -72,7 +71,6 @@ namespace Fanex.Athena.Api.BetList
             _betlistHtmlBuilder = betlistHtmlBuilder ?? new BetListHTMLBuilder();
         }
 
-        [CLSCompliant(false)]
         protected IBetListService BetListService
         {
             get { return _betListService; }

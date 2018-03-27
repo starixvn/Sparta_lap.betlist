@@ -28,7 +28,6 @@
             _reportSettingService = new ReportSettingService();
         }
 
-        [CLSCompliant(false)]
 #pragma warning disable S107 // Methods should not have too many parameters
         public LicenseeWinLossBetListController(
             ISessionService sessionService,

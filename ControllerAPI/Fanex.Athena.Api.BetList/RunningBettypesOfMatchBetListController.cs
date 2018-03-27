@@ -22,7 +22,6 @@ namespace Fanex.Athena.Api.BetList
         {
         }
 
-        [CLSCompliant(false)]
         public RunningBettypesOfMatchBetListController(
             ISessionService sessionService,
             IProductService productService,

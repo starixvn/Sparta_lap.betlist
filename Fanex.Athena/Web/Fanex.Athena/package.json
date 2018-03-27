@@ -58,8 +58,8 @@
   },
   "scripts": {
     "stats": "webpack --config www/webpackconfig/build/webpack.dev.conf.js --json > stats.json",
-    "test": "karma start --reporters kjhtml,junit,dots,coverage,progress",
-    "test-new": "karma start karma-new.conf.js --reporters kjhtml,junit,dots,coverage,progress",
+    "test": "karma start --reporters kjhtml,junit,dots,coverage",
+    "test-new": "karma start karma-new.conf.js --reporters kjhtml,junit,dots,coverage",
     "build-dev": "webpack --config www/webpackconfig/build/webpack.dev.conf.js",
     "build-pro": "webpack --config www/webpackconfig/build/webpack.pro.conf.js",
     "build-react-dev": "webpack --config www/webpackconfig/build/webpack.react.dev.conf.js",

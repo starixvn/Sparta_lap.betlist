@@ -474,25 +474,6 @@ namespace Fanex.Athena.Controllers.Customer
             return Json(result);
         }
 
-        [AjaxRequest]
-        [HttpGet]
-        public JsonResult SearchCustomer(string query)
-        {
-            var userName = query.Trim();
-            var licenseeId = SessionService.LicenseeSession.LicenseeId;
-            var userId = SessionService.UserSession.UserId;
-            var customerNames = _customerListService.SearchCustomers(licenseeId, userId, userName, SessionService.GenerateAgentListXml());
-
-            var searchResult = new
-            {
-                data = new[] { string.Empty },
-                query = userName,
-                suggestions = customerNames
-            };
-
-            return Json(searchResult, JsonRequestBehavior.AllowGet);
-        }
-
         #endregion Customer Comm API
 
         private static object CreateExtendedData(GroupCommMetaModel newGroup)

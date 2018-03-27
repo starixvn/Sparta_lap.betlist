@@ -263,37 +263,6 @@
             }
         }
 
-        [Test]
-        public void SearchCustomer_WhenCall_ReturnCorrectData()
-        {
-            using (var controller = CreateController())
-            {
-                // Arrange
-                const string Query = " test   ";
-                const string AgentListXml = "Agent List XML";
-                var expectedCustomerNames = new[] { "test1", "test2" };
-                SessionService.GenerateAgentListXml().Returns(AgentListXml);
-                _customerListService.SearchCustomers(0, 0, string.Empty, string.Empty)
-                    .ReturnsForAnyArgs(expectedCustomerNames);
-
-                // Action
-                var result = controller.SearchCustomer(Query) as JsonResult;
-                var resultData = result.Data as object;
-
-                // Assert
-                Assert.Multiple(() =>
-                {
-                    _customerListService.Received(1).SearchCustomers(
-                        SessionService.LicenseeSession.LicenseeId,
-                        SessionService.UserSession.UserId,
-                        Query.Trim(),
-                        AgentListXml);
-                    Assert.That(resultData.GetValue("query"), Is.EqualTo(Query.Trim()));
-                    Assert.That(resultData.GetValue("suggestions"), Is.EqualTo(expectedCustomerNames));
-                });
-            }
-        }
-
         private CustomerApiController CreateController()
         {
             return new CustomerApiController(

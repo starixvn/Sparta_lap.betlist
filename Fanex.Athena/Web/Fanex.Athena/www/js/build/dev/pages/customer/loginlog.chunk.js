@@ -3249,7 +3249,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 CustomerLog.initialize();
                 _me.initEvent();
                 AutoComplete.initialize({
-                    url: Site.resolveClientUrl("CustomerAPI/SearchCustomer"),
+                    url: Site.resolveClientUrl("SearchCustomerAPI/SearchCustomer"),
                     target: "#Username"
                 });
 

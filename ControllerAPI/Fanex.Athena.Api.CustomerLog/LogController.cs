@@ -64,7 +64,6 @@ namespace Fanex.Athena.Api.CustomerLog
             _clientViewHelper = new ClientViewHelper();
         }
 
-        [CLSCompliant(false)]
         public LogController(
             ISessionService sessionService,
             IProductService productService,

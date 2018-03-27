@@ -19,29 +19,19 @@ namespace Fanex.Athena.Web.ActionFilter
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
     public sealed class FunctionAuthorizationAttribute : ActionFilterAttribute
     {
-        public FunctionAuthorizationAttribute(string permissionKey)
+        public FunctionAuthorizationAttribute()
         {
-            PermissionKeys = new[] { permissionKey };
         }
 
-        public FunctionAuthorizationAttribute(string permissionKey1, string permissionKey2)
+        public FunctionAuthorizationAttribute(params string[] permissionKeys)
         {
-            PermissionKeys = new[] { permissionKey1, permissionKey2 };
-        }
-
-        public FunctionAuthorizationAttribute(string permissionKey1, string permissionKey2, string permissionKey3)
-        {
-            PermissionKeys = new[] { permissionKey1, permissionKey2, permissionKey3 };
+            PermissionKeys = permissionKeys;
         }
 
         public string[] PermissionKeys { get; set; }
 
         #region Override
 
-        /// <summary>
-        /// Check authorized function.
-        /// </summary>
-        /// <param name="filterContext">Filter Context.</param>
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var context = filterContext.HttpContext;

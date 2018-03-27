@@ -8,7 +8,7 @@ define(["jquery", "common/site", "components/pluginhelper/autocomplete", "../com
                 _me.initEvent();
 
                 AutoComplete.initialize({
-                    url: Site.resolveClientUrl("CustomerAPI/SearchCustomer"),
+                    url: Site.resolveClientUrl("SearchCustomerAPI/SearchCustomer"),
                     target: "#Username"
                 });
 

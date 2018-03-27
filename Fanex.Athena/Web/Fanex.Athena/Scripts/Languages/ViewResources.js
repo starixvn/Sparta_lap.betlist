@@ -1,4 +1,4 @@
-﻿// Generated at: 3/14/2018 3:25:14 PM
+﻿// Generated at: 3/27/2018 8:55:44 AM
 var _language_en_US = {
 AA:"AA",
 AB:"AB",
@@ -215,6 +215,7 @@ DailyRacingWinLoss:"Daily Racing Win Loss",
 DailyStatement:"Daily Statement",
 DailyStatementMsg:"Support data up to 4 months only",
 Data:"data",
+DataUpToYesterday:"Data is up to yesterday only.",
 DataWareHouse:"Data Warehouse",
 Date:"Date",
 DateRange:"Date Range",
