@@ -35,7 +35,8 @@
                 ToDate = DateTime.Today.AddDays(1),
                 AgentListXml = string.Empty,
                 ReportBy = 1,
-                CustId = 2
+                CustId = 2,
+                LicenseeId = 3
             };
 
             _baseCurrencyExchangeRate = new Dictionary<string, decimal>();
@@ -415,6 +416,7 @@
             ObjectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
             ObjectDb.Received().AddInParameter("Fromdate", DbType.Date, _metaModel.FromDate.Date);
             ObjectDb.Received().AddInParameter("Todate", DbType.Date, _metaModel.ToDate.Date);
+            ObjectDb.Received().AddInParameter("LicenseeId", DbType.Int32, _metaModel.LicenseeId);
         }
 
         private void AssertSummaryTotalResultData(ReportResultModel<ExchangeWinLoss> result, IEnumerable<ExchangeWinLoss> expectedList, string baseCurrency)

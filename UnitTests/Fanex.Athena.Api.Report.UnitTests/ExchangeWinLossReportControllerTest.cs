@@ -35,9 +35,9 @@
             _dataAccess = Substitute.For<IExchangeWinLossDataAccess>();
 
             _controller = Substitute.ForPartsOf<ExchangeWinLossReportController>(
-                SessionService, 
-                ProductService, 
-                LangService, 
+                SessionService,
+                ProductService,
+                LangService,
                 _reportSettingService,
                 _dataAccess);
 
@@ -51,6 +51,12 @@
 
             _controller = null;
             _dataAccess = null;
+        }
+
+        [OneTimeSetUp]
+        public void SetUpOneTime()
+        {
+            StubLicenseeSessionData(new LicenseeSession { LicenseeId = SessionLicenseeId });
         }
 
         [Test]
@@ -119,7 +125,11 @@
             var result = _controller.Index(model);
 
             // Assert
-            _dataAccess.Received().GetMainWinloss(model);
+            Assert.Multiple(() =>
+            {
+                Assert.That(model.LicenseeId, Is.EqualTo(SessionLicenseeId));
+                _dataAccess.Received().GetMainWinloss(model);
+            });
         }
 
         [Test]
@@ -136,16 +146,21 @@
             var result = _controller.Index(model);
 
             // Assert
-            _dataAccess.Received().GetCustomerWinloss(model);
+            Assert.Multiple(() =>
+            {
+                Assert.That(model.LicenseeId, Is.EqualTo(SessionLicenseeId));
+                _dataAccess.Received().GetCustomerWinloss(model);
+            });
         }
 
         [Test]
         public void Index_Level1AndIsNotOneTwoBet_GetCustomerData()
         {
             // Arrange
+            const int LicenseeId = LicenseeIdentity.OneTwoBet + 1;
             StubLicenseeSessionData(new LicenseeSession
             {
-                LicenseeId = LicenseeIdentity.OneTwoBet + 1
+                LicenseeId = LicenseeId
             });
 
             var model = new ExchangeWinLossMetaModel
@@ -158,7 +173,11 @@
             var result = _controller.Index(model);
 
             // Assert
-            _dataAccess.Received().GetCustomerWinloss(model);
+            Assert.Multiple(() =>
+            {
+                Assert.That(model.LicenseeId, Is.EqualTo(LicenseeId));
+                _dataAccess.Received().GetCustomerWinloss(model);
+            });
         }
 
         [Test]
@@ -180,7 +199,11 @@
             var result = _controller.Index(model);
 
             // Assert
-            _dataAccess.Received().GetLicenseeWinloss(model);
+            Assert.Multiple(() =>
+            {
+                Assert.That(model.LicenseeId, Is.EqualTo(LicenseeIdentity.OneTwoBet));
+                _dataAccess.Received().GetLicenseeWinloss(model);
+            });
         }
     }
 }

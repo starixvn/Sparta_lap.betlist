@@ -47,8 +47,9 @@
             if (metaModel.IsValid && IsValidParams(metaModel) && IsValidRequest(metaModel, metaModel.CurrencyId))
             {
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.ExcludeTestData);
+                metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
                 return metaModel.Level == 0 ? _dataAccess.GetMainWinloss(metaModel) :
-                                SessionService.LicenseeSession.LicenseeId != LicenseeIdentity.OneTwoBet || metaModel.Level == 2
+                                metaModel.LicenseeId != LicenseeIdentity.OneTwoBet || metaModel.Level == 2
                                ? _dataAccess.GetCustomerWinloss(metaModel)
                                : _dataAccess.GetLicenseeWinloss(metaModel);
             }

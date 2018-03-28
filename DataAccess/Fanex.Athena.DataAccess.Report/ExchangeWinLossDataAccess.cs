@@ -86,6 +86,7 @@
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             db.AddInParameter("Fromdate", DbType.Date, metaModel.FromDate.Date);
             db.AddInParameter("Todate", DbType.Date, metaModel.ToDate.Date);
+            db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
         }
 
         private static void ReadSummaryTotal(IDataReader reader, IDictionary<string, ExchangeWinLoss> summaryTotal)
