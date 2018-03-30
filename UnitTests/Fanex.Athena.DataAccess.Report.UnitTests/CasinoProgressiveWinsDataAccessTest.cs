@@ -54,13 +54,13 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                ObjectDb.Received().AddInParameter("fromdate", DbType.Date, _metaModel.FromDate.Date);
-                ObjectDb.Received().AddInParameter("todate", DbType.Date, _metaModel.ToDate.Date);
-                ObjectDb.Received().AddInParameter("movebetsday", DbType.DateTime, new DateTime(2016, 8, 10));
-                ObjectDb.Received().AddInParameter("BalanceUpDay", DbType.DateTime, new DateTime(2016, 8, 30));
-                ObjectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
-                ObjectDb.Received().AddInParameter("showNG", DbType.Boolean, false);
+                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                ObjectDb.Received(1).AddInParameter("fromdate", DbType.Date, _metaModel.FromDate.Date);
+                ObjectDb.Received(1).AddInParameter("todate", DbType.Date, _metaModel.ToDate.Date);
+                ObjectDb.Received(1).AddInParameter("movebetsday", DbType.DateTime, new DateTime(2016, 8, 10));
+                ObjectDb.Received(1).AddInParameter("BalanceUpDay", DbType.DateTime, new DateTime(2016, 8, 30));
+                ObjectDb.Received(1).AddInParameter("showSB", DbType.Boolean, true);
+                ObjectDb.Received(1).AddInParameter("showNG", DbType.Boolean, false);
             });
         }
 

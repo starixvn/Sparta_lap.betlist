@@ -32,9 +32,9 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                ObjectDb.Received().AddInParameter("fromdate", DbType.Date, metaModel.FromDate.Date);
-                ObjectDb.Received().AddInParameter("todate", DbType.Date, metaModel.ToDate.Date);
+                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+                ObjectDb.Received(1).AddInParameter("fromdate", DbType.Date, metaModel.FromDate.Date);
+                ObjectDb.Received(1).AddInParameter("todate", DbType.Date, metaModel.ToDate.Date);
             });
         }
 
@@ -92,13 +92,13 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("custid", DbType.Int32, metaModel.DrillDownCustomerId);
-                ObjectDb.Received().AddInParameter("pagesize", DbType.Int32, metaModel.PageSize);
-                ObjectDb.Received().AddInParameter("pageindex", DbType.Int32, metaModel.PageIndex);
-                ObjectDb.Received().AddOutParameter("TotalRows", DbType.Int32, TotalRows);
-                ObjectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                ObjectDb.Received().AddInParameter("fromdate", DbType.Date, metaModel.DrillDownFromDate);
-                ObjectDb.Received().AddInParameter("todate", DbType.Date, metaModel.DrillDownToDate);
+                ObjectDb.Received(1).AddInParameter("custid", DbType.Int32, metaModel.DrillDownCustomerId);
+                ObjectDb.Received(1).AddInParameter("pagesize", DbType.Int32, metaModel.PageSize);
+                ObjectDb.Received(1).AddInParameter("pageindex", DbType.Int32, metaModel.PageIndex);
+                ObjectDb.Received(1).AddOutParameter("TotalRows", DbType.Int32, TotalRows);
+                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+                ObjectDb.Received(1).AddInParameter("fromdate", DbType.Date, metaModel.DrillDownFromDate);
+                ObjectDb.Received(1).AddInParameter("todate", DbType.Date, metaModel.DrillDownToDate);
             });
         }
 
@@ -122,8 +122,8 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("pagesize", DbType.Int32, PageSize);
-                ObjectDb.Received().AddInParameter("pageindex", DbType.Int32, PageIndex);
+                ObjectDb.Received(1).AddInParameter("pagesize", DbType.Int32, PageSize);
+                ObjectDb.Received(1).AddInParameter("pageindex", DbType.Int32, PageIndex);
             });
         }
 

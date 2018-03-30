@@ -42,6 +42,7 @@
         [TearDown]
         public virtual void TearDown()
         {
+            DataAccess.ClearReceivedCalls();
             Reader = null;
         }
 

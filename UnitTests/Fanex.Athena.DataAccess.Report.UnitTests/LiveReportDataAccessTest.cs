@@ -274,13 +274,13 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                ObjectDb.Received().AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
-                ObjectDb.Received().AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
-                ObjectDb.Received().AddInParameter("liveindicator", DbType.Int32, metaModel.LiveIndicator);
-                ObjectDb.Received().AddInParameter("movebetsday", DbType.DateTime, _balance.MoveBetsDay);
-                ObjectDb.Received().AddInParameter("sportid", DbType.Int32, metaModel.SportId);
-                ObjectDb.Received().AddInParameter("showNG", DbType.Boolean, true);
+                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+                ObjectDb.Received(1).AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
+                ObjectDb.Received(1).AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
+                ObjectDb.Received(1).AddInParameter("liveindicator", DbType.Int32, metaModel.LiveIndicator);
+                ObjectDb.Received(1).AddInParameter("movebetsday", DbType.DateTime, _balance.MoveBetsDay);
+                ObjectDb.Received(1).AddInParameter("sportid", DbType.Int32, metaModel.SportId);
+                ObjectDb.Received(1).AddInParameter("showNG", DbType.Boolean, true);
             });
         }
 
@@ -324,13 +324,13 @@
 
         private void AssertCommonAddInParameters()
         {
-            ObjectDb.Received().AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
-            ObjectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-            ObjectDb.Received().AddInParameter("fromdate", DbType.DateTime, _metaModel.FromDate.Date);
-            ObjectDb.Received().AddInParameter("todate", DbType.DateTime, _metaModel.ToDate.Date);
-            ObjectDb.Received().AddInParameter("liveindicator", DbType.Int32, _metaModel.LiveIndicator);
-            ObjectDb.Received().AddInParameter("movebetsday", DbType.DateTime, _balance.MoveBetsDay);
-            ObjectDb.Received().AddInParameter("ProductCodes", DbType.String, _metaModel.ProductCodeList);
+            ObjectDb.Received(1).AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
+            ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+            ObjectDb.Received(1).AddInParameter("fromdate", DbType.DateTime, _metaModel.FromDate.Date);
+            ObjectDb.Received(1).AddInParameter("todate", DbType.DateTime, _metaModel.ToDate.Date);
+            ObjectDb.Received(1).AddInParameter("liveindicator", DbType.Int32, _metaModel.LiveIndicator);
+            ObjectDb.Received(1).AddInParameter("movebetsday", DbType.DateTime, _balance.MoveBetsDay);
+            ObjectDb.Received(1).AddInParameter("ProductCodes", DbType.String, _metaModel.ProductCodeList);
         }
     }
 }

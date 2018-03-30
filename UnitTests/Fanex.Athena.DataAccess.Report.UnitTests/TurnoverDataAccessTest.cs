@@ -39,12 +39,12 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("username", DbType.String, metaModel.Username);
-                ObjectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                ObjectDb.Received().AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
-                ObjectDb.Received().AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
-                ObjectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
-                ObjectDb.Received().AddInParameter("showNG", DbType.Boolean, false);
+                ObjectDb.Received(1).AddInParameter("username", DbType.String, metaModel.Username);
+                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+                ObjectDb.Received(1).AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
+                ObjectDb.Received(1).AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
+                ObjectDb.Received(1).AddInParameter("showSB", DbType.Boolean, true);
+                ObjectDb.Received(1).AddInParameter("showNG", DbType.Boolean, false);
             });
         }
 

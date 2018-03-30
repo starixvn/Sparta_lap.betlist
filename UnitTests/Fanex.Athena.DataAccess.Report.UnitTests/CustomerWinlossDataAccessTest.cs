@@ -14,6 +14,7 @@
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class CustomerWinlossDataAccessTest : BaseDataAccessHelperTest<CustomerWinlossDataAccess>
@@ -74,15 +75,15 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("fromdate", DbType.DateTime, _metaModel.FromDate);
-                ObjectDb.Received().AddInParameter("todate", DbType.DateTime, _metaModel.ToDate);
-                ObjectDb.Received().AddInParameter("pagesize", DbType.Int32, expectedPageSize);
-                ObjectDb.Received().AddInParameter("pageindex", DbType.Int32, _metaModel.PageIndex);
-                ObjectDb.Received().AddInParameter("movebetsday", DbType.DateTime, _balance.MoveBetsDay);
-                ObjectDb.Received().AddInParameter("isold", DbType.Boolean, _metaModel.IsOld);
-                ObjectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                ObjectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
-                ObjectDb.Received().AddInParameter("showNG", DbType.Boolean, false);
+                ObjectDb.Received(1).AddInParameter("fromdate", DbType.DateTime, _metaModel.FromDate);
+                ObjectDb.Received(1).AddInParameter("todate", DbType.DateTime, _metaModel.ToDate);
+                ObjectDb.Received(1).AddInParameter("pagesize", DbType.Int32, expectedPageSize);
+                ObjectDb.Received(1).AddInParameter("pageindex", DbType.Int32, _metaModel.PageIndex);
+                ObjectDb.Received(1).AddInParameter("movebetsday", DbType.DateTime, _balance.MoveBetsDay);
+                ObjectDb.Received(1).AddInParameter("isold", DbType.Boolean, _metaModel.IsOld);
+                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                ObjectDb.Received(1).AddInParameter("showSB", DbType.Boolean, true);
+                ObjectDb.Received(1).AddInParameter("showNG", DbType.Boolean, false);
             });
         }
 
@@ -92,21 +93,8 @@
             // Arrange
             Reader.Read().Returns(true, false, true, false);
             Reader.NextResult().Returns(true);
-            var expectedTotalData = new CustomerWinLoss
-            {
-                LicenseeWL = 10m,
-                RacingRevenue = 20m,
-                Turnover = 25m
-            };
-            var expectedResult = new CustomerWinLoss
-            {
-                ExternalId = "ExternalIdTest",
-                SystemId = "SystemIdTest",
-                CustomerWL = 10m,
-                PlayerComm = 5m,
-                CustomerTotalWL = 15m,
-                RacingRevenue = 15m
-            };
+            var expectedTotalData = FakeHelper.Create<CustomerWinLoss>();
+            var expectedResult = FakeHelper.Create<CustomerWinLoss>();
             const int ExpectedTotalRow = 100;
             ConfigureReaderForResult(expectedResult);
             ConfigureReaderForTotalData(expectedTotalData, ExpectedTotalRow);
@@ -163,11 +151,7 @@
         public void GetDataList_NoTotalDataReturned_DataReturnedCorrectly()
         {
             // Arrange
-            var expectedResult = new CustomerWinLoss
-            {
-                ExternalId = "ExternalIdTest",
-                SystemId = "SystemIdTest"
-            };
+            var expectedResult = FakeHelper.Create<CustomerWinLoss>();
 
             Reader.Read().Returns(true, false);
             Reader.NextResult().Returns(false);

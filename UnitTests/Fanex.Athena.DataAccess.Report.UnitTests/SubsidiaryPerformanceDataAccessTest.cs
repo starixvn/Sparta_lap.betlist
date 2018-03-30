@@ -53,7 +53,7 @@
             DataAccess.GetOperatorList(LisenseeName);
 
             // Assert
-            ObjectDb.Received().AddInParameter("LicenseeName", DbType.String, LisenseeName);
+            ObjectDb.Received(1).AddInParameter("LicenseeName", DbType.String, LisenseeName);
         }
 
         [Test]
@@ -242,11 +242,11 @@
         {
             ObjectDb.DidNotReceive().AddInParameter("BaseCurrency", Arg.Any<DbType>(), Arg.Any<object>());
             ObjectDb.DidNotReceive().AddInParameter("ConvertAll", Arg.Any<DbType>(), Arg.Any<object>());
-            ObjectDb.Received().AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
-            ObjectDb.Received().AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
-            ObjectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, _balance.MoveBetsDay);
-            ObjectDb.Received().AddInParameter("ProductList", DbType.String, metaModel.ProductCodeList);
-            ObjectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            ObjectDb.Received(1).AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
+            ObjectDb.Received(1).AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
+            ObjectDb.Received(1).AddInParameter("MoveBetsDay", DbType.DateTime, _balance.MoveBetsDay);
+            ObjectDb.Received(1).AddInParameter("ProductList", DbType.String, metaModel.ProductCodeList);
+            ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
         }
     }
 }

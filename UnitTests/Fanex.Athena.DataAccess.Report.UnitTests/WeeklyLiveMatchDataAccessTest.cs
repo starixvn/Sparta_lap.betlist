@@ -30,10 +30,10 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
-                ObjectDb.Received().AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
-                ObjectDb.Received().AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
-                ObjectDb.Received().AddInParameter("UserId", DbType.Int32, metaModel.UserId);
+                ObjectDb.Received(1).AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
+                ObjectDb.Received(1).AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
+                ObjectDb.Received(1).AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
+                ObjectDb.Received(1).AddInParameter("UserId", DbType.Int32, metaModel.UserId);
             });
         }
 

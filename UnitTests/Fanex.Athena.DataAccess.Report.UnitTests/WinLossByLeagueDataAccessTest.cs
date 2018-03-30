@@ -48,7 +48,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("balanceupday", DbType.DateTime, metaModel.BalanceUpDay);
+                ObjectDb.Received(1).AddInParameter("balanceupday", DbType.DateTime, metaModel.BalanceUpDay);
                 AssertCommonSpParam(metaModel, isShowSB, isShowBA);
             });
         }
@@ -123,8 +123,8 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("pageindex", DbType.Int32, metaModel.PageIndex);
-                ObjectDb.Received().AddInParameter("pagesize", DbType.Int32, metaModel.PageSize);
+                ObjectDb.Received(1).AddInParameter("pageindex", DbType.Int32, metaModel.PageIndex);
+                ObjectDb.Received(1).AddInParameter("pagesize", DbType.Int32, metaModel.PageSize);
                 AssertCommonSpParam(metaModel, showSB, showBA);
 
                 Assert.That(result.TotalRows, Is.EqualTo(1000));
@@ -252,18 +252,18 @@
 
         private void AssertCommonSpParam(WinLossByLeagueMetaModel metaModel, bool showSB, bool showBA)
         {
-            ObjectDb.Received().AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
-            ObjectDb.Received().AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
-            ObjectDb.Received().AddInParameter("odds", DbType.Decimal, metaModel.Odds);
-            ObjectDb.Received().AddInParameter("leagueid", DbType.Int32, metaModel.League);
-            ObjectDb.Received().AddInParameter("matchid", DbType.Int32, metaModel.Match);
-            ObjectDb.Received().AddInParameter("movebetsday", DbType.DateTime, metaModel.MoveBetsDay);
-            ObjectDb.Received().AddInParameter("showwin", DbType.Boolean, metaModel.ShowWin);
-            ObjectDb.Received().AddInParameter("showloss", DbType.Boolean, metaModel.ShowLoss);
-            ObjectDb.Received().AddInParameter("showdraw", DbType.Boolean, metaModel.ShowDraw);
-            ObjectDb.Received().AddInParameter("showsb", DbType.Boolean, showSB);
-            ObjectDb.Received().AddInParameter("showba", DbType.Boolean, showBA);
-            ObjectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            ObjectDb.Received(1).AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
+            ObjectDb.Received(1).AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
+            ObjectDb.Received(1).AddInParameter("odds", DbType.Decimal, metaModel.Odds);
+            ObjectDb.Received(1).AddInParameter("leagueid", DbType.Int32, metaModel.League);
+            ObjectDb.Received(1).AddInParameter("matchid", DbType.Int32, metaModel.Match);
+            ObjectDb.Received(1).AddInParameter("movebetsday", DbType.DateTime, metaModel.MoveBetsDay);
+            ObjectDb.Received(1).AddInParameter("showwin", DbType.Boolean, metaModel.ShowWin);
+            ObjectDb.Received(1).AddInParameter("showloss", DbType.Boolean, metaModel.ShowLoss);
+            ObjectDb.Received(1).AddInParameter("showdraw", DbType.Boolean, metaModel.ShowDraw);
+            ObjectDb.Received(1).AddInParameter("showsb", DbType.Boolean, showSB);
+            ObjectDb.Received(1).AddInParameter("showba", DbType.Boolean, showBA);
+            ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
         }
     }
 }

@@ -57,8 +57,8 @@
             // Assert
             Assert.Multiple(() =>
             {
-                DataAccess.Received().GetObjectDb(GetMainWinlossSp);
-                ObjectDb.Received().AddInParameter("ReportType", DbType.Byte, _metaModel.ReportBy);
+                DataAccess.Received(1).GetObjectDb(GetMainWinlossSp);
+                ObjectDb.Received(1).AddInParameter("ReportType", DbType.Byte, _metaModel.ReportBy);
                 AssertCommonSpParameters();
             });
         }
@@ -146,7 +146,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                DataAccess.Received().GetObjectDb(GetLicenseeWinlossSp);
+                DataAccess.Received(1).GetObjectDb(GetLicenseeWinlossSp);
                 AssertCommonSpParameters();
             });
         }
@@ -197,8 +197,8 @@
             // Assert
             Assert.Multiple(() =>
             {
-                DataAccess.Received().GetObjectDb(GetCustomerWinlossSp);
-                ObjectDb.Received().AddInParameter("CustID", DbType.Int32, _metaModel.CustId);
+                DataAccess.Received(1).GetObjectDb(GetCustomerWinlossSp);
+                ObjectDb.Received(1).AddInParameter("CustID", DbType.Int32, _metaModel.CustId);
                 AssertCommonSpParameters();
             });
         }
@@ -413,9 +413,9 @@
 
         private void AssertCommonSpParameters()
         {
-            ObjectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-            ObjectDb.Received().AddInParameter("Fromdate", DbType.Date, _metaModel.FromDate.Date);
-            ObjectDb.Received().AddInParameter("Todate", DbType.Date, _metaModel.ToDate.Date);
+            ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+            ObjectDb.Received(1).AddInParameter("Fromdate", DbType.Date, _metaModel.FromDate.Date);
+            ObjectDb.Received(1).AddInParameter("Todate", DbType.Date, _metaModel.ToDate.Date);
             ObjectDb.Received().AddInParameter("LicenseeId", DbType.Int32, _metaModel.LicenseeId);
         }
 
