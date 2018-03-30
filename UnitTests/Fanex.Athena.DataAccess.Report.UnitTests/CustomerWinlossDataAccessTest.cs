@@ -187,54 +187,36 @@
 
         private void ConfigureReaderForResult(CustomerWinLoss expected)
         {
-            var turnoverColumn = "turnover" + _metaModel.BaseCurrency;
-            var memberWinLostColumn = "memberwinlost" + _metaModel.BaseCurrency;
-            var betEffectiveColumn = "beteffective" + _metaModel.BaseCurrency;
-            var playerCommColumn = "playercomm" + _metaModel.BaseCurrency;
-            var licenseeWinLostColumn = "licenseewl" + _metaModel.BaseCurrency;
-            var bacommColumn = "commba" + _metaModel.BaseCurrency;
-            var winlossrbColumn = "winlossrb" + _metaModel.BaseCurrency;
-            var commrbColumn = "commrb" + _metaModel.BaseCurrency;
-            var amtduetobaColumn = "amtduetoba" + _metaModel.BaseCurrency;
-            var amtduetorbColumn = "amtduetorb" + _metaModel.BaseCurrency;
-            var customertotalwlColumn = "customertotalwl" + _metaModel.BaseCurrency;
-            var racingrevenueColumn = "racingrevenue" + _metaModel.BaseCurrency;
-
             Reader["CustID"].Returns(expected.CustId);
             Reader["nickname"].Returns(expected.ExternalId);
             Reader["username"].Returns(expected.SystemId);
-            Reader[turnoverColumn].Returns(expected.Turnover);
-            Reader["betcount"].Returns(expected.TotalTransaction);
-            Reader[memberWinLostColumn].Returns(expected.CustomerWL);
-            Reader[betEffectiveColumn].Returns(expected.BetEffective);
-            Reader[playerCommColumn].Returns(expected.PlayerComm);
-            Reader[licenseeWinLostColumn].Returns(expected.LicenseeWL);
-            Reader[bacommColumn].Returns(expected.BAComm);
-            Reader[winlossrbColumn].Returns(10m);
-            Reader[commrbColumn].Returns(5m);
-            Reader[amtduetobaColumn].Returns(expected.AmtDueToBA);
-            Reader[amtduetorbColumn].Returns(expected.AmtDueToRacing);
-            Reader[customertotalwlColumn].Returns(expected.CustomerTotalWL);
-            Reader[racingrevenueColumn].Returns(expected.RacingRevenue);
+            MapReader(expected, false);
         }
 
         private void ConfigureReaderForTotalData(CustomerWinLoss expected, int expectedTotalRow)
         {
-            var turnoverColumn = "sumturnover" + _metaModel.BaseCurrency;
-            var memberWinLostColumn = "summemberwinlost" + _metaModel.BaseCurrency;
-            var betEffectiveColumn = "sumbeteffective" + _metaModel.BaseCurrency;
-            var playerCommColumn = "sumplayercomm" + _metaModel.BaseCurrency;
-            var licenseeWinLostColumn = "sumlicenseewl" + _metaModel.BaseCurrency;
-            var bacommColumn = "sumcommba" + _metaModel.BaseCurrency;
-            var winlossrbColumn = "sumwinlossrb" + _metaModel.BaseCurrency;
-            var commrbColumn = "sumcommrb" + _metaModel.BaseCurrency;
-            var amtduetobaColumn = "sumamtduetoba" + _metaModel.BaseCurrency;
-            var amtduetorbColumn = "sumamtduetorb" + _metaModel.BaseCurrency;
-            var sumracingrevenueColumn = "sumracingrevenue" + _metaModel.BaseCurrency;
-            var sumcustomertotalwlColumn = "sumcustomertotalwl" + _metaModel.BaseCurrency;
+            Reader["TotalRows"].Returns(expectedTotalRow);
+            MapReader(expected, true);
+        }
+
+        private void MapReader(CustomerWinLoss expected, bool isSum)
+        {
+            var prefix = isSum ? "sum" : string.Empty;
+            var turnoverColumn = prefix + "turnover" + _metaModel.BaseCurrency;
+            var memberWinLostColumn = prefix + "memberwinlost" + _metaModel.BaseCurrency;
+            var betEffectiveColumn = prefix + "beteffective" + _metaModel.BaseCurrency;
+            var playerCommColumn = prefix + "playercomm" + _metaModel.BaseCurrency;
+            var licenseeWinLostColumn = prefix + "licenseewl" + _metaModel.BaseCurrency;
+            var bacommColumn = prefix + "commba" + _metaModel.BaseCurrency;
+            var winlossrbColumn = prefix + "winlossrb" + _metaModel.BaseCurrency;
+            var commrbColumn = prefix + "commrb" + _metaModel.BaseCurrency;
+            var amtduetobaColumn = prefix + "amtduetoba" + _metaModel.BaseCurrency;
+            var amtduetorbColumn = prefix + "amtduetorb" + _metaModel.BaseCurrency;
+            var sumracingrevenueColumn = prefix + "racingrevenue" + _metaModel.BaseCurrency;
+            var sumcustomertotalwlColumn = prefix + "customertotalwl" + _metaModel.BaseCurrency;
 
             Reader[turnoverColumn].Returns(expected.Turnover);
-            Reader["sumbetcount"].Returns(expected.TotalTransaction);
+            Reader[prefix + "betcount"].Returns(expected.TotalTransaction);
             Reader[memberWinLostColumn].Returns(expected.CustomerWL);
             Reader[betEffectiveColumn].Returns(expected.BetEffective);
             Reader[playerCommColumn].Returns(expected.PlayerComm);
@@ -246,8 +228,6 @@
             Reader[amtduetorbColumn].Returns(expected.AmtDueToRacing);
             Reader[sumracingrevenueColumn].Returns(expected.RacingRevenue);
             Reader[sumcustomertotalwlColumn].Returns(expected.CustomerTotalWL);
-
-            Reader["TotalRows"].Returns(expectedTotalRow);
         }
     }
 }
