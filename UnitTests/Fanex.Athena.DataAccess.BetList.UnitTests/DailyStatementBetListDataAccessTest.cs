@@ -12,6 +12,7 @@
     using Model.Core.DTO.Configuration;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
 
     public class DailyStatementBetListDataAccessTest : BaseDataAccessHelperTest<DailyStatementBetListDataAccess>
     {
@@ -99,7 +100,7 @@
         [OneTimeSetUp]
         public override void FixtureSetUp()
         {
-            _metaModel = CreateBetListMetaModel();
+            _metaModel = FakeHelper.Create<BetListMetaModel>();
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             balanceUpDataAccess.GetBalanceUp().Returns(BalanceUp);
 
@@ -125,14 +126,14 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("CustID", DbType.Int32, _metaModel.CustId);
-                ObjectDb.Received().AddInParameter("FromDate", DbType.DateTime, _metaModel.FromDate);
-                ObjectDb.Received().AddInParameter("ToDate", DbType.DateTime, _metaModel.ToDate);
-                ObjectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, BalanceUp.MoveBetsDay);
-                ObjectDb.Received().AddInParameter("BalanceUpDay", DbType.DateTime, BalanceUp.BalanceUpDay);
-                ObjectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
-                ObjectDb.Received().AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
-                ObjectDb.Received().AddOutParameter("totalrows", DbType.Int32, 4);
+                ObjectDb.Received(1).AddInParameter("CustID", DbType.Int32, _metaModel.CustId);
+                ObjectDb.Received(1).AddInParameter("FromDate", DbType.DateTime, _metaModel.FromDate);
+                ObjectDb.Received(1).AddInParameter("ToDate", DbType.DateTime, _metaModel.ToDate);
+                ObjectDb.Received(1).AddInParameter("MoveBetsDay", DbType.DateTime, BalanceUp.MoveBetsDay);
+                ObjectDb.Received(1).AddInParameter("BalanceUpDay", DbType.DateTime, BalanceUp.BalanceUpDay);
+                ObjectDb.Received(1).AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
+                ObjectDb.Received(1).AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
+                ObjectDb.Received(1).AddOutParameter("totalrows", DbType.Int32, 4);
             });
         }
 
@@ -180,21 +181,6 @@
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
                 UspName,
                 () => DataAccess.GetDailyStatementData(_metaModel, true));
-        }
-
-        private static BetListMetaModel CreateBetListMetaModel()
-        {
-            return new BetListMetaModel
-            {
-                BaseCurrency = "BaseCurrencyTest",
-                CustId = 1,
-                FromDate = new DateTime(2016, 8, 10),
-                ToDate = new DateTime(2016, 8, 19),
-                PageSize = 10,
-                PageIndex = 1,
-                ExternalId = "ExternalIdTest",
-                SystemId = "SystemIdTest",
-            };
         }
 
         private static DailyStatement GetDailyStatementData(BetListMetaModel metaModel, dynamic testCaseData)

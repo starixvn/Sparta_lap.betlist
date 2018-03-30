@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AutoFixture;
 
 namespace Fanex.Athena.UnitTest.Common.Helpers
@@ -15,6 +16,11 @@ namespace Fanex.Athena.UnitTest.Common.Helpers
         public static IEnumerable<T> CreateMany<T>()
         {
             return _fixture.CreateMany<T>();
+        }
+
+        public static DateTime TruncateMiliseconds(DateTime dateTime)
+        {
+            return dateTime.AddTicks(-(dateTime.Ticks % TimeSpan.TicksPerSecond));
         }
     }
 }

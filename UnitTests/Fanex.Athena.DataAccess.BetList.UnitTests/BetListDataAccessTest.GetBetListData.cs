@@ -7,6 +7,7 @@
     using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
     using UnitTest.Common.NUnitExtensions;
 
     public partial class BetListDataAccessTest
@@ -31,12 +32,12 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                ObjectDb.Received().AddInParameter("MatchID", DbType.Int32, metaModel.MatchId);
-                ObjectDb.Received().AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
-                ObjectDb.Received().AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
-                ObjectDb.Received().AddInParameter("LiveIndicator", DbType.Int32, metaModel.LiveIndicator);
-                ObjectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
+                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+                ObjectDb.Received(1).AddInParameter("MatchID", DbType.Int32, metaModel.MatchId);
+                ObjectDb.Received(1).AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
+                ObjectDb.Received(1).AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
+                ObjectDb.Received(1).AddInParameter("LiveIndicator", DbType.Int32, metaModel.LiveIndicator);
+                ObjectDb.Received(1).AddInParameter("showSB", DbType.Boolean, true);
                 ObjectDb.DidNotReceive().AddInParameter("showNG", DbType.Boolean, true);
             });
         }
@@ -123,13 +124,13 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                ObjectDb.Received().AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
-                ObjectDb.Received().AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
-                ObjectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
-                ObjectDb.Received().AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
-                ObjectDb.Received().AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
-                ObjectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
+                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+                ObjectDb.Received(1).AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
+                ObjectDb.Received(1).AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
+                ObjectDb.Received(1).AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
+                ObjectDb.Received(1).AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
+                ObjectDb.Received(1).AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
+                ObjectDb.Received(1).AddInParameter("showSB", DbType.Boolean, true);
                 ObjectDb.DidNotReceive().AddInParameter("showNG", DbType.Boolean, true);
             });
         }
@@ -147,14 +148,14 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("Sort", DbType.String, metaModel.SortBy + metaModel.BaseCurrency + " " + metaModel.SortOrder);
-                ObjectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                ObjectDb.Received().AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
-                ObjectDb.Received().AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
-                ObjectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
-                ObjectDb.Received().AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
-                ObjectDb.Received().AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
-                ObjectDb.Received().AddInParameter("LiveIndicator", DbType.Int32, metaModel.LiveIndicator);
+                ObjectDb.Received(1).AddInParameter("Sort", DbType.String, metaModel.SortBy + metaModel.BaseCurrency + " " + metaModel.SortOrder);
+                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+                ObjectDb.Received(1).AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
+                ObjectDb.Received(1).AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
+                ObjectDb.Received(1).AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
+                ObjectDb.Received(1).AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
+                ObjectDb.Received(1).AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
+                ObjectDb.Received(1).AddInParameter("LiveIndicator", DbType.Int32, metaModel.LiveIndicator);
             });
         }
 
@@ -171,17 +172,17 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("Sort", DbType.String, metaModel.SortBy + metaModel.BaseCurrency + " " + metaModel.SortOrder);
-                ObjectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                ObjectDb.Received().AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
-                ObjectDb.Received().AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
-                ObjectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
-                ObjectDb.Received().AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
-                ObjectDb.Received().AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
-                ObjectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
+                ObjectDb.Received(1).AddInParameter("Sort", DbType.String, metaModel.SortBy + metaModel.BaseCurrency + " " + metaModel.SortOrder);
+                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+                ObjectDb.Received(1).AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
+                ObjectDb.Received(1).AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
+                ObjectDb.Received(1).AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
+                ObjectDb.Received(1).AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
+                ObjectDb.Received(1).AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
+                ObjectDb.Received(1).AddInParameter("showSB", DbType.Boolean, true);
                 ObjectDb.DidNotReceive().AddInParameter("showNG", DbType.Boolean, true);
-                ObjectDb.Received().AddInParameter("Bettype", DbType.Int32, metaModel.BetType);
-                ObjectDb.Received().AddInParameter("LiveIndicator", DbType.Int32, metaModel.LiveIndicator);
+                ObjectDb.Received(1).AddInParameter("Bettype", DbType.Int32, metaModel.BetType);
+                ObjectDb.Received(1).AddInParameter("LiveIndicator", DbType.Int32, metaModel.LiveIndicator);
             });
         }
 
@@ -199,22 +200,22 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("Sort", DbType.String, metaModel.SortBy + metaModel.BaseCurrency + " " + metaModel.SortOrder);
-                ObjectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                ObjectDb.Received().AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
-                ObjectDb.Received().AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
-                ObjectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
-                ObjectDb.Received().AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
-                ObjectDb.Received().AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
-                ObjectDb.Received().AddInParameter("SportType", DbType.Int32, metaModel.SportType);
-                ObjectDb.Received().AddOutParameter("SUMWL", DbType.Currency, 8);
-                ObjectDb.Received().AddOutParameter("SUMLicenseeWL", DbType.Currency, 8);
-                ObjectDb.Received().AddOutParameter("SUMWLUSD", DbType.Currency, 8);
-                ObjectDb.Received().AddOutParameter("SUMLicenseeWLUSD", DbType.Currency, 8);
-                ObjectDb.Received().AddOutParameter("SUMWLEUR", DbType.Currency, 8);
-                ObjectDb.Received().AddOutParameter("SUMLicenseeWLEUR", DbType.Currency, 8);
-                ObjectDb.Received().AddOutParameter("SUMWLGBP", DbType.Currency, 8);
-                ObjectDb.Received().AddOutParameter("SUMLicenseeWLGBP", DbType.Currency, 8);
+                ObjectDb.Received(1).AddInParameter("Sort", DbType.String, metaModel.SortBy + metaModel.BaseCurrency + " " + metaModel.SortOrder);
+                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+                ObjectDb.Received(1).AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
+                ObjectDb.Received(1).AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
+                ObjectDb.Received(1).AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
+                ObjectDb.Received(1).AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
+                ObjectDb.Received(1).AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
+                ObjectDb.Received(1).AddInParameter("SportType", DbType.Int32, metaModel.SportType);
+                ObjectDb.Received(1).AddOutParameter("SUMWL", DbType.Currency, 8);
+                ObjectDb.Received(1).AddOutParameter("SUMLicenseeWL", DbType.Currency, 8);
+                ObjectDb.Received(1).AddOutParameter("SUMWLUSD", DbType.Currency, 8);
+                ObjectDb.Received(1).AddOutParameter("SUMLicenseeWLUSD", DbType.Currency, 8);
+                ObjectDb.Received(1).AddOutParameter("SUMWLEUR", DbType.Currency, 8);
+                ObjectDb.Received(1).AddOutParameter("SUMLicenseeWLEUR", DbType.Currency, 8);
+                ObjectDb.Received(1).AddOutParameter("SUMWLGBP", DbType.Currency, 8);
+                ObjectDb.Received(1).AddOutParameter("SUMLicenseeWLGBP", DbType.Currency, 8);
             });
         }
 
@@ -287,32 +288,10 @@
 
         private static LiveReportBetListMetaModel GetLiveReportBetListMetaModel()
         {
-            return new LiveReportBetListMetaModel
-            {
-                BaseCurrency = "BaseCurrencyTest",
-                CustId = 1,
-                FromDate = new DateTime(2016, 8, 10),
-                ToDate = new DateTime(2016, 8, 19),
-                MoveBetsDay = new DateTime(2016, 1, 1),
-                BalanceUpDay = new DateTime(2016, 2, 1),
-                PageSize = 10,
-                PageIndex = 1,
-                ExternalId = "ExternalIdTest",
-                SystemId = "SystemIdTest",
-                LicenseeId = 2,
-                UserId = 3,
-                CurrencyId = 4,
-                ProductCodeList = "SB,NG",
-                SortBy = "SortByTest",
-                SortOrder = "SortOrderTest",
-                LeagueId = 5,
-                RaceNo = "RaceNoTest",
-                DrawFilter = 6,
-                MultipleBettype = "MultipleBettypeTest",
-                LiveIndicator = 7,
-                SportType = 8,
-                PlatformType = 9
-            };
+            var metaModel = FakeHelper.Create<LiveReportBetListMetaModel>();
+            metaModel.ProductCodeList = "SB,NG";
+            metaModel.IsExportExcel = false;
+            return metaModel;
         }
     }
 }

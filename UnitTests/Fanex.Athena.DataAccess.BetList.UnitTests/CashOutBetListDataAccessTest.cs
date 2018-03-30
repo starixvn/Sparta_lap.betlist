@@ -7,6 +7,7 @@
     using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
     using UnitTest.Common.NUnitExtensions;
 
     public class CashOutBetListDataAccessTest : BaseDataAccessHelperTest<CashOutBetListDataAccess>
@@ -17,7 +18,7 @@
         public void GetDetail_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            var metaModel = GetFakeBetListMetaModel();
+            var metaModel = FakeHelper.Create<CashOutBetListDetailMetaModel>();
             var expectedParam = new
             {
                 metaModel.TransId,
@@ -109,19 +110,6 @@
                 {
                     BaseCurrency = "usd"
                 }));
-        }
-
-        private CashOutBetListDetailMetaModel GetFakeBetListMetaModel()
-        {
-            return new CashOutBetListDetailMetaModel
-            {
-                TransId = 1,
-                RefNo = 2,
-                BetType = 3,
-                BetdaqId = 4,
-                AgentListXml = "xml",
-                BaseCurrency = "USD"
-            };
         }
     }
 }

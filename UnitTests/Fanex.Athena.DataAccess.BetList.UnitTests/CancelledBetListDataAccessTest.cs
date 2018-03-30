@@ -28,7 +28,7 @@
             DataAccess.GetCancelBetCustList(metaModel);
 
             // Assert
-            ObjectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
         }
 
         [Test]

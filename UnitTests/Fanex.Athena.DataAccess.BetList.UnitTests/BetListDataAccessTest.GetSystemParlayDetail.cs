@@ -28,14 +28,14 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("refno", DbType.Int64, metaModel.RefNo);
-                ObjectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                ObjectDb.Received().AddInParameter("movebetsday", DbType.DateTime, metaModel.MoveBetsDay);
-                ObjectDb.Received().AddInParameter("balanceupday", DbType.DateTime, metaModel.BalanceUpDay);
-                ObjectDb.Received().AddOutParameter("outstanding", DbType.Currency, 8);
-                ObjectDb.Received().AddOutParameter("outstandingeur", DbType.Currency, 8);
-                ObjectDb.Received().AddOutParameter("outstandingusd", DbType.Currency, 8);
-                ObjectDb.Received().AddOutParameter("outstandinggbp", DbType.Currency, 8);
+                ObjectDb.Received(1).AddInParameter("refno", DbType.Int64, metaModel.RefNo);
+                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+                ObjectDb.Received(1).AddInParameter("movebetsday", DbType.DateTime, metaModel.MoveBetsDay);
+                ObjectDb.Received(1).AddInParameter("balanceupday", DbType.DateTime, metaModel.BalanceUpDay);
+                ObjectDb.Received(1).AddOutParameter("outstanding", DbType.Currency, 8);
+                ObjectDb.Received(1).AddOutParameter("outstandingeur", DbType.Currency, 8);
+                ObjectDb.Received(1).AddOutParameter("outstandingusd", DbType.Currency, 8);
+                ObjectDb.Received(1).AddOutParameter("outstandinggbp", DbType.Currency, 8);
             });
         }
 

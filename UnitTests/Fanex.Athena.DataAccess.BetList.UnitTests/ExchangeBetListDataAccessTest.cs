@@ -10,6 +10,7 @@
     using Model.Core.DataDomain;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
 
     public class ExchangeBetListDataAccessTest : BaseDataAccessHelperTest<ExchangeBetListDataAccess>
     {
@@ -31,14 +32,14 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                ObjectDb.Received().AddInParameter("CustId", DbType.Int32, metaModel.CustId);
-                ObjectDb.Received().AddInParameter("FromDate", DbType.Date, metaModel.FromDate);
-                ObjectDb.Received().AddInParameter("ToDate", DbType.Date, metaModel.ToDate);
-                ObjectDb.Received().AddOutParameter("SumWinLost", DbType.Currency, 8);
-                ObjectDb.Received().AddOutParameter("SumWinLostEUR", DbType.Currency, 8);
-                ObjectDb.Received().AddOutParameter("SumWinLostGBP", DbType.Currency, 8);
-                ObjectDb.Received().AddOutParameter("SumWinLostUSD", DbType.Currency, 8);
+                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+                ObjectDb.Received(1).AddInParameter("CustId", DbType.Int32, metaModel.CustId);
+                ObjectDb.Received(1).AddInParameter("FromDate", DbType.Date, metaModel.FromDate);
+                ObjectDb.Received(1).AddInParameter("ToDate", DbType.Date, metaModel.ToDate);
+                ObjectDb.Received(1).AddOutParameter("SumWinLost", DbType.Currency, 8);
+                ObjectDb.Received(1).AddOutParameter("SumWinLostEUR", DbType.Currency, 8);
+                ObjectDb.Received(1).AddOutParameter("SumWinLostGBP", DbType.Currency, 8);
+                ObjectDb.Received(1).AddOutParameter("SumWinLostUSD", DbType.Currency, 8);
             });
         }
 
@@ -132,19 +133,10 @@
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(BetListUsp)).Returns(ObjectDb);
 
-            var ticket = new ExchangeTicket
-            {
-                UserId = "UserId",
-                EventId = 2,
-                MarketId = "MarketId",
-                BetId = 2,
-                SelectionName = "SelectionName",
-                OddsAvg = 3,
-                Stake = figure,
-                WinLost = figure,
-                Type = "Type",
-                BetPlaced = new DateTime(2018, 2, 3, 4, 5, 6)
-            };
+            var ticket = FakeHelper.Create<ExchangeTicket>();
+            ticket.WinLost = figure;
+            ticket.Stake = figure;
+            ticket.BetPlaced = FakeHelper.TruncateMiliseconds(ticket.BetPlaced);
             MapReaderData(ticket);
 
             Reader["WinLost" + baseCurrency.ToUpperInvariant()].Returns(baseCurrencyFigure);
@@ -172,7 +164,7 @@
                 Assert.That(result.WinLost, Is.EqualTo(expectedFigure));
                 Assert.That(result.Stake, Is.EqualTo(expectedFigure));
                 Assert.That(result.BetPlaced, Is.EqualTo(ticket.BetPlaced));
-                Assert.That(result.BetPlacedDateString, Is.EqualTo("02/03/2018 04:05:06"));
+                Assert.That(result.BetPlacedDateString, Is.EqualTo(ticket.BetPlaced.ToString("MM/dd/yyyy hh:mm:ss")));
             });
         }
 
@@ -198,9 +190,9 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                ObjectDb.Received().AddInParameter("CustId", DbType.Int32, metaModel.CustId);
-                ObjectDb.Received().AddInParameter("BetID", DbType.Int64, metaModel.BetId);
+                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+                ObjectDb.Received(1).AddInParameter("CustId", DbType.Int32, metaModel.CustId);
+                ObjectDb.Received(1).AddInParameter("BetID", DbType.Int64, metaModel.BetId);
             });
         }
 
