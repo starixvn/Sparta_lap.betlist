@@ -556,13 +556,7 @@
             BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, _metaModel);
 
             // Assert
-            Assert.Multiple(() =>
-            {
-                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received(1).AddInParameter("refno", DbType.Int64, _metaModel.TransId);
-                _objectDb.Received(1).AddInParameter("custid", DbType.Int32, _metaModel.CustId);
-                _objectDb.Received(1).AddInParameter("transtype", DbType.Int16, _metaModel.TransType);
-            });
+            AssertCasinoDetailParameters(_objectDb, _metaModel);
         }
 
         [Test]
@@ -575,13 +569,7 @@
             BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, _metaModel);
 
             // Assert
-            Assert.Multiple(() =>
-            {
-                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received(1).AddInParameter("refno", DbType.Int64, _metaModel.TransId);
-                _objectDb.Received(1).AddInParameter("custid", DbType.Int32, _metaModel.CustId);
-                _objectDb.Received(1).AddInParameter("transtype", DbType.Int16, _metaModel.TransType);
-            });
+            AssertCasinoDetailParameters(_objectDb, _metaModel);
         }
 
         [Test]
@@ -619,10 +607,7 @@
             BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, metaModel);
 
             // Assert
-            Assert.Multiple(() =>
-            {
-                _objectDb.Received(1).AddInParameter("Sort", DbType.String, expectedSortBy);
-            });
+            _objectDb.Received(1).AddInParameter("Sort", DbType.String, expectedSortBy);
         }
 
         [Test]
@@ -637,10 +622,7 @@
             BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, metaModel);
 
             // Assert
-            Assert.Multiple(() =>
-            {
-                _objectDb.DidNotReceive().AddInParameter("Sort", DbType.String, Arg.Any<string>());
-            });
+            _objectDb.DidNotReceive().AddInParameter("Sort", DbType.String, Arg.Any<string>());
         }
 
         [TestCase(true, 1, 100, 1, int.MaxValue - 1)]
@@ -719,6 +701,14 @@
             objectDb.Received(1).AddInParameter("transtype", DbType.Int32, metaModel.TransType);
             AssertPagingParameters(objectDb, metaModel);
             AssertSummaryParameters(objectDb);
+        }
+
+        private static void AssertCasinoDetailParameters(IObjectDb objectDb, BetListMetaModel metaModel)
+        {
+            objectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            objectDb.Received(1).AddInParameter("refno", DbType.Int64, metaModel.TransId);
+            objectDb.Received(1).AddInParameter("custid", DbType.Int32, metaModel.CustId);
+            objectDb.Received(1).AddInParameter("transtype", DbType.Int16, metaModel.TransType);
         }
     }
 }
