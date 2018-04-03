@@ -37,8 +37,7 @@
         {
             // Arrange
             const string UspKey = "Lrf_BetList_WinlostByLeague_Mem";
-            var metaModel = FakeHelper.Create<WinLossByLeagueBetListMetaModel>();
-            metaModel.ProductCodeList = "SB,NG";
+            var metaModel = FakeHelper.Create<WinLossByLeagueBetListMetaModel>(x => x.ProductCodeList, "SB,NG");
 
             // Action
             BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, metaModel);

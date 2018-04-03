@@ -17,8 +17,7 @@
 
         public BetListDataAccessTest()
         {
-            _metaModel = FakeHelper.Create<BetListMetaModel>();
-            _metaModel.ProductCodeList = "SB,NG,BA";
+            _metaModel = FakeHelper.Create<BetListMetaModel>(x => x.ProductCodeList, "SB,NG,BA");
         }
 
         [Test]

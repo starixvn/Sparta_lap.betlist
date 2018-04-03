@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using AutoFixture;
 
 namespace Fanex.Athena.UnitTest.Common.Helpers
@@ -7,6 +8,11 @@ namespace Fanex.Athena.UnitTest.Common.Helpers
     public static class FakeHelper
     {
         private static Fixture _fixture = new Fixture();
+
+        public static T Create<T>(Expression<Func<T, object>> propertyPicker, object value)
+        {
+            return _fixture.Build<T>().With(propertyPicker, value).Create();
+        }
 
         public static T Create<T>()
         {

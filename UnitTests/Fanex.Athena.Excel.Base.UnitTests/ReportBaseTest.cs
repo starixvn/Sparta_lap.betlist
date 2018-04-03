@@ -57,14 +57,7 @@
             report.AssignData();
 
             // Assert
-            Assert.Multiple(() =>
-            {
-                report.Received(1).AssignHeader(Arg.Any<ISheet>());
-                report.Received(1).AssignTitle(Arg.Any<ISheet>());
-                report.Received(1).AssignNoInfoRow(Arg.Any<ISheet>());
-                report.Received(1).ProcessUI(Arg.Any<ISheet>());
-                report.DidNotReceive().AssignSheetData(Arg.Any<ISheet>());
-            });
+            AssertNoInfoAssignSheet(report);
         }
 
         [Test]
@@ -98,36 +91,7 @@
             report.AssignDataMultiSheet();
 
             // Assert
-            Assert.Multiple(() =>
-            {
-                report.Received(1).AssignHeader(Arg.Any<ISheet>());
-                report.Received(1).AssignTitle(Arg.Any<ISheet>());
-                report.Received(1).AssignNoInfoRow(Arg.Any<ISheet>());
-                report.Received(1).ProcessUI(Arg.Any<ISheet>());
-                report.DidNotReceive().AssignSheetData(Arg.Any<ISheet>());
-            });
-        }
-
-        [Test]
-        public void AssignDataMultiSheet_WhenCall_CallReleventMethods()
-        {
-            // Arrange
-            const int TotalRows = 0;
-            var report = Substitute.ForPartsOf<ReportBase>(string.Empty, TotalRows, new ShowingOption(), 0);
-            report.Workbook.Returns(Substitute.For<IWorkbook>());
-
-            // Action
-            report.AssignDataMultiSheet();
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                report.Received(1).AssignHeader(Arg.Any<ISheet>());
-                report.Received(1).AssignTitle(Arg.Any<ISheet>());
-                report.Received(1).AssignNoInfoRow(Arg.Any<ISheet>());
-                report.Received(1).ProcessUI(Arg.Any<ISheet>());
-                report.DidNotReceive().AssignSheetData(Arg.Any<ISheet>());
-            });
+            AssertNoInfoAssignSheet(report);
         }
 
         [Test]
@@ -150,6 +114,18 @@
                 report.Received(2).ProcessUI(Arg.Any<ISheet>());
                 report.Received(1).AssignSheetData(Arg.Any<ISheet>(), 0);
                 report.Received(1).AssignSheetData(Arg.Any<ISheet>(), 1);
+            });
+        }
+
+        private static void AssertNoInfoAssignSheet(ReportBase report)
+        {
+            Assert.Multiple(() =>
+            {
+                report.Received(1).AssignHeader(Arg.Any<ISheet>());
+                report.Received(1).AssignTitle(Arg.Any<ISheet>());
+                report.Received(1).AssignNoInfoRow(Arg.Any<ISheet>());
+                report.Received(1).ProcessUI(Arg.Any<ISheet>());
+                report.DidNotReceive().AssignSheetData(Arg.Any<ISheet>());
             });
         }
     }

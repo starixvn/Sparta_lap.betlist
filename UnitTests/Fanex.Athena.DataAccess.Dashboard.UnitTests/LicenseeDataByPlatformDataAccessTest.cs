@@ -6,6 +6,8 @@
     using Model.Dashboard.ViewModel;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Extensions;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class LicenseeDataByPlatformDataAccessTest : BaseDataAccessHelperTest<LicenseeDataByPlatformDataAccess>
@@ -29,14 +31,7 @@
             // Arrange
             object passedParam = null;
             ObjectDb.When(x => x.ExecuteReader(Arg.Any<object>())).Do(x => passedParam = x[0]);
-            var metaModel = new DashboardBaseModel
-            {
-                BaseCurrency = "EUR",
-                LicenseeId = 1,
-                CurrencyIDList = "1,2,3",
-                FromDate = new System.DateTime(2017, 1, 1),
-                ToDate = new System.DateTime(2017, 2, 15)
-            };
+            var metaModel = FakeHelper.Create<DashboardBaseModel>(x => x.BaseCurrency, "EUR");
 
             Reader.Read().Returns(true, false);
             Reader["PlatformType"].Returns(8);
@@ -44,16 +39,9 @@
 
             // Action
             DataAccess.GetWinLoss(metaModel);
-            var type = passedParam.GetType();
 
             // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(type.GetProperty("LicenseeID").GetValue(passedParam, null), Is.EqualTo(metaModel.LicenseeId));
-                Assert.That(type.GetProperty("CurrencyIDList").GetValue(passedParam, null), Is.EqualTo(metaModel.CurrencyIDList));
-                Assert.That(type.GetProperty("FromDate").GetValue(passedParam, null), Is.EqualTo(metaModel.FromDate));
-                Assert.That(type.GetProperty("ToDate").GetValue(passedParam, null), Is.EqualTo(metaModel.ToDate));
-            });
+            AssertPassedParameter(passedParam, metaModel);
         }
 
         [Test]
@@ -99,14 +87,7 @@
             // Arrange
             object passedParam = null;
             ObjectDb.When(x => x.ExecuteReader(Arg.Any<object>())).Do(x => passedParam = x[0]);
-            var metaModel = new DashboardBaseModel
-            {
-                BaseCurrency = "EUR",
-                LicenseeId = 1,
-                CurrencyIDList = "1,2,3",
-                FromDate = new System.DateTime(2017, 1, 1),
-                ToDate = new System.DateTime(2017, 2, 15)
-            };
+            var metaModel = FakeHelper.Create<DashboardBaseModel>(x => x.BaseCurrency, "EUR");
 
             Reader.Read().Returns(true, false);
             Reader["PlatformType"].Returns(8);
@@ -114,16 +95,9 @@
 
             // Action
             DataAccess.GetTurnover(metaModel);
-            var type = passedParam.GetType();
 
             // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(type.GetProperty("LicenseeID").GetValue(passedParam, null), Is.EqualTo(metaModel.LicenseeId));
-                Assert.That(type.GetProperty("CurrencyIDList").GetValue(passedParam, null), Is.EqualTo(metaModel.CurrencyIDList));
-                Assert.That(type.GetProperty("FromDate").GetValue(passedParam, null), Is.EqualTo(metaModel.FromDate));
-                Assert.That(type.GetProperty("ToDate").GetValue(passedParam, null), Is.EqualTo(metaModel.ToDate));
-            });
+            AssertPassedParameter(passedParam, metaModel);
         }
 
         [Test]
@@ -161,6 +135,17 @@
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
                 GetLicenseeTurnoverByPlatformSp,
                 () => DataAccess.GetTurnover(new DashboardBaseModel()));
+        }
+
+        private static void AssertPassedParameter(object passedParam, DashboardBaseModel metaModel)
+        {
+            Assert.Multiple(() =>
+            {
+                Assert.That(passedParam.GetValue("LicenseeID"), Is.EqualTo(metaModel.LicenseeId));
+                Assert.That(passedParam.GetValue("CurrencyIDList"), Is.EqualTo(metaModel.CurrencyIDList));
+                Assert.That(passedParam.GetValue("FromDate"), Is.EqualTo(metaModel.FromDate));
+                Assert.That(passedParam.GetValue("ToDate"), Is.EqualTo(metaModel.ToDate));
+            });
         }
     }
 }
