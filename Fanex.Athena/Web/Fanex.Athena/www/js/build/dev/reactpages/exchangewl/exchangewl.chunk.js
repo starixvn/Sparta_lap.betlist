@@ -156,9 +156,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 		module.exports = classNames;
 	} else if (true) {
 		// register as 'classnames', consistent with npm package name
-		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function () {
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
 			return classNames;
-		}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+		}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	} else {
 		window.classNames = classNames;
@@ -857,7 +857,7 @@ var MomentFormat = exports.MomentFormat = {
 
 /***/ }),
 
-/***/ 210:
+/***/ 211:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2374,7 +2374,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(15);
 
-var _redux = __webpack_require__(11);
+var _redux = __webpack_require__(10);
 
 var _index = __webpack_require__(152);
 
@@ -2581,7 +2581,7 @@ var _reactRedux = __webpack_require__(15);
 
 var _index = __webpack_require__(152);
 
-var _redux = __webpack_require__(11);
+var _redux = __webpack_require__(10);
 
 var _fixedTableHeader = __webpack_require__(32);
 
@@ -2619,7 +2619,7 @@ var _BetList = __webpack_require__(441);
 
 var _BetList2 = _interopRequireDefault(_BetList);
 
-var _popup = __webpack_require__(210);
+var _popup = __webpack_require__(211);
 
 var _popup2 = _interopRequireDefault(_popup);
 
@@ -3648,7 +3648,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(15);
 
-var _redux = __webpack_require__(11);
+var _redux = __webpack_require__(10);
 
 var _propTypes = __webpack_require__(1);
 
@@ -3664,7 +3664,7 @@ var _NoDataTitle2 = _interopRequireDefault(_NoDataTitle);
 
 var _fixedTableHeader = __webpack_require__(32);
 
-var _popup = __webpack_require__(210);
+var _popup = __webpack_require__(211);
 
 var _popup2 = _interopRequireDefault(_popup);
 
@@ -4263,7 +4263,7 @@ var _reactRedux = __webpack_require__(15);
 
 var _index = __webpack_require__(152);
 
-var _redux = __webpack_require__(11);
+var _redux = __webpack_require__(10);
 
 var _reactSelect = __webpack_require__(78);
 
@@ -4776,7 +4776,7 @@ var ReportExcel = function () {
             }, _defineProperty(_ref13, HEADER_SECTION, { title: 'customerComm', isShow: isAllowedCustomerComm }), _defineProperty(_ref13, MAIN_SECTION, { isShow: isAllowedCustomerComm, style: _excelStyle.bodyCellStyle.decimal, width: 150 }), _defineProperty(_ref13, TOTAL_SECTION, { isShow: isAllowedCustomerComm, style: _excelStyle.totalCellStyle.decimal }), _defineProperty(_ref13, SUMMARYTOTAL_SECTION, { isShow: isAllowedCustomerComm, style: _excelStyle.grandTotalCellStyle.decimal }), _ref13), (_ref14 = {
                 field: 'CustomerWLTotal',
                 type: 'n'
-            }, _defineProperty(_ref14, HEADER_SECTION, { title: 'total', isShow: isAllowedCustomerComm }), _defineProperty(_ref14, MAIN_SECTION, { isShow: isAllowedCustomerComm, style: _excelStyle.bodyCellStyle.decima, width: 150 }), _defineProperty(_ref14, TOTAL_SECTION, { isShow: isAllowedCustomerComm, style: _excelStyle.totalCellStyle.decimal }), _defineProperty(_ref14, SUMMARYTOTAL_SECTION, { isShow: isAllowedCustomerComm, style: _excelStyle.grandTotalCellStyle.decimal }), _ref14), (_ref15 = {
+            }, _defineProperty(_ref14, HEADER_SECTION, { title: 'total', isShow: isAllowedCustomerComm }), _defineProperty(_ref14, MAIN_SECTION, { isShow: isAllowedCustomerComm, style: _excelStyle.bodyCellStyle.decimal, width: 150 }), _defineProperty(_ref14, TOTAL_SECTION, { isShow: isAllowedCustomerComm, style: _excelStyle.totalCellStyle.decimal }), _defineProperty(_ref14, SUMMARYTOTAL_SECTION, { isShow: isAllowedCustomerComm, style: _excelStyle.grandTotalCellStyle.decimal }), _ref14), (_ref15 = {
                 field: 'LicenseeWL',
                 type: 'n'
             }, _defineProperty(_ref15, HEADER_SECTION, { title: 'licenseeWL', isShow: true, index_c: (level === _report.ReportLevel.CUSTOMER ? 8 : 7) + (isAllowedCustomerComm ? 2 : 0), index_r: HEADER_ROW_INDEX + 1 }), _defineProperty(_ref15, MAIN_SECTION, { isShow: true, hasNegativeStyle: true, style: { positive: _excelStyle.bodyCellStyle.decimal, negative: _excelStyle.bodyCellStyle.negativeDecimal }, width: 150 }), _defineProperty(_ref15, TOTAL_SECTION, { isShow: true, hasNegativeStyle: true, style: { positive: _excelStyle.totalCellStyle.decimal, negative: _excelStyle.totalCellStyle.negativeDecimal } }), _defineProperty(_ref15, SUMMARYTOTAL_SECTION, { isShow: true, hasNegativeStyle: true, style: { positive: _excelStyle.grandTotalCellStyle.decimal, negative: _excelStyle.grandTotalCellStyle.negativeDecimal } }), _ref15), (_ref16 = {
@@ -4941,7 +4941,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _redux = __webpack_require__(11);
+var _redux = __webpack_require__(10);
 
 var _dataHandlerReducer = __webpack_require__(448);
 
@@ -9704,7 +9704,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _redux = __webpack_require__(11);
+var _redux = __webpack_require__(10);
 
 var _reduxThunk = __webpack_require__(71);
 
