@@ -6,7 +6,6 @@
 
 namespace Fanex.Athena.Api.CustomerLog
 {
-    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
@@ -229,8 +228,8 @@ namespace Fanex.Athena.Api.CustomerLog
                 }
                 else
                 {
-                    var dictonary = GetXmlAttr(item.TrackingValue, item.TrackingValueOld);
-                    item.Details = GenerateDetailedValue(item.ActionId, new ActionViewModel { Data = dictonary, Resource = resourcesMap });
+                    var dictionary = GetXmlAttr(item.TrackingValue, item.TrackingValueOld);
+                    item.Details = GenerateDetailedValue(item.ActionId, new ActionViewModel { Data = dictionary, Resource = resourcesMap });
                 }
             }
 
