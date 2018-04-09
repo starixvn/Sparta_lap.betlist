@@ -104,7 +104,8 @@
                 SiteName = LicenseeName,
                 MinDate = "2012/1/1",
                 MaxDate = "2013/2/2",
-                DisableBetList = true
+                DisableBetList = true,
+                LimitRecentMonths = 100
             };
             _cache.Get<IEnumerable<ReportSetting>>(string.Empty).ReturnsForAnyArgs(fakeData);
             _fakeLicenseeSettingService.GetSetting().Returns(fakeLicenseeSetting);
@@ -118,7 +119,39 @@
                 Assert.That(result.MinDateString, Is.EqualTo(fakeLicenseeSetting.MinDate));
                 Assert.That(result.MaxDateString, Is.EqualTo(fakeLicenseeSetting.MaxDate));
                 Assert.That(result.IsDisableBetList, Is.EqualTo(fakeLicenseeSetting.DisableBetList));
+                Assert.That(result.LimitRecentMonths, Is.EqualTo(fakeLicenseeSetting.LimitRecentMonths));
             });
+        }
+
+        [TestCase(0, "2012/1/1")]
+        [TestCase(1, "2018/4/1")]
+        [TestCase(2, "2018/3/1")]
+        [TestCase(3, "2018/2/1")]
+        [TestCase(4, "2018/1/1")]
+        public void GetSetting_FakeLicensee_GetCorrectMinDate(int limitRecentMonths, string expectedMinDate)
+        {
+            // Arrange
+            const string ReportKey = "Abc";
+
+            var fakeData = new[]
+            {
+                new ReportSetting { ReportKey = ReportKey }
+            };
+            var fakeLicenseeSetting = new FakeLicenseeSetting
+            {
+                SiteName = "123",
+                MinDate = "2012/1/1",
+                MaxDate = "2018/4/4",
+                LimitRecentMonths = limitRecentMonths
+            };
+            _cache.Get<IEnumerable<ReportSetting>>(string.Empty).ReturnsForAnyArgs(fakeData);
+            _fakeLicenseeSettingService.GetSetting().Returns(fakeLicenseeSetting);
+
+            // Action
+            var result = _reportSettingService.GetSetting(ReportKey);
+
+            // Assert
+            Assert.That(result.MinDate.ToString("yyyy/M/d"), Is.EqualTo(expectedMinDate));
         }
     }
 }
