@@ -11,6 +11,7 @@ namespace Fanex.Athena.Service.Core.Configuration
     using System.IO;
     using System.Linq;
     using System.Web.Hosting;
+    using Extension.Helper;
     using Extension.Utility.Interfaces;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Configuration;
@@ -51,8 +52,7 @@ namespace Fanex.Athena.Service.Core.Configuration
             if (reportSetting != null)
             {
                 AssignFakeLicenseeSetting(reportSetting);
-                reportSetting.MinDate = ConvertToDate(reportSetting.MinDateString, _appSettings.HistoryDate);
-                reportSetting.MaxDate = ConvertToDate(reportSetting.MaxDateString, _appSettings.MaxDate);
+                AssignDateRange(reportSetting);
             }
 
             return reportSetting;
@@ -78,6 +78,18 @@ namespace Fanex.Athena.Service.Core.Configuration
             return Convert.ToDateTime(datetime);
         }
 
+        private void AssignDateRange(ReportSetting reportSetting)
+        {
+            reportSetting.MinDate = ConvertToDate(reportSetting.MinDateString, _appSettings.HistoryDate);
+            reportSetting.MaxDate = ConvertToDate(reportSetting.MaxDateString, _appSettings.MaxDate);
+            if (reportSetting.LimitRecentMonths > 0)
+            {
+                var limitedMinDate = DateTime.Now.Date.AddMonths(-reportSetting.LimitRecentMonths + 1);
+                limitedMinDate = new DateTime(limitedMinDate.Year, limitedMinDate.Month, 1);
+                reportSetting.MinDate = DateTimeHelper.GetMaxDate(reportSetting.MinDate, limitedMinDate);
+            }
+        }
+
         private void AssignFakeLicenseeSetting(ReportSetting reportSetting)
         {
             var fakeLicenseeSetting = _fakeLicenseeSettingService.GetSetting();
@@ -87,6 +99,7 @@ namespace Fanex.Athena.Service.Core.Configuration
                 reportSetting.MaxDateString = fakeLicenseeSetting.MaxDate;
                 reportSetting.IsDisableBetList = fakeLicenseeSetting.DisableBetList;
                 reportSetting.BaseCurrencies = fakeLicenseeSetting.BaseCurrencies;
+                reportSetting.LimitRecentMonths = fakeLicenseeSetting.LimitRecentMonths;
             }
         }
 

@@ -19,5 +19,7 @@ namespace Fanex.Athena.Model.Core.DTO.Configuration
         public bool IsDisableBetList { get; set; }
 
         public string BaseCurrencies { get; set; }
+
+        public int LimitRecentMonths { get; set; }
     }
 }

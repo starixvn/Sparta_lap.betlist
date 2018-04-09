@@ -4,13 +4,15 @@
     "DisableBetList": true,
     "MinDate": "02/01/2018",
     "MaxDate": "yesterday",
-    "BaseCurrencies": "USD"
+    "BaseCurrencies": "USD",
+    "LimitRecentMonths": 3
   },
   {
     "SiteName": "Opal88",
     "DisableBetList": true,
-    "MinDate": "09/01/2017",
+    "MinDate": "02/01/2018",
     "MaxDate": "yesterday",
-    "BaseCurrencies": "USD"
+    "BaseCurrencies": "USD",
+    "LimitRecentMonths":  3
   }
 ]
