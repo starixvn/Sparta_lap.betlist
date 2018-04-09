@@ -84,7 +84,7 @@ namespace Fanex.Athena.Service.Core.Configuration
             reportSetting.MaxDate = ConvertToDate(reportSetting.MaxDateString, _appSettings.MaxDate);
             if (reportSetting.LimitRecentMonths > 0)
             {
-                var limitedMinDate = reportSetting.MaxDate.AddMonths(-reportSetting.LimitRecentMonths + 1);
+                var limitedMinDate = DateTime.Now.Date.AddMonths(-reportSetting.LimitRecentMonths + 1);
                 limitedMinDate = new DateTime(limitedMinDate.Year, limitedMinDate.Month, 1);
                 reportSetting.MinDate = DateTimeHelper.GetMaxDate(reportSetting.MinDate, limitedMinDate);
             }

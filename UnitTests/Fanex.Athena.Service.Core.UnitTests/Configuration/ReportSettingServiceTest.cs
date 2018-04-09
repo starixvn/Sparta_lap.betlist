@@ -141,7 +141,6 @@
             {
                 SiteName = "123",
                 MinDate = "2012/1/1",
-                MaxDate = "2018/4/4",
                 LimitRecentMonths = limitRecentMonths
             };
             _cache.Get<IEnumerable<ReportSetting>>(string.Empty).ReturnsForAnyArgs(fakeData);
