@@ -19,7 +19,7 @@ namespace Fanex.Athena.Service.Core.Helpers
     {
         public static void WriteError(Exception exception, string additionalMessage = null)
         {
-            var data = GetCustomInfo(additionalMessage);
+            var data = GetCustomInfo(string.IsNullOrEmpty(additionalMessage) ? exception.GetType().ToString() : additionalMessage);
             var dataAccessException = exception as DataAccessException;
             if (dataAccessException != null)
             {
