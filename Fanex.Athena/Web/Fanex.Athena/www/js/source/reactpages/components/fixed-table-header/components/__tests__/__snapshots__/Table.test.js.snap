@@ -47,7 +47,7 @@ exports[`Table  render columnsWidth is not null - return content that match with
     className="body-content"
     style={
       Object {
-        "maxHeight": 726,
+        "maxHeight": 696,
         "minWidth": undefined,
         "width": -30,
       }
@@ -161,7 +161,7 @@ exports[`Table  render isPaging is true - return content with paging that match 
     className="body-content"
     style={
       Object {
-        "maxHeight": 726,
+        "maxHeight": 696,
         "minWidth": undefined,
         "width": -30,
       }

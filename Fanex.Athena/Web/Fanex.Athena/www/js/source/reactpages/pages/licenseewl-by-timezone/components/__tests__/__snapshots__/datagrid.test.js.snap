@@ -732,7 +732,7 @@ exports[`DataGrid1111 Data is not empty grid data should be rendered correctly 1
       className="body-content"
       style={
         Object {
-          "maxHeight": 726,
+          "maxHeight": 696,
           "minWidth": 600,
           "width": -30,
         }

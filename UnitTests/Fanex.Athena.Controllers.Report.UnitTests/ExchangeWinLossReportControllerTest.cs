@@ -3,13 +3,19 @@
     using System;
     using System.Web.Mvc;
     using Base.UnitTests;
+    using Model.Core.DataDomain;
+    using Model.Core.DTO.Configuration;
     using Model.Report.ViewModel;
     using NSubstitute;
     using NUnit.Framework;
     using Service.Core.Common.Interfaces;
+    using Service.Core.Configuration.Interfaces;
 
     public class ExchangeWinLossReportControllerTest : BaseControllerHelperTest
     {
+        private readonly DateTime _minDate = new DateTime(2017, 1, 1);
+        private readonly DateTime _maxDate = new DateTime(2018, 1, 3);
+
         [OneTimeSetUp]
         public override void FixtureSetUp()
         {
@@ -37,12 +43,6 @@
         {
             using (var controller = CreateController())
             {
-                // Arrange
-                var minDate = new DateTime(2017, 1, 1);
-                var maxDate = DateTime.Today.AddDays(-1);
-
-                AppSettings.HistoryDate.Returns(minDate);
-
                 // Action
                 var viewResult = controller.Index() as ViewResult;
                 var model = (ExchangeWinLossViewModel)viewResult.Model;
@@ -50,22 +50,27 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(model.MinDate, Is.EqualTo(minDate));
-                    Assert.That(model.MaxDate, Is.EqualTo(maxDate));
+                    Assert.That(model.MinDate, Is.EqualTo(_minDate));
+                    Assert.That(model.MaxDate, Is.EqualTo(_maxDate));
                 });
             }
         }
 
         private ExchangeWinLossReportController CreateController()
         {
-            var productService = Substitute.For<IProductService>();
-
+            var reportSettingService = Substitute.For<IReportSettingService>();
+            reportSettingService.GetSetting(PermissionKeys.ReportLicenseeWinLoss).Returns(new ReportSetting
+            {
+                MinDate = _minDate,
+                MaxDate = _maxDate
+            });
             var controller = Substitute.ForPartsOf<ExchangeWinLossReportController>(
                 LangService,
                 SessionService,
                 AppSettings,
                 ClientViewHelper,
-                productService);
+                Substitute.For<IProductService>(),
+                reportSettingService);
             return controller;
         }
     }

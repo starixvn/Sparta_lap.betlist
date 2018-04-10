@@ -216,7 +216,7 @@ exports[`Render DataGrid components  Render grid Has data grid data should be re
       className="body-content"
       style={
         Object {
-          "maxHeight": 726,
+          "maxHeight": 696,
           "minWidth": 1000,
           "width": -30,
         }

@@ -1,6 +1,5 @@
 ﻿namespace Fanex.Athena.Controllers.Report
 {
-    using System;
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Extension.Utility;
@@ -8,6 +7,8 @@
     using Model.Core.DataDomain;
     using Resources;
     using Service.Core.Common.Interfaces;
+    using Service.Core.Configuration;
+    using Service.Core.Configuration.Interfaces;
     using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Web.ActionFilter;
@@ -15,8 +16,11 @@
     [FunctionAuthorization(PermissionKeys.ReportExchangeWinLoss)]
     public class ExchangeWinLossReportController : ReportBaseController
     {
+        private readonly IReportSettingService _reportSettingService;
+
         public ExchangeWinLossReportController()
         {
+            _reportSettingService = new ReportSettingService();
         }
 
         public ExchangeWinLossReportController(
@@ -24,9 +28,11 @@
             ISessionService sessionService,
             IAppSettings appSetting,
             IClientViewHelper clientViewHelper,
-            IProductService productService)
+            IProductService productService,
+            IReportSettingService reportSettingService)
         : base(languageService, sessionService, appSetting, clientViewHelper, productService)
         {
+            _reportSettingService = reportSettingService ?? new ReportSettingService();
         }
 
         public ActionResult Index()
@@ -52,10 +58,11 @@
                 currencyList.Add(item.Key, item.Value);
             }
 
+            var reportSetting = _reportSettingService.GetSetting(PermissionKeys.ReportLicenseeWinLoss);
             return new ExchangeWinLossViewModel
             {
-                MinDate = AppSettings.HistoryDate,
-                MaxDate = DateTime.Today.AddDays(-1),
+                MinDate = reportSetting.MinDate,
+                MaxDate = reportSetting.MaxDate,
                 CurrencyList = currencyList,
                 CurrencyId = GetConvetedUSDCurrencyId(licensee.LicenseeId),
                 IsAllowedCustomerComm = licensee.IsAllowedCustomerComm,

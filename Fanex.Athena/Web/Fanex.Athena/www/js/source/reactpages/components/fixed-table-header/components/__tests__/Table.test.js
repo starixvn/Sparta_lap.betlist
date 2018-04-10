@@ -361,7 +361,7 @@ describe('Table ', () => {
             table.footerWrapper = footerWrapper;
             table.bodyWrapper = bodyWrapper;
 
-            const expectedResult = 100;
+            const expectedResult = 70;
 
             const result = table._calculateBodyHeight();
 
@@ -373,7 +373,7 @@ describe('Table ', () => {
             table.footerWrapper = undefined;
             table.bodyWrapper = bodyWrapper;
 
-            const expectedResult = 110;
+            const expectedResult = 80;
 
             const result = table._calculateBodyHeight();
 

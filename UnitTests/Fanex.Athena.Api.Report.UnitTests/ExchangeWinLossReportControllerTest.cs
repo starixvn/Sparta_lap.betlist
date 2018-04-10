@@ -5,13 +5,19 @@
     using Base.UnitTests;
     using DataAccess.Report.Interfaces;
     using Model.Core.DataDomain;
+    using Model.Core.DTO.Configuration;
     using Model.Core.DTO.Users;
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using Service.Core.Configuration.Interfaces;
 
     public class ExchangeWinLossReportControllerTest : BaseApiControllerHelperTest
     {
+        private readonly DateTime _minDate = new DateTime(2018, 2, 3);
+        private readonly DateTime _maxDate = new DateTime(2018, 8, 7);
+
+        private IReportSettingService _reportSettingService;
         private IExchangeWinLossDataAccess _dataAccess;
         private ExchangeWinLossReportController _controller;
 
@@ -19,10 +25,21 @@
         public override void FixtureSetUp()
         {
             base.FixtureSetUp();
+            _reportSettingService = Substitute.For<IReportSettingService>();
+            _reportSettingService.GetSetting(PermissionKeys.ReportExchangeWinLoss).Returns(new ReportSetting
+            {
+                MinDate = _minDate,
+                MaxDate = _maxDate
+            });
 
             _dataAccess = Substitute.For<IExchangeWinLossDataAccess>();
 
-            _controller = Substitute.ForPartsOf<ExchangeWinLossReportController>(SessionService, ProductService, LangService, _dataAccess);
+            _controller = Substitute.ForPartsOf<ExchangeWinLossReportController>(
+                SessionService,
+                ProductService,
+                LangService,
+                _reportSettingService,
+                _dataAccess);
 
             MockSessionData();
         }
@@ -34,6 +51,12 @@
 
             _controller = null;
             _dataAccess = null;
+        }
+
+        [OneTimeSetUp]
+        public void SetUpOneTime()
+        {
+            StubLicenseeSessionData(new LicenseeSession { LicenseeId = SessionLicenseeId });
         }
 
         [Test]
@@ -102,7 +125,11 @@
             var result = _controller.Index(model);
 
             // Assert
-            _dataAccess.Received().GetMainWinloss(model);
+            Assert.Multiple(() =>
+            {
+                Assert.That(model.LicenseeId, Is.EqualTo(SessionLicenseeId));
+                _dataAccess.Received().GetMainWinloss(model);
+            });
         }
 
         [Test]
@@ -119,16 +146,21 @@
             var result = _controller.Index(model);
 
             // Assert
-            _dataAccess.Received().GetCustomerWinloss(model);
+            Assert.Multiple(() =>
+            {
+                Assert.That(model.LicenseeId, Is.EqualTo(SessionLicenseeId));
+                _dataAccess.Received().GetCustomerWinloss(model);
+            });
         }
 
         [Test]
         public void Index_Level1AndIsNotOneTwoBet_GetCustomerData()
         {
             // Arrange
+            const int LicenseeId = LicenseeIdentity.OneTwoBet + 1;
             StubLicenseeSessionData(new LicenseeSession
             {
-                LicenseeId = LicenseeIdentity.OneTwoBet + 1
+                LicenseeId = LicenseeId
             });
 
             var model = new ExchangeWinLossMetaModel
@@ -141,7 +173,11 @@
             var result = _controller.Index(model);
 
             // Assert
-            _dataAccess.Received().GetCustomerWinloss(model);
+            Assert.Multiple(() =>
+            {
+                Assert.That(model.LicenseeId, Is.EqualTo(LicenseeId));
+                _dataAccess.Received().GetCustomerWinloss(model);
+            });
         }
 
         [Test]
@@ -163,7 +199,11 @@
             var result = _controller.Index(model);
 
             // Assert
-            _dataAccess.Received().GetLicenseeWinloss(model);
+            Assert.Multiple(() =>
+            {
+                Assert.That(model.LicenseeId, Is.EqualTo(LicenseeIdentity.OneTwoBet));
+                _dataAccess.Received().GetLicenseeWinloss(model);
+            });
         }
     }
 }

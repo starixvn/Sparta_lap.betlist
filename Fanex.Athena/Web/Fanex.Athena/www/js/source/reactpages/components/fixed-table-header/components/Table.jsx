@@ -170,7 +170,7 @@ class Table extends Component {
     _calculateBodyHeight() {
         const windowHeight = window.innerHeight;
         const footerHeight = this.footerWrapper ? this.footerWrapper.offsetHeight : 0;
-        const tableContentHeight = windowHeight - (this.bodyWrapper.offsetTop + footerHeight + 40) - this.adjustedHeight;
+        const tableContentHeight = windowHeight - (this.bodyWrapper.offsetTop + footerHeight + 70) - this.adjustedHeight;
 
         return tableContentHeight;
     }

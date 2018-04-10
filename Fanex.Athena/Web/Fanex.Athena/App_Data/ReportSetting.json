@@ -3,5 +3,10 @@
     "ReportKey": "LicenseeWinLoss27",
     "MinDateString": "",
     "MaxDateString": ""
+  },
+  {
+    "ReportKey": "ExchangeWinloss77",
+    "MinDateString": "",
+    "MaxDateString": ""
   }
 ]

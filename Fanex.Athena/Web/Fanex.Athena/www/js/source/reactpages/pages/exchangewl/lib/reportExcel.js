@@ -147,7 +147,7 @@ export default class ReportExcel {
             field: 'CustomerWLTotal',
             type: 'n',
             [HEADER_SECTION]: { title: 'total', isShow: isAllowedCustomerComm },
-            [MAIN_SECTION]: { isShow : isAllowedCustomerComm, style: bodyCellStyle.decima, width: 150 },
+            [MAIN_SECTION]: { isShow : isAllowedCustomerComm, style: bodyCellStyle.decimal, width: 150 },
             [TOTAL_SECTION]: { isShow : isAllowedCustomerComm, style: totalCellStyle.decimal },
             [SUMMARYTOTAL_SECTION]: { isShow : isAllowedCustomerComm, style: grandTotalCellStyle.decimal }
         }, {

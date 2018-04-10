@@ -65,9 +65,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 		module.exports = classNames;
 	} else if (true) {
 		// register as 'classnames', consistent with npm package name
-		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function () {
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
 			return classNames;
-		}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+		}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	} else {
 		window.classNames = classNames;
@@ -479,7 +479,7 @@ var MomentFormat = exports.MomentFormat = {
 
 /***/ }),
 
-/***/ 209:
+/***/ 210:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1346,7 +1346,7 @@ var _reactRedux = __webpack_require__(15);
 
 var _reduxLogger = __webpack_require__(72);
 
-var _redux = __webpack_require__(11);
+var _redux = __webpack_require__(10);
 
 var _reduxThunk = __webpack_require__(71);
 
@@ -1435,7 +1435,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(15);
 
-var _redux = __webpack_require__(11);
+var _redux = __webpack_require__(10);
 
 var _DataGrid = __webpack_require__(409);
 
@@ -1517,9 +1517,9 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(15);
 
-var _resultAmendment = __webpack_require__(209);
+var _resultAmendment = __webpack_require__(210);
 
-var _redux = __webpack_require__(11);
+var _redux = __webpack_require__(10);
 
 var _fixedTableHeader = __webpack_require__(32);
 
@@ -1993,7 +1993,7 @@ var Table = function (_Component) {
         value: function _calculateBodyHeight() {
             var windowHeight = window.innerHeight;
             var footerHeight = this.footerWrapper ? this.footerWrapper.offsetHeight : 0;
-            var tableContentHeight = windowHeight - (this.bodyWrapper.offsetTop + footerHeight + 40) - this.adjustedHeight;
+            var tableContentHeight = windowHeight - (this.bodyWrapper.offsetTop + footerHeight + 70) - this.adjustedHeight;
 
             return tableContentHeight;
         }
@@ -2455,9 +2455,9 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(15);
 
-var _resultAmendment = __webpack_require__(209);
+var _resultAmendment = __webpack_require__(210);
 
-var _redux = __webpack_require__(11);
+var _redux = __webpack_require__(10);
 
 var _dateRange = __webpack_require__(47);
 
@@ -2640,7 +2640,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _redux = __webpack_require__(11);
+var _redux = __webpack_require__(10);
 
 var _dataHandlerReducer = __webpack_require__(416);
 
