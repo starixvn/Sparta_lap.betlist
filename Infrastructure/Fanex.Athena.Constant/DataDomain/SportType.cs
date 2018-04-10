@@ -310,6 +310,9 @@ namespace Fanex.Athena.Constant.DataDomain
         FishingWorld = 219,
 
         Lottery = 220,
-        Exchange = 221
+
+        Exchange = 221,
+
+        VirtualBasketball = 193
     }
 }

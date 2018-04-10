@@ -28,6 +28,8 @@
 
         private BalanceUp _balance;
 
+        private ICacheRefAdapter _cacheRefAdapter;
+
         [OneTimeSetUp]
         public override void FixtureSetUp()
         {
@@ -39,7 +41,10 @@
             balanceUpDataAccess.GetBalanceUp().Returns(_balance);
 
             ObjectDb = Substitute.For<IObjectDb>();
-            DataAccess = Substitute.ForPartsOf<LiveReportDataAccess>(balanceUpDataAccess, Substitute.For<ICacheRefAdapter>());
+
+            _cacheRefAdapter = Substitute.For<ICacheRefAdapter>();
+
+            DataAccess = Substitute.ForPartsOf<LiveReportDataAccess>(balanceUpDataAccess, _cacheRefAdapter);
 
             _metaModel = new LiveReportMetaModel
             {
@@ -188,7 +193,7 @@
             // Arrange
             var productList = new List<Product>
             {
-                new Product { ProductCode = "SB", ProductName = "SuperBoy" }
+                new Product { ProductCode = "SB", ProductName = "SuperBoy" },
             };
 
             DataAccess.GetObjectDb(Arg.Is(GetDetailByCurrencyAndBettypeSp)).Returns(ObjectDb);
@@ -218,6 +223,41 @@
                 Assert.That(result.Item2[0].LiveReports.Count, Is.EqualTo(1));
                 Assert.That(result.Item2[0].ProductName, Is.EqualTo("SuperBoy"));
             });
+        }
+
+        [TestCase("2803")]
+        [TestCase("2804")]
+        [TestCase("2805")]
+        [TestCase("2806")]
+        public void GetDetailByCurrencyAndBettype_BettypeOfVirtualBasketball_ReturnCorrectBetTypeName(string betType)
+        {
+            // Arrange
+            var productList = new List<Product>
+            {
+                new Product { ProductCode = "VS2", ProductName = "VS2" },
+            };
+
+            _cacheRefAdapter.GetBettype(Arg.Any<int>(), false).Returns(betType);
+            _cacheRefAdapter.GetSportName(Arg.Any<int>()).Returns("Virtual Basketball");
+
+            DataAccess.GetObjectDb(Arg.Is(GetDetailByCurrencyAndBettypeSp)).Returns(ObjectDb);
+
+            var readerDataMapping = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
+            {
+                { "Currency", "20" }, { "TurnoverUUS", 200 },
+                { "WinlostUUS", 400 }, { "bettype", betType }, { "ProductCode", "VS2" }
+            };
+
+            MapReaderData(readerDataMapping);
+
+            Reader.Read().Returns(true, false, true, false);
+            Reader.NextResult().Returns(true);
+
+            // Action
+            var result = DataAccess.GetDetailByCurrencyAndBettype(_metaModel, productList);
+
+            // Assert
+            Assert.That(result.Item2[0].LiveReports[0].ProductName, Is.EqualTo($"{betType} (Virtual Basketball)"));
         }
 
         [Test]
