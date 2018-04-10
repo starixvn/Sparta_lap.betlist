@@ -55,7 +55,7 @@ namespace Fanex.Athena.DataAccess.Core.Configuration
             }
             catch (Exception exception)
             {
-                _logger.Error(exception.Message, exception);
+                _logger.Error("BalanceUp: " + exception.Message, exception);
             }
 
             return balanceup;

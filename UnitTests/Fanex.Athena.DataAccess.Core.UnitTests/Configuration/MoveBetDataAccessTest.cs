@@ -90,7 +90,7 @@
             DataAccess.GetMoveBetNotification();
 
             // Assert
-            _logger.Received().Error(sqlException.Message, sqlException);
+            _logger.Received().Error("MoveBetNotification: " + sqlException.Message, sqlException);
         }
     }
 }

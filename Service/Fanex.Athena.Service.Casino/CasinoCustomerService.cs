@@ -85,7 +85,7 @@ namespace Fanex.Athena.Service.Casino
             }
             catch (Exception exception)
             {
-                _logger.Error(exception.Message + additionalErrorMsg, exception);
+                _logger.Error("UpdateCommission:" + exception.Message + additionalErrorMsg, exception);
             }
 
             return success;

@@ -68,7 +68,7 @@
 
             if (result.ErrorCode > 0)
             {
-                _logger.Error(result.ErrorMsg);
+                _logger.Error("Keno Session: " + result.ErrorMsg);
                 return Url.Action("AccessDenied", "Utility", null, Request.Url.Scheme);
             }
 

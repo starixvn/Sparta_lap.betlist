@@ -55,7 +55,7 @@ namespace Fanex.Athena.DataAccess.Core.Configuration
             }
             catch (ObjectDbException sqlException)
             {
-                _logger.Error(sqlException.Message, sqlException);
+                _logger.Error("MoveBetNotification: " + sqlException.Message, sqlException);
             }
 
             return moveBet;
