@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Service.Core.UnitTests.Configuration
 {
+    using System;
     using System.Collections.Generic;
     using Core.Configuration;
     using Core.Configuration.Interfaces;
@@ -123,16 +124,15 @@
             });
         }
 
-        [TestCase(0, "2012/1/1")]
-        [TestCase(1, "2018/4/1")]
-        [TestCase(2, "2018/3/1")]
-        [TestCase(3, "2018/2/1")]
-        [TestCase(4, "2018/1/1")]
-        public void GetSetting_FakeLicensee_GetCorrectMinDate(int limitRecentMonths, string expectedMinDate)
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(3)]
+        [TestCase(4)]
+        public void GetSetting_FakeLicensee_GetCorrectMinDate(int limitRecentMonths)
         {
             // Arrange
             const string ReportKey = "Abc";
-
+            var expectedMinDate = DateTime.Now.Date.AddMonths(-limitRecentMonths + 1).AddDays(1 - DateTime.Now.Day);
             var fakeData = new[]
             {
                 new ReportSetting { ReportKey = ReportKey }
@@ -150,7 +150,7 @@
             var result = _reportSettingService.GetSetting(ReportKey);
 
             // Assert
-            Assert.That(result.MinDate.ToString("yyyy/M/d"), Is.EqualTo(expectedMinDate));
+            Assert.That(result.MinDate, Is.EqualTo(expectedMinDate));
         }
     }
 }
