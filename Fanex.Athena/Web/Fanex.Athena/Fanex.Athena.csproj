@@ -804,7 +804,17 @@
     <Content Include="www\css\build\dev\reactpages\subsidiaryperformance\index.chunk.js" />
     <Content Include="www\css\build\dev\reactpages\subsidiaryperformance\index.css" />
     <Content Include="www\css\build\dev\reactpages\vendor.chunk.js" />
+    <Content Include="www\css\build\images\BottomLine.png" />
+    <Content Include="www\css\build\images\FirstNodeSpan.png" />
+    <Content Include="www\css\build\images\MiddleLine.png" />
     <Content Include="www\css\build\images\new_icon.gif" />
+    <Content Include="www\css\build\images\NodeSpan.png" />
+    <Content Include="www\css\build\images\PlusMinus.png" />
+    <Content Include="www\css\build\images\sprites.png" />
+    <Content Include="www\css\build\images\TopLine.png" />
+    <Content Include="www\css\build\images\ui-icons_2e83ff_256x240-1.png" />
+    <Content Include="www\css\build\images\ui-icons_2e83ff_256x240-2.png" />
+    <Content Include="www\css\build\images\ui-icons_2e83ff_256x240.png" />
     <Content Include="www\css\build\pro\reactpages\exchangewl\index.css" />
     <Content Include="www\css\build\pro\reactpages\licenseewlbytimezone\index.css" />
     <Content Include="www\css\build\pro\reactpages\notification\index.chunk.js" />

@@ -5,8 +5,6 @@
 
     var sbComm = Converter.ToDecimal(Model.Data["SBComm"]);
     var sbCommOld = Converter.ToDecimal(Model.Data["SBCommOld"]);
-    var rbComm = Converter.ToDecimal(Model.Data["RacingComm"]);
-    var rbCommOld = Converter.ToDecimal(Model.Data["RacingCommOld"]);
     var ngComm = Converter.ToDecimal(Model.Data["NGComm"]);
     var ngCommOld = Converter.ToDecimal(Model.Data["NGCommOld"]);
     var csComm = Converter.ToDecimal(Model.Data["RNGComm"]);
@@ -21,7 +19,6 @@
     var groupNameOld = Model.Data["GroupNameOld"];
 
     var isChangeSbComm = sbComm != sbCommOld;
-    var isChangeRacingComm = rbComm != rbCommOld;
     var isChangeNgComm = ngComm != ngCommOld;
     var isChangeCsComm = csComm != csCommOld;
     var isChangeAbComm = abComm != abCommOld;
@@ -29,7 +26,6 @@
     var isChangeGroupName = groupName != groupNameOld;
 
     var sbCommTitle = sbCommOld.ToString(FormatComm) + "-->" + sbComm.ToString(FormatComm);
-    var RacingCommTitle = rbCommOld.ToString(FormatComm) + "-->" + rbComm.ToString(FormatComm);
     var ngCommTitle = ngCommOld.ToString(FormatComm) + "-->" + ngComm.ToString(FormatComm);
     var csCommTitle = csCommOld.ToString(FormatComm) + "-->" + csComm.ToString(FormatComm);
     var abCommTitle = abCommOld.ToString(FormatComm) + "-->" + abComm.ToString(FormatComm);
@@ -55,7 +51,6 @@
             <th>@Model.Resource["GroupName"]</th>
             <th>@Model.Resource["GroupColor"]</th>
             <th>@Model.Resource["SBComm"]</th>
-            <th>@Model.Resource["RBComm"]</th>
             <th>@Model.Resource["NGComm"]</th>
             <th>@Model.Resource["CSComm"]</th>
             <th>@Model.Resource["ABComm"]</th>
@@ -82,11 +77,6 @@
             <td title="@sbCommTitle">
                 <p>@sbComm.ToString(FormatComm)</p>
                 <p class="@GetClassName(isChangeSbComm) red-text">@sbCommOld.ToString(FormatComm)</p>
-            </td>
-
-            <td title="@RacingCommTitle">
-                <p>@rbComm.ToString(FormatComm)</p>
-                <p class="@GetClassName(isChangeRacingComm) red-text">@rbCommOld.ToString(FormatComm)</p>
             </td>
 
             <td title="@ngCommTitle">

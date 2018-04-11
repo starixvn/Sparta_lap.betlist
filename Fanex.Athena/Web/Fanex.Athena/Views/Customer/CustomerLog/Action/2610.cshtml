@@ -3,8 +3,6 @@
 @{
     var sbComm = Converter.ToDecimal(@Model.Data["SBComm"]);
     var sbCommOld = Converter.ToDecimal(@Model.Data["SBCommOld"]);
-    var rbComm = Converter.ToDecimal(@Model.Data["RacingComm"]);
-    var rbCommOld = Converter.ToDecimal(@Model.Data["RacingCommOld"]);
     var ngComm = Converter.ToDecimal(@Model.Data["NGComm"]);
     var ngCommOld = Converter.ToDecimal(@Model.Data["NGCommOld"]);
     var csComm = Converter.ToDecimal(@Model.Data["RNGComm"]);
@@ -19,7 +17,6 @@
     var groupNameOld = @Model.Data["GroupNameOld"];
 
     var isChangeSbComm = sbComm != sbCommOld;
-    var isChangeRacingComm = rbComm != rbCommOld;
     var isChangeNgComm = ngComm != ngCommOld;
     var isChangeCsComm = csComm != csCommOld;
     var isChangeAbComm = abComm != abCommOld;
@@ -28,7 +25,6 @@
     var isChangeGroupName = groupName != groupNameOld;
 
     var sbCommTitle = sbCommOld.ToString("0.####") + "-->" + sbComm.ToString("0.####");
-    var RacingCommTitle = rbCommOld.ToString("0.####") + "-->" + rbComm.ToString("0.####");
     var ngCommTitle = ngCommOld.ToString("0.####") + "-->" + ngComm.ToString("0.####");
     var csCommTitle = csCommOld.ToString("0.####") + "-->" + csComm.ToString("0.####");
     var abCommTitle = abCommOld.ToString("0.####") + "-->" + abComm.ToString("0.####");
@@ -48,8 +44,6 @@
                 <td style="width: 10%">@Model.Resource["GroupColor"]
                 </td>
                 <td style="width: 10%">@Model.Resource["SBComm"]
-                </td>
-                <td style="width: 10%">@Model.Resource["RBComm"]
                 </td>
                 <td style="width: 10%">@Model.Resource["NGComm"]
                 </td>
@@ -76,9 +70,6 @@
                 </td>
                 <td class="title-text" @(isChangeSbComm ? "style=color:red;width:10% title=" + sbCommTitle : "style=width:10%")>@sbComm.ToString("0.####")
                     <div @(isChangeSbComm ? "class=old-value" : "style=display:none")>@sbCommOld.ToString("0.####")</div>
-                </td>
-                <td class="title-text" @(isChangeRacingComm ? "style=color:red;width:10% title=" + RacingCommTitle + " " : "style=width:10%")>@rbComm.ToString("0.####")
-                    <div @(isChangeRacingComm ? "class=old-value" : "style=display:none")>@rbCommOld.ToString("0.####")</div>
                 </td>
                 <td class="title-text" @(isChangeNgComm ? "style=color:red;width:10% title=" + ngCommTitle + " " : "style=width:10%")>@ngComm.ToString("0.####")
                     <div @(isChangeNgComm ? "class=old-value" : "style=display:none")>@ngCommOld.ToString("0.####")</div>
