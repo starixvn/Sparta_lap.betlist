@@ -3164,4 +3164,12 @@
     <value>Ticket Type</value>
     <comment>90768</comment>
   </data>
+  <data name="VirtualBasketball" xml:space="preserve">
+    <value>Virtual Basketball</value>
+    <comment>90881</comment>
+  </data>
+  <data name="VirtualSoccerWorldCup" xml:space="preserve">
+    <value>Virtual Soccer World Cup</value>
+    <comment>90881</comment>
+  </data>
 </root>

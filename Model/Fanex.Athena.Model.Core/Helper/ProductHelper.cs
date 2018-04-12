@@ -40,6 +40,8 @@
                 { Product.VS2, nameof(ViewResources.ProductVS2) },
                 { "VS2190", nameof(ViewResources.VirtualSoccerLeague) },
                 { "VS2191", nameof(ViewResources.VirtualSoccerNation) },
+                { "VS2192", nameof(ViewResources.VirtualSoccerWorldCup) },
+                { "VS2193", nameof(ViewResources.VirtualBasketball) },
                 { Product.LT, nameof(ViewResources.ProductLT) }
             };
 
