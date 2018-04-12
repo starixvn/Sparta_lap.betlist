@@ -9721,7 +9721,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     {
         name: 'BuyBackAmountSB',
         index: 'BuyBackAmountSB',
-        width: 80,
+        width: 90,
         align: 'right',
         sortable: false,
         resizable: false,
@@ -9734,7 +9734,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     {
         name: 'BuyBackAmountBA',
         index: 'BuyBackAmountBA',
-        width: 80,
+        width: 100,
         align: 'right',
         sortable: false,
         resizable: false,
@@ -9747,7 +9747,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     {
         name: 'TotalBuyBackAmount',
         index: 'TotalBuyBackAmount',
-        width: 80,
+        width: 100,
         align: 'right',
         sortable: false,
         resizable: false,
@@ -9760,7 +9760,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     {
         name: 'TicketPayout',
         index: 'TicketPayout',
-        width: 90,
+        width: 100,
         align: 'right',
         sortable: false,
         resizable: false,
@@ -9847,7 +9847,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
     var colModelList = [indexColumn, dateColumn, externalIdColumn, systemIdColumn, currencyColumn,
         cashOutTimesColumn, cashOutTicketsColumn, cashOutValueColumn, buyBackAmoutSBColumn, buyBackAmoutBAColumn, buyBackAmoutTotalColumn,
-        ticketPayoutColumn, cashOutCommissionColumn, settleAmountTicketPayoutColumn, settleAmountBuyBackCommColumn, settleAmountTotalColumn, currencyIdColumn, customerIdColumn];
+        ticketPayoutColumn, cashOutCommissionColumn, settleAmountTicketPayoutColumn, settleAmountBuyBackCommColumn,
+        settleAmountTotalColumn, currencyIdColumn, customerIdColumn];
 
     var _me = {
         isLicenseeOfferBA: false,
