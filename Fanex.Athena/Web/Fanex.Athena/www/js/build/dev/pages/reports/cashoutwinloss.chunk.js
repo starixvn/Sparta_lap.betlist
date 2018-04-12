@@ -9717,6 +9717,45 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         formatter: jqGridAdditional.formatDecimal
     };
 
+    var buyBackAmoutSBColumn =
+    {
+        name: 'BuyBackAmountSB',
+        index: 'BuyBackAmountSB',
+        width: 80,
+        align: 'right',
+        sortable: false,
+        resizable: false,
+        formatter: 'currency',
+        hidden: false,
+        formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
+    };
+
+    var buyBackAmoutBAColumn =
+    {
+        name: 'BuyBackAmountBA',
+        index: 'BuyBackAmountBA',
+        width: 80,
+        align: 'right',
+        sortable: false,
+        resizable: false,
+        formatter: 'currency',
+        hidden: false,
+        formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
+    };
+
+    var buyBackAmoutTotalColumn =
+    {
+        name: 'TotalBuyBackAmount',
+        index: 'TotalBuyBackAmount',
+        width: 80,
+        align: 'right',
+        sortable: false,
+        resizable: false,
+        formatter: 'currency',
+        hidden: false,
+        formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
+    };
+
     var ticketPayoutColumn =
     {
         name: 'TicketPayout',
@@ -9800,50 +9839,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         hidden: true
     };
 
-    var dummyColumn =
-    {
-        name: 'Dummy',
-        index: 'Dummy',
-        width: 100,
-        align: 'right',
-        sortable: false,
-        resizable: false,
-        formatter: 'currency',
-        hidden: false,
-        formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
-    };
-
     //#endregion
 
     var colNameList = ['#', 'Date', 'ExternalId', "SystemId", "Currency",
-      'CashOutTimes', 'CashOutTickets', 'CashOutValue', 'TicketPayout', 'CashOutCommission',
+      'CashOutTimes', 'CashOutTickets', 'CashOutValue','ProductSB', 'ProductBA', 'Total', 'TicketPayout', 'CashOutCommission',
       'TicketPayout', 'BBAmtComm', 'Total', 'CurrencyId', 'CustomerId'];
 
     var colModelList = [indexColumn, dateColumn, externalIdColumn, systemIdColumn, currencyColumn,
-        cashOutTimesColumn, cashOutTicketsColumn, cashOutValueColumn, ticketPayoutColumn, cashOutCommissionColumn,
-        settleAmountTicketPayoutColumn, settleAmountBuyBackCommColumn, settleAmountTotalColumn, currencyIdColumn, customerIdColumn];
-
-    function addBuyBackAmountColumns(columns, columnIndex) {
-        var buyBackAmountColumn = Site.clone(dummyColumn);
-        buyBackAmountColumn.name = "TotalBuyBackAmount";
-        buyBackAmountColumn.index = "TotalBuyBackAmount";
-
-        var buyBackAmountSBColumn = Site.clone(dummyColumn);
-        buyBackAmountSBColumn.name = "BuyBackAmountSB";
-        buyBackAmountSBColumn.index = "BuyBackAmountSB";
-
-        var buyBackAmountBAColumn = Site.clone(dummyColumn);
-        buyBackAmountBAColumn.name = "BuyBackAmountBA";
-        buyBackAmountBAColumn.index = "BuyBackAmountBA";
-
-        columns.insertAfter(buyBackAmountColumn, columnIndex);
-        columns.insertAfter(buyBackAmountBAColumn, columnIndex);
-        columns.insertAfter(buyBackAmountSBColumn, columnIndex);
-    }
+        cashOutTimesColumn, cashOutTicketsColumn, cashOutValueColumn, buyBackAmoutSBColumn, buyBackAmoutBAColumn, buyBackAmoutTotalColumn,
+        ticketPayoutColumn, cashOutCommissionColumn, settleAmountTicketPayoutColumn, settleAmountBuyBackCommColumn, settleAmountTotalColumn, currencyIdColumn, customerIdColumn];
 
     var _me = {
         isLicenseeOfferBA: false,
-        buyBackAmountColumnIndex: 7,
+        buyBackAmountTotalColumnIndex: 10,
         totalColspan: [2, 3],
         urlData: 'api/CashOutWinLossReport/Index',
         urlExcelData: 'api/CashOutWinLossReport/Index',
@@ -9891,11 +9899,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
         getColName: function () {
             var temp = Site.clone(colNameList);
-            if (_me.isLicenseeOfferBA) {
-                temp.insertAfter("Total", _me.buyBackAmountColumnIndex);
-                temp.insertAfter("BA", _me.buyBackAmountColumnIndex);
-                temp.insertAfter("Sportsbook", _me.buyBackAmountColumnIndex);
+            if (!_me.isLicenseeOfferBA) {
+                temp[_me.buyBackAmountTotalColumnIndex] = "BuyBackAmount";
             }
+
             return Site.getResources(temp);
         },
 
@@ -9911,13 +9918,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             };
             externalIdColumn.hidden = level === 0;
             systemIdColumn.hidden = level === 0;
-
-            var temp = Site.clone(colModelList);
-
-            if (_me.isLicenseeOfferBA) {
-                addBuyBackAmountColumns(temp, _me.buyBackAmountColumnIndex);
+            if (!_me.isLicenseeOfferBA) {
+                buyBackAmoutSBColumn.hidden = true;
+                buyBackAmoutBAColumn.hidden = true;
             }
 
+            var temp = Site.clone(colModelList);
             return temp;
         },
 
