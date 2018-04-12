@@ -167,6 +167,12 @@
 
                 result = LiveReport.getMatchListProductOption(191, "VS2");
                 expect(result).toEqual(expected);
+
+                result = LiveReport.getMatchListProductOption(192, "VS2");
+                expect(result).toEqual(expected);
+
+                result = LiveReport.getMatchListProductOption(193, "VS2");
+                expect(result).toEqual(expected);
             });
         });
 
