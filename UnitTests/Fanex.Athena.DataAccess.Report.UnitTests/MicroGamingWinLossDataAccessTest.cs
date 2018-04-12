@@ -44,11 +44,11 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                ObjectDb.Received().AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
-                ObjectDb.Received().AddInParameter("fromdate", DbType.Date, _metaModel.FromDate);
-                ObjectDb.Received().AddInParameter("todate", DbType.Date, _metaModel.ToDate);
-                ObjectDb.Received().AddInParameter("ReportType", DbType.Int32, _metaModel.ReportBy);
+                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                ObjectDb.Received(1).AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
+                ObjectDb.Received(1).AddInParameter("fromdate", DbType.Date, _metaModel.FromDate);
+                ObjectDb.Received(1).AddInParameter("todate", DbType.Date, _metaModel.ToDate);
+                ObjectDb.Received(1).AddInParameter("ReportType", DbType.Int32, _metaModel.ReportBy);
             });
         }
 

@@ -11,11 +11,11 @@ module.exports = __webpack_require__(242);
 /***/ 242:
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(243)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerCommGroupEdit) {
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(243)], __WEBPACK_AMD_DEFINE_RESULT__ = (function (CustomerCommGroupEdit) {
     "use strict";
 
     $(CustomerCommGroupEdit.initialize);
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
@@ -24,7 +24,7 @@ module.exports = __webpack_require__(242);
 /***/ 243:
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(55)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, CommGroupDetail) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(55)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, CommGroupDetail) {
          "use strict";
 
          var FORM_SELECTOR = "#customer-comm-group-edit";
@@ -68,7 +68,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
          };
 
          return _me;
-     }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+     }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
@@ -76,7 +76,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ 45:
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site) {
     "use strict";
 
     function goToCustomerList(groupCommId) {
@@ -112,7 +112,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     };
 
     return _me;
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
@@ -120,7 +120,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ 55:
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(5), __webpack_require__(45), __webpack_require__(56)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup, CustomerCommGroup) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(5), __webpack_require__(45), __webpack_require__(56)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Popup, CustomerCommGroup) {
          "use strict";
 
          function initialize(titleResource) {
@@ -329,7 +329,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
          };
 
          return _me;
-     }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+     }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),

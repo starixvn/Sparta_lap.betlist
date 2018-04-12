@@ -10,6 +10,8 @@
         private const int VSMaxBetType = 1299;
         private const int VS2MinBetType = 2700;
         private const int VS2MaxBetType = 2899;
+        private const int FastMarketMinBetType = 221;
+        private const int FastMarketMaxBetType = 227;
 
         public static bool IsNumberGame(int bettype)
         {
@@ -29,6 +31,11 @@
         public static bool IsVirtualSports2(int bettype)
         {
             return IsInRange(bettype, VS2MinBetType, VS2MaxBetType);
+        }
+
+        public static bool IsFastMarket(int bettype)
+        {
+            return IsInRange(bettype, FastMarketMinBetType, FastMarketMaxBetType);
         }
 
         private static bool IsInRange(int value, int min, int max)

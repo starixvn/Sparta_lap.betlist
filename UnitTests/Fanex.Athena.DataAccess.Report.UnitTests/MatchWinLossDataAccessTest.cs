@@ -74,11 +74,11 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                ObjectDb.Received().AddInParameter("Date", DbType.DateTime, _metaModel.Date);
-                ObjectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, _balance.MoveBetsDay);
-                ObjectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
-                ObjectDb.Received().AddInParameter("showNG", DbType.Boolean, false);
+                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                ObjectDb.Received(1).AddInParameter("Date", DbType.DateTime, _metaModel.Date);
+                ObjectDb.Received(1).AddInParameter("MoveBetsDay", DbType.DateTime, _balance.MoveBetsDay);
+                ObjectDb.Received(1).AddInParameter("showSB", DbType.Boolean, true);
+                ObjectDb.Received(1).AddInParameter("showNG", DbType.Boolean, false);
             });
         }
 
@@ -287,12 +287,12 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                ObjectDb.Received().AddInParameter("FromDate", DbType.DateTime, _metaModel.Date);
-                ObjectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, _balance.MoveBetsDay);
-                ObjectDb.Received().AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
-                ObjectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
-                ObjectDb.Received().AddInParameter("showNG", DbType.Boolean, false);
+                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                ObjectDb.Received(1).AddInParameter("FromDate", DbType.DateTime, _metaModel.Date);
+                ObjectDb.Received(1).AddInParameter("MoveBetsDay", DbType.DateTime, _balance.MoveBetsDay);
+                ObjectDb.Received(1).AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
+                ObjectDb.Received(1).AddInParameter("showSB", DbType.Boolean, true);
+                ObjectDb.Received(1).AddInParameter("showNG", DbType.Boolean, false);
             });
         }
 
@@ -308,12 +308,12 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                ObjectDb.Received().AddInParameter("MatchId", DbType.Int32, _metaModel.MatchId);
-                ObjectDb.Received().AddInParameter("Date", DbType.DateTime, _metaModel.Date);
-                ObjectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, _balance.MoveBetsDay);
-                ObjectDb.Received().AddInParameter("LeagueId", DbType.Int32, _metaModel.LeagueId);
-                ObjectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
+                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                ObjectDb.Received(1).AddInParameter("MatchId", DbType.Int32, _metaModel.MatchId);
+                ObjectDb.Received(1).AddInParameter("Date", DbType.DateTime, _metaModel.Date);
+                ObjectDb.Received(1).AddInParameter("MoveBetsDay", DbType.DateTime, _balance.MoveBetsDay);
+                ObjectDb.Received(1).AddInParameter("LeagueId", DbType.Int32, _metaModel.LeagueId);
+                ObjectDb.Received(1).AddInParameter("showSB", DbType.Boolean, true);
             });
         }
 
@@ -329,11 +329,11 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                ObjectDb.Received().AddInParameter("Date", DbType.DateTime, _metaModel.Date);
-                ObjectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, _balance.MoveBetsDay);
-                ObjectDb.Received().AddInParameter("showsb", DbType.Boolean, true);
-                ObjectDb.Received().AddInParameter("showba", DbType.Boolean, false);
+                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                ObjectDb.Received(1).AddInParameter("Date", DbType.DateTime, _metaModel.Date);
+                ObjectDb.Received(1).AddInParameter("MoveBetsDay", DbType.DateTime, _balance.MoveBetsDay);
+                ObjectDb.Received(1).AddInParameter("showsb", DbType.Boolean, true);
+                ObjectDb.Received(1).AddInParameter("showba", DbType.Boolean, false);
             });
         }
     }

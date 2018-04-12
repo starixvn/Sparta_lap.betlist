@@ -125,31 +125,40 @@
         public void GetPopUpMatch_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
-            const int MatchId = 1;
-            const int BettypeId = 2;
-            const long BetId = 3;
+            var metaModel = new ResultPopupMetalModel
+            {
+                MatchId = 1,
+                Bettype = 3,
+                BetId = 4,
+                Handicap1 = 3,
+                Handicap2 = 5,
+                RaceNo = 1
+            };
 
             // Action
-            _service.GetPopUpMatch(MatchId, BettypeId, BetId);
+            _service.GetPopUpMatch(metaModel);
 
             // Assert
-            _dataAccess.Received().GetPopUpMatches<Sportsbook>(MatchId, -1, BettypeId, BetId);
+            _dataAccess.Received().GetPopUpMatches<Sportsbook>(Arg.Is<ResultPopupMetalModel>(x => x == metaModel && !x.RaceNo.HasValue));
         }
 
         [Test]
         public void GetPopUpRacingMatch_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
-            const int MatchId = 1;
-            const int RaceNo = 2;
-            const int BettypeId = 3;
-            const long BetId = 4;
+            var metaModel = new ResultPopupMetalModel
+            {
+                MatchId = 1,
+                RaceNo = 2,
+                Bettype = 3,
+                BetId = 4
+            };
 
             // Action
-            _service.GetPopUpRacingMatch(MatchId, RaceNo, BettypeId, BetId);
+            _service.GetPopUpRacingMatch(metaModel);
 
             // Assert
-            _dataAccess.Received().GetPopUpMatches<Racing>(MatchId, RaceNo, BettypeId, BetId);
+            _dataAccess.Received().GetPopUpMatches<Racing>(metaModel);
         }
 
         [Test]

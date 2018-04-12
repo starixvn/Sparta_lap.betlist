@@ -1,6 +1,5 @@
 ﻿namespace Fanex.Athena.Api.Report
 {
-    using System;
     using System.Linq;
     using System.Net.Http;
     using System.Web.Hosting;
@@ -113,6 +112,8 @@
                     DataList = new SortableList<CustomerWinLoss>()
                 };
             }
+
+            CheckValidProducts(FunctionNames.CustomerWinLoss, metaModel);
 
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludedTestData);
             return _custWinlossDataAccess.GetDataList(metaModel);

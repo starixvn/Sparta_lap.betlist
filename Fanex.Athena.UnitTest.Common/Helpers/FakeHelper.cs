@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using AutoFixture;
 
 namespace Fanex.Athena.UnitTest.Common.Helpers
@@ -6,6 +8,11 @@ namespace Fanex.Athena.UnitTest.Common.Helpers
     public static class FakeHelper
     {
         private static Fixture _fixture = new Fixture();
+
+        public static T Create<T>(Expression<Func<T, object>> propertyPicker, object value)
+        {
+            return _fixture.Build<T>().With(propertyPicker, value).Create();
+        }
 
         public static T Create<T>()
         {
@@ -15,6 +22,11 @@ namespace Fanex.Athena.UnitTest.Common.Helpers
         public static IEnumerable<T> CreateMany<T>()
         {
             return _fixture.CreateMany<T>();
+        }
+
+        public static DateTime TruncateMiliseconds(DateTime dateTime)
+        {
+            return dateTime.AddTicks(-(dateTime.Ticks % TimeSpan.TicksPerSecond));
         }
     }
 }

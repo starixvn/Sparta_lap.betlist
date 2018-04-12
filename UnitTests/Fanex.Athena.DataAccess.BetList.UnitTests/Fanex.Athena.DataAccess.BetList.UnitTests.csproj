@@ -35,11 +35,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Fanex.BetList.BetTrade, Version=1.0.8.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.BetList.Core.2.51.0\lib\net40\Fanex.BetList.BetTrade.dll</HintPath>
+      <HintPath>..\..\packages\Fanex.BetList.Core.2.54.0\lib\net40\Fanex.BetList.BetTrade.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.BetList.Core, Version=2.51.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.BetList.Core.2.51.0\lib\net40\Fanex.BetList.Core.dll</HintPath>
+    <Reference Include="Fanex.BetList.Core, Version=2.54.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.BetList.Core.2.54.0\lib\net40\Fanex.BetList.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.Data, Version=0.5.404.63, Culture=neutral, processorArchitecture=MSIL">
@@ -83,7 +83,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="RemotingRef, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\RemotingRef.2.0.0.13\lib\net40\RemotingRef.dll</HintPath>
+      <HintPath>..\..\packages\RemotingRef.2.0.0.17\lib\net40\RemotingRef.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="SPSRemoting, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -118,6 +118,7 @@
     <Compile Include="CashOutBetListDataAccessTest.cs" />
     <Compile Include="ColossusBetBetListDataAccessTest.cs" />
     <Compile Include="CancelledBetListDataAccessTest.cs" />
+    <Compile Include="ExchangeBetListDataAccessTest.GetTicketDetailList.cs" />
     <Compile Include="ExchangeBetListDataAccessTest.cs" />
     <Compile Include="LastBetsMonitoringBetListDataAccessTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

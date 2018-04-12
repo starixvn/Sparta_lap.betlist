@@ -34,15 +34,15 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("fromdate", DbType.DateTime, _metaModel.FromDate);
-                ObjectDb.Received().AddInParameter("todate", DbType.DateTime, _metaModel.ToDate);
-                ObjectDb.Received().AddInParameter("topcount", DbType.Int32, _metaModel.TopCount);
-                ObjectDb.Received().AddInParameter("orderitem", DbType.Byte, _metaModel.OrderItem);
-                ObjectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                ObjectDb.Received().AddInParameter("pagesize", DbType.Int32, _metaModel.PageSize);
-                ObjectDb.Received().AddInParameter("pageindex", DbType.Int32, _metaModel.PageIndex);
-                ObjectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
-                ObjectDb.Received().AddInParameter("showNG", DbType.Boolean, false);
+                ObjectDb.Received(1).AddInParameter("fromdate", DbType.DateTime, _metaModel.FromDate);
+                ObjectDb.Received(1).AddInParameter("todate", DbType.DateTime, _metaModel.ToDate);
+                ObjectDb.Received(1).AddInParameter("topcount", DbType.Int32, _metaModel.TopCount);
+                ObjectDb.Received(1).AddInParameter("orderitem", DbType.Byte, _metaModel.OrderItem);
+                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                ObjectDb.Received(1).AddInParameter("pagesize", DbType.Int32, _metaModel.PageSize);
+                ObjectDb.Received(1).AddInParameter("pageindex", DbType.Int32, _metaModel.PageIndex);
+                ObjectDb.Received(1).AddInParameter("showSB", DbType.Boolean, true);
+                ObjectDb.Received(1).AddInParameter("showNG", DbType.Boolean, false);
             });
         }
 

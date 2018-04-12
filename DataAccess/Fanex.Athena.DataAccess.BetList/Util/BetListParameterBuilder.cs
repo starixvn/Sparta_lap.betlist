@@ -43,8 +43,8 @@
             { "Lrf_BetList_SelRunningByBettypeMatch", (db, metalModel) => CreateMatchRunningBetLitByBettypeParameters(db, metalModel) },
             { "Lrf_BetList_SelRunningByMultipleBettypeMatch", (db, metalModel) => CreateMatchRunningBetLitByMultipleBettypeOfMatchParameters(db, metalModel) },
             { "Lrf_BetList_Forecast_SelByMatch", (db, metalModel) => CreateRunningBetListByForeCastMatchParameters(db, metalModel) },
-            { "Lrf_BetList_RNG_Detail", (db, metalModel) => CreateMicroGamingRngDetailParameters(db, metalModel) },
-            { "Lrf_BetList_LC_Detail", (db, metalModel) => CreateAGCasinoDetailParameters(db, metalModel) },
+            { "Lrf_BetList_RNG_Detail", (db, metalModel) => CreateCasinoDetailParameters(db, metalModel) },
+            { "Lrf_BetList_LC_Detail", (db, metalModel) => CreateCasinoDetailParameters(db, metalModel) },
             { "Lrf_BetList_SelWinLossByBetType", (db, metalModel) => CreateWinLossByBetTypeParameters(db, metalModel) },
             { "Lrf_BetList_LicenseeBonus_Detail", (db, metalModel) => CreateBonusDetailParameters(db, metalModel) }
         };
@@ -409,15 +409,7 @@
             CreateBetListPagingParameters(db, metaModel);
         }
 
-        private static void CreateMicroGamingRngDetailParameters(IObjectDb db, BetListMetaModel metaModel)
-        {
-            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            db.AddInParameter("refno", DbType.Int64, metaModel.TransId);
-            db.AddInParameter("custid", DbType.Int32, metaModel.CustId);
-            db.AddInParameter("transtype", DbType.Int16, metaModel.TransType);
-        }
-
-        private static void CreateAGCasinoDetailParameters(IObjectDb db, BetListMetaModel metaModel)
+        private static void CreateCasinoDetailParameters(IObjectDb db, BetListMetaModel metaModel)
         {
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             db.AddInParameter("refno", DbType.Int64, metaModel.TransId);

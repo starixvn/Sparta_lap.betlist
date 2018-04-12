@@ -29,8 +29,8 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("custid", DbType.Int32, CustId);
-                ObjectDb.Received().AddOutParameter("siteid", DbType.Int32, 0);
+                ObjectDb.Received(1).AddInParameter("custid", DbType.Int32, CustId);
+                ObjectDb.Received(1).AddOutParameter("siteid", DbType.Int32, 0);
 
                 Assert.That(result, Is.EqualTo(ExpectedSiteId));
             });

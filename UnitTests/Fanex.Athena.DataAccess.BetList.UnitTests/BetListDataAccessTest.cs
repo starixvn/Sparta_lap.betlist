@@ -6,6 +6,7 @@
     using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public partial class BetListDataAccessTest : BaseDataAccessHelperTest<BetListDataAccess>
@@ -16,7 +17,7 @@
 
         public BetListDataAccessTest()
         {
-            _metaModel = GetBetListMetaModel();
+            _metaModel = FakeHelper.Create<BetListMetaModel>(x => x.ProductCodeList, "SB,NG,BA");
         }
 
         [Test]
@@ -31,7 +32,7 @@
             DataAccess.GetMixParlayDetailTicket(TransId);
 
             // Assert
-            ObjectDb.Received().AddInParameter("TransId", DbType.Int64, TransId);
+            ObjectDb.Received(1).AddInParameter("TransId", DbType.Int64, TransId);
         }
 
         [Test]
@@ -40,35 +41,6 @@
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
                 GetMixParlayDetailTicketSp,
                 () => DataAccess.GetMixParlayDetailTicket(1));
-        }
-
-        private static BetListMetaModel GetBetListMetaModel()
-        {
-            return new BetListMetaModel
-            {
-                BaseCurrency = "BaseCurrencyTest",
-                CustId = 1,
-                FromDate = new DateTime(2016, 8, 10),
-                ToDate = new DateTime(2016, 8, 19),
-                MoveBetsDay = new DateTime(2016, 1, 1),
-                BalanceUpDay = new DateTime(2016, 2, 1),
-                PageSize = 10,
-                PageIndex = 1,
-                ExternalId = "ExternalIdTest",
-                SystemId = "SystemIdTest",
-                LicenseeId = 2,
-                UserId = 3,
-                CurrencyId = 4,
-                ProductCodeList = "SB,NG",
-                SortBy = "SortByTest",
-                SortOrder = "SortOrderTest",
-                LeagueId = 5,
-                RaceNo = "RaceNoTest",
-                DrawFilter = 6,
-                MultipleBettype = "MultipleBettypeTest",
-                LiveIndicator = 7,
-                PlatformType = 9
-            };
         }
     }
 }

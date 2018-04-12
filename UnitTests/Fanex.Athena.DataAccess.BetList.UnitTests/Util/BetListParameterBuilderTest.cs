@@ -1,12 +1,12 @@
 ﻿namespace Fanex.Athena.DataAccess.BetList.UnitTests.Util
 {
-    using System;
     using System.Data;
     using BetList.Util;
     using Data;
     using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class BetListParameterBuilderTest
@@ -16,7 +16,8 @@
 
         public BetListParameterBuilderTest()
         {
-            _metaModel = GetBetListMetaModel();
+            _metaModel = FakeHelper.Create<BetListMetaModel>();
+            _metaModel.ProductCodeList = "SB,NG";
         }
 
         [SetUp]
@@ -36,7 +37,7 @@
         {
             // Arrange
             const string UspKey = "Lrf_BetList_WinlostByLeague_Mem";
-            var metaModel = GetWinLossByLeagueBetListMetaModel();
+            var metaModel = FakeHelper.Create<WinLossByLeagueBetListMetaModel>(x => x.ProductCodeList, "SB,NG");
 
             // Action
             BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, metaModel);
@@ -49,8 +50,8 @@
                 _objectDb.Received(1).AddInParameter("LeagueID", DbType.Int32, metaModel.LeagueId);
                 _objectDb.Received(1).AddInParameter("MatchId", DbType.Int32, metaModel.MatchId);
                 _objectDb.Received(1).AddInParameter("Odds", DbType.Decimal, metaModel.Odds);
-                AssertDateRangeParameters(_objectDb, _metaModel);
-                AssertMoveBetParams(_objectDb, _metaModel);
+                AssertDateRangeParameters(_objectDb, metaModel);
+                AssertMoveBetParams(_objectDb, metaModel);
                 _objectDb.Received(1).AddInParameter("ShowWin", DbType.Boolean, metaModel.ShowWin);
                 _objectDb.Received(1).AddInParameter("ShowLoss", DbType.Boolean, metaModel.ShowLoss);
                 _objectDb.Received(1).AddInParameter("ShowDraw", DbType.Boolean, metaModel.ShowDraw);
@@ -143,7 +144,7 @@
         {
             // Arrange
             const string UspKey = "Lrf_BetList_SelWinlossDaily";
-            var metaModel = GetDailyBetListMetaModel();
+            var metaModel = FakeHelper.Create<DailyBetListMetaModel>();
 
             // Action
             BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, metaModel);
@@ -156,8 +157,8 @@
                 _objectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                 _objectDb.Received(1).AddInParameter("product", DbType.String, metaModel.ProductCode);
                 _objectDb.Received(1).AddInParameter("status", DbType.String, metaModel.DailyBetListStatus);
-                AssertMoveBetParams(_objectDb, _metaModel);
-                AssertPagingParameters(_objectDb, _metaModel);
+                AssertMoveBetParams(_objectDb, metaModel);
+                AssertPagingParameters(_objectDb, metaModel);
                 AssertSummaryParameters(_objectDb);
             });
         }
@@ -554,13 +555,7 @@
             BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, _metaModel);
 
             // Assert
-            Assert.Multiple(() =>
-            {
-                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received(1).AddInParameter("refno", DbType.Int64, _metaModel.TransId);
-                _objectDb.Received(1).AddInParameter("custid", DbType.Int32, _metaModel.CustId);
-                _objectDb.Received(1).AddInParameter("transtype", DbType.Int16, _metaModel.TransType);
-            });
+            AssertCasinoDetailParameters(_objectDb, _metaModel);
         }
 
         [Test]
@@ -573,13 +568,7 @@
             BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, _metaModel);
 
             // Assert
-            Assert.Multiple(() =>
-            {
-                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received(1).AddInParameter("refno", DbType.Int64, _metaModel.TransId);
-                _objectDb.Received(1).AddInParameter("custid", DbType.Int32, _metaModel.CustId);
-                _objectDb.Received(1).AddInParameter("transtype", DbType.Int16, _metaModel.TransType);
-            });
+            AssertCasinoDetailParameters(_objectDb, _metaModel);
         }
 
         [Test]
@@ -617,10 +606,7 @@
             BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, metaModel);
 
             // Assert
-            Assert.Multiple(() =>
-            {
-                _objectDb.Received(1).AddInParameter("Sort", DbType.String, expectedSortBy);
-            });
+            _objectDb.Received(1).AddInParameter("Sort", DbType.String, expectedSortBy);
         }
 
         [Test]
@@ -635,10 +621,7 @@
             BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, metaModel);
 
             // Assert
-            Assert.Multiple(() =>
-            {
-                _objectDb.DidNotReceive().AddInParameter("Sort", DbType.String, Arg.Any<string>());
-            });
+            _objectDb.DidNotReceive().AddInParameter("Sort", DbType.String, Arg.Any<string>());
         }
 
         [TestCase(true, 1, 100, 1, int.MaxValue - 1)]
@@ -668,69 +651,6 @@
                 _objectDb.Received(1).AddInParameter("PageSize", DbType.Int32, expectedSize);
                 _objectDb.Received(1).AddInParameter("PageIndex", DbType.Int32, expectedIndex);
             });
-        }
-
-        private static WinLossByLeagueBetListMetaModel GetWinLossByLeagueBetListMetaModel()
-        {
-            return new WinLossByLeagueBetListMetaModel
-            {
-                CustId = 1,
-                FromDate = new DateTime(2016, 8, 10),
-                ToDate = new DateTime(2016, 8, 19),
-                MoveBetsDay = new DateTime(2016, 1, 1),
-                BalanceUpDay = new DateTime(2016, 2, 1),
-                ProductCodeList = "SB,NG",
-                LeagueId = 5,
-                Odds = 6,
-                ShowDraw = true,
-                ShowWin = false,
-                ShowLoss = true
-            };
-        }
-
-        private static DailyBetListMetaModel GetDailyBetListMetaModel()
-        {
-            return new DailyBetListMetaModel
-            {
-                BaseCurrency = "BaseCurrencyTest",
-                MoveBetsDay = new DateTime(2016, 1, 1),
-                BalanceUpDay = new DateTime(2016, 2, 1),
-                PageSize = 10,
-                PageIndex = 1,
-                SortBy = "SortByTest",
-                SortOrder = "SortOrderTest",
-                ProductCode = "ProductCodeTest",
-                DailyBetListStatus = "DailyBetListStatusTest"
-            };
-        }
-
-        private static BetListMetaModel GetBetListMetaModel()
-        {
-            return new BetListMetaModel
-            {
-                BaseCurrency = "BaseCurrencyTest",
-                CustId = 1,
-                FromDate = new DateTime(2016, 8, 10),
-                ToDate = new DateTime(2016, 8, 19),
-                MoveBetsDay = new DateTime(2016, 1, 1),
-                BalanceUpDay = new DateTime(2016, 2, 1),
-                PageSize = 10,
-                PageIndex = 1,
-                ExternalId = "ExternalIdTest",
-                SystemId = "SystemIdTest",
-                LicenseeId = 2,
-                UserId = 3,
-                CurrencyId = 4,
-                ProductCodeList = "SB,NG",
-                SortBy = "SortByTest",
-                SortOrder = "SortOrderTest",
-                LeagueId = 5,
-                RaceNo = "RaceNoTest",
-                DrawFilter = 6,
-                MultipleBettype = "MultipleBettypeTest",
-                LiveIndicator = 7,
-                PlatformType = 9
-            };
         }
 
         private static void AssertSummaryParameters(IObjectDb objectDb)
@@ -780,6 +700,14 @@
             objectDb.Received(1).AddInParameter("transtype", DbType.Int32, metaModel.TransType);
             AssertPagingParameters(objectDb, metaModel);
             AssertSummaryParameters(objectDb);
+        }
+
+        private static void AssertCasinoDetailParameters(IObjectDb objectDb, BetListMetaModel metaModel)
+        {
+            objectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            objectDb.Received(1).AddInParameter("refno", DbType.Int64, metaModel.TransId);
+            objectDb.Received(1).AddInParameter("custid", DbType.Int32, metaModel.CustId);
+            objectDb.Received(1).AddInParameter("transtype", DbType.Int16, metaModel.TransType);
         }
     }
 }

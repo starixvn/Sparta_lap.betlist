@@ -2725,7 +2725,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/Mik
 
     // AMD.
     if ( true ) {
-        !(__WEBPACK_AMD_DEFINE_RESULT__ = function () { return BigNumber; }.call(exports, __webpack_require__, exports, module),
+        !(__WEBPACK_AMD_DEFINE_RESULT__ = (function () { return BigNumber; }).call(exports, __webpack_require__, exports, module),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
     // Node.js and other environments that support module.exports.
@@ -2756,11 +2756,11 @@ module.exports = __webpack_require__(181);
 /***/ 181:
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(182)], __WEBPACK_AMD_DEFINE_RESULT__ = function (BetListCancelledBets) {
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(182)], __WEBPACK_AMD_DEFINE_RESULT__ = (function (BetListCancelledBets) {
     "use strict";
 
     $(BetListCancelledBets.initialize);
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
@@ -2771,7 +2771,7 @@ module.exports = __webpack_require__(181);
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(3), __webpack_require__(22)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, BetList) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(3), __webpack_require__(22)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, QueryString, BetList) {
         var _me = {
             initialize: function () {
                 Site.initialize();
@@ -2830,7 +2830,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         };
 
         return _me;
-    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
@@ -7382,12 +7382,12 @@ return hooks;
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(3), __webpack_require__(4), __webpack_require__(25), __webpack_require__(2), __webpack_require__(5),
-        __webpack_require__(8), __webpack_require__(9)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, jqGridAdditional, BetListOption, moment, Popup) {
+        __webpack_require__(8), __webpack_require__(9)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, QueryString, jqGridAdditional, BetListOption, moment, Popup) {
         "use strict";
         var BETTYPE_CASHOUT = 911;
         var BETTYPE_MIXPARLAY = 9, BETTYPE_SYSTEMPARLAY = 29, BETTYPE_MIXPARLAY_BETRADAR = 2799;
         var MIN_BETTYPE_FASTMARKET = 221;
-        var MAX_BETTYPE_FASTMARKET = 225;
+        var MAX_BETTYPE_FASTMARKET = 227;
         var SPORT_MICROGAMMING_LC = 203;
         var SPORT_MICROGAMMING_RNG = 205;
         var SPORT_RNG_GAME = 208;
@@ -7685,14 +7685,21 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 return url;
             },
 
-            getSportBookResultUrl: function (matchid, bettype, raceNo, sporttype, league, isOutright, betid) {
+            getSportBookResultUrl: function (matchid, bettype, raceNo, sporttype, league, isOutright, extension1, extension2) {
                 var url = Site.resolveClientUrl('ResultReport/ResultPopup');
                 url = QueryString.setParam(url, "matchid", matchid);
                 url = QueryString.setParam(url, "bettype", bettype);
                 url = QueryString.setParam(url, "raceno", raceNo);
                 url = QueryString.setParam(url, "sporttype", sporttype);
                 url = QueryString.setParam(url, "isoutright", isOutright);
-                url = QueryString.setParam(url, "betid", betid);
+                
+                if (isFastMarket(bettype)) {
+                    url = QueryString.setParam(url, "handicap1", extension1);
+                    url = QueryString.setParam(url, "handicap2", extension2);
+                }
+                else {
+                    url = QueryString.setParam(url, "betid", extension1);
+                }
 
                 return url;
             },
@@ -7778,29 +7785,29 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 });
             },
             viewResult: function (matchid, raceNo, bettype, sporttype, refno,
-                username, winlostdate, refnoMixParlay, league, isOutright, betid, betcheck, custid, transdecs) {
+                username, winlostdate, refnoMixParlay, league, isOutright, extension1, extension2, custid, transdecs) {
                 var title = Site.getSingleResource("Result");
                 if (sporttype === SPORT_MICROGAMMING_RNG || sporttype === SPORT_MICROGAMMING_LC) {
-                    _me.showMicrogamingResultPopup(title, betcheck, custid);
+                    _me.showMicrogamingResultPopup(title, extension2, custid);
                 }
                 else if (sporttype === SPORT_RNG_GAME || sporttype === SPORT_RNG_MINIGAME || sporttype === SPORT_RNG_MOBILE) {
                     _me.viewRngCasinoResult(title, refno);
                 }
                 else if (sporttype === SPORT_VOIDBRIDGE) {
-                    _me.viewVoidbridgeResult(custid, betcheck, title);
+                    _me.viewVoidbridgeResult(custid, extension2, title);
                 }
                 else if (sporttype === SPORT_ALLBET) {
-                    _me.viewAllBetResult(transdecs, betcheck, bettype, title);
+                    _me.viewAllBetResult(transdecs, extension2, bettype, title);
                 }
                 else if (sporttype === SPORT_GLOBALGAMING) {
-                    _me.viewGlobalGamingResult(custid, betcheck, title);
+                    _me.viewGlobalGamingResult(custid, extension2, title);
                 }
                 else {
                     bettype = Number(bettype);
                     var isParlay = bettype === BETTYPE_MIXPARLAY || bettype === BETTYPE_SYSTEMPARLAY || bettype === BETTYPE_MIXPARLAY_BETRADAR;
                     var url = isParlay
                         ? _me.getMixParlayResultUrl(refnoMixParlay, winlostdate, bettype)
-                        : _me.getSportBookResultUrl(matchid, bettype, raceNo, sporttype, league, isOutright, betid, betcheck, custid);
+                        : _me.getSportBookResultUrl(matchid, bettype, raceNo, sporttype, league, isOutright, extension1, extension2, custid);
 
                     var height = isParlay ? 450 : (isFastMarket(bettype) ? 300 : 250);
                     var width = 750;
@@ -8103,7 +8110,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         };
 
         return _me;
-    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
@@ -8111,7 +8118,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ 25:
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site) {
     "use strict";
     var columnNames = ['#', 'ExternalId', 'SystemId', 'TransTime', 'Choice', 'Odds', 'Stake',
                     'WinLoss', 'EffectiveBettingValue', '@[LicenseeWL]/@[Comm]', 'Status'];
@@ -8256,7 +8263,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         columnNames: columnNames,
         maxHeight: 720
     };
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
@@ -8266,7 +8273,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <reference path="/@JSense.js" />
 ///
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(10)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BigNumber) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(10)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, BigNumber) {
     "use strict";
     var jqGridAdditional = (function () {
         return {
@@ -8713,7 +8720,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
     })();
 
     return jqGridAdditional;
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),

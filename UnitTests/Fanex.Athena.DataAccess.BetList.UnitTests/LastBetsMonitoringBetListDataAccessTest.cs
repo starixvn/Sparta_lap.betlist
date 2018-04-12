@@ -7,6 +7,7 @@
     using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
 
     public class LastBetsMonitoringBetListDataAccessTest : BaseDataAccessHelperTest<LastBetsMonitoringBetListDataAccess>
     {
@@ -17,7 +18,7 @@
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(UspKey)).Returns(ObjectDb);
-            var metaModel = GetLastBetsMonitoringMetaModel();
+            var metaModel = FakeHelper.Create<LastBetsMonitoringMetaModel>();
 
             // Action
             DataAccess.GetLastBetsMonitoringData(metaModel);
@@ -25,20 +26,20 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                ObjectDb.Received().AddInParameter("BetType", DbType.String, metaModel.BetType);
-                ObjectDb.Received().AddInParameter("Currency", DbType.String, metaModel.Currency);
-                ObjectDb.Received().AddInParameter("SpecialLevel", DbType.String, metaModel.Level);
-                ObjectDb.Received().AddInParameter("TransId", DbType.Int64, metaModel.TransId);
-                ObjectDb.Received().AddInParameter("LimitRowCount", DbType.Int32, metaModel.PageSize);
-                ObjectDb.Received().AddInParameter("SportId", DbType.Int32, metaModel.SportId);
-                ObjectDb.Received().AddInParameter("LeagueId", DbType.Int32, metaModel.LeagueId);
-                ObjectDb.Received().AddInParameter("MatchId", DbType.Int32, metaModel.MatchId);
-                ObjectDb.Received().AddInParameter("MinStake", DbType.Decimal, metaModel.StakeFrom);
-                ObjectDb.Received().AddInParameter("MaxStake", DbType.Decimal, metaModel.StakeTo);
-                ObjectDb.Received().AddInParameter("LiveIndicator", DbType.Int32, metaModel.LiveStatus);
-                ObjectDb.Received().AddInParameter("BaseCurrency", DbType.String, metaModel.BasedCurrency);
-                ObjectDb.Received().AddInParameter("BetFrom", DbType.Byte, metaModel.BetFrom);
+                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+                ObjectDb.Received(1).AddInParameter("BetType", DbType.String, metaModel.BetType);
+                ObjectDb.Received(1).AddInParameter("Currency", DbType.String, metaModel.Currency);
+                ObjectDb.Received(1).AddInParameter("SpecialLevel", DbType.String, metaModel.Level);
+                ObjectDb.Received(1).AddInParameter("TransId", DbType.Int64, metaModel.TransId);
+                ObjectDb.Received(1).AddInParameter("LimitRowCount", DbType.Int32, metaModel.PageSize);
+                ObjectDb.Received(1).AddInParameter("SportId", DbType.Int32, metaModel.SportId);
+                ObjectDb.Received(1).AddInParameter("LeagueId", DbType.Int32, metaModel.LeagueId);
+                ObjectDb.Received(1).AddInParameter("MatchId", DbType.Int32, metaModel.MatchId);
+                ObjectDb.Received(1).AddInParameter("MinStake", DbType.Decimal, metaModel.StakeFrom);
+                ObjectDb.Received(1).AddInParameter("MaxStake", DbType.Decimal, metaModel.StakeTo);
+                ObjectDb.Received(1).AddInParameter("LiveIndicator", DbType.Int32, metaModel.LiveStatus);
+                ObjectDb.Received(1).AddInParameter("BaseCurrency", DbType.String, metaModel.BasedCurrency);
+                ObjectDb.Received(1).AddInParameter("BetFrom", DbType.Byte, metaModel.BetFrom);
             });
         }
 
@@ -63,27 +64,6 @@
 
             // Assert
             Assert.That(result, Is.EqualTo(expected));
-        }
-
-        private LastBetsMonitoringMetaModel GetLastBetsMonitoringMetaModel()
-        {
-            return new LastBetsMonitoringMetaModel
-            {
-                AgentListXml = "abc",
-                BetType = "BetTypeTest",
-                Currency = "CurrencyTest",
-                Level = "LevelTest",
-                TransId = 3,
-                PageSize = 4,
-                SportId = 5,
-                LeagueId = 6,
-                MatchId = 7,
-                StakeFrom = 10,
-                StakeTo = 20,
-                LiveStatus = 8,
-                BasedCurrency = "BasedCurrencyTest",
-                BetFrom = 9
-            };
         }
     }
 }

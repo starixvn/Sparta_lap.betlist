@@ -9,7 +9,7 @@ var BetList = (function ($) {
     var BETTYPE_CASHOUT = 911;
     var BETTYPE_MIXPARLAY = 9, BETTYPE_SYSTEMPARLAY = 29, BETTYPE_MIXPARLAY_BETRADAR = 2799;
     var MIN_BETTYPE_FASTMARKET = 221;
-    var MAX_BETTYPE_FASTMARKET = 225;
+    var MAX_BETTYPE_FASTMARKET = 227;
     var SPORT_MICROGAMMING_LC = 203;
     var SPORT_MICROGAMMING_RNG = 205;
     var SPORT_RNG_GAME = 208;
@@ -328,14 +328,21 @@ var BetList = (function ($) {
             return url;
         },
 
-        getSportBookResultUrl: function (matchid, bettype, raceNo, sporttype, league, isOutright, betid) {
+        getSportBookResultUrl: function (matchid, bettype, raceNo, sporttype, league, isOutright, extension1, extension2) {
             var url = Site.resolveClientUrl('ResultReport/ResultPopup');
             url = QueryString.setParam(url, "matchid", matchid);
             url = QueryString.setParam(url, "bettype", bettype);
             url = QueryString.setParam(url, "raceno", raceNo);
             url = QueryString.setParam(url, "sporttype", sporttype);
             url = QueryString.setParam(url, "isoutright", isOutright);
-            url = QueryString.setParam(url, "betid", betid);
+
+            if (isFastMarket(bettype)) {
+                url = QueryString.setParam(url, "handicap1", extension1);
+                url = QueryString.setParam(url, "handicap2", extension2);
+            }
+            else {
+                url = QueryString.setParam(url, "betid", extension1);
+            }
 
             return url;
         },
@@ -454,29 +461,29 @@ var BetList = (function ($) {
         },
 
         showResult: function (matchid, raceNo, bettype, sporttype, refno,
-            username, winlostdate, refnoMixParlay, league, isOutright, betid, betcheck, custid, transdecs) {
+            username, winlostdate, refnoMixParlay, league, isOutright, extension1, extension2, custid, transdecs) {
             var title = Site.getSingleResource("Result");
             if (sporttype === SPORT_MICROGAMMING_RNG || sporttype === SPORT_MICROGAMMING_LC) {
-                BetList.showMicrogamingResultPopup(title, betcheck, custid);
+                BetList.showMicrogamingResultPopup(title, extension2, custid);
             }
             else if (sporttype === SPORT_RNG_GAME || sporttype === SPORT_RNG_MINIGAME || sporttype === SPORT_RNG_MOBILE) {
                 BetList.viewRngCasinoResult(title, refno);
             }
             else if (sporttype === SPORT_VOIDBRIDGE) {
-                BetList.viewVoidbridgeResult(custid, betcheck);
+                BetList.viewVoidbridgeResult(custid, extension2);
             }
             else if (sporttype === SPORT_ALLBET) {
-                BetList.viewAllBetResult(transdecs, betcheck, bettype);
+                BetList.viewAllBetResult(transdecs, extension2, bettype);
             }
             else if (sporttype === SPORT_GLOBALGAMING) {
-                BetList.viewGlobalGamingResult(custid, betcheck);
+                BetList.viewGlobalGamingResult(custid, extension2);
             }
             else {
                 bettype = Number(bettype);
                 var isParlay = bettype === BETTYPE_MIXPARLAY || bettype === BETTYPE_SYSTEMPARLAY || bettype === BETTYPE_MIXPARLAY_BETRADAR;
                 var url = isParlay
                     ? BetList.getMixParlayResultUrl(refnoMixParlay, winlostdate, bettype)
-                    : BetList.getSportBookResultUrl(matchid, bettype, raceNo, sporttype, league, isOutright, betid, betcheck, custid);
+                    : BetList.getSportBookResultUrl(matchid, bettype, raceNo, sporttype, league, isOutright, extension1, extension2, custid);
 
                 var height = isParlay ? 450 : (isFastMarket(bettype) ? 300 : 250);
                 var width = 750;

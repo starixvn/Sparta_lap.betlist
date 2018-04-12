@@ -152,9 +152,9 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("eventdate", DbType.DateTime, date);
-                ObjectDb.Received().AddInParameter("licenseeid", DbType.Int32, licenseeId);
-                ObjectDb.Received().AddInParameter("movebetsday", DbType.DateTime, _balance.MoveBetsDay);
+                ObjectDb.Received(1).AddInParameter("eventdate", DbType.DateTime, date);
+                ObjectDb.Received(1).AddInParameter("licenseeid", DbType.Int32, licenseeId);
+                ObjectDb.Received(1).AddInParameter("movebetsday", DbType.DateTime, _balance.MoveBetsDay);
             });
         }
 
@@ -403,7 +403,7 @@
             DataAccess.GetSportsbookGameDetail(MatchId);
 
             // Assert
-            ObjectDb.Received().AddInParameter("matchid", DbType.Int32, MatchId);
+            ObjectDb.Received(1).AddInParameter("matchid", DbType.Int32, MatchId);
         }
 
         [TestCase(true)]

@@ -9,7 +9,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", "pages/r
             describe("initial properties should be correct", function () {
                 it("Default values are correct", function () {
                     expect(CashoutWinLossOption.isLicenseeOfferBA).toBe(false);
-                    expect(CashoutWinLossOption.buyBackAmountColumnIndex).toBe(7);
+                    expect(CashoutWinLossOption.buyBackAmountTotalColumnIndex).toBe(10);
                     expect(CashoutWinLossOption.totalColspan).toEqual([2, 3]);
                     expect(CashoutWinLossOption.urlData).toBe("api/CashOutWinLossReport/Index");
                     expect(CashoutWinLossOption.urlExcelData).toBe("api/CashOutWinLossReport/Index");
@@ -115,7 +115,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", "pages/r
 
                 it("ColName should be returned correctly when Licensee do not offer BA", function () {
                     var expected = ['#', 'Date', 'ExternalId', "SystemId", "Currency",
-                          'CashOutTimes', 'CashOutTickets', 'CashOutValue', 'TicketPayout', 'CashOutCommission',
+                          'CashOutTimes', 'CashOutTickets', 'CashOutValue', 'ProductSB', 'ProductBA', 'BuyBackAmount', 'TicketPayout', 'CashOutCommission',
                           'TicketPayout', 'BBAmtComm', 'Total', 'CurrencyId', 'CustomerId'];
 
                     var result = CashoutWinLossOption.getColName();
@@ -126,7 +126,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", "pages/r
                 it("ColName should be returned correctly when Licensee offer BA", function () {
                     CashoutWinLossOption.isLicenseeOfferBA = true;
                     var expected = ['#', 'Date', 'ExternalId', "SystemId", "Currency",
-                          'CashOutTimes', 'CashOutTickets', 'CashOutValue', 'Sportsbook', 'BA', 'Total', 'TicketPayout', 'CashOutCommission',
+                          'CashOutTimes', 'CashOutTickets', 'CashOutValue', 'ProductSB', 'ProductBA', 'Total', 'TicketPayout', 'CashOutCommission',
                           'TicketPayout', 'BBAmtComm', 'Total', 'CurrencyId', 'CustomerId'];
 
                     var result = CashoutWinLossOption.getColName();

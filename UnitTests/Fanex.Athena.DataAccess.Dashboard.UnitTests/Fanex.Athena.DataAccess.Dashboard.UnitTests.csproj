@@ -93,6 +93,10 @@
       <Project>{96B29EAC-D1B3-42C6-A930-518D6AD33630}</Project>
       <Name>Fanex.Athena.DataAccess.Dashboard</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Fanex.Athena.UnitTest.Common\Fanex.Athena.UnitTest.Common.csproj">
+      <Project>{4A5BDDBC-F707-409A-86EC-D9BC6E9D31C4}</Project>
+      <Name>Fanex.Athena.UnitTest.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Model\Fanex.Athena.Model.Dashboard\Fanex.Athena.Model.Dashboard.csproj">
       <Project>{1E08C4C9-3BA9-407B-90FC-168A2FAF35D0}</Project>
       <Name>Fanex.Athena.Model.Dashboard</Name>

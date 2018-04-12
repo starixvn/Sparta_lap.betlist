@@ -90,14 +90,15 @@
             return this._dataAccess.GetSportsbookGameDetail(matchId);
         }
 
-        public IList<Sportsbook> GetPopUpMatch(int matchId, int bettypeId, long? betId)
+        public IList<Sportsbook> GetPopUpMatch(ResultPopupMetalModel metalModel)
         {
-            return this._dataAccess.GetPopUpMatches<Sportsbook>(matchId, -1, bettypeId, betId);
+            metalModel.RaceNo = null;
+            return this._dataAccess.GetPopUpMatches<Sportsbook>(metalModel);
         }
 
-        public IList<Racing> GetPopUpRacingMatch(int matchId, int raceNo, int bettypeId, long? betId)
+        public IList<Racing> GetPopUpRacingMatch(ResultPopupMetalModel metalModel)
         {
-            return this._dataAccess.GetPopUpMatches<Racing>(matchId, raceNo, bettypeId, betId);
+            return this._dataAccess.GetPopUpMatches<Racing>(metalModel);
         }
 
         public IList<Parlay> GetPopUpParlayMatch(long refNo)

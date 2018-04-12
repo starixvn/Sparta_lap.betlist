@@ -3,7 +3,7 @@ webpackJsonp([38],{
 /***/ 11:
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(2), __webpack_require__(12)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, moment) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(2), __webpack_require__(12)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, moment) {
         "use strict";
 
         var _daysOfWeek, _monthNames;
@@ -149,7 +149,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             setValueForDateRange: setValueForDateRange,
             setValueForSingleDate: setValueForSingleDate
         };
-    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
@@ -158,19 +158,20 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
-* @version: 2.1.25
+* @version: 2.1.30
 * @author: Dan Grossman http://www.dangrossman.info/
 * @copyright: Copyright (c) 2012-2017 Dan Grossman. All rights reserved.
 * @license: Licensed under the MIT license. See http://www.opensource.org/licenses/mit-license.php
-* @website: https://www.daterangepicker.com/
+* @website: http://www.daterangepicker.com/
 */
 // Follow the UMD template https://github.com/umdjs/umd/blob/master/templates/returnExportsGlobal.js
 (function (root, factory) {
     if (true) {
         // AMD. Make globaly available as well
-        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(2), __webpack_require__(0)], __WEBPACK_AMD_DEFINE_RESULT__ = function (moment, jquery) {
-            return (root.daterangepicker = factory(moment, jquery));
-        }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(2), __webpack_require__(0)], __WEBPACK_AMD_DEFINE_RESULT__ = (function (moment, jquery) {
+            if (!jquery.fn) jquery.fn = {}; // webpack server rendering
+            return factory(moment, jquery);
+        }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
     } else if (typeof module === 'object' && module.exports) {
         // Node / Browserify
@@ -180,7 +181,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
             jQuery = require('jquery');
             if (!jQuery.fn) jQuery.fn = {};
         }
-        module.exports = factory(require('moment'), jQuery);
+        var moment = (typeof window != 'undefined' && typeof window.moment != 'undefined') ? window.moment : require('moment');
+        module.exports = factory(moment, jQuery);
     } else {
         // Browser globals
         root.daterangepicker = factory(root.moment, root.jQuery);
@@ -582,7 +584,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
             .on('click.daterangepicker', '.daterangepicker_input input', $.proxy(this.showCalendars, this))
             .on('focus.daterangepicker', '.daterangepicker_input input', $.proxy(this.formInputsFocused, this))
             .on('blur.daterangepicker', '.daterangepicker_input input', $.proxy(this.formInputsBlurred, this))
-            .on('change.daterangepicker', '.daterangepicker_input input', $.proxy(this.formInputsChanged, this));
+            .on('change.daterangepicker', '.daterangepicker_input input', $.proxy(this.formInputsChanged, this))
+            .on('keydown.daterangepicker', '.daterangepicker_input input', $.proxy(this.formInputsKeydown, this));
 
         this.container.find('.ranges')
             .on('click.daterangepicker', 'button.applyBtn', $.proxy(this.clickApply, this))
@@ -596,10 +599,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
                 'click.daterangepicker': $.proxy(this.show, this),
                 'focus.daterangepicker': $.proxy(this.show, this),
                 'keyup.daterangepicker': $.proxy(this.elementChanged, this),
-                'keydown.daterangepicker': $.proxy(this.keydown, this)
+                'keydown.daterangepicker': $.proxy(this.keydown, this) //IE 11 compatibility
             });
         } else {
             this.element.on('click.daterangepicker', $.proxy(this.toggle, this));
+            this.element.on('keydown.daterangepicker', $.proxy(this.toggle, this));
         }
 
         //
@@ -659,7 +663,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
                 this.endDate = moment(endDate);
 
             if (!this.timePicker)
-                this.endDate = this.endDate.endOf('day');
+                this.endDate = this.endDate.add(1,'d').startOf('day').subtract(1,'second');
 
             if (this.timePicker && this.timePickerIncrement)
                 this.endDate.minute(Math.round(this.endDate.minute() / this.timePickerIncrement) * this.timePickerIncrement);
@@ -1530,8 +1534,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
             var customRange = true;
             var i = 0;
             for (var range in this.ranges) {
-                if (this.timePicker) {
-                    if (this.startDate.isSame(this.ranges[range][0]) && this.endDate.isSame(this.ranges[range][1])) {
+              if (this.timePicker) {
+                    var format = this.timePickerSeconds ? "YYYY-MM-DD hh:mm:ss" : "YYYY-MM-DD hh:mm";
+                    //ignore times when comparing dates if time picker seconds is not enabled
+                    if (this.startDate.format(format) == this.ranges[range][0].format(format) && this.endDate.format(format) == this.ranges[range][1].format(format)) {
                         customRange = false;
                         this.chosenLabel = this.container.find('.ranges li:eq(' + i + ')').addClass('active').html();
                         break;
@@ -1720,10 +1726,22 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
 
         },
 
+        formInputsKeydown: function(e) {
+            // This function ensures that if the 'enter' key was pressed in the input, then the calendars
+            // are updated with the startDate and endDate.
+            // This behaviour is automatic in Chrome/Firefox/Edge but not in IE 11 hence why this exists.
+            // Other browsers and versions of IE are untested and the behaviour is unknown.
+            if (e.keyCode === 13) {
+                // Prevent the calendar from being updated twice on Chrome/Firefox/Edge
+                e.preventDefault(); 
+                this.formInputsChanged(e);
+            }
+        },
+
+
         elementChanged: function() {
             if (!this.element.is('input')) return;
             if (!this.element.val().length) return;
-            if (this.element.val().length < this.locale.format.length) return;
 
             var dateString = this.element.val().split(this.locale.separator),
                 start = null,
@@ -1751,6 +1769,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
             if ((e.keyCode === 9) || (e.keyCode === 13)) {
                 this.hide();
             }
+
+            //hide on esc and prevent propagation
+            if (e.keyCode === 27) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                this.hide();
+            }
         },
 
         updateElement: function() {
@@ -1772,11 +1798,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
     };
 
     $.fn.daterangepicker = function(options, callback) {
+        var implementOptions = $.extend(true, {}, $.fn.daterangepicker.defaultOptions, options);
         this.each(function() {
             var el = $(this);
             if (el.data('daterangepicker'))
                 el.data('daterangepicker').remove();
-            el.data('daterangepicker', new DateRangePicker(el, options, callback));
+            el.data('daterangepicker', new DateRangePicker(el, implementOptions, callback));
         });
         return this;
     };
@@ -1799,10 +1826,10 @@ module.exports = __webpack_require__(122);
 /***/ 122:
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(123)], __WEBPACK_AMD_DEFINE_RESULT__ = function (LiveReport) {
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(123)], __WEBPACK_AMD_DEFINE_RESULT__ = (function (LiveReport) {
     "use strict";
     $(LiveReport.initialize);
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
@@ -1811,7 +1838,7 @@ module.exports = __webpack_require__(122);
 /***/ 123:
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(3), __webpack_require__(1), __webpack_require__(11), __webpack_require__(33), __webpack_require__(50)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, DatePicker, MonthPicker, Helper) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(3), __webpack_require__(1), __webpack_require__(11), __webpack_require__(33), __webpack_require__(50)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, QueryString, Site, DatePicker, MonthPicker, Helper) {
         "use strict";
 
         function initialize() {
@@ -1948,7 +1975,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         return {
             initialize: initialize
         };
-    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
@@ -6499,7 +6526,7 @@ return hooks;
 /***/ 33:
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(34)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(34)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
         "use strict";
         var PICKER_SELECTOR = "#month-picker";
         var FORMAT = "MM/dd/yyyy";
@@ -6557,7 +6584,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             getFromDateString: getFromDateString,
             getToDateString: getToDateString
         };
-    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
@@ -6575,7 +6602,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 * Version: 0.0.2 (9 Feb 2012)
 * Requires: jQuery v1.7+
 */
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = function (Site) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = (function (Site) {
     (function ($) {
         var logger = { error: $.noop };
 
@@ -7397,7 +7424,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             }
         };
     })(jQuery);
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
@@ -7406,7 +7433,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ 50:
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(3)], __WEBPACK_AMD_DEFINE_RESULT__ = function (QueryString) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(3)], __WEBPACK_AMD_DEFINE_RESULT__ = (function (QueryString) {
     "use strict";
     function setSumParams(url, totalValue) {
         url = QueryString.setParam(url, "totalrows", totalValue.BetCount);
@@ -7458,7 +7485,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         setSumParams: setSumParams,
         getMatchListProductOption: getMatchListProductOption,
     };
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),

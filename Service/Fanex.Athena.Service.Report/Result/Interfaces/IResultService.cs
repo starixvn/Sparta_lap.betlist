@@ -47,9 +47,9 @@
 
         Sportsbook GetSportsbookGameDetail(int matchId);
 
-        IList<Sportsbook> GetPopUpMatch(int matchId, int bettypeId, long? betId);
+        IList<Sportsbook> GetPopUpMatch(ResultPopupMetalModel metalModel);
 
-        IList<Racing> GetPopUpRacingMatch(int matchId, int raceNo, int bettypeId, long? betId);
+        IList<Racing> GetPopUpRacingMatch(ResultPopupMetalModel metalModel);
 
         /// <summary>
         /// Select matches from BetTransM by reference no.

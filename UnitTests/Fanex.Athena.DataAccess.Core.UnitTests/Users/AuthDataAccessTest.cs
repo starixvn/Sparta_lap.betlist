@@ -3,6 +3,7 @@
     using System;
     using System.Data;
     using Core.Users;
+    using Data;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
     using NSubstitute;
@@ -102,19 +103,11 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("UserName", DbType.String, requestUser.Username);
+                AssertPassedCommonParams(ObjectDb, requestUser);
                 ObjectDb.Received().AddInParameter("EncryptedPassword", DbType.String, requestUser.Password);
                 ObjectDb.Received().AddInParameter("LicenseeName", DbType.String, LicenseeName);
                 ObjectDb.Received().AddInParameter("LoginTime", DbType.DateTime, new DateTime(timeStamp));
-                ObjectDb.Received().AddInParameter("LoginIP", DbType.String, requestUser.Request.Ip);
-                ObjectDb.Received().AddInParameter("LoginDomain", DbType.String, requestUser.Request.Domain);
-                ObjectDb.Received().AddInParameter("BrowserName", DbType.String, requestUser.Request.Browser);
-                ObjectDb.Received().AddInParameter("Platform", DbType.String, requestUser.Request.Platform);
-                ObjectDb.Received().AddInParameter("CountryCode", DbType.String, requestUser.Request.CountryCode);
                 ObjectDb.Received().AddInParameter("Language", DbType.String, requestUser.Request.Language);
-                ObjectDb.Received().AddOutParameter("ServerID", DbType.Int32, 4);
-                ObjectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
-                ObjectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
             });
         }
 
@@ -136,18 +129,7 @@
             var user = DataAccess.ValidateInternalUser(requestUser, timeStamp, LicenseeName).ExtendedData;
 
             // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(user.UserID, Is.EqualTo(expected.UserID));
-                Assert.That(user.Username, Is.EqualTo(expected.Username));
-                Assert.That(user.FirstName, Is.EqualTo(expected.FirstName));
-                Assert.That(user.LastName, Is.EqualTo(expected.LastName));
-                Assert.That(user.Email, Is.EqualTo(expected.Email));
-                Assert.That(user.Role, Is.EqualTo(expected.Role));
-                Assert.That(user.IsInternal, Is.EqualTo(expected.IsInternal));
-                Assert.That(user.Licensee.Id, Is.EqualTo(expected.Licensee.Id));
-                Assert.That(user.ServerId, Is.EqualTo(expected.ServerId));
-            });
+            AssertExpectedUser(expected, user);
         }
 
         [Test]
@@ -171,16 +153,8 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("UserName", DbType.String, requestUser.Username);
-                ObjectDb.Received().AddInParameter("LoginIP", DbType.String, requestUser.Request.Ip);
-                ObjectDb.Received().AddInParameter("LoginDomain", DbType.String, requestUser.Request.Domain);
-                ObjectDb.Received().AddInParameter("BrowserName", DbType.String, requestUser.Request.Browser);
-                ObjectDb.Received().AddInParameter("Platform", DbType.String, requestUser.Request.Platform);
-                ObjectDb.Received().AddInParameter("CountryCode", DbType.String, requestUser.Request.CountryCode);
+                AssertPassedCommonParams(ObjectDb, requestUser);
                 ObjectDb.Received().AddInParameter("langkey", DbType.String, requestUser.Request.Language);
-                ObjectDb.Received().AddOutParameter("ServerID", DbType.Int32, 4);
-                ObjectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
-                ObjectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
             });
         }
 
@@ -200,6 +174,11 @@
             var user = result.ExtendedData;
 
             // Assert
+            AssertExpectedUser(expected, user);
+        }
+
+        private static void AssertExpectedUser(User expected, User user)
+        {
             Assert.Multiple(() =>
             {
                 Assert.That(user.UserID, Is.EqualTo(expected.UserID));
@@ -212,6 +191,19 @@
                 Assert.That(user.Licensee.Id, Is.EqualTo(expected.Licensee.Id));
                 Assert.That(user.ServerId, Is.EqualTo(expected.ServerId));
             });
+        }
+
+        private static void AssertPassedCommonParams(IObjectDb objectDb, User requestUser)
+        {
+            objectDb.Received().AddInParameter("UserName", DbType.String, requestUser.Username);
+            objectDb.Received().AddInParameter("LoginIP", DbType.String, requestUser.Request.Ip);
+            objectDb.Received().AddInParameter("LoginDomain", DbType.String, requestUser.Request.Domain);
+            objectDb.Received().AddInParameter("BrowserName", DbType.String, requestUser.Request.Browser);
+            objectDb.Received().AddInParameter("Platform", DbType.String, requestUser.Request.Platform);
+            objectDb.Received().AddInParameter("CountryCode", DbType.String, requestUser.Request.CountryCode);
+            objectDb.Received().AddOutParameter("ServerID", DbType.Int32, 4);
+            objectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
+            objectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
         }
 
         private static User GetFakeUserData(int licenseeId = 1)

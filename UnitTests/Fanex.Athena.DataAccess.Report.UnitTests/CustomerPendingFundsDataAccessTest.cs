@@ -40,11 +40,11 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("pagesize", DbType.Int32, _metaModel.PageSize);
-                ObjectDb.Received().AddInParameter("pageindex", DbType.Int32, _metaModel.PageIndex);
-                ObjectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                ObjectDb.Received().AddInParameter("showSB", DbType.Boolean, true);
-                ObjectDb.Received().AddInParameter("showNG", DbType.Boolean, false);
+                ObjectDb.Received(1).AddInParameter("pagesize", DbType.Int32, _metaModel.PageSize);
+                ObjectDb.Received(1).AddInParameter("pageindex", DbType.Int32, _metaModel.PageIndex);
+                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                ObjectDb.Received(1).AddInParameter("showSB", DbType.Boolean, true);
+                ObjectDb.Received(1).AddInParameter("showNG", DbType.Boolean, false);
             });
         }
 

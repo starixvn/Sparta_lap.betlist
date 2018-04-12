@@ -217,15 +217,15 @@
 
         private void AssertParamsPassCorrectly(LicenseeWinLossByTimeZoneMetaModel metaModel)
         {
-            ObjectDb.Received().AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
-            ObjectDb.Received().AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
-            ObjectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, _balance.MoveBetsDay);
-            ObjectDb.Received().AddInParameter("ProductList", DbType.String, metaModel.ProductCodeList);
-            ObjectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            ObjectDb.Received().AddInParameter("TimeZone", DbType.Int16, metaModel.TimeZone);
-            ObjectDb.Received().AddInParameter("ReportBy", DbType.Byte, metaModel.ReportBy);
-            ObjectDb.Received().AddInParameter("GroupBy", DbType.Byte, metaModel.GroupBy);
-            ObjectDb.Received().AddInParameter("IncludeDraw", DbType.Boolean, metaModel.IsIncludeDrawData);
+            ObjectDb.Received(1).AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
+            ObjectDb.Received(1).AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
+            ObjectDb.Received(1).AddInParameter("MoveBetsDay", DbType.DateTime, _balance.MoveBetsDay);
+            ObjectDb.Received(1).AddInParameter("ProductList", DbType.String, metaModel.ProductCodeList);
+            ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            ObjectDb.Received(1).AddInParameter("TimeZone", DbType.Int16, metaModel.TimeZone);
+            ObjectDb.Received(1).AddInParameter("ReportBy", DbType.Byte, metaModel.ReportBy);
+            ObjectDb.Received(1).AddInParameter("GroupBy", DbType.Byte, metaModel.GroupBy);
+            ObjectDb.Received(1).AddInParameter("IncludeDraw", DbType.Boolean, metaModel.IsIncludeDrawData);
         }
 
         private void MapReaderData(LicenseeWinLossByTimeZone data, string baseCurrency)

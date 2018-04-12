@@ -11,6 +11,7 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Data;
     using System.Globalization;
     using System.Linq;
+    using Constant.Helper;
     using Core;
     using Core.Configuration;
     using Core.Configuration.Interfaces;
@@ -195,15 +196,15 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        public IList<T> GetPopUpMatches<T>(int matchId, int raceNo, int bettypeId, long? betId)
+        public IList<T> GetPopUpMatches<T>(ResultPopupMetalModel metaModel)
         {
             const string UspName = "Lrf_BetList_SelMatchResult";
             var uspParams = new
             {
-                matchid = matchId,
-                raceno = raceNo > -1 ? raceNo.ToString(CultureInfo.InvariantCulture) : null,
-                bettype = bettypeId,
-                betid = betId
+                matchid = metaModel.MatchId,
+                raceno = metaModel.RaceNo.HasValue ? metaModel.RaceNo.Value.ToString(CultureInfo.InvariantCulture) : null,
+                bettype = metaModel.Bettype,
+                betid = metaModel.BetId
             };
 
             try
@@ -216,7 +217,7 @@ namespace Fanex.Athena.DataAccess.Report
 
                         if (type == typeof(Sportsbook))
                         {
-                            return (IList<T>)ReadSportbookMatches(reader, bettypeId, betId.HasValue ? betId.Value : 0);
+                            return (IList<T>)ReadSportbookMatches(reader, metaModel);
                         }
                         else if (type == typeof(Racing))
                         {
@@ -507,15 +508,24 @@ namespace Fanex.Athena.DataAccess.Report
         /// <param name="bettype">The Bet type ID.</param>
         /// <param name="betid">The Bet ID.</param>
         /// <returns>The sport-book data list.</returns>
-        private static IList<Sportsbook> ReadSportbookMatches(IDataReader reader, int bettype = 0, long betid = 0)
+        private static IList<Sportsbook> ReadSportbookMatches(IDataReader reader, ResultPopupMetalModel metaModel = null)
         {
             var results = new List<Sportsbook>();
 
             while (reader.Read())
             {
                 var result = BindSportsbook(reader);
-                result.BetID = betid.ToString();
-                result.Bettype = bettype;
+
+                if (metaModel != null)
+                {
+                    result.BetID = BetTypeHelper.IsFastMarket(metaModel.Bettype) ? metaModel.Handicap1.ToString() : (metaModel.BetId ?? 0).ToString();
+                    result.Bettype = metaModel.Bettype;
+                    result.Handicap2 = metaModel.Handicap2;
+                }
+                else
+                {
+                    result.BetID = "0";
+                }
 
                 results.Add(result);
             }

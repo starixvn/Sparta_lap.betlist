@@ -78,7 +78,7 @@
             Assert.Multiple(() =>
             {
                 AssertUspParameters(isDrilldown: false);
-                ObjectDb.Received().AddInParameter("ReportType", DbType.Int32, _metaModel.ReportBy);
+                ObjectDb.Received(1).AddInParameter("ReportType", DbType.Int32, _metaModel.ReportBy);
             });
         }
 
@@ -345,10 +345,10 @@
 
         private void AssertUspParameters(bool isDrilldown)
         {
-            ObjectDb.Received().AddInParameter("fromdate", DbType.Date, isDrilldown ? _metaModel.DrillDownFromDate : _metaModel.FromDate);
-            ObjectDb.Received().AddInParameter("todate", DbType.Date, isDrilldown ? _metaModel.DrillDownToDate : _metaModel.ToDate);
-            ObjectDb.Received().AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-            ObjectDb.Received().AddInParameter("MoveBetsDay", DbType.DateTime, _balance.MoveBetsDay);
+            ObjectDb.Received(1).AddInParameter("fromdate", DbType.Date, isDrilldown ? _metaModel.DrillDownFromDate : _metaModel.FromDate);
+            ObjectDb.Received(1).AddInParameter("todate", DbType.Date, isDrilldown ? _metaModel.DrillDownToDate : _metaModel.ToDate);
+            ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+            ObjectDb.Received(1).AddInParameter("MoveBetsDay", DbType.DateTime, _balance.MoveBetsDay);
         }
     }
 }
