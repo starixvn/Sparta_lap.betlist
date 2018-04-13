@@ -22,7 +22,7 @@
             else if (sportId === 162) {
                 productOptions.push("LC");
             }
-            else if (sportId === 190 || sportId === 191 || sportId === 104 || sportId === 192 || sportId === 193) {
+            else if (sportId === 104 || (sportId >= 190 && sportId <= 193)) {
                 productOptions.push("VS2");
             }
             else {
