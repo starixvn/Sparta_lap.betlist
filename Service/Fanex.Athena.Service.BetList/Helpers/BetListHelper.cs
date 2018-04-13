@@ -45,5 +45,16 @@
         {
             return bettype >= MinColossusBetBetType && bettype <= MaxColossusBetBetType;
         }
+
+        public static bool IsRunning(string status)
+        {
+            if (string.IsNullOrWhiteSpace(status))
+            {
+                return false;
+            }
+
+            return status.Equals("running", StringComparison.OrdinalIgnoreCase) ||
+                    status.Equals("waiting", StringComparison.OrdinalIgnoreCase);
+        }
     }
 }

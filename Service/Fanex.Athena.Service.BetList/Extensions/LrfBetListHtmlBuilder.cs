@@ -66,7 +66,7 @@ namespace Fanex.Athena.Service.BetList.Extensions
         [System.CLSCompliant(false)]
         public static string BuildLicenseeWL(this IBetListHTMLBuilder builder, LrfTicket ticket)
         {
-            var isRunning = IsRunning(ticket.Status);
+            var isRunning = BetListHelper.IsRunning(ticket.Status);
 
             if (BetTypeHelper.IsRacing(ticket.BetTypeId) ||
                 BetListHelper.IsBoughtTicket(ticket.BetTypeId) ||
@@ -92,7 +92,7 @@ namespace Fanex.Athena.Service.BetList.Extensions
         [System.CLSCompliant(false)]
         public static string BuildCustomerWL(this IBetListHTMLBuilder builder, Ticket ticket, bool showPlayerComm)
         {
-            bool isRunning = IsRunning(ticket.Status);
+            bool isRunning = BetListHelper.IsRunning(ticket.Status);
             var winloss = isRunning
                             ? "-"
                             : string.Format("<div class='underdog'>{0:#,##0.00}</div>", ticket.Winlost);
@@ -116,17 +116,6 @@ namespace Fanex.Athena.Service.BetList.Extensions
         }
 
         #region Private Utility
-
-        private static bool IsRunning(string status)
-        {
-            if (string.IsNullOrWhiteSpace(status))
-            {
-                return false;
-            }
-
-            return status.Equals("running", StringComparison.OrdinalIgnoreCase) ||
-                    status.Equals("waiting", StringComparison.OrdinalIgnoreCase);
-        }
 
         /// <summary>
         /// Get Casino Hand History Parameter.

@@ -24,7 +24,7 @@ namespace Fanex.Athena.Excel.BetList
 
         public static IBetListExcelBuilder AddCustomerWL(this IBetListExcelBuilder builder, ITicket ticket, bool showPlayerComm, IFont font)
         {
-            var isRunning = string.Compare(ticket.Status, "running", StringComparison.OrdinalIgnoreCase) == 0;
+            var isRunning = BetListHelper.IsRunning(ticket.Status);
             var winloss = isRunning
                              ? "-"
                              : string.Format("{0:#,##0.00}\n", ticket.Winlost);
@@ -167,7 +167,7 @@ namespace Fanex.Athena.Excel.BetList
             IFont redFont,
             IFont blackFont)
         {
-            var isRunning = string.Compare(ticket.Status, "running", StringComparison.OrdinalIgnoreCase) == 0;
+            var isRunning = BetListHelper.IsRunning(ticket.Status);
             var isRacing = BetTypeHelper.IsRacing(ticket.BetTypeId);
             var isBoughtTicket = BetListHelper.IsBoughtTicket(ticket.BetTypeId);
             var isColossusBetBettype = BetListHelper.IsColossusBet(ticket.BetTypeId);
