@@ -5,6 +5,7 @@
     using Core.UnitTests.TestHelpers;
     using Model.BetList.DTO;
     using Model.BetList.MetaModel;
+    using Model.Core.DataDomain;
     using NSubstitute;
     using NUnit.Framework;
     using UnitTest.Common.Helpers;
@@ -159,7 +160,7 @@
                 Assert.That(result.WinLost, Is.EqualTo(expectedFigure));
                 Assert.That(result.Stake, Is.EqualTo(expectedFigure));
                 Assert.That(result.BetPlaced, Is.EqualTo(ticket.BetPlaced));
-                Assert.That(result.BetPlacedDateString, Is.EqualTo(ticket.BetPlaced.ToString("MM/dd/yyyy hh:mm:ss")));
+                Assert.That(result.BetPlacedDateString, Is.EqualTo(ticket.BetPlaced.ToString(FormatKey.DateTimeFormat)));
             });
         }
 

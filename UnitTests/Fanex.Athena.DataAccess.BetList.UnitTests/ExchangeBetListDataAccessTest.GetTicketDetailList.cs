@@ -62,7 +62,7 @@
 
             var ticket = new ExchangeTicketDetail
             {
-                BetTaken = new DateTime(2018, 1, 1, 1, 2, 3),
+                BetTaken = new DateTime(2018, 1, 1, 15, 2, 3),
                 OddsReq = 1,
                 Stake = stake,
                 OddsMatched = 3
@@ -86,7 +86,7 @@
             Assert.Multiple(() =>
             {
                 Assert.That(result.BetTaken, Is.EqualTo(ticket.BetTaken));
-                Assert.That(result.BetTakenDateString, Is.EqualTo("01/01/2018 01:02:03"));
+                Assert.That(result.BetTakenDateString, Is.EqualTo("01/01/2018 03:02:03 PM"));
                 Assert.That(result.OddsReq, Is.EqualTo(ticket.OddsReq));
                 Assert.That(result.OddsMatched, Is.EqualTo(ticket.OddsMatched));
                 Assert.That(result.Stake, Is.EqualTo(expectedStake));
@@ -134,7 +134,7 @@
             Assert.Multiple(() =>
             {
                 Assert.That(result.BetTaken, Is.EqualTo(ticket.BetTaken));
-                Assert.That(result.BetTakenDateString, Is.EqualTo("01/01/2018 01:02:03"));
+                Assert.That(result.BetTakenDateString, Is.EqualTo("01/01/2018 01:02:03 AM"));
                 Assert.That(result.OddsReq, Is.EqualTo(ticket.OddsReq));
                 Assert.That(result.OddsMatched, Is.EqualTo(ticket.OddsMatched));
                 Assert.That(result.Stake, Is.EqualTo(expectedStake));
