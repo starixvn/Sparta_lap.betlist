@@ -14,6 +14,7 @@
         var SPORT_RNG_MOBILE = 210;
         var SPORT_ALLBET = 211;
         var SPORT_VOIDBRIDGE = 212;
+        var SPORT_PP = 248;
         var SPORT_GLOBALGAMING = 219;
         var BETLIST_META_MODEL = "#BetListMetaModel";
 
@@ -321,7 +322,7 @@
                 url = QueryString.setParam(url, "raceno", raceNo);
                 url = QueryString.setParam(url, "sporttype", sporttype);
                 url = QueryString.setParam(url, "isoutright", isOutright);
-                
+
                 if (isFastMarket(bettype)) {
                     url = QueryString.setParam(url, "handicap1", extension1);
                     url = QueryString.setParam(url, "handicap2", extension2);
@@ -385,6 +386,17 @@
                 });
             },
 
+            viewPPResult: function (custId, gamePlayId, title) {
+                var url = Site.resolveClientUrl('ResultReport/PPResult');
+                Site.blockUI();
+                $.get(url + '?custid=' + custId + '&gamePlayId=' + gamePlayId, function (result) {
+                    if (result !== '') {
+                        showResultPopUp(result, { width: 800, height: 380, title: title });
+                        Site.unBlockUI();
+                    }
+                });
+            },
+
             viewAllBetResult: function (trasdesc, betcheck, bettype, title) {
                 var url = Site.resolveClientUrl('ResultReport/AllBetResult?transdesc=' +
                     encodeURIComponent(trasdesc) + '&betcheck=' + betcheck + '&bettype=' + bettype);
@@ -424,6 +436,9 @@
                 }
                 else if (sporttype === SPORT_VOIDBRIDGE) {
                     _me.viewVoidbridgeResult(custid, extension2, title);
+                }
+                else if (sporttype === SPORT_PP) {
+                    _me.viewPPResult(custid, extension2, title);
                 }
                 else if (sporttype === SPORT_ALLBET) {
                     _me.viewAllBetResult(transdecs, extension2, bettype, title);
@@ -722,6 +737,7 @@
                 window.showRnGCasinoDetails = _me.showRnGCasinoDetails;
                 window.showVoidBridgeDetails = _me.showVoidBridgeDetails;
                 window.showVoidbridgeResult = _me.viewVoidbridgeResult;
+                window.showPPResult = _me.viewPPResult;
                 window.showTodayRunningBetsDetails = _me.showAllBetDetails;
                 window.showColossusBetsDetails = _me.showColossusBetsDetails;
                 window.showGlobalGaming = _me.showGlobalGamingDetails;

@@ -23,6 +23,7 @@ namespace Fanex.Athena.Controllers.Report.Result
     using Fanex.Result.Core.GlobalGaming.DTO;
     using Fanex.Result.Core.MicroGaming;
     using Fanex.Result.Core.MicroGaming.DTO;
+    using Fanex.Result.Core.PP;
     using Fanex.Result.Core.Sportsbook.DTO;
     using Fanex.Result.Core.Voidbridge;
     using Resources;
@@ -233,6 +234,14 @@ namespace Fanex.Athena.Controllers.Report.Result
             var voidbridgeApi = new VoidbridgeApiImp();
             var languageCode = SessionService.UserSession.Language;
             return voidbridgeApi.GetBetHistoryUrl(custId, gamePlayId, languageCode);
+        }
+
+        [HttpGet]
+        public string PPResult(string custId, string gamePlayId)
+        {
+            var ppApi = new PPResult();
+            var languageCode = SessionService.UserSession.Language;
+            return ppApi.GetPPResult(custId, gamePlayId, languageCode);
         }
 
         [HttpGet]
