@@ -6262,6 +6262,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PP.
+        /// </summary>
+        public static string ProductPP {
+            get {
+                return ResourceManager.GetString("ProductPP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Playtech Casino.
         /// </summary>
         public static string ProductPTCS {
