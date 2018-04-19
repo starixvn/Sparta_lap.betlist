@@ -20,4 +20,21 @@
   <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_BetList_Running" EnvironmentText="_UAT1"></SpNameConfig>
   <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_BetList_Mem" EnvironmentText="_UAT1"></SpNameConfig>
   
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_Rpt_LicWinloss" EnvironmentText="_UAT3"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_Rpt_LicWinlossDetail_Ag" EnvironmentText="_UAT3"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_Rpt_LicWinlossDetail" EnvironmentText="_UAT3"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_Rpt_LicWinloss_BySourced" EnvironmentText="_UAT3"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_Rpt_WinlossByProduct" EnvironmentText="_UAT3"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_Rpt_WinlossByProductDetail_Ag" EnvironmentText="_UAT3"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_Rpt_WinlossByProductDetail" EnvironmentText="_UAT3"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_Rpt_PlatformWinloss" EnvironmentText="_UAT3"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_Rpt_PlatformWinlossDetail" EnvironmentText="_UAT3"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_Rpt_LiveReportSummary" EnvironmentText="_UAT3"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_Rpt_LiveReportSummaryDetail" EnvironmentText="_UAT3"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_Rpt_LiveReportBySport" EnvironmentText="_UAT3"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_Rpt_TurnOver" EnvironmentText="_UAT3"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_CustomerSelBalance" EnvironmentText="_UAT3"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_Rpt_WinLoss" EnvironmentText="_UAT3"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_Rpt_Outstanding" EnvironmentText="_UAT3"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_Rpt_CustomerBalance" EnvironmentText="_UAT3"></SpNameConfig>
 </Root>
