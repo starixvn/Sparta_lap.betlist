@@ -317,6 +317,7 @@ namespace Fanex.Athena.Constant.DataDomain
 
         Exchange = 221,
 
-        VirtualBasketball = 193
+        VirtualBasketball = 193,
+        PP = 248
     }
 }
