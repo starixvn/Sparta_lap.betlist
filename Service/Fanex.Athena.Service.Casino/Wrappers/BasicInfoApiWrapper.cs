@@ -19,7 +19,7 @@
 
         public DataTable GetGameType(int gameKind)
         {
-            return _basicInfoApi.GetGameType(gameKind);
+            return _basicInfoApi.GetGameType(gameKind,0,0);
         }
     }
 }

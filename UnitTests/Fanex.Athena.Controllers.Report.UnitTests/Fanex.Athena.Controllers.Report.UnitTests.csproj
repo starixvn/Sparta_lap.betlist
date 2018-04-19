@@ -194,9 +194,6 @@
     <Compile Include="Result\ResultReportControllerTest.ResultPopup.cs" />
     <Compile Include="Result\ResultReportControllerTest.GetSports.cs" />
     <Compile Include="Result\ResultReportControllerTest.cs" />
-    <Compile Include="RNGCasino\HandHistoryControllerTest.RNGCasinoDetail.cs" />
-    <Compile Include="RNGCasino\HandHistoryControllerTest.RNGCasinoData.cs" />
-    <Compile Include="RNGCasino\HandHistoryControllerTest.cs" />
     <Compile Include="TurnoverReportControllerTest.cs" />
     <Compile Include="SettledMatchCountReportControllerTest.cs" />
     <Compile Include="RacingCommissionReportControllerTest.cs" />

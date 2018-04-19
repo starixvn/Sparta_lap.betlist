@@ -86,7 +86,6 @@
   </Choose>
   <ItemGroup>
     <Compile Include="CasinoSettingServiceTest.cs" />
-    <Compile Include="RNGCasinoServiceTest.cs" />
     <Compile Include="CasinoCustomerServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RNGCasinoSingleWalletServiceTest.cs" />
