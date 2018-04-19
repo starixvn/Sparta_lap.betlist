@@ -310,10 +310,18 @@ namespace Fanex.Athena.DataAccess.Report
 
         private string GetBetTypeName(int betType)
         {
-            var sportName = betType >= (int)BetType.VirtualBasketballOverUnder && betType <= (int)BetType.VirtualBasketballFirstHalfHandicap
-                            ? " (" + _cacheRefAdapter.GetSportName((int)SportType.VirtualBasketball) + ")"
-                            : string.Empty;
-            return _cacheRefAdapter.GetBettype(Convert.ToInt32(betType), false) + sportName;
+            string suffix = GetBettypeNameSuffix(betType);
+            return _cacheRefAdapter.GetBettype(Convert.ToInt32(betType), false) + suffix;
+        }
+
+        private string GetBettypeNameSuffix(int betType)
+        {
+            if (betType >= (int)BetType.VirtualBasketballOverUnder && betType <= (int)BetType.VirtualBasketballFirstHalfHandicap)
+            {
+                return " (" + _cacheRefAdapter.GetSportName((int)SportType.VirtualBasketball) + ")";
+            }
+
+            return string.Empty;
         }
     }
 }
