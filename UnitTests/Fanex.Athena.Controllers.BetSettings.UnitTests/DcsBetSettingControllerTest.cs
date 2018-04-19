@@ -58,6 +58,7 @@
         [TestCase(ProductTypes.VirtualSports2, "VirtualSports2", false, true)]
         [TestCase(ProductTypes.Lottery, "Lottery", true, true)]
         [TestCase(ProductTypes.Exchange, "Exchange", true, false)]
+        [TestCase(ProductTypes.PP, "PP", true, false)]
         public void Index_ValidProduct_ReturnCorrectViewResult(int productId, string viewName, bool hasStatus, bool hasBetLimit)
         {
             using (var controller = CreateController())
@@ -103,6 +104,7 @@
         [TestCase(ProductTypes.VirtualSports2)]
         [TestCase(ProductTypes.Lottery)]
         [TestCase(ProductTypes.Exchange)]
+        [TestCase(ProductTypes.PP)]
         public void UpdateStatus_NoPermission_ReturnAccessDeniedResult(int productId)
         {
             using (var controller = CreateController())
@@ -131,6 +133,7 @@
         [TestCase(ProductTypes.VirtualSports2)]
         [TestCase(ProductTypes.Lottery)]
         [TestCase(ProductTypes.Exchange)]
+        [TestCase(ProductTypes.PP)]
         public void UpdateStatus_UpdateSuccessfully_ReturnSuccessfullResultInfo(int productId)
         {
             using (var controller = CreateController())
@@ -169,6 +172,7 @@
         [TestCase(ProductTypes.VirtualSports2)]
         [TestCase(ProductTypes.Lottery)]
         [TestCase(ProductTypes.Exchange)]
+        [TestCase(ProductTypes.PP)]
         public void UpdateStatus_UpdateFailed_ReturnFailedResultInfo(int productId)
         {
             using (var controller = CreateController())
@@ -203,6 +207,7 @@
         [TestCase(ProductTypes.VirtualSports2)]
         [TestCase(ProductTypes.Lottery)]
         [TestCase(ProductTypes.Exchange)]
+        [TestCase(ProductTypes.PP)]
         public void UpdateBetSetting_NoPermission_ReturnAccessDeniedResult(int productId)
         {
             using (var controller = CreateController())

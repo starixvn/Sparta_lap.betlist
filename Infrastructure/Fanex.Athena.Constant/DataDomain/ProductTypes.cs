@@ -49,5 +49,7 @@ namespace Fanex.Athena.Constant.DataDomain
         public const int Lottery = 28;
 
         public const int Exchange = 31;
+
+        public const int PP = 32;
     }
 }

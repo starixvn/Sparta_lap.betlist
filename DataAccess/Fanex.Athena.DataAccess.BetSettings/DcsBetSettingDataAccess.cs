@@ -30,6 +30,7 @@
             { ProductTypes.FishingWorld, (int)SportType.FishingWorld },
             { ProductTypes.Lottery, (int)SportType.Lottery },
             { ProductTypes.Exchange, (int)SportType.Exchange },
+            { ProductTypes.PP, (int)SportType.PP },
         };
 
         private static readonly IDictionary<int, int> ProductBettypeMap = new Dictionary<int, int>
@@ -38,7 +39,8 @@
             { ProductTypes.Voidbridge, 4001 },
             { ProductTypes.FishingWorld, 1011 },
             { ProductTypes.Lottery, 1021 },
-            { ProductTypes.Exchange, 8001 }
+            { ProductTypes.Exchange, 8001 },
+            { ProductTypes.PP, 4101 }
         };
 
         private readonly ICoreLogger _logger;
