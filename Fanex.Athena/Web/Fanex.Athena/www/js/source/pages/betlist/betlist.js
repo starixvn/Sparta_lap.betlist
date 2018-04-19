@@ -387,7 +387,7 @@
             },
 
             viewPPResult: function (custId, gamePlayId, title) {
-                var url = Site.resolveClientUrl('ResultReport/PPResult');
+                var url = Site.resolveClientUrl('PPResultPopup/Index');
                 Site.blockUI();
                 $.get(url + '?custid=' + custId + '&gamePlayId=' + gamePlayId, function (result) {
                     if (result !== '') {

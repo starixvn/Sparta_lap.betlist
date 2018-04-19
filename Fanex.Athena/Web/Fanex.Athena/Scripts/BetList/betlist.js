@@ -411,7 +411,7 @@ var BetList = (function ($) {
         },
 
         viewPPResult: function (custId, gamePlayId) {
-            var url = Site.resolveClientUrl('ResultReport/PPResult');
+            var url = Site.resolveClientUrl('PPResultPopup/Index');
             Site.blockUI();
             $.get(url + '?custid=' + custId + '&gamePlayId=' + gamePlayId, function (result) {
                 if (result !== '') {
