@@ -10,4 +10,7 @@
   
   <SpNameConfig Environment="LOCAL,SIT,UAT" SpName="Lrf_CustomerUpdMemberBAStatus" EnvironmentText="_xtest"></SpNameConfig>
   <SpNameConfig Environment="LOCAL,UAT,SIT" SpName="Lrf_BetList_SelWinLossByDate_Mem" EnvironmentText="_UAT3"></SpNameConfig>
+
+  <SpNameConfig Environment="LOCAL,UAT" SpName="Lrf_Rpt_TurnOver" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL,UAT" SpName="Lrf_Rpt_CustomerBalance" EnvironmentText="_xpre"></SpNameConfig>
 </Root>
