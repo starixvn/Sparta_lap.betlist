@@ -55,6 +55,8 @@ namespace Fanex.Athena.Model.Core.DTO.Common
 
         public const string LT = "LT";
 
+        public const string PP = "PP";
+
         #endregion Field
 
         #region Constructor
