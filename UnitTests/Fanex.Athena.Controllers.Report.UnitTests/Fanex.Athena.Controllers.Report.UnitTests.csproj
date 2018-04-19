@@ -63,6 +63,10 @@
       <HintPath>..\..\packages\Fanex.Result.Core-NumberGame.1.0.2\lib\net40\Fanex.Result.Core.NumberGame.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Fanex.Result.Core.PP, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Fanex.Athena\Web\Fanex.Athena\Bin\Fanex.Result.Core.PP.dll</HintPath>
+    </Reference>
     <Reference Include="Fanex.Result.Core.Racing, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.Result.Core-Racing.1.1.0\lib\net40\Fanex.Result.Core.Racing.dll</HintPath>
       <Private>True</Private>
@@ -205,6 +209,7 @@
   <ItemGroup>
     <Compile Include="MatchWinLossReportControllerTest_AssignLeagueName.cs" />
     <Compile Include="MatchWinLossReportControllerTest_AssignMatchName.cs" />
+    <Compile Include="Result\ResultReport\PPResultPopupControllerTest.cs" />
     <Compile Include="SubsidiaryPerformanceReportControllerTest.cs" />
     <Compile Include="WeeklyLiveMatchReportControllerTest.cs" />
     <Compile Include="NotificationReportControllerTest.cs" />
