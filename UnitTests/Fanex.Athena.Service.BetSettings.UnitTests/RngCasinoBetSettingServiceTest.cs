@@ -81,7 +81,8 @@
             _casinoSetting.GetRngCasinoSettings(CustId, CurrencyId, Language).Returns(resultGameKindList);
             var customer = new CustomerInfo
             {
-                SyncCasino = true
+                SyncCasino = true,
+                CurrencyID = CurrencyId
             };
 
             // Action
