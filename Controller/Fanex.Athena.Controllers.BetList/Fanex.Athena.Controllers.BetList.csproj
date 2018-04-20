@@ -223,6 +223,7 @@
     <Compile Include="MicroGamingRngBetListController.cs" />
     <Compile Include="PendingFundsBetListController.cs" />
     <Compile Include="PlatformWinLossBetListController.cs" />
+    <Compile Include="PragmaticPlayBetListBetListController.cs" />
     <Compile Include="RacingCommissionBetListController.cs" />
     <Compile Include="RNGCasinoBetListController.cs" />
     <Compile Include="RunningBetListController.cs" />
