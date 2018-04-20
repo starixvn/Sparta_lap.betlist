@@ -37,14 +37,15 @@
         {
             // Arrange
             const int CustId = 1;
+            const int currencyId = 1;
             const string Language = "Hehe";
             const int GameKindId = 111;
             const int GameTypeId = 222;
             const int StakeLevelId = 333;
-            MockServices(CustId, GameKindId, GameTypeId, StakeLevelId);
+            MockServices(CustId, currencyId, GameKindId, GameTypeId, StakeLevelId);
 
             // Action
-            var result = _casinoSettingService.GetRngCasinoSettings(CustId, Language);
+            var result = _casinoSettingService.GetRngCasinoSettings(CustId, currencyId, Language);
 
             // Assert
             Assert.Multiple(() =>
@@ -96,7 +97,7 @@
             Assert.Throws<ServiceException>(result);
         }
 
-        private void MockServices(int custId, int gameKindId, int gameTypeId, int stakeLevelId)
+        private void MockServices(int custId, int currencyId, int gameKindId, int gameTypeId, int stakeLevelId)
         {
             var gameKindTable = new DataTable();
             gameKindTable.Columns.Add("CodeId", typeof(int));
@@ -108,7 +109,7 @@
             gameTypeTable.Columns.Add("GameTypeId", typeof(int));
             gameTypeTable.Columns.Add("GameTypeName_En", typeof(string));
             gameTypeTable.Rows.Add(gameTypeId, string.Empty);
-            _basicInfoApiWrapper.GetGameType(gameKindId).ReturnsForAnyArgs(gameTypeTable);
+            _basicInfoApiWrapper.GetGameType(gameKindId, custId, currencyId).ReturnsForAnyArgs(gameTypeTable);
 
             var stakeLevelTable = new DataTable();
             stakeLevelTable.Columns.Add("StakeLevelID", typeof(int));

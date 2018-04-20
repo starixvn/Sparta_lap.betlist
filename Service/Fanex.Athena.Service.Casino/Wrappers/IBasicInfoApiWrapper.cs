@@ -6,6 +6,6 @@
     {
         DataTable GetGameKind(string casinoNo);
 
-        DataTable GetGameType(int gameKind);
+        DataTable GetGameType(int gameKind,int sbCustID,int sbExchangeID);
     }
 }

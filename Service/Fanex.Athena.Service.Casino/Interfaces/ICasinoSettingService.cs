@@ -13,7 +13,7 @@ namespace Fanex.Athena.Service.Casino.Interfaces
 
     public interface ICasinoSettingService
     {
-        IList<GameKind> GetRngCasinoSettings(int custId, string language);
+        IList<GameKind> GetRngCasinoSettings(int custId, int currencyId, string language);
 
         bool UpdateSetting(DataTable dataTableParam);
     }

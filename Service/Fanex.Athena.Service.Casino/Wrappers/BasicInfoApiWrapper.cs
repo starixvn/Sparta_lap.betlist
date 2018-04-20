@@ -17,9 +17,9 @@
             return _basicInfoApi.GetGameKind(casinoNo);
         }
 
-        public DataTable GetGameType(int gameKind)
+        public DataTable GetGameType(int gameKind, int sbCustID, int sbExchangeID)
         {
-            return _basicInfoApi.GetGameType(gameKind,0,0);
+            return _basicInfoApi.GetGameType(gameKind, sbCustID, sbCustID);
         }
     }
 }

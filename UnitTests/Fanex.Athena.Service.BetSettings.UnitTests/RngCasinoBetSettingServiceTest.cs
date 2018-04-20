@@ -20,6 +20,7 @@
     public partial class RngCasinoBetSettingServiceTest
     {
         private const int CustId = 1;
+        private const int CurrencyId = 1;
         private const string Language = "en-US";
 
         private IAuthorizationService _authorizationService;
@@ -59,12 +60,12 @@
             };
 
             // Action
-            var result = _service.GetViewModel(0, customer, string.Empty);
+            var result = _service.GetViewModel(CustId, customer, string.Empty);
 
             // Assert
             Assert.Multiple(() =>
             {
-                _casinoSetting.DidNotReceiveWithAnyArgs().GetRngCasinoSettings(0, string.Empty);
+                _casinoSetting.DidNotReceiveWithAnyArgs().GetRngCasinoSettings(CustId, CurrencyId, string.Empty);
                 Assert.That(result.GameKinds.Any(), Is.False);
             });
         }
@@ -77,7 +78,7 @@
             {
                 new GameKind()
             };
-            _casinoSetting.GetRngCasinoSettings(CustId, Language).Returns(resultGameKindList);
+            _casinoSetting.GetRngCasinoSettings(CustId, CurrencyId, Language).Returns(resultGameKindList);
             var customer = new CustomerInfo
             {
                 SyncCasino = true
@@ -89,7 +90,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _casinoSetting.Received().GetRngCasinoSettings(CustId, Language);
+                _casinoSetting.Received().GetRngCasinoSettings(CustId, CurrencyId, Language);
                 Assert.That(result.GameKinds.Count(), Is.EqualTo(resultGameKindList.Count));
             });
         }
