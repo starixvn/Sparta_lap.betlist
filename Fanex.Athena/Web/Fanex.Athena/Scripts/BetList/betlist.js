@@ -2,7 +2,7 @@
 /*global Site, QueryString,jqGridAdditional, BetListOption, moment*/
 /*exported showCombMP, showCombMPDetail, showMP, showNewCombMP, ViewBetSlip, ViewResult, showMicroGamingRnGBetsDetails,
 showAGCasinoDetails, showRnGCasinoDetails, showVoidBridgeDetails, showVoidbridgeResult, showTodayRunningBetsDetails,
-showColossusBetsDetails, showGlobalGaming, ViewCashOutHistory, ShowBonusDetails*/
+showColossusBetsDetails, showGlobalGaming, ViewCashOutHistory, ShowBonusDetails, showPPDetails*/
 
 var BetList = (function ($) {
     "use strict";
@@ -793,6 +793,25 @@ var BetList = (function ($) {
             });
             window.logOpenBetlistEvent && window.logOpenBetlistEvent();
         },
+        showPPDetails: function (transId, winlostDate, custId, transType) {
+            var url = Site.resolveClientUrl('PragmaticPlayBetList/Detail');
+            url = QueryString.setParam(url, "transId", transId);
+            url = QueryString.setParam(url, "winlostDate", winlostDate);
+            url = QueryString.setParam(url, "custId", custId);
+            url = QueryString.setParam(url, "transType", transType);
+
+            var popH = Math.min($(window).height() - 100, 550), popW = 840;
+            var title = Site.getSingleResource("ProductPP") + " - " +
+                Site.getSingleResource("DetailedBetlist") + " - " + moment(new Date(winlostDate)).format("MM/DD/YYYY");
+            var dialogForm = '<div title="' + title + '"><iframe scrolling="no" frameborder="0" width="' +
+                             popW + '" height="100%" src="' + url + '" ></iframe></div>';
+
+            $(dialogForm).dialog({
+                modal: true,
+                width: popW + 50,
+                height: popH + 50
+            });
+        },
         ValidProducts: function () {
             var temp = true;
             if ($("#ProductList input:checked").length === 0) {
@@ -902,3 +921,4 @@ var showColossusBetsDetails = BetList.showColossusBetsDetails;
 var showGlobalGaming = BetList.showGlobalGamingDetails;
 var ViewCashOutHistory = BetList.viewCashOutHistory;
 var ShowBonusDetails = BetList.showBonusDetails;
+var showPPDetails = BetList.showPPDetails;

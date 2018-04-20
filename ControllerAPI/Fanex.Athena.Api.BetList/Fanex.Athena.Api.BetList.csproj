@@ -219,6 +219,7 @@
     <Compile Include="GlobalGamingBetListController.cs" />
     <Compile Include="MixParlayBetListController.cs" />
     <Compile Include="PlatformWinLossBetListController.cs" />
+    <Compile Include="PragmaticPlayBetListController.cs" />
     <Compile Include="RNGCasinoBetListController.cs" />
     <Compile Include="RunningMatchChoiceBetListController.cs" />
     <Compile Include="VoidbridgeBetListController.cs" />
