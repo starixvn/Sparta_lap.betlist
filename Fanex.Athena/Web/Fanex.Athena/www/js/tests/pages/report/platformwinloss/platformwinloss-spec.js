@@ -878,7 +878,7 @@
                             .andReturn({
                                 responseText: JSON.stringify({
                                     Data: [{ index: 1 }, { index: 2 }, { index: 4 }],
-                                    ProductOptions: '[{"Code":"SB","Status":true}, {"Code":"RB","Status":false}, {"Code":"AB","Status":false}]'
+                                    ProductOptions: '[{"Code":"SB","Status":true}, {"Code":"RB","Status":false}, {"Code":"AB","Status":true}, {"Code":"PP","Status":true}]'
                                 })
                             });
 
@@ -926,7 +926,9 @@
                 it("Site.setProductOptionParam should not be called with code included in BETLIST_IGNORED_PRODUCTS", function () {
                     PlatformWinLoss.openBetlistPopUp(1, dataDrillDown);
 
-                    expect(Site.setProductOptionParam).not.toHaveBeenCalledWith("PlatformWinLossBetList/Index", 2, "AB", false);
+                    var expectedProductCode = ["SB"];
+
+                    expect(Site.setProductCodeListParam.calls.mostRecent().args[1]).toEqual(expectedProductCode);
                 });
 
                 it("Popup.openPopupWithIframe should be called", function () {
