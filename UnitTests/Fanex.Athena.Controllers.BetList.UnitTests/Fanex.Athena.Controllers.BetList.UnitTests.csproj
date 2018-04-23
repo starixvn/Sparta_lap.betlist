@@ -159,6 +159,7 @@
   <ItemGroup>
     <Compile Include="BettingTicketCenterControllerTest.cs" />
     <Compile Include="BonusBetListControllerTest.cs" />
+    <Compile Include="PragmaticPlayBetListtControllerTest.cs" />
     <Compile Include="WinlossByLeagueBetListControllerTest.cs" />
     <Compile Include="WinlossByBetTypeBetListControllerTest.cs" />
     <Compile Include="VoidbridgeBetListControllerTest.cs" />
