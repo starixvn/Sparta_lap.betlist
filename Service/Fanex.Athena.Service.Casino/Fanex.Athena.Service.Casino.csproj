@@ -37,12 +37,10 @@
     <CodeAnalysisRuleSet>Fanex.Athena.Service.Casino.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CasinoLibrary, Version=2.0.1.34888, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="CasinoLibrary">
       <HintPath>..\..\DLLs\RNGCasino\CasinoLibrary.dll</HintPath>
     </Reference>
-    <Reference Include="CasinoUtility, Version=2.3.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="CasinoUtility">
       <HintPath>..\..\DLLs\RNGCasino\CasinoUtility.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Common, Version=1.0.404.97, Culture=neutral, processorArchitecture=MSIL">
@@ -90,8 +88,7 @@
       <HintPath>..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Sunplus.Libraries.AOP, Version=1.0.4218.28561, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Sunplus.Libraries.AOP">
       <HintPath>..\..\DLLs\RNGCasino\Sunplus.Libraries.AOP.dll</HintPath>
     </Reference>
     <Reference Include="SunPlus.Library">
