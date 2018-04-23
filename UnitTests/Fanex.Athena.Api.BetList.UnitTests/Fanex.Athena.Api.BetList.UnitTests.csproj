@@ -179,6 +179,7 @@
     <Compile Include="RunningBetListControllerTest.cs" />
     <Compile Include="RunningBettypesOfMatchBetListControllerTest.cs" />
     <Compile Include="RunningMatchBetListControllerTest.cs" />
+    <Compile Include="PragmaticPlayBetListControllerTest.cs" />
     <Compile Include="WinlossByBetTypeBetListControllerTest.cs" />
     <Compile Include="WinlossByLeagueBetListControllerTest.cs" />
     <Compile Include="VoidbridgeBetListControllerTest.cs" />
