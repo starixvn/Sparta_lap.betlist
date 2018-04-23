@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Service.Casino.Wrappers
 {
+    using System;
     using System.Data;
     using CasinoLibrary.SBAgent;
 
@@ -14,12 +15,30 @@
 
         public DataTable GetGameKind(string casinoNo)
         {
-            return _basicInfoApi.GetGameKind(casinoNo);
+            DataTable result = null;
+            try
+            {
+                result = _basicInfoApi.GetGameKind(casinoNo);
+            }
+            catch (Exception exception)
+            {
+                Logging.Logger.Log.Error(exception.Message, exception);
+            }
+            return result;
         }
 
         public DataTable GetGameType(int gameKind, int sbCustID, int sbExchangeID)
         {
-            return _basicInfoApi.GetGameType(gameKind, sbCustID, sbCustID);
+            DataTable result = null;
+            try
+            {
+                result = _basicInfoApi.GetGameType(gameKind, sbCustID, sbCustID);
+            }
+            catch (Exception exception)
+            {
+                Logging.Logger.Log.Error(exception.Message, exception);
+            }
+            return result;
         }
     }
 }

@@ -53,7 +53,6 @@ namespace Fanex.Athena.Service.BetSettings
         public RngCasinoBetSettingViewModel GetViewModel(int custId, CustomerInfo customer, string language)
         {
             IList<GameKind> gameKinds;
-
             gameKinds = customer.SyncCasino ?
             _casinoSetting.GetRngCasinoSettings(custId, customer.CurrencyID, language) : new List<GameKind>();
 

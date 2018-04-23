@@ -20,6 +20,7 @@ namespace Fanex.Athena.Service.Casino
 
     public class CasinoSettingService : ICasinoSettingService
     {
+        private const string CasinoNoDeposit = "01";
         private readonly ICustomerApiWrapper _customerApiWrapper;
 
         private readonly IBasicInfoApiWrapper _basicInfoApiWrapper;
@@ -81,8 +82,7 @@ namespace Fanex.Athena.Service.Casino
         private IList<GameKind> GetGameKind(string language)
         {
             var gameKindNameColumn = CasinoHelper.GetColumnNameByLanguage("CodeName", language);
-            var gameKindTable = _basicInfoApiWrapper.GetGameKind("01");
-
+            var gameKindTable = _basicInfoApiWrapper.GetGameKind(CasinoNoDeposit);
             var gameKindList = new List<GameKind>();
 
             foreach (DataRow row in gameKindTable.Rows)

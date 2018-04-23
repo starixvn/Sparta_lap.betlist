@@ -71,18 +71,6 @@
     <Reference Include="Antlr3.Runtime">
       <HintPath>..\..\..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="CasinoLibrary, Version=1.0.2.6, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\DLLs\Casino\CasinoLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="CasinoSetting, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\DLLs\Casino\CasinoSetting.dll</HintPath>
-    </Reference>
-    <Reference Include="CasinoUtility, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\DLLs\Casino\CasinoUtility.dll</HintPath>
-    </Reference>
     <Reference Include="Fanex.BetList.AGCasino, Version=1.0.0.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.BetList.AGCasino.1.0.0.4\lib\net40\Fanex.BetList.AGCasino.dll</HintPath>
       <Private>True</Private>
@@ -194,12 +182,8 @@
     <Reference Include="Glimpse.Mvc4">
       <HintPath>..\..\..\packages\Glimpse.Mvc4.1.5.3\lib\net40\Glimpse.Mvc4.dll</HintPath>
     </Reference>
-    <Reference Include="GotDotNet.ApplicationBlocks.Data, Version=3.1.0.0, Culture=neutral">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\DLLs\3rds\GotDotNet.ApplicationBlocks.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="HandHistoryLibrary">
-      <HintPath>..\..\..\DLLs\Casino\HandHistoryLibrary.dll</HintPath>
+    <Reference Include="GotDotNet.ApplicationBlocks.Data">
+      <HintPath>..\..\..\DLLs\RNGCasino\GotDotNet.ApplicationBlocks.Data.dll</HintPath>
     </Reference>
     <Reference Include="IBCCrypt, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Crypt.1.1.0.0\lib\net40\IBCCrypt.dll</HintPath>
@@ -226,12 +210,11 @@
       <HintPath>..\..\..\packages\Fanex.Result.Core.AllBetCasino.1.0.0.10\lib\net40\LiveCasinoResult.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="log4net, Version=1.2.9.0, Culture=neutral, PublicKeyToken=b32731d11ce58905">
-      <HintPath>..\..\..\packages\log4net.1.2.9.0\lib\net11\log4net.dll</HintPath>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.ApplicationBlocks.Data, Version=3.1.0.0, Culture=neutral">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\DLLs\3rds\Microsoft.ApplicationBlocks.Data.dll</HintPath>
+    <Reference Include="Microsoft.ApplicationBlocks.Data">
+      <HintPath>..\..\..\DLLs\RNGCasino\Microsoft.ApplicationBlocks.Data.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -267,10 +250,6 @@
       <HintPath>..\..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Nini, Version=1.1.0.0, Culture=neutral, PublicKeyToken=691faec150a7fa7b, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\DLLs\Casino\Nini.dll</HintPath>
-    </Reference>
     <Reference Include="NPOI, Version=2.0.6.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\NPOI.2.0.6\lib\net40\NPOI.dll</HintPath>
       <Private>True</Private>
@@ -298,9 +277,6 @@
     <Reference Include="Sunplus.Core.Common, Version=1.1.4505.19054, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Sunplus.Core.Common.1.1.4505.19054\lib\net40\Sunplus.Core.Common.dll</HintPath>
       <Private>True</Private>
-    </Reference>
-    <Reference Include="Sunplus.Libraries.AOP, Version=1.0.4218.28561, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Sunplus.Libraries.AOP.1.0.4218.28561\lib\net40\Sunplus.Libraries.AOP.dll</HintPath>
     </Reference>
     <Reference Include="sysglobl" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -386,66 +362,6 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\CssRewriteUrlTransformWrapper.cs" />
     <Compile Include="App_Start\NonOrderingBundleOrderer.cs" />
-    <Compile Include="Form\GenHistoryImg.aspx.cs">
-      <DependentUpon>GenHistoryImg.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Form\GenImage\GenHistoryImg.aspx.cs">
-      <DependentUpon>GenHistoryImg.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Form\GenImage\HistoryImage_BJ.aspx.cs">
-      <DependentUpon>HistoryImage_BJ.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Form\GenImage\HistoryImage_Champions.aspx.cs">
-      <DependentUpon>HistoryImage_Champions.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Form\GenImage\HistoryImage_ePoker.aspx.cs">
-      <DependentUpon>HistoryImage_ePoker.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Form\GenImage\HistoryImage_Holdem.aspx.cs">
-      <DependentUpon>HistoryImage_Holdem.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Form\GenImage\HistoryImage_MiniRoulette.aspx.cs">
-      <DependentUpon>HistoryImage_MiniRoulette.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Form\GenImage\HistoryImage_MultiWheelRoulette.aspx.cs">
-      <DependentUpon>HistoryImage_MultiWheelRoulette.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Form\GenImage\HistoryImage_PokerWheel.aspx.cs">
-      <DependentUpon>HistoryImage_PokerWheel.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Form\GenImage\HistoryImage_Scratch.aspx.cs">
-      <DependentUpon>HistoryImage_Scratch.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Form\GenImage\HistoryImage_Taizen.aspx.cs">
-      <DependentUpon>HistoryImage_Taizen.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Form\GenImage\HistoryImage_TattooArt.aspx.cs">
-      <DependentUpon>HistoryImage_TattooArt.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Form\GenImage\LiveGenHistoryImg.aspx.cs">
-      <DependentUpon>LiveGenHistoryImg.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Form\HistoryImage_ePoker.aspx.cs">
-      <DependentUpon>HistoryImage_ePoker.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Form\LiveGenHistoryImg.aspx.cs">
-      <DependentUpon>LiveGenHistoryImg.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
       <SubType>Code</SubType>
@@ -2022,9 +1938,6 @@
       <LastGenOutput>FanexSpName.xml1.txt</LastGenOutput>
     </None>
     <None Include="App_Data\SpNameConfig\SpNameConfiguration.ttinclude" />
-    <Content Include="GameData\GlobalSetting.ini" />
-    <Content Include="GameData\VideoPoker\RV009\Settings.ini" />
-    <Content Include="GameData\VideoPoker\RV010\Settings.ini" />
     <Content Include="App_Data\Template\Reports\ActiveCustomerSummary.xls" />
     <Content Include="App_Data\Template\Reports\GoldDeluxeWinLoss.xls" />
     <Content Include="App_Data\Template\Reports\ThirdPartyWinLoss.xls" />
@@ -2844,63 +2757,6 @@
     <Content Include="Content\Utility\images\banner.jpg" />
     <Content Include="Content\Utility\images\bg.jpg" />
     <Content Include="Content\Utility\SelectLicensee.css" />
-    <Content Include="Form\GenHistoryImg.aspx">
-      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
-    </Content>
-    <Content Include="Form\GenImage\GenHistoryImg.aspx">
-      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
-    </Content>
-    <Content Include="Form\GenImage\HistoryImage_BJ.aspx">
-      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
-    </Content>
-    <Content Include="Form\GenImage\HistoryImage_Champions.aspx">
-      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
-    </Content>
-    <Content Include="Form\GenImage\HistoryImage_ePoker.aspx">
-      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
-    </Content>
-    <Content Include="Form\GenImage\HistoryImage_Holdem.aspx">
-      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
-    </Content>
-    <Content Include="Form\GenImage\HistoryImage_MiniRoulette.aspx">
-      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
-    </Content>
-    <Content Include="Form\GenImage\HistoryImage_PokerWheel.aspx">
-      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
-    </Content>
-    <Content Include="Form\GenImage\HistoryImage_Scratch.aspx">
-      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
-    </Content>
-    <Content Include="Form\GenImage\HistoryImage_Taizen.aspx">
-      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
-    </Content>
-    <Content Include="Form\GenImage\HistoryImage_TattooArt.aspx">
-      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
-    </Content>
-    <Content Include="Form\GenImage\LiveGenHistoryImg.aspx">
-      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
-    </Content>
-    <Content Include="Form\HistoryImage_ePoker.aspx">
-      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
-    </Content>
-    <Content Include="Form\LiveGenHistoryImg.aspx">
-      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
-    </Content>
-    <Content Include="Form\GenHistoryImg.aspx" />
-    <Content Include="Form\GenImage\GenHistoryImg.aspx" />
-    <Content Include="Form\GenImage\HistoryImage_BJ.aspx" />
-    <Content Include="Form\GenImage\HistoryImage_Champions.aspx" />
-    <Content Include="Form\GenImage\HistoryImage_ePoker.aspx" />
-    <Content Include="Form\GenImage\HistoryImage_Holdem.aspx" />
-    <Content Include="Form\GenImage\HistoryImage_MiniRoulette.aspx" />
-    <Content Include="Form\GenImage\HistoryImage_MultiWheelRoulette.aspx" />
-    <Content Include="Form\GenImage\HistoryImage_PokerWheel.aspx" />
-    <Content Include="Form\GenImage\HistoryImage_Scratch.aspx" />
-    <Content Include="Form\GenImage\HistoryImage_Taizen.aspx" />
-    <Content Include="Form\GenImage\HistoryImage_TattooArt.aspx" />
-    <Content Include="Form\GenImage\LiveGenHistoryImg.aspx" />
-    <Content Include="Form\HistoryImage_ePoker.aspx" />
-    <Content Include="Form\LiveGenHistoryImg.aspx" />
     <Content Include="img\Bingo\Ball\00.jpg" />
     <Content Include="img\Bingo\Ball\01.jpg" />
     <Content Include="img\Bingo\Ball\02.jpg" />
@@ -5950,7 +5806,6 @@
     <Content Include="App_Data\Template\Reports\WinLossByBetType.xls" />
     <Content Include="App_Data\Template\Reports\WinLossByProducts.xls" />
     <Content Include="Content\Web.config" />
-    <Content Include="DBConnectionData\GlobalSetting.ini" />
     <Content Include="Integrate\RSAPrivateKey\12bet.snk" />
     <None Include="Properties\PublishProfiles\Profile1.pubxml" />
     <Content Include="Views\Desktop\Customer\CustomerDialog\RemoveFromGroup.cshtml" />

@@ -18,7 +18,6 @@ namespace Fanex.Athena
     using System.Web.Routing;
     using Api.Base.Attributes;
     using Api.Base.Logger;
-    using CasinoSetting;
     using Data.Configuration;
     using Fanex.Athena.Service.Core.Helpers;
     using Fanex.Athena.Web.ActionFilter;
@@ -82,10 +81,7 @@ namespace Fanex.Athena
                     .GetHttpHeaderInfo()
                     .UseGetDbExceptionInfo(DatabaseInfoGetters.GetDbExceptionInfo);
 
-                if (ConfigurationManager.AppSettings["EnableCasinoService"] == "1")
-                {
-                    SettingMgr.GetInstance().Initialize(SiteEnum.AgentSite);
-                }
+              
             }
         }
 

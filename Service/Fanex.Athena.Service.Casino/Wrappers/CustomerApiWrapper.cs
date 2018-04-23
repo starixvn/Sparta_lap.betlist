@@ -77,9 +77,10 @@
 
         public DataTable UpdateCustGameTypeStakeLevel(DataTable sourceTable)
         {
+            DataTable result = null;
             try
             {
-                return _customerApi.UpdateCustGameTypeStakeLevel(sourceTable);
+                result = _customerApi.UpdateCustGameTypeStakeLevel(sourceTable);
             }
             catch (Exception exception)
             {
@@ -93,7 +94,7 @@
                 }
             }
 
-            return new DataTable();
+            return result;
         }
 
         public DataTable GetCustStakeLevel(int ibcCustId, int gameTypeId)
