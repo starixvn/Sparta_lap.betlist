@@ -24,7 +24,6 @@ namespace Fanex.Athena.Controllers.BetSettings
     public class RngCasinoBetSettingController : BetSettingBaseController
     {
         private readonly IRngCasinoBetSettingService _betSettingService;
-
         public RngCasinoBetSettingController()
         {
             _betSettingService = new RngCasinoBetSettingService();
@@ -132,6 +131,7 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         private DataTable GetRngCasinoParam(RngCasinoBetSettingMetaModel metaModel, string gameTypeChangedList)
         {
+            const int SystemID = 4;
             var table = new DataTable();
             table.Columns.Add("IBCCustID", typeof(int));
             table.Columns.Add("GameTypeID", typeof(int));
@@ -147,7 +147,7 @@ namespace Fanex.Athena.Controllers.BetSettings
             foreach (var gameTypeId in gameTypeList)
             {
                 var stakeLevel = this.HttpContext.Request["stake" + gameTypeId];
-                table.Rows.Add(metaModel.CustId, gameTypeId, stakeLevel, 1, metaModel.Ip, metaModel.ModifyById, metaModel.ModifyByUsername);
+                table.Rows.Add(metaModel.CustId, gameTypeId, stakeLevel, 1, metaModel.Ip, metaModel.ModifyById, metaModel.ModifyByUsername, SystemID);
             }
 
             return table;

@@ -2,6 +2,7 @@
 {
     using System;
     using System.Data;
+    using CasinoLibrary.Model.UserException;
     using CasinoLibrary.SBAgent;
 
     public class BasicInfoApiWrapper : IBasicInfoApiWrapper
@@ -22,7 +23,14 @@
             }
             catch (Exception exception)
             {
-                Logging.Logger.Log.Error(exception.Message, exception);
+                if (exception is ErrorException)
+                {
+                    Logging.Logger.Log.Error(exception.Message, exception);
+                }
+                else
+                {
+                    throw;
+                }
             }
             return result;
         }
@@ -36,7 +44,14 @@
             }
             catch (Exception exception)
             {
-                Logging.Logger.Log.Error(exception.Message, exception);
+                if (exception is ErrorException)
+                {
+                    Logging.Logger.Log.Error(exception.Message, exception);
+                }
+                else
+                {
+                    throw;
+                }
             }
             return result;
         }
