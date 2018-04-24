@@ -4,6 +4,9 @@
     using System.Data;
     using CasinoLibrary.Model.UserException;
     using CasinoLibrary.SBAgent;
+    using Fanex.Athena.Model.BetSettings.MetaModel;
+    using Fanex.Athena.Model.Casino.MetaModel;
+    using Fanex.Athena.Model.Customer.MetaModel;
 
     public class CustomerApiWrapper : ICustomerApiWrapper
     {
@@ -15,86 +18,35 @@
             _customerApi = new Customer();
         }
 
-        public bool UpdateCustEnableCasino(int ibcCustId, bool isEnableCasino, bool isUpdateDownline, string ip, int modifyBy, string modifyUserName)
+        public bool UpdateCustEnableCasino(BetSettingCasinoStatusMetaModel metaModel)
         {
-            try
-            {
-                return _customerApi.UpdateCustEnableCasino(ibcCustId, isEnableCasino, isUpdateDownline, ip, modifyBy, modifyUserName, SystemId);
-            }
-            catch (Exception userException)
-            {
-                if (userException is ErrorException)
-                {
-                    Logging.Logger.Log.Error(userException.Message, userException);
-                }
-                else
-                {
-                    throw;
-                }
-            }
-            return false;
+            return new ApiMethodOperationHandler<bool>().Handle<BetSettingCasinoStatusMetaModel>(metaModel, (obj) =>
+                 _customerApi.UpdateCustEnableCasino(obj.CustId, obj.Status == 0, false, obj.Ip, obj.UserId, obj.UserName, SystemId)
+            );
+
         }
 
-        public bool UpdateCustSuspend(int ibcCustID, bool isSuspend, string ip, int modifyBy, string modifyUserName)
+        public bool UpdateCustSuspend(CustomerStatusMetaModel metaModel)
         {
-            try
-            {
-                return _customerApi.UpdateCustSuspend(ibcCustID, isSuspend, ip, modifyBy, modifyUserName, SystemId);
-            }
-            catch (Exception userException)
-            {
-                if (userException is ErrorException)
-                {
-                    Logging.Logger.Log.Error(userException.Message, userException);
-                }
-                else
-                {
-                    throw;
-                }
-            }
-            return false;
+            return new ApiMethodOperationHandler<bool>().Handle<CustomerStatusMetaModel>(metaModel, (obj) =>
+                 _customerApi.UpdateCustSuspend(obj.CustId, obj.IsOn, obj.Ip,
+                            obj.ModifyById, obj.ModifyByUsername, SystemId)
+            );
+
         }
 
-        public bool UpdateCustClosed(int ibcCustID, bool isClosed, string ip, int modifyBy, string modifyUserName)
+        public bool UpdateCustClosed(CustomerStatusMetaModel metaModel)
         {
-            try
-            {
-                return _customerApi.UpdateCustClosed(ibcCustID, isClosed, ip, modifyBy, modifyUserName, SystemId);
-            }
-            catch (Exception userException)
-            {
-                if (userException is ErrorException)
-                {
-                    Logging.Logger.Log.Error(userException.Message, userException);
-                }
-                else
-                {
-                    throw;
-                }
-            }
-            return false;
+            return new ApiMethodOperationHandler<bool>().Handle<CustomerStatusMetaModel>(metaModel, (obj) =>
+                 _customerApi.UpdateCustClosed(obj.CustId, obj.IsOn, obj.Ip,
+                            obj.ModifyById, obj.ModifyByUsername, SystemId)
+            );
         }
 
         public DataTable UpdateCustGameTypeStakeLevel(DataTable sourceTable)
         {
-            DataTable result = null;
-            try
-            {
-                result = _customerApi.UpdateCustGameTypeStakeLevel(sourceTable);
-            }
-            catch (Exception exception)
-            {
-                if (exception is ErrorException)
-                {
-                    Logging.Logger.Log.Error(exception.Message, exception);
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return result;
+            return new ApiMethodOperationHandler<DataTable>().Handle<DataTable>(sourceTable, (obj) =>
+               _customerApi.UpdateCustGameTypeStakeLevel(obj));
         }
 
         public DataTable GetCustStakeLevel(int ibcCustId, int gameTypeId)
@@ -102,24 +54,11 @@
             return _customerApi.GetCustStakeLevel(ibcCustId, gameTypeId);
         }
 
-        public bool UpdateComm(string[] ibcCustID, decimal memberRollingRate, string ip, int modifyBy, string modifyUserName)
+        public bool UpdateComm(RNGCasinoUpdateMemberComMetaModel metaModel)
         {
-            try
-            {
-                return _customerApi.UpdateComm(ibcCustID, memberRollingRate, ip, modifyBy, modifyUserName, SystemId);
-            }
-            catch (Exception exception)
-            {
-                if (exception is ErrorException)
-                {
-                    Logging.Logger.Log.Error(exception.Message, exception);
-                }
-                else
-                {
-                    throw;
-                }
-            }
-            return false;
+            return new ApiMethodOperationHandler<bool>().Handle<RNGCasinoUpdateMemberComMetaModel>(metaModel, (obj) =>
+              _customerApi.UpdateComm(obj.CustomerId, obj.Comm, obj.FromIp, obj.ModifyBy, obj.ModifyUserName, SystemId));
+
         }
 
     }

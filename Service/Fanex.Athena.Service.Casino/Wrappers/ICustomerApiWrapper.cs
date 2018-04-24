@@ -1,19 +1,22 @@
-﻿using System.Data;
+﻿using Fanex.Athena.Model.BetSettings.MetaModel;
+using Fanex.Athena.Model.Casino.MetaModel;
+using Fanex.Athena.Model.Customer.MetaModel;
+using System.Data;
 
 namespace Fanex.Athena.Service.Casino.Wrappers
 {
     public interface ICustomerApiWrapper
     {
-        bool UpdateCustEnableCasino(int ibcCustId, bool isEnableCasino, bool isUpdateDownline, string ip, int modifyBy, string modifyUserName);
+        bool UpdateCustEnableCasino(BetSettingCasinoStatusMetaModel metaModel);
 
-        bool UpdateCustSuspend(int ibcCustID, bool isSuspend, string ip, int modifyBy, string modifyUserName);
+        bool UpdateCustSuspend(CustomerStatusMetaModel metaModele);
 
-        bool UpdateCustClosed(int ibcCustID, bool isClosed, string ip, int modifyBy, string modifyUserName);
+        bool UpdateCustClosed(CustomerStatusMetaModel metaModele);
 
         DataTable UpdateCustGameTypeStakeLevel(DataTable sourceTable);
 
         DataTable GetCustStakeLevel(int ibcCustId, int gameTypeId);
 
-        bool UpdateComm(string[] ibcCustID, decimal memberRollingRate, string ip, int modifyBy, string modifyUserName);
+        bool UpdateComm(RNGCasinoUpdateMemberComMetaModel metaModel);
     }
 }

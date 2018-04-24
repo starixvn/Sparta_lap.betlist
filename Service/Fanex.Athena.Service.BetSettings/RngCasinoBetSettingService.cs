@@ -72,7 +72,7 @@ namespace Fanex.Athena.Service.BetSettings
 
             if (metaModel.IsSyncCasino && !_appSettings.IsDisableRngCasino)
             {
-                if (!_customerApiWrapper.UpdateCustEnableCasino(metaModel.CustId, metaModel.Status == 0, false, metaModel.Ip, metaModel.UserId, metaModel.UserName))
+                if (!_customerApiWrapper.UpdateCustEnableCasino(metaModel))
                 {
                     return ErrorResult(ViewResources.UpdateUnSuccess);
                 }

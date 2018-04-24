@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Fanex.Athena.Service.Casino.Wrappers
 {
-    public class ApiMethodOperationHandler<T> where T : class
+    public class ApiMethodOperationHandler<T>
     {
         public delegate V OutAction<in IInput,out V>(IInput input);
         public T Handle<TInput>(TInput input, OutAction<TInput,T> codeBlock)

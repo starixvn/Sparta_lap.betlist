@@ -181,7 +181,7 @@
 
             _appSettings.IsDisableRngCasino.Returns(false);
             _authorizationService.HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId, Arg.Any<long>()).Returns(true);
-            _customerApiWrapper.UpdateCustEnableCasino(metaModel.CustId, metaModel.Status == 0, false, metaModel.Ip, metaModel.UserId, metaModel.UserName)
+            _customerApiWrapper.UpdateCustEnableCasino(metaModel)
                 .Returns(false);
 
             // Action
@@ -209,7 +209,7 @@
 
             _appSettings.IsDisableRngCasino.Returns(false);
             _authorizationService.HasPermissionOnData(metaModel.LicenseeId, metaModel.CustId, Arg.Any<long>()).Returns(true);
-            _customerApiWrapper.UpdateCustEnableCasino(metaModel.CustId, metaModel.Status == 0, false, metaModel.Ip, metaModel.UserId, metaModel.UserName)
+            _customerApiWrapper.UpdateCustEnableCasino(metaModel)
                 .Returns(true);
 
             // Action
