@@ -12,6 +12,7 @@ namespace Fanex.Athena.Service.Casino
     using System.Linq;
     using Extension.Helper;
     using Fanex.Athena.Model.BetSettings.DTO.RngCasino;
+    using Fanex.Athena.Model.Casino.MetaModel.ApiInputParameter;
     using Fanex.Athena.Service.Casino.Interfaces;
     using Fanex.Athena.Service.Core.Exception;
     using Fanex.Athena.Service.Core.Helpers;
@@ -46,7 +47,12 @@ namespace Fanex.Athena.Service.Casino
                 foreach (var gameKind in gameKinds)
                 {
                     // Get game type base on game kind
-                    var gameTypeList = GetGameType(gameKind.GameKindId, custId, currencyId, language);
+                    var gameTypeList = GetGameType(new GetGameTypeMetalModel
+                    {
+                        GameKind = gameKind.GameKindId,
+                        SbCustID = custId,
+                        SbExchangeID = currencyId
+                    }, language);
                     gameKind.GameTypeList = gameTypeList;
 
                     foreach (var gameType in gameTypeList)
@@ -99,10 +105,10 @@ namespace Fanex.Athena.Service.Casino
             return gameKindList;
         }
 
-        private IList<GameType> GetGameType(int gameKindId, int custID, int currencyId, string language)
+        private IList<GameType> GetGameType(GetGameTypeMetalModel input, string language)
         {
             var gameTypeName = CasinoHelper.GetColumnNameByLanguage("GameTypeName", language);
-            var gameTypeTable = _basicInfoApiWrapper.GetGameType(gameKindId, custID, currencyId);
+            var gameTypeTable = _basicInfoApiWrapper.GetGameType(input);
 
             var gameTypeList = new List<GameType>();
 

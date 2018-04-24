@@ -4,6 +4,7 @@
     using System.Data;
     using CasinoLibrary.Model.UserException;
     using CasinoLibrary.SBAgent;
+    using Fanex.Athena.Model.Casino.MetaModel.ApiInputParameter;
 
     public class BasicInfoApiWrapper : IBasicInfoApiWrapper
     {
@@ -16,44 +17,16 @@
 
         public DataTable GetGameKind(string casinoNo)
         {
-            DataTable result = null;
-            try
-            {
-                result = _basicInfoApi.GetGameKind(casinoNo);
-            }
-            catch (Exception exception)
-            {
-                if (exception is ErrorException)
-                {
-                    Logging.Logger.Log.Error(exception.Message, exception);
-                }
-                else
-                {
-                    throw;
-                }
-            }
-            return result;
+            return new ApiMethodOperationHandler<DataTable>().Handle(casinoNo, (obj) =>
+             _basicInfoApi.GetGameKind(obj));
+
         }
 
-        public DataTable GetGameType(int gameKind, int sbCustID, int sbExchangeID)
+        public DataTable GetGameType(GetGameTypeMetalModel input)
         {
-            DataTable result = null;
-            try
-            {
-                result = _basicInfoApi.GetGameType(gameKind, sbCustID, sbCustID);
-            }
-            catch (Exception exception)
-            {
-                if (exception is ErrorException)
-                {
-                    Logging.Logger.Log.Error(exception.Message, exception);
-                }
-                else
-                {
-                    throw;
-                }
-            }
-            return result;
+            return new ApiMethodOperationHandler<DataTable>().Handle<GetGameTypeMetalModel>(input, (obj) =>
+           _basicInfoApi.GetGameType(obj.GameKind,obj.SbCustID,obj.SbExchangeID));
+
         }
     }
 }

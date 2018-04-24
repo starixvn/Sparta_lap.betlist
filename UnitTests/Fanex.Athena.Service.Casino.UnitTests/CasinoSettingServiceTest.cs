@@ -5,6 +5,7 @@
     using Casino;
     using Casino.Wrappers;
     using Core.Exception;
+    using Fanex.Athena.Model.Casino.MetaModel.ApiInputParameter;
     using NSubstitute;
     using NUnit.Framework;
 
@@ -106,10 +107,16 @@
             _basicInfoApiWrapper.GetGameKind(null).ReturnsForAnyArgs(gameKindTable);
 
             var gameTypeTable = new DataTable();
+            var gameTypeInput = new GetGameTypeMetalModel
+            {
+                GameKind = gameKindId,
+                SbCustID = custId,
+                SbExchangeID = currencyId
+            };
             gameTypeTable.Columns.Add("GameTypeId", typeof(int));
             gameTypeTable.Columns.Add("GameTypeName_En", typeof(string));
             gameTypeTable.Rows.Add(gameTypeId, string.Empty);
-            _basicInfoApiWrapper.GetGameType(gameKindId, custId, currencyId).ReturnsForAnyArgs(gameTypeTable);
+            _basicInfoApiWrapper.GetGameType(gameTypeInput).ReturnsForAnyArgs(gameTypeTable);
 
             var stakeLevelTable = new DataTable();
             stakeLevelTable.Columns.Add("StakeLevelID", typeof(int));
