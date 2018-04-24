@@ -38,15 +38,15 @@
         {
             // Arrange
             const int CustId = 1;
-            const int currencyId = 1;
+            const int CurrencyId = 1;
             const string Language = "Hehe";
             const int GameKindId = 111;
             const int GameTypeId = 222;
             const int StakeLevelId = 333;
-            MockServices(CustId, currencyId, GameKindId, GameTypeId, StakeLevelId);
+            MockServices(CustId, CurrencyId, GameKindId, GameTypeId, StakeLevelId);
 
             // Action
-            var result = _casinoSettingService.GetRngCasinoSettings(CustId, currencyId, Language);
+            var result = _casinoSettingService.GetRngCasinoSettings(CustId, CurrencyId, Language);
 
             // Assert
             Assert.Multiple(() =>

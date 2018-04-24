@@ -1,8 +1,6 @@
 ﻿namespace Fanex.Athena.Service.Casino.Wrappers
 {
-    using System;
     using System.Data;
-    using CasinoLibrary.Model.UserException;
     using CasinoLibrary.SBAgent;
     using Fanex.Athena.Model.BetSettings.MetaModel;
     using Fanex.Athena.Model.Casino.MetaModel;
@@ -20,33 +18,30 @@
 
         public bool UpdateCustEnableCasino(BetSettingCasinoStatusMetaModel metaModel)
         {
-            return new ApiMethodOperationHandler<bool>().Handle<BetSettingCasinoStatusMetaModel>(metaModel, (obj) =>
-                 _customerApi.UpdateCustEnableCasino(obj.CustId, obj.Status == 0, false, obj.Ip, obj.UserId, obj.UserName, SystemId)
-            );
-
+            return new ApiMethodOperationHandler<bool>().Handle<BetSettingCasinoStatusMetaModel>(
+                metaModel, 
+                (obj) => _customerApi.UpdateCustEnableCasino(obj.CustId, obj.Status == 0, false, obj.Ip, obj.UserId, obj.UserName, SystemId));
         }
 
         public bool UpdateCustSuspend(CustomerStatusMetaModel metaModel)
         {
-            return new ApiMethodOperationHandler<bool>().Handle<CustomerStatusMetaModel>(metaModel, (obj) =>
-                 _customerApi.UpdateCustSuspend(obj.CustId, obj.IsOn, obj.Ip,
-                            obj.ModifyById, obj.ModifyByUsername, SystemId)
-            );
-
+            return new ApiMethodOperationHandler<bool>().Handle<CustomerStatusMetaModel>(
+                metaModel,
+                (obj) => _customerApi.UpdateCustSuspend(obj.CustId, obj.IsOn, obj.Ip, obj.ModifyById, obj.ModifyByUsername, SystemId));
         }
 
         public bool UpdateCustClosed(CustomerStatusMetaModel metaModel)
         {
-            return new ApiMethodOperationHandler<bool>().Handle<CustomerStatusMetaModel>(metaModel, (obj) =>
-                 _customerApi.UpdateCustClosed(obj.CustId, obj.IsOn, obj.Ip,
-                            obj.ModifyById, obj.ModifyByUsername, SystemId)
-            );
+            return new ApiMethodOperationHandler<bool>().Handle<CustomerStatusMetaModel>(
+                metaModel, 
+                (obj) => _customerApi.UpdateCustClosed(obj.CustId, obj.IsOn, obj.Ip, obj.ModifyById, obj.ModifyByUsername, SystemId));
         }
 
         public DataTable UpdateCustGameTypeStakeLevel(DataTable sourceTable)
         {
-            return new ApiMethodOperationHandler<DataTable>().Handle<DataTable>(sourceTable, (obj) =>
-               _customerApi.UpdateCustGameTypeStakeLevel(obj));
+            return new ApiMethodOperationHandler<DataTable>().Handle<DataTable>(
+                sourceTable, 
+                (obj) => _customerApi.UpdateCustGameTypeStakeLevel(obj));
         }
 
         public DataTable GetCustStakeLevel(int ibcCustId, int gameTypeId)
@@ -56,10 +51,9 @@
 
         public bool UpdateComm(RNGCasinoUpdateMemberComMetaModel metaModel)
         {
-            return new ApiMethodOperationHandler<bool>().Handle<RNGCasinoUpdateMemberComMetaModel>(metaModel, (obj) =>
-              _customerApi.UpdateComm(obj.CustomerId, obj.Comm, obj.FromIp, obj.ModifyBy, obj.ModifyUserName, SystemId));
-
+            return new ApiMethodOperationHandler<bool>().Handle<RNGCasinoUpdateMemberComMetaModel>(
+                metaModel, 
+                (obj) => _customerApi.UpdateComm(obj.CustomerId, obj.Comm, obj.FromIp, obj.ModifyBy, obj.ModifyUserName, SystemId));
         }
-
     }
 }

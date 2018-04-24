@@ -80,8 +80,6 @@ namespace Fanex.Athena
                     .IgnoreException<HttpAntiForgeryException>()
                     .GetHttpHeaderInfo()
                     .UseGetDbExceptionInfo(DatabaseInfoGetters.GetDbExceptionInfo);
-
-              
             }
         }
 

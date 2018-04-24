@@ -1,7 +1,7 @@
 ﻿namespace Fanex.Athena.Service.Casino.Wrappers
 {
-    using Fanex.Athena.Model.Casino.MetaModel.ApiInputParameter;
     using System.Data;
+    using Fanex.Athena.Model.Casino.MetaModel.ApiInputParameter;
 
     public interface IBasicInfoApiWrapper
     {

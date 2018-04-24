@@ -24,6 +24,7 @@ namespace Fanex.Athena.Controllers.BetSettings
     public class RngCasinoBetSettingController : BetSettingBaseController
     {
         private readonly IRngCasinoBetSettingService _betSettingService;
+
         public RngCasinoBetSettingController()
         {
             _betSettingService = new RngCasinoBetSettingService();

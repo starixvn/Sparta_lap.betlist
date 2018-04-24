@@ -47,12 +47,14 @@ namespace Fanex.Athena.Service.Casino
                 foreach (var gameKind in gameKinds)
                 {
                     // Get game type base on game kind
-                    var gameTypeList = GetGameType(new GetGameTypeMetalModel
-                    {
-                        GameKind = gameKind.GameKindId,
-                        SbCustID = custId,
-                        SbExchangeID = currencyId
-                    }, language);
+                    var gameTypeList = GetGameType(
+                        new GetGameTypeMetalModel
+                        {
+                            GameKind = gameKind.GameKindId,
+                            SbCustID = custId,
+                            SbExchangeID = currencyId
+                        },
+                        language);
                     gameKind.GameTypeList = gameTypeList;
 
                     foreach (var gameType in gameTypeList)
