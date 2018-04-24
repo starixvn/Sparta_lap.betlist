@@ -2,7 +2,7 @@
   {
     "SiteName": "IvoryBet",
     "DisableBetList": true,
-    "MinDate": "02/01/2018",
+    "MinDate": "03/01/2018",
     "MaxDate": "yesterday",
     "BaseCurrencies": "USD",
     "LimitRecentMonths": 3
@@ -10,7 +10,7 @@
   {
     "SiteName": "Opal88",
     "DisableBetList": true,
-    "MinDate": "02/01/2018",
+    "MinDate": "03/01/2018",
     "MaxDate": "yesterday",
     "BaseCurrencies": "USD",
     "LimitRecentMonths":  3
