@@ -41,17 +41,17 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         private const int ColumnCustomerTotal = 29;
 
         private const int ColumnLicenseeWlSportsBook = 30;
-        private const int ColumnLicenseeWlTotal = 46;
+        private const int ColumnLicenseeWlTotal = 47;
 
-        private const int ColumnBetTradeCommission = 47;
-        private const int ColumnCashOutCommission = 48;
-        private const int ColumnBaCommission = 49;
-        private const int ColumnRacingRevenue = 50;
-        private const int ColumnAmtDueToBetTrade = 51;
-        private const int ColumnAmtDueToBa = 52;
-        private const int ColumnAmtDueToRacing = 53;
+        private const int ColumnBetTradeCommission = 48;
+        private const int ColumnCashOutCommission = 49;
+        private const int ColumnBaCommission = 50;
+        private const int ColumnRacingRevenue = 51;
+        private const int ColumnAmtDueToBetTrade = 52;
+        private const int ColumnAmtDueToBa = 53;
+        private const int ColumnAmtDueToRacing = 54;
 
-        private const int ColumnTemplateCount = 54;
+        private const int ColumnTemplateCount = 55;
 
         private const int RowContentTemplate = 3;
 
