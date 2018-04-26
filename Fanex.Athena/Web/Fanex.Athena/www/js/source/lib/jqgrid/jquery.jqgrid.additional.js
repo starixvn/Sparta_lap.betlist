@@ -78,7 +78,7 @@ define(['jquery', 'common/site', 'lib/bignumber'], function ($, Site, BigNumber)
                         return "NaN";
                     }
 
-                    return new BigNumber(value.toString()).toFormat(2);
+                    return (new BigNumber(value.toString())).round(2, BigNumber.ROUND_HALF_UP).toFormat(2);
                 }
 
                 return value;

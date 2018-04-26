@@ -7,7 +7,7 @@
 
 var LicenseeWinLossOption = (function () {
     "use strict";
-    var IGNORED_LICENSEEWL_PRODUCTS = ["RB", "BA", "CO"];
+    var IGNORED_LICENSEEWL_PRODUCTS = ["RB", "BA"];
     var IGNORED_TURNOVER_PRODUCTS = ["BT", "CO"];
 
     // store state of toggle() function
