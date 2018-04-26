@@ -8,7 +8,7 @@ define(
     ["jquery", "common/querystring", "common/site", "lib/jqgrid/jquery.jqgrid.additional", "lib/linq"],
     function ($, QueryString, Site, jqGridAdditional) {
         "use strict";
-        var IGNORED_LICENSEEWL_PRODUCTS = ["RB", "BA", "CO"];
+        var IGNORED_LICENSEEWL_PRODUCTS = ["RB", "BA"];
         var IGNORED_TURNOVER_PRODUCTS = ["BT", "CO"];
         var _me =
         {

@@ -41,17 +41,17 @@ namespace Fanex.Athena.Excel.Report
         private const int ColumnCustomerTotal = 29;
 
         private const int ColumnLicenseeWlSportsBook = 30;
-        private const int ColumnLicenseeWlTotal = 46;
+        private const int ColumnLicenseeWlTotal = 47;
 
-        private const int ColumnBetTradeCommission = 47;
-        private const int ColumnCashOutCommission = 48;
-        private const int ColumnBaCommission = 49;
-        private const int ColumnRacingRevenue = 50;
-        private const int ColumnAmtDueToBetTrade = 51;
-        private const int ColumnAmtDueToBa = 52;
-        private const int ColumnAmtDueToRacing = 53;
+        private const int ColumnBetTradeCommission = 48;
+        private const int ColumnCashOutCommission = 49;
+        private const int ColumnBaCommission = 50;
+        private const int ColumnRacingRevenue = 51;
+        private const int ColumnAmtDueToBetTrade = 52;
+        private const int ColumnAmtDueToBa = 53;
+        private const int ColumnAmtDueToRacing = 54;
 
-        private const int ColumnTemplateCount = 54;
+        private const int ColumnTemplateCount = 55;
 
         private const int RowContentTemplate = 3;
         private const int RowGrantTotal = 6;
@@ -59,18 +59,18 @@ namespace Fanex.Athena.Excel.Report
         private const int RowTotalNoSolidBorder = 5;
         private const int RowTotalSolidBorder = 4;
 
-        private const int TotalLicenseeWlProductColumn = 18;
+        private const int TotalLicenseeWlProductColumn = 19;
         private const int TotalTurnoverProductColumn = 18;
 
         private static readonly string[] IgnoredLicenseeWLProducts = new[] { Product.RB, Product.BA };
-        private static readonly string[] IgnoredTurnoverProducts = new[] { Product.BT };
+        private static readonly string[] IgnoredTurnoverProducts = new[] { Product.BT, Product.CO };
 
         private static readonly string[] OfferedProducts = new[]
         {
             Product.SB, Product.AB, Product.AGC, Product.BA,
             Product.BT, Product.FW, Product.KN, 
             Product.VB, Product.MGCLC, Product.MGCRNG, Product.NG,
-            Product.RB, Product.CS, Product.VS, Product.VS2, Product.LT
+            Product.RB, Product.CS, Product.VS, Product.CO, Product.VS2, Product.LT
         };
 
         private readonly LicenseeWinLossExcelModel _excelModel;

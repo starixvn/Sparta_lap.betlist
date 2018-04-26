@@ -5048,7 +5048,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
 
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(3), __webpack_require__(1), __webpack_require__(4), __webpack_require__(35)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, jqGridAdditional) {
         "use strict";
-        var IGNORED_LICENSEEWL_PRODUCTS = ["RB", "BA", "CO"];
+        var IGNORED_LICENSEEWL_PRODUCTS = ["RB", "BA"];
         var IGNORED_TURNOVER_PRODUCTS = ["BT", "CO"];
         var _me =
         {
