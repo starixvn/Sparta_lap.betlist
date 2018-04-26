@@ -184,6 +184,7 @@ namespace Fanex.Athena.Api.Report
             licenseeWinLoss.LicenseeWLVB = licenseeWLProducts.GetValueOrDefault(Product.VB, 0);
             licenseeWinLoss.LicenseeWLAB = licenseeWLProducts.GetValueOrDefault(Product.AB, 0);
             licenseeWinLoss.LicenseeWLFW = licenseeWLProducts.GetValueOrDefault(Product.FW, 0);
+            licenseeWinLoss.LicenseeWLCO = licenseeWLProducts.GetValueOrDefault(Product.CO, 0);
             licenseeWinLoss.LicenseeWLVS2 = licenseeWLProducts.GetValueOrDefault(Product.VS2, 0);
             licenseeWinLoss.LicenseeWLLT = licenseeWLProducts.GetValueOrDefault(Product.LT, 0);
         }

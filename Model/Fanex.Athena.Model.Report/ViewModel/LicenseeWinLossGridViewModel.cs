@@ -104,6 +104,8 @@ namespace Fanex.Athena.Model.Report.ViewModel
 
         public decimal LicenseeWLFW { get; set; }
 
+        public decimal LicenseeWLCO { get; set; }
+
         public decimal LicenseeWLVS2 { get; set; }
 
         public decimal LicenseeWLLT { get; set; }
@@ -114,7 +116,7 @@ namespace Fanex.Athena.Model.Report.ViewModel
             {
                 return LicenseeWLBA + LicenseeWLNG + LicenseeWLRB + LicenseeWLSB + LicenseeWLVS + LicenseeWLCS +
                     LicenseeWLKN + LicenseeWLBT + LicenseeWLAGC + LicenseeWLMGCLC + LicenseeWLMGCRNG + LicenseeWLVB + LicenseeWLAB + LicenseeWLFW +
-                    LicenseeWLVS2 + LicenseeWLLT;
+                    LicenseeWLCO + LicenseeWLVS2 + LicenseeWLLT;
             }
         }
 
