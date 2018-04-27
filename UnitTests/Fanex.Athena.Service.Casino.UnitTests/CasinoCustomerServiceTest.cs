@@ -44,19 +44,14 @@
             var result = _casinoCustomerService.UpdateSuspend(metaModel);
 
             // Assert
-            _customerApiWrapper.Received().UpdateCustSuspend(
-                            metaModel.CustId,
-                            metaModel.IsOn,
-                            metaModel.Ip,
-                            metaModel.ModifyById,
-                            metaModel.ModifyByUsername);
+            _customerApiWrapper.Received().UpdateCustSuspend(metaModel);
         }
 
         [Test]
         public void UpdateSuspend_ApiThrowException_ThrowServiceException()
         {
             // Arrange
-            _customerApiWrapper.UpdateCustSuspend(0, false, null, 0, null).ReturnsForAnyArgs(x =>
+            _customerApiWrapper.UpdateCustSuspend(Arg.Any<CustomerStatusMetaModel>()).ReturnsForAnyArgs(x =>
             {
                 throw new Exception();
             });
@@ -79,18 +74,14 @@
 
             // Assert
             _customerApiWrapper.Received().UpdateCustClosed(
-                            metaModel.CustId,
-                            metaModel.IsOn,
-                            metaModel.Ip,
-                            metaModel.ModifyById,
-                            metaModel.ModifyByUsername);
+                        metaModel);
         }
 
         [Test]
         public void UpdateClosed_ApiThrowException_ThrowServiceException()
         {
             // Arrange
-            _customerApiWrapper.UpdateCustClosed(0, false, null, 0, null).ReturnsForAnyArgs(x =>
+            _customerApiWrapper.UpdateCustClosed(Arg.Any<CustomerStatusMetaModel>()).ReturnsForAnyArgs(x =>
             {
                 throw new Exception();
             });
@@ -116,22 +107,14 @@
             };
 
             _customerApiWrapper.UpdateComm(
-                metaModel.CustomerId,
-                metaModel.Comm,
-                metaModel.FromIp,
-                metaModel.ModifyBy,
-                metaModel.ModifyUserName).Returns(true);
+              metaModel).Returns(true);
 
             // Action
             var result = _casinoCustomerService.UpdateCommission(metaModel);
 
             // Assert
             _customerApiWrapper.Received().UpdateComm(
-                            metaModel.CustomerId,
-                            metaModel.Comm,
-                            metaModel.FromIp,
-                            metaModel.ModifyBy,
-                            metaModel.ModifyUserName);
+                           metaModel);
         }
 
         [Test]
@@ -148,11 +131,7 @@
             };
 
             _customerApiWrapper.UpdateComm(
-                metaModel.CustomerId,
-                metaModel.Comm,
-                metaModel.FromIp,
-                metaModel.ModifyBy,
-                metaModel.ModifyUserName).Returns(false);
+              metaModel).Returns(false);
 
             // Action
             var result = _casinoCustomerService.UpdateCommission(metaModel);
@@ -170,7 +149,7 @@
             {
                 CustomerId = new[] { "1" }
             };
-            _customerApiWrapper.UpdateComm(null, 0, null, 0, null).ReturnsForAnyArgs(x =>
+            _customerApiWrapper.UpdateComm(Arg.Any<RNGCasinoUpdateMemberComMetaModel>()).ReturnsForAnyArgs(x =>
             {
                 throw exception;
             });

@@ -32,5 +32,7 @@ namespace Fanex.Athena.Model.Customer.DTO
         public bool DisableOutright { get; set; }
 
         public bool IsInternal { get; set; }
+
+        public int CurrencyID { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 {
     using System.Data;
     using CasinoLibrary.SBAgent;
+    using Fanex.Athena.Model.Casino.MetaModel.ApiInputParameter;
 
     public class BasicInfoApiWrapper : IBasicInfoApiWrapper
     {
@@ -14,12 +15,16 @@
 
         public DataTable GetGameKind(string casinoNo)
         {
-            return _basicInfoApi.GetGameKind(casinoNo);
+            return new ApiMethodOperationHandler<DataTable>().Handle(
+                casinoNo, 
+                (obj) => _basicInfoApi.GetGameKind(obj));
         }
 
-        public DataTable GetGameType(int gameKind)
+        public DataTable GetGameType(GetGameTypeMetalModel input)
         {
-            return _basicInfoApi.GetGameType(gameKind);
+            return new ApiMethodOperationHandler<DataTable>().Handle<GetGameTypeMetalModel>(
+                input, 
+                (obj) => _basicInfoApi.GetGameType(obj.GameKind, obj.SbCustID, obj.SbExchangeID));
         }
     }
 }

@@ -52,6 +52,7 @@
     <Compile Include="DTO\RNGResultDetail\CasinoGameType.cs" />
     <Compile Include="DTO\RNGResultDetail\CasinoWinLossDetail.cs" />
     <Compile Include="DTO\RNGResultDetail\CasinoWinLossDetailHeader.cs" />
+    <Compile Include="MetaModel\ApiInputParameter\GetGameTypeMetalModel.cs" />
     <Compile Include="MetaModel\RNGCasinoResultDetailMetaModel.cs" />
     <Compile Include="MetaModel\RNGCasinoResultMetaModel.cs" />
     <Compile Include="MetaModel\RNGCasinoUpdateMemberComMetaModel.cs" />

@@ -1,0 +1,91 @@
+﻿namespace Fanex.Athena.Service.Casino.UnitTests.Wrappers
+{
+    using System;
+    using System.Data;
+    using Casino.Wrappers;
+    using CasinoLibrary.Model.UserException;
+    using Fanex.Logging;
+    using NSubstitute;
+    using NUnit.Framework;
+
+    [TestFixture]
+    public class ApiMethodOperationHandlerTest
+    {
+        private T SuccessCodeBlock<T>(object input, T expectedValue)
+        {
+            return expectedValue;
+        }
+
+        private T ThrowErrorExceptionCodeBlock<T>(object input)
+        {
+            throw new ErrorException("Unit Text Error");
+        }
+
+        private T ThrowOtherExceptionCodeBlock<T>(object input)
+        {
+            throw new ArgumentException("Invalid input");
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        [TestCase(null)]
+        [TestCase(100)]
+        public void Handle_WhenCall_ReturnExpectedValue(object expectedValue)
+        {
+            // Arrange
+            var handler = new ApiMethodOperationHandler<object>();
+
+            // Action
+            var result = handler.Handle(Arg.Any<object>(), (obj) => SuccessCodeBlock<object>(obj, expectedValue));
+
+            // Assert
+            Assert.AreEqual(expectedValue, result);
+        }
+
+        [Test]
+        public void Handle_WhenCall_ThrowError()
+        {
+            // Arrange
+            var handler = new ApiMethodOperationHandler<object>();
+
+            // Action
+            TestDelegate result = () => handler.Handle(Arg.Any<object>(), (obj) => ThrowOtherExceptionCodeBlock<object>(obj));
+
+            // Assert
+            Assert.Throws<ArgumentException>(result);
+        }
+
+        [Test]
+        public void Handle_WhenCall_ReturnDefaultValueOfOutPutType()
+        {
+            // Arrange
+            var handler = new ApiMethodOperationHandler<DataTable>();
+
+            // Action
+            var result = handler.Handle(Arg.Any<object>(), (obj) => ThrowErrorExceptionCodeBlock<DataTable>(obj));
+
+            // Assert
+            Assert.AreEqual(default(DataTable), result);
+        }
+
+        [Test]
+        public void Handle_WhenCall_ThrowSpecialExceptionAndWriteLog()
+        {
+            // Arrange
+            var logger = Substitute.For<ILogger>();
+            var handler = new ApiMethodOperationHandler<DataTable>(logger);
+
+            // Action
+            /*
+             * Argument matchers should only be used when setting return values 
+             * or checking received calls. Using Arg.Is or Arg.Any without a call to
+             * .Returns or Received() can cause your tests to behave in unexpected ways
+             */
+            var result = handler
+                .Handle(new DataTable(), (obj) => ThrowErrorExceptionCodeBlock<DataTable>(obj));
+
+            // Assert
+            logger.Received(1).Error(Arg.Any<string>(), Arg.Any<Exception>());
+        }
+    }
+}

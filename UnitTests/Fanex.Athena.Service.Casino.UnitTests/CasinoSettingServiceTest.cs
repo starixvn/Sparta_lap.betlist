@@ -5,6 +5,7 @@
     using Casino;
     using Casino.Wrappers;
     using Core.Exception;
+    using Fanex.Athena.Model.Casino.MetaModel.ApiInputParameter;
     using NSubstitute;
     using NUnit.Framework;
 
@@ -37,14 +38,15 @@
         {
             // Arrange
             const int CustId = 1;
+            const int CurrencyId = 1;
             const string Language = "Hehe";
             const int GameKindId = 111;
             const int GameTypeId = 222;
             const int StakeLevelId = 333;
-            MockServices(CustId, GameKindId, GameTypeId, StakeLevelId);
+            MockServices(CustId, CurrencyId, GameKindId, GameTypeId, StakeLevelId);
 
             // Action
-            var result = _casinoSettingService.GetRngCasinoSettings(CustId, Language);
+            var result = _casinoSettingService.GetRngCasinoSettings(CustId, CurrencyId, Language);
 
             // Assert
             Assert.Multiple(() =>
@@ -96,7 +98,7 @@
             Assert.Throws<ServiceException>(result);
         }
 
-        private void MockServices(int custId, int gameKindId, int gameTypeId, int stakeLevelId)
+        private void MockServices(int custId, int currencyId, int gameKindId, int gameTypeId, int stakeLevelId)
         {
             var gameKindTable = new DataTable();
             gameKindTable.Columns.Add("CodeId", typeof(int));
@@ -105,10 +107,16 @@
             _basicInfoApiWrapper.GetGameKind(null).ReturnsForAnyArgs(gameKindTable);
 
             var gameTypeTable = new DataTable();
+            var gameTypeInput = new GetGameTypeMetalModel
+            {
+                GameKind = gameKindId,
+                SbCustID = custId,
+                SbExchangeID = currencyId
+            };
             gameTypeTable.Columns.Add("GameTypeId", typeof(int));
             gameTypeTable.Columns.Add("GameTypeName_En", typeof(string));
             gameTypeTable.Rows.Add(gameTypeId, string.Empty);
-            _basicInfoApiWrapper.GetGameType(gameKindId).ReturnsForAnyArgs(gameTypeTable);
+            _basicInfoApiWrapper.GetGameType(gameTypeInput).ReturnsForAnyArgs(gameTypeTable);
 
             var stakeLevelTable = new DataTable();
             stakeLevelTable.Columns.Add("StakeLevelID", typeof(int));

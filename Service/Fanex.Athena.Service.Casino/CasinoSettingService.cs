@@ -12,6 +12,7 @@ namespace Fanex.Athena.Service.Casino
     using System.Linq;
     using Extension.Helper;
     using Fanex.Athena.Model.BetSettings.DTO.RngCasino;
+    using Fanex.Athena.Model.Casino.MetaModel.ApiInputParameter;
     using Fanex.Athena.Service.Casino.Interfaces;
     using Fanex.Athena.Service.Core.Exception;
     using Fanex.Athena.Service.Core.Helpers;
@@ -20,6 +21,7 @@ namespace Fanex.Athena.Service.Casino
 
     public class CasinoSettingService : ICasinoSettingService
     {
+        private const string CasinoNoDeposit = "01";
         private readonly ICustomerApiWrapper _customerApiWrapper;
 
         private readonly IBasicInfoApiWrapper _basicInfoApiWrapper;
@@ -34,7 +36,7 @@ namespace Fanex.Athena.Service.Casino
             _basicInfoApiWrapper = basicInfoApiWrapper ?? new BasicInfoApiWrapper();
         }
 
-        public IList<GameKind> GetRngCasinoSettings(int custId, string language)
+        public IList<GameKind> GetRngCasinoSettings(int custId, int currencyId, string language)
         {
             IList<GameKind> gameKinds;
 
@@ -45,7 +47,14 @@ namespace Fanex.Athena.Service.Casino
                 foreach (var gameKind in gameKinds)
                 {
                     // Get game type base on game kind
-                    var gameTypeList = GetGameType(gameKind.GameKindId, language);
+                    var gameTypeList = GetGameType(
+                        new GetGameTypeMetalModel
+                        {
+                            GameKind = gameKind.GameKindId,
+                            SbCustID = custId,
+                            SbExchangeID = currencyId
+                        },
+                        language);
                     gameKind.GameTypeList = gameTypeList;
 
                     foreach (var gameType in gameTypeList)
@@ -81,8 +90,7 @@ namespace Fanex.Athena.Service.Casino
         private IList<GameKind> GetGameKind(string language)
         {
             var gameKindNameColumn = CasinoHelper.GetColumnNameByLanguage("CodeName", language);
-            var gameKindTable = _basicInfoApiWrapper.GetGameKind("01");
-
+            var gameKindTable = _basicInfoApiWrapper.GetGameKind(CasinoNoDeposit);
             var gameKindList = new List<GameKind>();
 
             foreach (DataRow row in gameKindTable.Rows)
@@ -99,10 +107,10 @@ namespace Fanex.Athena.Service.Casino
             return gameKindList;
         }
 
-        private IList<GameType> GetGameType(int gameKindId, string language)
+        private IList<GameType> GetGameType(GetGameTypeMetalModel input, string language)
         {
             var gameTypeName = CasinoHelper.GetColumnNameByLanguage("GameTypeName", language);
-            var gameTypeTable = _basicInfoApiWrapper.GetGameType(gameKindId);
+            var gameTypeTable = _basicInfoApiWrapper.GetGameType(input);
 
             var gameTypeList = new List<GameType>();
 

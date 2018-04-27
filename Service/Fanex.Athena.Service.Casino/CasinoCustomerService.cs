@@ -28,12 +28,7 @@ namespace Fanex.Athena.Service.Casino
         {
             try
             {
-                return _customerApiWrapper.UpdateCustSuspend(
-                            metaModel.CustId,
-                            metaModel.IsOn,
-                            metaModel.Ip,
-                            metaModel.ModifyById,
-                            metaModel.ModifyByUsername);
+                return _customerApiWrapper.UpdateCustSuspend(metaModel);
             }
             catch (Exception e)
             {
@@ -46,11 +41,7 @@ namespace Fanex.Athena.Service.Casino
             try
             {
                 return _customerApiWrapper.UpdateCustClosed(
-                            metaModel.CustId,
-                            metaModel.IsOn,
-                            metaModel.Ip,
-                            metaModel.ModifyById,
-                            metaModel.ModifyByUsername);
+                         metaModel);
             }
             catch (Exception e)
             {
@@ -72,12 +63,7 @@ namespace Fanex.Athena.Service.Casino
             var success = false;
             try
             {
-                success = _customerApiWrapper.UpdateComm(
-                     metaModel.CustomerId,
-                     metaModel.Comm,
-                     metaModel.FromIp,
-                     metaModel.ModifyBy,
-                     metaModel.ModifyUserName);
+                success = _customerApiWrapper.UpdateComm(metaModel);
                 if (!success)
                 {
                     _logger.Error(API_ERROR_MSG + string.Join(",", metaModel.CustomerId) + additionalErrorMsg);

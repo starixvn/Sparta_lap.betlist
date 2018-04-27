@@ -38,13 +38,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CasinoLibrary">
-      <HintPath>..\..\DLLs\Casino\CasinoLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="CasinoSetting">
-      <HintPath>..\..\DLLs\Casino\CasinoSetting.dll</HintPath>
+      <HintPath>..\..\DLLs\RNGCasino\CasinoLibrary.dll</HintPath>
     </Reference>
     <Reference Include="CasinoUtility">
-      <HintPath>..\..\DLLs\Casino\CasinoUtility.dll</HintPath>
+      <HintPath>..\..\DLLs\RNGCasino\CasinoUtility.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Common, Version=1.0.404.97, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.Common.1.0.404.97\lib\net40\Fanex.Common.dll</HintPath>
@@ -54,9 +51,15 @@
       <HintPath>..\..\packages\Fanex.Logging.1.0.0.0\lib\net40\Fanex.Logging.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="GotDotNet.ApplicationBlocks.Data">
+      <HintPath>..\..\DLLs\RNGCasino\GotDotNet.ApplicationBlocks.Data.dll</HintPath>
+    </Reference>
     <Reference Include="IBCCrypt, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.Crypt.1.1.0.0\lib\net40\IBCCrypt.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationBlocks.Data">
+      <HintPath>..\..\DLLs\RNGCasino\Microsoft.ApplicationBlocks.Data.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EnterpriseLibrary.Common.5.0.414.0\lib\net40\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
@@ -78,13 +81,18 @@
       <HintPath>..\..\packages\EnterpriseLibrary.Unity.5.0.414.0\lib\net40\Microsoft.Practices.Unity.Interception.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="NetUtility">
+      <HintPath>..\..\DLLs\RNGCasino\NetUtility.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Sunplus.Libraries.AOP, Version=1.0.4218.28561, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Sunplus.Libraries.AOP.1.0.4218.28561\lib\net40\Sunplus.Libraries.AOP.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Sunplus.Libraries.AOP">
+      <HintPath>..\..\DLLs\RNGCasino\Sunplus.Libraries.AOP.dll</HintPath>
+    </Reference>
+    <Reference Include="SunPlus.Library">
+      <HintPath>..\..\DLLs\RNGCasino\SunPlus.Library.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -100,19 +108,16 @@
   <ItemGroup>
     <Compile Include="CasinoCustomerService.cs" />
     <Compile Include="Interfaces\ICasinoCustomerService.cs" />
+    <Compile Include="Wrappers\ApiMethodOperationHandler.cs" />
     <Compile Include="Wrappers\BasicInfoApiWrapper.cs" />
     <Compile Include="CasinoSettingService.cs" />
     <Compile Include="Wrappers\CustomerApiWrapper.cs" />
     <Compile Include="Wrappers\IBasicInfoApiWrapper.cs" />
     <Compile Include="Wrappers\ICustomerApiWrapper.cs" />
     <Compile Include="Interfaces\ICasinoSettingService.cs" />
-    <Compile Include="Interfaces\IRNGCasinoService.cs" />
     <Compile Include="Interfaces\IRNGCasinoSingleWalletService.cs" />
-    <Compile Include="Wrappers\IReportApiWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Wrappers\ReportApiWrapper.cs" />
     <Compile Include="RNGCasinoSingleWalletService.cs" />
-    <Compile Include="RNGCasinoService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess.Core\Fanex.Athena.DataAccess.Core.csproj">
