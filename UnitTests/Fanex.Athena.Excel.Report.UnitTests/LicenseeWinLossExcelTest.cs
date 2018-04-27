@@ -26,32 +26,32 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         private const int ColumnCurrency = 4;
 
         private const int ColumnTurnoverSportBook = 5;
-        private const int ColumnTurnoverTotal = 21;
+        private const int ColumnTurnoverTotal = 22;
 
-        private const int ColumnActualStake = 22;
+        private const int ColumnActualStake = 23;
 
-        private const int ColumnBuyBackAmountSportsbook = 23;
-        private const int ColumnBuyBackAmountBA = 24;
-        private const int ColumnBuyBackAmountTotal = 25;
+        private const int ColumnBuyBackAmountSportsbook = 24;
+        private const int ColumnBuyBackAmountBA = 25;
+        private const int ColumnBuyBackAmountTotal = 26;
 
-        private const int ColumnTotalTransaction = 26;
+        private const int ColumnTotalTransaction = 27;
 
-        private const int ColumnCustomerWl = 27;
-        private const int ColumnCustomerComm = 28;
-        private const int ColumnCustomerTotal = 29;
+        private const int ColumnCustomerWl = 28;
+        private const int ColumnCustomerComm = 29;
+        private const int ColumnCustomerTotal = 30;
 
-        private const int ColumnLicenseeWlSportsBook = 30;
-        private const int ColumnLicenseeWlTotal = 47;
+        private const int ColumnLicenseeWlSportsBook = 31;
+        private const int ColumnLicenseeWlTotal = 48;
 
-        private const int ColumnBetTradeCommission = 48;
-        private const int ColumnCashOutCommission = 49;
-        private const int ColumnBaCommission = 50;
-        private const int ColumnRacingRevenue = 51;
-        private const int ColumnAmtDueToBetTrade = 52;
-        private const int ColumnAmtDueToBa = 53;
-        private const int ColumnAmtDueToRacing = 54;
+        private const int ColumnBetTradeCommission = 49;
+        private const int ColumnCashOutCommission = 50;
+        private const int ColumnBaCommission = 51;
+        private const int ColumnRacingRevenue = 52;
+        private const int ColumnAmtDueToBetTrade = 53;
+        private const int ColumnAmtDueToBa = 54;
+        private const int ColumnAmtDueToRacing = 55;
 
-        private const int ColumnTemplateCount = 55;
+        private const int ColumnTemplateCount = 56;
 
         private const int RowContentTemplate = 3;
 
