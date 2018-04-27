@@ -4,6 +4,7 @@
     using System.Data;
     using Casino.Wrappers;
     using CasinoLibrary.Model.UserException;
+    using Fanex.Logging;
     using NSubstitute;
     using NUnit.Framework;
 
@@ -65,6 +66,25 @@
 
             // Assert
             Assert.AreEqual(default(DataTable), result);
+        }
+
+        [Test]
+        public void Handle_WhenCall_ThrowSpecialExceptionAndWriteLog()
+        {
+            // Arrange
+            var logger = Substitute.For<ILogger>();
+            var handler = new ApiMethodOperationHandler<DataTable>(logger);
+            // Action
+            /*
+             * Argument matchers should only be used when setting return values 
+             * or checking received calls. Using Arg.Is or Arg.Any without a call to
+             * .Returns or Received() can cause your tests to behave in unexpected ways
+             */
+            var result = handler
+                .Handle(new DataTable(), (obj) => ThrowErrorExceptionCodeBlock<DataTable>(obj));
+
+            // Assert
+            logger.Received(1).Error(Arg.Any<string>(), Arg.Any<Exception>());
         }
     }
 }
