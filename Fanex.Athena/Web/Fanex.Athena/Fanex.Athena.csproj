@@ -1003,7 +1003,6 @@
     <Content Include="www\js\source\reactpages\reducers\__tests__\excludeTestReducer.test.js" />
     <Content Include="www\js\source\reactpages\reducers\__tests__\baseCurrencyReducer.test.js" />
     <Content Include="www\js\source\reactpages\reducers\xsrfTokenReducer.js" />
-    <Content Include="www\js\source\reactpages\reducers\__tests__\baseCurrency.test.js" />
     <Content Include="www\js\source\reactpages\reducers\__tests__\loaderReducer.test.js" />
     <Content Include="www\js\source\reactpages\reducers\__tests__\productReducer.test.js" />
     <Content Include="www\js\source\reactpages\reducers\__tests__\userGuideReducer.test.js" />
