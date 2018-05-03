@@ -2558,9 +2558,6 @@
     <Content Include="www\js\source\reactpages\components\CollapsibleRow.jsx" />
     <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\AppContainer.jsx" />
     <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\index.jsx" />
-    <Content Include="www\js\source\reactpages\components\tab\Tab.jsx" />
-    <Content Include="www\js\source\reactpages\components\tab\Tabs.jsx" />
-    <Content Include="www\js\source\reactpages\components\tab\index.jsx" />
     <Content Include="www\js\source\reactpages\components\fixed-table-header\components\Page.jsx" />
     <Content Include="www\js\source\reactpages\components\__tests__\__snapshots__\CollapsibleRow.test.js.snap" />
     <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\__snapshots__\Page.test.js.snap" />
