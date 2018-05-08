@@ -279,7 +279,7 @@ namespace Fanex.Athena.DataAccess.Report
                 var bettype = reader.ToString("bettype");
                 var item = new LiveReport
                 {
-                    ProductName = _cacheRefAdapter.GetBettype(Convert.ToInt32(bettype), false),
+                    ProductName = GetBetTypeName(Convert.ToInt32(bettype)),
                     ProductCode = reader.ToString("ProductCode")
                 };
                 ReadCommonColumns(reader, currency, item);
@@ -306,6 +306,22 @@ namespace Fanex.Athena.DataAccess.Report
             }
 
             return result;
+        }
+
+        private string GetBetTypeName(int betType)
+        {
+            string suffix = GetBettypeNameSuffix(betType);
+            return _cacheRefAdapter.GetBettype(Convert.ToInt32(betType), false) + suffix;
+        }
+
+        private string GetBettypeNameSuffix(int betType)
+        {
+            if (betType >= (int)BetType.VirtualBasketballOverUnder && betType <= (int)BetType.VirtualBasketballFirstHalfHandicap)
+            {
+                return " (" + _cacheRefAdapter.GetSportName((int)SportType.VirtualBasketball) + ")";
+            }
+
+            return string.Empty;
         }
     }
 }

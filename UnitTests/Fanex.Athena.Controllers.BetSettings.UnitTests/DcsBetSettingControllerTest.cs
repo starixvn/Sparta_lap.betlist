@@ -225,7 +225,7 @@
         }
 
         [TestCase(ProductTypes.VirtualSports, "180,181,182,183,184,185,186")]
-        [TestCase(ProductTypes.VirtualSports2, "190,191,199")]
+        [TestCase(ProductTypes.VirtualSports2, "190,191,192,193,199")]
         [TestCase(ProductTypes.Lottery, "220")]
         public void UpdateBetSetting_ProductHaveBetLimit_GetCorrectParam(int productId, string expectedBetLimits)
         {

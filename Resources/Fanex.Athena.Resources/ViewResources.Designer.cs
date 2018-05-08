@@ -8341,6 +8341,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Virtual Basketball.
+        /// </summary>
+        public static string VirtualBasketball {
+            get {
+                return ResourceManager.GetString("VirtualBasketball", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Virtual Cycling.
         /// </summary>
         public static string VirtualCycling {
@@ -8400,6 +8409,15 @@ namespace Fanex.Athena.Resources {
         public static string VirtualSoccerNation {
             get {
                 return ResourceManager.GetString("VirtualSoccerNation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Virtual Soccer World Cup.
+        /// </summary>
+        public static string VirtualSoccerWorldCup {
+            get {
+                return ResourceManager.GetString("VirtualSoccerWorldCup", resourceCulture);
             }
         }
         

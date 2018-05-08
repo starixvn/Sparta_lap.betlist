@@ -36,7 +36,7 @@
             var handler = new ApiMethodOperationHandler<object>();
 
             // Action
-            var result = handler.Handle(Arg.Any<object>(), (obj) => SuccessCodeBlock<object>(obj, expectedValue));
+            var result = handler.Handle(new object(), (obj) => SuccessCodeBlock<object>(obj, expectedValue));
 
             // Assert
             Assert.AreEqual(expectedValue, result);
@@ -49,7 +49,7 @@
             var handler = new ApiMethodOperationHandler<object>();
 
             // Action
-            TestDelegate result = () => handler.Handle(Arg.Any<object>(), (obj) => ThrowOtherExceptionCodeBlock<object>(obj));
+            TestDelegate result = () => handler.Handle(new object(), (obj) => ThrowOtherExceptionCodeBlock<object>(obj));
 
             // Assert
             Assert.Throws<ArgumentException>(result);
@@ -62,7 +62,7 @@
             var handler = new ApiMethodOperationHandler<DataTable>();
 
             // Action
-            var result = handler.Handle(Arg.Any<object>(), (obj) => ThrowErrorExceptionCodeBlock<DataTable>(obj));
+            var result = handler.Handle(new object(), (obj) => ThrowErrorExceptionCodeBlock<DataTable>(obj));
 
             // Assert
             Assert.AreEqual(default(DataTable), result);
@@ -77,7 +77,7 @@
 
             // Action
             /*
-             * Argument matchers should only be used when setting return values 
+             * Argument matchers should only be used when setting return values
              * or checking received calls. Using Arg.Is or Arg.Any without a call to
              * .Returns or Received() can cause your tests to behave in unexpected ways
              */

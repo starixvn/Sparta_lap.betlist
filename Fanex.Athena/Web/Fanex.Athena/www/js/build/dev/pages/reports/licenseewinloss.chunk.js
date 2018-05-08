@@ -2725,7 +2725,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/Mik
 
     // AMD.
     if ( true ) {
-        !(__WEBPACK_AMD_DEFINE_RESULT__ = function () { return BigNumber; }.call(exports, __webpack_require__, exports, module),
+        !(__WEBPACK_AMD_DEFINE_RESULT__ = (function () { return BigNumber; }).call(exports, __webpack_require__, exports, module),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
     // Node.js and other environments that support module.exports.
@@ -2748,7 +2748,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/Mik
 /***/ 11:
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(2), __webpack_require__(12)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, moment) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(2), __webpack_require__(12)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, moment) {
         "use strict";
 
         var _daysOfWeek, _monthNames;
@@ -2894,7 +2894,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             setValueForDateRange: setValueForDateRange,
             setValueForSingleDate: setValueForSingleDate
         };
-    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
@@ -2903,19 +2903,20 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
-* @version: 2.1.25
+* @version: 2.1.30
 * @author: Dan Grossman http://www.dangrossman.info/
 * @copyright: Copyright (c) 2012-2017 Dan Grossman. All rights reserved.
 * @license: Licensed under the MIT license. See http://www.opensource.org/licenses/mit-license.php
-* @website: https://www.daterangepicker.com/
+* @website: http://www.daterangepicker.com/
 */
 // Follow the UMD template https://github.com/umdjs/umd/blob/master/templates/returnExportsGlobal.js
 (function (root, factory) {
     if (true) {
         // AMD. Make globaly available as well
-        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(2), __webpack_require__(0)], __WEBPACK_AMD_DEFINE_RESULT__ = function (moment, jquery) {
-            return (root.daterangepicker = factory(moment, jquery));
-        }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(2), __webpack_require__(0)], __WEBPACK_AMD_DEFINE_RESULT__ = (function (moment, jquery) {
+            if (!jquery.fn) jquery.fn = {}; // webpack server rendering
+            return factory(moment, jquery);
+        }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
     } else if (typeof module === 'object' && module.exports) {
         // Node / Browserify
@@ -2925,7 +2926,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
             jQuery = require('jquery');
             if (!jQuery.fn) jQuery.fn = {};
         }
-        module.exports = factory(require('moment'), jQuery);
+        var moment = (typeof window != 'undefined' && typeof window.moment != 'undefined') ? window.moment : require('moment');
+        module.exports = factory(moment, jQuery);
     } else {
         // Browser globals
         root.daterangepicker = factory(root.moment, root.jQuery);
@@ -3327,7 +3329,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
             .on('click.daterangepicker', '.daterangepicker_input input', $.proxy(this.showCalendars, this))
             .on('focus.daterangepicker', '.daterangepicker_input input', $.proxy(this.formInputsFocused, this))
             .on('blur.daterangepicker', '.daterangepicker_input input', $.proxy(this.formInputsBlurred, this))
-            .on('change.daterangepicker', '.daterangepicker_input input', $.proxy(this.formInputsChanged, this));
+            .on('change.daterangepicker', '.daterangepicker_input input', $.proxy(this.formInputsChanged, this))
+            .on('keydown.daterangepicker', '.daterangepicker_input input', $.proxy(this.formInputsKeydown, this));
 
         this.container.find('.ranges')
             .on('click.daterangepicker', 'button.applyBtn', $.proxy(this.clickApply, this))
@@ -3341,10 +3344,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
                 'click.daterangepicker': $.proxy(this.show, this),
                 'focus.daterangepicker': $.proxy(this.show, this),
                 'keyup.daterangepicker': $.proxy(this.elementChanged, this),
-                'keydown.daterangepicker': $.proxy(this.keydown, this)
+                'keydown.daterangepicker': $.proxy(this.keydown, this) //IE 11 compatibility
             });
         } else {
             this.element.on('click.daterangepicker', $.proxy(this.toggle, this));
+            this.element.on('keydown.daterangepicker', $.proxy(this.toggle, this));
         }
 
         //
@@ -3404,7 +3408,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
                 this.endDate = moment(endDate);
 
             if (!this.timePicker)
-                this.endDate = this.endDate.endOf('day');
+                this.endDate = this.endDate.add(1,'d').startOf('day').subtract(1,'second');
 
             if (this.timePicker && this.timePickerIncrement)
                 this.endDate.minute(Math.round(this.endDate.minute() / this.timePickerIncrement) * this.timePickerIncrement);
@@ -4275,8 +4279,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
             var customRange = true;
             var i = 0;
             for (var range in this.ranges) {
-                if (this.timePicker) {
-                    if (this.startDate.isSame(this.ranges[range][0]) && this.endDate.isSame(this.ranges[range][1])) {
+              if (this.timePicker) {
+                    var format = this.timePickerSeconds ? "YYYY-MM-DD hh:mm:ss" : "YYYY-MM-DD hh:mm";
+                    //ignore times when comparing dates if time picker seconds is not enabled
+                    if (this.startDate.format(format) == this.ranges[range][0].format(format) && this.endDate.format(format) == this.ranges[range][1].format(format)) {
                         customRange = false;
                         this.chosenLabel = this.container.find('.ranges li:eq(' + i + ')').addClass('active').html();
                         break;
@@ -4465,10 +4471,22 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
 
         },
 
+        formInputsKeydown: function(e) {
+            // This function ensures that if the 'enter' key was pressed in the input, then the calendars
+            // are updated with the startDate and endDate.
+            // This behaviour is automatic in Chrome/Firefox/Edge but not in IE 11 hence why this exists.
+            // Other browsers and versions of IE are untested and the behaviour is unknown.
+            if (e.keyCode === 13) {
+                // Prevent the calendar from being updated twice on Chrome/Firefox/Edge
+                e.preventDefault(); 
+                this.formInputsChanged(e);
+            }
+        },
+
+
         elementChanged: function() {
             if (!this.element.is('input')) return;
             if (!this.element.val().length) return;
-            if (this.element.val().length < this.locale.format.length) return;
 
             var dateString = this.element.val().split(this.locale.separator),
                 start = null,
@@ -4496,6 +4514,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
             if ((e.keyCode === 9) || (e.keyCode === 13)) {
                 this.hide();
             }
+
+            //hide on esc and prevent propagation
+            if (e.keyCode === 27) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                this.hide();
+            }
         },
 
         updateElement: function() {
@@ -4517,11 +4543,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
     };
 
     $.fn.daterangepicker = function(options, callback) {
+        var implementOptions = $.extend(true, {}, $.fn.daterangepicker.defaultOptions, options);
         this.each(function() {
             var el = $(this);
             if (el.data('daterangepicker'))
                 el.data('daterangepicker').remove();
-            el.data('daterangepicker', new DateRangePicker(el, options, callback));
+            el.data('daterangepicker', new DateRangePicker(el, implementOptions, callback));
         });
         return this;
     };
@@ -4544,10 +4571,10 @@ module.exports = __webpack_require__(128);
 /***/ 128:
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(129)], __WEBPACK_AMD_DEFINE_RESULT__ = function (LicenseeWinLoss) {
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(129)], __WEBPACK_AMD_DEFINE_RESULT__ = (function (LicenseeWinLoss) {
     "use strict";
     $(LicenseeWinLoss.initialize);
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
@@ -4559,7 +4586,7 @@ module.exports = __webpack_require__(128);
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(3), __webpack_require__(1), __webpack_require__(17), __webpack_require__(130), __webpack_require__(4),
         __webpack_require__(11), __webpack_require__(2), __webpack_require__(5), __webpack_require__(19),
         __webpack_require__(21), __webpack_require__(51), __webpack_require__(52), __webpack_require__(44), __webpack_require__(8),
-        __webpack_require__(9), __webpack_require__(6), __webpack_require__(35), __webpack_require__(53)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, DatePicker, moment, Popup,
+        __webpack_require__(9), __webpack_require__(6), __webpack_require__(35), __webpack_require__(53)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, QueryString, Site, Report, LicenseeWinLossOption, jqGridAdditional, DatePicker, moment, Popup,
         MultiSelect, DateHelper, Downloader, Toast, DataHelper) {
         "use strict";
         var REPORT_BY_MONTHLY = 2;
@@ -5032,7 +5059,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         };
 
         return _me;
-    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
@@ -5046,7 +5073,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
 *  "0" for master,"1" for agent and "2" for member
 */
 
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(3), __webpack_require__(1), __webpack_require__(4), __webpack_require__(35)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, QueryString, Site, jqGridAdditional) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(3), __webpack_require__(1), __webpack_require__(4), __webpack_require__(35)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, QueryString, Site, jqGridAdditional) {
         "use strict";
         var IGNORED_LICENSEEWL_PRODUCTS = ["RB", "BA"];
         var IGNORED_TURNOVER_PRODUCTS = ["BT", "CO"];
@@ -5855,7 +5882,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
         };
 
         return _me;
-    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
@@ -5863,7 +5890,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
 /***/ 17:
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(5)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(5)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Popup) {
     "use strict";
     var REPORT_BY_MONTHLY = 2;
     var LICENSEE_12BET = 1;
@@ -6020,7 +6047,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     };
 
     return _me;
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
@@ -6819,7 +6846,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(18)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(18)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site) {
     var _me = {
         initProductList: function () {
             var selector = "#grid-products-multiselect";
@@ -6871,7 +6898,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     };
 
     return _me;
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
@@ -11424,7 +11451,7 @@ return hooks;
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(5)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(5)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Popup) {
     var _me = {
         setConstraintMonthRange: function (monthRange, url) {
             var errorMessage = Site.getSingleResource("DateRangeExceedMsg").replace("{0}", monthRange);
@@ -11468,7 +11495,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     };
 
     return _me;
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
@@ -14217,7 +14244,7 @@ Enumerable = (function ()
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <reference path="/@JSense.js" />
 ///
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(10)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BigNumber) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(10)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, BigNumber) {
     "use strict";
     var jqGridAdditional = (function () {
         return {
@@ -14664,7 +14691,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
     })();
 
     return jqGridAdditional;
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
@@ -14674,7 +14701,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(35)], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(35)], __WEBPACK_AMD_DEFINE_RESULT__ = (function () {
     function sort(arrayData, sortByFunc, sortOrder, sortThenByFunc, sortThenOrder) {
         if (!sortByFunc || arrayData.length <= 1) {
             return arrayData;
@@ -14694,7 +14721,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     return {
         sort: sort
     };
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
@@ -14704,7 +14731,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
+!(__WEBPACK_AMD_DEFINE_RESULT__ = (function () {
     var _me = {
         download: function (blob, fileName) {
             // IE 10+
@@ -14722,7 +14749,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;﻿
     };
 
     return _me;
-}.call(exports, __webpack_require__, exports, module),
+}).call(exports, __webpack_require__, exports, module),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
@@ -14732,7 +14759,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
     var defaultOption = {
         text: "Data is being downloaded",
         position: "top right",
@@ -14802,7 +14829,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     };
 
     return _me;
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),

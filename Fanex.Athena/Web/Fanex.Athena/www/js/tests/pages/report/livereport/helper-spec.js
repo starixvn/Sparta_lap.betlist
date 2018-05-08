@@ -54,6 +54,12 @@
 
                     Helper.getMatchListProductOption(191, "VS2");
                     expect(result).toEqual(expected);
+
+                    Helper.getMatchListProductOption(192, "VS2");
+                    expect(result).toEqual(expected);
+
+                    Helper.getMatchListProductOption(193, "VS2");
+                    expect(result).toEqual(expected);
                 });
             });
 

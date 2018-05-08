@@ -253,6 +253,10 @@ namespace Fanex.Athena.Constant.DataDomain
 
         VirtualSports2MixParlay = 2799,
 
-        FirstHalfThreeWayHandicap = 453
+        FirstHalfThreeWayHandicap = 453,
+
+        VirtualBasketballOverUnder = 2803,
+
+        VirtualBasketballFirstHalfHandicap = 2806
     }
 }
