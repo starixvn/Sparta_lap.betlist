@@ -8,7 +8,6 @@ namespace Fanex.Athena.Controllers
 {
     using System.Collections.Generic;
     using System.Linq;
-    using System.Runtime.Serialization;
     using System.Web.Mvc;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
@@ -86,15 +85,8 @@ namespace Fanex.Athena.Controllers
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
             base.Initialize(requestContext);
-            try
-            {
-                var currentLanguage = LangService.GetCurrentLanguage();
-                LangService.SetPageCulture(currentLanguage);
-            }
-            catch (SerializationException)
-            {
-                Session.Clear();
-            }
+            var currentLanguage = LangService.GetCurrentLanguage();
+            LangService.SetPageCulture(currentLanguage);
         }
 
         protected override ViewResult View(string viewName, string masterName, object model)

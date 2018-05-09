@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using Core;
     using Core.Configuration;
     using Core.Configuration.Interfaces;
     using Data;
@@ -13,7 +12,7 @@
     using Model.Report.DTO.SubsidiaryPerformance;
     using Model.Report.MetaModel;
 
-    public class SubsidiaryPerformanceDataAccess : BaseDataAccess, ISubsidiaryPerformanceDataAccess
+    public class SubsidiaryPerformanceDataAccess : ReportBaseDataAccess, ISubsidiaryPerformanceDataAccess
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
@@ -81,13 +80,14 @@
             };
         }
 
-        private static SubsidiaryPerformanceEntity GetEntityData(IDataReader reader, string baseCurrency)
+        private SubsidiaryPerformanceEntity GetEntityData(IDataReader reader, string baseCurrency)
         {
+            var currencyId = Convert.ToInt32(reader["Currency"]);
             return new SubsidiaryPerformanceEntity
             {
                 SubsidiaryId = Convert.ToInt32(reader["recommend"]),
-                CurrencyId = Convert.ToInt32(reader["Currency"]),
-                CurrencyName = reader["CurrencyName"].ToString(),
+                CurrencyId = currencyId,
+                CurrencyName = GetCurrencyName(currencyId),
                 Product = reader["ProductCode"].ToString(),
                 BetCount = Convert.ToInt32(reader["BetCount"]),
                 Turnover = Convert.ToDecimal(reader["Turnover" + baseCurrency]),

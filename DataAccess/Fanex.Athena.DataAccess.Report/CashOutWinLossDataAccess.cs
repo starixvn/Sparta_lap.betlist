@@ -13,7 +13,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Core.Configuration;
     using Core.Configuration.Interfaces;
     using Extension.Helper;
-    using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Report.Interfaces;
@@ -25,7 +24,7 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Data;
     using Model.Core.ResultModel;
 
-    public class CashOutWinLossDataAccess : BaseDataAccess, ICashOutWinLossDataAccess
+    public class CashOutWinLossDataAccess : ReportBaseDataAccess, ICashOutWinLossDataAccess
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
@@ -81,72 +80,6 @@ namespace Fanex.Athena.DataAccess.Report
             {
                 throw new DataAccessException(sqlException, UspName, metaModel);
             }
-        }
-
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
-        private static SortableReportResultModel<CashOutWinLoss> GetData(IDataReader reader, ThirdPartyWinLossMetaModel metaModel)
-        {
-            var result = new SortableList<CashOutWinLoss>();
-
-            var summaryTotal = new Dictionary<string, CashOutWinLoss>();
-            foreach (var currency in SystemConstants.BaseCurrencyList)
-            {
-                summaryTotal.Add(currency, new CashOutWinLoss());
-            }
-
-            var cashOutValueColumn = "cashoutvalue" + metaModel.BaseCurrency;
-
-            var buybackAmountSBColumn = "buybackamountSB" + metaModel.BaseCurrency;
-            var buybackAmountBAColumn = "buybackamountBA" + metaModel.BaseCurrency;
-
-            var ticketPayoutColumn = "ticketpayout" + metaModel.BaseCurrency;
-            var cashOutCommColumn = "cashoutcomm" + metaModel.BaseCurrency;
-
-            var settleTicketPayoutColumn = "AmountDue_TicketPayout" + metaModel.BaseCurrency;
-            var settleCommColumn = "AmountDue_Comm" + metaModel.BaseCurrency;
-            var settleTotalColumn = "Amount_Total" + metaModel.BaseCurrency;
-
-            var hasSystemId = reader.HasColumn("systemid");
-            var hasExternalId = reader.HasColumn("externalid");
-            var hasCustomerId = reader.HasColumn("custid");
-            var isDrilldown = metaModel.DrillDownLevel > 0;
-            var index = 1;
-            while (reader.Read())
-            {
-                var item = new CashOutWinLoss
-                {
-                    Index = index++,
-                    SystemId = hasSystemId ? reader.ToString("systemid") : string.Empty,
-                    ExternalId = hasExternalId ? reader.ToString("externalid") : string.Empty,
-                    CustomerId = hasCustomerId ? reader.ToInt("custid") : 0,
-                    CurrencyId = reader.ToInt("currencyid"),
-                    CurrencyName = reader.ToString("currencyname"),
-                    CashOutTimes = reader.ToInt("cashouttime"),
-                    CashOutValue = reader.ToDecimal(cashOutValueColumn),
-                    CashOutTickets = reader.ToInt("cashoutticket"),
-                    BuyBackAmountSB = reader.ToDecimal(buybackAmountSBColumn),
-                    BuyBackAmountBA = reader.ToDecimal(buybackAmountBAColumn),
-                    TicketPayout = reader.ToDecimal(ticketPayoutColumn),
-                    CashOutCommission = reader.ToDecimal(cashOutCommColumn),
-                    SettleAmountTicketPayout = reader.ToDecimal(settleTicketPayoutColumn),
-                    SettleAmountBuyBackComm = reader.ToDecimal(settleCommColumn),
-                    SettleAmountTotal = reader.ToDecimal(settleTotalColumn),
-                    Date = isDrilldown
-                        ? metaModel.DrillDownFromDate
-                        : ConvertHelper.ToDateTime(reader.ToString("reporttype"), metaModel.ReportBy == ReportByType.Monthly)
-                };
-
-                result.Add(item);
-                ReadSummaryTotal(reader, summaryTotal);
-            }
-
-            return new SortableReportResultModel<CashOutWinLoss>
-            {
-                DataList = result,
-                TotalDataList = CalculateTotal(result),
-                SummaryTotal = summaryTotal
-            };
         }
 
         private static void ReadSummaryTotal(IDataReader reader, IDictionary<string, CashOutWinLoss> summaryTotal)
@@ -214,6 +147,73 @@ namespace Fanex.Athena.DataAccess.Report
             db.AddInParameter("todate", DbType.Date, drilldown ? metaModel.DrillDownToDate : metaModel.ToDate.Date);
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             db.AddInParameter("MoveBetsDay", DbType.DateTime, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
+        }
+
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
+        private SortableReportResultModel<CashOutWinLoss> GetData(IDataReader reader, ThirdPartyWinLossMetaModel metaModel)
+        {
+            var result = new SortableList<CashOutWinLoss>();
+
+            var summaryTotal = new Dictionary<string, CashOutWinLoss>();
+            foreach (var currency in SystemConstants.BaseCurrencyList)
+            {
+                summaryTotal.Add(currency, new CashOutWinLoss());
+            }
+
+            var cashOutValueColumn = "cashoutvalue" + metaModel.BaseCurrency;
+
+            var buybackAmountSBColumn = "buybackamountSB" + metaModel.BaseCurrency;
+            var buybackAmountBAColumn = "buybackamountBA" + metaModel.BaseCurrency;
+
+            var ticketPayoutColumn = "ticketpayout" + metaModel.BaseCurrency;
+            var cashOutCommColumn = "cashoutcomm" + metaModel.BaseCurrency;
+
+            var settleTicketPayoutColumn = "AmountDue_TicketPayout" + metaModel.BaseCurrency;
+            var settleCommColumn = "AmountDue_Comm" + metaModel.BaseCurrency;
+            var settleTotalColumn = "Amount_Total" + metaModel.BaseCurrency;
+
+            var hasSystemId = reader.HasColumn("systemid");
+            var hasExternalId = reader.HasColumn("externalid");
+            var hasCustomerId = reader.HasColumn("custid");
+            var isDrilldown = metaModel.DrillDownLevel > 0;
+            var index = 1;
+            while (reader.Read())
+            {
+                var currencyId = reader.ToInt("currencyid");
+                var item = new CashOutWinLoss
+                {
+                    Index = index++,
+                    SystemId = hasSystemId ? reader.ToString("systemid") : string.Empty,
+                    ExternalId = hasExternalId ? reader.ToString("externalid") : string.Empty,
+                    CustomerId = hasCustomerId ? reader.ToInt("custid") : 0,
+                    CurrencyId = currencyId,
+                    CurrencyName = GetCurrencyName(currencyId),
+                    CashOutTimes = reader.ToInt("cashouttime"),
+                    CashOutValue = reader.ToDecimal(cashOutValueColumn),
+                    CashOutTickets = reader.ToInt("cashoutticket"),
+                    BuyBackAmountSB = reader.ToDecimal(buybackAmountSBColumn),
+                    BuyBackAmountBA = reader.ToDecimal(buybackAmountBAColumn),
+                    TicketPayout = reader.ToDecimal(ticketPayoutColumn),
+                    CashOutCommission = reader.ToDecimal(cashOutCommColumn),
+                    SettleAmountTicketPayout = reader.ToDecimal(settleTicketPayoutColumn),
+                    SettleAmountBuyBackComm = reader.ToDecimal(settleCommColumn),
+                    SettleAmountTotal = reader.ToDecimal(settleTotalColumn),
+                    Date = isDrilldown
+                        ? metaModel.DrillDownFromDate
+                        : ConvertHelper.ToDateTime(reader.ToString("reporttype"), metaModel.ReportBy == ReportByType.Monthly)
+                };
+
+                result.Add(item);
+                ReadSummaryTotal(reader, summaryTotal);
+            }
+
+            return new SortableReportResultModel<CashOutWinLoss>
+            {
+                DataList = result,
+                TotalDataList = CalculateTotal(result),
+                SummaryTotal = summaryTotal
+            };
         }
     }
 }

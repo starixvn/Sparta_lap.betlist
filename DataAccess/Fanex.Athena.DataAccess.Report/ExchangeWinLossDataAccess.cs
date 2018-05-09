@@ -4,7 +4,6 @@
     using System.Data;
     using System.Linq;
     using Common.Extensions;
-    using Core;
     using Core.Exception;
     using Core.Extensions;
     using Data;
@@ -14,7 +13,7 @@
     using Model.Report.DTO;
     using Model.Report.MetaModel;
 
-    public class ExchangeWinLossDataAccess : BaseDataAccess, IExchangeWinLossDataAccess
+    public class ExchangeWinLossDataAccess : ReportBaseDataAccess, IExchangeWinLossDataAccess
     {
         public ReportResultModel<ExchangeWinLoss> GetMainWinloss(ExchangeWinLossMetaModel metaModel)
         {
@@ -142,11 +141,12 @@
 
             while (reader.Read())
             {
+                var currencyId = reader.ToInt("CurrencyID");
                 var item = new ExchangeWinLoss
                 {
                     Date = hasWinlostdate ? reader.ToDateTime("Winlostdate") : metaModel.ToDate,
-                    CurrencyName = reader.ToString("CurrencyName"),
-                    CurrencyId = reader.ToInt("CurrencyID"),
+                    CurrencyName = GetCurrencyName(currencyId),
+                    CurrencyId = currencyId,
                     ExternalId = hasExternalId ? reader.ToString("nickname") : string.Empty,
                     SystemId = hasSystemId ? reader.ToString("username") : string.Empty,
                     CustId = hasCustomerId ? reader.ToInt("CustID") : 0,

@@ -8,7 +8,6 @@ namespace Fanex.Athena.DataAccess.Report
 {
     using System.Collections.Generic;
     using System.Data;
-    using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Extension.Helper;
@@ -19,7 +18,7 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Data;
     using Model.Core.ResultModel;
 
-    public class MicroGamingWinLossDataAccess : BaseDataAccess, IMicroGamingWinLossDataAccess
+    public class MicroGamingWinLossDataAccess : ReportBaseDataAccess, IMicroGamingWinLossDataAccess
     {
         public ReportResultModel<MicroGamingWinLoss> GetSummaryWinloss(ThirdPartyWinLossMetaModel metaModel)
         {
@@ -45,7 +44,23 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        private static ReportResultModel<MicroGamingWinLoss> GetData(
+        private static void ReadSummaryTotal(IDataReader reader, IDictionary<string, MicroGamingWinLoss> summaryTotal)
+        {
+            foreach (var currency in SystemConstants.BaseCurrencyList)
+            {
+                summaryTotal[currency].TurnOver += reader.ToDecimal("turnover" + currency);
+                summaryTotal[currency].TotalTransaction += reader.ToInt("totaltrans");
+                summaryTotal[currency].CustomerWinLoss += reader.ToDecimal("winlost" + currency);
+                summaryTotal[currency].ProgressiveContribution += reader.ToDecimal("ProgressiveContribution" + currency);
+                summaryTotal[currency].ProgressivePayout += reader.ToDecimal("ProgressivePayout" + currency);
+                summaryTotal[currency].LicenseeWL += reader.ToDecimal("licenseewinlost" + currency);
+                summaryTotal[currency].LicenseeNetWin += reader.ToDecimal("LicenseeNetWin" + currency);
+                summaryTotal[currency].AmountDueToMGC += reader.ToDecimal("AmtDueToMGC" + currency);
+                summaryTotal[currency].ProgressiveFee += reader.ToDecimal("ProgressiveFee" + currency);
+            }
+        }
+
+        private ReportResultModel<MicroGamingWinLoss> GetData(
             IDataReader reader,
             ThirdPartyWinLossMetaModel metaModel)
         {
@@ -68,14 +83,15 @@ namespace Fanex.Athena.DataAccess.Report
             var index = 1;
             while (reader.Read())
             {
+                var currencyID = reader.ToInt("currency");
                 var item = new MicroGamingWinLoss
                 {
                     Index = index++,
                     TypeID = reader.ToInt("typeid"),
                     TypeName = reader.ToString("typename"),
                     Date = ConvertHelper.ToDateTime(reader.ToString("winlostdate"), metaModel.ReportBy == ReportByType.Monthly),
-                    CurrencyID = reader.ToInt("currency"),
-                    CurrencyName = reader.ToString("currencyname"),
+                    CurrencyID = currencyID,
+                    CurrencyName = GetCurrencyName(currencyID),
                     TurnOver = reader.ToDecimal(turnoverColumn),
                     TotalTransaction = reader.ToInt("totaltrans"),
                     CustomerWinLoss = reader.ToDecimal(winlostColumn),
@@ -97,22 +113,6 @@ namespace Fanex.Athena.DataAccess.Report
                 DataList = result,
                 SummaryTotal = summaryTotal
             };
-        }
-
-        private static void ReadSummaryTotal(IDataReader reader, IDictionary<string, MicroGamingWinLoss> summaryTotal)
-        {
-            foreach (var currency in SystemConstants.BaseCurrencyList)
-            {
-                summaryTotal[currency].TurnOver += reader.ToDecimal("turnover" + currency);
-                summaryTotal[currency].TotalTransaction += reader.ToInt("totaltrans");
-                summaryTotal[currency].CustomerWinLoss += reader.ToDecimal("winlost" + currency);
-                summaryTotal[currency].ProgressiveContribution += reader.ToDecimal("ProgressiveContribution" + currency);
-                summaryTotal[currency].ProgressivePayout += reader.ToDecimal("ProgressivePayout" + currency);
-                summaryTotal[currency].LicenseeWL += reader.ToDecimal("licenseewinlost" + currency);
-                summaryTotal[currency].LicenseeNetWin += reader.ToDecimal("LicenseeNetWin" + currency);
-                summaryTotal[currency].AmountDueToMGC += reader.ToDecimal("AmtDueToMGC" + currency);
-                summaryTotal[currency].ProgressiveFee += reader.ToDecimal("ProgressiveFee" + currency);
-            }
         }
     }
 }
