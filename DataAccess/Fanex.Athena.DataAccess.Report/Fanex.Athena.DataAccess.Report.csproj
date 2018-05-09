@@ -149,6 +149,7 @@
     <Compile Include="AgCasinoBalanceDataAccess.cs" />
     <Compile Include="ColossusBetsWinLossDataAccess.cs" />
     <Compile Include="LicenseeWinLossByTimeZoneDataAccess.cs" />
+    <Compile Include="ReportBaseDataAccess.cs" />
     <Compile Include="SubsidiaryPerformanceDataAccess.cs" />
     <Compile Include="ThirdPartyWinLossDataAccess.cs" />
     <Compile Include="WeeklyLiveMatchDataAccess.cs" />
@@ -203,6 +204,10 @@
     <ProjectReference Include="..\..\Infrastructure\Fanex.Athena.Constant\Fanex.Athena.Constant.csproj">
       <Project>{6B1431E0-E513-48BB-BE86-0756E5F6F405}</Project>
       <Name>Fanex.Athena.Constant</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\Fanex.Athena.Session\Fanex.Athena.Session.csproj">
+      <Project>{B41E38EF-54AD-4866-968F-C856DE9DC072}</Project>
+      <Name>Fanex.Athena.Session</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Infrastructure\Fanex.Athena.VendorAdapter\Fanex.Athena.VendorAdapter.csproj">
       <Project>{ce1f7641-a14d-4af6-9bd3-cad4873669b4}</Project>

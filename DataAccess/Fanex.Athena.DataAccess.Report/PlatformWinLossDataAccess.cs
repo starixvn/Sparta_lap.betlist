@@ -9,7 +9,6 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
-    using Core;
     using Core.Configuration;
     using Core.Configuration.Interfaces;
     using Core.Exception;
@@ -21,8 +20,9 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Model.Core.ResultModel;
+    using Session.Interfaces;
 
-    public class PlatformWinLossDataAccess : BaseDataAccess, IPlatformWinLossDataAccess
+    public class PlatformWinLossDataAccess : ReportBaseDataAccess, IPlatformWinLossDataAccess
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
@@ -31,7 +31,11 @@ namespace Fanex.Athena.DataAccess.Report
             _balanceUpDataAccess = new BalanceUpDataAccess();
         }
 
-        public PlatformWinLossDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
+        public PlatformWinLossDataAccess(
+            IAppSettings appSetting,
+            ISessionStorage sessionStorage,
+            IBalanceUpDataAccess balanceUpDataAccess)
+            : base(appSetting, sessionStorage)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
         }
@@ -162,7 +166,20 @@ namespace Fanex.Athena.DataAccess.Report
             totalData.LicenseeWL += child.LicenseeWL;
         }
 
-        private static SortableReportResultModel<PlatformWinLossMember> ReadMemberData(IDataReader reader, string baseCurrency)
+        private static void AddTotalData(PlatformWinLossMember totalData, PlatformWinLossMember item)
+        {
+            totalData.TotalTransactions += item.TotalTransactions;
+            totalData.Turnover += item.Turnover;
+            totalData.CustomerWinLoss += item.CustomerWinLoss;
+            totalData.CustomerComm += item.CustomerComm;
+            totalData.LicenseeWL += item.LicenseeWL;
+            totalData.BACommission += item.BACommission;
+            totalData.RacingRevenue += item.RacingRevenue;
+            totalData.AmtDueToBA += item.AmtDueToBA;
+            totalData.AmtDueToRacing += item.AmtDueToRacing;
+        }
+
+        private SortableReportResultModel<PlatformWinLossMember> ReadMemberData(IDataReader reader, string baseCurrency)
         {
             var dataList = new SortableList<PlatformWinLossMember>();
             var totalData = new PlatformWinLossMember();
@@ -180,10 +197,11 @@ namespace Fanex.Athena.DataAccess.Report
             var index = 1;
             while (reader.Read())
             {
+                var currencyId = reader.ToInt("Currency");
                 var item = new PlatformWinLossMember
                 {
                     Index = index,
-                    CurrencyName = reader.ToString("currencyName"),
+                    CurrencyName = GetCurrencyName(currencyId),
                     TotalTransactions = reader.ToInt("Betcount"),
                     Turnover = reader.ToDecimal(turnoverColumn),
                     CustomerWinLoss = reader.ToDecimal(winlostComumn),
@@ -195,7 +213,7 @@ namespace Fanex.Athena.DataAccess.Report
                     AmtDueToRacing = reader.ToDecimal(amtDueToRbColumn),
                     CurrencyId = reader.ToInt("Currency"),
                     SystemId = reader.ToString("username"),
-                    CustomerId = reader.ToInt("custid"),
+                    CustomerId = currencyId,
                     ExternalId = reader.ToString("nickname")
                 };
 
@@ -209,19 +227,6 @@ namespace Fanex.Athena.DataAccess.Report
                 DataList = dataList,
                 TotalData = totalData
             };
-        }
-
-        private static void AddTotalData(PlatformWinLossMember totalData, PlatformWinLossMember item)
-        {
-            totalData.TotalTransactions += item.TotalTransactions;
-            totalData.Turnover += item.Turnover;
-            totalData.CustomerWinLoss += item.CustomerWinLoss;
-            totalData.CustomerComm += item.CustomerComm;
-            totalData.LicenseeWL += item.LicenseeWL;
-            totalData.BACommission += item.BACommission;
-            totalData.RacingRevenue += item.RacingRevenue;
-            totalData.AmtDueToBA += item.AmtDueToBA;
-            totalData.AmtDueToRacing += item.AmtDueToRacing;
         }
 
         private void UpdateUspParams(IObjectDb db, PlatformWinLossMetaModel metaModel)
