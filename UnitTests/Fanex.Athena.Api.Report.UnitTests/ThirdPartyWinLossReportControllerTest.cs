@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http;
+    using Session.Enum;
     using Base.UnitTests;
     using Constant.DataDomain;
     using Excel.Base.Entities;
@@ -20,6 +21,7 @@
     using NSubstitute;
     using NUnit.Framework;
     using Service.Report.Interfaces;
+    using Session.Model;
 
     public class ThirdPartyWinLossReportControllerTest : BaseApiControllerHelperTest
     {

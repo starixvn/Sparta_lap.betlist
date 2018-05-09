@@ -3,7 +3,7 @@
     ViewBag.Title = string.Format(formatTitle, "LRF", HttpUtility.HtmlDecode("&bull;"), ViewResources.Report, ViewResources.DailyBetList);
     Layout = "~/Views/Shared/_BetListLayout.cshtml";
 }
-@using Fanex.Athena.Model.Report.ViewModel
+@using Fanex.Athena.Session.Enum
 @model Fanex.Athena.Model.BetList.ViewModel.BetListBaseViewModel
 @section pagecss {
 }
@@ -12,7 +12,7 @@
 }
 @{
     var userSession = new Fanex.Athena.Service.Core.Users.SessionService().UserSession;
-    var isAppModeSelf = userSession == null ? true : userSession.ApplicationMode == Fanex.Athena.Model.Core.DataDomain.AppMode.Self;
+    var isAppModeSelf = userSession == null ? true : userSession.ApplicationMode == AppMode.Self;
 }
 @if (isAppModeSelf)
 {

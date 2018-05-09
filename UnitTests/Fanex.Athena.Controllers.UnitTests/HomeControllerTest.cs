@@ -1,9 +1,11 @@
 ﻿namespace Fanex.Athena.Controllers.UnitTests
 {
     using System.Web.Mvc;
+    using Session.Enum;
     using Base.UnitTests;
     using NSubstitute;
     using NUnit.Framework;
+    using Session.Model;
 
     [TestFixture]
     public partial class HomeControllerTest : BaseControllerHelperTest
@@ -28,7 +30,7 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                StubUserSessionData(new Model.Core.DTO.Users.UserSession
+                StubUserSessionData(new UserSession
                 {
                     UserId = 0
                 });
@@ -75,7 +77,7 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                StubUserSessionData(new Model.Core.DTO.Users.UserSession
+                StubUserSessionData(new UserSession
                 {
                     UserId = 1,
                     UserName = string.Empty
@@ -160,7 +162,7 @@
 
                 AppSettings.LocalTest.Returns(true);
 
-                StubUserSessionData(new Model.Core.DTO.Users.UserSession
+                StubUserSessionData(new UserSession
                 {
                     UserId = 0,
                     IsInternal = isInternal
@@ -199,7 +201,7 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                StubUserSessionData(new Model.Core.DTO.Users.UserSession
+                StubUserSessionData(new UserSession
                 {
                     UserId = 0
                 });
@@ -240,15 +242,15 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                SessionService.UserSession.ViewType = Model.Core.DataDomain.ClientViewType.None;
+                SessionService.UserSession.ViewType = ClientViewType.None;
 
                 // Action
-                var result = controller.SwitchView(Model.Core.DataDomain.ClientViewType.Desktop) as RedirectToRouteResult;
+                var result = controller.SwitchView(ClientViewType.Desktop) as RedirectToRouteResult;
 
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(SessionService.UserSession.ViewType, Is.EqualTo(Model.Core.DataDomain.ClientViewType.Desktop));
+                    Assert.That(SessionService.UserSession.ViewType, Is.EqualTo(ClientViewType.Desktop));
                     Assert.That(result.RouteValues["action"], Is.EqualTo("Index"));
                     Assert.That(result.RouteValues["controller"], Is.EqualTo("Home"));
                 });

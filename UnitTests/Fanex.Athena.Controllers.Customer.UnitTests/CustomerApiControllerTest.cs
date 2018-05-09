@@ -14,6 +14,7 @@
     using Resources;
     using Service.Core.Common.Interfaces;
     using Service.Customer.Interfaces;
+    using Session.Model;
     using UnitTest.Common.Extensions;
 
     [TestFixture]

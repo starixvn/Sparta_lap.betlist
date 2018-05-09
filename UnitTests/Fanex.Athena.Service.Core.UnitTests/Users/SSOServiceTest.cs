@@ -5,6 +5,7 @@
     using System.Security.Principal;
     using System.Web;
     using System.Web.SessionState;
+    using Session.Model;
     using Core.Users;
     using Core.Users.Interfaces;
     using Core.Utility.Interfaces;
@@ -15,6 +16,7 @@
     using Model.Core.DTO.Users;
     using NSubstitute;
     using NUnit.Framework;
+    using Session.Enum;
 
     [TestFixture]
     public class SSOServiceTest
@@ -111,7 +113,7 @@
             _ssoService.SSO();
 
             // Assert
-            _sessionService.Received().CreateNewSession(1, onuserId, "user1", true, 2, "en-US", viewType: Model.Core.DataDomain.ClientViewType.Default);
+            _sessionService.Received().CreateNewSession(1, onuserId, "user1", true, 2, "en-US", viewType: ClientViewType.Default);
             _formsAuthenticationService.Received().SetAuthCookie("spondemo_user1", Arg.Any<bool>());
         }
 

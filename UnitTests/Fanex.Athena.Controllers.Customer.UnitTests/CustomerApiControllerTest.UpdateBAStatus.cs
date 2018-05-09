@@ -9,6 +9,7 @@
     using NSubstitute;
     using NUnit.Framework;
     using Resources;
+    using Session.Model;
 
     [TestFixture]
     public partial class CustomerApiControllerTest : BaseControllerHelperTest

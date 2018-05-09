@@ -15,6 +15,8 @@
     using Service.Core.Common.Interfaces;
     using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
+    using Session.Enum;
+    using Session.Model;
     using Web.RouterConfig;
 
     [TestFixture]

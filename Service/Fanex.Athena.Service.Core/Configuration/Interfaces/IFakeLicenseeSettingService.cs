@@ -1,4 +1,4 @@
-﻿using Fanex.Athena.Model.Core.DTO.Configuration;
+﻿using Fanex.Athena.Session.Model;
 
 namespace Fanex.Athena.Service.Core.Configuration.Interfaces
 {

@@ -14,6 +14,7 @@
     using Newtonsoft.Json;
     using NSubstitute;
     using NUnit.Framework;
+    using Session.Model;
 
     [TestFixture]
     public class OneAuthenticationService_SetAuthorizeTest

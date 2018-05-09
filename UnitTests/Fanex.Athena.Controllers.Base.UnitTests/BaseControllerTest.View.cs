@@ -9,6 +9,8 @@
     using NSubstitute;
     using NUnit.Framework;
     using Service.Core.Helpers;
+    using Session.Enum;
+    using Session.Model;
 
     public class BaseControllerViewTest : BaseControllerHelperTest
     {

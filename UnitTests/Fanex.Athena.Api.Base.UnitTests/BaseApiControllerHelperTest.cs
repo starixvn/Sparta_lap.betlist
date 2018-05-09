@@ -8,6 +8,7 @@
     using NUnit.Framework;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
+    using Session.Model;
 
     public abstract class BaseApiControllerHelperTest
     {

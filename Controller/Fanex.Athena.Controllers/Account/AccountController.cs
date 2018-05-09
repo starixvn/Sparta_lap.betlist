@@ -26,6 +26,7 @@ namespace Fanex.Athena.Controllers.Account
     using Service.Core.Users;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility;
+    using Session.Enum;
     using Web.ActionFilter;
 
     /// <summary>

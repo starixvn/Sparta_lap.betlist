@@ -10,6 +10,7 @@ namespace Fanex.Athena.Service.Customer
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using Session.Model;
     using Casino;
     using Casino.Interfaces;
     using Fanex.Athena.DataAccess.Customer;

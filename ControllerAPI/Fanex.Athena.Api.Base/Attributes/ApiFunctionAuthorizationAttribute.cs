@@ -15,6 +15,7 @@
     using Model.Core.DataDomain;
     using Resources;
     using Service.Core.Users.Interfaces;
+    using Session.Enum;
 
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
     public sealed class ApiFunctionAuthorizationAttribute : FilterAttribute, IAuthorizationFilter

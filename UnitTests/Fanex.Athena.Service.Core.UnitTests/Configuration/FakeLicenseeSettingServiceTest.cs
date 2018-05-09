@@ -9,6 +9,7 @@
     using Model.Core.DTO.Users;
     using NSubstitute;
     using NUnit.Framework;
+    using Session.Model;
 
     [TestFixture]
     public class FakeLicenseeSettingServiceTest

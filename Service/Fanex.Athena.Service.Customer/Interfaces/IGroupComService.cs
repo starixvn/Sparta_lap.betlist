@@ -12,6 +12,7 @@ namespace Fanex.Athena.Service.Customer.Interfaces
     using Fanex.Athena.Model.Core.DTO.Users;
     using Fanex.Athena.Model.Customer.MetaModel;
     using Model.Core.ViewModel;
+    using Session.Model;
 
     public interface IGroupComService
     {

@@ -9,6 +9,7 @@
     using Model.Core.DTO.Configuration;
     using NSubstitute;
     using NUnit.Framework;
+    using Session.Model;
     using UnitTest.Common.Helpers;
 
     [TestFixture]

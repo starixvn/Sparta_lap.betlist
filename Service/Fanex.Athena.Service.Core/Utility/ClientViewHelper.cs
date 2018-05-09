@@ -5,6 +5,7 @@
     using Extension.Utility.Interfaces;
     using Fanex.Athena.Model.Core.DataDomain;
     using Model.Core.DTO.Common;
+    using Session.Enum;
 
     public class ClientViewHelper : IClientViewHelper
     {

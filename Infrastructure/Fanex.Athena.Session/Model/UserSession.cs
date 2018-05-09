@@ -4,11 +4,11 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Athena.Model.Core.DTO.Users
+namespace Fanex.Athena.Session.Model
 {
     using System;
     using System.Collections.Generic;
-    using Fanex.Athena.Model.Core.DataDomain;
+    using Enum;
 
     [Serializable]
     public class UserSession
@@ -40,7 +40,7 @@ namespace Fanex.Athena.Model.Core.DTO.Users
 
         public IList<int> FunctionIdList { get; set; }
 
-        public IList<PortalSystemFunction> PortalFunctionList { get; set; }
+        public IList<string> PortalFunctionList { get; set; }
 
         public IDictionary<int, string> CurrencyList { get; set; }
 

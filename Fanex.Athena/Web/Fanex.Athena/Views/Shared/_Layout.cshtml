@@ -9,7 +9,7 @@
         new Dictionary<string, string>() :
         userSession.CurrencyList.ToDictionary(x => x.Key.ToString(), x => x.Value);
     var appSettings = new AppSettings();
-    var isParasiticMode = userSession != null && userSession.ApplicationMode == Fanex.Athena.Model.Core.DataDomain.AppMode.Parasitic;
+    var isParasiticMode = userSession != null && userSession.ApplicationMode == Fanex.Athena.Session.Enum.AppMode.Parasitic;
     var isFakeLicensee = appSettings.FakeLicenseeList.Contains(licSession.LicenseeId);
 }
 <!DOCTYPE html>

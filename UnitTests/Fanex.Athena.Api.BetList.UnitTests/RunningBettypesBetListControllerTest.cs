@@ -5,6 +5,7 @@
     using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using Session.Model;
 
     public class RunningBettypesBetListControllerTest : ApiBetListBaseControllerHelperTest
     {
@@ -136,7 +137,7 @@
         {
             var metaModel = new BetListMetaModel { CurrencyId = currencyId };
 
-            StubUserSessionData(new Model.Core.DTO.Users.UserSession { CurrencyList = sessionCurrencyList });
+            StubUserSessionData(new UserSession { CurrencyList = sessionCurrencyList });
             SessionService.GenerateAgentListXml(metaModel.CurrencyId).Returns("<Xml/>");
 
             _controller.When(x => x.GetBetListResult(metaModel, UspKey)).DoNotCallBase();

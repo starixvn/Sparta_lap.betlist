@@ -9,6 +9,7 @@
     using NUnit.Framework;
     using Service.BetList.Interfaces;
     using Service.Core.Users.Interfaces;
+    using Session.Model;
 
     public class ExchangeWinLossBetListControllerTest : BaseApiControllerHelperTest
     {

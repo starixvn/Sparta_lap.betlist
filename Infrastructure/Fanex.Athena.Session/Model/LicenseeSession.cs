@@ -4,10 +4,9 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Athena.Model.Core.DTO.Users
+namespace Fanex.Athena.Session.Model
 {
     using System;
-    using Configuration;
 
     [Serializable]
     public class LicenseeSession

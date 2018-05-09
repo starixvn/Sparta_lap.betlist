@@ -17,6 +17,8 @@
     using Model.Core.DTO.Users;
     using Newtonsoft.Json;
     using Resources;
+    using Session.Enum;
+    using Session.Model;
 
     public class OneAuthenticationService : IOneAuthenticationService
     {
@@ -187,19 +189,16 @@
             _sessionService.AssignSessions(userSession, licSession);
         }
 
-        private IList<PortalSystemFunction> GetPermissionList(OneAuthToken tokenInfo)
+        private IList<string> GetPermissionList(OneAuthToken tokenInfo)
         {
-            return tokenInfo.IsAdminstrator ? GetFunctionList() : tokenInfo.Permissions.Select(x => new PortalSystemFunction
-            {
-                FunctionKey = x.FunctionKey
-            }).ToList();
+            return tokenInfo.IsAdminstrator ? GetFunctionList() : tokenInfo.Permissions.Select(x => x.FunctionKey).ToList();
         }
 
         /// <summary>
         /// This function will be removed when integrating permission part with LAP.
         /// </summary>
         /// <returns>Return the list portal function.</returns>
-        private IList<PortalSystemFunction> GetFunctionList()
+        private IList<string> GetFunctionList()
         {
             const string FunctionFilePath = "~/App_Data/PortalSystemFunction.json";
             IList<PortalSystemFunction> result = null;
@@ -210,7 +209,7 @@
                 result = JsonConvert.DeserializeObject<IList<PortalSystemFunction>>(temp);
             }
 
-            return result ?? new List<PortalSystemFunction>();
+            return (result ?? new List<PortalSystemFunction>()).Select(x => x.FunctionKey).ToList();
         }
     }
 }

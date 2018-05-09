@@ -18,6 +18,9 @@
     using Model.Core.DTO.Users;
     using NSubstitute;
     using NUnit.Framework;
+    using Session.Enum;
+    using Session.Interfaces;
+    using Session.Model;
 
     [TestFixture]
     public class SessionServiceTest
@@ -28,11 +31,13 @@
         private IFunctionService _functionService;
         private ILicenseeDataAccess _licenseeDataAccess;
         private ICurrencyDataAccess _currencyDataAccess;
+        private ISessionStorage _sessionStorage;
         private ISessionService _sessionService;
 
         [OneTimeSetUp]
         public void SetUp()
         {
+            _sessionStorage = Substitute.For<ISessionStorage>();
             _appSettings = Substitute.For<IAppSettings>();
             _functionService = Substitute.For<IFunctionService>();
             _licenseeDataAccess = Substitute.For<ILicenseeDataAccess>();
@@ -49,7 +54,8 @@
             _sessionService = new SessionService(
                 _functionService,
                 _licenseeDataAccess,
-                _currencyDataAccess);
+                _currencyDataAccess,
+                _sessionStorage);
         }
 
         [OneTimeTearDown]
@@ -319,8 +325,8 @@
         public void IsAllowedEditCommission_ApplicationModeIsParasiticAndPortalFunctionListContainCorrectKey_ReturnTrue()
         {
             // Arrange
-            var functionList = new List<PortalSystemFunction> { new PortalSystemFunction { FunctionKey = "CommissionGroupList55" } };
-            var userSession = new UserSession { PortalFunctionList = functionList, ApplicationMode = Model.Core.DataDomain.AppMode.Parasitic };
+            var functionList = new List<string> { "CommissionGroupList55" };
+            var userSession = new UserSession { PortalFunctionList = functionList, ApplicationMode = AppMode.Parasitic };
 
             // Action
             var result = _sessionService.IsAllowedEditCommission(userSession);
@@ -333,8 +339,8 @@
         public void IsAllowedEditCommission_ApplicationModeIsParasiticAndPortalFunctionListNotContainCorrectKey_ReturnFalse()
         {
             // Arrange
-            var functionList = new List<PortalSystemFunction> { new PortalSystemFunction { FunctionKey = "CommissionGroupList56" } };
-            var userSession = new UserSession { PortalFunctionList = functionList, ApplicationMode = Model.Core.DataDomain.AppMode.Parasitic };
+            var functionList = new List<string> { "CommissionGroupList56" };
+            var userSession = new UserSession { PortalFunctionList = functionList, ApplicationMode = AppMode.Parasitic };
 
             // Action
             var result = _sessionService.IsAllowedEditCommission(userSession);
@@ -348,7 +354,7 @@
         {
             // Arrange
             var functionIdList = new List<int> { 55 };
-            var userSession = new UserSession { FunctionIdList = functionIdList, ApplicationMode = Model.Core.DataDomain.AppMode.Self };
+            var userSession = new UserSession { FunctionIdList = functionIdList, ApplicationMode = AppMode.Self };
 
             // Action
             var result = _sessionService.IsAllowedEditCommission(userSession);
@@ -362,7 +368,7 @@
         {
             // Arrange
             var functionIdList = new List<int> { 56 };
-            var userSession = new UserSession { FunctionIdList = functionIdList, ApplicationMode = Model.Core.DataDomain.AppMode.Self };
+            var userSession = new UserSession { FunctionIdList = functionIdList, ApplicationMode = AppMode.Self };
 
             // Action
             var result = _sessionService.IsAllowedEditCommission(userSession);
@@ -375,8 +381,8 @@
         public void IsAllowedSpecialBA_ApplicationModeIsParasiticAndPortalFunctionListContainCorrectKey_ReturnTrue()
         {
             // Arrange
-            var functionList = new List<PortalSystemFunction> { new PortalSystemFunction { FunctionKey = "SpecialBA54" } };
-            var userSession = new UserSession { PortalFunctionList = functionList, ApplicationMode = Model.Core.DataDomain.AppMode.Parasitic };
+            var functionList = new List<string> { "SpecialBA54" };
+            var userSession = new UserSession { PortalFunctionList = functionList, ApplicationMode = AppMode.Parasitic };
 
             // Action
             var result = _sessionService.IsAllowedSpecialBA(userSession);
@@ -389,8 +395,8 @@
         public void IsAllowedSpecialBA_ApplicationModeIsParasiticAndPortalFunctionListNotContainCorrectKey_ReturnFalse()
         {
             // Arrange
-            var functionList = new List<PortalSystemFunction> { new PortalSystemFunction { FunctionKey = "SpecialBA55" } };
-            var userSession = new UserSession { PortalFunctionList = functionList, ApplicationMode = Model.Core.DataDomain.AppMode.Parasitic };
+            var functionList = new List<string> { "SpecialBA55" };
+            var userSession = new UserSession { PortalFunctionList = functionList, ApplicationMode = AppMode.Parasitic };
 
             // Action
             var result = _sessionService.IsAllowedSpecialBA(userSession);
@@ -404,7 +410,7 @@
         {
             // Arrange
             var functionIdList = new List<int> { 54 };
-            var userSession = new UserSession { FunctionIdList = functionIdList, ApplicationMode = Model.Core.DataDomain.AppMode.Self };
+            var userSession = new UserSession { FunctionIdList = functionIdList, ApplicationMode = AppMode.Self };
 
             // Action
             var result = _sessionService.IsAllowedSpecialBA(userSession);
@@ -418,7 +424,7 @@
         {
             // Arrange
             var functionIdList = new List<int> { 55 };
-            var userSession = new UserSession { FunctionIdList = functionIdList, ApplicationMode = Model.Core.DataDomain.AppMode.Self };
+            var userSession = new UserSession { FunctionIdList = functionIdList, ApplicationMode = AppMode.Self };
 
             // Action
             var result = _sessionService.IsAllowedSpecialBA(userSession);

@@ -5,6 +5,7 @@
     using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using Session.Model;
 
     public class MatchWinLossBetListControllerTest : ApiBetListBaseControllerHelperTest
     {
@@ -153,7 +154,7 @@
             // Arrange
             const string UspKey = "Lrf_BetList_MatchWL_Parlay";
 
-            StubLicenseeSessionData(new Model.Core.DTO.Users.LicenseeSession { LicenseeId = SessionLicenseeId });
+            StubLicenseeSessionData(new LicenseeSession { LicenseeId = SessionLicenseeId });
 
             SetUpForGetBetListResult(currencyId, new Dictionary<int, string> { { currencyId, "Currency" } });
 
@@ -171,7 +172,7 @@
         {
             var metaModel = new BetListMetaModel { CurrencyId = currencyId };
 
-            StubUserSessionData(new Model.Core.DTO.Users.UserSession { CurrencyList = sessionCurrencyList });
+            StubUserSessionData(new UserSession { CurrencyList = sessionCurrencyList });
             SessionService.GenerateAgentListXml(metaModel.CurrencyId).Returns("<Xml/>");
 
             return metaModel;

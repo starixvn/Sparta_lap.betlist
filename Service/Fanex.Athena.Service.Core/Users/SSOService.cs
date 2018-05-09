@@ -17,6 +17,7 @@ namespace Fanex.Athena.Service.Core.Users
     using Logging;
     using Model.Core.DataDomain;
     using Model.Core.MetaModel.Authorization;
+    using Session.Enum;
     using Utility;
     using Utility.Interfaces;
 

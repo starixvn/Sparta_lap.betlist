@@ -20,6 +20,8 @@
     using NPOI.SS.UserModel;
     using NSubstitute;
     using NUnit.Framework;
+    using Session.Enum;
+    using Session.Model;
 
     public class ActiveCustomerSummaryReportControllerTest : BaseApiControllerHelperTest
     {

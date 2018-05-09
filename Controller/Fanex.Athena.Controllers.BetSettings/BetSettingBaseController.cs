@@ -30,6 +30,7 @@ namespace Fanex.Athena.Controllers.BetSettings
     using Service.Core.Users.Interfaces;
     using Service.Customer;
     using Service.Customer.Interfaces;
+    using Session.Enum;
     using Web.ActionFilter;
 
     [SessionState(SessionStateBehavior.ReadOnly)]

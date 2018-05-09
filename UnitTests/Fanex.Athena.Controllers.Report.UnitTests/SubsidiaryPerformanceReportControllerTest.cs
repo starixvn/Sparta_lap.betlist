@@ -15,6 +15,7 @@
     using Fanex.Athena.Service.Report.Interfaces;
     using NSubstitute;
     using NUnit.Framework;
+    using Session.Enum;
 
     [TestFixture]
     public class SubsidiaryPerformanceReportControllerTest : BaseControllerHelperTest

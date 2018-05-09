@@ -7,6 +7,7 @@
     using Model.Core.DTO.Users;
     using NSubstitute;
     using NUnit.Framework;
+    using Session.Model;
 
     public class OutstandingRunningBetListControllerTest : ApiBetListBaseControllerHelperTest
     {

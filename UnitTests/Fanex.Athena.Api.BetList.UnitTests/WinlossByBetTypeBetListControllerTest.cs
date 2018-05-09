@@ -5,6 +5,7 @@
     using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using Session.Model;
 
     public class WinlossByBetTypeBetListControllerTest : ApiBetListBaseControllerHelperTest
     {
@@ -42,7 +43,7 @@
             // Arrange
             const int CurrencyId = 1;
 
-            StubUserSessionData(new Model.Core.DTO.Users.UserSession { CurrencyList = new Dictionary<int, string>() });
+            StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string>() });
 
             // Action
             var result = _controller.Index(1, 50, CurrencyId, string.Empty, string.Empty, DateTime.Today, DateTime.Today, 1);
@@ -66,7 +67,7 @@
             const string SortBy = "Index";
             const string SortOrder = "asc";
 
-            StubUserSessionData(new Model.Core.DTO.Users.UserSession { CurrencyList = new Dictionary<int, string> { { currencyId, "Currency" } } });
+            StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string> { { currencyId, "Currency" } } });
             SessionService.GenerateAgentListXml(currencyId).Returns("<Xml/>");
 
             _controller.When(x => x.GetPagingBetListResult(Arg.Any<BetListMetaModel>(), UspKey, Page, Rows)).DoNotCallBase();

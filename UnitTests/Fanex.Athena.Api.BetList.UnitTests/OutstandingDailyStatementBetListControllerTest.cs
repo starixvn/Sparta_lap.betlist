@@ -8,6 +8,7 @@
     using NSubstitute;
     using NUnit.Framework;
     using Service.Core.Users.Interfaces;
+    using Session.Model;
 
     public class OutstandingDailyStatementBetListControllerTest : BaseApiControllerHelperTest
     {
@@ -32,9 +33,9 @@
                 _authorizationService,
                 _dailyStatementBetListDataAccess);
 
-            StubUserSessionData(new Model.Core.DTO.Users.UserSession { UserId = SessionUserId });
+            StubUserSessionData(new UserSession { UserId = SessionUserId });
 
-            StubLicenseeSessionData(new Model.Core.DTO.Users.LicenseeSession { LicenseeId = SessionLicenseeId });
+            StubLicenseeSessionData(new LicenseeSession { LicenseeId = SessionLicenseeId });
         }
 
         [OneTimeTearDown]

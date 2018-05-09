@@ -6,6 +6,7 @@
     using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using Session.Model;
 
     public class DailyStatementBetListControllerTest : ApiBetListBaseControllerHelperTest
     {
@@ -47,7 +48,7 @@
             // Arrange
             var metaModel = new BetListMetaModel { CurrencyId = 1 };
 
-            StubUserSessionData(new Model.Core.DTO.Users.UserSession { CurrencyList = new Dictionary<int, string>() });
+            StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string>() });
 
             // Action
             var result = _controller.Index(metaModel);
@@ -66,7 +67,7 @@
 
             BalanceUpDataAccess.GetBalanceUp().Returns(new Model.Core.DTO.Configuration.BalanceUp { BalanceUpDay = DateTime.Parse(balanceUpDay) });
 
-            StubUserSessionData(new Model.Core.DTO.Users.UserSession { CurrencyList = new Dictionary<int, string> { { currencyId, "Currency" } } });
+            StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string> { { currencyId, "Currency" } } });
             SessionService.GenerateAgentListXml(metaModel.CurrencyId).Returns("<Xml/>");
 
             _controller.When(x => x.GetBetListResult(metaModel, uspKey)).DoNotCallBase();
@@ -93,7 +94,7 @@
 
             BalanceUpDataAccess.GetBalanceUp().Returns(new Model.Core.DTO.Configuration.BalanceUp { BalanceUpDay = new DateTime(2018, 1, 2) });
 
-            StubUserSessionData(new Model.Core.DTO.Users.UserSession { CurrencyList = new Dictionary<int, string> { { 0, "Currency" } } });
+            StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string> { { 0, "Currency" } } });
             SessionService.GenerateAgentListXml(metaModel.CurrencyId).Returns("<Xml/>");
 
             _controller.When(x => x.GetBetListResult(metaModel, UspKeyOld)).DoNotCallBase();

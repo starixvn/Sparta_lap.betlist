@@ -168,6 +168,10 @@
       <Project>{6B1431E0-E513-48BB-BE86-0756E5F6F405}</Project>
       <Name>Fanex.Athena.Constant</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\Fanex.Athena.Session\Fanex.Athena.Session.csproj">
+      <Project>{B41E38EF-54AD-4866-968F-C856DE9DC072}</Project>
+      <Name>Fanex.Athena.Session</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Model\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj">
       <Project>{5F410090-94C0-46A5-9FEC-B6C3B745B7A0}</Project>
       <Name>Fanex.Athena.Model.Core</Name>

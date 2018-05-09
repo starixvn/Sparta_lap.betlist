@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Controllers
 {
     using System.Web.Mvc;
+    using Session.Enum;
     using Extension.Utility;
     using Model.Core.DataDomain;
     using ONEbook.UM.Filters;

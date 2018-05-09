@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Session.Enum;
     using Base.UnitTests;
     using DataAccess.Customer.Interfaces;
     using Extension.Utility;

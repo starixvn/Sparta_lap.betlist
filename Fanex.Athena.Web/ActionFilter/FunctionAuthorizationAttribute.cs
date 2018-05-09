@@ -12,6 +12,7 @@ namespace Fanex.Athena.Web.ActionFilter
     using System.Web.Routing;
     using Fanex.Athena.Service.Core.Users;
     using Model.Core.DataDomain;
+    using Session.Enum;
 
     /// <summary>
     /// TODO: Update summary.

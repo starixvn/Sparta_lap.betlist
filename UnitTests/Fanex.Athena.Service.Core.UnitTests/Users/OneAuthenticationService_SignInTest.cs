@@ -2,16 +2,16 @@
 {
     using System.Web;
     using Core.Users.Interfaces;
-    using DataAccess.Core.Common.Interfaces;
     using DataAccess.Core.Users.Interfaces;
     using Extension.Utility.Interfaces;
     using Fanex.Athena.Service.Core.Users;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.OneAuth;
-    using Model.Core.DTO.Users;
     using NSubstitute;
     using NUnit.Framework;
+    using Session.Enum;
+    using Session.Model;
 
     [TestFixture]
     public class OneAuthenticationService_SignInTest

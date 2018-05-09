@@ -16,6 +16,7 @@ namespace Fanex.Athena.Service.Core.Configuration
     using Fanex.Athena.Model.Core.DTO.Configuration;
     using Interfaces;
     using Newtonsoft.Json;
+    using Session.Model;
     using Users;
     using Users.Interfaces;
 

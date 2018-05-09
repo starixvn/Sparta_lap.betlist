@@ -11,7 +11,8 @@ namespace Fanex.Athena.Service.Core.Users.Interfaces
 {
     using System.Collections.Generic;
     using Fanex.Athena.Model.Core.DTO.Users;
-    using Model.Core.DataDomain;
+    using Session.Enum;
+    using Session.Model;
 
     public interface ISessionService
     {

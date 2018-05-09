@@ -62,11 +62,7 @@
         public void HasPermissions_WhenCall_ReturnCorrectResult(string permissionKey, bool expectedResult)
         {
             // Arrange
-            var userFunctions = new List<PortalSystemFunction>
-            {
-                new PortalSystemFunction { FunctionKey = "Function1" },
-                new PortalSystemFunction { FunctionKey = "Function2" }
-            };
+            var userFunctions = new List<string> { "Function1", "Function2" };
             var permissionKeys = new[] { permissionKey, "unknown_function" };
 
             // Action
