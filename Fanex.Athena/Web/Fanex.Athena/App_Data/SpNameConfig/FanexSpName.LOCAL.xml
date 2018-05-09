@@ -11,7 +11,7 @@
   
   <Function Name="Licensee">
     <Setting Key="Acc_SelCurrencyByLicensee" SpName="Acc_SelCurrencyByLicensee" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_SelCurrencyByLicenseeUser" SpName="Lrf_SelCurrencyByLicenseeUser" DbName="DBEXT.bodb02.bodbLicenseeNet">
+    <Setting Key="Lrf_SelCurrencyByLicenseeUser" SpName="Lrf_SelCurrencyByLicenseeUser_UAT1" DbName="DBEXT.bodb02.bodbLicenseeNet">
       <Mapping DataField="Currency" ObjectProperty="CurrencyId"/>
     </Setting>
     <Setting Key="Lrf_LicenseeProduct3rdSel" SpName="Lrf_LicenseeProduct3rdSel" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
@@ -48,7 +48,6 @@
     <Setting Key="Lrf_UserPwdReset" SpName="Lrf_UserPwdReset" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_InternalLogin" SpName="Lrf_InternalLogin" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Licensee_UserPasswordUpd" SpName="Licensee_UserPasswordUpd" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
-    <Setting Key="Lrf_CurrencyCustSel" SpName="Lrf_CurrencyCustSel" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_CurrencyCustIns" SpName="Lrf_CurrencyCustIns" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_UserInfoSelByUserName" SpName="Lrf_UserInfoSelByUserName" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
   </Function>
