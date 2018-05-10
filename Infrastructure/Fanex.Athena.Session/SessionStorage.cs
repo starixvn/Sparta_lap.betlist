@@ -20,7 +20,7 @@
             get
             {
                 var temp = HttpContext.Current.Session[LicenseeSessionKey];
-                return temp != null ? (LicenseeSession)temp : null;
+                return temp as LicenseeSession;
             }
         }
 
@@ -29,7 +29,7 @@
             get
             {
                 var temp = HttpContext.Current.Session[UserSessionKey];
-                return temp != null ? (UserSession)temp : null;
+                return temp as UserSession;
             }
         }
 

@@ -36,10 +36,7 @@ namespace Fanex.Athena.Service.Core.Users
 
         private const string ReportBalancePath = "BalanceReport";
 
-        private const string LicenseeSessionKey = "LicenseeSessionKey";
-
         private const string UserSessionKey = "UserSessionKey";
-        private const string CaptchaCodeKey = "CaptchaCodeKey";
 
         private readonly IFunctionService _functionService;
         private readonly ILicenseeDataAccess _licenseeDataAccess;
