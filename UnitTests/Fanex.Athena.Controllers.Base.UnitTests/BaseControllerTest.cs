@@ -1,11 +1,10 @@
 ﻿namespace Fanex.Athena.Controllers.Base.UnitTests
 {
-    using Session.Enum;
     using Model.Core.DataDomain;
-    using Model.Core.DTO.Users;
     using Model.Core.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using Session.Enum;
     using Session.Model;
 
     public class BaseControllerTest : BaseControllerHelperTest

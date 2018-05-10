@@ -8,9 +8,9 @@ namespace Fanex.Athena.DataAccess.Report
 {
     public class ReportBaseDataAccess : BaseDataAccess
     {
-        private IDictionary<int, string> _currencyList;
-
         private readonly ISessionStorage _sessionStorage;
+
+        private IDictionary<int, string> _currencyList;
 
         public ReportBaseDataAccess() : this(null, null)
         {

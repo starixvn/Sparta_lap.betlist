@@ -1,10 +1,10 @@
 ﻿namespace Fanex.Athena.Controllers.UnitTests
 {
     using System.Web.Mvc;
-    using Session.Enum;
     using Base.UnitTests;
     using NSubstitute;
     using NUnit.Framework;
+    using Session.Enum;
     using Session.Model;
 
     [TestFixture]

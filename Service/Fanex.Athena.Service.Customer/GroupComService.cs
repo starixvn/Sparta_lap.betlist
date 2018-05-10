@@ -10,16 +10,15 @@ namespace Fanex.Athena.Service.Customer
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
-    using Session.Model;
     using Casino;
     using Casino.Interfaces;
     using Fanex.Athena.DataAccess.Customer;
     using Fanex.Athena.DataAccess.Customer.Interfaces;
     using Fanex.Athena.Model.Casino.MetaModel;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Model.Core.DTO.Users;
     using Fanex.Athena.Model.Customer.MetaModel;
     using Fanex.Athena.Service.Customer.Interfaces;
+    using Session.Model;
 
     public class GroupComService : IGroupComService
     {

@@ -15,7 +15,7 @@
     using Resources;
 
     [TestFixture]
-    public class PlatformWinLossDataAccessTest : BaseDataAccessHelperTest<PlatformWinLossDataAccess>
+    public class PlatformWinLossDataAccessTest : ReportBaseDataAccessHelperTest<PlatformWinLossDataAccess>
     {
         private const string GetSummaryDataSp = "Lrf_Rpt_PlatformWinloss";
         private const string GetMemberDataSp = "Lrf_Rpt_PlatformWinlossDetail";
@@ -35,7 +35,9 @@
             balanceUpDataAccess.GetBalanceUp().Returns(_balance);
 
             ObjectDb = Substitute.For<IObjectDb>();
-            DataAccess = Substitute.ForPartsOf<PlatformWinLossDataAccess>(balanceUpDataAccess);
+            DataAccess = Substitute.ForPartsOf<PlatformWinLossDataAccess>(
+                CreateSessionStorage(),
+                balanceUpDataAccess);
 
             _metaModel = new PlatformWinLossMetaModel
             {

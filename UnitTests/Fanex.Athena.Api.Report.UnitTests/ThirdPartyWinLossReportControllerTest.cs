@@ -4,15 +4,12 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http;
-    using Session.Enum;
     using Base.UnitTests;
     using Constant.DataDomain;
     using Excel.Base.Entities;
     using Excel.Report;
     using Extension.Utility;
     using Fanex.Athena.Service.Core.Users.Interfaces;
-    using Model.Core.DataDomain;
-    using Model.Core.DTO.Users;
     using Model.Core.ResultModel;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
@@ -21,6 +18,7 @@
     using NSubstitute;
     using NUnit.Framework;
     using Service.Report.Interfaces;
+    using Session.Enum;
     using Session.Model;
 
     public class ThirdPartyWinLossReportControllerTest : BaseApiControllerHelperTest
@@ -38,10 +36,10 @@
             _thirdPartyWinLossService = Substitute.For<IThirdPartyWinLossService>();
 
             _controller = Substitute.ForPartsOf<ThirdPartyWinLossReportController>(
-                _thirdPartyWinLossService, 
-                _authorizationService, 
-                SessionService, 
-                ProductService, 
+                _thirdPartyWinLossService,
+                _authorizationService,
+                SessionService,
+                ProductService,
                 LangService);
 
             _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();

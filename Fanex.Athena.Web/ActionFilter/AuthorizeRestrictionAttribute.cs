@@ -3,9 +3,8 @@
     using System;
     using System.Web.Mvc;
     using System.Web.Routing;
-    using Session.Enum;
-    using Model.Core.DataDomain;
     using Service.Core.Users;
+    using Session.Enum;
 
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public sealed class AuthorizeRestrictionAttribute : AuthorizeAttribute

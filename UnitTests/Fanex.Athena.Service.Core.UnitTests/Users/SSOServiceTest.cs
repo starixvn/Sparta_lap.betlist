@@ -5,7 +5,6 @@
     using System.Security.Principal;
     using System.Web;
     using System.Web.SessionState;
-    using Session.Model;
     using Core.Users;
     using Core.Users.Interfaces;
     using Core.Utility.Interfaces;
@@ -17,6 +16,7 @@
     using NSubstitute;
     using NUnit.Framework;
     using Session.Enum;
+    using Session.Model;
 
     [TestFixture]
     public class SSOServiceTest

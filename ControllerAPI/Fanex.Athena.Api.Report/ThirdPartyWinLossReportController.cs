@@ -12,7 +12,6 @@ namespace Fanex.Athena.Api.Report
     using System.Net.Http;
     using System.Web.Hosting;
     using System.Web.Http;
-    using Session.Enum;
     using Constant.DataDomain;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
@@ -20,7 +19,6 @@ namespace Fanex.Athena.Api.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
     using Model.Core.DataDomain;
-    using Model.Core.DTO.Users;
     using Model.Core.ResultModel;
     using Resources;
     using Service.Core.Common.Interfaces;
@@ -28,6 +26,7 @@ namespace Fanex.Athena.Api.Report
     using Service.Core.Users.Interfaces;
     using Service.Report;
     using Service.Report.Interfaces;
+    using Session.Enum;
     using Session.Model;
 
     public class ThirdPartyWinLossReportController : ApiReportBaseController

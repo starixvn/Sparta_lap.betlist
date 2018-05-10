@@ -10,11 +10,16 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class MicroGamingWinLossDataAccessTest : BaseDataAccessHelperTest<MicroGamingWinLossDataAccess>
+    public class MicroGamingWinLossDataAccessTest : ReportBaseDataAccessHelperTest<MicroGamingWinLossDataAccess>
     {
         private const string SpName = "LRF_Rpt_MicroGamingWinloss";
 
         private ThirdPartyWinLossMetaModel _metaModel;
+
+        protected override void SetUpDataAccess()
+        {
+            DataAccess = Substitute.ForPartsOf<MicroGamingWinLossDataAccess>(CreateSessionStorage());
+        }
 
         [OneTimeSetUp]
         public override void FixtureSetUp()

@@ -2,7 +2,6 @@
 {
     using System;
 
-    [Flags]
     public enum ClientViewType : int
     {
         None = 0,

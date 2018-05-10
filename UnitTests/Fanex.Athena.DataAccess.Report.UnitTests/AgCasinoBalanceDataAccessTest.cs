@@ -11,13 +11,18 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class AgCasinoBalanceDataAccessTest : BaseDataAccessHelperTest<AgCasinoBalanceDataAccess>
+    public class AgCasinoBalanceDataAccessTest : ReportBaseDataAccessHelperTest<AgCasinoBalanceDataAccess>
     {
         private const string GetSummaryBalanceSp = "Lrf_Rpt_AGCasinoBalance";
 
         private const string GetCustomerBalanceDetailSp = "LRF_Rpt_AGCasinoBalance_Mem";
 
         private const string GetAgentBalanceDetailSp = "LRF_Rpt_AGCasinoBalance_Ag";
+
+        protected override void SetUpDataAccess()
+        {
+            DataAccess = Substitute.ForPartsOf<AgCasinoBalanceDataAccess>(CreateSessionStorage());
+        }
 
         [Test]
         public void GetSummaryBalance_WhenCall_ParametersPassedCorrectly()
@@ -48,7 +53,7 @@
             {
                 SystemId = string.Empty,
                 ExternalId = string.Empty,
-                CurrencyName = "CurrencyNameTest",
+                CurrencyId = CurrencyId,
                 Date = metaModel.DrillDownFromDate
             };
             ConfigureReaderForGetSummaryWinlossMethod(expected);
@@ -63,7 +68,7 @@
                 Assert.That(result.ExternalId, Is.EqualTo(expected.ExternalId));
                 Assert.That(result.CustomerId, Is.EqualTo(expected.CustomerId));
                 Assert.That(result.CurrencyId, Is.EqualTo(expected.CurrencyId));
-                Assert.That(result.CurrencyName, Is.EqualTo(expected.CurrencyName));
+                Assert.That(result.CurrencyName, Is.EqualTo(CurrencyName));
                 Assert.That(result.CustomerWinLoss, Is.EqualTo(expected.CustomerWinLoss));
                 Assert.That(result.LicenseeWL, Is.EqualTo(expected.LicenseeWL));
                 Assert.That(result.TurnOver, Is.EqualTo(expected.TurnOver));
@@ -141,7 +146,7 @@
             {
                 SystemId = string.Empty,
                 ExternalId = string.Empty,
-                CurrencyName = "CurrencyNameTest",
+                CurrencyId = CurrencyId,
                 Date = new DateTime(2016, 8, 29)
             };
             ConfigureReaderForGetSummaryWinlossMethod(expected);
@@ -156,7 +161,7 @@
                 Assert.That(result.ExternalId, Is.EqualTo(expected.ExternalId));
                 Assert.That(result.CustomerId, Is.EqualTo(expected.CustomerId));
                 Assert.That(result.CurrencyId, Is.EqualTo(expected.CurrencyId));
-                Assert.That(result.CurrencyName, Is.EqualTo(expected.CurrencyName));
+                Assert.That(result.CurrencyName, Is.EqualTo(CurrencyName));
             });
         }
 
@@ -171,7 +176,7 @@
             {
                 SystemId = string.Empty,
                 ExternalId = string.Empty,
-                CurrencyName = "CurrencyNameTest",
+                CurrencyId = CurrencyId,
                 Date = new DateTime(2016, 8, 29)
             };
             ConfigureReaderForGetSummaryWinlossMethod(expected);
@@ -186,7 +191,7 @@
                 Assert.That(result.ExternalId, Is.EqualTo(expected.ExternalId));
                 Assert.That(result.CustomerId, Is.EqualTo(expected.CustomerId));
                 Assert.That(result.CurrencyId, Is.EqualTo(expected.CurrencyId));
-                Assert.That(result.CurrencyName, Is.EqualTo(expected.CurrencyName));
+                Assert.That(result.CurrencyName, Is.EqualTo(CurrencyName));
             });
         }
 
@@ -206,7 +211,7 @@
             {
                 SystemId = string.Empty,
                 ExternalId = string.Empty,
-                CurrencyName = "CurrencyNameTest",
+                CurrencyId = CurrencyId,
                 Date = new DateTime(2016, 8, 29)
             };
             ConfigureReaderForGetSummaryWinlossMethod(expected);
@@ -381,7 +386,6 @@
             Reader["nickname"].Returns(expected.ExternalId);
             Reader["custid"].Returns(expected.CustomerId);
             Reader["currency"].Returns(expected.CurrencyId);
-            Reader["currencyname"].Returns(expected.CurrencyName);
             Reader["winlostuus"].Returns(expected.CustomerWinLoss);
             Reader["licenseewinlostuus"].Returns(expected.LicenseeWL);
             Reader["turnoveruus"].Returns(expected.TurnOver);

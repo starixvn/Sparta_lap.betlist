@@ -15,7 +15,7 @@
     using Resources;
 
     [TestFixture]
-    public class LicenseeWinLossByTimeZoneDataAccessTest : BaseDataAccessHelperTest<LicenseeWinLossByTimeZoneDataAccess>
+    public class LicenseeWinLossByTimeZoneDataAccessTest : ReportBaseDataAccessHelperTest<LicenseeWinLossByTimeZoneDataAccess>
     {
         private const byte GroupByProduct = 1;
 
@@ -36,7 +36,9 @@
 
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             balanceUpDataAccess.GetBalanceUp().Returns(_balance);
-            DataAccess = Substitute.ForPartsOf<LicenseeWinLossByTimeZoneDataAccess>(balanceUpDataAccess);
+            DataAccess = Substitute.ForPartsOf<LicenseeWinLossByTimeZoneDataAccess>(
+                CreateSessionStorage(),
+                balanceUpDataAccess);
 
             ObjectDb = Substitute.For<IObjectDb>();
 
@@ -75,7 +77,7 @@
 
             var expectedData = new LicenseeWinLossByTimeZone
             {
-                GroupBy = "Group",
+                GroupBy = CurrencyId.ToString(),
                 BetCount = 1,
                 Turnover = 2,
                 CustomerComm = 3,
@@ -92,7 +94,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(firstItem.GroupBy, Is.EqualTo(expectedData.GroupBy));
+                Assert.That(firstItem.GroupBy, Is.EqualTo(CurrencyName));
                 AssertData(firstItem, expectedData);
                 AssertData(total, expectedData);
             });
@@ -108,7 +110,7 @@
 
             var expectedData = new LicenseeWinLossByTimeZone
             {
-                GroupBy = "Group",
+                GroupBy = CurrencyId.ToString(),
                 BetCount = 1,
                 Turnover = 2,
                 CustomerComm = 3,
@@ -119,7 +121,7 @@
 
             var expectedBaseData = new LicenseeWinLossByTimeZone
             {
-                GroupBy = expectedData.GroupBy,
+                GroupBy = CurrencyId.ToString(),
                 BetCount = expectedData.BetCount,
                 Turnover = 20,
                 CustomerComm = 30,
@@ -136,7 +138,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(firstItem.GroupBy, Is.EqualTo(expectedData.GroupBy));
+                Assert.That(firstItem.GroupBy, Is.EqualTo(CurrencyName));
                 AssertData(firstItem, expectedData);
                 AssertData(total, expectedBaseData);
             });
@@ -154,7 +156,7 @@
 
             var data = new LicenseeWinLossByTimeZone
             {
-                GroupBy = "Group",
+                GroupBy = CurrencyId.ToString(),
             };
             MapReaderData(data, string.Empty);
 

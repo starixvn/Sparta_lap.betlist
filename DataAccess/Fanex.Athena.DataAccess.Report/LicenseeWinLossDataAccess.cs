@@ -300,6 +300,7 @@
             var hasExternalId = reader.HasColumn("nickname");
             var hasCustomerId = reader.HasColumn("custid");
             var baseCurrency = metaModel.BaseCurrency;
+            var isMonthly = metaModel.ReportBy == ReportByType.Monthly;
             var index = 1;
             while (reader.Read())
             {
@@ -327,9 +328,7 @@
                     AmtDueToBetTrade = reader.ToDecimal("AmtDueToBT" + baseCurrency),
                     AmtDueToBA = reader.ToDecimal("amtduetoba" + baseCurrency),
                     AmtDueToRacing = reader.ToDecimal("amtduetorb" + baseCurrency),
-                    Date = drilldown
-                        ? metaModel.DrillDownFromDate
-                        : ConvertHelper.ToDateTime(reader.ToString("reporttype"), metaModel.ReportBy == ReportByType.Monthly)
+                    Date = drilldown ? metaModel.DrillDownFromDate : ConvertHelper.ToDateTime(reader.ToString("reporttype"), isMonthly)
                 };
 
                 dataList.Add(item);

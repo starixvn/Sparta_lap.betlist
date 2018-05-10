@@ -19,9 +19,19 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Model.Core.ResultModel;
+    using Session.Interfaces;
 
     public class ThirdPartyWinLossDataAccess : ReportBaseDataAccess, IThirdPartyWinLossDataAccess
     {
+        public ThirdPartyWinLossDataAccess() : this(null)
+        {
+        }
+
+        public ThirdPartyWinLossDataAccess(ISessionStorage sessionStorage)
+            : base(null, sessionStorage)
+        {
+        }
+
         public SortableReportResultModel<ThirdPartyWinLoss> GetSummaryWinloss(ThirdPartyWinLossMetaModel metaModel, string spname = null)
         {
             var uspName = spname ?? "Lrf_Rpt_ThirdPartyWinloss";

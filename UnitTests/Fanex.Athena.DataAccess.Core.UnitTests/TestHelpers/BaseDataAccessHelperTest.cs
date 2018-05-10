@@ -2,7 +2,6 @@
 {
     using System.Data;
     using Core.Exception;
-    using Extension.Utility;
     using Fanex.Data;
     using NSubstitute;
     using NUnit.Framework;
@@ -20,7 +19,7 @@
         public virtual void FixtureSetUp()
         {
             ObjectDb = Substitute.For<IObjectDb>();
-            DataAccess = Substitute.ForPartsOf<T>();
+            SetUpDataAccess();
         }
 
         [OneTimeTearDown]
@@ -44,6 +43,11 @@
         {
             DataAccess.ClearReceivedCalls();
             Reader = null;
+        }
+
+        protected virtual void SetUpDataAccess()
+        {
+            DataAccess = Substitute.ForPartsOf<T>();
         }
 
         protected void MapReaderData(object readerDataMapping)

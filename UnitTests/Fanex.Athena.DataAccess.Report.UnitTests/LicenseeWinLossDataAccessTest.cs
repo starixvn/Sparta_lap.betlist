@@ -15,7 +15,7 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class LicenseeWinLossDataAccessTest : BaseDataAccessHelperTest<LicenseeWinLossDataAccess>
+    public class LicenseeWinLossDataAccessTest : ReportBaseDataAccessHelperTest<LicenseeWinLossDataAccess>
     {
         private const string GetSummaryWinlossSp = "Lrf_Rpt_LicWinloss";
 
@@ -39,6 +39,7 @@
             ObjectDb = Substitute.For<IObjectDb>();
             DataAccess = Substitute.ForPartsOf<LicenseeWinLossDataAccess>(
                 Substitute.For<IAppSettings>(),
+                CreateSessionStorage(),
                 balanceUpDataAccess);
 
             var appSetting = Substitute.For<IAppSettings>();

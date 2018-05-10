@@ -21,9 +21,19 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Model.Core.ResultModel;
+    using Session.Interfaces;
 
     public class AgCasinoBalanceDataAccess : ReportBaseDataAccess, IAgCasinoBalanceDataAccess
     {
+        public AgCasinoBalanceDataAccess() : this(null)
+        {
+        }
+
+        public AgCasinoBalanceDataAccess(ISessionStorage sessionStorage)
+            : base(null, sessionStorage)
+        {
+        }
+
         public SortableReportResultModel<AgCasinoBalance> GetSummaryBalance(ThirdPartyWinLossMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_AGCasinoBalance";

@@ -2,16 +2,15 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Session.Enum;
     using Base.UnitTests;
     using DataAccess.Customer.Interfaces;
     using Extension.Utility;
-    using Model.Core.DataDomain;
     using Model.Customer.DTO.CustomerLog;
     using Model.Customer.MetaModel.CustomerLog;
     using NSubstitute;
     using NUnit.Framework;
     using Service.Core.Helpers;
+    using Session.Enum;
 
     [TestFixture]
     public class LogControllerTest : BaseApiControllerHelperTest

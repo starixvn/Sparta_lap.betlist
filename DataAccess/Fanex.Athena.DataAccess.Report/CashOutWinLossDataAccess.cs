@@ -23,6 +23,7 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Model.Core.ResultModel;
+    using Session.Interfaces;
 
     public class CashOutWinLossDataAccess : ReportBaseDataAccess, ICashOutWinLossDataAccess
     {
@@ -33,7 +34,8 @@ namespace Fanex.Athena.DataAccess.Report
             _balanceUpDataAccess = new BalanceUpDataAccess();
         }
 
-        public CashOutWinLossDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
+        public CashOutWinLossDataAccess(ISessionStorage sessionStorage, IBalanceUpDataAccess balanceUpDataAccess)
+            : base(null, sessionStorage)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
         }

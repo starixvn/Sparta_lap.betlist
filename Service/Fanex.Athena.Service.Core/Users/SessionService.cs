@@ -56,11 +56,12 @@ namespace Fanex.Athena.Service.Core.Users
             IFunctionService functionService,
             ILicenseeDataAccess licenseeDataAccess,
             ICurrencyDataAccess currencyDataAccess,
-            ISessionStorage _sessionStorage)
+            ISessionStorage sessionStorage)
         {
             _functionService = functionService;
             _licenseeDataAccess = licenseeDataAccess;
             _currencyDataAccess = currencyDataAccess;
+            _sessionStorage = sessionStorage;
         }
 
         #region Public Properties

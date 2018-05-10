@@ -12,9 +12,19 @@
     using Model.Core.ResultModel;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
+    using Session.Interfaces;
 
     public class ExchangeWinLossDataAccess : ReportBaseDataAccess, IExchangeWinLossDataAccess
     {
+        public ExchangeWinLossDataAccess() : this(null)
+        {
+        }
+
+        public ExchangeWinLossDataAccess(ISessionStorage sessionStorage)
+            : base(null, sessionStorage)
+        {
+        }
+
         public ReportResultModel<ExchangeWinLoss> GetMainWinloss(ExchangeWinLossMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_ExchangeWinloss";

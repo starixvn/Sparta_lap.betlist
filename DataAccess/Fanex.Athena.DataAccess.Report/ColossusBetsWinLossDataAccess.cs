@@ -21,6 +21,7 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Model.Core.ResultModel;
+    using Session.Interfaces;
 
     public class ColossusBetsWinLossDataAccess : ReportBaseDataAccess, IColossusBetsWinLossDataAccess
     {
@@ -31,7 +32,8 @@ namespace Fanex.Athena.DataAccess.Report
             _balanceUpDataAccess = new BalanceUpDataAccess();
         }
 
-        public ColossusBetsWinLossDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
+        public ColossusBetsWinLossDataAccess(ISessionStorage sessionStorage, IBalanceUpDataAccess balanceUpDataAccess)
+            : base(null, sessionStorage)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
         }
@@ -115,7 +117,7 @@ namespace Fanex.Athena.DataAccess.Report
             while (reader.Read())
             {
                 var currencyId = reader.ToInt("currencyid");
-                var item = new ColossusBetWinLoss
+                result.Add(new ColossusBetWinLoss
                 {
                     Index = index++,
                     SystemId = hasSystemId ? reader.ToString("systemid") : string.Empty,
@@ -131,9 +133,7 @@ namespace Fanex.Athena.DataAccess.Report
                     CommissionShare = reader.ToDecimal(commColumn),
                     GrandPrize = reader.ToDecimal(grantPrizeColumn),
                     Date = isFirstLevel ? ConvertHelper.ToDateTime(reader.ToString("reporttype"), isMonthly) : metaModel.DrillDownFromDate
-                };
-
-                result.Add(item);
+                });
                 ReadSummaryTotal(reader, summaryTotal);
             }
 

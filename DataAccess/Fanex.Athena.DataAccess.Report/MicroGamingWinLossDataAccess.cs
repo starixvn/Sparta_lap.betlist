@@ -17,9 +17,19 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Model.Core.ResultModel;
+    using Session.Interfaces;
 
     public class MicroGamingWinLossDataAccess : ReportBaseDataAccess, IMicroGamingWinLossDataAccess
     {
+        public MicroGamingWinLossDataAccess() : this(null)
+        {
+        }
+
+        public MicroGamingWinLossDataAccess(ISessionStorage sessionStorage)
+            : base(null, sessionStorage)
+        {
+        }
+
         public ReportResultModel<MicroGamingWinLoss> GetSummaryWinloss(ThirdPartyWinLossMetaModel metaModel)
         {
             var uspName = "LRF_Rpt_MicroGamingWinloss";
@@ -102,9 +112,7 @@ namespace Fanex.Athena.DataAccess.Report
                     AmountDueToMGC = reader.ToDecimal(amtDueToMGCColumn),
                     ProgressiveFee = reader.ToDecimal(progressiveFeeColumn)
                 };
-
                 result.Add(item);
-
                 ReadSummaryTotal(reader, summaryTotal);
             }
 

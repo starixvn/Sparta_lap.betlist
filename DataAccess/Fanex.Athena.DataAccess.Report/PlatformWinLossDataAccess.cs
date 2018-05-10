@@ -32,10 +32,9 @@ namespace Fanex.Athena.DataAccess.Report
         }
 
         public PlatformWinLossDataAccess(
-            IAppSettings appSetting,
             ISessionStorage sessionStorage,
             IBalanceUpDataAccess balanceUpDataAccess)
-            : base(appSetting, sessionStorage)
+            : base(null, sessionStorage)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
         }

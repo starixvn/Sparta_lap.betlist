@@ -11,6 +11,7 @@
     using Model.Report.DTO;
     using Model.Report.DTO.SubsidiaryPerformance;
     using Model.Report.MetaModel;
+    using Session.Interfaces;
 
     public class SubsidiaryPerformanceDataAccess : ReportBaseDataAccess, ISubsidiaryPerformanceDataAccess
     {
@@ -21,7 +22,8 @@
             _balanceUpDataAccess = new BalanceUpDataAccess();
         }
 
-        public SubsidiaryPerformanceDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
+        public SubsidiaryPerformanceDataAccess(ISessionStorage sessionStorage, IBalanceUpDataAccess balanceUpDataAccess)
+            : base(null, sessionStorage)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
         }

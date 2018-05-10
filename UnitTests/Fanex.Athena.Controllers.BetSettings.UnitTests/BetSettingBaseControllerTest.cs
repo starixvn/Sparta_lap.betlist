@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
-    using Session.Enum;
     using Constant.DataDomain;
     using Model.BetSettings.DTO;
     using Model.BetSettings.MetaModel;
@@ -14,6 +13,7 @@
     using NSubstitute;
     using NUnit.Framework;
     using Resources;
+    using Session.Enum;
     using Session.Model;
 
     public class BetSettingBaseControllerTest : BetSettingBaseControllerHelperTest

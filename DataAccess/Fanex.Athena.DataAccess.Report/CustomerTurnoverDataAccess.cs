@@ -19,6 +19,7 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Model.Core.ResultModel;
+    using Session.Interfaces;
     using VendorAdapter;
     using VendorAdapter.Interfaces;
 
@@ -34,7 +35,11 @@ namespace Fanex.Athena.DataAccess.Report
             _cacheRefAdapter = new CacheRefAdapter();
         }
 
-        public CustomerTurnoverDataAccess(IBalanceUpDataAccess balanceUpDataAccess, ICacheRefAdapter cacheRefAdapter)
+        public CustomerTurnoverDataAccess(
+            ISessionStorage sessionStorage,
+            IBalanceUpDataAccess balanceUpDataAccess, 
+            ICacheRefAdapter cacheRefAdapter)
+            : base(null, sessionStorage)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
             _cacheRefAdapter = cacheRefAdapter;

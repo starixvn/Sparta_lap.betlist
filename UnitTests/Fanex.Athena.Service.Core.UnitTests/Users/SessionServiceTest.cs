@@ -6,14 +6,12 @@
     using System.Web;
     using System.Web.SessionState;
     using Core.Common.Interfaces;
-    using Core.Configuration.Interfaces;
     using Core.Users;
     using Core.Users.Interfaces;
     using DataAccess.Core.Common.Interfaces;
     using DataAccess.Core.Users.Interfaces;
     using Extension.Utility;
     using Model.Core.DataDomain;
-    using Model.Core.DTO;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
     using NSubstitute;
@@ -21,9 +19,10 @@
     using Session.Enum;
     using Session.Interfaces;
     using Session.Model;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
-    public class SessionServiceTest
+    public partial class SessionServiceTest
     {
         private const int DefaultUserId = 1;
 
@@ -38,6 +37,10 @@
         public void SetUp()
         {
             _sessionStorage = Substitute.For<ISessionStorage>();
+            _sessionStorage.AssignSessions(
+                Arg.Do<UserSession>(x => _sessionStorage.UserSession.Returns(x)),
+                Arg.Do<LicenseeSession>(x => _sessionStorage.LicenseeSession.Returns(x)));
+
             _appSettings = Substitute.For<IAppSettings>();
             _functionService = Substitute.For<IFunctionService>();
             _licenseeDataAccess = Substitute.For<ILicenseeDataAccess>();
@@ -65,77 +68,6 @@
             _licenseeDataAccess = null;
             _currencyDataAccess = null;
             _sessionService = null;
-        }
-
-        [Test]
-        public void CreateNewSession_WhenCall_UserSessionIsCreatedProperly()
-        {
-            // Action
-            CreateDefaultNewSession();
-
-            // Assert
-            Assert.That(_sessionService.UserSession.UserId, Is.EqualTo(DefaultUserId));
-        }
-
-        [Test]
-        public void CreateNewSession_CurrentSessionOfUserIsNull_UserSessionIsNull()
-        {
-            // Arrange
-            const string UserSessionKey = "UserSessionKey";
-
-            // Action
-            CreateDefaultNewSession();
-            HttpContext.Current.Session[UserSessionKey] = null;
-
-            // Assert
-            Assert.That(_sessionService.UserSession, Is.Null);
-        }
-
-        [Test]
-        public void CreateNewSession_WhenCall_LicenseeSessionIsCreatedProperly()
-        {
-            // Arrange
-            const int LicenseeId = 1;
-            var licensees = new List<Licensee>
-            {
-                new Licensee { Id = 1, Name = "spondemo" }
-            };
-            _licenseeDataAccess.GetByUser(DefaultUserId).Returns(licensees);
-
-            // Action
-            CreateDefaultNewSession(LicenseeId);
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(_sessionService.LicenseeSession.LicenseeId, Is.EqualTo(LicenseeId));
-                Assert.That(_sessionService.LicenseeSession.LicenseeName, Is.EqualTo("spondemo"));
-            });
-        }
-
-        [Test]
-        public void CreateNewSession_CurrentSessionOfLicenseeIsNull_LicenseeSessionIsNull()
-        {
-            // Arrange
-            const int LicenseeId = 1;
-            const string LicenseeSessionKey = "LicenseeSessionKey";
-
-            // Action
-            CreateDefaultNewSession(LicenseeId);
-            HttpContext.Current.Session[LicenseeSessionKey] = null;
-
-            // Assert
-            Assert.That(_sessionService.LicenseeSession, Is.Null);
-        }
-
-        [Test]
-        public void CreateNewSession_LicenseeIdIsZero_LicenseeSessionIsNull()
-        {
-            // Action
-            CreateDefaultNewSession(0);
-
-            // Assert
-            Assert.That(_sessionService.LicenseeSession, Is.Null);
         }
 
         [Test]
@@ -618,38 +550,19 @@
             Assert.That(result, Is.EqualTo(expectedResult));
         }
 
-        [TestCase("ASDF")]
-        [TestCase("12234")]
-        public void CaptchaCode_Set_ValueIsSetCorrectly(string value)
+        [Test]
+        public void CaptchaCode_Get_ValueIsGotCorrectly()
         {
             // Arrange
-            const string CaptchaCodeKey = "CaptchaCodeKey";
+            var captcha = FakeHelper.Create<string>();
             CreateDefaultNewSession();
-            _sessionService.CaptchaCode = value;
-            var expectedResult = value;
-
-            // Action
-            var result = HttpContext.Current.Session[CaptchaCodeKey] as string;
-
-            // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
-        }
-
-        [TestCase("ASDF")]
-        [TestCase("12234")]
-        public void CaptchaCode_Get_ValueIsGotCorrectly(string value)
-        {
-            // Arrange
-            const string CaptchaCodeKey = "CaptchaCodeKey";
-            CreateDefaultNewSession();
-            HttpContext.Current.Session[CaptchaCodeKey] = value;
-            var expectedResult = value;
+            _sessionStorage.CaptchaCode.Returns(captcha);
 
             // Action
             var result = _sessionService.CaptchaCode;
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
+            Assert.That(result, Is.EqualTo(captcha));
         }
 
         [Test]
@@ -746,7 +659,6 @@
             const int OnUserId = 2;
             const string UserName = "user1";
             const bool IsInternal = false;
-
             _sessionService.CreateNewSession(UserId, OnUserId, UserName, IsInternal, licenseeId);
         }
     }

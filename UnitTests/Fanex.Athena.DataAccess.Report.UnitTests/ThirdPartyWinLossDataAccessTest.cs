@@ -10,13 +10,18 @@
     using Report;
 
     [TestFixture]
-    public class ThirdPartyWinLosDataAccessTest : BaseDataAccessHelperTest<ThirdPartyWinLossDataAccess>
+    public class ThirdPartyWinLosDataAccessTest : ReportBaseDataAccessHelperTest<ThirdPartyWinLossDataAccess>
     {
         private const string GetSummaryWinlossSp = "Lrf_Rpt_ThirdPartyWinloss";
         private const string GetCustomerWinlossDetailSp = "LRF_Rpt_ThirdPartyWinloss_Mem";
         private const string GetAgentWinlossDetailSp = "LRF_Rpt_ThirdPartyWinloss_Ag";
 
         private ThirdPartyWinLossMetaModel _metaModel;
+
+        protected override void SetUpDataAccess()
+        {
+            DataAccess = Substitute.ForPartsOf<ThirdPartyWinLossDataAccess>(CreateSessionStorage());
+        }
 
         [SetUp]
         public override void SetUp()

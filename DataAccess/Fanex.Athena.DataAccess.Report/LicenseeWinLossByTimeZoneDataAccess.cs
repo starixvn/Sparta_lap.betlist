@@ -13,6 +13,7 @@
     using Model.Core.ResultModel;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
+    using Session.Interfaces;
 
     public class LicenseeWinLossByTimeZoneDataAccess : ReportBaseDataAccess, ILicenseeWinLossByTimeZoneDataAccess
     {
@@ -23,7 +24,8 @@
             _balanceUpDataAccess = new BalanceUpDataAccess();
         }
 
-        public LicenseeWinLossByTimeZoneDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
+        public LicenseeWinLossByTimeZoneDataAccess(ISessionStorage sessionStorage, IBalanceUpDataAccess balanceUpDataAccess)
+            : base(null, sessionStorage)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
         }
