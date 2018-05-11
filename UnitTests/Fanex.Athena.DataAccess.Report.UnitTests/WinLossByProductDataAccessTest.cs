@@ -15,7 +15,7 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class WinLossByProductDataAccessTest : BaseDataAccessHelperTest<WinLossByProductDataAccess>
+    public class WinLossByProductDataAccessTest : ReportBaseDataAccessHelperTest<WinLossByProductDataAccess>
     {
         private const string GetWinlossByProductsSp = "Lrf_Rpt_WinlossByProduct";
         private const string GetWinlossByProductAgentsSp = "Lrf_Rpt_WinlossByProductDetail_Ag";
@@ -39,7 +39,9 @@
 
             _appSetting = Substitute.For<IAppSettings>();
             _appSetting.HistoryDate.Returns(new DateTime(2016, 8, 31));
-            DataAccess = Substitute.ForPartsOf<WinLossByProductDataAccess>(balanceUpDataAccess);
+            DataAccess = Substitute.ForPartsOf<WinLossByProductDataAccess>(
+                CreateSessionStorage(),
+                balanceUpDataAccess);
 
             _metaModel = new WinLossByProductMetaModel(_appSetting)
             {

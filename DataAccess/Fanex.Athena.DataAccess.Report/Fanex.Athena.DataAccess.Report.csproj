@@ -168,7 +168,9 @@
     <Compile Include="CustomerTurnoverDataAccess.cs" />
     <Compile Include="CustomerWinlossDataAccess.cs" />
     <Compile Include="DailyRacingWinLossDataAccess.cs" />
-    <Compile Include="WinLossByProductDataAccess.cs" />
+    <Compile Include="WinLossByProductDataAccess.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="LiveReportDataAccess.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
