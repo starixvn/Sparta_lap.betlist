@@ -23,7 +23,7 @@ namespace Fanex.Athena.DataAccess.Report
     using VendorAdapter;
     using VendorAdapter.Interfaces;
 
-    public class CustomerTurnoverDataAccess : ReportBaseDataAccess, ICustomerTurnoverDataAccess
+    public class CustomerTurnoverDataAccess : BaseDataAccess, ICustomerTurnoverDataAccess
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 

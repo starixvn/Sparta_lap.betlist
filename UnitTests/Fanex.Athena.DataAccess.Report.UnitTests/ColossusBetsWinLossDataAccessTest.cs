@@ -14,7 +14,7 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class ColossusBetsWinLossDataAccessTest : ReportBaseDataAccessHelperTest<ColossusBetsWinLossDataAccess>
+    public class ColossusBetsWinLossDataAccessTest : BaseDataAccessHelperTest<ColossusBetsWinLossDataAccess>
     {
         private const string GetSummaryWinlossSp = "Lrf_Rpt_ColossusBetsWinloss";
 

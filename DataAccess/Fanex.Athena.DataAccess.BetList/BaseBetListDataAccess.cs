@@ -15,9 +15,19 @@ namespace Fanex.Athena.DataAccess.BetList
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.BetList.DTO;
     using Model.Core.DataDomain;
+    using Session.Interfaces;
 
     public class BaseBetListDataAccess : BaseDataAccess
     {
+        public BaseBetListDataAccess() : this(null, null)
+        {
+        }
+
+        public BaseBetListDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
+            : base(appSetting, sessionStorage)
+        {
+        }
+
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         [CLSCompliant(false)]
@@ -50,6 +60,7 @@ namespace Fanex.Athena.DataAccess.BetList
 
             while (reader.Read())
             {
+                var currencyId = reader.GetInt("currencyid");
                 var ticket = new LrfTicket
                 {
                     // string
@@ -78,7 +89,7 @@ namespace Fanex.Athena.DataAccess.BetList
                     AwayId = reader.GetInt("awayid"),
                     MatchId = reader.GetInt("matchid"),
                     CustId = reader.GetLong("custid", custId),
-                    CurrencyId = reader.GetInt("currencyid"),
+                    CurrencyId = currencyId,
                     LiveHomeScore = reader.GetInt("livehomescore"),
                     LiveAwayScore = reader.GetInt("liveawayscore"),
                     SpecialLevel = reader.GetInt("SpecialLevel"),
@@ -107,7 +118,7 @@ namespace Fanex.Athena.DataAccess.BetList
                     Handicap1 = reader.GetDecimal("hdp1"),
                     Handicap2 = reader.GetDecimal("hdp2"),
                     TransDesc = reader.GetString("transdesc"),
-                    Currency = reader.GetString("currency"),
+                    Currency = GetCurrencyName(currencyId),
 
                     BetdaqId = reader.GetLong("betdaqid", -1),
                     ExtraInfo = reader.GetString("extrainfo"),

@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using Core;
     using Core.Configuration;
     using Core.Configuration.Interfaces;
     using Fanex.Athena.DataAccess.Core.Exception;
@@ -20,7 +21,7 @@
     using Model.Core.ResultModel;
     using Session.Interfaces;
 
-    public class LicenseeWinLossDataAccess : ReportBaseDataAccess, ILicenseeWinLossDataAccess
+    public class LicenseeWinLossDataAccess : BaseDataAccess, ILicenseeWinLossDataAccess
     {
         private static readonly string[] IgnoredLicenseeWLProducts = new[] { Product.BA, Product.RB };
         private static readonly string[] IgnoredTurnoverProducts = new[] { Product.BT, Product.CO };

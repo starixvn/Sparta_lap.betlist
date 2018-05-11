@@ -2,8 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data;
     using System.Diagnostics.CodeAnalysis;
+    using Core.UnitTests.TestHelpers;
     using Model.BetList.DTO;
     using Model.Core.DataDomain;
     using NSubstitute;
@@ -12,23 +12,11 @@
     using UnitTest.Common.NUnitExtensions;
 
     [TestFixture]
-    public class BaseBetListDataAccessTest
+    public class BaseBetListDataAccessTest : BaseDataAccessHelperTest<BaseBetListDataAccess>
     {
-        private BaseBetListDataAccess _dataAccess;
-        private IDataReader _reader;
-
-        [OneTimeSetUp]
-        public void SetUp()
+        protected override void SetUpDataAccess()
         {
-            _dataAccess = Substitute.ForPartsOf<BaseBetListDataAccess>();
-            _reader = Substitute.For<IDataReader>();
-        }
-
-        [OneTimeTearDown]
-        public void TearDown()
-        {
-            _dataAccess = null;
-            _reader = null;
+            DataAccess = Substitute.ForPartsOf<BaseBetListDataAccess>(null, CreateSessionStorage());
         }
 
         [TestCase("")]
@@ -42,11 +30,11 @@
             var currency = "USD";
             var expected = GetFakeTicket();
             var dataList = GetFakeBetListData(currency, expected);
-            _reader.Read().Returns(true, false);
+            Reader.Read().Returns(true, false);
             ConfigureReader(dataList);
 
             // Action
-            var result = _dataAccess.ReadBetListTicket(_reader, currency)[0];
+            var result = DataAccess.ReadBetListTicket(Reader, currency)[0];
 
             // Assert
             Assert.That(result, Tobe.SameProperties(expected));
@@ -123,12 +111,12 @@
         {
             var index = 0;
 
-            _reader.FieldCount.Returns(dataList.Count);
+            Reader.FieldCount.Returns(dataList.Count);
 
             foreach (var item in dataList)
             {
-                _reader.GetName(index).Returns(item.Key);
-                _reader[item.Key].Returns(item.Value);
+                Reader.GetName(index).Returns(item.Key);
+                Reader[item.Key].Returns(item.Value);
                 index++;
             }
         }
@@ -158,7 +146,7 @@
                 AwayId = 5,
                 MatchId = 6,
                 CustId = 7,
-                CurrencyId = 8,
+                CurrencyId = CurrencyId,
                 LiveHomeScore = 9,
                 LiveAwayScore = 10,
                 SpecialLevel = 11,
@@ -179,7 +167,7 @@
                 Handicap1 = 200.11m,
                 Handicap2 = 200.12m,
                 TransDesc = "TransDescTest",
-                Currency = "CurrencyTest"
+                Currency = CurrencyName
             };
         }
     }

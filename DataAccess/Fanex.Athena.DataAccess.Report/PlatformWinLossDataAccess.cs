@@ -9,6 +9,7 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
+    using Core;
     using Core.Configuration;
     using Core.Configuration.Interfaces;
     using Core.Exception;
@@ -22,7 +23,7 @@ namespace Fanex.Athena.DataAccess.Report
     using Model.Core.ResultModel;
     using Session.Interfaces;
 
-    public class PlatformWinLossDataAccess : ReportBaseDataAccess, IPlatformWinLossDataAccess
+    public class PlatformWinLossDataAccess : BaseDataAccess, IPlatformWinLossDataAccess
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 

@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using Core;
     using Core.Configuration;
     using Core.Configuration.Interfaces;
     using Data;
@@ -13,7 +14,7 @@
     using Model.Report.MetaModel;
     using Session.Interfaces;
 
-    public class SubsidiaryPerformanceDataAccess : ReportBaseDataAccess, ISubsidiaryPerformanceDataAccess
+    public class SubsidiaryPerformanceDataAccess : BaseDataAccess, ISubsidiaryPerformanceDataAccess
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 

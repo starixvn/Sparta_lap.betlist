@@ -10,7 +10,7 @@
     using Report;
 
     [TestFixture]
-    public class ThirdPartyWinLosDataAccessTest : ReportBaseDataAccessHelperTest<ThirdPartyWinLossDataAccess>
+    public class ThirdPartyWinLosDataAccessTest : BaseDataAccessHelperTest<ThirdPartyWinLossDataAccess>
     {
         private const string GetSummaryWinlossSp = "Lrf_Rpt_ThirdPartyWinloss";
         private const string GetCustomerWinlossDetailSp = "LRF_Rpt_ThirdPartyWinloss_Mem";

@@ -4,6 +4,7 @@
     using System.Data;
     using System.Linq;
     using Common.Extensions;
+    using Core;
     using Core.Exception;
     using Core.Extensions;
     using Data;
@@ -14,7 +15,7 @@
     using Model.Report.MetaModel;
     using Session.Interfaces;
 
-    public class ExchangeWinLossDataAccess : ReportBaseDataAccess, IExchangeWinLossDataAccess
+    public class ExchangeWinLossDataAccess : BaseDataAccess, IExchangeWinLossDataAccess
     {
         public ExchangeWinLossDataAccess() : this(null)
         {

@@ -15,7 +15,7 @@
     using Resources;
 
     [TestFixture]
-    public class LicenseeWinLossByTimeZoneDataAccessTest : ReportBaseDataAccessHelperTest<LicenseeWinLossByTimeZoneDataAccess>
+    public class LicenseeWinLossByTimeZoneDataAccessTest : BaseDataAccessHelperTest<LicenseeWinLossByTimeZoneDataAccess>
     {
         private const byte GroupByProduct = 1;
 

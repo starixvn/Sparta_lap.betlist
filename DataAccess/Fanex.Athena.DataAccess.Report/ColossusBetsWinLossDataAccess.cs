@@ -8,6 +8,7 @@ namespace Fanex.Athena.DataAccess.Report
 {
     using System.Collections.Generic;
     using System.Data;
+    using Core;
     using Core.Configuration;
     using Core.Configuration.Interfaces;
     using Extension.Helper;
@@ -23,7 +24,7 @@ namespace Fanex.Athena.DataAccess.Report
     using Model.Core.ResultModel;
     using Session.Interfaces;
 
-    public class ColossusBetsWinLossDataAccess : ReportBaseDataAccess, IColossusBetsWinLossDataAccess
+    public class ColossusBetsWinLossDataAccess : BaseDataAccess, IColossusBetsWinLossDataAccess
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 

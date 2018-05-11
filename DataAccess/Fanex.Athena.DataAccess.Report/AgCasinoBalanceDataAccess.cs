@@ -11,6 +11,7 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Data;
     using System.Data.SqlClient;
     using System.Linq;
+    using Core;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Report.Interfaces;
@@ -23,7 +24,7 @@ namespace Fanex.Athena.DataAccess.Report
     using Model.Core.ResultModel;
     using Session.Interfaces;
 
-    public class AgCasinoBalanceDataAccess : ReportBaseDataAccess, IAgCasinoBalanceDataAccess
+    public class AgCasinoBalanceDataAccess : BaseDataAccess, IAgCasinoBalanceDataAccess
     {
         public AgCasinoBalanceDataAccess() : this(null)
         {

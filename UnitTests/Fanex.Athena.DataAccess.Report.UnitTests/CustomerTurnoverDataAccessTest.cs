@@ -14,7 +14,7 @@
     using VendorAdapter.Interfaces;
 
     [TestFixture]
-    public class CustomerTurnoverDataAccessTest : ReportBaseDataAccessHelperTest<CustomerTurnoverDataAccess>
+    public class CustomerTurnoverDataAccessTest : BaseDataAccessHelperTest<CustomerTurnoverDataAccess>
     {
         private const string LanguageCode = "en-us";
 

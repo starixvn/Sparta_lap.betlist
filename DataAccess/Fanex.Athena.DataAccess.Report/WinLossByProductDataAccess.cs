@@ -26,7 +26,7 @@ namespace Fanex.Athena.DataAccess.Report
     using Model.Report.ResultModel;
     using Session.Interfaces;
 
-    public class WinLossByProductDataAccess : ReportBaseDataAccess, IWinLossByProductDataAccess
+    public class WinLossByProductDataAccess : BaseDataAccess, IWinLossByProductDataAccess
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
@@ -224,7 +224,7 @@ namespace Fanex.Athena.DataAccess.Report
                     CustomerId = hasCustomerId ? reader.ToInt("custid") : 0,
                     ProductCode = productCode,
                     ProductName = ProductHelper.GetProductName(productCode),
-                    CurrencyId = reader.ToInt("currency"),
+                    CurrencyId = currencyId,
                     CurrencyName = GetCurrencyName(currencyId),
                     TurnOver = reader.ToDecimal("turnover" + metaModel.BaseCurrency),
                     CustomerWinLoss = reader.ToDecimal("winlost" + metaModel.BaseCurrency),

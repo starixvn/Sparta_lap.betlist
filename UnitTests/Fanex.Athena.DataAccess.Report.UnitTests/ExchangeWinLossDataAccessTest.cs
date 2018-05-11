@@ -12,7 +12,7 @@
     using NSubstitute;
     using NUnit.Framework;
 
-    public class ExchangeWinLossDataAccessTest : ReportBaseDataAccessHelperTest<ExchangeWinLossDataAccess>
+    public class ExchangeWinLossDataAccessTest : BaseDataAccessHelperTest<ExchangeWinLossDataAccess>
     {
         private const string GetMainWinlossSp = "Lrf_Rpt_ExchangeWinloss";
 

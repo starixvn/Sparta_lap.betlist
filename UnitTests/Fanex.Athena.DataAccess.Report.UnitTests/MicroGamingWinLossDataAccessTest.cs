@@ -10,7 +10,7 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class MicroGamingWinLossDataAccessTest : ReportBaseDataAccessHelperTest<MicroGamingWinLossDataAccess>
+    public class MicroGamingWinLossDataAccessTest : BaseDataAccessHelperTest<MicroGamingWinLossDataAccess>
     {
         private const string SpName = "LRF_Rpt_MicroGamingWinloss";
 

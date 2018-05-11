@@ -3,6 +3,7 @@
     using System;
     using System.Data;
     using Common.Extensions;
+    using Core;
     using Core.Configuration;
     using Core.Configuration.Interfaces;
     using Data;
@@ -15,7 +16,7 @@
     using Model.Report.MetaModel;
     using Session.Interfaces;
 
-    public class LicenseeWinLossByTimeZoneDataAccess : ReportBaseDataAccess, ILicenseeWinLossByTimeZoneDataAccess
+    public class LicenseeWinLossByTimeZoneDataAccess : BaseDataAccess, ILicenseeWinLossByTimeZoneDataAccess
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 

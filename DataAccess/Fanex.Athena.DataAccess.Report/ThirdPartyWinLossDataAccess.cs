@@ -9,6 +9,7 @@ namespace Fanex.Athena.DataAccess.Report
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using Core;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Report.Interfaces;
@@ -21,7 +22,7 @@ namespace Fanex.Athena.DataAccess.Report
     using Model.Core.ResultModel;
     using Session.Interfaces;
 
-    public class ThirdPartyWinLossDataAccess : ReportBaseDataAccess, IThirdPartyWinLossDataAccess
+    public class ThirdPartyWinLossDataAccess : BaseDataAccess, IThirdPartyWinLossDataAccess
     {
         public ThirdPartyWinLossDataAccess() : this(null)
         {

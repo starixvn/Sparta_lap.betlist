@@ -149,7 +149,6 @@
     <Compile Include="AgCasinoBalanceDataAccess.cs" />
     <Compile Include="ColossusBetsWinLossDataAccess.cs" />
     <Compile Include="LicenseeWinLossByTimeZoneDataAccess.cs" />
-    <Compile Include="ReportBaseDataAccess.cs" />
     <Compile Include="SubsidiaryPerformanceDataAccess.cs" />
     <Compile Include="ThirdPartyWinLossDataAccess.cs" />
     <Compile Include="WeeklyLiveMatchDataAccess.cs" />

@@ -148,6 +148,10 @@
       <Project>{4A5BDDBC-F707-409A-86EC-D9BC6E9D31C4}</Project>
       <Name>Fanex.Athena.UnitTest.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\Fanex.Athena.Session\Fanex.Athena.Session.csproj">
+      <Project>{B41E38EF-54AD-4866-968F-C856DE9DC072}</Project>
+      <Name>Fanex.Athena.Session</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Model\Fanex.Athena.Model.BetList\Fanex.Athena.Model.BetList.csproj">
       <Project>{4956fbd7-5f68-4e7b-af6c-db5fb1f255f0}</Project>
       <Name>Fanex.Athena.Model.BetList</Name>

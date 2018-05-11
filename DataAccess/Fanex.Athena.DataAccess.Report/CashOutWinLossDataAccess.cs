@@ -10,6 +10,7 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using Core;
     using Core.Configuration;
     using Core.Configuration.Interfaces;
     using Extension.Helper;
@@ -25,7 +26,7 @@ namespace Fanex.Athena.DataAccess.Report
     using Model.Core.ResultModel;
     using Session.Interfaces;
 
-    public class CashOutWinLossDataAccess : ReportBaseDataAccess, ICashOutWinLossDataAccess
+    public class CashOutWinLossDataAccess : BaseDataAccess, ICashOutWinLossDataAccess
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 

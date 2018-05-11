@@ -16,7 +16,7 @@
     using UnitTest.Common.Helpers;
 
     [TestFixture]
-    public class SubsidiaryPerformanceDataAccessTest : ReportBaseDataAccessHelperTest<SubsidiaryPerformanceDataAccess>
+    public class SubsidiaryPerformanceDataAccessTest : BaseDataAccessHelperTest<SubsidiaryPerformanceDataAccess>
     {
         private BalanceUp _balance;
         private JavaScriptSerializer _serialize;

@@ -14,6 +14,11 @@
     {
         private const string UspName = "Lrf_BetList_CashOut_Detail";
 
+        protected override void SetUpDataAccess()
+        {
+            DataAccess = Substitute.ForPartsOf<CashOutBetListDataAccess>(null, CreateSessionStorage());
+        }
+
         [Test]
         public void GetDetail_WhenCall_ParametersPassedCorrectly()
         {

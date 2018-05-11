@@ -11,7 +11,7 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class AgCasinoBalanceDataAccessTest : ReportBaseDataAccessHelperTest<AgCasinoBalanceDataAccess>
+    public class AgCasinoBalanceDataAccessTest : BaseDataAccessHelperTest<AgCasinoBalanceDataAccess>
     {
         private const string GetSummaryBalanceSp = "Lrf_Rpt_AGCasinoBalance";
 

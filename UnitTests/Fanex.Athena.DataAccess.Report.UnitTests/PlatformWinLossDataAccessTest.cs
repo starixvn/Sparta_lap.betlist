@@ -15,7 +15,7 @@
     using Resources;
 
     [TestFixture]
-    public class PlatformWinLossDataAccessTest : ReportBaseDataAccessHelperTest<PlatformWinLossDataAccess>
+    public class PlatformWinLossDataAccessTest : BaseDataAccessHelperTest<PlatformWinLossDataAccess>
     {
         private const string GetSummaryDataSp = "Lrf_Rpt_PlatformWinloss";
         private const string GetMemberDataSp = "Lrf_Rpt_PlatformWinlossDetail";

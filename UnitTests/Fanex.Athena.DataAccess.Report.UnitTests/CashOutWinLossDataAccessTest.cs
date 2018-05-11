@@ -15,7 +15,7 @@
     using NSubstitute;
     using NUnit.Framework;
 
-    public class CashOutWinLossDataAccessTest : ReportBaseDataAccessHelperTest<CashOutWinLossDataAccess>
+    public class CashOutWinLossDataAccessTest : BaseDataAccessHelperTest<CashOutWinLossDataAccess>
     {
         private const string GetSummarySp = "Lrf_Rpt_CashoutWinloss";
 

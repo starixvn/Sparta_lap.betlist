@@ -15,7 +15,7 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class LicenseeWinLossDataAccessTest : ReportBaseDataAccessHelperTest<LicenseeWinLossDataAccess>
+    public class LicenseeWinLossDataAccessTest : BaseDataAccessHelperTest<LicenseeWinLossDataAccess>
     {
         private const string GetSummaryWinlossSp = "Lrf_Rpt_LicWinloss";
 

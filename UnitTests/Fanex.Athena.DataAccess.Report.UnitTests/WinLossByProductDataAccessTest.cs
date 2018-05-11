@@ -15,7 +15,7 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class WinLossByProductDataAccessTest : ReportBaseDataAccessHelperTest<WinLossByProductDataAccess>
+    public class WinLossByProductDataAccessTest : BaseDataAccessHelperTest<WinLossByProductDataAccess>
     {
         private const string GetWinlossByProductsSp = "Lrf_Rpt_WinlossByProduct";
         private const string GetWinlossByProductAgentsSp = "Lrf_Rpt_WinlossByProductDetail_Ag";
