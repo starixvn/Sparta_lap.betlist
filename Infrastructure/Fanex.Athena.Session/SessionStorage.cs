@@ -11,10 +11,6 @@
         private const string UserSessionKey = "UserSessionKey";
         private const string CaptchaCodeKey = "CaptchaCodeKey";
 
-        public SessionStorage()
-        {
-        }
-
         public LicenseeSession LicenseeSession
         {
             get

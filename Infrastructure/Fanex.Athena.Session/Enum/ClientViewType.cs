@@ -1,8 +1,6 @@
 ﻿namespace Fanex.Athena.Session.Enum
 {
-    using System;
-
-    public enum ClientViewType : int
+    public enum ClientViewType
     {
         None = 0,
         Default = 1,
