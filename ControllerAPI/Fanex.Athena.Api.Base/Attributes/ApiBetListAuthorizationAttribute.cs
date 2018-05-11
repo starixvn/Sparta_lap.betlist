@@ -10,10 +10,28 @@
     using Fanex.Athena.Service.Core.Users;
     using Resources;
     using Service.Core.Configuration;
+    using Service.Core.Configuration.Interfaces;
+    using Service.Core.Users.Interfaces;
 
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
     public sealed class ApiBetListAuthorizationAttribute : FilterAttribute, IAuthorizationFilter
     {
+        private readonly ISessionService _sessionService;
+
+        private readonly IFakeLicenseeSettingService _fakeLicenseeSettingService;
+
+        public ApiBetListAuthorizationAttribute() : this(null, null)
+        {
+        }
+
+        public ApiBetListAuthorizationAttribute(
+            ISessionService sessionService,
+            IFakeLicenseeSettingService fakeLicenseeSettingService)
+        {
+            _sessionService = sessionService ?? new SessionService();
+            _fakeLicenseeSettingService = fakeLicenseeSettingService ?? new FakeLicenseeSettingService();
+        }
+
         public Task<HttpResponseMessage> ExecuteAuthorizationFilterAsync(
             HttpActionContext actionContext,
             CancellationToken cancellationToken,
@@ -46,15 +64,12 @@
             return FromResultAsync(actionContext.Response);
         }
 
-        private static bool AuthorizeRequest()
+        private bool AuthorizeRequest()
         {
-            var sessionService = new SessionService();
-            var licenseeSession = sessionService.LicenseeSession;
-            var authorized = true;
-            if (licenseeSession != null)
+            var authorized = _sessionService.LicenseeSession != null;
+            if (authorized)
             {
-                var fakeLicenseeSettingService = new FakeLicenseeSettingService();
-                var setting = fakeLicenseeSettingService.GetSetting();
+                var setting = _fakeLicenseeSettingService.GetSetting();
                 if (setting != null)
                 {
                     authorized = !setting.DisableBetList;

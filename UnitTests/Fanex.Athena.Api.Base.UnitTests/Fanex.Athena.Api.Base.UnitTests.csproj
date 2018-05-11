@@ -100,6 +100,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Attributes\ApiBetListAuthorizationAttributeTest.cs" />
     <Compile Include="Attributes\XFrameOptionApiAttributeTest.cs" />
     <Compile Include="Attributes\ApiOneAuthorizationAttributeTest.cs" />
     <Compile Include="Attributes\ApiFunctionAuthorizationAttributeTest.cs" />
