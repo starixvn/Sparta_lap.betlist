@@ -1,11 +1,11 @@
 ﻿namespace Fanex.Athena.Api.Base.Attributes.UnitTests
 {
+    using System;
     using System.Net;
     using System.Threading;
     using System.Web.Http.Controllers;
     using Attributes;
     using DataAccess.Core.Users.Interfaces;
-    using Logging;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.OneAuth;
     using NSubstitute;
@@ -119,6 +119,23 @@
                 Assert.That(actionContext.ActionArguments["username"], Is.EqualTo(token.UserID));
                 Assert.That(actionContext.ActionArguments["sitename"], Is.EqualTo(token.SiteName));
             });
+        }
+
+        [Test]
+        public void ExecuteAuthorizationFilterAsync_ThrowException_LogError()
+        {
+            // Arrange
+            var exception = new Exception("123");
+            var attribute = new ApiOneAuthorizationAttribute(_logger, _oneAuthenticationService, _licenseeDataAccess);
+            var actionContext = CreateActionContext(hasAuthToken: true);
+
+            _oneAuthenticationService.When(x => x.GetTokenInfo(TokenValue)).Throw(exception);
+
+            // Action
+            var result = attribute.ExecuteAuthorizationFilterAsync(actionContext, new CancellationToken(), null);
+
+            // Assert
+            _logger.Received(1).Error(exception);
         }
 
         private static HttpActionContext CreateActionContext(bool hasAuthToken = false)
