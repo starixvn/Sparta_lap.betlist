@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using Core.Configuration;
     using Core.Configuration.Interfaces;
+    using Core.Utility.Interfaces;
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility.Interfaces;
     using Model.Core.DTO.Configuration;
@@ -23,7 +24,7 @@
         {
             _moveBetDataAccess = Substitute.For<IMoveBetDataAccess>();
             _cache = Substitute.For<IMemoryCacheService>();
-            _moveBetService = new MoveBetService(_moveBetDataAccess, _cache);
+            _moveBetService = new MoveBetService(Substitute.For<ICoreLogger>(), _moveBetDataAccess, _cache);
         }
 
         [TearDown]

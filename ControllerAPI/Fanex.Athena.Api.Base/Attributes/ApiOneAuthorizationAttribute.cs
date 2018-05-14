@@ -17,13 +17,15 @@
     using Resources;
     using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
+    using Service.Core.Utility;
+    using Service.Core.Utility.Interfaces;
 
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
     public sealed class ApiOneAuthorizationAttribute : FilterAttribute, IAuthorizationFilter
     {
         private const string KeyName = "X-Auth-Token";
 
-        private readonly ILogger _logger;
+        private readonly ICoreLogger _logger;
 
         private readonly IOneAuthenticationService _oneAuthenticationService;
 
@@ -31,15 +33,15 @@
 
         public ApiOneAuthorizationAttribute()
         {
-            _logger = Logger.Log;
+            _logger = new CoreLogger();
             _oneAuthenticationService = new OneAuthenticationService();
             _licenseeDataAccess = new LicenseeDataAccess();
         }
 
         [CLSCompliant(false)]
-        public ApiOneAuthorizationAttribute(ILogger logger, IOneAuthenticationService oneAuthenticationService, ILicenseeDataAccess licenseeDataAccess)
+        public ApiOneAuthorizationAttribute(ICoreLogger logger, IOneAuthenticationService oneAuthenticationService, ILicenseeDataAccess licenseeDataAccess)
         {
-            _logger = logger ?? Logger.Log;
+            _logger = logger ?? new CoreLogger();
             _oneAuthenticationService = oneAuthenticationService ?? new OneAuthenticationService();
             _licenseeDataAccess = licenseeDataAccess ?? new LicenseeDataAccess();
         }
@@ -83,7 +85,7 @@
             }
             catch (Exception exception)
             {
-                LogHelper.WriteError(exception);
+                _logger.Error(exception);
                 return UnauthorizeAccessHandlerAsync(actionContext);
             }
         }

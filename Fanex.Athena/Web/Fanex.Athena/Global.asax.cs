@@ -19,11 +19,11 @@ namespace Fanex.Athena
     using Api.Base.Attributes;
     using Api.Base.Logger;
     using Data.Configuration;
-    using Fanex.Athena.Service.Core.Helpers;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.RouterConfig;
     using Fanex.Logging.Extensions.Web;
     using Logging.Extensions.Database;
+    using Service.Core.Utility;
 
     public class MvcApplication : HttpApplication
     {
@@ -43,7 +43,8 @@ namespace Fanex.Athena
                     return;
                 }
 
-                LogHelper.WriteError(exception);
+                var logger = new CoreLogger();
+                logger.Error(exception);
             }
         }
 

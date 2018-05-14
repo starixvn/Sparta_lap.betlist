@@ -17,7 +17,6 @@ namespace Fanex.Athena.Service.Casino
     using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Service.Casino.Interfaces;
-    using Fanex.Athena.Service.Core.Helpers;
     using Newtonsoft.Json;
 
     /// <summary>
@@ -33,18 +32,22 @@ namespace Fanex.Athena.Service.Casino
                 { "zh-Hans", "zhcn" }
             };
 
+        private readonly ICoreLogger _logger;
+
         private readonly IAppSettings _appSettings;
 
         private readonly IWebClientService _webClientService;
 
         public RngCasinoSingleWalletService()
         {
+            _logger = new CoreLogger();
             _appSettings = new AppSettings();
             _webClientService = new WebClientService();
         }
 
-        public RngCasinoSingleWalletService(IAppSettings appSettings, IWebClientService webClientService)
+        public RngCasinoSingleWalletService(ICoreLogger logger, IAppSettings appSettings, IWebClientService webClientService)
         {
+            _logger = logger;
             _appSettings = appSettings;
             _webClientService = webClientService;
         }
@@ -113,7 +116,7 @@ namespace Fanex.Athena.Service.Casino
             }
             catch (Exception exception)
             {
-                LogHelper.WriteError(exception);
+                _logger.Error(exception);
             }
 
             return serverResponse;

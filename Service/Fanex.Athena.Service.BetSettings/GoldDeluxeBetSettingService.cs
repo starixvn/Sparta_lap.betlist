@@ -12,7 +12,6 @@ namespace Fanex.Athena.Service.BetSettings
     using System.Xml.Linq;
     using Common;
     using Constant.DataDomain;
-    using Core.Helpers;
     using Core.Users.Interfaces;
     using Core.Utility;
     using Core.Utility.Interfaces;
@@ -31,6 +30,8 @@ namespace Fanex.Athena.Service.BetSettings
 
         private const string DefaultGroup = "default";
 
+        private readonly ICoreLogger _logger;
+
         private readonly IThirdPartyBetSettingDataAccess _betSettingDataAccess;
 
         private readonly IAppSettings _appSettings;
@@ -39,6 +40,7 @@ namespace Fanex.Athena.Service.BetSettings
 
         public GoldDeluxeBetSettingService()
         {
+            _logger = new CoreLogger();
             _betSettingDataAccess = new ThirdPartyBetSettingDataAccess();
             _appSettings = new AppSettings();
             _webClientService = new WebClientService();
@@ -46,11 +48,13 @@ namespace Fanex.Athena.Service.BetSettings
 
         public GoldDeluxeBetSettingService(
             IAuthorizationService authorizationService,
+            ICoreLogger logger,
             IThirdPartyBetSettingDataAccess betSettingDataAccess,
             IAppSettings appSettings,
             IWebClientService webClientService)
             : base(authorizationService)
         {
+            _logger = logger;
             _betSettingDataAccess = betSettingDataAccess;
             _appSettings = appSettings;
             _webClientService = webClientService;
@@ -123,7 +127,7 @@ namespace Fanex.Athena.Service.BetSettings
             }
             catch (Exception exception)
             {
-                LogHelper.WriteError(exception);
+                _logger.Error(exception);
             }
 
             return ErrorResult(ViewResources.ErrorProcessingMsg);
@@ -182,7 +186,7 @@ namespace Fanex.Athena.Service.BetSettings
             }
             catch (Exception exception)
             {
-                LogHelper.WriteError(exception);
+                _logger.Error(exception);
             }
 
             return games;
@@ -208,7 +212,7 @@ namespace Fanex.Athena.Service.BetSettings
             }
             catch (Exception exception)
             {
-                LogHelper.WriteError(exception);
+                _logger.Error(exception);
             }
 
             return string.Empty;

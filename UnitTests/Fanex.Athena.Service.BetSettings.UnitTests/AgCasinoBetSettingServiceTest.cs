@@ -30,7 +30,12 @@
             _dataAccess = Substitute.For<IAgCasinoBetSettingDataAccess>();
             _appSettings = Substitute.For<IAppSettings>();
             _webClientService = Substitute.For<IWebClientService>();
-            _service = new AgCasinoBetSettingService(_authorizationService, _dataAccess, _appSettings, _webClientService);
+            _service = new AgCasinoBetSettingService(
+                _authorizationService,
+                Substitute.For<ICoreLogger>(),
+                _dataAccess,
+                _appSettings,
+                _webClientService);
         }
 
         [OneTimeTearDown]

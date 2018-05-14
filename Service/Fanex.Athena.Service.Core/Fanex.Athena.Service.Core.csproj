@@ -129,7 +129,6 @@
     <Compile Include="Common\ProductService.cs" />
     <Compile Include="Configuration\MoveBetService.cs" />
     <Compile Include="Exception\ServiceException.cs" />
-    <Compile Include="Helpers\LogHelper.cs" />
     <Compile Include="Common\Interfaces\IBetTypeService.cs" />
     <Compile Include="Common\Interfaces\IExChangeRateService.cs" />
     <Compile Include="Common\Interfaces\IFunctionService.cs" />
@@ -147,6 +146,8 @@
     <Compile Include="Users\AuthorizationService.cs" />
     <Compile Include="Users\SessionService.cs" />
     <Compile Include="Users\UserService.cs" />
+    <Compile Include="Utility\CoreLogger.cs" />
+    <Compile Include="Utility\Interfaces\ICoreLogger.cs" />
     <Compile Include="Utility\Interfaces\IClientViewHelper.cs" />
     <Compile Include="Utility\Interfaces\IWebClientService.cs" />
     <Compile Include="Utility\Interfaces\IRSAEncryptor.cs" />

@@ -38,7 +38,12 @@
             _dataAccess = Substitute.For<IThirdPartyBetSettingDataAccess>();
             _appSettings = Substitute.For<IAppSettings>();
             _webClientService = Substitute.For<IWebClientService>();
-            _service = new GoldDeluxeBetSettingService(_authorizationService, _dataAccess, _appSettings, _webClientService);
+            _service = new GoldDeluxeBetSettingService(
+                _authorizationService,
+                Substitute.For<ICoreLogger>(),
+                _dataAccess,
+                _appSettings,
+                _webClientService);
         }
 
         [OneTimeTearDown]

@@ -11,6 +11,7 @@
     using NSubstitute;
     using NUnit.Framework;
     using Service.Core.Common.Interfaces;
+    using Service.Core.Utility.Interfaces;
     using Service.Forecast.Interfaces;
     using VendorAdapter.Interfaces;
 
@@ -355,7 +356,7 @@
 
         private void AssertViewModel(
             NewForecastHdpOuViewModel viewModel,
-            string homeTeamName, 
+            string homeTeamName,
             string awayTeamName,
             NewForecastHdpOuData mainData,
             NewForecastHdpOuMatchInfo headerInfo)
@@ -380,6 +381,7 @@
                 AppSettings,
                 ClientViewHelper,
                 _forecastService,
+                Substitute.For<ICoreLogger>(),
                 _cacheRefAdapter,
                 _matchService)
             {

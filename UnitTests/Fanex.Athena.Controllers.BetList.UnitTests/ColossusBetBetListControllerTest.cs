@@ -96,6 +96,7 @@
                 BetListService,
                 BalanceUpDataAccess,
                 CacheRefAdapter,
+                Substitute.For<ICoreLogger>(),
                 _webClientService,
                 _dataAccess);
             return controller;

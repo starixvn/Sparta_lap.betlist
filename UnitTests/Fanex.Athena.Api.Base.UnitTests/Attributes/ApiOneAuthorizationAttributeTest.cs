@@ -11,6 +11,7 @@
     using NSubstitute;
     using NUnit.Framework;
     using Service.Core.Users.Interfaces;
+    using Service.Core.Utility.Interfaces;
     using UnitTest.Common.Helpers;
 
     public class ApiOneAuthorizationAttributeTest
@@ -19,7 +20,7 @@
 
         private const string TokenValue = "abcdef";
 
-        private ILogger _logger;
+        private ICoreLogger _logger;
 
         private IOneAuthenticationService _oneAuthenticationService;
 
@@ -28,7 +29,7 @@
         [SetUp]
         public void SetUp()
         {
-            _logger = Substitute.For<ILogger>();
+            _logger = Substitute.For<ICoreLogger>();
             _oneAuthenticationService = Substitute.For<IOneAuthenticationService>();
             _licenseeDataAccess = Substitute.For<ILicenseeDataAccess>();
         }

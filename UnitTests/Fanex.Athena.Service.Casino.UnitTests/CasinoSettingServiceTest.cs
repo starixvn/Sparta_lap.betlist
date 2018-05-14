@@ -5,6 +5,7 @@
     using Casino;
     using Casino.Wrappers;
     using Core.Exception;
+    using Core.Utility.Interfaces;
     using Fanex.Athena.Model.Casino.MetaModel.ApiInputParameter;
     using NSubstitute;
     using NUnit.Framework;
@@ -24,7 +25,10 @@
             _customerApiWrapper = Substitute.For<ICustomerApiWrapper>();
             _basicInfoApiWrapper = Substitute.For<IBasicInfoApiWrapper>();
 
-            _casinoSettingService = new CasinoSettingService(_customerApiWrapper, _basicInfoApiWrapper);
+            _casinoSettingService = new CasinoSettingService(
+                Substitute.For<ICoreLogger>(),
+                _customerApiWrapper, 
+                _basicInfoApiWrapper);
         }
 
         [TearDown]

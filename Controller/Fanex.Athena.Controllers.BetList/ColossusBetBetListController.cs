@@ -32,12 +32,15 @@ namespace Fanex.Athena.Controllers.BetList
     [FunctionAuthorization(PermissionKeys.ReportColossusBetsWinLoss)]
     public class ColossusBetBetListController : BetListBaseController
     {
+        private readonly ICoreLogger _logger;
+
         private readonly IColossusBetBetListDataAccess _colossusBetBetListDataAccess;
 
         private readonly IWebClientService _webClientService;
 
         public ColossusBetBetListController()
         {
+            _logger = new CoreLogger();
             _colossusBetBetListDataAccess = new ColossusBetBetListDataAccess();
             _webClientService = new WebClientService();
         }
@@ -51,10 +54,12 @@ namespace Fanex.Athena.Controllers.BetList
             IBetListService betListService,
             IBalanceUpDataAccess balanceUpDataAccess,
             ICacheRefAdapter cacheRefAdapter,
+            ICoreLogger logger,
             IWebClientService webClientService,
             IColossusBetBetListDataAccess colossusBetBetListDataAccess)
         : base(languageService, sessionService, appSetting, clientViewHelper, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
         {
+            _logger = logger;
             _colossusBetBetListDataAccess = colossusBetBetListDataAccess;
             _webClientService = webClientService;
         }
@@ -93,7 +98,7 @@ namespace Fanex.Athena.Controllers.BetList
             }
             catch (Exception exception)
             {
-                LogHelper.WriteError(exception, "ApiUrl: " + tokenApiUrl);
+                _logger.Error(exception, "ApiUrl: " + tokenApiUrl);
                 return string.Empty;
             }
 
@@ -102,7 +107,7 @@ namespace Fanex.Athena.Controllers.BetList
             if (token == null)
             {
                 var message = $"Errors from Colossus Bets API (memberid: {memberId}).\r\n" + jobject;
-                LogHelper.WriteError(message);
+                _logger.Error(message);
                 return string.Empty;
             }
 

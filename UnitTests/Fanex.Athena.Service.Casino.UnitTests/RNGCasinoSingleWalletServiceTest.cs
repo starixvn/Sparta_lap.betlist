@@ -23,7 +23,10 @@
             _appSettings = Substitute.For<IAppSettings>();
             _webClientService = Substitute.For<IWebClientService>();
 
-            _service = new RngCasinoSingleWalletService(_appSettings, _webClientService);
+            _service = new RngCasinoSingleWalletService(
+                Substitute.For<ICoreLogger>(),
+                _appSettings,
+                _webClientService);
         }
 
         [TearDown]
