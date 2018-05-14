@@ -64,7 +64,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.BetList.PP, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.BetList.PP.1.0.0-beta4\lib\net40\Fanex.BetList.PP.dll</HintPath>
+      <HintPath>..\..\packages\Fanex.BetList.PP.1.0.0\lib\net40\Fanex.BetList.PP.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.BetList.Voidbridge, Version=1.0.0.10, Culture=neutral, processorArchitecture=MSIL">
