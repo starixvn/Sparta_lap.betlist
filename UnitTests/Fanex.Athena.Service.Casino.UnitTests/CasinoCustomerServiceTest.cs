@@ -4,7 +4,7 @@
     using Casino;
     using Casino.Wrappers;
     using Core.Exception;
-    using Logging;
+    using Core.Utility.Interfaces;
     using Model.Casino.MetaModel;
     using Model.Customer.MetaModel;
     using NSubstitute;
@@ -13,7 +13,7 @@
     [TestFixture]
     public class CasinoCustomerServiceTest
     {
-        private ILogger _logger;
+        private ICoreLogger _logger;
 
         private ICustomerApiWrapper _customerApiWrapper;
 
@@ -22,7 +22,7 @@
         [SetUp]
         public void SetUp()
         {
-            _logger = Substitute.For<ILogger>();
+            _logger = Substitute.For<ICoreLogger>();
             _customerApiWrapper = Substitute.For<ICustomerApiWrapper>();
 
             _casinoCustomerService = new CasinoCustomerService(_logger, _customerApiWrapper);
@@ -158,7 +158,7 @@
             _casinoCustomerService.UpdateCommission(metaModel);
 
             // Assert
-            _logger.ReceivedWithAnyArgs().Error(string.Empty, exception);
+            _logger.ReceivedWithAnyArgs().Error(exception);
         }
 
         private static CustomerStatusMetaModel CreateStatusMetaModel()

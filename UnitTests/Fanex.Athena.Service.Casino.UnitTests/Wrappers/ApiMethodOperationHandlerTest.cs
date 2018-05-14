@@ -4,7 +4,7 @@
     using System.Data;
     using Casino.Wrappers;
     using CasinoLibrary.Model.UserException;
-    using Fanex.Logging;
+    using Core.Utility.Interfaces;
     using NSubstitute;
     using NUnit.Framework;
 
@@ -59,7 +59,7 @@
         public void Handle_WhenCall_ReturnDefaultValueOfOutPutType()
         {
             // Arrange
-            var handler = new ApiMethodOperationHandler<DataTable>();
+            var handler = new ApiMethodOperationHandler<DataTable>(Substitute.For<ICoreLogger>());
 
             // Action
             var result = handler.Handle(new object(), (obj) => ThrowErrorExceptionCodeBlock<DataTable>(obj));
@@ -72,7 +72,7 @@
         public void Handle_WhenCall_ThrowSpecialExceptionAndWriteLog()
         {
             // Arrange
-            var logger = Substitute.For<ILogger>();
+            var logger = Substitute.For<ICoreLogger>();
             var handler = new ApiMethodOperationHandler<DataTable>(logger);
 
             // Action
@@ -85,7 +85,7 @@
                 .Handle(new DataTable(), (obj) => ThrowErrorExceptionCodeBlock<DataTable>(obj));
 
             // Assert
-            logger.Received(1).Error(Arg.Any<string>(), Arg.Any<Exception>());
+            logger.Received(1).Error(Arg.Any<Exception>(), Arg.Any<string>());
         }
     }
 }
