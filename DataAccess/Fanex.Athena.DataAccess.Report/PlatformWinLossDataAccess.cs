@@ -213,7 +213,7 @@ namespace Fanex.Athena.DataAccess.Report
                     AmtDueToRacing = reader.ToDecimal(amtDueToRbColumn),
                     CurrencyId = reader.ToInt("Currency"),
                     SystemId = reader.ToString("username"),
-                    CustomerId = currencyId,
+                    CustomerId = reader.ToInt("custid"),
                     ExternalId = reader.ToString("nickname")
                 };
 
