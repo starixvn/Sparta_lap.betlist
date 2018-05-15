@@ -14,6 +14,7 @@ namespace Fanex.Athena.DataAccess.Report
     using Constant.DataDomain;
     using Core.Configuration;
     using Core.Configuration.Interfaces;
+    using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Report.Interfaces;
@@ -23,6 +24,7 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Model.Core.Helper;
+    using Session.Interfaces;
     using VendorAdapter;
     using VendorAdapter.Interfaces;
 
@@ -43,7 +45,12 @@ namespace Fanex.Athena.DataAccess.Report
             _cacheRefAdapter = new CacheRefAdapter();
         }
 
-        public LiveReportDataAccess(IBalanceUpDataAccess balanceUpDataAccess, ICacheRefAdapter cacheRefAdapter)
+        public LiveReportDataAccess(
+            IAppSettings appSetting,
+            ISessionStorage sessionStorage,
+            IBalanceUpDataAccess balanceUpDataAccess, 
+            ICacheRefAdapter cacheRefAdapter)
+            : base(appSetting, sessionStorage)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
             _cacheRefAdapter = cacheRefAdapter;

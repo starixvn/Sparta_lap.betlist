@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading;
     using Constant.DataDomain;
     using DataAccess.Report.Interfaces;
     using Model.Core.DTO.Common;
@@ -19,6 +20,7 @@
         [SetUp]
         public void SetUp()
         {
+            SynchronizationContext.SetSynchronizationContext(new SynchronizationContext());
             _dataAccess = Substitute.For<ILiveReportDataAccess>();
             _service = new LiveReportService(_dataAccess, Substitute.For<ICacheRefAdapter>());
         }

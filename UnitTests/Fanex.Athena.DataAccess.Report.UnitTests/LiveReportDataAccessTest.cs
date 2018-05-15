@@ -6,11 +6,14 @@
     using Core.Configuration.Interfaces;
     using Core.UnitTests.TestHelpers;
     using Data;
+    using Extension.Utility;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Configuration;
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using Session.Interfaces;
+    using Session.Model;
     using VendorAdapter.Interfaces;
 
     [TestFixture]
@@ -42,9 +45,18 @@
 
             ObjectDb = Substitute.For<IObjectDb>();
 
+            var sessionStorage = Substitute.For<ISessionStorage>();
+            sessionStorage.UserSession.Returns(new UserSession
+            {
+                CurrencyList = new Dictionary<int, string>()
+            });
             _cacheRefAdapter = Substitute.For<ICacheRefAdapter>();
 
-            DataAccess = Substitute.ForPartsOf<LiveReportDataAccess>(balanceUpDataAccess, _cacheRefAdapter);
+            DataAccess = Substitute.ForPartsOf<LiveReportDataAccess>(
+                Substitute.For<IAppSettings>(),
+                sessionStorage,
+                balanceUpDataAccess,
+                _cacheRefAdapter);
 
             _metaModel = new LiveReportMetaModel
             {
