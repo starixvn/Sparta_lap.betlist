@@ -116,5 +116,31 @@
             // Assert
             Assert.That(result, Is.EqualTo(expected));
         }
+
+        [Test]
+        public void GenerateClientDetailSystemParlayFunction_MixParlay_ReturnCorrectResult()
+        {
+            // Arrange
+            var tickerHelper = Substitute.For<ITicketHelper>();
+            
+            var ticket = new LrfTicket
+            {
+                TransId = 1,
+                RefNo = "RefNoTest",
+                BetId = 2,
+                BetTypeId = 29,
+                BetTeam = "1"
+            };
+            const long Custid = 3;
+            const string BaseCurrency = "USD";
+
+            var expected = $"showCombMPDetail(1,RefNoTest,2,3,&quot;Mix Parlay&quot;,&quot;USD&quot;)";
+
+            // Action
+            var result = BetListHelper.GenerateClientDetailSystemParlayFunction(tickerHelper, BaseCurrency, ticket, Custid);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(expected));
+        }
     }
 }
