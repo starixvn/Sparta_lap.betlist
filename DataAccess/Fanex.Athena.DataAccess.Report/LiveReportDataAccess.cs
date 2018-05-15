@@ -217,25 +217,6 @@ namespace Fanex.Athena.DataAccess.Report
             db.AddInParameter("liveindicator", DbType.Int32, metaModel.LiveIndicator);
         }
 
-        private static IList<LiveReport> ReadDetailByCurrency(IDataReader reader, string currency)
-        {
-            var list = new List<LiveReport>();
-            while (reader.Read())
-            {
-                var productName = reader.ToString("Currency");
-                var item = new LiveReport
-                {
-                    ProductName = productName,
-                    ProductCode = productName
-                };
-
-                ReadCommonColumns(reader, currency, item);
-                list.Add(item);
-            }
-
-            return list;
-        }
-
         private static void ReadCommonColumns(IDataReader reader, string currency, LiveReport item)
         {
             item.TurnOver = reader.ToDecimal("Turnover" + currency);
@@ -269,6 +250,26 @@ namespace Fanex.Athena.DataAccess.Report
                 default:
                     return _cacheRefAdapter.GetSportName(sportType);
             }
+        }
+
+        private IList<LiveReport> ReadDetailByCurrency(IDataReader reader, string currency)
+        {
+            var list = new List<LiveReport>();
+            while (reader.Read())
+            {
+                var currencyId = reader.ToInt("Currency");
+                var currencyName = GetCurrencyName(currencyId);
+                var item = new LiveReport
+                {
+                    ProductName = currencyName,
+                    ProductCode = currencyName
+                };
+
+                ReadCommonColumns(reader, currency, item);
+                list.Add(item);
+            }
+
+            return list.OrderBy(x => x.ProductName).ToList();
         }
 
         private IList<LiveReportByBetType> ReadDetailByBettype(IDataReader reader, IEnumerable<Product> products, string currency)
