@@ -1,25 +1,25 @@
-webpackJsonp([6],{
+webpackJsonp([5],{
 
-/***/ 396:
+/***/ 391:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(4);
-__webpack_require__(397);
-__webpack_require__(398);
-__webpack_require__(399);
-__webpack_require__(400);
-module.exports = __webpack_require__(401);
+__webpack_require__(5);
+__webpack_require__(392);
+__webpack_require__(393);
+__webpack_require__(394);
+__webpack_require__(395);
+module.exports = __webpack_require__(396);
 
 
 /***/ }),
 
-/***/ 397:
+/***/ 392:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 9/26/2018 8:59:48 AM
+// Generated at: 4/20/2018 11:24:57 AM
 window._language_en_US = {
   AA: "AA",
   AB: "AB",
@@ -87,6 +87,7 @@ window._language_en_US = {
   BA: "BA",
   Back: "Back",
   BackToCurrentReport: "Back to current report",
+  BackToOldUI: "Back to old UI",
   BAComissionBalanceNote: "BA Commission: Licensee commission income for BA tickets.",
   BACommission: "BA Commission",
   Balance: "Balance",
@@ -422,7 +423,6 @@ window._language_en_US = {
   InternalSystem: "Internal System",
   InvalidCaptchaMsg: "You inputed an invalid code.",
   InvalidChargeCommission: "Invalid Charge Commission",
-  InvalidCurrencyPermission: "Invalid currency permissions.",
   InvalidParams: "Invalid parameters",
   InvalidRequestMsg: "Request is not valid",
   InvalidRequestOrNotAuthorizedMsg: "Invalid request or you are not authorized to access the requested resource!",
@@ -706,6 +706,7 @@ window._language_en_US = {
   ProductMGCLC: "Microgaming-Live Casino",
   ProductMGCRNG: "Microgaming-RNG Casino",
   ProductNG: "Number Game",
+  ProductPP: "PP",
   ProductPTCS: "Playtech Casino",
   ProductRB: "Racing",
   ProductSB: "Sportsbook",
@@ -823,7 +824,6 @@ window._language_en_US = {
   Subject: "Subject",
   Submit: "Submit",
   Subsidiary: "Subsidiary",
-  SubsidiaryNotHaveCurrencyMsg: "Please contact admin to check your subsidiary name.",
   SubsidiaryPerformance: "Subsidiary Performance",
   SubsidiaryWL: "Subsidiary W/L",
   Summary: "Summary",
@@ -942,7 +942,6 @@ window._language_en_US = {
   Viewin: "View in {0}",
   ViewNotification: "View Notification",
   VIP: "VIP",
-  VirtualBasketball: "Virtual Basketball",
   VirtualCycling: "Virtual Cycling",
   VirtualGreyhounds: "Virtual Greyhounds",
   VirtualHorseRacing: "Virtual Horse Racing",
@@ -950,7 +949,6 @@ window._language_en_US = {
   VirtualSoccer: "Virtual Soccer",
   VirtualSoccerLeague: "Virtual Soccer League",
   VirtualSoccerNation: "Virtual Soccer Nation",
-  VirtualSoccerWorldCup: "Virtual Soccer World Cup",
   VirtualSpeedway: "Virtual Speedway",
   VirtualSports: "Virtual Sports",
   VirtualTennis: "Virtual Tennis",
@@ -987,13 +985,13 @@ window._language_en_US = {
 
 /***/ }),
 
-/***/ 398:
+/***/ 393:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 9/26/2018 8:59:48 AM
+// Generated at: 3/27/2018 8:55:30 AM
 window._language_ko_KR = {
   AA: "AA",
   ABComm: "AllBet 수수료",
@@ -1743,13 +1741,13 @@ window._language_ko_KR = {
 
 /***/ }),
 
-/***/ 399:
+/***/ 394:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 9/26/2018 8:59:48 AM
+// Generated at: 3/27/2018 8:55:30 AM
 window._language_zh_CN = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -1805,6 +1803,7 @@ window._language_zh_CN = {
   AwayNoBet: "客队(不获胜球队)",
   BA: "BA",
   BackToCurrentReport: "回到现有报告",
+  BackToOldUI: "回到旧版本",
   BAComissionBalanceNote: "投注总计佣金: 承租公司佣金所得于投注总计注单。",
   BACommission: "BA佣金",
   Balance: "余额",
@@ -1815,7 +1814,6 @@ window._language_zh_CN = {
   Based: "基于",
   BAStatus: "BA 状态",
   BAUpdatedBy: "投注总计跟新由",
-  BBAmtComm: "回购金额+即时兑现佣金",
   Bestviewedin: "最佳浏览",
   BestViewResolution: "Resolution 1280x1024",
   BestWinLoss: "最佳输赢",
@@ -1834,11 +1832,10 @@ window._language_zh_CN = {
   BetType: "投注类别",
   BONTeamToScore: "双方/一方/两者皆不得分",
   Bonus: "红利",
-  BoughtAmount: "买入金额",
-  BoughtDetails: "买入详情",
-  BoughtStake: "买入本金",
-  BoughtTicketsList: "买入注单",
-  BuyBackAmount: "回购金额",
+  BoughtAmount: "买的金额",
+  BoughtDetails: "买的详细资料",
+  BoughtStake: "买的投注额",
+  BoughtTicketsList: "买的注单",
   ByBetType: "根据投注类型",
   ByCurrency: "根据货币",
   BySportsType: "根据运动类型",
@@ -1847,15 +1844,10 @@ window._language_zh_CN = {
   CancelledBetsTitle: "作废/已删除注单(3天纪录)",
   CashOutAmount: "预先兑现金额",
   CashOutAmt: "兑现金额",
-  CashOutCommission: "即时兑现佣金",
-  CashOutDetails: "即时兑现详情",
-  CashOutNotOfferCurrency: "即时兑现不支援此货币",
+  CashOutDetails: "预先兑现详情",
   CashOutShare: "兑现分红",
-  CashOutStake: "即时兑现本金",
-  CashOutTickets: "即时兑现注单",
-  CashOutTicketsList: "即时兑现注单",
-  CashOutTimes: "即时兑现次数",
-  CashOutValue: "会员卖出的实际投注额",
+  CashOutStake: "预先兑现赌注",
+  CashOutTicketsList: "预先兑现投注单",
   CashOutWinLoss: "即时兑现输赢",
   CASINOHANDHISTORY: "赌场下注历史",
   CasinoProgressiveWinsGuidelineContent: "此报告提供最新数据。您每次查询可以过滤最多12个月内的数据。",
@@ -1866,7 +1858,7 @@ window._language_zh_CN = {
   Characters: "文字",
   CheckAll: "Check All",
   Checkavailability: "检查可用性",
-  China: "中国",
+  China: "大陆",
   Choice: "选择",
   ChooseGroupMsg: "请选择一个组",
   ChooseGroupNameMsg: "请选择其他组名",
@@ -1984,7 +1976,6 @@ window._language_zh_CN = {
   EffectiveBettingValueNote: "有效投注额支援09/01/2014之后数据",
   Enable: "Enable",
   EnableAgCasino: "Enable AG Casino",
-  EnableCashOut: "开启即时兑现",
   EnableRNGCasino: "Enable RNG Casino",
   EndBalance: "结束余额",
   EndDate: "结束日期",
@@ -2299,7 +2290,6 @@ window._language_zh_CN = {
   OneXTwo: "1 X 2",
   Open: "开启",
   OpeningBalance: "前期余额",
-  OriginalBetTicket: "原始注单",
   OT: "延时",
   Others: "其他",
   OtherSport: "其他运动",
@@ -2420,7 +2410,6 @@ window._language_zh_CN = {
   SessionID: "每局号码",
   SessionLoggedMsg: "您已从另一会话登入或您的登入会话已过期",
   SetAsDefaultGroup: "设置为默认组",
-  SettleAmount: "结算总额",
   SettledMatchCount: "已结算赛事计数",
   Show: "显示",
   ShowAllLeagues: "显示所有联赛",
@@ -2444,9 +2433,6 @@ window._language_zh_CN = {
   Status: "状态",
   Su: "Su",
   Submit: "提交",
-  Subsidiary: "子网站",
-  SubsidiaryPerformance: "子网站报告",
-  SubsidiaryWL: "子网站输赢",
   Summary: "总结",
   Sunday: "星期六",
   SupportForOnlyNote: "报告仅支持",
@@ -2465,7 +2451,6 @@ window._language_zh_CN = {
   TicketFilter: "注单筛选",
   TicketList: "注单清单",
   TicketNo: "票劵号码",
-  TicketPayout: "注单结果+实际投注金额",
   TicketType: "注单类型",
   Time: "时间",
   TimeZone: "时区",
@@ -2581,66 +2566,13 @@ window._language_zh_CN = {
 
 /***/ }),
 
-/***/ 4:
+/***/ 395:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var DEFAULT_RESOURCE_NAME = "_language_en_US";
-var langCode = window.PageLanguage || "en-US";
-var resourceName = "_language_" + langCode.replace("-", "_");
-
-var LangHelper = function () {
-    function LangHelper() {
-        _classCallCheck(this, LangHelper);
-    }
-
-    _createClass(LangHelper, null, [{
-        key: "getSingleResource",
-        value: function getSingleResource(key) {
-            var langHandler = window[resourceName];
-
-            return langHandler && langHandler[key] || window[DEFAULT_RESOURCE_NAME] && window[DEFAULT_RESOURCE_NAME][key] || key;
-        }
-    }, {
-        key: "getResources",
-        value: function getResources(keys) {
-            var langHandler = window[resourceName];
-
-            return keys.map(function (key) {
-                return langHandler && langHandler[key] || window[DEFAULT_RESOURCE_NAME] && window[DEFAULT_RESOURCE_NAME][key] || key;
-            });
-        }
-    }, {
-        key: "currentLanguage",
-        get: function get() {
-            return langCode;
-        }
-    }]);
-
-    return LangHelper;
-}();
-
-exports.default = LangHelper;
-
-/***/ }),
-
-/***/ 400:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-// Generated at: 9/26/2018 8:59:48 AM
+// Generated at: 3/27/2018 8:55:30 AM
 window._language_zh_Hans = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -2696,6 +2628,7 @@ window._language_zh_Hans = {
   AwayNoBet: "客队(不获胜球队)",
   BA: "BA",
   BackToCurrentReport: "回到现有报告",
+  BackToOldUI: "回到旧版本",
   BAComissionBalanceNote: "投注总计佣金: 承租公司佣金所得于投注总计注单。",
   BACommission: "BA佣金",
   Balance: "余额",
@@ -2706,7 +2639,6 @@ window._language_zh_Hans = {
   Based: "基于",
   BAStatus: "BA 状态",
   BAUpdatedBy: "投注总计跟新由",
-  BBAmtComm: "回购金额+即时兑现佣金",
   Bestviewedin: "最佳浏览",
   BestViewResolution: "Resolution 1280x1024",
   BestWinLoss: "最佳输赢",
@@ -2725,11 +2657,6 @@ window._language_zh_Hans = {
   BetType: "投注类别",
   BONTeamToScore: "双方/一方/两者皆不得分",
   Bonus: "红利",
-  BoughtAmount: "买入金额",
-  BoughtDetails: "买入详情",
-  BoughtStake: "买入本金",
-  BoughtTicketsList: "买入注单",
-  BuyBackAmount: "回购金额",
   ByBetType: "根据投注类型",
   ByCurrency: "根据货币",
   BySportsType: "根据运动类型",
@@ -2737,16 +2664,7 @@ window._language_zh_Hans = {
   CancelledBets: "已删除/作废注单",
   CancelledBetsTitle: "作废/已删除注单(3天纪录)",
   CashOutAmt: "兑现金额",
-  CashOutCommission: "即时兑现佣金",
-  CashOutDetails: "即时兑现详情",
-  CashOutNotOfferCurrency: "即时兑现不支援此货币",
   CashOutShare: "兑现分红",
-  CashOutStake: "即时兑现本金",
-  CashOutTickets: "即时兑现注单",
-  CashOutTicketsList: "即时兑现注单",
-  CashOutTimes: "即时兑现次数",
-  CashOutValue: "会员卖出的实际投注额",
-  CashOutWinLoss: "即时兑现输赢",
   CASINOHANDHISTORY: "赌场下注历史",
   CasinoTransfer: "娱乐城的总转账额",
   ChangePassword: "更改密码",
@@ -2755,7 +2673,7 @@ window._language_zh_Hans = {
   Characters: "文字",
   CheckAll: "Check All",
   Checkavailability: "检查可用性",
-  China: "中国",
+  China: "大陆",
   Choice: "选择",
   ChooseGroupMsg: "请选择一个组",
   ChooseGroupNameMsg: "请选择其他组名",
@@ -2873,7 +2791,6 @@ window._language_zh_Hans = {
   EffectiveBettingValueNote: "有效投注额支援09/01/2014之后数据",
   Enable: "Enable",
   EnableAgCasino: "Enable AG Casino",
-  EnableCashOut: "开启即时兑现",
   EnableRNGCasino: "Enable RNG Casino",
   EndBalance: "结束余额",
   EndDate: "结束日期",
@@ -3186,7 +3103,6 @@ window._language_zh_Hans = {
   OneXTwo: "1 X 2",
   Open: "开启",
   OpeningBalance: "前期余额",
-  OriginalBetTicket: "原始注单",
   OT: "延时",
   Others: "其他",
   OtherSport: "其他运动",
@@ -3224,7 +3140,6 @@ window._language_zh_Hans = {
   Prev: "上个月",
   Previous: "上个月",
   Product: "产品",
-  ProductCO: "即时兑现",
   ProductCS: "娱乐城",
   ProductNG: "百练赛",
   ProductRB: "赛马",
@@ -3307,7 +3222,6 @@ window._language_zh_Hans = {
   SessionID: "每局号码",
   SessionLoggedMsg: "您已从另一会话登入或您的登入会话已过期",
   SetAsDefaultGroup: "设置为默认组",
-  SettleAmount: "结算总额",
   SettledMatchCount: "已结算赛事计数",
   Show: "显示",
   ShowAllLeagues: "显示所有联赛",
@@ -3331,9 +3245,6 @@ window._language_zh_Hans = {
   Status: "状态",
   Su: "Su",
   Submit: "提交",
-  Subsidiary: "子网站",
-  SubsidiaryPerformance: "子网站报告",
-  SubsidiaryWL: "子网站输赢",
   Summary: "总结",
   Sunday: "星期六",
   SupportForOnlyNote: "报告仅支持",
@@ -3352,7 +3263,6 @@ window._language_zh_Hans = {
   TicketFilter: "注单筛选",
   TicketList: "注单清单",
   TicketNo: "票劵号码",
-  TicketPayout: "注单结果+实际投注金额",
   TicketType: "注单类型",
   Time: "时间",
   TimeZone: "时区",
@@ -3467,13 +3377,13 @@ window._language_zh_Hans = {
 
 /***/ }),
 
-/***/ 401:
+/***/ 396:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 9/26/2018 8:59:48 AM
+// Generated at: 3/27/2018 8:55:30 AM
 window._language_zh_TW = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -3529,6 +3439,7 @@ window._language_zh_TW = {
   AwayNoBet: "客隊(不獲胜球隊)",
   BA: "BA",
   BackToCurrentReport: "回到現有報告",
+  BackToOldUI: "回到舊版本",
   BAComissionBalanceNote: "投注總計佣金：承租公司金所得於投注總計注單。",
   BACommission: "BA佣金",
   Balance: "餘額",
@@ -3539,7 +3450,6 @@ window._language_zh_TW = {
   Based: "基於",
   BAStatus: "BA 狀態",
   BAUpdatedBy: "投注總計跟新由",
-  BBAmtComm: "回購金額+即時兌現傭金",
   Bestviewedin: "最佳瀏覽",
   BestViewResolution: "Resolution 1280x1024",
   BestWinLoss: "最佳輸贏",
@@ -3558,11 +3468,10 @@ window._language_zh_TW = {
   BetType: "投注類別",
   BONTeamToScore: "雙方/一方/兩者皆不得分",
   Bonus: "紅利",
-  BoughtAmount: "買入金額",
-  BoughtDetails: "買入詳情",
-  BoughtStake: "買入本金",
-  BoughtTicketsList: "買入注單",
-  BuyBackAmount: "回購金額",
+  BoughtAmount: "買的金額",
+  BoughtDetails: "買的詳細資料",
+  BoughtStake: "買的投注額",
+  BoughtTicketsList: "買的注單",
   ByBetType: "根據投注類型",
   ByCurrency: "根據貨幣",
   BySportsType: "根據運動類型",
@@ -3571,15 +3480,10 @@ window._language_zh_TW = {
   CancelledBetsTitle: "作廢/已刪除注單（3天紀錄）",
   CashOutAmount: "即時兌現金額",
   CashOutAmt: "兌現金額",
-  CashOutCommission: "即時兌現佣金",
   CashOutDetails: "即時兌現詳情",
-  CashOutNotOfferCurrency: "即時兌現不支援此貨幣",
   CashOutShare: "兌現分紅",
   CashOutStake: "即時兌現本金",
-  CashOutTickets: "即時兌現注單",
   CashOutTicketsList: "即時兌現注單",
-  CashOutTimes: "即時兌現次數",
-  CashOutValue: "會員賣出的實際投注額",
   CashOutWinLoss: "即時兌現輸贏",
   CASINOHANDHISTORY: "賭場下注歷史",
   CasinoProgressiveWinsGuidelineContent: "此報告提供最新數據。 您每次查詢可以過濾最多12個月內的數據。",
@@ -3590,7 +3494,7 @@ window._language_zh_TW = {
   Characters: "文字",
   CheckAll: "Check All",
   Checkavailability: "檢查可用性",
-  China: "中國",
+  China: "大陸",
   Choice: "選擇",
   ChooseGroupMsg: "請選擇一個組",
   ChooseGroupNameMsg: "請選擇其他組名",
@@ -3708,7 +3612,6 @@ window._language_zh_TW = {
   EffectiveBettingValueNote: "有效投注額支援09/01/2014之後數據",
   Enable: "Enable",
   EnableAgCasino: "Enable AG Casino",
-  EnableCashOut: "開啟即時兌現",
   EnableRNGCasino: "Enable RNG Casino",
   EndBalance: "結束餘額",
   EndDate: "結束日期",
@@ -4023,7 +3926,6 @@ window._language_zh_TW = {
   OneXTwo: "1 X 2",
   Open: "開啟",
   OpeningBalance: "前期餘額",
-  OriginalBetTicket: "原始注單",
   OT: "延時",
   Others: "其他",
   OtherSport: "其他運動",
@@ -4144,7 +4046,6 @@ window._language_zh_TW = {
   SessionID: "每局號碼",
   SessionLoggedMsg: "您已從另一會話登入或您的登入會話已過期",
   SetAsDefaultGroup: "設置為默認組",
-  SettleAmount: "結算總額",
   SettledMatchCount: "已結算賽事計數",
   Show: "顯示",
   ShowAllLeagues: "顯示所有聯賽",
@@ -4168,9 +4069,6 @@ window._language_zh_TW = {
   Status: "狀態",
   Su: "Su",
   Submit: "提交",
-  Subsidiary: "子網站",
-  SubsidiaryPerformance: "子網站報告",
-  SubsidiaryWL: "子網站輸贏",
   Summary: "總結",
   Sunday: "星期六",
   SupportForOnlyNote: "報告僅支持",
@@ -4189,7 +4087,6 @@ window._language_zh_TW = {
   TicketFilter: "注單篩選",
   TicketList: "注單清單",
   TicketNo: "票劵號碼",
-  TicketPayout: "注單結果+實際投注金額",
   TicketType: "注單類型",
   Time: "時間",
   TimeZone: "時區",
@@ -4303,7 +4200,51 @@ window._language_zh_TW = {
   YouNotChooseAnyCustomerMsg: "您還沒有選擇任何會員"
 };
 
+/***/ }),
+
+/***/ 5:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var DEFAULT_RESOURCE_NAME = "_language_en_US";
+var langCode = window.PageLanguage || "en-US";
+var resourceName = "_language_" + langCode.replace("-", "_");
+
+var LangHelper = function () {
+    function LangHelper() {
+        _classCallCheck(this, LangHelper);
+    }
+
+    _createClass(LangHelper, null, [{
+        key: "getSingleResource",
+        value: function getSingleResource(key) {
+            var langHandler = window[resourceName];
+
+            return langHandler && langHandler[key] || window[DEFAULT_RESOURCE_NAME] && window[DEFAULT_RESOURCE_NAME][key] || key;
+        }
+    }, {
+        key: "currentLanguage",
+        get: function get() {
+            return langCode;
+        }
+    }]);
+
+    return LangHelper;
+}();
+
+exports.default = LangHelper;
+
 /***/ })
 
-},[396]);
+},[391]);
 //# sourceMappingURL=langHelper.chunk.js.map

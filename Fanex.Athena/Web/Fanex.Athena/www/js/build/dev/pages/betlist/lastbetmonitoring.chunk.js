@@ -8130,6 +8130,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         var SPORT_RNG_MOBILE = 210;
         var SPORT_ALLBET = 211;
         var SPORT_VOIDBRIDGE = 212;
+        var SPORT_PP = 248;
         var SPORT_GLOBALGAMING = 219;
         var BETLIST_META_MODEL = "#BetListMetaModel";
 
@@ -8437,7 +8438,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 url = QueryString.setParam(url, "raceno", raceNo);
                 url = QueryString.setParam(url, "sporttype", sporttype);
                 url = QueryString.setParam(url, "isoutright", isOutright);
-                
+
                 if (isFastMarket(bettype)) {
                     url = QueryString.setParam(url, "handicap1", extension1);
                     url = QueryString.setParam(url, "handicap2", extension2);
@@ -8501,6 +8502,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 });
             },
 
+            viewPPResult: function (custId, gamePlayId, title) {
+                var url = Site.resolveClientUrl('PPResultPopup/Index');
+                Site.blockUI();
+                $.get(url + '?custid=' + custId + '&gamePlayId=' + gamePlayId, function (result) {
+                    if (result !== '') {
+                        showResultPopUp(result, { width: 800, height: 380, title: title });
+                        Site.unBlockUI();
+                    }
+                });
+            },
+
             viewAllBetResult: function (trasdesc, betcheck, bettype, title) {
                 var url = Site.resolveClientUrl('ResultReport/AllBetResult?transdesc=' +
                     encodeURIComponent(trasdesc) + '&betcheck=' + betcheck + '&bettype=' + bettype);
@@ -8540,6 +8552,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 }
                 else if (sporttype === SPORT_VOIDBRIDGE) {
                     _me.viewVoidbridgeResult(custid, extension2, title);
+                }
+                else if (sporttype === SPORT_PP) {
+                    _me.viewPPResult(custid, extension2, title);
                 }
                 else if (sporttype === SPORT_ALLBET) {
                     _me.viewAllBetResult(transdecs, extension2, bettype, title);
@@ -8762,6 +8777,19 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
                 showDetailPopUp(url, { width: 890, height: popH + 50, title: title });
             },
+            showPPDetails: function (transId, winlostDate, custId, transType) {
+                var url = Site.resolveClientUrl('PragmaticPlayBetList/Detail');
+                url = QueryString.setParam(url, "transId", transId);
+                url = QueryString.setParam(url, "winlostDate", winlostDate);
+                url = QueryString.setParam(url, "custId", custId);
+                url = QueryString.setParam(url, "transType", transType);
+
+                var popH = Math.min($(window).height() - 100, 550);
+                var title = Site.getSingleResource("ProductPP") + " - " +
+                    Site.getSingleResource("DetailedBetlist") + " - " + moment(new Date(winlostDate)).format("MM/DD/YYYY");
+
+                showDetailPopUp(url, { width: 890, height: popH + 50, title: title });
+            },
             ValidProducts: function () {
                 var temp = true;
                 if ($("#ProductList input:checked").length === 0) {
@@ -8838,11 +8866,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 window.showRnGCasinoDetails = _me.showRnGCasinoDetails;
                 window.showVoidBridgeDetails = _me.showVoidBridgeDetails;
                 window.showVoidbridgeResult = _me.viewVoidbridgeResult;
+                window.showPPResult = _me.viewPPResult;
                 window.showTodayRunningBetsDetails = _me.showAllBetDetails;
                 window.showColossusBetsDetails = _me.showColossusBetsDetails;
                 window.showGlobalGaming = _me.showGlobalGamingDetails;
                 window.ViewCashOutHistory = _me.viewCashOutHistory;
                 window.ShowBonusDetails = _me.showBonusDetails;
+                window.showPPDetails = _me.showPPDetails;
 
                 var betList = {
                     ViewCasinoHandHistory: _me.ViewCasinoHandHistory
