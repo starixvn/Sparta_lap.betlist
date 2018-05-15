@@ -4,6 +4,7 @@
     using Constant.DataDomain;
     using Fanex.Athena.Model.BetList.DTO;
     using Fanex.BetList.Core.Entities;
+    using Resources;
 
     public static class BetListHelper
     {
@@ -20,7 +21,9 @@
         {
             const string FormatDetail = @"showCombMPDetail({0},{1},{2},{3},&quot;{4}&quot;,&quot;{5}&quot;)";
             var comboName = tickerHelper.GetCombinationMPOfferName(ticket.BetTeam);
-            var betTeam = tickerHelper.GetBetTypeNameById(ticket.BetTypeId);
+            var betTeam = (ticket.BetTypeId == 29 && ticket.BetTeam == "1") ?
+                ViewResources.MixParlay :
+                tickerHelper.GetBetTypeNameById(ticket.BetTypeId);
             if (!string.IsNullOrEmpty(comboName))
             {
                 betTeam += " - " + comboName;
