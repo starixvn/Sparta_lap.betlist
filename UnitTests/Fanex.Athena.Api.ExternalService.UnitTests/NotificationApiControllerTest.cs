@@ -15,6 +15,7 @@
     using Service.Core.Configuration.Interfaces;
     using Service.Report.Interfaces;
     using UnitTest.Common.Helpers;
+
     public class NotificationApiControllerTest
     {
         private const string UserName = "admin";

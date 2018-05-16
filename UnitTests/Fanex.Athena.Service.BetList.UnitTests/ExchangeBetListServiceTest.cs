@@ -9,6 +9,7 @@
     using NSubstitute;
     using NUnit.Framework;
     using UnitTest.Common.Helpers;
+
     public class ExchangeBetListServiceTest
     {
         private IExchangeBetListDataAccess _dataAccess;
@@ -40,7 +41,7 @@
             // Arrange
             var expectedData = new List<ExchangeTicketDetail>
             {
-                new ExchangeTicketDetail { BetTaken = new System.DateTime(2018,5,16), OddsReq = 1, Stake = 2, Liability = "3", OddsMatched = 4 }
+                new ExchangeTicketDetail { BetTaken = new System.DateTime(2018, 5, 16), OddsReq = 1, Stake = 2, Liability = "3", OddsMatched = 4 }
             };
             _dataAccess.GetTicketDetailList(Arg.Any<ExchangeBetListDetailMetaModel>()).Returns(expectedData);
 

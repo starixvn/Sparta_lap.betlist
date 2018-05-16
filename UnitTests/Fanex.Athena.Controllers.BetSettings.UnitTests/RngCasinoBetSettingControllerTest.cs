@@ -11,6 +11,7 @@
     using Resources;
     using Service.BetSettings.Interfaces;
     using UnitTest.Common.Helpers;
+
     internal class RngCasinoBetSettingControllerTest : BetSettingBaseControllerHelperTest
     {
         private IRngCasinoBetSettingService _betSettingService;
@@ -195,7 +196,7 @@
                 _betSettingService.UpdateSetting(
                    Arg.Do<RngCasinoBetSettingMetaModel>(x => param = x),
                    Arg.Any<bool>(),
-                   Arg.Any<bool>()).Returns(new ResultInfo { Code = 1, Message = "Error" });                
+                   Arg.Any<bool>()).Returns(new ResultInfo { Code = 1, Message = "Error" });
 
                 // Action
                 controller.UpdateBetSetting(CustId, string.Join(",", gameTypes));
