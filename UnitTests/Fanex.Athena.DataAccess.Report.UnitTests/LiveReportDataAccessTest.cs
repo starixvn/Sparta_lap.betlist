@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using Constant.DataDomain;
     using Core.Configuration.Interfaces;
     using Core.UnitTests.TestHelpers;
     using Data;
@@ -175,6 +176,31 @@
                 Assert.That(result[0].TurnOver, Is.EqualTo(100));
                 Assert.That(result[0].CustomerWinLoss, Is.EqualTo(200));
             });
+        }
+
+        [TestCase("101", BetType.MixParlay)]
+        [TestCase("102", BetType.CombinationMixParlay)]
+        [TestCase("103", BetType.Outright)]
+        public void GetProductNameBySport_WhenCall_CallCorrectCacheRefMethod(string sportType, BetType bettype)
+        {
+            // Action
+            DataAccess.GetProductNameBySport(sportType);
+
+            // Assert
+            _cacheRefAdapter.Received(1).GetBettype((int)bettype);
+        }
+
+        [Test]
+        public void GetProductNameBySport_VirtualSports2MixParlay_CallCorrectCacheRefMethod()
+        {
+            // Arrange
+            const string Bettype = "104";
+
+            // Action
+            DataAccess.GetProductNameBySport(Bettype);
+
+            // Assert
+            _cacheRefAdapter.Received(1).GetBettypeWithProductName((int)BetType.VirtualSports2MixParlay);
         }
 
         [Test]

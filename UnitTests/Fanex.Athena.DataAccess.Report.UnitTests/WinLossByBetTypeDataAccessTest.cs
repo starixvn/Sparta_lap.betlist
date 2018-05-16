@@ -16,11 +16,14 @@
     {
         private const string SpName = "Lrf_Rpt_WinLossByBettype";
 
+        private ICacheRefAdapter _cacheRefAdapter;
+
         private BalanceUp _balanceUp;
 
         [OneTimeSetUp]
         public override void FixtureSetUp()
         {
+            _cacheRefAdapter = Substitute.For<ICacheRefAdapter>();
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             _balanceUp = new BalanceUp
             {
@@ -29,8 +32,10 @@
             };
             balanceUpDataAccess.GetBalanceUp().Returns(_balanceUp);
 
-            DataAccess = Substitute.ForPartsOf<WinLossByBetTypeDataAccess>(Substitute.For<ICacheRefAdapter>(), balanceUpDataAccess);
+            DataAccess = Substitute.ForPartsOf<WinLossByBetTypeDataAccess>(_cacheRefAdapter, balanceUpDataAccess);
             ObjectDb = Substitute.For<IObjectDb>();
+            DataAccess.GetObjectDb(Arg.Is(SpName)).Returns(ObjectDb);
+            ObjectDb.ExecuteReader(Arg.Any<object>()).ReturnsForAnyArgs(Reader);
         }
 
         [OneTimeTearDown]
@@ -60,7 +65,6 @@
                 BalanceUpDay = _balanceUp.BalanceUpDay
             };
             dynamic uspParam = null;
-            DataAccess.GetObjectDb(Arg.Is(SpName)).Returns(ObjectDb);
             ObjectDb.ExecuteReader(Arg.Do<dynamic>(arg => uspParam = arg));
 
             // Action
@@ -74,15 +78,8 @@
         public void GetDataList_WhenCall_ReturnCorrectResult()
         {
             // Arrange
-            DataAccess.GetObjectDb(Arg.Is(SpName)).Returns(ObjectDb);
-            ObjectDb.ExecuteReader(Arg.Any<object>()).ReturnsForAnyArgs(Reader);
             Reader.Read().Returns(true, false);
-            var readerDataMapping = new
-            {
-                TurnoverUSD = 999
-            };
-
-            MapReaderData(readerDataMapping);
+            MapReaderData(new { TurnoverUSD = 999 });
 
             // Action
             var result = DataAccess.GetDataList(new WinLossByBetTypeMetaModel
@@ -104,6 +101,23 @@
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
                 SpName,
                 () => DataAccess.GetDataList(new WinLossByBetTypeMetaModel()));
+        }
+
+        [TestCase(1201, " (Virtual Sports)")]
+        [TestCase(2700, " (Virtual Sports 2)")]
+        public void GetDataList_WhenCall_ReturnCorrectBetTypeName(int bettype, string expectedBetTypeName)
+        {
+            // Arrange
+            const string CacheRefBetTypeName = "ahihi";
+            Reader.Read().Returns(true, false);
+            MapReaderData(new { bettype });
+            _cacheRefAdapter.GetBettype(bettype, false).Returns(CacheRefBetTypeName);
+
+            // Action
+            var result = DataAccess.GetDataList(new WinLossByBetTypeMetaModel());
+
+            // Assert
+            Assert.That(result[0].BetTypeName, Is.EqualTo(CacheRefBetTypeName + expectedBetTypeName));
         }
     }
 }

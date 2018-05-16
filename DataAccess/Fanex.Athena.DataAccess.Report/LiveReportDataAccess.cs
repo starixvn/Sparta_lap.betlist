@@ -235,7 +235,7 @@ namespace Fanex.Athena.DataAccess.Report
             item.BetCount = reader.ToInt("Betcount");
         }
 
-        private string GetProductNameBySport(string sportType)
+        protected internal virtual string GetProductNameBySport(string sportType)
         {
             var sportId = string.IsNullOrEmpty(sportType) ? 0 : Convert.ToInt32(sportType);
 

@@ -82,6 +82,14 @@
         }
 
         [Test]
+        public void GetSummaryBalance_ObjectDbThrowsException_ThrowDataAccessException()
+        {
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                GetSummaryBalanceSp,
+                () => DataAccess.GetSummaryBalance(new ThirdPartyWinLossMetaModel()));
+        }
+
+        [Test]
         public void GetCustomerBalanceDetail_WhenCall_ParametersReturnedCorrectly()
         {
             // Arrange
@@ -105,6 +113,14 @@
                 ObjectDb.Received(1).AddInParameter("fromdate", DbType.Date, metaModel.DrillDownFromDate);
                 ObjectDb.Received(1).AddInParameter("todate", DbType.Date, metaModel.DrillDownToDate);
             });
+        }
+
+        [Test]
+        public void GetCustomerBalanceDetail_ObjectDbThrowsException_ThrowDataAccessException()
+        {
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                GetCustomerBalanceDetailSp,
+                () => DataAccess.GetCustomerBalanceDetail(new ThirdPartyWinLossMetaModel()));
         }
 
         [Test]
@@ -193,6 +209,14 @@
                 Assert.That(result.CurrencyId, Is.EqualTo(expected.CurrencyId));
                 Assert.That(result.CurrencyName, Is.EqualTo(CurrencyName));
             });
+        }
+
+        [Test]
+        public void GetAgentBalanceDetailSp_ObjectDbThrowsException_ThrowDataAccessException()
+        {
+            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
+                GetAgentBalanceDetailSp,
+                () => DataAccess.GetAgentBalanceDetail(new ThirdPartyWinLossMetaModel()));
         }
 
         [Test]
