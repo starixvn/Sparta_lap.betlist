@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.DataAccess.Warehouse.UnitTests
 {
     using System.Data;
+    using Core.Exception;
     using Data;
     using Model.Warehouse.DTO;
     using Model.Warehouse.MetaModel;
@@ -11,27 +12,60 @@
     [TestFixture]
     public class TopCustomerDataAccessTest
     {
+        private const string UspName = "Lrf_rpt_DWTopCustomerSel";
         private IObjectDb _objectDb;
         private TopCustomerDataAccess _dataAccess;
         private IDataReader _reader;
 
-        [OneTimeSetUp]
+        [SetUp]
         public void Setup()
         {
             _objectDb = Substitute.For<IObjectDb>();
             _dataAccess = Substitute.ForPartsOf<TopCustomerDataAccess>();
             _reader = Substitute.For<IDataReader>();
 
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_rpt_DWTopCustomerSel")).Returns(_objectDb);
+            _dataAccess.GetObjectDb(Arg.Is(UspName)).Returns(_objectDb);
             _objectDb.ExecuteReader(Arg.Any<object>()).Returns(_reader);
         }
 
-        [OneTimeTearDown]
+        [TearDown]
         public void TearDown()
         {
             _objectDb = null;
             _dataAccess = null;
             _reader = null;
+        }
+
+        [Test]
+        public void GetDataList_HasErrorColumn_DataReturnedCorrectly()
+        {
+            // Arrange
+            const int ErrorCode = 999;
+            const string ErrorMsg = "asasd";
+            var metaModel = new TopCustomerMetaModel();
+            _reader.FieldCount.Returns(1);
+            _reader.GetName(0).Returns("errorcode");
+            _reader.Read().Returns(true, false);
+            _reader["errorcode"].Returns(ErrorCode);
+            _reader["message"].Returns(ErrorMsg);
+
+            // Action
+            var result = _dataAccess.GetDataList(metaModel)[0];
+
+            // Assert
+            Assert.That(result.ErrorCode, Is.EqualTo(ErrorCode));
+            Assert.That(result.Message, Is.EqualTo(ErrorMsg));
+        }
+
+        [Test]
+        public void GetDataList_ObjectDbThrowsException_ThrowDataAccessException()
+        {
+            // Arrange
+            TestDelegate testDelegate = () => _dataAccess.GetDataList(new TopCustomerMetaModel());
+            _objectDb.ExecuteReader(Arg.Any<object>()).Returns(x => { throw new ObjectDbException(); });
+
+            // Assert
+            Assert.Throws<DataAccessException>(testDelegate, Arg.Is<string>(x => x.Contains(UspName)));
         }
 
         [Test]
@@ -75,6 +109,17 @@
 
             // Assert
             Assert.That(result, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void GetDataForExcel_ObjectDbThrowsException_ThrowDataAccessException()
+        {
+            // Arrange
+            TestDelegate testDelegate = () => _dataAccess.GetDataForExcel(new TopCustomerMetaModel());
+            _objectDb.ExecuteDataSet(Arg.Any<object>()).Returns(x => { throw new ObjectDbException(); });
+
+            // Assert
+            Assert.Throws<DataAccessException>(testDelegate, Arg.Is<string>(x => x.Contains(UspName)));
         }
 
         private void ConfigureReaderForGetDataListMethod(TopCustomer expected)
