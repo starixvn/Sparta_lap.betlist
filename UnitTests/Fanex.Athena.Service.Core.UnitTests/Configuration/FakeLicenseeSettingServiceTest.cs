@@ -5,8 +5,6 @@
     using Core.Users.Interfaces;
     using Extension.Utility.Interfaces;
     using Fanex.Athena.UnitTest.Common.Helpers;
-    using Model.Core.DTO.Configuration;
-    using Model.Core.DTO.Users;
     using NSubstitute;
     using NUnit.Framework;
     using Session.Model;
@@ -20,6 +18,7 @@
         private FakeLicenseeSettingService _fakeLicenseeSettingService;
         private IMemoryCacheService _cache;
         private ISessionService _sessionService;
+
         [SetUp]
         public void SetUp()
         {
@@ -99,6 +98,32 @@
 
             // Assert
             Assert.That(result.SiteName, Is.EqualTo(licenseeName));
+        }
+
+        [Test]
+        public void GetSetting_LicenseeIsNull_ReturnNull()
+        {
+            // Arrange
+            _sessionService.LicenseeSession.Returns(x => { return null; });
+
+            // Action
+            var result = _fakeLicenseeSettingService.GetSetting();
+
+            // Assert
+            Assert.That(result, Is.Null);
+        }
+
+        [Test]
+        public void IsFakeLicensee_SettingIsNull_ReturnTrue()
+        {
+            // Arrange
+            _sessionService.LicenseeSession.Returns(x => { return null; });
+
+            // Action
+            var result = _fakeLicenseeSettingService.IsFakeLicensee();
+
+            // Assert
+            Assert.That(result, Is.True);
         }
     }
 }

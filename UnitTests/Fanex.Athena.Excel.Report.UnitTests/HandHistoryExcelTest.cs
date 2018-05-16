@@ -36,13 +36,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
 
         private static readonly RNGCasinoResult TotalData = FakeHelper.Create<RNGCasinoResult>();
 
-        private static readonly RNGCasinoResultMetaModel MetaModel = new RNGCasinoResultMetaModel
-        {
-            CurrencyName = "UUS",
-            ExternalId = "abc",
-            SystemId = "def",
-            RefNo = 123
-        };
+        private static readonly RNGCasinoResultMetaModel MetaModel = FakeHelper.Create<RNGCasinoResultMetaModel>();
 
         private static readonly RNGCasinoResultViewModel ViewModel = new RNGCasinoResultViewModel
         {
@@ -120,10 +114,10 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             });
         }
 
-        [TestCase(0, "USD", "Username: abc(def) -  Ref No: 123 - View in USD")]
-        [TestCase(1, "USD", "Username: abc(def) -  Ref No: 123 - View in USD")]
-        [TestCase(1, "", "Username: abc(def) -  Ref No: 123 - View in UUS")]
-        public void AssignTitle_WhenCall_CallRelevantMethods(int currencyId, string baseCurrency, string expectedTitle)
+        [TestCase(0, "USD")]
+        [TestCase(1, "USD")]
+        [TestCase(1, "")]
+        public void AssignTitle_WhenCall_CallRelevantMethods(int currencyId, string baseCurrency)
         {
             // Arrange
             MetaModel.CurrencyId = currencyId;
@@ -131,6 +125,10 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             var row1 = ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, 0);
             var row2 = ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, 1);
             var excel = CreateExcel();
+
+            var expectedCurrency = string.IsNullOrEmpty(baseCurrency) ? MetaModel.CurrencyName : baseCurrency;
+            var expectedTitle = $"{ViewResources.Username}: {MetaModel.ExternalId}({MetaModel.SystemId}) -  "
+                + $"{ViewResources.RefNo}: {MetaModel.RefNo} - {string.Format(ViewResources.Viewin, expectedCurrency.ToUpperInvariant())}";
 
             // Action
             excel.Public_AssignTitle(FakeSheet);

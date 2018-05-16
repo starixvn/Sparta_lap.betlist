@@ -150,6 +150,7 @@
     <Compile Include="LiveReportBetListControllerTest.cs" />
     <Compile Include="MatchWinLossBetListControllerTest.cs" />
     <Compile Include="MixParlayBetListController .cs" />
+    <Compile Include="BonusBetListControllerTest.cs" />
     <Compile Include="RunningBettypesBetListControllerTest.cs" />
     <Compile Include="RunningBetListControllerTest.cs" />
     <Compile Include="RunningBettypesOfMatchBetListControllerTest.cs" />

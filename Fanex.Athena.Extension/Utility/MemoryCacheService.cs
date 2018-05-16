@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Extension.Utility
 {
+    using System;
     using Fanex.Caching;
     using Interfaces;
     using Newtonsoft.Json;
@@ -9,6 +10,12 @@
         private const int TIMEOUT = 900; // 15 minutes.
 
         private readonly ICache _cache;
+
+        [CLSCompliant(false)]
+        public MemoryCacheService(ICache cache)
+        {
+            _cache = cache;
+        }
 
         public MemoryCacheService()
         {

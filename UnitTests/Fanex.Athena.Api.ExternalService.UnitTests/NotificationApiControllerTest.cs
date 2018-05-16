@@ -14,7 +14,7 @@
     using Service.Core.Common.Interfaces;
     using Service.Core.Configuration.Interfaces;
     using Service.Report.Interfaces;
-
+    using UnitTest.Common.Helpers;
     public class NotificationApiControllerTest
     {
         private const string UserName = "admin";
@@ -80,7 +80,10 @@
 
             var expectedResultModel = new ReportResultModel<NotificationMessage>
             {
-                DataList = new List<NotificationMessage>(),
+                DataList = new List<NotificationMessage>
+                {
+                    FakeHelper.Create<NotificationMessage>()
+                },
                 TotalRows = 1
             };
             _notificationService.GetNotificationMessages(metaModel).Returns(expectedResultModel);
