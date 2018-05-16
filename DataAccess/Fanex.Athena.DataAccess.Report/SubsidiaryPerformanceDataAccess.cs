@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
     using Core;
     using Core.Configuration;
     using Core.Configuration.Interfaces;
@@ -78,8 +79,8 @@
 
             return new ReportResultModel<SubsidiaryPerformanceEntity>
             {
-                DataList = dataList,
-                TotalDataList = totalDataList
+                DataList = dataList.OrderBy(x => x.CurrencyName).ToList(),
+                TotalDataList = totalDataList.OrderBy(x => x.CurrencyName).ToList()
             };
         }
 
