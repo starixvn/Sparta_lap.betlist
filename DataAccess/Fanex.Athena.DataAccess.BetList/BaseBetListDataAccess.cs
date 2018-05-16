@@ -78,8 +78,8 @@ namespace Fanex.Athena.DataAccess.BetList
                     BetCheck = reader.GetString("betcheck"),
 
                     // Boolean
-                    IsLive = reader.GetValue("liveindicator", x => ReadBoolean(x), false),
-                    IsNeutral = reader.GetValue("isneutral", x => ReadBoolean(x), false),
+                    IsLive = reader.GetBool("liveindicator"),
+                    IsNeutral = reader.GetBool("isneutral"),
 
                     // Int
                     SportTypeId = reader.GetInt("sporttype"),
@@ -131,31 +131,6 @@ namespace Fanex.Athena.DataAccess.BetList
             }
 
             return tickets;
-        }
-
-        /// <summary>
-        /// Read boolean value.
-        /// </summary>
-        /// <param name="value">Convert value.</param>
-        /// <returns>The result value.</returns>
-        private static bool ReadBoolean(object value)
-        {
-            if (value == null || value == Convert.DBNull)
-            {
-                return false;
-            }
-
-            if (value is bool)
-            {
-                return Convert.ToBoolean(value);
-            }
-
-            if (value is int)
-            {
-                return Convert.ToInt32(value) > 0;
-            }
-
-            return false;
         }
 
         protected internal virtual ISafeDataReader GetSafeDataReader(IDataReader reader, IEnumerable<string> columns)

@@ -10,18 +10,18 @@
     {
         private readonly IDataReader _reader;
 
-        private readonly HashSet<string> _existedColumns;
+        private readonly HashSet<string> _existingColumns;
 
         public SafeDataReader(IDataReader reader, IEnumerable<string> columns)
         {
             _reader = reader;
-            _existedColumns = new HashSet<string>();
+            _existingColumns = new HashSet<string>();
 
             foreach (var item in columns)
             {
                 if (reader.HasColumn(item))
                 {
-                    _existedColumns.Add(item);
+                    _existingColumns.Add(item);
                 }
             }
         }
@@ -31,20 +31,31 @@
             return _reader.Read();
         }
 
-        public T GetValue<T>(string column, Func<object, T> func, T defaultValue)
+        public bool GetBool(string column, bool defaultValue = false)
         {
-            if (_existedColumns.Contains(column))
+            var value = GetValue(column, defaultValue);
+
+            if (value == null || value == Convert.DBNull)
             {
-                var value = _reader[column];
-                return func(value);
+                return false;
             }
 
-            return defaultValue;
+            if (value is bool)
+            {
+                return Convert.ToBoolean(value);
+            }
+
+            if (value is int)
+            {
+                return Convert.ToInt32(value) > 0;
+            }
+
+            return false;
         }
 
         public object GetValue(string column, object defaultValue = null)
         {
-            if (_existedColumns.Contains(column))
+            if (_existingColumns.Contains(column))
             {
                 return _reader[column];
             }
@@ -54,7 +65,7 @@
 
         public string GetString(string column, string defaultValue = "")
         {
-            if (_existedColumns.Contains(column))
+            if (_existingColumns.Contains(column))
             {
                 return _reader.ToString(column);
             }
@@ -64,7 +75,7 @@
 
         public int GetInt(string column, int defaultValue = 0)
         {
-            if (_existedColumns.Contains(column))
+            if (_existingColumns.Contains(column))
             {
                 return _reader.ToInt(column);
             }
@@ -74,7 +85,7 @@
 
         public long GetLong(string column, long defaultValue = 0)
         {
-            if (_existedColumns.Contains(column))
+            if (_existingColumns.Contains(column))
             {
                 return _reader.ToLong(column);
             }
@@ -84,7 +95,7 @@
 
         public long? GetNullableLong(string column, long? defaultValue = null)
         {
-            if (_existedColumns.Contains(column))
+            if (_existingColumns.Contains(column))
             {
                 var value = _reader[column];
                 if (value != DBNull.Value)
@@ -98,7 +109,7 @@
 
         public decimal GetDecimal(string column, decimal defaultValue = 0)
         {
-            if (_existedColumns.Contains(column))
+            if (_existingColumns.Contains(column))
             {
                 return _reader.ToDecimal(column);
             }
@@ -108,7 +119,7 @@
 
         public DateTime GetDateTime(string column, DateTime defaultValue)
         {
-            if (_existedColumns.Contains(column))
+            if (_existingColumns.Contains(column))
             {
                 return _reader.ToDateTime(column);
             }

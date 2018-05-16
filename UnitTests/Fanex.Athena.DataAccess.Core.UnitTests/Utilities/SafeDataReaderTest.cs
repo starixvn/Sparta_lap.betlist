@@ -44,35 +44,25 @@
             Assert.That(result, Is.EqualTo(expectedValue));
         }
 
-        [Test]
-        public void GetValue_WhenCallGenericMethodAndContainColumn_ReturnCorrectValue()
+        [TestCase(null, false)]
+        [TestCase("true", false)]
+        [TestCase("", false)]
+        [TestCase(0, false)]
+        [TestCase(-1, false)]
+        [TestCase(1, true)]
+        [TestCase(true, true)]
+        public void GetBool_WhenCall_ReturnCorrectValue(object dataValue, bool expectedValue)
         {
             // Arrange
             const string Column = "Column1";
-            const string Expected = "Result";
-            _dataReader[Column].Returns(Expected);
+            _dataReader[Column].Returns(dataValue);
             var reader = new SafeDataReader(_dataReader, _columns);
 
             // Action
-            var result = reader.GetValue(Column, x => Expected, "Default");
+            var result = reader.GetBool(Column);
 
             // Assert
-            Assert.That(result, Is.EqualTo(Expected));
-        }
-
-        [Test]
-        public void GetValue_WhenCallGenericMethodAndNotContainColumn_ReturnDefaultValue()
-        {
-            // Arrange
-            const string Column = "Column3";
-            const string Expected = "Default";
-            var reader = new SafeDataReader(_dataReader, _columns);
-
-            // Action
-            var result = reader.GetValue(Column, x => "Value", Expected);
-
-            // Assert
-            Assert.That(result, Is.EqualTo(Expected));
+            Assert.That(result, Is.EqualTo(expectedValue));
         }
 
         [Test]
@@ -126,7 +116,7 @@
         {
             // Arrange
             const string Column = "Column1";
-            const string Expected = Column;
+            const string Expected = "abc";
 
             _dataReader[Column].Returns(Expected);
 
