@@ -118,6 +118,7 @@
     <Compile Include="CashOutBetListDataAccessTest.cs" />
     <Compile Include="ColossusBetBetListDataAccessTest.cs" />
     <Compile Include="CancelledBetListDataAccessTest.cs" />
+    <Compile Include="ExchangeBetListDataAccessTest_GetTicketDetailList.cs" />
     <Compile Include="ExchangeBetListDataAccessTest.cs" />
     <Compile Include="LastBetsMonitoringBetListDataAccessTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
