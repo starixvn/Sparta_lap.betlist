@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.DataAccess.Warehouse.UnitTests
 {
     using System.Data;
+    using Core.Exception;
     using Data;
     using Model.Warehouse.DTO;
     using Model.Warehouse.MetaModel;
@@ -10,21 +11,23 @@
     [TestFixture]
     public class WinLossDataAccessTest
     {
+        private const string UspName = "Lrf_rpt_DWWinloss";
         private WinLossDataAccess _dataAccess;
         private IDataReader _reader;
+        private IObjectDb _objectDb;
 
-        [OneTimeSetUp]
+        [SetUp]
         public void Setup()
         {
-            var objectDb = Substitute.For<IObjectDb>();
+            _objectDb = Substitute.For<IObjectDb>();
             _dataAccess = Substitute.ForPartsOf<WinLossDataAccess>();
             _reader = Substitute.For<IDataReader>();
 
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_rpt_DWWinloss")).Returns(objectDb);
-            objectDb.ExecuteReader(Arg.Any<object>()).Returns(_reader);
+            _dataAccess.GetObjectDb(Arg.Is(UspName)).Returns(_objectDb);
+            _objectDb.ExecuteReader(Arg.Any<object>()).Returns(_reader);
         }
 
-        [OneTimeTearDown]
+        [TearDown]
         public void TearDown()
         {
             _dataAccess = null;
@@ -61,6 +64,17 @@
             Assert.That(result.Turnover, Is.EqualTo(expected.Turnover));
             Assert.That(result.Liveindicator, Is.EqualTo(expected.Liveindicator));
             Assert.That(result.BettypeId, Is.EqualTo(expected.BettypeId));
+        }
+
+        [Test]
+        public void GetDataList_ObjectDbThrowsException_ThrowDataAccessException()
+        {
+            // Arrange
+            TestDelegate testDelegate = () => _dataAccess.GetDataList(new WinLossMetaModel());
+            _objectDb.ExecuteReader(Arg.Any<object>()).Returns(x => { throw new ObjectDbException(); });
+
+            // Assert
+            Assert.Throws<DataAccessException>(testDelegate, Arg.Is<string>(x => x.Contains(UspName)));
         }
 
         private void ConfigureReaderForGetDataListMethod(WinLoss expected)
