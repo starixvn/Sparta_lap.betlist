@@ -10,6 +10,8 @@ namespace Fanex.Athena.Api.Base.Attributes
     using System.Net.Http;
     using System.Web.Http;
     using Fanex.Athena.Service.Core.Users;
+    using Session;
+    using Session.Interfaces;
 
     /// <summary>
     /// Class: AuthenticationAttribute.
@@ -17,14 +19,22 @@ namespace Fanex.Athena.Api.Base.Attributes
     [AttributeUsage(AttributeTargets.All)]
     public sealed class CustomApiAuthorizeAttribute : AuthorizeAttribute
     {
+        private readonly ISessionStorage _sessionStorage;
+
+        public CustomApiAuthorizeAttribute() : this(null)
+        {
+        }
+
+        public CustomApiAuthorizeAttribute(ISessionStorage sessionStorage)
+        {
+            _sessionStorage = sessionStorage ?? new SessionStorage();
+        }
+
         #region Override
 
         protected override bool IsAuthorized(System.Web.Http.Controllers.HttpActionContext actionContext)
         {
-            var sessionService = new SessionService();
-            var licenseeSession = sessionService.LicenseeSession;
-            var userSession = sessionService.UserSession;
-            return licenseeSession != null && userSession != null;
+            return _sessionStorage.LicenseeSession != null && _sessionStorage.UserSession != null;
         }
 
         protected override void HandleUnauthorizedRequest(System.Web.Http.Controllers.HttpActionContext actionContext)
