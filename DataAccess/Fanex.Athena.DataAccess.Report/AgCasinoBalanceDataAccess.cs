@@ -64,7 +64,7 @@ namespace Fanex.Athena.DataAccess.Report
                 using (var db = GetObjectDb(UspName))
                 {
                     db.AddInParameter("custid", DbType.Int32, metaModel.DrillDownCustomerId);
-                    db.AddInParameter("pagesize", DbType.Int32, metaModel.IsExportExcel ? SystemConstants.PageSizeExcel : metaModel.PageSize);
+                    db.AddInParameter("pagesize", DbType.Int32, metaModel.IsExportExcel ? SystemConstants.MaxDataTotalRow : metaModel.PageSize);
                     db.AddInParameter("pageindex", DbType.Int32, metaModel.IsExportExcel ? 1 : metaModel.PageIndex);
                     db.AddOutParameter("TotalRows", DbType.Int32, 10);
 

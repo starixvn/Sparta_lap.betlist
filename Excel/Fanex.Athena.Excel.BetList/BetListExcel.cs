@@ -27,8 +27,6 @@ namespace Fanex.Athena.Excel.BetList
 
     public class BetListExcel
     {
-        private const int PageSize = 20;
-
         private const int ColumnSystemIdIndex = 2;
 
         private const int ColumnWinlossIndex = 7;
@@ -155,7 +153,7 @@ namespace Fanex.Athena.Excel.BetList
             }
 
             _ticketHelper.Index = startIndex;
-            var numOfSheets = (int)Math.Ceiling((double)ticketResult.MainTicketList.Count / PageSize);
+            var numOfSheets = (int)Math.Ceiling((double)ticketResult.MainTicketList.Count / SystemConstants.SheetSizeExcel);
             for (int sheetIndex = 0; sheetIndex < numOfSheets; sheetIndex++)
             {
                 builder.BuildWorksheet(ViewResources.Page + (sheetIndex + 1), 11);
@@ -164,9 +162,9 @@ namespace Fanex.Athena.Excel.BetList
                 var custWlheader = ViewResources.WinLoss + (_showingOption.CustomerCommVisible ? "/" + ViewResources.Comm : string.Empty);
                 builder.AddHeader(custWlheader);
 
-                var endIndex = Math.Min((sheetIndex + 1) * PageSize, ticketResult.MainTicketList.Count);
+                var endIndex = Math.Min((sheetIndex + 1) * SystemConstants.SheetSizeExcel, ticketResult.MainTicketList.Count);
 
-                for (var i = sheetIndex * PageSize; i < endIndex; i++)
+                for (var i = sheetIndex * SystemConstants.SheetSizeExcel; i < endIndex; i++)
                 {
                     BuildTicket(builder, ticketResult, ticketResult.MainTicketList[i]);
                     _ticketHelper.Index++;
