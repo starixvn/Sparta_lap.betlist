@@ -11,6 +11,7 @@
     using Model.Core.DTO.Configuration;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class BetListServiceTest
@@ -42,14 +43,14 @@
         public void GetMixParlayDetailTicket_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
-            var expectedResult = new TicketResult { TotalRows = 999 };
-            var licenseeId = 1;
-            long transId = 1;
+            var expectedResult = FakeHelper.Create<TicketResult>();
+            const int LicenseeId = 1;
+            const long TransId = 1;
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
-            _betlistDataAccess.GetMixParlayDetailTicket(transId).Returns(expectedResult);
+            _betlistDataAccess.GetMixParlayDetailTicket(TransId).Returns(expectedResult);
 
             // Action
-            var result = _betListService.GetMixParlayDetailTicket(licenseeId, transId);
+            var result = _betListService.GetMixParlayDetailTicket(LicenseeId, TransId);
 
             // Assert
             Assert.That(result.TotalRows, Is.EqualTo(expectedResult.TotalRows));
@@ -60,12 +61,12 @@
         {
             // Arrange
             var expectedResult = new TicketResult();
-            var licenseeId = 1;
-            long transId = 1;
+            const int LicenseeId = 1;
+            const long TransId = 1;
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(false);
 
             // Action
-            var result = _betListService.GetMixParlayDetailTicket(licenseeId, transId);
+            var result = _betListService.GetMixParlayDetailTicket(LicenseeId, TransId);
 
             // Assert
             Assert.That(result, Tobe.SameProperties(expectedResult));
@@ -75,10 +76,7 @@
         public void GetSystemParlayDetail_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
-            var expectedResult = new SystemParlayData
-            {
-                Outstanding = 999
-            };
+            var expectedResult = new SystemParlayData { Outstanding = 999 };
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
             _betlistDataAccess.GetSystemParlayDetail(Arg.Any<SystemParlayDetailMetaModel>()).Returns(expectedResult);
 
@@ -93,11 +91,8 @@
         public void GetBetListData_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
-            var expectedResult = new TicketResult
-            {
-                TotalRows = 999
-            };
-            var spname = "Hello";
+            var expectedResult = FakeHelper.Create<TicketResult>();
+            var spname = FakeHelper.Create<string>();
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
             _betlistDataAccess.GetBetListData(Arg.Any<BetListMetaModel>(), spname).Returns(expectedResult);
 
@@ -113,7 +108,7 @@
         {
             // Arrange
             var expectedResult = new TicketResult();
-            var spname = "Hello";
+            var spname = FakeHelper.Create<string>();
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(false);
 
             // Action

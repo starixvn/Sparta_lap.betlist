@@ -54,6 +54,42 @@
             Assert.That(result, Is.False);
         }
 
+        [TestCase("running")]
+        [TestCase("RUNNING")]
+        public void IsRunning_IsRunningTicket_ReturnTrue(string status)
+        {
+            // Action
+            var result = BetListHelper.IsRunning(status);
+
+            // Assert
+            Assert.That(result, Is.True);
+        }
+
+        [TestCase("waiting")]
+        [TestCase("WAITING")]
+        public void IsRunning_IsWaitingTicket_ReturnTrue(string status)
+        {
+            // Action
+            var result = BetListHelper.IsRunning(status);
+
+            // Assert
+            Assert.That(result, Is.True);
+        }
+
+        [TestCase("Won")]
+        [TestCase("Lose")]
+        [TestCase("")]
+        [TestCase(null)]
+        [TestCase(" ")]
+        public void IsRunning_IsNotRunningTicket_ReturnFalse(string status)
+        {
+            // Action
+            var result = BetListHelper.IsRunning(status);
+
+            // Assert
+            Assert.That(result, Is.False);
+        }
+
         [TestCase("Combo", "BetTeam", "BetTeam - Combo")]
         [TestCase("", "BetTeam", "BetTeam")]
         public void GenerateClientDetailSystemParlayFunction_WhenCall_ReturnCorrectResult(string comboName, string betTeam, string expectedBetTeam)

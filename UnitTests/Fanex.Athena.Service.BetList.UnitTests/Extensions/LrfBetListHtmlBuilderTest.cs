@@ -139,7 +139,7 @@
 
         [TestCase(BetType.Win)]
         [TestCase(BetType.WinPlace)]
-        public void BuildLicenseeWL_RacingRunningTicket_SeparateWLandComm(BetType betType)
+        public void BuildLicenseeWL_RacingRunningTicket_ShowHyphenInTwoSeparatedLines(BetType betType)
         {
             // Arrange
             var ticket = new LrfTicket
@@ -192,7 +192,9 @@
                 LicenseeWL = -2
             };
 
-            const string ExpectedHtml = "<div class ='lic-win-loss'><span class='negative-number'>-2.00</span><br/>1.00</div>";
+            const string ExpectedHtml = "<div class ='lic-win-loss'>" 
+                + "<span class='negative-number'>-2.00</span>"
+                + "<br/>1.00</div>";
 
             // Action
             var result = _betListBuilder.BuildLicenseeWL(ticket);
@@ -201,7 +203,8 @@
             Assert.That(result, Is.EqualTo(ExpectedHtml));
         }
 
-        public void BuildLicenseeWL_RemianingRunningTicket_CombineWLandCom()
+        [Test]
+        public void BuildLicenseeWL_RemainingRunningTicket_ShowHyphenCharacter()
         {
             // Arrange
             var ticket = new LrfTicket
@@ -223,7 +226,7 @@
 
         [TestCase(1, 3, "4.00")]
         [TestCase(-1, -3, "<span class='negative-number'>-4.00</span>")]
-        public void BuildLicenseeWL_RemianingTicket_CombineWLandCom(decimal winloss, decimal comm, string expected)
+        public void BuildLicenseeWL_RemainingTicket_CombineWLandCom(decimal winloss, decimal comm, string expected)
         {
             // Arrange
             var ticket = new LrfTicket
@@ -261,17 +264,42 @@
             Assert.That(result, Is.EqualTo(ExpectedHtml));
         }
 
-        [TestCase(true, 1, 1, "-")]
-        [TestCase(false, 2, 1, "<div class='underdog'>2.00</div><div class='underdog'>1.00</div>")]
-        public void BuildCustomerWL_ShowPlayerComm_ReturnCorrectFormat(bool isRunningTicket, decimal winloss, decimal playerComm, string expected)
+        [TestCase(true)]
+        [TestCase(false)]
+        public void BuildCustomerWL_RunningTicket_ReturnHyphenCharacter(bool showPlayerComm)
+        {
+            // Arrange
+            const string ExpectedResult = "-";
+
+            var ticket = new LrfTicket
+            {
+                Winlost = 1,
+                PlayerComm = 2,
+                Status = BetStatus.Running,
+            };
+
+            // Action
+            var result = _betListBuilder.BuildCustomerWL(ticket, showPlayerComm);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(ExpectedResult));
+        }
+
+        [TestCase(2, 1)]
+        [TestCase(1, 2)]
+        [TestCase(6, 5)]
+        public void BuildCustomerWL_ShowPlayerComm_AppendPlayerCommToResult(decimal winloss, decimal playerComm)
         {
             // Arrange
             var ticket = new LrfTicket
             {
                 Winlost = winloss,
                 PlayerComm = playerComm,
-                Status = isRunningTicket ? BetStatus.Running : BetStatus.Won,
+                Status = BetStatus.Won,
             };
+
+            var expected = $"<div class='underdog'>{winloss.ToString("#,##0.00")}</div>"
+                + $"<div class='underdog'>{playerComm.ToString("#,##0.00")}</div>";
 
             // Action
             var result = _betListBuilder.BuildCustomerWL(ticket, true);
@@ -280,16 +308,19 @@
             Assert.That(result, Is.EqualTo(expected));
         }
 
-        [TestCase(true, 1, "-")]
-        [TestCase(false, 2, "<div class='underdog'>2.00</div>")]
-        public void BuildCustomerWL_NoShowPlayerComm_ReturnCorrectFormat(bool isRunningTicket, decimal winloss, string expected)
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(3)]
+        public void BuildCustomerWL_NoShowPlayerComm_DoNotAppendPlayerCommToResult(decimal winloss)
         {
             // Arrange
             var ticket = new LrfTicket
             {
                 Winlost = winloss,
-                Status = isRunningTicket ? BetStatus.Running : BetStatus.Won,
+                Status = BetStatus.Won,
             };
+
+            var expected = $"<div class='underdog'>{winloss.ToString("#,##0.00")}</div>";
 
             // Action
             var result = _betListBuilder.BuildCustomerWL(ticket, false);
