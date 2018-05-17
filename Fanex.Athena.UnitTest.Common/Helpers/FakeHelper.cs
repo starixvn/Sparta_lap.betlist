@@ -24,6 +24,11 @@ namespace Fanex.Athena.UnitTest.Common.Helpers
             return _fixture.CreateMany<T>();
         }
 
+        public static IEnumerable<T> CreateMany<T>(int count)
+        {
+            return _fixture.CreateMany<T>(count);
+        }
+
         public static DateTime TruncateMiliseconds(DateTime dateTime)
         {
             return dateTime.AddTicks(-(dateTime.Ticks % TimeSpan.TicksPerSecond));

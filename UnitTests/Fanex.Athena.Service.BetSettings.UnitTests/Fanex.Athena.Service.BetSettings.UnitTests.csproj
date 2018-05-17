@@ -126,14 +126,16 @@
   <ItemGroup>
     <Compile Include="ExchangeCommApiServiceTest.cs" />
     <Compile Include="DcsBetSettingServiceTest.cs" />
-    <Compile Include="DcsBetSettingServiceTest.BetLimit.cs" />
+    <Compile Include="DcsBetSettingServiceTest_BetLimit.cs" />
+    <Compile Include="GoldDeluxeBetSettingServiceTest_UpdateStatus.cs" />
+    <Compile Include="GoldDeluxeBetSettingServiceTest_UpdateBetSetting.cs" />
     <Compile Include="RngCasinoBetSettingServiceTest.cs" />
     <Compile Include="ThirdPartyBetSettingServiceTest.cs" />
     <Compile Include="SportsbookBetSettingServiceTest.cs" />
     <Compile Include="RacingBetSettingServiceTest.cs" />
     <Compile Include="NumberGameBetSettingServiceTest.cs" />
     <Compile Include="KenoBetSettingServiceTest.cs" />
-    <Compile Include="GoldDeluxeBetSettingServiceTest.cs" />
+    <Compile Include="GoldDeluxeBetSettingServiceTest_GetViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AgCasinoBetSettingServiceTest.cs" />
   </ItemGroup>
@@ -153,6 +155,10 @@
     <ProjectReference Include="..\..\Fanex.Athena.Extension\Fanex.Athena.Extension.csproj">
       <Project>{71F95E53-36D0-4091-828D-ED14C9939C35}</Project>
       <Name>Fanex.Athena.Extension</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Fanex.Athena.UnitTest.Common\Fanex.Athena.UnitTest.Common.csproj">
+      <Project>{4a5bddbc-f707-409a-86ec-d9bc6e9d31c4}</Project>
+      <Name>Fanex.Athena.UnitTest.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Infrastructure\Fanex.Athena.Constant\Fanex.Athena.Constant.csproj">
       <Project>{6B1431E0-E513-48BB-BE86-0756E5F6F405}</Project>
