@@ -158,7 +158,6 @@ namespace Fanex.Athena.Excel.BetList
             var numOfSheets = (int)Math.Ceiling((double)ticketResult.MainTicketList.Count / PageSize);
             for (int sheetIndex = 0; sheetIndex < numOfSheets; sheetIndex++)
             {
-                builder.GetBetList(); // Adjust row height for previous sheet
                 builder.BuildWorksheet(ViewResources.Page + (sheetIndex + 1), 11);
                 AddTitle(builder, title);
 
@@ -176,13 +175,16 @@ namespace Fanex.Athena.Excel.BetList
                 if (_isShowSumStake)
                 {
                     builder.AddFooterForSumStake(sumStake);
-                    continue;
+                }
+                else
+                {
+                    if (isShowWinLoss)
+                    {
+                        builder.AddFooter(sumWl, sumBetEffective, sumLicenseeWl, _negativeWinLossFont, _winLossFont);
+                    }
                 }
 
-                if (isShowWinLoss)
-                {
-                    builder.AddFooter(sumWl, sumBetEffective, sumLicenseeWl, _negativeWinLossFont, _winLossFont);
-                }
+                builder.GetBetList(); // Adjust row height for current sheet
             }
         }
 
