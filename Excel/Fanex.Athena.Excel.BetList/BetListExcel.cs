@@ -124,7 +124,7 @@ namespace Fanex.Athena.Excel.BetList
         {
             InitializeFonts(builder);
             InitializeCellStyles(builder);
-            
+
             // Content
             if (ticketResult.MainTicketList.Any())
             {
@@ -132,6 +132,9 @@ namespace Fanex.Athena.Excel.BetList
             }
             else
             {
+                builder.BuildWorksheet(ViewResources.BetList, 11);
+                AddTitle(builder, title);
+                AddHeader(builder);
                 AddNoInfoRow(builder);
             }
         }
@@ -158,9 +161,7 @@ namespace Fanex.Athena.Excel.BetList
             {
                 builder.BuildWorksheet(ViewResources.Page + (sheetIndex + 1), 11);
                 AddTitle(builder, title);
-
-                var custWlheader = ViewResources.WinLoss + (_showingOption.CustomerCommVisible ? "/" + ViewResources.Comm : string.Empty);
-                builder.AddHeader(custWlheader);
+                AddHeader(builder);
 
                 var endIndex = Math.Min((sheetIndex + 1) * SystemConstants.SheetSizeExcel, ticketResult.MainTicketList.Count);
 
@@ -184,6 +185,12 @@ namespace Fanex.Athena.Excel.BetList
 
                 builder.GetBetList(); // Adjust row height for current sheet
             }
+        }
+
+        private void AddHeader(IBetListExcelBuilder builder)
+        {
+            var custWlheader = ViewResources.WinLoss + (_showingOption.CustomerCommVisible ? "/" + ViewResources.Comm : string.Empty);
+            builder.AddHeader(custWlheader);
         }
 
         protected internal virtual void BuildTicket(IBetListExcelBuilder builder, TicketResult ticketResult, LrfTicket ticket)
