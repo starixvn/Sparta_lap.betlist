@@ -75,33 +75,21 @@ namespace Fanex.Athena.Excel.BetList.UnitTests
         }
 
         [Test]
-        public void Build_HasData_CallRelevantMethods()
+        public void Build_HasData_CallAssignSheetsData()
         {
             // Arrange
             const string Title = "aaaa";
-            var betListExcel = CreateBetListExcel(new ShowingOption
-            {
-                GrandTotalVisible = true
-            });
-            var workbook = Substitute.For<IWorkbook>();
-            _builder.GetBetList().Returns(workbook);
-            var ticketResult = new TicketResult
-            {
-                SumWinLoss = 100,
-                SumPlayerComm = 200.5m,
-                SumLicenseeWL = 300,
-                SumComm = 400.5m,
-                SumBetEffective = 500.6m
-            };
+            var betListExcel = CreateBetListExcel();
+            var ticketResult = new TicketResult();
             var ticket = new LrfTicket();
             ticketResult.MainTicketList.Add(ticket);
-            betListExcel.When(x => x.BuildTicket(_builder, ticketResult, ticket)).DoNotCallBase();
+            betListExcel.When(x => x.AssignSheetsData(_builder, ticketResult, Title, Arg.Any<int>())).DoNotCallBase();
 
             // Action
             betListExcel.Build(_builder, ticketResult, Title);
 
             // Assert
-            betListExcel.Received(1).BuildTicket(_builder, ticketResult, ticket);
+            betListExcel.Received(1).AssignSheetsData(_builder, ticketResult, Title, Arg.Any<int>());
         }
 
         [Test]

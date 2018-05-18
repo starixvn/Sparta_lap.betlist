@@ -139,18 +139,18 @@ namespace Fanex.Athena.Excel.BetList
             }
         }
 
-        private void AssignSheetsData(IBetListExcelBuilder builder, TicketResult ticketResult, string title, int startIndex)
+        protected internal virtual void AssignSheetsData(IBetListExcelBuilder builder, TicketResult ticketResult, string title, int startIndex)
         {
             var sumStake = _isShowSumStake ? ticketResult.MainTicketList.Sum(x => x.Stake) : 0;
 
             var isShowWinLoss = !_isShowSumStake && _showingOption.GrandTotalVisible && !_hiddenColumnIndexes.Contains(ColumnWinlossIndex);
-            decimal sumWl = 0;
+            decimal sumCustomerWl = 0;
             decimal sumLicenseeWl = 0;
             decimal sumBetEffective = 0;
 
             if (isShowWinLoss)
             {
-                sumWl = ticketResult.SumWinLoss + ticketResult.SumPlayerComm;
+                sumCustomerWl = ticketResult.SumWinLoss + ticketResult.SumPlayerComm;
                 sumLicenseeWl = ticketResult.SumLicenseeWL + ticketResult.SumComm;
                 sumBetEffective = ticketResult.SumBetEffective;
             }
@@ -179,7 +179,7 @@ namespace Fanex.Athena.Excel.BetList
                 {
                     if (isShowWinLoss)
                     {
-                        builder.AddFooter(sumWl, sumBetEffective, sumLicenseeWl, _negativeWinLossFont, _winLossFont);
+                        builder.AddFooter(sumCustomerWl, sumBetEffective, sumLicenseeWl, _negativeWinLossFont, _winLossFont);
                     }
                 }
 
@@ -195,18 +195,17 @@ namespace Fanex.Athena.Excel.BetList
 
         protected internal virtual void BuildTicket(IBetListExcelBuilder builder, TicketResult ticketResult, LrfTicket ticket)
         {
-            builder
-            .AddIndex(_ticketHelper, _ticketHelper.Index)
-            .AddExternalId(_ticketHelper, ticket.ExternalId, _oddCellStyleLeftAligned, _evenCellStyleLeftAligned)
-            .AddSystemId(_ticketHelper, ticket.UserName, _oddCellStyleLeftAligned, _evenCellStyleLeftAligned)
-            .AddTrans(ticket, _ticketHelper)
-            .AddChoice(ticket, _ticketHelper, ticketResult.TicketDataList)
-            .AddOdds(ticket, ticketResult.TicketDataList, _cacheRefAdapter.GetOddsTypeName)
-            .AddStake(ticket)
-            .AddCustomerWL(ticket, _showingOption.CustomerCommVisible, _winLossFont)
-            .AddBetEffective(ticket, _winLossFont)
-            .AddLicenseeWL(ticket, _licenseeId == LicenseeIdentity.OneTwoBet, _negativeWinLossFont, _winLossFont)
-            .AddStatus(ticket, _ticketHelper, ticketResult.TicketDataList, false);
+            builder.AddIndex(_ticketHelper, _ticketHelper.Index);
+            builder.AddExternalId(_ticketHelper, ticket.ExternalId, _oddCellStyleLeftAligned, _evenCellStyleLeftAligned);
+            builder.AddSystemId(_ticketHelper, ticket.UserName, _oddCellStyleLeftAligned, _evenCellStyleLeftAligned);
+            builder.AddTrans(ticket, _ticketHelper);
+            builder.AddChoice(ticket, _ticketHelper, ticketResult.TicketDataList);
+            builder.AddOdds(ticket, ticketResult.TicketDataList, _cacheRefAdapter.GetOddsTypeName);
+            builder.AddStake(ticket);
+            builder.AddCustomerWL(ticket, _showingOption.CustomerCommVisible, _winLossFont);
+            builder.AddBetEffective(ticket, _winLossFont);
+            builder.AddLicenseeWL(ticket, _licenseeId == LicenseeIdentity.OneTwoBet, _negativeWinLossFont, _winLossFont);
+            builder.AddStatus(ticket, _ticketHelper, ticketResult.TicketDataList, false);
         }
 
         private void InitializeCellStyles(IBetListExcelBuilder builder)
@@ -224,7 +223,7 @@ namespace Fanex.Athena.Excel.BetList
             _evenCellStyleLeftAligned.WrapText = true;
         }
 
-        private void InitializeFonts(IBetListExcelBuilder builder)
+        protected internal virtual void InitializeFonts(IBetListExcelBuilder builder)
         {
             _negativeWinLossFont = builder.CreateFont();
             _negativeWinLossFont.Boldweight = (short)FontBoldWeight.Bold;
