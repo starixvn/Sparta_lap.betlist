@@ -18,6 +18,7 @@ namespace Fanex.Athena.Service.Casino
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Service.Casino.Interfaces;
     using Newtonsoft.Json;
+    using Resources;
 
     /// <summary>
     /// TODO: Update summary.
@@ -56,27 +57,33 @@ namespace Fanex.Athena.Service.Casino
         {
             var authenticatedToken = GetRngCasinoServerToken();
 
-            var authenticatedTokenInJson = JsonConvert.DeserializeObject<dynamic>(authenticatedToken);
-
-            var result = authenticatedTokenInJson.Result;
-
-            if (result.ErrorCode == 0)
+            if (string.IsNullOrEmpty(authenticatedToken))
             {
                 return new
                 {
-                    Success = true,
-                    Result = GetRngCasinoPopupUrl(result.Token.ToString(), refNo)
+                    Success = false,
+                    Result = new
+                    {
+                        ErrorCode = 1,
+                        ErrorDescription = ViewResources.ErrorProcessingMsg
+                    }
                 };
             }
 
+            var authenticatedTokenInJson = JsonConvert.DeserializeObject<dynamic>(authenticatedToken);
+            var result = authenticatedTokenInJson.Result;
+            var isSuccess = result.ErrorCode == 0;
+
             return new
             {
-                Success = false,
-                Result = new
-                {
-                    ErrorCode = result.ErrorCode.ToString(),
-                    ErrorDescription = result.ErrorDescription.ToString()
-                }
+                Success = isSuccess,
+                Result = isSuccess
+                    ? GetRngCasinoPopupUrl(result.Token.ToString(), refNo)
+                    : new
+                    {
+                        ErrorCode = result.ErrorCode.ToString(),
+                        ErrorDescription = result.ErrorDescription.ToString()
+                    }
             };
         }
 
@@ -100,13 +107,12 @@ namespace Fanex.Athena.Service.Casino
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         private string GetRngCasinoServerToken()
         {
-            var uri = new Uri(_appSettings.GetValue("RNGCasinoGetServerTokenAPIUrl"));
-            var paramString = CreateServerTokenParameters();
-            var serverResponse = string.Empty;
-
             try
             {
-                serverResponse = _webClientService.UploadString(
+                var uri = new Uri(_appSettings.GetValue("RNGCasinoGetServerTokenAPIUrl"));
+                var paramString = CreateServerTokenParameters();
+
+                return _webClientService.UploadString(
                     uri,
                     paramString,
                     new Dictionary<HttpRequestHeader, string>
@@ -119,7 +125,7 @@ namespace Fanex.Athena.Service.Casino
                 _logger.Error(exception);
             }
 
-            return serverResponse;
+            return string.Empty;
         }
 
         private string CreateServerTokenParameters()

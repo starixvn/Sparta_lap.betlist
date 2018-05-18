@@ -9,6 +9,7 @@
     using Model.Customer.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class CasinoCustomerServiceTest
@@ -38,7 +39,7 @@
         public void UpdateSuspend_WhenCall_CallApiCorrectly()
         {
             // Arrange
-            var metaModel = CreateStatusMetaModel();
+            var metaModel = FakeHelper.Create<CustomerStatusMetaModel>();
 
             // Action
             var result = _casinoCustomerService.UpdateSuspend(metaModel);
@@ -67,14 +68,13 @@
         public void UpdateClosed_WhenCall_CallApiCorrectly()
         {
             // Arrange
-            var metaModel = CreateStatusMetaModel();
+            var metaModel = FakeHelper.Create<CustomerStatusMetaModel>();
 
             // Action
             var result = _casinoCustomerService.UpdateClosed(metaModel);
 
             // Assert
-            _customerApiWrapper.Received().UpdateCustClosed(
-                        metaModel);
+            _customerApiWrapper.Received().UpdateCustClosed(metaModel);
         }
 
         [Test]
@@ -97,41 +97,24 @@
         public void UpdateCommission_WhenCall_CallApiCorrectly()
         {
             // Arrange
-            var metaModel = new RNGCasinoUpdateMemberComMetaModel
-            {
-                CustomerId = new[] { "1" },
-                Comm = 2,
-                FromIp = "3",
-                ModifyBy = 4,
-                ModifyUserName = "5"
-            };
+            var metaModel = FakeHelper.Create<RNGCasinoUpdateMemberComMetaModel>();
 
-            _customerApiWrapper.UpdateComm(
-              metaModel).Returns(true);
+            _customerApiWrapper.UpdateComm(metaModel).Returns(true);
 
             // Action
             var result = _casinoCustomerService.UpdateCommission(metaModel);
 
             // Assert
-            _customerApiWrapper.Received().UpdateComm(
-                           metaModel);
+            _customerApiWrapper.Received().UpdateComm(metaModel);
         }
 
         [Test]
         public void UpdateCommission_CallApi_UpdateFail_LogError()
         {
             // Arrange
-            var metaModel = new RNGCasinoUpdateMemberComMetaModel
-            {
-                CustomerId = new[] { "1" },
-                Comm = 2,
-                FromIp = "3",
-                ModifyBy = 4,
-                ModifyUserName = "5"
-            };
+            var metaModel = FakeHelper.Create<RNGCasinoUpdateMemberComMetaModel>();
 
-            _customerApiWrapper.UpdateComm(
-              metaModel).Returns(false);
+            _customerApiWrapper.UpdateComm(metaModel).Returns(false);
 
             // Action
             var result = _casinoCustomerService.UpdateCommission(metaModel);
@@ -145,10 +128,8 @@
         {
             // Arrange
             var exception = new Exception("Hello");
-            var metaModel = new RNGCasinoUpdateMemberComMetaModel
-            {
-                CustomerId = new[] { "1" }
-            };
+            var metaModel = FakeHelper.Create<RNGCasinoUpdateMemberComMetaModel>();
+
             _customerApiWrapper.UpdateComm(Arg.Any<RNGCasinoUpdateMemberComMetaModel>()).ReturnsForAnyArgs(x =>
             {
                 throw exception;
@@ -159,18 +140,6 @@
 
             // Assert
             _logger.ReceivedWithAnyArgs().Error(exception);
-        }
-
-        private static CustomerStatusMetaModel CreateStatusMetaModel()
-        {
-            return new CustomerStatusMetaModel
-            {
-                CustId = 1,
-                IsOn = true,
-                Ip = "123",
-                ModifyById = 2,
-                ModifyByUsername = "donald trumpt"
-            };
         }
     }
 }

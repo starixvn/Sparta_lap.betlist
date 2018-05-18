@@ -8,12 +8,16 @@
     using Extension.Utility;
     using NSubstitute;
     using NUnit.Framework;
+    using Resources;
+    using UnitTest.Common.Helpers;
 
     public class RNGCasinoSingleWalletServiceTest
     {
         private IAppSettings _appSettings;
 
         private IWebClientService _webClientService;
+
+        private ICoreLogger _logger;
 
         private RngCasinoSingleWalletService _service;
 
@@ -22,9 +26,9 @@
         {
             _appSettings = Substitute.For<IAppSettings>();
             _webClientService = Substitute.For<IWebClientService>();
-
+            _logger = Substitute.For<ICoreLogger>();
             _service = new RngCasinoSingleWalletService(
-                Substitute.For<ICoreLogger>(),
+                _logger,
                 _appSettings,
                 _webClientService);
         }
@@ -39,19 +43,19 @@
         public void GetResultInfo_GetTokenFail_ReturnErrorResult()
         {
             // Arrange
-            const string RefNo = "111";
+            var refNo = FakeHelper.Create<string>();
             var token = new
             {
                 Result = new
                 {
-                    ErrorCode = 1,
-                    ErrorDescription = "Error"
+                    ErrorCode = FakeHelper.Create<int>(),
+                    ErrorDescription = FakeHelper.Create<string>()
                 }
             };
-            GetRngCasinoServerTokenSetUp(token);
+            SetUpForGetRngCasinoServerToken(token);
 
             // Action
-            object result = _service.GetResultInfo(RefNo);
+            object result = _service.GetResultInfo(refNo);
             var resultData = result.GetType().GetProperty("Result").GetValue(result, null);
 
             // Assert
@@ -64,23 +68,55 @@
         }
 
         [Test]
+        public void GetResultInfo_GetErrorWhileGettingToken_ReturnErrorResultAndWriteErrorLog()
+        {
+            // Arrange
+            var refNo = FakeHelper.Create<string>();
+            var token = new
+            {
+                Result = new
+                {
+                    ErrorCode = FakeHelper.Create<int>(),
+                    ErrorDescription = FakeHelper.Create<string>()
+                }
+            };
+            SetUpForGetRngCasinoServerToken(token);
+
+            _webClientService.UploadString(Arg.Any<Uri>(), Arg.Any<string>(), Arg.Any<IDictionary<HttpRequestHeader, string>>())
+                .Returns(x => { throw new Exception(); });
+
+            // Action
+            object result = _service.GetResultInfo(refNo);
+            var resultData = result.GetType().GetProperty("Result").GetValue(result, null);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                _logger.Received().Error(Arg.Any<Exception>());
+                Assert.That(result.GetType().GetProperty("Success").GetValue(result, null), Is.False);
+                Assert.That(resultData.GetType().GetProperty("ErrorCode").GetValue(resultData, null), Is.EqualTo(1));
+                Assert.That(resultData.GetType().GetProperty("ErrorDescription").GetValue(resultData, null), Is.EqualTo(ViewResources.ErrorProcessingMsg));
+            });
+        }
+
+        [Test]
         public void GetResultInfo_GetTokenSuccessfully_ReturnCorrectResult()
         {
             // Arrange
-            const string RefNo = "111";
+            var refNo = FakeHelper.Create<string>();
             var token = new
             {
                 Result = new
                 {
                     ErrorCode = 0,
-                    Token = "Token"
+                    Token = FakeHelper.Create<string>()
                 }
             };
-            GetRngCasinoServerTokenSetUp(token);
-            GetRngCasinoPopupUrlSetUp();
+            SetUpForGetRngCasinoServerToken(token);
+            SetUpForGetRngCasinoPopupUrl();
 
             // Action
-            var result = _service.GetResultInfo(RefNo);
+            var result = _service.GetResultInfo(refNo);
 
             // Assert
             Assert.Multiple(() =>
@@ -90,7 +126,7 @@
             });
         }
 
-        private void GetRngCasinoServerTokenSetUp(object token)
+        private void SetUpForGetRngCasinoServerToken(object token)
         {
             var tokenString = token.ToJson();
 
@@ -99,20 +135,20 @@
                 .Returns(tokenString);
 
             // CreateServerTokenParameters
-            _appSettings.GetValue("RNGCasinoLogin").Returns("RNGCasinoLogin");
-            _appSettings.GetValue("RNGCasinoPassword").Returns("RNGCasinoPassword");
-            _appSettings.GetValue("RNGCasinoSiteId").Returns("1");
-            _appSettings.GetValue("RNGCasinoSeq").Returns("RNGCasinoSeq");
-            _appSettings.GetValue("RNGCasinoVendorId").Returns("2");
+            _appSettings.GetValue("RNGCasinoLogin").Returns(FakeHelper.Create<string>());
+            _appSettings.GetValue("RNGCasinoPassword").Returns(FakeHelper.Create<string>());
+            _appSettings.GetValue("RNGCasinoSiteId").Returns(FakeHelper.Create<int>().ToString());
+            _appSettings.GetValue("RNGCasinoSeq").Returns(FakeHelper.Create<string>());
+            _appSettings.GetValue("RNGCasinoVendorId").Returns(FakeHelper.Create<int>().ToString());
         }
 
-        private void GetRngCasinoPopupUrlSetUp()
+        private void SetUpForGetRngCasinoPopupUrl()
         {
             // GetQueryString
-            _appSettings.GetValue("RNGCasinoTemplate").Returns("RNGCasinoTemplate");
-            _appSettings.GetValue("RNGCasinoRole").Returns("RNGCasinoRole");
+            _appSettings.GetValue("RNGCasinoTemplate").Returns(FakeHelper.Create<string>());
+            _appSettings.GetValue("RNGCasinoRole").Returns(FakeHelper.Create<string>());
 
-            _appSettings.GetValue("RNGCasinoEncryptedKey").Returns("Key");
+            _appSettings.GetValue("RNGCasinoEncryptedKey").Returns(FakeHelper.Create<string>());
             _appSettings.GetValue("RNGCasinoResultPopupUrl").Returns("RNGCasinoResultPopupUrl");
         }
     }
