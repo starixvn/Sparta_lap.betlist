@@ -176,6 +176,8 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="MatchWinLossReportControllerTest_AssignLeagueName.cs" />
+    <Compile Include="MatchWinLossReportControllerTest_AssignMatchName.cs" />
     <Compile Include="SubsidiaryPerformanceReportControllerTest.cs" />
     <Compile Include="WeeklyLiveMatchReportControllerTest.cs" />
     <Compile Include="NotificationReportControllerTest.cs" />
