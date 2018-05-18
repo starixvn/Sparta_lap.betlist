@@ -335,7 +335,7 @@ namespace Fanex.Athena.Api.Report
             return GetEmptyResult(metaModel.ProductOptions);
         }
 
-        private bool IsValidParams(LicenseeWinLossMetaModel metaModel)
+        protected internal virtual bool IsValidParams(LicenseeWinLossMetaModel metaModel)
         {
             var setting = _reportSettingService.GetSetting(PermissionKeys.ReportLicenseeWinLoss);
             if (setting == null)
