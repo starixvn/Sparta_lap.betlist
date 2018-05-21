@@ -7334,6 +7334,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         function isFastMarket(bettype) {
             return bettype >= MIN_BETTYPE_FASTMARKET && bettype <= MAX_BETTYPE_FASTMARKET;
         }
+        function getBaseCurrency() {
+            var params = $.parseJSON($(BETLIST_META_MODEL).val());
+            return params.BaseCurrency;
+        }
 
         var _me = {
             getSortParams: function () {
@@ -7841,6 +7845,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 url = QueryString.setParam(url, "transid", transId);
                 url = QueryString.setParam(url, "custid", custId);
                 url = QueryString.setParam(url, "transType", transType);
+                url = QueryString.setParam(url, "BaseCurrency", getBaseCurrency());
 
                 var popH = Math.min($(window).height() - 100, 550);
                 var title = Site.getSingleResource("Microgaming") + " - " +
@@ -7854,6 +7859,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 url = QueryString.setParam(url, "transid", transId);
                 url = QueryString.setParam(url, "custid", custId);
                 url = QueryString.setParam(url, "transType", transType);
+                url = QueryString.setParam(url, "BaseCurrency", getBaseCurrency());
 
                 var popH = Math.min($(window).height() - 100, 550);
                 var title = Site.getSingleResource("AGCasino") + " - " +
@@ -7868,6 +7874,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 url = QueryString.setParam(url, "winlostDate", winlostDate);
                 url = QueryString.setParam(url, "custId", custId);
                 url = QueryString.setParam(url, "transType", transType);
+                url = QueryString.setParam(url, "BaseCurrency", getBaseCurrency());
 
                 var popH = Math.min($(window).height() - 100, 550);
                 var title = Site.getSingleResource("ProductCS") + " - " +
@@ -7882,6 +7889,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 url = QueryString.setParam(url, "winlostDate", winlostDate);
                 url = QueryString.setParam(url, "custId", custId);
                 url = QueryString.setParam(url, "transType", transType);
+                url = QueryString.setParam(url, "BaseCurrency", getBaseCurrency());
 
                 var popH = Math.min($(window).height() - 100, 550);
                 var title = Site.getSingleResource("ProductVB") + " - " +
@@ -7895,6 +7903,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 url = QueryString.setParam(url, "custid", custId);
                 url = QueryString.setParam(url, "transType", transType);
                 url = QueryString.setParam(url, "date", winlostDate);
+                url = QueryString.setParam(url, "BaseCurrency", getBaseCurrency());
 
                 var popH = Math.min($(window).height() - 100, 550);
                 var title = Site.getSingleResource("ProductAB") + " - " +
@@ -7903,14 +7912,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 showDetailPopUp(url, { width: 870, height: popH + 50, title: title });
             },
             showColossusBetsDetails: function (refNo, winlostDate, transId, custId, betCheck) {
-                var params = $.parseJSON($(BETLIST_META_MODEL).val());
                 var url = Site.resolveClientUrl('ColossusBetBetList/Detail');
                 url = QueryString.setParam(url, "refNo", refNo);
                 url = QueryString.setParam(url, "date", winlostDate);
                 url = QueryString.setParam(url, "transid", transId);
                 url = QueryString.setParam(url, "custid", custId);
                 url = QueryString.setParam(url, "betCheck", betCheck);
-                url = QueryString.setParam(url, "BaseCurrency", params.BaseCurrency);
+                url = QueryString.setParam(url, "BaseCurrency", getBaseCurrency());
 
                 var popH = Math.min($(window).height() - 100, 550);
                 var title = Site.getSingleResource("TicketDetailOf").replace("{0}", refNo);
@@ -7918,13 +7926,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 showDetailPopUp(url, { width: 890, height: popH + 50, title: title });
             },
             showGlobalGamingDetails: function (transId, winlostDate, custId, transType) {
-                var params = $.parseJSON($(BETLIST_META_MODEL).val());
                 var url = Site.resolveClientUrl('GlobalGamingBetList/Detail');
                 url = QueryString.setParam(url, "transId", transId);
                 url = QueryString.setParam(url, "winlostDate", winlostDate);
                 url = QueryString.setParam(url, "custId", custId);
                 url = QueryString.setParam(url, "transType", transType);
-                url = QueryString.setParam(url, "BaseCurrency", params.BaseCurrency);
+                url = QueryString.setParam(url, "BaseCurrency", getBaseCurrency());
 
                 var popH = Math.min($(window).height() - 100, 550);
                 var title = Site.getSingleResource("ProductFW") + " - " +
