@@ -51,17 +51,17 @@
         public void GetSetting_CacheNotContainData_SetCacheWithCorrectData()
         {
             // Arrange
-            const string ReportKey = "BalanceReport";
-            _reportSettingService.GetSettingFileContent().Returns(@"[{ ""ReportKey"": ""BalanceReport"" }]");
+            var reportKey = FakeHelper.Create<string>();
+            _reportSettingService.GetSettingFileContent().Returns($@"[{{ ""ReportKey"": ""{reportKey}"" }}]");
             var fakeData = new[]
             {
-                new ReportSetting { ReportKey = ReportKey }
+                new ReportSetting { ReportKey = reportKey }
             };
 
             _cache.Get<IEnumerable<ReportSetting>>(string.Empty).ReturnsForAnyArgs((IEnumerable<ReportSetting>)null);
 
             // Action
-            _reportSettingService.GetSetting(ReportKey);
+            _reportSettingService.GetSetting(reportKey);
 
             // Assert
             _cache.Received(1).Set(
@@ -74,17 +74,17 @@
         public void GetSetting_CacheContainData_ReturnSettingFromCache()
         {
             // Arrange
-            const string ReportKey = "Abc";
+            var reportKey = FakeHelper.Create<string>();
             _reportSettingService.GetSettingFileContent().Returns(string.Empty);
 
             var fakeData = new[]
             {
-                new ReportSetting { ReportKey = ReportKey }
+                new ReportSetting { ReportKey = reportKey }
             };
             _cache.Get<IEnumerable<ReportSetting>>(string.Empty).ReturnsForAnyArgs(fakeData);
 
             // Action
-            var result = _reportSettingService.GetSetting(ReportKey);
+            var result = _reportSettingService.GetSetting(reportKey);
 
             // Assert
             Assert.That(result, Is.EqualTo(fakeData[0]));
@@ -94,26 +94,24 @@
         public void GetSetting_FakeLicenseeSettingExists_AssignSettingFromFakeLicensee()
         {
             // Arrange
-            const string LicenseeName = "spon";
-            const string ReportKey = "Abc";
+            var reportKey = FakeHelper.Create<string>();
 
             var fakeData = new[]
             {
-                new ReportSetting { ReportKey = ReportKey }
+                new ReportSetting { ReportKey = reportKey }
             };
             var fakeLicenseeSetting = new FakeLicenseeSetting
             {
-                SiteName = LicenseeName,
                 MinDate = "2012/1/1",
                 MaxDate = "2013/2/2",
                 DisableBetList = true,
-                LimitRecentMonths = 100
+                LimitRecentMonths = 0
             };
             _cache.Get<IEnumerable<ReportSetting>>(string.Empty).ReturnsForAnyArgs(fakeData);
             _fakeLicenseeSettingService.GetSetting().Returns(fakeLicenseeSetting);
 
             // Action
-            var result = _reportSettingService.GetSetting(ReportKey);
+            var result = _reportSettingService.GetSetting(reportKey);
 
             // Assert
             Assert.Multiple(() =>
@@ -125,33 +123,65 @@
             });
         }
 
-        [TestCase(1)]
-        [TestCase(2)]
-        [TestCase(3)]
-        [TestCase(4)]
-        public void GetSetting_FakeLicensee_GetCorrectMinDate(int limitRecentMonths)
+        [Test]
+        public void GetSetting_FakeLicenseeSettingExists_MinDateMaxDateIsYesterdayAndToday_AssignCorrectDate()
         {
             // Arrange
-            const string ReportKey = "Abc";
-            var expectedMinDate = DateTime.Now.Date.AddMonths(-limitRecentMonths + 1).AddDays(1 - DateTime.Now.Day);
+            var reportKey = FakeHelper.Create<string>();
+
             var fakeData = new[]
             {
-                new ReportSetting { ReportKey = ReportKey }
+                new ReportSetting { ReportKey = reportKey }
             };
             var fakeLicenseeSetting = new FakeLicenseeSetting
             {
-                SiteName = "123",
-                MinDate = "2012/1/1",
-                LimitRecentMonths = limitRecentMonths
+                MinDate = "yesterday",
+                MaxDate = "today",
+                DisableBetList = true,
+                LimitRecentMonths = 0
             };
             _cache.Get<IEnumerable<ReportSetting>>(string.Empty).ReturnsForAnyArgs(fakeData);
             _fakeLicenseeSettingService.GetSetting().Returns(fakeLicenseeSetting);
 
             // Action
-            var result = _reportSettingService.GetSetting(ReportKey);
+            var result = _reportSettingService.GetSetting(reportKey);
 
             // Assert
-            Assert.That(result.MinDate, Is.EqualTo(expectedMinDate));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.MinDate, Is.EqualTo(DateTime.Today.AddDays(-1)));
+                Assert.That(result.MaxDate, Is.EqualTo(DateTime.Today));
+            });
+        }
+
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(3)]
+        [TestCase(4)]
+        public void GetSetting_FakeLicenseeHasLimitMinDate_MinDateIsLessThanLimit_ReAssignMinDate(int limitRecentMonths)
+        {
+            // Arrange
+            var reportKey = FakeHelper.Create<string>();
+            var fakeData = new[]
+            {
+                new ReportSetting { ReportKey = reportKey }
+            };
+            var fakeLicenseeSetting = new FakeLicenseeSetting
+            {
+                SiteName = "123",
+                MinDate = DateTime.Today.AddMonths(-limitRecentMonths - 1).ToString("yyyy/M/d"),
+                LimitRecentMonths = limitRecentMonths
+            };
+            _cache.Get<IEnumerable<ReportSetting>>(string.Empty).ReturnsForAnyArgs(fakeData);
+            _fakeLicenseeSettingService.GetSetting().Returns(fakeLicenseeSetting);
+
+            var expectedMinDate = DateTime.Today.AddMonths(-limitRecentMonths + 1).ToString("yyyy/M/1");
+
+            // Action
+            var result = _reportSettingService.GetSetting(reportKey);
+
+            // Assert
+            Assert.That(result.MinDate.ToString("yyyy/M/d"), Is.EqualTo(expectedMinDate));
         }
     }
 }
