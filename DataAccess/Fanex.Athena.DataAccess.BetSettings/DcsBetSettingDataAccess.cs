@@ -9,8 +9,9 @@
     using Fanex.Common.Extensions;
     using Interfaces;
     using Model.BetSettings.DTO;
-    using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
+    using Service.Core.Utility;
+    using Service.Core.Utility.Interfaces;
     using VendorAdapter;
     using VendorAdapter.Interfaces;
 
@@ -40,11 +41,20 @@
             { ProductTypes.Exchange, 8001 }
         };
 
+        private readonly ICoreLogger _logger;
+
         private readonly ICacheRefAdapter _cacheRefAdapter;
 
         public DcsBetSettingDataAccess()
         {
+            _logger = new CoreLogger();
             _cacheRefAdapter = new CacheRefAdapter();
+        }
+
+        public DcsBetSettingDataAccess(ICoreLogger logger, ICacheRefAdapter cacheRefAdapter)
+        {
+            _logger = logger;
+            _cacheRefAdapter = cacheRefAdapter;
         }
 
         public bool? GetStatus(int custId, int productId)
@@ -151,7 +161,7 @@
             return string.Format(UpdateStatusXmlFormat, ProductSporttypeMap[productId], ProductBettypeMap[productId], status ? 0 : 1);
         }
 
-        private static string GetErrorMessage(string xmlErrorMessage)
+        private string GetErrorMessage(string xmlErrorMessage)
         {
             if (!string.IsNullOrEmpty(xmlErrorMessage) && xmlErrorMessage.StartsWith("<"))
             {
@@ -162,7 +172,7 @@
                 }
                 catch (Exception)
                 {
-                    Logging.LogService.Error("Invalid xml content: " + xmlErrorMessage);
+                    _logger.Error("Invalid xml content: " + xmlErrorMessage);
                 }
             }
 

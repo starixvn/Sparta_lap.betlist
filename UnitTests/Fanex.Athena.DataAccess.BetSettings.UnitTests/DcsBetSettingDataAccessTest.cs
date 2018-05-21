@@ -5,10 +5,19 @@
     using Core.UnitTests.TestHelpers;
     using NSubstitute;
     using NUnit.Framework;
+    using Service.Core.Utility.Interfaces;
+    using VendorAdapter.Interfaces;
 
     [TestFixture]
     public class DcsBetSettingDataAccessTest : BaseDataAccessHelperTest<DcsBetSettingDataAccess>
     {
+        protected override void SetUpDataAccess()
+        {
+            DataAccess = Substitute.ForPartsOf<DcsBetSettingDataAccess>(
+                Substitute.For<ICoreLogger>(),
+                Substitute.For<ICacheRefAdapter>());
+        }
+
         [Test]
         public void GetStatus_WhenCall_ParameterPassedCorrectly()
         {

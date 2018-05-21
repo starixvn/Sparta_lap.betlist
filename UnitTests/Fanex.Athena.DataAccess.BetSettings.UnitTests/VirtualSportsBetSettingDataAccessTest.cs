@@ -6,6 +6,8 @@
     using Model.Core.DTO.Common;
     using NSubstitute;
     using NUnit.Framework;
+    using Service.Core.Utility.Interfaces;
+    using VendorAdapter.Interfaces;
 
     [TestFixture]
     public class VirtualSportsBetSettingDataAccessTest
@@ -17,7 +19,9 @@
         public void SetUp()
         {
             _objectDb = Substitute.For<IObjectDb>();
-            _dataAccess = Substitute.ForPartsOf<DcsBetSettingDataAccess>();
+            _dataAccess = Substitute.ForPartsOf<DcsBetSettingDataAccess>(
+                Substitute.For<ICoreLogger>(),
+                Substitute.For<ICacheRefAdapter>());
         }
 
         [OneTimeTearDown]
