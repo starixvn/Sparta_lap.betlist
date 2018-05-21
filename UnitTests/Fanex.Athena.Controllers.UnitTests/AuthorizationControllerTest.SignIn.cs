@@ -6,6 +6,7 @@
     using Model.Core.MetaModel.Authorization;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
 
     public partial class AuthorizationControllerTest
     {
@@ -35,7 +36,7 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                StubGetValueAppSettings("InternalSubDomain", TestingRequestDomain);
+                StubGetValueAppSettings("InternalSubDomain", MvcHelper.TestingRequestDomain);
 
                 // Action
                 var result = controller.SignIn() as ViewResult;
@@ -51,7 +52,7 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                StubGetValueAppSettings("InternalSubDomain", TestingRequestDomain);
+                StubGetValueAppSettings("InternalSubDomain", MvcHelper.TestingRequestDomain);
 
                 // Action
                 var result = controller.SignIn() as ViewResult;
