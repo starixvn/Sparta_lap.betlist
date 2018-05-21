@@ -2,14 +2,15 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Core.Common.Interfaces;
     using Core.Users;
     using Core.Users.Interfaces;
     using DataAccess.Core.Users.Interfaces;
-    using Model.Core.DTO;
     using Model.Core.DTO.Common;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class AuthorizationServiceTest
@@ -34,52 +35,110 @@
             _authorizationService = null;
         }
 
-        [TestCase(1, "Function1", true)]
-        [TestCase(1, "Function2", false)]
-        [TestCase(1, "Function3", false)]
-        public void HasPermissions_WhenCall_ReturnCorrectResult(int userFunction, string permissionKey, bool expectedResult)
+        [Test]
+        public void HasPermissions_WhenCallWithFunctionIds_FunctionIsEmpty_ReturnFalse()
         {
             // Arrange
-            var allFunctions = new List<Function>
-            {
-                new Function { FunctionId = 1, FunctionKey = "Function1" },
-                new Function { FunctionId = 2, FunctionKey = "Function2" }
-            };
-            var userFunctions = new[] { userFunction };
-            var permissionKeys = new[] { permissionKey };
+            var allFunctions = new List<Function>();
+            var userFunctions = FakeHelper.CreateMany<int>(10);
+            var permissionKey = FakeHelper.Create<string>();
+
             _functionService.Functions.Returns(allFunctions);
 
             // Action
-            var result = _authorizationService.HasPermissions(userFunctions, permissionKeys);
+            var result = _authorizationService.HasPermissions(userFunctions, permissionKey);
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
+            Assert.That(result, Is.False);
         }
 
-        [TestCase("Function1", true)]
-        [TestCase("Function2", true)]
-        [TestCase("Function3", false)]
-        public void HasPermissions_WhenCall_ReturnCorrectResult(string permissionKey, bool expectedResult)
+        [Test]
+        public void HasPermissions_WhenCallWithFunctionIds_PermissionKeyIsNotInAllFunctions_ReturnFalse()
         {
             // Arrange
-            var userFunctions = new List<string> { "Function1", "Function2" };
-            var permissionKeys = new[] { permissionKey, "unknown_function" };
+            var allFunctions = new List<Function> { new Function { FunctionKey = "RealKey" } };
+            var userFunctions = FakeHelper.CreateMany<int>(10);
+            var permissionKey = "FakeKey";
+
+            _functionService.Functions.Returns(allFunctions);
+
+            // Action
+            var result = _authorizationService.HasPermissions(userFunctions, permissionKey);
+
+            // Assert
+            Assert.That(result, Is.False);
+        }
+
+        [Test]
+        public void HasPermissions_WhenCallWithFunctionIds_UserFunctionIsNotInAllFunctions_ReturnFalse()
+        {
+            // Arrange
+            var permissionKey = "Key";
+            var userFunctions = new[] { 1, 2, 3 };
+            var allFunctions = new List<Function> { new Function { FunctionKey = permissionKey, FunctionId = 4 } };
+
+            _functionService.Functions.Returns(allFunctions);
+
+            // Action
+            var result = _authorizationService.HasPermissions(userFunctions, permissionKey);
+
+            // Assert
+            Assert.That(result, Is.False);
+        }
+
+        [Test]
+        public void HasPermissions_WhenCallWithFunctionIds_ValidFunction_ReturnTrue()
+        {
+            // Arrange
+            var permissionKey = "Key";
+            var userFunctions = FakeHelper.CreateMany<int>(10);
+            var allFunctions = new List<Function> { new Function { FunctionKey = permissionKey, FunctionId = userFunctions.ElementAt(0) } };
+
+            _functionService.Functions.Returns(allFunctions);
+
+            // Action
+            var result = _authorizationService.HasPermissions(userFunctions, permissionKey);
+
+            // Assert
+            Assert.That(result, Is.True);
+        }
+
+        [Test]
+        public void HasPermissions_WhenCallWithFunctionKey_UserFunctionsDoNotHavePermision_ReturnFalse()
+        {
+            // Arrange
+            var userFunctions = new List<string> { "FakeFunction1", "FakeFunction2" };
+            var permissionKeys = new[] { "RealFunction" };
 
             // Action
             var result = _authorizationService.HasPermissions(userFunctions, permissionKeys);
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
+            Assert.That(result, Is.False);
+        }
+
+        [Test]
+        public void HasPermissions_WhenCallWithFunctionKey_UserFunctionsHavePermision_ReturnTrue()
+        {
+            // Arrange
+            var userFunctions = new List<string> { "Function1", "Function2" };
+            var permissionKeys = new[] { "RealFunction", userFunctions[0] };
+
+            // Action
+            var result = _authorizationService.HasPermissions(userFunctions, permissionKeys);
+
+            // Assert
+            Assert.That(result, Is.True);
         }
 
         [Test]
         public void HasPermissionOnData_LicenseeIdIsZero_ThrowException()
         {
             // Arrange
-            var licenseeId = 0;
+            const int LicenseeId = 0;
 
             // Action
-            TestDelegate testDelegate = () => _authorizationService.HasPermissionOnData(licenseeId, 1, 1);
+            TestDelegate testDelegate = () => _authorizationService.HasPermissionOnData(LicenseeId, 1, 1);
 
             // Assert
             Assert.That(testDelegate, Throws.TypeOf<ArgumentException>());
@@ -88,21 +147,31 @@
         [Test]
         public void HasPermissionOnData_CustIdAndTransIdAreZero_ReturnTrue()
         {
+            // Arrange
+            var licenseeId = Math.Abs(FakeHelper.Create<int>()) + 1;
+            const int CustId = 0;
+            const int TransId = 0;
+
             // Action
-            var result = _authorizationService.HasPermissionOnData(1, 0, 0);
+            var result = _authorizationService.HasPermissionOnData(licenseeId, CustId, TransId);
 
             // Assert
             Assert.That(result, Is.True);
         }
 
         [Test]
-        public void HasPermissionOnData_AllParamsIsGreaterThanZero_CallToDataAccess()
+        public void HasPermissionOnData_AllParamsAreGreaterThanZero_ReturnFromDataAccess()
         {
+            // Arrange
+            var licenseeId = Math.Abs(FakeHelper.Create<int>()) + 1;
+            var custId = Math.Abs(FakeHelper.Create<int>()) + 1;
+            var transId = Math.Abs(FakeHelper.Create<int>()) + 1;
+
             // Action
-            var result = _authorizationService.HasPermissionOnData(1, 1, 1);
+            var result = _authorizationService.HasPermissionOnData(licenseeId, custId, transId);
 
             // Assert
-            _authorizationDataAccess.Received().IsCustomerBelonging(1, 1, 1);
+            _authorizationDataAccess.Received().IsCustomerBelonging(licenseeId, custId, transId);
         }
     }
 }
