@@ -5,10 +5,10 @@
     using Core.Common;
     using Core.Common.Interfaces;
     using Core.Users.Interfaces;
-    using Model.Core.DTO.Users;
     using NSubstitute;
     using NUnit.Framework;
     using Session.Model;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class LanguageServiceTest
@@ -34,30 +34,30 @@
         public void GetCurrentLanguage_WhenCall_ReturnLanguageFromUserSession()
         {
             // Arrange
-            const string ExpectedLanguage = "vi-VN";
+            var expectedLanguage = FakeHelper.Create<string>();
             _sessionService.UserSession.Returns(new UserSession
             {
-                Language = ExpectedLanguage
+                Language = expectedLanguage
             });
 
             // Action
             var result = _languageService.GetCurrentLanguage();
 
             // Assert
-            Assert.That(result, Is.EqualTo(ExpectedLanguage));
+            Assert.That(result, Is.EqualTo(expectedLanguage));
         }
 
         [Test]
         public void ChangeLanguage_WhenCall_CallAndPassCorrectParamToSessionService()
         {
             // Arrange
-            const string LanguageCode = "vi-VN";
+            var languageCode = FakeHelper.Create<string>();
 
             // Action
-            var result = _languageService.ChangeLanguage(LanguageCode);
+            var result = _languageService.ChangeLanguage(languageCode);
 
             // Assert
-            _sessionService.Received().UpdateLanguage(LanguageCode);
+            _sessionService.Received().UpdateLanguage(languageCode);
         }
 
         [Test]
@@ -85,7 +85,7 @@
         public void GetCurrentLanguage_SessionLanguageIsEmpty_ReturnDefaultLanguage()
         {
             // Arrange
-            const string ExpectedLanguage = "en-US";
+            const string DefaultLanguage = "en-US";
             HttpContext.Current = GetHttpContext();
 
             _sessionService.UserSession.Returns(new UserSession
@@ -97,14 +97,14 @@
             var result = _languageService.GetCurrentLanguage();
 
             // Assert
-            Assert.That(result, Is.EqualTo(ExpectedLanguage));
+            Assert.That(result, Is.EqualTo(DefaultLanguage));
         }
 
         [Test]
         public void GetCurrentLanguage_SessionIsNull_ReturnDefaultLanguage()
         {
             // Arrange
-            const string ExpectedLanguage = "en-US";
+            const string DefaultLanguage = "en-US";
             HttpContext.Current = GetHttpContext();
 
             _sessionService.UserSession.Returns(x => { return null; });
@@ -113,7 +113,7 @@
             var result = _languageService.GetCurrentLanguage();
 
             // Assert
-            Assert.That(result, Is.EqualTo(ExpectedLanguage));
+            Assert.That(result, Is.EqualTo(DefaultLanguage));
         }
 
         [Test]
@@ -151,9 +151,12 @@
             var cookiValue = HttpContext.Current.Response.Cookies[CookieName].Value;
 
             // Assert
-            Assert.That(result, Is.EqualTo(true));
-            Assert.That(currentLanguage, Is.EqualTo(LanguageCode));
-            Assert.That(cookiValue, Is.EqualTo(LanguageCode));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.EqualTo(true));
+                Assert.That(currentLanguage, Is.EqualTo(LanguageCode));
+                Assert.That(cookiValue, Is.EqualTo(LanguageCode));
+            });
         }
 
         [Test]

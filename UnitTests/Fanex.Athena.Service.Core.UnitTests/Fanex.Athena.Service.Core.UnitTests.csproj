@@ -129,6 +129,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Common\FunctionServiceTest.cs" />
+    <Compile Include="Common\FunctionStorageTest.cs" />
     <Compile Include="Common\LanguageServiceTest.cs" />
     <Compile Include="Common\ProductServiceTest.GetProductAccess.cs" />
     <Compile Include="Common\ProductServiceTest.GetProductList.cs" />
