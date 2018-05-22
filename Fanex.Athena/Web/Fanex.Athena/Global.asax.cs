@@ -76,11 +76,6 @@ namespace Fanex.Athena
                 DbSettingProviderManager.Current.Start();
                 log4net.Config.XmlConfigurator.Configure();
                 log4net.LogManager.GetLogger("GeneralLog").Info("Start");
-
-                Logging.Extensions.Web.ExceptionHandler.UseConfig(new LoggingConfiguration())
-                    .IgnoreException<HttpAntiForgeryException>()
-                    .GetHttpHeaderInfo()
-                    .UseGetDbExceptionInfo(DatabaseInfoGetters.GetDbExceptionInfo);
             }
         }
 
