@@ -21,8 +21,6 @@ namespace Fanex.Athena
     using Data.Configuration;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.RouterConfig;
-    using Fanex.Logging.Extensions.Web;
-    using Logging.Extensions.Database;
     using Service.Core.Utility;
 
     public class MvcApplication : HttpApplication
