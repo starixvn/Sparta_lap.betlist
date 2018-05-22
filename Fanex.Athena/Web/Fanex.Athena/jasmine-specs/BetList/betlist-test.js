@@ -1,5 +1,6 @@
 ﻿describe("BetList", function () {
 
+
     describe("getSortParams()", function () {
         it("should return sorting data stored in inputs", function () {
             affix('input#SortBy[value="Foo"]');
@@ -203,11 +204,10 @@
         });
 
         describe("'divEvent' element is hidden", function () {
-            var $div, request, onSuccess;
+            var $div, request;
             beforeEach(function (done) {
                 $div = affix('div[style="display:none"]');
                 jasmine.Ajax.install();
-                onSuccess = jasmine.createSpy('onSuccess');
 
                 BetList.showMixParlayDetail(0, $div);
                 request = jasmine.Ajax.requests.mostRecent();
@@ -268,6 +268,7 @@
     describe("showMicroGamingRnGBetsDetails(transId, winlostDate, custId, transType)", function () {
         var $dialogContainer;
         beforeEach(function () {
+            affix('input#BetListMetaModel[value="{&quot;BaseCurrency&quot;:&quot;eur&quot;}"]');
             spyOn($.fn, 'dialog');
             BetList.showMicroGamingRnGBetsDetails(0, new Date('2015/2/1'), 0, 0);
             $dialogContainer = $.fn.dialog.calls.mostRecent().object;
@@ -283,13 +284,14 @@
 
         it("the dialog container should contain an iframe with correct src attribute", function () {
             var $iframe = $dialogContainer.find('iframe');
-            expect($iframe.attr('src').toLowerCase()).toBe('MicroGamingRngBetList/Detail?transid=0&custid=0&transtype=0'.toLowerCase());
+            expect($iframe.attr('src').toLowerCase()).toBe('MicroGamingRngBetList/Detail?transid=0&custid=0&transtype=0&basecurrency=eur'.toLowerCase());
         });
     });
 
     describe("showAGCasinoDetails(transId, winlostDate, custId, transType)", function () {
         var $dialogContainer;
         beforeEach(function () {
+            affix('input#BetListMetaModel[value="{&quot;BaseCurrency&quot;:&quot;eur&quot;}"]');
             spyOn($.fn, 'dialog');
             BetList.showAGCasinoDetails(0, new Date('2015/2/1'), 0, 0);
             $dialogContainer = $.fn.dialog.calls.mostRecent().object;
@@ -305,7 +307,7 @@
 
         it("the dialog container should contain an iframe with correct src attribute", function () {
             var $iframe = $dialogContainer.find('iframe');
-            expect($iframe.attr('src').toLowerCase()).toBe('AGCasinoBetList/Detail?transid=0&custid=0&transtype=0'.toLowerCase());
+            expect($iframe.attr('src').toLowerCase()).toBe('AGCasinoBetList/Detail?transid=0&custid=0&transtype=0&basecurrency=eur'.toLowerCase());
         });
     });
 
