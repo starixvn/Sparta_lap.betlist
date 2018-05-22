@@ -8,6 +8,7 @@
     using NSubstitute;
     using NUnit.Framework;
     using Resources;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class UserServiceTest
@@ -35,10 +36,10 @@
             // Arrange
             var expectedResult = new List<User>
             {
-                new User { UserID = 1 }
+                new User { UserID = FakeHelper.Create<int>() }
             };
-            var licenseeId = 1;
-            var isInternal = true;
+            var licenseeId = FakeHelper.Create<int>();
+            var isInternal = FakeHelper.Create<bool>();
             _userDataAccess.GetByLicensee(licenseeId, isInternal).Returns(expectedResult);
 
             // Action
@@ -48,15 +49,15 @@
             Assert.That(result[0].UserID, Is.EqualTo(expectedResult[0].UserID));
         }
 
-        [TestCase(0, true)]
-        [TestCase(0, false)]
-        [TestCase(1, true)]
-        [TestCase(1, false)]
-        public void GetByUsername_WhenCall_ReturnDataFromDataAccess(int licenseeId, bool isInternal)
+        [Test]
+        public void GetByUsername_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
-            var expectedResult = new User { UserID = 1 };
-            var userName = "demo";
+            var userName = FakeHelper.Create<string>();
+            var licenseeId = FakeHelper.Create<int>();
+            var isInternal = FakeHelper.Create<bool>();
+
+            var expectedResult = new User { UserID = FakeHelper.Create<int>() };
             _userDataAccess.GetByUsername(userName, isInternal, licenseeId).Returns(expectedResult);
 
             // Action
@@ -70,9 +71,10 @@
         public void GetUserInfo_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
-            var expectedResult = new User { UserID = 1 };
-            var licenseeId = 1;
-            var userId = 2;
+            var licenseeId = FakeHelper.Create<int>();
+            var userId = FakeHelper.Create<int>();
+
+            var expectedResult = new User { UserID = FakeHelper.Create<int>() };
             _userDataAccess.GetUserInfo(licenseeId, userId).Returns(expectedResult);
 
             // Action
@@ -86,7 +88,7 @@
         public void RecheckIn_WhenCall_ExcuteDataAccessCorrectly()
         {
             // Arrange
-            var onuserId = 1;
+            var onuserId = FakeHelper.Create<int>();
 
             // Action
             _userService.RecheckIn(onuserId);
@@ -100,7 +102,7 @@
         {
             // Arrange
             var user = new User();
-            var updatedBy = 1;
+            var updatedBy = FakeHelper.Create<int>();
 
             // Action
             _userService.ResetPassword(user, updatedBy);
@@ -115,7 +117,7 @@
         {
             // Arrange
             var user = new User();
-            var updatedBy = 1;
+            var updatedBy = FakeHelper.Create<int>();
 
             // Action
             _userService.UpdateInfo(user, updatedBy);
@@ -128,12 +130,15 @@
         public void ChangePassword_UserDoesNotExist_ReturnErrorResult()
         {
             // Arrange
-            const string UserName = "Test", OldPass = "sdkaskger", NewPass = "poujkg", Ip = "1.1.1.1";
+            var userName = FakeHelper.Create<string>();
+            var oldPass = FakeHelper.Create<string>();
+            var newPass = FakeHelper.Create<string>();
+            var ip = FakeHelper.Create<string>();
 
-            _userDataAccess.GetByUsername(UserName, false).Returns(x => { return null; });
+            _userDataAccess.GetByUsername(userName, false).Returns(x => { return null; });
 
             // Action
-            var result = _userService.ChangePassword(UserName, OldPass, NewPass, Ip);
+            var result = _userService.ChangePassword(userName, oldPass, newPass, ip);
 
             // Assert
             Assert.That(result.Message, Is.EqualTo(ViewResources.UserNotExist));
@@ -143,16 +148,19 @@
         public void ChangePassword_WhenCall_CallDataAccessMethodToChangePassword()
         {
             // Arrange
-            const string UserName = "Test", OldPass = "sdkaskger", NewPass = "poujkg", Ip = "1.1.1.1";
+            var userName = FakeHelper.Create<string>();
+            var oldPass = FakeHelper.Create<string>();
+            var newPass = FakeHelper.Create<string>();
+            var ip = FakeHelper.Create<string>();
 
-            _userDataAccess.GetByUsername(UserName, false).Returns(new User { UserSalt = "sdwdxz" });
+            _userDataAccess.GetByUsername(userName, false).Returns(new User { UserSalt = FakeHelper.Create<string>() });
 
             // Action
-            var result = _userService.ChangePassword(UserName, OldPass, NewPass, Ip);
+            var result = _userService.ChangePassword(userName, oldPass, newPass, ip);
 
             // Assert
             _userDataAccess.Received().ChangePassword(
-                Arg.Is<User>(x => x.Username == UserName && x.Request.Ip == Ip),
+                Arg.Is<User>(x => x.Username == userName && x.Request.Ip == ip),
                 Arg.Any<string>(),
                 Arg.Any<string>(),
                 Arg.Any<string>());

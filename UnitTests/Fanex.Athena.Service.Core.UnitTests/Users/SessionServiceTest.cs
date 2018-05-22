@@ -52,7 +52,7 @@
                     Name = "12bet"
                 }
             };
-            _licenseeDataAccess.GetByUser(DefaultUserId).Returns<IList<Licensee>>(i => licenseeList);
+            _licenseeDataAccess.GetByUser(DefaultUserId).Returns(i => licenseeList);
             _currencyDataAccess = Substitute.For<ICurrencyDataAccess>();
             _sessionService = new SessionService(
                 _functionService,
