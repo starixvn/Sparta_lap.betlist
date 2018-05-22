@@ -34,7 +34,8 @@ namespace Fanex.Athena.Service.Core.Utility
                 data.Add("DataAccess Param", dataAccessException.JsonParam);
             }
 
-            Logging.Extensions.Web.ExceptionHandler.Handle(exception, data);
+            var jsonData = new JavaScriptSerializer().Serialize(data);
+            _logger.Error(jsonData, exception);
         }
 
         public void Error(string message)
