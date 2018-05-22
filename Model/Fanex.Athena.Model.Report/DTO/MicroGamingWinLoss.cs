@@ -13,6 +13,8 @@ namespace Fanex.Athena.Model.Report.DTO
     /// </summary>
     public class MicroGamingWinLoss
     {
+        public int OrderIndex { get; set; }
+
         public int RowSpan { get; set; }
 
         public int Index { get; set; }

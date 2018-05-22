@@ -19,7 +19,7 @@ var MicroGamingWinLossOption = (function () {
         cellattr: jqGridAdditional.rowSpanSetting,
         sortable: false,
         sorttype: function (cellValue, obj) {
-            return obj.TypeId * 1000 + obj.Index;
+            return obj.OrderIndex;
         }
     };
 
@@ -34,7 +34,7 @@ var MicroGamingWinLossOption = (function () {
         frozen: true,
         sortable: false,
         sorttype: function (cellValue, obj) {
-            return obj.Index;
+            return obj.TypeID;
         }
     };
 
