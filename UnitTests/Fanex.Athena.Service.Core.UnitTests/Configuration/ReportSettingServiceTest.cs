@@ -7,6 +7,7 @@
     using Extension.Utility;
     using Extension.Utility.Interfaces;
     using Model.Core.DTO.Configuration;
+    using Newtonsoft.Json;
     using NSubstitute;
     using NUnit.Framework;
     using Session.Model;
@@ -37,14 +38,36 @@
         public void GetSetting_FileContentEmpty_ReturnNull()
         {
             // Arrange
+            var reportKey = FakeHelper.Create<string>();
+
             _reportSettingService.GetSettingFileContent().Returns(string.Empty);
             _cache.Get<IEnumerable<ReportSetting>>(string.Empty).ReturnsForAnyArgs((IEnumerable<ReportSetting>)null);
 
             // Action
-            var result = _fakeLicenseeSettingService.GetSetting();
+            var result = _reportSettingService.GetSetting(reportKey);
 
             // Assert
             Assert.That(result, Is.Null);
+        }
+
+        [Test]
+        public void GetSetting_FileContentHasData_ReturnCorrectResult()
+        {
+            // Arrange
+            var reportKey = FakeHelper.Create<string>();
+
+            var expectedResult = new List<ReportSetting> { new ReportSetting { ReportKey = reportKey } };
+            var jsonContent = JsonConvert.SerializeObject(expectedResult);
+
+            _reportSettingService.GetSettingFileContent().Returns(jsonContent);
+            _cache.Get<IEnumerable<ReportSetting>>(string.Empty).ReturnsForAnyArgs((IEnumerable<ReportSetting>)null);
+            _fakeLicenseeSettingService.GetSetting().Returns(x => { return null; });
+
+            // Action
+            var result = _reportSettingService.GetSetting(reportKey);
+
+            // Assert
+            Assert.That(result.ReportKey, Is.EqualTo(reportKey));
         }
 
         [Test]
