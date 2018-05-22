@@ -38,4 +38,5 @@ Fanex.Athena.Api.CustomerLog.UnitTests ^
 Fanex.Athena.Api.Common.UnitTests ^
 Fanex.Athena.Api.Dashboard.UnitTests ^
 Fanex.Athena.Api.Report.UnitTests ^
-Fanex.Athena.Api.ExternalService.UnitTests 
+Fanex.Athena.Api.ExternalService.UnitTests ^
+Fanex.Athena.Web.UnitTests

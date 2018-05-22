@@ -137,6 +137,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="ActionFilter\AuthorizeRestrictionAttributeTest.cs" />
     <Compile Include="ActionFilter\AjaxRequestAttributeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -152,6 +153,10 @@
     <ProjectReference Include="..\..\Fanex.Athena.Web\Fanex.Athena.Web.csproj">
       <Project>{DD931ADB-A994-49C0-95A3-72BCB6E22679}</Project>
       <Name>Fanex.Athena.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\Fanex.Athena.Session\Fanex.Athena.Session.csproj">
+      <Project>{B41E38EF-54AD-4866-968F-C856DE9DC072}</Project>
+      <Name>Fanex.Athena.Session</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>
