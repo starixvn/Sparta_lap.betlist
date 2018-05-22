@@ -87,15 +87,15 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             Assert.Multiple(() =>
             {
                 Assert.That(true, Is.True);
-                //FakeSheet.Received().CopyRow(excel.TemplateSheet, ReportBase.RowHeaderTemplate, ReportBase.RowHeaderTemplate);
-                //row1.Cells[0].Received(1).SetCellValue(ViewResources.Month);
-                //row1.Cells[1].Received(1).SetCellValue(ViewResources.Product);
-                //row1.Cells[ColumnTotalTransaction].Received(1).SetCellValue(ViewResources.Total);
+                FakeSheet.Received().CopyRow(excel.TemplateSheet, ReportBase.RowHeaderTemplate, ReportBase.RowHeaderTemplate);
+                row1.Cells[0].Received(1).SetCellValue(ViewResources.Month);
+                row1.Cells[1].Received(1).SetCellValue(ViewResources.Product);
+                row1.Cells[ColumnTotalTransaction].Received(1).SetCellValue(ViewResources.Total);
 
-                //for (int i = 0; i < offeredProducts.Length; i++)
-                //{
-                //    row2.Cells[i + 1].Received(1).SetCellValue(ViewResources.ResourceManager.GetString($"Product{offeredProducts[i]}"));
-                //}
+                for (int i = 0; i < offeredProducts.Length; i++)
+                {
+                    row2.Cells[i + 1].Received(1).SetCellValue(ViewResources.ResourceManager.GetString($"Product{offeredProducts[i]}"));
+                }
             });
         }
 
