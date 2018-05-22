@@ -27,19 +27,38 @@
         {
             _functionDataAccess = Substitute.For<IFunctionDataAccess>();
             _functionStorage = new FunctionStorage(_functionDataAccess);
-
-            _functionDataAccess.GetFunctionList().Returns(_functions);
         }
 
         [TearDown]
         public void TearDown()
         {
+            _functionDataAccess = null;
+            _functionStorage = null;
+        }
+
+        [Test]
+        public void FunctionList_DataFromDataAccessIsNull_ReturnNull()
+        {
+            // Arrange
             _functionDataAccess.GetFunctionList().Returns(x => { return null; });
+
+            // Action
+            var result = _functionStorage.FunctionList;
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                _functionDataAccess.Received().GetFunctionList();
+                Assert.That(result, Is.Null);
+            });
         }
 
         [Test]
         public void FunctionList_WhenCall_ReturnCorrectData()
         {
+            // Arrange
+            _functionDataAccess.GetFunctionList().Returns(_functions);
+
             // Action
             var resultFirstTime = _functionStorage.FunctionList;
             var resultSecondTime = _functionStorage.FunctionList;
@@ -47,7 +66,6 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _functionDataAccess.Received(1).GetFunctionList();
                 Assert.That(resultFirstTime, Is.EqualTo(_functions));
                 Assert.That(resultSecondTime, Is.EqualTo(resultFirstTime));
             });

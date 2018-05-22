@@ -110,6 +110,28 @@
             });
         }
 
+        [TestCase(null)]
+        [TestCase("Test")]
+        public void GetProductAccess_GetAllowedProductsFromFile_DataIsEmpty_ReturnEmpty(string functionName)
+        {
+            // Arrange
+            var xmlContent = BuildFunctionAllowedProductsXmlString(
+                "Test",
+                new Dictionary<string, IEnumerable<string>>());
+
+            _cache.Get<IEnumerable<XElement>>(FunctionAllowedProductsKey).Returns(x => null);
+            _cache.When(x => x.Set(Arg.Any<string>(), Arg.Any<IEnumerable<XElement>>())).DoNotCallBase();
+            _xmlWrapper.Load(Arg.Any<string>()).Returns(XDocument.Parse(xmlContent));
+
+            SetUpForGetProductListFromCache(new List<Product>());
+
+            // Action
+            var result = _productService.GetProductAccess(_licenseeId, _languageCode, functionName);
+
+            // Assert
+            Assert.That(result.ProductList, Is.Empty);
+        }
+
         [Test]
         public void GetProductAccess_AllowedProductsIsEmpty_ReturnOriginalProducts()
         {
