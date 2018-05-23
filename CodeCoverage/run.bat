@@ -28,13 +28,13 @@ pushd ..\
 
 REM NUnit
 REM OpenCover
-set command=packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"packages\NUnit.ConsoleRunner.3.7.0\tools\nunit3-console.exe" -targetargs:"%fileList% --result=UnitTestResult_%project%.xml;format=nunit2 --process=Separate" -output:"UnitTestCoverage_%project%.xml" -filter:"+[*]* -[Fanex.Result.Core.*]* -[Fanex.Athena.Resources]* -[AutoFixture]* -[CasinoLibrary]*"
+set command=packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"packages\NUnit.ConsoleRunner.3.8.0\tools\nunit3-console.exe" -targetargs:"%fileList% --result=UnitTestResult_%project%.xml;format=nunit2 --process=Separate" -output:"UnitTestCoverage_%project%.xml" -filter:"+[*]* -[Fanex.Result.Core.*]* -[Fanex.Athena.Resources]* -[AutoFixture]* -[CasinoLibrary]* -[nunit.framework]*"
 call %command%
 
 if %errorlevel% neq 0 goto error
 
 REM REM ReportGenerator
-set command=packages\ReportGenerator.2.4.5.0\tools\ReportGenerator.exe -reports:"UnitTestCoverage_%project%.xml" -targetdir:"cireport\testcoveragereport\"
+set command=packages\ReportGenerator.3.1.2\tools\ReportGenerator.exe -reports:"UnitTestCoverage_%project%.xml" -targetdir:"cireport\testcoveragereport\"
 call %command%
 if %errorlevel% neq 0 goto error
 
