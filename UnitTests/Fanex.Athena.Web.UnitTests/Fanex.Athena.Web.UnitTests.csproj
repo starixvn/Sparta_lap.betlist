@@ -137,6 +137,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="ActionFilter\BetListAuthorizationAttributeTest.cs" />
     <Compile Include="ActionFilter\AuthorizeRestrictionAttributeTest.cs" />
     <Compile Include="ActionFilter\AjaxRequestAttributeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -157,6 +158,10 @@
     <ProjectReference Include="..\..\Infrastructure\Fanex.Athena.Session\Fanex.Athena.Session.csproj">
       <Project>{B41E38EF-54AD-4866-968F-C856DE9DC072}</Project>
       <Name>Fanex.Athena.Session</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Service\Fanex.Athena.Service.Core\Fanex.Athena.Service.Core.csproj">
+      <Project>{FCFD7434-085B-4C93-848F-E1CBCEDCC5A0}</Project>
+      <Name>Fanex.Athena.Service.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>
