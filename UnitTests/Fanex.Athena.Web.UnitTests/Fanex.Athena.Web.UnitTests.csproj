@@ -138,6 +138,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="ActionFilter\CustomValidateAntiForgeryAttributeTest.cs" />
     <Compile Include="ActionFilter\CustomAuthorizeAttributeTest.cs" />
     <Compile Include="ActionFilter\BetListAuthorizationAttributeTest.cs" />
     <Compile Include="ActionFilter\AuthorizeRestrictionAttributeTest.cs" />
