@@ -137,6 +137,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="ActionFilter\CustomAuthorizeAttributeTest.cs" />
     <Compile Include="ActionFilter\BetListAuthorizationAttributeTest.cs" />
     <Compile Include="ActionFilter\AuthorizeRestrictionAttributeTest.cs" />
     <Compile Include="ActionFilter\AjaxRequestAttributeTest.cs" />
