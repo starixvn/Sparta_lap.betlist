@@ -26,17 +26,17 @@ namespace Fanex.Athena.Service.Core.Configuration
 
         private readonly IAppSettings _appSettings;
 
-        private readonly IFakeLicenseeSettingService _fakeLicenseeSettingService;
+        private readonly ILicenseeSettingService _licenseeSettingService;
 
         public ReportSettingService() : this(null, null, null)
         {
         }
 
-        public ReportSettingService(IMemoryCacheService cache, IAppSettings appSettings, IFakeLicenseeSettingService fakeLicenseeSettingService)
+        public ReportSettingService(IMemoryCacheService cache, IAppSettings appSettings, ILicenseeSettingService licenseeSettingService)
         {
             _cache = cache ?? new MemoryCacheService();
             _appSettings = appSettings ?? new AppSettings();
-            _fakeLicenseeSettingService = fakeLicenseeSettingService ?? new FakeLicenseeSettingService();
+            _licenseeSettingService = licenseeSettingService ?? new LicenseeSettingService();
         }
 
         public ReportSetting GetSetting(string reportKey)
@@ -92,7 +92,7 @@ namespace Fanex.Athena.Service.Core.Configuration
 
         private void AssignFakeLicenseeSetting(ReportSetting reportSetting)
         {
-            var fakeLicenseeSetting = _fakeLicenseeSettingService.GetSetting();
+            var fakeLicenseeSetting = _licenseeSettingService.GetFakeLicenseeSetting();
             if (fakeLicenseeSetting != null)
             {
                 reportSetting.MinDateString = fakeLicenseeSetting.MinDate;

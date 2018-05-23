@@ -10,31 +10,27 @@
     using NSubstitute;
     using NUnit.Framework;
     using Service.Core.Configuration.Interfaces;
-    using Service.Core.Users.Interfaces;
-    using Session.Model;
     using UnitTest.Common.Helpers;
 
     public class ApiBetListAuthorizationAttributeTest
     {
-        private ISessionService _sessionService;
-
-        private IFakeLicenseeSettingService _fakeLicenseeSettingService;
+        private ILicenseeSettingService _licenseeSettingService;
 
         private ApiBetListAuthorizationAttribute _attribute;
 
         [SetUp]
         public void SetUp()
         {
-            _sessionService = Substitute.For<ISessionService>();
-            _fakeLicenseeSettingService = Substitute.For<IFakeLicenseeSettingService>();
-            _attribute = new ApiBetListAuthorizationAttribute(_sessionService, _fakeLicenseeSettingService);
+            _licenseeSettingService = Substitute.For<ILicenseeSettingService>();
+            _attribute = new ApiBetListAuthorizationAttribute(_licenseeSettingService);
         }
 
         [Test]
-        public void ExecuteAuthorizationFilterAsync_NotAuthorizedRequest_UnauthorizeAccessResult()
+        public void ExecuteAuthorizationFilterAsync_NotAuthorized_UnauthorizeAccessResult()
         {
             // Arrange
             var actionContext = CreateActionContext();
+            _licenseeSettingService.IsAuthorizedOnBetList().Returns(false);
 
             // Action
             var result = _attribute.ExecuteAuthorizationFilterAsync(actionContext, new CancellationToken(), null);
@@ -44,29 +40,11 @@
         }
 
         [Test]
-        public void ExecuteAuthorizationFilterAsync_FakeLicenseeDisableBetList_UnauthorizeAccessResult()
+        public void ExecuteAuthorizationFilterAsync_Authorized_InvokeContinuationFunc()
         {
             // Arrange
             var actionContext = CreateActionContext();
-            _sessionService.LicenseeSession.Returns(new LicenseeSession());
-            _fakeLicenseeSettingService.GetSetting().Returns(new FakeLicenseeSetting
-            {
-                DisableBetList = true
-            });
-
-            // Action
-            var result = _attribute.ExecuteAuthorizationFilterAsync(actionContext, new CancellationToken(), null);
-
-            // Assert
-            Assert.That(result.Result.StatusCode, Is.EqualTo(HttpStatusCode.Forbidden));
-        }
-
-        [Test]
-        public void ExecuteAuthorizationFilterAsync_NotFakeLicensee_InvokeContinuationFunc()
-        {
-            // Arrange
-            var actionContext = CreateActionContext();
-            _sessionService.LicenseeSession.Returns(new LicenseeSession());
+            _licenseeSettingService.IsAuthorizedOnBetList().Returns(true);
             var continuation = Substitute.For<Func<Task<HttpResponseMessage>>>();
 
             // Action

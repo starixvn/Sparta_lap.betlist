@@ -22,14 +22,14 @@
 
         private IAppSettings _appSettings;
 
-        private IFakeLicenseeSettingService _fakeLicenseeSettingService;
+        private ILicenseeSettingService _fakeLicenseeSettingService;
 
         [SetUp]
         public void SetUp()
         {
             _cache = Substitute.For<IMemoryCacheService>();
             _appSettings = Substitute.For<IAppSettings>();
-            _fakeLicenseeSettingService = Substitute.For<IFakeLicenseeSettingService>();
+            _fakeLicenseeSettingService = Substitute.For<ILicenseeSettingService>();
             _reportSettingService = Substitute.ForPartsOf<ReportSettingService>(_cache, _appSettings, _fakeLicenseeSettingService);
             _reportSettingService.When(x => x.GetSettingFileContent()).DoNotCallBase();
         }
@@ -61,7 +61,7 @@
 
             _reportSettingService.GetSettingFileContent().Returns(jsonContent);
             _cache.Get<IEnumerable<ReportSetting>>(string.Empty).ReturnsForAnyArgs((IEnumerable<ReportSetting>)null);
-            _fakeLicenseeSettingService.GetSetting().Returns(x => { return null; });
+            _fakeLicenseeSettingService.GetFakeLicenseeSetting().Returns(x => { return null; });
 
             // Action
             var result = _reportSettingService.GetSetting(reportKey);
@@ -131,7 +131,7 @@
                 LimitRecentMonths = 0
             };
             _cache.Get<IEnumerable<ReportSetting>>(string.Empty).ReturnsForAnyArgs(fakeData);
-            _fakeLicenseeSettingService.GetSetting().Returns(fakeLicenseeSetting);
+            _fakeLicenseeSettingService.GetFakeLicenseeSetting().Returns(fakeLicenseeSetting);
 
             // Action
             var result = _reportSettingService.GetSetting(reportKey);
@@ -164,7 +164,7 @@
                 LimitRecentMonths = 0
             };
             _cache.Get<IEnumerable<ReportSetting>>(string.Empty).ReturnsForAnyArgs(fakeData);
-            _fakeLicenseeSettingService.GetSetting().Returns(fakeLicenseeSetting);
+            _fakeLicenseeSettingService.GetFakeLicenseeSetting().Returns(fakeLicenseeSetting);
 
             // Action
             var result = _reportSettingService.GetSetting(reportKey);
@@ -196,7 +196,7 @@
                 LimitRecentMonths = limitRecentMonths
             };
             _cache.Get<IEnumerable<ReportSetting>>(string.Empty).ReturnsForAnyArgs(fakeData);
-            _fakeLicenseeSettingService.GetSetting().Returns(fakeLicenseeSetting);
+            _fakeLicenseeSettingService.GetFakeLicenseeSetting().Returns(fakeLicenseeSetting);
 
             var expectedMinDate = DateTime.Today.AddMonths(-limitRecentMonths + 1).ToString("yyyy/M/1");
 

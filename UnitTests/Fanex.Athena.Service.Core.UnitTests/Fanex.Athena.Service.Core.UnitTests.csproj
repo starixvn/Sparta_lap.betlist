@@ -145,7 +145,7 @@
     <Compile Include="Common\MatchServiceTest.cs" />
     <Compile Include="Common\BetTypeServiceTest.cs" />
     <Compile Include="Configuration\ReportSettingServiceTest.cs" />
-    <Compile Include="Configuration\FakeLicenseeSettingServiceTest.cs" />
+    <Compile Include="Configuration\LicenseeSettingServiceTest.cs" />
     <Compile Include="Configuration\MoveBetServiceTest.cs" />
     <Compile Include="Exception\ServiceExceptionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

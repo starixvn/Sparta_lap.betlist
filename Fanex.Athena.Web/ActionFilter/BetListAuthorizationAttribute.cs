@@ -10,17 +10,29 @@ namespace Fanex.Athena.Web.ActionFilter
     using System.Net;
     using System.Web.Mvc;
     using System.Web.Routing;
-    using Fanex.Athena.Service.Core.Users;
     using Service.Core.Configuration;
+    using Service.Core.Configuration.Interfaces;
 
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
     public sealed class BetListAuthorizationAttribute : ActionFilterAttribute
     {
+        private readonly ILicenseeSettingService _licenseeSettingService;
+
+        public BetListAuthorizationAttribute()
+        {
+            _licenseeSettingService = new LicenseeSettingService();
+        }
+
+        public BetListAuthorizationAttribute(ILicenseeSettingService licenseeSettingService)
+        {
+            _licenseeSettingService = licenseeSettingService;
+        }
+
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var context = filterContext.HttpContext;
 
-            if (!IsAuthorized())
+            if (!_licenseeSettingService.IsAuthorizedOnBetList())
             {
                 if (context.Request.IsAjaxRequest())
                 {
@@ -46,24 +58,6 @@ namespace Fanex.Athena.Web.ActionFilter
             }
 
             base.OnActionExecuting(filterContext);
-        }
-
-        private static bool IsAuthorized()
-        {
-            var sessionService = new SessionService();
-            var licenseeSession = sessionService.LicenseeSession;
-            var authorized = true;
-            if (licenseeSession != null)
-            {
-                var fakeLicenseeSettingService = new FakeLicenseeSettingService();
-                var setting = fakeLicenseeSettingService.GetSetting();
-                if (setting != null)
-                {
-                    authorized = !setting.DisableBetList;
-                }
-            }
-
-            return authorized;
         }
     }
 }

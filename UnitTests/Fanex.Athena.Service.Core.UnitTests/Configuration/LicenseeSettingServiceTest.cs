@@ -7,41 +7,42 @@
     using Fanex.Athena.UnitTest.Common.Helpers;
     using NSubstitute;
     using NUnit.Framework;
+    using Session.Interfaces;
     using Session.Model;
 
     [TestFixture]
-    public class FakeLicenseeSettingServiceTest
+    public class LicenseeSettingServiceTest
     {
         private const string SettingJsonContent =
             @"[{ ""SiteName"": ""IvoryBet"", ""DisableBetList"": true, ""MinDate"": ""02/01/2018"", ""MaxDate"": ""yesterday"" }]";
 
-        private FakeLicenseeSettingService _fakeLicenseeSettingService;
+        private LicenseeSettingService _licenseeSettingService;
         private IMemoryCacheService _cache;
-        private ISessionService _sessionService;
+        private ISessionStorage _sessionStorage;
 
         [SetUp]
         public void SetUp()
         {
             _cache = Substitute.For<IMemoryCacheService>();
-            _sessionService = Substitute.For<ISessionService>();
-            _sessionService.LicenseeSession.Returns(new LicenseeSession
+            _sessionStorage = Substitute.For<ISessionStorage>();
+            _sessionStorage.LicenseeSession.Returns(new LicenseeSession
             {
                 LicenseeName = "IvoryBet"
             });
 
-            _fakeLicenseeSettingService = Substitute.ForPartsOf<FakeLicenseeSettingService>(_cache, _sessionService);
-            _fakeLicenseeSettingService.When(x => x.GetSettingFileContent()).DoNotCallBase();
+            _licenseeSettingService = Substitute.ForPartsOf<LicenseeSettingService>(_cache, _sessionStorage);
+            _licenseeSettingService.When(x => x.GetFakeLicenseeSettingContent()).DoNotCallBase();
         }
 
         [Test]
         public void GetSetting_FileContentEmpty_ReturnNull()
         {
             // Arrange
-            _fakeLicenseeSettingService.GetSettingFileContent().Returns(string.Empty);
+            _licenseeSettingService.GetFakeLicenseeSettingContent().Returns(string.Empty);
             _cache.Get<IEnumerable<FakeLicenseeSetting>>(string.Empty).ReturnsForAnyArgs((IEnumerable<FakeLicenseeSetting>)null);
 
             // Action
-            var result = _fakeLicenseeSettingService.GetSetting();
+            var result = _licenseeSettingService.GetFakeLicenseeSetting();
 
             // Assert
             Assert.That(result, Is.Null);
@@ -53,7 +54,7 @@
             // Arrange
             const string LicenseeName = "IvoryBet";
 
-            _fakeLicenseeSettingService.GetSettingFileContent().Returns(SettingJsonContent);
+            _licenseeSettingService.GetFakeLicenseeSettingContent().Returns(SettingJsonContent);
             var fakeData = new[]
             {
                 new FakeLicenseeSetting
@@ -68,7 +69,7 @@
             _cache.Get<IEnumerable<FakeLicenseeSetting>>(string.Empty).ReturnsForAnyArgs((IEnumerable<FakeLicenseeSetting>)null);
 
             // Action
-            _fakeLicenseeSettingService.GetSetting();
+            _licenseeSettingService.GetFakeLicenseeSetting();
 
             // Assert
             _cache.Received(1).Set(
@@ -81,9 +82,9 @@
         public void GetSetting_CacheContainData_ReturnSettingFromCache()
         {
             // Arrange
-            _fakeLicenseeSettingService.GetSettingFileContent().Returns(SettingJsonContent);
+            _licenseeSettingService.GetFakeLicenseeSettingContent().Returns(SettingJsonContent);
             var licenseeName = FakeHelper.Create<string>();
-            _sessionService.LicenseeSession.Returns(new LicenseeSession
+            _sessionStorage.LicenseeSession.Returns(new LicenseeSession
             {
                 LicenseeName = licenseeName
             });
@@ -94,7 +95,7 @@
             _cache.Get<IEnumerable<FakeLicenseeSetting>>(string.Empty).ReturnsForAnyArgs(fakeData);
 
             // Action
-            var result = _fakeLicenseeSettingService.GetSetting();
+            var result = _licenseeSettingService.GetFakeLicenseeSetting();
 
             // Assert
             Assert.That(result.SiteName, Is.EqualTo(licenseeName));
@@ -104,10 +105,10 @@
         public void GetSetting_LicenseeIsNull_ReturnNull()
         {
             // Arrange
-            _sessionService.LicenseeSession.Returns(x => { return null; });
+            _sessionStorage.LicenseeSession.Returns(x => { return null; });
 
             // Action
-            var result = _fakeLicenseeSettingService.GetSetting();
+            var result = _licenseeSettingService.GetFakeLicenseeSetting();
 
             // Assert
             Assert.That(result, Is.Null);
@@ -117,10 +118,10 @@
         public void IsFakeLicensee_SettingIsNull_ReturnTrue()
         {
             // Arrange
-            _sessionService.LicenseeSession.Returns(x => { return null; });
+            _sessionStorage.LicenseeSession.Returns(x => { return null; });
 
             // Action
-            var result = _fakeLicenseeSettingService.IsFakeLicensee();
+            var result = _licenseeSettingService.IsFakeLicensee();
 
             // Assert
             Assert.That(result, Is.True);

@@ -108,8 +108,8 @@
     <Compile Include="Common\Interfaces\IFunctionStorage.cs" />
     <Compile Include="Configuration\Interfaces\IReportSettingService.cs" />
     <Compile Include="Configuration\ReportSettingService.cs" />
-    <Compile Include="Configuration\FakeLicenseeSettingService.cs" />
-    <Compile Include="Configuration\Interfaces\IFakeLicenseeSettingService.cs" />
+    <Compile Include="Configuration\LicenseeSettingService.cs" />
+    <Compile Include="Configuration\Interfaces\ILicenseeSettingService.cs" />
     <Compile Include="Utility\ClientViewHelper.cs" />
     <Compile Include="Users\AuthService.cs" />
     <Compile Include="Users\Interfaces\IAuthService.cs" />

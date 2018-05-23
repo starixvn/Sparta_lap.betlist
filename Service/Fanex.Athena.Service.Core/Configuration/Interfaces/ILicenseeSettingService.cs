@@ -2,10 +2,12 @@
 
 namespace Fanex.Athena.Service.Core.Configuration.Interfaces
 {
-    public interface IFakeLicenseeSettingService
+    public interface ILicenseeSettingService
     {
         bool IsFakeLicensee();
 
-        FakeLicenseeSetting GetSetting();
+        bool IsAuthorizedOnBetList();
+
+        FakeLicenseeSetting GetFakeLicenseeSetting();
     }
 }
