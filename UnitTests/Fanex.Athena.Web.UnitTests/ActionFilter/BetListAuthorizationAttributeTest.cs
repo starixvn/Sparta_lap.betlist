@@ -13,6 +13,8 @@ namespace Fanex.Athena.Web.UnitTests.ActionFilter
     {
         private readonly ControllerContext _controllerContext = MvcHelper.CreateControllerContext();
 
+        private ActionExecutingContext _filterContext;
+
         private ILicenseeSettingService _licenseeSettingService;
 
         private BetListAuthorizationAttribute _attribute;
@@ -20,6 +22,7 @@ namespace Fanex.Athena.Web.UnitTests.ActionFilter
         [SetUp]
         public void Setup()
         {
+            _filterContext = CreateFilterContext();
             _licenseeSettingService = Substitute.For<ILicenseeSettingService>();
             _attribute = new BetListAuthorizationAttribute(_licenseeSettingService);
         }
@@ -28,27 +31,25 @@ namespace Fanex.Athena.Web.UnitTests.ActionFilter
         public void OnActionExecuting_IsAuthorized_FilterContextResultNull()
         {
             // Arrange
-            var filterContext = CreateFilterContext(true);
             _licenseeSettingService.IsAuthorizedOnBetList().Returns(true);
 
             // Action
-            _attribute.OnActionExecuting(filterContext);
+            _attribute.OnActionExecuting(_filterContext);
 
             // Assert
-            Assert.That(filterContext.Result, Is.Null);
+            Assert.That(_filterContext.Result, Is.Null);
         }
 
         [Test]
         public void OnActionExecuting_NotAuthorizedAjaxRequest_CorrectFilterContextResult()
         {
             // Arrange
-            var filterContext = CreateFilterContext(true);
             _licenseeSettingService.IsAuthorizedOnBetList().Returns(false);
-            filterContext.RequestContext.HttpContext.Request.Headers["X-Requested-With"] = "XMLHttpRequest";
+            _filterContext.RequestContext.HttpContext.Request.Headers["X-Requested-With"] = "XMLHttpRequest";
 
             // Action
-            _attribute.OnActionExecuting(filterContext);
-            var result = filterContext.Result as JsonResult;
+            _attribute.OnActionExecuting(_filterContext);
+            var result = _filterContext.Result as JsonResult;
 
             // Assert
             Assert.That(result.Data, Tobe.SameProperties(new { ErrCode = 403, ErrMsg = "Access Denied." }));
@@ -58,12 +59,11 @@ namespace Fanex.Athena.Web.UnitTests.ActionFilter
         public void OnActionExecuting_NotAuthorized_CorrectFilterContextResult()
         {
             // Arrange
-            var filterContext = CreateFilterContext(true);
             _licenseeSettingService.IsAuthorizedOnBetList().Returns(false);
 
             // Action
-            _attribute.OnActionExecuting(filterContext);
-            var result = filterContext.Result as RedirectToRouteResult;
+            _attribute.OnActionExecuting(_filterContext);
+            var result = _filterContext.Result as RedirectToRouteResult;
 
             // Assert
             Assert.Multiple(() =>
@@ -74,13 +74,11 @@ namespace Fanex.Athena.Web.UnitTests.ActionFilter
             });
         }
 
-        private ActionExecutingContext CreateFilterContext(bool isSkipAuthorization)
+        private ActionExecutingContext CreateFilterContext()
         {
-            var actionDescriptor = Substitute.ForPartsOf<ActionDescriptor>();
-
             return new ActionExecutingContext(
                 _controllerContext,
-                actionDescriptor,
+                Substitute.ForPartsOf<ActionDescriptor>(),
                 new Dictionary<string, object>());
         }
     }

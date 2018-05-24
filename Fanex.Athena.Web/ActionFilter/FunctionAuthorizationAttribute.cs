@@ -11,21 +11,35 @@ namespace Fanex.Athena.Web.ActionFilter
     using System.Web.Mvc;
     using System.Web.Routing;
     using Fanex.Athena.Service.Core.Users;
-    using Model.Core.DataDomain;
+    using Service.Core.Users.Interfaces;
+    using Session;
     using Session.Enum;
+    using Session.Interfaces;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
     public sealed class FunctionAuthorizationAttribute : ActionFilterAttribute
     {
+        private readonly ISessionStorage _sessionStorage;
+
+        private readonly IAuthorizationService _authorizationService;
+
         public FunctionAuthorizationAttribute()
+             : this(sessionStorage: null, authorizationService: null, permissionKeys: null)
         {
         }
 
         public FunctionAuthorizationAttribute(params string[] permissionKeys)
+            : this(sessionStorage: null, authorizationService: null, permissionKeys: permissionKeys)
         {
+        }
+
+        public FunctionAuthorizationAttribute(
+            ISessionStorage sessionStorage,
+            IAuthorizationService authorizationService,
+            params string[] permissionKeys)
+        {
+            _sessionStorage = sessionStorage ?? new SessionStorage();
+            _authorizationService = authorizationService ?? new AuthorizationService();
             PermissionKeys = permissionKeys;
         }
 
@@ -37,17 +51,14 @@ namespace Fanex.Athena.Web.ActionFilter
         {
             var context = filterContext.HttpContext;
 
-            var sessionService = new SessionService();
-            var licenseeSession = sessionService.LicenseeSession;
-            var userSession = sessionService.UserSession;
-            var authorization = new AuthorizationService();
-            var authorized = true;
-            if (userSession != null && licenseeSession != null)
+            var licenseeSession = _sessionStorage.LicenseeSession;
+            var userSession = _sessionStorage.UserSession;
+            var authorized = userSession != null && licenseeSession != null;
+            if (authorized)
             {
-                authorized =
-                userSession.ApplicationMode == AppMode.Parasitic ?
-                      authorization.HasPermissions(userSession.PortalFunctionList, PermissionKeys) :
-                      authorization.HasPermissions(userSession.FunctionIdList, PermissionKeys);
+                authorized = userSession.ApplicationMode == AppMode.Parasitic ?
+                              _authorizationService.HasPermissions(userSession.PortalFunctionList, PermissionKeys) :
+                              _authorizationService.HasPermissions(userSession.FunctionIdList, PermissionKeys);
             }
 
             if (!authorized)
