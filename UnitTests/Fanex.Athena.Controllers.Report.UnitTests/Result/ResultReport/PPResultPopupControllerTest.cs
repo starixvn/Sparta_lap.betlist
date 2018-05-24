@@ -1,12 +1,11 @@
 ﻿namespace Fanex.Athena.Controllers.TotalBets.UnitTests
 {
     using Base.UnitTests;
-    using Model.Core.DTO.Users;
-    using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
     using Report.Result.ResultPopup;
     using Result.Core.PP;
+    using Session.Model;
 
     [TestFixture]
     public partial class PPResultPopupControllerTest : BaseControllerHelperTest
