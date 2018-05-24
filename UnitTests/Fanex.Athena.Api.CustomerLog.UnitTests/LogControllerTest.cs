@@ -1,16 +1,17 @@
 ﻿namespace Fanex.Athena.Api.CustomerLog.UnitTests
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Base.UnitTests;
     using DataAccess.Customer.Interfaces;
     using Extension.Utility;
-    using Model.Core.DataDomain;
     using Model.Customer.DTO.CustomerLog;
     using Model.Customer.MetaModel.CustomerLog;
     using NSubstitute;
     using NUnit.Framework;
     using Service.Core.Helpers;
+    using Session.Enum;
 
     [TestFixture]
     public class LogControllerTest : BaseApiControllerHelperTest
@@ -92,8 +93,8 @@
             {
                 new CustomerLog { LogId = 2, ActionId = 1, TrackingValue = "<doc <GroupName=\"Group\"/> />", TrackingValueOld = "<doc <GroupName=\"OldGroup\"/> />" },
                 new CustomerLog { LogId = 4, ActionId = 2, TrackingValue = "<doc <GroupColor=\"Red\"/> />", TrackingValueOld = "<doc <GroupColor=\"Green\"/> />" },
-                new CustomerLog { LogId = 3, ActionId = 2401, TrackingValue = string.Empty, TrackingValueOld = string.Empty },
-                new CustomerLog { LogId = 1, ActionId = 2403, TrackingValue = string.Empty, TrackingValueOld = string.Empty }
+                new CustomerLog { LogId = 3, ActionId = 2401, TrackingValue = string.Empty, TrackingValueOld = string.Empty, LogDate = DateTime.Today, EditedBy = "User" },
+                new CustomerLog { LogId = 1, ActionId = 2403, TrackingValue = string.Empty, TrackingValueOld = string.Empty, ActionName = "Action", DetailsOld = string.Empty }
             };
 
             _customerLogDataAccess.GetGroupCommList(Arg.Any<CustomerLogMetaModel>()).Returns(dataList);

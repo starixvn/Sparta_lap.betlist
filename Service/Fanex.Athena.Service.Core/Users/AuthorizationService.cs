@@ -42,9 +42,9 @@ namespace Fanex.Athena.Service.Core.Users
             return functions.Any() && userFunctionList.Any(id => functions.Any(x => x.FunctionId == id));
         }
 
-        public bool HasPermissions(IEnumerable<PortalSystemFunction> userFunctionList, params string[] permissionKeys)
+        public bool HasPermissions(IEnumerable<string> userFunctionList, params string[] permissionKeys)
         {
-            return userFunctionList.Any(x => permissionKeys.Contains(x.FunctionKey, StringComparer.InvariantCultureIgnoreCase));
+            return userFunctionList.Any(x => permissionKeys.Contains(x, StringComparer.InvariantCultureIgnoreCase));
         }
 
         [DebuggerStepThrough]

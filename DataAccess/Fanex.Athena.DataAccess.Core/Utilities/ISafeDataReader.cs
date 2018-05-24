@@ -4,6 +4,8 @@
 
     public interface ISafeDataReader
     {
+        bool GetBool(string column, bool defaultValue = false);
+
         DateTime GetDateTime(string column, DateTime defaultValue);
 
         decimal GetDecimal(string column, decimal defaultValue = 0);
@@ -17,8 +19,6 @@
         string GetString(string column, string defaultValue = "");
 
         object GetValue(string column, object defaultValue = null);
-
-        T GetValue<T>(string column, Func<object, T> func, T defaultValue);
 
         bool Read();
     }

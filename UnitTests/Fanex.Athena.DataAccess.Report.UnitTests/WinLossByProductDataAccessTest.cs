@@ -39,7 +39,9 @@
 
             _appSetting = Substitute.For<IAppSettings>();
             _appSetting.HistoryDate.Returns(new DateTime(2016, 8, 31));
-            DataAccess = Substitute.ForPartsOf<WinLossByProductDataAccess>(balanceUpDataAccess);
+            DataAccess = Substitute.ForPartsOf<WinLossByProductDataAccess>(
+                CreateSessionStorage(),
+                balanceUpDataAccess);
 
             _metaModel = new WinLossByProductMetaModel(_appSetting)
             {

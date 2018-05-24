@@ -6,14 +6,15 @@
     using Customer;
     using DataAccess.Core.Users.Interfaces;
     using Model.Core.DTO.Common;
-    using Model.Core.DTO.Users;
     using Model.Core.ViewModel;
     using Model.Customer.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
     using Resources;
     using Service.Core.Common.Interfaces;
+    using Service.Core.Utility.Interfaces;
     using Service.Customer.Interfaces;
+    using Session.Model;
     using UnitTest.Common.Extensions;
 
     [TestFixture]
@@ -270,6 +271,7 @@
                SessionService,
                AppSettings,
                ClientViewHelper,
+               Substitute.For<ICoreLogger>(),
                _customerCommService,
                _customerListService,
                _groupComService,

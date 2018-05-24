@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using Core.Configuration;
     using Core.Configuration.Interfaces;
+    using Core.Utility.Interfaces;
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility.Interfaces;
     using Model.Core.DTO.Configuration;
@@ -17,13 +18,15 @@
         private IMoveBetDataAccess _moveBetDataAccess;
         private IMoveBetService _moveBetService;
         private IMemoryCacheService _cache;
+        private ICoreLogger _logger;
 
         [SetUp]
         public void SetUp()
         {
             _moveBetDataAccess = Substitute.For<IMoveBetDataAccess>();
             _cache = Substitute.For<IMemoryCacheService>();
-            _moveBetService = new MoveBetService(_moveBetDataAccess, _cache);
+            _logger = Substitute.For<ICoreLogger>();
+            _moveBetService = new MoveBetService(_logger, _moveBetDataAccess, _cache);
         }
 
         [TearDown]
@@ -34,7 +37,7 @@
         }
 
         [Test]
-        public void GetMoveBet_CacheContainsData_ReturnResultFromCache()
+        public void GetMoveBetNotification_CacheContainsData_ReturnResultFromCache()
         {
             // Arrange
             var expectedResult = new MoveBetNotification
@@ -54,7 +57,7 @@
         }
 
         [Test]
-        public void GetMoveBet_WhenCall_ReturnResultFromDataAccess()
+        public void GetMoveBetNotification_WhenCall_ReturnResultFromDataAccess()
         {
             // Arrange
             var expectedResult = new MoveBetNotification
@@ -74,7 +77,7 @@
         }
 
         [Test]
-        public void GetMoveBet_LanguageNotAvailable_ReturnContentWithDefaultLanguage()
+        public void GetMoveBetNotification_LanguageNotAvailable_ReturnContentWithDefaultLanguage()
         {
             // Arrange
             var expectedResult = new MoveBetNotification
@@ -94,7 +97,7 @@
         }
 
         [Test]
-        public void GetMoveBet_ResultIsEmpty_ReturnEmptyString()
+        public void GetMoveBetNotification_ResultIsEmpty_ReturnEmptyString()
         {
             // Arrange
             var expectedResult = new MoveBetNotification();
@@ -105,6 +108,20 @@
 
             // Assert
             Assert.That(result, Is.EqualTo(string.Empty));
+        }
+
+        [Test]
+        public void GetMoveBetNotification_ThrowException_WriteLog()
+        {
+            // Arrange
+            var exceptionMsg = "Failure";
+            _cache.Get<MoveBetNotification>(Arg.Any<string>()).Returns(x => { throw new System.Exception(exceptionMsg); });
+
+            // Action
+            var result = _moveBetService.GetMoveBetNotification("vi-VN");
+
+            // Assert
+            _logger.Received().Error(Arg.Is<System.Exception>(x => x.Message == exceptionMsg));
         }
     }
 }

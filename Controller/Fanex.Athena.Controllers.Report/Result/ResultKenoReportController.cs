@@ -3,12 +3,13 @@
     using System;
     using System.Web.Mvc;
     using Extension.Utility;
-    using Logging;
     using Model.Core.DataDomain;
     using Model.Report.MetaModel.Keno;
     using Service.Core.Common.Interfaces;
     using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
+    using Service.Core.Utility;
+    using Service.Core.Utility.Interfaces;
     using Service.Report.Result;
     using Service.Report.Result.Interfaces;
     using Web.ActionFilter;
@@ -16,7 +17,7 @@
     [FunctionAuthorization(PermissionKeys.ReportResults)]
     public class ResultKenoReportController : ReportBaseController
     {
-        private readonly ILogger _logger;
+        private readonly ICoreLogger _logger;
 
         private readonly IKenoApi _kenoApi;
 
@@ -30,11 +31,11 @@
             IAppSettings appSetting,
             IClientViewHelper clientViewHelper,
             IProductService productService,
-            ILogger logger,
+            ICoreLogger logger,
             IKenoApi kenoApi)
             : base(languageService, sessionService, appSetting, clientViewHelper, productService)
         {
-            _logger = logger ?? Logger.Log;
+            _logger = logger ?? new CoreLogger();
             _kenoApi = kenoApi ?? new KenoApi();
         }
 

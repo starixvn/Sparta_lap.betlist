@@ -13,6 +13,8 @@
     using NSubstitute;
     using NUnit.Framework;
     using Resources;
+    using Session.Enum;
+    using Session.Model;
 
     public class BetSettingBaseControllerTest : BetSettingBaseControllerHelperTest
     {
@@ -132,7 +134,7 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                StubUserSessionData(new Model.Core.DTO.Users.UserSession
+                StubUserSessionData(new UserSession
                 {
                     ApplicationMode = AppMode.Parasitic,
                     UserId = DefaultUserSession.UserId,
@@ -153,7 +155,7 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                StubUserSessionData(new Model.Core.DTO.Users.UserSession
+                StubUserSessionData(new UserSession
                 {
                     ApplicationMode = AppMode.Self,
                     UserId = DefaultUserSession.UserId,

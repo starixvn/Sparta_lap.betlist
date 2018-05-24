@@ -4,13 +4,14 @@ using Fanex.Athena.Model.Customer.MetaModel;
 using Fanex.Athena.Service.Casino.Interfaces;
 using Fanex.Athena.Service.Casino.Wrappers;
 using Fanex.Athena.Service.Core.Exception;
-using Fanex.Logging;
+using Fanex.Athena.Service.Core.Utility;
+using Fanex.Athena.Service.Core.Utility.Interfaces;
 
 namespace Fanex.Athena.Service.Casino
 {
     public class CasinoCustomerService : ICasinoCustomerService
     {
-        private readonly ILogger _logger;
+        private readonly ICoreLogger _logger;
 
         private readonly ICustomerApiWrapper _customerApiWrapper;
 
@@ -18,9 +19,9 @@ namespace Fanex.Athena.Service.Casino
         {
         }
 
-        public CasinoCustomerService(ILogger logger, ICustomerApiWrapper customerApiWrapper)
+        public CasinoCustomerService(ICoreLogger logger, ICustomerApiWrapper customerApiWrapper)
         {
-            _logger = logger ?? Logger.Log;
+            _logger = logger ?? new CoreLogger();
             _customerApiWrapper = customerApiWrapper ?? new CustomerApiWrapper();
         }
 
@@ -71,7 +72,7 @@ namespace Fanex.Athena.Service.Casino
             }
             catch (Exception exception)
             {
-                _logger.Error("UpdateCommission:" + exception.Message + additionalErrorMsg, exception);
+                _logger.Error(exception, "UpdateCommission:" + exception.Message + additionalErrorMsg);
             }
 
             return success;

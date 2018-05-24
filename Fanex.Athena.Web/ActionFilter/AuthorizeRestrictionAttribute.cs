@@ -3,16 +3,26 @@
     using System;
     using System.Web.Mvc;
     using System.Web.Routing;
-    using Model.Core.DataDomain;
-    using Service.Core.Users;
+    using Session;
+    using Session.Enum;
+    using Session.Interfaces;
 
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public sealed class AuthorizeRestrictionAttribute : AuthorizeAttribute
     {
+        private readonly ISessionStorage _sessionStorage;
+
         private readonly AppMode _appMode;
 
         public AuthorizeRestrictionAttribute(AppMode mode)
         {
+            _sessionStorage = new SessionStorage();
+            _appMode = mode;
+        }
+
+        public AuthorizeRestrictionAttribute(ISessionStorage sessionStorage, AppMode mode)
+        {
+            _sessionStorage = sessionStorage;
             _appMode = mode;
         }
 
@@ -29,8 +39,7 @@
             if (!skipAuthorization)
             {
                 base.OnAuthorization(filterContext);
-                var sessionService = new SessionService();
-                var userSession = sessionService.UserSession;
+                var userSession = _sessionStorage.UserSession;
                 var authorized = userSession != null && userSession.ApplicationMode == _appMode;
                 if (!authorized)
                 {

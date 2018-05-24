@@ -3,7 +3,6 @@
     using System;
     using Base.UnitTests;
     using Fanex.Athena.Service.Core.Users.Interfaces;
-    using Fanex.Logging;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.OneAuth;
@@ -11,13 +10,14 @@
     using NSubstitute;
     using NUnit.Framework;
     using ONEbook.UM.Services;
+    using Service.Core.Utility.Interfaces;
 
     [TestFixture]
     public class OneAuthorizationControllerTest : BaseControllerHelperTest
     {
         private IMaintenanceService _maintenanceService;
         private IOneAuthenticationService _oneAuthenticationService;
-        private ILogger _logger;
+        private ICoreLogger _logger;
         private int _loggerCounnter;
 
         [SetUp]
@@ -27,7 +27,7 @@
 
             _maintenanceService = Substitute.For<IMaintenanceService>();
             _oneAuthenticationService = Substitute.For<IOneAuthenticationService>();
-            _logger = Substitute.For<ILogger>();
+            _logger = Substitute.For<ICoreLogger>();
 
             StubGetValueAppSettings("EnableLogForOneAuthorization", "0");
             _logger.When(x => x.Error(Arg.Any<string>())).Do(x => _loggerCounnter++);

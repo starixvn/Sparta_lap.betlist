@@ -8,6 +8,8 @@
     using Model.Core.DTO.Users;
     using NSubstitute;
     using NUnit.Framework;
+    using Resources;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class AuthServiceTest
@@ -35,27 +37,33 @@
         public void LoginOnUser_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
-            var expectedResult = 100;
-            var user = new User
+            var expectedResult = FakeHelper.Create<int>();
+            var requestUser = new User
             {
                 Request = new Request()
             };
-            var netSessionId = "session1";
-            var serverId = 1;
+            var netSessionId = FakeHelper.Create<string>();
+            var serverId = FakeHelper.Create<int>();
+            var ip = FakeHelper.Create<string>();
+
             _authDataAccess.LoginOnUser(Arg.Any<User>(), netSessionId, serverId).Returns(expectedResult);
 
             // Action
-            var result = _authService.LoginOnUser(user, netSessionId, serverId, string.Empty);
+            var result = _authService.LoginOnUser(requestUser, netSessionId, serverId, ip);
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.EqualTo(expectedResult));
+                Assert.That(requestUser.Request.Ip, Is.EqualTo(ip));
+            });
         }
 
         [Test]
         public void Logout_WhenCall_ExcuteDataAccessCorrectly()
         {
             // Arrange
-            var onuserId = 1;
+            var onuserId = FakeHelper.Create<int>();
 
             // Action
             _authService.Logout(onuserId);
@@ -72,16 +80,20 @@
             {
                 ExtendedData = new User
                 {
-                    UserID = 999
+                    UserID = FakeHelper.Create<int>()
                 }
             };
+            var requestUser = new User
+            {
+                Request = new Request()
+            };
 
-            var licenseeName = "spondemo";
-            long timeStamp = 100;
-            _authDataAccess.ValidateInternalUser(Arg.Any<User>(), timeStamp, licenseeName).Returns(resultInfo);
+            var licenseeName = FakeHelper.Create<string>();
+            long timeStamp = FakeHelper.Create<int>();
+            _authDataAccess.ValidateInternalUser(requestUser, timeStamp, licenseeName).Returns(resultInfo);
 
             // Action
-            var result = _authService.ValidateInternalUser(new User(), licenseeName, timeStamp);
+            var result = _authService.ValidateInternalUser(requestUser, licenseeName, timeStamp);
 
             // Assert
             Assert.That(result, Is.EqualTo(resultInfo));
@@ -93,15 +105,15 @@
             // Arrange
             var outputUser = new User
             {
-                UserID = 999,
-                Password = "password1",
-                UserSalt = "salt1"
+                UserID = FakeHelper.Create<int>(),
+                Password = FakeHelper.Create<string>(),
+                UserSalt = FakeHelper.Create<string>()
             };
-            var loginToken = "logintoken";
+            var loginToken = FakeHelper.Create<string>();
             var hashPassword = Cryptography.CreateHash(outputUser.Password + loginToken, outputUser.UserSalt);
             var inputUser = new User
             {
-                Username = "user1",
+                Username = FakeHelper.Create<string>(),
                 Password = hashPassword
             };
 
@@ -109,8 +121,8 @@
             {
                 ExtendedData = outputUser
             };
-            _userDataAccess.GetByUsername("user1", Arg.Any<bool>(), Arg.Any<int>()).Returns(outputUser);
-            _authDataAccess.ValidateUserForLrfSystem(Arg.Any<User>()).Returns(resultInfo);
+            _userDataAccess.GetByUsername(inputUser.Username, false, 0).Returns(outputUser);
+            _authDataAccess.ValidateUserForLrfSystem(inputUser).Returns(resultInfo);
 
             // Action
             var result = _authService.ValidateUserForLrfSystem(inputUser, loginToken);
@@ -125,21 +137,21 @@
             // Arrange
             var outputUser = new User
             {
-                UserID = 999,
-                Password = "password1",
-                UserSalt = "salt1"
+                UserID = FakeHelper.Create<int>(),
+                Password = FakeHelper.Create<string>(),
+                UserSalt = FakeHelper.Create<string>()
             };
-            var loginToken = "logintoken";
+            var loginToken = FakeHelper.Create<string>();
             var hashPassword = Cryptography.CreateHash("WrongPassword", outputUser.UserSalt);
             var inputUser = new User
             {
-                Username = "user1",
+                Username = FakeHelper.Create<string>(),
                 Password = hashPassword
             };
 
-            _userDataAccess.GetByUsername("user1", Arg.Any<bool>(), Arg.Any<int>()).Returns(outputUser);
+            _userDataAccess.GetByUsername(inputUser.Username, Arg.Any<bool>(), Arg.Any<int>()).Returns(outputUser);
 
-            var expectedResult = new ResultInfo { Code = 104, Message = "Wrong username or password." };
+            var expectedResult = new ResultInfo { Code = 104, Message = ViewResources.WrongUserNamePassword };
 
             // Action
             var result = _authService.ValidateUserForLrfSystem(inputUser, loginToken);
@@ -157,16 +169,16 @@
         {
             // Arrange
             User outputUser = null;
-            var loginToken = "logintoken";
+            var loginToken = FakeHelper.Create<string>();
 
             var inputUser = new User
             {
-                Username = "user1",
-                Password = "123"
+                Username = FakeHelper.Create<string>(),
+                Password = FakeHelper.Create<string>()
             };
 
             _userDataAccess.GetByUsername("user1", Arg.Any<bool>(), Arg.Any<int>()).Returns(outputUser);
-            var expectedResult = new ResultInfo { Code = 100, Message = "Not found user" };
+            var expectedResult = new ResultInfo { Code = 100, Message = ViewResources.UserNotExist };
 
             // Action
             var result = _authService.ValidateUserForLrfSystem(inputUser, loginToken);

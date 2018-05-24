@@ -16,6 +16,7 @@
     using NPOI.SS.UserModel;
     using NSubstitute;
     using NUnit.Framework;
+    using Session.Model;
 
     public class MicrogamingWinlossReportControllerTest : BaseApiControllerHelperTest
     {

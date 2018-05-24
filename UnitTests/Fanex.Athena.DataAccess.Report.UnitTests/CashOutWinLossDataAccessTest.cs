@@ -34,7 +34,9 @@
             };
             balanceUpDataAccess.GetBalanceUp().Returns(_balance);
 
-            DataAccess = Substitute.ForPartsOf<CashOutWinLossDataAccess>(balanceUpDataAccess);
+            DataAccess = Substitute.ForPartsOf<CashOutWinLossDataAccess>(
+                CreateSessionStorage(),
+                balanceUpDataAccess);
             ObjectDb = Substitute.For<IObjectDb>();
         }
 
@@ -229,7 +231,7 @@
                 { "systemid", "1" }, { "externalid", "2" }, { "custid", 3 },
                 { "cashoutvalueeur", 10m }, { "buybackamountSBeur", 10.5m }, { "buybackamountBAeur", 11m },
                 { "ticketpayouteur", 11.5m }, { "cashoutcommeur", 12m }, { "AmountDue_TicketPayouteur", 13m },
-                { "AmountDue_Commeur", 14m }, { "Amount_Totaleur", 15m }, { "currencyid", 1 }, { "currencyname", "USD" },
+                { "AmountDue_Commeur", 14m }, { "Amount_Totaleur", 15m }, { "currencyid", CurrencyId }, { "currencyname", CurrencyName },
                 { "cashouttime", 2 }, { "cashoutticket", 3 }, { "reporttype", "20170417" },
                 { "cashoutvalueEUR", 10m }, { "buybackamountSBEUR", 10.5m }, { "buybackamountBAEUR", 11m },
                 { "ticketpayoutEUR", 11.5m }, { "cashoutcommEUR", 12m }, { "AmountDue_TicketPayoutEUR", 13m },
@@ -254,8 +256,8 @@
                     SystemId = "1",
                     ExternalId = "2",
                     CustomerId = 3,
-                    CurrencyId = 1,
-                    CurrencyName = "USD",
+                    CurrencyId = CurrencyId,
+                    CurrencyName = CurrencyName,
                     CashOutTimes = 2,
                     CashOutValue = 10m,
                     CashOutTickets = 3,

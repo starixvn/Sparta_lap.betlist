@@ -7,6 +7,7 @@
     using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using Session.Model;
     using UnitTest.Common.Helpers;
 
     public class ApiBetListBaseControllerTest : ApiBetListBaseControllerHelperTest
@@ -84,7 +85,7 @@
                 CacheRefAdapter,
                 BetListHTMLBuilder);
 
-            StubLicenseeSessionData(new Model.Core.DTO.Users.LicenseeSession { LicenseeId = SessionLicenseeId });
+            StubLicenseeSessionData(new LicenseeSession { LicenseeId = SessionLicenseeId });
         }
 
         [OneTimeTearDown]

@@ -5,10 +5,10 @@
     using Casino.Interfaces;
     using DataAccess.Customer.Interfaces;
     using Model.Core.DTO.Common;
-    using Model.Core.DTO.Users;
     using Model.Customer.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using Session.Model;
 
     [TestFixture]
     public class GroupComServiceTest

@@ -12,13 +12,14 @@
     using Model.Core.MetaModel.Common;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public partial class ExchangeCommApiServiceTest
     {
-        private const int LicenseeId = 1;
-        private const int CustId = 2;
-        private const int UserId = 4;
+        private readonly int _licenseeId = FakeHelper.Create<int>();
+        private readonly int _custId = FakeHelper.Create<int>();
+        private readonly int _userId = FakeHelper.Create<int>();
 
         private IAuthorizationService _authorizationService;
         private ILogger _logger;
@@ -56,10 +57,10 @@
         public void GetCommission_NotHavePerrmissonOnData_ReturnFailedResult()
         {
             // Arrange
-            _authorizationService.HasPermissionOnData(0, 0, 0).ReturnsForAnyArgs(false);
+            _authorizationService.HasPermissionOnData(_licenseeId, _custId, 0).ReturnsForAnyArgs(false);
 
             // Action
-            var result = _service.GetCommission(0, 0);
+            var result = _service.GetCommission(_licenseeId, _custId);
 
             // Assert
             Assert.Multiple(() =>
@@ -75,23 +76,23 @@
         public void GetCommission_HavePerrmissonOnData_ReturnCorrectResult(int returnStatus, bool isSuccess)
         {
             // Arrange
-            const double ExpectedComm = 999;
-            _authorizationService.HasPermissionOnData(LicenseeId, CustId, 0).Returns(true);
-            _apiClient.getProfile(CustId, Enviro.PRD).Returns(new GetProfile
+            var expectedComm = FakeHelper.Create<double>();
+            _authorizationService.HasPermissionOnData(_licenseeId, _custId, 0).Returns(true);
+            _apiClient.getProfile(_custId, Enviro.PRD).Returns(new GetProfile
             {
                 status = (CitiStatus)returnStatus,
-                commission = (decimal)ExpectedComm
+                commission = (decimal)expectedComm
             });
 
             // Action
-            var result = _service.GetCommission(LicenseeId, CustId);
+            var result = _service.GetCommission(_licenseeId, _custId);
 
             // Assert
             Assert.Multiple(() =>
             {
                 Assert.That(result.IsSuccessful, Is.EqualTo(isSuccess));
-                Assert.That(result.ExtendedData, Is.EqualTo(ExpectedComm));
-                _apiClient.Received(1).getProfile(CustId, Enviro.PRD);
+                Assert.That(result.ExtendedData, Is.EqualTo(expectedComm));
+                _apiClient.Received(1).getProfile(_custId, Enviro.PRD);
             });
         }
 
@@ -99,17 +100,17 @@
         public void GetCommission_ApiThrowException_LogAndReturnFailedResult()
         {
             // Arrange
-            const string ErrorMsg = "something wrong";
-            _authorizationService.HasPermissionOnData(0, 0, 0).ReturnsForAnyArgs(true);
-            _apiClient.getProfile(0, Enviro.PRD).ReturnsForAnyArgs(x => { throw new Exception(ErrorMsg); });
+            var errorMsg = FakeHelper.Create<string>();
+            _authorizationService.HasPermissionOnData(_licenseeId, _custId, 0).ReturnsForAnyArgs(true);
+            _apiClient.getProfile(0, Enviro.PRD).ReturnsForAnyArgs(x => { throw new Exception(errorMsg); });
 
             // Action
-            var result = _service.GetCommission(0, 0);
+            var result = _service.GetCommission(_licenseeId, _custId);
 
             // Assert
             Assert.Multiple(() =>
             {
-                _logger.Received(1).Error("Exchange Api getProfile (custid: 0): " + ErrorMsg);
+                _logger.Received(1).Error($"Exchange Api getProfile (custid: {_custId}): " + errorMsg);
                 Assert.That(result.IsSuccessful, Is.False);
             });
         }
@@ -118,10 +119,10 @@
         public void UpdateCommission_NotHavePerrmissonOnData_ReturnFailedResult()
         {
             // Arrange
-            _authorizationService.HasPermissionOnData(0, 0, 0).ReturnsForAnyArgs(false);
+            _authorizationService.HasPermissionOnData(_licenseeId, _custId, 0).ReturnsForAnyArgs(false);
 
             // Action
-            var result = _service.UpdateCommission(0, 0, 0, 0, 0);
+            var result = _service.UpdateCommission(_licenseeId, _userId, _custId, 0, 0);
 
             // Assert
             Assert.Multiple(() =>
@@ -136,11 +137,11 @@
         public void UpdateCommission_StatusIsNotEnable_ReturnFailedResult(bool? isEnable)
         {
             // Arrange
-            _authorizationService.HasPermissionOnData(0, 0, 0).ReturnsForAnyArgs(true);
+            _authorizationService.HasPermissionOnData(_licenseeId, _custId, 0).ReturnsForAnyArgs(true);
             _betSettingDataAccess.GetStatus(0, 0).ReturnsForAnyArgs(isEnable);
 
             // Action
-            var result = _service.UpdateCommission(0, 0, 0, 0, 0);
+            var result = _service.UpdateCommission(_licenseeId, _userId, _custId, 0, 0);
 
             // Assert
             Assert.Multiple(() =>
@@ -156,24 +157,24 @@
         public void UpdateCommission_HavePerrmissonOnData_ReturnCorrectResult(int returnStatus, bool isSuccess)
         {
             // Arrange
-            const double ExpectedComm = 999;
-            _authorizationService.HasPermissionOnData(LicenseeId, CustId, 0).Returns(true);
-            _betSettingDataAccess.GetStatus(CustId, ProductTypes.Exchange).Returns(true);
-            _apiClient.updateCommission(CustId, ExpectedComm, Enviro.PRD).Returns(new CommissionInfo
+            var expectedComm = FakeHelper.Create<double>();
+            _authorizationService.HasPermissionOnData(_licenseeId, _custId, 0).Returns(true);
+            _betSettingDataAccess.GetStatus(_custId, ProductTypes.Exchange).Returns(true);
+            _apiClient.updateCommission(_custId, expectedComm, Enviro.PRD).Returns(new CommissionInfo
             {
                 status = (CitiStatus)returnStatus,
-                commission = ExpectedComm
+                commission = expectedComm
             });
 
             // Action
-            var result = _service.UpdateCommission(LicenseeId, UserId, CustId, 0, ExpectedComm);
+            var result = _service.UpdateCommission(_licenseeId, _userId, _custId, 0, expectedComm);
 
             // Assert
             Assert.Multiple(() =>
             {
                 Assert.That(result.IsSuccessful, Is.EqualTo(isSuccess));
-                Assert.That(result.ExtendedData, Is.EqualTo(ExpectedComm));
-                _apiClient.Received(1).updateCommission(CustId, ExpectedComm, Enviro.PRD);
+                Assert.That(result.ExtendedData, Is.EqualTo(expectedComm));
+                _apiClient.Received(1).updateCommission(_custId, expectedComm, Enviro.PRD);
             });
         }
 
@@ -181,18 +182,18 @@
         public void UpdateCommission_ApiThrowException_LogAndReturnFailedResult()
         {
             // Arrange
-            const string ErrorMsg = "something wrong";
-            _authorizationService.HasPermissionOnData(0, 0, 0).ReturnsForAnyArgs(true);
-            _betSettingDataAccess.GetStatus(0, 0).ReturnsForAnyArgs(true);
-            _apiClient.updateCommission(0, 0, Enviro.PRD).ReturnsForAnyArgs(x => { throw new Exception(ErrorMsg); });
+            var errorMsg = FakeHelper.Create<string>();
+            _authorizationService.HasPermissionOnData(_licenseeId, _custId, 0).ReturnsForAnyArgs(true);
+            _betSettingDataAccess.GetStatus(_custId, ProductTypes.Exchange).ReturnsForAnyArgs(true);
+            _apiClient.updateCommission(_custId, 0, Enviro.PRD).ReturnsForAnyArgs(x => { throw new Exception(errorMsg); });
 
             // Action
-            var result = _service.UpdateCommission(0, 0, 0, 0, 0);
+            var result = _service.UpdateCommission(_licenseeId, _userId, _custId, 0, 0);
 
             // Assert
             Assert.Multiple(() =>
             {
-                _logger.Received(1).Error("Exchange Api updateCommission: " + ErrorMsg);
+                _logger.Received(1).Error("Exchange Api updateCommission: " + errorMsg);
                 Assert.That(result.IsSuccessful, Is.False);
             });
         }
@@ -201,22 +202,22 @@
         public void UpdateCommission_CallApiSuccess_CallWriteLogRunSP()
         {
             // Arrange
-            const double OldComm = 2.5;
-            const double NewComm = 5.5;
-            _authorizationService.HasPermissionOnData(0, 0, 0).ReturnsForAnyArgs(true);
-            _betSettingDataAccess.GetStatus(0, 0).ReturnsForAnyArgs(true);
+            var oldComm = FakeHelper.Create<double>();
+            var newComm = FakeHelper.Create<double>();
+            _authorizationService.HasPermissionOnData(_licenseeId, _custId, 0).ReturnsForAnyArgs(true);
+            _betSettingDataAccess.GetStatus(_custId, ProductTypes.Exchange).ReturnsForAnyArgs(true);
 
             // Action
-            var result = _service.UpdateCommission(LicenseeId, UserId, CustId, OldComm, NewComm);
+            var result = _service.UpdateCommission(_licenseeId, _userId, _custId, oldComm, newComm);
 
             // Assert
             Assert.Multiple(() =>
             {
                 _userLogDataAccess.Received(1).WriteLog(Arg.Is<UserLogMetaModel>(x =>
                     x.ActionID == UserLogAction.ExchangeCommission &&
-                    x.UserId == UserId &&
-                    x.CustID == CustId &&
-                    x.Doing == $"<ChargeCommission OldValue='{OldComm}' NewValue='{NewComm}' />"));
+                    x.UserId == _userId &&
+                    x.CustID == _custId &&
+                    x.Doing == $"<ChargeCommission OldValue='{oldComm}' NewValue='{newComm}' />"));
             });
         }
     }

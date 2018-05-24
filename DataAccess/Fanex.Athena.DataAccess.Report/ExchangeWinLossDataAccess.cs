@@ -13,9 +13,19 @@
     using Model.Core.ResultModel;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
+    using Session.Interfaces;
 
     public class ExchangeWinLossDataAccess : BaseDataAccess, IExchangeWinLossDataAccess
     {
+        public ExchangeWinLossDataAccess() : this(null)
+        {
+        }
+
+        public ExchangeWinLossDataAccess(ISessionStorage sessionStorage)
+            : base(null, sessionStorage)
+        {
+        }
+
         public ReportResultModel<ExchangeWinLoss> GetMainWinloss(ExchangeWinLossMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_ExchangeWinloss";
@@ -142,11 +152,12 @@
 
             while (reader.Read())
             {
+                var currencyId = reader.ToInt("CurrencyID");
                 var item = new ExchangeWinLoss
                 {
                     Date = hasWinlostdate ? reader.ToDateTime("Winlostdate") : metaModel.ToDate,
-                    CurrencyName = reader.ToString("CurrencyName"),
-                    CurrencyId = reader.ToInt("CurrencyID"),
+                    CurrencyName = GetCurrencyName(currencyId),
+                    CurrencyId = currencyId,
                     ExternalId = hasExternalId ? reader.ToString("nickname") : string.Empty,
                     SystemId = hasSystemId ? reader.ToString("username") : string.Empty,
                     CustId = hasCustomerId ? reader.ToInt("CustID") : 0,

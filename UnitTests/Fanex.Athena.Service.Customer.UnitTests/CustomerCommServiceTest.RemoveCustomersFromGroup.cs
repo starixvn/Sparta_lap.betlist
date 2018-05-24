@@ -5,6 +5,7 @@
     using Model.Customer.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using Session.Model;
 
     [TestFixture]
     public partial class CustomerCommServiceTest

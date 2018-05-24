@@ -5,16 +5,23 @@
     using Casino;
     using Casino.Wrappers;
     using Core.Exception;
+    using Core.Utility.Interfaces;
     using Fanex.Athena.Model.Casino.MetaModel.ApiInputParameter;
+    using Model.BetSettings.DTO.RngCasino;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class CasinoSettingServiceTest
     {
+        private const string CasinoNoDeposit = "01";
+
         private ICustomerApiWrapper _customerApiWrapper;
 
         private IBasicInfoApiWrapper _basicInfoApiWrapper;
+
+        private ICoreLogger _logger;
 
         private CasinoSettingService _casinoSettingService;
 
@@ -23,8 +30,12 @@
         {
             _customerApiWrapper = Substitute.For<ICustomerApiWrapper>();
             _basicInfoApiWrapper = Substitute.For<IBasicInfoApiWrapper>();
+            _logger = Substitute.For<ICoreLogger>();
 
-            _casinoSettingService = new CasinoSettingService(_customerApiWrapper, _basicInfoApiWrapper);
+            _casinoSettingService = new CasinoSettingService(
+                _logger,
+                _customerApiWrapper,
+                _basicInfoApiWrapper);
         }
 
         [TearDown]
@@ -34,26 +45,78 @@
         }
 
         [Test]
-        public void GetRngCasinoSettings_WhenCall_ReturnCorrectData()
+        public void GetRngCasinoSettings_GetGameKind_ReturnCorrectData()
         {
             // Arrange
-            const int CustId = 1;
-            const int CurrencyId = 1;
-            const string Language = "Hehe";
-            const int GameKindId = 111;
-            const int GameTypeId = 222;
-            const int StakeLevelId = 333;
-            MockServices(CustId, CurrencyId, GameKindId, GameTypeId, StakeLevelId);
+            var custId = FakeHelper.Create<int>();
+            var currencyId = FakeHelper.Create<int>();
+            const string Language = "En";
+
+            var gameKind = SetUpForGetGameKind();
+            var gameType = SetUpForGetGameType(gameKind.GameKindId, custId, currencyId);
+            SetUpForGetCustStakeLevel(custId, gameType.GameTypeId);
 
             // Action
-            var result = _casinoSettingService.GetRngCasinoSettings(CustId, CurrencyId, Language);
+            var result = _casinoSettingService.GetRngCasinoSettings(custId, currencyId, Language);
+
+            // Assert
+            Assert.That(result[0].GameKindId, Is.EqualTo(gameKind.GameKindId));
+        }
+
+        [Test]
+        public void GetRngCasinoSettings_GetGameType_ReturnCorrectData()
+        {
+            // Arrange
+            var custId = FakeHelper.Create<int>();
+            var currencyId = FakeHelper.Create<int>();
+            const string Language = "En";
+
+            var gameKind = SetUpForGetGameKind();
+            var gameType = SetUpForGetGameType(gameKind.GameKindId, custId, currencyId);
+            SetUpForGetCustStakeLevel(custId, gameType.GameTypeId);
+
+            // Action
+            var result = _casinoSettingService.GetRngCasinoSettings(custId, currencyId, Language);
+
+            // Assert
+            Assert.That(result[0].GameTypeList[0].GameTypeId, Is.EqualTo(gameType.GameTypeId));
+        }
+
+        [Test]
+        public void GetRngCasinoSettings_GetCustStakeLevel_ReturnCorrectData()
+        {
+            // Arrange
+            var custId = FakeHelper.Create<int>();
+            var currencyId = FakeHelper.Create<int>();
+            const string Language = "En";
+
+            var gameKind = SetUpForGetGameKind();
+            var gameType = SetUpForGetGameType(gameKind.GameKindId, custId, currencyId);
+            var stakeLevel = SetUpForGetCustStakeLevel(custId, gameType.GameTypeId);
+
+            // Action
+            var result = _casinoSettingService.GetRngCasinoSettings(custId, currencyId, Language);
+
+            // Assert
+            Assert.That(result[0].GameTypeList[0].StakeLevelList[0].StakeLevelId, Is.EqualTo(stakeLevel.StakeLevelId));
+        }
+
+        [Test]
+        public void GetRngCasinoSettings_GetErrorWhileProcess_ReturnEmptyDataAndWriteErrorLog()
+        {
+            // Arrange
+            var custId = FakeHelper.Create<int>();
+            var currencyId = FakeHelper.Create<int>();
+            const string Language = "En";
+
+            // Action
+            var result = _casinoSettingService.GetRngCasinoSettings(custId, currencyId, Language);
 
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(result[0].GameKindId, Is.EqualTo(GameKindId));
-                Assert.That(result[0].GameTypeList[0].GameTypeId, Is.EqualTo(GameTypeId));
-                Assert.That(result[0].GameTypeList[0].StakeLevelList[0].StakeLevelId, Is.EqualTo(StakeLevelId));
+                Assert.That(result, Is.Empty);
+                _logger.Received().Error(Arg.Any<Exception>());
             });
         }
 
@@ -62,6 +125,8 @@
         public void UpdateSetting_WhenCall_ReturnCorrectData(bool hasRows, bool expectedResult)
         {
             // Arrange
+            var param = new DataTable();
+
             var table = new DataTable();
             table.Columns.Add("test", typeof(int));
             if (hasRows)
@@ -69,15 +134,15 @@
                 table.Rows.Add(0);
             }
 
-            _customerApiWrapper.UpdateCustGameTypeStakeLevel(null).ReturnsForAnyArgs(table);
+            _customerApiWrapper.UpdateCustGameTypeStakeLevel(param).ReturnsForAnyArgs(table);
 
             // Action
-            var result = _casinoSettingService.UpdateSetting(null);
+            var result = _casinoSettingService.UpdateSetting(param);
 
             // Assert
             Assert.Multiple(() =>
             {
-                _customerApiWrapper.ReceivedWithAnyArgs().UpdateCustGameTypeStakeLevel(null);
+                _customerApiWrapper.ReceivedWithAnyArgs().UpdateCustGameTypeStakeLevel(param);
                 Assert.That(result, Is.EqualTo(expectedResult));
             });
         }
@@ -98,32 +163,62 @@
             Assert.Throws<ServiceException>(result);
         }
 
-        private void MockServices(int custId, int currencyId, int gameKindId, int gameTypeId, int stakeLevelId)
+        private GameKind SetUpForGetGameKind()
         {
+            var data = new GameKind
+            {
+                GameKindId = FakeHelper.Create<int>(),
+                GameKindName = FakeHelper.Create<string>()
+            };
+
             var gameKindTable = new DataTable();
             gameKindTable.Columns.Add("CodeId", typeof(int));
             gameKindTable.Columns.Add("CodeName_En", typeof(string));
-            gameKindTable.Rows.Add(gameKindId, string.Empty);
-            _basicInfoApiWrapper.GetGameKind(null).ReturnsForAnyArgs(gameKindTable);
+            gameKindTable.Rows.Add(data.GameKindId, data.GameKindName);
+
+            _basicInfoApiWrapper.GetGameKind(CasinoNoDeposit).Returns(gameKindTable);
+
+            return data;
+        }
+
+        private GameType SetUpForGetGameType(int gameKind, int custId, int currency)
+        {
+            var data = new GameType
+            {
+                GameTypeId = FakeHelper.Create<int>(),
+                GameTypeName = FakeHelper.Create<string>()
+            };
 
             var gameTypeTable = new DataTable();
-            var gameTypeInput = new GetGameTypeMetalModel
-            {
-                GameKind = gameKindId,
-                SbCustID = custId,
-                SbExchangeID = currencyId
-            };
             gameTypeTable.Columns.Add("GameTypeId", typeof(int));
             gameTypeTable.Columns.Add("GameTypeName_En", typeof(string));
-            gameTypeTable.Rows.Add(gameTypeId, string.Empty);
-            _basicInfoApiWrapper.GetGameType(gameTypeInput).ReturnsForAnyArgs(gameTypeTable);
+            gameTypeTable.Rows.Add(data.GameTypeId, data.GameTypeName);
+
+            _basicInfoApiWrapper.GetGameType(
+                Arg.Is<GetGameTypeMetalModel>(x => x.GameKind == gameKind && x.SbCustID == custId && x.SbExchangeID == currency))
+            .Returns(gameTypeTable);
+
+            return data;
+        }
+
+        private StakeLevel SetUpForGetCustStakeLevel(int custId, int gameTypeId)
+        {
+            var data = new StakeLevel
+            {
+                StakeLevelId = FakeHelper.Create<int>(),
+                StakeLevelName = FakeHelper.Create<string>(),
+                IsCheck = FakeHelper.Create<bool>()
+            };
 
             var stakeLevelTable = new DataTable();
             stakeLevelTable.Columns.Add("StakeLevelID", typeof(int));
             stakeLevelTable.Columns.Add("StakeLevelName", typeof(string));
             stakeLevelTable.Columns.Add("IsChecked", typeof(bool));
-            stakeLevelTable.Rows.Add(stakeLevelId, string.Empty, false);
-            _customerApiWrapper.GetCustStakeLevel(custId, gameTypeId).ReturnsForAnyArgs(stakeLevelTable);
+            stakeLevelTable.Rows.Add(data.StakeLevelId, data.StakeLevelName, data.IsCheck);
+
+            _customerApiWrapper.GetCustStakeLevel(custId, gameTypeId).Returns(stakeLevelTable);
+
+            return data;
         }
     }
 }

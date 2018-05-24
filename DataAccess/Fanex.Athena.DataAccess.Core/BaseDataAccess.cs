@@ -7,23 +7,31 @@
 namespace Fanex.Athena.DataAccess.Core
 {
     using System;
+    using System.Collections.Generic;
     using System.Data;
     using System.Linq;
     using Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Common;
     using Fanex.Data;
+    using Session;
+    using Session.Interfaces;
 
     public class BaseDataAccess
     {
         private readonly IAppSettings _appSetting;
 
-        public BaseDataAccess() : this(null)
+        private readonly ISessionStorage _sessionStorage;
+
+        private IDictionary<int, string> _currencyList;
+
+        public BaseDataAccess() : this(null, null)
         {
         }
 
-        public BaseDataAccess(IAppSettings appSetting)
+        public BaseDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
         {
+            _sessionStorage = sessionStorage ?? new SessionStorage();
             _appSetting = appSetting ?? new AppSettings();
         }
 
@@ -48,6 +56,21 @@ namespace Fanex.Athena.DataAccess.Core
             var result = new ResultInfo<T>();
             AssignResult(db, result);
             return result;
+        }
+
+        protected string GetCurrencyName(int currencyId)
+        {
+            if (_currencyList == null)
+            {
+                _currencyList = _sessionStorage.UserSession.CurrencyList;
+            }
+
+            if (_currencyList.ContainsKey(currencyId))
+            {
+                return _currencyList[currencyId];
+            }
+
+            return currencyId.ToString();
         }
 
         [CLSCompliant(false)]

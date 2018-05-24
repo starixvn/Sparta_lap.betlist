@@ -2,23 +2,24 @@
 {
     using System;
     using System.IO;
-    using System.Security.Principal;
     using System.Web;
-    using System.Web.SessionState;
     using Core.Users;
     using Core.Users.Interfaces;
     using Core.Utility.Interfaces;
     using Extension.Utility;
     using Extension.Utility.Interfaces;
     using Logging;
-    using Model.Core.DTO.Common;
-    using Model.Core.DTO.Users;
+    using Model.Core.MetaModel.Authorization;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class SSOServiceTest
     {
+        private const string FakeSSOUnAuthorizePath = "deniedPath?code={0}";
+        private const string FakeSSOKeyPath = "keypath";
+
         private IHttpContextService _httpContextService;
         private IAuthService _authService;
         private ISessionService _sessionService;
@@ -31,7 +32,6 @@
         [SetUp]
         public void SetUp()
         {
-            MockHttpContext();
             _httpContextService = Substitute.ForPartsOf<HttpContextService>();
             _authService = Substitute.For<IAuthService>();
             _sessionService = Substitute.For<ISessionService>();
@@ -39,19 +39,8 @@
             _fileSystem = Substitute.For<IFileSystem>();
             _formsAuthenticationService = Substitute.For<IFormsAuthenticationService>();
             _logger = Substitute.For<ILogger>();
-            var appSetting = Substitute.For<IAppSettings>();
-            appSetting.GetValue("SSOUnAuthorizePath").Returns("deniedPath?code={0}");
-            appSetting.GetValue("SSOKeyPath").Returns("keypath");
 
-            _ssoService = Substitute.ForPartsOf<SSOService>(
-                _httpContextService,
-                _authService,
-                _sessionService,
-                _rsaEncryptor,
-                _fileSystem,
-                _formsAuthenticationService,
-                _logger,
-                appSetting);
+            _ssoService = CreateSSOService();
 
             _httpContextService.When(x => x.Redirect(Arg.Any<string>())).DoNotCallBase();
             _fileSystem.Exists(Arg.Any<string>()).Returns(true);
@@ -68,12 +57,125 @@
             _ssoService = null;
         }
 
+        private SSOService CreateSSOService(string ssoKeyPath = FakeSSOKeyPath)
+        {
+            var appSetting = Substitute.For<IAppSettings>();
+            appSetting.GetValue("SSOUnAuthorizePath").Returns(FakeSSOUnAuthorizePath);
+            appSetting.GetValue("SSOKeyPath").Returns(ssoKeyPath);
+
+            return Substitute.ForPartsOf<SSOService>(
+                _httpContextService,
+                _authService,
+                _sessionService,
+                _rsaEncryptor,
+                _fileSystem,
+                _formsAuthenticationService,
+                _logger,
+                appSetting);
+        }
+
         [Test]
-        public void SSO_EmptyPassword_RedirectToErrorPage()
+        public void SSO_SSOKeyPathIsNotExists_RedirectToErrorPage()
         {
             // Arrange
-            _rsaEncryptor.DecryptString(Arg.Any<string>(), Arg.Any<int>(), Arg.Any<string>())
-                .Returns("licname=spondemo&username=user1");
+            var service = CreateSSOService(null);
+
+            // Action
+            service.SSO();
+
+            // Assert
+            _httpContextService.Received().Redirect("~/deniedPath?code=2");
+        }
+
+        [Test]
+        public void SSO_RequestKeyIsInvalid_RedirectErrorPage()
+        {
+            // Arrange
+            var requestKey = string.Empty;
+            var privateKeyPath = FakeHelper.Create<string>();
+
+            var context = CreateHttpContext(requestKey);
+            HttpContext.Current = context;
+
+            _httpContextService.MapPath(Arg.Any<string>()).Returns(privateKeyPath);
+            _fileSystem.Exists(Arg.Any<string>()).Returns(true);
+
+            var metaModel = new SsoMetaModel
+            {
+                UserName = string.Empty,
+                LicenseeName = FakeHelper.Create<string>(),
+                Password = FakeHelper.Create<string>(),
+                LoginUrl = FakeHelper.Create<string>()
+            };
+
+            var decryptedQueryString = BuildQueryString(metaModel);
+            _rsaEncryptor.DecryptString(Arg.Any<string>(), Arg.Any<int>(), Arg.Any<string>()).Returns(decryptedQueryString);
+
+            // Action
+            _ssoService.SSO();
+
+            // Assert
+            _httpContextService.Received(2).Redirect("~/deniedPath?code=1");
+        }
+
+        [Test]
+        public void SSO_PrivateKeyPathIsInvalid_RedirectErrorPage()
+        {
+            // Arrange
+            var requestKey = FakeHelper.Create<string>();
+            var privateKeyPath = string.Empty;
+
+            var context = CreateHttpContext(requestKey);
+            HttpContext.Current = context;
+
+            _httpContextService.MapPath(Arg.Any<string>()).Returns(privateKeyPath);
+            _fileSystem.Exists(Arg.Any<string>()).Returns(false);
+
+            var metaModel = new SsoMetaModel
+            {
+                UserName = string.Empty,
+                LicenseeName = FakeHelper.Create<string>(),
+                Password = FakeHelper.Create<string>(),
+                LoginUrl = FakeHelper.Create<string>()
+            };
+
+            var decryptedQueryString = BuildQueryString(metaModel);
+            _rsaEncryptor.DecryptString(Arg.Any<string>(), Arg.Any<int>(), Arg.Any<string>()).Returns(decryptedQueryString);
+
+            // Action
+            _ssoService.SSO();
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                _httpContextService.Received(1).Redirect("~/deniedPath?code=1");
+                _httpContextService.Received(1).Redirect("~/deniedPath?code=2");
+            });
+        }
+
+        [Test]
+        public void SSO_RequestedUserNameIsEmpty_RedirectErrorPage()
+        {
+            // Arrange
+            var requestKey = FakeHelper.Create<string>();
+            var privateKeyPath = FakeHelper.Create<string>();
+
+            var context = CreateHttpContext(requestKey);
+            HttpContext.Current = context;
+
+            _httpContextService.MapPath(Arg.Any<string>()).Returns(privateKeyPath);
+            _fileSystem.Exists(Arg.Any<string>()).Returns(true);
+
+            var metaModel = new SsoMetaModel
+            {
+                UserName = string.Empty,
+                LicenseeName = FakeHelper.Create<string>(),
+                Password = FakeHelper.Create<string>(),
+                LoginUrl = FakeHelper.Create<string>()
+            };
+
+            var decryptedQueryString = BuildQueryString(metaModel);
+            _rsaEncryptor.DecryptString(Arg.Any<string>(), Arg.Any<int>(), Arg.Any<string>()).Returns(decryptedQueryString);
 
             // Action
             _ssoService.SSO();
@@ -83,134 +185,45 @@
         }
 
         [Test]
-        public void SSO_WhenCall_RelevantMethodCalled()
+        public void SSO_RequestedPasswordIsEmpty_RedirectErrorPage()
         {
             // Arrange
-            var timeSpan = DateTime.Now.Ticks;
-            var decryptedQueryString = "licname=spondemo&username=user1&pwd=123&loginurl=null&lang=en-US&timestamp=" + timeSpan;
-            _rsaEncryptor.DecryptString(Arg.Any<string>(), Arg.Any<int>(), Arg.Any<string>()).Returns(decryptedQueryString);
-            var onuserId = 12345;
-            _authService.ValidateInternalUser(Arg.Any<User>(), "spondemo", timeSpan)
-                .Returns(new ResultInfo<User>
-                {
-                    ExtendedData = new User
-                    {
-                        Username = "user1",
-                        UserID = 1,
-                        ServerId = 999,
-                        Licensee = new Licensee
-                        {
-                            Id = 2
-                        }
-                    }
-                });
-            _authService.LoginOnUser(Arg.Any<User>(), HttpContext.Current.Session.SessionID, 999, HttpContext.Current.Request.UserHostAddress)
-                .Returns(onuserId);
+            var requestKey = FakeHelper.Create<string>();
+            var privateKeyPath = FakeHelper.Create<string>();
 
-            // Action
-            _ssoService.SSO();
+            var context = CreateHttpContext(requestKey);
+            HttpContext.Current = context;
 
-            // Assert
-            _sessionService.Received().CreateNewSession(1, onuserId, "user1", true, 2, "en-US", viewType: Model.Core.DataDomain.ClientViewType.Default);
-            _formsAuthenticationService.Received().SetAuthCookie("spondemo_user1", Arg.Any<bool>());
-        }
+            _httpContextService.MapPath(Arg.Any<string>()).Returns(privateKeyPath);
+            _fileSystem.Exists(Arg.Any<string>()).Returns(true);
 
-        [Test]
-        public void SSO_LoginFailed_CallReleventMethods()
-        {
-            // Arrange
-            const int TimeSpan = 1234;
-            var decryptedQueryString = "licname=spondemo&username=user1&pwd=123&loginurl=null&lang=en-US&timestamp=" + TimeSpan;
-            _rsaEncryptor.DecryptString(Arg.Any<string>(), Arg.Any<int>(), Arg.Any<string>()).Returns(decryptedQueryString);
-            var resultInfo = new ResultInfo<User>
+            var metaModel = new SsoMetaModel
             {
-                Code = 1,
-                Message = "Fail",
-                ExtendedData = new User()
+                UserName = FakeHelper.Create<string>(),
+                LicenseeName = FakeHelper.Create<string>(),
+                Password = string.Empty,
+                LoginUrl = FakeHelper.Create<string>()
             };
-            _authService.ValidateInternalUser(Arg.Any<User>(), "spondemo", TimeSpan).Returns(resultInfo);
-            var expectedMessage = "Internal login failed." +
-                                "\r\nCode: " + resultInfo.Code +
-                                "\r\nMessage: " + resultInfo.Message +
-                                "\r\nExtendedData: " +
-                                "\r\nLicensee: spondemo" +
-                                 "\r\nUserName: user1" +
-                                 "\r\nTimeSpan: 1234" +
-                                 "\r\nSiteOutUrl: null" +
-                                 "\r\nLanguageCode: en-US";
+
+            var decryptedQueryString = BuildQueryString(metaModel);
+            _rsaEncryptor.DecryptString(Arg.Any<string>(), Arg.Any<int>(), Arg.Any<string>()).Returns(decryptedQueryString);
 
             // Action
             _ssoService.SSO();
 
             // Assert
-            _logger.Received(1).Info(expectedMessage);
             _httpContextService.Received(1).Redirect("~/deniedPath?code=1");
         }
 
-        [Test]
-        public void SSO_UserIsAuthenticatedButNotMatchWithCurrentUserName_SetAuthCookieIsNotCalled()
+        private string BuildQueryString(SsoMetaModel model)
+        => $"licname={model.LicenseeName}&username={model.UserName}&pwd={model.Password}&loginurl={model.LoginUrl}&lang={model.LanguageCode}&timestamp="
+            + DateTime.Now.Ticks;
+
+        private HttpContext CreateHttpContext(string requestKey)
         {
-            // Arrange
-            var timeSpan = DateTime.Now.Ticks;
-            var decryptedQueryString = "licname=spondemo&username=user2&pwd=123&loginurl=null&lang=abc&timestamp=" + timeSpan;
-            _rsaEncryptor.DecryptString(Arg.Any<string>(), Arg.Any<int>(), Arg.Any<string>()).Returns(decryptedQueryString);
-
-            var userSession = new UserSession
-            {
-                UserId = 1
-            };
-            _sessionService.UserSession.Returns(userSession);
-
-            var licenseeSession = new LicenseeSession
-            {
-                LicenseeId = 1
-            };
-            _sessionService.LicenseeSession.Returns(licenseeSession);
-
-            var onuserId = 12345;
-            _authService.ValidateInternalUser(Arg.Any<User>(), "spondemo", timeSpan)
-                .Returns(new ResultInfo<User>
-                {
-                    ExtendedData = new User
-                    {
-                        Username = "user1",
-                        UserID = 1,
-                        ServerId = 999,
-                        Licensee = new Licensee
-                        {
-                            Id = 2
-                        }
-                    }
-                });
-            _authService.LoginOnUser(Arg.Any<User>(), HttpContext.Current.Session.SessionID, 999, HttpContext.Current.Request.UserHostAddress)
-                .Returns(onuserId);
-
-            // Action
-            _ssoService.SSO();
-
-            // Assert
-            _formsAuthenticationService.Received(1).SetAuthCookie("spondemo_user2", Arg.Any<bool>());
-        }
-
-        private static void MockHttpContext()
-        {
-            var queryString = "key=123";
-            var request = new HttpRequest(string.Empty, "http://tempuri.org", queryString);
+            var request = new HttpRequest(string.Empty, "http://tempuri.org", "key=" + requestKey);
             var response = new HttpResponse(new StringWriter());
-            var httpContext = new HttpContext(request, response);
-
-            var sessionContainer = new HttpSessionStateContainer(
-                "id",
-                new SessionStateItemCollection(),
-                new HttpStaticObjectsCollection(),
-                10,
-                true,
-                HttpCookieMode.AutoDetect,
-                SessionStateMode.InProc,
-                false);
-            SessionStateUtility.AddHttpSessionStateToContext(httpContext, sessionContainer);
-            httpContext.User = new GenericPrincipal(new GenericIdentity("user1"), new string[0]);
-            HttpContext.Current = httpContext;
+            return new HttpContext(request, response);
         }
     }
 }

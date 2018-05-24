@@ -57,7 +57,8 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             SummaryTotal = new Dictionary<string, ColossusBetWinLoss>
             {
                 ["USD"] = new ColossusBetWinLoss()
-            }
+            },
+            Param = FakeHelper.Create<ThirdPartyWinLossMetaModel>()
         };
 
         [Test]

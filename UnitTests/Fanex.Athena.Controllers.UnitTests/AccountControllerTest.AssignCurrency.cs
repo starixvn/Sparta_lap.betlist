@@ -9,6 +9,7 @@
     using NSubstitute;
     using NUnit.Framework;
     using Resources;
+    using Session.Model;
 
     public partial class AccountControllerTest
     {

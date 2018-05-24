@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Service.Core.UnitTests.Common
 {
     using System.Collections.Generic;
+    using System.Linq;
     using Core.Common;
     using Core.Common.Interfaces;
     using DataAccess.Core.Common.Interfaces;
@@ -9,11 +10,13 @@
     using Model.Core.DTO.Common;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public partial class ProductServiceTest
     {
-        private const int LicenseeId = 1;
+        private readonly int _licenseeId = FakeHelper.Create<int>();
+        private readonly string _languageCode = FakeHelper.Create<string>();
 
         private IAppSettings _appSettings;
         private IProductDataAccess _productDataAccess;
@@ -47,16 +50,13 @@
         public void GetProductList_CacheNotContainsData_ReturnResultFromDataAccess()
         {
             // Arrange
-            var expectedResult = new List<Product>
-            {
-                new Product { ProductID = 1 }
-            };
+            var expectedResult = FakeHelper.CreateMany<Product>(10).ToList();
 
-            _productDataAccess.GetProductAccessList(LicenseeId).Returns(expectedResult);
-            _cache.Get<IList<Product>>(Arg.Any<string>()).Returns((IList<Product>)null);
+            _productDataAccess.GetProductAccessList(_licenseeId).Returns(expectedResult);
+            _cache.Get<IList<Product>>(Arg.Any<string>()).Returns(x => { return null; });
 
             // Action
-            var result = _productService.GetProductList(LicenseeId, Arg.Any<string>());
+            var result = _productService.GetProductList(_licenseeId, _languageCode);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -66,33 +66,14 @@
         public void GetProductList_GetDataFromCache_ReturnCachedData()
         {
             // Arrange
-            var expectedResult = new List<Product>
-            {
-                new Product { ProductID = 1 }
-            };
+            var expectedResult = FakeHelper.CreateMany<Product>(10).ToList();
 
-            _productDataAccess.GetProductAccessList(LicenseeId).Returns(expectedResult);
-            _productService.GetProductList(LicenseeId, Arg.Any<string>());
+            _productDataAccess.GetProductAccessList(_licenseeId).Returns(expectedResult);
+            _productService.GetProductList(_licenseeId, Arg.Any<string>());
             _cache.Get<IList<Product>>(Arg.Any<string>()).Returns(expectedResult);
 
             // Action
-            var result = _productService.GetProductList(LicenseeId, Arg.Any<string>());
-
-            // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
-        }
-
-        [Test]
-        public void GetProductList_GetEmptyListFromDataAccess_ReturnNull()
-        {
-            // Arrange
-            var expectedResult = new List<Product>();
-            _productDataAccess.GetProductAccessList(LicenseeId).Returns(expectedResult);
-            _productService.GetProductList(LicenseeId, Arg.Any<string>());
-            _cache.Get<IList<Product>>(Arg.Any<string>()).Returns(expectedResult);
-
-            // Action
-            var result = _productService.GetProductList(LicenseeId, Arg.Any<string>());
+            var result = _productService.GetProductList(_licenseeId, _languageCode);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));

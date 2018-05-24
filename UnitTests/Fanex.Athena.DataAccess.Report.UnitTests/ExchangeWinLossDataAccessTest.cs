@@ -24,6 +24,11 @@
 
         private IDictionary<string, decimal> _baseCurrencyExchangeRate;
 
+        protected override void SetUpDataAccess()
+        {
+            DataAccess = Substitute.ForPartsOf<ExchangeWinLossDataAccess>(CreateSessionStorage());
+        }
+
         [OneTimeSetUp]
         public override void FixtureSetUp()
         {
@@ -75,10 +80,9 @@
         public void GetMainWinloss_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            Reader.Read().Returns(true, true, false);
+            Reader.Read().Returns(true, false);
 
-            var currencyList = new[] { "USD", "EUR" };
-            var expectedList = CreateExpectedResult(currencyList, DateTime.Today);
+            var expectedList = CreateExpectedResult(DateTime.Today);
             var firstExpected = expectedList.First();
 
             ConfigureReaderForResult(firstExpected, expectedList);
@@ -114,8 +118,7 @@
                 BaseCurrency = "USD"
             };
 
-            var currencyList = new[] { "EUR" };
-            var expectedList = CreateExpectedResult(currencyList, DateTime.Today);
+            var expectedList = CreateExpectedResult(DateTime.Today);
             var firstExpected = expectedList.First();
 
             ConfigureReaderForResult(firstExpected, expectedList);
@@ -163,10 +166,9 @@
         public void GetLicenseeWinloss_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            Reader.Read().Returns(true, true, false);
+            Reader.Read().Returns(true, false);
 
-            var currencyList = new[] { "AUD", "EUR" };
-            var expectedList = CreateExpectedResult(currencyList, DateTime.Today);
+            var expectedList = CreateExpectedResult(DateTime.Today);
             var firstExpected = expectedList.First();
 
             ConfigureReaderForResult(firstExpected, expectedList);
@@ -215,10 +217,9 @@
         public void GetCustomerWinloss_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            Reader.Read().Returns(true, true, false);
+            Reader.Read().Returns(true, false);
 
-            var currencyList = new[] { "AUD", "SSS" };
-            var expectedList = CreateExpectedResult(currencyList, DateTime.Today);
+            var expectedList = CreateExpectedResult(DateTime.Today);
             var firstExpected = expectedList.First();
 
             ConfigureReaderForResult(firstExpected, expectedList);
@@ -240,18 +241,17 @@
             });
         }
 
-        private static List<ExchangeWinLoss> CreateExpectedResult(string[] currencyList, DateTime date)
+        private static List<ExchangeWinLoss> CreateExpectedResult(DateTime date)
         {
             var expectedResult = new List<ExchangeWinLoss>();
-
+            var currencyList = new[] { CurrencyId };
             for (int i = 0; i < currencyList.Count(); i++)
             {
                 expectedResult.Add(
                     new ExchangeWinLoss
                     {
                         Date = date,
-                        CurrencyName = currencyList[i],
-                        CurrencyId = i,
+                        CurrencyId = currencyList[i],
                         ExternalId = "External" + i,
                         SystemId = "System" + i,
                         CustId = i + 1,
@@ -289,7 +289,7 @@
             Assert.That(result.TotalDataList.Count, Is.EqualTo(expectedTotal.Count));
             foreach (var expected in expectedTotal)
             {
-                var actual = result.TotalDataList.FirstOrDefault(x => x.CurrencyName == expected.CurrencyName);
+                var actual = result.TotalDataList.FirstOrDefault(x => x.CurrencyName == CurrencyName);
 
                 AssertCommonResultData(actual, expected);
             }
@@ -322,7 +322,6 @@
         {
             const string DecimalFormat = "G";
 
-            Reader["CurrencyName"].Returns(firstExpected.CurrencyName, expectedList.Select(x => x.CurrencyName).ToArray());
             Reader["CurrencyID"].Returns(firstExpected.CurrencyId.ToString(), expectedList.Select(x => x.CurrencyId.ToString()).ToArray());
             Reader["TotalTrans"].Returns(firstExpected.TotalTransaction.ToString(), expectedList.Select(x => x.TotalTransaction.ToString()).ToArray());
             Reader["TurnOver" + baseCurrency].Returns(
@@ -403,7 +402,7 @@
             var firstItem = result.DataList.First();
 
             Assert.That(firstItem.Date, Is.EqualTo(firstExpected.Date));
-            Assert.That(firstItem.CurrencyName, Is.EqualTo(firstExpected.CurrencyName));
+            Assert.That(firstItem.CurrencyName, Is.EqualTo(CurrencyName));
             Assert.That(firstItem.CurrencyId, Is.EqualTo(firstExpected.CurrencyId));
 
             AssertCommonResultData(firstItem, firstExpected);

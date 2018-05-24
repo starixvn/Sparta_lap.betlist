@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Controllers.BetList.UnitTests
 {
+    using System;
     using System.Web.Mvc;
     using DataAccess.BetList.Interfaces;
     using Model.BetList.MetaModel;
@@ -10,15 +11,16 @@
 
     public class ColossusBetBetListControllerTest : BetListBaseControllerHelperTest
     {
+        private ICoreLogger _logger;
+
         private IColossusBetBetListDataAccess _dataAccess;
 
         private IWebClientService _webClientService;
 
-        [OneTimeSetUp]
-        public override void FixtureSetUp()
+        [SetUp]
+        public void SetUp()
         {
-            base.FixtureSetUp();
-
+            _logger = Substitute.For<ICoreLogger>();
             _dataAccess = Substitute.For<IColossusBetBetListDataAccess>();
             _webClientService = Substitute.For<IWebClientService>();
 
@@ -66,6 +68,28 @@
             }
         }
 
+        [Test]
+        public void Detail_GetTokenThrowException_LogError()
+        {
+            using (var controller = CreateController())
+            {
+                // Arrang
+                var exception = new Exception();
+                var metaModel = new ColossusBetDetailMetaModel();
+
+                var viewModel = new ColossusBetDetailViewModel();
+                _dataAccess.GetData(metaModel).Returns(viewModel);
+
+                _webClientService.When(x => x.DownloadString(Arg.Any<string>())).Throw(exception);
+
+                // Action
+                var result = controller.Detail(metaModel) as ViewResult;
+
+                // Assert
+                _logger.Received(1).Error(exception, Arg.Any<string>());
+            }
+        }
+
         private string SetUpForGetIframeUrl(ColossusBetDetailMetaModel metaModel)
         {
             const int SiteId = 1;
@@ -96,6 +120,7 @@
                 BetListService,
                 BalanceUpDataAccess,
                 CacheRefAdapter,
+                _logger,
                 _webClientService,
                 _dataAccess);
             return controller;

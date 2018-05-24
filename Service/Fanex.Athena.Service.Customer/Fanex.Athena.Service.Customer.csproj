@@ -96,6 +96,10 @@
       <Project>{c25dc4bc-2721-401b-8896-d210d70b392b}</Project>
       <Name>Fanex.Athena.DataAccess.Customer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\Fanex.Athena.Session\Fanex.Athena.Session.csproj">
+      <Project>{B41E38EF-54AD-4866-968F-C856DE9DC072}</Project>
+      <Name>Fanex.Athena.Session</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Model\Fanex.Athena.Model.Casino\Fanex.Athena.Model.Casino.csproj">
       <Project>{840a8298-60ed-40dc-a64e-f9048abd32b5}</Project>
       <Name>Fanex.Athena.Model.Casino</Name>

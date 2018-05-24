@@ -19,6 +19,7 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Model.Core.ResultModel;
+    using Session.Interfaces;
     using VendorAdapter;
     using VendorAdapter.Interfaces;
 
@@ -34,7 +35,11 @@ namespace Fanex.Athena.DataAccess.Report
             _cacheRefAdapter = new CacheRefAdapter();
         }
 
-        public CustomerTurnoverDataAccess(IBalanceUpDataAccess balanceUpDataAccess, ICacheRefAdapter cacheRefAdapter)
+        public CustomerTurnoverDataAccess(
+            ISessionStorage sessionStorage,
+            IBalanceUpDataAccess balanceUpDataAccess, 
+            ICacheRefAdapter cacheRefAdapter)
+            : base(null, sessionStorage)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
             _cacheRefAdapter = cacheRefAdapter;
@@ -52,12 +57,13 @@ namespace Fanex.Athena.DataAccess.Report
                     {
                         var turnover = reader.ToDecimal("Turnover");
                         var sportId = reader.ToInt("sporttype");
+                        var currencyid = reader.ToInt("currencyid");
                         result.Add(new CustTurnover
                         {
                             Index = reader.ToInt("RowNo"),
                             ReportBy = ConvertHelper.ToDateTime(reader.ToString("ReportBy"), metaModel.ReportBy == ReportByType.Monthly),
                             UserName = reader.ToString("username"),
-                            Currency = reader.ToString("currency"),
+                            Currency = GetCurrencyName(currencyid),
                             SportId = sportId,
                             SportType = _cacheRefAdapter.GetSportName(sportId, languageCode),
                             TotalTransactions = reader.ToInt("BetCount"),

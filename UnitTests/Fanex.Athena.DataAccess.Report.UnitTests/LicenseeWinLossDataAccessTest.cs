@@ -39,6 +39,7 @@
             ObjectDb = Substitute.For<IObjectDb>();
             DataAccess = Substitute.ForPartsOf<LicenseeWinLossDataAccess>(
                 Substitute.For<IAppSettings>(),
+                CreateSessionStorage(),
                 balanceUpDataAccess);
 
             var appSetting = Substitute.For<IAppSettings>();

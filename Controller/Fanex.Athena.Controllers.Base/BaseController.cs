@@ -18,6 +18,7 @@ namespace Fanex.Athena.Controllers
     using Service.Core.Common;
     using Service.Core.Helpers;
     using Service.Core.Users;
+    using Session.Enum;
 
     [CustomAuthorize]
     [XFrameOption]

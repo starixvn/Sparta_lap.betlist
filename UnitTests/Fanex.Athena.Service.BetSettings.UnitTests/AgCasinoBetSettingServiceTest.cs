@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Service.BetSettings.UnitTests
 {
     using System;
+    using System.Linq;
     using BetSettings;
     using BetSettings.Interfaces;
     using Core.Users.Interfaces;
@@ -13,15 +14,19 @@
     using NSubstitute;
     using NUnit.Framework;
     using Resources;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class AgCasinoBetSettingServiceTest
     {
+        private const string FakeApiUrl = "http://api.com";
+
         private IAuthorizationService _authorizationService;
         private IAgCasinoBetSettingDataAccess _dataAccess;
         private IAppSettings _appSettings;
         private IWebClientService _webClientService;
         private IAgCasinoBetSettingService _service;
+        private ICoreLogger _logger;   
 
         [OneTimeSetUp]
         public void SetUp()
@@ -30,7 +35,16 @@
             _dataAccess = Substitute.For<IAgCasinoBetSettingDataAccess>();
             _appSettings = Substitute.For<IAppSettings>();
             _webClientService = Substitute.For<IWebClientService>();
-            _service = new AgCasinoBetSettingService(_authorizationService, _dataAccess, _appSettings, _webClientService);
+            _logger = Substitute.For<ICoreLogger>();
+            _service = new AgCasinoBetSettingService(
+                _authorizationService,
+                _logger,
+                _dataAccess,
+                _appSettings,
+                _webClientService);
+
+            const string ApiUrlName = "AGCasinoApiUrl";
+            _appSettings.GetValue(ApiUrlName).Returns(FakeApiUrl);
         }
 
         [OneTimeTearDown]
@@ -47,64 +61,81 @@
         public void GetViewModel_WhenCall_ApiResultRetriviedCorrectly()
         {
             // Arrange
-            var licenseeId = 1;
-            var licenseeName = "spondemo";
-            var custId = 2;
-            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
-            _appSettings.GetValue("AGCasinoApiUrl").Returns("http://api.com");
-            _dataAccess.GetBetSetting(custId).Returns(new AgCasinoBetSetting
+            var licenseeId = FakeHelper.Create<int>();
+            var licenseeName = FakeHelper.Create<string>();
+            var custId = FakeHelper.Create<int>();
+            var gameType = FakeHelper.Create<string>();
+            var groupType = FakeHelper.Create<string>();
+            var group = FakeHelper.Create<string>();
+
+            var fakeSetting = new AgCasinoBetSetting
             {
-                AgGroup = "A",
+                AgGroup = group,
                 CheckedGroups = new[] { "B" }
-            });
-            _webClientService.UploadString(new Uri("http://api.com"), "SiteName=spondemo&Currency=0")
-                .Returns("<Game GameType='1' Name='A'><Group GroupType='AA'><Min>1</Min><Max>100</Max></Group></Game>");
+            };
+
+            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
+            _dataAccess.GetBetSetting(custId).Returns(fakeSetting);
+            _webClientService.UploadString(new Uri(FakeApiUrl), $"SiteName={licenseeName}&Currency=0")
+                .Returns($"<Game GameType='{gameType}' Name='{group}'><Group GroupType='{groupType}'><Min>1</Min><Max>100</Max></Group></Game>");
 
             // Action
             var result = _service.GetViewModel(licenseeId, custId, licenseeName);
 
             // Assert
-            Assert.That(result.Games[0].GameType, Is.EqualTo("1"));
-            Assert.That(result.Games[0].Groups[0].GroupType, Is.EqualTo("AA"));
-            Assert.That(result.BetSetting.CheckedGroups.Length, Is.EqualTo(2));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Games[0].GameType, Is.EqualTo(gameType));
+                Assert.That(result.Games[0].Groups[0].GroupType, Is.EqualTo(groupType));
+                Assert.That(result.BetSetting.CheckedGroups.Contains(group), Is.True);
+            });
         }
 
         [Test]
         public void GetViewModel_CheckGroupsContainAgGroupInSetting_ReturnCorrectViewModel()
         {
             // Arrange
-            var licenseeId = 1;
-            var licenseeName = "spondemo";
-            var custId = 2;
-            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
-            _appSettings.GetValue("AGCasinoApiUrl").Returns("http://api.com");
-            _dataAccess.GetBetSetting(custId).Returns(new AgCasinoBetSetting
+            var licenseeId = FakeHelper.Create<int>();
+            var licenseeName = FakeHelper.Create<string>();
+            var custId = FakeHelper.Create<int>();
+            var gameType = FakeHelper.Create<string>();
+            var groupType = FakeHelper.Create<string>();
+            var group = FakeHelper.Create<string>();
+
+            var fakeSetting = new AgCasinoBetSetting
             {
-                AgGroup = "B",
-                CheckedGroups = new[] { "A", "B", "C" },
+                AgGroup = group,
+                CheckedGroups = new[] { group, "B", "C" },
                 IsEnabled = true
-            });
-            _webClientService.UploadString(new Uri("http://api.com"), "SiteName=spondemo&Currency=0")
-                .Returns("<Game GameType='1' Name='A'><Group GroupType='AA'><Min>1</Min><Max>100</Max></Group></Game>");
+            };
+
+            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
+            _dataAccess.GetBetSetting(custId).Returns(fakeSetting);
+            _webClientService.UploadString(new Uri(FakeApiUrl), $"SiteName={licenseeName}&Currency=0")
+                .Returns($"<Game GameType='{gameType}' Name='{group}'><Group GroupType='{groupType}'><Min>1</Min><Max>100</Max></Group></Game>");
 
             // Action
             var result = _service.GetViewModel(licenseeId, custId, licenseeName);
 
             // Assert
-            Assert.That(result.Games[0].GameType, Is.EqualTo("1"));
-            Assert.That(result.Games[0].Groups[0].GroupType, Is.EqualTo("AA"));
-            Assert.That(result.BetSetting.CheckedGroups.Length, Is.EqualTo(3));
-            Assert.That(result.IsEnabled, Is.True);
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Games[0].GameType, Is.EqualTo(gameType));
+                Assert.That(result.Games[0].Groups[0].GroupType, Is.EqualTo(groupType));
+                Assert.That(result.BetSetting.CheckedGroups.Length, Is.EqualTo(3));
+                Assert.That(result.IsEnabled, Is.True);
+            });
         }
 
         [Test]
         public void GetViewModel_HaveNoPermission_ReturnNull()
         {
             // Arrange
-            var licenseeId = 1;
-            var licenseeName = "spondemo";
-            var custId = 2;
-            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(false);
+            var licenseeId = FakeHelper.Create<int>();
+            var licenseeName = FakeHelper.Create<string>();
+            var custId = FakeHelper.Create<int>();
+
+            _authorizationService.HasPermissionOnData(licenseeId, custId, 0).Returns(false);
 
             // Action
             var result = _service.GetViewModel(licenseeId, custId, licenseeName);
@@ -114,19 +145,36 @@
         }
 
         [Test]
+        public void GetViewModel_GetExceptionWhileProcessing_WriteErrorLog()
+        {
+            // Arrange
+            var licenseeId = FakeHelper.Create<int>();
+            var licenseeName = FakeHelper.Create<string>();
+            var custId = FakeHelper.Create<int>();
+
+            _authorizationService.HasPermissionOnData(licenseeId, custId, 0).Returns(true);
+
+            _dataAccess.GetBetSetting(custId).Returns(FakeHelper.Create<AgCasinoBetSetting>());
+
+            _webClientService.UploadString(new Uri(FakeApiUrl), $"SiteName={licenseeName}&Currency=0")
+                .Returns("Wrong format");
+
+            // Action
+            var result = _service.GetViewModel(licenseeId, custId, licenseeName);
+
+            // Assert
+            _logger.Received().Error(Arg.Any<Exception>());
+        }
+
+        [Test]
         public void UpdateAgCasinoBetSetting_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
-            var expectedResult = new ResultInfo
-            {
-                Code = 999
-            };
-            var group = "A";
-            var setting = new CommonBetSetting
-            {
-                CustId = 2
-            };
-            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
+            var expectedResult = FakeHelper.Create<ResultInfo>();
+            var group = FakeHelper.Create<string>();
+            var setting = new CommonBetSetting { LicenseeId = FakeHelper.Create<int>(), CustId = FakeHelper.Create<int>() };
+
+            _authorizationService.HasPermissionOnData(setting.LicenseeId, setting.CustId, 0).Returns(true);
             _dataAccess.GetBetSetting(setting.CustId).Returns(new AgCasinoBetSetting
             {
                 IsEnabled = true
@@ -149,14 +197,16 @@
                 Code = 1,
                 Message = "Invalid parameter. AG Casino is null"
             };
-            var group = "A";
 
             // Action
-            var result = _service.UpdateAgCasinoBetSetting(null, group);
+            var result = _service.UpdateAgCasinoBetSetting(null, FakeHelper.Create<string>());
 
             // Assert
-            Assert.That(result.Code, Is.EqualTo(expectedResult.Code));
-            Assert.That(result.Message, Is.EqualTo(expectedResult.Message));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Code, Is.EqualTo(expectedResult.Code));
+                Assert.That(result.Message, Is.EqualTo(expectedResult.Message));
+            });
         }
 
         [Test]
@@ -168,22 +218,25 @@
                 Code = 1,
                 Message = ViewResources.AccessDeniedMsg
             };
-            var group = "A";
-            var setting = new CommonBetSetting
-            {
-                CustId = 2
-            };
+
+            var setting = new CommonBetSetting { LicenseeId = FakeHelper.Create<int>(), CustId = FakeHelper.Create<int>() };
+
+            _authorizationService.HasPermissionOnData(setting.LicenseeId, setting.CustId, 0).Returns(true);
+
             _dataAccess.GetBetSetting(setting.CustId).Returns(new AgCasinoBetSetting
             {
                 IsEnabled = false
             });
 
             // Action
-            var result = _service.UpdateAgCasinoBetSetting(setting, group);
+            var result = _service.UpdateAgCasinoBetSetting(setting, FakeHelper.Create<string>());
 
             // Assert
-            Assert.That(result.Code, Is.EqualTo(expectedResult.Code));
-            Assert.That(result.Message, Is.EqualTo(expectedResult.Message));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Code, Is.EqualTo(expectedResult.Code));
+                Assert.That(result.Message, Is.EqualTo(expectedResult.Message));
+            });
         }
 
         [Test]
@@ -195,12 +248,11 @@
                 Code = 1,
                 Message = ViewResources.AccessDeniedMsg
             };
-            var group = "A";
-            var setting = new CommonBetSetting
-            {
-                CustId = 2
-            };
-            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(false);
+            var group = FakeHelper.Create<string>();
+            var setting = new CommonBetSetting { LicenseeId = FakeHelper.Create<int>(), CustId = FakeHelper.Create<int>() };
+
+            _authorizationService.HasPermissionOnData(setting.LicenseeId, setting.CustId, 0).Returns(false);
+
             _dataAccess.GetBetSetting(setting.CustId).Returns(new AgCasinoBetSetting
             {
                 IsEnabled = true
@@ -210,23 +262,25 @@
             var result = _service.UpdateAgCasinoBetSetting(setting, group);
 
             // Assert
-            Assert.That(result.Code, Is.EqualTo(expectedResult.Code));
-            Assert.That(result.Message, Is.EqualTo(expectedResult.Message));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Code, Is.EqualTo(expectedResult.Code));
+                Assert.That(result.Message, Is.EqualTo(expectedResult.Message));
+            });
         }
 
         [Test]
         public void UpdateStatus_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
-            var expectedResult = new ResultInfo
-            {
-                Code = 999
-            };
-            var licenseeId = 1;
-            var userId = 2;
-            var custId = 3;
-            var language = "en-US";
-            var ip = "ip";
+            var expectedResult = FakeHelper.Create<ResultInfo>();
+
+            var licenseeId = FakeHelper.Create<int>();
+            var userId = FakeHelper.Create<int>();
+            var custId = FakeHelper.Create<int>();
+            var language = FakeHelper.Create<string>();
+            var ip = FakeHelper.Create<string>();
+
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
             _dataAccess.UpdateStatus(userId, custId, language, ip, true).Returns(expectedResult);
 
@@ -246,19 +300,23 @@
                 Code = 1,
                 Message = ViewResources.AccessDeniedMsg
             };
-            var licenseeId = 1;
-            var userId = 2;
-            var custId = 3;
-            var language = "en-US";
-            var ip = "ip";
+            var licenseeId = FakeHelper.Create<int>();
+            var userId = FakeHelper.Create<int>();
+            var custId = FakeHelper.Create<int>();
+            var language = FakeHelper.Create<string>();
+            var ip = FakeHelper.Create<string>();
+
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(false);
 
             // Action
             var result = _service.UpdateStatus(licenseeId, userId, custId, language, ip, true);
 
             // Assert
-            Assert.That(result.Code, Is.EqualTo(expectedResult.Code));
-            Assert.That(result.Message, Is.EqualTo(expectedResult.Message));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Code, Is.EqualTo(expectedResult.Code));
+                Assert.That(result.Message, Is.EqualTo(expectedResult.Message));
+            });
         }
     }
 }

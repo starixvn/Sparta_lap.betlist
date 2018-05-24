@@ -11,7 +11,6 @@ namespace Fanex.Athena.Service.BetSettings
     using System.Linq;
     using System.Xml.Linq;
     using Common;
-    using Core.Helpers;
     using Core.Users.Interfaces;
     using Core.Utility;
     using Core.Utility.Interfaces;
@@ -27,6 +26,8 @@ namespace Fanex.Athena.Service.BetSettings
 
     public class AgCasinoBetSettingService : BetSettingBaseService, IAgCasinoBetSettingService
     {
+        private readonly ICoreLogger _logger;
+
         private readonly IAgCasinoBetSettingDataAccess _betSettingDataAccess;
 
         private readonly IAppSettings _appSettings;
@@ -35,6 +36,7 @@ namespace Fanex.Athena.Service.BetSettings
 
         public AgCasinoBetSettingService()
         {
+            _logger = new CoreLogger();
             _betSettingDataAccess = new AgCasinoBetSettingDataAccess();
             _appSettings = new AppSettings();
             _webClientService = new WebClientService();
@@ -42,11 +44,13 @@ namespace Fanex.Athena.Service.BetSettings
 
         public AgCasinoBetSettingService(
             IAuthorizationService authorizationService,
+            ICoreLogger logger,
             IAgCasinoBetSettingDataAccess betSettingDataAccess,
             IAppSettings appSettings,
             IWebClientService webClientService)
             : base(authorizationService)
         {
+            _logger = logger;
             _betSettingDataAccess = betSettingDataAccess;
             _appSettings = appSettings;
             _webClientService = webClientService;
@@ -140,7 +144,7 @@ namespace Fanex.Athena.Service.BetSettings
             }
             catch (Exception exception)
             {
-                LogHelper.WriteError(exception);
+                _logger.Error(exception);
             }
 
             return games;

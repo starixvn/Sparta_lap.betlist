@@ -16,6 +16,11 @@
 
         private ThirdPartyWinLossMetaModel _metaModel;
 
+        protected override void SetUpDataAccess()
+        {
+            DataAccess = Substitute.ForPartsOf<MicroGamingWinLossDataAccess>(CreateSessionStorage());
+        }
+
         [OneTimeSetUp]
         public override void FixtureSetUp()
         {

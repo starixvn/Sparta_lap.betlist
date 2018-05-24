@@ -8,20 +8,24 @@ namespace Fanex.Athena.Web.ActionFilter
     using System;
     using System.Web.Mvc;
     using System.Web.Routing;
-    using Fanex.Athena.Service.Core.Users;
+    using Session;
+    using Session.Interfaces;
 
-    /// <summary>
-    /// Class: AuthenticationAttribute.
-    /// </summary>
     [AttributeUsage(AttributeTargets.All)]
     public sealed class CustomAuthorizeAttribute : AuthorizeAttribute
     {
-        #region Override
+        private readonly ISessionStorage _sessionStorage;
 
-        /// <summary>
-        /// On authorization.
-        /// </summary>
-        /// <param name="filterContext"> Parameter value.</param>
+        public CustomAuthorizeAttribute()
+        {
+            _sessionStorage = new SessionStorage();
+        }
+
+        public CustomAuthorizeAttribute(ISessionStorage sessionStorage)
+        {
+            _sessionStorage = sessionStorage;
+        }
+
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
             var skipAuthorization = filterContext.ActionDescriptor.IsDefined(typeof(AllowAnonymousAttribute), true)
@@ -29,10 +33,7 @@ namespace Fanex.Athena.Web.ActionFilter
             if (!skipAuthorization)
             {
                 base.OnAuthorization(filterContext);
-                var sessionService = new SessionService();
-                var licenseeSession = sessionService.LicenseeSession;
-                var userSession = sessionService.UserSession;
-                var authorized = licenseeSession != null && userSession != null;
+                var authorized = _sessionStorage.LicenseeSession != null && _sessionStorage.UserSession != null;
                 if (!authorized)
                 {
                     var routeValue = new
@@ -45,7 +46,5 @@ namespace Fanex.Athena.Web.ActionFilter
                 }
             }
         }
-
-        #endregion Override
     }
 }

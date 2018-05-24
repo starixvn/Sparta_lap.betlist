@@ -9,6 +9,9 @@
     using NSubstitute;
     using NUnit.Framework;
     using Service.Core.Helpers;
+    using Session.Enum;
+    using Session.Model;
+    using UnitTest.Common.Helpers;
 
     public class BaseControllerViewTest : BaseControllerHelperTest
     {
@@ -27,7 +30,7 @@
             _clientViewHelper = new ClientViewHelper(_fileSystem);
 
             var fakeHttpContext = new HttpContext(
-                new HttpRequest(null, TestingRequestDomain, null),
+                new HttpRequest(null, MvcHelper.TestingRequestDomain, null),
                 new HttpResponse(null));
 
             HttpContext.Current = fakeHttpContext;

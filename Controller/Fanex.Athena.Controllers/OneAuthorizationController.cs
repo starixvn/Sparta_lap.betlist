@@ -7,18 +7,19 @@
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Service.Core.Users;
     using Fanex.Athena.Service.Core.Users.Interfaces;
-    using Fanex.Logging;
     using Model.Core.DTO.OneAuth;
     using Newtonsoft.Json;
     using ONEbook.UM.Services;
     using ONEbook.UM.Services.Impl;
+    using Service.Core.Utility;
+    using Service.Core.Utility.Interfaces;
 
     public class OneAuthorizationController : Controller
     {
         private readonly IMaintenanceService _maintenanceService;
         private readonly IOneAuthenticationService _oneAuthenticationService;
         private readonly IAppSettings _appSetting;
-        private readonly ILogger _logger;
+        private readonly ICoreLogger _logger;
 
         public OneAuthorizationController() : this(null, null, null, null)
         {
@@ -28,12 +29,12 @@
             IMaintenanceService maintenanceService,
             IOneAuthenticationService oneAuthenticationService,
             IAppSettings appSetting,
-            ILogger logger)
+            ICoreLogger logger)
         {
             _maintenanceService = maintenanceService ?? new MaintenanceService();
             _oneAuthenticationService = oneAuthenticationService ?? new OneAuthenticationService();
             _appSetting = appSetting ?? new AppSettings();
-            _logger = logger ?? Logger.Log;
+            _logger = logger ?? new CoreLogger();
         }
 
         [AllowAnonymous]
@@ -114,7 +115,7 @@
             message.AppendLine("Browser: ");
             message.AppendLine(" - Platform: " + Request.Browser.Platform);
             message.AppendLine(" - Version: " + Request.Browser.Version);
-            message.AppendLine(" - Crawl: " + Request.Browser.Crawler);
+            message.AppendLine(" - Crawler: " + Request.Browser.Crawler);
             _logger.Error(message.ToString());
         }
     }

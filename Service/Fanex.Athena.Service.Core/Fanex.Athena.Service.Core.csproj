@@ -45,14 +45,6 @@
       <HintPath>..\..\packages\Fanex.Logging.1.0.0.0\lib\net40\Fanex.Logging.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.Logging.Extensions, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.Logging.Extensions.1.0.5\lib\net40\Fanex.Logging.Extensions.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Fanex.Logging.Extensions.Web, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.Logging.Extensions.Web.1.0.5\lib\net40\Fanex.Logging.Extensions.Web.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="IBCFile, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.File.1.0.0\lib\net40\IBCFile.dll</HintPath>
       <Private>True</Private>
@@ -116,8 +108,8 @@
     <Compile Include="Common\Interfaces\IFunctionStorage.cs" />
     <Compile Include="Configuration\Interfaces\IReportSettingService.cs" />
     <Compile Include="Configuration\ReportSettingService.cs" />
-    <Compile Include="Configuration\FakeLicenseeSettingService.cs" />
-    <Compile Include="Configuration\Interfaces\IFakeLicenseeSettingService.cs" />
+    <Compile Include="Configuration\LicenseeSettingService.cs" />
+    <Compile Include="Configuration\Interfaces\ILicenseeSettingService.cs" />
     <Compile Include="Utility\ClientViewHelper.cs" />
     <Compile Include="Users\AuthService.cs" />
     <Compile Include="Users\Interfaces\IAuthService.cs" />
@@ -129,7 +121,6 @@
     <Compile Include="Common\ProductService.cs" />
     <Compile Include="Configuration\MoveBetService.cs" />
     <Compile Include="Exception\ServiceException.cs" />
-    <Compile Include="Helpers\LogHelper.cs" />
     <Compile Include="Common\Interfaces\IBetTypeService.cs" />
     <Compile Include="Common\Interfaces\IExChangeRateService.cs" />
     <Compile Include="Common\Interfaces\IFunctionService.cs" />
@@ -147,6 +138,8 @@
     <Compile Include="Users\AuthorizationService.cs" />
     <Compile Include="Users\SessionService.cs" />
     <Compile Include="Users\UserService.cs" />
+    <Compile Include="Utility\CoreLogger.cs" />
+    <Compile Include="Utility\Interfaces\ICoreLogger.cs" />
     <Compile Include="Utility\Interfaces\IClientViewHelper.cs" />
     <Compile Include="Utility\Interfaces\IWebClientService.cs" />
     <Compile Include="Utility\Interfaces\IRSAEncryptor.cs" />
@@ -169,6 +162,10 @@
     <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess.Core\Fanex.Athena.DataAccess.Core.csproj">
       <Project>{a6be21e8-6895-4863-ba3a-e6b21d3ce78d}</Project>
       <Name>Fanex.Athena.DataAccess.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\Fanex.Athena.Session\Fanex.Athena.Session.csproj">
+      <Project>{B41E38EF-54AD-4866-968F-C856DE9DC072}</Project>
+      <Name>Fanex.Athena.Session</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Model\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj">
       <Project>{5f410090-94c0-46a5-9fec-b6c3b745b7a0}</Project>

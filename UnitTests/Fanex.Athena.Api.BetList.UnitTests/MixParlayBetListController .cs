@@ -4,6 +4,7 @@
     using Model.BetList.DTO;
     using NSubstitute;
     using NUnit.Framework;
+    using Session.Model;
 
     public class MixParlayBetListControllerTest : ApiBetListBaseControllerHelperTest
     {
@@ -26,7 +27,7 @@
                 CacheRefAdapter,
                 BetListHTMLBuilder);
 
-            StubLicenseeSessionData(new Model.Core.DTO.Users.LicenseeSession { LicenseeId = SessionLicenseeId });
+            StubLicenseeSessionData(new LicenseeSession { LicenseeId = SessionLicenseeId });
         }
 
         [OneTimeTearDown]

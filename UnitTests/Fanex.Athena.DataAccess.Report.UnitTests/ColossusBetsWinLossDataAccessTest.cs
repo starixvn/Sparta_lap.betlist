@@ -32,7 +32,9 @@
             };
             balanceUpDataAccess.GetBalanceUp().Returns(balanceUp);
 
-            DataAccess = Substitute.ForPartsOf<ColossusBetsWinLossDataAccess>(balanceUpDataAccess);
+            DataAccess = Substitute.ForPartsOf<ColossusBetsWinLossDataAccess>(
+                CreateSessionStorage(), 
+                balanceUpDataAccess);
         }
 
         [OneTimeSetUp]
@@ -66,7 +68,7 @@
             {
                 SystemId = string.Empty,
                 ExternalId = string.Empty,
-                CurrencyName = "CurrencyNameTest",
+                CurrencyId = CurrencyId,
                 Date = new DateTime(2016, 8, 29)
             };
             ConfigureReader(expected);
@@ -112,7 +114,7 @@
             {
                 SystemId = string.Empty,
                 ExternalId = string.Empty,
-                CurrencyName = "CurrencyNameTest",
+                CurrencyId = CurrencyId,
                 Date = new DateTime(2016, 8, 29)
             };
             ConfigureReader(expected);
@@ -143,7 +145,7 @@
             {
                 SystemId = "SystemId Test",
                 ExternalId = string.Empty,
-                CurrencyName = "CurrencyNameTest",
+                CurrencyId = CurrencyId,
                 Date = new DateTime(2016, 8, 29)
             };
             ConfigureReader(expected);
@@ -170,7 +172,7 @@
             {
                 SystemId = string.Empty,
                 ExternalId = "ExternalId Test",
-                CurrencyName = "CurrencyNameTest",
+                CurrencyId = CurrencyId,
                 Date = new DateTime(2016, 8, 29)
             };
             ConfigureReader(expected);
@@ -197,7 +199,7 @@
             {
                 SystemId = string.Empty,
                 ExternalId = string.Empty,
-                CurrencyName = "CurrencyNameTest",
+                CurrencyId = CurrencyId,
                 Date = new DateTime(2016, 8, 29),
                 CustomerId = 5
             };
@@ -225,7 +227,7 @@
             {
                 SystemId = string.Empty,
                 ExternalId = string.Empty,
-                CurrencyName = "CurrencyNameTest",
+                CurrencyId = CurrencyId,
                 Date = new DateTime(2016, 8, 29)
             };
             ConfigureReader(expected);
@@ -251,7 +253,7 @@
             {
                 SystemId = string.Empty,
                 ExternalId = string.Empty,
-                CurrencyName = "CurrencyNameTest",
+                CurrencyId = CurrencyId,
                 Date = new DateTime(2016, 8, 25)
             };
             ConfigureReader(expected);
@@ -286,7 +288,7 @@
             Assert.That(actual.ExternalId, Is.EqualTo(expected.ExternalId));
             Assert.That(actual.CustomerId, Is.EqualTo(expected.CustomerId));
             Assert.That(actual.CurrencyId, Is.EqualTo(expected.CurrencyId));
-            Assert.That(actual.CurrencyName, Is.EqualTo(expected.CurrencyName));
+            Assert.That(actual.CurrencyName, Is.EqualTo(CurrencyName));
             Assert.That(actual.TurnOver, Is.EqualTo(expected.TurnOver));
             Assert.That(actual.TotalTransaction, Is.EqualTo(expected.TotalTransaction));
             Assert.That(actual.Date, Is.EqualTo(expected.Date));
@@ -297,7 +299,6 @@
             Reader.Read().Returns(true, false);
 
             Reader["currencyid"].Returns(expected.CurrencyId);
-            Reader["currencyname"].Returns(expected.CurrencyName);
             Reader["totaltrans"].Returns(expected.TotalTransaction);
             Reader["reporttype"].Returns(expected.Date.ToString("yyyyMMdd"));
             Reader["turnoveruus"].Returns(0);

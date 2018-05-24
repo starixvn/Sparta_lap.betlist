@@ -294,7 +294,7 @@
             return mainTable;
         }
 
-        private void AssignMatchName(DataRow row, int betType)
+        protected internal virtual void AssignMatchName(DataRow row, int betType)
         {
             switch ((int)row[NewProductIdColumnName])
             {
@@ -328,7 +328,7 @@
             }
         }
 
-        private void AssignLeagueName(DataRow row)
+        protected internal virtual void AssignLeagueName(DataRow row)
         {
             switch ((int)row[NewProductIdColumnName])
             {

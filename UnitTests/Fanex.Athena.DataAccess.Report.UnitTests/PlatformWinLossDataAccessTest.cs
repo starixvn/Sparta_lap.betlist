@@ -35,7 +35,9 @@
             balanceUpDataAccess.GetBalanceUp().Returns(_balance);
 
             ObjectDb = Substitute.For<IObjectDb>();
-            DataAccess = Substitute.ForPartsOf<PlatformWinLossDataAccess>(balanceUpDataAccess);
+            DataAccess = Substitute.ForPartsOf<PlatformWinLossDataAccess>(
+                CreateSessionStorage(),
+                balanceUpDataAccess);
 
             _metaModel = new PlatformWinLossMetaModel
             {

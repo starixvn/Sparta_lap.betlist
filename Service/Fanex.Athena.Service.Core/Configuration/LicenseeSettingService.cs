@@ -13,38 +13,53 @@ namespace Fanex.Athena.Service.Core.Configuration
     using System.Web.Hosting;
     using Extension.Utility.Interfaces;
     using Fanex.Athena.Extension.Utility;
-    using Fanex.Athena.Model.Core.DTO.Configuration;
     using Interfaces;
     using Newtonsoft.Json;
-    using Users;
-    using Users.Interfaces;
+    using Session;
+    using Session.Interfaces;
+    using Session.Model;
 
-    public class FakeLicenseeSettingService : IFakeLicenseeSettingService
+    public class LicenseeSettingService : ILicenseeSettingService
     {
         private const string CacheKey = "LRF_FakeLicenseeSettings";
 
         private readonly IMemoryCacheService _cache;
 
-        private readonly ISessionService _sessionService;
+        private readonly ISessionStorage _sessionStorage;
 
-        public FakeLicenseeSettingService() : this(null, null)
+        public LicenseeSettingService() : this(null, null)
         {
         }
 
-        public FakeLicenseeSettingService(IMemoryCacheService cache, ISessionService sessionService)
+        public LicenseeSettingService(IMemoryCacheService cache, ISessionStorage sessionStorage)
         {
             _cache = cache ?? new MemoryCacheService();
-            _sessionService = sessionService ?? new SessionService();
+            _sessionStorage = sessionStorage ?? new SessionStorage();
         }
 
         public bool IsFakeLicensee()
         {
-            return GetSetting() == null;
+            return GetFakeLicenseeSetting() == null;
         }
 
-        public FakeLicenseeSetting GetSetting()
+        public bool IsAuthorizedOnBetList()
         {
-            if (_sessionService.LicenseeSession == null)
+            var authorized = _sessionStorage.LicenseeSession != null;
+            if (authorized)
+            {
+                var setting = GetFakeLicenseeSetting();
+                if (setting != null)
+                {
+                    authorized = !setting.DisableBetList;
+                }
+            }
+
+            return authorized;
+        }
+
+        public FakeLicenseeSetting GetFakeLicenseeSetting()
+        {
+            if (_sessionStorage.LicenseeSession == null)
             {
                 return null;
             }
@@ -52,18 +67,18 @@ namespace Fanex.Athena.Service.Core.Configuration
             var settings = _cache.Get<IEnumerable<FakeLicenseeSetting>>(CacheKey);
             if (settings == null)
             {
-                settings = GetSettingList();
+                settings = GetFakeLicenseeSettingList();
                 _cache.Set(CacheKey, settings);
             }
 
-            var licenseeName = _sessionService.LicenseeSession.LicenseeName;
+            var licenseeName = _sessionStorage.LicenseeSession.LicenseeName;
             return settings.FirstOrDefault(x => x.SiteName.Equals(licenseeName, StringComparison.OrdinalIgnoreCase));
         }
 
-        private IEnumerable<FakeLicenseeSetting> GetSettingList()
+        private IEnumerable<FakeLicenseeSetting> GetFakeLicenseeSettingList()
         {
             IEnumerable<FakeLicenseeSetting> result = null;
-            var jsonContent = GetSettingFileContent();
+            var jsonContent = GetFakeLicenseeSettingContent();
 
             if (!string.IsNullOrEmpty(jsonContent))
             {
@@ -73,7 +88,7 @@ namespace Fanex.Athena.Service.Core.Configuration
             return result ?? new List<FakeLicenseeSetting>();
         }
 
-        protected internal virtual string GetSettingFileContent()
+        protected internal virtual string GetFakeLicenseeSettingContent()
         {
             const string FilePath = "~/App_Data/FakeLicenseeSetting.json";
             using (var reader = new StreamReader(HostingEnvironment.MapPath(FilePath)))

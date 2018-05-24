@@ -9,10 +9,10 @@
     using System.Web.Http.Controllers;
     using Attributes;
     using Extension.Utility;
-    using Model.Core.DTO.Users;
     using NSubstitute;
     using NUnit.Framework;
     using Service.Core.Users.Interfaces;
+    using Session.Model;
     using UnitTest.Common.Helpers;
 
     public class ApiFunctionAuthorizationAttributeTest
@@ -98,13 +98,12 @@
             // Arrange
             var attribute = new ApiFunctionAuthorizationAttribute(_antiForgeryService, _sessionService, _authorizationService);
             var actionContext = CreateActionContext();
-            var continuation = Substitute.For<Func<Task<HttpResponseMessage>>>();
 
             // Action
-            var result = attribute.ExecuteAuthorizationFilterAsync(actionContext, new CancellationToken(), continuation);
+            var result = attribute.ExecuteAuthorizationFilterAsync(actionContext, new CancellationToken(), null);
 
             // Assert
-            continuation.Received(1).Invoke();
+            Assert.That(result.Result.StatusCode, Is.EqualTo(HttpStatusCode.Forbidden));
         }
 
         [Test]
@@ -122,10 +121,42 @@
             var continuation = Substitute.For<Func<Task<HttpResponseMessage>>>();
 
             // Action
-            var result = attribute.ExecuteAuthorizationFilterAsync(actionContext, new CancellationToken(), continuation);
+            attribute.ExecuteAuthorizationFilterAsync(actionContext, new CancellationToken(), continuation);
 
             // Assert
             _authorizationService.Received(1).HasPermissions((IList<int>)null, permissionKeys);
+        }
+
+        [Test]
+        public void ExecuteAuthorizationFilterAsync_AppModeParasiticHasPermission_InvokeContinuationFunc()
+        {
+            // Arrange
+            var attribute = new ApiFunctionAuthorizationAttribute(_antiForgeryService, _sessionService, _authorizationService);
+            var actionContext = CreateActionContext();
+            _sessionService.UserSession.Returns(new UserSession { ApplicationMode = Session.Enum.AppMode.Parasitic });
+            _authorizationService.HasPermissions(Arg.Any<IEnumerable<string>>(), Arg.Any<string[]>()).Returns(true);
+
+            // Action
+            var result = attribute.ExecuteAuthorizationFilterAsync(actionContext, new CancellationToken(), null);
+
+            // Assert
+            Assert.That(result.Result.StatusCode, Is.EqualTo(HttpStatusCode.Forbidden));
+        }
+
+        [Test]
+        public void ExecuteAuthorizationFilterAsync_AppModeSelfHasPermission_InvokeContinuationFunc()
+        {
+            // Arrange
+            var attribute = new ApiFunctionAuthorizationAttribute(_antiForgeryService, _sessionService, _authorizationService);
+            var actionContext = CreateActionContext();
+            _sessionService.UserSession.Returns(new UserSession { ApplicationMode = Session.Enum.AppMode.Self });
+            _authorizationService.HasPermissions(Arg.Any<IEnumerable<int>>(), Arg.Any<string[]>()).Returns(true);
+
+            // Action
+            var result = attribute.ExecuteAuthorizationFilterAsync(actionContext, new CancellationToken(), null);
+
+            // Assert
+            Assert.That(result.Result.StatusCode, Is.EqualTo(HttpStatusCode.Forbidden));
         }
 
         private static HttpActionContext CreateActionContext(bool isAjax = false)

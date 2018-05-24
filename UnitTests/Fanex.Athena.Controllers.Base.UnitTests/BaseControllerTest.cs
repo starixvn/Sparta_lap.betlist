@@ -1,10 +1,11 @@
 ﻿namespace Fanex.Athena.Controllers.Base.UnitTests
 {
     using Model.Core.DataDomain;
-    using Model.Core.DTO.Users;
     using Model.Core.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using Session.Enum;
+    using Session.Model;
 
     public class BaseControllerTest : BaseControllerHelperTest
     {
@@ -116,11 +117,11 @@
         public void View_ClientViewTypeIsNone_ReturnViewNameBaseOnAppSetting()
         {
             // Arrange
-            AppSettings.ClientViewType.Returns(Model.Core.DataDomain.ClientViewType.Default.ToString("d"));
+            AppSettings.ClientViewType.Returns(ClientViewType.Default.ToString("d"));
 
             StubUserSessionData(new UserSession
             {
-                ViewType = Model.Core.DataDomain.ClientViewType.None
+                ViewType = ClientViewType.None
             });
 
             const string ViewName = "TestView";
@@ -136,7 +137,7 @@
         public void View_UserSessionIsNull_ReturnViewNameBaseOnAppSetting()
         {
             // Arrange
-            AppSettings.ClientViewType.Returns(Model.Core.DataDomain.ClientViewType.Default.ToString("d"));
+            AppSettings.ClientViewType.Returns(ClientViewType.Default.ToString("d"));
 
             StubUserSessionData(null);
 
@@ -155,7 +156,7 @@
             // Arrange
             StubUserSessionData(new UserSession
             {
-                ViewType = Model.Core.DataDomain.ClientViewType.Desktop
+                ViewType = ClientViewType.Desktop
             });
 
             const string ViewName = "";

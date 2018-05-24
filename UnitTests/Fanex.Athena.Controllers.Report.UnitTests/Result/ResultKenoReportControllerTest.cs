@@ -13,19 +13,20 @@
     using NUnit.Framework;
     using Report.Result;
     using Service.Core.Common.Interfaces;
+    using Service.Core.Utility.Interfaces;
     using Service.Report.Result.Interfaces;
 
     [TestFixture]
     public class ResultKenoReportControllerTest : BaseControllerHelperTest
     {
-        private ILogger _logger;
+        private ICoreLogger _logger;
 
         private IKenoApi _kenoApi;
 
         [OneTimeSetUp]
         public override void FixtureSetUp()
         {
-            _logger = Substitute.For<ILogger>();
+            _logger = Substitute.For<ICoreLogger>();
             _kenoApi = Substitute.For<IKenoApi>();
             base.FixtureSetUp();
 

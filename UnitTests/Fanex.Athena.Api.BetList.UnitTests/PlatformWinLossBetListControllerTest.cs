@@ -4,6 +4,7 @@
     using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using Session.Model;
 
     public class PlatformWinLossBetListControllerTest : ApiBetListBaseControllerHelperTest
     {
@@ -26,7 +27,7 @@
                 CacheRefAdapter,
                 BetListHTMLBuilder);
 
-            StubLicenseeSessionData(new Model.Core.DTO.Users.LicenseeSession { LicenseeId = SessionLicenseeId });
+            StubLicenseeSessionData(new LicenseeSession { LicenseeId = SessionLicenseeId });
         }
 
         [OneTimeTearDown]
@@ -43,7 +44,7 @@
             // Arrange
             var metaModel = new BetListMetaModel { CurrencyId = 1 };
 
-            StubUserSessionData(new Model.Core.DTO.Users.UserSession { CurrencyList = new Dictionary<int, string>() });
+            StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string>() });
 
             // Action
             var result = _controller.Index(metaModel);
@@ -60,7 +61,7 @@
             // Arrange
             var metaModel = new BetListMetaModel { CurrencyId = currencyId };
 
-            StubUserSessionData(new Model.Core.DTO.Users.UserSession { CurrencyList = new Dictionary<int, string> { { currencyId, "Currency" } } });
+            StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string> { { currencyId, "Currency" } } });
             SessionService.GenerateAgentListXml(metaModel.CurrencyId).Returns("<Xml/>");
 
             _controller.When(x => x.GetBetListResult(metaModel, UspKey)).DoNotCallBase();

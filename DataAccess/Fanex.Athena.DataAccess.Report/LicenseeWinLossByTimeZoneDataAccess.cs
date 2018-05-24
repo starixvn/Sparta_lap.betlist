@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.DataAccess.Report
 {
+    using System;
     using System.Data;
     using Common.Extensions;
     using Core;
@@ -13,6 +14,7 @@
     using Model.Core.ResultModel;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
+    using Session.Interfaces;
 
     public class LicenseeWinLossByTimeZoneDataAccess : BaseDataAccess, ILicenseeWinLossByTimeZoneDataAccess
     {
@@ -23,7 +25,8 @@
             _balanceUpDataAccess = new BalanceUpDataAccess();
         }
 
-        public LicenseeWinLossByTimeZoneDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
+        public LicenseeWinLossByTimeZoneDataAccess(ISessionStorage sessionStorage, IBalanceUpDataAccess balanceUpDataAccess)
+            : base(null, sessionStorage)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
         }
@@ -68,7 +71,7 @@
             };
         }
 
-        private static LicenseeWinLossByTimeZone ReadDataInBaseCurrency(IDataReader reader, LicenseeWinLossByTimeZoneMetaModel metaModel)
+        private LicenseeWinLossByTimeZone ReadDataInBaseCurrency(IDataReader reader, LicenseeWinLossByTimeZoneMetaModel metaModel)
         {
             const byte GroupByProduct = 1;
             const int ReportBySummary = 1;
@@ -88,10 +91,9 @@
                 item.ReportBy = ConvertHelper.ToDateTime(reader.ToString("reportby"), metaModel.ReportBy == ReportByMonthly);
             }
 
-            if (metaModel.GroupBy == GroupByProduct)
-            {
-                item.GroupBy = ProductHelper.GetProductName(item.GroupBy);
-            }
+            item.GroupBy = metaModel.GroupBy == GroupByProduct ?
+                        ProductHelper.GetProductName(item.GroupBy) :
+                        GetCurrencyName(Convert.ToInt32(item.GroupBy));
 
             return item;
         }

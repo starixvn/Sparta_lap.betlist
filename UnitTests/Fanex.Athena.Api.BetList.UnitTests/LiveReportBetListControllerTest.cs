@@ -7,6 +7,7 @@
     using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using Session.Model;
 
     public class LiveReportBetListControllerTest : ApiBetListBaseControllerHelperTest
     {
@@ -80,7 +81,7 @@
                 CacheRefAdapter,
                 BetListHTMLBuilder);
 
-            StubLicenseeSessionData(new Model.Core.DTO.Users.LicenseeSession { LicenseeId = SessionLicenseeId });
+            StubLicenseeSessionData(new LicenseeSession { LicenseeId = SessionLicenseeId });
         }
 
         [OneTimeTearDown]
@@ -315,7 +316,7 @@
         {
             var metaModel = new LiveReportBetListMetaModel { CurrencyId = currencyId };
 
-            StubUserSessionData(new Model.Core.DTO.Users.UserSession { CurrencyList = sessionCurrencyList });
+            StubUserSessionData(new UserSession { CurrencyList = sessionCurrencyList });
             SessionService.GenerateAgentListXml(metaModel.CurrencyId).Returns("<Xml/>");
 
             BetListService.GetBetListData(metaModel, uspKey).Returns(_ticketResult);

@@ -21,6 +21,8 @@ namespace Fanex.Athena.Controllers.Forecast
     using Service.Core.Common;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
+    using Service.Core.Utility;
+    using Service.Core.Utility.Interfaces;
     using Service.Forecast.Interfaces;
     using VendorAdapter;
     using VendorAdapter.Interfaces;
@@ -29,15 +31,20 @@ namespace Fanex.Athena.Controllers.Forecast
     [FunctionAuthorization(PermissionKeys.ForecastHandicapOverUnderLive)]
     public class NewHandicapOverUnderForecastController : ForecastBaseController
     {
+        private readonly ICoreLogger _logger;
+
         private readonly ICacheRefAdapter _cacheRefAdapter;
 
         private readonly IMatchService _matchService;
 
         public NewHandicapOverUnderForecastController()
         {
+            _logger = new CoreLogger();
             _cacheRefAdapter = new CacheRefAdapter();
             _matchService = new MatchService();
         }
+
+#pragma warning disable S107 // Methods should not have too many parameters
 
         public NewHandicapOverUnderForecastController(
             ILanguageService languageService,
@@ -45,10 +52,13 @@ namespace Fanex.Athena.Controllers.Forecast
             IAppSettings appSetting,
             IClientViewHelper clientViewHelper,
             IForecastService forecastService,
+            ICoreLogger logger,
             ICacheRefAdapter cacheRefAdapter,
             IMatchService matchService)
+#pragma warning restore S107 // Methods should not have too many parameters
         : base(languageService, sessionService, appSetting, clientViewHelper, forecastService)
         {
+            _logger = logger;
             _cacheRefAdapter = cacheRefAdapter;
             _matchService = matchService;
         }
@@ -134,7 +144,7 @@ namespace Fanex.Athena.Controllers.Forecast
             }
             catch (Exception exception)
             {
-                LogHelper.WriteError(exception);
+                _logger.Error(exception);
             }
 
             return model;

@@ -80,10 +80,10 @@
 #pragma warning restore S107 // Methods should not have too many parameters
         : base(languageService, sessionService, appSetting, clientViewHelper)
         {
-            _productService = productService ?? new ProductService();
-            _betListService = betListService ?? new BetListService();
-            _balanceUpDataAccess = balanceUpDataAccess ?? new BalanceUpDataAccess();
-            _cacheRefAdapter = cacheRefAdapter ?? new CacheRefAdapter();
+            _productService = productService;
+            _betListService = betListService;
+            _balanceUpDataAccess = balanceUpDataAccess;
+            _cacheRefAdapter = cacheRefAdapter;
         }
 
         protected IProductService ProductService

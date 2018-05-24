@@ -11,6 +11,7 @@
     using NSubstitute;
     using NUnit.Framework;
     using Service.Core.Common.Interfaces;
+    using Session.Model;
 
     [TestFixture]
     public partial class AccountControllerTest : BaseControllerHelperTest

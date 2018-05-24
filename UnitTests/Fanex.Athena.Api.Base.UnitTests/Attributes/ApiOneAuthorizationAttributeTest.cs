@@ -1,16 +1,17 @@
 ﻿namespace Fanex.Athena.Api.Base.Attributes.UnitTests
 {
+    using System;
     using System.Net;
     using System.Threading;
     using System.Web.Http.Controllers;
     using Attributes;
     using DataAccess.Core.Users.Interfaces;
-    using Logging;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.OneAuth;
     using NSubstitute;
     using NUnit.Framework;
     using Service.Core.Users.Interfaces;
+    using Service.Core.Utility.Interfaces;
     using UnitTest.Common.Helpers;
 
     public class ApiOneAuthorizationAttributeTest
@@ -19,7 +20,7 @@
 
         private const string TokenValue = "abcdef";
 
-        private ILogger _logger;
+        private ICoreLogger _logger;
 
         private IOneAuthenticationService _oneAuthenticationService;
 
@@ -28,7 +29,7 @@
         [SetUp]
         public void SetUp()
         {
-            _logger = Substitute.For<ILogger>();
+            _logger = Substitute.For<ICoreLogger>();
             _oneAuthenticationService = Substitute.For<IOneAuthenticationService>();
             _licenseeDataAccess = Substitute.For<ILicenseeDataAccess>();
         }
@@ -118,6 +119,23 @@
                 Assert.That(actionContext.ActionArguments["username"], Is.EqualTo(token.UserID));
                 Assert.That(actionContext.ActionArguments["sitename"], Is.EqualTo(token.SiteName));
             });
+        }
+
+        [Test]
+        public void ExecuteAuthorizationFilterAsync_ThrowException_LogError()
+        {
+            // Arrange
+            var exception = new Exception("123");
+            var attribute = new ApiOneAuthorizationAttribute(_logger, _oneAuthenticationService, _licenseeDataAccess);
+            var actionContext = CreateActionContext(hasAuthToken: true);
+
+            _oneAuthenticationService.When(x => x.GetTokenInfo(TokenValue)).Throw(exception);
+
+            // Action
+            var result = attribute.ExecuteAuthorizationFilterAsync(actionContext, new CancellationToken(), null);
+
+            // Assert
+            _logger.Received(1).Error(exception);
         }
 
         private static HttpActionContext CreateActionContext(bool hasAuthToken = false)

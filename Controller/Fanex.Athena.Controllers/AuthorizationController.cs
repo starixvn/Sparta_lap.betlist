@@ -34,6 +34,7 @@ namespace Fanex.Athena.Controllers
     using Resources;
     using Service.Core.Common.Interfaces;
     using Service.Core.Helpers;
+    using Session.Enum;
 
     public class AuthorizationController : BaseController
     {

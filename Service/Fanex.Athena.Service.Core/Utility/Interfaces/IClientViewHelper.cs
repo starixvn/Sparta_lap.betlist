@@ -1,5 +1,5 @@
-﻿using Fanex.Athena.Model.Core.DataDomain;
-using Fanex.Athena.Model.Core.DTO.Common;
+﻿using Fanex.Athena.Model.Core.DTO.Common;
+using Fanex.Athena.Session.Enum;
 
 namespace Fanex.Athena.Service.Core.Helpers
 {

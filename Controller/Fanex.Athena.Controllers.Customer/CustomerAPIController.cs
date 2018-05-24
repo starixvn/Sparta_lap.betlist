@@ -31,6 +31,8 @@ namespace Fanex.Athena.Controllers.Customer
     using ONEbook.UM.Filters;
     using Resources;
     using Service.Core.Users.Interfaces;
+    using Service.Core.Utility;
+    using Service.Core.Utility.Interfaces;
     using Service.Customer.Helpers;
 
     #endregion Using
@@ -42,6 +44,7 @@ namespace Fanex.Athena.Controllers.Customer
     {
         private const string CustomerAPIRemoveFromGroupComName = "CustomerAPI_RemoveFromGroupCom";
 
+        private readonly ICoreLogger _logger;
         private readonly ICustomerCommService _customerCommService;
         private readonly ICustomerListService _customerListService;
         private readonly IGroupComService _groupComService;
@@ -57,6 +60,7 @@ namespace Fanex.Athena.Controllers.Customer
             ISessionService sessionService,
             IAppSettings appSetting,
             IClientViewHelper clientViewHelper,
+            ICoreLogger logger,
             ICustomerCommService customerCommService,
             ICustomerListService customerListService,
             IGroupComService groupComService,
@@ -65,6 +69,7 @@ namespace Fanex.Athena.Controllers.Customer
 #pragma warning restore S107 // Methods should not have too many parameters
             : base(languageService, sessionService, appSetting, clientViewHelper)
         {
+            _logger = logger;
             _customerCommService = customerCommService;
             _licenseeDataAccess = licenseeDataAccess;
             _customerListService = customerListService;
@@ -74,6 +79,7 @@ namespace Fanex.Athena.Controllers.Customer
 
         public CustomerApiController()
         {
+            _logger = new CoreLogger();
             _customerCommService = new CustomerCommService();
             _licenseeDataAccess = new LicenseeDataAccess();
             _customerListService = new CustomerListService();
@@ -131,7 +137,7 @@ namespace Fanex.Athena.Controllers.Customer
             }
             catch (Exception exception)
             {
-                LogHelper.WriteError(exception);
+                _logger.Error(exception);
             }
 
             return Json(new ResultInfo { Code = 1, Message = ViewResources.HttpError_Default });
@@ -175,7 +181,7 @@ namespace Fanex.Athena.Controllers.Customer
                 }
                 catch (Exception exception)
                 {
-                    LogHelper.WriteError(exception);
+                    _logger.Error(exception);
                 }
             }
 
@@ -233,7 +239,7 @@ namespace Fanex.Athena.Controllers.Customer
                 }
                 catch (Exception exception)
                 {
-                    LogHelper.WriteError(exception);
+                    _logger.Error(exception);
                 }
             }
 

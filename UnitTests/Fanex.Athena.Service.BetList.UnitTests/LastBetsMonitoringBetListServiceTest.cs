@@ -11,20 +11,21 @@
     using Model.Core.DataDomain;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class LastBetsMonitoringBetListServiceTest
     {
         private ILastBetsMonitoringBetListDataAccess _lastBetsMonitoringBetListDataAccess;
         private ILastBetsMonitoringBetListService _betListService;
+        private IMemoryCacheService _cache;
 
         [SetUp]
         public void SetUp()
         {
-            var cache = Substitute.For<IMemoryCacheService>();
-            cache.Get<IList<BetListMatch>>(Arg.Any<string>()).Returns((IList<BetListMatch>)null);
+            _cache = Substitute.For<IMemoryCacheService>();
             _lastBetsMonitoringBetListDataAccess = Substitute.For<ILastBetsMonitoringBetListDataAccess>();
-            _betListService = new LastBetsMonitoringBetListService(_lastBetsMonitoringBetListDataAccess, cache);
+            _betListService = new LastBetsMonitoringBetListService(_lastBetsMonitoringBetListDataAccess, _cache);
         }
 
         [TearDown]
@@ -34,35 +35,26 @@
             _lastBetsMonitoringBetListDataAccess = null;
         }
 
-        [Test]
-        public void GetLastBetsMonitoringData_WhenCall_TicketIsAssignedDataCorrectlyFromMatchList()
+        [TestCase(BetType.Outright)]
+        [TestCase(BetType.Handicap)]
+        [TestCase(BetType.Win)]
+        public void GetLastBetsMonitoringData_MatchDataIsNotCached_TicketIsAssignedDataCorrectlyFromDBMatchList(BetType betType)
         {
             // Arrange
-            const int SportType = 111;
-            const int LeagueId = 222;
+            var match = FakeHelper.Create<BetListMatch>();
             var ticketResult = new TicketResult();
             ticketResult.MainTicketList.AddRange(new List<LrfTicket>
             {
-                new LrfTicket
-                {
-                    MatchId = 999,
-                    BetTypeId = (int)BetType.Outright
-                }
+                new LrfTicket { MatchId = match.MatchId, BetTypeId = (int)betType }
             });
 
             _lastBetsMonitoringBetListDataAccess.GetLastBetsMonitoringData(Arg.Any<LastBetsMonitoringMetaModel>())
                 .Returns(ticketResult);
 
+            _cache.Get<IList<BetListMatch>>(Arg.Any<string>()).Returns(x => { return null; });
+
             _lastBetsMonitoringBetListDataAccess.GetMatchList(Arg.Any<string>())
-                .Returns(new List<BetListMatch>
-                {
-                    new BetListMatch
-                    {
-                        MatchId = 999,
-                        SportType = SportType,
-                        LeagueId = LeagueId
-                    }
-                });
+                .Returns(new List<BetListMatch> { match });
 
             // Action
             var result = _betListService.GetLastBetsMonitoringData(new LastBetsMonitoringMetaModel
@@ -73,51 +65,117 @@
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(result.MainTicketList[0].SportTypeId, Is.EqualTo(SportType));
-                Assert.That(result.MainTicketList[0].LeagueId, Is.EqualTo(LeagueId));
+                Assert.That(result.MainTicketList[0].SportTypeId, Is.EqualTo(match.SportType));
+                Assert.That(result.MainTicketList[0].LeagueId, Is.EqualTo(match.LeagueId));
+                Assert.That(result.MainTicketList[0].MatchCode, Is.EqualTo(match.MatchCode));
+                Assert.That(result.MainTicketList[0].HomeId, Is.EqualTo(match.HomeId));
+                Assert.That(result.MainTicketList[0].AwayId, Is.EqualTo(match.AwayId));
+                Assert.That(result.MainTicketList[0].Race, Is.EqualTo(match.Race));
             });
         }
 
-        [Test]
-        public void GetLastBetsMonitoringData_GetDataFromCache_TicketIsAssignedDataCorrectlyFromMatchList()
+        [TestCase(BetType.WinPlace)]
+        [TestCase(BetType.Place)]
+        [TestCase(BetType.OddEven)]
+        public void GetLastBetsMonitoringData_MatchDataIsCached_TicketIsAssignedDataCorrectlyFromCachedMatchList(BetType betType)
         {
             // Arrange
-            const int SportType = 111;
-            const int LeagueId = 222;
+            var match = FakeHelper.Create<BetListMatch>();
             var ticketResult = new TicketResult();
             ticketResult.MainTicketList.AddRange(new List<LrfTicket>
             {
-                new LrfTicket
-                {
-                    MatchId = 999,
-                    BetTypeId = (int)BetType.Outright
-                }
+                new LrfTicket { MatchId = match.MatchId, BetTypeId = (int)betType }
             });
 
             _lastBetsMonitoringBetListDataAccess.GetLastBetsMonitoringData(Arg.Any<LastBetsMonitoringMetaModel>())
                 .Returns(ticketResult);
 
-            _lastBetsMonitoringBetListDataAccess.GetMatchList(Arg.Any<string>())
-                .Returns(new List<BetListMatch>
-                {
-                    new BetListMatch
-                    {
-                        MatchId = 999,
-                        SportType = SportType,
-                        LeagueId = LeagueId
-                    }
-                });
-            var metaModel = new LastBetsMonitoringMetaModel { OddsType = string.Empty };
-            _betListService.GetLastBetsMonitoringData(metaModel);
+            _cache.Get<IList<BetListMatch>>(Arg.Any<string>()).Returns(new List<BetListMatch> { match });
+
+            _lastBetsMonitoringBetListDataAccess.GetMatchList(Arg.Any<string>()).Returns(new List<BetListMatch>());
 
             // Action
-            var result = _betListService.GetLastBetsMonitoringData(metaModel);
+            var result = _betListService.GetLastBetsMonitoringData(new LastBetsMonitoringMetaModel { OddsType = string.Empty });
 
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(result.MainTicketList[0].SportTypeId, Is.EqualTo(SportType));
-                Assert.That(result.MainTicketList[0].LeagueId, Is.EqualTo(LeagueId));
+                Assert.That(result.MainTicketList[0].SportTypeId, Is.EqualTo(match.SportType));
+                Assert.That(result.MainTicketList[0].LeagueId, Is.EqualTo(match.LeagueId));
+                Assert.That(result.MainTicketList[0].MatchCode, Is.EqualTo(match.MatchCode));
+                Assert.That(result.MainTicketList[0].HomeId, Is.EqualTo(match.HomeId));
+                Assert.That(result.MainTicketList[0].AwayId, Is.EqualTo(match.AwayId));
+                Assert.That(result.MainTicketList[0].Race, Is.EqualTo(match.Race));
+            });
+        }
+
+        [TestCase(BetType.Outright)]
+        [TestCase(BetType.Win)]
+        [TestCase(BetType.Place)]
+        [TestCase(BetType.WinPlace)]
+        public void GetLastBetsMonitoringData_OutRightBetType_CallCorrectCacheKeyAndSpName(BetType betType)
+        {
+            // Arrange
+            const string ExpectedCacheKey = "LastBetsOutrightMatchList";
+            const string ExpectedSpName = "Lrf_Monitor_OutrightSel";
+
+            var ticketResult = new TicketResult();
+            ticketResult.MainTicketList.AddRange(new List<LrfTicket>
+            {
+                new LrfTicket { MatchId = 999, BetTypeId = (int)betType }
+            });
+
+            _lastBetsMonitoringBetListDataAccess.GetLastBetsMonitoringData(Arg.Any<LastBetsMonitoringMetaModel>())
+                .Returns(ticketResult);
+
+            _cache.Get<IList<BetListMatch>>(Arg.Any<string>()).Returns(x => { return null; });
+
+            _lastBetsMonitoringBetListDataAccess.GetMatchList(Arg.Any<string>())
+                .Returns(new List<BetListMatch>());
+
+            // Action
+            var result = _betListService.GetLastBetsMonitoringData(new LastBetsMonitoringMetaModel { OddsType = string.Empty });
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                _cache.Received().Get<IList<BetListMatch>>(ExpectedCacheKey);
+                _lastBetsMonitoringBetListDataAccess.Received().GetMatchList(ExpectedSpName);
+            });
+        }
+
+        [TestCase(BetType.OverUnder)]
+        [TestCase(BetType.OddEven)]
+        [TestCase(BetType.NextGoal)]
+        [TestCase(BetType.MoneyLine)]
+        public void GetLastBetsMonitoringData_IsNotOutRightBetType_CallCorrectCacheKeyAndSpName(BetType betType)
+        {
+            // Arrange
+            const string ExpectedCacheKey = "LastBetsMatchList";
+            const string ExpectedSpName = "Lrf_Monitor_MatchSel";
+
+            var ticketResult = new TicketResult();
+            ticketResult.MainTicketList.AddRange(new List<LrfTicket>
+            {
+                new LrfTicket { MatchId = 999, BetTypeId = (int)betType }
+            });
+
+            _lastBetsMonitoringBetListDataAccess.GetLastBetsMonitoringData(Arg.Any<LastBetsMonitoringMetaModel>())
+                .Returns(ticketResult);
+
+            _cache.Get<IList<BetListMatch>>(Arg.Any<string>()).Returns(x => { return null; });
+
+            _lastBetsMonitoringBetListDataAccess.GetMatchList(Arg.Any<string>())
+                .Returns(new List<BetListMatch>());
+
+            // Action
+            var result = _betListService.GetLastBetsMonitoringData(new LastBetsMonitoringMetaModel { OddsType = string.Empty });
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                _cache.Received().Get<IList<BetListMatch>>(ExpectedCacheKey);
+                _lastBetsMonitoringBetListDataAccess.Received().GetMatchList(ExpectedSpName);
             });
         }
 
@@ -142,6 +200,8 @@
             });
             _lastBetsMonitoringBetListDataAccess.GetLastBetsMonitoringData(Arg.Any<LastBetsMonitoringMetaModel>())
                 .Returns(ticketResult);
+
+            _cache.Get<IList<BetListMatch>>(Arg.Any<string>()).Returns(new List<BetListMatch>());
 
             // Action
             var result = _betListService.GetLastBetsMonitoringData(new LastBetsMonitoringMetaModel
@@ -175,6 +235,8 @@
             _lastBetsMonitoringBetListDataAccess.GetLastBetsMonitoringData(Arg.Any<LastBetsMonitoringMetaModel>())
                 .Returns(ticketResult);
 
+            _cache.Get<IList<BetListMatch>>(Arg.Any<string>()).Returns(new List<BetListMatch>());
+
             // Action
             var result = _betListService.GetLastBetsMonitoringData(new LastBetsMonitoringMetaModel
             {
@@ -201,6 +263,9 @@
                 }
             });
             _lastBetsMonitoringBetListDataAccess.GetLastBetsMonitoringData(Arg.Any<LastBetsMonitoringMetaModel>()).Returns(ticketResult);
+
+            _cache.Get<IList<BetListMatch>>(Arg.Any<string>()).Returns(new List<BetListMatch>());
+
             var expectedResult = new DateTime(2017, 3, 17, 4, 0, 0);
 
             // Action
@@ -230,6 +295,9 @@
                 }
             });
             _lastBetsMonitoringBetListDataAccess.GetLastBetsMonitoringData(Arg.Any<LastBetsMonitoringMetaModel>()).Returns(ticketResult);
+
+            _cache.Get<IList<BetListMatch>>(Arg.Any<string>()).Returns(new List<BetListMatch>());
+
             var expectedResult = new DateTime(2017, 3, 17, 0, 0, 0);
 
             // Action

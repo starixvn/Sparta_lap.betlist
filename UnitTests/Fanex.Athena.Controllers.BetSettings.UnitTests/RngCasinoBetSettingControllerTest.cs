@@ -10,6 +10,7 @@
     using NUnit.Framework;
     using Resources;
     using Service.BetSettings.Interfaces;
+    using UnitTest.Common.Helpers;
 
     internal class RngCasinoBetSettingControllerTest : BetSettingBaseControllerHelperTest
     {
@@ -37,7 +38,7 @@
                 // Arrange
                 var metaModel = new BetSettingMetaModel { CustId = 100 };
 
-                var customer = new CustomerInfo();
+                var customer = FakeHelper.Create<CustomerInfo>();
                 CustomerService.GetCustomerInfo(SessionService.LicenseeSession.LicenseeId, metaModel.CustId).Returns(customer);
 
                 _betSettingService.GetViewModel(metaModel.CustId, customer, DefaultUserSession.Language).Returns(new RngCasinoBetSettingViewModel());
@@ -195,7 +196,7 @@
                 _betSettingService.UpdateSetting(
                    Arg.Do<RngCasinoBetSettingMetaModel>(x => param = x),
                    Arg.Any<bool>(),
-                   Arg.Any<bool>()).Returns(new ResultInfo { Code = 1, Message = "Error" });                
+                   Arg.Any<bool>()).Returns(new ResultInfo { Code = 1, Message = "Error" });
 
                 // Action
                 controller.UpdateBetSetting(CustId, string.Join(",", gameTypes));

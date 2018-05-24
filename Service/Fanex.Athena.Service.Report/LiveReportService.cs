@@ -9,6 +9,7 @@ namespace Fanex.Athena.Service.Report
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading;
     using System.Threading.Tasks;
     using Constant.DataDomain;
     using Fanex.Athena.DataAccess.Report;
@@ -65,10 +66,11 @@ namespace Fanex.Athena.Service.Report
                 return _liveReportDataAccess.GetDetailBySport(model);
             });
 
-            var taskForCurrencyAndBettype = Task<Tuple<IList<LiveReport>, IList<LiveReportByBetType>>>.Factory.StartNew(() =>
-            {
-                return _liveReportDataAccess.GetDetailByCurrencyAndBettype(model, products);
-            });
+            var taskForCurrencyAndBettype = Task<Tuple<IList<LiveReport>, IList<LiveReportByBetType>>>.Factory.StartNew(
+                () => { return _liveReportDataAccess.GetDetailByCurrencyAndBettype(model, products); },
+                    CancellationToken.None, 
+                    TaskCreationOptions.None, 
+                    TaskScheduler.FromCurrentSynchronizationContext()); // this task need to access HttpContext.Current
 
             return new LiveReportDetailResultModel
             {

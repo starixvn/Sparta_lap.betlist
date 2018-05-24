@@ -8,6 +8,7 @@
     using Model.Core.DataDomain;
     using ONEbook.UM.Filters;
     using Service.Core.Helpers;
+    using Session.Enum;
     using Web.ActionFilter;
 
     [CustomAuthorize]

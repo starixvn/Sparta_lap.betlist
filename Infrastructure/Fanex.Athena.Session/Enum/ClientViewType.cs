@@ -1,4 +1,4 @@
-﻿namespace Fanex.Athena.Model.Core.DataDomain
+﻿namespace Fanex.Athena.Session.Enum
 {
     public enum ClientViewType
     {

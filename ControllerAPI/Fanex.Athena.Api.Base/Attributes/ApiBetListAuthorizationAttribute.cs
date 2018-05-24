@@ -7,19 +7,30 @@
     using System.Threading.Tasks;
     using System.Web.Http.Controllers;
     using System.Web.Http.Filters;
-    using Fanex.Athena.Service.Core.Users;
     using Resources;
     using Service.Core.Configuration;
+    using Service.Core.Configuration.Interfaces;
 
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
     public sealed class ApiBetListAuthorizationAttribute : FilterAttribute, IAuthorizationFilter
     {
+        private readonly ILicenseeSettingService _licenseeSettingService;
+
+        public ApiBetListAuthorizationAttribute() : this(null)
+        {
+        }
+
+        public ApiBetListAuthorizationAttribute(ILicenseeSettingService licenseeSettingService)
+        {
+            _licenseeSettingService = licenseeSettingService ?? new LicenseeSettingService();
+        }
+
         public Task<HttpResponseMessage> ExecuteAuthorizationFilterAsync(
             HttpActionContext actionContext,
             CancellationToken cancellationToken,
             Func<Task<HttpResponseMessage>> continuation)
         {
-            if (!AuthorizeRequest())
+            if (!_licenseeSettingService.IsAuthorizedOnBetList())
             {
                 return UnauthorizeAccessHandlerAsync(actionContext);
             }
@@ -44,24 +55,6 @@
             };
 
             return FromResultAsync(actionContext.Response);
-        }
-
-        private static bool AuthorizeRequest()
-        {
-            var sessionService = new SessionService();
-            var licenseeSession = sessionService.LicenseeSession;
-            var authorized = true;
-            if (licenseeSession != null)
-            {
-                var fakeLicenseeSettingService = new FakeLicenseeSettingService();
-                var setting = fakeLicenseeSettingService.GetSetting();
-                if (setting != null)
-                {
-                    authorized = !setting.DisableBetList;
-                }
-            }
-
-            return authorized;
         }
     }
 }

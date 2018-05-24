@@ -8,6 +8,7 @@
     using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
 
     public class ExchangeBetListServiceTest
     {
@@ -24,11 +25,35 @@
         [Test]
         public void GetTicketDetailList_WhenCall_CallDataAccess()
         {
+            // Arrange
+            var metaModel = FakeHelper.Create<ExchangeBetListDetailMetaModel>();
+
             // Action
-            _service.GetTicketDetailList(new ExchangeBetListDetailMetaModel());
+            _service.GetTicketDetailList(metaModel);
 
             // Assert
-            _dataAccess.Received().GetTicketDetailList(Arg.Any<ExchangeBetListDetailMetaModel>());
+            _dataAccess.Received().GetTicketDetailList(metaModel);
+        }
+
+        [Test]
+        public void GetTicketDetailList_WhenCall_ReturnCorrectData()
+        {
+            // Arrange
+            var expectedData = new List<ExchangeTicketDetail>
+            {
+                new ExchangeTicketDetail { BetTaken = new System.DateTime(2018, 5, 16), OddsReq = 1, Stake = 2, Liability = "3", OddsMatched = 4 }
+            };
+            _dataAccess.GetTicketDetailList(Arg.Any<ExchangeBetListDetailMetaModel>()).Returns(expectedData);
+
+            // Action
+            var result = _service.GetTicketDetailList(new ExchangeBetListDetailMetaModel());
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.EqualTo(expectedData));
+                Assert.That(expectedData.First().BetTakenDateString, Is.EqualTo("05/16/2018 12:00:00 AM"));
+            });
         }
 
         [Test]

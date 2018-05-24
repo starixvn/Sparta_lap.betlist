@@ -3,9 +3,9 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using Core;
     using Core.Configuration;
     using Core.Configuration.Interfaces;
-    using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Report.Interfaces;
@@ -19,6 +19,7 @@
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Model.Core.ResultModel;
+    using Session.Interfaces;
 
     public class LicenseeWinLossDataAccess : BaseDataAccess, ILicenseeWinLossDataAccess
     {
@@ -32,8 +33,11 @@
             _balanceUpDataAccess = new BalanceUpDataAccess();
         }
 
-        public LicenseeWinLossDataAccess(IAppSettings appSetting, IBalanceUpDataAccess balanceUpDataAccess)
-            : base(appSetting)
+        public LicenseeWinLossDataAccess(
+            IAppSettings appSetting,
+            ISessionStorage sessionStorage,
+            IBalanceUpDataAccess balanceUpDataAccess)
+            : base(appSetting, sessionStorage)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
         }
@@ -297,17 +301,19 @@
             var hasExternalId = reader.HasColumn("nickname");
             var hasCustomerId = reader.HasColumn("custid");
             var baseCurrency = metaModel.BaseCurrency;
+            var isMonthly = metaModel.ReportBy == ReportByType.Monthly;
             var index = 1;
             while (reader.Read())
             {
+                var currencyId = reader.ToInt("currency");
                 var item = new LicenseeWinLoss
                 {
                     Index = index++,
                     SystemId = hasSystemId ? reader.ToString("username") : string.Empty,
                     ExternalId = hasExternalId ? reader.ToString("nickname") : string.Empty,
                     CustomerId = hasCustomerId ? reader.ToInt("custid") : 0,
-                    CurrencyId = reader.ToInt("currency"),
-                    CurrencyName = reader.ToString("currencyname"),
+                    CurrencyId = currencyId,
+                    CurrencyName = GetCurrencyName(currencyId),
                     CustomerWinLoss = reader.ToDecimal("winlost" + baseCurrency),
                     CustomerComm = reader.ToDecimal("playercomm" + baseCurrency),
                     ActualStake = reader.ToDecimal("BTActualStake" + baseCurrency),
@@ -323,9 +329,7 @@
                     AmtDueToBetTrade = reader.ToDecimal("AmtDueToBT" + baseCurrency),
                     AmtDueToBA = reader.ToDecimal("amtduetoba" + baseCurrency),
                     AmtDueToRacing = reader.ToDecimal("amtduetorb" + baseCurrency),
-                    Date = drilldown
-                        ? metaModel.DrillDownFromDate
-                        : ConvertHelper.ToDateTime(reader.ToString("reporttype"), metaModel.ReportBy == ReportByType.Monthly)
+                    Date = drilldown ? metaModel.DrillDownFromDate : ConvertHelper.ToDateTime(reader.ToString("reporttype"), isMonthly)
                 };
 
                 dataList.Add(item);

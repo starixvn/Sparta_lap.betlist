@@ -34,7 +34,9 @@
 
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             balanceUpDataAccess.GetBalanceUp().Returns(_balance);
-            DataAccess = Substitute.ForPartsOf<SubsidiaryPerformanceDataAccess>(balanceUpDataAccess);
+            DataAccess = Substitute.ForPartsOf<SubsidiaryPerformanceDataAccess>(
+                CreateSessionStorage(),
+                balanceUpDataAccess);
 
             _serialize = new JavaScriptSerializer();
         }
@@ -194,7 +196,7 @@
                 {
                     SubsidiaryId = Convert.ToInt32(readerDataMapping["recommend"]),
                     CurrencyId = Convert.ToInt32(readerDataMapping["Currency"]),
-                    CurrencyName = readerDataMapping["CurrencyName"].ToString(),
+                    CurrencyName = CurrencyName,
                     Product = readerDataMapping["ProductCode"].ToString(),
                     BetCount = Convert.ToInt32(readerDataMapping["BetCount"]),
                     Turnover = Convert.ToDecimal(readerDataMapping["Turnover" + baseCurrency]),
@@ -210,8 +212,7 @@
             return new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
             {
                 { "recommend", 1234 },
-                { "Currency", 1 },
-                { "CurrencyName", "EUR" },
+                { "Currency", CurrencyId },
                 { "ProductCode", "SB" },
                 { "BetCount", 10 },
                 { "Turnover", 10000m },

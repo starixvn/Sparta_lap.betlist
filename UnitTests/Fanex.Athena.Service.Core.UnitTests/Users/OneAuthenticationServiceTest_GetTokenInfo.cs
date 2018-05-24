@@ -5,9 +5,10 @@
     using Model.Core.DTO.OneAuth;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
-    public class OneAuthenticationService_GetTokenInfo
+    public class OneAuthenticationServiceTest_GetTokenInfo
     {
         private OneAuthenticationService _oneAuthenticationService;
         private IOneBookSecurityWrapper _oneBookSecurityWrapper;
@@ -34,6 +35,8 @@
         public void GetTokenInfo_WhenCall_ReturnValidInfo()
         {
             // Arrange
+            var token = FakeHelper.Create<string>();
+
             var expectedResult = new OneAuthToken
             {
                 IsAdminstrator = true,
@@ -46,19 +49,14 @@
                     new OneAuthPermission()
                 }
             };
-            _oneBookSecurityWrapper.Authenticate(Arg.Any<string>())
+            _oneBookSecurityWrapper.Authenticate(token)
                 .Returns(expectedResult);
 
             // Action
-            var result = _oneAuthenticationService.GetTokenInfo("abc");
+            var result = _oneAuthenticationService.GetTokenInfo(token);
 
             // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(result.IsAdminstrator, Is.True);
-                Assert.That(result.Currency.Length, Is.EqualTo(1));
-                Assert.That(result.Permissions.Length, Is.EqualTo(1));
-            });
+            Assert.That(result, Is.EqualTo(expectedResult));
         }
     }
 }

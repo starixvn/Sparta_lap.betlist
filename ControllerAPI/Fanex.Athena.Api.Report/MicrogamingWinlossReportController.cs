@@ -73,7 +73,7 @@ namespace Fanex.Athena.Api.Report
         private static IList<MicroGamingWinLoss> DoRestructureData(dynamic groupData)
         {
             var newDataList = new List<MicroGamingWinLoss>();
-
+            var orderIndex = 1;
             var index = 0;
             foreach (var item in groupData)
             {
@@ -84,6 +84,7 @@ namespace Fanex.Athena.Api.Report
 
                 foreach (var col in temps)
                 {
+                    col.OrderIndex = orderIndex++;
                     if (rowSpanFlag && numOfItem > 1)
                     {
                         index++;

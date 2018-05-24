@@ -7,6 +7,7 @@
     using Model.Customer.ViewModel.CustomerLog;
     using NSubstitute;
     using NUnit.Framework;
+    using Session.Model;
 
     public partial class CustomerLogControllerTest
     {

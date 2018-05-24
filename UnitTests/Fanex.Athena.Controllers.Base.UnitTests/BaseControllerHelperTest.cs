@@ -1,29 +1,21 @@
 ﻿namespace Fanex.Athena.Controllers.Base.UnitTests
 {
-    using System;
     using System.Collections.Generic;
-    using System.Security.Principal;
-    using System.Web;
     using System.Web.Mvc;
-    using System.Web.Routing;
     using Extension.Utility;
-    using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
-    using Model.Core.DTO.Users;
     using NSubstitute;
     using NUnit.Framework;
     using Service.Core.Common.Interfaces;
     using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
-    using Web.RouterConfig;
+    using Session.Enum;
+    using Session.Model;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public abstract class BaseControllerHelperTest
     {
-        protected const string TestingRequestDomain = "http://unit-test-mode";
-
-        protected const string IdentityName = "user";
-
         protected static readonly UserSession DefaultUserSession = new UserSession
         {
             CurrencyList = new Dictionary<int, string> { { 1, "UUS" } },
@@ -107,26 +99,8 @@
 
         private void SetUpForContexts()
         {
-            var routes = new RouteCollection();
-            RouteConfig.RegisterRoutes(routes, false);
-
-            var fakeIdentity = new GenericIdentity(IdentityName);
-            var principal = new GenericPrincipal(fakeIdentity, null);
-
-            var httpBaseContext = Substitute.For<HttpContextBase>();
-            httpBaseContext.Request.ApplicationPath.Returns("/");
-            httpBaseContext.Request.Url.Returns(new Uri(TestingRequestDomain));
-            httpBaseContext.Request.Cookies.Returns(new HttpCookieCollection());
-            httpBaseContext.Response.Cookies.Returns(new HttpCookieCollection());
-            httpBaseContext.Server.MapPath(Arg.Any<string>()).Returns(x => (string)x[0]);
-            httpBaseContext.User.Returns(principal);
-
-            var requestContext = new RequestContext(httpBaseContext, new RouteData());
-
-            ControllerContext = Substitute.For<ControllerContext>();
-            ControllerContext.HttpContext = httpBaseContext;
-
-            Url = new UrlHelper(requestContext, routes);
+            ControllerContext = MvcHelper.CreateControllerContext();
+            Url = MvcHelper.CreateUrlHelper(ControllerContext.HttpContext);
         }
     }
 }

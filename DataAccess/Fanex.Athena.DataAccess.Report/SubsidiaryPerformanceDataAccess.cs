@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
     using Core;
     using Core.Configuration;
     using Core.Configuration.Interfaces;
@@ -12,6 +13,7 @@
     using Model.Report.DTO;
     using Model.Report.DTO.SubsidiaryPerformance;
     using Model.Report.MetaModel;
+    using Session.Interfaces;
 
     public class SubsidiaryPerformanceDataAccess : BaseDataAccess, ISubsidiaryPerformanceDataAccess
     {
@@ -22,7 +24,8 @@
             _balanceUpDataAccess = new BalanceUpDataAccess();
         }
 
-        public SubsidiaryPerformanceDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
+        public SubsidiaryPerformanceDataAccess(ISessionStorage sessionStorage, IBalanceUpDataAccess balanceUpDataAccess)
+            : base(null, sessionStorage)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
         }
@@ -76,18 +79,19 @@
 
             return new ReportResultModel<SubsidiaryPerformanceEntity>
             {
-                DataList = dataList,
-                TotalDataList = totalDataList
+                DataList = dataList.OrderBy(x => x.CurrencyName).ToList(),
+                TotalDataList = totalDataList.OrderBy(x => x.CurrencyName).ToList()
             };
         }
 
-        private static SubsidiaryPerformanceEntity GetEntityData(IDataReader reader, string baseCurrency)
+        private SubsidiaryPerformanceEntity GetEntityData(IDataReader reader, string baseCurrency)
         {
+            var currencyId = Convert.ToInt32(reader["Currency"]);
             return new SubsidiaryPerformanceEntity
             {
                 SubsidiaryId = Convert.ToInt32(reader["recommend"]),
-                CurrencyId = Convert.ToInt32(reader["Currency"]),
-                CurrencyName = reader["CurrencyName"].ToString(),
+                CurrencyId = currencyId,
+                CurrencyName = GetCurrencyName(currencyId),
                 Product = reader["ProductCode"].ToString(),
                 BetCount = Convert.ToInt32(reader["BetCount"]),
                 Turnover = Convert.ToDecimal(reader["Turnover" + baseCurrency]),

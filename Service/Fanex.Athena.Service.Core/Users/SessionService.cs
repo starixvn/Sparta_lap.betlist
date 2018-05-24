@@ -14,18 +14,20 @@ namespace Fanex.Athena.Service.Core.Users
     using System.Linq;
     using System.Text;
     using System.Web;
-    using Configuration.Interfaces;
     using DataAccess.Core.Common;
     using DataAccess.Core.Common.Interfaces;
     using DataAccess.Core.Users;
     using DataAccess.Core.Users.Interfaces;
-    using Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Users;
     using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
+    using Session;
+    using Session.Enum;
+    using Session.Interfaces;
+    using Session.Model;
     using Utility;
 
     public class SessionService : ISessionService
@@ -34,30 +36,32 @@ namespace Fanex.Athena.Service.Core.Users
 
         private const string ReportBalancePath = "BalanceReport";
 
-        private const string LicenseeSessionKey = "LicenseeSessionKey";
-
         private const string UserSessionKey = "UserSessionKey";
-        private const string CaptchaCodeKey = "CaptchaCodeKey";
 
         private readonly IFunctionService _functionService;
         private readonly ILicenseeDataAccess _licenseeDataAccess;
         private readonly ICurrencyDataAccess _currencyDataAccess;
+
+        private readonly ISessionStorage _sessionStorage;
 
         public SessionService()
         {
             _functionService = new FunctionService();
             _licenseeDataAccess = new LicenseeDataAccess();
             _currencyDataAccess = new CurrencyDataAccess();
+            _sessionStorage = new SessionStorage();
         }
 
         public SessionService(
             IFunctionService functionService,
             ILicenseeDataAccess licenseeDataAccess,
-            ICurrencyDataAccess currencyDataAccess)
+            ICurrencyDataAccess currencyDataAccess,
+            ISessionStorage sessionStorage)
         {
             _functionService = functionService;
             _licenseeDataAccess = licenseeDataAccess;
             _currencyDataAccess = currencyDataAccess;
+            _sessionStorage = sessionStorage;
         }
 
         #region Public Properties
@@ -66,8 +70,7 @@ namespace Fanex.Athena.Service.Core.Users
         {
             get
             {
-                var temp = HttpContext.Current.Session[LicenseeSessionKey];
-                return temp != null ? (LicenseeSession)temp : null;
+                return _sessionStorage.LicenseeSession;
             }
         }
 
@@ -75,21 +78,19 @@ namespace Fanex.Athena.Service.Core.Users
         {
             get
             {
-                var temp = HttpContext.Current.Session[UserSessionKey];
-                return temp != null ? (UserSession)temp : null;
+                return _sessionStorage.UserSession;
             }
         }
 
         public string CaptchaCode
         {
-            get { return HttpContext.Current.Session[CaptchaCodeKey] as string; }
-            set { HttpContext.Current.Session[CaptchaCodeKey] = value; }
+            get { return _sessionStorage.CaptchaCode; }
+            set { _sessionStorage.CaptchaCode = value; }
         }
 
         public void AssignSessions(UserSession userSession, LicenseeSession licenseeSession)
         {
-            HttpContext.Current.Session[UserSessionKey] = userSession;
-            HttpContext.Current.Session[LicenseeSessionKey] = licenseeSession;
+            _sessionStorage.AssignSessions(userSession, licenseeSession);
         }
 
         public void CreateNewSession(
@@ -161,14 +162,14 @@ namespace Fanex.Athena.Service.Core.Users
         public bool IsAllowedEditCommission(UserSession user)
         {
             return user.ApplicationMode == AppMode.Parasitic ?
-                    user.PortalFunctionList != null && user.PortalFunctionList.Any(i => i.FunctionKey == PermissionKeys.CustomerInfoCommissionGroupList)
+                    user.PortalFunctionList != null && user.PortalFunctionList.Any(i => i == PermissionKeys.CustomerInfoCommissionGroupList)
                     : user.FunctionIdList != null && user.FunctionIdList.Contains((int)FunctionType.CommissionGroupList);
         }
 
         public bool IsAllowedSpecialBA(UserSession user)
         {
             return user.ApplicationMode == AppMode.Parasitic ?
-                    user.PortalFunctionList != null && user.PortalFunctionList.Any(i => i.FunctionKey == PermissionKeys.CustomerInfoSpecialBA)
+                    user.PortalFunctionList != null && user.PortalFunctionList.Any(i => i == PermissionKeys.CustomerInfoSpecialBA)
                     : user.FunctionIdList != null && user.FunctionIdList.Contains((int)FunctionType.SpecialBA);
         }
 

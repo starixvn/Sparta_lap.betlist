@@ -24,6 +24,7 @@ namespace Fanex.Athena.DataAccess.Report
     using Model.Core.DTO.Common;
     using Model.Core.Helper;
     using Model.Report.ResultModel;
+    using Session.Interfaces;
 
     public class WinLossByProductDataAccess : BaseDataAccess, IWinLossByProductDataAccess
     {
@@ -34,7 +35,8 @@ namespace Fanex.Athena.DataAccess.Report
             _balanceUpDataAccess = new BalanceUpDataAccess();
         }
 
-        public WinLossByProductDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
+        public WinLossByProductDataAccess(ISessionStorage sessionStorage, IBalanceUpDataAccess balanceUpDataAccess)
+            : base(null, sessionStorage)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
         }
@@ -115,59 +117,6 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        private static WinLossByProductResultModel GetData(
-            IDataReader reader,
-            WinLossByProductMetaModel metaModel,
-            bool drilldown)
-        {
-            var result = new List<WinLossByProduct>();
-            var summaryTotalTemp = new Dictionary<string, IList<WinLossByProduct>>();
-            foreach (var currency in SystemConstants.BaseCurrencyList)
-            {
-                summaryTotalTemp.Add(currency, new List<WinLossByProduct>());
-            }
-
-            var hasSystemId = reader.HasColumn("username");
-            var hasExternalId = reader.HasColumn("nickname");
-            var hasCustomerId = reader.HasColumn("custid");
-
-            while (reader.Read())
-            {
-                var productCode = reader.ToString("productcode");
-                var item = new WinLossByProduct
-                {
-                    SystemId = hasSystemId ? reader.ToString("username") : string.Empty,
-                    ExternalId = hasExternalId ? reader.ToString("nickname") : string.Empty,
-                    CustomerId = hasCustomerId ? reader.ToInt("custid") : 0,
-                    ProductCode = productCode,
-                    ProductName = ProductHelper.GetProductName(productCode),
-                    CurrencyId = reader.ToInt("currency"),
-                    CurrencyName = reader.ToString("currencyname"),
-                    TurnOver = reader.ToDecimal("turnover" + metaModel.BaseCurrency),
-                    CustomerWinLoss = reader.ToDecimal("winlost" + metaModel.BaseCurrency),
-                    CustomerComm = reader.ToDecimal("playercomm" + metaModel.BaseCurrency),
-                    LicenseeWL = reader.ToDecimal("licenseewl" + metaModel.BaseCurrency),
-                    TotalTransaction = reader.ToInt("betcount"),
-                    AmountDue = reader.ToDecimal("amtdueto3rd" + metaModel.BaseCurrency),
-                    LicenseeWLComm = reader.ToDecimal("comm" + metaModel.BaseCurrency),
-                    Date = drilldown
-                    ? metaModel.DrillDownFromDate
-                    : ConvertHelper.ToDateTime(reader.ToString("reporttype"), metaModel.ReportBy == ReportByType.Monthly)
-                };
-                result.Add(item);
-
-                ReadSummary(reader, summaryTotalTemp);
-            }
-
-            return new WinLossByProductResultModel
-            {
-                DataList = result,
-                TotalData = CalculateTotal(result),
-                SummaryTotal = CalculateSummaryTotal(summaryTotalTemp),
-                ResultInfo = new ResultInfo()
-            };
-        }
-
         private static void ReadSummary(IDataReader reader, IDictionary<string, IList<WinLossByProduct>> summaryTotalTemp)
         {
             foreach (var currency in SystemConstants.BaseCurrencyList)
@@ -246,6 +195,60 @@ namespace Fanex.Athena.DataAccess.Report
             {
                 db.AddInParameter("show" + product.Code, DbType.Boolean, product.Status);
             }
+        }
+
+        private WinLossByProductResultModel GetData(
+            IDataReader reader,
+            WinLossByProductMetaModel metaModel,
+            bool drilldown)
+        {
+            var result = new List<WinLossByProduct>();
+            var summaryTotalTemp = new Dictionary<string, IList<WinLossByProduct>>();
+            foreach (var currency in SystemConstants.BaseCurrencyList)
+            {
+                summaryTotalTemp.Add(currency, new List<WinLossByProduct>());
+            }
+
+            var hasSystemId = reader.HasColumn("username");
+            var hasExternalId = reader.HasColumn("nickname");
+            var hasCustomerId = reader.HasColumn("custid");
+
+            while (reader.Read())
+            {
+                var currencyId = reader.ToInt("currency");
+                var productCode = reader.ToString("productcode");
+                var item = new WinLossByProduct
+                {
+                    SystemId = hasSystemId ? reader.ToString("username") : string.Empty,
+                    ExternalId = hasExternalId ? reader.ToString("nickname") : string.Empty,
+                    CustomerId = hasCustomerId ? reader.ToInt("custid") : 0,
+                    ProductCode = productCode,
+                    ProductName = ProductHelper.GetProductName(productCode),
+                    CurrencyId = currencyId,
+                    CurrencyName = GetCurrencyName(currencyId),
+                    TurnOver = reader.ToDecimal("turnover" + metaModel.BaseCurrency),
+                    CustomerWinLoss = reader.ToDecimal("winlost" + metaModel.BaseCurrency),
+                    CustomerComm = reader.ToDecimal("playercomm" + metaModel.BaseCurrency),
+                    LicenseeWL = reader.ToDecimal("licenseewl" + metaModel.BaseCurrency),
+                    TotalTransaction = reader.ToInt("betcount"),
+                    AmountDue = reader.ToDecimal("amtdueto3rd" + metaModel.BaseCurrency),
+                    LicenseeWLComm = reader.ToDecimal("comm" + metaModel.BaseCurrency),
+                    Date = drilldown
+                    ? metaModel.DrillDownFromDate
+                    : ConvertHelper.ToDateTime(reader.ToString("reporttype"), metaModel.ReportBy == ReportByType.Monthly)
+                };
+                result.Add(item);
+
+                ReadSummary(reader, summaryTotalTemp);
+            }
+
+            return new WinLossByProductResultModel
+            {
+                DataList = result,
+                TotalData = CalculateTotal(result),
+                SummaryTotal = CalculateSummaryTotal(summaryTotalTemp),
+                ResultInfo = new ResultInfo()
+            };
         }
     }
 }

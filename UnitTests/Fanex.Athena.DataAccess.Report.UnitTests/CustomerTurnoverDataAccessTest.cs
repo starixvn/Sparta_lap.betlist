@@ -35,7 +35,10 @@
             };
             balanceUpDataAccess.GetBalanceUp().Returns(_balance);
 
-            DataAccess = Substitute.ForPartsOf<CustomerTurnoverDataAccess>(balanceUpDataAccess, Substitute.For<ICacheRefAdapter>());
+            DataAccess = Substitute.ForPartsOf<CustomerTurnoverDataAccess>(
+                CreateSessionStorage(),
+                balanceUpDataAccess,
+                Substitute.For<ICacheRefAdapter>());
             DataAccess.GetObjectDb(Arg.Is("Lrf_Rpt_CustomerTurnOver")).Returns(ObjectDb);
 
             _metaModel = new CustomerTurnoverMetaModel
@@ -114,7 +117,6 @@
             var expectedResult = new CustTurnover
             {
                 UserName = "UserNameTest",
-                Currency = "CurrencyTest",
                 Bettype = "BettypeTest"
             };
 
@@ -148,7 +150,6 @@
             var expectedResult = new CustTurnover
             {
                 UserName = "User name test",
-                Currency = "CurrencyTest",
                 Bettype = "BettypeTest",
                 SportId = 1,
                 ReportBy = new DateTime(2016, 8, 31)
@@ -169,7 +170,7 @@
                 Assert.That(firstItem.SportId, Is.EqualTo(expectedResult.SportId));
                 Assert.That(firstItem.ReportBy, Is.EqualTo(expectedResult.ReportBy));
                 Assert.That(firstItem.UserName, Is.EqualTo(expectedResult.UserName));
-                Assert.That(firstItem.Currency, Is.EqualTo(expectedResult.Currency));
+                Assert.That(firstItem.Currency, Is.EqualTo(CurrencyName));
                 Assert.That(firstItem.Bettype, Is.EqualTo(expectedResult.Bettype));
                 AssertCommonData(firstItem, expectedResult);
 
@@ -195,7 +196,7 @@
             Reader["sporttype"].Returns(expected.SportId);
             Reader["ReportBy"].Returns("20160831");
             Reader["username"].Returns(expected.UserName);
-            Reader["currency"].Returns(expected.Currency);
+            Reader["currencyid"].Returns(CurrencyId);
             Reader["BetCount"].Returns(expected.TotalTransactions);
             Reader["Bettype"].Returns(expected.Bettype);
             Reader["Winlost"].Returns(expected.CustomerWinLoss);

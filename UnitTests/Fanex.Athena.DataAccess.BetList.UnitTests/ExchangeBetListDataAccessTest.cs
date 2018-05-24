@@ -14,13 +14,18 @@
     {
         private const string BetListUsp = "Lrf_BetList_Exchange_Mem";
 
+        [SetUp]
+        public override void SetUp()
+        {
+            base.SetUp();
+            DataAccess.GetObjectDb(Arg.Is(BetListUsp)).Returns(ObjectDb);
+        }
+
         [Test]
         public void GetBetListData_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            DataAccess.GetObjectDb(Arg.Is(BetListUsp)).Returns(ObjectDb);
-
-            var metaModel = new ExchangeBetListMetaModel();
+            var metaModel = FakeHelper.Create<ExchangeBetListMetaModel>();
 
             // Action
             DataAccess.GetBetListData(metaModel);
@@ -43,14 +48,11 @@
         public void GetBetListData_NoData_ReturnEmptyResult()
         {
             // Arrange
-            DataAccess.GetObjectDb(Arg.Is(BetListUsp)).Returns(ObjectDb);
             Reader.Read().Returns(false);
             ObjectDb.GetParameterValue("SumWinLost").Returns(0);
 
-            var metaModel = new ExchangeBetListMetaModel();
-
             // Action
-            var result = DataAccess.GetBetListData(metaModel);
+            var result = DataAccess.GetBetListData(new ExchangeBetListMetaModel());
 
             // Assert
             Assert.Multiple(() =>
@@ -73,7 +75,6 @@
             decimal expectedWinlossComm)
         {
             // Arrange
-            DataAccess.GetObjectDb(Arg.Is(BetListUsp)).Returns(ObjectDb);
             ObjectDb.GetParameterValue("SumWinLost").Returns(winlossComm);
             ObjectDb.GetParameterValue("SumWinLost" + baseCurrency.ToUpperInvariant()).Returns(baseCurrencyWinlossComm);
 
@@ -127,8 +128,6 @@
         public void GetBetListData_HasTicketDataData_ReturnCorrectResult(string baseCurrency, decimal figure, decimal baseCurrencyFigure, decimal expectedFigure)
         {
             // Arrange
-            DataAccess.GetObjectDb(Arg.Is(BetListUsp)).Returns(ObjectDb);
-
             var ticket = FakeHelper.Create<ExchangeTicket>();
             ticket.WinLost = figure;
             ticket.Stake = figure;

@@ -7,6 +7,7 @@
     using Model.Core.DataDomain;
     using Service.Core.Users;
     using Service.Core.Users.Interfaces;
+    using Session.Enum;
 
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     public sealed class XFrameOptionAttribute : ActionFilterAttribute

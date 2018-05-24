@@ -1,15 +1,21 @@
 ﻿namespace Fanex.Athena.DataAccess.Core.UnitTests.TestHelpers
 {
+    using System.Collections.Generic;
     using System.Data;
     using Core.Exception;
-    using Extension.Utility;
     using Fanex.Data;
     using NSubstitute;
     using NUnit.Framework;
+    using Session.Interfaces;
+    using Session.Model;
     using UnitTest.Common.Helpers;
 
     public class BaseDataAccessHelperTest<T> where T : BaseDataAccess
     {
+        protected const int CurrencyId = 123;
+
+        protected const string CurrencyName = "aaaaaaaaa";
+
         protected IObjectDb ObjectDb { get; set; }
 
         protected IDataReader Reader { get; set; }
@@ -20,7 +26,7 @@
         public virtual void FixtureSetUp()
         {
             ObjectDb = Substitute.For<IObjectDb>();
-            DataAccess = Substitute.ForPartsOf<T>();
+            SetUpDataAccess();
         }
 
         [OneTimeTearDown]
@@ -44,6 +50,25 @@
         {
             DataAccess.ClearReceivedCalls();
             Reader = null;
+        }
+
+        protected ISessionStorage CreateSessionStorage()
+        {
+            var sessionStorage = Substitute.For<ISessionStorage>();
+            sessionStorage.UserSession.Returns(new UserSession
+            {
+                CurrencyList = new Dictionary<int, string>
+                {
+                    { CurrencyId, CurrencyName }
+                }
+            });
+
+            return sessionStorage;
+        }
+
+        protected virtual void SetUpDataAccess()
+        {
+            DataAccess = Substitute.ForPartsOf<T>();
         }
 
         protected void MapReaderData(object readerDataMapping)

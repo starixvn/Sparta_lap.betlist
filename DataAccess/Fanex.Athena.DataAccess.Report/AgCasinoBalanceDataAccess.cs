@@ -10,9 +10,8 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Collections.Generic;
     using System.Data;
     using System.Data.SqlClient;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using Fanex.Athena.DataAccess.Core;
+    using Core;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Report.Interfaces;
@@ -23,9 +22,19 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Model.Core.ResultModel;
+    using Session.Interfaces;
 
     public class AgCasinoBalanceDataAccess : BaseDataAccess, IAgCasinoBalanceDataAccess
     {
+        public AgCasinoBalanceDataAccess() : this(null)
+        {
+        }
+
+        public AgCasinoBalanceDataAccess(ISessionStorage sessionStorage)
+            : base(null, sessionStorage)
+        {
+        }
+
         public SortableReportResultModel<AgCasinoBalance> GetSummaryBalance(ThirdPartyWinLossMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_AGCasinoBalance";
@@ -41,7 +50,7 @@ namespace Fanex.Athena.DataAccess.Report
                     }
                 }
             }
-            catch (SqlException sqlException)
+            catch (ObjectDbException sqlException)
             {
                 throw new DataAccessException(sqlException, UspName, metaModel);
             }
@@ -71,7 +80,7 @@ namespace Fanex.Athena.DataAccess.Report
                     return result;
                 }
             }
-            catch (SqlException sqlException)
+            catch (ObjectDbException sqlException)
             {
                 throw new DataAccessException(sqlException, UspName, metaModel);
             }
@@ -91,15 +100,35 @@ namespace Fanex.Athena.DataAccess.Report
                     }
                 }
             }
-            catch (SqlException sqlException)
+            catch (ObjectDbException sqlException)
             {
                 throw new DataAccessException(sqlException, UspName, metaModel);
             }
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
-        private static SortableReportResultModel<AgCasinoBalance> GetData(
+        private static void ReadSummaryTotal(IDataReader reader, Dictionary<string, AgCasinoBalance> summaryTotal)
+        {
+            foreach (var currencySuffix in SystemConstants.BaseCurrencyList)
+            {
+                summaryTotal[currencySuffix].CustomerWinLoss += reader.ToDecimal("winlost" + currencySuffix);
+                summaryTotal[currencySuffix].TotalTransaction += reader.ToInt("totaltrans");
+                summaryTotal[currencySuffix].LicenseeWL += reader.ToDecimal("licenseewinlost" + currencySuffix);
+                summaryTotal[currencySuffix].TurnOver += reader.ToDecimal("turnover" + currencySuffix);
+                summaryTotal[currencySuffix].OpeningBalance += reader.ToDecimal("OpeningBalance" + currencySuffix);
+                summaryTotal[currencySuffix].TransferIn += reader.ToDecimal("TransferIn" + currencySuffix);
+                summaryTotal[currencySuffix].TransferOut += reader.ToDecimal("TransferOut" + currencySuffix);
+                summaryTotal[currencySuffix].ClosingBalance += reader.ToDecimal("ClosingBalance" + currencySuffix);
+            }
+        }
+
+        private static void UpdateUspParams(IObjectDb db, ThirdPartyWinLossMetaModel metaModel, bool drilldown)
+        {
+            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            db.AddInParameter("fromdate", DbType.Date, drilldown ? metaModel.DrillDownFromDate : metaModel.FromDate.Date);
+            db.AddInParameter("todate", DbType.Date, drilldown ? metaModel.DrillDownToDate : metaModel.ToDate.Date);
+        }
+
+        private SortableReportResultModel<AgCasinoBalance> GetData(
             IDataReader reader,
             ThirdPartyWinLossMetaModel metaModel)
         {
@@ -122,14 +151,15 @@ namespace Fanex.Athena.DataAccess.Report
             var index = metaModel.DrillDownLevel == 2 ? ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1 : 1;
             while (reader.Read())
             {
+                var currencyId = reader.ToInt("currency");
                 var item = new AgCasinoBalance
                 {
                     Index = index++,
                     SystemId = hasSystemIdColumn ? reader.ToString("username") : string.Empty,
                     ExternalId = hasExternalIdColumn ? reader.ToString("nickname") : string.Empty,
                     CustomerId = hasCustomerIdColumn ? reader.ToInt("custid") : 0,
-                    CurrencyId = reader.ToInt("currency"),
-                    CurrencyName = reader.ToString("currencyname"),
+                    CurrencyId = currencyId,
+                    CurrencyName = GetCurrencyName(currencyId),
                     CustomerWinLoss = reader.ToDecimal(winlostColumn),
                     LicenseeWL = reader.ToDecimal(licenseewlColumn),
                     TurnOver = reader.ToDecimal(turnoverColumn),
@@ -142,18 +172,7 @@ namespace Fanex.Athena.DataAccess.Report
                 };
 
                 dataList.Add(item);
-
-                foreach (var currencySuffix in SystemConstants.BaseCurrencyList)
-                {
-                    summaryTotal[currencySuffix].CustomerWinLoss += reader.ToDecimal("winlost" + currencySuffix);
-                    summaryTotal[currencySuffix].TotalTransaction += reader.ToInt("totaltrans");
-                    summaryTotal[currencySuffix].LicenseeWL += reader.ToDecimal("licenseewinlost" + currencySuffix);
-                    summaryTotal[currencySuffix].TurnOver += reader.ToDecimal("turnover" + currencySuffix);
-                    summaryTotal[currencySuffix].OpeningBalance += reader.ToDecimal("OpeningBalance" + currencySuffix);
-                    summaryTotal[currencySuffix].TransferIn += reader.ToDecimal("TransferIn" + currencySuffix);
-                    summaryTotal[currencySuffix].TransferOut += reader.ToDecimal("TransferOut" + currencySuffix);
-                    summaryTotal[currencySuffix].ClosingBalance += reader.ToDecimal("ClosingBalance" + currencySuffix);
-                }
+                ReadSummaryTotal(reader, summaryTotal);
             }
 
             return new SortableReportResultModel<AgCasinoBalance>
@@ -161,13 +180,6 @@ namespace Fanex.Athena.DataAccess.Report
                 DataList = dataList,
                 SummaryTotal = summaryTotal
             };
-        }
-
-        private static void UpdateUspParams(IObjectDb db, ThirdPartyWinLossMetaModel metaModel, bool drilldown)
-        {
-            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            db.AddInParameter("fromdate", DbType.Date, drilldown ? metaModel.DrillDownFromDate : metaModel.FromDate.Date);
-            db.AddInParameter("todate", DbType.Date, drilldown ? metaModel.DrillDownToDate : metaModel.ToDate.Date);
         }
     }
 }

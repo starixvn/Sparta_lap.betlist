@@ -15,6 +15,7 @@
     using NUnit.Framework;
     using Service.Core.Common.Interfaces;
     using Service.Customer.Interfaces;
+    using Session.Model;
 
     public partial class CustomerControllerTest : BaseControllerHelperTest
     {

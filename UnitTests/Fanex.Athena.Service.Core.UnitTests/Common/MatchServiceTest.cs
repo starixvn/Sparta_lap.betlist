@@ -9,6 +9,7 @@
     using Model.Core.DTO.Common;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class MatchServiceTest
@@ -41,7 +42,7 @@
         public void GetAllRunningMatch_CacheContainsData_ReturnDataFromCache()
         {
             // Arrange
-            var sportId = 1;
+            var sportId = FakeHelper.Create<int>();
             _cache.Contains(Arg.Any<string>()).Returns(true);
             _cache.Get<IList<Match>>(Arg.Any<string>()).Returns(ExpectedResultDataList);
 
@@ -60,7 +61,7 @@
         public void GetAllRunningMatch_WhenCall_ReturnResultFromDataAccess()
         {
             // Arrange
-            var sportId = 1;
+            var sportId = FakeHelper.Create<int>();
             _matchDataAccess.GetAllRunningMatch(sportId).Returns(ExpectedResultDataList);
 
             // Action
@@ -78,7 +79,7 @@
         public void GetAllRunningMatch_GetDataFromCache_ReturnCachedData()
         {
             // Arrange
-            var sportId = 1;
+            var sportId = FakeHelper.Create<int>();
             _matchDataAccess.GetAllRunningMatch(sportId).Returns(ExpectedResultDataList);
             var firstCall = _matchService.GetAllRunningMatch(sportId);
 
@@ -93,7 +94,7 @@
         public void GetForecastMatchListByLeague_WhenCall_ReturnResultFromDataAccess()
         {
             // Arrange
-            var leagueId = 1;
+            var leagueId = FakeHelper.Create<int>();
             _matchDataAccess.GetForecastMatchListByLeague(leagueId).Returns(ExpectedResultDataList);
 
             // Action
@@ -107,9 +108,9 @@
         public void GetMatchesByLeague_WhenCall_ReturnResultFromDataAccess()
         {
             // Arrange
-            var leagueId = 1;
-            var fromDate = new DateTime(2016, 1, 1);
-            var toDate = new DateTime(2016, 2, 2);
+            var leagueId = FakeHelper.Create<int>();
+            var fromDate = FakeHelper.Create<DateTime>();
+            var toDate = FakeHelper.Create<DateTime>();
             _matchDataAccess.GetMatchesByLeague(leagueId, fromDate, toDate).Returns(ExpectedResultDataList);
 
             // Action

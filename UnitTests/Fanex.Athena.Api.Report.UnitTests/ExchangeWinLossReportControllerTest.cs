@@ -11,6 +11,7 @@
     using NSubstitute;
     using NUnit.Framework;
     using Service.Core.Configuration.Interfaces;
+    using Session.Model;
 
     public class ExchangeWinLossReportControllerTest : BaseApiControllerHelperTest
     {

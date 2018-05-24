@@ -11,6 +11,7 @@
     using Model.Report.ViewModel;
     using NSubstitute;
     using NUnit.Framework;
+    using Session.Model;
 
     public partial class PlatformWinLossReportControllerTest
     {

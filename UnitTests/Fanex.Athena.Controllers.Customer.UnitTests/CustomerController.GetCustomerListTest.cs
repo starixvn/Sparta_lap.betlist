@@ -8,6 +8,7 @@
     using Model.Customer.ViewModel;
     using NSubstitute;
     using NUnit.Framework;
+    using Session.Model;
 
     public partial class CustomerControllerTest
     {
