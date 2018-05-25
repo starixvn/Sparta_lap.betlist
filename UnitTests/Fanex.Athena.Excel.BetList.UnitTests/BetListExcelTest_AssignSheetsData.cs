@@ -14,7 +14,6 @@ namespace Fanex.Athena.Excel.BetList.UnitTests
     [TestFixture]
     internal class BetListExcelTest_AssignSheetdata
     {
-        private const int ColumnWinlossIndex = 7;
         private ICacheRefAdapter _cacheRefAdapter;
         private ITicketHelper _ticketHelper;
         private IBetListExcelBuilder _builder;

@@ -702,6 +702,7 @@ var Site = (function ($) {
                     showHeader: true,
                     isCheckAll: isCheckAll,
                     checkAllText: Site.getSingleResource('All'),
+                    selectedText: Site.getSingleResource('SelectedItemCount'),
                     showFooter: false,
                     listData: dataUI,
                     onCheck: function () {

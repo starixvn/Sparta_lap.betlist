@@ -2643,4 +2643,22 @@
   <data name="FreePlay" xml:space="preserve">
     <value>免費投注</value>
   </data>
+  <data name="CashOutTimes" xml:space="preserve">
+    <value>即時兌現次數</value>
+  </data>
+  <data name="CashOutTickets" xml:space="preserve">
+    <value>即時兌現注單</value>
+  </data>
+  <data name="CashOutValue" xml:space="preserve">
+    <value>會員賣出的實際投注額</value>
+  </data>
+  <data name="CashOutCommission" xml:space="preserve">
+    <value>即時兌現佣金</value>
+  </data>
+  <data name="CashOutNotOfferCurrency" xml:space="preserve">
+    <value>即時兌現不支援此貨幣</value>
+  </data>
+  <data name="EnableCashOut" xml:space="preserve">
+    <value>開啟即時兌現</value>
+  </data>
 </root>

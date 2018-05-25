@@ -2597,4 +2597,25 @@
   <data name="FreePlay" xml:space="preserve">
     <value>免费投注</value>
   </data>
+  <data name="CashOutTimes" xml:space="preserve">
+    <value>即时兑现次数</value>
+  </data>
+  <data name="CashOutTickets" xml:space="preserve">
+    <value>即时兑现注单</value>
+  </data>
+  <data name="CashOutValue" xml:space="preserve">
+    <value>会员卖出的实际投注额</value>
+  </data>
+  <data name="CashOutCommission" xml:space="preserve">
+    <value>即时兑现佣金</value>
+  </data>
+  <data name="CashOutStake" xml:space="preserve">
+    <value>即时兑现本金</value>
+  </data>
+  <data name="CashOutNotOfferCurrency" xml:space="preserve">
+    <value>即时兑现不支援此货币</value>
+  </data>
+  <data name="EnableCashOut" xml:space="preserve">
+    <value>开启即时兑现</value>
+  </data>
 </root>
