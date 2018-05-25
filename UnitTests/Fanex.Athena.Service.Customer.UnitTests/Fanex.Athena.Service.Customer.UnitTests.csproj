@@ -117,8 +117,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="CustomerCommServiceTest.RemoveCustomersFromGroup.cs" />
-    <Compile Include="CustomerCommServiceTest.cs">
+    <Compile Include="CustomerCommServiceTest_MoveCustomersToGroup.cs" />
+    <Compile Include="CustomerCommServiceTest_RemoveCustomersFromGroup.cs" />
+    <Compile Include="CustomerCommServiceTest_UpdateCustomersCommission.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="CustomerServiceTest.cs" />
@@ -135,6 +136,10 @@
     <ProjectReference Include="..\..\Fanex.Athena.Extension\Fanex.Athena.Extension.csproj">
       <Project>{71F95E53-36D0-4091-828D-ED14C9939C35}</Project>
       <Name>Fanex.Athena.Extension</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Fanex.Athena.UnitTest.Common\Fanex.Athena.UnitTest.Common.csproj">
+      <Project>{4a5bddbc-f707-409a-86ec-d9bc6e9d31c4}</Project>
+      <Name>Fanex.Athena.UnitTest.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Infrastructure\Fanex.Athena.Session\Fanex.Athena.Session.csproj">
       <Project>{B41E38EF-54AD-4866-968F-C856DE9DC072}</Project>
