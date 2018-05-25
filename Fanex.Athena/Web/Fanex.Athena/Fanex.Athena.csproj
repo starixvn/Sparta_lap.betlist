@@ -664,6 +664,7 @@
     <Content Include="Content\Report\cashoutwinloss.css" />
     <Content Include="Content\Report\customertbalance.css" />
     <Content Include="Content\Utility\images\UM.png" />
+    <Content Include="robots.txt" />
     <Content Include="jasmine-specs\BetList\lastbet.filter-test.js" />
     <Content Include="jasmine-specs\Customer\BetSetting\exchange-test.js" />
     <Content Include="jasmine-specs\Customer\CustomerList\customerlist.custoption-test.js" />
