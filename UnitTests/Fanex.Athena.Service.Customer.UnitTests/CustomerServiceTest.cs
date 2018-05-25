@@ -5,6 +5,7 @@
     using Model.Customer.DTO;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class CustomerServiceTest
@@ -35,13 +36,15 @@
         public void GetCustomerInfo_WhenCallWithCorrectPermission_ReturnCorrectData()
         {
             // Arrange
-            const int LicenseeId = 1, CustId = 2;
-            var expectedResult = new CustomerInfo();
-            _authorizationService.HasPermissionOnData(LicenseeId, CustId, Arg.Any<long>()).Returns(true);
-            _customerDataAccess.GetCustomerInfo(CustId).Returns(expectedResult);
+            var licenseeId = FakeHelper.Create<int>();
+            var custId = FakeHelper.Create<int>();
+            _authorizationService.HasPermissionOnData(licenseeId, custId, 0).Returns(true);
+
+            var expectedResult = FakeHelper.Create<CustomerInfo>();
+            _customerDataAccess.GetCustomerInfo(custId).Returns(expectedResult);
 
             // Action
-            var result = _customerService.GetCustomerInfo(LicenseeId, CustId);
+            var result = _customerService.GetCustomerInfo(licenseeId, custId);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -51,15 +54,19 @@
         public void GetCustomerInfo_HaveNoPermission_DataAccessIsNotCalled()
         {
             // Arrange
-            const int LicenseeId = 1, CustId = 2;
-            _authorizationService.HasPermissionOnData(LicenseeId, CustId, Arg.Any<long>()).Returns(false);
+            var licenseeId = FakeHelper.Create<int>();
+            var custId = FakeHelper.Create<int>();
+            _authorizationService.HasPermissionOnData(licenseeId, custId, 0).Returns(false);
 
             // Action
-            var result = _customerService.GetCustomerInfo(LicenseeId, CustId);
+            var result = _customerService.GetCustomerInfo(licenseeId, custId);
 
             // Assert
-            _customerDataAccess.DidNotReceive().GetCustomerInfo(CustId);
-            Assert.That(result, Is.Not.Null);
+            Assert.Multiple(() =>
+            {
+                _customerDataAccess.DidNotReceive().GetCustomerInfo(custId);
+                Assert.That(result, Is.Not.Null);
+            });
         }
     }
 }
