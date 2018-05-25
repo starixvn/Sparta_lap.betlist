@@ -6,7 +6,6 @@
 
 namespace Fanex.Athena.Api.Report
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http;
@@ -31,8 +30,8 @@ namespace Fanex.Athena.Api.Report
         }
 
         public WeeklyLiveMatchReportController(
-            IWeeklyLiveMatchService service, 
-            ISessionService sessionService,          
+            IWeeklyLiveMatchService service,
+            ISessionService sessionService,
             IProductService productService,
             ILanguageService langService)
             : base(sessionService, productService, langService)

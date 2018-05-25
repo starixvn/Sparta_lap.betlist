@@ -68,7 +68,7 @@ namespace Fanex.Athena.Excel.Report
         private static readonly string[] OfferedProducts = new[]
         {
             Product.SB, Product.AB, Product.AGC, Product.BA,
-            Product.BT, Product.FW, Product.KN, 
+            Product.BT, Product.FW, Product.KN,
             Product.VB, Product.MGCLC, Product.MGCRNG, Product.NG,
             Product.RB, Product.CS, Product.VS, Product.CO, Product.VS2, Product.LT,
             Product.PP

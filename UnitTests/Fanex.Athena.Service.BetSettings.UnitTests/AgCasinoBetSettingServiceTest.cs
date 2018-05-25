@@ -26,7 +26,7 @@
         private IAppSettings _appSettings;
         private IWebClientService _webClientService;
         private IAgCasinoBetSettingService _service;
-        private ICoreLogger _logger;   
+        private ICoreLogger _logger;
 
         [OneTimeSetUp]
         public void SetUp()

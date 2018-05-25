@@ -12,7 +12,6 @@
     using System.Web.Http.Filters;
     using Extension.Utility;
     using Fanex.Athena.Service.Core.Users;
-    using Model.Core.DataDomain;
     using Resources;
     using Service.Core.Users.Interfaces;
     using Session.Enum;

@@ -9,7 +9,6 @@ namespace Fanex.Athena.Api.Base.Attributes
     using System.Net;
     using System.Net.Http;
     using System.Web.Http;
-    using Fanex.Athena.Service.Core.Users;
     using Session;
     using Session.Interfaces;
 

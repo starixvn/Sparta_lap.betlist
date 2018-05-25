@@ -5,7 +5,6 @@
     using Extension.Utility;
     using Fanex.Athena.Service.Core.Users;
     using Fanex.Athena.Service.Core.Users.Interfaces;
-    using Model.Core.DataDomain;
     using ONEbook.UM.Filters;
     using Service.Core.Helpers;
     using Session.Enum;

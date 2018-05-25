@@ -6,7 +6,6 @@
 
 namespace Fanex.Athena.Api.BetList
 {
-    using System;
     using System.Web.Http;
     using DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.Model.BetList.MetaModel;

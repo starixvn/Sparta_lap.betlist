@@ -13,9 +13,7 @@
     using DataAccess.Core.Users;
     using DataAccess.Core.Users.Interfaces;
     using Fanex.Athena.Service.Core.Users;
-    using Logging;
     using Resources;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility;
     using Service.Core.Utility.Interfaces;

@@ -6,8 +6,6 @@
 
 namespace Fanex.Athena.Api.BetList
 {
-    using System;
-
     #region Using
 
     using System.Web.Http;
