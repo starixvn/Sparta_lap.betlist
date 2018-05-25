@@ -29,7 +29,7 @@
 
                 SetUpDefaultFakeData();
                 SessionService.GenerateAgentListXml().Returns(AgentListXml);
-                customerListService.SearchCustomers(0, 0, string.Empty, string.Empty)
+                customerListService.SearchCustomers(0, string.Empty, string.Empty)
                     .ReturnsForAnyArgs(expectedCustomerNames);
 
                 // Action
@@ -40,7 +40,6 @@
                 Assert.Multiple(() =>
                 {
                     customerListService.Received(1).SearchCustomers(
-                        SessionService.LicenseeSession.LicenseeId,
                         SessionService.UserSession.UserId,
                         Query.Trim(),
                         AgentListXml);

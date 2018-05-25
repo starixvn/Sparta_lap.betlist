@@ -49,9 +49,8 @@
         public JsonResult SearchCustomer(string query)
         {
             var userName = query.Trim();
-            var licenseeId = SessionService.LicenseeSession.LicenseeId;
             var userId = SessionService.UserSession.UserId;
-            var customerNames = _customerListService.SearchCustomers(licenseeId, userId, userName, SessionService.GenerateAgentListXml());
+            var customerNames = _customerListService.SearchCustomers(userId, userName, SessionService.GenerateAgentListXml());
 
             var searchResult = new
             {
