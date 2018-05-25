@@ -20,7 +20,7 @@ namespace Fanex.Athena.Service.Customer.Interfaces
     {
         #region Read
 
-        IEnumerable<string> SearchCustomers(int licenseeId, int userId, string userName, string agentListXml);
+        IEnumerable<string> SearchCustomers(int userId, string userName, string agentListXml);
 
         ReportResultModel<CustomerDTO> Search(CustomerListMetaModel metaModel);
 

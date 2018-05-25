@@ -63,7 +63,7 @@ namespace Fanex.Athena.Service.Customer
             _appSettings = appSettings;
         }
 
-        public IEnumerable<string> SearchCustomers(int licenseeId, int userId, string userName, string agentListXml)
+        public IEnumerable<string> SearchCustomers(int userId, string userName, string agentListXml)
         {
             return _customerListDataAccess.SearchCustomers(userId, userName, agentListXml);
         }
