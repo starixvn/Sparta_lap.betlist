@@ -37,7 +37,7 @@ namespace Fanex.Athena.DataAccess.Report
 
         public CustomerTurnoverDataAccess(
             ISessionStorage sessionStorage,
-            IBalanceUpDataAccess balanceUpDataAccess, 
+            IBalanceUpDataAccess balanceUpDataAccess,
             ICacheRefAdapter cacheRefAdapter)
             : base(null, sessionStorage)
         {

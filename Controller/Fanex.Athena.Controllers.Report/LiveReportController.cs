@@ -234,6 +234,6 @@ namespace Fanex.Athena.Controllers.Report
             return new LiveReportExcel(templatePath, convertingOption, showingOption, viewModel.MainResult, liveReportDetail);
         }
 
-        protected ProductAccess GetProductAccess(int licenseeId, string language) => ProductService.GetProductAccess(licenseeId, language, FunctionNames.LiveReport);          
+        protected ProductAccess GetProductAccess(int licenseeId, string language) => ProductService.GetProductAccess(licenseeId, language, FunctionNames.LiveReport);
     }
 }

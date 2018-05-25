@@ -44,7 +44,7 @@ namespace Fanex.Athena.Controllers.Report
             IAppSettings appSetting,
             IClientViewHelper clientViewHelper,
             IProductService productService,
-            IBalanceUpDataAccess balanceUpDataAccess, 
+            IBalanceUpDataAccess balanceUpDataAccess,
             IRacingCommissionDataAccess racingCommissionDataAccess)
             : base(languageService, sessionService, appSetting, clientViewHelper, productService)
         {
