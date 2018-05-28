@@ -451,16 +451,17 @@
             });
 
             describe("drillDown(level, currencyId, customerId, datetime)", function () {
-                beforeEach(function () {
-                    var submitData = {
-                        FromDate: "04/01/2017",
-                        ToDate: "04/20/2017",
-                        CurrencyId: 0,
-                        IsExcludedTestData: true,
-                        ReportBy: 1,
-                        BaseCurrency: "EUR",
-                        CurrencyName: "EUR"
-                    };
+                var submitData = {
+                    FromDate: "04/01/2017",
+                    ToDate: "04/20/2017",
+                    CurrencyId: 0,
+                    IsExcludedTestData: true,
+                    ReportBy: 1,
+                    BaseCurrency: "EUR",
+                    CurrencyName: "EUR"
+                };
+
+                beforeEach(function () {                
                     CreateSubmitData(submitData);
 
                     appendSetFixtures('<div id="BaseCurrency" data-original="EUR"></div>');
@@ -534,7 +535,7 @@
 
                         ajaxOption.success(response);
 
-                        expect(CashOutWinLoss.setReportTitle).toHaveBeenCalledWith(2, new Date(2017, 3, 1), new Date(2017, 3, 20));
+                        expect(CashOutWinLoss.setReportTitle).toHaveBeenCalledWith(2, new Date(2017, 3, 1), new Date(2017, 3, 20), submitData.BaseCurrency);
                     });
 
                     it("CashOutWinLoss.setReportTitle() should be called with correct parameter with level is 0", function () {
