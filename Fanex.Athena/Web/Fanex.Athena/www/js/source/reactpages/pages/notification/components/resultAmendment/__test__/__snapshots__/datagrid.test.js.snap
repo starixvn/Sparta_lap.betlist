@@ -184,11 +184,14 @@ exports[`DataGrid  render  has data - render table 1`] = `
                 >
                   <div
                     className="subject-item"
-                    title="Subject"
                   >
-                    <span>
-                      Subject
-                    </span>
+                    <span
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "Subject",
+                        }
+                      }
+                    />
                     <i
                       className="icon-arrow"
                       onClick={[Function]}

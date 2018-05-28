@@ -50,6 +50,7 @@ exports[`FormFilter  render methods render whole component group by currency - I
           TimeZone
         </label>
         <Select
+          addLabelText="Add \\"{label}\\"?"
           arrowRenderer={[Function]}
           autosize={true}
           backspaceRemoves={true}
@@ -97,14 +98,11 @@ exports[`FormFilter  render methods render whole component group by currency - I
           }
           pageSize={5}
           placeholder="Select..."
-          removeSelected={true}
           required={false}
-          rtl={false}
           scrollMenuIntoView={true}
           searchable={true}
           simpleValue={false}
           tabSelectsValue={true}
-          trimFilter={true}
           value={-4}
           valueComponent={[Function]}
           valueKey="value"
@@ -160,6 +158,7 @@ exports[`FormFilter  render methods render whole component group by currency - I
           Currency
         </label>
         <Select
+          addLabelText="Add \\"{label}\\"?"
           arrowRenderer={[Function]}
           autosize={true}
           backspaceRemoves={true}
@@ -247,14 +246,11 @@ exports[`FormFilter  render methods render whole component group by currency - I
           }
           pageSize={5}
           placeholder="Select..."
-          removeSelected={true}
           required={false}
-          rtl={false}
           scrollMenuIntoView={true}
           searchable={true}
           simpleValue={false}
           tabSelectsValue={true}
-          trimFilter={true}
           value={0}
           valueComponent={[Function]}
           valueKey="value"
@@ -273,6 +269,7 @@ exports[`FormFilter  render methods render whole component group by currency - I
           BaseCurrency
         </label>
         <Select
+          addLabelText="Add \\"{label}\\"?"
           arrowRenderer={[Function]}
           autosize={true}
           backspaceRemoves={true}
@@ -340,14 +337,11 @@ exports[`FormFilter  render methods render whole component group by currency - I
           }
           pageSize={5}
           placeholder="Select..."
-          removeSelected={true}
           required={false}
-          rtl={false}
           scrollMenuIntoView={true}
           searchable={true}
           simpleValue={false}
           tabSelectsValue={true}
-          trimFilter={true}
           value="EUR"
           valueComponent={[Function]}
           valueKey="value"
@@ -409,6 +403,7 @@ exports[`FormFilter  render methods render whole component group by currency - I
           ReportBy
         </label>
         <Select
+          addLabelText="Add \\"{label}\\"?"
           arrowRenderer={[Function]}
           autosize={true}
           backspaceRemoves={true}
@@ -460,14 +455,11 @@ exports[`FormFilter  render methods render whole component group by currency - I
           }
           pageSize={5}
           placeholder="Select..."
-          removeSelected={true}
           required={false}
-          rtl={false}
           scrollMenuIntoView={true}
           searchable={true}
           simpleValue={false}
           tabSelectsValue={true}
-          trimFilter={true}
           value={1}
           valueComponent={[Function]}
           valueKey="value"
@@ -646,6 +638,7 @@ exports[`FormFilter  render methods render whole component group by product - Is
           TimeZone
         </label>
         <Select
+          addLabelText="Add \\"{label}\\"?"
           arrowRenderer={[Function]}
           autosize={true}
           backspaceRemoves={true}
@@ -693,14 +686,11 @@ exports[`FormFilter  render methods render whole component group by product - Is
           }
           pageSize={5}
           placeholder="Select..."
-          removeSelected={true}
           required={false}
-          rtl={false}
           scrollMenuIntoView={true}
           searchable={true}
           simpleValue={false}
           tabSelectsValue={true}
-          trimFilter={true}
           value={-4}
           valueComponent={[Function]}
           valueKey="value"
@@ -756,6 +746,7 @@ exports[`FormFilter  render methods render whole component group by product - Is
           Currency
         </label>
         <Select
+          addLabelText="Add \\"{label}\\"?"
           arrowRenderer={[Function]}
           autosize={true}
           backspaceRemoves={true}
@@ -843,14 +834,11 @@ exports[`FormFilter  render methods render whole component group by product - Is
           }
           pageSize={5}
           placeholder="Select..."
-          removeSelected={true}
           required={false}
-          rtl={false}
           scrollMenuIntoView={true}
           searchable={true}
           simpleValue={false}
           tabSelectsValue={true}
-          trimFilter={true}
           value={0}
           valueComponent={[Function]}
           valueKey="value"
@@ -869,6 +857,7 @@ exports[`FormFilter  render methods render whole component group by product - Is
           BaseCurrency
         </label>
         <Select
+          addLabelText="Add \\"{label}\\"?"
           arrowRenderer={[Function]}
           autosize={true}
           backspaceRemoves={true}
@@ -936,14 +925,11 @@ exports[`FormFilter  render methods render whole component group by product - Is
           }
           pageSize={5}
           placeholder="Select..."
-          removeSelected={true}
           required={false}
-          rtl={false}
           scrollMenuIntoView={true}
           searchable={true}
           simpleValue={false}
           tabSelectsValue={true}
-          trimFilter={true}
           value="EUR"
           valueComponent={[Function]}
           valueKey="value"
@@ -1005,6 +991,7 @@ exports[`FormFilter  render methods render whole component group by product - Is
           ReportBy
         </label>
         <Select
+          addLabelText="Add \\"{label}\\"?"
           arrowRenderer={[Function]}
           autosize={true}
           backspaceRemoves={true}
@@ -1056,14 +1043,11 @@ exports[`FormFilter  render methods render whole component group by product - Is
           }
           pageSize={5}
           placeholder="Select..."
-          removeSelected={true}
           required={false}
-          rtl={false}
           scrollMenuIntoView={true}
           searchable={true}
           simpleValue={false}
           tabSelectsValue={true}
-          trimFilter={true}
           value={1}
           valueComponent={[Function]}
           valueKey="value"

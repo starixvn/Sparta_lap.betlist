@@ -7,7 +7,9 @@ describe('CollapsibleRow ', () => {
     describe('render', () => {
         it('isExpand = true - component is expanded', () => { 
             const props = {
-                isExpand: false
+                isExpand: false,
+                subject: { isHtml: false, text: 'Subject' },
+                content: { isHtml: false, text: 'Content' }
             };
 
             const component = renderer.create(<CollapsibleRow {...props} />);
@@ -19,7 +21,9 @@ describe('CollapsibleRow ', () => {
 
         it('isExpand = false - component is collapsed', () => { 
             const props = {
-                isExpand: false
+                isExpand: false,
+                subject: { isHtml: false, text: 'Subject' },
+                content: { isHtml: false, text: 'Content' }
             };
 
             const component = renderer.create(<CollapsibleRow {...props} />);
@@ -29,11 +33,10 @@ describe('CollapsibleRow ', () => {
             expect(result).toMatchSnapshot(); 
         });
 
-        it('isHtml = false - component render correctly - show raw content', () => { 
+        it('subject is not Html - component render correctly - show raw content', () => {
             const props = {
-                isHtml: false,
-                subject: 'Subject',
-                content: '<p>Content</p>'
+                subject: { isHtml: false, text: 'Subject' },
+                content: { isHtml: false, text: 'Content' }
             };
 
             const component = renderer.create(<CollapsibleRow {...props} />);
@@ -43,11 +46,36 @@ describe('CollapsibleRow ', () => {
             expect(result).toMatchSnapshot(); 
         });
 
-        it('isHtml = true - component render correctly - show content with Html format', () => { 
+        it('subject is Html - component render correctly - show content with Html format', () => { 
             const props = {
-                isHtml: true,
-                subject: 'Subject',
-                content: '<p>Content</p>'
+                subject: { isHtml: true, text: '<p>Subject</p>' },
+                content: { isHtml: false, text: 'Content' }
+            };
+
+            const component = renderer.create(<CollapsibleRow {...props} />);
+
+            const result = component.toJSON(); 
+        
+            expect(result).toMatchSnapshot();
+        });
+        
+        it('content is not Html - component render correctly - show raw content', () => { 
+            const props = {
+                subject: { isHtml: false, text: 'Subject' },
+                content: { isHtml: false, text: 'Content' }
+            };
+
+            const component = renderer.create(<CollapsibleRow {...props} />);
+
+            const result = component.toJSON(); 
+        
+            expect(result).toMatchSnapshot(); 
+            });
+
+        it('content is Html - component render correctly - show content with Html format', () => { 
+            const props = {
+                subject: { isHtml: false, text: 'Subject' },
+                content: { isHtml: true, text: '<p>Content</p>' }
             };
 
             const component = renderer.create(<CollapsibleRow {...props} />);
@@ -61,13 +89,17 @@ describe('CollapsibleRow ', () => {
     describe('componentWillReceiveProps', () => {
         it('props is not changed - state is not changed', () => { 
             const props = {
-                isExpand: false
+                isExpand: false,
+                subject: { isHtml: false, text: 'Subject' },
+                content: { isHtml: false, text: 'Content' }
             };
             let component = new CollapsibleRow(props);
             component.setState = jest.fn();
 
             const newProps = {
-                isExpand: false
+                isExpand: false,
+                subject: { isHtml: false, text: 'Subject' },
+                content: { isHtml: false, text: 'Content' }
             };
             component.componentWillReceiveProps(newProps);
 
@@ -76,13 +108,17 @@ describe('CollapsibleRow ', () => {
 
         it('props is changed - state is changed', () => { 
             const props = {
-                isExpand: false
+                isExpand: false,
+                subject: { isHtml: false, text: 'Subject' },
+                content: { isHtml: false, text: 'Content' }
             };
             let component = new CollapsibleRow(props);
             component.setState = jest.fn();
 
             const newProps = {
-                isExpand: true
+                isExpand: true,
+                subject: { isHtml: false, text: 'Subject' },
+                content: { isHtml: false, text: 'Content' }
             };
             component.componentWillReceiveProps(newProps);
 
@@ -93,9 +129,8 @@ describe('CollapsibleRow ', () => {
     describe('onClick', () => {
         it('Class name is changed to show/hide content', () => {
             const props = {
-                isHtml: false,
-                subject: 'Subject',
-                content: '<p>Content</p>'
+                subject: { isHtml: false, text: 'Subject' },
+                content: { isHtml: false, text: 'Content' }
             };
 
             const component = renderer.create(<CollapsibleRow {...props} />);
@@ -116,9 +151,8 @@ describe('CollapsibleRow ', () => {
 
         it('onExpand function is called when expanding', () => {
             const props = {
-                isHtml: false,
-                subject: 'Subject',
-                content: '<p>Content</p>',
+                subject: { isHtml: false, text: 'Subject' },
+                content: { isHtml: false, text: 'Content' },
                 onExpand: jest.fn(),
                 isExpand: true
             };
