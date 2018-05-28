@@ -538,7 +538,6 @@
                         expect(args[0]).toBe(1);
                         expect(args[1]).toEqual(new Date(2017, 2, 1));
                         expect(args[2]).toEqual(new Date(2017, 2, 31));
-                        expect(args[3]).toBe("EUR");
                     });
 
                     it("LicenseeWinLoss.setReportTitle(currencyId, fdate, tdate, currencyName) should be called with correct parameter when level > 0 & currencyId === 0", function () {
@@ -556,7 +555,6 @@
                         expect(args[0]).toBe(9);
                         expect(args[1]).toEqual(new Date(2017, 2, 1));
                         expect(args[2]).toEqual(new Date(2017, 2, 31));
-                        expect(args[3]).toBe("EUR");
                     });
                 });
             });
