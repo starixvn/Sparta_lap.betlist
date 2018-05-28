@@ -1713,8 +1713,8 @@ var DataGrid = exports.DataGrid = function (_Component) {
                         _fixedTableHeader.Cell,
                         { className: 'notification-content' },
                         _react2.default.createElement(_CollapsibleRow2.default, {
-                            subject: { isHtml: true, text: item.Subject },
-                            content: { isHtml: true, text: item.Content },
+                            subject: item.Subject,
+                            content: item.Content,
                             onExpand: function onExpand() {
                                 return _this3.onExpand(i, item);
                             },
@@ -2408,18 +2408,10 @@ var CollapsibleRow = function (_React$Component) {
                 _react2.default.createElement(
                     'div',
                     { className: 'subject-item' },
-                    subject.isHtml ? _react2.default.createElement('span', { dangerouslySetInnerHTML: { __html: subject.text } }) : _react2.default.createElement(
-                        'span',
-                        null,
-                        subject.text
-                    ),
+                    _react2.default.createElement('span', { dangerouslySetInnerHTML: { __html: subject } }),
                     _react2.default.createElement('i', { className: 'icon-arrow', onClick: this.onClick })
                 ),
-                content.isHtml ? _react2.default.createElement('div', { className: 'content-item', dangerouslySetInnerHTML: { __html: content.text } }) : _react2.default.createElement(
-                    'div',
-                    { className: 'content-item' },
-                    content.text
-                )
+                _react2.default.createElement('div', { className: 'content-item', dangerouslySetInnerHTML: { __html: content } })
             );
         }
     }]);
@@ -2429,14 +2421,8 @@ var CollapsibleRow = function (_React$Component) {
 
 CollapsibleRow.propTypes = {
     isExpand: _propTypes2.default.bool,
-    subject: _propTypes2.default.shape({
-        isHtml: _propTypes2.default.bool,
-        text: _propTypes2.default.string
-    }),
-    content: _propTypes2.default.shape({
-        isHtml: _propTypes2.default.bool,
-        text: _propTypes2.default.string
-    }),
+    subject: _propTypes2.default.string,
+    content: _propTypes2.default.string,
     onExpand: _propTypes2.default.func
 };
 exports.default = CollapsibleRow;
