@@ -13,615 +13,617 @@ exports[`Render DataGrid components  Render grid Has data grid data should be re
       
     </p>
   </div>
-  <div
-    className="table-container"
-    style={
-      Object {
-        "maxWidth": -30,
-      }
-    }
-  >
+  <div>
     <div
-      className="header-content"
+      className="table-container"
       style={
         Object {
-          "maxHeight": undefined,
-          "minWidth": 1000,
-          "width": -30,
+          "maxWidth": -30,
         }
       }
     >
       <div
-        className="table-wrapper"
-      >
-        <table
-          className="table"
-          style={
-            Object {
-              "width": 981,
-            }
+        className="header-content"
+        style={
+          Object {
+            "maxHeight": undefined,
+            "minWidth": 1000,
+            "width": -30,
           }
+        }
+      >
+        <div
+          className="table-wrapper"
         >
-          <thead>
-            <tr
-              className="first-row"
-            >
-              <td
-                style={
-                  Object {
-                    "width": "-1.5px",
-                  }
-                }
-              />
-              <td
-                style={
-                  Object {
-                    "width": "-5px",
-                  }
-                }
-              />
-              <td
-                style={
-                  Object {
-                    "width": "-3.5px",
-                  }
-                }
-              />
-              <td
-                style={
-                  Object {
-                    "width": "-5px",
-                  }
-                }
-              />
-              <td
-                style={
-                  Object {
-                    "width": "-5px",
-                  }
-                }
-              />
-              <td
-                style={
-                  Object {
-                    "width": "-4px",
-                  }
-                }
-              />
-              <td
-                style={
-                  Object {
-                    "width": "-5px",
-                  }
-                }
-              />
-              <td
-                style={
-                  Object {
-                    "width": "-5px",
-                  }
-                }
-              />
-              <td
-                style={
-                  Object {
-                    "width": "-5px",
-                  }
-                }
-              />
-              <td
-                style={
-                  Object {
-                    "width": "-5px",
-                  }
-                }
-              />
-              <td
-                style={
-                  Object {
-                    "width": "-5px",
-                  }
-                }
-              />
-            </tr>
-            <tr
-              style={
-                Object {
-                  "height": 32,
-                }
+          <table
+            className="table"
+            style={
+              Object {
+                "width": 981,
               }
-            >
-              <th
-                rowSpan="2"
-                title="#"
+            }
+          >
+            <thead>
+              <tr
+                className="first-row"
               >
-                #
-              </th>
-              <th
-                rowSpan="2"
-                title="Date"
-              >
-                Date
-              </th>
-              <th
-                rowSpan="2"
-                title="Currency"
-              >
-                Currency
-              </th>
-              <th
-                rowSpan="2"
-                title="Turnover"
-              >
-                Turnover
-              </th>
-              <th
-                rowSpan="2"
-                title="NetTurnover"
-              >
-                NetTurnover
-              </th>
-              <th
-                rowSpan="2"
-                title="TotalTransaction"
-              >
-                TotalTransaction
-              </th>
-              <th
-                rowSpan="2"
-                title="CustomerW_L"
-              >
-                CustomerW_L
-              </th>
-              <th
-                colSpan="4"
-                title="Licensee"
-              >
-                Licensee
-              </th>
-            </tr>
-            <tr
-              style={
-                Object {
-                  "height": 32,
+                <td
+                  style={
+                    Object {
+                      "width": "-1.5px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-5px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-3.5px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-5px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-5px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-4px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-5px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-5px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-5px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-5px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-5px",
+                    }
+                  }
+                />
+              </tr>
+              <tr
+                style={
+                  Object {
+                    "height": 32,
+                  }
                 }
-              }
-            >
-              <th
-                title="LicenseeW_L"
               >
-                LicenseeW_L
-              </th>
-              <th
-                title="AmountDueTo"
+                <th
+                  rowSpan="2"
+                  title="#"
+                >
+                  #
+                </th>
+                <th
+                  rowSpan="2"
+                  title="Date"
+                >
+                  Date
+                </th>
+                <th
+                  rowSpan="2"
+                  title="Currency"
+                >
+                  Currency
+                </th>
+                <th
+                  rowSpan="2"
+                  title="Turnover"
+                >
+                  Turnover
+                </th>
+                <th
+                  rowSpan="2"
+                  title="NetTurnover"
+                >
+                  NetTurnover
+                </th>
+                <th
+                  rowSpan="2"
+                  title="TotalTransaction"
+                >
+                  TotalTransaction
+                </th>
+                <th
+                  rowSpan="2"
+                  title="CustomerW_L"
+                >
+                  CustomerW_L
+                </th>
+                <th
+                  colSpan="4"
+                  title="Licensee"
+                >
+                  Licensee
+                </th>
+              </tr>
+              <tr
+                style={
+                  Object {
+                    "height": 32,
+                  }
+                }
               >
-                AmountDueTo
-              </th>
-              <th
-                title="LicenseeComm"
-              >
-                LicenseeComm
-              </th>
-              <th
-                title="Total"
-              >
-                Total
-              </th>
-            </tr>
-          </thead>
-        </table>
+                <th
+                  title="LicenseeW_L"
+                >
+                  LicenseeW_L
+                </th>
+                <th
+                  title="AmountDueTo"
+                >
+                  AmountDueTo
+                </th>
+                <th
+                  title="LicenseeComm"
+                >
+                  LicenseeComm
+                </th>
+                <th
+                  title="Total"
+                >
+                  Total
+                </th>
+              </tr>
+            </thead>
+          </table>
+        </div>
       </div>
-    </div>
-    <div
-      className="body-content"
-      style={
-        Object {
-          "maxHeight": 696,
-          "minWidth": 1000,
-          "width": -30,
-        }
-      }
-    >
       <div
-        className="table-wrapper"
-      >
-        <table
-          className="table"
-          style={
-            Object {
-              "width": 981,
-            }
+        className="body-content"
+        style={
+          Object {
+            "maxHeight": 696,
+            "minWidth": 1000,
+            "width": -30,
           }
+        }
+      >
+        <div
+          className="table-wrapper"
         >
-          <tbody>
-            <tr
-              className="first-row"
-            >
-              <td
-                style={
-                  Object {
-                    "width": "-1.5px",
-                  }
-                }
-              />
-              <td
-                style={
-                  Object {
-                    "width": "-5px",
-                  }
-                }
-              />
-              <td
-                style={
-                  Object {
-                    "width": "-3.5px",
-                  }
-                }
-              />
-              <td
-                style={
-                  Object {
-                    "width": "-5px",
-                  }
-                }
-              />
-              <td
-                style={
-                  Object {
-                    "width": "-5px",
-                  }
-                }
-              />
-              <td
-                style={
-                  Object {
-                    "width": "-4px",
-                  }
-                }
-              />
-              <td
-                style={
-                  Object {
-                    "width": "-5px",
-                  }
-                }
-              />
-              <td
-                style={
-                  Object {
-                    "width": "-5px",
-                  }
-                }
-              />
-              <td
-                style={
-                  Object {
-                    "width": "-5px",
-                  }
-                }
-              />
-              <td
-                style={
-                  Object {
-                    "width": "-5px",
-                  }
-                }
-              />
-              <td
-                style={
-                  Object {
-                    "width": "-5px",
-                  }
-                }
-              />
-            </tr>
-            <tr>
-              <td
-                className="center-align"
-                title={1}
+          <table
+            className="table"
+            style={
+              Object {
+                "width": 981,
+              }
+            }
+          >
+            <tbody>
+              <tr
+                className="first-row"
               >
-                1
-              </td>
-              <td
-                className="center-align"
-                title="01/01/2017"
+                <td
+                  style={
+                    Object {
+                      "width": "-1.5px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-5px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-3.5px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-5px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-5px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-4px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-5px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-5px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-5px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-5px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-5px",
+                    }
+                  }
+                />
+              </tr>
+              <tr>
+                <td
+                  className="center-align"
+                  title={1}
+                >
+                  1
+                </td>
+                <td
+                  className="center-align"
+                  title="01/01/2017"
+                >
+                  01/01/2017
+                </td>
+                <td
+                  className="center-align"
+                  title="CurrencyName"
+                >
+                  <a
+                    href="javascript:;"
+                    onClick={[Function]}
+                  >
+                    CurrencyName
+                  </a>
+                </td>
+                <td
+                  className="right-align"
+                  title="Turnover"
+                >
+                  Turnover
+                </td>
+                <td
+                  className="right-align"
+                  title="NetTurnover"
+                >
+                  NetTurnover
+                </td>
+                <td
+                  className="right-align"
+                  title="TotalTransaction"
+                >
+                  TotalTransaction
+                </td>
+                <td
+                  className="right-align"
+                  title="CustomerWL"
+                >
+                  CustomerWL
+                </td>
+                <td
+                  className="right-align "
+                  title="LicenseeWL"
+                >
+                  LicenseeWL
+                </td>
+                <td
+                  className="right-align"
+                  title="AmountDueTo"
+                >
+                  AmountDueTo
+                </td>
+                <td
+                  className="right-align"
+                  title="LicenseeComm"
+                >
+                  LicenseeComm
+                </td>
+                <td
+                  className="right-align "
+                  title="LicenseeWLTotal"
+                >
+                  LicenseeWLTotal
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div
+        className="footer-content"
+        style={
+          Object {
+            "maxHeight": undefined,
+            "minWidth": 1000,
+            "width": -30,
+          }
+        }
+      >
+        <div
+          className="table-wrapper"
+        >
+          <table
+            className="table"
+            style={
+              Object {
+                "width": 981,
+              }
+            }
+          >
+            <tbody>
+              <tr
+                className="first-row"
               >
-                01/01/2017
-              </td>
-              <td
-                className="center-align"
-                title="CurrencyName"
+                <td
+                  style={
+                    Object {
+                      "width": "-1.5px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-5px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-3.5px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-5px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-5px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-4px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-5px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-5px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-5px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-5px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-5px",
+                    }
+                  }
+                />
+              </tr>
+              <tr
+                className="fixed-table-total"
               >
-                <a
-                  href="javascript:;"
-                  onClick={[Function]}
+                <td
+                  className="center-align"
+                  colSpan={2}
+                  rowSpan={1}
+                  title="Total"
+                >
+                  Total
+                </td>
+                <td
+                  className="center-align"
+                  title="CurrencyName"
                 >
                   CurrencyName
-                </a>
-              </td>
-              <td
-                className="right-align"
-                title="Turnover"
+                </td>
+                <td
+                  className="right-align"
+                  title="Turnover"
+                >
+                  Turnover
+                </td>
+                <td
+                  className="right-align"
+                  title="NetTurnover"
+                >
+                  NetTurnover
+                </td>
+                <td
+                  className="right-align"
+                  title="TotalTransaction"
+                >
+                  TotalTransaction
+                </td>
+                <td
+                  className="right-align"
+                  title="CustomerWL"
+                >
+                  CustomerWL
+                </td>
+                <td
+                  className="right-align "
+                  title="LicenseeWL"
+                >
+                  LicenseeWL
+                </td>
+                <td
+                  className="right-align"
+                  title="AmountDueTo"
+                >
+                  AmountDueTo
+                </td>
+                <td
+                  className="right-align"
+                  title="LicenseeComm"
+                >
+                  LicenseeComm
+                </td>
+                <td
+                  className="right-align "
+                  title="LicenseeWLTotal"
+                >
+                  LicenseeWLTotal
+                </td>
+              </tr>
+              <tr
+                className="fixed-table-grant-total"
               >
-                Turnover
-              </td>
-              <td
-                className="right-align"
-                title="NetTurnover"
-              >
-                NetTurnover
-              </td>
-              <td
-                className="right-align"
-                title="TotalTransaction"
-              >
-                TotalTransaction
-              </td>
-              <td
-                className="right-align"
-                title="CustomerWL"
-              >
-                CustomerWL
-              </td>
-              <td
-                className="right-align "
-                title="LicenseeWL"
-              >
-                LicenseeWL
-              </td>
-              <td
-                className="right-align"
-                title="AmountDueTo"
-              >
-                AmountDueTo
-              </td>
-              <td
-                className="right-align"
-                title="LicenseeComm"
-              >
-                LicenseeComm
-              </td>
-              <td
-                className="right-align "
-                title="LicenseeWLTotal"
-              >
-                LicenseeWLTotal
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <div
-      className="footer-content"
-      style={
-        Object {
-          "maxHeight": undefined,
-          "minWidth": 1000,
-          "width": -30,
-        }
-      }
-    >
-      <div
-        className="table-wrapper"
-      >
-        <table
-          className="table"
-          style={
-            Object {
-              "width": 981,
-            }
-          }
-        >
-          <tbody>
-            <tr
-              className="first-row"
-            >
-              <td
-                style={
-                  Object {
-                    "width": "-1.5px",
-                  }
-                }
-              />
-              <td
-                style={
-                  Object {
-                    "width": "-5px",
-                  }
-                }
-              />
-              <td
-                style={
-                  Object {
-                    "width": "-3.5px",
-                  }
-                }
-              />
-              <td
-                style={
-                  Object {
-                    "width": "-5px",
-                  }
-                }
-              />
-              <td
-                style={
-                  Object {
-                    "width": "-5px",
-                  }
-                }
-              />
-              <td
-                style={
-                  Object {
-                    "width": "-4px",
-                  }
-                }
-              />
-              <td
-                style={
-                  Object {
-                    "width": "-5px",
-                  }
-                }
-              />
-              <td
-                style={
-                  Object {
-                    "width": "-5px",
-                  }
-                }
-              />
-              <td
-                style={
-                  Object {
-                    "width": "-5px",
-                  }
-                }
-              />
-              <td
-                style={
-                  Object {
-                    "width": "-5px",
-                  }
-                }
-              />
-              <td
-                style={
-                  Object {
-                    "width": "-5px",
-                  }
-                }
-              />
-            </tr>
-            <tr
-              className="fixed-table-total"
-            >
-              <td
-                className="center-align"
-                colSpan={2}
-                rowSpan={1}
-                title="Total"
-              >
-                Total
-              </td>
-              <td
-                className="center-align"
-                title="CurrencyName"
-              >
-                CurrencyName
-              </td>
-              <td
-                className="right-align"
-                title="Turnover"
-              >
-                Turnover
-              </td>
-              <td
-                className="right-align"
-                title="NetTurnover"
-              >
-                NetTurnover
-              </td>
-              <td
-                className="right-align"
-                title="TotalTransaction"
-              >
-                TotalTransaction
-              </td>
-              <td
-                className="right-align"
-                title="CustomerWL"
-              >
-                CustomerWL
-              </td>
-              <td
-                className="right-align "
-                title="LicenseeWL"
-              >
-                LicenseeWL
-              </td>
-              <td
-                className="right-align"
-                title="AmountDueTo"
-              >
-                AmountDueTo
-              </td>
-              <td
-                className="right-align"
-                title="LicenseeComm"
-              >
-                LicenseeComm
-              </td>
-              <td
-                className="right-align "
-                title="LicenseeWLTotal"
-              >
-                LicenseeWLTotal
-              </td>
-            </tr>
-            <tr
-              className="fixed-table-grant-total"
-            >
-              <td
-                className="center-align"
-                colSpan={3}
-                title="Totalin Currency"
-              >
-                Totalin Currency
-              </td>
-              <td
-                className="right-align"
-                title="Turnover"
-              >
-                Turnover
-              </td>
-              <td
-                className="right-align"
-                title="NetTurnover"
-              >
-                NetTurnover
-              </td>
-              <td
-                className="right-align"
-                title="TotalTransaction"
-              >
-                TotalTransaction
-              </td>
-              <td
-                className="right-align"
-                title="CustomerWL"
-              >
-                CustomerWL
-              </td>
-              <td
-                className="right-align "
-                title="LicenseeWL"
-              >
-                LicenseeWL
-              </td>
-              <td
-                className="right-align"
-                title="AmountDueTo"
-              >
-                AmountDueTo
-              </td>
-              <td
-                className="right-align"
-                title="LicenseeComm"
-              >
-                LicenseeComm
-              </td>
-              <td
-                className="right-align "
-                title="LicenseeWLTotal"
-              >
-                LicenseeWLTotal
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                <td
+                  className="center-align"
+                  colSpan={3}
+                  title="Totalin Currency"
+                >
+                  Totalin Currency
+                </td>
+                <td
+                  className="right-align"
+                  title="Turnover"
+                >
+                  Turnover
+                </td>
+                <td
+                  className="right-align"
+                  title="NetTurnover"
+                >
+                  NetTurnover
+                </td>
+                <td
+                  className="right-align"
+                  title="TotalTransaction"
+                >
+                  TotalTransaction
+                </td>
+                <td
+                  className="right-align"
+                  title="CustomerWL"
+                >
+                  CustomerWL
+                </td>
+                <td
+                  className="right-align "
+                  title="LicenseeWL"
+                >
+                  LicenseeWL
+                </td>
+                <td
+                  className="right-align"
+                  title="AmountDueTo"
+                >
+                  AmountDueTo
+                </td>
+                <td
+                  className="right-align"
+                  title="LicenseeComm"
+                >
+                  LicenseeComm
+                </td>
+                <td
+                  className="right-align "
+                  title="LicenseeWLTotal"
+                >
+                  LicenseeWLTotal
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>

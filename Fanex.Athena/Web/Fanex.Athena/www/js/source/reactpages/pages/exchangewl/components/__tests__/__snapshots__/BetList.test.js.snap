@@ -362,453 +362,455 @@ exports[`BetList  render  show grid when gridData is not empty - match snapshot 
     <div
       className="betlist-content"
     >
-      <div
-        className="table-container"
-        style={
-          Object {
-            "maxWidth": -30,
-          }
-        }
-      >
+      <div>
         <div
-          className="header-content"
+          className="table-container"
           style={
             Object {
-              "maxHeight": undefined,
-              "minWidth": undefined,
-              "width": 870,
+              "maxWidth": -30,
             }
           }
         >
           <div
-            className="table-wrapper"
-          >
-            <table
-              className="table"
-              style={
-                Object {
-                  "width": 851,
-                }
+            className="header-content"
+            style={
+              Object {
+                "maxHeight": undefined,
+                "minWidth": undefined,
+                "width": 870,
               }
+            }
+          >
+            <div
+              className="table-wrapper"
             >
-              <thead>
-                <tr
-                  className="first-row"
-                >
-                  <td
-                    style={
-                      Object {
-                        "width": "34.04px",
-                      }
-                    }
-                  />
-                  <td
-                    style={
-                      Object {
-                        "width": "255.29999999999998px",
-                      }
-                    }
-                  />
-                  <td
-                    style={
-                      Object {
-                        "width": "59.57px",
-                      }
-                    }
-                  />
-                  <td
-                    style={
-                      Object {
-                        "width": "102.12px",
-                      }
-                    }
-                  />
-                  <td
-                    style={
-                      Object {
-                        "width": "42.55px",
-                      }
-                    }
-                  />
-                  <td
-                    style={
-                      Object {
-                        "width": "85.1px",
-                      }
-                    }
-                  />
-                  <td
-                    style={
-                      Object {
-                        "width": "51.06px",
-                      }
-                    }
-                  />
-                  <td
-                    style={
-                      Object {
-                        "width": "68.08px",
-                      }
-                    }
-                  />
-                  <td
-                    style={
-                      Object {
-                        "width": "68.08px",
-                      }
-                    }
-                  />
-                  <td
-                    style={
-                      Object {
-                        "width": "85.1px",
-                      }
-                    }
-                  />
-                </tr>
-                <tr
-                  style={
-                    Object {
-                      "height": 32,
-                    }
+              <table
+                className="table"
+                style={
+                  Object {
+                    "width": 851,
                   }
-                >
-                  <th>
-                    #
-                  </th>
-                  <th>
-                    Market
-                  </th>
-                  <th>
-                    BetId
-                  </th>
-                  <th>
-                    Selection
-                  </th>
-                  <th>
-                    Type
-                  </th>
-                  <th>
-                    BetPlaced
-                  </th>
-                  <th>
-                    OddsAvg
-                  </th>
-                  <th>
-                    Stake
-                  </th>
-                  <th>
-                    WinLoss
-                  </th>
-                  <th>
-                    WL
-                    /
-                    Comm
-                  </th>
-                </tr>
-              </thead>
-            </table>
-          </div>
-        </div>
-        <div
-          className="body-content"
-          style={
-            Object {
-              "maxHeight": 430,
-              "minWidth": undefined,
-              "width": 870,
-            }
-          }
-        >
-          <div
-            className="table-wrapper"
-          >
-            <table
-              className="table"
-              style={
-                Object {
-                  "width": 851,
                 }
+              >
+                <thead>
+                  <tr
+                    className="first-row"
+                  >
+                    <td
+                      style={
+                        Object {
+                          "width": "34.04px",
+                        }
+                      }
+                    />
+                    <td
+                      style={
+                        Object {
+                          "width": "255.29999999999998px",
+                        }
+                      }
+                    />
+                    <td
+                      style={
+                        Object {
+                          "width": "59.57px",
+                        }
+                      }
+                    />
+                    <td
+                      style={
+                        Object {
+                          "width": "102.12px",
+                        }
+                      }
+                    />
+                    <td
+                      style={
+                        Object {
+                          "width": "42.55px",
+                        }
+                      }
+                    />
+                    <td
+                      style={
+                        Object {
+                          "width": "85.1px",
+                        }
+                      }
+                    />
+                    <td
+                      style={
+                        Object {
+                          "width": "51.06px",
+                        }
+                      }
+                    />
+                    <td
+                      style={
+                        Object {
+                          "width": "68.08px",
+                        }
+                      }
+                    />
+                    <td
+                      style={
+                        Object {
+                          "width": "68.08px",
+                        }
+                      }
+                    />
+                    <td
+                      style={
+                        Object {
+                          "width": "85.1px",
+                        }
+                      }
+                    />
+                  </tr>
+                  <tr
+                    style={
+                      Object {
+                        "height": 32,
+                      }
+                    }
+                  >
+                    <th>
+                      #
+                    </th>
+                    <th>
+                      Market
+                    </th>
+                    <th>
+                      BetId
+                    </th>
+                    <th>
+                      Selection
+                    </th>
+                    <th>
+                      Type
+                    </th>
+                    <th>
+                      BetPlaced
+                    </th>
+                    <th>
+                      OddsAvg
+                    </th>
+                    <th>
+                      Stake
+                    </th>
+                    <th>
+                      WinLoss
+                    </th>
+                    <th>
+                      WL
+                      /
+                      Comm
+                    </th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </div>
+          <div
+            className="body-content"
+            style={
+              Object {
+                "maxHeight": 430,
+                "minWidth": undefined,
+                "width": 870,
               }
+            }
+          >
+            <div
+              className="table-wrapper"
             >
-              <tbody>
-                <tr
-                  className="first-row"
-                >
-                  <td
-                    style={
-                      Object {
-                        "width": "34.04px",
-                      }
-                    }
-                  />
-                  <td
-                    style={
-                      Object {
-                        "width": "255.29999999999998px",
-                      }
-                    }
-                  />
-                  <td
-                    style={
-                      Object {
-                        "width": "59.57px",
-                      }
-                    }
-                  />
-                  <td
-                    style={
-                      Object {
-                        "width": "102.12px",
-                      }
-                    }
-                  />
-                  <td
-                    style={
-                      Object {
-                        "width": "42.55px",
-                      }
-                    }
-                  />
-                  <td
-                    style={
-                      Object {
-                        "width": "85.1px",
-                      }
-                    }
-                  />
-                  <td
-                    style={
-                      Object {
-                        "width": "51.06px",
-                      }
-                    }
-                  />
-                  <td
-                    style={
-                      Object {
-                        "width": "68.08px",
-                      }
-                    }
-                  />
-                  <td
-                    style={
-                      Object {
-                        "width": "68.08px",
-                      }
-                    }
-                  />
-                  <td
-                    style={
-                      Object {
-                        "width": "85.1px",
-                      }
-                    }
-                  />
-                </tr>
-                <tr>
-                  <td
-                    className="center-align"
-                    rowSpan={1}
-                    title={1}
+              <table
+                className="table"
+                style={
+                  Object {
+                    "width": 851,
+                  }
+                }
+              >
+                <tbody>
+                  <tr
+                    className="first-row"
                   >
-                    1
-                  </td>
-                  <td
-                    rowSpan={1}
-                    title="Eventtype1 > Event1 > market1"
-                  >
-                    <p>
-                      Eventtype1
-                       &gt; 
-                      <span
-                        className="text-bold"
-                      >
-                        Event1
-                      </span>
-                       &gt; 
-                      market1
-                    </p>
-                  </td>
-                  <td
-                    className="center-align"
-                    title={1}
-                  >
-                    <a
-                      href="javascript:;"
-                      onClick={[Function]}
+                    <td
+                      style={
+                        Object {
+                          "width": "34.04px",
+                        }
+                      }
+                    />
+                    <td
+                      style={
+                        Object {
+                          "width": "255.29999999999998px",
+                        }
+                      }
+                    />
+                    <td
+                      style={
+                        Object {
+                          "width": "59.57px",
+                        }
+                      }
+                    />
+                    <td
+                      style={
+                        Object {
+                          "width": "102.12px",
+                        }
+                      }
+                    />
+                    <td
+                      style={
+                        Object {
+                          "width": "42.55px",
+                        }
+                      }
+                    />
+                    <td
+                      style={
+                        Object {
+                          "width": "85.1px",
+                        }
+                      }
+                    />
+                    <td
+                      style={
+                        Object {
+                          "width": "51.06px",
+                        }
+                      }
+                    />
+                    <td
+                      style={
+                        Object {
+                          "width": "68.08px",
+                        }
+                      }
+                    />
+                    <td
+                      style={
+                        Object {
+                          "width": "68.08px",
+                        }
+                      }
+                    />
+                    <td
+                      style={
+                        Object {
+                          "width": "85.1px",
+                        }
+                      }
+                    />
+                  </tr>
+                  <tr>
+                    <td
+                      className="center-align"
+                      rowSpan={1}
+                      title={1}
                     >
                       1
-                    </a>
-                  </td>
-                  <td
-                    className="center-align"
-                    title="select1"
-                  >
-                    select1
-                  </td>
-                  <td
-                    className="center-align false"
-                    title="type1"
-                  >
-                    type1
-                  </td>
-                  <td
-                    className="center-align"
-                    title="01/01/2018"
-                  >
-                    01/01/2018
-                  </td>
-                  <td
-                    className="right-align"
-                    title={1.2}
-                  >
-                    1.2
-                  </td>
-                  <td
-                    className="right-align"
-                    title={2.4}
-                  >
-                    2.4
-                  </td>
-                  <td
-                    className="right-align"
-                    title={undefined}
-                  />
-                  <td
-                    className="right-align"
-                    rowSpan={1}
-                    title="1.8/0.5"
-                  >
-                    <span
-                      className={false}
+                    </td>
+                    <td
+                      rowSpan={1}
+                      title="Eventtype1 > Event1 > market1"
                     >
-                      1.8
-                    </span>
-                    <br />
-                    <span
-                      className={false}
+                      <p>
+                        Eventtype1
+                         &gt; 
+                        <span
+                          className="text-bold"
+                        >
+                          Event1
+                        </span>
+                         &gt; 
+                        market1
+                      </p>
+                    </td>
+                    <td
+                      className="center-align"
+                      title={1}
                     >
-                      0.5
-                    </span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+                      <a
+                        href="javascript:;"
+                        onClick={[Function]}
+                      >
+                        1
+                      </a>
+                    </td>
+                    <td
+                      className="center-align"
+                      title="select1"
+                    >
+                      select1
+                    </td>
+                    <td
+                      className="center-align false"
+                      title="type1"
+                    >
+                      type1
+                    </td>
+                    <td
+                      className="center-align"
+                      title="01/01/2018"
+                    >
+                      01/01/2018
+                    </td>
+                    <td
+                      className="right-align"
+                      title={1.2}
+                    >
+                      1.2
+                    </td>
+                    <td
+                      className="right-align"
+                      title={2.4}
+                    >
+                      2.4
+                    </td>
+                    <td
+                      className="right-align"
+                      title={undefined}
+                    />
+                    <td
+                      className="right-align"
+                      rowSpan={1}
+                      title="1.8/0.5"
+                    >
+                      <span
+                        className={false}
+                      >
+                        1.8
+                      </span>
+                      <br />
+                      <span
+                        className={false}
+                      >
+                        0.5
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
-        <div
-          className="footer-content"
-          style={
-            Object {
-              "maxHeight": undefined,
-              "minWidth": undefined,
-              "width": 870,
-            }
-          }
-        >
           <div
-            className="table-wrapper"
-          >
-            <table
-              className="table"
-              style={
-                Object {
-                  "width": 851,
-                }
+            className="footer-content"
+            style={
+              Object {
+                "maxHeight": undefined,
+                "minWidth": undefined,
+                "width": 870,
               }
+            }
+          >
+            <div
+              className="table-wrapper"
             >
-              <tbody>
-                <tr
-                  className="first-row"
-                >
-                  <td
-                    style={
-                      Object {
-                        "width": "34.04px",
-                      }
-                    }
-                  />
-                  <td
-                    style={
-                      Object {
-                        "width": "255.29999999999998px",
-                      }
-                    }
-                  />
-                  <td
-                    style={
-                      Object {
-                        "width": "59.57px",
-                      }
-                    }
-                  />
-                  <td
-                    style={
-                      Object {
-                        "width": "102.12px",
-                      }
-                    }
-                  />
-                  <td
-                    style={
-                      Object {
-                        "width": "42.55px",
-                      }
-                    }
-                  />
-                  <td
-                    style={
-                      Object {
-                        "width": "85.1px",
-                      }
-                    }
-                  />
-                  <td
-                    style={
-                      Object {
-                        "width": "51.06px",
-                      }
-                    }
-                  />
-                  <td
-                    style={
-                      Object {
-                        "width": "68.08px",
-                      }
-                    }
-                  />
-                  <td
-                    style={
-                      Object {
-                        "width": "68.08px",
-                      }
-                    }
-                  />
-                  <td
-                    style={
-                      Object {
-                        "width": "85.1px",
-                      }
-                    }
-                  />
-                </tr>
-                <tr>
-                  <td
-                    className="right-align"
-                    colSpan="9"
+              <table
+                className="table"
+                style={
+                  Object {
+                    "width": 851,
+                  }
+                }
+              >
+                <tbody>
+                  <tr
+                    className="first-row"
                   >
-                    GrandTotal
-                  </td>
-                  <td
-                    className="right-align negative"
-                    title={-1}
-                  >
-                    -1
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+                    <td
+                      style={
+                        Object {
+                          "width": "34.04px",
+                        }
+                      }
+                    />
+                    <td
+                      style={
+                        Object {
+                          "width": "255.29999999999998px",
+                        }
+                      }
+                    />
+                    <td
+                      style={
+                        Object {
+                          "width": "59.57px",
+                        }
+                      }
+                    />
+                    <td
+                      style={
+                        Object {
+                          "width": "102.12px",
+                        }
+                      }
+                    />
+                    <td
+                      style={
+                        Object {
+                          "width": "42.55px",
+                        }
+                      }
+                    />
+                    <td
+                      style={
+                        Object {
+                          "width": "85.1px",
+                        }
+                      }
+                    />
+                    <td
+                      style={
+                        Object {
+                          "width": "51.06px",
+                        }
+                      }
+                    />
+                    <td
+                      style={
+                        Object {
+                          "width": "68.08px",
+                        }
+                      }
+                    />
+                    <td
+                      style={
+                        Object {
+                          "width": "68.08px",
+                        }
+                      }
+                    />
+                    <td
+                      style={
+                        Object {
+                          "width": "85.1px",
+                        }
+                      }
+                    />
+                  </tr>
+                  <tr>
+                    <td
+                      className="right-align"
+                      colSpan="9"
+                    >
+                      GrandTotal
+                    </td>
+                    <td
+                      className="right-align negative"
+                      title={-1}
+                    >
+                      -1
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
