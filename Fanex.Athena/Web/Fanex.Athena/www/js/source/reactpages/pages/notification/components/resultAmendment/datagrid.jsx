@@ -117,8 +117,8 @@ export class DataGrid extends Component {
                     <Cell title={datetimeString} className="center-align">{datetimeString}</Cell>
                     <Cell className="notification-content">
                         <CollapsibleRow 
-                            subject={{ isHtml: true, text: item.Subject }} 
-                            content={{ isHtml: true, text: item.Content }}
+                            subject={item.Subject} 
+                            content={item.Content}
                             onExpand={() => this.onExpand(i, item)} 
                             isExpand={item.IsExpand}
                             isHtml={true} />

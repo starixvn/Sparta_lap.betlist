@@ -13,14 +13,8 @@ export default class CollapsibleRow extends React.Component {
 
     static propTypes = {
         isExpand: PropTypes.bool,
-        subject: PropTypes.shape({
-            isHtml: PropTypes.bool,
-            text: PropTypes.string
-        }),
-        content: PropTypes.shape({
-            isHtml: PropTypes.bool,
-            text: PropTypes.string
-        }),    
+        subject: PropTypes.string,
+        content: PropTypes.string,    
         onExpand: PropTypes.func
     }
 
@@ -45,14 +39,10 @@ export default class CollapsibleRow extends React.Component {
 
         return <div className={this.state.isCollapse ? "collapse-item collapse" : "collapse-item"}>
                     <div className="subject-item">
-                        { subject.isHtml ? <span dangerouslySetInnerHTML={{ __html: subject.text }} /> : <span>{subject.text}</span> }
+                        <span dangerouslySetInnerHTML={{ __html: subject }} />
                         <i className="icon-arrow" onClick={this.onClick}></i>
                     </div>
-                    {
-                        content.isHtml ? 
-                            <div className="content-item" dangerouslySetInnerHTML={{ __html: content.text }} /> :
-                            <div className="content-item">{content.text}</div>                    
-                    }
+                        <div className="content-item" dangerouslySetInnerHTML={{ __html: content }} />
                </div>
     }
 };

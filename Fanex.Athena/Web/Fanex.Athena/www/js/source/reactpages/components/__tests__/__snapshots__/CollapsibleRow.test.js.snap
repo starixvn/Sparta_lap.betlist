@@ -7,9 +7,13 @@ exports[`CollapsibleRow  onClick Class name is changed to show/hide content 1`] 
   <div
     className="subject-item"
   >
-    <span>
-      Subject
-    </span>
+    <span
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "Subject",
+        }
+      }
+    />
     <i
       className="icon-arrow"
       onClick={[Function]}
@@ -17,9 +21,12 @@ exports[`CollapsibleRow  onClick Class name is changed to show/hide content 1`] 
   </div>
   <div
     className="content-item"
-  >
-    Content
-  </div>
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "Content",
+      }
+    }
+  />
 </div>
 `;
 
@@ -30,9 +37,13 @@ exports[`CollapsibleRow  onClick Class name is changed to show/hide content 2`] 
   <div
     className="subject-item"
   >
-    <span>
-      Subject
-    </span>
+    <span
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "Subject",
+        }
+      }
+    />
     <i
       className="icon-arrow"
       onClick={[Function]}
@@ -40,9 +51,12 @@ exports[`CollapsibleRow  onClick Class name is changed to show/hide content 2`] 
   </div>
   <div
     className="content-item"
-  >
-    Content
-  </div>
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "Content",
+      }
+    }
+  />
 </div>
 `;
 
@@ -53,9 +67,13 @@ exports[`CollapsibleRow  onClick Class name is changed to show/hide content 3`] 
   <div
     className="subject-item"
   >
-    <span>
-      Subject
-    </span>
+    <span
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "Subject",
+        }
+      }
+    />
     <i
       className="icon-arrow"
       onClick={[Function]}
@@ -63,9 +81,12 @@ exports[`CollapsibleRow  onClick Class name is changed to show/hide content 3`] 
   </div>
   <div
     className="content-item"
-  >
-    Content
-  </div>
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "Content",
+      }
+    }
+  />
 </div>
 `;
 
@@ -76,9 +97,13 @@ exports[`CollapsibleRow  onClick onExpand function is called when expanding 1`] 
   <div
     className="subject-item"
   >
-    <span>
-      Subject
-    </span>
+    <span
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "Subject",
+        }
+      }
+    />
     <i
       className="icon-arrow"
       onClick={[Function]}
@@ -86,22 +111,29 @@ exports[`CollapsibleRow  onClick onExpand function is called when expanding 1`] 
   </div>
   <div
     className="content-item"
-  >
-    Content
-  </div>
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "Content",
+      }
+    }
+  />
 </div>
 `;
 
-exports[`CollapsibleRow  render content is Html - component render correctly - show content with Html format 1`] = `
+exports[`CollapsibleRow  render component render content correctly 1`] = `
 <div
   className="collapse-item collapse"
 >
   <div
     className="subject-item"
   >
-    <span>
-      Subject
-    </span>
+    <span
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": undefined,
+        }
+      }
+    />
     <i
       className="icon-arrow"
       onClick={[Function]}
@@ -118,76 +150,7 @@ exports[`CollapsibleRow  render content is Html - component render correctly - s
 </div>
 `;
 
-exports[`CollapsibleRow  render content is not Html - component render correctly - show raw content 1`] = `
-<div
-  className="collapse-item collapse"
->
-  <div
-    className="subject-item"
-  >
-    <span>
-      Subject
-    </span>
-    <i
-      className="icon-arrow"
-      onClick={[Function]}
-    />
-  </div>
-  <div
-    className="content-item"
-  >
-    Content
-  </div>
-</div>
-`;
-
-exports[`CollapsibleRow  render isExpand = false - component is collapsed 1`] = `
-<div
-  className="collapse-item collapse"
->
-  <div
-    className="subject-item"
-  >
-    <span>
-      Subject
-    </span>
-    <i
-      className="icon-arrow"
-      onClick={[Function]}
-    />
-  </div>
-  <div
-    className="content-item"
-  >
-    Content
-  </div>
-</div>
-`;
-
-exports[`CollapsibleRow  render isExpand = true - component is expanded 1`] = `
-<div
-  className="collapse-item collapse"
->
-  <div
-    className="subject-item"
-  >
-    <span>
-      Subject
-    </span>
-    <i
-      className="icon-arrow"
-      onClick={[Function]}
-    />
-  </div>
-  <div
-    className="content-item"
-  >
-    Content
-  </div>
-</div>
-`;
-
-exports[`CollapsibleRow  render subject is Html - component render correctly - show content with Html format 1`] = `
+exports[`CollapsibleRow  render component render subject correctly 1`] = `
 <div
   className="collapse-item collapse"
 >
@@ -208,22 +171,29 @@ exports[`CollapsibleRow  render subject is Html - component render correctly - s
   </div>
   <div
     className="content-item"
-  >
-    Content
-  </div>
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": undefined,
+      }
+    }
+  />
 </div>
 `;
 
-exports[`CollapsibleRow  render subject is not Html - component render correctly - show raw content 1`] = `
+exports[`CollapsibleRow  render isExpand = false - component is collapsed 1`] = `
 <div
   className="collapse-item collapse"
 >
   <div
     className="subject-item"
   >
-    <span>
-      Subject
-    </span>
+    <span
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": undefined,
+        }
+      }
+    />
     <i
       className="icon-arrow"
       onClick={[Function]}
@@ -231,8 +201,41 @@ exports[`CollapsibleRow  render subject is not Html - component render correctly
   </div>
   <div
     className="content-item"
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": undefined,
+      }
+    }
+  />
+</div>
+`;
+
+exports[`CollapsibleRow  render isExpand = true - component is expanded 1`] = `
+<div
+  className="collapse-item collapse"
+>
+  <div
+    className="subject-item"
   >
-    Content
+    <span
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": undefined,
+        }
+      }
+    />
+    <i
+      className="icon-arrow"
+      onClick={[Function]}
+    />
   </div>
+  <div
+    className="content-item"
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": undefined,
+      }
+    }
+  />
 </div>
 `;
