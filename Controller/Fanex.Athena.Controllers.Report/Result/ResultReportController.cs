@@ -542,7 +542,8 @@ namespace Fanex.Athena.Controllers.Report.Result
                 IsOutright = true,
                 ExcelTitle = ViewResources.Result,
                 ExcelTemplatePath = HostingEnvironment.MapPath(@"~/App_Data/Fanex.Result/"),
-                LanguageCode = SessionService.UserSession.Language
+                LanguageCode = SessionService.UserSession.Language,
+                VisibleMatchCodeIDColumn = true
             };
         }
 
