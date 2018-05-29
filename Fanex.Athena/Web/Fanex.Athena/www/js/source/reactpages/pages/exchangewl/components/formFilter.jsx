@@ -78,13 +78,17 @@ export class FormFilter extends Component {
             excelData = {
                 FromDate: Site.convertDateToString(moment(drillDownDate.fromDate)),
                 ToDate: Site.convertDateToString(moment(drillDownDate.toDate)),
+                BaseCurrency: gridData.AdditionalInfo,
                 CurrencyName: firstRow.CurrencyName,
                 CurrencyId: firstRow.CurrencyId,
                 ReportBy: params.ReportBy
             };
         }
 
-        const title = Service.getReportTitle({ fromDate: excelData.FromDate, toDate: excelData.ToDate }, excelData.CurrencyName, excelData.CurrencyId === 0);
+        const title = Service.getReportTitle(
+            { fromDate: excelData.FromDate, toDate: excelData.ToDate }, 
+            excelData.BaseCurrency ? excelData.BaseCurrency : excelData.CurrencyName , 
+            excelData.CurrencyId === 0);
         const excel = new ReportExcel(gridData, title, level, isAllowedCustomerComm, excelData.ReportBy);
         excel.export(() => {
             this.props.toggleLoader(false);

@@ -180,7 +180,8 @@
             {
                 DataList = dataList,
                 TotalDataList = CalculateTotal(dataList),
-                SummaryTotal = summaryTotal
+                SummaryTotal = summaryTotal,
+                AdditionalInfo = baseCurrency
             };
         }
     }

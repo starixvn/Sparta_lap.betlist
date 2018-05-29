@@ -258,34 +258,12 @@ describe('FormFilter ', () => {
 
                     formFilter._getParams = jest.fn(() => null);
                     formFilter.props.toggleLoader = jest.fn();
+                    formFilter.props.exportExcel = jest.fn();
 
                     formFilter.exportExcel(event);
 
                     expect(formFilter.props.toggleLoader).not.toHaveBeenCalled();
-                })
-
-                it('action return promise - data is empty - alert should be shown with correct message', () => {
-                    const originalAlertFunc = window.alert;
-                    window.alert = jest.fn();
-
-                    const formFilter = new FormFilter(formFilterPropsForEventHandler);
-                    formFilter.props.toggleLoader = jest.fn();
-                    
-                    const fakeResponse = { 
-                        data: { 
-                            Data:[]
-                        }
-                    };
-                    const noDataPromise = Promise.resolve(fakeResponse);                    
-                    formFilter.props.exportExcel = jest.fn(() => noDataPromise);
-
-                    formFilter.exportExcel(event);
-
-                    Promise.resolve().then(() => {
-                        expect(window.alert).toHaveBeenCalledWith('NoInfo');
-                        expect(formFilter.props.toggleLoader).toHaveBeenCalledWith(false);
-                        expect(service.getReportTitle).not.toHaveBeenCalled();
-                    })
+                    expect(formFilter.props.exportExcel).not.toHaveBeenCalled();
                 })
 
                 describe('_getParams return data ', () => {
@@ -307,7 +285,7 @@ describe('FormFilter ', () => {
                     it('props.toggleLoader should be called with correct parameter', () => {
                         formFilter.exportExcel(event);
 
-                        expect(formFilter.props.toggleLoader.mock.calls[0][0]).toBeTruthy();
+                        expect(formFilter.props.toggleLoader.mock.calls[0][0]).toBe(true);
                     })
 
                     it('action return promise - props.exportExcel should be called with correct parameter', () => {
@@ -334,11 +312,32 @@ describe('FormFilter ', () => {
                         })
                     })
 
-                    it('action return promise - props.toggleLoader should be called with correct parameter', () => {
+                    it('action return promise - export function should be called with correct parameter', () => {
+                        const exportFnMock = jest.fn();
+                        ReportExcel.mockImplementation(() => {
+                            return {
+                                export: exportFnMock
+                            }
+                        });
+
                         formFilter.exportExcel(event);
 
                         Promise.resolve().then(() => {
-                            expect(formFilter.props.toggleLoader.mock.calls[1][0]).toBeFalsy();
+                            expect(exportFnMock.mock.calls.length).toBe(1);
+                        })
+                    })
+
+                    it('action return promise - data is empty - alert should be shown with correct message', () => {
+                        window.alert = jest.fn();
+
+                        formFilter.props.exportExcel = jest.fn(() => Promise.resolve({ data: { Data: [] } }));
+
+                        formFilter.exportExcel(event);
+
+                        Promise.resolve().then(() => {
+                            expect(window.alert).toHaveBeenCalledWith('NoInfo');
+                            expect(formFilter.props.toggleLoader).toHaveBeenCalledWith(false);
+                            expect(service.getReportTitle).not.toHaveBeenCalled();
                         })
                     })
                 })

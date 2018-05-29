@@ -451,7 +451,7 @@ describe('FormFilter ', () => {
 
                 formFilter._doExportExcel(0, param, isAllowedCustomerComm, data);
 
-                expect(Service.getReportTitle).toHaveBeenCalledWith({ fromDate: param.FromDate, toDate: param.ToDate }, param.CurrencyName, param.CurrencyId === 0);
+                expect(Service.getReportTitle).toHaveBeenCalledWith({ fromDate: param.FromDate, toDate: param.ToDate }, param.BaseCurrency, param.CurrencyId === 0);
                 expect(reportExcelMock).toHaveBeenCalledWith(data, reportTitle, param.Level, isAllowedCustomerComm, param.ReportBy);
                 expect(exportFnMock.mock.calls.length).toBe(1);
             })
@@ -476,15 +476,16 @@ describe('FormFilter ', () => {
                     BaseCurrency: 'USD'
                 };
                 const isAllowedCustomerComm = true;
-                const firstData = { Date: '2017-01-03T00:00:00', CurrencyName: 'EUR', CurrencyId: 1 };
+                const firstData = { Date: '2017-01-03T00:00:00', CurrencyName: 'GBP', CurrencyId: 1 };
                 const data = {
-                    DataList: [firstData]
+                    DataList: [firstData],
+                    AdditionalInfo: 'EUR'
                 };
                 Service.getDrilldownDateRange = jest.fn((reportBy, fromDate, toDate, drilldownDate) => { return { fromDate: drilldownDate, toDate: drilldownDate }; });
 
                 formFilter._doExportExcel(10, param, isAllowedCustomerComm, data);
 
-                expect(Service.getReportTitle).toHaveBeenCalledWith({ fromDate: '01/03/2017', toDate: '01/03/2017' }, firstData.CurrencyName, firstData.CurrencyId === 0);
+                expect(Service.getReportTitle).toHaveBeenCalledWith({ fromDate: '01/03/2017', toDate: '01/03/2017' }, data.AdditionalInfo, firstData.CurrencyId === 0);
                 expect(reportExcelMock).toHaveBeenCalledWith(data, reportTitle, 10, isAllowedCustomerComm, param.ReportBy);
                 expect(exportFnMock.mock.calls.length).toBe(1);
             })
