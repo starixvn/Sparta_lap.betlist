@@ -4399,13 +4399,14 @@ var FormFilter = exports.FormFilter = function (_Component) {
                 excelData = {
                     FromDate: _site2.default.convertDateToString((0, _moment2.default)(drillDownDate.fromDate)),
                     ToDate: _site2.default.convertDateToString((0, _moment2.default)(drillDownDate.toDate)),
+                    BaseCurrency: gridData.AdditionalInfo,
                     CurrencyName: firstRow.CurrencyName,
                     CurrencyId: firstRow.CurrencyId,
                     ReportBy: params.ReportBy
                 };
             }
 
-            var title = _service.Service.getReportTitle({ fromDate: excelData.FromDate, toDate: excelData.ToDate }, excelData.CurrencyName, excelData.CurrencyId === 0);
+            var title = _service.Service.getReportTitle({ fromDate: excelData.FromDate, toDate: excelData.ToDate }, excelData.BaseCurrency ? excelData.BaseCurrency : excelData.CurrencyName, excelData.CurrencyId === 0);
             var excel = new _reportExcel2.default(gridData, title, level, isAllowedCustomerComm, excelData.ReportBy);
             excel.export(function () {
                 _this2.props.toggleLoader(false);
