@@ -34,6 +34,17 @@ namespace Fanex.Athena
                 // Code that runs when an unhandled error occurs
                 var exception = Server.GetLastError();
 
+                if (exception is HttpAntiForgeryException)
+                {
+                    return;
+                }
+
+                var httpException = exception as HttpException;
+                if (httpException != null && httpException.GetHttpCode() == 404)
+                {
+                    return;
+                }
+
                 // Exception when passing wrong data type to action method
                 if (exception.TargetSite.DeclaringType == typeof(ActionDescriptor) &&
                     exception.TargetSite.Name == "ExtractParameterFromDictionary")
