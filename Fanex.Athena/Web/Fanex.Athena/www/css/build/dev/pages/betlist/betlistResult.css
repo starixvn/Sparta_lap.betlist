@@ -149,8 +149,7 @@ body {
       font-weight: bold; }
   .result-container table.fn-rs tbody .cl-match {
     text-align: left;
-    padding-left: 3px;
-    min-width: 82px; }
+    padding-left: 3px; }
     .result-container table.fn-rs tbody .cl-match.home {
       color: #454545; }
     .result-container table.fn-rs tbody .cl-match.away {
@@ -175,6 +174,8 @@ body {
         width: 100%;
         display: inline-block;
         margin-top: 10px; }
+  .result-container table.fn-rs .cl-match {
+    min-width: 82px; }
   .result-container table.fn-rs .header, .result-container table.fn-rs .sub-header {
     color: #024584;
     background-color: #c7e9f5;
@@ -196,11 +197,15 @@ body {
     width: 68px;
     color: #ff0000; }
   .result-container table.fn-rs .cl-ht-score {
+    width: 90px;
     color: #0054ff; }
   .result-container table.fn-rs .cl-f-score {
+    width: 90px;
     color: #ff0000; }
   .result-container table.fn-rs .cl-status {
     text-transform: capitalize; }
+    .result-container table.fn-rs .cl-status {
+      width: 110px; }
     .result-container table.fn-rs .cl-status .detail-link {
       color: #0273FF;
       cursor: pointer;

@@ -15,7 +15,7 @@ module.exports = __webpack_require__(82);
 /***/ 78:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 3/27/2018 8:55:30 AM
+﻿// Generated at: 5/30/2018 1:42:31 PM
 window._language_en_US = {
 AA:"AA",
 AB:"AB",
@@ -232,7 +232,6 @@ DailyRacingWinLoss:"Daily Racing Win Loss",
 DailyStatement:"Daily Statement",
 DailyStatementMsg:"Support data up to 4 months only",
 Data:"data",
-DataUpToYesterday:"Data is up to yesterday only.",
 DataWareHouse:"Data Warehouse",
 Date:"Date",
 DateRange:"Date Range",
@@ -938,6 +937,7 @@ ViewDataInMonth:"View data in month",
 Viewin:"View in {0}",
 ViewNotification:"View Notification",
 VIP:"VIP",
+VirtualBasketball:"Virtual Basketball",
 VirtualCycling:"Virtual Cycling",
 VirtualGreyhounds:"Virtual Greyhounds",
 VirtualHorseRacing:"Virtual Horse Racing",
@@ -945,6 +945,7 @@ VirtualMotoRacing:"Virtual Moto Racing",
 VirtualSoccer:"Virtual Soccer",
 VirtualSoccerLeague:"Virtual Soccer League",
 VirtualSoccerNation:"Virtual Soccer Nation",
+VirtualSoccerWorldCup:"Virtual Soccer World Cup",
 VirtualSpeedway:"Virtual Speedway",
 VirtualSports:"Virtual Sports",
 VirtualTennis:"Virtual Tennis",
@@ -985,7 +986,7 @@ YouNotChooseAnyCustomerMsg:"You did not choose any customers."
 /***/ 79:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 3/27/2018 8:55:30 AM
+﻿// Generated at: 5/30/2018 1:42:31 PM
 window._language_zh_CN = {
 AA:"客客",
 ABComm:"AllBet 佣金",
@@ -1082,10 +1083,15 @@ CancelledBets:"已删除/作废注单",
 CancelledBetsTitle:"作废/已删除注单(3天纪录)",
 CashOutAmount:"预先兑现金额",
 CashOutAmt:"兑现金额",
+CashOutCommission:"即时兑现佣金",
 CashOutDetails:"预先兑现详情",
+CashOutNotOfferCurrency:"即时兑现不支援此货币",
 CashOutShare:"兑现分红",
 CashOutStake:"预先兑现赌注",
+CashOutTickets:"即时兑现注单",
 CashOutTicketsList:"预先兑现投注单",
+CashOutTimes:"即时兑现次数",
+CashOutValue:"会员卖出的实际投注额",
 CashOutWinLoss:"即时兑现输赢",
 CASINOHANDHISTORY:"赌场下注历史",
 CasinoProgressiveWinsGuidelineContent:"此报告提供最新数据。您每次查询可以过滤最多12个月内的数据。",
@@ -1214,6 +1220,7 @@ EffectiveBettingValue:"有效投注额",
 EffectiveBettingValueNote:"有效投注额支援09/01/2014之后数据",
 Enable:"Enable",
 EnableAgCasino:"Enable AG Casino",
+EnableCashOut:"开启即时兑现",
 EnableRNGCasino:"Enable RNG Casino",
 EndBalance:"结束余额",
 EndDate:"结束日期",
@@ -1808,7 +1815,7 @@ YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
 /***/ 80:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 3/27/2018 8:55:30 AM
+﻿// Generated at: 5/30/2018 1:42:31 PM
 window._language_zh_TW = {
 AA:"客客",
 ABComm:"AllBet 佣金",
@@ -1905,10 +1912,15 @@ CancelledBets:"已刪除/作廢注單",
 CancelledBetsTitle:"作廢/已刪除注單（3天紀錄）",
 CashOutAmount:"即時兌現金額",
 CashOutAmt:"兌現金額",
+CashOutCommission:"即時兌現佣金",
 CashOutDetails:"即時兌現詳情",
+CashOutNotOfferCurrency:"即時兌現不支援此貨幣",
 CashOutShare:"兌現分紅",
 CashOutStake:"即時兌現本金",
+CashOutTickets:"即時兌現注單",
 CashOutTicketsList:"即時兌現注單",
+CashOutTimes:"即時兌現次數",
+CashOutValue:"會員賣出的實際投注額",
 CashOutWinLoss:"即時兌現輸贏",
 CASINOHANDHISTORY:"賭場下注歷史",
 CasinoProgressiveWinsGuidelineContent:"此報告提供最新數據。 您每次查詢可以過濾最多12個月內的數據。",
@@ -2037,6 +2049,7 @@ EffectiveBettingValue:"有效投注額",
 EffectiveBettingValueNote:"有效投注額支援09/01/2014之後數據",
 Enable:"Enable",
 EnableAgCasino:"Enable AG Casino",
+EnableCashOut:"開啟即時兌現",
 EnableRNGCasino:"Enable RNG Casino",
 EndBalance:"結束餘額",
 EndDate:"結束日期",
@@ -2631,7 +2644,7 @@ YouNotChooseAnyCustomerMsg:"您還沒有選擇任何會員"
 /***/ 81:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 3/27/2018 8:55:30 AM
+﻿// Generated at: 5/30/2018 1:42:31 PM
 window._language_zh_Hans = {
 AA:"客客",
 ABComm:"AllBet 佣金",
@@ -2723,7 +2736,13 @@ Cancel:"取消",
 CancelledBets:"已删除/作废注单",
 CancelledBetsTitle:"作废/已删除注单(3天纪录)",
 CashOutAmt:"兑现金额",
+CashOutCommission:"即时兑现佣金",
+CashOutNotOfferCurrency:"即时兑现不支援此货币",
 CashOutShare:"兑现分红",
+CashOutStake:"即时兑现本金",
+CashOutTickets:"即时兑现注单",
+CashOutTimes:"即时兑现次数",
+CashOutValue:"会员卖出的实际投注额",
 CASINOHANDHISTORY:"赌场下注历史",
 CasinoTransfer:"娱乐城的总转账额",
 ChangePassword:"更改密码",
@@ -2850,6 +2869,7 @@ EffectiveBettingValue:"有效投注额",
 EffectiveBettingValueNote:"有效投注额支援09/01/2014之后数据",
 Enable:"Enable",
 EnableAgCasino:"Enable AG Casino",
+EnableCashOut:"开启即时兑现",
 EnableRNGCasino:"Enable RNG Casino",
 EndBalance:"结束余额",
 EndDate:"结束日期",
@@ -3440,7 +3460,7 @@ YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
 /***/ 82:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 3/27/2018 8:55:30 AM
+﻿// Generated at: 5/30/2018 1:42:31 PM
 window._language_ko_KR = {
 AA:"AA",
 ABComm:"AllBet 수수료",
