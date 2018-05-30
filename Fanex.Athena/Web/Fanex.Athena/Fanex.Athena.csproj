@@ -820,6 +820,7 @@
     <Content Include="www\js\source\reactpages\components\date-range\__tests__\__snapshots__\PredefinedRanges.test.js.snap" />
     <Content Include="App_Data\UserGuide\CashOutWL\pdf\Cash Out WL Report guideline_CN.pdf" />
     <Content Include="App_Data\UserGuide\CashOutWL\pdf\Cash Out WL Report guideline_EN.pdf" />
+    <Content Include="App_Data\Fanex.Result\VSBasketBall.xls" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Row.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.jsx" />
