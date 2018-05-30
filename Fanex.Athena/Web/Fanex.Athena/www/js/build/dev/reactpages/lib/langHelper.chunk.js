@@ -992,7 +992,7 @@ window._language_en_US = {
 "use strict";
 
 
-// Generated at: 5/30/2018 1:42:31 PM
+// Generated at: 3/27/2018 8:55:30 AM
 window._language_ko_KR = {
   AA: "AA",
   ABComm: "AllBet 수수료",
@@ -1748,7 +1748,7 @@ window._language_ko_KR = {
 "use strict";
 
 
-// Generated at: 5/30/2018 1:42:31 PM
+// Generated at: 5/30/2018 4:51:55 PM
 window._language_zh_CN = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -1815,6 +1815,7 @@ window._language_zh_CN = {
   Based: "基于",
   BAStatus: "BA 状态",
   BAUpdatedBy: "投注总计跟新由",
+  BBAmtComm: "回购金额+即时兑现佣金",
   Bestviewedin: "最佳浏览",
   BestViewResolution: "Resolution 1280x1024",
   BestWinLoss: "最佳输赢",
@@ -1833,10 +1834,11 @@ window._language_zh_CN = {
   BetType: "投注类别",
   BONTeamToScore: "双方/一方/两者皆不得分",
   Bonus: "红利",
-  BoughtAmount: "买的金额",
-  BoughtDetails: "买的详细资料",
-  BoughtStake: "买的投注额",
-  BoughtTicketsList: "买的注单",
+  BoughtAmount: "买入金额",
+  BoughtDetails: "买入详情",
+  BoughtStake: "买入本金",
+  BoughtTicketsList: "买入注单",
+  BuyBackAmount: "回购金额",
   ByBetType: "根据投注类型",
   ByCurrency: "根据货币",
   BySportsType: "根据运动类型",
@@ -1846,12 +1848,12 @@ window._language_zh_CN = {
   CashOutAmount: "预先兑现金额",
   CashOutAmt: "兑现金额",
   CashOutCommission: "即时兑现佣金",
-  CashOutDetails: "预先兑现详情",
+  CashOutDetails: "即时兑现详情",
   CashOutNotOfferCurrency: "即时兑现不支援此货币",
   CashOutShare: "兑现分红",
-  CashOutStake: "预先兑现赌注",
+  CashOutStake: "即时兑现本金",
   CashOutTickets: "即时兑现注单",
-  CashOutTicketsList: "预先兑现投注单",
+  CashOutTicketsList: "即时兑现注单",
   CashOutTimes: "即时兑现次数",
   CashOutValue: "会员卖出的实际投注额",
   CashOutWinLoss: "即时兑现输赢",
@@ -2297,6 +2299,7 @@ window._language_zh_CN = {
   OneXTwo: "1 X 2",
   Open: "开启",
   OpeningBalance: "前期余额",
+  OriginalBetTicket: "原始注单",
   OT: "延时",
   Others: "其他",
   OtherSport: "其他运动",
@@ -2417,6 +2420,7 @@ window._language_zh_CN = {
   SessionID: "每局号码",
   SessionLoggedMsg: "您已从另一会话登入或您的登入会话已过期",
   SetAsDefaultGroup: "设置为默认组",
+  SettleAmount: "结算总额",
   SettledMatchCount: "已结算赛事计数",
   Show: "显示",
   ShowAllLeagues: "显示所有联赛",
@@ -2458,6 +2462,7 @@ window._language_zh_CN = {
   TicketFilter: "注单筛选",
   TicketList: "注单清单",
   TicketNo: "票劵号码",
+  TicketPayout: "注单结果+实际投注金额",
   TicketType: "注单类型",
   Time: "时间",
   TimeZone: "时区",
@@ -2579,7 +2584,7 @@ window._language_zh_CN = {
 "use strict";
 
 
-// Generated at: 5/30/2018 1:42:31 PM
+// Generated at: 5/30/2018 4:51:55 PM
 window._language_zh_Hans = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -2646,6 +2651,7 @@ window._language_zh_Hans = {
   Based: "基于",
   BAStatus: "BA 状态",
   BAUpdatedBy: "投注总计跟新由",
+  BBAmtComm: "回购金额+即时兑现佣金",
   Bestviewedin: "最佳浏览",
   BestViewResolution: "Resolution 1280x1024",
   BestWinLoss: "最佳输赢",
@@ -2664,6 +2670,11 @@ window._language_zh_Hans = {
   BetType: "投注类别",
   BONTeamToScore: "双方/一方/两者皆不得分",
   Bonus: "红利",
+  BoughtAmount: "买入金额",
+  BoughtDetails: "买入详情",
+  BoughtStake: "买入本金",
+  BoughtTicketsList: "买入注单",
+  BuyBackAmount: "回购金额",
   ByBetType: "根据投注类型",
   ByCurrency: "根据货币",
   BySportsType: "根据运动类型",
@@ -2672,12 +2683,15 @@ window._language_zh_Hans = {
   CancelledBetsTitle: "作废/已删除注单(3天纪录)",
   CashOutAmt: "兑现金额",
   CashOutCommission: "即时兑现佣金",
+  CashOutDetails: "即时兑现详情",
   CashOutNotOfferCurrency: "即时兑现不支援此货币",
   CashOutShare: "兑现分红",
   CashOutStake: "即时兑现本金",
   CashOutTickets: "即时兑现注单",
+  CashOutTicketsList: "即时兑现注单",
   CashOutTimes: "即时兑现次数",
   CashOutValue: "会员卖出的实际投注额",
+  CashOutWinLoss: "即时兑现输赢",
   CASINOHANDHISTORY: "赌场下注历史",
   CasinoTransfer: "娱乐城的总转账额",
   ChangePassword: "更改密码",
@@ -3117,6 +3131,7 @@ window._language_zh_Hans = {
   OneXTwo: "1 X 2",
   Open: "开启",
   OpeningBalance: "前期余额",
+  OriginalBetTicket: "原始注单",
   OT: "延时",
   Others: "其他",
   OtherSport: "其他运动",
@@ -3154,6 +3169,7 @@ window._language_zh_Hans = {
   Prev: "上个月",
   Previous: "上个月",
   Product: "产品",
+  ProductCO: "即时兑现",
   ProductCS: "娱乐城",
   ProductNG: "百练赛",
   ProductRB: "赛马",
@@ -3236,6 +3252,7 @@ window._language_zh_Hans = {
   SessionID: "每局号码",
   SessionLoggedMsg: "您已从另一会话登入或您的登入会话已过期",
   SetAsDefaultGroup: "设置为默认组",
+  SettleAmount: "结算总额",
   SettledMatchCount: "已结算赛事计数",
   Show: "显示",
   ShowAllLeagues: "显示所有联赛",
@@ -3277,6 +3294,7 @@ window._language_zh_Hans = {
   TicketFilter: "注单筛选",
   TicketList: "注单清单",
   TicketNo: "票劵号码",
+  TicketPayout: "注单结果+实际投注金额",
   TicketType: "注单类型",
   Time: "时间",
   TimeZone: "时区",
@@ -3397,7 +3415,7 @@ window._language_zh_Hans = {
 "use strict";
 
 
-// Generated at: 5/30/2018 1:42:31 PM
+// Generated at: 5/30/2018 4:51:55 PM
 window._language_zh_TW = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -3464,6 +3482,7 @@ window._language_zh_TW = {
   Based: "基於",
   BAStatus: "BA 狀態",
   BAUpdatedBy: "投注總計跟新由",
+  BBAmtComm: "回購金額+即時兌現傭金",
   Bestviewedin: "最佳瀏覽",
   BestViewResolution: "Resolution 1280x1024",
   BestWinLoss: "最佳輸贏",
@@ -3482,10 +3501,11 @@ window._language_zh_TW = {
   BetType: "投注類別",
   BONTeamToScore: "雙方/一方/兩者皆不得分",
   Bonus: "紅利",
-  BoughtAmount: "買的金額",
-  BoughtDetails: "買的詳細資料",
-  BoughtStake: "買的投注額",
-  BoughtTicketsList: "買的注單",
+  BoughtAmount: "買入金額",
+  BoughtDetails: "買入詳情",
+  BoughtStake: "買入本金",
+  BoughtTicketsList: "買入注單",
+  BuyBackAmount: "回購金額",
   ByBetType: "根據投注類型",
   ByCurrency: "根據貨幣",
   BySportsType: "根據運動類型",
@@ -3946,6 +3966,7 @@ window._language_zh_TW = {
   OneXTwo: "1 X 2",
   Open: "開啟",
   OpeningBalance: "前期餘額",
+  OriginalBetTicket: "原始注單",
   OT: "延時",
   Others: "其他",
   OtherSport: "其他運動",
@@ -4066,6 +4087,7 @@ window._language_zh_TW = {
   SessionID: "每局號碼",
   SessionLoggedMsg: "您已從另一會話登入或您的登入會話已過期",
   SetAsDefaultGroup: "設置為默認組",
+  SettleAmount: "結算總額",
   SettledMatchCount: "已結算賽事計數",
   Show: "顯示",
   ShowAllLeagues: "顯示所有聯賽",
@@ -4107,6 +4129,7 @@ window._language_zh_TW = {
   TicketFilter: "注單篩選",
   TicketList: "注單清單",
   TicketNo: "票劵號碼",
+  TicketPayout: "注單結果+實際投注金額",
   TicketType: "注單類型",
   Time: "時間",
   TimeZone: "時區",
