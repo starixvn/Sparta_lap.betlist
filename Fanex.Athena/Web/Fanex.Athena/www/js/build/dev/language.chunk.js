@@ -3460,7 +3460,7 @@ YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
 /***/ 82:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 5/30/2018 1:42:31 PM
+﻿// Generated at: 3/27/2018 8:55:30 AM
 window._language_ko_KR = {
 AA:"AA",
 ABComm:"AllBet 수수료",
