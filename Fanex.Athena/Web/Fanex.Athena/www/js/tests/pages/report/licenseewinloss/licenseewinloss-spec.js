@@ -189,8 +189,8 @@
                 });
             });
 
-            describe("setReportTitle(currencyId, fromdate, todate)", function () {
-                it(".report-title should has correct html content", function () {
+            describe("setReportTitle(currencyId, fromdate, todate, currencyName)", function () {
+                it("currencyName is empty - .report-title should has correct html content with currency name gotten by CurrencyId", function () {
                     setFixtures('<div class="report-title"></div>');
                     spyOn(Report, "getCurrencyNameForReportTitle").and.returnValue("Viewin EUR");
                     var date = new Date(2001, 1, 1);
@@ -198,6 +198,17 @@
                     LicenseeWinLoss.setReportTitle('-1', date, date);
 
                     expect($('.report-title').html()).toBe('LicenseeWinLoss, 02/01/2001 → 02/01/2001 - Viewin EUR');
+                });
+
+                it("currencyName is not empty - .report-title should has correct html content with currency name", function () {
+                    setFixtures('<div class="report-title"></div>');
+                    spyOn(Report, "getCurrencyNameForReportTitle").and.returnValue("Viewin EUR");
+                    var date = new Date(2001, 1, 1);
+                    var currencyName = "USD";
+
+                    LicenseeWinLoss.setReportTitle('-1', date, date, currencyName);
+
+                    expect($('.report-title').html()).toBe('LicenseeWinLoss, 02/01/2001 → 02/01/2001 - Viewin USD');
                 });
 
                 it("class 'hide' should be removed in .panel-heading", function () {
@@ -524,7 +535,7 @@
                         expect(args[5]).toBe("EUR");
                     });
 
-                    it("LicenseeWinLoss.setReportTitle(currencyId, fdate, tdate, currencyName) should be called with correct parameter", function () {
+                    it("LicenseeWinLoss.setReportTitle should be called with correct parameter", function () {
                         LicenseeWinLoss.submit();
                         var ajaxOptionForCreateSubmitData = $.ajax.calls.mostRecent().args[0];
                         ajaxOptionForCreateSubmitData.success(submitData);
@@ -540,14 +551,18 @@
                         expect(args[2]).toEqual(new Date(2017, 2, 31));
                     });
 
-                    it("LicenseeWinLoss.setReportTitle(currencyId, fdate, tdate, currencyName) should be called with correct parameter when level > 0 & currencyId === 0", function () {
+                    it("LicenseeWinLoss.setReportTitle should be called with correct parameter when level > 0 & currencyId === 0 & BaseCurrency is empty", function () {
+                        setFixtures('<form id="licenseewinloss"></form> <input id="BaseCurrency" data-original="" />');
+
                         submitData.CurrencyId = 0;
                         LicenseeWinLoss.submit();
                         var ajaxOptionForCreateSubmitData = $.ajax.calls.mostRecent().args[0];
                         ajaxOptionForCreateSubmitData.success(submitData);
 
                         spyOn(LicenseeWinLoss, "setReportTitle");
-                        LicenseeWinLoss.drillDown(1, 9, 0, '2017-03-04T00:00:00', 'EUR', true);
+
+                        var currencyName = "USD"
+                        LicenseeWinLoss.drillDown(1, 9, 0, '2017-03-04T00:00:00', currencyName);
                         var ajaxOptionForDrillingDown = $.ajax.calls.mostRecent().args[0];
                         ajaxOptionForDrillingDown.success({ Data: [{ Name: "Test" }] });
 
@@ -555,6 +570,29 @@
                         expect(args[0]).toBe(9);
                         expect(args[1]).toEqual(new Date(2017, 2, 1));
                         expect(args[2]).toEqual(new Date(2017, 2, 31));
+                        expect(args[3]).toEqual(currencyName);
+                    });
+
+                    it("LicenseeWinLoss.setReportTitle should be called with correct parameter when level > 0 & currencyId === 0 & BaseCurrency is not empty", function () {
+                        setFixtures('<form id="licenseewinloss"></form> <input id="BaseCurrency" data-original="EUR" />');
+
+                        submitData.CurrencyId = 0;
+                        LicenseeWinLoss.submit();
+                        var ajaxOptionForCreateSubmitData = $.ajax.calls.mostRecent().args[0];
+                        ajaxOptionForCreateSubmitData.success(submitData);
+
+                        spyOn(LicenseeWinLoss, "setReportTitle");
+
+                        var currencyName = "USD"
+                        LicenseeWinLoss.drillDown(1, 9, 0, '2017-03-04T00:00:00', currencyName);
+                        var ajaxOptionForDrillingDown = $.ajax.calls.mostRecent().args[0];
+                        ajaxOptionForDrillingDown.success({ Data: [{ Name: "Test" }] });
+
+                        var args = LicenseeWinLoss.setReportTitle.calls.mostRecent().args;
+                        expect(args[0]).toBe(9);
+                        expect(args[1]).toEqual(new Date(2017, 2, 1));
+                        expect(args[2]).toEqual(new Date(2017, 2, 31));
+                        expect(args[3]).toEqual("EUR");
                     });
                 });
             });
@@ -591,7 +629,6 @@
                     spyOn(jqGridAdditional, "assignTotal");
                     spyOn(jqGridAdditional, "setGroupFooters");
                     spyOn(Report, "bindSummaryTotal").and.returnValue(3);
-                    LicenseeWinLoss.bindTotal(1, { Total: [1, 2] }, 3);
                 });
                 afterEach(function () {
                     submitData = {
@@ -607,15 +644,32 @@
                 });
 
                 it("LicenseeWinLossOption.getTotalColModel(level, productOptions) should be called with correct parameter", function () {
+                    LicenseeWinLoss.bindTotal(1, { Total: [1, 2] }, 3);
+
                     expect(LicenseeWinLossOption.getTotalColModel).toHaveBeenCalledWith(1, ["RC", "SB"]);
                 });
                 it("jqGridAdditional.assignTotal(totalData, columnModel) should be called with correct parameter", function () {
+                    LicenseeWinLoss.bindTotal(1, { Total: [1, 2] }, 3);
+
                     expect(jqGridAdditional.assignTotal).toHaveBeenCalledWith({ Total: [1, 2] }, [{ Name: "Col1" }]);
                 });
                 it("Report.bindSummaryTotal(columnModel, summaryTotal) should be called with correct parameter", function () {
+                    LicenseeWinLoss.bindTotal(1, { Total: [1, 2] }, 3);
+
                     expect(Report.bindSummaryTotal).toHaveBeenCalledWith([{ Name: "Col1" }], 3);
                 });
-                it("jqGridAdditional.setGroupFooters(colspan, summaryColspan, summaryRowCount) should be called with correct parameter", function () {
+                it("jqGridAdditional.setGroupFooters should be called with correct parameter if licensee is fake and level 2", function () {
+                    spyOn(Site, "isFakeLicensee").and.returnValue(false);
+
+                    LicenseeWinLoss.bindTotal(2, { Total: [1, 2] }, 3);
+
+                    expect(jqGridAdditional.setGroupFooters).toHaveBeenCalledWith(3, 4, 3);
+                });
+                it("jqGridAdditional.setGroupFooters should be called with correct parameter if licensee is real and level 2", function () {
+                    spyOn(Site, "isFakeLicensee").and.returnValue(true);
+
+                    LicenseeWinLoss.bindTotal(2, { Total: [1, 2] }, 3);
+
                     expect(jqGridAdditional.setGroupFooters).toHaveBeenCalledWith(2, 3, 3);
                 });
             });

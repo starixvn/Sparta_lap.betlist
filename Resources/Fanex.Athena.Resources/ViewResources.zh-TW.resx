@@ -2462,16 +2462,20 @@
     <value>即時兌現注單</value>
   </data>
   <data name="BoughtAmount" xml:space="preserve">
-    <value>買的金額</value>
+    <value>買入金額</value>
+    <comment>93729</comment>
   </data>
   <data name="BoughtDetails" xml:space="preserve">
-    <value>買的詳細資料</value>
+    <value>買入詳情</value>
+    <comment>93729</comment>
   </data>
   <data name="BoughtStake" xml:space="preserve">
-    <value>買的投注額</value>
+    <value>買入本金</value>
+    <comment>93729</comment>
   </data>
   <data name="BoughtTicketsList" xml:space="preserve">
-    <value>買的注單</value>
+    <value>買入注單</value>
+    <comment>93729</comment>
   </data>
   <data name="CashOutAmt" xml:space="preserve">
     <value>兌現金額</value>
@@ -2660,5 +2664,25 @@
   </data>
   <data name="EnableCashOut" xml:space="preserve">
     <value>開啟即時兌現</value>
+  </data>
+  <data name="BBAmtComm" xml:space="preserve">
+    <value>回購金額+即時兌現傭金</value>
+    <comment>93729</comment>
+  </data>
+  <data name="BuyBackAmount" xml:space="preserve">
+    <value>回購金額</value>
+    <comment>93729</comment>
+  </data>
+  <data name="OriginalBetTicket" xml:space="preserve">
+    <value>原始注單</value>
+    <comment>93729</comment>
+  </data>
+  <data name="SettleAmount" xml:space="preserve">
+    <value>結算總額</value>
+    <comment>93729</comment>
+  </data>
+  <data name="TicketPayout" xml:space="preserve">
+    <value>注單結果+實際投注金額</value>
+    <comment>93729</comment>
   </data>
 </root>
