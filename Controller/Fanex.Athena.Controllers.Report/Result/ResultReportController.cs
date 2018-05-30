@@ -289,6 +289,21 @@ namespace Fanex.Athena.Controllers.Report.Result
             return betType == ParlayBetType || betType == SystemParlayBetType || betType == (int)Constant.DataDomain.BetType.VirtualSports2MixParlay;
         }
 
+        private static bool IsShowMatchCodeIDColumn(SportType sportType)
+        {
+            #pragma warning disable S1067 // Expressions should not be too complex
+            return sportType == SportType.GoldDeluxe
+                || sportType == SportType.HorseRacing
+                || sportType == SportType.Greyhound
+                || sportType == SportType.Harness
+                || sportType == SportType.VirtualHorseRacing
+                || sportType == SportType.VirtualGreyhounds
+                || sportType == SportType.VirtualSpeedway
+                || sportType == SportType.VirtualMotorRacing
+                || sportType == SportType.VirtualCycling;
+            #pragma warning restore S1067 // Expressions should not be too complex
+        }
+
         private static IEnumerable<Sport> RemoveNotAllowedSports(IEnumerable<Sport> sports, ProductAccess productAccess)
         {
             var limitedSports = sports;
@@ -558,7 +573,8 @@ namespace Fanex.Athena.Controllers.Report.Result
                 LanguageCode = SessionService.UserSession.Language,
                 VisibleDetailedLink = true,
                 VisibleFreeHeader = true,
-                EnableCheckScoreCalculated = sportType == SportType.Soccer
+                EnableCheckScoreCalculated = sportType == SportType.Soccer,
+                VisibleMatchCodeIDColumn = IsShowMatchCodeIDColumn(sportType)
             };
         }
 
