@@ -1,4 +1,4 @@
-﻿// Generated at: 5/30/2018 4:51:55 PM
+﻿// Generated at: 5/31/2018 9:37:15 AM
 window._language_zh_TW = {
 AA:"客客",
 ABComm:"AllBet 佣金",
@@ -116,7 +116,7 @@ ChangeStatusOfThisCustomerMsg:"您確定您要更換此會員的狀態嗎?",
 Characters:"文字",
 CheckAll:"Check All",
 Checkavailability:"檢查可用性",
-China:"大陸",
+China:"中國",
 Choice:"選擇",
 ChooseGroupMsg:"請選擇一個組",
 ChooseGroupNameMsg:"請選擇其他組名",
