@@ -15,7 +15,7 @@ module.exports = __webpack_require__(82);
 /***/ 78:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 5/30/2018 1:42:31 PM
+﻿// Generated at: 5/31/2018 9:37:15 AM
 window._language_en_US = {
 AA:"AA",
 AB:"AB",
@@ -986,7 +986,7 @@ YouNotChooseAnyCustomerMsg:"You did not choose any customers."
 /***/ 79:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 5/30/2018 4:51:55 PM
+﻿// Generated at: 5/31/2018 9:37:15 AM
 window._language_zh_CN = {
 AA:"客客",
 ABComm:"AllBet 佣金",
@@ -1104,7 +1104,7 @@ ChangeStatusOfThisCustomerMsg:"您确定您要更换此会员的状态吗?",
 Characters:"文字",
 CheckAll:"Check All",
 Checkavailability:"检查可用性",
-China:"大陆",
+China:"中国",
 Choice:"选择",
 ChooseGroupMsg:"请选择一个组",
 ChooseGroupNameMsg:"请选择其他组名",
@@ -1820,7 +1820,7 @@ YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
 /***/ 80:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 5/30/2018 4:51:55 PM
+﻿// Generated at: 5/31/2018 9:37:15 AM
 window._language_zh_TW = {
 AA:"客客",
 ABComm:"AllBet 佣金",
@@ -1938,7 +1938,7 @@ ChangeStatusOfThisCustomerMsg:"您確定您要更換此會員的狀態嗎?",
 Characters:"文字",
 CheckAll:"Check All",
 Checkavailability:"檢查可用性",
-China:"大陸",
+China:"中國",
 Choice:"選擇",
 ChooseGroupMsg:"請選擇一個組",
 ChooseGroupNameMsg:"請選擇其他組名",
@@ -2654,7 +2654,7 @@ YouNotChooseAnyCustomerMsg:"您還沒有選擇任何會員"
 /***/ 81:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 5/30/2018 4:51:55 PM
+﻿// Generated at: 5/31/2018 9:37:15 AM
 window._language_zh_Hans = {
 AA:"客客",
 ABComm:"AllBet 佣金",
@@ -2770,7 +2770,7 @@ ChangeStatusOfThisCustomerMsg:"您确定您要更换此会员的状态吗?",
 Characters:"文字",
 CheckAll:"Check All",
 Checkavailability:"检查可用性",
-China:"大陆",
+China:"中国",
 Choice:"选择",
 ChooseGroupMsg:"请选择一个组",
 ChooseGroupNameMsg:"请选择其他组名",
@@ -3483,7 +3483,7 @@ YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
 /***/ 82:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 3/27/2018 8:55:30 AM
+﻿// Generated at: 5/31/2018 9:37:15 AM
 window._language_ko_KR = {
 AA:"AA",
 ABComm:"AllBet 수수료",
