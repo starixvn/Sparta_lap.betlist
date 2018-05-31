@@ -1,4 +1,7 @@
-﻿/* Product */
+﻿export const FETCH_DATA = 'FETCH_DATA'
+export const SET_GRID_DATA = "SET_GRID_DATA"
+
+/* Product */
 export const SET_SELECTED_PRODUCT = "SET_SELECTED_PRODUCT";
 export const SET_PRODUCT_OPTIONS = "SET_PRODUCT_OPTIONS";
 

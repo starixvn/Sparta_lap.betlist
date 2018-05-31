@@ -1,8 +1,8 @@
-﻿import React, { Component } from 'react'
+﻿import React, { Component } from 'react';
 import DataGrid from './DataGrid'
 import FormFilter from './FormFilter'
 
-export default class Product extends Component {
+export default class SingleDay extends Component {
   constructor(props) {
     super(props);
   }

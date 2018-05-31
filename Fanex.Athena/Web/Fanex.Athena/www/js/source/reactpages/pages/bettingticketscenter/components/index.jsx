@@ -6,10 +6,10 @@ import { createStore, applyMiddleware, combineReducers, compose } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 
 import Store from '../../../lib/store'
-import reducer from '../reducers'
+import reducerSingleDay from '../reducers/singleday'
 import AppContainer from './AppContainer'
 
-const store = Store.createStore(reducer, {});
+const store = Store.createStore(reducerSingleDay, {});
 
 export default class App extends React.Component {
     constructor(props) {

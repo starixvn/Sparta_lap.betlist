@@ -3,10 +3,10 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import Select from 'react-select'
-import { DateRange } from '../../../../components/date-range'
+import { DatePicker } from '../../../../components/date-range'
 import AutoComplete from '../../../../components/auto-complete'
 
-import { ActionCreators } from '../../actions/product'
+import { ActionCreators } from '../../actions/singleday'
 import LangHelper from '../../../../lib/langHelper'
 import Site from '../../../../lib/site'
 
@@ -17,13 +17,32 @@ export class FormFilter extends Component {
         super(props);
     }
 
+    submit = (event) => {
+        event.preventDefault();
+        const params = this._getParams();
+        if (!params) {
+            return;
+        }
+
+        this.props.toggleLoader(true);
+        this.props.getGridData(params);
+    }
+
+    _getParams() {
+        return {
+            xsrfToken: this.props.xsrfToken,
+            data: {
+            }
+        }
+    }
+
     _onSelectAutoCompleteItem(selectedItem) {
         console.log(selectedItem);
     }
 
     _renderDateRange() {
         return (
-            <DateRange />
+            <DatePicker onChange={this.handleChange} />
         )
     }
 
@@ -60,7 +79,7 @@ export class FormFilter extends Component {
         return (
             <div className="page-filter">
                 <div className="row">
-                    <div className="col-12 col-md-4 col-sm-4 col-lg-3 col-xl-3">
+                    <div className="col-12 col-md-3 col-sm-3 col-lg-2 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Date")}</label>
                             {this._renderDateRange()}
@@ -70,20 +89,6 @@ export class FormFilter extends Component {
                     <div className="col-12 col-md-3 col-sm-2 col-lg-3 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Product")}</label>
-                            {this._renderProductSelectList()}
-                        </div>
-                    </div>
-
-                    <div className="col-12 col-md-3 col-sm-3 col-lg-1 col-xl-1">
-                        <div className="form-group">
-                            <label className="label-text">{LangHelper.getSingleResource("Sport")}</label>
-                            {this._renderProductSelectList()}
-                        </div>
-                    </div>
-
-                    <div className="col-12 col-md-3 col-sm-3 col-lg-2 col-xl-2">
-                        <div className="form-group">
-                            <label className="label-text">{LangHelper.getSingleResource("Bettype")}</label>
                             {this._renderProductSelectList()}
                         </div>
                     </div>
@@ -101,36 +106,50 @@ export class FormFilter extends Component {
                             {this._renderProductSelectList()}
                         </div>
                     </div>
-                </div>
 
-                <div className="row">
                     <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Currency")}</label>
-                            {this._renderBaseCurrencySelectList()}
+                        {this._renderBaseCurrencySelectList()}
                         </div>
                     </div>
 
                     <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Based")}</label>
-                            {this._renderBaseCurrencySelectList()}
+                        {this._renderBaseCurrencySelectList()}
+                        </div>
+                    </div>
+
+                </div>
+
+                <div className="row">
+                    
+                    <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
+                        <div className="form-group">
+                            <label className="label-text">{LangHelper.getSingleResource("Status")}</label>
+                        {this._renderBaseCurrencySelectList()}
                         </div>
                     </div>
 
                     <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
                         <div className="form-group">
-                            <label className="label-text">{LangHelper.getSingleResource("Username")}</label>
-                            <AutoComplete url={CUSTOMER_SEARCHING_URL}
-                                onSelect={this._onSelectAutoCompleteItem}
-                                htmlAttributes={{ placeholder: LangHelper.getSingleResource("ExternalIdOrSystemId") }} />
+                            <label className="label-text">{LangHelper.getSingleResource("Platform")}</label>
+                        {this._renderBaseCurrencySelectList()}
+                        </div>
+                    </div>
+
+                    <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
+                        <div className="form-group">
+                            <label className="label-text">{LangHelper.getSingleResource("Live")}</label>
+                        {this._renderBaseCurrencySelectList()}
                         </div>
                     </div>
 
                     <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
                         <div className="form-group">
                             <div className="button-group">
-                                <button type="button" className="btn btn-submit">{LangHelper.getSingleResource("Submit")}</button>
+                                <button type="button" className="btn btn-submit" onClick={this.submit}>{LangHelper.getSingleResource("Submit")}</button>
                             </div>
                         </div>
                     </div>

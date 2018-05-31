@@ -902,6 +902,13 @@
     <Content Include="www\js\source\reactpages\lib\__tests__\numberFormat.test.js" />
     <Content Include="www\js\source\reactpages\lib\__tests__\report.test.js" />
     <Content Include="www\js\source\reactpages\lib\__tests__\site.test.js" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\actions\singleday\dataHandlerAction.js" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\actions\singleday\filterHandlerAction.js" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\actions\singleday\index.js" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\actions\singleday\types.js" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\lib\service.js" />
+    <Content Include="www\js\source\reactpages\reducers\gridDataReducer.js" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\reducers\singleday\filterHandlerReducer.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\actions\dataHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\actions\filterHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\actions\index.js" />
@@ -973,9 +980,8 @@
     <None Include="www\js\source\reactpages\pages\bettingticketscenter\components\products\AppContainer.jsx" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\components\casinodetailed\index.jsx" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\components\AppContainer.jsx" />
-    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\actions\product\index.js" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\reducers\index.js" />
-    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\reducers\product\index.js" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\reducers\singleday\index.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\dataHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\filterHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\__tests__\filterHandlerAction.test.js" />
@@ -1002,7 +1008,6 @@
     <Content Include="www\js\source\reactpages\reducers\xsrfTokenReducer.js" />
     <Content Include="www\js\source\reactpages\reducers\__tests__\excludeTestReducer.test.js" />
     <Content Include="www\js\source\reactpages\reducers\__tests__\baseCurrencyReducer.test.js" />
-    <Content Include="www\js\source\reactpages\reducers\xsrfTokenReducer.js" />
     <Content Include="www\js\source\reactpages\reducers\__tests__\loaderReducer.test.js" />
     <Content Include="www\js\source\reactpages\reducers\__tests__\productReducer.test.js" />
     <Content Include="www\js\source\reactpages\reducers\__tests__\userGuideReducer.test.js" />
@@ -2585,9 +2590,9 @@
     <Content Include="www\js\source\reactpages\components\month-picker\index.js" />
     <Content Include="www\js\source\reactpages\components\Overlay.jsx" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\components\index.jsx" />
-    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\components\product\index.jsx" />
-    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\components\product\FormFilter.jsx" />
-    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\components\product\DataGrid.jsx" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\components\singleday\index.jsx" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\components\singleday\FormFilter.jsx" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\components\singleday\DataGrid.jsx" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\components\refno\index.jsx" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\components\casinodetailed\DataGrid.jsx" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\components\casinodetailed\FormFilter.jsx" />
@@ -5734,7 +5739,6 @@
   <ItemGroup>
     <Folder Include="Logs\" />
     <Folder Include="www\css\source\reactpages\lib\" />
-    <Folder Include="www\js\source\reactpages\pages\bettingticketscenter\lib\" />
     <Folder Include="www\js\source\reactpages\vendors\" />
   </ItemGroup>
   <ItemGroup>

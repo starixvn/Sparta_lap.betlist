@@ -7,13 +7,15 @@ import AppLayout from '../../../layouts/AppLayout'
 import { Tabs, Tab } from '@9softstudio/simple-react-tab'
 import LangHelper from '../../../lib/langHelper'
 
-import Product from './product'
-import RefNo from './refno'
-import CasinoDetailed from './casinodetailed'
+import SingleDay from './singleday'
 
 export class AppContainer extends Component {
     constructor(props) {
         super(props);
+
+        window.ViewResult = function(){
+            alert(1);
+        };
     }
 
     render() {
@@ -21,14 +23,14 @@ export class AppContainer extends Component {
             <AppLayout>
                 <Loader isLoading={this.props.isLoading} />
                 <Tabs>
-                    <Tab isActive={true} label={LangHelper.getSingleResource("Products")}>
-                        <Product />
+                    <Tab isActive={true} label={LangHelper.getSingleResource("SingleDay")}>
+                        <SingleDay />
                     </Tab>
                     <Tab isActive={false} label={LangHelper.getSingleResource("RefNo")}>
-                        <RefNo />
+                        
                     </Tab>
                     <Tab isActive={false} label={LangHelper.getSingleResource("CasinoDetailed")}>
-                        <CasinoDetailed />
+                        
                     </Tab>
                 </Tabs>
             </AppLayout>
