@@ -130,7 +130,7 @@
             DataAccess.GetObjectDb(Arg.Is(GetCustomerBalanceDetailSp)).Returns(ObjectDb);
 
             const int PageIndex = 1;
-            const int PageSize = SystemConstants.PageSizeExcel;
+            const int PageSize = SystemConstants.MaxDataTotalRow;
             var metaModel = CreateMetaModel();
             metaModel.IsExportExcel = true;
 

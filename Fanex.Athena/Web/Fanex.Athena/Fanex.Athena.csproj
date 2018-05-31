@@ -80,7 +80,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.BetList.BetTrade, Version=1.0.8.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.61.0\lib\net40\Fanex.BetList.BetTrade.dll</HintPath>
+      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.63.0-beta3\lib\net40\Fanex.BetList.BetTrade.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.BetList.CashOut, Version=1.0.0.6, Culture=neutral, processorArchitecture=MSIL">
@@ -91,16 +91,16 @@
       <HintPath>..\..\..\packages\Fanex.BetList.ColossusBets.1.0.1.7\lib\net40\Fanex.BetList.ColossusBets.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.BetList.Core, Version=2.61.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.61.0\lib\net40\Fanex.BetList.Core.dll</HintPath>
+    <Reference Include="Fanex.BetList.Core, Version=2.63.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.BetList.Core.2.63.0-beta3\lib\net40\Fanex.BetList.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.BetList.GlobalGaming, Version=1.0.0.6, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.BetList.GlobalGaming.1.0.0.6\lib\net40\Fanex.BetList.GlobalGaming.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.BetList.Keno, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.BetList.Keno.1.1.0\lib\net40\Fanex.BetList.Keno.dll</HintPath>
+    <Reference Include="Fanex.BetList.Keno, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.BetList.Keno.1.0.0\lib\net40\Fanex.BetList.Keno.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.BetList.KenoLottery, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -137,6 +137,18 @@
     <Reference Include="Fanex.Logging, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Logging.1.0.0.0\lib\net40\Fanex.Logging.dll</HintPath>
     </Reference>
+    <Reference Include="Fanex.Logging.Extensions, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Logging.Extensions.1.0.5\lib\net40\Fanex.Logging.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Fanex.Logging.Extensions.Database.V62, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Logging.Extensions.Database.V62.1.0.3\lib\net40\Fanex.Logging.Extensions.Database.V62.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Fanex.Logging.Extensions.Web, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Logging.Extensions.Web.1.0.5\lib\net40\Fanex.Logging.Extensions.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Fanex.Result.Core, Version=2.0.10.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Result.Core-NPOI.2.0.6.2.0.10.0\lib\net40\Fanex.Result.Core.dll</HintPath>
       <Private>True</Private>
@@ -160,15 +172,6 @@
     <Reference Include="Fanex.Result.Core.Sportsbook, Version=1.0.12.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Result.Core-Sportsbook.1.0.12.0\lib\net40\Fanex.Result.Core.Sportsbook.dll</HintPath>
       <Private>True</Private>
-    </Reference>
-    <Reference Include="Glimpse.AspNet">
-      <HintPath>..\..\..\packages\Glimpse.AspNet.1.8.0\lib\net40\Glimpse.AspNet.dll</HintPath>
-    </Reference>
-    <Reference Include="Glimpse.Core">
-      <HintPath>..\..\..\packages\Glimpse.1.8.2\lib\net40\Glimpse.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Glimpse.Mvc4">
-      <HintPath>..\..\..\packages\Glimpse.Mvc4.1.5.3\lib\net40\Glimpse.Mvc4.dll</HintPath>
     </Reference>
     <Reference Include="IBCCrypt, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Crypt.1.1.0.0\lib\net40\IBCCrypt.dll</HintPath>
@@ -351,6 +354,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FanexSpName.xml.tt</DependentUpon>
     </Content>
+    <Content Include="App_Data\UserGuide\CashOutWL\zh-Hans.htm" />
     <Content Include="App_Data\UserGuide\CashOutWL\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\CashOutWL\zh-TW.htm" />
     <Content Include="App_Data\UserGuide\CashOutWL\en-US.htm" />
@@ -661,6 +665,7 @@
     <Content Include="Content\Report\cashoutwinloss.css" />
     <Content Include="Content\Report\customertbalance.css" />
     <Content Include="Content\Utility\images\UM.png" />
+    <Content Include="robots.txt" />
     <Content Include="jasmine-specs\BetList\lastbet.filter-test.js" />
     <Content Include="jasmine-specs\Customer\BetSetting\exchange-test.js" />
     <Content Include="jasmine-specs\Customer\CustomerList\customerlist.custoption-test.js" />
@@ -813,6 +818,9 @@
     <Content Include="www\js\source\reactpages\components\date-range\__tests__\__snapshots__\DateRange.test.js.snap" />
     <Content Include="www\js\source\reactpages\components\date-range\__tests__\__snapshots__\DayCell.test.js.snap" />
     <Content Include="www\js\source\reactpages\components\date-range\__tests__\__snapshots__\PredefinedRanges.test.js.snap" />
+    <Content Include="App_Data\UserGuide\CashOutWL\pdf\Cash Out WL Report guideline_CN.pdf" />
+    <Content Include="App_Data\UserGuide\CashOutWL\pdf\Cash Out WL Report guideline_EN.pdf" />
+    <Content Include="App_Data\Fanex.Result\VSBasketBall.xls" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Row.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.jsx" />

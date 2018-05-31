@@ -397,9 +397,10 @@
                         _me.ajaxComplete(level, response);
                         if (response !== null && response.Data.length > 0) {
                             if (level > 0 && param.CurrencyId === '0') {
-                                _me.setReportTitle(currencyId, dateRange.FromDate, dateRange.ToDate, currencyName);
+                                var viewInCurrency = param.BaseCurrency ? param.BaseCurrency.toUpperCase() : currencyName;
+                                _me.setReportTitle(currencyId, dateRange.FromDate, dateRange.ToDate, viewInCurrency);
                             } else {
-                                _me.setReportTitle(param.CurrencyId, dateRange.FromDate, dateRange.ToDate, currencyName);
+                                _me.setReportTitle(param.CurrencyId, dateRange.FromDate, dateRange.ToDate);
                             }
 
                             _me.setExcelUrl(level, currencyId, customerId, dateRange.FromDate, dateRange.ToDate, currencyName);

@@ -9383,7 +9383,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             align: 'center',
             valign: 'middle',
             frozen: true,
-            sortable: false
+            sortable: false,
+            cellattr: jqGridAdditional.rowSpanSetting
         };
 
         var dateColumn =
@@ -10232,7 +10233,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 success: function (response) {
                     setExcelUrl(level, currencyId, custId, fromDate, toDate);
                     ajaxComplete(level, response, postdata);
-                    _me.setReportTitle(currencyId, fromDate, toDate);
+
+                    var currencyName = level > 0 && postdata.BaseCurrency ? postdata.BaseCurrency.toUpperCase() : "";
+                    _me.setReportTitle(currencyId, fromDate, toDate, currencyName);
                 },
                 beforeSend: function () {
                     Site.blockUI();
@@ -10287,10 +10290,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             jqGridAdditional.setGroupFooters(colspan, summaryColspan, summaryRowCount);
         }
 
-        function setReportTitle(currencyId, fromdate, todate) {
+        function setReportTitle(currencyId, fromdate, todate, currencyName) {
             var titlePattern = _reportTitle + ', {0} → {1} - {2}';
             //get currencyName
-            var currencyStr = Report.getCurrencyNameForReportTitle(currencyId);
+            var currencyStr = currencyName ? Site.getSingleResource("Viewin").replace("{0}", currencyName)
+                                                        : Report.getCurrencyNameForReportTitle(currencyId);
 
             var title = $.format(titlePattern, fromdate, todate, currencyStr);
 

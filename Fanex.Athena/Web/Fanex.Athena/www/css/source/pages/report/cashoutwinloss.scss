@@ -9,3 +9,11 @@ $colorTextTotal: $black;
 .grandTotal, .total-eur {
     color: $colorTextTotal;
 }
+
+.theme_jqGrid {
+    .ui-jqgrid {
+        .ui-jqgrid-sortable {
+            cursor: default;
+        }
+    }
+}

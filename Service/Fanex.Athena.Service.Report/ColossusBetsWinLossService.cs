@@ -37,17 +37,21 @@ namespace Fanex.Athena.Service.Report
         {
             var result = this._colossusBetsWinLossDataAccess.GetSummaryWinloss(metaModel);
             var date = new System.DateTime();
+            var index = 0;
             foreach (var item in result.DataList)
             {
                 if (date != item.Date)
                 {
                     date = item.Date;
                     item.RowSpan = result.DataList.Count(x => x.Date == item.Date);
+                    index++;
                 }
                 else
                 {
                     item.RowSpan = -1;
                 }
+
+                item.Index = index;
             }
 
             return result;

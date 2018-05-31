@@ -43,7 +43,8 @@ var ColossusBetsOption = (function () {
         align: 'center',
         valign: 'middle',
         frozen: true,
-        sortable: false
+        sortable: false,
+        cellattr: jqGridAdditional.rowSpanSetting
     };
 
     var dateColumn =

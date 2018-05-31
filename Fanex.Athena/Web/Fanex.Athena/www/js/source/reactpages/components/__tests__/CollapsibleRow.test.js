@@ -29,24 +29,20 @@ describe('CollapsibleRow ', () => {
             expect(result).toMatchSnapshot(); 
         });
 
-        it('isHtml = false - component render correctly - show raw content', () => { 
+        it('component render subject correctly', () => { 
             const props = {
-                isHtml: false,
-                subject: 'Subject',
-                content: '<p>Content</p>'
+                subject: '<p>Subject</p>',
             };
 
             const component = renderer.create(<CollapsibleRow {...props} />);
 
             const result = component.toJSON(); 
         
-            expect(result).toMatchSnapshot(); 
+            expect(result).toMatchSnapshot();
         });
-
-        it('isHtml = true - component render correctly - show content with Html format', () => { 
+        
+        it('component render content correctly', () => { 
             const props = {
-                isHtml: true,
-                subject: 'Subject',
                 content: '<p>Content</p>'
             };
 
@@ -93,9 +89,8 @@ describe('CollapsibleRow ', () => {
     describe('onClick', () => {
         it('Class name is changed to show/hide content', () => {
             const props = {
-                isHtml: false,
                 subject: 'Subject',
-                content: '<p>Content</p>'
+                content: 'Content'
             };
 
             const component = renderer.create(<CollapsibleRow {...props} />);
@@ -116,9 +111,8 @@ describe('CollapsibleRow ', () => {
 
         it('onExpand function is called when expanding', () => {
             const props = {
-                isHtml: false,
                 subject: 'Subject',
-                content: '<p>Content</p>',
+                content: 'Content',
                 onExpand: jest.fn(),
                 isExpand: true
             };

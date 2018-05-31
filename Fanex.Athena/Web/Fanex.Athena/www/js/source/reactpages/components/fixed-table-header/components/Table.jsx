@@ -207,28 +207,29 @@ class Table extends Component {
         const Footer = this.Footer;
 
         return (
-            <div className="table-container" style={{ maxWidth }}>
-                <Header {...sectionProps}>
-                    {rowLayout}
-                    {header}
-                </Header>
-
-                {
-                    body &&
-                    <Body {...sectionProps} maxHeight={this.state.contentHeight}>
+            <div>
+                <div className="table-container" style={{ maxWidth }}>
+                    <Header {...sectionProps}>
                         {rowLayout}
-                        {body}
-                    </Body>
-                }
+                        {header}
+                    </Header>
 
-                {
-                    footer &&
-                    <Footer {...sectionProps}>
-                        {rowLayout}
-                        {footer}
-                    </Footer>
-                }
+                    {
+                        body &&
+                        <Body {...sectionProps} maxHeight={this.state.contentHeight}>
+                            {rowLayout}
+                            {body}
+                        </Body>
+                    }
 
+                    {
+                        footer &&
+                        <Footer {...sectionProps}>
+                            {rowLayout}
+                            {footer}
+                        </Footer>
+                    }
+                </div>
                 {
                     isPaging && pageOption &&
                     <Page pageOption={pageOption} onPaging={onPaging} />

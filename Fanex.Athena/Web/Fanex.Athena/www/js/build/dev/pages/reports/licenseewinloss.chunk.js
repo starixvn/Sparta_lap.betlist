@@ -4867,9 +4867,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                         _me.ajaxComplete(level, response);
                         if (response !== null && response.Data.length > 0) {
                             if (level > 0 && Number(param.CurrencyId) === 0) {
-                                _me.setReportTitle(currencyId, dateRange.FromDate, dateRange.ToDate, currencyName);
+                                var viewInCurrency = param.BaseCurrency ? param.BaseCurrency.toUpperCase() : currencyName;
+                                _me.setReportTitle(currencyId, dateRange.FromDate, dateRange.ToDate, viewInCurrency);
                             } else {
-                                _me.setReportTitle(param.CurrencyId, dateRange.FromDate, dateRange.ToDate, currencyName);
+                                _me.setReportTitle(param.CurrencyId, dateRange.FromDate, dateRange.ToDate);
                             }
                         }
 
@@ -6878,6 +6879,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 showHeader: true,
                 isCheckAll: isCheckAll,
                 checkAllText: Site.getSingleResource('All'),
+                selectedText: Site.getSingleResource('SelectedItemCount'),
                 showFooter: false,
                 listData: dataUI,
                 onCheck: function () {

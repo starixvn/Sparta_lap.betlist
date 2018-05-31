@@ -2454,25 +2454,31 @@
     <value>预先兑现金额</value>
   </data>
   <data name="CashOutDetails" xml:space="preserve">
-    <value>预先兑现详情</value>
+    <value>即时兑现详情</value>
+    <comment>93729</comment>
   </data>
   <data name="CashOutStake" xml:space="preserve">
-    <value>预先兑现赌注</value>
+    <value>即时兑现本金</value>
+    <comment>93729</comment>
   </data>
   <data name="CashOutTicketsList" xml:space="preserve">
-    <value>预先兑现投注单</value>
+    <value>即时兑现注单</value>
   </data>
   <data name="BoughtAmount" xml:space="preserve">
-    <value>买的金额</value>
+    <value>买入金额</value>
+    <comment>93729</comment>
   </data>
   <data name="BoughtDetails" xml:space="preserve">
-    <value>买的详细资料</value>
+    <value>买入详情</value>
+    <comment>93729</comment>
   </data>
   <data name="BoughtStake" xml:space="preserve">
-    <value>买的投注额</value>
+    <value>买入本金</value>
+    <comment>93729</comment>
   </data>
   <data name="BoughtTicketsList" xml:space="preserve">
-    <value>买的注单</value>
+    <value>买入注单</value>
+    <comment>93729</comment>
   </data>
   <data name="CashOutAmt" xml:space="preserve">
     <value>兑现金额</value>
@@ -2517,7 +2523,7 @@
     <value>亚洲</value>
   </data>
   <data name="China" xml:space="preserve">
-    <value>大陆</value>
+    <value>中国</value>
   </data>
   <data name="Euro" xml:space="preserve">
     <value>欧洲</value>
@@ -2643,5 +2649,43 @@
   </data>
   <data name="FreePlay" xml:space="preserve">
     <value>免费投注</value>
+  </data>
+  <data name="CashOutTimes" xml:space="preserve">
+    <value>即时兑现次数</value>
+  </data>
+  <data name="CashOutTickets" xml:space="preserve">
+    <value>即时兑现注单</value>
+  </data>
+  <data name="CashOutValue" xml:space="preserve">
+    <value>会员卖出的实际投注额</value>
+  </data>
+  <data name="CashOutCommission" xml:space="preserve">
+    <value>即时兑现佣金</value>
+  </data>
+  <data name="CashOutNotOfferCurrency" xml:space="preserve">
+    <value>即时兑现不支援此货币</value>
+  </data>
+  <data name="EnableCashOut" xml:space="preserve">
+    <value>开启即时兑现</value>
+  </data>
+  <data name="BBAmtComm" xml:space="preserve">
+    <value>回购金额+即时兑现佣金</value>
+    <comment>93729</comment>
+  </data>
+  <data name="BuyBackAmount" xml:space="preserve">
+    <value>回购金额</value>
+    <comment>93729</comment>
+  </data>
+  <data name="OriginalBetTicket" xml:space="preserve">
+    <value>原始注单</value>
+    <comment>93729</comment>
+  </data>
+  <data name="SettleAmount" xml:space="preserve">
+    <value>结算总额</value>
+    <comment>93729</comment>
+  </data>
+  <data name="TicketPayout" xml:space="preserve">
+    <value>注单结果+实际投注金额</value>
+    <comment>93729</comment>
   </data>
 </root>

@@ -35,6 +35,19 @@ define(modulePath, function ($, Site, BetSettingHelper, DcsBetSetting, ExchangeB
 
                 expect(ExchangeBetSetting.updateComm).toHaveBeenCalledWith("1234", 123, "234");
             });
+
+            it("#btnReset fire click event - reset Commission dropdown to original value", function () {
+                var htmlButton = '<button id="btnReset"></button>' +
+                    '<select id="ddlCommission" data-original-value="123"><option value="123"><option value="234" selected="selected"></option></select>';
+                setFixtures(htmlButton);
+                spyOn($.fn, "change");
+
+                ExchangeBetSetting.initEvent();
+                $("#btnReset").click();
+
+                expect($("#ddlCommission").val()).toBe("123");
+                expect($.fn.change).toHaveBeenCalled();
+            });
         });
 
         describe("updateComm(custId, oldCommission, newCommission)", function () {

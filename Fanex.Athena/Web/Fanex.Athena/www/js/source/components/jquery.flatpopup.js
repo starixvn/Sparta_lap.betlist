@@ -55,6 +55,7 @@ define(['jquery'], function ($) {
                 }
                 else {
                     $self = $("#" + options.id);
+                    $self.find(".txt-title").text(options.title);
                     var $wrapContent = $self.find(".wrapContent");
                     $wrapContent.append($self.children().not(".popup-title"));
                 }

@@ -164,4 +164,7 @@
         color: #000;
         cursor: default; }
 
+.theme_jqGrid .ui-jqgrid .ui-jqgrid-sortable {
+  cursor: default; }
+
 /*# sourceMappingURL=turnover.css.map*/

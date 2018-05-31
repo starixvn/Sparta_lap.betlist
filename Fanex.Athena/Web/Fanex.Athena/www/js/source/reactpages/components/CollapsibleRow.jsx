@@ -13,9 +13,8 @@ export default class CollapsibleRow extends React.Component {
 
     static propTypes = {
         isExpand: PropTypes.bool,
-        isHtml: PropTypes.bool,
         subject: PropTypes.string,
-        content: PropTypes.string,
+        content: PropTypes.string,    
         onExpand: PropTypes.func
     }
 
@@ -36,15 +35,14 @@ export default class CollapsibleRow extends React.Component {
     }
 
     render() {
-        const { subject, content, isHtml } = this.props;
+        const { subject, content } = this.props;
 
         return <div className={this.state.isCollapse ? "collapse-item collapse" : "collapse-item"}>
-                    <div title={subject} className="subject-item"><span>{subject}</span><i className="icon-arrow" onClick={this.onClick}></i></div>
-                    {
-                        isHtml ? 
-                            <div className="content-item" dangerouslySetInnerHTML={{ __html: content }} /> :
-                            <div className="content-item">{content}</div>                    
-                    }
+                    <div className="subject-item">
+                        <span dangerouslySetInnerHTML={{ __html: subject }} />
+                        <i className="icon-arrow" onClick={this.onClick}></i>
+                    </div>
+                        <div className="content-item" dangerouslySetInnerHTML={{ __html: content }} />
                </div>
     }
 };

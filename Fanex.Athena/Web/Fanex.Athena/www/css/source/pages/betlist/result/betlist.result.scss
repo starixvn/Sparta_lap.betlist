@@ -190,8 +190,7 @@ body{
 
             .cl-match {
                 text-align: left;
-                padding-left: 3px;
-                min-width: 82px;
+                padding-left: 3px;  
 
                 &.home {
                     color: rgb(69, 69, 69);
@@ -237,6 +236,10 @@ body{
             }
         }
 
+        .cl-match {
+            min-width: 82px;
+        }
+
         .header, .sub-header {
             color: #024584;
             background-color: #c7e9f5;
@@ -272,15 +275,21 @@ body{
         }
 
         .cl-ht-score {
+            width: 90px;
             color: #0054ff;
         }
 
         .cl-f-score {
+            width: 90px;
             color: #ff0000;
         }
 
         .cl-status {
             text-transform: capitalize;
+
+            &{
+                width: 110px;
+            }
 
             .detail-link {
                 color: #0273FF;

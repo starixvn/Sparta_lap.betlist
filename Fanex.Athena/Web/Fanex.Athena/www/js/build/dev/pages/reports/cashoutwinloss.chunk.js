@@ -9418,13 +9418,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 }
             },
 
-            setReportTitle: function (currencyId, fromdate, todate) {
+            setReportTitle: function (currencyId, fromdate, todate, currencyName) {
                 var titlePattern = Site.getSingleResource('CashOutWinLoss') + ', {0} → {1} - {2}';
-                var currencyName = Report.getCurrencyNameForReportTitle(currencyId);
+                var currencyNameOnTitle = currencyName ? Site.getSingleResource("Viewin").replace("{0}", currencyName)
+                                                        : Report.getCurrencyNameForReportTitle(currencyId);
                 var title = $.format(titlePattern,
                     moment(fromdate, "MM/DD/YYYY").format("MM/DD/YYYY"),
                     moment(todate, "MM/DD/YYYY").format("MM/DD/YYYY"),
-                    currencyName);
+                    currencyNameOnTitle);
                 $(".report-title").html(title);
                 $(".panel-heading").removeClass("hide");
             },
@@ -9506,7 +9507,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     FromDate: _submitData.FromDate,
                     ToDate: _submitData.ToDate,
                     ReportBy: _submitData.ReportBy,
-                    BaseCurrency: $("#BaseCurrency").attr("data-original")
+                    BaseCurrency: _submitData.BaseCurrency
                 };
 
                 var drilldownDate = new Date(datetime);
@@ -9526,9 +9527,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     url: url,
                     success: function (response) {
                         _me.ajaxComplete(level, response);
-                        if (response !== null && response.Data.length > 0) {
+                        if (response !== null && response.Data.length > 0) {                     
                             if (level > 0 && Number(param.CurrencyId) === 0) {
-                                _me.setReportTitle(currencyId, dateRange.FromDate, dateRange.ToDate);
+                                var viewInCurrency = param.BaseCurrency ? param.BaseCurrency.toUpperCase() : "";
+                                _me.setReportTitle(currencyId, dateRange.FromDate, dateRange.ToDate, viewInCurrency);
                             } else {
                                 _me.setReportTitle(param.CurrencyId, dateRange.FromDate, dateRange.ToDate);
                             }

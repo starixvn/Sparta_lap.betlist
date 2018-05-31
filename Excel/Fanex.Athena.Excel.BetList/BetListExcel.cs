@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Excel.BetList
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Base.Extension;
@@ -68,9 +69,9 @@ namespace Fanex.Athena.Excel.BetList
             ICacheRefAdapter cacheRefAdapter,
             IAppSettings appSettings,
             ITicketHelper ticketHelper,
-            ShowingOption showingOption, 
-            int licenseeId, 
-            IEnumerable<int> hiddenColumnIndexes, 
+            ShowingOption showingOption,
+            int licenseeId,
+            IEnumerable<int> hiddenColumnIndexes,
             bool isShowSumStake = false)
         {
             _cacheRefAdapter = cacheRefAdapter;
@@ -124,56 +125,87 @@ namespace Fanex.Athena.Excel.BetList
             InitializeFonts(builder);
             InitializeCellStyles(builder);
 
-            builder.BuildWorksheet(ViewResources.BetList, 11);
-            AddTitle(builder, title);
-
-            var custWlheader = ViewResources.WinLoss + (_showingOption.CustomerCommVisible ? "/" + ViewResources.Comm : string.Empty);
-            builder.AddHeader(custWlheader);
-
             // Content
             if (ticketResult.MainTicketList.Any())
             {
-                _ticketHelper.Index = startIndex;
-                foreach (var ticket in ticketResult.MainTicketList)
+                AssignSheetsData(builder, ticketResult, title, startIndex);
+            }
+            else
+            {
+                builder.BuildWorksheet(ViewResources.BetList, 11);
+                AddTitle(builder, title);
+                AddHeader(builder);
+                AddNoInfoRow(builder);
+            }
+        }
+
+        protected internal virtual void AssignSheetsData(IBetListExcelBuilder builder, TicketResult ticketResult, string title, int startIndex)
+        {
+            var sumStake = _isShowSumStake ? ticketResult.MainTicketList.Sum(x => x.Stake) : 0;
+
+            var isShowWinLoss = !_isShowSumStake && _showingOption.GrandTotalVisible && !_hiddenColumnIndexes.Contains(ColumnWinlossIndex);
+            decimal sumCustomerWl = 0;
+            decimal sumLicenseeWl = 0;
+            decimal sumBetEffective = 0;
+
+            if (isShowWinLoss)
+            {
+                sumCustomerWl = ticketResult.SumWinLoss + ticketResult.SumPlayerComm;
+                sumLicenseeWl = ticketResult.SumLicenseeWL + ticketResult.SumComm;
+                sumBetEffective = ticketResult.SumBetEffective;
+            }
+
+            _ticketHelper.Index = startIndex;
+            var numOfSheets = (int)Math.Ceiling((double)ticketResult.MainTicketList.Count / SystemConstants.SheetSizeExcel);
+            for (int sheetIndex = 0; sheetIndex < numOfSheets; sheetIndex++)
+            {
+                builder.BuildWorksheet(ViewResources.Page + (sheetIndex + 1), 11);
+                AddTitle(builder, title);
+                AddHeader(builder);
+
+                var endIndex = Math.Min((sheetIndex + 1) * SystemConstants.SheetSizeExcel, ticketResult.MainTicketList.Count);
+
+                for (var i = sheetIndex * SystemConstants.SheetSizeExcel; i < endIndex; i++)
                 {
-                    BuildTicket(builder, ticketResult, ticket);
+                    BuildTicket(builder, ticketResult, ticketResult.MainTicketList[i]);
                     _ticketHelper.Index++;
                 }
 
                 if (_isShowSumStake)
                 {
-                    builder.AddFooterForSumStake(ticketResult.MainTicketList.Sum(x => x.Stake));
-                    return;
+                    builder.AddFooterForSumStake(sumStake);
+                }
+                else
+                {
+                    if (isShowWinLoss)
+                    {
+                        builder.AddFooter(sumCustomerWl, sumBetEffective, sumLicenseeWl, _negativeWinLossFont, _winLossFont);
+                    }
                 }
 
-                if (_showingOption.GrandTotalVisible && !_hiddenColumnIndexes.Contains(ColumnWinlossIndex))
-                {
-                    var sumWl = ticketResult.SumWinLoss + ticketResult.SumPlayerComm;
-                    var sumLicenseeWl = ticketResult.SumLicenseeWL + ticketResult.SumComm;
-                    var sumBetEffective = ticketResult.SumBetEffective;
-                    builder.AddFooter(sumWl, sumBetEffective, sumLicenseeWl, _negativeWinLossFont, _winLossFont);
-                }
+                builder.GetBetList(); // Adjust row height for current sheet
             }
-            else
-            {
-                AddNoInfoRow(builder);
-            }
+        }
+
+        private void AddHeader(IBetListExcelBuilder builder)
+        {
+            var custWlheader = ViewResources.WinLoss + (_showingOption.CustomerCommVisible ? "/" + ViewResources.Comm : string.Empty);
+            builder.AddHeader(custWlheader);
         }
 
         protected internal virtual void BuildTicket(IBetListExcelBuilder builder, TicketResult ticketResult, LrfTicket ticket)
         {
-            builder
-            .AddIndex(_ticketHelper, _ticketHelper.Index)
-            .AddExternalId(_ticketHelper, ticket.ExternalId, _oddCellStyleLeftAligned, _evenCellStyleLeftAligned)
-            .AddSystemId(_ticketHelper, ticket.UserName, _oddCellStyleLeftAligned, _evenCellStyleLeftAligned)
-            .AddTrans(ticket, _ticketHelper)
-            .AddChoice(ticket, _ticketHelper, ticketResult.TicketDataList)
-            .AddOdds(ticket, ticketResult.TicketDataList, _cacheRefAdapter.GetOddsTypeName)
-            .AddStake(ticket)
-            .AddCustomerWL(ticket, _showingOption.CustomerCommVisible, _winLossFont)
-            .AddBetEffective(ticket, _winLossFont)
-            .AddLicenseeWL(ticket, _licenseeId == LicenseeIdentity.OneTwoBet, _negativeWinLossFont, _winLossFont)
-            .AddStatus(ticket, _ticketHelper, ticketResult.TicketDataList, false);
+            builder.AddIndex(_ticketHelper, _ticketHelper.Index);
+            builder.AddExternalId(_ticketHelper, ticket.ExternalId, _oddCellStyleLeftAligned, _evenCellStyleLeftAligned);
+            builder.AddSystemId(_ticketHelper, ticket.UserName, _oddCellStyleLeftAligned, _evenCellStyleLeftAligned);
+            builder.AddTrans(ticket, _ticketHelper);
+            builder.AddChoice(ticket, _ticketHelper, ticketResult.TicketDataList);
+            builder.AddOdds(ticket, ticketResult.TicketDataList, _cacheRefAdapter.GetOddsTypeName);
+            builder.AddStake(ticket);
+            builder.AddCustomerWL(ticket, _showingOption.CustomerCommVisible, _winLossFont);
+            builder.AddBetEffective(ticket, _winLossFont);
+            builder.AddLicenseeWL(ticket, _licenseeId == LicenseeIdentity.OneTwoBet, _negativeWinLossFont, _winLossFont);
+            builder.AddStatus(ticket, _ticketHelper, ticketResult.TicketDataList, false);
         }
 
         private void InitializeCellStyles(IBetListExcelBuilder builder)
@@ -191,7 +223,7 @@ namespace Fanex.Athena.Excel.BetList
             _evenCellStyleLeftAligned.WrapText = true;
         }
 
-        private void InitializeFonts(IBetListExcelBuilder builder)
+        protected internal virtual void InitializeFonts(IBetListExcelBuilder builder)
         {
             _negativeWinLossFont = builder.CreateFont();
             _negativeWinLossFont.Boldweight = (short)FontBoldWeight.Bold;

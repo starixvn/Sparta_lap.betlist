@@ -66,7 +66,7 @@ namespace Fanex.Athena.Excel.Report
             _metaModel = metaModel;
             _casinoList = viewModel.MainResult;
             _summaryTotal = viewModel.SummaryTotal;
-            PageSize = metaModel.DrillDownLevel == 2 ? metaModel.PageSize : SystemConstants.PageSizeExcel;
+            PageSize = metaModel.DrillDownLevel == 2 ? metaModel.PageSize : SystemConstants.SheetSizeExcel;
             IsMultiSheet = true;
         }
 

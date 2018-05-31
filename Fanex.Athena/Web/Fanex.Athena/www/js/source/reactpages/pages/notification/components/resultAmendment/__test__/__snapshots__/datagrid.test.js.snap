@@ -13,201 +13,206 @@ exports[`DataGrid  render  has data - render table 1`] = `
       
     </p>
   </div>
-  <div
-    className="table-container"
-    style={
-      Object {
-        "maxWidth": -30,
-      }
-    }
-  >
+  <div>
     <div
-      className="header-content"
+      className="table-container"
       style={
         Object {
-          "maxHeight": undefined,
-          "minWidth": 650,
-          "width": -30,
+          "maxWidth": -30,
         }
       }
     >
       <div
-        className="table-wrapper"
-      >
-        <table
-          className="table"
-          style={
-            Object {
-              "width": 631,
-            }
+        className="header-content"
+        style={
+          Object {
+            "maxHeight": undefined,
+            "minWidth": 650,
+            "width": -30,
           }
+        }
+      >
+        <div
+          className="table-wrapper"
         >
-          <thead>
-            <tr
-              className="first-row"
-            >
-              <td
-                style={
-                  Object {
-                    "width": "-2.773584905660377px",
-                  }
-                }
-              />
-              <td
-                style={
-                  Object {
-                    "width": "-11.094339622641508px",
-                  }
-                }
-              />
-              <td
-                style={
-                  Object {
-                    "width": "-32.35849056603773px",
-                  }
-                }
-              />
-              <td
-                style={
-                  Object {
-                    "width": "-2.773584905660377px",
-                  }
-                }
-              />
-            </tr>
-            <tr
-              style={
-                Object {
-                  "height": 32,
-                }
+          <table
+            className="table"
+            style={
+              Object {
+                "width": 631,
               }
-            >
-              <th
-                title="#"
-              >
-                #
-              </th>
-              <th
-                title="EventDate"
-              >
-                EventDate
-              </th>
-              <th
-                title="Content"
-              >
-                Content
-              </th>
-              <th
-                title="TicketList"
-              >
-                TicketList
-              </th>
-            </tr>
-          </thead>
-        </table>
-      </div>
-    </div>
-    <div
-      className="body-content"
-      style={
-        Object {
-          "maxHeight": 665,
-          "minWidth": 650,
-          "width": -30,
-        }
-      }
-    >
-      <div
-        className="table-wrapper"
-      >
-        <table
-          className="table"
-          style={
-            Object {
-              "width": 631,
             }
+          >
+            <thead>
+              <tr
+                className="first-row"
+              >
+                <td
+                  style={
+                    Object {
+                      "width": "-2.773584905660377px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-11.094339622641508px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-32.35849056603773px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-2.773584905660377px",
+                    }
+                  }
+                />
+              </tr>
+              <tr
+                style={
+                  Object {
+                    "height": 32,
+                  }
+                }
+              >
+                <th
+                  title="#"
+                >
+                  #
+                </th>
+                <th
+                  title="EventDate"
+                >
+                  EventDate
+                </th>
+                <th
+                  title="Content"
+                >
+                  Content
+                </th>
+                <th
+                  title="TicketList"
+                >
+                  TicketList
+                </th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+      <div
+        className="body-content"
+        style={
+          Object {
+            "maxHeight": 665,
+            "minWidth": 650,
+            "width": -30,
           }
+        }
+      >
+        <div
+          className="table-wrapper"
         >
-          <tbody>
-            <tr
-              className="first-row"
-            >
-              <td
-                style={
-                  Object {
-                    "width": "-2.773584905660377px",
-                  }
-                }
-              />
-              <td
-                style={
-                  Object {
-                    "width": "-11.094339622641508px",
-                  }
-                }
-              />
-              <td
-                style={
-                  Object {
-                    "width": "-32.35849056603773px",
-                  }
-                }
-              />
-              <td
-                style={
-                  Object {
-                    "width": "-2.773584905660377px",
-                  }
-                }
-              />
-            </tr>
-            <tr
-              className="unread"
-            >
-              <td
-                className="center-align"
-                title={1}
+          <table
+            className="table"
+            style={
+              Object {
+                "width": 631,
+              }
+            }
+          >
+            <tbody>
+              <tr
+                className="first-row"
               >
-                1
-              </td>
-              <td
-                className="center-align"
-                title="01/01/2017"
+                <td
+                  style={
+                    Object {
+                      "width": "-2.773584905660377px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-11.094339622641508px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-32.35849056603773px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-2.773584905660377px",
+                    }
+                  }
+                />
+              </tr>
+              <tr
+                className="unread"
               >
-                01/01/2017
-              </td>
-              <td
-                className="notification-content"
-              >
-                <div
-                  className="collapse-item collapse"
+                <td
+                  className="center-align"
+                  title={1}
+                >
+                  1
+                </td>
+                <td
+                  className="center-align"
+                  title="01/01/2017"
+                >
+                  01/01/2017
+                </td>
+                <td
+                  className="notification-content"
                 >
                   <div
-                    className="subject-item"
-                    title="Subject"
+                    className="collapse-item collapse"
                   >
-                    <span>
-                      Subject
-                    </span>
-                    <i
-                      className="icon-arrow"
-                      onClick={[Function]}
+                    <div
+                      className="subject-item"
+                    >
+                      <span
+                        dangerouslySetInnerHTML={
+                          Object {
+                            "__html": "Subject",
+                          }
+                        }
+                      />
+                      <i
+                        className="icon-arrow"
+                        onClick={[Function]}
+                      />
+                    </div>
+                    <div
+                      className="content-item"
+                      dangerouslySetInnerHTML={
+                        Object {
+                          "__html": "Content",
+                        }
+                      }
                     />
                   </div>
-                  <div
-                    className="content-item"
-                    dangerouslySetInnerHTML={
-                      Object {
-                        "__html": "Content",
-                      }
-                    }
-                  />
-                </div>
-              </td>
-              <td />
-            </tr>
-          </tbody>
-        </table>
+                </td>
+                <td />
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
     <div

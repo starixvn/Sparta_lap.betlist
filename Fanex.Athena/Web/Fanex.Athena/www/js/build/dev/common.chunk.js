@@ -15525,6 +15525,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 }
                 else {
                     $self = $("#" + options.id);
+                    $self.find(".txt-title").text(options.title);
                     var $wrapContent = $self.find(".wrapContent");
                     $wrapContent.append($self.children().not(".popup-title"));
                 }

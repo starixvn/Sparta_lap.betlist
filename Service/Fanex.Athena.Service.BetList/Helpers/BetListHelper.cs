@@ -4,6 +4,7 @@
     using Constant.DataDomain;
     using Fanex.Athena.Model.BetList.DTO;
     using Fanex.BetList.Core.Entities;
+    using Resources;
 
     public static class BetListHelper
     {
@@ -20,10 +21,10 @@
         {
             const string FormatDetail = @"showCombMPDetail({0},{1},{2},{3},&quot;{4}&quot;,&quot;{5}&quot;)";
             var comboName = tickerHelper.GetCombinationMPOfferName(ticket.BetTeam);
-            var betTeam = tickerHelper.GetBetTypeNameById(ticket.BetTypeId);
+            var betTypeName = GetBetTypeName(tickerHelper, ticket);
             if (!string.IsNullOrEmpty(comboName))
             {
-                betTeam += " - " + comboName;
+                betTypeName += " - " + comboName;
             }
 
             return string.Format(
@@ -32,7 +33,7 @@
                 ticket.RefNo,
                 ticket.BetId,
                 custid,
-                betTeam,
+                betTypeName,
                 baseCurrency);
         }
 
@@ -55,6 +56,13 @@
 
             return status.Equals("running", StringComparison.OrdinalIgnoreCase) ||
                     status.Equals("waiting", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private static string GetBetTypeName(ITicketHelper tickerHelper, LrfTicket ticket)
+        {
+            return (ticket.BetTypeId == (int)BetType.CombinationMixParlay && ticket.BetTeam == "1") ?
+                            ViewResources.MixParlay :
+                            tickerHelper.GetBetTypeNameById(ticket.BetTypeId);
         }
     }
 }

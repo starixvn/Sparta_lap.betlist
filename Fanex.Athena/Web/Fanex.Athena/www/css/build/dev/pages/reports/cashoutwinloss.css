@@ -445,4 +445,7 @@
 .grandTotal, .total-eur {
   color: #2c2c2c; }
 
+.theme_jqGrid .ui-jqgrid .ui-jqgrid-sortable {
+  cursor: default; }
+
 /*# sourceMappingURL=cashoutwinloss.css.map*/

@@ -63,8 +63,8 @@ namespace Fanex.Athena.Controllers
         {
             var content = GetFileContent(resourceName);
 
-            content = resourceName.Equals(CustomerListResourceName, System.StringComparison.OrdinalIgnoreCase) ?
-                content.Replace("{rooturl}", Url.Content("~")) : AddSpecialProducts(content);
+            content = content.Replace("{rooturl}", Url.Content("~"));
+            content = AddSpecialProducts(content);
 
             return View("~/Views/UserGuide/Index.cshtml", null, content);
         }
@@ -76,6 +76,16 @@ namespace Fanex.Athena.Controllers
             var fileName = SessionService.LicenseeSession.IsEnableBA ? "Odds Group Feature_Licensee_BA.pdf" : "Odds Group Feature_Licensee.pdf";
             var filePath = Server.MapPath(string.Format(@"~/App_Data/UserGuide/{0}/pdf/{1}/{2}", CustomerListResourceName, language, fileName));
             filePath = GetDefaultFilePathIfNotExist(language, filePath);
+            return File(filePath, System.Net.Mime.MediaTypeNames.Application.Pdf, Path.GetFileName(filePath));
+        }
+
+        [FunctionAuthorization(PermissionKeys.ReportCashOutWinLoss)]
+        public FilePathResult CashoutReportPdf()
+        {
+            var chineseCodes = new[] { "zh-CN", "zh-TW", "zh-Hans" };
+            var suffix = chineseCodes.Contains(SessionService.UserSession.Language) ? "CN" : "EN";
+            var fileName = $"Cash Out WL Report guideline_{suffix}.pdf";
+            var filePath = Server.MapPath(string.Format(@"~/App_Data/UserGuide/CashOutWL/pdf/{0}", fileName));
             return File(filePath, System.Net.Mime.MediaTypeNames.Application.Pdf, Path.GetFileName(filePath));
         }
 

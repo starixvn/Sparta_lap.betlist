@@ -116,6 +116,7 @@ namespace Fanex.Athena.Excel.Report
                 {
                     var currentRow = index + RowContentTemplate;
                     sheet.MergeCells(currentRow, ColumnDate, currentRow + item.RowSpan - 1, ColumnDate);
+                    sheet.MergeCells(currentRow, ColumnIndex, currentRow + item.RowSpan - 1, ColumnIndex);
                 }
             }
 

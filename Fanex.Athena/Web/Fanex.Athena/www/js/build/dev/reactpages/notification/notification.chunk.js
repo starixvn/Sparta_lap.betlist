@@ -65,9 +65,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 		module.exports = classNames;
 	} else if (true) {
 		// register as 'classnames', consistent with npm package name
-		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function () {
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
 			return classNames;
-		}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+		}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	} else {
 		window.classNames = classNames;
@@ -479,7 +479,7 @@ var MomentFormat = exports.MomentFormat = {
 
 /***/ }),
 
-/***/ 209:
+/***/ 210:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1346,7 +1346,7 @@ var _reactRedux = __webpack_require__(15);
 
 var _reduxLogger = __webpack_require__(72);
 
-var _redux = __webpack_require__(11);
+var _redux = __webpack_require__(10);
 
 var _reduxThunk = __webpack_require__(71);
 
@@ -1435,7 +1435,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(15);
 
-var _redux = __webpack_require__(11);
+var _redux = __webpack_require__(10);
 
 var _DataGrid = __webpack_require__(409);
 
@@ -1517,9 +1517,9 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(15);
 
-var _resultAmendment = __webpack_require__(209);
+var _resultAmendment = __webpack_require__(210);
 
-var _redux = __webpack_require__(11);
+var _redux = __webpack_require__(10);
 
 var _fixedTableHeader = __webpack_require__(32);
 
@@ -2046,24 +2046,28 @@ var Table = function (_Component) {
 
             return _react2.default.createElement(
                 'div',
-                { className: 'table-container', style: { maxWidth: maxWidth } },
+                null,
                 _react2.default.createElement(
-                    Header,
-                    sectionProps,
-                    rowLayout,
-                    header
-                ),
-                body && _react2.default.createElement(
-                    Body,
-                    _extends({}, sectionProps, { maxHeight: this.state.contentHeight }),
-                    rowLayout,
-                    body
-                ),
-                footer && _react2.default.createElement(
-                    Footer,
-                    sectionProps,
-                    rowLayout,
-                    footer
+                    'div',
+                    { className: 'table-container', style: { maxWidth: maxWidth } },
+                    _react2.default.createElement(
+                        Header,
+                        sectionProps,
+                        rowLayout,
+                        header
+                    ),
+                    body && _react2.default.createElement(
+                        Body,
+                        _extends({}, sectionProps, { maxHeight: this.state.contentHeight }),
+                        rowLayout,
+                        body
+                    ),
+                    footer && _react2.default.createElement(
+                        Footer,
+                        sectionProps,
+                        rowLayout,
+                        footer
+                    )
                 ),
                 isPaging && pageOption && _react2.default.createElement(_Page2.default, { pageOption: pageOption, onPaging: onPaging })
             );
@@ -2395,8 +2399,7 @@ var CollapsibleRow = function (_React$Component) {
         value: function render() {
             var _props = this.props,
                 subject = _props.subject,
-                content = _props.content,
-                isHtml = _props.isHtml;
+                content = _props.content;
 
 
             return _react2.default.createElement(
@@ -2404,19 +2407,11 @@ var CollapsibleRow = function (_React$Component) {
                 { className: this.state.isCollapse ? "collapse-item collapse" : "collapse-item" },
                 _react2.default.createElement(
                     'div',
-                    { title: subject, className: 'subject-item' },
-                    _react2.default.createElement(
-                        'span',
-                        null,
-                        subject
-                    ),
+                    { className: 'subject-item' },
+                    _react2.default.createElement('span', { dangerouslySetInnerHTML: { __html: subject } }),
                     _react2.default.createElement('i', { className: 'icon-arrow', onClick: this.onClick })
                 ),
-                isHtml ? _react2.default.createElement('div', { className: 'content-item', dangerouslySetInnerHTML: { __html: content } }) : _react2.default.createElement(
-                    'div',
-                    { className: 'content-item' },
-                    content
-                )
+                _react2.default.createElement('div', { className: 'content-item', dangerouslySetInnerHTML: { __html: content } })
             );
         }
     }]);
@@ -2426,7 +2421,6 @@ var CollapsibleRow = function (_React$Component) {
 
 CollapsibleRow.propTypes = {
     isExpand: _propTypes2.default.bool,
-    isHtml: _propTypes2.default.bool,
     subject: _propTypes2.default.string,
     content: _propTypes2.default.string,
     onExpand: _propTypes2.default.func
@@ -2455,9 +2449,9 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(15);
 
-var _resultAmendment = __webpack_require__(209);
+var _resultAmendment = __webpack_require__(210);
 
-var _redux = __webpack_require__(11);
+var _redux = __webpack_require__(10);
 
 var _dateRange = __webpack_require__(47);
 
@@ -2640,7 +2634,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _redux = __webpack_require__(11);
+var _redux = __webpack_require__(10);
 
 var _dataHandlerReducer = __webpack_require__(416);
 

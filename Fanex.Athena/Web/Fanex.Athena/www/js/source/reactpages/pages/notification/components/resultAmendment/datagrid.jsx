@@ -118,9 +118,9 @@ export class DataGrid extends Component {
                     <Cell className="notification-content">
                         <CollapsibleRow 
                             subject={item.Subject} 
-                            content={item.Content} 
+                            content={item.Content}
                             onExpand={() => this.onExpand(i, item)} 
-                            isExpand={item.IsExpand} 
+                            isExpand={item.IsExpand}
                             isHtml={true} />
                     </Cell>
                     {

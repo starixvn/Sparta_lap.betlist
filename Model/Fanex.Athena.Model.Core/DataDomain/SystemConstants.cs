@@ -14,7 +14,9 @@ namespace Fanex.Athena.Model.Core.DataDomain
     /// </summary>
     public static class SystemConstants
     {
-        public const int PageSizeExcel = int.MaxValue - 1000;
+        public const int SheetSizeExcel = 65000;
+
+        public const int MaxDataTotalRow = int.MaxValue - 1000;
 
         public static readonly int MinBaseCurrencyType = BaseCurrencyType.Gbp;
 

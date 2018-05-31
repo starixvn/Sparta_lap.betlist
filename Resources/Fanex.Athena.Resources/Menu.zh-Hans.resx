@@ -360,4 +360,8 @@
     <value>投注时区输赢</value>
     <comment>84932</comment>
   </data>
+  <data name="Menu_72" xml:space="preserve">
+    <value>即时兑现输赢</value>
+    <comment>Cash Out Win Loss</comment>
+  </data>
 </root>
