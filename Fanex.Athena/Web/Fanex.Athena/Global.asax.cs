@@ -9,6 +9,7 @@ namespace Fanex.Athena
     using System;
     using System.Configuration;
     using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
     using System.Web;
     using System.Web.Helpers;
     using System.Web.Http;
@@ -25,6 +26,11 @@ namespace Fanex.Athena
 
     public class MvcApplication : HttpApplication
     {
+        private static readonly int[] IgnoredHttpErrorCodes = new[] 
+        {
+            -2147023901 // The remote host closed the connection. The error code is 0x800703E3.
+        };
+
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]
         public void Application_Error(object sender, EventArgs e)
         {
@@ -40,7 +46,8 @@ namespace Fanex.Athena
                 }
 
                 var httpException = exception as HttpException;
-                if (httpException != null && httpException.GetHttpCode() == 404)
+                if (httpException != null && 
+                    (httpException.GetHttpCode() == 404 || IgnoredHttpErrorCodes.Contains(httpException.ErrorCode)))
                 {
                     return;
                 }
