@@ -4,8 +4,8 @@ import axios from 'axios'
 import Site from '../../../../lib/site'
 
 const fetchData = (params) => {
-    const url = Site.resolveClientUrl('api/DailyBetList/index?currencyid=0&currencyname=ALL&basecurrency=eur&productcode=SB&status=won&date=05/30/2018&_search=false&nd=1527667610711&rows=50&page=1&sidx=&sord=asc&_=1527667521796');
-    return axios.get(url, params.data, {
+    const url = Site.resolveClientUrl('api/BettingTicketsCenterReport/GetBetListForMultipleCustomers');
+    return axios.post(url, params.data, {
         headers: {
             'X-Requested-With': 'XMLHttpRequest',
             '__RequestVerificationToken': params.xsrfToken

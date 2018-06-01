@@ -199,6 +199,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BettingTicketsCenterReportController.cs" />
     <Compile Include="BonusBetListController.cs" />
     <Compile Include="ColossusBetBetListController.cs" />
     <Compile Include="AllBetBetListController.cs" />

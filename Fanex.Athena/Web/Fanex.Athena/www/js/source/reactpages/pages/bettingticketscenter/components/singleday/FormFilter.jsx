@@ -32,6 +32,10 @@ export class FormFilter extends Component {
         return {
             xsrfToken: this.props.xsrfToken,
             data: {
+                Date: '05/31/2018',
+                ProductCode: 'SB',
+                Status: 'won',
+                CurrencyId: 0
             }
         }
     }

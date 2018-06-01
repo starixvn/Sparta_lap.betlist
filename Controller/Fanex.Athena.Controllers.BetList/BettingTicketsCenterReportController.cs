@@ -1,8 +1,8 @@
-﻿namespace Fanex.Athena.Controllers.Report
+﻿namespace Fanex.Athena.Controllers.BetList
 {
     using System.Web.Mvc;
 
-    public class BettingTicketsCenterReportController : ReportBaseController
+    public class BettingTicketsCenterReportController : BaseController
     {
         public ActionResult Index()
         {

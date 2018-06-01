@@ -52,6 +52,7 @@ namespace Fanex.Athena.Api.BetList
         }
 
 #pragma warning disable S107 // Methods should not have too many parameters
+
         public ApiBetListBaseController(
             ISessionService sessionService,
             IProductService productService,
