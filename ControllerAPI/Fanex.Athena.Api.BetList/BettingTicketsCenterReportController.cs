@@ -77,8 +77,13 @@
         }
 
         [HttpPost]
-        public dynamic GetBetListForSingleCustomer()
+        public dynamic GetBetListForSingleCustomer(SingleCustomersBetListMetaModel metaModel)
         {
+            if (!metaModel.IsValid)
+            {
+                return null;
+            }
+
             var ticketResult = _dataAccess.GetBetListForSingleCustomer();
 
             return new
@@ -88,8 +93,13 @@
         }
 
         [HttpPost]
-        public dynamic GetBetListByRefno()
+        public dynamic GetBetListByRefno(RefNoBetListMetaModel metaModel)
         {
+            if (!metaModel.IsValid)
+            {
+                return null;
+            }
+
             var ticketResult = _dataAccess.GetBetListByRefno();
 
             return new
@@ -122,10 +132,6 @@
                     _ticketHelper.ClientDetailSystemParlayFunction = BetListHelper.GenerateClientDetailSystemParlayFunction(_ticketHelper, baseCurrency, ticket, ticket.CustId);
                 }
 
-                BetListMetaModel betListMetaModel = ticket.BetTypeId == (int)BetType.CasinoGames
-                    ? CreateParamForCasinoGamesStatus(ticket, metaModel.IsConvert ? metaModel.BaseCurrency : string.Empty)
-                    : null;
-
                 var ticketText = new TicketText
                 {
                     Index = startIndex++,
@@ -137,7 +143,7 @@
                     Stake = _betlistHtmlBuilder.BuildStake(ticket),
                     LicenseeWL = _betlistHtmlBuilder.BuildLicenseeWL(ticket),
                     WinLoss = _betlistHtmlBuilder.BuildCustomerWL(ticket, showPlayerComm),
-                    Status = _betlistHtmlBuilder.BuildLrfStatus(ticket, _ticketHelper, ticketResult.TicketDataList, betListMetaModel),
+                    Status = _betlistHtmlBuilder.BuildLrfStatus(ticket, _ticketHelper, ticketResult.TicketDataList, new BetListMetaModel()),
                     Platform = PlatformType.GetPlatformName(ticket.BetFrom),
                     Live = _betlistHtmlBuilder.BuildLiveStatus(ticket)
                 };
@@ -146,21 +152,6 @@
             }
 
             return ticketTextList;
-        }
-
-        private BetListMetaModel CreateParamForCasinoGamesStatus(LrfTicket ticket, string baseCurrency)
-        {
-            return new BetListMetaModel
-            {
-                FromDate = ticket.WinlostDate,
-                ToDate = ticket.WinlostDate,
-                ExternalId = ticket.ExternalId,
-                SystemId = ticket.UserName,
-                CustId = (int)ticket.CustId,
-                CurrencyId = ticket.CurrencyId,
-                CurrencyName = ticket.Currency,
-                BaseCurrency = baseCurrency
-            };
         }
     }
 }

@@ -6,10 +6,6 @@ namespace Fanex.Athena.Model.BetList.MetaModel
     {
         private string _baseCurrency = string.Empty;
 
-        public DateTime MoveBetsDay { get; set; }
-
-        public DateTime BalanceUpDay { get; set; }
-
         public int CurrencyId { get; set; }
 
         public string BaseCurrency
@@ -27,8 +23,8 @@ namespace Fanex.Athena.Model.BetList.MetaModel
             }
         }
 
-        public string AgentListXml { get; set; }
-
         public bool IsConvert { get; set; }
+
+        public virtual bool IsValid => true;
     }
 }

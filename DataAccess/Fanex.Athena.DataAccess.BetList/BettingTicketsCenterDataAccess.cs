@@ -22,7 +22,7 @@
                     AddParameters(db, metaModel);
                     using (var reader = db.ExecuteReader())
                     {
-                        ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader, metaModel.BaseCurrency));
+                        ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader));
                     }
                 }
             }
