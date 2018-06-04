@@ -3,14 +3,12 @@
 }
 @model Fanex.Athena.Model.Report.ViewModel.CustomerWinLossViewModel
 @{
-    var minDate = DateTime.Today.AddDays(-90);
     var modelParam = Model.Param;
-    var appSettings = new AppSettings();
 }
 <div class="grid_26 content-filter new-line" style="width:@(ViewBag.FilterWidth)px;">
     <form id="CustomerWinlossForm" action="post">
         @Html.AntiForgeryToken()
-        @DatePickerHelper.RenderDateRangePicker(modelParam.FromDate, modelParam.ToDate, minDate, appSettings.MaxDate, "", "", 2, 4, 2, 7)
+        @DatePickerHelper.RenderDateRangePicker(modelParam.FromDate, modelParam.ToDate, Model.MinDate, Model.MaxDate, "", "", 2, 4, 2, 7)
         @if(Model.IsFakeLicensee)
         {
             <div class="new-line"></div>
@@ -68,7 +66,7 @@
         </div>
         <div class="grid_15 filter-input">
             <div class="note-message">
-                @string.Format(ViewResources.HistoricalReportDateRangeNote, minDate),
+                @string.Format(ViewResources.HistoricalReportDateRangeNote, Model.MinDate),
                 <a href="javascript:;" id="history-report-link" style="text-decoration: none;">@ViewResources.ToViewHistoryRptMsg</a>
             </div>
         </div>

@@ -59,7 +59,7 @@
         private ExchangeWinLossReportController CreateController()
         {
             var reportSettingService = Substitute.For<IReportSettingService>();
-            reportSettingService.GetSetting(PermissionKeys.ReportLicenseeWinLoss).Returns(new ReportSetting
+            reportSettingService.GetSetting(PermissionKeys.ReportExchangeWinLoss).Returns(new ReportSetting
             {
                 MinDate = _minDate,
                 MaxDate = _maxDate

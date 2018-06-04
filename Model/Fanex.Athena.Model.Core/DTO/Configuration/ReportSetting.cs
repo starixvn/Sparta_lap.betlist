@@ -21,5 +21,7 @@ namespace Fanex.Athena.Model.Core.DTO.Configuration
         public string BaseCurrencies { get; set; }
 
         public int LimitRecentMonths { get; set; }
+
+        public int MaximumSupportedDays { get; set; }
     }
 }

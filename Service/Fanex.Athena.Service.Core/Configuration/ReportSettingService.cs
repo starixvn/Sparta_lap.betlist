@@ -82,11 +82,18 @@ namespace Fanex.Athena.Service.Core.Configuration
         {
             reportSetting.MinDate = ConvertToDate(reportSetting.MinDateString, _appSettings.HistoryDate);
             reportSetting.MaxDate = ConvertToDate(reportSetting.MaxDateString, _appSettings.MaxDate);
+
             if (reportSetting.LimitRecentMonths > 0)
             {
                 var limitedMinDate = DateTime.Now.Date.AddMonths(-reportSetting.LimitRecentMonths + 1);
                 limitedMinDate = new DateTime(limitedMinDate.Year, limitedMinDate.Month, 1);
                 reportSetting.MinDate = DateTimeHelper.GetMaxDate(reportSetting.MinDate, limitedMinDate);
+            }
+
+            if (reportSetting.MaximumSupportedDays > 0)
+            {
+                var supportedMinDate = reportSetting.MaxDate.Date.AddDays(-reportSetting.MaximumSupportedDays);
+                reportSetting.MinDate = DateTimeHelper.GetMaxDate(reportSetting.MinDate, supportedMinDate);
             }
         }
 

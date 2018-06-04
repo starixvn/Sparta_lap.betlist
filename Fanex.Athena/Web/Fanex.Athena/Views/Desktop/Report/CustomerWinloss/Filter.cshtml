@@ -2,16 +2,13 @@
     Layout = null;
 }
 @model Fanex.Athena.Model.Report.ViewModel.CustomerWinLossViewModel
-@{
-    var minDate = DateTime.Today.AddDays(-90);
-    var appSettings = new AppSettings();
-}
+
 <div class="page-form">
     <form id="CustomerWinlossForm" action="post">
         @Html.AntiForgeryToken()
         <div class="row">
             <div class="input-field input col l3 m4 s12 calendar date-range">
-                @DesktopRazorHelper.DateRangePicker(Model.Param.FromDate, Model.Param.ToDate, minDate, appSettings.MaxDate)
+                @DesktopRazorHelper.DateRangePicker(Model.Param.FromDate, Model.Param.ToDate, Model.MinDate, Model.MaxDate)
             </div>
             <div class="input-field col l2 m3 s12">
                 @DesktopRazorHelper.CurrencyList(Model.CurrencyList, "select", Model.Param.CurrencyId)
@@ -55,7 +52,7 @@
             <div class="col">
                 <span class="circle"></span>
                 <span>
-                    @string.Format(ViewResources.HistoricalReportDateRangeNote, minDate),
+                    @string.Format(ViewResources.HistoricalReportDateRangeNote, Model.MinDate),
                     <a href="javascript:;" id="history-report-link">@ViewResources.ToViewHistoryRptMsg</a>
                 </span>
             </div>

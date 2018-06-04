@@ -58,7 +58,7 @@
                 currencyList.Add(item.Key, item.Value);
             }
 
-            var reportSetting = _reportSettingService.GetSetting(PermissionKeys.ReportLicenseeWinLoss);
+            var reportSetting = _reportSettingService.GetSetting(PermissionKeys.ReportExchangeWinLoss);
             return new ExchangeWinLossViewModel
             {
                 MinDate = reportSetting.MinDate,
