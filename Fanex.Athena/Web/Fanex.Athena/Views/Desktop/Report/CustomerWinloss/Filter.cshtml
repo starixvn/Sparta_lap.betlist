@@ -3,7 +3,7 @@
 }
 @model Fanex.Athena.Model.Report.ViewModel.CustomerWinLossViewModel
 @{
-    var minDate = DateTime.Today.AddMonths(-3).AddDays(1 - DateTime.Today.Day);
+    var minDate = DateTime.Today.AddDays(-90);
     var appSettings = new AppSettings();
 }
 <div class="page-form">

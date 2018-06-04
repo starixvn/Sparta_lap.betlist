@@ -4,7 +4,7 @@
     var appSettings = new AppSettings();
     var metaModel = Model.Param;
 
-    var minDate = metaModel.BetListName == "betlist" ? metaModel.MoveBetsDay.AddDays(1) : appSettings.HistoryDate;
+    var minDate = metaModel.BetListName == "betlist" ? DateTime.Today.AddDays(-90) : appSettings.HistoryDate;
 
     var viewOptionTextList = new Dictionary<string, string>
     {
