@@ -61,7 +61,7 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                var expectedTitle = $"{ViewResources.ProductVB} - {ViewResources.BetList} - {ViewResources.DetailTickets}";
+                var expectedTitle = $"{ViewResources.ProductPP} - {ViewResources.BetList} - {ViewResources.DetailTickets}";
 
                 // Action
                 var result = controller.Detail(new BetListMetaModel()) as ViewResult;
@@ -107,7 +107,7 @@
                     CurrencyId = 0
                 };
 
-                var expectedTitle = $"{ViewResources.ProductVB} - {ViewResources.BetList} - {ViewResources.DetailTickets}";
+                var expectedTitle = $"{ViewResources.ProductPP} - {ViewResources.BetList} - {ViewResources.DetailTickets}";
 
                 var ticketResult = new TicketResult();
                 BetListService.GetBetListData(Arg.Any<BetListMetaModel>(), "Lrf_BetList_RNG_Detail").Returns(ticketResult);
