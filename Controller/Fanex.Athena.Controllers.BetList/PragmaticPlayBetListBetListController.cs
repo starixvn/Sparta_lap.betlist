@@ -17,7 +17,7 @@
         private static readonly int[] HiddenColumns = new[] { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn, LicenseeWLColumn };
 
         private readonly string _title =
-            ViewResources.ProductVB + " - " + ViewResources.BetList + " - " + ViewResources.DetailTickets;
+            ViewResources.ProductPP + " - " + ViewResources.BetList + " - " + ViewResources.DetailTickets;
 
         public PragmaticPlayBetListController()
         {
