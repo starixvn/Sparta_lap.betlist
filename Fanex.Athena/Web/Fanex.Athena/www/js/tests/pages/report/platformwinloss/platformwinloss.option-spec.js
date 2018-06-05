@@ -282,7 +282,7 @@
                     PlatformWinLossOption.hasCustomerComm = true;
                     var level = 0;
                     var colModel = PlatformWinLossOption.getColModel(level, []);
-                    var platformNameColumn = colModel[0];
+                    var platformNameColumn = colModel[1];
                     var rowObject = {
                         Parent: 1,
                         IsLeaf: false,
@@ -301,7 +301,7 @@
                     PlatformWinLossOption.hasCustomerComm = true;
                     var level = 0;
                     var colModel = PlatformWinLossOption.getColModel(level, []);
-                    var platformNameColumn = colModel[0];
+                    var platformNameColumn = colModel[1];
                     var rowObject = {
                         Parent: 2,
                         IsLeaf: true,
