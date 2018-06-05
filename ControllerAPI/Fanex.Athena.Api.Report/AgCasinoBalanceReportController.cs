@@ -30,11 +30,6 @@ namespace Fanex.Athena.Api.Report
     {
         private readonly IAgCasinoBalanceDataAccess _agcasinoBalanceDataAccess;
 
-        public AgCasinoBalanceReportController()
-        {
-            _agcasinoBalanceDataAccess = new AgCasinoBalanceDataAccess();
-        }
-
         public AgCasinoBalanceReportController(
             IAgCasinoBalanceDataAccess agcasinoBalanceDataAccess,
             ISessionService sessionService,

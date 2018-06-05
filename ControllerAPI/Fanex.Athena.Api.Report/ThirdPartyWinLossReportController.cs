@@ -40,13 +40,7 @@ namespace Fanex.Athena.Api.Report
             {
                 { ProductTypes.GoldDeluxe, PermissionKeys.ReportGoldDeluxeWinloss }
             };
-
-        public ThirdPartyWinLossReportController()
-        {
-            _thirdPartyWinLossService = new ThirdPartyWinLossService();
-            _authorizationService = new AuthorizationService();
-        }
-
+        
         public ThirdPartyWinLossReportController(
             IThirdPartyWinLossService thirdPartyWinLossService,
             IAuthorizationService authorizationService,

@@ -23,12 +23,7 @@ namespace Fanex.Athena.Api.Report
     public class WeeklyLiveMatchReportController : ApiReportBaseController
     {
         private readonly IWeeklyLiveMatchService _weeklyLiveMatchService;
-
-        public WeeklyLiveMatchReportController()
-        {
-            _weeklyLiveMatchService = new WeeklyLiveMatchService();
-        }
-
+        
         public WeeklyLiveMatchReportController(
             IWeeklyLiveMatchService service,
             ISessionService sessionService,

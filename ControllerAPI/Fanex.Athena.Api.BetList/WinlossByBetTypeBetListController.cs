@@ -19,10 +19,6 @@
     [ApiFunctionAuthorization(PermissionKeys.ReportWinLossByBetType)]
     public class WinlossByBetTypeBetListController : ApiBetListBaseController
     {
-        public WinlossByBetTypeBetListController()
-        {
-        }
-
         public WinlossByBetTypeBetListController(
             ISessionService sessionService,
             IProductService productService,

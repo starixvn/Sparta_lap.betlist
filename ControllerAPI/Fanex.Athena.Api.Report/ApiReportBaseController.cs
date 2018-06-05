@@ -21,10 +21,6 @@
         {
         }
 
-        protected ApiReportBaseController()
-        {
-        }
-
         protected bool IsValidRequest(BaseMetaModel metaModel, int currencyId = 0)
         {
             var currencyList = SessionService.UserSession.CurrencyList;

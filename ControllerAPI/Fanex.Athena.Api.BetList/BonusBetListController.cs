@@ -12,10 +12,6 @@
 
     public class BonusBetListController : ApiBetListBaseController
     {
-        public BonusBetListController()
-        {
-        }
-
         public BonusBetListController(
             ISessionService sessionService,
             IProductService productService,

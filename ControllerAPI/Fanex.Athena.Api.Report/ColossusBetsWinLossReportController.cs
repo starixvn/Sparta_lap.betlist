@@ -30,11 +30,6 @@ namespace Fanex.Athena.Api.Report
     {
         private readonly IColossusBetsWinLossService _colossusBetsWinLossService;
 
-        public ColossusBetsWinLossReportController()
-        {
-            _colossusBetsWinLossService = new ColossusBetsWinLossService();
-        }
-
         public ColossusBetsWinLossReportController(
             IColossusBetsWinLossService colossusBetsWinLossService,
             ISessionService sessionService,

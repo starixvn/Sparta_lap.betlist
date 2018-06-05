@@ -30,11 +30,6 @@ namespace Fanex.Athena.Api.Report
     {
         private readonly ICashOutWinLossDataAccess _cashOutWinLossDataAccess;
 
-        public CashOutWinLossReportController()
-        {
-            _cashOutWinLossDataAccess = new CashOutWinLossDataAccess();
-        }
-
         public CashOutWinLossReportController(
             ICashOutWinLossDataAccess cashOutWinLossDataAccess,
             ISessionService sessionService,

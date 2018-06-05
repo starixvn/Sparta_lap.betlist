@@ -34,12 +34,7 @@ namespace Fanex.Athena.Api.Report
     public class PlatformWinLossReportController : ApiReportBaseController
     {
         private readonly IPlatformWinLossDataAccess _platformWinLossDataAccess;
-
-        public PlatformWinLossReportController()
-        {
-            _platformWinLossDataAccess = new PlatformWinLossDataAccess();
-        }
-
+        
         public PlatformWinLossReportController(
             ISessionService sessionService,
             IProductService productService,

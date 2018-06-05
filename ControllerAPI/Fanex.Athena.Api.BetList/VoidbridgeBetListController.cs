@@ -12,10 +12,6 @@
 
     public class VoidbridgeBetListController : ApiBetListBaseController
     {
-        public VoidbridgeBetListController()
-        {
-        }
-
         public VoidbridgeBetListController(
             ISessionService sessionService,
             IProductService productService,

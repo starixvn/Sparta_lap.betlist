@@ -9,9 +9,7 @@ namespace Fanex.Athena.Api.Base
     using System.Web.Http;
     using Attributes;
     using ONEbook.UM.Filters;
-    using Service.Core.Common;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Configuration;
     using Service.Core.Configuration.Interfaces;
 
     [CustomApiAuthorize]
@@ -22,12 +20,6 @@ namespace Fanex.Athena.Api.Base
         private readonly IMoveBetService _moveBetService;
 
         private readonly ILanguageService _languageService;
-
-        public CommonApiController()
-        {
-            _moveBetService = new MoveBetService();
-            _languageService = new LanguageService();
-        }
 
         public CommonApiController(IMoveBetService moveBetService, ILanguageService languageService)
         {

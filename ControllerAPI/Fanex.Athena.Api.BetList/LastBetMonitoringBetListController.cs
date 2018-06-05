@@ -10,17 +10,13 @@
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
-    using Fanex.BetList.Core.TicketHelper;
-    using Service.BetList;
     using Service.BetList.Extensions;
     using Service.BetList.Helpers;
     using Service.BetList.Interfaces;
     using Service.Core.Users.Interfaces;
-    using VendorAdapter;
     using VendorAdapter.Interfaces;
 
     [ApiFunctionAuthorization(PermissionKeys.ReportLastBetsMonitoring)]
@@ -35,14 +31,6 @@
         private readonly ITicketHelper _ticketHelper;
 
         private readonly ICacheRefAdapter _cacheRefAdapter;
-
-        public LastBetMonitoringBetListController()
-        {
-            _matchService = new MatchService();
-            _lastBetsMonitoringBetListService = new LastBetsMonitoringBetListService();
-            _ticketHelper = new TicketHelper();
-            _cacheRefAdapter = new CacheRefAdapter();
-        }
 
         public LastBetMonitoringBetListController(
             ISessionService sessionService,

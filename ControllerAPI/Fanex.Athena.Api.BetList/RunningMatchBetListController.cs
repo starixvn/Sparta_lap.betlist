@@ -22,10 +22,6 @@ namespace Fanex.Athena.Api.BetList
 
     public class RunningMatchBetListController : ApiBetListBaseController
     {
-        public RunningMatchBetListController()
-        {
-        }
-
         public RunningMatchBetListController(
             ISessionService sessionService,
             IProductService productService,

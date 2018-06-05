@@ -13,7 +13,6 @@ namespace Fanex.Athena.Api.Report
     using System.Web.Hosting;
     using System.Web.Http;
     using Base.Attributes;
-    using DataAccess.Report;
     using DataAccess.Report.Interfaces;
     using Excel.Report.Models;
     using Fanex.Athena.Excel.Base.Entities;
@@ -28,7 +27,6 @@ namespace Fanex.Athena.Api.Report
     using Model.Core.MetaModel.Product;
     using Model.Core.ResultModel;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Configuration;
     using Service.Core.Configuration.Interfaces;
     using Service.Core.Users.Interfaces;
 
@@ -38,12 +36,6 @@ namespace Fanex.Athena.Api.Report
         private readonly IReportSettingService _reportSettingService;
 
         private readonly ILicenseeWinLossDataAccess _licenseeWinLossDataAccess;
-
-        public LicenseeWinLossReportController()
-        {
-            _reportSettingService = new ReportSettingService();
-            _licenseeWinLossDataAccess = new LicenseeWinLossDataAccess();
-        }
 
         public LicenseeWinLossReportController(
             ISessionService sessionService,

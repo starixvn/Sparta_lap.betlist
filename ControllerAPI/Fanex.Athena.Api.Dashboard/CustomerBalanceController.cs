@@ -10,13 +10,9 @@
     {
         private readonly ISingleValueDataAccess _dataAccess;
 
-        public CustomerBalanceController() : this(null)
-        {
-        }
-
         public CustomerBalanceController(ISingleValueDataAccess dataAccess)
         {
-            _dataAccess = dataAccess ?? new SingleValueDataAccess();
+            _dataAccess = dataAccess;
         }
 
         public decimal GetData([FromUri] DashboardBaseModel metaModel)

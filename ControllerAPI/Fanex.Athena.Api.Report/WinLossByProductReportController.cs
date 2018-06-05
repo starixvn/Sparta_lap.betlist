@@ -38,12 +38,6 @@ namespace Fanex.Athena.Api.Report
 
         private readonly IWinLossByProductDataAccess _winlossByProductDataAccess;
 
-        public WinLossByProductReportController()
-        {
-            _appSettings = new AppSettings();
-            _winlossByProductDataAccess = new WinLossByProductDataAccess();
-        }
-
         public WinLossByProductReportController(
             ISessionService sessionService,
             IProductService productService,

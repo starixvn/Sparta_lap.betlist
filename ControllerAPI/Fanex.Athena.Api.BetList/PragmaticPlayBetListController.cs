@@ -12,10 +12,6 @@
 
     public class PragmaticPlayBetListController : ApiBetListBaseController
     {
-        public PragmaticPlayBetListController()
-        {
-        }
-
         public PragmaticPlayBetListController(
             ISessionService sessionService,
             IProductService productService,

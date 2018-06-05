@@ -55,15 +55,7 @@ namespace Fanex.Athena.Api.CustomerLog
 
         private readonly IAppSettings _appSettings;
         private readonly IClientViewHelper _clientViewHelper;
-
-        public LogController()
-        {
-            _customerLogDataAccess = new CustomerLogDataAccess();
-            _logInLogDataAccess = new LogInLogDataAccess();
-            _appSettings = new AppSettings();
-            _clientViewHelper = new ClientViewHelper();
-        }
-
+        
         public LogController(
             ISessionService sessionService,
             IProductService productService,

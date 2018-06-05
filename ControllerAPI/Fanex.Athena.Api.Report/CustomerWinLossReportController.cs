@@ -25,12 +25,6 @@
 
         private readonly ICustWinlossDataAccess _custWinlossDataAccess;
 
-        public CustomerWinLossReportController()
-        {
-            _appSettings = new AppSettings();
-            _custWinlossDataAccess = new CustomerWinlossDataAccess();
-        }
-
         public CustomerWinLossReportController(
             IAppSettings appSettings,
             ICustWinlossDataAccess custWinlossDataAccess,

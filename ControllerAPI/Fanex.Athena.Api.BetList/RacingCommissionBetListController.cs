@@ -25,10 +25,6 @@ namespace Fanex.Athena.Api.BetList
     [ApiFunctionAuthorization(PermissionKeys.ReportRacingCommission)]
     public class RacingCommissionBetListController : ApiBetListBaseController
     {
-        public RacingCommissionBetListController()
-        {
-        }
-
         public RacingCommissionBetListController(
             ISessionService sessionService,
             IProductService productService,

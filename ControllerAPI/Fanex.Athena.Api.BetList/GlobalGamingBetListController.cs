@@ -12,10 +12,6 @@
 
     public class GlobalGamingBetListController : ApiBetListBaseController
     {
-        public GlobalGamingBetListController()
-        {
-        }
-
         public GlobalGamingBetListController(
             ISessionService sessionService,
             IProductService productService,

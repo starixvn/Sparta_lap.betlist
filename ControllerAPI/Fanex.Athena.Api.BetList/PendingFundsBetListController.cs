@@ -26,10 +26,6 @@ namespace Fanex.Athena.Api.BetList
     [ApiFunctionAuthorization(PermissionKeys.ReportCustomerPendingFunds)]
     public class PendingFundsBetListController : ApiBetListBaseController
     {
-        public PendingFundsBetListController()
-        {
-        }
-
         public PendingFundsBetListController(
             ISessionService sessionService,
             IProductService productService,

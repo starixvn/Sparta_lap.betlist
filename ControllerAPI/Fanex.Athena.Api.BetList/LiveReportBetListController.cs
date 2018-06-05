@@ -27,10 +27,6 @@ namespace Fanex.Athena.Api.BetList
     [ApiFunctionAuthorization(PermissionKeys.ReportLiveReport)]
     public class LiveReportBetListController : ApiBetListBaseController
     {
-        public LiveReportBetListController()
-        {
-        }
-
         public LiveReportBetListController(
             ISessionService sessionService,
             IProductService productService,

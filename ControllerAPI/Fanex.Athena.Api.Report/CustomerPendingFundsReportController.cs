@@ -28,12 +28,6 @@
 
         private readonly ICustPendingFundsDataAccess _custPendingFundsDataAccess;
 
-        public CustomerPendingFundsReportController()
-        {
-            _appSettings = new AppSettings();
-            _custPendingFundsDataAccess = new CustomerPendingFundsDataAccess();
-        }
-
         public CustomerPendingFundsReportController(
             IAppSettings appSettings,
             ICustPendingFundsDataAccess custPendingFundsDataAccess,

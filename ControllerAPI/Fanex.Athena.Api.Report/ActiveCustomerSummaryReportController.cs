@@ -32,12 +32,7 @@ namespace Fanex.Athena.Api.Report
     public class ActiveCustomerSummaryReportController : ApiReportBaseController
     {
         private readonly IActiveCustomerSummaryDataAccess _activeCustomerSummaryDataAccess;
-
-        public ActiveCustomerSummaryReportController()
-        {
-            _activeCustomerSummaryDataAccess = new ActiveCustomerSummaryDataAccess();
-        }
-
+        
         public ActiveCustomerSummaryReportController(
             IActiveCustomerSummaryDataAccess activeCustomerSummaryDataAccess,
             ISessionService sessionService,

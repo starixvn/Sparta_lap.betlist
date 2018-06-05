@@ -28,15 +28,11 @@ namespace Fanex.Athena.Api.Base
         private readonly IProductService _productService;
         private readonly ISessionService _sessionService;
 
-        protected BaseApiController() : this(null, null, null)
-        {
-        }
-
         protected internal BaseApiController(ISessionService sessionService, IProductService productService, ILanguageService languageService)
         {
-            _sessionService = sessionService ?? new SessionService();
-            _productService = productService ?? new ProductService();
-            _langService = languageService ?? new LanguageService();
+            _sessionService = sessionService;
+            _productService = productService;
+            _langService = languageService;
         }
 
         protected IProductService ProductService

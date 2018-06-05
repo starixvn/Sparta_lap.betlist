@@ -27,12 +27,7 @@ namespace Fanex.Athena.Api.Report
     public class MicrogamingWinlossReportController : ApiReportBaseController
     {
         private readonly IMicroGamingWinLossDataAccess _microGamingWinLossDataAccess;
-
-        public MicrogamingWinlossReportController()
-        {
-            _microGamingWinLossDataAccess = new MicroGamingWinLossDataAccess();
-        }
-
+        
         public MicrogamingWinlossReportController(
             ISessionService sessionService,
             IProductService productService,

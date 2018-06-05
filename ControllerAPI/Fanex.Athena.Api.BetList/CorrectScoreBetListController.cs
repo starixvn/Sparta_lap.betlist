@@ -25,10 +25,6 @@ namespace Fanex.Athena.Api.BetList
     [ApiFunctionAuthorization(PermissionKeys.TotalBetCorrectScore)]
     public class CorrectScoreBetListController : ApiBetListBaseController
     {
-        public CorrectScoreBetListController()
-        {
-        }
-
         public CorrectScoreBetListController(
             ISessionService sessionService,
             IProductService productService,
