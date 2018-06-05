@@ -96,7 +96,7 @@ namespace Fanex.Athena
                 BetListManager.RegisterRemotingRef(new CacheRef());
                 ResultCoreManager.RegisterRefDataHelper(new RefDataHelper());
 
-                DIConfig.Register();
+                ////DIConfig.Register();
             }
         }
 
