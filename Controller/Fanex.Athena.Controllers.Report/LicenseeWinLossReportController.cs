@@ -19,7 +19,6 @@ namespace Fanex.Athena.Controllers.Report
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Configuration;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Configuration;
     using Service.Core.Configuration.Interfaces;
     using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
@@ -28,11 +27,6 @@ namespace Fanex.Athena.Controllers.Report
     public class LicenseeWinLossReportController : ReportBaseController
     {
         private readonly IReportSettingService _reportSettingService;
-
-        public LicenseeWinLossReportController()
-        {
-            _reportSettingService = new ReportSettingService();
-        }
 
         public LicenseeWinLossReportController(
             ILanguageService languageService,
@@ -43,7 +37,7 @@ namespace Fanex.Athena.Controllers.Report
             IReportSettingService reportSettingService)
         : base(languageService, sessionService, appSetting, clientViewHelper, productService)
         {
-            _reportSettingService = reportSettingService ?? new ReportSettingService();
+            _reportSettingService = reportSettingService;
         }
 
         [HttpGet]

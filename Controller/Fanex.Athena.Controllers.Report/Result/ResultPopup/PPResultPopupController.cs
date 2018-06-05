@@ -11,10 +11,6 @@ namespace Fanex.Athena.Controllers.Report.Result.ResultPopup
     {
         private readonly IPPResult _resultApi;
 
-        public PPResultPopupController() : this(null, null, null, null, null)
-        {
-        }
-
         public PPResultPopupController(
             ILanguageService languageService,
             ISessionService sessionService,
@@ -23,7 +19,7 @@ namespace Fanex.Athena.Controllers.Report.Result.ResultPopup
             IPPResult resultApi)
             : base(languageService, sessionService, appSetting, clientViewHelper)
         {
-            _resultApi = resultApi ?? new PPResult();
+            _resultApi = resultApi;
         }
 
         [HttpGet]

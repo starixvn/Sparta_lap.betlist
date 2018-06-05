@@ -14,16 +14,13 @@ namespace Fanex.Athena.Controllers.Customer
     using System.Net;
     using System.Web.Mvc;
     using System.Web.SessionState;
-    using DataAccess.Core.Users;
     using DataAccess.Core.Users.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Customer.MetaModel;
-    using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Service.Core.Helpers;
-    using Fanex.Athena.Service.Customer;
     using Fanex.Athena.Service.Customer.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
@@ -31,7 +28,6 @@ namespace Fanex.Athena.Controllers.Customer
     using ONEbook.UM.Filters;
     using Resources;
     using Service.Core.Users.Interfaces;
-    using Service.Core.Utility;
     using Service.Core.Utility.Interfaces;
     using Service.Customer.Helpers;
 
@@ -75,16 +71,6 @@ namespace Fanex.Athena.Controllers.Customer
             _customerListService = customerListService;
             _groupComService = groupComService;
             _productService = productService;
-        }
-
-        public CustomerApiController()
-        {
-            _logger = new CoreLogger();
-            _customerCommService = new CustomerCommService();
-            _licenseeDataAccess = new LicenseeDataAccess();
-            _customerListService = new CustomerListService();
-            _groupComService = new GroupComService();
-            _productService = new ProductService();
         }
 
         #endregion Constructor

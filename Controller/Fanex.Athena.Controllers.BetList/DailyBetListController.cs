@@ -34,10 +34,6 @@ namespace Fanex.Athena.Controllers.BetList
 
         private const string BetListDailyBetListName = "BetList_DailyBetList";
 
-        public DailyBetListController()
-        {
-        }
-
         public DailyBetListController(
             ILanguageService languageService,
             ISessionService sessionService,

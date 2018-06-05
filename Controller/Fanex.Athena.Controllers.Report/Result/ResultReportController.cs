@@ -8,13 +8,11 @@ namespace Fanex.Athena.Controllers.Report.Result
     using System.Web;
     using System.Web.Hosting;
     using System.Web.Mvc;
-    using DataAccess.Core.Configuration;
     using DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
-    using Fanex.Athena.Service.Casino;
     using Fanex.Athena.Service.Casino.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Result.Core.AllBetCasino;
@@ -29,7 +27,6 @@ namespace Fanex.Athena.Controllers.Report.Result
     using Service.Core.Common.Interfaces;
     using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
-    using Service.Report.Result;
     using Service.Result.Interfaces;
     using VendorAdapter;
     using VendorAdapter.Interfaces;
@@ -68,10 +65,6 @@ namespace Fanex.Athena.Controllers.Report.Result
 
         #region Result-Page
 
-        public ResultReportController() : this(null, null, null, null, null, null, null, null, null, null)
-        {
-        }
-
 #pragma warning disable S107 // Methods should not have too many parameters
 
         public ResultReportController(
@@ -88,10 +81,10 @@ namespace Fanex.Athena.Controllers.Report.Result
 #pragma warning restore S107 // Methods should not have too many parameters
             : base(languageService, sessionService, appSetting, clientViewHelper, productService)
         {
-            _balanceUpDataAccess = balanceUpDataAccess ?? new BalanceUpDataAccess();
-            _microGamingParserService = microGamingParserService ?? ParserService.Instance;
-            _resultService = resultService ?? new ResultService();
-            _rngCasinoSingleWalletService = rngCasinoSingleWalletService ?? new RngCasinoSingleWalletService();
+            _balanceUpDataAccess = balanceUpDataAccess;
+            _microGamingParserService = microGamingParserService;
+            _resultService = resultService;
+            _rngCasinoSingleWalletService = rngCasinoSingleWalletService;
             _cacheRefAdapter = cacheRefAdapter ?? new CacheRefAdapter();
         }
 

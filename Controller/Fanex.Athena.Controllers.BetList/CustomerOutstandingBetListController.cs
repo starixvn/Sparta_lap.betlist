@@ -30,10 +30,6 @@ namespace Fanex.Athena.Controllers.BetList
         private const string BetListCustomerOutstandingName = "BetList_CustomerOutstanding";
         private const string BetListCustomerOutstandingRunningName = "BetList_CustomerOutstandingRunning";
 
-        public CustomerOutstandingBetListController()
-        {
-        }
-
         public CustomerOutstandingBetListController(
             ILanguageService languageService,
             ISessionService sessionService,

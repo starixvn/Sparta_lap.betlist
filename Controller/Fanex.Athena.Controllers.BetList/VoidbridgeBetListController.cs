@@ -18,11 +18,7 @@
 
         private readonly string _title =
             ViewResources.ProductVB + " - " + ViewResources.BetList + " - " + ViewResources.DetailTickets;
-
-        public VoidbridgeBetListController()
-        {
-        }
-
+        
         public VoidbridgeBetListController(
             ILanguageService languageService,
             ISessionService sessionService,

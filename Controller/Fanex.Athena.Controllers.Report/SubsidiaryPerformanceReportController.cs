@@ -11,7 +11,6 @@
     using Service.Core.Common.Interfaces;
     using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
-    using Service.Report;
     using Service.Report.Interfaces;
     using Web.ActionFilter;
 
@@ -19,10 +18,6 @@
     public class SubsidiaryPerformanceReportController : ReportBaseController
     {
         private readonly ISubsidiaryService _subsidiaryService;
-
-        public SubsidiaryPerformanceReportController() : this(null, null, null, null, null, null)
-        {
-        }
 
         public SubsidiaryPerformanceReportController(
             ILanguageService languageService,
@@ -33,7 +28,7 @@
             ISubsidiaryService subsidiaryService)
             : base(languageService, sessionService, appSetting, clientViewHelper, productService)
         {
-            _subsidiaryService = subsidiaryService ?? new SubsidiaryService();
+            _service = service;
         }
 
         public ActionResult Index()

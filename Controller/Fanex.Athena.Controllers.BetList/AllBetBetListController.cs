@@ -26,10 +26,6 @@ namespace Fanex.Athena.Controllers.BetList
 
     public class AllBetBetListController : BetListBaseController
     {
-        public AllBetBetListController()
-        {
-        }
-
         public AllBetBetListController(
             ILanguageService languageService,
             ISessionService sessionService,

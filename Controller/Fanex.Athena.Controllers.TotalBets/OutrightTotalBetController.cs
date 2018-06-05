@@ -22,12 +22,7 @@ namespace Fanex.Athena.Controllers.TotalBets
     public class OutrightTotalBetController : TotalBetBaseController
     {
         private readonly IOutrightDataAccess _outrightDataAccess;
-
-        public OutrightTotalBetController()
-        {
-            _outrightDataAccess = new OutrightDataAccess();
-        }
-
+        
         public OutrightTotalBetController(
             ILanguageService languageService,
             ISessionService sessionService,

@@ -25,12 +25,7 @@ namespace Fanex.Athena.Controllers.BetSettings
     public class ThirdPartyBetSettingController : BetSettingBaseController
     {
         private readonly IThirdPartyBetSettingService _betSettingService;
-
-        public ThirdPartyBetSettingController()
-        {
-            _betSettingService = new ThirdPartyBetSettingService();
-        }
-
+        
         public ThirdPartyBetSettingController(
             ILanguageService languageService,
             ISessionService sessionService,

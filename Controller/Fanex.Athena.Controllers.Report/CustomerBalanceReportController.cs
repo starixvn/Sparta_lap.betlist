@@ -21,10 +21,6 @@ namespace Fanex.Athena.Controllers.Report
     [FunctionAuthorization(PermissionKeys.ReportCustomerBalance)]
     public class CustomerBalanceReportController : ReportBaseController
     {
-        public CustomerBalanceReportController()
-        {
-        }
-
         public CustomerBalanceReportController(
             ILanguageService languageService,
             ISessionService sessionService,

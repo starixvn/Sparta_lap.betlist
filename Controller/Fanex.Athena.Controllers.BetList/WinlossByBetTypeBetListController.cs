@@ -25,10 +25,6 @@
     [FunctionAuthorization(PermissionKeys.ReportWinLossByBetType)]
     public class WinlossByBetTypeBetListController : BetListBaseController
     {
-        public WinlossByBetTypeBetListController()
-        {
-        }
-
         public WinlossByBetTypeBetListController(
             ILanguageService languageService,
             ISessionService sessionService,

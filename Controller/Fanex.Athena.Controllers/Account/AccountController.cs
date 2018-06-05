@@ -11,7 +11,6 @@ namespace Fanex.Athena.Controllers.Account
     using System.Linq;
     using System.Text;
     using System.Web.Mvc;
-    using DataAccess.Core.Common;
     using DataAccess.Core.Common.Interfaces;
     using Extension.Utility;
     using Model.Core.DataDomain;
@@ -20,10 +19,8 @@ namespace Fanex.Athena.Controllers.Account
     using Model.Core.MetaModel.Account;
     using ONEbook.UM.Filters;
     using Resources;
-    using Service.Core.Common;
     using Service.Core.Common.Interfaces;
     using Service.Core.Helpers;
-    using Service.Core.Users;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility;
     using Session.Enum;
@@ -46,13 +43,6 @@ namespace Fanex.Athena.Controllers.Account
         private IDictionary<int, IEnumerable<Function>> _allFunctionMap;
 
         private IEnumerable<Function> _allUserFunctionList;
-
-        public AccountController()
-        {
-            _functionService = new FunctionService();
-            _userService = new UserService();
-            _currencyDataAccess = new CurrencyDataAccess();
-        }
 
         public AccountController(
             ILanguageService languageService,

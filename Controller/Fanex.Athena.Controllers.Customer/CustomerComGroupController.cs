@@ -13,9 +13,7 @@
     using Fanex.Athena.Excel.Customer;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Customer.MetaModel;
-    using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
-    using Fanex.Athena.Service.Customer;
     using Fanex.Athena.Service.Customer.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
@@ -60,12 +58,6 @@
         {
             _groupComService = groupComService;
             _productService = productService;
-        }
-
-        public CustomerComGroupController()
-        {
-            _groupComService = new GroupComService();
-            _productService = new ProductService();
         }
 
         #region Get data

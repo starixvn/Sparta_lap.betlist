@@ -9,7 +9,6 @@ namespace Fanex.Athena.Controllers.Customer.CustomerLog
     using System.Web.Mvc;
     using System.Web.SessionState;
     using Extension.Utility;
-    using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
     using ONEbook.UM.Filters;
@@ -23,11 +22,6 @@ namespace Fanex.Athena.Controllers.Customer.CustomerLog
     public partial class CustomerLogController : BaseController
     {
         private readonly IProductService _productService;
-
-        public CustomerLogController()
-        {
-            this._productService = new ProductService();
-        }
 
         public CustomerLogController(
             ILanguageService languageService,

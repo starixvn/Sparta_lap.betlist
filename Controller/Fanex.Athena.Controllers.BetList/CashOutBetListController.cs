@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
-    using DataAccess.BetList;
     using DataAccess.BetList.Interfaces;
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;

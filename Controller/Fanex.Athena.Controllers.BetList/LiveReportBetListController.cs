@@ -21,11 +21,7 @@
     public class LiveReportBetListController : BetListBaseController
     {
         private static readonly int[] HiddenColumns = new[] { BetEffectiveColumn };
-
-        public LiveReportBetListController()
-        {
-        }
-
+        
         public LiveReportBetListController(
             ILanguageService languageService,
             ISessionService sessionService,

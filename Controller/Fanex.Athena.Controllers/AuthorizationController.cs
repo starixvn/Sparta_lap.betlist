@@ -51,11 +51,8 @@ namespace Fanex.Athena.Controllers
         private readonly IMaintenanceService _maintenanceService;
         private readonly IFormsAuthenticationService _formAuthenticationService;
 
-        public AuthorizationController() : this(null, null, null, null, null, null, null, null)
-        {
-        }
-
 #pragma warning disable S107 // Methods should not have too many parameters
+
         public AuthorizationController(
             ILanguageService languageService,
             ISessionService sessionService,
@@ -68,10 +65,10 @@ namespace Fanex.Athena.Controllers
             : base(languageService, sessionService, appSetting, clientViewHelper)
 #pragma warning restore S107 // Methods should not have too many parameters
         {
-            _maintenanceService = maintenanceService ?? new MaintenanceService();
-            _userService = userService ?? new UserService();
-            _authService = authService ?? new AuthService();
-            _formAuthenticationService = formAuthenticationService ?? new FormsAuthenticationService();
+            _maintenanceService = maintenanceService;
+            _userService = userService;
+            _authService = authService;
+            _formAuthenticationService = formAuthenticationService;
         }
 
         [CheckUMFilter]

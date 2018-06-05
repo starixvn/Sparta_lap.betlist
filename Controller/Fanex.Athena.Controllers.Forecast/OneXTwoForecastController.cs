@@ -20,10 +20,6 @@ namespace Fanex.Athena.Controllers.Forecast
     [FunctionAuthorization(PermissionKeys.ForecastOneXTwo)]
     public class OneXTwoForecastController : ForecastBaseController
     {
-        public OneXTwoForecastController()
-        {
-        }
-
         public OneXTwoForecastController(
             ILanguageService languageService,
             ISessionService sessionService,

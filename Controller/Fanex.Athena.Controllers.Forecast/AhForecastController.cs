@@ -25,10 +25,6 @@ namespace Fanex.Athena.Controllers.Forecast
     [FunctionAuthorization(PermissionKeys.ForecastHandicapOverUnderLive)]
     public class AhForecastController : ForecastBaseController
     {
-        public AhForecastController()
-        {
-        }
-
         public AhForecastController(
             ILanguageService languageService,
             ISessionService sessionService,

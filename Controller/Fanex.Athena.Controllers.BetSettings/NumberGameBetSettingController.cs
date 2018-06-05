@@ -14,7 +14,6 @@ namespace Fanex.Athena.Controllers.BetSettings
     using Fanex.Athena.Web.ActionFilter;
     using Model.BetSettings.MetaModel;
     using Resources;
-    using Service.BetSettings;
     using Service.BetSettings.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Helpers;
@@ -24,11 +23,6 @@ namespace Fanex.Athena.Controllers.BetSettings
     public class NumberGameBetSettingController : BetSettingBaseController
     {
         private readonly INumberGameBetSettingService _betSettingService;
-
-        public NumberGameBetSettingController()
-        {
-            _betSettingService = new NumberGameBetSettingService();
-        }
 
         public NumberGameBetSettingController(
             ILanguageService languageService,

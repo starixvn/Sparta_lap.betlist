@@ -9,9 +9,7 @@ namespace Fanex.Athena.Controllers.Report
     using System;
     using System.Web.Hosting;
     using System.Web.Mvc;
-    using DataAccess.Core.Configuration;
     using DataAccess.Core.Configuration.Interfaces;
-    using DataAccess.Report;
     using DataAccess.Report.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Excel.Base.Entities;
@@ -34,10 +32,6 @@ namespace Fanex.Athena.Controllers.Report
 
         private readonly IRacingCommissionDataAccess _racingCommissionDataAccess;
 
-        public RacingCommissionReportController() : this(null, null, null, null, null, null, null)
-        {
-        }
-
         public RacingCommissionReportController(
             ILanguageService languageService,
             ISessionService sessionService,
@@ -48,8 +42,8 @@ namespace Fanex.Athena.Controllers.Report
             IRacingCommissionDataAccess racingCommissionDataAccess)
             : base(languageService, sessionService, appSetting, clientViewHelper, productService)
         {
-            _balanceUpDataAccess = balanceUpDataAccess ?? new BalanceUpDataAccess();
-            _racingCommissionDataAccess = racingCommissionDataAccess ?? new RacingCommissionDataAccess();
+            _balanceUpDataAccess = balanceUpDataAccess;
+            _racingCommissionDataAccess = racingCommissionDataAccess;
         }
 
         [HttpGet]

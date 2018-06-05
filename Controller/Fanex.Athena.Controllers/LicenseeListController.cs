@@ -1,7 +1,6 @@
 ﻿namespace Fanex.Athena.Controllers
 {
     using System.Web.Mvc;
-    using DataAccess.Core.Users;
     using DataAccess.Core.Users.Interfaces;
     using Extension.Utility;
     using Service.Core.Common.Interfaces;
@@ -14,11 +13,6 @@
     public class LicenseeListController : BaseController
     {
         private readonly ILicenseeDataAccess _licenseeDataAccess;
-
-        public LicenseeListController()
-        {
-            _licenseeDataAccess = new LicenseeDataAccess();
-        }
 
         public LicenseeListController(
             ILanguageService languageService,

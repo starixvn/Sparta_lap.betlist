@@ -14,7 +14,6 @@ namespace Fanex.Athena.Controllers.BetSettings
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DTO.Common;
     using Resources;
-    using Service.BetSettings;
     using Service.BetSettings.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Helpers;
@@ -24,11 +23,6 @@ namespace Fanex.Athena.Controllers.BetSettings
     public class SportsbookBetSettingController : BetSettingBaseController
     {
         private readonly ISportsbookBetSettingService _betSettingService;
-
-        public SportsbookBetSettingController()
-        {
-            this._betSettingService = new SportsbookBetSettingService();
-        }
 
         public SportsbookBetSettingController(
             ILanguageService languageService,

@@ -10,7 +10,6 @@ namespace Fanex.Athena.Controllers.Report
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
-    using DataAccess.Core.Common;
     using DataAccess.Core.Common.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
@@ -20,7 +19,6 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.MetaModel.Common;
     using Resources;
-    using Service.Core.Common;
     using Service.Core.Common.Interfaces;
     using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
@@ -31,10 +29,6 @@ namespace Fanex.Athena.Controllers.Report
         private readonly ISportTypeDataAccess _sportTypeDataAccess;
         private readonly ILeagueDataAccess _leagueDataAccess;
         private readonly IMatchService _matchService;
-
-        public WinLossByLeagueReportController() : this(null, null, null, null, null, null, null, null)
-        {
-        }
 
 #pragma warning disable S107 // Methods should not have too many parameters
 
@@ -50,9 +44,9 @@ namespace Fanex.Athena.Controllers.Report
             : base(languageService, sessionService, appSetting, clientViewHelper, productService)
 #pragma warning restore S107 // Methods should not have too many parameters
         {
-            _sportTypeDataAccess = sportTypeDataAccess ?? new SportTypeDataAccess();
-            _leagueDataAccess = leagueDataAccess ?? new LeagueDataAccess();
-            _matchService = matchService ?? new MatchService();
+            _sportTypeDataAccess = sportTypeDataAccess;
+            _leagueDataAccess = leagueDataAccess;
+            _matchService = matchService;
         }
 
         [HttpGet]

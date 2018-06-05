@@ -9,7 +9,6 @@ namespace Fanex.Athena.Controllers.Report
     using System.Web.Hosting;
     using System.Web.Mvc;
     using Constant.DataDomain;
-    using DataAccess.Report;
     using DataAccess.Report.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Excel.Base.Entities;
@@ -29,10 +28,6 @@ namespace Fanex.Athena.Controllers.Report
     {
         private readonly IBalanceDataAccess _balanceDataAccess;
 
-        public BalanceReportController() : this(null, null, null, null, null, null)
-        {
-        }
-
         public BalanceReportController(
             ILanguageService languageService,
             ISessionService sessionService,
@@ -42,7 +37,7 @@ namespace Fanex.Athena.Controllers.Report
             IBalanceDataAccess balanceDataAccess)
         : base(languageService, sessionService, appSetting, clientViewHelper, productService)
         {
-            _balanceDataAccess = balanceDataAccess ?? new BalanceDataAccess();
+            _balanceDataAccess = balanceDataAccess;
         }
 
         [HttpGet]

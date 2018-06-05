@@ -19,10 +19,6 @@ namespace Fanex.Athena.Controllers.Report
     [FunctionAuthorization(PermissionKeys.ReportCustomerPendingFunds)]
     public class CustomerPendingFundsReportController : ReportBaseController
     {
-        public CustomerPendingFundsReportController()
-        {
-        }
-
         public CustomerPendingFundsReportController(
             ILanguageService languageService,
             ISessionService sessionService,

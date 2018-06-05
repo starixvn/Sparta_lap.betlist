@@ -23,12 +23,7 @@ namespace Fanex.Athena.Controllers.TotalBets
     public class HandicapOverUnderTotalBetController : TotalBetBaseController
     {
         private readonly IHandicapOverUnderDataAccess _handicapOverUnderDataAccess;
-
-        public HandicapOverUnderTotalBetController()
-        {
-            _handicapOverUnderDataAccess = new HandicapOverUnderDataAccess();
-        }
-
+        
         public HandicapOverUnderTotalBetController(
             ILanguageService languageService,
             ISessionService sessionService,

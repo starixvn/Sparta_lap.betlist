@@ -29,10 +29,6 @@ namespace Fanex.Athena.Controllers.BetList
     {
         private static readonly int[] HiddenColumns = new[] { BetEffectiveColumn };
 
-        public DailyRacingWinLossBetListController()
-        {
-        }
-
         public DailyRacingWinLossBetListController(
             ILanguageService languageService,
             ISessionService sessionService,

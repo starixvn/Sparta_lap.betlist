@@ -38,10 +38,6 @@ namespace Fanex.Athena.Controllers.BetList
     /// </summary>
     public class RunningBetListController : BetListBaseController
     {
-        public RunningBetListController()
-        {
-        }
-
         public RunningBetListController(
             ILanguageService languageService,
             ISessionService sessionService,

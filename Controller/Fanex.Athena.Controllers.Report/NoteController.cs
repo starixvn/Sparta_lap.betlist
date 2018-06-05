@@ -8,11 +8,9 @@ namespace Fanex.Athena.Controllers.Report
 {
     using System.Web.Mvc;
     using System.Web.SessionState;
-    using DataAccess.Core.Configuration;
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Model.Report.ViewModel.Note;
-    using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using ONEbook.UM.Filters;
     using Service.Core.Helpers;
@@ -26,10 +24,6 @@ namespace Fanex.Athena.Controllers.Report
 
         private readonly IProductService _productService;
 
-        public NoteController() : this(null, null, null, null, null, null)
-        {
-        }
-
         public NoteController(
             ILanguageService languageService,
             ISessionService sessionService,
@@ -39,8 +33,8 @@ namespace Fanex.Athena.Controllers.Report
             IBalanceUpDataAccess balanceUpDataAccess)
             : base(languageService, sessionService, appSetting, clientViewHelper)
         {
-            _balanceUpDataAccess = balanceUpDataAccess ?? new BalanceUpDataAccess();
-            _productService = productService ?? new ProductService();
+            _balanceUpDataAccess = balanceUpDataAccess;
+            _productService = productService;
         }
 
         [ChildActionOnly]

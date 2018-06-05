@@ -37,13 +37,7 @@ namespace Fanex.Athena.Controllers.Report
         private readonly ISportTypeDataAccess _sportTypeDataAccess;
 
         private readonly ICustomerTurnoverService _customerTurnoverService;
-
-        public CustomerTurnoverReportController()
-        {
-            _sportTypeDataAccess = new SportTypeDataAccess();
-            _customerTurnoverService = new CustomerTurnoverService();
-        }
-
+        
         public CustomerTurnoverReportController(
             ILanguageService languageService,
             ISessionService sessionService,

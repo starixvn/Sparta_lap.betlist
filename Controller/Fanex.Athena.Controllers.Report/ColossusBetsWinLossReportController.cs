@@ -22,10 +22,6 @@ namespace Fanex.Athena.Controllers.Report
     [FunctionAuthorization(PermissionKeys.ReportColossusBetsWinLoss)]
     public class ColossusBetsWinLossReportController : ReportBaseController
     {
-        public ColossusBetsWinLossReportController()
-        {
-        }
-
         public ColossusBetsWinLossReportController(
             ILanguageService languageService,
             ISessionService sessionService,

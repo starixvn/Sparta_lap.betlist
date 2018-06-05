@@ -27,11 +27,7 @@ namespace Fanex.Athena.Controllers.BetList
     public class RacingCommissionBetListController : BetListBaseController
     {
         private static readonly int[] HiddenColumns = new[] { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn };
-
-        public RacingCommissionBetListController()
-        {
-        }
-
+        
         public RacingCommissionBetListController(
             ILanguageService languageService,
             ISessionService sessionService,

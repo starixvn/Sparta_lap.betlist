@@ -22,10 +22,6 @@ namespace Fanex.Athena.Controllers.Report
     [FunctionAuthorization(PermissionKeys.ReportMicrogamingWinloss)]
     public class MicrogamingWinlossReportController : ReportBaseController
     {
-        public MicrogamingWinlossReportController()
-        {
-        }
-
         public MicrogamingWinlossReportController(
             ILanguageService languageService,
             ISessionService sessionService,

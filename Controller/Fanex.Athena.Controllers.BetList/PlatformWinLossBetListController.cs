@@ -28,11 +28,7 @@ namespace Fanex.Athena.Controllers.BetList
     public class PlatformWinLossBetListController : BetListBaseController
     {
         private static readonly int[] HiddenColumns = new[] { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn };
-
-        public PlatformWinLossBetListController()
-        {
-        }
-
+        
         public PlatformWinLossBetListController(
             ILanguageService languageService,
             ISessionService sessionService,

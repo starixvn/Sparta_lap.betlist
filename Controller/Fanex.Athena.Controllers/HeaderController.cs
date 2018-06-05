@@ -22,12 +22,7 @@ namespace Fanex.Athena.Controllers
     public class HeaderController : BaseController
     {
         private readonly ILicenseeDataAccess _licenseeDataAccess;
-
-        public HeaderController()
-        {
-            _licenseeDataAccess = new LicenseeDataAccess();
-        }
-
+        
         public HeaderController(
             ILanguageService languageService,
             ISessionService sessionService,

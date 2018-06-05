@@ -20,10 +20,6 @@ namespace Fanex.Athena.Controllers.Report
     [FunctionAuthorization(PermissionKeys.ReportActiveCustomerSummary)]
     public class ActiveCustomerSummaryReportController : ReportBaseController
     {
-        public ActiveCustomerSummaryReportController()
-        {
-        }
-
         public ActiveCustomerSummaryReportController(
             ILanguageService languageService,
             ISessionService sessionService,

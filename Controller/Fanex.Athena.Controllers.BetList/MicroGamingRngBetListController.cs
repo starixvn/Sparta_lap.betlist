@@ -25,11 +25,7 @@ namespace Fanex.Athena.Controllers.BetList
     public class MicroGamingRngBetListController : BetListBaseController
     {
         private static readonly int[] HiddenColumns = new[] { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn, LicenseeWLColumn };
-
-        public MicroGamingRngBetListController()
-        {
-        }
-
+        
         public MicroGamingRngBetListController(
             ILanguageService languageService,
             ISessionService sessionService,

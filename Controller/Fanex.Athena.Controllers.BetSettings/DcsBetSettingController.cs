@@ -20,7 +20,6 @@ namespace Fanex.Athena.Controllers.BetSettings
     using Model.BetSettings.ViewModel;
     using Model.Core.Helper;
     using Resources;
-    using Service.BetSettings;
     using Service.BetSettings.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Helpers;
@@ -60,11 +59,6 @@ namespace Fanex.Athena.Controllers.BetSettings
         };
 
         private readonly IDcsBetSettingService _betSettingService;
-
-        public DcsBetSettingController()
-        {
-            _betSettingService = new DcsBetSettingService();
-        }
 
         public DcsBetSettingController(
             ILanguageService languageService,

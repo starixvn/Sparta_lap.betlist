@@ -21,13 +21,6 @@ namespace Fanex.Athena.Controllers.Report
     [FunctionAuthorization(PermissionKeys.ReportCustomerWinLoss)]
     public class CustomerWinLossReportController : ReportBaseController
     {
-        private readonly IReportSettingService _reportSettingService;
-
-        public CustomerWinLossReportController()
-        {
-            _reportSettingService = new ReportSettingService();
-        }
-
         public CustomerWinLossReportController(
             ILanguageService languageService,
             ISessionService sessionService,

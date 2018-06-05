@@ -7,7 +7,6 @@
     using System.Web.Hosting;
     using System.Web.Mvc;
     using Constant.DataDomain;
-    using DataAccess.Core.Configuration;
     using DataAccess.Core.Configuration.Interfaces;
     using Excel.Base.Helpers;
     using Extension.Utility;
@@ -19,7 +18,6 @@
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
-    using Fanex.Athena.Service.Report;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
     using Fanex.Common;
@@ -28,7 +26,6 @@
     using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Service.Report.Interfaces;
-    using VendorAdapter;
     using VendorAdapter.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.ReportMatchWinLoss)]
@@ -40,10 +37,6 @@
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
         private readonly ICacheRefAdapter _cacheRefAdapter;
         private readonly IMatchWinLossService _matchWinLossService;
-
-        public MatchWinLossReportController() : this(null, null, null, null, null, null, null, null)
-        {
-        }
 
 #pragma warning disable S107 // Methods should not have too many parameters
 
@@ -59,9 +52,9 @@
 #pragma warning restore S107 // Methods should not have too many parameters
             : base(languageService, sessionService, appSetting, clientViewHelper, productService)
         {
-            _balanceUpDataAccess = balanceUpDataAccess ?? new BalanceUpDataAccess();
-            _cacheRefAdapter = cacheRefAdapter ?? new CacheRefAdapter();
-            _matchWinLossService = matchWinLossService ?? new MatchWinLossService();
+            _balanceUpDataAccess = balanceUpDataAccess;
+            _cacheRefAdapter = cacheRefAdapter;
+            _matchWinLossService = matchWinLossService;
         }
 
         [HttpGet]
