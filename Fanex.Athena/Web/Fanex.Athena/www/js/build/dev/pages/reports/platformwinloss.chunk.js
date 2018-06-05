@@ -4458,21 +4458,21 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
         };
         var columnConfigLevel0 = {
             colNames: [
+                "Id",
                 "Platform",
                 "Turnover",
                 "%Turnover",
                 "TotalTransaction",
                 "LicenseeW_L",
-                "Id",
                 "CurrencyId",
                 "CustomerId"],
             colModels: [
+                idColumn,
                 platformNameColumn,
                 turnoverColumn,
                 turnoverPercentColumn,
                 totalTransColumn,
                 licenseeWlColumn,
-                idColumn,
                 currencyIdColumn,
                 customerIdColumn]
         };
