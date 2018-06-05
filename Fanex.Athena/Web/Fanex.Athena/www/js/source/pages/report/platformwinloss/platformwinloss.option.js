@@ -219,21 +219,21 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
         };
         var columnConfigLevel0 = {
             colNames: [
+                "Id",
                 "Platform",
                 "Turnover",
                 "%Turnover",
                 "TotalTransaction",
                 "LicenseeW_L",
-                "Id",
                 "CurrencyId",
                 "CustomerId"],
             colModels: [
+                idColumn,
                 platformNameColumn,
                 turnoverColumn,
                 turnoverPercentColumn,
                 totalTransColumn,
                 licenseeWlColumn,
-                idColumn,
                 currencyIdColumn,
                 customerIdColumn]
         };
