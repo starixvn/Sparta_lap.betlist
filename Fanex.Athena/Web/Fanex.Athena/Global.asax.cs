@@ -95,6 +95,8 @@ namespace Fanex.Athena
                .FromApplication("Fanex.LAP");
                 BetListManager.RegisterRemotingRef(new CacheRef());
                 ResultCoreManager.RegisterRefDataHelper(new RefDataHelper());
+
+                DIConfig.Register();
             }
         }
 
