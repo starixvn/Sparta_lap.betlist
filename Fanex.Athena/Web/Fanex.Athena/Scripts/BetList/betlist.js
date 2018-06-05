@@ -2,7 +2,7 @@
 /*global Site, QueryString,jqGridAdditional, BetListOption, moment*/
 /*exported showCombMP, showCombMPDetail, showMP, showNewCombMP, ViewBetSlip, ViewResult, showMicroGamingRnGBetsDetails,
 showAGCasinoDetails, showRnGCasinoDetails, showVoidBridgeDetails, showVoidbridgeResult, showTodayRunningBetsDetails,
-showColossusBetsDetails, showGlobalGaming, ViewCashOutHistory, ShowBonusDetails, showPPDetails*/
+showColossusBetsDetails, showGlobalGaming, ViewCashOutHistory, ShowBonusDetails, showPPDetails, showPPResult*/
 
 var BetList = (function ($) {
     "use strict";
@@ -799,6 +799,7 @@ var BetList = (function ($) {
             url = QueryString.setParam(url, "winlostDate", winlostDate);
             url = QueryString.setParam(url, "custId", custId);
             url = QueryString.setParam(url, "transType", transType);
+            url = QueryString.setParam(url, "BaseCurrency", getBaseCurrency());
 
             var popH = Math.min($(window).height() - 100, 550), popW = 840;
             var title = Site.getSingleResource("ProductPP") + " - " +

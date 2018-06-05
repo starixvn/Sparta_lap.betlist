@@ -667,6 +667,7 @@
                 url = QueryString.setParam(url, "winlostDate", winlostDate);
                 url = QueryString.setParam(url, "custId", custId);
                 url = QueryString.setParam(url, "transType", transType);
+                url = QueryString.setParam(url, "BaseCurrency", getBaseCurrency());
 
                 var popH = Math.min($(window).height() - 100, 550);
                 var title = Site.getSingleResource("ProductPP") + " - " +

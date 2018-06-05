@@ -1230,13 +1230,16 @@
             describe("showPPDetails(transId, winlostDate, custId, transType)", function () {
                 it("shows showResultPopUp with correct params", function () {
                     spyOn(Popup, "openPopupWithIframe");
-                    
+                    spyOn($, "parseJSON").and.returnValue({
+                        BaseCurrency: "usd"
+                    });
                     spyOn($.fn, "height").and.returnValue(700);
                     var transId = "transId", winlostDate = "06/01/2017", custId = "custId", transType = "transType";
                     var url = "PragmaticPlayBetList/Detail?transId=" + transId +
                         "&winlostDate=" + winlostDate +
                         "&custId=" + custId +
-                        "&transType=" + transType;
+                        "&transType=" + transType +
+                        "&BaseCurrency=usd";
                     var expectedUrl = transformQueryParamNameToLowerCase(url);
                     var title = "ProductPP - DetailedBetlist - 06/01/2017";
 
