@@ -103,7 +103,7 @@
 
                 var expectedTitle = $"{ViewResources.Customer} {ViewResources.BetList} - 11/1/2018 --> 12/2/2018 - "
                     + $"External{(isFakeLic ? "" : "(System)")} - {string.Format(ViewResources.Viewin, expCurrency)}";
-                
+
                 var ticketResult = new TicketResult();
                 BetListService.GetBetListData(Arg.Any<BetListMetaModel>(), "Lrf_BetList_SelWinloss_Mem").Returns(ticketResult);
 

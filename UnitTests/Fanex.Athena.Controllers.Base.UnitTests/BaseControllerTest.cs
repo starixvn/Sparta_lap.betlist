@@ -7,6 +7,7 @@
     using Session.Enum;
     using Session.Model;
 
+    [TestFixture]
     public class BaseControllerTest : BaseControllerHelperTest
     {
         private FakeBaseController _controller;
@@ -14,7 +15,10 @@
         [SetUp]
         public void SetUp()
         {
-            _controller = new FakeBaseController(LangService, SessionService, AppSettings, ClientViewHelper);
+            _controller = new FakeBaseController(LangService, SessionService, AppSettings, ClientViewHelper)
+            {
+                ControllerContext = ControllerContext
+            };
         }
 
         [TearDown]

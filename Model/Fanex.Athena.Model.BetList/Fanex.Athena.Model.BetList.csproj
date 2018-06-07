@@ -125,6 +125,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\BetListDataInfo.cs" />
     <Compile Include="DTO\CashOutTicketText.cs" />
     <Compile Include="DTO\CashOutTicket.cs" />
     <Compile Include="DTO\CustomerCancelBetItem.cs" />

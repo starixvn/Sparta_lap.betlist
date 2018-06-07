@@ -1,8 +1,8 @@
-﻿using Fanex.Athena.Excel.Base.Entities;
+﻿using Fanex.Athena.Constant.DataDomain;
+using Fanex.Athena.Excel.Base.Entities;
 using Fanex.Athena.Extension.Utility;
 using Fanex.Athena.Model.BetList.DTO;
 using Fanex.Athena.Model.Core.DataDomain;
-using Fanex.Athena.UnitTest.Common.Helpers;
 using Fanex.Athena.VendorAdapter.Interfaces;
 using Fanex.BetList.Core.Builder;
 using Fanex.BetList.Core.Entities;
@@ -38,7 +38,17 @@ namespace Fanex.Athena.Excel.BetList.UnitTests
             _ticketHelper.Index.Returns(Index);
 
             var ticketResult = new TicketResult();
-            var ticket = FakeHelper.Create<LrfTicket>();
+            var ticket = new LrfTicket
+            {
+                ExternalId = "ExternalId",
+                UserName = "UserName",
+                Winlost = 1,
+                BetEffective = 2,
+                LicenseeWL = 3,
+                Comm = 4,
+                Status = BetStatus.Won,
+                BetTypeId = (int)BetType.Handicap
+            };
             ticketResult.MainTicketList.Add(ticket);
 
             // Action
@@ -48,34 +58,27 @@ namespace Fanex.Athena.Excel.BetList.UnitTests
             Assert.Multiple(() =>
             {
                 // AddIndex
-                _builder.Received(1).AddCell(
-                    Arg.Is<IRichTextString>(x => x.String == Index.ToString()),
-                    Arg.Any<ICellStyle>());
-
+                _builder.Received(1).AddCell(Arg.Is<IRichTextString>(x => x.String == Index.ToString()), Arg.Any<ICellStyle>());
+                
                 // AddExternalId
-                _builder.Received(1).AddCell(
-                    Arg.Is<IRichTextString>(x => x.String == ticket.ExternalId),
-                    Arg.Any<ICellStyle>());
-
+                _builder.Received(1).AddCell(Arg.Is<IRichTextString>(x => x.String == ticket.ExternalId), Arg.Any<ICellStyle>());
+                
                 // AddSystemId
-                _builder.Received(1).AddCell(
-                    Arg.Is<IRichTextString>(x => x.String == ticket.UserName),
-                    Arg.Any<ICellStyle>());
+                _builder.Received(1).AddCell(Arg.Is<IRichTextString>(x => x.String == ticket.UserName), Arg.Any<ICellStyle>());
+                
+                // AddCustomerWL
+                _builder.Received(1).AddCell(Arg.Is<IRichTextString>(x => x.String == string.Format("{0:#,##0.00}", ticket.Winlost)));
+                
+                // AddBetEffective
+                _builder.Received(1).AddCell(Arg.Is<IRichTextString>(x => x.String == string.Format("{0:#,##0.00}\n", ticket.BetEffective)));
+                
+                // AddLicenseeWL
+                _builder.Received(1).AddCell(Arg.Is<IRichTextString>(x => x.String == string.Format("{0:#,##0.00}", ticket.LicenseeWL + ticket.Comm)));
 
                 _builder.Received(1).AddTrans(ticket, _ticketHelper);
                 _builder.Received(1).AddChoice(ticket, _ticketHelper, ticketResult.TicketDataList);
                 _builder.Received(1).AddOdds(ticket, ticketResult.TicketDataList, _cacheRefAdapter.GetOddsTypeName);
                 _builder.Received(1).AddStake(ticket);
-
-                // AddCustomerWL
-                _builder.Received(1).AddCell(Arg.Is<IRichTextString>(x => x.String == string.Format("{0:#,##0.00}\n", ticket.Winlost)));
-
-                // AddBetEffective
-                _builder.Received(1).AddCell(Arg.Is<IRichTextString>(x => x.String == string.Format("{0:#,##0.00}\n", ticket.BetEffective)));
-
-                // AddLicenseeWL
-                _builder.Received(1).AddCell(Arg.Is<IRichTextString>(x => x.String == string.Format("{0:#,##0.00}", ticket.LicenseeWL + ticket.Comm)));
-
                 _builder.Received(1).AddStatus(ticket, _ticketHelper, ticketResult.TicketDataList, false);
             });
         }

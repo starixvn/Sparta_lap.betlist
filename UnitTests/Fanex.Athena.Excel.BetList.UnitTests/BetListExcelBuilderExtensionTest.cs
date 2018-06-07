@@ -1,16 +1,16 @@
-﻿using System.Linq;
-using Fanex.Athena.Constant.DataDomain;
-using Fanex.Athena.Model.BetList.DTO;
-using Fanex.Athena.Resources;
-using Fanex.BetList.Core.Builder;
-using Fanex.BetList.Core.Entities;
-using NPOI.SS.UserModel;
-using NPOI.SS.Util;
-using NSubstitute;
-using NUnit.Framework;
-
-namespace Fanex.Athena.Excel.BetList.UnitTests
+﻿namespace Fanex.Athena.Excel.BetList.UnitTests
 {
+    using System.Linq;
+    using Constant.DataDomain;
+    using Fanex.BetList.Core.Builder;
+    using Fanex.BetList.Core.Entities;
+    using Model.BetList.DTO;
+    using NPOI.SS.UserModel;
+    using NPOI.SS.Util;
+    using NSubstitute;
+    using NUnit.Framework;
+    using Resources;
+
     [TestFixture]
     internal class BetListExcelBuilderExtensionTest
     {
@@ -24,7 +24,7 @@ namespace Fanex.Athena.Excel.BetList.UnitTests
             _font = Substitute.For<IFont>();
         }
 
-        [TestCase(false, "1,000.00\n")]
+        [TestCase(false, "1,000.00")]
         [TestCase(true, "1,000.00\n2.99")]
         public void AddCustomerWL_ShowPlayerComm_CallAddCell(bool isShowPlayerComm, string expectedValue)
         {
@@ -42,7 +42,7 @@ namespace Fanex.Athena.Excel.BetList.UnitTests
             _builder.Received(1).AddCell(Arg.Is<IRichTextString>(x => x.String == expectedValue));
         }
 
-        [TestCase("running", "--")]
+        [TestCase("running", "-\n-")]
         [TestCase("abc", "1,000.00\n2.99")]
         public void AddCustomerWL_Status_CallAddCell(string status, string expectedValue)
         {
@@ -172,7 +172,7 @@ namespace Fanex.Athena.Excel.BetList.UnitTests
         {
             // Arrange
             const string CustomerWLHeader = "aaaaaaaaaaaaaaaaaa";
-            var captions = new[] 
+            var captions = new[]
             {
                 "#", ViewResources.ExternalId, ViewResources.SystemId, ViewResources.TransTime, ViewResources.Choice, ViewResources.Odds, ViewResources.Stake,
                 CustomerWLHeader, ViewResources.EffectiveBettingValue, ViewResources.LicenseeWL + "/" + ViewResources.Comm, ViewResources.Status

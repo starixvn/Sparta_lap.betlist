@@ -16,7 +16,6 @@ namespace Fanex.Athena.DataAccess.BetList
     using Fanex.Athena.DataAccess.BetList.Interfaces;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Extensions;
-    using Fanex.Athena.Extension;
     using Fanex.Athena.Model.BetList.DTO;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.BetList.Core.Entities;
@@ -121,45 +120,18 @@ namespace Fanex.Athena.DataAccess.BetList
             }
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         public TicketResult GetBetListData(BetListMetaModel metaModel, string uspKey)
         {
-            var outPutParams = new Hashtable
-            {
-                    { "totalrows", DBNull.Value },
-                    { "sumwinlost", DBNull.Value },
-                    { "sumwinlostusd", DBNull.Value },
-                    { "sumwinlosteur", DBNull.Value },
-                    { "sumwinlostgbp", DBNull.Value },
-                    { "sumbeteffective", DBNull.Value },
-                    { "sumbeteffectiveusd", DBNull.Value },
-                    { "sumbeteffectiveeur", DBNull.Value },
-                    { "sumbeteffectivegbp", DBNull.Value },
-                    { "sumlicenseewl", DBNull.Value },
-                    { "sumlicenseewlusd", DBNull.Value },
-                    { "sumlicenseewleur", DBNull.Value },
-                    { "sumlicenseewlgbp", DBNull.Value },
-                    { "sumcomm", DBNull.Value },
-                    { "sumcommusd", DBNull.Value },
-                    { "sumcommeur", DBNull.Value },
-                    { "sumcommgbp", DBNull.Value },
-                    { "sumplayercomm", DBNull.Value },
-                    { "sumplayercommusd", DBNull.Value },
-                    { "sumplayercommeur", DBNull.Value },
-                    { "sumplayercommgbp", DBNull.Value },
-                    { "sumstake", DBNull.Value },
-                    { "sumstakeusd", DBNull.Value },
-                    { "sumstakeeur", DBNull.Value },
-                    { "sumstakegbp", DBNull.Value }
-            };
-            var baseCurrency = metaModel.BaseCurrency;
             var ticketResult = new TicketResult();
             try
             {
                 using (var db = this.GetObjectDb(uspKey))
                 {
-                    BetListParameterBuilder.CreateBetListParameters(db, uspKey, metaModel);
+                    var dataInfo = BetListParameterBuilder.CreateBetListParameters(db, uspKey, metaModel);
+                    var baseCurrency = dataInfo.BaseCurrencies != null && dataInfo.BaseCurrencies.Contains(metaModel.BaseCurrency, StringComparer.InvariantCultureIgnoreCase)
+                        ? metaModel.BaseCurrency
+                        : string.Empty;
+
                     using (var reader = db.ExecuteReader())
                     {
                         ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader, baseCurrency, metaModel.CustId));
@@ -173,37 +145,40 @@ namespace Fanex.Athena.DataAccess.BetList
 
                     var outSqlParams = db.GetOuputParams();
 
-                    if (outSqlParams != null)
+                    if (outSqlParams == null)
                     {
-                        outPutParams.UpdateWith(outSqlParams);
+                        outSqlParams = new Hashtable();
                     }
 
-                    ticketResult.TotalRows = Converter.ToInt(outPutParams["totalrows"]);
-                    ticketResult.SumWinLoss =
-                        outPutParams["sumwinlost" + baseCurrency] != DBNull.Value ?
-                        Converter.ToDecimal(outPutParams["sumwinlost" + baseCurrency])
-                    : ticketResult.MainTicketList.Sum(x => x.Winlost);
-                    ticketResult.SumBetEffective =
-                        outPutParams["sumbeteffective" + baseCurrency] != DBNull.Value ?
-                        Converter.ToDecimal(outPutParams["sumbeteffective" + baseCurrency])
-                    : ticketResult.MainTicketList.Sum(x => x.BetEffective);
-                    ticketResult.SumLicenseeWL = outPutParams["sumlicenseewl" + baseCurrency] != DBNull.Value
-                        ? Converter.ToDecimal(outPutParams["sumlicenseewl" + baseCurrency])
-                        : ticketResult.MainTicketList.Sum(x => x.LicenseeWL);
-                    ticketResult.SumComm = outPutParams["sumcomm" + baseCurrency] != DBNull.Value
-                        ? Converter.ToDecimal(outPutParams["sumcomm" + baseCurrency])
-                        : ticketResult.MainTicketList.Sum(x => x.Comm);
-                    ticketResult.SumPlayerComm = outPutParams["sumplayercomm" + baseCurrency] != DBNull.Value
-                        ? Converter.ToDecimal(outPutParams["sumplayercomm" + baseCurrency])
-                        : ticketResult.MainTicketList.Sum(x => x.PlayerComm);
+                    UpdateSummaryData(ticketResult, outSqlParams, baseCurrency);
 
                     return ticketResult;
                 }
             }
-            catch (System.Exception sqlException)
+            catch (Exception sqlException)
             {
                 throw new DataAccessException(sqlException, uspKey, metaModel);
             }
+        }
+
+        private static void UpdateSummaryData(TicketResult ticketResult, Hashtable outPutParams, string baseCurrency)
+        {
+            ticketResult.TotalRows = Converter.ToInt(outPutParams["totalrows"]);
+            ticketResult.SumWinLoss = outPutParams.ContainsKey("sumwinlost" + baseCurrency)
+                ? Converter.ToDecimal(outPutParams["sumwinlost" + baseCurrency])
+                : ticketResult.MainTicketList.Sum(x => x.Winlost);
+            ticketResult.SumBetEffective = outPutParams.ContainsKey("sumbeteffective" + baseCurrency)
+                ? Converter.ToDecimal(outPutParams["sumbeteffective" + baseCurrency])
+                : ticketResult.MainTicketList.Sum(x => x.BetEffective);
+            ticketResult.SumLicenseeWL = outPutParams.ContainsKey("sumlicenseewl" + baseCurrency)
+                ? Converter.ToDecimal(outPutParams["sumlicenseewl" + baseCurrency])
+                : ticketResult.MainTicketList.Sum(x => x.LicenseeWL);
+            ticketResult.SumComm = outPutParams.ContainsKey("sumcomm" + baseCurrency)
+                ? Converter.ToDecimal(outPutParams["sumcomm" + baseCurrency])
+                : ticketResult.MainTicketList.Sum(x => x.Comm);
+            ticketResult.SumPlayerComm = outPutParams.ContainsKey("sumplayercomm" + baseCurrency)
+                ? Converter.ToDecimal(outPutParams["sumplayercomm" + baseCurrency])
+                : ticketResult.MainTicketList.Sum(x => x.PlayerComm);
         }
 
         private static IEnumerable<ITicketData> ReadLrfReferneceTicket(IDataReader reader, string baseCurrency)

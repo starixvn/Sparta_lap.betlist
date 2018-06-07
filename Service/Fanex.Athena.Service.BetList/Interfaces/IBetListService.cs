@@ -6,7 +6,6 @@
 
 namespace Fanex.Athena.Service.BetList.Interfaces
 {
-    using System.Collections.Generic;
     using Fanex.Athena.Model.BetList.DTO;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.BetList.Core.Entities;

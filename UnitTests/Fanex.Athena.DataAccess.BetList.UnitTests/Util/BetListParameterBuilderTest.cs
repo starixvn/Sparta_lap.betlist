@@ -1,9 +1,12 @@
 ﻿namespace Fanex.Athena.DataAccess.BetList.UnitTests.Util
 {
+    using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
     using BetList.Util;
     using Data;
     using Model.BetList.MetaModel;
+    using Model.Core.DataDomain;
     using NSubstitute;
     using NUnit.Framework;
     using UnitTest.Common.Helpers;
@@ -376,7 +379,7 @@
         public void CreateBetListParameters_CalledByOutStandingCompletedBetList_ParametersPassedCorrectly()
         {
             // Arrange
-            const string UspKey = "Lrf_BetList_SelAllByDate_Mem";
+            const string UspKey = "Lrf_BetList_CustomerList_Mem";
 
             // Action
             BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, _metaModel);
@@ -388,7 +391,7 @@
                 _objectDb.Received(1).AddInParameter("custid", DbType.Int32, _metaModel.CustId);
                 AssertDateRangeParameters(_objectDb, _metaModel);
                 AssertPagingParameters(_objectDb, _metaModel);
-                AssertSummaryParameters(_objectDb);
+                AssertSummaryParameters(_objectDb, Enumerable.Empty<string>());
                 _objectDb.Received(1).AddInParameter("showSB", DbType.Boolean, true);
                 _objectDb.Received(1).AddInParameter("showNG", DbType.Boolean, true);
             });
@@ -653,24 +656,17 @@
             });
         }
 
-        private static void AssertSummaryParameters(IObjectDb objectDb)
+        private static void AssertSummaryParameters(IObjectDb objectDb, IEnumerable<string> baseCurrencyCols = null)
         {
-            objectDb.Received(1).AddOutParameter("SumWinlost", DbType.Currency, 8);
-            objectDb.Received(1).AddOutParameter("SumLicenseeWL", DbType.Currency, 8);
-            objectDb.Received(1).AddOutParameter("SumComm", DbType.Currency, 8);
-            objectDb.Received(1).AddOutParameter("SumPlayerComm", DbType.Currency, 8);
-            objectDb.Received(1).AddOutParameter("SumWinlostUSD", DbType.Currency, 8);
-            objectDb.Received(1).AddOutParameter("SumLicenseeWLUSD", DbType.Currency, 8);
-            objectDb.Received(1).AddOutParameter("SumCommUSD", DbType.Currency, 8);
-            objectDb.Received(1).AddOutParameter("SumPlayerCommUSD", DbType.Currency, 8);
-            objectDb.Received(1).AddOutParameter("SumWinlostEUR", DbType.Currency, 8);
-            objectDb.Received(1).AddOutParameter("SumLicenseeWLEUR", DbType.Currency, 8);
-            objectDb.Received(1).AddOutParameter("SumCommEUR", DbType.Currency, 8);
-            objectDb.Received(1).AddOutParameter("SumPlayerCommEUR", DbType.Currency, 8);
-            objectDb.Received(1).AddOutParameter("SumWinlostGBP", DbType.Currency, 8);
-            objectDb.Received(1).AddOutParameter("SumLicenseeWLGBP", DbType.Currency, 8);
-            objectDb.Received(1).AddOutParameter("SumCommGBP", DbType.Currency, 8);
-            objectDb.Received(1).AddOutParameter("SumPlayerCommGBP", DbType.Currency, 8);
+            var baseCurrencyExpectedCols = baseCurrencyCols ?? SystemConstants.BaseCurrencyList;
+            var summaryParams = new[] { "SumWinlost", "SumLicenseeWL", "SumComm", "SumPlayerComm" };
+
+            var expectedParams = summaryParams.Join(baseCurrencyExpectedCols, b => true, s => true, (b, s) => b + s).Concat(summaryParams);
+
+            foreach (var param in expectedParams)
+            {
+                objectDb.Received(1).AddOutParameter(param, DbType.Currency, 8);
+            }
         }
 
         private static void AssertPagingParameters(IObjectDb objectDb, BetListMetaModel metaModel)

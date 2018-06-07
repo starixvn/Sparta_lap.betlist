@@ -3,16 +3,16 @@
     using System;
     using System.Collections.Generic;
     using System.Dynamic;
+    using System.Linq;
     using Model.BetList.MetaModel;
     using Model.Core.DTO.Common;
-    using Model.Core.DTO.Users;
     using NSubstitute;
     using NUnit.Framework;
     using Session.Model;
 
     public class OutStandingCompletedBetListControllerTest : ApiBetListBaseControllerHelperTest
     {
-        private const string UspKey = "Lrf_BetList_SelAllByDate_Mem";
+        private const string UspKey = "Lrf_BetList_CustomerList_Mem";
 
         private const string BetListCustomerOutstandingName = "BetList_CustomerOutstanding";
 

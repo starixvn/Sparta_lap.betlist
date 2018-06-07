@@ -7,7 +7,7 @@
     using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
 
-    public class FakeBaseController : BaseController
+    internal class FakeBaseController : BaseController
     {
         internal FakeBaseController(ILanguageService languageService, ISessionService sessionService, IAppSettings appSetting, IClientViewHelper clientViewHelper)
             : base(languageService, sessionService, appSetting, clientViewHelper)
