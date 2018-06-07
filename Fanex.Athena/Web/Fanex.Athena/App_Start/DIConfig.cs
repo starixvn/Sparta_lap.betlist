@@ -1,12 +1,22 @@
-﻿using System.IO;
+﻿using System;
 using System.Linq;
 using System.Reflection;
-using System.Web;
+using System.Web.Compilation;
 using System.Web.Http;
+using System.Web.Http.ExceptionHandling;
 using System.Web.Mvc;
 using Autofac;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
+using Fanex.Athena.Api.Base.Logger;
+using Fanex.BetList.Core.Builder;
+using Fanex.BetList.Core.Entities;
+using Fanex.BetList.Core.TicketHelper;
+using Fanex.Logging;
+using Fanex.Result.Core.MicroGaming;
+using Fanex.Result.Core.PP;
+using ONEbook.UM.Services;
+using ONEbook.UM.Services.Impl;
 
 namespace Fanex.Athena
 {
@@ -16,12 +26,20 @@ namespace Fanex.Athena
         {
             var builder = new ContainerBuilder();
             var config = GlobalConfiguration.Configuration;
+            var assemblies = GetAssemblies();
+            var serviceAssemblies = GetServiceAssemblies(assemblies);
+            var controllerAssemblies = GetControllerAssemblies(assemblies);
+            var apiControllerAssemblies = GetApiControllerAssemblies(assemblies);
+            builder.RegisterAssemblyTypes(serviceAssemblies).AsImplementedInterfaces();
+            builder.RegisterControllers(controllerAssemblies);
+            builder.RegisterApiControllers(apiControllerAssemblies);
 
-            var assemblyFilePaths = GetAssemblyFilePaths();
+            builder.RegisterFilterProvider();
+            builder.RegisterWebApiFilterProvider(config);
 
-            builder.RegisterAssemblyTypes(GetServiceAssemblies(assemblyFilePaths)).AsImplementedInterfaces();
-            builder.RegisterControllers(GetControllerAssemblies(assemblyFilePaths));
-            builder.RegisterApiControllers(GetApiControllerAssemblies(assemblyFilePaths));
+            RegisterThirdpartyServices(builder);
+
+            builder.RegisterType<ApiExceptionLogger>().As<IExceptionLogger>();
 
             // Set the dependency resolver to be Autofac.
             var container = builder.Build();
@@ -29,34 +47,47 @@ namespace Fanex.Athena
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
         }
 
-        private static Assembly[] GetServiceAssemblies(string[] assemblyFilePaths)
+        private static void RegisterThirdpartyServices(ContainerBuilder builder)
+        {
+            builder.RegisterType<MaintenanceService>().As<IMaintenanceService>();
+            builder.RegisterType<TicketHelper>().As<ITicketHelper>();
+            builder.RegisterType<BetListHTMLBuilder>().As<IBetListHTMLBuilder>();
+            builder.RegisterType<PPResult>().As<IPPResult>();
+
+            builder.RegisterInstance(ParserService.Instance).As<IParserService>();
+            builder.RegisterInstance(Logger.Log).As<Logging.ILogger>();
+        }
+
+        private static Assembly[] GetAssemblies()
+        {
+            Assembly[] assemblies = null;
+            try
+            {
+                assemblies = BuildManager.GetReferencedAssemblies().Cast<Assembly>().ToArray();
+            }
+            catch
+            {
+                assemblies = AppDomain.CurrentDomain.GetAssemblies().Where(i => !i.IsDynamic).ToArray();
+            }
+
+            return assemblies.Where(x => x.FullName.StartsWith("Fanex.Athena", StringComparison.InvariantCulture))
+                .ToArray();
+        }
+
+        private static Assembly[] GetServiceAssemblies(Assembly[] assemblies)
         {
             string[] controllerFileNames = new[] { "Fanex.Athena.Controllers", "Fanex.Athena.Api" };
-            var filePaths = assemblyFilePaths.Where(p =>
-            {
-                var fileName = Path.GetFileName(p);
-                return fileName.Contains("Fanex.Athena") && !controllerFileNames.Any(x => fileName.Contains(x));
-            });
-
-            return filePaths.Select(Assembly.LoadFrom).ToArray();
+            return assemblies.Where(ass => !controllerFileNames.Any(x => ass.FullName.Contains(x))).ToArray();
         }
 
-        private static Assembly[] GetControllerAssemblies(string[] assemblyFilePaths)
+        private static Assembly[] GetControllerAssemblies(Assembly[] assemblies)
         {
-            var filePaths = assemblyFilePaths.Where(p => Path.GetFileName(p).Contains("Fanex.Athena.Controllers"));
-            return filePaths.Select(Assembly.LoadFrom).ToArray();
+            return assemblies.Where(ass => ass.FullName.Contains("Fanex.Athena.Controllers")).ToArray();
         }
 
-        private static Assembly[] GetApiControllerAssemblies(string[] assemblyFilePaths)
+        private static Assembly[] GetApiControllerAssemblies(Assembly[] assemblies)
         {
-            var filePaths = assemblyFilePaths.Where(p => Path.GetFileName(p).Contains("Fanex.Athena.Api"));
-            return filePaths.Select(Assembly.LoadFrom).ToArray();
-        }
-
-        private static string[] GetAssemblyFilePaths()
-        {
-            var path = HttpContext.Current.Server.MapPath("~/bin");
-            return Directory.GetFiles(path, "*.dll");
+            return assemblies.Where(ass => ass.FullName.Contains("Fanex.Athena.Api")).ToArray();
         }
     }
 }
