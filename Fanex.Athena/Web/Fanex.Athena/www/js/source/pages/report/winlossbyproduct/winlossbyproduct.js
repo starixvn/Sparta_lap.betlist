@@ -29,7 +29,7 @@
                 }
             });
             if (resultProducts.length > 0) {
-                return (caption || Site.getSingleResource("LicenseeW_L")) + "(" + resultProducts.join(', ') + ")";
+                return (caption || Site.getSingleResource("LicenseeW_L")) + " (" + resultProducts.join(', ') + ")";
             }
             else {
                 return caption || "";

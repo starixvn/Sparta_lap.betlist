@@ -320,7 +320,7 @@
 
                         WinLossByProduct.setReportTitle(1, new Date("Apr 10, 2015"), new Date("Apr 15, 2015"), "USD");
 
-                        expect($('.report-title').html()).toBe('WinLossByProduct, 04/10/2015 → 04/15/2015 - Viewin, LicenseeW_L(SB)');
+                        expect($('.report-title').html()).toBe('WinLossByProduct, 04/10/2015 → 04/15/2015 - Viewin, LicenseeW_L (SB)');
                     });
 
                     it("When not pass currencyName param - Report.getCurrencyNameForReportTitle(currencyId) should be called with correct parameter", function () {
@@ -365,7 +365,7 @@
 
                         WinLossByProduct.setReportTitle(1, new Date("Apr 10, 2015"), new Date("Apr 15, 2015"), "USD");
 
-                        expect($('.report-title').html()).toBe('WinLossByProduct, 04/10/2015 → 04/15/2015 - Viewin, LicenseeW_L(SB)');
+                        expect($('.report-title').html()).toBe('WinLossByProduct, 04/10/2015 → 04/15/2015 - Viewin, LicenseeW_L (SB)');
                     });
                 });
 
