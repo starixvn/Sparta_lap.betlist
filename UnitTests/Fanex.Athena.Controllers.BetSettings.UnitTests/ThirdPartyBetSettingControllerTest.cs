@@ -80,7 +80,7 @@
         [TestCase(0)]
         [TestCase(16)]
         [TestCase(ProductTypes.BA)]
-        [TestCase(ProductTypes.Sportsbook)]
+        [TestCase(ProductTypes.CashOut)]
         public void Index_InvalidProduct_ThrowException(int productId)
         {
             using (var controller = CreateController())
