@@ -33,7 +33,7 @@ namespace Fanex.Athena.Controllers.Forecast
             IForecastService forecastService)
         : base(languageService, sessionService, appSetting, clientViewHelper)
         {
-            _forecastService = forecastService ?? new ForecastService();
+            _forecastService = forecastService;
         }
 
         protected IForecastService ForecastService
