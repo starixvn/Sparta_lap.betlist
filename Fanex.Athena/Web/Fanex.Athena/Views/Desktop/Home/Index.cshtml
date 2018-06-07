@@ -1,7 +1,8 @@
 ﻿@using Fanex.Athena.Extension.Utility;
+@using Fanex.Athena.Service.Core.Users.Interfaces;
 @{
     Layout = null;
-    var sessionService = new Fanex.Athena.Service.Core.Users.SessionService();
+    var sessionService = DependencyResolver.Current.GetService<ISessionService>();
     var licenseeName = sessionService.LicenseeSession.LicenseeName;
     var langCode = System.Globalization.CultureInfo.CurrentUICulture.IetfLanguageTag;
 }

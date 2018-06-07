@@ -1,8 +1,9 @@
-﻿@{
+﻿@using Fanex.Athena.Service.Core.Users.Interfaces;
+@{
     Layout = null;
 }
 @{
-    var sessionService = new Fanex.Athena.Service.Core.Users.SessionService();
+    var sessionService = DependencyResolver.Current.GetService<ISessionService>();
     var hasCustComm = sessionService.LicenseeSession != null && sessionService.LicenseeSession.IsAllowedCustomerComm;
 }
 

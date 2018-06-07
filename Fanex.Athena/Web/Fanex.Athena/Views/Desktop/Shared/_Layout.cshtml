@@ -1,5 +1,7 @@
-﻿@{
-    var sessionService = new Fanex.Athena.Service.Core.Users.SessionService();
+﻿@using Fanex.Athena.Service.Core.Users.Interfaces;
+@{
+    var sessionService = DependencyResolver.Current.GetService<ISessionService>();
+    var appSettings = DependencyResolver.Current.GetService<IAppSettings>();
     var userSession = sessionService.UserSession;
     var licSession = sessionService.LicenseeSession;
     var userCurrencies = userSession == null || userSession.CurrencyList == null ?
@@ -8,7 +10,6 @@
 
     var hasCustComm = licSession != null && licSession.IsAllowedCustomerComm;
     var isParasiticMode = userSession != null && userSession.ApplicationMode == Fanex.Athena.Session.Enum.AppMode.Parasitic;
-    var appSettings = new AppSettings();
     var isFakeLicensee = appSettings.FakeLicenseeList.Contains(licSession.LicenseeId);
     var langCode = System.Globalization.CultureInfo.CurrentUICulture.IetfLanguageTag;
 }

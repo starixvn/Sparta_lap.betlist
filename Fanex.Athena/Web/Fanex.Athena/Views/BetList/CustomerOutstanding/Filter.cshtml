@@ -1,7 +1,7 @@
 ﻿@model Fanex.Athena.Model.BetList.ViewModel.BetListBaseViewModel
 @using (Html.BeginForm("DailyBetList", "BetList", FormMethod.Post, new { @id = "DailyBetListForm" }))
 {
-    var appSettings = new AppSettings();
+    var appSettings = DependencyResolver.Current.GetService<IAppSettings>();
     // Only restrict from date for Bet List
     var minDate = Model.Param.BetListName == "betlist" ? DateTime.Today.AddDays(-90) : appSettings.HistoryDate;
     <div class="grid_3 filter-input" style="padding: 5px">

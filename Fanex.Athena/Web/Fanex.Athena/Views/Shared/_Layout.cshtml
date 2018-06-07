@@ -1,14 +1,15 @@
 ﻿@using System.Linq;
 @using System.Web.Optimization;
+@using Fanex.Athena.Service.Core.Users.Interfaces;
 
 @{
-    var sessionService = new Fanex.Athena.Service.Core.Users.SessionService();
+    var sessionService = DependencyResolver.Current.GetService<ISessionService>();
+    var appSettings = DependencyResolver.Current.GetService<IAppSettings>();
     var userSession = sessionService.UserSession;
     var licSession = sessionService.LicenseeSession;
     var userCurrencies = userSession == null || userSession.CurrencyList == null ?
         new Dictionary<string, string>() :
         userSession.CurrencyList.ToDictionary(x => x.Key.ToString(), x => x.Value);
-    var appSettings = new AppSettings();
     var isParasiticMode = userSession != null && userSession.ApplicationMode == Fanex.Athena.Session.Enum.AppMode.Parasitic;
     var isFakeLicensee = appSettings.FakeLicenseeList.Contains(licSession.LicenseeId);
 }
