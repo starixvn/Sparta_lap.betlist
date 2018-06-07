@@ -4,7 +4,6 @@ using Fanex.Athena.Model.Customer.MetaModel;
 using Fanex.Athena.Service.Casino.Interfaces;
 using Fanex.Athena.Service.Casino.Wrappers;
 using Fanex.Athena.Service.Core.Exception;
-using Fanex.Athena.Service.Core.Utility;
 using Fanex.Athena.Service.Core.Utility.Interfaces;
 
 namespace Fanex.Athena.Service.Casino
@@ -15,14 +14,10 @@ namespace Fanex.Athena.Service.Casino
 
         private readonly ICustomerApiWrapper _customerApiWrapper;
 
-        public CasinoCustomerService() : this(null, null)
-        {
-        }
-
         public CasinoCustomerService(ICoreLogger logger, ICustomerApiWrapper customerApiWrapper)
         {
-            _logger = logger ?? new CoreLogger();
-            _customerApiWrapper = customerApiWrapper ?? new CustomerApiWrapper();
+            _logger = logger;
+            _customerApiWrapper = customerApiWrapper;
         }
 
         public bool UpdateSuspend(CustomerStatusMetaModel metaModel)

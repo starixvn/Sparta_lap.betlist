@@ -38,14 +38,7 @@ namespace Fanex.Athena.Service.Casino
         private readonly IAppSettings _appSettings;
 
         private readonly IWebClientService _webClientService;
-
-        public RngCasinoSingleWalletService()
-        {
-            _logger = new CoreLogger();
-            _appSettings = new AppSettings();
-            _webClientService = new WebClientService();
-        }
-
+        
         public RngCasinoSingleWalletService(ICoreLogger logger, IAppSettings appSettings, IWebClientService webClientService)
         {
             _logger = logger;

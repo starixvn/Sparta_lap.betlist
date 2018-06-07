@@ -9,9 +9,7 @@ namespace Fanex.Athena.Service.BetList
     using System.Collections.Generic;
     using System.Linq;
     using Constant.DataDomain;
-    using Extension.Utility;
     using Extension.Utility.Interfaces;
-    using Fanex.Athena.DataAccess.BetList;
     using Fanex.Athena.DataAccess.BetList.Interfaces;
     using Fanex.Athena.Model.BetList.DTO;
     using Fanex.Athena.Model.BetList.MetaModel;
@@ -31,12 +29,6 @@ namespace Fanex.Athena.Service.BetList
         private readonly ILastBetsMonitoringBetListDataAccess _lastBetsMonitoringBetListDataAccess;
 
         private readonly IMemoryCacheService _cache;
-
-        public LastBetsMonitoringBetListService()
-        {
-            _cache = new MemoryCacheService();
-            _lastBetsMonitoringBetListDataAccess = new LastBetsMonitoringBetListDataAccess();
-        }
 
         public LastBetsMonitoringBetListService(
             ILastBetsMonitoringBetListDataAccess lastBetsMonitoringBetListDataAccess,

@@ -12,13 +12,11 @@ namespace Fanex.Athena.Service.Report
     using System.Linq;
     using Constant.DataDomain;
     using DataAccess.Report.Interfaces;
-    using Fanex.Athena.DataAccess.Report;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Service.Report.Interfaces;
     using Resources;
-    using VendorAdapter;
     using VendorAdapter.Interfaces;
 
     public class MatchWinLossService : IMatchWinLossService
@@ -44,12 +42,6 @@ namespace Fanex.Athena.Service.Report
         {
             this._matchWinLossDataAccess = matchWinLossDataAccess;
             _cacheRefAdapter = cacheRefAdapter;
-        }
-
-        public MatchWinLossService()
-        {
-            this._matchWinLossDataAccess = new MatchWinLossDataAccess();
-            _cacheRefAdapter = new CacheRefAdapter();
         }
 
         #region IMatchWinLossService Members

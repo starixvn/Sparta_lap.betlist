@@ -2,20 +2,20 @@
 {
     using System;
     using CasinoLibrary.Model.UserException;
-    using Core.Utility;
-    using Core.Utility.Interfaces;
+    using Logging;
 
     public class ApiMethodOperationHandler<T>
     {
-        private readonly ICoreLogger _logger;
+        private readonly ILogger _logger;
 
-        public ApiMethodOperationHandler() : this(null)
+        public ApiMethodOperationHandler()
         {
+            _logger = Logger.Log;
         }
 
-        public ApiMethodOperationHandler(ICoreLogger logger)
+        public ApiMethodOperationHandler(ILogger logger)
         {
-            _logger = logger ?? new CoreLogger();
+            _logger = logger;
         }
 
         public delegate V OutAction<in IInput, out V>(IInput input);
@@ -34,7 +34,7 @@
             {
                 if (exception is ErrorException)
                 {
-                    _logger.Error(exception, exception.Message);
+                    _logger.Error(exception.Message, exception);
                 }
                 else
                 {

@@ -29,14 +29,7 @@
         private readonly ILicenseeDataAccess _licenseeDataAccess;
         private readonly IFormsAuthenticationService _formsAuthenticationService;
         private readonly IOneBookSecurityWrapper _oneBookSecurityWrapper;
-        private readonly ICoreLogger _logger;
-
-        private readonly IOneAuthDataAccess _oneAuthDataAccess;
-
-        public OneAuthenticationService() : this(null, null, null, null, null, null)
-        {
-        }
-
+        
         public OneAuthenticationService(
             ISessionService sessionService,
             ILicenseeDataAccess licenseeDataAccess,
@@ -45,10 +38,10 @@
             ICoreLogger logger,
             IOneAuthDataAccess oneAuthDataAccess)
         {
-            _sessionService = sessionService ?? new SessionService();
-            _licenseeDataAccess = licenseeDataAccess ?? new LicenseeDataAccess();
-            _formsAuthenticationService = formsAuthenticationService ?? new FormsAuthenticationService();
-            _oneBookSecurityWrapper = oneBookSecurityWrapper ?? new OneBookSecurityWrapper();
+            _sessionService = sessionService;
+            _licenseeDataAccess = licenseeDataAccess;
+            _formsAuthenticationService = formsAuthenticationService;
+            _oneBookSecurityWrapper = oneBookSecurityWrapper;
             _logger = logger ?? new CoreLogger();
             _oneAuthDataAccess = oneAuthDataAccess ?? new OneAuthDataAccess();
         }

@@ -32,12 +32,6 @@ namespace Fanex.Athena.Service.Forecast
 
         private readonly IForecastDataAccess _forecastDataAccess;
 
-        public ForecastService()
-        {
-            _leagueDataAccess = new LeagueDataAccess();
-            _forecastDataAccess = new ForecastDataAccess();
-        }
-
         public ForecastService(ILeagueDataAccess leagueDataAccess, IForecastDataAccess forecastDataAccess)
         {
             _leagueDataAccess = leagueDataAccess;

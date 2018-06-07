@@ -43,11 +43,7 @@ namespace Fanex.Athena.Service.BetSettings
         private readonly ICitiXchangeClient _apiClient;
 
         private readonly IDcsBetSettingDataAccess _betSettingDataAccess;
-
-        public ExchangeCommApiService() : this(null, null, null, null, null, null)
-        {
-        }
-
+        
         public ExchangeCommApiService(
             IAuthorizationService authorizationService,
             ILogger logger,
@@ -57,10 +53,10 @@ namespace Fanex.Athena.Service.BetSettings
             ICitiXchangeClient apiClient)
             : base(authorizationService)
         {
-            _logger = logger ?? Logger.Log;
-            _userLogDataAccess = userLogDataAccess ?? new UserLogDataAccess();
-            _betSettingDataAccess = betSettingDataAccess ?? new DcsBetSettingDataAccess();
-            _appSetting = appSetting ?? new AppSettings();
+            _logger = logger;
+            _userLogDataAccess = userLogDataAccess;
+            _betSettingDataAccess = betSettingDataAccess;
+            _appSetting = appSetting;
             _apiClient = apiClient ?? (ICitiXchangeClient)Activator.GetObject(typeof(ICitiXchangeClient), _appSetting.ExchangeProductApiHost);
         }
 

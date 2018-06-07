@@ -21,14 +21,7 @@
         private readonly ISubsidiaryService _subsidiaryService;
 
         private readonly ISubsidiaryPerformanceDataAccess _subLicenseePerformanceDataAccess;
-
-        public SubsidiaryPerformanceService()
-        {
-            _sessionService = new SessionService();
-            _subsidiaryService = new SubsidiaryService();
-            _subLicenseePerformanceDataAccess = new SubsidiaryPerformanceDataAccess();
-        }
-
+        
         public SubsidiaryPerformanceService(
             ISessionService sessionService, 
             ISubsidiaryService subsidiaryService, 

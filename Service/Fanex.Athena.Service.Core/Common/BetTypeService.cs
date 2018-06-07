@@ -9,7 +9,6 @@ namespace Fanex.Athena.Service.Core.Common
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
-    using Fanex.Athena.DataAccess.Core.Common;
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
@@ -20,11 +19,6 @@ namespace Fanex.Athena.Service.Core.Common
     public class BetTypeService : IBetTypeService
     {
         private readonly IBetTypeDataAccess _betTypeDataAccess;
-
-        public BetTypeService()
-        {
-            _betTypeDataAccess = new BetTypeDataAccess();
-        }
 
         public BetTypeService(IBetTypeDataAccess betTypeDataAccess)
         {

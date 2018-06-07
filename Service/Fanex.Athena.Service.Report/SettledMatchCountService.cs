@@ -10,12 +10,10 @@ namespace Fanex.Athena.Service.Report
     using System.Linq;
     using Constant.DataDomain;
     using DataAccess.Report.Interfaces;
-    using Fanex.Athena.DataAccess.Report;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.ViewModel;
     using Fanex.Athena.Service.Report.Interfaces;
-    using VendorAdapter;
     using VendorAdapter.Interfaces;
 
     public class SettledMatchCountService : ISettledMatchCountService
@@ -23,12 +21,6 @@ namespace Fanex.Athena.Service.Report
         private readonly ISettledMatchCountDataAccess _settledMatchCountDataAccess;
 
         private readonly ICacheRefAdapter _cacheRefAdapter;
-
-        public SettledMatchCountService()
-        {
-            this._settledMatchCountDataAccess = new SettledMatchCountDataAccess();
-            _cacheRefAdapter = new CacheRefAdapter();
-        }
 
         public SettledMatchCountService(ISettledMatchCountDataAccess settledMatchCountDataAccess, ICacheRefAdapter cacheRefAdapter)
         {

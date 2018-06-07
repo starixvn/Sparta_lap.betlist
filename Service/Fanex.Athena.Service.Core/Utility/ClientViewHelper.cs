@@ -3,7 +3,6 @@
     using System.Web;
     using Extension.Utility;
     using Extension.Utility.Interfaces;
-    using Fanex.Athena.Model.Core.DataDomain;
     using Model.Core.DTO.Common;
     using Session.Enum;
 
@@ -11,13 +10,9 @@
     {
         private readonly IFileSystem _file;
 
-        public ClientViewHelper() : this(null)
-        {
-        }
-
         public ClientViewHelper(IFileSystem file)
         {
-            _file = file ?? new FileSystem();
+            _file = file;
         }
 
         public ViewByOption GetViewPath(string viewPath, ClientViewType viewtype)

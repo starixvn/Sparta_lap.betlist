@@ -8,17 +8,15 @@ namespace Fanex.Athena.Service.Core.Users
 {
     using System.Collections.Specialized;
     using System.Web;
+    using Common.Interfaces;
     using Extension.Utility.Interfaces;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Core.DTO.Users;
-    using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Logging;
-    using Model.Core.DataDomain;
     using Model.Core.MetaModel.Authorization;
     using Session.Enum;
-    using Utility;
     using Utility.Interfaces;
 
     /// <summary>
@@ -46,10 +44,7 @@ namespace Fanex.Athena.Service.Core.Users
         private readonly IFileSystem _fileSystem;
         private readonly IFormsAuthenticationService _formsAuthenticationService;
         private readonly ILogger _logger;
-
-        public SSOService() : this(null, null, null, null, null, null, null, null)
-        {
-        }
+        private readonly ILanguageService _languageService;
 
 #pragma warning disable S107 // Methods should not have too many parameters
 
@@ -62,18 +57,20 @@ namespace Fanex.Athena.Service.Core.Users
             IFileSystem fileSystem,
             IFormsAuthenticationService formsAuthenticationService,
             ILogger logger,
-            IAppSettings appSetting)
+            IAppSettings appSetting,
+            ILanguageService languageService)
 #pragma warning restore S107 // Methods should not have too many parameters
         {
-            _context = httpContextService ?? new HttpContextService();
-            _authService = authService ?? new AuthService();
-            _sessionService = sessionService ?? new SessionService();
-            _rsaEncryptor = rsaEncryptor ?? new RSAEncryptor();
-            _fileSystem = fileSystem ?? new FileSystem();
-            _formsAuthenticationService = formsAuthenticationService ?? new FormsAuthenticationService();
-            _logger = logger ?? Logger.Log;
+            _context = httpContextService;
+            _authService = authService;
+            _sessionService = sessionService;
+            _rsaEncryptor = rsaEncryptor;
+            _fileSystem = fileSystem;
+            _formsAuthenticationService = formsAuthenticationService;
+            _logger = logger;
+            _languageService = languageService;
 
-            var setting = appSetting ?? new AppSettings();
+            var setting = appSetting;
             _deniedPath = setting.GetValue("SSOUnAuthorizePath");
             _keyPath = setting.GetValue("SSOKeyPath") ?? string.Empty;
         }
@@ -134,8 +131,7 @@ namespace Fanex.Athena.Service.Core.Users
 
             if (IsUserAuthenticated && metaModel.IdentityName == CurrentIdentityName)
             {
-                var langService = new LanguageService();
-                langService.ChangeLanguage(metaModel.LanguageCode);
+                _languageService.ChangeLanguage(metaModel.LanguageCode);
                 _formsAuthenticationService.SetAuthCookie(metaModel.IdentityName, false);
                 _context.Redirect("~/Home/Index");
                 return;

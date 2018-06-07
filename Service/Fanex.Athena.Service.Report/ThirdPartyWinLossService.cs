@@ -7,7 +7,6 @@ namespace Fanex.Athena.Service.Report
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Fanex.Athena.DataAccess.Report;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Report.DTO;
@@ -18,11 +17,6 @@ namespace Fanex.Athena.Service.Report
     public class ThirdPartyWinLossService : IThirdPartyWinLossService
     {
         private readonly IThirdPartyWinLossDataAccess _thirdPartyWinLossDataAccess;
-
-        public ThirdPartyWinLossService()
-        {
-            this._thirdPartyWinLossDataAccess = new ThirdPartyWinLossDataAccess();
-        }
 
         public ThirdPartyWinLossService(IThirdPartyWinLossDataAccess dataAccess)
         {

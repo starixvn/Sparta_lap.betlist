@@ -28,15 +28,11 @@ namespace Fanex.Athena.Service.Core.Configuration
 
         private readonly ILicenseeSettingService _licenseeSettingService;
 
-        public ReportSettingService() : this(null, null, null)
-        {
-        }
-
         public ReportSettingService(IMemoryCacheService cache, IAppSettings appSettings, ILicenseeSettingService licenseeSettingService)
         {
-            _cache = cache ?? new MemoryCacheService();
-            _appSettings = appSettings ?? new AppSettings();
-            _licenseeSettingService = licenseeSettingService ?? new LicenseeSettingService();
+            _cache = cache;
+            _appSettings = appSettings;
+            _licenseeSettingService = licenseeSettingService;
         }
 
         public ReportSetting GetSetting(string reportKey)

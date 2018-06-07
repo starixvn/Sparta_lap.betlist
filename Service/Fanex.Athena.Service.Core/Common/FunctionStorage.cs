@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Fanex.Athena.DataAccess.Core.Common;
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Interfaces;
@@ -22,11 +21,6 @@
         private static IDictionary<int, IEnumerable<Function>> _subFunctions;
 
         private readonly IFunctionDataAccess _functionDataAccess;
-
-        public FunctionStorage()
-        {
-            _functionDataAccess = new FunctionDataAccess();
-        }
 
         public FunctionStorage(IFunctionDataAccess functionDataAccess)
         {

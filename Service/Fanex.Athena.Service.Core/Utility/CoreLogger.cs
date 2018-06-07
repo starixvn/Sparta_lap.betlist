@@ -15,15 +15,11 @@ namespace Fanex.Athena.Service.Core.Utility
 
         private readonly ISessionStorage _sessionStorage;
 
-        public CoreLogger() : this(null, null)
-        {
-        }
-
         [System.CLSCompliant(false)]
         public CoreLogger(ILogger logger, ISessionStorage sessionStorage)
         {
-            _logger = logger ?? Logger.Log;
-            _sessionStorage = sessionStorage ?? new SessionStorage();
+            _logger = logger;
+            _sessionStorage = sessionStorage;
         }
 
         public void Error(System.Exception exception, string additionalMessage = null)

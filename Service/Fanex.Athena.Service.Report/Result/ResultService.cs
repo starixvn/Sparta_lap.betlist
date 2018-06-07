@@ -18,12 +18,7 @@
     public class ResultService : IResultService
     {
         private readonly IResultDataAccess _dataAccess;
-
-        public ResultService()
-        {
-            this._dataAccess = new ResultDataAccess();
-        }
-
+        
         public ResultService(IResultDataAccess dataAccess)
         {
             this._dataAccess = dataAccess;

@@ -12,14 +12,12 @@ namespace Fanex.Athena.Service.Report
     using System.Threading;
     using System.Threading.Tasks;
     using Constant.DataDomain;
-    using Fanex.Athena.DataAccess.Report;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Report.DTO.LiveReports;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Service.Report.Interfaces;
     using Model.Report.ResultModel;
-    using VendorAdapter;
     using VendorAdapter.Interfaces;
 
     public class LiveReportService : ILiveReportService
@@ -27,12 +25,6 @@ namespace Fanex.Athena.Service.Report
         private readonly ILiveReportDataAccess _liveReportDataAccess;
 
         private readonly ICacheRefAdapter _cacheRefAdapter;
-
-        public LiveReportService()
-        {
-            this._liveReportDataAccess = new LiveReportDataAccess();
-            _cacheRefAdapter = new CacheRefAdapter();
-        }
 
         public LiveReportService(ILiveReportDataAccess dataAccess, ICacheRefAdapter cacheRefAdapter)
         {

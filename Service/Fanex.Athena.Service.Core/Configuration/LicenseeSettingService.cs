@@ -12,10 +12,8 @@ namespace Fanex.Athena.Service.Core.Configuration
     using System.Linq;
     using System.Web.Hosting;
     using Extension.Utility.Interfaces;
-    using Fanex.Athena.Extension.Utility;
     using Interfaces;
     using Newtonsoft.Json;
-    using Session;
     using Session.Interfaces;
     using Session.Model;
 
@@ -27,14 +25,10 @@ namespace Fanex.Athena.Service.Core.Configuration
 
         private readonly ISessionStorage _sessionStorage;
 
-        public LicenseeSettingService() : this(null, null)
-        {
-        }
-
         public LicenseeSettingService(IMemoryCacheService cache, ISessionStorage sessionStorage)
         {
-            _cache = cache ?? new MemoryCacheService();
-            _sessionStorage = sessionStorage ?? new SessionStorage();
+            _cache = cache;
+            _sessionStorage = sessionStorage;
         }
 
         public bool IsFakeLicensee()

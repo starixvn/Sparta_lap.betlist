@@ -4,7 +4,6 @@
     using System.Text;
     using System.Web;
     using System.Web.Script.Serialization;
-    using Core.Utility;
     using Core.Utility.Interfaces;
     using Fanex.Athena.Model.Report.DTO.Keno;
     using Fanex.Athena.Service.Core.Exception;
@@ -21,13 +20,9 @@
 
         private readonly IWebClientService _webClient;
 
-        public KenoApi() : this(null)
-        {
-        }
-
         public KenoApi(IWebClientService webClient)
         {
-            _webClient = webClient ?? new WebClientService();
+            _webClient = webClient;
         }
 
         public KenoExtendedToken ExtendToken(KenoResultMetaModel setting, string userId)

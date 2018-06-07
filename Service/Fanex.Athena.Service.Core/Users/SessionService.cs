@@ -17,15 +17,12 @@ namespace Fanex.Athena.Service.Core.Users
     using Constant.DataDomain;
     using DataAccess.Core.Common;
     using DataAccess.Core.Common.Interfaces;
-    using DataAccess.Core.Users;
     using DataAccess.Core.Users.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Users;
-    using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
-    using Session;
     using Session.Enum;
     using Session.Interfaces;
     using Session.Model;
@@ -44,14 +41,6 @@ namespace Fanex.Athena.Service.Core.Users
         private readonly ICurrencyDataAccess _currencyDataAccess;
 
         private readonly ISessionStorage _sessionStorage;
-
-        public SessionService()
-        {
-            _functionService = new FunctionService();
-            _licenseeDataAccess = new LicenseeDataAccess();
-            _currencyDataAccess = new CurrencyDataAccess();
-            _sessionStorage = new SessionStorage();
-        }
 
         public SessionService(
             IFunctionService functionService,
