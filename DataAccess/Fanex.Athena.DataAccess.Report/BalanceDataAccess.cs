@@ -12,24 +12,26 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Diagnostics.CodeAnalysis;
     using Core.Configuration;
     using Core.Configuration.Interfaces;
+    using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
     using Resources;
+    using Session.Interfaces;
 
     public class BalanceDataAccess : BaseDataAccess, IBalanceDataAccess
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
-        public BalanceDataAccess() : this(null)
+        public BalanceDataAccess(
+            IAppSettings appSetting,
+            ISessionStorage sessionStorage,
+            IBalanceUpDataAccess balanceUpDataAccess)
+            : base(appSetting, sessionStorage)
         {
-        }
-
-        public BalanceDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
-        {
-            _balanceUpDataAccess = balanceUpDataAccess ?? new BalanceUpDataAccess();
+            _balanceUpDataAccess = balanceUpDataAccess;
         }
 
         public Balance GetReportData(BalanceMetaModel metaModel)

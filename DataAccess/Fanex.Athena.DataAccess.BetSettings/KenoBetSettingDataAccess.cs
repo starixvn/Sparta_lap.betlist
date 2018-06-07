@@ -8,11 +8,13 @@ namespace Fanex.Athena.DataAccess.BetSettings
 {
     using System.Collections.Generic;
     using System.Data;
+    using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.Model.BetSettings.DTO;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Common;
     using Interfaces;
+    using Session.Interfaces;
     using VendorAdapter;
     using VendorAdapter.Interfaces;
 
@@ -20,7 +22,11 @@ namespace Fanex.Athena.DataAccess.BetSettings
     {
         private readonly ICacheRefAdapter _cacheRefAdapter;
 
-        public KenoBetSettingDataAccess()
+        public KenoBetSettingDataAccess(
+            IAppSettings appSetting,
+            ISessionStorage sessionStorage,
+            ICacheRefAdapter cacheRefAdapter)
+            : base(appSetting, sessionStorage)
         {
             _cacheRefAdapter = new CacheRefAdapter();
         }

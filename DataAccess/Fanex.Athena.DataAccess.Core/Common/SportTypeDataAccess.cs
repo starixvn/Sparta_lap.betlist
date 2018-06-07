@@ -11,17 +11,16 @@ namespace Fanex.Athena.DataAccess.Core.Common
     using System.Data;
     using System.Linq;
     using Constant.DataDomain;
+    using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Common.Extensions;
     using Resources;
+    using Session.Interfaces;
     using VendorAdapter;
     using VendorAdapter.Interfaces;
 
-    /// <summary>
-    ///     TODO: Update summary.
-    /// </summary>
     public class SportTypeDataAccess : BaseDataAccess, ISportTypeDataAccess
     {
         private static readonly int[] HiddenSports = new[]
@@ -32,7 +31,11 @@ namespace Fanex.Athena.DataAccess.Core.Common
 
         private readonly ICacheRefAdapter _cacheRefAdapter;
 
-        public SportTypeDataAccess()
+        public SportTypeDataAccess(
+            IAppSettings appSetting,
+            ISessionStorage sessionStorage,
+            ICacheRefAdapter cacheRefAdapter)
+            : base(appSetting, sessionStorage)
         {
             _cacheRefAdapter = new CacheRefAdapter();
         }

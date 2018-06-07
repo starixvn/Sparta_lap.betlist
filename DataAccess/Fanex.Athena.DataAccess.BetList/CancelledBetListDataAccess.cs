@@ -10,13 +10,20 @@ namespace Fanex.Athena.DataAccess.BetList
     using System.Data;
     using System.Linq;
     using Core;
+    using Extension.Utility;
     using Fanex.Athena.Model.BetList.DTO;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Interfaces;
+    using Session.Interfaces;
 
     public class CancelledBetListDataAccess : BaseDataAccess, ICancelledBetListDataAccess
     {
         private const string UspKey = "Lrf_BetList_SelDeleted_UserList";
+
+        public CancelledBetListDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
+            : base(appSetting, sessionStorage)
+        {
+        }
 
         public IList<CustomerCancelBetItem> GetCancelBetCustList(BetListMetaModel metaModel)
         {

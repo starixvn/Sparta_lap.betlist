@@ -12,13 +12,20 @@ namespace Fanex.Athena.DataAccess.Report
     using Core;
     using Core.Exception;
     using Data;
+    using Extension.Utility;
     using Fanex.Common.Extensions;
     using Interfaces;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
+    using Session.Interfaces;
 
     public class DailyRacingWinLossDataAccess : BaseDataAccess, IDailyRacingWinLossDataAccess
     {
+        public DailyRacingWinLossDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
+            : base(appSetting, sessionStorage)
+        {
+        }
+
         public IList<DailyRacingWinLoss> GetDataList(DailyRacingWinLossMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_WinlostRacing";

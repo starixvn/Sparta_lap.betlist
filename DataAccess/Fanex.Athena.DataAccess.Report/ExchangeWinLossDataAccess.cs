@@ -8,6 +8,7 @@
     using Core.Exception;
     using Core.Extensions;
     using Data;
+    using Extension.Utility;
     using Interfaces;
     using Model.Core.DataDomain;
     using Model.Core.ResultModel;
@@ -17,12 +18,8 @@
 
     public class ExchangeWinLossDataAccess : BaseDataAccess, IExchangeWinLossDataAccess
     {
-        public ExchangeWinLossDataAccess() : this(null)
-        {
-        }
-
-        public ExchangeWinLossDataAccess(ISessionStorage sessionStorage)
-            : base(null, sessionStorage)
+        public ExchangeWinLossDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
+            : base(appSetting, sessionStorage)
         {
         }
 

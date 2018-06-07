@@ -8,16 +8,15 @@ namespace Fanex.Athena.DataAccess.Core.Common
 {
     using System;
     using System.Collections.Generic;
+    using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Common.Extensions;
     using VendorAdapter;
     using VendorAdapter.Interfaces;
+    using Session.Interfaces;
 
-    /// <summary>
-    ///     TODO: Update summary.
-    /// </summary>
     public class MatchDataAccess : BaseDataAccess, IMatchDataAccess
     {
         private readonly ICacheRefAdapter _cacheRefAdapter;
@@ -37,6 +36,11 @@ namespace Fanex.Athena.DataAccess.Core.Common
         /// </summary>
         /// <param name="leagueId">League ID value.</param>
         /// <returns>The result value.</returns>
+        public MatchDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
+            : base(appSetting, sessionStorage)
+        {
+        }
+
         public IList<Match> GetForecastMatchListByLeague(int leagueId)
         {
             const string UspName = "Lrf_Forecast_MatchList";

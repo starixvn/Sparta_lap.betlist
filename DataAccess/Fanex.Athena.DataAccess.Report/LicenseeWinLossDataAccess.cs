@@ -4,7 +4,6 @@
     using System.Data;
     using System.Linq;
     using Core;
-    using Core.Configuration;
     using Core.Configuration.Interfaces;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Extensions;
@@ -27,11 +26,6 @@
         private static readonly string[] IgnoredTurnoverProducts = new[] { Product.BT, Product.CO };
 
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
-
-        public LicenseeWinLossDataAccess()
-        {
-            _balanceUpDataAccess = new BalanceUpDataAccess();
-        }
 
         public LicenseeWinLossDataAccess(
             IAppSettings appSetting,

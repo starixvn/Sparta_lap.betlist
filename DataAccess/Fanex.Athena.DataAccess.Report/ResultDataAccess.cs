@@ -13,8 +13,8 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Linq;
     using Constant.Helper;
     using Core;
-    using Core.Configuration;
     using Core.Configuration.Interfaces;
+    using Extension.Utility;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Report.Interfaces;
@@ -27,6 +27,7 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Result.Core.Sportsbook.DTO;
     using VendorAdapter;
     using VendorAdapter.Interfaces;
+    using Session.Interfaces;
 
     [CLSCompliant(false)]
     public class ResultDataAccess : BaseDataAccess, IResultDataAccess
@@ -36,6 +37,11 @@ namespace Fanex.Athena.DataAccess.Report
         private readonly ICacheRefAdapter _cacheRefAdapter;
 
         public ResultDataAccess()
+        public ResultDataAccess(
+            IAppSettings appSetting,
+            ISessionStorage sessionStorage,
+            IBalanceUpDataAccess balanceUpDataAccess)
+            : base(appSetting, sessionStorage)
         {
             _balanceUpDataAccess = new BalanceUpDataAccess();
             _cacheRefAdapter = new CacheRefAdapter();

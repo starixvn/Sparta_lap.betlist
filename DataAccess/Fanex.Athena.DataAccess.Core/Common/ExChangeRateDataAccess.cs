@@ -8,23 +8,21 @@ namespace Fanex.Athena.DataAccess.Core.Common
 {
     using System;
     using System.Data;
+    using Extension.Utility;
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Common.Extensions;
     using Fanex.Data;
+    using Session.Interfaces;
 
-    /// <summary>
-    /// Exchange rate data access.
-    /// </summary>
     public class ExChangeRateDataAccess : BaseDataAccess, IExChangeRateDataAccess
     {
-        /// <summary>
-        /// Get exchange rate.
-        /// </summary>
-        /// <param name="currenyCode">Currency value.</param>
-        /// <param name="datetime">Date time value.</param>
-        /// <returns>The result value.</returns>
+        public ExChangeRateDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
+            : base(appSetting, sessionStorage)
+        {
+        }
+
         public ExChangeRate GetExChangeRate(string currenyCode, DateTime datetime)
         {
             const string UspName = "Lrf_GetExchangeRateByDate";

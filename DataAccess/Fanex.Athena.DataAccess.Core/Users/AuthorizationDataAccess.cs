@@ -7,22 +7,19 @@
 namespace Fanex.Athena.DataAccess.Core.Users
 {
     using System.Data;
+    using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Users.Interfaces;
     using Fanex.Common;
+    using Session.Interfaces;
 
-    /// <summary>
-    /// Authorization data access.
-    /// </summary>
     public class AuthorizationDataAccess : BaseDataAccess, IAthorizationDataAccess
     {
-        /// <summary>
-        /// Customer belong.
-        /// </summary>
-        /// <param name="licenseeId">Licensee ID.</param>
-        /// <param name="custId">Customer ID.</param>
-        /// <param name="transid">Transaction ID.</param>
-        /// <returns>Boolean value.</returns>
+        public AuthorizationDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
+            : base(appSetting, sessionStorage)
+        {
+        }
+
         public bool IsCustomerBelonging(int licenseeId, int custId, long transid)
         {
             using (var db = this.GetObjectDb("Lrf_CustomerSelCheckBelonging"))

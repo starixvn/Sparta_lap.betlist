@@ -5,14 +5,15 @@
     using System.Data;
     using System.Globalization;
     using System.Linq;
-    using Core.Configuration;
     using Core.Configuration.Interfaces;
+    using Extension.Utility;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.Model.BetList.DTO;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Interfaces;
+    using Session.Interfaces;
     using Util;
 
     public class DailyStatementBetListDataAccess : BaseBetListDataAccess, IDailyStatementBetListDataAccess
@@ -27,12 +28,11 @@
 
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
-        public DailyStatementBetListDataAccess()
-        {
-            _balanceUpDataAccess = new BalanceUpDataAccess();
-        }
-
-        public DailyStatementBetListDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
+        public DailyStatementBetListDataAccess(
+            IAppSettings appSetting,
+            ISessionStorage sessionStorage,
+            IBalanceUpDataAccess balanceUpDataAccess)
+            : base(appSetting, sessionStorage)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
         }

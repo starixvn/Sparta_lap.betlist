@@ -4,7 +4,6 @@
     using System.Data;
     using Common.Extensions;
     using Core;
-    using Core.Configuration;
     using Core.Configuration.Interfaces;
     using Data;
     using Extension.Helper;
@@ -20,13 +19,11 @@
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
-        public LicenseeWinLossByTimeZoneDataAccess()
-        {
-            _balanceUpDataAccess = new BalanceUpDataAccess();
-        }
-
-        public LicenseeWinLossByTimeZoneDataAccess(ISessionStorage sessionStorage, IBalanceUpDataAccess balanceUpDataAccess)
-            : base(null, sessionStorage)
+        public LicenseeWinLossByTimeZoneDataAccess(
+            IAppSettings appSetting,
+            ISessionStorage sessionStorage, 
+            IBalanceUpDataAccess balanceUpDataAccess)
+            : base(appSetting, sessionStorage)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
         }

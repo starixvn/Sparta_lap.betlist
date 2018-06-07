@@ -9,11 +9,13 @@ namespace Fanex.Athena.DataAccess.BetSettings
     using System.Collections.Generic;
     using System.Data;
     using Constant.DataDomain;
+    using Extension.Utility;
     using Fanex.Athena.DataAccess.BetSettings.Interfaces;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.Model.BetSettings.DTO;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Utility;
+    using Session.Interfaces;
 
     public class NumberGameBetSettingDataAccess : BaseDataAccess, INumberGameBetSettingDataAccess
     {
@@ -27,6 +29,11 @@ namespace Fanex.Athena.DataAccess.BetSettings
         public NumberGameBetSettingDataAccess(IBetSettingReader betSettingReader)
         {
             _betSettingReader = betSettingReader;
+        }
+
+        public NumberGameBetSettingDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
+            : base(appSetting, sessionStorage)
+        {
         }
 
         public IList<BetSetting> GetBetSetting(int custId)

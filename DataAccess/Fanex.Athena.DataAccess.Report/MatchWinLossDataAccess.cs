@@ -11,8 +11,8 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using Core.Configuration;
     using Core.Configuration.Interfaces;
+    using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Report.Interfaces;
@@ -21,7 +21,7 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common;
     using Fanex.Common.Extensions;
-    using VendorAdapter;
+    using Session.Interfaces;
     using VendorAdapter.Interfaces;
 
     public class MatchWinLossDataAccess : BaseDataAccess, IMatchWinLossDataAccess
@@ -30,13 +30,12 @@ namespace Fanex.Athena.DataAccess.Report
 
         private readonly ICacheRefAdapter _cacheRefAdapter;
 
-        public MatchWinLossDataAccess()
-        {
-            _balanceUpDataAccess = new BalanceUpDataAccess();
-            _cacheRefAdapter = new CacheRefAdapter();
-        }
-
-        public MatchWinLossDataAccess(IBalanceUpDataAccess balanceUpDataAccess, ICacheRefAdapter cacheRefAdapter)
+        public MatchWinLossDataAccess(
+            IAppSettings appSetting,
+            ISessionStorage sessionStorage,
+            IBalanceUpDataAccess balanceUpDataAccess,
+            ICacheRefAdapter cacheRefAdapter)
+            : base(appSetting, sessionStorage)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
             _cacheRefAdapter = cacheRefAdapter;

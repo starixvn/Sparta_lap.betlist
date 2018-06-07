@@ -9,12 +9,14 @@ namespace Fanex.Athena.DataAccess.Core.Common
     using System.Collections.Generic;
     using System.Data;
     using Data;
+    using Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Common.Extensions;
     using Interfaces;
     using Model.Core.MetaModel.Common;
     using VendorAdapter;
     using VendorAdapter.Interfaces;
+    using Session.Interfaces;
 
     public class LeagueDataAccess : BaseDataAccess, ILeagueDataAccess
     {
@@ -28,6 +30,11 @@ namespace Fanex.Athena.DataAccess.Core.Common
         public LeagueDataAccess(ICacheRefAdapter cacheRefAdapter)
         {
             _cacheRefAdapter = cacheRefAdapter;
+        }
+
+        public LeagueDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
+            : base(appSetting, sessionStorage)
+        {
         }
 
         public IEnumerable<League> GetLeaguesBySport(LeagueMetaModel metaModel)

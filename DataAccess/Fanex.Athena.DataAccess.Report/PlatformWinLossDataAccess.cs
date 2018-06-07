@@ -10,7 +10,6 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
     using Core;
-    using Core.Configuration;
     using Core.Configuration.Interfaces;
     using Core.Exception;
     using Extension.Helper;
@@ -27,15 +26,11 @@ namespace Fanex.Athena.DataAccess.Report
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
-        public PlatformWinLossDataAccess()
-        {
-            _balanceUpDataAccess = new BalanceUpDataAccess();
-        }
-
         public PlatformWinLossDataAccess(
+            IAppSettings appSetting,
             ISessionStorage sessionStorage,
             IBalanceUpDataAccess balanceUpDataAccess)
-            : base(null, sessionStorage)
+            : base(appSetting, sessionStorage)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
         }

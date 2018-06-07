@@ -11,11 +11,12 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Data;
     using System.Linq;
     using Core;
+    using Extension.Utility;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Model.Report.ResultModel;
-    using VendorAdapter;
+    using Session.Interfaces;
     using VendorAdapter.Interfaces;
 
     public class WeeklyLiveMatchDataAccess : BaseDataAccess, IWeeklyLiveMatchDataAccess
@@ -26,9 +27,13 @@ namespace Fanex.Athena.DataAccess.Report
 
         private readonly ICacheRefAdapter _cacheRefAdapter;
 
-        public WeeklyLiveMatchDataAccess()
+        public WeeklyLiveMatchDataAccess(
+            IAppSettings appSetting,
+            ISessionStorage sessionStorage,
+            ICacheRefAdapter cacheRefAdapter)
+            : base(appSetting, sessionStorage)
         {
-            _cacheRefAdapter = new CacheRefAdapter();
+            _cacheRefAdapter = cacheRefAdapter;
         }
 
         public WeeklyLiveMatchDataAccess(ICacheRefAdapter cacheRefAdapter)

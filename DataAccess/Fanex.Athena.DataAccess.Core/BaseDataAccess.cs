@@ -24,15 +24,11 @@ namespace Fanex.Athena.DataAccess.Core
         private readonly ISessionStorage _sessionStorage;
 
         private IDictionary<int, string> _currencyList;
-
-        public BaseDataAccess() : this(null, null)
-        {
-        }
-
+        
         public BaseDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
         {
-            _sessionStorage = sessionStorage ?? new SessionStorage();
-            _appSetting = appSetting ?? new AppSettings();
+            _sessionStorage = sessionStorage;
+            _appSetting = appSetting;
         }
 
         [CLSCompliant(false)]

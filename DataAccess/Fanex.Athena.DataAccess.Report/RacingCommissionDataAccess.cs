@@ -7,7 +7,6 @@
 namespace Fanex.Athena.DataAccess.Report
 {
     using System.Data;
-    using Core.Configuration;
     using Core.Configuration.Interfaces;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Exception;
@@ -18,17 +17,17 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Model.Core.ResultModel;
+    using Session.Interfaces;
 
     public class RacingCommissionDataAccess : BaseDataAccess, IRacingCommissionDataAccess
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
-        public RacingCommissionDataAccess()
-        {
-            _balanceUpDataAccess = new BalanceUpDataAccess();
-        }
-
-        public RacingCommissionDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
+        public RacingCommissionDataAccess(
+            IAppSettings appSetting,
+            ISessionStorage sessionStorage,
+            IBalanceUpDataAccess balanceUpDataAccess)
+            : base(appSetting, sessionStorage)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
         }

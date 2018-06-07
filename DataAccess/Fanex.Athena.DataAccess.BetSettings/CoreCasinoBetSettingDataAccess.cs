@@ -8,27 +8,28 @@ namespace Fanex.Athena.DataAccess.BetSettings
 {
     using System.Data;
     using Common;
-    using Core.Common;
     using Core.Common.Constants;
     using Core.Common.Interfaces;
+    using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Interfaces;
     using Model.BetSettings.DTO;
     using Model.BetSettings.MetaModel;
     using Model.Core.MetaModel.Common;
+    using Session.Interfaces;
 
     public class CoreCasinoBetSettingDataAccess : BaseDataAccess, ICoreCasinoBetSettingDataAccess
     {
         private readonly IUserLogDataAccess _userLogDataAccess;
 
-        public CoreCasinoBetSettingDataAccess() : this(null)
+        public CoreCasinoBetSettingDataAccess(
+            IAppSettings appSetting,
+            ISessionStorage sessionStorage,
+            IUserLogDataAccess userLogDataAccess)
+            : base(appSetting, sessionStorage)
         {
-        }
-
-        public CoreCasinoBetSettingDataAccess(IUserLogDataAccess userLogDataAccess)
-        {
-            _userLogDataAccess = userLogDataAccess ?? new UserLogDataAccess();
+            _userLogDataAccess = userLogDataAccess;
         }
 
         public IResultInfo UpdateCasinoStatus(CoreCasinoStatusMetaModel metaModel, int sportId)

@@ -8,6 +8,7 @@ namespace Fanex.Athena.DataAccess.BetList
 {
     using System.Collections.Generic;
     using System.Data;
+    using Extension.Utility;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.Model.BetList.DTO;
     using Fanex.Athena.Model.BetList.MetaModel;
@@ -18,6 +19,7 @@ namespace Fanex.Athena.DataAccess.BetList
     using Fanex.Data;
     using Interfaces;
     using Model.BetList.ViewModel;
+    using Session.Interfaces;
 
     public class ColossusBetBetListDataAccess : BaseBetListDataAccess, IColossusBetBetListDataAccess
     {

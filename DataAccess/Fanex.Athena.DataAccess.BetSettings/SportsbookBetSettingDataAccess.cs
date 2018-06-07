@@ -18,6 +18,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
     using Fanex.Athena.Model.Core.DTO.Common;
     using Model.BetSettings.ViewModel;
     using Utility;
+    using Session.Interfaces;
 
     public class SportsbookBetSettingDataAccess : BaseDataAccess, ISportsbookBetSettingDataAccess
     {
@@ -28,8 +29,10 @@ namespace Fanex.Athena.DataAccess.BetSettings
         private readonly IBetSettingReader _betSettingReader;
 
         public SportsbookBetSettingDataAccess()
+        public SportsbookBetSettingDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
+            : base(appSetting, sessionStorage)
         {
-            _appSettings = new AppSettings();
+            _appSettings = appSetting;
             _betSettingReader = new BetSettingReader();
         }
 

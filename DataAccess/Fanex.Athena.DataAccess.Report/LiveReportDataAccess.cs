@@ -12,7 +12,6 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Constant.DataDomain;
-    using Core.Configuration;
     using Core.Configuration.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
@@ -25,7 +24,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Data;
     using Model.Core.Helper;
     using Session.Interfaces;
-    using VendorAdapter;
     using VendorAdapter.Interfaces;
 
     public class LiveReportDataAccess : BaseDataAccess, ILiveReportDataAccess
@@ -38,12 +36,6 @@ namespace Fanex.Athena.DataAccess.Report
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
         private readonly ICacheRefAdapter _cacheRefAdapter;
-
-        public LiveReportDataAccess()
-        {
-            _balanceUpDataAccess = new BalanceUpDataAccess();
-            _cacheRefAdapter = new CacheRefAdapter();
-        }
 
         public LiveReportDataAccess(
             IAppSettings appSetting,

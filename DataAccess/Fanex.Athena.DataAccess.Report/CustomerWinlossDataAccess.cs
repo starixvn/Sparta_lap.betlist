@@ -10,16 +10,17 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
-    using Core.Configuration;
     using Core.Configuration.Interfaces;
     using Core.Exception;
     using Data;
+    using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
     using Model.Core.ResultModel;
+    using Session.Interfaces;
 
     public class CustomerWinlossDataAccess : BaseDataAccess, ICustWinlossDataAccess
     {
@@ -27,12 +28,11 @@ namespace Fanex.Athena.DataAccess.Report
 
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
-        public CustomerWinlossDataAccess()
-        {
-            _balanceUpDataAccess = new BalanceUpDataAccess();
-        }
-
-        public CustomerWinlossDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
+        public CustomerWinlossDataAccess(
+            IAppSettings appSetting, 
+            ISessionStorage sessionStorage,
+            IBalanceUpDataAccess balanceUpDataAccess)
+            : base(appSetting, sessionStorage)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
         }

@@ -4,6 +4,7 @@
     using System.Data;
     using System.Globalization;
     using System.Linq;
+    using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Customer.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -14,9 +15,15 @@
     using Fanex.Data;
     using Model.Core.ResultModel;
     using Resources;
+    using Session.Interfaces;
 
     public class CustomerListDataAccess : BaseDataAccess, ICustomerListDataAccess
     {
+        public CustomerListDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
+            : base(appSetting, sessionStorage)
+        {
+        }
+
         #region Read
 
         public IEnumerable<string> SearchCustomers(int userId, string userName, string agentListXml)

@@ -20,10 +20,6 @@ namespace Fanex.Athena.DataAccess.BetList
 
     public class CashOutBetListDataAccess : BaseBetListDataAccess, ICashOutBetListDataAccess
     {
-        public CashOutBetListDataAccess() : this(null, null)
-        {
-        }
-
         public CashOutBetListDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
             : base(appSetting, sessionStorage)
         {
