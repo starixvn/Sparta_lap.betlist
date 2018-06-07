@@ -6,7 +6,6 @@
     using System.Threading;
     using System.Threading.Tasks;
     using System.Web.Http.Filters;
-    using Service.Core.Users;
     using Service.Core.Users.Interfaces;
     using Session.Enum;
 
@@ -14,17 +13,8 @@
     public sealed class XFrameOptionApiAttribute : ActionFilterAttribute
     {
         private const string XFrameOptionHeaderName = "X-Frame-Options";
-        private readonly ISessionService _sessionService;
 
-        public XFrameOptionApiAttribute()
-        {
-            _sessionService = new SessionService();
-        }
-
-        public XFrameOptionApiAttribute(ISessionService sessionService)
-        {
-            _sessionService = sessionService ?? new SessionService();
-        }
+        public ISessionService SessionService { get; set; }
 
         public override void OnActionExecuted(HttpActionExecutedContext actionExecutedContext)
         {
@@ -43,7 +33,7 @@
         {
             if (actionExecutedContext.Response != null)
             {
-                var user = _sessionService.UserSession;
+                var user = SessionService.UserSession;
 
                 IEnumerable<string> headerValues;
 

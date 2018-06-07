@@ -23,27 +23,12 @@
     {
         private const string KeyName = "X-Auth-Token";
 
-        private readonly ICoreLogger _logger;
+        public ICoreLogger Logger { get; set; }
 
-        private readonly IOneAuthenticationService _oneAuthenticationService;
+        public IOneAuthenticationService OneAuthenticationService { get; set; }
 
-        private readonly ILicenseeDataAccess _licenseeDataAccess;
-
-        public ApiOneAuthorizationAttribute()
-        {
-            _logger = new CoreLogger();
-            _oneAuthenticationService = new OneAuthenticationService();
-            _licenseeDataAccess = new LicenseeDataAccess();
-        }
-
-        [CLSCompliant(false)]
-        public ApiOneAuthorizationAttribute(ICoreLogger logger, IOneAuthenticationService oneAuthenticationService, ILicenseeDataAccess licenseeDataAccess)
-        {
-            _logger = logger ?? new CoreLogger();
-            _oneAuthenticationService = oneAuthenticationService ?? new OneAuthenticationService();
-            _licenseeDataAccess = licenseeDataAccess ?? new LicenseeDataAccess();
-        }
-
+        public ILicenseeDataAccess LicenseeDataAccess { get; set; }
+        
         public Task<HttpResponseMessage> ExecuteAuthorizationFilterAsync(
             HttpActionContext actionContext,
             CancellationToken cancellationToken,
@@ -58,7 +43,7 @@
                     return UnauthorizeAccessHandlerAsync(actionContext);
                 }
 
-                var token = _oneAuthenticationService.GetTokenInfo(tokenValue);
+                var token = OneAuthenticationService.GetTokenInfo(tokenValue);
 
                 if (token == null || string.IsNullOrWhiteSpace(token.SiteName) || token.UserSEQ <= 0)
                 {
@@ -66,7 +51,7 @@
                     return UnauthorizeAccessHandlerAsync(actionContext);
                 }
 
-                var licensee = _licenseeDataAccess.GetLicenseeByName(token.SiteName);
+                var licensee = LicenseeDataAccess.GetLicenseeByName(token.SiteName);
                 if (licensee == null)
                 {
                     LogInfo(actionContext.Request, "Licensee is null");
@@ -84,7 +69,7 @@
             }
             catch (Exception exception)
             {
-                _logger.Error(exception);
+                Logger.Error(exception);
                 return UnauthorizeAccessHandlerAsync(actionContext);
             }
         }
@@ -119,7 +104,7 @@
             var content = new StringBuilder("ApiOneAuthorization: ");
             content.AppendLine(message);
             content.AppendLine("Url: " + request.RequestUri);
-            _logger.Info(content.ToString());
+            Logger.Info(content.ToString());
         }
     }
 }

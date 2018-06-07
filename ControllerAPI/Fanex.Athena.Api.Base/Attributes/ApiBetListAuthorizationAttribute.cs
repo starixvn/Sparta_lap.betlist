@@ -14,23 +14,14 @@
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
     public sealed class ApiBetListAuthorizationAttribute : FilterAttribute, IAuthorizationFilter
     {
-        private readonly ILicenseeSettingService _licenseeSettingService;
-
-        public ApiBetListAuthorizationAttribute() : this(null)
-        {
-        }
-
-        public ApiBetListAuthorizationAttribute(ILicenseeSettingService licenseeSettingService)
-        {
-            _licenseeSettingService = licenseeSettingService ?? new LicenseeSettingService();
-        }
-
+        public ILicenseeSettingService LicenseeSettingService { get; set; }
+        
         public Task<HttpResponseMessage> ExecuteAuthorizationFilterAsync(
             HttpActionContext actionContext,
             CancellationToken cancellationToken,
             Func<Task<HttpResponseMessage>> continuation)
         {
-            if (!_licenseeSettingService.IsAuthorizedOnBetList())
+            if (!LicenseeSettingService.IsAuthorizedOnBetList())
             {
                 return UnauthorizeAccessHandlerAsync(actionContext);
             }

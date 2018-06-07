@@ -11,7 +11,6 @@
     using System.Web.Http.Controllers;
     using System.Web.Http.Filters;
     using Extension.Utility;
-    using Fanex.Athena.Service.Core.Users;
     using Resources;
     using Service.Core.Users.Interfaces;
     using Session.Enum;
@@ -21,34 +20,19 @@
     {
         private const string KeyName = "__RequestVerificationToken";
 
-        private readonly IAntiForgeryService _antiForgeryService;
+        public IAntiForgeryService AntiForgeryService { get; set; }
 
-        private readonly ISessionService _sessionService;
+        public ISessionService SessionService { get; set; }
 
-        private readonly IAuthorizationService _authorizationService;
+        public IAuthorizationService AuthorizationService { get; set; }
 
-        public ApiFunctionAuthorizationAttribute()
-        {
-        }
+        private readonly string[] _permissionKeys;
 
         [CLSCompliant(false)]
         public ApiFunctionAuthorizationAttribute(params string[] permissionKeys)
-            : this(antiForgeryService: null, sessionService: null, authorizationService: null)
         {
-            PermissionKeys = permissionKeys;
+            _permissionKeys = permissionKeys;
         }
-
-        public ApiFunctionAuthorizationAttribute(
-            IAntiForgeryService antiForgeryService,
-            ISessionService sessionService,
-            IAuthorizationService authorizationService)
-        {
-            _antiForgeryService = antiForgeryService ?? new AntiForgeryService();
-            _sessionService = sessionService ?? new SessionService();
-            _authorizationService = authorizationService ?? new AuthorizationService();
-        }
-
-        public string[] PermissionKeys { get; set; }
 
         public Task<HttpResponseMessage> ExecuteAuthorizationFilterAsync(
             HttpActionContext actionContext,
@@ -72,11 +56,11 @@
                         .FirstOrDefault();
 
                     var crfsKey = headers.GetValues(KeyName).FirstOrDefault();
-                    _antiForgeryService.Validate(cookie != null ? cookie.Value : null, crfsKey);
+                    AntiForgeryService.Validate(cookie != null ? cookie.Value : null, crfsKey);
                 }
                 else
                 {
-                    _antiForgeryService.Validate();
+                    AntiForgeryService.Validate();
                 }
             }
             catch (Exception)
@@ -118,14 +102,14 @@
 
         private bool AuthorizeRequest()
         {
-            var licenseeSession = _sessionService.LicenseeSession;
-            var userSession = _sessionService.UserSession;
+            var licenseeSession = SessionService.LicenseeSession;
+            var userSession = SessionService.UserSession;
             var authorized = userSession != null && licenseeSession != null;
             if (authorized)
             {
                 authorized = userSession.ApplicationMode == AppMode.Parasitic ?
-                    _authorizationService.HasPermissions(userSession.PortalFunctionList, PermissionKeys) :
-                    _authorizationService.HasPermissions(userSession.FunctionIdList, PermissionKeys);
+                    AuthorizationService.HasPermissions(userSession.PortalFunctionList, _permissionKeys) :
+                    AuthorizationService.HasPermissions(userSession.FunctionIdList, _permissionKeys);
             }
 
             return authorized;
