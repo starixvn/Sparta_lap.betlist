@@ -50,7 +50,7 @@
         public void GetBetSetting_ReaderNotHaveData_ReturnDefaultResult()
         {
             // Arrange
-            _appSetting.IsShowMixedSport.Returns(true);
+            AppSetting.IsShowMixedSport.Returns(true);
 
             DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerSelEditCustomer")).Returns(ObjectDb);
             Reader.Read().Returns(false);
@@ -72,7 +72,7 @@
         public void GetBetSetting_WhenCall_DataReturnCorrectly(bool hasDisableEsportsColumn, EsportSettingType expectedEsportSetting, bool isShowMixedSport)
         {
             // Arrange
-            _appSetting.IsShowMixedSport.Returns(isShowMixedSport);
+            AppSetting.IsShowMixedSport.Returns(isShowMixedSport);
 
             DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerSelEditCustomer")).Returns(ObjectDb);
             Reader.Read().Returns(true);

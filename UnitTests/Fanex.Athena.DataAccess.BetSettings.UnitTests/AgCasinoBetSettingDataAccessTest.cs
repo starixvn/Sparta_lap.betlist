@@ -1,13 +1,13 @@
 ﻿namespace Fanex.Athena.DataAccess.BetSettings.UnitTests
 {
     using System.Data;
-    using Data;
+    using Core.UnitTests.TestHelpers;
     using Model.BetSettings.DTO;
     using NSubstitute;
     using NUnit.Framework;
 
     [TestFixture]
-    public class AgCasinoBetSettingDataAccessTest
+    public class AgCasinoBetSettingDataAccessTest : BaseDataAccessHelperTest<AgCasinoBetSettingDataAccess>
     {
         private IObjectDb _objectDb;
         private AgCasinoBetSettingDataAccess _dataAccess;
@@ -30,11 +30,11 @@
         public void GetBetSetting_WhenCall_ParameterPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_AGC_SelCustSetting")).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_AGC_SelCustSetting")).Returns(ObjectDb);
             var custId = 1;
 
             // Action
-            _dataAccess.GetBetSetting(custId);
+            DataAccess.GetBetSetting(custId);
 
             // Assert
             _objectDb.Received(1).AddInParameter("CustID", DbType.Int32, custId);
@@ -49,7 +49,7 @@
         public void UpdateBetSetting_WhenCall_ParameterPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_AGC_UpdCustSetting")).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_AGC_UpdCustSetting")).Returns(ObjectDb);
             var group = "GroupTest";
             var data = new CommonBetSetting
             {
@@ -60,7 +60,7 @@
             };
 
             // Action
-            _dataAccess.UpdateBetSetting(data, group);
+            DataAccess.UpdateBetSetting(data, group);
 
             // Assert
             _objectDb.Received(1).AddInParameter("aggroup", DbType.String, group);
@@ -76,7 +76,7 @@
         public void UpdateStatus_WhenCall_ParameterPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_AGC_UpdCustStatus")).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_AGC_UpdCustStatus")).Returns(ObjectDb);
             var userId = 1;
             var custId = 2;
             var language = "LanguageTest";
@@ -84,7 +84,7 @@
             var isEnabled = true;
 
             // Action
-            _dataAccess.UpdateStatus(userId, custId, language, ip, isEnabled);
+            DataAccess.UpdateStatus(userId, custId, language, ip, isEnabled);
 
             // Assert
             _objectDb.Received(1).AddInParameter("isenabled", DbType.Boolean, isEnabled);

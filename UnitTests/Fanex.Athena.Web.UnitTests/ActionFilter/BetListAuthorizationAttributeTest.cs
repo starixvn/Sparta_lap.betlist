@@ -24,7 +24,8 @@ namespace Fanex.Athena.Web.UnitTests.ActionFilter
         {
             _filterContext = CreateFilterContext();
             _licenseeSettingService = Substitute.For<ILicenseeSettingService>();
-            _attribute = new BetListAuthorizationAttribute(_licenseeSettingService);
+            _attribute = new BetListAuthorizationAttribute();
+            _attribute.LicenseeSettingService = _licenseeSettingService;
         }
 
         [Test]

@@ -24,11 +24,6 @@
 
         private IDictionary<string, decimal> _baseCurrencyExchangeRate;
 
-        protected override void SetUpDataAccess()
-        {
-            DataAccess = Substitute.ForPartsOf<ExchangeWinLossDataAccess>(CreateSessionStorage());
-        }
-
         [OneTimeSetUp]
         public override void FixtureSetUp()
         {

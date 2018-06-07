@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Data;
     using Core.Exception;
+    using Extension.Utility;
     using Fanex.Data;
     using NSubstitute;
     using NUnit.Framework;
@@ -16,6 +17,8 @@
 
         protected const string CurrencyName = "aaaaaaaaa";
 
+        protected IAppSettings AppSetting { get; set; }
+
         protected IObjectDb ObjectDb { get; set; }
 
         protected IDataReader Reader { get; set; }
@@ -25,6 +28,7 @@
         [OneTimeSetUp]
         public virtual void FixtureSetUp()
         {
+            AppSetting = Substitute.For<IAppSettings>();
             ObjectDb = Substitute.For<IObjectDb>();
             SetUpDataAccess();
         }
@@ -68,7 +72,7 @@
 
         protected virtual void SetUpDataAccess()
         {
-            DataAccess = Substitute.ForPartsOf<T>();
+            DataAccess = Substitute.ForPartsOf<T>(AppSetting, CreateSessionStorage());
         }
 
         protected void MapReaderData(object readerDataMapping)

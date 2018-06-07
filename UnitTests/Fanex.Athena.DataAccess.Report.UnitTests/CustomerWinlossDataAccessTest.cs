@@ -6,8 +6,6 @@
     using System.Linq;
     using Core.Configuration.Interfaces;
     using Core.UnitTests.TestHelpers;
-    using Data;
-    using Extension.Utility;
     using Model.Core.DTO.Configuration;
     using Model.Core.MetaModel.Product;
     using Model.Report.DTO;
@@ -23,42 +21,36 @@
 
         private const int PageSizeExcel = int.MaxValue - 1000;
 
-        private BalanceUp _balance;
+        private readonly BalanceUp _balance = new BalanceUp
+        {
+            MoveBetsDay = new DateTime(2016, 8, 10),
+            BalanceUpDay = new DateTime(2016, 8, 31)
+        };
 
         private CustomerWinLossMetaModel _metaModel;
 
         [OneTimeSetUp]
         public override void FixtureSetUp()
         {
-            ObjectDb = Substitute.For<IObjectDb>();
-
-            var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
-            _balance = new BalanceUp
-            {
-                MoveBetsDay = new DateTime(2016, 8, 10),
-                BalanceUpDay = new DateTime(2016, 8, 31)
-            };
-            balanceUpDataAccess.GetBalanceUp().Returns(_balance);
-
-            DataAccess = Substitute.ForPartsOf<CustomerWinlossDataAccess>(balanceUpDataAccess);
-            DataAccess.GetObjectDb(Arg.Is(SpName)).Returns(ObjectDb);
-
-            var appSetting = Substitute.For<IAppSettings>();
-            appSetting.HistoryDate.Returns(new DateTime(2016, 8, 31));
-            _metaModel = new CustomerWinLossMetaModel(appSetting)
+            base.FixtureSetUp();
+            AppSetting.HistoryDate.Returns(new DateTime(2016, 8, 31));
+            _metaModel = new CustomerWinLossMetaModel(AppSetting)
             {
                 ProductOptions = GetProductOptions(),
                 BaseCurrency = "UUS"
             };
         }
 
-        [OneTimeTearDown]
-        public override void FixtureTearDown()
+        protected override void SetUpDataAccess()
         {
-            _balance = null;
-            _metaModel = null;
+            var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
+            balanceUpDataAccess.GetBalanceUp().Returns(_balance);
 
-            base.FixtureTearDown();
+            DataAccess = Substitute.ForPartsOf<CustomerWinlossDataAccess>(
+                AppSetting,
+                CreateSessionStorage(),
+                balanceUpDataAccess);
+            DataAccess.GetObjectDb(Arg.Is(SpName)).Returns(ObjectDb);
         }
 
         [TestCase(true, 5, PageSizeExcel)]

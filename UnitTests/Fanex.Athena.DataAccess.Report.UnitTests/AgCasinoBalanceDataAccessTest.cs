@@ -19,11 +19,6 @@
 
         private const string GetAgentBalanceDetailSp = "LRF_Rpt_AGCasinoBalance_Ag";
 
-        protected override void SetUpDataAccess()
-        {
-            DataAccess = Substitute.ForPartsOf<AgCasinoBalanceDataAccess>(CreateSessionStorage());
-        }
-
         [Test]
         public void GetSummaryBalance_WhenCall_ParametersPassedCorrectly()
         {

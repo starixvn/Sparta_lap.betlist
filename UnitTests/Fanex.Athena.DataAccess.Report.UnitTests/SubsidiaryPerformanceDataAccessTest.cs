@@ -6,7 +6,6 @@
     using System.Linq;
     using Core.Configuration.Interfaces;
     using Core.UnitTests.TestHelpers;
-    using Data;
     using Model.Core.DTO.Configuration;
     using Model.Report.DTO.SubsidiaryPerformance;
     using Model.Report.MetaModel;
@@ -22,17 +21,18 @@
         [OneTimeSetUp]
         public override void FixtureSetUp()
         {
-            _balance = new BalanceUp
-            {
-                MoveBetsDay = new DateTime(2017, 8, 25),
-                BalanceUpDay = new DateTime(2017, 8, 31)
-            };
+            MoveBetsDay = new DateTime(2017, 8, 25),
+            BalanceUpDay = new DateTime(2017, 8, 31)
+        };
 
-            ObjectDb = Substitute.For<IObjectDb>();
+        private readonly JavaScriptSerializer _serialize = new JavaScriptSerializer();
 
+        protected override void SetUpDataAccess()
+        {
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             balanceUpDataAccess.GetBalanceUp().Returns(_balance);
             DataAccess = Substitute.ForPartsOf<SubsidiaryPerformanceDataAccess>(
+                AppSetting,
                 CreateSessionStorage(),
                 balanceUpDataAccess);
         }

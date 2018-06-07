@@ -3,7 +3,6 @@
     using System;
     using Core.Configuration.Interfaces;
     using Core.UnitTests.TestHelpers;
-    using Data;
     using Model.Core.DTO.Configuration;
     using Model.Report.MetaModel;
     using NSubstitute;
@@ -18,32 +17,28 @@
 
         private ICacheRefAdapter _cacheRefAdapter;
 
-        private BalanceUp _balanceUp;
+        private readonly BalanceUp _balanceUp = new BalanceUp
+        {
+            BalanceUpDay = new DateTime(2018, 1, 1),
+            MoveBetsDay = new DateTime(2018, 2, 2),
+        };
 
         [OneTimeSetUp]
         public override void FixtureSetUp()
         {
             _cacheRefAdapter = Substitute.For<ICacheRefAdapter>();
-            var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
-            _balanceUp = new BalanceUp
-            {
-                BalanceUpDay = new DateTime(2018, 1, 1),
-                MoveBetsDay = new DateTime(2018, 2, 2),
-            };
-            balanceUpDataAccess.GetBalanceUp().Returns(_balanceUp);
-
-            DataAccess = Substitute.ForPartsOf<WinLossByBetTypeDataAccess>(_cacheRefAdapter, balanceUpDataAccess);
-            ObjectDb = Substitute.For<IObjectDb>();
-            DataAccess.GetObjectDb(Arg.Is(SpName)).Returns(ObjectDb);
-            ObjectDb.ExecuteReader(Arg.Any<object>()).ReturnsForAnyArgs(Reader);
+            base.FixtureSetUp();
         }
 
-        [OneTimeTearDown]
-        public override void FixtureTearDown()
+        protected override void SetUpDataAccess()
         {
-            _balanceUp = null;
-
-            base.FixtureTearDown();
+            var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
+            balanceUpDataAccess.GetBalanceUp().Returns(_balanceUp);
+            DataAccess = Substitute.ForPartsOf<WinLossByBetTypeDataAccess>(
+                AppSetting,
+                CreateSessionStorage(),
+                _cacheRefAdapter, balanceUpDataAccess);
+            DataAccess.GetObjectDb(Arg.Is(SpName)).Returns(ObjectDb);
         }
 
         [Test]

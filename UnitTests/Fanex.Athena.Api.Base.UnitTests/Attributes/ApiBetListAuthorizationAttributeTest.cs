@@ -22,7 +22,8 @@
         public void SetUp()
         {
             _licenseeSettingService = Substitute.For<ILicenseeSettingService>();
-            _attribute = new ApiBetListAuthorizationAttribute(_licenseeSettingService);
+            _attribute = new ApiBetListAuthorizationAttribute();
+            _attribute.LicenseeSettingService = _licenseeSettingService;
         }
 
         [Test]

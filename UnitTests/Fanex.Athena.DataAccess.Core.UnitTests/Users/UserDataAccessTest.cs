@@ -3,8 +3,6 @@
     using System.Collections.Generic;
     using System.Data;
     using Core.Users;
-    using Data;
-    using Logging;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
     using NSubstitute;
@@ -19,13 +17,6 @@
         private const string RecheckInSp = "Lrf_ReCheckIn";
         private const string ResetPasswordSp = "Lrf_UserPwdReset";
         private const string UpdateInfoSp = "Lrf_UserUpdAccount";
-
-        [OneTimeSetUp]
-        public override void FixtureSetUp()
-        {
-            DataAccess = Substitute.ForPartsOf<UserDataAccess>();
-            ObjectDb = Substitute.For<IObjectDb>();
-        }
 
         [Test]
         public void ChangePassword_WhenCall_ParametersPassedCorrectly()
@@ -211,7 +202,7 @@
             const int UserId = 2;
 
             DataAccess.GetObjectDb(Arg.Is(RecheckInSp), Arg.Any<int>()).Returns(ObjectDb);
-            
+
             // Action
             DataAccess.RecheckIn(UserId);
 

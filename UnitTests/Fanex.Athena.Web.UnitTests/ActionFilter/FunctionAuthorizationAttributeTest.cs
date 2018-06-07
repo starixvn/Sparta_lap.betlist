@@ -30,7 +30,9 @@ namespace Fanex.Athena.Web.UnitTests.ActionFilter
             _filterContext = CreateFilterContext();
             _sessionStorage = Substitute.For<ISessionStorage>();
             _authorizationService = Substitute.For<IAuthorizationService>();
-            _attribute = new FunctionAuthorizationAttribute(_sessionStorage, _authorizationService, null);
+            _attribute = new FunctionAuthorizationAttribute();
+            _attribute.SessionStorage = _sessionStorage;
+            _attribute.AuthorizationService = _authorizationService;
         }
 
         [TestCase(AppMode.Parasitic)]
