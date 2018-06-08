@@ -22,10 +22,20 @@ namespace Fanex.Athena.DataAccess.BetList
     using Fanex.Common;
     using Fanex.Common.Extensions;
     using Fanex.Data;
+    using Session.Interfaces;
     using Util;
 
     public class BetListDataAccess : BaseBetListDataAccess, IBetListDataAccess
     {
+        public BetListDataAccess() : this(null, null)
+        {
+        }
+
+        public BetListDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
+            : base(appSetting, sessionStorage)
+        {
+        }
+
         public TicketResult GetMixParlayDetailTicket(long transId)
         {
             const string UspName = "Lrf_BetList_SelParlayDetail";
