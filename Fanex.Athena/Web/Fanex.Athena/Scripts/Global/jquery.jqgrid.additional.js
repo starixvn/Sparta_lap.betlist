@@ -298,12 +298,11 @@ var jqGridAdditional = (function () {
                             formatOptions[modelElement.formatter] = modelElement.formatoptions;
                             value = $.fn.fmatter(modelElement.formatter, rawValue, formatOptions);
                         }
-
                         var titleValue = value;
                         if ($.isNumeric(rawValue) && rawValue < 0) {
                             var wrapper = document.createElement('div');
                             wrapper.innerHTML = value;
-                            titleValue = wrapper.outerHtml;
+                            titleValue = wrapper.innerText;
                         }
                         $(cell).html(value).attr("title", titleValue);
                     });
@@ -447,11 +446,11 @@ var jqGridAdditional = (function () {
                     // Show total text
                     $("td:first-child", footerRowList[0]).attr("colspan", colspan)
                             .attr("rowspan", rowCount - summaryRowCount).css("display", "")
-                            .css("width", totalCellWidth + "px").html(totalText);
+                            .css("width", totalCellWidth + "px").html(totalText).attr("title", totalText);
                 }
                 else {
                     $("td:first-child", footerRowList[0]).css("display", "").attr("colspan", summaryColspan)
-                        .css("width", totalCellWidth + "px").html(totalInText + " EUR");
+                        .css("width", totalCellWidth + "px").html(totalInText + " EUR").attr("title", totalInText + " EUR");
                     //remove border style
                     $(".ui-jqgrid-sdiv .ui-jqgrid-hbox").css("border-top", "none");
                 }
@@ -461,9 +460,13 @@ var jqGridAdditional = (function () {
                 if (currencyListString) {
                     var currencyList = currencyListString.split(",");
                     $(currencyList).each(function (i, currency) {
-                        $("td.group-" + currency + ":first-child", footerTable).attr("colspan", colspan)
-                                .attr("rowspan", summaryRowCount / currencyList.length).css("display", "")
-                                .attr("colspan", summaryColspan).html(totalInText + " " + currency);
+                        $("td.group-" + currency + ":first-child", footerTable)
+                                .attr("colspan", colspan)
+                                .attr("rowspan", summaryRowCount / currencyList.length)
+                                .css("display", "")
+                                .attr("colspan", summaryColspan)
+                                .html(totalInText + " " + currency)
+                                .attr("title", totalInText + " " + currency);
                         $("td.group-" + currency + ":gt(0)", footerTable).hide();
                         $("td.group-" + currency + ":first-child", footerTable).parent().addClass("total-eur");
                     });

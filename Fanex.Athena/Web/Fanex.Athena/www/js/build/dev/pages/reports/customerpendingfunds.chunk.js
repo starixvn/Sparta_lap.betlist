@@ -2845,7 +2845,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                             .attr("title", content);
                     }
                     else {
-                        var title = $.isNumeric(rawValue) && rawValue < 0 ? undefined : value;
+                        var title = value;
+                        if ($.isNumeric(rawValue) && rawValue < 0) {
+                            var wrapper = document.createElement('div');
+                            wrapper.innerHTML = value;
+                            title = wrapper.innerText;
+                        }
                         $cell.html(value).attr("title", title);
                     }
                 });
@@ -4625,12 +4630,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
                                 formatOptions[modelElement.formatter] = modelElement.formatoptions;
                                 value = $.fn.fmatter(modelElement.formatter, rawValue, formatOptions);
                             }
-
                             var titleValue = value;
                             if ($.isNumeric(rawValue) && rawValue < 0) {
                                 var wrapper = document.createElement('div');
                                 wrapper.innerHTML = value;
-                                titleValue = wrapper.outerHtml;
+                                titleValue = wrapper.innerText;
                             }
                             $(cell).html(value).attr("title", titleValue);
                         });
@@ -4732,11 +4736,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
                         // Show total text
                         $("td:first-child", footerRowList[0]).attr("colspan", colspan)
                                 .attr("rowspan", rowCount - summaryRowCount).css("display", "")
-                                .css("width", "").html(totalText);
+                                .css("width", "").html(totalText).attr("title", totalText);
                     }
                     else {
                         $("td:first-child", footerRowList[0]).css("display", "").attr("colspan", summaryColspan)
-                            .css("width", "").html(totalInText + " EUR");
+                            .css("width", "").html(totalInText + " EUR").attr("title", totalInText + " EUR");
                         //remove border style
                         $(".ui-jqgrid-sdiv .ui-jqgrid-hbox").css("border-top", "none");
                     }
@@ -4749,7 +4753,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
                         $(currencyList).each(function (i, currency) {
                             $("td.group-" + currency + ":first-child", footerTable)
                                     .attr("rowspan", rowspan).css("display", "")
-                                    .attr("colspan", summaryColspan).html(totalInText + " " + currency);
+                                    .attr("colspan", summaryColspan).html(totalInText + " " + currency).attr("title", totalInText + " " + currency);
                             $("td.group-" + currency + ":gt(0)", footerTable).hide();
                             $("td.group-" + currency + ":first-child", footerTable).parent().addClass("summarytotal");
                         });
