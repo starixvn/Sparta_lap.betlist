@@ -135,12 +135,12 @@ namespace Fanex.Athena.DataAccess.BetList
             var ticketResult = new TicketResult();
             try
             {
-                using (var db = this.GetObjectDb(uspKey))
+                using (var db = GetObjectDb(uspKey))
                 {
-                    var dataInfo = BetListParameterBuilder.CreateBetListParameters(db, uspKey, metaModel);
-                    var baseCurrency = dataInfo.BaseCurrencies != null && dataInfo.BaseCurrencies.Contains(metaModel.BaseCurrency, StringComparer.InvariantCultureIgnoreCase)
-                        ? metaModel.BaseCurrency
-                        : string.Empty;
+                    BetListParameterBuilder.CreateBetListParameters(db, uspKey, metaModel);
+                    var baseCurrency = BetListParameterBuilder.HasBaseCurrencyOutputColumn(uspKey) ?
+                        metaModel.BaseCurrency :
+                        string.Empty;
 
                     using (var reader = db.ExecuteReader())
                     {
