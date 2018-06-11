@@ -3,7 +3,6 @@
     using System;
     using Core.Configuration.Interfaces;
     using Core.UnitTests.TestHelpers;
-    using Data;
     using Fanex.Athena.UnitTest.Common.NUnitExtensions;
     using Model.Core.DTO.Configuration;
     using Model.Report.MetaModel;
@@ -15,42 +14,33 @@
     {
         private const string SpName = "Lrf_Rpt_CommByBettype_HR";
 
-        private BalanceUp _balance;
-        private RacingCommissionMetaModel _metaModel;
+        private readonly BalanceUp _balance = new BalanceUp
+        {
+            MoveBetsDay = new DateTime(2016, 8, 10),
+            BalanceUpDay = new DateTime(2016, 8, 31)
+        };
 
-        [OneTimeSetUp]
-        public override void FixtureSetUp()
+        private readonly RacingCommissionMetaModel _metaModel = new RacingCommissionMetaModel
+        {
+            LicenseeId = 1,
+            BaseCurrency = "USD",
+            AgentListXml = "xml",
+            FromDate = new DateTime(2017, 1, 1),
+            ToDate = new DateTime(2017, 2, 2),
+            PageIndex = 2,
+            PageSize = 100
+        };
+
+        protected override void SetUpDataAccess()
         {
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
-            _balance = new BalanceUp
-            {
-                MoveBetsDay = new DateTime(2016, 8, 10),
-                BalanceUpDay = new DateTime(2016, 8, 31)
-            };
+
             balanceUpDataAccess.GetBalanceUp().Returns(_balance);
 
-            ObjectDb = Substitute.For<IObjectDb>();
-            DataAccess = Substitute.ForPartsOf<RacingCommissionDataAccess>(balanceUpDataAccess);
-
-            _metaModel = new RacingCommissionMetaModel
-            {
-                LicenseeId = 1,
-                BaseCurrency = "USD",
-                AgentListXml = "xml",
-                FromDate = new DateTime(2017, 1, 1),
-                ToDate = new DateTime(2017, 2, 2),
-                PageIndex = 2,
-                PageSize = 100
-            };
-        }
-
-        [OneTimeTearDown]
-        public override void FixtureTearDown()
-        {
-            _metaModel = null;
-            _balance = null;
-
-            base.FixtureTearDown();
+            DataAccess = Substitute.ForPartsOf<RacingCommissionDataAccess>(
+                AppSetting,
+                CreateSessionStorage(),
+                balanceUpDataAccess);
         }
 
         [Test]

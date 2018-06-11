@@ -5,6 +5,7 @@
     using System.Security.Principal;
     using System.Web;
     using System.Web.SessionState;
+    using Core.Common.Interfaces;
     using Core.Users;
     using Core.Users.Interfaces;
     using Core.Utility.Interfaces;
@@ -77,7 +78,8 @@
                 _fileSystem,
                 _formsAuthenticationService,
                 _logger,
-                appSetting);
+                appSetting,
+                Substitute.For<ILanguageService>());
         }
 
         [Test]

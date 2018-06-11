@@ -37,7 +37,12 @@
         public void ExecuteAuthorizationFilterAsync_AjaxRequestHeaderNotContainCSRF_UnauthorizeAccessResult()
         {
             // Arrange
-            var attribute = new ApiFunctionAuthorizationAttribute(_antiForgeryService, _sessionService, _authorizationService);
+            var attribute = new ApiFunctionAuthorizationAttribute
+            {
+                AntiForgeryService = _antiForgeryService,
+                SessionService = _sessionService,
+                AuthorizationService = _authorizationService
+            };
             var actionContext = CreateActionContext(isAjax: true);
 
             // Action
@@ -52,7 +57,12 @@
         {
             // Arrange
             const string CsrfValue = "abc";
-            var attribute = new ApiFunctionAuthorizationAttribute(_antiForgeryService, _sessionService, _authorizationService);
+            var attribute = new ApiFunctionAuthorizationAttribute
+            {
+                AntiForgeryService = _antiForgeryService,
+                SessionService = _sessionService,
+                AuthorizationService = _authorizationService
+            };
             var actionContext = CreateActionContext(isAjax: true);
             actionContext.Request.Headers.Add(KeyName, CsrfValue);
 
@@ -67,7 +77,12 @@
         public void ExecuteAuthorizationFilterAsync_NotAjaxRequest_CallAntiForgeryValidate()
         {
             // Arrange
-            var attribute = new ApiFunctionAuthorizationAttribute(_antiForgeryService, _sessionService, _authorizationService);
+            var attribute = new ApiFunctionAuthorizationAttribute
+            {
+                AntiForgeryService = _antiForgeryService,
+                SessionService = _sessionService,
+                AuthorizationService = _authorizationService
+            };
             var actionContext = CreateActionContext(isAjax: false);
 
             // Action
@@ -81,7 +96,12 @@
         public void ExecuteAuthorizationFilterAsync_AntiForgeryFail_ReturnUnauthorizeAccess()
         {
             // Arrange
-            var attribute = new ApiFunctionAuthorizationAttribute(_antiForgeryService, _sessionService, _authorizationService);
+            var attribute = new ApiFunctionAuthorizationAttribute
+            {
+                AntiForgeryService = _antiForgeryService,
+                SessionService = _sessionService,
+                AuthorizationService = _authorizationService
+            };
             var actionContext = CreateActionContext();
             _antiForgeryService.When(x => x.Validate()).Throw(new Exception());
 
@@ -96,7 +116,12 @@
         public void ExecuteAuthorizationFilterAsync_SessionIsNull_InvokeContinuationFunc()
         {
             // Arrange
-            var attribute = new ApiFunctionAuthorizationAttribute(_antiForgeryService, _sessionService, _authorizationService);
+            var attribute = new ApiFunctionAuthorizationAttribute
+            {
+                AntiForgeryService = _antiForgeryService,
+                SessionService = _sessionService,
+                AuthorizationService = _authorizationService
+            };
             var actionContext = CreateActionContext();
 
             // Action
@@ -111,9 +136,11 @@
         {
             // Arrange
             var permissionKeys = new[] { "abc", "def" };
-            var attribute = new ApiFunctionAuthorizationAttribute(_antiForgeryService, _sessionService, _authorizationService)
+            var attribute = new ApiFunctionAuthorizationAttribute(permissionKeys)
             {
-                PermissionKeys = permissionKeys
+                AntiForgeryService = _antiForgeryService,
+                SessionService = _sessionService,
+                AuthorizationService = _authorizationService
             };
             _sessionService.UserSession.Returns(new UserSession());
             _sessionService.LicenseeSession.Returns(new LicenseeSession());
@@ -131,7 +158,12 @@
         public void ExecuteAuthorizationFilterAsync_AppModeParasiticHasPermission_InvokeContinuationFunc()
         {
             // Arrange
-            var attribute = new ApiFunctionAuthorizationAttribute(_antiForgeryService, _sessionService, _authorizationService);
+            var attribute = new ApiFunctionAuthorizationAttribute
+            {
+                AntiForgeryService = _antiForgeryService,
+                SessionService = _sessionService,
+                AuthorizationService = _authorizationService
+            };
             var actionContext = CreateActionContext();
             _sessionService.UserSession.Returns(new UserSession { ApplicationMode = Session.Enum.AppMode.Parasitic });
             _authorizationService.HasPermissions(Arg.Any<IEnumerable<string>>(), Arg.Any<string[]>()).Returns(true);
@@ -147,7 +179,12 @@
         public void ExecuteAuthorizationFilterAsync_AppModeSelfHasPermission_InvokeContinuationFunc()
         {
             // Arrange
-            var attribute = new ApiFunctionAuthorizationAttribute(_antiForgeryService, _sessionService, _authorizationService);
+            var attribute = new ApiFunctionAuthorizationAttribute
+            {
+                AntiForgeryService = _antiForgeryService,
+                SessionService = _sessionService,
+                AuthorizationService = _authorizationService
+            };
             var actionContext = CreateActionContext();
             _sessionService.UserSession.Returns(new UserSession { ApplicationMode = Session.Enum.AppMode.Self });
             _authorizationService.HasPermissions(Arg.Any<IEnumerable<int>>(), Arg.Any<string[]>()).Returns(true);

@@ -114,6 +114,7 @@ namespace Fanex.Athena.Service.Core.Users
             if (string.IsNullOrEmpty(_keyPath))
             {
                 RedirectToErrorPage(DisableSsoErrorCode);
+                return;
             }
 
             var metaModel = ParseQueryString();

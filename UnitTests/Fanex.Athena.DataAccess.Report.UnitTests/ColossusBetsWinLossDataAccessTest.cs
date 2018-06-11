@@ -4,7 +4,6 @@
     using System.Data;
     using Core.Configuration.Interfaces;
     using Core.UnitTests.TestHelpers;
-    using Data;
     using Extension.Helper;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Configuration;
@@ -22,8 +21,7 @@
 
         private readonly DateTime _moveBetsDay = new DateTime(2010, 1, 1);
 
-        [OneTimeSetUp]
-        public override void FixtureSetUp()
+        protected override void SetUpDataAccess()
         {
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             var balanceUp = new BalanceUp
@@ -33,15 +31,9 @@
             balanceUpDataAccess.GetBalanceUp().Returns(balanceUp);
 
             DataAccess = Substitute.ForPartsOf<ColossusBetsWinLossDataAccess>(
-                CreateSessionStorage(), 
+                AppSetting,
+                CreateSessionStorage(),
                 balanceUpDataAccess);
-        }
-
-        [OneTimeSetUp]
-        public override void SetUp()
-        {
-            ObjectDb = Substitute.For<IObjectDb>();
-            base.SetUp();
         }
 
         [Test]

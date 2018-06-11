@@ -6,7 +6,6 @@
     using System.Web.Script.Serialization;
     using Core.Configuration.Interfaces;
     using Core.UnitTests.TestHelpers;
-    using Data;
     using Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Configuration;
     using Model.Core.ResultModel;
@@ -21,32 +20,23 @@
 
         private const string GetDetailSp = "Lrf_Rpt_CashoutWinloss_Detail";
 
-        private BalanceUp _balance;
+        private readonly BalanceUp _balance = new BalanceUp
+        {
+            MoveBetsDay = new DateTime(2017, 1, 1)
+        };
+
         private ThirdPartyWinLossMetaModel _metaModel;
 
-        [OneTimeSetUp]
-        public override void FixtureSetUp()
+        protected override void SetUpDataAccess()
         {
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
-            _balance = new BalanceUp
-            {
-                MoveBetsDay = new DateTime(2017, 1, 1)
-            };
+
             balanceUpDataAccess.GetBalanceUp().Returns(_balance);
 
             DataAccess = Substitute.ForPartsOf<CashOutWinLossDataAccess>(
+                AppSetting,
                 CreateSessionStorage(),
                 balanceUpDataAccess);
-            ObjectDb = Substitute.For<IObjectDb>();
-        }
-
-        [OneTimeTearDown]
-        public override void FixtureTearDown()
-        {
-            _balance = null;
-            _metaModel = null;
-
-            base.FixtureTearDown();
         }
 
         [SetUp]

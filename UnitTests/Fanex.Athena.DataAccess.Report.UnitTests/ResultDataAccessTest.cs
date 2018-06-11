@@ -5,7 +5,6 @@
     using System.Data;
     using Core.Configuration.Interfaces;
     using Core.UnitTests.TestHelpers;
-    using Data;
     using Fanex.Athena.UnitTest.Common.NUnitExtensions;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Configuration;
@@ -35,18 +34,21 @@
         private const int BettypeId = 5;
         private const long BetId = 6;
 
-        private BalanceUp _balance;
-        private ResultMetalModel _metaModel;
+        private readonly BalanceUp _balance = new BalanceUp
+        {
+            MoveBetsDay = new DateTime(2016, 8, 10),
+            BalanceUpDay = new DateTime(2016, 8, 31)
+        };
 
-        [OneTimeSetUp]
-        public override void FixtureSetUp()
+        private readonly ResultMetalModel _metaModel = new ResultMetalModel
+        {
+            FromDate = new DateTime(2017, 1, 1),
+            ToDate = new DateTime(2017, 2, 2)
+        };
+
+        protected override void SetUpDataAccess()
         {
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
-            _balance = new BalanceUp
-            {
-                MoveBetsDay = new DateTime(2016, 8, 10),
-                BalanceUpDay = new DateTime(2016, 8, 31)
-            };
             balanceUpDataAccess.GetBalanceUp().Returns(_balance);
             var cacheRefAdapter = Substitute.For<ICacheRefAdapter>();
             DataAccess = Substitute.ForPartsOf<ResultDataAccess>(balanceUpDataAccess, cacheRefAdapter);
@@ -57,15 +59,6 @@
                 FromDate = new DateTime(2017, 1, 1),
                 ToDate = new DateTime(2017, 2, 2)
             };
-        }
-
-        [OneTimeTearDown]
-        public override void FixtureTearDown()
-        {
-            _metaModel = null;
-            _balance = null;
-
-            base.FixtureTearDown();
         }
 
         [Test]

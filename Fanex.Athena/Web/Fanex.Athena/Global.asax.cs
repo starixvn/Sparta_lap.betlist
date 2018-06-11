@@ -85,7 +85,6 @@ namespace Fanex.Athena
                 GlobalConfiguration.Configuration.Filters.Add(new CustomApiAuthorizeAttribute());
                 GlobalConfiguration.Configuration.Formatters.Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
                 GlobalConfiguration.Configuration.Services.Add(typeof(IExceptionLogger), DependencyResolver.Current.GetService<IExceptionLogger>());
-                //GlobalConfiguration.Configuration.DependencyResolver = a
                 /*End Web API*/
 
                 AntiForgeryConfig.SuppressXFrameOptionsHeader = true;

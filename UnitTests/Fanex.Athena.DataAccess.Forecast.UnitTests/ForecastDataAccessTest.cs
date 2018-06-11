@@ -2,6 +2,7 @@
 {
     using System;
     using System.Data;
+    using Core.UnitTests.TestHelpers;
     using Data;
     using Forecast;
     using Model.Forecast.DTO.Forecast1X2;
@@ -14,40 +15,19 @@
     using VendorAdapter.Interfaces;
 
     [TestFixture]
-    public class ForecastDataAccessTest
+    public class ForecastDataAccessTest : BaseDataAccessHelperTest<ForecastDataAccess>
     {
-        private IObjectDb _objectDb;
-        private ForecastDataAccess _dataAccess;
-        private IDataReader _reader;
-
-        [SetUp]
-        public void Setup()
-        {
-            _objectDb = Substitute.For<IObjectDb>();
-            _dataAccess = Substitute.ForPartsOf<ForecastDataAccess>(Substitute.For<ICacheRefAdapter>());
-            _reader = Substitute.For<IDataReader>();
-            _objectDb.ExecuteReader().Returns(_reader);
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            _objectDb = null;
-            _dataAccess = null;
-            _reader = null;
-        }
-
         [Test]
         public void GetForecastTopOddsByMatch_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_Forecast_OddsSelTopByMatch")).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_Forecast_OddsSelTopByMatch")).Returns(ObjectDb);
             var matchId = 0;
             var betType = 0;
             _objectDb.QueryEntity<ForecastAH>().Returns(new ForecastAH());
 
             // Action
-            _dataAccess.GetForecastTopOddsByMatch(matchId, betType);
+            DataAccess.GetForecastTopOddsByMatch(matchId, betType);
 
             // Assert
             _objectDb.Received(1).AddInParameter("matchid", DbType.Int32, matchId);
@@ -58,12 +38,12 @@
         public void GetForecastHandicap_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_Forecast_SelHDP")).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_Forecast_SelHDP")).Returns(ObjectDb);
             var metaModel = new ForecastAHMetaModel();
             var userId = 0;
 
             // Action
-            _dataAccess.GetForecastHandicap(metaModel, userId);
+            DataAccess.GetForecastHandicap(metaModel, userId);
 
             // Assert
             _objectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
@@ -75,12 +55,12 @@
         public void GetForecastOverUnder_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_Forecast_SelOU")).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_Forecast_SelOU")).Returns(ObjectDb);
             var metaModel = new ForecastAHMetaModel();
             var userId = 0;
 
             // Action
-            _dataAccess.GetForecastOverUnder(metaModel, userId);
+            DataAccess.GetForecastOverUnder(metaModel, userId);
 
             // Assert
             _objectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
@@ -89,14 +69,49 @@
         }
 
         [Test]
+        public void GetForecastRunningLeague_WhenCall_ParametersPassedCorrectly()
+        {
+            // Arrange
+            DataAccess.GetObjectDb(Arg.Is("Lrf_LeagueSelRunning")).Returns(ObjectDb);
+            var metaModel = new ForecastBaseMetaModel();
+
+            // Action
+            DataAccess.GetForecastRunningLeague(metaModel);
+
+            // Assert
+            ObjectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            ObjectDb.Received().AddInParameter("betTypes", DbType.String, metaModel.BetTypeString);
+        }
+
+        [Test]
+        public void GetForecastRunningLeague_WhenCall_DataReturnedCorrectly()
+        {
+            // Arrange
+            DataAccess.GetObjectDb(Arg.Is("Lrf_LeagueSelRunning")).Returns(ObjectDb);
+            ObjectDb.Query<League>().Returns(new List<League>
+            {
+                new League
+                {
+                    LeagueId = 999
+                }
+            });
+
+            // Action
+            var result = DataAccess.GetForecastRunningLeague(new ForecastBaseMetaModel()).ElementAt(0);
+
+            // Assert
+            Assert.That(result.LeagueId, Is.EqualTo(999));
+        }
+
+        [Test]
         public void GetForecastOneXTwoByLeague_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_Forecast1x2_SelByLeague")).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_Forecast1x2_SelByLeague")).Returns(ObjectDb);
             var metaModel = new ForecastOneXTwoMetaModel();
 
             // Action
-            _dataAccess.GetForecastOneXTwoByLeague(metaModel);
+            DataAccess.GetForecastOneXTwoByLeague(metaModel);
 
             // Assert
             _objectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
@@ -107,7 +122,7 @@
         public void GetForecastOneXTwoByLeague_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_Forecast1x2_SelByLeague")).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_Forecast1x2_SelByLeague")).Returns(ObjectDb);
             var metaModel = new ForecastOneXTwoMetaModel();
             var expected = new ForecastOneXTwo
             {
@@ -120,10 +135,10 @@
                 ShowTime = "ShowTimeTest",
                 IsNeutral = true
             };
-            ConfifureReaderForGetForecastOneXTwoByLeagueMethod(_reader, expected, false);
+            ConfifureReaderForGetForecastOneXTwoByLeagueMethod(Reader, expected, false);
 
             // Action
-            var result = _dataAccess.GetForecastOneXTwoByLeague(metaModel)[0];
+            var result = DataAccess.GetForecastOneXTwoByLeague(metaModel)[0];
 
             // Assert
             Assert.That(result.IsExtra, Is.False);
@@ -141,7 +156,7 @@
         public void GetForecastOneXTwoByLeague_HasExtraColumn_DataReturnedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_Forecast1x2_SelByLeague")).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_Forecast1x2_SelByLeague")).Returns(ObjectDb);
             var metaModel = new ForecastOneXTwoMetaModel();
             var expected = new ForecastOneXTwo
             {
@@ -154,10 +169,10 @@
                 ShowTime = "ShowTimeTest",
                 IsNeutral = true
             };
-            ConfifureReaderForGetForecastOneXTwoByLeagueMethod(_reader, expected, true);
+            ConfifureReaderForGetForecastOneXTwoByLeagueMethod(Reader, expected, true);
 
             // Action
-            var result = _dataAccess.GetForecastOneXTwoByLeague(metaModel)[0];
+            var result = DataAccess.GetForecastOneXTwoByLeague(metaModel)[0];
 
             // Assert
             Assert.That(result.IsExtra, Is.True);
@@ -170,11 +185,11 @@
         public void GetForecastOneXTwoByMatch_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_Forecast_Sel1X2")).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_Forecast_Sel1X2")).Returns(ObjectDb);
             var metaModel = new ForecastOneXTwoMetaModel();
 
             // Action
-            _dataAccess.GetForecastOneXTwoByMatch(metaModel);
+            DataAccess.GetForecastOneXTwoByMatch(metaModel);
 
             // Assert
             _objectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
@@ -186,11 +201,11 @@
         public void GetForecastHandicapOverUnder_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_Forecast_SelByLeague")).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_Forecast_SelByLeague")).Returns(ObjectDb);
             var metaModel = new ForecastHandicapOverUnderMetaModel();
 
             // Action
-            _dataAccess.GetForecastHandicapOverUnder(metaModel);
+            DataAccess.GetForecastHandicapOverUnder(metaModel);
 
             // Assert
             _objectDb.Received(1).ExecuteReader(Arg.Any<object>());
@@ -200,8 +215,8 @@
         public void GetForecastHandicapOverUnder_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_Forecast_SelByLeague")).Returns(_objectDb);
-            _objectDb.ExecuteReader(Arg.Any<object>()).Returns(_reader);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_Forecast_SelByLeague")).Returns(ObjectDb);
+            ObjectDb.ExecuteReader(Arg.Any<object>()).Returns(Reader);
             var metaModel = new ForecastHandicapOverUnderMetaModel();
             var expected = new ForecastHandicapOverUnder
             {
@@ -222,10 +237,10 @@
                 HtHandicapMinus1 = 14m,
                 HtHandicap = 15m
             };
-            ConfifureReaderForGetForecastHandicapOverUnderMethod(_reader, expected);
+            ConfifureReaderForGetForecastHandicapOverUnderMethod(Reader, expected);
 
             // Action
-            var result = _dataAccess.GetForecastHandicapOverUnder(metaModel)[0];
+            var result = DataAccess.GetForecastHandicapOverUnder(metaModel)[0];
 
             // Assert
             Assert.That(result.MatchId, Is.EqualTo(expected.MatchId));
@@ -249,16 +264,16 @@
         public void GetNewForecastData_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_Forecast_MatchTotalForecast")).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_Forecast_MatchTotalForecast")).Returns(ObjectDb);
             var metaModel = new NewForecastHandicapOverUnderMetaModel();
             var matchInfo = new NewForecastHdpOuMatchInfo();
-            _objectDb.ExecuteDataSet().Returns(new DataSet());
-            _objectDb.GetParameterValue("MatchTime").Returns(new DateTime(2016, 8, 26));
-            _objectDb.GetParameterValue("HomeScore").Returns("HomeScoreTest");
-            _objectDb.GetParameterValue("AwayScore").Returns("AwayScoreTest");
+            ObjectDb.ExecuteDataSet().Returns(new DataSet());
+            ObjectDb.GetParameterValue("MatchTime").Returns(new DateTime(2016, 8, 26));
+            ObjectDb.GetParameterValue("HomeScore").Returns("HomeScoreTest");
+            ObjectDb.GetParameterValue("AwayScore").Returns("AwayScoreTest");
 
             // Action
-            _dataAccess.GetNewForecastData(metaModel, matchInfo);
+            DataAccess.GetNewForecastData(metaModel, matchInfo);
 
             // Assert
             _objectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
@@ -272,7 +287,7 @@
         public void GetNewForecastData_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_Forecast_MatchTotalForecast")).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_Forecast_MatchTotalForecast")).Returns(ObjectDb);
             var metaModel = new NewForecastHandicapOverUnderMetaModel { BaseCurrency = "UUS" };
             var matchInfo = new NewForecastHdpOuMatchInfo();
 
@@ -297,13 +312,13 @@
             };
             dataSet.Tables.Add(GetDetailTableForGetNewForecastDataMethod(detailItem));
 
-            _objectDb.ExecuteDataSet().Returns(dataSet);
-            _objectDb.GetParameterValue("MatchTime").Returns(new DateTime(2016, 8, 26, 1, 30, 0));
-            _objectDb.GetParameterValue("HomeScore").Returns(5);
-            _objectDb.GetParameterValue("AwayScore").Returns(6);
+            ObjectDb.ExecuteDataSet().Returns(dataSet);
+            ObjectDb.GetParameterValue("MatchTime").Returns(new DateTime(2016, 8, 26, 1, 30, 0));
+            ObjectDb.GetParameterValue("HomeScore").Returns(5);
+            ObjectDb.GetParameterValue("AwayScore").Returns(6);
 
             // Action
-            var result = _dataAccess.GetNewForecastData(metaModel, matchInfo);
+            var result = DataAccess.GetNewForecastData(metaModel, matchInfo);
 
             // Assert
             Assert.That(result.TotalItemList[0].Type, Is.EqualTo(totalItem.Type));

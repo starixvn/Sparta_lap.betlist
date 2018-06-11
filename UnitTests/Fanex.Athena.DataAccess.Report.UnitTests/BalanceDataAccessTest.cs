@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using Core.Configuration.Interfaces;
     using Core.UnitTests.TestHelpers;
-    using Data;
     using Extension.Utility;
     using Model.Core.DTO.Configuration;
     using Model.Report.DTO;
@@ -18,16 +17,23 @@
         [OneTimeSetUp]
         public override void FixtureSetUp()
         {
+            base.FixtureSetUp();
+            DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerSelBalance")).Returns(ObjectDb);
+        }
+
+        protected override void SetUpDataAccess()
+        {
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             balanceUpDataAccess.GetBalanceUp().Returns(new BalanceUp
             {
                 BalanceUpDay = new DateTime(2017, 12, 1),
                 MoveBetsDay = new DateTime(2017, 12, 2)
             });
-            ObjectDb = Substitute.For<IObjectDb>();
 
-            DataAccess = Substitute.ForPartsOf<BalanceDataAccess>(balanceUpDataAccess);
-            DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerSelBalance")).Returns(ObjectDb);
+            DataAccess = Substitute.ForPartsOf<BalanceDataAccess>(
+                AppSetting,
+                CreateSessionStorage(),
+                balanceUpDataAccess);
         }
 
         [Test]

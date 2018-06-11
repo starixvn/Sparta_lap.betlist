@@ -17,16 +17,15 @@
         public override void FixtureSetUp()
         {
             _logger = Substitute.For<ILogger>();
-            DataAccess = Substitute.ForPartsOf<MoveBetDataAccess>(_logger);
-            ObjectDb = Substitute.For<IObjectDb>();
+            base.FixtureSetUp();
         }
 
-        [OneTimeTearDown]
-        public override void FixtureTearDown()
+        protected override void SetUpDataAccess()
         {
-            base.FixtureTearDown();
-
-            _logger = null;
+            DataAccess = Substitute.ForPartsOf<MoveBetDataAccess>(
+                AppSetting,
+                CreateSessionStorage(),
+                _logger);
         }
 
         [Test]

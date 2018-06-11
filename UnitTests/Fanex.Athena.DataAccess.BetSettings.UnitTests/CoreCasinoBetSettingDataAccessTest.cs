@@ -5,7 +5,6 @@
     using Core.Common.Constants;
     using Core.Common.Interfaces;
     using Core.UnitTests.TestHelpers;
-    using Data;
     using Model.BetSettings.MetaModel;
     using Model.Core.MetaModel.Common;
     using NSubstitute;
@@ -19,9 +18,16 @@
         [OneTimeSetUp]
         public override void FixtureSetUp()
         {
-            ObjectDb = Substitute.For<IObjectDb>();
             _userLogDataAccess = Substitute.For<IUserLogDataAccess>();
-            DataAccess = Substitute.ForPartsOf<CoreCasinoBetSettingDataAccess>(_userLogDataAccess);
+            base.FixtureSetUp();
+        }
+
+        protected override void SetUpDataAccess()
+        {
+            DataAccess = Substitute.ForPartsOf<CoreCasinoBetSettingDataAccess>(
+                AppSetting,
+                CreateSessionStorage(),
+                _userLogDataAccess);
         }
 
         [Test]
@@ -90,7 +96,7 @@
 
             // Assert
             _userLogDataAccess.Received(1).WriteLog(Arg.Is<UserLogMetaModel>(x =>
-                matchUserInfo(x) && 
+                matchUserInfo(x) &&
                 matchTrackingValues(x)));
         }
     }
