@@ -864,6 +864,7 @@
     <Content Include="Views\Desktop\Report\Result\Popup\Microgaming.cshtml" />
     <Content Include="Views\Desktop\Report\Result\Popup\AllBet.cshtml" />
     <Content Include="Views\Desktop\Customer\BetSetting\PP.cshtml" />
+    <Content Include="Views\Customer\BetSetting\PP.cshtml" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Row.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.jsx" />
