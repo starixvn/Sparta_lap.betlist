@@ -17,16 +17,20 @@ namespace Fanex.Athena.Web.ActionFilter
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
     public sealed class FunctionAuthorizationAttribute : ActionFilterAttribute
     {
-        public ISessionStorage SessionStorage { get; set; }
-
-        public IAuthorizationService AuthorizationService { get; set; }
-
         private readonly string[] _permissionKeys;
+
+        public FunctionAuthorizationAttribute()
+        {
+        }
 
         public FunctionAuthorizationAttribute(params string[] permissionKeys)
         {
             _permissionKeys = permissionKeys;
         }
+
+        public ISessionStorage SessionStorage { get; set; }
+
+        public IAuthorizationService AuthorizationService { get; set; }
 
         #region Override
 

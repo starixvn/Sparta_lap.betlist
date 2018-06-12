@@ -15,13 +15,13 @@
     {
         private const string SpName = "Lrf_Rpt_WinLossByBettype";
 
-        private ICacheRefAdapter _cacheRefAdapter;
-
         private readonly BalanceUp _balanceUp = new BalanceUp
         {
             BalanceUpDay = new DateTime(2018, 1, 1),
             MoveBetsDay = new DateTime(2018, 2, 2),
         };
+
+        private ICacheRefAdapter _cacheRefAdapter;
 
         [OneTimeSetUp]
         public override void FixtureSetUp()
@@ -37,7 +37,8 @@
             DataAccess = Substitute.ForPartsOf<WinLossByBetTypeDataAccess>(
                 AppSetting,
                 CreateSessionStorage(),
-                _cacheRefAdapter, balanceUpDataAccess);
+                _cacheRefAdapter,
+                balanceUpDataAccess);
             DataAccess.GetObjectDb(Arg.Is(SpName)).Returns(ObjectDb);
         }
 

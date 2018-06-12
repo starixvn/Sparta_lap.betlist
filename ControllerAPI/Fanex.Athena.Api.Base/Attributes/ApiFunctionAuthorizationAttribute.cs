@@ -20,19 +20,22 @@
     {
         private const string KeyName = "__RequestVerificationToken";
 
+        private readonly string[] _permissionKeys;
+
+        public ApiFunctionAuthorizationAttribute()
+        {
+        }
+
+        public ApiFunctionAuthorizationAttribute(params string[] permissionKeys)
+        {
+            _permissionKeys = permissionKeys;
+        }
+
         public IAntiForgeryService AntiForgeryService { get; set; }
 
         public ISessionService SessionService { get; set; }
 
         public IAuthorizationService AuthorizationService { get; set; }
-
-        private readonly string[] _permissionKeys;
-
-        [CLSCompliant(false)]
-        public ApiFunctionAuthorizationAttribute(params string[] permissionKeys)
-        {
-            _permissionKeys = permissionKeys;
-        }
 
         public Task<HttpResponseMessage> ExecuteAuthorizationFilterAsync(
             HttpActionContext actionContext,
