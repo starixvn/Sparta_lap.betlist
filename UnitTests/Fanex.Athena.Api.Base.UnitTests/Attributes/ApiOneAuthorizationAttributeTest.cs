@@ -38,12 +38,7 @@
         public void ExecuteAuthorizationFilterAsync_TokenValueIsNull_UnauthorizeAccess()
         {
             // Arrange
-            var attribute = new ApiOneAuthorizationAttribute
-            {
-                Logger = _logger,
-                OneAuthenticationService = _oneAuthenticationService,
-                LicenseeDataAccess = _licenseeDataAccess
-            };
+            var attribute = new ApiOneAuthorizationAttribute();
             var actionContext = CreateActionContext();
 
             // Action
@@ -57,12 +52,7 @@
         public void ExecuteAuthorizationFilterAsync_AuthTokenNull_UnauthorizeAccess()
         {
             // Arrange
-            var attribute = new ApiOneAuthorizationAttribute
-            {
-                Logger = _logger,
-                OneAuthenticationService = _oneAuthenticationService,
-                LicenseeDataAccess = _licenseeDataAccess
-            };
+            var attribute = new ApiOneAuthorizationAttribute();
             var actionContext = CreateActionContext(hasAuthToken: true);
 
             // Action
@@ -80,12 +70,7 @@
         public void ExecuteAuthorizationFilterAsync_LicenseeIsNull_UnauthorizeAccess()
         {
             // Arrange
-            var attribute = new ApiOneAuthorizationAttribute
-            {
-                Logger = _logger,
-                OneAuthenticationService = _oneAuthenticationService,
-                LicenseeDataAccess = _licenseeDataAccess
-            };
+            var attribute = new ApiOneAuthorizationAttribute();
             var actionContext = CreateActionContext(hasAuthToken: true);
             var token = new OneAuthToken
             {
@@ -109,12 +94,7 @@
         public void ExecuteAuthorizationFilterAsync_LicenseeNotNull_UnauthorizeAccess()
         {
             // Arrange
-            var attribute = new ApiOneAuthorizationAttribute
-            {
-                Logger = _logger,
-                OneAuthenticationService = _oneAuthenticationService,
-                LicenseeDataAccess = _licenseeDataAccess
-            };
+            var attribute = new ApiOneAuthorizationAttribute();
             var actionContext = CreateActionContext(hasAuthToken: true);
             var token = new OneAuthToken
             {
@@ -146,12 +126,7 @@
         {
             // Arrange
             var exception = new Exception("123");
-            var attribute = new ApiOneAuthorizationAttribute
-            {
-                Logger = _logger,
-                OneAuthenticationService = _oneAuthenticationService,
-                LicenseeDataAccess = _licenseeDataAccess
-            };
+            var attribute = new ApiOneAuthorizationAttribute();
             var actionContext = CreateActionContext(hasAuthToken: true);
 
             _oneAuthenticationService.When(x => x.GetTokenInfo(TokenValue)).Throw(exception);

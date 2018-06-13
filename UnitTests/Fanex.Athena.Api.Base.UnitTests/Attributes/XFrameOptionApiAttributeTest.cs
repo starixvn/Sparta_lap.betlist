@@ -31,10 +31,7 @@
         public void OnActionExecuted_UserSessionIsNull_XFrameOptionToSameOrigin(bool hasXframeOptionHeader)
         {
             // Arrange
-            var attribute = new XFrameOptionApiAttribute
-            {
-                SessionService = _sessionService
-            };
+            var attribute = new XFrameOptionApiAttribute();
             var actionExecutedContext = CreateActionExecutedContext();
             if (hasXframeOptionHeader)
             {
@@ -52,10 +49,7 @@
         public void OnActionExecuted_UserAppModeIsParasitic_NotAddXFrameOption()
         {
             // Arrange
-            var attribute = new XFrameOptionApiAttribute
-            {
-                SessionService = _sessionService
-            };
+            var attribute = new XFrameOptionApiAttribute();
             var actionExecutedContext = CreateActionExecutedContext();
             _sessionService.UserSession.Returns(new UserSession
             {

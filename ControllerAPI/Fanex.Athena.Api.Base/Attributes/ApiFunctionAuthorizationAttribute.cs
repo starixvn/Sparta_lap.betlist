@@ -9,8 +9,10 @@
     using System.Threading.Tasks;
     using System.Web.Helpers;
     using System.Web.Http.Controllers;
+    using System.Web.Http.Dependencies;
     using System.Web.Http.Filters;
     using Extension.Utility;
+    using Extensions;
     using Resources;
     using Service.Core.Users.Interfaces;
     using Session.Enum;
@@ -31,12 +33,6 @@
             _permissionKeys = permissionKeys;
         }
 
-        public IAntiForgeryService AntiForgeryService { get; set; }
-
-        public ISessionService SessionService { get; set; }
-
-        public IAuthorizationService AuthorizationService { get; set; }
-
         public Task<HttpResponseMessage> ExecuteAuthorizationFilterAsync(
             HttpActionContext actionContext,
             CancellationToken cancellationToken,
@@ -45,7 +41,8 @@
             try
             {
                 var headers = actionContext.Request.Headers;
-
+                var scope = actionContext.Request.GetDependencyScope();
+                var antiForgeryService = scope.Resolve<IAntiForgeryService>();
                 if (IsAjaxRequest(headers))
                 {
                     if (!headers.Contains(KeyName))
@@ -59,19 +56,20 @@
                         .FirstOrDefault();
 
                     var crfsKey = headers.GetValues(KeyName).FirstOrDefault();
-                    AntiForgeryService.Validate(cookie != null ? cookie.Value : null, crfsKey);
+
+                    antiForgeryService.Validate(cookie != null ? cookie.Value : null, crfsKey);
                 }
                 else
                 {
-                    AntiForgeryService.Validate();
+                    antiForgeryService.Validate();
                 }
             }
-            catch (Exception)
+            catch
             {
                 return UnauthorizeAccessHandlerAsync(actionContext);
             }
 
-            if (!AuthorizeRequest())
+            if (!AuthorizeRequest(actionContext.Request.GetDependencyScope()))
             {
                 return UnauthorizeAccessHandlerAsync(actionContext);
             }
@@ -103,16 +101,18 @@
             return FromResultAsync(actionContext.Response);
         }
 
-        private bool AuthorizeRequest()
+        private bool AuthorizeRequest(IDependencyScope scope)
         {
-            var licenseeSession = SessionService.LicenseeSession;
-            var userSession = SessionService.UserSession;
+            var sessionService = scope.Resolve<ISessionService>();
+            var licenseeSession = sessionService.LicenseeSession;
+            var userSession = sessionService.UserSession;
             var authorized = userSession != null && licenseeSession != null;
             if (authorized)
             {
+                var authorizationService = scope.Resolve<IAuthorizationService>();
                 authorized = userSession.ApplicationMode == AppMode.Parasitic ?
-                    AuthorizationService.HasPermissions(userSession.PortalFunctionList, _permissionKeys) :
-                    AuthorizationService.HasPermissions(userSession.FunctionIdList, _permissionKeys);
+                    authorizationService.HasPermissions(userSession.PortalFunctionList, _permissionKeys) :
+                    authorizationService.HasPermissions(userSession.FunctionIdList, _permissionKeys);
             }
 
             return authorized;

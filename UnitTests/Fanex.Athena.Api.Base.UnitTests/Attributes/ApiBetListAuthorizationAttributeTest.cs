@@ -23,7 +23,6 @@
         {
             _licenseeSettingService = Substitute.For<ILicenseeSettingService>();
             _attribute = new ApiBetListAuthorizationAttribute();
-            _attribute.LicenseeSettingService = _licenseeSettingService;
         }
 
         [Test]

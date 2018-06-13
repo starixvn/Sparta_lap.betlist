@@ -7,21 +7,21 @@
     using System.Threading.Tasks;
     using System.Web.Http.Controllers;
     using System.Web.Http.Filters;
+    using Extensions;
     using Resources;
-    using Service.Core.Configuration;
     using Service.Core.Configuration.Interfaces;
 
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
     public sealed class ApiBetListAuthorizationAttribute : FilterAttribute, IAuthorizationFilter
     {
-        public ILicenseeSettingService LicenseeSettingService { get; set; }
-        
         public Task<HttpResponseMessage> ExecuteAuthorizationFilterAsync(
             HttpActionContext actionContext,
             CancellationToken cancellationToken,
             Func<Task<HttpResponseMessage>> continuation)
         {
-            if (!LicenseeSettingService.IsAuthorizedOnBetList())
+            var scope = actionContext.Request.GetDependencyScope();
+            var licenseeSettingService = scope.Resolve<ILicenseeSettingService>();
+            if (!licenseeSettingService.IsAuthorizedOnBetList())
             {
                 return UnauthorizeAccessHandlerAsync(actionContext);
             }
