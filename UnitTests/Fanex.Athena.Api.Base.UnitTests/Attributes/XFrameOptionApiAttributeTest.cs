@@ -5,12 +5,12 @@
     using System.Net.Http;
     using System.Web.Http.Controllers;
     using System.Web.Http.Filters;
-    using Model.Core.DataDomain;
-    using Model.Core.DTO.Users;
+    using Autofac;
     using NSubstitute;
     using NUnit.Framework;
     using Service.Core.Users.Interfaces;
     using Session.Enum;
+    using Session.Interfaces;
     using Session.Model;
     using UnitTest.Common.Helpers;
 
@@ -18,12 +18,15 @@
     {
         private const string XFrameOptionHeaderName = "X-Frame-Options";
 
-        private ISessionService _sessionService;
+        private ISessionStorage _sessionStorage;
+
+        private HttpActionExecutedContext _actionExecutedContext;
 
         [SetUp]
         public void SetUp()
         {
-            _sessionService = Substitute.For<ISessionService>();
+            _sessionStorage = Substitute.For<ISessionStorage>();
+            _actionExecutedContext = CreateActionExecutedContext();
         }
 
         [TestCase(true)]
@@ -32,17 +35,16 @@
         {
             // Arrange
             var attribute = new XFrameOptionApiAttribute();
-            var actionExecutedContext = CreateActionExecutedContext();
             if (hasXframeOptionHeader)
             {
-                actionExecutedContext.Response.Headers.Add(XFrameOptionHeaderName, "any value");
+                _actionExecutedContext.Response.Headers.Add(XFrameOptionHeaderName, "any value");
             }
 
             // Action
-            attribute.OnActionExecuted(actionExecutedContext);
+            attribute.OnActionExecuted(_actionExecutedContext);
 
             // Assert
-            Assert.That(actionExecutedContext.Response.Headers.GetValues(XFrameOptionHeaderName).First(), Is.EqualTo("SAMEORIGIN"));
+            Assert.That(_actionExecutedContext.Response.Headers.GetValues(XFrameOptionHeaderName).First(), Is.EqualTo("SAMEORIGIN"));
         }
 
         [Test]
@@ -50,29 +52,33 @@
         {
             // Arrange
             var attribute = new XFrameOptionApiAttribute();
-            var actionExecutedContext = CreateActionExecutedContext();
-            _sessionService.UserSession.Returns(new UserSession
+            _sessionStorage.UserSession.Returns(new UserSession
             {
                 ApplicationMode = AppMode.Parasitic
             });
 
             // Action
-            attribute.OnActionExecuted(actionExecutedContext);
+            attribute.OnActionExecuted(_actionExecutedContext);
 
             // Assert
-            Assert.That(actionExecutedContext.Response.Headers.Contains(XFrameOptionHeaderName), Is.False);
+            Assert.That(_actionExecutedContext.Response.Headers.Contains(XFrameOptionHeaderName), Is.False);
         }
 
-        private static HttpActionExecutedContext CreateActionExecutedContext()
+        private HttpActionExecutedContext CreateActionExecutedContext()
         {
             var controllerContext = ApiControllerTestHelper.CreateControllerContext();
 
             var descriptor = Substitute.ForPartsOf<HttpActionDescriptor>();
             var actionContext = new HttpActionContext(controllerContext, descriptor);
-            return new HttpActionExecutedContext(actionContext, new Exception())
+            var builder = new ContainerBuilder();
+            builder.RegisterInstance(_sessionStorage);
+            WebApiHelper.SetupResolver(builder, actionContext);
+            var actionExecutedContext = new HttpActionExecutedContext(actionContext, new Exception())
             {
                 Response = new HttpResponseMessage()
             };
+            
+            return actionExecutedContext;
         }
     }
 }

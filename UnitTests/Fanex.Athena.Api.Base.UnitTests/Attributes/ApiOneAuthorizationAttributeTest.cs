@@ -5,6 +5,7 @@
     using System.Threading;
     using System.Web.Http.Controllers;
     using Attributes;
+    using Autofac;
     using DataAccess.Core.Users.Interfaces;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.OneAuth;
@@ -138,7 +139,7 @@
             _logger.Received(1).Error(exception);
         }
 
-        private static HttpActionContext CreateActionContext(bool hasAuthToken = false)
+        private HttpActionContext CreateActionContext(bool hasAuthToken = false)
         {
             var controllerContext = ApiControllerTestHelper.CreateControllerContext();
             if (hasAuthToken)
@@ -147,7 +148,13 @@
             }
 
             var descriptor = Substitute.ForPartsOf<HttpActionDescriptor>();
-            return new HttpActionContext(controllerContext, descriptor);
+            var actionContext = new HttpActionContext(controllerContext, descriptor);
+            var builder = new ContainerBuilder();
+            builder.RegisterInstance(_logger);
+            builder.RegisterInstance(_oneAuthenticationService);
+            builder.RegisterInstance(_licenseeDataAccess);
+            WebApiHelper.SetupResolver(builder, actionContext);
+            return actionContext;
         }
     }
 }

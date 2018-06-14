@@ -6,12 +6,9 @@
     using System.Net.Http;
     using System.Threading;
     using System.Threading.Tasks;
-    using System.Web.Http;
     using System.Web.Http.Controllers;
-    using System.Web.Http.Dependencies;
     using Attributes;
     using Autofac;
-    using Autofac.Integration.WebApi;
     using Extension.Utility;
     using NSubstitute;
     using NUnit.Framework;
@@ -55,24 +52,16 @@
         public void ExecuteAuthorizationFilterAsync_AjaxRequestHeaderContainCSRF_CallAntiForgeryValidate()
         {
             // Arrange
-            var builder = new ContainerBuilder();
-            var service = Substitute.For<IAntiForgeryService>();
-            builder.RegisterInstance(service).As<IAntiForgeryService>();
-            // Register stuff.
-            var container = builder.Build();
-            var resolver = new AutofacWebApiDependencyResolver(container);
-            
-            var config = new HttpConfiguration();
-            config.DependencyResolver = resolver;
-            config.EnsureInitialized();
-
-            
             const string CsrfValue = "abc";
+
             var attribute = new ApiFunctionAuthorizationAttribute();
             var actionContext = CreateActionContext(isAjax: true);
             actionContext.Request.Headers.Add(KeyName, CsrfValue);
-            actionContext.Request.SetConfiguration(config);
-            
+            var builder = new ContainerBuilder();
+            builder.RegisterInstance(_antiForgeryService);
+            builder.RegisterInstance(_sessionService);
+            WebApiHelper.SetupResolver(builder, actionContext);
+
             // Action
             attribute.ExecuteAuthorizationFilterAsync(actionContext, new CancellationToken(), null);
 
@@ -173,7 +162,7 @@
             Assert.That(result.Result.StatusCode, Is.EqualTo(HttpStatusCode.Forbidden));
         }
 
-        private static HttpActionContext CreateActionContext(bool isAjax = false)
+        private HttpActionContext CreateActionContext(bool isAjax = false)
         {
             var controllerContext = ApiControllerTestHelper.CreateControllerContext();
             if (isAjax)
@@ -182,7 +171,13 @@
             }
 
             var descriptor = Substitute.ForPartsOf<HttpActionDescriptor>();
-            return new HttpActionContext(controllerContext, descriptor);
+            var actionContext = new HttpActionContext(controllerContext, descriptor);
+            var builder = new ContainerBuilder();
+            builder.RegisterInstance(_antiForgeryService);
+            builder.RegisterInstance(_sessionService);
+            builder.RegisterInstance(_authorizationService);
+            WebApiHelper.SetupResolver(builder, actionContext);
+            return actionContext;
         }
     }
 }
