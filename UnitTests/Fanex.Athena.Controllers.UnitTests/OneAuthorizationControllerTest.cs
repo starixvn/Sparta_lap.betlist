@@ -68,23 +68,7 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                const string ExpectedUrl = "Utility/OneTokenRestriction";
-
-                // Action
-                var result = controller.CreateSession(token);
-
-                // Assert
-                StringAssert.Contains(ExpectedUrl, result.Url);
-            }
-        }
-
-        [TestCase("ghskhgk9863096804396oisoie", OneAuthorizationErrorCode.TokenIsInValid)]
-        public void CreateSession_NotAuthenticateToken_ReturnTokenRestrictionPage(string token, int expectedCode)
-        {
-            using (var controller = CreateController())
-            {
-                // Arrange
-                var expectedUrl = "Utility/OneTokenRestriction?code=" + expectedCode;
+                var expectedUrl = "Utility/OneTokenRestriction?code=" + OneAuthorizationErrorCode.TokenIsInValid;
 
                 // Action
                 var result = controller.CreateSession(token);
@@ -94,8 +78,67 @@
             }
         }
 
+        [TestCase("ghskhgk9863096804396oisoie")]
+        public void CreateSession_TokenInfoIsNull_ReturnTokenRestrictionPage(string token)
+        {
+            using (var controller = CreateController())
+            {
+                // Arrange
+                var expectedUrl = "Utility/OneTokenRestriction?code=" + OneAuthorizationErrorCode.TokenIsInValid;
+                _oneAuthenticationService.GetTokenInfo(Arg.Any<string>()).Returns(x => null);
+
+                // Action
+                var result = controller.CreateSession(token);
+
+                // Assert
+                StringAssert.Contains(expectedUrl, result.Url);
+            }
+        }
+
+        [TestCase("test")]
+        public void CreateSession_InvalidTokenInfo_ReturnTokenRestrictionPage(string token)
+        {
+            using (var controller = CreateController())
+            {
+                // Arrange
+                var expectedUrl = "Utility/OneTokenRestriction?code=" + OneAuthorizationErrorCode.TokenIsInValid;
+                _oneAuthenticationService.GetTokenInfo(Arg.Any<string>()).Returns(x => new OneAuthToken { UserSEQ = 0 });
+
+                // Action
+                var result = controller.CreateSession(token);
+
+                // Assert
+                StringAssert.Contains(expectedUrl, result.Url);
+            }
+        }
+
+        [TestCase("")]
+        [TestCase(null)]
+        [TestCase("   ")]
+        public void CreateSession_NoToken_WriteLog(string token)
+        {
+            using (var controller = CreateController())
+            {
+                // Arrange
+                const string ExpectedMsg = "Token param is empty.";
+
+                _oneAuthenticationService.GetTokenInfo(Arg.Any<string>()).Returns(x => null);
+                StubGetValueAppSettings("EnableLogForOneAuthorization", "1");
+
+                // Action
+                var result = controller.CreateSession(token);
+
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    _logger.Received(1).Error(Arg.Is<string>(x => x.Contains(ExpectedMsg)));
+                    Assert.That(_loggerCounnter, Is.EqualTo(1));
+                });
+            }
+        }
+
         [Test]
-        public void CreateSession_NotAuthenticatedByNullToken_WriteLog()
+        public void CreateSession_NotAuthenticatedDueToNullTokenInfo_NoWriteLog()
         {
             using (var controller = CreateController())
             {
@@ -112,14 +155,14 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    _logger.Received(1).Error(Arg.Is<string>(x => x.Contains(ExpectedMsg)));
-                    Assert.That(_loggerCounnter, Is.EqualTo(1));
+                    _logger.DidNotReceive().Error(Arg.Is<string>(x => x.Contains(ExpectedMsg)));
+                    Assert.That(_loggerCounnter, Is.EqualTo(0));
                 });
             }
         }
 
         [Test]
-        public void CreateSession_NotAuthenticatedByBadToken_WriteLog()
+        public void CreateSession_NotAuthenticatedDueToBadTokenInfo_WriteLog()
         {
             using (var controller = CreateController())
             {
