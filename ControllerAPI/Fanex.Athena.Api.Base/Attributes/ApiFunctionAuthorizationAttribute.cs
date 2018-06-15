@@ -64,7 +64,7 @@
                     antiForgeryService.Validate();
                 }
             }
-            catch(Exception ex)
+            catch
             {
                 return UnauthorizeAccessHandlerAsync(actionContext);
             }

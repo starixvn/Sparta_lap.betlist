@@ -12,9 +12,9 @@ public partial class sso : System.Web.UI.Page
     /// <param name="e">The event argument.</param>
     protected override void OnLoad(EventArgs e)
     {
-        var _maintenanceService = new MaintenanceService();
+        var maintenanceService = new MaintenanceService();
         Response.Cache.SetCacheability(System.Web.HttpCacheability.NoCache);
-        if (_maintenanceService.IsUnderMaintenance())
+        if (maintenanceService.IsUnderMaintenance())
         {
             Response.Redirect("~/Utility/UnderMaintenance");
         }
