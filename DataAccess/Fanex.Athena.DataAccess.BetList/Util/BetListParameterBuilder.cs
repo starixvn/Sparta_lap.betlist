@@ -375,11 +375,11 @@
             CreateBetListSummaryStakeParameters(db);
         }
 
-        private static void CreateBetListSummaryStakeParameters(IObjectDb db, IEnumerable<string> baseCurrencyCols = null)
+        private static void CreateBetListSummaryStakeParameters(IObjectDb db)
         {
             var defaultParams = new[] { "SumStake" };
 
-            var summaryParameters = GetOutputSummaryParametersWithBaseCurrency(defaultParams, baseCurrencyCols ?? SupportedBaseCurrencies);
+            var summaryParameters = GetOutputSummaryParametersWithBaseCurrency(defaultParams, SupportedBaseCurrencies);
 
             foreach (var name in summaryParameters)
             {
