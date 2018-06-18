@@ -6109,6 +6109,13 @@ header nav {
     .side-nav.fixed .collapsible-header .menu-icon {
       margin-right: 10px;
       color: inherit; }
+    .side-nav.fixed .collapsible-header .menu-title {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      width: 180px;
+      overflow: hidden;
+      display: inline-block;
+      line-height: 1rem; }
   .side-nav.fixed .menu-item:not(.active) .collapsible-header i.icon-arrow {
     transition: none; }
   .side-nav.fixed .menu-item.active {
