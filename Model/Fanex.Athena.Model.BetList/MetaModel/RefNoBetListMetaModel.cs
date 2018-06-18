@@ -1,11 +1,15 @@
 ﻿namespace Fanex.Athena.Model.BetList.MetaModel
 {
+    using System;
+
     public class RefNoBetListMetaModel : BaseBettingTicketMetaModel
     {
-        public string RefNo { get; set; }
+        public long RefNo { get; set; }
 
-        public string UserName { get; set; }
+        public DateTime MoveBetsDay { get; set; }
 
-        public override bool IsValid => !string.IsNullOrWhiteSpace(RefNo);
+        public DateTime BalanceUpDay { get; set; }
+
+        public override bool IsValid => RefNo > 0;
     }
 }

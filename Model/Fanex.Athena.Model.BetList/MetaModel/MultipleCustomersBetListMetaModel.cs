@@ -1,21 +1,19 @@
 ﻿namespace Fanex.Athena.Model.BetList.MetaModel
 {
-    using System;
-
     public class MultipleCustomersBetListMetaModel : BaseBettingTicketMetaModel
     {
-        public DateTime Date { get; set; }
-
-        public string ProductCode { get; set; }
-
         public int LiveStatus { get; set; }
 
-        public string Status { get; set; }
+        public int Status { get; set; }
 
-        public DateTime MoveBetsDay { get; set; }
+        public int SportId { get; set; }
 
-        public DateTime BalanceUpDay { get; set; }
+        public int BetTypeId { get; set; }
 
-        public string AgentListXml { get; set; }
+        public int LeagueId { get; set; }
+
+        public int MatchId { get; set; }
+
+        public int Platform { get; set; }
     }
 }

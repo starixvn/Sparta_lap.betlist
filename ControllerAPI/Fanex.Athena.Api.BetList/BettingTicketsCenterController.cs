@@ -20,7 +20,7 @@
     using VendorAdapter;
     using VendorAdapter.Interfaces;
 
-    public class BettingTicketsCenterReportController : ApiController
+    public class BettingTicketsCenterController : ApiController
     {
         private readonly ISessionService _sessionService;
 
@@ -34,7 +34,9 @@
 
         private readonly ITicketHelper _ticketHelper;
 
-        public BettingTicketsCenterReportController()
+        private readonly IAuthorizationService _authorizationService;
+
+        public BettingTicketsCenterController()
         {
             _sessionService = new SessionService();
             _balanceUpDataAccess = new BalanceUpDataAccess();
@@ -42,10 +44,12 @@
             _betlistHtmlBuilder = new BetListHTMLBuilder();
             _ticketHelper = new TicketHelper();
             _cacheRefAdapter = new CacheRefAdapter();
+            _authorizationService = new AuthorizationService();
         }
 
-        public BettingTicketsCenterReportController(
+        public BettingTicketsCenterController(
             ISessionService sessionService,
+            IAuthorizationService authorizationService,
             IBalanceUpDataAccess balanceUpDataAccess,
             IBettingTicketsCenterDataAccess dataAccess,
             IBetListHTMLBuilder betlistHtmlBuilder,
@@ -58,17 +62,72 @@
             _betlistHtmlBuilder = betlistHtmlBuilder;
             _cacheRefAdapter = cacheRefAdapter;
             _ticketHelper = ticketHelper;
+            _authorizationService = authorizationService;
         }
 
         [HttpPost]
         public dynamic GetBetListForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel)
         {
+            if (!metaModel.IsValid && !IsValidCurrencyId(metaModel.CurrencyId))
+            {
+                return null;
+            }
+
+            metaModel.AgentListXml = _sessionService.GenerateAgentListXml(metaModel.CurrencyId);
+            var ticketResult = _dataAccess.GetBetListForMultipleCustomers(metaModel);
+
+            return new
+            {
+                Main = BuildTicketText(ticketResult, metaModel),
+                Total = new
+                {
+                    SumWinLoss = ticketResult.SumWinLoss + ticketResult.SumPlayerComm,
+                    SumLicenseeWl = ticketResult.SumLicenseeWL + ticketResult.SumComm,
+                    SumStake = ticketResult.SumStake
+                },
+                TotalRows = ticketResult.TotalRows
+            };
+        }
+
+        [HttpPost]
+        public dynamic GetBetListForSingleCustomer(SingleCustomersBetListMetaModel metaModel)
+        {
+            if (!metaModel.IsValid && !IsValidCurrencyId(metaModel.CurrencyId))
+            {
+                return null;
+            }
+
+            metaModel.AgentListXml = _sessionService.GenerateAgentListXml(metaModel.CurrencyId);
+            var ticketResult = _dataAccess.GetBetListForSingleCustomer(metaModel);
+
+            return new
+            {
+                Main = BuildTicketText(ticketResult, metaModel),
+                Total = new
+                {
+                    SumWinLoss = ticketResult.SumWinLoss + ticketResult.SumPlayerComm,
+                    SumLicenseeWl = ticketResult.SumLicenseeWL + ticketResult.SumComm,
+                    SumStake = ticketResult.SumStake
+                },
+                TotalRows = ticketResult.TotalRows
+            };
+        }
+
+        [HttpPost]
+        public dynamic GetBetListByRefno(RefNoBetListMetaModel metaModel)
+        {
+            if (!metaModel.IsValid
+                || !_authorizationService.HasPermissionOnData(_sessionService.LicenseeSession.LicenseeId, metaModel.CustId, 0))
+            {
+                return null;
+            }
+
             var balanceUp = _balanceUpDataAccess.GetBalanceUp();
             metaModel.BalanceUpDay = balanceUp.BalanceUpDay;
             metaModel.MoveBetsDay = balanceUp.MoveBetsDay;
             metaModel.AgentListXml = _sessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
-            var ticketResult = _dataAccess.GetBetListForMultipleCustomers(metaModel);
+            var ticketResult = _dataAccess.GetBetListByRefno(metaModel);
 
             return new
             {
@@ -77,46 +136,30 @@
         }
 
         [HttpPost]
-        public dynamic GetBetListForSingleCustomer(SingleCustomersBetListMetaModel metaModel)
+        public dynamic GetRunningBetList(BaseBettingTicketMetaModel metaModel)
         {
-            if (!metaModel.IsValid)
+            if (!metaModel.IsValid && !IsValidCurrencyId(metaModel.CurrencyId))
             {
                 return null;
             }
 
-            var ticketResult = _dataAccess.GetBetListForSingleCustomer();
+            metaModel.AgentListXml = _sessionService.GenerateAgentListXml(metaModel.CurrencyId);
+            var ticketResult = _dataAccess.GetRunningBetList(metaModel);
 
             return new
             {
-                Main = ticketResult
+                Main = BuildTicketText(ticketResult, metaModel),
+                Total = new
+                {
+                    SumStake = ticketResult.SumStake
+                },
+                TotalRows = ticketResult.TotalRows
             };
         }
 
-        [HttpPost]
-        public dynamic GetBetListByRefno(RefNoBetListMetaModel metaModel)
+        private bool IsValidCurrencyId(int currencyId)
         {
-            if (!metaModel.IsValid)
-            {
-                return null;
-            }
-
-            var ticketResult = _dataAccess.GetBetListByRefno();
-
-            return new
-            {
-                Main = ticketResult
-            };
-        }
-
-        [HttpPost]
-        public dynamic GetRunningBetList()
-        {
-            var ticketResult = _dataAccess.GetRunningBetList();
-
-            return new
-            {
-                Main = ticketResult
-            };
+            return currencyId == 0 || _sessionService.UserSession.CurrencyList.ContainsKey(currencyId);
         }
 
         private List<TicketText> BuildTicketText(TicketResult ticketResult, BaseBettingTicketMetaModel metaModel, int startIndex = 1)

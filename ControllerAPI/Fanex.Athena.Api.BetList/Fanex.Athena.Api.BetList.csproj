@@ -209,7 +209,7 @@
   <ItemGroup>
     <Compile Include="ApiBetListBaseController.cs" />
     <Compile Include="AGCasinoBetListController.cs" />
-    <Compile Include="BettingTicketsCenterReportController.cs" />
+    <Compile Include="BettingTicketsCenterController.cs" />
     <Compile Include="BonusBetListController.cs" />
     <Compile Include="DailyStatementBetListController.cs" />
     <Compile Include="ExchangeWinLossBetListController.cs" />

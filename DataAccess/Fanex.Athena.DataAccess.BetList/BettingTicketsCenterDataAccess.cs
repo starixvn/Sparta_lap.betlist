@@ -2,24 +2,43 @@
 {
     using System;
     using System.Data;
+    using System.Linq;
+    using Common;
     using Core.Exception;
     using Data;
     using Interfaces;
     using Model.BetList.DTO;
     using Model.BetList.MetaModel;
+    using Model.Core.DTO.Common;
 
     public class BettingTicketsCenterDataAccess : BaseBetListDataAccess, IBettingTicketsCenterDataAccess
     {
         public TicketResult GetBetListForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel)
         {
-            const string UspKey = "Lrf_BetList_SelWinlossDaily";
+            return new TicketResult();
+        }
+
+        public TicketResult GetBetListForSingleCustomer(SingleCustomersBetListMetaModel metaModel)
+        {
+            return new TicketResult();
+        }
+
+        public TicketResult GetBetListByRefno(RefNoBetListMetaModel metaModel)
+        {
+            const string UspKey = "Lrf_BetList_RefNo_Mem";
 
             var ticketResult = new TicketResult();
             try
             {
-                using (var db = this.GetObjectDb(UspKey))
+                using (var db = GetObjectDb(UspKey))
                 {
-                    AddParameters(db, metaModel);
+                    db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+                    db.AddInParameter("custid", DbType.Int32, metaModel.CustId);
+                    db.AddInParameter("RefNo", DbType.Int64, metaModel.RefNo);
+                    db.AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
+                    db.AddInParameter("BalanceUpDay", DbType.DateTime, metaModel.BalanceUpDay);
+                    db.AddInParameter("BaseCurrency", DbType.String, metaModel.IsConvert ? metaModel.BaseCurrency : string.Empty);
+
                     using (var reader = db.ExecuteReader())
                     {
                         ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader));
@@ -34,30 +53,46 @@
             return ticketResult;
         }
 
-        public TicketResult GetBetListForSingleCustomer()
+        public TicketResult GetRunningBetList(BaseBettingTicketMetaModel metaModel)
         {
-            return new TicketResult();
-        }
+            const string UspKey = "Lrf_BetList_Running";
 
-        public TicketResult GetBetListByRefno()
-        {
-            return new TicketResult();
-        }
+            var ticketResult = new TicketResult();
+            try
+            {
+                using (var db = GetObjectDb(UspKey))
+                {
+                    var productCodes = metaModel.ProductCodeList.Split(',');
 
-        public TicketResult GetRunningBetList()
-        {
-            return new TicketResult();
-        }
+                    db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+                    db.AddInParameter("custid", DbType.Int32, metaModel.CustId);
+                    db.AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
+                    db.AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
+                    db.AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
+                    db.AddInParameter("BaseCurrency", DbType.String, metaModel.BaseCurrency);
+                    db.AddInParameter("showSB", DbType.Boolean, productCodes.Contains(Product.SB));
+                    db.AddInParameter("showBA", DbType.Boolean, productCodes.Contains(Product.BA));
+                    db.AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
+                    db.AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
+                    db.AddOutParameter("TotalRows", DbType.Int32, 4);
+                    db.AddOutParameter("SumStake", DbType.Decimal, 8);
 
-        private static void AddParameters(IObjectDb db, MultipleCustomersBetListMetaModel metaModel)
-        {
-            db.AddInParameter("date", DbType.DateTime, metaModel.Date);
-            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            db.AddInParameter("product", DbType.String, metaModel.ProductCode);
-            db.AddInParameter("status", DbType.String, metaModel.Status);
-            db.AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
-            db.AddInParameter("BalanceUpDay", DbType.DateTime, metaModel.BalanceUpDay);
-            db.AddOutParameter("totalrows", DbType.Int32, 4);
+                    using (var reader = db.ExecuteReader())
+                    {
+                        ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader));
+                    }
+
+                    var outSqlParams = db.GetOuputParams();
+                    ticketResult.SumStake = Converter.ToDecimal(outSqlParams["SumStake"]);
+                    ticketResult.TotalRows = Converter.ToInt(outSqlParams["TotalRows"]);
+                }
+            }
+            catch (Exception sqlException)
+            {
+                throw new DataAccessException(sqlException, UspKey, metaModel);
+            }
+
+            return ticketResult;
         }
     }
 }

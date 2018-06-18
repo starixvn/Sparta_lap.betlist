@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Fanex.Athena.Model.BetList.MetaModel
+﻿namespace Fanex.Athena.Model.BetList.MetaModel
 {
+    using System;
+
     public class BaseBettingTicketMetaModel
     {
         private string _baseCurrency = string.Empty;
@@ -25,6 +25,20 @@ namespace Fanex.Athena.Model.BetList.MetaModel
 
         public bool IsConvert { get; set; }
 
-        public virtual bool IsValid => true;
+        public string AgentListXml { get; set; }
+
+        public int PageSize { get; set; }
+
+        public int PageIndex { get; set; }
+
+        public DateTime FromDate { get; set; }
+
+        public DateTime ToDate { get; set; }
+
+        public string ProductCodeList { get; set; }
+
+        public int CustId { get; set; }
+
+        public virtual bool IsValid => FromDate <= ToDate && !string.IsNullOrWhiteSpace(ProductCodeList);
     }
 }

@@ -7,10 +7,10 @@
     {
         TicketResult GetBetListForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel);
 
-        TicketResult GetBetListForSingleCustomer();
+        TicketResult GetBetListForSingleCustomer(SingleCustomersBetListMetaModel metaModel);
 
-        TicketResult GetBetListByRefno();
+        TicketResult GetBetListByRefno(RefNoBetListMetaModel metaModel);
 
-        TicketResult GetRunningBetList();
+        TicketResult GetRunningBetList(BaseBettingTicketMetaModel metaModel);
     }
 }
