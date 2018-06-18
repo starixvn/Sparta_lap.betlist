@@ -12,3 +12,6 @@ export const SET_PLATFORM = "SET_PLATFORM"
 
 export const GET_LIVE = "GET_LIVE"
 export const SET_LIVE = "SET_LIVE"
+
+export const GET_MULTICUSTOMER = "GET_MULTICUSTOMER"
+export const SET_MULTICUSTOMER = "SET_MULTICUSTOMER"

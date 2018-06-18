@@ -1,5 +1,5 @@
-﻿import LangHelper from '../../../lib/langHelper'
-import Site from '../../../lib/site'
+﻿import LangHelper from '../../../../lib/langHelper'
+import Site from '../../../../lib/site'
 
 const HeaderText = {
     Index: "#",

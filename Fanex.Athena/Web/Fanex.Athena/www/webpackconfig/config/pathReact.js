@@ -29,7 +29,7 @@ var scriptPaths = {
     notification: "./www/js/source/reactpages/pages/notification/components/resultAmendment/index.jsx",
     exchangewl: "./www/js/source/reactpages/pages/exchangewl/components/index.jsx",
     speciallicenseewl: "./www/js/source/reactpages/pages/speciallicenseewl/components/index.jsx"
-    bettingticketscenter: "./www/js/source/reactpages/pages/bettingticketscenter/components/index.jsx"
+    bettingticketscenter_multicustomer: "./www/js/source/reactpages/pages/bettingticketscenter/multicustomer/components/index.jsx"
 };
 module.exports = {
     projectRoot: projectRoot,

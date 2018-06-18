@@ -8,19 +8,14 @@
     <link href="@Url.ContentLinkByEnv("/www/css/build/reactpages/bettingticketscenter/index.css")" rel="stylesheet" type="text/css" />
 }
 @section pagejs {
-    <script src="@Url.ContentLinkByEnv("/www/js/build/reactpages/report/bettingticketscenter.chunk.js")"></script>
+    <script src="@Url.ContentLinkByEnv("/www/js/build/reactpages/bettingticketscenter/multicustomer.chunk.js")"></script>
 }
 
 @section globaljscode{
-    window.Lrf = {
-        product:{
-        },
-        refno:{
-        },
-        casinoDetailed:{
-        },
-        isLoading: false,
-        xsrfToken: document.querySelector("input[name=__RequestVerificationToken]").value
+    window.initialState = {
+        dateRange: { fromDate: '01/01/2018', toDate: '03/01/2018'},
+        @*@isLoading: false,
+        xsrfToken: document.querySelector("input[name=__RequestVerificationToken]").value*@
     }
 }
 <div id="app-container">

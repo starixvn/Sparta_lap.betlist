@@ -3,14 +3,15 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import Select from 'react-select'
-import { DatePicker } from '../../../../components/date-range'
+import { DateRange } from '../../../../components/date-range/index'
 import AutoComplete from '../../../../components/auto-complete'
 
-import { ActionCreators } from '../../actions'
+import { ActionCreators } from '../actions/index.js'
 import LangHelper from '../../../../lib/langHelper'
 import Site from '../../../../lib/site'
 
 const CUSTOMER_SEARCHING_URL = Site.resolveClientUrl("CustomerAPI/SearchCustomer");
+const RANGE_MONTH_CONSTRAINT = 3;
 
 export class MultiCustomerFormFilter extends Component {
     constructor(props) {
@@ -45,9 +46,14 @@ export class MultiCustomerFormFilter extends Component {
     }
 
     _renderDateRange() {
+        const { dateRange, dateConstraint } = this.props;
+
         return (
-            <DatePicker onChange={this.handleChange} />
-        )
+                <DateRange startDate={dateRange.fromDate} endDate={dateRange.toDate}
+            minDate={dateConstraint.minDate} maxDate={dateConstraint.maxDate}
+            today={dateConstraint.toDay} limitedMonthRange={RANGE_MONTH_CONSTRAINT}
+            onChange={this.applyDateRangeHandler} />
+        );
     }
 
     _renderProductSelectList() {

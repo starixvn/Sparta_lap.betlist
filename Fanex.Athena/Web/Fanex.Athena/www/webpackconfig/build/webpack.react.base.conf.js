@@ -25,7 +25,7 @@ function generateConfig(environment) {
             [`${jsPath}/report/licenseewlbytimezone`]: pathConfig.scriptPaths.licenseewlbytimezone,
             [`${jsPath}/exchangewl/exchangewl`]: pathConfig.scriptPaths.exchangewl,
             [`${jsPath}/report/speciallicenseewl`]: pathConfig.scriptPaths.speciallicenseewl,
-            [`${jsPath}/report/bettingticketscenter`]: pathConfig.scriptPaths.bettingticketscenter,
+            [`${jsPath}/bettingticketscenter/multicustomer`]: pathConfig.scriptPaths.bettingticketscenter_multicustomer,
 
             /*css*/
             [`${cssPath}/vendor`]: pathConfig.cssPaths.layout,

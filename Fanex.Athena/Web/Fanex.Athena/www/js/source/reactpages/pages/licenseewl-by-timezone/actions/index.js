@@ -1,5 +1,6 @@
 ﻿import * as dataHandlerAction from './dataHandlerAction.js'
 import * as filterHandlerAction from './filterHandlerAction.js'
+import * as dateRangeAction from '../../../actions/dateRangeAction'
 import * as productAction from '../../../actions/productAction'
 import * as currencyAction from '../../../actions/currencyAction'
 import * as baseCurrencyAction from '../../../actions/baseCurrencyAction'
@@ -10,6 +11,7 @@ import * as userGuideAction from '../../../actions/userGuideAction'
 export const ActionCreators = Object.assign({},
     dataHandlerAction,
     filterHandlerAction,
+    dateRangeAction,
     productAction,
     currencyAction,
     baseCurrencyAction,
