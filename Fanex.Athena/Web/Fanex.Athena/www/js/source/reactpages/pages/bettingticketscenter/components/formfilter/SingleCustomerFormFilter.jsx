@@ -6,13 +6,13 @@ import Select from 'react-select'
 import { DatePicker } from '../../../../components/date-range'
 import AutoComplete from '../../../../components/auto-complete'
 
-import { ActionCreators } from '../../actions/casinodetailed'
+import { ActionCreators } from '../../actions'
 import LangHelper from '../../../../lib/langHelper'
 import Site from '../../../../lib/site'
 
 const CUSTOMER_SEARCHING_URL = Site.resolveClientUrl("CustomerAPI/SearchCustomer");
 
-export class FormFilter extends Component {
+export class SingleCustomerFormFilter extends Component {
     constructor(props) {
         super(props);
     }
@@ -113,4 +113,4 @@ function mapStateToProps(state) {
     return Object.assign({}, state);
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(FormFilter);
+export default connect(mapStateToProps, mapDispatchToProps)(SingleCustomerFormFilter);

@@ -1,5 +1,5 @@
-import createReducer from '../../../../lib/createReducer.js'
-import * as types from '../../actions/singleday/types.js'
+import createReducer from '../../../lib/createReducer.js'
+import * as types from '../actions/types.js'
 
 export const leagueList = createReducer({}, {
     [types.GET_LEAGUE](state, action) {

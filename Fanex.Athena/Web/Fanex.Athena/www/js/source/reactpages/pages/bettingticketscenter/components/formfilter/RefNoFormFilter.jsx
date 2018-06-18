@@ -5,13 +5,13 @@ import { bindActionCreators } from 'redux'
 import Select from 'react-select'
 import AutoComplete from '../../../../components/auto-complete'
 
-import { ActionCreators } from '../../actions/refno'
+import { ActionCreators } from '../../actions'
 import LangHelper from '../../../../lib/langHelper'
 import Site from '../../../../lib/site'
 
 const REFNO_SEARCHING_URL = Site.resolveClientUrl("CustomerAPI/SearchCustomer");
 
-export class FormFilter extends Component {
+export class RefNoFormFilter extends Component {
     constructor(props) {
         super(props);
     }
@@ -87,4 +87,4 @@ function mapStateToProps(state) {
     return Object.assign({}, state);
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(FormFilter);
+export default connect(mapStateToProps, mapDispatchToProps)(RefNoFormFilter);

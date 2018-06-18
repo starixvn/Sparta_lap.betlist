@@ -1,10 +1,8 @@
-﻿import { combineReducers } from 'redux'
+﻿import { combineReducers } from 'redux';
+import * as gridDataReducer from '../../../reducers/gridDataReducer.js'
+import * as filterHandlerReducer from './filterHandlerReducer.js'
 
-import * as loaderReducer from '../../../reducers/loaderReducer'
-import * as xsrfTokenReducer from '../../../reducers/xsrfTokenReducer'
-
-import productReducer from './singleday'
-
-const products = combineReducers(productReducer);
-
-export default combineReducers(Object.assign({}, {}, loaderReducer, xsrfTokenReducer));
+export default combineReducers(Object.assign(
+    gridDataReducer,
+    filterHandlerReducer
+));

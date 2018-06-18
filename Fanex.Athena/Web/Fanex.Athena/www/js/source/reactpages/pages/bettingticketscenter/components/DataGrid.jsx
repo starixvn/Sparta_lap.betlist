@@ -2,10 +2,10 @@
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { ActionCreators } from '../../actions/singleday'
-import { Table, Row, Cell } from '../../../../components/fixed-table-header'
-import service from '../../lib/service'
-import ReportTitle from '../../../../components/ReportTitle'
+import { ActionCreators } from '../actions'
+import { Table, Row, Cell } from '../../../components/fixed-table-header'
+import service from '../lib/service'
+import ReportTitle from '../../../components/ReportTitle'
 
 export class DataGrid extends Component {
     constructor(props) {
