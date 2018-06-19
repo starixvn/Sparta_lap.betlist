@@ -66,7 +66,7 @@
         }
 
         [HttpPost]
-        public dynamic GetBetListForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel)
+        public dynamic GetByMultipleCustomers(MultipleCustomersBetListMetaModel metaModel)
         {
             if (!metaModel.IsValid && !IsValidCurrencyId(metaModel.CurrencyId))
             {
@@ -90,7 +90,7 @@
         }
 
         [HttpPost]
-        public dynamic GetBetListForSingleCustomer(SingleCustomersBetListMetaModel metaModel)
+        public dynamic GetBySingleCustomer(SingleCustomersBetListMetaModel metaModel)
         {
             if (!metaModel.IsValid && !IsValidCurrencyId(metaModel.CurrencyId))
             {
@@ -114,7 +114,7 @@
         }
 
         [HttpPost]
-        public dynamic GetBetListByRefno(RefNoBetListMetaModel metaModel)
+        public dynamic GetByRefno(RefNoBetListMetaModel metaModel)
         {
             if (!metaModel.IsValid
                 || !_authorizationService.HasPermissionOnData(_sessionService.LicenseeSession.LicenseeId, metaModel.CustId, 0))
@@ -136,7 +136,7 @@
         }
 
         [HttpPost]
-        public dynamic GetRunningBetList(BaseBettingTicketMetaModel metaModel)
+        public dynamic GetByRunning(BaseBettingTicketMetaModel metaModel)
         {
             if (!metaModel.IsValid 
                 || !IsValidCurrencyId(metaModel.CurrencyId)

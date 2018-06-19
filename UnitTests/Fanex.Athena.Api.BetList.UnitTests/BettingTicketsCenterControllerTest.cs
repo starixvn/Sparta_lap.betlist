@@ -75,7 +75,7 @@
         [TestCase(0)]
         [TestCase(-1)]
         [TestCase(-80)]
-        public void GetBetListByRefno_MetaModelIsInvalid_ReturnNull(int refNo)
+        public void GetByRefno_MetaModelIsInvalid_ReturnNull(int refNo)
         {
             // Arrange
             var metaModel = new RefNoBetListMetaModel
@@ -84,14 +84,14 @@
             };
 
             // Action
-            var result = _controller.GetBetListByRefno(metaModel);
+            var result = _controller.GetByRefno(metaModel);
 
             // Assert
             Assert.That(result, Is.Null);
         }
 
         [Test]
-        public void GetBetListByRefno_NoPermission_ReturnNull()
+        public void GetByRefno_NoPermission_ReturnNull()
         {
             // Arrange
             _sessionService.LicenseeSession.Returns(new LicenseeSession { LicenseeId = FakeHelper.Create<int>() });
@@ -103,14 +103,14 @@
             };
 
             // Action
-            var result = _controller.GetBetListByRefno(metaModel);
+            var result = _controller.GetByRefno(metaModel);
 
             // Assert
             Assert.That(result, Is.Null);
         }
 
         [Test]
-        public void GetBetListByRefno_ValidMetaModel_GetDataFromDataAccess()
+        public void GetByRefno_ValidMetaModel_GetDataFromDataAccess()
         {
             // Arrange
             var metaModel = new RefNoBetListMetaModel
@@ -123,7 +123,7 @@
             _dataAccess.GetBetListByRefno(metaModel).Returns(new TicketResult());
 
             // Action
-            var result = _controller.GetBetListByRefno(metaModel);
+            var result = _controller.GetByRefno(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -134,7 +134,7 @@
         }
 
         [Test]
-        public void GetRunningBetList_DateRangeIsInvalid_ReturnNull()
+        public void GetByRunning_DateRangeIsInvalid_ReturnNull()
         {
             // Arrange
             var metaModel = new BaseBettingTicketMetaModel
@@ -144,7 +144,7 @@
             };
 
             // Action
-            var result = _controller.GetRunningBetList(metaModel);
+            var result = _controller.GetByRunning(metaModel);
 
             // Assert
             Assert.That(result, Is.Null);
@@ -153,7 +153,7 @@
         [TestCase(null)]
         [TestCase("")]
         [TestCase("  ")]
-        public void GetRunningBetList_NoProduct_ReturnNull(string productCode)
+        public void GetByRunning_NoProduct_ReturnNull(string productCode)
         {
             // Arrange
             var metaModel = new BaseBettingTicketMetaModel
@@ -164,14 +164,14 @@
             };
 
             // Action
-            var result = _controller.GetRunningBetList(metaModel);
+            var result = _controller.GetByRunning(metaModel);
 
             // Assert
             Assert.That(result, Is.Null);
         }
 
         [Test]
-        public void GetRunningBetList_InvalidCurrency_ReturnNull()
+        public void GetByRunning_InvalidCurrency_ReturnNull()
         {
             // Arrange
             _sessionService.UserSession.Returns(new UserSession
@@ -191,14 +191,14 @@
             };
 
             // Action
-            var result = _controller.GetRunningBetList(metaModel);
+            var result = _controller.GetByRunning(metaModel);
 
             // Assert
             Assert.That(result, Is.Null);
         }
 
         [Test]
-        public void GetRunningBetList_NoPermission_ReturnNull()
+        public void GetByRunning_NoPermission_ReturnNull()
         {
             // Arrange
             _sessionService.LicenseeSession.Returns(new LicenseeSession { LicenseeId = FakeHelper.Create<int>() });
@@ -220,14 +220,14 @@
             };
 
             // Action
-            var result = _controller.GetRunningBetList(metaModel);
+            var result = _controller.GetByRunning(metaModel);
 
             // Assert
             Assert.That(result, Is.Null);
         }
 
         [Test]
-        public void GetRunningBetList_ValidMetaModel_GetDataFromDataAccess()
+        public void GetByRunning_ValidMetaModel_GetDataFromDataAccess()
         {
             // Arrange
             var metaModel = new BaseBettingTicketMetaModel
@@ -256,7 +256,7 @@
             _dataAccess.GetRunningBetList(metaModel).Returns(ticketResult);
 
             // Action
-            var result = _controller.GetRunningBetList(metaModel);
+            var result = _controller.GetByRunning(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -286,7 +286,7 @@
             _ticketHelper.ClientDetailSystemParlayFunction.Returns(string.Empty);
 
             // Action
-            var result = _controller.GetBetListByRefno(metaModel);
+            var result = _controller.GetByRefno(metaModel);
 
             // Assert
             Assert.That(_ticketHelper.ClientDetailSystemParlayFunction, Is.Empty);
@@ -309,7 +309,7 @@
             _dataAccess.GetBetListByRefno(metaModel).Returns(ticketResult);
 
             // Action
-            var result = _controller.GetBetListByRefno(metaModel);
+            var result = _controller.GetByRefno(metaModel);
 
             // Assert
             Assert.That(_ticketHelper.ClientDetailSystemParlayFunction, Is.Not.Empty);
@@ -338,7 +338,7 @@
             _dataAccess.GetBetListByRefno(metaModel).Returns(ticketResult);
 
             // Action
-            var result = _controller.GetBetListByRefno(metaModel);
+            var result = _controller.GetByRefno(metaModel);
 
             // Assert
             Assert.Multiple(() =>
