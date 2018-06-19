@@ -1,0 +1,26 @@
+import createReducer from '../../../../lib/createReducer.js'
+import * as types from '../actions/types.js'
+
+export const dateRange = createReducer({}, {
+    [types.SET_DATE_RANGE](state, action) {
+        return action.data;
+    }
+})
+
+export const userName = createReducer({}, {
+    [types.SET_USERNAME](state, action) {
+        return action.data;
+    }
+})
+
+export const xsrfToken = createReducer({}, {
+    [types.GET_XSRF_TOKEN](state, action) {
+        return action.data;
+    }
+})
+
+export const dateConstraint = createReducer({}, {
+    [types.GET_DATE_CONSTRAINT](state, action) {
+        return action.data;
+    }
+})

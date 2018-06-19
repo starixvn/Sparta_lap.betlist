@@ -1,9 +1,23 @@
 ﻿namespace Fanex.Athena.Controllers.BetList
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Mvc;
+    using Model.BetList.ViewModel;
+    using Model.Core.DataDomain;
+    using Model.Core.MetaModel.Product;
+    using Service.Core.Common;
+    using Service.Core.Common.Interfaces;
 
     public class BettingTicketsCenterController : BaseController
     {
+        private readonly IProductService _productService;
+
+        public BettingTicketsCenterController()
+        {
+            _productService = new ProductService();
+        }
+
         public ActionResult MultipleCustomers()
         {
             return View("~/Views/BetList/BettingTicketsCenter/Main.cshtml");
@@ -21,7 +35,35 @@
 
         public ActionResult Running()
         {
-            return View("~/Views/BetList/BettingTicketsCenter/Main.cshtml");
+            var viewModel = new RunningBetListViewModel
+            {
+                CurrencyList = GetCurrencyList(),
+                ProductOptionList = GetProductOptionList(),
+                MinDate = AppSettings.HistoryDate,
+                IsAllowedCustomerComm = SessionService.LicenseeSession.IsAllowedCustomerComm
+            };
+
+            return View("~/Views/BetList/BettingTicketsCenter/Running.cshtml", viewModel);
+        }
+
+        private IDictionary<int, string> GetCurrencyList()
+        {
+            return SessionService.UserSession.CurrencyList;
+        }
+
+        private IEnumerable<ProductOption> GetProductOptionList()
+        {
+            var productAccess = _productService.GetSingleWalletProductAccess(
+                SessionService.LicenseeSession.LicenseeId,
+                SessionService.UserSession.Language,
+                FunctionNames.BettingTicketsCenter);
+
+            return productAccess.ProductList.Select(i => new ProductOption
+            {
+                Code = i.ProductCode,
+                Name = i.ProductName,
+                Status = true
+            }).ToList();
         }
     }
 }

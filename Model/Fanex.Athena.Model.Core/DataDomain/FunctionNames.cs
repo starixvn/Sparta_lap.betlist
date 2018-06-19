@@ -27,5 +27,7 @@
         public const string LiveReport = "LiveReport";
 
         public const string SpecialLicenseeWinLoss = "SpecialLicenseeWinLoss";
+
+        public const string BettingTicketsCenter = "BettingTicketsCenter";
     }
 }
