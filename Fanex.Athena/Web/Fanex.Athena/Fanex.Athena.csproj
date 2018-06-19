@@ -849,6 +849,7 @@
     <Content Include="Views\Desktop\Report\Result\Popup\Microgaming.cshtml" />
     <Content Include="Views\Desktop\Report\Result\Popup\AllBet.cshtml" />
     <Content Include="Views\Desktop\Report\BettingTicketsCenter\Main.cshtml" />
+    <Content Include="Views\Desktop\BetList\BettingTicketsCenter\Main.cshtml" />
     <Content Include="www\css\source\reactpages\pages\bettingticketscenter\index.scss" />
     <Content Include="www\css\source\reactpages\components\_autocomplete.scss" />
     <Content Include="www\js\source\reactpages\components\auto-complete\AutoComplete.jsx" />
