@@ -4,7 +4,7 @@ import axios from 'axios'
 import Site from '../../../../lib/site'
 
 const fetchData = (params) => {
-    const url = Site.resolveClientUrl('api/BettingTicketsCenterReport/GetBetListForMultipleCustomers');
+    const url = Site.resolveClientUrl('api/BettingTicketsCenter/GetByRefNo');
     return axios.post(url, params.data, {
         headers: {
             'X-Requested-With': 'XMLHttpRequest',
@@ -22,7 +22,20 @@ export function getGridData(params) {
 }
 
 export function exportExcel(params) {
-    return () => fetchData(params);
+    return () => {
+        axios({
+            url: Site.resolveClientUrl('api/BettingTicketsCenter/GetByRefNo'),
+            method: 'GET',
+            responseType: 'blob', // important
+        }).then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'file.xls');
+            document.body.appendChild(link);
+            link.click();
+        });
+    };
 }
 
 export function setGridData(data) {

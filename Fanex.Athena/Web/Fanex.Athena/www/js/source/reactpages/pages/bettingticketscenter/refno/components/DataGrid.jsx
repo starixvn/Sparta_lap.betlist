@@ -14,11 +14,9 @@ export class DataGrid extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (this.props.gridData !== nextProps.gridData) {
-            const { groupBy, selectedReportBy, selectedTimeZone, dateRange, selectedCurrency, selectedBaseCurrency, isConvertAll } = nextProps;
-            this.groupBy = groupBy;
-            this.selectedReportBy = selectedReportBy;
+            const { selectedBaseCurrency } = nextProps;
             this.selectedBaseCurrency = selectedBaseCurrency;
-            this.reportTitle = "Betting Ticket Center";
+            this.reportTitle = service.getReportTitle(selectedBaseCurrency);
             this.props.toggleLoader(false);
         }
     }
@@ -44,13 +42,13 @@ export class DataGrid extends Component {
     }
 
     _buildBody() {
-                    const data = this.props.gridData.rows;
+                const data = this.props.gridData.Data;
                     let rows = [];
 
                     for (let i = 0; i < data.length; i++) {
                         const item = data[i];
                         rows.push(
-                            <Row key={`product-${i}`}>
+                   <Row key={`product-${i}`}>
                     <Cell className="center-align">{item.Index}</Cell>
                     <Cell>Platform 1</Cell>
                     <Cell>{item.ExternalId}</Cell>
@@ -81,12 +79,12 @@ export class DataGrid extends Component {
 
     render() {
         
-        const { rows } = this.props.gridData;
-        if (!rows) {
+        const { Data } = this.props.gridData;
+        if (!Data) {
             return null;
                 }
         
-        if (!rows.length) {
+        if (!Data.length) {
             return this._renderNodata();
                 }
 

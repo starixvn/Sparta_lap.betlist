@@ -9,6 +9,7 @@ import AutoComplete from '../../../../components/auto-complete'
 import { ActionCreators } from '../actions/index.js'
 import LangHelper from '../../../../lib/langHelper'
 import Site from '../../../../lib/site'
+import service from '../lib/service'
 
 const CUSTOMER_SEARCHING_URL = Site.resolveClientUrl("CustomerAPI/SearchCustomer");
 const RANGE_MONTH_CONSTRAINT = 3;
@@ -16,6 +17,10 @@ const RANGE_MONTH_CONSTRAINT = 3;
 export class MultiCustomerFormFilter extends Component {
     constructor(props) {
         super(props);
+    }
+
+    get isValidModel() {
+        return this.props.refno !== "";
     }
 
     submit = (event) => {
@@ -29,7 +34,25 @@ export class MultiCustomerFormFilter extends Component {
         this.props.getGridData(params);
     }
 
+    exportExcel = (event) => {
+        event.preventDefault();
+        
+        const params = this._getParams();
+        if (!params) {
+            return;
+        }
+
+        this.props.toggleLoader(true);
+        this.props.exportExcel(params).then(response => {
+            this.props.toggleLoader(false);
+        });
+    }
+
     _getParams() {
+        if (!this.props.xsrfToken || !this.isValidModel) {
+            return null;
+        }
+
         return {
             xsrfToken: this.props.xsrfToken,
             data: {
@@ -58,7 +81,7 @@ export class MultiCustomerFormFilter extends Component {
                 <div className="row">
                     <div className="col-12 col-md-3 col-sm-3 col-lg-2 col-xl-2">
                         <div className="form-group">
-                            <label className="label-text">{LangHelper.getSingleResource("RefNo")}</label>
+                            <label className="label-text">{LangHelper.getSingleResource("RefNo")} *</label>
                             <input className="input-text" id="RefNo" name="RefNo" type="text" value={this.props.refno} placeholder={LangHelper.getSingleResource("RefNo")}
                             onChange={(event) => this.props.setRefno(event.target.value)} />
                         </div>
@@ -92,11 +115,16 @@ export class MultiCustomerFormFilter extends Component {
                     <div className="col-12 col-md-1 col-sm-1 col-lg-1 col-xl-1">
                     <div className="form-group">
                         <div className="button-group">
-                        <button type="button" className="btn btn-submit" onClick={this.submit}>{LangHelper.getSingleResource("Submit")}</button>
+                        <button type="button" disabled={!this.isValidModel} className="btn btn-submit" onClick={this.submit}>{LangHelper.getSingleResource("Submit")}</button>
                         </div>
                     </div>
                     </div>
                 </div>
+                <div className="row">
+                    <div className="caret-block">
+                        <i className="icon-excel right" onClick={this.exportExcel} title={LangHelper.getSingleResource("ExportToExcel")}></i>
+                    </div>
+               </div>
             </div>
         )
     }

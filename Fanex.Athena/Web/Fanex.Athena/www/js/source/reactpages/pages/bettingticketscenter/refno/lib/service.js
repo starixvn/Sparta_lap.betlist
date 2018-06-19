@@ -18,11 +18,9 @@ const HeaderText = {
 }
 
 export default class Service {
-    static getReportTitle(dateRange, currency, baseCurrency) {
-        const dateText = Site.convertDateToString(dateRange.fromdate);
+    static getReportTitle(baseCurrency) {
         const baseCurrencyText = LangHelper.getSingleResource("BaseCurrency") + ": " + baseCurrency;
-        var currencyText = LangHelper.getSingleResource("Currency") + ": " + currency;
-        return `${LangHelper.getSingleResource("BettingTicketCenter")}, ${dateText}, ${currencyText}${baseCurrencyText}`;
+        return `${LangHelper.getSingleResource("BettingTicketCenter")}, ${baseCurrencyText}`;
     }
 
     static getHeaderText() {

@@ -39,7 +39,7 @@ export class AppContainer extends Component {
 }
 
 function mapStateToProps(state) {
-    return Object.assign({}, { isLoading: false });
+    return Object.assign({}, { isLoading: state.isLoading });
 }
 
 export default connect(mapStateToProps)(AppContainer);

@@ -78,7 +78,7 @@
 
             return new
             {
-                Main = BuildTicketText(ticketResult, metaModel),
+                Data = BuildTicketText(ticketResult, metaModel),
                 Total = new
                 {
                     SumWinLoss = ticketResult.SumWinLoss + ticketResult.SumPlayerComm,
@@ -102,7 +102,7 @@
 
             return new
             {
-                Main = BuildTicketText(ticketResult, metaModel),
+                Data = BuildTicketText(ticketResult, metaModel),
                 Total = new
                 {
                     SumWinLoss = ticketResult.SumWinLoss + ticketResult.SumPlayerComm,
@@ -131,7 +131,7 @@
 
             return new
             {
-                Main = BuildTicketText(ticketResult, metaModel)
+                Data = BuildTicketText(ticketResult, metaModel)
             };
         }
 
@@ -150,7 +150,7 @@
 
             return new
             {
-                Main = BuildTicketText(ticketResult, metaModel),
+                Data = BuildTicketText(ticketResult, metaModel),
                 Total = new
                 {
                     SumStake = ticketResult.SumStake
