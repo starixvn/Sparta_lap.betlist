@@ -19,15 +19,18 @@ export class AppContainer extends Component {
             <AppLayout>
                 <Loader isLoading={this.props.isLoading} />
                 <Tabs>
-                    <Tab isActive={false} label={LangHelper.getSingleResource("MultipleCustomers")}>
+                    <Tab isActive={false} label={LangHelper.getSingleResource("MultipleCustomers")}
+                        url={Site.resolveClientUrl("BettingTicketsCenter/MultipleCustomers")} >
                     </Tab>
-                    <Tab isActive={false} label={LangHelper.getSingleResource("SingleCustomer")}>
+                    <Tab isActive={false} label={LangHelper.getSingleResource("SingleCustomer")}
+                        url={Site.resolveClientUrl("BettingTicketsCenter/SingleCustomer")}>
                     </Tab>
-                    <Tab isActive={true} label={LangHelper.getSingleResource("RefNo")}>
-                        <FormFilter />
+                    <Tab isActive={true} label={LangHelper.getSingleResource("RefNo")}
+                        url={Site.resolveClientUrl("BettingTicketsCenter/RefNo")}>
                     </Tab>
                 </Tabs>
                 <div>
+                    <FormFilter />
                     <DataGrid />
                 </div>
             </AppLayout>

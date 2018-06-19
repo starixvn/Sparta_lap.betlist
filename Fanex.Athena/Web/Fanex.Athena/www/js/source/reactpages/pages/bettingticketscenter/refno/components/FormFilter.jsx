@@ -47,9 +47,9 @@ export class MultiCustomerFormFilter extends Component {
         return baseCurrencyList && baseCurrencyList.length && (
             <Select instanceId="ddlBased"
                 value={selectedBaseCurrency}
-    options={baseCurrencyList}
-    onChange={(item) => this.props.setSelectedBaseCurrency(item.value)} />
-    );
+                options={baseCurrencyList}
+                onChange={(item) => this.props.setSelectedBaseCurrency(item.value)} />
+            );
     }
 
     render() {
