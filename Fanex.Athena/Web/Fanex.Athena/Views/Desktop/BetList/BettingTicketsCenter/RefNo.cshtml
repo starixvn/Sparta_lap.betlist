@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "LRF - " + ViewResources.Report +
+    " - " + "Betting Tickets Center";
+    Layout = "~/Views/Desktop/Shared/_ReactPageLayout.cshtml";
+}
+@using Fanex.Athena.Model.Core.DataDomain;
+@{
+    var baseCurrencyList = SystemConstants.NewBaseCurrencyList.Select(c => new { value = c, label = c }).ToList();
+}
+@section pagecss {
+    <link href="@Url.ContentLinkByEnv("/www/css/build/reactpages/bettingticketscenter/index.css")" rel="stylesheet" type="text/css" />
+}
+@section pagejs {
+    <script src="@Url.ContentLinkByEnv("/www/js/build/reactpages/bettingticketscenter/refno.chunk.js")"></script>
+}
+
+@section globaljscode{
+    window.initialState = {
+        refno: "",
+        username: "",
+        baseCurrencyList: @Html.Raw(baseCurrencyList.ToJson()),
+        selectedBaseCurrency: '@(baseCurrencyList.Any() ? baseCurrencyList.First().value : string.Empty)',
+        isLoading: false,
+        xsrfToken: document.querySelector("input[name=__RequestVerificationToken]").value
+    }
+}
+<div id="app-container">
+
+</div>

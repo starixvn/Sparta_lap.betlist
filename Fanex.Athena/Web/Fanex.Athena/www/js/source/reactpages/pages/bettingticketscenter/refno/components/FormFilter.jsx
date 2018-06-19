@@ -33,56 +33,23 @@ export class MultiCustomerFormFilter extends Component {
         return {
             xsrfToken: this.props.xsrfToken,
             data: {
-                Date: '05/31/2018',
-                ProductCode: 'SB',
-                Status: 'won',
-                CurrencyId: 0
+                Refno: this.props.refno,
+                Username: this.props.username,
+                BaseCurrency: this.props.selectedBaseCurrency,
+                IsConvertAll: this.props.isConvertAll
             }
         }
     }
 
-    _onSelectAutoCompleteItem(selectedItem) {
-        console.log(selectedItem);
-    }
-
-    _renderDateRange() {
-        const { dateRange, dateConstraint } = this.props;
-
-        return (
-                <DateRange startDate={dateRange.fromDate} endDate={dateRange.toDate}
-            minDate={dateConstraint.minDate} maxDate={dateConstraint.maxDate}
-            today={dateConstraint.toDay} limitedMonthRange={RANGE_MONTH_CONSTRAINT}
-            onChange={this.applyDateRangeHandler} />
-        );
-    }
-
-    _renderProductSelectList() {
-        const productOptions = [{ "value": "SB", "label": "Sportsbook" }, { "value": "RB", "label": "Racing" }];
-        const selectedProduct = productOptions[0];
-
-        return productOptions && productOptions.length ? (
-            <Select id="ddlBased"
-                name="form-field-name"
-                value={selectedProduct}
-                options={productOptions} />
-        ) : null;
-    }
-
-    productChangeHandler() {
-
-    }
-
     _renderBaseCurrencySelectList() {
-        //const { baseCurrencyList, selectedBaseCurrency } = this.props;
-        const baseCurrencyList = [{ "value": "EUR", "label": "EUR" }, { "value": "USD", "label": "USD" }, { "value": "GBP", "label": "GBP" }];
-        const selectedBaseCurrency = "EUR";
+        const { baseCurrencyList, selectedBaseCurrency } = this.props;
 
-        return baseCurrencyList && baseCurrencyList.length ? (
-            <Select id="ddlBased"
-                name="form-field-name"
+        return baseCurrencyList && baseCurrencyList.length && (
+            <Select instanceId="ddlBased"
                 value={selectedBaseCurrency}
-                options={baseCurrencyList} />
-        ) : null;
+    options={baseCurrencyList}
+    onChange={(item) => this.props.setSelectedBaseCurrency(item.value)} />
+    );
     }
 
     render() {
@@ -91,81 +58,43 @@ export class MultiCustomerFormFilter extends Component {
                 <div className="row">
                     <div className="col-12 col-md-3 col-sm-3 col-lg-2 col-xl-2">
                         <div className="form-group">
-                            <label className="label-text">{LangHelper.getSingleResource("Date")}</label>
-                            {this._renderDateRange()}
+                            <label className="label-text">{LangHelper.getSingleResource("RefNo")}</label>
+                            <input className="input-text" id="RefNo" name="RefNo" type="text" value={this.props.refno} placeholder={LangHelper.getSingleResource("RefNo")}
+                            onChange={(event) => this.props.setRefno(event.target.value)} />
                         </div>
                     </div>
 
                     <div className="col-12 col-md-3 col-sm-2 col-lg-3 col-xl-2">
                         <div className="form-group">
-                            <label className="label-text">{LangHelper.getSingleResource("Product")}</label>
-                            {this._renderProductSelectList()}
-                        </div>
-                    </div>
-
-                    <div className="col-12 col-md-3 col-sm-3 col-lg-2 col-xl-2">
-                        <div className="form-group">
-                            <label className="label-text">{LangHelper.getSingleResource("League")}</label>
-                            {this._renderProductSelectList()}
-                        </div>
-                    </div>
-
-                    <div className="col-12 col-md-3 col-sm-3 col-lg-2 col-xl-2">
-                        <div className="form-group">
-                            <label className="label-text">{LangHelper.getSingleResource("Match")}</label>
-                            {this._renderProductSelectList()}
+                            <label className="label-text">{LangHelper.getSingleResource("Username")}</label>
+                            <input className="input-text" id="Username" name="Username" type="text" value={this.props.username} placeholder={LangHelper.getSingleResource("Username")} 
+                            onChange={(event) => this.props.setUsername(event.target.value)} />
                         </div>
                     </div>
 
                     <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
                         <div className="form-group">
-                            <label className="label-text">{LangHelper.getSingleResource("Currency")}</label>
+                            <label className="label-text">{LangHelper.getSingleResource("BaseCurrency")}</label>
                         {this._renderBaseCurrencySelectList()}
                         </div>
                     </div>
 
-                    <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
+                    <div className="col-12 col-md-2 col-sm-4 col-lg-2 col-xl-2">
                         <div className="form-group">
-                            <label className="label-text">{LangHelper.getSingleResource("Based")}</label>
-                        {this._renderBaseCurrencySelectList()}
+                            <div className="checkbox-group">
+                                <input type="checkbox" className="checkbox" checked={(this.props.groupBy === 1 && this.props.selectedCurrency.value == 0) || this.props.isConvertAll} id="IsConvertAll"
+                                 onChange={() => this.props.changeIsConvertAll(!this.props.isConvertAll)} />
+                                    <label htmlFor="IsConvertAll">{LangHelper.getSingleResource("ConvertAllFiguresToBaseCurrency")}</label>
                         </div>
+                        </div>    
                     </div>
 
-                </div>
-
-                <div className="row">
-                    
-                    <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
-                        <div className="form-group">
-                            <label className="label-text">{LangHelper.getSingleResource("Status")}</label>
-                        {this._renderBaseCurrencySelectList()}
+                    <div className="col-12 col-md-1 col-sm-1 col-lg-1 col-xl-1">
+                    <div className="form-group">
+                        <div className="button-group">
+                        <button type="button" className="btn btn-submit" onClick={this.submit}>{LangHelper.getSingleResource("Submit")}</button>
                         </div>
                     </div>
-
-                    <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
-                        <div className="form-group">
-                            <label className="label-text">{LangHelper.getSingleResource("Platform")}</label>
-                        {this._renderBaseCurrencySelectList()}
-                        </div>
-                    </div>
-
-                    <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
-                        <div className="form-group">
-                            <label className="label-text">{LangHelper.getSingleResource("Live")}</label>
-                        {this._renderBaseCurrencySelectList()}
-                        </div>
-                    </div>
-
-                    <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
-                        <div className="form-group">
-                            <div className="button-group">
-                                <button type="button" className="btn btn-submit" onClick={this.submit}>{LangHelper.getSingleResource("Submit")}</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="caret-block">
-                        <i className="icon-excel right" title={LangHelper.getSingleResource("ExportToExcel")}></i>
                     </div>
                 </div>
             </div>

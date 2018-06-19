@@ -1,17 +1,10 @@
-﻿export const GET_LEAGUE = "GET_LEAGUE"
-export const SET_LEAGUE = "SET_LEAGUE"
+﻿export const FETCH_DATA = 'FETCH_DATA'
+export const SET_GRID_DATA = "SET_GRID_DATA"
 
-export const GET_MATCH = "GET_MATCH"
-export const SET_MATCH = "SET_MATCH"
+export const SET_REFNO = "SET_REFNO"
 
-export const GET_STATUS = "GET_STATUS"
-export const SET_STATUS = "SET_STATUS"
+export const SET_USERNAME = "SET_USERNAME"
 
-export const GET_PLATFORM = "GET_PLATFORM"
-export const SET_PLATFORM = "SET_PLATFORM"
+export const CHANGE_IS_CONVERT_ALL = "CHANGE_IS_CONVERT_ALL"
 
-export const GET_LIVE = "GET_LIVE"
-export const SET_LIVE = "SET_LIVE"
-
-export const GET_MULTICUSTOMER = "GET_MULTICUSTOMER"
-export const SET_MULTICUSTOMER = "SET_MULTICUSTOMER"
+export const GET_XSRF_TOKEN = "GET_XSRF_TOKEN"

@@ -19,12 +19,12 @@ export class AppContainer extends Component {
             <AppLayout>
                 <Loader isLoading={this.props.isLoading} />
                 <Tabs>
-                    <Tab isActive={true} label={LangHelper.getSingleResource("MultipleCustomers")}>
-                        <FormFilter />
+                    <Tab isActive={false} label={LangHelper.getSingleResource("MultipleCustomers")}>
                     </Tab>
                     <Tab isActive={false} label={LangHelper.getSingleResource("SingleCustomer")}>
                     </Tab>
-                    <Tab isActive={false} label={LangHelper.getSingleResource("RefNo")}>
+                    <Tab isActive={true} label={LangHelper.getSingleResource("RefNo")}>
+                        <FormFilter />
                     </Tab>
                 </Tabs>
                 <div>

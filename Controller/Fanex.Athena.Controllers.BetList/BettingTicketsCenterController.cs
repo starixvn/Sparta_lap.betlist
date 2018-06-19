@@ -16,7 +16,7 @@
 
         public ActionResult RefNo()
         {
-            return View("~/Views/BetList/BettingTicketsCenter/Main.cshtml");
+            return View("~/Views/BetList/BettingTicketsCenter/RefNo.cshtml");
         }
 
         public ActionResult Running()

@@ -857,6 +857,7 @@
     <Content Include="www\js\source\reactpages\components\auto-complete\SuggestionList.jsx" />
     <Content Include="www\js\source\reactpages\components\date-range\DatePicker.jsx" />
     <Content Include="www\css\source\reactpages\components\_tab.scss" />
+    <Content Include="Views\Desktop\BetList\BettingTicketsCenter\RefNo.cshtml" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Row.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.jsx" />

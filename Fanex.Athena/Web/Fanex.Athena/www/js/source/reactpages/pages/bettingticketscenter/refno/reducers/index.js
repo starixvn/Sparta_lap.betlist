@@ -1,10 +1,14 @@
 ﻿import { combineReducers } from 'redux';
 import * as gridDataReducer from '../../../../reducers/gridDataReducer.js'
 import * as filterHandlerReducer from './filterHandlerReducer.js'
-import * as dateRangeReducer from '../../../../reducers/dateRangeReducer'
+import * as baseCurrencyReducer from '../../../../reducers/baseCurrencyReducer'
+import * as loaderReducer from '../../../../reducers/loaderReducer'
+import * as xsrfTokenReducer from '../../../../reducers/xsrfTokenReducer'
 
 export default combineReducers(Object.assign(
     gridDataReducer,
     filterHandlerReducer,
-    dateRangeReducer
+    baseCurrencyReducer,
+    loaderReducer,
+    xsrfTokenReducer
 ));
