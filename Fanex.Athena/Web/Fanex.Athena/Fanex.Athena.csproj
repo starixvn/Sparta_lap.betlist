@@ -903,6 +903,13 @@
     <Content Include="www\js\source\reactpages\lib\__tests__\numberFormat.test.js" />
     <Content Include="www\js\source\reactpages\lib\__tests__\report.test.js" />
     <Content Include="www\js\source\reactpages\lib\__tests__\site.test.js" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\refno\actions\dataHandlerAction.js" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\refno\actions\filterHandlerAction.js" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\refno\actions\index.js" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\refno\actions\types.js" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\refno\lib\service.js" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\refno\reducers\filterHandlerReducer.js" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\refno\reducers\index.js" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\multicustomer\actions\dataHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\multicustomer\actions\filterHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\multicustomer\actions\index.js" />
@@ -2600,6 +2607,10 @@
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\components\refno\FormFilter.jsx" />
     <Content Include="www\js\source\reactpages\components\Overlay.jsx" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\multicustomer\components\AppContainer.jsx" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\refno\components\AppContainer.jsx" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\refno\components\DataGrid.jsx" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\refno\components\FormFilter.jsx" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\refno\components\index.jsx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">
