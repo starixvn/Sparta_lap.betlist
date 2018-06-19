@@ -138,7 +138,9 @@
         [HttpPost]
         public dynamic GetRunningBetList(BaseBettingTicketMetaModel metaModel)
         {
-            if (!metaModel.IsValid && !IsValidCurrencyId(metaModel.CurrencyId))
+            if (!metaModel.IsValid 
+                || !IsValidCurrencyId(metaModel.CurrencyId)
+                || !_authorizationService.HasPermissionOnData(_sessionService.LicenseeSession.LicenseeId, metaModel.CustId, 0))
             {
                 return null;
             }
