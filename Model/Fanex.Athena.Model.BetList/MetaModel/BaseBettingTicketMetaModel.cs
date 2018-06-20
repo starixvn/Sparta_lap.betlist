@@ -39,6 +39,8 @@
 
         public int CustId { get; set; }
 
+        public int LicenseeId { get; set; }
+
         public virtual bool IsValid => FromDate <= ToDate && !string.IsNullOrWhiteSpace(ProductCodeList);
     }
 }
