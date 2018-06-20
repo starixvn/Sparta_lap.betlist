@@ -6,12 +6,11 @@
 
 namespace Fanex.Athena.Excel.BetList
 {
-    using System;
     using System.Globalization;
+    using Athena.Model.BetList.DTO;
     using Constant.Helper;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
-    using Model.BetList.DTO;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
@@ -134,7 +133,7 @@ namespace Fanex.Athena.Excel.BetList
             headerStyle.Alignment = HorizontalAlignment.Center;
             headerStyle.VerticalAlignment = VerticalAlignment.Center;
             headerStyle.SetFont(builder.RTFHelper.PosFont);
-            var captions = new[] 
+            var captions = new[]
             {
                 "#", ViewResources.ExternalId, ViewResources.SystemId, ViewResources.TransTime, ViewResources.Choice, ViewResources.Odds, ViewResources.Stake,
                 custWLHeader, ViewResources.EffectiveBettingValue, ViewResources.LicenseeWL + "/" + ViewResources.Comm, ViewResources.Status

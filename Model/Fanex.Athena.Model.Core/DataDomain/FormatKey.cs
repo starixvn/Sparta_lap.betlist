@@ -14,6 +14,8 @@ namespace Fanex.Athena.Model.Core.DataDomain
 
         public const string DateTimeFormat = "MM/dd/yyyy hh:mm:ss tt";
 
+        public const string NumberFormat = "#,##0.00";
+
         public const string Eur = "EUR";
 
         public const string Usd = "USD";

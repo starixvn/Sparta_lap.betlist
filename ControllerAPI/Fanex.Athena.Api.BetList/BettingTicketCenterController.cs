@@ -1,29 +1,36 @@
 ﻿namespace Fanex.Athena.Api.BetList
 {
     using System.Collections.Generic;
+    using System.Net.Http;
+    using System.Web.Hosting;
     using System.Web.Http;
+    using Base;
     using Constant.DataDomain;
+    using DataAccess.BetList;
+    using DataAccess.BetList.Interfaces;
+    using DataAccess.Core.Configuration;
+    using DataAccess.Core.Configuration.Interfaces;
+    using Excel.BetList;
+    using Excel.BetList.Model;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
     using Fanex.BetList.Core.TicketHelper;
     using Model.BetList.DTO;
     using Model.BetList.MetaModel;
     using Model.Core.DataDomain;
-    using Service.BetList;
     using Service.BetList.Extensions;
     using Service.BetList.Helpers;
-    using Service.BetList.Interfaces;
+    using Service.Core.Common.Interfaces;
     using Service.Core.Users;
     using Service.Core.Users.Interfaces;
-    using Service.Core.Utility;
     using VendorAdapter;
     using VendorAdapter.Interfaces;
 
-    public class BettingTicketsCenterController : ApiController
+    public class BettingTicketCenterController : BaseApiController
     {
-        private readonly ISessionService _sessionService;
+        private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
-        private readonly IBettingTicketsCenterService _service;
+        private readonly IBettingTicketCenterDataAccess _dataAccess;
 
         private readonly IBetListHTMLBuilder _betlistHtmlBuilder;
 
@@ -31,27 +38,38 @@
 
         private readonly ITicketHelper _ticketHelper;
 
-        public BettingTicketsCenterController()
+        private readonly IAuthorizationService _authorizationService;
+
+        public BettingTicketCenterController()
         {
-            _sessionService = new SessionService();
-            _service = new BettingTicketsCenterService();
+            _balanceUpDataAccess = new BalanceUpDataAccess();
+            _dataAccess = new BettingTicketCenterDataAccess();
             _betlistHtmlBuilder = new BetListHTMLBuilder();
             _ticketHelper = new TicketHelper();
             _cacheRefAdapter = new CacheRefAdapter();
+            _authorizationService = new AuthorizationService();
         }
 
-        public BettingTicketsCenterController(
+#pragma warning disable S107 // Methods should not have too many parameters
+        public BettingTicketCenterController(
             ISessionService sessionService,
-            IBettingTicketsCenterService service,
+            IProductService productService,
+            ILanguageService langService,
+            IAuthorizationService authorizationService,
+            IBalanceUpDataAccess balanceUpDataAccess,
+            IBettingTicketCenterDataAccess dataAccess,
             IBetListHTMLBuilder betlistHtmlBuilder,
             ICacheRefAdapter cacheRefAdapter,
             ITicketHelper ticketHelper)
+#pragma warning restore S107 // Methods should not have too many parameters
+            : base(sessionService, productService, langService)
         {
-            _sessionService = sessionService;
-            _service = service;
+            _balanceUpDataAccess = balanceUpDataAccess;
+            _dataAccess = dataAccess;
             _betlistHtmlBuilder = betlistHtmlBuilder;
             _cacheRefAdapter = cacheRefAdapter;
             _ticketHelper = ticketHelper;
+            _authorizationService = authorizationService;
         }
 
         [HttpPost]
@@ -62,8 +80,8 @@
                 return null;
             }
 
-            UpdateMetaModel(metaModel);
-            var ticketResult = _service.GetBetListForMultipleCustomers(metaModel);
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
+            var ticketResult = _dataAccess.GetBetListForMultipleCustomers(metaModel);
 
             return new
             {
@@ -86,8 +104,8 @@
                 return null;
             }
 
-            UpdateMetaModel(metaModel);
-            var ticketResult = _service.GetBetListForSingleCustomer(metaModel);
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
+            var ticketResult = _dataAccess.GetBetListForSingleCustomer(metaModel);
 
             return new
             {
@@ -105,13 +123,29 @@
         [HttpPost]
         public dynamic GetByRefno(RefNoBetListMetaModel metaModel)
         {
-            if (!metaModel.IsValid)
+            if (!metaModel.IsValid
+                || !_authorizationService.HasPermissionOnData(SessionService.LicenseeSession.LicenseeId, metaModel.CustId, 0))
             {
                 return null;
             }
 
-            UpdateMetaModel(metaModel);
-            var ticketResult = _service.GetBetListByRefno(metaModel);
+            var balanceUp = _balanceUpDataAccess.GetBalanceUp();
+            metaModel.BalanceUpDay = balanceUp.BalanceUpDay;
+            metaModel.MoveBetsDay = balanceUp.MoveBetsDay;
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
+
+            var ticketResult = _dataAccess.GetBetListByRefno(metaModel);
+
+            if (metaModel.IsExport)
+            {
+                var excelModel = new BettingTicketCenterExcelModel
+                {
+                    Data = ticketResult,
+                    ShowTotal = false,
+                    CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
+                };
+                return Export(excelModel);
+            }
 
             return new
             {
@@ -122,13 +156,15 @@
         [HttpPost]
         public dynamic GetByRunning(BaseBettingTicketMetaModel metaModel)
         {
-            if (!metaModel.IsValid || !IsValidCurrencyId(metaModel.CurrencyId))
+            if (!metaModel.IsValid 
+                || !IsValidCurrencyId(metaModel.CurrencyId)
+                || !_authorizationService.HasPermissionOnData(SessionService.LicenseeSession.LicenseeId, metaModel.CustId, 0))
             {
                 return null;
             }
 
-            UpdateMetaModel(metaModel);
-            var ticketResult = _service.GetRunningBetList(metaModel);
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
+            var ticketResult = _dataAccess.GetRunningBetList(metaModel);
 
             return new
             {
@@ -141,22 +177,28 @@
             };
         }
 
-        private void UpdateMetaModel(BaseBettingTicketMetaModel metaModel)
+        protected internal virtual BettingTicketCenterExcel CreateExcel(BettingTicketCenterExcelModel excelModel)
         {
-            metaModel.AgentListXml = _sessionService.GenerateAgentListXml(metaModel.CurrencyId);
-            metaModel.LicenseeId = _sessionService.LicenseeSession.LicenseeId;
+            return new BettingTicketCenterExcel(excelModel);
         }
 
         private bool IsValidCurrencyId(int currencyId)
         {
-            return currencyId == BaseCurrencyType.All ||
-                KeanOceanBusinessHelper.VerifyKeanOceanCurrencyRequest(
-                    _sessionService.UserSession.CurrencyList, _sessionService.LicenseeSession.LicenseeId, currencyId);
+            return currencyId == BaseCurrencyType.All || SessionService.UserSession.CurrencyList.ContainsKey(currencyId);
+        }
+
+        private HttpResponseMessage Export(BettingTicketCenterExcelModel excelModel)
+        {
+            const string FileName = "BettingTicketCenter.xls";
+
+            var excel = CreateExcel(excelModel);
+
+            return ExcelStream(excel.Export(), FileName);
         }
 
         private List<TicketText> BuildTicketText(TicketResult ticketResult, BaseBettingTicketMetaModel metaModel, int startIndex = 1)
         {
-            var showPlayerComm = _sessionService.LicenseeSession.IsAllowedCustomerComm;
+            var showPlayerComm = SessionService.LicenseeSession.IsAllowedCustomerComm;
             var ticketTextList = new List<TicketText>();
 
             foreach (var ticket in ticketResult.MainTicketList)

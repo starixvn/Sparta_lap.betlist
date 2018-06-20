@@ -131,13 +131,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BettingTicketsCenterDataAccess.cs" />
+    <Compile Include="BettingTicketCenterDataAccess.cs" />
     <Compile Include="CancelledBetListDataAccess.cs" />
     <Compile Include="BetListDataAccess.cs" />
     <Compile Include="CashOutBetListDataAccess.cs" />
     <Compile Include="DailyStatementBetListDataAccess.cs" />
     <Compile Include="ExchangeBetListDataAccess.cs" />
-    <Compile Include="Interfaces\IBettingTicketsCenterDataAccess.cs" />
+    <Compile Include="Interfaces\IBettingTicketCenterDataAccess.cs" />
     <Compile Include="Interfaces\IDailyStatementBetListDataAccess.cs" />
     <Compile Include="Interfaces\ICashOutBetListDataAccess.cs" />
     <Compile Include="Interfaces\IColossusBetBetListDataAccess.cs" />

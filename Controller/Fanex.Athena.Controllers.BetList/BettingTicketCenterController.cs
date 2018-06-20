@@ -3,27 +3,19 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
-    using Excel.Base.Helpers;
-    using Model.BetList.DTO;
-    using Model.BetList.MetaModel;
     using Model.BetList.ViewModel;
     using Model.Core.DataDomain;
     using Model.Core.MetaModel.Product;
-    using Service.BetList;
-    using Service.BetList.Interfaces;
     using Service.Core.Common;
     using Service.Core.Common.Interfaces;
 
-    public class BettingTicketsCenterController : BaseController
+    public class BettingTicketCenterController : BaseController
     {
         private readonly IProductService _productService;
 
-        private readonly IBettingTicketsCenterService _service;
-
-        public BettingTicketsCenterController()
+        public BettingTicketCenterController()
         {
             _productService = new ProductService();
-            _service = new BettingTicketsCenterService();
         }
 
         public ActionResult MultipleCustomers()
@@ -52,16 +44,6 @@
             };
 
             return View("~/Views/BetList/BettingTicketsCenter/Running.cshtml", viewModel);
-        }
-
-        public ActionResult ExportRefNo(RefNoBetListMetaModel metaModel)
-        {
-            return Export("RefNo");
-        }
-
-        private ActionResult Export(string fileName)
-        {
-            return File(ExcelHelper.ExportEmptyFile(), "application/vnd.ms-excel", $"{fileName}.xls");
         }
 
         private IDictionary<int, string> GetCurrencyList()

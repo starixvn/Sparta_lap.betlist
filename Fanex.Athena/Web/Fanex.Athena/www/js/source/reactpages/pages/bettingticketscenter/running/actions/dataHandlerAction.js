@@ -3,7 +3,7 @@ import axios from 'axios'
 import Site from '../../../../lib/site'
 
 const fetchData = (params) => {
-    const url = Site.resolveClientUrl('api/BettingTicketsCenter/GetByRunning');
+    const url = Site.resolveClientUrl('api/BettingTicketCenter/GetByRunning');
     return axios.post(url, params.data, {
         headers: {
             'X-Requested-With': 'XMLHttpRequest',

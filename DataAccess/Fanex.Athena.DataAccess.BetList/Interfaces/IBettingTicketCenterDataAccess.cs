@@ -1,9 +1,9 @@
-﻿namespace Fanex.Athena.Service.BetList.Interfaces
+﻿namespace Fanex.Athena.DataAccess.BetList.Interfaces
 {
-    using Fanex.Athena.Model.BetList.DTO;
-    using Fanex.Athena.Model.BetList.MetaModel;
+    using Model.BetList.DTO;
+    using Model.BetList.MetaModel;
 
-    public interface IBettingTicketsCenterService
+    public interface IBettingTicketCenterDataAccess
     {
         TicketResult GetBetListForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel);
 

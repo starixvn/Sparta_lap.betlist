@@ -18,6 +18,7 @@ namespace Fanex.Athena.Service.BetList.Extensions
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
     using Helpers;
+    using Model.Core.DataDomain;
     using Resources;
 
     #endregion Using
@@ -123,10 +124,10 @@ namespace Fanex.Athena.Service.BetList.Extensions
             {
                 switch (ticket.LiveHomeScore)
                 {
-                    case 1:
+                    case LiveStatus.Live:
                         return string.Format(PatternStatusBetlist, "#cc0033", ViewResources.Live);
 
-                    case 2:
+                    case LiveStatus.MixLiveAndNone:
                         return string.Format(PatternStatusBetlist, "#0033ff", ViewResources.MixLiveAndNoneLive);
 
                     default:

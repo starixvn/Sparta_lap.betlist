@@ -11,7 +11,7 @@
     using Model.BetList.MetaModel;
     using Model.Core.DTO.Common;
 
-    public class BettingTicketsCenterDataAccess : BaseBetListDataAccess, IBettingTicketsCenterDataAccess
+    public class BettingTicketCenterDataAccess : BaseBetListDataAccess, IBettingTicketCenterDataAccess
     {
         public TicketResult GetBetListForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel)
         {
@@ -72,8 +72,8 @@
                     db.AddInParameter("BaseCurrency", DbType.String, metaModel.BaseCurrency);
                     db.AddInParameter("showSB", DbType.Boolean, productCodes.Contains(Product.SB));
                     db.AddInParameter("showBA", DbType.Boolean, productCodes.Contains(Product.BA));
-                    db.AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
-                    db.AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
+                    db.AddInParameter("PageSize", DbType.Int32, metaModel.IsExport ? int.MaxValue - 1 : metaModel.PageSize);
+                    db.AddInParameter("PageIndex", DbType.Int32, metaModel.IsExport ? 1 : metaModel.PageIndex);
                     db.AddOutParameter("TotalRows", DbType.Int32, 4);
                     db.AddOutParameter("SumStake", DbType.Decimal, 8);
 

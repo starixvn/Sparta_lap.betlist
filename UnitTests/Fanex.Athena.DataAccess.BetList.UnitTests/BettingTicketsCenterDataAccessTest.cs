@@ -8,7 +8,7 @@
     using NUnit.Framework;
     using UnitTest.Common.Helpers;
 
-    public class BettingTicketsCenterDataAccessTest : BaseDataAccessHelperTest<BettingTicketsCenterDataAccess>
+    public class BettingTicketsCenterDataAccessTest : BaseDataAccessHelperTest<BettingTicketCenterDataAccess>
     {
         private const string BetListByRefnoUspKey = "Lrf_BetList_RefNo_Mem";
         private const string RunningBetListUspKey = "Lrf_BetList_Running";

@@ -16,16 +16,16 @@ export default class PageLayout extends Component {
                 <Loader isLoading={this.props.isLoading} />
                 <Tabs>
                     <Tab isActive={this.props.selectedTabIndex == 0} label={LangHelper.getSingleResource("MultipleCustomers")}
-                        url={Site.resolveClientUrl("BettingTicketsCenter/MultipleCustomers")} >
+                        url={Site.resolveClientUrl("BettingTicketCenter/MultipleCustomers")} >
                     </Tab>
                     <Tab isActive={this.props.selectedTabIndex == 1} label={LangHelper.getSingleResource("SingleCustomer")}
-                        url={Site.resolveClientUrl("BettingTicketsCenter/SingleCustomer")}>
+                        url={Site.resolveClientUrl("BettingTicketCenter/SingleCustomer")}>
                     </Tab>
                     <Tab isActive={this.props.selectedTabIndex == 2} label={LangHelper.getSingleResource("RefNo")}
-                        url={Site.resolveClientUrl("BettingTicketsCenter/RefNo")}>
+                        url={Site.resolveClientUrl("BettingTicketCenter/RefNo")}>
                     </Tab>
                     <Tab isActive={this.props.selectedTabIndex == 3} label={LangHelper.getSingleResource("Running")}
-                        url={Site.resolveClientUrl("BettingTicketsCenter/Running")}>
+                        url={Site.resolveClientUrl("BettingTicketCenter/Running")}>
                     </Tab>
                 </Tabs>
                 <div>

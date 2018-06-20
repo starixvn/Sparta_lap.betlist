@@ -2,24 +2,27 @@
 {
     using System;
     using System.Collections.Generic;
+    using Base.UnitTests;
     using Constant.DataDomain;
+    using DataAccess.BetList.Interfaces;
+    using DataAccess.Core.Configuration.Interfaces;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
     using Model.BetList.DTO;
     using Model.BetList.MetaModel;
+    using Model.Core.DTO.Configuration;
     using NSubstitute;
     using NUnit.Framework;
-    using Service.BetList.Interfaces;
     using Service.Core.Users.Interfaces;
     using Session.Model;
     using UnitTest.Common.Helpers;
     using VendorAdapter.Interfaces;
 
-    public class BettingTicketsCenterControllerTest
+    public class BettingTicketsCenterControllerTest : BaseApiControllerHelperTest
     {
-        private ISessionService _sessionService;
+        private IBalanceUpDataAccess _balanceUpDataAccess;
 
-        private IBettingTicketsCenterService _service;
+        private IBettingTicketCenterDataAccess _dataAccess;
 
         private IBetListHTMLBuilder _betlistHtmlBuilder;
 
@@ -27,35 +30,49 @@
 
         private ITicketHelper _ticketHelper;
 
-        private BettingTicketsCenterController _controller;
+        private IAuthorizationService _authorizationService;
+
+        private BettingTicketCenterController _controller;
 
         [OneTimeSetUp]
-        public void FixtureSetUp()
+        public override void FixtureSetUp()
         {
-            _sessionService = Substitute.For<ISessionService>();
-            _service = Substitute.For<IBettingTicketsCenterService>();
+            base.FixtureSetUp();
+
+            _balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
+            _dataAccess = Substitute.For<IBettingTicketCenterDataAccess>();
             _betlistHtmlBuilder = Substitute.For<IBetListHTMLBuilder>();
             _cacheRefAdapter = Substitute.For<ICacheRefAdapter>();
             _ticketHelper = Substitute.For<ITicketHelper>();
+            _authorizationService = Substitute.For<IAuthorizationService>();
 
-            _sessionService.GenerateAgentListXml(Arg.Any<int>()).Returns("<xml></xml>");
-            _sessionService.LicenseeSession.Returns(new LicenseeSession { LicenseeId = FakeHelper.Create<int>() });
+            var balanceUp = new BalanceUp { BalanceUpDay = new DateTime(2018, 1, 1), MoveBetsDay = new DateTime(2018, 1, 2) };
+            _balanceUpDataAccess.GetBalanceUp().Returns(balanceUp);
+            SessionService.GenerateAgentListXml(Arg.Any<int>()).Returns("<xml></xml>");
 
-            _controller = new BettingTicketsCenterController(
-                _sessionService,
-                _service,
+            _controller = new BettingTicketCenterController(
+                SessionService,
+                ProductService,
+                LangService,
+                _authorizationService,
+                _balanceUpDataAccess,
+                _dataAccess,
                 _betlistHtmlBuilder,
                 _cacheRefAdapter,
                 _ticketHelper);
         }
 
-        public void FixtureTearDown()
+        [OneTimeSetUp]
+        public override void FixtureTearDown()
         {
-            _sessionService = null;
-            _service = null;
+            base.FixtureTearDown();
+
+            _balanceUpDataAccess = null;
+            _dataAccess = null;
             _betlistHtmlBuilder = null;
             _cacheRefAdapter = null;
             _ticketHelper = null;
+            _authorizationService = null;
             _controller = null;
         }
 
@@ -78,6 +95,25 @@
         }
 
         [Test]
+        public void GetByRefno_NoPermission_ReturnNull()
+        {
+            // Arrange
+            SessionService.LicenseeSession.Returns(new LicenseeSession { LicenseeId = FakeHelper.Create<int>() });
+            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), 0).Returns(false);
+
+            var metaModel = new RefNoBetListMetaModel
+            {
+                RefNo = FakeHelper.Create<int>()
+            };
+
+            // Action
+            var result = _controller.GetByRefno(metaModel);
+
+            // Assert
+            Assert.That(result, Is.Null);
+        }
+
+        [Test]
         public void GetByRefno_ValidMetaModel_GetDataFromDataAccess()
         {
             // Arrange
@@ -86,7 +122,9 @@
                 RefNo = FakeHelper.Create<int>()
             };
 
-            _service.GetBetListByRefno(metaModel).Returns(new TicketResult());
+            SessionService.LicenseeSession.Returns(new LicenseeSession { LicenseeId = FakeHelper.Create<int>() });
+            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), 0).Returns(true);
+            _dataAccess.GetBetListByRefno(metaModel).Returns(new TicketResult());
 
             // Action
             var result = _controller.GetByRefno(metaModel);
@@ -94,8 +132,8 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _service.Received(1).GetBetListByRefno(metaModel);
-                Assert.That(result.Data, Is.Not.Null);
+                _dataAccess.Received(1).GetBetListByRefno(metaModel);
+                Assert.That(result.Main, Is.Not.Null);
             });
         }
 
@@ -140,7 +178,7 @@
         public void GetByRunning_InvalidCurrency_ReturnNull()
         {
             // Arrange
-            _sessionService.UserSession.Returns(new UserSession
+            SessionService.UserSession.Returns(new UserSession
             {
                 CurrencyList = new Dictionary<int, string>
                 {
@@ -164,6 +202,35 @@
         }
 
         [Test]
+        public void GetByRunning_NoPermission_ReturnNull()
+        {
+            // Arrange
+            SessionService.LicenseeSession.Returns(new LicenseeSession { LicenseeId = FakeHelper.Create<int>() });
+            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), 0).Returns(false);
+            SessionService.UserSession.Returns(new UserSession
+            {
+                CurrencyList = new Dictionary<int, string>
+                {
+                    { 1, "Currency" }
+                }
+            });
+
+            var metaModel = new BaseBettingTicketMetaModel
+            {
+                FromDate = DateTime.Today,
+                ToDate = DateTime.Today,
+                ProductCodeList = "C1,C2",
+                CurrencyId = 1
+            };
+
+            // Action
+            var result = _controller.GetByRunning(metaModel);
+
+            // Assert
+            Assert.That(result, Is.Null);
+        }
+
+        [Test]
         public void GetByRunning_ValidMetaModel_GetDataFromDataAccess()
         {
             // Arrange
@@ -175,7 +242,9 @@
                 CurrencyId = 1
             };
 
-            _sessionService.UserSession.Returns(new UserSession
+            SessionService.LicenseeSession.Returns(new LicenseeSession { LicenseeId = FakeHelper.Create<int>() });
+            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), 0).Returns(true);
+            SessionService.UserSession.Returns(new UserSession
             {
                 CurrencyList = new Dictionary<int, string>
                 {
@@ -188,7 +257,7 @@
                 SumStake = FakeHelper.Create<int>(),
                 TotalRows = FakeHelper.Create<int>()
             };
-            _service.GetRunningBetList(metaModel).Returns(ticketResult);
+            _dataAccess.GetRunningBetList(metaModel).Returns(ticketResult);
 
             // Action
             var result = _controller.GetByRunning(metaModel);
@@ -196,8 +265,8 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _service.Received(1).GetRunningBetList(metaModel);
-                Assert.That(result.Data, Is.Not.Null);
+                _dataAccess.Received(1).GetRunningBetList(metaModel);
+                Assert.That(result.Main, Is.Not.Null);
                 Assert.That(result.Total.SumStake, Is.EqualTo(ticketResult.SumStake));
                 Assert.That(result.TotalRows, Is.EqualTo(ticketResult.TotalRows));
             });
@@ -215,7 +284,9 @@
             var ticket = new LrfTicket { BetTypeId = (int)BetType.Handicap, Status = BetStatus.Won };
             ticketResult.MainTicketList.Add(ticket);
 
-            _service.GetBetListByRefno(metaModel).Returns(ticketResult);
+            SessionService.LicenseeSession.Returns(new LicenseeSession { LicenseeId = FakeHelper.Create<int>() });
+            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), 0).Returns(true);
+            _dataAccess.GetBetListByRefno(metaModel).Returns(ticketResult);
             _ticketHelper.ClientDetailSystemParlayFunction.Returns(string.Empty);
 
             // Action
@@ -237,7 +308,9 @@
             var ticket = new LrfTicket { BetTypeId = (int)BetType.CombinationMixParlay, Status = BetStatus.Lose };
             ticketResult.MainTicketList.Add(ticket);
 
-            _service.GetBetListByRefno(metaModel).Returns(ticketResult);
+            SessionService.LicenseeSession.Returns(new LicenseeSession { LicenseeId = FakeHelper.Create<int>() });
+            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), 0).Returns(true);
+            _dataAccess.GetBetListByRefno(metaModel).Returns(ticketResult);
 
             // Action
             var result = _controller.GetByRefno(metaModel);
@@ -264,7 +337,9 @@
             };
             ticketResult.MainTicketList.Add(ticket);
 
-            _service.GetBetListByRefno(metaModel).Returns(ticketResult);
+            SessionService.LicenseeSession.Returns(new LicenseeSession { LicenseeId = FakeHelper.Create<int>() });
+            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), 0).Returns(true);
+            _dataAccess.GetBetListByRefno(metaModel).Returns(ticketResult);
 
             // Action
             var result = _controller.GetByRefno(metaModel);
@@ -272,9 +347,9 @@
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(result.Data[0].Index, Is.EqualTo(1));
-                Assert.That(result.Data[0].ExternalId, Is.EqualTo(ticket.ExternalId));
-                Assert.That(result.Data[0].SystemId, Is.EqualTo(ticket.UserName));
+                Assert.That(result.Main[0].Index, Is.EqualTo(1));
+                Assert.That(result.Main[0].ExternalId, Is.EqualTo(ticket.ExternalId));
+                Assert.That(result.Main[0].SystemId, Is.EqualTo(ticket.UserName));
             });
         }
     }
