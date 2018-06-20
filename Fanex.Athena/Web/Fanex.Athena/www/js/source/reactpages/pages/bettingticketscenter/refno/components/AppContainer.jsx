@@ -3,11 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 import DataGrid from './Datagrid'
 import FormFilter from './FormFilter'
-import Loader from '../../../../components/Loader'
-import AppLayout from '../../../../layouts/AppLayout'
-import { Tabs, Tab } from '@9softstudio/simple-react-tab'
-import LangHelper from '../../../../lib/langHelper'
-import Site from '../../../../lib/site'
+import PageLayout from '../../common/components/PageLayout'
 
 export class AppContainer extends Component {
     constructor(props) {
@@ -16,24 +12,10 @@ export class AppContainer extends Component {
 
     render() {
         return (
-            <AppLayout>
-                <Loader isLoading={this.props.isLoading} />
-                <Tabs>
-                    <Tab isActive={false} label={LangHelper.getSingleResource("MultipleCustomers")}
-                        url={Site.resolveClientUrl("BettingTicketsCenter/MultipleCustomers")} >
-                    </Tab>
-                    <Tab isActive={false} label={LangHelper.getSingleResource("SingleCustomer")}
-                        url={Site.resolveClientUrl("BettingTicketsCenter/SingleCustomer")}>
-                    </Tab>
-                    <Tab isActive={true} label={LangHelper.getSingleResource("RefNo")}
-                        url={Site.resolveClientUrl("BettingTicketsCenter/RefNo")}>
-                    </Tab>
-                </Tabs>
-                <div>
-                    <FormFilter />
-                    <DataGrid />
-                </div>
-            </AppLayout>
+            <PageLayout selectedTabIndex="2" isLoading={this.props.isLoading}>
+                <FormFilter />
+                <DataGrid />
+            </PageLayout>
         );
     }
 }

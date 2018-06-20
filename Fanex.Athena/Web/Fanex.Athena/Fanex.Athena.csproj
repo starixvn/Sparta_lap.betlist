@@ -2623,6 +2623,7 @@
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\running\components\AppContainer.jsx" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\running\components\FormFilter.jsx" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\running\components\index.jsx" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\common\components\PageLayout.jsx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">

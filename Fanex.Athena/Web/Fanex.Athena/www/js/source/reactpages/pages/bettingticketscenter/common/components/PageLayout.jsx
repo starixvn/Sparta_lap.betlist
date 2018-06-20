@@ -1,0 +1,37 @@
+﻿import React, { Component } from 'react';
+import AppLayout from '../../../../layouts/AppLayout'
+import Loader from '../../../../components/Loader'
+import { Tabs, Tab } from '@9softstudio/simple-react-tab'
+import LangHelper from '../../../../lib/langHelper'
+import Site from '../../../../lib/site'
+
+export default class PageLayout extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <AppLayout>
+                <Loader isLoading={this.props.isLoading} />
+                <Tabs>
+                    <Tab isActive={this.props.selectedTabIndex == 0} label={LangHelper.getSingleResource("MultipleCustomers")}
+                        url={Site.resolveClientUrl("BettingTicketsCenter/MultipleCustomers")} >
+                    </Tab>
+                    <Tab isActive={this.props.selectedTabIndex == 1} label={LangHelper.getSingleResource("SingleCustomer")}
+                        url={Site.resolveClientUrl("BettingTicketsCenter/SingleCustomer")}>
+                    </Tab>
+                    <Tab isActive={this.props.selectedTabIndex == 2} label={LangHelper.getSingleResource("RefNo")}
+                        url={Site.resolveClientUrl("BettingTicketsCenter/RefNo")}>
+                    </Tab>
+                    <Tab isActive={this.props.selectedTabIndex == 3} label={LangHelper.getSingleResource("Running")}
+                        url={Site.resolveClientUrl("BettingTicketsCenter/Running")}>
+                    </Tab>
+                </Tabs>
+                <div>
+                    {this.props.children}
+                </div>
+            </AppLayout>
+        );
+    }
+}
