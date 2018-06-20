@@ -20,8 +20,7 @@
         username: "",
         baseCurrencyList: @Html.Raw(baseCurrencyList.ToJson()),
         selectedBaseCurrency: '@(baseCurrencyList.Any() ? baseCurrencyList.First().value : string.Empty)',
-        isLoading: false,
-        xsrfToken: document.querySelector("input[name=__RequestVerificationToken]").value
+        isLoading: false
     }
 }
 <div id="app-container">

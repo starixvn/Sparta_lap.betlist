@@ -38,9 +38,9 @@ export class DataGrid extends Component {
         paramData.PageIndex = index;
         paramData.PageSize = size;
 
-        const params = this._buildParams({
+        const params = {
             data: paramData
-        });
+        };
 
         this.props.toggleLoader(true);
         this.props.getGridData(params);
@@ -52,13 +52,13 @@ export class DataGrid extends Component {
         Data[index].IsExpand = true;
 
         if(!item.IsRead) {
-            this.props.markItemAsRead(this._buildParams({
+            this.props.markItemAsRead({
                 Index: index,
                 Id: item.Id,
                 Type: item.Type,
                 Data: Data,
                 Total: Total
-            }));
+            });
         }
         else {
             this.props.setGridData({ Data: Data, Total: Total });
@@ -66,9 +66,9 @@ export class DataGrid extends Component {
     }
 
     exportExcel(item) {
-        const params = this._buildParams({
+        const params = {
             fileName: item.DataFilePath
-        });
+        };
         const fileName = this.props.licenseeName;
 
         this.props.toggleLoader(true);
@@ -82,11 +82,6 @@ export class DataGrid extends Component {
             }
             this.props.toggleLoader(false);
         });
-    }
-
-    _buildParams(params) {
-        params.xsrfToken = this.props.xsrfToken;
-        return params;
     }
 
     _buildHeader() {
@@ -184,8 +179,8 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-    const { gridData, dateRange, param, licenseeName, xsrfToken } = state;
-    return Object.assign({}, { gridData, dateRange, param, xsrfToken, licenseeName });
+    const { gridData, dateRange, param, licenseeName } = state;
+    return Object.assign({}, { gridData, dateRange, param, licenseeName });
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DataGrid);

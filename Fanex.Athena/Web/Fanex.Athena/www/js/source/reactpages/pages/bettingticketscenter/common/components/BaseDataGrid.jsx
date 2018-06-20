@@ -74,7 +74,7 @@ export default class BaseDataGrid extends Component {
         
         if (!Data.length) {
             return this._renderNodata();
-                }
+        }
 
         return (
             <div className="betlist-container result-content">

@@ -63,12 +63,7 @@ export class FormFilter extends Component {
         const { userGuideContent, xsrfToken } = this.props;
 
         if (!userGuideContent || userGuideContent.length === 0) {
-            if (!xsrfToken) {
-                return;
-            }
-
             this.props.getUserGuideContent({
-                xsrfToken: xsrfToken,  
                 resourceName: 'LicenseeWLByTimeZone'
             });
         }
@@ -83,14 +78,13 @@ export class FormFilter extends Component {
     }
 
     _getParams() {
-        if (!this.props.xsrfToken || !this.isValidModel) {
+        if (!this.isValidModel) {
             return null;
         }
 
         const { fromDate, toDate } = this.props.dateRange;
 
         return {
-            xsrfToken: this.props.xsrfToken,
             data: {
                 BaseCurrency: this.props.selectedBaseCurrency,
                 CurrencyId: this.props.selectedCurrency.value,

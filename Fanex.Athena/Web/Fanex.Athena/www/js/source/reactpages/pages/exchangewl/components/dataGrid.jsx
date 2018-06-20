@@ -63,10 +63,6 @@ export class DataGrid extends Component {
     }
 
     _getDrillDownParams(level, date, currencyId, currencyName, custId) {
-        if (!this.props.xsrfToken) {
-            return null;
-        }
-
         const mainParam = this.drillDownParams[ReportLevel.MAIN];
         if (!mainParam) {
             return null;
@@ -86,7 +82,6 @@ export class DataGrid extends Component {
         this.drillDownParams[level] = drillDownData;
 
         return {
-            xsrfToken: this.props.xsrfToken,
             data: drillDownData
         };
     }
@@ -329,7 +324,6 @@ export class DataGrid extends Component {
         this.betlistParams = { CustId : custId , CurrencyId, BaseCurrency, FromDate, ToDate, ExcludeTestData };
 
         const params = {
-            xsrfToken: this.props.xsrfToken,
             data: this.betlistParams
         }
 
@@ -409,8 +403,8 @@ function mapDispatchToProps(dispatch) {
 };
 
 function mapStateToProps(state) {
-    const { gridData, params, xsrfToken, licenseeId, isAllowedCustomerComm } = state;
-    return Object.assign({}, { gridData, params, xsrfToken, licenseeId, isAllowedCustomerComm });
+    const { gridData, params, licenseeId, isAllowedCustomerComm } = state;
+    return Object.assign({}, { gridData, params, licenseeId, isAllowedCustomerComm });
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DataGrid);

@@ -7,7 +7,7 @@ const fetchData = (params) => {
     return axios.get(url, {
         headers: {
             'X-Requested-With': 'XMLHttpRequest',
-            '__RequestVerificationToken': params.xsrfToken
+            '__RequestVerificationToken': Site.getXsrfToken()
         }
     });
 }

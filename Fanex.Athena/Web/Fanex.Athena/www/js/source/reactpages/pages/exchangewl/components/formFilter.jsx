@@ -96,10 +96,6 @@ export class FormFilter extends Component {
     }
 
     _getParams() {
-        if (!this.props.xsrfToken) {
-            return null;
-        }
-
         let param = {};
 
         const { fromDate, toDate } = this.props.dateRange;
@@ -117,7 +113,6 @@ export class FormFilter extends Component {
         };
         
         return {
-            xsrfToken: this.props.xsrfToken,
             data: param
         };
     }

@@ -26,10 +26,6 @@ export class FormFilter extends Component {
     }
 
     _getParams() {
-        if (!this.props.xsrfToken) {
-            return null;
-        }
-
         let pageSize = 10;
         const param = this.props.param;
         if (param && param.hasOwnProperty("PageSize")) {
@@ -46,7 +42,6 @@ export class FormFilter extends Component {
         };
 
         return {
-            xsrfToken: this.props.xsrfToken,
             data: paramData
         }
     }

@@ -28,7 +28,6 @@
         isExcludeTest: true,
         isAllowedCustomerComm: @Model.IsAllowedCustomerComm.ToJson(),
         licenseeId: @Model.LicenseeId,
-        xsrfToken: document.querySelector("input[name=__RequestVerificationToken]").value,
         isLoading: false,
         dateConstraint: { minDate: '@Model.MinDate.ToString("MM/dd/yyyy")', maxDate: '@Model.MaxDate.ToString("MM/dd/yyyy")', toDay: '@today'}
     }

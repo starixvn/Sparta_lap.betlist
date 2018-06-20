@@ -66,7 +66,7 @@ export class FormFilter extends Component {
     }
 
     _getParams() {
-        if (!this.props.xsrfToken || !this.isValidModel) {
+        if (!this.isValidModel) {
             return null;
         }
 

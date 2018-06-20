@@ -13,7 +13,6 @@ export const userName = createReducer({}, {
     }
 })
 
-
 export const dateConstraint = createReducer({}, {
     [types.GET_DATE_CONSTRAINT](state, action) {
         return action.data;

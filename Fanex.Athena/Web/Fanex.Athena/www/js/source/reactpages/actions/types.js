@@ -22,8 +22,6 @@ export const CHANGE_IS_EXCLUDE_TEST = "CHANGE_IS_EXCLUDE_TEST"
 /* User mini guide */
 export const USER_GUIDE_CONTENT = "USER_GUIDE_CONTENT;"
 
-/* Xsrf Token */
-export const GET_XSRF_TOKEN = "GET_XSRF_TOKEN";
 /* Date range */
 export const SET_DATE_RANGE = 'SET_DATE_RANGE'
 export const GET_DATE_CONSTRAINT = 'GET_DATE_CONSTRAINT'
