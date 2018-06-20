@@ -3,12 +3,10 @@ import * as gridDataReducer from '../../../../reducers/gridDataReducer.js'
 import * as filterHandlerReducer from './filterHandlerReducer.js'
 import * as baseCurrencyReducer from '../../../../reducers/baseCurrencyReducer'
 import * as loaderReducer from '../../../../reducers/loaderReducer'
-import * as xsrfTokenReducer from '../../../../reducers/xsrfTokenReducer'
 
 export default combineReducers(Object.assign(
     gridDataReducer,
     filterHandlerReducer,
     baseCurrencyReducer,
-    loaderReducer,
-    xsrfTokenReducer
+    loaderReducer
 ));

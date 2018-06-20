@@ -1,6 +1,4 @@
 ﻿import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 
 import { Table, Row, Cell } from '../../../../components/fixed-table-header'
 import service from '../lib/service'
@@ -68,11 +66,11 @@ export default class BaseDataGrid extends Component {
                 }
 
     render() {
-        
-        const { Data } = this.props.gridData;
-        if (!Data) {
+        if (!this.props.gridData || !this.props.gridData.Data) {
             return null;
-                }
+        }
+
+        const { Data } = this.props.gridData;
         
         if (!Data.length) {
             return this._renderNodata();

@@ -6,5 +6,3 @@ export const SET_REFNO = "SET_REFNO"
 export const SET_USERNAME = "SET_USERNAME"
 
 export const CHANGE_IS_CONVERT_ALL = "CHANGE_IS_CONVERT_ALL"
-
-export const GET_XSRF_TOKEN = "GET_XSRF_TOKEN"

@@ -3,11 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 import DataGrid from './Datagrid'
 import FormFilter from './FormFilter'
-import Loader from '../../../../components/Loader'
-import AppLayout from '../../../../layouts/AppLayout'
-import { Tabs, Tab } from '@9softstudio/simple-react-tab'
-import LangHelper from '../../../../lib/langHelper'
-import Site from '../../../../lib/site'
+import PageLayout from '../../common/components/PageLayout'
 
 export class AppContainer extends Component {
     constructor(props) {
@@ -16,26 +12,16 @@ export class AppContainer extends Component {
 
     render() {
         return (
-            <AppLayout>
-                <Loader isLoading={this.props.isLoading} />
-                <Tabs>
-                    <Tab isActive={false} label={LangHelper.getSingleResource("MultipleCustomers")}>
-                    </Tab>
-                    <Tab isActive={false} label={LangHelper.getSingleResource("SingleCustomer")}>
-                    </Tab>
-                    <Tab isActive={false} label={LangHelper.getSingleResource("RefNo")}>
-                    </Tab>
-                    <Tab isActive={true} label={LangHelper.getSingleResource("Running")}>
-                        <FormFilter />
-                    </Tab>
-                </Tabs>
-            </AppLayout>
+            <PageLayout selectedTabIndex="3" isLoading={this.props.isLoading}>
+                <FormFilter />
+                <DataGrid />
+            </PageLayout>
         );
     }
 }
 
 function mapStateToProps(state) {
-    return Object.assign({}, { isLoading: false });
+    return Object.assign({}, { isLoading: state.isLoading });
 }
 
 export default connect(mapStateToProps)(AppContainer);

@@ -1,6 +1,14 @@
 const _rootUrl = window.rootUrl || "/";
-
+let _xsrfToken = null;
 export default class Site {
+    static getXsrfToken() {
+        if (!_xsrfToken) {
+            _xsrfToken = document.querySelector("input[name=__RequestVerificationToken]").value;
+        }
+
+        return _xsrfToken;
+    }
+
     static resolveClientUrl(relativeUrl) {
         return _rootUrl + relativeUrl;
     }
@@ -19,4 +27,6 @@ export default class Site {
 
         return text;
     }
+
+
 }

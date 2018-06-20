@@ -36,9 +36,11 @@
         selectedCurrency: @Html.Raw(currencyList.First().ToJson()),
         baseCurrencyList: @Html.Raw(baseCurrencyList.ToJson()),
         selectedBaseCurrency: '@(baseCurrencyList.Any() ? baseCurrencyList.First().value : string.Empty)',
-        isAllowedCustomerComm: @Model.IsAllowedCustomerComm.ToJson(),
-        xsrfToken: document.querySelector("input[name=__RequestVerificationToken]").value
+        isLoading: false
     }
+    window._lrf = {
+        isAllowedCustomerComm: @Model.IsAllowedCustomerComm.ToJson()
+    };
 }
 <div id="app-container">
 </div>
