@@ -9,7 +9,6 @@ import AutoComplete from '../../../../components/auto-complete'
 import { ActionCreators } from '../actions/index.js'
 import LangHelper from '../../../../lib/langHelper'
 import Site from '../../../../lib/site'
-import service from '../lib/service'
 
 const CUSTOMER_SEARCHING_URL = Site.resolveClientUrl("CustomerAPI/SearchCustomer");
 const RANGE_MONTH_CONSTRAINT = 3;

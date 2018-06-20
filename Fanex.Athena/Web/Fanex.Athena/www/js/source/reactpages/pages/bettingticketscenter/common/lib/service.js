@@ -1,5 +1,4 @@
 ﻿import LangHelper from '../../../../lib/langHelper'
-import Site from '../../../../lib/site'
 
 const HeaderText = {
     Index: "#",
@@ -18,11 +17,6 @@ const HeaderText = {
 }
 
 export default class Service {
-    static getReportTitle(baseCurrency) {
-        const baseCurrencyText = LangHelper.getSingleResource("BaseCurrency") + ": " + baseCurrency;
-        return `${LangHelper.getSingleResource("BettingTicketCenter")}, ${baseCurrencyText}`;
-    }
-
     static getHeaderText() {
         return HeaderText;
     }
