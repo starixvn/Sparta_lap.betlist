@@ -38,7 +38,7 @@ export default class BaseDataGrid extends Component {
                         rows.push(
                    <Row key={`product-${i}`}>
                     <Cell className="center-align">{item.Index}</Cell>
-                    <Cell>Platform 1</Cell>
+                    <Cell>{item.Platform}</Cell>
                     <Cell>{item.ExternalId}</Cell>
                     <Cell>{item.SystemId}</Cell>
                     <Cell className="center-align" dangerouslySetInnerHTML={{ __html: item.TransTime }}></Cell>
@@ -48,7 +48,7 @@ export default class BaseDataGrid extends Component {
                     <Cell className="right-align" dangerouslySetInnerHTML={{ __html: item.WinLoss}}></Cell>
                     <Cell className="right-align" dangerouslySetInnerHTML={{ __html: item.LicenseeWL}}></Cell>
                     <Cell className="center-align" dangerouslySetInnerHTML={{ __html: item.Status}}></Cell>
-                    <Cell className="center-align">Live</Cell>
+                    <Cell className="center-align"dangerouslySetInnerHTML={{ __html: item.Live}}></Cell>
                 </Row>
             );
                 }

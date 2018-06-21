@@ -3175,4 +3175,8 @@
     <value>Please contact admin to check your subsidiary name.</value>
     <comment>#95177</comment>
   </data>
+  <data name="BettingTicketCenter" xml:space="preserve">
+    <value>Betting Ticket Center</value>
+    <comment>80941</comment>
+  </data>
 </root>

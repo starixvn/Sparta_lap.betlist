@@ -850,6 +850,7 @@
     <Content Include="Views\Desktop\Report\Result\Popup\AllBet.cshtml" />
     <Content Include="Views\Desktop\Report\BettingTicketsCenter\Main.cshtml" />
     <Content Include="Views\Desktop\BetList\BettingTicketsCenter\Main.cshtml" />
+    <Content Include="Views\Desktop\BetList\BettingTicketCenter\Main.cshtml" />
     <Content Include="www\css\source\reactpages\pages\bettingticketscenter\index.scss" />
     <Content Include="www\css\source\reactpages\components\_autocomplete.scss" />
     <Content Include="www\js\source\reactpages\components\auto-complete\AutoComplete.jsx" />
@@ -857,8 +858,8 @@
     <Content Include="www\js\source\reactpages\components\auto-complete\SuggestionList.jsx" />
     <Content Include="www\js\source\reactpages\components\date-range\DatePicker.jsx" />
     <Content Include="www\css\source\reactpages\components\_tab.scss" />
-    <Content Include="Views\Desktop\BetList\BettingTicketsCenter\RefNo.cshtml" />
-    <Content Include="Views\Desktop\BetList\BettingTicketsCenter\Running.cshtml" />
+    <Content Include="Views\Desktop\BetList\BettingTicketCenter\RefNo.cshtml" />
+    <Content Include="Views\Desktop\BetList\BettingTicketCenter\Running.cshtml" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Row.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.jsx" />

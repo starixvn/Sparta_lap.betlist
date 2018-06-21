@@ -20,17 +20,17 @@
 
         public ActionResult MultipleCustomers()
         {
-            return View("~/Views/BetList/BettingTicketsCenter/Main.cshtml");
+            return View("~/Views/BetList/BettingTicketCenter/Main.cshtml");
         }
 
         public ActionResult SingleCustomer()
         {
-            return View("~/Views/BetList/BettingTicketsCenter/Main.cshtml");
+            return View("~/Views/BetList/BettingTicketCenter/Main.cshtml");
         }
 
         public ActionResult RefNo()
         {
-            return View("~/Views/BetList/BettingTicketsCenter/RefNo.cshtml");
+            return View("~/Views/BetList/BettingTicketCenter/RefNo.cshtml");
         }
 
         public ActionResult Running()
@@ -43,7 +43,7 @@
                 IsAllowedCustomerComm = SessionService.LicenseeSession.IsAllowedCustomerComm
             };
 
-            return View("~/Views/BetList/BettingTicketsCenter/Running.cshtml", viewModel);
+            return View("~/Views/BetList/BettingTicketCenter/Running.cshtml", viewModel);
         }
 
         private IDictionary<int, string> GetCurrencyList()

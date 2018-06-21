@@ -18,6 +18,7 @@
     using Model.BetList.DTO;
     using Model.BetList.MetaModel;
     using Model.Core.DataDomain;
+    using Resources;
     using Service.BetList.Extensions;
     using Service.BetList.Helpers;
     using Service.Core.Common.Interfaces;
@@ -142,7 +143,8 @@
                 {
                     Data = ticketResult,
                     ShowTotal = false,
-                    CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
+                    CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
+                    Title = $"{ViewResources.BettingTicketCenter}, {ViewResources.BaseCurrency}: {metaModel.BaseCurrency.ToUpperInvariant()}"
                 };
                 return Export(excelModel);
             }
@@ -189,11 +191,9 @@
 
         private HttpResponseMessage Export(BettingTicketCenterExcelModel excelModel)
         {
-            const string FileName = "BettingTicketCenter.xls";
-
             var excel = CreateExcel(excelModel);
 
-            return ExcelStream(excel.Export(), FileName);
+            return ExcelStream(excel.Export(), string.Empty);
         }
 
         private List<TicketText> BuildTicketText(TicketResult ticketResult, BaseBettingTicketMetaModel metaModel, int startIndex = 1)
