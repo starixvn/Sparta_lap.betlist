@@ -6,6 +6,7 @@ import ReportTitle from '../../../../components/ReportTitle'
 import Popup from '../../../../components/popup'
 import LangHelper from '../../../../lib/langHelper'
 import BetList from '../lib/BetList'
+import NoDataTitle from '../../../../components/NoDataTitle'
 
 export default class BaseDataGrid extends Component {
     constructor(props) {
@@ -84,7 +85,7 @@ export default class BaseDataGrid extends Component {
     render() {
         if (!this.props.gridData || !this.props.gridData.Data) {
             return null;
-        }
+                }
 
         const { Data } = this.props.gridData;
         
