@@ -99,8 +99,7 @@ describe('dataHandlerAction', () => {
             Type: 2,
             Index: 0,
             Data: [{ Id: 1 }],
-            Total: 1,
-            xsrfToken: XsrfToken
+            Total: 1
         };
 
         it('axios.post should be called with correct parameters', () => {

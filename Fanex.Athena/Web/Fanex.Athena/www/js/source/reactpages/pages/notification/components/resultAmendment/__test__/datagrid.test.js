@@ -213,7 +213,6 @@ describe('DataGrid ', () => {
                     PageIndex: 1,
                     PageSize: 10
                 },
-                xsrfToken: 'token',
                 toggleLoader: jest.fn(),
                 getGridData: jest.fn(),
                 setParam: jest.fn()
@@ -230,7 +229,6 @@ describe('DataGrid ', () => {
 
             expect(props.toggleLoader).toHaveBeenCalledWith(true);
             expect(props.getGridData).toHaveBeenCalledWith({
-                xsrfToken: props.xsrfToken,
                 data: expectedParam
             });
             expect(props.setParam).toHaveBeenCalledWith(expectedParam);
@@ -298,7 +296,6 @@ describe('DataGrid ', () => {
         let dataGrid;
         const props = {
             dateRange: {},
-            xsrfToken: 'token',
             licenseeName: 'test',
             toggleLoader: jest.fn()
         };
@@ -335,8 +332,7 @@ describe('DataGrid ', () => {
             };
 
             const expectedParams = {
-                fileName: item.DataFilePath,
-                xsrfToken: props.xsrfToken
+                fileName: item.DataFilePath
             };
 
             dataGrid.props.exportAttachment = jest.fn(() => promise);

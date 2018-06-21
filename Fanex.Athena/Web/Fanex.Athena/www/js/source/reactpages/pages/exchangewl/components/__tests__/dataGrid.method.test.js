@@ -99,17 +99,8 @@ describe('DataGrid methods ', () => {
     })
 
     describe('_getDrillDownParams ', () => {
-        it('xsrfToken is invalid - return null', () => {
-            const dataGrid = new DataGrid({});
-
-            const result = dataGrid._getDrillDownParams();
-
-            expect(result).toBeNull();
-        })
-
         it('Main level params is invalid - return null', () => {
             const props = {
-                xsrfToken: 'token',
                 params: []
             };
 
@@ -127,7 +118,6 @@ describe('DataGrid methods ', () => {
                 ToDate: '02/01/2017'
             };
             const props = {
-                xsrfToken: 'token',
                 params: mainParam,
             };
             const level = 1, 
@@ -160,7 +150,6 @@ describe('DataGrid methods ', () => {
                 ToDate: '02/10/2017'
             };
             const props = {
-                xsrfToken: 'token',
                 params: mainParam,
             };
             const level = 1, 
@@ -193,7 +182,6 @@ describe('DataGrid methods ', () => {
                 ToDate: '02/10/2017'
             };
             const props = {
-                xsrfToken: 'token',
                 params: mainParam,
             };
             const level = 1, 
@@ -226,7 +214,6 @@ describe('DataGrid methods ', () => {
                 ToDate: '02/10/2017'
             };
             const props = {
-                xsrfToken: 'token',
                 params: mainParam,
             };
             const level = 1, 

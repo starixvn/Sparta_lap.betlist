@@ -176,15 +176,6 @@ describe('FormFilter ', () => {
 
         describe('submit data', () => {
             describe('_getParams', () => {
-                it('props.xsrfToken has no value - return null', () => {
-                    const props = { ...defaultProps, xsrfToken: "" };
-                    const formFilter = new FormFilter(props);
-
-                    const result = formFilter._getParams();
-
-                    expect(result).toBeNull();
-                })
-
                 it('filter data is invalid - return null', () => {
                     const props = { ...defaultProps, selectedProduct: "" };
                     const formFilter = new FormFilter(props);
@@ -194,7 +185,7 @@ describe('FormFilter ', () => {
                     expect(result).toBeNull();
                 })
 
-                it('props.xsrfToken has value and filter data is valid - return correct param data', () => {
+                it('filter data is valid - return correct param data', () => {
                     const formFilter = new FormFilter(defaultProps);
 
                     const result = formFilter._getParams();

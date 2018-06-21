@@ -48,12 +48,11 @@ export class MultiCustomerFormFilter extends Component {
     }
 
     _getParams() {
-        if (!this.props.xsrfToken || !this.isValidModel) {
+        if (!this.isValidModel) {
             return null;
         }
 
         return {
-            xsrfToken: this.props.xsrfToken,
             data: {
                 Refno: this.props.refno,
                 Username: this.props.username,

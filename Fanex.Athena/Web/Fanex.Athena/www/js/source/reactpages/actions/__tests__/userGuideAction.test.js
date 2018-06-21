@@ -13,7 +13,6 @@ const mockStore = configureMockStore(middlewares);
 describe('userGuideAction', () => {
     beforeAll(() => {
         Site.resolveClientUrl = jest.fn((url) => url);
-
         jest.mock('axios');
     });
 
@@ -27,12 +26,10 @@ describe('userGuideAction', () => {
             data: '<div></div>'
         }
         const params = {
-            resourceName: 'resourceName',
-            xsrfToken: 'token'
+            resourceName: 'resourceName'
         }
         const expectedHeader = {
-            'X-Requested-With': 'XMLHttpRequest',
-            '__RequestVerificationToken': params.xsrfToken
+            'X-Requested-With': 'XMLHttpRequest'
         }
 
         beforeAll(() => {

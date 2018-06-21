@@ -20,15 +20,13 @@ describe('connect ', () => {
     it('props should be mapped correctly', () => {
         const expectedResult = {
             selectedBaseCurrency: "EUR",
-            isLoading: false,
-            xsrfToken: "token"
+            isLoading: false
         }
 
         const state = {
             gridData: [],
             selectedBaseCurrency: "EUR",
-            isLoading: false,
-            xsrfToken: "token"
+            isLoading: false
         }
 
         const result = mapStateToProps(state);

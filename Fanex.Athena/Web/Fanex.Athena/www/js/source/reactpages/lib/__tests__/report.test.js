@@ -59,6 +59,7 @@ describe('Report ', () => {
         beforeAll(() => {
             axios.post = jest.fn();
             Site.resolveClientUrl = jest.fn((url) => url);
+            Site.getXsrfToken = jest.fn(() => "tokenXXX");
         });
 
         afterAll(() => {
@@ -66,15 +67,14 @@ describe('Report ', () => {
         });
 
         const params = {
-            data: { Abc: "1,2,3", ProductList: "SB,BA" },
-            xsrfToken: "token"
+            data: { Abc: "1,2,3", ProductList: "SB,BA" }
         }
 
         const expectedUrl = "api/LicenseeWinLossByTimeZoneReport/Index";
         const expectedData = params.data;
         const expectedHeader = {
             'X-Requested-With': 'XMLHttpRequest',
-            '__RequestVerificationToken': params.xsrfToken
+            '__RequestVerificationToken': "tokenXXX"
         }
 
         it('axios.post should be called with correct parameters', () => {

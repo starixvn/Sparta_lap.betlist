@@ -6,8 +6,7 @@ const fetchData = (params) => {
     const url = Site.resolveClientUrl('UserGuide/Index?resourcename=' + params.resourceName) + "&_=" + (new Date().getTime());;
     return axios.get(url, {
         headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-            '__RequestVerificationToken': Site.getXsrfToken()
+            'X-Requested-With': 'XMLHttpRequest'
         }
     });
 }

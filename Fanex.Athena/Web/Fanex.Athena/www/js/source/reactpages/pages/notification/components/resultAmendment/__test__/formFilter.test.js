@@ -136,7 +136,6 @@ describe('FormFilter', () => {
 
         it('param is null - call prop functions', () => {
             const param = {
-                xsrfToken: 'token',
                 data: {
                     FromDate: formFilterProps.dateRange.fromDate,
                     ToDate: formFilterProps.dateRange.toDate,
@@ -157,21 +156,11 @@ describe('FormFilter', () => {
         })
 
         describe('_getParams', () => {
-            it('xsrfToken is null - return null', () => {
-                const props = { ...formFilterProps, xsrfToken: null };
-                const filter = new FormFilter(props);
-
-                const result = filter._getParams();
-
-                expect(result).toBe(null);
-            })
-
             it('PageSize is not existing - return data with default PageSize', () => {
-                const props = { ...formFilterProps, xsrfToken: 'token' };
+                const props = { ...formFilterProps };
                 const filter = new FormFilter(props);
 
                 var expectedResult = {
-                    xsrfToken: 'token',
                     data: {
                         FromDate: formFilterProps.dateRange.fromDate,
                         ToDate: formFilterProps.dateRange.toDate,
@@ -186,11 +175,10 @@ describe('FormFilter', () => {
             })
 
             it('PageSize is existing - return data with correct PageSize', () => {
-                const props = { ...formFilterProps, xsrfToken: 'token', param: { PageSize: 15 } };
+                const props = { ...formFilterProps, param: { PageSize: 15 } };
                 const filter = new FormFilter(props);              
 
                 var expectedResult = {
-                    xsrfToken: 'token',
                     data: {
                         FromDate: formFilterProps.dateRange.fromDate,
                         ToDate: formFilterProps.dateRange.toDate,

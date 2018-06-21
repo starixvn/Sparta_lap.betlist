@@ -18,12 +18,9 @@ describe('connect ', () => {
     });
 
     it('props should be mapped correctly', () => {
-        const expectedResult = {
-            xsrfToken: "token"
-        }
+        const expectedResult = {}
 
         const state = {
-            xsrfToken: "token",
             anotherProp: "Not included"
         }
 

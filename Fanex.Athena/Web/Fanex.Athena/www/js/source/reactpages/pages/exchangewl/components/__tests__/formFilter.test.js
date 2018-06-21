@@ -259,19 +259,10 @@ describe('FormFilter ', () => {
                 expect(props.toggleLoader).toHaveBeenCalledWith(false);
             })
 
-            it('_getParams - xsrfToken is null - retun null', () => {
-                const formFilter = new FormFilter({ ...props, xsrfToken: null });
-
-                const result = formFilter._getParams();
-
-                expect(result).toBeNull();
-            })
-
             it('_getParams - get data from props', () => {
-                const filterProps = { ...props, xsrfToken: 'token', params: [] };
+                const filterProps = { ...props, params: [] };
                 const formFilter = new FormFilter(filterProps);
                 const expectedResult = {
-                    xsrfToken: filterProps.xsrfToken,
                     data: {
                         CurrencyId: filterProps.selectedCurrency.value,
                         CurrencyName: filterProps.selectedCurrency.label,
@@ -290,10 +281,9 @@ describe('FormFilter ', () => {
             })
 
             it('_getParams - Currency is base - get correct data', () => {
-                const filterProps = { ...props, xsrfToken: 'token', params: [], selectedCurrency: { value: -1, lable: 'Base' } };
+                const filterProps = { ...props, params: [], selectedCurrency: { value: -1, lable: 'Base' } };
                 const formFilter = new FormFilter(filterProps);
                 const expectedResult = {
-                    xsrfToken: filterProps.xsrfToken,
                     data: {
                         CurrencyId: filterProps.selectedCurrency.value,
                         CurrencyName: 'EUR',
@@ -329,7 +319,7 @@ describe('FormFilter ', () => {
                 const promise = Promise.reject('error');
                 const params = { data: 1 };
 
-                const filterProps = { ...props, xsrfToken: 'token', gridData: {}, exportExcel: jest.fn(() => promise) };
+                const filterProps = { ...props, gridData: {}, exportExcel: jest.fn(() => promise) };
                 const formFilter = new FormFilter(filterProps);
                 formFilter._getParams = jest.fn((level) => { return params; });
 
@@ -349,7 +339,7 @@ describe('FormFilter ', () => {
                 const promise = Promise.resolve(fakeResponse);
                 const params = { data: 1 };
 
-                const filterProps = { ...props, xsrfToken: 'token', gridData: {}, exportExcel: jest.fn(() => promise) };
+                const filterProps = { ...props, gridData: {}, exportExcel: jest.fn(() => promise) };
                 const formFilter = new FormFilter(filterProps);
                 formFilter._getParams = jest.fn((level) => { return params; });
                 formFilter._doExportExcel = jest.fn();
@@ -367,7 +357,7 @@ describe('FormFilter ', () => {
                 const level = 1;
                 const params = { data: 1 };
 
-                const filterProps = { ...props, xsrfToken: 'token', gridData: { level: 1, data: [] } };
+                const filterProps = { ...props, gridData: { level: 1, data: [] } };
                 const formFilter = new FormFilter(filterProps);
                 formFilter._getParams = jest.fn((level) => { return params; });
                 formFilter._doExportExcel = jest.fn();

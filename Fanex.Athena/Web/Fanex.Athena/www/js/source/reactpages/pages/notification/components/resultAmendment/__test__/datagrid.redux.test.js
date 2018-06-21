@@ -22,8 +22,7 @@ describe('connect ', () => {
             gridData: [],
             dateRange: {},
             param: {},
-            licenseeName: "licName",
-            xsrfToken: "token"
+            licenseeName: "licName"
         }
 
         const state = {
@@ -32,7 +31,6 @@ describe('connect ', () => {
             param: {},
             licenseeName: "licName",
             anotherProp: "Not included",
-            xsrfToken: "token",
             anotherProp: "Not included"
         }
 
