@@ -1,16 +1,32 @@
 ﻿import React, { Component } from 'react'
 
 import { Table, Row, Cell } from '../../../../components/fixed-table-header'
-import service from '../lib/service'
+import Service from '../lib/Service'
 import ReportTitle from '../../../../components/ReportTitle'
+import Popup from '../../../../components/popup'
+import LangHelper from '../../../../lib/langHelper'
+import BetList from '../lib/BetList'
 
 export default class BaseDataGrid extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            isShowResultPopup : false,
+            resultUrl: null
+        };
+        
+        window.ViewResult = (...args) => {
+            let betlist = new BetList();
+            var url = betlist.getResultUrl.apply(betlist, args);
+            this.setState({ isShowResultPopup: true, resultUrl: url});
+        }
+    }
+    closeBetListPopup = () => {
+        this.setState({ isShowResultPopup: false });
     }
 
     _buildHeader() {
-        var headerText = service.getHeaderText();
+        var headerText = Service.getHeaderText();
         return (
             <Row style={{ height: 32 }}>
                 <Cell colWidth={40} header={true} title={headerText.Index}>{headerText.Index}</Cell>
@@ -86,6 +102,13 @@ export default class BaseDataGrid extends Component {
                     header={this._buildHeader()}
                     body={this._buildBody()}
                 />
+                <Popup isShow={this.state.isShowResultPopup} 
+                        iframeUrl={this.state.resultUrl}
+                        title={LangHelper.getSingleResource("Result")} 
+                        width={900} height={600}
+                        onClose={this.closeBetListPopup}
+                        >
+                </Popup>
             </div>
         );
 }

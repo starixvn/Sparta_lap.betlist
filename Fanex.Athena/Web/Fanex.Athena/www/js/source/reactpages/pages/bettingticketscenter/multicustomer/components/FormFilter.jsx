@@ -42,7 +42,7 @@ export class MultiCustomerFormFilter extends Component {
     }
 
     _onSelectAutoCompleteItem(selectedItem) {
-        console.log(selectedItem);
+    
     }
 
     _renderDateRange() {

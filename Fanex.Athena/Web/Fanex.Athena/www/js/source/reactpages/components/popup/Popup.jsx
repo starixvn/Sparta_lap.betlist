@@ -35,7 +35,7 @@ export default class Popup extends React.Component {
         let content;
         if(iframeUrl)
         {
-            content = <iframe src={iframeUrl} width="100%" height="100%" />;
+            content = <iframe frameBorder="0" src={iframeUrl} width="100%" height="100%"/>;
         }
         else
         {                    
