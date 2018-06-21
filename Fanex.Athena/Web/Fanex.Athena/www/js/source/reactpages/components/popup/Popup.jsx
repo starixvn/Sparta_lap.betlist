@@ -14,14 +14,16 @@ export default class Popup extends React.Component {
         title: PropTypes.string,
         isShow: PropTypes.bool,
         onClose: PropTypes.func,
-        isHtml: PropTypes.bool
+        isHtml: PropTypes.bool,
+        iframeUrl: PropTypes.string,
     }
 
     static defaultProps = {
         width: DEFAULT_WIDTH,
         height: DEFAULT_HEIGHT,
         isShow: false,
-        isHtml: false
+        isHtml: false,
+        iframeUrl: null
     }
 
     onCloseHandler = () => {
@@ -29,7 +31,18 @@ export default class Popup extends React.Component {
     }
 
     render() {
-        const { title, isShow, width, height, isHtml, children } = this.props;
+        const { title, isShow, width, height, isHtml, children, iframeUrl } = this.props;
+        let content;
+        if(iframeUrl)
+        {
+            content = <iframe src={iframeUrl} width="100%" height="100%" />;
+        }
+        else
+        {                    
+            content = isHtml ? 
+            (<div className='popup-content' dangerouslySetInnerHTML={{ __html: children }} />) :
+                (<div className='popup-content'>{children}</div>)
+        }
 
         return (<div className={`popup-container ${isShow ? 'show' : 'hide'}`}>
             <div className='popup-block-body'></div>
@@ -38,12 +51,8 @@ export default class Popup extends React.Component {
                     <div className="txt-title">{title}</div>
                     <a className="popup-close" href="javascript:;" onClick={this.onCloseHandler}><i className="icon-close"></i></a>
                 </div>
-                { 
-                    isHtml ? 
-                    (<div className='popup-content' dangerouslySetInnerHTML={{ __html: children }} />) :
-                    (<div className='popup-content'>{children}</div>)
-                }
+                { content }
             </div>
         </div>);
-    }
+}
 };

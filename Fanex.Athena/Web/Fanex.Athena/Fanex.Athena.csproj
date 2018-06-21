@@ -886,6 +886,7 @@
     <Content Include="www\js\source\reactpages\components\__tests__\Loader.test.js" />
     <Content Include="www\js\source\reactpages\components\__tests__\NoDataTitle.test.js" />
     <Content Include="www\js\source\reactpages\components\popup\__tests__\Popup.test.js" />
+    <Content Include="www\js\source\reactpages\components\__tests__\Overlay.test.js" />
     <Content Include="www\js\source\reactpages\components\__tests__\ReportTitle.test.js" />
     <Content Include="www\js\source\reactpages\components\__tests__\UserGuide.test.js" />
     <Content Include="www\js\source\reactpages\constants\config.js" />
@@ -893,6 +894,7 @@
     <Content Include="www\js\source\reactpages\constants\licensee.js" />
     <Content Include="www\js\source\reactpages\constants\report.js" />
     <Content Include="www\js\source\reactpages\layouts\AppLayout.jsx" />
+    <Content Include="www\js\source\reactpages\layouts\__tests__\AppLayout.test.js" />
     <Content Include="www\js\source\reactpages\lib\excel.js" />
     <Content Include="www\js\source\reactpages\constants\excelStyle.js" />
     <Content Include="www\js\source\reactpages\lib\langHelper.js" />
@@ -2625,6 +2627,9 @@
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\common\components\PageLayout.jsx" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\common\components\BaseDataGrid.jsx" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\running\components\DataGrid.jsx" />
+    <Content Include="www\js\source\reactpages\layouts\__tests__\__snapshots__\AppLayout.test.js.snap" />
+    <Content Include="www\js\source\reactpages\layouts\BetListPopupLayout.jsx" />
+    <Content Include="www\js\source\reactpages\components\popup\index.jsx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">
