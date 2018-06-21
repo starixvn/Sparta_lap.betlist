@@ -56,7 +56,7 @@
             var productAccess = _productService.GetSingleWalletProductAccess(
                 SessionService.LicenseeSession.LicenseeId,
                 SessionService.UserSession.Language,
-                FunctionNames.BettingTicketsCenter);
+                FunctionNames.BettingTicketCenter);
 
             return productAccess.ProductList.Select(i => new ProductOption
             {

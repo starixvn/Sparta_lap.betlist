@@ -28,6 +28,6 @@
 
         public const string SpecialLicenseeWinLoss = "SpecialLicenseeWinLoss";
 
-        public const string BettingTicketsCenter = "BettingTicketsCenter";
+        public const string BettingTicketCenter = "BettingTicketCenter";
     }
 }

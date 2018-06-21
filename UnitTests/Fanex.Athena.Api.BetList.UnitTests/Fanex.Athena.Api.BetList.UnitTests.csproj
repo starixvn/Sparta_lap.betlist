@@ -162,7 +162,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="BettingTicketsCenterControllerTest.cs" />
+    <Compile Include="BettingTicketCenterControllerTest.cs" />
     <Compile Include="ExchangeWinLossBetListControllerTest.cs" />
     <Compile Include="FakeApiBetListBaseController.cs" />
     <Compile Include="ApiBetListBaseControllerTest.cs" />

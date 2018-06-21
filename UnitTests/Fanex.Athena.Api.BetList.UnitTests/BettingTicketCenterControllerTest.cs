@@ -18,7 +18,7 @@
     using UnitTest.Common.Helpers;
     using VendorAdapter.Interfaces;
 
-    public class BettingTicketsCenterControllerTest : BaseApiControllerHelperTest
+    public class BettingTicketCenterControllerTest : BaseApiControllerHelperTest
     {
         private IBalanceUpDataAccess _balanceUpDataAccess;
 
@@ -62,7 +62,7 @@
                 _ticketHelper);
         }
 
-        [OneTimeSetUp]
+        [OneTimeTearDown]
         public override void FixtureTearDown()
         {
             base.FixtureTearDown();
@@ -133,7 +133,7 @@
             Assert.Multiple(() =>
             {
                 _dataAccess.Received(1).GetBetListByRefno(metaModel);
-                Assert.That(result.Main, Is.Not.Null);
+                Assert.That(result.Data, Is.Not.Null);
             });
         }
 
@@ -266,7 +266,7 @@
             Assert.Multiple(() =>
             {
                 _dataAccess.Received(1).GetRunningBetList(metaModel);
-                Assert.That(result.Main, Is.Not.Null);
+                Assert.That(result.Data, Is.Not.Null);
                 Assert.That(result.Total.SumStake, Is.EqualTo(ticketResult.SumStake));
                 Assert.That(result.TotalRows, Is.EqualTo(ticketResult.TotalRows));
             });
@@ -347,9 +347,9 @@
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(result.Main[0].Index, Is.EqualTo(1));
-                Assert.That(result.Main[0].ExternalId, Is.EqualTo(ticket.ExternalId));
-                Assert.That(result.Main[0].SystemId, Is.EqualTo(ticket.UserName));
+                Assert.That(result.Data[0].Index, Is.EqualTo(1));
+                Assert.That(result.Data[0].ExternalId, Is.EqualTo(ticket.ExternalId));
+                Assert.That(result.Data[0].SystemId, Is.EqualTo(ticket.UserName));
             });
         }
     }
