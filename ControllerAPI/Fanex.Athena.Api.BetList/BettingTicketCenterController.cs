@@ -5,6 +5,7 @@
     using System.Net.Http;
     using System.Web.Http;
     using Base;
+    using Base.Attributes;
     using Constant.DataDomain;
     using DataAccess.BetList;
     using DataAccess.BetList.Interfaces;
@@ -27,6 +28,7 @@
     using VendorAdapter;
     using VendorAdapter.Interfaces;
 
+    [ApiFunctionAuthorization(PermissionKeys.BettingTicketCenter)]
     public class BettingTicketCenterController : BaseApiController
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
@@ -203,10 +205,11 @@
             var date = metaModel.FromDate == DateTime.MinValue
                 ? string.Empty
                 : ", " + metaModel.FromDate.ToString(FormatKey.ShortDateFormat) + "-->" + metaModel.ToDate.ToString(FormatKey.ShortDateFormat);
+            var currency = string.IsNullOrWhiteSpace(metaModel.CurrencyName) ? string.Empty : ", " + ViewResources.Currency + ": " + metaModel.CurrencyName;
 
             return ViewResources.BettingTicketCenter
                     + date
-                    + ", " + ViewResources.Currency + ": " + metaModel.CurrencyName
+                    + currency
                     + ", " + ViewResources.BaseCurrency + ": " + metaModel.BaseCurrency.ToUpperInvariant();
         }
 

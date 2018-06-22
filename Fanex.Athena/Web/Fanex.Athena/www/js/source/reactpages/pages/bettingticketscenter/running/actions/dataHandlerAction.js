@@ -26,7 +26,11 @@ export function exportExcel(params) {
             url: Site.resolveClientUrl('api/BettingTicketCenter/GetByRunning'),
             method: 'POST',
             responseType: 'blob', // important
-            data: params
+            data: params,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                '__RequestVerificationToken': Site.getXsrfToken()
+            }
         });
     };
 }

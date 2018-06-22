@@ -338,4 +338,8 @@
     <value>Exchange Win Loss</value>
     <comment>86640</comment>
   </data>
+  <data name="Menu_79" xml:space="preserve">
+    <value>Betting Ticket Center</value>
+    <comment>80941</comment>
+  </data>
 </root>

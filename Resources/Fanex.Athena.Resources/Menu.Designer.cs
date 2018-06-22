@@ -673,6 +673,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Betting Ticket Center.
+        /// </summary>
+        public static string Menu_79 {
+            get {
+                return ResourceManager.GetString("Menu_79", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Money Line.
         /// </summary>
         public static string Menu_8 {

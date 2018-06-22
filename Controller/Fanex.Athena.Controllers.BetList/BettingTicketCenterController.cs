@@ -8,7 +8,9 @@
     using Model.Core.MetaModel.Product;
     using Service.Core.Common;
     using Service.Core.Common.Interfaces;
+    using Web.ActionFilter;
 
+    [FunctionAuthorization(PermissionKeys.BettingTicketCenter)]
     public class BettingTicketCenterController : BaseController
     {
         private readonly IProductService _productService;
