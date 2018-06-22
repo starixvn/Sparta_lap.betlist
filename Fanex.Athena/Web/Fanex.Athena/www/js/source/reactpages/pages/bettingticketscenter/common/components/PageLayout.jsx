@@ -1,6 +1,6 @@
 ﻿import React, { Component } from 'react';
-import AppLayout from '../../../../layouts/AppLayout'
-import Loader from '../../../../components/Loader'
+import AppLayout from '@jsroot/layouts/AppLayout'
+import Loader from '@jsroot/components/Loader'
 import { Tabs, Tab } from '@9softstudio/simple-react-tab'
 import LangHelper from '../../../../lib/langHelper'
 import Site from '../../../../lib/site'

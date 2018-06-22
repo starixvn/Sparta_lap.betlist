@@ -1,4 +1,5 @@
 ﻿var path = require('path');
+var alias = require('../config/aliasReact');
 var pathConfig = require('../config/pathReact');
 var pluginGenerator = require('../config/pluginReact');
 var utils = require('./utils');
@@ -8,6 +9,7 @@ function generateConfig(environment) {
     var cssPath = `${pathConfig.cssPaths.build}/${environment}/reactpages`;
     var commonConfigs = {
         resolve: {
+            alias: alias,
             extensions: ['.js', '.jsx']
         },
         entry: {

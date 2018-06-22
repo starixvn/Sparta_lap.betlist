@@ -1,12 +1,12 @@
 ﻿import React, { Component } from 'react'
 
-import { Table, Row, Cell } from '../../../../components/fixed-table-header'
-import Service from '../lib/Service'
-import ReportTitle from '../../../../components/ReportTitle'
-import Popup from '../../../../components/popup'
-import LangHelper from '../../../../lib/langHelper'
+import { Table, Row, Cell } from '@jsroot/components/fixed-table-header'
+import ReportTitle from '@jsroot/components/ReportTitle'
+import Popup from '@jsroot/components/popup'
+import LangHelper from '@jsroot/lib/langHelper'
+import NoDataTitle from '@jsroot/components/NoDataTitle'
 import BetList from '../lib/BetList'
-import NoDataTitle from '../../../../components/NoDataTitle'
+import Service from '../lib/Service'
 
 export default class BaseDataGrid extends Component {
     constructor(props) {
@@ -84,7 +84,7 @@ export default class BaseDataGrid extends Component {
     render() {
         if (!this.props.gridData || !this.props.gridData.Data) {
             return null;
-                }
+        }
 
         const { Data } = this.props.gridData;
         

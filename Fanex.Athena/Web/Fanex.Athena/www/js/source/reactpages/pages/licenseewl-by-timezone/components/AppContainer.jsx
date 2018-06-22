@@ -4,8 +4,8 @@ import { bindActionCreators } from 'redux'
 import { ActionCreators } from '../actions/index'
 import DataGrid from './datagrid'
 import FormFilter from './formFilter'
-import Loader from '../../../components/Loader'
-import AppLayout from '../../../layouts/AppLayout'
+import Loader from '@jsroot/components/Loader'
+import AppLayout from '@jsroot/layouts/AppLayout'
 
 export class AppContainer extends Component {
   constructor(props) {

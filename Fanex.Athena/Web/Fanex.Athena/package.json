@@ -103,6 +103,9 @@
     "collectCoverageFrom": [
       "www/js/source/reactpages/**/*.{js,jsx}",
       "!www/js/source/reactpages/**/index.{js,jsx}"
-    ]
+    ],
+    "moduleNameMapper": {
+      "@jsroot(.*)$": "<rootDir>/www/js/source/reactpages/$1"
+    }
   }
 }
