@@ -286,7 +286,7 @@
                     BuilDataAlignedCenterCell(builder, new HSSFRichTextString(ViewResources.NoneLive));
                     return;
             }
-        }
+        }       
 
         private void BuilDataAlignedCenterCell(IBetListExcelBuilder builder, IRichTextString text)
         {

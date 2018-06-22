@@ -30,14 +30,16 @@ export class FormFilter extends Component {
     }
 
     _getParams() {
+        const { fromDate, toDate } = this.props.dateRange;
+
         return {
-            xsrfToken: this.props.xsrfToken,
-            data: {
-                Refno: this.props.refno,
-                Username: this.props.username,
-                BaseCurrency: this.props.selectedBaseCurrency,
-                IsConvertAll: this.props.isConvertAll
-            }
+            FromDate: Site.convertDateToString(fromDate),
+            ToDate: Site.convertDateToString(toDate),
+            ProductCodeList: this.props.selectedProduct,
+            CustId: 0,
+            CurrencyId: this.props.selectedCurrency.value,
+            CurrencyName: this.props.selectedCurrency.label,
+            BaseCurrency: this.props.selectedBaseCurrency
         }
     }
 
@@ -53,6 +55,28 @@ export class FormFilter extends Component {
             const message = LangHelper.getSingleResource("DateRangeExceedMsg").replace("{0}", RANGE_MONTH_CONSTRAINT);
             alert(message);
         }
+    }
+
+    exportExcel = (event) => {
+        event.preventDefault();
+        
+        const params = this._getParams();
+        if (!params) {
+            return;
+        }
+
+        params.IsExport = true;
+        this.props.toggleLoader(true);
+        this.props.exportExcel(params).then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'BettingTicketsCenter_Running.xls');
+            document.body.appendChild(link);
+            link.click();
+            link.parentNode.removeChild(link);
+            this.props.toggleLoader(false);
+        });
     }
 
     _renderDateRange() {
@@ -115,7 +139,7 @@ export class FormFilter extends Component {
                     <div className="col-12 col-md-3 col-sm-3 col-lg-4 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Product")}</label>
-                        {this._renderProductSelectList()}
+                            {this._renderProductSelectList()}
                         </div>
                     </div>
 
@@ -137,18 +161,23 @@ export class FormFilter extends Component {
                     <div className="col-12 col-md-3 col-sm-3 col-lg-2 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("BaseCurrency")}</label>
-                        {this._renderBaseCurrencySelectList()}
+                            {this._renderBaseCurrencySelectList()}
                         </div>
                     </div>
 
                     <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-1">
-                    <div className="form-group">
-                        <div className="button-group">
-                        <button type="button" className="btn btn-submit" onClick={this.submit}>{LangHelper.getSingleResource("Submit")}</button>
+                        <div className="form-group">
+                            <div className="button-group">
+                            <button type="button" className="btn btn-submit" onClick={this.submit}>{LangHelper.getSingleResource("Submit")}</button>
+                            </div>
                         </div>
                     </div>
-                    </div>
                 </div>
+                 <div className="row">
+                    <div className="caret-block">
+                        <i className="icon-excel right" onClick={this.exportExcel} title={LangHelper.getSingleResource("ExportToExcel")}></i>
+                    </div>
+               </div>
             </div>
         )
     }

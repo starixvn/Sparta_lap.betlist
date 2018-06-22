@@ -6,7 +6,15 @@
     {
         private string _baseCurrency = string.Empty;
 
+        public BaseBettingTicketMetaModel()
+        {
+            PageIndex = 1;
+            PageSize = 50;
+        }
+
         public int CurrencyId { get; set; }
+
+        public string CurrencyName { get; set; }
 
         public string BaseCurrency
         {

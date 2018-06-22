@@ -1,8 +1,8 @@
 ﻿namespace Fanex.Athena.Api.BetList
 {
+    using System;
     using System.Collections.Generic;
     using System.Net.Http;
-    using System.Web.Hosting;
     using System.Web.Http;
     using Base;
     using Constant.DataDomain;
@@ -52,6 +52,7 @@
         }
 
 #pragma warning disable S107 // Methods should not have too many parameters
+
         public BettingTicketCenterController(
             ISessionService sessionService,
             IProductService productService,
@@ -144,7 +145,7 @@
                     Data = ticketResult,
                     ShowTotal = false,
                     CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
-                    Title = $"{ViewResources.BettingTicketCenter}, {ViewResources.BaseCurrency}: {metaModel.BaseCurrency.ToUpperInvariant()}"
+                    Title = GetTitle(metaModel)
                 };
                 return Export(excelModel);
             }
@@ -158,7 +159,7 @@
         [HttpPost]
         public dynamic GetByRunning(BaseBettingTicketMetaModel metaModel)
         {
-            if (!metaModel.IsValid 
+            if (!metaModel.IsValid
                 || !IsValidCurrencyId(metaModel.CurrencyId)
                 || !_authorizationService.HasPermissionOnData(SessionService.LicenseeSession.LicenseeId, metaModel.CustId, 0))
             {
@@ -167,6 +168,19 @@
 
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             var ticketResult = _dataAccess.GetRunningBetList(metaModel);
+
+            if (metaModel.IsExport)
+            {
+                var excelModel = new BettingTicketCenterExcelModel
+                {
+                    Data = ticketResult,
+                    ShowTotal = true,
+                    ShowSumStake = true,
+                    CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
+                    Title = GetTitle(metaModel)
+                };
+                return Export(excelModel);
+            }
 
             return new
             {
@@ -182,6 +196,18 @@
         protected internal virtual BettingTicketCenterExcel CreateExcel(BettingTicketCenterExcelModel excelModel)
         {
             return new BettingTicketCenterExcel(excelModel);
+        }
+
+        private static string GetTitle(BaseBettingTicketMetaModel metaModel)
+        {
+            var date = metaModel.FromDate == DateTime.MinValue
+                ? string.Empty
+                : ", " + metaModel.FromDate.ToString(FormatKey.ShortDateFormat) + "-->" + metaModel.ToDate.ToString(FormatKey.ShortDateFormat);
+
+            return ViewResources.BettingTicketCenter
+                    + date
+                    + ", " + ViewResources.Currency + ": " + metaModel.CurrencyName
+                    + ", " + ViewResources.BaseCurrency + ": " + metaModel.BaseCurrency.ToUpperInvariant();
         }
 
         private bool IsValidCurrencyId(int currencyId)
