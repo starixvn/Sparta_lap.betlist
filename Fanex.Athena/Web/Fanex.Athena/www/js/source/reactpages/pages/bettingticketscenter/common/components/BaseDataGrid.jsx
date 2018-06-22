@@ -17,8 +17,7 @@ export default class BaseDataGrid extends Component {
         };
         
         window.ViewResult = (...args) => {
-            let betlist = new BetList();
-            var url = betlist.getResultUrl.apply(betlist, args);
+            var url = BetList.getResultUrl.apply(BetList, args);
             this.setState({ isShowResultPopup: true, resultUrl: url});
         }
     }

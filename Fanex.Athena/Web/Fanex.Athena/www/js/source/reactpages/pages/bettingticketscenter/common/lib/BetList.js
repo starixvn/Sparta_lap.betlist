@@ -5,7 +5,7 @@ const BETTYPE_MIXPARLAY = 9, BETTYPE_SYSTEMPARLAY = 29, BETTYPE_MIXPARLAY_BETRAD
 const MIN_BETTYPE_FASTMARKET = 221;
 const MAX_BETTYPE_FASTMARKET = 227;
 
-export default class BetList {
+class BetList {
 
     isFastMarket(bettype) {
         return bettype >= MIN_BETTYPE_FASTMARKET && bettype <= MAX_BETTYPE_FASTMARKET;
@@ -51,3 +51,5 @@ export default class BetList {
             return url;
    }
 }
+
+export default new BetList();
