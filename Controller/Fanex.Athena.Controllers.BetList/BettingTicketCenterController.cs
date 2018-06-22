@@ -18,6 +18,11 @@
             _productService = new ProductService();
         }
 
+        public ActionResult Index()
+        {
+            return MultipleCustomers();
+        }
+
         public ActionResult MultipleCustomers()
         {
             return View("~/Views/BetList/BettingTicketCenter/Main.cshtml");
