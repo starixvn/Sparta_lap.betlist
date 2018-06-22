@@ -29,12 +29,16 @@
 
         private readonly ICacheRefAdapter _cacheRefAdapter;
 
-        private ICellStyle _evenCellStyleLeftAligned;
+        private ICellStyle _evenCellLeftAlign;
+
+        private ICellStyle _oddCellLeftAlign;
+
+        private ICellStyle _evenCellCenterAlign;
+
+        private ICellStyle _oddCellCenterAlign;
 
         // Default Fonts
         private IFont _negativeWinLossFont;
-
-        private ICellStyle _oddCellStyleLeftAligned;
 
         private IFont _winLossFont;
 
@@ -97,16 +101,16 @@
             return headerStyle;
         }
 
-        private static void AddNoInfoRow(IBetListExcelBuilder builder)
+        protected internal virtual void AddNoInfoRow(IBetListExcelBuilder builder)
         {
             var titleStyle = builder.CreateCellStyle();
             titleStyle.Alignment = HorizontalAlignment.Center;
 
             builder.AddCell(new HSSFRichTextString(ViewResources.NoInfo), titleStyle);
-            builder.MergeCell(new CellRangeAddress(2, 2, 0, NumberOfColumns));
+            builder.MergeCell(new CellRangeAddress(2, 2, 0, NumberOfColumns - 1));
         }
 
-        private void AddTitle(IBetListExcelBuilder builder)
+        protected internal virtual void AddTitle(IBetListExcelBuilder builder)
         {
             var font = builder.CreateFont();
             font.Boldweight = (short)FontBoldWeight.Bold;
@@ -117,29 +121,28 @@
             titleStyle.SetFont(font);
 
             builder.AddCell(new HSSFRichTextString(_excelModel.Title), titleStyle);
-            builder.MergeCell(new CellRangeAddress(0, 0, 0, NumberOfColumns));
+            builder.MergeCell(new CellRangeAddress(0, 0, 0, NumberOfColumns - 1));
         }
 
-        private void Build(IBetListExcelBuilder builder)
-        {
-            InitializeFonts(builder);
-            InitializeCellStyles(builder);
-
+        protected internal virtual void Build(IBetListExcelBuilder builder)
+        {            
             // Content
             if (_excelModel.Data.MainTicketList.Any())
             {
+                InitializeFonts(builder);
+                InitializeCellStyles(builder);
                 AssignSheetsData(builder);
             }
             else
             {
-                builder.BuildWorksheet(ViewResources.BetList, 11);
+                builder.BuildWorksheet(ViewResources.BettingTicketCenter, NumberOfColumns);
                 AddTitle(builder);
                 AddHeader(builder);
                 AddNoInfoRow(builder);
             }
         }
 
-        private void AssignSheetsData(IBetListExcelBuilder builder)
+        protected internal virtual void AssignSheetsData(IBetListExcelBuilder builder)
         {
             var numOfSheets = (int)Math.Ceiling((double)_excelModel.Data.MainTicketList.Count / SystemConstants.SheetSizeExcel);
             for (int sheetIndex = 0; sheetIndex < numOfSheets; sheetIndex++)
@@ -152,8 +155,7 @@
                 var endIndex = Math.Min((sheetIndex + 1) * SystemConstants.SheetSizeExcel, _excelModel.Data.MainTicketList.Count);
 
                 for (var i = sheetIndex * SystemConstants.SheetSizeExcel; i < endIndex; i++)
-                {
-                    _ticketHelper.Index++;
+                {                    
                     AsignData(builder, _excelModel.Data, _excelModel.Data.MainTicketList[i]);
                 }
 
@@ -166,7 +168,7 @@
             }
         }
 
-        private void AddFooter(IBetListExcelBuilder builder)
+        protected internal virtual void AddFooter(IBetListExcelBuilder builder)
         {
             var footerStyle = CreateFooterCellStyle(builder);
 
@@ -192,7 +194,7 @@
             {
                 var sumLicenseeWLComm = _excelModel.Data.SumLicenseeWL + _excelModel.Data.SumComm;
                 var rtfSumLicenseeWl = new HSSFRichTextString(sumLicenseeWLComm.ToString(FormatKey.NumberFormat));
-                rtfSumLicenseeWl.ApplyFont(sumLicenseeWLComm >= 0 ? _negativeWinLossFont : _winLossFont);
+                rtfSumLicenseeWl.ApplyFont(sumLicenseeWLComm < 0 ? _negativeWinLossFont : _winLossFont);
                 builder.AddCell(rtfSumLicenseeWl, footerStyle);
             }
             else
@@ -201,7 +203,7 @@
             }
 
             // add the rest column
-            for (int i = ColumnTotalStart + 3; i < NumberOfColumns; i++)
+            for (int i = ColumnTotalStart + 4; i < NumberOfColumns; i++)
             {
                 builder.AddCell(new HSSFRichTextString(), footerStyle);
             }
@@ -210,7 +212,7 @@
             builder.MergeCell(new CellRangeAddress(lastRowIndex, lastRowIndex, 0, ColumnTotalStart), footerStyle);
         }
 
-        private void AddHeader(IBetListExcelBuilder builder)
+        protected internal virtual void AddHeader(IBetListExcelBuilder builder)
         {
             var headerStyle = CreateHeaderCellStyle(builder);
             var captions = new[]
@@ -228,7 +230,7 @@
                 ViewResources.Platform,
                 ViewResources.Live
             };
-            var columWidths = new short[] { 1500, 4800, 4800, 5400, 15500, 2600, 4200, 4200, 5400, 5400, 3400, 3400, 3400 };
+            var columWidths = new short[] { 1500, 4800, 4800, 5400, 15500, 2600, 4200, 4200, 5400, 5400, 3400, 3400 };
 
             for (int i = 0; i < captions.Length; i++)
             {
@@ -237,11 +239,12 @@
             }
         }
 
-        private void AsignData(IBetListExcelBuilder builder, TicketResult ticketResult, LrfTicket ticket)
+        protected internal virtual void AsignData(IBetListExcelBuilder builder, TicketResult ticketResult, LrfTicket ticket)
         {
+            _ticketHelper.Index++;
             builder.AddIndex(_ticketHelper, _ticketHelper.Index);
-            builder.AddExternalId(_ticketHelper, ticket.ExternalId, _oddCellStyleLeftAligned, _evenCellStyleLeftAligned);
-            builder.AddSystemId(_ticketHelper, ticket.UserName, _oddCellStyleLeftAligned, _evenCellStyleLeftAligned);
+            builder.AddExternalId(_ticketHelper, ticket.ExternalId, _oddCellLeftAlign, _evenCellLeftAlign);
+            builder.AddSystemId(_ticketHelper, ticket.UserName, _oddCellLeftAlign, _evenCellLeftAlign);
             builder.AddTrans(ticket, _ticketHelper);
             builder.AddChoice(ticket, _ticketHelper, ticketResult.TicketDataList);
             builder.AddOdds(ticket, ticketResult.TicketDataList, _cacheRefAdapter.GetOddsTypeName);
@@ -256,7 +259,7 @@
         private void AddPlatfromCell(IBetListExcelBuilder builder, LrfTicket ticket)
         {
             var rtfPlatfrom = new HSSFRichTextString(PlatformType.GetPlatformName(ticket.BetFrom));
-            BuilDataCell(builder, rtfPlatfrom);
+            BuilDataAlignedCenterCell(builder, rtfPlatfrom);
         }
 
         private void AddLiveCell(IBetListExcelBuilder builder, LrfTicket ticket)
@@ -270,39 +273,51 @@
                 case LiveStatus.Live:
                     var rtfLive = new HSSFRichTextString(ViewResources.Live);
                     rtfLive.ApplyFont(_liveFont);
-                    BuilDataCell(builder, rtfLive);
+                    BuilDataAlignedCenterCell(builder, rtfLive);
                     return;
 
                 case LiveStatus.MixLiveAndNone:
                     var rtfMixLive = new HSSFRichTextString(ViewResources.MixLiveAndNoneLive);
                     rtfMixLive.ApplyFont(_mixLiveFont);
-                    BuilDataCell(builder, rtfMixLive);
+                    BuilDataAlignedCenterCell(builder, rtfMixLive);
                     return;
 
                 default:
-                    BuilDataCell(builder, new HSSFRichTextString(ViewResources.NoneLive));
+                    BuilDataAlignedCenterCell(builder, new HSSFRichTextString(ViewResources.NoneLive));
                     return;
             }
         }
 
-        private void BuilDataCell(IBetListExcelBuilder builder, IRichTextString text)
+        private void BuilDataAlignedCenterCell(IBetListExcelBuilder builder, IRichTextString text)
         {
-            builder.AddCell(text, _ticketHelper.Index % 2 == 0 ? _oddCellStyleLeftAligned : _evenCellStyleLeftAligned);
+            builder.AddCell(text, _ticketHelper.Index % 2 == 0 ? _oddCellCenterAlign : _evenCellCenterAlign);
         }
 
         private void InitializeCellStyles(IBetListExcelBuilder builder)
         {
-            _oddCellStyleLeftAligned = builder.CreateCellStyle();
-            _oddCellStyleLeftAligned.CloneStyleFrom(builder.OddCellStyle);
-            _oddCellStyleLeftAligned.Alignment = HorizontalAlignment.Left;
-            _oddCellStyleLeftAligned.SetFont(builder.RTFHelper.NormalFont);
-            _oddCellStyleLeftAligned.WrapText = true;
+            _oddCellLeftAlign = builder.CreateCellStyle();
+            _oddCellLeftAlign.CloneStyleFrom(builder.OddCellStyle);
+            _oddCellLeftAlign.Alignment = HorizontalAlignment.Left;
+            _oddCellLeftAlign.SetFont(builder.RTFHelper.NormalFont);
+            _oddCellLeftAlign.WrapText = true;
 
-            _evenCellStyleLeftAligned = builder.CreateCellStyle();
-            _evenCellStyleLeftAligned.CloneStyleFrom(builder.EvenCellStyle);
-            _evenCellStyleLeftAligned.Alignment = HorizontalAlignment.Left;
-            _evenCellStyleLeftAligned.SetFont(builder.RTFHelper.NormalFont);
-            _evenCellStyleLeftAligned.WrapText = true;
+            _evenCellLeftAlign = builder.CreateCellStyle();
+            _evenCellLeftAlign.CloneStyleFrom(builder.EvenCellStyle);
+            _evenCellLeftAlign.Alignment = HorizontalAlignment.Left;
+            _evenCellLeftAlign.SetFont(builder.RTFHelper.NormalFont);
+            _evenCellLeftAlign.WrapText = true;
+
+            _oddCellCenterAlign = builder.CreateCellStyle();
+            _oddCellCenterAlign.CloneStyleFrom(builder.OddCellStyle);
+            _oddCellCenterAlign.Alignment = HorizontalAlignment.Center;
+            _oddCellCenterAlign.SetFont(builder.RTFHelper.NormalFont);
+            _oddCellCenterAlign.WrapText = true;
+
+            _evenCellCenterAlign = builder.CreateCellStyle();
+            _evenCellCenterAlign.CloneStyleFrom(builder.EvenCellStyle);
+            _evenCellCenterAlign.Alignment = HorizontalAlignment.Center;
+            _evenCellCenterAlign.SetFont(builder.RTFHelper.NormalFont);
+            _evenCellCenterAlign.WrapText = true;
         }
 
         private void InitializeFonts(IBetListExcelBuilder builder)

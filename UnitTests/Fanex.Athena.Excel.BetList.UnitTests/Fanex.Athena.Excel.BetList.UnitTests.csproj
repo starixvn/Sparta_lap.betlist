@@ -116,6 +116,7 @@
     <Compile Include="BetListExcelTest_BuildTicket.cs" />
     <Compile Include="BetListExcelTest.cs" />
     <Compile Include="BetListExcelBuilderExtensionTest.cs" />
+    <Compile Include="BettingTicketCenterExcelTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
