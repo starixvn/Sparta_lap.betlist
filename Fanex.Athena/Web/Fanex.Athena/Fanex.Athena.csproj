@@ -908,7 +908,8 @@
     <Content Include="www\js\source\reactpages\lib\__tests__\numberFormat.test.js" />
     <Content Include="www\js\source\reactpages\lib\__tests__\report.test.js" />
     <Content Include="www\js\source\reactpages\lib\__tests__\site.test.js" />
-    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\common\lib\service.js" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\common\lib\BetList.js" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\common\lib\Service.js" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\refno\actions\dataHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\refno\actions\filterHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\refno\actions\index.js" />
@@ -1641,6 +1642,7 @@
     <Content Include="www\js\source\common\languages\ViewResources1.txt" />
     <Content Include="www\js\source\common\popup.js" />
     <Content Include="www\js\source\common\querystring.js" />
+    <Content Include="www\js\source\reactpages\lib\QueryString.js" />
     <Content Include="www\js\source\common\site.js" />
     <Content Include="www\js\source\components\paging.js" />
     <Content Include="www\js\source\components\pluginhelper\autocomplete.js" />
