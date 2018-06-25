@@ -1,5 +1,5 @@
-﻿import Site from '../../../../lib/site'
-import QueryString from '../../../../lib/QueryString'
+﻿import Site from '@jsroot/lib/site'
+import QueryString from '@jsroot/lib/QueryString'
 
 const BETTYPE_MIXPARLAY = 9, BETTYPE_SYSTEMPARLAY = 29, BETTYPE_MIXPARLAY_BETRADAR = 2799;
 const MIN_BETTYPE_FASTMARKET = 221;
@@ -42,14 +42,14 @@ class BetList {
     getResultUrl (matchid, raceNo, bettype, sporttype, refno,
         username, winlostdate, refnoMixParlay, league, isOutright, extension1, extension2, custid, transdecs) {
             bettype = Number(bettype);
-        console.log(matchid);
+
         let isParlay = bettype === BETTYPE_MIXPARLAY || bettype === BETTYPE_SYSTEMPARLAY || bettype === BETTYPE_MIXPARLAY_BETRADAR;
         let url = isParlay
                 ? this._getMixParlayResultUrl(refnoMixParlay, winlostdate, bettype)
                 : this._getSportBookResultUrl(matchid, bettype, raceNo, sporttype, league, isOutright, extension1, extension2, custid);
 
             return url;
-   }
+    }
 }
 
 export default new BetList();
