@@ -127,18 +127,20 @@
         [HttpPost]
         public dynamic GetByRefno(RefNoBetListMetaModel metaModel)
         {
+            TicketResult ticketResult;
             if (!metaModel.IsValid
                 || !_authorizationService.HasPermissionOnData(SessionService.LicenseeSession.LicenseeId, metaModel.CustId, 0))
             {
-                return null;
+                ticketResult = new TicketResult();
             }
-
-            var balanceUp = _balanceUpDataAccess.GetBalanceUp();
-            metaModel.BalanceUpDay = balanceUp.BalanceUpDay;
-            metaModel.MoveBetsDay = balanceUp.MoveBetsDay;
-            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-
-            var ticketResult = _dataAccess.GetBetListByRefno(metaModel);
+            else
+            {
+                var balanceUp = _balanceUpDataAccess.GetBalanceUp();
+                metaModel.BalanceUpDay = balanceUp.BalanceUpDay;
+                metaModel.MoveBetsDay = balanceUp.MoveBetsDay;
+                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
+                ticketResult = _dataAccess.GetBetListByRefno(metaModel);
+            }
 
             if (metaModel.IsExport)
             {
@@ -161,15 +163,18 @@
         [HttpPost]
         public dynamic GetByRunning(BaseBettingTicketMetaModel metaModel)
         {
+            TicketResult ticketResult;
             if (!metaModel.IsValid
                 || !IsValidCurrencyId(metaModel.CurrencyId)
                 || !_authorizationService.HasPermissionOnData(SessionService.LicenseeSession.LicenseeId, metaModel.CustId, 0))
             {
-                return null;
+                ticketResult = new TicketResult();
             }
-
-            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-            var ticketResult = _dataAccess.GetRunningBetList(metaModel);
+            else
+            {
+                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
+                ticketResult = _dataAccess.GetRunningBetList(metaModel);
+            }
 
             if (metaModel.IsExport)
             {

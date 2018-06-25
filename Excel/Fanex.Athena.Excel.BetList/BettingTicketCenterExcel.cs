@@ -125,7 +125,7 @@
         }
 
         protected internal virtual void Build(IBetListExcelBuilder builder)
-        {            
+        {
             // Content
             if (_excelModel.Data.MainTicketList.Any())
             {
@@ -155,7 +155,7 @@
                 var endIndex = Math.Min((sheetIndex + 1) * SystemConstants.SheetSizeExcel, _excelModel.Data.MainTicketList.Count);
 
                 for (var i = sheetIndex * SystemConstants.SheetSizeExcel; i < endIndex; i++)
-                {                    
+                {
                     AsignData(builder, _excelModel.Data, _excelModel.Data.MainTicketList[i]);
                 }
 
@@ -218,6 +218,7 @@
             var captions = new[]
             {
                 "#",
+                ViewResources.Platform,
                 ViewResources.ExternalId,
                 ViewResources.SystemId,
                 ViewResources.TransTime,
@@ -227,7 +228,6 @@
                 ViewResources.WinLoss + (_excelModel.CustomerCommVisible ? "/" + ViewResources.Comm : string.Empty),
                 ViewResources.LicenseeWL + "/" + ViewResources.Comm,
                 ViewResources.Status,
-                ViewResources.Platform,
                 ViewResources.Live
             };
             var columWidths = new short[] { 1500, 4800, 4800, 5400, 15500, 2600, 4200, 4200, 5400, 5400, 3400, 3400 };
@@ -243,6 +243,7 @@
         {
             _ticketHelper.Index++;
             builder.AddIndex(_ticketHelper, _ticketHelper.Index);
+            AddPlatfromCell(builder, ticket);
             builder.AddExternalId(_ticketHelper, ticket.ExternalId, _oddCellLeftAlign, _evenCellLeftAlign);
             builder.AddSystemId(_ticketHelper, ticket.UserName, _oddCellLeftAlign, _evenCellLeftAlign);
             builder.AddTrans(ticket, _ticketHelper);
@@ -252,7 +253,6 @@
             builder.AddCustomerWL(ticket, _excelModel.CustomerCommVisible, _winLossFont);
             builder.AddLicenseeWL(ticket, _excelModel.LicenseeId == LicenseeIdentity.OneTwoBet, _negativeWinLossFont, _winLossFont);
             builder.AddStatus(ticket, _ticketHelper, ticketResult.TicketDataList, false);
-            AddPlatfromCell(builder, ticket);
             AddLiveCell(builder, ticket);
         }
 
@@ -286,7 +286,7 @@
                     BuilDataAlignedCenterCell(builder, new HSSFRichTextString(ViewResources.NoneLive));
                     return;
             }
-        }       
+        }
 
         private void BuilDataAlignedCenterCell(IBetListExcelBuilder builder, IRichTextString text)
         {

@@ -4,6 +4,7 @@
     Layout = "~/Views/Desktop/Shared/_ReactPageLayout.cshtml";
 }
 @using Fanex.Athena.Model.Core.DataDomain;
+@model bool
 @{
     var baseCurrencyList = SystemConstants.NewBaseCurrencyList.Select(c => new { value = c, label = c }).ToList();
 }
@@ -18,10 +19,14 @@
     window.initialState = {
         refno: "",
         username: "",
-        baseCurrencyList: @Html.Raw(baseCurrencyList.ToJson()),
         selectedBaseCurrency: '@(baseCurrencyList.Any() ? baseCurrencyList.First().value : string.Empty)',
-        isLoading: false
-    }
+        isLoading: false,
+        isConvertAll: true
+    };
+    window._AppData = {
+        isAllowedCustomerComm: @Model.ToJson(),
+        baseCurrencyList:@Html.Raw(baseCurrencyList.ToJson())
+    };
 }
 <div id="app-container">
 

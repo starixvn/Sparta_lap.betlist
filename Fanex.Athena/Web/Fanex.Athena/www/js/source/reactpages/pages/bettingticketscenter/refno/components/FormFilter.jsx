@@ -9,9 +9,9 @@ import AutoComplete from '../../../../components/auto-complete'
 import { ActionCreators } from '../actions/index.js'
 import LangHelper from '../../../../lib/langHelper'
 import Site from '@jsroot/lib/site'
+import AppData from '@jsroot/lib/AppData'
 
 const CUSTOMER_SEARCHING_URL = Site.resolveClientUrl("SearchCustomerAPI/SearchCustomer");
-const RANGE_MONTH_CONSTRAINT = 3;
 
 export class FormFilter extends Component {
     constructor(props) {
@@ -71,7 +71,8 @@ export class FormFilter extends Component {
     }
 
     _renderBaseCurrencySelectList() {
-        const { baseCurrencyList, selectedBaseCurrency } = this.props;
+        const selectedBaseCurrency = this.props.selectedBaseCurrency;
+        const baseCurrencyList = AppData.baseCurrencyList;
 
         return baseCurrencyList && baseCurrencyList.length && (
             <Select instanceId="ddlBased"
@@ -85,7 +86,7 @@ export class FormFilter extends Component {
         return (
             <div className="page-filter">
                 <div className="row">
-                    <div className="col-12 col-md-3 col-sm-3 col-lg-2 col-xl-2">
+                    <div className="col-12 col-md-4 col-sm-4 col-lg-3 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("RefNo")} *</label>
                             <input className="input-text" id="RefNo" name="RefNo" type="text" value={this.props.refno} placeholder={LangHelper.getSingleResource("RefNo")}
@@ -93,7 +94,7 @@ export class FormFilter extends Component {
                         </div>
                     </div>
 
-                    <div className="col-12 col-md-3 col-sm-2 col-lg-3 col-xl-2">
+                    <div className="col-12 col-md-4 col-sm-4 col-lg-3 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Username")}</label>
                             <AutoComplete url={CUSTOMER_SEARCHING_URL} 
@@ -103,24 +104,24 @@ export class FormFilter extends Component {
                         </div>
                     </div>
 
-                    <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
+                    <div className="col-12 col-md-3 col-sm-4 col-lg-2 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("BaseCurrency")}</label>
                         {this._renderBaseCurrencySelectList()}
                         </div>
                     </div>
 
-                    <div className="col-12 col-md-2 col-sm-4 col-lg-2 col-xl-2">
+                    <div className="col-12 col-md-4 col-sm-4 col-lg-2 col-xl-2">
                         <div className="form-group">
                             <div className="checkbox-group">
-                                <input type="checkbox" className="checkbox" checked={(this.props.groupBy === 1 && this.props.selectedCurrency.value == 0) || this.props.isConvertAll} id="IsConvertAll"
+                                <input type="checkbox" className="checkbox" checked={this.props.isConvertAll} id="IsConvertAll"
                                  onChange={() => this.props.changeIsConvertAll(!this.props.isConvertAll)} />
                                     <label htmlFor="IsConvertAll">{LangHelper.getSingleResource("ConvertAllFiguresToBaseCurrency")}</label>
                         </div>
                         </div>    
                     </div>
 
-                    <div className="col-12 col-md-1 col-sm-1 col-lg-1 col-xl-1">
+                    <div className="col-12 col-md-3 col-sm-4 col-lg-2 col-xl-2">
                     <div className="form-group">
                         <div className="button-group">
                         <button type="button" disabled={!this.isValidModel} className="btn btn-submit" onClick={this.submit}>{LangHelper.getSingleResource("Submit")}</button>
@@ -142,7 +143,8 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    return Object.assign({}, state);
+    const { refno, username, selectedBaseCurrency, isConvertAll } = state;
+    return Object.assign({}, {refno, username, selectedBaseCurrency, isConvertAll});
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormFilter);

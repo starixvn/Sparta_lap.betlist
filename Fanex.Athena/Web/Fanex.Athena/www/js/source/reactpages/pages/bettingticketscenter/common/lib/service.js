@@ -20,4 +20,12 @@ export default class Service {
     static getHeaderText() {
         return HeaderText;
     }
+
+    static getTitle(dateRange, currencyName, baseCurrency) {
+        const dateRangeText = dateRange ? `, ${dateRange.fromDate} → ${dateRange.toDate}` : '';
+        const currencyNameText = currencyName ? `, ${LangHelper.getSingleResource("Currency")}: ${currencyName}` : '';
+        const baseCurrencyText = `, ${LangHelper.getSingleResource("BaseCurrency")}: ${baseCurrency}`;
+
+        return LangHelper.getSingleResource("BettingTicketCenter") + dateRangeText + currencyNameText + baseCurrencyText;
+    }
 }

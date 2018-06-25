@@ -7,6 +7,7 @@ import LangHelper from '@jsroot/lib/langHelper'
 import NoDataTitle from '@jsroot/components/NoDataTitle'
 import BetList from '../lib/BetList'
 import Service from '../lib/Service'
+import AppData from '@jsroot/lib/AppData'
 
 export default class BaseDataGrid extends Component {
     constructor(props) {
@@ -27,20 +28,22 @@ export default class BaseDataGrid extends Component {
 
     _buildHeader() {
         var headerText = Service.getHeaderText();
+        const licenseeWLText = `${headerText.LicenseeWL}/${headerText.Comm}`;
+        const winlossText = AppData.isAllowedCustomerComm ? `${headerText.WinLoss}/${headerText.Comm}` : headerText.WinLoss;
         return (
             <Row style={{ height: 32 }}>
                 <Cell colWidth={40} header={true} title={headerText.Index}>{headerText.Index}</Cell>
-                <Cell colWidth={100} header={true} title={headerText.Index}>{headerText.Platform}</Cell>
-                <Cell colWidth={120} header={true} title={headerText.Index}>{headerText.ExternalId}</Cell>
-                <Cell colWidth={120} header={true} title={headerText.Index}>{headerText.SystemId}</Cell>
-                <Cell colWidth={180} header={true} title={headerText.Index}>{headerText.TransTime}</Cell>
-                <Cell colWidth={250} header={true} title={headerText.Index}>{headerText.Choice}</Cell>
-                <Cell colWidth={100} header={true} title={headerText.Index}>{headerText.Odds}</Cell>
-                <Cell colWidth={100} header={true} title={headerText.Index}>{headerText.Stake}</Cell>
-                <Cell colWidth={120} header={true} title={headerText.Index}>{headerText.WinLoss}</Cell>
-                <Cell colWidth={120} header={true} title={headerText.Index}>{headerText.LicenseeWL}</Cell>
-                <Cell colWidth={100} header={true} title={headerText.Index}>{headerText.Status}</Cell>
-                <Cell colWidth={100} header={true} title={headerText.Index}>{headerText.Live}</Cell>
+                <Cell colWidth={100} header={true} title={headerText.Platform}>{headerText.Platform}</Cell>
+                <Cell colWidth={120} header={true} title={headerText.ExternalId}>{headerText.ExternalId}</Cell>
+                <Cell colWidth={120} header={true} title={headerText.SystemId}>{headerText.SystemId}</Cell>
+                <Cell colWidth={180} header={true} title={headerText.TransTime}>{headerText.TransTime}</Cell>
+                <Cell colWidth={250} header={true} title={headerText.Choice}>{headerText.Choice}</Cell>
+                <Cell colWidth={100} header={true} title={headerText.Odds}>{headerText.Odds}</Cell>
+                <Cell colWidth={100} header={true} title={headerText.Stake}>{headerText.Stake}</Cell>
+                <Cell colWidth={120} header={true} title={winlossText}>{winlossText}</Cell>
+                <Cell colWidth={120} header={true} title={licenseeWLText}>{licenseeWLText}</Cell>
+                <Cell colWidth={100} header={true} title={headerText.Status}>{headerText.Status}</Cell>
+                <Cell colWidth={100} header={true} title={headerText.Live}>{headerText.Live}</Cell>
             </Row>
         )
     }
@@ -67,10 +70,10 @@ export default class BaseDataGrid extends Component {
                     <Cell className="center-align" dangerouslySetInnerHTML={{ __html: item.Live}}></Cell>
                 </Row>
             );
-                }
+        }
 
         return rows;
-                }
+    }
 
     _renderNodata() {
         return (
@@ -79,7 +82,7 @@ export default class BaseDataGrid extends Component {
                 <NoDataTitle />
             </div>
         )
-                }
+    }
 
     render() {
         if (!this.props.gridData || !this.props.gridData.Data) {
@@ -111,5 +114,5 @@ export default class BaseDataGrid extends Component {
                 </Popup>
             </div>
         );
-}
+    }
 }

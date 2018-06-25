@@ -37,7 +37,8 @@
 
         public ActionResult RefNo()
         {
-            return View("~/Views/BetList/BettingTicketCenter/RefNo.cshtml");
+            return View("~/Views/BetList/BettingTicketCenter/RefNo.cshtml"
+                ,SessionService.LicenseeSession.IsAllowedCustomerComm);
         }
 
         public ActionResult Running()

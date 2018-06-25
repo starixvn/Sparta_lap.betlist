@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux'
 import { ActionCreators } from '../actions'
 import LangHelper from '../../../../lib/langHelper'
 import BaseDataGrid from '../../common/components/BaseDataGrid'
+import Service from '../../common/lib/Service'
 
 export class DataGrid extends BaseDataGrid {
     constructor(props) {
@@ -15,14 +16,9 @@ export class DataGrid extends BaseDataGrid {
         if (this.props.gridData !== nextProps.gridData) {
              const { selectedBaseCurrency } = nextProps;
               this.selectedBaseCurrency = selectedBaseCurrency;
-              this.reportTitle = this.getReportTitle(selectedBaseCurrency);
+              this.reportTitle = Service.getTitle(null, null, selectedBaseCurrency);
             this.props.toggleLoader(false);
         }
-    }
-
-    getReportTitle(baseCurrency) {
-        const baseCurrencyText = LangHelper.getSingleResource("BaseCurrency") + ": " + baseCurrency;
-        return `${LangHelper.getSingleResource("BettingTicketCenter")}, ${baseCurrencyText}`;
     }
   }
 
