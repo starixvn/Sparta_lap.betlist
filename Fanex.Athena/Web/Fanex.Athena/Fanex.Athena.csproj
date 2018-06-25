@@ -700,6 +700,13 @@
     <Content Include="Views\Desktop\Customer\BetSetting\GoldDeluxe.cshtml" />
     <Content Include="www\assets\images\ajax-loader.gif" />
     <Content Include="www\assets\images\new-system.svg" />
+    <Content Include="www\css\build\dev\reactpages\bettingticketscenter\images\bonus.png" />
+    <Content Include="www\css\build\dev\reactpages\bettingticketscenter\images\goal-icon.png" />
+    <Content Include="www\css\build\dev\reactpages\bettingticketscenter\images\q_Icon2_1.png" />
+    <Content Include="www\css\build\dev\reactpages\bettingticketscenter\images\q_Icon_2.png" />
+    <Content Include="www\css\build\dev\reactpages\bettingticketscenter\images\tab_topbg.gif" />
+    <Content Include="www\css\build\dev\reactpages\bettingticketscenter\index.chunk.js" />
+    <Content Include="www\css\build\dev\reactpages\bettingticketscenter\index.css" />
     <Content Include="www\css\build\dev\reactpages\exchangewl\index.chunk.js" />
     <Content Include="www\css\build\dev\reactpages\exchangewl\index.css" />
     <Content Include="www\css\build\dev\reactpages\licenseewlbytimezone\index.chunk.js" />
@@ -860,6 +867,8 @@
     <Content Include="www\css\source\reactpages\components\_tab.scss" />
     <Content Include="Views\Desktop\BetList\BettingTicketCenter\RefNo.cshtml" />
     <Content Include="Views\Desktop\BetList\BettingTicketCenter\Running.cshtml" />
+    <Content Include="www\css\build\dev\reactpages\bettingticketscenter\index.chunk.js.map" />
+    <Content Include="www\css\build\dev\reactpages\bettingticketscenter\index.css.map" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Row.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.jsx" />
