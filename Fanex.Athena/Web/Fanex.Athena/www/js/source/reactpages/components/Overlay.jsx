@@ -77,9 +77,7 @@ export default class Overlay extends Component {
 
     _close() {
         const { onClose } = this.props;
-        onClose && onClose();
-
-        this.setState({ isOpening: false })
+        this.setState({isOpening: false}, () => onClose && onClose());
     }
 
     render() {

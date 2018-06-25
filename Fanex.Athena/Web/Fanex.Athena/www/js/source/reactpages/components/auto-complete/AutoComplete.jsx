@@ -8,7 +8,7 @@ import Overlay from '../Overlay'
 import SuggestionList from './SuggestionList'
 import Timer from '../utils/timer'
 
-const DELAY_TIME_MILLISECOND = 1000;
+const DELAY_TIME_MILLISECOND = 500;
 
 export default class AutoComplete extends Component {
     constructor(props) {
@@ -42,12 +42,12 @@ export default class AutoComplete extends Component {
         queryParamName: "query"
     }
 
-    get showItems() {
+    get isShowSuggestionList() {
         return this.state.suggestions && this.state.suggestions.length > 0;
     }
 
     _onKeyDown = (event) => {
-        if (!this.showItems) {
+        if (!this.isShowSuggestionList) {
             return;
         }
 
@@ -124,8 +124,9 @@ export default class AutoComplete extends Component {
         if (url) {
             this._getDataByUrl(url, value);
         }
-        else if (onInput) {
-            onInput(value, this._setStateWithCaching.bind(this));
+        
+        if (onInput) {
+            onInput(value);
         }
     }
 
@@ -136,14 +137,13 @@ export default class AutoComplete extends Component {
                     onChange={this.onChange} onKeyDown={this._onKeyDown}
                     ref={(element) => this.input = element} />
 
-                {this.showItems ?
-                    <Overlay isOpening={this.showItems} onClose={this._clearState}>
+                {this.isShowSuggestionList &&
+                    <Overlay isOpening={true} onClose={this._clearState}>
                         <SuggestionList selectedIndex={this.state.selectedIndex}
                             width={this.input.clientWidth}
                             dataList={this.state.suggestions}
                             onSelect={this._onSelect} />
-                    </Overlay>
-                    : null}
+                    </Overlay>}
             </div>
         );
     }

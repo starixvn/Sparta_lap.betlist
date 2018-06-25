@@ -7,11 +7,11 @@ const MAX_BETTYPE_FASTMARKET = 227;
 
 class BetList {
 
-    isFastMarket(bettype) {
+    _isFastMarket(bettype) {
         return bettype >= MIN_BETTYPE_FASTMARKET && bettype <= MAX_BETTYPE_FASTMARKET;
     }
 
-    getMixParlayResultUrl(refno, winlostdate, bettype) {
+    _getMixParlayResultUrl(refno, winlostdate, bettype) {
         let url = Site.resolveClientUrl('ResultReport/ResultPopup');
         url = QueryString.setParam(url, "refno", refno);
         url = QueryString.setParam(url, "winlossdate", winlostdate);
@@ -21,7 +21,7 @@ class BetList {
         return url;
     }
 
-    getSportBookResultUrl (matchid, bettype, raceNo, sporttype, league, isOutright, extension1, extension2) {
+    _getSportBookResultUrl (matchid, bettype, raceNo, sporttype, league, isOutright, extension1, extension2) {
         let url = Site.resolveClientUrl('ResultReport/ResultPopup');
         url = QueryString.setParam(url, "matchid", matchid);
         url = QueryString.setParam(url, "bettype", bettype);
@@ -29,7 +29,7 @@ class BetList {
         url = QueryString.setParam(url, "sporttype", sporttype);
         url = QueryString.setParam(url, "isoutright", isOutright);
 
-        if (this.isFastMarket(bettype)) {
+        if (this._isFastMarket(bettype)) {
             url = QueryString.setParam(url, "handicap1", extension1);
             url = QueryString.setParam(url, "handicap2", extension2);
         } else {
@@ -45,8 +45,8 @@ class BetList {
         console.log(matchid);
         let isParlay = bettype === BETTYPE_MIXPARLAY || bettype === BETTYPE_SYSTEMPARLAY || bettype === BETTYPE_MIXPARLAY_BETRADAR;
         let url = isParlay
-                ? this.getMixParlayResultUrl(refnoMixParlay, winlostdate, bettype)
-                : this.getSportBookResultUrl(matchid, bettype, raceNo, sporttype, league, isOutright, extension1, extension2, custid);
+                ? this._getMixParlayResultUrl(refnoMixParlay, winlostdate, bettype)
+                : this._getSportBookResultUrl(matchid, bettype, raceNo, sporttype, league, isOutright, extension1, extension2, custid);
 
             return url;
    }

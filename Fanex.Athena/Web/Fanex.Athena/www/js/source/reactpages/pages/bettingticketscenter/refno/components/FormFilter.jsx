@@ -10,10 +10,10 @@ import { ActionCreators } from '../actions/index.js'
 import LangHelper from '../../../../lib/langHelper'
 import Site from '@jsroot/lib/site'
 
-const CUSTOMER_SEARCHING_URL = Site.resolveClientUrl("CustomerAPI/SearchCustomer");
+const CUSTOMER_SEARCHING_URL = Site.resolveClientUrl("SearchCustomerAPI/SearchCustomer");
 const RANGE_MONTH_CONSTRAINT = 3;
 
-export class MultiCustomerFormFilter extends Component {
+export class FormFilter extends Component {
     constructor(props) {
         super(props);
     }
@@ -89,15 +89,17 @@ export class MultiCustomerFormFilter extends Component {
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("RefNo")} *</label>
                             <input className="input-text" id="RefNo" name="RefNo" type="text" value={this.props.refno} placeholder={LangHelper.getSingleResource("RefNo")}
-                            onChange={(event) => this.props.setRefno(event.target.value)} />
+                                onChange={(event) => this.props.setRefno(event.target.value)} />
                         </div>
                     </div>
 
                     <div className="col-12 col-md-3 col-sm-2 col-lg-3 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Username")}</label>
-                            <input className="input-text" id="Username" name="Username" type="text" value={this.props.username} placeholder={LangHelper.getSingleResource("Username")} 
-                            onChange={(event) => this.props.setUsername(event.target.value)} />
+                            <AutoComplete url={CUSTOMER_SEARCHING_URL} 
+                                onSelect={(value) => this.props.setUsername(value)}
+                                onInput={(value) => this.props.setUsername(value)}
+                                />
                         </div>
                     </div>
 
@@ -143,4 +145,4 @@ function mapStateToProps(state) {
     return Object.assign({}, state);
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MultiCustomerFormFilter);
+export default connect(mapStateToProps, mapDispatchToProps)(FormFilter);
