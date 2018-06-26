@@ -3,11 +3,11 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import Select from 'react-select'
-import { DateRange } from '../../../../components/date-range/index'
-import AutoComplete from '../../../../components/auto-complete'
-
+import { DateRange } from '@jsroot/components/date-range/index'
+import AutoComplete from '@jsroot/components/auto-complete'
+import CheckBox from '@jsroot/components/CheckBox'
 import { ActionCreators } from '../actions/index.js'
-import LangHelper from '../../../../lib/langHelper'
+import LangHelper from '@jsroot/lib/langHelper'
 import Site from '@jsroot/lib/site'
 import AppData from '@jsroot/lib/AppData'
 
@@ -113,11 +113,10 @@ export class FormFilter extends Component {
 
                     <div className="col-12 col-md-4 col-sm-4 col-lg-2 col-xl-2">
                         <div className="form-group">
-                            <div className="checkbox-group">
-                                <input type="checkbox" className="checkbox" checked={this.props.isConvertAll} id="IsConvertAll"
-                                 onChange={() => this.props.changeIsConvertAll(!this.props.isConvertAll)} />
-                                    <label htmlFor="IsConvertAll">{LangHelper.getSingleResource("ConvertAllFiguresToBaseCurrency")}</label>
-                        </div>
+                            <CheckBox id="IsConvertAll"
+                            checked={this.props.isConvertAll}
+                            onChange={(checked) => this.props.changeIsConvertAll(checked)}
+                            label={LangHelper.getSingleResource("ConvertAllFiguresToBaseCurrency")} />
                         </div>    
                     </div>
 

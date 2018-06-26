@@ -356,9 +356,7 @@ describe('FormFilter ', () => {
 
                 formFilter.showUserGuide();
 
-                expect(props.getUserGuideContent).toHaveBeenCalledWith({
-                    resourceName: 'LicenseeWLByTimeZone'
-                });
+                expect(props.getUserGuideContent).toHaveBeenCalledWith('LicenseeWLByTimeZone');
             })
         })
 

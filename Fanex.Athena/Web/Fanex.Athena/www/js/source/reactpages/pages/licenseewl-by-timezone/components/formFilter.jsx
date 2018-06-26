@@ -60,12 +60,10 @@ export class FormFilter extends Component {
     }
 
     showUserGuide = () => {
-        const { userGuideContent, xsrfToken } = this.props;
+        const userGuideContent = this.props.userGuideContent;
 
         if (!userGuideContent || userGuideContent.length === 0) {
-            this.props.getUserGuideContent({
-                resourceName: 'LicenseeWLByTimeZone'
-            });
+            this.props.getUserGuideContent('LicenseeWLByTimeZone');
         }
     }
 

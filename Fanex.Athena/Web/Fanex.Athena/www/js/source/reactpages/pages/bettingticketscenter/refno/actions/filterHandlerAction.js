@@ -13,10 +13,3 @@ export const setUsername = (value) => {
         data: value
     }
 }
-
-export const changeIsConvertAll = (checked) => {
-    return {
-        type: types.CHANGE_IS_CONVERT_ALL,
-        data: checked
-    }
-}
