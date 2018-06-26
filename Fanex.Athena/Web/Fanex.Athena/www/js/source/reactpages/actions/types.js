@@ -25,3 +25,6 @@ export const USER_GUIDE_CONTENT = "USER_GUIDE_CONTENT;"
 /* Date range */
 export const SET_DATE_RANGE = 'SET_DATE_RANGE'
 export const GET_DATE_CONSTRAINT = 'GET_DATE_CONSTRAINT'
+
+/* Convert all figures to base currency */
+export const CHANGE_IS_CONVERT_ALL = "CHANGE_IS_CONVERT_ALL"

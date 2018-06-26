@@ -14,7 +14,7 @@ export default class CollapsibleRow extends React.Component {
     static propTypes = {
         isExpand: PropTypes.bool,
         subject: PropTypes.string,
-        content: PropTypes.string,    
+        content: PropTypes.string,
         onExpand: PropTypes.func
     }
 

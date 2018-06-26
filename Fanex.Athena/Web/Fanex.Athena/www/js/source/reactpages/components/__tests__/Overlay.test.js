@@ -193,7 +193,7 @@ describe("Overlay ", () => {
             const props = Object.assign({}, defaultProps, { onClose: jest.fn() });
 
             const overlay = new Overlay(props);
-            overlay.setState = jest.fn();
+            overlay.setState = jest.fn((newState, callbackFunc) => { callbackFunc() });
 
             overlay._close();
 
@@ -208,7 +208,7 @@ describe("Overlay ", () => {
 
             overlay._close();
 
-            expect(overlay.setState).toHaveBeenCalledWith(expectedState);
+            expect(overlay.setState.mock.calls[0][0]).toEqual(expectedState);
         })
     })
 
