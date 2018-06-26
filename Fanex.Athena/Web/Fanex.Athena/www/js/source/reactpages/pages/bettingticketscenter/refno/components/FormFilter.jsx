@@ -10,6 +10,7 @@ import { ActionCreators } from '../actions/index.js'
 import LangHelper from '@jsroot/lib/langHelper'
 import Site from '@jsroot/lib/site'
 import AppData from '@jsroot/lib/AppData'
+import DataService from '@jsroot/lib/DataService.js'
 
 const CUSTOMER_SEARCHING_URL = Site.resolveClientUrl("SearchCustomerAPI/SearchCustomer");
 
@@ -41,16 +42,11 @@ export class FormFilter extends Component {
             return;
         }
 
-        params.data.IsExport = true;
+        params.IsExport = true;
         this.props.toggleLoader(true);
-        this.props.exportExcel(params).then((response) => {
-            const url = window.URL.createObjectURL(new Blob([response.data]));
-            const link = document.createElement('a');
-            link.href = url;
-            link.setAttribute('download', 'BettingTicketsCenter_RefNo.xls');
-            document.body.appendChild(link);
-            link.click();
-            link.parentNode.removeChild(link);
+        
+        DataService.getFile(Site.resolveClientUrl('api/BettingTicketCenter/GetByRefNo'), params).then((response) => {
+            Site.downloadFile(response.data, 'BettingTicketsCenter_RefNo.xls');
             this.props.toggleLoader(false);
         });
     }
@@ -61,12 +57,10 @@ export class FormFilter extends Component {
         }
 
         return {
-            data: {
-                Refno: this.props.refno,
-                Username: this.props.username,
-                BaseCurrency: this.props.selectedBaseCurrency,
-                IsConvertAll: this.props.isConvertAll
-            }
+            Refno: this.props.refno,
+            Username: this.props.username,
+            BaseCurrency: this.props.selectedBaseCurrency,
+            IsConvertAll: this.props.isConvertAll
         }
     }
 
