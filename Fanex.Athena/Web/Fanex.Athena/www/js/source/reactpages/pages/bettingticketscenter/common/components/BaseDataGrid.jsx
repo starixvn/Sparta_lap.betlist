@@ -15,12 +15,13 @@ export default class BaseDataGrid extends Component {
         super(props);
         this.state = {
             isShowPopup : false,
-            popupUrl: null
+            popupUrl: null,
+            popupTitle: null
         };
         
         window.ViewResult = (...args) => {
             var url = BetList.getResultUrl.apply(BetList, args);
-            this.setState({ isShowPopup: true, popupUrl: url});
+            this.setState({ isShowPopup: true, popupUrl: url, popupTitle: LangHelper.getSingleResource("Result")});
         };
 
         // expand choice content
@@ -29,9 +30,9 @@ export default class BaseDataGrid extends Component {
         };
 
         // show detail popup (in choice column)
-        window.showCombMPDetail = (...args) => {
-            var url = BetList.getParlayDetailUrl.apply(BetList, args);
-            this.setState({ isShowPopup: true, popupUrl: url});
+        window.showCombMPDetail = (transId, refNo, betId, custId, betTeam, baseCurrency) => {
+            var url = BetList.getParlayDetailUrl(transId, refNo, betId, custId, betTeam, baseCurrency);
+            this.setState({ isShowPopup: true, popupUrl: url, popupTitle: betTeam});
         };
     }
 
@@ -148,7 +149,7 @@ export default class BaseDataGrid extends Component {
                 {this.state.isShowPopup &&
                 <Popup isShow={true} 
                         iframeUrl={this.state.popupUrl}
-                        title={LangHelper.getSingleResource("Result")} 
+                        title={this.state.popupTitle}
                         width={900} height={600}
                         onClose={this._closeResultPopup}
                         >
