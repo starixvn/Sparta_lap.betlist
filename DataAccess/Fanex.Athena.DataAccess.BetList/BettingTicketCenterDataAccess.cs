@@ -37,7 +37,7 @@
                     db.AddInParameter("RefNo", DbType.Int64, metaModel.RefNo);
                     db.AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
                     db.AddInParameter("BalanceUpDay", DbType.DateTime, metaModel.BalanceUpDay);
-                    db.AddInParameter("BaseCurrency", DbType.String, metaModel.IsConvert ? metaModel.BaseCurrency : string.Empty);
+                    db.AddInParameter("BaseCurrency", DbType.String, metaModel.IsConvertAll ? metaModel.BaseCurrency : string.Empty);
 
                     using (var reader = db.ExecuteReader())
                     {

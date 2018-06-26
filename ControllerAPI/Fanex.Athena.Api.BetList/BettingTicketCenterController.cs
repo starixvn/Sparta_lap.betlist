@@ -239,7 +239,7 @@
             {
                 if (ticket.BetTypeId == (int)BetType.CombinationMixParlay)
                 {
-                    var baseCurrency = metaModel.IsConvert ? metaModel.BaseCurrency : ticket.Currency;
+                    var baseCurrency = metaModel.IsConvertAll ? metaModel.BaseCurrency : ticket.Currency;
                     _ticketHelper.ClientDetailSystemParlayFunction = BetListHelper.GenerateClientDetailSystemParlayFunction(_ticketHelper, baseCurrency, ticket, ticket.CustId);
                 }
 

@@ -51,7 +51,7 @@ class BetList {
             return url;
     }
 
-    getParlayDetailUrl (transId, refNo, handicap1, handicap2, betcheck, betteam){
+    getChoiceParlayDetailUrl (transId, refNo, handicap1, handicap2, betcheck, betteam){
         var url = Site.resolveClientUrl('api/MixParlayBetList/NewParlayDetail');
         url = QueryString.setParam(url, "transId", transId);
         url = QueryString.setParam(url, "refNo", refNo);
@@ -85,6 +85,17 @@ class BetList {
         }
 
         return choice;
+    }
+
+    getParlayDetailUrl (transId, refNo, betId, custId, betTeam, baseCurrency) {
+        if (Number(transId) === 0) { return; }
+
+        var url = Site.resolveClientUrl('SystemParlayBetList/Detail');
+        url = QueryString.setParam(url, "refno", refNo);
+        url = QueryString.setParam(url, "betteam", betTeam);
+        url = QueryString.setParam(url, "basecurrency", baseCurrency);
+
+        return url;
     }
 }
 

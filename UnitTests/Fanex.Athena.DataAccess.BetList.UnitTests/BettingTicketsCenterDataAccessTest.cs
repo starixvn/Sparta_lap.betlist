@@ -21,7 +21,7 @@
             ObjectDb.ExecuteReader().Returns(Reader);
             Reader.Read().Returns(false);
 
-            var metaModel = new RefNoBetListMetaModel { IsConvert = true };
+            var metaModel = new RefNoBetListMetaModel { IsConvertAll = true };
 
             // Action
             DataAccess.GetBetListByRefno(metaModel);
@@ -47,7 +47,7 @@
             ObjectDb.ExecuteReader().Returns(Reader);
             Reader.Read().Returns(false);
 
-            var metaModel = new RefNoBetListMetaModel { IsConvert = false };
+            var metaModel = new RefNoBetListMetaModel { IsConvertAll = false };
 
             // Action
             DataAccess.GetBetListByRefno(metaModel);

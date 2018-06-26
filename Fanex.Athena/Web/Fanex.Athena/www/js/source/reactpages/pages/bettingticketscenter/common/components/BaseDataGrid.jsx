@@ -14,22 +14,29 @@ export default class BaseDataGrid extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isShowResultPopup : false,
-            resultUrl: null
+            isShowPopup : false,
+            popupUrl: null
         };
         
         window.ViewResult = (...args) => {
             var url = BetList.getResultUrl.apply(BetList, args);
-            this.setState({ isShowResultPopup: true, resultUrl: url});
+            this.setState({ isShowPopup: true, popupUrl: url});
         };
 
+        // expand choice content
         window.showNewCombMP = (...args) => {
             this._showNewParlayDetail.apply(this, args);
+        };
+
+        // show detail popup (in choice column)
+        window.showCombMPDetail = (...args) => {
+            var url = BetList.getParlayDetailUrl.apply(BetList, args);
+            this.setState({ isShowPopup: true, popupUrl: url});
         };
     }
 
     _closeResultPopup = () => {
-        this.setState({ isShowResultPopup: false });
+        this.setState({ isShowPopup: false });
     }
 
     _showNewParlayDetail (transId, transIndex, refNo, handicap1, handicap2, betcheck, betteam) {
@@ -38,7 +45,7 @@ export default class BaseDataGrid extends Component {
         divEvent.classList.add("mx-parlay"); //to make line-through for void-parlay-ticket
         
         if (divEvent.style.display == "none") {
-            let url = BetList.getParlayDetailUrl(transId, refNo, handicap1, handicap2, betcheck, betteam);
+            let url = BetList.getChoiceParlayDetailUrl(transId, refNo, handicap1, handicap2, betcheck, betteam);
 
             this.props.toggleLoader(true);
              axios.get(url)
@@ -103,7 +110,7 @@ export default class BaseDataGrid extends Component {
                     <Cell className="center-align" dangerouslySetInnerHTML={{ __html: item.Live}}></Cell>
                 </Row>
             );
-        }
+    }
 
         return rows;
     }
@@ -120,7 +127,7 @@ export default class BaseDataGrid extends Component {
     render() {
         if (!this.props.gridData || !this.props.gridData.Data) {
             return null;
-        }
+                }
 
         const { Data } = this.props.gridData;
         
@@ -138,13 +145,14 @@ export default class BaseDataGrid extends Component {
                     header={this._buildHeader()}
                     body={this._buildBody()}
                 />
-                <Popup isShow={this.state.isShowResultPopup} 
-                        iframeUrl={this.state.resultUrl}
+                {this.state.isShowPopup &&
+                <Popup isShow={true} 
+                        iframeUrl={this.state.popupUrl}
                         title={LangHelper.getSingleResource("Result")} 
                         width={900} height={600}
                         onClose={this._closeResultPopup}
                         >
-                </Popup>
+                </Popup>}
             </div>
         );
     }

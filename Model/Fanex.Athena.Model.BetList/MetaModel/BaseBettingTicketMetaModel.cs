@@ -31,7 +31,7 @@
             }
         }
 
-        public bool IsConvert { get; set; }
+        public bool IsConvertAll { get; set; }
 
         public string AgentListXml { get; set; }
 
