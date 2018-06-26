@@ -94,7 +94,7 @@ export class FormFilter extends Component {
                             <AutoComplete url={CUSTOMER_SEARCHING_URL} 
                                 onSelect={(value) => this.props.setUsername(value)}
                                 onInput={(value) => this.props.setUsername(value)}
-                                />
+                                htmlAttributes={{placeholder:LangHelper.getSingleResource("All")}} />
                         </div>
                     </div>
 

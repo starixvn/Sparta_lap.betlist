@@ -23,7 +23,8 @@
         PermissionKeys.ReportWinLossByProduct,
         PermissionKeys.ReportCustomerWinLoss,
         PermissionKeys.CustomerInfoCustomerLog,
-        PermissionKeys.CustomerInfoCustomerList)]
+        PermissionKeys.CustomerInfoCustomerList,
+        PermissionKeys.BettingTicketCenter)]
     public class SearchCustomerAPIController : BaseController
     {
         private readonly ICustomerListService _customerListService;

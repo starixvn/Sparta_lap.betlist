@@ -1,4 +1,5 @@
-﻿import LangHelper from '../../../../lib/langHelper'
+﻿import LangHelper from '@jsroot/lib/langHelper'
+import Site from '@jsroot/lib/site'
 
 const HeaderText = {
     Index: "#",
@@ -22,7 +23,9 @@ export default class Service {
     }
 
     static getTitle(dateRange, currencyName, baseCurrency) {
-        const dateRangeText = dateRange ? `, ${dateRange.fromDate} → ${dateRange.toDate}` : '';
+        const dateRangeText = dateRange 
+            ? `, ${Site.convertDateToString(dateRange.fromDate)} → ${Site.convertDateToString(dateRange.toDate)}` 
+            : '';
         const currencyNameText = currencyName ? `, ${LangHelper.getSingleResource("Currency")}: ${currencyName}` : '';
         const baseCurrencyText = `, ${LangHelper.getSingleResource("BaseCurrency")}: ${baseCurrency}`;
 

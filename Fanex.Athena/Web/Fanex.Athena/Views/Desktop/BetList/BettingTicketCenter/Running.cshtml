@@ -28,18 +28,18 @@
 @section globaljscode{
     window.initialState = {
         dateRange: { fromDate: '@Model.FromDate.ToString("MM/dd/yyyy")', toDate: '@Model.ToDate.ToString("MM/dd/yyyy")'},
-        dateConstraint: { minDate: '@Model.MinDate.ToString("MM/dd/yyyy")', maxDate: '@Model.MaxDate.ToString("MM/dd/yyyy")', limitedMonthRange: 12 },
-        productOptions: @Html.Raw(productOptions.ToJson()),
         selectedProduct: '@(selectedProductCode)',
-        userName: '',
-        currencyList: @Html.Raw(currencyList.ToJson()),
-        selectedCurrency: @Html.Raw(currencyList.First().ToJson()),
-        baseCurrencyList: @Html.Raw(baseCurrencyList.ToJson()),
+        userName: '',        
+        selectedCurrency: @Html.Raw(currencyList.First().ToJson()),       
         selectedBaseCurrency: '@(baseCurrencyList.Any() ? baseCurrencyList.First().value : string.Empty)',
         isLoading: false
     }
-    window._lrf = {
-        isAllowedCustomerComm: @Model.IsAllowedCustomerComm.ToJson()
+    window._AppData = {
+        isAllowedCustomerComm: @Model.IsAllowedCustomerComm.ToJson(),
+        productOptions: @Html.Raw(productOptions.ToJson()),
+        currencyList: @Html.Raw(currencyList.ToJson()),
+        baseCurrencyList: @Html.Raw(baseCurrencyList.ToJson()),
+        dateConstraint: { minDate: '@Model.MinDate.ToString("MM/dd/yyyy")', maxDate: '@Model.MaxDate.ToString("MM/dd/yyyy")', limitedMonthRange: 12 }
     };
 }
 <div id="app-container">

@@ -1,6 +1,5 @@
-﻿import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux'
+﻿import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import DataGrid from './Datagrid'
 import FormFilter from './FormFilter'
 import PageLayout from '../../common/components/PageLayout'

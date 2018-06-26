@@ -1,9 +1,1 @@
-﻿export const FETCH_DATA = 'FETCH_DATA'
-export const SET_GRID_DATA = "SET_GRID_DATA"
-
-export const SET_DATE_RANGE = "SET_DATE_RANGE"
-export const GET_DATE_CONSTRAINT = "GET_DATE_CONSTRAINT"
-
-export const SET_USERNAME = "SET_USERNAME"
-
-export const GET_XSRF_TOKEN = "GET_XSRF_TOKEN"
+﻿export const SET_USERNAME = "SET_USERNAME"

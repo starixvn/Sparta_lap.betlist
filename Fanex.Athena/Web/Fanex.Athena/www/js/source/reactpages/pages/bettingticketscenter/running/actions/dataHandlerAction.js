@@ -1,6 +1,6 @@
-import * as types from './types.js'
+import * as types from '@jsroot/actions/types.js'
 import axios from 'axios'
-import Site from '../../../../lib/site'
+import Site from '@jsroot/lib/site'
 
 const fetchData = (params) => {
     const url = Site.resolveClientUrl('api/BettingTicketCenter/GetByRunning');

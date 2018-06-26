@@ -3,15 +3,16 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import Select from 'react-select'
-import MultipleSelect from '../../../../components/multiple-select'
-import { DateRange } from '../../../../components/date-range/index'
-import AutoComplete from '../../../../components/auto-complete'
+import MultipleSelect from '@jsroot/components/multiple-select'
+import { DateRange } from '@jsroot/components/date-range/index'
+import AutoComplete from '@jsroot/components/auto-complete'
 
 import { ActionCreators } from '../actions/index.js'
-import LangHelper from '../../../../lib/langHelper'
-import Site from '../../../../lib/site'
+import LangHelper from '@jsroot/lib/langHelper'
+import Site from '@jsroot/lib/site'
+import AppData from '@jsroot/lib/AppData'
 
-const CUSTOMER_SEARCHING_URL = Site.resolveClientUrl("CustomerAPI/SearchCustomer");
+const CUSTOMER_SEARCHING_URL = Site.resolveClientUrl("SearchCustomerAPI/SearchCustomer");
 
 export class FormFilter extends Component {
     constructor(props) {
@@ -36,7 +37,7 @@ export class FormFilter extends Component {
             FromDate: Site.convertDateToString(fromDate),
             ToDate: Site.convertDateToString(toDate),
             ProductCodeList: this.props.selectedProduct,
-            CustId: 0,
+            CustId: this.props.username,
             CurrencyId: this.props.selectedCurrency.value,
             CurrencyName: this.props.selectedCurrency.label,
             BaseCurrency: this.props.selectedBaseCurrency
@@ -52,7 +53,7 @@ export class FormFilter extends Component {
             this.props.setDateRange(date);
         }
         else {
-            const message = LangHelper.getSingleResource("DateRangeExceedMsg").replace("{0}", RANGE_MONTH_CONSTRAINT);
+            const message = LangHelper.getSingleResource("DateRangeExceedMsg").replace("{0}", AppData.dateConstraint.limitedMonthRange);
             alert(message);
         }
     }
@@ -80,7 +81,8 @@ export class FormFilter extends Component {
     }
 
     _renderDateRange() {
-        const { dateRange, dateConstraint } = this.props;
+        const dateRange = this.props.dateRange;
+        const dateConstraint = AppData.dateConstraint;
 
         return (
             <DateRange startDate={dateRange.fromDate} endDate={dateRange.toDate}
@@ -91,10 +93,11 @@ export class FormFilter extends Component {
     }
 
     _renderProductSelectList() {
-        const { productOptions } = this.props;
+        const productOptions = AppData.productOptions;
+
         return productOptions && productOptions.length ? (
             <MultipleSelect id="ProductList"
-                dataSource={this.props.productOptions}
+                dataSource={productOptions}
                 keyField={"Code"}
                 valueField={"Name"}
                 statusField={"Status"}
@@ -105,20 +108,18 @@ export class FormFilter extends Component {
     }
 
      _renderCurrencySelectList() {
-        const { currencyList, selectedCurrency } = this.props;
-        
         return <Select instanceId="ddlCurrency"
-                value={selectedCurrency.value}
-                options={currencyList}
+                value={this.props.selectedCurrency.value}
+                options={AppData.currencyList}
                 onChange={(item) => this.props.setSelectedCurrency(item)} />
     }
 
     _renderBaseCurrencySelectList() {
-        const { baseCurrencyList, selectedBaseCurrency } = this.props;
+        const baseCurrencyList = AppData.baseCurrencyList;
 
         return baseCurrencyList && baseCurrencyList.length && (
             <Select instanceId="ddlBased"
-                value={selectedBaseCurrency}
+                value={this.props.selectedBaseCurrency}
                 options={baseCurrencyList}
                 onChange={(item) => this.props.setSelectedBaseCurrency(item.value)} />
         );
@@ -146,8 +147,9 @@ export class FormFilter extends Component {
                     <div className="col-12 col-md-3 col-sm-3 col-lg-3 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Username")}</label>
-                            <input className="input-text" id="Username" name="Username" type="text" value={this.props.username} placeholder={LangHelper.getSingleResource("Username")} 
-                            onChange={(event) => this.props.setUsername(event.target.value)} />
+                            <AutoComplete url={CUSTOMER_SEARCHING_URL} 
+                                onSelect={(value) => this.props.setUsername(value)}
+                                htmlAttributes={{placeholder:LangHelper.getSingleResource("All")}} />
                         </div>
                     </div>
 
@@ -187,8 +189,8 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    const { gridData, ...rest } = state;
-    return Object.assign({}, rest);
+    const { dateRange, selectedProduct, selectedCurrency, selectedBaseCurrency, username } = state;
+    return Object.assign({}, { dateRange, selectedProduct, selectedCurrency, selectedBaseCurrency, username });
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormFilter);
