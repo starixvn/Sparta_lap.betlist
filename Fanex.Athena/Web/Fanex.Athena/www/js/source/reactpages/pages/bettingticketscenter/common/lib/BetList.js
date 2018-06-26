@@ -50,6 +50,42 @@ class BetList {
 
             return url;
     }
+
+    getParlayDetailUrl (transId, refNo, handicap1, handicap2, betcheck, betteam){
+        var url = Site.resolveClientUrl('api/MixParlayBetList/NewParlayDetail');
+        url = QueryString.setParam(url, "transId", transId);
+        url = QueryString.setParam(url, "refNo", refNo);
+        url = QueryString.setParam(url, "handicap1", handicap1);
+        url = QueryString.setParam(url, "handicap2", handicap2);
+        url = QueryString.setParam(url, "betcheck", betcheck);
+        url = QueryString.setParam(url, "betteam", betteam);
+
+        return url;
+    }
+
+    buildChoiceParlayDetail(response){
+        let choice = "";
+        let length = response.Data === null ? 0 : response.Data.length;
+        if (length > 0) {
+            for(let i = 0; i < response.Texts.length; i++){
+                choice += response.Texts[i];
+            }
+
+            choice += "<div class='line'></div>";
+
+            for(let i = 0;i < response.Data.length; i++){
+                let item = response.Data[i];
+                if (i === length - 1) {
+                    choice += item.Choice;
+                }
+                else {
+                    choice += item.Choice + "<div class='line'></div>";
+                }
+            }
+        }
+
+        return choice;
+    }
 }
 
 export default new BetList();
