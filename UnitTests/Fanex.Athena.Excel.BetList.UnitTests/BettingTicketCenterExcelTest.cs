@@ -42,7 +42,7 @@
             _builder.EvenCellStyle.Returns(_evenStyle);
 
             _builder.CreateCellStyle().Returns(_oddStyle, _evenStyle, _oddStyle, _evenStyle);
-            _builder.When(x => x.BuildWorksheet(Arg.Any<string>(), Arg.Any<short>(), 13, false)).DoNotCallBase();
+            _builder.When(x => x.BuildWorksheet(Arg.Any<string>(), Arg.Any<short>())).DoNotCallBase();
         }
 
         [TearDown]
