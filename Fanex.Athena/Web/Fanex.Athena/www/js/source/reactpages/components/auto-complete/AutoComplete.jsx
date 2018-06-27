@@ -114,19 +114,18 @@ export default class AutoComplete extends Component {
             return;
         }
 
+        const { onInput } = this.props;
+        onInput && onInput(value);
+
         const cachedData = this.cacheData[value];
         if (cachedData) {
             this.setState({ suggestions: cachedData });
             return;
         }
 
-        const { url, onInput } = this.props;
+        const { url } = this.props;
         if (url) {
             this._getDataByUrl(url, value);
-        }
-        
-        if (onInput) {
-            onInput(value);
         }
     }
 
