@@ -11,7 +11,7 @@
 {
     Customer Bet List @Model.FromDate.ToShortDateString()
     <span class="header-title-arrow"> → </span>
-    @Model.ToDate.ToShortDateString() - @Model.ExternalId@(Model.IsFakeLicensee ? string.Empty : "(" + Model.SystemId + ")") -
+    @Model.ToDate.ToShortDateString() - @Model.ExternalId@(Model.IsFakeLicensee ? string.Empty : " (" + Model.SystemId + ")") -
     <span class="base-currency">@RazorHelper.ViewBaseCurrency(Model.CurrencyName, Model.BaseCurrency)</span>
 }
 @section BackButton
