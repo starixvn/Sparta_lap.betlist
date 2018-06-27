@@ -317,7 +317,7 @@
 
                 _builder.Received(1).MergeCell(
                     Arg.Is<CellRangeAddress>(x => x.FirstRow == lastRow && x.LastRow == lastRow
-                    && x.FirstColumn == 0 && x.LastColumn == 6),
+                    && x.FirstColumn == 0 && x.LastColumn == 7),
                     Arg.Any<ICellStyle>());
             });
         }

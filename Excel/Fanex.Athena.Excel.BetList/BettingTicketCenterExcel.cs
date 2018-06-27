@@ -21,7 +21,7 @@
     {
         private const int NumberOfColumns = 12;
 
-        private const int ColumnTotalStart = 6;
+        private const int ColumnTotalStart = 7;
 
         private readonly ITicketHelper _ticketHelper;
 
