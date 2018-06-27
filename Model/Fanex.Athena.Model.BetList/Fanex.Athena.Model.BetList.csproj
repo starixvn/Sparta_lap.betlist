@@ -167,7 +167,7 @@
     <Compile Include="ViewModel\ColossusBetDetailViewModel.cs" />
     <Compile Include="ViewModel\ExchangeBetListViewModel.cs" />
     <Compile Include="ViewModel\LastBetsMonitoringViewModel.cs" />
-    <Compile Include="ViewModel\RunningBetListViewModel.cs" />
+    <Compile Include="ViewModel\BettingTicketCenterViewModel.cs" />
     <Compile Include="ViewModel\SystemParlayDetailViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -3179,4 +3179,12 @@
     <value>Betting Ticket Center</value>
     <comment>80941</comment>
   </data>
+  <data name="Reject" xml:space="preserve">
+    <value>Reject</value>
+    <comment>80941</comment>
+  </data>
+  <data name="Void" xml:space="preserve">
+    <value>Void</value>
+    <comment>80941</comment>
+  </data>
 </root>

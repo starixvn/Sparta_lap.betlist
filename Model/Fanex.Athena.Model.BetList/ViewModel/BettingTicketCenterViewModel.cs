@@ -4,9 +4,10 @@
     using System.Collections.Generic;
     using Core.MetaModel.Product;
 
-    public class RunningBetListViewModel
+    [Serializable]
+    public class BettingTicketCenterViewModel
     {
-        public RunningBetListViewModel()
+        public BettingTicketCenterViewModel()
         {
             var today = DateTime.Today;
             FromDate = today;
@@ -27,5 +28,11 @@
         public IEnumerable<ProductOption> ProductOptionList { get; set; }
 
         public IDictionary<int, string> CurrencyList { get; set; }
+
+        public IDictionary<int, string> StatusList { get; set; }
+
+        public IDictionary<int, string> PlatformList { get; set; }
+
+        public IDictionary<int, string> LiveStatusList { get; set; }
     }
 }

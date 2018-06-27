@@ -4,7 +4,7 @@
     Layout = "~/Views/Desktop/Shared/_ReactPageLayout.cshtml";
 }
 @using Fanex.Athena.Model.Core.DataDomain
-@model Fanex.Athena.Model.BetList.ViewModel.RunningBetListViewModel
+@model Fanex.Athena.Model.BetList.ViewModel.BettingTicketCenterViewModel
 @{
     var productOptions = Model.ProductOptionList;
     var selectedProductCode = string.Join(",", productOptions.Where(x => x.Status).Select(x => x.Code).ToArray());
@@ -33,7 +33,7 @@
         selectedCurrency: @Html.Raw(currencyList.First().ToJson()),       
         selectedBaseCurrency: '@(baseCurrencyList.Any() ? baseCurrencyList.First().value : string.Empty)',
         isLoading: false
-    }
+    };
     window._AppData = {
         isAllowedCustomerComm: @Model.IsAllowedCustomerComm.ToJson(),
         productOptions: @Html.Raw(productOptions.ToJson()),

@@ -3,9 +3,11 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
+    using Constant.DataDomain;
     using Model.BetList.ViewModel;
     using Model.Core.DataDomain;
     using Model.Core.MetaModel.Product;
+    using Resources;
     using Service.Core.Common;
     using Service.Core.Common.Interfaces;
     using Web.ActionFilter;
@@ -32,7 +34,16 @@
 
         public ActionResult SingleCustomer()
         {
-            return View("~/Views/BetList/BettingTicketCenter/Main.cshtml");
+            var viewModel = new BettingTicketCenterViewModel
+            {
+                LiveStatusList = GetLiveStatusList(),
+                StatusList = GetStatusList(),
+                PlatformList = GetPlatformList(),
+                ProductOptionList = GetProductOptionList(),
+                MinDate = AppSettings.HistoryDate,
+                IsAllowedCustomerComm = SessionService.LicenseeSession.IsAllowedCustomerComm
+            };
+            return View("~/Views/BetList/BettingTicketCenter/SingleCustomer.cshtml", viewModel);
         }
 
         public ActionResult RefNo()
@@ -44,7 +55,7 @@
 
         public ActionResult Running()
         {
-            var viewModel = new RunningBetListViewModel
+            var viewModel = new BettingTicketCenterViewModel
             {
                 CurrencyList = GetCurrencyList(),
                 ProductOptionList = GetProductOptionList(),
@@ -53,6 +64,44 @@
             };
 
             return View("~/Views/BetList/BettingTicketCenter/Running.cshtml", viewModel);
+        }
+
+        private static IDictionary<int, string> GetStatusList()
+        {
+            return new Dictionary<int, string>
+            {
+                { StatusTypes.Won, ViewResources.Won },
+                { StatusTypes.Lose, ViewResources.Lose },
+                { StatusTypes.Draw, ViewResources.Draw },
+                { StatusTypes.Void, ViewResources.Void },
+                { StatusTypes.Reject, ViewResources.Reject },
+                { StatusTypes.Refund, ViewResources.Refund },
+            };
+        }
+
+        private static IDictionary<int, string> GetPlatformList()
+        {
+            return new Dictionary<int, string>
+            {
+                { 0, ViewResources.All },
+                { PlatformType.Asia, ViewResources.Asia },
+                { PlatformType.China, ViewResources.China },
+                { PlatformType.Euro, ViewResources.Euro },
+                { PlatformType.Wap, ViewResources.Wap },
+                { PlatformType.SmartSite, ViewResources.SmartSite },
+                { PlatformType.Tablet, ViewResources.Tablet },
+                { PlatformType.NewAsia, ViewResources.NewAsia },
+            };
+        }
+
+        private static IDictionary<int, string> GetLiveStatusList()
+        {
+            return new Dictionary<int, string>
+            {
+                { LiveStatusTypes.All, ViewResources.All },
+                { LiveStatusTypes.Live, ViewResources.Live },
+                { LiveStatusTypes.NonLive, ViewResources.NoneLive }
+            };
         }
 
         private IDictionary<int, string> GetCurrencyList()

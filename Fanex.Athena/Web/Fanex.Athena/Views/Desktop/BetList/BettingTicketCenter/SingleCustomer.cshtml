@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "LRF - " + ViewResources.Report +
+    " - " + "Betting Tickets Center";
+    Layout = "~/Views/Desktop/Shared/_ReactPageLayout.cshtml";
+}
+@using Fanex.Athena.Model.Core.DataDomain
+@model Fanex.Athena.Model.BetList.ViewModel.BettingTicketCenterViewModel
+@{
+    var productOptions = Model.ProductOptionList;
+    var selectedProductCode = string.Join(",", productOptions.Where(x => x.Status).Select(x => x.Code).ToArray());
+    
+    var baseCurrencyList = SystemConstants.NewBaseCurrencyList.Select(c => new { value = c, label = c }).ToList();
+}
+@section pagecss {
+    <link href="@Url.ContentLinkByEnv("/www/css/build/reactpages/bettingticketscenter/index.css")" rel="stylesheet" type="text/css" />
+}
+@section pagejs {
+    <script src="@Url.ContentLinkByEnv("/www/js/build/reactpages/bettingticketscenter/singlecustomer.chunk.js")"></script>
+}
+
+@section globaljscode{
+    window.initialState = {
+        dateRange: { fromDate: '@Model.FromDate.ToString("MM/dd/yyyy")', toDate: '@Model.ToDate.ToString("MM/dd/yyyy")'},
+        selectedProduct: '@(selectedProductCode)',
+        username: '',        
+        selectedBaseCurrency: '@(baseCurrencyList.Any() ? baseCurrencyList.First().value : string.Empty)',
+        isLoading: false
+    };
+    window._AppData = {
+        liveStatusList: @Html.Raw(Model.LiveStatusList.Select(x => new { value = x.Key, label = x.Value }).ToJson()),
+        platformList: @Html.Raw(Model.PlatformList.Select(x => new { value = x.Key, label = x.Value }).ToJson()),
+        statusList: @Html.Raw(Model.StatusList.Select(x => new { Id = x.Key, Value = x.Value }).ToJson()),
+        isAllowedCustomerComm: @Model.IsAllowedCustomerComm.ToJson(),
+        productOptions: @Html.Raw(productOptions.ToJson()),
+        baseCurrencyList: @Html.Raw(baseCurrencyList.ToJson()),
+        dateConstraint: { minDate: '@Model.MinDate.ToString("MM/dd/yyyy")', maxDate: '@Model.MaxDate.ToString("MM/dd/yyyy")', limitedMonthRange: 12 }
+     };
+}
+<div id="app-container">
+</div>

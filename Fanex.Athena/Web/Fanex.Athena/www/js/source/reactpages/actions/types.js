@@ -28,3 +28,17 @@ export const GET_DATE_CONSTRAINT = 'GET_DATE_CONSTRAINT'
 
 /* Convert all figures to base currency */
 export const CHANGE_IS_CONVERT_ALL = "CHANGE_IS_CONVERT_ALL"
+
+/* Status */
+export const SET_SELECTED_STATUS = "SET_SELECTED_STATUS";
+export const GET_STATUS = "GET_STATUS";
+
+/* Platform  */
+export const SET_SELECTED_PLATFORM = "SET_SELECTED_PLATFORM";
+export const GET_PLATFORM = "GET_PLATFORM";
+
+/* Live Status  */
+export const SET_SELECTED_LIVESTATUS = "SET_SELECTED_LIVESTATUS";
+export const GET_LIVESTATUS = "GET_LIVESTATUS";
+
+export const SET_USERNAME = "SET_USERNAME"
