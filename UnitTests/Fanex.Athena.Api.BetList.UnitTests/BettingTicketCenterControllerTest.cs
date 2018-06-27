@@ -79,7 +79,7 @@
         [TestCase(0)]
         [TestCase(-1)]
         [TestCase(-80)]
-        public void GetByRefno_MetaModelIsInvalid_ReturnNull(int refNo)
+        public void GetByRefno_MetaModelIsInvalid_ReturnEmpty(int refNo)
         {
             // Arrange
             var metaModel = new RefNoBetListMetaModel
@@ -91,11 +91,11 @@
             var result = _controller.GetByRefno(metaModel);
 
             // Assert
-            Assert.That(result, Is.Null);
+            Assert.That(result.Data, Is.Empty);
         }
 
         [Test]
-        public void GetByRefno_NoPermission_ReturnNull()
+        public void GetByRefno_NoPermission_ReturnEmpty()
         {
             // Arrange
             SessionService.LicenseeSession.Returns(new LicenseeSession { LicenseeId = FakeHelper.Create<int>() });
@@ -110,7 +110,7 @@
             var result = _controller.GetByRefno(metaModel);
 
             // Assert
-            Assert.That(result, Is.Null);
+            Assert.That(result.Data, Is.Empty);
         }
 
         [Test]
@@ -138,7 +138,7 @@
         }
 
         [Test]
-        public void GetByRunning_DateRangeIsInvalid_ReturnNull()
+        public void GetByRunning_DateRangeIsInvalid_ReturnEmpty()
         {
             // Arrange
             var metaModel = new BaseBettingTicketMetaModel
@@ -151,13 +151,13 @@
             var result = _controller.GetByRunning(metaModel);
 
             // Assert
-            Assert.That(result, Is.Null);
+            Assert.That(result.Data, Is.Empty);
         }
 
         [TestCase(null)]
         [TestCase("")]
         [TestCase("  ")]
-        public void GetByRunning_NoProduct_ReturnNull(string productCode)
+        public void GetByRunning_NoProduct_ReturnEmpty(string productCode)
         {
             // Arrange
             var metaModel = new BaseBettingTicketMetaModel
@@ -171,11 +171,11 @@
             var result = _controller.GetByRunning(metaModel);
 
             // Assert
-            Assert.That(result, Is.Null);
+            Assert.That(result.Data, Is.Empty);
         }
 
         [Test]
-        public void GetByRunning_InvalidCurrency_ReturnNull()
+        public void GetByRunning_InvalidCurrency_ReturnEmpty()
         {
             // Arrange
             SessionService.UserSession.Returns(new UserSession
@@ -198,11 +198,11 @@
             var result = _controller.GetByRunning(metaModel);
 
             // Assert
-            Assert.That(result, Is.Null);
+            Assert.That(result.Data, Is.Empty);
         }
 
         [Test]
-        public void GetByRunning_NoPermission_ReturnNull()
+        public void GetByRunning_NoPermission_ReturnEmpty()
         {
             // Arrange
             SessionService.LicenseeSession.Returns(new LicenseeSession { LicenseeId = FakeHelper.Create<int>() });
@@ -227,7 +227,7 @@
             var result = _controller.GetByRunning(metaModel);
 
             // Assert
-            Assert.That(result, Is.Null);
+            Assert.That(result.Data, Is.Empty);
         }
 
         [Test]
