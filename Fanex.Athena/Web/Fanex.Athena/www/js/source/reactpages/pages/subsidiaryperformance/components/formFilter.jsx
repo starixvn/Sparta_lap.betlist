@@ -7,7 +7,8 @@ import MultipleSelect from '../../../components/multiple-select'
 import { DateRange } from '../../../components/date-range/index'
 import LangHelper from '../../../lib/langHelper'
 import ReportExcel from '../lib/reportExcel'
-import Site from '../../../lib/site'
+import Site from '@jsroot/lib/site'
+import AppData from '@jsroot/lib/AppData'
 import { Service, Api } from '../lib/service'
 import { ReportLevel } from '../../../constants/report'
 import Report from '../../../lib/report'
@@ -121,30 +122,30 @@ export class FormFilter extends Component {
     }
 
     _renderProductSelectList() {
-        const { productOptions } = this.props;
+        const productOptions = AppData.productOptions;
 
-        return productOptions && productOptions.length ? (
+        return productOptions && productOptions.length && (
             <MultipleSelect
-                dataSource={this.props.productOptions}
+                dataSource={productOptions}
                 keyField={"Code"}
                 valueField={"Name"}
                 statusField={"Status"}
                 optionAllLabel={LangHelper.getSingleResource("All")}
                 noneSelectedLabel={LangHelper.getSingleResource("SelectOptions")}
                 onChange={this.productChangeHandler} />
-        ) : null;
+        );
     }
 
     _renderBaseCurrencySelectList() {
-        const { baseCurrencyList, selectedBaseCurrency } = this.props;
-
-        return baseCurrencyList && baseCurrencyList.length ? (
+        const { selectedBaseCurrency } = this.props;
+        const baseCurrencyList = AppData.baseCurrencyList;
+        return baseCurrencyList && baseCurrencyList.length && (
             <Select id="ddlBased"
                 name="form-field-name"
                 value={selectedBaseCurrency}
                 options={baseCurrencyList}
                 onChange={(item) => this.props.setSelectedBaseCurrency(item.value)} />
-        ) : null;
+        );
     }
 
     _renderDateRange() {

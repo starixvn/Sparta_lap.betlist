@@ -11,6 +11,7 @@ import Site from '@jsroot/lib/site'
 import service from '../lib/service'
 import { SettingConst } from '../constants/settingConst'
 import UserGuide from '@jsroot/components/UserGuide'
+import AppData from '@jsroot/lib/AppData'
 
 const RANGE_MONTH_CONSTRAINT = 3;
 
@@ -128,10 +129,10 @@ export class FormFilter extends Component {
     }
 
     _renderProductSelectList() {
-        const { productOptions } = this.props;
+        const productOptions = AppData.productOptions;
         return productOptions && productOptions.length ? (
             <MultipleSelect id="ProductList"
-                dataSource={this.props.productOptions}
+                dataSource={productOptions}
                 keyField={"Code"}
                 valueField={"Name"}
                 statusField={"Status"}
@@ -142,8 +143,8 @@ export class FormFilter extends Component {
     }
 
     _renderCurrencySelectList() {
-        const { currencyList, selectedCurrency } = this.props;
-        
+        const { selectedCurrency } = this.props;
+        const currencyList = AppData.currencyList;
         return <Select instanceId="ddlCurrency"
                 value={selectedCurrency.value}
                 options={currencyList}
@@ -151,8 +152,8 @@ export class FormFilter extends Component {
     }
 
     _renderBaseCurrencySelectList() {
-        const { baseCurrencyList, selectedBaseCurrency } = this.props;
-
+        const { selectedBaseCurrency } = this.props;
+        const baseCurrencyList = AppData.baseCurrencyList;
         return baseCurrencyList && baseCurrencyList.length ? (
             <Select instanceId="ddlBased"
                 value={selectedBaseCurrency}

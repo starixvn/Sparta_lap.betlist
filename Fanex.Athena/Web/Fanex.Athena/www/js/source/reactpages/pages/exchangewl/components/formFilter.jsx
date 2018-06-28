@@ -5,7 +5,8 @@ import { bindActionCreators } from 'redux'
 import Select from 'react-select'
 import { DateRange } from '../../../components/date-range/index'
 import LangHelper from '../../../lib/langHelper'
-import Site from '../../../lib/site'
+import Site from '@jsroot/lib/site'
+import AppData from '@jsroot/lib/AppData'
 import { ReportLevel } from '../../../constants/report'
 import { BaseCurrency } from '../../../constants/currency'
 import ReportExcel from '../lib/reportExcel'
@@ -135,8 +136,8 @@ export class FormFilter extends Component {
     }
 
     _renderDateRange() {
-        const { dateRange, dateConstraint } = this.props;
-
+        const { dateRange } = this.props;
+        const dateConstraint = AppData.dateConstraint;
         return (
             <DateRange startDate={dateRange.fromDate} endDate={dateRange.toDate}
                 minDate={dateConstraint.minDate} maxDate={dateConstraint.maxDate}
@@ -146,8 +147,8 @@ export class FormFilter extends Component {
     }
 
     _renderCurrencySelectList() {
-        const { currencyList, selectedCurrency } = this.props;
-        
+        const { selectedCurrency } = this.props;
+        const currencyList = AppData.currencyList;
         return <Select instanceId='ddlCurrency'
             name='form-field-name'
             value={selectedCurrency}

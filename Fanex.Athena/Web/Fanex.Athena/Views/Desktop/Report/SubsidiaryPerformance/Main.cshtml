@@ -28,9 +28,7 @@
 
 @section globaljscode{
     window.initialState = {
-        productOptions: @Html.Raw(productOptions.ToJson()),
         selectedProduct: '@(selectedProductCode)',
-        baseCurrencyList: @Html.Raw(baseCurrencyList.ToJson()),
         selectedBaseCurrency: '@(baseCurrencyList.Any() ? baseCurrencyList.First().value : string.Empty)',
         subsidiaryList: @Html.Raw(subsidiaryList.ToJson()),
         selectedSubsidiary: '@(selectedSubsidiary)',
@@ -40,7 +38,11 @@
         dateConstraint: {minDate: '@minDate.ToString("MM/dd/yyyy")', maxDate: '@maxDate.ToString("MM/dd/yyyy")'},
         includeDrawData: true,
         isExcludeTest: true
-    }
+    };
+    window._AppData = {
+        productOptions: @Html.Raw(productOptions.ToJson()),
+        baseCurrencyList: @Html.Raw(baseCurrencyList.ToJson())
+    };
 }
 <div id="app-container">
 
