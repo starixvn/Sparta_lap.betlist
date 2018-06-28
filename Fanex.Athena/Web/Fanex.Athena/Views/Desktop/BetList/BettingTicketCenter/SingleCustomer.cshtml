@@ -4,11 +4,12 @@
     Layout = "~/Views/Desktop/Shared/_ReactPageLayout.cshtml";
 }
 @using Fanex.Athena.Model.Core.DataDomain
+@using Fanex.Athena.Constant.DataDomain
 @model Fanex.Athena.Model.BetList.ViewModel.BettingTicketCenterViewModel
 @{
     var productOptions = Model.ProductOptionList;
     var selectedProductCode = string.Join(",", productOptions.Where(x => x.Status).Select(x => x.Code).ToArray());
-    
+    var selectedStatus = string.Join(",", Model.StatusList.Select(x => x.Key).ToArray());
     var baseCurrencyList = SystemConstants.NewBaseCurrencyList.Select(c => new { value = c, label = c }).ToList();
 }
 @section pagecss {
@@ -24,7 +25,10 @@
         selectedProduct: '@(selectedProductCode)',
         username: '',        
         selectedBaseCurrency: '@(baseCurrencyList.Any() ? baseCurrencyList.First().value : string.Empty)',
-        isLoading: false
+        isLoading: false,
+        selectedStatus: '@(selectedStatus)',
+        selectedPlatform: 0,
+        selectedLiveStatus: @LiveStatusTypes.All
     };
     window._AppData = {
         liveStatusList: @Html.Raw(Model.LiveStatusList.Select(x => new { value = x.Key, label = x.Value }).ToJson()),

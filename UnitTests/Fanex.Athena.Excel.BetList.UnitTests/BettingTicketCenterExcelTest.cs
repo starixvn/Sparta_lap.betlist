@@ -495,9 +495,9 @@
                 && x.FillBackgroundColor == _oddStyle.FillBackgroundColor));
         }
 
-        [TestCase(BetType.MixParlay, LiveStatus.Live, false)]
-        [TestCase(BetType.MixParlay, LiveStatus.Live, true)]
-        [TestCase(BetType.Handicap, LiveStatus.MixLiveAndNone, true)]
+        [TestCase(BetType.MixParlay, LiveStatusTypes.Live, false)]
+        [TestCase(BetType.MixParlay, LiveStatusTypes.Live, true)]
+        [TestCase(BetType.Handicap, LiveStatusTypes.All, true)]
         public void Export_AddLiveCell_BuildLiveCell(BetType bettype, int liveHomeScore, bool isLive)
         {
             // Arrange
@@ -533,7 +533,7 @@
 
         [TestCase(BetType.MixParlay, 0, false)]
         [TestCase(BetType.MixParlay, 0, true)]
-        [TestCase(BetType.Handicap, LiveStatus.MixLiveAndNone, false)]
+        [TestCase(BetType.Handicap, LiveStatusTypes.All, false)]
         public void Export_AddLiveCell_BuildNonLiveCell(BetType bettype, int liveHomeScore, bool isLive)
         {
             // Arrange
@@ -575,7 +575,7 @@
             {
                 BetTypeId = (int)BetType.MixParlay,
                 Status = BetStatus.Won,
-                LiveHomeScore = LiveStatus.MixLiveAndNone
+                LiveHomeScore = LiveStatusTypes.All
             };
             tickets.MainTicketList.Add(ticket);
             var excelModel = new BettingTicketCenterExcelModel

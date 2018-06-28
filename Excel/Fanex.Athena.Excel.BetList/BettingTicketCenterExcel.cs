@@ -266,17 +266,17 @@
         {
             var liveStatus = ticket.BetTypeId == (int)BetType.MixParlay
                 ? ticket.LiveHomeScore
-                : (ticket.IsLive ? LiveStatus.Live : 0);
+                : (ticket.IsLive ? LiveStatusTypes.Live : 0);
 
             switch (liveStatus)
             {
-                case LiveStatus.Live:
+                case LiveStatusTypes.Live:
                     var rtfLive = new HSSFRichTextString(ViewResources.Live);
                     rtfLive.ApplyFont(_liveFont);
                     BuilDataAlignedCenterCell(builder, rtfLive);
                     return;
 
-                case LiveStatus.MixLiveAndNone:
+                case LiveStatusTypes.All:
                     var rtfMixLive = new HSSFRichTextString(ViewResources.MixLiveAndNoneLive);
                     rtfMixLive.ApplyFont(_mixLiveFont);
                     BuilDataAlignedCenterCell(builder, rtfMixLive);

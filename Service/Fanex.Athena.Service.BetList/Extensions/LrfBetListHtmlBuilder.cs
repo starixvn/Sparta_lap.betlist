@@ -124,10 +124,10 @@ namespace Fanex.Athena.Service.BetList.Extensions
             {
                 switch (ticket.LiveHomeScore)
                 {
-                    case LiveStatus.Live:
+                    case LiveStatusTypes.Live:
                         return string.Format(PatternStatusBetlist, "#cc0033", ViewResources.Live);
 
-                    case LiveStatus.MixLiveAndNone:
+                    case LiveStatusTypes.All:
                         return string.Format(PatternStatusBetlist, "#0033ff", ViewResources.MixLiveAndNoneLive);
 
                     default:
