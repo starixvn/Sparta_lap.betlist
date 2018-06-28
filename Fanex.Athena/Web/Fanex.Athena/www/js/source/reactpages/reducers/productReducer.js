@@ -6,9 +6,3 @@ export const selectedProduct = createReducer({}, {
         return action.data;
     }
 });
-
-export const productOptions = createReducer({}, {
-    [types.SET_PRODUCT_OPTIONS](state, action) {
-        return action.data;
-    }
-});

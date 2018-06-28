@@ -6,9 +6,3 @@ export const selectedBaseCurrency = createReducer({}, {
         return action.data
     }
 });
-
-export const baseCurrencyList = createReducer({}, {
-    [types.GET_BASECURRENCY](state, action) {
-        return action.data
-    }
-});

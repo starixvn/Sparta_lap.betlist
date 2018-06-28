@@ -6,9 +6,3 @@ export const selectedPlatform = createReducer({}, {
         return action.data
     }
 });
-
-export const platformList = createReducer({}, {
-    [types.GET_PLATFORM](state, action) {
-        return action.data
-    }
-});

@@ -6,9 +6,3 @@ export const dateRange = createReducer({}, {
         return action.data;
     }
 })
-
-export const dateConstraint = createReducer({}, {
-    [types.GET_DATE_CONSTRAINT](state, action) {
-        return action.data;
-    }
-})

@@ -6,9 +6,3 @@ export const selectedStatus = createReducer({}, {
         return action.data
     }
 });
-
-export const statusList = createReducer({}, {
-    [types.GET_STATUS](state, action) {
-        return action.data
-    }
-});

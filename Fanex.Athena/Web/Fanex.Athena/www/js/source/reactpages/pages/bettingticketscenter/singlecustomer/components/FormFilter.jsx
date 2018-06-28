@@ -46,10 +46,6 @@ export class FormFilter extends Component {
         }
     }
 
-    productChangeHandler = (currentItem, selectedItemsKey) => {
-        this.props.setSelectedProduct(selectedItemsKey)
-    }
-
     applyDateRangeHandler = (date, isValidMonthRange = true) => {
         if (isValidMonthRange) {
             this.props.setDateRange(date);
@@ -99,7 +95,7 @@ export class FormFilter extends Component {
                 statusField={"Status"}
                 optionAllLabel={LangHelper.getSingleResource("All")}
                 noneSelectedLabel={LangHelper.getSingleResource("SelectOptions")}
-                onChange={this.productChangeHandler} />
+                onChange={(currentItem, selectedItemsKey) => this.props.setSelectedProduct(selectedItemsKey)} />
         );
     }
 
@@ -125,7 +121,7 @@ export class FormFilter extends Component {
                 statusField={"Status"}
                 optionAllLabel={LangHelper.getSingleResource("All")}
                 noneSelectedLabel={LangHelper.getSingleResource("SelectOptions")}
-                 />);
+                onChange={(currentItem, selectedItemsKey) => this.props.setSelectedStatus(selectedItemsKey)} />);
     }
 
     _renderPlatformSelectList() {
@@ -133,9 +129,9 @@ export class FormFilter extends Component {
 
         return platformList && platformList.length && (
             <Select instanceId="PlatformList"
-                value={this.props.selectedBaseCurrency}
+                value={this.props.selectedPlatform}
                 options={platformList}
-                onChange={(item) => this.props.setSelectedBaseCurrency(item.value)} />
+                onChange={(item) => this.props.setSelectedPlatform(item.value)} />
         );
     }
 
@@ -144,9 +140,9 @@ export class FormFilter extends Component {
 
           return liveStatusList && liveStatusList.length && (
             <Select instanceId="LiveStatusList"
-                value={this.props.selectedBaseCurrency}
+                value={this.props.selectedLiveStatus}
       options={liveStatusList}
-        onChange={(item) => this.props.setSelectedBaseCurrency(item.value)} />
+        onChange={(item) => this.props.setSelectedLiveStatus(item.value)} />
         );
       }
 
@@ -239,8 +235,8 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    const { dateRange, selectedProduct, selectedCurrency, selectedBaseCurrency, username } = state;
-    return Object.assign({}, { dateRange, selectedProduct, selectedCurrency, selectedBaseCurrency, username });
+    const { dateRange, selectedProduct, selectedCurrency, selectedBaseCurrency, username, selectedStatus, selectedPlatform, selectedLiveStatus } = state;
+    return Object.assign({}, { dateRange, selectedProduct, selectedCurrency, selectedBaseCurrency, username, selectedStatus, selectedPlatform, selectedLiveStatus });
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormFilter);

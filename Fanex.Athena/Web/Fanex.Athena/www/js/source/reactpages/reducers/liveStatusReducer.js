@@ -6,9 +6,3 @@ export const selectedLiveStatus = createReducer({}, {
         return action.data
     }
 });
-
-export const liveStatusList = createReducer({}, {
-    [types.GET_LIVESTATUS](state, action) {
-        return action.data
-    }
-});

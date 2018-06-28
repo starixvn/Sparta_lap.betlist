@@ -3,7 +3,6 @@ export const SET_GRID_DATA = "SET_GRID_DATA"
 
 /* Product */
 export const SET_SELECTED_PRODUCT = "SET_SELECTED_PRODUCT";
-export const SET_PRODUCT_OPTIONS = "SET_PRODUCT_OPTIONS";
 
 /* Base Currency */
 export const SET_SELECTED_BASECURRENCY = "SET_SELECTED_BASECURRENCY";
@@ -31,14 +30,11 @@ export const CHANGE_IS_CONVERT_ALL = "CHANGE_IS_CONVERT_ALL"
 
 /* Status */
 export const SET_SELECTED_STATUS = "SET_SELECTED_STATUS";
-export const GET_STATUS = "GET_STATUS";
 
 /* Platform  */
 export const SET_SELECTED_PLATFORM = "SET_SELECTED_PLATFORM";
-export const GET_PLATFORM = "GET_PLATFORM";
 
 /* Live Status  */
 export const SET_SELECTED_LIVESTATUS = "SET_SELECTED_LIVESTATUS";
-export const GET_LIVESTATUS = "GET_LIVESTATUS";
 
 export const SET_USERNAME = "SET_USERNAME"
