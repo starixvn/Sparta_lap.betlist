@@ -14,9 +14,9 @@ export class DataGrid extends BaseDataGrid {
 
     componentWillReceiveProps(nextProps) {
         if (this.props.gridData !== nextProps.gridData) {
-            const { dateRange, selectedCurrency, selectedBaseCurrency } = nextProps;
+            const { dateRange, selectedCurrency, selectedBaseCurrency, isConvertAll } = nextProps;
               this.selectedBaseCurrency = selectedBaseCurrency;
-              this.reportTitle = Service.getTitle(dateRange, selectedCurrency.label, selectedBaseCurrency);;
+              this.reportTitle = Service.getTitle(dateRange, null, isConvertAll ? selectedBaseCurrency : null);
             this.props.toggleLoader(false);
         }
     }
@@ -26,8 +26,8 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
   }
 function mapStateToProps(state) {
-    const { gridData, selectedBaseCurrency, isLoading, selectedCurrency, dateRange } = state;
-    return Object.assign({}, { gridData, selectedBaseCurrency, isLoading, selectedCurrency, dateRange });
+    const { gridData, selectedBaseCurrency, isLoading, selectedCurrency, dateRange,isConvertAll } = state;
+    return Object.assign({}, { gridData, selectedBaseCurrency, isLoading, selectedCurrency, dateRange, isConvertAll });
   };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DataGrid);

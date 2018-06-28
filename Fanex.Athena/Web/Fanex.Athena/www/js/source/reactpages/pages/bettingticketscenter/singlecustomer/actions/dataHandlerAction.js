@@ -2,7 +2,7 @@ import * as types from '@jsroot/actions/types.js'
 import DataService from '@jsroot/lib/DataService.js'
 import Site from '@jsroot/lib/site'
 
-const DataUrl = Site.resolveClientUrl('api/BettingTicketCenter/GetByRunning');
+const DataUrl = Site.resolveClientUrl('api/BettingTicketCenter/GetBySingleCustomer');
 
 export function getGridData(params) {
     return (dispatch) => {

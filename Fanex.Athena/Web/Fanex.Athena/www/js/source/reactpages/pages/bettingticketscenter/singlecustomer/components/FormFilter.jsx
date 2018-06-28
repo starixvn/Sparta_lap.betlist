@@ -21,6 +21,10 @@ export class FormFilter extends Component {
         super(props);
     }
 
+    get isValidModel() {
+        return this.props.username !== "";
+    }
+
     submit = (event) => {
         event.preventDefault();
         const params = this._getParams();
@@ -33,6 +37,10 @@ export class FormFilter extends Component {
     }
 
     _getParams() {
+        if (!this.isValidModel) {
+            return null;
+        }
+
         const { fromDate, toDate } = this.props.dateRange;
 
         return {
@@ -40,9 +48,11 @@ export class FormFilter extends Component {
             ToDate: Site.convertDateToString(toDate),
             ProductCodeList: this.props.selectedProduct,
             Username: this.props.username,
-            CurrencyId: this.props.selectedCurrency.value,
-            CurrencyName: this.props.selectedCurrency.label,
-            BaseCurrency: this.props.selectedBaseCurrency
+            BaseCurrency: this.props.selectedBaseCurrency,
+            IsConvertAll: this.props.isConvertAll,
+            Status: this.props.selectedStatus,
+            LiveStatus: this.props.selectedLiveStatus,
+            Platform: this.props.selectedPlatform
         }
     }
 
@@ -66,7 +76,7 @@ export class FormFilter extends Component {
 
         params.IsExport = true;
         this.props.toggleLoader(true);
-        DataService.getFile(Site.resolveClientUrl('api/BettingTicketCenter/GetByRunning'), params).then((response) => {
+        DataService.getFile(Site.resolveClientUrl('api/BettingTicketCenter/GetBySingleCustomer'), params).then((response) => {
             Site.downloadFile(response.data, 'BettingTicketsCenter_Running.xls');
             this.props.toggleLoader(false);
         });
@@ -116,12 +126,12 @@ export class FormFilter extends Component {
         return statusList && statusList.length && (
                 <MultipleSelect id="StatusList"
                     dataSource={statusList}
-                keyField={"Id"}
-                valueField={"Value"}
-                statusField={"Status"}
-                optionAllLabel={LangHelper.getSingleResource("All")}
-                noneSelectedLabel={LangHelper.getSingleResource("SelectOptions")}
-                onChange={(currentItem, selectedItemsKey) => this.props.setSelectedStatus(selectedItemsKey)} />);
+                    keyField={"Id"}
+                    valueField={"Value"}
+                    statusField={"Status"}
+                    optionAllLabel={LangHelper.getSingleResource("All")}
+                    noneSelectedLabel={LangHelper.getSingleResource("SelectOptions")}
+                    onChange={(currentItem, selectedItemsKey) => this.props.setSelectedStatus(selectedItemsKey)} />);
     }
 
     _renderPlatformSelectList() {
@@ -184,7 +194,7 @@ export class FormFilter extends Component {
                     <div className="row">
                     <div className="col-12 col-md-3 col-sm-3 col-lg-4 col-xl-2">
                         <div className="form-group">
-                            <label className="label-text">{LangHelper.getSingleResource("Username")}</label>
+                            <label className="label-text">{LangHelper.getSingleResource("Username")} *</label>
                             <AutoComplete url={CUSTOMER_SEARCHING_URL} 
                                 onSelect={(value) => this.props.setUsername(value)}
                                 onInput={(value) => this.props.setUsername(value)}
@@ -216,7 +226,7 @@ export class FormFilter extends Component {
                     <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-1">
                         <div className="form-group">
                             <div className="button-group">
-                            <button type="button" className="btn btn-submit" onClick={this.submit}>{LangHelper.getSingleResource("Submit")}</button>
+                            <button type="button" disabled={!this.isValidModel} className="btn btn-submit" onClick={this.submit}>{LangHelper.getSingleResource("Submit")}</button>
                             </div>
                         </div>
                     </div>

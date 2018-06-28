@@ -7,6 +7,7 @@ import * as platformAction from '@jsroot/actions/platformAction'
 import * as liveStatusAction from '@jsroot/actions/liveStatusAction'
 import * as loaderAction from '@jsroot/actions/loaderAction'
 import * as dateRangeAction from '@jsroot/actions/dateRangeAction'
+import * as convertAllAction from '@jsroot/actions/convertAllAction'
 
 export const ActionCreators = Object.assign({},
     dataHandlerAction,
@@ -17,5 +18,6 @@ export const ActionCreators = Object.assign({},
     platformAction,
     liveStatusAction,
     loaderAction,
-    dateRangeAction
+    dateRangeAction,
+    convertAllAction
 );

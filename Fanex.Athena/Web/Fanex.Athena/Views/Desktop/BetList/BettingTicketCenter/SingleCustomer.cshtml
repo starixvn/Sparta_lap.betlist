@@ -33,7 +33,7 @@
     window._AppData = {
         liveStatusList: @Html.Raw(Model.LiveStatusList.Select(x => new { value = x.Key, label = x.Value }).ToJson()),
         platformList: @Html.Raw(Model.PlatformList.Select(x => new { value = x.Key, label = x.Value }).ToJson()),
-        statusList: @Html.Raw(Model.StatusList.Select(x => new { Id = x.Key, Value = x.Value }).ToJson()),
+        statusList: @Html.Raw(Model.StatusList.Select(x => new { Id = x.Key, Value = x.Value, Status = true }).ToJson()),
         isAllowedCustomerComm: @Model.IsAllowedCustomerComm.ToJson(),
         productOptions: @Html.Raw(productOptions.ToJson()),
         baseCurrencyList: @Html.Raw(baseCurrencyList.ToJson()),

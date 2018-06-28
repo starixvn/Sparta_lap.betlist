@@ -8,7 +8,7 @@ import Overlay from '../Overlay'
 import SuggestionList from './SuggestionList'
 import Timer from '../utils/timer'
 
-const DELAY_TIME_MILLISECOND = 500;
+const DELAY_TIME_MILLISECOND = 300;
 
 export default class AutoComplete extends Component {
     constructor(props) {
@@ -109,13 +109,13 @@ export default class AutoComplete extends Component {
 
     _onChange = (event) => {
         const value = this.input.value;
+        const { onInput } = this.props;
+        onInput && onInput(value);
+
         if (value === "") {
             this._clearState();
             return;
         }
-
-        const { onInput } = this.props;
-        onInput && onInput(value);
 
         const cachedData = this.cacheData[value];
         if (cachedData) {

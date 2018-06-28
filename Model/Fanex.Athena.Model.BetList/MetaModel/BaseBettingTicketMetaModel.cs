@@ -45,7 +45,7 @@
 
         public string ProductCodeList { get; set; }
 
-        public int CustId { get; set; }
+        public string UserName { get; set; }
 
         public bool IsExport { get; set; }
 

@@ -27,7 +27,7 @@ export default class Service {
             ? `, ${Site.convertDateToString(dateRange.fromDate)} → ${Site.convertDateToString(dateRange.toDate)}` 
             : '';
         const currencyNameText = currencyName ? `, ${LangHelper.getSingleResource("Currency")}: ${currencyName}` : '';
-        const baseCurrencyText = `, ${LangHelper.getSingleResource("BaseCurrency")}: ${baseCurrency}`;
+        const baseCurrencyText = baseCurrency ? `, ${LangHelper.getSingleResource("BaseCurrency")}: ${baseCurrency}` : '';
 
         return LangHelper.getSingleResource("BettingTicketCenter") + dateRangeText + currencyNameText + baseCurrencyText;
     }

@@ -8,6 +8,7 @@ import * as platformReducer from '@jsroot/reducers/platformReducer'
 import * as liveStatusReducer from '@jsroot/reducers/liveStatusReducer'
 import * as loaderReducer from '@jsroot/reducers/loaderReducer'
 import * as dateRangeReducer from '@jsroot/reducers/dateRangeReducer'
+import * as convertAllReducer from '@jsroot/reducers/convertAllReducer'
 
 export default combineReducers(Object.assign(
     gridDataReducer,
@@ -18,5 +19,6 @@ export default combineReducers(Object.assign(
     platformReducer,
     liveStatusReducer,
     loaderReducer,
-    dateRangeReducer
+    dateRangeReducer,
+    convertAllReducer
 ));

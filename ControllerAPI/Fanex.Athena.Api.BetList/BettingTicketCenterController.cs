@@ -128,8 +128,7 @@
         public dynamic GetByRefno(RefNoBetListMetaModel metaModel)
         {
             TicketResult ticketResult;
-            if (!metaModel.IsValid
-                || !_authorizationService.HasPermissionOnData(SessionService.LicenseeSession.LicenseeId, metaModel.CustId, 0))
+            if (!metaModel.IsValid)
             {
                 ticketResult = new TicketResult();
             }
@@ -164,9 +163,7 @@
         public dynamic GetByRunning(BaseBettingTicketMetaModel metaModel)
         {
             TicketResult ticketResult;
-            if (!metaModel.IsValid
-                || !IsValidCurrencyId(metaModel.CurrencyId)
-                || !_authorizationService.HasPermissionOnData(SessionService.LicenseeSession.LicenseeId, metaModel.CustId, 0))
+            if (!metaModel.IsValid || !IsValidCurrencyId(metaModel.CurrencyId))
             {
                 ticketResult = new TicketResult();
             }
