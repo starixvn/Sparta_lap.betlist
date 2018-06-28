@@ -15,6 +15,7 @@ import AppData from '@jsroot/lib/AppData'
 import DataService from '@jsroot/lib/DataService.js'
 
 const CUSTOMER_SEARCHING_URL = Site.resolveClientUrl("SearchCustomerAPI/SearchCustomer");
+const DATA_URL = Site.resolveClientUrl('api/BettingTicketCenter/GetBySingleCustomer');
 
 export class FormFilter extends Component {
     constructor(props) {
@@ -22,7 +23,7 @@ export class FormFilter extends Component {
     }
 
     get isValidModel() {
-        return this.props.username !== "";
+        return this.props.username !== "" && this.props.selectedProduct !== "";
     }
 
     submit = (event) => {
@@ -33,7 +34,7 @@ export class FormFilter extends Component {
         }
 
         this.props.toggleLoader(true);
-        this.props.getGridData(params);
+        this.props.getGridData(DATA_URL, params);
     }
 
     _getParams() {
@@ -76,7 +77,7 @@ export class FormFilter extends Component {
 
         params.IsExport = true;
         this.props.toggleLoader(true);
-        DataService.getFile(Site.resolveClientUrl('api/BettingTicketCenter/GetBySingleCustomer'), params).then((response) => {
+        DataService.getFile(DATA_URL, params).then((response) => {
             Site.downloadFile(response.data, 'BettingTicketsCenter_Running.xls');
             this.props.toggleLoader(false);
         });

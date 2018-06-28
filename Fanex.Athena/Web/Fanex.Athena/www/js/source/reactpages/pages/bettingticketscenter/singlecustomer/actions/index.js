@@ -1,4 +1,4 @@
-﻿import * as dataHandlerAction from './dataHandlerAction.js'
+﻿import * as gridDataAction from '@jsroot/actions/gridDataAction'
 import * as productAction from '@jsroot/actions/productAction'
 import * as baseCurrencyAction from '@jsroot/actions/baseCurrencyAction'
 import * as usernameAction from '@jsroot/actions/usernameAction'
@@ -10,7 +10,7 @@ import * as dateRangeAction from '@jsroot/actions/dateRangeAction'
 import * as convertAllAction from '@jsroot/actions/convertAllAction'
 
 export const ActionCreators = Object.assign({},
-    dataHandlerAction,
+    gridDataAction,
     productAction,
     baseCurrencyAction,
     usernameAction,

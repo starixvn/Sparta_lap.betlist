@@ -13,6 +13,7 @@ import AppData from '@jsroot/lib/AppData'
 import DataService from '@jsroot/lib/DataService.js'
 
 const CUSTOMER_SEARCHING_URL = Site.resolveClientUrl("SearchCustomerAPI/SearchCustomer");
+const DATA_URL = Site.resolveClientUrl('api/BettingTicketCenter/GetByRefNo');
 
 export class FormFilter extends Component {
     constructor(props) {
@@ -31,7 +32,7 @@ export class FormFilter extends Component {
         }
 
         this.props.toggleLoader(true);
-        this.props.getGridData(params);
+        this.props.getGridData(DATA_URL, params);
     }
 
     exportExcel = (event) => {
@@ -45,7 +46,7 @@ export class FormFilter extends Component {
         params.IsExport = true;
         this.props.toggleLoader(true);
         
-        DataService.getFile(Site.resolveClientUrl('api/BettingTicketCenter/GetByRefNo'), params).then((response) => {
+        DataService.getFile(DATA_URL, params).then((response) => {
             Site.downloadFile(response.data, 'BettingTicketsCenter_RefNo.xls');
             this.props.toggleLoader(false);
         });

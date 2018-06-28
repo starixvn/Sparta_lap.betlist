@@ -14,10 +14,15 @@ import AppData from '@jsroot/lib/AppData'
 import DataService from '@jsroot/lib/DataService.js'
 
 const CUSTOMER_SEARCHING_URL = Site.resolveClientUrl("SearchCustomerAPI/SearchCustomer");
+const DATA_URL = Site.resolveClientUrl('api/BettingTicketCenter/GetByRunning');
 
 export class FormFilter extends Component {
     constructor(props) {
         super(props);
+    }
+
+    get isValidModel() {
+        return this.props.selectedProduct !== "";
     }
 
     submit = (event) => {
@@ -28,10 +33,14 @@ export class FormFilter extends Component {
         }
 
         this.props.toggleLoader(true);
-        this.props.getGridData(params);
+        this.props.getGridData(DATA_URL, params);
     }
 
     _getParams() {
+        if (!this.isValidModel) {
+            return null;
+        }
+
         const { fromDate, toDate } = this.props.dateRange;
 
         return {
@@ -69,7 +78,7 @@ export class FormFilter extends Component {
 
         params.IsExport = true;
         this.props.toggleLoader(true);
-        DataService.getFile(Site.resolveClientUrl('api/BettingTicketCenter/GetByRunning'), params).then((response) => {
+        DataService.getFile(DATA_URL, params).then((response) => {
             Site.downloadFile(response.data, 'BettingTicketsCenter_Running.xls');
             this.props.toggleLoader(false);
         });
@@ -166,7 +175,7 @@ export class FormFilter extends Component {
                     <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-1">
                         <div className="form-group">
                             <div className="button-group">
-                            <button type="button" className="btn btn-submit" onClick={this.submit}>{LangHelper.getSingleResource("Submit")}</button>
+                            <button disabled={!this.isValidModel} type="button" className="btn btn-submit" onClick={this.submit}>{LangHelper.getSingleResource("Submit")}</button>
                             </div>
                         </div>
                     </div>
