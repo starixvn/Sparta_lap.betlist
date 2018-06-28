@@ -6,9 +6,3 @@ export const refno = createReducer({}, {
         return action.data;
     }
 })
-
-export const username = createReducer({}, {
-    [types.SET_USERNAME](state, action) {
-        return action.data;
-    }
-})

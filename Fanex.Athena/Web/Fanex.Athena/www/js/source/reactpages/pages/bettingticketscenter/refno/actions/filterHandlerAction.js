@@ -6,10 +6,3 @@ export const setRefno = (value) => {
         data: value
     }
 }
-
-export const setUsername = (value) => {
-    return {
-        type: types.SET_USERNAME,
-        data: value
-    }
-}
