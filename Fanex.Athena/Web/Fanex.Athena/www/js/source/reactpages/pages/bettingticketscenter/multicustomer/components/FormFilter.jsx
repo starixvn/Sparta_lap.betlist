@@ -3,19 +3,27 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import Select from 'react-select'
-import { DateRange } from '../../../../components/date-range/index'
-import AutoComplete from '../../../../components/auto-complete'
+import MultipleSelect from '@jsroot/components/multiple-select'
+import { DateRange } from '@jsroot/components/date-range/index'
+import AutoComplete from '@jsroot/components/auto-complete'
+import CheckBox from '@jsroot/components/CheckBox'
 
 import { ActionCreators } from '../actions/index.js'
-import LangHelper from '../../../../lib/langHelper'
-import Site from '../../../../lib/site'
+import LangHelper from '@jsroot/lib/langHelper'
+import Site from '@jsroot/lib/site'
+import AppData from '@jsroot/lib/AppData'
+import DataService from '@jsroot/lib/DataService.js'
 
-const CUSTOMER_SEARCHING_URL = Site.resolveClientUrl("CustomerAPI/SearchCustomer");
-const RANGE_MONTH_CONSTRAINT = 3;
+const CUSTOMER_SEARCHING_URL = Site.resolveClientUrl("SearchCustomerAPI/SearchCustomer");
+const DATA_URL = Site.resolveClientUrl('api/BettingTicketCenter/GetBySingleCustomer');
 
-export class MultiCustomerFormFilter extends Component {
+export class FormFilter extends Component {
     constructor(props) {
         super(props);
+    }
+
+    get isValidModel() {
+        return this.props.username !== "" && this.props.selectedProduct !== "";
     }
 
     submit = (event) => {
@@ -26,148 +34,217 @@ export class MultiCustomerFormFilter extends Component {
         }
 
         this.props.toggleLoader(true);
-        this.props.getGridData(params);
+        this.props.getGridData(DATA_URL, params);
     }
 
     _getParams() {
+        if (!this.isValidModel) {
+            return null;
+        }
+
+        const { fromDate, toDate } = this.props.dateRange;
+
         return {
-            xsrfToken: this.props.xsrfToken,
-            data: {
-                Date: '05/31/2018',
-                ProductCode: 'SB',
-                Status: 'won',
-                CurrencyId: 0
-            }
+            FromDate: Site.convertDateToString(fromDate),
+            ToDate: Site.convertDateToString(toDate),
+            ProductCodeList: this.props.selectedProduct,
+            Username: this.props.username,
+            BaseCurrency: this.props.selectedBaseCurrency,
+            IsConvertAll: this.props.isConvertAll,
+            Status: this.props.selectedStatus,
+            LiveStatus: this.props.selectedLiveStatus,
+            Platform: this.props.selectedPlatform
         }
     }
 
-    _onSelectAutoCompleteItem(selectedItem) {
-    
+    applyDateRangeHandler = (date, isValidMonthRange = true) => {
+        if (isValidMonthRange) {
+            this.props.setDateRange(date);
+        }
+        else {
+            const message = LangHelper.getSingleResource("DateRangeExceedMsg").replace("{0}", AppData.dateConstraint.limitedMonthRange);
+            alert(message);
+        }
+    }
+
+    exportExcel = (event) => {
+        event.preventDefault();
+        
+        const params = this._getParams();
+        if (!params) {
+            return;
+        }
+
+        params.IsExport = true;
+        this.props.toggleLoader(true);
+        DataService.getFile(DATA_URL, params).then((response) => {
+            Site.downloadFile(response.data, 'BettingTicketsCenter_Running.xls');
+            this.props.toggleLoader(false);
+        });
     }
 
     _renderDateRange() {
-        const { dateRange, dateConstraint } = this.props;
+        const dateRange = this.props.dateRange;
+        const dateConstraint = AppData.dateConstraint;
 
         return (
-                <DateRange startDate={dateRange.fromDate} endDate={dateRange.toDate}
-            minDate={dateConstraint.minDate} maxDate={dateConstraint.maxDate}
-            today={dateConstraint.toDay} limitedMonthRange={RANGE_MONTH_CONSTRAINT}
-            onChange={this.applyDateRangeHandler} />
-        );
+            <DateRange startDate={dateRange.fromDate} endDate={dateRange.toDate}
+                minDate={dateConstraint.minDate} maxDate={dateConstraint.maxDate}
+                today={dateRange.toDate} limitedMonthRange={dateConstraint.limitedMonthRange}
+                onChange={this.applyDateRangeHandler} />
+        )
     }
 
     _renderProductSelectList() {
-        const productOptions = [{ "value": "SB", "label": "Sportsbook" }, { "value": "RB", "label": "Racing" }];
-        const selectedProduct = productOptions[0];
-
-        return productOptions && productOptions.length ? (
-            <Select id="ddlBased"
-                name="form-field-name"
-                value={selectedProduct}
-                options={productOptions} />
-        ) : null;
+        const productList = AppData.productList;
+        return productList && productList.length && (
+           <Select instanceId="ProductList"
+                value={this.props.selectedProduct}
+                options={productList}
+                onChange={(item) => this.props.setSelectedProduct(item.value)} />
+        );
     }
 
-    productChangeHandler() {
-
+   _renderSportSelectList() {
+            const { sportList } = this.props.sportList;
+            return sportList && sportList.length && (
+                <Select instanceId="SportList"
+                value={this.props.selectedSport}
+                options={sportList}
+                onChange={(item) => this.props.setSelectedSport(item.value)} />
+            );
+        }
+    
+    _renderCurrencySelectList() {
+        return <Select instanceId="ddlCurrency"
+        value={this.props.selectedCurrency.value}
+        options={AppData.currencyList}
+        onChange={(item) => this.props.setSelectedCurrency(item)} />
     }
 
     _renderBaseCurrencySelectList() {
-        //const { baseCurrencyList, selectedBaseCurrency } = this.props;
-        const baseCurrencyList = [{ "value": "EUR", "label": "EUR" }, { "value": "USD", "label": "USD" }, { "value": "GBP", "label": "GBP" }];
-        const selectedBaseCurrency = "EUR";
+        const baseCurrencyList = AppData.baseCurrencyList;
 
-        return baseCurrencyList && baseCurrencyList.length ? (
-            <Select id="ddlBased"
-                name="form-field-name"
-                value={selectedBaseCurrency}
-                options={baseCurrencyList} />
-        ) : null;
+        return baseCurrencyList && baseCurrencyList.length && (
+            <Select instanceId="ddlBased"
+                value={this.props.selectedBaseCurrency}
+                options={baseCurrencyList}
+                onChange={(item) => this.props.setSelectedBaseCurrency(item.value)} />
+        );
+    }
+
+    _renderStatusSelectList() {
+        const statusList = AppData.statusList;
+
+        return statusList && statusList.length && (
+                <MultipleSelect id="StatusList"
+                    dataSource={statusList}
+                    keyField={"Id"}
+                    valueField={"Value"}
+                    statusField={"Status"}
+                    optionAllLabel={LangHelper.getSingleResource("All")}
+                    noneSelectedLabel={LangHelper.getSingleResource("SelectOptions")}
+                    onChange={(currentItem, selectedItemsKey) => this.props.setSelectedStatus(selectedItemsKey)} />);
+    }
+
+    _renderPlatformSelectList() {
+        const platformList = AppData.platformList;
+
+        return platformList && platformList.length && (
+            <Select instanceId="PlatformList"
+                value={this.props.selectedPlatform}
+                options={platformList}
+                onChange={(item) => this.props.setSelectedPlatform(item.value)} />
+        );
+    }
+
+      _renderLiveStatusSelectList() {
+          const liveStatusList = AppData.liveStatusList;
+
+          return liveStatusList && liveStatusList.length && (
+            <Select instanceId="LiveStatusList"
+                value={this.props.selectedLiveStatus}
+                options={liveStatusList}
+                onChange={(item) => this.props.setSelectedLiveStatus(item.value)} />
+        );
     }
 
     render() {
         return (
             <div className="page-filter">
                 <div className="row">
-                    <div className="col-12 col-md-3 col-sm-3 col-lg-2 col-xl-2">
+
+                     <div className="col-12 col-md-3 col-sm-3 col-lg-4 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Date")}</label>
                             {this._renderDateRange()}
                         </div>
                     </div>
 
-                    <div className="col-12 col-md-3 col-sm-2 col-lg-3 col-xl-2">
+                    <div className="col-12 col-md-3 col-sm-3 col-lg-4 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Product")}</label>
                             {this._renderProductSelectList()}
                         </div>
                     </div>
 
-                    <div className="col-12 col-md-3 col-sm-3 col-lg-2 col-xl-2">
+                    <div className="col-12 col-md-3 col-sm-3 col-lg-4 col-xl-2">
                         <div className="form-group">
-                            <label className="label-text">{LangHelper.getSingleResource("League")}</label>
-                            {this._renderProductSelectList()}
+                            <label className="label-text">{LangHelper.getSingleResource("Sport")}</label>
+                        {this._renderSportSelectList()}
                         </div>
                     </div>
-
-                    <div className="col-12 col-md-3 col-sm-3 col-lg-2 col-xl-2">
-                        <div className="form-group">
-                            <label className="label-text">{LangHelper.getSingleResource("Match")}</label>
-                            {this._renderProductSelectList()}
-                        </div>
+                    
                     </div>
-
-                    <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
+                    <div className="row">
+                     <div className="col-12 col-md-3 col-sm-3 col-lg-2 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Currency")}</label>
-                        {this._renderBaseCurrencySelectList()}
+                        {this._renderCurrencySelectList()}
                         </div>
                     </div>
-
-                    <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
-                        <div className="form-group">
-                            <label className="label-text">{LangHelper.getSingleResource("Based")}</label>
-                        {this._renderBaseCurrencySelectList()}
-                        </div>
-                    </div>
-
-                </div>
-
-                <div className="row">
                     
-                    <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
+                    <div className="col-12 col-md-3 col-sm-3 col-lg-2 col-xl-2">
+                        <div className="form-group">
+                            <label className="label-text">{LangHelper.getSingleResource("BaseCurrency")}</label>
+                        {this._renderBaseCurrencySelectList()}
+                        </div>
+                    </div>
+
+                     <div className="col-12 col-md-3 col-sm-3 col-lg-4 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Status")}</label>
-                        {this._renderBaseCurrencySelectList()}
+                                {this._renderStatusSelectList()}
                         </div>
                     </div>
 
-                    <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
+                    <div className="col-12 col-md-3 col-sm-3 col-lg-2 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Platform")}</label>
-                        {this._renderBaseCurrencySelectList()}
+                        {this._renderPlatformSelectList()}
                         </div>
                     </div>
 
-                    <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
+                    <div className="col-12 col-md-2 col-sm-3 col-lg-2 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Live")}</label>
-                        {this._renderBaseCurrencySelectList()}
+                        {this._renderLiveStatusSelectList()}
                         </div>
                     </div>
 
-                    <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-2">
+                    <div className="col-12 col-md-2 col-sm-2 col-lg-2 col-xl-1">
                         <div className="form-group">
                             <div className="button-group">
-                                <button type="button" className="btn btn-submit" onClick={this.submit}>{LangHelper.getSingleResource("Submit")}</button>
+                            <button type="button" disabled={!this.isValidModel} className="btn btn-submit" onClick={this.submit}>{LangHelper.getSingleResource("Submit")}</button>
                             </div>
                         </div>
                     </div>
-
-                    <div className="caret-block">
-                        <i className="icon-excel right" title={LangHelper.getSingleResource("ExportToExcel")}></i>
-                    </div>
                 </div>
+                 <div className="row">
+                    <div className="caret-block">
+                        <i className="icon-excel right" onClick={this.exportExcel} title={LangHelper.getSingleResource("ExportToExcel")}></i>
+                    </div>
+               </div>
             </div>
         )
     }
@@ -177,7 +254,8 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    return Object.assign({}, state);
+    const { dateRange, selectedProduct, sportList, selectedSport, selectedCurrency, selectedBaseCurrency, selectedStatus, selectedPlatform, selectedLiveStatus } = state;
+    return Object.assign({}, { dateRange, selectedProduct, sportList, selectedSport, selectedCurrency, selectedBaseCurrency, selectedStatus, selectedPlatform, selectedLiveStatus });
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MultiCustomerFormFilter);
+export default connect(mapStateToProps, mapDispatchToProps)(FormFilter);

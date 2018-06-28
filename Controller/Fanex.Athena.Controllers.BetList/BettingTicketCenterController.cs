@@ -29,7 +29,17 @@
 
         public ActionResult MultipleCustomers()
         {
-            return View("~/Views/BetList/BettingTicketCenter/Main.cshtml");
+            var viewModel = new BettingTicketCenterViewModel
+            {
+                CurrencyList = GetCurrencyList(),
+                LiveStatusList = GetLiveStatusList(),
+                StatusList = GetStatusList(),
+                PlatformList = GetPlatformList(),
+                ProductOptionList = GetProductOptionList(),
+                MinDate = AppSettings.HistoryDate,
+                IsAllowedCustomerComm = SessionService.LicenseeSession.IsAllowedCustomerComm
+            };
+            return View("~/Views/BetList/BettingTicketCenter/MultiCustomer.cshtml", viewModel);
         }
 
         public ActionResult SingleCustomer()

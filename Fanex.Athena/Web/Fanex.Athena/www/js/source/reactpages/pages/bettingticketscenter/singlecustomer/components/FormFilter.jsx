@@ -246,8 +246,8 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    const { dateRange, selectedProduct, selectedCurrency, selectedBaseCurrency, username, selectedStatus, selectedPlatform, selectedLiveStatus } = state;
-    return Object.assign({}, { dateRange, selectedProduct, selectedCurrency, selectedBaseCurrency, username, selectedStatus, selectedPlatform, selectedLiveStatus });
+    const { dateRange, selectedProduct, selectedBaseCurrency, username, selectedStatus, selectedPlatform, selectedLiveStatus } = state;
+    return Object.assign({}, { dateRange, selectedProduct, selectedBaseCurrency, username, selectedStatus, selectedPlatform, selectedLiveStatus });
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormFilter);

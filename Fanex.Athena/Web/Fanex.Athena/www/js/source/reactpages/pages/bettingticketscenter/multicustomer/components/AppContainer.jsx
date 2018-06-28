@@ -1,6 +1,5 @@
 ﻿import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux'
 import DataGrid from './Datagrid'
 import FormFilter from './FormFilter'
 import PageLayout from '../../common/components/PageLayout'
@@ -21,7 +20,7 @@ export class AppContainer extends Component {
 }
 
 function mapStateToProps(state) {
-    return Object.assign({}, { isLoading: false });
+    return Object.assign({}, { isLoading: state.isLoading });
 }
 
 export default connect(mapStateToProps)(AppContainer);
