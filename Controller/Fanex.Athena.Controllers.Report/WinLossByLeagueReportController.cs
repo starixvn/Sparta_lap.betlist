@@ -10,7 +10,6 @@ namespace Fanex.Athena.Controllers.Report
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
-    using Constant.DataDomain;
     using DataAccess.Core.Common;
     using DataAccess.Core.Common.Interfaces;
     using Extension.Utility;
@@ -76,6 +75,7 @@ namespace Fanex.Athena.Controllers.Report
             SetConvetedUSDCurrencyName(metaModel);
             SetConvetedUSDCurrencyId(metaModel);
             var sports = this._sportTypeDataAccess.GetSportsAndProducts(licenseeSession.LicenseeId, userSession.Language, Product.SB)
+                .Where(x => x.ParentId >= 0);
             var leagues = this._leagueDataAccess.GetLeaguesBySport(
                             new LeagueMetaModel
                             {

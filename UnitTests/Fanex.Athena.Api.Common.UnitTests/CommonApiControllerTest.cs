@@ -1,12 +1,10 @@
 ﻿namespace Fanex.Athena.Api.Common.UnitTests
 {
     using Base;
-    using DataAccess.Core.Common.Interfaces;
     using NSubstitute;
     using NUnit.Framework;
     using Service.Core.Common.Interfaces;
     using Service.Core.Configuration.Interfaces;
-    using Service.Core.Users.Interfaces;
 
     public class CommonApiControllerTest
     {
@@ -15,10 +13,8 @@
         {
             var moveBetService = Substitute.For<IMoveBetService>();
             var languageService = Substitute.For<ILanguageService>();
-            var sportTypeDataAccess = Substitute.For<ISportTypeDataAccess>();
-            var sessionService = Substitute.For<ISessionService>();
 
-            using (var controller = new CommonApiController(moveBetService, languageService, sportTypeDataAccess, sessionService))
+            using (var controller = new CommonApiController(moveBetService, languageService))
             {
                 // Arrange
                 const string Language = "en";
