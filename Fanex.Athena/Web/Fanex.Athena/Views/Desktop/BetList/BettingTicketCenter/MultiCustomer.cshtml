@@ -35,7 +35,9 @@
         selectedPlatform: 0,
         selectedLiveStatus: @LiveStatusTypes.All,
         sportList: [],
-        selectedSport: 0
+        selectedSport: 0,
+        bettypeList: [],
+        selectedBettype: 0
     };
     window._AppData = {
         liveStatusList: @Html.Raw(Model.LiveStatusList.Select(x => new { value = x.Key, label = x.Value }).ToJson()),

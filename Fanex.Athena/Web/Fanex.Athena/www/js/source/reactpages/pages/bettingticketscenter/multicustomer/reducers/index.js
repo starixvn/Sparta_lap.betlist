@@ -9,6 +9,7 @@ import * as liveStatusReducer from '@jsroot/reducers/liveStatusReducer'
 import * as loaderReducer from '@jsroot/reducers/loaderReducer'
 import * as dateRangeReducer from '@jsroot/reducers/dateRangeReducer'
 import * as sportReducer from './sportReducer'
+import * as bettypeReducer from './bettypeReducer'
 
 export default combineReducers(Object.assign(
     gridDataReducer,
@@ -20,5 +21,6 @@ export default combineReducers(Object.assign(
     liveStatusReducer,
     loaderReducer,
     dateRangeReducer,
-    sportReducer
+    sportReducer,
+    bettypeReducer
 ));

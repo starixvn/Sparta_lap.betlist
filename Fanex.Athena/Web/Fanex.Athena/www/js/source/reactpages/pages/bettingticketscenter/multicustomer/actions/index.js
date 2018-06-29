@@ -8,6 +8,7 @@ import * as liveStatusAction from '@jsroot/actions/liveStatusAction'
 import * as loaderAction from '@jsroot/actions/loaderAction'
 import * as dateRangeAction from '@jsroot/actions/dateRangeAction'
 import * as sportAction from './sportAction'
+import * as bettypeAction from './bettypeAction'
 
 export const ActionCreators = Object.assign({},
     gridDataAction,
@@ -19,5 +20,6 @@ export const ActionCreators = Object.assign({},
     liveStatusAction,
     loaderAction,
     dateRangeAction,
-    sportAction
+    sportAction,
+    bettypeAction
 );

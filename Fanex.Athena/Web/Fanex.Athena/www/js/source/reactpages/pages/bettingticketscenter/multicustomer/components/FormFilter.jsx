@@ -1,6 +1,7 @@
 ﻿import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import moment from 'moment'
 
 import Select from 'react-select'
 import MultipleSelect from '@jsroot/components/multiple-select'
@@ -20,6 +21,10 @@ const DATA_URL = Site.resolveClientUrl('api/BettingTicketCenter/GetBySingleCusto
 export class FormFilter extends Component {
     constructor(props) {
         super(props);
+    }
+
+    componentDidMount() {
+        this._onChangeProduct(this.props.selectedProduct);
     }
 
     get isValidModel() {
@@ -57,16 +62,6 @@ export class FormFilter extends Component {
         }
     }
 
-    applyDateRangeHandler = (date, isValidMonthRange = true) => {
-        if (isValidMonthRange) {
-            this.props.setDateRange(date);
-        }
-        else {
-            const message = LangHelper.getSingleResource("DateRangeExceedMsg").replace("{0}", AppData.dateConstraint.limitedMonthRange);
-            alert(message);
-        }
-    }
-
     exportExcel = (event) => {
         event.preventDefault();
         
@@ -91,8 +86,20 @@ export class FormFilter extends Component {
             <DateRange startDate={dateRange.fromDate} endDate={dateRange.toDate}
                 minDate={dateConstraint.minDate} maxDate={dateConstraint.maxDate}
                 today={dateRange.toDate} limitedMonthRange={dateConstraint.limitedMonthRange}
-                onChange={this.applyDateRangeHandler} />
+                onChange={this._onChangeDateRange} />
         )
+    }
+
+
+    _onChangeDateRange = (date, isValidMonthRange = true) => {
+        if (isValidMonthRange) {
+            this.props.setDateRange(date);
+            this.props.getBettypeList(this.props.selectedProduct, date.startDate.isSame(date.endDate, 'day'));
+        }
+        else {
+            const message = LangHelper.getSingleResource("DateRangeExceedMsg").replace("{0}", AppData.dateConstraint.limitedMonthRange);
+            alert(message);
+        }
     }
 
     _renderProductSelectList() {
@@ -101,19 +108,38 @@ export class FormFilter extends Component {
            <Select instanceId="ProductList"
                 value={this.props.selectedProduct}
                 options={productList}
-                onChange={(item) => this.props.setSelectedProduct(item.value)} />
+                onChange={(item) => this._onChangeProduct(item.value)} />
         );
+    }
+    
+    _onChangeProduct = (productCode) => {
+        const { fromDate, toDate } = this.props.dateRange;
+        this.props.setSelectedProduct(productCode);
+        this.props.getSportList(productCode);
+        this.props.getBettypeList(productCode, moment(fromDate).isSame(toDate, 'day'));
     }
 
    _renderSportSelectList() {
-            const { sportList } = this.props.sportList;
+       const sportList = this.props.sportList;
+       
             return sportList && sportList.length && (
                 <Select instanceId="SportList"
                 value={this.props.selectedSport}
                 options={sportList}
                 onChange={(item) => this.props.setSelectedSport(item.value)} />
             );
-        }
+    }
+
+    _renderBettypeSelectList() {
+        const bettypeList = this.props.bettypeList;
+       
+        return bettypeList && bettypeList.length && (
+            <Select instanceId="BettypeList"
+                value={this.props.selectedBettype}
+                options={bettypeList}
+                onChange={(item) => this.props.setSelectedBettype(item.value)} />
+        );
+    }
     
     _renderCurrencySelectList() {
         return <Select instanceId="ddlCurrency"
@@ -194,6 +220,13 @@ export class FormFilter extends Component {
                         {this._renderSportSelectList()}
                         </div>
                     </div>
+
+                    <div className="col-12 col-md-3 col-sm-3 col-lg-4 col-xl-2">
+                        <div className="form-group">
+                            <label className="label-text">{LangHelper.getSingleResource("BetType")}</label>
+                        {this._renderBettypeSelectList()}
+                        </div>
+                    </div>
                     
                     </div>
                     <div className="row">
@@ -254,8 +287,8 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    const { dateRange, selectedProduct, sportList, selectedSport, selectedCurrency, selectedBaseCurrency, selectedStatus, selectedPlatform, selectedLiveStatus } = state;
-    return Object.assign({}, { dateRange, selectedProduct, sportList, selectedSport, selectedCurrency, selectedBaseCurrency, selectedStatus, selectedPlatform, selectedLiveStatus });
+    const { dateRange, selectedProduct, sportList, selectedSport, selectedBettype, bettypeList, selectedCurrency, selectedBaseCurrency, selectedStatus, selectedPlatform, selectedLiveStatus } = state;
+    return Object.assign({}, { dateRange, selectedProduct, sportList, selectedSport, selectedBettype, bettypeList, selectedCurrency, selectedBaseCurrency, selectedStatus, selectedPlatform, selectedLiveStatus });
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormFilter);
