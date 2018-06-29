@@ -931,9 +931,13 @@
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\common\lib\BetList.js" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\common\lib\Service.js" />
     <Content Include="www\js\source\reactpages\actions\gridDataAction.js" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\multicustomer\actions\matchAction.js" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\multicustomer\actions\leagueAction.js" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\multicustomer\actions\bettypeAction.js" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\multicustomer\actions\sportAction.js" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\multicustomer\actions\types.js" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\multicustomer\reducers\matchReducer.js" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\multicustomer\reducers\leagueReducer.js" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\multicustomer\reducers\bettypeReducer.js" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\refno\actions\filterHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\refno\actions\index.js" />
