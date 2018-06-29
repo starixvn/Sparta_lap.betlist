@@ -42,7 +42,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
             _cacheRefAdapter = cacheRefAdapter;
         }
 
-        public IEnumerable<SportProductItem> GetSportsAndProducts(int licenseeId, string languageCode, int? productId = null)
+        public IEnumerable<SportProductItem> GetSportsAndProducts(int licenseeId, string languageCode, string productCodes = "")
         {
             const string UspName = "Lrf_SelSportDetail";
 
@@ -50,14 +50,13 @@ namespace Fanex.Athena.DataAccess.Core.Common
             {
                 db.AddInParameter("licenseeId", DbType.Int32, licenseeId);
                 db.AddInParameter("langkey", DbType.String, languageCode);
+                db.AddInParameter("ProductCodes", DbType.String, productCodes);
                 using (var reader = db.ExecuteReader())
                 {
                     var result = new List<SportProductItem>();
                     while (reader.Read())
                     {
-                        var parentId = reader["ParentId"] != DBNull.Value ? reader.ToInt("ParentId") : -1;
-
-                        if (!productId.HasValue || productId == parentId)
+                        result.Add(new SportProductItem
                         {
                             var id = reader.ToInt("ID");
                             if (!HiddenSports.Contains(id))

@@ -75,7 +75,7 @@ namespace Fanex.Athena.Controllers.Report
 
             SetConvetedUSDCurrencyName(metaModel);
             SetConvetedUSDCurrencyId(metaModel);
-            var sports = this._sportTypeDataAccess.GetSportsAndProducts(licenseeSession.LicenseeId, userSession.Language, ProductTypes.Sportsbook);
+            var sports = this._sportTypeDataAccess.GetSportsAndProducts(licenseeSession.LicenseeId, userSession.Language, Product.SB)
             var leagues = this._leagueDataAccess.GetLeaguesBySport(
                             new LeagueMetaModel
                             {

@@ -57,7 +57,7 @@
                 _sportTypeDataAccess.GetSportsAndProducts(
                     SessionService.LicenseeSession.LicenseeId,
                     SessionService.UserSession.Language,
-                    ProductTypes.Sportsbook).Returns(sports);
+                    Product.SB).Returns(sports);
 
                 _leagueDataAccess.GetLeaguesBySport(Arg.Any<LeagueMetaModel>()).Returns(leagues);
                 _matchService.GetMatchesByLeague(LeagueId, Arg.Any<DateTime>(), Arg.Any<DateTime>()).Returns(matches);

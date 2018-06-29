@@ -42,52 +42,6 @@
             });
         }
 
-        [TestCase(null, null, -1)]
-        [TestCase(1, null, 1)]
-        [TestCase(2, 2, 2)]
-        public void GetSportsAndProducts_ProductIdIsValid_DataReturnCorrectly(int? parentId, int? productId, int expectedParentId)
-        {
-            // Arrange
-            MapReaderData(new
-            {
-                ID = 0,
-                Name = string.Empty
-            });
-            if (parentId.HasValue)
-            {
-                Reader["ParentId"].Returns(parentId);
-            }
-            else
-            {
-                Reader["ParentId"].Returns(DBNull.Value);
-            }
-
-            Reader.Read().Returns(true, false);
-
-            // Action
-            var result = DataAccess.GetSportsAndProducts(0, string.Empty, productId);
-
-            // Assert
-            Assert.That(result.ElementAt(0).ParentId, Is.EqualTo(expectedParentId));
-        }
-
-        [TestCase(1, 3)]
-        public void GetSportsAndProducts_ProductIdIsInValid_ReturnEmptyData(int parentId, int? productId)
-        {
-            // Arrange
-            MapReaderData(new
-            {
-                ParentId = parentId
-            });
-            Reader.Read().Returns(true, false);
-
-            // Action
-            var result = DataAccess.GetSportsAndProducts(0, string.Empty, productId);
-
-            // Assert
-            Assert.That(result, Is.Empty);
-        }
-
         [TestCase((int)SportType.UnknowThaiSport)]
         [TestCase((int)SportType.Cricket)]
         public void GetSportsAndProducts_HiddenSport_NotAddToResult(int sporttype)
