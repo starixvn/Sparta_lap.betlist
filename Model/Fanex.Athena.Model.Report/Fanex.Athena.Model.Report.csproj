@@ -195,6 +195,7 @@
     <Compile Include="ResultModel\WeeklyLiveMatchResultModel.cs" />
     <Compile Include="ResultModel\WinLossByProductResultModel.cs" />
     <Compile Include="ViewModel\CashOutWinLossViewModel.cs" />
+    <Compile Include="ViewModel\CasinoTurnoverViewModel.cs" />
     <Compile Include="ViewModel\CustomerWinlossViewModel.cs" />
     <Compile Include="ViewModel\ExchangeWinLossViewModel.cs" />
     <Compile Include="ViewModel\SpecialLicenseeWinLossGridViewModel.cs" />

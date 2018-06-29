@@ -238,5 +238,9 @@
   {
     "FunctionId": 79,
     "FunctionKey": "BTC79"
+  },
+  {
+    "FunctionId": 80,
+    "FunctionKey": "CasinoTurnover80"
   }
 ]
