@@ -7,19 +7,20 @@ import * as types from './types'
 const Url = Site.resolveClientUrl('api/CommonApi/GetBettypes');
 const BETTYPE_CACHE_KEY = "BETTYPE_CACHE_KEY";
 
-function dispatchBettypeList(dispatch, data, hasItemAll){
+function dispatchBettypeList(dispatch, data, selectedBettype, hasItemAll){
     // Remove Item All
     data.length && data[0].value == 0 && data.shift();
 
     if(hasItemAll){
-        var itemAll = { value: 0, label: LangHelper.getSingleResource('All') };
+        const itemAll = { value: 0, label: LangHelper.getSingleResource('All') };
         data.unshift(itemAll);
     }
 
     dispatch(setBettypeList(data));
     if(data.length > 0)
     {
-        dispatch(setSelectedBettype(data[0]));
+        const bettype = data.find(x => x.value == selectedBettype.value);
+        dispatch(setSelectedBettype(bettype || data[0]));
     }
 }
 
@@ -37,20 +38,21 @@ export const setBettypeList = (list) => {
     };
 }
 
-export function getBettypeList(productCode, hasItemAll = false) {
+export function getBettypeList(productCode, selectedBettype, hasItemAll = false) {
+    const cacheKey = BETTYPE_CACHE_KEY + productCode;
     return (dispatch) => {
-        var cacheData = Cache.get(BETTYPE_CACHE_KEY + productCode);
+        var cacheData = Cache.get(cacheKey);
         if(cacheData)
         {
-            dispatchBettypeList(dispatch, cacheData, hasItemAll);
+            dispatchBettypeList(dispatch, cacheData, selectedBettype, hasItemAll);
             return;
         }
 
         DataService.getData(Url, { productCode: productCode})
             .then(response => {
                 var data = response.data;
-                Cache.set(BETTYPE_CACHE_KEY + productCode, data);
-                dispatchBettypeList(dispatch, data, hasItemAll);
+                Cache.set(cacheKey, data);
+                dispatchBettypeList(dispatch, data, selectedBettype, hasItemAll);
             });
     };
 }

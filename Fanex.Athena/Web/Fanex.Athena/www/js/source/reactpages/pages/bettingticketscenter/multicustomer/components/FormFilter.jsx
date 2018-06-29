@@ -31,6 +31,12 @@ export class FormFilter extends Component {
         return this.props.username !== "" && this.props.selectedProduct !== "";
     }
 
+    isSingleDate = (dateRange) => {
+        const { fromDate, toDate } = dateRange || this.props.dateRange;
+        
+        return moment(fromDate).isSame(toDate, 'day');
+    }
+
     submit = (event) => {
         event.preventDefault();
         const params = this._getParams();
@@ -90,11 +96,10 @@ export class FormFilter extends Component {
         )
     }
 
-
     _onChangeDateRange = (date, isValidMonthRange = true) => {
         if (isValidMonthRange) {
             this.props.setDateRange(date);
-            this.props.getBettypeList(this.props.selectedProduct, date.startDate.isSame(date.endDate, 'day'));
+            this.props.getBettypeList(this.props.selectedProduct, this.props.selectedBettype, this.isSingleDate({fromDate: date.startDate, toDate: date.endDate}));
         }
         else {
             const message = LangHelper.getSingleResource("DateRangeExceedMsg").replace("{0}", AppData.dateConstraint.limitedMonthRange);
@@ -113,10 +118,9 @@ export class FormFilter extends Component {
     }
     
     _onChangeProduct = (productCode) => {
-        const { fromDate, toDate } = this.props.dateRange;
         this.props.setSelectedProduct(productCode);
         this.props.getSportList(productCode);
-        this.props.getBettypeList(productCode, moment(fromDate).isSame(toDate, 'day'));
+        this.props.getBettypeList(productCode, this.props.selectedBettype, this.isSingleDate());
     }
 
    _renderSportSelectList() {
@@ -126,8 +130,15 @@ export class FormFilter extends Component {
                 <Select instanceId="SportList"
                 value={this.props.selectedSport}
                 options={sportList}
-                onChange={(item) => this.props.setSelectedSport(item.value)} />
+                onChange={(item) => this._onChangeSport(item.value)} />
             );
+    }
+
+    _onChangeSport = (sportId) => {
+        this.props.setSelectedSport(sportId);
+        if(this.isSingleDate()){
+            this.props.getLeagueList(sportId, this.props.dateRange.fromDate);
+        }
     }
 
     _renderBettypeSelectList() {
@@ -140,6 +151,35 @@ export class FormFilter extends Component {
                 onChange={(item) => this.props.setSelectedBettype(item.value)} />
         );
     }
+
+    _renderLeagueSelectList() {
+        const leagueList = this.props.leagueList;
+       
+        return leagueList && leagueList.length && (
+                <Select disabled={!this.isSingleDate()} instanceId="LeagueList"
+                    value={this.props.selectedLeague}
+                    options={leagueList}
+                    onChange={(item) => this._onChangeLeague(item.value)} />
+                    );
+      }
+
+    _onChangeLeague = (leagueId) => {
+        this.props.setSelectedLeague(leagueId);
+        if(this.isSingleDate()){
+            this.props.getMatchList(leagueId);
+        }
+    }
+
+     _renderMatchSelectList() {
+         const matchList = this.props.matchList;
+       
+         return matchList && matchList.length && (
+                <Select disabled={!this.isSingleDate()} instanceId="MatchList"
+                    value={this.props.selectedMatch}
+                    options={matchList}
+                    onChange={(item) => this.props.setSelectedMatch(item.value)} />
+             );
+     }
     
     _renderCurrencySelectList() {
         return <Select instanceId="ddlCurrency"
@@ -227,6 +267,20 @@ export class FormFilter extends Component {
                         {this._renderBettypeSelectList()}
                         </div>
                     </div>
+
+                     <div className="col-12 col-md-3 col-sm-3 col-lg-4 col-xl-2">
+                        <div className="form-group">
+                            <label className="label-text">{LangHelper.getSingleResource("League")}</label>
+                        {this._renderLeagueSelectList()}
+                        </div>
+                    </div>
+
+                     <div className="col-12 col-md-3 col-sm-3 col-lg-4 col-xl-2">
+                        <div className="form-group">
+                            <label className="label-text">{LangHelper.getSingleResource("Match")}</label>
+                            {this._renderMatchSelectList()}
+                        </div>
+                    </div>
                     
                     </div>
                     <div className="row">
@@ -287,8 +341,10 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    const { dateRange, selectedProduct, sportList, selectedSport, selectedBettype, bettypeList, selectedCurrency, selectedBaseCurrency, selectedStatus, selectedPlatform, selectedLiveStatus } = state;
-    return Object.assign({}, { dateRange, selectedProduct, sportList, selectedSport, selectedBettype, bettypeList, selectedCurrency, selectedBaseCurrency, selectedStatus, selectedPlatform, selectedLiveStatus });
+    const { dateRange, selectedProduct, sportList, selectedSport, selectedBettype, bettypeList, selectedLeague, leagueList, selectedMatch, matchList,
+        selectedCurrency, selectedBaseCurrency, selectedStatus, selectedPlatform, selectedLiveStatus } = state;
+        return Object.assign({}, { dateRange, selectedProduct, sportList, selectedSport, selectedBettype, bettypeList, selectedLeague, leagueList, selectedMatch, matchList,
+            selectedCurrency, selectedBaseCurrency, selectedStatus, selectedPlatform, selectedLiveStatus });
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormFilter);

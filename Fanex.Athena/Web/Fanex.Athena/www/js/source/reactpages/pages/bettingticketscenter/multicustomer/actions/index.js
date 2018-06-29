@@ -9,6 +9,8 @@ import * as loaderAction from '@jsroot/actions/loaderAction'
 import * as dateRangeAction from '@jsroot/actions/dateRangeAction'
 import * as sportAction from './sportAction'
 import * as bettypeAction from './bettypeAction'
+import * as leagueAction from './leagueAction'
+import * as matchAction from './matchAction'
 
 export const ActionCreators = Object.assign({},
     gridDataAction,
@@ -21,5 +23,7 @@ export const ActionCreators = Object.assign({},
     loaderAction,
     dateRangeAction,
     sportAction,
-    bettypeAction
+    bettypeAction,
+    leagueAction,
+    matchAction
 );
