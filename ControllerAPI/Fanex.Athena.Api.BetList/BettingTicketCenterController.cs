@@ -23,7 +23,6 @@
     using Service.BetList.Extensions;
     using Service.BetList.Helpers;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Users;
     using Service.Core.Users.Interfaces;
     using VendorAdapter;
     using VendorAdapter.Interfaces;
@@ -41,8 +40,6 @@
 
         private readonly ITicketHelper _ticketHelper;
 
-        private readonly IAuthorizationService _authorizationService;
-
         public BettingTicketCenterController()
         {
             _balanceUpDataAccess = new BalanceUpDataAccess();
@@ -50,7 +47,6 @@
             _betlistHtmlBuilder = new BetListHTMLBuilder();
             _ticketHelper = new TicketHelper();
             _cacheRefAdapter = new CacheRefAdapter();
-            _authorizationService = new AuthorizationService();
         }
 
 #pragma warning disable S107 // Methods should not have too many parameters
@@ -59,7 +55,6 @@
             ISessionService sessionService,
             IProductService productService,
             ILanguageService langService,
-            IAuthorizationService authorizationService,
             IBalanceUpDataAccess balanceUpDataAccess,
             IBettingTicketCenterDataAccess dataAccess,
             IBetListHTMLBuilder betlistHtmlBuilder,
@@ -73,7 +68,6 @@
             _betlistHtmlBuilder = betlistHtmlBuilder;
             _cacheRefAdapter = cacheRefAdapter;
             _ticketHelper = ticketHelper;
-            _authorizationService = authorizationService;
         }
 
         [HttpPost]

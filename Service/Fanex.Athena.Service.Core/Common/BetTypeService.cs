@@ -65,5 +65,10 @@ namespace Fanex.Athena.Service.Core.Common
 
             return new List<CheckedItem>();
         }
+
+        public IList<CheckedItem> GetBettypesByProduct(int licenseeId, string productCode, string languageCode)
+        {
+            return _betTypeDataAccess.GetBettypesByProduct(licenseeId, productCode, languageCode);
+        }
     }
 }

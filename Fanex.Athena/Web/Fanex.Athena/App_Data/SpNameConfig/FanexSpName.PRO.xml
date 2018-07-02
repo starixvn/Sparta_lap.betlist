@@ -225,6 +225,7 @@
     <Setting Key="Lrf_SelSportDetail" SpName="Lrf_SelSportDetail" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Acc_ShowNotificationWhenProcessingData" SpName="Acc_ShowNotificationWhenProcessingData" DbName="DBTXN.bodb02.bodbLicenseeNet" />
     <Setting Key="Acc_CustomerSelSiteByCustId" SpName="Acc_CustomerSelSiteByCustId" DbName="DBCUST.CustDB.bodbLicenseeNet" />
+    <Setting Key="Lrf_SelBetTypesByProduct" SpName="Lrf_SelBetTypeBySport" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
   </Function>
 
   <Function Name="BetList">

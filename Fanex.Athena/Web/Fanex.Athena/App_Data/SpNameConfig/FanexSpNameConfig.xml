@@ -8,5 +8,6 @@
   <SpNameConfig Environment="BACKUPMNL" SpName="Lrf_CheckIn" EnvironmentText="_mnl"></SpNameConfig>
   <!--Do not delete this-->
   <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_SelSportDetail" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_SelBetTypesByProduct" EnvironmentText="_UAT1"></SpNameConfig>
   
 </Root>

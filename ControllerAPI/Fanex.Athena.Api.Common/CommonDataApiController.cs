@@ -54,23 +54,25 @@
         }
 
         [HttpGet]
-        public dynamic GetSportBetTypes(string productCode)
+        public dynamic GetSports(string productCode)
         {
-            var licenseeId = _sessionService.LicenseeSession.LicenseeId;
-            var language = _sessionService.UserSession.Language;
-
             var sports = _sportTypeDataAccess.GetSportsAndProducts(
-                 licenseeId,
-                 language,
+                 _sessionService.LicenseeSession.LicenseeId,
+                 _sessionService.UserSession.Language,
                  productCode).ToList();
 
-            var bettypes = _betTypeService.GetBettypes(licenseeId, sports, language);
+            return sports.Where(x => x.ParentId > -1).Select(x => new { value = x.ID, label = x.Name });
+        }
 
-            return new
-            {
-                Sports = sports.Where(x => x.ParentId > -1).Select(x => new { value = x.ID, lable = x.Name }),
-                BetTypes = bettypes.Select(x => new { value = x.ID, lable = x.Name })
-            };
+        [HttpGet]
+        public dynamic GetBetTypes(string productCode)
+        {
+            var bettypes = _betTypeService.GetBettypesByProduct(
+                _sessionService.LicenseeSession.LicenseeId, 
+                productCode, 
+                _sessionService.UserSession.Language);
+
+            return bettypes.Select(x => new { value = x.ID, label = x.Name });
         }
 
         [HttpGet]
@@ -88,7 +90,7 @@
 
             var leagues = _leagueDataAccess.GetLeaguesBySport(metaModel);
 
-            return leagues.Select(x => new { value = x.LeagueId, lable = x.LeagueName });
+            return leagues.Select(x => new { value = x.LeagueId, label = x.LeagueName });
         }
 
         [HttpGet]
@@ -96,7 +98,7 @@
         {
             var matches = _matchDataAccess.GetMatchesByLeague(leagueid, fromDate, toDate);
 
-            return matches.Select(x => new { value = x.MatchId, lable = x.MatchName });
+            return matches.Select(x => new { value = x.MatchId, label = x.MatchName });
         }
     }
 }

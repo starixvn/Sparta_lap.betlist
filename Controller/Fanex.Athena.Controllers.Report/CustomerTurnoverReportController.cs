@@ -21,6 +21,7 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
     using Model.Core.DataDomain;
+    using Model.Core.DTO.Common;
     using Model.Core.ResultModel;
     using Model.Report.DTO;
     using Newtonsoft.Json;
@@ -76,8 +77,9 @@ namespace Fanex.Athena.Controllers.Report
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed.")]
         public ActionResult GetSportsAndProducts()
         {
+            var productCode = $"{Product.SB},{Product.NG},{Product.VS},{Product.VS2}";
             return Json(
-                _sportTypeDataAccess.GetSportsAndProducts(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language),
+                _sportTypeDataAccess.GetSportsAndProducts(SessionService.LicenseeSession.LicenseeId, SessionService.UserSession.Language, productCode),
                 JsonRequestBehavior.AllowGet);
         }
 

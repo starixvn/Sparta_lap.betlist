@@ -44,7 +44,6 @@
             _betlistHtmlBuilder = Substitute.For<IBetListHTMLBuilder>();
             _cacheRefAdapter = Substitute.For<ICacheRefAdapter>();
             _ticketHelper = Substitute.For<ITicketHelper>();
-            _authorizationService = Substitute.For<IAuthorizationService>();
 
             var balanceUp = new BalanceUp { BalanceUpDay = new DateTime(2018, 1, 1), MoveBetsDay = new DateTime(2018, 1, 2) };
             _balanceUpDataAccess.GetBalanceUp().Returns(balanceUp);
@@ -54,7 +53,6 @@
                 SessionService,
                 ProductService,
                 LangService,
-                _authorizationService,
                 _balanceUpDataAccess,
                 _dataAccess,
                 _betlistHtmlBuilder,
@@ -72,7 +70,6 @@
             _betlistHtmlBuilder = null;
             _cacheRefAdapter = null;
             _ticketHelper = null;
-            _authorizationService = null;
             _controller = null;
         }
 
@@ -95,25 +92,6 @@
         }
 
         [Test]
-        public void GetByRefno_NoPermission_ReturnEmpty()
-        {
-            // Arrange
-            SessionService.LicenseeSession.Returns(new LicenseeSession { LicenseeId = FakeHelper.Create<int>() });
-            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), 0).Returns(false);
-
-            var metaModel = new RefNoBetListMetaModel
-            {
-                RefNo = FakeHelper.Create<int>()
-            };
-
-            // Action
-            var result = _controller.GetByRefno(metaModel);
-
-            // Assert
-            Assert.That(result.Data, Is.Empty);
-        }
-
-        [Test]
         public void GetByRefno_ValidMetaModel_GetDataFromDataAccess()
         {
             // Arrange
@@ -123,7 +101,6 @@
             };
 
             SessionService.LicenseeSession.Returns(new LicenseeSession { LicenseeId = FakeHelper.Create<int>() });
-            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), 0).Returns(true);
             _dataAccess.GetBetListByRefno(metaModel).Returns(new TicketResult());
 
             // Action
@@ -202,35 +179,6 @@
         }
 
         [Test]
-        public void GetByRunning_NoPermission_ReturnEmpty()
-        {
-            // Arrange
-            SessionService.LicenseeSession.Returns(new LicenseeSession { LicenseeId = FakeHelper.Create<int>() });
-            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), 0).Returns(false);
-            SessionService.UserSession.Returns(new UserSession
-            {
-                CurrencyList = new Dictionary<int, string>
-                {
-                    { 1, "Currency" }
-                }
-            });
-
-            var metaModel = new BaseBettingTicketMetaModel
-            {
-                FromDate = DateTime.Today,
-                ToDate = DateTime.Today,
-                ProductCodeList = "C1,C2",
-                CurrencyId = 1
-            };
-
-            // Action
-            var result = _controller.GetByRunning(metaModel);
-
-            // Assert
-            Assert.That(result.Data, Is.Empty);
-        }
-
-        [Test]
         public void GetByRunning_ValidMetaModel_GetDataFromDataAccess()
         {
             // Arrange
@@ -243,7 +191,6 @@
             };
 
             SessionService.LicenseeSession.Returns(new LicenseeSession { LicenseeId = FakeHelper.Create<int>() });
-            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), 0).Returns(true);
             SessionService.UserSession.Returns(new UserSession
             {
                 CurrencyList = new Dictionary<int, string>
@@ -285,7 +232,6 @@
             ticketResult.MainTicketList.Add(ticket);
 
             SessionService.LicenseeSession.Returns(new LicenseeSession { LicenseeId = FakeHelper.Create<int>() });
-            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), 0).Returns(true);
             _dataAccess.GetBetListByRefno(metaModel).Returns(ticketResult);
             _ticketHelper.ClientDetailSystemParlayFunction.Returns(string.Empty);
 
@@ -309,7 +255,6 @@
             ticketResult.MainTicketList.Add(ticket);
 
             SessionService.LicenseeSession.Returns(new LicenseeSession { LicenseeId = FakeHelper.Create<int>() });
-            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), 0).Returns(true);
             _dataAccess.GetBetListByRefno(metaModel).Returns(ticketResult);
 
             // Action
@@ -338,7 +283,6 @@
             ticketResult.MainTicketList.Add(ticket);
 
             SessionService.LicenseeSession.Returns(new LicenseeSession { LicenseeId = FakeHelper.Create<int>() });
-            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), 0).Returns(true);
             _dataAccess.GetBetListByRefno(metaModel).Returns(ticketResult);
 
             // Action

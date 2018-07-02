@@ -30,8 +30,7 @@
             Assert.Multiple(() =>
             {
                 ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                ObjectDb.Received(1).AddInParameter("custid", DbType.Int32, metaModel.UserName);
+                ObjectDb.Received(1).AddInParameter("UserName", DbType.String, metaModel.UserName);
                 ObjectDb.Received(1).AddInParameter("RefNo", DbType.Int64, metaModel.RefNo);
                 ObjectDb.Received(1).AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
                 ObjectDb.Received(1).AddInParameter("BalanceUpDay", DbType.DateTime, metaModel.BalanceUpDay);
@@ -88,7 +87,7 @@
             Assert.Multiple(() =>
             {
                 ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                ObjectDb.Received(1).AddInParameter("custid", DbType.Int32, metaModel.UserName);
+                ObjectDb.Received(1).AddInParameter("UserName", DbType.String, metaModel.UserName);
                 ObjectDb.Received(1).AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
                 ObjectDb.Received(1).AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
                 ObjectDb.Received(1).AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);

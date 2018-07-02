@@ -33,7 +33,7 @@
                 using (var db = GetObjectDb(UspKey))
                 {
                     db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                    db.AddInParameter("Username", DbType.String, metaModel.UserName);
+                    db.AddInParameter("UserName", DbType.String, metaModel.UserName);
                     db.AddInParameter("RefNo", DbType.Int64, metaModel.RefNo);
                     db.AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
                     db.AddInParameter("BalanceUpDay", DbType.DateTime, metaModel.BalanceUpDay);
@@ -65,7 +65,7 @@
                     var productCodes = metaModel.ProductCodeList.Split(',');
 
                     db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                    db.AddInParameter("Username", DbType.String, metaModel.UserName);
+                    db.AddInParameter("UserName", DbType.String, metaModel.UserName);
                     db.AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
                     db.AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
                     db.AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
