@@ -2,8 +2,8 @@
 import AppLayout from '@jsroot/layouts/AppLayout'
 import Loader from '@jsroot/components/Loader'
 import { Tabs, Tab } from '@9softstudio/simple-react-tab'
-import LangHelper from '../../../../lib/langHelper'
-import Site from '../../../../lib/site'
+import LangHelper from '@jsroot/lib/langHelper'
+import Site from '@jsroot/lib/site'
 
 export default class PageLayout extends Component {
     constructor(props) {

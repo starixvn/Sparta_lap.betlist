@@ -1,1 +1,1 @@
-export default window._AppData;
+export default window._AppData || {};

@@ -1,7 +1,5 @@
 const defaultProps = {
     subsidiaryList: [{ ID: 1, Name: "New York", Checked: true }, { ID: 2, Name: "India", Checked: false }],
-    productOptions: [{ Code: "SB", Name: "Sportsbook", Status: true }, { Code: "BA", Name: "BA", Status: true }],
-    baseCurrencyList: [{ "value": "EUR", "label": "EUR" }, { "value": "USD", "label": "USD" }],
     selectedBaseCurrency: "EUR",
     dateRange: { fromDate: '09/26/2017', toDate: '09/28/2017' },
     dateConstraint: { minDate: '06/01/2012', maxDate: '09/28/2017' },
@@ -17,6 +15,11 @@ const defaultProps = {
     setParams: jest.fn(),
     changeIncludeDrawData: jest.fn(),
     changeIsExcludeTest: jest.fn()
+}
+
+const defaultAppData = {
+    productOptions: [{ Code: "SB", Name: "Sportsbook", Status: true }, { Code: "BA", Name: "BA", Status: true }],
+    baseCurrencyList: [{ "value": "EUR", "label": "EUR" }, { "value": "USD", "label": "USD" }]
 }
 
 const bodyData = [{

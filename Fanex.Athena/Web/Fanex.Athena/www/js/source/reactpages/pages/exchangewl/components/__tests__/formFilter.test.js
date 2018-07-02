@@ -3,17 +3,17 @@ import { FormFilter } from '../FormFilter';
 import renderer from 'react-test-renderer';
 import ShallowRenderer from 'react-test-renderer/shallow';
 
-import LangHelper from '../../../../lib/langHelper';
+import LangHelper from '@jsroot/lib/langHelper';
+import AppData from '@jsroot/lib/AppData';
 import { Service } from '../../lib/service';
 import ReportExcel from '../../lib/reportExcel';
 
 jest.mock('../../lib/reportExcel');
+jest.mock('@jsroot/lib/AppData');
 
 describe('FormFilter ', () => {
     const props = {
         dateRange: { fromDate: '01/01/2017', toDate: '10/10/2017' },
-        dateConstraint: { maxDate: '01/01/2010', minDate: '10/10/2030' },
-        currencyList: [{ value: '1', label: '1' }, { value: '2', label: '2' }],
         selectedCurrency: { value: '1', label: '1' },
         reportByOption: [{ value: '1', label: '1' }, { value: '2', label: '2' }],
         selectedReportBy: 1,
@@ -26,6 +26,10 @@ describe('FormFilter ', () => {
     const reportTitle = 'Report Title';
 
     beforeAll(() => {
+        Object.assign(AppData, {
+            dateConstraint: { maxDate: '01/01/2010', minDate: '10/10/2030' },
+            currencyList: [{ value: '1', label: '1' }, { value: '2', label: '2' }]
+        });
         LangHelper.getSingleResource = jest.fn((resource) => {
             if (resource === 'DateRangeExceedMsg') {
                 return 'DateRangeExceedMsg' + ' {0}';
@@ -55,8 +59,8 @@ describe('FormFilter ', () => {
                 const expectedResult = {
                     startDate: props.dateRange.fromDate,
                     endDate: props.dateRange.toDate,
-                    minDate: props.dateConstraint.minDate,
-                    maxDate: props.dateConstraint.maxDate,
+                    minDate: AppData.dateConstraint.minDate,
+                    maxDate: AppData.dateConstraint.maxDate,
                     limitedMonthRange: 3
                 };
 
@@ -96,7 +100,7 @@ describe('FormFilter ', () => {
             it('component props should be correct', () => {
                 const expectedResult = {
                     value: props.selectedCurrency,
-                    options: props.currencyList,
+                    options: AppData.currencyList,
                 };
 
                 const formFilter = new FormFilter(props);

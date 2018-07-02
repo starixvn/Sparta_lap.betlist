@@ -3,9 +3,9 @@ import { connect } from 'react-redux'
 import { ActionCreators } from '../actions/index.js'
 import { bindActionCreators } from 'redux'
 import Select from 'react-select'
-import MultipleSelect from '../../../components/multiple-select'
-import { DateRange } from '../../../components/date-range/index'
-import LangHelper from '../../../lib/langHelper'
+import MultipleSelect from '@jsroot/components/multiple-select'
+import { DateRange } from '@jsroot/components/date-range/index'
+import LangHelper from '@jsroot/lib/langHelper'
 import ReportExcel from '../lib/reportExcel'
 import Site from '@jsroot/lib/site'
 import AppData from '@jsroot/lib/AppData'
@@ -123,7 +123,6 @@ export class FormFilter extends Component {
 
     _renderProductSelectList() {
         const productOptions = AppData.productOptions;
-
         return productOptions && productOptions.length && (
             <MultipleSelect
                 dataSource={productOptions}

@@ -3,19 +3,23 @@ import { FormFilter } from '../FormFilter';
 import renderer from 'react-test-renderer';
 import ShallowRenderer from 'react-test-renderer/shallow';
 
-import LangHelper from '../../../../lib/langHelper';
+import LangHelper from '@jsroot/lib/langHelper';
+import AppData from '@jsroot/lib/AppData';
 import { Service } from '../../lib/service';
 
-import { defaultProps } from './fakeData';
+import { defaultProps, defaultAppData } from './fakeData';
 
 const { subsidiaryList, productOptions, baseCurrencyList, selectedBaseCurrency, dateRange, dateConstraint } = defaultProps;
 const formFilterPropsForRender = { subsidiaryList, productOptions, baseCurrencyList, selectedBaseCurrency, dateRange, dateConstraint };
 
-const multipleSelectComponentPath = '../../../../components/multiple-select';
-const dateRangeComponentPath = '../../../../components/date-range/index';
+const multipleSelectComponentPath = '@jsroot/components/multiple-select';
+const dateRangeComponentPath = '@jsroot/components/date-range/index';
+
+jest.mock('@jsroot/lib/AppData');
 
 describe('FormFilter ', () => {
     beforeEach(() => {
+        Object.assign(AppData, defaultAppData);
         LangHelper.getSingleResource = jest.fn((resource) => resource);
         Service.getReportTitle = jest.fn(() => "Report Title");
     })
@@ -65,7 +69,7 @@ describe('FormFilter ', () => {
                 const multipleSelectComponent = formFilter._renderProductSelectList();
 
                 const expectedResult = {
-                    dataSource: formFilterPropsForRender.productOptions,
+                    dataSource: AppData.productOptions,
                     keyField: "Code",
                     valueField: "Name",
                     statusField: "Status",
@@ -80,11 +84,10 @@ describe('FormFilter ', () => {
             });
 
             it("_renderProductSelectList - productOptions is empty - return null", () => {
-                const props = { ...formFilterPropsForRender, productOptions: [] };
-                const formFilter = new FormFilter(props);
+                AppData.productOptions = [];
+                const formFilter = new FormFilter(formFilterPropsForRender);
                 const multipleSelectComponent = formFilter._renderProductSelectList();
-
-                expect(multipleSelectComponent).toBeNull();
+                expect(multipleSelectComponent).toBe(0);
             });
         })
 
@@ -99,7 +102,7 @@ describe('FormFilter ', () => {
             it('_renderBaseCurrencySelectList - component props should be correct', () => {
                 const expectedResult = {
                     value: formFilterPropsForRender.selectedBaseCurrency,
-                    options: formFilterPropsForRender.baseCurrencyList
+                    options: AppData.baseCurrencyList
                 }
                 const formFilter = new FormFilter(formFilterPropsForRender);
                 const baseCurrency = formFilter._renderBaseCurrencySelectList();
@@ -111,11 +114,11 @@ describe('FormFilter ', () => {
             })
 
             it("_renderBaseCurrencySelectList - baseCurrencyList is empty - return null", () => {
-                const props = { ...formFilterPropsForRender, baseCurrencyList: [] };
-                const formFilter = new FormFilter(props);
+                AppData.baseCurrencyList = [];
+                const formFilter = new FormFilter(formFilterPropsForRender);
                 const multipleSelectComponent = formFilter._renderBaseCurrencySelectList();
 
-                expect(multipleSelectComponent).toBeNull();
+                expect(multipleSelectComponent).toBe(0);
             });
         })
 

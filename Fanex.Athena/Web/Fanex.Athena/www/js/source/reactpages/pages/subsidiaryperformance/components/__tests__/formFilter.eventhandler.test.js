@@ -2,21 +2,24 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import { FormFilter } from '../FormFilter';
 
-import Site from '../../../../lib/site';
-import LangHelper from '../../../../lib/langHelper';
+import AppData from '@jsroot/lib/AppData';
+import Site from '@jsroot/lib/site';
+import LangHelper from '@jsroot/lib/langHelper';
 import { Service, Api } from '../../lib/service';
 import ReportExcel from '../../lib/reportExcel'
 import Report from '../../../../lib/report'
 import { ReportLevel } from '../../../../constants/report'
 
-import { defaultProps } from './fakeData';
+import { defaultProps, defaultAppData } from './fakeData';
 
 jest.mock('../../lib/reportExcel');
+jest.mock('@jsroot/lib/AppData');
 
 describe('FormFilter ', () => {
     const originalWindowAlert = window.alert;
 
     beforeAll(() => {
+        Object.assign(AppData, defaultAppData);
         LangHelper.getSingleResource = jest.fn(resource => {
             if (resource === "DateRangeExceedMsg") {
                 return "Exceed {0} Months";

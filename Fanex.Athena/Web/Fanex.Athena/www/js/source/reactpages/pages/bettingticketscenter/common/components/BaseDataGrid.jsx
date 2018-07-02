@@ -36,6 +36,12 @@ export default class BaseDataGrid extends Component {
         };
     }
 
+    componentWillUnmount() {
+        window.ViewResult = undefined;
+        window.showNewCombMP = undefined;
+        window.showCombMPDetail = undefined;
+    }
+
     _closeResultPopup = () => {
         this.setState({ isShowPopup: false });
     }

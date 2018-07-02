@@ -3,22 +3,15 @@ import * as types from '../../actions/types'
 
 const emptyState = {};
 
-const reducerList = [
-    { name: "selectedBaseCurrency", actionType: types.SET_SELECTED_BASECURRENCY, expected: "EUR" },
-    { name: "baseCurrencyList", actionType: types.GET_BASECURRENCY, expected: "USD" }
-]
-
 describe('baseCurrencyReducer ', () => {
-    reducerList.forEach(({ name, actionType, expected }) => {
-        it(name, () => {
-            const action = {
-                type: actionType,
-                data: expected
-            }
+    it("selectedBaseCurrency", () => {
+        const action = {
+            type: types.SET_SELECTED_BASECURRENCY,
+            data: "EUR"
+        }
 
-            const result = baseCurrencyReducer[name](emptyState, action);
+        const result = baseCurrencyReducer["selectedBaseCurrency"](emptyState, action);
 
-            expect(result).toEqual(expected);
-        })
+        expect(result).toEqual("EUR");
     })
 })
