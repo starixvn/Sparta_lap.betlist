@@ -8,6 +8,8 @@
     using Model.Core.DataDomain;
     using Model.Core.MetaModel.Common;
     using ONEbook.UM.Filters;
+    using Service.Core.Common;
+    using Service.Core.Common.Interfaces;
     using Service.Core.Users;
     using Service.Core.Users.Interfaces;
     using Web.ActionFilter;
@@ -26,35 +28,49 @@
 
         private readonly IMatchDataAccess _matchDataAccess;
 
+        private readonly IBetTypeService _betTypeService;
+
         public CommonDataApiController()
         {
             _sportTypeDataAccess = new SportTypeDataAccess();
             _sessionService = new SessionService();
             _leagueDataAccess = new LeagueDataAccess();
             _matchDataAccess = new MatchDataAccess();
+            _betTypeService = new BetTypeService();
         }
 
         public CommonDataApiController(
             ISportTypeDataAccess sportTypeDataAccess,
             ISessionService sessionService,
             ILeagueDataAccess leagueDataAccess,
-            IMatchDataAccess matchDataAccess)
+            IMatchDataAccess matchDataAccess,
+            IBetTypeService betTypeService)
         {
             _sportTypeDataAccess = sportTypeDataAccess;
             _sessionService = sessionService;
             _leagueDataAccess = leagueDataAccess;
             _matchDataAccess = matchDataAccess;
+            _betTypeService = betTypeService;
         }
 
         [HttpGet]
-        public dynamic GetSports(string productCode)
+        public dynamic GetSportBetTypes(string productCode)
         {
-            var sports = _sportTypeDataAccess.GetSportsAndProducts(
-                _sessionService.LicenseeSession.LicenseeId,
-                _sessionService.UserSession.Language,
-                productCode);
+            var licenseeId = _sessionService.LicenseeSession.LicenseeId;
+            var language = _sessionService.UserSession.Language;
 
-            return sports.Where(x => x.ParentId > -1).Select(x => new { value = x.ID, lable = x.Name });
+            var sports = _sportTypeDataAccess.GetSportsAndProducts(
+                 licenseeId,
+                 language,
+                 productCode).ToList();
+
+            var bettypes = _betTypeService.GetBettypes(licenseeId, sports, language);
+
+            return new
+            {
+                Sports = sports.Where(x => x.ParentId > -1).Select(x => new { value = x.ID, lable = x.Name }),
+                BetTypes = bettypes.Select(x => new { value = x.ID, lable = x.Name })
+            };
         }
 
         [HttpGet]
