@@ -2,6 +2,20 @@ import moment from 'moment'
 import Site from '../site'
 
 describe('Site ', () => {
+    it('getXsrfToken - return correct value', () => {
+        const expectedToken = "xxx_yyy";
+        const input = document.createElement("input");
+        input.type="hidden";
+        input.name = "__RequestVerificationToken";
+        input.value = expectedToken;
+        document.body.appendChild(input);
+
+        let token = Site.getXsrfToken();
+        document.body.removeChild(input);
+
+        expect(token).toBe(expectedToken);
+    })
+
     it('resolveClientUrl - return correct value', () => {
         const expectedResult = "/api/Action";
 

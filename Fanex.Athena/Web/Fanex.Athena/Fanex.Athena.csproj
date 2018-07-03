@@ -926,6 +926,7 @@
     <Content Include="www\js\source\reactpages\lib\__tests__\excel.test.js" />
     <Content Include="www\js\source\reactpages\lib\__tests__\langHelper.test.js" />
     <Content Include="www\js\source\reactpages\lib\__tests__\numberFormat.test.js" />
+    <Content Include="www\js\source\reactpages\lib\__tests__\QueryString.test.js" />
     <Content Include="www\js\source\reactpages\lib\__tests__\report.test.js" />
     <Content Include="www\js\source\reactpages\lib\__tests__\site.test.js" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\common\lib\BetList.js" />

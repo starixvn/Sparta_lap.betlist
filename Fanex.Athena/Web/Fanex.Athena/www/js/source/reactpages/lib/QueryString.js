@@ -1,46 +1,48 @@
-﻿function parseQueryString (queryString) {
-    let args = queryString.split('&');
-    let argsList = {};
+﻿export default class QueryString{
+    static _parseQueryString(queryString) {
+        let args = queryString.split('&');
+        let argsList = {};
 
-    for (let i = 0; i < args.length; i++) {
-        let arg = unescape(args[i]);
-        if (arg.length > 0) {
-            if (arg.indexOf('=') === -1) {
-                argsList[arg.toLowerCase().trim()] = null;
-            } else {
-                let keyValuePair = arg.split('=');
-                argsList[keyValuePair[0].toLowerCase().trim()] = keyValuePair[1].trim();
+        for (let i = 0; i < args.length; i++) {
+            let arg = unescape(args[i]);
+            if (arg.length > 0) {
+                if (arg.indexOf('=') === -1) {
+                    argsList[arg.toLowerCase().trim()] = null;
+                } else {
+                    let keyValuePair = arg.split('=');
+                    argsList[keyValuePair[0].toLowerCase().trim()] = keyValuePair[1].trim();
+                }
             }
         }
+
+        return argsList;
     }
 
-    return argsList;
-}
+    static _getQueryString (url) {
+        var index = url.indexOf("?");
+        return index < 0 ? "" : url.substring(index + 1, url.length);
+    }
 
-function getQueryString (url) {
-    var index = url.indexOf("?");
-    return index < 0 ? "" : url.substring(index + 1, url.length);
-}
+    static _getRawUrl (url) {
+        var index = url.indexOf("?");
+        return index < 0 ? url : url.substring(0, index);
+    }
 
-function getRawUrl (url) {
-    var index = url.indexOf("?");
-    return index < 0 ? url : url.substring(0, index);
-}
-
-export default class QueryString{
     static setParam(url, name, value) {
-        var rawUrl = getRawUrl(url);
-        var queryString = getQueryString(url);
-        var args = parseQueryString(queryString);
+        var rawUrl = QueryString._getRawUrl(url);
+        var queryString = QueryString._getQueryString(url);
+        var args = QueryString._parseQueryString(queryString);
 
-        if (name == null || name === undefined) {
+        if (!name) {
             return url;
         }
 
         // Update value
         var found = false;
+        
         for (var key in args) {
-            if (key != null && key !== undefined && key.toLowerCase() === name.toLowerCase()) {
+            if (key && key.toLowerCase() === name.toLowerCase()) {
+               
                 // Does not update data if value = undefined
                 if (value !== undefined) {
                     args[key] = value;
@@ -76,8 +78,8 @@ export default class QueryString{
     }
 
     static getParam(url, name) {
-        var queryString = getQueryString(url);
-        var args = parseQueryString(queryString);
+        var queryString = QueryString._getQueryString(url);
+        var args = QueryString._parseQueryString(queryString);
 
         for (var key in args) {
             if (key != null && key.toLowerCase() === name.toLowerCase()) {
