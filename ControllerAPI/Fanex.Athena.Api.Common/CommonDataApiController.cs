@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Api.Base
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Web.Http;
     using DataAccess.Core.Common;
@@ -54,18 +55,18 @@
         }
 
         [HttpGet]
-        public dynamic GetSports(string productCode)
+        public IEnumerable<object> GetSports(string productCode)
         {
             var sports = _sportTypeDataAccess.GetSportsAndProducts(
                  _sessionService.LicenseeSession.LicenseeId,
                  _sessionService.UserSession.Language,
-                 productCode).ToList();
+                 productCode);
 
             return sports.Where(x => x.ParentId > -1).Select(x => new { value = x.ID, label = x.Name });
         }
 
         [HttpGet]
-        public dynamic GetBetTypes(string productCode)
+        public IEnumerable<object> GetBetTypes(string productCode)
         {
             var bettypes = _betTypeService.GetBettypesByProduct(
                 _sessionService.LicenseeSession.LicenseeId, 
@@ -76,7 +77,7 @@
         }
 
         [HttpGet]
-        public dynamic GetLeagues(DateTime fromDate, DateTime toDate, int currencyId, int sportId)
+        public IEnumerable<object> GetLeagues(DateTime fromDate, DateTime toDate, int currencyId, int sportId)
         {
             var metaModel = new LeagueMetaModel
             {
@@ -94,7 +95,7 @@
         }
 
         [HttpGet]
-        public dynamic GetMatchs(DateTime fromDate, DateTime toDate, int leagueid)
+        public IEnumerable<object> GetMatchs(DateTime fromDate, DateTime toDate, int leagueid)
         {
             var matches = _matchDataAccess.GetMatchesByLeague(leagueid, fromDate, toDate);
 

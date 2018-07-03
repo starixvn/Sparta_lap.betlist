@@ -68,8 +68,8 @@
                 _sportTypeDataAccess.GetSportsAndProducts(
                     SessionService.LicenseeSession.LicenseeId,
                     SessionService.UserSession.Language,
-                    $"{Product.SB},{Product.NG},{Product.VS},{Product.VS2}"
-                    ).Returns(expectedData);
+                    $"{Product.SB},{Product.NG},{Product.VS},{Product.VS2}")
+                    .Returns(expectedData);
 
                 // Action
                 var result = controller.GetSportsAndProducts() as JsonResult;

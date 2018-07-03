@@ -30,8 +30,6 @@
 
         private ITicketHelper _ticketHelper;
 
-        private IAuthorizationService _authorizationService;
-
         private BettingTicketCenterController _controller;
 
         [OneTimeSetUp]
