@@ -18,7 +18,9 @@ export default class BaseDataGrid extends Component {
             popupUrl: null,
             popupTitle: null
         };
-        
+    }
+
+    componentDidMount() {
         window.ViewResult = (...args) => {
             var url = BetList.getResultUrl.apply(BetList, args);
             this.setState({ isShowPopup: true, popupUrl: url, popupTitle: LangHelper.getSingleResource("Result")});
@@ -57,6 +59,7 @@ export default class BaseDataGrid extends Component {
             this.props.toggleLoader(true);
              axios.get(url)
                 .then((result) => {
+                    
                     let choice = BetList.buildChoiceParlayDetail(result.data);
                     divEvent.innerHTML = choice;
                     divEvent.style.display = 'block';

@@ -317,7 +317,6 @@ describe('DataGrid methods ', () => {
 
         it('drill down to next level - call getGridData - params is invalid - do nothing', () => {
             const level = 1;
-            const previousData = { index: 1 };
             const props = {
                 gridData: { level: level - 1 },
                 toggleLoader: jest.fn()

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`DataGrid1111 Data is not empty _buildBody - GroupByProduct - render correct body content 1`] = `
+exports[`DataGrid Data is not empty _buildBody - GroupByProduct - render correct body content 1`] = `
 <div>
   <tr>
     <td
@@ -66,7 +66,7 @@ exports[`DataGrid1111 Data is not empty _buildBody - GroupByProduct - render cor
 </div>
 `;
 
-exports[`DataGrid1111 Data is not empty _buildBody - ReportByDaily - render correct body content 1`] = `
+exports[`DataGrid Data is not empty _buildBody - ReportByDaily - render correct body content 1`] = `
 <div>
   <tr>
     <td
@@ -132,7 +132,7 @@ exports[`DataGrid1111 Data is not empty _buildBody - ReportByDaily - render corr
 </div>
 `;
 
-exports[`DataGrid1111 Data is not empty _buildBody - ReportBySummary - Contain negetive value - render correct body content 1`] = `
+exports[`DataGrid Data is not empty _buildBody - ReportBySummary - Contain negetive value - render correct body content 1`] = `
 <div>
   <tr>
     <td
@@ -259,7 +259,7 @@ exports[`DataGrid1111 Data is not empty _buildBody - ReportBySummary - Contain n
 </div>
 `;
 
-exports[`DataGrid1111 Data is not empty _buildBody - ReportBySummary - render correct body content 1`] = `
+exports[`DataGrid Data is not empty _buildBody - ReportBySummary - render correct body content 1`] = `
 <div>
   <tr>
     <td
@@ -319,7 +319,7 @@ exports[`DataGrid1111 Data is not empty _buildBody - ReportBySummary - render co
 </div>
 `;
 
-exports[`DataGrid1111 Data is not empty _buildFooter - Data contain negative value - render correct footer content 1`] = `
+exports[`DataGrid Data is not empty _buildFooter - Data contain negative value - render correct footer content 1`] = `
 <div>
   <tr
     className="fixed-table-grant-total"
@@ -376,7 +376,7 @@ exports[`DataGrid1111 Data is not empty _buildFooter - Data contain negative val
 </div>
 `;
 
-exports[`DataGrid1111 Data is not empty _buildFooter - ReportByDaily - render correct footer content 1`] = `
+exports[`DataGrid Data is not empty _buildFooter - ReportByDaily - render correct footer content 1`] = `
 <div>
   <tr
     className="fixed-table-grant-total"
@@ -433,7 +433,7 @@ exports[`DataGrid1111 Data is not empty _buildFooter - ReportByDaily - render co
 </div>
 `;
 
-exports[`DataGrid1111 Data is not empty _buildFooter - ReportBySummary - render correct footer content 1`] = `
+exports[`DataGrid Data is not empty _buildFooter - ReportBySummary - render correct footer content 1`] = `
 <div>
   <tr
     className="fixed-table-grant-total"
@@ -490,7 +490,7 @@ exports[`DataGrid1111 Data is not empty _buildFooter - ReportBySummary - render 
 </div>
 `;
 
-exports[`DataGrid1111 Data is not empty _buildHeader - ReportBySummary - render correct header content 1`] = `
+exports[`DataGrid Data is not empty _buildHeader - ReportBySummary - render correct header content 1`] = `
 <tr
   style={
     Object {
@@ -528,7 +528,7 @@ exports[`DataGrid1111 Data is not empty _buildHeader - ReportBySummary - render 
 </tr>
 `;
 
-exports[`DataGrid1111 Data is not empty _buildHeader - render correct header content 1`] = `
+exports[`DataGrid Data is not empty _buildHeader - render correct header content 1`] = `
 <tr
   style={
     Object {
@@ -569,7 +569,7 @@ exports[`DataGrid1111 Data is not empty _buildHeader - render correct header con
 </tr>
 `;
 
-exports[`DataGrid1111 Data is not empty grid data should be rendered correctly 1`] = `
+exports[`DataGrid Data is not empty grid data should be rendered correctly 1`] = `
 <div
   className="result-content"
 >
@@ -1047,7 +1047,7 @@ exports[`DataGrid1111 Data is not empty grid data should be rendered correctly 1
 </div>
 `;
 
-exports[`DataGrid1111 No data gridData length is 0 - render correct content 1`] = `
+exports[`DataGrid No data gridData length is 0 - render correct content 1`] = `
 <div
   className="result-content"
 >

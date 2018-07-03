@@ -16,7 +16,7 @@ const dataGridProps = {
     toggleLoader
 }
 
-describe('DataGrid1111', () => {
+describe('DataGrid', () => {
     afterEach(() => {
         jest.resetAllMocks();
     })

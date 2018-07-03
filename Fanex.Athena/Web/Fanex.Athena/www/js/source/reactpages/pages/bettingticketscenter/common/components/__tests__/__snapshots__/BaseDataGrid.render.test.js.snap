@@ -1,0 +1,423 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render grid Has data grid data should be rendered correctly 1`] = `
+<div
+  className="betlist-container result-content"
+>
+  <div
+    className="report-title-container"
+  >
+    <p
+      className="report-title"
+    />
+  </div>
+  <div>
+    <div
+      className="table-container"
+      style={
+        Object {
+          "maxWidth": -30,
+        }
+      }
+    >
+      <div
+        className="header-content"
+        style={
+          Object {
+            "maxHeight": undefined,
+            "minWidth": 600,
+            "width": -30,
+          }
+        }
+      >
+        <div
+          className="table-wrapper"
+        >
+          <table
+            className="table"
+            style={
+              Object {
+                "width": 581,
+              }
+            }
+          >
+            <thead>
+              <tr
+                className="first-row"
+              >
+                <td
+                  style={
+                    Object {
+                      "width": "-1.3517241379310343px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-3.379310344827586px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-4.055172413793103px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-4.055172413793103px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-6.0827586206896544px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-8.448275862068964px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-3.379310344827586px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-3.379310344827586px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-4.055172413793103px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-4.055172413793103px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-3.379310344827586px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-3.379310344827586px",
+                    }
+                  }
+                />
+              </tr>
+              <tr
+                style={
+                  Object {
+                    "height": 32,
+                  }
+                }
+              >
+                <th
+                  title="#"
+                >
+                  #
+                </th>
+                <th
+                  title="Platform"
+                >
+                  Platform
+                </th>
+                <th
+                  title="ExternalId"
+                >
+                  ExternalId
+                </th>
+                <th
+                  title="SystemId"
+                >
+                  SystemId
+                </th>
+                <th
+                  title="TransTime"
+                >
+                  TransTime
+                </th>
+                <th
+                  title="Choice"
+                >
+                  Choice
+                </th>
+                <th
+                  title="Odds"
+                >
+                  Odds
+                </th>
+                <th
+                  title="Stake"
+                >
+                  Stake
+                </th>
+                <th
+                  title="WinLoss"
+                >
+                  WinLoss
+                </th>
+                <th
+                  title="LicenseeWL/Comm"
+                >
+                  LicenseeWL/Comm
+                </th>
+                <th
+                  title="Status"
+                >
+                  Status
+                </th>
+                <th
+                  title="Live"
+                >
+                  Live
+                </th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+      <div
+        className="body-content"
+        style={
+          Object {
+            "maxHeight": 300,
+            "minWidth": 600,
+            "width": -30,
+          }
+        }
+      >
+        <div
+          className="table-wrapper"
+        >
+          <table
+            className="table"
+            style={
+              Object {
+                "width": 581,
+              }
+            }
+          >
+            <tbody>
+              <tr
+                className="first-row"
+              >
+                <td
+                  style={
+                    Object {
+                      "width": "-1.3517241379310343px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-3.379310344827586px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-4.055172413793103px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-4.055172413793103px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-6.0827586206896544px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-8.448275862068964px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-3.379310344827586px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-3.379310344827586px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-4.055172413793103px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-4.055172413793103px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-3.379310344827586px",
+                    }
+                  }
+                />
+                <td
+                  style={
+                    Object {
+                      "width": "-3.379310344827586px",
+                    }
+                  }
+                />
+              </tr>
+              <tr>
+                <td
+                  className="center-align"
+                >
+                  1
+                </td>
+                <td
+                  className="center-align"
+                >
+                  Asia
+                </td>
+                <td>
+                  ExternalId
+                </td>
+                <td>
+                  SystemId
+                </td>
+                <td
+                  className="center-align"
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "123",
+                    }
+                  }
+                />
+                <td
+                  className="right-align"
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "Choice1",
+                    }
+                  }
+                />
+                <td
+                  className="right-align"
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": 1.11,
+                    }
+                  }
+                />
+                <td
+                  className="right-align"
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": 1234,
+                    }
+                  }
+                />
+                <td
+                  className="right-align"
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": 456.34,
+                    }
+                  }
+                />
+                <td
+                  className="right-align"
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": 5.3,
+                    }
+                  }
+                />
+                <td
+                  className="center-align"
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "Dead",
+                    }
+                  }
+                />
+                <td
+                  className="center-align"
+                  dangerouslySetInnerHTML={
+                    Object {
+                      "__html": "No",
+                    }
+                  }
+                />
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Render grid No data gridData length is 0 - render correct content 1`] = `
+<div
+  className="result-content"
+>
+  <div
+    className="report-title-container"
+  >
+    <p
+      className="report-title"
+    />
+  </div>
+  <p
+    className="no-info-row center-align"
+  >
+    NoInfo
+  </p>
+</div>
+`;
