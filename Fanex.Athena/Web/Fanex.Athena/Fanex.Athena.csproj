@@ -932,6 +932,8 @@
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\common\lib\BetList.js" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\common\lib\Service.js" />
     <Content Include="www\js\source\reactpages\actions\gridDataAction.js" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\common\lib\__tests__\BetList.test.js" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\common\lib\__tests__\Service.test.js" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\multicustomer\actions\matchAction.js" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\multicustomer\actions\leagueAction.js" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\multicustomer\actions\bettypeAction.js" />

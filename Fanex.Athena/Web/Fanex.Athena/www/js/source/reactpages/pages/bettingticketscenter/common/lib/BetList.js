@@ -40,8 +40,8 @@ class BetList {
     }
 
     getResultUrl (matchid, raceNo, bettype, sporttype, refno,
-        username, winlostdate, refnoMixParlay, league, isOutright, extension1, extension2, custid, transdecs) {
-            bettype = Number(bettype);
+        username, winlostdate, refnoMixParlay, league, isOutright, extension1, extension2, custid) {
+        bettype = Number(bettype);
 
         let isParlay = bettype === BETTYPE_MIXPARLAY || bettype === BETTYPE_SYSTEMPARLAY || bettype === BETTYPE_MIXPARLAY_BETRADAR;
         let url = isParlay
