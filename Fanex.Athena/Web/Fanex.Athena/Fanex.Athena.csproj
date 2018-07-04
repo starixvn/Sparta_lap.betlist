@@ -911,6 +911,7 @@
     <Content Include="www\js\source\reactpages\components\popup\__tests__\Popup.test.js" />
     <Content Include="www\js\source\reactpages\components\__tests__\Overlay.test.js" />
     <Content Include="www\js\source\reactpages\components\__tests__\ReportTitle.test.js" />
+    <Content Include="www\js\source\reactpages\components\__tests__\CheckBox.test.js" />
     <Content Include="www\js\source\reactpages\components\__tests__\UserGuide.test.js" />
     <Content Include="www\js\source\reactpages\constants\config.js" />
     <Content Include="www\js\source\reactpages\constants\currency.js" />
