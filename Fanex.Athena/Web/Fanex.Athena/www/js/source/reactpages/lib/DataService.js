@@ -17,11 +17,8 @@ export default class DataService {
     }
 
     static getFile(url, params){
-        return axios({
-                url: url,
-                method: 'POST',
+        return axios.post(url, params,{
                 responseType: 'blob',
-                data: params,
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest',
                     '__RequestVerificationToken': Site.getXsrfToken()
