@@ -4,7 +4,7 @@ import LangHelper from '@jsroot/lib/langHelper'
 import Cache from '@jsroot/lib/Cache'
 import * as types from './types'
 
-const Url = Site.resolveClientUrl('api/CommonApi/GetMatches');
+const Url = Site.resolveClientUrl('api/CommonDataApi/GetMatches');
 const MATCH_CACHE_KEY = "MATCH_CACHE_KEY";
 
 function dispatchMatchList(dispatch, data){
@@ -29,8 +29,8 @@ export const setMatchList = (list) => {
     };
 }
 
-export function getMatchList(leagueId, date) {
-    const cacheKey = MATCH_CACHE_KEY + leagueId + "_" + date;
+export function getMatchList(leagueId, fromDate, toDate) {
+    const cacheKey = MATCH_CACHE_KEY + leagueId + "_" + fromDate + "_" + toDate;
     return (dispatch) => {
         var cacheData = Cache.get(cacheKey);
         if(cacheData)
@@ -39,7 +39,7 @@ export function getMatchList(leagueId, date) {
             return;
         }
 
-        DataService.getData(Url, { leagueId: leagueId, date: date})
+        DataService.getData(Url, { leagueId: leagueId, fromDate: fromDate, toDate: toDate})
             .then(response => {
                 var data = response.data;
                 Cache.set(cacheKey, data);

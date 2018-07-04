@@ -4,7 +4,7 @@ import LangHelper from '@jsroot/lib/langHelper'
 import Cache from '@jsroot/lib/Cache'
 import * as types from './types'
 
-const Url = Site.resolveClientUrl('api/CommonApi/GetBettypes');
+const Url = Site.resolveClientUrl('api/CommonDataApi/GetBettypes');
 const BETTYPE_CACHE_KEY = "BETTYPE_CACHE_KEY";
 
 function dispatchBettypeList(dispatch, data, selectedBettype, hasItemAll){

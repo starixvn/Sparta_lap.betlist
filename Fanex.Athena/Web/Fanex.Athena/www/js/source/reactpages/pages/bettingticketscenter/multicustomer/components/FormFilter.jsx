@@ -137,7 +137,7 @@ export class FormFilter extends Component {
     _onChangeSport = (sportId) => {
         this.props.setSelectedSport(sportId);
         if(this.isSingleDate()){
-            this.props.getLeagueList(sportId, this.props.dateRange.fromDate);
+            this.props.getLeagueList(sportId, this.props.dateRange.fromDate, this.props.dateRange.toDate);
         }
     }
 

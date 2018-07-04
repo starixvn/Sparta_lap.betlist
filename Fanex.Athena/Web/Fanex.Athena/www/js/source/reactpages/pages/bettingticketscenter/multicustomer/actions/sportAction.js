@@ -3,7 +3,7 @@ import Site from '@jsroot/lib/site'
 import LangHelper from '@jsroot/lib/langHelper'
 import * as types from './types'
 
-const Url = Site.resolveClientUrl('api/CommonApi/GetSports');
+const Url = Site.resolveClientUrl('api/CommonDataApi/GetSports');
 export const setSelectedSport = (item) => {
     return {
         type: types.SET_SELECTED_SPORT,
