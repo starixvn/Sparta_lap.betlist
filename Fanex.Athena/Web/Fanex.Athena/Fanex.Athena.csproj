@@ -775,6 +775,12 @@
     <Content Include="www\js\source\reactpages\actions\statusAction.js" />
     <Content Include="www\js\source\reactpages\actions\userGuideAction.js" />
     <Content Include="www\js\source\reactpages\actions\usernameAction.js" />
+    <Content Include="www\js\source\reactpages\actions\__tests__\convertAllAction.test.js" />
+    <Content Include="www\js\source\reactpages\actions\__tests__\usernameAction.test.js" />
+    <Content Include="www\js\source\reactpages\actions\__tests__\statusAction.test.js" />
+    <Content Include="www\js\source\reactpages\actions\__tests__\platformAction.test.js" />
+    <Content Include="www\js\source\reactpages\actions\__tests__\liveStatusAction.test.js" />
+    <Content Include="www\js\source\reactpages\actions\__tests__\gridDataAction.test.js" />
     <Content Include="www\js\source\reactpages\actions\__tests__\dateRangeAction.test.js" />
     <Content Include="www\js\source\reactpages\actions\__tests__\excludeTestAction.test.js" />
     <Content Include="www\js\source\reactpages\actions\__tests__\currencyAction.test.js" />
@@ -923,7 +929,7 @@
     <Content Include="www\js\source\reactpages\lib\site.js" />
     <Content Include="www\js\source\reactpages\lib\Cache.js" />
     <Content Include="www\js\source\reactpages\lib\store.js" />
-    <Content Include="www\js\source\reactpages\lib\__tests__\DataService1.test.js" />
+    <Content Include="www\js\source\reactpages\lib\__tests__\DataService.test.js" />
     <Content Include="www\js\source\reactpages\lib\__tests__\Cache.test.js" />
     <Content Include="www\js\source\reactpages\lib\__tests__\excel.test.js" />
     <Content Include="www\js\source\reactpages\lib\__tests__\langHelper.test.js" />
