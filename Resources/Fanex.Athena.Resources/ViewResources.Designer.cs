@@ -898,6 +898,24 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Note: Sport/ Bettype/ League/ Match can be selected all for 1 selected date..
+        /// </summary>
+        public static string BettingTicketCenter_MultiCustomersTabNote {
+            get {
+                return ResourceManager.GetString("BettingTicketCenter_MultiCustomersTabNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Note: For Sportsbook, the search result includes the related Bonus/Cash tickets..
+        /// </summary>
+        public static string BettingTicketCenter_RefnoTabNote {
+            get {
+                return ResourceManager.GetString("BettingTicketCenter_RefnoTabNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bet Trade.
         /// </summary>
         public static string BetTrade {
@@ -5110,6 +5128,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Multiple Customers.
+        /// </summary>
+        public static string MultipleCustomers {
+            get {
+                return ResourceManager.GetString("MultipleCustomers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Multiplier.
         /// </summary>
         public static string Multiplier {
@@ -7095,6 +7122,15 @@ namespace Fanex.Athena.Resources {
         public static string Sincelastmonth {
             get {
                 return ResourceManager.GetString("Sincelastmonth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Single Customer.
+        /// </summary>
+        public static string SingleCustomer {
+            get {
+                return ResourceManager.GetString("SingleCustomer", resourceCulture);
             }
         }
         

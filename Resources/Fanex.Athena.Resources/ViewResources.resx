@@ -3187,4 +3187,20 @@
     <value>Void</value>
     <comment>80941</comment>
   </data>
+  <data name="BettingTicketCenter_MultiCustomersTabNote" xml:space="preserve">
+    <value>Note: Sport/ Bettype/ League/ Match can be selected all for 1 selected date.</value>
+    <comment>80941</comment>
+  </data>
+  <data name="BettingTicketCenter_RefnoTabNote" xml:space="preserve">
+    <value>Note: For Sportsbook, the search result includes the related Bonus/Cash tickets.</value>
+    <comment>80941</comment>
+  </data>
+  <data name="MultipleCustomers" xml:space="preserve">
+    <value>Multiple Customers</value>
+    <comment>80941</comment>
+  </data>
+  <data name="SingleCustomer" xml:space="preserve">
+    <value>Single Customer</value>
+    <comment>80941</comment>
+  </data>
 </root>

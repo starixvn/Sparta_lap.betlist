@@ -128,6 +128,11 @@ export class FormFilter extends Component {
                         <i className="icon-excel right" onClick={this.exportExcel} title={LangHelper.getSingleResource("ExportToExcel")}></i>
                     </div>
                </div>
+                <div className="row">
+                    <div className="col-12">
+                        {LangHelper.getSingleResource('BettingTicketCenter_RefnoTabNote')}
+                    </div>
+               </div>
             </div>
         )
     }
