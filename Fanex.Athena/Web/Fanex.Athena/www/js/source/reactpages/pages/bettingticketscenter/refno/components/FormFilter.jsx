@@ -11,9 +11,7 @@ import LangHelper from '@jsroot/lib/langHelper'
 import Site from '@jsroot/lib/site'
 import AppData from '@jsroot/lib/AppData'
 import DataService from '@jsroot/lib/DataService.js'
-
-const CUSTOMER_SEARCHING_URL = Site.resolveClientUrl("SearchCustomerAPI/SearchCustomer");
-const DATA_URL = Site.resolveClientUrl('api/BettingTicketCenter/GetByRefNo');
+import ApiUrl from '../../common/constants/apiUrl'
 
 export class FormFilter extends Component {
     constructor(props) {
@@ -31,8 +29,9 @@ export class FormFilter extends Component {
             return;
         }
 
+        this.props.setRequestParam(params);
         this.props.toggleLoader(true);
-        this.props.getGridData(DATA_URL, params);
+        this.props.getGridData(ApiUrl.REFNO_DATA_URL, params);
     }
 
     exportExcel = (event) => {
@@ -58,6 +57,8 @@ export class FormFilter extends Component {
         }
 
         return {
+            PageSize: this.props.requestParam.PageSize,
+            PageIndex: 1,
             Refno: this.props.refno,
             Username: this.props.username,
             BaseCurrency: this.props.selectedBaseCurrency,
@@ -92,7 +93,7 @@ export class FormFilter extends Component {
                     <div className="col-12 col-md-4 col-sm-4 col-lg-3 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Username")}</label>
-                            <AutoComplete url={CUSTOMER_SEARCHING_URL} 
+                            <AutoComplete url={ApiUrl.CUSTOMER_SEARCH_URL} 
                                 onSelect={(value) => this.props.setUsername(value)}
                                 onInput={(value) => this.props.setUsername(value)}
                                 htmlAttributes={{placeholder:LangHelper.getSingleResource("All")}} />
@@ -142,8 +143,8 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    const { refno, username, selectedBaseCurrency, isConvertAll } = state;
-    return Object.assign({}, {refno, username, selectedBaseCurrency, isConvertAll});
+    const { requestParam, refno, username, selectedBaseCurrency, isConvertAll } = state;
+    return Object.assign({}, { requestParam, refno, username, selectedBaseCurrency, isConvertAll});
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormFilter);

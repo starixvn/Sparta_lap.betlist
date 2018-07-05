@@ -77,7 +77,7 @@
         }
 
         [HttpGet]
-        public IEnumerable<object> GetLeagues(DateTime fromDate, DateTime toDate, int currencyId, int sportId)
+        public IEnumerable<object> GetLeagues(DateTime fromDate, DateTime toDate, int sportId)
         {
             var metaModel = new LeagueMetaModel
             {
@@ -86,7 +86,7 @@
                 SportId = sportId,
                 LicenseeId = _sessionService.LicenseeSession.LicenseeId,
                 UserId = _sessionService.UserSession.UserId,
-                AgentListXml = _sessionService.GenerateAgentListXml(currencyId)
+                AgentListXml = _sessionService.GenerateAgentListXml()
             };
 
             var leagues = _leagueDataAccess.GetLeaguesBySport(metaModel);
@@ -95,7 +95,7 @@
         }
 
         [HttpGet]
-        public IEnumerable<object> GetMatchs(DateTime fromDate, DateTime toDate, int leagueid)
+        public IEnumerable<object> GetMatches(DateTime fromDate, DateTime toDate, int leagueid)
         {
             var matches = _matchDataAccess.GetMatchesByLeague(leagueid, fromDate, toDate);
 

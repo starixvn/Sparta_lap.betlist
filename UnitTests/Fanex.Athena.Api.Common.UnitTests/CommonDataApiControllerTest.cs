@@ -114,7 +114,6 @@
                 var result = controller.GetLeagues(
                     FakeHelper.Create<DateTime>(),
                     FakeHelper.Create<DateTime>(),
-                    FakeHelper.Create<int>(),
                     FakeHelper.Create<int>()).ElementAt(0);
 
                 // assert
@@ -142,7 +141,7 @@
                     .Returns(new List<Match> { match });
 
                 // action
-                var result = controller.GetMatchs(fromDate, toDate, leagueId).ElementAt(0);
+                var result = controller.GetMatches(fromDate, toDate, leagueId).ElementAt(0);
 
                 // assert
                 Assert.Multiple(() =>

@@ -895,7 +895,7 @@
     <Content Include="www\js\source\reactpages\components\date-range\__tests__\PredefinedRanges.test.js" />
     <Content Include="www\js\source\reactpages\components\fixed-table-header\components\Table.jsx" />
     <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\Cell.test.js" />
-    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\Page.test.js" />
+    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\Pager.test.js" />
     <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\Row.test.js" />
     <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\RowLayout.test.js" />
     <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\Table.test.js" />
