@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Page  PageInput onKeyUpHandle page size input is inputted - key code is not 13 - do nothing 1`] = `
+exports[`Pager PageInput onKeyUpHandle page size input is inputted - key code is not 13 - do nothing 1`] = `
 <div
   className="page-container center-align"
   style={
@@ -79,7 +79,7 @@ exports[`Page  PageInput onKeyUpHandle page size input is inputted - key code is
 </div>
 `;
 
-exports[`Page  PageInput onKeyUpHandle page size input is inputted - key code is not 13 - do nothing 2`] = `
+exports[`Pager PageInput onKeyUpHandle page size input is inputted - key code is not 13 - do nothing 2`] = `
 <div
   className="page-container center-align"
   style={
@@ -158,7 +158,7 @@ exports[`Page  PageInput onKeyUpHandle page size input is inputted - key code is
 </div>
 `;
 
-exports[`Page  PageInput onKeyUpHandle page size input is is inputted - key code is 13 - call onPaging 1`] = `
+exports[`Pager PageInput onKeyUpHandle page size input is is inputted - key code is 13 - call onPaging 1`] = `
 <div
   className="page-container center-align"
   style={
@@ -237,7 +237,7 @@ exports[`Page  PageInput onKeyUpHandle page size input is is inputted - key code
 </div>
 `;
 
-exports[`Page  PageInput onKeyUpHandle page size input is is inputted - key code is 13 - call onPaging 2`] = `
+exports[`Pager PageInput onKeyUpHandle page size input is is inputted - key code is 13 - call onPaging 2`] = `
 <div
   className="page-container center-align"
   style={
@@ -316,7 +316,7 @@ exports[`Page  PageInput onKeyUpHandle page size input is is inputted - key code
 </div>
 `;
 
-exports[`Page  PageInput onKeyUpHandle page size input is is inputted - key code is 13 - index is larger than total page - do notthing 1`] = `
+exports[`Pager PageInput onKeyUpHandle page size input is is inputted - key code is 13 - index is larger than total page - do notthing 1`] = `
 <div
   className="page-container center-align"
   style={
@@ -395,7 +395,7 @@ exports[`Page  PageInput onKeyUpHandle page size input is is inputted - key code
 </div>
 `;
 
-exports[`Page  PageInput onKeyUpHandle page size input is is inputted - key code is 13 - index is larger than total page - do notthing 2`] = `
+exports[`Pager PageInput onKeyUpHandle page size input is is inputted - key code is 13 - index is larger than total page - do notthing 2`] = `
 <div
   className="page-container center-align"
   style={
@@ -474,7 +474,7 @@ exports[`Page  PageInput onKeyUpHandle page size input is is inputted - key code
 </div>
 `;
 
-exports[`Page  PageInput page size input is changed - value is not a number - disable page icons and page size selection 1`] = `
+exports[`Pager PageInput page size input is changed - value is not a number - disable page icons and page size selection 1`] = `
 <div
   className="page-container center-align"
   style={
@@ -553,7 +553,7 @@ exports[`Page  PageInput page size input is changed - value is not a number - di
 </div>
 `;
 
-exports[`Page  goToPage page icon is clicked - call onPaging 1`] = `
+exports[`Pager goToPage page icon is clicked - call onPaging 1`] = `
 <div
   className="page-container center-align"
   style={
@@ -632,7 +632,7 @@ exports[`Page  goToPage page icon is clicked - call onPaging 1`] = `
 </div>
 `;
 
-exports[`Page  goToPage page icon is clicked - call onPaging 2`] = `
+exports[`Pager goToPage page icon is clicked - call onPaging 2`] = `
 <div
   className="page-container center-align"
   style={
@@ -711,7 +711,7 @@ exports[`Page  goToPage page icon is clicked - call onPaging 2`] = `
 </div>
 `;
 
-exports[`Page  goToPage page icon is clicked - call onPaging 3`] = `
+exports[`Pager goToPage page icon is clicked - call onPaging 3`] = `
 <div
   className="page-container center-align"
   style={
@@ -790,7 +790,7 @@ exports[`Page  goToPage page icon is clicked - call onPaging 3`] = `
 </div>
 `;
 
-exports[`Page  goToPage page icon is clicked - call onPaging 4`] = `
+exports[`Pager goToPage page icon is clicked - call onPaging 4`] = `
 <div
   className="page-container center-align"
   style={
@@ -869,7 +869,7 @@ exports[`Page  goToPage page icon is clicked - call onPaging 4`] = `
 </div>
 `;
 
-exports[`Page  goToPage page icon is clicked - call onPaging 5`] = `
+exports[`Pager goToPage page icon is clicked - call onPaging 5`] = `
 <div
   className="page-container center-align"
   style={
@@ -948,7 +948,7 @@ exports[`Page  goToPage page icon is clicked - call onPaging 5`] = `
 </div>
 `;
 
-exports[`Page  goToPage page index is invalid - do not call onPaging 1`] = `
+exports[`Pager goToPage page index is invalid - do not call onPaging 1`] = `
 <div
   className="page-container center-align"
   style={
@@ -1027,7 +1027,7 @@ exports[`Page  goToPage page index is invalid - do not call onPaging 1`] = `
 </div>
 `;
 
-exports[`Page  goToPage page index is invalid - do not call onPaging 2`] = `
+exports[`Pager goToPage page index is invalid - do not call onPaging 2`] = `
 <div
   className="page-container center-align"
   style={
@@ -1106,7 +1106,7 @@ exports[`Page  goToPage page index is invalid - do not call onPaging 2`] = `
 </div>
 `;
 
-exports[`Page  goToPage page size selection is changed - call onPaging 1`] = `
+exports[`Pager goToPage page size selection is changed - call onPaging 1`] = `
 <div
   className="page-container center-align"
   style={
@@ -1185,7 +1185,7 @@ exports[`Page  goToPage page size selection is changed - call onPaging 1`] = `
 </div>
 `;
 
-exports[`Page  goToPage page size selection is changed - call onPaging 2`] = `
+exports[`Pager goToPage page size selection is changed - call onPaging 2`] = `
 <div
   className="page-container center-align"
   style={
@@ -1264,7 +1264,7 @@ exports[`Page  goToPage page size selection is changed - call onPaging 2`] = `
 </div>
 `;
 
-exports[`Page  render _renderPageIcon - first page icon - disable icon if PageIndex is 1 1`] = `
+exports[`Pager render _renderPageIcon - first page icon - disable icon if PageIndex is 1 1`] = `
 <div
   className="page-container center-align"
   style={
@@ -1343,7 +1343,7 @@ exports[`Page  render _renderPageIcon - first page icon - disable icon if PageIn
 </div>
 `;
 
-exports[`Page  render _renderPageIcon - first page icon - disable icon if PageIndex is not 1 1`] = `
+exports[`Pager render _renderPageIcon - first page icon - disable icon if PageIndex is not 1 1`] = `
 <div
   className="page-container center-align"
   style={
@@ -1422,7 +1422,7 @@ exports[`Page  render _renderPageIcon - first page icon - disable icon if PageIn
 </div>
 `;
 
-exports[`Page  render _renderPageIcon - last page icon - disable icon if PageIndex is not the last 1`] = `
+exports[`Pager render _renderPageIcon - last page icon - disable icon if PageIndex is not the last 1`] = `
 <div
   className="page-container center-align"
   style={
@@ -1501,7 +1501,7 @@ exports[`Page  render _renderPageIcon - last page icon - disable icon if PageInd
 </div>
 `;
 
-exports[`Page  render _renderPageIcon - last page icon - disable icon if PageIndex is the last 1`] = `
+exports[`Pager render _renderPageIcon - last page icon - disable icon if PageIndex is the last 1`] = `
 <div
   className="page-container center-align"
   style={
@@ -1580,7 +1580,7 @@ exports[`Page  render _renderPageIcon - last page icon - disable icon if PageInd
 </div>
 `;
 
-exports[`Page  render _renderPageIcon - next page icon - disable icon if PageIndex is not the last 1`] = `
+exports[`Pager render _renderPageIcon - next page icon - disable icon if PageIndex is not the last 1`] = `
 <div
   className="page-container center-align"
   style={
@@ -1659,7 +1659,7 @@ exports[`Page  render _renderPageIcon - next page icon - disable icon if PageInd
 </div>
 `;
 
-exports[`Page  render _renderPageIcon - next page icon - disable icon if PageIndex is the last 1`] = `
+exports[`Pager render _renderPageIcon - next page icon - disable icon if PageIndex is the last 1`] = `
 <div
   className="page-container center-align"
   style={
@@ -1738,7 +1738,7 @@ exports[`Page  render _renderPageIcon - next page icon - disable icon if PageInd
 </div>
 `;
 
-exports[`Page  render _renderPageIcon - previous page icon - disable icon if PageIndex is 1 1`] = `
+exports[`Pager render _renderPageIcon - previous page icon - disable icon if PageIndex is 1 1`] = `
 <div
   className="page-container center-align"
   style={
@@ -1817,7 +1817,7 @@ exports[`Page  render _renderPageIcon - previous page icon - disable icon if Pag
 </div>
 `;
 
-exports[`Page  render _renderPageIcon - previous page icon - disable icon if PageIndex is not 1 1`] = `
+exports[`Pager render _renderPageIcon - previous page icon - disable icon if PageIndex is not 1 1`] = `
 <div
   className="page-container center-align"
   style={
@@ -1896,7 +1896,7 @@ exports[`Page  render _renderPageIcon - previous page icon - disable icon if Pag
 </div>
 `;
 
-exports[`Page  render component is hidden if paging is not available 1`] = `
+exports[`Pager render component is hidden if paging is not available 1`] = `
 <div
   className="page-container center-align"
   style={
@@ -1975,7 +1975,7 @@ exports[`Page  render component is hidden if paging is not available 1`] = `
 </div>
 `;
 
-exports[`Page  render component is rendered correctly 1`] = `
+exports[`Pager render component is rendered correctly 1`] = `
 <div
   className="page-container center-align"
   style={

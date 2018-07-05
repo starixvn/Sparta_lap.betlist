@@ -1,9 +1,9 @@
 ﻿import React from 'react'
 import renderer from 'react-test-renderer'
 
-import Page from '../Page'
+import Pager from '../Pager'
 
-describe('Page ', () => {
+describe('Pager', () => {
     const firstPageIndex = 0;
     const lastPageIndex = 4;
     const prevPageIndex = 1;
@@ -22,7 +22,7 @@ describe('Page ', () => {
                 }
             };
 
-            const component = renderer.create(<Page {...props} />);
+            const component = renderer.create(<Pager {...props} />);
             const result = component.toJSON(); 
         
             expect(result).toMatchSnapshot(); 
@@ -38,7 +38,7 @@ describe('Page ', () => {
                 }
             };
 
-            const component = renderer.create(<Page {...props} />);
+            const component = renderer.create(<Pager {...props} />);
             const result = component.toJSON(); 
         
             expect(result).toMatchSnapshot();
@@ -55,7 +55,7 @@ describe('Page ', () => {
                 }
             };
 
-            const component = renderer.create(<Page {...props} />);
+            const component = renderer.create(<Pager {...props} />);
             const result = component.toJSON(); 
         
             expect(result).toMatchSnapshot();
@@ -72,7 +72,7 @@ describe('Page ', () => {
                 }
             };
 
-            const component = renderer.create(<Page {...props} />);
+            const component = renderer.create(<Pager {...props} />);
             const result = component.toJSON(); 
         
             expect(result).toMatchSnapshot();
@@ -89,7 +89,7 @@ describe('Page ', () => {
                 }
             };
 
-            const component = renderer.create(<Page {...props} />);
+            const component = renderer.create(<Pager {...props} />);
             const result = component.toJSON(); 
         
             expect(result).toMatchSnapshot();
@@ -106,7 +106,7 @@ describe('Page ', () => {
                 }
             };
 
-            const component = renderer.create(<Page {...props} />);
+            const component = renderer.create(<Pager {...props} />);
             const result = component.toJSON(); 
         
             expect(result).toMatchSnapshot();
@@ -123,7 +123,7 @@ describe('Page ', () => {
                 }
             };
 
-            const component = renderer.create(<Page {...props} />);
+            const component = renderer.create(<Pager {...props} />);
             const result = component.toJSON(); 
         
             expect(result).toMatchSnapshot();
@@ -140,7 +140,7 @@ describe('Page ', () => {
                 }
             };
 
-            const component = renderer.create(<Page {...props} />);
+            const component = renderer.create(<Pager {...props} />);
             const result = component.toJSON(); 
         
             expect(result).toMatchSnapshot();
@@ -157,7 +157,7 @@ describe('Page ', () => {
                 }
             };
 
-            const component = renderer.create(<Page {...props} />);
+            const component = renderer.create(<Pager {...props} />);
             const result = component.toJSON(); 
         
             expect(result).toMatchSnapshot();
@@ -174,7 +174,7 @@ describe('Page ', () => {
                 }
             };
 
-            const component = renderer.create(<Page {...props} />);
+            const component = renderer.create(<Pager {...props} />);
             const result = component.toJSON(); 
         
             expect(result).toMatchSnapshot();
@@ -192,7 +192,7 @@ describe('Page ', () => {
                     TotalItem: 15
                 }
             };
-            let component = new Page(props);
+            let component = new Pager(props);
             component._updateState = jest.fn();
 
             component.componentWillReceiveProps(props);
@@ -209,7 +209,7 @@ describe('Page ', () => {
                     TotalItem: 15
                 }
             };
-            let component = new Page(props);
+            let component = new Pager(props);
             component._updateState = jest.fn();
 
             const newProps = {
@@ -238,7 +238,7 @@ describe('Page ', () => {
                 onPaging: jest.fn()
             };
 
-            const component = renderer.create(<Page {...props} />);
+            const component = renderer.create(<Pager {...props} />);
             let tree = component.toJSON();         
             expect(tree).toMatchSnapshot();     
 
@@ -261,7 +261,7 @@ describe('Page ', () => {
                 onPaging: jest.fn()
             };
 
-            const component = renderer.create(<Page {...props} />);
+            const component = renderer.create(<Pager {...props} />);
             let tree = component.toJSON();         
             expect(tree).toMatchSnapshot();     
 
@@ -286,7 +286,7 @@ describe('Page ', () => {
             const totalPage = 3;
             let currentPage = 2;
 
-            const component = renderer.create(<Page {...props} />);
+            const component = renderer.create(<Pager {...props} />);
             let tree = component.toJSON();
             expect(tree).toMatchSnapshot();
 
@@ -327,7 +327,7 @@ describe('Page ', () => {
                 }
             };
 
-            const component = renderer.create(<Page {...props} />);
+            const component = renderer.create(<Pager {...props} />);
             let tree = component.toJSON();              
 
             tree.children[pageInput].children[1].props.onChange({ target: { value: 'a' } });           
@@ -351,7 +351,7 @@ describe('Page ', () => {
                     onPaging: jest.fn()
                 };
 
-                const component = renderer.create(<Page {...props} />);
+                const component = renderer.create(<Pager {...props} />);
                 let tree = component.toJSON();         
                 expect(tree).toMatchSnapshot();     
 
@@ -373,7 +373,7 @@ describe('Page ', () => {
                     onPaging: jest.fn()
                 };
 
-                const component = renderer.create(<Page {...props} />);
+                const component = renderer.create(<Pager {...props} />);
                 let tree = component.toJSON();         
                 expect(tree).toMatchSnapshot();     
 
@@ -395,7 +395,7 @@ describe('Page ', () => {
                     onPaging: jest.fn()
                 };
 
-                const component = renderer.create(<Page {...props} />);
+                const component = renderer.create(<Pager {...props} />);
                 let tree = component.toJSON();         
                 expect(tree).toMatchSnapshot();     
 
@@ -420,7 +420,7 @@ describe('Page ', () => {
             };
             const inputValue = 1;
 
-            const component = new Page(props);
+            const component = new Pager(props);
             component.setState = jest.fn();
 
             component._updateState(inputValue);
@@ -443,7 +443,7 @@ describe('Page ', () => {
                 onPaging: jest.fn()
             };
 
-            const component = renderer.create(<Page {...props} />);
+            const component = renderer.create(<Pager {...props} />);
             let tree = component.toJSON();             
 
             tree.children[firstPageIndex].props.onClick();           

@@ -48,7 +48,7 @@ describe('Render grid', () => {
         const props = { 
             isAllowedCustomerComm: false,
             gridData: gridData,
-            params: { }
+            requestParam: { }
         };
 
         const dataGrid = new BaseDataGrid(props);

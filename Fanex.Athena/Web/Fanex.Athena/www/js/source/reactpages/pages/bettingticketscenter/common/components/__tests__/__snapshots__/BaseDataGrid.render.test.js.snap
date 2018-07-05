@@ -399,6 +399,92 @@ exports[`Render grid Has data grid data should be rendered correctly 1`] = `
         </div>
       </div>
     </div>
+    <div
+      className="page-container center-align"
+      style={
+        Object {
+          "display": "none",
+        }
+      }
+    >
+      <a
+        className="icon page-first "
+        href="javascript:;"
+        onClick={[Function]}
+      />
+      <a
+        className="icon page-prev disable"
+        href="javascript:;"
+        onClick={[Function]}
+      />
+      <div
+        className="page-input"
+      >
+        <span>
+          Page 
+        </span>
+        <input
+          className="page-form"
+          maxLength="4"
+          onChange={[Function]}
+          onKeyUp={[Function]}
+          size="2"
+          type="text"
+          value={undefined}
+        />
+        <span>
+           of NaN
+           
+        </span>
+      </div>
+      <a
+        className="icon page-next disable"
+        href="javascript:;"
+        onClick={[Function]}
+      />
+      <a
+        className="icon page-last "
+        href="javascript:;"
+        onClick={[Function]}
+      />
+      <select
+        className="pagesize-select"
+        disabled={true}
+        onChange={[Function]}
+        value={10}
+      >
+        <option
+          value={10}
+        >
+          10
+        </option>
+        <option
+          value={20}
+        >
+          20
+        </option>
+        <option
+          value={50}
+        >
+          50
+        </option>
+        <option
+          value={100}
+        >
+          100
+        </option>
+        <option
+          value={500}
+        >
+          500
+        </option>
+      </select>
+      <span
+        className="page-info"
+      >
+        View NaN-NaN of undefined
+      </span>
+    </div>
   </div>
 </div>
 `;
