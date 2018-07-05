@@ -221,8 +221,9 @@
             return ExcelStream(excel.Export(), string.Empty);
         }
 
-        private List<TicketText> BuildTicketText(TicketResult ticketResult, BaseBettingTicketMetaModel metaModel, int startIndex = 1)
+        private List<TicketText> BuildTicketText(TicketResult ticketResult, BaseBettingTicketMetaModel metaModel)
         {
+            var startIndex = (metaModel.PageIndex - 1) * metaModel.PageSize + 1;
             var showPlayerComm = SessionService.LicenseeSession.IsAllowedCustomerComm;
             var ticketTextList = new List<TicketText>();
 

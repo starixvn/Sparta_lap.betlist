@@ -12,9 +12,7 @@ import LangHelper from '@jsroot/lib/langHelper'
 import Site from '@jsroot/lib/site'
 import AppData from '@jsroot/lib/AppData'
 import DataService from '@jsroot/lib/DataService.js'
-
-const CUSTOMER_SEARCHING_URL = Site.resolveClientUrl("SearchCustomerAPI/SearchCustomer");
-const DATA_URL = Site.resolveClientUrl('api/BettingTicketCenter/GetByRunning');
+import ApiUrl from '../../common/constants/apiUrl'
 
 export class FormFilter extends Component {
     constructor(props) {
@@ -32,8 +30,9 @@ export class FormFilter extends Component {
             return;
         }
 
+        this.props.setRequestParam(params);
         this.props.toggleLoader(true);
-        this.props.getGridData(DATA_URL, params);
+        this.props.getGridData(ApiUrl.RUNNING_DATA_URL, params);
     }
 
     _getParams() {
@@ -44,6 +43,8 @@ export class FormFilter extends Component {
         const { fromDate, toDate } = this.props.dateRange;
 
         return {
+            PageSize: this.props.requestParam.PageSize,
+            PageIndex: 1,
             FromDate: Site.convertDateToString(fromDate),
             ToDate: Site.convertDateToString(toDate),
             ProductCodeList: this.props.selectedProduct,
@@ -151,7 +152,7 @@ export class FormFilter extends Component {
                     <div className="col-12 col-md-3 col-sm-3 col-lg-3 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Username")}</label>
-                            <AutoComplete url={CUSTOMER_SEARCHING_URL} 
+                            <AutoComplete url={ApiUrl.CUSTOMER_SEARCH_URL} 
                                 onSelect={(value) => this.props.setUsername(value)}
                                 onInput={(value) => this.props.setUsername(value)}
                                 htmlAttributes={{placeholder:LangHelper.getSingleResource("All")}} />
@@ -194,8 +195,8 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    const { dateRange, selectedProduct, selectedCurrency, selectedBaseCurrency, username } = state;
-    return Object.assign({}, { dateRange, selectedProduct, selectedCurrency, selectedBaseCurrency, username });
+    const { requestParam, dateRange, selectedProduct, selectedCurrency, selectedBaseCurrency, username } = state;
+    return Object.assign({}, { requestParam, dateRange, selectedProduct, selectedCurrency, selectedBaseCurrency, username });
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormFilter);

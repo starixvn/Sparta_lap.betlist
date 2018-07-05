@@ -44,6 +44,21 @@ export default class BaseDataGrid extends Component {
         window.showCombMPDetail = undefined;
     }
 
+    get dataUrl(){
+        throw new Exception("Please override this property in sub class");
+    }
+
+    onPaging = (index, size) => {
+        let param = this.props.requestParam;
+
+        param.PageIndex = index;
+        param.PageSize = size;
+
+        this.props.toggleLoader(true);
+        this.props.getGridData(this.dataUrl, param);
+        this.props.setRequestParam(param);
+    }
+
     _closeResultPopup = () => {
         this.setState({ isShowPopup: false });
     }
@@ -145,6 +160,14 @@ export default class BaseDataGrid extends Component {
             return this._renderNodata();
         }
 
+        const param = this.props.requestParam;
+         const pageOption = {
+            PageIndex: param.PageIndex,
+            PageSize: param.PageSize || 10,
+            TotalItem: this.props.gridData.TotalRows,
+            PageList: [10, 20, 50, 100, 500]
+        };
+
         return (
             <div className="betlist-container result-content">
                 <ReportTitle content={this.reportTitle} />
@@ -154,6 +177,10 @@ export default class BaseDataGrid extends Component {
                     bodyHeight={300}
                     header={this._buildHeader()}
                     body={this._buildBody()}
+                    footer={this._buildFooter && this._buildFooter()}
+                    isPaging={true}
+                    pageOption={pageOption}
+                    onPaging={this.onPaging}
                 />
                 {this.state.isShowPopup &&
                 <Popup isShow={true} 

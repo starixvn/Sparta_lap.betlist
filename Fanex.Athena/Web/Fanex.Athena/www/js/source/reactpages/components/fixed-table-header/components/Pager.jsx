@@ -1,7 +1,7 @@
 ﻿import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-export default class Page extends Component {
+export default class Pager extends Component {
     constructor(props) {
         super(props);
 
@@ -102,6 +102,7 @@ export default class Page extends Component {
         const { inputValue } = this.state;
 
         const isDisable = isNaN(parseInt(inputValue));
+
         const isShow = TotalItem > PageList[0];
         const totalPage = Math.ceil(TotalItem/PageSize);
 

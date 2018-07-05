@@ -6,6 +6,7 @@ import * as currencyReducer from '@jsroot/reducers/currencyReducer'
 import * as baseCurrencyReducer from '@jsroot/reducers/baseCurrencyReducer'
 import * as loaderReducer from '@jsroot/reducers/loaderReducer'
 import * as dateRangeReducer from '@jsroot/reducers/dateRangeReducer'
+import * as requestParamReducer from '@jsroot/reducers/requestParamReducer'
 
 export default combineReducers(Object.assign(
     gridDataReducer,
@@ -14,5 +15,6 @@ export default combineReducers(Object.assign(
     currencyReducer,
     baseCurrencyReducer,
     loaderReducer,
-    dateRangeReducer
+    dateRangeReducer,
+    requestParamReducer
 ));

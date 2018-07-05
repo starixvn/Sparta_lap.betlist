@@ -83,8 +83,8 @@
                     }
 
                     var outSqlParams = db.GetOuputParams();
-                    ticketResult.SumStake = Converter.ToDecimal(outSqlParams["SumStake"]);
-                    ticketResult.TotalRows = Converter.ToInt(outSqlParams["TotalRows"]);
+                    ticketResult.SumStake = Converter.ToDecimal(outSqlParams["sumstake"]);
+                    ticketResult.TotalRows = Converter.ToInt(outSqlParams["totalrows"]);
                 }
             }
             catch (Exception sqlException)

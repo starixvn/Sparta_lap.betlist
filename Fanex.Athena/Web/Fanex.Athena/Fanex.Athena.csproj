@@ -760,6 +760,7 @@
     <Content Include="www\js\source\extensions\ajaxBinaryTransporting.js" />
     <Content Include="www\js\source\helpers\datahelper.js" />
     <Content Include="www\js\source\helpers\downloader.js" />
+    <Content Include="www\js\source\reactpages\actions\requestParamAction.js" />
     <Content Include="www\js\source\reactpages\actions\dateRangeAction.js" />
     <Content Include="www\js\source\reactpages\actions\convertAllAction.js" />
     <Content Include="www\js\source\reactpages\actions\excludeTestAction.js" />
@@ -938,6 +939,7 @@
     <Content Include="www\js\source\reactpages\lib\__tests__\QueryString.test.js" />
     <Content Include="www\js\source\reactpages\lib\__tests__\report.test.js" />
     <Content Include="www\js\source\reactpages\lib\__tests__\site.test.js" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\common\constants\apiUrl.js" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\common\lib\BetList.js" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\common\lib\Service.js" />
     <Content Include="www\js\source\reactpages\actions\gridDataAction.js" />
@@ -966,6 +968,7 @@
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\AppContainer.redux.test.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\AppContainer.test.js" />
     <Content Include="www\js\source\reactpages\reducers\convertAllReducer.js" />
+    <Content Include="www\js\source\reactpages\reducers\requestParamReducer.js" />
     <Content Include="www\js\source\reactpages\reducers\gridDataReducer.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\actions\dataHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\actions\filterHandlerAction.js" />
@@ -2625,7 +2628,7 @@
     <Content Include="www\js\source\reactpages\components\CollapsibleRow.jsx" />
     <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\AppContainer.jsx" />
     <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\index.jsx" />
-    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\Page.jsx" />
+    <Content Include="www\js\source\reactpages\components\fixed-table-header\components\Pager.jsx" />
     <Content Include="www\js\source\reactpages\components\__tests__\__snapshots__\CollapsibleRow.test.js.snap" />
     <Content Include="www\js\source\reactpages\components\fixed-table-header\components\__tests__\__snapshots__\Page.test.js.snap" />
     <Content Include="www\js\source\reactpages\pages\notification\components\resultAmendment\__test__\__snapshots__\datagrid.test.js.snap" />
