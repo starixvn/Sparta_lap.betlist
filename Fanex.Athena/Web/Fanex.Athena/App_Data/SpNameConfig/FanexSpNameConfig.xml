@@ -10,5 +10,6 @@
   <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_SelSportDetail" EnvironmentText="_UAT1"></SpNameConfig>
   <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_SelBetTypesByProduct" EnvironmentText="_UAT1"></SpNameConfig>
   <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_SelBetTypeBySport" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_SelMatchByleague" EnvironmentText="_UAT1"></SpNameConfig>
   
 </Root>
