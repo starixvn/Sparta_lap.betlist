@@ -76,6 +76,13 @@
             return bettypes.Select(x => new { value = x.ID, label = x.Name });
         }
 
+        /// <summary>
+        /// Get Leagues of SB only
+        /// </summary>
+        /// <param name="fromDate"></param>
+        /// <param name="toDate"></param>
+        /// <param name="sportId"></param>
+        /// <returns></returns>
         [HttpGet]
         public IEnumerable<object> GetLeagues(DateTime fromDate, DateTime toDate, int sportId)
         {
