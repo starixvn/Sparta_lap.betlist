@@ -18,10 +18,12 @@ describe('CheckBox ', () => {
     describe('onChange', () => {
         it('set state correctly', () => {
             const newState = false;
-            const component = new CheckBox ({onChange: jest.fn()});
+            const component = new CheckBox ({onChange: jest.fn(), checked: true, id: 'checkbox'});
             component.setState = jest.fn();
 
-            component.onChange(newState);
+            const tree = component.render();
+
+            tree.props.children[0].props.onChange();
             
             expect(component.setState).toHaveBeenCalledWith({ checked: newState });
         });

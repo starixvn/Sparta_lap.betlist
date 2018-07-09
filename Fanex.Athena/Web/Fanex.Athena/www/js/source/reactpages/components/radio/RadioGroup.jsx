@@ -2,7 +2,7 @@
 import PropTypes from 'prop-types';
 import Item from './Radio';
 
-export default class RedioGroup extends Component {
+export default class RadioGroup extends Component {
     constructor(props) {
         super(props);
 

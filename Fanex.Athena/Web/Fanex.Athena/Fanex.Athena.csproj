@@ -904,6 +904,8 @@
     <Content Include="www\js\source\reactpages\components\multiple-select\components\__tests__\Option.test.js" />
     <Content Include="www\js\source\reactpages\components\multiple-select\components\__tests__\OptionAll.test.js" />
     <Content Include="www\js\source\reactpages\components\popup\constants.js" />
+    <Content Include="www\js\source\reactpages\components\radio\__tests__\RadioGroup.test.js" />
+    <Content Include="www\js\source\reactpages\components\radio\__tests__\Radio.test.js" />
     <Content Include="www\js\source\reactpages\components\UserGuide.jsx" />
     <Content Include="www\js\source\reactpages\components\__tests__\CollapsibleRow.test.js" />
     <Content Include="www\js\source\reactpages\components\utils\timer.js" />
@@ -2608,7 +2610,7 @@
     <Content Include="www\js\source\reactpages\components\fixed-table-header\index.jsx" />
     <Content Include="www\js\source\reactpages\components\NoDataTitle.jsx" />
     <Content Include="www\js\source\reactpages\components\ReportTitle.jsx" />
-    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\__snapshots__\datagrid.test.js.snap" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\__snapshots__\DataGrid.test.js.snap" />
     <Content Include="www\js\source\reactpages\components\__tests__\__snapshots__\Loader.test.js.snap" />
     <Content Include="www\js\source\reactpages\components\__tests__\__snapshots__\NoDataTitle.test.js.snap" />
     <Content Include="www\js\source\reactpages\components\__tests__\__snapshots__\ReportTitle.test.js.snap" />
@@ -2642,8 +2644,8 @@
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\BetListDetail.jsx" />
     <Content Include="www\js\source\reactpages\pages\licenseewl-by-timezone\components\__tests__\__snapshots__\formFilter.render.test.js.snap" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\__snapshots__\BetList.test.js.snap" />
-    <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\__snapshots__\formFilter.test.js.snap" />
-    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\__snapshots__\formFilter.render.test.js.snap" />
+    <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\__snapshots__\FormFilter.test.js.snap" />
+    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\__snapshots__\FormFilter.render.test.js.snap" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\__snapshots__\BetListDetail.test.js.snap" />
     <Content Include="www\js\source\reactpages\pages\speciallicenseewl\components\AppContainer.jsx" />
     <Content Include="www\js\source\reactpages\pages\speciallicenseewl\components\FormFilter.jsx" />
