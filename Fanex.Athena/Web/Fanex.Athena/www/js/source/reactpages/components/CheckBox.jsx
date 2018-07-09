@@ -9,12 +9,6 @@ export default class CheckBox extends React.Component {
         this.state = { checked: props.checked };
     };
 
-    componentWillReceiveProps(nextProps) {
-        if( this.props.checked !== nextProps.checked ) {
-            this.onChange(nextProps.checked);
-        }
-    }
-
     static propTypes = {
         id: PropTypes.string.isRequired,
         label: PropTypes.string,

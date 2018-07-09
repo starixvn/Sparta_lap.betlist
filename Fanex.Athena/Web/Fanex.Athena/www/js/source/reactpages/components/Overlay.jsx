@@ -35,11 +35,11 @@ export default class Overlay extends Component {
         isOpening: false
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (this.state.isOpening !== nextProps.isOpening) {
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.isOpening !== prevProps.isOpening) {
             const { onOpen } = this.props;
-            nextProps.isOpening && onOpen && onOpen();
-            this.setState({ isOpening: nextProps.isOpening });
+            this.props.isOpening && onOpen && onOpen();
+            this.setState({ isOpening: this.props.isOpening });
         }
     }
 

@@ -17,13 +17,7 @@ export default class CollapsibleRow extends React.Component {
         content: PropTypes.string,
         onExpand: PropTypes.func
     }
-
-    componentWillReceiveProps(nextProps) {
-        if( this.props.isExpand !== nextProps.isExpand ) {
-            this.setState({ isCollapse : !nextProps.isExpand });
-        }
-    }
-
+    
     onClick = () => {
         const newState = !this.state.isCollapse;
 
