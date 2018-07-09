@@ -9,10 +9,11 @@ const MATCH_CACHE_KEY = "MATCH_CACHE_KEY";
 
 function dispatchMatchList(dispatch, data){
     dispatch(setMatchList(data));
-    if(data.length > 0)
+    if(data.length == 0)
     {
-        dispatch(setSelectedMatch(data[0]));
+        data.push({value: 0, label: LangHelper.getSingleResource('None')});
     }
+    dispatch(setSelectedMatch(data[0]));
 }
 
 export const setSelectedMatch = (item) => {
@@ -29,8 +30,8 @@ export const setMatchList = (list) => {
     };
 }
 
-export function getMatchList(leagueId, fromDate, toDate) {
-    const cacheKey = MATCH_CACHE_KEY + leagueId + "_" + fromDate + "_" + toDate;
+export function getMatchList(leagueId, date) {
+    const cacheKey = MATCH_CACHE_KEY + leagueId + "_" + date
     return (dispatch) => {
         var cacheData = Cache.get(cacheKey);
         if(cacheData)
@@ -39,7 +40,7 @@ export function getMatchList(leagueId, fromDate, toDate) {
             return;
         }
 
-        DataService.getData(Url, { leagueId: leagueId, fromDate: fromDate, toDate: toDate})
+        DataService.getData(Url, { leagueId: leagueId, fromDate: date, toDate: date})
             .then(response => {
                 var data = response.data;
                 Cache.set(cacheKey, data);

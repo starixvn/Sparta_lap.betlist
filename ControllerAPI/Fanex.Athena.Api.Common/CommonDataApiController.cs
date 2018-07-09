@@ -84,7 +84,7 @@
         /// <param name="sportId"></param>
         /// <returns></returns>
         [HttpGet]
-        public IEnumerable<object> GetLeagues(DateTime fromDate, DateTime toDate, int sportId)
+        public IEnumerable<object> GetLeagues(DateTime fromDate, DateTime toDate, int sportId = 0)
         {
             var metaModel = new LeagueMetaModel
             {

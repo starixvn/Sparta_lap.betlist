@@ -2,6 +2,7 @@ import DataService from '@jsroot/lib/DataService.js'
 import Site from '@jsroot/lib/site'
 import LangHelper from '@jsroot/lib/langHelper'
 import * as types from './types'
+import { getLeagueList } from './leagueAction'
 
 const Url = Site.resolveClientUrl('api/CommonDataApi/GetSports');
 export const setSelectedSport = (item) => {
@@ -18,15 +19,20 @@ export const setSportList = (list) => {
     };
 }
 
-export function getSportList(productCode) {
+export function getSportList(productCode, date) {
     return (dispatch) => {
         DataService.getData(Url, { productCode: productCode})
             .then(response => {
-                var data = response.data;
-                var itemAll = { value: 0, label: LangHelper.getSingleResource('All') };
+                let data = response.data;
+                let idList = data.map((item) => item.value).join(",");
+                
+                let itemAll = { value: idList, label: LangHelper.getSingleResource('All') };
                 data.unshift(itemAll);
                 dispatch(setSportList(data));
                 dispatch(setSelectedSport(itemAll));
+                if(date){
+                    dispatch(getLeagueList(idList, date));
+                }
             });
     };
 }

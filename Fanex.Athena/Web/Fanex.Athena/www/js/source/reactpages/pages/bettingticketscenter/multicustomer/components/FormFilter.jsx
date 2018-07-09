@@ -33,8 +33,7 @@ export class FormFilter extends Component {
 
     isSingleDate = (dateRange) => {
         const { fromDate, toDate } = dateRange || this.props.dateRange;
-        
-        return moment(fromDate).isSame(toDate, 'day');
+        return moment(fromDate, "MM/DD/YYYY", true).isSame(moment(toDate, "MM/DD/YYYY", true), 'day');
     }
 
     submit = (event) => {
@@ -100,6 +99,9 @@ export class FormFilter extends Component {
         if (isValidMonthRange) {
             this.props.setDateRange(date);
             this.props.getBettypeList(this.props.selectedProduct, this.props.selectedBettype, this.isSingleDate({fromDate: date.startDate, toDate: date.endDate}));
+            if(this.isSingleDate()){
+                this.props.getLeagueList(this.props.selectedSport.value, this.props.dateRange.fromDate);
+            }
         }
         else {
             const message = LangHelper.getSingleResource("DateRangeExceedMsg").replace("{0}", AppData.dateConstraint.limitedMonthRange);
@@ -119,25 +121,25 @@ export class FormFilter extends Component {
     
     _onChangeProduct = (productCode) => {
         this.props.setSelectedProduct(productCode);
-        this.props.getSportList(productCode);
+        this.props.getSportList(productCode, this.isSingleDate() && this.props.dateRange.fromDate);
         this.props.getBettypeList(productCode, this.props.selectedBettype, this.isSingleDate());
     }
 
    _renderSportSelectList() {
        const sportList = this.props.sportList;
        
-            return sportList && sportList.length && (
-                <Select instanceId="SportList"
-                value={this.props.selectedSport}
-                options={sportList}
-                onChange={(item) => this._onChangeSport(item.value)} />
-            );
+        return sportList && sportList.length && (
+            <Select instanceId="SportList"
+            value={this.props.selectedSport}
+            options={sportList}
+            onChange={(item) => this._onChangeSport(item.value)} />
+        );
     }
 
     _onChangeSport = (sportId) => {
         this.props.setSelectedSport(sportId);
         if(this.isSingleDate()){
-            this.props.getLeagueList(sportId, this.props.dateRange.fromDate, this.props.dateRange.toDate);
+            this.props.getLeagueList(sportId, this.props.dateRange.fromDate);
         }
     }
 
@@ -166,7 +168,7 @@ export class FormFilter extends Component {
     _onChangeLeague = (leagueId) => {
         this.props.setSelectedLeague(leagueId);
         if(this.isSingleDate()){
-            this.props.getMatchList(leagueId);
+            this.props.getMatchList(leagueId, this.props.dateRange.fromDate);
         }
     }
 

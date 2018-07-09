@@ -1,3 +1,4 @@
+import moment from 'moment'
 import DataService from '@jsroot/lib/DataService.js'
 import Site from '@jsroot/lib/site'
 import LangHelper from '@jsroot/lib/langHelper'
@@ -8,13 +9,16 @@ import { getMatchList } from './matchAction'
 const Url = Site.resolveClientUrl('api/CommonDataApi/GetLeagues');
 const LEAGUE_CACHE_KEY = "LEAGUE_CACHE_KEY";
 
-function dispatchLeagueList(dispatch, data, fromDate, toDate){
+function dispatchLeagueList(dispatch, data, date){
     dispatch(setLeagueList(data));
-    if(data.length > 0)
+    
+    if(data.length == 0)
     {
-        dispatch(setSelectedLeague(data[0]));
-        dispatch(getMatchList(data[0].value, fromDate, toDate))
+        data.push({value: 0, label: LangHelper.getSingleResource('None')});
     }
+
+    dispatch(setSelectedLeague(data[0]));
+    dispatch(getMatchList(data[0].value, date, date));
 }
 
 export const setSelectedLeague = (item) => {
@@ -31,21 +35,23 @@ export const setLeagueList = (list) => {
     };
 }
 
-export function getLeagueList(sportId, fromDate, toDate) {
-    const cacheKey = LEAGUE_CACHE_KEY + sportId + "_" + fromDate + "_" + toDate;
+export function getLeagueList(sportId, date) {
+    date= moment(date,"MM/DD/YYYY").format("YYYY-MM-DD");
+    
+    const cacheKey = LEAGUE_CACHE_KEY + sportId + "_" + date
     return (dispatch) => {
         var cacheData = Cache.get(cacheKey);
         if(cacheData)
         {
-            dispatchLeagueList(dispatch, cacheData, fromDate, toDate);
+            dispatchLeagueList(dispatch, cacheData, date);
             return;
         }
 
-        DataService.getData(Url, { sportId: sportId, fromDate: fromDate, toDate: toDate})
+        DataService.getData(Url, { sportId: sportId, fromDate: date, toDate: date})
             .then(response => {
                 var data = response.data;
                 Cache.set(cacheKey, data);
-                dispatchLeagueList(dispatch, data, fromDate, toDate);
+                dispatchLeagueList(dispatch, data, date);
             });
     };
 }
