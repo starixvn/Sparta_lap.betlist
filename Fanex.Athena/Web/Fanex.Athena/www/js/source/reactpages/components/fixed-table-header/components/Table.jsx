@@ -147,10 +147,6 @@ class Table extends Component {
         window.removeEventListener('resize', debounce(this._handleResize))
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.columnsWidth = this._getColumnsWidth(nextProps.header);
-    }
-
     _handleResize = (event) => {
         event && event.preventDefault();
 

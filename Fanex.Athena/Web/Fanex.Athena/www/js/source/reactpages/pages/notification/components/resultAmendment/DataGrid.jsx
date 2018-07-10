@@ -19,8 +19,8 @@ export class DataGrid extends Component {
         this.reportTitle = "";
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (this.props.gridData !== nextProps.gridData) {
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.param !== prevProps.param) {
             const paramData = this.props.param;
             if(paramData) {
                 this.reportTitle = service.getReportTitle({
@@ -28,6 +28,9 @@ export class DataGrid extends Component {
                     toDate: paramData.ToDate
                 });
             }
+        }
+
+        if (this.props.gridData !== prevProps.gridData) {
             this.props.toggleLoader(false);
         }
     }

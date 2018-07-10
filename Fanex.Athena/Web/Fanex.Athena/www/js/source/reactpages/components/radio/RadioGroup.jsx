@@ -9,12 +9,6 @@ export default class RedioGroup extends Component {
         this.state = { value: props.value };
     }
 
-    componentWillReceiveProps(nextProps) {
-        if( this.props.value !== nextProps.value ) {
-            this.onChange(nextProps.value);
-        }
-    }
-
     static propTypes = {
         label: PropTypes.string,
         name: PropTypes.string,

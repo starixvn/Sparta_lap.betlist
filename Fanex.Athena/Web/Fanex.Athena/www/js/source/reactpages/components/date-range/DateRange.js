@@ -152,23 +152,6 @@ class DateRange extends Component {
     this.setRange(this.currentRange, triggerChange, show);
   }
 
-  componentWillReceiveProps(newProps) {
-    // Whenever date props changes, update state with parsed variant
-    if (newProps.startDate || newProps.endDate) {
-      const format = newProps.format || this.props.format;
-      const startDate = newProps.startDate && parseInput(newProps.startDate, format, 'startOf');
-      const endDate = newProps.endDate && parseInput(newProps.endDate, format, 'endOf');
-      const oldStartDate = this.props.startDate && parseInput(this.props.startDate, format, 'startOf');
-      const oldEndDate = this.props.endDate && parseInput(this.props.endDate, format, 'endOf');
-
-      if (!startDate.isSame(oldStartDate) || !endDate.isSame(oldEndDate)) {
-        const range = { startDate, endDate };
-
-        this.setRange(range);
-      }
-    }
-  }
-
   render() {
     const {
       showRange,

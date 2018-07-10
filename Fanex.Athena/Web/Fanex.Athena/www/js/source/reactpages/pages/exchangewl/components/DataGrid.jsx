@@ -38,14 +38,15 @@ export class DataGrid extends Component {
         }
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (this.props.params !== nextProps.params) {
-            this.drillDownParams[ReportLevel.MAIN] = nextProps.params;
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.params !== prevProps.params) {
+            this.drillDownParams[ReportLevel.MAIN] = this.props.params;
+        
+            const params = this.drillDownParams[this.props.gridData.level || 0];
+            this.reportTitle = Service.getReportTitle({ fromDate: params.FromDate, toDate: params.ToDate }, params.BaseCurrency ? params.BaseCurrency : params.CurrencyName, params.CurrencyId === 0);
         }
 
-        if (this.props.gridData !== nextProps.gridData) {
-            const params = this.drillDownParams[nextProps.gridData.level];
-            this.reportTitle = Service.getReportTitle({ fromDate: params.FromDate, toDate: params.ToDate }, params.BaseCurrency ? params.BaseCurrency : params.CurrencyName, params.CurrencyId === 0);
+        if (this.props.gridData !== prevProps.gridData) {
             this.props.toggleLoader(false);
         }
     }

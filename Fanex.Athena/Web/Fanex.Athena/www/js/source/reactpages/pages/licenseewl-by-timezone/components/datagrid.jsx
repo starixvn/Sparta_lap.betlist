@@ -21,9 +21,9 @@ export class DataGrid extends Component {
         this.selectedReportBy = 0;
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (this.props.gridData !== nextProps.gridData) {
-            const { groupBy, selectedReportBy, selectedTimeZone, dateRange, selectedCurrency, selectedBaseCurrency, isConvertAll } = nextProps;
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.gridData !== prevProps.gridData) {
+            const { groupBy, selectedReportBy, selectedTimeZone, dateRange, selectedCurrency, selectedBaseCurrency, isConvertAll } = this.props;
             this.groupBy = groupBy;
             this.selectedReportBy = selectedReportBy;
             this.selectedBaseCurrency = selectedBaseCurrency;

@@ -29,13 +29,13 @@ export default class Pager extends Component {
         }
     };
 
-    componentWillReceiveProps(nextProps) {
-        if (this.props.pageOption.PageIndex !== nextProps.pageOption.PageIndex) {
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.pageOption.PageIndex !== prevProps.pageOption.PageIndex) {
             this._updateState(
-                nextProps.pageOption.PageIndex
+                this.props.pageOption.PageIndex
             );
         }
-    }
+    } 
 
     goToPage(index, pageSize) {
         this._updateState(index);

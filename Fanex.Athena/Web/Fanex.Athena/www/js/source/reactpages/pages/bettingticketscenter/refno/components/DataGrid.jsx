@@ -13,9 +13,9 @@ export class DataGrid extends BaseDataGrid {
         super(props);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (this.props.gridData !== nextProps.gridData) {
-            const { isConvertAll, selectedBaseCurrency } = nextProps;
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.gridData !== prevProps.gridData) {
+            const { isConvertAll, selectedBaseCurrency } = this.props;
             this.selectedBaseCurrency = selectedBaseCurrency;
             this.reportTitle = Service.getTitle(null, null, isConvertAll ? selectedBaseCurrency : null);
             this.props.toggleLoader(false);
