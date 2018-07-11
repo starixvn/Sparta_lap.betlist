@@ -4,40 +4,31 @@ import renderer from 'react-test-renderer'
 import CheckBox from '../CheckBox'
 
 describe('CheckBox ', () => {
-    describe('render', () => {
-        it('checked box is checked', () => {
-            const props = { checked: true, id: "abc", label: "Hello" };
+    it('render with default props', () => {
+        const props = { id: 'default'};
+        const component = renderer.create(<CheckBox {...props} />);
 
-            const component = renderer.create(<CheckBox {...props} />);
+        const result = component.toJSON();
 
-            const result = component.toJSON();
-            expect(result).toMatchSnapshot();
-        });
+        expect(result).toMatchSnapshot();
     });
 
-    describe('onChange', () => {
-        it('set state correctly', () => {
-            const newState = false;
-            const component = new CheckBox ({onChange: jest.fn(), checked: true, id: 'checkbox'});
-            component.setState = jest.fn();
+    it('render with given props', () => {
+        const props = { id: 'C', lable: 'CheckBox', checked: true, disable: false};
+        const component = renderer.create(<CheckBox {...props} />);
 
-            const tree = component.render();
+        const result = component.toJSON();
 
-            tree.props.children[0].props.onChange();
-            
-            expect(component.setState).toHaveBeenCalledWith({ checked: newState });
-        });
+        expect(result).toMatchSnapshot();
     });
 
-    describe('componentWillReceiveProps', () => {
-        it('call onChange() correctly', () => {
-            const nextProps = { checked: true };
-            const component = new CheckBox ({checked: false, onChange: jest.fn()});
-            component.onChange = jest.fn();
+    it('call onChange with correct parameter', () => {
+        const props = { id: 'C', lable: 'CheckBox', checked: true, disable: false, onChange: jest.fn()};
+        const component = renderer.create(<CheckBox {...props} />);
 
-            component.componentWillReceiveProps(nextProps);
-            
-            expect(component.onChange).toHaveBeenCalledWith(true);
-        });
+        const checkboxInput = component.root.findByProps({ type: 'checkbox' });
+        checkboxInput.props.onChange();
+
+        expect(props.onChange).toHaveBeenCalledWith(!props.checked);
     });
 });

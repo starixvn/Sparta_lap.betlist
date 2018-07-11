@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CheckBox  render checked box is checked 1`] = `
+exports[`CheckBox  render with default props 1`] = `
 <div
   className="checkbox-group"
 >
@@ -8,14 +8,34 @@ exports[`CheckBox  render checked box is checked 1`] = `
     checked={true}
     className="checkbox"
     disabled={false}
-    id="abc"
+    id="default"
     onChange={[Function]}
     type="checkbox"
   />
   <label
-    htmlFor="abc"
+    htmlFor="default"
   >
-    Hello
+    
+  </label>
+</div>
+`;
+
+exports[`CheckBox  render with given props 1`] = `
+<div
+  className="checkbox-group"
+>
+  <input
+    checked={true}
+    className="checkbox"
+    disabled={false}
+    id="C"
+    onChange={[Function]}
+    type="checkbox"
+  />
+  <label
+    htmlFor="C"
+  >
+    
   </label>
 </div>
 `;
