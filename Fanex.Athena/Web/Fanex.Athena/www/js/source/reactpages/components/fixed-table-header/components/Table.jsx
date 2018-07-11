@@ -39,12 +39,12 @@ class Table extends Component {
 
         const { maxWidth, bodyHeight, adjustedHeight } = this.props;
         this.diffWidth = BODY_WIDTH - maxWidth;
-        this.columnsWidth = this._getColumnsWidth(props.header);
         this.adjustedHeight = adjustedHeight;
 
         this.state = {
             maxWidth,
-            contentHeight: bodyHeight
+            contentHeight: bodyHeight,
+            columnsWidth: this._getColumnsWidth(props.header)
         }
     }
 
@@ -134,8 +134,9 @@ class Table extends Component {
     }
 
     get columnWidthSum() {
-        return !this.columnsWidth || !this.columnsWidth.length || this.columnsWidth.find(x => typeof x !== "number") ?
-            null : this.columnsWidth.reduce((prev, current) => prev + current, 0);
+        const columnsWidth = this.state.columnsWidth;
+        return !columnsWidth || !columnsWidth.length || columnsWidth.find(x => typeof x !== "number") ?
+            null : columnsWidth.reduce((prev, current) => prev + current, 0);
     }
 
     componentDidMount() {
@@ -145,6 +146,13 @@ class Table extends Component {
 
     componentWillUnmount() {
         window.removeEventListener('resize', debounce(this._handleResize))
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if(this.props.header != prevProps.header)
+        {
+            this.setState({columnsWidth: this._getColumnsWidth(this.props.header)});
+        }
     }
 
     _handleResize = (event) => {
@@ -176,7 +184,7 @@ class Table extends Component {
         let sumOfColumnWidth = autoWidth ? this.state.maxWidth : width;
         sumOfColumnWidth = sumOfColumnWidth - SCROLLBAR_WIDTH;
 
-        const newColumnsWidth = this.columnWidthSum && this.columnsWidth.map(cellWidth => {
+        const newColumnsWidth = this.columnWidthSum && this.state.columnsWidth.map(cellWidth => {
             return sumOfColumnWidth / this.columnWidthSum * cellWidth
         });
 
@@ -189,7 +197,7 @@ class Table extends Component {
 
         const newColumnLayout = this.columnWidthSum && this.columnWidthSum !== width ?
             this._getUpdatedColumnLayout() :
-            this.columnsWidth;
+            this.state.columnsWidth;
 
         if (!newColumnLayout) {
             return null;
