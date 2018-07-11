@@ -53,10 +53,8 @@ namespace Fanex.Athena.Api.BetList
             }
 
             metaModel.ProductCodeList = RemoveInvalidProducts(metaModel.ProductCodeList, BetListCustomerOutstandingName);
+            var result = GetBetListResult(metaModel, "Lrf_BetList_CustomerList_Mem");
 
-            const string UspKey = "Lrf_BetList_CustomerList_Mem";
-            metaModel.ToDate = metaModel.ToDate.Date.AddDays(1).AddMinutes(-1);    // Need -2 miliseconds, it better than -1.
-            var result = GetBetListResult(metaModel, UspKey);
             return new
             {
                 result.Main,

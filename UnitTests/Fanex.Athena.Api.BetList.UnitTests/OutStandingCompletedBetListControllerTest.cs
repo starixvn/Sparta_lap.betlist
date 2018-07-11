@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Dynamic;
-    using System.Linq;
     using Model.BetList.MetaModel;
     using Model.Core.DTO.Common;
     using NSubstitute;
@@ -119,7 +118,6 @@
             Assert.Multiple(() =>
             {
                 _controller.Received().GetBetListResult(metaModel, UspKey);
-                Assert.That(metaModel.ToDate.Hour, Is.EqualTo(23));
                 Assert.That(metaModel.ProductCodeList, Is.EqualTo("Product1"));
 
                 Assert.That(result.Main, Is.EqualTo(betList.Main));
