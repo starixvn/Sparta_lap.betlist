@@ -187,7 +187,7 @@ namespace Fanex.Athena.Controllers.Customer
         {
             var licenseeSession = SessionService.LicenseeSession;
 
-            var logInfo = _customerListService.GetCustomerLoginInfo(custId, licenseeSession.LicenseeId);
+            var logInfo = _customerListService.GetCustomerLoginInfo(custId, licenseeSession.LicenseeId, licenseeSession.LicenseeName);
 
             var model = new LogInfoViewModel
             {

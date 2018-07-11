@@ -27,6 +27,7 @@ namespace Fanex.Athena.DataAccess.Customer
                 db.AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
                 db.AddInParameter("FilterBy", DbType.Int16, metaModel.ViewById);
                 db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
+                db.AddInParameter("siteName", DbType.String, metaModel.SiteName);
 
                 return db.Query<CustomerLog>().ToList();
             }
@@ -46,6 +47,7 @@ namespace Fanex.Athena.DataAccess.Customer
                 db.AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
                 db.AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
                 db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
+                db.AddInParameter("siteName", DbType.String, metaModel.SiteName);
                 return db.Query<CustomerLog>().ToList();
             }
         }

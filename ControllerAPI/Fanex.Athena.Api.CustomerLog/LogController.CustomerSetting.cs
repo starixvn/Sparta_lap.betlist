@@ -23,6 +23,7 @@ namespace Fanex.Athena.Api.CustomerLog
                 Year = year,
                 Month = month,
                 LicenseeId = SessionService.LicenseeSession.LicenseeId,
+                SiteName = SessionService.LicenseeSession.LicenseeName,
                 FromDay = fromday,
                 ToDay = today,
                 AgentListXml = SessionService.GenerateAgentListXml()

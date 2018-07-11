@@ -129,7 +129,7 @@
     <Setting Key="Lrf_CustomerRemoveGroupComm" SpName="Lrf_CustomerRemoveGroupComm" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" TimeOut="240" />
     <Setting Key="Lrf_CustomerMoveGroupComm" SpName="Lrf_CustomerMoveGroupComm" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" TimeOut="240" />
     <Setting Key="Lrf_CustomerSelUserSearch" SpName="Lrf_CustomerSelUserSearch" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
-    <Setting Key="Lrf_CustomerLoginInfo" SpName="Lrf_CustomerLoginInfo" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_CustomerLoginInfo" SpName="Lrf_CustomerLoginInfo_xtest" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerSelStatus" SpName="Lrf_CustomerSelStatus" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerUpdUgroup" SpName="Lrf_CustomerUpdUgroup" DbName="DBCUST.CustDB.bodbLicenseeNet" />
   </Function>
@@ -280,8 +280,8 @@
 
   <Function Name="CustomerLog">
     <Setting Key="Lrf_UserLog_LoginSel" SpName="Lrf_UserLog_LoginSel" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_CustomerSettingLog_Sel" SpName="Lrf_CustomerSettingLog_Sel" DbName="DBLOG.bodb_CustomerLog.bodbLicenseeNet" />
-    <Setting Key="Lrf_GroupCommLog_Sel" SpName="Lrf_GroupCommLog_Sel" DbName="DBLOG.bodb_CustomerLog.bodbLicenseeNet" />
+    <Setting Key="Lrf_CustomerSettingLog_Sel" SpName="Lrf_CustomerSettingLog_Sel_xtest" DbName="DBLOG.bodb_CustomerLog.bodbLicenseeNet" />
+    <Setting Key="Lrf_GroupCommLog_Sel" SpName="Lrf_GroupCommLog_Sel_xtest" DbName="DBLOG.bodb_CustomerLog.bodbLicenseeNet" />
   </Function>
 
   <Function Name="SiteConfig">

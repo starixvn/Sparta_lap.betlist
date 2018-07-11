@@ -62,6 +62,8 @@ namespace Fanex.Athena.Model.Customer.MetaModel.CustomerLog
 
         public bool IsAllowCustComm { get; set; }
 
+        public string SiteName { get; set; }
+
         public bool IsValid
         {
             get

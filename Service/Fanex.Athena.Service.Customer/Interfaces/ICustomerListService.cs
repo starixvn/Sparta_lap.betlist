@@ -34,7 +34,7 @@ namespace Fanex.Athena.Service.Customer.Interfaces
         /// <param name="custId">The customer id.</param>
         /// <param name="licenseeId">The licensee id.</param>
         /// <returns>The login info.</returns>
-        LogInfo GetCustomerLoginInfo(int custId, int licenseeId);
+        LogInfo GetCustomerLoginInfo(int custId, int licenseeId, string siteName);
 
         #endregion LogInfo
 
