@@ -24,14 +24,13 @@ export function getSportList(productCode, date) {
         DataService.getData(Url, { productCode: productCode})
             .then(response => {
                 let data = response.data;
-                let idList = data.map((item) => item.value).join(",");
                 
-                let itemAll = { value: idList, label: LangHelper.getSingleResource('All') };
+                let itemAll = { value: 0, label: LangHelper.getSingleResource('All') };
                 data.unshift(itemAll);
                 dispatch(setSportList(data));
                 dispatch(setSelectedSport(itemAll));
                 if(date){
-                    dispatch(getLeagueList(idList, date));
+                    dispatch(getLeagueList(0, date));
                 }
             });
     };

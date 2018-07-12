@@ -10,16 +10,16 @@ const BETTYPE_CACHE_KEY = "BETTYPE_CACHE_KEY";
 function dispatchBettypeList(dispatch, data, selectedBettype, hasItemAll){
     // Remove Item All
     data.length && data[0].value == 0 && data.shift();
+    const itemAll = { value: 0, label: LangHelper.getSingleResource('All') };
 
     if(hasItemAll){
-        const itemAll = { value: 0, label: LangHelper.getSingleResource('All') };
         data.unshift(itemAll);
     }
 
     dispatch(setBettypeList(data));
     if(data.length > 0)
     {
-        const bettype = data.find(x => x.value == selectedBettype.value);
+        const bettype = hasItemAll ? itemAll : data[0];//data.find(x => x.value == selectedBettype.value);
         dispatch(setSelectedBettype(bettype || data[0]));
     }
 }

@@ -9,10 +9,11 @@ const MATCH_CACHE_KEY = "MATCH_CACHE_KEY";
 
 function dispatchMatchList(dispatch, data){
     dispatch(setMatchList(data));
-    if(data.length == 0)
+    if(data.length == 0 || data[0].value != 0)
     {
-        data.push({value: 0, label: LangHelper.getSingleResource('None')});
+        data.unshift({value: 0, label: LangHelper.getSingleResource('All')});
     }
+
     dispatch(setSelectedMatch(data[0]));
 }
 
@@ -30,8 +31,8 @@ export const setMatchList = (list) => {
     };
 }
 
-export function getMatchList(leagueId, date) {
-    const cacheKey = MATCH_CACHE_KEY + leagueId + "_" + date
+export function getMatchList(sportId, leagueId, date) {
+    const cacheKey = MATCH_CACHE_KEY + sportId + "_" + leagueId + "_" + date
     return (dispatch) => {
         var cacheData = Cache.get(cacheKey);
         if(cacheData)
@@ -40,7 +41,7 @@ export function getMatchList(leagueId, date) {
             return;
         }
 
-        DataService.getData(Url, { leagueId: leagueId, fromDate: date, toDate: date})
+        DataService.getData(Url, { sportId: sportId, leagueId: leagueId, fromDate: date, toDate: date})
             .then(response => {
                 var data = response.data;
                 Cache.set(cacheKey, data);

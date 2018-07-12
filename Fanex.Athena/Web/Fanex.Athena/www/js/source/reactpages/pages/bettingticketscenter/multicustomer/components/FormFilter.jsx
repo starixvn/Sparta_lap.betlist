@@ -150,7 +150,7 @@ export class FormFilter extends Component {
             <Select instanceId="BettypeList"
                 value={this.props.selectedBettype}
                 options={bettypeList}
-                onChange={(item) => this.props.setSelectedBettype(item.value)} />
+                onChange={(item) => this.props.setSelectedBettype(item)} />
         );
     }
 
@@ -168,7 +168,7 @@ export class FormFilter extends Component {
     _onChangeLeague = (leagueId) => {
         this.props.setSelectedLeague(leagueId);
         if(this.isSingleDate()){
-            this.props.getMatchList(leagueId, this.props.dateRange.fromDate);
+            this.props.getMatchList(this.props.selectedSport.value, leagueId, this.props.dateRange.fromDate);
         }
     }
 

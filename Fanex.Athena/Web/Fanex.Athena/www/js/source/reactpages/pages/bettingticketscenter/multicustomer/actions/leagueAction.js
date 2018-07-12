@@ -9,16 +9,14 @@ import { getMatchList } from './matchAction'
 const Url = Site.resolveClientUrl('api/CommonDataApi/GetLeagues');
 const LEAGUE_CACHE_KEY = "LEAGUE_CACHE_KEY";
 
-function dispatchLeagueList(dispatch, data, date){
+function dispatchLeagueList(dispatch, data, date, sportId){
     dispatch(setLeagueList(data));
-    
-    if(data.length == 0)
+    if(data.length == 0 || data[0].value != 0)
     {
-        data.push({value: 0, label: LangHelper.getSingleResource('None')});
+        data.unshift({value: 0, label: LangHelper.getSingleResource('All')});
     }
-
     dispatch(setSelectedLeague(data[0]));
-    dispatch(getMatchList(data[0].value, date, date));
+    dispatch(getMatchList(sportId, data[0].value, date, date));
 }
 
 export const setSelectedLeague = (item) => {
@@ -43,7 +41,7 @@ export function getLeagueList(sportId, date) {
         var cacheData = Cache.get(cacheKey);
         if(cacheData)
         {
-            dispatchLeagueList(dispatch, cacheData, date);
+            dispatchLeagueList(dispatch, cacheData, date, sportId);
             return;
         }
 
@@ -51,7 +49,7 @@ export function getLeagueList(sportId, date) {
             .then(response => {
                 var data = response.data;
                 Cache.set(cacheKey, data);
-                dispatchLeagueList(dispatch, data, date);
+                dispatchLeagueList(dispatch, data, date, sportId);
             });
     };
 }

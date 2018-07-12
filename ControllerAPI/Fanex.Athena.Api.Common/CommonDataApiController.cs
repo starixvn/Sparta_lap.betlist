@@ -102,9 +102,9 @@
         }
 
         [HttpGet]
-        public IEnumerable<object> GetMatches(DateTime fromDate, DateTime toDate, int leagueid)
+        public IEnumerable<object> GetMatches(DateTime fromDate, DateTime toDate, int leagueid, int sportId = 0)
         {
-            var matches = _matchDataAccess.GetMatchesByLeague(leagueid, fromDate, toDate);
+            var matches = _matchDataAccess.GetMatchesByLeague(leagueid, fromDate, toDate, sportId);
 
             return matches.Select(x => new { value = x.MatchId, label = x.MatchName });
         }
