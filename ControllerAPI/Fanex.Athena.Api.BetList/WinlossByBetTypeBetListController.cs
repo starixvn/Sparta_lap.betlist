@@ -58,14 +58,14 @@
 
             var metaModel = new BetListMetaModel
             {
+                CurrencyId = currencyId,
                 CurrencyName = currencyName,
                 BaseCurrency = baseCurrency ?? string.Empty,
                 FromDate = fromDate,
                 ToDate = toDate,
                 BetType = bettype,
                 SortBy = sortBy,
-                SortOrder = sortOrder,
-                AgentListXml = SessionService.GenerateAgentListXml(currencyId)
+                SortOrder = sortOrder
             };
 
             const string UspKey = "Lrf_BetList_SelWinLossByBetType";

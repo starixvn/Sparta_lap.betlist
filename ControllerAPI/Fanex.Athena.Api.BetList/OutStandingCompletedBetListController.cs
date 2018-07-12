@@ -44,8 +44,11 @@ namespace Fanex.Athena.Api.BetList
         {
         }
 
-        [HttpPost]
-        public dynamic Index(BetListMetaModel metaModel)
+        [HttpGet]
+        public dynamic Index(
+            int page,
+            int rows,
+            [FromUri]BetListMetaModel metaModel)
         {
             if (!metaModel.IsValid || !IsValidCurrencyId(metaModel.CurrencyId))
             {
@@ -53,15 +56,7 @@ namespace Fanex.Athena.Api.BetList
             }
 
             metaModel.ProductCodeList = RemoveInvalidProducts(metaModel.ProductCodeList, BetListCustomerOutstandingName);
-            var result = GetBetListResult(metaModel, "Lrf_BetList_CustomerList_Mem");
-
-            return new
-            {
-                result.Main,
-                result.LeagueName,
-                result.Total,
-                IsShowTotal = true
-            };
+            return GetPagingBetListResult(metaModel, "Lrf_BetList_CustomerList_Mem", page, rows);
         }
     }
 }

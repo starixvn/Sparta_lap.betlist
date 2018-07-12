@@ -98,7 +98,7 @@ var OutstandingBetList = (function ($) {
         submitCompletedBetList: function (params) {
             BetList.initialize();
             var url = Site.resolveClientUrl('api/OutstandingCompletedBetList/Index');
-            BetList.loadData(params, url);
+            BetList.loadDataPaging(url, params);
         },
 
         submitRunningBetList: function (params) {

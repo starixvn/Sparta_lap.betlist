@@ -209,6 +209,8 @@
 
                     Assert.That(metaModel.PageIndex, Is.EqualTo(testCaseData.MetaModelPageIndex));
                     Assert.That(metaModel.PageSize, Is.EqualTo(testCaseData.MetaModelPageSize));
+                    Assert.That(metaModel.IsServerPaging, Is.True);
+
                 });
             }
         }

@@ -115,7 +115,7 @@ define(["jquery", "common/site", "common/querystring", "pages/report/report", ".
 
             submitCompletedBetList: function (params) {
                 var url = Site.resolveClientUrl('api/OutstandingCompletedBetList/Index');
-                BetList.loadData(params, url);
+                BetList.loadDataPaging(url, params);
             },
 
             submitRunningBetList: function (params) {

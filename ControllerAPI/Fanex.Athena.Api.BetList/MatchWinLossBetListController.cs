@@ -54,9 +54,6 @@ namespace Fanex.Athena.Api.BetList
                 return null;
             }
 
-            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-            metaModel.IsServerPaging = true;
-
             var uspKey = IsRacing(metaModel.BetType)
                 ? "Lrf_BetList_MatchWL_Racing"
                 : "Lrf_BetList_MatchWL_Bettype";
@@ -112,8 +109,6 @@ namespace Fanex.Athena.Api.BetList
                     ToDate = toDate.Date,
                     SortBy = sortBy,
                     SortOrder = sortOrder,
-                    IsServerPaging = true,
-                    AgentListXml = SessionService.GenerateAgentListXml(currencyId),
                     ProductCodeList = productCodeList
                 };
 

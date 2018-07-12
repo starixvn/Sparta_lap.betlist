@@ -99,7 +99,6 @@
             Assert.Multiple(() =>
             {
                 _controller.Received().GetPagingBetListResult(metaModel, UspKey, Page, Rows);
-                Assert.That(metaModel.IsServerPaging, Is.True);
             });
         }
 
@@ -118,11 +117,7 @@
             _controller.MatchBetType(Page, Rows, metaModel);
 
             // Assert
-            Assert.Multiple(() =>
-            {
-                _controller.Received().GetPagingBetListResult(metaModel, UspKey, Page, Rows);
-                Assert.That(metaModel.IsServerPaging, Is.True);
-            });
+            _controller.Received().GetPagingBetListResult(metaModel, UspKey, Page, Rows);
         }
 
         [TestCase(0)]
@@ -139,11 +134,7 @@
             _controller.Outright(metaModel);
 
             // Assert
-            Assert.Multiple(() =>
-            {
-                _controller.Received().GetBetListResult(metaModel, UspKey);
-                Assert.That(metaModel.IsServerPaging, Is.True);
-            });
+            _controller.Received().GetBetListResult(metaModel, UspKey);
         }
 
         [TestCase(0, "", "")]
@@ -162,10 +153,7 @@
             _controller.MixParlay(Page, Rows, currencyId, baseCurrency, 0, DateTime.Today, DateTime.Today, string.Empty);
 
             // Assert
-            Assert.Multiple(() =>
-            {
-                _controller.Received().GetPagingBetListResult(Arg.Is<BetListMetaModel>(x => x.IsServerPaging && x.BaseCurrency == expectedBaseCurrency), UspKey, Page, Rows);
-            });
+            _controller.Received().GetPagingBetListResult(Arg.Is<BetListMetaModel>(x => x.BaseCurrency == expectedBaseCurrency), UspKey, Page, Rows);
         }
 
         private BetListMetaModel SetUpForGetBetListResult(int currencyId, Dictionary<int, string> sessionCurrencyList)
