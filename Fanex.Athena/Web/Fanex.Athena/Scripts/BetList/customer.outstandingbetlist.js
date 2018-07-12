@@ -1,6 +1,8 @@
 ﻿/*global Site, Report, QueryString, CustomerDailyStatement, BetList, ProductListHelper*/
 /// <reference path="/@JSense.js" />
 "use strict";
+window.serverPaging = true;
+
 var OutstandingBetList = (function ($) {
     function setProductOptionParamList(params) {
         var productCodeList = $("#grid-products-multiselect").multiSelect("getCheckedItems");

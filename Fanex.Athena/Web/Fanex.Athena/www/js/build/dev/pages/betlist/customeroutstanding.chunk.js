@@ -10316,16 +10316,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             },
 
             loadDataPaging: function (url, params) {
-                _url = url;
                 Site.blockUI();
+
+                if (url && params) {
+                    url = QueryString.setParams(url, params);
+                }
+
+                _url = url;
+
                 if (url && _sortColumnName) {
                     url = QueryString.setParam(url, "IsServerPaging", true);
                     url = QueryString.setParam(url, "SortBy", _sortColumnName);
                     url = QueryString.setParam(url, "SortOrder", _sortOrder);
-                }
-
-                if (params) {
-                    url = QueryString.setParams(url, params);
                 }
 
                 _me.submiting = true;
@@ -11029,7 +11031,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             __webpack_require__(11), __webpack_require__(19)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString, Report, DailyStatement, BetList, DatePicker, MultiSelect) {
         var _viewName;
         var _viewOption;
-
+        window.serverPaging = true;
         function getViewOption() {
             return {
                 "betlistrunning": {

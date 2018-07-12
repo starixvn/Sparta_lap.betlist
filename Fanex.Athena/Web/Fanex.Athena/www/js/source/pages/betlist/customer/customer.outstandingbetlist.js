@@ -4,7 +4,7 @@ define(["jquery", "common/site", "common/querystring", "pages/report/report", ".
     function ($, Site, QueryString, Report, DailyStatement, BetList, DatePicker, MultiSelect) {
         var _viewName;
         var _viewOption;
-
+        window.serverPaging = true;
         function getViewOption() {
             return {
                 "betlistrunning": {

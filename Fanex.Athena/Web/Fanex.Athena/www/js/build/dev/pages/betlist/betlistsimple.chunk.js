@@ -7610,16 +7610,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             },
 
             loadDataPaging: function (url, params) {
-                _url = url;
                 Site.blockUI();
+
+                if (url && params) {
+                    url = QueryString.setParams(url, params);
+                }
+
+                _url = url;
+
                 if (url && _sortColumnName) {
                     url = QueryString.setParam(url, "IsServerPaging", true);
                     url = QueryString.setParam(url, "SortBy", _sortColumnName);
                     url = QueryString.setParam(url, "SortOrder", _sortOrder);
-                }
-
-                if (params) {
-                    url = QueryString.setParams(url, params);
                 }
 
                 _me.submiting = true;
