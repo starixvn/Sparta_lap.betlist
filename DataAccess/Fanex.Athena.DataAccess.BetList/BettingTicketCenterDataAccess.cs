@@ -4,6 +4,8 @@
     using System.Data;
     using System.Linq;
     using Common;
+    using Core.Configuration;
+    using Core.Configuration.Interfaces;
     using Core.Exception;
     using Data;
     using Interfaces;
@@ -13,6 +15,18 @@
 
     public class BettingTicketCenterDataAccess : BaseBetListDataAccess, IBettingTicketCenterDataAccess
     {
+        private readonly IBalanceUpDataAccess _balanceUpDataAccess;
+
+        public BettingTicketCenterDataAccess()
+        {
+            _balanceUpDataAccess = new BalanceUpDataAccess();
+        }
+
+        public BettingTicketCenterDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
+        {
+            _balanceUpDataAccess = balanceUpDataAccess;
+        }
+
         public TicketResult GetBetListForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel)
         {
             return new TicketResult();
@@ -20,7 +34,45 @@
 
         public TicketResult GetBetListForSingleCustomer(SingleCustomersBetListMetaModel metaModel)
         {
-            return new TicketResult();
+            const string UspKey = "Lrf_BetList_Mem";
+
+            var ticketResult = new TicketResult();
+            try
+            {
+                using (var db = GetObjectDb(UspKey))
+                {
+                    var balanceUp = _balanceUpDataAccess.GetBalanceUp();
+                    db.AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
+                    db.AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
+                    db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+                    db.AddInParameter("UserName", DbType.String, metaModel.UserName);
+                    db.AddInParameter("StatusIdList", DbType.String, metaModel.Status);
+                    db.AddInParameter("LiveIndicator", DbType.Byte, metaModel.LiveStatus);
+                    db.AddInParameter("Platform", DbType.Byte, metaModel.Platform);
+                    db.AddInParameter("MoveBetsDay", DbType.DateTime, balanceUp.MoveBetsDay);
+                    db.AddInParameter("BalanceUpDay", DbType.DateTime, balanceUp.BalanceUpDay);
+                    db.AddInParameter("BaseCurrency", DbType.String, metaModel.IsConvertAll ? metaModel.BaseCurrency : string.Empty);
+                    db.AddInParameter("PageSize", DbType.Int32, metaModel.IsExport ? int.MaxValue - 1 : metaModel.PageSize);
+                    db.AddInParameter("PageIndex", DbType.Int32, metaModel.IsExport ? 1 : metaModel.PageIndex);
+                    db.AddOutParameter("TotalRows", DbType.Int32, 4);
+                    db.AddOutParameter("SumStake", DbType.Decimal, 8);
+
+                    using (var reader = db.ExecuteReader())
+                    {
+                        ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader));
+                    }
+
+                    var outSqlParams = db.GetOuputParams();
+                    ticketResult.SumStake = Converter.ToDecimal(outSqlParams["sumstake"]);
+                    ticketResult.TotalRows = Converter.ToInt(outSqlParams["totalrows"]);
+                }
+            }
+            catch (Exception sqlException)
+            {
+                throw new DataAccessException(sqlException, UspKey, metaModel);
+            }
+
+            return ticketResult;
         }
 
         public TicketResult GetBetListByRefno(RefNoBetListMetaModel metaModel)
@@ -32,11 +84,12 @@
             {
                 using (var db = GetObjectDb(UspKey))
                 {
+                    var balanceUp = _balanceUpDataAccess.GetBalanceUp();
                     db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                     db.AddInParameter("UserName", DbType.String, metaModel.UserName);
                     db.AddInParameter("RefNo", DbType.Int64, metaModel.RefNo);
-                    db.AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
-                    db.AddInParameter("BalanceUpDay", DbType.DateTime, metaModel.BalanceUpDay);
+                    db.AddInParameter("MoveBetsDay", DbType.DateTime, balanceUp.MoveBetsDay);
+                    db.AddInParameter("BalanceUpDay", DbType.DateTime, balanceUp.BalanceUpDay);
                     db.AddInParameter("BaseCurrency", DbType.String, metaModel.IsConvertAll ? metaModel.BaseCurrency : string.Empty);
 
                     using (var reader = db.ExecuteReader())

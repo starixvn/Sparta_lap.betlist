@@ -9,7 +9,6 @@
     using Constant.DataDomain;
     using DataAccess.BetList;
     using DataAccess.BetList.Interfaces;
-    using DataAccess.Core.Configuration;
     using DataAccess.Core.Configuration.Interfaces;
     using Excel.BetList;
     using Excel.BetList.Model;
@@ -30,8 +29,6 @@
     [ApiFunctionAuthorization(PermissionKeys.BettingTicketCenter)]
     public class BettingTicketCenterController : BaseApiController
     {
-        private readonly IBalanceUpDataAccess _balanceUpDataAccess;
-
         private readonly IBettingTicketCenterDataAccess _dataAccess;
 
         private readonly IBetListHTMLBuilder _betlistHtmlBuilder;
@@ -42,7 +39,6 @@
 
         public BettingTicketCenterController()
         {
-            _balanceUpDataAccess = new BalanceUpDataAccess();
             _dataAccess = new BettingTicketCenterDataAccess();
             _betlistHtmlBuilder = new BetListHTMLBuilder();
             _ticketHelper = new TicketHelper();
@@ -63,7 +59,6 @@
 #pragma warning restore S107 // Methods should not have too many parameters
             : base(sessionService, productService, langService)
         {
-            _balanceUpDataAccess = balanceUpDataAccess;
             _dataAccess = dataAccess;
             _betlistHtmlBuilder = betlistHtmlBuilder;
             _cacheRefAdapter = cacheRefAdapter;
@@ -128,9 +123,6 @@
             }
             else
             {
-                var balanceUp = _balanceUpDataAccess.GetBalanceUp();
-                metaModel.BalanceUpDay = balanceUp.BalanceUpDay;
-                metaModel.MoveBetsDay = balanceUp.MoveBetsDay;
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                 ticketResult = _dataAccess.GetBetListByRefno(metaModel);
             }
