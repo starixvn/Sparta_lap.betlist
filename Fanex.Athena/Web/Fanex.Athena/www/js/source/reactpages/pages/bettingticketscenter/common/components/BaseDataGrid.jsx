@@ -97,8 +97,7 @@ export default class BaseDataGrid extends Component {
         const winlossText = AppData.isAllowedCustomerComm ? `${headerText.WinLoss}/${headerText.Comm}` : headerText.WinLoss;
         return (
             <Row style={{ height: 32 }}>
-                <Cell colWidth={40} header={true} title={headerText.Index}>{headerText.Index}</Cell>
-                <Cell colWidth={100} header={true} title={headerText.Platform}>{headerText.Platform}</Cell>
+                <Cell colWidth={40} header={true} title={headerText.Index}>{headerText.Index}</Cell>               
                 <Cell colWidth={120} header={true} title={headerText.ExternalId}>{headerText.ExternalId}</Cell>
                 <Cell colWidth={120} header={true} title={headerText.SystemId}>{headerText.SystemId}</Cell>
                 <Cell colWidth={180} header={true} title={headerText.TransTime}>{headerText.TransTime}</Cell>
@@ -108,21 +107,21 @@ export default class BaseDataGrid extends Component {
                 <Cell colWidth={120} header={true} title={winlossText}>{winlossText}</Cell>
                 <Cell colWidth={120} header={true} title={licenseeWLText}>{licenseeWLText}</Cell>
                 <Cell colWidth={100} header={true} title={headerText.Status}>{headerText.Status}</Cell>
+                <Cell colWidth={100} header={true} title={headerText.Platform}>{headerText.Platform}</Cell>
                 <Cell colWidth={100} header={true} title={headerText.Live}>{headerText.Live}</Cell>
             </Row>
         )
     }
 
     _buildBody() {
-                    const data = this.props.gridData.Data;
-                    let rows = [];
+        const data = this.props.gridData.Data;
+        let rows = [];
 
-                    for (let i = 0; i < data.length; i++) {
-                        const item = data[i];
-                        rows.push(
+        for (let i = 0; i < data.length; i++) {
+            const item = data[i];
+            rows.push(
                    <Row key={`product-${i}`}>
-                    <Cell className="center-align">{item.Index}</Cell>
-                    <Cell className="center-align">{item.Platform}</Cell>
+                    <Cell className="center-align">{item.Index}</Cell>                  
                     <Cell>{item.ExternalId}</Cell>
                     <Cell>{item.SystemId}</Cell>
                     <Cell className="center-align" dangerouslySetInnerHTML={{ __html: item.TransTime }}></Cell>
@@ -132,10 +131,11 @@ export default class BaseDataGrid extends Component {
                     <Cell className="right-align" dangerouslySetInnerHTML={{ __html: item.WinLoss}}></Cell>
                     <Cell className="right-align" dangerouslySetInnerHTML={{ __html: item.LicenseeWL}}></Cell>
                     <Cell className="center-align" dangerouslySetInnerHTML={{ __html: item.Status}}></Cell>
+                    <Cell className="center-align">{item.Platform}</Cell>
                     <Cell className="center-align" dangerouslySetInnerHTML={{ __html: item.Live}}></Cell>
                 </Row>
             );
-    }
+        }
 
         return rows;
     }

@@ -21,7 +21,7 @@
     {
         private const int NumberOfColumns = 12;
 
-        private const int ColumnTotalStart = 7;
+        private const int ColumnTotalStart = 6;
 
         private readonly ITicketHelper _ticketHelper;
 
@@ -173,27 +173,27 @@
             var footerStyle = CreateFooterCellStyle(builder);
 
             var rtfTotal = new HSSFRichTextString(ViewResources.GrandTotal);
-            for (int i = 0; i <= ColumnTotalStart; i++)
+            for (int i = 0; i < ColumnTotalStart; i++)
             {
                 builder.AddCell(rtfTotal, footerStyle);
             }
 
             builder.AddCell(
                 _excelModel.ShowSumStake
-                    ? new HSSFRichTextString(_excelModel.Data.SumStake.ToString(FormatKey.NumberFormat))
+                    ? new HSSFRichTextString(_excelModel.Data.SumStake.ToString(FormatKey.IntegerFormat))
                     : new HSSFRichTextString(),
                 footerStyle);
 
             builder.AddCell(
                 _excelModel.ShowWinLoss
-                    ? new HSSFRichTextString((_excelModel.Data.SumWinLoss + _excelModel.Data.SumPlayerComm).ToString(FormatKey.NumberFormat))
+                    ? new HSSFRichTextString((_excelModel.Data.SumWinLoss + _excelModel.Data.SumPlayerComm).ToString(FormatKey.DecimalFormat))
                     : new HSSFRichTextString(),
                 footerStyle);
 
             if (_excelModel.ShowLicenseeWl)
             {
                 var sumLicenseeWLComm = _excelModel.Data.SumLicenseeWL + _excelModel.Data.SumComm;
-                var rtfSumLicenseeWl = new HSSFRichTextString(sumLicenseeWLComm.ToString(FormatKey.NumberFormat));
+                var rtfSumLicenseeWl = new HSSFRichTextString(sumLicenseeWLComm.ToString(FormatKey.DecimalFormat));
                 rtfSumLicenseeWl.ApplyFont(sumLicenseeWLComm < 0 ? _negativeWinLossFont : _winLossFont);
                 builder.AddCell(rtfSumLicenseeWl, footerStyle);
             }
@@ -203,13 +203,13 @@
             }
 
             // add the rest column
-            for (int i = ColumnTotalStart + 4; i < NumberOfColumns; i++)
+            for (int i = ColumnTotalStart + 3; i < NumberOfColumns; i++)
             {
                 builder.AddCell(new HSSFRichTextString(), footerStyle);
             }
 
             var lastRowIndex = builder.LastContentRow;
-            builder.MergeCell(new CellRangeAddress(lastRowIndex, lastRowIndex, 0, ColumnTotalStart), footerStyle);
+            builder.MergeCell(new CellRangeAddress(lastRowIndex, lastRowIndex, 0, ColumnTotalStart - 1), footerStyle);
         }
 
         protected internal virtual void AddHeader(IBetListExcelBuilder builder)
@@ -218,7 +218,6 @@
             var captions = new[]
             {
                 "#",
-                ViewResources.Platform,
                 ViewResources.ExternalId,
                 ViewResources.SystemId,
                 ViewResources.TransTime,
@@ -228,6 +227,7 @@
                 ViewResources.WinLoss + (_excelModel.CustomerCommVisible ? "/" + ViewResources.Comm : string.Empty),
                 ViewResources.LicenseeWL + "/" + ViewResources.Comm,
                 ViewResources.Status,
+                ViewResources.Platform,
                 ViewResources.Live
             };
             var columWidths = new short[] { 1500, 4800, 4800, 5400, 15500, 2600, 4200, 4200, 5400, 5400, 3400, 3400 };
@@ -242,8 +242,7 @@
         protected internal virtual void AsignData(IBetListExcelBuilder builder, TicketResult ticketResult, LrfTicket ticket)
         {
             _ticketHelper.Index++;
-            builder.AddIndex(_ticketHelper, _ticketHelper.Index);
-            AddPlatfromCell(builder, ticket);
+            builder.AddIndex(_ticketHelper, _ticketHelper.Index);         
             builder.AddExternalId(_ticketHelper, ticket.ExternalId, _oddCellLeftAlign, _evenCellLeftAlign);
             builder.AddSystemId(_ticketHelper, ticket.UserName, _oddCellLeftAlign, _evenCellLeftAlign);
             builder.AddTrans(ticket, _ticketHelper);
@@ -253,6 +252,7 @@
             builder.AddCustomerWL(ticket, _excelModel.CustomerCommVisible, _winLossFont);
             builder.AddLicenseeWL(ticket, _excelModel.LicenseeId == LicenseeIdentity.OneTwoBet, _negativeWinLossFont, _winLossFont);
             builder.AddStatus(ticket, _ticketHelper, ticketResult.TicketDataList, false);
+            AddPlatfromCell(builder, ticket);
             AddLiveCell(builder, ticket);
         }
 

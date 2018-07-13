@@ -29,7 +29,7 @@ export default class Pager extends Component {
             PageList: [50, 100, 200],
             TotalItem: 0
         },
-        isShowPagingInfo: false,
+        isShowPagingInfo: true,
         isAllowInputPageIndex: true
     };
 

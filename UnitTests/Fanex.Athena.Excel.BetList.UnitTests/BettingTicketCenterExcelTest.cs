@@ -310,9 +310,9 @@
             {
                 _builder.Received(NumberOfColumns).AddCell(Arg.Any<HSSFRichTextString>(), Arg.Any<ICellStyle>());
                 _builder.DidNotReceive().AddCell(
-                    Arg.Is<HSSFRichTextString>(x => x.String == ticket.SumStake.ToString(FormatKey.NumberFormat)
-                    || x.String == (ticket.SumWinLoss + ticket.SumPlayerComm).ToString(FormatKey.NumberFormat)
-                    || x.String == (ticket.SumLicenseeWL + ticket.SumComm).ToString(FormatKey.NumberFormat)),
+                    Arg.Is<HSSFRichTextString>(x => x.String == ticket.SumStake.ToString(FormatKey.DecimalFormat)
+                    || x.String == (ticket.SumWinLoss + ticket.SumPlayerComm).ToString(FormatKey.DecimalFormat)
+                    || x.String == (ticket.SumLicenseeWL + ticket.SumComm).ToString(FormatKey.DecimalFormat)),
                     Arg.Any<ICellStyle>());
 
                 _builder.Received(1).MergeCell(
@@ -351,7 +351,7 @@
 
             // Assert
             _builder.Received(1).AddCell(
-                Arg.Is<HSSFRichTextString>(x => x.String == ticket.SumStake.ToString(FormatKey.NumberFormat)),
+                Arg.Is<HSSFRichTextString>(x => x.String == ticket.SumStake.ToString(FormatKey.DecimalFormat)),
                 Arg.Any<ICellStyle>());
         }
 
@@ -385,7 +385,7 @@
 
             // Assert
             _builder.Received(1).AddCell(
-                Arg.Is<HSSFRichTextString>(x => x.String == (ticket.SumWinLoss + ticket.SumPlayerComm).ToString(FormatKey.NumberFormat)),
+                Arg.Is<HSSFRichTextString>(x => x.String == (ticket.SumWinLoss + ticket.SumPlayerComm).ToString(FormatKey.DecimalFormat)),
                 Arg.Any<ICellStyle>());
         }
 
@@ -419,7 +419,7 @@
 
             // Assert
             _builder.Received(1).AddCell(
-                Arg.Is<HSSFRichTextString>(x => x.String == (ticket.SumLicenseeWL + ticket.SumComm).ToString(FormatKey.NumberFormat)),
+                Arg.Is<HSSFRichTextString>(x => x.String == (ticket.SumLicenseeWL + ticket.SumComm).ToString(FormatKey.DecimalFormat)),
                 Arg.Any<ICellStyle>());
         }
 

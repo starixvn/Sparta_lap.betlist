@@ -45,7 +45,7 @@ export class FormFilter extends Component {
         params.IsExport = true;
         this.props.toggleLoader(true);
         
-        DataService.getFile(DATA_URL, params).then((response) => {
+        DataService.getFile(ApiUrl.REFNO_DATA_URL, params).then((response) => {
             Site.downloadFile(response.data, 'BettingTicketsCenter_RefNo.xls');
             this.props.toggleLoader(false);
         });
@@ -130,7 +130,7 @@ export class FormFilter extends Component {
                     </div>
                </div>
                 <div className="row">
-                    <div className="col-12">
+                    <div className="col-11">
                         {LangHelper.getSingleResource('BettingTicketCenter_RefnoTabNote')}
                     </div>
                </div>
