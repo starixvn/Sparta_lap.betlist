@@ -79,7 +79,7 @@ export class FormFilter extends Component {
 
         params.IsExport = true;
         this.props.toggleLoader(true);
-        DataService.getFile(DATA_URL, params).then((response) => {
+        DataService.getFile(ApiUrl.RUNNING_DATA_URL, params).then((response) => {
             Site.downloadFile(response.data, 'BettingTicketsCenter_Running.xls');
             this.props.toggleLoader(false);
         });

@@ -56,6 +56,10 @@
                     db.AddInParameter("PageIndex", DbType.Int32, metaModel.IsExport ? 1 : metaModel.PageIndex);
                     db.AddOutParameter("TotalRows", DbType.Int32, 4);
                     db.AddOutParameter("SumStake", DbType.Decimal, 8);
+                    db.AddOutParameter("SumWinLost", DbType.Decimal, 8);
+                    db.AddOutParameter("SumLicenseeWL", DbType.Decimal, 8);
+                    db.AddOutParameter("SumComm", DbType.Decimal, 8);
+                    db.AddOutParameter("SumPlayerComm", DbType.Decimal, 8);
 
                     using (var reader = db.ExecuteReader())
                     {
@@ -64,6 +68,10 @@
 
                     var outSqlParams = db.GetOuputParams();
                     ticketResult.SumStake = Converter.ToDecimal(outSqlParams["sumstake"]);
+                    ticketResult.SumWinLoss = Converter.ToDecimal(outSqlParams["sumwinlost"]);
+                    ticketResult.SumLicenseeWL = Converter.ToDecimal(outSqlParams["sumlicenseewl"]);
+                    ticketResult.SumComm = Converter.ToDecimal(outSqlParams["sumcomm"]);
+                    ticketResult.SumPlayerComm = Converter.ToDecimal(outSqlParams["sumplayercomm"]);
                     ticketResult.TotalRows = Converter.ToInt(outSqlParams["totalrows"]);
                 }
             }

@@ -100,13 +100,28 @@
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             var ticketResult = _dataAccess.GetBetListForSingleCustomer(metaModel);
 
+            if (metaModel.IsExport)
+            {
+                var excelModel = new BettingTicketCenterExcelModel
+                {
+                    Data = ticketResult,
+                    ShowTotal = true,
+                    ShowSumStake = true,
+                    ShowLicenseeWl = true,
+                    ShowWinLoss = true,
+                    CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
+                    Title = GetTitle(metaModel)
+                };
+                return Export(excelModel);
+            }
+
             return new
             {
                 Data = BuildTicketText(ticketResult, metaModel),
                 Total = new
                 {
                     SumWinLoss = ticketResult.SumWinLoss + ticketResult.SumPlayerComm,
-                    SumLicenseeWl = ticketResult.SumLicenseeWL + ticketResult.SumComm,
+                    SumLicenseeWL = ticketResult.SumLicenseeWL + ticketResult.SumComm,
                     SumStake = ticketResult.SumStake
                 },
                 TotalRows = ticketResult.TotalRows
@@ -209,8 +224,8 @@
         private HttpResponseMessage Export(BettingTicketCenterExcelModel excelModel)
         {
             var excel = CreateExcel(excelModel);
-
-            return ExcelStream(excel.Export(), string.Empty);
+            var workbook = excel.Export();
+            return ExcelStream(workbook, string.Empty);
         }
 
         private List<TicketText> BuildTicketText(TicketResult ticketResult, BaseBettingTicketMetaModel metaModel)
