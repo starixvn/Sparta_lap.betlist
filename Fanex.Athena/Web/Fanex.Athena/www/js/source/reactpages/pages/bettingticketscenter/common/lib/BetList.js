@@ -1,6 +1,7 @@
 ﻿import Site from '@jsroot/lib/site'
 import QueryString from '@jsroot/lib/QueryString'
 
+const BETTYPE_CASHOUT = 911;
 const BETTYPE_MIXPARLAY = 9, BETTYPE_SYSTEMPARLAY = 29, BETTYPE_MIXPARLAY_BETRADAR = 2799;
 const MIN_BETTYPE_FASTMARKET = 221;
 const MAX_BETTYPE_FASTMARKET = 227;
@@ -96,6 +97,21 @@ class BetList {
         url = QueryString.setParam(url, "basecurrency", baseCurrency);
 
         return url;
+    }
+
+    getCashOutHistoryPopupSetting (baseCurrency, transId, refNo, betType, betdaqId) {
+        var isCashOut = betdaqId < 1 || betType === BETTYPE_CASHOUT;
+        var url = Site.resolveClientUrl('CashOutBetList/Detail');
+        url = QueryString.setParam(url, "transId", transId);
+        url = QueryString.setParam(url, "refNo", refNo);
+        url = QueryString.setParam(url, "betType", betType);
+        url = QueryString.setParam(url, "betdaqId", betdaqId);
+        url = QueryString.setParam(url, "BaseCurrency", baseCurrency);
+        url = QueryString.setParam(url, "isCashout", isCashOut);
+        return {
+            url: url,
+            isCashOut : isCashOut
+        };
     }
 }
 

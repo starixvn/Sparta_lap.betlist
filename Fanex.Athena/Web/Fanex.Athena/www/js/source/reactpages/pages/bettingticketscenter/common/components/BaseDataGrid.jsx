@@ -22,8 +22,8 @@ export default class BaseDataGrid extends Component {
 
     componentDidMount() {
         window.ViewResult = (...args) => {
-            var url = BetList.getResultUrl.apply(BetList, args);
-            this.setState({ isShowPopup: true, popupUrl: url, popupTitle: LangHelper.getSingleResource("Result")});
+            const url = BetList.getResultUrl.apply(BetList, args);
+            this._openPopup(url, LangHelper.getSingleResource("Result"));
         };
 
         // expand choice content
@@ -33,15 +33,22 @@ export default class BaseDataGrid extends Component {
 
         // show detail popup (in choice column)
         window.showCombMPDetail = (transId, refNo, betId, custId, betTeam, baseCurrency) => {
-            var url = BetList.getParlayDetailUrl(transId, refNo, betId, custId, betTeam, baseCurrency);
-            this.setState({ isShowPopup: true, popupUrl: url, popupTitle: betTeam});
+            const url = BetList.getParlayDetailUrl(transId, refNo, betId, custId, betTeam, baseCurrency);
+            this._openPopup(url, betTeam);
         };
+
+        window.ViewCashOutHistory = (transId, refNo, betType, betdaqId) => {
+            const {url, isCashOut } = BetList.getCashOutHistoryPopupSetting(this.props.requestParam.baseCurrency, transId, refNo, betType, betdaqId);
+            const title = LangHelper.getSingleResource(isCashOut ? "CashOutDetails" : "BoughtDetails");
+            this._openPopup(url, title);
+        }
     }
 
     componentWillUnmount() {
         window.ViewResult = undefined;
         window.showNewCombMP = undefined;
         window.showCombMPDetail = undefined;
+        window.ViewCashOutHistory = undefined;
     }
 
     get dataUrl(){
@@ -58,8 +65,12 @@ export default class BaseDataGrid extends Component {
         this.props.getGridData(this.dataUrl, param);
         this.props.setRequestParam(param);
     }
+    
+    _openPopup (url, title) {
+        this.setState({ isShowPopup: true, popupUrl: url, popupTitle: title});
+    }
 
-    _closeResultPopup = () => {
+    _closePopup(){
         this.setState({ isShowPopup: false });
     }
 
@@ -187,7 +198,7 @@ export default class BaseDataGrid extends Component {
                         iframeUrl={this.state.popupUrl}
                         title={this.state.popupTitle}
                         width={900} height={600}
-                        onClose={this._closeResultPopup}
+                        onClose={() => this._closePopup()}
                         >
                 </Popup>}
             </div>
