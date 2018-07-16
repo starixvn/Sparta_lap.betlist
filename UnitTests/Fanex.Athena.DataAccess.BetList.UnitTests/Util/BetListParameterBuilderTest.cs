@@ -376,10 +376,11 @@
         }
 
         [Test]
-        public void CreateBetListParameters_CalledByOutStandingCompletedBetList_ParametersPassedCorrectly()
+        public void CreateBetListParameters_CalledByOutStandingCompletedBetList_ParametersPassedCorrectlyWithoutSort()
         {
             // Arrange
             const string UspKey = "Lrf_BetList_CustomerList_Mem";
+            _metaModel.SortBy = string.Empty;
 
             // Action
             BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, _metaModel);
@@ -394,6 +395,32 @@
                 AssertSummaryParameters(_objectDb, Enumerable.Empty<string>());
                 _objectDb.Received(1).AddInParameter("showSB", DbType.Boolean, true);
                 _objectDb.Received(1).AddInParameter("showNG", DbType.Boolean, true);
+                _objectDb.DidNotReceive().AddInParameter("Sort", DbType.String, Arg.Any<string>());
+            });
+        }
+
+        [Test]
+        public void CreateBetListParameters_CalledByOutStandingCompletedBetList_ParametersPassedCorrectlyWithSort()
+        {
+            // Arrange
+            const string UspKey = "Lrf_BetList_CustomerList_Mem";
+            _metaModel.SortBy = "Column";
+            _metaModel.SortOrder = "asc";
+
+            // Action
+            BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, _metaModel);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                _objectDb.Received(1).AddInParameter("custid", DbType.Int32, _metaModel.CustId);
+                AssertDateRangeParameters(_objectDb, _metaModel);
+                AssertPagingParameters(_objectDb, _metaModel);
+                AssertSummaryParameters(_objectDb, Enumerable.Empty<string>());
+                _objectDb.Received(1).AddInParameter("showSB", DbType.Boolean, true);
+                _objectDb.Received(1).AddInParameter("showNG", DbType.Boolean, true);
+                _objectDb.Received(1).AddInParameter("Sort", DbType.String, _metaModel.SortBy + " " + _metaModel.SortOrder);
             });
         }
 

@@ -56,7 +56,7 @@
             }
 
             var tokenInfo = _oneAuthenticationService.GetTokenInfo(token);
-            if(tokenInfo == null)
+            if (tokenInfo == null)
             {
                 return Redirect(Url.Content(returnUrl + OneAuthorizationErrorCode.TokenIsInValid));
             }

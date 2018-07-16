@@ -5,12 +5,11 @@
     using System.Data;
     using System.Linq;
     using Data;
-    using Model.BetList.DTO;
     using Model.BetList.MetaModel;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
 
-    [System.CLSCompliant(false)]
+    [CLSCompliant(false)]
     public static class BetListParameterBuilder
     {
         private static readonly IEnumerable<string> SupportedBaseCurrencies = SystemConstants.BaseCurrencyList;
@@ -192,15 +191,15 @@
             db.AddInParameter("custid", DbType.Int32, metaModel.CustId);
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             db.AddInParameter("BaseCurrency", DbType.String, metaModel.BaseCurrency);
-            if (!string.IsNullOrWhiteSpace(metaModel.SortBy))
-            {
-                db.AddInParameter("Sort", DbType.String, metaModel.SortBy + " " + metaModel.SortOrder);
-            }
             CreateBetListDateRangeParameters(db, metaModel);
             CreateBetListPagingParameters(db, metaModel);
             CreateSummaryOutputParameters(db, false);
             CreateProductListParameters(db, metaModel.ProductCodeList);
             CreateBetlistBUParameters(db, metaModel);
+            if (!string.IsNullOrWhiteSpace(metaModel.SortBy))
+            {
+                db.AddInParameter("Sort", DbType.String, metaModel.SortBy + " " + metaModel.SortOrder);
+            }
         }
 
         private static void CreatePlatformWinLossBetListParameters(IObjectDb db, BetListMetaModel metaModel)

@@ -57,10 +57,10 @@
 
     describe("submit()", function () {
         var params = {};
-        it("OutstandingBetList.submitCompletedBetList(params) should be call BetList.loadData(params, url) with correct url", function () {
-            spyOn(BetList, 'loadData');
+        it("OutstandingBetList.submitCompletedBetList(params) should be call BetList.loadDataPaging(params, url) with correct url", function () {
+            spyOn(BetList, 'loadDataPaging');
             OutstandingBetList.submitCompletedBetList(params);
-            expect(BetList.loadData).toHaveBeenCalledWith({}, 'api/OutstandingCompletedBetList/Index');
+            expect(BetList.loadDataPaging).toHaveBeenCalledWith('api/OutstandingCompletedBetList/Index', {});
         });
 
         it("OutstandingBetList.submitRunningBetList(params) should be call BetList.loadData(params, url) with correct url", function () {
