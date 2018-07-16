@@ -41,7 +41,12 @@
             {
                 using (var db = GetObjectDb(UspKey))
                 {
+                    var productCodes = metaModel.ProductCodeList.Split(',');
+                    var isShowBA = productCodes.Contains(Product.BA);
+                    var productList = string.Join(",", productCodes.Except(new[] { Product.BA }));
                     var balanceUp = _balanceUpDataAccess.GetBalanceUp();
+                    db.AddInParameter("ShowBA", DbType.Boolean, isShowBA);
+                    db.AddInParameter("ProductList", DbType.String, productList);
                     db.AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
                     db.AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
                     db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
