@@ -192,6 +192,10 @@
             db.AddInParameter("custid", DbType.Int32, metaModel.CustId);
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             db.AddInParameter("BaseCurrency", DbType.String, metaModel.BaseCurrency);
+            if (!string.IsNullOrWhiteSpace(metaModel.SortBy))
+            {
+                db.AddInParameter("Sort", DbType.String, metaModel.SortBy + " " + metaModel.SortOrder);
+            }
             CreateBetListDateRangeParameters(db, metaModel);
             CreateBetListPagingParameters(db, metaModel);
             CreateSummaryOutputParameters(db, false);
