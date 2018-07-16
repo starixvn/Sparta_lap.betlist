@@ -73,6 +73,7 @@
                 return null;
             }
 
+            var showPlayerComm = SessionService.LicenseeSession.IsAllowedCustomerComm;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             var ticketResult = _dataAccess.GetBetListForMultipleCustomers(metaModel);
 
@@ -81,9 +82,9 @@
                 Data = BuildTicketText(ticketResult, metaModel),
                 Total = new
                 {
-                    SumWinLoss = ticketResult.SumWinLoss + ticketResult.SumPlayerComm,
-                    SumLicenseeWl = ticketResult.SumLicenseeWL + ticketResult.SumComm,
-                    SumStake = ticketResult.SumStake
+                    SumWinLoss = _betlistHtmlBuilder.BuildCustomerWL(new LrfTicket { Winlost = ticketResult.SumWinLoss, PlayerComm = ticketResult.SumPlayerComm }, showPlayerComm),
+                    SumLicenseeWl = (ticketResult.SumLicenseeWL + ticketResult.SumComm).ToString(FormatKey.DecimalFormat),
+                    SumStake = ticketResult.SumStake.ToString(FormatKey.DecimalFormat)
                 },
                 TotalRows = ticketResult.TotalRows
             };
@@ -97,6 +98,7 @@
                 return null;
             }
 
+            var showPlayerComm = SessionService.LicenseeSession.IsAllowedCustomerComm;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             var ticketResult = _dataAccess.GetBetListForSingleCustomer(metaModel);
 
@@ -109,7 +111,7 @@
                     ShowSumStake = true,
                     ShowLicenseeWl = true,
                     ShowWinLoss = true,
-                    CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
+                    CustomerCommVisible = showPlayerComm,
                     Title = GetTitle(metaModel)
                 };
                 return Export(excelModel);
@@ -120,9 +122,9 @@
                 Data = BuildTicketText(ticketResult, metaModel),
                 Total = new
                 {
-                    SumWinLoss = ticketResult.SumWinLoss + ticketResult.SumPlayerComm,
-                    SumLicenseeWL = ticketResult.SumLicenseeWL + ticketResult.SumComm,
-                    SumStake = ticketResult.SumStake
+                    SumWinLoss = _betlistHtmlBuilder.BuildCustomerWL(new LrfTicket { Winlost = ticketResult.SumWinLoss, PlayerComm = ticketResult.SumPlayerComm }, showPlayerComm),
+                    SumLicenseeWL = (ticketResult.SumLicenseeWL + ticketResult.SumComm).ToString(FormatKey.DecimalFormat),
+                    SumStake = ticketResult.SumStake.ToString(FormatKey.DecimalFormat)
                 },
                 TotalRows = ticketResult.TotalRows
             };
@@ -192,7 +194,7 @@
                 Data = BuildTicketText(ticketResult, metaModel),
                 Total = new
                 {
-                    SumStake = ticketResult.SumStake
+                    SumStake = ticketResult.SumStake.ToString(FormatKey.DecimalFormat)
                 },
                 TotalRows = ticketResult.TotalRows
             };
@@ -230,7 +232,7 @@
 
         private List<TicketText> BuildTicketText(TicketResult ticketResult, BaseBettingTicketMetaModel metaModel)
         {
-            var startIndex = (metaModel.PageIndex - 1) * metaModel.PageSize + 1;
+            var startIndex = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;
             var showPlayerComm = SessionService.LicenseeSession.IsAllowedCustomerComm;
             var ticketTextList = new List<TicketText>();
 

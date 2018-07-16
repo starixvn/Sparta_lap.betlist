@@ -30,12 +30,11 @@ export class DataGrid extends BaseDataGrid {
 
     _buildFooter() {
         const item = this.props.gridData.Total;
-        const sumStake = NumberFormat.format(item.SumStake);
         const colSpan = 6;
         return [(
             <Row className="fixed-table-grant-total" key={1}>
                <Cell className="center-align" colSpan={colSpan}>{LangHelper.getSingleResource("Total")}</Cell>
-               <Cell title={sumStake} className="right-align">{sumStake}</Cell>
+               <Cell className="right-align">{item.SumStake}</Cell>
                <Cell className="right-align" colSpan={5}></Cell>
             </Row>
             )]
