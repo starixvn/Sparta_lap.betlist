@@ -9,5 +9,6 @@
   <!--Do not delete this-->
 
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_BetList_CustomerList_Mem" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_CustomerSelUserSearch" EnvironmentText="_xtest"></SpNameConfig>
   
 </Root>
