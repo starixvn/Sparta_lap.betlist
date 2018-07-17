@@ -61,17 +61,35 @@ export default class BaseDataGrid extends Component {
         param.PageIndex = index;
         param.PageSize = size;
 
+        this._getData(param);
+    }
+    
+    _getData(param){
         this.props.toggleLoader(true);
         this.props.getGridData(this.dataUrl, param);
         this.props.setRequestParam(param);
     }
-    
+
     _openPopup (url, title) {
         this.setState({ isShowPopup: true, popupUrl: url, popupTitle: title});
     }
 
     _closePopup(){
         this.setState({ isShowPopup: false });
+    }
+
+    _sort(sortBy){
+        let param = this.props.requestParam;
+
+        if (!param.SortBy || param.SortBy != sortBy) {
+            param.SortBy = sortBy;
+            param.SortOrder = 'asc';
+        }
+        else {
+            param.SortOrder = param.SortOrder == 'asc' ? 'desc' : 'asc';
+        }
+
+        this._getData(param);
     }
 
     _showNewParlayDetail (transId, transIndex, refNo, handicap1, handicap2, betcheck, betteam) {
@@ -106,6 +124,9 @@ export default class BaseDataGrid extends Component {
         var headerText = Service.getHeaderText();
         const licenseeWLText = `${headerText.LicenseeWL}/${headerText.Comm}`;
         const winlossText = AppData.isAllowedCustomerComm ? `${headerText.WinLoss}/${headerText.Comm}` : headerText.WinLoss;
+
+        const { SortBy, SortOrder } = this.props.requestParam;
+
         return (
             <Row style={{ height: 32 }}>
                 <Cell colWidth={40} header={true} title={headerText.Index}>{headerText.Index}</Cell>               
@@ -114,9 +135,15 @@ export default class BaseDataGrid extends Component {
                 <Cell colWidth={180} header={true} title={headerText.TransTime}>{headerText.TransTime}</Cell>
                 <Cell colWidth={250} header={true} title={headerText.Choice}>{headerText.Choice}</Cell>
                 <Cell colWidth={100} header={true} title={headerText.Odds}>{headerText.Odds}</Cell>
-                <Cell colWidth={100} header={true} title={headerText.Stake}>{headerText.Stake}</Cell>
-                <Cell colWidth={120} header={true} title={winlossText}>{winlossText}</Cell>
-                <Cell colWidth={120} header={true} title={licenseeWLText}>{licenseeWLText}</Cell>
+                <Cell colWidth={100} header={true} title={headerText.Stake} sortable={true} sorting={SortBy=='Stake'} asc={SortOrder=='asc'} onClick={()=>this._sort('Stake')}>
+                    {headerText.Stake}
+                </Cell>
+                <Cell colWidth={120} header={true} title={winlossText} sortable={true} sorting={SortBy=='WinLoss'} asc={SortOrder=='asc'} onClick={()=>this._sort('WinLoss')}>
+                    {winlossText}
+                </Cell>
+                <Cell colWidth={120} header={true} title={licenseeWLText} sortable={true} sorting={SortBy=='LicenseeWL'} asc={SortOrder=='asc'} onClick={()=>this._sort('LicenseeWL')}>
+                    {licenseeWLText}
+                </Cell>
                 <Cell colWidth={100} header={true} title={headerText.Status}>{headerText.Status}</Cell>
                 <Cell colWidth={100} header={true} title={headerText.Platform}>{headerText.Platform}</Cell>
                 <Cell colWidth={100} header={true} title={headerText.Live}>{headerText.Live}</Cell>

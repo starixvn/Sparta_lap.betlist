@@ -55,13 +55,6 @@ exports[`Render grid Has data grid data should be rendered correctly 1`] = `
                 <td
                   style={
                     Object {
-                      "width": "-3.379310344827586px",
-                    }
-                  }
-                />
-                <td
-                  style={
-                    Object {
                       "width": "-4.055172413793103px",
                     }
                   }
@@ -129,6 +122,13 @@ exports[`Render grid Has data grid data should be rendered correctly 1`] = `
                     }
                   }
                 />
+                <td
+                  style={
+                    Object {
+                      "width": "-3.379310344827586px",
+                    }
+                  }
+                />
               </tr>
               <tr
                 style={
@@ -141,11 +141,6 @@ exports[`Render grid Has data grid data should be rendered correctly 1`] = `
                   title="#"
                 >
                   #
-                </th>
-                <th
-                  title="Platform"
-                >
-                  Platform
                 </th>
                 <th
                   title="ExternalId"
@@ -173,24 +168,44 @@ exports[`Render grid Has data grid data should be rendered correctly 1`] = `
                   Odds
                 </th>
                 <th
+                  className="sortable "
+                  onClick={[Function]}
                   title="Stake"
                 >
                   Stake
+                  <span
+                    className=""
+                  />
                 </th>
                 <th
+                  className="sortable "
+                  onClick={[Function]}
                   title="WinLoss"
                 >
                   WinLoss
+                  <span
+                    className=""
+                  />
                 </th>
                 <th
+                  className="sortable "
+                  onClick={[Function]}
                   title="LicenseeWL/Comm"
                 >
                   LicenseeWL/Comm
+                  <span
+                    className=""
+                  />
                 </th>
                 <th
                   title="Status"
                 >
                   Status
+                </th>
+                <th
+                  title="Platform"
+                >
+                  Platform
                 </th>
                 <th
                   title="Live"
@@ -237,13 +252,6 @@ exports[`Render grid Has data grid data should be rendered correctly 1`] = `
                 <td
                   style={
                     Object {
-                      "width": "-3.379310344827586px",
-                    }
-                  }
-                />
-                <td
-                  style={
-                    Object {
                       "width": "-4.055172413793103px",
                     }
                   }
@@ -311,17 +319,19 @@ exports[`Render grid Has data grid data should be rendered correctly 1`] = `
                     }
                   }
                 />
+                <td
+                  style={
+                    Object {
+                      "width": "-3.379310344827586px",
+                    }
+                  }
+                />
               </tr>
               <tr>
                 <td
                   className="center-align"
                 >
                   1
-                </td>
-                <td
-                  className="center-align"
-                >
-                  Asia
                 </td>
                 <td>
                   ExternalId
@@ -385,6 +395,11 @@ exports[`Render grid Has data grid data should be rendered correctly 1`] = `
                     }
                   }
                 />
+                <td
+                  className="center-align"
+                >
+                  Asia
+                </td>
                 <td
                   className="center-align"
                   dangerouslySetInnerHTML={
