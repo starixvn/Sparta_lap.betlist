@@ -506,7 +506,7 @@ exports[`Pager PageInput page size input is changed - value is not a number - di
       onKeyUp={[Function]}
       size="2"
       type="text"
-      value="a"
+      value=""
     />
     <span>
        of 3
@@ -948,7 +948,7 @@ exports[`Pager goToPage page icon is clicked - call onPaging 5`] = `
 </div>
 `;
 
-exports[`Pager goToPage page index is invalid - do not call onPaging 1`] = `
+exports[`Pager goToPage page index is invalid - do not call onPaging with new input 1`] = `
 <div
   className="page-container center-align"
   style={
@@ -1027,7 +1027,7 @@ exports[`Pager goToPage page index is invalid - do not call onPaging 1`] = `
 </div>
 `;
 
-exports[`Pager goToPage page index is invalid - do not call onPaging 2`] = `
+exports[`Pager goToPage page index is invalid - do not call onPaging with new input 2`] = `
 <div
   className="page-container center-align"
   style={
@@ -1059,7 +1059,7 @@ exports[`Pager goToPage page index is invalid - do not call onPaging 2`] = `
       onKeyUp={[Function]}
       size="2"
       type="text"
-      value="a"
+      value={1}
     />
     <span>
        of 3
@@ -1067,7 +1067,7 @@ exports[`Pager goToPage page index is invalid - do not call onPaging 2`] = `
     </span>
   </div>
   <a
-    className="icon page-next disable"
+    className="icon page-next "
     href="javascript:;"
     onClick={[Function]}
   />
@@ -1078,7 +1078,7 @@ exports[`Pager goToPage page index is invalid - do not call onPaging 2`] = `
   />
   <select
     className="pagesize-select"
-    disabled={true}
+    disabled={false}
     onChange={[Function]}
     value={5}
   >
@@ -1892,6 +1892,231 @@ exports[`Pager render _renderPageIcon - previous page icon - disable icon if Pag
     className="page-info"
   >
     View 6-10 of 10
+  </span>
+</div>
+`;
+
+exports[`Pager render _renderPageInfo - page info is rendered if isShowPagingInfo is true 1`] = `
+<div
+  className="page-container center-align"
+  style={
+    Object {
+      "display": "block",
+    }
+  }
+>
+  <a
+    className="icon page-first disable"
+    href="javascript:;"
+    onClick={[Function]}
+  />
+  <a
+    className="icon page-prev disable"
+    href="javascript:;"
+    onClick={[Function]}
+  />
+  <div
+    className="page-input"
+  >
+    <span>
+      Page 
+    </span>
+    <input
+      className="page-form"
+      maxLength="4"
+      onChange={[Function]}
+      onKeyUp={[Function]}
+      size="2"
+      type="text"
+      value={1}
+    />
+    <span>
+       of 2
+       
+    </span>
+  </div>
+  <a
+    className="icon page-next "
+    href="javascript:;"
+    onClick={[Function]}
+  />
+  <a
+    className="icon page-last "
+    href="javascript:;"
+    onClick={[Function]}
+  />
+  <select
+    className="pagesize-select"
+    disabled={false}
+    onChange={[Function]}
+    value={5}
+  >
+    <option
+      value={5}
+    >
+      5
+    </option>
+    <option
+      value={10}
+    >
+      10
+    </option>
+    <option
+      value={20}
+    >
+      20
+    </option>
+  </select>
+  <span
+    className="page-info"
+  >
+    View 1-5 of 10
+  </span>
+</div>
+`;
+
+exports[`Pager render _renderPageInput - page input is rendered if isAllowInputPageIndex is true 1`] = `
+<div
+  className="page-container center-align"
+  style={
+    Object {
+      "display": "block",
+    }
+  }
+>
+  <a
+    className="icon page-first disable"
+    href="javascript:;"
+    onClick={[Function]}
+  />
+  <a
+    className="icon page-prev disable"
+    href="javascript:;"
+    onClick={[Function]}
+  />
+  <div
+    className="page-input"
+  >
+    <span>
+      Page 
+    </span>
+    <input
+      className="page-form"
+      maxLength="4"
+      onChange={[Function]}
+      onKeyUp={[Function]}
+      size="2"
+      type="text"
+      value={1}
+    />
+    <span>
+       of 2
+       
+    </span>
+  </div>
+  <a
+    className="icon page-next "
+    href="javascript:;"
+    onClick={[Function]}
+  />
+  <a
+    className="icon page-last "
+    href="javascript:;"
+    onClick={[Function]}
+  />
+  <select
+    className="pagesize-select"
+    disabled={false}
+    onChange={[Function]}
+    value={5}
+  >
+    <option
+      value={5}
+    >
+      5
+    </option>
+    <option
+      value={10}
+    >
+      10
+    </option>
+    <option
+      value={20}
+    >
+      20
+    </option>
+  </select>
+  <span
+    className="page-info"
+  >
+    View 1-5 of 10
+  </span>
+</div>
+`;
+
+exports[`Pager render _renderPageLabel - page lable is rendered if isAllowInputPageIndex is false 1`] = `
+<div
+  className="page-container center-align"
+  style={
+    Object {
+      "display": "block",
+    }
+  }
+>
+  <a
+    className="icon page-first disable"
+    href="javascript:;"
+    onClick={[Function]}
+  />
+  <a
+    className="icon page-prev disable"
+    href="javascript:;"
+    onClick={[Function]}
+  />
+  <div
+    className="page-input"
+  >
+    <span>
+      Page 
+      1 of 2 
+    </span>
+  </div>
+  <a
+    className="icon page-next "
+    href="javascript:;"
+    onClick={[Function]}
+  />
+  <a
+    className="icon page-last "
+    href="javascript:;"
+    onClick={[Function]}
+  />
+  <select
+    className="pagesize-select"
+    disabled={false}
+    onChange={[Function]}
+    value={5}
+  >
+    <option
+      value={5}
+    >
+      5
+    </option>
+    <option
+      value={10}
+    >
+      10
+    </option>
+    <option
+      value={20}
+    >
+      20
+    </option>
+  </select>
+  <span
+    className="page-info"
+  >
+    View 1-5 of 10
   </span>
 </div>
 `;
