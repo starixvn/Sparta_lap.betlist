@@ -1,25 +1,25 @@
-webpackJsonp([6],{
+webpackJsonp([9],{
 
-/***/ 396:
+/***/ 313:
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(4);
-__webpack_require__(397);
-__webpack_require__(398);
-__webpack_require__(399);
-__webpack_require__(400);
-module.exports = __webpack_require__(401);
+__webpack_require__(314);
+__webpack_require__(315);
+__webpack_require__(316);
+__webpack_require__(317);
+module.exports = __webpack_require__(318);
 
 
 /***/ }),
 
-/***/ 397:
+/***/ 314:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 9/26/2018 8:59:48 AM
+// Generated at: 7/5/2018 9:48:15 AM
 window._language_en_US = {
   AA: "AA",
   AB: "AB",
@@ -87,6 +87,7 @@ window._language_en_US = {
   BA: "BA",
   Back: "Back",
   BackToCurrentReport: "Back to current report",
+  BackToOldUI: "Back to old UI",
   BAComissionBalanceNote: "BA Commission: Licensee commission income for BA tickets.",
   BACommission: "BA Commission",
   Balance: "Balance",
@@ -113,6 +114,9 @@ window._language_en_US = {
   BetSettings: "Bet Settings",
   BetTaken: "Bet Taken",
   BettingLimit: "Betting Limit",
+  BettingTicketCenter: "Betting Ticket Center",
+  BettingTicketCenter_MultiCustomersTabNote: "Note: Sport/ Bettype/ League/ Match can be selected all for 1 selected date.",
+  BettingTicketCenter_RefnoTabNote: "Note: For Sportsbook, the search result includes the related Bonus/Cash tickets.",
   BetTrade: "Bet Trade",
   BetTradeComissionBalanceNote: "BetTrade Commission: Licensee commission income for BetTrade tickets.",
   BetTradeCommission: "Bet Trade Commission",
@@ -422,7 +426,6 @@ window._language_en_US = {
   InternalSystem: "Internal System",
   InvalidCaptchaMsg: "You inputed an invalid code.",
   InvalidChargeCommission: "Invalid Charge Commission",
-  InvalidCurrencyPermission: "Invalid currency permissions.",
   InvalidParams: "Invalid parameters",
   InvalidRequestMsg: "Request is not valid",
   InvalidRequestOrNotAuthorizedMsg: "Invalid request or you are not authorized to access the requested resource!",
@@ -581,6 +584,7 @@ window._language_en_US = {
   MoreThanOneCustomerFoundMsg: "More than 1 customer found. Please search for 1 customer only.",
   MoveSuccessfullyMsg: "Successfully moved.",
   MoveToGroup: "Move to Group",
+  MultipleCustomers: "Multiple Customers",
   Multiplier: "Multiplier",
   MYR: "MYR",
   Name: "Name",
@@ -738,6 +742,7 @@ window._language_en_US = {
   Refund: "Refund",
   RefundFT: "Refund FT",
   RefundHT: "Refund HT",
+  Reject: "Reject",
   Remark: "Remark",
   RemoveFromGroup: "Remove from Group",
   RemoveGroupMsg: "Are you sure you want to remove this(these) customer(s) from group?",
@@ -801,6 +806,7 @@ window._language_en_US = {
   ShowAllLeagues: "Show All Leagues",
   ShowOldValue: "Show old value",
   Sincelastmonth: "Since last month",
+  SingleCustomer: "Single Customer",
   Site: "Site",
   SixMonth: "6 months",
   SmartSite: "Smart Site",
@@ -823,7 +829,6 @@ window._language_en_US = {
   Subject: "Subject",
   Submit: "Submit",
   Subsidiary: "Subsidiary",
-  SubsidiaryNotHaveCurrencyMsg: "Please contact admin to check your subsidiary name.",
   SubsidiaryPerformance: "Subsidiary Performance",
   SubsidiaryWL: "Subsidiary W/L",
   Summary: "Summary",
@@ -954,6 +959,7 @@ window._language_en_US = {
   VirtualSpeedway: "Virtual Speedway",
   VirtualSports: "Virtual Sports",
   VirtualTennis: "Virtual Tennis",
+  Void: "Void",
   VS: "VS",
   Wap: "WAP",
   We: "We",
@@ -987,13 +993,13 @@ window._language_en_US = {
 
 /***/ }),
 
-/***/ 398:
+/***/ 315:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 9/26/2018 8:59:48 AM
+// Generated at: 5/31/2018 9:37:15 AM
 window._language_ko_KR = {
   AA: "AA",
   ABComm: "AllBet 수수료",
@@ -1743,13 +1749,13 @@ window._language_ko_KR = {
 
 /***/ }),
 
-/***/ 399:
+/***/ 316:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 9/26/2018 8:59:48 AM
+// Generated at: 5/31/2018 9:37:15 AM
 window._language_zh_CN = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -1805,6 +1811,7 @@ window._language_zh_CN = {
   AwayNoBet: "客队(不获胜球队)",
   BA: "BA",
   BackToCurrentReport: "回到现有报告",
+  BackToOldUI: "回到旧版本",
   BAComissionBalanceNote: "投注总计佣金: 承租公司佣金所得于投注总计注单。",
   BACommission: "BA佣金",
   Balance: "余额",
@@ -2444,9 +2451,6 @@ window._language_zh_CN = {
   Status: "状态",
   Su: "Su",
   Submit: "提交",
-  Subsidiary: "子网站",
-  SubsidiaryPerformance: "子网站报告",
-  SubsidiaryWL: "子网站输赢",
   Summary: "总结",
   Sunday: "星期六",
   SupportForOnlyNote: "报告仅支持",
@@ -2581,66 +2585,13 @@ window._language_zh_CN = {
 
 /***/ }),
 
-/***/ 4:
+/***/ 317:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var DEFAULT_RESOURCE_NAME = "_language_en_US";
-var langCode = window.PageLanguage || "en-US";
-var resourceName = "_language_" + langCode.replace("-", "_");
-
-var LangHelper = function () {
-    function LangHelper() {
-        _classCallCheck(this, LangHelper);
-    }
-
-    _createClass(LangHelper, null, [{
-        key: "getSingleResource",
-        value: function getSingleResource(key) {
-            var langHandler = window[resourceName];
-
-            return langHandler && langHandler[key] || window[DEFAULT_RESOURCE_NAME] && window[DEFAULT_RESOURCE_NAME][key] || key;
-        }
-    }, {
-        key: "getResources",
-        value: function getResources(keys) {
-            var langHandler = window[resourceName];
-
-            return keys.map(function (key) {
-                return langHandler && langHandler[key] || window[DEFAULT_RESOURCE_NAME] && window[DEFAULT_RESOURCE_NAME][key] || key;
-            });
-        }
-    }, {
-        key: "currentLanguage",
-        get: function get() {
-            return langCode;
-        }
-    }]);
-
-    return LangHelper;
-}();
-
-exports.default = LangHelper;
-
-/***/ }),
-
-/***/ 400:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-// Generated at: 9/26/2018 8:59:48 AM
+// Generated at: 5/31/2018 9:37:15 AM
 window._language_zh_Hans = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -2696,6 +2647,7 @@ window._language_zh_Hans = {
   AwayNoBet: "客队(不获胜球队)",
   BA: "BA",
   BackToCurrentReport: "回到现有报告",
+  BackToOldUI: "回到旧版本",
   BAComissionBalanceNote: "投注总计佣金: 承租公司佣金所得于投注总计注单。",
   BACommission: "BA佣金",
   Balance: "余额",
@@ -3331,9 +3283,6 @@ window._language_zh_Hans = {
   Status: "状态",
   Su: "Su",
   Submit: "提交",
-  Subsidiary: "子网站",
-  SubsidiaryPerformance: "子网站报告",
-  SubsidiaryWL: "子网站输赢",
   Summary: "总结",
   Sunday: "星期六",
   SupportForOnlyNote: "报告仅支持",
@@ -3467,13 +3416,13 @@ window._language_zh_Hans = {
 
 /***/ }),
 
-/***/ 401:
+/***/ 318:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 9/26/2018 8:59:48 AM
+// Generated at: 5/31/2018 9:37:15 AM
 window._language_zh_TW = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -3529,6 +3478,7 @@ window._language_zh_TW = {
   AwayNoBet: "客隊(不獲胜球隊)",
   BA: "BA",
   BackToCurrentReport: "回到現有報告",
+  BackToOldUI: "回到舊版本",
   BAComissionBalanceNote: "投注總計佣金：承租公司金所得於投注總計注單。",
   BACommission: "BA佣金",
   Balance: "餘額",
@@ -4168,9 +4118,6 @@ window._language_zh_TW = {
   Status: "狀態",
   Su: "Su",
   Submit: "提交",
-  Subsidiary: "子網站",
-  SubsidiaryPerformance: "子網站報告",
-  SubsidiaryWL: "子網站輸贏",
   Summary: "總結",
   Sunday: "星期六",
   SupportForOnlyNote: "報告僅支持",
@@ -4303,7 +4250,51 @@ window._language_zh_TW = {
   YouNotChooseAnyCustomerMsg: "您還沒有選擇任何會員"
 };
 
+/***/ }),
+
+/***/ 4:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var DEFAULT_RESOURCE_NAME = "_language_en_US";
+var langCode = window.PageLanguage || "en-US";
+var resourceName = "_language_" + langCode.replace("-", "_");
+
+var LangHelper = function () {
+    function LangHelper() {
+        _classCallCheck(this, LangHelper);
+    }
+
+    _createClass(LangHelper, null, [{
+        key: "getSingleResource",
+        value: function getSingleResource(key) {
+            var langHandler = window[resourceName];
+
+            return langHandler && langHandler[key] || window[DEFAULT_RESOURCE_NAME] && window[DEFAULT_RESOURCE_NAME][key] || key;
+        }
+    }, {
+        key: "currentLanguage",
+        get: function get() {
+            return langCode;
+        }
+    }]);
+
+    return LangHelper;
+}();
+
+exports.default = LangHelper;
+
 /***/ })
 
-},[396]);
+},[313]);
 //# sourceMappingURL=langHelper.chunk.js.map

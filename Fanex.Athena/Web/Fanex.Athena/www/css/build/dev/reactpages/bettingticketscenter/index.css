@@ -329,6 +329,68 @@ input[type="checkbox"].checkbox {
     .footer-content .table .fixed-table-grant-total td {
       background: #b8c3c9; }
 
+/* z-index */
+/* Table */
+/* Label Text */
+.page-container {
+  padding: 3px;
+  font-size: 1.1rem;
+  background-color: #EFF3F8;
+  border: 1px solid #d1dae1; }
+  .page-container .icon {
+    font-family: 'icomoon' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    font-size: 1.2rem;
+    color: #4c6375;
+    cursor: pointer; }
+  .page-container .disable {
+    color: #d1dae1;
+    cursor: default; }
+  .page-container .page-first:before {
+    content: "\EA21"; }
+  .page-container .page-prev:before {
+    content: "\EA1F"; }
+  .page-container .page-next:before {
+    content: "\EA20"; }
+  .page-container .page-last:before {
+    content: "\EA22"; }
+  .page-container .page-form {
+    width: auto;
+    height: auto;
+    font-size: inherit;
+    padding: 2px;
+    text-align: center;
+    margin: 0; }
+    .page-container .page-form, .page-container .page-form:focus {
+      background: #fff;
+      border: 1px solid #e2d6d6;
+      box-shadow: none; }
+  .page-container .page-input {
+    display: inline; }
+    .page-container .page-input:after, .page-container .page-input:before {
+      content: "";
+      border: 1px solid #ccc; }
+    .page-container .page-input:after {
+      margin-left: 5px; }
+    .page-container .page-input:before {
+      margin-right: 5px; }
+  .page-container .pagesize-select {
+    height: auto;
+    font-size: inherit;
+    padding: 2px;
+    min-width: 65px;
+    border: 1px solid #e2d6d6;
+    margin-left: 5px; }
+  .page-container .page-info {
+    float: right;
+    padding: 3px; }
+
 .multiple-select-container {
   position: relative; }
 
@@ -785,5 +847,19 @@ input[type="checkbox"].checkbox {
 
 .popup-detail-default {
   padding-top: 10px; }
+
+th.sortable {
+  cursor: pointer; }
+  th.sortable.sorting {
+    text-decoration: underline; }
+  th.sortable .asc, th.sortable .desc {
+    display: inline-block;
+    margin-left: 4px;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent; }
+  th.sortable .asc {
+    border-bottom: 5px solid; }
+  th.sortable .desc {
+    border-top: 5px solid; }
 
 /*# sourceMappingURL=index.css.map*/

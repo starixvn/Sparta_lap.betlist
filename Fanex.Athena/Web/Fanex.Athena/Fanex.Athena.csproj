@@ -731,6 +731,8 @@
     <Content Include="www\css\build\images\ui-icons_2e83ff_256x240-1.png" />
     <Content Include="www\css\build\images\ui-icons_2e83ff_256x240-2.png" />
     <Content Include="www\css\build\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="www\css\build\pro\reactpages\bettingticketscenter\index.chunk.js" />
+    <Content Include="www\css\build\pro\reactpages\bettingticketscenter\index.css" />
     <Content Include="www\css\build\pro\reactpages\exchangewl\index.css" />
     <Content Include="www\css\build\pro\reactpages\licenseewlbytimezone\index.css" />
     <Content Include="www\css\build\pro\reactpages\notification\index.chunk.js" />
@@ -739,6 +741,10 @@
     <Content Include="www\css\build\pro\reactpages\speciallicenseewl\index.css" />
     <Content Include="www\css\build\pro\reactpages\subsidiaryperformance\index.css" />
     <Content Include="www\js\build\dev\pages\customer\exchangebetsetting.chunk.js" />
+    <Content Include="www\js\build\dev\reactpages\bettingticketscenter\multicustomer.chunk.js" />
+    <Content Include="www\js\build\dev\reactpages\bettingticketscenter\refno.chunk.js" />
+    <Content Include="www\js\build\dev\reactpages\bettingticketscenter\running.chunk.js" />
+    <Content Include="www\js\build\dev\reactpages\bettingticketscenter\singlecustomer.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\dynamic-import\xlsx-style-sparta.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\exchangewl\exchangewl.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\report\licenseewlbytimezone.chunk.js" />
@@ -748,6 +754,10 @@
     <Content Include="www\js\build\dev\reactpages\subsidiaryperformance\subsidiaryperformance.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\vendors\reactpages.chunk.js" />
     <Content Include="www\js\build\pro\pages\customer\exchangebetsetting.chunk.js" />
+    <Content Include="www\js\build\pro\reactpages\bettingticketscenter\multicustomer.chunk.js" />
+    <Content Include="www\js\build\pro\reactpages\bettingticketscenter\refno.chunk.js" />
+    <Content Include="www\js\build\pro\reactpages\bettingticketscenter\running.chunk.js" />
+    <Content Include="www\js\build\pro\reactpages\bettingticketscenter\singlecustomer.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\dynamic-import\xlsx-style-sparta.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\exchangewl\exchangewl.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\lib\langHelper.chunk.js" />
@@ -881,6 +891,11 @@
     <Content Include="www\css\build\dev\reactpages\bettingticketscenter\index.css.map" />
     <Content Include="www\js\source\reactpages\components\CheckBox.jsx" />
     <Content Include="Views\Desktop\BetList\BettingTicketCenter\SingleCustomer.cshtml" />
+    <Content Include="www\css\source\reactpages\components\_sortable-header.scss" />
+    <Content Include="www\js\build\dev\reactpages\bettingticketscenter\multicustomer.chunk.js.map" />
+    <Content Include="www\js\build\dev\reactpages\bettingticketscenter\refno.chunk.js.map" />
+    <Content Include="www\js\build\dev\reactpages\bettingticketscenter\running.chunk.js.map" />
+    <Content Include="www\js\build\dev\reactpages\bettingticketscenter\singlecustomer.chunk.js.map" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Row.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.jsx" />
