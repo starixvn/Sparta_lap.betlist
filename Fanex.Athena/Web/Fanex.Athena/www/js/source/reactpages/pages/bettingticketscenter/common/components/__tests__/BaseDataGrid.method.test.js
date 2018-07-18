@@ -29,11 +29,11 @@ describe('BaseDataGrid methods ', () => {
         expect(window.showCombMPDetail).toBeUndefined();
     });
 
-    it('_closeResultPopup  - set state isShowPopup = false', () => { 
+    it('_closePopup  - set state isShowPopup = false', () => { 
         const dataGrid = new BaseDataGrid();
         dataGrid.setState = jest.fn();
 
-        dataGrid._closeResultPopup();
+        dataGrid._closePopup();
 
         expect(dataGrid.setState).toHaveBeenCalledWith({ isShowPopup: false});
     });

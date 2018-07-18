@@ -63,22 +63,22 @@ describe('Render grid', () => {
     describe('_buildHeader', () => {
         it('Not has Customer Comm - render WinLoss column correctly', () => {
             AppData.isAllowedCustomerComm = false;
-            const grid = new BaseDataGrid();
+            const grid = new BaseDataGrid({ requestParam: { SortBy: '1', SortOrder: 'asc' } });
 
             const header = renderer.create(<div>{grid._buildHeader()}</div>);
             const result = header.toJSON().children[0];
             
-            expect(result.children[8].children[0]).toBe("WinLoss");
+            expect(result.children[7].children[0]).toBe("WinLoss");
         });
 
         it('Has Customer Comm - render WinLoss column correctly', () => {
             AppData.isAllowedCustomerComm = true;
-            const grid = new BaseDataGrid();
+            const grid = new BaseDataGrid({ requestParam: { SortBy: '1', SortOrder: 'asc' } });
 
             const header = renderer.create(<div>{grid._buildHeader()}</div>);
             const result = header.toJSON().children[0];
             
-            expect(result.children[8].children[0]).toBe("WinLoss/Comm");
+            expect(result.children[7].children[0]).toBe("WinLoss/Comm");
         });
     });
 });
