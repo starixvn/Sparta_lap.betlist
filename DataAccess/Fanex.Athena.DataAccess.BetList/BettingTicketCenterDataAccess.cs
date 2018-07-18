@@ -129,6 +129,7 @@
                 using (var db = GetObjectDb(UspKey))
                 {
                     var productCodes = metaModel.ProductCodeList.Split(',');
+                    var productList = string.Join(",", productCodes.Except(new[] { Product.BA }));
 
                     db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                     db.AddInParameter("UserName", DbType.String, metaModel.UserName);
@@ -136,7 +137,7 @@
                     db.AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
                     db.AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
                     db.AddInParameter("BaseCurrency", DbType.String, metaModel.BaseCurrency);
-                    db.AddInParameter("showSB", DbType.Boolean, productCodes.Contains(Product.SB));
+                    db.AddInParameter("ProductList", DbType.String, productList);
                     db.AddInParameter("showBA", DbType.Boolean, productCodes.Contains(Product.BA));
                     db.AddInParameter("PageSize", DbType.Int32, metaModel.IsExport ? int.MaxValue - 1 : metaModel.PageSize);
                     db.AddInParameter("PageIndex", DbType.Int32, metaModel.IsExport ? 1 : metaModel.PageIndex);
