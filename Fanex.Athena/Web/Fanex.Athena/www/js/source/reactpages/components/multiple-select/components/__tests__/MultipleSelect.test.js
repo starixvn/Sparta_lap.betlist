@@ -386,46 +386,4 @@ describe('MultipleSelect ', () => {
             document.removeEventListener = originalRemoveEventListenerFunction;
         })
     })
-
-    describe('componentWillReceiveProps', () => {
-        it('dataSource is the same - do nothing', () => {
-            const nextProps = Object.assign({}, defaultProps);
-            const multipleSelect = new MultipleSelect(defaultProps);
-            multipleSelect.setState = jest.fn();
-
-            multipleSelect.componentWillReceiveProps(nextProps);
-
-            expect(multipleSelect.setState).not.toHaveBeenCalled();
-        })
-
-        it('dataSource is updated - setState should be called with correct parameter', () => {
-            const props = Object.assign({}, defaultProps, { dataSource: defaultDataSource });
-            const nextProps = Object.assign({}, props);
-            const multipleSelect = new MultipleSelect(defaultProps);
-            multipleSelect.setState = jest.fn();
-            multipleSelect._convertDataSourceToState = jest.fn(() => defaultDataSource);
-            multipleSelect._callBackToParent = jest.fn();
-
-            const expectedState = {
-                dataSource: defaultDataSource
-            }
-
-            multipleSelect.componentWillReceiveProps(nextProps);
-
-            expect(multipleSelect.setState).toHaveBeenCalledWith(expectedState);
-        })
-
-        it('dataSource is updated - _callBackToParent should be called with correct parameter', () => {
-            const props = Object.assign({}, defaultProps, { dataSource: defaultDataSource });
-            const nextProps = Object.assign({}, props);
-            const multipleSelect = new MultipleSelect(defaultProps);
-            multipleSelect.setState = jest.fn();
-            multipleSelect._convertDataSourceToState = jest.fn(() => defaultDataSource);
-            multipleSelect._callBackToParent = jest.fn();
-
-            multipleSelect.componentWillReceiveProps(nextProps);
-
-            expect(multipleSelect._callBackToParent).toHaveBeenCalledWith(null);
-        })
-    })
 })

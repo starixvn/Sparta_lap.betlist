@@ -235,8 +235,8 @@ describe('DataGrid ', () => {
         })
     })
 
-    describe('componentWillReceiveProps', () => {
-        it('next grid data is the same with the current - do nothing', () => {
+    describe('componentDidUpdate', () => {
+        it('next grid data is the same with the current - do not call toggleLoader', () => {
             const props = {
                 gridData: {},
                 dateRange: {},
@@ -244,7 +244,7 @@ describe('DataGrid ', () => {
             };
 
             const grid = new DataGrid(props);
-            grid.componentWillReceiveProps(props);
+            grid.componentDidUpdate(props);
 
             expect(props.toggleLoader).not.toHaveBeenCalledWith();
         })
@@ -255,7 +255,7 @@ describe('DataGrid ', () => {
                 dateRange: {},
                 toggleLoader: jest.fn()
             };
-            const nextProps = {
+            const prevProps = {
                 gridData: {},
                 dateRange: {
                     fromDate: '',
@@ -264,13 +264,12 @@ describe('DataGrid ', () => {
             };
 
             const grid = new DataGrid(props);
-            grid.componentWillReceiveProps(nextProps);
+            grid.componentDidUpdate(prevProps);
 
-            expect(Service.getReportTitle).not.toHaveBeenCalled();
             expect(props.toggleLoader).toHaveBeenCalledWith(false);
         })
 
-        it('next grid data is not the same with the current - param data is existing - update title', () => {
+        it('next param data is not the same with the current - update title', () => {
             const props = {
                 gridData: {},
                 dateRange: {},
@@ -280,15 +279,14 @@ describe('DataGrid ', () => {
                 },
                 toggleLoader: jest.fn()
             };
-            const nextProps = {
-                gridData: {},
+            const prevProps = {
+                gridData: {}
             };
 
             const grid = new DataGrid(props);
-            grid.componentWillReceiveProps(nextProps);
+            grid.componentDidUpdate(prevProps);
 
             expect(Service.getReportTitle).toHaveBeenCalled();
-            expect(props.toggleLoader).toHaveBeenCalledWith(false);
         })
     })
 

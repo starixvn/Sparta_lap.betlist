@@ -64,17 +64,4 @@ describe('Popup ', () => {
             expect(result).toMatchSnapshot();
         });
     });
-
-    describe('onCloseHandler', () => {
-        it('onClick prop is called', () => {
-            const props = {
-                onClose: jest.fn()
-            };
-            const component = new Popup(props);
-
-            component.onCloseHandler();
-
-            expect(props.onClose).toHaveBeenCalled();
-        });
-    });
 });

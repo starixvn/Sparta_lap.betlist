@@ -129,10 +129,10 @@ describe('Render DataGrid components ', () => {
             })
 
             it('gridData length is 0 - update state - render container with correct report title content', () => {
-                const props = { gridData: { level: 1, data: { DataList: [] } }, params: [{}, {}] ,toggleLoader: jest.fn() };
+                const props = { gridData: { level: 1, data: { DataList: [] } }, params: [{}, {}], toggleLoader: jest.fn() };
 
                 const dataGrid = renderer.create(<DataGrid {...props} />);
-                const nextProps = { gridData: { level: 0, data: { DataList: [] } }, params: [{}, {}] };
+                const nextProps = { gridData: { level: 0, data: { DataList: [] } }, params: [{}, {}], toggleLoader: jest.fn() };
                 dataGrid.update(<DataGrid {...nextProps} />);
 
                 const result = dataGrid.toJSON();

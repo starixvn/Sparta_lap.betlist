@@ -54,38 +54,6 @@ describe('CollapsibleRow ', () => {
         });
     });
 
-    describe('componentWillReceiveProps', () => {
-        it('props is not changed - state is not changed', () => { 
-            const props = {
-                isExpand: false
-            };
-            let component = new CollapsibleRow(props);
-            component.setState = jest.fn();
-
-            const newProps = {
-                isExpand: false
-            };
-            component.componentWillReceiveProps(newProps);
-
-            expect(component.setState).not.toHaveBeenCalled();
-        });
-
-        it('props is changed - state is changed', () => { 
-            const props = {
-                isExpand: false
-            };
-            let component = new CollapsibleRow(props);
-            component.setState = jest.fn();
-
-            const newProps = {
-                isExpand: true
-            };
-            component.componentWillReceiveProps(newProps);
-
-            expect(component.setState).toHaveBeenCalled();
-        });
-    });
-
     describe('onClick', () => {
         it('Class name is changed to show/hide content', () => {
             const props = {

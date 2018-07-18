@@ -209,21 +209,21 @@ describe('DataGrid', () => {
         })
     })
 
-    describe('componentWillReceiveProps ', () => {
+    describe('componentDidUpdate ', () => {
         it('gridData update - toggleLoader function should be called with correct parameter', () => {
-            const dataGrid = new DataGrid(dataGridProps);
-            const nextProps = Object.assign({}, dataGridProps, { gridData: { Data: { ...bodyData } } });
+            const props = Object.assign({}, dataGridProps);
+            const dataGrid = new DataGrid(props);
 
-            dataGrid.componentWillReceiveProps(nextProps);
+            props.gridData = { Data: { ...bodyData } } ;
+            dataGrid.componentDidUpdate(dataGridProps);
 
             expect(dataGrid.props.toggleLoader).toHaveBeenCalledWith(false);
         })
 
         it('gridData do not update - toggleLoader function should not be called', () => {
             const dataGrid = new DataGrid(dataGridProps);
-            const nextProps = Object.assign({}, dataGridProps, { selectedBaseCurrency: "USD" });
 
-            dataGrid.componentWillReceiveProps(nextProps);
+            dataGrid.componentDidUpdate(dataGridProps);
 
             expect(dataGrid.props.toggleLoader).not.toHaveBeenCalled();
         })

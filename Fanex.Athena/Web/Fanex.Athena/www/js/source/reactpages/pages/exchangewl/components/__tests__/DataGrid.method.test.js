@@ -13,26 +13,22 @@ describe('DataGrid methods ', () => {
         Service.getReportTitle = jest.fn(() => 'ExchangeWinLoss');
     });
 
-    describe('componentWillReceiveProps ', () => {
-        it('gridData update - view in base currency - get title report with correct parameter', () => {
+    describe('componentDidUpdate ', () => {
+        it('params update - view in base currency - get title report with correct parameter', () => {
             const level = ReportLevel.MAIN;
             const dataGridProps = { 
-                gridData: {},                
+                gridData: { level: level },                
                 toggleLoader: jest.fn() 
             };
 
             const dataGrid = new DataGrid(dataGridProps);
             dataGrid.drillDownParams = [dataGridProps.params];
-            const nextProps = Object.assign({}, 
-                dataGridProps, 
-                { 
-                    gridData: { level: level, data: { DataList: ['change'] } },
-                    params: { FromDate: '01/01/2017', ToDate: '02/01/2017', BaseCurrency: 'EUR', CurrencyName: 'USD', CurrencyId: 0 }
-                });
+            const newparams = { FromDate: '01/01/2017', ToDate: '02/01/2017', BaseCurrency: 'EUR', CurrencyName: 'USD', CurrencyId: 0 };
 
-            dataGrid.componentWillReceiveProps(nextProps);
+            dataGridProps.params = newparams;
+            dataGrid.componentDidUpdate({});
 
-            expect(dataGrid.drillDownParams[ReportLevel.MAIN]).toEqual(nextProps.params);
+            expect(dataGrid.drillDownParams[ReportLevel.MAIN]).toEqual(newparams);
 
             expect(Service.getReportTitle).toHaveBeenCalledWith({ 
                 fromDate: dataGrid.drillDownParams[level].FromDate, 
@@ -41,25 +37,20 @@ describe('DataGrid methods ', () => {
                 dataGrid.drillDownParams[level].CurrencyId === 0);
         })
 
-        it('gridData update - view in selected currency - get title report with correct parameter', () => {
+        it('params update - view in selected currency - get title report with correct parameter', () => {
             const level = ReportLevel.LICENSEE;
             const dataGridProps = { 
-                gridData: {},                
+                gridData: { level: level },                
                 toggleLoader: jest.fn(),
                 params: { FromDate: '01/01/2017', ToDate: '02/01/2017', BaseCurrency: '', CurrencyName: 'USD', CurrencyId: 0 }
             };
 
             const dataGrid = new DataGrid(dataGridProps);
             dataGrid.drillDownParams = [dataGridProps.params, dataGridProps.params];
+            const newparams = { FromDate: '01/01/2017', ToDate: '02/01/2017', BaseCurrency: '', CurrencyName: 'EUR', CurrencyId: 0 }
 
-            const nextProps = Object.assign({}, 
-                dataGridProps, 
-                { 
-                    gridData: { level: level, data: { DataList: ['change'] } },
-                    params: dataGridProps.params
-                });
-
-            dataGrid.componentWillReceiveProps(nextProps);
+            dataGridProps.params = newparams;
+            dataGrid.componentDidUpdate({});
 
             expect(Service.getReportTitle).toHaveBeenCalledWith({ 
                 fromDate: dataGrid.drillDownParams[level].FromDate, 
@@ -68,33 +59,30 @@ describe('DataGrid methods ', () => {
                 dataGrid.drillDownParams[level].CurrencyId === 0);
         })
 
-        it('gridData do not update - do not thing', () => {
+        it('gridData do not update - do not call toggleLoader', () => {
             const dataGridProps = { 
                 gridData: { level: 0, data: { DataList: [] } },
                 toggleLoader: jest.fn() 
             };
-
             const dataGrid = new DataGrid(dataGridProps);
-            const nextProps = Object.assign({}, dataGridProps, { selectedCurrency: 'EUR' });
 
-            dataGrid.componentWillReceiveProps(nextProps);
+            dataGrid.componentDidUpdate(dataGridProps);
 
             expect(dataGrid.props.toggleLoader).not.toHaveBeenCalled();
         })
 
-        it('props.params update - update drill down params at level MAIN', () => {
+        it('gridData update - call toggleLoader', () => {
             const dataGridProps = { 
                 gridData: { level: 0, data: { DataList: [] } },
                 params: [{ FromDate: '01/01/2017', ToDate: '02/01/2017', CurrencyName: 'USD', CurrencyId: 0 }, {}],
                 toggleLoader: jest.fn() 
             };
-
             const dataGrid = new DataGrid(dataGridProps);
-            const nextProps = Object.assign({}, dataGridProps, { params: 'change' });
 
-            dataGrid.componentWillReceiveProps(nextProps);
+            dataGridProps.gridData = {};
+            dataGrid.componentDidUpdate({});
 
-            expect(dataGrid.drillDownParams[ReportLevel.MAIN]).toEqual(nextProps.params);
+            expect(dataGrid.props.toggleLoader).toHaveBeenCalledWith(false);
         })
     })
 

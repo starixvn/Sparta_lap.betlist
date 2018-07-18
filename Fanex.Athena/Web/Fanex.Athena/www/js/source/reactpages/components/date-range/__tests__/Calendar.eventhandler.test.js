@@ -102,31 +102,6 @@ describe('Calendar - Event Handler', () => {
         })
     })
 
-    describe("componentWillReceiveProps", () => {
-        it("shownDate is not changed - do nothing", () => {
-            const componentInstance = new Calendar(initialProps);
-            const nextProps = Object.assign({}, initialProps, { shownDate: componentInstance.state.shownDate });
-
-            componentInstance.setState = jest.fn();
-
-            componentInstance.componentWillReceiveProps(nextProps);
-
-            expect(componentInstance.setState).not.toHaveBeenCalled();
-        })
-
-        it("shownDate is changed - setState should be called with correct parameter", () => {
-            const shownDate = moment(initialProps.date, MomentFormat.default);
-            const componentInstance = new Calendar(initialProps);
-            const nextProps = Object.assign({}, initialProps, { shownDate });
-
-            componentInstance.setState = jest.fn();
-
-            componentInstance.componentWillReceiveProps(nextProps);
-
-            expect(componentInstance.setState).toHaveBeenCalledWith({ shownDate });
-        })
-    })
-
     describe('limitedDate', () => {
         it('limited range is string and has value in props - return correct range', () => {
             const newProps = {
