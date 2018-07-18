@@ -24,13 +24,12 @@ describe("Overlay ", () => {
         })
     })
 
-    describe("componentWillReceiveProps", () => {
+    describe("componentDidUpdate", () => {
         it("do not change isOpening prop - do nothing", () => {
             const overlay = new Overlay(defaultProps);
-            const nextProps = Object.assign({}, defaultProps);
 
             overlay.setState = jest.fn();
-            overlay.componentWillReceiveProps(nextProps);
+            overlay.componentDidUpdate(defaultProps);
 
             expect(overlay.setState).not.toHaveBeenCalled();
         })
@@ -38,11 +37,11 @@ describe("Overlay ", () => {
         it("Change isOpening prop to true - onOpen prop is defined - call onOpen function", () => {
             const props = Object.assign({}, { ...defaultProps });
             const overlay = new Overlay(props);
-            const nextProps = Object.assign({}, defaultProps, { isOpening: true });
 
+            props.isOpening = true;
             overlay.setState = jest.fn();
             props.onOpen = jest.fn();
-            overlay.componentWillReceiveProps(nextProps);
+            overlay.componentDidUpdate(defaultProps);
 
             expect(props.onOpen).toHaveBeenCalled();
         })
@@ -50,22 +49,23 @@ describe("Overlay ", () => {
         it("Change isOpening prop to false - onOpen prop should not be called", () => {
             const props = Object.assign({}, defaultProps, { isOpening: true });
             const overlay = new Overlay(props);
-            const nextProps = Object.assign({}, defaultProps, { isOpening: false });
 
+            props.isOpening = false;
             overlay.setState = jest.fn();
             props.onOpen = jest.fn();
-            overlay.componentWillReceiveProps(nextProps);
+            overlay.componentDidUpdate(defaultProps);
 
             expect(props.onOpen).not.toHaveBeenCalled();
         })
 
         it("Change isOpening prop - setState should be called with correct parameter", () => {
-            const expectedState = { isOpening: true };
-            const overlay = new Overlay(defaultProps);
-            const nextProps = Object.assign({}, defaultProps, { isOpening: expectedState.isOpening });
+            const props = Object.assign({}, { ...defaultProps });
+            const overlay = new Overlay(props);
+            const expectedState = { isOpening: !defaultProps.isOpening };
 
+            props.isOpening = expectedState.isOpening;
             overlay.setState = jest.fn();
-            overlay.componentWillReceiveProps(nextProps);
+            overlay.componentDidUpdate(defaultProps);
 
             expect(overlay.setState).toHaveBeenCalledWith(expectedState);
         })
