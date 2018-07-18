@@ -187,11 +187,26 @@ export class FormFilter extends Component {
         return <Select instanceId="ddlCurrency"
         value={this.props.selectedCurrency.value}
         options={AppData.currencyList}
-        onChange={(item) => this.props.setSelectedCurrency(item)} />
+        onChange={this._onChangeCurrency} />
+    }
+
+    _onChangeCurrency = (currency) => {
+        this.props.setSelectedCurrency(currency);
+
+        const baseCurrencyList = AppData.originalBaseCurrencyList.slice(0); // clone array
+
+        var baseCurrency = baseCurrencyList.find((item) => item.label == currency.label);
+        if(!baseCurrency) {
+            baseCurrency = { value: currency.label, label: currency.label }
+            baseCurrencyList.push(baseCurrency);
+        }
+            
+        this.props.setBaseCurrencyList(baseCurrencyList);
+        this.props.setSelectedBaseCurrency(baseCurrency);
     }
 
     _renderBaseCurrencySelectList() {
-        const baseCurrencyList = AppData.baseCurrencyList;
+        const baseCurrencyList = this.props.baseCurrencyList;
 
         return baseCurrencyList && baseCurrencyList.length && (
             <Select instanceId="ddlBased"
@@ -349,9 +364,9 @@ function mapDispatchToProps(dispatch) {
 }
 function mapStateToProps(state) {
     const { dateRange, selectedProduct, sportList, selectedSport, selectedBettype, bettypeList, selectedLeague, leagueList, selectedMatch, matchList,
-        selectedCurrency, selectedBaseCurrency, selectedStatus, selectedPlatform, selectedLiveStatus } = state;
+        selectedCurrency, baseCurrencyList, selectedBaseCurrency, selectedStatus, selectedPlatform, selectedLiveStatus } = state;
         return Object.assign({}, { dateRange, selectedProduct, sportList, selectedSport, selectedBettype, bettypeList, selectedLeague, leagueList, selectedMatch, matchList,
-            selectedCurrency, selectedBaseCurrency, selectedStatus, selectedPlatform, selectedLiveStatus });
+            selectedCurrency, baseCurrencyList, selectedBaseCurrency, selectedStatus, selectedPlatform, selectedLiveStatus });
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormFilter);
