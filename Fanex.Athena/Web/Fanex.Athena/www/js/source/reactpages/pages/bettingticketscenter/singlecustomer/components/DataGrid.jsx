@@ -32,7 +32,7 @@ export class DataGrid extends BaseDataGrid {
         
         return [(
             <Row className="fixed-table-grant-total" key={1}>
-               <Cell className="center-align" colSpan={6}>{LangHelper.getSingleResource("Total")}</Cell>
+               <Cell className="right-align" colSpan={6}>{LangHelper.getSingleResource("Total")}</Cell>
                <Cell className="right-align">{item.SumStake}</Cell>
                <Cell className="right-align" dangerouslySetInnerHTML={{ __html: item.SumWinLoss}}></Cell>
                <Cell className="right-align">{item.SumLicenseeWL}</Cell>

@@ -25,7 +25,7 @@ exports[`Render grid Has data grid data should be rendered correctly 1`] = `
         style={
           Object {
             "maxHeight": undefined,
-            "minWidth": 600,
+            "minWidth": 960,
             "width": -30,
           }
         }
@@ -37,7 +37,7 @@ exports[`Render grid Has data grid data should be rendered correctly 1`] = `
             className="table"
             style={
               Object {
-                "width": 581,
+                "width": 941,
               }
             }
           >
@@ -48,84 +48,84 @@ exports[`Render grid Has data grid data should be rendered correctly 1`] = `
                 <td
                   style={
                     Object {
-                      "width": "-1.3517241379310343px",
+                      "width": "-1.361111111111111px",
                     }
                   }
                 />
                 <td
                   style={
                     Object {
-                      "width": "-4.055172413793103px",
+                      "width": "-4.083333333333333px",
                     }
                   }
                 />
                 <td
                   style={
                     Object {
-                      "width": "-4.055172413793103px",
+                      "width": "-4.083333333333333px",
                     }
                   }
                 />
                 <td
                   style={
                     Object {
-                      "width": "-6.0827586206896544px",
+                      "width": "-5.104166666666666px",
                     }
                   }
                 />
                 <td
                   style={
                     Object {
-                      "width": "-8.448275862068964px",
+                      "width": "-13.61111111111111px",
                     }
                   }
                 />
                 <td
                   style={
                     Object {
-                      "width": "-3.379310344827586px",
+                      "width": "-2.381944444444444px",
                     }
                   }
                 />
                 <td
                   style={
                     Object {
-                      "width": "-3.379310344827586px",
+                      "width": "-3.4027777777777777px",
                     }
                   }
                 />
                 <td
                   style={
                     Object {
-                      "width": "-4.055172413793103px",
+                      "width": "-3.4027777777777777px",
                     }
                   }
                 />
                 <td
                   style={
                     Object {
-                      "width": "-4.055172413793103px",
+                      "width": "-3.4027777777777777px",
                     }
                   }
                 />
                 <td
                   style={
                     Object {
-                      "width": "-3.379310344827586px",
+                      "width": "-2.722222222222222px",
                     }
                   }
                 />
                 <td
                   style={
                     Object {
-                      "width": "-3.379310344827586px",
+                      "width": "-2.722222222222222px",
                     }
                   }
                 />
                 <td
                   style={
                     Object {
-                      "width": "-3.379310344827586px",
+                      "width": "-2.722222222222222px",
                     }
                   }
                 />
@@ -222,7 +222,7 @@ exports[`Render grid Has data grid data should be rendered correctly 1`] = `
         style={
           Object {
             "maxHeight": 300,
-            "minWidth": 600,
+            "minWidth": 960,
             "width": -30,
           }
         }
@@ -234,7 +234,7 @@ exports[`Render grid Has data grid data should be rendered correctly 1`] = `
             className="table"
             style={
               Object {
-                "width": 581,
+                "width": 941,
               }
             }
           >
@@ -245,84 +245,84 @@ exports[`Render grid Has data grid data should be rendered correctly 1`] = `
                 <td
                   style={
                     Object {
-                      "width": "-1.3517241379310343px",
+                      "width": "-1.361111111111111px",
                     }
                   }
                 />
                 <td
                   style={
                     Object {
-                      "width": "-4.055172413793103px",
+                      "width": "-4.083333333333333px",
                     }
                   }
                 />
                 <td
                   style={
                     Object {
-                      "width": "-4.055172413793103px",
+                      "width": "-4.083333333333333px",
                     }
                   }
                 />
                 <td
                   style={
                     Object {
-                      "width": "-6.0827586206896544px",
+                      "width": "-5.104166666666666px",
                     }
                   }
                 />
                 <td
                   style={
                     Object {
-                      "width": "-8.448275862068964px",
+                      "width": "-13.61111111111111px",
                     }
                   }
                 />
                 <td
                   style={
                     Object {
-                      "width": "-3.379310344827586px",
+                      "width": "-2.381944444444444px",
                     }
                   }
                 />
                 <td
                   style={
                     Object {
-                      "width": "-3.379310344827586px",
+                      "width": "-3.4027777777777777px",
                     }
                   }
                 />
                 <td
                   style={
                     Object {
-                      "width": "-4.055172413793103px",
+                      "width": "-3.4027777777777777px",
                     }
                   }
                 />
                 <td
                   style={
                     Object {
-                      "width": "-4.055172413793103px",
+                      "width": "-3.4027777777777777px",
                     }
                   }
                 />
                 <td
                   style={
                     Object {
-                      "width": "-3.379310344827586px",
+                      "width": "-2.722222222222222px",
                     }
                   }
                 />
                 <td
                   style={
                     Object {
-                      "width": "-3.379310344827586px",
+                      "width": "-2.722222222222222px",
                     }
                   }
                 />
                 <td
                   style={
                     Object {
-                      "width": "-3.379310344827586px",
+                      "width": "-2.722222222222222px",
                     }
                   }
                 />
@@ -466,18 +466,8 @@ exports[`Render grid Has data grid data should be rendered correctly 1`] = `
         className="pagesize-select"
         disabled={true}
         onChange={[Function]}
-        value={10}
+        value={50}
       >
-        <option
-          value={10}
-        >
-          10
-        </option>
-        <option
-          value={20}
-        >
-          20
-        </option>
         <option
           value={50}
         >
@@ -489,9 +479,34 @@ exports[`Render grid Has data grid data should be rendered correctly 1`] = `
           100
         </option>
         <option
+          value={200}
+        >
+          200
+        </option>
+        <option
+          value={300}
+        >
+          300
+        </option>
+        <option
+          value={400}
+        >
+          400
+        </option>
+        <option
           value={500}
         >
           500
+        </option>
+        <option
+          value={1000}
+        >
+          1000
+        </option>
+        <option
+          value={2000}
+        >
+          2000
         </option>
       </select>
       <span

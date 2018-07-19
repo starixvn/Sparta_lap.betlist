@@ -38,7 +38,7 @@ export default class BaseDataGrid extends Component {
         };
 
         window.ViewCashOutHistory = (transId, refNo, betType, betdaqId) => {
-            const {url, isCashOut } = BetList.getCashOutHistoryPopupSetting(this.props.requestParam.baseCurrency, transId, refNo, betType, betdaqId);
+            const {url, isCashOut } = BetList.getCashOutHistoryPopupSetting(this.props.requestParam.BaseCurrency, transId, refNo, betType, betdaqId);
             const title = LangHelper.getSingleResource(isCashOut ? "CashOutDetails" : "BoughtDetails");
             this._openPopup(url, title);
         }
@@ -132,21 +132,21 @@ export default class BaseDataGrid extends Component {
                 <Cell colWidth={40} header={true} title={headerText.Index}>{headerText.Index}</Cell>               
                 <Cell colWidth={120} header={true} title={headerText.ExternalId}>{headerText.ExternalId}</Cell>
                 <Cell colWidth={120} header={true} title={headerText.SystemId}>{headerText.SystemId}</Cell>
-                <Cell colWidth={180} header={true} title={headerText.TransTime}>{headerText.TransTime}</Cell>
-                <Cell colWidth={250} header={true} title={headerText.Choice}>{headerText.Choice}</Cell>
-                <Cell colWidth={100} header={true} title={headerText.Odds}>{headerText.Odds}</Cell>
+                <Cell colWidth={150} header={true} title={headerText.TransTime}>{headerText.TransTime}</Cell>
+                <Cell colWidth={400} header={true} title={headerText.Choice}>{headerText.Choice}</Cell>
+                <Cell colWidth={70} header={true} title={headerText.Odds}>{headerText.Odds}</Cell>
                 <Cell colWidth={100} header={true} title={headerText.Stake} sortable={true} sorting={SortBy=='Stake'} asc={SortOrder=='asc'} onClick={()=>this._sort('Stake')}>
                     {headerText.Stake}
                 </Cell>
-                <Cell colWidth={120} header={true} title={winlossText} sortable={true} sorting={SortBy=='WinLoss'} asc={SortOrder=='asc'} onClick={()=>this._sort('WinLoss')}>
+                <Cell colWidth={100} header={true} title={winlossText} sortable={true} sorting={SortBy=='WinLoss'} asc={SortOrder=='asc'} onClick={()=>this._sort('WinLoss')}>
                     {winlossText}
                 </Cell>
-                <Cell colWidth={120} header={true} title={licenseeWLText} sortable={true} sorting={SortBy=='LicenseeWL'} asc={SortOrder=='asc'} onClick={()=>this._sort('LicenseeWL')}>
+                <Cell colWidth={100} header={true} title={licenseeWLText} sortable={true} sorting={SortBy=='LicenseeWL'} asc={SortOrder=='asc'} onClick={()=>this._sort('LicenseeWL')}>
                     {licenseeWLText}
                 </Cell>
-                <Cell colWidth={100} header={true} title={headerText.Status}>{headerText.Status}</Cell>
-                <Cell colWidth={100} header={true} title={headerText.Platform}>{headerText.Platform}</Cell>
-                <Cell colWidth={100} header={true} title={headerText.Live}>{headerText.Live}</Cell>
+                <Cell colWidth={80} header={true} title={headerText.Status}>{headerText.Status}</Cell>
+                <Cell colWidth={80} header={true} title={headerText.Platform}>{headerText.Platform}</Cell>
+                <Cell colWidth={80} header={true} title={headerText.Live}>{headerText.Live}</Cell>
             </Row>
         )
     }
@@ -201,16 +201,16 @@ export default class BaseDataGrid extends Component {
         const param = this.props.requestParam;
          const pageOption = {
             PageIndex: param.PageIndex,
-            PageSize: param.PageSize || 10,
+            PageSize: param.PageSize || 50,
             TotalItem: this.props.gridData.TotalRows,
-            PageList: [10, 20, 50, 100, 500]
+            PageList: [50, 100, 200, 300, 400, 500, 1000, 2000]
         };
 
         return (
             <div className="betlist-container result-content">
                 <ReportTitle content={this.reportTitle} />
                 <Table
-                    minWidth={600}
+                    minWidth={960}
                     autoWidth={true}
                     bodyHeight={300}
                     header={this._buildHeader()}
