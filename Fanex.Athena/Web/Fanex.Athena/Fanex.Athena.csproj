@@ -845,6 +845,8 @@
     <Content Include="App_Data\UserGuide\CashOutWL\pdf\Cash Out WL Report guideline_CN.pdf" />
     <Content Include="App_Data\UserGuide\CashOutWL\pdf\Cash Out WL Report guideline_EN.pdf" />
     <Content Include="App_Data\Fanex.Result\VSBasketBall.xls" />
+    <Content Include="App_Data\Fanex.Result\BeachSoccer.xls" />
+    <Content Include="App_Data\Fanex.Result\Kabaddi.xls" />
     <Content Include="Views\Desktop\Report\SpecialLicenseeWinLoss\Main.cshtml" />
     <Content Include="www\css\source\reactpages\pages\speciallicenseewl\index.scss" />
     <Content Include="www\js\build\dev\reactpages\report\speciallicenseewl.chunk.js.map" />
