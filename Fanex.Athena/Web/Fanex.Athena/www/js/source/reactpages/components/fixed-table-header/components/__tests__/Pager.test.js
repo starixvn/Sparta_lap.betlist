@@ -503,4 +503,48 @@ describe('Pager', () => {
             expect(firstPage.props.className).toContain("disable");
         });
     });
+
+    describe('componentDidUpdate', () => {
+        it('PageIndex is not changed - _updateState is not called', () => { 
+            const props = {
+                pageOption: {
+                    PageIndex: 2,
+                    PageSize: 5,
+                    PageList: [5, 10, 20],
+                    TotalItem: 15
+                }
+            };
+            let component = new Pager(props);
+            component._updateState = jest.fn();
+
+            component.componentDidUpdate(props);
+
+            expect(component._updateState).not.toHaveBeenCalled();
+        });
+
+        it('PageIndex is changed - state is changed', () => { 
+            const props = {
+                pageOption: {
+                    PageIndex: 2,
+                    PageSize: 5,
+                    PageList: [5, 10, 20],
+                    TotalItem: 15
+                }
+            };
+            let component = new Pager(props);
+            component._updateState = jest.fn();
+
+            const prevProps = {
+                pageOption: {
+                    PageIndex: 1,
+                    PageSize: 5,
+                    PageList: [5, 10, 20],
+                    TotalItem: 15
+                }
+            };
+            component.componentDidUpdate(prevProps);
+
+            expect(component._updateState).toHaveBeenCalled();
+        });
+    });
 });

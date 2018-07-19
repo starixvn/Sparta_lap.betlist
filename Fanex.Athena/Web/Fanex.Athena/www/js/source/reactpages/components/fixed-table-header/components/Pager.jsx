@@ -33,8 +33,14 @@ export default class Pager extends Component {
         isAllowInputPageIndex: true
     };
 
+    componentDidUpdate(prevProps, prevState) {
+        const pageIndex = this.props.pageOption.PageIndex;
+        if (pageIndex !== prevProps.pageOption.PageIndex) {
+            this._updateState(pageIndex);
+        }
+    }
+
     goToPage(index, pageSize) {
-        this._updateState(index);
         this.props.onPaging && this.props.onPaging(index, pageSize);
     }
 
