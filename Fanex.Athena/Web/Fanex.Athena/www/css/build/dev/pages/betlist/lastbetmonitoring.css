@@ -1149,9 +1149,7 @@ ul.ui-multiselect-checkboxes {
     font-weight: bold !important; }
   .betlist-container .favorite {
     color: #B50000;
-    font-weight: bold !important;
-    display: inline;
-    text-align: right; }
+    font-weight: bold !important; }
     .betlist-container .favorite .excluding-choices {
       white-space: normal;
       color: #484848;

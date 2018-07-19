@@ -214,9 +214,15 @@
                 });
             },
 
-            loadDataPaging: function (url) {
-                _url = url;
+            loadDataPaging: function (url, params) {
                 Site.blockUI();
+
+                if (url && params) {
+                    url = QueryString.setParams(url, params);
+                }
+
+                _url = url;
+
                 if (url && _sortColumnName) {
                     url = QueryString.setParam(url, "IsServerPaging", true);
                     url = QueryString.setParam(url, "SortBy", _sortColumnName);

@@ -8,5 +8,11 @@
     "ReportKey": "ExchangeWinloss77",
     "MinDateString": "",
     "MaxDateString": ""
+  },
+  {
+    "ReportKey": "CustomerWinLoss29",
+    "MinDateString": "",
+    "MaxDateString": "today",
+    "MaximumSupportedDays": 90
   }
 ]

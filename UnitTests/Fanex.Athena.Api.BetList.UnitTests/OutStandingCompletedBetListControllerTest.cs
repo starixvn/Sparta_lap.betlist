@@ -5,14 +5,13 @@
     using System.Dynamic;
     using Model.BetList.MetaModel;
     using Model.Core.DTO.Common;
-    using Model.Core.DTO.Users;
     using NSubstitute;
     using NUnit.Framework;
     using Session.Model;
 
     public class OutStandingCompletedBetListControllerTest : ApiBetListBaseControllerHelperTest
     {
-        private const string UspKey = "Lrf_BetList_SelAllByDate_Mem";
+        private const string UspKey = "Lrf_BetList_CustomerList_Mem";
 
         private const string BetListCustomerOutstandingName = "BetList_CustomerOutstanding";
 
@@ -51,7 +50,7 @@
             StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string>() });
 
             // Action
-            var result = _controller.Index(metaModel);
+            var result = _controller.Index(1, 10, metaModel);
 
             // Assert
             Assert.That(result, Is.Null);
@@ -66,7 +65,7 @@
             StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string>() });
 
             // Action
-            var result = _controller.Index(metaModel);
+            var result = _controller.Index(1, 10, metaModel);
 
             // Assert
             Assert.That(result, Is.Null);
@@ -81,7 +80,7 @@
             StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string> { { metaModel.CurrencyId, "Currency" } } });
 
             // Action
-            var result = _controller.Index(metaModel);
+            var result = _controller.Index(1, 10, metaModel);
 
             // Assert
             Assert.That(result, Is.Null);
@@ -109,23 +108,21 @@
             betList.Main = "Main";
             betList.LeagueName = "Name";
             betList.Total = "Total";
-            _controller.When(x => x.GetBetListResult(metaModel, UspKey)).DoNotCallBase();
-            _controller.GetBetListResult(metaModel, UspKey).Returns(betList);
+            _controller.When(x => x.GetPagingBetListResult(metaModel, UspKey, Arg.Any<int>(), Arg.Any<int>())).DoNotCallBase();
+            _controller.GetPagingBetListResult(metaModel, UspKey, 1, 10).Returns(betList);
 
             // Action
-            var result = _controller.Index(metaModel);
+            var result = _controller.Index(1, 10, metaModel);
 
             // Assert
             Assert.Multiple(() =>
             {
-                _controller.Received().GetBetListResult(metaModel, UspKey);
-                Assert.That(metaModel.ToDate.Hour, Is.EqualTo(23));
+                _controller.Received().GetPagingBetListResult(metaModel, UspKey, 1, 10);
                 Assert.That(metaModel.ProductCodeList, Is.EqualTo("Product1"));
 
                 Assert.That(result.Main, Is.EqualTo(betList.Main));
                 Assert.That(result.LeagueName, Is.EqualTo(betList.LeagueName));
                 Assert.That(result.Total, Is.EqualTo(betList.Total));
-                Assert.That(result.IsShowTotal, Is.True);
             });
         }
     }

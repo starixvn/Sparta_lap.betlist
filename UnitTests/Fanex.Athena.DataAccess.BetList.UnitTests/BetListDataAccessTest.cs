@@ -1,8 +1,8 @@
 ﻿namespace Fanex.Athena.DataAccess.BetList.UnitTests
 {
-    using System;
     using System.Data;
     using Core.UnitTests.TestHelpers;
+    using Extension.Utility;
     using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
@@ -20,13 +20,19 @@
             _metaModel = FakeHelper.Create<BetListMetaModel>(x => x.ProductCodeList, "SB,NG,BA");
         }
 
+        protected override void SetUpDataAccess()
+        {
+            var session = CreateSessionStorage();
+            DataAccess = Substitute.ForPartsOf<BetListDataAccess>(Substitute.For<IAppSettings>(), session);
+        }
+
         [Test]
         public void GetMixParlayDetailTicket_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
             const long TransId = 1;
 
-            DataAccess.GetObjectDb(Arg.Is(GetMixParlayDetailTicketSp)).Returns(ObjectDb);            
+            DataAccess.GetObjectDb(Arg.Is(GetMixParlayDetailTicketSp)).Returns(ObjectDb);
 
             // Action
             DataAccess.GetMixParlayDetailTicket(TransId);

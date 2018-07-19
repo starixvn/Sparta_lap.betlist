@@ -71,9 +71,7 @@ namespace Fanex.Athena.Api.BetList
                 ProductCode = productCode,
                 DailyBetListStatus = status,
                 SortBy = sortBy,
-                SortOrder = sortOrder,
-                IsServerPaging = true,
-                AgentListXml = SessionService.GenerateAgentListXml(currencyId)
+                SortOrder = sortOrder
             };
             return GetPagingBetListResult(metaModel, UspKey, page, rows);
         }

@@ -84,7 +84,7 @@ var Report = (function ($) {
                     if ($.isNumeric(rawValue) && rawValue < 0) {
                         var wrapper = document.createElement('div');
                         wrapper.innerHTML = value;
-                        titleValue = wrapper.outerHtml;
+                        titleValue = wrapper.innerText;
                     }
 
                     $(cell).html(value).attr("title", titleValue);

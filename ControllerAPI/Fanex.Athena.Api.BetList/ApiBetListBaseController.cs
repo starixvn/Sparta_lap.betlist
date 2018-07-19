@@ -175,11 +175,13 @@ namespace Fanex.Athena.Api.BetList
             var licenseeSession = SessionService.LicenseeSession;
             var balanceUp = GetBalanceUp();
 
+            metaModel.IsServerPaging = true;
             metaModel.PageIndex = pageIndex < 1 ? 1 : pageIndex;
             metaModel.PageSize = pageSize < 1 ? 100 : pageSize;
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.BalanceUpDay = DateTime.SpecifyKind(balanceUp.BalanceUpDay.Date, DateTimeKind.Utc);
             metaModel.MoveBetsDay = DateTime.SpecifyKind(balanceUp.MoveBetsDay.Date, DateTimeKind.Utc);
+            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
             var ticketResult = _betListService.GetBetListData(metaModel, uspKey);
 

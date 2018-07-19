@@ -253,7 +253,11 @@ var BetList = (function ($) {
             });
         },
 
-        loadDataPaging: function (url) {
+        loadDataPaging: function (url, params) {
+            if (url && params) {
+                url = QueryString.setParams(url, params);
+            }
+
             _url = url;
             Site.blockUI();
             if (url && _sortColumnName) {

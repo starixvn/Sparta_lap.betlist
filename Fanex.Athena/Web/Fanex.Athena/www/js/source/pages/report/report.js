@@ -95,7 +95,12 @@
                             .attr("title", content);
                     }
                     else {
-                        var title = $.isNumeric(rawValue) && rawValue < 0 ? undefined : value;
+                        var title = value;
+                        if ($.isNumeric(rawValue) && rawValue < 0) {
+                            var wrapper = document.createElement('div');
+                            wrapper.innerHTML = value;
+                            title = wrapper.innerText;
+                        }
                         $cell.html(value).attr("title", title);
                     }
                 });

@@ -4,8 +4,6 @@
     using System.Web.Mvc;
     using System.Web.Routing;
     using Extension.Utility.Interfaces;
-    using Model.Core.DataDomain;
-    using Model.Core.DTO.Users;
     using NSubstitute;
     using NUnit.Framework;
     using Service.Core.Helpers;
@@ -13,7 +11,7 @@
     using Session.Model;
     using UnitTest.Common.Helpers;
 
-    public class BaseControllerViewTest : BaseControllerHelperTest
+    public class BaseControllerTest_View : BaseControllerHelperTest
     {
         private FakeBaseController _controller;
 

@@ -154,17 +154,22 @@
             });
 
             describe("bindSummaryTotal(columnModel, summaryTotal)", function () {
+                var formatter = function(value)
+                {
+                    return value > 0 ? value : "<span class='negative'>" + value + "</span>";
+                }
+
                 var col0 = {
                     name: "Col0",
                     formatter: "format"
                 }
                 var col1 = {
                     name: "Col1",
-                    formatter: function (value) { return value; }
+                    formatter: formatter
                 }
                 var col2 = {
                     name: "Col2",
-                    formatter: function (value) { return value; }
+                    formatter: formatter
                 }
 
                 var columnModel = [col0, col1, col2];
@@ -183,7 +188,10 @@
                     var summaryData = {
                         "EUR": { Col0: "Date", Col1: 10.01, Col2: -5 }
                     };
-                    var expectedHtmlContent = '<tbody><tr><td class="group-EUR" title="Total in EUR">Total in EUR</td><td title="10.01">10.01</td><td>-5</td></tr></tbody>';
+                    var expectedHtmlContent = '<tbody><tr>'
+                        + '<td class="group-EUR" title="Total in EUR">Total in EUR</td>'
+                        + '<td title="10.01">10.01</td><td title="-5"><span class="negative">-5</span></td>'
+                        + '</tr></tbody>';
 
                     Report.bindSummaryTotal(columnModel, summaryData);
                     var result = $(".ui-jqgrid-ftable").html();

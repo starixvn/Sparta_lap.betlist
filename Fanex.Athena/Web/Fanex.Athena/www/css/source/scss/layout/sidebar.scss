@@ -48,6 +48,15 @@
                 margin-right: 10px;
                 color: inherit;
             }
+
+            .menu-title {
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                width: 180px;
+                overflow: hidden;
+                display: inline-block;
+                line-height: 1rem;
+            }
         }
 
         .menu-item {
@@ -90,7 +99,7 @@
                     line-height: 25px;
                     color: #dbdbdb;
                     //--- truncate text ---//
-                    width: 205px;
+                    width: 220px;
                     white-space: nowrap;
                     overflow: hidden;
                     text-overflow: ellipsis;

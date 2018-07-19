@@ -3,7 +3,7 @@
 {
     var appSettings = new AppSettings();
     // Only restrict from date for Bet List
-    var minDate = Model.Param.BetListName == "betlist" ? Model.Param.MoveBetsDay.AddDays(1) : appSettings.HistoryDate;
+    var minDate = Model.Param.BetListName == "betlist" ? DateTime.Today.AddDays(-90) : appSettings.HistoryDate;
     <div class="grid_3 filter-input" style="padding: 5px">
         @{
     var viewOptionTextList = new Dictionary<string, string>{

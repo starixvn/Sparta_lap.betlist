@@ -9,13 +9,13 @@
     using Service.Core.Users.Interfaces;
     using VendorAdapter.Interfaces;
 
-    public class FakeApiBetListBaseController : ApiBetListBaseController
+    internal class FakeApiBetListBaseController : ApiBetListBaseController
     {
-        public FakeApiBetListBaseController()
+        internal FakeApiBetListBaseController()
         {
         }
 
-        public FakeApiBetListBaseController(
+        internal FakeApiBetListBaseController(
             ISessionService sessionService,
             IProductService productService,
             ILanguageService languageService,

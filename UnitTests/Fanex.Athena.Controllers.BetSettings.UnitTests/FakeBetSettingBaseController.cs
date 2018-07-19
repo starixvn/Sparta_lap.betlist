@@ -12,7 +12,7 @@
     using Service.Core.Users.Interfaces;
     using Service.Customer.Interfaces;
 
-    public class FakeBetSettingBaseController : BetSettingBaseController
+    internal class FakeBetSettingBaseController : BetSettingBaseController
     {
         internal FakeBetSettingBaseController(
             ILanguageService languageService,

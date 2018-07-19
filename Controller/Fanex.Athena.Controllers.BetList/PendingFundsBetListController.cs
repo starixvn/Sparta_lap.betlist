@@ -9,7 +9,6 @@ namespace Fanex.Athena.Controllers.BetList
     #region Using
 
     using System;
-    using System.Collections.Generic;
     using System.Web.Mvc;
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;

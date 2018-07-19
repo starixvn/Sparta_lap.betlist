@@ -49,29 +49,25 @@
             }
 
             var returnUrl = "~/Utility/OneTokenRestriction?code=";
-            var errMsg = string.Empty;
             if (string.IsNullOrWhiteSpace(token))
             {
-                errMsg = "Token param is empty.";
-                returnUrl += OneAuthorizationErrorCode.TokenIsInValid;
+                WriteLog("Token param is empty.");
+                return Redirect(Url.Content(returnUrl + OneAuthorizationErrorCode.TokenIsInValid));
             }
-            else
+
+            var tokenInfo = _oneAuthenticationService.GetTokenInfo(token);
+            if (tokenInfo == null)
             {
-                var tokenInfo = _oneAuthenticationService.GetTokenInfo(token);
-                if (tokenInfo != null && VerifyToken(tokenInfo))
-                {
-                    returnUrl = GetReturnPathForValidToken(returnUrl, tokenInfo);
-                }
-                else
-                {
-                    errMsg = tokenInfo != null ? JsonConvert.SerializeObject(tokenInfo) : "token is null";
-                    returnUrl += OneAuthorizationErrorCode.TokenIsInValid;
-                }
+                return Redirect(Url.Content(returnUrl + OneAuthorizationErrorCode.TokenIsInValid));
             }
 
-            WriteLog(errMsg);
+            if (VerifyToken(tokenInfo))
+            {
+                return Redirect(Url.Content(GetReturnPathForValidToken(returnUrl, tokenInfo)));
+            }
 
-            return Redirect(Url.Content(returnUrl));
+            WriteLog(JsonConvert.SerializeObject(tokenInfo));
+            return Redirect(Url.Content(returnUrl + OneAuthorizationErrorCode.TokenIsInValid));
         }
 
         private static bool VerifyToken(OneAuthToken token)

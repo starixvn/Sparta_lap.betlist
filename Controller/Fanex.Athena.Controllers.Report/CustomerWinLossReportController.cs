@@ -13,14 +13,19 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Model.Report.ViewModel;
     using Fanex.Athena.Web.ActionFilter;
     using Service.Core.Common.Interfaces;
+    using Service.Core.Configuration;
+    using Service.Core.Configuration.Interfaces;
     using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.ReportCustomerWinLoss)]
     public class CustomerWinLossReportController : ReportBaseController
     {
+        private readonly IReportSettingService _reportSettingService;
+
         public CustomerWinLossReportController()
         {
+            _reportSettingService = new ReportSettingService();
         }
 
         public CustomerWinLossReportController(
@@ -28,9 +33,11 @@ namespace Fanex.Athena.Controllers.Report
             ISessionService sessionService,
             IAppSettings appSetting,
             IClientViewHelper clientViewHelper,
-            IProductService productService)
+            IProductService productService,
+            IReportSettingService reportSettingService)
             : base(languageService, sessionService, appSetting, clientViewHelper, productService)
         {
+            _reportSettingService = reportSettingService;
         }
 
         [HttpGet]
@@ -62,6 +69,9 @@ namespace Fanex.Athena.Controllers.Report
                 FunctionNames.CustomerWinLoss);
 
             metaModel.ProductOptions = ToProductOptions(productAccess.ProductList);
+
+            var reportSetting = _reportSettingService.GetSetting(PermissionKeys.ReportCustomerWinLoss);
+
             var model = new CustomerWinLossViewModel
             {
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
@@ -69,7 +79,9 @@ namespace Fanex.Athena.Controllers.Report
                 Param = metaModel,
                 IsHistory = isHistory,
                 ProductAccess = productAccess,
-                IsFakeLicensee = IsFakeLicensee()
+                IsFakeLicensee = IsFakeLicensee(),
+                MinDate = reportSetting.MinDate,
+                MaxDate = reportSetting.MaxDate
             };
 
             return View("~/Views/Report/CustomerWinLoss/Main.cshtml", model);

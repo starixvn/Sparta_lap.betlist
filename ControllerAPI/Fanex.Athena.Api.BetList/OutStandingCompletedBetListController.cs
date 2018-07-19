@@ -8,7 +8,6 @@ namespace Fanex.Athena.Api.BetList
 {
     #region Using
 
-    using System;
     using System.Web.Http;
     using Base.Attributes;
     using DataAccess.Core.Configuration.Interfaces;
@@ -45,8 +44,11 @@ namespace Fanex.Athena.Api.BetList
         {
         }
 
-        [HttpPost]
-        public dynamic Index(BetListMetaModel metaModel)
+        [HttpGet]
+        public dynamic Index(
+            int page,
+            int rows,
+            [FromUri]BetListMetaModel metaModel)
         {
             if (!metaModel.IsValid || !IsValidCurrencyId(metaModel.CurrencyId))
             {
@@ -54,17 +56,7 @@ namespace Fanex.Athena.Api.BetList
             }
 
             metaModel.ProductCodeList = RemoveInvalidProducts(metaModel.ProductCodeList, BetListCustomerOutstandingName);
-
-            const string UspKey = "Lrf_BetList_SelAllByDate_Mem";
-            metaModel.ToDate = metaModel.ToDate.Date.AddDays(1).AddMinutes(-1);    // Need -2 miliseconds, it better than -1.
-            var result = GetBetListResult(metaModel, UspKey);
-            return new
-            {
-                result.Main,
-                result.LeagueName,
-                result.Total,
-                IsShowTotal = true
-            };
+            return GetPagingBetListResult(metaModel, "Lrf_BetList_CustomerList_Mem", page, rows);
         }
     }
 }
