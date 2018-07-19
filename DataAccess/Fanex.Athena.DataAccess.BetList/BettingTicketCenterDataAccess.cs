@@ -60,11 +60,11 @@
                     db.AddInParameter("PageSize", DbType.Int32, metaModel.IsExport ? int.MaxValue - 1 : metaModel.PageSize);
                     db.AddInParameter("PageIndex", DbType.Int32, metaModel.IsExport ? 1 : metaModel.PageIndex);
                     db.AddOutParameter("TotalRows", DbType.Int32, 4);
-                    db.AddOutParameter("SumStake", DbType.Decimal, 8);
-                    db.AddOutParameter("SumWinLost", DbType.Decimal, 8);
-                    db.AddOutParameter("SumLicenseeWL", DbType.Decimal, 8);
-                    db.AddOutParameter("SumComm", DbType.Decimal, 8);
-                    db.AddOutParameter("SumPlayerComm", DbType.Decimal, 8);
+                    db.AddOutParameter("SumStake", DbType.Currency, 8);
+                    db.AddOutParameter("SumWinLost", DbType.Currency, 8);
+                    db.AddOutParameter("SumLicenseeWL", DbType.Currency, 8);
+                    db.AddOutParameter("SumComm", DbType.Currency, 8);
+                    db.AddOutParameter("SumPlayerComm", DbType.Currency, 8);
 
                     using (var reader = db.ExecuteReader())
                     {
@@ -142,7 +142,7 @@
                     db.AddInParameter("PageSize", DbType.Int32, metaModel.IsExport ? int.MaxValue - 1 : metaModel.PageSize);
                     db.AddInParameter("PageIndex", DbType.Int32, metaModel.IsExport ? 1 : metaModel.PageIndex);
                     db.AddOutParameter("TotalRows", DbType.Int32, 4);
-                    db.AddOutParameter("SumStake", DbType.Decimal, 8);
+                    db.AddOutParameter("SumStake", DbType.Currency, 8);
 
                     using (var reader = db.ExecuteReader())
                     {
