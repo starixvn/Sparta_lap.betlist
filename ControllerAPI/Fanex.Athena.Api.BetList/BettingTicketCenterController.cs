@@ -200,9 +200,9 @@
             };
         }
 
-        protected internal virtual BettingTicketCenterExcel CreateExcel(BettingTicketCenterExcelModel excelModel)
+        protected internal virtual BettingTicketCenterExcel CreateExcel()
         {
-            return new BettingTicketCenterExcel(excelModel);
+            return new BettingTicketCenterExcel();
         }
 
         private static string GetTitle(BaseBettingTicketMetaModel metaModel)
@@ -225,8 +225,8 @@
 
         private HttpResponseMessage Export(BettingTicketCenterExcelModel excelModel)
         {
-            var excel = CreateExcel(excelModel);
-            var workbook = excel.Export();
+            var excel = CreateExcel();
+            var workbook = excel.Export(excelModel);
             return ExcelStream(workbook, string.Empty);
         }
 

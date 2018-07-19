@@ -69,7 +69,7 @@ namespace Fanex.Athena.Excel.BetList
             this IBetListExcelBuilder builder,
             decimal sumStake)
         {
-            var footerStyle = CreateFooterCellStyle(builder);
+            var footerStyle = builder.CreateFooterCellStyle();
 
             var rtfTotal = new HSSFRichTextString(ViewResources.GrandTotal);
             for (int i = 0; i < 6; i++)
@@ -100,7 +100,7 @@ namespace Fanex.Athena.Excel.BetList
             IFont redFont,
             IFont blackFont)
         {
-            var footerStyle = CreateFooterCellStyle(builder);
+            var footerStyle = builder.CreateFooterCellStyle();
 
             var rtfTotal = new HSSFRichTextString(ViewResources.GrandTotal);
             for (int i = 0; i < 7; i++)
@@ -127,12 +127,7 @@ namespace Fanex.Athena.Excel.BetList
 
         public static IBetListExcelBuilder AddHeader(this IBetListExcelBuilder builder, string custWLHeader)
         {
-            var headerStyle = builder.CreateCellStyle();
-            headerStyle.CloneStyleFrom(builder.EvenCellStyle);
-            headerStyle.FillForegroundColor = 44;
-            headerStyle.Alignment = HorizontalAlignment.Center;
-            headerStyle.VerticalAlignment = VerticalAlignment.Center;
-            headerStyle.SetFont(builder.RTFHelper.PosFont);
+            var headerStyle = builder.CreateHeaderCellStyle();
             var captions = new[]
             {
                 "#", ViewResources.ExternalId, ViewResources.SystemId, ViewResources.TransTime, ViewResources.Choice, ViewResources.Odds, ViewResources.Stake,
@@ -213,17 +208,28 @@ namespace Fanex.Athena.Excel.BetList
             return builder;
         }
 
-        private static ICellStyle CreateFooterCellStyle(IBetListExcelBuilder builder)
+        public static ICellStyle CreateHeaderCellStyle(this IBetListExcelBuilder builder)
         {
-            var footerStyle = builder.CreateCellStyle();
-            footerStyle.CloneStyleFrom(builder.EvenCellStyle);
-            footerStyle.FillForegroundColor = 47;
-            footerStyle.Alignment = HorizontalAlignment.Right;
-            footerStyle.BorderTop = BorderStyle.None;
-            footerStyle.BorderLeft = BorderStyle.None;
-            footerStyle.BorderBottom = BorderStyle.None;
-            footerStyle.SetFont(builder.RTFHelper.PosFont);
-            return footerStyle;
+            var style = builder.CreateCellStyle();
+            style.CloneStyleFrom(builder.EvenCellStyle);
+            style.FillForegroundColor = 44;
+            style.Alignment = HorizontalAlignment.Center;
+            style.VerticalAlignment = VerticalAlignment.Center;
+            style.SetFont(builder.RTFHelper.PosFont);
+            return style;
+        }
+
+        public static ICellStyle CreateFooterCellStyle(this IBetListExcelBuilder builder)
+        {
+            var style = builder.CreateCellStyle();
+            style.CloneStyleFrom(builder.EvenCellStyle);
+            style.FillForegroundColor = 47;
+            style.Alignment = HorizontalAlignment.Right;
+            style.BorderTop = BorderStyle.None;
+            style.BorderLeft = BorderStyle.None;
+            style.BorderBottom = BorderStyle.None;
+            style.SetFont(builder.RTFHelper.PosFont);
+            return style;
         }
     }
 }

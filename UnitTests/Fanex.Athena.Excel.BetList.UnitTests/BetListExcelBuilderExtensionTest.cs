@@ -1,10 +1,10 @@
 ﻿namespace Fanex.Athena.Excel.BetList.UnitTests
 {
     using System.Linq;
+    using Athena.Model.BetList.DTO;
     using Constant.DataDomain;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
-    using Model.BetList.DTO;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
     using NSubstitute;
