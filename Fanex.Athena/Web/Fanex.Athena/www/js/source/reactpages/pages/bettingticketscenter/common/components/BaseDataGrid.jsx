@@ -8,7 +8,6 @@ import LangHelper from '@jsroot/lib/langHelper'
 import NoDataTitle from '@jsroot/components/NoDataTitle'
 import BetList from '../lib/BetList'
 import Service from '../lib/Service'
-import AppData from '@jsroot/lib/AppData'
 
 export default class BaseDataGrid extends Component {
     constructor(props) {
@@ -120,37 +119,6 @@ export default class BaseDataGrid extends Component {
         }
     }
 
-    _buildHeader() {
-        var headerText = Service.getHeaderText();
-        const licenseeWLText = `${headerText.LicenseeWL}/${headerText.Comm}`;
-        const winlossText = AppData.isAllowedCustomerComm ? `${headerText.WinLoss}/${headerText.Comm}` : headerText.WinLoss;
-
-        const { SortBy, SortOrder } = this.props.requestParam;
-
-        return (
-            <Row style={{ height: 32 }}>
-                <Cell colWidth={40} header={true} title={headerText.Index}>{headerText.Index}</Cell>               
-                <Cell colWidth={120} header={true} title={headerText.ExternalId}>{headerText.ExternalId}</Cell>
-                <Cell colWidth={120} header={true} title={headerText.SystemId}>{headerText.SystemId}</Cell>
-                <Cell colWidth={150} header={true} title={headerText.TransTime}>{headerText.TransTime}</Cell>
-                <Cell colWidth={400} header={true} title={headerText.Choice}>{headerText.Choice}</Cell>
-                <Cell colWidth={70} header={true} title={headerText.Odds}>{headerText.Odds}</Cell>
-                <Cell colWidth={100} header={true} title={headerText.Stake} sortable={true} sorting={SortBy=='Stake'} asc={SortOrder=='asc'} onClick={()=>this._sort('Stake')}>
-                    {headerText.Stake}
-                </Cell>
-                <Cell colWidth={100} header={true} title={winlossText} sortable={true} sorting={SortBy=='WinLoss'} asc={SortOrder=='asc'} onClick={()=>this._sort('WinLoss')}>
-                    {winlossText}
-                </Cell>
-                <Cell colWidth={100} header={true} title={licenseeWLText} sortable={true} sorting={SortBy=='LicenseeWL'} asc={SortOrder=='asc'} onClick={()=>this._sort('LicenseeWL')}>
-                    {licenseeWLText}
-                </Cell>
-                <Cell colWidth={80} header={true} title={headerText.Status}>{headerText.Status}</Cell>
-                <Cell colWidth={80} header={true} title={headerText.Platform}>{headerText.Platform}</Cell>
-                <Cell colWidth={80} header={true} title={headerText.Live}>{headerText.Live}</Cell>
-            </Row>
-        )
-    }
-
     _buildBody() {
         const data = this.props.gridData.Data;
         let rows = [];
@@ -181,7 +149,7 @@ export default class BaseDataGrid extends Component {
     _renderNodata() {
         return (
             <div className="result-content">
-                <ReportTitle content={this.reportTitle} />
+                <ReportTitle content={this.props.reportTitle} />
                 <NoDataTitle />
             </div>
         )
@@ -208,7 +176,7 @@ export default class BaseDataGrid extends Component {
 
         return (
             <div className="betlist-container result-content">
-                <ReportTitle content={this.reportTitle} />
+                <ReportTitle content={this.props.reportTitle} />
                 <Table
                     minWidth={960}
                     autoWidth={true}

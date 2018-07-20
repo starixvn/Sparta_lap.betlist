@@ -13,10 +13,14 @@ import Site from '@jsroot/lib/site'
 import AppData from '@jsroot/lib/AppData'
 import DataService from '@jsroot/lib/DataService.js'
 import ApiUrl from '../../common/constants/apiUrl'
+import Service from '../../common/lib/Service'
 
 export class FormFilter extends Component {
     constructor(props) {
         super(props);
+
+        this.baseCurrencyList = AppData.baseCurrencyList;
+        this.defaultBaseCurrency = props.selectedBaseCurrency;
     }
 
     get isValidModel() {
@@ -30,6 +34,7 @@ export class FormFilter extends Component {
             return;
         }
 
+        this.props.setReportTitle(Service.getTitle(params.FromDate, params.ToDate, params.CurrencyName, params.BaseCurrency));
         this.props.setRequestParam(params);
         this.props.toggleLoader(true);
         this.props.getGridData(ApiUrl.RUNNING_DATA_URL, params);
@@ -41,9 +46,10 @@ export class FormFilter extends Component {
         }
 
         const { fromDate, toDate } = this.props.dateRange;
+        const { PageSize, SortBy, SortOrder } = this.props.requestParam;
 
         return {
-            PageSize: this.props.requestParam.PageSize,
+            PageSize: PageSize,
             PageIndex: 1,
             FromDate: Site.convertDateToString(fromDate),
             ToDate: Site.convertDateToString(toDate),
@@ -51,7 +57,9 @@ export class FormFilter extends Component {
             Username: this.props.username,
             CurrencyId: this.props.selectedCurrency.value,
             CurrencyName: this.props.selectedCurrency.label,
-            BaseCurrency: this.props.selectedBaseCurrency
+            BaseCurrency: this.props.selectedBaseCurrency,
+            SortBy: SortBy,
+            SortOrder: SortOrder
         }
     }
 
@@ -67,6 +75,21 @@ export class FormFilter extends Component {
             const message = LangHelper.getSingleResource("DateRangeExceedMsg").replace("{0}", AppData.dateConstraint.limitedMonthRange);
             alert(message);
         }
+    }
+
+    onChangeCurrency = (currency) => {
+        const currencyName = currency.label;
+
+        if (currency.value !== 0 && !this.baseCurrencyList.find(x => x.label === currencyName)) {
+            this.baseCurrencyList = AppData.baseCurrencyList.slice(0);
+            this.baseCurrencyList.push({value: currencyName, label: currencyName});      
+        }
+        else {
+            this.baseCurrencyList = AppData.baseCurrencyList;
+        }
+
+        this.props.setSelectedCurrency(currency)
+        this.props.setSelectedBaseCurrency(currency.value === 0 ? this.defaultBaseCurrency : currencyName);
     }
 
     exportExcel = (event) => {
@@ -116,11 +139,11 @@ export class FormFilter extends Component {
         return <Select instanceId="ddlCurrency"
                 value={this.props.selectedCurrency.value}
                 options={AppData.currencyList}
-                onChange={(item) => this.props.setSelectedCurrency(item)} />
+                onChange={this.onChangeCurrency} />
     }
 
     _renderBaseCurrencySelectList() {
-        const baseCurrencyList = AppData.baseCurrencyList;
+        const baseCurrencyList = this.baseCurrencyList;
 
         return baseCurrencyList && baseCurrencyList.length && (
             <Select instanceId="ddlBased"

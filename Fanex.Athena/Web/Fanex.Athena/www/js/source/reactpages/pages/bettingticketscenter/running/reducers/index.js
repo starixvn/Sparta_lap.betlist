@@ -7,6 +7,7 @@ import * as baseCurrencyReducer from '@jsroot/reducers/baseCurrencyReducer'
 import * as loaderReducer from '@jsroot/reducers/loaderReducer'
 import * as dateRangeReducer from '@jsroot/reducers/dateRangeReducer'
 import * as requestParamReducer from '@jsroot/reducers/requestParamReducer'
+import * as reportTitleReducer from '@jsroot/reducers/reportTitleReducer'
 
 export default combineReducers(Object.assign(
     gridDataReducer,
@@ -16,5 +17,6 @@ export default combineReducers(Object.assign(
     baseCurrencyReducer,
     loaderReducer,
     dateRangeReducer,
-    requestParamReducer
+    requestParamReducer,
+    reportTitleReducer
 ));

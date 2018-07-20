@@ -22,9 +22,9 @@ export default class Service {
         return HeaderText;
     }
 
-    static getTitle(dateRange, currencyName, baseCurrency) {
-        const dateRangeText = dateRange 
-            ? `, ${Site.convertDateToString(dateRange.fromDate)} → ${Site.convertDateToString(dateRange.toDate)}` 
+    static getTitle(fromDate, toDate, currencyName, baseCurrency) {
+        const dateRangeText = fromDate && toDate 
+            ? `, ${Site.convertDateToString(fromDate)} → ${Site.convertDateToString(toDate)}` 
             : '';
         const currencyNameText = currencyName ? `, ${LangHelper.getSingleResource("Currency")}: ${currencyName}` : '';
         const baseCurrencyText = baseCurrency ? `, ${LangHelper.getSingleResource("BaseCurrency")}: ${baseCurrency}` : '';

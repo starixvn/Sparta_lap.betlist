@@ -12,6 +12,7 @@ import Site from '@jsroot/lib/site'
 import AppData from '@jsroot/lib/AppData'
 import DataService from '@jsroot/lib/DataService.js'
 import ApiUrl from '../../common/constants/apiUrl'
+import Service from '../../common/lib/Service'
 
 export class FormFilter extends Component {
     constructor(props) {
@@ -29,6 +30,7 @@ export class FormFilter extends Component {
             return;
         }
 
+        this.props.setReportTitle(Service.getTitle(null, null, null, params.IsConvertAll ? params.BaseCurrency : null));
         this.props.setRequestParam(params);
         this.props.toggleLoader(true);
         this.props.getGridData(ApiUrl.REFNO_DATA_URL, params);
@@ -56,13 +58,17 @@ export class FormFilter extends Component {
             return null;
         }
 
+        const { PageSize, SortBy, SortOrder } = this.props.requestParam;
+
         return {
-            PageSize: this.props.requestParam.PageSize,
+            PageSize: PageSize,
             PageIndex: 1,
             Refno: this.props.refno,
             Username: this.props.username,
             BaseCurrency: this.props.selectedBaseCurrency,
-            IsConvertAll: this.props.isConvertAll
+            IsConvertAll: this.props.isConvertAll,
+            SortBy: SortBy,
+            SortOrder: SortOrder
         }
     }
 

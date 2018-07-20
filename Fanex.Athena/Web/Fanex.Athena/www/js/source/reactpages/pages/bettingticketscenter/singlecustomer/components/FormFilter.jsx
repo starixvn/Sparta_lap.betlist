@@ -14,6 +14,7 @@ import Site from '@jsroot/lib/site'
 import AppData from '@jsroot/lib/AppData'
 import DataService from '@jsroot/lib/DataService.js'
 import ApiUrl from '../../common/constants/apiUrl'
+import Service from '../../common/lib/Service'
 
 export class FormFilter extends Component {
     constructor(props) {
@@ -31,6 +32,8 @@ export class FormFilter extends Component {
             return;
         }
 
+        this.props.setReportTitle(Service.getTitle(params.FromDate, params.ToDate, null, params.IsConvertAll ? params.BaseCurrency : null));
+        this.props.setRequestParam(params);
         this.props.toggleLoader(true);
         this.props.getGridData(ApiUrl.SINGLECUSTOMER_DATA_URL, params);
     }
@@ -41,9 +44,10 @@ export class FormFilter extends Component {
         }
 
         const { fromDate, toDate } = this.props.dateRange;
+        const { PageSize, SortBy, SortOrder } = this.props.requestParam;
 
         return {
-            PageSize: this.props.requestParam.PageSize,
+            PageSize: PageSize,
             PageIndex: 1,
             FromDate: Site.convertDateToString(fromDate),
             ToDate: Site.convertDateToString(toDate),
@@ -53,7 +57,9 @@ export class FormFilter extends Component {
             IsConvertAll: this.props.isConvertAll,
             Status: this.props.selectedStatus,
             LiveStatus: this.props.selectedLiveStatus,
-            Platform: this.props.selectedPlatform
+            Platform: this.props.selectedPlatform,
+            SortBy: SortBy,
+            SortOrder: SortOrder
         }
     }
 
@@ -246,8 +252,8 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    const { requestParam, dateRange, selectedProduct, selectedBaseCurrency, username, selectedStatus, selectedPlatform, selectedLiveStatus } = state;
-    return Object.assign({}, { requestParam, dateRange, selectedProduct, selectedBaseCurrency, username, selectedStatus, selectedPlatform, selectedLiveStatus });
+    const { requestParam, dateRange, selectedProduct, selectedBaseCurrency, username, selectedStatus, selectedPlatform, selectedLiveStatus, isConvertAll } = state;
+    return Object.assign({}, { requestParam, dateRange, selectedProduct, selectedBaseCurrency, username, selectedStatus, selectedPlatform, selectedLiveStatus, isConvertAll });
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormFilter);
