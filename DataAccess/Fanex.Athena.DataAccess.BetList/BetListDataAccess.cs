@@ -72,10 +72,8 @@ namespace Fanex.Athena.DataAccess.BetList
                     db.AddInParameter("refno", DbType.Int64, metaModel.RefNo);
                     db.AddInParameter("movebetsday", DbType.DateTime, metaModel.MoveBetsDay);
                     db.AddInParameter("balanceupday", DbType.DateTime, metaModel.BalanceUpDay);
+                    db.AddInParameter("BaseCurrency", DbType.DateTime, metaModel.BaseCurrency);
                     db.AddOutParameter("outstanding", DbType.Currency, 8);
-                    db.AddOutParameter("outstandingeur", DbType.Currency, 8);
-                    db.AddOutParameter("outstandingusd", DbType.Currency, 8);
-                    db.AddOutParameter("outstandinggbp", DbType.Currency, 8);
                     var dataSet = db.ExecuteDataSet();
                     var systemParlayData = new SystemParlayData
                     {
@@ -88,15 +86,15 @@ namespace Fanex.Athena.DataAccess.BetList
                         {
                             ISystemParlayTicket ticket = new SystemParlayTicket
                             {
-                                Comm = Converter.ToDecimal(row["comm" + metaModel.BaseCurrency]),
+                                Comm = Converter.ToDecimal(row["comm"]),
                                 MOdds = Converter.ToDecimal(row["modds"]),
-                                PlayerComm = Converter.ToDecimal(row["playercomm" + metaModel.BaseCurrency]),
+                                PlayerComm = Converter.ToDecimal(row["playercomm"]),
                                 Serial = Convert.ToInt64(row["serial"]),
-                                Stake = Converter.ToDecimal(row["stake" + metaModel.BaseCurrency]),
+                                Stake = Converter.ToDecimal(row["stake"]),
                                 Status = Converter.ToString2(row["status"]),
                                 StatusId = Converter.ToInt(row["statusid"]),
                                 TransId = Convert.ToInt64(row["transid"]),
-                                WinLost = Converter.ToDecimal(row["winlost" + metaModel.BaseCurrency]),
+                                WinLost = Converter.ToDecimal(row["winlost"]),
                                 WinLostDate = Converter.ToDateTime(row["winlostdate"])
                             };
 
@@ -119,7 +117,7 @@ namespace Fanex.Athena.DataAccess.BetList
                         }
                     }
 
-                    systemParlayData.Outstanding = Converter.ToDecimal(db.GetParameterValue("outstanding" + metaModel.BaseCurrency));
+                    systemParlayData.Outstanding = Converter.ToDecimal(db.GetParameterValue("outstanding"));
 
                     return systemParlayData;
                 }

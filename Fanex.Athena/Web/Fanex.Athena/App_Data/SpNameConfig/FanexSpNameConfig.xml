@@ -11,5 +11,13 @@
   <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_SelBetTypesByProduct" EnvironmentText="_UAT1"></SpNameConfig>
   <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_SelBetTypeBySport" EnvironmentText="_UAT1"></SpNameConfig>
   <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_SelMatchByleague" EnvironmentText="_UAT1"></SpNameConfig>
+
+  <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_BetList_SelCombinationParlayDetail" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_BetList_CashOut_Detail" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_BetList_LicenseeBonus_Detail" EnvironmentText="_UAT1"></SpNameConfig>
+
+  <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_BetList_RefNo_Mem" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_BetList_Running" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_BetList_Mem" EnvironmentText="_UAT1"></SpNameConfig>
   
 </Root>

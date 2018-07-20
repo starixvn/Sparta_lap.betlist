@@ -35,7 +35,7 @@ namespace Fanex.Athena.DataAccess.BetList
 
             try
             {
-                using (var db = this.GetObjectDb(UspKey))
+                using (var db = GetObjectDb(UspKey))
                 {
                     var param = new
                     {
@@ -43,18 +43,19 @@ namespace Fanex.Athena.DataAccess.BetList
                         metaModel.RefNo,
                         metaModel.BetType,
                         OriginalTransId = metaModel.BetdaqId,
-                        AgentList = metaModel.AgentListXml
+                        AgentList = metaModel.AgentListXml,
+                        metaModel.BaseCurrency
                     };
                     using (var reader = db.ExecuteReader(param))
                     {
                         var viewModel = new CashOutBetListDetailViewModel
                         {
-                            OriginalTicket = ReadBetListTicket(reader, metaModel.BaseCurrency).GetFirstOrDefault()
+                            OriginalTicket = ReadBetListTicket(reader).GetFirstOrDefault()
                         };
 
                         if (reader.NextResult())
                         {
-                            viewModel.CashOutTicketList = ReadCashOutTickets(reader, metaModel.BaseCurrency);
+                            viewModel.CashOutTicketList = ReadCashOutTickets(reader);
                         }
 
                         return viewModel;
@@ -67,7 +68,7 @@ namespace Fanex.Athena.DataAccess.BetList
             }
         }
 
-        private static IEnumerable<CashOutTicket> ReadCashOutTickets(IDataReader reader, string baseCurrency)
+        private static IEnumerable<CashOutTicket> ReadCashOutTickets(IDataReader reader)
         {
             var result = new SortableList<CashOutTicket>();
 
@@ -79,9 +80,9 @@ namespace Fanex.Athena.DataAccess.BetList
                     TransId = reader.ToLong("transid"),
                     RefNo = reader.ToString("refno"),
                     Status = reader.ToString("status"),
-                    Stake = reader.ToDecimal("stake" + baseCurrency),
-                    WinLoss = reader.ToDecimal("winlost" + baseCurrency),
-                    Price = reader.ToDecimal("price" + baseCurrency),
+                    Stake = reader.ToDecimal("stake"),
+                    WinLoss = reader.ToDecimal("winlost"),
+                    Price = reader.ToDecimal("price"),
                     WinLostDate = reader.ToDateTime("winlostdate"),
                     TransDate = reader.ToDateTime("transdate"),
                     Currency = reader.ToInt("currency"),
