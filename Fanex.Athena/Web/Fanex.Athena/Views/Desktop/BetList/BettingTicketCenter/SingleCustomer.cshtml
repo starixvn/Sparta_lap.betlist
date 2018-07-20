@@ -28,7 +28,8 @@
         isLoading: false,
         selectedStatus: '@(selectedStatus)',
         selectedPlatform: 0,
-        selectedLiveStatus: @LiveStatusTypes.All
+        selectedLiveStatus: @LiveStatusTypes.All,
+        isConvertAll: true
     };
     window._AppData = {
         liveStatusList: @Html.Raw(Model.LiveStatusList.Select(x => new { value = x.Key, label = x.Value }).ToJson()),
@@ -37,7 +38,7 @@
         isAllowedCustomerComm: @Model.IsAllowedCustomerComm.ToJson(),
         productOptions: @Html.Raw(productOptions.ToJson()),
         baseCurrencyList: @Html.Raw(baseCurrencyList.ToJson()),
-        dateConstraint: { minDate: '@Model.MinDate.ToString("MM/dd/yyyy")', maxDate: '@Model.MaxDate.ToString("MM/dd/yyyy")', limitedMonthRange: 12 }
+        dateConstraint: { minDate: '@Model.MinDate.ToString("MM/dd/yyyy")', maxDate: '@Model.MaxDate.ToString("MM/dd/yyyy")', limitedMonthRange: 3 }        
      };
 }
 <div id="app-container">

@@ -48,7 +48,7 @@
         isAllowedCustomerComm: @Model.IsAllowedCustomerComm.ToJson(),
         productList: @Html.Raw(Model.ProductOptionList.Select(x => new { value = x.Code, label = x.Name }).ToJson()),
         currencyList: @Html.Raw(currencyList.ToJson()),
-        dateConstraint: { minDate: '@Model.MinDate.ToString("MM/dd/yyyy")', maxDate: '@Model.MaxDate.ToString("MM/dd/yyyy")', limitedMonthRange: 12 }
+        dateConstraint: { minDate: '@Model.MinDate.ToString("MM/dd/yyyy")', maxDate: '@Model.MaxDate.ToString("MM/dd/yyyy")', limitedMonthRange: 3 }
 };
         }
 <div id="app-container">

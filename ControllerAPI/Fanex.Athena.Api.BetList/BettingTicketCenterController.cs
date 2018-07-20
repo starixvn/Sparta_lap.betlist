@@ -178,6 +178,7 @@
 
             if (metaModel.IsExport)
             {
+                metaModel.IsConvertAll = true;
                 var excelModel = new BettingTicketCenterExcelModel
                 {
                     Data = ticketResult,
@@ -211,11 +212,9 @@
                 ? string.Empty
                 : ", " + metaModel.FromDate.ToString(FormatKey.ShortDateFormat) + "-->" + metaModel.ToDate.ToString(FormatKey.ShortDateFormat);
             var currency = string.IsNullOrWhiteSpace(metaModel.CurrencyName) ? string.Empty : ", " + ViewResources.Currency + ": " + metaModel.CurrencyName;
+            var baseCurrency = metaModel.IsConvertAll ? ", " + ViewResources.BaseCurrency + ": " + metaModel.BaseCurrency.ToUpperInvariant() : string.Empty;
 
-            return ViewResources.BettingTicketCenter
-                    + date
-                    + currency
-                    + ", " + ViewResources.BaseCurrency + ": " + metaModel.BaseCurrency.ToUpperInvariant();
+            return ViewResources.BettingTicketCenter + date + currency + baseCurrency;
         }
 
         private bool IsValidCurrencyId(int currencyId)

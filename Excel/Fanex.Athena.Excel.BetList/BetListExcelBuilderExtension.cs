@@ -25,14 +25,8 @@ namespace Fanex.Athena.Excel.BetList
         {
             var isRunning = BetListHelper.IsRunning(ticket.Status);
             var winloss = isRunning
-                             ? "-"
-                             : string.Format("{0:#,##0.00}", ticket.Winlost);
-
-            if (showPlayerComm)
-            {
-                var comm = isRunning ? "\n-" : string.Format("\n{0:#,##0.00}", ticket.PlayerComm);
-                winloss += comm;
-            }
+                ? "-"
+                : (showPlayerComm ? string.Format("{0:#,##0.00}\n{1:#,##0.00}", ticket.Winlost, ticket.PlayerComm) : string.Format("{0:#,##0.00}", ticket.Winlost));
 
             var rtfCustomerWl = new HSSFRichTextString(winloss);
             rtfCustomerWl.ApplyFont(font);
