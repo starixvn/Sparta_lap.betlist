@@ -49,6 +49,10 @@
 
         public bool IsExport { get; set; }
 
+        public string SortBy { get; set; }
+
+        public string SortOrder { get; set; }
+
         public virtual bool IsValid => FromDate <= ToDate && !string.IsNullOrWhiteSpace(ProductCodeList);
     }
 }

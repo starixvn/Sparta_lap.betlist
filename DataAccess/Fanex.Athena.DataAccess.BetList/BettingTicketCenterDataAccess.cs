@@ -120,6 +120,7 @@
                     db.AddInParameter("PageIndex", DbType.Int32, metaModel.IsExport ? 1 : metaModel.PageIndex);
                     db.AddOutParameter("TotalRows", DbType.Int32, 4);
                     db.AddOutParameter("SumStake", DbType.Currency, 8);
+                    AddSortParameter(db, metaModel.SortBy, metaModel.SortOrder);
 
                     using (var reader = db.ExecuteReader())
                     {
@@ -137,6 +138,14 @@
             }
 
             return ticketResult;
+        }
+
+        private static void AddSortParameter(IObjectDb db, string sortBy, string sortOrder)
+        {
+            if (!string.IsNullOrWhiteSpace(sortBy))
+            {
+                db.AddInParameter("Sort", DbType.String, sortBy + " " + sortOrder);
+            }
         }
 
         private void AddSingleCustomerBetListSpParameters(IObjectDb db, SingleCustomersBetListMetaModel metaModel)
@@ -164,6 +173,7 @@
             db.AddOutParameter("SumLicenseeWL", DbType.Currency, 8);
             db.AddOutParameter("SumComm", DbType.Currency, 8);
             db.AddOutParameter("SumPlayerComm", DbType.Currency, 8);
+            AddSortParameter(db, metaModel.SortBy, metaModel.SortOrder);
         }
     }
 }
