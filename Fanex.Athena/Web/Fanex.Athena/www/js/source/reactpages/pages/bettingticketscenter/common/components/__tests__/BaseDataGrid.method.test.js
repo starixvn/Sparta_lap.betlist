@@ -6,10 +6,14 @@ import renderer from 'react-test-renderer';
 import LangHelper from '@jsroot/lib/langHelper.js';
 import BetList from '../../lib/BetList';
 
+const DefaultProps = { 
+    requestParam: {},
+    setRequestParam: jest.fn()
+};
 describe('BaseDataGrid methods ', () => {
     
     it('componentDidMount - Assign functions to window', () => { 
-        const dataGrid = new BaseDataGrid();
+        const dataGrid = new BaseDataGrid(DefaultProps);
             
         dataGrid.componentDidMount();
 
@@ -19,7 +23,7 @@ describe('BaseDataGrid methods ', () => {
     });
 
     it('componentWillUnmount - Remove assigned window functions', () => { 
-        const dataGrid = new BaseDataGrid();
+        const dataGrid = new BaseDataGrid(DefaultProps);
             
         dataGrid.componentDidMount(); // assign 
         dataGrid.componentWillUnmount();
@@ -40,7 +44,7 @@ describe('BaseDataGrid methods ', () => {
 
     it('window.ViewResult() - Call Betlist and setState correctly',() =>{
         const expectedResultUrl = "www.facebook.com";
-        const dataGrid = new BaseDataGrid();
+        const dataGrid = new BaseDataGrid(DefaultProps);
         dataGrid.setState = jest.fn();
         BetList.getResultUrl = jest.fn(() => expectedResultUrl);
         dataGrid.componentDidMount();
@@ -52,7 +56,7 @@ describe('BaseDataGrid methods ', () => {
     });
 
     it('window.showNewCombMP() - Call _showNewParlayDetail() correctly',() =>{
-        const dataGrid = new BaseDataGrid();
+        const dataGrid = new BaseDataGrid(DefaultProps);
         dataGrid._showNewParlayDetail = jest.fn();
         
         dataGrid.componentDidMount();
@@ -65,7 +69,7 @@ describe('BaseDataGrid methods ', () => {
     it('window.showCombMPDetail() - Call Betlist and setState correctly',() =>{
         const expectedResultUrl = "www.facebook.com";
         const expectedPopupTitle = "System ABC";
-        const dataGrid = new BaseDataGrid();
+        const dataGrid = new BaseDataGrid(DefaultProps);
         BetList.getParlayDetailUrl = jest.fn(() => expectedResultUrl);
         dataGrid.setState = jest.fn();
 

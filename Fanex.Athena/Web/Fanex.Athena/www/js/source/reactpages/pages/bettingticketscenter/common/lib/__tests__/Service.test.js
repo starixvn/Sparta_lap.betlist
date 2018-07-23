@@ -9,7 +9,6 @@ describe('Service ', () => {
     const toDate = "10/10/2017";
     const currency = "USD";
     const baseCurrency = "EUR";
-    const dateRange = { fromDate, toDate };
 
     beforeAll(() => {
         LangHelper.getSingleResource = jest.fn(resource => resource);
@@ -24,15 +23,15 @@ describe('Service ', () => {
         it('return correct content', () => {
             const expectedResult = `BettingTicketCenter, ${fromDate} → ${toDate}, Currency: ${currency}, BaseCurrency: ${baseCurrency}`;
             
-            const result = Service.getTitle(dateRange, currency, baseCurrency);
+            const result = Service.getTitle(fromDate, toDate, currency, baseCurrency);
 
             expect(result).toBe(expectedResult);
         });
 
-        it('dateRange is null - return correct content', () => {
+        it('fromDate, toDate are null - return correct content', () => {
             const expectedResult = `BettingTicketCenter, Currency: ${currency}, BaseCurrency: ${baseCurrency}`;
             
-            const result = Service.getTitle(null, currency, baseCurrency);
+            const result = Service.getTitle(null, null, currency, baseCurrency);
 
             expect(result).toBe(expectedResult);
         });
@@ -40,7 +39,7 @@ describe('Service ', () => {
         it('currency is null - return correct content', () => {
             const expectedResult = `BettingTicketCenter, ${fromDate} → ${toDate}, BaseCurrency: ${baseCurrency}`;
             
-            const result = Service.getTitle(dateRange, null, baseCurrency);
+            const result = Service.getTitle(fromDate, toDate, null, baseCurrency);
 
             expect(result).toBe(expectedResult);
         })
@@ -48,7 +47,7 @@ describe('Service ', () => {
         it('baseCurrency is null - return correct content', () => {
             const expectedResult = `BettingTicketCenter, ${fromDate} → ${toDate}, Currency: ${currency}`;
             
-            const result = Service.getTitle(dateRange, currency);
+            const result = Service.getTitle(fromDate, toDate, currency);
 
             expect(result).toBe(expectedResult);
         });

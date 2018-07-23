@@ -57,7 +57,7 @@ export default class BaseDataGrid extends Component {
     }
 
     get dataUrl(){
-        throw new Exception("Please override this property in sub class");
+        // This property should be override in child class.
     }
 
     onPaging = (index, size) => {
@@ -123,6 +123,11 @@ export default class BaseDataGrid extends Component {
             divEvent.innerHTML = "";
             nameDiv.style.display = 'block';
         }
+    }
+
+    _buildHeader() {
+        // This method should be override in child class.
+        return [];
     }
 
     _buildBody() {
