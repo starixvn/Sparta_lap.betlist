@@ -41,7 +41,7 @@
             return _builder.GetWorkbook();
         }
 
-        private void BuildSheets(BettingTicketCenterExcelModel excelModel)
+        protected internal virtual void BuildSheets(BettingTicketCenterExcelModel excelModel)
         {
             var numOfSheets = (int)Math.Ceiling((double)excelModel.Data.MainTicketList.Count / SystemConstants.SheetSizeExcel);
             for (int sheetIndex = 0; sheetIndex < numOfSheets; sheetIndex++)
@@ -63,7 +63,7 @@
             }
         }
 
-        private void AssignSheetData(BettingTicketCenterExcelModel excelModel, int sheetIndex, int endIndex)
+        protected internal virtual void AssignSheetData(BettingTicketCenterExcelModel excelModel, int sheetIndex, int endIndex)
         {
             for (var i = sheetIndex * SystemConstants.SheetSizeExcel; i < endIndex; i++)
             {
@@ -75,7 +75,7 @@
             }
         }
 
-        private void AddFooter(BettingTicketCenterExcelModel excelModel)
+        protected internal virtual void AddFooter(BettingTicketCenterExcelModel excelModel)
         {
             var sumStake = excelModel.ShowSumStake ? excelModel.Data.SumStake : (decimal?)null;
             var sumWinLoss = excelModel.ShowWinLoss ? (excelModel.Data.SumWinLoss + excelModel.Data.SumPlayerComm) : (decimal?)null;

@@ -112,6 +112,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BettingTicketCenterExcelTest.cs" />
     <Compile Include="BetListExcelTest_AssignSheetsData.cs" />
     <Compile Include="BetListExcelTest_BuildTicket.cs" />
     <Compile Include="BetListExcelTest.cs" />
