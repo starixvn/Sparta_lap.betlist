@@ -1,6 +1,8 @@
 ﻿namespace Fanex.Athena.Excel.BetList.Builders.UnitTests
 {
+    using Athena.Model.BetList.DTO;
     using Athena.Model.Core.DataDomain;
+    using Constant.DataDomain;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
     using NPOI.HSSF.UserModel;
@@ -16,6 +18,7 @@
     public class BettingTicketCenterExcelTest
     {
         private const int NumberOfColumns = 12;
+        private const int ColumnTotalStart = 6;
 
         private ICacheRefAdapter _cacheRefAdapter;
         private ITicketHelper _ticketHelper;
@@ -168,10 +171,221 @@
             // Assert
             Assert.Multiple(() =>
             {
+                _builder.Received(ColumnTotalStart).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == ViewResources.Total), Arg.Any<ICellStyle>());
+                _builder.Received(NumberOfColumns - ColumnTotalStart - 3).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == string.Empty), Arg.Any<ICellStyle>());
                 _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == SumStake.ToString(FormatKey.DecimalFormat)), Arg.Any<ICellStyle>());
                 _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == SumWinLoss.ToString(FormatKey.DecimalFormat)), Arg.Any<ICellStyle>());
                 _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == SumLicenseeWL.ToString(FormatKey.DecimalFormat)), Arg.Any<ICellStyle>());
             });
+        }
+
+        [Test]
+        public void AddFooter_ShowSumStake_AddSumStakeCell()
+        {
+            // Arrange
+            decimal? sumStake = null;
+            const decimal SumWinLoss = 23.23m;
+            const decimal SumLicenseeWL = 34.34m;
+            var lastRow = FakeHelper.Create<int>();
+            _builder.LastContentRow.Returns(lastRow);
+            _excelBuilder.InitializeFonts();
+
+            // Action
+            _excelBuilder.AddFooter(sumStake, SumWinLoss, SumLicenseeWL);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                _builder.Received(NumberOfColumns - ColumnTotalStart - 2).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == string.Empty), Arg.Any<ICellStyle>());
+                _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == SumWinLoss.ToString(FormatKey.DecimalFormat)), Arg.Any<ICellStyle>());
+                _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == SumLicenseeWL.ToString(FormatKey.DecimalFormat)), Arg.Any<ICellStyle>());
+            });
+        }
+
+        [Test]
+        public void AddFooter_ShowSumWinLoss_AddSumWinLossCell()
+        {
+            // Arrange
+            decimal? sumWinLoss = null;
+            const decimal SumStake = 23.23m;
+            const decimal SumLicenseeWL = 34.34m;
+            var lastRow = FakeHelper.Create<int>();
+            _builder.LastContentRow.Returns(lastRow);
+            _excelBuilder.InitializeFonts();
+
+            // Action
+            _excelBuilder.AddFooter(SumStake, sumWinLoss, SumLicenseeWL);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                _builder.Received(NumberOfColumns - ColumnTotalStart - 2).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == string.Empty), Arg.Any<ICellStyle>());
+                _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == SumStake.ToString(FormatKey.DecimalFormat)), Arg.Any<ICellStyle>());
+                _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == SumLicenseeWL.ToString(FormatKey.DecimalFormat)), Arg.Any<ICellStyle>());
+            });
+        }
+
+        [Test]
+        public void AddFooter_ShowSumLicenseeWL_AddSumLicenseeWLCell()
+        {
+            // Arrange
+            decimal? sumLicenseeWL = null;
+            const decimal SumStake = 23.23m;
+            const decimal SumWinLoss = 34.34m;
+            var lastRow = FakeHelper.Create<int>();
+            _builder.LastContentRow.Returns(lastRow);
+            _excelBuilder.InitializeFonts();
+
+            // Action
+            _excelBuilder.AddFooter(SumStake, SumWinLoss, sumLicenseeWL);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                _builder.Received(NumberOfColumns - ColumnTotalStart - 2).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == string.Empty), Arg.Any<ICellStyle>());
+                _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == SumStake.ToString(FormatKey.DecimalFormat)), Arg.Any<ICellStyle>());
+                _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == SumWinLoss.ToString(FormatKey.DecimalFormat)), Arg.Any<ICellStyle>());
+            });
+        }
+
+        [Test]
+        public void AssignRowData_AddPlatfromCell_IndexIsOdd_BuildCorrectCellWithOddCellStyle()
+        {
+            // Arrange
+            var tickets = new TicketResult();
+            var ticket = new LrfTicket
+            {
+                BetFrom = "g",
+                BetTypeId = (int)BetType.Handicap,
+                Status = BetStatus.Won
+            };
+            tickets.MainTicketList.Add(ticket);
+
+            _ticketHelper.Index.Returns(0);
+
+            _excelBuilder.InitializeFonts();
+            _excelBuilder.InitializeCellStyles();
+
+            // Action
+            _excelBuilder.AssignRowData(tickets, ticket, true, 1);
+
+            // Assert
+            _builder.Received(1).AddCell(
+                Arg.Is<HSSFRichTextString>(x => x.String == PlatformType.GetPlatformName(ticket.BetFrom)),
+                Arg.Is<ICellStyle>(x => x.Alignment == HorizontalAlignment.Center
+                && x.FillBackgroundColor == _evenStyle.FillBackgroundColor));
+        }
+
+        [Test]
+        public void AssignRowData_AddPlatfromCell_IndexIsEven_BuildCorrectCellWithOddCellStyle()
+        {
+            // Arrange
+            var tickets = new TicketResult();
+            var ticket = new LrfTicket
+            {
+                BetFrom = "g",
+                BetTypeId = (int)BetType.Handicap,
+                Status = BetStatus.Won
+            };
+            tickets.MainTicketList.Add(ticket);
+
+            _ticketHelper.Index.Returns(1);
+
+            _excelBuilder.InitializeFonts();
+            _excelBuilder.InitializeCellStyles();
+
+            // Action
+            _excelBuilder.AssignRowData(tickets, ticket, true, 1);
+
+            // Assert
+            _builder.Received(1).AddCell(
+                Arg.Is<HSSFRichTextString>(x => x.String == PlatformType.GetPlatformName(ticket.BetFrom)),
+                Arg.Is<ICellStyle>(x => x.Alignment == HorizontalAlignment.Center
+                && x.FillBackgroundColor == _oddStyle.FillBackgroundColor));
+        }
+
+        [TestCase(BetType.MixParlay, LiveStatusTypes.Live, false)]
+        [TestCase(BetType.MixParlay, LiveStatusTypes.Live, true)]
+        [TestCase(BetType.Handicap, LiveStatusTypes.All, true)]
+        public void AssignRowData_AddLiveCell_BuildLiveCell(BetType bettype, int liveHomeScore, bool isLive)
+        {
+            // Arrange
+            var tickets = new TicketResult();
+            var ticket = new LrfTicket
+            {
+                BetTypeId = (int)bettype,
+                Status = BetStatus.Won,
+                IsLive = isLive,
+                LiveHomeScore = liveHomeScore
+            };
+            tickets.MainTicketList.Add(ticket);
+
+            _ticketHelper.Index.Returns(2);
+
+            _excelBuilder.InitializeFonts();
+
+            // Action
+            _excelBuilder.AssignRowData(tickets, ticket, false, 2);
+
+            // Assert
+            _builder.Received(1).AddCell(
+                Arg.Is<HSSFRichTextString>(x => x.String == ViewResources.Live),
+                Arg.Any<ICellStyle>());
+        }
+
+        [TestCase(BetType.MixParlay, 0, false)]
+        [TestCase(BetType.MixParlay, 0, true)]
+        [TestCase(BetType.Handicap, LiveStatusTypes.All, false)]
+        public void AssignRowData_AddLiveCell_BuildNonLiveCell(BetType bettype, int liveHomeScore, bool isLive)
+        {
+            // Arrange
+            var tickets = new TicketResult();
+            var ticket = new LrfTicket
+            {
+                BetTypeId = (int)bettype,
+                Status = BetStatus.Won,
+                IsLive = isLive,
+                LiveHomeScore = liveHomeScore
+            };
+            tickets.MainTicketList.Add(ticket);
+
+            _ticketHelper.Index.Returns(3);
+
+            _excelBuilder.InitializeFonts();
+
+            // Action
+            _excelBuilder.AssignRowData(tickets, ticket, false, 2);
+
+            // Assert
+            _builder.Received(1).AddCell(
+                Arg.Is<HSSFRichTextString>(x => x.String == ViewResources.NoneLive),
+                Arg.Any<ICellStyle>());
+        }
+
+        [Test]
+        public void AssignRowData_AddLiveCell_BuildMixLiveAndNoneLiveCell()
+        {
+            // Arrange
+            var tickets = new TicketResult();
+            var ticket = new LrfTicket
+            {
+                BetTypeId = (int)BetType.MixParlay,
+                Status = BetStatus.Won,
+                LiveHomeScore = LiveStatusTypes.All
+            };
+            tickets.MainTicketList.Add(ticket);
+
+            _ticketHelper.Index.Returns(4);
+
+            _excelBuilder.InitializeFonts();
+
+            // Action
+            _excelBuilder.AssignRowData(tickets, ticket, true, 3);
+
+            // Assert
+            _builder.Received(1).AddCell(
+                Arg.Is<HSSFRichTextString>(x => x.String == ViewResources.MixLiveAndNoneLive),
+                Arg.Any<ICellStyle>());
         }
     }
 }
