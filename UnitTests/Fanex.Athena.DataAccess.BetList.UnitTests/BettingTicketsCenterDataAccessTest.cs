@@ -82,11 +82,11 @@
                 () => DataAccess.GetBetListByRefno(new RefNoBetListMetaModel()));
         }
 
-        [TestCase("", false, false)]
-        [TestCase("P1,SB,P2", true, false)]
-        [TestCase("BA,P1,P2", false, true)]
-        [TestCase("P1,BA,P2,SB", true, true)]
-        public void GetRunningBetList_WhenCall_ParametersPassedCorrectly(string productCode, bool showSB, bool showBA)
+        [TestCase("", "", false)]
+        [TestCase("P1,SB,P2", "P1,SB,P2", false)]
+        [TestCase("BA,P1,P2", "P1,P2", true)]
+        [TestCase("P1,BA,P2,SB", "P1,P2,SB", true)]
+        public void GetRunningBetList_WhenCall_ParametersPassedCorrectly(string productCode, string productList, bool showBA)
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(RunningBetListUspKey)).Returns(ObjectDb);
@@ -108,12 +108,12 @@
                 ObjectDb.Received(1).AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
                 ObjectDb.Received(1).AddInParameter("CurrencyId", DbType.Int32, metaModel.CurrencyId);
                 ObjectDb.Received(1).AddInParameter("BaseCurrency", DbType.String, metaModel.BaseCurrency);
-                ObjectDb.Received(1).AddInParameter("showSB", DbType.Boolean, showSB);
+                ObjectDb.Received(1).AddInParameter("ProductList", DbType.String, productList);
                 ObjectDb.Received(1).AddInParameter("showBA", DbType.Boolean, showBA);
                 ObjectDb.Received(1).AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
                 ObjectDb.Received(1).AddInParameter("PageIndex", DbType.Int32, metaModel.PageIndex);
                 ObjectDb.Received(1).AddOutParameter("TotalRows", DbType.Int32, 4);
-                ObjectDb.Received(1).AddOutParameter("SumStake", DbType.Decimal, 8);
+                ObjectDb.Received(1).AddOutParameter("SumStake", DbType.Currency, 8);
             });
         }
 

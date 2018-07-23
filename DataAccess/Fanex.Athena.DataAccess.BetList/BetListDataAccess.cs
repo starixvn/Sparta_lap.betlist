@@ -72,7 +72,7 @@ namespace Fanex.Athena.DataAccess.BetList
                     db.AddInParameter("refno", DbType.Int64, metaModel.RefNo);
                     db.AddInParameter("movebetsday", DbType.DateTime, metaModel.MoveBetsDay);
                     db.AddInParameter("balanceupday", DbType.DateTime, metaModel.BalanceUpDay);
-                    db.AddInParameter("BaseCurrency", DbType.DateTime, metaModel.BaseCurrency);
+                    db.AddInParameter("BaseCurrency", DbType.String, metaModel.BaseCurrency);
                     db.AddOutParameter("outstanding", DbType.Currency, 8);
                     var dataSet = db.ExecuteDataSet();
                     var systemParlayData = new SystemParlayData

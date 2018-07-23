@@ -10,6 +10,7 @@
     using Fanex.BetList.Core.Entities;
     using Model.BetList.DTO;
     using Model.BetList.MetaModel;
+    using Model.Core.DataDomain;
     using Model.Core.DTO.Configuration;
     using NSubstitute;
     using NUnit.Framework;
@@ -212,7 +213,7 @@
             {
                 _dataAccess.Received(1).GetRunningBetList(metaModel);
                 Assert.That(result.Data, Is.Not.Null);
-                Assert.That(result.Total.SumStake, Is.EqualTo(ticketResult.SumStake));
+                Assert.That(result.Total.SumStake, Is.EqualTo(ticketResult.SumStake.ToString(FormatKey.DecimalFormat)));
                 Assert.That(result.TotalRows, Is.EqualTo(ticketResult.TotalRows));
             });
         }

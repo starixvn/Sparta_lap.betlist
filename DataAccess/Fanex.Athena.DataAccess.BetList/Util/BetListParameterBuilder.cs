@@ -462,7 +462,7 @@
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             db.AddInParameter("TransId", DbType.Int64, metaModel.TransId);
             db.AddInParameter("RefCode", DbType.Int64, metaModel.RefCode);
-            db.AddInParameter("BaseCurrency", DbType.Int64, metaModel.BaseCurrency);
+            db.AddInParameter("BaseCurrency", DbType.String, metaModel.BaseCurrency);
         }
 
         #region Utility

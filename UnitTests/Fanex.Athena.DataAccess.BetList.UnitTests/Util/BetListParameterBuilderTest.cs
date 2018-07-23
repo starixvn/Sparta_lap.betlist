@@ -683,6 +683,25 @@
             });
         }
 
+        [Test]
+        public void CreateBetListParameters_CalledByBonusDetail_ParametersPassedCorrectly()
+        {
+            // Arrange
+            const string UspKey = "Lrf_BetList_LicenseeBonus_Detail";
+
+            // Action
+            BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, _metaModel);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                _objectDb.Received(1).AddInParameter("TransId", DbType.Int64, _metaModel.TransId);
+                _objectDb.Received(1).AddInParameter("RefCode", DbType.Int64, _metaModel.RefCode);
+                _objectDb.Received(1).AddInParameter("BaseCurrency", DbType.String, _metaModel.BaseCurrency);
+            });
+        }
+
         private static void AssertSummaryParameters(IObjectDb objectDb, IEnumerable<string> baseCurrencyCols = null)
         {
             var baseCurrencyExpectedCols = baseCurrencyCols ?? SystemConstants.BaseCurrencyList;

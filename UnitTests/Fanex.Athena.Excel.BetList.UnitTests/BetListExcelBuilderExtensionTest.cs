@@ -42,7 +42,7 @@
             _builder.Received(1).AddCell(Arg.Is<IRichTextString>(x => x.String == expectedValue));
         }
 
-        [TestCase("running", "-\n-")]
+        [TestCase("running", "-")]
         [TestCase("abc", "1,000.00\n2.99")]
         public void AddCustomerWL_Status_CallAddCell(string status, string expectedValue)
         {
