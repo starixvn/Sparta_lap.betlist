@@ -22,7 +22,7 @@
             _builder = builder;
         }
 
-        public IWorkbook Export(BettingTicketCenterExcelModel excelModel)
+        public virtual IWorkbook Export(BettingTicketCenterExcelModel excelModel)
         {
             if (excelModel.Data.MainTicketList.Any())
             {

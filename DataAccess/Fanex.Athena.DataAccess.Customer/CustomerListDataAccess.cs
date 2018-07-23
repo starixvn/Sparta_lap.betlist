@@ -40,7 +40,7 @@
                 AddCustomerParam(db, metaModel);
                 AddOddsGroupParam(db, metaModel);
 
-                var dataList = ReadCustomerList(db, metaModel);          
+                var dataList = ReadCustomerList(db, metaModel);
                 var totalRows = Converter.ToInt(db.GetParameterValue("TotalRows"));
 
                 return new ReportResultModel<CustomerDTO>

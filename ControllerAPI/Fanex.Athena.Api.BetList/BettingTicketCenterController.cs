@@ -68,14 +68,34 @@
         [HttpPost]
         public dynamic GetByMultipleCustomers(MultipleCustomersBetListMetaModel metaModel)
         {
-            if (!metaModel.IsValid && !IsValidCurrencyId(metaModel.CurrencyId))
+            TicketResult ticketResult;
+            if (!metaModel.IsValid || !IsValidCurrencyId(metaModel.CurrencyId))
             {
-                return null;
+                ticketResult = new TicketResult();
+            }
+            else
+            {
+                metaModel.IsConvertAll = true;
+                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
+                ticketResult = _dataAccess.GetBetListForMultipleCustomers(metaModel);
             }
 
             var showPlayerComm = SessionService.LicenseeSession.IsAllowedCustomerComm;
-            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-            var ticketResult = _dataAccess.GetBetListForMultipleCustomers(metaModel);
+
+            if (metaModel.IsExport)
+            {
+                var excelModel = new BettingTicketCenterExcelModel
+                {
+                    Data = ticketResult,
+                    ShowTotal = true,
+                    ShowSumStake = true,
+                    ShowLicenseeWl = true,
+                    ShowWinLoss = true,
+                    CustomerCommVisible = showPlayerComm,
+                    Title = GetTitle(metaModel)
+                };
+                return Export(excelModel);
+            }
 
             return new
             {
@@ -83,7 +103,7 @@
                 Total = new
                 {
                     SumWinLoss = _betlistHtmlBuilder.BuildCustomerWL(new LrfTicket { Winlost = ticketResult.SumWinLoss, PlayerComm = ticketResult.SumPlayerComm }, showPlayerComm),
-                    SumLicenseeWl = (ticketResult.SumLicenseeWL + ticketResult.SumComm).ToString(FormatKey.DecimalFormat),
+                    SumLicenseeWL = (ticketResult.SumLicenseeWL + ticketResult.SumComm).ToString(FormatKey.DecimalFormat),
                     SumStake = ticketResult.SumStake.ToString(FormatKey.DecimalFormat)
                 },
                 TotalRows = ticketResult.TotalRows
@@ -93,14 +113,18 @@
         [HttpPost]
         public dynamic GetBySingleCustomer(SingleCustomersBetListMetaModel metaModel)
         {
-            if (!metaModel.IsValid && !IsValidCurrencyId(metaModel.CurrencyId))
+            TicketResult ticketResult;
+            if (!metaModel.IsValid || !IsValidCurrencyId(metaModel.CurrencyId))
             {
-                return null;
+                ticketResult = new TicketResult();
+            }
+            else
+            {
+                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
+                ticketResult = _dataAccess.GetBetListForSingleCustomer(metaModel);
             }
 
             var showPlayerComm = SessionService.LicenseeSession.IsAllowedCustomerComm;
-            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-            var ticketResult = _dataAccess.GetBetListForSingleCustomer(metaModel);
 
             if (metaModel.IsExport)
             {
@@ -172,13 +196,13 @@
             }
             else
             {
+                metaModel.IsConvertAll = true;
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                 ticketResult = _dataAccess.GetRunningBetList(metaModel);
             }
 
             if (metaModel.IsExport)
             {
-                metaModel.IsConvertAll = true;
                 var excelModel = new BettingTicketCenterExcelModel
                 {
                     Data = ticketResult,
