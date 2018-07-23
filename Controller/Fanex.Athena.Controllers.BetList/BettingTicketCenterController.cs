@@ -24,7 +24,7 @@
 
         public ActionResult Index()
         {
-            return MultipleCustomers();
+            return SingleCustomer();
         }
 
         public ActionResult MultipleCustomers()

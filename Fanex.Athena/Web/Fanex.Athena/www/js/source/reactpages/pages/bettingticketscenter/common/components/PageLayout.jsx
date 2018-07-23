@@ -15,9 +15,6 @@ export default class PageLayout extends Component {
             <AppLayout>
                 <Loader isLoading={this.props.isLoading} />
                 <Tabs>
-                    <Tab isActive={this.props.selectedTabIndex == 0} label={LangHelper.getSingleResource("MultipleCustomers")}
-                        url={Site.resolveClientUrl("BettingTicketCenter/Index")} >
-                    </Tab>
                     <Tab isActive={this.props.selectedTabIndex == 1} label={LangHelper.getSingleResource("SingleCustomer")}
                         url={Site.resolveClientUrl("BettingTicketCenter/SingleCustomer")}>
                     </Tab>

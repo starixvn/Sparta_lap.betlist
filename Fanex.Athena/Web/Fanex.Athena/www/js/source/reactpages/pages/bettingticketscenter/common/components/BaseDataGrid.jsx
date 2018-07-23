@@ -9,6 +9,8 @@ import NoDataTitle from '@jsroot/components/NoDataTitle'
 import BetList from '../lib/BetList'
 import Service from '../lib/Service'
 
+const DEFAULT_PAGE_SIZE = 50;
+
 export default class BaseDataGrid extends Component {
     constructor(props) {
         super(props);
@@ -20,6 +22,10 @@ export default class BaseDataGrid extends Component {
     }
 
     componentDidMount() {
+        const param = this.props.requestParam;
+        param.PageSize = DEFAULT_PAGE_SIZE;
+        this.props.setRequestParam(param);
+
         window.ViewResult = (...args) => {
             const url = BetList.getResultUrl.apply(BetList, args);
             this._openPopup(url, LangHelper.getSingleResource("Result"));
@@ -167,11 +173,11 @@ export default class BaseDataGrid extends Component {
         }
 
         const param = this.props.requestParam;
-         const pageOption = {
+        const pageOption = {
             PageIndex: param.PageIndex,
-            PageSize: param.PageSize || 50,
+            PageSize: param.PageSize,
             TotalItem: this.props.gridData.TotalRows,
-            PageList: [50, 100, 200, 300, 400, 500, 1000, 2000]
+            PageList: [DEFAULT_PAGE_SIZE, 100, 200, 300, 400, 500, 1000, 2000]
         };
 
         return (

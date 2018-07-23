@@ -124,7 +124,7 @@ namespace Fanex.Athena.Excel.BetList.Builders
         {
             var footerStyle = _builder.CreateFooterCellStyle();
 
-            var rtfTotal = new HSSFRichTextString(ViewResources.GrandTotal);
+            var rtfTotal = new HSSFRichTextString(ViewResources.Total);
             for (int i = 0; i < ColumnTotalStart; i++)
             {
                 _builder.AddCell(rtfTotal, footerStyle);

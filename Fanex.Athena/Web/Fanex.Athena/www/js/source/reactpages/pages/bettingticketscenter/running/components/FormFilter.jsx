@@ -79,17 +79,21 @@ export class FormFilter extends Component {
 
     onChangeCurrency = (currency) => {
         const currencyName = currency.label;
+        let baseCurrency = currencyName;
 
-        if (currency.value !== 0 && !this.baseCurrencyList.find(x => x.label === currencyName)) {
+        if (currency.value == 0) {
+            this.baseCurrencyList = AppData.baseCurrencyList;
+            baseCurrency = this.baseCurrencyList.find(x => x.label === this.props.selectedBaseCurrency) ?
+                            this.props.selectedBaseCurrency :
+                            this.defaultBaseCurrency;
+        }
+        else if(!this.baseCurrencyList.find(x => x.label === currencyName)){
             this.baseCurrencyList = AppData.baseCurrencyList.slice(0);
             this.baseCurrencyList.push({value: currencyName, label: currencyName});      
         }
-        else {
-            this.baseCurrencyList = AppData.baseCurrencyList;
-        }
 
         this.props.setSelectedCurrency(currency)
-        this.props.setSelectedBaseCurrency(currency.value === 0 ? this.defaultBaseCurrency : currencyName);
+        this.props.setSelectedBaseCurrency(baseCurrency);
     }
 
     exportExcel = (event) => {
