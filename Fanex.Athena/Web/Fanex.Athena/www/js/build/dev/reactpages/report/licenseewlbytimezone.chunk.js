@@ -122,32 +122,6 @@ var grandTotalCellStyle = exports.grandTotalCellStyle = {
 
 /***/ }),
 
-/***/ 138:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var FETCH_DATA = exports.FETCH_DATA = 'FETCH_DATA';
-var SET_GRID_DATA = exports.SET_GRID_DATA = "SET_GRID_DATA";
-
-var GET_TIMEZONE = exports.GET_TIMEZONE = "GET_TIMEZONE";
-var SET_TIMEZONE = exports.SET_TIMEZONE = "SET_TIMEZONE";
-
-var GET_REPORTBY = exports.GET_REPORTBY = "GET_REPORTBY";
-var SET_REPORTBY = exports.SET_REPORTBY = "SET_REPORTBY";
-
-var SET_DATE_RANGE = exports.SET_DATE_RANGE = "SET_DATE_RANGE";
-var GET_DATE_CONSTRAINT = exports.GET_DATE_CONSTRAINT = "GET_DATE_CONSTRAINT";
-var CHANGE_GROUPBY = exports.CHANGE_GROUPBY = "CHANGE_GROUPBY";
-var CHANGE_IS_CONVERT_ALL = exports.CHANGE_IS_CONVERT_ALL = "CHANGE_IS_CONVERT_ALL";
-var CHANGE_IS_INCLUDE_DRAW_DATA = exports.CHANGE_IS_INCLUDE_DRAW_DATA = "CHANGE_IS_INCLUDE_DRAW_DATA";
-
-/***/ }),
-
 /***/ 14:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -722,21 +696,47 @@ exports.default = Calendar;
 
 /***/ }),
 
-/***/ 145:
+/***/ 140:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var FETCH_DATA = exports.FETCH_DATA = 'FETCH_DATA';
+var SET_GRID_DATA = exports.SET_GRID_DATA = "SET_GRID_DATA";
+
+var GET_TIMEZONE = exports.GET_TIMEZONE = "GET_TIMEZONE";
+var SET_TIMEZONE = exports.SET_TIMEZONE = "SET_TIMEZONE";
+
+var GET_REPORTBY = exports.GET_REPORTBY = "GET_REPORTBY";
+var SET_REPORTBY = exports.SET_REPORTBY = "SET_REPORTBY";
+
+var SET_DATE_RANGE = exports.SET_DATE_RANGE = "SET_DATE_RANGE";
+var GET_DATE_CONSTRAINT = exports.GET_DATE_CONSTRAINT = "GET_DATE_CONSTRAINT";
+var CHANGE_GROUPBY = exports.CHANGE_GROUPBY = "CHANGE_GROUPBY";
+var CHANGE_IS_CONVERT_ALL = exports.CHANGE_IS_CONVERT_ALL = "CHANGE_IS_CONVERT_ALL";
+var CHANGE_IS_INCLUDE_DRAW_DATA = exports.CHANGE_IS_INCLUDE_DRAW_DATA = "CHANGE_IS_INCLUDE_DRAW_DATA";
+
+/***/ }),
+
+/***/ 147:
 /***/ (function(module, exports) {
 
 module.exports = cptable;
 
 /***/ }),
 
-/***/ 146:
+/***/ 148:
 /***/ (function(module, exports) {
 
 module.exports = jszip;
 
 /***/ }),
 
-/***/ 147:
+/***/ 149:
 /***/ (function(module, exports) {
 
 module.exports = ods;
@@ -838,7 +838,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 159:
+/***/ 161:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -849,19 +849,19 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.ActionCreators = undefined;
 
-var _dataHandlerAction = __webpack_require__(342);
+var _dataHandlerAction = __webpack_require__(344);
 
 var dataHandlerAction = _interopRequireWildcard(_dataHandlerAction);
 
-var _filterHandlerAction = __webpack_require__(343);
+var _filterHandlerAction = __webpack_require__(345);
 
 var filterHandlerAction = _interopRequireWildcard(_filterHandlerAction);
 
-var _productAction = __webpack_require__(74);
+var _productAction = __webpack_require__(73);
 
 var productAction = _interopRequireWildcard(_productAction);
 
-var _currencyAction = __webpack_require__(85);
+var _currencyAction = __webpack_require__(86);
 
 var currencyAction = _interopRequireWildcard(_currencyAction);
 
@@ -869,15 +869,15 @@ var _baseCurrencyAction = __webpack_require__(59);
 
 var baseCurrencyAction = _interopRequireWildcard(_baseCurrencyAction);
 
-var _loaderAction = __webpack_require__(29);
+var _loaderAction = __webpack_require__(28);
 
 var loaderAction = _interopRequireWildcard(_loaderAction);
 
-var _excludeTestAction = __webpack_require__(160);
+var _excludeTestAction = __webpack_require__(162);
 
 var excludeTestAction = _interopRequireWildcard(_excludeTestAction);
 
-var _userGuideAction = __webpack_require__(344);
+var _userGuideAction = __webpack_require__(346);
 
 var userGuideAction = _interopRequireWildcard(_userGuideAction);
 
@@ -887,7 +887,7 @@ var ActionCreators = exports.ActionCreators = Object.assign({}, dataHandlerActio
 
 /***/ }),
 
-/***/ 160:
+/***/ 162:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -913,7 +913,7 @@ var changeIsExcludeTest = exports.changeIsExcludeTest = function changeIsExclude
 
 /***/ }),
 
-/***/ 161:
+/***/ 163:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -982,7 +982,7 @@ exports.default = Service;
 
 /***/ }),
 
-/***/ 162:
+/***/ 164:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -999,7 +999,7 @@ var SettingConst = exports.SettingConst = {
 
 /***/ }),
 
-/***/ 163:
+/***/ 165:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1238,6 +1238,8 @@ var SET_USERNAME = exports.SET_USERNAME = "SET_USERNAME";
 
 var SET_REQUEST_PARAM = exports.SET_REQUEST_PARAM = "SET_REQUEST_PARAM";
 
+var SET_REPORT_TITLE = exports.SET_REPORT_TITLE = "SET_REPORT_TITLE";
+
 /***/ }),
 
 /***/ 21:
@@ -1328,19 +1330,6 @@ exports.default = NoDataTitle;
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = window._AppData || {};
-
-/***/ }),
-
-/***/ 29:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.toggleLoader = undefined;
@@ -1357,6 +1346,19 @@ var toggleLoader = exports.toggleLoader = function toggleLoader(show) {
         data: show
     };
 };
+
+/***/ }),
+
+/***/ 29:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = window._AppData || {};
 
 /***/ }),
 
@@ -1968,9 +1970,16 @@ var Pager = function (_Component) {
     }
 
     _createClass(Pager, [{
+        key: 'componentDidUpdate',
+        value: function componentDidUpdate(prevProps, prevState) {
+            var pageIndex = this.props.pageOption.PageIndex;
+            if (pageIndex !== prevProps.pageOption.PageIndex) {
+                this._updateState(pageIndex);
+            }
+        }
+    }, {
         key: 'goToPage',
         value: function goToPage(index, pageSize) {
-            this._updateState(index);
             this.props.onPaging && this.props.onPaging(index, pageSize);
         }
     }, {
@@ -2191,7 +2200,7 @@ exports.default = Row;
 
 /***/ }),
 
-/***/ 340:
+/***/ 342:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2211,13 +2220,13 @@ var _reactDom = __webpack_require__(3);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _AppContainer = __webpack_require__(341);
+var _AppContainer = __webpack_require__(343);
 
 var _AppContainer2 = _interopRequireDefault(_AppContainer);
 
 var _reactRedux = __webpack_require__(13);
 
-var _index = __webpack_require__(349);
+var _index = __webpack_require__(351);
 
 var _index2 = _interopRequireDefault(_index);
 
@@ -2266,7 +2275,7 @@ _reactDom2.default.render(_react2.default.createElement(App, null), document.get
 
 /***/ }),
 
-/***/ 341:
+/***/ 343:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2287,13 +2296,13 @@ var _reactRedux = __webpack_require__(13);
 
 var _redux = __webpack_require__(10);
 
-var _index = __webpack_require__(159);
+var _index = __webpack_require__(161);
 
-var _datagrid = __webpack_require__(345);
+var _datagrid = __webpack_require__(347);
 
 var _datagrid2 = _interopRequireDefault(_datagrid);
 
-var _formFilter = __webpack_require__(346);
+var _formFilter = __webpack_require__(348);
 
 var _formFilter2 = _interopRequireDefault(_formFilter);
 
@@ -2350,7 +2359,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
 /***/ }),
 
-/***/ 342:
+/***/ 344:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2363,7 +2372,7 @@ exports.getGridData = getGridData;
 exports.exportExcel = exportExcel;
 exports.setGridData = setGridData;
 
-var _types = __webpack_require__(138);
+var _types = __webpack_require__(140);
 
 var types = _interopRequireWildcard(_types);
 
@@ -2412,7 +2421,7 @@ function setGridData(data) {
 
 /***/ }),
 
-/***/ 343:
+/***/ 345:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2423,7 +2432,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.changeIsIncludeDrawData = exports.changeIsConvertAll = exports.changeGroupBy = exports.setDateRange = exports.setSelectedReportBy = exports.setSelectedTimeZone = undefined;
 
-var _types = __webpack_require__(138);
+var _types = __webpack_require__(140);
 
 var types = _interopRequireWildcard(_types);
 
@@ -2478,7 +2487,7 @@ var changeIsIncludeDrawData = exports.changeIsIncludeDrawData = function changeI
 
 /***/ }),
 
-/***/ 344:
+/***/ 346:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2532,7 +2541,7 @@ var setUserGuideContent = exports.setUserGuideContent = function setUserGuideCon
 
 /***/ }),
 
-/***/ 345:
+/***/ 347:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2555,7 +2564,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(13);
 
-var _index = __webpack_require__(159);
+var _index = __webpack_require__(161);
 
 var _redux = __webpack_require__(10);
 
@@ -2565,7 +2574,7 @@ var _langHelper = __webpack_require__(4);
 
 var _langHelper2 = _interopRequireDefault(_langHelper);
 
-var _numberFormat = __webpack_require__(52);
+var _numberFormat = __webpack_require__(74);
 
 var _numberFormat2 = _interopRequireDefault(_numberFormat);
 
@@ -2577,11 +2586,11 @@ var _NoDataTitle = __webpack_require__(27);
 
 var _NoDataTitle2 = _interopRequireDefault(_NoDataTitle);
 
-var _service = __webpack_require__(161);
+var _service = __webpack_require__(163);
 
 var _service2 = _interopRequireDefault(_service);
 
-var _settingConst = __webpack_require__(162);
+var _settingConst = __webpack_require__(164);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2887,7 +2896,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
 /***/ }),
 
-/***/ 346:
+/***/ 348:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2906,7 +2915,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(13);
 
-var _index = __webpack_require__(159);
+var _index = __webpack_require__(161);
 
 var _redux = __webpack_require__(10);
 
@@ -2924,7 +2933,7 @@ var _langHelper = __webpack_require__(4);
 
 var _langHelper2 = _interopRequireDefault(_langHelper);
 
-var _reportExcel = __webpack_require__(347);
+var _reportExcel = __webpack_require__(349);
 
 var _reportExcel2 = _interopRequireDefault(_reportExcel);
 
@@ -2932,17 +2941,17 @@ var _site = __webpack_require__(8);
 
 var _site2 = _interopRequireDefault(_site);
 
-var _service = __webpack_require__(161);
+var _service = __webpack_require__(163);
 
 var _service2 = _interopRequireDefault(_service);
 
-var _settingConst = __webpack_require__(162);
+var _settingConst = __webpack_require__(164);
 
-var _UserGuide = __webpack_require__(348);
+var _UserGuide = __webpack_require__(350);
 
 var _UserGuide2 = _interopRequireDefault(_UserGuide);
 
-var _AppData = __webpack_require__(28);
+var _AppData = __webpack_require__(29);
 
 var _AppData2 = _interopRequireDefault(_AppData);
 
@@ -3412,7 +3421,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
 /***/ }),
 
-/***/ 347:
+/***/ 349:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3426,7 +3435,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _ref, _ref2, _ref3, _ref4, _ref5, _ref6, _ref7, _ref8, _ref9, _ref10;
 
-var _numberFormat = __webpack_require__(52);
+var _numberFormat = __webpack_require__(74);
 
 var _numberFormat2 = _interopRequireDefault(_numberFormat);
 
@@ -3434,7 +3443,7 @@ var _moment = __webpack_require__(6);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _excel = __webpack_require__(84);
+var _excel = __webpack_require__(85);
 
 var _excel2 = _interopRequireDefault(_excel);
 
@@ -3444,11 +3453,11 @@ var _langHelper2 = _interopRequireDefault(_langHelper);
 
 var _excelStyle = __webpack_require__(128);
 
-var _service = __webpack_require__(161);
+var _service = __webpack_require__(163);
 
 var _service2 = _interopRequireDefault(_service);
 
-var _settingConst = __webpack_require__(162);
+var _settingConst = __webpack_require__(164);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3660,7 +3669,98 @@ exports.default = ReportExcel;
 
 /***/ }),
 
-/***/ 348:
+/***/ 35:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(1);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Cell = function (_Component) {
+    _inherits(Cell, _Component);
+
+    function Cell(props) {
+        _classCallCheck(this, Cell);
+
+        return _possibleConstructorReturn(this, (Cell.__proto__ || Object.getPrototypeOf(Cell)).call(this, props));
+    }
+
+    _createClass(Cell, [{
+        key: 'render',
+        value: function render() {
+            var _props = this.props,
+                header = _props.header,
+                colWidth = _props.colWidth,
+                sortable = _props.sortable,
+                sorting = _props.sorting,
+                asc = _props.asc,
+                onClick = _props.onClick,
+                rest = _objectWithoutProperties(_props, ['header', 'colWidth', 'sortable', 'sorting', 'asc', 'onClick']);
+
+            return header ? sortable ? _react2.default.createElement(
+                'th',
+                _extends({}, rest, { className: 'sortable ' + (sorting ? 'sorting' : ''), onClick: onClick }),
+                this.props.children,
+                _react2.default.createElement('span', { className: '' + (sorting ? asc ? 'asc' : 'desc' : '') })
+            ) : _react2.default.createElement(
+                'th',
+                rest,
+                this.props.children
+            ) : _react2.default.createElement(
+                'td',
+                rest,
+                this.props.children
+            );
+        }
+    }]);
+
+    return Cell;
+}(_react.Component);
+
+Cell.propTypes = {
+    header: _propTypes2.default.bool,
+    sortable: _propTypes2.default.bool,
+    sorting: _propTypes2.default.bool,
+    asc: _propTypes2.default.bool,
+    onClick: _propTypes2.default.func
+};
+Cell.defaultProps = {
+    header: false,
+    sortable: false,
+    sorting: false,
+    asc: true,
+    onClick: function onClick() {}
+};
+exports.default = Cell;
+
+/***/ }),
+
+/***/ 350:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3766,7 +3866,7 @@ exports.default = UserGuide;
 
 /***/ }),
 
-/***/ 349:
+/***/ 351:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3778,11 +3878,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(10);
 
-var _dataHandlerReducer = __webpack_require__(350);
+var _dataHandlerReducer = __webpack_require__(352);
 
 var dataHandlerReducer = _interopRequireWildcard(_dataHandlerReducer);
 
-var _filterHandlerReducer = __webpack_require__(351);
+var _filterHandlerReducer = __webpack_require__(353);
 
 var filterHandlerReducer = _interopRequireWildcard(_filterHandlerReducer);
 
@@ -3790,7 +3890,7 @@ var _productReducer = __webpack_require__(80);
 
 var productReducer = _interopRequireWildcard(_productReducer);
 
-var _currencyReducer = __webpack_require__(86);
+var _currencyReducer = __webpack_require__(87);
 
 var currencyReducer = _interopRequireWildcard(_currencyReducer);
 
@@ -3802,11 +3902,11 @@ var _loaderReducer = __webpack_require__(45);
 
 var loaderReducer = _interopRequireWildcard(_loaderReducer);
 
-var _excludeTestReducer = __webpack_require__(163);
+var _excludeTestReducer = __webpack_require__(165);
 
 var excludeTestReducer = _interopRequireWildcard(_excludeTestReducer);
 
-var _userGuideReducer = __webpack_require__(352);
+var _userGuideReducer = __webpack_require__(354);
 
 var userGuideReducer = _interopRequireWildcard(_userGuideReducer);
 
@@ -3816,98 +3916,7 @@ exports.default = (0, _redux.combineReducers)(Object.assign(dataHandlerReducer, 
 
 /***/ }),
 
-/***/ 35:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(1);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Cell = function (_Component) {
-    _inherits(Cell, _Component);
-
-    function Cell(props) {
-        _classCallCheck(this, Cell);
-
-        return _possibleConstructorReturn(this, (Cell.__proto__ || Object.getPrototypeOf(Cell)).call(this, props));
-    }
-
-    _createClass(Cell, [{
-        key: 'render',
-        value: function render() {
-            var _props = this.props,
-                header = _props.header,
-                colWidth = _props.colWidth,
-                sortable = _props.sortable,
-                sorting = _props.sorting,
-                asc = _props.asc,
-                onClick = _props.onClick,
-                rest = _objectWithoutProperties(_props, ['header', 'colWidth', 'sortable', 'sorting', 'asc', 'onClick']);
-
-            return header ? sortable ? _react2.default.createElement(
-                'th',
-                _extends({}, rest, { className: 'sortable ' + (sorting ? 'sorting' : ''), onClick: onClick }),
-                this.props.children,
-                _react2.default.createElement('span', { className: '' + (sorting ? asc ? 'asc' : 'desc' : '') })
-            ) : _react2.default.createElement(
-                'th',
-                rest,
-                this.props.children
-            ) : _react2.default.createElement(
-                'td',
-                rest,
-                this.props.children
-            );
-        }
-    }]);
-
-    return Cell;
-}(_react.Component);
-
-Cell.propTypes = {
-    header: _propTypes2.default.bool,
-    sortable: _propTypes2.default.bool,
-    sorting: _propTypes2.default.bool,
-    asc: _propTypes2.default.bool,
-    onClick: _propTypes2.default.func
-};
-Cell.defaultProps = {
-    header: false,
-    sortable: false,
-    sorting: false,
-    asc: true,
-    onClick: function onClick() {}
-};
-exports.default = Cell;
-
-/***/ }),
-
-/***/ 350:
+/***/ 352:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3922,7 +3931,7 @@ var _createReducer2 = __webpack_require__(5);
 
 var _createReducer3 = _interopRequireDefault(_createReducer2);
 
-var _types = __webpack_require__(138);
+var _types = __webpack_require__(140);
 
 var types = _interopRequireWildcard(_types);
 
@@ -3938,7 +3947,7 @@ var gridData = exports.gridData = (0, _createReducer3.default)({}, _defineProper
 
 /***/ }),
 
-/***/ 351:
+/***/ 353:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3953,7 +3962,7 @@ var _createReducer10 = __webpack_require__(5);
 
 var _createReducer11 = _interopRequireDefault(_createReducer10);
 
-var _types = __webpack_require__(138);
+var _types = __webpack_require__(140);
 
 var types = _interopRequireWildcard(_types);
 
@@ -4001,7 +4010,7 @@ var dateConstraint = exports.dateConstraint = (0, _createReducer11.default)({}, 
 
 /***/ }),
 
-/***/ 352:
+/***/ 354:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5402,61 +5411,6 @@ Option.propTypes = {
     onChange: _propTypes2.default.func
 };
 exports.default = Option;
-
-/***/ }),
-
-/***/ 52:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var NumberFormat = function () {
-    function NumberFormat() {
-        _classCallCheck(this, NumberFormat);
-    }
-
-    _createClass(NumberFormat, null, [{
-        key: "formatDecimal",
-        value: function formatDecimal(value) {
-            return this.format(value, 2);
-        }
-    }, {
-        key: "format",
-        value: function format(value) {
-            var digits = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-
-            if (typeof value !== "number" || isNaN(value)) {
-                return "";
-            }
-
-            var roundedValue = this.round(value, digits);
-
-            return roundedValue.toFixed(digits).replace(/(\d)(?=(\d{3})+(\.|$))/g, "$1,");
-        }
-    }, {
-        key: "round",
-        value: function round(value, digits) {
-            var sign = value < 0 ? -1 : 1;
-            var absoluteValue = Math.abs(value);
-            var rounded = Number(Math.round(absoluteValue + 'e' + digits) + 'e-' + digits);
-
-            return sign * rounded;
-        }
-    }]);
-
-    return NumberFormat;
-}();
-
-exports.default = NumberFormat;
 
 /***/ }),
 
@@ -8440,7 +8394,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _redux = __webpack_require__(10);
 
-var _reduxThunk = __webpack_require__(72);
+var _reduxThunk = __webpack_require__(71);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
@@ -8488,7 +8442,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _reduxLogger = __webpack_require__(73);
+var _reduxLogger = __webpack_require__(72);
 
 var _config = __webpack_require__(46);
 
@@ -8752,7 +8706,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 /***/ }),
 
-/***/ 74:
+/***/ 73:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8775,6 +8729,61 @@ var setSelectedProduct = exports.setSelectedProduct = function setSelectedProduc
         data: product
     };
 };
+
+/***/ }),
+
+/***/ 74:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var NumberFormat = function () {
+    function NumberFormat() {
+        _classCallCheck(this, NumberFormat);
+    }
+
+    _createClass(NumberFormat, null, [{
+        key: "formatDecimal",
+        value: function formatDecimal(value) {
+            return this.format(value, 2);
+        }
+    }, {
+        key: "format",
+        value: function format(value) {
+            var digits = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+
+            if (typeof value !== "number" || isNaN(value)) {
+                return "";
+            }
+
+            var roundedValue = this.round(value, digits);
+
+            return roundedValue.toFixed(digits).replace(/(\d)(?=(\d{3})+(\.|$))/g, "$1,");
+        }
+    }, {
+        key: "round",
+        value: function round(value, digits) {
+            var sign = value < 0 ? -1 : 1;
+            var absoluteValue = Math.abs(value);
+            var rounded = Number(Math.round(absoluteValue + 'e' + digits) + 'e-' + digits);
+
+            return sign * rounded;
+        }
+    }]);
+
+    return NumberFormat;
+}();
+
+exports.default = NumberFormat;
 
 /***/ }),
 
@@ -9437,7 +9446,7 @@ var selectedProduct = exports.selectedProduct = (0, _createReducer3.default)({},
 
 /***/ }),
 
-/***/ 84:
+/***/ 85:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9468,7 +9477,7 @@ var Excel = function () {
     _createClass(Excel, null, [{
         key: "process",
         value: function process(callback) {
-            __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 144)).then(function (XLSX) {
+            __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 146)).then(function (XLSX) {
                 _XLSX = XLSX;
                 callback && callback();
             });
@@ -9537,7 +9546,7 @@ exports.default = Excel;
 
 /***/ }),
 
-/***/ 85:
+/***/ 86:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9563,7 +9572,7 @@ var setSelectedCurrency = exports.setSelectedCurrency = function setSelectedCurr
 
 /***/ }),
 
-/***/ 86:
+/***/ 87:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9893,5 +9902,5 @@ exports.default = function () {
 
 /***/ })
 
-},[340]);
+},[342]);
 //# sourceMappingURL=licenseewlbytimezone.chunk.js.map

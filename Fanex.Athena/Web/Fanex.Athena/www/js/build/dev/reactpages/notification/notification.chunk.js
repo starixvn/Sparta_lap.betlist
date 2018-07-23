@@ -51,7 +51,7 @@ var MomentFormat = exports.MomentFormat = {
 
 /***/ }),
 
-/***/ 137:
+/***/ 139:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -647,21 +647,21 @@ exports.default = Calendar;
 
 /***/ }),
 
-/***/ 145:
+/***/ 147:
 /***/ (function(module, exports) {
 
 module.exports = cptable;
 
 /***/ }),
 
-/***/ 146:
+/***/ 148:
 /***/ (function(module, exports) {
 
 module.exports = jszip;
 
 /***/ }),
 
-/***/ 147:
+/***/ 149:
 /***/ (function(module, exports) {
 
 module.exports = ods;
@@ -971,9 +971,11 @@ var SET_USERNAME = exports.SET_USERNAME = "SET_USERNAME";
 
 var SET_REQUEST_PARAM = exports.SET_REQUEST_PARAM = "SET_REQUEST_PARAM";
 
+var SET_REPORT_TITLE = exports.SET_REPORT_TITLE = "SET_REPORT_TITLE";
+
 /***/ }),
 
-/***/ 201:
+/***/ 203:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -984,15 +986,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.ActionCreators = undefined;
 
-var _dataHandlerAction = __webpack_require__(332);
+var _dataHandlerAction = __webpack_require__(334);
 
 var dataHandlerAction = _interopRequireWildcard(_dataHandlerAction);
 
-var _filterHandlerAction = __webpack_require__(333);
+var _filterHandlerAction = __webpack_require__(335);
 
 var filterHandlerAction = _interopRequireWildcard(_filterHandlerAction);
 
-var _loaderAction = __webpack_require__(29);
+var _loaderAction = __webpack_require__(28);
 
 var loaderAction = _interopRequireWildcard(_loaderAction);
 
@@ -1083,7 +1085,7 @@ exports.default = NoDataTitle;
 
 /***/ }),
 
-/***/ 29:
+/***/ 28:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1654,104 +1656,6 @@ exports.default = createTableSection;
 
 /***/ }),
 
-/***/ 329:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(3);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-var _AppContainer = __webpack_require__(330);
-
-var _AppContainer2 = _interopRequireDefault(_AppContainer);
-
-var _reactRedux = __webpack_require__(13);
-
-var _reduxLogger = __webpack_require__(73);
-
-var _redux = __webpack_require__(10);
-
-var _reduxThunk = __webpack_require__(72);
-
-var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
-
-var _resultAmendment = __webpack_require__(337);
-
-var _resultAmendment2 = _interopRequireDefault(_resultAmendment);
-
-var _config = __webpack_require__(46);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var isDev = "development" === "development";
-var configName = _config.debuggingConfig.name;
-// middleware that logs actions
-var loggerMiddleware = (0, _reduxLogger.createLogger)({
-    predicate: function predicate(getState, action) {
-        return isDev || window[configName] && window[configName].env === _config.debuggingConfig.env && (!window[configName].actionFilter || window[configName].actionFilter === action.type);
-    }
-});
-
-var defaultState = Object.assign({}, window.initialState);
-
-function configureStore(initialState) {
-    var enhancer = (0, _redux.compose)((0, _redux.applyMiddleware)(_reduxThunk2.default, // lets us dispatch() functions
-    loggerMiddleware));
-
-    return (0, _redux.createStore)(_resultAmendment2.default, initialState, enhancer);
-}
-
-var store = configureStore(defaultState);
-
-var App = function (_React$Component) {
-    _inherits(App, _React$Component);
-
-    function App(props) {
-        _classCallCheck(this, App);
-
-        return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
-    }
-
-    _createClass(App, [{
-        key: 'render',
-        value: function render() {
-            return _react2.default.createElement(
-                _reactRedux.Provider,
-                { store: store },
-                _react2.default.createElement(_AppContainer2.default, null)
-            );
-        }
-    }]);
-
-    return App;
-}(_react2.default.Component);
-
-exports.default = App;
-
-
-_reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById("app-container"));
-
-/***/ }),
-
 /***/ 33:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1815,9 +1719,16 @@ var Pager = function (_Component) {
     }
 
     _createClass(Pager, [{
+        key: 'componentDidUpdate',
+        value: function componentDidUpdate(prevProps, prevState) {
+            var pageIndex = this.props.pageOption.PageIndex;
+            if (pageIndex !== prevProps.pageOption.PageIndex) {
+                this._updateState(pageIndex);
+            }
+        }
+    }, {
         key: 'goToPage',
         value: function goToPage(index, pageSize) {
-            this._updateState(index);
             this.props.onPaging && this.props.onPaging(index, pageSize);
         }
     }, {
@@ -1987,7 +1898,105 @@ exports.default = Pager;
 
 /***/ }),
 
-/***/ 330:
+/***/ 331:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(3);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _AppContainer = __webpack_require__(332);
+
+var _AppContainer2 = _interopRequireDefault(_AppContainer);
+
+var _reactRedux = __webpack_require__(13);
+
+var _reduxLogger = __webpack_require__(72);
+
+var _redux = __webpack_require__(10);
+
+var _reduxThunk = __webpack_require__(71);
+
+var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
+
+var _resultAmendment = __webpack_require__(339);
+
+var _resultAmendment2 = _interopRequireDefault(_resultAmendment);
+
+var _config = __webpack_require__(46);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var isDev = "development" === "development";
+var configName = _config.debuggingConfig.name;
+// middleware that logs actions
+var loggerMiddleware = (0, _reduxLogger.createLogger)({
+    predicate: function predicate(getState, action) {
+        return isDev || window[configName] && window[configName].env === _config.debuggingConfig.env && (!window[configName].actionFilter || window[configName].actionFilter === action.type);
+    }
+});
+
+var defaultState = Object.assign({}, window.initialState);
+
+function configureStore(initialState) {
+    var enhancer = (0, _redux.compose)((0, _redux.applyMiddleware)(_reduxThunk2.default, // lets us dispatch() functions
+    loggerMiddleware));
+
+    return (0, _redux.createStore)(_resultAmendment2.default, initialState, enhancer);
+}
+
+var store = configureStore(defaultState);
+
+var App = function (_React$Component) {
+    _inherits(App, _React$Component);
+
+    function App(props) {
+        _classCallCheck(this, App);
+
+        return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+    }
+
+    _createClass(App, [{
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                _reactRedux.Provider,
+                { store: store },
+                _react2.default.createElement(_AppContainer2.default, null)
+            );
+        }
+    }]);
+
+    return App;
+}(_react2.default.Component);
+
+exports.default = App;
+
+
+_reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById("app-container"));
+
+/***/ }),
+
+/***/ 332:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2008,11 +2017,11 @@ var _reactRedux = __webpack_require__(13);
 
 var _redux = __webpack_require__(10);
 
-var _DataGrid = __webpack_require__(331);
+var _DataGrid = __webpack_require__(333);
 
 var _DataGrid2 = _interopRequireDefault(_DataGrid);
 
-var _FormFilter = __webpack_require__(336);
+var _FormFilter = __webpack_require__(338);
 
 var _FormFilter2 = _interopRequireDefault(_FormFilter);
 
@@ -2069,7 +2078,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps)(AppContainer);
 
 /***/ }),
 
-/***/ 331:
+/***/ 333:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2088,7 +2097,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(13);
 
-var _resultAmendment = __webpack_require__(201);
+var _resultAmendment = __webpack_require__(203);
 
 var _redux = __webpack_require__(10);
 
@@ -2106,7 +2115,7 @@ var _NoDataTitle = __webpack_require__(27);
 
 var _NoDataTitle2 = _interopRequireDefault(_NoDataTitle);
 
-var _resultAmendmentService = __webpack_require__(334);
+var _resultAmendmentService = __webpack_require__(336);
 
 var _resultAmendmentService2 = _interopRequireDefault(_resultAmendmentService);
 
@@ -2114,7 +2123,7 @@ var _site = __webpack_require__(8);
 
 var _site2 = _interopRequireDefault(_site);
 
-var _CollapsibleRow = __webpack_require__(335);
+var _CollapsibleRow = __webpack_require__(337);
 
 var _CollapsibleRow2 = _interopRequireDefault(_CollapsibleRow);
 
@@ -2122,7 +2131,7 @@ var _moment = __webpack_require__(6);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _excel = __webpack_require__(84);
+var _excel = __webpack_require__(85);
 
 var _excel2 = _interopRequireDefault(_excel);
 
@@ -2372,7 +2381,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
 /***/ }),
 
-/***/ 332:
+/***/ 334:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2386,7 +2395,7 @@ exports.setGridData = setGridData;
 exports.markItemAsRead = markItemAsRead;
 exports.exportAttachment = exportAttachment;
 
-var _types = __webpack_require__(137);
+var _types = __webpack_require__(139);
 
 var types = _interopRequireWildcard(_types);
 
@@ -2472,7 +2481,7 @@ function exportAttachment(params) {
 
 /***/ }),
 
-/***/ 333:
+/***/ 335:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2483,7 +2492,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.setParam = exports.setDateRange = undefined;
 
-var _types = __webpack_require__(137);
+var _types = __webpack_require__(139);
 
 var types = _interopRequireWildcard(_types);
 
@@ -2510,7 +2519,7 @@ var setParam = exports.setParam = function setParam(param) {
 
 /***/ }),
 
-/***/ 334:
+/***/ 336:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2568,7 +2577,7 @@ exports.default = Service;
 
 /***/ }),
 
-/***/ 335:
+/***/ 337:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2660,7 +2669,7 @@ exports.default = CollapsibleRow;
 
 /***/ }),
 
-/***/ 336:
+/***/ 338:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2679,7 +2688,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(13);
 
-var _resultAmendment = __webpack_require__(201);
+var _resultAmendment = __webpack_require__(203);
 
 var _redux = __webpack_require__(10);
 
@@ -2849,7 +2858,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
 /***/ }),
 
-/***/ 337:
+/***/ 339:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2861,11 +2870,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(10);
 
-var _dataHandlerReducer = __webpack_require__(338);
+var _dataHandlerReducer = __webpack_require__(340);
 
 var dataHandlerReducer = _interopRequireWildcard(_dataHandlerReducer);
 
-var _filterHandlerReducer = __webpack_require__(339);
+var _filterHandlerReducer = __webpack_require__(341);
 
 var filterHandlerReducer = _interopRequireWildcard(_filterHandlerReducer);
 
@@ -2876,80 +2885,6 @@ var loaderReducer = _interopRequireWildcard(_loaderReducer);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 exports.default = (0, _redux.combineReducers)(Object.assign(dataHandlerReducer, filterHandlerReducer, loaderReducer));
-
-/***/ }),
-
-/***/ 338:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.gridData = undefined;
-
-var _createReducer2 = __webpack_require__(5);
-
-var _createReducer3 = _interopRequireDefault(_createReducer2);
-
-var _types = __webpack_require__(137);
-
-var types = _interopRequireWildcard(_types);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var gridData = exports.gridData = (0, _createReducer3.default)({}, _defineProperty({}, types.SET_GRID_DATA, function (state, action) {
-    return action.data;
-}));
-
-/***/ }),
-
-/***/ 339:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.licenseeName = exports.param = exports.dateConstraint = exports.dateRange = undefined;
-
-var _createReducer5 = __webpack_require__(5);
-
-var _createReducer6 = _interopRequireDefault(_createReducer5);
-
-var _types = __webpack_require__(137);
-
-var types = _interopRequireWildcard(_types);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var dateRange = exports.dateRange = (0, _createReducer6.default)({}, _defineProperty({}, types.SET_DATE_RANGE, function (state, action) {
-    return action.data;
-}));
-
-var dateConstraint = exports.dateConstraint = (0, _createReducer6.default)({}, _defineProperty({}, types.GET_DATE_CONSTRAINT, function (state, action) {
-    return action.data;
-}));
-
-var param = exports.param = (0, _createReducer6.default)({}, _defineProperty({}, types.SET_PARAM, function (state, action) {
-    return action.data;
-}));
-
-var licenseeName = exports.licenseeName = (0, _createReducer6.default)({}, _defineProperty({}, types.GET_LICENSEE_NAME, function (state, action) {
-    return action.data;
-}));
 
 /***/ }),
 
@@ -3001,6 +2936,80 @@ var Row = function (_Component) {
 }(_react.Component);
 
 exports.default = Row;
+
+/***/ }),
+
+/***/ 340:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.gridData = undefined;
+
+var _createReducer2 = __webpack_require__(5);
+
+var _createReducer3 = _interopRequireDefault(_createReducer2);
+
+var _types = __webpack_require__(139);
+
+var types = _interopRequireWildcard(_types);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var gridData = exports.gridData = (0, _createReducer3.default)({}, _defineProperty({}, types.SET_GRID_DATA, function (state, action) {
+    return action.data;
+}));
+
+/***/ }),
+
+/***/ 341:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.licenseeName = exports.param = exports.dateConstraint = exports.dateRange = undefined;
+
+var _createReducer5 = __webpack_require__(5);
+
+var _createReducer6 = _interopRequireDefault(_createReducer5);
+
+var _types = __webpack_require__(139);
+
+var types = _interopRequireWildcard(_types);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var dateRange = exports.dateRange = (0, _createReducer6.default)({}, _defineProperty({}, types.SET_DATE_RANGE, function (state, action) {
+    return action.data;
+}));
+
+var dateConstraint = exports.dateConstraint = (0, _createReducer6.default)({}, _defineProperty({}, types.GET_DATE_CONSTRAINT, function (state, action) {
+    return action.data;
+}));
+
+var param = exports.param = (0, _createReducer6.default)({}, _defineProperty({}, types.SET_PARAM, function (state, action) {
+    return action.data;
+}));
+
+var licenseeName = exports.licenseeName = (0, _createReducer6.default)({}, _defineProperty({}, types.GET_LICENSEE_NAME, function (state, action) {
+    return action.data;
+}));
 
 /***/ }),
 
@@ -4499,7 +4508,7 @@ exports.default = Site;
 
 /***/ }),
 
-/***/ 84:
+/***/ 85:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4530,7 +4539,7 @@ var Excel = function () {
     _createClass(Excel, null, [{
         key: "process",
         value: function process(callback) {
-            __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 144)).then(function (XLSX) {
+            __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 146)).then(function (XLSX) {
                 _XLSX = XLSX;
                 callback && callback();
             });
@@ -4898,5 +4907,5 @@ exports.default = function () {
 
 /***/ })
 
-},[329]);
+},[331]);
 //# sourceMappingURL=notification.chunk.js.map
