@@ -75,7 +75,6 @@
             }
             else
             {
-                metaModel.IsConvertAll = true;
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                 ticketResult = _dataAccess.GetBetListForMultipleCustomers(metaModel);
             }
@@ -196,7 +195,6 @@
             }
             else
             {
-                metaModel.IsConvertAll = true;
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                 ticketResult = _dataAccess.GetRunningBetList(metaModel);
             }
@@ -236,7 +234,9 @@
                 ? string.Empty
                 : ", " + metaModel.FromDate.ToString(FormatKey.ShortDateFormat) + "-->" + metaModel.ToDate.ToString(FormatKey.ShortDateFormat);
             var currency = string.IsNullOrWhiteSpace(metaModel.CurrencyName) ? string.Empty : ", " + ViewResources.Currency + ": " + metaModel.CurrencyName;
-            var baseCurrency = metaModel.IsConvertAll ? ", " + ViewResources.BaseCurrency + ": " + metaModel.BaseCurrency.ToUpperInvariant() : string.Empty;
+            var baseCurrency = string.IsNullOrWhiteSpace(metaModel.BaseCurrency)
+                ? string.Empty
+                : ", " + ViewResources.BaseCurrency + ": " + metaModel.BaseCurrency.ToUpperInvariant();
 
             return ViewResources.BettingTicketCenter + date + currency + baseCurrency;
         }
@@ -263,8 +263,7 @@
             {
                 if (ticket.BetTypeId == (int)BetType.CombinationMixParlay)
                 {
-                    var baseCurrency = metaModel.IsConvertAll ? metaModel.BaseCurrency : ticket.Currency;
-                    _ticketHelper.ClientDetailSystemParlayFunction = BetListHelper.GenerateClientDetailSystemParlayFunction(_ticketHelper, baseCurrency, ticket, ticket.CustId);
+                    _ticketHelper.ClientDetailSystemParlayFunction = BetListHelper.GenerateClientDetailSystemParlayFunction(_ticketHelper, metaModel.BaseCurrency, ticket, ticket.CustId);
                 }
 
                 var ticketText = new TicketText

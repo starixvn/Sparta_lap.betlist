@@ -31,8 +31,6 @@
             }
         }
 
-        public bool IsConvertAll { get; set; }
-
         public string AgentListXml { get; set; }
 
         public int PageSize { get; set; }

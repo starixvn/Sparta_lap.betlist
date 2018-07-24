@@ -80,7 +80,7 @@
                     db.AddInParameter("RefNo", DbType.Int64, metaModel.RefNo);
                     db.AddInParameter("MoveBetsDay", DbType.DateTime, balanceUp.MoveBetsDay);
                     db.AddInParameter("BalanceUpDay", DbType.DateTime, balanceUp.BalanceUpDay);
-                    db.AddInParameter("BaseCurrency", DbType.String, metaModel.IsConvertAll ? metaModel.BaseCurrency : string.Empty);
+                    db.AddInParameter("BaseCurrency", DbType.String, metaModel.BaseCurrency);
 
                     using (var reader = db.ExecuteReader())
                     {
@@ -164,7 +164,7 @@
             db.AddInParameter("Platform", DbType.Byte, metaModel.Platform);
             db.AddInParameter("MoveBetsDay", DbType.DateTime, balanceUp.MoveBetsDay);
             db.AddInParameter("BalanceUpDay", DbType.DateTime, balanceUp.BalanceUpDay);
-            db.AddInParameter("BaseCurrency", DbType.String, metaModel.IsConvertAll ? metaModel.BaseCurrency : string.Empty);
+            db.AddInParameter("BaseCurrency", DbType.String, metaModel.BaseCurrency);
             db.AddInParameter("PageSize", DbType.Int32, metaModel.IsExport ? int.MaxValue - 1 : metaModel.PageSize);
             db.AddInParameter("PageIndex", DbType.Int32, metaModel.IsExport ? 1 : metaModel.PageIndex);
             db.AddOutParameter("TotalRows", DbType.Int32, 4);

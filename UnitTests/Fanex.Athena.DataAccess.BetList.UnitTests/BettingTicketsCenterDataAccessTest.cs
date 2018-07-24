@@ -31,14 +31,14 @@
         }
 
         [Test]
-        public void GetBetListByRefno_IsConvertAllIsTrue_BaseCurrencyParameterIsNotEmpty()
+        public void GetBetListByRefno_WhenCall_ParameterIsPassesCorrectly()
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is(BetListByRefnoUspKey)).Returns(ObjectDb);
             ObjectDb.ExecuteReader().Returns(Reader);
             Reader.Read().Returns(false);
 
-            var metaModel = new RefNoBetListMetaModel { IsConvertAll = true };
+            var metaModel = new RefNoBetListMetaModel();
 
             // Action
             DataAccess.GetBetListByRefno(metaModel);
@@ -52,26 +52,6 @@
                 ObjectDb.Received(1).AddInParameter("MoveBetsDay", DbType.DateTime, BalanceUp.MoveBetsDay);
                 ObjectDb.Received(1).AddInParameter("BalanceUpDay", DbType.DateTime, BalanceUp.BalanceUpDay);
                 ObjectDb.Received(1).AddInParameter("BaseCurrency", DbType.String, metaModel.BaseCurrency);
-            });
-        }
-
-        [Test]
-        public void GetBetListByRefno_IsConvertAllIsFalse_BaseCurrencyParameterIsEmpty()
-        {
-            // Arrange
-            DataAccess.GetObjectDb(Arg.Is(BetListByRefnoUspKey)).Returns(ObjectDb);
-            ObjectDb.ExecuteReader().Returns(Reader);
-            Reader.Read().Returns(false);
-
-            var metaModel = new RefNoBetListMetaModel { IsConvertAll = false };
-
-            // Action
-            DataAccess.GetBetListByRefno(metaModel);
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                ObjectDb.Received(1).AddInParameter("BaseCurrency", DbType.String, string.Empty);
             });
         }
 
