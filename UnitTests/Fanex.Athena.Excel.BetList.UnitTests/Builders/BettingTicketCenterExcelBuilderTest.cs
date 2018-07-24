@@ -20,7 +20,6 @@
         private const int NumberOfColumns = 12;
         private const int ColumnTotalStart = 6;
 
-        private ICacheRefAdapter _cacheRefAdapter;
         private ITicketHelper _ticketHelper;
         private IBetListExcelBuilder _builder;
 
@@ -32,13 +31,13 @@
         [SetUp]
         public void Setup()
         {
-            _cacheRefAdapter = Substitute.For<ICacheRefAdapter>();
+            var cacheRefAdapter = Substitute.For<ICacheRefAdapter>();
             _ticketHelper = Substitute.For<ITicketHelper>();
             _builder = Substitute.For<IBetListExcelBuilder>();
 
             _excelBuilder = Substitute.ForPartsOf<BettingTicketCenterExcelBuilder>(
                 _builder,
-                _cacheRefAdapter,
+                cacheRefAdapter,
                 _ticketHelper);
 
             _oddStyle = Substitute.For<ICellStyle>();
@@ -56,7 +55,6 @@
         [TearDown]
         public void TearDown()
         {
-            _cacheRefAdapter = null;
             _ticketHelper = null;
             _builder = null;
         }
