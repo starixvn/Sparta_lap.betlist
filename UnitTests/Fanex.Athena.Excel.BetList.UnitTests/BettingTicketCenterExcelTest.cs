@@ -1,13 +1,8 @@
-﻿using Fanex.Athena.Excel.Base.Entities;
-using Fanex.Athena.Excel.BetList.Builders;
+﻿using Fanex.Athena.Excel.BetList.Builders;
 using Fanex.Athena.Excel.BetList.Model;
-using Fanex.Athena.Extension.Utility;
 using Fanex.Athena.Model.BetList.DTO;
 using Fanex.Athena.Resources;
 using Fanex.Athena.UnitTest.Common.Helpers;
-using Fanex.Athena.VendorAdapter.Interfaces;
-using Fanex.BetList.Core.Builder;
-using Fanex.BetList.Core.Entities;
 using NPOI.SS.UserModel;
 using NSubstitute;
 using NUnit.Framework;
@@ -93,7 +88,7 @@ namespace Fanex.Athena.Excel.BetList.UnitTests
                 Title = FakeHelper.Create<string>(),
                 Data = ticketResult
             };
-            
+
             _excel.When(x => x.AssignSheetData(Arg.Any<BettingTicketCenterExcelModel>(), Arg.Any<int>(), Arg.Any<int>())).DoNotCallBase();
             _excel.When(x => x.AddFooter(Arg.Any<BettingTicketCenterExcelModel>())).DoNotCallBase();
 
@@ -153,12 +148,12 @@ namespace Fanex.Athena.Excel.BetList.UnitTests
                 Data = ticketResult,
                 LicenseeId = FakeHelper.Create<int>()
             };
-            
+
             // Action
             _excel.AssignSheetData(model, 0, 1);
 
             // Assert
-            _builder.Received(1).AssignRowData(model.Data,model.Data.MainTicketList[0], model.CustomerCommVisible, model.LicenseeId);
+            _builder.Received(1).AssignRowData(model.Data, model.Data.MainTicketList[0], model.CustomerCommVisible, model.LicenseeId);
         }
 
         [TestCase(false, false, false)]
@@ -170,7 +165,7 @@ namespace Fanex.Athena.Excel.BetList.UnitTests
             const decimal SumComm = 0.34m;
             var sumStake = FakeHelper.Create<decimal>();
             var sumWL = FakeHelper.Create<decimal>();
-            var sumLicenseeWL= FakeHelper.Create<decimal>();
+            var sumLicenseeWL = FakeHelper.Create<decimal>();
             var model = new BettingTicketCenterExcelModel
             {
                 ShowSumStake = isShowSumStake,
@@ -187,7 +182,7 @@ namespace Fanex.Athena.Excel.BetList.UnitTests
             };
             var expectedSumStake = isShowSumStake ? (decimal?)sumStake : null;
             var expectedSumWL = isShowSumWL ? (decimal?)(sumWL + SumPlayerComm) : null;
-            var expectedSumLicenseeWL = isShowSumLicenseeWL ? (decimal?)(sumLicenseeWL + SumComm): null;
+            var expectedSumLicenseeWL = isShowSumLicenseeWL ? (decimal?)(sumLicenseeWL + SumComm) : null;
 
             // Action
             _excel.AddFooter(model);

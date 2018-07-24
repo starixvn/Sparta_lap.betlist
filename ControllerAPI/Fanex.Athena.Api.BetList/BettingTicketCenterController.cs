@@ -263,7 +263,11 @@
             {
                 if (ticket.BetTypeId == (int)BetType.CombinationMixParlay)
                 {
-                    _ticketHelper.ClientDetailSystemParlayFunction = BetListHelper.GenerateClientDetailSystemParlayFunction(_ticketHelper, metaModel.BaseCurrency, ticket, ticket.CustId);
+                    _ticketHelper.ClientDetailSystemParlayFunction = BetListHelper.GenerateClientDetailSystemParlayFunction(
+                        _ticketHelper,
+                        metaModel.BaseCurrency,
+                        ticket,
+                        ticket.CustId);
                 }
 
                 var ticketText = new TicketText

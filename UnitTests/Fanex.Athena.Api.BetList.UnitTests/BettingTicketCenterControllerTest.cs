@@ -279,10 +279,7 @@
             var result = _controller.GetByRunning(metaModel);
 
             // Assert
-            excel.Received(1).Export(Arg.Is<BettingTicketCenterExcelModel>(
-                x => x.ShowTotal
-                    && x.ShowSumStake
-                    && x.Title.Contains(ViewResources.BaseCurrency)));
+            excel.Received(1).Export(Arg.Is<BettingTicketCenterExcelModel>(x => x.ShowTotal && x.ShowSumStake));
         }
 
         [Test]
