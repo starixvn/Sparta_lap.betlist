@@ -1555,6 +1555,10 @@ var Table = function (_Component) {
             if (this.props.header != prevProps.header) {
                 this.setState({ columnsWidth: this._getColumnsWidth(this.props.header) });
             }
+
+            if (prevProps.body != this.props.body) {
+                scrollToTop(this.bodyWrapper, 200);
+            }
         }
     }, {
         key: '_calculateBodyHeight',
@@ -1637,7 +1641,7 @@ var Table = function (_Component) {
                         footer
                     )
                 ),
-                isPaging && pageOption && _react2.default.createElement(_Pager2.default, { pageOption: pageOption, onPaging: this._onPaging })
+                isPaging && pageOption && _react2.default.createElement(_Pager2.default, { pageOption: pageOption, onPaging: onPaging })
             );
         }
     }, {
@@ -1697,13 +1701,6 @@ var _initialiseProps = function _initialiseProps() {
         if (_this4.state.maxWidth !== maxWidth) {
             _this4.setState({ maxWidth: maxWidth });
         }
-    };
-
-    this._onPaging = function (index, pageSize) {
-        var onPaging = _this4.props.onPaging;
-
-        onPaging && onPaging(index, pageSize);
-        scrollToTop(_this4.bodyWrapper, 200);
     };
 };
 

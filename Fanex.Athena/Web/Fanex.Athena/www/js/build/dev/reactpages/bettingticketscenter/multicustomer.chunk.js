@@ -2182,6 +2182,10 @@ var Table = function (_Component) {
             if (this.props.header != prevProps.header) {
                 this.setState({ columnsWidth: this._getColumnsWidth(this.props.header) });
             }
+
+            if (prevProps.body != this.props.body) {
+                scrollToTop(this.bodyWrapper, 200);
+            }
         }
     }, {
         key: '_calculateBodyHeight',
@@ -2264,7 +2268,7 @@ var Table = function (_Component) {
                         footer
                     )
                 ),
-                isPaging && pageOption && _react2.default.createElement(_Pager2.default, { pageOption: pageOption, onPaging: this._onPaging })
+                isPaging && pageOption && _react2.default.createElement(_Pager2.default, { pageOption: pageOption, onPaging: onPaging })
             );
         }
     }, {
@@ -2324,13 +2328,6 @@ var _initialiseProps = function _initialiseProps() {
         if (_this4.state.maxWidth !== maxWidth) {
             _this4.setState({ maxWidth: maxWidth });
         }
-    };
-
-    this._onPaging = function (index, pageSize) {
-        var onPaging = _this4.props.onPaging;
-
-        onPaging && onPaging(index, pageSize);
-        scrollToTop(_this4.bodyWrapper, 200);
     };
 };
 
@@ -4741,64 +4738,16 @@ exports.default = Option;
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _Popup = __webpack_require__(61);
 
-var _langHelper = __webpack_require__(4);
-
-var _langHelper2 = _interopRequireDefault(_langHelper);
-
-var _site = __webpack_require__(8);
-
-var _site2 = _interopRequireDefault(_site);
+var _Popup2 = _interopRequireDefault(_Popup);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var HeaderText = {
-    Index: "#",
-    Platform: _langHelper2.default.getSingleResource("Platform"),
-    ExternalId: _langHelper2.default.getSingleResource("ExternalId"),
-    SystemId: _langHelper2.default.getSingleResource("SystemId"),
-    TransTime: _langHelper2.default.getSingleResource("TransTime"),
-    Choice: _langHelper2.default.getSingleResource("Choice"),
-    Odds: _langHelper2.default.getSingleResource("Odds"),
-    Stake: _langHelper2.default.getSingleResource("Stake"),
-    WinLoss: _langHelper2.default.getSingleResource("WinLoss"),
-    LicenseeWL: _langHelper2.default.getSingleResource("LicenseeWL"),
-    Comm: _langHelper2.default.getSingleResource("Comm"),
-    Status: _langHelper2.default.getSingleResource("Status"),
-    Live: _langHelper2.default.getSingleResource("Live")
-};
-
-var Service = function () {
-    function Service() {
-        _classCallCheck(this, Service);
-    }
-
-    _createClass(Service, null, [{
-        key: 'getHeaderText',
-        value: function getHeaderText() {
-            return HeaderText;
-        }
-    }, {
-        key: 'getTitle',
-        value: function getTitle(fromDate, toDate, currencyName, baseCurrency) {
-            var dateRangeText = fromDate && toDate ? ', ' + _site2.default.convertDateToString(fromDate) + ' \u2192 ' + _site2.default.convertDateToString(toDate) : '';
-            var currencyNameText = currencyName ? ', ' + _langHelper2.default.getSingleResource("Currency") + ': ' + currencyName : '';
-            var baseCurrencyText = baseCurrency ? ', ' + _langHelper2.default.getSingleResource("BaseCurrency") + ': ' + baseCurrency : '';
-
-            return _langHelper2.default.getSingleResource("BettingTicketCenter") + dateRangeText + currencyNameText + baseCurrencyText;
-        }
-    }]);
-
-    return Service;
-}();
-
-exports.default = Service;
+exports.default = _Popup2.default;
 
 /***/ }),
 /* 53 */
@@ -8392,7 +8341,7 @@ var ReactCurrentOwner = __webpack_require__(25);
 var ReactComponentTreeHook = __webpack_require__(49);
 var ReactElement = __webpack_require__(16);
 
-var checkReactTypeSpec = __webpack_require__(107);
+var checkReactTypeSpec = __webpack_require__(105);
 
 var canDefineProperty = __webpack_require__(24);
 var getIteratorFn = __webpack_require__(67);
@@ -8651,16 +8600,64 @@ module.exports = ReactPropTypesSecret;
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
-var _Popup = __webpack_require__(61);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _Popup2 = _interopRequireDefault(_Popup);
+var _langHelper = __webpack_require__(4);
+
+var _langHelper2 = _interopRequireDefault(_langHelper);
+
+var _site = __webpack_require__(8);
+
+var _site2 = _interopRequireDefault(_site);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = _Popup2.default;
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var HeaderText = {
+    Index: "#",
+    Platform: _langHelper2.default.getSingleResource("Platform"),
+    ExternalId: _langHelper2.default.getSingleResource("ExternalId"),
+    SystemId: _langHelper2.default.getSingleResource("SystemId"),
+    TransTime: _langHelper2.default.getSingleResource("TransTime"),
+    Choice: _langHelper2.default.getSingleResource("Choice"),
+    Odds: _langHelper2.default.getSingleResource("Odds"),
+    Stake: _langHelper2.default.getSingleResource("Stake"),
+    WinLoss: _langHelper2.default.getSingleResource("WinLoss"),
+    LicenseeWL: _langHelper2.default.getSingleResource("LicenseeWL"),
+    Comm: _langHelper2.default.getSingleResource("Comm"),
+    Status: _langHelper2.default.getSingleResource("Status"),
+    Live: _langHelper2.default.getSingleResource("Live")
+};
+
+var Service = function () {
+    function Service() {
+        _classCallCheck(this, Service);
+    }
+
+    _createClass(Service, null, [{
+        key: 'getHeaderText',
+        value: function getHeaderText() {
+            return HeaderText;
+        }
+    }, {
+        key: 'getTitle',
+        value: function getTitle(fromDate, toDate, currencyName, baseCurrency) {
+            var dateRangeText = fromDate && toDate ? ', ' + _site2.default.convertDateToString(fromDate) + ' \u2192 ' + _site2.default.convertDateToString(toDate) : '';
+            var currencyNameText = currencyName ? ', ' + _langHelper2.default.getSingleResource("Currency") + ': ' + currencyName : '';
+            var baseCurrencyText = baseCurrency ? ', ' + _langHelper2.default.getSingleResource("BaseCurrency") + ': ' + baseCurrency : '';
+
+            return _langHelper2.default.getSingleResource("BettingTicketCenter") + dateRangeText + currencyNameText + baseCurrencyText;
+        }
+    }]);
+
+    return Service;
+}();
+
+exports.default = Service;
 
 /***/ }),
 /* 71 */,
@@ -9472,17 +9469,13 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _axios = __webpack_require__(26);
-
-var _axios2 = _interopRequireDefault(_axios);
-
 var _fixedTableHeader = __webpack_require__(23);
 
 var _ReportTitle = __webpack_require__(44);
 
 var _ReportTitle2 = _interopRequireDefault(_ReportTitle);
 
-var _popup = __webpack_require__(70);
+var _popup = __webpack_require__(52);
 
 var _popup2 = _interopRequireDefault(_popup);
 
@@ -9493,14 +9486,6 @@ var _langHelper2 = _interopRequireDefault(_langHelper);
 var _NoDataTitle = __webpack_require__(27);
 
 var _NoDataTitle2 = _interopRequireDefault(_NoDataTitle);
-
-var _BetList = __webpack_require__(92);
-
-var _BetList2 = _interopRequireDefault(_BetList);
-
-var _Service = __webpack_require__(52);
-
-var _Service2 = _interopRequireDefault(_Service);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -9529,63 +9514,15 @@ var BaseDataGrid = function (_Component) {
             _this._getData(param);
         };
 
-        _this.state = {
-            isShowPopup: false,
-            popupUrl: null,
-            popupTitle: null
-        };
         return _this;
     }
 
     _createClass(BaseDataGrid, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            var _this2 = this;
-
             var param = this.props.requestParam;
             param.PageSize = DEFAULT_PAGE_SIZE;
             this.props.setRequestParam(param);
-
-            window.ViewResult = function () {
-                for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-                    args[_key] = arguments[_key];
-                }
-
-                var url = _BetList2.default.getResultUrl.apply(_BetList2.default, args);
-                _this2._openPopup(url, _langHelper2.default.getSingleResource("Result"));
-            };
-
-            // expand choice content
-            window.showNewCombMP = function () {
-                for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-                    args[_key2] = arguments[_key2];
-                }
-
-                _this2._showNewParlayDetail.apply(_this2, args);
-            };
-
-            // show detail popup (in choice column)
-            window.showCombMPDetail = function (transId, refNo, betId, custId, betTeam, baseCurrency) {
-                var url = _BetList2.default.getParlayDetailUrl(transId, refNo, betId, custId, betTeam, baseCurrency);
-                _this2._openPopup(url, betTeam);
-            };
-
-            window.ViewCashOutHistory = function (transId, refNo, betType, betdaqId) {
-                var _BetList$getCashOutHi = _BetList2.default.getCashOutHistoryPopupSetting(_this2.props.requestParam.BaseCurrency, transId, refNo, betType, betdaqId),
-                    url = _BetList$getCashOutHi.url,
-                    isCashOut = _BetList$getCashOutHi.isCashOut;
-
-                var title = _langHelper2.default.getSingleResource(isCashOut ? "CashOutDetails" : "BoughtDetails");
-                _this2._openPopup(url, title);
-            };
-        }
-    }, {
-        key: 'componentWillUnmount',
-        value: function componentWillUnmount() {
-            window.ViewResult = undefined;
-            window.showNewCombMP = undefined;
-            window.showCombMPDetail = undefined;
-            window.ViewCashOutHistory = undefined;
         }
     }, {
         key: '_getData',
@@ -9593,16 +9530,6 @@ var BaseDataGrid = function (_Component) {
             this.props.toggleLoader(true);
             this.props.getGridData(this.dataUrl, param);
             this.props.setRequestParam(param);
-        }
-    }, {
-        key: '_openPopup',
-        value: function _openPopup(url, title) {
-            this.setState({ isShowPopup: true, popupUrl: url, popupTitle: title });
-        }
-    }, {
-        key: '_closePopup',
-        value: function _closePopup() {
-            this.setState({ isShowPopup: false });
         }
     }, {
         key: '_sort',
@@ -9617,35 +9544,6 @@ var BaseDataGrid = function (_Component) {
             }
 
             this._getData(param);
-        }
-    }, {
-        key: '_showNewParlayDetail',
-        value: function _showNewParlayDetail(transId, transIndex, refNo, handicap1, handicap2, betcheck, betteam) {
-            var _this3 = this;
-
-            var divEvent = document.querySelector('#divEvent_' + transId + "" + transIndex);
-            var nameDiv = document.querySelector('#combinationOfferName_' + transId + transIndex);
-            divEvent.classList.add("mx-parlay"); //to make line-through for void-parlay-ticket
-
-            if (divEvent.style.display == "none") {
-                var url = _BetList2.default.getChoiceParlayDetailUrl(transId, refNo, handicap1, handicap2, betcheck, betteam);
-
-                this.props.toggleLoader(true);
-                _axios2.default.get(url).then(function (result) {
-
-                    var choice = _BetList2.default.buildChoiceParlayDetail(result.data);
-                    divEvent.innerHTML = choice;
-                    divEvent.style.display = 'block';
-                    nameDiv.style.display = 'none';
-                    _this3.props.toggleLoader(false);
-                }).catch(function (error) {
-                    console.log(error);
-                });
-            } else {
-                divEvent.style.display = 'none';
-                divEvent.innerHTML = "";
-                nameDiv.style.display = 'block';
-            }
         }
     }, {
         key: '_buildHeader',
@@ -9710,8 +9608,6 @@ var BaseDataGrid = function (_Component) {
     }, {
         key: 'render',
         value: function render() {
-            var _this4 = this;
-
             if (!this.props.gridData || !this.props.gridData.Data) {
                 return null;
             }
@@ -9745,14 +9641,6 @@ var BaseDataGrid = function (_Component) {
                     isPaging: true,
                     pageOption: pageOption,
                     onPaging: this.onPaging
-                }),
-                this.state.isShowPopup && _react2.default.createElement(_popup2.default, { isShow: true,
-                    iframeUrl: this.state.popupUrl,
-                    title: this.state.popupTitle,
-                    width: 900, height: 600,
-                    onClose: function onClose() {
-                        return _this4._closePopup();
-                    }
                 })
             );
         }
@@ -9776,290 +9664,10 @@ exports.default = BaseDataGrid;
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _site = __webpack_require__(8);
-
-var _site2 = _interopRequireDefault(_site);
-
-var _QueryString = __webpack_require__(93);
-
-var _QueryString2 = _interopRequireDefault(_QueryString);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var BETTYPE_CASHOUT = 911;
-var BETTYPE_MIXPARLAY = 9,
-    BETTYPE_SYSTEMPARLAY = 29,
-    BETTYPE_MIXPARLAY_BETRADAR = 2799;
-var MIN_BETTYPE_FASTMARKET = 221;
-var MAX_BETTYPE_FASTMARKET = 227;
-
-var BetList = function () {
-    function BetList() {
-        _classCallCheck(this, BetList);
-    }
-
-    _createClass(BetList, [{
-        key: '_isFastMarket',
-        value: function _isFastMarket(bettype) {
-            return bettype >= MIN_BETTYPE_FASTMARKET && bettype <= MAX_BETTYPE_FASTMARKET;
-        }
-    }, {
-        key: '_getMixParlayResultUrl',
-        value: function _getMixParlayResultUrl(refno, winlostdate, bettype) {
-            var url = _site2.default.resolveClientUrl('ResultReport/ResultPopup');
-            url = _QueryString2.default.setParam(url, "refno", refno);
-            url = _QueryString2.default.setParam(url, "winlossdate", winlostdate);
-            url = _QueryString2.default.setParam(url, "bettype", bettype);
-            url = _QueryString2.default.setParam(url, "matchid", 1);
-
-            return url;
-        }
-    }, {
-        key: '_getSportBookResultUrl',
-        value: function _getSportBookResultUrl(matchid, bettype, raceNo, sporttype, league, isOutright, extension1, extension2) {
-            var url = _site2.default.resolveClientUrl('ResultReport/ResultPopup');
-            url = _QueryString2.default.setParam(url, "matchid", matchid);
-            url = _QueryString2.default.setParam(url, "bettype", bettype);
-            url = _QueryString2.default.setParam(url, "raceno", raceNo);
-            url = _QueryString2.default.setParam(url, "sporttype", sporttype);
-            url = _QueryString2.default.setParam(url, "isoutright", isOutright);
-
-            if (this._isFastMarket(bettype)) {
-                url = _QueryString2.default.setParam(url, "handicap1", extension1);
-                url = _QueryString2.default.setParam(url, "handicap2", extension2);
-            } else {
-                url = _QueryString2.default.setParam(url, "betid", extension1);
-            }
-
-            return url;
-        }
-    }, {
-        key: 'getResultUrl',
-        value: function getResultUrl(matchid, raceNo, bettype, sporttype, refno, username, winlostdate, refnoMixParlay, league, isOutright, extension1, extension2, custid) {
-            bettype = Number(bettype);
-
-            var isParlay = bettype === BETTYPE_MIXPARLAY || bettype === BETTYPE_SYSTEMPARLAY || bettype === BETTYPE_MIXPARLAY_BETRADAR;
-            var url = isParlay ? this._getMixParlayResultUrl(refnoMixParlay, winlostdate, bettype) : this._getSportBookResultUrl(matchid, bettype, raceNo, sporttype, league, isOutright, extension1, extension2, custid);
-
-            return url;
-        }
-    }, {
-        key: 'getChoiceParlayDetailUrl',
-        value: function getChoiceParlayDetailUrl(transId, refNo, handicap1, handicap2, betcheck, betteam) {
-            var url = _site2.default.resolveClientUrl('api/MixParlayBetList/NewParlayDetail');
-            url = _QueryString2.default.setParam(url, "transId", transId);
-            url = _QueryString2.default.setParam(url, "refNo", refNo);
-            url = _QueryString2.default.setParam(url, "handicap1", handicap1);
-            url = _QueryString2.default.setParam(url, "handicap2", handicap2);
-            url = _QueryString2.default.setParam(url, "betcheck", betcheck);
-            url = _QueryString2.default.setParam(url, "betteam", betteam);
-
-            return url;
-        }
-    }, {
-        key: 'buildChoiceParlayDetail',
-        value: function buildChoiceParlayDetail(response) {
-            var choice = "";
-            var length = response.Data === null ? 0 : response.Data.length;
-            if (length > 0) {
-                for (var i = 0; i < response.Texts.length; i++) {
-                    choice += response.Texts[i];
-                }
-
-                choice += "<div class='line'></div>";
-
-                for (var _i = 0; _i < response.Data.length; _i++) {
-                    var item = response.Data[_i];
-                    if (_i === length - 1) {
-                        choice += item.Choice;
-                    } else {
-                        choice += item.Choice + "<div class='line'></div>";
-                    }
-                }
-            }
-
-            return choice;
-        }
-    }, {
-        key: 'getParlayDetailUrl',
-        value: function getParlayDetailUrl(transId, refNo, betId, custId, betTeam, baseCurrency) {
-            if (Number(transId) === 0) {
-                return;
-            }
-
-            var url = _site2.default.resolveClientUrl('SystemParlayBetList/Detail');
-            url = _QueryString2.default.setParam(url, "refno", refNo);
-            url = _QueryString2.default.setParam(url, "betteam", betTeam);
-            url = _QueryString2.default.setParam(url, "basecurrency", baseCurrency);
-
-            return url;
-        }
-    }, {
-        key: 'getCashOutHistoryPopupSetting',
-        value: function getCashOutHistoryPopupSetting(baseCurrency, transId, refNo, betType, betdaqId) {
-            var isCashOut = betdaqId < 1 || betType === BETTYPE_CASHOUT;
-            var url = _site2.default.resolveClientUrl('CashOutBetList/Detail');
-            url = _QueryString2.default.setParam(url, "transId", transId);
-            url = _QueryString2.default.setParam(url, "refNo", refNo);
-            url = _QueryString2.default.setParam(url, "betType", betType);
-            url = _QueryString2.default.setParam(url, "betdaqId", betdaqId);
-            url = _QueryString2.default.setParam(url, "BaseCurrency", baseCurrency);
-            url = _QueryString2.default.setParam(url, "isCashout", isCashOut);
-            return {
-                url: url,
-                isCashOut: isCashOut
-            };
-        }
-    }]);
-
-    return BetList;
-}();
-
-exports.default = new BetList();
-
-/***/ }),
-/* 93 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var QueryString = function () {
-    function QueryString() {
-        _classCallCheck(this, QueryString);
-    }
-
-    _createClass(QueryString, null, [{
-        key: '_parseQueryString',
-        value: function _parseQueryString(queryString) {
-            var args = queryString.split('&');
-            var argsList = {};
-
-            for (var i = 0; i < args.length; i++) {
-                var arg = unescape(args[i]);
-                if (arg.length > 0) {
-                    if (arg.indexOf('=') === -1) {
-                        argsList[arg.toLowerCase().trim()] = null;
-                    } else {
-                        var keyValuePair = arg.split('=');
-                        argsList[keyValuePair[0].toLowerCase().trim()] = keyValuePair[1].trim();
-                    }
-                }
-            }
-
-            return argsList;
-        }
-    }, {
-        key: '_getQueryString',
-        value: function _getQueryString(url) {
-            var index = url.indexOf("?");
-            return index < 0 ? "" : url.substring(index + 1, url.length);
-        }
-    }, {
-        key: '_getRawUrl',
-        value: function _getRawUrl(url) {
-            var index = url.indexOf("?");
-            return index < 0 ? url : url.substring(0, index);
-        }
-    }, {
-        key: 'setParam',
-        value: function setParam(url, name, value) {
-            var rawUrl = QueryString._getRawUrl(url);
-            var queryString = QueryString._getQueryString(url);
-            var args = QueryString._parseQueryString(queryString);
-
-            if (!name) {
-                return url;
-            }
-
-            // Update value
-            var found = false;
-
-            for (var key in args) {
-                if (key && key.toLowerCase() === name.toLowerCase()) {
-
-                    // Does not update data if value = undefined
-                    if (value !== undefined) {
-                        args[key] = value;
-                    }
-                    found = true;
-                }
-            }
-
-            if (!found) {
-                args[name.toLowerCase()] = value;
-            }
-
-            var queryArray = [];
-
-            // Rebuild query string, ignore null value
-            for (var key1 in args) {
-                if (args[key1] != null && args[key1] !== undefined) {
-                    queryArray.push(key1.toLowerCase() + "=" + args[key1]);
-                }
-            }
-
-            return rawUrl + "?" + queryArray.join("&");
-        }
-    }, {
-        key: 'setParams',
-        value: function setParams(url, parameters) {
-            for (var property in parameters) {
-                if (parameters.hasOwnProperty(property)) {
-                    url = QueryString.setParam(url, property, parameters[property]);
-                }
-            }
-
-            return url;
-        }
-    }, {
-        key: 'getParam',
-        value: function getParam(url, name) {
-            var queryString = QueryString._getQueryString(url);
-            var args = QueryString._parseQueryString(queryString);
-
-            for (var key in args) {
-                if (key != null && key.toLowerCase() === name.toLowerCase()) {
-                    return args[key];
-                }
-            }
-
-            return null;
-        }
-    }]);
-
-    return QueryString;
-}();
-
-exports.default = QueryString;
-
-/***/ }),
-/* 94 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _AutoComplete = __webpack_require__(95);
+var _AutoComplete = __webpack_require__(93);
 
 var _AutoComplete2 = _interopRequireDefault(_AutoComplete);
 
@@ -10068,7 +9676,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _AutoComplete2.default;
 
 /***/ }),
-/* 95 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10104,11 +9712,11 @@ var _Overlay = __webpack_require__(19);
 
 var _Overlay2 = _interopRequireDefault(_Overlay);
 
-var _SuggestionList = __webpack_require__(96);
+var _SuggestionList = __webpack_require__(94);
 
 var _SuggestionList2 = _interopRequireDefault(_SuggestionList);
 
-var _timer = __webpack_require__(97);
+var _timer = __webpack_require__(95);
 
 var _timer2 = _interopRequireDefault(_timer);
 
@@ -10289,7 +9897,7 @@ AutoComplete.defaultProps = {
 exports.default = AutoComplete;
 
 /***/ }),
-/* 96 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10378,7 +9986,7 @@ SuggestionList.propTypes = {
 exports.default = SuggestionList;
 
 /***/ }),
-/* 97 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10423,7 +10031,7 @@ var Timer = function () {
 exports.default = Timer;
 
 /***/ }),
-/* 98 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10432,12 +10040,19 @@ exports.default = Timer;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.PageLayout = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(13);
+
+var _axios = __webpack_require__(26);
+
+var _axios2 = _interopRequireDefault(_axios);
 
 var _AppLayout = __webpack_require__(43);
 
@@ -10447,7 +10062,7 @@ var _Loader = __webpack_require__(42);
 
 var _Loader2 = _interopRequireDefault(_Loader);
 
-var _simpleReactTab = __webpack_require__(99);
+var _simpleReactTab = __webpack_require__(97);
 
 var _langHelper = __webpack_require__(4);
 
@@ -10457,6 +10072,14 @@ var _site = __webpack_require__(8);
 
 var _site2 = _interopRequireDefault(_site);
 
+var _BetList = __webpack_require__(116);
+
+var _BetList2 = _interopRequireDefault(_BetList);
+
+var _popup = __webpack_require__(52);
+
+var _popup2 = _interopRequireDefault(_popup);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -10465,18 +10088,108 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var PageLayout = function (_Component) {
+var PageLayout = exports.PageLayout = function (_Component) {
     _inherits(PageLayout, _Component);
 
     function PageLayout(props) {
         _classCallCheck(this, PageLayout);
 
-        return _possibleConstructorReturn(this, (PageLayout.__proto__ || Object.getPrototypeOf(PageLayout)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (PageLayout.__proto__ || Object.getPrototypeOf(PageLayout)).call(this, props));
+
+        _this.state = {
+            isShowPopup: false,
+            popupUrl: null,
+            popupTitle: null
+        };
+        return _this;
     }
 
     _createClass(PageLayout, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var _this2 = this;
+
+            window.ViewResult = function () {
+                for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+                    args[_key] = arguments[_key];
+                }
+
+                var url = _BetList2.default.getResultUrl.apply(_BetList2.default, args);
+                _this2._openPopup(url, _langHelper2.default.getSingleResource("Result"));
+            };
+
+            // expand choice content
+            window.showNewCombMP = function () {
+                for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+                    args[_key2] = arguments[_key2];
+                }
+
+                _this2._showNewParlayDetail.apply(_this2, args);
+            };
+
+            // show detail popup (in choice column)
+            window.showCombMPDetail = function (transId, refNo, betId, custId, betTeam, baseCurrency) {
+                var url = _BetList2.default.getParlayDetailUrl(transId, refNo, betId, custId, betTeam, baseCurrency);
+                _this2._openPopup(url, betTeam);
+            };
+
+            window.ViewCashOutHistory = function (transId, refNo, betType, betdaqId) {
+                var _BetList$getCashOutHi = _BetList2.default.getCashOutHistoryPopupSetting(_this2.props.requestParam.BaseCurrency, transId, refNo, betType, betdaqId),
+                    url = _BetList$getCashOutHi.url,
+                    isCashOut = _BetList$getCashOutHi.isCashOut;
+
+                var title = _langHelper2.default.getSingleResource(isCashOut ? "CashOutDetails" : "BoughtDetails");
+                _this2._openPopup(url, title);
+            };
+        }
+    }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            window.ViewResult = undefined;
+            window.showNewCombMP = undefined;
+            window.showCombMPDetail = undefined;
+            window.ViewCashOutHistory = undefined;
+        }
+    }, {
+        key: '_showNewParlayDetail',
+        value: function _showNewParlayDetail(transId, transIndex, refNo, handicap1, handicap2, betcheck, betteam) {
+            var divEvent = document.querySelector('#divEvent_' + transId + "" + transIndex);
+            var nameDiv = document.querySelector('#combinationOfferName_' + transId + transIndex);
+            divEvent.classList.add("mx-parlay"); //to make line-through for void-parlay-ticket
+
+            if (divEvent.style.display == "none") {
+                var url = _BetList2.default.getChoiceParlayDetailUrl(transId, refNo, handicap1, handicap2, betcheck, betteam);
+
+                _axios2.default.get(url).then(function (result) {
+
+                    var choice = _BetList2.default.buildChoiceParlayDetail(result.data);
+                    divEvent.innerHTML = choice;
+                    divEvent.style.display = 'block';
+                    nameDiv.style.display = 'none';
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            } else {
+                divEvent.style.display = 'none';
+                divEvent.innerHTML = "";
+                nameDiv.style.display = 'block';
+            }
+        }
+    }, {
+        key: '_openPopup',
+        value: function _openPopup(url, title) {
+            this.setState({ isShowPopup: true, popupUrl: url, popupTitle: title });
+        }
+    }, {
+        key: '_closePopup',
+        value: function _closePopup() {
+            this.setState({ isShowPopup: false });
+        }
+    }, {
         key: 'render',
         value: function render() {
+            var _this3 = this;
+
             return _react2.default.createElement(
                 _AppLayout2.default,
                 null,
@@ -10495,7 +10208,15 @@ var PageLayout = function (_Component) {
                     'div',
                     null,
                     this.props.children
-                )
+                ),
+                this.state.isShowPopup && _react2.default.createElement(_popup2.default, { isShow: true,
+                    iframeUrl: this.state.popupUrl,
+                    title: this.state.popupTitle,
+                    width: 900, height: 600,
+                    onClose: function onClose() {
+                        return _this3._closePopup();
+                    }
+                })
             );
         }
     }]);
@@ -10503,26 +10224,32 @@ var PageLayout = function (_Component) {
     return PageLayout;
 }(_react.Component);
 
-exports.default = PageLayout;
+function mapStateToProps(state) {
+    var requestParam = state.requestParam;
+
+    return Object.assign({}, { requestParam: requestParam });
+}
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(PageLayout);
 
 /***/ }),
-/* 99 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
-!function(e,t){ true?module.exports=t(__webpack_require__(100)):"function"==typeof define&&define.amd?define(["react"],t):"object"==typeof exports?exports.ReactTab=t(require("react")):e.ReactTab=t(e.React)}(this,function(e){return function(e){function t(r){if(n[r])return n[r].exports;var o=n[r]={i:r,l:!1,exports:{}};return e[r].call(o.exports,o,o.exports,t),o.l=!0,o.exports}var n={};return t.m=e,t.c=n,t.d=function(e,n,r){t.o(e,n)||Object.defineProperty(e,n,{configurable:!1,enumerable:!0,get:r})},t.n=function(e){var n=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(n,"a",n),n},t.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},t.p="",t(t.s=2)}([function(t,n){t.exports=e},function(e,t,n){"use strict";function r(e){return e&&e.__esModule?e:{default:e}}Object.defineProperty(t,"__esModule",{value:!0});var o=function(){function e(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}return function(t,n,r){return n&&e(t.prototype,n),r&&e(t,r),t}}(),a=n(0),u=r(a),i=r(n(4)),c=function(e){function t(e){return function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,t),function(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}(this,(t.__proto__||Object.getPrototypeOf(t)).call(this,e))}return function(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}(t,a.Component),o(t,[{key:"render",value:function(){return u.default.createElement("li",{className:"tab"},u.default.createElement("a",{className:this.props.isActive?"active":"",href:this.props.url,onClick:this.props.onClick},this.props.label))}}]),t}();c.propTypes={isActive:i.default.bool,label:i.default.string,url:i.default.string},c.defaultProps={isActive:!1,label:"",url:"javascript:;"},t.default=c},function(e,t,n){"use strict";function r(e){return e&&e.__esModule?e:{default:e}}Object.defineProperty(t,"__esModule",{value:!0}),t.Tab=t.Tabs=void 0;var o=r(n(3)),a=r(n(1));t.Tabs=o.default,t.Tab=a.default},function(e,t,n){"use strict";function r(e){return e&&e.__esModule?e:{default:e}}Object.defineProperty(t,"__esModule",{value:!0});var o=function(){function e(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}return function(t,n,r){return n&&e(t.prototype,n),r&&e(t,r),t}}(),a=n(0),u=r(a),i=r(n(1)),c=function(e){function t(e){!function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,t);var n=function(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}(this,(t.__proto__||Object.getPrototypeOf(t)).call(this,e));n.tabComponents=u.default.Children.toArray(e.children);var r=n.tabComponents.map(function(e){return e.props.isActive});return n.state={tabState:r},n.currentTabIndex=0,n}return function(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}(t,a.Component),o(t,[{key:"_renderActiveTabContent",value:function(){var e=this.state.tabState.findIndex(function(e){return e});return this.currentTabIndex=e,this.tabComponents[e].props.children}},{key:"onTabChange",value:function(e){if(e!==this.currentTabIndex){var t=this.state.tabState.map(function(t,n){return n===e});this.setState({tabState:t})}}},{key:"_renderTabComponents",value:function(){var e=this;return this.tabComponents.map(function(t,n){return u.default.createElement(i.default,{key:"tab"+n,isActive:e.state.tabState[n],label:t.props.label,onClick:e.onTabChange.bind(e,n),url:t.props.url})})}},{key:"render",value:function(){return u.default.createElement("div",{className:"page-filter-tab"},u.default.createElement("div",{className:"header-tab"},u.default.createElement("div",{className:"content-tab"},u.default.createElement("ul",{className:"tabs"},this._renderTabComponents()))),u.default.createElement("div",{className:"tab-panel"},this._renderActiveTabContent()))}}]),t}();t.default=c},function(e,t,n){e.exports=n(5)()},function(e,t,n){"use strict";var r=n(6),o=n(7),a=n(8);e.exports=function(){function e(e,t,n,r,u,i){i!==a&&o(!1,"Calling PropTypes validators directly is not supported by the `prop-types` package. Use PropTypes.checkPropTypes() to call them. Read more at http://fb.me/use-check-prop-types")}function t(){return e}e.isRequired=e;var n={array:e,bool:e,func:e,number:e,object:e,string:e,symbol:e,any:e,arrayOf:t,element:e,instanceOf:t,node:e,objectOf:t,oneOf:t,oneOfType:t,shape:t,exact:t};return n.checkPropTypes=r,n.PropTypes=n,n}},function(e,t,n){"use strict";function r(e){return function(){return e}}var o=function(){};o.thatReturns=r,o.thatReturnsFalse=r(!1),o.thatReturnsTrue=r(!0),o.thatReturnsNull=r(null),o.thatReturnsThis=function(){return this},o.thatReturnsArgument=function(e){return e},e.exports=o},function(e,t,n){"use strict";e.exports=function(e,t,n,r,o,a,u,i){if(!e){var c;if(void 0===t)c=new Error("Minified exception occurred; use the non-minified dev environment for the full error message and additional helpful warnings.");else{var s=[n,r,o,a,u,i],l=0;(c=new Error(t.replace(/%s/g,function(){return s[l++]}))).name="Invariant Violation"}throw c.framesToPop=1,c}}},function(e,t,n){"use strict";e.exports="SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED"}])});
+!function(e,t){ true?module.exports=t(__webpack_require__(98)):"function"==typeof define&&define.amd?define(["react"],t):"object"==typeof exports?exports.ReactTab=t(require("react")):e.ReactTab=t(e.React)}(this,function(e){return function(e){function t(r){if(n[r])return n[r].exports;var o=n[r]={i:r,l:!1,exports:{}};return e[r].call(o.exports,o,o.exports,t),o.l=!0,o.exports}var n={};return t.m=e,t.c=n,t.d=function(e,n,r){t.o(e,n)||Object.defineProperty(e,n,{configurable:!1,enumerable:!0,get:r})},t.n=function(e){var n=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(n,"a",n),n},t.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},t.p="",t(t.s=2)}([function(t,n){t.exports=e},function(e,t,n){"use strict";function r(e){return e&&e.__esModule?e:{default:e}}Object.defineProperty(t,"__esModule",{value:!0});var o=function(){function e(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}return function(t,n,r){return n&&e(t.prototype,n),r&&e(t,r),t}}(),a=n(0),u=r(a),i=r(n(4)),c=function(e){function t(e){return function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,t),function(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}(this,(t.__proto__||Object.getPrototypeOf(t)).call(this,e))}return function(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}(t,a.Component),o(t,[{key:"render",value:function(){return u.default.createElement("li",{className:"tab"},u.default.createElement("a",{className:this.props.isActive?"active":"",href:this.props.url,onClick:this.props.onClick},this.props.label))}}]),t}();c.propTypes={isActive:i.default.bool,label:i.default.string,url:i.default.string},c.defaultProps={isActive:!1,label:"",url:"javascript:;"},t.default=c},function(e,t,n){"use strict";function r(e){return e&&e.__esModule?e:{default:e}}Object.defineProperty(t,"__esModule",{value:!0}),t.Tab=t.Tabs=void 0;var o=r(n(3)),a=r(n(1));t.Tabs=o.default,t.Tab=a.default},function(e,t,n){"use strict";function r(e){return e&&e.__esModule?e:{default:e}}Object.defineProperty(t,"__esModule",{value:!0});var o=function(){function e(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}return function(t,n,r){return n&&e(t.prototype,n),r&&e(t,r),t}}(),a=n(0),u=r(a),i=r(n(1)),c=function(e){function t(e){!function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,t);var n=function(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}(this,(t.__proto__||Object.getPrototypeOf(t)).call(this,e));n.tabComponents=u.default.Children.toArray(e.children);var r=n.tabComponents.map(function(e){return e.props.isActive});return n.state={tabState:r},n.currentTabIndex=0,n}return function(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}(t,a.Component),o(t,[{key:"_renderActiveTabContent",value:function(){var e=this.state.tabState.findIndex(function(e){return e});return this.currentTabIndex=e,this.tabComponents[e].props.children}},{key:"onTabChange",value:function(e){if(e!==this.currentTabIndex){var t=this.state.tabState.map(function(t,n){return n===e});this.setState({tabState:t})}}},{key:"_renderTabComponents",value:function(){var e=this;return this.tabComponents.map(function(t,n){return u.default.createElement(i.default,{key:"tab"+n,isActive:e.state.tabState[n],label:t.props.label,onClick:e.onTabChange.bind(e,n),url:t.props.url})})}},{key:"render",value:function(){return u.default.createElement("div",{className:"page-filter-tab"},u.default.createElement("div",{className:"header-tab"},u.default.createElement("div",{className:"content-tab"},u.default.createElement("ul",{className:"tabs"},this._renderTabComponents()))),u.default.createElement("div",{className:"tab-panel"},this._renderActiveTabContent()))}}]),t}();t.default=c},function(e,t,n){e.exports=n(5)()},function(e,t,n){"use strict";var r=n(6),o=n(7),a=n(8);e.exports=function(){function e(e,t,n,r,u,i){i!==a&&o(!1,"Calling PropTypes validators directly is not supported by the `prop-types` package. Use PropTypes.checkPropTypes() to call them. Read more at http://fb.me/use-check-prop-types")}function t(){return e}e.isRequired=e;var n={array:e,bool:e,func:e,number:e,object:e,string:e,symbol:e,any:e,arrayOf:t,element:e,instanceOf:t,node:e,objectOf:t,oneOf:t,oneOfType:t,shape:t,exact:t};return n.checkPropTypes=r,n.PropTypes=n,n}},function(e,t,n){"use strict";function r(e){return function(){return e}}var o=function(){};o.thatReturns=r,o.thatReturnsFalse=r(!1),o.thatReturnsTrue=r(!0),o.thatReturnsNull=r(null),o.thatReturnsThis=function(){return this},o.thatReturnsArgument=function(e){return e},e.exports=o},function(e,t,n){"use strict";e.exports=function(e,t,n,r,o,a,u,i){if(!e){var c;if(void 0===t)c=new Error("Minified exception occurred; use the non-minified dev environment for the full error message and additional helpful warnings.");else{var s=[n,r,o,a,u,i],l=0;(c=new Error(t.replace(/%s/g,function(){return s[l++]}))).name="Invariant Violation"}throw c.framesToPop=1,c}}},function(e,t,n){"use strict";e.exports="SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED"}])});
 
 /***/ }),
-/* 100 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(101);
+module.exports = __webpack_require__(99);
 
 
 /***/ }),
-/* 101 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10539,14 +10266,14 @@ module.exports = __webpack_require__(101);
 var _assign = __webpack_require__(22);
 
 var ReactBaseClasses = __webpack_require__(63);
-var ReactChildren = __webpack_require__(102);
-var ReactDOMFactories = __webpack_require__(106);
+var ReactChildren = __webpack_require__(100);
+var ReactDOMFactories = __webpack_require__(104);
 var ReactElement = __webpack_require__(16);
-var ReactPropTypes = __webpack_require__(110);
-var ReactVersion = __webpack_require__(114);
+var ReactPropTypes = __webpack_require__(108);
+var ReactVersion = __webpack_require__(112);
 
-var createReactClass = __webpack_require__(115);
-var onlyChild = __webpack_require__(117);
+var createReactClass = __webpack_require__(113);
+var onlyChild = __webpack_require__(115);
 
 var createElement = ReactElement.createElement;
 var createFactory = ReactElement.createFactory;
@@ -10657,7 +10384,7 @@ if (true) {
 module.exports = React;
 
 /***/ }),
-/* 102 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10671,11 +10398,11 @@ module.exports = React;
 
 
 
-var PooledClass = __webpack_require__(103);
+var PooledClass = __webpack_require__(101);
 var ReactElement = __webpack_require__(16);
 
 var emptyFunction = __webpack_require__(119);
-var traverseAllChildren = __webpack_require__(104);
+var traverseAllChildren = __webpack_require__(102);
 
 var twoArgumentPooler = PooledClass.twoArgumentPooler;
 var fourArgumentPooler = PooledClass.fourArgumentPooler;
@@ -10851,7 +10578,7 @@ var ReactChildren = {
 module.exports = ReactChildren;
 
 /***/ }),
-/* 103 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10966,7 +10693,7 @@ var PooledClass = {
 module.exports = PooledClass;
 
 /***/ }),
-/* 104 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10987,7 +10714,7 @@ var REACT_ELEMENT_TYPE = __webpack_require__(66);
 
 var getIteratorFn = __webpack_require__(67);
 var invariant = __webpack_require__(17);
-var KeyEscapeUtils = __webpack_require__(105);
+var KeyEscapeUtils = __webpack_require__(103);
 var warning = __webpack_require__(18);
 
 var SEPARATOR = '.';
@@ -11145,7 +10872,7 @@ function traverseAllChildren(children, callback, traverseContext) {
 module.exports = traverseAllChildren;
 
 /***/ }),
-/* 105 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11207,7 +10934,7 @@ var KeyEscapeUtils = {
 module.exports = KeyEscapeUtils;
 
 /***/ }),
-/* 106 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11379,7 +11106,7 @@ var ReactDOMFactories = {
 module.exports = ReactDOMFactories;
 
 /***/ }),
-/* 107 */
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11395,8 +11122,8 @@ module.exports = ReactDOMFactories;
 
 var _prodInvariant = __webpack_require__(20);
 
-var ReactPropTypeLocationNames = __webpack_require__(108);
-var ReactPropTypesSecret = __webpack_require__(109);
+var ReactPropTypeLocationNames = __webpack_require__(106);
+var ReactPropTypesSecret = __webpack_require__(107);
 
 var invariant = __webpack_require__(17);
 var warning = __webpack_require__(18);
@@ -11470,7 +11197,7 @@ module.exports = checkReactTypeSpec;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(122)))
 
 /***/ }),
-/* 108 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11498,7 +11225,7 @@ if (true) {
 module.exports = ReactPropTypeLocationNames;
 
 /***/ }),
-/* 109 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11518,7 +11245,7 @@ var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
 module.exports = ReactPropTypesSecret;
 
 /***/ }),
-/* 110 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11535,12 +11262,12 @@ module.exports = ReactPropTypesSecret;
 var _require = __webpack_require__(16),
     isValidElement = _require.isValidElement;
 
-var factory = __webpack_require__(111);
+var factory = __webpack_require__(109);
 
 module.exports = factory(isValidElement);
 
 /***/ }),
-/* 111 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11557,7 +11284,7 @@ module.exports = factory(isValidElement);
 // Therefore we re-export development-only version with all the PropTypes checks here.
 // However if one is migrating to the `prop-types` npm library, they will go through the
 // `index.js` entry point, and it will branch depending on the environment.
-var factory = __webpack_require__(112);
+var factory = __webpack_require__(110);
 module.exports = function(isValidElement) {
   // It is still allowed in 15.5.
   var throwOnDirectAccess = false;
@@ -11566,7 +11293,7 @@ module.exports = function(isValidElement) {
 
 
 /***/ }),
-/* 112 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11582,7 +11309,7 @@ module.exports = function(isValidElement) {
 var assign = __webpack_require__(22);
 
 var ReactPropTypesSecret = __webpack_require__(69);
-var checkPropTypes = __webpack_require__(113);
+var checkPropTypes = __webpack_require__(111);
 
 var printWarning = function() {};
 
@@ -12128,7 +11855,7 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
 
 
 /***/ }),
-/* 113 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12226,7 +11953,7 @@ module.exports = checkPropTypes;
 
 
 /***/ }),
-/* 114 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12243,7 +11970,7 @@ module.exports = checkPropTypes;
 module.exports = '15.6.2';
 
 /***/ }),
-/* 115 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12264,12 +11991,12 @@ var _require2 = __webpack_require__(16),
     isValidElement = _require2.isValidElement;
 
 var ReactNoopUpdateQueue = __webpack_require__(64);
-var factory = __webpack_require__(116);
+var factory = __webpack_require__(114);
 
 module.exports = factory(Component, isValidElement, ReactNoopUpdateQueue);
 
 /***/ }),
-/* 116 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13202,7 +12929,7 @@ module.exports = factory;
 
 
 /***/ }),
-/* 117 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13241,6 +12968,286 @@ function onlyChild(children) {
 }
 
 module.exports = onlyChild;
+
+/***/ }),
+/* 116 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _site = __webpack_require__(8);
+
+var _site2 = _interopRequireDefault(_site);
+
+var _QueryString = __webpack_require__(117);
+
+var _QueryString2 = _interopRequireDefault(_QueryString);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var BETTYPE_CASHOUT = 911;
+var BETTYPE_MIXPARLAY = 9,
+    BETTYPE_SYSTEMPARLAY = 29,
+    BETTYPE_MIXPARLAY_BETRADAR = 2799;
+var MIN_BETTYPE_FASTMARKET = 221;
+var MAX_BETTYPE_FASTMARKET = 227;
+
+var BetList = function () {
+    function BetList() {
+        _classCallCheck(this, BetList);
+    }
+
+    _createClass(BetList, [{
+        key: '_isFastMarket',
+        value: function _isFastMarket(bettype) {
+            return bettype >= MIN_BETTYPE_FASTMARKET && bettype <= MAX_BETTYPE_FASTMARKET;
+        }
+    }, {
+        key: '_getMixParlayResultUrl',
+        value: function _getMixParlayResultUrl(refno, winlostdate, bettype) {
+            var url = _site2.default.resolveClientUrl('ResultReport/ResultPopup');
+            url = _QueryString2.default.setParam(url, "refno", refno);
+            url = _QueryString2.default.setParam(url, "winlossdate", winlostdate);
+            url = _QueryString2.default.setParam(url, "bettype", bettype);
+            url = _QueryString2.default.setParam(url, "matchid", 1);
+
+            return url;
+        }
+    }, {
+        key: '_getSportBookResultUrl',
+        value: function _getSportBookResultUrl(matchid, bettype, raceNo, sporttype, league, isOutright, extension1, extension2) {
+            var url = _site2.default.resolveClientUrl('ResultReport/ResultPopup');
+            url = _QueryString2.default.setParam(url, "matchid", matchid);
+            url = _QueryString2.default.setParam(url, "bettype", bettype);
+            url = _QueryString2.default.setParam(url, "raceno", raceNo);
+            url = _QueryString2.default.setParam(url, "sporttype", sporttype);
+            url = _QueryString2.default.setParam(url, "isoutright", isOutright);
+
+            if (this._isFastMarket(bettype)) {
+                url = _QueryString2.default.setParam(url, "handicap1", extension1);
+                url = _QueryString2.default.setParam(url, "handicap2", extension2);
+            } else {
+                url = _QueryString2.default.setParam(url, "betid", extension1);
+            }
+
+            return url;
+        }
+    }, {
+        key: 'getResultUrl',
+        value: function getResultUrl(matchid, raceNo, bettype, sporttype, refno, username, winlostdate, refnoMixParlay, league, isOutright, extension1, extension2, custid) {
+            bettype = Number(bettype);
+
+            var isParlay = bettype === BETTYPE_MIXPARLAY || bettype === BETTYPE_SYSTEMPARLAY || bettype === BETTYPE_MIXPARLAY_BETRADAR;
+            var url = isParlay ? this._getMixParlayResultUrl(refnoMixParlay, winlostdate, bettype) : this._getSportBookResultUrl(matchid, bettype, raceNo, sporttype, league, isOutright, extension1, extension2, custid);
+
+            return url;
+        }
+    }, {
+        key: 'getChoiceParlayDetailUrl',
+        value: function getChoiceParlayDetailUrl(transId, refNo, handicap1, handicap2, betcheck, betteam) {
+            var url = _site2.default.resolveClientUrl('api/MixParlayBetList/NewParlayDetail');
+            url = _QueryString2.default.setParam(url, "transId", transId);
+            url = _QueryString2.default.setParam(url, "refNo", refNo);
+            url = _QueryString2.default.setParam(url, "handicap1", handicap1);
+            url = _QueryString2.default.setParam(url, "handicap2", handicap2);
+            url = _QueryString2.default.setParam(url, "betcheck", betcheck);
+            url = _QueryString2.default.setParam(url, "betteam", betteam);
+
+            return url;
+        }
+    }, {
+        key: 'buildChoiceParlayDetail',
+        value: function buildChoiceParlayDetail(response) {
+            var choice = "";
+            var length = response.Data === null ? 0 : response.Data.length;
+            if (length > 0) {
+                for (var i = 0; i < response.Texts.length; i++) {
+                    choice += response.Texts[i];
+                }
+
+                choice += "<div class='line'></div>";
+
+                for (var _i = 0; _i < response.Data.length; _i++) {
+                    var item = response.Data[_i];
+                    if (_i === length - 1) {
+                        choice += item.Choice;
+                    } else {
+                        choice += item.Choice + "<div class='line'></div>";
+                    }
+                }
+            }
+
+            return choice;
+        }
+    }, {
+        key: 'getParlayDetailUrl',
+        value: function getParlayDetailUrl(transId, refNo, betId, custId, betTeam, baseCurrency) {
+            if (Number(transId) === 0) {
+                return;
+            }
+
+            var url = _site2.default.resolveClientUrl('SystemParlayBetList/Detail');
+            url = _QueryString2.default.setParam(url, "refno", refNo);
+            url = _QueryString2.default.setParam(url, "betteam", betTeam);
+            url = _QueryString2.default.setParam(url, "basecurrency", baseCurrency);
+
+            return url;
+        }
+    }, {
+        key: 'getCashOutHistoryPopupSetting',
+        value: function getCashOutHistoryPopupSetting(baseCurrency, transId, refNo, betType, betdaqId) {
+            var isCashOut = betdaqId < 1 || betType === BETTYPE_CASHOUT;
+            var url = _site2.default.resolveClientUrl('CashOutBetList/Detail');
+            url = _QueryString2.default.setParam(url, "transId", transId);
+            url = _QueryString2.default.setParam(url, "refNo", refNo);
+            url = _QueryString2.default.setParam(url, "betType", betType);
+            url = _QueryString2.default.setParam(url, "betdaqId", betdaqId);
+            url = _QueryString2.default.setParam(url, "BaseCurrency", baseCurrency);
+            url = _QueryString2.default.setParam(url, "isCashout", isCashOut);
+            return {
+                url: url,
+                isCashOut: isCashOut
+            };
+        }
+    }]);
+
+    return BetList;
+}();
+
+exports.default = new BetList();
+
+/***/ }),
+/* 117 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var QueryString = function () {
+    function QueryString() {
+        _classCallCheck(this, QueryString);
+    }
+
+    _createClass(QueryString, null, [{
+        key: '_parseQueryString',
+        value: function _parseQueryString(queryString) {
+            var args = queryString.split('&');
+            var argsList = {};
+
+            for (var i = 0; i < args.length; i++) {
+                var arg = unescape(args[i]);
+                if (arg.length > 0) {
+                    if (arg.indexOf('=') === -1) {
+                        argsList[arg.toLowerCase().trim()] = null;
+                    } else {
+                        var keyValuePair = arg.split('=');
+                        argsList[keyValuePair[0].toLowerCase().trim()] = keyValuePair[1].trim();
+                    }
+                }
+            }
+
+            return argsList;
+        }
+    }, {
+        key: '_getQueryString',
+        value: function _getQueryString(url) {
+            var index = url.indexOf("?");
+            return index < 0 ? "" : url.substring(index + 1, url.length);
+        }
+    }, {
+        key: '_getRawUrl',
+        value: function _getRawUrl(url) {
+            var index = url.indexOf("?");
+            return index < 0 ? url : url.substring(0, index);
+        }
+    }, {
+        key: 'setParam',
+        value: function setParam(url, name, value) {
+            var rawUrl = QueryString._getRawUrl(url);
+            var queryString = QueryString._getQueryString(url);
+            var args = QueryString._parseQueryString(queryString);
+
+            if (!name) {
+                return url;
+            }
+
+            // Update value
+            var found = false;
+
+            for (var key in args) {
+                if (key && key.toLowerCase() === name.toLowerCase()) {
+
+                    // Does not update data if value = undefined
+                    if (value !== undefined) {
+                        args[key] = value;
+                    }
+                    found = true;
+                }
+            }
+
+            if (!found) {
+                args[name.toLowerCase()] = value;
+            }
+
+            var queryArray = [];
+
+            // Rebuild query string, ignore null value
+            for (var key1 in args) {
+                if (args[key1] != null && args[key1] !== undefined) {
+                    queryArray.push(key1.toLowerCase() + "=" + args[key1]);
+                }
+            }
+
+            return rawUrl + "?" + queryArray.join("&");
+        }
+    }, {
+        key: 'setParams',
+        value: function setParams(url, parameters) {
+            for (var property in parameters) {
+                if (parameters.hasOwnProperty(property)) {
+                    url = QueryString.setParam(url, property, parameters[property]);
+                }
+            }
+
+            return url;
+        }
+    }, {
+        key: 'getParam',
+        value: function getParam(url, name) {
+            var queryString = QueryString._getQueryString(url);
+            var args = QueryString._parseQueryString(queryString);
+
+            for (var key in args) {
+                if (key != null && key.toLowerCase() === name.toLowerCase()) {
+                    return args[key];
+                }
+            }
+
+            return null;
+        }
+    }]);
+
+    return QueryString;
+}();
+
+exports.default = QueryString;
 
 /***/ }),
 /* 118 */
@@ -14120,7 +14127,7 @@ var _FormFilter = __webpack_require__(377);
 
 var _FormFilter2 = _interopRequireDefault(_FormFilter);
 
-var _PageLayout = __webpack_require__(98);
+var _PageLayout = __webpack_require__(96);
 
 var _PageLayout2 = _interopRequireDefault(_PageLayout);
 
@@ -14194,7 +14201,7 @@ var _BaseDataGrid2 = __webpack_require__(91);
 
 var _BaseDataGrid3 = _interopRequireDefault(_BaseDataGrid2);
 
-var _Service = __webpack_require__(52);
+var _Service = __webpack_require__(70);
 
 var _Service2 = _interopRequireDefault(_Service);
 
@@ -14442,7 +14449,7 @@ var _multipleSelect2 = _interopRequireDefault(_multipleSelect);
 
 var _index = __webpack_require__(36);
 
-var _autoComplete = __webpack_require__(94);
+var _autoComplete = __webpack_require__(92);
 
 var _autoComplete2 = _interopRequireDefault(_autoComplete);
 

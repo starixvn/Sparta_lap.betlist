@@ -1659,6 +1659,10 @@ var Table = function (_Component) {
             if (this.props.header != prevProps.header) {
                 this.setState({ columnsWidth: this._getColumnsWidth(this.props.header) });
             }
+
+            if (prevProps.body != this.props.body) {
+                scrollToTop(this.bodyWrapper, 200);
+            }
         }
     }, {
         key: '_calculateBodyHeight',
@@ -1741,7 +1745,7 @@ var Table = function (_Component) {
                         footer
                     )
                 ),
-                isPaging && pageOption && _react2.default.createElement(_Pager2.default, { pageOption: pageOption, onPaging: this._onPaging })
+                isPaging && pageOption && _react2.default.createElement(_Pager2.default, { pageOption: pageOption, onPaging: onPaging })
             );
         }
     }, {
@@ -1801,13 +1805,6 @@ var _initialiseProps = function _initialiseProps() {
         if (_this4.state.maxWidth !== maxWidth) {
             _this4.setState({ maxWidth: maxWidth });
         }
-    };
-
-    this._onPaging = function (index, pageSize) {
-        var onPaging = _this4.props.onPaging;
-
-        onPaging && onPaging(index, pageSize);
-        scrollToTop(_this4.bodyWrapper, 200);
     };
 };
 
@@ -2719,7 +2716,7 @@ var _BetList = __webpack_require__(363);
 
 var _BetList2 = _interopRequireDefault(_BetList);
 
-var _popup = __webpack_require__(70);
+var _popup = __webpack_require__(52);
 
 var _popup2 = _interopRequireDefault(_popup);
 
@@ -3575,7 +3572,7 @@ var _NoDataTitle2 = _interopRequireDefault(_NoDataTitle);
 
 var _fixedTableHeader = __webpack_require__(23);
 
-var _popup = __webpack_require__(70);
+var _popup = __webpack_require__(52);
 
 var _popup2 = _interopRequireDefault(_popup);
 
@@ -6196,6 +6193,26 @@ function createReducer(initialState, handlers) {
         }
     };
 }
+
+/***/ }),
+
+/***/ 52:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _Popup = __webpack_require__(61);
+
+var _Popup2 = _interopRequireDefault(_Popup);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _Popup2.default;
 
 /***/ }),
 
@@ -9420,26 +9437,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 	}
 }());
 
-
-/***/ }),
-
-/***/ 70:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _Popup = __webpack_require__(61);
-
-var _Popup2 = _interopRequireDefault(_Popup);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = _Popup2.default;
 
 /***/ }),
 
