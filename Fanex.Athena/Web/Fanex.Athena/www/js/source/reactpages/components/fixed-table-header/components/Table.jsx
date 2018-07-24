@@ -191,6 +191,12 @@ class Table extends Component {
         return newColumnsWidth;
     }
 
+    _onPaging = (index, pageSize) => {
+        const { onPaging } = this.props;
+        this.bodyWrapper.scrollTop = 0;
+        onPaging && onPaging(index, pageSize);
+    }
+
     render() {
         const { width, autoWidth, minWidth, header, body, footer, isPaging, pageOption, onPaging } = this.props;
         const maxWidth = this.state.maxWidth;
@@ -236,7 +242,7 @@ class Table extends Component {
                 </div>
                 {
                     isPaging && pageOption &&
-                    <Pager pageOption={pageOption} onPaging={onPaging} />
+                    <Pager pageOption={pageOption} onPaging={this._onPaging} />
                 }
             </div>
         )
