@@ -860,4 +860,7 @@ th.sortable {
   th.sortable .desc {
     border-top: 5px solid; }
 
+.table {
+  line-height: inherit; }
+
 /*# sourceMappingURL=index.css.map*/
