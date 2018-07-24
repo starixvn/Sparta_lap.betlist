@@ -179,72 +179,66 @@
             });
         }
 
-        [Test]
-        public void AddFooter_ShowSumStake_AddSumStakeCell()
+        [TestCase(45698, "45,698.00")]
+        [TestCase(0, "0.00")]
+        [TestCase(-654321.123, "-654,321.12")]
+        public void AddFooter_ShowSumStake_AddSumStakeCell(decimal original, string expected)
         {
             // Arrange
-            decimal? sumStake = null;
-            const decimal SumWinLoss = 23.23m;
-            const decimal SumLicenseeWL = 34.34m;
             var lastRow = FakeHelper.Create<int>();
             _builder.LastContentRow.Returns(lastRow);
             _excelBuilder.InitializeFonts();
 
             // Action
-            _excelBuilder.AddFooter(sumStake, SumWinLoss, SumLicenseeWL);
+            _excelBuilder.AddFooter(original, null, null);
 
             // Assert
             Assert.Multiple(() =>
             {
-                _builder.Received(NumberOfColumns - ColumnTotalStart - 2).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == string.Empty), Arg.Any<ICellStyle>());
-                _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == SumWinLoss.ToString(FormatKey.DecimalFormat)), Arg.Any<ICellStyle>());
-                _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == SumLicenseeWL.ToString(FormatKey.DecimalFormat)), Arg.Any<ICellStyle>());
+                _builder.Received(NumberOfColumns - ColumnTotalStart - 1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == string.Empty), Arg.Any<ICellStyle>());
+                _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == expected), Arg.Any<ICellStyle>());
             });
         }
 
-        [Test]
-        public void AddFooter_ShowSumWinLoss_AddSumWinLossCell()
+        [TestCase(0.996, "1.00")]
+        [TestCase(0, "0.00")]
+        [TestCase(-0.99, "-0.99")]
+        public void AddFooter_ShowSumWinLoss_AddSumWinLossCell(decimal original, string expected)
         {
             // Arrange
-            decimal? sumWinLoss = null;
-            const decimal SumStake = 23.23m;
-            const decimal SumLicenseeWL = 34.34m;
             var lastRow = FakeHelper.Create<int>();
             _builder.LastContentRow.Returns(lastRow);
             _excelBuilder.InitializeFonts();
 
             // Action
-            _excelBuilder.AddFooter(SumStake, sumWinLoss, SumLicenseeWL);
+            _excelBuilder.AddFooter(null, original, null);
 
             // Assert
             Assert.Multiple(() =>
             {
-                _builder.Received(NumberOfColumns - ColumnTotalStart - 2).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == string.Empty), Arg.Any<ICellStyle>());
-                _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == SumStake.ToString(FormatKey.DecimalFormat)), Arg.Any<ICellStyle>());
-                _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == SumLicenseeWL.ToString(FormatKey.DecimalFormat)), Arg.Any<ICellStyle>());
+                _builder.Received(NumberOfColumns - ColumnTotalStart - 1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == string.Empty), Arg.Any<ICellStyle>());
+                _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == expected), Arg.Any<ICellStyle>());
             });
         }
 
-        [Test]
-        public void AddFooter_ShowSumLicenseeWL_AddSumLicenseeWLCell()
+        [TestCase(12.345, "12.35")]
+        [TestCase(0, "0.00")]
+        [TestCase(-654321, "-654,321.00")]
+        public void AddFooter_ShowSumLicenseeWL_AddSumLicenseeWLCell(decimal original, string expected)
         {
             // Arrange
-            decimal? sumLicenseeWL = null;
-            const decimal SumStake = 23.23m;
-            const decimal SumWinLoss = 34.34m;
             var lastRow = FakeHelper.Create<int>();
             _builder.LastContentRow.Returns(lastRow);
             _excelBuilder.InitializeFonts();
 
             // Action
-            _excelBuilder.AddFooter(SumStake, SumWinLoss, sumLicenseeWL);
+            _excelBuilder.AddFooter(null, null, original);
 
             // Assert
             Assert.Multiple(() =>
             {
-                _builder.Received(NumberOfColumns - ColumnTotalStart - 2).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == string.Empty), Arg.Any<ICellStyle>());
-                _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == SumStake.ToString(FormatKey.DecimalFormat)), Arg.Any<ICellStyle>());
-                _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == SumWinLoss.ToString(FormatKey.DecimalFormat)), Arg.Any<ICellStyle>());
+                _builder.Received(NumberOfColumns - ColumnTotalStart - 1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == string.Empty), Arg.Any<ICellStyle>());
+                _builder.Received(1).AddCell(Arg.Is<HSSFRichTextString>(x => x.String == expected), Arg.Any<ICellStyle>());
             });
         }
 

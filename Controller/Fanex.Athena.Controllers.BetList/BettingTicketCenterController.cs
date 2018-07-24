@@ -4,12 +4,15 @@
     using System.Linq;
     using System.Web.Mvc;
     using Constant.DataDomain;
+    using Extension.Utility;
     using Model.BetList.ViewModel;
     using Model.Core.DataDomain;
     using Model.Core.MetaModel.Product;
     using Resources;
     using Service.Core.Common;
     using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
+    using Service.Core.Users.Interfaces;
     using Web.ActionFilter;
 
     [FunctionAuthorization(PermissionKeys.BettingTicketCenter)]
@@ -20,6 +23,21 @@
         public BettingTicketCenterController()
         {
             _productService = new ProductService();
+        }
+
+        public BettingTicketCenterController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
+            IProductService productService)
+        : base(
+            languageService,
+            sessionService,
+            appSetting,
+            clientViewHelper)
+        {
+            _productService = productService;
         }
 
         public ActionResult Index()
