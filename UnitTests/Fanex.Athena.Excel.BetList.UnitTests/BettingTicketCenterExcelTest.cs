@@ -156,9 +156,11 @@ namespace Fanex.Athena.Excel.BetList.UnitTests
             _builder.Received(1).AssignRowData(model.Data, model.Data.MainTicketList[0], model.CustomerCommVisible, model.LicenseeId);
         }
 
-        [TestCase(false, false, false)]
-        [TestCase(true, true, true)]
-        public void AddFooter_WhenCall_CallRelevantMethods(bool isShowSumStake, bool isShowSumWL, bool isShowSumLicenseeWL)
+        [TestCase(false, false, false, false)]
+        [TestCase(false, true, false, false)]
+        [TestCase(false, false, true, false)]
+        [TestCase(true, true, true, true)]
+        public void AddFooter_WhenCall_CallRelevantMethods(bool isShowSumStake, bool isShowSumWL, bool isShowPlayerComm, bool isShowSumLicenseeWL)
         {
             // Arrange
             const decimal SumPlayerComm = 0.12m;
@@ -171,6 +173,7 @@ namespace Fanex.Athena.Excel.BetList.UnitTests
                 ShowSumStake = isShowSumStake,
                 ShowWinLoss = isShowSumWL,
                 ShowLicenseeWl = isShowSumLicenseeWL,
+                CustomerCommVisible = isShowPlayerComm,
                 Data = new TicketResult
                 {
                     SumStake = sumStake,
@@ -181,14 +184,15 @@ namespace Fanex.Athena.Excel.BetList.UnitTests
                 }
             };
             var expectedSumStake = isShowSumStake ? (decimal?)sumStake : null;
-            var expectedSumWL = isShowSumWL ? (decimal?)(sumWL + SumPlayerComm) : null;
+            var expectedSumWL = isShowSumWL ? (decimal?)sumWL : null;
+            var expectedSumPlayerComm = isShowSumWL && isShowPlayerComm ? (decimal?)SumPlayerComm : null;
             var expectedSumLicenseeWL = isShowSumLicenseeWL ? (decimal?)(sumLicenseeWL + SumComm) : null;
 
             // Action
             _excel.AddFooter(model);
 
             // Assert
-            _builder.Received(1).AddFooter(expectedSumStake, expectedSumWL, expectedSumLicenseeWL);
+            _builder.Received(1).AddFooter(expectedSumStake, expectedSumWL, expectedSumPlayerComm, expectedSumLicenseeWL);
         }
     }
 }

@@ -120,7 +120,7 @@ namespace Fanex.Athena.Excel.BetList.Builders
             }
         }
 
-        public void AddFooter(decimal? sumStake, decimal? sumWinLoss, decimal? sumLicenseeWL)
+        public void AddFooter(decimal? sumStake, decimal? sumWinLoss, decimal? sumPlayerComm, decimal? sumLicenseeWL)
         {
             var footerStyle = _builder.CreateFooterCellStyle();
 
@@ -134,9 +134,12 @@ namespace Fanex.Athena.Excel.BetList.Builders
                 new HSSFRichTextString(sumStake.HasValue ? sumStake.Value.ToString(FormatKey.DecimalFormat) : string.Empty),
                 footerStyle);
 
-            _builder.AddCell(
-                new HSSFRichTextString(sumWinLoss.HasValue ? sumWinLoss.Value.ToString(FormatKey.DecimalFormat) : string.Empty),
-                footerStyle);
+            var sumWinLossString = sumWinLoss.HasValue 
+                ? (sumPlayerComm.HasValue
+                    ? string.Format("{0:#,##0.00}\n{1:#,##0.00}", sumWinLoss.Value, sumPlayerComm.Value)
+                    : string.Format("{0:#,##0.00}", sumWinLoss.Value))
+                : string.Empty;
+            _builder.AddCell(new HSSFRichTextString(sumWinLossString), footerStyle);
 
             if (sumLicenseeWL.HasValue)
             {

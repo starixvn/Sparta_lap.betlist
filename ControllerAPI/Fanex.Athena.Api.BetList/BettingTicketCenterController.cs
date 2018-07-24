@@ -232,7 +232,7 @@
         {
             var date = metaModel.FromDate == DateTime.MinValue
                 ? string.Empty
-                : ", " + metaModel.FromDate.ToString(FormatKey.ShortDateFormat) + "-->" + metaModel.ToDate.ToString(FormatKey.ShortDateFormat);
+                : ", " + metaModel.FromDate.ToString(FormatKey.DateFormat) + "-->" + metaModel.ToDate.ToString(FormatKey.DateFormat);
             var currency = string.IsNullOrWhiteSpace(metaModel.CurrencyName) ? string.Empty : ", " + ViewResources.Currency + ": " + metaModel.CurrencyName;
             var baseCurrency = string.IsNullOrWhiteSpace(metaModel.BaseCurrency)
                 ? string.Empty

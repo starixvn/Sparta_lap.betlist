@@ -78,10 +78,11 @@
         protected internal virtual void AddFooter(BettingTicketCenterExcelModel excelModel)
         {
             var sumStake = excelModel.ShowSumStake ? excelModel.Data.SumStake : (decimal?)null;
-            var sumWinLoss = excelModel.ShowWinLoss ? (excelModel.Data.SumWinLoss + excelModel.Data.SumPlayerComm) : (decimal?)null;
+            var sumWinLoss = excelModel.ShowWinLoss ? excelModel.Data.SumWinLoss : (decimal?)null;
+            var sumPlayerComm = excelModel.ShowWinLoss && excelModel.CustomerCommVisible ? excelModel.Data.SumPlayerComm : (decimal?)null;
             var sumLicenseeWL = excelModel.ShowLicenseeWl ? (excelModel.Data.SumLicenseeWL + excelModel.Data.SumComm) : (decimal?)null;
 
-            _builder.AddFooter(sumStake, sumWinLoss, sumLicenseeWL);
+            _builder.AddFooter(sumStake, sumWinLoss, sumPlayerComm, sumLicenseeWL);
         }
     }
 }
