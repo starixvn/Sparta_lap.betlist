@@ -2255,7 +2255,7 @@ var Table = function (_Component) {
                         footer
                     )
                 ),
-                isPaging && pageOption && _react2.default.createElement(_Pager2.default, { pageOption: pageOption, onPaging: onPaging })
+                isPaging && pageOption && _react2.default.createElement(_Pager2.default, { pageOption: pageOption, onPaging: this._onPaging })
             );
         }
     }, {
@@ -2315,6 +2315,13 @@ var _initialiseProps = function _initialiseProps() {
         if (_this4.state.maxWidth !== maxWidth) {
             _this4.setState({ maxWidth: maxWidth });
         }
+    };
+
+    this._onPaging = function (index, pageSize) {
+        var onPaging = _this4.props.onPaging;
+
+        _this4.bodyWrapper.scrollTop = 0;
+        onPaging && onPaging(index, pageSize);
     };
 };
 
@@ -14399,7 +14406,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                 return;
             }
 
-            _this.props.setReportTitle(_Service2.default.getTitle(params.FromDate, params.ToDate, null, params.IsConvertAll ? params.BaseCurrency : null));
+            _this.props.setReportTitle(_Service2.default.getTitle(params.FromDate, params.ToDate, null, params.BaseCurrency));
             _this.props.setRequestParam(params);
             _this.props.toggleLoader(true);
             _this.props.getGridData(_apiUrl2.default.SINGLECUSTOMER_DATA_URL, params);
@@ -14458,7 +14465,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                 ToDate: _site2.default.convertDateToString(toDate),
                 ProductCodeList: this.props.selectedProduct,
                 Username: this.props.username,
-                BaseCurrency: this.props.selectedBaseCurrency,
+                BaseCurrency: this.props.isConvertAll ? this.props.selectedBaseCurrency : '',
                 IsConvertAll: this.props.isConvertAll,
                 Status: this.props.selectedStatus,
                 LiveStatus: this.props.selectedLiveStatus,

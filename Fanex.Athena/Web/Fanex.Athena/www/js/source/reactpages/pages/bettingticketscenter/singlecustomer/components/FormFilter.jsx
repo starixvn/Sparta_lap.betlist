@@ -32,7 +32,7 @@ export class FormFilter extends Component {
             return;
         }
 
-        this.props.setReportTitle(Service.getTitle(params.FromDate, params.ToDate, null, params.IsConvertAll ? params.BaseCurrency : null));
+        this.props.setReportTitle(Service.getTitle(params.FromDate, params.ToDate, null, params.BaseCurrency));
         this.props.setRequestParam(params);
         this.props.toggleLoader(true);
         this.props.getGridData(ApiUrl.SINGLECUSTOMER_DATA_URL, params);
@@ -53,7 +53,7 @@ export class FormFilter extends Component {
             ToDate: Site.convertDateToString(toDate),
             ProductCodeList: this.props.selectedProduct,
             Username: this.props.username,
-            BaseCurrency: this.props.selectedBaseCurrency,
+            BaseCurrency: this.props.isConvertAll ? this.props.selectedBaseCurrency : '',
             IsConvertAll: this.props.isConvertAll,
             Status: this.props.selectedStatus,
             LiveStatus: this.props.selectedLiveStatus,

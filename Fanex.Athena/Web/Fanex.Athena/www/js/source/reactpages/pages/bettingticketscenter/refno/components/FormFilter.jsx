@@ -30,7 +30,7 @@ export class FormFilter extends Component {
             return;
         }
 
-        this.props.setReportTitle(Service.getTitle(null, null, null, params.IsConvertAll ? params.BaseCurrency : null));
+        this.props.setReportTitle(Service.getTitle(null, null, null, params.BaseCurrency));
         this.props.setRequestParam(params);
         this.props.toggleLoader(true);
         this.props.getGridData(ApiUrl.REFNO_DATA_URL, params);
@@ -65,7 +65,7 @@ export class FormFilter extends Component {
             PageIndex: 1,
             Refno: this.props.refno,
             Username: this.props.username,
-            BaseCurrency: this.props.selectedBaseCurrency,
+            BaseCurrency: this.props.isConvertAll ? this.props.selectedBaseCurrency : '',
             IsConvertAll: this.props.isConvertAll,
             SortBy: SortBy,
             SortOrder: SortOrder

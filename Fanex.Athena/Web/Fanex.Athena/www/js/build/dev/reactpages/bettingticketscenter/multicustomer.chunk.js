@@ -2255,7 +2255,7 @@ var Table = function (_Component) {
                         footer
                     )
                 ),
-                isPaging && pageOption && _react2.default.createElement(_Pager2.default, { pageOption: pageOption, onPaging: onPaging })
+                isPaging && pageOption && _react2.default.createElement(_Pager2.default, { pageOption: pageOption, onPaging: this._onPaging })
             );
         }
     }, {
@@ -2315,6 +2315,13 @@ var _initialiseProps = function _initialiseProps() {
         if (_this4.state.maxWidth !== maxWidth) {
             _this4.setState({ maxWidth: maxWidth });
         }
+    };
+
+    this._onPaging = function (index, pageSize) {
+        var onPaging = _this4.props.onPaging;
+
+        _this4.bodyWrapper.scrollTop = 0;
+        onPaging && onPaging(index, pageSize);
     };
 };
 
