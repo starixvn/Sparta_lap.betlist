@@ -2037,6 +2037,15 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+function scrollToTop(element, scrollDuration) {
+    var scrollStep = -element.scrollTop / (scrollDuration / 15),
+        scrollInterval = setInterval(function () {
+        if (element.scrollTop != 0) {
+            element.scrollBy(0, scrollStep);
+        } else clearInterval(scrollInterval);
+    }, 15);
+}
+
 function debounce(func, wait) {
     var timeout = void 0;
     return function () {
@@ -2320,8 +2329,8 @@ var _initialiseProps = function _initialiseProps() {
     this._onPaging = function (index, pageSize) {
         var onPaging = _this4.props.onPaging;
 
-        _this4.bodyWrapper.scrollTop = 0;
         onPaging && onPaging(index, pageSize);
+        scrollToTop(_this4.bodyWrapper, 200);
     };
 };
 
