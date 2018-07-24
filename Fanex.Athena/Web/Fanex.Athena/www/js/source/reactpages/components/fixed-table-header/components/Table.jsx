@@ -6,6 +6,16 @@ import createTableSection from './tableSection';
 import { MAX_WIDTH, DEFAULT_MILLISECOND_FOR_WAITING, DEFAULT_COLUMN_WIDTH, BODY_WIDTH, SCROLLBAR_WIDTH } from '../constants';
 import Pager from './Pager';
 
+function scrollToTop(element, scrollDuration) {
+    var scrollStep = -element.scrollTop / (scrollDuration / 15),
+        scrollInterval = setInterval(function(){
+            if ( element.scrollTop != 0 ) {
+                element.scrollBy( 0, scrollStep );
+            }
+            else clearInterval(scrollInterval); 
+        },15);
+}
+
 function debounce(func, wait) {
     let timeout;
     return function () {
@@ -193,8 +203,8 @@ class Table extends Component {
 
     _onPaging = (index, pageSize) => {
         const { onPaging } = this.props;
-        this.bodyWrapper.scrollTop = 0;
         onPaging && onPaging(index, pageSize);
+        scrollToTop(this.bodyWrapper, 200);
     }
 
     render() {
