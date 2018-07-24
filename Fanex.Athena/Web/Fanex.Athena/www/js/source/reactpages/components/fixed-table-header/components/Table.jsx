@@ -163,6 +163,10 @@ class Table extends Component {
         {
             this.setState({columnsWidth: this._getColumnsWidth(this.props.header)});
         }
+
+        if(prevProps.body != this.props.body){
+            scrollToTop(this.bodyWrapper, 200);
+        }
     }
 
     _handleResize = (event) => {
@@ -200,13 +204,6 @@ class Table extends Component {
 
         return newColumnsWidth;
     }
-
-    _onPaging = (index, pageSize) => {
-        const { onPaging } = this.props;
-        onPaging && onPaging(index, pageSize);
-        scrollToTop(this.bodyWrapper, 200);
-    }
-
     render() {
         const { width, autoWidth, minWidth, header, body, footer, isPaging, pageOption, onPaging } = this.props;
         const maxWidth = this.state.maxWidth;
@@ -233,30 +230,28 @@ class Table extends Component {
                         {rowLayout}
                         {header}
                     </Header>
-
                     {
                         body &&
                         <Body {...sectionProps} maxHeight={this.state.contentHeight}>
-                            {rowLayout}
-                            {body}
+                        {rowLayout}
+                        {body}
                         </Body>
                     }
-
                     {
                         footer &&
                         <Footer {...sectionProps}>
-                            {rowLayout}
-                            {footer}
+                        {rowLayout}
+                        {footer}
                         </Footer>
                     }
                 </div>
-                {
+                    {
                     isPaging && pageOption &&
-                    <Pager pageOption={pageOption} onPaging={this._onPaging} />
-                }
+                    <Pager pageOption={pageOption} onPaging={onPaging} />
+                    }
             </div>
         )
-    }
+}
 }
 
 export default Table;

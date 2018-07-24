@@ -1,61 +1,24 @@
 ﻿import React, { Component } from 'react'
-import axios from 'axios'
 
 import { Table, Row, Cell } from '@jsroot/components/fixed-table-header'
 import ReportTitle from '@jsroot/components/ReportTitle'
 import Popup from '@jsroot/components/popup'
 import LangHelper from '@jsroot/lib/langHelper'
 import NoDataTitle from '@jsroot/components/NoDataTitle'
-import BetList from '../lib/BetList'
-import Service from '../lib/Service'
 
 const DEFAULT_PAGE_SIZE = 50;
 
 export default class BaseDataGrid extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            isShowPopup : false,
-            popupUrl: null,
-            popupTitle: null
-        };
     }
 
     componentDidMount() {
         const param = this.props.requestParam;
         param.PageSize = DEFAULT_PAGE_SIZE;
         this.props.setRequestParam(param);
-
-        window.ViewResult = (...args) => {
-            const url = BetList.getResultUrl.apply(BetList, args);
-            this._openPopup(url, LangHelper.getSingleResource("Result"));
-        };
-
-        // expand choice content
-        window.showNewCombMP = (...args) => {
-            this._showNewParlayDetail.apply(this, args);
-        };
-
-        // show detail popup (in choice column)
-        window.showCombMPDetail = (transId, refNo, betId, custId, betTeam, baseCurrency) => {
-            const url = BetList.getParlayDetailUrl(transId, refNo, betId, custId, betTeam, baseCurrency);
-            this._openPopup(url, betTeam);
-        };
-
-        window.ViewCashOutHistory = (transId, refNo, betType, betdaqId) => {
-            const {url, isCashOut } = BetList.getCashOutHistoryPopupSetting(this.props.requestParam.BaseCurrency, transId, refNo, betType, betdaqId);
-            const title = LangHelper.getSingleResource(isCashOut ? "CashOutDetails" : "BoughtDetails");
-            this._openPopup(url, title);
-        }
     }
-
-    componentWillUnmount() {
-        window.ViewResult = undefined;
-        window.showNewCombMP = undefined;
-        window.showCombMPDetail = undefined;
-        window.ViewCashOutHistory = undefined;
-    }
-
+    
     get dataUrl(){
         // This property should be override in child class.
     }
@@ -75,14 +38,6 @@ export default class BaseDataGrid extends Component {
         this.props.setRequestParam(param);
     }
 
-    _openPopup (url, title) {
-        this.setState({ isShowPopup: true, popupUrl: url, popupTitle: title});
-    }
-
-    _closePopup(){
-        this.setState({ isShowPopup: false });
-    }
-
     _sort(sortBy){
         let param = this.props.requestParam;
 
@@ -97,40 +52,12 @@ export default class BaseDataGrid extends Component {
         this._getData(param);
     }
 
-    _showNewParlayDetail (transId, transIndex, refNo, handicap1, handicap2, betcheck, betteam) {
-        let divEvent = document.querySelector('#divEvent_' + transId + "" + transIndex);
-        let nameDiv = document.querySelector('#combinationOfferName_' + transId + transIndex);
-        divEvent.classList.add("mx-parlay"); //to make line-through for void-parlay-ticket
-        
-        if (divEvent.style.display == "none") {
-            let url = BetList.getChoiceParlayDetailUrl(transId, refNo, handicap1, handicap2, betcheck, betteam);
-
-            this.props.toggleLoader(true);
-             axios.get(url)
-                .then((result) => {
-                    
-                    let choice = BetList.buildChoiceParlayDetail(result.data);
-                    divEvent.innerHTML = choice;
-                    divEvent.style.display = 'block';
-                    nameDiv.style.display = 'none';
-                    this.props.toggleLoader(false);
-                }).catch(function (error) {
-                    console.log(error);
-                });
-        }
-        else {
-            divEvent.style.display = 'none';
-            divEvent.innerHTML = "";
-            nameDiv.style.display = 'block';
-        }
-    }
-
     _buildHeader() {
         // This method should be override in child class.
         return [];
     }
 
-    _buildBody() {
+    _buildBody(){
         const data = this.props.gridData.Data;
         let rows = [];
 
@@ -169,7 +96,7 @@ export default class BaseDataGrid extends Component {
     render() {
         if (!this.props.gridData || !this.props.gridData.Data) {
             return null;
-                }
+        }
 
         const { Data } = this.props.gridData;
         
@@ -199,14 +126,6 @@ export default class BaseDataGrid extends Component {
                     pageOption={pageOption}
                     onPaging={this.onPaging}
                 />
-                {this.state.isShowPopup &&
-                <Popup isShow={true} 
-                        iframeUrl={this.state.popupUrl}
-                        title={this.state.popupTitle}
-                        width={900} height={600}
-                        onClose={() => this._closePopup()}
-                        >
-                </Popup>}
             </div>
         );
     }
