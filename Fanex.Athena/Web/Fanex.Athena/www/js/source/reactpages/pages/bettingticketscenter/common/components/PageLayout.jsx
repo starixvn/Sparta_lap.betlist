@@ -1,6 +1,8 @@
 ﻿import React, { Component } from 'react';
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import axios from 'axios'
+import { ActionCreators } from './action.js'
 import AppLayout from '@jsroot/layouts/AppLayout'
 import Loader from '@jsroot/components/Loader'
 import { Tabs, Tab } from '@9softstudio/simple-react-tab'
@@ -57,7 +59,7 @@ export class PageLayout extends Component {
         
         if (divEvent.style.display == "none") {
             let url = BetList.getChoiceParlayDetailUrl(transId, refNo, handicap1, handicap2, betcheck, betteam);
-
+            this.props.toggleLoader(true);
             axios.get(url)
                .then((result) => {
                     
@@ -65,6 +67,7 @@ export class PageLayout extends Component {
                    divEvent.innerHTML = choice;
                    divEvent.style.display = 'block';
                    nameDiv.style.display = 'none';
+                   this.props.toggleLoader(false);
                }).catch(function (error) {
                    console.log(error);
                });
@@ -115,9 +118,13 @@ export class PageLayout extends Component {
     }
 }
 
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(ActionCreators, dispatch);
+};
+
 function mapStateToProps(state) {
     const { requestParam } = state;
     return Object.assign({}, { requestParam } );
 }
 
-export default connect(mapStateToProps)(PageLayout);
+export default connect(mapStateToProps, mapDispatchToProps)(PageLayout);

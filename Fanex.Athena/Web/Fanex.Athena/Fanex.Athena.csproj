@@ -954,6 +954,7 @@
     <Content Include="www\js\source\reactpages\lib\__tests__\QueryString.test.js" />
     <Content Include="www\js\source\reactpages\lib\__tests__\report.test.js" />
     <Content Include="www\js\source\reactpages\lib\__tests__\site.test.js" />
+    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\common\components\action.js" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\common\constants\apiUrl.js" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\common\lib\BetList.js" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\common\lib\Service.js" />
