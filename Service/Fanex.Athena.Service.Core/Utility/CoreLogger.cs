@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Web;
 using System.Web.Script.Serialization;
 using Fanex.Athena.DataAccess.Core.Exception;
 using Fanex.Athena.Service.Core.Utility.Interfaces;
@@ -35,6 +36,7 @@ namespace Fanex.Athena.Service.Core.Utility
             }
 
             var jsonData = new JavaScriptSerializer().Serialize(data);
+
             _logger.Error(jsonData, exception);
         }
 
@@ -65,6 +67,10 @@ namespace Fanex.Athena.Service.Core.Utility
                 dictionary.Add("Licensee", licenseeSession.LicenseeId + "-" + licenseeSession.LicenseeName);
                 dictionary.Add("User", userSession.UserId + "-" + userSession.UserName);
             }
+
+            var request = HttpContext.Current.Request;
+            dictionary.Add("RawUrl", request.RawUrl);
+            dictionary.Add("UrlReferrer", request.UrlReferrer);
 
             return dictionary;
         }
