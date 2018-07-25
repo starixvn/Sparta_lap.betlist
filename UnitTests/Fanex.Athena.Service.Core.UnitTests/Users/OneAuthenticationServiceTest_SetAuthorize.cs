@@ -3,6 +3,7 @@
     using System.Linq;
     using System.Web;
     using Core.Users.Interfaces;
+    using Core.Utility.Interfaces;
     using DataAccess.Core.Users.Interfaces;
     using Extension.Utility.Interfaces;
     using Fanex.Athena.Service.Core.Users;
@@ -33,7 +34,8 @@
                 _sessionService,
                 _licenseeDataAccess,
                 _formAuthenticationService,
-                _oneBookSecurityWrapper);
+                _oneBookSecurityWrapper,
+                Substitute.For<ICoreLogger>());
         }
 
         [TearDown]

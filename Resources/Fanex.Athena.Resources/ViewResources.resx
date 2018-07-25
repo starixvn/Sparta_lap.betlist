@@ -3172,4 +3172,7 @@
     <value>Virtual Soccer World Cup</value>
     <comment>90881</comment>
   </data>
+  <data name="InvalidCurrencyPermission" xml:space="preserve">
+    <value>Invalid currency permissions.</value>
+  </data>
 </root>

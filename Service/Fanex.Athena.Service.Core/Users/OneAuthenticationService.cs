@@ -19,6 +19,8 @@
     using Resources;
     using Session.Enum;
     using Session.Model;
+    using Utility;
+    using Utility.Interfaces;
 
     public class OneAuthenticationService : IOneAuthenticationService
     {
@@ -26,8 +28,9 @@
         private readonly ILicenseeDataAccess _licenseeDataAccess;
         private readonly IFormsAuthenticationService _formsAuthenticationService;
         private readonly IOneBookSecurityWrapper _oneBookSecurityWrapper;
+        private readonly ICoreLogger _logger;
 
-        public OneAuthenticationService() : this(null, null, null, null)
+        public OneAuthenticationService() : this(null, null, null, null, null)
         {
         }
 
@@ -35,12 +38,14 @@
             ISessionService sessionService,
             ILicenseeDataAccess licenseeDataAccess,
             IFormsAuthenticationService formsAuthenticationService,
-            IOneBookSecurityWrapper oneBookSecurityWrapper)
+            IOneBookSecurityWrapper oneBookSecurityWrapper,
+            ICoreLogger logger)
         {
             _sessionService = sessionService ?? new SessionService();
             _licenseeDataAccess = licenseeDataAccess ?? new LicenseeDataAccess();
             _formsAuthenticationService = formsAuthenticationService ?? new FormsAuthenticationService();
             _oneBookSecurityWrapper = oneBookSecurityWrapper ?? new OneBookSecurityWrapper();
+            _logger = logger ?? new CoreLogger();
         }
 
         protected internal virtual string GetStringFromFile(string path)
@@ -64,13 +69,10 @@
             }
 
             var currencyList = GetCurrencyList(tokenInfo);
-            if (currencyList == null || !currencyList.Any())
+            var result = ValidateCurrencyList(currencyList);
+            if (!result.IsSuccessful)
             {
-                return new ResultInfo
-                {
-                    Code = OneAuthorizationErrorCode.UserNotHaveCurrency,
-                    Message = ViewResources.UserNotHaveCurrency
-                };
+                return result;
             }
 
             var userSession = _sessionService.UserSession;
@@ -130,6 +132,36 @@
             {
                 ExtendedData = tokenInfo.ActionLink
             };
+        }
+
+        protected internal virtual IResultInfo ValidateCurrencyList(IEnumerable<CurrencyUser> currencyList)
+        {
+            if (currencyList == null || !currencyList.Any())
+            {
+                return new ResultInfo
+                {
+                    Code = OneAuthorizationErrorCode.UserNotHaveCurrency,
+                    Message = ViewResources.UserNotHaveCurrency
+                };
+            }
+
+            foreach (var currency in currencyList)
+            {
+                var duplicateAgents = currency.AgentIdList.GroupBy(x => x).Where(x => x.Count() > 1).Select(x => x.Key).ToList();
+                if (duplicateAgents.Any())
+                {
+                    _logger.Error($"Duplicate agentid in currency permissions: currency ({currency.CurrencyId}-{currency.CurrencyName})" +
+                        $", duplicate agents ({string.Join(",", duplicateAgents)})");
+
+                    return new ResultInfo
+                    {
+                        Code = OneAuthorizationErrorCode.InvalidCurrencyPermission,
+                        Message = ViewResources.InvalidCurrencyPermission
+                    };
+                }
+            }
+
+            return new ResultInfo { Code = 0 };
         }
 
         private void UpdateUserSession(UserSession userSession, OneAuthToken tokenInfo, int licenseeId, IEnumerable<CurrencyUser> currencyList, string language)

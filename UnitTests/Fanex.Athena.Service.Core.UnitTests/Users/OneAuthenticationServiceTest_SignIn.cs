@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Web;
     using Core.Users.Interfaces;
+    using Core.Utility.Interfaces;
     using DataAccess.Core.Users.Interfaces;
     using Extension.Utility.Interfaces;
     using Fanex.Athena.Service.Core.Users;
@@ -28,6 +29,7 @@
         private ILicenseeDataAccess _licenseeDataAccess;
         private IFormsAuthenticationService _formAuthenticationService;
         private IOneBookSecurityWrapper _oneBookSecurityWrapper;
+        private ICoreLogger _logger;
 
         [SetUp]
         public void SetUp()
@@ -36,12 +38,14 @@
             _licenseeDataAccess = Substitute.For<ILicenseeDataAccess>();
             _formAuthenticationService = Substitute.For<IFormsAuthenticationService>();
             _oneBookSecurityWrapper = Substitute.For<IOneBookSecurityWrapper>();
+            _logger = Substitute.For<ICoreLogger>();
 
             _oneAuthenticationService = Substitute.ForPartsOf<OneAuthenticationService>(
                 _sessionService,
                 _licenseeDataAccess,
                 _formAuthenticationService,
-                _oneBookSecurityWrapper);
+                _oneBookSecurityWrapper,
+                _logger);
         }
 
         [TearDown]
@@ -78,7 +82,7 @@
         }
 
         [Test]
-        public void SignIn_CurrencyListIsNull_ReturnCorrectErrorResultInfo()
+        public void SignIn_InvalidCurrencyList_ReturnCorrectErrorResultInfo()
         {
             // Arrange
             var tokenInfo = new OneAuthToken
@@ -96,35 +100,8 @@
                 Message = ViewResources.UserNotHaveCurrency
             };
 
-            // Action
-            var result = _oneAuthenticationService.SignIn(Arg.Any<HttpContextBase>(), tokenInfo);
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(result.Code, Is.EqualTo(expectedResult.Code));
-                Assert.That(result.Message, Is.EqualTo(expectedResult.Message));
-            });
-        }
-
-        [Test]
-        public void SignIn_CurrencyListIsEmpty_ReturnCorrectErrorResultInfo()
-        {
-            // Arrange
-            var tokenInfo = new OneAuthToken
-            {
-                SiteName = FakeHelper.Create<string>(),
-                Currency = new OneAuthCurrency[0]
-            };
-
-            var licensee = FakeHelper.Create<Licensee>();
-            _licenseeDataAccess.GetLicenseeByName(tokenInfo.SiteName).Returns(licensee);
-
-            var expectedResult = new ResultInfo
-            {
-                Code = OneAuthorizationErrorCode.UserNotHaveCurrency,
-                Message = ViewResources.UserNotHaveCurrency
-            };
+            _oneAuthenticationService.When(x => x.ValidateCurrencyList(Arg.Any<IEnumerable<CurrencyUser>>())).DoNotCallBase();
+            _oneAuthenticationService.ValidateCurrencyList(Arg.Any<IEnumerable<CurrencyUser>>()).Returns(expectedResult);
 
             // Action
             var result = _oneAuthenticationService.SignIn(Arg.Any<HttpContextBase>(), tokenInfo);
@@ -506,6 +483,49 @@
                         x => string.Join(",", x.PortalFunctionList) == string.Join(",", expected.Select(y => y.FunctionKey))),
                     licensee.Id,
                     Arg.Any<IEnumerable<CurrencyUser>>());
+            });
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ValidateCurrencyList_CurrencyListIsNullOrEmpty_ReturnErrorResultInfo(bool isNull)
+        {
+            // Arrange
+            var currencyList = isNull ? null : new List<CurrencyUser>();
+
+            // Action
+            var result = _oneAuthenticationService.ValidateCurrencyList(currencyList);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Code, Is.EqualTo(OneAuthorizationErrorCode.UserNotHaveCurrency));
+                Assert.That(result.Message, Is.EqualTo(ViewResources.UserNotHaveCurrency));
+            });
+        }
+
+        [Test]
+        public void ValidateCurrencyList_CurrencyListHasDuplicateAgent_ReturnErrorResultInfo()
+        {
+            // Arrange
+            var currency = new CurrencyUser
+            {
+                CurrencyId = 888,
+                CurrencyName = "ABCD",
+                AgentIdList = new[] { 12, 34, 56, 78, 34 }
+            };
+            var currencyList = new[] { currency };
+
+            // Action
+            var result = _oneAuthenticationService.ValidateCurrencyList(currencyList);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                _logger.Received(1).Error($"Duplicate agentid in currency permissions: currency ({currency.CurrencyId}-{currency.CurrencyName})" +
+                        $", duplicate agents (34)");
+                Assert.That(result.Code, Is.EqualTo(OneAuthorizationErrorCode.InvalidCurrencyPermission));
+                Assert.That(result.Message, Is.EqualTo(ViewResources.InvalidCurrencyPermission));
             });
         }
 
