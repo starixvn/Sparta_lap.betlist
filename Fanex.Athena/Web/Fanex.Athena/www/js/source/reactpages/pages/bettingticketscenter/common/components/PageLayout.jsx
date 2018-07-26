@@ -61,8 +61,7 @@ export class PageLayout extends Component {
             let url = BetList.getChoiceParlayDetailUrl(transId, refNo, handicap1, handicap2, betcheck, betteam);
             this.props.toggleLoader(true);
             axios.get(url)
-               .then((result) => {
-                    
+               .then((result) => {               
                    let choice = BetList.buildChoiceParlayDetail(result.data);
                    divEvent.innerHTML = choice;
                    divEvent.style.display = 'block';

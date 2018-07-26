@@ -4,7 +4,8 @@ import axios from 'axios'
 import { PageLayout } from '../PageLayout';
 import BetList from '../../lib/BetList';
 
-const DefaultProps = { 
+const DefaultProps = {
+    requestParam: { BaseCurrency: 'USD' }
 };
 describe('PageLayout methods ', () => {
     
@@ -76,6 +77,41 @@ describe('PageLayout methods ', () => {
         expect(BetList.getParlayDetailUrl).toHaveBeenCalledWith(1,2,3,4,expectedPopupTitle,6);
         expect(pageLayout.setState).toHaveBeenCalledWith({ isShowPopup: true, popupUrl: expectedResultUrl, popupTitle: expectedPopupTitle});
     });
+
+    describe('window.ViewCashOutHistory()', () => {
+        it('is cash out - Call Betlist and setState correctly',() =>{
+            const expectedResultUrl = "www.CashOutHistory.com";
+            const expectedCashOutPopupTitle = "CashOutDetails";
+
+            BetList.getCashOutHistoryPopupSetting = jest.fn(() => { return { url: expectedResultUrl, isCashOut: true }; });
+
+            const pageLayout = new PageLayout(DefaultProps);
+            pageLayout.setState = jest.fn();
+            pageLayout.componentDidMount();
+
+            window.ViewCashOutHistory(1,2,3,4);
+
+            expect(BetList.getCashOutHistoryPopupSetting).toHaveBeenCalledWith(DefaultProps.requestParam.BaseCurrency,1,2,3,4);
+            expect(pageLayout.setState).toHaveBeenCalledWith({ isShowPopup: true, popupUrl: expectedResultUrl, popupTitle: expectedCashOutPopupTitle});
+        });
+    
+        it('is not cash out - Call Betlist and setState correctly',() =>{
+            const expectedResultUrl = "www.CashOutHistory.com";
+            const expectedBoughtPopupTitle = "BoughtDetails";
+
+            BetList.getCashOutHistoryPopupSetting = jest.fn(() => { return { url: expectedResultUrl, isCashOut: false }; });
+
+            const pageLayout = new PageLayout(DefaultProps);
+            pageLayout.setState = jest.fn();
+            pageLayout.componentDidMount();
+
+            window.ViewCashOutHistory(1,2,3,4);
+
+            expect(BetList.getCashOutHistoryPopupSetting).toHaveBeenCalledWith(DefaultProps.requestParam.BaseCurrency,1,2,3,4);
+            expect(pageLayout.setState).toHaveBeenCalledWith({ isShowPopup: true, popupUrl: expectedResultUrl, popupTitle: expectedBoughtPopupTitle});
+        });
+    });    
+
     describe('_showNewParlayDetail()', () => {
         const transId = "abc";
         const transIndex = 999;
@@ -90,6 +126,13 @@ describe('PageLayout methods ', () => {
 
         const pageLayout = new PageLayout({toggleLoader: jest.fn()});
         
+        beforeAll(() =>{
+            jest.mock('axios');
+        });
+
+        afterEach(() => {
+            jest.resetAllMocks();
+        });
 
         it('Assign class .mx-parlay to divEvent',() =>{
             pageLayout._showNewParlayDetail(transId, transIndex, refNo, handicap1, handicap2, betcheck, betteam);
@@ -97,15 +140,30 @@ describe('PageLayout methods ', () => {
             expect(divEvent.classList.toString()).toBe('mx-parlay');
         });
 
-        it('divEvent is hidden - get choice from server and append to divEvent',(done) =>{
-            const expectedParlayDetailUrl = "www.alskdlf.com";
+        it('divEvent is hidden - get choice from server fail - log error',(done) =>{
             divEvent.style.display = "none";
 
-            BetList.getChoiceParlayDetailUrl = jest.fn(() => expectedParlayDetailUrl);
+            const promise = Promise.reject("error");
+            axios.get = jest.fn((url, option) => promise);
+
+            pageLayout._showNewParlayDetail(transId, transIndex, refNo, handicap1, handicap2, betcheck, betteam);
+
+            Promise.reject().catch(() => {
+                expect(pageLayout.props.toggleLoader).not.toHaveBeenCalledWith(false);
+                done();
+            });
+        });
+
+        it('divEvent is hidden - get choice from server and append to divEvent',(done) =>{
+            divEvent.style.display = "none";
+            const expectedParlayDetailUrl = "www.alskdlf.com";
+
             const promise = Promise.resolve({
                 data: '<div>KimJongUn</div>'
             });
             axios.get = jest.fn((url, option) => promise);
+
+            BetList.getChoiceParlayDetailUrl = jest.fn(() => expectedParlayDetailUrl);
             BetList.buildChoiceParlayDetail = jest.fn(() => "abc");
 
             pageLayout._showNewParlayDetail(transId, transIndex, refNo, handicap1, handicap2, betcheck, betteam);

@@ -66,7 +66,7 @@ describe("BetList", function () {
 
         it("response has no data - return empty string", function () {
             const response = {
-                Data: [],
+                Data: null,
                 Texts: ["abc", "def"]
             };
             const result = BetList.buildChoiceParlayDetail(response);
@@ -78,6 +78,23 @@ describe("BetList", function () {
         it("should return an url with correct parameters", function () {
             const result = BetList.getParlayDetailUrl(1, 2, 3, 4, 5, 6);
             expect(result).toBe('SystemParlayBetList/Detail?refno=2&betteam=5&basecurrency=6');
+        });
+
+        it("transId is 0 - should return nothing", function () {
+            const result = BetList.getParlayDetailUrl(0, 2, 3, 4, 5, 6);
+            expect(result).toBe(undefined);
+        });
+    });
+
+    describe("getCashOutHistoryPopupSetting(baseCurrency, transId, refNo, betType, betdaqId)", function () {
+        it("is cash out bet type - should return an url with correct parameters", function () {
+            const result = BetList.getCashOutHistoryPopupSetting('USD', 1, 2, 911, 0);
+            expect(result).toEqual({ url: 'CashOutBetList/Detail?transid=1&refno=2&bettype=911&betdaqid=0&basecurrency=USD&iscashout=true', isCashOut: true });
+        });
+
+        it("is not cash out bet type - should return an url with correct parameters", function () {
+            const result = BetList.getCashOutHistoryPopupSetting('USD', 1, 2, 3, 1);
+            expect(result).toEqual({ url: 'CashOutBetList/Detail?transid=1&refno=2&bettype=3&betdaqid=1&basecurrency=USD&iscashout=false', isCashOut: false });
         });
     });
 });

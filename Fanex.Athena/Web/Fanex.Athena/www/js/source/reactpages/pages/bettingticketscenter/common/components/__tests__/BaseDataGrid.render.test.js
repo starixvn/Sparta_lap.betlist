@@ -3,6 +3,7 @@ import BaseDataGrid from '../BaseDataGrid';
 import renderer from 'react-test-renderer';
 import LangHelper from '@jsroot/lib/langHelper';
 import AppData from '@jsroot/lib/AppData';
+import { Row, Cell } from '@jsroot/components/fixed-table-header'
 
 jest.mock('@jsroot/lib/AppData');
 
@@ -28,36 +29,53 @@ describe('Render grid', () => {
     });
 
     describe('Has data', () => {
-    const dataItem = {
-        Index: 1,
-        Platform: "Asia",
-        ExternalId: 'ExternalId',
-        SystemId: 'SystemId',
-        TransTime: "123",
-        Choice: 'Choice1',
-        Odds: 1.11,
-        Stake: 1234,
-        WinLoss: 456.34,
-        LicenseeWL: 5.3,
-        Status: 'Dead',
-        Live: 'No'
-    };
-
-    let gridData = { Data: [dataItem] };
-    it('grid data should be rendered correctly',() => {
-        const props = { 
-            isAllowedCustomerComm: false,
-            gridData: gridData,
-            requestParam: { }
+        const dataItem = {
+            Index: 1,
+            Platform: "Asia",
+            ExternalId: 'ExternalId',
+            SystemId: 'SystemId',
+            TransTime: "123",
+            Choice: 'Choice1',
+            Odds: 1.11,
+            Stake: 1234,
+            WinLoss: 456.34,
+            LicenseeWL: 5.3,
+            Status: 'Dead',
+            Live: 'No'
         };
 
-        const dataGrid = new BaseDataGrid(props);
+        let gridData = { Data: [dataItem] };
+        it('grid data should be rendered correctly without footer',() => {
+            const props = { 
+                isAllowedCustomerComm: false,
+                gridData: gridData,
+                requestParam: { }
+            };
 
-        const content = dataGrid.render();
+            const dataGrid = new BaseDataGrid(props);
 
-        const result = renderer.create(content).toJSON();
+            const content = dataGrid.render();
 
-        expect(result).toMatchSnapshot();
+            const result = renderer.create(content).toJSON();
+
+            expect(result).toMatchSnapshot();
+        });
+
+        it('grid data should be rendered correctly with footer',() => {
+            const props = { 
+                isAllowedCustomerComm: false,
+                gridData: gridData,
+                requestParam: { }
+            };
+
+            const dataGrid = new BaseDataGrid(props);
+            dataGrid._buildFooter = function() { return [<Row><Cell>footer</Cell></Row>]; };
+
+            const content = dataGrid.render();
+
+            const result = renderer.create(content).toJSON();
+
+            expect(result).toMatchSnapshot();
+        });
     });
-});
 });

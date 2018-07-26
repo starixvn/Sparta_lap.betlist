@@ -1,6 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Render grid Has data grid data should be rendered correctly 1`] = `
+exports[`Render grid Has data grid data should be rendered correctly with footer 1`] = `
+<div
+  className="betlist-container result-content"
+>
+  <div
+    className="report-title-container"
+  >
+    <p
+      className="report-title"
+    />
+  </div>
+</div>
+`;
+
+exports[`Render grid Has data grid data should be rendered correctly without footer 1`] = `
 <div
   className="betlist-container result-content"
 >

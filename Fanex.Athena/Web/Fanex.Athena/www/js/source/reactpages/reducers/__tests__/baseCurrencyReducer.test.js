@@ -14,4 +14,15 @@ describe('baseCurrencyReducer ', () => {
 
         expect(result).toEqual("EUR");
     })
+
+    it("baseCurrencyList", () => {
+        const action = {
+            type: types.SET_BASECURRENCY_LIST,
+            data: ["EUR", "USD"]
+        }
+
+        const result = baseCurrencyReducer["baseCurrencyList"](emptyState, action);
+
+        expect(result).toEqual(action.data);
+    })
 })

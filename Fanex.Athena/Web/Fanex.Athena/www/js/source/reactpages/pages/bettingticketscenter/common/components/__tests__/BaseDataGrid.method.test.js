@@ -64,4 +64,26 @@ describe('BaseDataGrid methods ', () => {
 
         expect(dataGrid._getData).toHaveBeenCalledWith({SortBy: SortBy, SortOrder: 'desc'});
     });
+
+    it('_sort(sortBy) - grid was sorted: call _getData() with correct param', () => { 
+        const SortBy = "stake";
+        const props = { requestParam: { SortBy: 'stake', SortOrder: 'desc' } };
+        const dataGrid = new BaseDataGrid(props);
+        dataGrid._getData = jest.fn();
+
+        dataGrid._sort(SortBy);
+
+        expect(dataGrid._getData).toHaveBeenCalledWith({SortBy: SortBy, SortOrder: 'asc'});
+    });
+
+    it('_sort(sortBy) - grid was sorted: call _getData() with correct param', () => { 
+        const SortBy = "winloss";
+        const props = { requestParam: { SortBy: 'stake', SortOrder: 'desc' } };
+        const dataGrid = new BaseDataGrid(props);
+        dataGrid._getData = jest.fn();
+
+        dataGrid._sort(SortBy);
+
+        expect(dataGrid._getData).toHaveBeenCalledWith({SortBy: SortBy, SortOrder: 'asc'});
+    });
 });
