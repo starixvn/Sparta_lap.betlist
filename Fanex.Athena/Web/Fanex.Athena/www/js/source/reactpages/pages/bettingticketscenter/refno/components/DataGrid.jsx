@@ -29,8 +29,6 @@ export class DataGrid extends BaseDataGrid {
         const licenseeWLText = `${headerText.LicenseeWL}/${headerText.Comm}`;
         const winlossText = AppData.isAllowedCustomerComm ? `${headerText.WinLoss}/${headerText.Comm}` : headerText.WinLoss;
 
-        const { SortBy, SortOrder } = this.props.requestParam;
-
         return (
             <Row style={{ height: 32 }}>
                 <Cell colWidth={40} header={true} title={headerText.Index}>{headerText.Index}</Cell>               
