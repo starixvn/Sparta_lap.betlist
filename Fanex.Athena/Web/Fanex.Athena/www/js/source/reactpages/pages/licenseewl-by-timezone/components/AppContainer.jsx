@@ -1,7 +1,5 @@
 ﻿import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux'
-import { ActionCreators } from '../actions/index'
 import DataGrid from './datagrid'
 import FormFilter from './formFilter'
 import Loader from '@jsroot/components/Loader'
@@ -22,12 +20,9 @@ export class AppContainer extends Component {
     );
   }
 }
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(ActionCreators, dispatch);
-}
 
 function mapStateToProps(state) {
   return Object.assign({}, { isLoading: state.isLoading });
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);
+export default connect(mapStateToProps)(AppContainer);
