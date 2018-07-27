@@ -2,14 +2,50 @@
   cache.set('foo', 'bar');
   cache.get('foo'); //'bar'
 */
-let _cache = {};
 
-export default class Cache {      
-    static get(key, defaultValue = null) {
-        return _cache[key] || defaultValue;
+class Cache {    
+    constructor() {
+        this._cache = {};
+        this._size = 0;
     }
 
-    static set(key, value) {
-        key && (_cache[key] = value);
+    _remove(key){
+        this._size--;
+        delete this._cache[key];
     }
-};
+
+    size(){
+        return this._size;
+    }
+
+    get(key, defaultValue = null) {
+        const data = this._cache[key];
+        if(!data)
+            return defaultValue;
+        return data.value;
+    }
+
+    // @time: timeout in minute
+    set(key, value, time = 1) {
+        if(!key || !time || time < 0)
+        {
+            throw new Error('Invalid params!');
+        }
+
+        this._size++;
+        let data = { value: value };
+        data.timeout = setTimeout(() => this._remove(key), time * 60000);
+        this._cache[key] = data;
+    }
+
+    clear(){
+        for (var key in this._cache) {
+            clearTimeout(this._cache[key].timeout);
+        }
+        this._size = 0;
+        this._cache = {};
+    }
+}
+
+export default new Cache()
+   
