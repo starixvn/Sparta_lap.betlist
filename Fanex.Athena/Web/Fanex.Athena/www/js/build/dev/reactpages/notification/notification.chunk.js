@@ -51,28 +51,6 @@ var MomentFormat = exports.MomentFormat = {
 
 /***/ }),
 
-/***/ 139:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var FETCH_DATA = exports.FETCH_DATA = 'RESULTAMENDMENT_FETCH_DATA';
-var SET_GRID_DATA = exports.SET_GRID_DATA = "RESULTAMENDMENT_SET_GRID_DATA";
-
-var SET_DATE_RANGE = exports.SET_DATE_RANGE = "RESULTAMENDMENT_SET_DATE_RANGE";
-var GET_DATE_CONSTRAINT = exports.GET_DATE_CONSTRAINT = "RESULTAMENDMENT_GET_DATE_CONSTRAINT";
-var CHANGE_CONVERT_ALL = exports.CHANGE_CONVERT_ALL = "RESULTAMENDMENT_CHANGE_CONVERT_ALL";
-
-var SET_PARAM = exports.SET_PARAM = "RESULTAMENDMENT_SET_PARAM";
-
-var GET_LICENSEE_NAME = exports.GET_LICENSEE_NAME = "RESULTAMENDMENT_GET_LICENSEE_NAME";
-
-/***/ }),
-
 /***/ 14:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -647,24 +625,39 @@ exports.default = Calendar;
 
 /***/ }),
 
-/***/ 147:
-/***/ (function(module, exports) {
+/***/ 140:
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = cptable;
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var FETCH_DATA = exports.FETCH_DATA = 'RESULTAMENDMENT_FETCH_DATA';
+var SET_GRID_DATA = exports.SET_GRID_DATA = "RESULTAMENDMENT_SET_GRID_DATA";
+
+var SET_DATE_RANGE = exports.SET_DATE_RANGE = "RESULTAMENDMENT_SET_DATE_RANGE";
+var GET_DATE_CONSTRAINT = exports.GET_DATE_CONSTRAINT = "RESULTAMENDMENT_GET_DATE_CONSTRAINT";
+var CHANGE_CONVERT_ALL = exports.CHANGE_CONVERT_ALL = "RESULTAMENDMENT_CHANGE_CONVERT_ALL";
+
+var SET_PARAM = exports.SET_PARAM = "RESULTAMENDMENT_SET_PARAM";
+
+var GET_LICENSEE_NAME = exports.GET_LICENSEE_NAME = "RESULTAMENDMENT_GET_LICENSEE_NAME";
 
 /***/ }),
 
 /***/ 148:
 /***/ (function(module, exports) {
 
-module.exports = jszip;
+module.exports = cptable;
 
 /***/ }),
 
 /***/ 149:
 /***/ (function(module, exports) {
 
-module.exports = ods;
+module.exports = jszip;
 
 /***/ }),
 
@@ -760,6 +753,13 @@ exports.default = {
         cancelLabel: _langHelper2.default.getSingleResource("Cancel")
     }, _locale2.default)
 };
+
+/***/ }),
+
+/***/ 150:
+/***/ (function(module, exports) {
+
+module.exports = ods;
 
 /***/ }),
 
@@ -986,15 +986,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.ActionCreators = undefined;
 
-var _dataHandlerAction = __webpack_require__(334);
+var _dataHandlerAction = __webpack_require__(335);
 
 var dataHandlerAction = _interopRequireWildcard(_dataHandlerAction);
 
-var _filterHandlerAction = __webpack_require__(335);
+var _filterHandlerAction = __webpack_require__(336);
 
 var filterHandlerAction = _interopRequireWildcard(_filterHandlerAction);
 
-var _loaderAction = __webpack_require__(28);
+var _loaderAction = __webpack_require__(23);
 
 var loaderAction = _interopRequireWildcard(_loaderAction);
 
@@ -1029,6 +1029,32 @@ var DEFAULT_COLUMN_WIDTH = exports.DEFAULT_COLUMN_WIDTH = 100;
 
 
 Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.toggleLoader = undefined;
+
+var _types = __webpack_require__(2);
+
+var types = _interopRequireWildcard(_types);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var toggleLoader = exports.toggleLoader = function toggleLoader(show) {
+    return {
+        type: types.TOGGLE_LOADER,
+        data: show
+    };
+};
+
+/***/ }),
+
+/***/ 24:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.Cell = exports.Row = exports.Table = undefined;
@@ -1053,7 +1079,7 @@ exports.Cell = _Cell2.default;
 
 /***/ }),
 
-/***/ 27:
+/***/ 28:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1082,32 +1108,6 @@ var NoDataTitle = function NoDataTitle() {
 };
 
 exports.default = NoDataTitle;
-
-/***/ }),
-
-/***/ 28:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.toggleLoader = undefined;
-
-var _types = __webpack_require__(2);
-
-var types = _interopRequireWildcard(_types);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-var toggleLoader = exports.toggleLoader = function toggleLoader(show) {
-    return {
-        type: types.TOGGLE_LOADER,
-        data: show
-    };
-};
 
 /***/ }),
 
@@ -1911,7 +1911,7 @@ exports.default = Pager;
 
 /***/ }),
 
-/***/ 331:
+/***/ 332:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1931,7 +1931,7 @@ var _reactDom = __webpack_require__(3);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _AppContainer = __webpack_require__(332);
+var _AppContainer = __webpack_require__(333);
 
 var _AppContainer2 = _interopRequireDefault(_AppContainer);
 
@@ -1945,7 +1945,7 @@ var _reduxThunk = __webpack_require__(71);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-var _resultAmendment = __webpack_require__(339);
+var _resultAmendment = __webpack_require__(340);
 
 var _resultAmendment2 = _interopRequireDefault(_resultAmendment);
 
@@ -2009,7 +2009,7 @@ _reactDom2.default.render(_react2.default.createElement(App, null), document.get
 
 /***/ }),
 
-/***/ 332:
+/***/ 333:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2028,13 +2028,11 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(13);
 
-var _redux = __webpack_require__(10);
-
-var _DataGrid = __webpack_require__(333);
+var _DataGrid = __webpack_require__(334);
 
 var _DataGrid2 = _interopRequireDefault(_DataGrid);
 
-var _FormFilter = __webpack_require__(338);
+var _FormFilter = __webpack_require__(339);
 
 var _FormFilter2 = _interopRequireDefault(_FormFilter);
 
@@ -2091,7 +2089,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps)(AppContainer);
 
 /***/ }),
 
-/***/ 333:
+/***/ 334:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2114,7 +2112,7 @@ var _resultAmendment = __webpack_require__(203);
 
 var _redux = __webpack_require__(10);
 
-var _fixedTableHeader = __webpack_require__(23);
+var _fixedTableHeader = __webpack_require__(24);
 
 var _langHelper = __webpack_require__(4);
 
@@ -2124,11 +2122,11 @@ var _ReportTitle = __webpack_require__(44);
 
 var _ReportTitle2 = _interopRequireDefault(_ReportTitle);
 
-var _NoDataTitle = __webpack_require__(27);
+var _NoDataTitle = __webpack_require__(28);
 
 var _NoDataTitle2 = _interopRequireDefault(_NoDataTitle);
 
-var _resultAmendmentService = __webpack_require__(336);
+var _resultAmendmentService = __webpack_require__(337);
 
 var _resultAmendmentService2 = _interopRequireDefault(_resultAmendmentService);
 
@@ -2136,7 +2134,7 @@ var _site = __webpack_require__(8);
 
 var _site2 = _interopRequireDefault(_site);
 
-var _CollapsibleRow = __webpack_require__(337);
+var _CollapsibleRow = __webpack_require__(338);
 
 var _CollapsibleRow2 = _interopRequireDefault(_CollapsibleRow);
 
@@ -2394,7 +2392,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
 /***/ }),
 
-/***/ 334:
+/***/ 335:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2408,11 +2406,11 @@ exports.setGridData = setGridData;
 exports.markItemAsRead = markItemAsRead;
 exports.exportAttachment = exportAttachment;
 
-var _types = __webpack_require__(139);
+var _types = __webpack_require__(140);
 
 var types = _interopRequireWildcard(_types);
 
-var _axios = __webpack_require__(26);
+var _axios = __webpack_require__(27);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -2494,7 +2492,7 @@ function exportAttachment(params) {
 
 /***/ }),
 
-/***/ 335:
+/***/ 336:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2505,7 +2503,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.setParam = exports.setDateRange = undefined;
 
-var _types = __webpack_require__(139);
+var _types = __webpack_require__(140);
 
 var types = _interopRequireWildcard(_types);
 
@@ -2532,7 +2530,7 @@ var setParam = exports.setParam = function setParam(param) {
 
 /***/ }),
 
-/***/ 336:
+/***/ 337:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2590,7 +2588,7 @@ exports.default = Service;
 
 /***/ }),
 
-/***/ 337:
+/***/ 338:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2682,7 +2680,7 @@ exports.default = CollapsibleRow;
 
 /***/ }),
 
-/***/ 338:
+/***/ 339:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2871,36 +2869,6 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
 /***/ }),
 
-/***/ 339:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _redux = __webpack_require__(10);
-
-var _dataHandlerReducer = __webpack_require__(340);
-
-var dataHandlerReducer = _interopRequireWildcard(_dataHandlerReducer);
-
-var _filterHandlerReducer = __webpack_require__(341);
-
-var filterHandlerReducer = _interopRequireWildcard(_filterHandlerReducer);
-
-var _loaderReducer = __webpack_require__(45);
-
-var loaderReducer = _interopRequireWildcard(_loaderReducer);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-exports.default = (0, _redux.combineReducers)(Object.assign(dataHandlerReducer, filterHandlerReducer, loaderReducer));
-
-/***/ }),
-
 /***/ 34:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2961,13 +2929,43 @@ exports.default = Row;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _redux = __webpack_require__(10);
+
+var _dataHandlerReducer = __webpack_require__(341);
+
+var dataHandlerReducer = _interopRequireWildcard(_dataHandlerReducer);
+
+var _filterHandlerReducer = __webpack_require__(342);
+
+var filterHandlerReducer = _interopRequireWildcard(_filterHandlerReducer);
+
+var _loaderReducer = __webpack_require__(45);
+
+var loaderReducer = _interopRequireWildcard(_loaderReducer);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+exports.default = (0, _redux.combineReducers)(Object.assign(dataHandlerReducer, filterHandlerReducer, loaderReducer));
+
+/***/ }),
+
+/***/ 341:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 exports.gridData = undefined;
 
 var _createReducer2 = __webpack_require__(5);
 
 var _createReducer3 = _interopRequireDefault(_createReducer2);
 
-var _types = __webpack_require__(139);
+var _types = __webpack_require__(140);
 
 var types = _interopRequireWildcard(_types);
 
@@ -2983,7 +2981,7 @@ var gridData = exports.gridData = (0, _createReducer3.default)({}, _defineProper
 
 /***/ }),
 
-/***/ 341:
+/***/ 342:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2998,7 +2996,7 @@ var _createReducer5 = __webpack_require__(5);
 
 var _createReducer6 = _interopRequireDefault(_createReducer5);
 
-var _types = __webpack_require__(139);
+var _types = __webpack_require__(140);
 
 var types = _interopRequireWildcard(_types);
 
@@ -4552,7 +4550,7 @@ var Excel = function () {
     _createClass(Excel, null, [{
         key: "process",
         value: function process(callback) {
-            __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 146)).then(function (XLSX) {
+            __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 147)).then(function (XLSX) {
                 _XLSX = XLSX;
                 callback && callback();
             });
@@ -4920,5 +4918,5 @@ exports.default = function () {
 
 /***/ })
 
-},[331]);
+},[332]);
 //# sourceMappingURL=notification.chunk.js.map

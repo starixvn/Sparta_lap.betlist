@@ -2745,7 +2745,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/Mik
 
 /***/ }),
 
-/***/ 131:
+/***/ 130:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(22);
@@ -9214,5 +9214,5 @@ jQuery(this).empty();jQuery(this).addClass("scroll");jQuery(this).jqGrid(jQuery.
 
 /***/ })
 
-},[131]);
+},[130]);
 //# sourceMappingURL=betlist.chunk.js.map

@@ -1,6 +1,6 @@
-webpackJsonp([64],{
+webpackJsonp([63],{
 
-/***/ 343:
+/***/ 342:
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(61);
@@ -23,5 +23,5 @@ module.exports = __webpack_require__(62);
 
 /***/ })
 
-},[343]);
+},[342]);
 //# sourceMappingURL=betlistSimpleLayout.chunk.js.map

@@ -2725,7 +2725,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/Mik
 
     // AMD.
     if ( true ) {
-        !(__WEBPACK_AMD_DEFINE_RESULT__ = (function () { return BigNumber; }).call(exports, __webpack_require__, exports, module),
+        !(__WEBPACK_AMD_DEFINE_RESULT__ = function () { return BigNumber; }.call(exports, __webpack_require__, exports, module),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
     // Node.js and other environments that support module.exports.
@@ -2748,7 +2748,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/Mik
 /***/ 11:
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(2), __webpack_require__(12)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, moment) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(2), __webpack_require__(12)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, moment) {
         "use strict";
 
         var _daysOfWeek, _monthNames;
@@ -2894,7 +2894,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             setValueForDateRange: setValueForDateRange,
             setValueForSingleDate: setValueForSingleDate
         };
-    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
@@ -2913,9 +2913,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
 (function (root, factory) {
     if (true) {
         // AMD. Make globaly available as well
-        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(2), __webpack_require__(0)], __WEBPACK_AMD_DEFINE_RESULT__ = (function (moment, jquery) {
+        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(2), __webpack_require__(0)], __WEBPACK_AMD_DEFINE_RESULT__ = function (moment, jquery) {
             return (root.daterangepicker = factory(moment, jquery));
-        }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+        }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
     } else if (typeof module === 'object' && module.exports) {
         // Node / Browserify
@@ -9081,7 +9081,7 @@ return hooks;
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(5)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Popup) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(5)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup) {
     var _me = {
         setConstraintMonthRange: function (monthRange, url) {
             var errorMessage = Site.getSingleResource("DateRangeExceedMsg").replace("{0}", monthRange);
@@ -9125,7 +9125,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     };
 
     return _me;
-}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
@@ -9606,7 +9606,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿// require option properties: suggestionDropdown, url, target
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(23)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(23)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site) {
     "use strict";
 
     var mainOption = {
@@ -9691,48 +9691,48 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿// require op
     };
 
     return _me;
-}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 316:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(317);
+
 
 /***/ }),
 
 /***/ 317:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(318);
-
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(318)], __WEBPACK_AMD_DEFINE_RESULT__ = function (CustomerTurnover) {
+    "use strict";
+    $(CustomerTurnover.initialize);
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
 
 /***/ 318:
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(319)], __WEBPACK_AMD_DEFINE_RESULT__ = (function (CustomerTurnover) {
-    "use strict";
-    $(CustomerTurnover.initialize);
-}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-
-/***/ 319:
-/***/ (function(module, exports, __webpack_require__) {
-
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
     __webpack_require__(0),
     __webpack_require__(1),
     __webpack_require__(4),
-    __webpack_require__(320),
+    __webpack_require__(319),
     __webpack_require__(28),
     __webpack_require__(11),
     __webpack_require__(21),
     __webpack_require__(32),
-    __webpack_require__(321),
+    __webpack_require__(320),
     __webpack_require__(8),
     __webpack_require__(9),
     __webpack_require__(6),
-    __webpack_require__(35)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, jqGridAdditional, CustomerTurnoverOption, AutoComplete, DatePicker, DateHelper, PagingHelper) {
+    __webpack_require__(35)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, jqGridAdditional, CustomerTurnoverOption, AutoComplete, DatePicker, DateHelper, PagingHelper) {
         "use strict";
 
         var _sports = [];
@@ -10287,195 +10287,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         };
 
         return _me;
-    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
 
-/***/ 32:
+/***/ 319:
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(3)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, QueryString) {
-    var $pagingContainer, $pageIndex, $pageSize;
-
-    var me = {};
-
-    var setting = {
-        pageindex: 1,
-        pagesize: 50,
-        pagelist: [50, 100, 1000],
-        totalrow: 1,
-        formId: "formreport",
-        elementcontainer: "#page",
-        method: "AJAX",
-        ajaxfunction: "",
-        alwayshow: false
-    };
-
-    function goToPage(method, index) {
-        if (method === "POST") {
-            $("#IsExportExcel").val(false);
-            var formName = $("input[name='FormName']", $pagingContainer).val();
-            var form = $("#" + formName);
-            var pageIndex = '<input type="hidden" value="' + index + '" name="PageIndex" />';
-            var pageSize = '<input type="hidden" value="' + $pageSize.val() + '" name="PageSize" />';
-            form.append(pageIndex);
-            form.append(pageSize);
-            Site.blockUI();
-            form.submit();
-        }
-        else if (method === "AJAX") {
-            $pageIndex.val(index);
-            var fc = $("input[name='AjaxPagingFunction']", $pagingContainer).val();
-            eval(fc); // jshint ignore:line
-        } else {
-            var url = Site.getCurrentUrl();
-            url = QueryString.setParam(url, "PageSize", $pageSize.val());
-            url = QueryString.setParam(url, "PageIndex", index);
-
-            Site.redirect(url);
-        }
-    }
-
-    function isVisible(element) {
-        return !$(element).hasClass("pagingDisable");
-    }
-
-    me.render = function (option) {
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="pageindex"></param>
-        /// <param name="pagesize"></param>
-        /// <param name="totalrow"></param>
-        /// <param name="elementcontainer">ex: "#page"</param>
-        /// <param name="method">POST or GET or AJAX</param>
-        var pageHtml = "";
-        $.extend(setting, option);
-        var noOfPage = 1;
-        var pagingVisible = setting.totalrow > setting.pagesize;
-
-        if (pagingVisible) {
-            noOfPage = parseInt(setting.totalrow / setting.pagesize
-         + (setting.totalrow % setting.pagesize === 0 ? 0 : 1));
-        }
-
-        if (pagingVisible || setting.alwayshow) {
-            var prevPageDisabledHtml = (setting.pageindex === 1 ? ' pagingDisable"' : '"') + '></a>';
-            var pageControl = ['<div class="pagingContainer center-align">',
-                          '<a href="javascript:;" class="icon pagingFirst' + prevPageDisabledHtml,
-                          '<a href="javascript:;" class="icon pagingPrev' + prevPageDisabledHtml,
-                          '<span class="pagingSeperator"></span>'];
-
-            var pagingInfo = '<div class="paging-info">' + Site.getSingleResource("Page") +
-                '<input  type="text" name="PageIndex" class="pagingCurrent paging-form" maxlength="4" size="2" value="' + setting.pageindex + '" />'
-            + "&nbsp;" + Site.getSingleResource("of") + "&nbsp;" + noOfPage + '</div>';
-
-            pageControl.push(pagingInfo);
-
-            pageControl.push('<span class="pagingSeperator"></span>');
-
-            var nextPageDisabled = (setting.pageindex === noOfPage ? ' pagingDisable"' : '"') + '></a>';
-            var pageNext = '<a href="javascript:;" class="icon pagingNext' + nextPageDisabled;
-            pageControl.push(pageNext);
-            var pageLast = '<a href="javascript:;" class="icon pagingLast' + nextPageDisabled;
-            pageControl.push(pageLast);
-
-            var pageListLength = setting.pagelist.length;
-            var pageSizeSelectHtml = '<select class="pageSizeSelected">';
-            var pageSize = parseInt(setting.pagesize);
-            for (var i = 0; i < pageListLength; i++) {
-                pageSizeSelectHtml += '<option value="' + setting.pagelist[i]
-                + '"' + (pageSize === setting.pagelist[i] ? ' selected="selected"' : '')
-                + '>' + setting.pagelist[i] + '</option>';
-            }
-            pageSizeSelectHtml += '</select>';
-            pageControl.push(pageSizeSelectHtml);
-
-            pageControl.push('<input type="hidden" name="PageSize" value="' + setting.pagesize + '" />');
-            pageControl.push('<input type="hidden" name="Method" value="' + setting.method + '" />');
-            pageControl.push('<input type="hidden" name="FormName" value="' + setting.formId + '" />');
-            pageControl.push('<input type="hidden" name="NoOfPage" value="' + noOfPage + '" />');
-            pageControl.push('<input type="hidden" name="AjaxPagingFunction" value="' + setting.ajaxfunction + '" />');
-
-            pageControl.push('</div>');
-            pageHtml = pageControl.join("");
-        }
-
-        $(setting.elementcontainer).html(pageHtml);
-        me.initialize();
-    };
-    me.getSetting = function () {
-        setting.pageindex = parseInt($pageIndex.val(), 10);
-        setting.pagesize = $pageSize.val();
-        return setting;
-    };
-    me.bindEvent = function () {
-        var method = $('input[name="Method"]', $pagingContainer).val();
-        var noOfPage = parseInt($('input[name="NoOfPage"]', $pagingContainer).val(), 10);
-
-        $(".pagingFirst", $pagingContainer).on("click", function () {
-            if (isVisible(this)) {
-                goToPage(method, 1);
-            }
-        });
-        $(".pagingPrev", $pagingContainer).on("click", function () {
-            var currentPage = parseInt($pageIndex.val(), 10);
-            if (isVisible(this) && currentPage > 1) {
-                goToPage(method, currentPage - 1);
-            }
-        });
-        $(".pagingLast", $pagingContainer).on("click", function () {
-            if (isVisible(this)) {
-                goToPage(method, noOfPage);
-            }
-        });
-        $(".pagingNext", $pagingContainer).on("click", function () {
-            if (isVisible(this)) {
-                var currentPage = parseInt($pageIndex.val(), 10);
-                goToPage(method, currentPage + 1);
-            }
-        });
-
-        $("select.pageSizeSelected", $pagingContainer).on("change", function () {
-            var pageSize = $(this).val();
-            $pageSize.val(pageSize);
-            setting.pagesize = pageSize;
-            goToPage(method, 1);
-        });
-
-        $pageIndex.on("keyup", function (e) {
-            var code = e.keyCode ? e.keyCode : e.which;
-            if (code === 13) {
-                var value = parseInt($(this).val());
-                if (value > 0 && value <= noOfPage) {
-                    $(this).val(value);
-                    goToPage(method, value);
-                }
-            }
-        });
-    };
-
-    me.initialize = function () {
-        $pagingContainer = $(".pagingContainer");
-        $pageIndex = $("input[name='PageIndex']", $pagingContainer);
-        $pageSize = $("input[name='PageSize']", $pagingContainer);
-
-        me.bindEvent();
-    };
-
-    return me;
-}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-
-/***/ }),
-
-/***/ 320:
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(4)], __WEBPACK_AMD_DEFINE_RESULT__ = (function (Site, jqGridAdditional) {
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1), __webpack_require__(4)], __WEBPACK_AMD_DEFINE_RESULT__ = function (Site, jqGridAdditional) {
         "use strict";
         var indexColumn = {
             name: 'Index',
@@ -10681,12 +10501,192 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         };
 
         return _me;
-    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
 
-/***/ 321:
+/***/ 32:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(3)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, QueryString) {
+    var $pagingContainer, $pageIndex, $pageSize;
+
+    var me = {};
+
+    var setting = {
+        pageindex: 1,
+        pagesize: 50,
+        pagelist: [50, 100, 1000],
+        totalrow: 1,
+        formId: "formreport",
+        elementcontainer: "#page",
+        method: "AJAX",
+        ajaxfunction: "",
+        alwayshow: false
+    };
+
+    function goToPage(method, index) {
+        if (method === "POST") {
+            $("#IsExportExcel").val(false);
+            var formName = $("input[name='FormName']", $pagingContainer).val();
+            var form = $("#" + formName);
+            var pageIndex = '<input type="hidden" value="' + index + '" name="PageIndex" />';
+            var pageSize = '<input type="hidden" value="' + $pageSize.val() + '" name="PageSize" />';
+            form.append(pageIndex);
+            form.append(pageSize);
+            Site.blockUI();
+            form.submit();
+        }
+        else if (method === "AJAX") {
+            $pageIndex.val(index);
+            var fc = $("input[name='AjaxPagingFunction']", $pagingContainer).val();
+            eval(fc); // jshint ignore:line
+        } else {
+            var url = Site.getCurrentUrl();
+            url = QueryString.setParam(url, "PageSize", $pageSize.val());
+            url = QueryString.setParam(url, "PageIndex", index);
+
+            Site.redirect(url);
+        }
+    }
+
+    function isVisible(element) {
+        return !$(element).hasClass("pagingDisable");
+    }
+
+    me.render = function (option) {
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="pageindex"></param>
+        /// <param name="pagesize"></param>
+        /// <param name="totalrow"></param>
+        /// <param name="elementcontainer">ex: "#page"</param>
+        /// <param name="method">POST or GET or AJAX</param>
+        var pageHtml = "";
+        $.extend(setting, option);
+        var noOfPage = 1;
+        var pagingVisible = setting.totalrow > setting.pagesize;
+
+        if (pagingVisible) {
+            noOfPage = parseInt(setting.totalrow / setting.pagesize
+         + (setting.totalrow % setting.pagesize === 0 ? 0 : 1));
+        }
+
+        if (pagingVisible || setting.alwayshow) {
+            var prevPageDisabledHtml = (setting.pageindex === 1 ? ' pagingDisable"' : '"') + '></a>';
+            var pageControl = ['<div class="pagingContainer center-align">',
+                          '<a href="javascript:;" class="icon pagingFirst' + prevPageDisabledHtml,
+                          '<a href="javascript:;" class="icon pagingPrev' + prevPageDisabledHtml,
+                          '<span class="pagingSeperator"></span>'];
+
+            var pagingInfo = '<div class="paging-info">' + Site.getSingleResource("Page") +
+                '<input  type="text" name="PageIndex" class="pagingCurrent paging-form" maxlength="4" size="2" value="' + setting.pageindex + '" />'
+            + "&nbsp;" + Site.getSingleResource("of") + "&nbsp;" + noOfPage + '</div>';
+
+            pageControl.push(pagingInfo);
+
+            pageControl.push('<span class="pagingSeperator"></span>');
+
+            var nextPageDisabled = (setting.pageindex === noOfPage ? ' pagingDisable"' : '"') + '></a>';
+            var pageNext = '<a href="javascript:;" class="icon pagingNext' + nextPageDisabled;
+            pageControl.push(pageNext);
+            var pageLast = '<a href="javascript:;" class="icon pagingLast' + nextPageDisabled;
+            pageControl.push(pageLast);
+
+            var pageListLength = setting.pagelist.length;
+            var pageSizeSelectHtml = '<select class="pageSizeSelected">';
+            var pageSize = parseInt(setting.pagesize);
+            for (var i = 0; i < pageListLength; i++) {
+                pageSizeSelectHtml += '<option value="' + setting.pagelist[i]
+                + '"' + (pageSize === setting.pagelist[i] ? ' selected="selected"' : '')
+                + '>' + setting.pagelist[i] + '</option>';
+            }
+            pageSizeSelectHtml += '</select>';
+            pageControl.push(pageSizeSelectHtml);
+
+            pageControl.push('<input type="hidden" name="PageSize" value="' + setting.pagesize + '" />');
+            pageControl.push('<input type="hidden" name="Method" value="' + setting.method + '" />');
+            pageControl.push('<input type="hidden" name="FormName" value="' + setting.formId + '" />');
+            pageControl.push('<input type="hidden" name="NoOfPage" value="' + noOfPage + '" />');
+            pageControl.push('<input type="hidden" name="AjaxPagingFunction" value="' + setting.ajaxfunction + '" />');
+
+            pageControl.push('</div>');
+            pageHtml = pageControl.join("");
+        }
+
+        $(setting.elementcontainer).html(pageHtml);
+        me.initialize();
+    };
+    me.getSetting = function () {
+        setting.pageindex = parseInt($pageIndex.val(), 10);
+        setting.pagesize = $pageSize.val();
+        return setting;
+    };
+    me.bindEvent = function () {
+        var method = $('input[name="Method"]', $pagingContainer).val();
+        var noOfPage = parseInt($('input[name="NoOfPage"]', $pagingContainer).val(), 10);
+
+        $(".pagingFirst", $pagingContainer).on("click", function () {
+            if (isVisible(this)) {
+                goToPage(method, 1);
+            }
+        });
+        $(".pagingPrev", $pagingContainer).on("click", function () {
+            var currentPage = parseInt($pageIndex.val(), 10);
+            if (isVisible(this) && currentPage > 1) {
+                goToPage(method, currentPage - 1);
+            }
+        });
+        $(".pagingLast", $pagingContainer).on("click", function () {
+            if (isVisible(this)) {
+                goToPage(method, noOfPage);
+            }
+        });
+        $(".pagingNext", $pagingContainer).on("click", function () {
+            if (isVisible(this)) {
+                var currentPage = parseInt($pageIndex.val(), 10);
+                goToPage(method, currentPage + 1);
+            }
+        });
+
+        $("select.pageSizeSelected", $pagingContainer).on("change", function () {
+            var pageSize = $(this).val();
+            $pageSize.val(pageSize);
+            setting.pagesize = pageSize;
+            goToPage(method, 1);
+        });
+
+        $pageIndex.on("keyup", function (e) {
+            var code = e.keyCode ? e.keyCode : e.which;
+            if (code === 13) {
+                var value = parseInt($(this).val());
+                if (value > 0 && value <= noOfPage) {
+                    $(this).val(value);
+                    goToPage(method, value);
+                }
+            }
+        });
+    };
+
+    me.initialize = function () {
+        $pagingContainer = $(".pagingContainer");
+        $pageIndex = $("input[name='PageIndex']", $pagingContainer);
+        $pageSize = $("input[name='PageSize']", $pagingContainer);
+
+        me.bindEvent();
+    };
+
+    return me;
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 320:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {﻿/// <reference path="/@JSense.js" />
@@ -14263,7 +14263,7 @@ Enumerable = (function ()
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <reference path="/@JSense.js" />
 ///
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(10)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, BigNumber) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(10)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BigNumber) {
     "use strict";
     var jqGridAdditional = (function () {
         return {
@@ -14710,7 +14710,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
     })();
 
     return jqGridAdditional;
-}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
@@ -15483,5 +15483,5 @@ jQuery(this).empty();jQuery(this).addClass("scroll");jQuery(this).jqGrid(jQuery.
 
 /***/ })
 
-},[317]);
+},[316]);
 //# sourceMappingURL=customerturnover.chunk.js.map

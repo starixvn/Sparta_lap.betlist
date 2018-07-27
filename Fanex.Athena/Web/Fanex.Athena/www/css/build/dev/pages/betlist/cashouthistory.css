@@ -646,7 +646,7 @@ table tbody tr.row-group-level1 td {
     color: #3547E3; }
   .betlist-container .blue {
     color: #2673CE; }
-  .betlist-container .theme_jqGrid .ui-jqgrid-btable tr.jqgrow td .detail > .detail-link {
+  .betlist-container td .detail > .detail-link {
     color: #755200;
     font-weight: bold; }
   .betlist-container div.mx-parlay div.void span, .betlist-container div.mx-parlay div.void div {
