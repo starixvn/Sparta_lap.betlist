@@ -1,6 +1,6 @@
 ﻿import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import DataGrid from './Datagrid'
+import DataGrid from './DataGrid'
 import FormFilter from './FormFilter'
 import PageLayout from '../../common/components/PageLayout'
 
