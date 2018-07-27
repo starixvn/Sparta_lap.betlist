@@ -740,6 +740,10 @@
     <Content Include="www\css\build\pro\reactpages\speciallicenseewl\index.chunk.js" />
     <Content Include="www\css\build\pro\reactpages\speciallicenseewl\index.css" />
     <Content Include="www\css\build\pro\reactpages\subsidiaryperformance\index.css" />
+    <Content Include="www\js\build\dev\language-ko-KR.chunk.js" />
+    <Content Include="www\js\build\dev\language-zh-CN.chunk.js" />
+    <Content Include="www\js\build\dev\language-zh-Hans.chunk.js" />
+    <Content Include="www\js\build\dev\language-zh-TW.chunk.js" />
     <Content Include="www\js\build\dev\pages\customer\exchangebetsetting.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\bettingticketscenter\multicustomer.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\bettingticketscenter\refno.chunk.js" />
@@ -747,6 +751,10 @@
     <Content Include="www\js\build\dev\reactpages\bettingticketscenter\singlecustomer.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\dynamic-import\xlsx-style-sparta.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\exchangewl\exchangewl.chunk.js" />
+    <Content Include="www\js\build\dev\reactpages\lib\lang-ko-KR.chunk.js" />
+    <Content Include="www\js\build\dev\reactpages\lib\lang-zh-CN.chunk.js" />
+    <Content Include="www\js\build\dev\reactpages\lib\lang-zh-Hans.chunk.js" />
+    <Content Include="www\js\build\dev\reactpages\lib\lang-zh-TW.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\report\licenseewlbytimezone.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\notification\notification.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\notification\notification.chunk.js.map" />
@@ -897,6 +905,14 @@
     <Content Include="www\js\build\dev\reactpages\bettingticketscenter\refno.chunk.js.map" />
     <Content Include="www\js\build\dev\reactpages\bettingticketscenter\running.chunk.js.map" />
     <Content Include="www\js\build\dev\reactpages\bettingticketscenter\singlecustomer.chunk.js.map" />
+    <Content Include="www\js\build\dev\language-zh-CN.chunk.js.map" />
+    <Content Include="www\js\build\dev\language-zh-Hans.chunk.js.map" />
+    <Content Include="www\js\build\dev\language-zh-TW.chunk.js.map" />
+    <Content Include="www\js\build\dev\reactpages\lib\lang-ko-KR.chunk.js.map" />
+    <Content Include="www\js\build\dev\reactpages\lib\lang-zh-CN.chunk.js.map" />
+    <Content Include="www\js\build\dev\reactpages\lib\lang-zh-Hans.chunk.js.map" />
+    <Content Include="www\js\build\dev\reactpages\lib\lang-zh-TW.chunk.js.map" />
+    <Content Include="www\js\build\dev\language-ko-KR.chunk.js.map" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Row.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.jsx" />

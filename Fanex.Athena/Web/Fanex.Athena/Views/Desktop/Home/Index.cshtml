@@ -3,6 +3,7 @@
     Layout = null;
     var sessionService = new Fanex.Athena.Service.Core.Users.SessionService();
     var licenseeName = sessionService.LicenseeSession.LicenseeName;
+    var langCode = System.Globalization.CultureInfo.CurrentUICulture.IetfLanguageTag;
 }
 <!DOCTYPE html>
 
@@ -20,7 +21,7 @@
     <input type="hidden" id="OnUserId" value="@ViewBag.OnUserId" />
     <input type="hidden" id="RootUrl" value="@Url.Content("~")" />
     <input type="hidden" id="DefaultUrl" value="@Url.Content("~/" + ViewBag.DefaultReportUrl)" />
-    <input type="hidden" id="PageLanguage" value="@System.Globalization.CultureInfo.CurrentUICulture.IetfLanguageTag" />
+    <input type="hidden" id="PageLanguage" value="@langCode" />
     @Html.AntiForgeryToken()
     <header>
         <div class="navbar-fixed" id="header">
@@ -49,6 +50,10 @@
     </footer>
     <script src="@Url.ContentLinkByEnv("/www/js/build/common.chunk.js")"></script>
     <script src="@Url.ContentLinkByEnv("/www/js/build/language.chunk.js")"></script>
+    @if (langCode != "en-US")
+    {
+        <script src="@Url.ContentLinkByEnv("/www/js/build/language-" + langCode + ".chunk.js")"></script>
+    }
     <script src="@Url.ContentLinkByEnv("/www/js/build/pages/home/home.chunk.js")"></script>
 </body>
 </html>

@@ -10,6 +10,7 @@
     var isParasiticMode = userSession != null && userSession.ApplicationMode == Fanex.Athena.Session.Enum.AppMode.Parasitic;
     var appSettings = new AppSettings();
     var isFakeLicensee = appSettings.FakeLicenseeList.Contains(licSession.LicenseeId);
+    var langCode = System.Globalization.CultureInfo.CurrentUICulture.IetfLanguageTag;
 }
 <!DOCTYPE html>
 
@@ -26,7 +27,7 @@
 </head>
 <body>
     <input type="hidden" id="RootUrl" value="@Url.Content("~/")" />
-    <input type="hidden" id="PageLanguage" value="@System.Globalization.CultureInfo.CurrentUICulture.IetfLanguageTag" />
+    <input type="hidden" id="PageLanguage" value="@langCode" />
     <input type="hidden" id="HasCustComm" value="@( hasCustComm ? 1 : 0)" />
     <input type="hidden" id="HistoryDate" value="@( appSettings.HistoryDate)" />
     <input type="hidden" id="IsFakeLicensee" value="@( isFakeLicensee ? 1 : 0)" />
@@ -50,6 +51,10 @@
 
     <script src="@Url.ContentLinkByEnv("/www/js/build/common.chunk.js")"></script>
     <script src="@Url.ContentLinkByEnv("/www/js/build/language.chunk.js")"></script>
+    @if (langCode != "en-US")
+    {
+        <script src="@Url.ContentLinkByEnv("/www/js/build/language-" + langCode + ".chunk.js")"></script>
+    }
     @RenderSection("js", required: false)
     @if (isParasiticMode)
     {

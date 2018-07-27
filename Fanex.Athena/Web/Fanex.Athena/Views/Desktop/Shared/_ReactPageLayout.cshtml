@@ -9,6 +9,7 @@
         userSession.CurrencyList.ToDictionary(x => x.Key.ToString(), x => x.Value);
     var isParasiticMode = userSession != null && userSession.ApplicationMode == Fanex.Athena.Session.Enum.AppMode.Parasitic;
     var appSettings = new AppSettings();
+    var langCode = System.Globalization.CultureInfo.CurrentUICulture.IetfLanguageTag;
 }
 <!DOCTYPE html>
 
@@ -31,13 +32,17 @@
     </div>
  
     <script type="text/javascript">
-        var PageLanguage = "@System.Globalization.CultureInfo.CurrentUICulture.IetfLanguageTag";
+        var PageLanguage = "@langCode";
         window.rootUrl = '@Url.Content("~/")';
 
         @RenderSection("globaljscode", required: false)
     </script>
     <script src="@Url.ContentLinkByEnv("/www/js/build/reactpages/vendors/reactpages.chunk.js")"></script>
     <script src="@Url.ContentLinkByEnv("/www/js/build/reactpages/lib/langHelper.chunk.js")"></script>
+    @if (langCode != "en-US")
+    {
+    <script src="@Url.ContentLinkByEnv("/www/js/build/reactpages/lib/lang-" + langCode + ".chunk.js")"></script>
+    }
 
     @RenderSection("pagejs", required: false)
     @if (isParasiticMode)
