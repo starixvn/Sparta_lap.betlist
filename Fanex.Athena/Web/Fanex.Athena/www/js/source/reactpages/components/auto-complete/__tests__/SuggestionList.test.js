@@ -29,7 +29,6 @@ describe('SuggestionList', () => {
         const item0 = component.root.findAllByProps({ className: 'ac-item' })[0];
 
         item0.props.onClick();
-        console.log(item0.props);
             
         expect(props.onSelect).toHaveBeenCalledWith(props.dataList[0]);
         expect(component.toJSON()).toMatchSnapshot();

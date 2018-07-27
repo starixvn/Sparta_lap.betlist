@@ -288,6 +288,27 @@ describe('DataGrid ', () => {
 
             expect(Service.getReportTitle).toHaveBeenCalled();
         })
+
+        it('next param data is null - do not update title', () => {
+            const props = {
+                gridData: {},
+                dateRange: {},
+                param: null,
+                toggleLoader: jest.fn()
+            };
+            const prevProps = {
+                gridData: {},
+                param: {
+                    FromData: '',
+                    ToDate: ''
+                }
+            };
+
+            const grid = new DataGrid(props);
+            grid.componentDidUpdate(prevProps);
+
+            expect(Service.getReportTitle).toHaveBeenCalled();
+        })
     })
 
     describe('exportExcel', () => {

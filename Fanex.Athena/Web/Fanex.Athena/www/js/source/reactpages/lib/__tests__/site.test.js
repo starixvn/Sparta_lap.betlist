@@ -16,6 +16,21 @@ describe('Site ', () => {
         expect(token).toBe(expectedToken);
     })
 
+    it('getXsrfToken - XsrfToken is not null - return XsrfToken', () => {
+        const expectedToken = "xxx_yyy";
+        const input = document.createElement("input");
+        input.type="hidden";
+        input.name = "__RequestVerificationToken";
+        input.value = expectedToken;
+        document.body.appendChild(input);
+
+        let token = Site.getXsrfToken();
+        document.body.removeChild(input);
+
+        let token2 = Site.getXsrfToken();
+        expect(token2).toBe(token);
+    })
+
     it('resolveClientUrl - return correct value', () => {
         const expectedResult = "/api/Action";
 

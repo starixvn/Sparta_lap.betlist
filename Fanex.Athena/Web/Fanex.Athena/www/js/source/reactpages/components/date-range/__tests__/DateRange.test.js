@@ -297,6 +297,21 @@ describe('DateRange ', () => {
         })
     })
 
+    describe('handlePredefinedRangesSelect', () => {
+        it('setRange should be called with correct parameter', () => {
+            const range = { from: 1, to: 2 };
+            const props = { onChange: jest.fn() };
+            const dateRange = new DateRange(props);
+            dateRange.setRange = jest.fn();
+
+            dateRange.handlePredefinedRangesSelect(range);
+
+            expect(dateRange.setRange).toHaveBeenCalledWith(range, false);
+            expect(props.onChange).toHaveBeenCalledWith(range, true);
+            expect(dateRange.originalRange).toEqual(range);
+        })
+    })
+
     describe('isValidMonthRange', () => {
         it('limitedMonthRange props is undefined - return true', () => {
             const dateRange = new DateRange(defaultProps);
@@ -384,13 +399,14 @@ describe('DateRange ', () => {
     describe('handleApply', () => {
         it('onClickApplyButton should be called with correct parameter', () => {
             const onClickApplyButton = jest.fn();
-            const props = Object.assign({}, defaultProps, { onClickApplyButton });
+            const props = Object.assign({}, defaultProps, { onClickApplyButton, onChange: jest.fn() });
             const dateRange = new DateRange(props);
             dateRange.close = jest.fn();
 
             dateRange.handleApply();
 
             expect(onClickApplyButton).toHaveBeenCalledWith(defaultRange, true);
+            expect(props.onChange).toHaveBeenCalledWith(defaultRange, dateRange.isValid);
         })
 
         it('currentRange should be correct', () => {
@@ -457,6 +473,19 @@ describe('DateRange ', () => {
             const result = component.toJSON();
 
             expect(result).toMatchSnapshot();
+        })
+
+        it("on select on PredefinedRanges - call handlePredefinedRangesSelect method", () => {
+            const props = Object.assign({}, defaultProps, { showRange: true });
+
+            const dateRange = new DateRange(defaultProps);
+            dateRange.handlePredefinedRangesSelect = jest.fn();
+            const component = renderer.create(dateRange.render());
+
+            const predefinedRanges = component.root.findByType(PredefinedRanges);
+            predefinedRanges.props.onSelect();
+
+            expect(dateRange.handlePredefinedRangesSelect).toHaveBeenCalled();
         })
     })
 })
