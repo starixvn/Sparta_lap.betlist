@@ -31,8 +31,15 @@ class Cache {
         {
             throw new Error('Invalid params!');
         }
+        
+        var oldData = this._cache[key];
+        if(oldData){
+            clearTimeout(oldData.timeout);
+        }
+        else {
+            this._size++;
+        }
 
-        this._size++;
         let data = { value: value };
         data.timeout = setTimeout(() => this._remove(key), time * 60000);
         this._cache[key] = data;

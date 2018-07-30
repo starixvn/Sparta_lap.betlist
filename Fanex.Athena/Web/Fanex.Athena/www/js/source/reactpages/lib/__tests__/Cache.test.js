@@ -1,6 +1,6 @@
 ﻿import Cache from '../Cache'
 jest.useFakeTimers();
-describe('Cache ', () => {
+describe('Cache', () => {
     afterEach(() =>{
         Cache.clear();
     });
@@ -19,7 +19,7 @@ describe('Cache ', () => {
         expect(result).toBe(999);
     })
 
-    it('Cache should be expired properly', () => {
+    it('data should be expired properly', () => {
         Cache.set("abc", 999, 2);
 
         jest.runAllTimers();
@@ -27,5 +27,13 @@ describe('Cache ', () => {
         expect(Cache.get('abc')).toBe(null);
         expect(Cache.size()).toBe(0);
         expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 120000);
+    })
+
+    it('setting data with same key should update data', () => {
+        Cache.set("abc", 111);
+        Cache.set("abc", 222);
+
+        expect(Cache.size()).toBe(1);
+        expect(Cache.get("abc")).toBe(222);
     })
 })
