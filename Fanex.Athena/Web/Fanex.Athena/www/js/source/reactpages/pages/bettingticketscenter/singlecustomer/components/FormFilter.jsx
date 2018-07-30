@@ -22,7 +22,7 @@ export class FormFilter extends Component {
     }
 
     get isValidModel() {
-        return this.props.username !== "" && this.props.selectedProduct !== "";
+        return !!this.props.username && !!this.props.selectedProduct;
     }
 
     submit = (event) => {
@@ -54,7 +54,6 @@ export class FormFilter extends Component {
             ProductCodeList: this.props.selectedProduct,
             Username: this.props.username,
             BaseCurrency: this.props.isConvertAll ? this.props.selectedBaseCurrency : '',
-            IsConvertAll: this.props.isConvertAll,
             Status: this.props.selectedStatus,
             LiveStatus: this.props.selectedLiveStatus,
             Platform: this.props.selectedPlatform,

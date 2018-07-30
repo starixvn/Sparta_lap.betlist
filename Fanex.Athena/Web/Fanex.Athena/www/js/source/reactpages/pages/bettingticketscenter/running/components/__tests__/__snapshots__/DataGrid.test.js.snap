@@ -12,7 +12,9 @@ exports[`DataGrid  _buildFooter  render correctly 1`] = `
   </td>
   <td
     className="right-align"
-  />
+  >
+    2232.23
+  </td>
   <td
     className="right-align"
     colSpan={5}

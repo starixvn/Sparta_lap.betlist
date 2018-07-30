@@ -39,6 +39,7 @@ export default class BaseDataGrid extends Component {
     }
 
     _sort(sortBy){
+        console.log("SORT: " + sortBy);
         let param = this.props.requestParam;
 
         if (!param.SortBy || param.SortBy != sortBy) {
