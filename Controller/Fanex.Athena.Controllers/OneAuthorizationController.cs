@@ -51,7 +51,6 @@
             var returnUrl = "~/Utility/OneTokenRestriction?code=";
             if (string.IsNullOrWhiteSpace(token))
             {
-                WriteLog("Token param is empty.");
                 return Redirect(Url.Content(returnUrl + OneAuthorizationErrorCode.TokenIsInValid));
             }
 
