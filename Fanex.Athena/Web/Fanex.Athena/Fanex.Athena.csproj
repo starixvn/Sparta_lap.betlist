@@ -2311,7 +2311,9 @@
     <Content Include="SiteConfig\Web.ConnectionStrings.SANDBOX.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="SiteConfig\Web.ConnectionStrings.SIT.config" />
+    <Content Include="SiteConfig\Web.ConnectionStrings.SIT.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="SiteConfig\Web.ConnectionStrings.UAT.config">
       <SubType>Designer</SubType>
     </Content>
