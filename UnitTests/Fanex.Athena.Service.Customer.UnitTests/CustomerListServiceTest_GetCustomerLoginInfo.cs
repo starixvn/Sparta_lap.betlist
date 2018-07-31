@@ -12,15 +12,16 @@
         public void GetCustomerLoginInfo_WhenCallWithCorrectPermission_ReturnCorrectData()
         {
             // Arrange
+            const string LicenseeName = "Name";
             var licenseeId = FakeHelper.Create<int>();
             var custId = FakeHelper.Create<int>();
             var expectedResult = FakeHelper.Create<LogInfo>();
 
             _authorizationService.HasPermissionOnData(licenseeId, custId, 0).Returns(true);
-            _customerListDataAccess.GetCustomerLoginInfo(custId, licenseeId).Returns(expectedResult);
+            _customerListDataAccess.GetCustomerLoginInfo(custId, licenseeId, LicenseeName).Returns(expectedResult);
 
             // Action
-            var result = _customerListService.GetCustomerLoginInfo(custId, licenseeId);
+            var result = _customerListService.GetCustomerLoginInfo(custId, licenseeId, LicenseeName);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -30,18 +31,19 @@
         public void GetCustomerLoginInfo_HaveNoPermission_DataAccessIsNotCalled()
         {
             // Arrange
+            const string LicenseeName = "Name";
             var licenseeId = FakeHelper.Create<int>();
             var custId = FakeHelper.Create<int>();
 
             _authorizationService.HasPermissionOnData(licenseeId, custId, 0).Returns(false);
 
             // Action
-            var result = _customerListService.GetCustomerLoginInfo(custId, licenseeId);
+            var result = _customerListService.GetCustomerLoginInfo(custId, licenseeId, LicenseeName);
 
             // Assert
             Assert.Multiple(() =>
             {
-                _customerListDataAccess.DidNotReceive().GetCustomerLoginInfo(custId, licenseeId);
+                _customerListDataAccess.DidNotReceive().GetCustomerLoginInfo(custId, licenseeId, LicenseeName);
                 Assert.That(result, Is.Not.Null);
             });
         }
