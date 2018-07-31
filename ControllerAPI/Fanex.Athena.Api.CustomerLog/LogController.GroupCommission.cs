@@ -20,7 +20,8 @@ namespace Fanex.Athena.Api.CustomerLog
                 Month = month,
                 FromDay = fromday,
                 ToDay = today,
-                LicenseeId = SessionService.LicenseeSession.LicenseeId
+                LicenseeId = SessionService.LicenseeSession.LicenseeId,
+                SiteName = SessionService.LicenseeSession.LicenseeName
             };
 
             var dataList = _customerLogDataAccess.GetGroupCommList(metaModel);

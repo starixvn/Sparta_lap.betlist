@@ -3679,6 +3679,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid currency permissions..
+        /// </summary>
+        public static string InvalidCurrencyPermission {
+            get {
+                return ResourceManager.GetString("InvalidCurrencyPermission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid parameters.
         /// </summary>
         public static string InvalidParams {

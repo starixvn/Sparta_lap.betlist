@@ -112,31 +112,6 @@
             }
         }
 
-        [TestCase("")]
-        [TestCase(null)]
-        [TestCase("   ")]
-        public void CreateSession_NoToken_WriteLog(string token)
-        {
-            using (var controller = CreateController())
-            {
-                // Arrange
-                const string ExpectedMsg = "Token param is empty.";
-
-                _oneAuthenticationService.GetTokenInfo(Arg.Any<string>()).Returns(x => null);
-                StubGetValueAppSettings("EnableLogForOneAuthorization", "1");
-
-                // Action
-                var result = controller.CreateSession(token);
-
-                // Assert
-                Assert.Multiple(() =>
-                {
-                    _logger.Received(1).Error(Arg.Is<string>(x => x.Contains(ExpectedMsg)));
-                    Assert.That(_loggerCounnter, Is.EqualTo(1));
-                });
-            }
-        }
-
         [Test]
         public void CreateSession_NotAuthenticatedDueToNullTokenInfo_NoWriteLog()
         {

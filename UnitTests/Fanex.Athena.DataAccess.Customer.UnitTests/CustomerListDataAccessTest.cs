@@ -114,13 +114,15 @@
             DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerLoginInfo")).Returns(ObjectDb);
             const int CustId = 0;
             const int LicenseeId = 0;
+            const string LicenseeName = "Name";
 
             // Action
-            DataAccess.GetCustomerLoginInfo(CustId, LicenseeId);
+            DataAccess.GetCustomerLoginInfo(CustId, LicenseeId, LicenseeName);
 
             // Assert
             ObjectDb.Received().AddInParameter("custid", DbType.Int32, CustId);
             ObjectDb.Received().AddInParameter("licenseeId", DbType.Int32, LicenseeId);
+            ObjectDb.Received().AddInParameter("siteName", DbType.String, LicenseeName);
         }
 
         [Test]

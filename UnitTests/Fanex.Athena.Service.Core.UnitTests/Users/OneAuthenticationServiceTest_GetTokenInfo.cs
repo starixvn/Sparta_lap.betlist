@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Service.Core.UnitTests.Users
 {
     using Core.Users.Interfaces;
+    using Core.Utility.Interfaces;
     using Fanex.Athena.Service.Core.Users;
     using Model.Core.DTO.OneAuth;
     using NSubstitute;
@@ -21,7 +22,8 @@
                 null,
                 null,
                 null,
-                _oneBookSecurityWrapper);
+                _oneBookSecurityWrapper,
+                null);
         }
 
         [TearDown]

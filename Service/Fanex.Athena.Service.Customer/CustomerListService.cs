@@ -6,7 +6,6 @@
 
 namespace Fanex.Athena.Service.Customer
 {
-    using System;
     using System.Collections.Generic;
     using DataAccess.Customer.Interfaces;
     using Fanex.Athena.DataAccess.Customer;
@@ -21,7 +20,6 @@ namespace Fanex.Athena.Service.Customer
     using Fanex.Athena.Service.Core.Users;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Fanex.Athena.Service.Customer.Interfaces;
-    using Model.Core.DataDomain;
     using Model.Core.ResultModel;
     using Resources;
 
@@ -75,10 +73,10 @@ namespace Fanex.Athena.Service.Customer
             return _customerListDataAccess.Search(metaModel);
         }
 
-        public LogInfo GetCustomerLoginInfo(int custId, int licenseeId)
+        public LogInfo GetCustomerLoginInfo(int custId, int licenseeId, string siteName)
         {
             return _authorizationService.HasPermissionOnData(licenseeId, custId, 0)
-                ? _customerListDataAccess.GetCustomerLoginInfo(custId, licenseeId)
+                ? _customerListDataAccess.GetCustomerLoginInfo(custId, licenseeId, siteName)
                 : new LogInfo();
         }
 
@@ -209,6 +207,7 @@ namespace Fanex.Athena.Service.Customer
                 Message = ViewResources.UpdateSpecialLevelMsg
             };
         }
+
         #endregion Update
     }
 }

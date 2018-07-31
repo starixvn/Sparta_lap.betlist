@@ -55,7 +55,7 @@
 
         #region LogInfo
 
-        public LogInfo GetCustomerLoginInfo(int custId, int licenseeId)
+        public LogInfo GetCustomerLoginInfo(int custId, int licenseeId, string siteName)
         {
             const string UspName = "Lrf_CustomerLoginInfo";
 
@@ -63,6 +63,7 @@
             {
                 db.AddInParameter("custid", DbType.Int32, custId);
                 db.AddInParameter(nameof(licenseeId), DbType.Int32, licenseeId);
+                db.AddInParameter("siteName", DbType.String, siteName);
 
                 return db.QueryEntity<LogInfo>();
             }

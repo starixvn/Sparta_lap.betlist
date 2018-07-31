@@ -105,12 +105,13 @@
         {
             // Arrange
             const int LicenseeId = 1, CustId = 2;
+            const string LicenseeName = "Name";
             var expectedResult = new LogInfo();
             _authorizationService.HasPermissionOnData(LicenseeId, CustId, Arg.Any<long>()).Returns(true);
-            _customerListDataAccess.GetCustomerLoginInfo(CustId, LicenseeId).Returns(expectedResult);
+            _customerListDataAccess.GetCustomerLoginInfo(CustId, LicenseeId, LicenseeName).Returns(expectedResult);
 
             // Action
-            var result = _customerListService.GetCustomerLoginInfo(CustId, LicenseeId);
+            var result = _customerListService.GetCustomerLoginInfo(CustId, LicenseeId, LicenseeName);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -121,13 +122,14 @@
         {
             // Arrange
             const int LicenseeId = 1, CustId = 2;
+            const string LicenseeName = "Name";
             _authorizationService.HasPermissionOnData(LicenseeId, CustId, Arg.Any<long>()).Returns(false);
 
             // Action
-            var result = _customerListService.GetCustomerLoginInfo(CustId, LicenseeId);
+            var result = _customerListService.GetCustomerLoginInfo(CustId, LicenseeId, LicenseeName);
 
             // Assert
-            _customerListDataAccess.DidNotReceive().GetCustomerLoginInfo(CustId, LicenseeId);
+            _customerListDataAccess.DidNotReceive().GetCustomerLoginInfo(CustId, LicenseeId, LicenseeName);
             Assert.That(result, Is.Not.Null);
         }
 

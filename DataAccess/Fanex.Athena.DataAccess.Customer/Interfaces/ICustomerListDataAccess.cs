@@ -18,7 +18,7 @@
 
         #region LogInfo
 
-        LogInfo GetCustomerLoginInfo(int custId, int licenseeId);
+        LogInfo GetCustomerLoginInfo(int custId, int licenseeId, string siteName);
 
         #endregion LogInfo
 
