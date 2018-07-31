@@ -14,6 +14,7 @@ import LangHelper from '@jsroot/lib/langHelper'
 import Site from '@jsroot/lib/site'
 import AppData from '@jsroot/lib/AppData'
 import DataService from '@jsroot/lib/DataService.js'
+import Service from '../../common/lib/Service'
 
 const CUSTOMER_SEARCHING_URL = Site.resolveClientUrl("SearchCustomerAPI/SearchCustomer");
 const DATA_URL = Site.resolveClientUrl('api/BettingTicketCenter/GetBySingleCustomer');
@@ -28,7 +29,7 @@ export class FormFilter extends Component {
     }
 
     get isValidModel() {
-        return this.props.username !== "" && this.props.selectedProduct !== "";
+        return !!this.props.selectedProduct;
     }
 
     isSingleDate = (dateRange) => {
@@ -43,6 +44,9 @@ export class FormFilter extends Component {
             return;
         }
 
+        const title = Service.getTitle(params.FromDate, params.ToDate, params.CurrencyName, params.BaseCurrency);
+        this.props.setReportTitle(title);
+        this.props.setRequestParam(params);
         this.props.toggleLoader(true);
         this.props.getGridData(DATA_URL, params);
     }

@@ -19,7 +19,7 @@ function dispatchBettypeList(dispatch, data, selectedBettype, hasItemAll){
     dispatch(setBettypeList(data));
     if(data.length > 0)
     {
-        const bettype = hasItemAll ? itemAll : data[0];//data.find(x => x.value == selectedBettype.value);
+        const bettype = hasItemAll ? itemAll : data[0];
         dispatch(setSelectedBettype(bettype || data[0]));
     }
 }

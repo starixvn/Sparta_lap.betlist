@@ -7,6 +7,8 @@ import * as platformAction from '@jsroot/actions/platformAction'
 import * as liveStatusAction from '@jsroot/actions/liveStatusAction'
 import * as loaderAction from '@jsroot/actions/loaderAction'
 import * as dateRangeAction from '@jsroot/actions/dateRangeAction'
+import * as requestParamAction from '@jsroot/actions/requestParamAction'
+import * as reportTitleAction from '@jsroot/actions/reportTitleAction'
 import * as sportAction from './sportAction'
 import * as bettypeAction from './bettypeAction'
 import * as leagueAction from './leagueAction'
@@ -22,6 +24,8 @@ export const ActionCreators = Object.assign({},
     liveStatusAction,
     loaderAction,
     dateRangeAction,
+    requestParamAction,
+    reportTitleAction,
     sportAction,
     bettypeAction,
     leagueAction,
