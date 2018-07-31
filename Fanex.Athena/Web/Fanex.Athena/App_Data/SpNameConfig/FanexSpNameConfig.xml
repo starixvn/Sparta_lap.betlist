@@ -7,8 +7,4 @@
   <SpNameConfig Environment="BACKUPMNL" SpName="Lrf_ReCheckIn" EnvironmentText="_mnl"></SpNameConfig>
   <SpNameConfig Environment="BACKUPMNL" SpName="Lrf_CheckIn" EnvironmentText="_mnl"></SpNameConfig>
   <!--Do not delete this-->
-
-  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_CustomerSettingLog_Sel" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_GroupCommLog_Sel" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_CustomerLoginInfo" EnvironmentText="_xtest"></SpNameConfig>
 </Root>
