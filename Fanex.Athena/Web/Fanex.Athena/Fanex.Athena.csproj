@@ -745,6 +745,8 @@
     <Content Include="www\js\build\dev\language-zh-Hans.chunk.js" />
     <Content Include="www\js\build\dev\language-zh-TW.chunk.js" />
     <Content Include="www\js\build\dev\pages\customer\exchangebetsetting.chunk.js" />
+    <Content Include="www\js\build\dev\pages\lib\common.chunk.js" />
+    <Content Include="www\js\build\dev\pages\lib\jqgrid.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\bettingticketscenter\multicustomer.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\bettingticketscenter\refno.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\bettingticketscenter\running.chunk.js" />
@@ -913,6 +915,8 @@
     <Content Include="www\js\build\dev\reactpages\lib\lang-zh-Hans.chunk.js.map" />
     <Content Include="www\js\build\dev\reactpages\lib\lang-zh-TW.chunk.js.map" />
     <Content Include="www\js\build\dev\language-ko-KR.chunk.js.map" />
+    <Content Include="www\js\build\dev\pages\lib\common.chunk.js.map" />
+    <Content Include="www\js\build\dev\pages\lib\jqgrid.chunk.js.map" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Row.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.jsx" />
@@ -1579,7 +1583,6 @@
     <Content Include="www\css\source\pages\report\winlossbybettype.scss" />
     <None Include="www\css\source\pages\report\winlossbyleague.scss" />
     <None Include="www\css\source\pages\utility\licenseelist.scss" />
-    <Content Include="www\js\build\dev\common.chunk.js" />
     <Content Include="www\js\build\dev\language.chunk.js" />
     <Content Include="www\js\build\dev\pages\betlist\betlist.chunk.js" />
     <Content Include="www\js\build\dev\pages\betlist\betlistcancelledbets.chunk.js" />
@@ -2522,7 +2525,6 @@
     <Content Include="www\js\build\dev\pages\forecast\ahforecast.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\home\home.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\signin\signin.chunk.js.map" />
-    <Content Include="www\js\build\dev\common.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\totalbet\handicapoverunder.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\totalbet\moneyline.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\totalbet\oddevendrawnodraw.chunk.js.map" />

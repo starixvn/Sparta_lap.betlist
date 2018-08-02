@@ -2,7 +2,6 @@
 var alias = require('../config/aliasReact');
 var pathConfig = require('../config/pathReact');
 var pluginGenerator = require('../config/pluginReact');
-var utils = require('./utils');
 
 function generateConfig(environment) {
     var jsPath = `${pathConfig.scriptPaths.build}/${environment}/reactpages`;

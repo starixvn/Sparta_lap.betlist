@@ -1,6 +1,5 @@
 ﻿const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 exports.setDefinePlugin = function(key, value) {
     const env = {};
@@ -13,58 +12,22 @@ exports.setDefinePlugin = function(key, value) {
     };
 };
 
-exports.minify = function() {
-    return {
-        plugins: [
-            new webpack.optimize.UglifyJsPlugin({
-                parallel: true,
-                beautify: false,
-                comments: false,
-                compress: {
-                    warnings: false,
-                    drop_console: true
-                }
-            })
-        ]
-    };
-};
-
 exports.extractCSS = function(isProduction) {
     return {
+        plugins: [
+                new MiniCssExtractPlugin({ filename: "[name].css", chunkFilename: '[id].css'})
+        ],
         module: {
             rules: [
                 {
-                    test: /\.css$/,
-                    use: ExtractTextPlugin.extract({
-                        fallback: 'style-loader',
-                        use: 'css-loader'
-                    })
-                },
-                {
-                    test: /\.scss$/,
-                    use: ExtractTextPlugin.extract({
-                        fallback: 'style-loader',
-                        use: [
-                            {
-                                loader: 'css-loader',
-                                options: {
-                                    minimize: isProduction,
-                                    url: false
-                                }
-                            },
-                          {
-                              loader: 'sass-loader',
-                              options: {
-                                  minimize: isProduction,
-                                  url: false
-                              }
-                          }]
-                    })
+                    test: /\.(sc|c)ss$/,
+                    use: [
+                        MiniCssExtractPlugin.loader,
+                          'css-loader?url=false',
+                          'sass-loader',
+                    ]
                 }
             ]
-        },
-        plugins: [
-            new ExtractTextPlugin('[name].css')
-        ]
+        }
     };
 };

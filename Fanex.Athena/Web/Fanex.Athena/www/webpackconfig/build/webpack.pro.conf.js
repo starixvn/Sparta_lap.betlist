@@ -14,14 +14,13 @@ var excludeOption = ['reactpages'];
 module.exports = merge(baseConfigs,
     utils.setDefinePlugin('process.env.NODE_ENV', 'production'),
     utils.extractCSS(true),
-    utils.minify(),
     {
+        mode: 'production',
         plugins: [
             new CleanWebpackPlugin([`${jsRootPath}`], {
                 root: process.cwd(),
                 exclude: excludeOption
             }),
-           
 
             new CleanWebpackPlugin([`${cssRootPath}/*.css`,`${cssRootPath}/*.map`,`${cssRootPath}/*.js`], {
                 root: process.cwd(),

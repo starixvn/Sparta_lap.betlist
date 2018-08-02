@@ -6,7 +6,7 @@ var alias = require('../config/alias');
 var rules = require('../config/rule');
 var pluginGenerator = require('../config/plugin');
 var exposeLoader = require('expose-loader');
-var utils = require('./utils');
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 function generateConfig(environment) {
     var jsPath = `${pathConfig.scriptPaths.build}/${environment}`;
@@ -21,8 +21,7 @@ function generateConfig(environment) {
            ]
         },
         entry: {
-            common: ["jquery", "vendor-materialize", "common/site", "common/querystring"],
-
+            [`${jsPath}/pages/lib/materialize`]: ["vendor-materialize"],
             [`${jsPath}/language`]: pathConfig.scriptPaths.language,
             [`${jsPath}/language-zh-CN`]: pathConfig.scriptPaths.languageCN,
             [`${jsPath}/language-zh-TW`]: pathConfig.scriptPaths.languageTW,
@@ -161,6 +160,40 @@ function generateConfig(environment) {
             chunks: false,
             chunkModules: false,
             children: false
+        },
+        optimization: {
+            minimizer: [
+             new UglifyJsPlugin({
+                    sourceMap: true
+                })
+            ],
+            splitChunks: {
+                chunks: 'all',
+                minSize: 30000,
+                maxSize: 0,
+                minChunks: 2,
+                maxAsyncRequests: 5,
+                maxInitialRequests: 3,
+                automaticNameDelimiter: '~',
+                name: true,
+                cacheGroups: {
+                    // disable default cache group
+                    default: false,
+                    vendors: false,
+                    common: {
+                       name: `${jsPath}/pages/lib/common`,
+                       test: /(node_modules|www[\\/]js[\\/]source[\\/]vendors|www[\\/]js[\\/]source[\\/]common)/,
+                       minChunks: 2,
+                       priority: -10
+                    },
+                    jqgrid: {
+                        name: `${jsPath}/pages/lib/jqgrid`,
+                        test: /(www[\\/]js[\\/]source[\\/]lib[\\/]jqgrid)/,
+                        minChunks: 2,
+                        priority: -15
+                    }
+                }
+            }
         }
     };
 

@@ -24,6 +24,5 @@ module.exports = merge(baseConfigs,
             })
         ]
     },
-    utils.extractCSS(true),
-    utils.minify()
+    utils.extractCSS(true)
 );

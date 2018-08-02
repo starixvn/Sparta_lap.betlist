@@ -11,11 +11,6 @@ function generatePlugins(environment) {
             exclude: ['fonts', 'images', 'dev', 'pro']
         }),
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-         new webpack.optimize.CommonsChunkPlugin({
-             name: ["reactpages"],
-            filename: "www/js/build/" + environment + "/reactpages/vendors/[name].chunk.js",
-            minChunks: Infinity
-         }),
          function () {
              this.plugin('done', function (stats) {
                  setTimeout(function () {
