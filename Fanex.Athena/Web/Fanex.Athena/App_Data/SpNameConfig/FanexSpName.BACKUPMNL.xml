@@ -83,7 +83,7 @@
     <Setting Key="Lrf_Rpt_WinLoss" SpName="Lrf_Rpt_WinLoss" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
     <Setting Key="Lrf_Rpt_MatchSelResultEntered" SpName="Lrf_Rpt_MatchSelResultEntered" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
     <Setting Key="Lrf_Rpt_CommByBettype_HR" SpName="Lrf_Rpt_CommByBettype_HR" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_Rpt_Outstanding" SpName="Lrf_Rpt_Outstanding" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_Rpt_Outstanding" SpName="Lrf_Rpt_Outstanding" DbName="DB042.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerSelBalance" SpName="Lrf_CustomerSelBalance" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_WinlossByProduct" SpName="Lrf_Rpt_WinlossByProduct"  DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_WinlossByProductDetail" SpName="Lrf_Rpt_WinlossByProductDetail" DbName="DBEXT.bodb02.bodbLicenseeNet" />
@@ -196,30 +196,30 @@
   </Function>
 
   <Function Name="TotalBets">
-    <Setting Key="Lrf_TotalBets_Sel1378" SpName="Lrf_TotalBets_Sel1378" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
-    <Setting Key="Lrf_TotalBets_Sel2021" SpName="Lrf_TotalBets_Sel2021" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
-    <Setting Key="Lrf_TotalBets_Sel25" SpName="Lrf_TotalBets_Sel25" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
-    <Setting Key="Lrf_TotalBets_Sel6" SpName="Lrf_TotalBets_Sel6" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
-    <Setting Key="Lrf_TotalBets_Sel10" SpName="Lrf_TotalBets_Sel10" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
-    <Setting Key="Lrf_TotalBets_Sel16" SpName="Lrf_TotalBets_Sel16" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
-    <Setting Key="Lrf_TotalBets_Sel14" SpName="Lrf_TotalBets_Sel14" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
-    <Setting Key="Lrf_TotalBets_Sel121" SpName="Lrf_TotalBets_Sel121" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
+    <Setting Key="Lrf_TotalBets_Sel1378" SpName="Lrf_TotalBets_Sel1378" DbName="DB042.bodb02.bodbLicenseeNet"></Setting>
+    <Setting Key="Lrf_TotalBets_Sel2021" SpName="Lrf_TotalBets_Sel2021" DbName="DB042.bodb02.bodbLicenseeNet"></Setting>
+    <Setting Key="Lrf_TotalBets_Sel25" SpName="Lrf_TotalBets_Sel25" DbName="DB042.bodb02.bodbLicenseeNet"></Setting>
+    <Setting Key="Lrf_TotalBets_Sel6" SpName="Lrf_TotalBets_Sel6" DbName="DB042.bodb02.bodbLicenseeNet"></Setting>
+    <Setting Key="Lrf_TotalBets_Sel10" SpName="Lrf_TotalBets_Sel10" DbName="DB042.bodb02.bodbLicenseeNet"></Setting>
+    <Setting Key="Lrf_TotalBets_Sel16" SpName="Lrf_TotalBets_Sel16" DbName="DB042.bodb02.bodbLicenseeNet"></Setting>
+    <Setting Key="Lrf_TotalBets_Sel14" SpName="Lrf_TotalBets_Sel14" DbName="DB042.bodb02.bodbLicenseeNet"></Setting>
+    <Setting Key="Lrf_TotalBets_Sel121" SpName="Lrf_TotalBets_Sel121" DbName="DB042.bodb02.bodbLicenseeNet"></Setting>
   </Function>
 
   <Function Name="Forecast">
-    <Setting Key="Lrf_Forecast_OddsSelTopByMatch" SpName="Lrf_Forecast_OddsSelTopByMatch" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
-    <Setting Key="Lrf_Forecast_SelHDP" SpName="Lrf_Forecast_SelHDP" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
-    <Setting Key="Lrf_Forecast_SelOU" SpName="Lrf_Forecast_SelOU" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
-    <Setting Key="Lrf_Forecast1x2_SelByLeague" SpName="Lrf_Forecast1x2_SelByLeague" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
-    <Setting Key="Lrf_LeagueSelRunning" SpName="Lrf_LeagueSelRunning" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
-    <Setting Key="Lrf_Forecast_MatchList" SpName="Lrf_Forecast_MatchList" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
-    <Setting Key="Lrf_Forecast_Sel1X2" SpName="Lrf_Forecast_Sel1X2" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
-    <Setting Key="Lrf_Forecast_SelByLeague" SpName="Lrf_Forecast_SelByLeague" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
-    <Setting Key="Lrf_Forecast_MatchTotalForecast" SpName="Lrf_Forecast_MatchTotalForecast" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
+    <Setting Key="Lrf_Forecast_OddsSelTopByMatch" SpName="Lrf_Forecast_OddsSelTopByMatch" DbName="DB042.bodb02.bodbLicenseeNet"></Setting>
+    <Setting Key="Lrf_Forecast_SelHDP" SpName="Lrf_Forecast_SelHDP" DbName="DB042.bodb02.bodbLicenseeNet"></Setting>
+    <Setting Key="Lrf_Forecast_SelOU" SpName="Lrf_Forecast_SelOU" DbName="DB042.bodb02.bodbLicenseeNet"></Setting>
+    <Setting Key="Lrf_Forecast1x2_SelByLeague" SpName="Lrf_Forecast1x2_SelByLeague" DbName="DB042.bodb02.bodbLicenseeNet"></Setting>
+    <Setting Key="Lrf_LeagueSelRunning" SpName="Lrf_LeagueSelRunning" DbName="DB042.bodb02.bodbLicenseeNet"></Setting>
+    <Setting Key="Lrf_Forecast_MatchList" SpName="Lrf_Forecast_MatchList" DbName="DB042.bodb02.bodbLicenseeNet"></Setting>
+    <Setting Key="Lrf_Forecast_Sel1X2" SpName="Lrf_Forecast_Sel1X2" DbName="DB042.bodb02.bodbLicenseeNet"></Setting>
+    <Setting Key="Lrf_Forecast_SelByLeague" SpName="Lrf_Forecast_SelByLeague" DbName="DB042.bodb02.bodbLicenseeNet"></Setting>
+    <Setting Key="Lrf_Forecast_MatchTotalForecast" SpName="Lrf_Forecast_MatchTotalForecast" DbName="DB042.bodb02.bodbLicenseeNet"></Setting>
   </Function>
 
   <Function Name="Common">
-    <Setting Key="Lrf_LeagueMatchSelRunning" SpName="Lrf_LeagueMatchSelRunning" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_LeagueMatchSelRunning" SpName="Lrf_LeagueMatchSelRunning" DbName="DB042.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_GetExchangeRateByDate" SpName="Lrf_GetExchangeRateByDate" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_SelBetTypeBySport" SpName="Lrf_SelBetTypeBySport" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_SelLeagueBySport" SpName="Lrf_SelLeagueBySport" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
