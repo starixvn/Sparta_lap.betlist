@@ -40,6 +40,19 @@ namespace Fanex.Athena.Controllers.Report.Result
         private const int ParlayBetType = 9;
         private const int SystemParlayBetType = 29;
 
+        private static readonly IEnumerable<SportType> ShowingMatchCodeSportTypes = new[] 
+        {
+            SportType.GoldDeluxe,
+            SportType.HorseRacing,
+            SportType.Greyhound,
+            SportType.Harness,
+            SportType.VirtualHorseRacing,
+            SportType.VirtualGreyhounds,
+            SportType.VirtualSpeedway,
+            SportType.VirtualMotorRacing,
+            SportType.VirtualCycling
+        };
+
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
         private readonly IParserService _microGamingParserService;
@@ -292,21 +305,6 @@ namespace Fanex.Athena.Controllers.Report.Result
         private static bool IsPalayBetType(int betType)
         {
             return betType == ParlayBetType || betType == SystemParlayBetType || betType == (int)Constant.DataDomain.BetType.VirtualSports2MixParlay;
-        }
-
-        private static bool IsShowMatchCodeIDColumn(SportType sportType)
-        {
-#pragma warning disable S1067 // Expressions should not be too complex
-            return sportType == SportType.GoldDeluxe
-                || sportType == SportType.HorseRacing
-                || sportType == SportType.Greyhound
-                || sportType == SportType.Harness
-                || sportType == SportType.VirtualHorseRacing
-                || sportType == SportType.VirtualGreyhounds
-                || sportType == SportType.VirtualSpeedway
-                || sportType == SportType.VirtualMotorRacing
-                || sportType == SportType.VirtualCycling;
-#pragma warning restore S1067 // Expressions should not be too complex
         }
 
         private static IEnumerable<Sport> RemoveNotAllowedSports(IEnumerable<Sport> sports, ProductAccess productAccess)
@@ -589,7 +587,7 @@ namespace Fanex.Athena.Controllers.Report.Result
                 VisibleDetailedLink = true,
                 VisibleFreeHeader = true,
                 EnableCheckScoreCalculated = sportType == SportType.Soccer,
-                VisibleMatchCodeIDColumn = IsShowMatchCodeIDColumn(sportType)
+                VisibleMatchCodeIDColumn = ShowingMatchCodeSportTypes.Contains(sportType)
             };
         }
 
