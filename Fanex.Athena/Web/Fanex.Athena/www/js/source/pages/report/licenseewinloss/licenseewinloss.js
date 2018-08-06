@@ -427,8 +427,8 @@
                     var month = dataDrillDown.DrillDownFromDate.getMonth();
                     var year = dataDrillDown.DrillDownFromDate.getFullYear();
 
-                    var orignalFDate = _submitData.FromDate;
-                    var originalTDate = _submitData.ToDate;
+                    var orignalFDate = new Date(_submitData.FromDate);
+                    var originalTDate = new Date(_submitData.ToDate);
 
                     if (month === orignalFDate.getMonth()) {
                         fday = orignalFDate.getDate();
