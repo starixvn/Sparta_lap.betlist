@@ -85,8 +85,8 @@
                         var args = LicenseeWinLoss.setReportTitle.calls.mostRecent().args;
 
                         expect(args[0]).toBe(1);
-                        expect(args[1].toDateString()).toBe("Wed Feb 01 2017");
-                        expect(args[2].toDateString()).toBe("Fri Mar 31 2017");
+                        expect(args[1]).toBe("02/01/2017");
+                        expect(args[2]).toBe("03/31/2017");
                     });
                 });
 
