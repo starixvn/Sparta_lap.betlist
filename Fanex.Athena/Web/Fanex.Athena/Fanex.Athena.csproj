@@ -753,10 +753,12 @@
     <Content Include="www\js\build\dev\reactpages\bettingticketscenter\singlecustomer.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\dynamic-import\xlsx-style-sparta.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\exchangewl\exchangewl.chunk.js" />
+    <Content Include="www\js\build\dev\reactpages\lib\common.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\lib\lang-ko-KR.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\lib\lang-zh-CN.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\lib\lang-zh-Hans.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\lib\lang-zh-TW.chunk.js" />
+    <Content Include="www\js\build\dev\reactpages\lib\xlsx-style-sparta.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\report\licenseewlbytimezone.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\notification\notification.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\notification\notification.chunk.js.map" />
@@ -770,6 +772,10 @@
     <Content Include="www\js\build\pro\reactpages\bettingticketscenter\singlecustomer.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\dynamic-import\xlsx-style-sparta.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\exchangewl\exchangewl.chunk.js" />
+    <Content Include="www\js\build\pro\reactpages\lib\lang-ko-KR.chunk.js" />
+    <Content Include="www\js\build\pro\reactpages\lib\lang-zh-CN.chunk.js" />
+    <Content Include="www\js\build\pro\reactpages\lib\lang-zh-Hans.chunk.js" />
+    <Content Include="www\js\build\pro\reactpages\lib\lang-zh-TW.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\lib\langHelper.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\report\licenseewlbytimezone.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\notification\notification.chunk.js" />
@@ -917,6 +923,8 @@
     <Content Include="www\js\build\dev\language-ko-KR.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\lib\common.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\lib\jqgrid.chunk.js.map" />
+    <Content Include="www\js\build\dev\reactpages\lib\common.chunk.js.map" />
+    <Content Include="www\js\build\dev\reactpages\lib\xlsx-style-sparta.chunk.js.map" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Row.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.jsx" />
