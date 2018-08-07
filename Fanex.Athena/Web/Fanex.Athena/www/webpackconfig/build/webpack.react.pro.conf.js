@@ -11,6 +11,7 @@ var jsRootPath = `${pathConfig.scriptPaths.build}/${environment}/reactpages`;
 module.exports = merge(baseConfigs,
     utils.setDefinePlugin('process.env.NODE_ENV', 'production'),
     {
+        mode: 'production',
         watch: false,
         plugins: [
             new CleanWebpackPlugin([`${jsRootPath}/`], {

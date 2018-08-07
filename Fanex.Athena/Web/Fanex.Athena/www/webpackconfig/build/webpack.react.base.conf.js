@@ -2,6 +2,7 @@
 var alias = require('../config/aliasReact');
 var pathConfig = require('../config/pathReact');
 var pluginGenerator = require('../config/pluginReact');
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 function generateConfig(environment) {
     var jsPath = `${pathConfig.scriptPaths.build}/${environment}/reactpages`;
@@ -13,12 +14,7 @@ function generateConfig(environment) {
         },
         entry: {
             /*js*/
-
-            /*  */
-            reactpages: ["react", "react-redux", "redux", "react-dom", "redux-thunk", "redux-logger", "axios",
-                "core-js/fn/object/assign", "core-js/fn/promise", "core-js/fn/array/find", "core-js/fn/array/find-index", "moment"
-            ],
-
+            
             [`${jsPath}/lib/langHelper`]: pathConfig.scriptPaths.languageResource,
             [`${jsPath}/lib/lang-ko-KR`]: pathConfig.scriptPaths.langKR,
             [`${jsPath}/lib/lang-zh-CN`]: pathConfig.scriptPaths.langCN,
@@ -47,7 +43,7 @@ function generateConfig(environment) {
         output: {
             path: pathConfig.projectRoot,
             filename: "[name].chunk.js",
-            chunkFilename: jsPath + '/dynamic-import/[name].chunk.js',
+            chunkFilename: jsPath + '/lib/[name].chunk.js',
         },
         module: {
             rules: [{
@@ -74,7 +70,34 @@ function generateConfig(environment) {
             { './jszip': 'jszip' },
             { './ods': 'ods' },
             { './cptable': 'var cptable' }
-        ]
+        ],
+        optimization: {
+            minimizer: [
+             new UglifyJsPlugin({
+                 sourceMap: true
+             })
+            ],
+            splitChunks: {
+                chunks: 'all',
+                minSize: 30000,
+                maxSize: 0,
+                minChunks: 2,
+                maxAsyncRequests: 5,
+                maxInitialRequests: 3,
+                name: false,
+                cacheGroups: {
+                    // disable default cache group
+                    default: false,
+                    vendors: false,
+                    common: {
+                        name: 'common',
+                        test: /(node_modules)/,
+                        minChunks: 2,
+                        priority: -10
+                    }
+                }
+            }
+        }
     };
 
     return commonConfigs;
