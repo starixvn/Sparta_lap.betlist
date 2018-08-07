@@ -6,59 +6,52 @@ using Fanex.Athena.Constant.Helper;
 using Fanex.Athena.Extension.Utility;
 using Fanex.Athena.Resources;
 using Fanex.Athena.VendorAdapter.Interfaces;
+using Fanex.BetList.Core.Entities;
+using Fanex.BetList.Core.TicketHelper;
 using Fanex.RemotingRef;
-using RemotingRef;
-using BetListCacheRef = Fanex.BetList.Core.TicketHelper.CacheRef;
 
 namespace Fanex.Athena.VendorAdapter
 {
     public class CacheRefAdapter : ICacheRefAdapter
     {
-        private readonly IRemotingRefService _remotingRefService;
-
         private const string MicrogamingResourceKey = "MG_Casino";
+        private readonly Lazy<IRemotingRefService> _remotingRefService = new Lazy<IRemotingRefService>(() => new RemotingRefService());
+        private readonly Lazy<ITicketHelper> _ticketHelper = new Lazy<ITicketHelper>(() => new TicketHelper());
+#pragma warning disable CS3003 // Type is not CLS-compliant
+        public ITicketHelper TicketHelper => _ticketHelper.Value;
+#pragma warning restore CS3003 // Type is not CLS-compliant
+#pragma warning disable CS3003 // Type is not CLS-compliant
+        public IRemotingRefService RemotingRefService => _remotingRefService.Value;
+#pragma warning restore CS3003 // Type is not CLS-compliant
 
-        private static CacheRefAdapter _instance;
-
-        public CacheRefAdapter(IRemotingRefService remotingRefService)
-        {
-            _remotingRefService = remotingRefService ?? new RemotingRefService();
-        }
-        public CacheRefAdapter() : this(null)
-        {
-
-        }
-        public static CacheRefAdapter Instance
-        {
-            get
-            {
-                return _instance ?? (_instance = new CacheRefAdapter());
-            }
-        }
+        /// <summary>
+        /// Thread safe
+        /// </summary>
+        public static CacheRefAdapter Instance { get; } = new CacheRefAdapter();
 
         public string GetMicroGamingGameName(string resourceId)
         {
-            return _remotingRefService.GetResourceDataByRefIdAndResourceId(MicrogamingResourceKey, resourceId, GetCurrentIBCLanguageCode(), string.Empty);
+            return RemotingRefService.GetResourceDataByRefIdAndResourceId(MicrogamingResourceKey, resourceId, GetCurrentIBCLanguageCode(), string.Empty);
         }
 
         public string GetBettype(object bettypeId)
         {
-            return _remotingRefService.GetBetTypeName(bettypeId.ToString(), GetCurrentIBCLanguageCode());
+            return RemotingRefService.GetBetTypeName(bettypeId.ToString(), GetCurrentIBCLanguageCode());
         }
 
         public string GetSportName(object sportId, string languageCode = null)
         {
-            return _remotingRefService.GetSportName(sportId.ToString(), GetCurrentIBCLanguageCode(languageCode), string.Empty);
+            return RemotingRefService.GetSportName(sportId.ToString(), GetCurrentIBCLanguageCode(languageCode), string.Empty);
         }
 
         public string GetTeamName(object teamId)
         {
-            return _remotingRefService.GetTeamName(teamId.ToString(), GetCurrentIBCLanguageCode(), string.Empty);
+            return RemotingRefService.GetTeamName(teamId.ToString(), GetCurrentIBCLanguageCode(), string.Empty);
         }
 
         public string GetLeagueName(object leagueId)
         {
-            return _remotingRefService.GetLeagueName(leagueId.ToString(), GetCurrentIBCLanguageCode(), string.Empty);
+            return RemotingRefService.GetLeagueName(leagueId.ToString(), GetCurrentIBCLanguageCode(), string.Empty);
         }
 
         /// <summary>
@@ -71,7 +64,7 @@ namespace Fanex.Athena.VendorAdapter
         {
             const int SBMinOfMaxBettype = 120;
 
-            var betTypeName = _remotingRefService.GetBetTypeName(betType.ToString(CultureInfo.InvariantCulture), GetCurrentIBCLanguageCode());
+            var betTypeName = RemotingRefService.GetBetTypeName(betType.ToString(CultureInfo.InvariantCulture), GetCurrentIBCLanguageCode());
 
             if (betType == (int)BetType.NgNumberGroup)
             {
@@ -111,24 +104,17 @@ namespace Fanex.Athena.VendorAdapter
 
         public string[] GetCombinationTypeCombo(string betTeam, string betCheck, decimal handicap1, decimal handicap2)
         {
-            return _remotingRefService.GetCombinationTypeCombo(betTeam, betCheck, Convert.ToInt32(handicap1), Convert.ToInt32(handicap2), GetCurrentIBCLanguageCode());
+            return RemotingRefService.GetCombinationTypeCombo(betTeam, betCheck, Convert.ToInt32(handicap1), Convert.ToInt32(handicap2), GetCurrentIBCLanguageCode());
         }
 
         public string GetOddsTypeName(object oddsTypeId)
         {
-            return BetListCacheRef.GetOddsTypeName(oddsTypeId);
+            return TicketHelper.GetOddsTypeNameById(oddsTypeId);
         }
 
         private static string GetCurrentIBCLanguageCode(string languageCode = null)
         {
-            var languageKey = string.IsNullOrEmpty(languageCode) ? Thread.CurrentThread.CurrentUICulture.IetfLanguageTag : languageCode;
-
-            if (Util.MapLanguages.ContainsKey(languageKey))
-            {
-                return Util.MapLanguages[languageKey];
-            }
-
-            return "en";
+            return string.IsNullOrEmpty(languageCode) ? Thread.CurrentThread.CurrentUICulture.IetfLanguageTag : languageCode;
         }
     }
 }
