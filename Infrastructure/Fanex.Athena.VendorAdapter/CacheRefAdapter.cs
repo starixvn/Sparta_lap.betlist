@@ -6,6 +6,7 @@ using Fanex.Athena.Constant.Helper;
 using Fanex.Athena.Extension.Utility;
 using Fanex.Athena.Resources;
 using Fanex.Athena.VendorAdapter.Interfaces;
+using Fanex.RemotingRef;
 using RemotingRef;
 using BetListCacheRef = Fanex.BetList.Core.TicketHelper.CacheRef;
 
@@ -13,10 +14,20 @@ namespace Fanex.Athena.VendorAdapter
 {
     public class CacheRefAdapter : ICacheRefAdapter
     {
+        private readonly IRemotingRefService _remotingRefService;
+
         private const string MicrogamingResourceKey = "MG_Casino";
 
         private static CacheRefAdapter _instance;
 
+        public CacheRefAdapter(IRemotingRefService remotingRefService)
+        {
+            _remotingRefService = remotingRefService ?? new RemotingRefService();
+        }
+        public CacheRefAdapter() : this(null)
+        {
+
+        }
         public static CacheRefAdapter Instance
         {
             get
@@ -27,27 +38,27 @@ namespace Fanex.Athena.VendorAdapter
 
         public string GetMicroGamingGameName(string resourceId)
         {
-            return RefData.GetResourceDataByRefIdAndResourceId(MicrogamingResourceKey, resourceId, GetCurrentIBCLanguageCode(), string.Empty);
+            return _remotingRefService.GetResourceDataByRefIdAndResourceId(MicrogamingResourceKey, resourceId, GetCurrentIBCLanguageCode(), string.Empty);
         }
 
         public string GetBettype(object bettypeId)
         {
-            return RefData.GetBetTypeName(bettypeId.ToString(), GetCurrentIBCLanguageCode(), string.Empty);
+            return _remotingRefService.GetBetTypeName(bettypeId.ToString(), GetCurrentIBCLanguageCode());
         }
 
         public string GetSportName(object sportId, string languageCode = null)
         {
-            return RefData.GetSportName(sportId.ToString(), GetCurrentIBCLanguageCode(languageCode), string.Empty);
+            return _remotingRefService.GetSportName(sportId.ToString(), GetCurrentIBCLanguageCode(languageCode), string.Empty);
         }
 
         public string GetTeamName(object teamId)
         {
-            return RefData.GetTeamName(teamId.ToString(), GetCurrentIBCLanguageCode(), string.Empty);
+            return _remotingRefService.GetTeamName(teamId.ToString(), GetCurrentIBCLanguageCode(), string.Empty);
         }
 
         public string GetLeagueName(object leagueId)
         {
-            return RefData.GetLeagueName(leagueId.ToString(), GetCurrentIBCLanguageCode(), string.Empty);
+            return _remotingRefService.GetLeagueName(leagueId.ToString(), GetCurrentIBCLanguageCode(), string.Empty);
         }
 
         /// <summary>
@@ -60,7 +71,7 @@ namespace Fanex.Athena.VendorAdapter
         {
             const int SBMinOfMaxBettype = 120;
 
-            var betTypeName = RefData.GetBetTypeName(betType.ToString(CultureInfo.InvariantCulture), GetCurrentIBCLanguageCode(), string.Empty);
+            var betTypeName = _remotingRefService.GetBetTypeName(betType.ToString(CultureInfo.InvariantCulture), GetCurrentIBCLanguageCode());
 
             if (betType == (int)BetType.NgNumberGroup)
             {
@@ -100,7 +111,7 @@ namespace Fanex.Athena.VendorAdapter
 
         public string[] GetCombinationTypeCombo(string betTeam, string betCheck, decimal handicap1, decimal handicap2)
         {
-            return RefData.GetCombinationTypeCombo(betTeam, betCheck, Convert.ToInt32(handicap1), Convert.ToInt32(handicap2), GetCurrentIBCLanguageCode());
+            return _remotingRefService.GetCombinationTypeCombo(betTeam, betCheck, Convert.ToInt32(handicap1), Convert.ToInt32(handicap2), GetCurrentIBCLanguageCode());
         }
 
         public string GetOddsTypeName(object oddsTypeId)

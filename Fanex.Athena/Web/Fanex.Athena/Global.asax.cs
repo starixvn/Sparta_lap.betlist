@@ -21,6 +21,7 @@ namespace Fanex.Athena
     using Data.Configuration;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.RouterConfig;
+    using Fanex.RemotingRef;
     using Service.Core.Utility;
 
     public class MvcApplication : HttpApplication
@@ -85,6 +86,10 @@ namespace Fanex.Athena
                 DbSettingProviderManager.Current.Start();
                 log4net.Config.XmlConfigurator.Configure();
                 log4net.LogManager.GetLogger("GeneralLog").Info("Start");
+                RefDataTypeContainer
+               .ConnectTo(new Uri(ConfigurationManager.AppSettings["Fanex.RemotingRef.Service.Url"]))
+               .FromApplication("Fanex.LAP");
+
             }
         }
 
