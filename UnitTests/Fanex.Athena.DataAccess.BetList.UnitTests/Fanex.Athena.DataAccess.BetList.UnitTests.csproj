@@ -127,6 +127,7 @@
     <Compile Include="Util\BetListParameterBuilderTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Fanex.Athena.DataAccess.BetList.UnitTests.ruleset" />
     <None Include="packages.config" />
   </ItemGroup>

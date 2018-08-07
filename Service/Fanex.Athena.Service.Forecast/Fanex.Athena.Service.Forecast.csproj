@@ -122,6 +122,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Fanex.Athena.Service.Forecast.ruleset" />
     <None Include="packages.config" />
   </ItemGroup>

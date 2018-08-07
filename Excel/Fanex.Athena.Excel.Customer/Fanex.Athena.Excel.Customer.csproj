@@ -148,6 +148,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Fanex.Athena.Excel.Customer.ruleset" />
     <None Include="packages.config" />
   </ItemGroup>

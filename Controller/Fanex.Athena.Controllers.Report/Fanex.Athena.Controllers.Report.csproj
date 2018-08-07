@@ -215,6 +215,7 @@
     <Compile Include="WeeklyLiveMatchReportController.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Fanex.Athena.Controllers.Report.ruleset" />
     <None Include="packages.config" />
   </ItemGroup>
