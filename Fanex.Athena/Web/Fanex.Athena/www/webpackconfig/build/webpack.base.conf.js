@@ -21,7 +21,6 @@ function generateConfig(environment) {
            ]
         },
         entry: {
-            [`${jsPath}/pages/lib/materialize`]: ["vendor-materialize"],
             [`${jsPath}/language`]: pathConfig.scriptPaths.language,
             [`${jsPath}/language-zh-CN`]: pathConfig.scriptPaths.languageCN,
             [`${jsPath}/language-zh-TW`]: pathConfig.scriptPaths.languageTW,

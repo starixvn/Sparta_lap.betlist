@@ -1,118 +1,1056 @@
-webpackJsonp([23],{
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// install a JSONP callback for chunk loading
+/******/ 	function webpackJsonpCallback(data) {
+/******/ 		var chunkIds = data[0];
+/******/ 		var moreModules = data[1];
+/******/ 		var executeModules = data[2];
+/******/
+/******/ 		// add "moreModules" to the modules object,
+/******/ 		// then flag all "chunkIds" as loaded and fire callback
+/******/ 		var moduleId, chunkId, i = 0, resolves = [];
+/******/ 		for(;i < chunkIds.length; i++) {
+/******/ 			chunkId = chunkIds[i];
+/******/ 			if(installedChunks[chunkId]) {
+/******/ 				resolves.push(installedChunks[chunkId][0]);
+/******/ 			}
+/******/ 			installedChunks[chunkId] = 0;
+/******/ 		}
+/******/ 		for(moduleId in moreModules) {
+/******/ 			if(Object.prototype.hasOwnProperty.call(moreModules, moduleId)) {
+/******/ 				modules[moduleId] = moreModules[moduleId];
+/******/ 			}
+/******/ 		}
+/******/ 		if(parentJsonpFunction) parentJsonpFunction(data);
+/******/
+/******/ 		while(resolves.length) {
+/******/ 			resolves.shift()();
+/******/ 		}
+/******/
+/******/ 		// add entry modules from loaded chunk to deferred list
+/******/ 		deferredModules.push.apply(deferredModules, executeModules || []);
+/******/
+/******/ 		// run deferred modules when all chunks ready
+/******/ 		return checkDeferredModules();
+/******/ 	};
+/******/ 	function checkDeferredModules() {
+/******/ 		var result;
+/******/ 		for(var i = 0; i < deferredModules.length; i++) {
+/******/ 			var deferredModule = deferredModules[i];
+/******/ 			var fulfilled = true;
+/******/ 			for(var j = 1; j < deferredModule.length; j++) {
+/******/ 				var depId = deferredModule[j];
+/******/ 				if(installedChunks[depId] !== 0) fulfilled = false;
+/******/ 			}
+/******/ 			if(fulfilled) {
+/******/ 				deferredModules.splice(i--, 1);
+/******/ 				result = __webpack_require__(__webpack_require__.s = deferredModule[0]);
+/******/ 			}
+/******/ 		}
+/******/ 		return result;
+/******/ 	}
+/******/
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// object to store loaded and loading chunks
+/******/ 	// undefined = chunk not loaded, null = chunk preloaded/prefetched
+/******/ 	// Promise = chunk loading, 0 = chunk loaded
+/******/ 	var installedChunks = {
+/******/ 		"www/js/build/dev/pages/customer/exchangebetsetting": 0
+/******/ 	};
+/******/
+/******/ 	var deferredModules = [];
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	var jsonpArray = window["webpackJsonp"] = window["webpackJsonp"] || [];
+/******/ 	var oldJsonpFunction = jsonpArray.push.bind(jsonpArray);
+/******/ 	jsonpArray.push = webpackJsonpCallback;
+/******/ 	jsonpArray = jsonpArray.slice();
+/******/ 	for(var i = 0; i < jsonpArray.length; i++) webpackJsonpCallback(jsonpArray[i]);
+/******/ 	var parentJsonpFunction = oldJsonpFunction;
+/******/
+/******/
+/******/ 	// add entry module to deferred list
+/******/ 	deferredModules.push([53,"www/js/build/dev/pages/lib/common"]);
+/******/ 	// run deferred modules when ready
+/******/ 	return checkDeferredModules();
+/******/ })
+/************************************************************************/
+/******/ ({
 
-/***/ 15:
+/***/ "./www/js/source/components/jquery.flatpopup.js":
+/*!******************************************************!*\
+  !*** ./www/js/source/components/jquery.flatpopup.js ***!
+  \******************************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(5), __webpack_require__(31)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup) {
-    
-    function isInteger(text) {
-        return /^\+?\d+$/.test(text);
-    }
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
+    var $blockBody;
+    var DEFAULT_MODAL = true;
 
-    var _me = {
-        showDialogMesage: function (title, message) {
-            var options = {
-                title: title,
-                height: "auto",
-                id: "result-update-betsetting",
-                onOpen: function () {
-                    $('#btnSubmitBetSetting, #btnReset').prop('disabled', true);
-                },
-                onClose: function () {
-                    $("#result-update-betsetting").remove();
-                    $('#btnSubmitBetSetting, #btnReset').removeAttr('disabled');
-                    setTimeout(function () {
-                        Site.blockUI();
-                        Site.getLocation().reload();
-                    }, 500);
-                },
-                width: 450
+    var _methods = {
+        init: function (options) {
+            var defaultOptions = {
+                width: 640,
+                height: 480,
+                padding: 0,
+                id: "popup-content",
+                className: "",
+                title: "&nbsp;",
+                container: "body",
+                modal: DEFAULT_MODAL,
+                onOpen: null,
+                onOpened: null,
+                onClose: null
             };
 
-            var buttons = [
-                {
-                    text: Site.getSingleResource("OK"),
-                    isClosedOnClick: true,
-                    classes: "btn btn-submit"
-                }];
+            $blockBody = $(".popup-block-body");
+            options = $.extend(defaultOptions, options || {});
+            return this.each(function () {
+                var $self = $(this);
+                var $container = $(options.container);
 
-            Popup.openPopupWithButton('<div><p>' + message + '</p></div>', options, buttons);
+                if (options.modal && $blockBody.length === 0) {
+                    $blockBody = $('<div class="popup-block-body" style="display: none"></div>');
+                    $container.append($blockBody);
+                }
+                
+                var $popupElement = $("#" + options.id);
+                if ($popupElement.length === 0 || $popupElement.hasClass('flat-popup') === false) {
+                    $self.attr("id", options.id);
+                    $self.addClass("flat-popup " + options.className);
+                    $self.children().wrapAll("<div class='wrapContent' style='padding:" + options.padding + "px'></div>");
+                    $self.hide()
+                         .prepend('<div class="title-bar popup-title"><div class="txt-title">'
+                             + options.title
+                             + '</div><a class="popup-close" href="javascript:;"><i class="icon-close"></i></a></div>');
+
+                    $self.find('a.popup-close').on('click', function () {
+                        if (options.onClose) {
+                            options.onClose.apply($self);
+                        }
+
+                        if ($self.find("iframe").length > 0) {
+                            $self.find(".wrapContent").empty();
+                        }
+                        _methods.hide.apply($self);
+                    });
+
+                    $container.append($self);
+                }
+                else {
+                    $self = $("#" + options.id);
+                    $self.find(".txt-title").text(options.title);
+                    var $wrapContent = $self.find(".wrapContent");
+                    $wrapContent.append($self.children().not(".popup-title"));
+                }
+
+                $self.width(options.width);
+                $self.height(options.height);
+
+                if (options.onOpen) {
+                    options.onOpen.apply($self);
+                }
+
+                _methods.show.call($self, options.modal);
+
+                if (options.onOpened) {
+                    setTimeout(options.onOpened.apply($self), 350);
+                }
+            });
         },
 
-        convertToFloat: function (str) {
-            var temp = str.replace(/,/g, "");
-            var temp2 = temp.replace(".", "");
+        show: function (modal) {
+            var $self = this;
+            //Set the center alignment padding + border see css style
+            var left = ($(window).width() - $self.width()) / 2;
+            var top = ($(window).height() - $self.height()) / 2;
 
-            if (isInteger(temp2)) {
-                return parseFloat(temp);
+            if (top > 300) {
+                top -= 100;
             }
-            else {
-                return NaN;
+
+            $self.css({
+                'top': (top < 0 ? 0 : top) + "px",
+                'left': (left < 0 ? 0 : left) + "px"
+            });
+
+            if (modal === true || modal === undefined) {
+                $blockBody.show();
             }
+
+            $self.fadeIn(300);
         },
 
-        showBalloonMsg: function (elementSelector, strMsg) {
-            var contents = '<div onclick="hideBalloonMsg(\'' + elementSelector + '\')" style="width:140px;" class="msgerr">' + strMsg + '</div>';
-
-            $(elementSelector).blur(function () { _me.hideBalloonMsg(elementSelector); })
-                              .focus()
-                              .showBalloon({
-                                  contents: contents
-                              });
-        },
-        hideBalloonMsg: function (elementSelector) {
-            $(elementSelector).hideBalloon();
+        hide: function () {
+            $(this).fadeOut(300);
+            $blockBody.hide();
+            return false;
         }
     };
 
-    return _me;
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+    $.fn.flatPopup = function (methodOrOptions) {
+        if (_methods[methodOrOptions]) {
+            return _methods[methodOrOptions].apply(this, Array.prototype.slice.call(arguments, 1));
+        } else if (typeof methodOrOptions === 'object' || !methodOrOptions) {
+            // Default to "init"
+            return _methods.init.apply(this, arguments);
+        } else {
+            $.error('Method ' + methodOrOptions + ' does not exist on jQuery.flatPopup');
+        }
+    };
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
 
-/***/ 20:
+/***/ "./www/js/source/components/selectlist.js":
+/*!************************************************!*\
+  !*** ./www/js/source/components/selectlist.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
+    "use strict";
+
+    var CONTAINER_SELECTOR = ".select-list-container";
+    var DISABLED_CLASS = "disabled";
+    var HIGHLIGHT_CLASS = "highlighted";
+
+    function getLabelHtml(option) {
+        var targetDropdownId = option.selectionId + "-result-container";
+        var className = option.isDisabled ? "selection disabled" : "selection";
+        return '<div class="select-list-container">' +
+                '<div class="' + className + '" id="' + option.selectionId + '" aria-targetDropdown="' + targetDropdownId + '">' +
+                    '<div class="selection-label">' + option.labelText + '</div>' +
+                    '<div class="selection-icon"><span class="selection-icon-arrow"></span></div>' +
+                '</div>' +
+            '</div>';
+    }
+
+    function getSearchBoxHtml(isShow) {
+        return isShow ? '<div class="select-list-dropdown-search"><input class="select-list-search-results" autocomplete="off" /></div>' : '';
+    }
+
+    function getOptionItemHtml(dataItem) {
+        return '<li class="option-item ' + dataItem.className + '" data-key="' + dataItem.key + '">' + dataItem.value + '</li>';
+    }
+
+    function getOptionListHtml(dataList) {
+        var htmlArray = ['<div class="select-list-dropdown-results"><ul class="option-list">'];
+
+        for (var i = 0; i < dataList.length; i++) {
+            var dataItem = dataList[i];
+            htmlArray.push(getOptionItemHtml(dataItem));
+        }
+
+        htmlArray.push('</ul></div>');
+
+        return htmlArray.join("");
+    }
+
+    function scrollToHighLightItem($container, $item, index) {
+        var itemTop = $item.offset().top;
+        var itemHeight = $item.outerHeight();
+        var containerTop = $container.offset().top;
+        var scrollUp = null;
+        if (itemTop <= containerTop) {
+            scrollUp = true;
+        }
+        else if (itemTop >= containerTop + $container.height()) {
+            scrollUp = false;
+        }
+        if (scrollUp === null) {
+            return;
+        }
+        if (scrollUp) {
+            $container.scrollTop(itemHeight * (index - 1) - $container.height());
+        }
+        else {
+            $container.scrollTop(itemHeight * index);
+        }
+    }
+
+    function keyUp($element) {
+        var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
+        var showOptionList = $selectList.find(".option-item:visible");
+        var $highlightItem = $selectList.find(".option-item." + HIGHLIGHT_CLASS + ":visible").first();
+        var index = showOptionList.index($highlightItem);
+
+        $highlightItem.removeClass(HIGHLIGHT_CLASS);
+        if ($highlightItem.length > 0 && index !== 0) {
+            var $preItem = showOptionList.eq(index - 1);
+            $preItem.addClass(HIGHLIGHT_CLASS);
+            scrollToHighLightItem($selectList, $preItem, index - 1);
+        }
+        else {
+            showOptionList.last().addClass(HIGHLIGHT_CLASS);
+            $selectList.scrollTop(showOptionList.length * $highlightItem.outerHeight());
+        }
+    }
+
+    function keyDown($element) {
+        var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
+        var showOptionList = $selectList.find(".option-item:visible");
+        var $highlightItem = $selectList.find(".option-item." + HIGHLIGHT_CLASS + ":visible").first();
+        var index = showOptionList.index($highlightItem);
+
+        $highlightItem.removeClass(HIGHLIGHT_CLASS);
+        if ($highlightItem.length > 0 && index !== (showOptionList.length - 1)) {
+            var $nextItem = showOptionList.eq(index + 1);
+            $nextItem.addClass(HIGHLIGHT_CLASS);
+            scrollToHighLightItem($selectList, $nextItem, index + 1);
+        }
+        else {
+            showOptionList.first().addClass(HIGHLIGHT_CLASS);
+            $selectList.scrollTop(0);
+        }
+    }
+
+    function keySearch($element, canEnter) {
+        setTimeout(function () {
+            var query = $element.val().toUpperCase();
+            var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
+            var optionList = $selectList.find(".option-item");
+            var isFirstItem = canEnter;
+            if (canEnter) {
+                optionList.removeClass(HIGHLIGHT_CLASS);
+            }
+            optionList.each(function (index, item) {
+                var $item = $(item);
+                var currentText = $item.text().toUpperCase();
+                if (currentText.indexOf(query) === -1) {
+                    $item.hide();
+                }
+                else {
+                    if (isFirstItem) {
+                        $item.addClass(HIGHLIGHT_CLASS);
+                        isFirstItem = false;
+                        $selectList.scrollTop(0);
+                    }
+                    $item.show();
+                }
+            });
+        }, 100);
+    }
+
+    function enter($element) {
+        var $highlightItem = $element.closest(".select-list-dropdown").find(".option-item." + HIGHLIGHT_CLASS + ":visible");
+        $highlightItem.click();
+    }
+
+    function getDropdownList(resultContainerId, canSearch, canEnter) {
+        /*jshint validthis: true*/
+        var $originalSelectElement = $(this);
+        var dataList = $originalSelectElement.find("option").map(function (index, item) {
+            var key = item.value;
+            var text = item.text;
+
+            return { key: key, value: text, className: item.className };
+        });
+        var selectedValue = $originalSelectElement.val();
+
+        var dropdownListHtml = '<div id="' + resultContainerId + '" class="select-list-result-container"><div class="select-list-dropdown">' +
+                                getSearchBoxHtml(canSearch) + getOptionListHtml(dataList) +
+                            '</div></div>';
+        var $dropdown = $(dropdownListHtml);
+        $dropdown.find('.option-item[data-key="' + selectedValue + '"]').addClass(HIGHLIGHT_CLASS);
+
+        $dropdown.on("click", ".option-item", function () {
+            $(".option-item").removeClass(HIGHLIGHT_CLASS);
+            $(this).addClass(HIGHLIGHT_CLASS);
+            var selectedKey = $(this).data("key");
+            $originalSelectElement.val(selectedKey);
+
+            $originalSelectElement.trigger("change");
+        });
+
+        var $searchBox = $dropdown.find(".select-list-search-results");
+
+        $searchBox.on("click", function (e) {
+            e.stopPropagation();
+        });
+
+        if (canEnter) {
+            $searchBox.on("keyup", function (e) {
+                var $this = $(this);
+                if (e.keyCode === 40) {
+                    keyDown($this);
+                }
+                else if (e.keyCode === 38) {
+                    keyUp($this);
+                }
+                else if (e.keyCode === 13) {
+                    enter($this);
+                }
+                else {
+                    keySearch($this, true);
+                }
+            });
+        }
+        else {
+            $searchBox.on("keyup", function () {
+                var $this = $(this);
+                keySearch($this, false);
+            });
+        }
+
+        return $dropdown;
+    }
+
+    function generateId($element) {
+        var id = '';
+
+        if ($element.attr('id') !== null) {
+            id = $element.attr('id');
+        } else if ($element.attr('name') !== null) {
+            id = $element.attr('name') + '-' + generateChars(2);
+        } else {
+            id = generateChars(4);
+        }
+
+        id = id.replace(/(:|\.|\[|\]|,)/g, '');
+        id = 'select-list-' + id;
+
+        return id;
+    }
+
+    function generateChars(length) {
+        var chars = '';
+
+        for (var i = 0; i < length; i++) {
+            var randomChar = Math.floor(Math.random() * 36);
+            chars += randomChar.toString(36);
+        }
+
+        return chars;
+    }
+
+    function closeAll() {
+        $(".select-list-result-container").remove();
+    }
+
+    var defaultOption = {
+        canSearch: false,
+        canEnter: false,
+        isDisabled: false,
+        beforeOpen: function () { },
+        afterOpen: function () { }
+    };
+
+    var _methods = {
+        init: function (options) {
+            var selectListOption = $.extend({}, defaultOption, options || {});
+
+            return this.each(function () {
+                var self = this;
+                var $element = $(self);
+                if (!selectListOption.canSearch) {
+                    selectListOption.canSearch = $element.attr("data-can-search") === "1";
+                }
+                if (!selectListOption.canEnter) {
+                    selectListOption.canEnter = $element.attr("data-can-enter") === "1";
+                }
+
+                _methods.buildLabel.call(self);
+
+                var $container = $element.parent();
+                $container.off("click", ".selection");
+                $container.on("click", ".selection", function () {
+                    var $selection = $(this);
+                    if (!$selection.hasClass(DISABLED_CLASS)) {
+                        _methods.toggle.call(self, selectListOption);
+                    }
+                });
+
+                $element.on("change", function () {
+                    _methods.update.call(self);
+                });
+
+                $("html").on("click", function (e) {
+                    var $target = $(e.target);
+
+                    if (!$target.closest(CONTAINER_SELECTOR).length) {
+                        closeAll();
+                    }
+                });
+            });
+        },
+
+        buildLabel: function (option) {
+            option = option || {};
+            var $self = $(this);
+            $self.siblings(CONTAINER_SELECTOR).remove();
+            var optionSelected = $self.find("option:selected");
+            var labelText = optionSelected.length ? optionSelected.text() : "";
+            var selectionId = generateId($self);
+
+            option.labelText = labelText;
+            option.selectionId = selectionId;
+            var $selectionLabel = $(getLabelHtml(option));
+
+            $self.hide().parent().append($selectionLabel);
+        },
+
+        open: function (resultContainerId, canSearch, canEnter) {
+            closeAll();
+
+            var $self = $(this);
+            var $dropdown = getDropdownList.call(this, resultContainerId, canSearch, canEnter);
+
+            var $selection = $self.siblings(CONTAINER_SELECTOR).find(".selection");
+            var offset = $selection.offset();
+            $dropdown.css({ top: (offset.top + 26) + 'px', left: offset.left + 'px', width: $selection.width() + 'px' });
+
+            $("body").append($dropdown);
+            $dropdown.find(".select-list-search-results").focus();
+        },
+
+        close: function () {
+            var $this = $(this);
+            var $selection = $this.siblings(CONTAINER_SELECTOR).find(".selection");
+            var resultContainerId = $selection.attr("aria-targetDropdown");
+            $("#" + resultContainerId).remove();
+        },
+
+        toggle: function (option) {
+            var $this = $(this);
+            var $selection = $this.siblings(CONTAINER_SELECTOR).find(".selection");
+            var resultContainerId = $selection.attr("aria-targetDropdown");
+
+            if (resultContainerId && resultContainerId.length > 0) {
+                var $currentDropdown = $("#" + resultContainerId);
+                var isShowing = $currentDropdown.length > 0;
+
+                if (isShowing) {
+                    $currentDropdown.remove();
+                }
+                else {
+                    if (typeof option.beforeOpen === "function") {
+                        option.beforeOpen.call(this);
+                    }
+
+                    _methods.open.call(this, resultContainerId, option.canSearch, option.canEnter);
+
+                    if (typeof option.afterOpen === "function") {
+                        option.afterOpen.call(this);
+                    }
+                }
+            }
+        },
+
+        update: function (option) {
+            _methods.buildLabel.call(this, option);
+        },
+
+        disabled: function (isDisabled) {
+            var $selection = $(this).siblings(CONTAINER_SELECTOR).find(".selection");
+            $selection.toggleClass(DISABLED_CLASS, !!isDisabled);
+        }
+    };
+
+    $.fn.selectList = function (methodOrOptions) {
+        if (_methods[methodOrOptions]) {
+            return _methods[methodOrOptions].apply(this, Array.prototype.slice.call(arguments, 1));
+        } else if (typeof methodOrOptions === 'object' || !methodOrOptions) {
+            return _methods.init.apply(this, arguments);
+        } else {
+            $.error('Method ' + methodOrOptions + ' does not exist on selectList');
+        }
+    };
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ "./www/js/source/extensions/prototype.js":
+/*!***********************************************!*\
+  !*** ./www/js/source/extensions/prototype.js ***!
+  \***********************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
-    var Product = {
-        Sportsbook: 0,
-        Racing: 1,
-        NumberGame: 2,
-        LiveCasino: 4,
-        VirtualSports: 5,
-        RngCasino: 6,
-        Keno: 8,
-        AgCasino: 10,
-        GoldDeluxe: 11,
-        Macau: 12,
-        BetTrade: 13,
-        MgcLiveCasino: 14,
-        Colossusbets: 15,
-        MgcRngCasino: 17,
-        AllBet: 21,
-        VoidBridge: 22,
-        FishingWorld: 24,
-        Cashout: 25,
-        VirtualSports2: 27,
-        Lottery: 28
-    };
+﻿/// <reference path="/@JSense.js" />
+///
+/*
+* @Alex-1/11/2013
+* The below function will work adequatly for the six simple types I mentioned,
+* as long as data in the objects and arrays form a tree structure.That is, there isn't
+* more than one reference to the same data in the object.
+*
+*/
 
-    var _me = {
-        Product: Product
-    };
+//#region String Prototype
 
-    return _me;
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+/* jshint ignore:start */
+String.prototype.format = function () {
+    /// <summary>
+    /// simply format method
+    /// </summary>
+    /// <returns type="string">formated string</returns>
+    var formatted = this;
+    for (var i = 0; i < arguments.length; i++) {
+        formatted = formatted.replace("{" + i + "}", arguments[i]);
+    }
+    return formatted;
+};
+String.prototype.trim = function () {
+    return this.replace(/(^\s*)|(\s*$)/g, '');
+};
+
+String.prototype.ltrim = function () {
+    return this.replace(/^\s*/g, '');
+};
+
+String.prototype.rtrim = function () {
+    return this.replace(/\s*$/g, '');
+};
+String.prototype.replaceAll = function (token, newToken, ignoreCase) {
+    var _token;
+    var str = this + "";
+    var i = -1;
+
+    if (typeof token === "string") {
+        if (ignoreCase) {
+            _token = token.toLowerCase();
+
+            while ((
+                i = str.toLowerCase().indexOf(
+                    token, i >= 0 ? i + newToken.length : 0
+                )) !== -1
+            ) {
+                str = str.substring(0, i) +
+                    newToken +
+                    str.substring(i + token.length);
+            }
+        } else {
+            return this.split(token).join(newToken);
+        }
+    }
+    return str;
+};
+
+//#endregion
+
+//#region Array prototype
+
+Array.prototype.remove = function (value, fieldName) {
+    /// <summary>
+    ///
+    /// Remove specific element in array
+    /// </summary>
+    /// <param name="value"> element or value of field in object</param>
+    /// <param name="fieldName">Name of a field in object</param>
+    for (var i = 0; i < this.length; ++i) {
+        if (typeof this[i] == 'object' && fieldName !== undefined) {
+            if (this[i][fieldName] !== undefined && this[i][fieldName] == value) {
+                this.splice(i, 1);
+                return;
+            }
+        } else {
+            if (this[i] == value) {
+                this.splice(i, 1);
+                return;
+            }
+        }
+    }
+};
+Array.prototype.insertAfter = function (value, after) {
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="value">element</param>
+    /// <param name="after">position</param>
+    this.splice(after + 1, 0, value);
+};
+Array.prototype.insertBefore = function (value, before) {
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="value">element</param>
+    /// <param name="before">position</param>
+    this.splice(before, 0, value);
+};
+
+//#endregion
+
+/* jshint ignore:end */
 
 /***/ }),
 
-/***/ 26:
+/***/ "./www/js/source/lib/jquery.balloon.js":
+/*!*********************************************!*\
+  !*** ./www/js/source/lib/jquery.balloon.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
+/**
+* Hover balloon on elements without css and images.
+*
+* Copyright (c) 2011 Hayato Takenaka
+* Dual licensed under the MIT and GPL licenses:
+* http://www.opensource.org/licenses/mit-license.php
+* http://www.gnu.org/licenses/gpl.html
+* @author: Hayato Takenaka (http://urin.take-uma.net)
+* @version: 0.3.0 - 2012/02/25
+**/
+; (function ($) {
+    //-----------------------------------------------------------------------------
+    // Private
+    //-----------------------------------------------------------------------------
+    // Helper for meta programming
+    var Meta = {};
+    Meta.pos = $.extend(["top", "bottom", "left", "right"], { camel: ["Top", "Bottom", "Left", "Right"] });
+    Meta.size = $.extend(["height", "width"], { camel: ["Height", "Width"] });
+    Meta.getRelativeNames = function (position) {
+        var idx = {
+            pos: {
+                o: position,                                          // origin
+                f: (position % 2 == 0) ? position + 1 : position - 1, // faced
+                p1: (position % 2 == 0) ? position : position - 1,
+                p2: (position % 2 == 0) ? position + 1 : position,
+                c1: (position < 2) ? 2 : 0,
+                c2: (position < 2) ? 3 : 1
+            },
+            size: {
+                p: (position < 2) ? 0 : 1, // parallel
+                c: (position < 2) ? 1 : 0  // cross
+            }
+        };
+        var names = {};
+        for (var m1 in idx) {
+            if (!names[m1]) names[m1] = {};
+            for (var m2 in idx[m1]) {
+                names[m1][m2] = Meta[m1][idx[m1][m2]];
+                if (!names.camel) names.camel = {};
+                if (!names.camel[m1]) names.camel[m1] = {};
+                names.camel[m1][m2] = Meta[m1].camel[idx[m1][m2]];
+            }
+        }
+        names.isTopLeft = (names.pos.o == names.pos.p1);
+        return names;
+    };
+
+    // Helper class to handle position and size as numerical pixels.
+    function NumericalBoxElement() { this.initialize.apply(this, arguments); }
+    (function () {
+        // Method factories
+        var Methods = {
+            setBorder: function (pos, isVertical) {
+                return function (value) {
+                    this.$.css("border-" + pos.toLowerCase() + "-width", value + "px");
+                    this["border" + pos] = value;
+                    return (this.isActive) ? digitalize(this, isVertical) : this;
+                }
+            },
+            setPosition: function (pos, isVertical) {
+                return function (value) {
+                    this.$.css(pos.toLowerCase(), value + "px");
+                    this[pos.toLowerCase()] = value;
+                    return (this.isActive) ? digitalize(this, isVertical) : this;
+                }
+            }
+        };
+
+        NumericalBoxElement.prototype = {
+            initialize: function ($element) {
+                this.$ = $element;
+                $.extend(true, this, this.$.offset(), { center: {}, inner: { center: {}} });
+                for (var i = 0; i < Meta.pos.length; i++) {
+                    this["border" + Meta.pos.camel[i]] = parseInt(this.$.css("border-" + Meta.pos[i] + "-width")) || 0;
+                }
+                this.active();
+            },
+            active: function () { this.isActive = true; digitalize(this); return this; },
+            inactive: function () { this.isActive = false; return this; }
+        };
+        for (var i = 0; i < Meta.pos.length; i++) {
+            NumericalBoxElement.prototype["setBorder" + Meta.pos.camel[i]] = Methods.setBorder(Meta.pos.camel[i], (i < 2));
+            if (i % 2 == 0)
+                NumericalBoxElement.prototype["set" + Meta.pos.camel[i]] = Methods.setPosition(Meta.pos.camel[i], (i < 2));
+        }
+
+        function digitalize(box, isVertical) {
+            if (isVertical == undefined) { digitalize(box, true); return digitalize(box, false); }
+            var m = Meta.getRelativeNames((isVertical) ? 0 : 2);
+            box[m.size.p] = box.$["outer" + m.camel.size.p]();
+            box[m.pos.f] = box[m.pos.o] + box[m.size.p];
+            box.center[m.pos.o] = box[m.pos.o] + box[m.size.p] / 2;
+            box.inner[m.pos.o] = box[m.pos.o] + box["border" + m.camel.pos.o];
+            box.inner[m.size.p] = box.$["inner" + m.camel.size.p]();
+            box.inner[m.pos.f] = box.inner[m.pos.o] + box.inner[m.size.p];
+            box.inner.center[m.pos.o] = box.inner[m.pos.f] + box.inner[m.size.p] / 2;
+            return box;
+        }
+    })();
+
+    // Adjust position of balloon body
+    function makeupBalloon($target, $balloon, options) {
+        $balloon.stop(true, true);
+        var outerTip, innerTip,
+			initTipStyle = { position: "absolute", height: "0", width: "0", border: "solid 0 transparent" },
+			target = new NumericalBoxElement($target),
+			balloon = new NumericalBoxElement($balloon);
+        balloon.setTop(-options.offsetY
+			+ ((options.position && options.position.indexOf("top") >= 0) ? target.top - balloon.height
+			: ((options.position && options.position.indexOf("bottom") >= 0) ? target.bottom
+			: target.center.top - balloon.height / 2)));
+        balloon.setLeft(options.offsetX
+			+ ((options.position && options.position.indexOf("left") >= 0) ? target.left - balloon.width
+			: ((options.position && options.position.indexOf("right") >= 0) ? target.right
+			: target.center.left - balloon.width / 2)));
+        if (options.tipSize > 0) {
+            // Add hidden balloon tips into balloon body.
+            if ($balloon.data("outerTip")) { $balloon.data("outerTip").remove(); $balloon.removeData("outerTip"); }
+            if ($balloon.data("innerTip")) { $balloon.data("innerTip").remove(); $balloon.removeData("innerTip"); }
+            outerTip = new NumericalBoxElement($("<div>").css(initTipStyle).appendTo($balloon));
+            innerTip = new NumericalBoxElement($("<div>").css(initTipStyle).appendTo($balloon));
+            // Make tip triangle, adjust position of tips.
+            var m;
+            for (var i = 0; i < Meta.pos.length; i++) {
+                m = Meta.getRelativeNames(i);
+                if (balloon.center[m.pos.c1] >= target[m.pos.c1] &&
+					balloon.center[m.pos.c1] <= target[m.pos.c2]) {
+                    if (i % 2 == 0) {
+                        if (balloon[m.pos.o] >= target[m.pos.o] && balloon[m.pos.f] >= target[m.pos.f]) break;
+                    } else {
+                        if (balloon[m.pos.o] <= target[m.pos.o] && balloon[m.pos.f] <= target[m.pos.f]) break;
+                    }
+                }
+                m = null;
+            }
+            if (m) {
+                balloon["set" + m.camel.pos.p1]
+					(balloon[m.pos.p1] + ((m.isTopLeft) ? 1 : -1) * (options.tipSize - balloon["border" + m.camel.pos.o]));
+                makeTip(balloon, outerTip, m, options.tipSize, $balloon.css("border-" + m.pos.o + "-color"));
+                makeTip(balloon, innerTip, m, options.tipSize - 2 * balloon["border" + m.camel.pos.o], $balloon.css("background-color"));
+                $balloon.data("outerTip", outerTip.$).data("innerTip", innerTip.$);
+            } else {
+                $.each([outerTip.$, innerTip.$], function () { this.remove(); });
+            }
+        }
+        // Make up balloon tip.
+        function makeTip(balloon, tip, m, tipSize, color) {
+            var len = Math.round(tipSize / 1.7320508);
+            tip.inactive()
+				["setBorder" + m.camel.pos.f](tipSize)
+				["setBorder" + m.camel.pos.c1](len)
+				["setBorder" + m.camel.pos.c2](len)
+				["set" + m.camel.pos.p1]((m.isTopLeft) ? -tipSize : balloon.inner[m.size.p])
+				["set" + m.camel.pos.c1](balloon.inner[m.size.c] / 2 - len)
+				.active()
+				.$.css("border-" + m.pos.f + "-color", color);
+        }
+    }
+
+    // True if the event comes from the target or balloon.
+    function isValidTargetEvent($target, e) {
+        var b = $target.data("balloon") && $target.data("balloon").get(0);
+        return !(b && (b == e.relatedTarget || $.contains(b, e.relatedTarget)));
+    }
+
+    //-----------------------------------------------------------------------------
+    // Public
+    //-----------------------------------------------------------------------------
+    $.fn.balloon = function (options) {
+        options = $.extend(true, {}, $.balloon.defaults, options);
+        return this.one("mouseenter", function (e) {
+            var $target = $(this), t = this;
+            var $balloon = $target.unbind("mouseenter", arguments.callee)
+				.showBalloon(options).mouseenter(function (e) {
+				    isValidTargetEvent($target, e) && $target.showBalloon();
+				}).data("balloon");
+            if ($balloon) {
+                $balloon.mouseleave(function (e) {
+                    if (t == e.relatedTarget || $.contains(t, e.relatedTarget)) return;
+                    $target.hideBalloon();
+                }).mouseenter(function (e) { $target.showBalloon(); });
+            }
+        }).mouseleave(function (e) {
+            var $target = $(this);
+            isValidTargetEvent($target, e) && $target.hideBalloon();
+        });
+    };
+
+    $.fn.showBalloon = function (options) {
+        var $target, $balloon, offTimer;
+        if (!$.balloon.defaults.css) $.balloon.defaults.css = {};
+        if (options || !this.data("options"))
+            this.data("options", $.extend(true, {}, $.balloon.defaults, options));
+        options = this.data("options");
+        return this.each(function () {
+            $target = $(this);
+            (offTimer = $target.data("offTimer")) && clearTimeout(offTimer);
+            var contents = $.isFunction(options.contents)
+				? options.contents()
+				: (options.contents || $target.attr("title"));
+            var isNew = !($balloon = $target.data("balloon"));
+            if (isNew) $balloon = $("<div>").append(contents);
+            if (!options.url && (!$balloon || $balloon.html() == "")) return;
+            if (!isNew && contents && contents != $balloon.html()) $balloon.empty().append(contents);
+            $target.removeAttr("title");
+            if (options.url) {
+                $balloon.load($.isFunction(options.url) ? options.url(this) : options.url, function (res, sts, xhr) {
+                    if (options.ajaxComplete) options.ajaxComplete(res, sts, xhr);
+                    makeupBalloon($target, $balloon, options);
+                });
+            }
+            if (isNew) {
+                $balloon
+					.addClass(options.classname)
+					.css(options.css)
+					.css({ visibility: "hidden", position: "absolute" })
+					.appendTo("body");
+                $target.data("balloon", $balloon);
+                makeupBalloon($target, $balloon, options);
+                $balloon.hide().css("visibility", "visible");
+            } else {
+                makeupBalloon($target, $balloon, options);
+            }
+            $target.data("onTimer", setTimeout(function () {
+                if (options.showAnimation) {
+                    options.showAnimation.apply($balloon.stop(true, true), [options.showDuration]);
+                } else {
+                    $balloon.show(options.showDuration, function () {
+                        if (this.style.removeAttribute) { this.style.removeAttribute("filter"); }
+                    });
+                }
+            }, options.delay));
+        });
+    };
+
+    $.fn.hideBalloon = function () {
+        var options = this.data("options"), onTimer, offTimer;
+        return this.each(function () {
+            var $target = $(this);
+            (onTimer = $target.data("onTimer")) && clearTimeout(onTimer);
+            (offTimer = $target.data("offTimer")) && clearTimeout(offTimer);
+            $target.data("offTimer", setTimeout(function () {
+                var $balloon = $target.data("balloon");
+                if (options.hideAnimation) {
+                    $balloon && options.hideAnimation.apply($balloon.stop(true, true), [options.hideDuration]);
+                } else {
+                    $balloon && $balloon.stop(true, true).hide(options.hideDuration);
+                }
+            },
+			options.minLifetime));
+        });
+    };
+
+    $.balloon = {
+        defaults: {
+            contents: null, url: null, ajaxComplete: null, classname: null,
+            position: "top", offsetX: 0, offsetY: 0, tipSize: 12,
+            delay: 0, minLifetime: 200,
+            showDuration: 100, showAnimation: null,
+            hideDuration: 80, hideAnimation: function (d) { this.fadeOut(d); },
+            css: {
+                minWidth: "20px",
+                padding: "5px",
+                borderRadius: "6px",
+                border: "solid 1px #777",
+                boxShadow: "4px 4px 4px #555",
+                color: "#666",
+                backgroundColor: "#efefef",
+                opacity: ($.support.opacity) ? "0.85" : null,
+                zIndex: "32767",
+                textAlign: "left"
+            }
+        }
+    };
+})(jQuery);
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57")))
+
+/***/ }),
+
+/***/ "./www/js/source/lib/numberformat.js":
+/*!*******************************************!*\
+  !*** ./www/js/source/lib/numberformat.js ***!
+  \*******************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -131,7 +1069,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
  **/
 
 // Customize to use AMD module
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
     function NumberFormatter() {
         this.defaults = {
             format: "#,###.00",
@@ -438,17 +1376,148 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
     }
 
     return NumberFormatter;
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__))
 
 /***/ }),
 
-/***/ 27:
+/***/ "./www/js/source/pages/customer/betsetting/common/betsetting.helper.js":
+/*!*****************************************************************************!*\
+  !*** ./www/js/source/pages/customer/betsetting/common/betsetting.helper.js ***!
+  \*****************************************************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(15)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BetSettingHelper) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! common/popup */ "./www/js/source/common/popup.js"), __webpack_require__(/*! lib/jquery.balloon */ "./www/js/source/lib/jquery.balloon.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Popup) {
+    
+    function isInteger(text) {
+        return /^\+?\d+$/.test(text);
+    }
+
+    var _me = {
+        showDialogMesage: function (title, message) {
+            var options = {
+                title: title,
+                height: "auto",
+                id: "result-update-betsetting",
+                onOpen: function () {
+                    $('#btnSubmitBetSetting, #btnReset').prop('disabled', true);
+                },
+                onClose: function () {
+                    $("#result-update-betsetting").remove();
+                    $('#btnSubmitBetSetting, #btnReset').removeAttr('disabled');
+                    setTimeout(function () {
+                        Site.blockUI();
+                        Site.getLocation().reload();
+                    }, 500);
+                },
+                width: 450
+            };
+
+            var buttons = [
+                {
+                    text: Site.getSingleResource("OK"),
+                    isClosedOnClick: true,
+                    classes: "btn btn-submit"
+                }];
+
+            Popup.openPopupWithButton('<div><p>' + message + '</p></div>', options, buttons);
+        },
+
+        convertToFloat: function (str) {
+            var temp = str.replace(/,/g, "");
+            var temp2 = temp.replace(".", "");
+
+            if (isInteger(temp2)) {
+                return parseFloat(temp);
+            }
+            else {
+                return NaN;
+            }
+        },
+
+        showBalloonMsg: function (elementSelector, strMsg) {
+            var contents = '<div onclick="hideBalloonMsg(\'' + elementSelector + '\')" style="width:140px;" class="msgerr">' + strMsg + '</div>';
+
+            $(elementSelector).blur(function () { _me.hideBalloonMsg(elementSelector); })
+                              .focus()
+                              .showBalloon({
+                                  contents: contents
+                              });
+        },
+        hideBalloonMsg: function (elementSelector) {
+            $(elementSelector).hideBalloon();
+        }
+    };
+
+    return _me;
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ "./www/js/source/pages/customer/betsetting/common/betsetting.status.js":
+/*!*****************************************************************************!*\
+  !*** ./www/js/source/pages/customer/betsetting/common/betsetting.status.js ***!
+  \*****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! ./betsetting.helper */ "./www/js/source/pages/customer/betsetting/common/betsetting.helper.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, BetSettingHelper) {
+    var _me = {
+        update: function (url, postData) {
+            $.ajax({
+                type: 'POST',
+                url: url,
+                cache: false,
+                data: postData,
+                dataType: "json",
+                success: function (result) {
+                    var messageResource = result.IsSuccessful ? "MessageSuccess" : "Fail";
+                    BetSettingHelper.showDialogMesage(Site.getSingleResource(messageResource), result.Message);
+                },
+                error: function (request, status, err) {
+                    BetSettingHelper.showDialogMesage(Site.getSingleResource("Error"), err);
+                }
+            });
+        },
+
+        getCommonPostData: function ($context) {
+            var productId = parseInt($("#ProductId").val());
+            var nickName = $context.data("nick-name");
+            // update value  (0: enable, 1: disable) is opposed with current value (1: enable, 0: disable)
+            var status = $context.data("status");
+            var custId = $context.data("cust-id");
+
+            return {
+                productId: productId,
+                nickname: nickName,
+                status: status,
+                custid: custId
+            };
+        }
+    };
+
+    return _me;
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ "./www/js/source/pages/customer/betsetting/common/betsetting.validation.js":
+/*!*********************************************************************************!*\
+  !*** ./www/js/source/pages/customer/betsetting/common/betsetting.validation.js ***!
+  \*********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! ./betsetting.helper */ "./www/js/source/pages/customer/betsetting/common/betsetting.helper.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, BetSettingHelper) {
     var SPORTID_NUMBERGAME = 161;
 
     var _me = {
@@ -556,89 +1625,21 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     };
 
     return _me;
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
 
-/***/ 289:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(290);
-
-
-/***/ }),
-
-/***/ 290:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(291)], __WEBPACK_AMD_DEFINE_RESULT__ = function (ExchangeBetSetting) {
-    $(ExchangeBetSetting.initialize);
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-
-/***/ 291:
+/***/ "./www/js/source/pages/customer/betsetting/common/betsettingbase.js":
+/*!**************************************************************************!*\
+  !*** ./www/js/source/pages/customer/betsetting/common/betsettingbase.js ***!
+  \**************************************************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(58), __webpack_require__(15)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, DcsBetSetting, BetSettingHelper) {
-       var _me = {
-        initialize: function () {
-            DcsBetSetting.initialize();
-            _me.initEvent();
-        },
-
-        initEvent: function () {
-            $("#btnSubmit").click(function () {
-                var $dropdown = $("#ddlCommission");
-                _me.updateComm($(this).attr("data-cust-id"), $dropdown.data("original-value"), $("#ddlCommission").val());
-            });
-
-            $("#btnReset").click(function () {
-                var $dropdown = $("#ddlCommission");
-                $dropdown.val($dropdown.data("original-value")).change();
-            });
-        },
-
-        updateComm: function (custId, oldCommission, newCommission) {
-            $.ajax({
-                type: 'POST',
-                url: Site.resolveClientUrl('ExchangeDcsBetSetting/UpdateComm'),
-                cache: false,
-                data: {
-                    custid: custId,
-                    oldCommission: oldCommission,
-                    newCommission: newCommission
-                },
-                dataType: "json",
-                success: function (result) {
-                    var messageResource = Number(result.Code) === 0 ? "MessageSuccess" : "Fail";
-                    BetSettingHelper.showDialogMesage(Site.getSingleResource(messageResource), result.Message);
-                },
-                beforeSend: Site.blockUI,
-                complete: Site.unBlockUI
-            });
-        }
-    };
-
-    return _me;
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-
-/***/ }),
-
-/***/ 30:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(5), __webpack_require__(20), __webpack_require__(26), __webpack_require__(15), __webpack_require__(27)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Popup, Constant, NumberFormatter, BetSettingHelper, BetSettingValidation) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! common/popup */ "./www/js/source/common/popup.js"), __webpack_require__(/*! ./constant */ "./www/js/source/pages/customer/betsetting/common/constant.js"), __webpack_require__(/*! lib/numberformat */ "./www/js/source/lib/numberformat.js"), __webpack_require__(/*! ./betsetting.helper */ "./www/js/source/pages/customer/betsetting/common/betsetting.helper.js"), __webpack_require__(/*! ./betsetting.validation */ "./www/js/source/pages/customer/betsetting/common/betsetting.validation.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Popup, Constant, NumberFormatter, BetSettingHelper, BetSettingValidation) {
         var Product = Constant.Product;
 
         var _me = {
@@ -800,347 +1801,82 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         };
 
         return _me;
-    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
 
-/***/ 31:
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(jQuery) {/// <reference path="/@JSense.js" />
-/**
-* Hover balloon on elements without css and images.
-*
-* Copyright (c) 2011 Hayato Takenaka
-* Dual licensed under the MIT and GPL licenses:
-* http://www.opensource.org/licenses/mit-license.php
-* http://www.gnu.org/licenses/gpl.html
-* @author: Hayato Takenaka (http://urin.take-uma.net)
-* @version: 0.3.0 - 2012/02/25
-**/
-; (function ($) {
-    //-----------------------------------------------------------------------------
-    // Private
-    //-----------------------------------------------------------------------------
-    // Helper for meta programming
-    var Meta = {};
-    Meta.pos = $.extend(["top", "bottom", "left", "right"], { camel: ["Top", "Bottom", "Left", "Right"] });
-    Meta.size = $.extend(["height", "width"], { camel: ["Height", "Width"] });
-    Meta.getRelativeNames = function (position) {
-        var idx = {
-            pos: {
-                o: position,                                          // origin
-                f: (position % 2 == 0) ? position + 1 : position - 1, // faced
-                p1: (position % 2 == 0) ? position : position - 1,
-                p2: (position % 2 == 0) ? position + 1 : position,
-                c1: (position < 2) ? 2 : 0,
-                c2: (position < 2) ? 3 : 1
-            },
-            size: {
-                p: (position < 2) ? 0 : 1, // parallel
-                c: (position < 2) ? 1 : 0  // cross
-            }
-        };
-        var names = {};
-        for (var m1 in idx) {
-            if (!names[m1]) names[m1] = {};
-            for (var m2 in idx[m1]) {
-                names[m1][m2] = Meta[m1][idx[m1][m2]];
-                if (!names.camel) names.camel = {};
-                if (!names.camel[m1]) names.camel[m1] = {};
-                names.camel[m1][m2] = Meta[m1].camel[idx[m1][m2]];
-            }
-        }
-        names.isTopLeft = (names.pos.o == names.pos.p1);
-        return names;
-    };
-
-    // Helper class to handle position and size as numerical pixels.
-    function NumericalBoxElement() { this.initialize.apply(this, arguments); }
-    (function () {
-        // Method factories
-        var Methods = {
-            setBorder: function (pos, isVertical) {
-                return function (value) {
-                    this.$.css("border-" + pos.toLowerCase() + "-width", value + "px");
-                    this["border" + pos] = value;
-                    return (this.isActive) ? digitalize(this, isVertical) : this;
-                }
-            },
-            setPosition: function (pos, isVertical) {
-                return function (value) {
-                    this.$.css(pos.toLowerCase(), value + "px");
-                    this[pos.toLowerCase()] = value;
-                    return (this.isActive) ? digitalize(this, isVertical) : this;
-                }
-            }
-        };
-
-        NumericalBoxElement.prototype = {
-            initialize: function ($element) {
-                this.$ = $element;
-                $.extend(true, this, this.$.offset(), { center: {}, inner: { center: {}} });
-                for (var i = 0; i < Meta.pos.length; i++) {
-                    this["border" + Meta.pos.camel[i]] = parseInt(this.$.css("border-" + Meta.pos[i] + "-width")) || 0;
-                }
-                this.active();
-            },
-            active: function () { this.isActive = true; digitalize(this); return this; },
-            inactive: function () { this.isActive = false; return this; }
-        };
-        for (var i = 0; i < Meta.pos.length; i++) {
-            NumericalBoxElement.prototype["setBorder" + Meta.pos.camel[i]] = Methods.setBorder(Meta.pos.camel[i], (i < 2));
-            if (i % 2 == 0)
-                NumericalBoxElement.prototype["set" + Meta.pos.camel[i]] = Methods.setPosition(Meta.pos.camel[i], (i < 2));
-        }
-
-        function digitalize(box, isVertical) {
-            if (isVertical == undefined) { digitalize(box, true); return digitalize(box, false); }
-            var m = Meta.getRelativeNames((isVertical) ? 0 : 2);
-            box[m.size.p] = box.$["outer" + m.camel.size.p]();
-            box[m.pos.f] = box[m.pos.o] + box[m.size.p];
-            box.center[m.pos.o] = box[m.pos.o] + box[m.size.p] / 2;
-            box.inner[m.pos.o] = box[m.pos.o] + box["border" + m.camel.pos.o];
-            box.inner[m.size.p] = box.$["inner" + m.camel.size.p]();
-            box.inner[m.pos.f] = box.inner[m.pos.o] + box.inner[m.size.p];
-            box.inner.center[m.pos.o] = box.inner[m.pos.f] + box.inner[m.size.p] / 2;
-            return box;
-        }
-    })();
-
-    // Adjust position of balloon body
-    function makeupBalloon($target, $balloon, options) {
-        $balloon.stop(true, true);
-        var outerTip, innerTip,
-			initTipStyle = { position: "absolute", height: "0", width: "0", border: "solid 0 transparent" },
-			target = new NumericalBoxElement($target),
-			balloon = new NumericalBoxElement($balloon);
-        balloon.setTop(-options.offsetY
-			+ ((options.position && options.position.indexOf("top") >= 0) ? target.top - balloon.height
-			: ((options.position && options.position.indexOf("bottom") >= 0) ? target.bottom
-			: target.center.top - balloon.height / 2)));
-        balloon.setLeft(options.offsetX
-			+ ((options.position && options.position.indexOf("left") >= 0) ? target.left - balloon.width
-			: ((options.position && options.position.indexOf("right") >= 0) ? target.right
-			: target.center.left - balloon.width / 2)));
-        if (options.tipSize > 0) {
-            // Add hidden balloon tips into balloon body.
-            if ($balloon.data("outerTip")) { $balloon.data("outerTip").remove(); $balloon.removeData("outerTip"); }
-            if ($balloon.data("innerTip")) { $balloon.data("innerTip").remove(); $balloon.removeData("innerTip"); }
-            outerTip = new NumericalBoxElement($("<div>").css(initTipStyle).appendTo($balloon));
-            innerTip = new NumericalBoxElement($("<div>").css(initTipStyle).appendTo($balloon));
-            // Make tip triangle, adjust position of tips.
-            var m;
-            for (var i = 0; i < Meta.pos.length; i++) {
-                m = Meta.getRelativeNames(i);
-                if (balloon.center[m.pos.c1] >= target[m.pos.c1] &&
-					balloon.center[m.pos.c1] <= target[m.pos.c2]) {
-                    if (i % 2 == 0) {
-                        if (balloon[m.pos.o] >= target[m.pos.o] && balloon[m.pos.f] >= target[m.pos.f]) break;
-                    } else {
-                        if (balloon[m.pos.o] <= target[m.pos.o] && balloon[m.pos.f] <= target[m.pos.f]) break;
-                    }
-                }
-                m = null;
-            }
-            if (m) {
-                balloon["set" + m.camel.pos.p1]
-					(balloon[m.pos.p1] + ((m.isTopLeft) ? 1 : -1) * (options.tipSize - balloon["border" + m.camel.pos.o]));
-                makeTip(balloon, outerTip, m, options.tipSize, $balloon.css("border-" + m.pos.o + "-color"));
-                makeTip(balloon, innerTip, m, options.tipSize - 2 * balloon["border" + m.camel.pos.o], $balloon.css("background-color"));
-                $balloon.data("outerTip", outerTip.$).data("innerTip", innerTip.$);
-            } else {
-                $.each([outerTip.$, innerTip.$], function () { this.remove(); });
-            }
-        }
-        // Make up balloon tip.
-        function makeTip(balloon, tip, m, tipSize, color) {
-            var len = Math.round(tipSize / 1.7320508);
-            tip.inactive()
-				["setBorder" + m.camel.pos.f](tipSize)
-				["setBorder" + m.camel.pos.c1](len)
-				["setBorder" + m.camel.pos.c2](len)
-				["set" + m.camel.pos.p1]((m.isTopLeft) ? -tipSize : balloon.inner[m.size.p])
-				["set" + m.camel.pos.c1](balloon.inner[m.size.c] / 2 - len)
-				.active()
-				.$.css("border-" + m.pos.f + "-color", color);
-        }
-    }
-
-    // True if the event comes from the target or balloon.
-    function isValidTargetEvent($target, e) {
-        var b = $target.data("balloon") && $target.data("balloon").get(0);
-        return !(b && (b == e.relatedTarget || $.contains(b, e.relatedTarget)));
-    }
-
-    //-----------------------------------------------------------------------------
-    // Public
-    //-----------------------------------------------------------------------------
-    $.fn.balloon = function (options) {
-        options = $.extend(true, {}, $.balloon.defaults, options);
-        return this.one("mouseenter", function (e) {
-            var $target = $(this), t = this;
-            var $balloon = $target.unbind("mouseenter", arguments.callee)
-				.showBalloon(options).mouseenter(function (e) {
-				    isValidTargetEvent($target, e) && $target.showBalloon();
-				}).data("balloon");
-            if ($balloon) {
-                $balloon.mouseleave(function (e) {
-                    if (t == e.relatedTarget || $.contains(t, e.relatedTarget)) return;
-                    $target.hideBalloon();
-                }).mouseenter(function (e) { $target.showBalloon(); });
-            }
-        }).mouseleave(function (e) {
-            var $target = $(this);
-            isValidTargetEvent($target, e) && $target.hideBalloon();
-        });
-    };
-
-    $.fn.showBalloon = function (options) {
-        var $target, $balloon, offTimer;
-        if (!$.balloon.defaults.css) $.balloon.defaults.css = {};
-        if (options || !this.data("options"))
-            this.data("options", $.extend(true, {}, $.balloon.defaults, options));
-        options = this.data("options");
-        return this.each(function () {
-            $target = $(this);
-            (offTimer = $target.data("offTimer")) && clearTimeout(offTimer);
-            var contents = $.isFunction(options.contents)
-				? options.contents()
-				: (options.contents || $target.attr("title"));
-            var isNew = !($balloon = $target.data("balloon"));
-            if (isNew) $balloon = $("<div>").append(contents);
-            if (!options.url && (!$balloon || $balloon.html() == "")) return;
-            if (!isNew && contents && contents != $balloon.html()) $balloon.empty().append(contents);
-            $target.removeAttr("title");
-            if (options.url) {
-                $balloon.load($.isFunction(options.url) ? options.url(this) : options.url, function (res, sts, xhr) {
-                    if (options.ajaxComplete) options.ajaxComplete(res, sts, xhr);
-                    makeupBalloon($target, $balloon, options);
-                });
-            }
-            if (isNew) {
-                $balloon
-					.addClass(options.classname)
-					.css(options.css)
-					.css({ visibility: "hidden", position: "absolute" })
-					.appendTo("body");
-                $target.data("balloon", $balloon);
-                makeupBalloon($target, $balloon, options);
-                $balloon.hide().css("visibility", "visible");
-            } else {
-                makeupBalloon($target, $balloon, options);
-            }
-            $target.data("onTimer", setTimeout(function () {
-                if (options.showAnimation) {
-                    options.showAnimation.apply($balloon.stop(true, true), [options.showDuration]);
-                } else {
-                    $balloon.show(options.showDuration, function () {
-                        if (this.style.removeAttribute) { this.style.removeAttribute("filter"); }
-                    });
-                }
-            }, options.delay));
-        });
-    };
-
-    $.fn.hideBalloon = function () {
-        var options = this.data("options"), onTimer, offTimer;
-        return this.each(function () {
-            var $target = $(this);
-            (onTimer = $target.data("onTimer")) && clearTimeout(onTimer);
-            (offTimer = $target.data("offTimer")) && clearTimeout(offTimer);
-            $target.data("offTimer", setTimeout(function () {
-                var $balloon = $target.data("balloon");
-                if (options.hideAnimation) {
-                    $balloon && options.hideAnimation.apply($balloon.stop(true, true), [options.hideDuration]);
-                } else {
-                    $balloon && $balloon.stop(true, true).hide(options.hideDuration);
-                }
-            },
-			options.minLifetime));
-        });
-    };
-
-    $.balloon = {
-        defaults: {
-            contents: null, url: null, ajaxComplete: null, classname: null,
-            position: "top", offsetX: 0, offsetY: 0, tipSize: 12,
-            delay: 0, minLifetime: 200,
-            showDuration: 100, showAnimation: null,
-            hideDuration: 80, hideAnimation: function (d) { this.fadeOut(d); },
-            css: {
-                minWidth: "20px",
-                padding: "5px",
-                borderRadius: "6px",
-                border: "solid 1px #777",
-                boxShadow: "4px 4px 4px #555",
-                color: "#666",
-                backgroundColor: "#efefef",
-                opacity: ($.support.opacity) ? "0.85" : null,
-                zIndex: "32767",
-                textAlign: "left"
-            }
-        }
-    };
-})(jQuery);
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-
-/***/ 38:
+/***/ "./www/js/source/pages/customer/betsetting/common/constant.js":
+/*!********************************************************************!*\
+  !*** ./www/js/source/pages/customer/betsetting/common/constant.js ***!
+  \********************************************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(15)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, BetSettingHelper) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function () {
+    var Product = {
+        Sportsbook: 0,
+        Racing: 1,
+        NumberGame: 2,
+        LiveCasino: 4,
+        VirtualSports: 5,
+        RngCasino: 6,
+        Keno: 8,
+        AgCasino: 10,
+        GoldDeluxe: 11,
+        Macau: 12,
+        BetTrade: 13,
+        MgcLiveCasino: 14,
+        Colossusbets: 15,
+        MgcRngCasino: 17,
+        AllBet: 21,
+        VoidBridge: 22,
+        FishingWorld: 24,
+        Cashout: 25,
+        VirtualSports2: 27,
+        Lottery: 28
+    };
+
     var _me = {
-        update: function (url, postData) {
-            $.ajax({
-                type: 'POST',
-                url: url,
-                cache: false,
-                data: postData,
-                dataType: "json",
-                success: function (result) {
-                    var messageResource = result.IsSuccessful ? "MessageSuccess" : "Fail";
-                    BetSettingHelper.showDialogMesage(Site.getSingleResource(messageResource), result.Message);
-                },
-                error: function (request, status, err) {
-                    BetSettingHelper.showDialogMesage(Site.getSingleResource("Error"), err);
-                }
-            });
-        },
-
-        getCommonPostData: function ($context) {
-            var productId = parseInt($("#ProductId").val());
-            var nickName = $context.data("nick-name");
-            // update value  (0: enable, 1: disable) is opposed with current value (1: enable, 0: disable)
-            var status = $context.data("status");
-            var custId = $context.data("cust-id");
-
-            return {
-                productId: productId,
-                nickname: nickName,
-                status: status,
-                custid: custId
-            };
-        }
+        Product: Product
     };
 
     return _me;
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
 
-/***/ 58:
+/***/ "./www/js/source/pages/customer/betsetting/main-exchange.js":
+/*!******************************************************************!*\
+  !*** ./www/js/source/pages/customer/betsetting/main-exchange.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! ./products/exchange */ "./www/js/source/pages/customer/betsetting/products/exchange.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (ExchangeBetSetting) {
+    $(ExchangeBetSetting.initialize);
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57")))
+
+/***/ }),
+
+/***/ "./www/js/source/pages/customer/betsetting/products/dcsbetsetting.js":
+/*!***************************************************************************!*\
+  !*** ./www/js/source/pages/customer/betsetting/products/dcsbetsetting.js ***!
+  \***************************************************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/* AllBet, VoidBridge, FishingWorld */
 
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(20),__webpack_require__(30), __webpack_require__(38)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($, Site, Constant, BetSettingBase, BetSettingStatus) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! ../common/constant */ "./www/js/source/pages/customer/betsetting/common/constant.js"),__webpack_require__(/*! ../common/betsettingbase */ "./www/js/source/pages/customer/betsetting/common/betsettingbase.js"), __webpack_require__(/*! ../common/betsetting.status */ "./www/js/source/pages/customer/betsetting/common/betsetting.status.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Constant, BetSettingBase, BetSettingStatus) {
         var Product = Constant.Product;
         var ProductCodeMap = {};
         ProductCodeMap[Product.VirtualSports] = "VS";
@@ -1209,10 +1945,77 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/* AllBet, Vo
         };
 
         return _me;
-    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ "./www/js/source/pages/customer/betsetting/products/exchange.js":
+/*!**********************************************************************!*\
+  !*** ./www/js/source/pages/customer/betsetting/products/exchange.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! ./dcsbetsetting */ "./www/js/source/pages/customer/betsetting/products/dcsbetsetting.js"), __webpack_require__(/*! ../common/betsetting.helper */ "./www/js/source/pages/customer/betsetting/common/betsetting.helper.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, DcsBetSetting, BetSettingHelper) {
+       var _me = {
+        initialize: function () {
+            DcsBetSetting.initialize();
+            _me.initEvent();
+        },
+
+        initEvent: function () {
+            $("#btnSubmit").click(function () {
+                var $dropdown = $("#ddlCommission");
+                _me.updateComm($(this).attr("data-cust-id"), $dropdown.data("original-value"), $("#ddlCommission").val());
+            });
+
+            $("#btnReset").click(function () {
+                var $dropdown = $("#ddlCommission");
+                $dropdown.val($dropdown.data("original-value")).change();
+            });
+        },
+
+        updateComm: function (custId, oldCommission, newCommission) {
+            $.ajax({
+                type: 'POST',
+                url: Site.resolveClientUrl('ExchangeDcsBetSetting/UpdateComm'),
+                cache: false,
+                data: {
+                    custid: custId,
+                    oldCommission: oldCommission,
+                    newCommission: newCommission
+                },
+                dataType: "json",
+                success: function (result) {
+                    var messageResource = Number(result.Code) === 0 ? "MessageSuccess" : "Fail";
+                    BetSettingHelper.showDialogMesage(Site.getSingleResource(messageResource), result.Message);
+                },
+                beforeSend: Site.blockUI,
+                complete: Site.unBlockUI
+            });
+        }
+    };
+
+    return _me;
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ 53:
+/*!************************************************************************!*\
+  !*** multi ./www/js/source/pages/customer/betsetting/main-exchange.js ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! ./www/js/source/pages/customer/betsetting/main-exchange.js */"./www/js/source/pages/customer/betsetting/main-exchange.js");
+
 
 /***/ })
 
-},[289]);
+/******/ });
 //# sourceMappingURL=exchangebetsetting.chunk.js.map

@@ -1645,7 +1645,6 @@
     <Content Include="www\js\build\dev\pages\totalbet\oddevendrawnodraw.chunk.js" />
     <Content Include="www\js\build\dev\pages\totalbet\outright.chunk.js" />
     <Content Include="www\js\build\dev\pages\totalbet\totalgoal.chunk.js" />
-    <Content Include="www\js\build\pro\common.chunk.js" />
     <Content Include="www\js\build\pro\language.chunk.js" />
     <Content Include="www\js\build\pro\pages\betlist\betlist.chunk.js" />
     <Content Include="www\js\build\pro\pages\betlist\betlistcancelledbets.chunk.js" />
