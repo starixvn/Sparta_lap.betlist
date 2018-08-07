@@ -493,15 +493,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Amt Due To Racing: Racing settlement amount Licensee needs to pay or receive for Racing products.
-        /// </summary>
-        public static string AmtDueToRacingBalanceNote {
-            get {
-                return ResourceManager.GetString("AmtDueToRacingBalanceNote", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Amt ≥ 30K GBP.
         /// </summary>
         public static string AmtGreaterThan30kGBP {
@@ -6465,15 +6456,6 @@ namespace Fanex.Athena.Resources {
         public static string RacingRevenue {
             get {
                 return ResourceManager.GetString("RacingRevenue", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Racing Revenue: Horse racing Revenue..
-        /// </summary>
-        public static string RacingRevenueBalanceNote {
-            get {
-                return ResourceManager.GetString("RacingRevenueBalanceNote", resourceCulture);
             }
         }
         

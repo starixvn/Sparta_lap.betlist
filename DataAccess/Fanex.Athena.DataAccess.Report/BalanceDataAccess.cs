@@ -63,22 +63,16 @@ namespace Fanex.Athena.DataAccess.Report
             var selectedMonthLicColumn = "SelectedMonthLicenseeWL" + baseCurrency;
             var selectedMonthBetTradeCommColumn = "SelectedMonthBetTradeComm" + baseCurrency;
             var selectedMonthBaCommColumn = "SelectedMonthCommBA" + baseCurrency;
-            var selectedMonthRbCommColumn = "SelectedMonthCommRB" + baseCurrency;
-            var selectedMonthRacingRevenueColumn = "SelectedMonthWinLossRB" + baseCurrency;
             var selectedMonthAmtDueToBetTradeColumn = "SelectedMonthAmtDueToBT" + baseCurrency;
             var selectedMonthAmtDueToBaColumn = "SelectedMonthAmtDuetoBA" + baseCurrency;
-            var selectedMonthAmtDueToRacingColumn = "SelectedMonthAmtDuetoRB" + baseCurrency;
             var selectedMonthCustomerCommColumn = "SelectedMonthPlayerComm" + baseCurrency;
 
             // Yesterday Columns
             var yesterdayLicColumn = "YesterdayLicenseeWL" + baseCurrency;
             var yesterdayBetTradeCommColumn = "YesterdayBetTradeComm" + baseCurrency;
             var yesterdayBaCommColumn = "YesterdayCommBA" + baseCurrency;
-            var yesterdayRbCommColumn = "YesterdayCommRB" + baseCurrency;
-            var yesterdayRacingRevenueColumn = "YesterdayWinLossRB" + baseCurrency;
             var yesterdayAmtDueToBetTradeColumn = "YesterdayAmtDueToBT" + baseCurrency;
             var yesterdayAmtDueToBaColumn = "YesterdayAmtDuetoBA" + baseCurrency;
-            var yesterdayAmtDueToRacingColumn = "YesterdayAmtDuetoRB" + baseCurrency;
             var yesterdayCustomerCommColumn = "YesterdayPlayerComm" + baseCurrency;
 
             // Today Columns
@@ -106,11 +100,8 @@ namespace Fanex.Athena.DataAccess.Report
                     LicWinLoss = reader.ToDecimal(selectedMonthLicColumn),
                     BetTradeCommission = reader.ToDecimal(selectedMonthBetTradeCommColumn),
                     BACommission = reader.ToDecimal(selectedMonthBaCommColumn),
-                    RBCommission = reader.ToDecimal(selectedMonthRbCommColumn),
-                    RacingRevenue = reader.ToDecimal(selectedMonthRacingRevenueColumn),
                     AmtDueToBetTrade = reader.ToDecimal(selectedMonthAmtDueToBetTradeColumn),
                     AmtDueToBA = reader.ToDecimal(selectedMonthAmtDueToBaColumn),
-                    AmtDueToRacing = reader.ToDecimal(selectedMonthAmtDueToRacingColumn),
                     CustomerCommission = reader.ToDecimal(selectedMonthCustomerCommColumn),
                     BalanceDateString = DateTime.Now.ToString("MMMM yyyy")
                 };
@@ -123,11 +114,8 @@ namespace Fanex.Athena.DataAccess.Report
                     LicWinLoss = reader.ToDecimal(yesterdayLicColumn),
                     BetTradeCommission = reader.ToDecimal(yesterdayBetTradeCommColumn),
                     BACommission = reader.ToDecimal(yesterdayBaCommColumn),
-                    RBCommission = reader.ToDecimal(yesterdayRbCommColumn),
-                    RacingRevenue = reader.ToDecimal(yesterdayRacingRevenueColumn),
                     AmtDueToBA = reader.ToDecimal(yesterdayAmtDueToBaColumn),
                     AmtDueToBetTrade = reader.ToDecimal(yesterdayAmtDueToBetTradeColumn),
-                    AmtDueToRacing = reader.ToDecimal(yesterdayAmtDueToRacingColumn),
                     CustomerCommission = reader.ToDecimal(yesterdayCustomerCommColumn),
                     BalanceDateString = $"{ViewResources.Yesterday} ({yesterdayDateString})"
                 };
@@ -139,11 +127,8 @@ namespace Fanex.Athena.DataAccess.Report
                     LicWinLoss = reader.ToDecimal(todayLicColumn),
                     BetTradeCommission = reader.ToDecimal(todayBetTradeCommColumn),
                     BACommission = reader.ToDecimal(todayBaCommColumn),
-                    RBCommission = reader.ToDecimal(todayRbCommColumn),
-                    RacingRevenue = reader.ToDecimal(todayRacingRevenueColumn),
                     AmtDueToBetTrade = reader.ToDecimal(todayAmtDueToBetTradeColumn),
                     AmtDueToBA = reader.ToDecimal(todayAmtDueToBaColumn),
-                    AmtDueToRacing = reader.ToDecimal(todayAmtDueToRacingColumn),
                     CustomerCommission = reader.ToDecimal(todayCustomerCommColumn),
                     BalanceDateString = $"{ViewResources.Today} ({todayDateString})"
                 };

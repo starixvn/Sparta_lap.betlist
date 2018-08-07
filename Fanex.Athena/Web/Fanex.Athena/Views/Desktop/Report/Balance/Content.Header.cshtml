@@ -11,10 +11,6 @@
     {
         <th>@ViewResources.BACommission</th>
     }
-    @if (Model.ProductAccess.IsAllowRB)
-    {
-        <th>@ViewResources.RacingRevenue</th>
-    }
     @if (Model.ProductAccess.IsAllowBT)
     {
         <th>@ViewResources.AmtDueToBetTrade</th>
@@ -22,10 +18,6 @@
     @if (Model.ProductAccess.IsAllowBA)
     {
         <th>@ViewResources.AmtDueToBA</th>
-    }
-    @if (Model.ProductAccess.IsAllowRB)
-    {
-        <th>@ViewResources.AmtDueToRacing</th>
     }
     @if (Model.IsAllowedCustomerCommission)
     {

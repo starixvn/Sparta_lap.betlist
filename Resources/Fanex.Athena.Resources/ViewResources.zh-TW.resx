@@ -200,9 +200,6 @@
   <data name="AmtDueToRacing" xml:space="preserve">
     <value>賽事金額</value>
   </data>
-  <data name="AmtDueToRacingBalanceNote" xml:space="preserve">
-    <value>賽事金額: 在賽事產品上，承租公司需支付或應獲得的金額</value>
-  </data>
   <data name="Apr" xml:space="preserve">
     <value>四月</value>
   </data>
@@ -1506,9 +1503,6 @@
   </data>
   <data name="RacingRevenue" xml:space="preserve">
     <value>賽事所得</value>
-  </data>
-  <data name="RacingRevenueBalanceNote" xml:space="preserve">
-    <value>賽事所得:賽事相關產品所得</value>
   </data>
   <data name="RBComm" xml:space="preserve">
     <value>賽馬佣金</value>

@@ -19,11 +19,9 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         private const int ColumnLicenseeWl = 1;
         private const int ColumnBetTradeCommission = 2;
         private const int ColumnBaCommission = 3;
-        private const int ColumnRacingRevenue = 4;
-        private const int ColumnAmtDueToBetTrade = 5;
-        private const int ColumnAmtDueToBa = 6;
-        private const int ColumnAmtDueToRacing = 7;
-        private const int ColumnCustomerCommission = 8;
+        private const int ColumnAmtDueToBetTrade = 4;
+        private const int ColumnAmtDueToBa = 5;
+        private const int ColumnCustomerCommission = 6;
 
         private const string Date = "abc";
 
@@ -55,10 +53,8 @@ namespace Fanex.Athena.Excel.Report.UnitTests
                 row.Cells[ColumnLicenseeWl].Received(1).SetCellValue(DataItem.LicWinLoss);
                 row.Cells[ColumnBetTradeCommission].Received(1).SetCellValue(DataItem.BetTradeCommission);
                 row.Cells[ColumnBaCommission].Received(1).SetCellValue(DataItem.BACommission);
-                row.Cells[ColumnRacingRevenue].Received(1).SetCellValue(DataItem.RacingWinLoss);
                 row.Cells[ColumnAmtDueToBetTrade].Received(1).SetCellValue(DataItem.AmtDueToBetTrade);
                 row.Cells[ColumnAmtDueToBa].Received(1).SetCellValue(DataItem.AmtDueToBA);
-                row.Cells[ColumnAmtDueToRacing].Received(1).SetCellValue(DataItem.AmtDueToRacing);
                 row.Cells[ColumnCustomerCommission].Received(1).SetCellValue(DataItem.CustomerCommission);
             });
         }
@@ -98,10 +94,8 @@ namespace Fanex.Athena.Excel.Report.UnitTests
                 row1.Cells[columIndex++].Received(1).SetCellValue(ViewResources.LicenseeWinLoss);
                 row1.Cells[columIndex++].Received(1).SetCellValue(ViewResources.BetTradeCommission);
                 row1.Cells[columIndex++].Received(1).SetCellValue(ViewResources.BACommission);
-                row1.Cells[columIndex++].Received(1).SetCellValue(ViewResources.RacingRevenue);
                 row1.Cells[columIndex++].Received(1).SetCellValue(ViewResources.AmtDueToBetTrade);
                 row1.Cells[columIndex++].Received(1).SetCellValue(ViewResources.AmtDueToBA);
-                row1.Cells[columIndex++].Received(1).SetCellValue(ViewResources.AmtDueToRacing);
                 row1.Cells[columIndex].Received(1).SetCellValue(ViewResources.CustomerCommission);
 
                 row2.Cells[0].Received(1).SetCellValue(ViewResources.CustomerPedingFunds);
@@ -122,8 +116,6 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             Assert.Multiple(() =>
             {
                 AssertHideColumns(FakeSheet, ColumnBaCommission, ColumnAmtDueToBa);
-                AssertHideColumns(FakeSheet, ColumnRacingRevenue, ColumnAmtDueToRacing);
-                AssertHideColumns(FakeSheet, ColumnRacingRevenue, ColumnAmtDueToRacing);
                 AssertHideColumns(FakeSheet, ColumnBetTradeCommission, ColumnAmtDueToBetTrade);
                 AssertHideColumns(FakeSheet, ColumnCustomerCommission);
             });

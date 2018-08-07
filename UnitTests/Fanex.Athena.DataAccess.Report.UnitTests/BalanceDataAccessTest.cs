@@ -114,21 +114,15 @@
             var monthLicColumn = prefix + "LicenseeWL" + baseCurrency;
             var betTradeCommColumn = prefix + "BetTradeComm" + baseCurrency;
             var bacommColumn = prefix + "CommBA" + baseCurrency;
-            var rbcommColumn = prefix + "CommRB" + baseCurrency;
-            var racingRevenueColumn = prefix + "WinLossRB" + baseCurrency;
             var amtDueToBetTradeColumn = prefix + "AmtDueToBT" + baseCurrency;
             var amtDueToBaColumn = prefix + "AmtDuetoBA" + baseCurrency;
-            var amtDueToRacingColumn = prefix + "AmtDuetoRB" + baseCurrency;
             var customerCommColumn = prefix + "PlayerComm" + baseCurrency;
 
             Reader[monthLicColumn].Returns(expected.LicWinLoss);
             Reader[betTradeCommColumn].Returns(expected.BetTradeCommission);
             Reader[bacommColumn].Returns(expected.BACommission);
-            Reader[rbcommColumn].Returns(expected.RBCommission);
-            Reader[racingRevenueColumn].Returns(expected.RacingRevenue);
             Reader[amtDueToBetTradeColumn].Returns(expected.AmtDueToBetTrade);
             Reader[amtDueToBaColumn].Returns(expected.AmtDueToBA);
-            Reader[amtDueToRacingColumn].Returns(expected.AmtDueToRacing);
             Reader[customerCommColumn].Returns(expected.CustomerCommission);
         }
 

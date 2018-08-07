@@ -162,9 +162,6 @@
   <data name="AmtDueToBABalanceNote" xml:space="preserve">
     <value>Amt Due To BA: BA settlement amount Licensee needs to pay or receive for BA.</value>
   </data>
-  <data name="AmtDueToRacingBalanceNote" xml:space="preserve">
-    <value>Amt Due To Racing: Racing settlement amount Licensee needs to pay or receive for Racing products</value>
-  </data>
   <data name="April" xml:space="preserve">
     <value>April</value>
   </data>
@@ -1088,9 +1085,6 @@
   </data>
   <data name="RacingRevenue" xml:space="preserve">
     <value>Racing Revenue</value>
-  </data>
-  <data name="RacingRevenueBalanceNote" xml:space="preserve">
-    <value>Racing Revenue: Horse racing Revenue.</value>
   </data>
   <data name="RCCommission" xml:space="preserve">
     <value>RC Commission</value>

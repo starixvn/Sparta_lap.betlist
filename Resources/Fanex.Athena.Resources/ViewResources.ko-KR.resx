@@ -201,9 +201,6 @@
   <data name="AmtDueToRacing" xml:space="preserve">
     <value>레이싱에 지불할 금액</value>
   </data>
-  <data name="AmtDueToRacingBalanceNote" xml:space="preserve">
-    <value>레이싱에 지불할 금액: 라이선스 사용자가 지불할 레이싱 정산 금액 혹은 레이싱 상품에 대해 받을 금액</value>
-  </data>
   <data name="Apr" xml:space="preserve">
     <value>4월</value>
   </data>
@@ -1715,9 +1712,6 @@
   </data>
   <data name="RacingRevenue" xml:space="preserve">
     <value>경주 매출</value>
-  </data>
-  <data name="RacingRevenueBalanceNote" xml:space="preserve">
-    <value>경주 매출: 승마경기 매출.</value>
   </data>
   <data name="RBComm" xml:space="preserve">
     <value>RB 수수료</value>

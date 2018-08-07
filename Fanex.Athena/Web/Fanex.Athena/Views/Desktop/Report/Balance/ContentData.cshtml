@@ -30,11 +30,6 @@
             <td class="right-align">@DesktopRazorHelper.HighlightNegativeFormat(balanceDetails.BACommission)</td>
         }
 
-        @if (Model.ProductAccess.IsAllowRB)
-        {
-            <td class="right-align">@DesktopRazorHelper.HighlightNegativeFormat(balanceDetails.RacingWinLoss)</td>
-        }
-
         @if (Model.ProductAccess.IsAllowBT)
         {
             <td class="right-align">@DesktopRazorHelper.HighlightNegativeFormat(balanceDetails.AmtDueToBetTrade)</td>
@@ -43,11 +38,6 @@
         @if (Model.ProductAccess.IsAllowBA)
         {
             <td class="right-align">@DesktopRazorHelper.HighlightNegativeFormat(balanceDetails.AmtDueToBA)</td>
-        }
-
-        @if (Model.ProductAccess.IsAllowRB)
-        {
-            <td class="right-align">@DesktopRazorHelper.HighlightNegativeFormat(balanceDetails.AmtDueToRacing)</td>
         }
 
         @if (Model.IsAllowedCustomerCommission)
