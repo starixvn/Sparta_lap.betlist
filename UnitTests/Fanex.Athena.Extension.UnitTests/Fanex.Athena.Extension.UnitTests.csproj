@@ -144,7 +144,6 @@
     <Compile Include="Utility\SortableListTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="Fanex.Athena.Extension.UnitTests.ruleset" />
     <None Include="packages.config" />
   </ItemGroup>

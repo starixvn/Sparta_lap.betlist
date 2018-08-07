@@ -165,7 +165,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="Fanex.Athena.Excel.Report.UnitTests.ruleset" />
     <None Include="packages.config" />
   </ItemGroup>

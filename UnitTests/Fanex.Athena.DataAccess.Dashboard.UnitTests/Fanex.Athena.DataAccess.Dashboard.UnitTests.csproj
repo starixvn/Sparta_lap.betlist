@@ -93,7 +93,6 @@
     <Compile Include="SingleValueDataAccessTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="Fanex.Athena.DataAccess.Dashboard.UnitTests.ruleset" />
     <None Include="packages.config" />
   </ItemGroup>

@@ -118,7 +118,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="Fanex.Athena.DataAccess.TotalBet.ruleset" />
     <None Include="packages.config" />
   </ItemGroup>

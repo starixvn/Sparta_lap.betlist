@@ -130,7 +130,6 @@
     <Compile Include="DcsBetSettingController.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="Fanex.Athena.Controllers.BetSettings.ruleset" />
     <None Include="packages.config" />
   </ItemGroup>

@@ -92,7 +92,6 @@
     <Compile Include="WinLossDataAccessTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="Fanex.Athena.DataAccess.Warehouse.UnitTests.ruleset" />
     <None Include="packages.config" />
   </ItemGroup>

@@ -180,7 +180,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="Fanex.Athena.Controllers.WareHouse.ruleset" />
     <None Include="packages.config" />
   </ItemGroup>

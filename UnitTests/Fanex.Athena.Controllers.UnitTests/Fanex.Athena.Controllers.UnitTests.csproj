@@ -222,7 +222,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountControllerTest.ResetPassword.cs" />
-    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Choose>
