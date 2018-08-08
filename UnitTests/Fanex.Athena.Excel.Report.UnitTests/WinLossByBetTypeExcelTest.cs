@@ -17,16 +17,14 @@ namespace Fanex.Athena.Excel.Report.UnitTests
     [TestFixture]
     public class WinLossByBetTypeExcelTest : BaseReportExcelTest
     {
-        private const int ColumnAmtDueToBa = 9;
-        private const int ColumnAmtDueToRacing = 10;
+        private const int ColumnAmtDueToBa = 8;
         private const int ColumnBaCommission = 7;
         private const int ColumnCustomerComm = 4;
         private const int ColumnCustomerTotal = 5;
         private const int ColumnCustomerWinLoss = 3;
         private const int ColumnGameTypeName = 1;
         private const int ColumnLicenseeWl = 6;
-        private const int ColumnRacingRevenue = 8;
-        private const int ColumnTemplateCount = 11;
+        private const int ColumnTemplateCount = 9;
         private const int ColumnTurnover = 2;
         private const int RowContentTemplate = 3;
 
@@ -56,9 +54,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
                 ViewResources.CustomerW_L,
                 ViewResources.LicenseeW_L,
                 ViewResources.BACommission,
-                ViewResources.RacingRevenue,
-                ViewResources.AmtDueToBA,
-                ViewResources.AmtDueToRacing
+                ViewResources.AmtDueToBA
             };
 
             // Action
@@ -149,9 +145,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
                 ColumnCustomerTotal,
                 ColumnCustomerComm,
                 ColumnBaCommission,
-                ColumnAmtDueToBa,
-                ColumnRacingRevenue,
-                ColumnAmtDueToRacing);
+                ColumnAmtDueToBa);
         }
 
         [Test]
@@ -193,9 +187,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
                 row.Cells[ColumnCustomerTotal].Received(1).SetCellValue(totalData.CustomerTotal);
                 row.Cells[ColumnLicenseeWl].Received(1).SetCellValue(totalData.LicenseeWL);
                 row.Cells[ColumnBaCommission].Received(1).SetCellValue(totalData.BACommission);
-                row.Cells[ColumnRacingRevenue].Received(1).SetCellValue(totalData.RacingWinLoss);
                 row.Cells[ColumnAmtDueToBa].Received(1).SetCellValue(totalData.AmtDueToBA);
-                row.Cells[ColumnAmtDueToRacing].Received(1).SetCellValue(totalData.AmtDueToRacing);
             });
         }
 
@@ -207,9 +199,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             row.Cells[ColumnCustomerTotal].Received(1).SetCellValue(dataItem.CustomerTotal);
             row.Cells[ColumnLicenseeWl].Received(1).SetCellValue(dataItem.LicenseeWL);
             row.Cells[ColumnBaCommission].Received(1).SetCellValue(dataItem.BACommission);
-            row.Cells[ColumnRacingRevenue].Received(1).SetCellValue(dataItem.RacingWinLoss);
             row.Cells[ColumnAmtDueToBa].Received(1).SetCellValue(dataItem.AmtDueToBA);
-            row.Cells[ColumnAmtDueToRacing].Received(1).SetCellValue(dataItem.AmtDueToRacing);
         }
 
         private static WinLossByBetTypeExcelTestable CreateExcel(ShowingOption showingOption = null)

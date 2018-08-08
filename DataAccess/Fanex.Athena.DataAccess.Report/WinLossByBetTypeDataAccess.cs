@@ -89,10 +89,7 @@ namespace Fanex.Athena.DataAccess.Report
             var custCommColumn = "PlayerComm" + baseCurrency;
             var licenseeWlColumn = "LicenseeWL" + baseCurrency;
             var commBaColumn = "CommBA" + baseCurrency;
-            var commRbColumn = "CommRB" + baseCurrency;
-            var racebookRevenue = "WinLossRB" + baseCurrency;
             var amtDueToBaComumn = "AmtDueToBA" + baseCurrency;
-            var amtDueToRbColumn = "AmtDueToRB" + baseCurrency;
 
             while (reader.Read())
             {
@@ -108,10 +105,7 @@ namespace Fanex.Athena.DataAccess.Report
                     CustomerComm = reader.ToDecimal(custCommColumn),
                     LicenseeWL = reader.ToDecimal(licenseeWlColumn),
                     BACommission = reader.ToDecimal(commBaColumn),
-                    RBComm = reader.ToDecimal(commRbColumn),
-                    RacingRevenue = reader.ToDecimal(racebookRevenue),
-                    AmtDueToBA = reader.ToDecimal(amtDueToBaComumn),
-                    AmtDueToRacing = reader.ToDecimal(amtDueToRbColumn)
+                    AmtDueToBA = reader.ToDecimal(amtDueToBaComumn)
                 };
 
                 dataList.Add(item);

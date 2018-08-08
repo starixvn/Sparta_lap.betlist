@@ -6,10 +6,6 @@
 
 namespace Fanex.Athena.Model.Report.DTO
 {
-    using Core.DTO.Common;
-    using Fanex.Athena.Model.Core.Helper;
-    using Resources;
-
     public class WinLossByBetType : ICustomerWinLoss
     {
         public int BetType { get; set; }
@@ -26,18 +22,7 @@ namespace Fanex.Athena.Model.Report.DTO
 
         public decimal BACommission { get; set; }
 
-        public decimal RacingRevenue { get; set; }
-
-        public decimal RBComm { get; set; }
-
-        public decimal RacingWinLoss
-        {
-            get { return RacingRevenue + RBComm; }
-        }
-
         public decimal AmtDueToBA { get; set; }
-
-        public decimal AmtDueToRacing { get; set; }
 
         public bool LiveIndicator { get; set; }
 
