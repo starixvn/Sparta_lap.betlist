@@ -30,10 +30,8 @@ namespace Fanex.Athena.Excel.Report
         private const int ColumnCustomerTotal = 8;
         private const int ColumnLicenseeWl = 9;
         private const int ColumnBaCommission = 10;
-        private const int ColumnRacingRevenue = 11;
-        private const int ColumnAmtDueToBa = 12;
-        private const int ColumnAmtDueToRacing = 13;
-        private const int ColumnTemplateCount = 14;
+        private const int ColumnAmtDueToBa = 11;
+        private const int ColumnTemplateCount = 12;
 
         private const int RowContentTemplate = 3;
         private const int RowNoInfoTemplate = 5;
@@ -73,9 +71,7 @@ namespace Fanex.Athena.Excel.Report
                 ViewResources.CustomerW_L,
                 ViewResources.LicenseeW_L,
                 ViewResources.BACommission,
-                ViewResources.RacingRevenue,
-                ViewResources.AmtDueToBA,
-                ViewResources.AmtDueToRacing
+                ViewResources.AmtDueToBA
             };
 
             SetTextRowHeader(row, headerTextList);
@@ -155,11 +151,6 @@ namespace Fanex.Athena.Excel.Report
             {
                 sheet.HideColumn(ColumnBaCommission, ColumnAmtDueToBa);
             }
-
-            if (!ShowingOption.RBVisible)
-            {
-                sheet.HideColumn(ColumnRacingRevenue, ColumnAmtDueToRacing);
-            }
         }
 
         private static void AssignCellData(IRow row, PlatformWinLossMember item)
@@ -173,9 +164,7 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnCustomerTotal].SetCellValue(item.CustomerTotal);
             row.Cells[ColumnLicenseeWl].SetCellValue(item.LicenseeWL);
             row.Cells[ColumnBaCommission].SetCellValue(item.BACommission);
-            row.Cells[ColumnRacingRevenue].SetCellValue(item.RacingRevenue);
             row.Cells[ColumnAmtDueToBa].SetCellValue(item.AmtDueToBA);
-            row.Cells[ColumnAmtDueToRacing].SetCellValue(item.AmtDueToRacing);
         }
 
         protected internal virtual void AssignTotal(ISheet sheet)

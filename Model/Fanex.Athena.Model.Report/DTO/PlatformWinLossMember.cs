@@ -25,11 +25,7 @@ namespace Fanex.Athena.Model.Report.DTO
 
         public decimal BACommission { get; set; }
 
-        public decimal RacingRevenue { get; set; }
-
         public decimal AmtDueToBA { get; set; }
-
-        public decimal AmtDueToRacing { get; set; }
 
         public int Index { get; set; }
 

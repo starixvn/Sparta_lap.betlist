@@ -29,9 +29,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         private const int ColumnCustomerTotal = 8;
         private const int ColumnLicenseeWl = 9;
         private const int ColumnBaCommission = 10;
-        private const int ColumnRacingRevenue = 11;
-        private const int ColumnAmtDueToBa = 12;
-        private const int ColumnAmtDueToRacing = 13;
+        private const int ColumnAmtDueToBa = 11;
 
         private const int ColumnCount = 15;
 
@@ -79,9 +77,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
                 ViewResources.CustomerW_L,
                 ViewResources.LicenseeW_L,
                 ViewResources.BACommission,
-                ViewResources.RacingRevenue,
-                ViewResources.AmtDueToBA,
-                ViewResources.AmtDueToRacing
+                ViewResources.AmtDueToBA
             };
 
             // Action
@@ -138,9 +134,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
                 row.Cells[ColumnCustomerTotal].Received(1).SetCellValue(DataItem.CustomerTotal);
                 row.Cells[ColumnLicenseeWl].Received(1).SetCellValue(DataItem.LicenseeWL);
                 row.Cells[ColumnBaCommission].Received(1).SetCellValue(DataItem.BACommission);
-                row.Cells[ColumnRacingRevenue].Received(1).SetCellValue(DataItem.RacingRevenue);
                 row.Cells[ColumnAmtDueToBa].Received(1).SetCellValue(DataItem.AmtDueToBA);
-                row.Cells[ColumnAmtDueToRacing].Received(1).SetCellValue(DataItem.AmtDueToRacing);
 
                 excel.Received(1).AssignTotal(Arg.Any<ISheet>());
             });
@@ -194,9 +188,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
                 ColumnCustomerTotal,
                 ColumnCustomerCommission,
                 ColumnBaCommission,
-                ColumnAmtDueToBa,
-                ColumnRacingRevenue,
-                ColumnAmtDueToRacing);
+                ColumnAmtDueToBa);
         }
 
         [Test]

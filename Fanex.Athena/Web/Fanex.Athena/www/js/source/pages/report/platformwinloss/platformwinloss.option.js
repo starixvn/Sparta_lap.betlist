@@ -8,7 +8,6 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
     function ($, Site, jqGridAdditional) {
         "use strict";
         var BA_PRODUCTCODE = "BA";
-        var RB_PRODUCTCODE = "RB";
 
         var betlistLink = function (cellvalue, options, rowObject) {
             var param =
@@ -169,30 +168,10 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
             formatter: "currency",
             formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
         };
-        var racingRevenueColumn = {
-            name: "RacingRevenue",
-            index: "RacingRevenue",
-            width: 70,
-            align: "right",
-            sortable: true,
-            resizable: false,
-            formatter: "currency",
-            formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
-        };
         var amtDueToBaColumn = {
             name: "AmtDueToBA",
             index: "AmtDueToBA",
             width: 60,
-            align: "right",
-            sortable: true,
-            resizable: false,
-            formatter: "currency",
-            formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
-        };
-        var amtDueToRacingColumn = {
-            name: "AmtDueToRacing",
-            index: "AmtDueToRacing",
-            width: 70,
             align: "right",
             sortable: true,
             resizable: false,
@@ -275,10 +254,6 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
             colNames: ["BA<br/>@[Commission]", "@[AmtDueToBA]"],
             colModels: [baCommissionColumn, amtDueToBaColumn]
         };
-        var columnConfigRB = {
-            colNames: ["@[RacingRevenue]", "@[AmtDueToRacing]"],
-            colModels: [racingRevenueColumn, amtDueToRacingColumn]
-        };
 
         function getColConfigLevel0(cols, customerWL) {
             var customerWlIndex = 3;
@@ -291,7 +266,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
             return cols;
         }
 
-        function getColConfigLevel1(cols, customerWL, colsBA, colsRB) {
+        function getColConfigLevel1(cols, customerWL, colsBA) {
             var customerWlIndex = 5;
             customerWL.forEach(function (item) {
                 cols.insertAfter(item, customerWlIndex);
@@ -303,14 +278,6 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
                 colsBA.forEach(function (item) {
                     cols.insertAfter(item, bAIndex);
                     ++bAIndex;
-                });
-            }
-
-            if (colsRB !== null) {
-                var rBIndex = colsBA !== null ? customerWlIndex + 2 : customerWlIndex + 1;
-                colsRB.forEach(function (item) {
-                    cols.insertAfter(item, rBIndex);
-                    rBIndex = colsBA !== null ? rBIndex + 2 : rBIndex + 1;
                 });
             }
 
@@ -374,11 +341,9 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
                 }
 
                 var allowedBa = isProductChecked(productOptions, BA_PRODUCTCODE);
-                var allowedRacing = isProductChecked(productOptions, RB_PRODUCTCODE);
                 var colsBA = allowedBa ? columnConfigBA.colNames : null;
-                var colsRB = allowedRacing ? columnConfigRB.colNames : null;
 
-                return Site.getResources(getColConfigLevel1(Site.clone(columnConfigLevel1.colNames), customerWL, colsBA, colsRB));
+                return Site.getResources(getColConfigLevel1(Site.clone(columnConfigLevel1.colNames), customerWL, colsBA));
             },
 
             getColModel: function (level, productOptions) {
@@ -397,11 +362,9 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
                 }
 
                 var allowedBa = isProductChecked(productOptions, BA_PRODUCTCODE);
-                var allowedRacing = isProductChecked(productOptions, RB_PRODUCTCODE);
                 var colsBA = allowedBa ? columnConfigBA.colModels : null;
-                var colsRB = allowedRacing ? columnConfigRB.colModels : null;
 
-                return getColConfigLevel1(Site.clone(columnConfigLevel1.colModels), customerWL, colsBA, colsRB);
+                return getColConfigLevel1(Site.clone(columnConfigLevel1.colModels), customerWL, colsBA);
             },
 
             getGridOption: function (level, productOptions) {
