@@ -15,7 +15,6 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             ExcelModel.COVisible = false;
             ExcelModel.BTVisible = false;
             ExcelModel.BAVisible = false;
-            ExcelModel.RBVisible = false;
             var excel = CreateExcel();
             excel.WhenForAnyArgs(x => x.ProcessUITurnover(Arg.Any<ISheet>())).DoNotCallBase();
             excel.WhenForAnyArgs(x => x.ProcessUILicenseeWinLoss(Arg.Any<ISheet>())).DoNotCallBase();
@@ -39,9 +38,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
                 ColumnActualStake,
                 ColumnAmtDueToBetTrade,
                 ColumnBaCommission,
-                ColumnAmtDueToBa,
-                ColumnRacingRevenue,
-                ColumnAmtDueToRacing);
+                ColumnAmtDueToBa);
         }
 
         [Test]
@@ -53,7 +50,6 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             ExcelModel.COVisible = true;
             ExcelModel.BTVisible = true;
             ExcelModel.BAVisible = true;
-            ExcelModel.RBVisible = true;
             var excel = CreateExcel();
             excel.WhenForAnyArgs(x => x.ProcessUITurnover(Arg.Any<ISheet>())).DoNotCallBase();
             excel.WhenForAnyArgs(x => x.ProcessUILicenseeWinLoss(Arg.Any<ISheet>())).DoNotCallBase();

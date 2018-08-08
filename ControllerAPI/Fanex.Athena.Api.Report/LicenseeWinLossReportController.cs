@@ -129,7 +129,6 @@ namespace Fanex.Athena.Api.Report
             {
                 Index = item.Index,
                 AmtDueToBA = item.AmtDueToBA,
-                AmtDueToRacing = item.AmtDueToRacing,
                 AmtDueToBetTrade = item.AmtDueToBetTrade,
                 CashOutCommission = item.CashOutCommission,
                 BACommission = item.BACommission,
@@ -140,7 +139,6 @@ namespace Fanex.Athena.Api.Report
                 CustomerComm = item.CustomerComm,
                 CustomerWinLoss = item.CustomerWinLoss,
                 TotalTransaction = item.TotalTransaction,
-                RacingRevenue = item.RacingRevenue,
                 CustomerId = item.CustomerId,
                 Date = item.Date,
                 ExternalId = item.ExternalId,
@@ -159,7 +157,6 @@ namespace Fanex.Athena.Api.Report
         {
             licenseeWinLoss.LicenseeWLBA = licenseeWLProducts.GetValueOrDefault(Product.BA, 0);
             licenseeWinLoss.LicenseeWLSB = licenseeWLProducts.GetValueOrDefault(Product.SB, 0);
-            licenseeWinLoss.LicenseeWLRB = licenseeWLProducts.GetValueOrDefault(Product.RB, 0);
             licenseeWinLoss.LicenseeWLNG = licenseeWLProducts.GetValueOrDefault(Product.NG, 0);
             licenseeWinLoss.LicenseeWLVS = licenseeWLProducts.GetValueOrDefault(Product.VS, 0);
             licenseeWinLoss.LicenseeWLCS = licenseeWLProducts.GetValueOrDefault(Product.CS, 0);
@@ -181,7 +178,6 @@ namespace Fanex.Athena.Api.Report
         {
             licenseeWinLoss.TurnOverBA = turnOverProducts.GetValueOrDefault(Product.BA, 0);
             licenseeWinLoss.TurnOverSB = turnOverProducts.GetValueOrDefault(Product.SB, 0);
-            licenseeWinLoss.TurnOverRB = turnOverProducts.GetValueOrDefault(Product.RB, 0);
             licenseeWinLoss.TurnOverNG = turnOverProducts.GetValueOrDefault(Product.NG, 0);
             licenseeWinLoss.TurnOverVS = turnOverProducts.GetValueOrDefault(Product.VS, 0);
             licenseeWinLoss.TurnOverCS = turnOverProducts.GetValueOrDefault(Product.CS, 0);
@@ -243,7 +239,6 @@ namespace Fanex.Athena.Api.Report
                 BTVisible = IsProductVisible(metaModel.ProductOptions, productAccess, Product.BT),
                 COVisible = IsProductVisible(metaModel.ProductOptions, productAccess, Product.CO),
                 BAVisible = IsProductVisible(metaModel.ProductOptions, productAccess, Product.BA),
-                RBVisible = IsProductVisible(metaModel.ProductOptions, productAccess, Product.RB),
                 CustomerCommVisible = licenseeSession.IsAllowedCustomerComm
             };
 

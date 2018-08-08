@@ -8,7 +8,7 @@ define(
     ["jquery", "common/querystring", "common/site", "lib/jqgrid/jquery.jqgrid.additional", "lib/linq"],
     function ($, QueryString, Site, jqGridAdditional) {
         "use strict";
-        var IGNORED_LICENSEEWL_PRODUCTS = ["RB", "BA"];
+        var IGNORED_LICENSEEWL_PRODUCTS = ["BA"];
         var IGNORED_TURNOVER_PRODUCTS = ["BT", "CO"];
         var _me =
         {
@@ -287,18 +287,6 @@ define(
             formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
         };
 
-        var racingRevenueColumn =
-        {
-            name: 'RacingRevenue',
-            index: 'RacingRevenue',
-            width: 100,
-            align: 'right',
-            sortable: true,
-            resizable: false,
-            formatter: 'currency',
-            formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
-        };
-
         var amtDueToBetTradeColumn =
         {
             name: 'AmtDueToBetTrade',
@@ -315,18 +303,6 @@ define(
         {
             name: 'AmtDueToBA',
             index: 'AmtDueToBA',
-            width: 85,
-            align: 'right',
-            sortable: true,
-            resizable: false,
-            formatter: 'currency',
-            formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
-        };
-
-        var amtDueToRacingColumn =
-        {
-            name: 'AmtDueToRacing',
-            index: 'AmtDueToRacing',
             width: 85,
             align: 'right',
             sortable: true,
@@ -387,17 +363,15 @@ define(
              '@[ProductBT]<br/>@[Commission]',
              '@[ProductCO]<br/>@[Commission]',
              'BA<br/>@[Commission]',
-             '@[RacingRevenue]',
              '@[AmtDueToBetTrade]',
              '@[AmtDueToBA]',
-             '@[AmtDueToRacing]',
              'CurrencyId',
              'CustomerId'];
 
         var colModelList = [indexColumn, dateColumn, externalIdColumn, systemIdColumn, currencyColumn,
             turnoverColumn, actualStakeColumn, buybackColumn, totalTransColumn, customerWlColumn, playerCommColumn,
-            customerWlTotalColumn, licenseeWlColumn, betTradeCommissionColumn, cashOutCommissionColumn, baCommissionColumn, racingRevenueColumn,
-            amtDueToBetTradeColumn, amtDueToBaColumn, amtDueToRacingColumn, currencyIdColumn, customerIdColumn];
+            customerWlTotalColumn, licenseeWlColumn, betTradeCommissionColumn, cashOutCommissionColumn, baCommissionColumn,
+            amtDueToBetTradeColumn, amtDueToBaColumn, currencyIdColumn, customerIdColumn];
 
         function isProductChecked(productOptions, productCode) {
             var length = productOptions.length;
@@ -540,15 +514,12 @@ define(
             // Column hidden by product
             var allowedSb = isProductChecked(productOptions, "SB");
             var allowedBa = isProductChecked(productOptions, "BA");
-            var allowedRacing = isProductChecked(productOptions, "RB");
             var allowedBetTrade = isProductChecked(productOptions, "BT");
             var allowedCashOut = isProductChecked(productOptions, "CO");
             buybackColumn.hidden = !allowedBetTrade;
             actualStakeColumn.hidden = !allowedBetTrade;
             baCommissionColumn.hidden = !allowedBa;
             amtDueToBaColumn.hidden = !allowedBa;
-            racingRevenueColumn.hidden = !allowedRacing;
-            amtDueToRacingColumn.hidden = !allowedRacing;
             betTradeCommissionColumn.hidden = !allowedBetTrade;
             amtDueToBetTradeColumn.hidden = allowedSb === false || allowedBa === false || !allowedBetTrade;
             cashOutCommissionColumn.hidden = !allowedCashOut;
