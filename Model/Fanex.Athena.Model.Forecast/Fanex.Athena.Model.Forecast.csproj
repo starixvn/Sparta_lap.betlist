@@ -83,6 +83,7 @@
     <Compile Include="ViewModel\NewForecastHdpOuViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Fanex.Athena.Model.Forecast.ruleset" />
     <None Include="packages.config" />
   </ItemGroup>

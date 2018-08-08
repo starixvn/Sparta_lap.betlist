@@ -142,6 +142,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Fanex.Athena.Model.Core.ruleset" />
     <None Include="packages.config" />
   </ItemGroup>

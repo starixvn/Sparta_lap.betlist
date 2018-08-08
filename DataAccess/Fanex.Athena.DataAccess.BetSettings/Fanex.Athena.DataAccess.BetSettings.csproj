@@ -147,6 +147,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Fanex.Athena.DataAccess.BetSettings.ruleset" />
     <None Include="packages.config" />
   </ItemGroup>

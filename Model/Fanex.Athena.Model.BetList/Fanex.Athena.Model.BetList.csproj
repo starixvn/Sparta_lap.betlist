@@ -146,6 +146,7 @@
     <Compile Include="ViewModel\SystemParlayDetailViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Fanex.Athena.Model.BetList.ruleset" />
     <None Include="packages.config" />
   </ItemGroup>

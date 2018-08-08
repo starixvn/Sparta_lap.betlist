@@ -108,6 +108,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Fanex.Athena.DataAccess.Customer.ruleset" />
     <None Include="packages.config" />
   </ItemGroup>

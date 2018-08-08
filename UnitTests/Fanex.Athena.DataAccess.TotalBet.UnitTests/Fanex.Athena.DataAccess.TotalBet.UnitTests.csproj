@@ -98,6 +98,7 @@
     <Compile Include="TotalGoalDataAccessTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Fanex.Athena.DataAccess.TotalBet.UnitTests.ruleset" />
     <None Include="packages.config" />
   </ItemGroup>
