@@ -15,6 +15,7 @@
             const string LicenseeName = "Name";
             var licenseeId = FakeHelper.Create<int>();
             var custId = FakeHelper.Create<int>();
+            var siteName = FakeHelper.Create<string>();
             var expectedResult = FakeHelper.Create<LogInfo>();
 
             _authorizationService.HasPermissionOnData(licenseeId, custId, 0).Returns(true);
@@ -34,6 +35,7 @@
             const string LicenseeName = "Name";
             var licenseeId = FakeHelper.Create<int>();
             var custId = FakeHelper.Create<int>();
+            var siteName = FakeHelper.Create<string>();
 
             _authorizationService.HasPermissionOnData(licenseeId, custId, 0).Returns(false);
 

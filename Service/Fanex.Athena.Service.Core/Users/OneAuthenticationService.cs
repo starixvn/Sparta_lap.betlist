@@ -29,6 +29,7 @@
         private readonly ILicenseeDataAccess _licenseeDataAccess;
         private readonly IFormsAuthenticationService _formsAuthenticationService;
         private readonly IOneBookSecurityWrapper _oneBookSecurityWrapper;
+        private readonly ICoreLogger _logger;
         
         public OneAuthenticationService(
             ISessionService sessionService,
@@ -42,7 +43,7 @@
             _licenseeDataAccess = licenseeDataAccess;
             _formsAuthenticationService = formsAuthenticationService;
             _oneBookSecurityWrapper = oneBookSecurityWrapper;
-            _logger = logger ?? new CoreLogger();
+            _logger = logger;
             _oneAuthDataAccess = oneAuthDataAccess ?? new OneAuthDataAccess();
         }
 
