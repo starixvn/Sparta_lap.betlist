@@ -147,7 +147,6 @@
     <Compile Include="ResultServiceTest.cs" />
     <Compile Include="SettledMatchCountServiceTest.cs" />
     <Compile Include="CustomerTurnoverServiceTest.cs" />
-    <Compile Include="DailyRacingWinLossServiceTest.cs" />
     <Compile Include="MatchWinLossServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SubsidiaryPerformanceServiceTest.cs" />

@@ -139,15 +139,12 @@
     <Compile Include="CustomerPendingFundsExcel.cs" />
     <Compile Include="CustomerTurnoverExcel.cs" />
     <Compile Include="CustomerWinLossExcel.cs" />
-    <Compile Include="DailyRacingWinLoss12BetExcel.cs" />
     <Compile Include="LicenseeWinLossExcel.cs" />
     <Compile Include="MatchWinLossExcel.cs" />
     <Compile Include="BalanceExcel.cs" />
-    <Compile Include="DailyRacingWinLossExcel.cs" />
     <Compile Include="LiveReportExcel.cs" />
     <Compile Include="PlatformWinLossMemberExcel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RacingCommissionExcel.cs" />
     <Compile Include="RNGCasino\HandHistoryExcel.cs" />
     <Compile Include="TurnoverExcel.cs" />
     <Compile Include="WinLossByBetTypeExcel.cs" />

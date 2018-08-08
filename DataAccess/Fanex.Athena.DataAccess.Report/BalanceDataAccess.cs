@@ -79,11 +79,8 @@ namespace Fanex.Athena.DataAccess.Report
             var todayLicColumn = "TodayLicenseeWL" + baseCurrency;
             var todayBetTradeCommColumn = "TodayBetTradeComm" + baseCurrency;
             var todayBaCommColumn = "TodayCommBA" + baseCurrency;
-            var todayRbCommColumn = "TodayCommRB" + baseCurrency;
-            var todayRacingRevenueColumn = "TodayWinLossRB" + baseCurrency;
             var todayAmtDueToBetTradeColumn = "TodayAmtDueToBT" + baseCurrency;
             var todayAmtDueToBaColumn = "TodayAmtDuetoBA" + baseCurrency;
-            var todayAmtDueToRacingColumn = "TodayAmtDuetoRB" + baseCurrency;
             var todayCustomerCommColumn = "TodayPlayerComm" + baseCurrency;
 
             // Customer pending funds Columns

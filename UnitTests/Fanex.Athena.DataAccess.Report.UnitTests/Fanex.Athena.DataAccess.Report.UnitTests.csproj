@@ -182,13 +182,11 @@
     <Compile Include="ThirdPartyWinLossDataAccessTest.cs" />
     <Compile Include="SettledMatchCountDataAccessTest.cs" />
     <Compile Include="ResultDataAccessTest.cs" />
-    <Compile Include="RacingCommissionDataAccessTest.cs" />
     <Compile Include="PlatformWinLossDataAccessTest.cs" />
     <Compile Include="MicroGamingWinLossDataAccessTest.cs" />
     <Compile Include="MatchWinLossDataAccessTest.cs" />
     <Compile Include="LiveReportDataAccessTest.cs" />
     <Compile Include="LicenseeWinLossDataAccessTest.cs" />
-    <Compile Include="DailyRacingWinLossDataAccessTest.cs" />
     <Compile Include="CustomerWinlossDataAccessTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
