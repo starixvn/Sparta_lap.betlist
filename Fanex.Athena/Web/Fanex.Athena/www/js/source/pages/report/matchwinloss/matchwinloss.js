@@ -184,7 +184,7 @@ define(["jquery", "common/site", "common/querystring", "components/pluginhelper/
             },
 
             getProductCodeList: function (productCode) {
-                var codeList = ["RB", "NG", "LC", "VS", "VS2"];
+                var codeList = ["NG", "LC", "VS", "VS2"];
                 var productCodeList = [];
                 if ((productCode === 'SB' || productCode === 'BA') && isProductOriginalChecked('SB')) {
                     productCodeList.push('SB');

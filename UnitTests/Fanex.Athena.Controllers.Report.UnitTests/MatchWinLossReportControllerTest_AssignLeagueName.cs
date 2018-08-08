@@ -27,26 +27,6 @@
         }
 
         [Test]
-        public void AssignLeagueName_Racing_AssignCorrectLeagueName()
-        {
-            using (var controller = CreateController())
-            {
-                // Arrange
-                var leagueId = FakeHelper.Create<int>();
-                var leagueName = "League " + leagueId;
-                _cacheRefAdapter.GetLeagueName(leagueId).Returns(leagueName);
-                var row = CreateDataRow(ProductTypes.Racing);
-                row["leagueid"] = leagueId;
-
-                // Action
-                controller.AssignLeagueName(row);
-
-                // Assert
-                Assert.That(row["leaguename"], Is.EqualTo(ViewResources.ProductRB + "-" + leagueName));
-            }
-        }
-
-        [Test]
         public void AssignLeagueName_NumberGame_AssignCorrectLeagueName()
         {
             using (var controller = CreateController())

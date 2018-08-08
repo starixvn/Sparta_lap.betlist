@@ -140,10 +140,7 @@ namespace Fanex.Athena.DataAccess.Report
             var custCommColumn = "PlayerComm" + baseCurrency;
             var licenseeWlColumn = "LicenseeWL" + baseCurrency;
             var commBaColumn = "CommBA" + baseCurrency;
-            var commRbColumn = "CommRB" + baseCurrency;
             var amtDueToBaComumn = "AmtDueToBA" + baseCurrency;
-            var amtDueToRbColumn = "AmtDueToRB" + baseCurrency;
-            var winLossRbColumn = "WinlossRB" + baseCurrency;
             var hasCustComm = reader.HasColumn(custCommColumn);
             var hasBetType = reader.HasColumn("bettype");
             var hasProductName = reader.HasColumn("productname");
@@ -170,9 +167,7 @@ namespace Fanex.Athena.DataAccess.Report
                     CustomerComm = hasCustComm ? reader.ToDecimal(custCommColumn) : 0,
                     LicenseeWL = reader.ToDecimal(licenseeWlColumn),
                     BACommission = reader.ToDecimal(commBaColumn),
-                    RacingRevenue = reader.ToDecimal(winLossRbColumn) + reader.ToDecimal(commRbColumn),
                     AmtDueToBA = reader.ToDecimal(amtDueToBaComumn),
-                    AmtDueToRacing = reader.ToDecimal(amtDueToRbColumn),
                     RaceNo = reader.ToString("race"),
                     BetType = betType,
                     BettypeName = _cacheRefAdapter.GetBettype(betType, isLive),

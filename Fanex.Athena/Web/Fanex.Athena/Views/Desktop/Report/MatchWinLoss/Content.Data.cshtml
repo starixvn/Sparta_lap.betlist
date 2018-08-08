@@ -12,8 +12,8 @@
 }
 
 @functions{
-    static IList<string> specialProducts = new List<string> { Product.RB, Product.NG };
-    static IList<int> racingSportTypes = new List<int> { 181, 182, 183, 184, 185 };
+    static IList<string> specialProducts = new List<string> { Product.NG };
+    static IList<int> vsSportTypes = new List<int> { 181, 182, 183, 184, 185 };
     static int maxLength = 36;
 
     public static string GetMatchName(MatchWinLoss matchWinLoss)
@@ -30,7 +30,7 @@
                     HttpUtility.HtmlEncode(matchName.Substring(0, maxLength - 3)));
             }
         }
-        else if (!racingSportTypes.Contains(matchWinLoss.SportType))
+        else if (!vsSportTypes.Contains(matchWinLoss.SportType))
         {
             /*
              * in case sport's virtual horse racing , match-name was gotten from kickofftiem column.
@@ -133,24 +133,8 @@
                 <td class="right-align text-bold">
                     @DesktopRazorHelper.NegativeFormat(matchWinLoss.BACommission)
                 </td>
-            }
-            @if (Model.ProductAccess.IsAllowRB)
-            {
-                <td class="right-align text-bold">
-                    @DesktopRazorHelper.NegativeFormat(matchWinLoss.RacingRevenue)
-                    @string.Empty
-                </td>
-            }
-            @if (Model.ProductAccess.IsAllowBA)
-            {
                 <td class="right-align text-bold">
                     @NumberHelper.DecFormat(matchWinLoss.AmtDueToBA)
-                </td>
-            }
-            @if (Model.ProductAccess.IsAllowRB)
-            {
-                <td class="right-align text-bold">
-                    @NumberHelper.DecFormat(matchWinLoss.AmtDueToRacing)
                 </td>
             }
         </tr>

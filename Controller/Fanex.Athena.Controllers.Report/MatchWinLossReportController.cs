@@ -165,7 +165,6 @@
             var showingOption = new ShowingOption
             {
                 BAVisible = productAccess.IsAllowBA,
-                RBVisible = productAccess.IsAllowRB,
                 NGVisible = productAccess.IsAllowNG,
                 SBVisible = productAccess.IsAllowSB,
                 VSVisible = productAccess.IsAllowVS,
@@ -223,9 +222,7 @@
                 CustomerComm = dataList.Sum(item => item.CustomerComm),
                 LicenseeWL = dataList.Sum(item => item.LicenseeWL),
                 BACommission = dataList.Sum(item => item.BACommission),
-                AmtDueToBA = dataList.Sum(item => item.AmtDueToBA),
-                RacingRevenue = dataList.Sum(item => item.RacingRevenue),
-                AmtDueToRacing = dataList.Sum(item => item.AmtDueToRacing)
+                AmtDueToBA = dataList.Sum(item => item.AmtDueToBA)
             };
 
             return totalMatchWinLoss;
@@ -241,9 +238,7 @@
                 CustomerComm = dataListOutright.Sum(item => item.CustomerComm) + total.CustomerComm,
                 LicenseeWL = dataListOutright.Sum(item => item.LicenseeWL) + total.LicenseeWL,
                 BACommission = dataListOutright.Sum(item => item.BACommission) + total.BACommission,
-                AmtDueToBA = dataListOutright.Sum(item => item.AmtDueToBA) + total.AmtDueToBA,
-                RacingRevenue = dataListOutright.Sum(item => item.RacingRevenue) + total.RacingRevenue,
-                AmtDueToRacing = dataListOutright.Sum(item => item.AmtDueToRacing) + total.AmtDueToRacing
+                AmtDueToBA = dataListOutright.Sum(item => item.AmtDueToBA) + total.AmtDueToBA
             };
         }
 
@@ -251,11 +246,6 @@
         {
             var columnCount = 6;
             if (productAccess.IsAllowBA)
-            {
-                columnCount += 2;
-            }
-
-            if (productAccess.IsAllowRB)
             {
                 columnCount += 2;
             }
@@ -323,20 +313,9 @@
 
         protected internal virtual void AssignLeagueName(DataRow row)
         {
-            switch ((int)row[NewProductIdColumnName])
-            {
-                case ProductTypes.Racing:
-                    row["leaguename"] = ViewResources.ProductRB + "-" + _cacheRefAdapter.GetLeagueName(row["leagueid"]);
-                    break;
-
-                case ProductTypes.NumberGame:
-                    row["leaguename"] = ViewResources.ProductNG;
-                    break;
-
-                default:
-                    row["leaguename"] = _cacheRefAdapter.GetLeagueName(row["leagueid"]);
-                    break;
-            }
+            row["leaguename"] = (int)row[NewProductIdColumnName] == ProductTypes.NumberGame ?
+                        ViewResources.ProductNG :
+                        _cacheRefAdapter.GetLeagueName(row["leagueid"]);
         }
     }
 }
