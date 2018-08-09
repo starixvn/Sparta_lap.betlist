@@ -66,8 +66,8 @@
             // Arrange
             var model = new ExchangeWinLossMetaModel
             {
-                FromDate = DateTime.Now,
-                ToDate = DateTime.Now.AddDays(-1)
+                FromDate = _maxDate,
+                ToDate = _maxDate.AddDays(-1)
             };
 
             // Action
@@ -119,7 +119,9 @@
             var model = new ExchangeWinLossMetaModel
             {
                 CurrencyId = 0,
-                Level = 0
+                Level = 0,
+                FromDate = _minDate,
+                ToDate = _minDate
             };
 
             // Action
@@ -140,7 +142,9 @@
             var model = new ExchangeWinLossMetaModel
             {
                 CurrencyId = 0,
-                Level = 2
+                Level = 2,
+                FromDate = _minDate,
+                ToDate = _minDate
             };
 
             // Action
@@ -167,7 +171,9 @@
             var model = new ExchangeWinLossMetaModel
             {
                 CurrencyId = 0,
-                Level = 1
+                Level = 1,
+                FromDate = _minDate,
+                ToDate = _minDate
             };
 
             // Action
@@ -193,7 +199,9 @@
             var model = new ExchangeWinLossMetaModel
             {
                 CurrencyId = 0,
-                Level = 1
+                Level = 1,
+                FromDate = _minDate,
+                ToDate = _minDate
             };
 
             // Action
