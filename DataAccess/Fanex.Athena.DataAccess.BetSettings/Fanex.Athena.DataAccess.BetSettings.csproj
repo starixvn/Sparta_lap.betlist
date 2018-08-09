@@ -103,7 +103,6 @@
   <ItemGroup>
     <Compile Include="Interfaces\ICoreCasinoBetSettingDataAccess.cs" />
     <Compile Include="Interfaces\IKenoBetSettingDataAccess.cs" />
-    <Compile Include="Interfaces\IRacingBetSettingDataAccess.cs" />
     <Compile Include="CoreCasinoBetSettingDataAccess.cs" />
     <Compile Include="Interfaces\IRngCasinoBetSettingDataAccess.cs" />
     <Compile Include="KenoBetSettingDataAccess.cs" />
