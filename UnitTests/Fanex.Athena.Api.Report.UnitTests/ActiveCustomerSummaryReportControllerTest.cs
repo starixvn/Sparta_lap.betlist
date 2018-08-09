@@ -64,7 +64,7 @@
             {
                 CurrencyList = new Dictionary<int, string>(),
                 ApplicationMode = AppMode.Self,
-                FunctionIdList = new List<int>()
+                FunctionIdList = new int[0]
             });
             StubLicenseeSessionData(new LicenseeSession { LicenseeId = 0 });
 
@@ -269,7 +269,7 @@
                     { model.CurrencyId, nameof(model.CurrencyId) }
                 },
                 ApplicationMode = AppMode.Self,
-                FunctionIdList = new List<int>()
+                FunctionIdList = new int[0]
             });
             StubLicenseeSessionData(new LicenseeSession { LicenseeId = 0 });
             SessionService.GenerateAgentListXml(Arg.Any<int>(), Arg.Any<bool>()).Returns(string.Empty);

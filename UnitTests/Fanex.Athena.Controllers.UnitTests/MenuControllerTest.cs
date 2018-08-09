@@ -50,7 +50,7 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                SessionService.UserSession.FunctionIdList = new List<int> { 1, 2, 3 };
+                SessionService.UserSession.FunctionIdList = new int[] { 1, 2, 3 };
                 _functionService.Functions.Returns(new List<Function>());
                 AppSettings.FakeLicenseeList.Returns(new[] { DefaultLicenseeSession.LicenseeId });
 

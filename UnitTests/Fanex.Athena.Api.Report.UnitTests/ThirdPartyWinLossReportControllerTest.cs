@@ -67,7 +67,7 @@
             StubUserSessionData(new UserSession
             {
                 ApplicationMode = AppMode.Self,
-                FunctionIdList = new List<int>()
+                FunctionIdList = new int[0]
             });
             _authorizationService.HasPermissions(Arg.Any<IEnumerable<int>>(), Arg.Any<string>()).Returns(false);
 
@@ -91,7 +91,7 @@
             {
                 CurrencyList = new Dictionary<int, string>(),
                 ApplicationMode = AppMode.Self,
-                FunctionIdList = new List<int>()
+                FunctionIdList = new int[0]
             });
             StubLicenseeSessionData(new LicenseeSession { LicenseeId = 0 });
             _authorizationService.HasPermissions(Arg.Any<IEnumerable<int>>(), Arg.Any<string>()).Returns(true);
@@ -303,7 +303,7 @@
                     { drillDownCurrencyId, nameof(model.DrillDownCurrencyId) }
                 },
                 ApplicationMode = AppMode.Self,
-                FunctionIdList = new List<int>()
+                FunctionIdList = new int[0]
             });
             StubLicenseeSessionData(new LicenseeSession { LicenseeId = 0 });
             _authorizationService.HasPermissions(Arg.Any<IEnumerable<int>>(), Arg.Any<string>()).Returns(true);

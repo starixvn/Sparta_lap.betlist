@@ -221,7 +221,7 @@
                 IsManageableSubsidiary = userInfo.IsEnabledSubsidiary && userInfo.UserLevel != UserLevelType.Subsidiary,
                 OperatorId = userInfo.OperatorID,
                 IsInternal = true,
-                FunctionIdList = new List<int>(),
+                FunctionIdList = new int[0],
                 PortalFunctionList = GetPermissionList(tokenInfo),
                 Language = languageCode,
                 DefaultReportUrl = "BalanceReport",
@@ -236,16 +236,16 @@
             _sessionService.AssignSessions(userSession, licSession);
         }
 
-        private IList<string> GetPermissionList(OneAuthToken tokenInfo)
+        private string[] GetPermissionList(OneAuthToken tokenInfo)
         {
-            return tokenInfo.IsAdminstrator ? GetFunctionList() : tokenInfo.Permissions.Select(x => x.FunctionKey).ToList();
+            return tokenInfo.IsAdminstrator ? GetFunctionList() : tokenInfo.Permissions.Select(x => x.FunctionKey).ToArray();
         }
 
         /// <summary>
         /// This function will be removed when integrating permission part with LAP.
         /// </summary>
         /// <returns>Return the list portal function.</returns>
-        private IList<string> GetFunctionList()
+        private string[] GetFunctionList()
         {
             const string FunctionFilePath = "~/App_Data/PortalSystemFunction.json";
             IList<PortalSystemFunction> result = null;
@@ -256,7 +256,7 @@
                 result = JsonConvert.DeserializeObject<IList<PortalSystemFunction>>(temp);
             }
 
-            return (result ?? new List<PortalSystemFunction>()).Select(x => x.FunctionKey).ToList();
+            return (result ?? new List<PortalSystemFunction>()).Select(x => x.FunctionKey).ToArray();
         }
     }
 }

@@ -6,8 +6,8 @@
 
 namespace Fanex.Athena.Controllers
 {
+    using System.Linq;
     using System.Web.Mvc;
-    using DataAccess.Core.Users;
     using DataAccess.Core.Users.Interfaces;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.ViewModel;
@@ -22,7 +22,7 @@ namespace Fanex.Athena.Controllers
     public class HeaderController : BaseController
     {
         private readonly ILicenseeDataAccess _licenseeDataAccess;
-        
+
         public HeaderController(
             ILanguageService languageService,
             ISessionService sessionService,
