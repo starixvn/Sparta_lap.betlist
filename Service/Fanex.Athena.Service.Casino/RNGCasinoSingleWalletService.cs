@@ -158,7 +158,7 @@ namespace Fanex.Athena.Service.Casino
             var paramEncode = HttpUtility.UrlEncode(encryptParam);
             var popupUrl = _appSettings.GetValue("RNGCasinoResultPopupUrl");
 
-            return popupUrl + "?o=" + paramEncode;
+            return string.Format(popupUrl, paramEncode);
         }
 
         private string GetQueryString(string token, string refNo)
