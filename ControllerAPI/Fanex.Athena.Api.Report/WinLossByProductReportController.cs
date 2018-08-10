@@ -199,7 +199,6 @@ namespace Fanex.Athena.Api.Report
                 TotalData = resultModel.TotalData,
                 CustomerCommVisible = licenseeSession.IsAllowedCustomerComm,
                 BAVisible = productAccess.IsAllowBA,
-                RBVisible = productAccess.IsAllowRB,
                 SystemIdVisible = !_appSettings.FakeLicenseeList.Contains(licenseeSession.LicenseeId)
             };
 

@@ -191,7 +191,6 @@
         customerWlIndex: 8,
         hasCustomerComm: true,
         IsAllowBA: true,
-        IsAllowRB: true,
         pageSize: 50,
         nonePagingSize: 2000,
         rowNum: 50,
@@ -235,7 +234,7 @@
         // Column hidden by customer comm
         customerWlTotalColumn.hidden = !_me.hasCustomerComm;
         playerCommColumn.hidden = !_me.hasCustomerComm;
-        LicenseeWlCommColumn.hidden = !_me.IsAllowBA && !_me.IsAllowRB;
+        LicenseeWlCommColumn.hidden = !_me.IsAllowBA;
         // Column hidden by level
         currencyColumn.formatter = level === 0 ? currencyFormatter : null;
         systemIdColumn.formatter = level === 1 ? systemIdFormatter : null;
