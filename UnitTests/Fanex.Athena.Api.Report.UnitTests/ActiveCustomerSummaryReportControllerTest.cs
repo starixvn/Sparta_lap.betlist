@@ -174,10 +174,7 @@
         }
 
         [TestCase(new[] { Product.BA }, Product.BA, true, false)]
-        [TestCase(new[] { Product.RB }, Product.BA, false, false)]
-        [TestCase(new[] { Product.BA, Product.RB }, Product.SB, false, false)]
-        [TestCase(new[] { Product.RB }, Product.RB, false, true)]
-        [TestCase(new[] { Product.BA }, Product.RB, false, false)]
+        [TestCase(new[] { Product.BA }, Product.SB, false, false)]
         public void Index_ExportToExcel_ExportWithCorrectData(string[] productCodeOption, string productCode, bool visibleBa, bool visibleRb)
         {
             // Arrange

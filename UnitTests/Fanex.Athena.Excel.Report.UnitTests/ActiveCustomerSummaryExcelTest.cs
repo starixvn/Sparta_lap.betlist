@@ -21,8 +21,8 @@ namespace Fanex.Athena.Excel.Report.UnitTests
     [TestFixture]
     public class ActiveCustomerSummaryExcelTest : BaseReportExcelTest
     {
-        private const int ColumnTotalTransaction = 19;
-        private const int ColumnCount = 20;
+        private const int ColumnTotalTransaction = 18;
+        private const int ColumnCount = 19;
 
         private static readonly ActiveCustomer DataItem = new ActiveCustomer
         {
@@ -73,7 +73,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             // Arrange
             var offeredProducts = new[]
             {
-                Product.SB, Product.RB, Product.NG, Product.BA, Product.VS, Product.CS, Product.KN, Product.PTCS, Product.AGC,
+                Product.SB, Product.NG, Product.BA, Product.VS, Product.CS, Product.KN, Product.PTCS, Product.AGC,
                 Product.MGCLC, Product.CB, Product.MGCRNG, Product.AB, Product.VB, Product.FW, Product.VS2, Product.LT, Product.PP
             };
             var row1 = ExcelTestHelper.MockGetRow(FakeSheet, ColumnCount, ReportBase.RowHeaderTemplate);

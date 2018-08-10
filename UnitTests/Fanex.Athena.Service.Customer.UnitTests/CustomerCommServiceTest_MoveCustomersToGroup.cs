@@ -58,7 +58,10 @@
         public void MoveCustomersToGroup_IsAllowedRNGTrue_CallApiUpdateComm()
         {
             // Arrange
-            var metaModel = FakeHelper.Create<MoveToGroupComMetaModel>();
+            var metaModel = new MoveToGroupComMetaModel
+            {
+                IsAllowedRNG = true
+            };
             _groupCommDataAccess.GetById(metaModel.GroupComId).Returns(FakeHelper.Create<GroupCommMetaModel>());
 
             var userSession = new UserSession { UserName = FakeHelper.Create<string>() };
