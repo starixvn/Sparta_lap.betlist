@@ -26,18 +26,6 @@
     </div>
 </div>
 
-<div class="row @(!Model.IsAllowRB ? "hide" : "")">
-    <div class="col l4 m4 s4 input-field first-value">
-        @DesktopGroupCommRazorHelper.CommDropDownFirst("CustRBComm1")
-        <label>@ViewResources.RBComm (%)</label>
-    </div>
-    <div class="col l4 m4 s4 input-field">
-        @DesktopGroupCommRazorHelper.CommDropDownSecond("CustRBComm2")
-    </div>
-    <div class="col l4 m4 s4 input-field third-value">
-        @DesktopGroupCommRazorHelper.CommDropDownThird("CustRBComm3")
-    </div>
-</div>
 <div class="row @(!Model.IsAllowNG ? "hide" : "")">
     <div class="col l4 m4 s4 input-field first-value">
         @DesktopGroupCommRazorHelper.CommDropDownFirst("CustNGComm1")

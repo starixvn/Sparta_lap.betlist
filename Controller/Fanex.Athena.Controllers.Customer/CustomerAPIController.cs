@@ -322,7 +322,6 @@ namespace Fanex.Athena.Controllers.Customer
                 var isvalid = GroupCommHelper.IsAllValid(
                                 metaModel.SBComm,
                                 metaModel.ParlayComm,
-                                metaModel.RCComm,
                                 metaModel.NGComm,
                                 metaModel.CSComm,
                                 metaModel.ABComm);
@@ -335,7 +334,6 @@ namespace Fanex.Athena.Controllers.Customer
                     metaModel.UserId = userSession.UserId;
                     metaModel.Ip = this.Request.UserHostAddress;
                     metaModel.IsAllowedNG = productAccess.IsAllowNG;
-                    metaModel.IsAllowedRC = productAccess.IsAllowRB;
                     metaModel.IsAllowedCS = productAccess.IsAllowCS;
                     metaModel.IsAllowedAB = productAccess.IsAllowAB;
                     metaModel.Language = userSession.Language;
@@ -516,7 +514,6 @@ namespace Fanex.Athena.Controllers.Customer
             result.ExtendedData = new
             {
                 SBComm = NumberHelper.DecFormat(metaModel.SBComm * 100, 2),
-                RCComm = NumberHelper.DecFormat(metaModel.RCComm * 100, 2),
                 NGComm = NumberHelper.DecFormat(metaModel.NGComm * 100, 2),
                 RNGComm = NumberHelper.DecFormat(metaModel.CSComm * 100, 2),
                 ABComm = NumberHelper.DecFormat(metaModel.ABComm * 100, 2),

@@ -131,11 +131,6 @@ namespace Fanex.Athena.Controllers.Report
                 columnCount += 2;
             }
 
-            if (productAccess.IsAllowRB)
-            {
-                columnCount += 2;
-            }
-
             if (isAllowedCustomerComm)
             {
                 columnCount += 2;

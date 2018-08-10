@@ -130,7 +130,7 @@ define([
                 window.logOpenBetlistEvent && window.logOpenBetlistEvent();
             },
 
-            updateGridGroupAndComm: function (groupid, groupName, groupColor, sbCom, ngCom, rbCom, csCom, abCom) {
+            updateGridGroupAndComm: function (groupid, groupName, groupColor, sbCom, ngCom, csCom, abCom) {
                 var count = 0;
                 var length = Object.keys(_state.selectedCustomers).length;
 
@@ -144,7 +144,6 @@ define([
                         item.GroupColor = groupColor;
                         item.SBComm = sbCom;
                         item.NGComm = ngCom;
-                        item.RBComm = rbCom;
                         item.CSComm = csCom;
                         item.ABComm = abCom;
                         count++;

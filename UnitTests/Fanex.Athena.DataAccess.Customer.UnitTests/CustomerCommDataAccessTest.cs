@@ -26,7 +26,6 @@
                 ObjectDb.Received().AddInParameter("UserId", DbType.Int32, metaModel.UserId);
                 ObjectDb.Received().AddInParameter("GroupCommId", DbType.Int32, metaModel.GroupComId);
                 ObjectDb.Received().AddInParameter("IsUpdateNG", DbType.Boolean, metaModel.IsAllowedNG);
-                ObjectDb.Received().AddInParameter("IsUpdateRacing", DbType.Boolean, metaModel.IsAllowedRC);
                 ObjectDb.Received().AddInParameter("IsUpdateRNG", DbType.Boolean, metaModel.IsAllowedRNG);
                 ObjectDb.Received().AddInParameter("IsUpdateAllbet", DbType.Boolean, metaModel.IsAllowedAB);
                 ObjectDb.Received().AddInParameter("Ip", DbType.String, metaModel.Ip);
@@ -80,11 +79,9 @@
                 ObjectDb.Received().AddInParameter("UserId", DbType.Int32, metaModel.UserId);
                 ObjectDb.Received().AddInParameter("SBComm", DbType.Decimal, metaModel.SBComm);
                 ObjectDb.Received().AddInParameter("NGComm", DbType.Decimal, metaModel.NGComm);
-                ObjectDb.Received().AddInParameter("RacingComm", DbType.Decimal, metaModel.RCComm);
                 ObjectDb.Received().AddInParameter("RNGComm", DbType.Decimal, metaModel.CSComm);
                 ObjectDb.Received().AddInParameter("AllbetComm", DbType.Decimal, metaModel.ABComm);
                 ObjectDb.Received().AddInParameter("IsUpdateNG", DbType.Boolean, metaModel.IsAllowedNG);
-                ObjectDb.Received().AddInParameter("IsUpdateRacing", DbType.Boolean, metaModel.IsAllowedRC);
                 ObjectDb.Received().AddInParameter("IsUpdateRNG", DbType.Boolean, metaModel.IsAllowedCS);
                 ObjectDb.Received().AddInParameter("IsUpdateAllbet", DbType.Boolean, metaModel.IsAllowedAB);
                 ObjectDb.Received().AddInParameter("Ip", DbType.String, metaModel.Ip);

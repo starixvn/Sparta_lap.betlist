@@ -32,7 +32,6 @@
             {
                 db.AddInParameter("GroupCommId", DbType.Int32, metaModel.GroupComId);
                 db.AddInParameter("IsUpdateNG", DbType.Boolean, metaModel.IsAllowedNG);
-                db.AddInParameter("IsUpdateRacing", DbType.Boolean, metaModel.IsAllowedRC);
                 db.AddInParameter("IsUpdateRNG", DbType.Boolean, metaModel.IsAllowedRNG);
                 db.AddInParameter("IsUpdateAllbet", DbType.Boolean, metaModel.IsAllowedAB);
                 AddCommonParameters(db, metaModel);
@@ -61,11 +60,9 @@
                 db.AddInParameter("SBComm", DbType.Decimal, metaModel.SBComm);
                 db.AddInParameter("ParlayComm", DbType.Decimal, metaModel.ParlayComm);
                 db.AddInParameter("NGComm", DbType.Decimal, metaModel.NGComm);
-                db.AddInParameter("RacingComm", DbType.Decimal, metaModel.RCComm);
                 db.AddInParameter("RNGComm", DbType.Decimal, metaModel.CSComm);
                 db.AddInParameter("AllbetComm", DbType.Decimal, metaModel.ABComm);
                 db.AddInParameter("IsUpdateNG", DbType.Boolean, metaModel.IsAllowedNG);
-                db.AddInParameter("IsUpdateRacing", DbType.Boolean, metaModel.IsAllowedRC);
                 db.AddInParameter("IsUpdateRNG", DbType.Boolean, metaModel.IsAllowedCS);
                 db.AddInParameter("IsUpdateAllbet", DbType.Boolean, metaModel.IsAllowedAB);
                 AddCommonParameters(db, metaModel);

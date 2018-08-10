@@ -75,11 +75,8 @@
 
         [TestCase(null, false, 6)]
         [TestCase("BA", false, 8)]
-        [TestCase("RB", false, 8)]
         [TestCase(null, true, 8)]
         [TestCase("BA", true, 10)]
-        [TestCase("RB", true, 10)]
-        [TestCase("BA,RB", true, 12)]
         public void IndexPost_NotExportExcel_ReturnCorrectViewResult(
             string productCodeList,
             bool isAllowedCustomerComm,
