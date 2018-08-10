@@ -28,8 +28,11 @@
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Task_DetectBAMemberBreakRules" EnvironmentText="_UAT4"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="DBA_LicenseeCustomerDel" EnvironmentText="_UAT4"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="DBA_Lrf_EnablePlayerComm" EnvironmentText="_UAT4"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_CustomerSel" EnvironmentText="_UAT4"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_CustomerUpdMemberComm" EnvironmentText="_UAT4"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_CustomerUpdMemberComm_Direct" EnvironmentText="_UAT4"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_CustomerSelUserSearch" EnvironmentText="_UAT4"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_CustomerUpdSpecialLevel" EnvironmentText="_UAT4"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Acc_Dep_CustomerInsMember_MAg" EnvironmentText="_UAT4"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Dot_Dep_CustomerInsMember_Ag_Cust" EnvironmentText="_UAT4"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Acc_CustomerInsDummyTrade" EnvironmentText="_UAT4"></SpNameConfig>
@@ -37,5 +40,6 @@
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Acc_BA_LicConfigUpd" EnvironmentText="_UAT4"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Acc_BA_SpecialCustSel" EnvironmentText="_UAT4"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Acc_BA_SpecialCustSearch" EnvironmentText="_UAT4"></SpNameConfig>
+
 
 </Root>
