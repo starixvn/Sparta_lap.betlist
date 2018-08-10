@@ -70,7 +70,6 @@
             var model = _groupComService.GetAll(licenseeId);
 
             ViewBag.IsAllowNG = productAccess.IsAllowNG;
-            ViewBag.IsAllowRC = productAccess.IsAllowRB;
             ViewBag.IsAllowCS = productAccess.IsAllowCS;
             ViewBag.IsAllowAB = productAccess.IsAllowAB;
 
@@ -266,7 +265,6 @@
             var showingOption = new ShowingOption
             {
                 SBVisible = productAccess.IsAllowSB,
-                RBVisible = productAccess.IsAllowRB,
                 NGVisible = productAccess.IsAllowNG,
                 CSVisible = productAccess.IsAllowCS,
                 ABVisible = productAccess.IsAllowAB
@@ -295,7 +293,6 @@
             return GroupCommHelper.IsAllValid(
                                 metaModel.SBComm,
                                 metaModel.ParlayComm,
-                                metaModel.RCComm,
                                 metaModel.NGComm,
                                 metaModel.CSComm,
                                 metaModel.ABComm);
@@ -348,7 +345,6 @@
         {
             var decSbComm = model.SBComm;
             var decParlayComm = model.ParlayComm;
-            var decRcComm = model.RCComm;
             var decNgComm = model.NGComm;
             var decCsComm = model.CSComm;
             var decAbComm = model.ABComm;
@@ -360,10 +356,6 @@
             model.ParlayComm1 = SetComm(decParlayComm, 1);
             model.ParlayComm2 = SetComm(decParlayComm, 2);
             model.ParlayComm3 = SetComm(decParlayComm, 3);
-
-            model.RCComm1 = SetComm(decRcComm, 1);
-            model.RCComm2 = SetComm(decRcComm, 2);
-            model.RCComm3 = SetComm(decRcComm, 3);
 
             model.NGComm1 = SetComm(decNgComm, 1);
             model.NGComm2 = SetComm(decNgComm, 2);
@@ -391,7 +383,6 @@
            {
                 groupComm.SBComm,
                 groupComm.ParlayComm,
-                groupComm.RCComm,
                 groupComm.NGComm,
                 groupComm.CSComm,
                 groupComm.ABComm
@@ -427,7 +418,6 @@
 
             metaModel.LicenseeId = licenseeId;
             metaModel.IsUpdateNG = productAccess.IsAllowNG;
-            metaModel.IsUpdateRacing = productAccess.IsAllowRB;
             metaModel.IsUpdateCS = productAccess.IsAllowCS;
             metaModel.IsUpdateAB = productAccess.IsAllowAB;
             metaModel.DefaultGroupId = defaultGroupId;

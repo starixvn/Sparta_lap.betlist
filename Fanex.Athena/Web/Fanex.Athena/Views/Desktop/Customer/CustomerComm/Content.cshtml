@@ -2,7 +2,6 @@
     Layout = null;
 
     var isAllowNg = ViewBag.IsAllowNG;
-    var isAllowRc = ViewBag.IsAllowRC;
     var isAllowCs = ViewBag.IsAllowCS;
     var isAllowAb = ViewBag.IsAllowAB;
 }
@@ -24,10 +23,6 @@
                             <th class="col-child medium">@ViewResources.DefaultGroup</th>
                             <th class="col-child medium">@ViewResources.NoOfCustmer</th>
                             <th class="col-child medium">@ViewResources.SBComm (%)</th>
-                            @if (isAllowRc)
-                            {
-                                <th class="col-child medium">@ViewResources.RacingComm (%)</th>
-                            }
                             @if (isAllowNg)
                             {
                                 <th class="col-child medium">@ViewResources.NGComm (%)</th>
@@ -66,12 +61,6 @@
                                     <td class="center-align">
                                         @(groupComm.SBComm.ToString("P2"))
                                     </td>
-                                    @if (isAllowRc)
-                                    {
-                                        <td class="center-align">
-                                            @(groupComm.RCComm.ToString("P2"))
-                                        </td>
-                                    }
                                     @if (isAllowNg)
                                     {
                                         <td class="center-align">

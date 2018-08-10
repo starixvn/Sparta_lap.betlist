@@ -75,7 +75,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _casinoCustomerService.Received().UpdateCommission(Arg.Any<RNGCasinoUpdateMemberComMetaModel>());
+                _casinoCustomerService.Received(1).UpdateCommission(Arg.Any<RNGCasinoUpdateMemberComMetaModel>());
                 Assert.That(result, Is.EqualTo(expectedResult));
             });
         }

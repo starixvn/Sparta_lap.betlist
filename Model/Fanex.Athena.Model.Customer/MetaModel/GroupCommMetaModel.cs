@@ -54,15 +54,6 @@ namespace Fanex.Athena.Model.Customer.MetaModel
         public int ParlayComm3 { get; set; }
 
         [Required]
-        public decimal RCComm { get; set; }
-
-        public int RCComm1 { get; set; }
-
-        public int RCComm2 { get; set; }
-
-        public int RCComm3 { get; set; }
-
-        [Required]
         public decimal NGComm { get; set; }
 
         public int NGComm1 { get; set; }
@@ -91,8 +82,6 @@ namespace Fanex.Athena.Model.Customer.MetaModel
 
         [Required]
         public string GroupColor { get; set; }
-
-        public bool IsUpdateRacing { get; set; }
 
         public bool IsDefaultGroup { get; set; }
 

@@ -37,28 +37,6 @@
         @DesktopGroupCommRazorHelper.CommDropDownThird("ParlayComm3", Model.ParlayComm3)
     </div>
 </div>
-@if (Model.IsUpdateRacing)
-{
-    <div class="row">
-        <div class="col l2 m3 s12 input-field">
-            @ViewResources.ProductRB
-        </div>
-        <div class="col l1 m3 s4 first-value">
-            @Html.HiddenFor(model => model.RCComm)
-            @DesktopGroupCommRazorHelper.CommDropDownFirst("RCComm1", Model.RCComm1)            
-        </div>
-        <div class="col l1 m3 s4">
-            @DesktopGroupCommRazorHelper.CommDropDownSecond("RCComm2", Model.RCComm2)
-        </div>
-        <div class="col l1 m3 s4 third-value">
-            @DesktopGroupCommRazorHelper.CommDropDownThird("RCComm3", Model.RCComm3)
-        </div>
-    </div>
-}
-else
-{
-    @Html.HiddenFor(model => model.RCComm)
-}
 @if (Model.IsUpdateNG)
 {
     <div class="row">

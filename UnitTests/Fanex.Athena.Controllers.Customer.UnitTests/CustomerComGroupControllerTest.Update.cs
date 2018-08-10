@@ -24,7 +24,6 @@
                 {
                     SBComm = SampleComm,
                     ParlayComm = SampleComm,
-                    RCComm = SampleComm,
                     NGComm = SampleComm,
                     CSComm = SampleComm,
                     ABComm = SampleComm
@@ -44,7 +43,6 @@
                     Assert.That(metaModel.SBComm3, Is.EqualTo(5));
 
                     Assert.That(metaModel.ParlayComm1 == 3 && metaModel.ParlayComm2 == 6 && metaModel.ParlayComm3 == 5, Is.True);
-                    Assert.That(metaModel.RCComm1 == 3 && metaModel.RCComm2 == 6 && metaModel.RCComm3 == 5, Is.True);
                     Assert.That(metaModel.NGComm1 == 3 && metaModel.NGComm2 == 6 && metaModel.NGComm3 == 5, Is.True);
                     Assert.That(metaModel.CSComm1 == 3 && metaModel.CSComm2 == 6 && metaModel.CSComm3 == 5, Is.True);
                     Assert.That(metaModel.ABComm1 == 3 && metaModel.ABComm2 == 6 && metaModel.ABComm3 == 5, Is.True);

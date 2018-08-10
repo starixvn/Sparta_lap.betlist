@@ -87,7 +87,6 @@
                 _groupComService.GetById(GroupId).Returns(new GroupCommMetaModel
                 {
                     SBComm = SampleComm,
-                    RCComm = SampleComm,
                     NGComm = SampleComm,
                     CSComm = SampleComm,
                     ABComm = SampleComm,
@@ -104,7 +103,6 @@
                 Assert.Multiple(() =>
                 {
                     Assert.That(extendedData.GetValue("SBComm"), Is.EqualTo(ExpectedComm));
-                    Assert.That(extendedData.GetValue("RCComm"), Is.EqualTo(ExpectedComm));
                     Assert.That(extendedData.GetValue("NGComm"), Is.EqualTo(ExpectedComm));
                     Assert.That(extendedData.GetValue("RNGComm"), Is.EqualTo(ExpectedComm));
                     Assert.That(extendedData.GetValue("ABComm"), Is.EqualTo(ExpectedComm));

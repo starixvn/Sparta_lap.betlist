@@ -30,10 +30,6 @@
                  commissionOnChange($(this).val(), "ParlayComm");
              }).change();
 
-             $("#RCComm1").on("change", function () {
-                 commissionOnChange($(this).val(), "RCComm");
-             }).change();
-
              $("#NGComm1").on("change", function () {
                  commissionOnChange($(this).val(), "NGComm");
              }).change();
@@ -128,7 +124,6 @@
          function submit(formId) {
              initCommParam("#SBComm");
              initCommParam("#ParlayComm");
-             initCommParam("#RCComm");
              initCommParam("#NGComm");
              initCommParam("#CSComm");
              initCommParam("#ABComm");
