@@ -11,6 +11,8 @@
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_WinlossByProductDetail_Ag" EnvironmentText="_UAT3"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_WinlossByProductDetail" EnvironmentText="_UAT3"></SpNameConfig>
 
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_CustomerTurnOver" EnvironmentText="_xtest"></SpNameConfig>
+
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_SubsidiaryWinloss" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_SubsidiaryWinlossDetail" EnvironmentText="_xpre"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_GetUserLevelInfo" EnvironmentText="_xpre"></SpNameConfig>
