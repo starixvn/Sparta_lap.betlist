@@ -54,8 +54,11 @@ namespace Fanex.Athena.Controllers.BetList
         {
             var title = GetRNGCasinoBetListTitle(metaModel.TransType);
             var ticketResult = BetListService.GetBetListData(metaModel, uspKey);
-
-            return ProcessExportExcel(new ShowingOption(), metaModel, ticketResult, HiddenColumns, title, "RngCasinoDetail");
+            var showingOption = new ShowingOption
+            {
+                CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
+            };
+            return ProcessExportExcel(showingOption, metaModel, ticketResult, HiddenColumns, title, "RngCasinoDetail");
         }
 
         private static string GetRNGCasinoBetListTitle(long transType)

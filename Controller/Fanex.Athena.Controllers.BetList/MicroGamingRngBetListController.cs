@@ -59,7 +59,8 @@ namespace Fanex.Athena.Controllers.BetList
         {
             var showingOption = new ShowingOption
             {
-                GrandTotalVisible = false
+                GrandTotalVisible = false,
+                CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
             };
 
             var title = GetTitle(metaModel.TransType);
