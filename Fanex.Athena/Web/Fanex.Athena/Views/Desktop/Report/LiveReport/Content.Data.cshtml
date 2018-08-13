@@ -49,7 +49,7 @@
     <td class="right-align" title="@sumBetCount">@sumBetCount</td>
     <td class="right-align" title="@sumLicenseeWL.ToStringExt()">@DesktopRazorHelper.HighlightNegativeFormat(sumLicenseeWL)</td>
 
-    @if (Model.ProductAccess.IsAllowRB || Model.ProductAccess.IsAllowBA)
+    @if (Model.ProductAccess.IsAllowBA)
     {
         var sumLicenseeComm = Model.MainResult.Sum(i => i.LicenseeComm).ToStringExt();
         <td class="right-align" title="@sumLicenseeComm">@sumLicenseeComm</td>
