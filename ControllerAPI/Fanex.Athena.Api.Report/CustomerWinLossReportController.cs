@@ -85,7 +85,6 @@
                 MetaModel = metaModel,
                 TotalData = result.TotalData,
                 BAVisible = productAccess.IsAllowBA,
-                RBVisible = productAccess.IsAllowRB,
                 CustomerCommVisible = licenseeSession.IsAllowedCustomerComm,
                 SystemIdVisible = !_appSettings.FakeLicenseeList.Contains(licenseeSession.LicenseeId)
             };

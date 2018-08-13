@@ -73,7 +73,6 @@
             GridId: "ReportGrid",
             IsHistoryInput: "#IsHistory",
             IsAllowedBAInput: "#IsAllowedBA",
-            IsAllowedRBInput: "#IsAllowedRB",
             IsAllowedCustomerCommissionInput: "#IsAllowedCustomerCommission",
             HistoryLink: "#history-report-link",
             CurrentLink: "#current-report-link",
@@ -168,7 +167,6 @@
 
         function initSetting() {
             CustomerWinLossOption.isAllowBA = Site.asBool($(_selector.IsAllowedBAInput).val());
-            CustomerWinLossOption.isAllowRB = Site.asBool($(_selector.IsAllowedRBInput).val());
             CustomerWinLossOption.hasCustomerComm = Site.asBool($(_selector.IsAllowedCustomerCommissionInput).val());
             resetParam();
         }

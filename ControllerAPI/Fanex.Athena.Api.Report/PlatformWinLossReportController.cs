@@ -130,7 +130,7 @@ namespace Fanex.Athena.Api.Report
                 Param = metaModel,
                 CurrencyList = userSession.CurrencyList,
                 ProductAccess = productAccess,
-                Colspan = 7 + (productAccess.IsAllowBA ? 2 : 0) + (productAccess.IsAllowRB ? 2 : 0),
+                Colspan = 7 + (productAccess.IsAllowBA ? 2 : 0),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
             };
 

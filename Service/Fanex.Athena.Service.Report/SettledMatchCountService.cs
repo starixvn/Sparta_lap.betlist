@@ -39,11 +39,6 @@ namespace Fanex.Athena.Service.Report
         {
             switch (sportType)
             {
-                case (int)SportType.HorseRacing:
-                case (int)SportType.Greyhound:
-                case (int)SportType.Harness:
-                    return productAccess.IsAllowRB;
-
                 case (int)SportType.NumberGame:
                     return productAccess.IsAllowNG;
 

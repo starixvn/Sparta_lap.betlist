@@ -15,8 +15,8 @@
 
     public partial class PlatformWinLossReportControllerTest
     {
-        [TestCase(true, new[] { Product.BA, Product.RB, Product.NG }, new[] { Product.BA, Product.RB })]
-        [TestCase(false, new[] { Product.SB, Product.VS, Product.CS, Product.KN }, new[] { Product.RB })]
+        [TestCase(true, new[] { Product.BA, Product.NG }, new[] { Product.BA })]
+        [TestCase(false, new[] { Product.SB, Product.VS, Product.CS, Product.KN }, new string[] { })]
         [TestCase(false, new string[0], new string[0])]
         public void Index_ExportExcelMemberWithLevel1_PassCorrectParamsToCreateExcel(
             bool hasLicenseeComm,

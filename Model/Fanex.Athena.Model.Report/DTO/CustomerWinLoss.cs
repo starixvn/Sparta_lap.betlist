@@ -26,10 +26,6 @@
 
         public decimal BAComm { get; set; }
 
-        public decimal RacingRevenue { get; set; }
-
         public decimal AmtDueToBA { get; set; }
-
-        public decimal AmtDueToRacing { get; set; }
     }
 }

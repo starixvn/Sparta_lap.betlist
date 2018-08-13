@@ -96,9 +96,7 @@ namespace Fanex.Athena.DataAccess.Report
                 CustomerTotalWL = reader.ToDecimal("customertotalwl" + baseCurrency),
                 LicenseeWL = reader.ToDecimal("licenseewl" + baseCurrency),
                 BAComm = reader.ToDecimal("commba" + baseCurrency),
-                RacingRevenue = reader.ToDecimal("racingrevenue" + baseCurrency),
-                AmtDueToBA = reader.ToDecimal("amtduetoba" + baseCurrency),
-                AmtDueToRacing = reader.ToDecimal("amtduetorb" + baseCurrency)
+                AmtDueToBA = reader.ToDecimal("amtduetoba" + baseCurrency)
             };
         }
 
@@ -131,9 +129,7 @@ namespace Fanex.Athena.DataAccess.Report
                 PlayerComm = reader.ToDecimal("sumplayercomm" + baseCurrency),
                 LicenseeWL = reader.ToDecimal("sumlicenseewl" + baseCurrency),
                 BAComm = reader.ToDecimal("sumcommba" + baseCurrency),
-                RacingRevenue = reader.ToDecimal("sumracingrevenue" + baseCurrency),
                 AmtDueToBA = reader.ToDecimal("sumamtduetoba" + baseCurrency),
-                AmtDueToRacing = reader.ToDecimal("sumamtduetorb" + baseCurrency),
                 BetEffective = reader.ToDecimal("sumbeteffective" + baseCurrency),
                 CustomerTotalWL = reader.ToDecimal("sumcustomertotalwl" + baseCurrency)
             };

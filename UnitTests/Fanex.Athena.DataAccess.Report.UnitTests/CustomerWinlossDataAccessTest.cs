@@ -115,7 +115,6 @@
         private static void AssertCommonData(CustomerWinLoss actual, CustomerWinLoss expected)
         {
             Assert.That(actual.Turnover, Is.EqualTo(expected.Turnover));
-            Assert.That(actual.RacingRevenue, Is.EqualTo(expected.RacingRevenue));
             Assert.That(actual.TotalTransaction, Is.EqualTo(expected.TotalTransaction));
             Assert.That(actual.CustomerWL, Is.EqualTo(expected.CustomerWL));
             Assert.That(actual.PlayerComm, Is.EqualTo(expected.PlayerComm));
@@ -203,8 +202,6 @@
             var winlossrbColumn = prefix + "winlossrb" + _metaModel.BaseCurrency;
             var commrbColumn = prefix + "commrb" + _metaModel.BaseCurrency;
             var amtduetobaColumn = prefix + "amtduetoba" + _metaModel.BaseCurrency;
-            var amtduetorbColumn = prefix + "amtduetorb" + _metaModel.BaseCurrency;
-            var sumracingrevenueColumn = prefix + "racingrevenue" + _metaModel.BaseCurrency;
             var sumcustomertotalwlColumn = prefix + "customertotalwl" + _metaModel.BaseCurrency;
 
             Reader[turnoverColumn].Returns(expected.Turnover);
@@ -217,8 +214,6 @@
             Reader[winlossrbColumn].Returns(15m);
             Reader[commrbColumn].Returns(5m);
             Reader[amtduetobaColumn].Returns(expected.AmtDueToBA);
-            Reader[amtduetorbColumn].Returns(expected.AmtDueToRacing);
-            Reader[sumracingrevenueColumn].Returns(expected.RacingRevenue);
             Reader[sumcustomertotalwlColumn].Returns(expected.CustomerTotalWL);
         }
     }
