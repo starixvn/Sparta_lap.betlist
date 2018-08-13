@@ -155,7 +155,6 @@
             var productOptions = new List<string>
             {
                 Product.BA,
-                Product.RB,
                 Product.NG,
                 Product.SB,
                 Product.VS,
@@ -185,11 +184,6 @@
             var expectedColSpan = 7;
 
             if (productAccess.Contains(Product.BA))
-            {
-                expectedColSpan += 2;
-            }
-
-            if (productAccess.Contains(Product.RB))
             {
                 expectedColSpan += 2;
             }

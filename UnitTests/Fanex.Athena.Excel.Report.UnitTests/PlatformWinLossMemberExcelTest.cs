@@ -51,8 +51,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
                 Month = 1,
                 ProductOptions = new List<ProductOption>
                 {
-                    new ProductOption { Code = "SB", Status = true },
-                    new ProductOption { Code = "RB", Status = false }
+                    new ProductOption { Code = "SB", Status = true }
                 }
             }
         };

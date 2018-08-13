@@ -22,7 +22,6 @@
             {
                 { Product.BA, nameof(ViewResources.ProductBA) },
                 { Product.NG, nameof(ViewResources.ProductNG) },
-                { Product.RB, nameof(ViewResources.ProductRB) },
                 { Product.SB, nameof(ViewResources.Sportsbook) },
                 { Product.MGCLC, nameof(ViewResources.ProductMGCLC) },
                 { Product.MGCRNG, nameof(ViewResources.ProductMGCRNG) },
@@ -71,11 +70,6 @@
             if (BetTypeHelper.IsNumberGame(bettype))
             {
                 return ProductTypes.NumberGame;
-            }
-
-            if (BetTypeHelper.IsRacing(bettype))
-            {
-                return ProductTypes.Racing;
             }
 
             if (BetTypeHelper.IsVirtualSports(bettype))

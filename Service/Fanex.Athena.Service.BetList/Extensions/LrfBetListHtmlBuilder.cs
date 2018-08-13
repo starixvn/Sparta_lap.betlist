@@ -69,8 +69,7 @@ namespace Fanex.Athena.Service.BetList.Extensions
         {
             var isRunning = BetListHelper.IsRunning(ticket.Status);
 
-            if (BetTypeHelper.IsRacing(ticket.BetTypeId) ||
-                BetListHelper.IsBoughtTicket(ticket.BetTypeId) ||
+            if (BetListHelper.IsBoughtTicket(ticket.BetTypeId) ||
                 BetListHelper.IsColossusBet(ticket.BetTypeId))
             {
                 var licenseeWl = isRunning

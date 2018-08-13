@@ -219,7 +219,6 @@
 
         [TestCase(BetType.CashOutBought, false, "10,000.55\n1.44")]
         [TestCase(BetType.BetTradeBought, true, "-\n-")]
-        [TestCase(31, false, "10,000.55\n1.44")] // racing
         [TestCase(18000, false, "10,000.55\n1.44")] // colossus
         [TestCase(BetType.CorrectScore, true, "-")]
         [TestCase(BetType.CorrectScore, false, "10,001.99")]

@@ -220,7 +220,6 @@
 
         var PRODUCTS = [
             { Code: "SB", Display: "SB" },
-            { Code: "RB", Display: "RB" },
             { Code: "NG", Display: "NG" },
             { Code: "LC", Display: "LC" },
             { Code: "CS", Display: "CS" },

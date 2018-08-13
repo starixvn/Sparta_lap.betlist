@@ -532,7 +532,7 @@
         }
 
         [Test]
-        public void ProcessUI_BAVisibleAndRBVisibleAreFalse_HideLicenseeColumn()
+        public void ProcessUI_BAVisibleIsFalse_HideLicenseeColumn()
         {
             // Arrange
             ExcelTestHelper.MockGetRow(FakeSheet, ColumnTemplateCount, 0);

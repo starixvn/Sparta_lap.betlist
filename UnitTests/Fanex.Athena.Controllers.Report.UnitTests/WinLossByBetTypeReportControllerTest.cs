@@ -114,7 +114,7 @@
         }
 
         [TestCase(null, false, false)]
-        [TestCase("BA,RB,NG,SB,VS", true, true)]
+        [TestCase("BA,NG,SB,VS", true, true)]
         public void IndexPost_ExportExcel_ReturnCorrectResult(
             string productCodeList, bool expectedProductVisible, bool isAllowCustomerComm)
         {

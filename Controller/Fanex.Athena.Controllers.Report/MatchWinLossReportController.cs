@@ -279,35 +279,28 @@
 
         protected internal virtual void AssignMatchName(DataRow row, int betType)
         {
-            switch ((int)row[NewProductIdColumnName])
+            if ((int)row[NewProductIdColumnName] == ProductTypes.NumberGame)
             {
-                case ProductTypes.Racing:
-                    row["matchname"] = ViewResources.Race + Converter.ToString2(row["race"]);
-                    break;
-
-                case ProductTypes.NumberGame:
-                    row["matchname"] = string.Format("{0} {1}", ViewResources.NumberGameNo, row["matchcode"]);
-                    break;
-
-                default:
-
-                    if (VirtualHrBettypes.Contains(betType))
-                    {
-                        var culture = new CultureInfo("en-US");
-                        const string TimeFormatter = "{0:MM/dd/yyyy hh:mm:ss tt}";
-                        var kickOffTime = Converter.ToDateTime(row["KickoffTime"]);
-                        row["matchname"] = string.Format(culture, TimeFormatter, kickOffTime);
-                        break;
-                    }
-
+                row["matchname"] = string.Format("{0} {1}", ViewResources.NumberGameNo, row["matchcode"]);
+            }
+            else
+            {
+                if (VirtualHrBettypes.Contains(betType))
+                {
+                    var culture = new CultureInfo("en-US");
+                    const string TimeFormatter = "{0:MM/dd/yyyy hh:mm:ss tt}";
+                    var kickOffTime = Converter.ToDateTime(row["KickoffTime"]);
+                    row["matchname"] = string.Format(culture, TimeFormatter, kickOffTime);
+                }
+                else
+                {
                     var homeName = _cacheRefAdapter.GetTeamName(row["homeid"]) +
                                    (Converter.ToBool(row["isneutral"])
                                         ? " " + ViewResources.IsNeutral
                                         : string.Empty);
                     var awayName = _cacheRefAdapter.GetTeamName(row["awayid"]);
                     row["matchname"] = homeName + "-vs-" + awayName;
-
-                    break;
+                }
             }
         }
 

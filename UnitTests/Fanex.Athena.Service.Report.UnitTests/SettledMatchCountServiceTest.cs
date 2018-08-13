@@ -62,7 +62,6 @@
             // Arrange
             var productList = new List<Product>
             {
-                new Product { ProductCode = Product.RB },
                 new Product { ProductCode = Product.NG },
                 new Product { ProductCode = Product.VS }
             };

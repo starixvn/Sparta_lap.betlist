@@ -222,7 +222,6 @@
                         Group = reader.ToString("GroupName"),
                         OddsGroup = reader.ToString("OddsGroup"),
                         SBComm = reader.ToDecimal("SBComm") * 100,
-                        RBComm = reader.ToDecimal("RacingComm") * 100,
                         NGComm = reader.ToDecimal("NGComm") * 100,
                         CSComm = reader.ToDecimal("RNGComm") * 100,
                         ABComm = reader.ToDecimal("AllbetComm") * 100

@@ -25,8 +25,6 @@
 
         public bool BAVisible { get; set; }
 
-        public bool RBVisible { get; set; }
-
         public bool CustomerCommVisible { get; set; }
     }
 }

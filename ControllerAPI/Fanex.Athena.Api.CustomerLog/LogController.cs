@@ -203,7 +203,6 @@ namespace Fanex.Athena.Api.CustomerLog
                 { "GroupName", ViewResources.GroupName },
                 { "GroupColor", ViewResources.GroupColor },
                 { "SBComm", ViewResources.SBComm },
-                { "RBComm", ViewResources.RBComm },
                 { "NGComm", ViewResources.NGComm },
                 { "CSComm", ViewResources.CSComm },
                 { "ABComm", ViewResources.ABComm },

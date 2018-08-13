@@ -114,8 +114,8 @@
             }
         }
 
-        [TestCase("BA,AB,RB", true, true)]
-        [TestCase("AB,RB", false, true)]
+        [TestCase("BA,AB", true, true)]
+        [TestCase("AB", false, true)]
         [TestCase("BA,AB", true, false)]
         [TestCase("AB", false, false)]
         public void IndexPost_ExportExcel_PassParamsToCreateExcelCorrectly(string productCodeList, bool expectedBaVisible, bool expectedRbVisible)
