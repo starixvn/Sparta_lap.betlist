@@ -541,7 +541,6 @@
             FakeSheet.LastRowNum.Returns(0);
             _showingOpt.CustomerCommVisible = true;
             _showingOpt.BAVisible = false;
-            _showingOpt.RBVisible = false;
 
             var excel = CreateExcel();
 

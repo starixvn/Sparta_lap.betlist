@@ -173,9 +173,9 @@
             Assert.That(result.GrantTotalCustomer, Is.EqualTo(expectedResult.TotalCustomer));
         }
 
-        [TestCase(new[] { Product.BA }, Product.BA, true, false)]
-        [TestCase(new[] { Product.BA }, Product.SB, false, false)]
-        public void Index_ExportToExcel_ExportWithCorrectData(string[] productCodeOption, string productCode, bool visibleBa, bool visibleRb)
+        [TestCase(new[] { Product.BA }, Product.BA, true)]
+        [TestCase(new[] { Product.BA }, Product.SB, false)]
+        public void Index_ExportToExcel_ExportWithCorrectData(string[] productCodeOption, string productCode, bool visibleBa)
         {
             // Arrange
             var metaModel = CreateValidMetaModel(productCodeOption);
@@ -220,7 +220,6 @@
             {
                 Assert.That(actualViewModel.MainResult, Is.EqualTo(expectedResult.DataList.ToList()));
                 Assert.That(actualShowingOption.BAVisible, Is.EqualTo(visibleBa));
-                Assert.That(actualShowingOption.RBVisible, Is.EqualTo(visibleRb));
             });
         }
 

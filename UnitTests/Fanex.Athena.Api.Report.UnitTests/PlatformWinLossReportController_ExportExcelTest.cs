@@ -176,7 +176,6 @@
                 Assert.IsTrue(expetedShowingOption.CSVisible == productOptions.Any(i => i.Code == Product.CS && i.Status));
                 Assert.IsTrue(expetedShowingOption.KNVisible == productOptions.Any(i => i.Code == Product.KN && i.Status));
                 Assert.IsTrue(expetedShowingOption.NGVisible == productOptions.Any(i => i.Code == Product.NG && i.Status));
-                Assert.IsTrue(expetedShowingOption.RBVisible == productOptions.Any(i => i.Code == Product.RB && i.Status));
                 Assert.IsTrue(expetedShowingOption.VSVisible == productOptions.Any(i => i.Code == Product.VS && i.Status));
             });
         }

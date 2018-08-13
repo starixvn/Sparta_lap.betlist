@@ -127,7 +127,6 @@ namespace Fanex.Athena.Excel.Customer.UnitTests
             var excel = CreateExcel(new ShowingOption
             {
                 SBVisible = true,
-                RBVisible = true,
                 NGVisible = true,
                 CSVisible = true,
                 ABVisible = true

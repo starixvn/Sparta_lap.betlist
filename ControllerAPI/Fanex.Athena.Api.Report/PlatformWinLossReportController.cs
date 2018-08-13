@@ -73,7 +73,6 @@ namespace Fanex.Athena.Api.Report
             return new ShowingOption
             {
                 BAVisible = productOptions.Any(p => p.Code == Product.BA && p.Status),
-                RBVisible = productOptions.Any(p => p.Code == Product.RB && p.Status),
                 NGVisible = productOptions.Any(p => p.Code == Product.NG && p.Status),
                 SBVisible = productOptions.Any(p => p.Code == Product.SB && p.Status),
                 VSVisible = productOptions.Any(p => p.Code == Product.VS && p.Status),

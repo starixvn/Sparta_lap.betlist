@@ -156,7 +156,6 @@ namespace Fanex.Athena.Controllers.Report
 
             var showingOption = new ShowingOption
             {
-                RBVisible = productAccess.IsAllowRB,
                 BAVisible = productAccess.IsAllowBA,
                 NGVisible = productAccess.IsAllowNG,
                 SBVisible = productAccess.IsAllowSB,

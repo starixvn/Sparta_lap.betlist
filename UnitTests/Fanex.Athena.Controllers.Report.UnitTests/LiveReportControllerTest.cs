@@ -148,7 +148,7 @@
                     controller.Received(1).CreateExcel(
                         Arg.Any<string>(),
                         Arg.Is<LiveReportViewModel>(x => x.MainResult == expectedData),
-                        Arg.Is<ShowingOption>(x => x.BAVisible == expectedBaVisible && x.RBVisible == expectedRbVisible),
+                        Arg.Is<ShowingOption>(x => x.BAVisible == expectedBaVisible),
                         Arg.Is<ConvertingOption>(x =>
                             x.IsConvert == metaModel.IsConvert &&
                             x.BaseCurrency == metaModel.BaseCurrency &&

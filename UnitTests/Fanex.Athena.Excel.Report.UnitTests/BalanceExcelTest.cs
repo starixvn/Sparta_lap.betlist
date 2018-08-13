@@ -128,7 +128,6 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             var showingOption = new ShowingOption
             {
                 BAVisible = true,
-                RBVisible = true,
                 BTVisible = true,
                 CustomerCommVisible = true
             };

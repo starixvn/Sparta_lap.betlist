@@ -147,7 +147,6 @@
                             x.BaseCurrency == metaModel.BaseCurrency &&
                             x.CurrencyName == metaModel.CurrencyName),
                         Arg.Is<ShowingOption>(x =>
-                            x.RBVisible == expectedProductVisible &&
                             x.BAVisible == expectedProductVisible &&
                             x.NGVisible == expectedProductVisible &&
                             x.SBVisible == expectedProductVisible &&
