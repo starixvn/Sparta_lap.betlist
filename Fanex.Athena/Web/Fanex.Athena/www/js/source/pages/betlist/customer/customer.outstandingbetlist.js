@@ -4,7 +4,7 @@ define(["jquery", "common/site", "common/querystring", "pages/report/report", ".
     function ($, Site, QueryString, Report, DailyStatement, BetList, DatePicker, MultiSelect) {
         var _viewName;
         var _viewOption;
-        window.serverPaging = true;
+
         function getViewOption() {
             return {
                 "betlistrunning": {
@@ -114,11 +114,13 @@ define(["jquery", "common/site", "common/querystring", "pages/report/report", ".
             },
 
             submitCompletedBetList: function (params) {
+                window.serverPaging = true;
                 var url = Site.resolveClientUrl('api/OutstandingCompletedBetList/Index');
                 BetList.loadDataPaging(url, params);
             },
 
             submitRunningBetList: function (params) {
+                window.serverPaging = false;
                 var url = Site.resolveClientUrl('api/OutstandingRunningBetList/Index');
                 BetList.loadData(params, url);
             },

@@ -1,7 +1,6 @@
 ﻿/*global Site, Report, QueryString, CustomerDailyStatement, BetList, ProductListHelper*/
 /// <reference path="/@JSense.js" />
 "use strict";
-window.serverPaging = true;
 
 var OutstandingBetList = (function ($) {
     function setProductOptionParamList(params) {
@@ -98,12 +97,14 @@ var OutstandingBetList = (function ($) {
         },
 
         submitCompletedBetList: function (params) {
+            window.serverPaging = true;
             BetList.initialize();
             var url = Site.resolveClientUrl('api/OutstandingCompletedBetList/Index');
             BetList.loadDataPaging(url, params);
         },
 
         submitRunningBetList: function (params) {
+            window.serverPaging = false;
             BetList.initialize();
             var url = Site.resolveClientUrl('api/OutstandingRunningBetList/Index');
             BetList.loadData(params, url);
