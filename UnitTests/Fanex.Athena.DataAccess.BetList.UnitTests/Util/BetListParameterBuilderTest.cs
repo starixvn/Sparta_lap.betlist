@@ -85,7 +85,7 @@
         public void CreateBetListParameters_CalledByCorectScoreBetlist_ParametersPassedCorrectly()
         {
             // Arrange
-            const string UspKey = "Lrf_BetList_CorrectScore";
+            const string UspKey = "Lrf_TotalBets_Sel430";
 
             // Action
             BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, _metaModel);

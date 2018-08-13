@@ -84,9 +84,10 @@
 
 	static class Helper 
 	{
-		public static string GetAllSpName()
+		public static string GetAllSpName(bool isDB042 = false)
         {
-            return System.IO.File.ReadAllText(@"Fanex.Athena\Web\Fanex.Athena\App_Data\SpNameConfig\FanexSpNameOriginal.xml");
+			var fileName = @"Fanex.Athena\Web\Fanex.Athena\App_Data\SpNameConfig\FanexSpNameOriginal" + (isDB042 ? "-DB042" : "") + ".xml";
+            return System.IO.File.ReadAllText(fileName);
         }	
 
 		public static IList<SpNameConfig> GetListOfConfig()

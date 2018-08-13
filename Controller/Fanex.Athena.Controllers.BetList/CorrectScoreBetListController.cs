@@ -75,7 +75,7 @@ namespace Fanex.Athena.Controllers.BetList
             var currencies = SessionService.UserSession.CurrencyList;
             if (metaModel.CurrencyId == BaseCurrencyType.All || currencies.ContainsKey(metaModel.CurrencyId))
             {
-                const string UspKey = "Lrf_BetList_CorrectScore";
+                const string UspKey = "Lrf_TotalBets_Sel430";
 
                 var excelModel = CreateDefaultMetaModel(metaModel);
                 excelModel.AgentListXml = SessionService.GenerateAgentListXml(excelModel.CurrencyId);
