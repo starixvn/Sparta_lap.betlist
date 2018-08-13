@@ -191,6 +191,9 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
+        /// <summary>
+        /// Get data for VS
+        /// </summary>
         public IList<Racing> GetRacingMatches(ResultMetalModel metalModel)
         {
             const string UspName = "Lrf_Result_RaceSelByMeeting";
@@ -198,8 +201,7 @@ namespace Fanex.Athena.DataAccess.Report
             {
                 fromdate = metalModel.FromDate,
                 leagueid = metalModel.LeagueId,
-                sporttype = metalModel.SportId,
-                isshowall = true
+                sporttype = metalModel.SportId
             };
 
             try

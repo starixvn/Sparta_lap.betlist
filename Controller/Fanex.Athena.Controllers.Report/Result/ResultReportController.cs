@@ -308,12 +308,6 @@ namespace Fanex.Athena.Controllers.Report.Result
                 limitedSports = limitedSports.Where(i => i.SportId != (int)SportType.NumberGame);
             }
 
-            if (!productAccess.IsAllowRB)
-            {
-                limitedSports = limitedSports.Where(i => i.SportId != (int)SportType.HorseRacing
-                && i.SportId != (int)SportType.Greyhound && i.SportId != (int)SportType.Harness);
-            }
-
             if (!productAccess.IsAllowVS)
             {
                 limitedSports = limitedSports.Where(i => i.SportId != (int)SportType.VirtualSports);
@@ -413,8 +407,7 @@ namespace Fanex.Athena.Controllers.Report.Result
                     licenseeSession.LicenseeId,
                     SessionService.UserSession.Language,
                     ResultPageGetNormalSportsName);
-                var isAllowAllProducts =
-                    productAccess.IsAllowRB && productAccess.IsAllowNG && productAccess.IsAllowVS;
+                var isAllowAllProducts = productAccess.IsAllowNG && productAccess.IsAllowVS;
 
                 var limitedSports = isAllowAllProducts ? sports : RemoveNotAllowedSports(sports, productAccess);
 
@@ -502,9 +495,6 @@ namespace Fanex.Athena.Controllers.Report.Result
             var setting = GetNormalResultSetting(metalModel);
             switch (setting.SportType)
             {
-                case SportType.HorseRacing:
-                case SportType.Greyhound:
-                case SportType.Harness:
                 case SportType.VirtualHorseRacing:
                 case SportType.VirtualGreyhounds:
                 case SportType.VirtualMotorRacing:

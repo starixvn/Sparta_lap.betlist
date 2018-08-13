@@ -104,9 +104,6 @@
             }
         }
 
-        [TestCase((int)SportType.HorseRacing)]
-        [TestCase((int)SportType.Greyhound)]
-        [TestCase((int)SportType.Harness)]
         [TestCase((int)SportType.VirtualHorseRacing)]
         [TestCase((int)SportType.VirtualGreyhounds)]
         [TestCase((int)SportType.VirtualMotorRacing)]

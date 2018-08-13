@@ -338,8 +338,7 @@
             {
                 fromdate = _metaModel.FromDate,
                 leagueid = _metaModel.LeagueId,
-                sporttype = _metaModel.SportId,
-                isshowall = true
+                sporttype = _metaModel.SportId
             };
 
             // Action
