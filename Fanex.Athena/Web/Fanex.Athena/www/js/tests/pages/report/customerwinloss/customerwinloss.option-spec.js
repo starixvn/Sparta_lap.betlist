@@ -43,9 +43,7 @@
                 var customerWlTotalIndex = 7;
                 var playerCommIndex = 6;
                 var bacommIndex = 10;
-                var amtDueToBAIndex = 12;
-                var racingRevenueIndex = 11;
-                var amtDueToRacingIndex = 13;
+                var amtDueToBAIndex = 11;
                 var externalIdIndex = 1;
                 var systemIdIndex = 2;
 
@@ -67,16 +65,6 @@
 
                     expect(colModels[bacommIndex].hidden).toBe(true);
                     expect(colModels[amtDueToBAIndex].hidden).toBe(true);
-                });
-
-                it("customer comm columns should be hidden if report does not allow RB", function () {
-                    spyOn(Site, "isFakeLicensee").and.returnValue(false);
-                    CustomerWinLossOption.isAllowRB = false;
-
-                    var colModels = CustomerWinLossOption.getColModel(10);
-
-                    expect(colModels[racingRevenueIndex].hidden).toBe(true);
-                    expect(colModels[amtDueToRacingIndex].hidden).toBe(true);
                 });
 
                 it("systemId column should be hidden if licensee is fake", function () {

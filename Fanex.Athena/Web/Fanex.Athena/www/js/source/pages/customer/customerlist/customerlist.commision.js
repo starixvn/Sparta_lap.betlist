@@ -259,7 +259,6 @@
                     CustomerIds: custList.toString(),
                     SBComm: sbcom,
                     ParlayComm: parlayCom,
-                    RCComm: rbcom,
                     NGComm: ngcom,
                     LCComm: lccom,
                     CSComm: cscom,

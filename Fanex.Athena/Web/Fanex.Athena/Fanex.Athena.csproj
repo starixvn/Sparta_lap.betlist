@@ -2023,7 +2023,6 @@
     <Content Include="www\js\tests\pages\report\customerturnover\customerturnover.option-spec.js" />
     <Content Include="www\js\tests\pages\report\customerwinloss\customerwinloss-spec.js" />
     <Content Include="www\js\tests\pages\report\customerwinloss\customerwinloss.option-spec.js" />
-    <Content Include="www\js\tests\pages\report\dailyracingwinloss\dailyracingwinloss-spec.js" />
     <Content Include="www\js\tests\pages\report\licenseewinloss\licenseewinloss.goback-spec.js" />
     <Content Include="www\js\tests\pages\report\licenseewinloss\licenseewinloss-spec.js" />
     <Content Include="www\js\tests\pages\report\licenseewinloss\licenseewinloss.option-spec.js" />
@@ -2032,7 +2031,6 @@
     <Content Include="www\js\tests\pages\report\matchwinloss\matchwinloss-spec.js" />
     <Content Include="www\js\tests\pages\report\platformwinloss\platformwinloss-spec.js" />
     <Content Include="www\js\tests\pages\report\platformwinloss\platformwinloss.option-spec.js" />
-    <Content Include="www\js\tests\pages\report\racingcommission\racingcommission-spec.js" />
     <Content Include="www\js\tests\pages\report\report-spec.js" />
     <Content Include="www\js\tests\pages\report\result\result-spec.js" />
     <Content Include="www\js\tests\pages\report\settledmatchcount\settledmatchcount-spec.js" />
@@ -5653,7 +5651,6 @@
     <Content Include="App_Data\Template\DataWareHouse\TopCustomer.xls" />
     <Content Include="App_Data\Template\DataWareHouse\WinLoss.xls" />
     <Content Include="App_Data\Template\Reports\Balance.xls" />
-    <Content Include="App_Data\Template\Reports\PlaytechCasino.xls" />
     <Content Include="App_Data\Template\Reports\WinLossByLeagues.xls" />
     <Content Include="App_Data\Template\Reports\DailyRacingWinLoss.xls" />
     <Content Include="App_Data\Template\Reports\DailyRacingWinLoss12Bet.xls" />

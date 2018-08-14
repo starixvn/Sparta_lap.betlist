@@ -94,14 +94,12 @@
                     it("Properties of WinLossByProductOption should be correct", function () {
                         setFixtures("<input id='IsAllowedCustomerCommission' value='true' />");
                         appendSetFixtures("<input id='IsAllowedBACommission' value='false' />");
-                        appendSetFixtures("<input id='IsAllowedRacing' value='False' />");
                         appendSetFixtures("<input id='drillDownLicenseeId' value='34' />");
 
                         WinLossByProduct.initSetting();
 
                         expect(WinLossByProductOption.hasCustomerComm).toBe(true);
                         expect(WinLossByProductOption.IsAllowBA).toBe(false);
-                        expect(WinLossByProductOption.IsAllowRB).toBe(false);
                         expect(WinLossByProductOption.licenseeId).toBe(34);
                     });
                 });

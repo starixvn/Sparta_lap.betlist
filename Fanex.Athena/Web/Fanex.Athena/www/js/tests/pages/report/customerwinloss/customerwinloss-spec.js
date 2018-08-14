@@ -224,13 +224,11 @@
             describe("initSetting", function () {
                 it("updates state of Customer Win Loss Option", function () {
                     setFixtures('<input id="IsAllowedBA" type="hidden" value="True" />'
-                        + '<input id="IsAllowedRB" type="hidden" value="False" />'
                         + '<input id="IsAllowedCustomerCommission" type="hidden" value="True" />');
 
                     CustomerWinLoss.initSetting();
 
                     expect(CustomerWinLossOption.isAllowBA).toBe(true);
-                    expect(CustomerWinLossOption.isAllowRB).toBe(false);
                     expect(CustomerWinLossOption.hasCustomerComm).toBe(true);
                 });
             });

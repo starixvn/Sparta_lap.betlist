@@ -66,16 +66,6 @@ define(modulePath, function ($, Site, BetSettingBase, BetSettingCopy, BetSetting
                 expect(BetSettingBase.showComfirm).toHaveBeenCalledWith($submit, "UpdateSportsbookBetSettings", BetSettingMain.updateBetSetting);
             });
 
-            it("#btnSubmitBetSetting fire click event with product Racing - BetSettingBase.showComfirm() should be called with correct parameter", function () {
-                appendSetFixtures('<input id="ProductId" value="1" />');
-                spyOn(BetSettingBase, "showComfirm");
-                var $submit = $("#btnSubmitBetSetting");
-
-                $submit.click();
-
-                expect(BetSettingBase.showComfirm).toHaveBeenCalledWith($submit, "UpdateRacingBetSettings", BetSettingMain.updateBetSetting);
-            });
-
             it("#btnSubmitBetSetting fire click event with product which is not supported  - BetSettingBase.showComfirm() should be called with correct parameter", function () {
                 appendSetFixtures('<input id="ProductId" value="10" />');
                 spyOn(BetSettingBase, "showComfirm");
@@ -110,15 +100,6 @@ define(modulePath, function ($, Site, BetSettingBase, BetSettingCopy, BetSetting
             it("When Product is Sportsbook - BetSettingBase.updateBetSetting should be called with correct parameter", function () {
                 appendSetFixtures('<input id="ProductId" value="0" />');
                 var expectedUrl = "SportsbookBetSetting/UpdateBetSetting";
-
-                BetSettingMain.updateBetSetting(custId, userName, nickName);
-
-                expect(BetSettingBase.updateBetSetting).toHaveBeenCalledWith(expectedUrl, expectedParam);
-            });
-
-            it("When Product is Racing - BetSettingBase.updateBetSetting should be called with correct parameter", function () {
-                appendSetFixtures('<input id="ProductId" value="1" />');
-                var expectedUrl = "RacingBetSetting/UpdateBetSetting";
 
                 BetSettingMain.updateBetSetting(custId, userName, nickName);
 

@@ -73,32 +73,6 @@
                     expect(colName).not.toContain("BA<br/>@[Commission]");
                     expect(colName).not.toContain("@[AmtDueToBA]");
                 });
-
-                it("Return two columns of RB for level 1 when allow RB", function () {
-                    var productOptions = [{
-                        Code: "RB",
-                        Status: true
-                    }];
-                    var level = 1;
-
-                    var colName = PlatformWinLossOption.getColName(level, productOptions);
-
-                    expect(colName).toContain("@[RacingRevenue]");
-                    expect(colName).toContain("@[AmtDueToRacing]");
-                });
-
-                it("Return no column of RB for level 1 when not allow RB", function () {
-                    var productOptions = [{
-                        Code: "SB",
-                        Status: true
-                    }];
-                    var level = 1;
-
-                    var colName = PlatformWinLossOption.getColName(level, productOptions);
-
-                    expect(colName).not.toContain("@[RacingRevenue]");
-                    expect(colName).not.toContain("@[AmtDueToRacing]");
-                });
             });
 
             describe("getColModel", function () {
@@ -180,46 +154,12 @@
                     expect(colModel[baIndex].name).not.toBe("AmtDueToBA");
                 });
 
-                it("Return two columns of RB for level 1 when allow RB", function () {
-                    PlatformWinLossOption.hasCustomerComm = false;
-                    var productOptions = [{
-                        Code: "RB",
-                        Status: true
-                    }];
-                    var level = 1;
-                    var rbIndex = 8;
-
-                    var colModel = PlatformWinLossOption.getColModel(level, productOptions);
-
-                    expect(colModel[rbIndex++].name).toBe("RacingRevenue");
-                    expect(colModel[rbIndex].name).toBe("AmtDueToRacing");
-                });
-
-                it("Return no column of RB for level 1 when not allow RB", function () {
-                    PlatformWinLossOption.hasCustomerComm = false;
-                    var productOptions = [{
-                        Code: "SB",
-                        Status: true
-                    }];
-                    var level = 1;
-                    var rbIndex = 8;
-
-                    var colModel = PlatformWinLossOption.getColModel(level, productOptions);
-
-                    expect(colModel[rbIndex++].name).not.toBe("RacingRevenue");
-                    expect(colModel[rbIndex].name).not.toBe("AmtDueToRacing");
-                });
-
                 it("Return full columns of level 1 with correct index", function () {
                     PlatformWinLossOption.hasCustomerComm = true;
                     var productOptions = [{
                         Code: "BA",
                         Status: true
-                    },
-                        {
-                            Code: "RB",
-                            Status: true
-                        }];
+                    }];
                     var level = 1;
                     var index = 6;
 
@@ -230,9 +170,7 @@
                     expect(colModel[index++].name).toBe("CustomerTotal");
                     ++index;
                     expect(colModel[index++].name).toBe("BACommission");
-                    expect(colModel[index++].name).toBe("RacingRevenue");
-                    expect(colModel[index++].name).toBe("AmtDueToBA");
-                    expect(colModel[index].name).toBe("AmtDueToRacing");
+                    expect(colModel[index].name).toBe("AmtDueToBA");
                 });
             });
 

@@ -400,7 +400,6 @@
                 beforeEach(function () {
                     var productListHtml = '<div id="ProductList">'
                         + '<div class="childCheckbox" data-product-code="SB" data-original="true">SB</div>'
-                        + '<div class="childCheckbox" data-product-code="RB" data-original="true">RB</div>'
                         + '<div class="childCheckbox" data-product-code="BA" data-original="true">BA</div>'
                         + '<div class="childCheckbox" data-product-code="VS" data-original="false">VS</div>'
                         + '<div class="childCheckbox" data-product-code="VS2" data-original="true">BRVS</div>'
@@ -445,7 +444,6 @@
                 beforeEach(function () {
                     var productListHtml = '<div id="ProductList">'
                         + '<div class="childCheckbox" data-product-code="SB" data-original="true">SB</div>'
-                        + '<div class="childCheckbox" data-product-code="RB" data-original="true">RB</div>'
                         + '<div class="childCheckbox" data-product-code="BA" data-original="true">BA</div>'
                         + '<div class="childCheckbox" data-product-code="VS" data-original="false">VS</div>'
                         + '</div>';
@@ -457,15 +455,6 @@
                     var expectedResult = "SB,BA";
 
                     var productCode = "SB";
-                    var result = MatchWinLoss.getProductCodeList(productCode);
-
-                    expect(result).toEqual(expectedResult);
-                });
-
-                it("productCode param is not special products - return correct product option data", function () {
-                    var expectedResult = "RB";
-
-                    var productCode = "RB";
                     var result = MatchWinLoss.getProductCodeList(productCode);
 
                     expect(result).toEqual(expectedResult);
