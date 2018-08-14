@@ -31,9 +31,8 @@
         public override void FixtureSetUp()
         {
             base.FixtureSetUp();
-            AppSetting.HistoryDate.Returns(new DateTime(2016, 8, 31));
-
-            _metaModel = new WinLossByProductMetaModel(AppSetting)
+            
+            _metaModel = new WinLossByProductMetaModel
             {
                 ReportBy = 1,
                 Username = "abc",
@@ -102,7 +101,7 @@
 
             // Action
             var result = DataAccess.GetWinlossByProducts(
-                new WinLossByProductMetaModel(AppSetting)
+                new WinLossByProductMetaModel
                 {
                     BaseCurrency = "USD"
                 });
@@ -197,7 +196,7 @@
 
             // Action
             var result = DataAccess.GetWinlossByProductCustomers(
-                new WinLossByProductMetaModel(AppSetting)
+                new WinLossByProductMetaModel
                 {
                     BaseCurrency = string.Empty
                 });
@@ -226,7 +225,7 @@
 
             // Action
             var result = DataAccess.GetWinlossByProductCustomers(
-                new WinLossByProductMetaModel(AppSetting)
+                new WinLossByProductMetaModel
                 {
                     BaseCurrency = string.Empty
                 });
@@ -255,7 +254,7 @@
 
             // Action
             var result = DataAccess.GetWinlossByProductCustomers(
-                new WinLossByProductMetaModel(AppSetting)
+                new WinLossByProductMetaModel
                 {
                     BaseCurrency = string.Empty
                 });

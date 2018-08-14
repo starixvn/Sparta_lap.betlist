@@ -40,9 +40,7 @@
         public void GetReportData_NoData_ReturnNullList()
         {
             // Arrange
-            var appSetting = Substitute.For<IAppSettings>();
-            appSetting.HistoryDate.Returns(new DateTime(2016, 8, 30));
-            var metaModel = new BalanceMetaModel(appSetting) { BaseCurrency = "UUS" };
+            var metaModel = new BalanceMetaModel { BaseCurrency = "UUS" };
             Reader.Read().Returns(false);
 
             // Action
@@ -57,9 +55,7 @@
         {
             // Arrange
             Reader.Read().Returns(true, false);
-            var appSetting = Substitute.For<IAppSettings>();
-            appSetting.HistoryDate.Returns(new DateTime(2016, 8, 30));
-            var metaModel = new BalanceMetaModel(appSetting) { BaseCurrency = "UUS" };
+            var metaModel = new BalanceMetaModel { BaseCurrency = "UUS" };
 
             var selectedMonthBalance = new BalanceDetails { LicWinLoss = 10m, BetTradeCommission = 10.5m };
             ConfigureReaderForBalanceList(selectedMonthBalance, metaModel.BaseCurrency, "SelectedMonth");

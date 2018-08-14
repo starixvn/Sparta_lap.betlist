@@ -107,7 +107,6 @@ namespace Fanex.Athena.DataAccess.Report
             db.AddInParameter("pagesize", DbType.Int32, metaModel.IsExportExcel ? PageSizeExcel : metaModel.PageSize);
             db.AddInParameter("pageindex", DbType.Int32, metaModel.PageIndex);
             db.AddInParameter("movebetsday", DbType.DateTime, moveBetsDay);
-            db.AddInParameter("isold", DbType.Boolean, metaModel.IsOld);
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             db.AddInParameter("username", DbType.String, metaModel.Username);
             db.AddInParameter("OrderItem", DbType.Int16, metaModel.OrderItem);

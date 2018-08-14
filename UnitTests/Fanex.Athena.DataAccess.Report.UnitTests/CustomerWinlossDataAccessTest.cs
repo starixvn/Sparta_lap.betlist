@@ -34,7 +34,7 @@
         {
             base.FixtureSetUp();
             AppSetting.HistoryDate.Returns(new DateTime(2016, 8, 31));
-            _metaModel = new CustomerWinLossMetaModel(AppSetting)
+            _metaModel = new CustomerWinLossMetaModel
             {
                 ProductOptions = GetProductOptions(),
                 BaseCurrency = "UUS"
@@ -72,7 +72,6 @@
                 ObjectDb.Received(1).AddInParameter("pagesize", DbType.Int32, expectedPageSize);
                 ObjectDb.Received(1).AddInParameter("pageindex", DbType.Int32, _metaModel.PageIndex);
                 ObjectDb.Received(1).AddInParameter("movebetsday", DbType.DateTime, _balance.MoveBetsDay);
-                ObjectDb.Received(1).AddInParameter("isold", DbType.Boolean, _metaModel.IsOld);
                 ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
                 ObjectDb.Received(1).AddInParameter("showSB", DbType.Boolean, true);
                 ObjectDb.Received(1).AddInParameter("showNG", DbType.Boolean, false);

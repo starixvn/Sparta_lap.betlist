@@ -42,7 +42,6 @@ namespace Fanex.Athena.DataAccess.Report
                 MoveBetsDay = _balanceUpDataAccess.GetBalanceUp().MoveBetsDay,
                 metaModel.FromDate,
                 metaModel.ToDate,
-                metaModel.IsOld,
                 AgentList = metaModel.AgentListXml
             };
 
