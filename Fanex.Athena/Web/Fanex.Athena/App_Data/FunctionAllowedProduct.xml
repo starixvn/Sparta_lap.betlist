@@ -19,6 +19,7 @@
     <Function Name="WinLossByProduct" Product="SB,BA,NG,VS,CS,KN,MGCLC,MGCRNG,VB,VS2,LT"></Function>
     <Function Name="ResultPage_GetNormalSports" Product="SB,BA,NG,VS,KN,LT"></Function>
     <Function Name="LiveReport" Product="SB,BA,NG,VS,KN,CS,VB,FW,AB,VS2,LT"></Function>
+    <Function Name="SpecialLicenseeWinLoss" Product="SB,NG"></Function>
   </Group>
 
   <Group Name="BetList">

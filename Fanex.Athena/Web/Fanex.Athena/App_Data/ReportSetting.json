@@ -14,5 +14,10 @@
     "MinDateString": "",
     "MaxDateString": "today",
     "MaximumSupportedDays": 90
+  },
+  {
+    "ReportKey": "SpecialLicenseeWinLoss78",
+    "MinDateString": "",
+    "MaxDateString": ""
   }
 ]

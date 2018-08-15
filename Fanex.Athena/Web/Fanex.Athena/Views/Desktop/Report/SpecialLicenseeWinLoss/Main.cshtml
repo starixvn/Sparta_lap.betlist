@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = "LRF - " + ViewResources.Report +
+    " - " + ViewResources.LicenseeWinLoss;
+    Layout = "~/Views/Desktop/Shared/_ReactPageLayout.cshtml";
+}
+@model Fanex.Athena.Model.Report.ViewModel.SpecialLicenseeWinLossViewModel
+@using Fanex.Athena.Model.Core.DataDomain
+@{
+
+    var currencyList = (new[]
+    {
+        new { value = BaseCurrencyType.All, label = ViewResources.All, baseCurrency = string.Empty }
+    })
+    .Union(Model.BaseCurrencyList.Select(x => new { value = x.Key, label = ViewResources.Based + " " + ViewResources.ResourceManager.GetString(x.Value), baseCurrency = x.Value.ToUpperInvariant() }))
+    .Union(Model.CurrencyList.Select(x => new { value = x.Key, label = x.Value, baseCurrency = string.Empty }));
+    
+    var productOptions = Model.ProductOptionList;
+    var selectedProductCode = string.Join(",", productOptions.Where(x => x.Status).Select(x => x.Code).ToArray());
+    
+    var drawFilterList = new List<dynamic>
+    {
+        new { value = DrawFilterType.Normal.ToString(), label = ViewResources.Normal },
+        new { value = DrawFilterType.NoDraws.ToString(), label = ViewResources.NoDraws },
+        new { value = DrawFilterType.NoDrawsForTurnoverOnly.ToString(), label = ViewResources.NoDrawsForTurnoverOnly }
+    };
+
+    var reportByList = new List<dynamic>
+    {
+        new { value = ReportByType.Daily.ToString(), label = ViewResources.Daily },
+        new { value = ReportByType.Monthly.ToString(), label = ViewResources.Monthly }
+    };
+
+    var limitedMonthRange = Model.ReportSetting.LimitRecentMonths > 0 ? Model.ReportSetting.LimitRecentMonths : 3;
+}
+
+@section pagecss {
+    <link href="@Url.ContentLinkByEnv("/www/css/build/reactpages/speciallicenseewl/index.css")" rel="stylesheet" type="text/css" />
+}
+
+@section pagejs {
+    <script src="@Url.ContentLinkByEnv("/www/js/build/reactpages/report/speciallicenseewl.chunk.js")"></script>
+}
+
+@section globaljscode{
+    window.initialState = {
+        dateRange: {fromDate: '@Model.FromDate.ToString("MM/dd/yyyy")', toDate: '@Model.ToDate.ToString("MM/dd/yyyy")'},
+        dateConstraint: {minDate: '@Model.ReportSetting.MinDate.ToString("MM/dd/yyyy")', maxDate: '@Model.ReportSetting.MaxDate.ToString("MM/dd/yyyy")', limitedMonthRange: @limitedMonthRange},
+        currencyList: @Html.Raw(currencyList.ToJson()),
+        selectedCurrency: @Html.Raw(currencyList.FirstOrDefault(x => x.value == Model.CurrencyId).ToJson()),
+        productOptions: @Html.Raw(productOptions.ToJson()),
+        selectedProduct: '@(selectedProductCode)',
+        drawFilterList: @Html.Raw(drawFilterList.ToJson()),
+        selectedDrawFilter: '@(DrawFilterType.Normal)',
+        reportByList: @Html.Raw(reportByList.ToJson()),
+        selectedReportBy: '@(ReportByType.Daily)',
+        isExcludeTest: true,         
+        xsrfToken: document.querySelector("input[name=__RequestVerificationToken]").value,
+        isLoading: false,
+        setting: { isAllowedCustomerComm: @Model.IsAllowedCustomerCommission.ToJson(), licenseeId: @Model.LicenseeId, isDisableBetList: @Model.ReportSetting.IsDisableBetList.ToJson() }
+    }
+}
+<div id="app-container">
+</div>

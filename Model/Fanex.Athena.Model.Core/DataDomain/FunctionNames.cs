@@ -25,5 +25,7 @@
         public const string WinLossByTimeZone = "WinLossByTimeZone";
 
         public const string LiveReport = "LiveReport";
+
+        public const string SpecialLicenseeWinLoss = "SpecialLicenseeWinLoss";
     }
 }
