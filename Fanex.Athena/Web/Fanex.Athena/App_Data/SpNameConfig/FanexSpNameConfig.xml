@@ -7,30 +7,5 @@
   <SpNameConfig Environment="BACKUPMNL" SpName="Lrf_ReCheckIn" EnvironmentText="_mnl"></SpNameConfig>
   <SpNameConfig Environment="BACKUPMNL" SpName="Lrf_CheckIn" EnvironmentText="_mnl"></SpNameConfig>
   <!--Do not delete this-->
-  <SpNameConfig Environment="UAT" SpName="Lrf_Forecast_MatchTotalForecast" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_TotalBets_Sel121" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_LeagueSelRunning" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_Forecast_OddsSelTopByMatch" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_TotalBets_Sel10" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_TotalBets_Sel6" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_TotalBets_Sel16" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_Forecast_SelOU" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_Forecast_Sel1X2" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_TotalBets_Sel25" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_Forecast_SelByLeague" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_TotalBets_Sel2021" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_Forecast1x2_SelByLeague" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_TotalBets_Sel14" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_TotalBets_Sel1378" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_Forecast_SelHDP" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_LeagueMatchSelRunning" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_Forecast_MatchList" EnvironmentText="_xtest"></SpNameConfig>
 
-  <SpNameConfig Environment="UAT" SpName="Lrf_BetList_Forecast_SelByMatch" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_BetList_SelRunningByDate_Mem" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_BetList_SelRunningByBettypeList" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_BetList_SelRunningByBettypeMatch" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_BetList_SelRunningByMultipleBettypeMatch" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_TotalBets_Sel430" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="UAT" SpName="Lrf_BetList_SelRunningByBettype" EnvironmentText="_xtest"></SpNameConfig>
 </Root>
