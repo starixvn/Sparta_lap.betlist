@@ -8,7 +8,8 @@ var cssPaths = {
     subsidiaryperformance: "./www/css/source/reactpages/pages/subsidiaryperformance/index.scss",
     licenseewlbytimezone: "./www/css/source/reactpages/pages/licenseewl-by-timezone/index.scss",
     notification: "./www/css/source/reactpages/pages/notification/index.scss",
-    exchangewl: "./www/css/source/reactpages/pages/exchangewl/index.scss"
+    exchangewl: "./www/css/source/reactpages/pages/exchangewl/index.scss",
+    speciallicenseewl: "./www/css/source/reactpages/pages/speciallicenseewl/index.scss"
 };
 
 var scriptPaths = {
@@ -25,7 +26,8 @@ var scriptPaths = {
     subsidiaryperformance: "./www/js/source/reactpages/pages/subsidiaryperformance/components/index.jsx",
     licenseewlbytimezone: "./www/js/source/reactpages/pages/licenseewl-by-timezone/components/index.jsx",
     notification: "./www/js/source/reactpages/pages/notification/components/resultAmendment/index.jsx",
-    exchangewl: "./www/js/source/reactpages/pages/exchangewl/components/index.jsx"
+    exchangewl: "./www/js/source/reactpages/pages/exchangewl/components/index.jsx",
+    speciallicenseewl: "./www/js/source/reactpages/pages/speciallicenseewl/components/index.jsx"
 };
 module.exports = {
     projectRoot: projectRoot,

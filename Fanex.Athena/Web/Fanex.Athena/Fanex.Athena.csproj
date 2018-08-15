@@ -821,6 +821,8 @@
     <Content Include="App_Data\UserGuide\CashOutWL\pdf\Cash Out WL Report guideline_CN.pdf" />
     <Content Include="App_Data\UserGuide\CashOutWL\pdf\Cash Out WL Report guideline_EN.pdf" />
     <Content Include="App_Data\Fanex.Result\VSBasketBall.xls" />
+    <Content Include="Views\Desktop\Report\SpecialLicenseeWinLoss\Main.cshtml" />
+    <Content Include="www\css\source\reactpages\pages\speciallicenseewl\index.scss" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Row.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.jsx" />
@@ -927,6 +929,14 @@
     <Content Include="www\js\source\reactpages\pages\notification\reducers\resultAmendment\index.js" />
     <Content Include="www\js\source\reactpages\pages\notification\reducers\resultAmendment\__test__\dataHandlerReducer.test.js" />
     <Content Include="www\js\source\reactpages\pages\notification\reducers\resultAmendment\__test__\filterHandlerReducer.test.js" />
+    <Content Include="www\js\source\reactpages\pages\speciallicenseewl\actions\dataHandlerAction.js" />
+    <Content Include="www\js\source\reactpages\pages\speciallicenseewl\actions\filterHandlerAction.js" />
+    <Content Include="www\js\source\reactpages\pages\speciallicenseewl\actions\index.js" />
+    <Content Include="www\js\source\reactpages\pages\speciallicenseewl\actions\types.js" />
+    <Content Include="www\js\source\reactpages\pages\speciallicenseewl\lib\service.js" />
+    <Content Include="www\js\source\reactpages\pages\speciallicenseewl\reducers\dataHandlerReducer.js" />
+    <Content Include="www\js\source\reactpages\pages\speciallicenseewl\reducers\filterHandlerReducer.js" />
+    <Content Include="www\js\source\reactpages\pages\speciallicenseewl\reducers\index.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\dataHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\filterHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\__tests__\dataHandlerAction.test.js" />
@@ -2620,6 +2630,10 @@
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\__snapshots__\formFilter.test.js.snap" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\__snapshots__\formFilter.render.test.js.snap" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\__snapshots__\BetListDetail.test.js.snap" />
+    <Content Include="www\js\source\reactpages\pages\speciallicenseewl\components\AppContainer.jsx" />
+    <Content Include="www\js\source\reactpages\pages\speciallicenseewl\components\FormFilter.jsx" />
+    <Content Include="www\js\source\reactpages\pages\speciallicenseewl\components\index.jsx" />
+    <Content Include="www\js\source\reactpages\pages\speciallicenseewl\components\DataGrid.jsx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">
