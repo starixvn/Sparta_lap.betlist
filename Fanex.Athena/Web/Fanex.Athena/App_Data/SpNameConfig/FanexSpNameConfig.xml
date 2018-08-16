@@ -40,4 +40,10 @@
   <SpNameConfig Environment="DEV,LOCAL" SpName="Acc_BA_LicConfigUpd" EnvironmentText="_UAT4"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL" SpName="Acc_BA_SpecialCustSel" EnvironmentText="_UAT4"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL" SpName="Acc_BA_SpecialCustSearch" EnvironmentText="_UAT4"></SpNameConfig>
+
+  <SpNameConfig Environment="DEV,LOCAL" SpName="Lrf_CustomerMoveGroupComm" EnvironmentText="_UAT4"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL" SpName="Lrf_CustomerRemoveGroupComm" EnvironmentText="_UAT4"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL" SpName="Lrf_LicenseeCustCommUpd" EnvironmentText="_UAT4"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL" SpName="Lrf_LicenseeGroupCommDel" EnvironmentText="_UAT4"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL" SpName="Lrf_LicenseeGroupCommUpd" EnvironmentText="_UAT4"></SpNameConfig>
 </Root>
