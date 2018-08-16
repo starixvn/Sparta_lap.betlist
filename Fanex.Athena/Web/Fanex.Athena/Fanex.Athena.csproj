@@ -354,9 +354,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FanexSpName.xml.tt</DependentUpon>
     </Content>
-    <Content Include="App_Data\SpNameConfig\FanexSpNameOriginal-DB042.xml">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="App_Data\UserGuide\CashOutWL\zh-Hans.htm" />
     <Content Include="App_Data\UserGuide\CashOutWL\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\CashOutWL\zh-TW.htm" />
