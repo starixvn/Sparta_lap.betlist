@@ -51,7 +51,7 @@ namespace Fanex.Athena.Api.BetList
                 return null;
             }
 
-            const string UspKey = "Lrf_BetList_CorrectScore";
+            const string UspKey = "Lrf_TotalBets_Sel430";
 
             return GetBetListResult(metaModel, UspKey);
         }

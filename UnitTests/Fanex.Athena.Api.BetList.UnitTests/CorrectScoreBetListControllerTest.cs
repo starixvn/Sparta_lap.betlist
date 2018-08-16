@@ -9,7 +9,7 @@
 
     public class CorrectScoreBetListControllerTest : ApiBetListBaseControllerHelperTest
     {
-        private const string UspKey = "Lrf_BetList_CorrectScore";
+        private const string UspKey = "Lrf_TotalBets_Sel430";
 
         private CorrectScoreBetListController _controller;
 

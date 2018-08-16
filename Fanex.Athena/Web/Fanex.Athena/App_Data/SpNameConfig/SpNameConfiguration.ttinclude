@@ -86,7 +86,8 @@
 	{
 		public static string GetAllSpName()
         {
-            return System.IO.File.ReadAllText(@"Fanex.Athena\Web\Fanex.Athena\App_Data\SpNameConfig\FanexSpNameOriginal.xml");
+			var fileName = @"Fanex.Athena\Web\Fanex.Athena\App_Data\SpNameConfig\FanexSpNameOriginal.xml";
+            return System.IO.File.ReadAllText(fileName);
         }	
 
 		public static IList<SpNameConfig> GetListOfConfig()

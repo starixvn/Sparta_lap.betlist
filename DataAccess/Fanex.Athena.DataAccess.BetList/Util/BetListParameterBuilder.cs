@@ -19,7 +19,7 @@
         {
             { "Lrf_BetList_WinlostByLeague_Mem", (db, metalModel) => CreateWinlossByLeagueParameters(db, metalModel) },
             { "Lrf_BetList_SelDeleted", (db, metalModel) => CreateCancelBetListParameters(db, metalModel) },
-            { "Lrf_BetList_CorrectScore", (db, metalModel) => CreateCorectScoreBetlistParameters(db, metalModel) },
+            { "Lrf_TotalBets_Sel430", (db, metalModel) => CreateCorectScoreBetlistParameters(db, metalModel) },
             { "Lrf_BetList_SelWinLossByDate_Mem", (db, metalModel) => CreateCustomerWlBetlistParameters(db, metalModel) },
             { "Lrf_BetList_SelWinLossRacingByDate_Mem", (db, metalModel) => CreateRacingCommissionBetlistParameters(db, metalModel) },
             { "Lrf_BetList_SelWinlossDaily", (db, metalModel) => CreateDailyWLBetlistParameters(db, metalModel) },

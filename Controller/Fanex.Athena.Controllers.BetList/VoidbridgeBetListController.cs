@@ -49,7 +49,11 @@
 
         protected override ActionResult ExportExcel(BetListMetaModel metaModel, string uspKey)
         {
-            return ProcessExportExcel(new ShowingOption(), metaModel, BetListService.GetBetListData(metaModel, uspKey), HiddenColumns, _title, "MacauGamesDetail");
+            var showingOption = new ShowingOption
+            {
+                CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
+            };
+            return ProcessExportExcel(showingOption, metaModel, BetListService.GetBetListData(metaModel, uspKey), HiddenColumns, _title, "MacauGamesDetail");
         }
     }
 }

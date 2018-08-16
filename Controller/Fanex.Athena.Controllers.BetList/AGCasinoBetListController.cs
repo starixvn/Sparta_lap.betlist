@@ -57,7 +57,8 @@ namespace Fanex.Athena.Controllers.BetList
         {
             var showingOption = new ShowingOption
             {
-                GrandTotalVisible = false
+                GrandTotalVisible = false,
+                CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
             };
 
             var hiddenColumns = new List<int> { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn, LicenseeWLColumn };
