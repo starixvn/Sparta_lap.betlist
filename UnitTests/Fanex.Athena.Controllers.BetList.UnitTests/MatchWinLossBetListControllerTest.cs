@@ -126,7 +126,6 @@
         }
 
         [TestCase(1, "Lrf_BetList_MatchWL_Bettype")]
-        [TestCase(31, "Lrf_BetList_MatchWL_Racing")]
         public void MatchBetType_ExportExcel_PassCorrectParam(int betTypeId, string uspKey)
         {
             using (var controller = CreateController())

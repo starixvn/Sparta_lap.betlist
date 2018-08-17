@@ -21,9 +21,7 @@
             { "Lrf_BetList_SelDeleted", (db, metalModel) => CreateCancelBetListParameters(db, metalModel) },
             { "Lrf_TotalBets_Sel430", (db, metalModel) => CreateCorectScoreBetlistParameters(db, metalModel) },
             { "Lrf_BetList_SelWinLossByDate_Mem", (db, metalModel) => CreateCustomerWlBetlistParameters(db, metalModel) },
-            { "Lrf_BetList_SelWinLossRacingByDate_Mem", (db, metalModel) => CreateRacingCommissionBetlistParameters(db, metalModel) },
             { "Lrf_BetList_SelWinlossDaily", (db, metalModel) => CreateDailyWLBetlistParameters(db, metalModel) },
-            { "Lrf_BetList_SelWinlostRacing", (db, metalModel) => CreateDailyRacingWLBetlistParameters(db, metalModel) },
             { "Lrf_BetList_SelWinloss_Mem", (db, metalModel) => CreateLicenseeWLBetlistParameters(db, metalModel) },
             { "Lrf_BetList_SelRunningByBettype", (db, metalModel) => CreateRunningBetListByBettypePaprameters(db, metalModel) },
             { "Lrf_BetList_SelRunningByBettypeList", (db, metalModel) => CreateRunningBetListByMultipleBettypePaprameters(db, metalModel) },
@@ -31,9 +29,7 @@
             { "Lrf_BetList_LiveReport_SelWinlossOutright", (db, metalModel) => CreateLiveReportOutRightBetlistParameters(db, metalModel) },
             { "Lrf_BetList_LiveReport_SelWinlossNumberGame", (db, metalModel) => CreaeteLiveReportNumberGameBetlistParameters(db, metalModel) },
             { "Lrf_BetList_LiveReport_SelWinlossParlay", (db, metalModel) => CreateLiveReportParlayBetlistParameters(db, metalModel) },
-            { "Lrf_BetList_LiveReport_SelWinlossRacing", (db, metalModel) => CreateLiveReportBetListRacingParameters(db, metalModel) },
-            { "Lrf_BetList_LiveReport_SelWinlossVHRacing", (db, metalModel) => CreateLiveReportBetListRacingParameters(db, metalModel) },
-            { "Lrf_BetList_MatchWL_Racing", (db, metalModel) => CreateMatchWLRacingBetlistParameters(db, metalModel) },
+            { "Lrf_BetList_LiveReport_SelWinlossVHRacing", (db, metalModel) => CreateLiveReportBetListVHRacingParameters(db, metalModel) },
             { "Lrf_BetList_MatchWL_Bettype", (db, metalModel) => CreateMatchWLBettypeBetlistParameters(db, metalModel) },
             { "Lrf_BetList_MatchWL_Outright", (db, metalModel) => CreateMatchWLOutRightBetListParameters(db, metalModel) },
             { "Lrf_BetList_MatchWL_Parlay", (db, metalModel) => CreateMatchWLParlayBetListParameters(db, metalModel) },
@@ -257,20 +253,7 @@
             CreateProductListParameters(db, metaModel.ProductCodeList, supportedProducts);
         }
 
-        private static void CreateMatchWLRacingBetlistParameters(IObjectDb db, BetListMetaModel metaModel)
-        {
-            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            db.AddInParameter("Bettype", DbType.Int32, metaModel.BetType);
-            db.AddInParameter("LeagueId", DbType.Int32, metaModel.LeagueId);
-            db.AddInParameter("RaceNo", DbType.String, metaModel.RaceNo);
-            CreateBetListDateRangeParameters(db, metaModel);
-            db.AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
-            CreateBetListSortingParameters(db, metaModel);
-            CreateBetListPagingParameters(db, metaModel);
-            CreateSummaryOutputParameters(db);
-        }
-
-        private static void CreateLiveReportBetListRacingParameters(IObjectDb db, BetListMetaModel betlistMetaModel)
+        private static void CreateLiveReportBetListVHRacingParameters(IObjectDb db, BetListMetaModel betlistMetaModel)
         {
             var metaModel = betlistMetaModel as LiveReportBetListMetaModel;
             var defaultParams = new[] { "SUMWL", "SUMLicenseeWL" };
@@ -366,30 +349,6 @@
             CreateSummaryOutputParameters(db);
         }
 
-        private static void CreateDailyRacingWLBetlistParameters(IObjectDb db, BetListMetaModel metaModel)
-        {
-            db.AddInParameter("date", DbType.DateTime, metaModel.Date);
-            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            db.AddInParameter("leagueid", DbType.Int32, metaModel.LeagueId);
-            db.AddInParameter("raceNo", DbType.String, metaModel.RaceNo);
-            db.AddInParameter("movebetsday", DbType.DateTime, metaModel.MoveBetsDay);
-            CreateBetListPagingParameters(db, metaModel);
-            CreateSummaryOutputParameters(db);
-            CreateBetListSummaryStakeParameters(db);
-        }
-
-        private static void CreateBetListSummaryStakeParameters(IObjectDb db)
-        {
-            var defaultParams = new[] { "SumStake" };
-
-            var summaryParameters = GetOutputSummaryParametersWithBaseCurrency(defaultParams, SupportedBaseCurrencies);
-
-            foreach (var name in summaryParameters)
-            {
-                db.AddOutParameter(name, DbType.Currency, 8);
-            }
-        }
-
         private static void CreateCorectScoreBetlistParameters(IObjectDb db, BetListMetaModel metaModel)
         {
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
@@ -405,16 +364,6 @@
             CreateBetListPagingParameters(db, metaModel);
             CreateSummaryOutputParameters(db);
             CreateProductListParameters(db, metaModel.ProductCodeList);
-        }
-
-        private static void CreateRacingCommissionBetlistParameters(IObjectDb db, BetListMetaModel metaModel)
-        {
-            db.AddInParameter("CustID", DbType.Int32, metaModel.CustId);
-            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            CreateBetListDateRangeParameters(db, metaModel);
-            CreateBetlistBUParameters(db, metaModel);
-            CreateBetListPagingParameters(db, metaModel);
-            CreateSummaryOutputParameters(db);
         }
 
         private static void CreateCancelBetListParameters(IObjectDb db, BetListMetaModel metaModel)

@@ -214,7 +214,6 @@
     <Compile Include="CustomerOutstandingBetListController.cs" />
     <Compile Include="CustomerWinLossBetListController.cs" />
     <Compile Include="DailyBetListController.cs" />
-    <Compile Include="DailyRacingWinLossBetListController.cs" />
     <Compile Include="CashOutBetListController.cs" />
     <Compile Include="GlobalGamingBetListController.cs" />
     <Compile Include="LastBetsMonitoringBetListController.cs" />
@@ -224,7 +223,6 @@
     <Compile Include="PendingFundsBetListController.cs" />
     <Compile Include="PlatformWinLossBetListController.cs" />
     <Compile Include="PragmaticPlayBetListBetListController.cs" />
-    <Compile Include="RacingCommissionBetListController.cs" />
     <Compile Include="RNGCasinoBetListController.cs" />
     <Compile Include="RunningBetListController.cs" />
     <Compile Include="RunningBettypesOfMatchBetListController.cs" />

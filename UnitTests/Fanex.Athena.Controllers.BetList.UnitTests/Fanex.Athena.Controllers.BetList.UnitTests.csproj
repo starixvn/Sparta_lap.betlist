@@ -167,7 +167,6 @@
     <Compile Include="RunningMatchBetListControllerTest.cs" />
     <Compile Include="RunningBettypesOfMatchBetListControllerTest.cs" />
     <Compile Include="RNGCasinoBetListControllerTest.cs" />
-    <Compile Include="RacingCommissionBetListControllerTest.cs" />
     <Compile Include="PlatformWinLossBetListControllerTest.cs" />
     <Compile Include="MicroGamingRngBetListControllerTest.cs" />
     <Compile Include="AGCasinoBetListControllerTest.cs" />
@@ -179,7 +178,6 @@
     <Compile Include="CorrectScoreBetListControllerTest.cs" />
     <Compile Include="CustomerOutstandingBetListControllerTest.cs" />
     <Compile Include="LicenseeWinLossBetListControllerTest.cs" />
-    <Compile Include="DailyRacingWinLossBetListControllerTest.cs" />
     <Compile Include="CustomerWinLossBetListControllerTest.cs" />
     <Compile Include="DailyBetListControllerTest.cs" />
     <Compile Include="GlobalGamingBetListControllerTest.cs" />

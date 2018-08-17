@@ -228,13 +228,11 @@
     <Compile Include="WinlossByLeagueBetListController.cs" />
     <Compile Include="RunningBettypesOfMatchBetListController.cs" />
     <Compile Include="RunningBettypesBetListController.cs" />
-    <Compile Include="RacingCommissionBetListController.cs" />
     <Compile Include="MicroGamingRngBetListController.cs" />
     <Compile Include="CancelledBetsBetListController.cs" />
     <Compile Include="OutstandingDailyStatementBetListController.cs" />
     <Compile Include="RunningMatchBetListController.cs" />
     <Compile Include="LicenseeWinLossBetListController.cs" />
-    <Compile Include="DailyRacingWinLossBetListController.cs" />
     <Compile Include="MatchWinLossBetListController.cs" />
     <Compile Include="CustomerWinLossBetListController.cs" />
     <Compile Include="LiveReportBetListController.cs" />

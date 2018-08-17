@@ -20,8 +20,6 @@
 
         private const string SelWinlossParlayUsp = "Lrf_BetList_LiveReport_SelWinlossParlay";
 
-        private const string SelWinlossRacingUsp = "Lrf_BetList_LiveReport_SelWinlossRacing";
-
         private const string SelWinlossVHRacingUsp = "Lrf_BetList_LiveReport_SelWinlossVHRacing";
 
         private const int DefaultPageSize = 100;
@@ -159,22 +157,6 @@
         }
 
         [Test]
-        public void Racing_InvalidCurrency_ReturnNull()
-        {
-            // Arrange
-            var page = FakeHelper.Create<int>();
-            var rows = FakeHelper.Create<int>();
-
-            var metaModel = CreateInvalidCurrencyMetaModel();
-
-            // Action
-            var result = _controller.Racing(metaModel, page, rows);
-
-            // Assert
-            Assert.That(result, Is.Null);
-        }
-
-        [Test]
         public void VirtualSports_InvalidCurrency_ReturnNull()
         {
             // Arrange
@@ -270,32 +252,6 @@
             Assert.Multiple(() =>
             {
                 BetListService.Received().GetBetListData(metaModel, SelWinlossParlayUsp);
-                AssertPagingData(
-                result,
-                metaModel,
-                testCaseData.MetaModelPageSize,
-                testCaseData.MetaModelPageIndex,
-                testCaseData.ResultTotalPage,
-                testCaseData.SumLicenseeWLText);
-            });
-        }
-
-        [TestCaseSource(nameof(GetPagingDataTestCaseValue))]
-        public void Racing_ValidCurrency_ReturnCorrectResult(dynamic testCaseData)
-        {
-            // Arrange
-            var metaModel = CreateValidCurrencyMetaModel(testCaseData.CurrencyId);
-            metaModel.TotalRows = testCaseData.TotalRows;
-            metaModel.SumLicenseeWL = testCaseData.SumLicenseeWL;
-            metaModel.SumComm = testCaseData.SumComm;
-
-            // Action
-            var result = _controller.Racing(metaModel, testCaseData.Page, testCaseData.Rows);
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                BetListService.Received().GetBetListData(metaModel, SelWinlossRacingUsp);
                 AssertPagingData(
                 result,
                 metaModel,

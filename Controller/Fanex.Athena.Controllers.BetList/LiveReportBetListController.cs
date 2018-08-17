@@ -21,7 +21,7 @@
     public class LiveReportBetListController : BetListBaseController
     {
         private static readonly int[] HiddenColumns = new[] { BetEffectiveColumn };
-        
+
         public LiveReportBetListController(
             ILanguageService languageService,
             ISessionService sessionService,
@@ -71,18 +71,6 @@
                 "Lrf_BetList_LiveReport_SelWinlossNumberGame",
                 "~/Views/BetList/LiveReport/NumberGame.cshtml",
                 ViewResources.ProductNG);
-        }
-
-        [HttpGet]
-        public ActionResult Racing(LiveReportBetListMetaModel metaModel)
-        {
-            var sportName = CacheRefAdapter.GetSportName(metaModel.SportType);
-            return ProcessRequest(
-                metaModel,
-                "Lrf_BetList_LiveReport_SelWinlossRacing",
-                "~/Views/BetList/LiveReport/Racing.cshtml",
-                sportName,
-                sportName);
         }
 
         [HttpGet]

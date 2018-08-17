@@ -31,8 +31,6 @@ namespace Fanex.Athena.Api.BetList
 
     public class ApiBetListBaseController : BaseApiController
     {
-        private static readonly int[] RacingBetType = { 31, 32, 33, 41, 42, 43 };
-
         private readonly IBetListService _betListService;
 
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
@@ -72,11 +70,6 @@ namespace Fanex.Athena.Api.BetList
         protected ICacheRefAdapter CacheRefAdapter
         {
             get { return _cacheRefAdapter; }
-        }
-
-        protected static bool IsRacing(int betType)
-        {
-            return RacingBetType.Contains(betType);
         }
 
         protected BalanceUp GetBalanceUp()

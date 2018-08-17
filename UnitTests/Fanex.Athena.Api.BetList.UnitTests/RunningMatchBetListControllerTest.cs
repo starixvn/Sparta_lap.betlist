@@ -53,29 +53,6 @@
             Assert.That(result, Is.Null);
         }
 
-        [TestCase(0, 31)]
-        [TestCase(1, 32)]
-        [TestCase(2, 33)]
-        [TestCase(3, 41)]
-        [TestCase(4, 42)]
-        [TestCase(5, 43)]
-        public void Detail_IsRacing_GetBetListResultWithCorrectParameter(int currencyId, int betType)
-        {
-            // Arrange
-            var metaModel = new BetListMetaModel { CurrencyId = currencyId, BetType = betType };
-
-            StubUserSessionData(new UserSession { CurrencyList = new Dictionary<int, string> { { currencyId, "Currency" } } });
-            SessionService.GenerateAgentListXml(metaModel.CurrencyId).Returns("<Xml/>");
-
-            _controller.When(x => x.GetBetListResult(metaModel, UspKeyRacing)).DoNotCallBase();
-
-            // Action
-            _controller.Index(metaModel);
-
-            // Assert
-            _controller.Received().GetBetListResult(metaModel, UspKeyRacing);
-        }
-
         [TestCase(0, 1)]
         [TestCase(1, 2)]
         [TestCase(2, 3)]

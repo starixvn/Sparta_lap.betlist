@@ -8,8 +8,6 @@
 
     public class MixParlayBetListControllerTest : ApiBetListBaseControllerHelperTest
     {
-        private const string UspKey = "Lrf_BetList_SelWinLossRacingByDate_Mem";
-
         private MixParlayBetListController _controller;
 
         [OneTimeSetUp]

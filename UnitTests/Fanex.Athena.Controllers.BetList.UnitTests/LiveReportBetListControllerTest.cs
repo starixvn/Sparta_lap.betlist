@@ -108,31 +108,6 @@
         }
 
         [Test]
-        public void Racing_WhenCall_ReturnCorrectViewResult()
-        {
-            using (var controller = CreateController())
-            {
-                // Arrange
-                const string SportName = "Racing";
-
-                var metaModel = CreateMetaModel();
-                CacheRefAdapter.GetSportName(metaModel.SportType).Returns(SportName);
-
-                // Action
-                var result = controller.Racing(metaModel) as ViewResult;
-                var model = (BetListMetaModel)result.Model;
-
-                // Assert
-                Assert.Multiple(() =>
-                {
-                    Assert.That(result.ViewName, Is.EqualTo("~/Views/BetList/LiveReport/Racing.cshtml"));
-                    Assert.That(result.ViewBag.SportName, Is.EqualTo(SportName));
-                    AssertDefaultBetListViewModel(model, metaModel);
-                });
-            }
-        }
-
-        [Test]
         public void VirtualSports_WhenCall_ReturnCorrectViewResult()
         {
             using (var controller = CreateController())
@@ -316,41 +291,6 @@
 
                 // Action
                 controller.NumberGame(metaModel);
-
-                // Assert
-                AssertExcelParameters(startIndex, expectedTitle, ticketResult, controller);
-            }
-        }
-
-        [TestCase("USD", null, "USD")]
-        [TestCase("USD", "eur", "EUR")]
-        public void Racing_ExportExcel_PassCorrectParam(string currency, string baseCurrency, string expectedCurrency)
-        {
-            using (var controller = CreateController())
-            {
-                // Arrange
-                var metaModel = new LiveReportBetListMetaModel
-                {
-                    IsExportExcel = true,
-                    CurrencyId = 0,
-                    CurrencyName = currency,
-                    BaseCurrency = baseCurrency,
-                    FromDate = new DateTime(2018, 11, 11),
-                    ToDate = new DateTime(2018, 12, 12),
-                    PageIndex = 1,
-                    PageSize = 20
-                };
-                var startIndex = 1;
-
-                const string BetlistCaption = "Racing";
-                CacheRefAdapter.GetSportName(metaModel.SportType).Returns(BetlistCaption);
-                var viewInCaption = string.Format(ViewResources.Viewin, expectedCurrency);
-                var expectedTitle = $"{ViewResources.BetList} - {BetlistCaption} - 11/11/2018 --> 12/12/2018 - {viewInCaption}";
-
-                var ticketResult = SetUpForExportingExcel("Lrf_BetList_LiveReport_SelWinlossRacing", metaModel, controller);
-
-                // Action
-                controller.Racing(metaModel);
 
                 // Assert
                 AssertExcelParameters(startIndex, expectedTitle, ticketResult, controller);

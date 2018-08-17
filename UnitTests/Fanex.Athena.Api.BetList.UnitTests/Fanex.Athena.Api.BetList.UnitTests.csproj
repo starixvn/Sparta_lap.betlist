@@ -186,11 +186,9 @@
     <Compile Include="VoidbridgeBetListControllerTest.cs" />
     <Compile Include="RunningMatchChoiceBetListControllerTest.cs" />
     <Compile Include="RNGCasinoBetListControllerTest.cs" />
-    <Compile Include="RacingCommissionBetListControllerTest.cs" />
     <Compile Include="CorrectScoreBetListControllerTest.cs" />
     <Compile Include="CustomerWinLossBetListControllerTest.cs" />
     <Compile Include="DailyBetListControllerTest.cs" />
-    <Compile Include="DailyRacingWinLossBetListControllerTest.cs" />
     <Compile Include="DailyStatementBetListControllerTest.cs" />
     <Compile Include="GlobalGamingBetListControllerTest.cs" />
     <Compile Include="LastBetMonitoringBetListControllerTest.cs" />

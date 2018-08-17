@@ -43,10 +43,8 @@ namespace Fanex.Athena.Api.BetList
                 return null;
             }
 
-            var uspKey = IsRacing(metaModel.BetType)
-                ? "Lrf_BetList_SelAllByDateHR"
-                : "Lrf_BetList_SelRunningByBettypeMatch";
-            return GetBetListResult(metaModel, uspKey);
+            const string UspKey = "Lrf_BetList_SelRunningByBettypeMatch";
+            return GetBetListResult(metaModel, UspKey);
         }
     }
 }

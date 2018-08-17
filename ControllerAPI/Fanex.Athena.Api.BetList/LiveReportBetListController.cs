@@ -97,20 +97,6 @@ namespace Fanex.Athena.Api.BetList
         }
 
         [HttpGet]
-        public dynamic Racing([FromUri] LiveReportBetListMetaModel metaModel, int page, int rows)
-        {
-            if (IsValidCurrencyId(metaModel.CurrencyId))
-            {
-                const string UspName = "Lrf_BetList_LiveReport_SelWinlossRacing";
-
-                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-                return GetPagingData(metaModel, UspName, page, rows);
-            }
-
-            return null;
-        }
-
-        [HttpGet]
         public dynamic VirtualSports([FromUri] LiveReportBetListMetaModel metaModel, int page, int rows)
         {
             if (IsValidCurrencyId(metaModel.CurrencyId))
