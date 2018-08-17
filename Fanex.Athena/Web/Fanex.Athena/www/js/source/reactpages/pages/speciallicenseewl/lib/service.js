@@ -5,7 +5,6 @@ export const Url = 'api/SpecialLicenseeWinLossReport/Index';
 export const HeaderText = {
     index: '#',
     date: LangHelper.getSingleResource('Date'),
-    systemId: LangHelper.getSingleResource('SystemId'),
     externalId: LangHelper.getSingleResource('ExternalId'),
     currency: LangHelper.getSingleResource('Currency'),
     turnover: LangHelper.getSingleResource('Turnover'),
@@ -21,6 +20,11 @@ export const BreadcrumbText = {
     main: LangHelper.getSingleResource('Main'),
     licensee: LangHelper.getSingleResource('Licensee'),
     customer: LangHelper.getSingleResource('Customer')
+}
+
+export const TotalText = {
+    total: LangHelper.getSingleResource('Total'),
+    totalIn: LangHelper.getSingleResource('Totalin')
 }
 
 export class Service {

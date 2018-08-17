@@ -14,15 +14,8 @@
     .Union(Model.BaseCurrencyList.Select(x => new { value = x.Key, label = ViewResources.Based + " " + ViewResources.ResourceManager.GetString(x.Value), baseCurrency = x.Value.ToUpperInvariant() }))
     .Union(Model.CurrencyList.Select(x => new { value = x.Key, label = x.Value, baseCurrency = string.Empty }));
     
-    var productOptions = Model.ProductOptionList;
+    var productOptions = Model.Param.ProductOptions;
     var selectedProductCode = string.Join(",", productOptions.Where(x => x.Status).Select(x => x.Code).ToArray());
-    
-    var drawFilterList = new List<dynamic>
-    {
-        new { value = DrawFilterType.Normal.ToString(), label = ViewResources.Normal },
-        new { value = DrawFilterType.NoDraws.ToString(), label = ViewResources.NoDraws },
-        new { value = DrawFilterType.NoDrawsForTurnoverOnly.ToString(), label = ViewResources.NoDrawsForTurnoverOnly }
-    };
 
     var reportByList = new List<dynamic>
     {
@@ -43,20 +36,18 @@
 
 @section globaljscode{
     window.initialState = {
-        dateRange: {fromDate: '@Model.FromDate.ToString("MM/dd/yyyy")', toDate: '@Model.ToDate.ToString("MM/dd/yyyy")'},
+        dateRange: {fromDate: '@Model.Param.FromDate.ToString("MM/dd/yyyy")', toDate: '@Model.Param.ToDate.ToString("MM/dd/yyyy")'},
         dateConstraint: {minDate: '@Model.ReportSetting.MinDate.ToString("MM/dd/yyyy")', maxDate: '@Model.ReportSetting.MaxDate.ToString("MM/dd/yyyy")', limitedMonthRange: @limitedMonthRange},
         currencyList: @Html.Raw(currencyList.ToJson()),
-        selectedCurrency: @Html.Raw(currencyList.FirstOrDefault(x => x.value == Model.CurrencyId).ToJson()),
+        selectedCurrency: @Html.Raw(currencyList.FirstOrDefault(x => x.value == Model.Param.CurrencyId).ToJson()),
         productOptions: @Html.Raw(productOptions.ToJson()),
         selectedProduct: '@(selectedProductCode)',
-        drawFilterList: @Html.Raw(drawFilterList.ToJson()),
-        selectedDrawFilter: '@(DrawFilterType.Normal)',
         reportByList: @Html.Raw(reportByList.ToJson()),
-        selectedReportBy: '@(ReportByType.Daily)',
+        selectedReportBy: '@(Model.Param.ReportBy)',
         isExcludeTest: true,         
         xsrfToken: document.querySelector("input[name=__RequestVerificationToken]").value,
         isLoading: false,
-        setting: { isAllowedCustomerComm: @Model.IsAllowedCustomerCommission.ToJson(), licenseeId: @Model.LicenseeId, isDisableBetList: @Model.ReportSetting.IsDisableBetList.ToJson() }
+        setting: { isAllowedCustomerComm: @Model.IsAllowedCustomerCommission.ToJson(), licenseeId: @Model.Param.LicenseeId, isDisableBetList: @Model.ReportSetting.IsDisableBetList.ToJson() }
     }
 }
 <div id="app-container">

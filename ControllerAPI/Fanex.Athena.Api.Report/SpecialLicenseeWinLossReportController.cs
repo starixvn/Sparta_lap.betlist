@@ -6,6 +6,7 @@
     using System.Net.Http;
     using System.Web.Hosting;
     using System.Web.Http;
+    using Base.Attributes;
     using DataAccess.Report;
     using DataAccess.Report.Interfaces;
     using Excel.Report.Models;
@@ -25,18 +26,16 @@
     using Service.Core.Configuration.Interfaces;
     using Service.Core.Users.Interfaces;
 
+    [ApiFunctionAuthorization(PermissionKeys.ReportLicenseeWinLoss)]
     public class SpecialLicenseeWinLossReportController : ApiReportBaseController
     {
         private readonly IReportSettingService _reportSettingService;
-
-        private readonly IAppSettings _appSettings;
 
         private readonly ILicenseeWinLossDataAccess _licenseeWinLossDataAccess;
 
         public SpecialLicenseeWinLossReportController()
         {
             _reportSettingService = new ReportSettingService();
-            _appSettings = new AppSettings();
             _licenseeWinLossDataAccess = new LicenseeWinLossDataAccess();
         }
 
@@ -45,12 +44,10 @@
             IProductService productService,
             IReportSettingService reportSettingService,
             ILanguageService langService,
-            IAppSettings appSettings,
             ILicenseeWinLossDataAccess licenseeWinLossDataAccess)
             : base(sessionService, productService, langService)
         {
             _reportSettingService = reportSettingService;
-            _appSettings = appSettings;
             _licenseeWinLossDataAccess = licenseeWinLossDataAccess;
         }
 
@@ -69,50 +66,6 @@
                 SummaryTotal = new Dictionary<string, LicenseeWinLossGridViewModel>(),
                 ProductOptions = productOptions.ToJson()
             };
-        }
-
-        private static void SortData(SortableList<LicenseeWinLoss> dataList, string sortBy, string sortOrder = "asc")
-        {
-            if (string.IsNullOrEmpty(sortBy))
-            {
-                return;
-            }
-
-            var propertyName = sortBy;
-
-            // Sort for grouping columns, get the real column name
-            if (sortBy.EndsWith("Single", StringComparison.OrdinalIgnoreCase))
-            {
-                propertyName = sortBy.Remove(sortBy.LastIndexOf("Single", StringComparison.OrdinalIgnoreCase));
-            }
-
-            var property = typeof(LicenseeWinLoss).GetProperty(propertyName);
-
-            if (property == null)
-            {
-                string productCode;
-
-                if (propertyName.Contains(nameof(LicenseeWinLoss.LicenseeWL)))
-                {
-                    var licenseeWLColumn = nameof(LicenseeWinLoss.LicenseeWL);
-
-                    productCode = propertyName.Substring(licenseeWLColumn.Length);
-                    propertyName = licenseeWLColumn;
-                }
-                else
-                {
-                    var turnOverColumn = nameof(LicenseeWinLoss.TurnOver);
-
-                    productCode = propertyName.Substring(turnOverColumn.Length);
-                    propertyName = turnOverColumn;
-                }
-
-                dataList.SortByDictionary(productCode, propertyName, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase), nameof(LicenseeWinLoss.Index), true);
-            }
-            else
-            {
-                dataList.Sort(propertyName, sortOrder.Equals("asc", StringComparison.OrdinalIgnoreCase), nameof(LicenseeWinLoss.Index), true);
-            }
         }
 
         private static LicenseeWinLossGridViewModel MapToGridView(LicenseeWinLoss item)
@@ -159,64 +112,6 @@
             licenseeWinLoss.TurnOverNG = turnOverProducts.GetValueOrDefault(Product.NG, 0);
         }
 
-        private static bool IsProductVisible(IEnumerable<ProductOption> productOptions, ProductAccess productAccess, string productCode)
-        {
-            return productOptions.Any(x => x.Status && x.Code == productCode) && productAccess.IsAllow(productCode);
-        }
-
-        private HttpResponseMessage ExportExcel(
-            LicenseeWinLossMetaModel metaModel,
-            SortableReportResultModel<LicenseeWinLoss> data)
-        {
-            var licenseeSession = SessionService.LicenseeSession;
-            var userSession = SessionService.UserSession;
-            const string FileName = "LicenseeWinLoss.xls";
-            var templatePath = HostingEnvironment.MapPath(@"~/App_Data/Template/Reports/LicenseeWinLoss.xls");
-            var productAccess = ProductService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
-
-            var convertingOption = new ConvertingOption
-            {
-                IsConvert = metaModel.IsConvert,
-                BaseCurrency = metaModel.BaseCurrency,
-                CurrencyName = metaModel.DrillDownLevel == 0 ? metaModel.CurrencyName : metaModel.DrillDownCurrencyName
-            };
-
-            if (metaModel.DrillDownLevel > 0)
-            {
-                metaModel.FromDate = metaModel.DrillDownFromDate;
-                metaModel.ToDate = metaModel.DrillDownToDate;
-                metaModel.CurrencyId = metaModel.CurrencyId > 0 ? metaModel.DrillDownCurrencyId : metaModel.CurrencyId;
-            }
-
-            if (data.DataList.Any())
-            {
-                SortData(data.DataList, metaModel.SortBy, metaModel.SortOrder);
-            }
-
-            var excelModel = new LicenseeWinLossExcelModel
-            {
-                ConvertingOption = convertingOption,
-                DataList = data.DataList,
-                MetaModel = metaModel,
-                SummaryTotal = data.SummaryTotal,
-                TotalData = data.TotalDataList,
-                SBVisible = IsProductVisible(metaModel.ProductOptions, productAccess, Product.SB),
-                CustomerCommVisible = licenseeSession.IsAllowedCustomerComm,
-                SystemIdVisible = !_appSettings.FakeLicenseeList.Contains(licenseeSession.LicenseeId)
-            };
-
-            var excel = CreateExcel(templatePath, excelModel);
-
-            excel.Export();
-
-            return ExcelStream(excel.Workbook, FileName);
-        }
-
-        protected internal virtual LicenseeWinLossExcel CreateExcel(string templatePath, LicenseeWinLossExcelModel excelModel)
-        {
-            return new LicenseeWinLossExcel(templatePath, excelModel);
-        }
-
         private SortableReportResultModel<LicenseeWinLoss> GetData(LicenseeWinLossMetaModel metaModel)
         {
             metaModel.ProductOptions = new List<ProductOption>
@@ -253,11 +148,6 @@
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(currencyId, metaModel.IsExcludedTestData);
                 var result = GetData(metaModel);
 
-                if (metaModel.IsExportExcel)
-                {
-                    return ExportExcel(metaModel, result);
-                }
-
                 if (result.DataList.Any())
                 {
                     var summaryTotalView = result.SummaryTotal.ToDictionary(d => d.Key, d => MapToGridView(d.Value));
@@ -276,7 +166,7 @@
 
         protected internal virtual bool IsValidParams(LicenseeWinLossMetaModel metaModel)
         {
-            var setting = _reportSettingService.GetSetting(PermissionKeys.ReportSpecialLicenseeWinLoss);
+            var setting = _reportSettingService.GetSetting(PermissionKeys.ReportLicenseeWinLoss);
             if (setting == null)
             {
                 return true;

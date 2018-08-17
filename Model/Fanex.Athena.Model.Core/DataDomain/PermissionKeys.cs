@@ -67,7 +67,6 @@
         public const string ReportSubsidiaryPerformance = "SubsidiaryPerformance73";
         public const string ReportLicenseeWinLossByTimeZone = "LicenseeWinLossByTimeZone76";
         public const string ReportExchangeWinLoss = "ExchangeWinloss77";
-        public const string ReportSpecialLicenseeWinLoss = "SpecialLicenseeWinLoss78";
 
         /* Warehouse. */
 

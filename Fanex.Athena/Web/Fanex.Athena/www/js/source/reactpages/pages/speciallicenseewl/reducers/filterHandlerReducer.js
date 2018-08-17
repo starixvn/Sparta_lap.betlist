@@ -1,18 +1,6 @@
 import createReducer from '../../../lib/createReducer.js'
 import * as types from '../actions/types.js'
 
-export const drawFilterList = createReducer({}, {
-    [types.GET_DRAWFILTER](state, action) {
-        return action.data;
-    }
-})
-
-export const selectedDrawFilter = createReducer({}, {
-    [types.SET_DRAWFILTER](state, action) {
-        return action.data;
-    }
-})
-
 export const reportByList = createReducer({}, {
     [types.GET_REPORTBY](state, action) {
         return action.data;

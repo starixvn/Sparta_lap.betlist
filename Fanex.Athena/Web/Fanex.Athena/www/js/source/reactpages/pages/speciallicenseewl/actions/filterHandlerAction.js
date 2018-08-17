@@ -1,12 +1,5 @@
 import * as types from './types.js'
 
-export const setSelectedDrawFilter = (value) => {
-    return {
-        type: types.SET_DRAWFILTER,
-        data: value
-    }
-}
-
 export const setSelectedReportBy = (value) => {
     return {
         type: types.SET_REPORTBY,

@@ -1,8 +1,5 @@
 ﻿export const SET_GRID_DATA = 'SET_GRID_DATA'
 
-export const GET_DRAWFILTER = 'GET_DRAWFILTER'
-export const SET_DRAWFILTER = 'SET_DRAWFILTER'
-
 export const GET_REPORTBY = 'GET_REPORTBY'
 export const SET_REPORTBY = 'SET_REPORTBY'
 

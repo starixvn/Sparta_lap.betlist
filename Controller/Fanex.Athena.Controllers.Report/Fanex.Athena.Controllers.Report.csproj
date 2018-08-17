@@ -182,7 +182,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SpecialLicenseeWinLossReportController.cs" />
     <Compile Include="NotificationReportController.cs" />
     <Compile Include="ColossusBetsWinLossReportController.cs" />
     <Compile Include="CashOutWinLossReportController.cs" />

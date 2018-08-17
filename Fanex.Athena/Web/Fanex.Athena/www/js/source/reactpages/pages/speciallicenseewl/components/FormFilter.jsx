@@ -13,6 +13,11 @@ import { Service, Url } from '../lib/service'
 export class FormFilter extends Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            expandTurnover: false,
+            expandLicenseeWL: false
+        }
     }
 
     get isValidModel() {
@@ -62,12 +67,11 @@ export class FormFilter extends Component {
             CurrencyId: this.props.selectedCurrency.value,
             BaseCurrency: this.props.selectedCurrency.baseCurrency,
             ProductCodeList: this.props.selectedProduct,
-            DrawFilter: this.props.selectedDrawFilter,
             ReportBy: this.props.selectedReportBy,
             IsExcludedTestData: this.props.isExcludeTest,
             DrillDownLevel: 0,
             PageIndex: 1,
-            PageSize: 50
+            PageSize: 2
         }
     }
 
@@ -98,27 +102,6 @@ export class FormFilter extends Component {
                             <span key={`Group${key}`}>
                                 <input type='radio' value={option.value} checked={selectedReportBy === option.value} id={key}
                                     onChange={(event) => this.props.setSelectedReportBy(event.target.value)} />
-                                <label htmlFor={key}>{option.label}</label>
-                            </span>)
-                    })
-                }
-            </div>
-        );
-    }
-
-    _renderDrawFilterList() {
-        const { drawFilterList, selectedDrawFilter } = this.props;
-
-        return (
-            <div className="form-group">
-                <label className='label-text'>{LangHelper.getSingleResource('DrawFilter')}</label>
-                {
-                    drawFilterList.map((option, i) => {
-                        const key = 'DrawFilter' + i;
-                        return (
-                            <span key={`Group${key}`}>
-                                <input type='radio' value={option.value} checked={selectedDrawFilter === option.value} id={key}
-                                    onChange={(event) => this.props.setSelectedDrawFilter(event.target.value)} />
                                 <label htmlFor={key}>{option.label}</label>
                             </span>)
                     })
@@ -206,10 +189,7 @@ export class FormFilter extends Component {
                 </div>
 
                 <div className="row">
-                    <div className="col-12 col-md-5 col-sm-12 col-lg-4 col-xl-3">
-                        {this._renderDrawFilterList()}
-                    </div>
-                    <div className='col-12 col-md-4 col-sm-12 col-lg-3 col-xl-2'>
+                    <div className='col-12 col-md-5 col-sm-12 col-lg-4 col-xl-3'>
                         {this._renderReportByOption()}
                     </div>
                     <div className="col-12 col-md-3 col-sm-12 col-lg-2 col-xl-2">
