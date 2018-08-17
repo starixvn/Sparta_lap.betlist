@@ -933,6 +933,7 @@
     <Content Include="www\js\source\reactpages\pages\speciallicenseewl\actions\filterHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\speciallicenseewl\actions\index.js" />
     <Content Include="www\js\source\reactpages\pages\speciallicenseewl\actions\types.js" />
+    <Content Include="www\js\source\reactpages\pages\speciallicenseewl\lib\reportExcel.js" />
     <Content Include="www\js\source\reactpages\pages\speciallicenseewl\lib\service.js" />
     <Content Include="www\js\source\reactpages\pages\speciallicenseewl\reducers\dataHandlerReducer.js" />
     <Content Include="www\js\source\reactpages\pages\speciallicenseewl\reducers\filterHandlerReducer.js" />

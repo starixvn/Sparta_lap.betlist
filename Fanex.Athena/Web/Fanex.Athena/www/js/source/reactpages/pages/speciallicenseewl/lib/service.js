@@ -13,7 +13,10 @@ export const HeaderText = {
     customerWL: `${LangHelper.getSingleResource('Win')}/${LangHelper.getSingleResource('Loss')}`,
     customerComm: LangHelper.getSingleResource('Comm'),
     customerTotal: LangHelper.getSingleResource('Total'),
-    licenseeWL: LangHelper.getSingleResource('LicenseeW_L')
+    licenseeWL: LangHelper.getSingleResource('LicenseeW_L'),
+    total: LangHelper.getSingleResource('Total'),
+    SB: LangHelper.getSingleResource('SB'),
+    NG: LangHelper.getSingleResource('NG')
 };
 
 export const BreadcrumbText = {

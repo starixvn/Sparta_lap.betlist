@@ -9,6 +9,8 @@ import LangHelper from '../../../lib/langHelper'
 import Site from '../../../lib/site'
 import Report from '../../../lib/report'
 import { Service, Url } from '../lib/service'
+import { ReportLevel } from '../../../constants/report'
+import ReportExcel from '../lib/reportExcel'
 
 export class FormFilter extends Component {
     constructor(props) {
@@ -30,7 +32,7 @@ export class FormFilter extends Component {
             return;
         }
 
-        const params = this._getParams();
+        const params = this._getParams(ReportLevel.MAIN);
         if (!params) {
             return;
         }
@@ -42,36 +44,105 @@ export class FormFilter extends Component {
                 this.props.setReportTitle(Service.getReportTitle(params.FromDate, params.ToDate, params.CurrencyId, params.CurrencyName, params.BaseCurrency));
             })
             .catch(error => {
-                console.log(error);
                 Service.showErrorMsg();
                 this.props.toggleLoader(false);
-            });     
+        });  
         this.props.setParams(params);
     }
 
     exportExcel = (event) => {
         event.preventDefault();
+
+        const level = this.props.params.DrillDownLevel || 0;
+
+        const isAllowedCustomerComm = this.props.setting.isAllowedCustomerComm;
+        let params = this._getParams(level);
+        if (!params) {
+            return;
+        }
+     
+        this.props.toggleLoader(true);
+
+        Report.fetchGridData(Url, { xsrfToken: this.props.xsrfToken, data: params })
+        .then(response => {
+            this._doExportExcel(level, params, isAllowedCustomerComm, response.data)
+        })
+        .catch(error => {
+            console.log(error);
+            Service.showErrorMsg();
+            this.props.toggleLoader(false);
+        });
+
     }
 
-    _getParams() {
+    _doExportExcel(level, params, isAllowedCustomerComm, gridData) {
+        if (!gridData.Data || !gridData.Data.length) {
+            this.props.toggleLoader(false);
+            alert(LangHelper.getSingleResource("NoInfo"));
+            return;
+        }
+
+        let excelData;
+        if (level === ReportLevel.MAIN) {
+            excelData = params;
+        }
+        else {
+            excelData = {
+                FromDate: params.DrillDownFromDate,
+                ToDate: params.DrillDownToDate,
+                BaseCurrency: params.BaseCurrency,
+                CurrencyName: params.DrillDownCurrencyName,
+                CurrencyId: params.DrillDownCurrencyId,
+                ReportBy: params.ReportBy,
+                ProductCodeList: params.ProductCodeList
+            };
+        }
+
+        const title = Service.getReportTitle(
+            excelData.FromDate,
+            excelData.ToDate,
+            excelData.CurrencyId,
+            excelData.CurrencyName, 
+            excelData.BaseCurrency);
+        const excel = new ReportExcel(gridData, title, level, isAllowedCustomerComm, parseInt(excelData.ReportBy), excelData.ProductCodeList.split(','));
+        excel.export(() => {
+            this.props.toggleLoader(false);
+        });
+    }
+
+    _getParams(level) {
         if (!this.props.xsrfToken) {
             return null;
         }
 
         const { fromDate, toDate } = this.props.dateRange;
 
-        return {
-            FromDate: Site.convertDateToString(fromDate),
-            ToDate: Site.convertDateToString(toDate),
-            CurrencyName: this.props.selectedCurrency.label,
-            CurrencyId: this.props.selectedCurrency.value,
-            BaseCurrency: this.props.selectedCurrency.baseCurrency,
-            ProductCodeList: this.props.selectedProduct,
-            ReportBy: this.props.selectedReportBy,
-            IsExcludedTestData: this.props.isExcludeTest,
-            DrillDownLevel: 0,
-            PageIndex: 1,
-            PageSize: 2
+        if (level == ReportLevel.MAIN) {
+            return {
+                FromDate: Site.convertDateToString(fromDate),
+                ToDate: Site.convertDateToString(toDate),
+                CurrencyName: this.props.selectedCurrency.label,
+                CurrencyId: this.props.selectedCurrency.value,
+                BaseCurrency: this.props.selectedCurrency.baseCurrency,
+                ProductCodeList: this.props.selectedProduct,
+                ReportBy: this.props.selectedReportBy,
+                DrillDownLevel: 0,
+                PageIndex: 1,
+                PageSize: this.props.params.PageSize || 2
+            }
+        }
+        else {
+            let params = this.props.params;
+
+            params.FromDate = Site.convertDateToString(fromDate);
+            params.ToDate = Site.convertDateToString(toDate);
+            params.CurrencyName = this.props.selectedCurrency.label;
+            params.CurrencyId = this.props.selectedCurrency.value;
+            params.BaseCurrency = this.props.selectedCurrency.baseCurrency;
+            params.ProductCodeList = this.props.selectedProduct;
+            params.ReportBy = this.props.selectedReportBy;
+
+            return params;
         }
     }
 
@@ -106,26 +177,6 @@ export class FormFilter extends Component {
                             </span>)
                     })
                 }
-            </div>
-        );
-    }
-
-    _renderExcludeTestData() {
-        const { isExcludeTest } = this.props;
-
-        return (
-            <div className="form-group">
-                <label className='label-text'>{LangHelper.getSingleResource('ExcludeTestData')}</label>
-                <span>
-                    <input type='radio' value={true} checked={isExcludeTest === true} id='ExcludeTestData'
-                        onChange={() => this.props.changeIsExcludeTest(true)} />
-                    <label htmlFor='ExcludeTestData'>{LangHelper.getSingleResource('Yes')}</label>
-                </span>
-                <span>
-                    <input type='radio' value={false} checked={isExcludeTest === false} id='IncludeTestData'
-                        onChange={() => this.props.changeIsExcludeTest(false)} />
-                    <label htmlFor='IncludeTestData'>{LangHelper.getSingleResource('No')}</label>
-                </span>
             </div>
         );
     }
@@ -193,9 +244,6 @@ export class FormFilter extends Component {
                         {this._renderReportByOption()}
                     </div>
                     <div className="col-12 col-md-3 col-sm-12 col-lg-2 col-xl-2">
-                        {this._renderExcludeTestData()}
-                    </div>
-                    <div className="col-12 col-md-3 col-sm-12 col-lg-2 col-xl-2">
                         <div className="form-group">
                             <div className="button-group">
                             <button disabled={!this.isValidModel} type="button" className="btn btn-submit" onClick={this.submit}>{LangHelper.getSingleResource("Submit")}</button>
@@ -217,7 +265,7 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    const { gridData, reportTitle, params, isLoading, setting, ...rest } = state;
+    const { gridData, reportTitle, isLoading, ...rest } = state;
     return Object.assign({}, rest);
 };
 

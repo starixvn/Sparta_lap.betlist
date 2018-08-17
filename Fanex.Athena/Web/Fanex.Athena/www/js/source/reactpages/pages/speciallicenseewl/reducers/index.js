@@ -4,13 +4,11 @@ import * as filterHandlerReducer from './filterHandlerReducer.js'
 import * as productReducer from '../../../reducers/productReducer'
 import * as currencyReducer from '../../../reducers/currencyReducer'
 import * as loaderReducer from '../../../reducers/loaderReducer'
-import * as excludeTestReducer from '../../../reducers/excludeTestReducer'
 
 export default combineReducers(Object.assign(
     dataHandlerReducer,
     filterHandlerReducer,
     productReducer,
     currencyReducer,
-    loaderReducer,
-    excludeTestReducer
+    loaderReducer
 ));

@@ -44,7 +44,6 @@
         selectedProduct: '@(selectedProductCode)',
         reportByList: @Html.Raw(reportByList.ToJson()),
         selectedReportBy: '@(Model.Param.ReportBy)',
-        isExcludeTest: true,         
         xsrfToken: document.querySelector("input[name=__RequestVerificationToken]").value,
         isLoading: false,
         setting: { isAllowedCustomerComm: @Model.IsAllowedCustomerCommission.ToJson(), licenseeId: @Model.Param.LicenseeId, isDisableBetList: @Model.ReportSetting.IsDisableBetList.ToJson() }
