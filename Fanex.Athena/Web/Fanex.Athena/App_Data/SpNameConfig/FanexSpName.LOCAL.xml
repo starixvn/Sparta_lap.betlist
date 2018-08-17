@@ -83,7 +83,7 @@
     <Setting Key="Lrf_Rpt_WinLoss" SpName="Lrf_Rpt_WinLoss_UAT4" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
     <Setting Key="Lrf_Rpt_MatchSelResultEntered" SpName="Lrf_Rpt_MatchSelResultEntered" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
     <Setting Key="Lrf_Rpt_CommByBettype_HR" SpName="Lrf_Rpt_CommByBettype_HR" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_Rpt_Outstanding" SpName="Lrf_Rpt_Outstanding" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_Rpt_Outstanding" SpName="Lrf_Rpt_Outstanding" DbName="DBEXT-DB042.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerSelBalance" SpName="Lrf_CustomerSelBalance" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_WinlossByProduct" SpName="Lrf_Rpt_WinlossByProduct_UAT4"  DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_WinlossByProductDetail" SpName="Lrf_Rpt_WinlossByProductDetail_UAT4" DbName="DBEXT.bodb02.bodbLicenseeNet" />
@@ -255,12 +255,12 @@
     <Setting Key="Lrf_BetList_MatchWL_Parlay" SpName="Lrf_BetList_MatchWL_Parlay" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_MatchWL_Bettype" SpName="Lrf_BetList_MatchWL_Bettype" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_MatchWL_Racing" SpName="Lrf_BetList_MatchWL_Racing" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_Monitor_MatchSel" SpName="Lrf_Monitor_MatchSel" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_Monitor_OutrightSel" SpName="Lrf_Monitor_OutrightSel" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_Monitor_MatchSel" SpName="Lrf_Monitor_MatchSel" DbName="DBEXT-DB042.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_Monitor_OutrightSel" SpName="Lrf_Monitor_OutrightSel" DbName="DBEXT-DB042.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_SelDeleted_UserList" SpName="Lrf_BetList_SelDeleted_UserList" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_SelCombinationParlayDetail" SpName="Lrf_BetList_SelCombinationParlayDetail" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_SelParlayDetail" SpName="Lrf_BetList_SelParlayDetail" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_Monitor_BetlistSel_New" SpName="Lrf_Monitor_BetlistSel_New" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_Monitor_BetlistSel_New" SpName="Lrf_Monitor_BetlistSel_New" DbName="DBEXT-DB042.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_PlatformWinLoss_Mem" SpName="Lrf_BetList_PlatformWinLoss_Mem" DbName="DBACC.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_Forecast_SelByMatch" SpName="Lrf_BetList_Forecast_SelByMatch" DbName="DBEXT-DB042.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_LiveReport_SelWinlossVHRacing" SpName="Lrf_BetList_LiveReport_SelWinlossVHRacing" DbName="DBEXT.bodb02.bodbLicenseeNet" />
