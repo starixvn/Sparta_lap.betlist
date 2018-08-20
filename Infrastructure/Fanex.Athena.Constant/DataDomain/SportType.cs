@@ -159,11 +159,6 @@ namespace Fanex.Athena.Constant.DataDomain
         OtherSports = 99,
 
         /// <summary>
-        /// HorseRacing sport, value = 151.
-        /// </summary>
-        HorseRacing = 151,
-
-        /// <summary>
         /// Finance sport, value = 2.
         /// </summary>
         Finance = 201,
@@ -249,11 +244,6 @@ namespace Fanex.Athena.Constant.DataDomain
         /// LiveCasino sport, value = 162.
         /// </summary>
         LiveCasino = 162,
-
-        /// <summary>
-        /// Bingo sport, value = 252.
-        /// </summary>
-        Bingo = 252,
 
         /// <summary>
         /// Harness sport, value = 153.

@@ -198,9 +198,6 @@
   <data name="AmtDueToBABalanceNote" xml:space="preserve">
     <value>BA에 지불 예정금액: 라이선스 사용자가가 지불해야할 BA 정산금액 혹은 BA에 대해 지불받는 것</value>
   </data>
-  <data name="AmtDueToRacing" xml:space="preserve">
-    <value>레이싱에 지불할 금액</value>
-  </data>
   <data name="Apr" xml:space="preserve">
     <value>4월</value>
   </data>
@@ -408,9 +405,6 @@
   <data name="ConvertTo" xml:space="preserve">
     <value>로 전환</value>
   </data>
-  <data name="CopyBetSettingFromRacing" xml:space="preserve">
-    <value>레이싱에서 모든 배팅 설정 복사하기 </value>
-  </data>
   <data name="CopyBetSettingFromSoccer" xml:space="preserve">
     <value>축구에서 모든 배팅 설정 복사하기</value>
   </data>
@@ -521,15 +515,6 @@
   </data>
   <data name="DailyBetList" xml:space="preserve">
     <value>일일 배팅 목록</value>
-  </data>
-  <data name="DailyRacing12BetTitle" xml:space="preserve">
-    <value>{0} - {1} 상의 12 배팅 일일 경주 승리 패배</value>
-  </data>
-  <data name="DailyRacingTitle" xml:space="preserve">
-    <value>{0} - {1} 상의 일일 경주 승리 패배</value>
-  </data>
-  <data name="DailyRacingWinLoss" xml:space="preserve">
-    <value>일일 경주 승리 패배</value>
   </data>
   <data name="DailyStatement" xml:space="preserve">
     <value>일일 결산서</value>
@@ -1701,18 +1686,6 @@
   <data name="Racing" xml:space="preserve">
     <value>경주하기</value>
   </data>
-  <data name="RacingComm" xml:space="preserve">
-    <value>경주 수수료</value>
-  </data>
-  <data name="RacingCommission" xml:space="preserve">
-    <value>경주 수수료</value>
-  </data>
-  <data name="RacingCommissionTitle" xml:space="preserve">
-    <value>경주 수수료 {0} --&gt; {1} - {2}</value>
-  </data>
-  <data name="RacingRevenue" xml:space="preserve">
-    <value>경주 매출</value>
-  </data>
   <data name="RBComm" xml:space="preserve">
     <value>RB 수수료</value>
   </data>
@@ -2079,12 +2052,6 @@
   <data name="UpdateNumberGameBetSettingSuccessMsg" xml:space="preserve">
     <value>{0}의 숫자게임 배팅 설정이 성공적으로 업데이트 되었습니다. 모든 경주 배팅 설정을 업데이트하시렵니까?</value>
   </data>
-  <data name="UpdateRacingBetSettings" xml:space="preserve">
-    <value>모든 경주 배팅 설정들을 업데이트하시렵니까?</value>
-  </data>
-  <data name="UpdateRacingBetSettingSuccessMsg" xml:space="preserve">
-    <value>{0}의 경주 배팅 설정이 성공적으로 업데이트 되었습니다.</value>
-  </data>
   <data name="UpdateSpecialLevelMsg" xml:space="preserve">
     <value>유효하지 않은 변수입니다. 유효하지 않은 고객 아이디입니다.</value>
   </data>
@@ -2337,10 +2304,6 @@
   </data>
   <data name="ProductNG" xml:space="preserve">
     <value>숫자 게임</value>
-    <comment>#49196</comment>
-  </data>
-  <data name="ProductRB" xml:space="preserve">
-    <value>경주하기</value>
     <comment>#49196</comment>
   </data>
   <data name="ProductVS" xml:space="preserve">

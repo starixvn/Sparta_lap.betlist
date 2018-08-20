@@ -43,7 +43,6 @@ namespace Fanex.Athena.Api.CustomerLog
                 "GroupName",
                 "GroupColor",
                 "SBComm",
-                "RacingComm",
                 "NGComm",
                 "RNGComm",
                 "AllbetComm"

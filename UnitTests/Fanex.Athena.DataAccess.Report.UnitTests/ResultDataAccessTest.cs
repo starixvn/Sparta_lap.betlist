@@ -23,7 +23,7 @@
         private const string GetSportsSp = "Lrf_Result_SportSelByDate";
         private const string GetLeaguesSp = "Lrf_Result_LeagueSelByDate";
         private const string GetNumberGameMatchesSp = "Lrf_Result_MatchSelNumberGameByLeague";
-        private const string GetRacingMatchesSp = "Lrf_Result_RaceSelByMeeting";
+        private const string GetVirtualSportMatchesSp = "Lrf_Result_RaceSelByMeeting";
         private const string GetPopUpMatchesSp = "Lrf_BetList_SelMatchResult";
         private const string GetPopUpParalayMatchSp = "Lrf_BetList_SelMatchResultParlay";
         private const string GetPopUpNumberGameMatchSp = "Lrf_BetList_SelMatchResultNumberGame";
@@ -329,7 +329,7 @@
         public void GetRacingMatches_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            DataAccess.GetObjectDb(Arg.Is(GetRacingMatchesSp)).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is(GetVirtualSportMatchesSp)).Returns(ObjectDb);
             dynamic param = null;
             ObjectDb.ExecuteReader(Arg.Do<dynamic>(x => param = x));
             _metaModel.SportId = 1;
@@ -353,7 +353,7 @@
         public void GetRacingMatches_WhenCall_ReturnCorrectData()
         {
             // Arrange
-            DataAccess.GetObjectDb(Arg.Is(GetRacingMatchesSp)).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is(GetVirtualSportMatchesSp)).Returns(ObjectDb);
 
             Reader.Read().Returns(true, false);
 
@@ -365,7 +365,7 @@
             };
             MapReaderData(readerDataMapping);
 
-            var expectedResult = GetExpectedRacingData();
+            var expectedResult = GetExpectedVirtualSportData();
 
             // Action
             var result = DataAccess.GetVirtualSportMatches(_metaModel);
@@ -382,7 +382,7 @@
         public void GetRacingMatches_WhenReceiveObjectDbException_ThrowDataAccessException()
         {
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetRacingMatchesSp,
+                GetVirtualSportMatchesSp,
                 () => DataAccess.GetVirtualSportMatches(_metaModel));
         }
 
@@ -515,7 +515,7 @@
             };
         }
 
-        private static List<Racing> GetExpectedRacingData()
+        private static List<Racing> GetExpectedVirtualSportData()
         {
             return new List<Racing>
             {

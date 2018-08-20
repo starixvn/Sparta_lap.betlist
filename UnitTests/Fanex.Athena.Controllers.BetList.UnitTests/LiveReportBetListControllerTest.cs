@@ -320,7 +320,6 @@
                 const string BetlistCaption = "VirtualSports";
                 CacheRefAdapter.GetSportName(metaModel.SportType).Returns(BetlistCaption);
                 var viewInCaption = string.Format(ViewResources.Viewin, expectedCurrency);
-                var betlistCaption = ViewResources.Racing;
                 var expectedTitle = $"{ViewResources.BetList} - {BetlistCaption} - 11/11/2018 --> 12/12/2018 - {viewInCaption}";
 
                 var ticketResult = SetUpForExportingExcel("Lrf_BetList_LiveReport_SelWinlossVHRacing", metaModel, controller);

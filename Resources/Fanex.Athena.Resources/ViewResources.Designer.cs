@@ -484,15 +484,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Amt Due To Racing.
-        /// </summary>
-        public static string AmtDueToRacing {
-            get {
-                return ResourceManager.GetString("AmtDueToRacing", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Amt ≥ 30K GBP.
         /// </summary>
         public static string AmtGreaterThan30kGBP {
@@ -1546,15 +1537,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Copy All Bet Setting from Racing.
-        /// </summary>
-        public static string CopyBetSettingFromRacing {
-            get {
-                return ResourceManager.GetString("CopyBetSettingFromRacing", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Copy All Bet Setting from Soccer.
         /// </summary>
         public static string CopyBetSettingFromSoccer {
@@ -1947,33 +1929,6 @@ namespace Fanex.Athena.Resources {
         public static string DailyBetList {
             get {
                 return ResourceManager.GetString("DailyBetList", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 12Bet Daily Racing Win Loss on {0} - {1}.
-        /// </summary>
-        public static string DailyRacing12BetTitle {
-            get {
-                return ResourceManager.GetString("DailyRacing12BetTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Daily Racing Win Loss on {1} - {2}.
-        /// </summary>
-        public static string DailyRacingTitle {
-            get {
-                return ResourceManager.GetString("DailyRacingTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Daily Racing Win Loss.
-        /// </summary>
-        public static string DailyRacingWinLoss {
-            get {
-                return ResourceManager.GetString("DailyRacingWinLoss", resourceCulture);
             }
         }
         
@@ -6271,15 +6226,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Racing.
-        /// </summary>
-        public static string ProductRB {
-            get {
-                return ResourceManager.GetString("ProductRB", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Sportsbook.
         /// </summary>
         public static string ProductSB {
@@ -6420,42 +6366,6 @@ namespace Fanex.Athena.Resources {
         public static string Racing {
             get {
                 return ResourceManager.GetString("Racing", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Racing Comm.
-        /// </summary>
-        public static string RacingComm {
-            get {
-                return ResourceManager.GetString("RacingComm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Racing Commission.
-        /// </summary>
-        public static string RacingCommission {
-            get {
-                return ResourceManager.GetString("RacingCommission", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Racing Commission, {0} --&gt; {1} - {2}.
-        /// </summary>
-        public static string RacingCommissionTitle {
-            get {
-                return ResourceManager.GetString("RacingCommissionTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Racing Revenue.
-        /// </summary>
-        public static string RacingRevenue {
-            get {
-                return ResourceManager.GetString("RacingRevenue", resourceCulture);
             }
         }
         
@@ -8148,24 +8058,6 @@ namespace Fanex.Athena.Resources {
         public static string UpdateProductBetSettingSuccessMsg {
             get {
                 return ResourceManager.GetString("UpdateProductBetSettingSuccessMsg", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to update all Racing bet settings?.
-        /// </summary>
-        public static string UpdateRacingBetSettings {
-            get {
-                return ResourceManager.GetString("UpdateRacingBetSettings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The Racing bet setting of {0} was updated successfully.
-        /// </summary>
-        public static string UpdateRacingBetSettingSuccessMsg {
-            get {
-                return ResourceManager.GetString("UpdateRacingBetSettingSuccessMsg", resourceCulture);
             }
         }
         

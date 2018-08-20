@@ -197,9 +197,6 @@
   <data name="AmtDueToBABalanceNote" xml:space="preserve">
     <value>BA金額: 在BA合作上，承租公司需支付或應獲得的金額</value>
   </data>
-  <data name="AmtDueToRacing" xml:space="preserve">
-    <value>賽事金額</value>
-  </data>
   <data name="Apr" xml:space="preserve">
     <value>四月</value>
   </data>
@@ -388,9 +385,6 @@
   <data name="ConvertTo" xml:space="preserve">
     <value>轉換為</value>
   </data>
-  <data name="CopyBetSettingFromRacing" xml:space="preserve">
-    <value>從賽馬賽事複製所有投注設定</value>
-  </data>
   <data name="CopyBetSettingFromSoccer" xml:space="preserve">
     <value>從足球複製所有投注設定</value>
   </data>
@@ -506,15 +500,6 @@
   </data>
   <data name="DailyBetList" xml:space="preserve">
     <value>每日投注歷史</value>
-  </data>
-  <data name="DailyRacing12BetTitle" xml:space="preserve">
-    <value>12BET每日賽馬賽事輸贏於{0} - {1}</value>
-  </data>
-  <data name="DailyRacingTitle" xml:space="preserve">
-    <value>每日賽馬賽事輸贏於{1} - {2}</value>
-  </data>
-  <data name="DailyRacingWinLoss" xml:space="preserve">
-    <value>每日賽事佣金</value>
   </data>
   <data name="DailyStatement" xml:space="preserve">
     <value>每日賬目</value>
@@ -1492,18 +1477,6 @@
   <data name="Racing" xml:space="preserve">
     <value>賽事</value>
   </data>
-  <data name="RacingComm" xml:space="preserve">
-    <value>賽馬佣金</value>
-  </data>
-  <data name="RacingCommission" xml:space="preserve">
-    <value>賽事佣金</value>
-  </data>
-  <data name="RacingCommissionTitle" xml:space="preserve">
-    <value>賽事佣金 ,{0} --&gt; {1} - {2}</value>
-  </data>
-  <data name="RacingRevenue" xml:space="preserve">
-    <value>賽事所得</value>
-  </data>
   <data name="RBComm" xml:space="preserve">
     <value>賽馬佣金</value>
   </data>
@@ -1885,12 +1858,6 @@
   </data>
   <data name="UpdateNumberGameBetSettingSuccessMsg" xml:space="preserve">
     <value>{0}的百練賽投注設置已成功更新</value>
-  </data>
-  <data name="UpdateRacingBetSettings" xml:space="preserve">
-    <value>您確定您要更新所有競賽的賭注設置嗎？</value>
-  </data>
-  <data name="UpdateRacingBetSettingSuccessMsg" xml:space="preserve">
-    <value>賽馬賽事的投注設定{0}已更新成功</value>
   </data>
   <data name="UpdateSpecialLevelMsg" xml:space="preserve">
     <value>無效的參數。無效的會員識別</value>
@@ -2402,10 +2369,6 @@
   </data>
   <data name="ProductNG" xml:space="preserve">
     <value>百練賽</value>
-    <comment>#49196</comment>
-  </data>
-  <data name="ProductRB" xml:space="preserve">
-    <value>賽馬</value>
     <comment>#49196</comment>
   </data>
   <data name="ProductVS" xml:space="preserve">

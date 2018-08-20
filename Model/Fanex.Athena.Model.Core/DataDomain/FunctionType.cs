@@ -179,16 +179,6 @@ namespace Fanex.Athena.Model.Core.DataDomain
         WinLossByBetType = 33,
 
         /// <summary>
-        /// RacingCommission function, value = 34.
-        /// </summary>
-        RacingCommission = 34,
-
-        /// <summary>
-        /// DailyRacingWinLoss function, value = 35.
-        /// </summary>
-        DailyRacingWinLoss = 35,
-
-        /// <summary>
         /// CancelledBets function, value = 36.
         /// </summary>
         CancelledBets = 36,

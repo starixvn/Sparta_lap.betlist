@@ -96,7 +96,7 @@
         }
 
         [Test]
-        public void GetRacingMatches_WhenCall_ReturnDataFromDataAccess()
+        public void GetVirtualSportMatches_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
             var metaModel = new ResultMetalModel();

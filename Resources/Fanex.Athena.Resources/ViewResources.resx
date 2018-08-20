@@ -313,9 +313,6 @@
   <data name="ConvertTo" xml:space="preserve">
     <value>Convert to</value>
   </data>
-  <data name="CopyBetSettingFromRacing" xml:space="preserve">
-    <value>Copy All Bet Setting from Racing</value>
-  </data>
   <data name="CopyBetSettingFromSoccer" xml:space="preserve">
     <value>Copy All Bet Setting from Soccer</value>
   </data>
@@ -387,15 +384,6 @@
   </data>
   <data name="DailyBetList" xml:space="preserve">
     <value>Daily Bet List</value>
-  </data>
-  <data name="DailyRacing12BetTitle" xml:space="preserve">
-    <value>12Bet Daily Racing Win Loss on {0} - {1}</value>
-  </data>
-  <data name="DailyRacingTitle" xml:space="preserve">
-    <value>Daily Racing Win Loss on {1} - {2}</value>
-  </data>
-  <data name="DailyRacingWinLoss" xml:space="preserve">
-    <value>Daily Racing Win Loss</value>
   </data>
   <data name="DataWareHouse" xml:space="preserve">
     <value>Data Warehouse</value>
@@ -1070,22 +1058,6 @@
   <data name="Race" xml:space="preserve">
     <value>Race</value>
   </data>
-  <data name="ProductRB" xml:space="preserve">
-    <value>Racing</value>
-    <comment>#49196</comment>
-  </data>
-  <data name="RacingComm" xml:space="preserve">
-    <value>Racing Comm</value>
-  </data>
-  <data name="RacingCommission" xml:space="preserve">
-    <value>Racing Commission</value>
-  </data>
-  <data name="RacingCommissionTitle" xml:space="preserve">
-    <value>Racing Commission, {0} --&gt; {1} - {2}</value>
-  </data>
-  <data name="RacingRevenue" xml:space="preserve">
-    <value>Racing Revenue</value>
-  </data>
   <data name="RCCommission" xml:space="preserve">
     <value>RC Commission</value>
   </data>
@@ -1378,9 +1350,6 @@
   </data>
   <data name="UpdateNumberGameBetSettingSuccessMsg" xml:space="preserve">
     <value>The Number Game bet setting of {0} was updated successfully</value>
-  </data>
-  <data name="UpdateRacingBetSettingSuccessMsg" xml:space="preserve">
-    <value>The Racing bet setting of {0} was updated successfully</value>
   </data>
   <data name="UpdateSportsbookBetSettingSuccessMsg" xml:space="preserve">
     <value>The Sportsbook bet setting of {0} was updated successfully</value>
@@ -1887,9 +1856,6 @@
   <data name="AmtDueToBA" xml:space="preserve">
     <value>Amt Due To BA</value>
   </data>
-  <data name="AmtDueToRacing" xml:space="preserve">
-    <value>Amt Due To Racing</value>
-  </data>
   <data name="Licenseegrossrevenuefor" xml:space="preserve">
     <value>Licensee gross revenue for {0}</value>
   </data>
@@ -1943,9 +1909,6 @@
   </data>
   <data name="UpdateNumberGameBetSettings" xml:space="preserve">
     <value>Are you sure you want to update all Number Game bet settings?</value>
-  </data>
-  <data name="UpdateRacingBetSettings" xml:space="preserve">
-    <value>Are you sure you want to update all Racing bet settings?</value>
   </data>
   <data name="UpdateSportsbookBetSettings" xml:space="preserve">
     <value>Are you sure you want to update all Sportsbook bet settings?</value>
