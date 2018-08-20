@@ -354,9 +354,6 @@ namespace Fanex.Athena.Controllers.Report.Result
         {
             switch (sportType)
             {
-                case SportType.HorseRacing:
-                case SportType.Greyhound:
-                case SportType.Harness:
                 case SportType.VirtualHorseRacing:
                 case SportType.VirtualMotorRacing:
                 case SportType.VirtualGreyhounds:
@@ -364,7 +361,7 @@ namespace Fanex.Athena.Controllers.Report.Result
                 case SportType.VirtualCycling:
                     if (metalModel.RaceNo != null)
                     {
-                        var dataRc = _resultService.GetPopUpRacingMatch(metalModel);
+                        var dataRc = _resultService.GetPopUpVirtualSportMatch(metalModel);
                         if (dataRc != null)
                         {
                             this._htmlResult = _resultService.HtmlParser(dataRc, setting);
@@ -500,7 +497,7 @@ namespace Fanex.Athena.Controllers.Report.Result
                 case SportType.VirtualMotorRacing:
                 case SportType.VirtualCycling:
                 case SportType.VirtualSpeedway:
-                    var dataRc = _resultService.GetRacingMatches(metalModel);
+                    var dataRc = _resultService.GetVirtualSportMatches(metalModel);
                     ParseResult(dataRc, setting, metalModel.IsExportExcel);
                     break;
 

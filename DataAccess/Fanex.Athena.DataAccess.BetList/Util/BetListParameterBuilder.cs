@@ -37,7 +37,6 @@
             { "Lrf_BetList_SelByDayAll_Mem", (db, metalModel) => CreateDailyStatementBetListParameters(db, metalModel) },
             { "Lrf_BetList_SelByDayAll_Mem_Old", (db, metalModel) => CreateDailyStatementBetListOldParameters(db, metalModel) },
             { "Lrf_BetList_SelRunningByDate_Mem", (db, metalModel) => CreateRunningBetListParameters(db, metalModel) },
-            { "Lrf_BetList_SelAllByDateHR", (db, metalModel) => CreateMatchRunningBetListOfHRParameters(db, metalModel) },
             { "Lrf_BetList_SelRunningByBettypeMatch", (db, metalModel) => CreateMatchRunningBetLitByBettypeParameters(db, metalModel) },
             { "Lrf_BetList_SelRunningByMultipleBettypeMatch", (db, metalModel) => CreateMatchRunningBetLitByMultipleBettypeOfMatchParameters(db, metalModel) },
             { "Lrf_BetList_Forecast_SelByMatch", (db, metalModel) => CreateRunningBetListByForeCastMatchParameters(db, metalModel) },
@@ -141,16 +140,7 @@
             db.AddInParameter("betteam", DbType.String, metaModel.BetTeam);
             CreateBetListPagingParameters(db, metaModel);
         }
-
-        private static void CreateMatchRunningBetListOfHRParameters(IObjectDb db, BetListMetaModel metaModel)
-        {
-            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            db.AddInParameter("bettype", DbType.Int32, metaModel.BetType);
-            db.AddInParameter("MatchID", DbType.Int32, metaModel.MatchId);
-            CreateBetListPagingParameters(db, metaModel);
-            CreateSummaryOutputParameters(db);
-        }
-
+        
         private static void CreateRunningBetListParameters(IObjectDb db, BetListMetaModel metaModel)
         {
             db.AddInParameter("custid", DbType.Int32, metaModel.CustId);

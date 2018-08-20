@@ -406,26 +406,6 @@
             });
         }
 
-        [Test]
-        public void CreateBetListParameters_CalledByMatchRunningBetListOfHR_ParametersPassedCorrectly()
-        {
-            // Arrange
-            const string UspKey = "Lrf_BetList_SelAllByDateHR";
-
-            // Action
-            BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, _metaModel);
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received(1).AddInParameter("bettype", DbType.Int32, _metaModel.BetType);
-                _objectDb.Received(1).AddInParameter("MatchID", DbType.Int32, _metaModel.MatchId);
-                AssertPagingParameters(_objectDb, _metaModel);
-                AssertSummaryParameters(_objectDb);
-            });
-        }
-
         [TestCase(2, 2)]
         [TestCase(null, -1)]
         public void CreateBetListParameters_CalledByMatchRunningBetLitByBettype_ParametersPassedCorrectly(int? liveIndicator, int expectedLiveIndicator)

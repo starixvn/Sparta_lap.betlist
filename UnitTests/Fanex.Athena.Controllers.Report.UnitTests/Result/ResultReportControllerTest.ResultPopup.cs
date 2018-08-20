@@ -126,7 +126,7 @@
                 // Arrange
                 var metaModel = CreateResultPopupMetaModel(sportType);
                 var dataList = new List<Racing> { new Racing() };
-                _resultService.GetPopUpRacingMatch(metaModel).Returns(dataList);
+                _resultService.GetPopUpVirtualSportMatch(metaModel).Returns(dataList);
                 _resultService.HtmlParser(dataList, Arg.Any<ResultSetting>()).Returns(HtmlResult);
 
                 // Action

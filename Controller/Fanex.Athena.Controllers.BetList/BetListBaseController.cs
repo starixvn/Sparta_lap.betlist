@@ -43,9 +43,6 @@
         protected static readonly ReadOnlyCollection<int> HiddenColumnIndexes =
             new ReadOnlyCollection<int>(new[] { WinLostColumn, BetEffectiveColumn, LicenseeWLColumn });
 
-        protected static readonly ReadOnlyCollection<int> RacingBetType =
-            new ReadOnlyCollection<int>(new[] { 31, 32, 33, 41, 42, 43 });
-
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
         private readonly ICacheRefAdapter _cacheRefAdapter;
@@ -87,11 +84,6 @@
         protected IBetListService BetListService
         {
             get { return _betListService; }
-        }
-
-        protected static bool IsRacing(int betType)
-        {
-            return RacingBetType.Contains(betType);
         }
 
         protected static string GetTitleByTransType(string productTitle, long transType)

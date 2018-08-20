@@ -342,7 +342,7 @@
             };
 
             // Action
-            DataAccess.GetRacingMatches(_metaModel);
+            DataAccess.GetVirtualSportMatches(_metaModel);
             var result = param;
 
             // Assert
@@ -368,7 +368,7 @@
             var expectedResult = GetExpectedRacingData();
 
             // Action
-            var result = DataAccess.GetRacingMatches(_metaModel);
+            var result = DataAccess.GetVirtualSportMatches(_metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -383,7 +383,7 @@
         {
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
                 GetRacingMatchesSp,
-                () => DataAccess.GetRacingMatches(_metaModel));
+                () => DataAccess.GetVirtualSportMatches(_metaModel));
         }
 
         [Test]

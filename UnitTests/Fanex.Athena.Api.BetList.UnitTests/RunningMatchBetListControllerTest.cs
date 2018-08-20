@@ -8,8 +8,6 @@
 
     public class RunningMatchBetListControllerTest : ApiBetListBaseControllerHelperTest
     {
-        private const string UspKeyRacing = "Lrf_BetList_SelAllByDateHR";
-
         private const string UspKey = "Lrf_BetList_SelRunningByBettypeMatch";
 
         private RunningMatchBetListController _controller;

@@ -77,7 +77,6 @@
             }
         }
 
-        [TestCase("USD", null, "USD", 31, "Lrf_BetList_SelAllByDateHR", true)]
         [TestCase("USD", "eur", "EUR", 1, "Lrf_BetList_SelRunningByBettypeMatch", false)]
         public void Index_ExportExcel_PassCorrectParam(string currency, string baseCurrency, string expectedCurrency, int betType, string uspName, bool hasMainTickets)
         {

@@ -46,9 +46,9 @@ namespace Fanex.Athena.Controllers.BetList
 
         protected override ActionResult ExportExcel(BetListMetaModel metaModel, string uspKey)
         {
-            var uspName = IsRacing(metaModel.BetType) ? "Lrf_BetList_SelAllByDateHR" : "Lrf_BetList_SelRunningByBettypeMatch";
+            const string UspName = "Lrf_BetList_SelRunningByBettypeMatch";
 
-            var ticketResult = BetListService.GetBetListData(metaModel, uspName);
+            var ticketResult = BetListService.GetBetListData(metaModel, UspName);
 
             var firstTicket = ticketResult.MainTicketList.FirstOrDefault();
             var leagueName = firstTicket != null ? CacheRefAdapter.GetLeagueName(firstTicket.LeagueId) : string.Empty;

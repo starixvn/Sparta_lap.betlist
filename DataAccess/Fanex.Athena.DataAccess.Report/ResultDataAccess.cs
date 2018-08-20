@@ -194,7 +194,7 @@ namespace Fanex.Athena.DataAccess.Report
         /// <summary>
         /// Get data for VS
         /// </summary>
-        public IList<Racing> GetRacingMatches(ResultMetalModel metalModel)
+        public IList<Racing> GetVirtualSportMatches(ResultMetalModel metalModel)
         {
             const string UspName = "Lrf_Result_RaceSelByMeeting";
             var uspParams = new
@@ -210,7 +210,7 @@ namespace Fanex.Athena.DataAccess.Report
                 {
                     using (var reader = db.ExecuteReader(uspParams))
                     {
-                        return ReadRacingMatches(reader);
+                        return ReadVirtualSportMatches(reader);
                     }
                 }
             }
@@ -245,7 +245,7 @@ namespace Fanex.Athena.DataAccess.Report
                         }
                         else if (type == typeof(Racing))
                         {
-                            return (IList<T>)ReadRacingMatches(reader);
+                            return (IList<T>)ReadVirtualSportMatches(reader);
                         }
                         else
                         {
@@ -272,10 +272,7 @@ namespace Fanex.Athena.DataAccess.Report
         public IList<Parlay> GetPopUpParalayMatch(long refNo)
         {
             const string UspName = "Lrf_BetList_SelMatchResultParlay";
-            var uspParams = new
-            {
-                refno = refNo
-            };
+            var uspParams = new { refno = refNo };
             try
             {
                 using (var db = this.GetObjectDb(UspName))
@@ -605,12 +602,7 @@ namespace Fanex.Athena.DataAccess.Report
             return dataList.OrderBy(x => x.LeagueId).ThenBy(x => x.MatchId).ToList();
         }
 
-        /// <summary>
-        /// Mapping racing data from data table.
-        /// </summary>
-        /// <param name="reader">The data table.</param>
-        /// <returns>The racing data list.</returns>
-        private static IList<Racing> ReadRacingMatches(IDataReader reader)
+        private static IList<Racing> ReadVirtualSportMatches(IDataReader reader)
         {
             var dataList = new List<Racing>();
 

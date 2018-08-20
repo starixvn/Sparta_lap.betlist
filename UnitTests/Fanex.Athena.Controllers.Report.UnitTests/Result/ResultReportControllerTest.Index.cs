@@ -120,7 +120,7 @@
                     IsOutRight = false
                 };
                 var dataList = new List<Racing> { new Racing() };
-                _resultService.GetRacingMatches(metaModel).Returns(dataList);
+                _resultService.GetVirtualSportMatches(metaModel).Returns(dataList);
                 _resultService.HtmlParser(Arg.Any<IList<Racing>>(), Arg.Any<ResultSetting>()).Returns(HtmlResult);
 
                 // Action

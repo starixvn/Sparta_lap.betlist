@@ -102,10 +102,10 @@
             var metaModel = new ResultMetalModel();
 
             // Action
-            _service.GetRacingMatches(metaModel);
+            _service.GetVirtualSportMatches(metaModel);
 
             // Assert
-            _dataAccess.Received().GetRacingMatches(metaModel);
+            _dataAccess.Received().GetVirtualSportMatches(metaModel);
         }
 
         [Test]
@@ -155,7 +155,7 @@
             };
 
             // Action
-            _service.GetPopUpRacingMatch(metaModel);
+            _service.GetPopUpVirtualSportMatch(metaModel);
 
             // Assert
             _dataAccess.Received().GetPopUpMatches<Racing>(metaModel);
