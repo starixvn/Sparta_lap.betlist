@@ -44,8 +44,7 @@ namespace Fanex.Athena.Api.CustomerLog
                 "GroupColor",
                 "SBComm",
                 "NGComm",
-                "RNGComm",
-                "AllbetComm"
+                "RNGComm"
             };
 
         private readonly ICustomerLogDataAccess _customerLogDataAccess;
@@ -204,7 +203,6 @@ namespace Fanex.Athena.Api.CustomerLog
                 { "SBComm", ViewResources.SBComm },
                 { "NGComm", ViewResources.NGComm },
                 { "CSComm", ViewResources.CSComm },
-                { "ABComm", ViewResources.ABComm },
                 { "Yes", ViewResources.Yes },
                 { "No", ViewResources.No },
                 { "OldColor", ViewResources.OldColor }

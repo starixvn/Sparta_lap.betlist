@@ -2492,10 +2492,6 @@
   <data name="NewAsia" xml:space="preserve">
     <value>新亚洲版</value>
   </data>
-  <data name="ABComm" xml:space="preserve">
-    <value>AllBet 佣金</value>
-    <comment>82036</comment>
-  </data>
   <data name="ParlayComm" xml:space="preserve">
     <value>Parlay 佣金</value>
     <comment>82036</comment>

@@ -79,15 +79,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to AllBet Comm.
-        /// </summary>
-        public static string ABComm {
-            get {
-                return ResourceManager.GetString("ABComm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Sorry, You don&apos;t have permission to access this page..
         /// </summary>
         public static string AccessDeniedMsg {

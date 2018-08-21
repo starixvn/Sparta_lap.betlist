@@ -64,8 +64,8 @@
             });
 
             describe("sportId less than or equal 0", function () {
-                it("Result should return with ['SB', 'BA', 'NG', 'LC', 'VS', 'CS', 'BG', 'VS2'] when productCode equal ALL", function () {
-                    var expected = ['SB', 'BA', 'NG', 'LC', 'VS', 'CS', 'BG', 'VS2'];
+                it("Result should return with ['SB', 'BA', 'NG', 'LC', 'VS', 'CS', 'VS2'] when productCode equal ALL", function () {
+                    var expected = ['SB', 'BA', 'NG', 'LC', 'VS', 'CS', 'VS2'];
 
                     var result = Helper.getMatchListProductOption(0, "ALL");
                     expect(result).toEqual(expected);

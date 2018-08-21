@@ -2965,10 +2965,6 @@
     <value>New Asia</value>
     <comment>#85203</comment>
   </data>
-  <data name="ABComm" xml:space="preserve">
-    <value>AllBet Comm</value>
-    <comment>82036</comment>
-  </data>
   <data name="AB" xml:space="preserve">
     <value>AB</value>
     <comment>82036</comment>

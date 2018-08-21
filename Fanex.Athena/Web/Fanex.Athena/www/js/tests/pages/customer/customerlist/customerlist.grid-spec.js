@@ -217,7 +217,7 @@
                     _state.selectedCustomers = new selectedCustomers({ "1": 1 });
 
                     var groupid = 3, groupName = "name", groupColor = "#fff", sbCom = "SB", ngCom = "NG", csCom = "CS";
-                    CustomerListGrid.updateGridGroupAndComm(groupid, groupName, groupColor, sbCom, ngCom, csCom, abCom);
+                    CustomerListGrid.updateGridGroupAndComm(groupid, groupName, groupColor, sbCom, ngCom, csCom);
 
                     expect(CustomerListService.bindData).toHaveBeenCalledWith({
                         Data: [
