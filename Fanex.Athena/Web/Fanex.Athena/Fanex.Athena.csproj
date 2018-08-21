@@ -492,18 +492,12 @@
     <Content Include="App_Data\UserGuide\CustomerWL\en-US.htm" />
     <Content Include="App_Data\UserGuide\DailyBetList\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\DailyBetList\zh-TW.htm" />
-    <Content Include="App_Data\UserGuide\DailyRacingWL\zh-CN.htm" />
-    <Content Include="App_Data\UserGuide\DailyRacingWL\zh-TW.htm" />
     <Content Include="App_Data\UserGuide\LiveReport\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\LiveReport\zh-TW.htm" />
     <Content Include="App_Data\UserGuide\MatchWL\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\MatchWL\zh-TW.htm" />
-    <Content Include="App_Data\UserGuide\RacingCommission\zh-CN.htm" />
-    <Content Include="App_Data\UserGuide\RacingCommission\zh-TW.htm" />
     <Content Include="App_Data\UserGuide\LiveReport\en-US.htm" />
     <Content Include="App_Data\UserGuide\DailyBetList\en-US.htm" />
-    <Content Include="App_Data\UserGuide\DailyRacingWL\en-US.htm" />
-    <Content Include="App_Data\UserGuide\RacingCommission\en-US.htm" />
     <Content Include="App_Data\UserGuide\TotalBets3WayHandicap\en-US.htm" />
     <Content Include="App_Data\UserGuide\TotalBets3WayHandicap\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\TotalBets3WayHandicap\zh-TW.htm" />
@@ -5645,8 +5639,6 @@
     <Content Include="App_Data\Template\CustomerReports\CustomerTurnover.xls" />
     <Content Include="App_Data\Template\CustomerReports\CustomerWinLoss.xls" />
     <Content Include="App_Data\Template\Customers\CustomerList.xls" />
-    <Content Include="App_Data\Template\DataWareHouse\TopCustomer.xls" />
-    <Content Include="App_Data\Template\DataWareHouse\WinLoss.xls" />
     <Content Include="App_Data\Template\Reports\Balance.xls" />
     <Content Include="App_Data\Template\Reports\WinLossByLeagues.xls" />
     <Content Include="App_Data\Template\Reports\DailyRacingWinLoss.xls" />
@@ -5666,7 +5658,7 @@
     <Content Include="Views\Desktop\Customer\CustomerDialog\LogInfo.cshtml" />
     <Content Include="Views\Shared\_NoteLayout.cshtml" />
     <Content Include="Views\Note\WinLossByProduct.cshtml" />
-    <Content Include="Views\Note\Warehouse.cshtml" />
+
     <Content Include="Views\Shared\_Report.jqGridLayout.cshtml" />
     <Content Include="Views\Shared\_BetListLayout.cshtml" />
     <Content Include="Views\BetList\SystemParlayDetail\Main.cshtml" />

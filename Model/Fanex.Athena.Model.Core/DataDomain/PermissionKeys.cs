@@ -7,7 +7,6 @@
         public const string GroupReport = "REPORTS3";
         public const string GroupCustomerReport = "CUSTOMERREPORTS52";
         public const string GroupCustomerInformation = "CUSTOMERINFORMATION4";
-        public const string GroupDataWarehouse = "DATAWAREHOUSE5";
         public const string GroupAccountManagement = "ACCOUNTMANAGEMENT6";
 
         /* Total Bet */
@@ -65,11 +64,6 @@
         public const string ReportSubsidiaryPerformance = "SubsidiaryPerformance73";
         public const string ReportLicenseeWinLossByTimeZone = "LicenseeWinLossByTimeZone76";
         public const string ReportExchangeWinLoss = "ExchangeWinloss77";
-
-        /* Warehouse. */
-
-        public const string WarehouseWinLoss = "WinLoss44";
-        public const string WarehouseTopCustomer = "TopCustomer45";
 
         /* Customer Info. */
 

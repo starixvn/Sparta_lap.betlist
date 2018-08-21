@@ -34,11 +34,6 @@ namespace Fanex.Athena.Model.Core.DataDomain
         CustomerInformation = 4,
 
         /// <summary>
-        /// DataWarehouse function, value = 5.
-        /// </summary>
-        DataWarehouse = 5,
-
-        /// <summary>
         /// AccountManagement function, value = 6.
         /// </summary>
         AccountManagement = 6,

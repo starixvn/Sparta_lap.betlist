@@ -76,40 +76,5 @@
             // Assert
             Assert.That(result.ContainsKey(SportType), Is.True);
         }
-
-        [TestCase((int)SportType.UnknowThaiSport)]
-        [TestCase((int)SportType.Cricket)]
-        public void GetAllSports_HiddenSport_NotAddToResult(int sporttype)
-        {
-            // Arrange
-            MapReaderData(new { Sporttype = sporttype });
-            Reader.Read().Returns(true, false);
-
-            // Action
-            var result = DataAccess.GetAllSports();
-
-            // Assert
-            Assert.That(result, Is.Empty);
-        }
-
-        [Test]
-        public void GetAllWHSports_WhenCall_ReturnCorrectData()
-        {
-            // Arrange
-            const int SportType = 100;
-
-            MapReaderData(new { Sporttype = SportType });
-            Reader.Read().Returns(true, false);
-
-            // Action
-            var result = DataAccess.GetAllWHSports();
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(result.First().SportId, Is.EqualTo(0));
-                Assert.That(result.ElementAt(1).SportId, Is.EqualTo(SportType));
-            });
-        }
     }
 }

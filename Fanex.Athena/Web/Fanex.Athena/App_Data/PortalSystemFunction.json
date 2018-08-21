@@ -60,10 +60,6 @@
     "FunctionKey": "3-WayHandicap21"
   },
   {
-    "FunctionId": 22,
-    "FunctionKey": "Racing22"
-  },
-  {
     "FunctionId": 23,
     "FunctionKey": "NumberGame23"
   },
@@ -108,14 +104,6 @@
     "FunctionKey": "WinLossByBetType33"
   },
   {
-    "FunctionId": 34,
-    "FunctionKey": "RacingCommission34"
-  },
-  {
-    "FunctionId": 35,
-    "FunctionKey": "DailyRacingWinLoss35"
-  },
-  {
     "FunctionId": 36,
     "FunctionKey": "CancelledBets36"
   },
@@ -146,14 +134,6 @@
   {
     "FunctionId": 43,
     "FunctionKey": "CustomerList43"
-  },
-  {
-    "FunctionId": 44,
-    "FunctionKey": "WinLoss44"
-  },
-  {
-    "FunctionId": 45,
-    "FunctionKey": "TopCustomer45"
   },
   {
     "FunctionId": 46,

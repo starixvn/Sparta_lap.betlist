@@ -16,7 +16,6 @@ namespace Fanex.Athena.DataAccess.Core.Common
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Common.Extensions;
-    using Resources;
     using Session.Interfaces;
     using VendorAdapter;
     using VendorAdapter.Interfaces;
@@ -103,39 +102,6 @@ namespace Fanex.Athena.DataAccess.Core.Common
             }
 
             return result;
-        }
-
-        public IList<Sport> GetAllWHSports()
-        {
-            const string UspName = "Lrf_SportSel";
-
-            using (var db = this.GetObjectDb(UspName))
-            {
-                var result = new List<Sport>();
-                using (var reader = db.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        var sportId = reader.ToInt("Sporttype");
-                        var sportName = _cacheRefAdapter.GetSportName(sportId);
-
-                        result.Add(new Sport
-                        {
-                            SportId = sportId,
-                            SportName = sportName
-                        });
-                    }
-                }
-
-                result.Insert(
-                    0,
-                    new Sport
-                    {
-                        SportId = 0,
-                        SportName = ViewResources.All
-                    });
-                return result;
-            }
         }
     }
 }
