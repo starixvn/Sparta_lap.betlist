@@ -52,7 +52,6 @@
             <th>@Model.Resource["SBComm"]</th>
             <th>@Model.Resource["NGComm"]</th>
             <th>@Model.Resource["CSComm"]</th>
-            <th>@Model.Resource["ABComm"]</th>
         </tr>
     </thead>
     <tbody>
@@ -87,10 +86,6 @@
             <td title="@csCommTitle">
                 <p>@csComm.ToString(FormatComm)</p>
                 <p class="@GetClassName(isChangeCsComm) red-text">@csCommOld.ToString(FormatComm)</p>
-            </td>
-            <td title="@abCommTitle">
-                <p>@abComm.ToString(FormatComm)</p>
-                <p class="@GetClassName(isChangeAbComm) red-text">@abCommOld.ToString(FormatComm)</p>
             </td>
         </tr>
     </tbody>

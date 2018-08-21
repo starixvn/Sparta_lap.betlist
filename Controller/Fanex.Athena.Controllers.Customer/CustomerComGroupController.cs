@@ -71,7 +71,6 @@
 
             ViewBag.IsAllowNG = productAccess.IsAllowNG;
             ViewBag.IsAllowCS = productAccess.IsAllowCS;
-            ViewBag.IsAllowAB = productAccess.IsAllowAB;
 
             return View("~/Views/Customer/CustomerComm/GroupCommList.cshtml", model);
         }
@@ -294,8 +293,7 @@
                                 metaModel.SBComm,
                                 metaModel.ParlayComm,
                                 metaModel.NGComm,
-                                metaModel.CSComm,
-                                metaModel.ABComm);
+                                metaModel.CSComm);
         }
 
         private static string GetUpdateGroupErrorMessage(int errorCode)
@@ -347,7 +345,6 @@
             var decParlayComm = model.ParlayComm;
             var decNgComm = model.NGComm;
             var decCsComm = model.CSComm;
-            var decAbComm = model.ABComm;
 
             model.SBComm1 = SetComm(decSbComm, 1);
             model.SBComm2 = SetComm(decSbComm, 2);
@@ -364,10 +361,6 @@
             model.CSComm1 = SetComm(decCsComm, 1);
             model.CSComm2 = SetComm(decCsComm, 2);
             model.CSComm3 = SetComm(decCsComm, 3);
-
-            model.ABComm1 = SetComm(decAbComm, 1);
-            model.ABComm2 = SetComm(decAbComm, 2);
-            model.ABComm3 = SetComm(decAbComm, 3);
         }
 
         private static void UpdateMetaModelAfterProcessSuccessfully(GroupCommMetaModel metaModel)
@@ -385,7 +378,6 @@
                 groupComm.ParlayComm,
                 groupComm.NGComm,
                 groupComm.CSComm,
-                groupComm.ABComm
             };
         }
 
@@ -419,7 +411,6 @@
             metaModel.LicenseeId = licenseeId;
             metaModel.IsUpdateNG = productAccess.IsAllowNG;
             metaModel.IsUpdateCS = productAccess.IsAllowCS;
-            metaModel.IsUpdateAB = productAccess.IsAllowAB;
             metaModel.DefaultGroupId = defaultGroupId;
             metaModel.OriginalGroupName = metaModel.GroupName;
         }

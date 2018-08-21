@@ -72,15 +72,6 @@ namespace Fanex.Athena.Model.Customer.MetaModel
         public int CSComm3 { get; set; }
 
         [Required]
-        public decimal ABComm { get; set; }
-
-        public int ABComm1 { get; set; }
-
-        public int ABComm2 { get; set; }
-
-        public int ABComm3 { get; set; }
-
-        [Required]
         public string GroupColor { get; set; }
 
         public bool IsDefaultGroup { get; set; }
@@ -92,7 +83,5 @@ namespace Fanex.Athena.Model.Customer.MetaModel
         public bool IsUpdateNG { get; set; }
 
         public bool IsUpdateCS { get; set; }
-
-        public bool IsUpdateAB { get; set; }
     }
 }

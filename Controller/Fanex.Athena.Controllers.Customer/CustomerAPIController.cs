@@ -473,7 +473,6 @@ namespace Fanex.Athena.Controllers.Customer
                 SBComm = NumberHelper.DecFormat(newGroup.SBComm * 100, 2),
                 NGComm = NumberHelper.DecFormat(newGroup.NGComm * 100, 2),
                 RNGComm = NumberHelper.DecFormat(newGroup.CSComm * 100, 2),
-                ABComm = NumberHelper.DecFormat(newGroup.ABComm * 100, 2),
                 newGroup.GroupName,
                 newGroup.GroupColor,
             };
@@ -494,7 +493,7 @@ namespace Fanex.Athena.Controllers.Customer
             var oldGroup = this._groupComService.GetById(metaModel.GroupId);
 #pragma warning disable S1067 // Expressions should not be too complex
             return oldGroup.NGComm == metaModel.NGComm && oldGroup.SBComm == metaModel.SBComm &&
-                               oldGroup.CSComm == metaModel.CSComm && oldGroup.ABComm == metaModel.ABComm;
+                               oldGroup.CSComm == metaModel.CSComm;
 #pragma warning restore S1067 // Expressions should not be too complex
         }
 

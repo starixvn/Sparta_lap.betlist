@@ -50,7 +50,6 @@
                     Assert.That(model.LicenseeId, Is.EqualTo(licenseeId));
                     Assert.That(model.IsUpdateNG, Is.True);
                     Assert.That(model.IsUpdateCS, Is.True);
-                    Assert.That(model.IsUpdateAB, Is.True);
                     Assert.That(model.DefaultGroupId, Is.EqualTo(DefaultGroupId));
                     Assert.That(model.OriginalGroupName, Is.Null);
                 });

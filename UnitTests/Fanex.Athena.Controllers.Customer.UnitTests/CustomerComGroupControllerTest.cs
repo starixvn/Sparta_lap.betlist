@@ -49,8 +49,7 @@
                 var productList = isEmptyProductList ? new List<Product>() : new List<Product>
                 {
                     new Product { ProductCode = Product.NG },
-                    new Product { ProductCode = Product.CS },
-                    new Product { ProductCode = Product.AB },
+                    new Product { ProductCode = Product.CS }
                 };
                 _productService.GetProductAccess(
                     SessionService.LicenseeSession.LicenseeId,
@@ -64,7 +63,6 @@
                 {
                     Assert.That(controller.ViewBag.IsAllowNG, Is.EqualTo(expectedResult));
                     Assert.That(controller.ViewBag.IsAllowCS, Is.EqualTo(expectedResult));
-                    Assert.That(controller.ViewBag.IsAllowAB, Is.EqualTo(expectedResult));
                 });
             }
         }
@@ -161,8 +159,7 @@
                 {
                     new Product { ProductCode = Product.SB },
                     new Product { ProductCode = Product.NG },
-                    new Product { ProductCode = Product.CS },
-                    new Product { ProductCode = Product.AB },
+                    new Product { ProductCode = Product.CS }
                 };
                 _productService.GetProductAccess(licenseeId, SessionService.UserSession.Language)
                     .Returns(new ProductAccess(productList));
@@ -179,7 +176,7 @@
                 controller.Received(1).CreateExcel(
                     Arg.Any<string>(),
                     dataTable,
-                    Arg.Is<ShowingOption>(x => x.SBVisible && x.NGVisible && x.CSVisible && x.ABVisible));
+                    Arg.Is<ShowingOption>(x => x.SBVisible && x.NGVisible && x.CSVisible));
             }
         }
 

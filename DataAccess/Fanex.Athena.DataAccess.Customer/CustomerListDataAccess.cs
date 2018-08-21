@@ -223,8 +223,7 @@
                         OddsGroup = reader.ToString("OddsGroup"),
                         SBComm = reader.ToDecimal("SBComm") * 100,
                         NGComm = reader.ToDecimal("NGComm") * 100,
-                        CSComm = reader.ToDecimal("RNGComm") * 100,
-                        ABComm = reader.ToDecimal("AllbetComm") * 100
+                        CSComm = reader.ToDecimal("RNGComm") * 100
                     };
 
                     customer.Status = customer.IsClosed ? ViewResources.Closed : customer.IsSuspended ? ViewResources.Suspended : ViewResources.Open;

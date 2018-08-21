@@ -45,8 +45,6 @@ namespace Fanex.Athena.Model.Customer.DTO
 
         public decimal CSComm { get; set; }
 
-        public decimal ABComm { get; set; }
-
         public bool IsPowerBAUserTurnoff { get; set; }
 
         public string OddsGroup { get; set; }

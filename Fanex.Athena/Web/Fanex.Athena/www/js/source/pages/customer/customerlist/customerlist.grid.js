@@ -145,7 +145,6 @@ define([
                         item.SBComm = sbCom;
                         item.NGComm = ngCom;
                         item.CSComm = csCom;
-                        item.ABComm = abCom;
                         count++;
                     }
                 });

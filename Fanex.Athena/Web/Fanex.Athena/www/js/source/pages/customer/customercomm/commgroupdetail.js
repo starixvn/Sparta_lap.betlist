@@ -37,10 +37,6 @@
              $("#CSComm1").on("change", function () {
                  commissionOnChange($(this).val(), "CSComm");
              }).change();
-
-             $("#ABComm1").on("change", function () {
-                 commissionOnChange($(this).val(), "ABComm");
-             }).change();
          }
 
          function checkAvailableGroup(groupName) {
@@ -126,7 +122,6 @@
              initCommParam("#ParlayComm");
              initCommParam("#NGComm");
              initCommParam("#CSComm");
-             initCommParam("#ABComm");
 
              initDefaultParam(formId);
          }

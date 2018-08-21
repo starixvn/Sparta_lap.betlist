@@ -178,33 +178,6 @@
                         expect(actualOptions).toEqual(false);
                     });
 
-                    it("set ABComm2 and ABComm3 to Zero and disable ABComm2 and ABComm3 selection when ABComm1 value is changed to 15", function () {
-                        setFixtures('<select id="ABComm1"><option value="15" selected="selected"></option></select>');
-                        appendSetFixtures('<select id="ABComm2"><option value="0"></option><option value="1" selected="selected"></option><option value="15"></option></select>');
-                        appendSetFixtures('<select id="ABComm3"><option value="0"></option><option value="1" selected="selected"></option><option value="15"></option></select>');
-
-                        CustomerCommGroupDetail.initEvent();
-                        $("#ABComm1").change();
-
-                        expect($("#ABComm2").val()).toEqual('0');
-                        expect($("#ABComm3").val()).toEqual('0');
-                        expect(actualMethod).toEqual("update");
-                        expect(actualOptions.isDisabled).toEqual(true);
-                    });
-
-                    it("enable ABComm2 and ABComm3 selection when ABComm1 value is not changed to 15", function () {
-                        setFixtures('<select id="ABComm1"><option value="1" selected="selected"></option></select>');
-                        appendSetFixtures('<select id="ABComm2"><option value="0"></option><option value="1" selected="selected"></option><option value="15"></option></select>');
-                        appendSetFixtures('<select id="ABComm3"><option value="0"></option><option value="1" selected="selected"></option><option value="15"></option></select>');
-
-                        CustomerCommGroupDetail.initEvent();
-                        $("#ABComm1").change();
-
-                        expect($("#ABComm2").val()).toEqual('1');
-                        expect($("#ABComm3").val()).toEqual('1');
-                        expect(actualMethod).toEqual("disabled");
-                        expect(actualOptions).toEqual(false);
-                    });
                 });
             });
 

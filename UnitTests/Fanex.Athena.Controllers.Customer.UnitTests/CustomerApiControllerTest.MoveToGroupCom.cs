@@ -89,7 +89,6 @@
                     SBComm = SampleComm,
                     NGComm = SampleComm,
                     CSComm = SampleComm,
-                    ABComm = SampleComm,
                     GroupName = GroupName,
                     GroupColor = GroupColor
                 });
@@ -105,7 +104,6 @@
                     Assert.That(extendedData.GetValue("SBComm"), Is.EqualTo(ExpectedComm));
                     Assert.That(extendedData.GetValue("NGComm"), Is.EqualTo(ExpectedComm));
                     Assert.That(extendedData.GetValue("RNGComm"), Is.EqualTo(ExpectedComm));
-                    Assert.That(extendedData.GetValue("ABComm"), Is.EqualTo(ExpectedComm));
                     Assert.That(extendedData.GetValue("GroupName"), Is.EqualTo(GroupName));
                     Assert.That(extendedData.GetValue("GroupColor"), Is.EqualTo(GroupColor));
                 });

@@ -73,7 +73,6 @@ namespace Fanex.Athena.DataAccess.Customer
                 db.AddInParameter("ParlayComm", DbType.Decimal, item.ParlayComm);
                 db.AddInParameter("NGComm", DbType.Decimal, item.NGComm);
                 db.AddInParameter("RNGComm", DbType.Decimal, item.CSComm);
-                db.AddInParameter("AllbetComm", DbType.Decimal, item.ABComm);
                 db.AddInParameter("GroupColor", DbType.String, item.GroupColor);
                 db.AddInParameter("UserID", DbType.Int32, userId);
                 db.AddInParameter("IP", DbType.String, request.Ip);
@@ -104,10 +103,8 @@ namespace Fanex.Athena.DataAccess.Customer
                 db.AddInParameter("ParlayComm", DbType.Decimal, newItem.ParlayComm);
                 db.AddInParameter("NGComm", DbType.Decimal, newItem.NGComm);
                 db.AddInParameter("RNGComm", DbType.Decimal, newItem.CSComm);
-                db.AddInParameter("AllbetComm", DbType.Decimal, newItem.ABComm);
                 db.AddInParameter("IsUpdateNG", DbType.Boolean, newItem.IsUpdateNG);
                 db.AddInParameter("IsUpdateRNG", DbType.Boolean, newItem.IsUpdateCS);
-                db.AddInParameter("IsUpdateAllbet", DbType.Boolean, newItem.IsUpdateAB);
                 db.AddInParameter("GroupColor", DbType.String, newItem.GroupColor);
                 db.AddInParameter("UserId", DbType.Int32, userId);
                 db.AddInParameter("Ip", DbType.String, request.Ip);
