@@ -1951,15 +1951,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Data Warehouse.
-        /// </summary>
-        public static string DataWareHouse {
-            get {
-                return ResourceManager.GetString("DataWareHouse", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Date.
         /// </summary>
         public static string Date {
@@ -3774,15 +3765,6 @@ namespace Fanex.Athena.Resources {
         public static string Last {
             get {
                 return ResourceManager.GetString("Last", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Last Activity Date.
-        /// </summary>
-        public static string LastActivityDate {
-            get {
-                return ResourceManager.GetString("LastActivityDate", resourceCulture);
             }
         }
         

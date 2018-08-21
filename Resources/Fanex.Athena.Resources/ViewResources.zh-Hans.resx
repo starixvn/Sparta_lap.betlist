@@ -507,9 +507,6 @@
   <data name="DailyStatement" xml:space="preserve">
     <value>每日账目</value>
   </data>
-  <data name="DataWareHouse" xml:space="preserve">
-    <value>数据仓库技术</value>
-  </data>
   <data name="Date" xml:space="preserve">
     <value>日期</value>
   </data>
@@ -883,9 +880,6 @@
   </data>
   <data name="Last" xml:space="preserve">
     <value>最后</value>
-  </data>
-  <data name="LastActivityDate" xml:space="preserve">
-    <value>最后活跃日期</value>
   </data>
   <data name="LastBetsMonitoring" xml:space="preserve">
     <value>最后投注监测</value>

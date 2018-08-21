@@ -522,9 +522,6 @@
   <data name="DailyStatementMsg" xml:space="preserve">
     <value>데이터는 4개월까지만 지원됩니다 </value>
   </data>
-  <data name="DataWareHouse" xml:space="preserve">
-    <value>데이터 창고</value>
-  </data>
   <data name="Date" xml:space="preserve">
     <value>날짜</value>
   </data>
@@ -1118,9 +1115,6 @@
   </data>
   <data name="Last" xml:space="preserve">
     <value>마지막</value>
-  </data>
-  <data name="LastActivityDate" xml:space="preserve">
-    <value>마지막 수행일</value>
   </data>
   <data name="LastBetsMonitoring" xml:space="preserve">
     <value>마지막 배팅 모니터링</value>
