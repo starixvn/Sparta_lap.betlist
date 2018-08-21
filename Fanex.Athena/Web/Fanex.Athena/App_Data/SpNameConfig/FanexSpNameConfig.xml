@@ -46,4 +46,6 @@
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_LicenseeCustCommUpd" EnvironmentText="_UAT4"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_LicenseeGroupCommDel" EnvironmentText="_UAT4"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_LicenseeGroupCommUpd" EnvironmentText="_UAT4"></SpNameConfig>
+
+  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_Outstanding" EnvironmentText="_UAT4"></SpNameConfig>
 </Root>
