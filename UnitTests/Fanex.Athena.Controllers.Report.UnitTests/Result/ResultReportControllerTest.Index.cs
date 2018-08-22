@@ -109,7 +109,7 @@
         [TestCase((int)SportType.VirtualMotorRacing)]
         [TestCase((int)SportType.VirtualCycling)]
         [TestCase((int)SportType.VirtualSpeedway)]
-        public void IndexPost_Racing_ResultContentIsCorrect(int sportId)
+        public void IndexPost_VirtualSport_ResultContentIsCorrect(int sportId)
         {
             using (var controller = CreateController())
             {
