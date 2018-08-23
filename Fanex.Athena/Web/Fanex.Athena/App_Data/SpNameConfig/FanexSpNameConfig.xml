@@ -7,45 +7,4 @@
   <SpNameConfig Environment="BACKUPMNL" SpName="Lrf_ReCheckIn" EnvironmentText="_mnl"></SpNameConfig>
   <SpNameConfig Environment="BACKUPMNL" SpName="Lrf_CheckIn" EnvironmentText="_mnl"></SpNameConfig>
   <!--Do not delete this-->
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_CustomerTurnOver" EnvironmentText="_UAT4"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_LicWinlossDetail" EnvironmentText="_UAT4"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="LRF_Rpt_ThirdPartyWinloss_Mem" EnvironmentText="_UAT4"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_WinLoss" EnvironmentText="_UAT4"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_WinlossByProduct" EnvironmentText="_UAT4"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_WinlossByProductDetail" EnvironmentText="_UAT4"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_CasinoProgressiveWins" EnvironmentText="_UAT4"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_CustomerTurnOver_SumTotal" EnvironmentText="_UAT4"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_CustomerTurnOver_MonthlyPagination" EnvironmentText="_UAT4"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_CustomerTurnOver_Pagination" EnvironmentText="_UAT4"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_PlatformWinlossDetail" EnvironmentText="_UAT4"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_ColossusBetsWinloss" EnvironmentText="_UAT4"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_ColossusBetsWinloss_detail" EnvironmentText="_UAT4"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_CashoutWinloss_Detail" EnvironmentText="_UAT4"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_LicenseeCustRngCommSel" EnvironmentText="_UAT4"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="DBA_Lrf_ChangeLicenseeName" EnvironmentText="_UAT4"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Task_LicenseeCustInfo_DataCheck" EnvironmentText="_UAT4"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="DBA_LicenseeCustInfo_InsertMissingData" EnvironmentText="_UAT4"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Task_DetectBAMemberBreakRules" EnvironmentText="_UAT4"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="DBA_LicenseeCustomerDel" EnvironmentText="_UAT4"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="DBA_Lrf_EnablePlayerComm" EnvironmentText="_UAT4"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_CustomerSel" EnvironmentText="_UAT4"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_CustomerUpdMemberComm" EnvironmentText="_UAT4"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_CustomerUpdMemberComm_Direct" EnvironmentText="_UAT4"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_CustomerSelUserSearch" EnvironmentText="_UAT4"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_CustomerUpdSpecialLevel" EnvironmentText="_UAT4"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Acc_Dep_CustomerInsMember_MAg" EnvironmentText="_UAT4"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Dot_Dep_CustomerInsMember_Ag_Cust" EnvironmentText="_UAT4"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Acc_CustomerInsDummyTrade" EnvironmentText="_UAT4"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Acc_CustomerInsDummyTradeCashOut" EnvironmentText="_UAT4"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Acc_BA_LicConfigUpd" EnvironmentText="_UAT4"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Acc_BA_SpecialCustSel" EnvironmentText="_UAT4"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Acc_BA_SpecialCustSearch" EnvironmentText="_UAT4"></SpNameConfig>
-
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_CustomerMoveGroupComm" EnvironmentText="_UAT4"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_CustomerRemoveGroupComm" EnvironmentText="_UAT4"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_LicenseeCustCommUpd" EnvironmentText="_UAT4"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_LicenseeGroupCommDel" EnvironmentText="_UAT4"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_LicenseeGroupCommUpd" EnvironmentText="_UAT4"></SpNameConfig>
-
-  <SpNameConfig Environment="DEV,LOCAL,UAT" SpName="Lrf_Rpt_Outstanding" EnvironmentText="_UAT4"></SpNameConfig>
 </Root>
