@@ -6,6 +6,7 @@ import FormFilter from './FormFilter'
 import DataGrid from './datagrid'
 import Loader from '../../../components/Loader'
 import AppLayout from '../../../layouts/AppLayout'
+import ReportTitle from '../../../components/ReportTitle'
 
 export class AppContainer extends Component {
   constructor(props) {
@@ -16,8 +17,11 @@ export class AppContainer extends Component {
     return (
       <AppLayout>
         <Loader isLoading={this.props.isLoading} />
-        <FormFilter /> 
-        <DataGrid />
+        <FormFilter />
+        <div className='result-content'>
+            { this.props.reportTitle && <ReportTitle content={this.props.reportTitle} /> }
+            <DataGrid />
+        </div>
       </AppLayout>
     );
   }

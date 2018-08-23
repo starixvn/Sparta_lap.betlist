@@ -23,7 +23,7 @@
         new { value = ReportByType.Monthly.ToString(), label = ViewResources.Monthly }
     };
 
-    var limitedMonthRange = Model.ReportSetting.LimitRecentMonths > 0 ? Model.ReportSetting.LimitRecentMonths : 3;
+    var limitedMonthRange = Model.ReportSetting.LimitRecentMonths > 0 ? Model.ReportSetting.LimitRecentMonths : 1;
 }
 
 @section pagecss {
@@ -45,8 +45,7 @@
         reportByList: @Html.Raw(reportByList.ToJson()),
         selectedReportBy: '@(Model.Param.ReportBy)',
         xsrfToken: document.querySelector("input[name=__RequestVerificationToken]").value,
-        isLoading: false,
-        setting: { isAllowedCustomerComm: @Model.IsAllowedCustomerCommission.ToJson(), licenseeId: @Model.Param.LicenseeId, isDisableBetList: @Model.ReportSetting.IsDisableBetList.ToJson() }
+        isLoading: false
     }
 }
 <div id="app-container">

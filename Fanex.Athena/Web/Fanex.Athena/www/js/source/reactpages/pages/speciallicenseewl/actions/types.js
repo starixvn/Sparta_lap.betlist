@@ -11,5 +11,3 @@ export const GET_XSRF_TOKEN = 'GET_XSRF_TOKEN'
 export const SET_PARAMS = 'SET_PARAMS'
 
 export const SET_REPORT_TITLE = 'SET_REPORT_TITLE'
-
-export const GET_LICENSEEID = 'GET_SETTING'

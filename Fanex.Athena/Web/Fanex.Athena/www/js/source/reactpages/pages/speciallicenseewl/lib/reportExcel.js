@@ -3,7 +3,7 @@ import Excel from '../../../lib/excel'
 import LangHelper from '../../../lib/langHelper'
 import { titleCellStyle, headerCellStyle, bodyCellStyle, totalCellStyle, grandTotalCellStyle } from '../../../constants/excelStyle'
 import { HeaderText, TotalText } from '../lib/service'
-import { ReportLevel, ReportBy } from '../../../constants/report'
+import { ReportBy } from '../../../constants/report'
 
 const TITLE_ROW_INDEX = 0;
 const HEADER_ROW_INDEX = 1;
@@ -14,20 +14,18 @@ const SUMMARYTOTAL_SECTION = 'summary';
 const HEADER_SECTION = 'header';
 
 export default class ReportExcel {
-    constructor (gridData = {}, title, level, isAllowedCustomerComm, reportBy, productCodes) {      
+    constructor (gridData = {}, title, reportBy, productCodes) {      
         this.worksheet = {};
         this.title = title;
         this.fileName = "LicenseeWinLoss";
-        this.level = level;
-        this.isAllowedCustomerComm = isAllowedCustomerComm;
         this.gridData = gridData;
         this.reportBy = reportBy;
         this.productCodes = productCodes;
         this.productCount = productCodes.length;
         this.currentRowIndex = HEADER_ROW_INDEX + (this.productCount > 1 ? 2 : 1);
-        this.totalColumn = MIN_COLUMN + (isAllowedCustomerComm ? 2 : 0) + this.productCount*2;
-        this.configColumn = this._getConfigColumn(level, reportBy, isAllowedCustomerComm);
-        this.colSpanConfig = this._getColSpanConfig(level);
+        this.totalColumn = MIN_COLUMN + this.productCount*2;
+        this.configColumn = this._getConfigColumn(reportBy);
+        this.colSpanConfig = this._getColSpanConfig();
         this.mergeConfig = [];
     }
 
@@ -62,8 +60,8 @@ export default class ReportExcel {
         };
     }
 
-    _getConfigColumn(level, reportBy, isAllowedCustomerComm) {
-        const rowSpan = this.isAllowedCustomerComm || this.productCount > 1 ? 2 : 1;
+    _getConfigColumn(reportBy) {
+        const rowSpan = this.productCount > 1 ? 2 : 1;
 
         let rows = [
         {
@@ -76,15 +74,8 @@ export default class ReportExcel {
         }, {
             field: 'Date',
             type: 's',
-            [HEADER_SECTION]: { title: 'date', isShow: level === ReportLevel.MAIN, rowSpan: rowSpan },
-            [MAIN_SECTION]: { isShow : level === ReportLevel.MAIN, style: bodyCellStyle.center, width: 150 },
-            [TOTAL_SECTION]: { isShow : false },
-            [SUMMARYTOTAL_SECTION]: { isShow : false }
-        }, {
-            field: 'ExternalId',
-            type: 's',
-            [HEADER_SECTION]: { title: 'externalId', isShow: level === ReportLevel.CUSTOMER, rowSpan: rowSpan },
-            [MAIN_SECTION]: { isShow : level === ReportLevel.CUSTOMER, style: bodyCellStyle.left, width: 120 },
+            [HEADER_SECTION]: { title: 'date', isShow: true, rowSpan: rowSpan },
+            [MAIN_SECTION]: { isShow : true, style: bodyCellStyle.center, width: 150 },
             [TOTAL_SECTION]: { isShow : false },
             [SUMMARYTOTAL_SECTION]: { isShow : false }
         }, {
@@ -96,7 +87,7 @@ export default class ReportExcel {
             [SUMMARYTOTAL_SECTION]: { isShow : false }
         }];
        
-        this._createExpandColumns('Turnover', 'turnover', rows, 3, false);
+        this._createExpandColumns('TurnOver', 'turnover', rows, 3, false);
 
         rows.push({
             field: 'TotalTransaction',
@@ -106,31 +97,12 @@ export default class ReportExcel {
             [TOTAL_SECTION]: { isShow : true, style: totalCellStyle.number },
             [SUMMARYTOTAL_SECTION]: { isShow : true, style: grandTotalCellStyle.number }
         }, {
-            [HEADER_SECTION]: { title: isAllowedCustomerComm ? 'customer' : 'customerWL', isShow: true, rowSpan: isAllowedCustomerComm ? 1 : rowSpan, colSpan: isAllowedCustomerComm ? 3 : 1 },
-            [MAIN_SECTION]: { isShow : false },
-            [TOTAL_SECTION]: { isShow : false },
-            [SUMMARYTOTAL_SECTION]: { isShow : false }
-        }, {
             field: 'CustomerWL',
             type: 'n',
-            [HEADER_SECTION]: { title: 'customerWL', isShow: isAllowedCustomerComm, index_c: 5 + this.productCount, index_r: HEADER_ROW_INDEX + 1 },
+            [HEADER_SECTION]: { title: 'customerWL', isShow: true, rowSpan: rowSpan, index_r: HEADER_ROW_INDEX },
             [MAIN_SECTION]: { isShow : true, style: bodyCellStyle.decimal, width: 200 },
             [TOTAL_SECTION]: { isShow : true, style: totalCellStyle.decimal },
             [SUMMARYTOTAL_SECTION]: { isShow : true, style: grandTotalCellStyle.decimal }
-        }, {
-            field: 'CustomerComm',
-            type: 'n',
-            [HEADER_SECTION]: { title: 'customerComm', isShow: isAllowedCustomerComm },
-            [MAIN_SECTION]: { isShow : isAllowedCustomerComm, style: bodyCellStyle.decimal, width: 120 },
-            [TOTAL_SECTION]: { isShow : isAllowedCustomerComm, style: totalCellStyle.decimal },
-            [SUMMARYTOTAL_SECTION]: { isShow : isAllowedCustomerComm, style: grandTotalCellStyle.decimal }
-        }, {
-            field: 'CustomerWLTotal',
-            type: 'n',
-            [HEADER_SECTION]: { title: 'total', isShow: isAllowedCustomerComm },
-            [MAIN_SECTION]: { isShow : isAllowedCustomerComm, style: bodyCellStyle.decimal, width: 200 },
-            [TOTAL_SECTION]: { isShow : isAllowedCustomerComm, style: totalCellStyle.decimal },
-            [SUMMARYTOTAL_SECTION]: { isShow : isAllowedCustomerComm, style: grandTotalCellStyle.decimal }
         });
             
         this._createExpandColumns('LicenseeWL', 'licenseeWL', rows, this.totalColumn - (this.productCount > 1 ? this.productCount + 1 : 1), true );
@@ -155,9 +127,9 @@ export default class ReportExcel {
                     field: name + code,
                     type: 'n',
                     [HEADER_SECTION]: { title: code, isShow: true, index_c: colIndex + i, index_r: HEADER_ROW_INDEX + 1 },
-                    [MAIN_SECTION]: { hasNegativeStyle: hasNegativeStyle, style: { positive: bodyCellStyle.decimal, negative: bodyCellStyle.negativeDecimal }, isShow : true, width: 200 },
-                    [TOTAL_SECTION]: { hasNegativeStyle: hasNegativeStyle, style: { positive: totalCellStyle.decimal, negative: totalCellStyle.negativeDecimal }, isShow : true },
-                    [SUMMARYTOTAL_SECTION]: { hasNegativeStyle: hasNegativeStyle, style: { positive: grandTotalCellStyle.decimal, negative: grandTotalCellStyle.negativeDecimal }, isShow : true }
+                    [MAIN_SECTION]: { hasNegativeStyle: hasNegativeStyle, style: hasNegativeStyle ? { positive: bodyCellStyle.decimal, negative: bodyCellStyle.negativeDecimal } : bodyCellStyle.decimal , isShow : true, width: 200 },
+                    [TOTAL_SECTION]: { hasNegativeStyle: hasNegativeStyle, style: hasNegativeStyle ? { positive: totalCellStyle.decimal, negative: totalCellStyle.negativeDecimal } : totalCellStyle.decimal, isShow : true },
+                    [SUMMARYTOTAL_SECTION]: { hasNegativeStyle: hasNegativeStyle, style: hasNegativeStyle ? { positive: grandTotalCellStyle.decimal, negative: grandTotalCellStyle.negativeDecimal } : grandTotalCellStyle.decimal, isShow : true }
                 });
             }
             rows.push(
@@ -165,9 +137,9 @@ export default class ReportExcel {
                 field: 'Total' + name,
                 type: 'n',
                 [HEADER_SECTION]: { title: 'total', isShow: true },
-                [MAIN_SECTION]: { hasNegativeStyle: hasNegativeStyle, style: { positive: bodyCellStyle.decimal, negative: bodyCellStyle.negativeDecimal }, isShow : true, width: 200 },
-                [TOTAL_SECTION]: { hasNegativeStyle: hasNegativeStyle, style: { positive: totalCellStyle.decimal, negative: totalCellStyle.negativeDecimal }, isShow : true },
-                [SUMMARYTOTAL_SECTION]: { hasNegativeStyle: hasNegativeStyle, style: { positive: grandTotalCellStyle.decimal, negative: grandTotalCellStyle.negativeDecimal }, isShow : true }
+                [MAIN_SECTION]: { hasNegativeStyle: hasNegativeStyle, style: hasNegativeStyle ? { positive: bodyCellStyle.decimal, negative: bodyCellStyle.negativeDecimal } : bodyCellStyle.decimal, isShow : true, width: 200 },
+                [TOTAL_SECTION]: { hasNegativeStyle: hasNegativeStyle, style: hasNegativeStyle ? { positive: totalCellStyle.decimal, negative: totalCellStyle.negativeDecimal } : totalCellStyle.decimal, isShow : true },
+                [SUMMARYTOTAL_SECTION]: { hasNegativeStyle: hasNegativeStyle, style: hasNegativeStyle ? { positive: grandTotalCellStyle.decimal, negative: grandTotalCellStyle.negativeDecimal } : grandTotalCellStyle.decimal, isShow : true }
             });
         }
         else {
@@ -176,9 +148,9 @@ export default class ReportExcel {
                 field: name + this.productCodes[0],
                 type: 'n',
                 [HEADER_SECTION]: { title: title, isShow: true },
-                [MAIN_SECTION]: { hasNegativeStyle: hasNegativeStyle, style: { positive: bodyCellStyle.decimal, negative: bodyCellStyle.negativeDecimal }, isShow : true, width: 200 },
-                [TOTAL_SECTION]: { hasNegativeStyle: hasNegativeStyle, style: { positive: totalCellStyle.decimal, negative: totalCellStyle.negativeDecimal }, isShow : true },
-                [SUMMARYTOTAL_SECTION]: { hasNegativeStyle: hasNegativeStyle, style: { positive: grandTotalCellStyle.decimal, negative: grandTotalCellStyle.negativeDecimal }, isShow : true }
+                [MAIN_SECTION]: { hasNegativeStyle: hasNegativeStyle, style: hasNegativeStyle ? { positive: bodyCellStyle.decimal, negative: bodyCellStyle.negativeDecimal } : bodyCellStyle.decimal, isShow : true, width: 200 },
+                [TOTAL_SECTION]: { hasNegativeStyle: hasNegativeStyle, style: hasNegativeStyle ? { positive: totalCellStyle.decimal, negative: totalCellStyle.negativeDecimal } : totalCellStyle.decimal, isShow : true },
+                [SUMMARYTOTAL_SECTION]: { hasNegativeStyle: hasNegativeStyle, style: hasNegativeStyle ? { positive: grandTotalCellStyle.decimal, negative: grandTotalCellStyle.negativeDecimal } : grandTotalCellStyle.decimal, isShow : true }
             });
         }
     }

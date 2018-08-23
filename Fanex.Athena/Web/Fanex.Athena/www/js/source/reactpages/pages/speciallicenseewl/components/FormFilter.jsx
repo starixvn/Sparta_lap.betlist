@@ -9,17 +9,11 @@ import LangHelper from '../../../lib/langHelper'
 import Site from '../../../lib/site'
 import Report from '../../../lib/report'
 import { Service, Url } from '../lib/service'
-import { ReportLevel } from '../../../constants/report'
 import ReportExcel from '../lib/reportExcel'
 
 export class FormFilter extends Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            expandTurnover: false,
-            expandLicenseeWL: false
-        }
     }
 
     get isValidModel() {
@@ -32,7 +26,7 @@ export class FormFilter extends Component {
             return;
         }
 
-        const params = this._getParams(ReportLevel.MAIN);
+        const params = this._getParams();
         if (!params) {
             return;
         }
@@ -53,10 +47,7 @@ export class FormFilter extends Component {
     exportExcel = (event) => {
         event.preventDefault();
 
-        const level = this.props.params.DrillDownLevel || 0;
-
-        const isAllowedCustomerComm = this.props.setting.isAllowedCustomerComm;
-        let params = this._getParams(level);
+        let params = this._getParams();
         if (!params) {
             return;
         }
@@ -65,7 +56,7 @@ export class FormFilter extends Component {
 
         Report.fetchGridData(Url, { xsrfToken: this.props.xsrfToken, data: params })
         .then(response => {
-            this._doExportExcel(level, params, isAllowedCustomerComm, response.data)
+            this._doExportExcel(params, response.data)
         })
         .catch(error => {
             console.log(error);
@@ -75,74 +66,40 @@ export class FormFilter extends Component {
 
     }
 
-    _doExportExcel(level, params, isAllowedCustomerComm, gridData) {
+    _doExportExcel(params, gridData) {
         if (!gridData.Data || !gridData.Data.length) {
             this.props.toggleLoader(false);
             alert(LangHelper.getSingleResource("NoInfo"));
             return;
         }
 
-        let excelData;
-        if (level === ReportLevel.MAIN) {
-            excelData = params;
-        }
-        else {
-            excelData = {
-                FromDate: params.DrillDownFromDate,
-                ToDate: params.DrillDownToDate,
-                BaseCurrency: params.BaseCurrency,
-                CurrencyName: params.DrillDownCurrencyName,
-                CurrencyId: params.DrillDownCurrencyId,
-                ReportBy: params.ReportBy,
-                ProductCodeList: params.ProductCodeList
-            };
-        }
-
         const title = Service.getReportTitle(
-            excelData.FromDate,
-            excelData.ToDate,
-            excelData.CurrencyId,
-            excelData.CurrencyName, 
-            excelData.BaseCurrency);
-        const excel = new ReportExcel(gridData, title, level, isAllowedCustomerComm, parseInt(excelData.ReportBy), excelData.ProductCodeList.split(','));
+            params.FromDate,
+            params.ToDate,
+            params.CurrencyId,
+            params.CurrencyName, 
+            params.BaseCurrency);
+        const excel = new ReportExcel(gridData, title, parseInt(params.ReportBy), params.ProductCodeList.split(','));
         excel.export(() => {
             this.props.toggleLoader(false);
         });
     }
 
-    _getParams(level) {
+    _getParams() {
         if (!this.props.xsrfToken) {
             return null;
         }
 
         const { fromDate, toDate } = this.props.dateRange;
 
-        if (level == ReportLevel.MAIN) {
-            return {
-                FromDate: Site.convertDateToString(fromDate),
-                ToDate: Site.convertDateToString(toDate),
-                CurrencyName: this.props.selectedCurrency.label,
-                CurrencyId: this.props.selectedCurrency.value,
-                BaseCurrency: this.props.selectedCurrency.baseCurrency,
-                ProductCodeList: this.props.selectedProduct,
-                ReportBy: this.props.selectedReportBy,
-                DrillDownLevel: 0,
-                PageIndex: 1,
-                PageSize: this.props.params.PageSize || 2
-            }
-        }
-        else {
-            let params = this.props.params;
-
-            params.FromDate = Site.convertDateToString(fromDate);
-            params.ToDate = Site.convertDateToString(toDate);
-            params.CurrencyName = this.props.selectedCurrency.label;
-            params.CurrencyId = this.props.selectedCurrency.value;
-            params.BaseCurrency = this.props.selectedCurrency.baseCurrency;
-            params.ProductCodeList = this.props.selectedProduct;
-            params.ReportBy = this.props.selectedReportBy;
-
-            return params;
+        return {
+            FromDate: Site.convertDateToString(fromDate),
+            ToDate: Site.convertDateToString(toDate),
+            CurrencyName: this.props.selectedCurrency.label,
+            CurrencyId: this.props.selectedCurrency.value,
+            BaseCurrency: this.props.selectedCurrency.baseCurrency,
+            ProductCodeList: this.props.selectedProduct,
+            ReportBy: this.props.selectedReportBy
         }
     }
 
@@ -265,7 +222,7 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    const { gridData, reportTitle, isLoading, ...rest } = state;
+    const { gridData, reportTitle, isLoading, params, ...rest } = state;
     return Object.assign({}, rest);
 };
 
