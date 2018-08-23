@@ -16,10 +16,7 @@
             @DesktopRazorHelper.RenderProductFilter(Model.Param.ProductOptions)
 
             <div class="col right icon-block">
-                @if (!Model.IsFakeLicensee)
-                {
                 <i class="icon-book right" id="UserGuide" title="@ViewResources.UserGuide"></i>
-                }
                 <i class="icon-excel right" title="@ViewResources.ExportToExcel" id="ExportToExcel"></i>
             </div>
         </div>
@@ -81,5 +78,4 @@
     @Html.Hidden("IsAllowedBACommission", Model.ProductAccess.IsAllowBA)
     @Html.Hidden("IsAllowedRacing", Model.ProductAccess.IsAllowRB)
     @Html.Hidden("IsAllowedCustomerCommission", Model.IsAllowedCustomerCommission)
-    @Html.Hidden("IsDisableBetList", Model.ReportSetting.IsDisableBetList)
 </div>

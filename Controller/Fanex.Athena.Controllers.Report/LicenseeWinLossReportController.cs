@@ -93,7 +93,6 @@ namespace Fanex.Athena.Controllers.Report
                 CurrencyList = _userSession.CurrencyList,
                 IsAllowedCustomerCommission = _licenseeSession.IsAllowedCustomerComm,
                 ProductAccess = productAccess,
-                IsFakeLicensee = IsFakeLicensee(),
                 ReportSetting = reportSetting
             };
             return View("~/Views/Report/LicenseeWinLoss/Main.cshtml", model);

@@ -25,7 +25,6 @@ define(
             rowNum: 50,
             rowList: [50, 100, 200, 300, 400, 500, 1000, 2000],
             totalColspan: [2, 2, 3],
-            totalColspanFakeLicensee: [2, 2, 2],
             //level 0,1,2
             urlData: 'api/LicenseeWinLossReport/Index',
             urlExcelData: 'api/LicenseeWinLossReport/Index',
@@ -446,12 +445,6 @@ define(
             columns.insertAfter(buyBackAmountSBColumn, columnIndex);
         }
 
-        function hideDrilldownLinks() {
-            externalIdColumn.formatter = null;
-            systemIdColumn.formatter = null;
-            currencyColumn.formatter = null;
-        }
-
         _me.setGroupHeaderColumns = function (grid, productOptions) {
             var numOfTurnover = Enumerable.From(productOptions).Count(turnoverProductsFilter) + 1;
             var lastOfTurnover = numOfTurnover > 1 ? Enumerable.From(productOptions).Last(turnoverProductsFilter) : null;
@@ -542,7 +535,7 @@ define(
 
             dateColumn.hidden = level > 0;
             externalIdColumn.hidden = level < 2;
-            systemIdColumn.hidden = level === 0 || Site.isFakeLicensee();
+            systemIdColumn.hidden = level === 0;
 
             // Column hidden by product
             var allowedSb = isProductChecked(productOptions, "SB");
@@ -565,11 +558,6 @@ define(
                 systemIdColumn.formatter = betlistLink;
             }
             dateColumn.formatoptions = { newformat: reportBy === 2 ? 'm/Y' : 'm/d/Y' };
-
-            if (_me.isDisableBetList)
-            {
-                hideDrilldownLinks();
-            }
 
             var temp = Site.clone(colModelList);
 
