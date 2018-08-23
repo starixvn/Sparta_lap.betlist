@@ -133,9 +133,7 @@
   <Function Name="GroupComm">
     <Setting Key="Lrf_LicenseeGroupCommSel" SpName="Lrf_LicenseeGroupCommSel" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet">
       <Mapping DataField="Parlaycomm" ObjectProperty="ParlayComm" />
-      <Mapping DataField="RacingComm" ObjectProperty="RCComm" />
       <Mapping DataField="RNGComm" ObjectProperty="CSComm" />
-      <Mapping DataField="AllbetComm" ObjectProperty="ABComm" />
       <Mapping DataField="IsDefault" ObjectProperty="IsDefaultGroup" />
     </Setting>
     <Setting Key="Lrf_LicenseeGroupCommIns" SpName="Lrf_LicenseeGroupCommIns" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
@@ -143,9 +141,7 @@
     <Setting Key="Lrf_LicenseeGroupCommUpd" SpName="Lrf_LicenseeGroupCommUpd" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" TimeOut="240" />
     <Setting Key="Lrf_GroupCommGetById" SpName="Lrf_GroupCommGetById" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet">
       <Mapping DataField="Parlaycomm" ObjectProperty="ParlayComm" />
-      <Mapping DataField="RacingComm" ObjectProperty="RCComm" />
       <Mapping DataField="RNGComm" ObjectProperty="CSComm" />
-      <Mapping DataField="AllbetComm" ObjectProperty="ABComm" />
       <Mapping DataField="IsDefault" ObjectProperty="IsDefaultGroup" />
     </Setting>
     <Setting Key="Lrf_GroupCommCheckByName" SpName="Lrf_GroupCommCheckByName" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
