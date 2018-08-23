@@ -1,26 +1,19 @@
 ﻿namespace Fanex.Athena.Api.Report
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Net.Http;
-    using System.Web.Hosting;
     using System.Web.Http;
     using Base.Attributes;
     using DataAccess.Report;
     using DataAccess.Report.Interfaces;
-    using Excel.Report.Models;
-    using Fanex.Athena.Excel.Base.Entities;
-    using Fanex.Athena.Excel.Report;
+    using Extension.Utility;
     using Fanex.Athena.Extension.Helper;
-    using Fanex.Athena.Extension.Utility;
-    using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
     using Model.Core.DataDomain;
-    using Model.Core.MetaModel.Product;
-    using Model.Core.ResultModel;
+    using Model.Core.DTO.Common;
+    using Model.Core.DTO.Configuration;
+    using Model.Report.DTO;
     using Service.Core.Common.Interfaces;
     using Service.Core.Configuration;
     using Service.Core.Configuration.Interfaces;
@@ -31,12 +24,12 @@
     {
         private readonly IReportSettingService _reportSettingService;
 
-        private readonly ILicenseeWinLossDataAccess _licenseeWinLossDataAccess;
+        private readonly ISpecialLicenseeWinLossDataAccess _licenseeWinLossDataAccess;
 
         public SpecialLicenseeWinLossReportController()
         {
             _reportSettingService = new ReportSettingService();
-            _licenseeWinLossDataAccess = new LicenseeWinLossDataAccess();
+            _licenseeWinLossDataAccess = new SpecialLicenseeWinLossDataAccess();
         }
 
         public SpecialLicenseeWinLossReportController(
@@ -44,7 +37,7 @@
             IProductService productService,
             IReportSettingService reportSettingService,
             ILanguageService langService,
-            ILicenseeWinLossDataAccess licenseeWinLossDataAccess)
+            ISpecialLicenseeWinLossDataAccess licenseeWinLossDataAccess)
             : base(sessionService, productService, langService)
         {
             _reportSettingService = reportSettingService;
@@ -52,47 +45,20 @@
         }
 
         [HttpPost]
-        public dynamic Index(LicenseeWinLossMetaModel metaModel)
+        public dynamic Index(SpecialLicenseeWinLossMetaModel metaModel)
         {
             return ProcessRequest(metaModel);
-        }
-
-        private static dynamic GetEmptyResult(IEnumerable<ProductOption> productOptions)
-        {
-            return new
-            {
-                Data = new List<LicenseeWinLossGridViewModel>(),
-                Total = new List<LicenseeWinLossGridViewModel>(),
-                SummaryTotal = new Dictionary<string, LicenseeWinLossGridViewModel>(),
-                ProductOptions = productOptions.ToJson()
-            };
         }
 
         private static LicenseeWinLossGridViewModel MapToGridView(LicenseeWinLoss item)
         {
             var licenseeWinLossGrid = new LicenseeWinLossGridViewModel
             {
-                Index = item.Index,
-                AmtDueToBA = item.AmtDueToBA,
-                AmtDueToRacing = item.AmtDueToRacing,
-                AmtDueToBetTrade = item.AmtDueToBetTrade,
-                CashOutCommission = item.CashOutCommission,
-                BACommission = item.BACommission,
-                BetTradeCommission = item.BetTradeCommission,
                 CurrencyId = item.CurrencyId,
-                SystemId = item.SystemId,
                 CurrencyName = item.CurrencyName,
-                CustomerComm = item.CustomerComm,
                 CustomerWinLoss = item.CustomerWinLoss,
                 TotalTransaction = item.TotalTransaction,
-                RacingRevenue = item.RacingRevenue,
-                CustomerId = item.CustomerId,
-                Date = item.Date,
-                ExternalId = item.ExternalId,
-                BuyBackAmountSB = item.BuyBackAmountSB,
-                BuyBackAmountBA = item.BuyBackAmountBA,
-                TotalBuyBackAmount = item.TotalBuyBackAmount,
-                ActualStake = item.ActualStake
+                Date = item.Date
             };
             SetLicenseeWinLossProductData(licenseeWinLossGrid, item.LicenseeWL);
             SetTurnOverProductData(licenseeWinLossGrid, item.TurnOver);
@@ -112,41 +78,18 @@
             licenseeWinLoss.TurnOverNG = turnOverProducts.GetValueOrDefault(Product.NG, 0);
         }
 
-        private SortableReportResultModel<LicenseeWinLoss> GetData(LicenseeWinLossMetaModel metaModel)
+        private dynamic ProcessRequest(SpecialLicenseeWinLossMetaModel metaModel)
         {
-            metaModel.ProductOptions = new List<ProductOption>
+            var setting = _reportSettingService.GetSetting(PermissionKeys.ReportLicenseeWinLoss);
+            if (IsValidParams(metaModel, setting) && IsValidRequest(metaModel, metaModel.CurrencyId))
             {
-                new ProductOption { Code = "SB", Status = true },
-                new ProductOption { Code = "NG", Status = true }
-            };
-
-            if (metaModel.IsValid)
-            {
-                var result = metaModel.DrillDownLevel == 0 ? _licenseeWinLossDataAccess.GetSummaryWinloss(metaModel) :
-                                metaModel.LicenseeId != LicenseeIdentity.OneTwoBet || metaModel.DrillDownLevel == 2
-                               ? _licenseeWinLossDataAccess.GetCustomerWinlossDetail(metaModel)
-                               : _licenseeWinLossDataAccess.GetAgentWinlossDetail(metaModel);
-
-                return result;
-            }
-
-            return new SortableReportResultModel<LicenseeWinLoss>
-            {
-                TotalDataList = new List<LicenseeWinLoss>(),
-                SummaryTotal = new Dictionary<string, LicenseeWinLoss>(),
-                DataList = new SortableList<LicenseeWinLoss>()
-            };
-        }
-
-        private dynamic ProcessRequest(LicenseeWinLossMetaModel metaModel)
-        {
-            var currencyId = metaModel.DrillDownLevel == 0 ? metaModel.CurrencyId : metaModel.DrillDownCurrencyId;
-
-            if (IsValidParams(metaModel) && IsValidRequest(metaModel, currencyId))
-            {
+                metaModel.ProductCodes = metaModel.ProductCodeList.Split(',');
                 metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-                metaModel.AgentListXml = SessionService.GenerateAgentListXml(currencyId, metaModel.IsExcludedTestData);
-                var result = GetData(metaModel);
+                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, true);
+                metaModel.BaseCurrencies = setting == null || string.IsNullOrWhiteSpace(setting.BaseCurrencies)
+                    ? SystemConstants.BaseCurrencyList.ToArray()
+                    : setting.BaseCurrencies.Split(',');
+                var result = _licenseeWinLossDataAccess.GetData(metaModel);
 
                 if (result.DataList.Any())
                 {
@@ -155,32 +98,33 @@
                     {
                         Data = result.DataList.Select(MapToGridView).ToList(),
                         Total = result.TotalDataList.Select(MapToGridView).ToList(),
-                        SummaryTotal = summaryTotalView,
-                        ProductOptions = metaModel.ProductOptions.ToJson()
+                        SummaryTotal = summaryTotalView
                     };
                 }
             }
 
-            return GetEmptyResult(metaModel.ProductOptions);
+            return new
+            {
+                Data = new List<LicenseeWinLossGridViewModel>(),
+                Total = new List<LicenseeWinLossGridViewModel>(),
+                SummaryTotal = new Dictionary<string, LicenseeWinLossGridViewModel>()
+            };
         }
 
-        protected internal virtual bool IsValidParams(LicenseeWinLossMetaModel metaModel)
+        protected internal virtual bool IsValidParams(SpecialLicenseeWinLossMetaModel metaModel, ReportSetting setting)
         {
-            var setting = _reportSettingService.GetSetting(PermissionKeys.ReportLicenseeWinLoss);
+            if (metaModel.FromDate > metaModel.ToDate || string.IsNullOrWhiteSpace(metaModel.ProductCodeList))
+            {
+                return false;
+            }
+
             if (setting == null)
             {
                 return true;
             }
 
-            if (metaModel.DrillDownLevel > 0 && setting.IsDisableBetList)
-            {
-                return false;
-            }
-
-            var fromDate = metaModel.DrillDownLevel == 0 ? metaModel.FromDate : metaModel.DrillDownFromDate;
-            var toDate = metaModel.DrillDownLevel == 0 ? metaModel.ToDate : metaModel.DrillDownToDate;
-            return DateTimeHelper.IsBetween(fromDate, setting.MinDate, setting.MaxDate) &&
-                DateTimeHelper.IsBetween(toDate, setting.MinDate, setting.MaxDate);
+            return DateTimeHelper.IsBetween(metaModel.FromDate, setting.MinDate, setting.MaxDate) &&
+                DateTimeHelper.IsBetween(metaModel.ToDate, setting.MinDate, setting.MaxDate);
         }
     }
 }
