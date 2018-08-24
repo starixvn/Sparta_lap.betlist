@@ -174,7 +174,7 @@
             db.AddInParameter("todate", DbType.Date, metaModel.ToDate.Date);
             db.AddInParameter("reporttype", DbType.Byte, metaModel.ReportBy);
             db.AddInParameter("productCodes", DbType.String, metaModel.ProductCodeList);
-            db.AddInParameter("currency", DbType.Int32, metaModel.CurrencyId);
+            db.AddInParameter("currency", DbType.Int32, metaModel.CurrencyId < 0 ? 0 : metaModel.CurrencyId);
         }
 
         private SortableReportResultModel<LicenseeWinLoss> ReadData(
