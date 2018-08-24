@@ -25,12 +25,7 @@
         private readonly IReportSettingService _reportSettingService;
 
         private readonly ISpecialLicenseeWinLossDataAccess _licenseeWinLossDataAccess;
-        private readonly IDictionary<int, List<string>> LicenseeOfferedProducts = new Dictionary<int, List<string>>
-        {
-            {LicenseeIdentity.IvoryBet,new List<string>{Product.SB,Product.NG} },
-           {LicenseeIdentity.Opal88,new List<string>{Product.SB} }
 
-        };
         private readonly IDictionary<int, string> SiteNameList = new Dictionary<int, string>
         {
             {LicenseeIdentity.IvoryBet,"ivorysport" },
@@ -131,19 +126,8 @@
 
         protected internal virtual bool IsValidParams(SpecialLicenseeWinLossMetaModel metaModel, ReportSetting setting)
         {
-            var offeredProducts = LicenseeOfferedProducts[SessionService.LicenseeSession.LicenseeId];
-
-            if (metaModel.FromDate > metaModel.ToDate || metaModel.ProductCodeList.Any(i => !offeredProducts.Contains(i)))
-            {
-                return false;
-            }
-            
-            if (setting == null)
-            {
-                return true;
-            }
-
-            return DateTimeHelper.IsBetween(metaModel.FromDate, setting.MinDate, setting.MaxDate) &&
+            return metaModel.FromDate > metaModel.ToDate && setting != null &&
+                DateTimeHelper.IsBetween(metaModel.FromDate, setting.MinDate, setting.MaxDate) &&
                 DateTimeHelper.IsBetween(metaModel.ToDate, setting.MinDate, setting.MaxDate);
         }
     }
