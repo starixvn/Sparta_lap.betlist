@@ -56,7 +56,7 @@
 
             if (reader.FieldCount > 0)
             {
-                foreach (var code in metaModel.ProductCodeList)
+                foreach (var code in metaModel.ProductCodes)
                 {
                     var columnBase = columnName + code + metaModel.BaseCurrency;
 
@@ -101,7 +101,7 @@
                 decimal temp;
                 var licenseeWlSummary = new Dictionary<string, decimal>();
                 var turnOverSummary = new Dictionary<string, decimal>();
-                foreach (var code in metaModel.ProductCodeList)
+                foreach (var code in metaModel.ProductCodes)
                 {
                     var licenseeWlColumnName = "LicenseeWL" + code + currency;
                     var turnOverColumnName = "turnover" + code + currency;

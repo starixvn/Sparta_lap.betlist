@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Api.Report
 {
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using System.Web.Http;
     using Base.Attributes;
@@ -25,7 +26,12 @@
         private readonly IReportSettingService _reportSettingService;
 
         private readonly ISpecialLicenseeWinLossDataAccess _licenseeWinLossDataAccess;
+        private readonly IDictionary<int, List<string>> LicenseeOfferedProducts = new Dictionary<int, List<string>>
+        {
+            {LicenseeIdentity.IvoryBet,new List<string>{Product.SB,Product.NG} },
+           {LicenseeIdentity.Opal88,new List<string>{Product.SB} }
 
+        };
         private readonly IDictionary<int, string> SiteNameList = new Dictionary<int, string>
         {
             {LicenseeIdentity.IvoryBet,"ivorysport" },
@@ -91,13 +97,10 @@
 
             if (IsValidParams(metaModel, setting) && IsValidRequest(metaModel, metaModel.CurrencyId))
             {
-                metaModel.BaseCurrencies = setting == null || string.IsNullOrWhiteSpace(setting.BaseCurrencies)
-                    ? SystemConstants.BaseCurrencyList.ToArray()
-                    : setting.BaseCurrencies.Split(',');
-
+                metaModel.BaseCurrencies = setting.BaseCurrencies.Split(',');
                 metaModel.SiteName = SiteNameList[SessionService.LicenseeSession.LicenseeId];
                 var currencyList = SessionService.UserSession.CurrencyList
-                    .Where(i => i.Key == metaModel.CurrencyId || metaModel.CurrencyId == 0);
+                    .Where(i => i.Key == metaModel.CurrencyId || metaModel.CurrencyId <= 0);
 
                 metaModel.CurrencyCodes = string.Join(",", currencyList.Select(i => i.Value).ToArray());
                 metaModel.CurrencyIdList = string.Join(",", currencyList.Select(i => i.Key).ToArray());
@@ -126,8 +129,29 @@
 
         protected internal virtual bool IsValidParams(SpecialLicenseeWinLossMetaModel metaModel, ReportSetting setting)
         {
-            return metaModel.FromDate > metaModel.ToDate && setting != null &&
-                DateTimeHelper.IsBetween(metaModel.FromDate, setting.MinDate, setting.MaxDate) &&
+            if (setting == null)
+            {
+                return false;
+            }
+
+            if (!setting.BaseCurrencies.Contains(metaModel.BaseCurrency.ToUpper(CultureInfo.InvariantCulture)))
+            {
+                return false;
+            }
+
+            var offeredProducts = LicenseeOfferedProducts[SessionService.LicenseeSession.LicenseeId];
+
+            if (metaModel.FromDate > metaModel.ToDate || metaModel.ProductCodes.Any(i => !offeredProducts.Contains(i)))
+            {
+                return false;
+            }
+
+            if (metaModel.CurrencyId > 0 && !SessionService.UserSession.CurrencyList.ContainsKey(metaModel.CurrencyId))
+            {
+                return false;
+            }
+
+            return DateTimeHelper.IsBetween(metaModel.FromDate, setting.MinDate, setting.MaxDate) &&
                 DateTimeHelper.IsBetween(metaModel.ToDate, setting.MinDate, setting.MaxDate);
         }
     }
