@@ -1,25 +1,25 @@
-webpackJsonp([5],{
+webpackJsonp([6],{
 
-/***/ 391:
+/***/ 394:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(5);
-__webpack_require__(392);
-__webpack_require__(393);
-__webpack_require__(394);
+__webpack_require__(4);
 __webpack_require__(395);
-module.exports = __webpack_require__(396);
+__webpack_require__(396);
+__webpack_require__(397);
+__webpack_require__(398);
+module.exports = __webpack_require__(399);
 
 
 /***/ }),
 
-/***/ 392:
+/***/ 395:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 5/30/2018 1:42:31 PM
+// Generated at: 5/31/2018 9:37:15 AM
 window._language_en_US = {
   AA: "AA",
   AB: "AB",
@@ -986,13 +986,13 @@ window._language_en_US = {
 
 /***/ }),
 
-/***/ 393:
+/***/ 396:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 3/27/2018 8:55:30 AM
+// Generated at: 5/31/2018 9:37:15 AM
 window._language_ko_KR = {
   AA: "AA",
   ABComm: "AllBet 수수료",
@@ -1742,13 +1742,13 @@ window._language_ko_KR = {
 
 /***/ }),
 
-/***/ 394:
+/***/ 397:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 5/30/2018 4:51:55 PM
+// Generated at: 5/31/2018 9:37:15 AM
 window._language_zh_CN = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -1866,7 +1866,7 @@ window._language_zh_CN = {
   Characters: "文字",
   CheckAll: "Check All",
   Checkavailability: "检查可用性",
-  China: "大陆",
+  China: "中国",
   Choice: "选择",
   ChooseGroupMsg: "请选择一个组",
   ChooseGroupNameMsg: "请选择其他组名",
@@ -2578,13 +2578,13 @@ window._language_zh_CN = {
 
 /***/ }),
 
-/***/ 395:
+/***/ 398:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 5/30/2018 4:51:55 PM
+// Generated at: 5/31/2018 9:37:15 AM
 window._language_zh_Hans = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -2700,7 +2700,7 @@ window._language_zh_Hans = {
   Characters: "文字",
   CheckAll: "Check All",
   Checkavailability: "检查可用性",
-  China: "大陆",
+  China: "中国",
   Choice: "选择",
   ChooseGroupMsg: "请选择一个组",
   ChooseGroupNameMsg: "请选择其他组名",
@@ -3409,13 +3409,13 @@ window._language_zh_Hans = {
 
 /***/ }),
 
-/***/ 396:
+/***/ 399:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-// Generated at: 5/30/2018 4:51:55 PM
+// Generated at: 5/31/2018 9:37:15 AM
 window._language_zh_TW = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -3533,7 +3533,7 @@ window._language_zh_TW = {
   Characters: "文字",
   CheckAll: "Check All",
   Checkavailability: "檢查可用性",
-  China: "大陸",
+  China: "中國",
   Choice: "選擇",
   ChooseGroupMsg: "請選擇一個組",
   ChooseGroupNameMsg: "請選擇其他組名",
@@ -4245,7 +4245,7 @@ window._language_zh_TW = {
 
 /***/ }),
 
-/***/ 5:
+/***/ 4:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4289,5 +4289,5 @@ exports.default = LangHelper;
 
 /***/ })
 
-},[391]);
+},[394]);
 //# sourceMappingURL=langHelper.chunk.js.map
