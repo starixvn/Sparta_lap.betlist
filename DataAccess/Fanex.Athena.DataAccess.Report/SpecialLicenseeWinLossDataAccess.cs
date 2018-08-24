@@ -168,13 +168,13 @@
 
         private static void UpdateUspParams(IObjectDb db, SpecialLicenseeWinLossMetaModel metaModel)
         {
-            db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
-            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             db.AddInParameter("fromdate", DbType.Date, metaModel.FromDate.Date);
             db.AddInParameter("todate", DbType.Date, metaModel.ToDate.Date);
             db.AddInParameter("reporttype", DbType.Byte, metaModel.ReportBy);
             db.AddInParameter("productCodes", DbType.String, string.Join(",", metaModel.ProductCodeList));
-            db.AddInParameter("currency", DbType.Int32, metaModel.CurrencyId < 0 ? 0 : metaModel.CurrencyId);
+            db.AddInParameter("currencyCodes", DbType.String, metaModel.CurrencyCodes);
+            db.AddInParameter("siteName", DbType.String, metaModel.SiteName);
+            db.AddInParameter("currencyIdList", DbType.String, metaModel.CurrencyIdList);
         }
 
         private SortableReportResultModel<LicenseeWinLoss> ReadData(
@@ -188,11 +188,9 @@
 
             while (reader.Read())
             {
-                var currencyId = reader.ToInt("currency");
                 var item = new LicenseeWinLoss
                 {
-                    CurrencyId = currencyId,
-                    CurrencyName = GetCurrencyName(currencyId),
+                    CurrencyName = reader["CurrencyCode"].ToString(),
                     CustomerWinLoss = reader.ToDecimal("winlost" + metaModel.BaseCurrency),
                     LicenseeWL = ReadLicenseeWinLossList(reader, licenseeWLColumns),
                     TurnOver = ReadTurnoverList(reader, turnoverColumns),

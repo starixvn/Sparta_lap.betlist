@@ -31,6 +31,13 @@
            {LicenseeIdentity.Opal88,new List<string>{Product.SB} }
 
         };
+        private readonly IDictionary<int, string> SiteNameList = new Dictionary<int, string>
+        {
+            {LicenseeIdentity.IvoryBet,"ivorysport" },
+           {LicenseeIdentity.Opal88,"opal88" }
+
+        };
+
         public SpecialLicenseeWinLossReportController()
         {
             _reportSettingService = new ReportSettingService();
@@ -86,13 +93,20 @@
         private dynamic ProcessRequest(SpecialLicenseeWinLossMetaModel metaModel)
         {
             var setting = _reportSettingService.GetSetting(PermissionKeys.ReportLicenseeWinLoss);
+
             if (IsValidParams(metaModel, setting) && IsValidRequest(metaModel, metaModel.CurrencyId))
             {
-                metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, true);
                 metaModel.BaseCurrencies = setting == null || string.IsNullOrWhiteSpace(setting.BaseCurrencies)
                     ? SystemConstants.BaseCurrencyList.ToArray()
                     : setting.BaseCurrencies.Split(',');
+
+                metaModel.SiteName = SiteNameList[SessionService.LicenseeSession.LicenseeId];
+                var currencyList = SessionService.UserSession.CurrencyList
+                    .Where(i => i.Key == metaModel.CurrencyId || metaModel.CurrencyId == 0);
+
+                metaModel.CurrencyCodes = string.Join(",", currencyList.Select(i => i.Value).ToArray());
+                metaModel.CurrencyIdList = string.Join(",", currencyList.Select(i => i.Key).ToArray());
+
                 var result = _licenseeWinLossDataAccess.GetData(metaModel);
 
                 if (result.DataList.Any())

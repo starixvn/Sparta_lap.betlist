@@ -14,5 +14,8 @@
         public string[] ProductCodeList { get; set; }
 
         public string[] BaseCurrencies { get; set; }
+        public string SiteName { get; set; }
+        public string CurrencyCodes { get; set; }
+        public string CurrencyIdList { get; set; }
     }
 }
