@@ -11,13 +11,7 @@
 
         public DateTime ToDate { get; set; }
 
-        public string SortBy { get; set; }
-
-        public string SortOrder { get; set; }
-
-        public string ProductCodeList { get; set; }
-
-        public string[] ProductCodes { get; set; }
+        public string[] ProductCodeList { get; set; }
 
         public string[] BaseCurrencies { get; set; }
     }

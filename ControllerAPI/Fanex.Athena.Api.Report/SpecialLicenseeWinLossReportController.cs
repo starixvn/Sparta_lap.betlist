@@ -86,10 +86,8 @@
         private dynamic ProcessRequest(SpecialLicenseeWinLossMetaModel metaModel)
         {
             var setting = _reportSettingService.GetSetting(PermissionKeys.ReportLicenseeWinLoss);
-            metaModel.ProductCodes = metaModel.ProductCodeList?.Split(',');
             if (IsValidParams(metaModel, setting) && IsValidRequest(metaModel, metaModel.CurrencyId))
             {
-                metaModel.ProductCodes = metaModel.ProductCodeList.Split(',');
                 metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, true);
                 metaModel.BaseCurrencies = setting == null || string.IsNullOrWhiteSpace(setting.BaseCurrencies)
@@ -121,9 +119,7 @@
         {
             var offeredProducts = LicenseeOfferedProducts[SessionService.LicenseeSession.LicenseeId];
 
-            if (metaModel.FromDate > metaModel.ToDate || string.IsNullOrWhiteSpace(metaModel.ProductCodeList)
-                || metaModel.ProductCodes.Any(i => !offeredProducts.Contains(i))
-                )
+            if (metaModel.FromDate > metaModel.ToDate || metaModel.ProductCodeList.Any(i => !offeredProducts.Contains(i)))
             {
                 return false;
             }

@@ -56,7 +56,7 @@
 
             if (reader.FieldCount > 0)
             {
-                foreach (var code in metaModel.ProductCodes)
+                foreach (var code in metaModel.ProductCodeList)
                 {
                     var columnBase = columnName + code + metaModel.BaseCurrency;
 
@@ -101,7 +101,7 @@
                 decimal temp;
                 var licenseeWlSummary = new Dictionary<string, decimal>();
                 var turnOverSummary = new Dictionary<string, decimal>();
-                foreach (var code in metaModel.ProductCodes)
+                foreach (var code in metaModel.ProductCodeList)
                 {
                     var licenseeWlColumnName = "LicenseeWL" + code + currency;
                     var turnOverColumnName = "turnover" + code + currency;
@@ -173,7 +173,7 @@
             db.AddInParameter("fromdate", DbType.Date, metaModel.FromDate.Date);
             db.AddInParameter("todate", DbType.Date, metaModel.ToDate.Date);
             db.AddInParameter("reporttype", DbType.Byte, metaModel.ReportBy);
-            db.AddInParameter("productCodes", DbType.String, metaModel.ProductCodeList);
+            db.AddInParameter("productCodes", DbType.String, string.Join(",", metaModel.ProductCodeList));
             db.AddInParameter("currency", DbType.Int32, metaModel.CurrencyId < 0 ? 0 : metaModel.CurrencyId);
         }
 

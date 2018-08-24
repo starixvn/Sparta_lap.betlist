@@ -278,16 +278,14 @@ export class DataGrid extends Component {
             return <NoDataTitle />;
         }
 
-        const selectedProductList = params.ProductCodeList.split(',');
-
         return ( 
             <Table
                 minWidth={800}
                 autoWidth={true}
                 bodyHeight={300}
-                header={this._buildHeader(selectedProductList, params.SortBy, params.SortOrder)}
-                body={this._buildBody(params.ReportBy, selectedProductList)}
-                footer={this._buildFooter(selectedProductList)}
+                header={this._buildHeader(params.ProductCodeList, params.SortBy, params.SortOrder)}
+                body={this._buildBody(params.ReportBy, params.ProductCodeList)}
+                footer={this._buildFooter(params.ProductCodeList)}
             />
         );
     }
