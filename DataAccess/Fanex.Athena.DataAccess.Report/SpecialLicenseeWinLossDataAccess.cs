@@ -172,9 +172,8 @@
             db.AddInParameter("todate", DbType.Date, metaModel.ToDate.Date);
             db.AddInParameter("reporttype", DbType.Byte, metaModel.ReportBy);
             db.AddInParameter("productCodes", DbType.String, metaModel.ProductCodeList);
-            db.AddInParameter("currencyCodes", DbType.String, metaModel.CurrencyCodes);
+            db.AddInParameter("currencylist", DbType.String, metaModel.CurrencyListXml);
             db.AddInParameter("siteName", DbType.String, metaModel.SiteName);
-            db.AddInParameter("currencyIdList", DbType.String, metaModel.CurrencyIdList);
         }
 
         private SortableReportResultModel<LicenseeWinLoss> ReadData(

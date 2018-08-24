@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Api.Report
 {
+    using System;
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
@@ -95,15 +96,12 @@
         {
             var setting = _reportSettingService.GetSetting(PermissionKeys.ReportLicenseeWinLoss);
 
-            if (IsValidParams(metaModel, setting) && IsValidRequest(metaModel, metaModel.CurrencyId))
+            if (IsValidParams(metaModel, setting))
             {
                 metaModel.BaseCurrencies = setting.BaseCurrencies.Split(',');
                 metaModel.SiteName = SiteNameList[SessionService.LicenseeSession.LicenseeId];
-                var currencyList = SessionService.UserSession.CurrencyList
-                    .Where(i => i.Key == metaModel.CurrencyId || metaModel.CurrencyId <= 0);
 
-                metaModel.CurrencyCodes = string.Join(",", currencyList.Select(i => i.Value).ToArray());
-                metaModel.CurrencyIdList = string.Join(",", currencyList.Select(i => i.Key).ToArray());
+                metaModel.CurrencyListXml = GenerateCurrencyListXml(metaModel);
 
                 var result = _licenseeWinLossDataAccess.GetData(metaModel);
 
@@ -127,31 +125,36 @@
             };
         }
 
+        private string GenerateCurrencyListXml(SpecialLicenseeWinLossMetaModel metaModel)
+        {
+            var currencyList = SessionService.UserSession.CurrencyList
+               .Where(i => i.Key == metaModel.CurrencyId || metaModel.CurrencyId <= 0)
+               .Select(i => $"<CR Id=\"{i.Key}\" Code =\"{i.Value}\" />").ToArray();
+
+            return $"<ROOT>{string.Join("", currencyList)}</ROOT>";
+        }
+
         protected internal virtual bool IsValidParams(SpecialLicenseeWinLossMetaModel metaModel, ReportSetting setting)
         {
-            if (setting == null)
-            {
-                return false;
-            }
+            return IsValidDateRange(metaModel, setting) && IsValidProduct(metaModel) && IsValidCurrency(metaModel);
 
-            if (!setting.BaseCurrencies.Contains(metaModel.BaseCurrency.ToUpper(CultureInfo.InvariantCulture)))
-            {
-                return false;
-            }
+        }
 
+        private bool IsValidCurrency(SpecialLicenseeWinLossMetaModel metaModel)
+        {
+            return metaModel.CurrencyId <= 0
+                || SessionService.UserSession.CurrencyList.ContainsKey(metaModel.CurrencyId);
+        }
+        private bool IsValidProduct(SpecialLicenseeWinLossMetaModel metaModel)
+        {
             var offeredProducts = LicenseeOfferedProducts[SessionService.LicenseeSession.LicenseeId];
+            return !metaModel.ProductCodes.Any(i => !offeredProducts.Contains(i));
+        }
 
-            if (metaModel.FromDate > metaModel.ToDate || metaModel.ProductCodes.Any(i => !offeredProducts.Contains(i)))
-            {
-                return false;
-            }
-
-            if (metaModel.CurrencyId > 0 && !SessionService.UserSession.CurrencyList.ContainsKey(metaModel.CurrencyId))
-            {
-                return false;
-            }
-
-            return DateTimeHelper.IsBetween(metaModel.FromDate, setting.MinDate, setting.MaxDate) &&
+        private static bool IsValidDateRange(SpecialLicenseeWinLossMetaModel metaModel, ReportSetting setting)
+        {
+            return setting != null && metaModel.FromDate >= metaModel.ToDate &&
+                DateTimeHelper.IsBetween(metaModel.FromDate, setting.MinDate, setting.MaxDate) &&
                 DateTimeHelper.IsBetween(metaModel.ToDate, setting.MinDate, setting.MaxDate);
         }
     }
