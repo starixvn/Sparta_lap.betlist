@@ -6,6 +6,7 @@
     using Model.Core.DTO.Common;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
     using VendorAdapter.Interfaces;
 
     [TestFixture]
@@ -48,16 +49,7 @@
             DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerSelEditKN")).Returns(ObjectDb);
             var reader = Substitute.For<IDataReader>();
             var custId = 1;
-            var expected = new BetSetting
-            {
-                MaxBet = 100.5m,
-                MinBet = 10m,
-                MaxPerMatchMax = 60m,
-                MaxPerMatch = 40m,
-                BetValueMax = 20m,
-                BetValueMin = 15m,
-                SportId = "SportIdTest"
-            };
+            var expected = FakeHelper.Create<BetSetting>();
             ConfigureReaderForReadBetSettingMethod(reader, expected);
 
             // Action

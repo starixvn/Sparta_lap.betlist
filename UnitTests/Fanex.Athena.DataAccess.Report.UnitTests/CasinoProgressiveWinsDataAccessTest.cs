@@ -12,6 +12,7 @@
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class CasinoProgressiveWinsDataAccessTest : BaseDataAccessHelperTest<CasinoProgressiveWinsDataAccess>
@@ -70,19 +71,7 @@
         public void GetDataList_WhenCall_DateReturnedCorrectly()
         {
             // Arrange
-            var expected = new CasinoProgressiveWins
-            {
-                SystemId = "SystemIdTest",
-                ExternalId = "ExternalIdTest",
-                RefNo = 1,
-                WinAmount = 10m,
-                BetType = 2,
-                SportType = 3,
-                TransDesc = "TransDescTest",
-                CurrencyId = 4,
-                CustId = 5,
-                GameId = "GameIdTest"
-            };
+            var expected = FakeHelper.Create<CasinoProgressiveWins>();
             ConfigureReaderForGetDataListMethod(expected);
 
             // Action

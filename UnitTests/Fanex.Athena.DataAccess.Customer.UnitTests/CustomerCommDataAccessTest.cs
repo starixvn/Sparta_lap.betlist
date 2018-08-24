@@ -22,18 +22,17 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
-                ObjectDb.Received().AddInParameter("UserId", DbType.Int32, metaModel.UserId);
-                ObjectDb.Received().AddInParameter("GroupCommId", DbType.Int32, metaModel.GroupComId);
-                ObjectDb.Received().AddInParameter("IsUpdateNG", DbType.Boolean, metaModel.IsAllowedNG);
-                ObjectDb.Received().AddInParameter("IsUpdateRNG", DbType.Boolean, metaModel.IsAllowedRNG);
-                ObjectDb.Received().AddInParameter("IsUpdateAllbet", DbType.Boolean, metaModel.IsAllowedAB);
-                ObjectDb.Received().AddInParameter("Ip", DbType.String, metaModel.Ip);
-                ObjectDb.Received().AddInParameter("langkey", DbType.String, metaModel.Language);
-                ObjectDb.Received().AddInParameter("strCustIDOriginal", DbType.String, metaModel.CustomerToSQLParam);
-                ObjectDb.Received().AddOutParameter("strCustID", DbType.String, int.MaxValue);
-                ObjectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
-                ObjectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
+                ObjectDb.Received(1).AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
+                ObjectDb.Received(1).AddInParameter("UserId", DbType.Int32, metaModel.UserId);
+                ObjectDb.Received(1).AddInParameter("GroupCommId", DbType.Int32, metaModel.GroupComId);
+                ObjectDb.Received(1).AddInParameter("IsUpdateNG", DbType.Boolean, metaModel.IsAllowedNG);
+                ObjectDb.Received(1).AddInParameter("IsUpdateRNG", DbType.Boolean, metaModel.IsAllowedRNG);
+                ObjectDb.Received(1).AddInParameter("Ip", DbType.String, metaModel.Ip);
+                ObjectDb.Received(1).AddInParameter("langkey", DbType.String, metaModel.Language);
+                ObjectDb.Received(1).AddInParameter("strCustIDOriginal", DbType.String, metaModel.CustomerToSQLParam);
+                ObjectDb.Received(1).AddOutParameter("strCustID", DbType.String, int.MaxValue);
+                ObjectDb.Received(1).AddOutParameter("ErrCode", DbType.Int32, 4);
+                ObjectDb.Received(1).AddOutParameter("ErrMsg", DbType.String, 4000);
             });
         }
 
@@ -50,15 +49,15 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
-                ObjectDb.Received().AddInParameter("UserId", DbType.Int32, metaModel.UserId);
-                ObjectDb.Received().AddInParameter("Ip", DbType.String, metaModel.Ip);
-                ObjectDb.Received().AddInParameter("IsRemovePlayercomm", DbType.Boolean, metaModel.IsRemovePlayercomm);
-                ObjectDb.Received().AddInParameter("langkey", DbType.String, metaModel.Language);
-                ObjectDb.Received().AddInParameter("strCustIDOriginal", DbType.String, metaModel.CustomerToSQLParam);
-                ObjectDb.Received().AddOutParameter("strCustID", DbType.String, int.MaxValue);
-                ObjectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
-                ObjectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
+                ObjectDb.Received(1).AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
+                ObjectDb.Received(1).AddInParameter("UserId", DbType.Int32, metaModel.UserId);
+                ObjectDb.Received(1).AddInParameter("Ip", DbType.String, metaModel.Ip);
+                ObjectDb.Received(1).AddInParameter("IsRemovePlayercomm", DbType.Boolean, metaModel.IsRemovePlayercomm);
+                ObjectDb.Received(1).AddInParameter("langkey", DbType.String, metaModel.Language);
+                ObjectDb.Received(1).AddInParameter("strCustIDOriginal", DbType.String, metaModel.CustomerToSQLParam);
+                ObjectDb.Received(1).AddOutParameter("strCustID", DbType.String, int.MaxValue);
+                ObjectDb.Received(1).AddOutParameter("ErrCode", DbType.Int32, 4);
+                ObjectDb.Received(1).AddOutParameter("ErrMsg", DbType.String, 4000);
             });
         }
 
@@ -75,21 +74,19 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
-                ObjectDb.Received().AddInParameter("UserId", DbType.Int32, metaModel.UserId);
-                ObjectDb.Received().AddInParameter("SBComm", DbType.Decimal, metaModel.SBComm);
-                ObjectDb.Received().AddInParameter("NGComm", DbType.Decimal, metaModel.NGComm);
-                ObjectDb.Received().AddInParameter("RNGComm", DbType.Decimal, metaModel.CSComm);
-                ObjectDb.Received().AddInParameter("AllbetComm", DbType.Decimal, metaModel.ABComm);
-                ObjectDb.Received().AddInParameter("IsUpdateNG", DbType.Boolean, metaModel.IsAllowedNG);
-                ObjectDb.Received().AddInParameter("IsUpdateRNG", DbType.Boolean, metaModel.IsAllowedCS);
-                ObjectDb.Received().AddInParameter("IsUpdateAllbet", DbType.Boolean, metaModel.IsAllowedAB);
-                ObjectDb.Received().AddInParameter("Ip", DbType.String, metaModel.Ip);
-                ObjectDb.Received().AddInParameter("langkey", DbType.String, metaModel.Language);
-                ObjectDb.Received().AddInParameter("strCustIDOriginal", DbType.String, metaModel.CustomerToSQLParam);
-                ObjectDb.Received().AddOutParameter("strCustID", DbType.String, int.MaxValue);
-                ObjectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
-                ObjectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
+                ObjectDb.Received(1).AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
+                ObjectDb.Received(1).AddInParameter("UserId", DbType.Int32, metaModel.UserId);
+                ObjectDb.Received(1).AddInParameter("SBComm", DbType.Decimal, metaModel.SBComm);
+                ObjectDb.Received(1).AddInParameter("NGComm", DbType.Decimal, metaModel.NGComm);
+                ObjectDb.Received(1).AddInParameter("RNGComm", DbType.Decimal, metaModel.CSComm);
+                ObjectDb.Received(1).AddInParameter("IsUpdateNG", DbType.Boolean, metaModel.IsAllowedNG);
+                ObjectDb.Received(1).AddInParameter("IsUpdateRNG", DbType.Boolean, metaModel.IsAllowedCS);
+                ObjectDb.Received(1).AddInParameter("Ip", DbType.String, metaModel.Ip);
+                ObjectDb.Received(1).AddInParameter("langkey", DbType.String, metaModel.Language);
+                ObjectDb.Received(1).AddInParameter("strCustIDOriginal", DbType.String, metaModel.CustomerToSQLParam);
+                ObjectDb.Received(1).AddOutParameter("strCustID", DbType.String, int.MaxValue);
+                ObjectDb.Received(1).AddOutParameter("ErrCode", DbType.Int32, 4);
+                ObjectDb.Received(1).AddOutParameter("ErrMsg", DbType.String, 4000);
             });
         }
     }

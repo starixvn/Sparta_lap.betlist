@@ -6,6 +6,7 @@
     using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
     using UnitTest.Common.NUnitExtensions;
 
     public partial class BetListDataAccessTest
@@ -41,19 +42,7 @@
         public void GetSystemParlayDetail_WhenCall_GetTicketDataCorrectly()
         {
             // Arrange
-            var expectedResult = new SystemParlayTicket
-            {
-                Comm = 1,
-                MOdds = 2,
-                PlayerComm = 3,
-                Serial = 4,
-                Stake = 5,
-                Status = "Fun",
-                StatusId = 6,
-                TransId = 7,
-                WinLost = 8,
-                WinLostDate = new DateTime(2017, 1, 1)
-            };
+            var expectedResult = FakeHelper.Create<SystemParlayTicket>();
             var metaModel = GetSystemParlayDetailMetaModel();
             DataAccess.GetObjectDb(Arg.Is(GetSystemParlayDetailSp)).Returns(ObjectDb);
             ObjectDb.ExecuteDataSet().Returns(CreateFakeDataSetForSystemParlayTickeData(expectedResult));

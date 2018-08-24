@@ -25,7 +25,7 @@
             DataAccess.GetProductAccessList(LicenseeId, isActiveCustomerSummaryReport);
 
             // Assert
-            ObjectDb.Received().AddInParameter("licenseeid", DbType.Int32, LicenseeId);
+            ObjectDb.Received(1).AddInParameter("licenseeid", DbType.Int32, LicenseeId);
         }
 
         [TestCase(true)]

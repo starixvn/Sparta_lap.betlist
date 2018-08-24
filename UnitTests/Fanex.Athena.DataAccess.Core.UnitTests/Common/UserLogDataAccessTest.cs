@@ -6,6 +6,7 @@
     using Model.Core.MetaModel.Common;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
 
     public class UserLogDataAccessTest : BaseDataAccessHelperTest<UserLogDataAccess>
     {
@@ -21,16 +22,7 @@
         public void WriteLog_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            var metaModel = new UserLogMetaModel
-            {
-                UserId = 1,
-                CustID = 2,
-                SPName = "SpName",
-                ActionID = 3,
-                Doing = "Doing",
-                TrackingValue1 = "V1",
-                TrackingValue2 = "V2"
-            };
+            var metaModel = FakeHelper.Create<UserLogMetaModel>();
 
             // Action
             DataAccess.WriteLog(metaModel);
@@ -38,14 +30,14 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("UserID", DbType.Int32, metaModel.UserId);
-                ObjectDb.Received().AddInParameter("CustID", DbType.Int32, metaModel.CustID);
-                ObjectDb.Received().AddInParameter("SPName", DbType.String, metaModel.SPName);
-                ObjectDb.Received().AddInParameter("ActionID", DbType.Int32, metaModel.ActionID);
-                ObjectDb.Received().AddInParameter("Doing", DbType.String, metaModel.Doing);
-                ObjectDb.Received().AddInParameter("TrackingValue", DbType.String, metaModel.TrackingValue1);
-                ObjectDb.Received().AddInParameter("TrackingValue2", DbType.String, metaModel.TrackingValue2);
-                ObjectDb.Received().AddInParameter("Duration", DbType.Int32, 0);
+                ObjectDb.Received(1).AddInParameter("UserID", DbType.Int32, metaModel.UserId);
+                ObjectDb.Received(1).AddInParameter("CustID", DbType.Int32, metaModel.CustID);
+                ObjectDb.Received(1).AddInParameter("SPName", DbType.String, metaModel.SPName);
+                ObjectDb.Received(1).AddInParameter("ActionID", DbType.Int32, metaModel.ActionID);
+                ObjectDb.Received(1).AddInParameter("Doing", DbType.String, metaModel.Doing);
+                ObjectDb.Received(1).AddInParameter("TrackingValue", DbType.String, metaModel.TrackingValue1);
+                ObjectDb.Received(1).AddInParameter("TrackingValue2", DbType.String, metaModel.TrackingValue2);
+                ObjectDb.Received(1).AddInParameter("Duration", DbType.Int32, 0);
             });
         }
 
@@ -59,7 +51,7 @@
             DataAccess.WriteLog(metaModel);
 
             // Assert
-            ObjectDb.Received().ExecuteNonQuery();
+            ObjectDb.Received(1).ExecuteNonQuery();
         }
     }
 }

@@ -410,7 +410,7 @@
             ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
             ObjectDb.Received(1).AddInParameter("Fromdate", DbType.Date, _metaModel.FromDate.Date);
             ObjectDb.Received(1).AddInParameter("Todate", DbType.Date, _metaModel.ToDate.Date);
-            ObjectDb.Received().AddInParameter("LicenseeId", DbType.Int32, _metaModel.LicenseeId);
+            ObjectDb.Received(1).AddInParameter("LicenseeId", DbType.Int32, _metaModel.LicenseeId);
         }
 
         private void AssertSummaryTotalResultData(ReportResultModel<ExchangeWinLoss> result, IEnumerable<ExchangeWinLoss> expectedList, string baseCurrency)

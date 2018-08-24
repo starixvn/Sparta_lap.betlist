@@ -21,7 +21,6 @@ namespace Fanex.Athena.Model.Customer.MetaModel
         {
             IsAllowedNG = productAccess.IsAllowNG;
             IsAllowedRNG = productAccess.IsAllowCS;
-            IsAllowedAB = productAccess.IsAllowAB;
         }
 
         public int GroupComId { get; set; }
@@ -29,7 +28,5 @@ namespace Fanex.Athena.Model.Customer.MetaModel
         public bool IsAllowedNG { get; set; }
 
         public bool IsAllowedRNG { get; set; }
-
-        public bool IsAllowedAB { get; set; }
     }
 }

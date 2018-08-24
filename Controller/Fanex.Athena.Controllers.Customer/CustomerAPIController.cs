@@ -323,8 +323,7 @@ namespace Fanex.Athena.Controllers.Customer
                                 metaModel.SBComm,
                                 metaModel.ParlayComm,
                                 metaModel.NGComm,
-                                metaModel.CSComm,
-                                metaModel.ABComm);
+                                metaModel.CSComm);
                 var userSession = SessionService.UserSession;
 
                 var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
@@ -335,7 +334,6 @@ namespace Fanex.Athena.Controllers.Customer
                     metaModel.Ip = this.Request.UserHostAddress;
                     metaModel.IsAllowedNG = productAccess.IsAllowNG;
                     metaModel.IsAllowedCS = productAccess.IsAllowCS;
-                    metaModel.IsAllowedAB = productAccess.IsAllowAB;
                     metaModel.Language = userSession.Language;
                     /* Get oldGroup Commission to compare with new group commission.
                      * Check data for Update group commission
@@ -515,7 +513,6 @@ namespace Fanex.Athena.Controllers.Customer
                 SBComm = NumberHelper.DecFormat(metaModel.SBComm * 100, 2),
                 NGComm = NumberHelper.DecFormat(metaModel.NGComm * 100, 2),
                 RNGComm = NumberHelper.DecFormat(metaModel.CSComm * 100, 2),
-                ABComm = NumberHelper.DecFormat(metaModel.ABComm * 100, 2),
                 GroupName = ViewResources.None,
                 GroupColor = "#ffffff",
             };

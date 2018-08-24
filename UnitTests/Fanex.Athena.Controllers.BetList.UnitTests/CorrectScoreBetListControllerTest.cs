@@ -96,9 +96,7 @@
                     BaseCurrency = baseCurrency
                 };
 
-                var currencyTitle = string.Format(
-                    ViewResources.Viewin,
-                    expectedCurrency);
+                var currencyTitle = string.Format(ViewResources.Viewin, expectedCurrency);
                 var expectedTitle = $"{ViewResources.CorrectScore} - {currencyTitle}";
 
                 var ticketResult = new TicketResult();

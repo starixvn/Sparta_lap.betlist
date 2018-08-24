@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Web.Script.Serialization;
     using Core.Configuration.Interfaces;
     using Core.UnitTests.TestHelpers;
     using Extension.Utility;
@@ -13,6 +12,7 @@
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
 
     public class CashOutWinLossDataAccessTest : BaseDataAccessHelperTest<CashOutWinLossDataAccess>
     {
@@ -85,9 +85,8 @@
             var fakeData = CreateFakeData();
             MapReaderData(fakeData);
 
-            var serializer = new JavaScriptSerializer();
-            var expectedCashoutWinLossData = serializer.Serialize(CreateExpectedCashoutWinLossData(1));
-            var expectedSummaryTotal = serializer.Serialize(CreateExpectedSummaryTotalData());
+            var expectedCashoutWinLossData = ObjectHelper.ToJson(CreateExpectedCashoutWinLossData(1));
+            var expectedSummaryTotal = ObjectHelper.ToJson(CreateExpectedSummaryTotalData());
 
             // Action
             var result = DataAccess.GetSummary(_metaModel);
@@ -95,8 +94,8 @@
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(serializer.Serialize(result.DataList), Is.EqualTo(expectedCashoutWinLossData));
-                Assert.That(serializer.Serialize(result.SummaryTotal), Is.EqualTo(expectedSummaryTotal));
+                Assert.That(ObjectHelper.ToJson(result.DataList), Is.EqualTo(expectedCashoutWinLossData));
+                Assert.That(ObjectHelper.ToJson(result.SummaryTotal), Is.EqualTo(expectedSummaryTotal));
             });
         }
 
@@ -112,7 +111,6 @@
 
             var fakeData = CreateFakeData();
             MapReaderData(fakeData);
-            var serializer = new JavaScriptSerializer();
 
             var cashoutWinLossData = CreateExpectedCashoutWinLossData(1);
             cashoutWinLossData[0].Date = _metaModel.DrillDownFromDate;
@@ -120,13 +118,13 @@
             cashoutWinLossData[0].ExternalId = string.Empty;
             cashoutWinLossData[0].CustomerId = 0;
 
-            var expectedCashoutWinLossData = serializer.Serialize(cashoutWinLossData);
+            var expectedCashoutWinLossData = ObjectHelper.ToJson(cashoutWinLossData);
 
             // Action
             var result = DataAccess.GetSummary(_metaModel);
 
             // Assert
-            Assert.That(serializer.Serialize(result.DataList), Is.EqualTo(expectedCashoutWinLossData));
+            Assert.That(ObjectHelper.ToJson(result.DataList), Is.EqualTo(expectedCashoutWinLossData));
         }
 
         [Test]
@@ -191,7 +189,6 @@
 
             var fakeData = CreateFakeData();
             MapReaderData(fakeData);
-            var serializer = new JavaScriptSerializer();
             var expectedResult = new SortableReportResultModel<CashOutWinLoss>
             {
                 DataList = CreateExpectedCashoutWinLossData(),
@@ -200,10 +197,10 @@
             };
 
             // Action
-            var result = serializer.Serialize(DataAccess.GetDetail(_metaModel));
+            var result = ObjectHelper.ToJson(DataAccess.GetDetail(_metaModel));
 
             // Assert
-            Assert.That(result, Is.EqualTo(serializer.Serialize(expectedResult)));
+            Assert.That(result, Is.EqualTo(ObjectHelper.ToJson(expectedResult)));
         }
 
         [Test]

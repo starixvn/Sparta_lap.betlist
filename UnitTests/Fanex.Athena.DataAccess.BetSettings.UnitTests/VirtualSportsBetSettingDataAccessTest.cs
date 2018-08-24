@@ -8,6 +8,7 @@
     using NSubstitute;
     using NUnit.Framework;
     using Service.Core.Utility.Interfaces;
+    using UnitTest.Common.Helpers;
     using VendorAdapter.Interfaces;
 
     [TestFixture]
@@ -50,17 +51,7 @@
             DataAccess.GetObjectDb(Arg.Is("Acc_Dep_CustSetting_BetLimitSettingSelect")).Returns(ObjectDb);
             var custId = 1;
             var productId = 27;
-            var expected = new BetSetting
-            {
-                MaxBet = 100.5m,
-                MinBet = 10m,
-                MaxPerMatchMax = 60m,
-                MaxPerMatch = 40m,
-                BetValueMax = 20m,
-                BetValueMin = 15m,
-                SportId = "SportIdTest",
-                BetType = 1
-            };
+            var expected = FakeHelper.Create<BetSetting>();
 
             var reader = Substitute.For<IDataReader>();
             ConfigureReaderForGetBetSettingMethod(reader, expected);

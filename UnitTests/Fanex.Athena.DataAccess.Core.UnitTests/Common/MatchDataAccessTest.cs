@@ -84,7 +84,7 @@
             DataAccess.GetAllRunningMatch(sportId);
 
             // Assert
-            ObjectDb.Received().AddInParameter("sporttype", System.Data.DbType.Int32, sportId);
+            ObjectDb.Received(1).AddInParameter("sporttype", System.Data.DbType.Int32, sportId);
         }
 
         [Test]

@@ -51,14 +51,14 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("userid", DbType.Int32, metaModel.UserId);
-                ObjectDb.Received().AddInParameter("custid", DbType.Int32, metaModel.CustId);
-                ObjectDb.Received().AddInParameter("sportid", DbType.Int32, sportId);
-                ObjectDb.Received().AddInParameter("language", DbType.String, metaModel.Language);
-                ObjectDb.Received().AddInParameter("ip", DbType.String, metaModel.Ip);
-                ObjectDb.Received().AddInParameter("status", DbType.Int32, metaModel.Status);
-                ObjectDb.Received().AddOutParameter("ErrCode", DbType.String, 5);
-                ObjectDb.Received().AddOutParameter("ErrMsg", DbType.String, 6000);
+                ObjectDb.Received(1).AddInParameter("userid", DbType.Int32, metaModel.UserId);
+                ObjectDb.Received(1).AddInParameter("custid", DbType.Int32, metaModel.CustId);
+                ObjectDb.Received(1).AddInParameter("sportid", DbType.Int32, sportId);
+                ObjectDb.Received(1).AddInParameter("language", DbType.String, metaModel.Language);
+                ObjectDb.Received(1).AddInParameter("ip", DbType.String, metaModel.Ip);
+                ObjectDb.Received(1).AddInParameter("status", DbType.Int32, metaModel.Status);
+                ObjectDb.Received(1).AddOutParameter("ErrCode", DbType.String, 5);
+                ObjectDb.Received(1).AddOutParameter("ErrMsg", DbType.String, 6000);
             });
         }
 

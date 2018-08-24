@@ -28,9 +28,9 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("userid", DbType.Int32, UserId);
-                ObjectDb.Received().AddInParameter("username", DbType.String, UserName);
-                ObjectDb.Received().AddInParameter("AgentList", DbType.String, string.Empty);
+                ObjectDb.Received(1).AddInParameter("userid", DbType.Int32, UserId);
+                ObjectDb.Received(1).AddInParameter("username", DbType.String, UserName);
+                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, string.Empty);
             });
         }
 
@@ -57,17 +57,17 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("LicenseeID", DbType.Int32, metaModel.LicenseeId);
-                ObjectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                ObjectDb.Received().AddInParameter("username", DbType.String, metaModel.Username);
-                ObjectDb.Received().AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
-                ObjectDb.Received().AddInParameter("PageIndex ", DbType.Int32, metaModel.PageIndex);
-                ObjectDb.Received().AddInParameter("BAFilter", DbType.Int32, metaModel.BAFilter);
-                ObjectDb.Received().AddInParameter("CustStatus", DbType.String, expectedStatusParam);
-                ObjectDb.Received().AddInParameter("SpecialLevel", DbType.Int32, metaModel.SpecialLevel);
-                ObjectDb.Received().AddInParameter("GroupCommId", DbType.Int32, metaModel.GroupCommId);
-                ObjectDb.Received().AddInParameter("OddsGroups", DbType.String, "A,C");
-                ObjectDb.Received().AddOutParameter("TotalRows", DbType.Int32, 4);
+                ObjectDb.Received(1).AddInParameter("LicenseeID", DbType.Int32, metaModel.LicenseeId);
+                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+                ObjectDb.Received(1).AddInParameter("username", DbType.String, metaModel.Username);
+                ObjectDb.Received(1).AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
+                ObjectDb.Received(1).AddInParameter("PageIndex ", DbType.Int32, metaModel.PageIndex);
+                ObjectDb.Received(1).AddInParameter("BAFilter", DbType.Int32, metaModel.BAFilter);
+                ObjectDb.Received(1).AddInParameter("CustStatus", DbType.String, expectedStatusParam);
+                ObjectDb.Received(1).AddInParameter("SpecialLevel", DbType.Int32, metaModel.SpecialLevel);
+                ObjectDb.Received(1).AddInParameter("GroupCommId", DbType.Int32, metaModel.GroupCommId);
+                ObjectDb.Received(1).AddInParameter("OddsGroups", DbType.String, "A,C");
+                ObjectDb.Received(1).AddOutParameter("TotalRows", DbType.Int32, 4);
             });
         }
 
@@ -120,9 +120,9 @@
             DataAccess.GetCustomerLoginInfo(CustId, LicenseeId, LicenseeName);
 
             // Assert
-            ObjectDb.Received().AddInParameter("custid", DbType.Int32, CustId);
-            ObjectDb.Received().AddInParameter("licenseeId", DbType.Int32, LicenseeId);
-            ObjectDb.Received().AddInParameter("siteName", DbType.String, LicenseeName);
+            ObjectDb.Received(1).AddInParameter("custid", DbType.Int32, CustId);
+            ObjectDb.Received(1).AddInParameter("licenseeId", DbType.Int32, LicenseeId);
+            ObjectDb.Received(1).AddInParameter("siteName", DbType.String, LicenseeName);
         }
 
         [Test]
@@ -138,13 +138,13 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("UserId", DbType.Int32, metaModel.UserId);
-                ObjectDb.Received().AddInParameter("CustId", DbType.Int32, metaModel.CustId);
-                ObjectDb.Received().AddInParameter("OddsGroup", DbType.String, metaModel.OddsGroup);
-                ObjectDb.Received().AddInParameter("IP", DbType.String, metaModel.Ip);
-                ObjectDb.Received().AddInParameter("Langkey", DbType.String, metaModel.Language);
-                ObjectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
-                ObjectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
+                ObjectDb.Received(1).AddInParameter("UserId", DbType.Int32, metaModel.UserId);
+                ObjectDb.Received(1).AddInParameter("CustId", DbType.Int32, metaModel.CustId);
+                ObjectDb.Received(1).AddInParameter("OddsGroup", DbType.String, metaModel.OddsGroup);
+                ObjectDb.Received(1).AddInParameter("IP", DbType.String, metaModel.Ip);
+                ObjectDb.Received(1).AddInParameter("Langkey", DbType.String, metaModel.Language);
+                ObjectDb.Received(1).AddOutParameter("ErrCode", DbType.Int32, 4);
+                ObjectDb.Received(1).AddOutParameter("ErrMsg", DbType.String, 4000);
             });
         }
 
@@ -161,13 +161,13 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("LicenseeId", DbType.String, metaModel.LicenseeId);
-                ObjectDb.Received().AddInParameter("UserId", DbType.String, metaModel.ModifyById);
-                ObjectDb.Received().AddInParameter("CustId", DbType.String, metaModel.CustId);
-                ObjectDb.Received().AddInParameter("Closed", DbType.String, metaModel.IsOn);
-                ObjectDb.Received().AddInParameter("IP", DbType.String, metaModel.Ip);
-                ObjectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
-                ObjectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
+                ObjectDb.Received(1).AddInParameter("LicenseeId", DbType.String, metaModel.LicenseeId);
+                ObjectDb.Received(1).AddInParameter("UserId", DbType.String, metaModel.ModifyById);
+                ObjectDb.Received(1).AddInParameter("CustId", DbType.String, metaModel.CustId);
+                ObjectDb.Received(1).AddInParameter("Closed", DbType.String, metaModel.IsOn);
+                ObjectDb.Received(1).AddInParameter("IP", DbType.String, metaModel.Ip);
+                ObjectDb.Received(1).AddOutParameter("ErrCode", DbType.Int32, 4);
+                ObjectDb.Received(1).AddOutParameter("ErrMsg", DbType.String, 4000);
             });
         }
 
@@ -184,14 +184,14 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("LicenseeId", DbType.String, metaModel.LicenseeId);
-                ObjectDb.Received().AddInParameter("LicenseeId", DbType.String, metaModel.LicenseeId);
-                ObjectDb.Received().AddInParameter("UserId", DbType.String, metaModel.ModifyById);
-                ObjectDb.Received().AddInParameter("CustId", DbType.String, metaModel.CustId);
-                ObjectDb.Received().AddInParameter("Suspended", DbType.String, metaModel.IsOn);
-                ObjectDb.Received().AddInParameter("IP", DbType.String, metaModel.Ip);
-                ObjectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
-                ObjectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
+                ObjectDb.Received(1).AddInParameter("LicenseeId", DbType.String, metaModel.LicenseeId);
+                ObjectDb.Received(1).AddInParameter("LicenseeId", DbType.String, metaModel.LicenseeId);
+                ObjectDb.Received(1).AddInParameter("UserId", DbType.String, metaModel.ModifyById);
+                ObjectDb.Received(1).AddInParameter("CustId", DbType.String, metaModel.CustId);
+                ObjectDb.Received(1).AddInParameter("Suspended", DbType.String, metaModel.IsOn);
+                ObjectDb.Received(1).AddInParameter("IP", DbType.String, metaModel.Ip);
+                ObjectDb.Received(1).AddOutParameter("ErrCode", DbType.Int32, 4);
+                ObjectDb.Received(1).AddOutParameter("ErrMsg", DbType.String, 4000);
             });
         }
 
@@ -213,13 +213,13 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("LicenseeID", DbType.Int32, LicenseeId);
-                ObjectDb.Received().AddInParameter("CustID", DbType.String, CustId);
-                ObjectDb.Received().AddInParameter("ModifyBy", DbType.String, ModifiedBy);
-                ObjectDb.Received().AddInParameter("IsBA", DbType.Boolean, AllowBA);
-                ObjectDb.Received().AddInParameter("langkey", DbType.String, request.Language);
-                ObjectDb.Received().AddInParameter("IP", DbType.String, request.Ip);
-                ObjectDb.Received().AddOutParameter("OddsGroup", DbType.String, 10);
+                ObjectDb.Received(1).AddInParameter("LicenseeID", DbType.Int32, LicenseeId);
+                ObjectDb.Received(1).AddInParameter("CustID", DbType.String, CustId);
+                ObjectDb.Received(1).AddInParameter("ModifyBy", DbType.String, ModifiedBy);
+                ObjectDb.Received(1).AddInParameter("IsBA", DbType.Boolean, AllowBA);
+                ObjectDb.Received(1).AddInParameter("langkey", DbType.String, request.Language);
+                ObjectDb.Received(1).AddInParameter("IP", DbType.String, request.Ip);
+                ObjectDb.Received(1).AddOutParameter("OddsGroup", DbType.String, 10);
             });
         }
 
@@ -240,13 +240,13 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("custid", DbType.Int32, CustId);
-                ObjectDb.Received().AddInParameter("userid", DbType.Int32, UserId);
-                ObjectDb.Received().AddInParameter("speciallevel", DbType.Int32, Level);
-                ObjectDb.Received().AddInParameter("ip", DbType.String, Ip);
-                ObjectDb.Received().AddInParameter("langkey", DbType.String, Language);
-                ObjectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
-                ObjectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
+                ObjectDb.Received(1).AddInParameter("custid", DbType.Int32, CustId);
+                ObjectDb.Received(1).AddInParameter("userid", DbType.Int32, UserId);
+                ObjectDb.Received(1).AddInParameter("speciallevel", DbType.Int32, Level);
+                ObjectDb.Received(1).AddInParameter("ip", DbType.String, Ip);
+                ObjectDb.Received(1).AddInParameter("langkey", DbType.String, Language);
+                ObjectDb.Received(1).AddOutParameter("ErrCode", DbType.Int32, 4);
+                ObjectDb.Received(1).AddOutParameter("ErrMsg", DbType.String, 4000);
             });
         }
 
@@ -267,11 +267,11 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("custid", DbType.Int32, CustId);
-                ObjectDb.Received().AddInParameter("userid", DbType.Int32, UserId);
-                ObjectDb.Received().AddInParameter("oddsgroup", DbType.String, Group);
-                ObjectDb.Received().AddInParameter("ip", DbType.String, Ip);
-                ObjectDb.Received().AddInParameter("langkey", DbType.String, Language);
+                ObjectDb.Received(1).AddInParameter("custid", DbType.Int32, CustId);
+                ObjectDb.Received(1).AddInParameter("userid", DbType.Int32, UserId);
+                ObjectDb.Received(1).AddInParameter("oddsgroup", DbType.String, Group);
+                ObjectDb.Received(1).AddInParameter("ip", DbType.String, Ip);
+                ObjectDb.Received(1).AddInParameter("langkey", DbType.String, Language);
             });
         }
     }

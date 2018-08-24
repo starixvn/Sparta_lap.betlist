@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Web.Script.Serialization;
     using Base.UnitTests;
     using DataAccess.Report.Interfaces;
     using Excel.Base.Entities;
@@ -15,6 +14,7 @@
     using NPOI.SS.UserModel;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
 
     public class AgCasinoBalanceReportControllerTest : BaseApiControllerHelperTest
     {
@@ -55,7 +55,7 @@
             var expectedResult = GetSerializationData();
 
             // Action
-            var result = ToJson(_controller.Index(metaModel));
+            var result = ObjectHelper.ToJson(_controller.Index(metaModel));
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -80,7 +80,7 @@
             var expectedResult = GetSerializationData();
 
             // Action
-            var result = ToJson(_controller.Index(metaModel));
+            var result = ObjectHelper.ToJson(_controller.Index(metaModel));
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -126,7 +126,7 @@
             var result = _controller.Index(metaModel).Data;
 
             // Assert
-            Assert.That(ToJson(result), Is.EqualTo(ToJson(expectedDataList)));
+            Assert.That(ObjectHelper.ToJson(result), Is.EqualTo(ObjectHelper.ToJson(expectedDataList)));
         }
 
         [Test]
@@ -153,7 +153,7 @@
             var expectedResult = GetSerializationData(resultModel);
 
             // Action
-            var result = ToJson(_controller.Index(metaModel));
+            var result = ObjectHelper.ToJson(_controller.Index(metaModel));
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -185,7 +185,7 @@
             var expectedResult = GetSerializationData(resultModel);
 
             // Action
-            var result = ToJson(_controller.Index(metaModel));
+            var result = ObjectHelper.ToJson(_controller.Index(metaModel));
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -253,16 +253,11 @@
             dataAccess.GetCustomerBalanceDetail(metaModel).Returns(resultModel);
         }
 
-        private static string ToJson(object value)
-        {
-            return new JavaScriptSerializer().Serialize(value);
-        }
-
         private static string GetSerializationData(SortableReportResultModel<AgCasinoBalance> data = null)
         {
             if (data == null)
             {
-                return ToJson(
+                return ObjectHelper.ToJson(
                 new
                 {
                     TotalRows = 0,
@@ -272,7 +267,7 @@
                 });
             }
 
-            return ToJson(
+            return ObjectHelper.ToJson(
                 new
                 {
                     TotalRows = data.TotalRows,

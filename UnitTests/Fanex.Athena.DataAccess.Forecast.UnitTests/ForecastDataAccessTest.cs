@@ -3,7 +3,6 @@
     using System;
     using System.Data;
     using Core.UnitTests.TestHelpers;
-    using Data;
     using Forecast;
     using Model.Forecast.DTO.Forecast1X2;
     using Model.Forecast.DTO.ForecastAH;
@@ -13,6 +12,7 @@
     using NSubstitute;
     using NUnit.Framework;
     using VendorAdapter.Interfaces;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class ForecastDataAccessTest : BaseDataAccessHelperTest<ForecastDataAccess>
@@ -79,8 +79,8 @@
             DataAccess.GetForecastRunningLeague(metaModel);
 
             // Assert
-            ObjectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            ObjectDb.Received().AddInParameter("betTypes", DbType.String, metaModel.BetTypeString);
+            ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            ObjectDb.Received(1).AddInParameter("betTypes", DbType.String, metaModel.BetTypeString);
         }
 
         [Test]
@@ -124,17 +124,7 @@
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_Forecast1x2_SelByLeague")).Returns(ObjectDb);
             var metaModel = new ForecastOneXTwoMetaModel();
-            var expected = new ForecastOneXTwo
-            {
-                MatchId = 1,
-                HomeId = 2,
-                AwayId = 3,
-                LiveIndicator = true,
-                LiveHomeScore = 4,
-                LiveAwayScore = 5,
-                ShowTime = "ShowTimeTest",
-                IsNeutral = true
-            };
+            var expected = FakeHelper.Create<ForecastOneXTwo>();
             ConfifureReaderForGetForecastOneXTwoByLeagueMethod(Reader, expected, false);
 
             // Action
@@ -158,17 +148,7 @@
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_Forecast1x2_SelByLeague")).Returns(ObjectDb);
             var metaModel = new ForecastOneXTwoMetaModel();
-            var expected = new ForecastOneXTwo
-            {
-                MatchId = 1,
-                HomeId = 2,
-                AwayId = 3,
-                LiveIndicator = true,
-                LiveHomeScore = 4,
-                LiveAwayScore = 5,
-                ShowTime = "ShowTimeTest",
-                IsNeutral = true
-            };
+            var expected = FakeHelper.Create<ForecastOneXTwo>();
             ConfifureReaderForGetForecastOneXTwoByLeagueMethod(Reader, expected, true);
 
             // Action
@@ -218,25 +198,7 @@
             DataAccess.GetObjectDb(Arg.Is("Lrf_Forecast_SelByLeague")).Returns(ObjectDb);
             ObjectDb.ExecuteReader(Arg.Any<object>()).Returns(Reader);
             var metaModel = new ForecastHandicapOverUnderMetaModel();
-            var expected = new ForecastHandicapOverUnder
-            {
-                MatchId = 1,
-                HomeId = 2,
-                AwayId = 3,
-                LiveIndicator = true,
-                LiveHomeScore = 4,
-                LiveAwayScore = 5,
-                ShowTime = "ShowTimeTest",
-                IsNeutral = true,
-                HandicapMinus1 = 10m,
-                Handicap = 10.5m,
-                HandicapPlus1 = 11m,
-                OverUnderPlus2 = 11.5m,
-                OverUnderPlus1 = 12m,
-                OverUnder = 13m,
-                HtHandicapMinus1 = 14m,
-                HtHandicap = 15m
-            };
+            var expected = FakeHelper.Create<ForecastHandicapOverUnder>();
             ConfifureReaderForGetForecastHandicapOverUnderMethod(Reader, expected);
 
             // Action
@@ -292,24 +254,10 @@
             var matchInfo = new NewForecastHdpOuMatchInfo();
 
             var dataSet = new DataSet();
-            var totalItem = new NewForecastHdpOuTotalItem
-            {
-                Type = 1,
-                TicketNo = 2,
-                TotalTurnoverHome = 10m,
-                TotalTurnoverAway = 10.5m,
-                TotalTurnoverOver = 20.5m,
-                TotalTurnoverUnder = 30m
-            };
+            var totalItem = FakeHelper.Create<NewForecastHdpOuTotalItem>();
             dataSet.Tables.Add(GetTotalTableForGetNewForecastDataMethod(totalItem));
 
-            var detailItem = new NewForecastHdpOuDetailItem
-            {
-                Bettype = 1,
-                Hdp = 10m,
-                HomeWinLoss = 20m,
-                AwayWinLoss = 20.5m
-            };
+            var detailItem = FakeHelper.Create<NewForecastHdpOuDetailItem>();
             dataSet.Tables.Add(GetDetailTableForGetNewForecastDataMethod(detailItem));
 
             ObjectDb.ExecuteDataSet().Returns(dataSet);

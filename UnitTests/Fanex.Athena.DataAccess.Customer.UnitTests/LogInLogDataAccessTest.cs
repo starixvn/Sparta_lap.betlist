@@ -28,9 +28,9 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("UserName", DbType.String, expectdUserName);
-                ObjectDb.Received().AddInParameter("LicenseeId", DbType.Int32, LicenseeId);
-                ObjectDb.Received().AddInParameter("AgentList", DbType.String, AgentList);
+                ObjectDb.Received(1).AddInParameter("UserName", DbType.String, expectdUserName);
+                ObjectDb.Received(1).AddInParameter("LicenseeId", DbType.Int32, LicenseeId);
+                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, AgentList);
             });
         }
 

@@ -41,8 +41,8 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("licenseeId", DbType.Int32, LicenseeId);
-                ObjectDb.Received().AddInParameter("langkey", DbType.String, LanguageCode);
+                ObjectDb.Received(1).AddInParameter("licenseeId", DbType.Int32, LicenseeId);
+                ObjectDb.Received(1).AddInParameter("langkey", DbType.String, LanguageCode);
             });
         }
 

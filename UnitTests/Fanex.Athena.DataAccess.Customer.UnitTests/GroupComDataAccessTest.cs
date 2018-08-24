@@ -22,7 +22,7 @@
             DataAccess.GetAll(LicenseeId);
 
             // Assert
-            ObjectDb.Received().AddInParameter("LicenseeID", DbType.Int32, LicenseeId);
+            ObjectDb.Received(1).AddInParameter("LicenseeID", DbType.Int32, LicenseeId);
         }
 
         [Test]
@@ -36,7 +36,7 @@
             DataAccess.GetDataForExcel(LicenseeId);
 
             // Assert
-            ObjectDb.Received().AddInParameter("LicenseeID", DbType.Int32, LicenseeId);
+            ObjectDb.Received(1).AddInParameter("LicenseeID", DbType.Int32, LicenseeId);
         }
 
         [Test]
@@ -68,7 +68,7 @@
             DataAccess.GetById(GroupCommId);
 
             // Assert
-            ObjectDb.Received().AddInParameter("GroupCommID", DbType.Int32, GroupCommId);
+            ObjectDb.Received(1).AddInParameter("GroupCommID", DbType.Int32, GroupCommId);
         }
 
         [Test]
@@ -87,20 +87,20 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("LicenseeID", DbType.Int32, item.LicenseeId);
-                ObjectDb.Received().AddInParameter("GroupName", DbType.String, item.GroupName);
-                ObjectDb.Received().AddInParameter("SBComm", DbType.Decimal, item.SBComm);
-                ObjectDb.Received().AddInParameter("NGComm", DbType.Decimal, item.NGComm);
-                ObjectDb.Received().AddInParameter("RNGComm", DbType.Decimal, item.CSComm);
-                ObjectDb.Received().AddInParameter("GroupColor", DbType.String, item.GroupColor);
-                ObjectDb.Received().AddInParameter("UserID", DbType.Int32, UserId);
-                ObjectDb.Received().AddInParameter("IP", DbType.String, request.Ip);
-                ObjectDb.Received().AddInParameter("langkey", DbType.String, request.Language);
-                ObjectDb.Received().AddInParameter("IsDefault", DbType.Boolean, item.IsDefaultGroup);
-                ObjectDb.Received().AddInParameter("IsResetDefault", DbType.Boolean, item.IsResetDefault);
-                ObjectDb.Received().AddOutParameter("GroupCommID", DbType.Int32, 4);
-                ObjectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
-                ObjectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
+                ObjectDb.Received(1).AddInParameter("LicenseeID", DbType.Int32, item.LicenseeId);
+                ObjectDb.Received(1).AddInParameter("GroupName", DbType.String, item.GroupName);
+                ObjectDb.Received(1).AddInParameter("SBComm", DbType.Decimal, item.SBComm);
+                ObjectDb.Received(1).AddInParameter("NGComm", DbType.Decimal, item.NGComm);
+                ObjectDb.Received(1).AddInParameter("RNGComm", DbType.Decimal, item.CSComm);
+                ObjectDb.Received(1).AddInParameter("GroupColor", DbType.String, item.GroupColor);
+                ObjectDb.Received(1).AddInParameter("UserID", DbType.Int32, UserId);
+                ObjectDb.Received(1).AddInParameter("IP", DbType.String, request.Ip);
+                ObjectDb.Received(1).AddInParameter("langkey", DbType.String, request.Language);
+                ObjectDb.Received(1).AddInParameter("IsDefault", DbType.Boolean, item.IsDefaultGroup);
+                ObjectDb.Received(1).AddInParameter("IsResetDefault", DbType.Boolean, item.IsResetDefault);
+                ObjectDb.Received(1).AddOutParameter("GroupCommID", DbType.Int32, 4);
+                ObjectDb.Received(1).AddOutParameter("ErrCode", DbType.Int32, 4);
+                ObjectDb.Received(1).AddOutParameter("ErrMsg", DbType.String, 4000);
             });
         }
 
@@ -121,23 +121,23 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("LicenseeID", DbType.Int32, newItem.LicenseeId);
-                ObjectDb.Received().AddInParameter("GroupCommId", DbType.Int32, newItem.GroupCommId);
-                ObjectDb.Received().AddInParameter("GroupName", DbType.String, newItem.GroupName);
-                ObjectDb.Received().AddInParameter("SbComm", DbType.Decimal, newItem.SBComm);
-                ObjectDb.Received().AddInParameter("NGComm", DbType.Decimal, newItem.NGComm);
-                ObjectDb.Received().AddInParameter("RNGComm", DbType.Decimal, newItem.CSComm);
-                ObjectDb.Received().AddInParameter("IsUpdateNG", DbType.Boolean, newItem.IsUpdateNG);
-                ObjectDb.Received().AddInParameter("IsUpdateRNG", DbType.Boolean, newItem.IsUpdateCS);
-                ObjectDb.Received().AddInParameter("GroupColor", DbType.String, newItem.GroupColor);
-                ObjectDb.Received().AddInParameter("UserId", DbType.Int32, UserId);
-                ObjectDb.Received().AddInParameter("Ip", DbType.String, request.Ip);
-                ObjectDb.Received().AddInParameter("langkey", DbType.String, request.Language);
-                ObjectDb.Received().AddInParameter("IsDefault", DbType.Boolean, newItem.IsDefaultGroup);
-                ObjectDb.Received().AddInParameter("IsResetDefault", DbType.Boolean, newItem.IsResetDefault);
-                ObjectDb.Received().AddOutParameter("StrCustID", DbType.String, int.MaxValue);
-                ObjectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
-                ObjectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
+                ObjectDb.Received(1).AddInParameter("LicenseeID", DbType.Int32, newItem.LicenseeId);
+                ObjectDb.Received(1).AddInParameter("GroupCommId", DbType.Int32, newItem.GroupCommId);
+                ObjectDb.Received(1).AddInParameter("GroupName", DbType.String, newItem.GroupName);
+                ObjectDb.Received(1).AddInParameter("SbComm", DbType.Decimal, newItem.SBComm);
+                ObjectDb.Received(1).AddInParameter("NGComm", DbType.Decimal, newItem.NGComm);
+                ObjectDb.Received(1).AddInParameter("RNGComm", DbType.Decimal, newItem.CSComm);
+                ObjectDb.Received(1).AddInParameter("IsUpdateNG", DbType.Boolean, newItem.IsUpdateNG);
+                ObjectDb.Received(1).AddInParameter("IsUpdateRNG", DbType.Boolean, newItem.IsUpdateCS);
+                ObjectDb.Received(1).AddInParameter("GroupColor", DbType.String, newItem.GroupColor);
+                ObjectDb.Received(1).AddInParameter("UserId", DbType.Int32, UserId);
+                ObjectDb.Received(1).AddInParameter("Ip", DbType.String, request.Ip);
+                ObjectDb.Received(1).AddInParameter("langkey", DbType.String, request.Language);
+                ObjectDb.Received(1).AddInParameter("IsDefault", DbType.Boolean, newItem.IsDefaultGroup);
+                ObjectDb.Received(1).AddInParameter("IsResetDefault", DbType.Boolean, newItem.IsResetDefault);
+                ObjectDb.Received(1).AddOutParameter("StrCustID", DbType.String, int.MaxValue);
+                ObjectDb.Received(1).AddOutParameter("ErrCode", DbType.Int32, 4);
+                ObjectDb.Received(1).AddOutParameter("ErrMsg", DbType.String, 4000);
             });
         }
 
@@ -155,8 +155,8 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("LicenseeId", DbType.Int32, LicenseeId);
-                ObjectDb.Received().AddInParameter("GroupName", DbType.String, GroupName);
+                ObjectDb.Received(1).AddInParameter("LicenseeId", DbType.Int32, LicenseeId);
+                ObjectDb.Received(1).AddInParameter("GroupName", DbType.String, GroupName);
             });
         }
 
@@ -179,16 +179,16 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("LicenseeId", DbType.Int32, LicenseeId);
-                ObjectDb.Received().AddInParameter("GroupCommId", DbType.Int32, GroupId);
-                ObjectDb.Received().AddInParameter("UserId", DbType.Int32, UserId);
-                ObjectDb.Received().AddInParameter("Ip", DbType.String, Ip);
-                ObjectDb.Received().AddInParameter("langkey", DbType.String, Language);
-                ObjectDb.Received().AddInParameter("IsRemovePlayercomm", DbType.Boolean, IsRemoveCommSetting);
-                ObjectDb.Received().AddInParameter("IsResetDefault", DbType.Boolean, IsResetDefault);
-                ObjectDb.Received().AddOutParameter("StrCustID", DbType.String, int.MaxValue);
-                ObjectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
-                ObjectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
+                ObjectDb.Received(1).AddInParameter("LicenseeId", DbType.Int32, LicenseeId);
+                ObjectDb.Received(1).AddInParameter("GroupCommId", DbType.Int32, GroupId);
+                ObjectDb.Received(1).AddInParameter("UserId", DbType.Int32, UserId);
+                ObjectDb.Received(1).AddInParameter("Ip", DbType.String, Ip);
+                ObjectDb.Received(1).AddInParameter("langkey", DbType.String, Language);
+                ObjectDb.Received(1).AddInParameter("IsRemovePlayercomm", DbType.Boolean, IsRemoveCommSetting);
+                ObjectDb.Received(1).AddInParameter("IsResetDefault", DbType.Boolean, IsResetDefault);
+                ObjectDb.Received(1).AddOutParameter("StrCustID", DbType.String, int.MaxValue);
+                ObjectDb.Received(1).AddOutParameter("ErrCode", DbType.Int32, 4);
+                ObjectDb.Received(1).AddOutParameter("ErrMsg", DbType.String, 4000);
             });
         }
     }

@@ -25,8 +25,6 @@
             BalanceUpDay = new DateTime(2017, 8, 31)
         };
 
-        private readonly JavaScriptSerializer _serialize = new JavaScriptSerializer();
-
         protected override void SetUpDataAccess()
         {
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
