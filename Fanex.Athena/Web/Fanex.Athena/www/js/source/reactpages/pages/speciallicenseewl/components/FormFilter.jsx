@@ -34,6 +34,9 @@ export class FormFilter extends Component {
         this.props.toggleLoader(true);
         Report.fetchGridData(Url, { xsrfToken: this.props.xsrfToken, data: params })
             .then(response => {
+                if (response.data.Data && response.data.Data.length > 1) {
+                    Service.sort(response.data.Data, params.SortBy, params.SortOrder);
+                }
                 this.props.setGridData(response.data);
                 this.props.setReportTitle(Service.getReportTitle(params.FromDate, params.ToDate, params.CurrencyId, params.CurrencyName, params.BaseCurrency));
             })
@@ -59,7 +62,6 @@ export class FormFilter extends Component {
             this._doExportExcel(params, response.data)
         })
         .catch(error => {
-            console.log(error);
             Service.showErrorMsg();
             this.props.toggleLoader(false);
         });
@@ -71,6 +73,10 @@ export class FormFilter extends Component {
             this.props.toggleLoader(false);
             alert(LangHelper.getSingleResource("NoInfo"));
             return;
+        }
+
+        if (gridData.Data.length > 1) {
+            Service.sort(gridData.Data, params.SortBy, params.SortOrder);
         }
 
         const title = Service.getReportTitle(
@@ -99,7 +105,9 @@ export class FormFilter extends Component {
             CurrencyId: this.props.selectedCurrency.value,
             BaseCurrency: this.props.selectedCurrency.baseCurrency,
             ProductCodeList: this.props.selectedProduct,
-            ReportBy: this.props.selectedReportBy
+            ReportBy: this.props.selectedReportBy,
+            SortBy: this.props.params.SortBy || 'asc',
+            SortOrder: this.props.params.SortOrder || 'Date'
         }
     }
 
@@ -222,7 +230,7 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    const { gridData, reportTitle, isLoading, params, ...rest } = state;
+    const { gridData, reportTitle, isLoading, ...rest } = state;
     return Object.assign({}, rest);
 };
 

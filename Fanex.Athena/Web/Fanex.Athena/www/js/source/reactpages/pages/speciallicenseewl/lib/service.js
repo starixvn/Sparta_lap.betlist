@@ -32,4 +32,13 @@ export class Service {
     static showErrorMsg() {
         alert(LangHelper.getSingleResource('ErrorProcessingMsg'));
     }
+
+    static sort(data, sortBy, sortOrder) {
+        if (sortOrder === 'asc') {
+            data.sort((a, b) => a[sortBy] < b[sortBy] );
+        }
+        else {
+            data.sort((a, b) => a[sortBy] > b[sortBy] );
+        }
+    }
 };

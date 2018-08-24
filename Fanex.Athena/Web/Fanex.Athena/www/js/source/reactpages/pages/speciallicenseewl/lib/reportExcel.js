@@ -97,9 +97,9 @@ export default class ReportExcel {
             [TOTAL_SECTION]: { isShow : true, style: totalCellStyle.number },
             [SUMMARYTOTAL_SECTION]: { isShow : true, style: grandTotalCellStyle.number }
         }, {
-            field: 'CustomerWL',
+            field: 'CustomerWinLoss',
             type: 'n',
-            [HEADER_SECTION]: { title: 'customerWL', isShow: true, rowSpan: rowSpan, index_r: HEADER_ROW_INDEX },
+            [HEADER_SECTION]: { title: 'customer', isShow: true, rowSpan: rowSpan, index_r: HEADER_ROW_INDEX },
             [MAIN_SECTION]: { isShow : true, style: bodyCellStyle.decimal, width: 200 },
             [TOTAL_SECTION]: { isShow : true, style: totalCellStyle.decimal },
             [SUMMARYTOTAL_SECTION]: { isShow : true, style: grandTotalCellStyle.decimal }
