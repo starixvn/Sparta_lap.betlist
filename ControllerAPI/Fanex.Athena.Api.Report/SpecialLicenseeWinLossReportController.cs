@@ -25,7 +25,12 @@
         private readonly IReportSettingService _reportSettingService;
 
         private readonly ISpecialLicenseeWinLossDataAccess _licenseeWinLossDataAccess;
+        private readonly IDictionary<int, List<string>> LicenseeOfferedProducts = new Dictionary<int, List<string>>
+        {
+            {LicenseeIdentity.IvoryBet,new List<string>{Product.SB,Product.NG} },
+           {LicenseeIdentity.Opal88,new List<string>{Product.SB} }
 
+        };
         public SpecialLicenseeWinLossReportController()
         {
             _reportSettingService = new ReportSettingService();
@@ -81,6 +86,7 @@
         private dynamic ProcessRequest(SpecialLicenseeWinLossMetaModel metaModel)
         {
             var setting = _reportSettingService.GetSetting(PermissionKeys.ReportLicenseeWinLoss);
+            metaModel.ProductCodes = metaModel.ProductCodeList?.Split(',');
             if (IsValidParams(metaModel, setting) && IsValidRequest(metaModel, metaModel.CurrencyId))
             {
                 metaModel.ProductCodes = metaModel.ProductCodeList.Split(',');
@@ -113,10 +119,16 @@
 
         protected internal virtual bool IsValidParams(SpecialLicenseeWinLossMetaModel metaModel, ReportSetting setting)
         {
-            if (metaModel.FromDate > metaModel.ToDate || string.IsNullOrWhiteSpace(metaModel.ProductCodeList))
+            var offeredProducts = LicenseeOfferedProducts[SessionService.LicenseeSession.LicenseeId];
+
+            if (metaModel.FromDate > metaModel.ToDate || string.IsNullOrWhiteSpace(metaModel.ProductCodeList)
+                || metaModel.ProductCodes.Any(i => !offeredProducts.Contains(i))
+                )
             {
                 return false;
             }
+
+
 
             if (setting == null)
             {
