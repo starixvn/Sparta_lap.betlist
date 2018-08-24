@@ -16,5 +16,7 @@ namespace Fanex.Athena.Session.Model
         public string BaseCurrencies { get; set; }
 
         public int LimitRecentMonths { get; set; }
+
+        public int? TimeZone { get; set; }
     }
 }

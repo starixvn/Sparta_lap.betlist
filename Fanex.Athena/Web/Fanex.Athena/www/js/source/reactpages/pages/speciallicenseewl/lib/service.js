@@ -26,7 +26,7 @@ export class Service {
             ? LangHelper.getSingleResource('AllCurrencies')
             : `${LangHelper.getSingleResource('Viewin').replace('{0}', baseCurrency.toUpperCase() || currencyName)}`;
 
-        return `${LangHelper.getSingleResource('LicenseeWinLoss')}, ${fromDate} - ${toDate} - ${viewInByCurrency}`;
+        return `${LangHelper.getSingleResource('LicenseeWinLoss')}, GMT+8, ${fromDate} - ${toDate} - ${viewInByCurrency}`;
     }
 
     static showErrorMsg() {

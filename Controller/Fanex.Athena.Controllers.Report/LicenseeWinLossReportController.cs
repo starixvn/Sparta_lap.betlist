@@ -59,7 +59,9 @@ namespace Fanex.Athena.Controllers.Report
         public ActionResult Index()
         {
             var reportSetting = _reportSettingService.GetSetting(PermissionKeys.ReportLicenseeWinLoss);
-            var selectedDate = DateTimeHelper.GetMinDate(reportSetting.MaxDate, DateTime.Now);
+            var selectedDate = DateTimeHelper.GetMinDate(
+                reportSetting.MaxDate, 
+                reportSetting.TimeZone.HasValue ? DateTime.UtcNow.AddHours(reportSetting.TimeZone.Value).Date : DateTime.Now);
             var productAccess = this.ProductService.GetSingleWalletProductAccess(
                 _licenseeSession.LicenseeId,
                 _userSession.Language,

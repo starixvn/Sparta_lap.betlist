@@ -58,21 +58,26 @@ namespace Fanex.Athena.Service.Core.Configuration
             return reportSetting;
         }
 
-        private static DateTime ConvertToDate(string datetime, DateTime? defaultDate)
+        private static DateTime GetNowByTimeZone(int? timeZone)
+        {
+            return timeZone.HasValue ? DateTime.UtcNow.AddHours(timeZone.Value) : DateTime.Now;
+        }
+
+        private static DateTime ConvertToDate(string datetime, int? timeZone, DateTime? defaultDate)
         {
             if (string.IsNullOrEmpty(datetime))
             {
-                return defaultDate.HasValue ? defaultDate.Value : DateTime.Now.Date;
+                return defaultDate.HasValue ? defaultDate.Value : GetNowByTimeZone(timeZone);
             }
 
             if (datetime.Equals("today", StringComparison.OrdinalIgnoreCase))
             {
-                return DateTime.Now.Date;
+                return GetNowByTimeZone(timeZone).Date;
             }
 
             if (datetime.Equals("yesterday", StringComparison.OrdinalIgnoreCase))
             {
-                return DateTime.Now.Date.AddDays(-1);
+                return GetNowByTimeZone(timeZone).Date.AddDays(-1);
             }
 
             return Convert.ToDateTime(datetime);
@@ -80,12 +85,12 @@ namespace Fanex.Athena.Service.Core.Configuration
 
         private void AssignDateRange(ReportSetting reportSetting)
         {
-            reportSetting.MinDate = ConvertToDate(reportSetting.MinDateString, _appSettings.HistoryDate);
-            reportSetting.MaxDate = ConvertToDate(reportSetting.MaxDateString, _appSettings.MaxDate);
+            reportSetting.MinDate = ConvertToDate(reportSetting.MinDateString, reportSetting.TimeZone, _appSettings.HistoryDate);
+            reportSetting.MaxDate = ConvertToDate(reportSetting.MaxDateString, reportSetting.TimeZone, _appSettings.MaxDate);
 
             if (reportSetting.LimitRecentMonths > 0)
             {
-                var limitedMinDate = DateTime.Now.Date.AddMonths(-reportSetting.LimitRecentMonths + 1);
+                var limitedMinDate = GetNowByTimeZone(reportSetting.TimeZone).Date.AddMonths(-reportSetting.LimitRecentMonths + 1);
                 limitedMinDate = new DateTime(limitedMinDate.Year, limitedMinDate.Month, 1);
                 reportSetting.MinDate = DateTimeHelper.GetMaxDate(reportSetting.MinDate, limitedMinDate);
             }
@@ -107,6 +112,7 @@ namespace Fanex.Athena.Service.Core.Configuration
                 reportSetting.IsDisableBetList = fakeLicenseeSetting.DisableBetList;
                 reportSetting.BaseCurrencies = fakeLicenseeSetting.BaseCurrencies;
                 reportSetting.LimitRecentMonths = fakeLicenseeSetting.LimitRecentMonths;
+                reportSetting.TimeZone = fakeLicenseeSetting.TimeZone;
             }
         }
 
