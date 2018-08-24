@@ -137,9 +137,7 @@
             {
                 return false;
             }
-
-
-
+            
             if (setting == null)
             {
                 return true;
