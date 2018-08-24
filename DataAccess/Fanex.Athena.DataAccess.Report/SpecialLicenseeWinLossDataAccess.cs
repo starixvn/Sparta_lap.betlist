@@ -171,7 +171,7 @@
             db.AddInParameter("fromdate", DbType.Date, metaModel.FromDate.Date);
             db.AddInParameter("todate", DbType.Date, metaModel.ToDate.Date);
             db.AddInParameter("reporttype", DbType.Byte, metaModel.ReportBy);
-            db.AddInParameter("productCodes", DbType.String, string.Join(",", metaModel.ProductCodeList));
+            db.AddInParameter("productCodes", DbType.String, metaModel.ProductCodeList);
             db.AddInParameter("currencyCodes", DbType.String, metaModel.CurrencyCodes);
             db.AddInParameter("siteName", DbType.String, metaModel.SiteName);
             db.AddInParameter("currencyIdList", DbType.String, metaModel.CurrencyIdList);
