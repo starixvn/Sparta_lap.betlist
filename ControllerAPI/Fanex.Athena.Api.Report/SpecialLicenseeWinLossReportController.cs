@@ -153,7 +153,7 @@
 
         private static bool IsValidDateRange(SpecialLicenseeWinLossMetaModel metaModel, ReportSetting setting)
         {
-            return setting != null && metaModel.FromDate >= metaModel.ToDate &&
+            return setting != null && metaModel.FromDate <= metaModel.ToDate &&
                 DateTimeHelper.IsBetween(metaModel.FromDate, setting.MinDate, setting.MaxDate) &&
                 DateTimeHelper.IsBetween(metaModel.ToDate, setting.MinDate, setting.MaxDate);
         }
