@@ -231,7 +231,7 @@ export class DataGrid extends Component {
                 <Cell key='turnover' title={turnover} className='right-align'>{turnover}</Cell>,
                 <Cell key='totalTransaction' title={item.TotalTransaction} className='right-align'>{item.TotalTransaction}</Cell>,
                 <Cell key='customerWl' title={customerWl} className='right-align'>{customerWl}</Cell>,
-                <Cell key='licenseeWL' title={licenseeWL} className={`right-align ${licenseeWL < 0 ? 'negative' : ''}`}>{licenseeWL}</Cell>
+                <Cell key='licenseeWL' title={licenseeWL} className={`right-align ${item.TotalLicenseeWL < 0 ? 'negative' : ''}`}>{licenseeWL}</Cell>
             ];
 
             return rows;
@@ -257,11 +257,11 @@ export class DataGrid extends Component {
             for (let i = 0; i < productsCount; i++) {
                 const column = 'LicenseeWL' + selectedProductList[i];
                 const licenseeWLByProduct = NumberFormat.formatDecimal(item[column]);
-                rows.push(<Cell key={column} title={licenseeWLByProduct} className={`right-align ${licenseeWLByProduct < 0 ? 'negative' : ''}`}>{licenseeWLByProduct}</Cell>);
+                rows.push(<Cell key={column} title={licenseeWLByProduct} className={`right-align ${item[column] < 0 ? 'negative' : ''}`}>{licenseeWLByProduct}</Cell>);
             }
         }
 
-        rows.push(<Cell key='licenseeWL' title={licenseeWL} className={`right-align ${licenseeWL < 0 ? 'negative' : ''}`}>{licenseeWL}</Cell>);
+        rows.push(<Cell key='licenseeWL' title={licenseeWL} className={`right-align ${item.TotalLicenseeWL < 0 ? 'negative' : ''}`}>{licenseeWL}</Cell>);
 
         return rows;
     }

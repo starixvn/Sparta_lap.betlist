@@ -4584,7 +4584,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
                     customerWl
                 ), _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { key: 'licenseeWL', title: licenseeWL, className: 'right-align ' + (licenseeWL < 0 ? 'negative' : '') },
+                    { key: 'licenseeWL', title: licenseeWL, className: 'right-align ' + (item.TotalLicenseeWL < 0 ? 'negative' : '') },
                     licenseeWL
                 )];
 
@@ -4625,7 +4625,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
                     var licenseeWLByProduct = _numberFormat2.default.formatDecimal(item[_column]);
                     rows.push(_react2.default.createElement(
                         _fixedTableHeader.Cell,
-                        { key: _column, title: licenseeWLByProduct, className: 'right-align ' + (licenseeWLByProduct < 0 ? 'negative' : '') },
+                        { key: _column, title: licenseeWLByProduct, className: 'right-align ' + (item[_column] < 0 ? 'negative' : '') },
                         licenseeWLByProduct
                     ));
                 }
@@ -4633,7 +4633,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
 
             rows.push(_react2.default.createElement(
                 _fixedTableHeader.Cell,
-                { key: 'licenseeWL', title: licenseeWL, className: 'right-align ' + (licenseeWL < 0 ? 'negative' : '') },
+                { key: 'licenseeWL', title: licenseeWL, className: 'right-align ' + (item.TotalLicenseeWL < 0 ? 'negative' : '') },
                 licenseeWL
             ));
 
