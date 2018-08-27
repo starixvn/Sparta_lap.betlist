@@ -1,5 +1,6 @@
 ﻿using Fanex.Athena.Excel.Base.Entities;
 using Fanex.Athena.Model.Report.ViewModel;
+using Fanex.Athena.VendorAdapter.Interfaces;
 using NPOI.SS.UserModel;
 
 namespace Fanex.Athena.Excel.Report.UnitTests.TestableClasses
@@ -9,8 +10,9 @@ namespace Fanex.Athena.Excel.Report.UnitTests.TestableClasses
         public CasinoProgressiveWinsExcelTestable(
                                  string templatePath,
                                  ConvertingOption convertingOption,
-                                 CasinoProgressiveWinsViewModel viewModel)
-            : base(templatePath, convertingOption, viewModel)
+                                 CasinoProgressiveWinsViewModel viewModel,
+                                 ICacheRefAdapter cacheRefAdapter)
+            : base(templatePath, convertingOption, viewModel, cacheRefAdapter)
         {
         }
 

@@ -7,6 +7,7 @@ using Fanex.Athena.Excel.Report.UnitTests.TestableClasses;
 using Fanex.Athena.Model.Report.MetaModel;
 using Fanex.Athena.Resources;
 using Fanex.Athena.UnitTest.Common.Helpers;
+using Fanex.Athena.VendorAdapter.Interfaces;
 using Fanex.Common;
 using NPOI.SS.UserModel;
 using NSubstitute;
@@ -237,7 +238,8 @@ namespace Fanex.Athena.Excel.Report.UnitTests
                 showingOption ?? new ShowingOption(),
                 _contentData,
                 _totalData,
-                MetaModel);
+                MetaModel,
+                Substitute.For<ICacheRefAdapter>());
             excel.TemplateSheet.Returns(Substitute.For<ISheet>());
             return excel;
         }

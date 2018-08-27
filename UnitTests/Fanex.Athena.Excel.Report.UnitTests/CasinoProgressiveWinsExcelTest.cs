@@ -10,6 +10,7 @@ using Fanex.Athena.Model.Report.MetaModel;
 using Fanex.Athena.Model.Report.ViewModel;
 using Fanex.Athena.Resources;
 using Fanex.Athena.UnitTest.Common.Helpers;
+using Fanex.Athena.VendorAdapter.Interfaces;
 using NPOI.SS.UserModel;
 using NSubstitute;
 using NUnit.Framework;
@@ -112,7 +113,8 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             var excel = Substitute.ForPartsOf<CasinoProgressiveWinsExcelTestable>(
                 string.Empty,
                 new ConvertingOption(),
-                ViewModel);
+                ViewModel,
+                Substitute.For<ICacheRefAdapter>());
             excel.TemplateSheet.Returns(Substitute.For<ISheet>());
             return excel;
         }

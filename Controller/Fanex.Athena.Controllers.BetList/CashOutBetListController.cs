@@ -11,6 +11,7 @@
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Service.BetList.Extensions;
     using Fanex.BetList.Core.Builder;
+    using Fanex.BetList.Core.Entities;
     using Fanex.BetList.Core.TicketHelper;
     using Model.BetList.DTO;
     using Resources;
@@ -24,9 +25,12 @@
     {
         private readonly ICashOutBetListDataAccess _cashOutBetListDataAccess;
 
+        private readonly ITicketHelper _ticketHelper;
+
         public CashOutBetListController()
         {
             _cashOutBetListDataAccess = new CashOutBetListDataAccess();
+            _ticketHelper = new TicketHelper();
         }
 
         public CashOutBetListController(
@@ -38,10 +42,12 @@
             IBetListService betListService,
             IBalanceUpDataAccess balanceUpDataAccess,
             ICacheRefAdapter cacheRefAdapter,
-            ICashOutBetListDataAccess cashOutBetListDataAccess)
+            ICashOutBetListDataAccess cashOutBetListDataAccess,
+            ITicketHelper ticketHelper)
         : base(languageService, sessionService, appSetting, clientViewHelper, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
         {
             _cashOutBetListDataAccess = cashOutBetListDataAccess;
+            _ticketHelper = ticketHelper;
         }
 
         [HttpGet]
@@ -77,10 +83,7 @@
 
             var builder = new BetListHTMLBuilder();
             var ticketTextList = new List<CashOutTicketText>();
-            var ticketHelper = new TicketHelper
-            {
-                HideStatusCashOutHistory = true
-            };
+            _ticketHelper.HideStatusCashOutHistory = true;
             foreach (var ticket in dataList)
             {
                 var betListTicket = new LrfTicket
@@ -88,7 +91,7 @@
                     BetTypeId = ticket.BetType,
                     Status = ticket.Status
                 };
-                var statusHtml = builder.CreateStatusBuilder(ticket.BetType).Render(betListTicket, ticketHelper, null, true);
+                var statusHtml = builder.CreateStatusBuilder(ticket.BetType).Render(betListTicket, _ticketHelper, null, true);
                 statusHtml.StatusResult = null;
                 var ticketText = new CashOutTicketText
                 {
@@ -116,12 +119,9 @@
             var licenseeSession = SessionService.LicenseeSession;
             var showPlayerComm = licenseeSession.IsAllowedCustomerComm;
             var builder = new BetListHTMLBuilder();
-            var ticketHelper = new TicketHelper
-            {
-                HideStatusCashOutHistory = true
-            };
+            _ticketHelper.HideStatusCashOutHistory = true;
 
-            var statusHtml = builder.CreateStatusBuilder(ticket.BetTypeId).Render(ticket, ticketHelper, null, true);
+            var statusHtml = builder.CreateStatusBuilder(ticket.BetTypeId).Render(ticket, _ticketHelper, null, true);
             statusHtml.StatusResult = null;
             return new TicketText
             {
@@ -129,7 +129,7 @@
                 SystemId = ticket.UserName,
                 TransTime = builder.BuildTrans(ticket),
                 Status = statusHtml.ToString(),
-                Choice = builder.BuildChoice(ticket, ticketHelper, null, false),
+                Choice = builder.BuildChoice(ticket, _ticketHelper, null, false),
                 Odds = builder.BuildOdds(ticket, null, CacheRefAdapter.GetOddsTypeName),
                 Stake = builder.BuildStake(ticket),
                 WinLoss = builder.BuildCustomerWL(ticket, showPlayerComm)

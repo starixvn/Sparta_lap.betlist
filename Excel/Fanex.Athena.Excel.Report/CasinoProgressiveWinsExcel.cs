@@ -49,10 +49,11 @@ namespace Fanex.Athena.Excel.Report
         public CasinoProgressiveWinsExcel(
                 string templatePath,
                 ConvertingOption convertingOption,
-                CasinoProgressiveWinsViewModel viewModel)
+                CasinoProgressiveWinsViewModel viewModel,
+                ICacheRefAdapter cacheRefAdapter = null)
             : base(templatePath, viewModel.DataList.Count())
         {
-            _cacheRefAdapter = new CacheRefAdapter();
+            _cacheRefAdapter = cacheRefAdapter ?? new CacheRefAdapter();
             _convertingOption = convertingOption;
             _metaModel = viewModel.Param;
             _dataList = viewModel.DataList;

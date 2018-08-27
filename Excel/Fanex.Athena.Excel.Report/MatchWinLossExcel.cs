@@ -74,10 +74,11 @@ namespace Fanex.Athena.Excel.Report
                                 ShowingOption showingOption,
                                 DataTable exportData,
                                 DataTable totalData,
-                                MatchWinLossMetaModel model)
+                                MatchWinLossMetaModel model,
+                                ICacheRefAdapter cacheRefAdapter = null)
             : base(templatePath, exportData.Rows.Count, showingOption)
         {
-            _cacheRefAdapter = new CacheRefAdapter();
+            _cacheRefAdapter = cacheRefAdapter ?? new CacheRefAdapter();
             _convertingOption = convertingOption;
             _model = model;
             _exportData = exportData;

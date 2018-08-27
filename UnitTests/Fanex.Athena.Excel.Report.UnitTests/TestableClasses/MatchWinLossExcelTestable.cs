@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using Fanex.Athena.Excel.Base.Entities;
 using Fanex.Athena.Model.Report.MetaModel;
+using Fanex.Athena.VendorAdapter.Interfaces;
 using NPOI.SS.UserModel;
 
 namespace Fanex.Athena.Excel.Report.UnitTests.TestableClasses
@@ -13,8 +14,9 @@ namespace Fanex.Athena.Excel.Report.UnitTests.TestableClasses
             ShowingOption showingOption,
             DataTable exportData,
             DataTable totalData,
-            MatchWinLossMetaModel model)
-            : base(templatePath, convertingOption, showingOption, exportData, totalData, model)
+            MatchWinLossMetaModel model,
+            ICacheRefAdapter cacheRefAdapter)
+            : base(templatePath, convertingOption, showingOption, exportData, totalData, model, cacheRefAdapter)
         {
         }
 
