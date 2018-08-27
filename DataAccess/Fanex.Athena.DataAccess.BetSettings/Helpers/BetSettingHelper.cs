@@ -4,7 +4,6 @@
     using System.Data;
     using Common;
     using Model.BetSettings.DTO;
-    using Model.Core.Helper;
     using Resources;
     using VendorAdapter;
 
@@ -12,16 +11,10 @@
     {
         private static readonly IDictionary<string, string> SportNameMap = new Dictionary<string, string>
         {
-            { "99MP", nameof(ViewResources.MixSportsParlay) },
-            { "151_31", nameof(ViewResources.HorseRacingSATote) },
-            { "151_41", nameof(ViewResources.HorseRacingUK_IrishTote) },
-            { "151_51", nameof(ViewResources.HorseRacingAustTote) },
-            { "152_41", nameof(ViewResources.GreyhoundUK_IrishTote) },
-            { "152_51", nameof(ViewResources.GreyhoundAustTote) },
-            { "153_51", nameof(ViewResources.HarnessAustTote) }
+            { "99MP", nameof(ViewResources.MixSportsParlay) }
         };
 
-        public static void RenderSport(IDataReader reader, string sportId, ICollection<BetSetting> resultList, bool isNumberGame = false)
+        public static BetSetting RenderSport(IDataReader reader, string sportId, bool isNumberGame = false)
         {
             var sportSuffix = sportId != "1" ? "v" + sportId : string.Empty;
             var sportName = CacheRefAdapter.Instance.GetSportName(sportId);
@@ -47,7 +40,7 @@
                 sport.MaxPerBallMax = Converter.ToDecimal(reader["maxperball" + sportSuffix + "_Max"]);
             }
 
-            resultList.Add(sport);
+            return sport;
         }
 
         private static string GetSportName(string sportId)

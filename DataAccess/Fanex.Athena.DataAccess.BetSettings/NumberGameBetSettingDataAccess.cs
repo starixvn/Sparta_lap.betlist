@@ -65,7 +65,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
             var numberGameList = new List<BetSetting>();
 
-            BetSettingHelper.RenderSport(reader, "161", numberGameList, true); // Soccer
+            numberGameList.Add(BetSettingHelper.RenderSport(reader, "161", true)); // Soccer
 
             return numberGameList;
         }

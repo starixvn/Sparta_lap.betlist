@@ -112,24 +112,24 @@ namespace Fanex.Athena.DataAccess.BetSettings
         {
             var sportList = new List<BetSetting>();
 
-            BetSettingHelper.RenderSport(reader, "1", sportList); // Soccer
-            BetSettingHelper.RenderSport(reader, "2", sportList); // Basket ball
-            BetSettingHelper.RenderSport(reader, "3", sportList); // Football
-            BetSettingHelper.RenderSport(reader, "5", sportList); // Tennis
-            BetSettingHelper.RenderSport(reader, "8", sportList); // Baseball
-            BetSettingHelper.RenderSport(reader, "10", sportList); // Golf
-            BetSettingHelper.RenderSport(reader, "11", sportList); // Moto
+            sportList.Add(BetSettingHelper.RenderSport(reader, "1")); // Soccer
+            sportList.Add(BetSettingHelper.RenderSport(reader, "2")); // Basket ball
+            sportList.Add(BetSettingHelper.RenderSport(reader, "3")); // Football
+            sportList.Add(BetSettingHelper.RenderSport(reader, "5")); // Tennis
+            sportList.Add(BetSettingHelper.RenderSport(reader, "8")); // Baseball
+            sportList.Add(BetSettingHelper.RenderSport(reader, "10")); // Golf
+            sportList.Add(BetSettingHelper.RenderSport(reader, "11")); // Moto
 
             // Remove Muay Thai, feature #55015.
             // BetSettingHelper.RenderSport(reader, "44", sportList); // Muay Thai
-            BetSettingHelper.RenderSport(reader, "99", sportList); // Other sports
+            sportList.Add(BetSettingHelper.RenderSport(reader, "99")); // Other sports
 
             if (isShowMixedSport)
             {
-                BetSettingHelper.RenderSport(reader, "99MP", sportList);
+                sportList.Add(BetSettingHelper.RenderSport(reader, "99MP"));
             }
 
-            BetSettingHelper.RenderSport(reader, "154", sportList); // Horse Racing Fixed Odds
+            sportList.Add(BetSettingHelper.RenderSport(reader, "154")); // Horse Racing Fixed Odds
 
             return sportList;
         }
