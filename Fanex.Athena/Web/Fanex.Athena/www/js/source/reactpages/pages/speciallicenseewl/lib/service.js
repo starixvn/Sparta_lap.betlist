@@ -35,10 +35,10 @@ export class Service {
 
     static sort(data, sortBy, sortOrder) {
         if (sortOrder === 'asc') {
-            data.sort((a, b) => a[sortBy] < b[sortBy] );
+            data.sort((a, b) => a[sortBy] > b[sortBy] );
         }
         else {
-            data.sort((a, b) => a[sortBy] > b[sortBy] );
+            data.sort((a, b) => a[sortBy] < b[sortBy] );
         }
     }
 };

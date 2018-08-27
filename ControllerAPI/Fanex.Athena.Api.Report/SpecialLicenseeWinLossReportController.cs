@@ -28,11 +28,10 @@
 
         private readonly ISpecialLicenseeWinLossDataAccess _licenseeWinLossDataAccess;
 
-        private readonly IDictionary<int, string> SiteNameList = new Dictionary<int, string>
+        private readonly IDictionary<int, string> _siteNameList = new Dictionary<int, string>
         {
-            {LicenseeIdentity.IvoryBet,"ivorysport" },
-           {LicenseeIdentity.Opal88,"opal88" }
-
+            { LicenseeIdentity.IvoryBet, "ivorysport" },
+            { LicenseeIdentity.Opal88, "opal88" }
         };
 
         public SpecialLicenseeWinLossReportController()
@@ -87,6 +86,13 @@
             licenseeWinLoss.TurnOverNG = turnOverProducts.GetValueOrDefault(Product.NG, 0);
         }
 
+        private static bool IsValidDateRange(SpecialLicenseeWinLossMetaModel metaModel, ReportSetting setting)
+        {
+            return setting != null && metaModel.FromDate <= metaModel.ToDate &&
+                DateTimeHelper.IsBetween(metaModel.FromDate, setting.MinDate, setting.MaxDate) &&
+                DateTimeHelper.IsBetween(metaModel.ToDate, setting.MinDate, setting.MaxDate);
+        }
+
         private dynamic ProcessRequest(SpecialLicenseeWinLossMetaModel metaModel)
         {
             var setting = _reportSettingService.GetSetting(PermissionKeys.ReportLicenseeWinLoss);
@@ -94,7 +100,7 @@
             if (IsValidParams(metaModel, setting))
             {
                 metaModel.BaseCurrencies = setting.BaseCurrencies.Split(',');
-                metaModel.SiteName = SiteNameList[SessionService.LicenseeSession.LicenseeId];
+                metaModel.SiteName = _siteNameList[SessionService.LicenseeSession.LicenseeId];
 
                 metaModel.CurrencyListXml = GenerateCurrencyListXml(metaModel);
 
@@ -132,7 +138,6 @@
         protected internal virtual bool IsValidParams(SpecialLicenseeWinLossMetaModel metaModel, ReportSetting setting)
         {
             return IsValidDateRange(metaModel, setting) && IsValidProduct(metaModel) && IsValidCurrency(metaModel);
-
         }
 
         private bool IsValidCurrency(SpecialLicenseeWinLossMetaModel metaModel)
@@ -140,24 +145,20 @@
             return metaModel.CurrencyId <= 0
                 || SessionService.UserSession.CurrencyList.ContainsKey(metaModel.CurrencyId);
         }
+
         private bool IsValidProduct(SpecialLicenseeWinLossMetaModel metaModel)
         {
+            if (metaModel.ProductCodeList == null)
+            {
+                return false;
+            }
+
             var productAccess = this.ProductService.GetSingleWalletProductAccess(
                SessionService.LicenseeSession.LicenseeId,
                SessionService.UserSession.Language,
-               FunctionNames.LicenseeWinLoss);
+               FunctionNames.LicenseeWinLoss).ProductList.Select(x => x.ProductCode);
 
-            return (from n in productAccess.ProductList
-                    join r in metaModel.ProductCodes
-                    on n.ProductCode equals r
-                    select r).Any();
-        }
-
-        private static bool IsValidDateRange(SpecialLicenseeWinLossMetaModel metaModel, ReportSetting setting)
-        {
-            return setting != null && metaModel.FromDate <= metaModel.ToDate &&
-                DateTimeHelper.IsBetween(metaModel.FromDate, setting.MinDate, setting.MaxDate) &&
-                DateTimeHelper.IsBetween(metaModel.ToDate, setting.MinDate, setting.MaxDate);
+            return productAccess.Intersect(metaModel.ProductCodeList).Count() == metaModel.ProductCodeList.Count();
         }
     }
 }
