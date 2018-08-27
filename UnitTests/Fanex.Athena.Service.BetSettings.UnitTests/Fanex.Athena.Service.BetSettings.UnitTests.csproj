@@ -154,7 +154,6 @@
     <Compile Include="RngCasinoBetSettingServiceTest.cs" />
     <Compile Include="ThirdPartyBetSettingServiceTest.cs" />
     <Compile Include="SportsbookBetSettingServiceTest.cs" />
-    <Compile Include="RacingBetSettingServiceTest.cs" />
     <Compile Include="NumberGameBetSettingServiceTest.cs" />
     <Compile Include="KenoBetSettingServiceTest.cs" />
     <Compile Include="GoldDeluxeBetSettingServiceTest_GetViewModel.cs" />

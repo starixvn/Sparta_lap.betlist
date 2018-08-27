@@ -108,7 +108,6 @@
     <Compile Include="Interfaces\IRngCasinoBetSettingDataAccess.cs" />
     <Compile Include="KenoBetSettingDataAccess.cs" />
     <Compile Include="RngCasinoBettingDataAccess.cs" />
-    <Compile Include="RacingBetSettingDataAccess.cs" />
     <Compile Include="SportsbookBetSettingDataAccess.cs" />
     <Compile Include="Helpers\BetSettingHelper.cs" />
     <Compile Include="CoreBetSettingDataAccess.cs" />

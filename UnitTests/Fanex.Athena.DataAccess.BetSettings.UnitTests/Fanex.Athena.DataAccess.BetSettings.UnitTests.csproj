@@ -113,7 +113,6 @@
     <Compile Include="RngCasinoBetSettingDataAccessTest.cs" />
     <Compile Include="NumberGameBetSettingDataAccessTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RacingBetSettingDataAccessTest.cs" />
     <Compile Include="SportsbookBetSettingDataAccessTest.cs" />
     <Compile Include="ThirdPartyBetSettingDataAccessTest.cs" />
     <Compile Include="VirtualSportsBetSettingDataAccessTest.cs" />

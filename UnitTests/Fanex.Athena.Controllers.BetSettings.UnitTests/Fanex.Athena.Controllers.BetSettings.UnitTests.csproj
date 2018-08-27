@@ -137,7 +137,6 @@
     <Compile Include="KenoBetSettingControllerTest.cs" />
     <Compile Include="NumberGameBetSettingControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RacingBetSettingControllerTest.cs" />
     <Compile Include="RngCasinoBetSettingControllerTest.cs" />
     <Compile Include="SportsbookBetSettingControllerTest.cs" />
     <Compile Include="ThirdPartyBetSettingControllerTest.cs" />
