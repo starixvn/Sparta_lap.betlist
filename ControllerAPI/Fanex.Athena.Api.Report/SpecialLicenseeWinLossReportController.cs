@@ -27,12 +27,7 @@
         private readonly IReportSettingService _reportSettingService;
 
         private readonly ISpecialLicenseeWinLossDataAccess _licenseeWinLossDataAccess;
-        private readonly IDictionary<int, List<string>> LicenseeOfferedProducts = new Dictionary<int, List<string>>
-        {
-            {LicenseeIdentity.IvoryBet,new List<string>{Product.SB,Product.NG} },
-           {LicenseeIdentity.Opal88,new List<string>{Product.SB} }
 
-        };
         private readonly IDictionary<int, string> SiteNameList = new Dictionary<int, string>
         {
             {LicenseeIdentity.IvoryBet,"ivorysport" },
@@ -147,8 +142,15 @@
         }
         private bool IsValidProduct(SpecialLicenseeWinLossMetaModel metaModel)
         {
-            var offeredProducts = LicenseeOfferedProducts[SessionService.LicenseeSession.LicenseeId];
-            return !metaModel.ProductCodes.Any(i => !offeredProducts.Contains(i));
+            var productAccess = this.ProductService.GetSingleWalletProductAccess(
+               SessionService.LicenseeSession.LicenseeId,
+               SessionService.UserSession.Language,
+               FunctionNames.LicenseeWinLoss);
+
+            return (from n in productAccess.ProductList
+                    join r in metaModel.ProductCodes
+                    on n.ProductCode equals r
+                    select r).Any();
         }
 
         private static bool IsValidDateRange(SpecialLicenseeWinLossMetaModel metaModel, ReportSetting setting)

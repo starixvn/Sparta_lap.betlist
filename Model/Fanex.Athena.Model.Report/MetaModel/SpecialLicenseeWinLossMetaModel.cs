@@ -10,9 +10,6 @@
         public int CurrencyId { get; set; }
 
         [DefaultValue("")]
-        public string CurrencyName { get; set; }
-
-        [DefaultValue("")]
         public string BaseCurrency
         {
             get
