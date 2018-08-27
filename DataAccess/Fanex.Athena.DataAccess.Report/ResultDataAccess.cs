@@ -25,20 +25,26 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Result.Core.NumberGame.DTO;
     using Fanex.Result.Core.Racing.DTO;
     using Fanex.Result.Core.Sportsbook.DTO;
+    using VendorAdapter;
+    using VendorAdapter.Interfaces;
 
     [CLSCompliant(false)]
     public class ResultDataAccess : BaseDataAccess, IResultDataAccess
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
+        private readonly ICacheRefAdapter _cacheRefAdapter;
+
         public ResultDataAccess()
         {
             _balanceUpDataAccess = new BalanceUpDataAccess();
+            _cacheRefAdapter = new CacheRefAdapter();
         }
 
-        public ResultDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
+        public ResultDataAccess(IBalanceUpDataAccess balanceUpDataAccess, ICacheRefAdapter cacheRefAdapter)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
+            _cacheRefAdapter = cacheRefAdapter;
         }
 
         public IList<Outright> GetOutRight(ResultMetalModel metal)
@@ -97,7 +103,12 @@ namespace Fanex.Athena.DataAccess.Report
                         var data = new List<Sport>();
                         while (reader.Read())
                         {
-                            data.Add(new Sport(reader.ToInt("sporttype")));
+                            var sportId = reader.ToInt("sporttype");
+                            data.Add(new Sport
+                            {
+                                SportId = sportId,
+                                SportName = _cacheRefAdapter.GetSportName(sportId)
+                            });
                         }
 
                         return data;
@@ -130,7 +141,12 @@ namespace Fanex.Athena.DataAccess.Report
                         var data = new List<League>();
                         while (reader.Read())
                         {
-                            data.Add(new League { LeagueId = Convert.ToInt32(reader["leagueid"]) });
+                            var leagueId = Convert.ToInt32(reader["leagueid"]);
+                            data.Add(new League
+                            {
+                                LeagueId = leagueId,
+                                LeagueName = _cacheRefAdapter.GetLeagueName(leagueId)
+                            });
                         }
 
                         return data;

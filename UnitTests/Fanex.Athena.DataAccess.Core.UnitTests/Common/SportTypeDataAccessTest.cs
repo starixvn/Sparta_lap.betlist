@@ -7,9 +7,15 @@
     using NSubstitute;
     using NUnit.Framework;
     using TestHelpers;
+    using VendorAdapter.Interfaces;
 
     public class SportTypeDataAccessTest : BaseDataAccessHelperTest<SportTypeDataAccess>
     {
+        protected override void SetUpDataAccess()
+        {
+            DataAccess = Substitute.ForPartsOf<SportTypeDataAccess>(Substitute.For<ICacheRefAdapter>());
+        }
+
         public override void FixtureSetUp()
         {
             base.FixtureSetUp();

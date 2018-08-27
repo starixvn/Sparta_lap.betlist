@@ -6,16 +6,8 @@
 
 namespace Fanex.Athena.Model.Core.DTO.Common
 {
-    using Fanex.Athena.Model.Core.Helper;
-    using VendorAdapter;
-
-    /// <summary>
-    /// Match class.
-    /// </summary>
     public class Match
     {
-        private string _matchName;
-
         public int MatchId { get; set; }
 
         public int LeagueId { get; set; }
@@ -24,25 +16,7 @@ namespace Fanex.Athena.Model.Core.DTO.Common
 
         public int AwayId { get; set; }
 
-        public string MatchName
-        {
-            get
-            {
-                if (_matchName == null)
-                {
-                    _matchName = CacheRefAdapter.Instance.GetTeamName(HomeId) + (IsNeutral ? " (N)" : string.Empty)
-                                   + " -vs- "
-                               + CacheRefAdapter.Instance.GetTeamName(AwayId);
-                }
-
-                return _matchName;
-            }
-
-            set
-            {
-                _matchName = value;
-            }
-        }
+        public string MatchName { get; set; }
 
         public bool IsOutRight { get; set; }
 

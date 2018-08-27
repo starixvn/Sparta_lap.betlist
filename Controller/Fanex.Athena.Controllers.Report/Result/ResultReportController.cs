@@ -2,7 +2,6 @@ namespace Fanex.Athena.Controllers.Report.Result
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.IO;
     using System.Linq;
     using System.Net;
@@ -32,6 +31,8 @@ namespace Fanex.Athena.Controllers.Report.Result
     using Service.Core.Users.Interfaces;
     using Service.Report.Result;
     using Service.Result.Interfaces;
+    using VendorAdapter;
+    using VendorAdapter.Interfaces;
 
     public class ResultReportController : ReportBaseController
     {
@@ -47,12 +48,14 @@ namespace Fanex.Athena.Controllers.Report.Result
 
         private readonly IRNGCasinoSingleWalletService _rngCasinoSingleWalletService;
 
+        private readonly ICacheRefAdapter _cacheRefAdapter;
+
         private string _htmlResult;
         private MemoryStream _excelStream;
 
         #region Result-Page
 
-        public ResultReportController() : this(null, null, null, null, null, null, null, null, null)
+        public ResultReportController() : this(null, null, null, null, null, null, null, null, null, null)
         {
         }
 
@@ -67,7 +70,8 @@ namespace Fanex.Athena.Controllers.Report.Result
             IBalanceUpDataAccess balanceUpDataAccess,
             IParserService microGamingParserService,
             IResultService resultService,
-            IRNGCasinoSingleWalletService rngCasinoSingleWalletService)
+            IRNGCasinoSingleWalletService rngCasinoSingleWalletService,
+            ICacheRefAdapter cacheRefAdapter)
 #pragma warning restore S107 // Methods should not have too many parameters
             : base(languageService, sessionService, appSetting, clientViewHelper, productService)
         {
@@ -75,6 +79,7 @@ namespace Fanex.Athena.Controllers.Report.Result
             _microGamingParserService = microGamingParserService ?? ParserService.Instance;
             _resultService = resultService ?? new ResultService();
             _rngCasinoSingleWalletService = rngCasinoSingleWalletService ?? new RngCasinoSingleWalletService();
+            _cacheRefAdapter = cacheRefAdapter ?? new CacheRefAdapter();
         }
 
         [FunctionAuthorization(Model.Core.DataDomain.PermissionKeys.ReportResults)]
@@ -291,7 +296,7 @@ namespace Fanex.Athena.Controllers.Report.Result
 
         private static bool IsShowMatchCodeIDColumn(SportType sportType)
         {
-            #pragma warning disable S1067 // Expressions should not be too complex
+#pragma warning disable S1067 // Expressions should not be too complex
             return sportType == SportType.GoldDeluxe
                 || sportType == SportType.HorseRacing
                 || sportType == SportType.Greyhound
@@ -301,7 +306,7 @@ namespace Fanex.Athena.Controllers.Report.Result
                 || sportType == SportType.VirtualSpeedway
                 || sportType == SportType.VirtualMotorRacing
                 || sportType == SportType.VirtualCycling;
-            #pragma warning restore S1067 // Expressions should not be too complex
+#pragma warning restore S1067 // Expressions should not be too complex
         }
 
         private static IEnumerable<Sport> RemoveNotAllowedSports(IEnumerable<Sport> sports, ProductAccess productAccess)
@@ -358,6 +363,7 @@ namespace Fanex.Athena.Controllers.Report.Result
         }
 
 #pragma warning disable S1541 // Methods and properties should not be too complex
+
         private void GetNormalPopUpData(ResultPopupMetalModel metalModel, SportType sportType, ResultSetting setting)
 #pragma warning restore S1541 // Methods and properties should not be too complex
         {
@@ -439,13 +445,22 @@ namespace Fanex.Athena.Controllers.Report.Result
             {
                 var sports = outRightData.Where(i => i.SportType == metalModel.SportId || metalModel.SportId == 0)
                         .Select(i => i.SportType).Distinct()
-                        .Select(i => new Sport(i)).ToList();
+                        .Select(i => new Sport
+                        {
+                            SportId = i,
+                            SportName = _cacheRefAdapter.GetSportName(i)
+                        }).ToList();
+
                 if (sports.Count > 0)
                 {
                     var selectedSport = metalModel.SportId > 0 ? metalModel.SportId : sports[0].SportId;
                     var leagues = outRightData.Where(i => i.SportType == selectedSport)
                             .Select(i => i.LeagueId).Distinct()
-                            .Select(i => new League { LeagueId = i }).ToList();
+                            .Select(i => new League
+                            {
+                                LeagueId = i,
+                                LeagueName = _cacheRefAdapter.GetLeagueName(i)
+                            }).ToList();
 
                     return Json(new { Sports = sports, Leagues = leagues });
                 }

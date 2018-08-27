@@ -67,7 +67,7 @@
                 const int SportId = 99;
                 var dataList = new List<Sport>
                 {
-                    new Sport(SportId)
+                    new Sport { SportId = SportId }
                 };
                 var metaModel = new ResultMetalModel
                 {

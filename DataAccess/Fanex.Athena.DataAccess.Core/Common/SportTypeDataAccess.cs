@@ -29,6 +29,11 @@ namespace Fanex.Athena.DataAccess.Core.Common
             _cacheRefAdapter = new CacheRefAdapter();
         }
 
+        public SportTypeDataAccess(ICacheRefAdapter cacheRefAdapter)
+        {
+            _cacheRefAdapter = cacheRefAdapter;
+        }
+
         public IEnumerable<SportProductItem> GetSportsAndProducts(int licenseeId, string languageCode, int? productId = null)
         {
             const string UspName = "Lrf_SelSportDetail";
@@ -101,11 +106,21 @@ namespace Fanex.Athena.DataAccess.Core.Common
                         var sportId = reader.ToInt("Sporttype");
                         var sportName = _cacheRefAdapter.GetSportName(sportId);
 
-                        result.Add(new Sport(sportId, sportName));
+                        result.Add(new Sport
+                        {
+                            SportId = sportId,
+                            SportName = sportName
+                        });
                     }
                 }
 
-                result.Insert(0, new Sport(0, ViewResources.All));
+                result.Insert(
+                    0, 
+                    new Sport
+                    {
+                        SportId = 0,
+                        SportName = ViewResources.All
+                    });
                 return result;
             }
         }

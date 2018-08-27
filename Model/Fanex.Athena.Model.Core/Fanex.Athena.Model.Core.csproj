@@ -150,10 +150,6 @@
       <Project>{6B1431E0-E513-48BB-BE86-0756E5F6F405}</Project>
       <Name>Fanex.Athena.Constant</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Infrastructure\Fanex.Athena.VendorAdapter\Fanex.Athena.VendorAdapter.csproj">
-      <Project>{CE1F7641-A14D-4AF6-9BD3-CAD4873669B4}</Project>
-      <Name>Fanex.Athena.VendorAdapter</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Resources\Fanex.Athena.Resources\Fanex.Athena.Resources.csproj">
       <Project>{17b0022c-4902-4c61-908a-5db81568dc3a}</Project>
       <Name>Fanex.Athena.Resources</Name>

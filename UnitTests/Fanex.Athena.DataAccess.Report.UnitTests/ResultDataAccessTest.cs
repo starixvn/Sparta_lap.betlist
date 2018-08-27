@@ -168,7 +168,7 @@
             Reader.Read().Returns(true, false);
             var expectedResult = new List<Sport>
             {
-                new Sport(SportId)
+                new Sport { SportId = SportId }
             };
             var readerDataMapping = new
             {
