@@ -520,12 +520,25 @@ var Service = exports.Service = function () {
         value: function getReportTitle(fromDate, toDate, currencyId, currencyName, baseCurrency) {
             var viewInByCurrency = currencyId == 0 ? _langHelper2.default.getSingleResource('AllCurrencies') : '' + _langHelper2.default.getSingleResource('Viewin').replace('{0}', baseCurrency.toUpperCase() || currencyName);
 
-            return _langHelper2.default.getSingleResource('LicenseeWinLoss') + ', ' + fromDate + ' - ' + toDate + ' - ' + viewInByCurrency;
+            return _langHelper2.default.getSingleResource('LicenseeWinLoss') + ', GMT+8, ' + fromDate + ' - ' + toDate + ' - ' + viewInByCurrency;
         }
     }, {
         key: 'showErrorMsg',
         value: function showErrorMsg() {
             alert(_langHelper2.default.getSingleResource('ErrorProcessingMsg'));
+        }
+    }, {
+        key: 'sort',
+        value: function sort(data, sortBy, sortOrder) {
+            if (sortOrder === 'asc') {
+                data.sort(function (a, b) {
+                    return a[sortBy] > b[sortBy];
+                });
+            } else {
+                data.sort(function (a, b) {
+                    return a[sortBy] < b[sortBy];
+                });
+            }
         }
     }]);
 
@@ -1234,7 +1247,7 @@ var addDistanceDays = function addDistanceDays(rangeObj, name, start, end, min, 
 };
 
 exports.default = {
-    ranges: function ranges(today, min, max) {
+    ranges: function ranges(today, min, max, limitMonths) {
         today = !today ? (0, _moment2.default)() : !_moment2.default.isMoment(today) ? (0, _moment2.default)(today, _constants.MomentFormat.default) : today;
         max = !max ? today : !_moment2.default.isMoment(max) ? (0, _moment2.default)(max, _constants.MomentFormat.default) : max;
         min = !min ? today : !_moment2.default.isMoment(min) ? (0, _moment2.default)(min, _constants.MomentFormat.default) : min;
@@ -1266,9 +1279,11 @@ exports.default = {
         var endLastmonth = startLastmonth.clone().endOf('month');
         addDistanceDays(range, "Lastmonth", startLastmonth, endLastmonth, min, max);
 
-        var startSincelastmonth = today.clone().subtract(1, 'month').startOf('month');
-        var endSincelastmonth = today;
-        addDistanceDays(range, "Sincelastmonth", startSincelastmonth, endSincelastmonth, min, max);
+        if (limitMonths && limitMonths > 1) {
+            var startSincelastmonth = today.clone().subtract(1, 'month').startOf('month');
+            var endSincelastmonth = today;
+            addDistanceDays(range, "Sincelastmonth", startSincelastmonth, endSincelastmonth, min, max);
+        }
 
         return range;
     },
@@ -2313,6 +2328,8 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
@@ -2348,9 +2365,18 @@ var Cell = function (_Component) {
             var _props = this.props,
                 header = _props.header,
                 colWidth = _props.colWidth,
-                rest = _objectWithoutProperties(_props, ['header', 'colWidth']);
+                sortable = _props.sortable,
+                sorting = _props.sorting,
+                asc = _props.asc,
+                onClick = _props.onClick,
+                rest = _objectWithoutProperties(_props, ['header', 'colWidth', 'sortable', 'sorting', 'asc', 'onClick']);
 
-            return header ? _react2.default.createElement(
+            return header ? sortable ? _react2.default.createElement(
+                'th',
+                _extends({}, rest, { className: 'sortable ' + (sorting ? 'sorting' : ''), onClick: onClick }),
+                this.props.children,
+                _react2.default.createElement('span', { className: '' + (sorting ? asc ? 'asc' : 'desc' : '') })
+            ) : _react2.default.createElement(
                 'th',
                 rest,
                 this.props.children
@@ -2366,10 +2392,18 @@ var Cell = function (_Component) {
 }(_react.Component);
 
 Cell.propTypes = {
-    header: _propTypes2.default.bool
+    header: _propTypes2.default.bool,
+    sortable: _propTypes2.default.bool,
+    sorting: _propTypes2.default.bool,
+    asc: _propTypes2.default.bool,
+    onClick: _propTypes2.default.func
 };
 Cell.defaultProps = {
-    header: false
+    header: false,
+    sortable: false,
+    sorting: false,
+    asc: true,
+    onClick: function onClick() {}
 };
 exports.default = Cell;
 
@@ -2504,7 +2538,7 @@ var DateRange = function (_Component) {
     _this.styles = (0, _styles2.default)(theme);
     _this.step = 0;
     _this.locale = _extends({}, _defaultOptions2.default.locale, props.locale);
-    _this.ranges = _extends({}, _defaultOptions2.default.ranges(props.today, props.minDate, props.maxDate), props.ranges);
+    _this.ranges = _extends({}, _defaultOptions2.default.ranges(props.today, props.minDate, props.maxDate, props.limitedMonthRange), props.ranges);
 
     _this.isValid = true;
     _this.currentRange = { startDate: startDate, endDate: endDate };
@@ -3551,6 +3585,9 @@ var FormFilter = exports.FormFilter = function (_Component) {
 
             _this.props.toggleLoader(true);
             _report2.default.fetchGridData(_service.Url, { xsrfToken: _this.props.xsrfToken, data: params }).then(function (response) {
+                if (response.data.Data && response.data.Data.length > 1) {
+                    _service.Service.sort(response.data.Data, params.SortBy, params.SortOrder);
+                }
                 _this.props.setGridData(response.data);
                 _this.props.setReportTitle(_service.Service.getReportTitle(params.FromDate, params.ToDate, params.CurrencyId, params.CurrencyName, params.BaseCurrency));
             }).catch(function (error) {
@@ -3573,7 +3610,6 @@ var FormFilter = exports.FormFilter = function (_Component) {
             _report2.default.fetchGridData(_service.Url, { xsrfToken: _this.props.xsrfToken, data: params }).then(function (response) {
                 _this._doExportExcel(params, response.data);
             }).catch(function (error) {
-                console.log(error);
                 _service.Service.showErrorMsg();
                 _this.props.toggleLoader(false);
             });
@@ -3608,8 +3644,12 @@ var FormFilter = exports.FormFilter = function (_Component) {
                 return;
             }
 
+            if (gridData.Data.length > 1) {
+                _service.Service.sort(gridData.Data, params.SortBy, params.SortOrder);
+            }
+
             var title = _service.Service.getReportTitle(params.FromDate, params.ToDate, params.CurrencyId, params.CurrencyName, params.BaseCurrency);
-            var excel = new _reportExcel2.default(gridData, title, parseInt(params.ReportBy), params.ProductCodeList.split(','));
+            var excel = new _reportExcel2.default(gridData, title, parseInt(params.ReportBy), params.ProductCodeList);
             excel.export(function () {
                 _this2.props.toggleLoader(false);
             });
@@ -3632,8 +3672,10 @@ var FormFilter = exports.FormFilter = function (_Component) {
                 CurrencyName: this.props.selectedCurrency.label,
                 CurrencyId: this.props.selectedCurrency.value,
                 BaseCurrency: this.props.selectedCurrency.baseCurrency,
-                ProductCodeList: this.props.selectedProduct,
-                ReportBy: this.props.selectedReportBy
+                ProductCodeList: this.props.selectedProduct.split(','),
+                ReportBy: this.props.selectedReportBy,
+                SortBy: this.props.params.SortBy || 'Date',
+                SortOrder: this.props.params.SortOrder || 'asc'
             };
         }
     }, {
@@ -3822,8 +3864,7 @@ function mapStateToProps(state) {
     var gridData = state.gridData,
         reportTitle = state.reportTitle,
         isLoading = state.isLoading,
-        params = state.params,
-        rest = _objectWithoutProperties(state, ['gridData', 'reportTitle', 'isLoading', 'params']);
+        rest = _objectWithoutProperties(state, ['gridData', 'reportTitle', 'isLoading']);
 
     return Object.assign({}, rest);
 };
@@ -3957,9 +3998,9 @@ var ReportExcel = function () {
                 field: 'TotalTransaction',
                 type: 'n'
             }, _defineProperty(_rows$push, HEADER_SECTION, { title: 'totalTransaction', isShow: true, rowSpan: rowSpan, index_r: HEADER_ROW_INDEX }), _defineProperty(_rows$push, MAIN_SECTION, { isShow: true, style: _excelStyle.bodyCellStyle.number, width: 130 }), _defineProperty(_rows$push, TOTAL_SECTION, { isShow: true, style: _excelStyle.totalCellStyle.number }), _defineProperty(_rows$push, SUMMARYTOTAL_SECTION, { isShow: true, style: _excelStyle.grandTotalCellStyle.number }), _rows$push), (_rows$push2 = {
-                field: 'CustomerWL',
+                field: 'CustomerWinLoss',
                 type: 'n'
-            }, _defineProperty(_rows$push2, HEADER_SECTION, { title: 'customerWL', isShow: true, rowSpan: rowSpan, index_r: HEADER_ROW_INDEX }), _defineProperty(_rows$push2, MAIN_SECTION, { isShow: true, style: _excelStyle.bodyCellStyle.decimal, width: 200 }), _defineProperty(_rows$push2, TOTAL_SECTION, { isShow: true, style: _excelStyle.totalCellStyle.decimal }), _defineProperty(_rows$push2, SUMMARYTOTAL_SECTION, { isShow: true, style: _excelStyle.grandTotalCellStyle.decimal }), _rows$push2));
+            }, _defineProperty(_rows$push2, HEADER_SECTION, { title: 'customer', isShow: true, rowSpan: rowSpan, index_r: HEADER_ROW_INDEX }), _defineProperty(_rows$push2, MAIN_SECTION, { isShow: true, style: _excelStyle.bodyCellStyle.decimal, width: 200 }), _defineProperty(_rows$push2, TOTAL_SECTION, { isShow: true, style: _excelStyle.totalCellStyle.decimal }), _defineProperty(_rows$push2, SUMMARYTOTAL_SECTION, { isShow: true, style: _excelStyle.grandTotalCellStyle.decimal }), _rows$push2));
 
             this._createExpandColumns('LicenseeWL', 'licenseeWL', rows, this.totalColumn - (this.productCount > 1 ? this.productCount + 1 : 1), true);
 
@@ -4238,9 +4279,36 @@ var DataGrid = exports.DataGrid = function (_Component) {
     _createClass(DataGrid, [{
         key: 'componentDidUpdate',
         value: function componentDidUpdate(prevProps) {
-            if (prevProps.gridData !== this.props.gridData) {
+            if (prevProps.gridData !== this.props.gridData || prevProps.params.SortBy !== this.props.params.SortBy || prevProps.params.SortOrder !== this.props.params.SortOrder) {
                 this.props.toggleLoader(false);
             }
+        }
+    }, {
+        key: '_onExpandColumn',
+        value: function _onExpandColumn(e, expandData) {
+            e.stopPropagation();
+            this.setState(expandData);
+        }
+    }, {
+        key: '_sort',
+        value: function _sort(sortBy) {
+            var param = Object.assign({}, this.props.params);
+            var data = Object.assign({}, this.props.gridData);
+
+            if (!param.SortBy || param.SortBy != sortBy) {
+                param.SortBy = sortBy;
+                param.SortOrder = 'asc';
+            } else {
+                param.SortOrder = param.SortOrder == 'asc' ? 'desc' : 'asc';
+            }
+
+            this.props.toggleLoader(true);
+
+            if (this.props.gridData.Data && this.props.gridData.Data.length > 1) {
+                _service.Service.sort(this.props.gridData.Data, param.SortBy, param.SortOrder);
+            }
+
+            this.props.setParams(param);
         }
     }, {
         key: '_updateGridData',
@@ -4257,7 +4325,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
         }
     }, {
         key: '_buildHeader',
-        value: function _buildHeader(selectedProductList) {
+        value: function _buildHeader(selectedProductList, sortBy, sortOrder) {
             var _this3 = this;
 
             var productsCount = selectedProductList.length;
@@ -4277,54 +4345,72 @@ var DataGrid = exports.DataGrid = function (_Component) {
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { colWidth: 150, header: true, rowSpan: rowSpan },
+                    { colWidth: 150, header: true, rowSpan: rowSpan, sortable: true, sorting: sortBy === 'Date', asc: sortOrder === 'asc', onClick: function onClick() {
+                            return _this3._sort('Date');
+                        } },
                     _service.HeaderText.date
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { colWidth: 100, header: true, rowSpan: rowSpan },
+                    { colWidth: 100, header: true, rowSpan: rowSpan, sortable: true, sorting: sortBy === 'CurrencyName', asc: sortOrder === 'asc', onClick: function onClick() {
+                            return _this3._sort('CurrencyName');
+                        } },
                     _service.HeaderText.currency
                 ),
                 productsCount > 1 ? _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { colWidth: 200 * (productsCount * expandTurnover + 1), header: true, rowSpan: expandTurnover ? 1 : rowSpan, colSpan: productsCount * expandTurnover + 1 },
+                    { colWidth: 200 * (productsCount * expandTurnover + 1), header: true, rowSpan: expandTurnover ? 1 : rowSpan, colSpan: productsCount * expandTurnover + 1,
+                        sortable: !expandTurnover, sorting: sortBy === 'TotalTurnOver', asc: sortOrder === 'asc', onClick: function onClick() {
+                            return _this3._sort('TotalTurnOver');
+                        } },
                     _service.HeaderText.turnover,
                     _react2.default.createElement(
                         'button',
-                        { className: 'header-button btn ' + (expandTurnover ? 'btnCollapse' : ''), onClick: function onClick() {
-                                return _this3.setState({ expandTurnover: !expandTurnover });
+                        { className: 'header-button btn ' + (expandTurnover ? 'btnCollapse' : ''), onClick: function onClick(e) {
+                                return _this3._onExpandColumn(e, { expandTurnover: !expandTurnover });
                             } },
                         _react2.default.createElement('i', { className: 'btn-icon icon-arrow' })
                     )
                 ) : _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { colWidth: 200, header: true, rowSpan: rowSpan },
+                    { colWidth: 200, header: true, rowSpan: rowSpan, sortable: true, sorting: sortBy === 'TotalTurnOver', asc: sortOrder === 'asc', onClick: function onClick() {
+                            return _this3._sort('TotalTurnOver');
+                        } },
                     _service.HeaderText.turnover
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { colWidth: 130, header: true, rowSpan: rowSpan },
+                    { colWidth: 130, header: true, rowSpan: rowSpan, sortable: true, sorting: sortBy === 'TotalTransaction', asc: sortOrder === 'asc', onClick: function onClick() {
+                            return _this3._sort('TotalTransaction');
+                        } },
                     _service.HeaderText.totalTransaction
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { colWidth: 200, header: true, rowSpan: rowSpan },
+                    { colWidth: 200, header: true, rowSpan: rowSpan, sortable: true, sorting: sortBy === 'CustomerWinLoss', asc: sortOrder === 'asc', onClick: function onClick() {
+                            return _this3._sort('CustomerWinLoss');
+                        } },
                     _service.HeaderText.customer
                 ),
                 productsCount > 1 ? _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { colWidth: 200 * (productsCount * expandLicensee + 1), header: true, rowSpan: expandLicensee ? 1 : rowSpan, colSpan: productsCount * expandLicensee + 1 },
+                    { colWidth: 200 * (productsCount * expandLicensee + 1), header: true, rowSpan: expandLicensee ? 1 : rowSpan, colSpan: productsCount * expandLicensee + 1,
+                        sortable: !expandLicensee, sorting: sortBy === 'TotalLicenseeWL', asc: sortOrder === 'asc', onClick: function onClick() {
+                            return _this3._sort('TotalLicenseeWL');
+                        } },
                     _service.HeaderText.licenseeWL,
                     _react2.default.createElement(
                         'button',
-                        { className: 'header-button btn ' + (expandLicensee ? 'btnCollapse' : ''), onClick: function onClick() {
-                                return _this3.setState({ expandLicensee: !expandLicensee });
+                        { className: 'header-button btn ' + (expandLicensee ? 'btnCollapse' : ''), onClick: function onClick(e) {
+                                return _this3._onExpandColumn(e, { expandLicensee: !expandLicensee });
                             } },
                         _react2.default.createElement('i', { className: 'btn-icon icon-arrow' })
                     )
                 ) : _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { colWidth: 200, header: true, rowSpan: rowSpan },
+                    { colWidth: 200, header: true, rowSpan: rowSpan, sortable: true, sorting: sortBy === 'TotalLicenseeWL', asc: sortOrder === 'asc', onClick: function onClick() {
+                            return _this3._sort('TotalLicenseeWL');
+                        } },
                     _service.HeaderText.licenseeWL
                 )
             )];
@@ -4333,33 +4419,51 @@ var DataGrid = exports.DataGrid = function (_Component) {
                 var cols = [];
 
                 if (this.state.expandTurnover) {
-                    for (var i = 0; i < productsCount; i++) {
+                    var _loop = function _loop(i) {
                         var code = selectedProductList[i];
+                        var colName = 'TurnOver' + code;
                         cols.push(_react2.default.createElement(
                             _fixedTableHeader.Cell,
-                            { key: 'turnover-' + i, colWidth: 200, header: true },
+                            { key: colName, colWidth: 200, header: true, sortable: true, sorting: sortBy === colName, asc: sortOrder === 'asc', onClick: function onClick() {
+                                    return _this3._sort(colName);
+                                } },
                             _service.HeaderText[code]
                         ));
+                    };
+
+                    for (var i = 0; i < productsCount; i++) {
+                        _loop(i);
                     }
                     cols.push(_react2.default.createElement(
                         _fixedTableHeader.Cell,
-                        { key: 'turnover-total', colWidth: 200, header: true },
+                        { key: 'turnover-total', colWidth: 200, header: true, sortable: true, sorting: sortBy === 'TotalTurnOver', asc: sortOrder === 'asc', onClick: function onClick() {
+                                return _this3._sort('TotalTurnOver');
+                            } },
                         _service.HeaderText.total
                     ));
                 }
 
                 if (this.state.expandLicensee) {
-                    for (var _i = 0; _i < productsCount; _i++) {
-                        var _code = selectedProductList[_i];
+                    var _loop2 = function _loop2(i) {
+                        var code = selectedProductList[i];
+                        var colName = 'LicenseeWL' + code;
                         cols.push(_react2.default.createElement(
                             _fixedTableHeader.Cell,
-                            { key: 'licenseeWL-' + _i, colWidth: 200, header: true },
-                            _service.HeaderText[_code]
+                            { key: colName, colWidth: 200, header: true, sortable: true, sorting: sortBy === colName, asc: sortOrder === 'asc', onClick: function onClick() {
+                                    return _this3._sort(colName);
+                                } },
+                            _service.HeaderText[code]
                         ));
+                    };
+
+                    for (var i = 0; i < productsCount; i++) {
+                        _loop2(i);
                     }
                     cols.push(_react2.default.createElement(
                         _fixedTableHeader.Cell,
-                        { key: 'licenseeWL-total', colWidth: 200, header: true },
+                        { key: 'licenseeWL-total', colWidth: 200, header: true, sortable: true, sorting: sortBy === 'TotalLicenseeWL', asc: sortOrder === 'asc', onClick: function onClick() {
+                                return _this3._sort('TotalLicenseeWL');
+                            } },
                         _service.HeaderText.total
                     ));
                 }
@@ -4440,12 +4544,12 @@ var DataGrid = exports.DataGrid = function (_Component) {
                 baseCurrencyList = Object.keys(dataSummary),
                 colSummarySpan = colSpan + 1;
 
-            for (var _i2 = baseCurrencyList.length - 1; _i2 >= 0; _i2--) {
-                var currency = baseCurrencyList[_i2],
+            for (var _i = baseCurrencyList.length - 1; _i >= 0; _i--) {
+                var currency = baseCurrencyList[_i],
                     _item = dataSummary[currency];
                 totalRows.push(_react2.default.createElement(
                     _fixedTableHeader.Row,
-                    { key: 'tr-grandtotal' + _i2, className: 'fixed-table-grant-total' },
+                    { key: 'tr-grandtotal' + _i, className: 'fixed-table-grant-total' },
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
                         { title: _service.TotalText.totalIn + ' ' + currency, className: 'center-align', colSpan: colSummarySpan },
@@ -4516,8 +4620,8 @@ var DataGrid = exports.DataGrid = function (_Component) {
             ));
 
             if (this.state.expandLicensee) {
-                for (var _i3 = 0; _i3 < productsCount; _i3++) {
-                    var _column = 'LicenseeWL' + selectedProductList[_i3];
+                for (var _i2 = 0; _i2 < productsCount; _i2++) {
+                    var _column = 'LicenseeWL' + selectedProductList[_i2];
                     var licenseeWLByProduct = _numberFormat2.default.formatDecimal(item[_column]);
                     rows.push(_react2.default.createElement(
                         _fixedTableHeader.Cell,
@@ -4549,15 +4653,13 @@ var DataGrid = exports.DataGrid = function (_Component) {
                 return _react2.default.createElement(_NoDataTitle2.default, null);
             }
 
-            var selectedProductList = params.ProductCodeList.split(',');
-
             return _react2.default.createElement(_fixedTableHeader.Table, {
                 minWidth: 800,
                 autoWidth: true,
                 bodyHeight: 300,
-                header: this._buildHeader(selectedProductList),
-                body: this._buildBody(params.ReportBy, selectedProductList),
-                footer: this._buildFooter(selectedProductList)
+                header: this._buildHeader(params.ProductCodeList, params.SortBy, params.SortOrder),
+                body: this._buildBody(params.ReportBy, params.ProductCodeList),
+                footer: this._buildFooter(params.ProductCodeList)
             });
         }
     }]);

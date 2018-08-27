@@ -1289,7 +1289,7 @@ var addDistanceDays = function addDistanceDays(rangeObj, name, start, end, min, 
 };
 
 exports.default = {
-    ranges: function ranges(today, min, max) {
+    ranges: function ranges(today, min, max, limitMonths) {
         today = !today ? (0, _moment2.default)() : !_moment2.default.isMoment(today) ? (0, _moment2.default)(today, _constants.MomentFormat.default) : today;
         max = !max ? today : !_moment2.default.isMoment(max) ? (0, _moment2.default)(max, _constants.MomentFormat.default) : max;
         min = !min ? today : !_moment2.default.isMoment(min) ? (0, _moment2.default)(min, _constants.MomentFormat.default) : min;
@@ -1321,9 +1321,11 @@ exports.default = {
         var endLastmonth = startLastmonth.clone().endOf('month');
         addDistanceDays(range, "Lastmonth", startLastmonth, endLastmonth, min, max);
 
-        var startSincelastmonth = today.clone().subtract(1, 'month').startOf('month');
-        var endSincelastmonth = today;
-        addDistanceDays(range, "Sincelastmonth", startSincelastmonth, endSincelastmonth, min, max);
+        if (limitMonths && limitMonths > 1) {
+            var startSincelastmonth = today.clone().subtract(1, 'month').startOf('month');
+            var endSincelastmonth = today;
+            addDistanceDays(range, "Sincelastmonth", startSincelastmonth, endSincelastmonth, min, max);
+        }
 
         return range;
     },
@@ -3698,6 +3700,8 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
@@ -3733,9 +3737,18 @@ var Cell = function (_Component) {
             var _props = this.props,
                 header = _props.header,
                 colWidth = _props.colWidth,
-                rest = _objectWithoutProperties(_props, ['header', 'colWidth']);
+                sortable = _props.sortable,
+                sorting = _props.sorting,
+                asc = _props.asc,
+                onClick = _props.onClick,
+                rest = _objectWithoutProperties(_props, ['header', 'colWidth', 'sortable', 'sorting', 'asc', 'onClick']);
 
-            return header ? _react2.default.createElement(
+            return header ? sortable ? _react2.default.createElement(
+                'th',
+                _extends({}, rest, { className: 'sortable ' + (sorting ? 'sorting' : ''), onClick: onClick }),
+                this.props.children,
+                _react2.default.createElement('span', { className: '' + (sorting ? asc ? 'asc' : 'desc' : '') })
+            ) : _react2.default.createElement(
                 'th',
                 rest,
                 this.props.children
@@ -3751,10 +3764,18 @@ var Cell = function (_Component) {
 }(_react.Component);
 
 Cell.propTypes = {
-    header: _propTypes2.default.bool
+    header: _propTypes2.default.bool,
+    sortable: _propTypes2.default.bool,
+    sorting: _propTypes2.default.bool,
+    asc: _propTypes2.default.bool,
+    onClick: _propTypes2.default.func
 };
 Cell.defaultProps = {
-    header: false
+    header: false,
+    sortable: false,
+    sorting: false,
+    asc: true,
+    onClick: function onClick() {}
 };
 exports.default = Cell;
 
@@ -3889,7 +3910,7 @@ var DateRange = function (_Component) {
     _this.styles = (0, _styles2.default)(theme);
     _this.step = 0;
     _this.locale = _extends({}, _defaultOptions2.default.locale, props.locale);
-    _this.ranges = _extends({}, _defaultOptions2.default.ranges(props.today, props.minDate, props.maxDate), props.ranges);
+    _this.ranges = _extends({}, _defaultOptions2.default.ranges(props.today, props.minDate, props.maxDate, props.limitedMonthRange), props.ranges);
 
     _this.isValid = true;
     _this.currentRange = { startDate: startDate, endDate: endDate };

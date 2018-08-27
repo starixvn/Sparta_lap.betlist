@@ -439,6 +439,20 @@
   .multiple-select-item label {
     margin-bottom: 0; }
 
+th.sortable {
+  cursor: pointer; }
+  th.sortable.sorting {
+    text-decoration: underline; }
+  th.sortable .asc, th.sortable .desc {
+    display: inline-block;
+    margin-left: 4px;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent; }
+  th.sortable .asc {
+    border-bottom: 5px solid; }
+  th.sortable .desc {
+    border-top: 5px solid; }
+
 .rdr-DateRange {
   z-index: 2; }
 
