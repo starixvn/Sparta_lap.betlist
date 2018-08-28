@@ -202,8 +202,8 @@ var HeaderText = exports.HeaderText = {
     customer: _langHelper2.default.getSingleResource('CustomerW_L'),
     licenseeWL: _langHelper2.default.getSingleResource('LicenseeW_L'),
     total: _langHelper2.default.getSingleResource('Total'),
-    SB: _langHelper2.default.getSingleResource('SB'),
-    NG: _langHelper2.default.getSingleResource('NG')
+    SB: _langHelper2.default.getSingleResource('ProductSB'),
+    NG: _langHelper2.default.getSingleResource('ProductNG')
 };
 
 var TotalText = exports.TotalText = {

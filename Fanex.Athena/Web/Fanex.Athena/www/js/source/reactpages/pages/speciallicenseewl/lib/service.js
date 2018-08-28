@@ -11,8 +11,8 @@ export const HeaderText = {
     customer: LangHelper.getSingleResource('CustomerW_L'),
     licenseeWL: LangHelper.getSingleResource('LicenseeW_L'),
     total: LangHelper.getSingleResource('Total'),
-    SB: LangHelper.getSingleResource('SB'),
-    NG: LangHelper.getSingleResource('NG')
+    SB: LangHelper.getSingleResource('ProductSB'),
+    NG: LangHelper.getSingleResource('ProductNG')
 };
 
 export const TotalText = {
