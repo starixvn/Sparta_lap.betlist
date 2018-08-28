@@ -15,8 +15,8 @@
         protected override void SetUpDataAccess()
         {
             var betSettingReader = Substitute.For<IBetSettingReader>();
-            betSettingReader.ReadForSport(Arg.Any<IDataReader>(), Arg.Any<string>(), Arg.Any<bool>()).
-                Returns(x => new BetSetting
+            betSettingReader.ReadForSport(Arg.Any<IDataReader>(), Arg.Any<string>(), Arg.Any<bool>())
+                .Returns(x => new BetSetting
                 {
                     SportId = x[1].ToString()
                 });

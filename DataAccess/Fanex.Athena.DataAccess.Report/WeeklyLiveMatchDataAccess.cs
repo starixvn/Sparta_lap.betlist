@@ -31,6 +31,11 @@ namespace Fanex.Athena.DataAccess.Report
             _cacheRefAdapter = new CacheRefAdapter();
         }
 
+        public WeeklyLiveMatchDataAccess(ICacheRefAdapter cacheRefAdapter)
+        {
+            _cacheRefAdapter = cacheRefAdapter;
+        }
+
         public WeeklyLiveMatchResultModel GetDataList(WeeklyLiveMatchMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_LiveMatchWeekly";

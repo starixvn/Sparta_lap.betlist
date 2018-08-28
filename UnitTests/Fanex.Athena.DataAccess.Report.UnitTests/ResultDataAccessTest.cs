@@ -15,6 +15,7 @@
     using Result.Core.NumberGame.DTO;
     using Result.Core.Racing.DTO;
     using Result.Core.Sportsbook.DTO;
+    using VendorAdapter.Interfaces;
 
     [TestFixture]
     public partial class ResultDataAccessTest : BaseDataAccessHelperTest<ResultDataAccess>
@@ -47,8 +48,8 @@
                 BalanceUpDay = new DateTime(2016, 8, 31)
             };
             balanceUpDataAccess.GetBalanceUp().Returns(_balance);
-
-            DataAccess = Substitute.ForPartsOf<ResultDataAccess>(balanceUpDataAccess);
+            var cacheRefAdapter = Substitute.For<ICacheRefAdapter>();
+            DataAccess = Substitute.ForPartsOf<ResultDataAccess>(balanceUpDataAccess, cacheRefAdapter);
             ObjectDb = Substitute.For<IObjectDb>();
 
             _metaModel = new ResultMetalModel

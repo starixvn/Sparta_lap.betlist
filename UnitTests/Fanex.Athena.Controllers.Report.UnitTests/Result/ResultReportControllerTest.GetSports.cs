@@ -82,7 +82,7 @@
                 // Assert
                 Assert.That(
                         new JavaScriptSerializer().Serialize(result.Data),
-                        Is.EqualTo(@"{""Sports"":[{""SportId"":99,""SportName"":""""}],""Leagues"":[]}"));
+                        Is.EqualTo(@"{""Sports"":[{""SportId"":99,""SportName"":null}],""Leagues"":[]}"));
             }
         }
 
@@ -110,7 +110,7 @@
                 // Assert
                 Assert.That(
                         new JavaScriptSerializer().Serialize(result.Data),
-                        Is.EqualTo(@"{""Leagues"":[{""LeagueId"":0,""LeagueName"":"""",""IsOutRight"":false}]}"));
+                        Is.EqualTo(@"{""Leagues"":[{""LeagueId"":0,""LeagueName"":null,""IsOutRight"":false}]}"));
             }
         }
     }

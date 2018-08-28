@@ -9,12 +9,19 @@
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using VendorAdapter.Interfaces;
 
     [TestFixture]
     public class WinLossByLeagueDataAccessTest : BaseDataAccessHelperTest<WinLossByLeagueDataAccess>
     {
         private const string GetSummarySp = "Lrf_Rpt_WinlostByLeague";
         private const string GetCustomersSp = "Lrf_Rpt_WinlossByLeagueDetail";
+
+        protected override void SetUpDataAccess()
+        {
+            var cacheRefAdapter = Substitute.For<ICacheRefAdapter>();
+            DataAccess = Substitute.ForPartsOf<WinLossByLeagueDataAccess>(cacheRefAdapter);
+        }
 
         [TestCase(true, true)]
         [TestCase(false, false)]

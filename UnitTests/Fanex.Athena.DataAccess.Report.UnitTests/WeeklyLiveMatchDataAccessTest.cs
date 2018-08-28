@@ -7,10 +7,17 @@
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using VendorAdapter.Interfaces;
 
     [TestFixture]
     public class WeeklyLiveMatchDataAccessTest : BaseDataAccessHelperTest<WeeklyLiveMatchDataAccess>
     {
+        protected override void SetUpDataAccess()
+        {
+            var cacheRefAdapter = Substitute.For<ICacheRefAdapter>();
+            DataAccess = Substitute.ForPartsOf<WeeklyLiveMatchDataAccess>(cacheRefAdapter);
+        }
+
         [Test]
         public void GetDataList_WhenCall_ParametersPassedCorrectly()
         {

@@ -32,6 +32,11 @@ namespace Fanex.Athena.DataAccess.Report
             _cacheRefAdapter = new CacheRefAdapter();
         }
 
+        public WinLossByLeagueDataAccess(ICacheRefAdapter cacheRefAdapter)
+        {
+            _cacheRefAdapter = cacheRefAdapter;
+        }
+
         public IEnumerable<WinLossByLeague> GetSummary(WinLossByLeagueMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_WinlostByLeague";

@@ -127,7 +127,8 @@
                    new CasinoProgressiveWinsViewModel
                    {
                        DataList = new CasinoProgressiveWins[] { }
-                   });
+                   },
+                   Substitute.For<ICacheRefAdapter>());
             excel.When(x => x.Export()).DoNotCallBase();
 
             _controller.CreateExcel(
