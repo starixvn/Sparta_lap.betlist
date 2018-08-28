@@ -1,4 +1,4 @@
-USE bodb_LicenseeReport
+USE bodb_LicenseeReportArchive
 GO
 
 /*
@@ -29,16 +29,19 @@ CREATE TABLE [dbo].[rptDep_AuditTickets]
    ,[DebitAmount]		MONEY
    ,[CreditAmount]		MONEY
    ,[NetAmount]		MONEY
+   ,[WinLostDate]	     DATE NOT NULL
 	CONSTRAINT [PK_rptDep_AuditTickets] PRIMARY KEY NONCLUSTERED
 	(
 		[TransactionId] ASC
-	) ON [LicenseeData]
+	) ON  [bodb_LicenseeReportArchive_table] -- local: Licensee_Staging
 )
 
 CREATE CLUSTERED INDEX [CIX_playerNo] ON [dbo].[rptDep_AuditTickets]
-(
-	[PlayerNo] ASC,
-	[SettlementDate] ASC
-) ON [LicenseeData]
+(   
+	[WinLostDate],
+	[Brand] ASC,
+	[CurrencyCode] ASC,
+	[GameType] ASC
+) ON [bodb_LicenseeReportArchive_table] -- local :Licensee_Staging
 
 GO
