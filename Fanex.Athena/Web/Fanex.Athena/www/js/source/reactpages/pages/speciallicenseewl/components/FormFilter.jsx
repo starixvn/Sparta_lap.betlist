@@ -4,12 +4,12 @@ import { ActionCreators } from '../actions/index.js'
 import { bindActionCreators } from 'redux'
 import Select from 'react-select'
 import MultipleSelect from '../../../components/multiple-select'
-import { DateRange } from '../../../components/date-range/index'
 import LangHelper from '../../../lib/langHelper'
 import Site from '../../../lib/site'
 import Report from '../../../lib/report'
 import { Service, Url } from '../lib/service'
 import ReportExcel from '../lib/reportExcel'
+import MonthPicker from '../../../components/month-picker/index'
 
 export class FormFilter extends Component {
     constructor(props) {
@@ -43,7 +43,7 @@ export class FormFilter extends Component {
             .catch(error => {
                 Service.showErrorMsg();
                 this.props.toggleLoader(false);
-        });  
+            });
         this.props.setParams(params);
     }
 
@@ -115,16 +115,6 @@ export class FormFilter extends Component {
         this.props.setSelectedProduct(selectedItemsKey);
     }
 
-    applyDateRangeHandler = (date, isValidMonthRange = true) => {
-        if (isValidMonthRange) {
-            this.props.setDateRange(date);
-        }
-        else {
-            const message = LangHelper.getSingleResource("DateRangeExceedMsg").replace("{0}", dateConstraint.limitedMonthRange);
-            alert(message);
-        }
-    }
-
     _renderReportByOption() {
         const { reportByList, selectedReportBy } = this.props;
 
@@ -169,25 +159,47 @@ export class FormFilter extends Component {
                 onChange={(item) => this.props.setSelectedCurrency(item)} />
     }
 
-    _renderDateRange() {
+    _monthPickerHandle = (dateRange) => {
+        this.props.setDateRange(dateRange);
+    }
+
+
+    _renderMonthPicker() {
         const { dateRange, dateConstraint } = this.props;
 
-        return (
-            <DateRange startDate={dateRange.fromDate} endDate={dateRange.toDate}
-                minDate={dateConstraint.minDate} maxDate={dateConstraint.maxDate}
-                today={dateRange.toDate} limitedMonthRange={dateConstraint.limitedMonthRange}
-                onChange={this.applyDateRangeHandler} />
-        );
+        const monthOption = {
+            label: LangHelper.getSingleResource('ViewDataInMonth')
+        };
+
+        const fromDateOption = {
+            label: LangHelper.getSingleResource('From'),
+            id: 'FromDateInput'
+        };
+        const toDateOption = {
+            label: LangHelper.getSingleResource('To'),
+            id: 'ToDateInput'
+        };
+
+         return <MonthPicker
+               minDate={dateConstraint.minDate}
+               maxDate={dateConstraint.maxDate}
+               fromDate={dateRange.fromDate}
+               toDate={dateRange.toDate}
+
+               onChange={this._monthPickerHandle}
+
+               monthOption={monthOption}
+               fromDateOption={fromDateOption}
+               toDateOption={toDateOption} />;        
     }
 
     render() {
         return (
             <div className="page-filter">
                 <div className="row">
-                    <div className="col-12 col-md-5 col-sm-12 col-lg-4 col-xl-3">
+                    <div className="col-12 col-md-5 col-sm-12 col-lg-5 col-xl-5">
                         <div className="form-group">
-                            <label className="label-text">{LangHelper.getSingleResource("Date")}</label>
-                            {this._renderDateRange()}
+                            {this._renderMonthPicker()}
                         </div>
                     </div>
                     <div className="col-12 col-md-3 col-sm-12 col-lg-2 col-xl-2">
@@ -202,10 +214,7 @@ export class FormFilter extends Component {
                             {this._renderProductSelectList()}
                         </div>
                     </div>
-                </div>
-
-                <div className="row">
-                    <div className='col-12 col-md-5 col-sm-12 col-lg-4 col-xl-3'>
+                    <div className='col-12 col-md-5 col-sm-12 col-lg-2 col-xl-3'>
                         {this._renderReportByOption()}
                     </div>
                     <div className="col-12 col-md-3 col-sm-12 col-lg-2 col-xl-2">

@@ -9,8 +9,8 @@ export const setSelectedReportBy = (value) => {
 
 export const setDateRange = (dateRange) => {
     const range = {
-        fromDate: dateRange.startDate,
-        toDate: dateRange.endDate
+        fromDate: dateRange.fromDate,
+        toDate: dateRange.toDate
     }
 
     return {

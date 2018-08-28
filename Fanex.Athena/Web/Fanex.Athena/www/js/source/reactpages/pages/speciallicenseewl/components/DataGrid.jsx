@@ -223,13 +223,14 @@ export class DataGrid extends Component {
     _buildCell(item, selectedProductList) {
         const turnover = NumberFormat.formatDecimal(item.TotalTurnOver),
             customerWl= NumberFormat.formatDecimal(item.CustomerWinLoss),
-            licenseeWL = NumberFormat.formatDecimal(item.TotalLicenseeWL);
+            licenseeWL = NumberFormat.formatDecimal(item.TotalLicenseeWL),
+            totalTransaction = NumberFormat.format(item.TotalTransaction, 0);
 
         const productsCount = selectedProductList.length;
         if (productsCount === 1) {
             const rows = [
                 <Cell key='turnover' title={turnover} className='right-align'>{turnover}</Cell>,
-                <Cell key='totalTransaction' title={item.TotalTransaction} className='right-align'>{item.TotalTransaction}</Cell>,
+                <Cell key='totalTransaction' title={totalTransaction} className='right-align'>{totalTransaction}</Cell>,
                 <Cell key='customerWl' title={customerWl} className='right-align'>{customerWl}</Cell>,
                 <Cell key='licenseeWL' title={licenseeWL} className={`right-align ${item.TotalLicenseeWL < 0 ? 'negative' : ''}`}>{licenseeWL}</Cell>
             ];
@@ -249,7 +250,7 @@ export class DataGrid extends Component {
 
         rows.push(
             <Cell key='turnover' title={turnover} className='right-align'>{turnover}</Cell>,
-            <Cell key='totalTransaction' title={item.TotalTransaction} className='right-align'>{item.TotalTransaction}</Cell>,
+            <Cell key='totalTransaction' title={totalTransaction} className='right-align'>{totalTransaction}</Cell>,
             <Cell key='customerWl' title={customerWl} className='right-align'>{customerWl}</Cell>
         );
 

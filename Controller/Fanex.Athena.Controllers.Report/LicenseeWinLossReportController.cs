@@ -109,6 +109,8 @@ namespace Fanex.Athena.Controllers.Report
                 { BaseCurrencyType.Gbp, "GBP" }
             };
 
+            metaModel.FromDate = new DateTime(metaModel.ToDate.Year, metaModel.ToDate.Month, 1);
+
             var model = new SpecialLicenseeWinLossViewModel
             {
                 Param = metaModel,
