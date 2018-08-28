@@ -1,4 +1,4 @@
-USE [bodb_LicenseeReport]
+USE [bodb_LicenseeReportArchive]
 /*
 	 Creator: 20180823@Amanda
 	 Task: Create new table dbo.rptDep_AuditTickets - [Redmine: #99777]
