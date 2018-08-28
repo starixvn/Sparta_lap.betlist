@@ -6,6 +6,7 @@
     using Model.Core.DTO.Common;
     using NSubstitute;
     using NUnit.Framework;
+    using VendorAdapter.Interfaces;
 
     [TestFixture]
     public class KenoBetSettingDataAccessTest
@@ -17,7 +18,8 @@
         public void SetUp()
         {
             _objectDb = Substitute.For<IObjectDb>();
-            _dataAccess = Substitute.ForPartsOf<KenoBetSettingDataAccess>();
+            var cacheRefAdapter = Substitute.For<ICacheRefAdapter>();
+            _dataAccess = Substitute.ForPartsOf<KenoBetSettingDataAccess>(cacheRefAdapter);
         }
 
         [OneTimeTearDown]

@@ -115,6 +115,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SportsbookBetSettingDataAccessTest.cs" />
     <Compile Include="ThirdPartyBetSettingDataAccessTest.cs" />
+    <Compile Include="Utility\BetSettingReaderTest.cs" />
     <Compile Include="VirtualSportsBetSettingDataAccessTest.cs" />
   </ItemGroup>
   <ItemGroup>

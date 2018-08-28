@@ -11,18 +11,25 @@
     using Model.Core.DTO.Common;
     using NSubstitute;
     using NUnit.Framework;
+    using Utility;
 
     [TestFixture]
     public class SportsbookBetSettingDataAccessTest : BaseDataAccessHelperTest<SportsbookBetSettingDataAccess>
     {
         private IAppSettings _appSetting;
-
+        
         [OneTimeSetUp]
         public override void FixtureSetUp()
         {
             _appSetting = Substitute.For<IAppSettings>();
+            var betSettingReader = Substitute.For<IBetSettingReader>();
+            betSettingReader.ReadForSport(Arg.Any<IDataReader>(), Arg.Any<string>(), Arg.Any<bool>()).
+                Returns(x => new BetSetting
+                {
+                    SportId = x[1].ToString()
+                });
             ObjectDb = Substitute.For<IObjectDb>();
-            DataAccess = Substitute.ForPartsOf<SportsbookBetSettingDataAccess>(_appSetting);
+            DataAccess = Substitute.ForPartsOf<SportsbookBetSettingDataAccess>(_appSetting, betSettingReader);
         }
 
         [Test]

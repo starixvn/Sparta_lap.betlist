@@ -1,15 +1,28 @@
 ﻿namespace Fanex.Athena.DataAccess.BetSettings.UnitTests
 {
     using System.Data;
+    using Constant.DataDomain;
     using Core.UnitTests.TestHelpers;
     using Model.BetSettings.DTO;
     using Model.Core.DTO.Common;
     using NSubstitute;
     using NUnit.Framework;
+    using Utility;
 
     [TestFixture]
     public class NumberGameBetSettingDataAccessTest : BaseDataAccessHelperTest<NumberGameBetSettingDataAccess>
     {
+        protected override void SetUpDataAccess()
+        {
+            var betSettingReader = Substitute.For<IBetSettingReader>();
+            betSettingReader.ReadForSport(Arg.Any<IDataReader>(), Arg.Any<string>(), Arg.Any<bool>()).
+                Returns(x => new BetSetting
+                {
+                    SportId = x[1].ToString()
+                });
+            DataAccess = Substitute.ForPartsOf<NumberGameBetSettingDataAccess>(betSettingReader);
+        }
+
         [Test]
         public void GetBetSetting_WhenCall_ParametersPassedCorrectly()
         {
@@ -29,34 +42,14 @@
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerSelEditNG")).Returns(ObjectDb);
-            var custId = 1;
-            var expected = new BetSetting
-            {
-                MaxBet = 100.5m,
-                MinBet = 10m,
-                MaxPerMatchMax = 60m,
-                MaxPerMatch = 40m,
-                BetValueMax = 20m,
-                BetValueMin = 15m,
-                SportId = "161"
-            };
-
-            ConfigureReaderForGetBetSettingMethod(expected);
+            Reader.Read().Returns(true, false);
+            Reader.FieldCount.Returns(1);
 
             // Action
-            var result = DataAccess.GetBetSetting(custId)[0];
+            var result = DataAccess.GetBetSetting(0)[0];
 
             // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(result.MaxBet, Is.EqualTo(expected.MaxBet));
-                Assert.That(result.MinBet, Is.EqualTo(expected.MinBet));
-                Assert.That(result.MaxPerMatchMax, Is.EqualTo(expected.MaxPerMatchMax));
-                Assert.That(result.MaxPerMatch, Is.EqualTo(expected.MaxPerMatch));
-                Assert.That(result.BetValueMax, Is.EqualTo(expected.BetValueMax));
-                Assert.That(result.BetValueMin, Is.EqualTo(expected.BetValueMin));
-                Assert.That(result.SportId, Is.EqualTo(expected.SportId));
-            });
+            Assert.That(result.SportId, Is.EqualTo(((int)SportType.NumberGame).ToString()));
         }
 
         [Test]
@@ -124,21 +117,6 @@
                 Assert.That(result.Code, Is.EqualTo(expected.Code));
                 Assert.That(result.Message, Is.EqualTo(expected.Message));
             });
-        }
-
-        private void ConfigureReaderForGetBetSettingMethod(BetSetting expected)
-        {
-            Reader.Read().Returns(true, false);
-            Reader.FieldCount.Returns(1);
-
-            var sportSuffix = "v161";
-            Reader["maxbet" + sportSuffix].Returns(expected.MaxBet);
-            Reader["minbet" + sportSuffix].Returns(expected.MinBet);
-            Reader["MaxPerMatch" + sportSuffix].Returns(expected.MaxPerMatch);
-            Reader["MaxPerMatch" + sportSuffix + "_Max"].Returns(expected.MaxPerMatchMax);
-            Reader["MaxPerMatch" + sportSuffix + "_Min"].Returns(expected.MaxPerMatchMin);
-            Reader["MaxBet" + sportSuffix + "_Min"].Returns(expected.BetValueMax);
-            Reader["MinBet" + sportSuffix + "_Max"].Returns(expected.BetValueMin);
         }
 
         private NumberGameBetSetting GetNumberGameBetSetting()
