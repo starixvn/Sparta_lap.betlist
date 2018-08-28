@@ -198,6 +198,7 @@
     <Compile Include="ViewModel\CashOutWinLossViewModel.cs" />
     <Compile Include="ViewModel\CustomerWinlossViewModel.cs" />
     <Compile Include="ViewModel\ExchangeWinLossViewModel.cs" />
+    <Compile Include="ViewModel\SpecialLicenseeWinLossGridViewModel.cs" />
     <Compile Include="ViewModel\SpecialLicenseeWinLossViewModel.cs" />
     <Compile Include="ViewModel\Note\NoteViewModel.cs" />
     <Compile Include="ViewModel\BalanceViewModel.cs" />

@@ -286,7 +286,6 @@
             IDictionary<string, string> turnoverColumns,
             bool drilldown)
         {
-            var isFakeLicensee = IsFakeLicensee(metaModel.LicenseeId);
             var dataList = new SortableList<LicenseeWinLoss>();
             var summaryTotal = InitSummaryTotal();
             var hasSystemId = reader.HasColumn("username");

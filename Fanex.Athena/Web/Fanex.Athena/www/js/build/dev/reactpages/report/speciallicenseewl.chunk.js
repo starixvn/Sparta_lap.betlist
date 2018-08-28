@@ -231,13 +231,15 @@ var Service = exports.Service = function () {
     }, {
         key: 'sort',
         value: function sort(data, sortBy, sortOrder) {
+            sortBy = sortBy === 'Date' ? 'Ticks' : sortBy;
+
             if (sortOrder === 'asc') {
                 data.sort(function (a, b) {
-                    return a[sortBy] > b[sortBy];
+                    return a[sortBy] - b[sortBy];
                 });
             } else {
                 data.sort(function (a, b) {
-                    return a[sortBy] < b[sortBy];
+                    return b[sortBy] - a[sortBy];
                 });
             }
         }

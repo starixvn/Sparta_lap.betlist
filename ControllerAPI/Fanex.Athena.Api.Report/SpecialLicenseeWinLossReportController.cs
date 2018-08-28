@@ -1,8 +1,6 @@
 ﻿namespace Fanex.Athena.Api.Report
 {
-    using System;
     using System.Collections.Generic;
-    using System.Globalization;
     using System.Linq;
     using System.Web.Http;
     using Base.Attributes;
@@ -58,9 +56,9 @@
             return ProcessRequest(metaModel);
         }
 
-        private static LicenseeWinLossGridViewModel MapToGridView(LicenseeWinLoss item)
+        private static SpecialLicenseeWinLossGridViewModel MapToGridView(LicenseeWinLoss item)
         {
-            var licenseeWinLossGrid = new LicenseeWinLossGridViewModel
+            var licenseeWinLossGrid = new SpecialLicenseeWinLossGridViewModel
             {
                 CurrencyId = item.CurrencyId,
                 CurrencyName = item.CurrencyName,
@@ -74,13 +72,13 @@
             return licenseeWinLossGrid;
         }
 
-        private static void SetLicenseeWinLossProductData(LicenseeWinLossGridViewModel licenseeWinLoss, IDictionary<string, decimal> licenseeWLProducts)
+        private static void SetLicenseeWinLossProductData(SpecialLicenseeWinLossGridViewModel licenseeWinLoss, IDictionary<string, decimal> licenseeWLProducts)
         {
             licenseeWinLoss.LicenseeWLSB = licenseeWLProducts.GetValueOrDefault(Product.SB, 0);
             licenseeWinLoss.LicenseeWLNG = licenseeWLProducts.GetValueOrDefault(Product.NG, 0);
         }
 
-        private static void SetTurnOverProductData(LicenseeWinLossGridViewModel licenseeWinLoss, IDictionary<string, decimal> turnOverProducts)
+        private static void SetTurnOverProductData(SpecialLicenseeWinLossGridViewModel licenseeWinLoss, IDictionary<string, decimal> turnOverProducts)
         {
             licenseeWinLoss.TurnOverSB = turnOverProducts.GetValueOrDefault(Product.SB, 0);
             licenseeWinLoss.TurnOverNG = turnOverProducts.GetValueOrDefault(Product.NG, 0);
@@ -120,9 +118,9 @@
 
             return new
             {
-                Data = new List<LicenseeWinLossGridViewModel>(),
-                Total = new List<LicenseeWinLossGridViewModel>(),
-                SummaryTotal = new Dictionary<string, LicenseeWinLossGridViewModel>()
+                Data = new List<SpecialLicenseeWinLossGridViewModel>(),
+                Total = new List<SpecialLicenseeWinLossGridViewModel>(),
+                SummaryTotal = new Dictionary<string, SpecialLicenseeWinLossGridViewModel>()
             };
         }
 

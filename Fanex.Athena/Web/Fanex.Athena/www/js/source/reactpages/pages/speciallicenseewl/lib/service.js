@@ -34,11 +34,13 @@ export class Service {
     }
 
     static sort(data, sortBy, sortOrder) {
+        sortBy = sortBy === 'Date' ? 'Ticks' : sortBy;
+
         if (sortOrder === 'asc') {
-            data.sort((a, b) => a[sortBy] > b[sortBy] );
+            data.sort((a, b) => a[sortBy] - b[sortBy] );
         }
         else {
-            data.sort((a, b) => a[sortBy] < b[sortBy] );
+            data.sort((a, b) => b[sortBy] - a[sortBy] );
         }
     }
 };
