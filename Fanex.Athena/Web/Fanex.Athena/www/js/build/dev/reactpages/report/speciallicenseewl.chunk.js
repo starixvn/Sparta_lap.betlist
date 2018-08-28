@@ -233,15 +233,31 @@ var Service = exports.Service = function () {
         value: function sort(data, sortBy, sortOrder) {
             sortBy = sortBy === 'Date' ? 'Ticks' : sortBy;
 
-            if (sortOrder === 'asc') {
-                data.sort(function (a, b) {
-                    return a[sortBy] - b[sortBy];
-                });
+            var compareFunc = null;
+
+            if (sortBy === 'CurrencyName') {
+                if (sortOrder === 'asc') {
+                    compareFunc = function compareFunc(a, b) {
+                        return a[sortBy] > b[sortBy];
+                    };
+                } else {
+                    compareFunc = function compareFunc(a, b) {
+                        return b[sortBy] > a[sortBy];
+                    };
+                }
             } else {
-                data.sort(function (a, b) {
-                    return b[sortBy] - a[sortBy];
-                });
+                if (sortOrder === 'asc') {
+                    compareFunc = function compareFunc(a, b) {
+                        return a[sortBy] - b[sortBy];
+                    };
+                } else {
+                    compareFunc = function compareFunc(a, b) {
+                        return b[sortBy] - a[sortBy];
+                    };
+                }
             }
+
+            data.sort(compareFunc);
         }
     }]);
 
@@ -1812,7 +1828,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var defaultState = Object.assign({}, window.initialState, { reportTitle: '' });
+var defaultState = Object.assign({}, window.initialState, { reportTitle: '' }, { params: { SortBy: 'Date', SortOrder: 'asc' } });
 var store = _store2.default.createStore(_index2.default, defaultState);
 
 var App = function (_React$Component) {
@@ -2182,8 +2198,8 @@ var FormFilter = exports.FormFilter = function (_Component) {
                 BaseCurrency: this.props.selectedCurrency.baseCurrency,
                 ProductCodeList: this.props.selectedProduct.split(','),
                 ReportBy: this.props.selectedReportBy,
-                SortBy: this.props.params.SortBy || 'Date',
-                SortOrder: this.props.params.SortOrder || 'asc'
+                SortBy: this.props.params.SortBy,
+                SortOrder: this.props.params.SortOrder
             };
         }
     }, {

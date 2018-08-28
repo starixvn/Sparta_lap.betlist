@@ -106,8 +106,8 @@ export class FormFilter extends Component {
             BaseCurrency: this.props.selectedCurrency.baseCurrency,
             ProductCodeList: this.props.selectedProduct.split(','),
             ReportBy: this.props.selectedReportBy,
-            SortBy: this.props.params.SortBy || 'Date',
-            SortOrder: this.props.params.SortOrder || 'asc'
+            SortBy: this.props.params.SortBy,
+            SortOrder: this.props.params.SortOrder
         }
     }
 

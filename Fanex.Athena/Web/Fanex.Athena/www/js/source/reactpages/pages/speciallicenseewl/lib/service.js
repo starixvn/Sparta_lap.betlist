@@ -36,11 +36,25 @@ export class Service {
     static sort(data, sortBy, sortOrder) {
         sortBy = sortBy === 'Date' ? 'Ticks' : sortBy;
 
-        if (sortOrder === 'asc') {
-            data.sort((a, b) => a[sortBy] - b[sortBy] );
+        let compareFunc = null;
+
+        if (sortBy === 'CurrencyName') {
+            if (sortOrder === 'asc') {
+                compareFunc = (a, b) => a[sortBy] > b[sortBy];
+            }
+            else {
+                compareFunc = (a, b) => b[sortBy] > a[sortBy];
+            }
         }
         else {
-            data.sort((a, b) => b[sortBy] - a[sortBy] );
+            if (sortOrder === 'asc') {
+                compareFunc = (a, b) => a[sortBy] - b[sortBy];
+            }
+            else {
+                compareFunc = (a, b) => b[sortBy] - a[sortBy];
+            }
         }
+
+        data.sort(compareFunc);
     }
 };
