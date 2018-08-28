@@ -4276,6 +4276,15 @@ var LangHelper = function () {
             return langHandler && langHandler[key] || window[DEFAULT_RESOURCE_NAME] && window[DEFAULT_RESOURCE_NAME][key] || key;
         }
     }, {
+        key: "getResources",
+        value: function getResources(keys) {
+            var langHandler = window[resourceName];
+
+            return keys.map(function (key) {
+                return langHandler && langHandler[key] || window[DEFAULT_RESOURCE_NAME] && window[DEFAULT_RESOURCE_NAME][key] || key;
+            });
+        }
+    }, {
         key: "currentLanguage",
         get: function get() {
             return langCode;

@@ -9529,7 +9529,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                     showDropDownSpeed: 10,
 
                     disabled: false,
-                    sortDesc: false,
+                    sortDesc: true,
                     monthFormat: 'MMM yyyy',
                     nextText: 'Next Month',
                     prevText: 'Previous Month',
