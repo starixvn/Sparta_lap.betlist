@@ -8,6 +8,8 @@ namespace Fanex.Athena.Service.Forecast
 {
     using System.Collections.Generic;
     using System.Data;
+    using DataAccess.Core.Common;
+    using DataAccess.Core.Common.Interfaces;
     using DataAccess.Forecast;
     using DataAccess.Forecast.Interfaces;
     using Extension.Helper;
@@ -26,25 +28,21 @@ namespace Fanex.Athena.Service.Forecast
     /// </summary>
     public class ForecastService : IForecastService
     {
-        #region Fields
+        private readonly ILeagueDataAccess _leagueDataAccess;
 
         private readonly IForecastDataAccess _forecastDataAccess;
 
-        #endregion Fields
-
-        #region Constructor
-
         public ForecastService()
         {
-            this._forecastDataAccess = new ForecastDataAccess();
+            _leagueDataAccess = new LeagueDataAccess();
+            _forecastDataAccess = new ForecastDataAccess();
         }
 
-        public ForecastService(IForecastDataAccess forecastDataAccess)
+        public ForecastService(ILeagueDataAccess leagueDataAccess, IForecastDataAccess forecastDataAccess)
         {
-            this._forecastDataAccess = forecastDataAccess;
+            _leagueDataAccess = leagueDataAccess;
+            _forecastDataAccess = forecastDataAccess;
         }
-
-        #endregion Constructor
 
         #region Forecast AH
 
@@ -141,7 +139,7 @@ namespace Fanex.Athena.Service.Forecast
 
         public IEnumerable<League> GetForecastRunningLeague(ForecastBaseMetaModel metaModel)
         {
-            return _forecastDataAccess.GetForecastRunningLeague(metaModel);
+            return _leagueDataAccess.GetRunningLeagues(metaModel.AgentListXml, metaModel.BetTypeString);
         }
 
         public IList<ForecastOneXTwo> GetForecastOneXTwoByMatch(ForecastOneXTwoMetaModel metaModel)

@@ -17,13 +17,15 @@ namespace Fanex.Athena.DataAccess.Forecast
     using Fanex.Common;
     using Fanex.Common.Extensions;
     using Interfaces;
+    using Model.Core.DTO.Common;
     using Model.Core.MetaModel;
     using Model.Forecast.DTO.Forecast1X2;
     using Model.Forecast.DTO.ForecastAH;
     using Model.Forecast.DTO.NewForecastHdpOu;
     using Model.Forecast.MetaModel;
     using Resources;
-    using League = Fanex.Athena.Model.Core.DTO.Common.League;
+    using VendorAdapter;
+    using VendorAdapter.Interfaces;
 
     /// <summary>
     /// Forecast Data Access.
@@ -80,18 +82,6 @@ namespace Fanex.Athena.DataAccess.Forecast
         #endregion Forecast AH
 
         #region Forecast 1 x 2
-
-        public IEnumerable<League> GetForecastRunningLeague(ForecastBaseMetaModel metaModel)
-        {
-            const string UspName = "Lrf_LeagueSelRunning";
-            using (var db = this.GetObjectDb(UspName))
-            {
-                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                db.AddInParameter("betTypes", DbType.String, metaModel.BetTypeString);
-
-                return db.Query<League>();
-            }
-        }
 
         public IList<ForecastOneXTwo> GetForecastOneXTwoByLeague(ForecastOneXTwoMetaModel metaModel)
         {
