@@ -832,6 +832,7 @@
     <Content Include="www\js\build\dev\reactpages\report\speciallicenseewl.chunk.js.map" />
     <Content Include="www\css\build\dev\reactpages\speciallicenseewl\index.chunk.js.map" />
     <Content Include="www\css\build\dev\reactpages\speciallicenseewl\index.css.map" />
+    <Content Include="www\css\source\reactpages\components\month-picker.scss" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Row.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.jsx" />
@@ -2644,6 +2645,10 @@
     <Content Include="www\js\source\reactpages\pages\speciallicenseewl\components\FormFilter.jsx" />
     <Content Include="www\js\source\reactpages\pages\speciallicenseewl\components\index.jsx" />
     <Content Include="www\js\source\reactpages\pages\speciallicenseewl\components\DataGrid.jsx" />
+    <Content Include="www\js\source\reactpages\components\month-picker\MonthPicker.jsx" />
+    <Content Include="www\js\source\reactpages\components\month-picker\Month.jsx" />
+    <Content Include="www\js\source\reactpages\components\month-picker\Day.jsx" />
+    <Content Include="www\js\source\reactpages\components\month-picker\index.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">

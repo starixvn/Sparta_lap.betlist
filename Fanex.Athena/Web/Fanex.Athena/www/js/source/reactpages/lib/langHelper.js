@@ -12,4 +12,10 @@ export default class LangHelper {
 
         return (langHandler && langHandler[key]) || (window[DEFAULT_RESOURCE_NAME] && window[DEFAULT_RESOURCE_NAME][key]) || key;
     }
+
+    static getResources(keys) {
+        var langHandler = window[resourceName];
+
+        return keys.map((key) => (langHandler && langHandler[key]) || (window[DEFAULT_RESOURCE_NAME] && window[DEFAULT_RESOURCE_NAME][key]) || key);
+    }
 }
