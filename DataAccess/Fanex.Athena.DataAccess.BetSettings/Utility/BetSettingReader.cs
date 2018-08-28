@@ -1,4 +1,4 @@
-﻿namespace Fanex.Athena.DataAccess.BetSettings.Helpers
+﻿namespace Fanex.Athena.DataAccess.BetSettings.Utility
 {
     using System.Collections.Generic;
     using System.Data;
@@ -6,18 +6,31 @@
     using Model.BetSettings.DTO;
     using Resources;
     using VendorAdapter;
+    using VendorAdapter.Interfaces;
 
-    public static class BetSettingHelper
+    public class BetSettingReader : IBetSettingReader
     {
         private static readonly IDictionary<string, string> SportNameMap = new Dictionary<string, string>
         {
             { "99MP", nameof(ViewResources.MixSportsParlay) }
         };
 
-        public static BetSetting RenderSport(IDataReader reader, string sportId, bool isNumberGame = false)
+        private readonly ICacheRefAdapter _cacheRefAdapter;
+
+        public BetSettingReader()
+        {
+            _cacheRefAdapter = new CacheRefAdapter();
+        }
+
+        public BetSettingReader(ICacheRefAdapter cacheRefAdapter)
+        {
+            _cacheRefAdapter = cacheRefAdapter;
+        }
+
+        public BetSetting ReadForSport(IDataReader reader, string sportId, bool isNumberGame = false)
         {
             var sportSuffix = sportId != "1" ? "v" + sportId : string.Empty;
-            var sportName = CacheRefAdapter.Instance.GetSportName(sportId);
+            var sportName = _cacheRefAdapter.GetSportName(sportId);
 
             sportName = string.IsNullOrEmpty(sportName) ? GetSportName(sportId) : sportName;
 

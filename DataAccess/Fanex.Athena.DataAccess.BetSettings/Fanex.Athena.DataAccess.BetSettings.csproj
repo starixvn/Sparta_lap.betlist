@@ -109,7 +109,7 @@
     <Compile Include="KenoBetSettingDataAccess.cs" />
     <Compile Include="RngCasinoBettingDataAccess.cs" />
     <Compile Include="SportsbookBetSettingDataAccess.cs" />
-    <Compile Include="Helpers\BetSettingHelper.cs" />
+    <Compile Include="Utility\BetSettingReader.cs" />
     <Compile Include="CoreBetSettingDataAccess.cs" />
     <Compile Include="Interfaces\IAgCasinoBetSettingDataAccess.cs" />
     <Compile Include="Interfaces\ISportsbookBetSettingDataAccess.cs" />
@@ -124,6 +124,7 @@
     <Compile Include="DcsBetSettingDataAccess.cs">
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>
+    <Compile Include="Utility\IBetSettingReader.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Fanex.Athena.Extension\Fanex.Athena.Extension.csproj">
