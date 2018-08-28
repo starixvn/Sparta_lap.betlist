@@ -20,6 +20,9 @@ export const TotalText = {
     totalIn: LangHelper.getSingleResource('Totalin')
 }
 
+const sortNumber = (a, b) => a - b;
+const sortString = (a, b) => a > b ? 1 : (a < b ? -1 : 0);
+
 export class Service {
     static getReportTitle(fromDate, toDate, currencyId, currencyName, baseCurrency) {
         const viewInByCurrency = currencyId == 0 
@@ -40,18 +43,18 @@ export class Service {
 
         if (sortBy === 'CurrencyName') {
             if (sortOrder === 'asc') {
-                compareFunc = (a, b) => a[sortBy] > b[sortBy];
+                compareFunc = (a, b) => sortString(a[sortBy], b[sortBy]);
             }
             else {
-                compareFunc = (a, b) => b[sortBy] > a[sortBy];
+                compareFunc = (a, b) => sortString(b[sortBy], a[sortBy]);
             }
         }
         else {
             if (sortOrder === 'asc') {
-                compareFunc = (a, b) => a[sortBy] - b[sortBy];
+                compareFunc = (a, b) => sortNumber(a[sortBy], b[sortBy]);
             }
             else {
-                compareFunc = (a, b) => b[sortBy] - a[sortBy];
+                compareFunc = (a, b) => sortNumber(b[sortBy], a[sortBy]);
             }
         }
 

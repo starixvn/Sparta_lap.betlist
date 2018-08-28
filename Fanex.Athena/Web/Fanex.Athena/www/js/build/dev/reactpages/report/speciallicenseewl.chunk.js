@@ -211,6 +211,13 @@ var TotalText = exports.TotalText = {
     totalIn: _langHelper2.default.getSingleResource('Totalin')
 };
 
+var sortNumber = function sortNumber(a, b) {
+    return a - b;
+};
+var sortString = function sortString(a, b) {
+    return a > b ? 1 : a < b ? -1 : 0;
+};
+
 var Service = exports.Service = function () {
     function Service() {
         _classCallCheck(this, Service);
@@ -238,21 +245,21 @@ var Service = exports.Service = function () {
             if (sortBy === 'CurrencyName') {
                 if (sortOrder === 'asc') {
                     compareFunc = function compareFunc(a, b) {
-                        return a[sortBy] > b[sortBy];
+                        return sortString(a[sortBy], b[sortBy]);
                     };
                 } else {
                     compareFunc = function compareFunc(a, b) {
-                        return b[sortBy] > a[sortBy];
+                        return sortString(b[sortBy], a[sortBy]);
                     };
                 }
             } else {
                 if (sortOrder === 'asc') {
                     compareFunc = function compareFunc(a, b) {
-                        return a[sortBy] - b[sortBy];
+                        return sortNumber(a[sortBy], b[sortBy]);
                     };
                 } else {
                     compareFunc = function compareFunc(a, b) {
-                        return b[sortBy] - a[sortBy];
+                        return sortNumber(b[sortBy], a[sortBy]);
                     };
                 }
             }
