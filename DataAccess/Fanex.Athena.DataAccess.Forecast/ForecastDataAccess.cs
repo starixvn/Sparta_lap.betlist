@@ -8,7 +8,6 @@ namespace Fanex.Athena.DataAccess.Forecast
 {
     using System.Collections.Generic;
     using System.Data;
-    using System.Linq;
     using Core;
     using Core.Extensions;
     using Extension.Helper;
@@ -17,7 +16,6 @@ namespace Fanex.Athena.DataAccess.Forecast
     using Fanex.Common;
     using Fanex.Common.Extensions;
     using Interfaces;
-    using Model.Core.DTO.Common;
     using Model.Core.MetaModel;
     using Model.Forecast.DTO.Forecast1X2;
     using Model.Forecast.DTO.ForecastAH;
@@ -32,6 +30,18 @@ namespace Fanex.Athena.DataAccess.Forecast
     /// </summary>
     public class ForecastDataAccess : BaseDataAccess, IForecastDataAccess
     {
+        private readonly ICacheRefAdapter _cacheRefAdapter;
+
+        public ForecastDataAccess()
+        {
+            _cacheRefAdapter = new CacheRefAdapter();
+        }
+
+        public ForecastDataAccess(ICacheRefAdapter cacheRefAdapter)
+        {
+            _cacheRefAdapter = cacheRefAdapter;
+        }
+
         #region Forecast AH
 
         /// <summary>
@@ -48,7 +58,10 @@ namespace Fanex.Athena.DataAccess.Forecast
             {
                 db.AddInParameter("matchid", DbType.Int32, matchId);
                 db.AddInParameter("betType", DbType.Int32, betType);
-                return db.Query<ForecastAH>().FirstOrDefault();
+                var item = db.QueryEntity<ForecastAH>();
+                item.HomeTeamName = _cacheRefAdapter.GetTeamName(item.HomeId) + (item.IsNeutral ? " (N)" : string.Empty);
+                item.AwayTeamName = _cacheRefAdapter.GetTeamName(item.AwayId);
+                return item;
             }
         }
 

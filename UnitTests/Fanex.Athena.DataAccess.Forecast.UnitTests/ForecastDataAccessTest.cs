@@ -2,6 +2,7 @@
 {
     using System;
     using System.Data;
+    using VendorAdapter.Interfaces;
     using Data;
     using Forecast;
     using Model.Forecast.DTO.Forecast1X2;
@@ -10,6 +11,7 @@
     using Model.Forecast.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using Model.Forecast.DTO.ForecastAH;
 
     [TestFixture]
     public class ForecastDataAccessTest
@@ -22,7 +24,7 @@
         public void Setup()
         {
             _objectDb = Substitute.For<IObjectDb>();
-            _dataAccess = Substitute.ForPartsOf<ForecastDataAccess>();
+            _dataAccess = Substitute.ForPartsOf<ForecastDataAccess>(Substitute.For<ICacheRefAdapter>());
             _reader = Substitute.For<IDataReader>();
             _objectDb.ExecuteReader().Returns(_reader);
         }
@@ -42,6 +44,7 @@
             _dataAccess.GetObjectDb(Arg.Is("Lrf_Forecast_OddsSelTopByMatch")).Returns(_objectDb);
             var matchId = 0;
             var betType = 0;
+            _objectDb.QueryEntity<ForecastAH>().Returns(new ForecastAH());
 
             // Action
             _dataAccess.GetForecastTopOddsByMatch(matchId, betType);
