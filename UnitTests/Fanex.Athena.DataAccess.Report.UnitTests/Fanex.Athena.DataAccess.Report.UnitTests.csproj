@@ -155,6 +155,7 @@
     <Compile Include="CustomerTurnoverDataAccessTest.cs" />
     <Compile Include="ExchangeWinLossDataAccessTest.cs" />
     <Compile Include="LicenseeWinLossByTimeZoneDataAccessTest.cs" />
+    <Compile Include="SpecialLicenseeWinLossDataAccessTest.cs" />
     <Compile Include="ResultDataAccess.GetPopUpNumberGameMatchTest.cs" />
     <Compile Include="ResultDataAccess.GetMatchesTest.cs" />
     <Compile Include="ResultDataAccess.GetPopUpParalayMatchTest.cs" />

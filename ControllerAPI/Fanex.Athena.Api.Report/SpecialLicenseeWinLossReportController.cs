@@ -97,9 +97,10 @@
 
             if (IsValidParams(metaModel, setting))
             {
-                metaModel.BaseCurrencies = setting.BaseCurrencies.Split(',');
+                metaModel.BaseCurrencies = string.IsNullOrWhiteSpace(setting.BaseCurrencies) 
+                    ? SystemConstants.BaseCurrencyList.ToArray()
+                    : setting.BaseCurrencies.Split(',').Intersect(SystemConstants.BaseCurrencyList).ToArray();
                 metaModel.SiteName = _siteNameList[SessionService.LicenseeSession.LicenseeId];
-
                 metaModel.CurrencyListXml = GenerateCurrencyListXml(metaModel);
 
                 var result = _licenseeWinLossDataAccess.GetData(metaModel);
@@ -128,7 +129,7 @@
         {
             var currencyList = SessionService.UserSession.CurrencyList
                .Where(i => i.Key == metaModel.CurrencyId || metaModel.CurrencyId <= 0)
-               .Select(i => $"<CR Id=\"{i.Key}\" Code =\"{i.Value}\" />").ToArray();
+               .Select(i => $"<CR Id=\"{i.Key}\" Code=\"{i.Value}\" />").ToArray();
 
             return $"<ROOT>{string.Join("", currencyList)}</ROOT>";
         }

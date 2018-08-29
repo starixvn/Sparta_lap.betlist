@@ -24,8 +24,6 @@ namespace Fanex.Athena.Model.Report.ViewModel
 
         public LicenseeWinLossMetaModel Param { get; set; }
 
-        public bool IsFakeLicensee { get; set; }
-
         public ReportSetting ReportSetting { get; set; }
     }
 }

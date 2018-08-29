@@ -6,6 +6,6 @@
 
     public interface ISpecialLicenseeWinLossDataAccess
     {
-        SortableReportResultModel<LicenseeWinLoss> GetData(SpecialLicenseeWinLossMetaModel metaModel);
+        ReportResultModel<LicenseeWinLoss> GetData(SpecialLicenseeWinLossMetaModel metaModel);
     }
 }

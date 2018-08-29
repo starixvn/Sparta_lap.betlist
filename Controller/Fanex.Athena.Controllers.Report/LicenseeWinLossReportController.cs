@@ -23,22 +23,15 @@ namespace Fanex.Athena.Controllers.Report
     using Service.Core.Configuration.Interfaces;
     using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
-    using Session.Model;
 
     [FunctionAuthorization(PermissionKeys.ReportLicenseeWinLoss)]
     public class LicenseeWinLossReportController : ReportBaseController
     {
         private readonly IReportSettingService _reportSettingService;
 
-        private readonly LicenseeSession _licenseeSession;
-
-        private readonly UserSession _userSession;
-
         public LicenseeWinLossReportController()
         {
             _reportSettingService = new ReportSettingService();
-            _licenseeSession = SessionService.LicenseeSession;
-            _userSession = SessionService.UserSession;
         }
 
         public LicenseeWinLossReportController(
@@ -51,56 +44,20 @@ namespace Fanex.Athena.Controllers.Report
         : base(languageService, sessionService, appSetting, clientViewHelper, productService)
         {
             _reportSettingService = reportSettingService ?? new ReportSettingService();
-            _licenseeSession = SessionService.LicenseeSession;
-            _userSession = SessionService.UserSession;
         }
 
         [HttpGet]
         public ActionResult Index()
         {
-            var reportSetting = _reportSettingService.GetSetting(PermissionKeys.ReportLicenseeWinLoss);
-            var selectedDate = DateTimeHelper.GetMinDate(
-                reportSetting.MaxDate, 
-                reportSetting.TimeZone.HasValue ? DateTime.UtcNow.AddHours(reportSetting.TimeZone.Value).Date : DateTime.Now);
-            var productAccess = this.ProductService.GetSingleWalletProductAccess(
-                _licenseeSession.LicenseeId,
-                _userSession.Language,
-                FunctionNames.LicenseeWinLoss);
-            var metaModel = new LicenseeWinLossMetaModel
-            {
-                FromDate = selectedDate,
-                ToDate = selectedDate,
-                LicenseeId = _licenseeSession.LicenseeId,
-                IsExcludedTestData = true,
-                DrawFilter = DrawFilterType.Normal,
-                ReportBy = ReportByType.Daily,
-                ProductOptions = ToProductOptions(productAccess.ProductList)
-            };
-
-            SetConvetedUSDCurrencyId(metaModel);
-
             if (IsFakeLicensee())
             {
-                return MapToFakeView(reportSetting, metaModel);
+                return MapToFakeView();
             }
 
-            return MapToView(reportSetting, metaModel, productAccess);
+            return MapToView();
         }
 
-        private ActionResult MapToView(ReportSetting reportSetting, LicenseeWinLossMetaModel metaModel, ProductAccess productAccess)
-        {
-            var model = new LicenseeWinLossViewModel
-            {
-                Param = metaModel,
-                CurrencyList = _userSession.CurrencyList,
-                IsAllowedCustomerCommission = _licenseeSession.IsAllowedCustomerComm,
-                ProductAccess = productAccess,
-                ReportSetting = reportSetting
-            };
-            return View("~/Views/Report/LicenseeWinLoss/Main.cshtml", model);
-        }
-
-        private ActionResult MapToFakeView(ReportSetting reportSetting, LicenseeWinLossMetaModel metaModel)
+        private static IDictionary<int, string> GetFakeBaseCurrencies(string baseCurrencySetting)
         {
             var allBaseCurrencies = new Dictionary<int, string>
             {
@@ -109,18 +66,81 @@ namespace Fanex.Athena.Controllers.Report
                 { BaseCurrencyType.Gbp, "GBP" }
             };
 
-            metaModel.FromDate = new DateTime(metaModel.ToDate.Year, metaModel.ToDate.Month, 1);
+            return string.IsNullOrWhiteSpace(baseCurrencySetting)
+                    ? allBaseCurrencies
+                    : allBaseCurrencies.Where(x => baseCurrencySetting.Split(',').Contains(x.Value)).ToDictionary(x => x.Key, x => x.Value);
+        }
+
+        private static DateTime GetSelectedDate(ReportSetting reportSetting)
+        {
+            return DateTimeHelper.GetMinDate(
+                reportSetting.MaxDate,
+                reportSetting.TimeZone.HasValue ? DateTime.UtcNow.AddHours(reportSetting.TimeZone.Value) : DateTime.Now);
+        }
+
+        private ProductAccess GetProducts(int licenseeId, string lang)
+        {
+            return ProductService.GetSingleWalletProductAccess(
+                licenseeId,
+                lang,
+                FunctionNames.LicenseeWinLoss);
+        }
+
+        private ActionResult MapToView()
+        {
+            var licenseeSession = SessionService.LicenseeSession;
+            var userSession = SessionService.UserSession;
+            var reportSetting = _reportSettingService.GetSetting(PermissionKeys.ReportLicenseeWinLoss);
+            var selectedDate = GetSelectedDate(reportSetting);
+            var productAccess = GetProducts(licenseeSession.LicenseeId, userSession.Language);
+
+            var param = new LicenseeWinLossMetaModel
+            {
+                FromDate = selectedDate,
+                ToDate = selectedDate,
+                LicenseeId = licenseeSession.LicenseeId,
+                IsExcludedTestData = true,
+                DrawFilter = DrawFilterType.Normal,
+                ReportBy = ReportByType.Daily,
+                ProductOptions = ToProductOptions(productAccess.ProductList)
+            };
+            SetConvetedUSDCurrencyId(param);
+
+            var model = new LicenseeWinLossViewModel
+            {
+                Param = param,
+                CurrencyList = userSession.CurrencyList,
+                IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
+                ProductAccess = productAccess,
+                ReportSetting = reportSetting
+            };
+            return View("~/Views/Report/LicenseeWinLoss/Main.cshtml", model);
+        }
+
+        private ActionResult MapToFakeView()
+        {
+            var userSession = SessionService.UserSession;
+            var reportSetting = _reportSettingService.GetSetting(PermissionKeys.ReportLicenseeWinLoss);
+            var selectedDate = GetSelectedDate(reportSetting);
+            var productAccess = GetProducts(SessionService.LicenseeSession.LicenseeId, userSession.Language);
+
+            var param = new LicenseeWinLossMetaModel
+            {
+                FromDate = new DateTime(selectedDate.Year, selectedDate.Month, 1),
+                ToDate = selectedDate,
+                ReportBy = ReportByType.Daily,
+                ProductOptions = ToProductOptions(productAccess.ProductList)
+            };
+            SetConvetedUSDCurrencyId(param);
 
             var model = new SpecialLicenseeWinLossViewModel
             {
-                Param = metaModel,
-                CurrencyList = _userSession.CurrencyList,
-                IsAllowedCustomerCommission = _licenseeSession.IsAllowedCustomerComm,
+                Param = param,
+                CurrencyList = userSession.CurrencyList,
                 ReportSetting = reportSetting,
-                BaseCurrencyList = string.IsNullOrWhiteSpace(reportSetting.BaseCurrencies)
-                    ? allBaseCurrencies
-                    : allBaseCurrencies.Where(x => reportSetting.BaseCurrencies.Split(',').Contains(x.Value)).ToDictionary(x => x.Key, x => x.Value)
+                BaseCurrencyList = GetFakeBaseCurrencies(reportSetting.BaseCurrencies)
             };
+
             return View("~/Views/Report/SpecialLicenseeWinLoss/Main.cshtml", model);
         }
     }

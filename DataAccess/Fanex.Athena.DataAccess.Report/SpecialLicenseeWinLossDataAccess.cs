@@ -28,7 +28,7 @@
         {
         }
 
-        public SortableReportResultModel<LicenseeWinLoss> GetData(
+        public ReportResultModel<LicenseeWinLoss> GetData(
             SpecialLicenseeWinLossMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_LicWinloss_FromAPI";
@@ -176,11 +176,11 @@
             db.AddInParameter("siteName", DbType.String, metaModel.SiteName);
         }
 
-        private SortableReportResultModel<LicenseeWinLoss> ReadData(
+        private ReportResultModel<LicenseeWinLoss> ReadData(
             IDataReader reader,
             SpecialLicenseeWinLossMetaModel metaModel)
         {
-            var dataList = new SortableList<LicenseeWinLoss>();
+            var dataList = new List<LicenseeWinLoss>();
             var summaryTotal = CreateSummaryTotal(metaModel.BaseCurrencies);
             var licenseeWLColumns = CreateGroupedColumns(reader, "licenseeWL", metaModel);
             var turnoverColumns = CreateGroupedColumns(reader, "turnover", metaModel);
@@ -203,7 +203,7 @@
                 ReadSummaryTotal(reader, metaModel, summaryTotal);
             }
 
-            return new SortableReportResultModel<LicenseeWinLoss>
+            return new ReportResultModel<LicenseeWinLoss>
             {
                 DataList = dataList,
                 TotalDataList = CalculateTotal(dataList),
