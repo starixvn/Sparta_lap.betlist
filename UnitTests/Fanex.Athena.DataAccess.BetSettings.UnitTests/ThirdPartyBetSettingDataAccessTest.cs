@@ -13,14 +13,14 @@
         private IObjectDb _objectDb;
         private ThirdPartyBetSettingDataAccess _dataAccess;
 
-        [OneTimeSetUp]
+        [SetUp]
         public void SetUp()
         {
             _objectDb = Substitute.For<IObjectDb>();
             _dataAccess = Substitute.ForPartsOf<ThirdPartyBetSettingDataAccess>();
         }
 
-        [OneTimeTearDown]
+        [TearDown]
         public void TearDown()
         {
             _objectDb = null;
@@ -39,11 +39,11 @@
             _dataAccess.GetBetSetting(custId, productId);
 
             // Assert
-            _objectDb.Received().AddInParameter("CustID", DbType.Int32, custId);
-            _objectDb.Received().AddInParameter("ProductId", DbType.Int32, productId);
-            _objectDb.Received().AddOutParameter("IsEnabled", DbType.Boolean, 1);
-            _objectDb.Received().AddOutParameter("IsLineEnabled", DbType.Boolean, 1);
-            _objectDb.Received().AddOutParameter("Currency", DbType.Int32, 1);
+            _objectDb.Received(1).AddInParameter("CustID", DbType.Int32, custId);
+            _objectDb.Received(1).AddInParameter("ProductId", DbType.Int32, productId);
+            _objectDb.Received(1).AddOutParameter("IsEnabled", DbType.Boolean, 1);
+            _objectDb.Received(1).AddOutParameter("IsLineEnabled", DbType.Boolean, 1);
+            _objectDb.Received(1).AddOutParameter("Currency", DbType.Int32, 1);
         }
 
         [Test]
@@ -89,13 +89,13 @@
             _dataAccess.UpdateStatus(productId, userId, custId, language, ip, isEnabled);
 
             // Assert
-            _objectDb.Received().AddInParameter("custid", DbType.Int32, custId);
-            _objectDb.Received().AddInParameter("userid", DbType.Int32, userId);
-            _objectDb.Received().AddInParameter("productid", DbType.Int32, productId);
-            _objectDb.Received().AddInParameter("isenabled", DbType.Boolean, isEnabled);
-            _objectDb.Received().AddInParameter("ip", DbType.String, ip);
-            _objectDb.Received().AddInParameter("language", DbType.String, language);
-            _objectDb.Received().AddOutParameter("ErrMsg", DbType.String, 8000);
+            _objectDb.Received(1).AddInParameter("custid", DbType.Int32, custId);
+            _objectDb.Received(1).AddInParameter("userid", DbType.Int32, userId);
+            _objectDb.Received(1).AddInParameter("productid", DbType.Int32, productId);
+            _objectDb.Received(1).AddInParameter("isenabled", DbType.Boolean, isEnabled);
+            _objectDb.Received(1).AddInParameter("ip", DbType.String, ip);
+            _objectDb.Received(1).AddInParameter("language", DbType.String, language);
+            _objectDb.Received(1).AddOutParameter("ErrMsg", DbType.String, 8000);
         }
 
         [Test]

@@ -20,7 +20,7 @@
         private ForecastDataAccess _dataAccess;
         private IDataReader _reader;
 
-        [OneTimeSetUp]
+        [SetUp]
         public void Setup()
         {
             _objectDb = Substitute.For<IObjectDb>();
@@ -29,7 +29,7 @@
             _objectDb.ExecuteReader().Returns(_reader);
         }
 
-        [OneTimeTearDown]
+        [TearDown]
         public void TearDown()
         {
             _objectDb = null;
@@ -50,8 +50,8 @@
             _dataAccess.GetForecastTopOddsByMatch(matchId, betType);
 
             // Assert
-            _objectDb.Received().AddInParameter("matchid", DbType.Int32, matchId);
-            _objectDb.Received().AddInParameter("betType", DbType.Int32, betType);
+            _objectDb.Received(1).AddInParameter("matchid", DbType.Int32, matchId);
+            _objectDb.Received(1).AddInParameter("betType", DbType.Int32, betType);
         }
 
         [Test]
@@ -66,9 +66,9 @@
             _dataAccess.GetForecastHandicap(metaModel, userId);
 
             // Assert
-            _objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            _objectDb.Received().AddInParameter("matchid", DbType.Int32, metaModel.MatchId);
-            _objectDb.Received().AddInParameter("betType", DbType.Int32, metaModel.BetType);
+            _objectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            _objectDb.Received(1).AddInParameter("matchid", DbType.Int32, metaModel.MatchId);
+            _objectDb.Received(1).AddInParameter("betType", DbType.Int32, metaModel.BetType);
         }
 
         [Test]
@@ -83,9 +83,9 @@
             _dataAccess.GetForecastOverUnder(metaModel, userId);
 
             // Assert
-            _objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            _objectDb.Received().AddInParameter("matchid", DbType.Int32, metaModel.MatchId);
-            _objectDb.Received().AddInParameter("betType", DbType.Int32, metaModel.BetType);
+            _objectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            _objectDb.Received(1).AddInParameter("matchid", DbType.Int32, metaModel.MatchId);
+            _objectDb.Received(1).AddInParameter("betType", DbType.Int32, metaModel.BetType);
         }
 
         [Test]
@@ -99,8 +99,8 @@
             _dataAccess.GetForecastOneXTwoByLeague(metaModel);
 
             // Assert
-            _objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            _objectDb.Received().AddInParameter("LeagueId", DbType.Int32, metaModel.LeagueId);
+            _objectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            _objectDb.Received(1).AddInParameter("LeagueId", DbType.Int32, metaModel.LeagueId);
         }
 
         [Test]
@@ -177,9 +177,9 @@
             _dataAccess.GetForecastOneXTwoByMatch(metaModel);
 
             // Assert
-            _objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            _objectDb.Received().AddInParameter("matchid", DbType.Int32, metaModel.MatchId);
-            _objectDb.Received().AddInParameter("betType", DbType.Int32, metaModel.BetType);
+            _objectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            _objectDb.Received(1).AddInParameter("matchid", DbType.Int32, metaModel.MatchId);
+            _objectDb.Received(1).AddInParameter("betType", DbType.Int32, metaModel.BetType);
         }
 
         [Test]
@@ -193,7 +193,7 @@
             _dataAccess.GetForecastHandicapOverUnder(metaModel);
 
             // Assert
-            _objectDb.Received().ExecuteReader(Arg.Any<object>());
+            _objectDb.Received(1).ExecuteReader(Arg.Any<object>());
         }
 
         [Test]
@@ -261,11 +261,11 @@
             _dataAccess.GetNewForecastData(metaModel, matchInfo);
 
             // Assert
-            _objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            _objectDb.Received().AddInParameter("MatchId", DbType.Int32, metaModel.MatchId);
-            _objectDb.Received().AddOutParameter("HomeScore", DbType.Int32, 4);
-            _objectDb.Received().AddOutParameter("AwayScore", DbType.Int32, 4);
-            _objectDb.Received().AddOutParameter("MatchTime", DbType.DateTime, 4);
+            _objectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            _objectDb.Received(1).AddInParameter("MatchId", DbType.Int32, metaModel.MatchId);
+            _objectDb.Received(1).AddOutParameter("HomeScore", DbType.Int32, 4);
+            _objectDb.Received(1).AddOutParameter("AwayScore", DbType.Int32, 4);
+            _objectDb.Received(1).AddOutParameter("MatchTime", DbType.DateTime, 4);
         }
 
         [Test]
