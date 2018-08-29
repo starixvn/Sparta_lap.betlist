@@ -2,16 +2,16 @@
 {
     using System;
     using System.Data;
-    using VendorAdapter.Interfaces;
     using Data;
     using Forecast;
     using Model.Forecast.DTO.Forecast1X2;
+    using Model.Forecast.DTO.ForecastAH;
     using Model.Forecast.DTO.ForecastHdou;
     using Model.Forecast.DTO.NewForecastHdpOu;
     using Model.Forecast.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using Model.Forecast.DTO.ForecastAH;
+    using VendorAdapter.Interfaces;
 
     [TestFixture]
     public class ForecastDataAccessTest

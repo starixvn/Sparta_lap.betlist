@@ -6,36 +6,18 @@
 
 namespace Fanex.Athena.Model.Forecast.DTO
 {
-    using VendorAdapter;
-
     /// <summary>
     /// ForecastBase class.
     /// </summary>
     public class ForecastBase
     {
-        private string _homeTeamName;
-        private string _awayTeamName;
-
         public int HomeId { get; set; }
 
-        public string HomeTeamName
-        {
-            get
-            {
-                return _homeTeamName ??
-                       (_homeTeamName = CacheRefAdapter.Instance.GetTeamName(HomeId) + (IsNeutral ? " (N)" : string.Empty));
-            }
-        }
+        public string HomeTeamName { get; set; }
 
         public int AwayId { get; set; }
 
-        public string AwayTeamName
-        {
-            get
-            {
-                return _awayTeamName ?? (_awayTeamName = CacheRefAdapter.Instance.GetTeamName(AwayId));
-            }
-        }
+        public string AwayTeamName { get; set; }
 
         public int MatchId { get; set; }
 
@@ -47,8 +29,8 @@ namespace Fanex.Athena.Model.Forecast.DTO
 
         public bool LiveIndicator { get; set; }
 
-        public byte LiveAwayScore { get; set; }
+        public int LiveAwayScore { get; set; }
 
-        public byte LiveHomeScore { get; set; }
+        public int LiveHomeScore { get; set; }
     }
 }
