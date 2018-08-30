@@ -29,26 +29,51 @@ namespace Fanex.Athena.VendorAdapter
 
         public string GetMicroGamingGameName(string resourceId)
         {
+            if (!IsValidId(resourceId))
+            {
+                return string.Empty;
+            }
+
             return RemotingRefService.GetResourceDataByRefIdAndResourceId(MicrogamingResourceKey, resourceId, GetCurrentIBCLanguageCode(), string.Empty);
         }
 
         public string GetBettype(object bettypeId)
         {
+            if (!IsValidId(bettypeId))
+            {
+                return string.Empty;
+            }
+
             return RemotingRefService.GetBetTypeName(bettypeId.ToString(), GetCurrentIBCLanguageCode());
         }
 
         public string GetSportName(object sportId, string languageCode = null)
         {
+            if (!IsValidId(sportId))
+            {
+                return string.Empty;
+            }
+
             return RemotingRefService.GetSportName(sportId.ToString(), GetCurrentIBCLanguageCode(languageCode), string.Empty);
         }
 
         public string GetTeamName(object teamId)
         {
+            if (!IsValidId(teamId))
+            {
+                return string.Empty;
+            }
+
             return RemotingRefService.GetTeamName(teamId.ToString(), GetCurrentIBCLanguageCode(), string.Empty);
         }
 
         public string GetLeagueName(object leagueId)
         {
+            if (!IsValidId(leagueId))
+            {
+                return string.Empty;
+            }
+
             return RemotingRefService.GetLeagueName(leagueId.ToString(), GetCurrentIBCLanguageCode(), string.Empty);
         }
 
@@ -82,21 +107,6 @@ namespace Fanex.Athena.VendorAdapter
             return betTypeName;
         }
 
-        private static string GetNumberGameBettypeName(int betType, bool liveIndicator, string betTypeName)
-        {
-            if ((betType == (int)BetType.NgOuFt || betType == (int)BetType.NgOeFt) && liveIndicator)
-            {
-                return ViewResources.Next + " " + betTypeName;
-            }
-
-            if (betType == (int)BetType.NgOeFt)
-            {
-                return ViewResources.FT + " " + betTypeName;
-            }
-
-            return betTypeName;
-        }
-
         public string GetBettypeWithProductName(int betType, bool liveIndicator = false)
         {
             var betTypeName = GetBettype(betType, liveIndicator);
@@ -116,7 +126,32 @@ namespace Fanex.Athena.VendorAdapter
 
         public string GetOddsTypeName(object oddsTypeId)
         {
+            if (!IsValidId(oddsTypeId))
+            {
+                return string.Empty;
+            }
+
             return TicketHelper.GetOddsTypeNameById(oddsTypeId);
+        }
+
+        private static string GetNumberGameBettypeName(int betType, bool liveIndicator, string betTypeName)
+        {
+            if ((betType == (int)BetType.NgOuFt || betType == (int)BetType.NgOeFt) && liveIndicator)
+            {
+                return ViewResources.Next + " " + betTypeName;
+            }
+
+            if (betType == (int)BetType.NgOeFt)
+            {
+                return ViewResources.FT + " " + betTypeName;
+            }
+
+            return betTypeName;
+        }
+
+        private static bool IsValidId(object id)
+        {
+            return id != null && id.ToString() != string.Empty && id.ToString() != "0";
         }
 
         private static string GetCurrentIBCLanguageCode(string languageCode = null)
