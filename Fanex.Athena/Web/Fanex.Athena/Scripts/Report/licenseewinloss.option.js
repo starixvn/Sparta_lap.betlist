@@ -363,7 +363,6 @@ var LicenseeWinLossOption = (function () {
 
     var me =
     {
-        isDisableBetList: false,
         licenseeId: 0,
         currencyIndex: 4,
         turnoverIndex: 5,
@@ -376,7 +375,6 @@ var LicenseeWinLossOption = (function () {
         rowNum: 50,
         rowList: [50, 100, 200, 300, 400, 500, 1000, 2000],
         totalColspan: [2, 2, 3],
-        totalColspanFakeLicensee: [2, 2, 2],
         //level 0,1,2
         urlData: 'api/LicenseeWinLossReport/Index',
         urlExcelData: 'api/LicenseeWinLossReport/Index',
@@ -454,12 +452,6 @@ var LicenseeWinLossOption = (function () {
         columns.insertAfter(buyBackAmountColumn, columnIndex);
         columns.insertAfter(buyBackAmountBAColumn, columnIndex);
         columns.insertAfter(buyBackAmountSBColumn, columnIndex);
-    }
-
-    function hideDrilldownLinks() {
-        externalIdColumn.formatter = null;
-        systemIdColumn.formatter = null;
-        currencyColumn.formatter = null;
     }
 
     me.setGroupHeaderColumns = function (grid, productOptions) {
@@ -552,7 +544,7 @@ var LicenseeWinLossOption = (function () {
         systemIdColumn.formatter = level === 1 ? systemIdFormatter : null;
         dateColumn.hidden = level > 0;
         externalIdColumn.hidden = level < 2;
-        systemIdColumn.hidden = level === 0 || Site.isFakeLicensee();
+        systemIdColumn.hidden = level === 0;
 
         // Column hidden by product
         var allowedSb = isProductChecked(productOptions, "SB");
@@ -579,10 +571,6 @@ var LicenseeWinLossOption = (function () {
         }
         dateColumn.formatoptions = { newformat: reportBy === 2 ? 'm/Y' : 'm/d/Y' };
         
-        if (LicenseeWinLossOption.isDisableBetList) {
-            hideDrilldownLinks();
-        }
-
         var temp = Site.clone(colModelList);
         var turnOverIndex = me.turnoverIndex;
         var licenseeIndex = me.licenseeWlIndex;

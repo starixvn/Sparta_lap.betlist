@@ -239,11 +239,6 @@ namespace Fanex.Athena.Excel.Report
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed.")]
         protected override void ProcessUI(ISheet sheet)
         {
-            if (!_excelModel.SystemIdVisible)
-            {
-                sheet.HideColumn(ColumnSystemId);
-            }
-
             if (!_excelModel.CustomerCommVisible)
             {
                 sheet.HideColumn(ColumnCustomerTotal, ColumnCustomerComm);

@@ -658,19 +658,10 @@
 
                     expect(Report.bindSummaryTotal).toHaveBeenCalledWith([{ Name: "Col1" }], 3);
                 });
-                it("jqGridAdditional.setGroupFooters should be called with correct parameter if licensee is fake and level 2", function () {
-                    spyOn(Site, "isFakeLicensee").and.returnValue(false);
-
+                it("jqGridAdditional.setGroupFooters should be called with correct parameter if level is 2", function () {
                     LicenseeWinLoss.bindTotal(2, { Total: [1, 2] }, 3);
 
                     expect(jqGridAdditional.setGroupFooters).toHaveBeenCalledWith(3, 4, 3);
-                });
-                it("jqGridAdditional.setGroupFooters should be called with correct parameter if licensee is real and level 2", function () {
-                    spyOn(Site, "isFakeLicensee").and.returnValue(true);
-
-                    LicenseeWinLoss.bindTotal(2, { Total: [1, 2] }, 3);
-
-                    expect(jqGridAdditional.setGroupFooters).toHaveBeenCalledWith(2, 3, 3);
                 });
             });
 

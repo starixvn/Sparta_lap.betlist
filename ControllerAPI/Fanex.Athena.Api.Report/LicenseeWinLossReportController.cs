@@ -37,14 +37,11 @@ namespace Fanex.Athena.Api.Report
     {
         private readonly IReportSettingService _reportSettingService;
 
-        private readonly IAppSettings _appSettings;
-
         private readonly ILicenseeWinLossDataAccess _licenseeWinLossDataAccess;
 
         public LicenseeWinLossReportController()
         {
             _reportSettingService = new ReportSettingService();
-            _appSettings = new AppSettings();
             _licenseeWinLossDataAccess = new LicenseeWinLossDataAccess();
         }
 
@@ -53,12 +50,10 @@ namespace Fanex.Athena.Api.Report
             IProductService productService,
             IReportSettingService reportSettingService,
             ILanguageService langService,
-            IAppSettings appSettings,
             ILicenseeWinLossDataAccess licenseeWinLossDataAccess)
             : base(sessionService, productService, langService)
         {
             _reportSettingService = reportSettingService;
-            _appSettings = appSettings;
             _licenseeWinLossDataAccess = licenseeWinLossDataAccess;
         }
 
@@ -255,8 +250,7 @@ namespace Fanex.Athena.Api.Report
                 COVisible = IsProductVisible(metaModel.ProductOptions, productAccess, Product.CO),
                 BAVisible = IsProductVisible(metaModel.ProductOptions, productAccess, Product.BA),
                 RBVisible = IsProductVisible(metaModel.ProductOptions, productAccess, Product.RB),
-                CustomerCommVisible = licenseeSession.IsAllowedCustomerComm,
-                SystemIdVisible = !_appSettings.FakeLicenseeList.Contains(licenseeSession.LicenseeId)
+                CustomerCommVisible = licenseeSession.IsAllowedCustomerComm
             };
 
             var excel = CreateExcel(templatePath, excelModel);
@@ -341,11 +335,6 @@ namespace Fanex.Athena.Api.Report
             if (setting == null)
             {
                 return true;
-            }
-
-            if (metaModel.DrillDownLevel > 0 && setting.IsDisableBetList)
-            {
-                return false;
             }
 
             var fromDate = metaModel.DrillDownLevel == 0 ? metaModel.FromDate : metaModel.DrillDownFromDate;

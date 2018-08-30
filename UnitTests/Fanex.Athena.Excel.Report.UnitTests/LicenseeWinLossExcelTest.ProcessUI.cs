@@ -11,7 +11,6 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         public void ProcessUI_AllOptionsIsInvisible_HideColumnsCorrectly()
         {
             // Arrange
-            ExcelModel.SystemIdVisible = false;
             ExcelModel.CustomerCommVisible = false;
             ExcelModel.COVisible = false;
             ExcelModel.BTVisible = false;
@@ -28,7 +27,6 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             // Assert
             AssertHideColumns(
                 FakeSheet,
-                ColumnSystemId,
                 ColumnCustomerTotal,
                 ColumnCustomerComm,
                 ColumnCashOutCommission,
@@ -51,7 +49,6 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         {
             // Arrange
             ExcelModel.SBVisible = true;
-            ExcelModel.SystemIdVisible = true;
             ExcelModel.CustomerCommVisible = true;
             ExcelModel.COVisible = true;
             ExcelModel.BTVisible = true;

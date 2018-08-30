@@ -10,7 +10,6 @@
     using Extension.Helper;
     using Extension.Utility;
     using Model.Core.DTO.Common;
-    using Model.Core.DTO.Users;
     using Model.Core.MetaModel.Product;
     using Model.Core.ResultModel;
     using Model.Report.DTO;
@@ -26,8 +25,6 @@
     {
         private IReportSettingService _reportSettingService;
 
-        private IAppSettings _appSettings;
-
         private ILicenseeWinLossDataAccess _dataAccess;
 
         private LicenseeWinLossReportController _controller;
@@ -37,7 +34,6 @@
         {
             base.FixtureSetUp();
 
-            _appSettings = Substitute.For<IAppSettings>();
             _dataAccess = Substitute.For<ILicenseeWinLossDataAccess>();
             _reportSettingService = Substitute.For<IReportSettingService>();
 
@@ -46,7 +42,6 @@
                 ProductService, 
                 _reportSettingService, 
                 LangService,
-                _appSettings, 
                 _dataAccess);
 
             _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();

@@ -701,6 +701,8 @@
     <Content Include="www\css\build\dev\reactpages\notification\index.chunk.js.map" />
     <Content Include="www\css\build\dev\reactpages\notification\index.css" />
     <Content Include="www\css\build\dev\reactpages\notification\index.css.map" />
+    <Content Include="www\css\build\dev\reactpages\speciallicenseewl\index.chunk.js" />
+    <Content Include="www\css\build\dev\reactpages\speciallicenseewl\index.css" />
     <Content Include="www\css\build\dev\reactpages\subsidiaryperformance\index.chunk.js" />
     <Content Include="www\css\build\dev\reactpages\subsidiaryperformance\index.css" />
     <Content Include="www\css\build\dev\reactpages\vendor.chunk.js" />
@@ -719,6 +721,8 @@
     <Content Include="www\css\build\pro\reactpages\licenseewlbytimezone\index.css" />
     <Content Include="www\css\build\pro\reactpages\notification\index.chunk.js" />
     <Content Include="www\css\build\pro\reactpages\notification\index.css" />
+    <Content Include="www\css\build\pro\reactpages\speciallicenseewl\index.chunk.js" />
+    <Content Include="www\css\build\pro\reactpages\speciallicenseewl\index.css" />
     <Content Include="www\css\build\pro\reactpages\subsidiaryperformance\index.css" />
     <Content Include="www\js\build\dev\pages\customer\exchangebetsetting.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\dynamic-import\xlsx-style-sparta.chunk.js" />
@@ -726,6 +730,7 @@
     <Content Include="www\js\build\dev\reactpages\report\licenseewlbytimezone.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\notification\notification.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\notification\notification.chunk.js.map" />
+    <Content Include="www\js\build\dev\reactpages\report\speciallicenseewl.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\subsidiaryperformance\subsidiaryperformance.chunk.js" />
     <Content Include="www\js\build\dev\reactpages\vendors\reactpages.chunk.js" />
     <Content Include="www\js\build\pro\pages\customer\exchangebetsetting.chunk.js" />
@@ -734,6 +739,7 @@
     <Content Include="www\js\build\pro\reactpages\lib\langHelper.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\report\licenseewlbytimezone.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\notification\notification.chunk.js" />
+    <Content Include="www\js\build\pro\reactpages\report\speciallicenseewl.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\subsidiaryperformance\subsidiaryperformance.chunk.js" />
     <Content Include="www\js\build\pro\reactpages\vendors\reactpages.chunk.js" />
     <Content Include="www\js\source\components\toast.js" />
@@ -821,6 +827,12 @@
     <Content Include="App_Data\UserGuide\CashOutWL\pdf\Cash Out WL Report guideline_CN.pdf" />
     <Content Include="App_Data\UserGuide\CashOutWL\pdf\Cash Out WL Report guideline_EN.pdf" />
     <Content Include="App_Data\Fanex.Result\VSBasketBall.xls" />
+    <Content Include="Views\Desktop\Report\SpecialLicenseeWinLoss\Main.cshtml" />
+    <Content Include="www\css\source\reactpages\pages\speciallicenseewl\index.scss" />
+    <Content Include="www\js\build\dev\reactpages\report\speciallicenseewl.chunk.js.map" />
+    <Content Include="www\css\build\dev\reactpages\speciallicenseewl\index.chunk.js.map" />
+    <Content Include="www\css\build\dev\reactpages\speciallicenseewl\index.css.map" />
+    <Content Include="www\css\source\reactpages\components\month-picker.scss" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Row.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.jsx" />
@@ -927,6 +939,15 @@
     <Content Include="www\js\source\reactpages\pages\notification\reducers\resultAmendment\index.js" />
     <Content Include="www\js\source\reactpages\pages\notification\reducers\resultAmendment\__test__\dataHandlerReducer.test.js" />
     <Content Include="www\js\source\reactpages\pages\notification\reducers\resultAmendment\__test__\filterHandlerReducer.test.js" />
+    <Content Include="www\js\source\reactpages\pages\speciallicenseewl\actions\dataHandlerAction.js" />
+    <Content Include="www\js\source\reactpages\pages\speciallicenseewl\actions\filterHandlerAction.js" />
+    <Content Include="www\js\source\reactpages\pages\speciallicenseewl\actions\index.js" />
+    <Content Include="www\js\source\reactpages\pages\speciallicenseewl\actions\types.js" />
+    <Content Include="www\js\source\reactpages\pages\speciallicenseewl\lib\reportExcel.js" />
+    <Content Include="www\js\source\reactpages\pages\speciallicenseewl\lib\service.js" />
+    <Content Include="www\js\source\reactpages\pages\speciallicenseewl\reducers\dataHandlerReducer.js" />
+    <Content Include="www\js\source\reactpages\pages\speciallicenseewl\reducers\filterHandlerReducer.js" />
+    <Content Include="www\js\source\reactpages\pages\speciallicenseewl\reducers\index.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\dataHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\filterHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\__tests__\dataHandlerAction.test.js" />
@@ -2620,6 +2641,14 @@
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\__snapshots__\formFilter.test.js.snap" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\__snapshots__\formFilter.render.test.js.snap" />
     <Content Include="www\js\source\reactpages\pages\exchangewl\components\__tests__\__snapshots__\BetListDetail.test.js.snap" />
+    <Content Include="www\js\source\reactpages\pages\speciallicenseewl\components\AppContainer.jsx" />
+    <Content Include="www\js\source\reactpages\pages\speciallicenseewl\components\FormFilter.jsx" />
+    <Content Include="www\js\source\reactpages\pages\speciallicenseewl\components\index.jsx" />
+    <Content Include="www\js\source\reactpages\pages\speciallicenseewl\components\DataGrid.jsx" />
+    <Content Include="www\js\source\reactpages\components\month-picker\MonthPicker.jsx" />
+    <Content Include="www\js\source\reactpages\components\month-picker\Month.jsx" />
+    <Content Include="www\js\source\reactpages\components\month-picker\Day.jsx" />
+    <Content Include="www\js\source\reactpages\components\month-picker\index.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">

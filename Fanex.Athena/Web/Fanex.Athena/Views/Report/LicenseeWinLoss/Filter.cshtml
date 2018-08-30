@@ -15,12 +15,9 @@
         @RazorHelper.CurrencyList(Model.CurrencyList, "currency-list", Model.Param.CurrencyId, true, true, Model.ReportSetting.BaseCurrencies)
     </div>
     <div class="grid_5 userguide-group">
-        @if(!Model.IsFakeLicensee)
-        { 
         <div>
             <div class="userguide-icon" id="UserGuide" title="@ViewResources.UserGuide"></div>
         </div>        
-        }
         <div>            
             <input alt="@ViewResources.ExportToExcel" src="@Url.ContentLink("/Content/Global/Images/excel.gif")"
                type="image" id="ExportToExcel" name="exporttoexcel"
@@ -87,5 +84,4 @@
     @Html.Hidden("IsAllowedBACommission", Model.ProductAccess.IsAllowBA)
     @Html.Hidden("IsAllowedRacing", Model.ProductAccess.IsAllowRB)
     @Html.Hidden("IsAllowedCustomerCommission", Model.IsAllowedCustomerCommission)
-    @Html.Hidden("IsDisableBetList", Model.ReportSetting.IsDisableBetList)
 </div>

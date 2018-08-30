@@ -23,7 +23,7 @@ const addDistanceDays = (rangeObj, name, start, end, min, max) => {
 };
 
 export default {
-    ranges: (today, min, max) => {
+    ranges: (today, min, max, limitMonths) => {
         today = !today ? moment() : (!moment.isMoment(today) ? moment(today, MomentFormat.default) : today);
         max = !max ? today : (!moment.isMoment(max) ? moment(max, MomentFormat.default) : max);
         min = !min ? today : (!moment.isMoment(min) ? moment(min, MomentFormat.default) : min);
@@ -55,9 +55,11 @@ export default {
         const endLastmonth = startLastmonth.clone().endOf('month');
         addDistanceDays(range, "Lastmonth", startLastmonth, endLastmonth, min, max);
 
-        const startSincelastmonth = today.clone().subtract(1, 'month').startOf('month');
-        const endSincelastmonth = today;
-        addDistanceDays(range, "Sincelastmonth", startSincelastmonth, endSincelastmonth, min, max); 
+        if (limitMonths && limitMonths > 1) {
+            const startSincelastmonth = today.clone().subtract(1, 'month').startOf('month');
+            const endSincelastmonth = today;
+            addDistanceDays(range, "Sincelastmonth", startSincelastmonth, endSincelastmonth, min, max); 
+        }
 
         return range;
     },

@@ -3,7 +3,6 @@
     using System;
     using Base.UnitTests;
     using DataAccess.Report.Interfaces;
-    using Extension.Utility;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Configuration;
     using Model.Report.MetaModel;
@@ -16,8 +15,6 @@
     {
         private IReportSettingService _reportSettingService;
 
-        private IAppSettings _appSettings;
-
         private ILicenseeWinLossDataAccess _dataAccess;
 
         private LicenseeWinLossReportController _controller;
@@ -25,7 +22,6 @@
         [SetUp]
         public void SetUp()
         {
-            _appSettings = Substitute.For<IAppSettings>();
             _dataAccess = Substitute.For<ILicenseeWinLossDataAccess>();
             _reportSettingService = Substitute.For<IReportSettingService>();
 
@@ -34,7 +30,6 @@
                 ProductService,
                 _reportSettingService,
                 LangService,
-                _appSettings,
                 _dataAccess);
 
             _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();
@@ -53,27 +48,6 @@
 
             // Assert
             Assert.That(result, Is.True);
-        }
-
-        [Test]
-        public void IsValidParams_DisableBetOnChildLevel_ReturnFalse()
-        {
-            // Arrange
-            _reportSettingService.GetSetting(PermissionKeys.ReportLicenseeWinLoss)
-                .Returns(new ReportSetting
-                {
-                    IsDisableBetList = true
-                });
-            var metaModel = new LicenseeWinLossMetaModel
-            {
-                DrillDownLevel = 1
-            };
-
-            // Action
-            var result = _controller.IsValidParams(metaModel);
-
-            // Assert
-            Assert.That(result, Is.False);
         }
 
         [TestCase("2017/12/21", "2018/2/2", false)]

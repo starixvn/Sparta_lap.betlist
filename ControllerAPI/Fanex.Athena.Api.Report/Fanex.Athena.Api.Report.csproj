@@ -167,6 +167,7 @@
     <Compile Include="CustomerBalanceReportController.cs" />
     <Compile Include="ExchangeWinLossReportController.cs" />
     <Compile Include="LicenseeWinLossByTimeZoneReportController.cs" />
+    <Compile Include="SpecialLicenseeWinLossReportController.cs" />
     <Compile Include="NotificationReportController.cs" />
     <Compile Include="SubsidiaryPerformanceReportController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

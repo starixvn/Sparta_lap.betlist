@@ -45,7 +45,7 @@
         public SortableReportResultModel<LicenseeWinLoss> GetSummaryWinloss(
             LicenseeWinLossMetaModel metaModel)
         {
-            var uspName = GetSpNameForFakeLicensee(metaModel.LicenseeId, "Lrf_Rpt_LicWinloss");
+            var uspName = "Lrf_Rpt_LicWinloss";
             try
             {
                 using (var db = this.GetObjectDb(uspName))
@@ -106,11 +106,6 @@
             }
         }
 
-        private static string[] GetBaseCurrencyList(bool isFakeLicensee)
-        {
-            return isFakeLicensee ? new[] { "USD" } : SystemConstants.BaseCurrencyList.ToArray();
-        }
-
         private static bool IsIgnoredLicenseeWLProduct(string productCode)
         {
             return IgnoredLicenseeWLProducts.Contains(productCode);
@@ -144,11 +139,10 @@
             return licenseeWl;
         }
 
-        private static IDictionary<string, LicenseeWinLoss> InitSummaryTotal(bool isFakeLicensee)
+        private static IDictionary<string, LicenseeWinLoss> InitSummaryTotal()
         {
             var summaryTotal = new Dictionary<string, LicenseeWinLoss>();
-            var baseCurrencyList = GetBaseCurrencyList(isFakeLicensee);
-            foreach (var currency in baseCurrencyList)
+            foreach (var currency in SystemConstants.BaseCurrencyList)
             {
                 summaryTotal.Add(
                     currency,
@@ -165,11 +159,9 @@
         private static void ReadSummaryTotal(
             IDataReader reader,
             IList<ProductOption> productOptions,
-            IDictionary<string, LicenseeWinLoss> summaryTotal,
-            bool isFakeLicensee)
+            IDictionary<string, LicenseeWinLoss> summaryTotal)
         {
-            var baseCurrencyList = GetBaseCurrencyList(isFakeLicensee);
-            foreach (var currency in baseCurrencyList)
+            foreach (var currency in SystemConstants.BaseCurrencyList.ToArray())
             {
                 var summaryItem = summaryTotal[currency];
                 summaryItem.CustomerWinLoss += reader.ToDecimal("winlost" + currency);
@@ -294,9 +286,8 @@
             IDictionary<string, string> turnoverColumns,
             bool drilldown)
         {
-            var isFakeLicensee = IsFakeLicensee(metaModel.LicenseeId);
             var dataList = new SortableList<LicenseeWinLoss>();
-            var summaryTotal = InitSummaryTotal(isFakeLicensee);
+            var summaryTotal = InitSummaryTotal();
             var hasSystemId = reader.HasColumn("username");
             var hasExternalId = reader.HasColumn("nickname");
             var hasCustomerId = reader.HasColumn("custid");
@@ -333,7 +324,7 @@
                 };
 
                 dataList.Add(item);
-                ReadSummaryTotal(reader, metaModel.ProductOptions, summaryTotal, isFakeLicensee);
+                ReadSummaryTotal(reader, metaModel.ProductOptions, summaryTotal);
             }
 
             return new SortableReportResultModel<LicenseeWinLoss>

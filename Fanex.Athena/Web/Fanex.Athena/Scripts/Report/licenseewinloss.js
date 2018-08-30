@@ -80,7 +80,6 @@ var LicenseeWinLoss = (function ($) {
         },
 
         initSetting: function () {
-            LicenseeWinLossOption.isDisableBetList = Site.asBool($("#IsDisableBetList").val());
             LicenseeWinLossOption.hasCustomerComm = Site.asBool($("#IsAllowedCustomerCommission").val());
             LicenseeWinLossOption.licenseeId = parseInt($("#drillDownLicenseeId").val());
         },
@@ -364,9 +363,7 @@ var LicenseeWinLoss = (function ($) {
             var productOptions = $.parseJSON(_submitData.ProductOptions);
             productOptions = productOptions.reverse(); //make orders of product columns like excel file
             var columnModel = LicenseeWinLossOption.getTotalColModel(level, productOptions);
-            var colspan = Site.isFakeLicensee() ?
-                 LicenseeWinLossOption.totalColspanFakeLicensee[level] :
-                LicenseeWinLossOption.totalColspan[level];
+            var colspan = LicenseeWinLossOption.totalColspan[level];
             var summaryColspan = colspan + 1;
 
             jqGridAdditional.assignTotal(totalData, columnModel);
