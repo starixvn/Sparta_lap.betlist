@@ -427,67 +427,76 @@ describe('defaultOptions - ', () => {
         })
 
         describe('Sincelastmonth ranges - ', () => {
-            it('start since last month day is greater than max date - no "Currentmonth" arrange', () => {
+            it('limit months is less than 2 - no "Sincelastmonth" arrange', () => {
                 const today = "4/12/2018";
                 const min = "2/1/2018";
                 const max = "2/28/2018";
-                const ranges = defaultOptions.ranges(today, min, max);
+                const ranges = defaultOptions.ranges(today, min, max, 1);
 
                 expect(ranges.Sincelastmonth).toEqual(undefined);
             })
 
-            it('end since last month day is less than min date - no "Currentmonth" arrange', () => {
+            it('start since last month day is greater than max date - no "Sincelastmonth" arrange', () => {
+                const today = "4/12/2018";
+                const min = "2/1/2018";
+                const max = "2/28/2018";
+                const ranges = defaultOptions.ranges(today, min, max, 2);
+
+                expect(ranges.Sincelastmonth).toEqual(undefined);
+            })
+
+            it('end since last month day is less than min date - no "Sincelastmonth" arrange', () => {
                 const today = "4/12/2018";
                 const min = "6/1/2018";
                 const max = "6/30/2018";
-                const ranges = defaultOptions.ranges(today, min, max);
+                const ranges = defaultOptions.ranges(today, min, max, 2);
 
                 expect(ranges.Sincelastmonth).toEqual(undefined);
             })
 
-            it('since last month day is in range of min and max date - add "Currentmonth" arrange with start/end date is start since last month/today', () => {
+            it('since last month day is in range of min and max date - add "Sincelastmonth" arrange with start/end date is start since last month/today', () => {
                 const today = "4/12/2018";
                 const min = "2/1/2018";
                 const max = "5/31/2018";
 
                 const startSinceLastmonth = "3/1/2018";
 
-                const ranges = defaultOptions.ranges(today, min, max);
+                const ranges = defaultOptions.ranges(today, min, max, 2);
 
                 expect(ranges.Sincelastmonth.startDate.format("M/D/YYYY")).toEqual(startSinceLastmonth);
                 expect(ranges.Sincelastmonth.endDate.format("M/D/YYYY")).toEqual(today);
             })
 
-            it('start since last month day is in range of min and max date and max < today - add "Currentmonth" arrange with start/end date is start since last month/max', () => {
+            it('start since last month day is in range of min and max date and max < today - add "Sincelastmonth" arrange with start/end date is start since last month/max', () => {
                 const today = "4/12/2018";
                 const min = "2/1/2018";
                 const max = "4/10/2018";
 
                 const startSinceLastmonth = "3/1/2018";
 
-                const ranges = defaultOptions.ranges(today, min, max);
+                const ranges = defaultOptions.ranges(today, min, max, 2);
 
                 expect(ranges.Sincelastmonth.startDate.format("M/D/YYYY")).toEqual(startSinceLastmonth);
                 expect(ranges.Sincelastmonth.endDate.format("M/D/YYYY")).toEqual(max);
             })
 
-            it('end since last month day is in range of min and max date and min > start since last month - add "Currentmonth" arrange with start/end date is min/today', () => {
+            it('end since last month day is in range of min and max date and min > start since last month - add "Sincelastmonth" arrange with start/end date is min/today', () => {
                 const today = "4/12/2018";
                 const min = "4/9/2018";
                 const max = "5/31/2018";
 
-                const ranges = defaultOptions.ranges(today, min, max);
+                const ranges = defaultOptions.ranges(today, min, max, 2);
 
                 expect(ranges.Sincelastmonth.startDate.format("M/D/YYYY")).toEqual(min);
                 expect(ranges.Sincelastmonth.endDate.format("M/D/YYYY")).toEqual(today);
             })
 
-            it('start since last month < min and today > max - add "Currentmonth" arrange with start/end date is min/max', () => {
+            it('start since last month < min and today > max - add "Sincelastmonth" arrange with start/end date is min/max', () => {
                 const today = "4/12/2018";
                 const min = "4/9/2018";
                 const max = "4/10/2018";
 
-                const ranges = defaultOptions.ranges(today, min, max);
+                const ranges = defaultOptions.ranges(today, min, max, 2);
 
                 expect(ranges.Sincelastmonth.startDate.format("M/D/YYYY")).toEqual(min);
                 expect(ranges.Sincelastmonth.endDate.format("M/D/YYYY")).toEqual(max);

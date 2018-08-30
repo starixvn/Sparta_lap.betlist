@@ -13,7 +13,7 @@ jest.mock('../../../../lib/site')
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-describe('filterHandlerAction', () => {
+describe('dataHandlerAction', () => {
     const fakeResponse = {
         data: {
             DataList: [],
