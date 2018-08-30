@@ -61,6 +61,10 @@ namespace Fanex.Athena.VendorAdapter
         public string GetBettype(int betType, bool liveIndicator)
         {
             const int SBMinOfMaxBettype = 120;
+            if (betType == 0)
+            {
+                return string.Empty;
+            }
 
             var betTypeName = RemotingRefService.GetBetTypeName(betType.ToString(CultureInfo.InvariantCulture), GetCurrentIBCLanguageCode());
 
@@ -72,17 +76,22 @@ namespace Fanex.Athena.VendorAdapter
 
             if (betType >= (int)BetType.NG1StBallOU && betType < SBMinOfMaxBettype)
             {
-                if ((betType == (int)BetType.NgOuFt || betType == (int)BetType.NgOeFt) && liveIndicator)
-                {
-                    betTypeName = ViewResources.Next + " " + betTypeName;
-                }
+                return GetNumberGameBettypeName(betType, liveIndicator, betTypeName);
+            }
 
-                if (betType == (int)BetType.NgOeFt && !liveIndicator)
-                {
-                    betTypeName = ViewResources.FT + " " + betTypeName;
-                }
+            return betTypeName;
+        }
 
-                return betTypeName;
+        private static string GetNumberGameBettypeName(int betType, bool liveIndicator, string betTypeName)
+        {
+            if ((betType == (int)BetType.NgOuFt || betType == (int)BetType.NgOeFt) && liveIndicator)
+            {
+                return ViewResources.Next + " " + betTypeName;
+            }
+
+            if (betType == (int)BetType.NgOeFt)
+            {
+                return ViewResources.FT + " " + betTypeName;
             }
 
             return betTypeName;
