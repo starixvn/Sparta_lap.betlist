@@ -621,6 +621,7 @@ var BetList = (function ($) {
                 width: width + 25,
                 height: height + 50
             });
+            window.logOpenBetlistEvent && window.logOpenBetlistEvent();
         },
 
         showMicroGamingRnGBetsDetails: function (transId, winlostDate, custId, transType) {
@@ -641,6 +642,7 @@ var BetList = (function ($) {
                 width: popW + 50,
                 height: popH + 50
             });
+            window.logOpenBetlistEvent && window.logOpenBetlistEvent();
         },
 
         showAGCasinoDetails: function (transId, winlostDate, custId, transType) {
@@ -661,6 +663,7 @@ var BetList = (function ($) {
                 width: popW + 50,
                 height: popH + 50
             });
+            window.logOpenBetlistEvent && window.logOpenBetlistEvent();
         },
 
         showRnGCasinoDetails: function (transId, winlostDate, custId, transType) {
@@ -682,6 +685,7 @@ var BetList = (function ($) {
                 width: popW + 50,
                 height: popH + 50
             });
+            window.logOpenBetlistEvent && window.logOpenBetlistEvent();
         },
 
         showVoidBridgeDetails: function (transId, winlostDate, custId, transType) {
@@ -703,6 +707,7 @@ var BetList = (function ($) {
                 width: popW + 50,
                 height: popH + 50
             });
+            window.logOpenBetlistEvent && window.logOpenBetlistEvent();
         },
         showAllBetDetails: function (transId, winlostDate, custId, transType) {
             var url = Site.resolveClientUrl('AllBetBetList/Detail');
@@ -723,6 +728,7 @@ var BetList = (function ($) {
                 width: popW + 50,
                 height: popH + 50
             });
+            window.logOpenBetlistEvent && window.logOpenBetlistEvent();
         },
         showColossusBetsDetails: function (refNo, winlostDate, transId, custId, betCheck) {
             var url = Site.resolveClientUrl('ColossusBetBetList/Detail');
@@ -743,6 +749,7 @@ var BetList = (function ($) {
                 width: popW + 30,
                 height: popH + 50
             });
+            window.logOpenBetlistEvent && window.logOpenBetlistEvent();
         },
         showGlobalGamingDetails: function (transId, winlostDate, custId, transType) {
             var url = Site.resolveClientUrl('GlobalGamingBetList/Detail');
@@ -763,6 +770,7 @@ var BetList = (function ($) {
                 width: popW + 50,
                 height: popH + 50
             });
+            window.logOpenBetlistEvent && window.logOpenBetlistEvent();
         },
         ValidProducts: function () {
             var temp = true;
@@ -813,6 +821,7 @@ var BetList = (function ($) {
                 width: popW + 50,
                 height: popH + 50
             });
+            window.logOpenBetlistEvent && window.logOpenBetlistEvent();
         },
 
         showBonusDetails: function (refCode, transId) {
@@ -834,6 +843,7 @@ var BetList = (function ($) {
                 width: popW + 50,
                 height: popH + 50
             });
+            window.logOpenBetlistEvent && window.logOpenBetlistEvent();
         }
     };
 })(jQuery);

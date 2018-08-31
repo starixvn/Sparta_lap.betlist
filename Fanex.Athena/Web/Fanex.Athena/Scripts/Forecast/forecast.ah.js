@@ -78,6 +78,7 @@ var Forecast = (function ($) {
             var popH = Math.min(parent.innerHeight - 100, 700), popW = 960;
 
             ForecastPopup.resizePopup(popW, popH, url);
+            window.logOpenBetlistEvent && window.logOpenBetlistEvent();
         },
         currentScoreKeyUp: function (evt) {
             if (!evt) {

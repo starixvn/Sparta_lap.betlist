@@ -309,6 +309,7 @@ export class DataGrid extends Component {
     }
 
     _renderNodata() {
+
         return (
             <div className="result-content">
                 {this._renderBreadcrumb()}
@@ -355,6 +356,7 @@ export class DataGrid extends Component {
                 Service.showErrorMsg();
                 this.props.toggleLoader(false);
             })
+        window.logOpenBetlistEvent && window.logOpenBetlistEvent();
     }
 
     closeBetListPopup = () => {

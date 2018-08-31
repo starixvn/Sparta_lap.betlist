@@ -127,6 +127,7 @@ define([
                 var popH = Math.min(window.innerHeight - 100, 700), popW = 900;
                 var popupOption = { id: "betlist-popup", width: popW + 30, height: popH + 70, title: Site.getSingleResource('BetListRunning') };
                 Popup.openPopupWithIframe(url, popupOption);
+                window.logOpenBetlistEvent && window.logOpenBetlistEvent();
             },
 
             updateGridGroupAndComm: function (groupid, groupName, groupColor, sbCom, ngCom, rbCom, csCom, abCom) {

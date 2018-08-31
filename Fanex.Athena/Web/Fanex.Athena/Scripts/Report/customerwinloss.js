@@ -314,6 +314,7 @@ var CustomerWinLoss = (function ($) {
                 width: popW + 50,
                 height: popH + 50
             });
+            window.logOpenBetlistEvent && window.logOpenBetlistEvent();
         },
 
         setReportTitle: function () {

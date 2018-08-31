@@ -86,6 +86,7 @@
                 var popupOption = { id: "viewOptionFrame", width: popW + 30, height: popH + 70 };
 
                 Popup.openPopupWithIframe(url, popupOption);
+                window.logOpenBetlistEvent && window.logOpenBetlistEvent();
             },
 
             viewStatement: function () {
@@ -101,6 +102,7 @@
                 var popupOption = { id: "viewOptionFrame", width: popW + 30, height: popH + 70 };
 
                 Popup.openPopupWithIframe(url, popupOption);
+                window.logOpenBetlistEvent && window.logOpenBetlistEvent();
             }
         };
 

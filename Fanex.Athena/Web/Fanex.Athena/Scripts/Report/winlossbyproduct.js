@@ -568,6 +568,7 @@ var WinLossByProduct = (function ($) {
             width: popW + 30,
             height: popH + 50
         });
+        window.logOpenBetlistEvent && window.logOpenBetlistEvent();
     }
 
     //#endregion

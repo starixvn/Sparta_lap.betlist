@@ -40,6 +40,7 @@ var RunningBetListMultipleBettype = (function ($) {
 
             Site.blockUI();
             $("#popupSystemParlay").load(url).dialog();
+            window.logOpenBetlistEvent && window.logOpenBetlistEvent();
         },
 
         exportToExcel: function () {

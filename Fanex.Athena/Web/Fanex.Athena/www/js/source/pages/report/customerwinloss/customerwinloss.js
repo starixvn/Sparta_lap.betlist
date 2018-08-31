@@ -277,6 +277,7 @@
             var popH = Math.min($(window).height() - 100, 650), popW = 920;
             var popupOption = { id: "betlist-popup", width: popW + 50, height: popH + 50, title: "Customer Bet List" };
             Popup.openPopupWithIframe(url, popupOption);
+            window.logOpenBetlistEvent && window.logOpenBetlistEvent();
         }
 
         function setReportTitle() {
