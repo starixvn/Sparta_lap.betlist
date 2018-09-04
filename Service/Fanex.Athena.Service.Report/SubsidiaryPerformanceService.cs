@@ -36,15 +36,7 @@
         public IEnumerable<Operator> GetOperatorList(string licenseeName)
         {
             var cacheKey = string.Format(CacheKey.MemorycacheSubsidiaryListByLicensee, licenseeName);
-
-            var operatorList = _cache.Get<IEnumerable<Operator>>(cacheKey);
-            if (operatorList == null)
-            {
-                operatorList = _subLicenseePerformanceDataAccess.GetOperatorList(licenseeName);
-                _cache.Set(cacheKey, operatorList, CacheTimeoutSeconds);
-            }
-
-            return operatorList;
+            return _cache.Get(cacheKey, () => _subLicenseePerformanceDataAccess.GetOperatorList(licenseeName));
         }
 
         public SubsidiaryResultViewModel GetData(SubsidiaryPerformanceMetaModel metaModel)

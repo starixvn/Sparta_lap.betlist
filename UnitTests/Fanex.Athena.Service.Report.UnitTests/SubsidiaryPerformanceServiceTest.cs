@@ -55,64 +55,6 @@
         }
 
         [Test]
-        public void GetOperatorList_DataIsNotInCache_ReturnCorrectDataAfterCallingDataAccess()
-        {
-            // Arrange
-            var cacheKey = $"MemoryCache_SubsidiaryList_{LicenseeName}";
-
-            IEnumerable<Operator> operatorList = null;
-            _cache.Get<IEnumerable<Operator>>(cacheKey).Returns(operatorList);
-
-            const string OperatorName = "Data1";
-            const int AgentId = 1;
-            var expectedFromDataAccess = new List<Operator>
-            {
-                new Operator
-                {
-                    AgentId = AgentId,
-                    CurrencyId = 1,
-                    OperatorName = OperatorName
-                }
-            };
-            _dataAccess.GetOperatorList(LicenseeName).Returns(expectedFromDataAccess);
-
-            // Action
-            var result = _service.GetOperatorList(LicenseeName);
-
-            // Assert
-            Assert.That(result, Is.EqualTo(expectedFromDataAccess));
-        }
-
-        [Test]
-        public void GetSubsidiaryList_DataIsNotInCache_SetMethodOfCacheShouldBeCalled()
-        {
-            // Arrange
-            var cacheKey = $"MemoryCache_SubsidiaryList_{LicenseeName}";
-            IEnumerable<Operator> operatorList = null;
-
-            _cache.Get<IEnumerable<Operator>>(cacheKey).Returns(operatorList);
-
-            const string OperatorName = "Data1";
-            const int AgentId = 1;
-            var expectedFromDataAccess = new List<Operator>
-            {
-                new Operator
-                {
-                    AgentId = AgentId,
-                    CurrencyId = 1,
-                    OperatorName = OperatorName
-                }
-            };
-            _dataAccess.GetOperatorList(LicenseeName).Returns(expectedFromDataAccess);
-
-            // Action
-            var result = _service.GetOperatorList(LicenseeName);
-
-            // Assert
-            _cache.Received().Set(cacheKey, expectedFromDataAccess, 300);
-        }
-
-        [Test]
         public void GetData_WhenCall_CallDataAccess()
         {
             // Arrange
@@ -158,7 +100,7 @@
                 new Operator { AgentId = 1235, CurrencyId = 2, OperatorName = "India" }
             };
             var cacheKey = $"MemoryCache_SubsidiaryList_{LicenseeName}";
-            _cache.Get<IEnumerable<Operator>>(cacheKey).Returns(operatorList);
+            _cache.Get(cacheKey, Arg.Any<Func<IEnumerable<Operator>>>()).Returns(operatorList);
 
             var fakeEntityDataList = GetFakeEntityDataList();
             var resultData = new ReportResultModel<SubsidiaryPerformanceEntity>
@@ -236,7 +178,7 @@
                 new Operator { AgentId = 1235, CurrencyId = 2, OperatorName = "India" }
             };
             var cacheKey = $"MemoryCache_SubsidiaryList_{LicenseeName}";
-            _cache.Get<IEnumerable<Operator>>(cacheKey).Returns(operatorList);
+            _cache.Get(cacheKey, Arg.Any<Func<IEnumerable<Operator>>>()).Returns(operatorList);
 
             var resultData = new ReportResultModel<SubsidiaryPerformanceEntity>
             {
@@ -275,7 +217,7 @@
                 new Operator { AgentId = 1235, CurrencyId = 2, OperatorName = "India" }
             };
             var cacheKey = $"MemoryCache_SubsidiaryList_{LicenseeName}";
-            _cache.Get<IEnumerable<Operator>>(cacheKey).Returns(operatorList);
+            _cache.Get(cacheKey, Arg.Any<Func<IEnumerable<Operator>>>()).Returns(operatorList);
 
             var resultData = new ReportResultModel<SubsidiaryPerformanceEntity>
             {
@@ -314,7 +256,7 @@
                 new Operator { AgentId = 1235, CurrencyId = 2, OperatorName = "India" }
             };
             var cacheKey = $"MemoryCache_SubsidiaryList_{LicenseeName}";
-            _cache.Get<IEnumerable<Operator>>(cacheKey).Returns(operatorList);
+            _cache.Get(cacheKey, Arg.Any<Func<IEnumerable<Operator>>>()).Returns(operatorList);
 
             var resultData = new ReportResultModel<SubsidiaryPerformanceEntity>
             {
