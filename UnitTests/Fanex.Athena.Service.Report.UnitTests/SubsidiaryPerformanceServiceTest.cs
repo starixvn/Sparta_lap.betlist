@@ -100,7 +100,7 @@
                 new Operator { AgentId = 1235, CurrencyId = 2, OperatorName = "India" }
             };
             var cacheKey = $"MemoryCache_SubsidiaryList_{LicenseeName}";
-            _cache.Get(cacheKey, Arg.Any<Func<IEnumerable<Operator>>>()).Returns(operatorList);
+            _cache.Get(cacheKey, Arg.Any<Func<IEnumerable<Operator>>>(), Arg.Any<int>()).Returns(operatorList);
 
             var fakeEntityDataList = GetFakeEntityDataList();
             var resultData = new ReportResultModel<SubsidiaryPerformanceEntity>
@@ -178,7 +178,7 @@
                 new Operator { AgentId = 1235, CurrencyId = 2, OperatorName = "India" }
             };
             var cacheKey = $"MemoryCache_SubsidiaryList_{LicenseeName}";
-            _cache.Get(cacheKey, Arg.Any<Func<IEnumerable<Operator>>>()).Returns(operatorList);
+            _cache.Get(cacheKey, Arg.Any<Func<IEnumerable<Operator>>>(), Arg.Any<int>()).Returns(operatorList);
 
             var resultData = new ReportResultModel<SubsidiaryPerformanceEntity>
             {
@@ -217,7 +217,7 @@
                 new Operator { AgentId = 1235, CurrencyId = 2, OperatorName = "India" }
             };
             var cacheKey = $"MemoryCache_SubsidiaryList_{LicenseeName}";
-            _cache.Get(cacheKey, Arg.Any<Func<IEnumerable<Operator>>>()).Returns(operatorList);
+            _cache.Get(cacheKey, Arg.Any<Func<IEnumerable<Operator>>>(), Arg.Any<int>()).Returns(operatorList);
 
             var resultData = new ReportResultModel<SubsidiaryPerformanceEntity>
             {
