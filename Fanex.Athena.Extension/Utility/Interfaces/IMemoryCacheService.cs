@@ -6,8 +6,6 @@
 
         bool Contains(string key);
 
-        void Remove(string key);
-
         T Get<T>(string key);
 
         void Set<T>(string key, T value, int seconds = 900);
