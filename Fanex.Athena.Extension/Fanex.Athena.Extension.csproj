@@ -151,6 +151,7 @@
     <Compile Include="Helper\StringHelper.cs" />
     <Compile Include="Utility\AntiForgeryService.cs" />
     <Compile Include="Utility\AppSettings.cs" />
+    <Compile Include="Utility\CustomMemoryCache.cs" />
     <Compile Include="Utility\IAntiForgeryService.cs" />
     <Compile Include="Utility\Interfaces\IMemoryCacheService.cs" />
     <Compile Include="Utility\MemoryCacheService.cs" />
