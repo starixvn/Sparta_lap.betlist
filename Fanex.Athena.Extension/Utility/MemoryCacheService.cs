@@ -11,13 +11,16 @@
     {
         private const int TIMEOUT = 900; // 15 minutes.
 
-        private const string CACHENAME = "LRF_MEMORY_CACHE_NAME";
-
         private static volatile HashSet<string> _keys;
 
-        private static volatile MemoryCache _objectCache;
-
         private static object _syncRoot = new object();
+
+        private readonly MemoryCache _objectCache;
+
+        public MemoryCacheService()
+        {
+            _objectCache = MemoryCache.Default;
+        }
 
         private static HashSet<string> Keys
         {
@@ -38,33 +41,14 @@
             }
         }
 
-        private static MemoryCache CacheInstance
-        {
-            get
-            {
-                if (_objectCache == null)
-                {
-                    lock (_syncRoot)
-                    {
-                        if (_objectCache == null)
-                        {
-                            _objectCache = new MemoryCache(CACHENAME);
-                        }
-                    }
-                }
-
-                return _objectCache;
-            }
-        }
-
         public bool Contains(string key)
         {
-            return CacheInstance.Contains(key);
+            return _objectCache.Contains(key);
         }
 
         public T Get<T>(string key)
         {
-            var data = Contains(key) ? (T)CacheInstance[key] : default(T);
+            var data = Contains(key) ? (T)_objectCache[key] : default(T);
             return DeepClone(data);
         }
 
@@ -75,7 +59,7 @@
                 throw new ArgumentNullException(nameof(key), "Key should not be empty!");
             }
 
-            CacheInstance.Set(key, DeepClone(value), DateTime.Now.AddSeconds(seconds));
+            _objectCache.Set(key, DeepClone(value), DateTime.Now.AddSeconds(seconds));
 
             lock (_syncRoot)
             {
@@ -94,7 +78,7 @@
         public void Remove(string key)
         {
             Keys.Remove(key);
-            CacheInstance.Remove(key);
+            _objectCache.Remove(key);
         }
 
         private static T DeepClone<T>(T source)
