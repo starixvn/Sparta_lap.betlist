@@ -46,7 +46,7 @@ namespace Fanex.Athena.Api.BetList
         [HttpGet]
         public dynamic NewParlayDetail(long transId, string betTeam, string betCheck, decimal handicap1, decimal handicap2)
         {
-            var texts = CacheRefAdapter.GetCombinationTypeCombo(betTeam, betCheck, handicap1, handicap2);
+            var texts = (string[])CacheRefAdapter.GetCombinationTypeCombo(betTeam, betCheck, handicap1, handicap2).Clone();
 
             var ticketResult = BetListService.GetMixParlayDetailTicket(SessionService.LicenseeSession.LicenseeId, transId);
             var tickets = ticketResult.MainTicketList.Where(x => x.Stake != 0).ToList();
