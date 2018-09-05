@@ -6,7 +6,7 @@
 
         bool Contains(string key);
 
-        void Delete(string key);
+        void Remove(string key);
 
         T Get<T>(string key);
 

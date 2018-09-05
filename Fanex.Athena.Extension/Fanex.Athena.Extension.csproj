@@ -48,18 +48,6 @@
     <CodeAnalysisRuleSet>Fanex.Athena.Extension.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Couchbase, Version=1.0.0.0, Culture=neutral, PublicKeyToken=81137140da4e57ef, processorArchitecture=MSIL">
-      <HintPath>..\packages\Fanex.Caching.1.0.404.97\lib\net40\Couchbase.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Enyim.Caching, Version=2.12.0.0, Culture=neutral, PublicKeyToken=81137140da4e57ef, processorArchitecture=MSIL">
-      <HintPath>..\packages\Fanex.Caching.1.0.404.97\lib\net40\Enyim.Caching.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Fanex.Caching, Version=1.0.404.95, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Fanex.Caching.1.0.404.97\lib\net40\Fanex.Caching.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Fanex.Common, Version=1.0.404.97, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Fanex.Common.1.0.404.97\lib\net40\Fanex.Common.dll</HintPath>
       <Private>True</Private>
@@ -100,6 +88,7 @@
     <Reference Include="System.Net.Http, Version=4.1.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Net.Http.4.3.3\lib\net46\System.Net.Http.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Security.Cryptography.Algorithms, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net461\System.Security.Cryptography.Algorithms.dll</HintPath>
     </Reference>
