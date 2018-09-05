@@ -7,48 +7,59 @@
     using Interfaces;
     using Newtonsoft.Json;
 
-    public class MemoryCacheService : IMemoryCacheService
+    public class MemoryCacheService : MemoryCache, IMemoryCacheService
     {
         private const int TIMEOUT = 900; // 15 minutes.
+        private const string REGIOMNAME = "LAP_MAIN_MEMORY";
 
-        private static volatile HashSet<string> _keys;
-
-        private static object _syncRoot = new object();
-
-        private readonly MemoryCache _objectCache;
-
-        public MemoryCacheService()
+        public MemoryCacheService() : base("LAP_MEMORY_CUSTOM_CACHING") { }
+        public override void Set(CacheItem item, CacheItemPolicy policy)
         {
-            _objectCache = MemoryCache.Default;
+            Set(item.Key, item.Value, policy, item.RegionName);
+        }
+        public override void Set(string key, object value, DateTimeOffset absoluteExpiration, string regionName = null)
+        {
+            Set(key, value, new CacheItemPolicy { AbsoluteExpiration = absoluteExpiration }, regionName);
         }
 
-        private static HashSet<string> Keys
+        public override void Set(string key, object value, CacheItemPolicy policy, string regionName = null)
+        {
+            base.Set(CreateKeyWithRegion(key, regionName), value, policy);
+        }
+
+        public override CacheItem GetCacheItem(string key, string regionName = null)
+        {
+            CacheItem temporary = base.GetCacheItem(CreateKeyWithRegion(key, regionName));
+            return new CacheItem(key, temporary.Value, regionName);
+        }
+
+        public override object Get(string key, string regionName = null)
+        {
+            return base.Get(CreateKeyWithRegion(key, regionName));
+        }
+
+        public override DefaultCacheCapabilities DefaultCacheCapabilities
         {
             get
             {
-                if (_keys == null)
-                {
-                    lock (_syncRoot)
-                    {
-                        if (_keys == null)
-                        {
-                            _keys = new HashSet<string>();
-                        }
-                    }
-                }
-
-                return _keys;
+                return (base.DefaultCacheCapabilities | DefaultCacheCapabilities.CacheRegions);
             }
         }
 
+        private static string CreateKeyWithRegion(string key, string regionName)
+        {
+            return $"region:{regionName ?? "null_region"};key={key}";
+        }
+
+
         public bool Contains(string key)
         {
-            return _objectCache.Contains(key);
+            return this.Any(i => i.Key == key);
         }
 
         public T Get<T>(string key)
         {
-            var data = Contains(key) ? (T)_objectCache[key] : default(T);
+            var data = Contains(key) ? (T)this.Get(key, REGIOMNAME) : default(T);
             return DeepClone(data);
         }
 
@@ -59,31 +70,27 @@
                 throw new ArgumentNullException(nameof(key), "Key should not be empty!");
             }
 
-            _objectCache.Set(key, DeepClone(value), DateTime.Now.AddSeconds(seconds));
-
-            lock (_syncRoot)
-            {
-                Keys.Add(key);
-            }
+            this.Set(key, DeepClone(value), DateTime.Now.AddSeconds(seconds), REGIOMNAME);
         }
 
         public void Clear()
         {
-            while (Keys.Count > 0)
+            var keys = this.Where(i => i.Key.StartsWith($"region:{REGIOMNAME}"))
+                .Select(i => i.Key).ToList();
+            foreach (var key in keys)
             {
-                Remove(Keys.First());
+                base.Remove(key);
             }
-        }
-
-        public void Remove(string key)
-        {
-            Keys.Remove(key);
-            _objectCache.Remove(key);
         }
 
         private static T DeepClone<T>(T source)
         {
             return JsonConvert.DeserializeObject<T>(JsonConvert.SerializeObject(source));
+        }
+
+        public void Remove(string key)
+        {
+            base.Remove(CreateKeyWithRegion(key, REGIOMNAME));
         }
     }
 }
