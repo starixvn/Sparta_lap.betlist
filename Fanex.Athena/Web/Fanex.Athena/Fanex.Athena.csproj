@@ -851,6 +851,11 @@
     <Content Include="www\css\build\dev\reactpages\speciallicenseewl\index.chunk.js.map" />
     <Content Include="www\css\build\dev\reactpages\speciallicenseewl\index.css.map" />
     <Content Include="www\css\source\reactpages\components\month-picker.scss" />
+    <None Include="SiteConfig\Web.AppSettings.BACKUPMNLStatic.config" />
+    <None Include="SiteConfig\Web.ConnectionStrings.BACKUPMNLStatic.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="SiteConfig\Web.BACKUPMNLStatic.config" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Row.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.jsx" />
