@@ -1,21 +1,28 @@
-﻿namespace Fanex.Athena.Extension.Utility
+﻿namespace Fanex.Athena.Extension.Utility.Internal
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Runtime.Caching;
-    using Interfaces;
-    using Newtonsoft.Json;
 
-    public class CustomMemoryCache : MemoryCache
+    public class CustomMemoryCache : MemoryCache, ICustomMemoryCache
     {
-        public CustomMemoryCache() : base("LAP_MEMORY_CUSTOM_CACHING") { }
+        public CustomMemoryCache() : base("LAP_MEMORY_CUSTOM_CACHING")
+        {
+        }
 
+        public override DefaultCacheCapabilities DefaultCacheCapabilities
+        {
+            get
+            {
+                return base.DefaultCacheCapabilities | DefaultCacheCapabilities.CacheRegions;
+            }
+        }
 
         public override void Set(CacheItem item, CacheItemPolicy policy)
         {
             Set(item.Key, item.Value, policy, item.RegionName);
         }
+
         public override void Set(string key, object value, DateTimeOffset absoluteExpiration, string regionName = null)
         {
             Set(key, value, new CacheItemPolicy { AbsoluteExpiration = absoluteExpiration }, regionName);
@@ -36,16 +43,19 @@
         {
             return base.Get(CreateKeyWithRegion(key, regionName));
         }
+
         public override bool Contains(string key, string regionName = null)
         {
             return base.Contains(CreateKeyWithRegion(key, regionName));
         }
 
-        public override DefaultCacheCapabilities DefaultCacheCapabilities
+        public void Clear(string region)
         {
-            get
+            var keys = this.Where(i => i.Key.StartsWith($"region:{region}"))
+                .Select(i => i.Key).ToList();
+            foreach (var key in keys)
             {
-                return (base.DefaultCacheCapabilities | DefaultCacheCapabilities.CacheRegions);
+                this.Remove(key);
             }
         }
 
@@ -53,7 +63,5 @@
         {
             return $"region:{regionName ?? "null_region"};key={key}";
         }
-
-
     }
 }
