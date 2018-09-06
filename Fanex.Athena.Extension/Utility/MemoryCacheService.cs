@@ -20,8 +20,7 @@
 
         public T Get<T>(string key)
         {
-            var data = Contains(key) ? (T)_instance.Get(key, REGIOMNAME) : default(T);
-            return DeepClone(data);
+            return Contains(key) ? DeepClone((T)_instance.Get(key, REGIOMNAME)) : default(T);
         }
 
         public void Set<T>(string key, T value, int seconds = TIMEOUT)
@@ -30,8 +29,10 @@
             {
                 throw new ArgumentNullException(nameof(key), "Key should not be empty!");
             }
-
-            _instance.Set(key, DeepClone(value), DateTime.Now.AddSeconds(seconds), REGIOMNAME);
+            if (!Equals(value, default(T)))
+            {
+                _instance.Set(key, DeepClone(value), DateTime.Now.AddSeconds(seconds), REGIOMNAME);
+            }
         }
 
         public void Clear()
