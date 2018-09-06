@@ -66,17 +66,12 @@ namespace Fanex.Athena.Service.Report
                 return _liveReportDataAccess.GetDetailBySport(model);
             });
 
-            var taskForCurrencyAndBettype = Task<Tuple<IList<LiveReport>, IList<LiveReportByBetType>>>.Factory.StartNew(
-                () => { return _liveReportDataAccess.GetDetailByCurrencyAndBettype(model, products); },
-                    CancellationToken.None, 
-                    TaskCreationOptions.None, 
-                    TaskScheduler.FromCurrentSynchronizationContext()); // this task need to access HttpContext.Current
-
+            var tupleCurrencyAndBettype = _liveReportDataAccess.GetDetailByCurrencyAndBettype(model, products);
             return new LiveReportDetailResultModel
             {
                 DataBySport = taskForSport.Result,
-                DataByCurrency = taskForCurrencyAndBettype.Result.Item1,
-                DataByBetType = taskForCurrencyAndBettype.Result.Item2
+                DataByCurrency = tupleCurrencyAndBettype.Item1,
+                DataByBetType = tupleCurrencyAndBettype.Item2
             };
         }
 

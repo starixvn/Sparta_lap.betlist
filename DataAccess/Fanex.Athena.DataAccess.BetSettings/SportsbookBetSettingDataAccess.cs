@@ -8,6 +8,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
 {
     using System.Collections.Generic;
     using System.Data;
+    using Constant.DataDomain;
     using Core;
     using Extension.Utility;
     using Fanex.Athena.DataAccess.BetSettings.Interfaces;
@@ -15,21 +16,27 @@ namespace Fanex.Athena.DataAccess.BetSettings
     using Fanex.Athena.Model.BetSettings.DTO;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Helpers;
     using Model.BetSettings.ViewModel;
+    using Utility;
 
     public class SportsbookBetSettingDataAccess : BaseDataAccess, ISportsbookBetSettingDataAccess
     {
+        private const string MixedSportId = "99MP";
+
         private readonly IAppSettings _appSettings;
+
+        private readonly IBetSettingReader _betSettingReader;
 
         public SportsbookBetSettingDataAccess()
         {
             _appSettings = new AppSettings();
+            _betSettingReader = new BetSettingReader();
         }
 
-        public SportsbookBetSettingDataAccess(IAppSettings appSettings)
+        public SportsbookBetSettingDataAccess(IAppSettings appSettings, IBetSettingReader betSettingReader)
         {
             _appSettings = appSettings;
+            _betSettingReader = betSettingReader;
         }
 
         public BetSettingViewModel GetBetSetting(int custId)
@@ -46,7 +53,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
                             (EsportSettingType)System.Convert.ToInt32(reader["DisableEsports"])
                             : EsportSettingType.NoneOffering;
 
-                        var dataList = RenderSportBookBetSetting(reader, _appSettings.IsShowMixedSport);
+                        var dataList = GetBetSettings(reader, _appSettings.IsShowMixedSport);
                         return new BetSettingViewModel
                         {
                             MainData = dataList,
@@ -108,28 +115,25 @@ namespace Fanex.Athena.DataAccess.BetSettings
             }
         }
 
-        private static IList<BetSetting> RenderSportBookBetSetting(IDataReader reader, bool isShowMixedSport)
+        private IList<BetSetting> GetBetSettings(IDataReader reader, bool isShowMixedSport)
         {
             var sportList = new List<BetSetting>();
 
-            BetSettingHelper.RenderSport(reader, "1", sportList); // Soccer
-            BetSettingHelper.RenderSport(reader, "2", sportList); // Basket ball
-            BetSettingHelper.RenderSport(reader, "3", sportList); // Football
-            BetSettingHelper.RenderSport(reader, "5", sportList); // Tennis
-            BetSettingHelper.RenderSport(reader, "8", sportList); // Baseball
-            BetSettingHelper.RenderSport(reader, "10", sportList); // Golf
-            BetSettingHelper.RenderSport(reader, "11", sportList); // Moto
-
-            // Remove Muay Thai, feature #55015.
-            // BetSettingHelper.RenderSport(reader, "44", sportList); // Muay Thai
-            BetSettingHelper.RenderSport(reader, "99", sportList); // Other sports
+            sportList.Add(_betSettingReader.ReadForSport(reader, ((int)SportType.Soccer).ToString()));
+            sportList.Add(_betSettingReader.ReadForSport(reader, ((int)SportType.BasketBall).ToString()));
+            sportList.Add(_betSettingReader.ReadForSport(reader, ((int)SportType.FootBall).ToString()));
+            sportList.Add(_betSettingReader.ReadForSport(reader, ((int)SportType.Tennis).ToString()));
+            sportList.Add(_betSettingReader.ReadForSport(reader, ((int)SportType.BaseBall).ToString()));
+            sportList.Add(_betSettingReader.ReadForSport(reader, ((int)SportType.Golf).ToString()));
+            sportList.Add(_betSettingReader.ReadForSport(reader, ((int)SportType.Motorsports).ToString()));
+            sportList.Add(_betSettingReader.ReadForSport(reader, ((int)SportType.OtherSports).ToString()));
 
             if (isShowMixedSport)
             {
-                BetSettingHelper.RenderSport(reader, "99MP", sportList);
+                sportList.Add(_betSettingReader.ReadForSport(reader, MixedSportId));
             }
 
-            BetSettingHelper.RenderSport(reader, "154", sportList); // Horse Racing Fixed Odds
+            sportList.Add(_betSettingReader.ReadForSport(reader, ((int)SportType.HorseRacingFixedOdds).ToString()));
 
             return sportList;
         }

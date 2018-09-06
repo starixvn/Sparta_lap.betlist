@@ -7,46 +7,11 @@
 namespace Fanex.Athena.Model.Forecast.DTO.ForecastAH
 {
     using System.Collections.Generic;
-    using VendorAdapter;
 
-    /// <summary>
-    /// ForecastAh class.
-    /// </summary>
-    public class ForecastAH
+    public class ForecastAH : ForecastBase
     {
-        private string _homeTeamName;
-
-        private string _awayTeamName;
-
         public string ForecastName { get; set; }
 
-        public List<string> ForecastLink { get; set; }
-
-        public bool IsNeutral { get; set; }
-
-        public int HomeId { get; set; }
-
-        public string HomeTeamName
-        {
-            get
-            {
-                return _homeTeamName ??
-                       (_homeTeamName = CacheRefAdapter.Instance.GetTeamName(HomeId) + (IsNeutral ? " (N)" : string.Empty));
-            }
-        }
-
-        public int AwayId { get; set; }
-
-        public string AwayTeamName
-        {
-            get
-            {
-                return _awayTeamName ?? (_awayTeamName = CacheRefAdapter.Instance.GetTeamName(AwayId));
-            }
-        }
-
-        public int LiveHomeScore { get; set; }
-
-        public int LiveAwayScore { get; set; }
+        public IList<string> ForecastLink { get; set; }
     }
 }

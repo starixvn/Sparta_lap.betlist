@@ -258,6 +258,8 @@ namespace Fanex.Athena.Constant.DataDomain
         /// </summary>
         Harness = 153,
 
+        HorseRacingFixedOdds = 154,
+
         /// <summary>
         /// Greyhound sport, value = 152.
         /// </summary>

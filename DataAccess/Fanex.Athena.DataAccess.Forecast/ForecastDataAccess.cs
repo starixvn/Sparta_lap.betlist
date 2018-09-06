@@ -8,7 +8,6 @@ namespace Fanex.Athena.DataAccess.Forecast
 {
     using System.Collections.Generic;
     using System.Data;
-    using System.Linq;
     using Core;
     using Core.Extensions;
     using Extension.Helper;
@@ -18,18 +17,32 @@ namespace Fanex.Athena.DataAccess.Forecast
     using Fanex.Common.Extensions;
     using Interfaces;
     using Model.Core.MetaModel;
+    using Model.Forecast.DTO;
     using Model.Forecast.DTO.Forecast1X2;
     using Model.Forecast.DTO.ForecastAH;
     using Model.Forecast.DTO.NewForecastHdpOu;
     using Model.Forecast.MetaModel;
     using Resources;
-    using League = Fanex.Athena.Model.Core.DTO.Common.League;
+    using VendorAdapter;
+    using VendorAdapter.Interfaces;
 
     /// <summary>
     /// Forecast Data Access.
     /// </summary>
     public class ForecastDataAccess : BaseDataAccess, IForecastDataAccess
     {
+        private readonly ICacheRefAdapter _cacheRefAdapter;
+
+        public ForecastDataAccess()
+        {
+            _cacheRefAdapter = new CacheRefAdapter();
+        }
+
+        public ForecastDataAccess(ICacheRefAdapter cacheRefAdapter)
+        {
+            _cacheRefAdapter = cacheRefAdapter;
+        }
+
         #region Forecast AH
 
         /// <summary>
@@ -46,7 +59,9 @@ namespace Fanex.Athena.DataAccess.Forecast
             {
                 db.AddInParameter("matchid", DbType.Int32, matchId);
                 db.AddInParameter("betType", DbType.Int32, betType);
-                return db.Query<ForecastAH>().FirstOrDefault();
+                var item = db.QueryEntity<ForecastAH>();
+                AssignTeamNames(item);
+                return item;
             }
         }
 
@@ -80,18 +95,6 @@ namespace Fanex.Athena.DataAccess.Forecast
         #endregion Forecast AH
 
         #region Forecast 1 x 2
-
-        public IEnumerable<League> GetForecastRunningLeague(ForecastBaseMetaModel metaModel)
-        {
-            const string UspName = "Lrf_LeagueSelRunning";
-            using (var db = this.GetObjectDb(UspName))
-            {
-                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                db.AddInParameter("betTypes", DbType.String, metaModel.BetTypeString);
-
-                return db.Query<League>();
-            }
-        }
 
         public IList<ForecastOneXTwo> GetForecastOneXTwoByLeague(ForecastOneXTwoMetaModel metaModel)
         {
@@ -210,7 +213,27 @@ namespace Fanex.Athena.DataAccess.Forecast
 
         #endregion New Forecast
 
-        private static IList<ForecastOneXTwo> GetForecastOneXTwoList(BaseMetaModel metaModel, IDataReader reader)
+        /// <summary>
+        /// Calculate offset.
+        /// </summary>
+        /// <param name="forecast">Parameter value.</param>
+        private static void CalculateOffsetHandicapOverUnder(ForecastHandicapOverUnder forecast)
+        {
+            var liveHomeScore = forecast.LiveHomeScore;
+            var liveAwayScore = forecast.LiveAwayScore;
+
+            var offsetHdp = liveHomeScore - liveAwayScore;
+            var offsetOu = liveHomeScore + liveAwayScore;
+
+            forecast.OffsetHdpMinus1 = offsetHdp - 1;
+            forecast.OffsetHdp = offsetHdp;
+            forecast.OffsetHdpPlus1 = offsetHdp + 1;
+            forecast.OffsetOuPlus2 = offsetOu + 2;
+            forecast.OffsetOuPlus1 = offsetOu + 1;
+            forecast.OffsetOu = offsetOu;
+        }
+
+        private IList<ForecastOneXTwo> GetForecastOneXTwoList(BaseMetaModel metaModel, IDataReader reader)
         {
             var forecasts = new List<ForecastOneXTwo>();
             var extraColumnName = "isExtra";
@@ -226,18 +249,8 @@ namespace Fanex.Athena.DataAccess.Forecast
             var hasExtraColumn = reader.HasColumn(extraColumnName);
             while (reader.Read())
             {
-                var item = new ForecastOneXTwo
-                {
-                    MatchId = reader.ToInt("matchid"),
-                    HomeId = reader.ToInt("homeid"),
-                    AwayId = reader.ToInt("awayid"),
-                    LiveIndicator = reader.ToBool("liveindicator"),
-                    LiveHomeScore = reader.ToByte("livehomescore"),
-                    LiveAwayScore = reader.ToByte("liveawayscore"),
-                    ShowTime = reader.ToString("showtime"),
-                    IsNeutral = reader.ToBool("isNeutral")
-                };
-
+                var item = new ForecastOneXTwo();
+                ReadCommonData(reader, item);
                 if (!hasExtraColumn || reader.ToInt(extraColumnName) == 0)
                 {
                     item.IsExtra = false;
@@ -268,7 +281,7 @@ namespace Fanex.Athena.DataAccess.Forecast
         /// <param name="reader">Reader value.</param>
         /// <param name="metaModel">Meta model.</param>
         /// <returns>List result.</returns>
-        private static IList<ForecastHandicapOverUnder> GetForecastHandicapOverUnderList(IDataReader reader, ForecastHandicapOverUnderMetaModel metaModel)
+        private IList<ForecastHandicapOverUnder> GetForecastHandicapOverUnderList(IDataReader reader, ForecastHandicapOverUnderMetaModel metaModel)
         {
             var forecasts = new List<ForecastHandicapOverUnder>();
 
@@ -292,14 +305,6 @@ namespace Fanex.Athena.DataAccess.Forecast
             {
                 var item = new ForecastHandicapOverUnder
                 {
-                    MatchId = reader.ToInt("matchid"),
-                    HomeId = reader.ToInt("homeid"),
-                    AwayId = reader.ToInt("awayid"),
-                    LiveIndicator = reader.ToBool("liveindicator"),
-                    LiveHomeScore = reader.ToByte("livehomescore"),
-                    LiveAwayScore = reader.ToByte("liveawayscore"),
-                    ShowTime = reader.ToString("showtime"),
-                    IsNeutral = reader.ToBool("isNeutral"),
                     HandicapMinus1 = reader.ToDecimal(winLossHdpMinus1),
                     Handicap = reader.ToDecimal(winLossHdp),
                     HandicapPlus1 = reader.ToDecimal(winLossHdpPlus1),
@@ -313,31 +318,31 @@ namespace Fanex.Athena.DataAccess.Forecast
                     HtOverUnderPlus1 = reader.ToDecimal(halfTimeWinLossOuPlus1),
                     HtOverUnder = reader.ToDecimal(halfTimeWinLossOu)
                 };
-                CalculateOffsetHandicapOverUnder(ref item);
+                ReadCommonData(reader, item);
+                CalculateOffsetHandicapOverUnder(item);
                 forecasts.Add(item);
             }
 
             return forecasts;
         }
 
-        /// <summary>
-        /// Calculate offset.
-        /// </summary>
-        /// <param name="forecast">Parameter value.</param>
-        private static void CalculateOffsetHandicapOverUnder(ref ForecastHandicapOverUnder forecast)
+        private void ReadCommonData(IDataReader reader, ForecastBase item)
         {
-            var liveHomeScore = forecast.LiveHomeScore;
-            var liveAwayScore = forecast.LiveAwayScore;
+            item.MatchId = reader.ToInt("matchid");
+            item.HomeId = reader.ToInt("homeid");
+            item.AwayId = reader.ToInt("awayid");
+            item.LiveIndicator = reader.ToBool("liveindicator");
+            item.LiveHomeScore = reader.ToByte("livehomescore");
+            item.LiveAwayScore = reader.ToByte("liveawayscore");
+            item.ShowTime = reader.ToString("showtime");
+            item.IsNeutral = reader.ToBool("isNeutral");
+            AssignTeamNames(item);
+        }
 
-            var offsetHdp = liveHomeScore - liveAwayScore;
-            var offsetOu = liveHomeScore + liveAwayScore;
-
-            forecast.OffsetHdpMinus1 = offsetHdp - 1;
-            forecast.OffsetHdp = offsetHdp;
-            forecast.OffsetHdpPlus1 = offsetHdp + 1;
-            forecast.OffsetOuPlus2 = offsetOu + 2;
-            forecast.OffsetOuPlus1 = offsetOu + 1;
-            forecast.OffsetOu = offsetOu;
+        private void AssignTeamNames(ForecastBase item)
+        {
+            item.HomeTeamName = _cacheRefAdapter.GetTeamName(item.HomeId) + (item.IsNeutral ? " (N)" : string.Empty);
+            item.AwayTeamName = _cacheRefAdapter.GetTeamName(item.AwayId);
         }
     }
 }

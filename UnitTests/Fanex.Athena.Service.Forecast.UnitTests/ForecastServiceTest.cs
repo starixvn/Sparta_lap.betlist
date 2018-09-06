@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Data;
+    using DataAccess.Core.Common.Interfaces;
     using DataAccess.Forecast.Interfaces;
     using Model.Core.DTO.Common;
     using Model.Forecast.DTO.Forecast1X2;
@@ -16,6 +17,7 @@
     [TestFixture]
     public class ForecastServiceTest
     {
+        private ILeagueDataAccess _leagueDataAccess;
         private IForecastDataAccess _forecastDataAccess;
         private ForecastService _forecastService;
 
@@ -23,7 +25,8 @@
         public void SetUp()
         {
             _forecastDataAccess = Substitute.For<IForecastDataAccess>();
-            _forecastService = new ForecastService(_forecastDataAccess);
+            _leagueDataAccess = Substitute.For<ILeagueDataAccess>();
+            _forecastService = new ForecastService(_leagueDataAccess, _forecastDataAccess);
         }
 
         [TearDown]
@@ -304,9 +307,13 @@
         public void GetForecastRunningLeague_WhenCall_ReturnCorrectData()
         {
             // Arrange
-            var metaModel = new ForecastBaseMetaModel();
+            var metaModel = new ForecastBaseMetaModel
+            {
+                AgentListXml = "sdfsdf",
+                BetTypeString = "1234,5,6,"
+            };
             var expectedResult = new List<League>();
-            _forecastDataAccess.GetForecastRunningLeague(metaModel).Returns(expectedResult);
+            _leagueDataAccess.GetRunningLeagues(metaModel.AgentListXml, metaModel.BetTypeString).Returns(expectedResult);
 
             // Action
             var result = _forecastService.GetForecastRunningLeague(metaModel);

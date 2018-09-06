@@ -6,6 +6,7 @@
     using Model.Core.DTO.Common;
     using NSubstitute;
     using NUnit.Framework;
+    using VendorAdapter.Interfaces;
 
     [TestFixture]
     public class KenoBetSettingDataAccessTest
@@ -13,14 +14,15 @@
         private IObjectDb _objectDb;
         private KenoBetSettingDataAccess _dataAccess;
 
-        [OneTimeSetUp]
+        [SetUp]
         public void SetUp()
         {
             _objectDb = Substitute.For<IObjectDb>();
-            _dataAccess = Substitute.ForPartsOf<KenoBetSettingDataAccess>();
+            var cacheRefAdapter = Substitute.For<ICacheRefAdapter>();
+            _dataAccess = Substitute.ForPartsOf<KenoBetSettingDataAccess>(cacheRefAdapter);
         }
 
-        [OneTimeTearDown]
+        [TearDown]
         public void TearDown()
         {
             _objectDb = null;
@@ -38,7 +40,7 @@
             _dataAccess.GetBetSettings(custId);
 
             // Assert
-            _objectDb.Received().AddInParameter("CustID", DbType.Int32, custId);
+            _objectDb.Received(1).AddInParameter("CustID", DbType.Int32, custId);
         }
 
         [Test]
@@ -88,13 +90,13 @@
             _dataAccess.UpdateBetSetting(custId, userId, language, ip, xmlData);
 
             // Assert
-            _objectDb.Received().AddInParameter("custid", DbType.Int32, custId);
-            _objectDb.Received().AddInParameter("userid", DbType.Int32, userId);
-            _objectDb.Received().AddInParameter("language", DbType.String, language);
-            _objectDb.Received().AddInParameter("ip", DbType.String, ip);
-            _objectDb.Received().AddInParameter("dataxml", DbType.String, xmlData);
-            _objectDb.Received().AddOutParameter("errcode", DbType.Int32, 4);
-            _objectDb.Received().AddOutParameter("errmsg", DbType.String, 8000);
+            _objectDb.Received(1).AddInParameter("custid", DbType.Int32, custId);
+            _objectDb.Received(1).AddInParameter("userid", DbType.Int32, userId);
+            _objectDb.Received(1).AddInParameter("language", DbType.String, language);
+            _objectDb.Received(1).AddInParameter("ip", DbType.String, ip);
+            _objectDb.Received(1).AddInParameter("dataxml", DbType.String, xmlData);
+            _objectDb.Received(1).AddOutParameter("errcode", DbType.Int32, 4);
+            _objectDb.Received(1).AddOutParameter("errmsg", DbType.String, 8000);
         }
 
         [Test]

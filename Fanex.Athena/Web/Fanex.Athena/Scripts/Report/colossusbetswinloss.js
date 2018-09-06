@@ -36,6 +36,7 @@ var ColossusBets = (function ($) {
             width: popW + 50,
             height: popH + 50
         });
+        window.logOpenBetlistEvent && window.logOpenBetlistEvent();
     }
 
     return {

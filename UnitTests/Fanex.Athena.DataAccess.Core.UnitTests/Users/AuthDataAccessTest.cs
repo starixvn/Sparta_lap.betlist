@@ -29,11 +29,11 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("CustID", DbType.Int32, requestUser.UserID);
-                ObjectDb.Received().AddInParameter("NetSessionID", DbType.String, NetSessionId);
-                ObjectDb.Received().AddInParameter("ServerID", DbType.Int32, ServerId);
-                ObjectDb.Received().AddOutParameter("On_UserID", DbType.Int32, 4);
-                ObjectDb.Received().AddInParameter("IP", DbType.String, requestUser.Request.Ip);
+                ObjectDb.Received(1).AddInParameter("CustID", DbType.Int32, requestUser.UserID);
+                ObjectDb.Received(1).AddInParameter("NetSessionID", DbType.String, NetSessionId);
+                ObjectDb.Received(1).AddInParameter("ServerID", DbType.Int32, ServerId);
+                ObjectDb.Received(1).AddOutParameter("On_UserID", DbType.Int32, 4);
+                ObjectDb.Received(1).AddInParameter("IP", DbType.String, requestUser.Request.Ip);
             });
         }
 
@@ -104,10 +104,10 @@
             Assert.Multiple(() =>
             {
                 AssertPassedCommonParams(ObjectDb, requestUser);
-                ObjectDb.Received().AddInParameter("EncryptedPassword", DbType.String, requestUser.Password);
-                ObjectDb.Received().AddInParameter("LicenseeName", DbType.String, LicenseeName);
-                ObjectDb.Received().AddInParameter("LoginTime", DbType.DateTime, new DateTime(timeStamp));
-                ObjectDb.Received().AddInParameter("Language", DbType.String, requestUser.Request.Language);
+                ObjectDb.Received(1).AddInParameter("EncryptedPassword", DbType.String, requestUser.Password);
+                ObjectDb.Received(1).AddInParameter("LicenseeName", DbType.String, LicenseeName);
+                ObjectDb.Received(1).AddInParameter("LoginTime", DbType.DateTime, new DateTime(timeStamp));
+                ObjectDb.Received(1).AddInParameter("Language", DbType.String, requestUser.Request.Language);
             });
         }
 
@@ -154,7 +154,7 @@
             Assert.Multiple(() =>
             {
                 AssertPassedCommonParams(ObjectDb, requestUser);
-                ObjectDb.Received().AddInParameter("langkey", DbType.String, requestUser.Request.Language);
+                ObjectDb.Received(1).AddInParameter("langkey", DbType.String, requestUser.Request.Language);
             });
         }
 
@@ -195,15 +195,15 @@
 
         private static void AssertPassedCommonParams(IObjectDb objectDb, User requestUser)
         {
-            objectDb.Received().AddInParameter("UserName", DbType.String, requestUser.Username);
-            objectDb.Received().AddInParameter("LoginIP", DbType.String, requestUser.Request.Ip);
-            objectDb.Received().AddInParameter("LoginDomain", DbType.String, requestUser.Request.Domain);
-            objectDb.Received().AddInParameter("BrowserName", DbType.String, requestUser.Request.Browser);
-            objectDb.Received().AddInParameter("Platform", DbType.String, requestUser.Request.Platform);
-            objectDb.Received().AddInParameter("CountryCode", DbType.String, requestUser.Request.CountryCode);
-            objectDb.Received().AddOutParameter("ServerID", DbType.Int32, 4);
-            objectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
-            objectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
+            objectDb.Received(1).AddInParameter("UserName", DbType.String, requestUser.Username);
+            objectDb.Received(1).AddInParameter("LoginIP", DbType.String, requestUser.Request.Ip);
+            objectDb.Received(1).AddInParameter("LoginDomain", DbType.String, requestUser.Request.Domain);
+            objectDb.Received(1).AddInParameter("BrowserName", DbType.String, requestUser.Request.Browser);
+            objectDb.Received(1).AddInParameter("Platform", DbType.String, requestUser.Request.Platform);
+            objectDb.Received(1).AddInParameter("CountryCode", DbType.String, requestUser.Request.CountryCode);
+            objectDb.Received(1).AddOutParameter("ServerID", DbType.Int32, 4);
+            objectDb.Received(1).AddOutParameter("ErrCode", DbType.Int32, 4);
+            objectDb.Received(1).AddOutParameter("ErrMsg", DbType.String, 4000);
         }
 
         private static User GetFakeUserData(int licenseeId = 1)

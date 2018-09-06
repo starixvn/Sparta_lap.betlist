@@ -4,6 +4,7 @@
     using System.Data;
     using System.Linq;
     using Core.UnitTests.TestHelpers;
+    using Fanex.BetList.Core.Entities;
     using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
@@ -13,6 +14,12 @@
         private const string GetSiteIdSp = "Acc_CustomerSelSiteByCustId";
         private const string GetDataSp = "Lrf_BetList_CB_Detail";
         private const int SoldBetType = 18002;
+
+        protected override void SetUpDataAccess()
+        {
+            var ticketHelper = Substitute.For<ITicketHelper>();
+            DataAccess = Substitute.ForPartsOf<ColossusBetBetListDataAccess>(ticketHelper);
+        }
 
         [Test]
         public void GetSiteId_WhenCall_DataReturnCorrectly()

@@ -12,12 +12,26 @@ namespace Fanex.Athena.DataAccess.Core.Common
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Common.Extensions;
+    using VendorAdapter;
+    using VendorAdapter.Interfaces;
 
     /// <summary>
     ///     TODO: Update summary.
     /// </summary>
     public class MatchDataAccess : BaseDataAccess, IMatchDataAccess
     {
+        private readonly ICacheRefAdapter _cacheRefAdapter;
+
+        public MatchDataAccess()
+        {
+            _cacheRefAdapter = new CacheRefAdapter();
+        }
+
+        public MatchDataAccess(ICacheRefAdapter cacheRefAdapter)
+        {
+            _cacheRefAdapter = cacheRefAdapter;
+        }
+
         /// <summary>
         /// Get match list by league.
         /// </summary>
@@ -49,6 +63,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
                                 AwayId = reader.ToInt("awayid"),
                                 IsNeutral = reader.ToBool("IsNeutral"),
                             };
+                            match.MatchName = GetMatchName(match);
 
                             result.Add(match);
                         }
@@ -84,6 +99,8 @@ namespace Fanex.Athena.DataAccess.Core.Common
                             HomeId = Convert.ToInt32(reader["homeid"]),
                             AwayId = awayId
                         };
+
+                        match.MatchName = GetMatchName(match);
 
                         result.Add(match);
                     }
@@ -122,6 +139,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
                             HomeId = reader.ToInt("homeid"),
                             AwayId = reader.ToInt("awayid")
                         };
+                        match.MatchName = GetMatchName(match);
 
                         result.Add(match);
                     }
@@ -129,6 +147,13 @@ namespace Fanex.Athena.DataAccess.Core.Common
             }
 
             return result;
+        }
+
+        private string GetMatchName(Match match)
+        {
+            return _cacheRefAdapter.GetTeamName(match.HomeId) + (match.IsNeutral ? " (N)" : string.Empty)
+                                   + " -vs- "
+                               + _cacheRefAdapter.GetTeamName(match.AwayId);
         }
     }
 }

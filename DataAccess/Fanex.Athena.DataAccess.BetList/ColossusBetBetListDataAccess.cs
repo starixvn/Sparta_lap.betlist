@@ -12,6 +12,7 @@ namespace Fanex.Athena.DataAccess.BetList
     using Fanex.Athena.Model.BetList.DTO;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.BetList.ColossusBets.Builder;
+    using Fanex.BetList.Core.Entities;
     using Fanex.BetList.Core.TicketHelper;
     using Fanex.Common.Extensions;
     using Fanex.Data;
@@ -21,6 +22,20 @@ namespace Fanex.Athena.DataAccess.BetList
     public class ColossusBetBetListDataAccess : BaseBetListDataAccess, IColossusBetBetListDataAccess
     {
         private const int SoldBetType = 18002;
+
+        private readonly ITicketHelper _ticketHelper;
+
+        public ColossusBetBetListDataAccess()
+        {
+            _ticketHelper = new TicketHelper();
+        }
+
+#pragma warning disable CS3001 // Argument type is not CLS-compliant
+        public ColossusBetBetListDataAccess(ITicketHelper ticketHelper)
+#pragma warning restore CS3001 // Argument type is not CLS-compliant
+        {
+            _ticketHelper = ticketHelper;
+        }
 
         public int GetSiteId(int custId)
         {
@@ -55,7 +70,7 @@ namespace Fanex.Athena.DataAccess.BetList
                     db.AddInParameter("refno", DbType.Int64, metaModel.RefNo);
                     using (var reader = db.ExecuteReader())
                     {
-                        return ReadData(reader, metaModel.BaseCurrency);
+                        return ReadData(reader, _ticketHelper, metaModel.BaseCurrency);
                     }
                 }
             }
@@ -65,9 +80,8 @@ namespace Fanex.Athena.DataAccess.BetList
             }
         }
 
-        private static ColossusBetDetailViewModel ReadData(IDataReader reader, string baseCurrency)
+        private static ColossusBetDetailViewModel ReadData(IDataReader reader, ITicketHelper ticketHelper, string baseCurrency)
         {
-            var ticketHelper = new TicketHelper();
             var winlossColumn = "winlost" + baseCurrency;
             var commColumn = "comm" + baseCurrency;
 

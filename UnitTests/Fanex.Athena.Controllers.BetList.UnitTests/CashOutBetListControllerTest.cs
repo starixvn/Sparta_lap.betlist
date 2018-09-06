@@ -4,6 +4,7 @@
     using System.Linq;
     using System.Web.Mvc;
     using Fanex.Athena.DataAccess.BetList.Interfaces;
+    using Fanex.BetList.Core.Entities;
     using Model.BetList.DTO;
     using Model.BetList.MetaModel;
     using Model.BetList.ViewModel;
@@ -11,7 +12,7 @@
     using NUnit.Framework;
 
     internal class CashOutBetListControllerTest : BetListBaseControllerHelperTest
-    {        
+    {
         private ICashOutBetListDataAccess _cashOutBetListDataAccess;
 
         [OneTimeSetUp]
@@ -167,7 +168,8 @@
                 BetListService,
                 BalanceUpDataAccess,
                 CacheRefAdapter,
-                _cashOutBetListDataAccess);
+                _cashOutBetListDataAccess,
+                Substitute.For<ITicketHelper>());
             return controller;
         }
     }

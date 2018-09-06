@@ -8,7 +8,6 @@ namespace Fanex.Athena.DataAccess.Forecast.Interfaces
 {
     using System.Collections.Generic;
     using System.Data;
-    using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Forecast.DTO.ForecastHdou;
     using Model.Forecast.DTO.Forecast1X2;
     using Model.Forecast.DTO.ForecastAH;
@@ -32,8 +31,6 @@ namespace Fanex.Athena.DataAccess.Forecast.Interfaces
         #endregion Forecast AH
 
         #region Forecast 1 x 2
-
-        IEnumerable<League> GetForecastRunningLeague(ForecastBaseMetaModel metaModel);
 
         IList<ForecastOneXTwo> GetForecastOneXTwoByMatch(ForecastOneXTwoMetaModel metaModel);
 

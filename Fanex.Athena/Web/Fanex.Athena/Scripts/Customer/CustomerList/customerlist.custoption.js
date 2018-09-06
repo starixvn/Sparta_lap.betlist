@@ -115,6 +115,7 @@ var CustomerListCustOption = (function ($) {
             width: popW + 30,
             height: popH + 70
         });
+        window.logOpenBetlistEvent && window.logOpenBetlistEvent();
     }
 
     function viewStatement() {
@@ -135,6 +136,7 @@ var CustomerListCustOption = (function ($) {
             width: popW + 30,
             height: popH + 70
         });
+        window.logOpenBetlistEvent && window.logOpenBetlistEvent();
     }
 
     function viewRunningBetlist(custId, systemId, externalId) {
@@ -155,6 +157,7 @@ var CustomerListCustOption = (function ($) {
             width: popW + 30,
             height: popH + 70
         });
+        window.logOpenBetlistEvent && window.logOpenBetlistEvent();
     }
 
     return {

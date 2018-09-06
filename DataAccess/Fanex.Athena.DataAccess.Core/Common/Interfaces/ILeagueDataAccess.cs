@@ -13,5 +13,7 @@ namespace Fanex.Athena.DataAccess.Core.Common.Interfaces
     public interface ILeagueDataAccess
     {
         IEnumerable<League> GetLeaguesBySport(LeagueMetaModel metaModel);
+
+        IEnumerable<League> GetRunningLeagues(string agentList, string betTypes);
     }
 }

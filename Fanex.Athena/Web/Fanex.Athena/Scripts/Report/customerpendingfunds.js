@@ -225,6 +225,7 @@ var CustPendingFunds = (function ($) {
                 width: popW + 50,
                 height: popH + 50
             });
+            window.logOpenBetlistEvent && window.logOpenBetlistEvent();
         },
         ajaxPaging: function () {
             _pagingOption = PagingHeper.getSetting();

@@ -1,50 +1,42 @@
 ﻿namespace Fanex.Athena.Extension.Utility
 {
     using System;
-    using Fanex.Caching;
     using Interfaces;
+    using Internal;
     using Newtonsoft.Json;
 
     public class MemoryCacheService : IMemoryCacheService
     {
         private const int TIMEOUT = 900; // 15 minutes.
-
-        private readonly ICache _cache;
-
-        [CLSCompliant(false)]
-        public MemoryCacheService(ICache cache)
-        {
-            _cache = cache;
-        }
-
-        public MemoryCacheService()
-        {
-            _cache = CacheService.CreateInstance(CacheType.MemoryCache);
-        }
+        private const string REGIONNAME = "LAP_MAIN_MEMORY";
+        private static ICustomMemoryCache _instance = new CustomMemoryCache();
 
         public bool Contains(string key)
         {
-            return _cache.Contains(key);
+            return _instance.Contains(key, REGIONNAME);
         }
 
         public T Get<T>(string key)
         {
-            return DeepClone(_cache.Get<T>(key));
+            return Contains(key) ? DeepClone((T)_instance.Get(key, REGIONNAME)) : default(T);
         }
 
         public void Set<T>(string key, T value, int seconds = TIMEOUT)
         {
-            _cache.Set(key, DeepClone(value), seconds);
+            if (string.IsNullOrWhiteSpace(key))
+            {
+                throw new ArgumentNullException(nameof(key), "Key should not be empty!");
+            }
+
+            if (!Equals(value, default(T)))
+            {
+                _instance.Set(key, DeepClone(value), DateTime.Now.AddSeconds(seconds), REGIONNAME);
+            }
         }
 
         public void Clear()
         {
-            _cache.Clear();
-        }
-
-        public void Delete(string key)
-        {
-            _cache.Remove(key);
+            _instance.Clear(REGIONNAME);
         }
 
         private static T DeepClone<T>(T source)

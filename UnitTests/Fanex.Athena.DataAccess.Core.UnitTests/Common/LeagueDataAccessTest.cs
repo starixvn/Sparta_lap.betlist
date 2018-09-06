@@ -35,5 +35,21 @@
                 ObjectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             });
         }
+
+        [Test]
+        public void GetRunningLeagues_WhenCall_ParametersPassedCorrectly()
+        {
+            // Arrange
+            const string AgentList = "<sdfsdfml>";
+            const string BetTypes = "1,2,3,4,5";
+            DataAccess.GetObjectDb(Arg.Is("Lrf_LeagueSelRunning")).Returns(ObjectDb);
+
+            // Action
+            DataAccess.GetRunningLeagues(AgentList, BetTypes);
+
+            // Assert
+            ObjectDb.Received().AddInParameter("AgentList", DbType.String, AgentList);
+            ObjectDb.Received().AddInParameter("betTypes", DbType.String, BetTypes);
+        }
     }
 }

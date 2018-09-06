@@ -65,6 +65,18 @@
             gtag('js', new Date());
 
             gtag('config', 'UA-93927620-1');
+            
+            window.logOpenBetlistEvent = function () {
+                try {
+                    window.gtag('event', 'view_bet_list', {
+                        'event_label': 'Bet List Promotion',
+                        'event_category': 'bet_list',
+                        'non_interaction': true
+                    });
+                }
+                catch (err) {
+                }
+            };
         </script>
     }
 </body>

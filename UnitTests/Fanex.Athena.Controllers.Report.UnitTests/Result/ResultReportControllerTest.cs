@@ -23,6 +23,7 @@
     using Service.Casino.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Result.Interfaces;
+    using VendorAdapter.Interfaces;
 
     [TestFixture]
     public partial class ResultReportControllerTest : BaseControllerHelperTest
@@ -235,7 +236,8 @@
                 _balanceUpDataAccess,
                 _microGamingParserService,
                 _resultService,
-                _rngCasinoSingleWalletService);
+                _rngCasinoSingleWalletService,
+                Substitute.For<ICacheRefAdapter>());
             controller.ControllerContext = ControllerContext;
             return controller;
         }

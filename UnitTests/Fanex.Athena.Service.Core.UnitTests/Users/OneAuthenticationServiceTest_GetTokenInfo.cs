@@ -23,7 +23,7 @@
                 null,
                 null,
                 _oneBookSecurityWrapper,
-                null);
+                Substitute.For<ICoreLogger>());
         }
 
         [TearDown]

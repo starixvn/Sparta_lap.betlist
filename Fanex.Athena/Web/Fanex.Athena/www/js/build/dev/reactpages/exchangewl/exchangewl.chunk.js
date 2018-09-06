@@ -44,9 +44,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 		module.exports = classNames;
 	} else if (true) {
 		// register as 'classnames', consistent with npm package name
-		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function () {
 			return classNames;
-		}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+		}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	} else {
 		window.classNames = classNames;
@@ -3381,6 +3381,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
                 _service.Service.showErrorMsg();
                 _this.props.toggleLoader(false);
             });
+            window.logOpenBetlistEvent && window.logOpenBetlistEvent();
         };
 
         _this.closeBetListPopup = function () {
@@ -3824,6 +3825,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
     }, {
         key: '_renderNodata',
         value: function _renderNodata() {
+
             return _react2.default.createElement(
                 'div',
                 { className: 'result-content' },

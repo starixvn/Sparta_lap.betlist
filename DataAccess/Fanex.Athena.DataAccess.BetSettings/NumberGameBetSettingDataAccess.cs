@@ -8,14 +8,27 @@ namespace Fanex.Athena.DataAccess.BetSettings
 {
     using System.Collections.Generic;
     using System.Data;
+    using Constant.DataDomain;
     using Fanex.Athena.DataAccess.BetSettings.Interfaces;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.Model.BetSettings.DTO;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Helpers;
+    using Utility;
 
     public class NumberGameBetSettingDataAccess : BaseDataAccess, INumberGameBetSettingDataAccess
     {
+        private readonly IBetSettingReader _betSettingReader;
+
+        public NumberGameBetSettingDataAccess()
+        {
+            _betSettingReader = new BetSettingReader();
+        }
+
+        public NumberGameBetSettingDataAccess(IBetSettingReader betSettingReader)
+        {
+            _betSettingReader = betSettingReader;
+        }
+
         public IList<BetSetting> GetBetSetting(int custId)
         {
             var uspName = "Lrf_CustomerSelEditNG";
@@ -56,7 +69,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
             }
         }
 
-        private static IList<BetSetting> RenderNumberGameBetSetting(IDataReader reader)
+        private IList<BetSetting> RenderNumberGameBetSetting(IDataReader reader)
         {
             if (reader.FieldCount == 0)
             {
@@ -65,7 +78,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
             var numberGameList = new List<BetSetting>();
 
-            BetSettingHelper.RenderSport(reader, "161", numberGameList, true); // Soccer
+            numberGameList.Add(_betSettingReader.ReadForSport(reader, ((int)SportType.NumberGame).ToString(), true));
 
             return numberGameList;
         }

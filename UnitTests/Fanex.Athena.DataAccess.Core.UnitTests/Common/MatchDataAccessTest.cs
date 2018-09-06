@@ -6,9 +6,15 @@
     using NSubstitute;
     using NUnit.Framework;
     using TestHelpers;
+    using VendorAdapter.Interfaces;
 
     public class MatchDataAccessTest : BaseDataAccessHelperTest<MatchDataAccess>
     {
+        protected override void SetUpDataAccess()
+        {
+            DataAccess = Substitute.ForPartsOf<MatchDataAccess>(Substitute.For<ICacheRefAdapter>());
+        }
+
         [TestCase(1)]
         [TestCase(2)]
         [TestCase(100)]

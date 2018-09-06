@@ -9,7 +9,6 @@ Fanex.Athena.Controllers.Customer.UnitTests ^
 Fanex.Athena.Controllers.BetList.UnitTests ^
 Fanex.Athena.Controllers.BetSettings.UnitTests ^
 Fanex.Athena.Controllers.Forecast.UnitTests ^
-Fanex.Athena.Controllers.WareHouse.UnitTests ^
 Fanex.Athena.DataAccess.BetList.UnitTests ^
 Fanex.Athena.DataAccess.BetSettings.UnitTests ^
 Fanex.Athena.DataAccess.Core.UnitTests ^
@@ -17,7 +16,6 @@ Fanex.Athena.DataAccess.Customer.UnitTests ^
 Fanex.Athena.DataAccess.Forecast.UnitTests ^
 Fanex.Athena.DataAccess.Report.UnitTests ^
 Fanex.Athena.DataAccess.TotalBet.UnitTests ^
-Fanex.Athena.DataAccess.Warehouse.UnitTests ^
 Fanex.Athena.Extension.UnitTests ^
 Fanex.Athena.Service.BetList.UnitTests ^
 Fanex.Athena.Service.BetSettings.UnitTests ^
@@ -31,7 +29,6 @@ Fanex.Athena.Excel.Base.UnitTests ^
 Fanex.Athena.Excel.Customer.UnitTests ^
 Fanex.Athena.Excel.Report.UnitTests ^
 Fanex.Athena.Excel.BetList.UnitTests ^
-Fanex.Athena.Excel.Warehouse.UnitTests ^
 Fanex.Athena.Api.Base.UnitTests ^
 Fanex.Athena.Api.BetList.UnitTests ^
 Fanex.Athena.Api.CustomerLog.UnitTests ^

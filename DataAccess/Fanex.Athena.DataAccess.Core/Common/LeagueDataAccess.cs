@@ -8,12 +8,28 @@ namespace Fanex.Athena.DataAccess.Core.Common
 {
     using System.Collections.Generic;
     using System.Data;
+    using Data;
     using Fanex.Athena.Model.Core.DTO.Common;
+    using Fanex.Common.Extensions;
     using Interfaces;
     using Model.Core.MetaModel.Common;
+    using VendorAdapter;
+    using VendorAdapter.Interfaces;
 
     public class LeagueDataAccess : BaseDataAccess, ILeagueDataAccess
     {
+        private readonly ICacheRefAdapter _cacheRefAdapter;
+
+        public LeagueDataAccess()
+        {
+            _cacheRefAdapter = new CacheRefAdapter();
+        }
+
+        public LeagueDataAccess(ICacheRefAdapter cacheRefAdapter)
+        {
+            _cacheRefAdapter = cacheRefAdapter;
+        }
+
         public IEnumerable<League> GetLeaguesBySport(LeagueMetaModel metaModel)
         {
             using (var db = this.GetObjectDb("Lrf_SelLeagueBySport"))
@@ -22,7 +38,37 @@ namespace Fanex.Athena.DataAccess.Core.Common
                 db.AddInParameter("Fromdate", DbType.DateTime, metaModel.FromDate);
                 db.AddInParameter("Todate", DbType.DateTime, metaModel.ToDate);
                 db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                return db.Query<League>();
+                return ReadLeagues(db);
+            }
+        }
+
+        public IEnumerable<League> GetRunningLeagues(string agentList, string betTypes)
+        {
+            const string UspName = "Lrf_LeagueSelRunning";
+            using (var db = this.GetObjectDb(UspName))
+            {
+                db.AddInParameter("AgentList", DbType.String, agentList);
+                db.AddInParameter("betTypes", DbType.String, betTypes);
+                return ReadLeagues(db);
+            }
+        }
+
+        private IEnumerable<League> ReadLeagues(IObjectDb db)
+        {
+            var dataList = new List<League>();
+            using (var reader = db.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    var leagueId = reader.ToInt("leagueid");
+                    dataList.Add(new League
+                    {
+                        LeagueId = leagueId,
+                        LeagueName = _cacheRefAdapter.GetLeagueName(leagueId)
+                    });
+                }
+
+                return dataList;
             }
         }
     }

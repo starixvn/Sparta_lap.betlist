@@ -1,18 +1,17 @@
 ﻿namespace Fanex.Athena.DataAccess.Forecast.UnitTests
 {
     using System;
-    using System.Collections.Generic;
     using System.Data;
-    using System.Linq;
     using Data;
     using Forecast;
-    using Model.Core.DTO.Common;
     using Model.Forecast.DTO.Forecast1X2;
+    using Model.Forecast.DTO.ForecastAH;
     using Model.Forecast.DTO.ForecastHdou;
     using Model.Forecast.DTO.NewForecastHdpOu;
     using Model.Forecast.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using VendorAdapter.Interfaces;
 
     [TestFixture]
     public class ForecastDataAccessTest
@@ -21,16 +20,16 @@
         private ForecastDataAccess _dataAccess;
         private IDataReader _reader;
 
-        [OneTimeSetUp]
+        [SetUp]
         public void Setup()
         {
             _objectDb = Substitute.For<IObjectDb>();
-            _dataAccess = Substitute.ForPartsOf<ForecastDataAccess>();
+            _dataAccess = Substitute.ForPartsOf<ForecastDataAccess>(Substitute.For<ICacheRefAdapter>());
             _reader = Substitute.For<IDataReader>();
             _objectDb.ExecuteReader().Returns(_reader);
         }
 
-        [OneTimeTearDown]
+        [TearDown]
         public void TearDown()
         {
             _objectDb = null;
@@ -45,13 +44,14 @@
             _dataAccess.GetObjectDb(Arg.Is("Lrf_Forecast_OddsSelTopByMatch")).Returns(_objectDb);
             var matchId = 0;
             var betType = 0;
+            _objectDb.QueryEntity<ForecastAH>().Returns(new ForecastAH());
 
             // Action
             _dataAccess.GetForecastTopOddsByMatch(matchId, betType);
 
             // Assert
-            _objectDb.Received().AddInParameter("matchid", DbType.Int32, matchId);
-            _objectDb.Received().AddInParameter("betType", DbType.Int32, betType);
+            _objectDb.Received(1).AddInParameter("matchid", DbType.Int32, matchId);
+            _objectDb.Received(1).AddInParameter("betType", DbType.Int32, betType);
         }
 
         [Test]
@@ -66,9 +66,9 @@
             _dataAccess.GetForecastHandicap(metaModel, userId);
 
             // Assert
-            _objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            _objectDb.Received().AddInParameter("matchid", DbType.Int32, metaModel.MatchId);
-            _objectDb.Received().AddInParameter("betType", DbType.Int32, metaModel.BetType);
+            _objectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            _objectDb.Received(1).AddInParameter("matchid", DbType.Int32, metaModel.MatchId);
+            _objectDb.Received(1).AddInParameter("betType", DbType.Int32, metaModel.BetType);
         }
 
         [Test]
@@ -83,44 +83,9 @@
             _dataAccess.GetForecastOverUnder(metaModel, userId);
 
             // Assert
-            _objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            _objectDb.Received().AddInParameter("matchid", DbType.Int32, metaModel.MatchId);
-            _objectDb.Received().AddInParameter("betType", DbType.Int32, metaModel.BetType);
-        }
-
-        [Test]
-        public void GetForecastRunningLeague_WhenCall_ParametersPassedCorrectly()
-        {
-            // Arrange
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_LeagueSelRunning")).Returns(_objectDb);
-            var metaModel = new ForecastBaseMetaModel();
-
-            // Action
-            _dataAccess.GetForecastRunningLeague(metaModel);
-
-            // Assert
-            _objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            _objectDb.Received().AddInParameter("betTypes", DbType.String, metaModel.BetTypeString);
-        }
-
-        [Test]
-        public void GetForecastRunningLeague_WhenCall_DataReturnedCorrectly()
-        {
-            // Arrange
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_LeagueSelRunning")).Returns(_objectDb);
-            _objectDb.Query<League>().Returns(new List<League>
-            {
-                new League
-                {
-                    LeagueId = 999
-                }
-            });
-
-            // Action
-            var result = _dataAccess.GetForecastRunningLeague(new ForecastBaseMetaModel()).ElementAt(0);
-
-            // Assert
-            Assert.That(result.LeagueId, Is.EqualTo(999));
+            _objectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            _objectDb.Received(1).AddInParameter("matchid", DbType.Int32, metaModel.MatchId);
+            _objectDb.Received(1).AddInParameter("betType", DbType.Int32, metaModel.BetType);
         }
 
         [Test]
@@ -134,8 +99,8 @@
             _dataAccess.GetForecastOneXTwoByLeague(metaModel);
 
             // Assert
-            _objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            _objectDb.Received().AddInParameter("LeagueId", DbType.Int32, metaModel.LeagueId);
+            _objectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            _objectDb.Received(1).AddInParameter("LeagueId", DbType.Int32, metaModel.LeagueId);
         }
 
         [Test]
@@ -212,9 +177,9 @@
             _dataAccess.GetForecastOneXTwoByMatch(metaModel);
 
             // Assert
-            _objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            _objectDb.Received().AddInParameter("matchid", DbType.Int32, metaModel.MatchId);
-            _objectDb.Received().AddInParameter("betType", DbType.Int32, metaModel.BetType);
+            _objectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            _objectDb.Received(1).AddInParameter("matchid", DbType.Int32, metaModel.MatchId);
+            _objectDb.Received(1).AddInParameter("betType", DbType.Int32, metaModel.BetType);
         }
 
         [Test]
@@ -228,7 +193,7 @@
             _dataAccess.GetForecastHandicapOverUnder(metaModel);
 
             // Assert
-            _objectDb.Received().ExecuteReader(Arg.Any<object>());
+            _objectDb.Received(1).ExecuteReader(Arg.Any<object>());
         }
 
         [Test]
@@ -296,11 +261,11 @@
             _dataAccess.GetNewForecastData(metaModel, matchInfo);
 
             // Assert
-            _objectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            _objectDb.Received().AddInParameter("MatchId", DbType.Int32, metaModel.MatchId);
-            _objectDb.Received().AddOutParameter("HomeScore", DbType.Int32, 4);
-            _objectDb.Received().AddOutParameter("AwayScore", DbType.Int32, 4);
-            _objectDb.Received().AddOutParameter("MatchTime", DbType.DateTime, 4);
+            _objectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            _objectDb.Received(1).AddInParameter("MatchId", DbType.Int32, metaModel.MatchId);
+            _objectDb.Received(1).AddOutParameter("HomeScore", DbType.Int32, 4);
+            _objectDb.Received(1).AddOutParameter("AwayScore", DbType.Int32, 4);
+            _objectDb.Received(1).AddOutParameter("MatchTime", DbType.DateTime, 4);
         }
 
         [Test]

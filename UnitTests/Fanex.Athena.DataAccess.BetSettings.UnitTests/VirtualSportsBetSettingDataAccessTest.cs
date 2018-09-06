@@ -15,7 +15,7 @@
         private IObjectDb _objectDb;
         private DcsBetSettingDataAccess _dataAccess;
 
-        [OneTimeSetUp]
+        [SetUp]
         public void SetUp()
         {
             _objectDb = Substitute.For<IObjectDb>();
@@ -24,7 +24,7 @@
                 Substitute.For<ICacheRefAdapter>());
         }
 
-        [OneTimeTearDown]
+        [TearDown]
         public void TearDown()
         {
             _objectDb = null;
@@ -43,8 +43,8 @@
             _dataAccess.GetBetSetting(custId, productId);
 
             // Assert
-            _objectDb.Received().AddInParameter("custid", DbType.Int32, custId);
-            _objectDb.Received().AddInParameter("productid", DbType.Int32, productId);
+            _objectDb.Received(1).AddInParameter("custid", DbType.Int32, custId);
+            _objectDb.Received(1).AddInParameter("productid", DbType.Int32, productId);
         }
 
         [Test]
@@ -97,12 +97,12 @@
             _dataAccess.UpdateBetSetting(custId, userId, ip, xmlData);
 
             // Assert
-            _objectDb.Received().AddInParameter("custid", DbType.Int32, custId);
-            _objectDb.Received().AddInParameter("userid", DbType.Int32, userId);
-            _objectDb.Received().AddInParameter("ip", DbType.String, ip);
-            _objectDb.Received().AddInParameter("betlimit", DbType.String, xmlData);
-            _objectDb.Received().AddOutParameter("errcode", DbType.Int32, 4);
-            _objectDb.Received().AddOutParameter("errmsg", DbType.String, 8000);
+            _objectDb.Received(1).AddInParameter("custid", DbType.Int32, custId);
+            _objectDb.Received(1).AddInParameter("userid", DbType.Int32, userId);
+            _objectDb.Received(1).AddInParameter("ip", DbType.String, ip);
+            _objectDb.Received(1).AddInParameter("betlimit", DbType.String, xmlData);
+            _objectDb.Received(1).AddOutParameter("errcode", DbType.Int32, 4);
+            _objectDb.Received(1).AddOutParameter("errmsg", DbType.String, 8000);
         }
 
         [Test]
