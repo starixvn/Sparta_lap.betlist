@@ -36,6 +36,10 @@
         {
             return base.Get(CreateKeyWithRegion(key, regionName));
         }
+        public override bool Contains(string key, string regionName = null)
+        {
+            return base.Contains(CreateKeyWithRegion(key, regionName));
+        }
 
         public override DefaultCacheCapabilities DefaultCacheCapabilities
         {

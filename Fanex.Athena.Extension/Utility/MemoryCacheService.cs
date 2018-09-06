@@ -15,7 +15,7 @@
 
         public bool Contains(string key)
         {
-            return _instance.Any(i => i.Key == key);
+            return _instance.Contains(key, REGIOMNAME);
         }
 
         public T Get<T>(string key)
