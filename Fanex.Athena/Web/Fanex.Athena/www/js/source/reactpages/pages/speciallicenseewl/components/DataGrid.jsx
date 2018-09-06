@@ -9,7 +9,6 @@ import NoDataTitle from '../../../components/NoDataTitle'
 import Report from '../../../lib/report'
 import { ReportBy } from '../../../constants/report'
 import { Service, HeaderText, Url, TotalText } from '../lib/service'
-import Report from '../../../lib/report'
 
 export class DataGrid extends Component {
     constructor(props) {
@@ -23,38 +22,54 @@ export class DataGrid extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.params !== this.props.params) {
+        if (prevProps.params.Timestamp !== this.props.params.Timestamp) {
             this._getGridData();
         }
     }
-
+    
     _getGridData() {
         this.props.toggleLoader(true);
-        Report.fetchGridData(Url, { xsrfToken: this.props.xsrfToken, data: params })
+        Report.fetchGridData(Url, { xsrfToken: this.props.xsrfToken, data: this.props.params })
             .then(response => {
-                var result = response.data.Data;
-                if (result && result.length > 1) {
-                    Service.sort(result, params.SortBy, params.SortOrder);
+                var result = response.data;
+
+                var mainData = result.Data;
+                if (mainData && mainData.length > 1) {
+                    Service.sort(mainData, this.props.params.SortBy, this.props.params.SortOrder);
+
+                    var sortedResult = Object.assign({}, result, { Data: mainData })
+
+                    this.setState({ gridData: sortedResult })
+
                 }
 
-                this.props.setReportTitle(Service.getReportTitle(params.FromDate, params.ToDate, params.CurrencyId, params.CurrencyName, params.BaseCurrency));
-                this.setState({ gridData: result })
+                this.props.setReportTitle(Service.getReportTitle(this.props.params.FromDate,
+                    this.props.params.ToDate, this.props.params.CurrencyId,
+                    this.props.params.CurrencyName, this.props.params.BaseCurrency));
+
                 this.props.toggleLoader(false);
 
             })
             .catch(error => {
+                console.log(error);
                 Service.showErrorMsg();
                 this.props.toggleLoader(false);
             });
     }
-    _onExpandColumn(e, expandData) {
-        e.stopPropagation();
-        this.setState(expandData);
+    _onExpandTurnOverColumn(e) {
+       e.stopPropagation();
+        this.setState((prevState) => ({ expandTurnover: !prevState.expandTurnover }));
     }
+    _onExpandLicenseeColumn(e) {
+        e.stopPropagation();
+        this.setState((prevState) => ({ expandLicensee: !prevState.expandLicensee }));
 
+    }
     _sort(sortBy) {
+        this.props.toggleLoader(true);
+
         let param = Object.assign({}, this.props.params);
-        var data = this.state.gridData;
+        var mainData = this.state.gridData.Data;
         if (!param.SortBy || param.SortBy != sortBy) {
             param.SortBy = sortBy;
             param.SortOrder = 'asc';
@@ -63,14 +78,21 @@ export class DataGrid extends Component {
             param.SortOrder = param.SortOrder == 'asc' ? 'desc' : 'asc';
         }
 
-        this.props.toggleLoader(true);
 
-        if (data && data.length > 1) {
-            Service.sort(data, param.SortBy, param.SortOrder);
-            this.setState({ gridData: data })
+        if (mainData && mainData.length > 1) {
+
+            Service.sort(mainData, param.SortBy, param.SortOrder);
+
+            var sortedResult = Object.assign({}, this.state.gridData, { Data: mainData })
+
+            this.setState({ gridData: sortedResult })
+           
         }
 
         this.props.setParams(param);
+        this.props.toggleLoader(false);
+
+      
     }
 
     _buildHeader(selectedProductList, sortBy, sortOrder) {
@@ -92,7 +114,7 @@ export class DataGrid extends Component {
                         ? <Cell colWidth={200 * (productsCount * expandTurnover + 1)} header={true} rowSpan={expandTurnover ? 1 : rowSpan} colSpan={productsCount * expandTurnover + 1}
                             sortable={!expandTurnover} sorting={sortBy === 'TotalTurnOver'} asc={sortOrder === 'asc'} onClick={() => this._sort('TotalTurnOver')}>
                             {HeaderText.turnover}
-                            <button className={`header-button btn ${expandTurnover ? 'btnCollapse' : ''}`} onClick={(e) => this._onExpandColumn(e, { expandTurnover: !expandTurnover })}>
+                            <button className={`header-button btn ${expandTurnover ? 'btnCollapse' : ''}`} onClick={(e) => this._onExpandTurnOverColumn(e)}>
                                 <i className='btn-icon icon-arrow'></i>
                             </button>
                         </Cell>
@@ -111,7 +133,7 @@ export class DataGrid extends Component {
                         ? <Cell colWidth={200 * (productsCount * expandLicensee + 1)} header={true} rowSpan={expandLicensee ? 1 : rowSpan} colSpan={productsCount * expandLicensee + 1}
                             sortable={!expandLicensee} sorting={sortBy === 'TotalLicenseeWL'} asc={sortOrder === 'asc'} onClick={() => this._sort('TotalLicenseeWL')}>
                             {HeaderText.licenseeWL}
-                            <button className={`header-button btn ${expandLicensee ? 'btnCollapse' : ''}`} onClick={(e) => this._onExpandColumn(e, { expandLicensee: !expandLicensee })}>
+                            <button className={`header-button btn ${expandLicensee ? 'btnCollapse' : ''}`} onClick={(e) => this._onExpandLicenseeColumn(e)}>
                                 <i className='btn-icon icon-arrow'></i>
                             </button>
                         </Cell>
@@ -169,7 +191,7 @@ export class DataGrid extends Component {
     }
 
     _buildBody(reportBy, selectedProductList) {
-        const data = this.props.gridData.Data,
+        const data = this.state.gridData.Data,
             formatDate = reportBy === ReportBy.DAILY.toString() ? 'MM/DD/YYYY' : 'MM/YYYY';
 
         let rows = [];
@@ -193,7 +215,7 @@ export class DataGrid extends Component {
     _buildFooter(selectedProductList) {
         let totalRows = [];
 
-        const total = this.props.gridData.Total,
+        const total = this.state.gridData.Total,
             colSpan = 2,
             rowSpan = total.length;
 
@@ -208,7 +230,7 @@ export class DataGrid extends Component {
             );
         }
 
-        const dataSummary = this.props.gridData.SummaryTotal,
+        const dataSummary = this.state.gridData.SummaryTotal,
             baseCurrencyList = Object.keys(dataSummary),
             colSummarySpan = colSpan + 1;
 
@@ -274,7 +296,7 @@ export class DataGrid extends Component {
     }
 
     render() {
-        const data = this.props.gridData.Data;
+        const data = this.state.gridData.Data;
         if (!data) {
             return null;
         }
@@ -301,8 +323,8 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    const { params, xsrfToken, gridData } = state;
-    return Object.assign({}, { params, xsrfToken, gridData });
-};
+    const { params, xsrfToken } = state;
+    return Object.assign({}, { params, xsrfToken });
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(DataGrid);

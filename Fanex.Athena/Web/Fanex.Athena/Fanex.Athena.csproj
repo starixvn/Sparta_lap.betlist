@@ -953,13 +953,11 @@
     <Content Include="www\js\source\reactpages\pages\notification\reducers\resultAmendment\index.js" />
     <Content Include="www\js\source\reactpages\pages\notification\reducers\resultAmendment\__test__\dataHandlerReducer.test.js" />
     <Content Include="www\js\source\reactpages\pages\notification\reducers\resultAmendment\__test__\filterHandlerReducer.test.js" />
-    <Content Include="www\js\source\reactpages\pages\speciallicenseewl\actions\dataHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\speciallicenseewl\actions\filterHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\speciallicenseewl\actions\index.js" />
     <Content Include="www\js\source\reactpages\pages\speciallicenseewl\actions\types.js" />
     <Content Include="www\js\source\reactpages\pages\speciallicenseewl\lib\reportExcel.js" />
     <Content Include="www\js\source\reactpages\pages\speciallicenseewl\lib\service.js" />
-    <Content Include="www\js\source\reactpages\pages\speciallicenseewl\reducers\dataHandlerReducer.js" />
     <Content Include="www\js\source\reactpages\pages\speciallicenseewl\reducers\filterHandlerReducer.js" />
     <Content Include="www\js\source\reactpages\pages\speciallicenseewl\reducers\index.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\dataHandlerAction.js" />
