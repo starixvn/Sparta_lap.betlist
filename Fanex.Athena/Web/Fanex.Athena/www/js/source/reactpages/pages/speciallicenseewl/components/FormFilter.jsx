@@ -31,19 +31,6 @@ export class FormFilter extends Component {
             return;
         }
 
-        this.props.toggleLoader(true);
-        Report.fetchGridData(Url, { xsrfToken: this.props.xsrfToken, data: params })
-            .then(response => {
-                if (response.data.Data && response.data.Data.length > 1) {
-                    Service.sort(response.data.Data, params.SortBy, params.SortOrder);
-                }
-                this.props.setGridData(response.data);
-                this.props.setReportTitle(Service.getReportTitle(params.FromDate, params.ToDate, params.CurrencyId, params.CurrencyName, params.BaseCurrency));
-            })
-            .catch(error => {
-                Service.showErrorMsg();
-                this.props.toggleLoader(false);
-            });
         this.props.setParams(params);
     }
 

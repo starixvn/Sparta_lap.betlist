@@ -37,6 +37,7 @@ export class Service {
     }
 
     static sort(data, sortBy, sortOrder) {
+
         sortBy = sortBy === 'Date' ? 'Ticks' : sortBy;
 
         let compareFunc = null;

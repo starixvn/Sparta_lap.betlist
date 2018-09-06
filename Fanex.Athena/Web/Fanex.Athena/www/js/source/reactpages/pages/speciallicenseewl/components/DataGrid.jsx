@@ -9,7 +9,7 @@ import NoDataTitle from '../../../components/NoDataTitle'
 import Report from '../../../lib/report'
 import { ReportBy } from '../../../constants/report'
 import { Service, HeaderText, Url, TotalText } from '../lib/service'
-import Site from '../../../lib/site'
+import Report from '../../../lib/report'
 
 export class DataGrid extends Component {
     constructor(props) {
@@ -17,27 +17,44 @@ export class DataGrid extends Component {
 
         this.state = {
             expandTurnover: false,
-            expandLicensee: false
+            expandLicensee: false,
+            gridData: {}
         }
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.gridData !== this.props.gridData 
-            || prevProps.params.SortBy !== this.props.params.SortBy 
-            || prevProps.params.SortOrder !== this.props.params.SortOrder ) {
-            this.props.toggleLoader(false);
+        if (prevProps.params !== this.props.params) {
+            this._getGridData();
         }
     }
 
+    _getGridData() {
+        this.props.toggleLoader(true);
+        Report.fetchGridData(Url, { xsrfToken: this.props.xsrfToken, data: params })
+            .then(response => {
+                var result = response.data.Data;
+                if (result && result.length > 1) {
+                    Service.sort(result, params.SortBy, params.SortOrder);
+                }
+
+                this.props.setReportTitle(Service.getReportTitle(params.FromDate, params.ToDate, params.CurrencyId, params.CurrencyName, params.BaseCurrency));
+                this.setState({ gridData: result })
+                this.props.toggleLoader(false);
+
+            })
+            .catch(error => {
+                Service.showErrorMsg();
+                this.props.toggleLoader(false);
+            });
+    }
     _onExpandColumn(e, expandData) {
         e.stopPropagation();
         this.setState(expandData);
     }
 
-    _sort(sortBy){
+    _sort(sortBy) {
         let param = Object.assign({}, this.props.params);
-        let data = Object.assign({}, this.props.gridData);
-
+        var data = this.state.gridData;
         if (!param.SortBy || param.SortBy != sortBy) {
             param.SortBy = sortBy;
             param.SortOrder = 'asc';
@@ -48,70 +65,59 @@ export class DataGrid extends Component {
 
         this.props.toggleLoader(true);
 
-        if (this.props.gridData.Data && this.props.gridData.Data.length > 1) {
-            Service.sort(this.props.gridData.Data, param.SortBy, param.SortOrder);
+        if (data && data.length > 1) {
+            Service.sort(data, param.SortBy, param.SortOrder);
+            this.setState({ gridData: data })
         }
 
         this.props.setParams(param);
-    }
-
-    _updateGridData(params) {
-        this.props.toggleLoader(true);
-        Report.fetchGridData(Url, { xsrfToken: this.props.xsrfToken, data: params })
-            .then(response => {
-                this.props.setGridData(response.data);
-            })
-            .catch(error => {
-                Service.showErrorMsg();
-                this.props.toggleLoader(false);
-            });
     }
 
     _buildHeader(selectedProductList, sortBy, sortOrder) {
         const productsCount = selectedProductList.length;
         const { expandLicensee, expandTurnover } = this.state;
         const rowSpan = productsCount > 1 && (expandLicensee || expandTurnover) ? 2 : 1;
-             
+
         let rows = [
             <Row key='header1' style={{ height: 32 }}>
                 <Cell colWidth={50} header={true} rowSpan={rowSpan}>{HeaderText.index}</Cell>
-                <Cell colWidth={150} header={true} rowSpan={rowSpan} sortable={true} sorting={sortBy==='Date'} asc={sortOrder==='asc'} onClick={()=>this._sort('Date')}>
+                <Cell colWidth={150} header={true} rowSpan={rowSpan} sortable={true} sorting={sortBy === 'Date'} asc={sortOrder === 'asc'} onClick={() => this._sort('Date')}>
                     {HeaderText.date}
-                </Cell>   
-                <Cell colWidth={100} header={true} rowSpan={rowSpan} sortable={true} sorting={sortBy==='CurrencyName'} asc={sortOrder==='asc'} onClick={()=>this._sort('CurrencyName')}>
+                </Cell>
+                <Cell colWidth={100} header={true} rowSpan={rowSpan} sortable={true} sorting={sortBy === 'CurrencyName'} asc={sortOrder === 'asc'} onClick={() => this._sort('CurrencyName')}>
                     {HeaderText.currency}
                 </Cell>
                 {
                     productsCount > 1
-                    ? <Cell colWidth={200*(productsCount*expandTurnover + 1)} header={true} rowSpan={expandTurnover ? 1 : rowSpan} colSpan={productsCount*expandTurnover + 1} 
-                        sortable={!expandTurnover} sorting={sortBy==='TotalTurnOver'} asc={sortOrder==='asc'} onClick={()=>this._sort('TotalTurnOver')}>
+                        ? <Cell colWidth={200 * (productsCount * expandTurnover + 1)} header={true} rowSpan={expandTurnover ? 1 : rowSpan} colSpan={productsCount * expandTurnover + 1}
+                            sortable={!expandTurnover} sorting={sortBy === 'TotalTurnOver'} asc={sortOrder === 'asc'} onClick={() => this._sort('TotalTurnOver')}>
                             {HeaderText.turnover}
-                            <button className={`header-button btn ${expandTurnover ? 'btnCollapse' : ''}`} onClick={(e) => this._onExpandColumn(e, {expandTurnover : !expandTurnover})}>
+                            <button className={`header-button btn ${expandTurnover ? 'btnCollapse' : ''}`} onClick={(e) => this._onExpandColumn(e, { expandTurnover: !expandTurnover })}>
                                 <i className='btn-icon icon-arrow'></i>
                             </button>
-                      </Cell>
-                    : <Cell colWidth={200} header={true} rowSpan={rowSpan} sortable={true} sorting={sortBy==='TotalTurnOver'} asc={sortOrder==='asc'} onClick={()=>this._sort('TotalTurnOver')}>
-                        {HeaderText.turnover}
-                      </Cell>
+                        </Cell>
+                        : <Cell colWidth={200} header={true} rowSpan={rowSpan} sortable={true} sorting={sortBy === 'TotalTurnOver'} asc={sortOrder === 'asc'} onClick={() => this._sort('TotalTurnOver')}>
+                            {HeaderText.turnover}
+                        </Cell>
                 }
-                <Cell colWidth={130} header={true} rowSpan={rowSpan} sortable={true} sorting={sortBy==='TotalTransaction'} asc={sortOrder==='asc'} onClick={()=>this._sort('TotalTransaction')}>
+                <Cell colWidth={130} header={true} rowSpan={rowSpan} sortable={true} sorting={sortBy === 'TotalTransaction'} asc={sortOrder === 'asc'} onClick={() => this._sort('TotalTransaction')}>
                     {HeaderText.totalTransaction}
                 </Cell>
-                <Cell colWidth={200} header={true} rowSpan={rowSpan} sortable={true} sorting={sortBy==='CustomerWinLoss'} asc={sortOrder==='asc'} onClick={()=>this._sort('CustomerWinLoss')}>
+                <Cell colWidth={200} header={true} rowSpan={rowSpan} sortable={true} sorting={sortBy === 'CustomerWinLoss'} asc={sortOrder === 'asc'} onClick={() => this._sort('CustomerWinLoss')}>
                     {HeaderText.customer}
                 </Cell>
                 {
                     productsCount > 1
-                    ? <Cell colWidth={200*(productsCount*expandLicensee + 1)} header={true} rowSpan={expandLicensee ? 1 : rowSpan} colSpan={productsCount*expandLicensee + 1}
-                         sortable={!expandLicensee} sorting={sortBy==='TotalLicenseeWL'} asc={sortOrder==='asc'} onClick={()=>this._sort('TotalLicenseeWL')}>
+                        ? <Cell colWidth={200 * (productsCount * expandLicensee + 1)} header={true} rowSpan={expandLicensee ? 1 : rowSpan} colSpan={productsCount * expandLicensee + 1}
+                            sortable={!expandLicensee} sorting={sortBy === 'TotalLicenseeWL'} asc={sortOrder === 'asc'} onClick={() => this._sort('TotalLicenseeWL')}>
                             {HeaderText.licenseeWL}
-                            <button className={`header-button btn ${expandLicensee ? 'btnCollapse' : ''}`}onClick={(e) => this._onExpandColumn(e, {expandLicensee : !expandLicensee})}>
+                            <button className={`header-button btn ${expandLicensee ? 'btnCollapse' : ''}`} onClick={(e) => this._onExpandColumn(e, { expandLicensee: !expandLicensee })}>
                                 <i className='btn-icon icon-arrow'></i>
                             </button>
-                      </Cell>
-                    : <Cell colWidth={200} header={true} rowSpan={rowSpan} sortable={true} sorting={sortBy==='TotalLicenseeWL'} asc={sortOrder==='asc'} onClick={()=>this._sort('TotalLicenseeWL')}>
-                        {HeaderText.licenseeWL}
-                      </Cell>
+                        </Cell>
+                        : <Cell colWidth={200} header={true} rowSpan={rowSpan} sortable={true} sorting={sortBy === 'TotalLicenseeWL'} asc={sortOrder === 'asc'} onClick={() => this._sort('TotalLicenseeWL')}>
+                            {HeaderText.licenseeWL}
+                        </Cell>
                 }
             </Row>
         ];
@@ -124,62 +130,62 @@ export class DataGrid extends Component {
                     const code = selectedProductList[i];
                     const colName = `TurnOver${code}`;
                     cols.push(
-                        <Cell key={colName} colWidth={200} header={true} sortable={true} sorting={sortBy===colName} asc={sortOrder==='asc'} onClick={()=>this._sort(colName)}>
+                        <Cell key={colName} colWidth={200} header={true} sortable={true} sorting={sortBy === colName} asc={sortOrder === 'asc'} onClick={() => this._sort(colName)}>
                             {HeaderText[code]}
                         </Cell>
                     );
                 }
                 cols.push(
-                    <Cell key='turnover-total' colWidth={200} header={true} sortable={true} sorting={sortBy==='TotalTurnOver'} asc={sortOrder==='asc'} onClick={()=>this._sort('TotalTurnOver')}>
+                    <Cell key='turnover-total' colWidth={200} header={true} sortable={true} sorting={sortBy === 'TotalTurnOver'} asc={sortOrder === 'asc'} onClick={() => this._sort('TotalTurnOver')}>
                         {HeaderText.total}
                     </Cell>
                 );
             }
-            
+
             if (this.state.expandLicensee) {
                 for (let i = 0; i < productsCount; i++) {
                     const code = selectedProductList[i];
                     const colName = `LicenseeWL${code}`;
                     cols.push(
-                        <Cell key={colName} colWidth={200} header={true} sortable={true} sorting={sortBy===colName} asc={sortOrder==='asc'} onClick={()=>this._sort(colName)}>
+                        <Cell key={colName} colWidth={200} header={true} sortable={true} sorting={sortBy === colName} asc={sortOrder === 'asc'} onClick={() => this._sort(colName)}>
                             {HeaderText[code]}
                         </Cell>);
                 }
                 cols.push(
-                    <Cell key='licenseeWL-total' colWidth={200} header={true} sortable={true} sorting={sortBy==='TotalLicenseeWL'} asc={sortOrder==='asc'} onClick={()=>this._sort('TotalLicenseeWL')}>
+                    <Cell key='licenseeWL-total' colWidth={200} header={true} sortable={true} sorting={sortBy === 'TotalLicenseeWL'} asc={sortOrder === 'asc'} onClick={() => this._sort('TotalLicenseeWL')}>
                         {HeaderText.total}
                     </Cell>
                 );
             }
-            
+
             rows.push(
                 <Row key='header2' style={{ height: 32 }}>
                     {cols}
                 </Row>
             );
         }
-        
+
         return rows;
     }
 
     _buildBody(reportBy, selectedProductList) {
         const data = this.props.gridData.Data,
             formatDate = reportBy === ReportBy.DAILY.toString() ? 'MM/DD/YYYY' : 'MM/YYYY';
-        
+
         let rows = [];
         for (let i = 0; i < data.length; i++) {
             const item = data[i];
             const reportBy = moment(item.Date).format(formatDate);
-            
+
             rows.push(
                 <Row key={`tr${i}`}>
                     <Cell title={i + 1} className='center-align'>{i + 1}</Cell>
                     <Cell title={reportBy} className='center-align'>{reportBy}</Cell>
                     <Cell title={item.CurrencyName} className='center-align'>{item.CurrencyName}</Cell>
-                    { this._buildCell(item, selectedProductList) }
+                    {this._buildCell(item, selectedProductList)}
                 </Row>
             );
-    }
+        }
 
         return rows;
     }
@@ -197,7 +203,7 @@ export class DataGrid extends Component {
                 <Row key={`tr-total${i}`} className='fixed-table-total'>
                     {i === 0 && <Cell title={TotalText.total} className='center-align' rowSpan={rowSpan} colSpan={colSpan}>{TotalText.total}</Cell>}
                     <Cell title={item.CurrencyName} className='center-align'>{item.CurrencyName}</Cell>
-                    { this._buildCell(item, selectedProductList) }
+                    {this._buildCell(item, selectedProductList)}
                 </Row>
             );
         }
@@ -208,11 +214,11 @@ export class DataGrid extends Component {
 
         for (let i = baseCurrencyList.length - 1; i >= 0; i--) {
             const currency = baseCurrencyList[i],
-                  item = dataSummary[currency];
+                item = dataSummary[currency];
             totalRows.push(
                 <Row key={`tr-grandtotal${i}`} className='fixed-table-grant-total'>
                     <Cell title={`${TotalText.totalIn} ${currency}`} className='center-align' colSpan={colSummarySpan}>{`${TotalText.totalIn} ${currency}`}</Cell>
-                    { this._buildCell(item, selectedProductList) }
+                    {this._buildCell(item, selectedProductList)}
                 </Row>
             );
         }
@@ -222,7 +228,7 @@ export class DataGrid extends Component {
 
     _buildCell(item, selectedProductList) {
         const turnover = NumberFormat.formatDecimal(item.TotalTurnOver),
-            customerWl= NumberFormat.formatDecimal(item.CustomerWinLoss),
+            customerWl = NumberFormat.formatDecimal(item.CustomerWinLoss),
             licenseeWL = NumberFormat.formatDecimal(item.TotalLicenseeWL),
             totalTransaction = NumberFormat.format(item.TotalTransaction, 0);
 
@@ -279,7 +285,7 @@ export class DataGrid extends Component {
             return <NoDataTitle />;
         }
 
-        return ( 
+        return (
             <Table
                 minWidth={800}
                 autoWidth={true}
