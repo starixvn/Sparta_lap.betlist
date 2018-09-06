@@ -97,17 +97,12 @@ export default class MultipleSelect extends Component {
     }
 
     checkAllHandler = (checked) => {
-        const newDataSource = this.state.dataSource.map(item => {
-            return {
-                key: item.key,
-                value: item.value,
-                checked: checked
-            }
-        });
+        this.originalDataSource.forEach((item) => { item.checked = checked });
 
-        this._callBackToParent(null, newDataSource);
-
-        this.setState({ dataSource: newDataSource });
+        const searchText = this.state.searchText;
+        const dataSource = this.originalDataSource.filter(item => item[VALUE_NAME].startsWith(searchText));
+        this.setState({ dataSource: dataSource });
+        this._callBackToParent(null);
     }
 
     onChangeSearchText = (value) => {
@@ -167,8 +162,8 @@ export default class MultipleSelect extends Component {
 
     _renderOptionAll() {
         if (this.props.hasAllOption) {
-            const checkedItemCount = this.state.dataSource.filter(x => x.checked).length;
-            const checkedAll = checkedItemCount === this.state.dataSource.length;
+            const checkedItemCount = this.originalDataSource.filter(x => x.checked).length;
+            const checkedAll = checkedItemCount === this.originalDataSource.length;
             const labelText = `(${this.props.optionAllLabel})`;
             return (<OptionAll id={this.id} checked={checkedAll} label={labelText} onChange={this.checkAllHandler} />);
         }

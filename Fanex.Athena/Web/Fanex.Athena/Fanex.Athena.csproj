@@ -2180,7 +2180,9 @@
     <Content Include="Views\Desktop\Utility\LocationRestriction.cshtml" />
     <Content Include="Views\Desktop\Utility\SSODenyAccess.cshtml" />
     <Content Include="Views\Desktop\Utility\UnderMaintenance.cshtml" />
-    <Content Include="SiteConfig\Web.AppSettings.BACKUPMNL.config" />
+    <Content Include="SiteConfig\Web.AppSettings.BACKUPMNL.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="SiteConfig\Web.AppSettings.DEV.config" />
     <Content Include="SiteConfig\Web.AppSettings.LOCAL.config" />
     <Content Include="SiteConfig\Web.AppSettings.PRO.config">
@@ -2570,6 +2572,7 @@
     <Content Include="www\js\source\reactpages\components\month-picker\Month.jsx" />
     <Content Include="www\js\source\reactpages\components\month-picker\Day.jsx" />
     <Content Include="www\js\source\reactpages\components\month-picker\index.js" />
+    <Content Include="www\js\source\reactpages\components\Overlay.jsx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">
