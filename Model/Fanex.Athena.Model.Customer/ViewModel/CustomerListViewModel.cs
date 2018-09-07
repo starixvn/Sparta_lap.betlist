@@ -35,5 +35,7 @@ namespace Fanex.Athena.Model.Customer.ViewModel
         public bool IsAllowedUserChangeBA { get; set; }
 
         public bool IsFakeLicensee { get; set; }
+
+        public bool IsSubsidiary { get; set; }
     }
 }

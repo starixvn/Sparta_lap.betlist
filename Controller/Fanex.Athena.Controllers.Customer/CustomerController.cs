@@ -11,6 +11,7 @@ namespace Fanex.Athena.Controllers.Customer
     using System.Globalization;
     using System.Linq;
     using System.Web.Mvc;
+    using Constant.DataDomain;
     using DataAccess.Core.Users;
     using DataAccess.Core.Users.Interfaces;
     using Excel.Base.Helpers;
@@ -225,6 +226,7 @@ namespace Fanex.Athena.Controllers.Customer
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
+            var isSubsidiary = userSession.UserLevel == OneAuthUserLevelType.Subsidiary;
             var model = new CustomerListViewModel
             {
                 Param = metaModel,
@@ -233,9 +235,10 @@ namespace Fanex.Athena.Controllers.Customer
                 IsAllowedUserEditComm = SessionService.IsAllowedEditCommission(userSession),
                 IsAllowedUserChangeBA = SessionService.IsAllowedSpecialBA(userSession),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                IsFakeLicensee = IsFakeLicensee()
+                IsFakeLicensee = IsFakeLicensee(),
+                IsSubsidiary = isSubsidiary
             };
-            if (licenseeSession.IsAllowedCustomerComm)
+            if (!isSubsidiary && licenseeSession.IsAllowedCustomerComm)
             {
                 model.GroupCommDataList = _groupComService.GetAll(licenseeSession.LicenseeId);
                 model.CurrentGroupComm = _groupComService.GetById(metaModel.GroupCommId);
@@ -292,6 +295,7 @@ namespace Fanex.Athena.Controllers.Customer
         private IEnumerable<CheckedItem> InitGridColumns(bool isAllowBA, IEnumerable<int> allowLicensees)
         {
             var licenseeSession = SessionService.LicenseeSession;
+            var isSubsidiary = SessionService.UserSession.UserLevel == OneAuthUserLevelType.Subsidiary;
             var isFakeLicensee = IsFakeLicensee();
             var gridColumns = isFakeLicensee ? GridColumnsForFakeLincesee : GridColumns;
             var items = new List<CheckedItem>();
@@ -300,12 +304,12 @@ namespace Fanex.Athena.Controllers.Customer
                 items.Add(new CheckedItem { Name = name, Checked = true });
             }
 
-            if (isAllowBA)
+            if (isAllowBA && !isSubsidiary)
             {
                 items.Add(new CheckedItem { Name = BASTATUS, Checked = true });
             }
 
-            if (licenseeSession.IsAllowedCustomerComm && !isFakeLicensee)
+            if (licenseeSession.IsAllowedCustomerComm && !isFakeLicensee && !isSubsidiary)
             {
                 items.Insert(0, new CheckedItem { Name = GROUP, Checked = true });
                 items.Add(new CheckedItem { Name = CUSTOMERCOMM, Checked = true });

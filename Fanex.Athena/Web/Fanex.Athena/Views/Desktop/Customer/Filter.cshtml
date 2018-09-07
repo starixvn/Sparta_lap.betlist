@@ -6,10 +6,10 @@
     {
         showOddsGroup = Model.Param.OddsGroups != null && !Model.IsFakeLicensee,
         showSpecialLevel = !Model.IsFakeLicensee,
-        showGroup = Model.IsAllowedCustomerCommission && !Model.IsFakeLicensee,
+        showGroup = Model.IsAllowedCustomerCommission && !Model.IsFakeLicensee && !Model.IsSubsidiary,
         showUserGuide = !Model.IsFakeLicensee,
         showStatus = Model.Param.IsShowStatusDropdown,
-        showBA = Model.ProductAccess.IsAllowBA
+        showBA = !Model.IsSubsidiary && Model.ProductAccess.IsAllowBA
     };
 }
 <div class="page-form">
