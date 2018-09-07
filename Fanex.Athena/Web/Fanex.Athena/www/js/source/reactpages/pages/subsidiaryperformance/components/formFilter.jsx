@@ -70,7 +70,9 @@ export class FormFilter extends Component {
                 ProductCodeList: this.props.selectedProduct,
                 ConvertAll: this.props.convertAll,
                 FromDate: Site.convertDateToString(fromDate),
-                ToDate: Site.convertDateToString(toDate)
+                ToDate: Site.convertDateToString(toDate),
+                IncludeRaw: this.props.includeDrawData,
+                IsExcludeTest: this.props.isExcludeTest
             }
         }
     }
@@ -180,17 +182,39 @@ export class FormFilter extends Component {
                 </div>
 
                 <div className="row">
-                    <div className="col-12 col-md-12 col-sm-12 col-lg-6 col-xl-6">
+                    <div className="col-12 col-md-3 col-sm-5 col-lg-2 col-xl-2">
                         <div className="form-group">
                             <div className="checkbox-group">
                                 <input type="checkbox" className="checkbox" checked={this.props.convertAll} id="IsConvertAll"
                                     onClick={() => this.props.changeConvertAll(!this.props.convertAll)} />
                                 <label htmlFor="IsConvertAll">{LangHelper.getSingleResource("ConvertAllFiguresToBaseCurrency")}</label>
                             </div>
+                        </div>
+                    </div>
 
-                            <div className="button-group">
-                                <button disabled={!this.isValidModel} type="button" className="btn btn-submit" onClick={this.submit}>{LangHelper.getSingleResource("Submit")}</button>
+                    <div className="col-12 col-md-4 col-sm-6 col-lg-3 col-xl-3">
+                        <div className="form-group">
+                           <div className="checkbox-group">
+                                <input type="checkbox" className="checkbox" checked={this.props.includeDrawData} id="IncludeDrawData"
+                                    onChange={() => this.props.changeIncludeDrawData(!this.props.includeDrawData)} />
+                                <label htmlFor="IncludeDrawData">{LangHelper.getSingleResource("IncludeDrawData")}</label>
                             </div>
+                        </div>
+                    </div>
+
+                    <div className="col-12 col-md-3 col-sm-5 col-lg-3 col-xl-3">
+                        <div className="form-group">
+                           <div className="checkbox-group">
+                                <input type="checkbox" className="checkbox" checked={this.props.isExcludeTest} id="ExcludeTest"
+                                    onChange={() => this.props.changeIsExcludeTest(!this.props.isExcludeTest)} />
+                                <label htmlFor="ExcludeTest">{LangHelper.getSingleResource("ExcludeTestData")}</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="col-12 col-md-2 col-sm-4 col-lg-2 col-xl-2">
+                        <div className="button-group">
+                            <button disabled={!this.isValidModel} type="button" className="btn btn-submit" onClick={this.submit}>{LangHelper.getSingleResource("Submit")}</button>
                         </div>
                     </div>
                 </div>

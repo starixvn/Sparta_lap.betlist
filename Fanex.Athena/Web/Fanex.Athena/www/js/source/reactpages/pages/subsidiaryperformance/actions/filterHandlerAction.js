@@ -25,3 +25,10 @@ export const changeConvertAll = (checked) => {
         data: checked
     }
 }
+
+export const changeIncludeDrawData = (checked) => {
+    return {
+        type: types.CHANGE_INCLUDE_DRAW_DATA,
+        data: checked
+    }
+}

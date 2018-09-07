@@ -36,3 +36,9 @@ export const dateConstraint = createReducer({}, {
         return action.data;
     }
 })
+
+export const includeDrawData = createReducer({}, {
+    [types.CHANGE_INCLUDE_DRAW_DATA](state, action) {
+        return action.data;
+    }
+})
