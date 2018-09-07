@@ -9,12 +9,16 @@ using Autofac;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
 using Fanex.Athena.Api.Base.Logger;
+using Fanex.Athena.Extension.Utility.Internal;
 using Fanex.BetList.Core.Builder;
 using Fanex.BetList.Core.Entities;
+using Fanex.BetList.Core.RemotingRef;
 using Fanex.BetList.Core.TicketHelper;
 using Fanex.Logging;
+using Fanex.Result.Core.Base.Utilities;
 using Fanex.Result.Core.MicroGaming;
 using Fanex.Result.Core.PP;
+using Fanex.Result.Core.RemotingRef;
 using ONEbook.UM.Services;
 using ONEbook.UM.Services.Impl;
 
@@ -38,6 +42,9 @@ namespace Fanex.Athena
             builder.RegisterWebApiFilterProvider(config);
 
             RegisterThirdpartyServices(builder);
+
+            // static services
+            builder.RegisterInstance(new CustomMemoryCache()).As<ICustomMemoryCache>();
 
             builder.RegisterType<ApiExceptionLogger>().As<IExceptionLogger>();
 
