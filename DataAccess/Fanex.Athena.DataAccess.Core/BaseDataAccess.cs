@@ -14,7 +14,6 @@ namespace Fanex.Athena.DataAccess.Core
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Common;
     using Fanex.Data;
-    using Session;
     using Session.Interfaces;
 
     public class BaseDataAccess
@@ -24,7 +23,7 @@ namespace Fanex.Athena.DataAccess.Core
         private readonly ISessionStorage _sessionStorage;
 
         private IDictionary<int, string> _currencyList;
-        
+
         public BaseDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
         {
             _sessionStorage = sessionStorage;

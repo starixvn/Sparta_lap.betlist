@@ -11,7 +11,6 @@
     using Model.Forecast.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using VendorAdapter.Interfaces;
     using UnitTest.Common.Helpers;
 
     [TestFixture]
@@ -24,14 +23,14 @@
             DataAccess.GetObjectDb(Arg.Is("Lrf_Forecast_OddsSelTopByMatch")).Returns(ObjectDb);
             var matchId = 0;
             var betType = 0;
-            _objectDb.QueryEntity<ForecastAH>().Returns(new ForecastAH());
+            ObjectDb.QueryEntity<ForecastAH>().Returns(new ForecastAH());
 
             // Action
             DataAccess.GetForecastTopOddsByMatch(matchId, betType);
 
             // Assert
-            _objectDb.Received(1).AddInParameter("matchid", DbType.Int32, matchId);
-            _objectDb.Received(1).AddInParameter("betType", DbType.Int32, betType);
+            ObjectDb.Received(1).AddInParameter("matchid", DbType.Int32, matchId);
+            ObjectDb.Received(1).AddInParameter("betType", DbType.Int32, betType);
         }
 
         [Test]
@@ -46,9 +45,9 @@
             DataAccess.GetForecastHandicap(metaModel, userId);
 
             // Assert
-            _objectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            _objectDb.Received(1).AddInParameter("matchid", DbType.Int32, metaModel.MatchId);
-            _objectDb.Received(1).AddInParameter("betType", DbType.Int32, metaModel.BetType);
+            ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            ObjectDb.Received(1).AddInParameter("matchid", DbType.Int32, metaModel.MatchId);
+            ObjectDb.Received(1).AddInParameter("betType", DbType.Int32, metaModel.BetType);
         }
 
         [Test]
@@ -63,44 +62,9 @@
             DataAccess.GetForecastOverUnder(metaModel, userId);
 
             // Assert
-            _objectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            _objectDb.Received(1).AddInParameter("matchid", DbType.Int32, metaModel.MatchId);
-            _objectDb.Received(1).AddInParameter("betType", DbType.Int32, metaModel.BetType);
-        }
-
-        [Test]
-        public void GetForecastRunningLeague_WhenCall_ParametersPassedCorrectly()
-        {
-            // Arrange
-            DataAccess.GetObjectDb(Arg.Is("Lrf_LeagueSelRunning")).Returns(ObjectDb);
-            var metaModel = new ForecastBaseMetaModel();
-
-            // Action
-            DataAccess.GetForecastRunningLeague(metaModel);
-
-            // Assert
             ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            ObjectDb.Received(1).AddInParameter("betTypes", DbType.String, metaModel.BetTypeString);
-        }
-
-        [Test]
-        public void GetForecastRunningLeague_WhenCall_DataReturnedCorrectly()
-        {
-            // Arrange
-            DataAccess.GetObjectDb(Arg.Is("Lrf_LeagueSelRunning")).Returns(ObjectDb);
-            ObjectDb.Query<League>().Returns(new List<League>
-            {
-                new League
-                {
-                    LeagueId = 999
-                }
-            });
-
-            // Action
-            var result = DataAccess.GetForecastRunningLeague(new ForecastBaseMetaModel()).ElementAt(0);
-
-            // Assert
-            Assert.That(result.LeagueId, Is.EqualTo(999));
+            ObjectDb.Received(1).AddInParameter("matchid", DbType.Int32, metaModel.MatchId);
+            ObjectDb.Received(1).AddInParameter("betType", DbType.Int32, metaModel.BetType);
         }
 
         [Test]
@@ -114,8 +78,8 @@
             DataAccess.GetForecastOneXTwoByLeague(metaModel);
 
             // Assert
-            _objectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            _objectDb.Received(1).AddInParameter("LeagueId", DbType.Int32, metaModel.LeagueId);
+            ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            ObjectDb.Received(1).AddInParameter("LeagueId", DbType.Int32, metaModel.LeagueId);
         }
 
         [Test]
@@ -172,9 +136,9 @@
             DataAccess.GetForecastOneXTwoByMatch(metaModel);
 
             // Assert
-            _objectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            _objectDb.Received(1).AddInParameter("matchid", DbType.Int32, metaModel.MatchId);
-            _objectDb.Received(1).AddInParameter("betType", DbType.Int32, metaModel.BetType);
+            ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            ObjectDb.Received(1).AddInParameter("matchid", DbType.Int32, metaModel.MatchId);
+            ObjectDb.Received(1).AddInParameter("betType", DbType.Int32, metaModel.BetType);
         }
 
         [Test]
@@ -188,7 +152,7 @@
             DataAccess.GetForecastHandicapOverUnder(metaModel);
 
             // Assert
-            _objectDb.Received(1).ExecuteReader(Arg.Any<object>());
+            ObjectDb.Received(1).ExecuteReader(Arg.Any<object>());
         }
 
         [Test]
@@ -238,11 +202,11 @@
             DataAccess.GetNewForecastData(metaModel, matchInfo);
 
             // Assert
-            _objectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            _objectDb.Received(1).AddInParameter("MatchId", DbType.Int32, metaModel.MatchId);
-            _objectDb.Received(1).AddOutParameter("HomeScore", DbType.Int32, 4);
-            _objectDb.Received(1).AddOutParameter("AwayScore", DbType.Int32, 4);
-            _objectDb.Received(1).AddOutParameter("MatchTime", DbType.DateTime, 4);
+            ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            ObjectDb.Received(1).AddInParameter("MatchId", DbType.Int32, metaModel.MatchId);
+            ObjectDb.Received(1).AddOutParameter("HomeScore", DbType.Int32, 4);
+            ObjectDb.Received(1).AddOutParameter("AwayScore", DbType.Int32, 4);
+            ObjectDb.Received(1).AddOutParameter("MatchTime", DbType.DateTime, 4);
         }
 
         [Test]

@@ -28,13 +28,9 @@ namespace Fanex.Athena.DataAccess.BetSettings
             ICacheRefAdapter cacheRefAdapter)
             : base(appSetting, sessionStorage)
         {
-            _cacheRefAdapter = new CacheRefAdapter();
-        }
-
-        public KenoBetSettingDataAccess(ICacheRefAdapter cacheRefAdapter)
-        {
             _cacheRefAdapter = cacheRefAdapter;
         }
+        
 
         public IList<BetSetting> GetBetSettings(int custId)
         {

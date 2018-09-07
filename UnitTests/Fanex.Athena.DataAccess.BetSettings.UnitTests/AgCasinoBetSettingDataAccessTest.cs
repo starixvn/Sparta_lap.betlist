@@ -9,23 +9,6 @@
     [TestFixture]
     public class AgCasinoBetSettingDataAccessTest : BaseDataAccessHelperTest<AgCasinoBetSettingDataAccess>
     {
-        private IObjectDb _objectDb;
-        private AgCasinoBetSettingDataAccess _dataAccess;
-
-        [SetUp]
-        public void SetUp()
-        {
-            _objectDb = Substitute.For<IObjectDb>();
-            _dataAccess = Substitute.ForPartsOf<AgCasinoBetSettingDataAccess>();
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            _objectDb = null;
-            _dataAccess = null;
-        }
-
         [Test]
         public void GetBetSetting_WhenCall_ParameterPassedCorrectly()
         {
@@ -37,12 +20,12 @@
             DataAccess.GetBetSetting(custId);
 
             // Assert
-            _objectDb.Received(1).AddInParameter("CustID", DbType.Int32, custId);
-            _objectDb.Received(1).AddOutParameter("Currency", DbType.Int32, int.MaxValue);
-            _objectDb.Received(1).AddOutParameter("AGGroup", DbType.String, 20);
-            _objectDb.Received(1).AddOutParameter("IsEnabled", DbType.Boolean, 1);
-            _objectDb.Received(1).AddOutParameter("IsLineEnabled", DbType.Boolean, 1);
-            _objectDb.Received(1).AddOutParameter("CheckedGroups", DbType.String, 500);
+            ObjectDb.Received(1).AddInParameter("CustID", DbType.Int32, custId);
+            ObjectDb.Received(1).AddOutParameter("Currency", DbType.Int32, int.MaxValue);
+            ObjectDb.Received(1).AddOutParameter("AGGroup", DbType.String, 20);
+            ObjectDb.Received(1).AddOutParameter("IsEnabled", DbType.Boolean, 1);
+            ObjectDb.Received(1).AddOutParameter("IsLineEnabled", DbType.Boolean, 1);
+            ObjectDb.Received(1).AddOutParameter("CheckedGroups", DbType.String, 500);
         }
 
         [Test]
@@ -63,13 +46,13 @@
             DataAccess.UpdateBetSetting(data, group);
 
             // Assert
-            _objectDb.Received(1).AddInParameter("aggroup", DbType.String, group);
-            _objectDb.Received(1).AddInParameter("ip", DbType.String, data.Ip);
-            _objectDb.Received(1).AddInParameter("language", DbType.String, data.Language);
-            _objectDb.Received(1).AddInParameter("userid", DbType.Int32, data.UserId);
-            _objectDb.Received(1).AddInParameter("custid", DbType.Int32, data.CustId);
-            _objectDb.Received(1).AddOutParameter("ErrCode", DbType.String, 600);
-            _objectDb.Received(1).AddOutParameter("ErrMsg", DbType.String, 8000);
+            ObjectDb.Received(1).AddInParameter("aggroup", DbType.String, group);
+            ObjectDb.Received(1).AddInParameter("ip", DbType.String, data.Ip);
+            ObjectDb.Received(1).AddInParameter("language", DbType.String, data.Language);
+            ObjectDb.Received(1).AddInParameter("userid", DbType.Int32, data.UserId);
+            ObjectDb.Received(1).AddInParameter("custid", DbType.Int32, data.CustId);
+            ObjectDb.Received(1).AddOutParameter("ErrCode", DbType.String, 600);
+            ObjectDb.Received(1).AddOutParameter("ErrMsg", DbType.String, 8000);
         }
 
         [Test]
@@ -87,14 +70,14 @@
             DataAccess.UpdateStatus(userId, custId, language, ip, isEnabled);
 
             // Assert
-            _objectDb.Received(1).AddInParameter("isenabled", DbType.Boolean, isEnabled);
-            _objectDb.Received(1).AddInParameter("ip", DbType.String, ip);
-            _objectDb.Received(1).AddInParameter("language", DbType.String, language);
-            _objectDb.Received(1).AddInParameter("userid", DbType.Int32, userId);
-            _objectDb.Received(1).AddInParameter("custid", DbType.Int32, custId);
+            ObjectDb.Received(1).AddInParameter("isenabled", DbType.Boolean, isEnabled);
+            ObjectDb.Received(1).AddInParameter("ip", DbType.String, ip);
+            ObjectDb.Received(1).AddInParameter("language", DbType.String, language);
+            ObjectDb.Received(1).AddInParameter("userid", DbType.Int32, userId);
+            ObjectDb.Received(1).AddInParameter("custid", DbType.Int32, custId);
 
-            _objectDb.Received(1).AddOutParameter("ErrCode", DbType.String, 600);
-            _objectDb.Received(1).AddOutParameter("ErrMsg", DbType.String, 8000);
+            ObjectDb.Received(1).AddOutParameter("ErrCode", DbType.String, 600);
+            ObjectDb.Received(1).AddOutParameter("ErrMsg", DbType.String, 8000);
         }
     }
 }

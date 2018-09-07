@@ -13,32 +13,17 @@ namespace Fanex.Athena.DataAccess.Core.Common
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Common.Extensions;
-    using VendorAdapter;
-    using VendorAdapter.Interfaces;
     using Session.Interfaces;
+    using VendorAdapter.Interfaces;
 
     public class MatchDataAccess : BaseDataAccess, IMatchDataAccess
     {
         private readonly ICacheRefAdapter _cacheRefAdapter;
 
-        public MatchDataAccess()
-        {
-            _cacheRefAdapter = new CacheRefAdapter();
-        }
-
-        public MatchDataAccess(ICacheRefAdapter cacheRefAdapter)
-        {
-            _cacheRefAdapter = cacheRefAdapter;
-        }
-
-        /// <summary>
-        /// Get match list by league.
-        /// </summary>
-        /// <param name="leagueId">League ID value.</param>
-        /// <returns>The result value.</returns>
-        public MatchDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
+        public MatchDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage, ICacheRefAdapter cacheRefAdapter)
             : base(appSetting, sessionStorage)
         {
+            _cacheRefAdapter = cacheRefAdapter;
         }
 
         public IList<Match> GetForecastMatchListByLeague(int leagueId)

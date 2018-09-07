@@ -5,6 +5,7 @@
     using System.Data;
     using Core.Configuration.Interfaces;
     using Core.UnitTests.TestHelpers;
+    using Data;
     using Fanex.Athena.UnitTest.Common.NUnitExtensions;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Configuration;
@@ -53,12 +54,6 @@
             var cacheRefAdapter = Substitute.For<ICacheRefAdapter>();
             DataAccess = Substitute.ForPartsOf<ResultDataAccess>(balanceUpDataAccess, cacheRefAdapter);
             ObjectDb = Substitute.For<IObjectDb>();
-
-            _metaModel = new ResultMetalModel
-            {
-                FromDate = new DateTime(2017, 1, 1),
-                ToDate = new DateTime(2017, 2, 2)
-            };
         }
 
         [Test]

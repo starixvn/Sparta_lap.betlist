@@ -17,7 +17,6 @@ namespace Fanex.Athena.DataAccess.Core.Common
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Common.Extensions;
     using Session.Interfaces;
-    using VendorAdapter;
     using VendorAdapter.Interfaces;
 
     public class SportTypeDataAccess : BaseDataAccess, ISportTypeDataAccess
@@ -35,11 +34,6 @@ namespace Fanex.Athena.DataAccess.Core.Common
             ISessionStorage sessionStorage,
             ICacheRefAdapter cacheRefAdapter)
             : base(appSetting, sessionStorage)
-        {
-            _cacheRefAdapter = new CacheRefAdapter();
-        }
-
-        public SportTypeDataAccess(ICacheRefAdapter cacheRefAdapter)
         {
             _cacheRefAdapter = cacheRefAdapter;
         }

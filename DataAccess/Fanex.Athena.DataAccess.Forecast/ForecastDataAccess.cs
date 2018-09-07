@@ -24,28 +24,17 @@ namespace Fanex.Athena.DataAccess.Forecast
     using Model.Forecast.DTO.NewForecastHdpOu;
     using Model.Forecast.MetaModel;
     using Resources;
-    using VendorAdapter;
-    using VendorAdapter.Interfaces;
     using Session.Interfaces;
-    using League = Fanex.Athena.Model.Core.DTO.Common.League;
+    using VendorAdapter.Interfaces;
 
     public class ForecastDataAccess : BaseDataAccess, IForecastDataAccess
     {
         private readonly ICacheRefAdapter _cacheRefAdapter;
 
-        public ForecastDataAccess()
-        {
-            _cacheRefAdapter = new CacheRefAdapter();
-        }
-
-        public ForecastDataAccess(ICacheRefAdapter cacheRefAdapter)
-        {
-            _cacheRefAdapter = cacheRefAdapter;
-        }
-
-        public ForecastDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
+        public ForecastDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage, ICacheRefAdapter cacheRefAdapter)
             : base(appSetting, sessionStorage)
         {
+            _cacheRefAdapter = cacheRefAdapter;
         }
 
         #region Forecast AH

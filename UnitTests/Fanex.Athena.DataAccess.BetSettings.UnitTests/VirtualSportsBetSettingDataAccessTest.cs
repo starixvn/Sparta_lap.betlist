@@ -14,11 +14,6 @@
     [TestFixture]
     public class VirtualSportsBetSettingDataAccessTest : BaseDataAccessHelperTest<DcsBetSettingDataAccess>
     {
-        private IObjectDb _objectDb;
-        private DcsBetSettingDataAccess _dataAccess;
-
-        [SetUp]
-        public void SetUp()
         protected override void SetUpDataAccess()
         {
             DataAccess = Substitute.ForPartsOf<DcsBetSettingDataAccess>(
@@ -40,8 +35,8 @@
             DataAccess.GetBetSetting(custId, productId);
 
             // Assert
-            _objectDb.Received(1).AddInParameter("custid", DbType.Int32, custId);
-            _objectDb.Received(1).AddInParameter("productid", DbType.Int32, productId);
+            ObjectDb.Received(1).AddInParameter("custid", DbType.Int32, custId);
+            ObjectDb.Received(1).AddInParameter("productid", DbType.Int32, productId);
         }
 
         [Test]
@@ -84,12 +79,12 @@
             DataAccess.UpdateBetSetting(custId, userId, ip, xmlData);
 
             // Assert
-            _objectDb.Received(1).AddInParameter("custid", DbType.Int32, custId);
-            _objectDb.Received(1).AddInParameter("userid", DbType.Int32, userId);
-            _objectDb.Received(1).AddInParameter("ip", DbType.String, ip);
-            _objectDb.Received(1).AddInParameter("betlimit", DbType.String, xmlData);
-            _objectDb.Received(1).AddOutParameter("errcode", DbType.Int32, 4);
-            _objectDb.Received(1).AddOutParameter("errmsg", DbType.String, 8000);
+            ObjectDb.Received(1).AddInParameter("custid", DbType.Int32, custId);
+            ObjectDb.Received(1).AddInParameter("userid", DbType.Int32, userId);
+            ObjectDb.Received(1).AddInParameter("ip", DbType.String, ip);
+            ObjectDb.Received(1).AddInParameter("betlimit", DbType.String, xmlData);
+            ObjectDb.Received(1).AddOutParameter("errcode", DbType.Int32, 4);
+            ObjectDb.Received(1).AddOutParameter("errmsg", DbType.String, 8000);
         }
 
         [Test]
