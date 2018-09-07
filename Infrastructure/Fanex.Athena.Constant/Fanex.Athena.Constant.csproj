@@ -62,6 +62,7 @@
     <Compile Include="DataDomain\BetType.cs" />
     <Compile Include="DataDomain\ProductTypes.cs" />
     <Compile Include="DataDomain\SportType.cs" />
+    <Compile Include="DataDomain\OneAuthUserLevelType.cs" />
     <Compile Include="Helper\BettypeHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
