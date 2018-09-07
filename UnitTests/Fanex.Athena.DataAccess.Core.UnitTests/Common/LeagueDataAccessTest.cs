@@ -6,10 +6,20 @@
     using Model.Core.MetaModel.Common;
     using NSubstitute;
     using NUnit.Framework;
+    using Session.Interfaces;
     using TestHelpers;
+    using VendorAdapter.Interfaces;
 
     public class LeagueDataAccessTest : BaseDataAccessHelperTest<LeagueDataAccess>
     {
+        protected override void SetUpDataAccess()
+        {
+            DataAccess = Substitute.ForPartsOf<LeagueDataAccess>(
+                AppSetting,
+                Substitute.For<ISessionStorage>(),
+                Substitute.For<ICacheRefAdapter>());
+        }
+
         [Test]
         public void GetLeaguesBySport_WhenCall_ParametersPassedCorrectly()
         {

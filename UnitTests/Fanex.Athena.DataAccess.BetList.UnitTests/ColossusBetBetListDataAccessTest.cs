@@ -8,6 +8,7 @@
     using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using Session.Interfaces;
 
     public class ColossusBetBetListDataAccessTest : BaseDataAccessHelperTest<ColossusBetBetListDataAccess>
     {
@@ -18,7 +19,10 @@
         protected override void SetUpDataAccess()
         {
             var ticketHelper = Substitute.For<ITicketHelper>();
-            DataAccess = Substitute.ForPartsOf<ColossusBetBetListDataAccess>(ticketHelper);
+            DataAccess = Substitute.ForPartsOf<ColossusBetBetListDataAccess>(
+                AppSetting,
+                Substitute.For<ISessionStorage>(),
+                ticketHelper);
         }
 
         [Test]

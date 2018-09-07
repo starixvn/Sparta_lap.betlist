@@ -2,9 +2,11 @@
 {
     using System;
     using Core.Common;
+    using Extension.Utility;
     using Model.Core.DTO.Common;
     using NSubstitute;
     using NUnit.Framework;
+    using Session.Interfaces;
     using TestHelpers;
     using VendorAdapter.Interfaces;
 
@@ -12,7 +14,10 @@
     {
         protected override void SetUpDataAccess()
         {
-            DataAccess = Substitute.ForPartsOf<MatchDataAccess>(Substitute.For<ICacheRefAdapter>());
+            DataAccess = Substitute.ForPartsOf<MatchDataAccess>(
+                Substitute.For<IAppSettings>(),
+                Substitute.For<ISessionStorage>(),
+                Substitute.For<ICacheRefAdapter>());
         }
 
         [TestCase(1)]

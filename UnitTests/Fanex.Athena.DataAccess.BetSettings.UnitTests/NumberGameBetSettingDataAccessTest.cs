@@ -7,8 +7,8 @@
     using Model.Core.DTO.Common;
     using NSubstitute;
     using NUnit.Framework;
+    using Session.Interfaces;
     using Utility;
-    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class NumberGameBetSettingDataAccessTest : BaseDataAccessHelperTest<NumberGameBetSettingDataAccess>
@@ -21,7 +21,10 @@
                 {
                     SportId = x[1].ToString()
                 });
-            DataAccess = Substitute.ForPartsOf<NumberGameBetSettingDataAccess>(betSettingReader);
+            DataAccess = Substitute.ForPartsOf<NumberGameBetSettingDataAccess>(
+                AppSetting,
+                Substitute.For<ISessionStorage>(),
+                betSettingReader);
         }
 
         [Test]

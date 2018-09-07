@@ -5,29 +5,29 @@
     using System.Linq;
     using Core.UnitTests.TestHelpers;
     using Data;
-    using Extension.Utility;
     using Model.BetSettings.DTO;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
     using NSubstitute;
     using NUnit.Framework;
+    using Session.Interfaces;
     using Utility;
 
     [TestFixture]
     public class SportsbookBetSettingDataAccessTest : BaseDataAccessHelperTest<SportsbookBetSettingDataAccess>
     {
-        [OneTimeSetUp]
-        public override void FixtureSetUp()
+        protected override void SetUpDataAccess()
         {
-            var appSetting = Substitute.For<IAppSettings>();
             var betSettingReader = Substitute.For<IBetSettingReader>();
             betSettingReader.ReadForSport(Arg.Any<IDataReader>(), Arg.Any<string>(), Arg.Any<bool>())
                 .Returns(x => new BetSetting
                 {
                     SportId = x[1].ToString()
                 });
-            ObjectDb = Substitute.For<IObjectDb>();
-            DataAccess = Substitute.ForPartsOf<SportsbookBetSettingDataAccess>(appSetting, betSettingReader);
+            DataAccess = Substitute.ForPartsOf<SportsbookBetSettingDataAccess>(
+                AppSetting,
+                Substitute.For<ISessionStorage>(),
+                betSettingReader);
         }
 
         [Test]

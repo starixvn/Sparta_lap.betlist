@@ -5,7 +5,6 @@
     using System.Data;
     using Core.Configuration.Interfaces;
     using Core.UnitTests.TestHelpers;
-    using Data;
     using Fanex.Athena.UnitTest.Common.NUnitExtensions;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Configuration;
@@ -15,6 +14,7 @@
     using Result.Core.NumberGame.DTO;
     using Result.Core.Racing.DTO;
     using Result.Core.Sportsbook.DTO;
+    using Session.Interfaces;
     using VendorAdapter.Interfaces;
 
     [TestFixture]
@@ -52,8 +52,11 @@
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             balanceUpDataAccess.GetBalanceUp().Returns(_balance);
             var cacheRefAdapter = Substitute.For<ICacheRefAdapter>();
-            DataAccess = Substitute.ForPartsOf<ResultDataAccess>(balanceUpDataAccess, cacheRefAdapter);
-            ObjectDb = Substitute.For<IObjectDb>();
+            DataAccess = Substitute.ForPartsOf<ResultDataAccess>(
+                AppSetting,
+                Substitute.For<ISessionStorage>(),
+                balanceUpDataAccess,
+                cacheRefAdapter);
         }
 
         [Test]

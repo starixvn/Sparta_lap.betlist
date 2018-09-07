@@ -2,6 +2,7 @@
 {
     using System;
     using System.Data;
+    using Session.Interfaces;
     using Core.UnitTests.TestHelpers;
     using Forecast;
     using Model.Forecast.DTO.Forecast1X2;
@@ -12,10 +13,18 @@
     using NSubstitute;
     using NUnit.Framework;
     using UnitTest.Common.Helpers;
+    using VendorAdapter.Interfaces;
 
     [TestFixture]
     public class ForecastDataAccessTest : BaseDataAccessHelperTest<ForecastDataAccess>
     {
+        protected override void SetUpDataAccess()
+        {
+            DataAccess = Substitute.ForPartsOf<ForecastDataAccess>(
+                AppSetting,
+                Substitute.For<ISessionStorage>(),
+                Substitute.For<ICacheRefAdapter>());
+        }
         [Test]
         public void GetForecastTopOddsByMatch_WhenCall_ParametersPassedCorrectly()
         {
