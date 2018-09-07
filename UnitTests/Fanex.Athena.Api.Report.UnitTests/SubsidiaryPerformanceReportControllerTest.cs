@@ -54,7 +54,7 @@
             SubsidiaryPerformanceMetaModel passedMetaModel = null;
             var resultData = new SubsidiaryResultViewModel
             {
-                Total = new List<SubsidiaryPerformanceEntity>()
+                Total = new Dictionary<string, SubsidiaryPerformanceBase>()
             };
 
             _service.GetData(Arg.Do<SubsidiaryPerformanceMetaModel>(x => passedMetaModel = x)).Returns(resultData);
@@ -85,7 +85,7 @@
             var resultData = new SubsidiaryResultViewModel
             {
                 Data = new List<SubsidiaryPerformanceDataModel>(),
-                Total = new List<SubsidiaryPerformanceEntity>()
+                Total = new Dictionary<string, SubsidiaryPerformanceBase>()
             };
             _service.GetData(Arg.Any<SubsidiaryPerformanceMetaModel>()).Returns(resultData);
 

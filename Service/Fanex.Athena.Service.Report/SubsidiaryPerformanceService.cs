@@ -10,6 +10,7 @@
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Service.Report.Interfaces;
     using Model.Core.DTO.Configuration;
+    using Model.Core.ResultModel;
     using Model.Report.DTO;
     using Resources;
 
@@ -41,25 +42,13 @@
 
         public SubsidiaryResultViewModel GetData(SubsidiaryPerformanceMetaModel metaModel)
         {
-            var resultModel = _subLicenseePerformanceDataAccess.GetData(metaModel);
-            var dataList = resultModel.DataList;
+            var dataList = _subLicenseePerformanceDataAccess.GetData(metaModel);
 
             if (dataList.Any())
             {
-                var totalDataList = resultModel.TotalDataList;
-                var operatorList = GetOperatorList(metaModel.LicenseeName);
-                MapSubsidiaryColumn(dataList, operatorList);
-                MapSubsidiaryColumn(totalDataList, operatorList);
+                var operatorList = GetSelectedOpertor(metaModel).ToList();
 
-                var baseCurrency = metaModel.BaseCurrency.ToUpperInvariant();
-                var totalDataResultViewModel = GetTotalDataList(totalDataList, baseCurrency);
-
-                return new SubsidiaryResultViewModel
-                {
-                    Data = GetDataModel(dataList),
-                    Total = totalDataResultViewModel,
-                    GrandTotal = totalDataResultViewModel.Any() ? GetGrandTotal(baseCurrency, totalDataResultViewModel) : null
-                };
+                return GetDataModel(dataList, operatorList);
             }
 
             return new SubsidiaryResultViewModel
@@ -68,99 +57,124 @@
             };
         }
 
-        private static void MapSubsidiaryColumn(IEnumerable<SubsidiaryPerformanceEntity> entityDataList, IEnumerable<Operator> operatorList)
+        public ReportResultModel<SubsidiaryPerformanceDetail> GetDetailData(SubsidiaryPerformanceMetaModel metaModel)
         {
-            foreach (var item in entityDataList)
-            {
-                var operatorItem = operatorList.FirstOrDefault(o => o.AgentId == item.SubsidiaryId);
-                item.Subsidiary = operatorItem == null ? string.Empty : operatorItem.OperatorName;
-            }
+            return _subLicenseePerformanceDataAccess.GetDetailData(metaModel);
         }
 
-        private static IEnumerable<SubsidiaryPerformanceDataModel> GetDataModel(
-            IEnumerable<SubsidiaryPerformanceEntity> entityDataList)
+        private static void AssignSumData(SubsidiaryPerformanceBase total, SubsidiaryPerformanceBase detail)
         {
-            var dataModelList = new List<SubsidiaryPerformanceDataModel>();
+            total.BetCount += detail.BetCount;
+            total.Turnover += detail.Turnover;
+            total.SubsidiaryComm += detail.SubsidiaryComm;
+            total.SubsidiaryWinLoss += detail.SubsidiaryWinLoss;
+            total.CustomerWinLoss += detail.CustomerWinLoss;
+        }
 
-            var groupedData = entityDataList.Where(x => !string.IsNullOrEmpty(x.Subsidiary)).GroupBy(p => new { p.Subsidiary, p.CurrencyId });
+        private IEnumerable<Operator> GetSelectedOpertor(SubsidiaryPerformanceMetaModel metaModel)
+        {
+            var allOperators = GetOperatorList(metaModel.LicenseeName);
+            var selectedSubsidiary = metaModel.SubsidiaryList.Split(',');
 
-            foreach (var summary in groupedData)
-            {
-                var dataModel = new SubsidiaryPerformanceDataModel
+            return allOperators.Join(selectedSubsidiary, oper => oper.OperatorName, sub => sub, (oper, sub) => oper);
+        }
+
+        private SubsidiaryResultViewModel GetDataModel(
+            IEnumerable<SubsidiaryPerformance> entityDataList,
+            IEnumerable<Operator> operators)
+        {
+            var dataModel = new List<SubsidiaryPerformanceDataModel>();
+            var totalModel = new Dictionary<string, SubsidiaryPerformanceBase>();
+            var grandTotal = new SubsidiaryPerformanceBase();
+
+            var subsidiaryGroup = operators.Join(
+                entityDataList,
+                oper => oper.AgentId,
+                data => data.SubsidiaryId,
+                (oper, data) => new
                 {
-                    Subsidiary = summary.Key.Subsidiary,
-                    CurrencyName = summary.First().CurrencyName
-                };
-
-                var detailList = new List<SubsidiaryPerformanceModelBase>();
-
-                detailList.Add(new SubsidiaryPerformanceModelBase
-                {
-                    Product = ViewResources.All,
-                    BetCount = summary.Sum(p => p.BetCount),
-                    Turnover = summary.Sum(p => p.Turnover),
-                    CustomerWinLoss = summary.Sum(p => p.CustomerWinLoss),
-                    SubsidiaryWinLoss = summary.Sum(p => p.SubsidiaryWinLoss),
-                    SubsidiaryComm = summary.Sum(p => p.SubsidiaryComm)
-                });
-
-                var summaryDataByProduct = summary.GroupBy(p => p.Product);
-                foreach (var itemByProduct in summaryDataByProduct)
-                {
-                    detailList.Add(new SubsidiaryPerformanceModelBase
+                    Subsidiary = oper.OperatorName,
+                    Data = data
+                }).GroupBy(
+                    data => data.Subsidiary,
+                    (subsidiary, subsidiaryData) => new
                     {
-                        Product = ViewResources.ResourceManager.GetString($"Product{itemByProduct.Key}"),
-                        BetCount = itemByProduct.Sum(p => p.BetCount),
-                        Turnover = itemByProduct.Sum(p => p.Turnover),
-                        CustomerWinLoss = itemByProduct.Sum(p => p.CustomerWinLoss),
-                        SubsidiaryWinLoss = itemByProduct.Sum(p => p.SubsidiaryWinLoss),
-                        SubsidiaryComm = itemByProduct.Sum(p => p.SubsidiaryComm)
+                        Subsidiary = subsidiary,
+                        Details = subsidiaryData.GroupBy(x => x.Data.CurrencyId, (currency, currencyData) => currencyData.Select(x => x.Data))
                     });
+
+            foreach (var subsidiary in subsidiaryGroup)
+            {
+                var main = new SubsidiaryPerformanceDataModel
+                {
+                    Subsidiary = subsidiary.Subsidiary,
+                    Details = new Dictionary<string, IEnumerable<SubsidiaryPerformanceBase>>()
+                };
+                var total = new SubsidiaryPerformanceBase();
+
+                foreach (var currency in subsidiary.Details)
+                {
+                    var products = GetProducts(currency, total);
+
+                    main.Details.Add(currency.First().CurrencyName, products);
+                    main.TotalItem += products.Count;
                 }
 
-                dataModel.Details = detailList;
-                dataModelList.Add(dataModel);
+                dataModel.Add(main);
+                totalModel.Add(subsidiary.Subsidiary, total);
+                AssignSumData(grandTotal, total);
             }
 
-            return dataModelList;
-        }
-
-        private static IEnumerable<SubsidiaryPerformanceEntity> GetTotalDataList(
-            IEnumerable<SubsidiaryPerformanceEntity> entityTotalDataList,
-            string baseCurrency)
-        {
-            var totalDataList = new List<SubsidiaryPerformanceEntity>();
-            var groupedDataBySubsidiary = entityTotalDataList.Where(x => !string.IsNullOrEmpty(x.Subsidiary)).GroupBy(p => p.Subsidiary);
-
-            foreach (var item in groupedDataBySubsidiary)
+            return new SubsidiaryResultViewModel
             {
-                totalDataList.Add(new SubsidiaryPerformanceEntity
-                {
-                    Subsidiary = $"{ViewResources.Total} {item.Key}",
-                    CurrencyName = $"{ViewResources.Based} {baseCurrency}",
-                    BetCount = item.Sum(x => x.BetCount),
-                    Turnover = item.Sum(x => x.Turnover),
-                    CustomerWinLoss = item.Sum(x => x.CustomerWinLoss),
-                    SubsidiaryWinLoss = item.Sum(x => x.SubsidiaryWinLoss),
-                    SubsidiaryComm = item.Sum(x => x.SubsidiaryComm)
-                });
-            }
-
-            return totalDataList;
-        }
-
-        private static SubsidiaryPerformanceEntity GetGrandTotal(string baseCurrency, IEnumerable<SubsidiaryPerformanceEntity> totalDataList)
-        {
-            return new SubsidiaryPerformanceEntity
-            {
-                Subsidiary = ViewResources.Total,
-                CurrencyName = $"{ViewResources.Based} {baseCurrency}",
-                BetCount = totalDataList.Sum(p => p.BetCount),
-                Turnover = totalDataList.Sum(p => p.Turnover),
-                CustomerWinLoss = totalDataList.Sum(p => p.CustomerWinLoss),
-                SubsidiaryWinLoss = totalDataList.Sum(p => p.SubsidiaryWinLoss),
-                SubsidiaryComm = totalDataList.Sum(p => p.SubsidiaryComm)
+                Data = dataModel,
+                Total = totalModel,
+                GrandTotal = grandTotal
             };
+        }
+
+        private IList<SubsidiaryPerformanceBase> GetProducts(IEnumerable<SubsidiaryPerformance> productList, SubsidiaryPerformanceBase baseSumTotal)
+        {
+            var groupedProduct = productList.GroupBy(
+                x => x.ProductCode,
+                (key, item) => new
+                {
+                    ProductCode = key,
+                    Data = new SubsidiaryPerformanceBase
+                    {
+                        BetCount = item.Sum(x => x.BetCount),
+                        Turnover = item.Sum(x => x.Turnover),
+                        CustomerWinLoss = item.Sum(x => x.CustomerWinLoss),
+                        SubsidiaryWinLoss = item.Sum(x => x.SubsidiaryWinLoss),
+                        SubsidiaryComm = item.Sum(x => x.SubsidiaryComm)
+                    },
+                    BaseData = new SubsidiaryPerformanceBase
+                    {
+                        BetCount = item.Sum(x => x.BaseCurrencyData.BetCount),
+                        Turnover = item.Sum(x => x.BaseCurrencyData.Turnover),
+                        CustomerWinLoss = item.Sum(x => x.BaseCurrencyData.CustomerWinLoss),
+                        SubsidiaryWinLoss = item.Sum(x => x.BaseCurrencyData.SubsidiaryWinLoss),
+                        SubsidiaryComm = item.Sum(x => x.BaseCurrencyData.SubsidiaryComm)
+                    }
+                });
+
+            var products = new List<SubsidiaryPerformanceBase>();
+            var productAll = new SubsidiaryPerformanceBase
+            {
+                Product = ViewResources.All
+            };
+            products.Add(productAll);
+
+            foreach (var product in groupedProduct)
+            {
+                product.Data.Product = ViewResources.ResourceManager.GetString($"Product{product.ProductCode}");
+                products.Add(product.Data);
+
+                AssignSumData(productAll, product.Data);
+                AssignSumData(baseSumTotal, product.BaseData);
+            }
+
+            return products;
         }
     }
 }

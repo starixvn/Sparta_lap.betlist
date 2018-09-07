@@ -20,6 +20,10 @@
 
         public string LicenseeName { get; set; }
 
+        public bool IncludeRaw { get; set; }
+
+        public bool IsExcludeTest { get; set; }
+
         public bool IsValid => FromDate <= ToDate &&
                                 !string.IsNullOrEmpty(ProductCodeList) &&
                                 !string.IsNullOrEmpty(BaseCurrency) &&

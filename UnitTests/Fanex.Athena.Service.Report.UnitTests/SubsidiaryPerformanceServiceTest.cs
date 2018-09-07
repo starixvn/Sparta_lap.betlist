@@ -5,7 +5,6 @@
     using System.Web.Script.Serialization;
     using DataAccess.Report.Interfaces;
     using Extension.Utility.Interfaces;
-    using Model.Core.ResultModel;
     using Model.Report.DTO;
     using Model.Report.DTO.SubsidiaryPerformance;
     using Model.Report.MetaModel;
@@ -66,11 +65,7 @@
                 SubsidiaryList = "123,143",
                 BaseCurrency = "EUR"
             };
-            var resultData = new ReportResultModel<SubsidiaryPerformanceEntity>
-            {
-                DataList = new List<SubsidiaryPerformanceEntity>(),
-                TotalDataList = new List<SubsidiaryPerformanceEntity>()
-            };
+            var resultData = new List<SubsidiaryPerformance>();
             _dataAccess.GetData(metaModel).Returns(resultData);
 
             // Action
@@ -103,14 +98,10 @@
             _cache.Get(cacheKey, Arg.Any<Func<IEnumerable<Operator>>>(), Arg.Any<int>()).Returns(operatorList);
 
             var fakeEntityDataList = GetFakeEntityDataList();
-            var resultData = new ReportResultModel<SubsidiaryPerformanceEntity>
-            {
-                DataList = fakeEntityDataList,
-                TotalDataList = new List<SubsidiaryPerformanceEntity>()
-            };
+
             var expectedResult = _serializer.Serialize(GetExpectedDataModelList());
 
-            _dataAccess.GetData(metaModel).Returns(resultData);
+            _dataAccess.GetData(metaModel).Returns(fakeEntityDataList);
 
             // Action
             var result = _serializer.Serialize(_service.GetData(metaModel).Data);
@@ -140,11 +131,7 @@
             var cacheKey = $"MemoryCache_SubsidiaryList_{LicenseeName}";
             _cache.Get<IEnumerable<Operator>>(cacheKey).Returns(operatorList);
 
-            var resultData = new ReportResultModel<SubsidiaryPerformanceEntity>
-            {
-                DataList = GetFakeEntityDataList(),
-                TotalDataList = new List<SubsidiaryPerformanceEntity>()
-            };
+            var resultData = GetFakeEntityDataList();
 
             var expectedData = new List<SubsidiaryPerformanceDataModel>();
             var expectedResult = _serializer.Serialize(expectedData);
@@ -180,11 +167,8 @@
             var cacheKey = $"MemoryCache_SubsidiaryList_{LicenseeName}";
             _cache.Get(cacheKey, Arg.Any<Func<IEnumerable<Operator>>>(), Arg.Any<int>()).Returns(operatorList);
 
-            var resultData = new ReportResultModel<SubsidiaryPerformanceEntity>
-            {
-                DataList = GetFakeEntityDataList(),
-                TotalDataList = GetFakeEntityDataList()
-            };
+            var resultData = GetFakeEntityDataList();
+
             var expectedResult = _serializer.Serialize(GetExpectedTotalDataList());
 
             _dataAccess.GetData(metaModel).Returns(resultData);
@@ -219,11 +203,8 @@
             var cacheKey = $"MemoryCache_SubsidiaryList_{LicenseeName}";
             _cache.Get(cacheKey, Arg.Any<Func<IEnumerable<Operator>>>(), Arg.Any<int>()).Returns(operatorList);
 
-            var resultData = new ReportResultModel<SubsidiaryPerformanceEntity>
-            {
-                DataList = GetFakeEntityDataList(),
-                TotalDataList = GetFakeEntityDataList()
-            };
+            var resultData = GetFakeEntityDataList();
+
             var expectedResult = _serializer.Serialize(GetExpectedGrandTotal());
 
             _dataAccess.GetData(metaModel).Returns(resultData);
@@ -258,11 +239,7 @@
             var cacheKey = $"MemoryCache_SubsidiaryList_{LicenseeName}";
             _cache.Get(cacheKey, Arg.Any<Func<IEnumerable<Operator>>>()).Returns(operatorList);
 
-            var resultData = new ReportResultModel<SubsidiaryPerformanceEntity>
-            {
-                DataList = new List<SubsidiaryPerformanceEntity>(),
-                TotalDataList = new List<SubsidiaryPerformanceEntity>()
-            };
+            var resultData = new List<SubsidiaryPerformance>();
 
             _dataAccess.GetData(metaModel).Returns(resultData);
 
@@ -273,41 +250,41 @@
             Assert.That(result, Is.Null);
         }
 
-        private static IEnumerable<SubsidiaryPerformanceEntity> GetFakeEntityDataList()
+        private static IEnumerable<SubsidiaryPerformance> GetFakeEntityDataList()
         {
-            return new List<SubsidiaryPerformanceEntity>
+            return new List<SubsidiaryPerformance>
             {
-                new SubsidiaryPerformanceEntity
+                new SubsidiaryPerformance
                 {
                     SubsidiaryId = 1234, Subsidiary = "New York", CurrencyId = 1, CurrencyName = "USD",
                     Product = "SB", BetCount = 50, Turnover = 100m, CustomerWinLoss = 10m, SubsidiaryWinLoss = -10m
                 },
-                new SubsidiaryPerformanceEntity
+                new SubsidiaryPerformance
                 {
                     SubsidiaryId = 1234, Subsidiary = "New York", CurrencyId = 1, CurrencyName = "USD",
                     Product = "BA", BetCount = 50, Turnover = 100m, CustomerWinLoss = 10m, SubsidiaryWinLoss = -10m
                 },
-                new SubsidiaryPerformanceEntity
+                new SubsidiaryPerformance
                 {
                     SubsidiaryId = 1234, Subsidiary = "New York", CurrencyId = 1, CurrencyName = "USD",
                     Product = "RB", BetCount = 50, Turnover = 100m, CustomerWinLoss = 10m, SubsidiaryWinLoss = -10m
                 },
-                new SubsidiaryPerformanceEntity
+                new SubsidiaryPerformance
                 {
                     SubsidiaryId = 1235, Subsidiary = "India", CurrencyId = 1, CurrencyName = "USD",
                     Product = "RB", BetCount = 50, Turnover = 100m, CustomerWinLoss = 100m, SubsidiaryWinLoss = -100m
                 },
-                new SubsidiaryPerformanceEntity
+                new SubsidiaryPerformance
                 {
                     SubsidiaryId = 1235, Subsidiary = "India", CurrencyId = 6, CurrencyName = "EUR",
                     Product = "SB", BetCount = 50, Turnover = 100m, CustomerWinLoss = 100m, SubsidiaryWinLoss = -100m
                 },
-                new SubsidiaryPerformanceEntity
+                new SubsidiaryPerformance
                 {
                     SubsidiaryId = 1235, Subsidiary = "India", CurrencyId = 1, CurrencyName = "USD",
                     Product = "SB", BetCount = 50, Turnover = 100m, CustomerWinLoss = 100m, SubsidiaryWinLoss = -100m
                 },
-                new SubsidiaryPerformanceEntity
+                new SubsidiaryPerformance
                 {
                     SubsidiaryId = 1235, Subsidiary = "India", CurrencyId = 1, CurrencyName = "USD",
                     Product = "SB", BetCount = 50, Turnover = 100m, CustomerWinLoss = 100m, SubsidiaryWinLoss = -100m
@@ -317,40 +294,49 @@
 
         private static IEnumerable<SubsidiaryPerformanceDataModel> GetExpectedDataModelList()
         {
-            var dataDetail1 = new List<SubsidiaryPerformanceModelBase>
+            var dataDetail1 = new List<SubsidiaryPerformanceBase>
             {
-                new SubsidiaryPerformanceModelBase { Product = "All", BetCount = 150, Turnover = 300m, CustomerWinLoss = 30m, SubsidiaryWinLoss = -30m },
-                new SubsidiaryPerformanceModelBase { Product = "Sportsbook", BetCount = 50, Turnover = 100m, CustomerWinLoss = 10m, SubsidiaryWinLoss = -10m },
-                new SubsidiaryPerformanceModelBase { Product = "BA", BetCount = 50, Turnover = 100m, CustomerWinLoss = 10m, SubsidiaryWinLoss = -10m },
-                new SubsidiaryPerformanceModelBase { Product = "Racing", BetCount = 50, Turnover = 100m, CustomerWinLoss = 10m, SubsidiaryWinLoss = -10m }
+                new SubsidiaryPerformanceBase { Product = "All", BetCount = 150, Turnover = 300m, CustomerWinLoss = 30m, SubsidiaryWinLoss = -30m },
+                new SubsidiaryPerformanceBase { Product = "Sportsbook", BetCount = 50, Turnover = 100m, CustomerWinLoss = 10m, SubsidiaryWinLoss = -10m },
+                new SubsidiaryPerformanceBase { Product = "BA", BetCount = 50, Turnover = 100m, CustomerWinLoss = 10m, SubsidiaryWinLoss = -10m },
+                new SubsidiaryPerformanceBase { Product = "Racing", BetCount = 50, Turnover = 100m, CustomerWinLoss = 10m, SubsidiaryWinLoss = -10m }
             };
 
-            var dataDetail2 = new List<SubsidiaryPerformanceModelBase>
+            var dataDetail2 = new List<SubsidiaryPerformanceBase>
             {
-                new SubsidiaryPerformanceModelBase { Product = "All", BetCount = 150, Turnover = 300m, CustomerWinLoss = 300m, SubsidiaryWinLoss = -300m },
-                new SubsidiaryPerformanceModelBase { Product = "Racing", BetCount = 50, Turnover = 100m, CustomerWinLoss = 100m, SubsidiaryWinLoss = -100m },
-                new SubsidiaryPerformanceModelBase { Product = "Sportsbook", BetCount = 100, Turnover = 200m, CustomerWinLoss = 200m, SubsidiaryWinLoss = -200m }
+                new SubsidiaryPerformanceBase { Product = "All", BetCount = 150, Turnover = 300m, CustomerWinLoss = 300m, SubsidiaryWinLoss = -300m },
+                new SubsidiaryPerformanceBase { Product = "Racing", BetCount = 50, Turnover = 100m, CustomerWinLoss = 100m, SubsidiaryWinLoss = -100m },
+                new SubsidiaryPerformanceBase { Product = "Sportsbook", BetCount = 100, Turnover = 200m, CustomerWinLoss = 200m, SubsidiaryWinLoss = -200m }
             };
 
-            var dataDetail3 = new List<SubsidiaryPerformanceModelBase>
+            var dataDetail3 = new List<SubsidiaryPerformanceBase>
             {
-                new SubsidiaryPerformanceModelBase { Product = "All", BetCount = 50, Turnover = 100m, CustomerWinLoss = 100m, SubsidiaryWinLoss = -100m },
-                new SubsidiaryPerformanceModelBase { Product = "Sportsbook", BetCount = 50, Turnover = 100m, CustomerWinLoss = 100m, SubsidiaryWinLoss = -100m }
+                new SubsidiaryPerformanceBase { Product = "All", BetCount = 50, Turnover = 100m, CustomerWinLoss = 100m, SubsidiaryWinLoss = -100m },
+                new SubsidiaryPerformanceBase { Product = "Sportsbook", BetCount = 50, Turnover = 100m, CustomerWinLoss = 100m, SubsidiaryWinLoss = -100m }
             };
 
             return new List<SubsidiaryPerformanceDataModel>
             {
-                new SubsidiaryPerformanceDataModel { Subsidiary = "New York", CurrencyName = "USD", Details = dataDetail1 },
-                new SubsidiaryPerformanceDataModel { Subsidiary = "India", CurrencyName = "USD", Details = dataDetail2 },
-                new SubsidiaryPerformanceDataModel { Subsidiary = "India", CurrencyName = "EUR", Details = dataDetail3 }
+                new SubsidiaryPerformanceDataModel
+                {
+                    Subsidiary = "New York", Details = new Dictionary<string, IEnumerable<SubsidiaryPerformanceBase>> { { "USD", dataDetail1 } }
+                },
+                new SubsidiaryPerformanceDataModel
+                {
+                    Subsidiary = "India", Details = new Dictionary<string, IEnumerable<SubsidiaryPerformanceBase>> { { "USD", dataDetail2 } }
+                },
+                new SubsidiaryPerformanceDataModel
+                {
+                    Subsidiary = "India", Details = new Dictionary<string, IEnumerable<SubsidiaryPerformanceBase>> { { "EUR", dataDetail3 } }
+                }
             };
         }
 
-        private static IEnumerable<SubsidiaryPerformanceEntity> GetExpectedTotalDataList()
+        private static IEnumerable<SubsidiaryPerformance> GetExpectedTotalDataList()
         {
-            return new List<SubsidiaryPerformanceEntity>
+            return new List<SubsidiaryPerformance>
             {
-                new SubsidiaryPerformanceEntity
+                new SubsidiaryPerformance
                 {
                     Subsidiary = "Total New York",
                     CurrencyName = "Based EUR",
@@ -359,7 +345,7 @@
                     CustomerWinLoss = 30m,
                     SubsidiaryWinLoss = -30m
                 },
-                new SubsidiaryPerformanceEntity
+                new SubsidiaryPerformance
                 {
                     Subsidiary = "Total India",
                     CurrencyName = "Based EUR",
@@ -371,9 +357,9 @@
             };
         }
 
-        private static SubsidiaryPerformanceEntity GetExpectedGrandTotal()
+        private static SubsidiaryPerformance GetExpectedGrandTotal()
         {
-            return new SubsidiaryPerformanceEntity
+            return new SubsidiaryPerformance
             {
                 Subsidiary = "Total",
                 CurrencyName = "Based EUR",

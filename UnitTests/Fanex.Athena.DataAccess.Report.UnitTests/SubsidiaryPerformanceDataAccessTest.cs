@@ -132,7 +132,7 @@
             var expectedResult = serializer.Serialize(GetExpectedResult(readerDataMapping));
 
             // Action
-            var result = serializer.Serialize(DataAccess.GetData(metaModel).DataList);
+            var result = serializer.Serialize(DataAccess.GetData(metaModel));
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -156,7 +156,7 @@
             var expectedResult = serializer.Serialize(GetExpectedResult(readerDataMapping, metaModel.BaseCurrency));
 
             // Action
-            var result = serializer.Serialize(DataAccess.GetData(metaModel).DataList);
+            var result = serializer.Serialize(DataAccess.GetData(metaModel));
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -182,17 +182,17 @@
 
             // Action
             var dataResult = DataAccess.GetData(metaModel);
-            var result = serializer.Serialize(dataResult.TotalDataList);
+            var result = serializer.Serialize(dataResult);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
         }
 
-        private static List<SubsidiaryPerformanceEntity> GetExpectedResult(IDictionary<string, object> readerDataMapping, string baseCurrency = "")
+        private static List<SubsidiaryPerformance> GetExpectedResult(IDictionary<string, object> readerDataMapping, string baseCurrency = "")
         {
-            return new List<SubsidiaryPerformanceEntity>
+            return new List<SubsidiaryPerformance>
             {
-                new SubsidiaryPerformanceEntity
+                new SubsidiaryPerformance
                 {
                     SubsidiaryId = Convert.ToInt32(readerDataMapping["recommend"]),
                     CurrencyId = Convert.ToInt32(readerDataMapping["Currency"]),

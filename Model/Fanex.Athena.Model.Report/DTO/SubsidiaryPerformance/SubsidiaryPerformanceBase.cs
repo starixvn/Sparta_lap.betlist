@@ -1,9 +1,11 @@
 ﻿namespace Fanex.Athena.Model.Report.DTO.SubsidiaryPerformance
 {
-    public class SubsidiaryPerformanceModelBase
+    public class SubsidiaryPerformanceBase
     {
-        public string Product { get; set; }
+        public string CurrencyName { get; set; }
 
+        public string Product { get; set; }
+        
         public int BetCount { get; set; }
 
         public decimal Turnover { get; set; }
