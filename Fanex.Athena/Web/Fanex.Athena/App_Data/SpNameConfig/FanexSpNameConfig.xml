@@ -7,4 +7,7 @@
   <SpNameConfig Environment="BACKUPMNL" SpName="Lrf_ReCheckIn" EnvironmentText="_mnl"></SpNameConfig>
   <SpNameConfig Environment="BACKUPMNL" SpName="Lrf_CheckIn" EnvironmentText="_mnl"></SpNameConfig>
   <!--Do not delete this-->
+
+  <SpNameConfig Environment="DEV,LOCAL" SpName="Lrf_Rpt_SubsidiaryWinloss" EnvironmentText="_xpre"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL" SpName="Lrf_Rpt_SubsidiaryWinlossDetail" EnvironmentText="_xpre"></SpNameConfig>
 </Root>
