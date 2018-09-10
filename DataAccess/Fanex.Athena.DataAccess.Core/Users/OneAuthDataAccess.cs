@@ -13,7 +13,7 @@ namespace Fanex.Athena.DataAccess.Core.Users
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.Model.Core.DTO.Users;
     using Fanex.Common.Extensions;
-    using Interface;
+    using Interfaces;
     using Model.Core.DTO.OneAuth;
 
     public class OneAuthDataAccess : BaseDataAccess, IOneAuthDataAccess

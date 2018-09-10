@@ -30,33 +30,6 @@
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public IEnumerable<Operator> GetOperatorList(string licenseeName)
-        {
-            var operatorList = new List<Operator>();
-
-            const string SpName = "Lrf_SubsidiarySel";
-
-            using (var objectDb = GetObjectDb(SpName))
-            {
-                objectDb.AddInParameter("LicenseeName", DbType.String, licenseeName);
-
-                using (var reader = objectDb.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        operatorList.Add(new Operator
-                        {
-                            AgentId = Convert.ToInt32(reader["AgentID"]),
-                            OperatorName = reader["OperatorID"].ToString(),
-                            CurrencyId = Convert.ToInt32(reader["Currency"])
-                        });
-                    }
-                }
-            }
-
-            return operatorList;
-        }
-
         public IEnumerable<SubsidiaryPerformance> GetData(SubsidiaryPerformanceMetaModel metaModel)
         {
             const string SpName = "Lrf_Rpt_SubsidiaryWinloss";

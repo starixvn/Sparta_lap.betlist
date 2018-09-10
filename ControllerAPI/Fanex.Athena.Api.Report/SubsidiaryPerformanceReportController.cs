@@ -16,10 +16,13 @@
     [ApiFunctionAuthorization(PermissionKeys.ReportSubsidiaryPerformance)]
     public class SubsidiaryPerformanceReportController : ApiReportBaseController
     {
+        private readonly ISubsidiaryService _subsidiaryService;
+
         private readonly ISubsidiaryPerformanceService _subsidiaryPerformanceService;
 
         public SubsidiaryPerformanceReportController()
         {
+            _subsidiaryService = new SubsidiaryService();
             _subsidiaryPerformanceService = new SubsidiaryPerformanceService();
         }
 
@@ -27,9 +30,11 @@
             ISessionService sessionService,
             IProductService productService,
             ILanguageService langService,
+            ISubsidiaryService subsidiaryService,
             ISubsidiaryPerformanceService subLicenseePerformanceService)
             : base(sessionService, productService, langService)
         {
+            _subsidiaryService = subsidiaryService;
             _subsidiaryPerformanceService = subLicenseePerformanceService;
         }
 
@@ -61,8 +66,8 @@
             var currencyAgentList = new Dictionary<int, IEnumerable<int>>();
             var selectedOperatorList = selectedOperator.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
-            var subsidiaryData = _subsidiaryPerformanceService.GetOperatorList(licenseeName);
-            var dataGroupByCurrency = subsidiaryData.Where(s => selectedOperatorList.Contains(s.OperatorName)).GroupBy(x => x.CurrencyId);
+            var subsidiaryData = _subsidiaryService.GetOperatorList(licenseeName);
+            var dataGroupByCurrency = subsidiaryData.Where(s => selectedOperatorList.Contains(s.SubsidiaryName)).GroupBy(x => x.CurrencyId);
 
             foreach (var item in dataGroupByCurrency)
             {

@@ -125,6 +125,8 @@
     <Compile Include="Configuration\ReportSettingService.cs" />
     <Compile Include="Configuration\LicenseeSettingService.cs" />
     <Compile Include="Configuration\Interfaces\ILicenseeSettingService.cs" />
+    <Compile Include="Users\Interfaces\ISubsidiaryService.cs" />
+    <Compile Include="Users\SubsidiaryService.cs" />
     <Compile Include="Utility\ClientViewHelper.cs" />
     <Compile Include="Users\AuthService.cs" />
     <Compile Include="Users\Interfaces\IAuthService.cs" />

@@ -9,7 +9,6 @@
     using Fanex.Athena.Model.Report.DTO.SubsidiaryPerformance;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Service.Report.Interfaces;
-    using Model.Core.DTO.Configuration;
     using Model.Core.ResultModel;
     using Model.Report.DTO;
     using Resources;
@@ -18,26 +17,24 @@
     {
         private const int CacheTimeoutSeconds = 300;
 
+        private readonly ISubsidiaryService _subsidiaryService;
+
         private readonly IMemoryCacheService _cache;
 
         private readonly ISubsidiaryPerformanceDataAccess _subLicenseePerformanceDataAccess;
 
         public SubsidiaryPerformanceService()
         {
+            _subsidiaryService = new SubsidiaryService();
             _cache = new MemoryCacheService();
             _subLicenseePerformanceDataAccess = new SubsidiaryPerformanceDataAccess();
         }
 
-        public SubsidiaryPerformanceService(ISubsidiaryPerformanceDataAccess subLicenseePerformanceDataAccess, IMemoryCacheService cache)
+        public SubsidiaryPerformanceService(ISubsidiaryService subsidiaryService, ISubsidiaryPerformanceDataAccess subLicenseePerformanceDataAccess, IMemoryCacheService cache)
         {
+            _subsidiaryService = subsidiaryService;
             _cache = cache;
             _subLicenseePerformanceDataAccess = subLicenseePerformanceDataAccess;
-        }
-
-        public IEnumerable<Operator> GetOperatorList(string licenseeName)
-        {
-            var cacheKey = string.Format(CacheKey.MemorycacheSubsidiaryListByLicensee, licenseeName);
-            return _cache.Get(cacheKey, () => _subLicenseePerformanceDataAccess.GetOperatorList(licenseeName), CacheTimeoutSeconds);
         }
 
         public SubsidiaryResultViewModel GetData(SubsidiaryPerformanceMetaModel metaModel)
@@ -71,17 +68,17 @@
             total.CustomerWinLoss += detail.CustomerWinLoss;
         }
 
-        private IEnumerable<Operator> GetSelectedOpertor(SubsidiaryPerformanceMetaModel metaModel)
+        private IEnumerable<Subsidiary> GetSelectedOpertor(SubsidiaryPerformanceMetaModel metaModel)
         {
-            var allOperators = GetOperatorList(metaModel.LicenseeName);
+            var allOperators = _subsidiaryService.GetOperatorList(metaModel.LicenseeName);
             var selectedSubsidiary = metaModel.SubsidiaryList.Split(',');
 
-            return allOperators.Join(selectedSubsidiary, oper => oper.OperatorName, sub => sub, (oper, sub) => oper);
+            return allOperators.Join(selectedSubsidiary, oper => oper.SubsidiaryName, sub => sub, (oper, sub) => oper);
         }
 
         private SubsidiaryResultViewModel GetDataModel(
             IEnumerable<SubsidiaryPerformance> entityDataList,
-            IEnumerable<Operator> operators)
+            IEnumerable<Subsidiary> operators)
         {
             var dataModel = new List<SubsidiaryPerformanceDataModel>();
             var totalModel = new Dictionary<string, SubsidiaryPerformanceBase>();
@@ -93,7 +90,7 @@
                 data => data.SubsidiaryId,
                 (oper, data) => new
                 {
-                    Subsidiary = oper.OperatorName,
+                    Subsidiary = oper.SubsidiaryName,
                     Data = data
                 }).GroupBy(
                     data => data.Subsidiary,

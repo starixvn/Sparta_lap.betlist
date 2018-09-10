@@ -5,11 +5,13 @@
     using System.Web.Script.Serialization;
     using DataAccess.Report.Interfaces;
     using Extension.Utility.Interfaces;
+    using Interfaces;
     using Model.Report.DTO;
     using Model.Report.DTO.SubsidiaryPerformance;
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class SubsidiaryPerformanceServiceTest
@@ -17,16 +19,16 @@
         private const string LicenseeName = "12Bet";
         private ISubsidiaryPerformanceDataAccess _dataAccess;
         private SubsidiaryPerformanceService _service;
-        private JavaScriptSerializer _serializer;
         private IMemoryCacheService _cache;
+        private ISubsidiaryService _subsidiaryService;
 
         [SetUp]
         public void SetUp()
         {
             _dataAccess = Substitute.For<ISubsidiaryPerformanceDataAccess>();
             _cache = Substitute.For<IMemoryCacheService>();
-            _service = new SubsidiaryPerformanceService(_dataAccess, _cache);
-            _serializer = new JavaScriptSerializer();
+            _subsidiaryService = Substitute.For<ISubsidiaryService>();
+            _service = new SubsidiaryPerformanceService(_subsidiaryService, _dataAccess, _cache);
         }
 
         [TearDown]
@@ -35,22 +37,6 @@
             _cache = null;
             _dataAccess = null;
             _service = null;
-        }
-
-        [Test]
-        public void GetOperatorList_DataIsInCache_DoNotCallDataAccess()
-        {
-            // Arrange
-            var cacheKey = $"SubsidiaryList_{LicenseeName}";
-            var subsidiaryList = new Dictionary<int, string>();
-
-            _cache.Get<IDictionary<int, string>>(cacheKey).Returns(subsidiaryList);
-
-            // Action
-            _service.GetOperatorList(LicenseeName);
-
-            // Assert
-            _dataAccess.DidNotReceiveWithAnyArgs().GetOperatorList(LicenseeName);
         }
 
         [Test]
@@ -89,22 +75,22 @@
                 LicenseeName = LicenseeName
             };
 
-            var operatorList = new List<Operator>
+            var operatorList = new List<Subsidiary>
             {
-                new Operator { AgentId = 1234, CurrencyId = 1, OperatorName = "New York" },
-                new Operator { AgentId = 1235, CurrencyId = 2, OperatorName = "India" }
+                new Subsidiary { AgentId = 1234, CurrencyId = 1, SubsidiaryName = "New York" },
+                new Subsidiary { AgentId = 1235, CurrencyId = 2, SubsidiaryName = "India" }
             };
             var cacheKey = $"MemoryCache_SubsidiaryList_{LicenseeName}";
-            _cache.Get(cacheKey, Arg.Any<Func<IEnumerable<Operator>>>(), Arg.Any<int>()).Returns(operatorList);
+            _cache.Get(cacheKey, Arg.Any<Func<IEnumerable<Subsidiary>>>(), Arg.Any<int>()).Returns(operatorList);
 
             var fakeEntityDataList = GetFakeEntityDataList();
 
-            var expectedResult = _serializer.Serialize(GetExpectedDataModelList());
+            var expectedResult = ObjectHelper.ToJson(GetExpectedDataModelList());
 
             _dataAccess.GetData(metaModel).Returns(fakeEntityDataList);
 
             // Action
-            var result = _serializer.Serialize(_service.GetData(metaModel).Data);
+            var result = ObjectHelper.ToJson(_service.GetData(metaModel).Data);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -124,22 +110,22 @@
                 LicenseeName = LicenseeName
             };
 
-            var operatorList = new List<Operator>
+            var operatorList = new List<Subsidiary>
             {
-                new Operator { AgentId = 1230, CurrencyId = 1, OperatorName = "New York" }
+                new Subsidiary { AgentId = 1230, CurrencyId = 1, SubsidiaryName = "New York" }
             };
             var cacheKey = $"MemoryCache_SubsidiaryList_{LicenseeName}";
-            _cache.Get<IEnumerable<Operator>>(cacheKey).Returns(operatorList);
+            _cache.Get<IEnumerable<Subsidiary>>(cacheKey).Returns(operatorList);
 
             var resultData = GetFakeEntityDataList();
 
             var expectedData = new List<SubsidiaryPerformanceDataModel>();
-            var expectedResult = _serializer.Serialize(expectedData);
+            var expectedResult = ObjectHelper.ToJson(expectedData);
 
             _dataAccess.GetData(metaModel).Returns(resultData);
 
             // Action
-            var result = _serializer.Serialize(_service.GetData(metaModel).Data);
+            var result = ObjectHelper.ToJson(_service.GetData(metaModel).Data);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -159,23 +145,23 @@
                 LicenseeName = LicenseeName
             };
 
-            var operatorList = new List<Operator>
+            var operatorList = new List<Subsidiary>
             {
-                new Operator { AgentId = 1234, CurrencyId = 1, OperatorName = "New York" },
-                new Operator { AgentId = 1235, CurrencyId = 2, OperatorName = "India" }
+                new Subsidiary { AgentId = 1234, CurrencyId = 1, SubsidiaryName = "New York" },
+                new Subsidiary { AgentId = 1235, CurrencyId = 2, SubsidiaryName = "India" }
             };
             var cacheKey = $"MemoryCache_SubsidiaryList_{LicenseeName}";
-            _cache.Get(cacheKey, Arg.Any<Func<IEnumerable<Operator>>>(), Arg.Any<int>()).Returns(operatorList);
+            _cache.Get(cacheKey, Arg.Any<Func<IEnumerable<Subsidiary>>>(), Arg.Any<int>()).Returns(operatorList);
 
             var resultData = GetFakeEntityDataList();
 
-            var expectedResult = _serializer.Serialize(GetExpectedTotalDataList());
+            var expectedResult = ObjectHelper.ToJson(GetExpectedTotalDataList());
 
             _dataAccess.GetData(metaModel).Returns(resultData);
 
             // Action
             var totalDataList = _service.GetData(metaModel).Total;
-            var result = _serializer.Serialize(totalDataList);
+            var result = ObjectHelper.ToJson(totalDataList);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -195,23 +181,23 @@
                 LicenseeName = LicenseeName
             };
 
-            var operatorList = new List<Operator>
+            var operatorList = new List<Subsidiary>
             {
-                new Operator { AgentId = 1234, CurrencyId = 1, OperatorName = "New York" },
-                new Operator { AgentId = 1235, CurrencyId = 2, OperatorName = "India" }
+                new Subsidiary { AgentId = 1234, CurrencyId = 1, SubsidiaryName = "New York" },
+                new Subsidiary { AgentId = 1235, CurrencyId = 2, SubsidiaryName = "India" }
             };
             var cacheKey = $"MemoryCache_SubsidiaryList_{LicenseeName}";
-            _cache.Get(cacheKey, Arg.Any<Func<IEnumerable<Operator>>>(), Arg.Any<int>()).Returns(operatorList);
+            _cache.Get(cacheKey, Arg.Any<Func<IEnumerable<Subsidiary>>>(), Arg.Any<int>()).Returns(operatorList);
 
             var resultData = GetFakeEntityDataList();
 
-            var expectedResult = _serializer.Serialize(GetExpectedGrandTotal());
+            var expectedResult = ObjectHelper.ToJson(GetExpectedGrandTotal());
 
             _dataAccess.GetData(metaModel).Returns(resultData);
 
             // Action
             var grandTotalDataList = _service.GetData(metaModel).GrandTotal;
-            var result = _serializer.Serialize(grandTotalDataList);
+            var result = ObjectHelper.ToJson(grandTotalDataList);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -231,13 +217,13 @@
                 LicenseeName = LicenseeName
             };
 
-            var operatorList = new List<Operator>
+            var operatorList = new List<Subsidiary>
             {
-                new Operator { AgentId = 1234, CurrencyId = 1, OperatorName = "New York" },
-                new Operator { AgentId = 1235, CurrencyId = 2, OperatorName = "India" }
+                new Subsidiary { AgentId = 1234, CurrencyId = 1, SubsidiaryName = "New York" },
+                new Subsidiary { AgentId = 1235, CurrencyId = 2, SubsidiaryName = "India" }
             };
             var cacheKey = $"MemoryCache_SubsidiaryList_{LicenseeName}";
-            _cache.Get(cacheKey, Arg.Any<Func<IEnumerable<Operator>>>()).Returns(operatorList);
+            _cache.Get(cacheKey, Arg.Any<Func<IEnumerable<Subsidiary>>>()).Returns(operatorList);
 
             var resultData = new List<SubsidiaryPerformance>();
 

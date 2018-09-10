@@ -1,6 +1,5 @@
 ﻿namespace Fanex.Athena.Controllers.Report
 {
-    using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
     using Extension.Utility;
@@ -18,9 +17,11 @@
     [FunctionAuthorization(PermissionKeys.ReportSubsidiaryPerformance)]
     public class SubsidiaryPerformanceReportController : ReportBaseController
     {
+        private readonly ISubsidiaryService _subsidiaryService;
+
         private readonly ISubsidiaryPerformanceService _service;
 
-        public SubsidiaryPerformanceReportController() : this(null, null, null, null, null, null)
+        public SubsidiaryPerformanceReportController() : this(null, null, null, null, null, null, null)
         {
         }
 
@@ -30,9 +31,11 @@
             IAppSettings appSetting,
             IClientViewHelper clientViewHelper,
             IProductService productService,
+            ISubsidiaryService subsidiaryService,
             ISubsidiaryPerformanceService service)
             : base(languageService, sessionService, appSetting, clientViewHelper, productService)
         {
+            _subsidiaryService = subsidiaryService ?? new SubsidiaryService();
             _service = service ?? new SubsidiaryPerformanceService();
         }
 
@@ -44,10 +47,7 @@
                 licenseeSession.LicenseeId,
                 userSession.Language,
                 FunctionNames.SubsidiaryPerformance);
-            var subsidiaryList = _service.GetOperatorList(licenseeSession.LicenseeName);
-            var filteredSubsidiaryList = subsidiaryList.Where(x => userSession.CurrencyList.ContainsKey(x.CurrencyId));
-
-            var operatorNameList = filteredSubsidiaryList.Any() ? filteredSubsidiaryList.Select(x => x.OperatorName).Distinct() : new List<string>();
+            var operatorNameList = _subsidiaryService.GetOperatorNames(licenseeSession.LicenseeName);
 
             var model = new SubsidiaryPerformanceViewModel
             {

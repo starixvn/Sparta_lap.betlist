@@ -8,7 +8,6 @@
     using Core.UnitTests.TestHelpers;
     using Data;
     using Model.Core.DTO.Configuration;
-    using Model.Report.DTO;
     using Model.Report.DTO.SubsidiaryPerformance;
     using Model.Report.MetaModel;
     using NSubstitute;
@@ -19,7 +18,6 @@
     public class SubsidiaryPerformanceDataAccessTest : BaseDataAccessHelperTest<SubsidiaryPerformanceDataAccess>
     {
         private BalanceUp _balance;
-        private JavaScriptSerializer _serialize;
 
         [OneTimeSetUp]
         public override void FixtureSetUp()
@@ -37,64 +35,6 @@
             DataAccess = Substitute.ForPartsOf<SubsidiaryPerformanceDataAccess>(
                 CreateSessionStorage(),
                 balanceUpDataAccess);
-
-            _serialize = new JavaScriptSerializer();
-        }
-
-        [Test]
-        public void GetOperatorList_WhenCall_PassCorrectParams()
-        {
-            // Arrange
-            const string SpName = "Lrf_SubsidiarySel";
-            DataAccess.GetObjectDb(Arg.Is(SpName)).Returns(ObjectDb);
-            Reader.Read().Returns(false);
-
-            const string LisenseeName = "12Bet";
-
-            // Action
-            DataAccess.GetOperatorList(LisenseeName);
-
-            // Assert
-            ObjectDb.Received(1).AddInParameter("LicenseeName", DbType.String, LisenseeName);
-        }
-
-        [Test]
-        public void GetOperatorList_WhenCall_ReturnCorrectData()
-        {
-            // Arrange
-            const string SpName = "Lrf_SubsidiarySel";
-            DataAccess.GetObjectDb(Arg.Is(SpName)).Returns(ObjectDb);
-            Reader.Read().Returns(true, false);
-
-            const string LisenseeName = "12Bet";
-            const int AgentId = 1234;
-            const int CurrencyId = 13;
-            const string OperatorName = "India";
-
-            var readerDataMapping = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
-            {
-                { "AgentID", AgentId },
-                { "OperatorID", OperatorName },
-                { "Currency", CurrencyId }
-            };
-            DataAccessTestHelper.MapReaderData(Reader, readerDataMapping);
-
-            var expectedData = new List<Operator>
-            {
-                new Operator
-                {
-                    AgentId = AgentId,
-                    OperatorName = OperatorName,
-                    CurrencyId = CurrencyId
-                }
-            };
-            var expectedResult = _serialize.Serialize(expectedData);
-
-            // Action
-            var result = _serialize.Serialize(DataAccess.GetOperatorList(LisenseeName));
-
-            // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
         }
 
         [Test]
@@ -127,12 +67,10 @@
 
             var readerDataMapping = GetReaderDataMapping(metaModel.BaseCurrency);
             DataAccessTestHelper.MapReaderData(Reader, readerDataMapping);
-
-            var serializer = new JavaScriptSerializer();
-            var expectedResult = serializer.Serialize(GetExpectedResult(readerDataMapping));
+            var expectedResult = ObjectHelper.ToJson(GetExpectedResult(readerDataMapping));
 
             // Action
-            var result = serializer.Serialize(DataAccess.GetData(metaModel));
+            var result = ObjectHelper.ToJson(DataAccess.GetData(metaModel));
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -151,12 +89,10 @@
 
             var readerDataMapping = GetReaderDataMapping(metaModel.BaseCurrency);
             DataAccessTestHelper.MapReaderData(Reader, readerDataMapping);
-
-            var serializer = new JavaScriptSerializer();
-            var expectedResult = serializer.Serialize(GetExpectedResult(readerDataMapping, metaModel.BaseCurrency));
+            var expectedResult = ObjectHelper.ToJson(GetExpectedResult(readerDataMapping, metaModel.BaseCurrency));
 
             // Action
-            var result = serializer.Serialize(DataAccess.GetData(metaModel));
+            var result = ObjectHelper.ToJson(DataAccess.GetData(metaModel));
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -176,13 +112,12 @@
             var readerDataMapping = GetReaderDataMapping(metaModel.BaseCurrency);
             DataAccessTestHelper.MapReaderData(Reader, readerDataMapping);
 
-            var serializer = new JavaScriptSerializer();
             var total = GetExpectedResult(readerDataMapping, metaModel.BaseCurrency);
-            var expectedResult = serializer.Serialize(total);
+            var expectedResult = ObjectHelper.ToJson(total);
 
             // Action
             var dataResult = DataAccess.GetData(metaModel);
-            var result = serializer.Serialize(dataResult);
+            var result = ObjectHelper.ToJson(dataResult);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));

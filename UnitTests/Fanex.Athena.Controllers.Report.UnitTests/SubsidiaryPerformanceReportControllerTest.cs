@@ -26,6 +26,7 @@
         private static readonly ReadOnlyCollection<string> BaseCurrencyList = new ReadOnlyCollection<string>(
             new List<string> { "EUR", "USD", "GBP", "MYR", "CNY", "THB", "IDR" });
 
+        private ISubsidiaryService _subsidiaryService;
         private ISubsidiaryPerformanceService _service;
         private JavaScriptSerializer _serializer;
 
@@ -37,6 +38,7 @@
             SetUpDefaultFakeData();
             SessionService.UserSession.ViewType = ClientViewType.Desktop;
 
+            _subsidiaryService = Substitute.For<ISubsidiaryService>();
             _service = Substitute.For<ISubsidiaryPerformanceService>();
             _serializer = new JavaScriptSerializer();
         }
@@ -44,13 +46,13 @@
         [Test]
         public void Index_SubsidiaryListHasData_ReturnCorrectViewResult()
         {
-            var expectedOperatorList = new List<Operator>
+            var expectedOperatorList = new List<Subsidiary>
             {
-                new Operator { AgentId = 1, OperatorName = "New York", CurrencyId = 1 },
-                new Operator { AgentId = 2, OperatorName = "New York", CurrencyId = 2 },
-                new Operator { AgentId = 3, OperatorName = "India", CurrencyId = 2 },
-                new Operator { AgentId = 4, OperatorName = "Irag", CurrencyId = 3 },
-                new Operator { AgentId = 4, OperatorName = "China", CurrencyId = 1 }
+                new Subsidiary { AgentId = 1, SubsidiaryName = "New York", CurrencyId = 1 },
+                new Subsidiary { AgentId = 2, SubsidiaryName = "New York", CurrencyId = 2 },
+                new Subsidiary { AgentId = 3, SubsidiaryName = "India", CurrencyId = 2 },
+                new Subsidiary { AgentId = 4, SubsidiaryName = "Irag", CurrencyId = 3 },
+                new Subsidiary { AgentId = 4, SubsidiaryName = "China", CurrencyId = 1 }
             };
             var expectedViewModelData = new SubsidiaryPerformanceViewModel
             {
@@ -64,7 +66,7 @@
         [Test]
         public void Index_SubsidiaryListHasNoData_ReturnCorrectViewResult()
         {
-            var expectedOperatorList = new List<Operator>();
+            var expectedOperatorList = new List<Subsidiary>();
             var expectedViewModelData = new SubsidiaryPerformanceViewModel
             {
                 ProductOptionList = GetExpectedProductOptionList(),
@@ -98,12 +100,12 @@
                 new HttpResponse(null));
         }
 
-        private void TestIndexViewModel(IEnumerable<Operator> expectedOperatorList, SubsidiaryPerformanceViewModel viewModelData)
+        private void TestIndexViewModel(IEnumerable<Subsidiary> expectedOperatorList, SubsidiaryPerformanceViewModel viewModelData)
         {
             using (var controller = CreateController())
             {
                 // Arrange
-                _service.GetOperatorList(SessionService.LicenseeSession.LicenseeName).Returns(expectedOperatorList);
+                _subsidiaryService.GetOperatorList(SessionService.LicenseeSession.LicenseeName).Returns(expectedOperatorList);
 
                 var expectedModel = _serializer.Serialize(viewModelData);
                 var expectedViewName = "~/Views/Report/SubsidiaryPerformance/Main.cshtml";
@@ -134,6 +136,7 @@
                 AppSettings,
                 ClientViewHelper,
                 productService,
+                _subsidiaryService,
                 _service);
         }
     }

@@ -15,6 +15,8 @@
     [TestFixture]
     public class SubsidiaryPerformanceReportControllerTest : BaseApiControllerHelperTest
     {
+        private ISubsidiaryService _subsidiaryService;
+
         private ISubsidiaryPerformanceService _service;
 
         private SubsidiaryPerformanceReportController _controller;
@@ -25,9 +27,9 @@
         public override void FixtureSetUp()
         {
             base.FixtureSetUp();
-
+            _subsidiaryService = Substitute.For<ISubsidiaryService>();
             _service = Substitute.For<ISubsidiaryPerformanceService>();
-            _controller = Substitute.ForPartsOf<SubsidiaryPerformanceReportController>(SessionService, ProductService, LangService, _service);
+            _controller = Substitute.ForPartsOf<SubsidiaryPerformanceReportController>(SessionService, ProductService, LangService, _subsidiaryService, _service);
             _serializer = new JavaScriptSerializer();
 
             MockSessionData();
@@ -72,13 +74,13 @@
             // Arrange
             var metaModel = GetMetaModel();
 
-            var operatorList = new List<Operator>
+            var operatorList = new List<Subsidiary>
             {
-                new Operator { AgentId = 1, OperatorName = "New York", CurrencyId = 1 },
-                new Operator { AgentId = 3, OperatorName = "New York 2", CurrencyId = 1 },
-                new Operator { AgentId = 2, OperatorName = "India", CurrencyId = 2 }
+                new Subsidiary { AgentId = 1, SubsidiaryName = "New York", CurrencyId = 1 },
+                new Subsidiary { AgentId = 3, SubsidiaryName = "New York 2", CurrencyId = 1 },
+                new Subsidiary { AgentId = 2, SubsidiaryName = "India", CurrencyId = 2 }
             };
-            _service.GetOperatorList(SessionLicenseeName).Returns(operatorList);
+            _subsidiaryService.GetOperatorList(SessionLicenseeName).Returns(operatorList);
             IDictionary<int, IEnumerable<int>> currencyAgentList = null;
             SessionService.GenerateAgentListXml(Arg.Do<IDictionary<int, IEnumerable<int>>>(x => currencyAgentList = x));
 
@@ -102,8 +104,8 @@
             // Arrange
             var metaModel = GetMetaModel();
 
-            var currencyIdList = new List<Operator>();
-            _service.GetOperatorList(SessionLicenseeName).Returns(currencyIdList);
+            var currencyIdList = new List<Subsidiary>();
+            _subsidiaryService.GetOperatorList(SessionLicenseeName).Returns(currencyIdList);
             var expectedResult = _serializer.Serialize(new SubsidiaryResultViewModel { Data = new List<SubsidiaryPerformanceDataModel>() });
 
             // Action
