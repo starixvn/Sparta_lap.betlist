@@ -25,7 +25,6 @@ namespace Fanex.Athena.DataAccess.Core.Users
             {
                 db.AddInParameter("UserSEQ", DbType.Int32, userSEQ);
                 db.AddOutParameter("UserLevel", DbType.Byte, 0);
-                AddResultParam(db);
 
                 var result = new OneAuthUserInfo();
 
@@ -45,7 +44,8 @@ namespace Fanex.Athena.DataAccess.Core.Users
                         .Select(x => new CurrencyUser
                         {
                             CurrencyId = x.Key,
-                            AgentIdList = x.Select(y => y.AgentId).ToList()
+                            AgentIdList = x.Select(y => y.AgentId).ToList(),
+                            IsActive = true
                         }).ToList();
                 }
 
