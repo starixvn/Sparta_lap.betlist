@@ -19,22 +19,19 @@
         private const string LicenseeName = "12Bet";
         private ISubsidiaryPerformanceDataAccess _dataAccess;
         private SubsidiaryPerformanceService _service;
-        private IMemoryCacheService _cache;
         private ISubsidiaryService _subsidiaryService;
 
         [SetUp]
         public void SetUp()
         {
             _dataAccess = Substitute.For<ISubsidiaryPerformanceDataAccess>();
-            _cache = Substitute.For<IMemoryCacheService>();
             _subsidiaryService = Substitute.For<ISubsidiaryService>();
-            _service = new SubsidiaryPerformanceService(_subsidiaryService, _dataAccess, _cache);
+            _service = new SubsidiaryPerformanceService(_subsidiaryService, _dataAccess);
         }
 
         [TearDown]
         public void TearDown()
         {
-            _cache = null;
             _dataAccess = null;
             _service = null;
         }
@@ -80,8 +77,7 @@
                 new Subsidiary { AgentId = 1234, CurrencyId = 1, SubsidiaryName = "New York" },
                 new Subsidiary { AgentId = 1235, CurrencyId = 2, SubsidiaryName = "India" }
             };
-            var cacheKey = $"MemoryCache_SubsidiaryList_{LicenseeName}";
-            _cache.Get(cacheKey, Arg.Any<Func<IEnumerable<Subsidiary>>>(), Arg.Any<int>()).Returns(operatorList);
+            _subsidiaryService.GetOperatorList(LicenseeName).Returns(operatorList);
 
             var fakeEntityDataList = GetFakeEntityDataList();
 
@@ -114,8 +110,7 @@
             {
                 new Subsidiary { AgentId = 1230, CurrencyId = 1, SubsidiaryName = "New York" }
             };
-            var cacheKey = $"MemoryCache_SubsidiaryList_{LicenseeName}";
-            _cache.Get<IEnumerable<Subsidiary>>(cacheKey).Returns(operatorList);
+            _subsidiaryService.GetOperatorList(LicenseeName).Returns(operatorList);
 
             var resultData = GetFakeEntityDataList();
 
@@ -150,8 +145,7 @@
                 new Subsidiary { AgentId = 1234, CurrencyId = 1, SubsidiaryName = "New York" },
                 new Subsidiary { AgentId = 1235, CurrencyId = 2, SubsidiaryName = "India" }
             };
-            var cacheKey = $"MemoryCache_SubsidiaryList_{LicenseeName}";
-            _cache.Get(cacheKey, Arg.Any<Func<IEnumerable<Subsidiary>>>(), Arg.Any<int>()).Returns(operatorList);
+            _subsidiaryService.GetOperatorList(LicenseeName).Returns(operatorList);
 
             var resultData = GetFakeEntityDataList();
 
@@ -186,8 +180,7 @@
                 new Subsidiary { AgentId = 1234, CurrencyId = 1, SubsidiaryName = "New York" },
                 new Subsidiary { AgentId = 1235, CurrencyId = 2, SubsidiaryName = "India" }
             };
-            var cacheKey = $"MemoryCache_SubsidiaryList_{LicenseeName}";
-            _cache.Get(cacheKey, Arg.Any<Func<IEnumerable<Subsidiary>>>(), Arg.Any<int>()).Returns(operatorList);
+            _subsidiaryService.GetOperatorList(LicenseeName).Returns(operatorList);
 
             var resultData = GetFakeEntityDataList();
 
@@ -222,8 +215,7 @@
                 new Subsidiary { AgentId = 1234, CurrencyId = 1, SubsidiaryName = "New York" },
                 new Subsidiary { AgentId = 1235, CurrencyId = 2, SubsidiaryName = "India" }
             };
-            var cacheKey = $"MemoryCache_SubsidiaryList_{LicenseeName}";
-            _cache.Get(cacheKey, Arg.Any<Func<IEnumerable<Subsidiary>>>()).Returns(operatorList);
+            _subsidiaryService.GetOperatorList(LicenseeName).Returns(operatorList);
 
             var resultData = new List<SubsidiaryPerformance>();
 

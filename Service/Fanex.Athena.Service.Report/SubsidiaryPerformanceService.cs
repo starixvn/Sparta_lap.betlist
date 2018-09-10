@@ -4,8 +4,6 @@
     using System.Linq;
     using DataAccess.Report;
     using DataAccess.Report.Interfaces;
-    using Extension.Utility;
-    using Extension.Utility.Interfaces;
     using Fanex.Athena.Model.Report.DTO.SubsidiaryPerformance;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Service.Report.Interfaces;
@@ -15,25 +13,19 @@
 
     public class SubsidiaryPerformanceService : ISubsidiaryPerformanceService
     {
-        private const int CacheTimeoutSeconds = 300;
-
         private readonly ISubsidiaryService _subsidiaryService;
-
-        private readonly IMemoryCacheService _cache;
 
         private readonly ISubsidiaryPerformanceDataAccess _subLicenseePerformanceDataAccess;
 
         public SubsidiaryPerformanceService()
         {
             _subsidiaryService = new SubsidiaryService();
-            _cache = new MemoryCacheService();
             _subLicenseePerformanceDataAccess = new SubsidiaryPerformanceDataAccess();
         }
 
-        public SubsidiaryPerformanceService(ISubsidiaryService subsidiaryService, ISubsidiaryPerformanceDataAccess subLicenseePerformanceDataAccess, IMemoryCacheService cache)
+        public SubsidiaryPerformanceService(ISubsidiaryService subsidiaryService, ISubsidiaryPerformanceDataAccess subLicenseePerformanceDataAccess)
         {
             _subsidiaryService = subsidiaryService;
-            _cache = cache;
             _subLicenseePerformanceDataAccess = subLicenseePerformanceDataAccess;
         }
 
