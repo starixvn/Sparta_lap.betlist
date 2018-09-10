@@ -19,9 +19,7 @@
     {
         private readonly ISubsidiaryService _subsidiaryService;
 
-        private readonly ISubsidiaryPerformanceService _service;
-
-        public SubsidiaryPerformanceReportController() : this(null, null, null, null, null, null, null)
+        public SubsidiaryPerformanceReportController() : this(null, null, null, null, null, null)
         {
         }
 
@@ -31,12 +29,10 @@
             IAppSettings appSetting,
             IClientViewHelper clientViewHelper,
             IProductService productService,
-            ISubsidiaryService subsidiaryService,
-            ISubsidiaryPerformanceService service)
+            ISubsidiaryService subsidiaryService)
             : base(languageService, sessionService, appSetting, clientViewHelper, productService)
         {
             _subsidiaryService = subsidiaryService ?? new SubsidiaryService();
-            _service = service ?? new SubsidiaryPerformanceService();
         }
 
         public ActionResult Index()
@@ -47,7 +43,7 @@
                 licenseeSession.LicenseeId,
                 userSession.Language,
                 FunctionNames.SubsidiaryPerformance);
-            var operatorNameList = _subsidiaryService.GetOperatorNames(licenseeSession.LicenseeName);
+            var subsidiaryNames = _subsidiaryService.GetSubsidiaryNames(licenseeSession.LicenseeName);
 
             var model = new SubsidiaryPerformanceViewModel
             {
@@ -58,7 +54,7 @@
                     Status = true
                 }).ToList(),
 
-                SubsidiaryList = operatorNameList.Select(x => new CheckedItem
+                SubsidiaryList = subsidiaryNames.Select(x => new CheckedItem
                 {
                     Name = x,
                     Checked = true

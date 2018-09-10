@@ -36,7 +36,7 @@
             _subLicenseeDataAccess = subsidiaryDataAccess;
         }
 
-        public IEnumerable<string> GetOperatorNames(string licenseeName)
+        public IEnumerable<string> GetSubsidiaryNames(string licenseeName)
         {
             var subsidiaryList = GetOperatorList(licenseeName);
             var filteredSubsidiaryList = subsidiaryList.Where(x => _sessionService.UserSession.CurrencyList.ContainsKey(x.CurrencyId));

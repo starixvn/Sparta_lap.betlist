@@ -136,8 +136,7 @@
                 AppSettings,
                 ClientViewHelper,
                 productService,
-                _subsidiaryService,
-                _service);
+                _subsidiaryService);
         }
     }
 }

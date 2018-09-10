@@ -5,7 +5,7 @@
 
     public interface ISubsidiaryService
     {
-        IEnumerable<string> GetOperatorNames(string licenseeName);
+        IEnumerable<string> GetSubsidiaryNames(string licenseeName);
 
         IEnumerable<Subsidiary> GetOperatorList(string licenseeName);
     }
