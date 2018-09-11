@@ -43,7 +43,7 @@
                 licenseeSession.LicenseeId,
                 userSession.Language,
                 FunctionNames.SubsidiaryPerformance);
-            var subsidiaryNames = _subsidiaryService.GetSubsidiaryNames(licenseeSession.LicenseeName);
+            var subsidiaryNames = _subsidiaryService.GetSubsidiaryNames();
 
             var model = new SubsidiaryPerformanceViewModel
             {

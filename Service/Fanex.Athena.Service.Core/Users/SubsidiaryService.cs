@@ -10,6 +10,7 @@
     using Extension.Utility;
     using Extension.Utility.Interfaces;
     using Fanex.Athena.Service.Report.Interfaces;
+    using Model.Core.DataDomain;
     using Model.Core.DTO.Configuration;
     using Model.Report.DTO;
 
@@ -37,26 +38,29 @@
             _subLicenseeDataAccess = subsidiaryDataAccess;
         }
 
-        public IEnumerable<string> GetSubsidiaryNames(string licenseeName)
+        public IEnumerable<string> GetSubsidiaryNames()
         {
-            var subsidiaryList = GetSubsidiaryList(licenseeName);
+            var subsidiaryList = GetSubsidiaryList();
             var filteredSubsidiaryList = subsidiaryList.Where(x => _sessionService.UserSession.CurrencyList.ContainsKey(x.CurrencyId));
             return filteredSubsidiaryList.Any() ? filteredSubsidiaryList.Select(x => x.SubsidiaryName).Distinct() : new List<string>();
         }
 
-        public IEnumerable<Subsidiary> GetSubsidiaryList(string licenseeName)
+        public IEnumerable<Subsidiary> GetSubsidiaryList()
         {
+            var licenseeName = _sessionService.LicenseeSession.LicenseeName;
             var cacheKey = string.Format(CacheKey.MemorycacheSubsidiaryListByLicensee, licenseeName);
             return _cache.Get(cacheKey, () => _subLicenseeDataAccess.GetSubsidiaryList(licenseeName), CacheTimeoutSeconds);
         }
 
-        public IDictionary<int, IEnumerable<int>> GetCurrencyAgentList(string subsidiaryNames)
+        public IDictionary<int, IEnumerable<int>> GetCurrencyAgentList(string subsidiaryNames, bool isExcludeTest)
         {
             var currencyAgentList = new Dictionary<int, IEnumerable<int>>();
             var subsidiaryNameList = subsidiaryNames.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
-            var subsidiaryData = GetSubsidiaryList(_sessionService.LicenseeSession.LicenseeName);
-            var dataGroupByCurrency = subsidiaryData.Where(s => subsidiaryNameList.Contains(s.SubsidiaryName)).GroupBy(x => x.CurrencyId);
+            var subsidiaryData = GetSubsidiaryList();
+            var dataGroupByCurrency = subsidiaryData
+                .Where(s => (!isExcludeTest || s.CurrencyId != CurrencyType.Uus) && subsidiaryNameList.Contains(s.SubsidiaryName))
+                .GroupBy(x => x.CurrencyId);
 
             foreach (var item in dataGroupByCurrency)
             {

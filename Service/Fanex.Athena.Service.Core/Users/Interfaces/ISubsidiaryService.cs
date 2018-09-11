@@ -5,10 +5,10 @@
 
     public interface ISubsidiaryService
     {
-        IEnumerable<string> GetSubsidiaryNames(string licenseeName);
+        IEnumerable<string> GetSubsidiaryNames();
 
-        IEnumerable<Subsidiary> GetSubsidiaryList(string licenseeName);
+        IEnumerable<Subsidiary> GetSubsidiaryList();
 
-        IDictionary<int, IEnumerable<int>> GetCurrencyAgentList(string subsidiaryNames);
+        IDictionary<int, IEnumerable<int>> GetCurrencyAgentList(string subsidiaryNames, bool isExcludeTest);
     }
 }

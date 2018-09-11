@@ -45,7 +45,7 @@
             {
                 var licenseeName = SessionService.LicenseeSession.LicenseeName;
                 metaModel.LicenseeName = licenseeName;
-                var agentIdListByCurrency = _subsidiaryService.GetCurrencyAgentList(metaModel.SubsidiaryList);
+                var agentIdListByCurrency = _subsidiaryService.GetCurrencyAgentList(metaModel.SubsidiaryList, metaModel.IsExcludeTest);
 
                 if (agentIdListByCurrency.Any())
                 {
@@ -68,7 +68,7 @@
             {
                 var licenseeName = SessionService.LicenseeSession.LicenseeName;
                 metaModel.LicenseeName = licenseeName;
-                var agentIdListByCurrency = GetSelectedSubsidiaryList(metaModel.SubsidiaryList, licenseeName, metaModel.IsExcludeTest);
+                var agentIdListByCurrency = _subsidiaryService.GetCurrencyAgentList(metaModel.SubsidiaryList, metaModel.IsExcludeTest);
 
                 if (agentIdListByCurrency.Any())
                 {
@@ -89,24 +89,6 @@
             {
                 Data = new List<SubsidiaryPerformanceDetail>()
             };
-        }
-
-        private IDictionary<int, IEnumerable<int>> GetSelectedSubsidiaryList(string selectedOperator, string licenseeName, bool isExcludeTest)
-        {
-            var currencyAgentList = new Dictionary<int, IEnumerable<int>>();
-            var selectedOperatorList = selectedOperator.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-
-            var subsidiaryData = _subsidiaryService.GetOperatorList(licenseeName);
-            var dataGroupByCurrency = subsidiaryData
-                .Where(s => selectedOperatorList.Contains(s.SubsidiaryName) && (!isExcludeTest || s.CurrencyId != CurrencyType.Uus))
-                .GroupBy(x => x.CurrencyId);
-
-            foreach (var item in dataGroupByCurrency)
-            {
-                currencyAgentList.Add(item.Key, item.Select(x => x.AgentId));
-            }
-
-            return currencyAgentList;
         }
     }
 }

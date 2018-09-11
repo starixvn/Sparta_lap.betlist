@@ -105,7 +105,7 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                _subsidiaryService.GetSubsidiaryList(SessionService.LicenseeSession.LicenseeName).Returns(expectedOperatorList);
+                _subsidiaryService.GetSubsidiaryList().Returns(expectedOperatorList);
 
                 var expectedModel = _serializer.Serialize(viewModelData);
                 var expectedViewName = "~/Views/Report/SubsidiaryPerformance/Main.cshtml";

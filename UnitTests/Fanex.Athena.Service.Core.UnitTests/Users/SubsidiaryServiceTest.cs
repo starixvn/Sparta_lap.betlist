@@ -44,7 +44,7 @@
             _cache.Get<IDictionary<int, string>>(cacheKey).Returns(subsidiaryList);
 
             // Action
-            _service.GetSubsidiaryList(LicenseeName);
+            _service.GetSubsidiaryList();
 
             // Assert
             _dataAccess.DidNotReceiveWithAnyArgs().GetSubsidiaryList(LicenseeName);

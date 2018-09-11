@@ -75,7 +75,7 @@
                 new Subsidiary { AgentId = 1234, CurrencyId = 1, SubsidiaryName = "New York" },
                 new Subsidiary { AgentId = 1235, CurrencyId = 2, SubsidiaryName = "India" }
             };
-            _subsidiaryService.GetOperatorList(LicenseeName).Returns(operatorList);
+            _subsidiaryService.GetSubsidiaryList().Returns(operatorList);
 
             var fakeEntityDataList = GetFakeEntityDataList();
 
@@ -108,7 +108,7 @@
             {
                 new Subsidiary { AgentId = 1230, CurrencyId = 1, SubsidiaryName = "New York" }
             };
-            _subsidiaryService.GetOperatorList(LicenseeName).Returns(operatorList);
+            _subsidiaryService.GetSubsidiaryList().Returns(operatorList);
 
             var resultData = GetFakeEntityDataList();
 
@@ -143,7 +143,7 @@
                 new Subsidiary { AgentId = 1234, CurrencyId = 1, SubsidiaryName = "New York" },
                 new Subsidiary { AgentId = 1235, CurrencyId = 2, SubsidiaryName = "India" }
             };
-            _subsidiaryService.GetOperatorList(LicenseeName).Returns(operatorList);
+            _subsidiaryService.GetSubsidiaryList().Returns(operatorList);
 
             var resultData = GetFakeEntityDataList();
 
@@ -178,7 +178,7 @@
                 new Subsidiary { AgentId = 1234, CurrencyId = 1, SubsidiaryName = "New York" },
                 new Subsidiary { AgentId = 1235, CurrencyId = 2, SubsidiaryName = "India" }
             };
-            _subsidiaryService.GetOperatorList(LicenseeName).Returns(operatorList);
+            _subsidiaryService.GetSubsidiaryList().Returns(operatorList);
 
             var resultData = GetFakeEntityDataList();
 
@@ -213,7 +213,7 @@
                 new Subsidiary { AgentId = 1234, CurrencyId = 1, SubsidiaryName = "New York" },
                 new Subsidiary { AgentId = 1235, CurrencyId = 2, SubsidiaryName = "India" }
             };
-            _subsidiaryService.GetOperatorList(LicenseeName).Returns(operatorList);
+            _subsidiaryService.GetSubsidiaryList().Returns(operatorList);
 
             var resultData = new List<SubsidiaryPerformance>();
 
