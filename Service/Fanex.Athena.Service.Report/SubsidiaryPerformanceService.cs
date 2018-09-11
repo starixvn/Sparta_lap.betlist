@@ -62,7 +62,7 @@
 
         private IEnumerable<Subsidiary> GetSelectedOpertor(SubsidiaryPerformanceMetaModel metaModel)
         {
-            var allOperators = _subsidiaryService.GetOperatorList(metaModel.LicenseeName);
+            var allOperators = _subsidiaryService.GetSubsidiaryList(metaModel.LicenseeName);
             var selectedSubsidiary = metaModel.SubsidiaryList.Split(',');
 
             return allOperators.Join(selectedSubsidiary, oper => oper.SubsidiaryName, sub => sub, (oper, sub) => oper);

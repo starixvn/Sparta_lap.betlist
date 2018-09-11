@@ -2,9 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Web.Script.Serialization;
     using DataAccess.Report.Interfaces;
-    using Extension.Utility.Interfaces;
     using Interfaces;
     using Model.Report.DTO;
     using Model.Report.DTO.SubsidiaryPerformance;

@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Service.Report
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Core.Users;
@@ -38,15 +39,31 @@
 
         public IEnumerable<string> GetSubsidiaryNames(string licenseeName)
         {
-            var subsidiaryList = GetOperatorList(licenseeName);
+            var subsidiaryList = GetSubsidiaryList(licenseeName);
             var filteredSubsidiaryList = subsidiaryList.Where(x => _sessionService.UserSession.CurrencyList.ContainsKey(x.CurrencyId));
             return filteredSubsidiaryList.Any() ? filteredSubsidiaryList.Select(x => x.SubsidiaryName).Distinct() : new List<string>();
         }
 
-        public IEnumerable<Subsidiary> GetOperatorList(string licenseeName)
+        public IEnumerable<Subsidiary> GetSubsidiaryList(string licenseeName)
         {
             var cacheKey = string.Format(CacheKey.MemorycacheSubsidiaryListByLicensee, licenseeName);
             return _cache.Get(cacheKey, () => _subLicenseeDataAccess.GetSubsidiaryList(licenseeName), CacheTimeoutSeconds);
+        }
+
+        public IDictionary<int, IEnumerable<int>> GetCurrencyAgentList(string subsidiaryNames)
+        {
+            var currencyAgentList = new Dictionary<int, IEnumerable<int>>();
+            var subsidiaryNameList = subsidiaryNames.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+            var subsidiaryData = GetSubsidiaryList(_sessionService.LicenseeSession.LicenseeName);
+            var dataGroupByCurrency = subsidiaryData.Where(s => subsidiaryNameList.Contains(s.SubsidiaryName)).GroupBy(x => x.CurrencyId);
+
+            foreach (var item in dataGroupByCurrency)
+            {
+                currencyAgentList.Add(item.Key, item.Select(x => x.AgentId));
+            }
+
+            return currencyAgentList;
         }
     }
 }

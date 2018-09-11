@@ -80,7 +80,7 @@
                 new Subsidiary { AgentId = 3, SubsidiaryName = "New York 2", CurrencyId = 1 },
                 new Subsidiary { AgentId = 2, SubsidiaryName = "India", CurrencyId = 2 }
             };
-            _subsidiaryService.GetOperatorList(SessionLicenseeName).Returns(operatorList);
+            _subsidiaryService.GetSubsidiaryList(SessionLicenseeName).Returns(operatorList);
             IDictionary<int, IEnumerable<int>> currencyAgentList = null;
             SessionService.GenerateAgentListXml(Arg.Do<IDictionary<int, IEnumerable<int>>>(x => currencyAgentList = x));
 
@@ -105,7 +105,7 @@
             var metaModel = GetMetaModel();
 
             var currencyIdList = new List<Subsidiary>();
-            _subsidiaryService.GetOperatorList(SessionLicenseeName).Returns(currencyIdList);
+            _subsidiaryService.GetSubsidiaryList(SessionLicenseeName).Returns(currencyIdList);
             var expectedResult = _serializer.Serialize(new SubsidiaryResultViewModel { Data = new List<SubsidiaryPerformanceDataModel>() });
 
             // Action

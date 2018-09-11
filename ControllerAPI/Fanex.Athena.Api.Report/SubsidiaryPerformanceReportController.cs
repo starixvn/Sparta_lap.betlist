@@ -45,7 +45,7 @@
             {
                 var licenseeName = SessionService.LicenseeSession.LicenseeName;
                 metaModel.LicenseeName = licenseeName;
-                var agentIdListByCurrency = GetSelectedSubsidiaryList(metaModel.SubsidiaryList, licenseeName, metaModel.IsExcludeTest);
+                var agentIdListByCurrency = _subsidiaryService.GetCurrencyAgentList(metaModel.SubsidiaryList);
 
                 if (agentIdListByCurrency.Any())
                 {

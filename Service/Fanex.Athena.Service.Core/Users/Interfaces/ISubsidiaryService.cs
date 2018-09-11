@@ -7,6 +7,8 @@
     {
         IEnumerable<string> GetSubsidiaryNames(string licenseeName);
 
-        IEnumerable<Subsidiary> GetOperatorList(string licenseeName);
+        IEnumerable<Subsidiary> GetSubsidiaryList(string licenseeName);
+
+        IDictionary<int, IEnumerable<int>> GetCurrencyAgentList(string subsidiaryNames);
     }
 }
