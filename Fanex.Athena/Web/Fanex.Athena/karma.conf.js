@@ -69,28 +69,7 @@ module.exports = function (config) {
 		// --------- Casino --------- //
 		'Scripts/Casino/**.js',
 		 'jasmine-specs/Casino/*-test.js',
-		 
-		 // --------- Customer/BetSetting --------- //
-		'Scripts/Customer/BetSetting/*.js',
-		 'jasmine-specs/Customer/BetSetting/*-test.js',
-		 
-		 // --------- Customer/CustomerComm --------- //
-		'Scripts/Customer/CustomerComm/*.js',
-		 'jasmine-specs/Customer/CustomerComm/*-test.js',
-		 
-		  // --------- Customer/CustomerLog --------- //
-		'Scripts/Customer/CustomerLog/*.js',
-        'jasmine-specs/Customer/CustomerLog/customerlog-test.js',
-        'jasmine-specs/Customer/CustomerLog/customersetting.option-test.js',
-        'jasmine-specs/Customer/CustomerLog/customersetting-test.js',
-        'jasmine-specs/Customer/CustomerLog/groupcommission-test.js',
-        'jasmine-specs/Customer/CustomerLog/loginlog.option-test.js',
-        'jasmine-specs/Customer/CustomerLog/loginlog-test.js',
-		 
-		  // --------- Customer --------- //
-		'Scripts/Customer/CustomerList/*.js',
-		'jasmine-specs/Customer/CustomerList/*-test.js',
-		
+
 		 // --------- Extension --------- //
 		'Scripts/Extension/*.js',
 		 'jasmine-specs/Extension/*-test.js',
