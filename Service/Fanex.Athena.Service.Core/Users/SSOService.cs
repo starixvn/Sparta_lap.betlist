@@ -250,7 +250,7 @@ namespace Fanex.Athena.Service.Core.Users
                     true,
                     user.Licensee.Id,
                     metaModel.LanguageCode,
-                    viewType: ClientViewType.Default);
+                    viewType: ClientViewType.Desktop);
             }
 
             return resultInfo;

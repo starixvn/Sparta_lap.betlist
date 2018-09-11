@@ -2572,9 +2572,6 @@
     <value>承租公司淨輸贏</value>
     <comment>84932</comment>
   </data>
-  <data name="BackToOldUI" xml:space="preserve">
-    <value>回到舊版本</value>
-  </data>
   <data name="Amendment" xml:space="preserve">
     <value>重新結算</value>
     <comment>84004</comment>
