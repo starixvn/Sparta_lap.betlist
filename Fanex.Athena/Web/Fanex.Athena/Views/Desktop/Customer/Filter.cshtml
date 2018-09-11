@@ -9,7 +9,8 @@
         showGroup = Model.IsAllowedCustomerCommission && !Model.IsFakeLicensee && !Model.IsSubsidiary,
         showUserGuide = !Model.IsFakeLicensee,
         showStatus = Model.Param.IsShowStatusDropdown,
-        showBA = !Model.IsSubsidiary && Model.ProductAccess.IsAllowBA
+        showBA = !Model.IsSubsidiary && Model.ProductAccess.IsAllowBA,
+        showSubsidiary = Model.HasSubsidiary
     };
 }
 <div class="page-form">
@@ -61,6 +62,15 @@
                         <label>
                             @ViewResources.Status
                         </label>
+                    </div>
+                }
+                @if (showOption.showSubsidiary)
+                {
+                    <div class="col l2 m2 s12 input-field">
+                        <div class="multiselect-container">
+                            <select id="subsidiary-multiselect" name="subsidiary-multiselect"></select>
+                        </div>
+                        <label>@ViewResources.Subsidiary</label>
                     </div>
                 }
                 @if (showOption.showUserGuide)
@@ -160,4 +170,8 @@
 @if (showOption.showOddsGroup)
 {
     @Html.Hidden("OddsGroups", Model.Param.OddsGroups.ToJson())
+}
+@if (showOption.showSubsidiary)
+{
+    @Html.Hidden("SubsidiaryList", Model.SubsidiaryList.ToJson())
 }
