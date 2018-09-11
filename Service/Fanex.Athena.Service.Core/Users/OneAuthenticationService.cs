@@ -179,13 +179,14 @@
 
             _sessionService.AssignCurrenciesToUserSession(userSession, licenseeId, userInfo.CurrencyUserList);
             userSession.UserLevel = userInfo.UserLevel;
+            userSession.HasSubsidiary = userInfo.HasSubsidiary;
             userSession.PortalFunctionList = GetPermissionList(tokenInfo);
         }
 
         private OneAuthUserInfo GetUserInfo(OneAuthToken tokenInfo)
         {
             var userInfo = _oneAuthDataAccess.GetUserInfo(tokenInfo.UserSEQ);
-            if (userInfo.UserLevel != OneAuthUserLevelType.Subsidiary)
+            if (userInfo.UserLevel != UserLevelType.Subsidiary)
             {
                 userInfo.CurrencyUserList = tokenInfo.Currency?.Select(x => new CurrencyUser
                 {
@@ -219,6 +220,7 @@
                 OnUserId = tokenInfo.UserSEQ,
                 UserName = tokenInfo.UserID,
                 UserLevel = userInfo.UserLevel,
+                HasSubsidiary = userInfo.HasSubsidiary,
                 IsInternal = true,
                 FunctionIdList = new List<int>(),
                 PortalFunctionList = GetPermissionList(tokenInfo),

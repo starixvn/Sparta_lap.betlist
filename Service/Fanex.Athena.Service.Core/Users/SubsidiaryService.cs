@@ -52,9 +52,14 @@
             return _cache.Get(cacheKey, () => _subLicenseeDataAccess.GetSubsidiaryList(licenseeName), CacheTimeoutSeconds);
         }
 
-        public IDictionary<int, IEnumerable<int>> GetCurrencyAgentList(string subsidiaryNames, bool isExcludeTest)
+        public IDictionary<int, IEnumerable<int>> GetCurrencyAgentList(string subsidiaryNames, bool isExcludeTest = false)
         {
             var currencyAgentList = new Dictionary<int, IEnumerable<int>>();
+            if (string.IsNullOrWhiteSpace(subsidiaryNames))
+            {
+                return currencyAgentList;
+            }
+
             var subsidiaryNameList = subsidiaryNames.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
             var subsidiaryData = GetSubsidiaryList();

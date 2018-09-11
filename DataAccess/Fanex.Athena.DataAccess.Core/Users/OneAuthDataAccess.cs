@@ -25,6 +25,7 @@ namespace Fanex.Athena.DataAccess.Core.Users
             {
                 db.AddInParameter("UserSEQ", DbType.Int32, userSEQ);
                 db.AddOutParameter("UserLevel", DbType.Byte, 0);
+                db.AddOutParameter("HasSubsidiary", DbType.Boolean, 0);
 
                 var result = new OneAuthUserInfo();
 
@@ -50,6 +51,7 @@ namespace Fanex.Athena.DataAccess.Core.Users
                 }
 
                 result.UserLevel = Convert.ToByte(db.GetParameterValue("UserLevel"));
+                result.HasSubsidiary = Convert.ToBoolean(db.GetParameterValue("HasSubsidiary"));
                 return result;
             }
         }

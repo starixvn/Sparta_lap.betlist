@@ -14,6 +14,7 @@ namespace Fanex.Athena.Service.Core.Users
     using System.Linq;
     using System.Text;
     using System.Web;
+    using Constant.DataDomain;
     using DataAccess.Core.Common;
     using DataAccess.Core.Common.Interfaces;
     using DataAccess.Core.Users;
@@ -107,6 +108,8 @@ namespace Fanex.Athena.Service.Core.Users
             var functionIdList = functionList.Select(f => f.FunctionId).ToList();
             var userSession = new UserSession
             {
+                UserLevel = UserLevelType.Licensee,
+                HasSubsidiary = false,
                 UserId = userId,
                 OnUserId = onuserId,
                 UserName = userName,

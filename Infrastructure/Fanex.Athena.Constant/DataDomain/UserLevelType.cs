@@ -1,6 +1,6 @@
 ﻿namespace Fanex.Athena.Constant.DataDomain
 {
-    public static class OneAuthUserLevelType
+    public static class UserLevelType
     {
         public const int Oneworks = 0;
 
