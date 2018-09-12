@@ -30,6 +30,7 @@
         private IFormsAuthenticationService _formAuthenticationService;
         private IOneBookSecurityWrapper _oneBookSecurityWrapper;
         private ICoreLogger _logger;
+        private IOneAuthDataAccess _oneAuthDataAccess;
 
         [SetUp]
         public void SetUp()
@@ -39,13 +40,16 @@
             _formAuthenticationService = Substitute.For<IFormsAuthenticationService>();
             _oneBookSecurityWrapper = Substitute.For<IOneBookSecurityWrapper>();
             _logger = Substitute.For<ICoreLogger>();
+            _oneAuthDataAccess = Substitute.For<IOneAuthDataAccess>();
+            _oneAuthDataAccess.GetUserInfo(Arg.Any<int>()).Returns(new OneAuthUserInfo());
 
             _oneAuthenticationService = Substitute.ForPartsOf<OneAuthenticationService>(
                 _sessionService,
                 _licenseeDataAccess,
                 _formAuthenticationService,
                 _oneBookSecurityWrapper,
-                _logger);
+                _logger,
+                _oneAuthDataAccess);
         }
 
         [TearDown]

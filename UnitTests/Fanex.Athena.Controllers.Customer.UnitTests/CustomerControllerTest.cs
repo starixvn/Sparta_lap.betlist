@@ -15,6 +15,7 @@
     using NUnit.Framework;
     using Service.Core.Common.Interfaces;
     using Service.Customer.Interfaces;
+    using Service.Report.Interfaces;
     using Session.Model;
 
     public partial class CustomerControllerTest : BaseControllerHelperTest
@@ -23,6 +24,7 @@
         private IGroupComService _groupComService;
         private ILicenseeDataAccess _licenseeDataAccess;
         private IProductService _productService;
+        private ISubsidiaryService _subsidiaryService;
 
         [OneTimeSetUp]
         public override void FixtureSetUp()
@@ -33,6 +35,7 @@
             _groupComService = Substitute.For<IGroupComService>();
             _licenseeDataAccess = Substitute.For<ILicenseeDataAccess>();
             _productService = Substitute.For<IProductService>();
+            _subsidiaryService = Substitute.For<ISubsidiaryService>();
 
             AppSettings.GetValue(Arg.Any<string>()).Returns(string.Empty);
             SessionService.IsAllowedEditCommission(Arg.Any<UserSession>()).Returns(false);
@@ -203,7 +206,8 @@
                 _customerListService,
                 _groupComService,
                 _licenseeDataAccess,
-                _productService);
+                _productService,
+                _subsidiaryService);
             controller.ControllerContext = ControllerContext;
 
             return controller;
