@@ -52,8 +52,9 @@
             return _cache.Get(cacheKey, () => _subLicenseeDataAccess.GetSubsidiaryList(licenseeName), CacheTimeoutSeconds);
         }
 
-        public IDictionary<int, IEnumerable<int>> GetCurrencyAgentList(string subsidiaryNames, bool isExcludeTest = false)
+        public IDictionary<int, IEnumerable<int>> GetCurrencyAgentList(string subsidiaryNames, bool isExcludeTest = false, int currencyId = 0)
         {
+            const int CurrencyAll = 0;
             const string OtherMembersKey = "(others)";
             var currencyAgentList = new Dictionary<int, IEnumerable<int>>();
             if (string.IsNullOrWhiteSpace(subsidiaryNames))
@@ -65,7 +66,7 @@
 
             var subsidiaryData = GetSubsidiaryList();
             var dataGroupByCurrency = subsidiaryData
-                .Where(s => subsidiaryNameList.Contains(s.SubsidiaryName))
+                .Where(x => (currencyId == CurrencyAll || x.CurrencyId == currencyId) && subsidiaryNameList.Contains(x.SubsidiaryName))
                 .GroupBy(x => x.CurrencyId);
 
             foreach (var item in dataGroupByCurrency)
@@ -75,8 +76,14 @@
 
             if (subsidiaryNameList.Contains(OtherMembersKey))
             {
-                var exceptedAgentList = subsidiaryData.Where(x => !subsidiaryNameList.Contains(x.SubsidiaryName)).Select(x => x.AgentId).ToList();
+                var exceptedAgentList = subsidiaryData
+                    .Where(x => !subsidiaryNameList.Contains(x.SubsidiaryName)).Select(x => x.AgentId).ToList();
                 var otherAgentList = _sessionService.UserSession.CurrencyAgentList;
+                if (currencyId != CurrencyAll)
+                {
+                    otherAgentList = otherAgentList.Where(x => x.Key == currencyId).ToDictionary(x => x.Key, x => x.Value);
+                }
+
                 currencyAgentList = currencyAgentList.Union(otherAgentList).GroupBy(x => x.Key).
                     ToDictionary(x => x.Key, x => x.SelectMany(g => g.Value).Except(exceptedAgentList).Distinct());
                 currencyAgentList = currencyAgentList.Where(x => x.Value.Any()).ToDictionary(x => x.Key, x => x.Value);

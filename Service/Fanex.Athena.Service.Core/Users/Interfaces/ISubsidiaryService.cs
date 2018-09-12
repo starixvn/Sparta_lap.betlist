@@ -9,6 +9,6 @@
 
         IEnumerable<Subsidiary> GetSubsidiaryList();
 
-        IDictionary<int, IEnumerable<int>> GetCurrencyAgentList(string subsidiaryNames, bool isExcludeTest = false);
+        IDictionary<int, IEnumerable<int>> GetCurrencyAgentList(string subsidiaryNames, bool isExcludeTest = false, int currencyId = 0);
     }
 }
