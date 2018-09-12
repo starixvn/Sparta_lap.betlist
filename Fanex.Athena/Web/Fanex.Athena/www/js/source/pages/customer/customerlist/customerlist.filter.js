@@ -140,7 +140,12 @@ define(["jquery", "common/site", "./customerlist.state", "./customerlist.service
 
                 data = $.parseJSON(data);
                 var totalColumns = data.length;
-                var dataUI = [];
+                var dataUI = [{
+                    Value: '(others)',
+                    Text: Site.getSingleResource('Others'),
+                    Checked: true,
+                    Enable: true
+                }];
                 var checkedCount = 0;
                 for (var i = 0; i < totalColumns; i++) {
                     var isChecked = Site.asBool(data[i].Checked);
@@ -149,13 +154,10 @@ define(["jquery", "common/site", "./customerlist.state", "./customerlist.service
                     }
 
                     dataUI.push({
-                        Id: data[i].Name,
                         Value: data[i].Name,
-                        Text: Site.getSingleResource(data[i].Name),
+                        Text: data[i].Name,
                         Checked: isChecked,
-                        Enable: true,
-                        Css: "",
-                        CssClass: ""
+                        Enable: true
                     });
                 }
 

@@ -81,7 +81,7 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
             }
 
             if ($("#subsidiary-multiselect").length > 0) {
-                data.SubsidiaryList = $("#subsidiary-multiselect").multiSelect('getCheckedItems');
+                data.SubsidiaryList = $("#subsidiary-multiselect").multiSelect('getCheckedItems').join();
             }
 
             data.PageIndex = _state.pagingOption.pageindex;

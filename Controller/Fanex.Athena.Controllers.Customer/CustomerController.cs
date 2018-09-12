@@ -168,7 +168,7 @@ namespace Fanex.Athena.Controllers.Customer
                 var licenseeId = SessionService.LicenseeSession.LicenseeId;
                 metaModel.IsShowStatusDropdown = AppSettings.LicenseeOfferStatusFunction.Contains(licenseeId);
                 metaModel.LicenseeId = licenseeId;
-                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
+                metaModel.AgentListXml = GetAgentListXml(metaModel.SubsidiaryList, metaModel.CurrencyId);
 
                 if (metaModel.GridColumns.Any(i => i.Checked))
                 {
@@ -344,7 +344,7 @@ namespace Fanex.Athena.Controllers.Customer
         {
             if (SessionService.UserSession.HasSubsidiary)
             {
-                var currencyAgentList = _subsidiaryService.GetCurrencyAgentList(subsidiaryList);
+                var currencyAgentList = _subsidiaryService.GetCurrencyAgentList(subsidiaryList, currencyId: currencyId);
                 return SessionService.GenerateAgentListXml(currencyAgentList);
             }
 
