@@ -6,130 +6,233 @@ import { Table, Row, Cell } from '../../../components/fixed-table-header'
 import LangHelper from '../../../lib/langHelper'
 import NumberFormat from '../../../lib/numberFormat'
 import NoDataTitle from '../../../components/NoDataTitle'
-import service from '../lib/service'
+import { Service, HeaderText, TotalText } from '../lib/service'
+import Report from '../../../lib/report'
+import { ReportLevel } from '../../../constants/report'
+
+const Url = 'api/SubsidiaryPerformanceReport/Index';
+const DetailUrl = 'api/SubsidiaryPerformanceReport/Detail';
 
 export class DataGrid extends Component {
     constructor(props) {
         super(props);
+
+        this.state = { gridData: { Data: null } };
+        this.level = ReportLevel.Main;
+        this.baseCurrency = '';
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (this.props.gridData !== nextProps.gridData) {
-            this.props.toggleLoader(false);
+    componentDidUpdate(prevProps) {
+        if (prevProps.params.Timestamp !== this.props.params.Timestamp) {
+            this.level = ReportLevel.Main;
+            this.baseCurrency = this.props.params.BaseCurrency;
+            this._getGridData(Url, this.props.params);
         }
     }
 
+    _getGridData(url, params) {
+        this.props.toggleLoader(true);
+        Report.fetchGridData(url, { xsrfToken: this.props.xsrfToken, data: params })
+            .then(response => {
+                this.setState({ gridData: response.data })
+                this.props.toggleLoader(false);
+            })
+            .catch(error => {
+                Service.showErrorMsg();
+                this.props.toggleLoader(false);
+            });
+    }
+
+    _drillDown(subsidiary) {
+        let params = Object.assign({}, this.props.params);
+
+        this.subsidiaryListMainLevel = params.SubsidiaryList;
+        params.SubsidiaryId = subsidiary;
+        params.Level = ReportLevel.CUSTOMER;
+
+        this.level = ReportLevel.CUSTOMER;
+
+        this._getGridData(DetailUrl, params);
+        this.props.setParams(params);
+    }
+
     _buildHeader() {
-        const headerText = service.getHeaderText();
+        const customerLevel = this.level === ReportLevel.CUSTOMER;
 
         return (
             <Row style={{ height: 32 }}>
-                <Cell colWidth={150} header={true} title={headerText.subsidiary}>{headerText.subsidiary}</Cell>
-                <Cell colWidth={150} header={true} title={headerText.currency}>{headerText.currency}</Cell>
-                <Cell colWidth={200} header={true} title={headerText.product}>{headerText.product}</Cell>
-                <Cell colWidth={150} header={true} title={headerText.betCount}>{headerText.betCount}</Cell>
-                <Cell colWidth={200} header={true} title={headerText.turnover}>{headerText.turnover}</Cell>
-                <Cell colWidth={200} header={true} title={headerText.customerWL}>{headerText.customerWL}</Cell>
-                <Cell colWidth={200} header={true} title={headerText.subsidiaryWL}>{headerText.subsidiaryWL}</Cell>
-                <Cell colWidth={150} header={true} title={headerText.subsidiaryComm}>{headerText.subsidiaryComm}</Cell>
+                { customerLevel && <Cell colWidth={30} header={true} title={HeaderText.index}>{HeaderText.index}</Cell> }
+                <Cell colWidth={150} header={true} title={customerLevel ? HeaderText.externalId : HeaderText.subsidiary}>{customerLevel ? HeaderText.externalId : HeaderText.subsidiary}</Cell>
+                { customerLevel && <Cell colWidth={150} header={true} title={HeaderText.systemId}>{HeaderText.systemId}</Cell> }
+                <Cell colWidth={150} header={true} title={HeaderText.currency}>{HeaderText.currency}</Cell>
+                { !customerLevel && <Cell colWidth={200} header={true} title={HeaderText.product}>{HeaderText.product}</Cell> }
+                <Cell colWidth={150} header={true} title={HeaderText.betCount}>{HeaderText.betCount}</Cell>
+                <Cell colWidth={200} header={true} title={HeaderText.turnover}>{HeaderText.turnover}</Cell>
+                <Cell colWidth={200} header={true} title={HeaderText.customerWL}>{HeaderText.customerWL}</Cell>
+                <Cell colWidth={200} header={true} title={HeaderText.subsidiaryWL}>{HeaderText.subsidiaryWL}</Cell>
+                <Cell colWidth={150} header={true} title={HeaderText.subsidiaryComm}>{HeaderText.subsidiaryComm}</Cell>
             </Row>
         )
     }
 
-    _buildBody() {
-        const data = this.props.gridData.Data;
+    _buildMainBody() {
+        const data = this.state.gridData.Data;
+
         let rows = [];
-        for (let i = 0; i < data.length; i++) {
-            const item = data[i];
-            const rowSpan = item.Details.length;
+        for (let sub = 0; sub < data.length; sub++) {
+            const item = data[sub];
+            const totalItem = item.TotalItem;
+            const currencies = Object.keys(item.Details);
 
-            let isFirstRow = true;
-            for (let j = 0; j < item.Details.length; j++) {
-                const detail = item.Details[j];
-                const betcount = NumberFormat.format(detail.BetCount),
-                    turnover = NumberFormat.formatDecimal(detail.Turnover),
-                    customerWinLoss = NumberFormat.formatDecimal(detail.CustomerWinLoss),
-                    subsidiaryWinLoss = NumberFormat.formatDecimal(detail.SubsidiaryWinLoss),
-                    subsidiaryComm = NumberFormat.formatDecimal(detail.SubsidiaryComm);
+            for (let cur = 0; cur < currencies.length; cur++) {
+                const currency = currencies[cur];
+                const products = item.Details[currency];
+                const rowSpan = products.length;
 
-                rows.push(
-                    <Row key={`tr${i}-detail${j}`}>
-                        {isFirstRow ? <Cell title={item.Subsidiary} rowSpan={rowSpan}>{item.Subsidiary}</Cell> : undefined}
-                        {isFirstRow ? <Cell title={item.CurrencyName} rowSpan={rowSpan} className="center-align">{item.CurrencyName}</Cell> : undefined}
-                        <Cell title={detail.Product}>{detail.Product}</Cell>
-                        <Cell title={betcount} className="right-align">{betcount}</Cell>
-                        <Cell title={turnover} className="right-align">{turnover}</Cell>
-                        <Cell title={customerWinLoss} className="right-align">{customerWinLoss}</Cell>
-                        <Cell title={subsidiaryWinLoss} className={`right-align ${detail.SubsidiaryWinLoss < 0 ? "negative" : ""}`}>
-                            {subsidiaryWinLoss}
-                        </Cell>
-                        <Cell title={subsidiaryComm} className="right-align">{subsidiaryComm}</Cell>
-                    </Row>
-                );
+                for (let pro = 0; pro < rowSpan; pro++) {
+                    const product = products[pro];
 
-                isFirstRow = false;
-            }
+                    rows.push(
+                        <Row key={`tr${sub}-detail${cur}-${pro}`}>
+                            { 
+                              cur === 0 
+                              && pro === 0 
+                              && <Cell title={item.Subsidiary} rowSpan={totalItem}><a href="javascript:;" onClick={() => this._drillDown(item.Subsidiary)}>{item.Subsidiary}</a></Cell> 
+                            }
+                            { pro === 0 && <Cell title={currency} rowSpan={rowSpan} className="center-align">{currency}</Cell> }
+                            <Cell title={product.Product}>{product.Product}</Cell>
+                            { this._buildCommonCells(product, `tr${sub}-detail${cur}-${pro}`) }
+                        </Row>
+                    );
+                }
+            }     
         }
 
         return rows;
     }
 
-    _buildFooter() {
-        const totalData = this.props.gridData.Total;
-        const footer = totalData.map((item, index) => {
-            const betcount = NumberFormat.format(item.BetCount),
-                turnover = NumberFormat.formatDecimal(item.Turnover),
-                customerWinLoss = NumberFormat.formatDecimal(item.CustomerWinLoss),
-                subsidiaryWinLoss = NumberFormat.formatDecimal(item.SubsidiaryWinLoss),
-                subsidiaryComm = NumberFormat.formatDecimal(item.SubsidiaryComm);
+    _buildDetailBody() {
+        const data = this.state.gridData.Data;
+                            
+        const rows = data.map((item, index) => {
+            return <Row key={`tr-detail${index}`}>
+                            <Cell title={index + 1} className="center-align">{index + 1}</Cell>
+                            <Cell title={item.ExternalId} className="center-align">{item.ExternalId}</Cell>
+                            <Cell title={item.SystemId} className="center-align">{item.SystemId}</Cell>
+                            <Cell title={item.CurrencyName} className="center-align">{item.CurrencyName}</Cell>
+                            { this._buildCommonCells(item, `tr-detail${index}`) }
+                    </Row>
+        });
 
-            return (
-                <Row className="fixed-table-total" key={`total${index}`}>
-                    <Cell title={item.Subsidiary}>{item.Subsidiary}</Cell>
-                    <Cell title={item.CurrencyName} className="center-align" colSpan="2">{item.CurrencyName}</Cell>
-                    <Cell title={betcount} className="right-align">{betcount}</Cell>
-                    <Cell title={turnover} className="right-align">{turnover}</Cell>
-                    <Cell title={customerWinLoss} className="right-align">{customerWinLoss}</Cell>
-                    <Cell title={subsidiaryWinLoss} className={`right-align ${item.SubsidiaryWinLoss < 0 ? "negative" : ""}`}>
-                        {subsidiaryWinLoss}
-                    </Cell>
-                    <Cell title={subsidiaryComm} className="right-align">{subsidiaryComm}</Cell>
+        return rows;
+    }
+
+    _buildBody() {
+        return this.level === ReportLevel.CUSTOMER ? this._buildDetailBody() : this._buildMainBody();
+    }
+
+   _buildFooter() {
+        return this.level === ReportLevel.CUSTOMER ? this._buildDetailFooter() : this._buildMainFooter();
+    }
+
+    _buildMainFooter() {
+        const totalData = this.state.gridData.Total;
+        const subs = Object.keys(totalData);
+        
+        let footer = [];
+        for (let i = 0; i < subs.length; i++) {
+            const totalName = subs[i];
+            const item = totalData[totalName];
+
+            footer.push(
+                <Row className="fixed-table-total" key={`total${i}`}>
+                    <Cell title={`${TotalText.total} ${totalName}`}>{`${TotalText.total} ${totalName}`}</Cell>
+                    <Cell title={`${TotalText.based} ${item.CurrencyName}`} className="center-align" colSpan='2'>{`${TotalText.based} ${item.CurrencyName}`}</Cell>
+                    { this._buildCommonCells(item, `total${i}`) }
                 </Row>
-            )
-        })
+            );
+        }
 
-        footer.push(this._buildGrandTotal());
+        footer.push(this._buildMainGrandTotal());
 
         return footer;
     }
 
-    _buildGrandTotal() {
-        const grandTotal = this.props.gridData.GrandTotal;
+    _buildMainGrandTotal() {
+        const grandTotal = this.state.gridData.GrandTotal;
         if (!grandTotal) {
             return null;
         }
 
-        const betcount = NumberFormat.format(grandTotal.BetCount),
-            turnover = NumberFormat.formatDecimal(grandTotal.Turnover),
-            customerWinLoss = NumberFormat.formatDecimal(grandTotal.CustomerWinLoss),
-            subsidiaryWinLoss = NumberFormat.formatDecimal(grandTotal.SubsidiaryWinLoss),
-            subsidiaryComm = NumberFormat.formatDecimal(grandTotal.SubsidiaryComm);
-
         return (
             <Row key="grandTotal" className="fixed-table-grant-total">
-                <Cell title={grandTotal.Subsidiary}>{grandTotal.Subsidiary}</Cell>
-                <Cell title={grandTotal.CurrencyName} className="center-align" colSpan="2">{grandTotal.CurrencyName}</Cell>
-                <Cell title={betcount} className="right-align">{betcount}</Cell>
-                <Cell title={turnover} className="right-align">{turnover}</Cell>
-                <Cell title={customerWinLoss} className="right-align">{customerWinLoss}</Cell>
-                <Cell title={subsidiaryWinLoss} className={`right-align ${grandTotal.SubsidiaryWinLoss < 0 ? "negative" : ""}`}>{subsidiaryWinLoss}</Cell>
-                <Cell title={subsidiaryComm} className="right-align">{subsidiaryComm}</Cell>
+                <Cell title={TotalText.total}>{TotalText.total}</Cell>
+                <Cell title={`${TotalText.based} ${grandTotal.CurrencyName}`} className="center-align" colSpan='2'>{`${TotalText.based} ${grandTotal.CurrencyName}`}</Cell>
+                { this._buildCommonCells(grandTotal, 'grandTotal') }
             </Row>
         )
     }
 
+    _buildDetailFooter() {
+        const totalData = this.state.gridData.Total;
+        const subs = Object.keys(totalData);
+        const rowSpan = subs.length;
+        
+        let footer = [];
+        for (let i = 0; i < rowSpan; i++) {
+            const totalName = subs[i];
+            const item = totalData[totalName];
+
+            footer.push(
+                <Row className="fixed-table-total" key={`total${i}`}>
+                    { i === 0 && <Cell title={`${TotalText.totalIn} ${this.baseCurrency}`} colSpan='3' rowSpan={rowSpan} className="center-align">
+                        {`${TotalText.totalIn} ${this.baseCurrency}`}
+                    </Cell> }
+                    <Cell title={item.CurrencyName} className="center-align" colSpan='1'>{item.CurrencyName}</Cell>
+                    { this._buildCommonCells(item, `total${i}`) }
+                </Row>
+            );
+        }
+
+        footer.push(this._buildDetailGrandTotal());
+
+        return footer;
+    }
+
+    _buildDetailGrandTotal() {
+        const grandTotal = this.state.gridData.GrandTotal;
+        if (!grandTotal) {
+            return null;
+        }
+
+        return (
+            <Row key="grandTotal" className="fixed-table-grant-total">
+                <Cell title={`${TotalText.totalIn} ${grandTotal.CurrencyName}`} className="center-align" colSpan='4'>{`${TotalText.totalIn} ${grandTotal.CurrencyName}`}</Cell>
+                { this._buildCommonCells(grandTotal, 'grandTotal') }
+            </Row>
+        )
+    }
+
+    _buildCommonCells(data, index) {
+        const betcount = NumberFormat.format(data.BetCount),
+            turnover = NumberFormat.formatDecimal(data.Turnover),
+            customerWinLoss = NumberFormat.formatDecimal(data.CustomerWinLoss),
+            subsidiaryWinLoss = NumberFormat.formatDecimal(data.SubsidiaryWinLoss),
+            subsidiaryComm = NumberFormat.formatDecimal(data.SubsidiaryComm);
+
+        const cells = [
+            <Cell key={`td-${index}-bc`} title={betcount} className="right-align">{betcount}</Cell>,
+            <Cell key={`td-${index}-tn`} title={turnover} className="right-align">{turnover}</Cell>,
+            <Cell key={`td-${index}-cw`} title={customerWinLoss} className="right-align">{customerWinLoss}</Cell>,
+            <Cell key={`td-${index}-sw`} title={subsidiaryWinLoss} className={`right-align ${data.SubsidiaryWinLoss < 0 ? "negative" : ""}`}>{subsidiaryWinLoss}</Cell>,
+            <Cell key={`td-${index}-sc`} title={subsidiaryComm} className="right-align">{subsidiaryComm}</Cell>
+        ];
+
+        return cells;
+    }
+
     render() {
-        const { Data } = this.props.gridData;
+        const { Data } = this.state.gridData;
         if (!Data) {
             return null;
         }
@@ -150,13 +253,15 @@ export class DataGrid extends Component {
         );
     }
 }
+
 function mapDispatchToProps(dispatch) {
-    const { toggleLoader } = ActionCreators;
-    return bindActionCreators({ toggleLoader }, dispatch);
+    const { toggleLoader, setParams } = ActionCreators;
+    return bindActionCreators({ toggleLoader, setParams }, dispatch);
 }
+
 function mapStateToProps(state) {
-    const { gridData } = state;
-    return { gridData };
+    const { xsrfToken, params } = state;
+    return Object.assign({}, { xsrfToken, params });
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DataGrid);

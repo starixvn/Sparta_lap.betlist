@@ -960,9 +960,7 @@
     <Content Include="www\js\source\reactpages\pages\speciallicenseewl\lib\service.js" />
     <Content Include="www\js\source\reactpages\pages\speciallicenseewl\reducers\filterHandlerReducer.js" />
     <Content Include="www\js\source\reactpages\pages\speciallicenseewl\reducers\index.js" />
-    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\dataHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\filterHandlerAction.js" />
-    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\__tests__\dataHandlerAction.test.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\__tests__\filterHandlerAction.test.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\DataGrid.redux.test.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\DataGrid.test.js" />
@@ -975,9 +973,7 @@
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\lib\__tests__\fakeData.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\lib\__tests__\reportExcel.test.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\lib\__tests__\service.test.js" />
-    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\reducers\dataHandlerReducer.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\reducers\filterHandlerReducer.js" />
-    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\reducers\__tests__\dataHandlerReducer.test.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\reducers\__tests__\filterHandlerReducer.test.js" />
     <Content Include="www\js\source\reactpages\reducers\dateRangeReducer.js" />
     <Content Include="www\js\source\reactpages\reducers\excludeTestReducer.js" />

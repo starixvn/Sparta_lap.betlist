@@ -46,7 +46,7 @@ export class FormFilter extends Component {
 
         Report.fetchGridData(Url, { xsrfToken: this.props.xsrfToken, data: params })
             .then(response => {
-                this._doExportExcel(params, response.data)
+                this._doExportExcel(params, response.data);
             })
             .catch(error => {
                 Service.showErrorMsg();

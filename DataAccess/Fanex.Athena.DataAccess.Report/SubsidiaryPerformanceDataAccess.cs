@@ -90,7 +90,7 @@
             {
                 DataList = dataList,
                 SummaryTotal = totalList,
-                TotalData = CalculateDetailGrandTotal(totalList.Values)
+                TotalData = CalculateDetailGrandTotal(metaModel.BaseCurrency.ToUpperInvariant(), totalList.Values)
             };
         }
 
@@ -183,10 +183,11 @@
             total.SubsidiaryComm += detail.SubsidiaryComm;
         }
 
-        private SubsidiaryPerformanceDetail CalculateDetailGrandTotal(IEnumerable<SubsidiaryPerformanceDetail> total)
+        private SubsidiaryPerformanceDetail CalculateDetailGrandTotal(string baseCurrency, IEnumerable<SubsidiaryPerformanceDetail> total)
         {
             return new SubsidiaryPerformanceDetail
             {
+                CurrencyName = baseCurrency,
                 BetCount = total.Sum(x => x.BetCount),
                 Turnover = total.Sum(x => x.Turnover),
                 CustomerWinLoss = total.Sum(x => x.CustomerWinLoss),

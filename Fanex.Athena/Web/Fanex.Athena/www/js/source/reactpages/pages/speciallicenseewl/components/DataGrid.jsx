@@ -51,7 +51,6 @@ export class DataGrid extends Component {
 
             })
             .catch(error => {
-                console.log(error);
                 Service.showErrorMsg();
                 this.props.toggleLoader(false);
             });
@@ -77,7 +76,6 @@ export class DataGrid extends Component {
         else {
             param.SortOrder = param.SortOrder == 'asc' ? 'desc' : 'asc';
         }
-
 
         if (mainData && mainData.length > 1) {
 

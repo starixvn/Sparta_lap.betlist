@@ -14,6 +14,8 @@
 
         public string SubsidiaryList { get; set; } = string.Empty;
 
+        public string SubsidiaryId { get; set; }
+
         public string BaseCurrency { get; set; }
 
         public bool ConvertAll { get; set; }

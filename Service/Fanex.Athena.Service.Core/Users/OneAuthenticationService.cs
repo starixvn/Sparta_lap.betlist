@@ -8,7 +8,6 @@
     using Constant.DataDomain;
     using DataAccess.Core.Users;
     using DataAccess.Core.Users.Interfaces;
-    using DataAccess.Core.Users.Interfaces;
     using Extension.Utility;
     using Extension.Utility.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;

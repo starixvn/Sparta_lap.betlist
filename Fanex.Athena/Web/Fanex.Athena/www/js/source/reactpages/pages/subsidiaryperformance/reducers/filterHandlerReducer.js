@@ -42,3 +42,9 @@ export const includeDrawData = createReducer({}, {
         return action.data;
     }
 })
+
+export const params = createReducer({}, {
+    [types.SET_PARAMS](state, action) {
+        return action.data;
+    }
+})

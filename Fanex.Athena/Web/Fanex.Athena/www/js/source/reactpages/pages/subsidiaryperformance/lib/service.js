@@ -1,7 +1,8 @@
 import LangHelper from '../../../lib/langHelper'
 import Site from '../../../lib/site'
 
-const headerText = {
+export const HeaderText = {
+    index: '#',
     subsidiary: LangHelper.getSingleResource("Subsidiary"),
     currency: LangHelper.getSingleResource("Currency"),
     product: LangHelper.getSingleResource("Product"),
@@ -9,19 +10,30 @@ const headerText = {
     turnover: LangHelper.getSingleResource("Turnover"),
     customerWL: LangHelper.getSingleResource("CustomerW_L"),
     subsidiaryWL: `${LangHelper.getSingleResource("SubsidiaryWL")}`,
-    subsidiaryComm: `${LangHelper.getSingleResource("Subsidiary")} ${LangHelper.getSingleResource("Comm")}`
+    subsidiaryComm: `${LangHelper.getSingleResource("Subsidiary")} ${LangHelper.getSingleResource("Comm")}`,
+    externalId: LangHelper.getSingleResource("ExternalId"),
+    systemId: LangHelper.getSingleResource("SystemId"),
 }
 
-export default class Service {
-    static getReportTitle(dateRange, selectedBaseCurrency) {
-        const fromDate = Site.convertDateToString(dateRange.fromDate);
-        const toDate = Site.convertDateToString(dateRange.toDate);
+export const TotalText = {
+    total: LangHelper.getSingleResource('Total'),
+    totalIn: LangHelper.getSingleResource('Totalin'),
+    based: LangHelper.getSingleResource('Based')
+}
+
+export const BreadcrumbText = {
+    main: LangHelper.getSingleResource('Main'),
+    customer: LangHelper.getSingleResource('Customer')
+}
+
+export class Service {
+    static getReportTitle(fromDate, toDate, selectedBaseCurrency) {
         const baseCurrency = `${LangHelper.getSingleResource("BaseCurrency")}: ${selectedBaseCurrency}`;
 
         return `${LangHelper.getSingleResource("SubsidiaryPerformance")}, ${fromDate} - ${toDate}, ${baseCurrency}`;
     }
 
-    static getHeaderText() {
-        return headerText;
+    static showErrorMsg() {
+        alert(LangHelper.getSingleResource('ErrorProcessingMsg'));
     }
 }

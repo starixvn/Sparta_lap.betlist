@@ -8,7 +8,9 @@ import { DateRange } from '../../../components/date-range/index'
 import LangHelper from '../../../lib/langHelper'
 import ReportExcel from '../lib/reportExcel'
 import Site from '../../../lib/site'
-import service from '../lib/service'
+import { Service } from '../lib/service'
+import { ReportLevel } from '../../../constants/report'
+import Report from '../../../lib/report'
 
 const RANGE_MONTH_CONSTRAINT = 3;
 
@@ -29,30 +31,36 @@ export class FormFilter extends Component {
             return;
         }
 
-        this.props.toggleLoader(true);
-        this.props.getGridData(params);
+        this.props.setParams(params);
     }
 
     exportExcel = (event) => {
         event.preventDefault();
-        const { dateRange, selectedBaseCurrency } = this.props;
+
         const params = this._getParams();
         if (!params) {
             return;
         }
 
-        this.props.exportExcel(params).then(response => {
-            if (!response.data.Data.length) {
-                alert(LangHelper.getSingleResource("NoInfo"));
-                return;
-            }
+        this.props.toggleLoader(true);
 
-            const title = service.getReportTitle(dateRange, selectedBaseCurrency);
-            const excel = new ReportExcel(response.data, title);
-            excel.export(() =>{
+        Report.fetchGridData(Url, { xsrfToken: this.props.xsrfToken, data: params })
+            .then(response => {
+                if (!response.data.Data.length) {
+                    alert(LangHelper.getSingleResource("NoInfo"));
+                    return;
+                }
+
+                const title = Service.getReportTitle(params.FromDate, params.ToDate, params.BaseCurrency);
+                const excel = new ReportExcel(response.data, title);
+                excel.export(() =>{
+                    this.props.toggleLoader(false);
+                });
+            })
+            .catch(error => {
+                Service.showErrorMsg();
                 this.props.toggleLoader(false);
             });
-        });
     }
 
     _getParams() {
@@ -63,8 +71,6 @@ export class FormFilter extends Component {
         const { fromDate, toDate } = this.props.dateRange;
 
         return {
-            xsrfToken: this.props.xsrfToken,
-            data: {
                 BaseCurrency: this.props.selectedBaseCurrency,
                 SubsidiaryList: this.props.selectedSubsidiary,
                 ProductCodeList: this.props.selectedProduct,
@@ -72,8 +78,9 @@ export class FormFilter extends Component {
                 FromDate: Site.convertDateToString(fromDate),
                 ToDate: Site.convertDateToString(toDate),
                 IncludeRaw: this.props.includeDrawData,
-                IsExcludeTest: this.props.isExcludeTest
-            }
+                IsExcludeTest: this.props.isExcludeTest,
+                Timestamp: new Date().getTime(),
+                Level: ReportLevel.MAIN
         }
     }
 
@@ -230,8 +237,8 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    const { gridData, ...rest } = state;
-    return rest;
+    const { params, isLoading, ...rest } = state;
+    return Object.assign({}, rest);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormFilter);

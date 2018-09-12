@@ -32,3 +32,10 @@ export const changeIncludeDrawData = (checked) => {
         data: checked
     }
 }
+
+export const setParams = (params) => {
+    return {
+        type: types.SET_PARAMS,
+        data: params
+    }
+}

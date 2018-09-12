@@ -39,8 +39,8 @@
         xsrfToken: document.querySelector("input[name=__RequestVerificationToken]").value,
         isLoading: false,
         dateConstraint: {minDate: '@minDate.ToString("MM/dd/yyyy")', maxDate: '@maxDate.ToString("MM/dd/yyyy")'},
-        includeDrawData: false,
-        isExcludeTest: false
+        includeDrawData: true,
+        isExcludeTest: true
     }
 }
 <div id="app-container">

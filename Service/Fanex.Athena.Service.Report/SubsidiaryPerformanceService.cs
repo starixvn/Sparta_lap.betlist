@@ -37,7 +37,7 @@
             {
                 var operatorList = GetSelectedOpertor(metaModel).ToList();
 
-                return GetDataModel(dataList, operatorList);
+                return GetDataModel(dataList, operatorList, metaModel.BaseCurrency.ToUpperInvariant());
             }
 
             return new SubsidiaryResultViewModel
@@ -70,11 +70,12 @@
 
         private SubsidiaryResultViewModel GetDataModel(
             IEnumerable<SubsidiaryPerformance> entityDataList,
-            IEnumerable<Subsidiary> operators)
+            IEnumerable<Subsidiary> operators,
+            string baseCurrency)
         {
             var dataModel = new List<SubsidiaryPerformanceDataModel>();
             var totalModel = new Dictionary<string, SubsidiaryPerformanceBase>();
-            var grandTotal = new SubsidiaryPerformanceBase();
+            var grandTotal = new SubsidiaryPerformanceBase { CurrencyName = baseCurrency };
 
             var subsidiaryGroup = operators.Join(
                 entityDataList,
@@ -99,7 +100,7 @@
                     Subsidiary = subsidiary.Subsidiary,
                     Details = new Dictionary<string, IEnumerable<SubsidiaryPerformanceBase>>()
                 };
-                var total = new SubsidiaryPerformanceBase();
+                var total = new SubsidiaryPerformanceBase { CurrencyName = baseCurrency };
 
                 foreach (var currency in subsidiary.Details)
                 {
