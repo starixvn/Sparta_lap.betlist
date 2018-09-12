@@ -83,14 +83,6 @@ module.exports = function (config) {
 		//'Scripts/Report/report*.js',
 		 'jasmine-specs/Report/report*-test.js',
 		
-		// need to refactor getData()
-		//'Scripts/Report/Result*.js',
-		//'jasmine-specs/Report/Result*-test.js',
-		
-		'Scripts/Report/thirdpartywinloss.js',
-		'Scripts/Report/thirdpartywinloss.option.js',
-		'jasmine-specs/Report/thirdpartywinloss*-test.js',
-		 
         // --------- Helper --------- //
 	    'jasmine-specs/Helper/*-test.js',
 

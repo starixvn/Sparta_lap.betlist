@@ -47,14 +47,12 @@
             RegisterJqgridLayoutScripts(bundles);
             RegisterBetListLayoutScripts(bundles);
             RegisterBetListSimpleLayoutScripts(bundles);
-            RegisterReportLayoutScripts(bundles);
 
             RegisterAccountLayoutStyles(bundles);
             RegisterBetListLayoutStyles(bundles);
             RegisterBetListSimpleLayoutStyles(bundles);
 
             RegisterjqGridLayoutStyles(bundles);
-            RegisterReportLayoutStyles(bundles);
 
             RegisterViewAgCasinoBalance(bundles);
         }
@@ -188,25 +186,7 @@
                         "~/Scripts/BetList/commonbetlist.js");
             AddNewScriptBundle(bundles, bundle);
         }
-
-        /// <summary>
-        /// Registers the report layout scripts.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
-        private static void RegisterReportLayoutScripts(BundleCollection bundles)
-        {
-            var bundle = new ScriptBundle("~/bundles/ReportLayoutScripts")
-                .Include(
-                        "~/Scripts/Report/report.js",
-                        "~/scripts/global/Paging.js",
-                        "~/Scripts/Plugin/DateRangePicker/date.min.js",
-                        "~/Scripts/Plugin/MonthPickr/monpickr.js",
-                        "~/Scripts/Plugin/DateRangePicker/daterangepicker.js",
-                        "~/Scripts/Plugin/FlatPopup/jquery.custom-scrollbar.js",
-                        "~/Scripts/Plugin/FlatPopup/jquery.flatpopup.js",
-                        "~/Scripts/Plugin/MultiSelect/jquery.multiselect.js");
-            AddNewScriptBundle(bundles, bundle);
-        }
+        
 
         #endregion JavaScripts Shared Layout
 
@@ -300,28 +280,7 @@
                 "~/Content/Plugin/MultiSelect/jquery.multiselect.css",
                 "~/Content/Plugin/Toast/toast.min.css");
         }
-
-        /// <summary>
-        /// Registers the report layout styles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
-        private static void RegisterReportLayoutStyles(BundleCollection bundles)
-        {
-            AddStyleBundle(
-                bundles,
-                "~/bundles/ReportLayoutStyles",
-                "~/Content/Library/start/jquery-ui.min.css",
-                "~/Content/Global/grid26.css",
-                "~/Content/Global/lrf.global.grid.css",
-                "~/Content/Global/lrf.global.content.css",
-                "~/Content/Plugin/MonthPickr/monPickr.css",
-                "~/Content/Global/Paging.css",
-                "~/Content/Plugin/DateRangePicker/daterangepicker.css",
-                "~/Content/Plugin/MultiSelect/jquery.multiselect.css",
-                "~/Content/FlatPopup/jquery.custom-scrollbar.css",
-                "~/Content/FlatPopup/jquery.flatpopup.css");
-        }
-
+        
         #endregion CSS Shared Layout
 
         #region Scripts & Styles Views
