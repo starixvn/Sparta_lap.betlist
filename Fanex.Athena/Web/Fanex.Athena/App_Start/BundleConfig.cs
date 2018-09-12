@@ -46,21 +46,15 @@
             RegisterAccountLayoutScripts(bundles);
             RegisterJqgridLayoutScripts(bundles);
             RegisterBetListLayoutScripts(bundles);
-            RegisterBetListLayoutNoStandardScripts(bundles);
             RegisterBetListSimpleLayoutScripts(bundles);
             RegisterReportLayoutScripts(bundles);
 
-            RegisterReportTableLayoutScripts(bundles);
-
             RegisterAccountLayoutStyles(bundles);
             RegisterBetListLayoutStyles(bundles);
-            RegisterBetListLayoutNoStandardStyles(bundles);
             RegisterBetListSimpleLayoutStyles(bundles);
 
             RegisterjqGridLayoutStyles(bundles);
             RegisterReportLayoutStyles(bundles);
-
-            RegisterReportTableLayoutStyles(bundles);
 
             RegisterViewAgCasinoBalance(bundles);
         }
@@ -172,29 +166,6 @@
         }
 
         /// <summary>
-        /// Registers the bet list layout no standard scripts.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
-        private static void RegisterBetListLayoutNoStandardScripts(BundleCollection bundles)
-        {
-            var bundle = new ScriptBundle("~/bundles/BetListLayoutNoStandardScripts")
-                .Include(
-                        "~/Scripts/global/jquery.jqgrid.additional.js",
-                        "~/Scripts/Library/jquery.jqGrid.en.js",
-                        "~/Scripts/Library/jquery.jqGrid.min.js",
-                        "~/Scripts/Library/moment.min.js",
-                        "~/Scripts/Plugin/MonthPickr/monpickr.js",
-                        "~/Scripts/Report/report.js",
-                        "~/scripts/global/Paging.js",
-                        "~/Scripts/Plugin/DateRangePicker/date.min.js",
-                        "~/Scripts/Plugin/DateRangePicker/daterangepicker.js",
-                        "~/Scripts/BetList/voidbridge-result.js",
-                        "~/Scripts/BetList/betlist.option.js",
-                        "~/Scripts/BetList/betlist.js");
-            AddNewScriptBundle(bundles, bundle);
-        }
-
-        /// <summary>
         /// Registers the bet list simple layout scripts.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
@@ -230,25 +201,6 @@
                         "~/scripts/global/Paging.js",
                         "~/Scripts/Plugin/DateRangePicker/date.min.js",
                         "~/Scripts/Plugin/MonthPickr/monpickr.js",
-                        "~/Scripts/Plugin/DateRangePicker/daterangepicker.js",
-                        "~/Scripts/Plugin/FlatPopup/jquery.custom-scrollbar.js",
-                        "~/Scripts/Plugin/FlatPopup/jquery.flatpopup.js",
-                        "~/Scripts/Plugin/MultiSelect/jquery.multiselect.js");
-            AddNewScriptBundle(bundles, bundle);
-        }
-
-        /// <summary>
-        /// Registers the report table layout scripts.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
-        private static void RegisterReportTableLayoutScripts(BundleCollection bundles)
-        {
-            var bundle = new ScriptBundle("~/bundles/ReportTableLayoutScripts")
-                .Include(
-                        "~/Scripts/Plugin/DateRangePicker/date.min.js",
-                        "~/Scripts/Plugin/MonthPickr/monpickr.js",
-                        "~/Scripts/Report/report.js",
-                        "~/scripts/global/Paging.js",
                         "~/Scripts/Plugin/DateRangePicker/daterangepicker.js",
                         "~/Scripts/Plugin/FlatPopup/jquery.custom-scrollbar.js",
                         "~/Scripts/Plugin/FlatPopup/jquery.flatpopup.js",
@@ -300,30 +252,6 @@
                 "~/Content/FlatPopup/jquery.custom-scrollbar.css",
                 "~/Content/FlatPopup/jquery.flatpopup.css",
                 "~/Content/Plugin/MultiSelect/jquery.multiselect.css");
-        }
-
-        /// <summary>
-        /// Registers the bet list layout no standard styles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
-        private static void RegisterBetListLayoutNoStandardStyles(BundleCollection bundles)
-        {
-            AddStyleBundle(
-                bundles,
-                "~/bundles/BetListLayoutNoStandardStyles",
-                "~/Content/Library/smoothness/jqgrid-custom.css",
-                "~/Content/Library/ui.jqgrid/jqgrid.extension.css",
-                "~/Content/Library/start/jquery-ui.min.css",
-                "~/Content/Library/ui.jqgrid/ui.jqgrid.css",
-                "~/Content/Global/grid26.css",
-                "~/Content/Global/lrf.global.content.css",
-                "~/Content/Plugin/MonthPickr/monPickr.css",
-                "~/Content/Global/Paging.css",
-                "~/Content/Plugin/DateRangePicker/daterangepicker.css",
-                "~/Content/BetList/betlist.core.css",
-                "~/Content/BetList/Microgaming.css",
-                "~/Content/BetList/AGCasino.css",
-                "~/Content/BetList/Allbet.css");
         }
 
         /// <summary>
@@ -386,27 +314,6 @@
                 "~/Content/Global/grid26.css",
                 "~/Content/Global/lrf.global.grid.css",
                 "~/Content/Global/lrf.global.content.css",
-                "~/Content/Plugin/MonthPickr/monPickr.css",
-                "~/Content/Global/Paging.css",
-                "~/Content/Plugin/DateRangePicker/daterangepicker.css",
-                "~/Content/Plugin/MultiSelect/jquery.multiselect.css",
-                "~/Content/FlatPopup/jquery.custom-scrollbar.css",
-                "~/Content/FlatPopup/jquery.flatpopup.css");
-        }
-
-        /// <summary>
-        /// Registers the report table layout styles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
-        private static void RegisterReportTableLayoutStyles(BundleCollection bundles)
-        {
-            AddStyleBundle(
-                bundles,
-                "~/bundles/ReportTableLayoutStyles",
-                "~/Content/Library/start/jquery-ui.min.css",
-                "~/Content/Global/grid26.css",
-                "~/Content/Global/lrf.global.content.css",
-                "~/Content/Global/lrf.global.reportable.css",
                 "~/Content/Plugin/MonthPickr/monPickr.css",
                 "~/Content/Global/Paging.css",
                 "~/Content/Plugin/DateRangePicker/daterangepicker.css",

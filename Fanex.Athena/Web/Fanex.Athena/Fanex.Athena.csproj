@@ -845,6 +845,8 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="SiteConfig\Web.BACKUPMNLStatic.config" />
+    <Content Include="Views\Desktop\Report\Result\Popup\Microgaming.cshtml" />
+    <Content Include="Views\Desktop\Report\Result\Popup\AllBet.cshtml" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Row.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.jsx" />
@@ -2073,7 +2075,6 @@
     <Content Include="Scripts\Report\agcasinobalance.option.js" />
     <Content Include="Scripts\Report\CasinoProgressiveWins.js" />
     <Content Include="Scripts\Report\CasinoProgressiveWins.option.js" />
-    <Content Include="Scripts\Report\thirdpartywinloss.golddeluxe.js" />
     <Content Include="Scripts\Report\microgamingwinloss.js" />
     <Content Include="Scripts\Report\microgamingwinloss.option.js" />
     <Content Include="SiteConfig\Web.LOCAL.config">
@@ -2101,7 +2102,6 @@
     <Content Include="Views\Report\MicrogamingWinLoss\Content.cshtml" />
     <Content Include="Views\Report\MicrogamingWinLoss\Main.cshtml" />
     <Content Include="Views\Report\MicrogamingWinLoss\Filter.cshtml" />
-    <Content Include="Views\Report\Result\Popup\Microgaming.cshtml" />
     <Content Include="Views\BetList\MicroGamingRngDetail\Main.cshtml" />
     <Content Include="Views\BetList\AGCasinoDetail\Main.cshtml" />
     <Content Include="Views\Report\CasinoProgressiveWins\Content.cshtml" />
@@ -2113,7 +2113,6 @@
     <Content Include="SiteConfig\WebConfigTransforms\SANDBOX.config" />
     <Content Include="SiteConfig\WebConfigTransforms\UAT.config" />
     <Content Include="Views\BetList\RunningBettypesOfMatchBetList\Main.cshtml" />
-    <Content Include="Views\Report\Result\Popup\AllBet.cshtml" />
     <Content Include="Views\BetList\ColossusBetDetail\Main.cshtml" />
     <Content Include="Views\Desktop\Report\LiveReport\Content.cshtml" />
     <Content Include="Views\Desktop\Report\LiveReport\Content.Data.cshtml" />
@@ -2586,7 +2585,6 @@
   <ItemGroup>
     <Content Include="Content\BetList\betlist.core.css" />
     <Content Include="Content\BetList\dailystatement.css" />
-    <Content Include="Content\BetList\lastbetmonitor.css" />
     <Content Include="Content\Fanex.Result\images\tab_topbg.gif" />
     <Content Include="Content\Global\Global.css" />
     <Content Include="Content\Global\images\arrow-back.png" />
@@ -5120,8 +5118,6 @@
     <Content Include="Scripts\Library\CryptoJS.js" />
     <Content Include="Scripts\Plugin\FlatPopup\jquery.custom-scrollbar.js" />
     <Content Include="Scripts\Plugin\FlatPopup\jquery.flatpopup.js" />
-    <Content Include="Scripts\Report\thirdpartywinloss.js" />
-    <Content Include="Scripts\Report\thirdpartywinloss.option.js" />
     <Content Include="SiteConfig\Web.config.txt">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -5135,7 +5131,6 @@
   <ItemGroup>
     <Content Include="Content\BetList\images\1F.gif" />
     <Content Include="Content\BetList\images\1L.gif" />
-    <Content Include="Content\BetList\lastbetmonitornew.css" />
     <Content Include="Content\BetList\systemparlaydetail.css" />
     <Content Include="Content\BetList\images\ajax-loader.gif" />
     <Content Include="Content\BetList\images\firstGoal.gif" />
@@ -5144,7 +5139,6 @@
     <Content Include="Content\BetList\images\q_Icon_2.png" />
     <Content Include="Content\BetList\images\tab_topbg.gif" />
     <Content Include="Content\BetList\images\undo.png" />
-    <Content Include="Content\BetList\lastbetmonitor.table.css" />
     <Content Include="Content\Fanex.Result\images\tab_topbg.gif" />
     <Content Include="Content\Layout\images\Checked.png" />
     <Content Include="Content\Layout\images\Chrome.png" />
@@ -5411,7 +5405,6 @@
     <Content Include="Scripts\Extension\jquery.extension.js" />
     <Content Include="Scripts\Global\prototype.js" />
     <Content Include="Scripts\Global\query.string.js" />
-    <Content Include="Scripts\Global\lrf.layout.js" />
     <Content Include="Scripts\Global\Paging.js" />
     <Content Include="Scripts\Global\site.js" />
     <Content Include="Scripts\Library\jquery.unobtrusive-ajax.js" />
@@ -5489,12 +5482,6 @@
     </Content>
     <Content Include="Scripts\Library\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\Library\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\Library\MicrosoftAjax.js" />
-    <Content Include="Scripts\Library\MicrosoftAjax.debug.js" />
-    <Content Include="Scripts\Library\MicrosoftMvcAjax.js" />
-    <Content Include="Scripts\Library\MicrosoftMvcAjax.debug.js" />
-    <Content Include="Scripts\Library\MicrosoftMvcValidation.js" />
-    <Content Include="Scripts\Library\MicrosoftMvcValidation.debug.js" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config">
@@ -5539,7 +5526,6 @@
     <Content Include="Views\Desktop\Customer\CustomerDialog\LogInfo.cshtml" />
     <Content Include="Views\Shared\_NoteLayout.cshtml" />
     <Content Include="Views\Note\WinLossByProduct.cshtml" />
-    <Content Include="Views\Shared\_ReportTableLayout.cshtml" />
     <Content Include="Views\Note\Warehouse.cshtml" />
     <Content Include="Views\Shared\_Report.jqGridLayout.cshtml" />
     <Content Include="Views\Shared\_BetListLayout.cshtml" />
@@ -5563,7 +5549,6 @@
     <Content Include="Views\BetList\MatchWl\Outright.cshtml" />
     <Content Include="Views\BetList\MatchWl\MatchBetType.cshtml" />
     <Content Include="Views\BetList\MatchWl\MixParlay.cshtml" />
-    <Content Include="Views\Shared\_BetListLayoutNoStandard.cshtml" />
     <None Include="Scripts\Languages\ViewResources.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ViewResources.txt</LastGenOutput>
@@ -5600,14 +5585,9 @@
     <Content Include="Views\RNGCasino\RNGCasinoDetail\Group7-1.cshtml" />
     <Content Include="Views\RNGCasino\RNGCasinoDetail\NoGameErr.cshtml" />
     <Content Include="Views\BetList\NewForecastBetlist\Main.cshtml" />
-    <Content Include="Views\Report\Result\Content.cshtml" />
-    <Content Include="Views\Report\Result\Filter.cshtml" />
-    <Content Include="Views\Report\Result\Main.cshtml" />
-    <Content Include="Views\Report\Result\Popup\Main.cshtml" />
     <Content Include="Views\Note\DailyStatement.cshtml" />
     <Content Include="Scripts\Web.config" />
     <Content Include="Views\BetList\WinlossByLeague\Main.cshtml" />
-    <Content Include="Views\Authorization\SignIn.cshtml" />
     <Content Include="Views\Authorization\ChangePass.cshtml" />
     <Content Include="Views\BetList\RunningBetListMultipleBettypes\Filter.cshtml" />
     <Content Include="Views\BetList\RunningBetListMultipleBettypes\Main.cshtml" />
