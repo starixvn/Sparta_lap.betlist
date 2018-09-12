@@ -100,8 +100,8 @@
                 Message = ViewResources.UserNotHaveCurrency
             };
 
-            _oneAuthenticationService.When(x => x.ValidateCurrencyList(Arg.Any<IEnumerable<CurrencyUser>>())).DoNotCallBase();
-            _oneAuthenticationService.ValidateCurrencyList(Arg.Any<IEnumerable<CurrencyUser>>()).Returns(expectedResult);
+            _oneAuthenticationService.When(x => x.ValidateCurrencyList(Arg.Any<OneAuthUserInfo>())).DoNotCallBase();
+            _oneAuthenticationService.ValidateCurrencyList(Arg.Any<OneAuthUserInfo>()).Returns(expectedResult);
 
             // Action
             var result = _oneAuthenticationService.SignIn(Arg.Any<HttpContextBase>(), tokenInfo);
@@ -491,10 +491,10 @@
         public void ValidateCurrencyList_CurrencyListIsNullOrEmpty_ReturnErrorResultInfo(bool isNull)
         {
             // Arrange
-            var currencyList = isNull ? null : new List<CurrencyUser>();
+            var userInfo = new OneAuthUserInfo { CurrencyUserList = isNull ? null : new List<CurrencyUser>() };
 
             // Action
-            var result = _oneAuthenticationService.ValidateCurrencyList(currencyList);
+            var result = _oneAuthenticationService.ValidateCurrencyList(userInfo);
 
             // Assert
             Assert.Multiple(() =>
@@ -514,10 +514,10 @@
                 CurrencyName = "ABCD",
                 AgentIdList = new[] { 12, 34, 56, 78, 34 }
             };
-            var currencyList = new[] { currency };
+            var userInfo = new OneAuthUserInfo { CurrencyUserList = new[] { currency } };
 
             // Action
-            var result = _oneAuthenticationService.ValidateCurrencyList(currencyList);
+            var result = _oneAuthenticationService.ValidateCurrencyList(userInfo);
 
             // Assert
             Assert.Multiple(() =>

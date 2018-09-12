@@ -75,7 +75,7 @@
             }
 
             var userInfo = GetUserInfo(tokenInfo);
-            var result = ValidateCurrencyList(userInfo.CurrencyUserList);
+            var result = ValidateCurrencyList(userInfo);
             if (!result.IsSuccessful)
             {
                 return result;
@@ -140,18 +140,24 @@
             };
         }
 
-        protected internal virtual IResultInfo ValidateCurrencyList(IEnumerable<CurrencyUser> currencyList)
+        protected internal virtual IResultInfo ValidateCurrencyList(OneAuthUserInfo userInfo)
         {
-            if (currencyList == null || !currencyList.Any())
+            if (userInfo.CurrencyUserList == null || !userInfo.CurrencyUserList.Any())
             {
-                return new ResultInfo
-                {
-                    Code = OneAuthorizationErrorCode.UserNotHaveCurrency,
-                    Message = ViewResources.UserNotHaveCurrency
-                };
+                return userInfo.UserLevel == UserLevelType.Subsidiary ?
+                    new ResultInfo
+                    {
+                        Code = OneAuthorizationErrorCode.SubsidiaryNotHaveCurrency,
+                        Message = ViewResources.SubsidiaryNotHaveCurrencyMsg
+                    } 
+                    : new ResultInfo
+                    {
+                        Code = OneAuthorizationErrorCode.UserNotHaveCurrency,
+                        Message = ViewResources.UserNotHaveCurrency
+                    };
             }
 
-            foreach (var currency in currencyList)
+            foreach (var currency in userInfo.CurrencyUserList)
             {
                 var duplicateAgents = currency.AgentIdList.GroupBy(x => x).Where(x => x.Count() > 1).Select(x => x.Key).ToList();
                 if (duplicateAgents.Any())
