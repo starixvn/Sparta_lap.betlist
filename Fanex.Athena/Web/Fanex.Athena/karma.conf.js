@@ -41,28 +41,20 @@ module.exports = function (config) {
 		// --------- BetList --------- //
 		'Scripts/BetList/betlist.js',
 		'Scripts/BetList/betlist.option.js',
-		'Scripts/BetList/cancelledbetsbetlist.js',
 		'Scripts/BetList/commonbetlist.js',
 		'Scripts/BetList/correctscorebetlist.js',
 		'Scripts/BetList/customer.dailystatement.js',
 		'Scripts/BetList/customer.dailystatement.option.js',
 		'Scripts/BetList/customer.outstandingbetlist.js',
-		'Scripts/BetList/dailybetlist.js',
-        'Scripts/BetList/lastbet.filter.js',
-		'Scripts/BetList/lastbet.grid.js',
 		'Scripts/BetList/runningbetlist.js',
 		'Scripts/BetList/runningbetlist.multiplebettypes.js',
 		
 		'jasmine-specs/BetList/betlist-test.js',
-		'jasmine-specs/BetList/cancelledbetsbetlist-test.js',
 		'jasmine-specs/BetList/commonbetlist-test.js',
 		'jasmine-specs/BetList/correctscorebetlist-test.js',
 		'jasmine-specs/BetList/customer.dailystatement-test.js',
 		'jasmine-specs/BetList/customer.dailystatement.option-test.js',
 		'jasmine-specs/BetList/customer.outstandingbetlist-test.js',
-		'jasmine-specs/BetList/dailybetlist-test.js',
-        'jasmine-specs/BetList/lastbet.filter-test.js',
-		'jasmine-specs/BetList/lastbet.grid-test.js',
 		 'jasmine-specs/BetList/runningbetlist-test.js',
 		'jasmine-specs/BetList/runningbetlist.multiplebettypes-test.js',
 		
@@ -74,72 +66,20 @@ module.exports = function (config) {
 		'Scripts/Extension/*.js',
 		 'jasmine-specs/Extension/*-test.js',
 		 
-		 // --------- Forecast --------- //
-		'Scripts/Forecast/forecastpopup.js',
-		'Scripts/Forecast/forecast.ah.js',
-		'Scripts/Forecast/forecast.handicapoverunder.js',
-		'Scripts/Forecast/forecast.newforecasthdpou.js',
-		'Scripts/Forecast/forecast.onextwo.js',
-		
-		 'jasmine-specs/Forecast/*-test.js',
-		 
 		 // --------- Global --------- //
 		//'Scripts/Global/*.js',
 		 'jasmine-specs/Global/*-test.js',
 		 
 		 // --------- Report --------- //
-		'Scripts/Report/activecustomersummary*.js',
-		 'jasmine-specs/Report/activecustomersummary*-test.js',
-		 
 		'Scripts/Report/agcasinobalance*.js',
 		'jasmine-specs/Report/agcasinobalance*-test.js',
-		
-		'Scripts/Report/agcasinowinloss*.js',
-		'jasmine-specs/Report/agcasinowinloss*-test.js',
-		
-		'Scripts/Report/balance*.js',
-		'jasmine-specs/Report/balance*-test.js',
 		
 		'Scripts/Report/CasinoProgressiveWins*.js',
 		'jasmine-specs/Report/casinoprogressivewins*-test.js',
 		
-		'Scripts/Report/customerbalance*.js',
-		'jasmine-specs/Report/customerbalance*-test.js',
-		
-		'Scripts/Report/customerpendingfunds*.js',
-		'jasmine-specs/Report/customerpendingfunds*-test.js',
-		
-		'Scripts/Report/customerturnover*.js',
-		'jasmine-specs/Report/customerturnover*-test.js',
-		
-		'Scripts/Report/customerwinloss*.js',
-		'jasmine-specs/Report/customerwinloss*-test.js',
-			
-		'Scripts/Report/dailyracingwinloss*.js',
-		'jasmine-specs/Report/dailyracingwinloss*-test.js',
-		
-		
-		'Scripts/Report/licenseewinloss*.js',
-		'jasmine-specs/Report/licenseewinloss*-test.js',
-		
-		'Scripts/Report/livereport*.js',
-		'jasmine-specs/Report/livereport*-test.js',
-		
-		'Scripts/Report/matchwinloss*.js',
-		'jasmine-specs/Report/matchwinloss*-test.js',
-		
 		'Scripts/Report/microgamingwinloss*.js',
 		'jasmine-specs/Report/microgamingwinloss*-test.js',
 	
-		'Scripts/Report/platformwinloss*.js',
-		'jasmine-specs/Report/platformwinloss*-test.js',
-		
-		'Scripts/Report/playtechcasino*.js',
-		'jasmine-specs/Report/playtechcasino*-test.js',
-		
-		'Scripts/Report/racingcommission*.js',
-		'jasmine-specs/Report/racingcommission*-test.js',
-		
 		//'Scripts/Report/report*.js',
 		 'jasmine-specs/Report/report*-test.js',
 		
@@ -151,29 +91,6 @@ module.exports = function (config) {
 		'Scripts/Report/thirdpartywinloss.option.js',
 		'jasmine-specs/Report/thirdpartywinloss*-test.js',
 		 
-		'Scripts/Report/turnover*.js',
-		'jasmine-specs/Report/turnover*-test.js',
-		 
-		'Scripts/Report/winlossbybettype*.js',
-		'jasmine-specs/Report/winlossbybettype*-test.js',
-		 
-		'Scripts/Report/winlossbyleague*.js',
-		'jasmine-specs/Report/winlossbyleague*-test.js',
-		
-		'Scripts/Report/winlossbyproduct*.js',
-		'jasmine-specs/Report/winlossbyproduct*-test.js',
-
-        'Scripts/Report/weeklylivematch*.js',
-        'jasmine-specs/Report/weeklylivematch*-test.js',
-
-        // --------- TotalBets --------- //
-        'Scripts/TotalBets/*.js',
-            'jasmine-specs/TotalBets/*-test.js',
-
-        // --------- WareHouse --------- //
-        'Scripts/WareHouse/*.js',
-            'jasmine-specs/WareHouse/*-test.js',
-
         // --------- Helper --------- //
 	    'jasmine-specs/Helper/*-test.js',
 
