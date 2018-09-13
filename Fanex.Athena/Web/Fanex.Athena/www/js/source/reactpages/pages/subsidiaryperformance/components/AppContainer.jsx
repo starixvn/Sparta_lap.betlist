@@ -16,10 +16,10 @@ export class AppContainer extends Component {
     super(props);
     this.reportTitle = null;
     this.breadcrumbItems = [{
-        label: BreadcrumbText.main,
+        label: BreadcrumbText.Main,
         value: ReportLevel.MAIN,
     }, {
-        label: BreadcrumbText.customer,
+        label: BreadcrumbText.Customer,
         value: ReportLevel.CUSTOMER,
     }];
   }

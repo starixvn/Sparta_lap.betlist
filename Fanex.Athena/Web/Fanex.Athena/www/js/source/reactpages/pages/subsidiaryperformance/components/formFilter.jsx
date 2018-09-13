@@ -8,7 +8,7 @@ import { DateRange } from '../../../components/date-range/index'
 import LangHelper from '../../../lib/langHelper'
 import ReportExcel from '../lib/reportExcel'
 import Site from '../../../lib/site'
-import { Service } from '../lib/service'
+import { Service, Api } from '../lib/service'
 import { ReportLevel } from '../../../constants/report'
 import Report from '../../../lib/report'
 
@@ -37,14 +37,15 @@ export class FormFilter extends Component {
     exportExcel = (event) => {
         event.preventDefault();
 
-        const params = this._getParams();
+        const isCustomerLevel = this.props.params.Level == ReportLevel.CUSTOMER
+        const params = isCustomerLevel ? this.props.params : this._getParams();
         if (!params) {
             return;
         }
 
         this.props.toggleLoader(true);
 
-        Report.fetchGridData(Url, { xsrfToken: this.props.xsrfToken, data: params })
+        Report.fetchGridData(isCustomerLevel ? Api.DetailUrl : Api.Url, { xsrfToken: this.props.xsrfToken, data: params })
             .then(response => {
                 if (!response.data.Data.length) {
                     alert(LangHelper.getSingleResource("NoInfo"));
@@ -52,7 +53,7 @@ export class FormFilter extends Component {
                 }
 
                 const title = Service.getReportTitle(params.FromDate, params.ToDate, params.BaseCurrency);
-                const excel = new ReportExcel(response.data, title);
+                const excel = new ReportExcel(response.data, title, isCustomerLevel, params.BaseCurrency);
                 excel.export(() =>{
                     this.props.toggleLoader(false);
                 });
@@ -246,7 +247,7 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    const { params, isLoading, ...rest } = state;
+    const { isLoading, ...rest } = state;
     return Object.assign({}, rest);
 };
 

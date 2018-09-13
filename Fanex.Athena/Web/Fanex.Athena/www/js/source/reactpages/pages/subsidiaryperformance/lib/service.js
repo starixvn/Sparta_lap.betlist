@@ -2,28 +2,33 @@ import LangHelper from '../../../lib/langHelper'
 import Site from '../../../lib/site'
 
 export const HeaderText = {
-    index: '#',
-    subsidiary: LangHelper.getSingleResource("Subsidiary"),
-    currency: LangHelper.getSingleResource("Currency"),
-    product: LangHelper.getSingleResource("Product"),
-    betCount: LangHelper.getSingleResource("BetCount"),
-    turnover: LangHelper.getSingleResource("Turnover"),
-    customerWL: LangHelper.getSingleResource("CustomerW_L"),
-    subsidiaryWL: `${LangHelper.getSingleResource("SubsidiaryWL")}`,
-    subsidiaryComm: `${LangHelper.getSingleResource("Subsidiary")} ${LangHelper.getSingleResource("Comm")}`,
-    externalId: LangHelper.getSingleResource("ExternalId"),
-    systemId: LangHelper.getSingleResource("SystemId"),
+    Index: '#',
+    Subsidiary: LangHelper.getSingleResource("Subsidiary"),
+    CurrencyName: LangHelper.getSingleResource("Currency"),
+    Product: LangHelper.getSingleResource("Product"),
+    BetCount: LangHelper.getSingleResource("BetCount"),
+    Turnover: LangHelper.getSingleResource("Turnover"),
+    CustomerWinLoss: LangHelper.getSingleResource("CustomerW_L"),
+    SubsidiaryWinLoss: `${LangHelper.getSingleResource("SubsidiaryWL")}`,
+    SubsidiaryComm: `${LangHelper.getSingleResource("Subsidiary")} ${LangHelper.getSingleResource("Comm")}`,
+    ExternalId: LangHelper.getSingleResource("ExternalId"),
+    SystemId: LangHelper.getSingleResource("SystemId"),
 }
 
 export const TotalText = {
-    total: LangHelper.getSingleResource('Total'),
-    totalIn: LangHelper.getSingleResource('Totalin'),
-    based: LangHelper.getSingleResource('Based')
+    Total: LangHelper.getSingleResource('Total'),
+    TotalIn: LangHelper.getSingleResource('Totalin'),
+    Based: LangHelper.getSingleResource('Based')
 }
 
 export const BreadcrumbText = {
-    main: LangHelper.getSingleResource('Main'),
-    customer: LangHelper.getSingleResource('Customer')
+    Main: LangHelper.getSingleResource('Main'),
+    Customer: LangHelper.getSingleResource('Customer')
+}
+
+export const Api = {
+    Url: 'api/SubsidiaryPerformanceReport/Index',
+    DetailUrl: 'api/SubsidiaryPerformanceReport/Detail'
 }
 
 export class Service {

@@ -6,12 +6,9 @@ import { Table, Row, Cell } from '../../../components/fixed-table-header'
 import LangHelper from '../../../lib/langHelper'
 import NumberFormat from '../../../lib/numberFormat'
 import NoDataTitle from '../../../components/NoDataTitle'
-import { Service, HeaderText, TotalText } from '../lib/service'
+import { Service, HeaderText, TotalText, Api } from '../lib/service'
 import Report from '../../../lib/report'
 import { ReportLevel } from '../../../constants/report'
-
-const Url = 'api/SubsidiaryPerformanceReport/Index';
-const DetailUrl = 'api/SubsidiaryPerformanceReport/Detail';
 
 export class DataGrid extends Component {
     constructor(props) {
@@ -26,7 +23,7 @@ export class DataGrid extends Component {
         if (prevProps.params.Timestamp !== this.props.params.Timestamp) {
             this.level = ReportLevel.Main;
             this.baseCurrency = this.props.params.BaseCurrency;
-            this._getGridData(Url, this.props.params);
+            this._getGridData(Api.Url, this.props.params);
         }
     }
 
@@ -52,7 +49,7 @@ export class DataGrid extends Component {
 
         this.level = ReportLevel.CUSTOMER;
 
-        this._getGridData(DetailUrl, params);
+        this._getGridData(Api.DetailUrl, params);
         this.props.setParams(params);
     }
 
@@ -61,16 +58,16 @@ export class DataGrid extends Component {
 
         return (
             <Row style={{ height: 32 }}>
-                { customerLevel && <Cell colWidth={30} header={true} title={HeaderText.index}>{HeaderText.index}</Cell> }
-                <Cell colWidth={150} header={true} title={customerLevel ? HeaderText.externalId : HeaderText.subsidiary}>{customerLevel ? HeaderText.externalId : HeaderText.subsidiary}</Cell>
-                { customerLevel && <Cell colWidth={150} header={true} title={HeaderText.systemId}>{HeaderText.systemId}</Cell> }
-                <Cell colWidth={150} header={true} title={HeaderText.currency}>{HeaderText.currency}</Cell>
-                { !customerLevel && <Cell colWidth={200} header={true} title={HeaderText.product}>{HeaderText.product}</Cell> }
-                <Cell colWidth={150} header={true} title={HeaderText.betCount}>{HeaderText.betCount}</Cell>
-                <Cell colWidth={200} header={true} title={HeaderText.turnover}>{HeaderText.turnover}</Cell>
-                <Cell colWidth={200} header={true} title={HeaderText.customerWL}>{HeaderText.customerWL}</Cell>
-                <Cell colWidth={200} header={true} title={HeaderText.subsidiaryWL}>{HeaderText.subsidiaryWL}</Cell>
-                <Cell colWidth={150} header={true} title={HeaderText.subsidiaryComm}>{HeaderText.subsidiaryComm}</Cell>
+                { customerLevel && <Cell colWidth={30} header={true} title={HeaderText.Index}>{HeaderText.Index}</Cell> }
+                <Cell colWidth={150} header={true} title={customerLevel ? HeaderText.ExternalId : HeaderText.Subsidiary}>{customerLevel ? HeaderText.ExternalId : HeaderText.Subsidiary}</Cell>
+                { customerLevel && <Cell colWidth={150} header={true} title={HeaderText.SystemId}>{HeaderText.SystemId}</Cell> }
+                <Cell colWidth={150} header={true} title={HeaderText.CurrencyName}>{HeaderText.CurrencyName}</Cell>
+                { !customerLevel && <Cell colWidth={200} header={true} title={HeaderText.Product}>{HeaderText.Product}</Cell> }
+                <Cell colWidth={150} header={true} title={HeaderText.BetCount}>{HeaderText.BetCount}</Cell>
+                <Cell colWidth={200} header={true} title={HeaderText.Turnover}>{HeaderText.Turnover}</Cell>
+                <Cell colWidth={200} header={true} title={HeaderText.CustomerWinLoss}>{HeaderText.CustomerWinLoss}</Cell>
+                <Cell colWidth={200} header={true} title={HeaderText.SubsidiaryWinLoss}>{HeaderText.SubsidiaryWinLoss}</Cell>
+                <Cell colWidth={150} header={true} title={HeaderText.SubsidiaryComm}>{HeaderText.SubsidiaryComm}</Cell>
             </Row>
         )
     }
@@ -146,8 +143,8 @@ export class DataGrid extends Component {
 
             footer.push(
                 <Row className="fixed-table-total" key={`total${i}`}>
-                    <Cell title={`${TotalText.total} ${totalName}`}>{`${TotalText.total} ${totalName}`}</Cell>
-                    <Cell title={`${TotalText.based} ${item.CurrencyName}`} className="center-align" colSpan='2'>{`${TotalText.based} ${item.CurrencyName}`}</Cell>
+                    <Cell title={`${TotalText.Total} ${totalName}`}>{`${TotalText.Total} ${totalName}`}</Cell>
+                    <Cell title={`${TotalText.Based} ${item.CurrencyName}`} className="center-align" colSpan='2'>{`${TotalText.Based} ${item.CurrencyName}`}</Cell>
                     { this._buildCommonCells(item, `total${i}`) }
                 </Row>
             );
@@ -166,8 +163,8 @@ export class DataGrid extends Component {
 
         return (
             <Row key="grandTotal" className="fixed-table-grant-total">
-                <Cell title={TotalText.total}>{TotalText.total}</Cell>
-                <Cell title={`${TotalText.based} ${grandTotal.CurrencyName}`} className="center-align" colSpan='2'>{`${TotalText.based} ${grandTotal.CurrencyName}`}</Cell>
+                <Cell title={TotalText.Total}>{TotalText.Total}</Cell>
+                <Cell title={`${TotalText.Based} ${grandTotal.CurrencyName}`} className="center-align" colSpan='2'>{`${TotalText.Based} ${grandTotal.CurrencyName}`}</Cell>
                 { this._buildCommonCells(grandTotal, 'grandTotal') }
             </Row>
         )
@@ -185,8 +182,8 @@ export class DataGrid extends Component {
 
             footer.push(
                 <Row className="fixed-table-total" key={`total${i}`}>
-                    { i === 0 && <Cell title={`${TotalText.totalIn} ${this.baseCurrency}`} colSpan='3' rowSpan={rowSpan} className="center-align">
-                        {`${TotalText.totalIn} ${this.baseCurrency}`}
+                    { i === 0 && <Cell title={`${TotalText.TotalIn} ${this.baseCurrency}`} colSpan='3' rowSpan={rowSpan} className="center-align">
+                        {`${TotalText.TotalIn} ${this.baseCurrency}`}
                     </Cell> }
                     <Cell title={item.CurrencyName} className="center-align" colSpan='1'>{item.CurrencyName}</Cell>
                     { this._buildCommonCells(item, `total${i}`) }
@@ -207,7 +204,7 @@ export class DataGrid extends Component {
 
         return (
             <Row key="grandTotal" className="fixed-table-grant-total">
-                <Cell title={`${TotalText.totalIn} ${grandTotal.CurrencyName}`} className="center-align" colSpan='4'>{`${TotalText.totalIn} ${grandTotal.CurrencyName}`}</Cell>
+                <Cell title={`${TotalText.TotalIn} ${grandTotal.CurrencyName}`} className="center-align" colSpan='4'>{`${TotalText.TotalIn} ${grandTotal.CurrencyName}`}</Cell>
                 { this._buildCommonCells(grandTotal, 'grandTotal') }
             </Row>
         )
