@@ -4,15 +4,21 @@ import { titleCellStyle, headerCellStyle, bodyCellStyle, totalCellStyle, grandTo
 import { HeaderText, TotalText } from '../lib/service'
 
 const COLUMN_COUNT = 8;
+const COLUMN_DETAIL_COUNT = 9;
 const TITLE_ROW_INDEX = 0;
 const HEADER_ROW_INDEX = 1;
 const DATA_ROW_INDEX = 2;
 
+const INDEX_COLUM_INDEX = 0;
+const EXTERNALID_COLUM_INDEX = 1;
 const SUBSIDIARY_COLUMN_INDEX = 0;
 const CURRENCY_COLUMN_INDEX = 1;
+const CURRENCY_DETAIL_COLUMN_INDEX = 3;
 const PRODUCT_COLUMN_INDEX = 2;
 const BETCOUNT_COLUMN_INDEX = 3;
+const BETCOUNT_DETAIL_COLUMN_INDEX = 4;
 const SUBSIDIARYCOMM_COLUMN_INDEX = 7;
+const SUBSIDIARYCOMM_DETAIL_COLUMN_INDEX = 8;
 
 const MAIN_SECTION_STYLE = "mainSectionStyle";
 const TOTAL_SECTION_STYLE = "totalSectionStyle";
@@ -26,56 +32,10 @@ const fields = {
     turnover: "Turnover",
     customerWinLoss: "CustomerWinLoss",
     subsidiaryWinLoss: "SubsidiaryWinLoss",
-    subsidiaryComm: "SubsidiaryComm"
+    subsidiaryComm: "SubsidiaryComm",
+    externalId: "ExternalId",
+    systemId: "SystemId"
 }
-
-const columnConfigs = [{
-        field: fields.subsidiary,
-        [MAIN_SECTION_STYLE]: bodyCellStyle.rowspan,
-        [TOTAL_SECTION_STYLE]: totalCellStyle.default,
-        [GRAND_TOTAL_SECTION_STYLE]: grandTotalCellStyle.default
-    },
-    {
-        field: fields.currencyName,
-        [MAIN_SECTION_STYLE]: bodyCellStyle.center,
-        [TOTAL_SECTION_STYLE]: totalCellStyle.center,
-        [GRAND_TOTAL_SECTION_STYLE]: grandTotalCellStyle.center
-    },
-    {
-        field: fields.product,
-        [GRAND_TOTAL_SECTION_STYLE]: grandTotalCellStyle.default
-    },
-    {
-        field: fields.betCount,
-        [MAIN_SECTION_STYLE]: bodyCellStyle.number,
-        [TOTAL_SECTION_STYLE]: totalCellStyle.number,
-        [GRAND_TOTAL_SECTION_STYLE]: grandTotalCellStyle.number
-    },
-    {
-        field: fields.turnover,
-        [MAIN_SECTION_STYLE]: bodyCellStyle.decimal,
-        [TOTAL_SECTION_STYLE]: totalCellStyle.decimal,
-        [GRAND_TOTAL_SECTION_STYLE]: grandTotalCellStyle.decimal
-    },
-    {
-        field: fields.customerWinLoss,
-        [MAIN_SECTION_STYLE]: bodyCellStyle.decimal,
-        [TOTAL_SECTION_STYLE]: totalCellStyle.decimal,
-        [GRAND_TOTAL_SECTION_STYLE]: grandTotalCellStyle.decimal
-    },
-    {
-        field: fields.subsidiaryWinLoss,
-        [MAIN_SECTION_STYLE]: { positive: bodyCellStyle.decimal, negative: bodyCellStyle.negativeDecimal },
-        [TOTAL_SECTION_STYLE]: { positive: totalCellStyle.decimal, negative: totalCellStyle.negativeDecimal },
-        [GRAND_TOTAL_SECTION_STYLE]: { positive: grandTotalCellStyle.decimal, negative: grandTotalCellStyle.negativeDecimal }
-    },
-    {
-        field: fields.subsidiaryComm,
-        [MAIN_SECTION_STYLE]: bodyCellStyle.decimal,
-        [TOTAL_SECTION_STYLE]: totalCellStyle.decimal,
-        [GRAND_TOTAL_SECTION_STYLE]: grandTotalCellStyle.decimal
-    }
-]
 
 export default class ReportExcel {
     constructor(gridData = {}, title, isCustomerLevel, baseCurrency, fileName = "SubsidiaryPerformance") {
@@ -87,6 +47,7 @@ export default class ReportExcel {
         this.mergeConfig = [];
         this.columnConfigs = this._getcolumnConfigs(isCustomerLevel);
         this.baseCurrency = baseCurrency;
+        this.isCustomerLevel = isCustomerLevel;
     }
 
     export (onFinished) {
@@ -107,7 +68,7 @@ export default class ReportExcel {
     }
 
     _createTitle() {
-        this.mergeConfig.push({ s: { r: TITLE_ROW_INDEX, c: 0 }, e: { r: TITLE_ROW_INDEX, c: COLUMN_COUNT - 1 } });
+        this.mergeConfig.push({ s: { r: TITLE_ROW_INDEX, c: 0 }, e: { r: TITLE_ROW_INDEX, c: this.isCustomerLevel ? COLUMN_DETAIL_COUNT - 1 : COLUMN_COUNT - 1 } });
         const address = Excel.getCellAddress({ c: 0, r: TITLE_ROW_INDEX });
         this.worksheet[address] = { t: "s", v: this.title, s: titleCellStyle }
     }
@@ -122,12 +83,12 @@ export default class ReportExcel {
     }
 
     _createSheetData() {
-        this._createMainData();
-        this._createFooterData();
-        this._createGrandTotalData();
+        this.isCustomerLevel ? this._createBodyDetailData() : this._createBodyData();
+        this.isCustomerLevel ? this._createFooterDetailData() : this._createFooterData();
+        this.isCustomerLevel ? this._createGrandTotalDetailData() : this._createGrandTotalData();
     }
 
-    _createMainData() {
+    _createBodyData() {
         const mainData = this.gridData.Data;
 
         for (let i = 0; i < mainData.length; i++) {
@@ -155,6 +116,18 @@ export default class ReportExcel {
         }
     }
 
+    _createBodyDetailData() {
+        const mainData = this.gridData.Data;
+
+        for (let i = 0; i < mainData.length; i++) {
+            const item = mainData[i];
+            item.Index = i + 1;
+
+            this._createRowByColumnIndex(item, MAIN_SECTION_STYLE, INDEX_COLUM_INDEX, SUBSIDIARYCOMM_DETAIL_COLUMN_INDEX);
+            this.currentRowIndex++;
+        }
+    }
+
     _createFooterData() {
         const totalDataList = this.gridData.Total;
         const subs = Object.keys(totalDataList);
@@ -169,6 +142,21 @@ export default class ReportExcel {
         }
     }
 
+    _createFooterDetailData() {
+        const totalDataList = this.gridData.Total;
+        const subs = Object.keys(totalDataList);
+        const rowSpan = subs.length;
+
+        for (let i = 0; i < rowSpan; i++) {
+            const item = totalDataList[subs[i]];
+     
+            this._createRowByColumnIndex({ Index: TotalText.Based + " " + this.baseCurrency }, TOTAL_SECTION_STYLE, INDEX_COLUM_INDEX, EXTERNALID_COLUM_INDEX);
+            this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 0 }, e: { r: this.currentRowIndex + rowSpan - 1, c: 2 } });
+            this._createRowByColumnIndex(item, TOTAL_SECTION_STYLE, CURRENCY_DETAIL_COLUMN_INDEX, SUBSIDIARYCOMM_DETAIL_COLUMN_INDEX);
+            this.currentRowIndex++;
+        }
+    }
+
     _createGrandTotalData() {
         this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 1 }, e: { r: this.currentRowIndex, c: 2 } });
         const grandTotal = this.gridData.GrandTotal;
@@ -177,13 +165,23 @@ export default class ReportExcel {
         this._createRowByColumnIndex(grandTotal, GRAND_TOTAL_SECTION_STYLE, BETCOUNT_COLUMN_INDEX, SUBSIDIARYCOMM_COLUMN_INDEX);
     }
 
+    _createGrandTotalDetailData() {
+        this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 0 }, e: { r: this.currentRowIndex, c: 3 } });
+        const grandTotal = this.gridData.GrandTotal;
+
+        this._createRowByColumnIndex({ Index: TotalText.Based + " " + this.baseCurrency }, GRAND_TOTAL_SECTION_STYLE, INDEX_COLUM_INDEX, EXTERNALID_COLUM_INDEX);
+        this._createRowByColumnIndex(grandTotal, GRAND_TOTAL_SECTION_STYLE, BETCOUNT_DETAIL_COLUMN_INDEX, SUBSIDIARYCOMM_DETAIL_COLUMN_INDEX);
+    }
+
     _createExcelConfig() {
         const cellStart = Excel.getCellAddress({ r: 0, c: 0 });
-        const cellEnd = Excel.getCellAddress({ r: this.currentRowIndex, c: COLUMN_COUNT - 1 });
+        const cellEnd = Excel.getCellAddress({ r: this.currentRowIndex, c: this.isCustomerLevel ? COLUMN_DETAIL_COUNT - 1 : COLUMN_COUNT - 1 });
 
         this.worksheet["!merges"] = this.mergeConfig;
         this.worksheet["!ref"] = `${cellStart}:${cellEnd}`;
-        const wscols = [{ wpx: 150 }, { wpx: 120 }, { wpx: 180 }, { wpx: 120 }, { wpx: 250 }, { wpx: 250 }, { wpx: 250 }, { wpx: 180 }];
+        const wscols = this.isCustomerLevel 
+            ? [{ wpx: 30 }, { wpx: 180 }, { wpx: 180 }, { wpx: 180 }, { wpx: 180 }, { wpx: 250 }, { wpx: 250 }, { wpx: 250 }, { wpx: 180 }]
+            : [{ wpx: 150 }, { wpx: 120 }, { wpx: 180 }, { wpx: 120 }, { wpx: 250 }, { wpx: 250 }, { wpx: 250 }, { wpx: 180 }];
 
         this.worksheet['!cols'] = wscols;
     }
@@ -199,7 +197,7 @@ export default class ReportExcel {
     }
 
     _getCellObject(item, sectionStyle, columnIndex) {
-        const columnConfig = columnConfigs[columnIndex];
+        const columnConfig = this.columnConfigs[columnIndex];
         if (!columnConfig) {
             return { cellAddress: null };
         }
@@ -223,8 +221,10 @@ export default class ReportExcel {
         if (isCustomerLevel) {
             columns.push(
                 {
-                    field: fields.index,
-                    [MAIN_SECTION_STYLE]: bodyCellStyle.center
+                    field: "Index",
+                    [MAIN_SECTION_STYLE]: bodyCellStyle.center,
+                    [TOTAL_SECTION_STYLE]: totalCellStyle.center,
+                    [GRAND_TOTAL_SECTION_STYLE]: grandTotalCellStyle.center
                 },
                 {
                     field: fields.externalId,
