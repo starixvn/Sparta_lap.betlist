@@ -2,6 +2,9 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Constant.DataDomain;
+    using Core.Users;
+    using Core.Users.Interfaces;
     using DataAccess.Report;
     using DataAccess.Report.Interfaces;
     using Fanex.Athena.Model.Report.DTO.SubsidiaryPerformance;
@@ -13,18 +16,22 @@
 
     public class SubsidiaryPerformanceService : ISubsidiaryPerformanceService
     {
+        private readonly ISessionService _sessionService;
+
         private readonly ISubsidiaryService _subsidiaryService;
 
         private readonly ISubsidiaryPerformanceDataAccess _subLicenseePerformanceDataAccess;
 
         public SubsidiaryPerformanceService()
         {
+            _sessionService = new SessionService();
             _subsidiaryService = new SubsidiaryService();
             _subLicenseePerformanceDataAccess = new SubsidiaryPerformanceDataAccess();
         }
 
-        public SubsidiaryPerformanceService(ISubsidiaryService subsidiaryService, ISubsidiaryPerformanceDataAccess subLicenseePerformanceDataAccess)
+        public SubsidiaryPerformanceService(ISessionService sessionService, ISubsidiaryService subsidiaryService, ISubsidiaryPerformanceDataAccess subLicenseePerformanceDataAccess)
         {
+            _sessionService = sessionService;
             _subsidiaryService = subsidiaryService;
             _subLicenseePerformanceDataAccess = subLicenseePerformanceDataAccess;
         }
@@ -35,9 +42,7 @@
 
             if (dataList.Any())
             {
-                var operatorList = GetSelectedOpertor(metaModel).ToList();
-
-                return GetDataModel(dataList, operatorList, metaModel.BaseCurrency.ToUpperInvariant());
+                return GetDataModel(dataList, metaModel.SubsidiaryList, metaModel.BaseCurrency.ToUpperInvariant());
             }
 
             return new SubsidiaryResultViewModel
@@ -60,22 +65,29 @@
             total.CustomerWinLoss += detail.CustomerWinLoss;
         }
 
-        private IEnumerable<Subsidiary> GetSelectedOpertor(SubsidiaryPerformanceMetaModel metaModel)
+        private IEnumerable<Subsidiary> GetSelectedSubsidiaryList(string subsidiaryList)
         {
-            var allOperators = _subsidiaryService.GetSubsidiaryList();
-            var selectedSubsidiary = metaModel.SubsidiaryList.Split(',');
-
-            return allOperators.Join(selectedSubsidiary, oper => oper.SubsidiaryName, sub => sub, (oper, sub) => oper);
+            var allSubsidiaries = _subsidiaryService.GetSubsidiaryList();
+            var userSession = _sessionService.UserSession;
+            if (_sessionService.UserSession.UserLevel == UserLevelType.Subsidiary)
+            {
+                var operatorId = userSession.OperatorId;
+                return allSubsidiaries.Where(x => x.OperatorId.Equals(operatorId, System.StringComparison.OrdinalIgnoreCase)).ToList();
+             }
+              
+            var selectedSubsidiary = subsidiaryList.Split(',');
+            return allSubsidiaries.Join(selectedSubsidiary, oper => oper.OperatorId, sub => sub, (oper, sub) => oper);
         }
 
         private SubsidiaryResultViewModel GetDataModel(
             IEnumerable<SubsidiaryPerformance> entityDataList,
-            IEnumerable<Subsidiary> operators,
+            string subsidiaryList,
             string baseCurrency)
         {
             var dataModel = new List<SubsidiaryPerformanceDataModel>();
             var totalModel = new Dictionary<string, SubsidiaryPerformanceBase>();
             var grandTotal = new SubsidiaryPerformanceBase { CurrencyName = baseCurrency };
+            var operators = GetSelectedSubsidiaryList(subsidiaryList);
 
             var subsidiaryGroup = operators.Join(
                 entityDataList,
@@ -83,7 +95,7 @@
                 data => data.SubsidiaryId,
                 (oper, data) => new
                 {
-                    Subsidiary = oper.SubsidiaryName,
+                    Subsidiary = oper.OperatorId,
                     Data = data
                 }).GroupBy(
                     data => data.Subsidiary,

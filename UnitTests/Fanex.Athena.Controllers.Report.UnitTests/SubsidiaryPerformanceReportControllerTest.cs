@@ -48,11 +48,11 @@
         {
             var expectedOperatorList = new List<Subsidiary>
             {
-                new Subsidiary { AgentId = 1, SubsidiaryName = "New York", CurrencyId = 1 },
-                new Subsidiary { AgentId = 2, SubsidiaryName = "New York", CurrencyId = 2 },
-                new Subsidiary { AgentId = 3, SubsidiaryName = "India", CurrencyId = 2 },
-                new Subsidiary { AgentId = 4, SubsidiaryName = "Irag", CurrencyId = 3 },
-                new Subsidiary { AgentId = 4, SubsidiaryName = "China", CurrencyId = 1 }
+                new Subsidiary { AgentId = 1, OperatorId = "New York", CurrencyId = 1 },
+                new Subsidiary { AgentId = 2, OperatorId = "New York", CurrencyId = 2 },
+                new Subsidiary { AgentId = 3, OperatorId = "India", CurrencyId = 2 },
+                new Subsidiary { AgentId = 4, OperatorId = "Irag", CurrencyId = 3 },
+                new Subsidiary { AgentId = 4, OperatorId = "China", CurrencyId = 1 }
             };
             var expectedViewModelData = new SubsidiaryPerformanceViewModel
             {

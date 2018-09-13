@@ -26,7 +26,7 @@
                         dataList.Add(new Subsidiary
                         {
                             AgentId = Convert.ToInt32(reader["AgentID"]),
-                            SubsidiaryName = reader["OperatorID"].ToString(),
+                            OperatorId = reader["OperatorID"].ToString(),
                             CurrencyId = Convert.ToInt32(reader["Currency"])
                         });
                     }

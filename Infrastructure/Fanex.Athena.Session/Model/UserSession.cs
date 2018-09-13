@@ -25,6 +25,8 @@ namespace Fanex.Athena.Session.Model
 
         public bool HasSubsidiary { get; set; }
 
+        public string OperatorId { get; set; }
+
         /// <summary>
         /// Gets or sets Language Code.
         /// Default: en-US.

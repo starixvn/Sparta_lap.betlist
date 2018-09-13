@@ -4,7 +4,7 @@
     {
         public int AgentId { get; set; }
 
-        public string SubsidiaryName { get; set; }
+        public string OperatorId { get; set; }
 
         public int CurrencyId { get; set; }
     }

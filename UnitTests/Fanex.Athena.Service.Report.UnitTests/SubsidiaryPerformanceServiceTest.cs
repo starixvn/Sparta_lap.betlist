@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using Core.Users.Interfaces;
     using DataAccess.Report.Interfaces;
     using Interfaces;
     using Model.Report.DTO;
@@ -17,14 +18,16 @@
         private const string LicenseeName = "12Bet";
         private ISubsidiaryPerformanceDataAccess _dataAccess;
         private SubsidiaryPerformanceService _service;
+        private ISessionService _sessionService;
         private ISubsidiaryService _subsidiaryService;
 
         [SetUp]
         public void SetUp()
         {
+            _sessionService = Substitute.For<ISessionService>();
             _dataAccess = Substitute.For<ISubsidiaryPerformanceDataAccess>();
             _subsidiaryService = Substitute.For<ISubsidiaryService>();
-            _service = new SubsidiaryPerformanceService(_subsidiaryService, _dataAccess);
+            _service = new SubsidiaryPerformanceService(_sessionService, _subsidiaryService, _dataAccess);
         }
 
         [TearDown]
@@ -72,8 +75,8 @@
 
             var operatorList = new List<Subsidiary>
             {
-                new Subsidiary { AgentId = 1234, CurrencyId = 1, SubsidiaryName = "New York" },
-                new Subsidiary { AgentId = 1235, CurrencyId = 2, SubsidiaryName = "India" }
+                new Subsidiary { AgentId = 1234, CurrencyId = 1, OperatorId = "New York" },
+                new Subsidiary { AgentId = 1235, CurrencyId = 2, OperatorId = "India" }
             };
             _subsidiaryService.GetSubsidiaryList().Returns(operatorList);
 
@@ -106,7 +109,7 @@
 
             var operatorList = new List<Subsidiary>
             {
-                new Subsidiary { AgentId = 1230, CurrencyId = 1, SubsidiaryName = "New York" }
+                new Subsidiary { AgentId = 1230, CurrencyId = 1, OperatorId = "New York" }
             };
             _subsidiaryService.GetSubsidiaryList().Returns(operatorList);
 
@@ -140,8 +143,8 @@
 
             var operatorList = new List<Subsidiary>
             {
-                new Subsidiary { AgentId = 1234, CurrencyId = 1, SubsidiaryName = "New York" },
-                new Subsidiary { AgentId = 1235, CurrencyId = 2, SubsidiaryName = "India" }
+                new Subsidiary { AgentId = 1234, CurrencyId = 1, OperatorId = "New York" },
+                new Subsidiary { AgentId = 1235, CurrencyId = 2, OperatorId = "India" }
             };
             _subsidiaryService.GetSubsidiaryList().Returns(operatorList);
 
@@ -175,8 +178,8 @@
 
             var operatorList = new List<Subsidiary>
             {
-                new Subsidiary { AgentId = 1234, CurrencyId = 1, SubsidiaryName = "New York" },
-                new Subsidiary { AgentId = 1235, CurrencyId = 2, SubsidiaryName = "India" }
+                new Subsidiary { AgentId = 1234, CurrencyId = 1, OperatorId = "New York" },
+                new Subsidiary { AgentId = 1235, CurrencyId = 2, OperatorId = "India" }
             };
             _subsidiaryService.GetSubsidiaryList().Returns(operatorList);
 
@@ -210,8 +213,8 @@
 
             var operatorList = new List<Subsidiary>
             {
-                new Subsidiary { AgentId = 1234, CurrencyId = 1, SubsidiaryName = "New York" },
-                new Subsidiary { AgentId = 1235, CurrencyId = 2, SubsidiaryName = "India" }
+                new Subsidiary { AgentId = 1234, CurrencyId = 1, OperatorId = "New York" },
+                new Subsidiary { AgentId = 1235, CurrencyId = 2, OperatorId = "India" }
             };
             _subsidiaryService.GetSubsidiaryList().Returns(operatorList);
 

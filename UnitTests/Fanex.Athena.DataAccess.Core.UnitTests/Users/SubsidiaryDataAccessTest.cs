@@ -60,7 +60,7 @@
                 new Subsidiary
                 {
                     AgentId = AgentId,
-                    SubsidiaryName = OperatorName,
+                    OperatorId = OperatorName,
                     CurrencyId = CurrencyId
                 }
             };

@@ -42,7 +42,7 @@
         {
             var subsidiaryList = GetSubsidiaryList();
             var filteredSubsidiaryList = subsidiaryList.Where(x => _sessionService.UserSession.CurrencyList.ContainsKey(x.CurrencyId));
-            return filteredSubsidiaryList.Any() ? filteredSubsidiaryList.Select(x => x.SubsidiaryName).Distinct() : new List<string>();
+            return filteredSubsidiaryList.Any() ? filteredSubsidiaryList.Select(x => x.OperatorId).Distinct() : new List<string>();
         }
 
         public IEnumerable<Subsidiary> GetSubsidiaryList()
@@ -66,7 +66,7 @@
 
             var subsidiaryData = GetSubsidiaryList();
             var dataGroupByCurrency = subsidiaryData
-                .Where(x => (currencyId == CurrencyAll || x.CurrencyId == currencyId) && subsidiaryNameList.Contains(x.SubsidiaryName))
+                .Where(x => (currencyId == CurrencyAll || x.CurrencyId == currencyId) && subsidiaryNameList.Contains(x.OperatorId))
                 .GroupBy(x => x.CurrencyId);
 
             foreach (var item in dataGroupByCurrency)
@@ -77,7 +77,7 @@
             if (subsidiaryNameList.Contains(OtherMembersKey))
             {
                 var exceptedAgentList = subsidiaryData
-                    .Where(x => !subsidiaryNameList.Contains(x.SubsidiaryName)).Select(x => x.AgentId).ToList();
+                    .Where(x => !subsidiaryNameList.Contains(x.OperatorId)).Select(x => x.AgentId).ToList();
                 var otherAgentList = _sessionService.UserSession.CurrencyAgentList;
                 if (currencyId != CurrencyAll)
                 {

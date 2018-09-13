@@ -148,7 +148,7 @@
                     {
                         Code = OneAuthorizationErrorCode.SubsidiaryNotHaveCurrency,
                         Message = ViewResources.SubsidiaryNotHaveCurrencyMsg
-                    } 
+                    }
                     : new ResultInfo
                     {
                         Code = OneAuthorizationErrorCode.UserNotHaveCurrency,
@@ -185,13 +185,32 @@
             _sessionService.AssignCurrenciesToUserSession(userSession, licenseeId, userInfo.CurrencyUserList);
             userSession.UserLevel = userInfo.UserLevel;
             userSession.HasSubsidiary = userInfo.HasSubsidiary;
+            userSession.OperatorId = userInfo.OperatorID;
             userSession.PortalFunctionList = GetPermissionList(tokenInfo);
         }
 
         private OneAuthUserInfo GetUserInfo(OneAuthToken tokenInfo)
         {
             var userInfo = _oneAuthDataAccess.GetUserInfo(tokenInfo.UserSEQ);
-            if (userInfo.UserLevel != UserLevelType.Subsidiary)
+
+            if (userInfo.UserLevel == UserLevelType.Subsidiary)
+            {
+                if (tokenInfo.Currency != null)
+                {
+                    userInfo.CurrencyUserList = userInfo.CurrencyUserList.Join(
+                        tokenInfo.Currency,
+                        currencyUser => currencyUser.CurrencyId,
+                        oneAuthCurrency => oneAuthCurrency.CurrencyId,
+                        (currencyUser, oneAuthCurrency) => new CurrencyUser
+                        {
+                            IsActive = true,
+                            CurrencyId = currencyUser.CurrencyId,
+                            CurrencyName = oneAuthCurrency.Currency,
+                            AgentIdList = currencyUser.AgentIdList
+                        }).ToList();
+                }
+            }
+            else
             {
                 userInfo.CurrencyUserList = tokenInfo.Currency?.Select(x => new CurrencyUser
                 {
@@ -226,6 +245,7 @@
                 UserName = tokenInfo.UserID,
                 UserLevel = userInfo.UserLevel,
                 HasSubsidiary = userInfo.HasSubsidiary,
+                OperatorId = userInfo.OperatorID,
                 IsInternal = true,
                 FunctionIdList = new List<int>(),
                 PortalFunctionList = GetPermissionList(tokenInfo),

@@ -9,6 +9,8 @@ namespace Fanex.Athena.Model.Core.DTO.OneAuth
 
         public bool HasSubsidiary { get; set; }
 
+        public string OperatorID { get; set; }
+
         public IEnumerable<CurrencyUser> CurrencyUserList { get; set; }
     }
 }

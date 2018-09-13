@@ -76,9 +76,9 @@
 
             var operatorList = new List<Subsidiary>
             {
-                new Subsidiary { AgentId = 1, SubsidiaryName = "New York", CurrencyId = 1 },
-                new Subsidiary { AgentId = 3, SubsidiaryName = "New York 2", CurrencyId = 1 },
-                new Subsidiary { AgentId = 2, SubsidiaryName = "India", CurrencyId = 2 }
+                new Subsidiary { AgentId = 1, OperatorId = "New York", CurrencyId = 1 },
+                new Subsidiary { AgentId = 3, OperatorId = "New York 2", CurrencyId = 1 },
+                new Subsidiary { AgentId = 2, OperatorId = "India", CurrencyId = 2 }
             };
             _subsidiaryService.GetSubsidiaryList().Returns(operatorList);
             IDictionary<int, IEnumerable<int>> currencyAgentList = null;
