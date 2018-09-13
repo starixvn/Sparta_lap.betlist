@@ -186,7 +186,6 @@
                         "~/Scripts/BetList/commonbetlist.js");
             AddNewScriptBundle(bundles, bundle);
         }
-        
 
         #endregion JavaScripts Shared Layout
 
@@ -280,7 +279,7 @@
                 "~/Content/Plugin/MultiSelect/jquery.multiselect.css",
                 "~/Content/Plugin/Toast/toast.min.css");
         }
-        
+
         #endregion CSS Shared Layout
 
         #region Scripts & Styles Views
