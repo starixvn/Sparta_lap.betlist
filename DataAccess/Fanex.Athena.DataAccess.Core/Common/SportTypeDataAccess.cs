@@ -9,6 +9,8 @@ namespace Fanex.Athena.DataAccess.Core.Common
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
+    using Constant.DataDomain;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -22,6 +24,12 @@ namespace Fanex.Athena.DataAccess.Core.Common
     /// </summary>
     public class SportTypeDataAccess : BaseDataAccess, ISportTypeDataAccess
     {
+        private static readonly int[] HiddenSports = new[]
+        {
+            (int)SportType.UnknowThaiSport,
+            (int)SportType.Cricket // Duplicated with sport 50
+        };
+
         private readonly ICacheRefAdapter _cacheRefAdapter;
 
         public SportTypeDataAccess()
@@ -51,13 +59,17 @@ namespace Fanex.Athena.DataAccess.Core.Common
 
                         if (!productId.HasValue || productId == parentId)
                         {
-                            result.Add(new SportProductItem
+                            var id = reader.ToInt("ID");
+                            if (!HiddenSports.Contains(id))
                             {
-                                Checked = true,
-                                ID = reader.ToInt("ID"),
-                                Name = reader.ToString("Name"),
-                                ParentId = parentId
-                            });
+                                result.Add(new SportProductItem
+                                {
+                                    Checked = true,
+                                    ID = id,
+                                    Name = reader.ToString("Name"),
+                                    ParentId = parentId
+                                });
+                            }
                         }
                     }
 
@@ -82,9 +94,11 @@ namespace Fanex.Athena.DataAccess.Core.Common
                     while (reader.Read())
                     {
                         var sportId = reader.ToInt("Sporttype");
-                        var sportName = _cacheRefAdapter.GetSportName(sportId);
-
-                        result.Add(sportId, sportName);
+                        if (!HiddenSports.Contains(sportId))
+                        {
+                            var sportName = _cacheRefAdapter.GetSportName(sportId);
+                            result.Add(sportId, sportName);
+                        }
                     }
                 }
             }

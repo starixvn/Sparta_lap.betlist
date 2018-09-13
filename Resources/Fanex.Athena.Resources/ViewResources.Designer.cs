@@ -655,15 +655,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Back to old UI.
-        /// </summary>
-        public static string BackToOldUI {
-            get {
-                return ResourceManager.GetString("BackToOldUI", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to BA Commission: Licensee commission income for BA tickets..
         /// </summary>
         public static string BAComissionBalanceNote {

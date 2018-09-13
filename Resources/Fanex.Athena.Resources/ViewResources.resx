@@ -3044,10 +3044,6 @@
     <value>Win Loss By Time Zone</value>
     <comment>84932</comment>
   </data>
-  <data name="BackToOldUI" xml:space="preserve">
-    <value>Back to old UI</value>
-    <comment>84932</comment>
-  </data>
   <data name="MatchDelayDone" xml:space="preserve">
     <value>Match Delay-Done</value>
   </data>

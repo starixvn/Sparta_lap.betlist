@@ -238,6 +238,8 @@ namespace Fanex.Athena.Constant.DataDomain
         /// </summary>
         Wrestling = 42,
 
+        UnknowThaiSport = 46,
+
         /// <summary>
         /// NumberGame sport, value = 161.
         /// </summary>

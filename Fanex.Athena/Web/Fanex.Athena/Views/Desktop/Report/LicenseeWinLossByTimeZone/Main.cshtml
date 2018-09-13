@@ -12,6 +12,7 @@
     
     var timeZoneList = new List<dynamic> {
         new { value = -4, label = "GMT-4" },
+        new { value = 7, label = "GMT+7" },
         new { value = 8, label = "GMT+8" }
     };
     var currencyList = Model.CurrencyList.Select(x => new { value = x.Key, label = x.Value }).ToList();

@@ -3,6 +3,7 @@
     using System;
     using System.Data;
     using System.Linq;
+    using Constant.DataDomain;
     using Core.Common;
     using NSubstitute;
     using NUnit.Framework;
@@ -87,6 +88,21 @@
             Assert.That(result, Is.Empty);
         }
 
+        [TestCase((int)SportType.UnknowThaiSport)]
+        [TestCase((int)SportType.Cricket)]
+        public void GetSportsAndProducts_HiddenSport_NotAddToResult(int sporttype)
+        {
+            // Arrange
+            MapReaderData(new { ID = sporttype });
+            Reader.Read().Returns(true, false);
+
+            // Action
+            var result = DataAccess.GetSportsAndProducts(0, string.Empty);
+
+            // Assert
+            Assert.That(result, Is.Empty);
+        }
+
         [Test]
         public void GetAllSports_WhenCall_ReturnCorrectData()
         {
@@ -101,6 +117,21 @@
 
             // Assert
             Assert.That(result.ContainsKey(SportType), Is.True);
+        }
+
+        [TestCase((int)SportType.UnknowThaiSport)]
+        [TestCase((int)SportType.Cricket)]
+        public void GetAllSports_HiddenSport_NotAddToResult(int sporttype)
+        {
+            // Arrange
+            MapReaderData(new { Sporttype = sporttype });
+            Reader.Read().Returns(true, false);
+
+            // Action
+            var result = DataAccess.GetAllSports();
+
+            // Assert
+            Assert.That(result, Is.Empty);
         }
 
         [Test]
