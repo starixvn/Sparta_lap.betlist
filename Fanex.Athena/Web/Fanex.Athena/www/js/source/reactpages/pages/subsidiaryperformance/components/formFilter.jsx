@@ -107,6 +107,7 @@ export class FormFilter extends Component {
 
         return subsidiaryList && subsidiaryList.length ? (
             <MultipleSelect
+                hasSearchBox={true}
                 dataSource={this.props.subsidiaryList}
                 keyField={"Name"}
                 valueField={"Name"}
@@ -156,16 +157,22 @@ export class FormFilter extends Component {
     }
 
     render() {
+        const { subsidiaryList } = this.props;
+        let subsidiaryDropdown = null;
+        if(subsidiaryList && subsidiaryList.length) {
+            subsidiaryDropdown = 
+                (<div className="col-12 col-md-3 col-sm-5 col-lg-3 col-xl-3">
+                    <div className="form-group">
+                        <label className="label-text">{LangHelper.getSingleResource("Subsidiary")}</label>
+                    {this._renderSubsidiarySelectList()}
+                    </div>
+                </div>)
+        }
+
         return (
             <div className="page-filter">
                 <div className="row">
-                    <div className="col-12 col-md-3 col-sm-5 col-lg-2 col-xl-2">
-                        <div className="form-group">
-                            <label className="label-text">{LangHelper.getSingleResource("Subsidiary")}</label>
-                            {this._renderSubsidiarySelectList()}
-                        </div>
-                    </div>
-
+                    {subsidiaryDropdown}
                     <div className="col-12 col-md-4 col-sm-6 col-lg-3 col-xl-3">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Date")}</label>
@@ -189,7 +196,7 @@ export class FormFilter extends Component {
                 </div>
 
                 <div className="row">
-                    <div className="col-12 col-md-3 col-sm-5 col-lg-2 col-xl-2">
+                    <div className="col-12 col-md-4 col-sm-5 col-lg-3 col-xl-3">
                         <div className="form-group">
                             <div className="checkbox-group">
                                 <input type="checkbox" className="checkbox" checked={this.props.convertAll} id="IsConvertAll"
@@ -199,7 +206,7 @@ export class FormFilter extends Component {
                         </div>
                     </div>
 
-                    <div className="col-12 col-md-4 col-sm-6 col-lg-3 col-xl-3">
+                    <div className="col-12 col-md-3 col-sm-6 col-lg-2 col-xl-2">
                         <div className="form-group">
                            <div className="checkbox-group">
                                 <input type="checkbox" className="checkbox" checked={this.props.includeDrawData} id="IncludeDrawData"
@@ -209,7 +216,7 @@ export class FormFilter extends Component {
                         </div>
                     </div>
 
-                    <div className="col-12 col-md-3 col-sm-5 col-lg-3 col-xl-3">
+                    <div className="col-12 col-md-3 col-sm-5 col-lg-2 col-xl-2">
                         <div className="form-group">
                            <div className="checkbox-group">
                                 <input type="checkbox" className="checkbox" checked={this.props.isExcludeTest} id="ExcludeTest"

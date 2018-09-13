@@ -2,6 +2,7 @@
 {
     using System.Linq;
     using System.Web.Mvc;
+    using Constant.DataDomain;
     using Extension.Utility;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
@@ -43,7 +44,9 @@
                 licenseeSession.LicenseeId,
                 userSession.Language,
                 FunctionNames.SubsidiaryPerformance);
-            var subsidiaryNames = _subsidiaryService.GetSubsidiaryNames();
+            var subsidiaryNames = userSession.UserLevel == UserLevelType.Subsidiary ?
+                new string[] { } :
+                _subsidiaryService.GetSubsidiaryNames();
 
             var model = new SubsidiaryPerformanceViewModel
             {
