@@ -28,7 +28,6 @@
 
         public bool IsValid => FromDate <= ToDate &&
                                 !string.IsNullOrEmpty(ProductCodeList) &&
-                                !string.IsNullOrEmpty(BaseCurrency) &&
-                                !string.IsNullOrEmpty(SubsidiaryList);
+                                !string.IsNullOrEmpty(BaseCurrency);
     }
 }

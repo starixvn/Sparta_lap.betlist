@@ -20,8 +20,8 @@ export class FormFilter extends Component {
     }
 
     get isValidModel() {
-        const { selectedSubsidiary, selectedProduct } = this.props;
-        return selectedSubsidiary !== "" && selectedProduct !== "";
+        const { subsidiaryList, selectedSubsidiary, selectedProduct } = this.props;
+        return (!subsidiaryList || selectedSubsidiary !== "") && selectedProduct !== "";
     }
 
     submit = (event) => {
@@ -159,7 +159,7 @@ export class FormFilter extends Component {
     render() {
         const { subsidiaryList } = this.props;
         let subsidiaryDropdown = null;
-        if(subsidiaryList && subsidiaryList.length) {
+        if(subsidiaryList) {
             subsidiaryDropdown = 
                 (<div className="col-12 col-md-3 col-sm-5 col-lg-3 col-xl-3">
                     <div className="form-group">
@@ -172,7 +172,9 @@ export class FormFilter extends Component {
         return (
             <div className="page-filter">
                 <div className="row">
+
                     {subsidiaryDropdown}
+
                     <div className="col-12 col-md-4 col-sm-6 col-lg-3 col-xl-3">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Date")}</label>

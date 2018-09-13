@@ -44,9 +44,7 @@
                 licenseeSession.LicenseeId,
                 userSession.Language,
                 FunctionNames.SubsidiaryPerformance);
-            var subsidiaryNames = userSession.UserLevel == UserLevelType.Subsidiary ?
-                new string[] { } :
-                _subsidiaryService.GetSubsidiaryNames();
+            var subsidiaryNames = userSession.UserLevel == UserLevelType.Subsidiary ? null : _subsidiaryService.GetSubsidiaryNames();
 
             var model = new SubsidiaryPerformanceViewModel
             {
@@ -57,7 +55,7 @@
                     Status = true
                 }).ToList(),
 
-                SubsidiaryList = subsidiaryNames.Select(x => new CheckedItem
+                SubsidiaryList = subsidiaryNames?.Select(x => new CheckedItem
                 {
                     Name = x,
                     Checked = true

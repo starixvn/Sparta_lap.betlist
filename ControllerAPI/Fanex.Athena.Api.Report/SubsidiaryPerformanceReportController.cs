@@ -1,10 +1,10 @@
 ﻿namespace Fanex.Athena.Api.Report
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Http;
     using Base.Attributes;
+    using Constant.DataDomain;
     using Model.Core.DataDomain;
     using Model.Report.DTO.SubsidiaryPerformance;
     using Model.Report.MetaModel;
@@ -41,24 +41,31 @@
         [HttpPost]
         public SubsidiaryResultViewModel Index(SubsidiaryPerformanceMetaModel metaModel)
         {
-            if (metaModel.IsValid)
+            var isSubsidiary = SessionService.UserSession.UserLevel == UserLevelType.Subsidiary;
+            var isValidSubsidiaryList = isSubsidiary || !string.IsNullOrWhiteSpace(metaModel.SubsidiaryList);
+            if (!isValidSubsidiaryList || !metaModel.IsValid)
             {
-                var licenseeName = SessionService.LicenseeSession.LicenseeName;
-                metaModel.LicenseeName = licenseeName;
-                var agentIdListByCurrency = _subsidiaryService.GetCurrencyAgentList(metaModel.SubsidiaryList, metaModel.IsExcludeTest);
-
-                if (agentIdListByCurrency.Any())
+                return new SubsidiaryResultViewModel
                 {
-                    metaModel.AgentListXml = SessionService.GenerateAgentListXml(agentIdListByCurrency);
-
-                    return _subsidiaryPerformanceService.GetData(metaModel);
-                }
+                    Data = new List<SubsidiaryPerformanceDataModel>()
+                };
             }
 
-            return new SubsidiaryResultViewModel
+            var licenseeName = SessionService.LicenseeSession.LicenseeName;
+            metaModel.LicenseeName = licenseeName;
+            string agentListXml = null;
+            if (isSubsidiary)
             {
-                Data = new List<SubsidiaryPerformanceDataModel>()
-            };
+                agentListXml = SessionService.GenerateAgentListXml(isExcludeTestData: metaModel.IsExcludeTest);
+            }
+            else
+            {
+                var agentIdListByCurrency = _subsidiaryService.GetCurrencyAgentList(metaModel.SubsidiaryList, metaModel.IsExcludeTest);
+                agentListXml = SessionService.GenerateAgentListXml(agentIdListByCurrency);
+            }
+
+            metaModel.AgentListXml = agentListXml;
+            return _subsidiaryPerformanceService.GetData(metaModel);
         }
 
         [HttpPost]
