@@ -56,19 +56,16 @@ namespace Fanex.Athena.DataAccess.Core.Common
                     var result = new List<SportProductItem>();
                     while (reader.Read())
                     {
-                        result.Add(new SportProductItem
+                        var id = reader.ToInt("ID");
+                        if (!HiddenSports.Contains(id))
                         {
-                            var id = reader.ToInt("ID");
-                            if (!HiddenSports.Contains(id))
+                            result.Add(new SportProductItem
                             {
-                                result.Add(new SportProductItem
-                                {
-                                    Checked = true,
-                                    ID = id,
-                                    Name = reader.ToString("Name"),
-                                    ParentId = parentId
-                                });
-                            }
+                                Checked = true,
+                                ID = id,
+                                Name = reader.ToString("Name"),
+                                ParentId = reader["ParentId"] != DBNull.Value ? reader.ToInt("ParentId") : -1
+                            });
                         }
                     }
 
@@ -128,7 +125,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
                 }
 
                 result.Insert(
-                    0, 
+                    0,
                     new Sport
                     {
                         SportId = 0,
