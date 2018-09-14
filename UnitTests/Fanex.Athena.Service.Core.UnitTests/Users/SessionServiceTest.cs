@@ -140,7 +140,7 @@
             _sessionService.UpdateLiceseeSession(NewLicenseeId);
 
             // Assert
-            Assert.That(_sessionService.UserSession.DefaultReportUrl, Is.EqualTo("BalanceReport"));
+            Assert.That(_sessionService.UserSession.DefaultReportUrl, Is.EqualTo("LicenseeWinLossReport"));
         }
 
         [Test]
@@ -186,7 +186,7 @@
             _sessionService.UpdateLiceseeSession(NewLicenseeId);
 
             // Assert
-            Assert.That(_sessionService.UserSession.DefaultReportUrl, Is.EqualTo("BalanceReport"));
+            Assert.That(_sessionService.UserSession.DefaultReportUrl, Is.EqualTo("LicenseeWinLossReport"));
         }
 
         [Test]
@@ -209,7 +209,7 @@
             _sessionService.UpdateLiceseeSession(NewLicenseeId);
 
             // Assert
-            Assert.That(_sessionService.UserSession.DefaultReportUrl, Is.EqualTo("BalanceReport"));
+            Assert.That(_sessionService.UserSession.DefaultReportUrl, Is.EqualTo("LicenseeWinLossReport"));
         }
 
         [Test]

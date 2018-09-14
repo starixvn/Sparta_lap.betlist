@@ -224,7 +224,7 @@
                 FunctionIdList = new int[0],
                 PortalFunctionList = GetPermissionList(tokenInfo),
                 Language = languageCode,
-                DefaultReportUrl = "BalanceReport",
+                DefaultReportUrl = "LicenseeWinLossReport",
                 ApplicationMode = AppMode.Parasitic,
                 VendorID = tokenInfo.VendorID,
                 VendorIdentityID = tokenInfo.UserID,
