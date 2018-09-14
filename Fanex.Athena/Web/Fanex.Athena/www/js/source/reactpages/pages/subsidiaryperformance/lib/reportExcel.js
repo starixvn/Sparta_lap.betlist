@@ -150,7 +150,7 @@ export default class ReportExcel {
         for (let i = 0; i < rowSpan; i++) {
             const item = totalDataList[subs[i]];
      
-            this._createRowByColumnIndex({ Index: TotalText.Based + " " + this.baseCurrency }, TOTAL_SECTION_STYLE, INDEX_COLUM_INDEX, EXTERNALID_COLUM_INDEX);
+            this._createRowByColumnIndex({ Index: TotalText.TotalIn + " " + this.baseCurrency }, TOTAL_SECTION_STYLE, INDEX_COLUM_INDEX, EXTERNALID_COLUM_INDEX);
             this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 0 }, e: { r: this.currentRowIndex + rowSpan - 1, c: 2 } });
             this._createRowByColumnIndex(item, TOTAL_SECTION_STYLE, CURRENCY_DETAIL_COLUMN_INDEX, SUBSIDIARYCOMM_DETAIL_COLUMN_INDEX);
             this.currentRowIndex++;
@@ -169,7 +169,7 @@ export default class ReportExcel {
         this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 0 }, e: { r: this.currentRowIndex, c: 3 } });
         const grandTotal = this.gridData.GrandTotal;
 
-        this._createRowByColumnIndex({ Index: TotalText.Based + " " + this.baseCurrency }, GRAND_TOTAL_SECTION_STYLE, INDEX_COLUM_INDEX, EXTERNALID_COLUM_INDEX);
+        this._createRowByColumnIndex({ Index: TotalText.TotalIn + " " + this.baseCurrency }, GRAND_TOTAL_SECTION_STYLE, INDEX_COLUM_INDEX, EXTERNALID_COLUM_INDEX);
         this._createRowByColumnIndex(grandTotal, GRAND_TOTAL_SECTION_STYLE, BETCOUNT_DETAIL_COLUMN_INDEX, SUBSIDIARYCOMM_DETAIL_COLUMN_INDEX);
     }
 
