@@ -125,7 +125,6 @@
     <Compile Include="CustomerBalanceExcelTest.cs" />
     <Compile Include="ColossusBetsWinLossExcelTest.cs" />
     <Compile Include="CasinoProgressiveWinsExcelTest.cs" />
-    <Compile Include="BalanceExcelTest.cs" />
     <Compile Include="CashOutWinLossExcelTest.cs" />
     <Compile Include="LiveReportExcelTest.cs" />
     <Compile Include="TestableClasses\ThirdPartyWinLossExcelTestable.cs" />
@@ -142,7 +141,6 @@
     <Compile Include="TestableClasses\CustomerBalanceExcelTestable.cs" />
     <Compile Include="TestableClasses\ColossusBetsWinLossExcelTestable.cs" />
     <Compile Include="TestableClasses\CasinoProgressiveWinsExcelTestable.cs" />
-    <Compile Include="TestableClasses\BalanceExcelTestable.cs" />
     <Compile Include="TestableClasses\CashOutWinLossExcelTestable.cs" />
     <Compile Include="TurnoverExcelTest.cs" />
   </ItemGroup>

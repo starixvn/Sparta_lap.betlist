@@ -82,7 +82,6 @@
     <Setting Key="Lrf_Rpt_WinLoss" SpName="Lrf_Rpt_WinLoss_UAT3" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
     <Setting Key="Lrf_Rpt_MatchSelResultEntered" SpName="Lrf_Rpt_MatchSelResultEntered" DbName="DBEXT.bodb02.bodbLicenseeNet"></Setting>
     <Setting Key="Lrf_Rpt_Outstanding" SpName="Lrf_Rpt_Outstanding_UAT3" DbName="DB042.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_CustomerSelBalance" SpName="Lrf_CustomerSelBalance_UAT3" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_WinlossByProduct" SpName="Lrf_Rpt_WinlossByProduct_UAT3"  DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_WinlossByProductDetail" SpName="Lrf_Rpt_WinlossByProductDetail_UAT3" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_WinlossByProductDetail_Ag" SpName="Lrf_Rpt_WinlossByProductDetail_Ag_UAT3" DbName="DBEXT.bodb02.bodbLicenseeNet" />

@@ -1,6 +1,6 @@
 ﻿[
   {
-    "FunctionId": 7,
+    "FunctionId": 7, 
     "FunctionKey": "HandicapOverUnderLive7"
   },
   {
@@ -126,10 +126,6 @@
   {
     "FunctionId": 41,
     "FunctionKey": "Results41"
-  },
-  {
-    "FunctionId": 42,
-    "FunctionKey": "Balance42"
   },
   {
     "FunctionId": 43,

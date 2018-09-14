@@ -448,29 +448,11 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Amt Due To BA: BA settlement amount Licensee needs to pay or receive for BA..
-        /// </summary>
-        public static string AmtDueToBABalanceNote {
-            get {
-                return ResourceManager.GetString("AmtDueToBABalanceNote", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Amt Due To Bet Trade.
         /// </summary>
         public static string AmtDueToBetTrade {
             get {
                 return ResourceManager.GetString("AmtDueToBetTrade", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Amt Due To BetTrade: BetTrade settlement amount Licensee needs to pay or receive for BetTrade..
-        /// </summary>
-        public static string AmtDueToBetTradeBalanceNote {
-            get {
-                return ResourceManager.GetString("AmtDueToBetTradeBalanceNote", resourceCulture);
             }
         }
         
@@ -628,15 +610,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to BA Commission: Licensee commission income for BA tickets..
-        /// </summary>
-        public static string BAComissionBalanceNote {
-            get {
-                return ResourceManager.GetString("BAComissionBalanceNote", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to BA Commission.
         /// </summary>
         public static string BACommission {
@@ -651,24 +624,6 @@ namespace Fanex.Athena.Resources {
         public static string Balance {
             get {
                 return ResourceManager.GetString("Balance", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Balance Information.
-        /// </summary>
-        public static string BalanceInformation {
-            get {
-                return ResourceManager.GetString("BalanceInformation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Balance Information - {0}.
-        /// </summary>
-        public static string BalanceTitle {
-            get {
-                return ResourceManager.GetString("BalanceTitle", resourceCulture);
             }
         }
         
@@ -894,15 +849,6 @@ namespace Fanex.Athena.Resources {
         public static string BetTrade {
             get {
                 return ResourceManager.GetString("BetTrade", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to BetTrade Commission: Licensee commission income for BetTrade tickets..
-        /// </summary>
-        public static string BetTradeComissionBalanceNote {
-            get {
-                return ResourceManager.GetString("BetTradeComissionBalanceNote", resourceCulture);
             }
         }
         
@@ -4219,15 +4165,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Licensee gross revenue for {0}.
-        /// </summary>
-        public static string Licenseegrossrevenuefor {
-            get {
-                return ResourceManager.GetString("Licenseegrossrevenuefor", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Not found licensee.
         /// </summary>
         public static string LicenseeIsNotExisted {
@@ -7333,15 +7270,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Term Definition.
-        /// </summary>
-        public static string TermDefinition {
-            get {
-                return ResourceManager.GetString("TermDefinition", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to TF.
         /// </summary>
         public static string TF {
@@ -7545,15 +7473,6 @@ namespace Fanex.Athena.Resources {
         public static string TotalBets {
             get {
                 return ResourceManager.GetString("TotalBets", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Total Customer active/closed/suspended.
-        /// </summary>
-        public static string TotalCustomerActiveClosedSuspended {
-            get {
-                return ResourceManager.GetString("TotalCustomerActiveClosedSuspended", resourceCulture);
             }
         }
         

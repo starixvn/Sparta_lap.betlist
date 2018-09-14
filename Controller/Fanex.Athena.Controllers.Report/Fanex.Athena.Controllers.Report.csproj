@@ -218,7 +218,6 @@
     <Compile Include="ActiveCustomerSummaryReportController.cs" />
     <Compile Include="AgCasinoBalanceReportController.cs" />
     <Compile Include="AgCasinoWinLossReportController.cs" />
-    <Compile Include="BalanceReportController.cs" />
     <Compile Include="CasinoProgressiveWinsReportController.cs" />
     <Compile Include="CustomerBalanceReportController.cs" />
     <Compile Include="CustomerPendingFundsReportController.cs" />

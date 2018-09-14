@@ -174,7 +174,6 @@
     <Compile Include="Interfaces\IThirdPartyWinLossDataAccess.cs" />
     <Compile Include="Interfaces\IWinLossByLeagueDataAccess.cs" />
     <Compile Include="Interfaces\IResultDataAccess.cs" />
-    <Compile Include="BalanceDataAccess.cs" />
     <Compile Include="CustomerBalanceDataAccess.cs" />
     <Compile Include="CustomerPendingFundsDataAccess.cs" />
     <Compile Include="CustomerTurnoverDataAccess.cs" />
@@ -189,7 +188,6 @@
     <Compile Include="TurnoverDataAccess.cs" />
     <Compile Include="WinLossByBetTypeDataAccess.cs" />
     <Compile Include="MatchWinLossDataAccess.cs" />
-    <Compile Include="Interfaces\IBalanceDataAccess.cs" />
     <Compile Include="Interfaces\ICustBalanceDataAccess.cs" />
     <Compile Include="Interfaces\ICustPendingFundsDataAccess.cs" />
     <Compile Include="Interfaces\ICustomerTurnoverDataAccess.cs" />

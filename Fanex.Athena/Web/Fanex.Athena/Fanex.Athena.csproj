@@ -1250,8 +1250,6 @@
     <Content Include="www\css\build\dev\pages\reports\agcasinowinloss.css" />
     <Content Include="www\css\build\dev\pages\reports\activecustomersummary.chunk.js" />
     <Content Include="www\css\build\dev\pages\reports\activecustomersummary.css" />
-    <Content Include="www\css\build\dev\pages\reports\balance.chunk.js" />
-    <Content Include="www\css\build\dev\pages\reports\balance.css" />
     <Content Include="www\css\build\dev\pages\reports\cashoutwinloss.chunk.js" />
     <Content Include="www\css\build\dev\pages\reports\cashoutwinloss.css" />
     <Content Include="www\css\build\dev\pages\reports\colossusbetswinloss.chunk.js" />
@@ -1264,8 +1262,6 @@
     <Content Include="www\css\build\dev\pages\reports\customerturnover.css" />
     <Content Include="www\css\build\dev\pages\reports\customerwinloss.chunk.js" />
     <Content Include="www\css\build\dev\pages\reports\customerwinloss.css" />
-    <Content Include="www\css\build\dev\pages\reports\dailyracingwinloss.chunk.js" />
-    <Content Include="www\css\build\dev\pages\reports\dailyracingwinloss.css" />
     <Content Include="www\css\build\dev\pages\reports\golddeluxewinloss.chunk.js" />
     <Content Include="www\css\build\dev\pages\reports\golddeluxewinloss.css" />
     <Content Include="www\css\build\dev\pages\reports\licenseewinloss.chunk.js" />
@@ -1276,8 +1272,6 @@
     <Content Include="www\css\build\dev\pages\reports\matchwinloss.css" />
     <Content Include="www\css\build\dev\pages\reports\platformwinloss.chunk.js" />
     <Content Include="www\css\build\dev\pages\reports\platformwinloss.css" />
-    <Content Include="www\css\build\dev\pages\reports\racingcommission.chunk.js" />
-    <Content Include="www\css\build\dev\pages\reports\racingcommission.css" />
     <Content Include="www\css\build\dev\pages\reports\reportjqgridlayout.chunk.js" />
     <Content Include="www\css\build\dev\pages\reports\reportjqgridlayout.css" />
     <Content Include="www\css\build\dev\pages\reports\result.chunk.js" />
@@ -1545,8 +1539,6 @@
     <Content Include="Views\Desktop\Report\WinLossByProduct\Main.cshtml" />
     <Content Include="Views\Desktop\Report\WinLossByProduct\Filter.cshtml" />
     <Content Include="Views\Desktop\Report\WinLossByProduct\Content.cshtml" />
-    <Content Include="www\css\build\dev\pages\reports\dailyracingwinloss.chunk.js.map" />
-    <Content Include="www\css\build\dev\pages\reports\dailyracingwinloss.css.map" />
     <Content Include="www\css\build\dev\pages\reports\winlossbyproduct.chunk.js.map" />
     <Content Include="www\css\build\dev\pages\reports\winlossbyproduct.css.map" />
     <Content Include="Views\Desktop\Report\WinLossByLeague\Content.cshtml" />
@@ -1630,7 +1622,6 @@
     <Content Include="www\js\build\dev\pages\home\home.chunk.js" />
     <Content Include="www\js\build\dev\pages\reports\activecustomersummary.chunk.js" />
     <Content Include="www\js\build\dev\pages\reports\agcasinowinloss.chunk.js" />
-    <Content Include="www\js\build\dev\pages\reports\balance.chunk.js" />
     <Content Include="www\js\build\dev\pages\reports\cashoutwinloss.chunk.js" />
     <Content Include="www\js\build\dev\pages\reports\colossusbetswinloss.chunk.js" />
     <Content Include="www\js\build\dev\pages\reports\customerbalance.chunk.js" />
@@ -1690,7 +1681,6 @@
     <Content Include="www\js\build\pro\pages\home\home.chunk.js" />
     <Content Include="www\js\build\pro\pages\reports\activecustomersummary.chunk.js" />
     <Content Include="www\js\build\pro\pages\reports\agcasinowinloss.chunk.js" />
-    <Content Include="www\js\build\pro\pages\reports\balance.chunk.js" />
     <Content Include="www\js\build\pro\pages\reports\cashoutwinloss.chunk.js" />
     <Content Include="www\js\build\pro\pages\reports\colossusbetswinloss.chunk.js" />
     <Content Include="www\js\build\pro\pages\reports\customerbalance.chunk.js" />
@@ -1862,8 +1852,6 @@
     <Content Include="www\js\source\pages\report\agcasinowinloss\agcasinowinloss.js" />
     <Content Include="www\js\source\pages\report\agcasinowinloss\agcasinowinloss.option.js" />
     <Content Include="www\js\source\pages\report\agcasinowinloss\main.js" />
-    <Content Include="www\js\source\pages\report\balance\balance.js" />
-    <Content Include="www\js\source\pages\report\balance\main-balance.js" />
     <Content Include="www\js\source\pages\report\cashoutwinloss\cashoutwinloss.js" />
     <Content Include="www\js\source\pages\report\cashoutwinloss\cashoutwinloss.option.js" />
     <Content Include="www\js\source\pages\report\cashoutwinloss\main.js" />
@@ -2466,15 +2454,6 @@
     <Content Include="Views\Desktop\Report\SettledMatchCount\ContentData.cshtml" />
     <Content Include="www\css\build\dev\pages\reports\settledmatchcount.chunk.js.map" />
     <Content Include="www\css\build\dev\pages\reports\settledmatchcount.css.map" />
-    <Content Include="Views\Desktop\Report\Balance\Main.cshtml" />
-    <Content Include="Views\Desktop\Report\Balance\Filter.cshtml" />
-    <Content Include="Views\Desktop\Report\Balance\Content.cshtml" />
-    <Content Include="Views\Desktop\Report\Balance\Content.Header.cshtml" />
-    <Content Include="Views\Desktop\Report\Balance\ContentData.cshtml" />
-    <Content Include="Views\Desktop\Report\Balance\ContentData.CustomerInfo.cshtml" />
-    <Content Include="Views\Desktop\Report\Balance\ContentData.BalanceNote.cshtml" />
-    <Content Include="www\css\build\dev\pages\reports\balance.chunk.js.map" />
-    <Content Include="www\css\build\dev\pages\reports\balance.css.map" />
     <Content Include="Views\Desktop\Report\WeeklyLiveMatch\Main.cshtml" />
     <Content Include="Views\Desktop\Report\WeeklyLiveMatch\Filter.cshtml" />
     <Content Include="Views\Desktop\Report\WeeklyLiveMatch\Content.cshtml" />
@@ -2483,8 +2462,6 @@
     <Content Include="www\css\build\dev\pages\betlist\betlistdaily.chunk.js.map" />
     <Content Include="www\css\build\dev\pages\betlist\betlistdaily.css.map" />
     <Content Include="www\css\source\components\scrollablegrid\scrollablegrid.scss" />
-    <Content Include="www\css\build\dev\pages\reports\racingcommission.chunk.js.map" />
-    <Content Include="www\css\build\dev\pages\reports\racingcommission.css.map" />
     <Content Include="www\css\source\components\paging\paging.scss" />
     <Content Include="Views\Desktop\Report\Turnover\Content.cshtml" />
     <Content Include="Views\Desktop\Report\Turnover\Filter.cshtml" />
@@ -2590,8 +2567,6 @@
     <Content Include="www\js\build\dev\pages\reports\livereport.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\reports\livereportmatchlist.chunk.js.map" />
     <Content Include="www\js\build\dev\pages\reports\settledmatchcount.chunk.js.map" />
-    <Content Include="www\css\source\pages\report\balance.scss" />
-    <Content Include="www\js\build\dev\pages\reports\balance.chunk.js.map" />
     <Content Include="www\css\source\pages\report\weeklylivematch.scss" />
     <Content Include="www\js\build\dev\pages\reports\weeklylivematch.chunk.js.map" />
     <Content Include="www\css\source\pages\report\result.scss" />
@@ -5634,7 +5609,6 @@
     <Content Include="App_Data\Template\CustomerReports\CustomerTurnover.xls" />
     <Content Include="App_Data\Template\CustomerReports\CustomerWinLoss.xls" />
     <Content Include="App_Data\Template\Customers\CustomerList.xls" />
-    <Content Include="App_Data\Template\Reports\Balance.xls" />
     <Content Include="App_Data\Template\Reports\WinLossByLeagues.xls" />
     <Content Include="App_Data\Template\Reports\LicenseeWinLoss.xls" />
     <Content Include="App_Data\Template\Reports\LiveReport.xls" />
@@ -5650,7 +5624,6 @@
     <Content Include="Views\Desktop\Customer\CustomerDialog\LogInfo.cshtml" />
     <Content Include="Views\Shared\_NoteLayout.cshtml" />
     <Content Include="Views\Note\WinLossByProduct.cshtml" />
-
     <Content Include="Views\Shared\_Report.jqGridLayout.cshtml" />
     <Content Include="Views\Shared\_BetListLayout.cshtml" />
     <Content Include="Views\BetList\SystemParlayDetail\Main.cshtml" />

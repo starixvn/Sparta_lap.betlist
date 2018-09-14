@@ -194,9 +194,6 @@
   <data name="AmtDueToBA" xml:space="preserve">
     <value>BA金額</value>
   </data>
-  <data name="AmtDueToBABalanceNote" xml:space="preserve">
-    <value>BA金額: 在BA合作上，承租公司需支付或應獲得的金額</value>
-  </data>
   <data name="Apr" xml:space="preserve">
     <value>四月</value>
   </data>
@@ -230,20 +227,11 @@
   <data name="BackToCurrentReport" xml:space="preserve">
     <value>回到現有報告</value>
   </data>
-  <data name="BAComissionBalanceNote" xml:space="preserve">
-    <value>投注總計佣金：承租公司金所得於投注總計注單。</value>
-  </data>
   <data name="BACommission" xml:space="preserve">
     <value>BA佣金</value>
   </data>
   <data name="Balance" xml:space="preserve">
     <value>餘額</value>
-  </data>
-  <data name="BalanceInformation" xml:space="preserve">
-    <value>餘額信息</value>
-  </data>
-  <data name="BalanceTitle" xml:space="preserve">
-    <value>餘額信息 - {0}</value>
   </data>
   <data name="BANote" xml:space="preserve">
     <value>投注總計狀態只能在週一下午1點至下午5點 (GMT +8) 進行更改</value>
@@ -1022,9 +1010,6 @@
   <data name="LicenseeFee" xml:space="preserve">
     <value>承租公司費用</value>
   </data>
-  <data name="Licenseegrossrevenuefor" xml:space="preserve">
-    <value>承租公司總收益為{0}</value>
-  </data>
   <data name="LicenseeWinLoss" xml:space="preserve">
     <value>承租公司輸贏</value>
   </data>
@@ -1705,9 +1690,6 @@
   <data name="Team" xml:space="preserve">
     <value>隊伍</value>
   </data>
-  <data name="TermDefinition" xml:space="preserve">
-    <value>語定義</value>
-  </data>
   <data name="TF" xml:space="preserve">
     <value>大熱門</value>
   </data>
@@ -1749,9 +1731,6 @@
   </data>
   <data name="TotalBets" xml:space="preserve">
     <value>總投注</value>
-  </data>
-  <data name="TotalCustomerActiveClosedSuspended" xml:space="preserve">
-    <value>總數“活躍/關閉/暫停”</value>
   </data>
   <data name="TotalGames" xml:space="preserve">
     <value>遊戲總計</value>

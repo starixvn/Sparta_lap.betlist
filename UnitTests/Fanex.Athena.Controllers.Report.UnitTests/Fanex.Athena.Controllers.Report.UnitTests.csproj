@@ -242,7 +242,6 @@
     <Compile Include="ColossusBetsWinLossReportControllerTest.cs" />
     <Compile Include="CasinoProgressiveWinsReportControllerTest.cs" />
     <Compile Include="CashOutWinLossReportControllerTest.cs" />
-    <Compile Include="BalanceReportControllerTest.cs" />
     <Compile Include="AgCasinoWinLossReportControllerTest.cs" />
     <Compile Include="AgCasinoBalanceReportControllerTest.cs" />
     <Compile Include="ActiveCustomerSummaryReportControllerTest.cs" />

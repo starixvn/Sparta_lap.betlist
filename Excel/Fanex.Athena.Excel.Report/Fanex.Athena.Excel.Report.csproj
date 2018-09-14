@@ -141,7 +141,6 @@
     <Compile Include="CustomerWinLossExcel.cs" />
     <Compile Include="LicenseeWinLossExcel.cs" />
     <Compile Include="MatchWinLossExcel.cs" />
-    <Compile Include="BalanceExcel.cs" />
     <Compile Include="LiveReportExcel.cs" />
     <Compile Include="PlatformWinLossMemberExcel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

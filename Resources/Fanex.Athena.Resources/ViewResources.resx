@@ -159,9 +159,6 @@
   <data name="AmtDueTo" xml:space="preserve">
     <value>Amt Due To</value>
   </data>
-  <data name="AmtDueToBABalanceNote" xml:space="preserve">
-    <value>Amt Due To BA: BA settlement amount Licensee needs to pay or receive for BA.</value>
-  </data>
   <data name="April" xml:space="preserve">
     <value>April</value>
   </data>
@@ -190,20 +187,11 @@
   <data name="BackToCurrentReport" xml:space="preserve">
     <value>Back to current report</value>
   </data>
-  <data name="BAComissionBalanceNote" xml:space="preserve">
-    <value>BA Commission: Licensee commission income for BA tickets.</value>
-  </data>
   <data name="BACommission" xml:space="preserve">
     <value>BA Commission</value>
   </data>
   <data name="Balance" xml:space="preserve">
     <value>Balance</value>
-  </data>
-  <data name="BalanceInformation" xml:space="preserve">
-    <value>Balance Information</value>
-  </data>
-  <data name="BalanceTitle" xml:space="preserve">
-    <value>Balance Information - {0}</value>
   </data>
   <data name="BANote" xml:space="preserve">
     <value>BA status can only be changed on Monday from 1PM to 5PM (GMT+8)</value>
@@ -1234,9 +1222,6 @@
   <data name="Team" xml:space="preserve">
     <value>Team</value>
   </data>
-  <data name="TermDefinition" xml:space="preserve">
-    <value>Term Definition</value>
-  </data>
   <data name="TF" xml:space="preserve">
     <value>TF</value>
   </data>
@@ -1275,9 +1260,6 @@
   </data>
   <data name="TotalBets" xml:space="preserve">
     <value>Total Bets</value>
-  </data>
-  <data name="TotalCustomerActiveClosedSuspended" xml:space="preserve">
-    <value>Total Customer active/closed/suspended</value>
   </data>
   <data name="TotalGames" xml:space="preserve">
     <value>Total Games</value>
@@ -1849,9 +1831,6 @@
   </data>
   <data name="AmtDueToBA" xml:space="preserve">
     <value>Amt Due To BA</value>
-  </data>
-  <data name="Licenseegrossrevenuefor" xml:space="preserve">
-    <value>Licensee gross revenue for {0}</value>
   </data>
   <data name="CS" xml:space="preserve">
     <value>CS</value>
@@ -2542,12 +2521,6 @@
   </data>
   <data name="BetTradeCommission" xml:space="preserve">
     <value>Bet Trade Commission</value>
-  </data>
-  <data name="AmtDueToBetTradeBalanceNote" xml:space="preserve">
-    <value>Amt Due To BetTrade: BetTrade settlement amount Licensee needs to pay or receive for BetTrade.</value>
-  </data>
-  <data name="BetTradeComissionBalanceNote" xml:space="preserve">
-    <value>BetTrade Commission: Licensee commission income for BetTrade tickets.</value>
   </data>
   <data name="MicrogamingWinLoss" xml:space="preserve">
     <value>Microgaming Win Loss</value>
