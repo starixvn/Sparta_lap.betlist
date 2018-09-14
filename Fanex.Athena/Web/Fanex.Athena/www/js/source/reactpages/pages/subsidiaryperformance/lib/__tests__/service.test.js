@@ -1,9 +1,9 @@
 import LangHelper from '../../../../lib/langHelper'
 import Site from '../../../../lib/site'
 
-import service from '../service'
+import { Service } from '../service'
 
-describe('service ', () => {
+describe('Service ', () => {
     beforeAll(() => {
         LangHelper.getSingleResource = jest.fn(resource => {
             if (resource === "Viewin") {
@@ -26,30 +26,10 @@ describe('service ', () => {
             const selectedBaseCurrency = "EUR";
 
             const expectedResult = `SubsidiaryPerformance, ${fromDate} - ${toDate}, BaseCurrency: ${selectedBaseCurrency}`
-            const dateRange = { fromDate, toDate };
 
-            const result = service.getReportTitle(dateRange, selectedBaseCurrency);
+            const result = Service.getReportTitle(fromDate, toDate, selectedBaseCurrency);
 
             expect(result).toBe(expectedResult);
-        })
-    })
-
-    describe('getHeaderText', () => {
-        it('header text should has correct content', () => {
-            const expectedResult = {
-                subsidiary: "Subsidiary",
-                currency: "Currency",
-                product: "Product",
-                betCount: "BetCount",
-                turnover: "Turnover",
-                customerWL: "CustomerW_L",
-                subsidiaryWL: "SubsidiaryWL",
-                subsidiaryComm: "Subsidiary Comm"
-            }
-
-            const result = service.getHeaderText();
-
-            expect(result).toEqual(expectedResult);
         })
     })
 })

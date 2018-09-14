@@ -19,12 +19,13 @@ describe('connect ', () => {
 
     it('props should be mapped correctly', () => {
         const expectedResult = {
-            gridData: []
+            xsrfToken: 'token',
+            params: { fromDate: "1/1/2018", toDate: "1/2/2018" }
         }
 
         const state = {
-            gridData: [],
-            dateRange: { fromDate: "1/1/2018", toDate: "1/2/2018" },
+            xsrfToken: 'token',
+            params: { fromDate: "1/1/2018", toDate: "1/2/2018" },
             selectedBaseCurrency: "EUR",
             isLoading: false,
             anotherProp: "Not included"
@@ -39,7 +40,8 @@ describe('connect ', () => {
         const mockBindAction = jest.fn();
         bindActionCreators.mockImplementationOnce(mockBindAction);
         const expectedActionCreator = {
-            toggleLoader: ActionCreators.toggleLoader
+            toggleLoader: ActionCreators.toggleLoader,
+            setParams: ActionCreators.setParams
         }
 
         const dispatch = {};

@@ -20,12 +20,10 @@ describe('connect ', () => {
     it('props should be mapped correctly', () => {
         const expectedResult = {
             dateRange: { fromDate: "1/1/2018", toDate: "1/2/2018" },
-            selectedBaseCurrency: "EUR",
-            isLoading: false
+            selectedBaseCurrency: "EUR"
         }
 
         const state = {
-            gridData: [],
             dateRange: { fromDate: "1/1/2018", toDate: "1/2/2018" },
             selectedBaseCurrency: "EUR",
             isLoading: false

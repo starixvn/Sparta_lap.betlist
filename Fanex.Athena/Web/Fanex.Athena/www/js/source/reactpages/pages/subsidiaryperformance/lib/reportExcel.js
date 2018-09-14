@@ -246,9 +246,9 @@ export default class ReportExcel {
             columns.push(
                 {
                     field: fields.subsidiary,
-                    [MAIN_SECTION_STYLE]: bodyCellStyle.default,
-                    [TOTAL_SECTION_STYLE]: totalCellStyle.default,
-                    [GRAND_TOTAL_SECTION_STYLE]: grandTotalCellStyle.default
+                    [MAIN_SECTION_STYLE]: bodyCellStyle.rowspan,
+                    [TOTAL_SECTION_STYLE]: totalCellStyle.rowspan,
+                    [GRAND_TOTAL_SECTION_STYLE]: grandTotalCellStyle.rowspan
                 },
                 {
                     field: fields.currencyName,

@@ -10,6 +10,8 @@ const reducerList = [
     { name: "convertAll", actionType: types.CHANGE_CONVERT_ALL, expected: true },
     { name: "xsrfToken", actionType: types.GET_XSRF_TOKEN, expected: "token" },
     { name: "dateConstraint", actionType: types.GET_DATE_CONSTRAINT, expected: { fromDate: "01/01/2017", toDate: "09/30/2017" } },
+    { name: "includeDrawData", actionType: types.CHANGE_INCLUDE_DRAW_DATA, expected: true },
+    { name: "params", actionType: types.SET_PARAMS, expected: { fromDate: "01/01/2017", toDate: "09/30/2017" } }
 ]
 
 describe('filterHandlerReducer ', () => {

@@ -76,6 +76,7 @@ export class DataGrid extends Component {
         const data = this.state.gridData.Data;
 
         let rows = [];
+        let key = 0;
         for (let sub = 0; sub < data.length; sub++) {
             const item = data[sub];
             const totalItem = item.TotalItem;
@@ -90,7 +91,7 @@ export class DataGrid extends Component {
                     const product = products[pro];
 
                     rows.push(
-                        <Row key={`tr${sub}-detail${cur}-${pro}`}>
+                        <Row key={key}>
                             { 
                               cur === 0 
                               && pro === 0 
@@ -98,9 +99,11 @@ export class DataGrid extends Component {
                             }
                             { pro === 0 && <Cell title={currency} rowSpan={rowSpan} className="center-align">{currency}</Cell> }
                             <Cell title={product.Product}>{product.Product}</Cell>
-                            { this._buildCommonCells(product, `tr${sub}-detail${cur}-${pro}`) }
+                            { this._buildCommonCells(product, key) }
                         </Row>
                     );
+
+                    key++;
                 }
             }     
         }
@@ -112,12 +115,12 @@ export class DataGrid extends Component {
         const data = this.state.gridData.Data;
                             
         const rows = data.map((item, index) => {
-            return <Row key={`tr-detail${index}`}>
-                            <Cell title={index + 1} className="center-align">{index + 1}</Cell>
-                            <Cell title={item.ExternalId} className="center-align">{item.ExternalId}</Cell>
-                            <Cell title={item.SystemId} className="center-align">{item.SystemId}</Cell>
-                            <Cell title={item.CurrencyName} className="center-align">{item.CurrencyName}</Cell>
-                            { this._buildCommonCells(item, `tr-detail${index}`) }
+            return <Row key={index}>
+                        <Cell title={index + 1} className="center-align">{index + 1}</Cell>
+                        <Cell title={item.ExternalId} className="center-align">{item.ExternalId}</Cell>
+                        <Cell title={item.SystemId} className="center-align">{item.SystemId}</Cell>
+                        <Cell title={item.CurrencyName} className="center-align">{item.CurrencyName}</Cell>
+                        { this._buildCommonCells(item, index) }
                     </Row>
         });
 
@@ -218,11 +221,11 @@ export class DataGrid extends Component {
             subsidiaryComm = NumberFormat.formatDecimal(data.SubsidiaryComm);
 
         const cells = [
-            <Cell key={`td-${index}-bc`} title={betcount} className="right-align">{betcount}</Cell>,
-            <Cell key={`td-${index}-tn`} title={turnover} className="right-align">{turnover}</Cell>,
-            <Cell key={`td-${index}-cw`} title={customerWinLoss} className="right-align">{customerWinLoss}</Cell>,
-            <Cell key={`td-${index}-sw`} title={subsidiaryWinLoss} className={`right-align ${data.SubsidiaryWinLoss < 0 ? "negative" : ""}`}>{subsidiaryWinLoss}</Cell>,
-            <Cell key={`td-${index}-sc`} title={subsidiaryComm} className="right-align">{subsidiaryComm}</Cell>
+            <Cell key={`${index}-bc`} title={betcount} className="right-align">{betcount}</Cell>,
+            <Cell key={`${index}-tn`} title={turnover} className="right-align">{turnover}</Cell>,
+            <Cell key={`${index}-cw`} title={customerWinLoss} className="right-align">{customerWinLoss}</Cell>,
+            <Cell key={`${index}-sw`} title={subsidiaryWinLoss} className={`right-align ${data.SubsidiaryWinLoss < 0 ? "negative" : ""}`}>{subsidiaryWinLoss}</Cell>,
+            <Cell key={`${index}-sc`} title={subsidiaryComm} className="right-align">{subsidiaryComm}</Cell>
         ];
 
         return cells;

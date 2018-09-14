@@ -47,9 +47,9 @@ export class AppContainer extends Component {
         <Loader isLoading={this.props.isLoading} />
         <FormFilter />
         <div className="result-content">
-        <Breadcrumb items={this.breadcrumbItems} value={this.props.params.Level} onChange={this._backToMain} />
-        {this.reportTitle && <ReportTitle content={this.reportTitle} />}
-        <DataGrid />
+            <Breadcrumb items={this.breadcrumbItems} value={this.props.params.Level} onChange={this._backToMain} />
+            {this.reportTitle && <ReportTitle content={this.reportTitle} />}
+            <DataGrid />
         </div>
       </AppLayout>
     );

@@ -198,7 +198,7 @@ export class DataGrid extends Component {
             const reportBy = moment(item.Date).format(formatDate);
 
             rows.push(
-                <Row key={`tr${i}`}>
+                <Row key={item.Ticks + item.CurrencyId}>
                     <Cell title={i + 1} className='center-align'>{i + 1}</Cell>
                     <Cell title={reportBy} className='center-align'>{reportBy}</Cell>
                     <Cell title={item.CurrencyName} className='center-align'>{item.CurrencyName}</Cell>
@@ -220,7 +220,7 @@ export class DataGrid extends Component {
         for (let i = 0; i < rowSpan; i++) {
             const item = total[i];
             totalRows.push(
-                <Row key={`tr-total${i}`} className='fixed-table-total'>
+                <Row key={item.CurrencyName} className='fixed-table-total'>
                     {i === 0 && <Cell title={TotalText.total} className='center-align' rowSpan={rowSpan} colSpan={colSpan}>{TotalText.total}</Cell>}
                     <Cell title={item.CurrencyName} className='center-align'>{item.CurrencyName}</Cell>
                     {this._buildCell(item, selectedProductList)}
