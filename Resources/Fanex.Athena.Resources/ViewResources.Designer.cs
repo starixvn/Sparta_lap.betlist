@@ -1717,15 +1717,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Customer (Overall).
-        /// </summary>
-        public static string CustomerOverall {
-            get {
-                return ResourceManager.GetString("CustomerOverall", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Customer Pending Funds.
         /// </summary>
         public static string CustomerPedingFunds {
@@ -2208,15 +2199,6 @@ namespace Fanex.Athena.Resources {
         public static string DisableSSOMsg {
             get {
                 return ResourceManager.GetString("DisableSSOMsg", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dividend Won.
-        /// </summary>
-        public static string DividendWon {
-            get {
-                return ResourceManager.GetString("DividendWon", resourceCulture);
             }
         }
         
@@ -4138,15 +4120,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 12Bet Licensee.
-        /// </summary>
-        public static string Licensee12Bet {
-            get {
-                return ResourceManager.GetString("Licensee12Bet", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Licensee Comm.
         /// </summary>
         public static string LicenseeComm {
@@ -5875,15 +5848,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Place TO.
-        /// </summary>
-        public static string PlaceTO {
-            get {
-                return ResourceManager.GetString("PlaceTO", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Platform.
         /// </summary>
         public static string Platform {
@@ -7549,15 +7513,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Total TO.
-        /// </summary>
-        public static string TotalTO {
-            get {
-                return ResourceManager.GetString("TotalTO", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Total Transaction.
         /// </summary>
         public static string TotalTransaction {
@@ -8449,15 +8404,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Win TO.
-        /// </summary>
-        public static string WinTO {
-            get {
-                return ResourceManager.GetString("WinTO", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Withdrawal.
         /// </summary>
         public static string Withdrawal {
@@ -8490,15 +8436,6 @@ namespace Fanex.Athena.Resources {
         public static string WorstWinLoss {
             get {
                 return ResourceManager.GetString("WorstWinLoss", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to W/P TO.
-        /// </summary>
-        public static string WPTO {
-            get {
-                return ResourceManager.GetString("WPTO", resourceCulture);
             }
         }
         

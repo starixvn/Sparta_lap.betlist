@@ -346,9 +346,6 @@
   <data name="CustomerOption" xml:space="preserve">
     <value>Customer Option</value>
   </data>
-  <data name="CustomerOverall" xml:space="preserve">
-    <value>Customer (Overall)</value>
-  </data>
   <data name="CustomerPedingFunds" xml:space="preserve">
     <value>Customer Pending Funds</value>
   </data>
@@ -399,9 +396,6 @@
   </data>
   <data name="DisableSSOMsg" xml:space="preserve">
     <value>Single Sign On to LRF is disabled.</value>
-  </data>
-  <data name="DividendWon" xml:space="preserve">
-    <value>Dividend Won</value>
   </data>
   <data name="Dontshowagain" xml:space="preserve">
     <value>Don't show again</value>
@@ -672,9 +666,6 @@
   </data>
   <data name="Licensee" xml:space="preserve">
     <value>Licensee</value>
-  </data>
-  <data name="Licensee12Bet" xml:space="preserve">
-    <value>12Bet Licensee</value>
   </data>
   <data name="LicenseeFee" xml:space="preserve">
     <value>Licensee Fee</value>
@@ -1007,9 +998,6 @@
   <data name="Place" xml:space="preserve">
     <value>Place</value>
   </data>
-  <data name="PlaceTO" xml:space="preserve">
-    <value>Place TO</value>
-  </data>
   <data name="Postponed" xml:space="preserve">
     <value>Postponed</value>
   </data>
@@ -1282,9 +1270,6 @@
   <data name="TotalSet" xml:space="preserve">
     <value>Total Set</value>
   </data>
-  <data name="TotalTO" xml:space="preserve">
-    <value>Total TO</value>
-  </data>
   <data name="TotalTransaction" xml:space="preserve">
     <value>Total Transaction</value>
   </data>
@@ -1385,9 +1370,6 @@
   <data name="WinPlace" xml:space="preserve">
     <value>Win Place</value>
   </data>
-  <data name="WinTO" xml:space="preserve">
-    <value>Win TO</value>
-  </data>
   <data name="Withdrawal" xml:space="preserve">
     <value>Withdrawal</value>
   </data>
@@ -1396,9 +1378,6 @@
   </data>
   <data name="WorstWinLoss" xml:space="preserve">
     <value>Worst Win Loss</value>
-  </data>
-  <data name="WPTO" xml:space="preserve">
-    <value>W/P TO</value>
   </data>
   <data name="Year" xml:space="preserve">
     <value>Year</value>

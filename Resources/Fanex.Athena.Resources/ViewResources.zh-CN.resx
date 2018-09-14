@@ -443,10 +443,6 @@
     <value>会员选项</value>
     <comment>#27974</comment>
   </data>
-  <data name="CustomerOverall" xml:space="preserve">
-    <value>会员 (整体)</value>
-    <comment>#27974</comment>
-  </data>
   <data name="CustomerPedingFunds" xml:space="preserve">
     <value>会员待定资金</value>
   </data>
@@ -551,9 +547,6 @@
   </data>
   <data name="DisableSSOMsg" xml:space="preserve">
     <value>SSO功能被禁用</value>
-  </data>
-  <data name="DividendWon" xml:space="preserve">
-    <value>赢得分红</value>
   </data>
   <data name="Dontshowagain" xml:space="preserve">
     <value>不再显示</value>
@@ -1007,9 +1000,6 @@
   <data name="Licensee" xml:space="preserve">
     <value>承租公司</value>
   </data>
-  <data name="Licensee12Bet" xml:space="preserve">
-    <value>12Bet Licensee</value>
-  </data>
   <data name="LicenseeFee" xml:space="preserve">
     <value>承租公司费用</value>
   </data>
@@ -1423,9 +1413,6 @@
   <data name="Place" xml:space="preserve">
     <value>位置</value>
   </data>
-  <data name="PlaceTO" xml:space="preserve">
-    <value>位置交易额</value>
-  </data>
   <data name="Postponed" xml:space="preserve">
     <value>改期</value>
   </data>
@@ -1757,9 +1744,6 @@
   <data name="TotalSet" xml:space="preserve">
     <value>总盘数</value>
   </data>
-  <data name="TotalTO" xml:space="preserve">
-    <value>总交易额</value>
-  </data>
   <data name="TotalTransaction" xml:space="preserve">
     <value>总交易数</value>
   </data>
@@ -1915,9 +1899,6 @@
   <data name="WinPlace" xml:space="preserve">
     <value>独赢 位置</value>
   </data>
-  <data name="WinTO" xml:space="preserve">
-    <value>独赢交易额</value>
-  </data>
   <data name="Withdrawal" xml:space="preserve">
     <value>提款</value>
   </data>
@@ -1926,9 +1907,6 @@
   </data>
   <data name="WorstWinLoss" xml:space="preserve">
     <value>最差的输赢</value>
-  </data>
-  <data name="WPTO" xml:space="preserve">
-    <value>独赢/位置交易额</value>
   </data>
   <data name="Year" xml:space="preserve">
     <value>年份</value>
