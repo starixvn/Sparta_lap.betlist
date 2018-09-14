@@ -72,7 +72,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.Service = exports.BreadcrumbText = exports.TotalText = exports.HeaderText = undefined;
+exports.Service = exports.Api = exports.BreadcrumbText = exports.TotalText = exports.HeaderText = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -89,28 +89,33 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var HeaderText = exports.HeaderText = {
-    index: '#',
-    subsidiary: _langHelper2.default.getSingleResource("Subsidiary"),
-    currency: _langHelper2.default.getSingleResource("Currency"),
-    product: _langHelper2.default.getSingleResource("Product"),
-    betCount: _langHelper2.default.getSingleResource("BetCount"),
-    turnover: _langHelper2.default.getSingleResource("Turnover"),
-    customerWL: _langHelper2.default.getSingleResource("CustomerW_L"),
-    subsidiaryWL: '' + _langHelper2.default.getSingleResource("SubsidiaryWL"),
-    subsidiaryComm: _langHelper2.default.getSingleResource("Subsidiary") + ' ' + _langHelper2.default.getSingleResource("Comm"),
-    externalId: _langHelper2.default.getSingleResource("ExternalId"),
-    systemId: _langHelper2.default.getSingleResource("SystemId")
+    Index: '#',
+    Subsidiary: _langHelper2.default.getSingleResource("Subsidiary"),
+    CurrencyName: _langHelper2.default.getSingleResource("Currency"),
+    Product: _langHelper2.default.getSingleResource("Product"),
+    BetCount: _langHelper2.default.getSingleResource("BetCount"),
+    Turnover: _langHelper2.default.getSingleResource("Turnover"),
+    CustomerWinLoss: _langHelper2.default.getSingleResource("CustomerW_L"),
+    SubsidiaryWinLoss: '' + _langHelper2.default.getSingleResource("SubsidiaryWL"),
+    SubsidiaryComm: _langHelper2.default.getSingleResource("Subsidiary") + ' ' + _langHelper2.default.getSingleResource("Comm"),
+    ExternalId: _langHelper2.default.getSingleResource("ExternalId"),
+    SystemId: _langHelper2.default.getSingleResource("SystemId")
 };
 
 var TotalText = exports.TotalText = {
-    total: _langHelper2.default.getSingleResource('Total'),
-    totalIn: _langHelper2.default.getSingleResource('Totalin'),
-    based: _langHelper2.default.getSingleResource('Based')
+    Total: _langHelper2.default.getSingleResource('Total'),
+    TotalIn: _langHelper2.default.getSingleResource('Totalin'),
+    Based: _langHelper2.default.getSingleResource('Based')
 };
 
 var BreadcrumbText = exports.BreadcrumbText = {
-    main: _langHelper2.default.getSingleResource('Main'),
-    customer: _langHelper2.default.getSingleResource('Customer')
+    Main: _langHelper2.default.getSingleResource('Main'),
+    Customer: _langHelper2.default.getSingleResource('Customer')
+};
+
+var Api = exports.Api = {
+    Url: 'api/SubsidiaryPerformanceReport/Index',
+    DetailUrl: 'api/SubsidiaryPerformanceReport/Detail'
 };
 
 var Service = exports.Service = function () {
@@ -2580,10 +2585,10 @@ var AppContainer = exports.AppContainer = function (_Component) {
 
     _this.reportTitle = null;
     _this.breadcrumbItems = [{
-      label: _service.BreadcrumbText.main,
+      label: _service.BreadcrumbText.Main,
       value: _report.ReportLevel.MAIN
     }, {
-      label: _service.BreadcrumbText.customer,
+      label: _service.BreadcrumbText.Customer,
       value: _report.ReportLevel.CUSTOMER
     }];
     return _this;
@@ -2752,9 +2757,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Url = 'api/SubsidiaryPerformanceReport/Index';
-var DetailUrl = 'api/SubsidiaryPerformanceReport/Detail';
-
 var DataGrid = exports.DataGrid = function (_Component) {
     _inherits(DataGrid, _Component);
 
@@ -2775,7 +2777,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
             if (prevProps.params.Timestamp !== this.props.params.Timestamp) {
                 this.level = _report3.ReportLevel.Main;
                 this.baseCurrency = this.props.params.BaseCurrency;
-                this._getGridData(Url, this.props.params);
+                this._getGridData(_service.Api.Url, this.props.params);
             }
         }
     }, {
@@ -2803,7 +2805,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
 
             this.level = _report3.ReportLevel.CUSTOMER;
 
-            this._getGridData(DetailUrl, params);
+            this._getGridData(_service.Api.DetailUrl, params);
             this.props.setParams(params);
         }
     }, {
@@ -2816,53 +2818,53 @@ var DataGrid = exports.DataGrid = function (_Component) {
                 { style: { height: 32 } },
                 customerLevel && _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { colWidth: 30, header: true, title: _service.HeaderText.index },
-                    _service.HeaderText.index
+                    { colWidth: 30, header: true, title: _service.HeaderText.Index },
+                    _service.HeaderText.Index
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { colWidth: 150, header: true, title: customerLevel ? _service.HeaderText.externalId : _service.HeaderText.subsidiary },
-                    customerLevel ? _service.HeaderText.externalId : _service.HeaderText.subsidiary
+                    { colWidth: 150, header: true, title: customerLevel ? _service.HeaderText.ExternalId : _service.HeaderText.Subsidiary },
+                    customerLevel ? _service.HeaderText.ExternalId : _service.HeaderText.Subsidiary
                 ),
                 customerLevel && _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { colWidth: 150, header: true, title: _service.HeaderText.systemId },
-                    _service.HeaderText.systemId
+                    { colWidth: 150, header: true, title: _service.HeaderText.SystemId },
+                    _service.HeaderText.SystemId
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { colWidth: 150, header: true, title: _service.HeaderText.currency },
-                    _service.HeaderText.currency
+                    { colWidth: 150, header: true, title: _service.HeaderText.CurrencyName },
+                    _service.HeaderText.CurrencyName
                 ),
                 !customerLevel && _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { colWidth: 200, header: true, title: _service.HeaderText.product },
-                    _service.HeaderText.product
+                    { colWidth: 200, header: true, title: _service.HeaderText.Product },
+                    _service.HeaderText.Product
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { colWidth: 150, header: true, title: _service.HeaderText.betCount },
-                    _service.HeaderText.betCount
+                    { colWidth: 150, header: true, title: _service.HeaderText.BetCount },
+                    _service.HeaderText.BetCount
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { colWidth: 200, header: true, title: _service.HeaderText.turnover },
-                    _service.HeaderText.turnover
+                    { colWidth: 200, header: true, title: _service.HeaderText.Turnover },
+                    _service.HeaderText.Turnover
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { colWidth: 200, header: true, title: _service.HeaderText.customerWL },
-                    _service.HeaderText.customerWL
+                    { colWidth: 200, header: true, title: _service.HeaderText.CustomerWinLoss },
+                    _service.HeaderText.CustomerWinLoss
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { colWidth: 200, header: true, title: _service.HeaderText.subsidiaryWL },
-                    _service.HeaderText.subsidiaryWL
+                    { colWidth: 200, header: true, title: _service.HeaderText.SubsidiaryWinLoss },
+                    _service.HeaderText.SubsidiaryWinLoss
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { colWidth: 150, header: true, title: _service.HeaderText.subsidiaryComm },
-                    _service.HeaderText.subsidiaryComm
+                    { colWidth: 150, header: true, title: _service.HeaderText.SubsidiaryComm },
+                    _service.HeaderText.SubsidiaryComm
                 )
             );
         }
@@ -2987,13 +2989,13 @@ var DataGrid = exports.DataGrid = function (_Component) {
                     { className: 'fixed-table-total', key: 'total' + i },
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
-                        { title: _service.TotalText.total + ' ' + totalName },
-                        _service.TotalText.total + ' ' + totalName
+                        { title: _service.TotalText.Total + ' ' + totalName },
+                        _service.TotalText.Total + ' ' + totalName
                     ),
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
-                        { title: _service.TotalText.based + ' ' + _item.CurrencyName, className: 'center-align', colSpan: '2' },
-                        _service.TotalText.based + ' ' + _item.CurrencyName
+                        { title: _service.TotalText.Based + ' ' + _item.CurrencyName, className: 'center-align', colSpan: '2' },
+                        _service.TotalText.Based + ' ' + _item.CurrencyName
                     ),
                     this._buildCommonCells(_item, 'total' + i)
                 ));
@@ -3016,13 +3018,13 @@ var DataGrid = exports.DataGrid = function (_Component) {
                 { key: 'grandTotal', className: 'fixed-table-grant-total' },
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { title: _service.TotalText.total },
-                    _service.TotalText.total
+                    { title: _service.TotalText.Total },
+                    _service.TotalText.Total
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { title: _service.TotalText.based + ' ' + grandTotal.CurrencyName, className: 'center-align', colSpan: '2' },
-                    _service.TotalText.based + ' ' + grandTotal.CurrencyName
+                    { title: _service.TotalText.Based + ' ' + grandTotal.CurrencyName, className: 'center-align', colSpan: '2' },
+                    _service.TotalText.Based + ' ' + grandTotal.CurrencyName
                 ),
                 this._buildCommonCells(grandTotal, 'grandTotal')
             );
@@ -3044,8 +3046,8 @@ var DataGrid = exports.DataGrid = function (_Component) {
                     { className: 'fixed-table-total', key: 'total' + i },
                     i === 0 && _react2.default.createElement(
                         _fixedTableHeader.Cell,
-                        { title: _service.TotalText.totalIn + ' ' + this.baseCurrency, colSpan: '3', rowSpan: rowSpan, className: 'center-align' },
-                        _service.TotalText.totalIn + ' ' + this.baseCurrency
+                        { title: _service.TotalText.TotalIn + ' ' + this.baseCurrency, colSpan: '3', rowSpan: rowSpan, className: 'center-align' },
+                        _service.TotalText.TotalIn + ' ' + this.baseCurrency
                     ),
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
@@ -3073,8 +3075,8 @@ var DataGrid = exports.DataGrid = function (_Component) {
                 { key: 'grandTotal', className: 'fixed-table-grant-total' },
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { title: _service.TotalText.totalIn + ' ' + grandTotal.CurrencyName, className: 'center-align', colSpan: '4' },
-                    _service.TotalText.totalIn + ' ' + grandTotal.CurrencyName
+                    { title: _service.TotalText.TotalIn + ' ' + grandTotal.CurrencyName, className: 'center-align', colSpan: '4' },
+                    _service.TotalText.TotalIn + ' ' + grandTotal.CurrencyName
                 ),
                 this._buildCommonCells(grandTotal, 'grandTotal')
             );
@@ -3243,21 +3245,22 @@ var FormFilter = exports.FormFilter = function (_Component) {
         _this.exportExcel = function (event) {
             event.preventDefault();
 
-            var params = _this._getParams();
+            var isCustomerLevel = _this.props.params.Level == _report.ReportLevel.CUSTOMER;
+            var params = isCustomerLevel ? _this.props.params : _this._getParams();
             if (!params) {
                 return;
             }
 
             _this.props.toggleLoader(true);
 
-            _report3.default.fetchGridData(Url, { xsrfToken: _this.props.xsrfToken, data: params }).then(function (response) {
+            _report3.default.fetchGridData(isCustomerLevel ? _service.Api.DetailUrl : _service.Api.Url, { xsrfToken: _this.props.xsrfToken, data: params }).then(function (response) {
                 if (!response.data.Data.length) {
                     alert(_langHelper2.default.getSingleResource("NoInfo"));
                     return;
                 }
 
                 var title = _service.Service.getReportTitle(params.FromDate, params.ToDate, params.BaseCurrency);
-                var excel = new _reportExcel2.default(response.data, title);
+                var excel = new _reportExcel2.default(response.data, title, isCustomerLevel, params.BaseCurrency);
                 excel.export(function () {
                     _this.props.toggleLoader(false);
                 });
@@ -3321,6 +3324,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
 
 
             return subsidiaryList && subsidiaryList.length ? _react2.default.createElement(_multipleSelect2.default, {
+                hasSearchBox: true,
                 dataSource: this.props.subsidiaryList,
                 keyField: "Name",
                 valueField: "Name",
@@ -3380,26 +3384,33 @@ var FormFilter = exports.FormFilter = function (_Component) {
         value: function render() {
             var _this3 = this;
 
+            var subsidiaryList = this.props.subsidiaryList;
+
+            var subsidiaryDropdown = null;
+            if (subsidiaryList) {
+                subsidiaryDropdown = _react2.default.createElement(
+                    'div',
+                    { className: 'col-12 col-md-3 col-sm-5 col-lg-3 col-xl-3' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'form-group' },
+                        _react2.default.createElement(
+                            'label',
+                            { className: 'label-text' },
+                            _langHelper2.default.getSingleResource("Subsidiary")
+                        ),
+                        this._renderSubsidiarySelectList()
+                    )
+                );
+            }
+
             return _react2.default.createElement(
                 'div',
                 { className: 'page-filter' },
                 _react2.default.createElement(
                     'div',
                     { className: 'row' },
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'col-12 col-md-3 col-sm-5 col-lg-2 col-xl-2' },
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'form-group' },
-                            _react2.default.createElement(
-                                'label',
-                                { className: 'label-text' },
-                                _langHelper2.default.getSingleResource("Subsidiary")
-                            ),
-                            this._renderSubsidiarySelectList()
-                        )
-                    ),
+                    subsidiaryDropdown,
                     _react2.default.createElement(
                         'div',
                         { className: 'col-12 col-md-4 col-sm-6 col-lg-3 col-xl-3' },
@@ -3448,7 +3459,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                     { className: 'row' },
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-12 col-md-3 col-sm-5 col-lg-2 col-xl-2' },
+                        { className: 'col-12 col-md-4 col-sm-5 col-lg-3 col-xl-3' },
                         _react2.default.createElement(
                             'div',
                             { className: 'form-group' },
@@ -3469,7 +3480,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                     ),
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-12 col-md-4 col-sm-6 col-lg-3 col-xl-3' },
+                        { className: 'col-12 col-md-3 col-sm-6 col-lg-2 col-xl-2' },
                         _react2.default.createElement(
                             'div',
                             { className: 'form-group' },
@@ -3490,7 +3501,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                     ),
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-12 col-md-3 col-sm-5 col-lg-3 col-xl-3' },
+                        { className: 'col-12 col-md-3 col-sm-5 col-lg-2 col-xl-2' },
                         _react2.default.createElement(
                             'div',
                             { className: 'form-group' },
@@ -3534,10 +3545,11 @@ var FormFilter = exports.FormFilter = function (_Component) {
         key: 'isValidModel',
         get: function get() {
             var _props3 = this.props,
+                subsidiaryList = _props3.subsidiaryList,
                 selectedSubsidiary = _props3.selectedSubsidiary,
                 selectedProduct = _props3.selectedProduct;
 
-            return selectedSubsidiary !== "" && selectedProduct !== "";
+            return (!subsidiaryList || selectedSubsidiary !== "") && selectedProduct !== "";
         }
     }]);
 
@@ -3548,9 +3560,8 @@ function mapDispatchToProps(dispatch) {
     return (0, _redux.bindActionCreators)(_index.ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    var params = state.params,
-        isLoading = state.isLoading,
-        rest = _objectWithoutProperties(state, ['params', 'isLoading']);
+    var isLoading = state.isLoading,
+        rest = _objectWithoutProperties(state, ['isLoading']);
 
     return Object.assign({}, rest);
 };
@@ -3571,8 +3582,6 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _ref, _ref2, _ref4, _ref5, _ref6, _ref7, _ref8;
-
 var _excel = __webpack_require__(45);
 
 var _excel2 = _interopRequireDefault(_excel);
@@ -3585,27 +3594,28 @@ var _excelStyle = __webpack_require__(65);
 
 var _service = __webpack_require__(110);
 
-var _service2 = _interopRequireDefault(_service);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 var COLUMN_COUNT = 8;
+var COLUMN_DETAIL_COUNT = 9;
 var TITLE_ROW_INDEX = 0;
 var HEADER_ROW_INDEX = 1;
 var DATA_ROW_INDEX = 2;
 
+var INDEX_COLUM_INDEX = 0;
+var EXTERNALID_COLUM_INDEX = 1;
 var SUBSIDIARY_COLUMN_INDEX = 0;
 var CURRENCY_COLUMN_INDEX = 1;
+var CURRENCY_DETAIL_COLUMN_INDEX = 3;
 var PRODUCT_COLUMN_INDEX = 2;
 var BETCOUNT_COLUMN_INDEX = 3;
-var TURNOVER_COLUMN_INDEX = 4;
-var CUSTOMERWL_COLUMN_INDEX = 5;
-var SUBSIDIARYWL_COLUMN_INDEX = 6;
+var BETCOUNT_DETAIL_COLUMN_INDEX = 4;
 var SUBSIDIARYCOMM_COLUMN_INDEX = 7;
+var SUBSIDIARYCOMM_DETAIL_COLUMN_INDEX = 8;
 
 var MAIN_SECTION_STYLE = "mainSectionStyle";
 var TOTAL_SECTION_STYLE = "totalSectionStyle";
@@ -3619,32 +3629,18 @@ var fields = {
     turnover: "Turnover",
     customerWinLoss: "CustomerWinLoss",
     subsidiaryWinLoss: "SubsidiaryWinLoss",
-    subsidiaryComm: "SubsidiaryComm"
+    subsidiaryComm: "SubsidiaryComm",
+    externalId: "ExternalId",
+    systemId: "SystemId"
 };
-
-var columnConfigs = [(_ref = {
-    field: fields.subsidiary
-}, _defineProperty(_ref, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.rowspan), _defineProperty(_ref, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.default), _defineProperty(_ref, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.default), _ref), (_ref2 = {
-    field: fields.currencyName
-}, _defineProperty(_ref2, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.center), _defineProperty(_ref2, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.center), _defineProperty(_ref2, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.center), _ref2), _defineProperty({
-    field: fields.product
-}, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.default), (_ref4 = {
-    field: fields.betCount
-}, _defineProperty(_ref4, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.number), _defineProperty(_ref4, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.number), _defineProperty(_ref4, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.number), _ref4), (_ref5 = {
-    field: fields.turnover
-}, _defineProperty(_ref5, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.decimal), _defineProperty(_ref5, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.decimal), _defineProperty(_ref5, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.decimal), _ref5), (_ref6 = {
-    field: fields.customerWinLoss
-}, _defineProperty(_ref6, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.decimal), _defineProperty(_ref6, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.decimal), _defineProperty(_ref6, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.decimal), _ref6), (_ref7 = {
-    field: fields.subsidiaryWinLoss
-}, _defineProperty(_ref7, MAIN_SECTION_STYLE, { positive: _excelStyle.bodyCellStyle.decimal, negative: _excelStyle.bodyCellStyle.negativeDecimal }), _defineProperty(_ref7, TOTAL_SECTION_STYLE, { positive: _excelStyle.totalCellStyle.decimal, negative: _excelStyle.totalCellStyle.negativeDecimal }), _defineProperty(_ref7, GRAND_TOTAL_SECTION_STYLE, { positive: _excelStyle.grandTotalCellStyle.decimal, negative: _excelStyle.grandTotalCellStyle.negativeDecimal }), _ref7), (_ref8 = {
-    field: fields.subsidiaryComm
-}, _defineProperty(_ref8, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.decimal), _defineProperty(_ref8, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.decimal), _defineProperty(_ref8, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.decimal), _ref8)];
 
 var ReportExcel = function () {
     function ReportExcel() {
         var gridData = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         var title = arguments[1];
-        var fileName = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "SubsidiaryPerformance";
+        var isCustomerLevel = arguments[2];
+        var baseCurrency = arguments[3];
+        var fileName = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : "SubsidiaryPerformance";
 
         _classCallCheck(this, ReportExcel);
 
@@ -3654,6 +3650,9 @@ var ReportExcel = function () {
         this.gridData = gridData;
         this.currentRowIndex = DATA_ROW_INDEX;
         this.mergeConfig = [];
+        this.columnConfigs = this._getcolumnConfigs(isCustomerLevel);
+        this.baseCurrency = baseCurrency;
+        this.isCustomerLevel = isCustomerLevel;
     }
 
     _createClass(ReportExcel, [{
@@ -3679,58 +3678,97 @@ var ReportExcel = function () {
     }, {
         key: '_createTitle',
         value: function _createTitle() {
-            this.mergeConfig.push({ s: { r: TITLE_ROW_INDEX, c: 0 }, e: { r: TITLE_ROW_INDEX, c: COLUMN_COUNT - 1 } });
+            this.mergeConfig.push({ s: { r: TITLE_ROW_INDEX, c: 0 }, e: { r: TITLE_ROW_INDEX, c: this.isCustomerLevel ? COLUMN_DETAIL_COUNT - 1 : COLUMN_COUNT - 1 } });
             var address = _excel2.default.getCellAddress({ c: 0, r: TITLE_ROW_INDEX });
             this.worksheet[address] = { t: "s", v: this.title, s: _excelStyle.titleCellStyle };
         }
     }, {
         key: '_createHeader',
         value: function _createHeader() {
-            var headerText = _service2.default.getHeaderText();
-            var keys = Object.keys(headerText);
-            for (var i = 0; i < keys.length; i++) {
+            for (var i = 0; i < this.columnConfigs.length; i++) {
+                var fieldName = this.columnConfigs[i].field;
                 var address = _excel2.default.getCellAddress({ c: i, r: HEADER_ROW_INDEX });
-                var header = headerText[keys[i]];
+                var header = _service.HeaderText[fieldName];
                 this.worksheet[address] = { t: "s", v: header, s: _excelStyle.headerCellStyle };
             }
         }
     }, {
         key: '_createSheetData',
         value: function _createSheetData() {
-            this._createMainData();
-            this._createFooterData();
-            this._createGrandTotalData();
+            this.isCustomerLevel ? this._createBodyDetailData() : this._createBodyData();
+            this.isCustomerLevel ? this._createFooterDetailData() : this._createFooterData();
+            this.isCustomerLevel ? this._createGrandTotalDetailData() : this._createGrandTotalData();
         }
     }, {
-        key: '_createMainData',
-        value: function _createMainData() {
+        key: '_createBodyData',
+        value: function _createBodyData() {
             var mainData = this.gridData.Data;
 
             for (var i = 0; i < mainData.length; i++) {
                 var item = mainData[i];
                 var details = item.Details;
 
-                this._createRowByColumnIndex(item, MAIN_SECTION_STYLE, SUBSIDIARY_COLUMN_INDEX, CURRENCY_COLUMN_INDEX);
+                this._createRowByColumnIndex({ Subsidiary: item.Subsidiary }, MAIN_SECTION_STYLE, SUBSIDIARY_COLUMN_INDEX, CURRENCY_COLUMN_INDEX);
+                this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 0 }, e: { r: this.currentRowIndex + item.TotalItem - 1, c: 0 } });
 
-                this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 0 }, e: { r: this.currentRowIndex + details.length - 1, c: 0 } });
-                this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 1 }, e: { r: this.currentRowIndex + details.length - 1, c: 1 } });
+                var currencies = Object.keys(item.Details);
+                for (var j = 0; j < currencies.length; j++) {
+                    var currency = currencies[j];
+                    var products = item.Details[currency];
 
-                for (var detailIndex = 0; detailIndex < details.length; detailIndex++) {
-                    var detail = details[detailIndex];
-                    this._createRowByColumnIndex(detail, MAIN_SECTION_STYLE, PRODUCT_COLUMN_INDEX, SUBSIDIARYCOMM_COLUMN_INDEX);
-                    this.currentRowIndex++;
+                    this._createRowByColumnIndex({ CurrencyName: currency }, MAIN_SECTION_STYLE, CURRENCY_COLUMN_INDEX, PRODUCT_COLUMN_INDEX);
+                    this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 1 }, e: { r: this.currentRowIndex + products.length - 1, c: 1 } });
+
+                    for (var k = 0; k < products.length; k++) {
+                        var product = products[k];
+
+                        this._createRowByColumnIndex(product, MAIN_SECTION_STYLE, PRODUCT_COLUMN_INDEX, SUBSIDIARYCOMM_COLUMN_INDEX);
+                        this.currentRowIndex++;
+                    }
                 }
+            }
+        }
+    }, {
+        key: '_createBodyDetailData',
+        value: function _createBodyDetailData() {
+            var mainData = this.gridData.Data;
+
+            for (var i = 0; i < mainData.length; i++) {
+                var item = mainData[i];
+                item.Index = i + 1;
+
+                this._createRowByColumnIndex(item, MAIN_SECTION_STYLE, INDEX_COLUM_INDEX, SUBSIDIARYCOMM_DETAIL_COLUMN_INDEX);
+                this.currentRowIndex++;
             }
         }
     }, {
         key: '_createFooterData',
         value: function _createFooterData() {
             var totalDataList = this.gridData.Total;
+            var subs = Object.keys(totalDataList);
 
-            for (var i = 0; i < totalDataList.length; i++) {
+            for (var i = 0; i < subs.length; i++) {
+                var item = totalDataList[subs[i]];
+
+                this._createRowByColumnIndex({ Subsidiary: _service.TotalText.Total + " " + subs[i], CurrencyName: _service.TotalText.Based + " " + this.baseCurrency }, TOTAL_SECTION_STYLE, SUBSIDIARY_COLUMN_INDEX, CURRENCY_COLUMN_INDEX);
                 this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 1 }, e: { r: this.currentRowIndex, c: 2 } });
-                var item = totalDataList[i];
-                this._createRowByColumnIndex(item, TOTAL_SECTION_STYLE, SUBSIDIARY_COLUMN_INDEX, SUBSIDIARYCOMM_COLUMN_INDEX);
+                this._createRowByColumnIndex(item, TOTAL_SECTION_STYLE, BETCOUNT_COLUMN_INDEX, SUBSIDIARYCOMM_COLUMN_INDEX);
+                this.currentRowIndex++;
+            }
+        }
+    }, {
+        key: '_createFooterDetailData',
+        value: function _createFooterDetailData() {
+            var totalDataList = this.gridData.Total;
+            var subs = Object.keys(totalDataList);
+            var rowSpan = subs.length;
+
+            for (var i = 0; i < rowSpan; i++) {
+                var item = totalDataList[subs[i]];
+
+                this._createRowByColumnIndex({ Index: _service.TotalText.Based + " " + this.baseCurrency }, TOTAL_SECTION_STYLE, INDEX_COLUM_INDEX, EXTERNALID_COLUM_INDEX);
+                this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 0 }, e: { r: this.currentRowIndex + rowSpan - 1, c: 2 } });
+                this._createRowByColumnIndex(item, TOTAL_SECTION_STYLE, CURRENCY_DETAIL_COLUMN_INDEX, SUBSIDIARYCOMM_DETAIL_COLUMN_INDEX);
                 this.currentRowIndex++;
             }
         }
@@ -3739,17 +3777,28 @@ var ReportExcel = function () {
         value: function _createGrandTotalData() {
             this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 1 }, e: { r: this.currentRowIndex, c: 2 } });
             var grandTotal = this.gridData.GrandTotal;
-            this._createRowByColumnIndex(grandTotal, GRAND_TOTAL_SECTION_STYLE, SUBSIDIARY_COLUMN_INDEX, SUBSIDIARYCOMM_COLUMN_INDEX);
+
+            this._createRowByColumnIndex({ Subsidiary: _service.TotalText.Total, CurrencyName: _service.TotalText.Based + " " + this.baseCurrency }, GRAND_TOTAL_SECTION_STYLE, SUBSIDIARY_COLUMN_INDEX, CURRENCY_COLUMN_INDEX);
+            this._createRowByColumnIndex(grandTotal, GRAND_TOTAL_SECTION_STYLE, BETCOUNT_COLUMN_INDEX, SUBSIDIARYCOMM_COLUMN_INDEX);
+        }
+    }, {
+        key: '_createGrandTotalDetailData',
+        value: function _createGrandTotalDetailData() {
+            this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 0 }, e: { r: this.currentRowIndex, c: 3 } });
+            var grandTotal = this.gridData.GrandTotal;
+
+            this._createRowByColumnIndex({ Index: _service.TotalText.Based + " " + this.baseCurrency }, GRAND_TOTAL_SECTION_STYLE, INDEX_COLUM_INDEX, EXTERNALID_COLUM_INDEX);
+            this._createRowByColumnIndex(grandTotal, GRAND_TOTAL_SECTION_STYLE, BETCOUNT_DETAIL_COLUMN_INDEX, SUBSIDIARYCOMM_DETAIL_COLUMN_INDEX);
         }
     }, {
         key: '_createExcelConfig',
         value: function _createExcelConfig() {
             var cellStart = _excel2.default.getCellAddress({ r: 0, c: 0 });
-            var cellEnd = _excel2.default.getCellAddress({ r: this.currentRowIndex, c: COLUMN_COUNT - 1 });
+            var cellEnd = _excel2.default.getCellAddress({ r: this.currentRowIndex, c: this.isCustomerLevel ? COLUMN_DETAIL_COUNT - 1 : COLUMN_COUNT - 1 });
 
             this.worksheet["!merges"] = this.mergeConfig;
             this.worksheet["!ref"] = cellStart + ':' + cellEnd;
-            var wscols = [{ wpx: 150 }, { wpx: 120 }, { wpx: 180 }, { wpx: 120 }, { wpx: 250 }, { wpx: 250 }, { wpx: 250 }, { wpx: 120 }];
+            var wscols = this.isCustomerLevel ? [{ wpx: 30 }, { wpx: 180 }, { wpx: 180 }, { wpx: 180 }, { wpx: 180 }, { wpx: 250 }, { wpx: 250 }, { wpx: 250 }, { wpx: 180 }] : [{ wpx: 150 }, { wpx: 120 }, { wpx: 180 }, { wpx: 120 }, { wpx: 250 }, { wpx: 250 }, { wpx: 250 }, { wpx: 180 }];
 
             this.worksheet['!cols'] = wscols;
         }
@@ -3763,13 +3812,19 @@ var ReportExcel = function () {
                     value = _getCellObject2.value,
                     style = _getCellObject2.style;
 
-                this.worksheet[cellAddress] = { t: type, v: value, s: style };
+                if (cellAddress) {
+                    this.worksheet[cellAddress] = { t: type, v: value, s: style };
+                }
             }
         }
     }, {
         key: '_getCellObject',
         value: function _getCellObject(item, sectionStyle, columnIndex) {
-            var columnConfig = columnConfigs[columnIndex];
+            var columnConfig = this.columnConfigs[columnIndex];
+            if (!columnConfig) {
+                return { cellAddress: null };
+            }
+
             var field = columnConfig.field;
 
             var cellAddress = _excel2.default.getCellAddress({ c: columnIndex, r: this.currentRowIndex });
@@ -3782,6 +3837,50 @@ var ReportExcel = function () {
             }
 
             return { cellAddress: cellAddress, type: type, value: value, style: style };
+        }
+    }, {
+        key: '_getcolumnConfigs',
+        value: function _getcolumnConfigs(isCustomerLevel) {
+            var _columns$push8, _columns$push9, _columns$push10, _columns$push11, _columns$push12;
+
+            var columns = [];
+            if (isCustomerLevel) {
+                var _columns$push, _columns$push4;
+
+                columns.push((_columns$push = {
+                    field: "Index"
+                }, _defineProperty(_columns$push, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.center), _defineProperty(_columns$push, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.center), _defineProperty(_columns$push, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.center), _columns$push), _defineProperty({
+                    field: fields.externalId
+                }, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.center), _defineProperty({
+                    field: fields.systemId
+                }, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.center), (_columns$push4 = {
+                    field: fields.currencyName
+                }, _defineProperty(_columns$push4, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.center), _defineProperty(_columns$push4, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.center), _columns$push4));
+            } else {
+                var _columns$push5, _columns$push6;
+
+                columns.push((_columns$push5 = {
+                    field: fields.subsidiary
+                }, _defineProperty(_columns$push5, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.default), _defineProperty(_columns$push5, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.default), _defineProperty(_columns$push5, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.default), _columns$push5), (_columns$push6 = {
+                    field: fields.currencyName
+                }, _defineProperty(_columns$push6, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.center), _defineProperty(_columns$push6, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.center), _defineProperty(_columns$push6, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.center), _columns$push6), _defineProperty({
+                    field: fields.product
+                }, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.default));
+            }
+
+            columns.push((_columns$push8 = {
+                field: fields.betCount
+            }, _defineProperty(_columns$push8, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.number), _defineProperty(_columns$push8, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.number), _defineProperty(_columns$push8, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.number), _columns$push8), (_columns$push9 = {
+                field: fields.turnover
+            }, _defineProperty(_columns$push9, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.decimal), _defineProperty(_columns$push9, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.decimal), _defineProperty(_columns$push9, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.decimal), _columns$push9), (_columns$push10 = {
+                field: fields.customerWinLoss
+            }, _defineProperty(_columns$push10, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.decimal), _defineProperty(_columns$push10, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.decimal), _defineProperty(_columns$push10, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.decimal), _columns$push10), (_columns$push11 = {
+                field: fields.subsidiaryWinLoss
+            }, _defineProperty(_columns$push11, MAIN_SECTION_STYLE, { positive: _excelStyle.bodyCellStyle.decimal, negative: _excelStyle.bodyCellStyle.negativeDecimal }), _defineProperty(_columns$push11, TOTAL_SECTION_STYLE, { positive: _excelStyle.totalCellStyle.decimal, negative: _excelStyle.totalCellStyle.negativeDecimal }), _defineProperty(_columns$push11, GRAND_TOTAL_SECTION_STYLE, { positive: _excelStyle.grandTotalCellStyle.decimal, negative: _excelStyle.grandTotalCellStyle.negativeDecimal }), _columns$push11), (_columns$push12 = {
+                field: fields.subsidiaryComm
+            }, _defineProperty(_columns$push12, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.decimal), _defineProperty(_columns$push12, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.decimal), _defineProperty(_columns$push12, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.decimal), _columns$push12));
+
+            return columns;
         }
     }]);
 
