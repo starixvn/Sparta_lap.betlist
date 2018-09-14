@@ -41,15 +41,16 @@
         public IEnumerable<string> GetSubsidiaryNames()
         {
             var subsidiaryList = GetSubsidiaryList();
-            var filteredSubsidiaryList = subsidiaryList.Where(x => _sessionService.UserSession.CurrencyList.ContainsKey(x.CurrencyId));
-            return filteredSubsidiaryList.Any() ? filteredSubsidiaryList.Select(x => x.OperatorId).Distinct() : new List<string>();
+            return subsidiaryList.Select(x => x.OperatorId).Distinct();
         }
 
         public IEnumerable<Subsidiary> GetSubsidiaryList()
         {
             var licenseeName = _sessionService.LicenseeSession.LicenseeName;
             var cacheKey = string.Format(CacheKey.MemorycacheSubsidiaryListByLicensee, licenseeName);
-            return _cache.Get(cacheKey, () => _subLicenseeDataAccess.GetSubsidiaryList(licenseeName), CacheTimeoutSeconds);
+            var subsidiaryList = _cache.Get(cacheKey, () => _subLicenseeDataAccess.GetSubsidiaryList(licenseeName), CacheTimeoutSeconds);
+            var currencyList = _sessionService.UserSession.CurrencyList;
+            return subsidiaryList.Where(x => currencyList.ContainsKey(x.CurrencyId)).ToList();
         }
 
         public IDictionary<int, IEnumerable<int>> GetCurrencyAgentList(string subsidiaryNames, bool isExcludeTest = false, int currencyId = 0)
