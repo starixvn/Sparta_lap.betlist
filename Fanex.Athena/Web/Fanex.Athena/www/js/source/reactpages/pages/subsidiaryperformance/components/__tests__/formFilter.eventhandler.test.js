@@ -123,7 +123,7 @@ describe('FormFilter ', () => {
             const formFilter = renderer.create(<FormFilter {...defaultProps} />).toJSON();
             const checkBox = findElementById(formFilter.children, 'IsConvertAll');
 
-            checkBox.props.onClick();
+            checkBox.props.onChange();
 
             expect(defaultProps.changeConvertAll).toHaveBeenCalledWith(true);
         })
@@ -132,7 +132,7 @@ describe('FormFilter ', () => {
             const formFilter = renderer.create(<FormFilter {...defaultProps} />).toJSON();
             const checkBox = findElementById(formFilter.children, 'IncludeDrawData');
 
-            checkBox.props.onClick();
+            checkBox.props.onChange();
 
             expect(defaultProps.changeIncludeDrawData).toHaveBeenCalledWith(false);
         })
@@ -141,7 +141,7 @@ describe('FormFilter ', () => {
             const formFilter = renderer.create(<FormFilter {...defaultProps} />).toJSON();
             const checkBox = findElementById(formFilter.children, 'ExcludeTest');
 
-            checkBox.props.onClick();
+            checkBox.props.onChange();
 
             expect(defaultProps.changeIsExcludeTest).toHaveBeenCalledWith(false);
         })

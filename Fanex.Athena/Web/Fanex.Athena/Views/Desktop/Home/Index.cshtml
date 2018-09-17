@@ -41,7 +41,7 @@
             <div id="notification-marquee" style="color: #C02603"></div>
         </div>
         }
-        <iframe id="mainFrame" name="main" data-src="@(Util.RootPath + ViewBag.DefaultReportUrl)" frameborder="0" scrolling="auto"></iframe>
+        <iframe id="mainFrame" name="main" data-src="@Url.Content("~/" + ViewBag.DefaultReportUrl)" frameborder="0" scrolling="auto"></iframe>
     </main>
 
     <footer>

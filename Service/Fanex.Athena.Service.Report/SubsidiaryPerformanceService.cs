@@ -29,7 +29,10 @@
             _subLicenseePerformanceDataAccess = new SubsidiaryPerformanceDataAccess();
         }
 
-        public SubsidiaryPerformanceService(ISessionService sessionService, ISubsidiaryService subsidiaryService, ISubsidiaryPerformanceDataAccess subLicenseePerformanceDataAccess)
+        public SubsidiaryPerformanceService(
+            ISessionService sessionService, 
+            ISubsidiaryService subsidiaryService, 
+            ISubsidiaryPerformanceDataAccess subLicenseePerformanceDataAccess)
         {
             _sessionService = sessionService;
             _subsidiaryService = subsidiaryService;
@@ -60,7 +63,6 @@
         {
             total.BetCount += detail.BetCount;
             total.Turnover += detail.Turnover;
-            total.SubsidiaryComm += detail.SubsidiaryComm;
             total.SubsidiaryWinLoss += detail.SubsidiaryWinLoss;
             total.CustomerWinLoss += detail.CustomerWinLoss;
         }
@@ -73,8 +75,8 @@
             {
                 var operatorId = userSession.OperatorId;
                 return allSubsidiaries.Where(x => x.OperatorId.Equals(operatorId, System.StringComparison.OrdinalIgnoreCase)).ToList();
-             }
-              
+            }
+
             var selectedSubsidiary = subsidiaryList.Split(',');
             return allSubsidiaries.Join(selectedSubsidiary, oper => oper.OperatorId, sub => sub, (oper, sub) => oper);
         }
@@ -93,17 +95,14 @@
                 entityDataList,
                 oper => oper.AgentId,
                 data => data.SubsidiaryId,
-                (oper, data) => new
+                (oper, data) => new { Subsidiary = oper.OperatorId, Data = data })
+                .GroupBy(
+                data => data.Subsidiary,
+                (subsidiary, subsidiaryData) => new
                 {
-                    Subsidiary = oper.OperatorId,
-                    Data = data
-                }).GroupBy(
-                    data => data.Subsidiary,
-                    (subsidiary, subsidiaryData) => new
-                    {
-                        Subsidiary = subsidiary,
-                        Details = subsidiaryData.GroupBy(x => x.Data.CurrencyId, (currency, currencyData) => currencyData.Select(x => x.Data))
-                    });
+                    Subsidiary = subsidiary,
+                    Details = subsidiaryData.GroupBy(x => x.Data.CurrencyId, (currency, currencyData) => new { CurrencyId = currency, Details = currencyData.Select(y => y.Data) })
+                });
 
             foreach (var subsidiary in subsidiaryGroup)
             {
@@ -113,12 +112,13 @@
                     Details = new Dictionary<string, IEnumerable<SubsidiaryPerformanceBase>>()
                 };
                 var total = new SubsidiaryPerformanceBase { CurrencyName = baseCurrency };
+                var currencyData = subsidiary.Details.OrderBy(x => x.CurrencyId);
 
-                foreach (var currency in subsidiary.Details)
+                foreach (var currency in currencyData)
                 {
-                    var products = GetProducts(currency, total);
+                    var products = GetProducts(currency.Details, total);
 
-                    main.Details.Add(currency.First().CurrencyName, products);
+                    main.Details.Add(currency.Details.First().CurrencyName, products);
                     main.TotalItem += products.Count;
                 }
 
@@ -147,16 +147,14 @@
                         BetCount = item.Sum(x => x.BetCount),
                         Turnover = item.Sum(x => x.Turnover),
                         CustomerWinLoss = item.Sum(x => x.CustomerWinLoss),
-                        SubsidiaryWinLoss = item.Sum(x => x.SubsidiaryWinLoss),
-                        SubsidiaryComm = item.Sum(x => x.SubsidiaryComm)
+                        SubsidiaryWinLoss = item.Sum(x => x.SubsidiaryWinLoss)
                     },
                     BaseData = new SubsidiaryPerformanceBase
                     {
                         BetCount = item.Sum(x => x.BaseCurrencyData.BetCount),
                         Turnover = item.Sum(x => x.BaseCurrencyData.Turnover),
                         CustomerWinLoss = item.Sum(x => x.BaseCurrencyData.CustomerWinLoss),
-                        SubsidiaryWinLoss = item.Sum(x => x.BaseCurrencyData.SubsidiaryWinLoss),
-                        SubsidiaryComm = item.Sum(x => x.BaseCurrencyData.SubsidiaryComm)
+                        SubsidiaryWinLoss = item.Sum(x => x.BaseCurrencyData.SubsidiaryWinLoss)
                     }
                 });
 

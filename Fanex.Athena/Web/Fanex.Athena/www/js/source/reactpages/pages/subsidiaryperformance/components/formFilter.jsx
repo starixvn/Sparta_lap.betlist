@@ -204,7 +204,7 @@ export class FormFilter extends Component {
                         <div className="form-group">
                             <div className="checkbox-group">
                                 <input type="checkbox" className="checkbox" checked={this.props.convertAll} id="IsConvertAll"
-                                    onClick={() => this.props.changeConvertAll(!this.props.convertAll)} />
+                                    onChange={() => this.props.changeConvertAll(!this.props.convertAll)} />
                                 <label htmlFor="IsConvertAll">{LangHelper.getSingleResource("ConvertAllFiguresToBaseCurrency")}</label>
                             </div>
                         </div>
@@ -214,7 +214,7 @@ export class FormFilter extends Component {
                         <div className="form-group">
                            <div className="checkbox-group">
                                 <input type="checkbox" className="checkbox" checked={this.props.includeDrawData} id="IncludeDrawData"
-                                    onClick={() => this.props.changeIncludeDrawData(!this.props.includeDrawData)} />
+                                    onChange={() => this.props.changeIncludeDrawData(!this.props.includeDrawData)} />
                                 <label htmlFor="IncludeDrawData">{LangHelper.getSingleResource("IncludeDrawData")}</label>
                             </div>
                         </div>
@@ -224,7 +224,7 @@ export class FormFilter extends Component {
                         <div className="form-group">
                            <div className="checkbox-group">
                                 <input type="checkbox" className="checkbox" checked={this.props.isExcludeTest} id="ExcludeTest"
-                                    onClick={() => this.props.changeIsExcludeTest(!this.props.isExcludeTest)} />
+                                    onChange={() => this.props.changeIsExcludeTest(!this.props.isExcludeTest)} />
                                 <label htmlFor="ExcludeTest">{LangHelper.getSingleResource("ExcludeTestData")}</label>
                             </div>
                         </div>

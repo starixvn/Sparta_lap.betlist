@@ -10,7 +10,6 @@ export const HeaderText = {
     Turnover: LangHelper.getSingleResource("Turnover"),
     CustomerWinLoss: LangHelper.getSingleResource("CustomerW_L"),
     SubsidiaryWinLoss: `${LangHelper.getSingleResource("SubsidiaryWL")}`,
-    SubsidiaryComm: `${LangHelper.getSingleResource("Subsidiary")} ${LangHelper.getSingleResource("Comm")}`,
     ExternalId: LangHelper.getSingleResource("ExternalId"),
     SystemId: LangHelper.getSingleResource("SystemId"),
 }

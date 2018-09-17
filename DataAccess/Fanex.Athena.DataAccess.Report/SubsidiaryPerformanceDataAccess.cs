@@ -108,8 +108,7 @@
                     BetCount = Convert.ToInt32(reader["BetCount"]),
                     Turnover = Convert.ToDecimal(reader["TurnoverBase"]),
                     CustomerWinLoss = Convert.ToDecimal(reader["WinlostBase"]),
-                    SubsidiaryWinLoss = Convert.ToDecimal(reader["LicenseeWLBase"]),
-                    SubsidiaryComm = Convert.ToDecimal(reader["SubsidiaryCommBase"])
+                    SubsidiaryWinLoss = Convert.ToDecimal(reader["LicenseeWLBase"])
                 }
             };
             result.BetCount = result.BaseCurrencyData.BetCount;
@@ -119,14 +118,12 @@
                 result.Turnover = result.BaseCurrencyData.Turnover;
                 result.CustomerWinLoss = result.BaseCurrencyData.CustomerWinLoss;
                 result.SubsidiaryWinLoss = result.BaseCurrencyData.SubsidiaryWinLoss;
-                result.SubsidiaryComm = result.BaseCurrencyData.SubsidiaryComm;
             }
             else
             {
                 result.Turnover = Convert.ToDecimal(reader["Turnover"]);
                 result.CustomerWinLoss = Convert.ToDecimal(reader["Winlost"]);
                 result.SubsidiaryWinLoss = Convert.ToDecimal(reader["LicenseeWL"]);
-                result.SubsidiaryComm = Convert.ToDecimal(reader["SubsidiaryComm"]);
             }
 
             return result;
@@ -142,10 +139,9 @@
                 CurrencyName = GetCurrencyName(currencyId),
                 CurrencyId = currencyId,
                 BetCount = Convert.ToInt32(reader["BetCount"]),
-                Turnover = Convert.ToDecimal(reader["TurnoverBase" + baseColumnSuffix]),
-                CustomerWinLoss = Convert.ToDecimal(reader["WinlostBase" + baseColumnSuffix]),
-                SubsidiaryWinLoss = Convert.ToDecimal(reader["LicenseeWLBase" + baseColumnSuffix]),
-                SubsidiaryComm = Convert.ToDecimal(reader["SubsidiaryCommBase" + baseColumnSuffix])
+                Turnover = Convert.ToDecimal(reader["Turnover" + baseColumnSuffix]),
+                CustomerWinLoss = Convert.ToDecimal(reader["Winlost" + baseColumnSuffix]),
+                SubsidiaryWinLoss = Convert.ToDecimal(reader["LicenseeWL" + baseColumnSuffix])
             };
 
             return result;
@@ -164,7 +160,6 @@
             total.Turnover += Convert.ToDecimal(reader["TurnoverBase"]);
             total.CustomerWinLoss += Convert.ToDecimal(reader["WinlostBase"]);
             total.SubsidiaryWinLoss = Convert.ToDecimal(reader["LicenseeWLBase"]);
-            total.SubsidiaryComm += Convert.ToDecimal(reader["SubsidiaryCommBase"]);
         }
 
         private void CalculateDetailTotal(SubsidiaryPerformanceDetail detail, IDictionary<string, SubsidiaryPerformanceDetail> totalList)
@@ -180,7 +175,6 @@
             total.Turnover += detail.Turnover;
             total.CustomerWinLoss += detail.CustomerWinLoss;
             total.SubsidiaryWinLoss = detail.SubsidiaryWinLoss;
-            total.SubsidiaryComm += detail.SubsidiaryComm;
         }
 
         private SubsidiaryPerformanceDetail CalculateDetailGrandTotal(string baseCurrency, IEnumerable<SubsidiaryPerformanceDetail> total)
@@ -191,8 +185,7 @@
                 BetCount = total.Sum(x => x.BetCount),
                 Turnover = total.Sum(x => x.Turnover),
                 CustomerWinLoss = total.Sum(x => x.CustomerWinLoss),
-                SubsidiaryWinLoss = total.Sum(x => x.SubsidiaryWinLoss),
-                SubsidiaryComm = total.Sum(x => x.SubsidiaryComm)
+                SubsidiaryWinLoss = total.Sum(x => x.SubsidiaryWinLoss)
             };
         }
 

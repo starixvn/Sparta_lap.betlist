@@ -85,8 +85,8 @@
                     otherAgentList = otherAgentList.Where(x => x.Key == currencyId).ToDictionary(x => x.Key, x => x.Value);
                 }
 
-                currencyAgentList = currencyAgentList.Union(otherAgentList).GroupBy(x => x.Key).
-                    ToDictionary(x => x.Key, x => x.SelectMany(g => g.Value).Except(exceptedAgentList).Distinct());
+                currencyAgentList = currencyAgentList.Union(otherAgentList).GroupBy(x => x.Key)
+                    .ToDictionary(x => x.Key, x => x.SelectMany(g => g.Value).Except(exceptedAgentList).Distinct());
                 currencyAgentList = currencyAgentList.Where(x => x.Value.Any()).ToDictionary(x => x.Key, x => x.Value);
             }
 

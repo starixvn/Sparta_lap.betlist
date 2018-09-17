@@ -67,7 +67,6 @@ export class DataGrid extends Component {
                 <Cell colWidth={200} header={true} title={HeaderText.Turnover}>{HeaderText.Turnover}</Cell>
                 <Cell colWidth={200} header={true} title={HeaderText.CustomerWinLoss}>{HeaderText.CustomerWinLoss}</Cell>
                 <Cell colWidth={200} header={true} title={HeaderText.SubsidiaryWinLoss}>{HeaderText.SubsidiaryWinLoss}</Cell>
-                <Cell colWidth={150} header={true} title={HeaderText.SubsidiaryComm}>{HeaderText.SubsidiaryComm}</Cell>
             </Row>
         )
     }
@@ -217,15 +216,13 @@ export class DataGrid extends Component {
         const betcount = NumberFormat.format(data.BetCount),
             turnover = NumberFormat.formatDecimal(data.Turnover),
             customerWinLoss = NumberFormat.formatDecimal(data.CustomerWinLoss),
-            subsidiaryWinLoss = NumberFormat.formatDecimal(data.SubsidiaryWinLoss),
-            subsidiaryComm = NumberFormat.formatDecimal(data.SubsidiaryComm);
+            subsidiaryWinLoss = NumberFormat.formatDecimal(data.SubsidiaryWinLoss);
 
         const cells = [
             <Cell key={`${index}-bc`} title={betcount} className="right-align">{betcount}</Cell>,
             <Cell key={`${index}-tn`} title={turnover} className="right-align">{turnover}</Cell>,
             <Cell key={`${index}-cw`} title={customerWinLoss} className="right-align">{customerWinLoss}</Cell>,
             <Cell key={`${index}-sw`} title={subsidiaryWinLoss} className={`right-align ${data.SubsidiaryWinLoss < 0 ? "negative" : ""}`}>{subsidiaryWinLoss}</Cell>,
-            <Cell key={`${index}-sc`} title={subsidiaryComm} className="right-align">{subsidiaryComm}</Cell>
         ];
 
         return cells;
