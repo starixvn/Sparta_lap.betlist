@@ -3645,7 +3645,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
 
                 rows.push(_react2.default.createElement(
                     _fixedTableHeader.Row,
-                    { key: 'tr' + i },
+                    { key: item.Ticks + item.CurrencyId },
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
                         { title: i + 1, className: 'center-align' },
@@ -3680,7 +3680,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
                 var item = total[i];
                 totalRows.push(_react2.default.createElement(
                     _fixedTableHeader.Row,
-                    { key: 'tr-total' + i, className: 'fixed-table-total' },
+                    { key: item.CurrencyName, className: 'fixed-table-total' },
                     i === 0 && _react2.default.createElement(
                         _fixedTableHeader.Cell,
                         { title: _service.TotalText.total, className: 'center-align', rowSpan: rowSpan, colSpan: colSpan },
