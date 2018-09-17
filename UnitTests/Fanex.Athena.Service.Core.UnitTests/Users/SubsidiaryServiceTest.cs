@@ -7,6 +7,7 @@
     using Interfaces;
     using NSubstitute;
     using NUnit.Framework;
+    using Session.Model;
 
     [TestFixture]
     public class SubsidiaryServiceTest
@@ -21,6 +22,15 @@
         public void SetUp()
         {
             _sessionService = Substitute.For<ISessionService>();
+            _sessionService.LicenseeSession.Returns(new LicenseeSession
+            {
+                LicenseeName = LicenseeName
+            });
+            _sessionService.UserSession.Returns(new UserSession
+            {
+                CurrencyList = new Dictionary<int, string>()
+            });
+
             _dataAccess = Substitute.For<ISubsidiaryDataAccess>();
             _cache = Substitute.For<IMemoryCacheService>();
             _service = new SubsidiaryService(_sessionService, _dataAccess, _cache);
