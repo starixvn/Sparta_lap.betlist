@@ -8,7 +8,7 @@ exports[`FormFilter  render methods render whole component match to snapshot 1`]
     className="row"
   >
     <div
-      className="col-12 col-md-3 col-sm-5 col-lg-2 col-xl-2"
+      className="col-12 col-md-3 col-sm-5 col-lg-3 col-xl-3"
     >
       <div
         className="form-group"
@@ -34,6 +34,7 @@ exports[`FormFilter  render methods render whole component match to snapshot 1`]
             ]
           }
           hasAllOption={true}
+          hasSearchBox={true}
           keyField="Name"
           noneSelectedLabel="SelectOptions"
           onChange={[Function]}
@@ -101,6 +102,7 @@ exports[`FormFilter  render methods render whole component match to snapshot 1`]
             ]
           }
           hasAllOption={true}
+          hasSearchBox={false}
           keyField="Code"
           noneSelectedLabel="SelectOptions"
           onChange={[Function]}
@@ -189,7 +191,7 @@ exports[`FormFilter  render methods render whole component match to snapshot 1`]
     className="row"
   >
     <div
-      className="col-12 col-md-12 col-sm-12 col-lg-6 col-xl-6"
+      className="col-12 col-md-4 col-sm-5 col-lg-3 col-xl-3"
     >
       <div
         className="form-group"
@@ -210,18 +212,70 @@ exports[`FormFilter  render methods render whole component match to snapshot 1`]
             ConvertAllFiguresToBaseCurrency
           </label>
         </div>
+      </div>
+    </div>
+    <div
+      className="col-12 col-md-3 col-sm-6 col-lg-2 col-xl-2"
+    >
+      <div
+        className="form-group"
+      >
         <div
-          className="button-group"
+          className="checkbox-group"
         >
-          <button
-            className="btn btn-submit"
-            disabled={false}
+          <input
+            checked={undefined}
+            className="checkbox"
+            id="IncludeDrawData"
             onClick={[Function]}
-            type="button"
+            type="checkbox"
+          />
+          <label
+            htmlFor="IncludeDrawData"
           >
-            Submit
-          </button>
+            IncludeDrawData
+          </label>
         </div>
+      </div>
+    </div>
+    <div
+      className="col-12 col-md-3 col-sm-5 col-lg-2 col-xl-2"
+    >
+      <div
+        className="form-group"
+      >
+        <div
+          className="checkbox-group"
+        >
+          <input
+            checked={undefined}
+            className="checkbox"
+            id="ExcludeTest"
+            onClick={[Function]}
+            type="checkbox"
+          />
+          <label
+            htmlFor="ExcludeTest"
+          >
+            ExcludeTestData
+          </label>
+        </div>
+      </div>
+    </div>
+    <div
+      className="col-12 col-md-2 col-sm-4 col-lg-2 col-xl-2"
+    >
+      <div
+        className="button-group"
+      >
+        <button
+          className="btn btn-submit"
+          disabled={false}
+          onClick={[Function]}
+          type="button"
+        >
+          Submit
+        </button>
       </div>
     </div>
   </div>

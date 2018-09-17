@@ -49,6 +49,7 @@ export class FormFilter extends Component {
             .then(response => {
                 if (!response.data.Data.length) {
                     alert(LangHelper.getSingleResource("NoInfo"));
+                    this.props.toggleLoader(false);
                     return;
                 }
 
@@ -213,7 +214,7 @@ export class FormFilter extends Component {
                         <div className="form-group">
                            <div className="checkbox-group">
                                 <input type="checkbox" className="checkbox" checked={this.props.includeDrawData} id="IncludeDrawData"
-                                    onChange={() => this.props.changeIncludeDrawData(!this.props.includeDrawData)} />
+                                    onClick={() => this.props.changeIncludeDrawData(!this.props.includeDrawData)} />
                                 <label htmlFor="IncludeDrawData">{LangHelper.getSingleResource("IncludeDrawData")}</label>
                             </div>
                         </div>
@@ -223,7 +224,7 @@ export class FormFilter extends Component {
                         <div className="form-group">
                            <div className="checkbox-group">
                                 <input type="checkbox" className="checkbox" checked={this.props.isExcludeTest} id="ExcludeTest"
-                                    onChange={() => this.props.changeIsExcludeTest(!this.props.isExcludeTest)} />
+                                    onClick={() => this.props.changeIsExcludeTest(!this.props.isExcludeTest)} />
                                 <label htmlFor="ExcludeTest">{LangHelper.getSingleResource("ExcludeTestData")}</label>
                             </div>
                         </div>

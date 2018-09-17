@@ -45,13 +45,17 @@ exports[`MultipleSelect  render showOptionList = false - render component with "
           className="option-label"
           htmlFor="multiple-select-20-optionItemAll"
         >
-          All
+          (All)
         </label>
       </li>
     </ul>
     <ul
       className="multiple-select-options"
-    />
+    >
+      <span>
+        No information
+      </span>
+    </ul>
   </div>
 </div>
 `;
@@ -101,13 +105,17 @@ exports[`MultipleSelect  render showOptionList = true - render component with "d
           className="option-label"
           htmlFor="multiple-select-21-optionItemAll"
         >
-          All
+          (All)
         </label>
       </li>
     </ul>
     <ul
       className="multiple-select-options"
-    />
+    >
+      <span>
+        No information
+      </span>
+    </ul>
   </div>
 </div>
 `;

@@ -1,7 +1,3 @@
-const Data = [],
-    Total = [],
-    GrandTotal = {};
-
 const defaultProps = {
     subsidiaryList: [{ ID: 1, Name: "New York", Checked: true }, { ID: 2, Name: "India", Checked: false }],
     productOptions: [{ Code: "SB", Name: "Sportsbook", Status: true }, { Code: "BA", Name: "BA", Status: true }],
@@ -9,14 +5,18 @@ const defaultProps = {
     selectedBaseCurrency: "EUR",
     dateRange: { fromDate: '09/26/2017', toDate: '09/28/2017' },
     dateConstraint: { minDate: '06/01/2012', maxDate: '09/28/2017' },
-    gridData: { Data, Total, GrandTotal },
     xsrfToken: "token",
+    includeDrawData: true,
+    isExcludeTest: true,
 
     setSelectedProduct: jest.fn(),
     setSelectedSubsidiary: jest.fn(),
     setDateRange: jest.fn(),
     toggleLoader: jest.fn(),
-    changeConvertAll: jest.fn()
+    changeConvertAll: jest.fn(),
+    setParams: jest.fn(),
+    changeIncludeDrawData: jest.fn(),
+    changeIsExcludeTest: jest.fn()
 }
 
 const bodyData = [{
