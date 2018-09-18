@@ -122,7 +122,10 @@ namespace Fanex.Athena.Controllers.Customer
 
             var model = CreateCustomerViewModel(metaModel);
 
-            this.SetValueForBaStatus(model);
+            if (model.IsSubsidiary)
+            {
+                this.SetValueForBaStatus(model);
+            }
             ViewBag.ProductList = productAccess.ProductList.Select(x => x.ProductCode);
             return View("~/Views/Customer/Customers.cshtml", model);
         }
