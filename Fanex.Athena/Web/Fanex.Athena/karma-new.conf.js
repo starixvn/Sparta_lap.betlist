@@ -6,7 +6,7 @@ module.exports = function (config) {
         basePath: '',
         frameworks: ['jasmine-jquery', 'jasmine', 'requirejs'],
         files: [
-            'bower_components/jasmine-ajax/lib/mock-ajax.js',
+            'node_modules/jasmine-ajax/lib/mock-ajax.js',
             { pattern: "node_modules/squirejs/src/Squire.js", included: false },
             { pattern: "node_modules/hammerjs/hammer.js", included: false },
             { pattern: "node_modules/moment/**/*.js", included: false },
