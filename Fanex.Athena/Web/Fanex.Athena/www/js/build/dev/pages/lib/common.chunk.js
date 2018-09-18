@@ -20132,7 +20132,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/*global _lan
         }
 
         function setProductOptionParam(url, counter, productCode, status) {
-            productCode = productCode == null || productCode === undefined ? undefined : productCode.toUpperCase();
+            productCode = productCode == null ? undefined : productCode.toUpperCase();
             url = QueryString.setParam(url, "ProductOptions[" + counter + "].Code", productCode);
             url = QueryString.setParam(url, "ProductOptions[" + counter + "].Name", productCode);
             url = QueryString.setParam(url, "ProductOptions[" + counter + "].Status", status);
@@ -20249,7 +20249,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/*global _lan
             return !!input;
         }
         function getSingleResource(enghlishName) {
-            if (enghlishName == null || enghlishName === undefined) {
+            if (enghlishName == null) {
                 return enghlishName;
             }
 

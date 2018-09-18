@@ -147,7 +147,7 @@
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push([51,"www/js/build/dev/pages/lib/common"]);
+/******/ 	deferredModules.push([48,"www/js/build/dev/pages/lib/common"]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
@@ -1865,7 +1865,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 /***/ }),
 
-/***/ 51:
+/***/ 48:
 /*!********************************************************************!*\
   !*** multi ./www/js/source/pages/customer/betsetting/main-keno.js ***!
   \********************************************************************/

@@ -147,7 +147,7 @@
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push([59,"www/js/build/dev/pages/lib/common","www/js/build/dev/pages/lib/jqgrid"]);
+/******/ 	deferredModules.push([56,"www/js/build/dev/pages/lib/common","www/js/build/dev/pages/lib/jqgrid"]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
@@ -4954,6 +4954,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             var popH = Math.min($(window).height() - 100, 650), popW = 920;
             var popupOption = { id: "betlist-popup", width: popW + 50, height: popH + 50, title: title };
             Popup.openPopupWithIframe(url, popupOption);
+            window.logOpenBetlistEvent && window.logOpenBetlistEvent();
         }
 
         function buildPostData() {
@@ -5381,7 +5382,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 /***/ }),
 
-/***/ 59:
+/***/ 56:
 /*!***********************************************************************!*\
   !*** multi ./www/js/source/pages/report/customerpendingfunds/main.js ***!
   \***********************************************************************/

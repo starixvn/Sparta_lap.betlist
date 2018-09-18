@@ -147,7 +147,7 @@
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push([45,"www/js/build/dev/pages/lib/common","www/js/build/dev/pages/lib/jqgrid"]);
+/******/ 	deferredModules.push([42,"www/js/build/dev/pages/lib/common","www/js/build/dev/pages/lib/jqgrid"]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
@@ -5644,7 +5644,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             __webpack_require__(/*! components/pluginhelper/daterangepicker */ "./www/js/source/components/pluginhelper/daterangepicker.js"), __webpack_require__(/*! components/pluginhelper/multiselect */ "./www/js/source/components/pluginhelper/multiselect.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, QueryString, Report, DailyStatement, BetList, DatePicker, MultiSelect) {
         var _viewName;
         var _viewOption;
-        window.serverPaging = true;
+
         function getViewOption() {
             return {
                 "betlistrunning": {
@@ -5754,11 +5754,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             },
 
             submitCompletedBetList: function (params) {
+                window.serverPaging = true;
                 var url = Site.resolveClientUrl('api/OutstandingCompletedBetList/Index');
                 BetList.loadDataPaging(url, params);
             },
 
             submitRunningBetList: function (params) {
+                window.serverPaging = false;
                 var url = Site.resolveClientUrl('api/OutstandingRunningBetList/Index');
                 BetList.loadData(params, url);
             },
@@ -5989,7 +5991,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 /***/ }),
 
-/***/ 45:
+/***/ 42:
 /*!************************************************************!*\
   !*** multi ./www/js/source/pages/betlist/customer/main.js ***!
   \************************************************************/

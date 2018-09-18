@@ -147,7 +147,7 @@
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push([61,"www/js/build/dev/pages/lib/common","www/js/build/dev/pages/lib/jqgrid"]);
+/******/ 	deferredModules.push([58,"www/js/build/dev/pages/lib/common","www/js/build/dev/pages/lib/jqgrid"]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
@@ -6234,7 +6234,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             GridId: "ReportGrid",
             IsHistoryInput: "#IsHistory",
             IsAllowedBAInput: "#IsAllowedBA",
-            IsAllowedRBInput: "#IsAllowedRB",
             IsAllowedCustomerCommissionInput: "#IsAllowedCustomerCommission",
             HistoryLink: "#history-report-link",
             CurrentLink: "#current-report-link",
@@ -6329,7 +6328,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
         function initSetting() {
             CustomerWinLossOption.isAllowBA = Site.asBool($(_selector.IsAllowedBAInput).val());
-            CustomerWinLossOption.isAllowRB = Site.asBool($(_selector.IsAllowedRBInput).val());
             CustomerWinLossOption.hasCustomerComm = Site.asBool($(_selector.IsAllowedCustomerCommissionInput).val());
             resetParam();
         }
@@ -6438,6 +6436,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             var popH = Math.min($(window).height() - 100, 650), popW = 920;
             var popupOption = { id: "betlist-popup", width: popW + 50, height: popH + 50, title: "Customer Bet List" };
             Popup.openPopupWithIframe(url, popupOption);
+            window.logOpenBetlistEvent && window.logOpenBetlistEvent();
         }
 
         function setReportTitle() {
@@ -6739,36 +6738,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             formatter: "currency",
             formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
         };
-
-        var racingRevenueColumn =
-        {
-            name: "RacingRevenue",
-            index: "RacingRevenue",
-            width: 100,
-            align: "right",
-            sortable: true,
-            resizable: false,
-            formatter: "currency",
-            formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
-        };
-
         var amtDueToBAColumn =
         {
             name: "AmtDueToBA",
             index: "AmtDueToBA",
             width: 100,
-            align: "right",
-            sortable: true,
-            resizable: false,
-            formatter: "currency",
-            formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
-        };
-
-        var amtDueToRacingColumn =
-        {
-            name: "AmtDueToRacing",
-            index: "AmtDueToRacing",
-            width: 90,
             align: "right",
             sortable: true,
             resizable: false,
@@ -6788,9 +6762,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             "EffectiveBettingValue",
             "LicenseeW_L",
             "BACommission",
-            "RacingRevenue",
-            "AmtDueToBA",
-            "AmtDueToRacing"
+            "AmtDueToBA"
         ];
 
         var colModelList = [
@@ -6805,9 +6777,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             betEffectiveColumn,
             licenseeWLColumn,
             bacommColumn,
-            racingRevenueColumn,
-            amtDueToBAColumn,
-            amtDueToRacingColumn
+            amtDueToBAColumn
         ];
 
         var _me =
@@ -6816,7 +6786,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             urlExcelData: "api/CustomerWinLossReport/Index",
             hasCustomerComm: true,
             isAllowBA: true,
-            isAllowRB: true,
             customerCommIndex: 11,
             productBAIndex: 13,
             customerWlIndex: 5,
@@ -6876,8 +6845,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 playerCommColumn.hidden = !_me.hasCustomerComm;
                 bacommColumn.hidden = !_me.isAllowBA;
                 amtDueToBAColumn.hidden = !_me.isAllowBA;
-                racingRevenueColumn.hidden = !_me.isAllowRB;
-                amtDueToRacingColumn.hidden = !_me.isAllowRB;
                 systemIdColumn.hidden = Site.isFakeLicensee();
 
                 var colModels = Site.clone(colModelList);
@@ -7089,7 +7056,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 /***/ }),
 
-/***/ 61:
+/***/ 58:
 /*!******************************************************************!*\
   !*** multi ./www/js/source/pages/report/customerwinloss/main.js ***!
   \******************************************************************/

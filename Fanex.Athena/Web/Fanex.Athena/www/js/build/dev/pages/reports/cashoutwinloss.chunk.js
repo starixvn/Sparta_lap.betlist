@@ -147,7 +147,7 @@
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push([30,"www/js/build/dev/pages/lib/common","www/js/build/dev/pages/lib/jqgrid"]);
+/******/ 	deferredModules.push([28,"www/js/build/dev/pages/lib/common","www/js/build/dev/pages/lib/jqgrid"]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
@@ -4212,6 +4212,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 var popH = Math.min($(window).height() - 100, 650), popW = 920;
                 var popupOption = { id: "betlist-popup", width: popW + 50, height: popH + 50, title: "Customer Bet List" };
                 Popup.openPopupWithIframe(url, popupOption);
+                window.logOpenBetlistEvent && window.logOpenBetlistEvent();
             },
             lastDateOfMonth: function (year, month) {
                 return moment([year, month + 1]).endOf('month');
@@ -4793,7 +4794,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 /***/ }),
 
-/***/ 30:
+/***/ 28:
 /*!*****************************************************************!*\
   !*** multi ./www/js/source/pages/report/cashoutwinloss/main.js ***!
   \*****************************************************************/

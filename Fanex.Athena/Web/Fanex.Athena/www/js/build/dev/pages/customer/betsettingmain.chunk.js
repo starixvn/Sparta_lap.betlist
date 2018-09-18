@@ -147,7 +147,7 @@
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push([47,"www/js/build/dev/pages/lib/common"]);
+/******/ 	deferredModules.push([44,"www/js/build/dev/pages/lib/common"]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
@@ -1877,25 +1877,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     var Product = Constant.Product;
 
     function getConfirmMessage(productId) {
-        switch (productId) {
-            case Product.Sportsbook:
-                return "UpdateSportsbookBetSettings";
-            case Product.Racing:
-                return "UpdateRacingBetSettings";
-            default:
-                return "";
-        }
+        return productId == Product.Sportsbook ? "UpdateSportsbookBetSettings" : "";
     }
 
     function getUpdateUrl(productId) {
-        switch (productId) {
-            case Product.Sportsbook:
-                return "SportsbookBetSetting/UpdateBetSetting";
-            case Product.Racing:
-                return "RacingBetSetting/UpdateBetSetting";
-            default:
-                return null;
-        }
+        return productId == Product.Sportsbook ? "SportsbookBetSetting/UpdateBetSetting" : null;
     }
 
     var _me = {
@@ -1951,7 +1937,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 /***/ }),
 
-/***/ 47:
+/***/ 44:
 /*!**************************************************************************!*\
   !*** multi ./www/js/source/pages/customer/betsetting/main-betsetting.js ***!
   \**************************************************************************/

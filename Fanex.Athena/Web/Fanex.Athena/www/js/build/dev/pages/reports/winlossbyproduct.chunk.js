@@ -147,7 +147,7 @@
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push([31,"www/js/build/dev/pages/lib/common","www/js/build/dev/pages/lib/jqgrid"]);
+/******/ 	deferredModules.push([29,"www/js/build/dev/pages/lib/common","www/js/build/dev/pages/lib/jqgrid"]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
@@ -5189,7 +5189,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             initSetting: function () {
                 WinLossByProductOption.hasCustomerComm = Site.asBool($("#IsAllowedCustomerCommission").val());
                 WinLossByProductOption.IsAllowBA = Site.asBool($("#IsAllowedBACommission").val());
-                WinLossByProductOption.IsAllowRB = Site.asBool($("#IsAllowedRacing").val());
                 WinLossByProductOption.licenseeId = parseInt($("#drillDownLicenseeId").val());
             },
 
@@ -5494,6 +5493,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 var popH = Math.min($(window).height() - 100, 500), popW = 920;
                 var popupOption = { id: "betlist-popup", width: popW + 30, height: popH + 50, title: "Customer Bet List" };
                 Popup.openPopupWithIframe(url, popupOption);
+                window.logOpenBetlistEvent && window.logOpenBetlistEvent();
             },
 
             resizeGrid: function () {
@@ -5760,7 +5760,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         customerWlIndex: 8,
         hasCustomerComm: true,
         IsAllowBA: true,
-        IsAllowRB: true,
         pageSize: 50,
         nonePagingSize: 2000,
         rowNum: 50,
@@ -5804,7 +5803,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         // Column hidden by customer comm
         customerWlTotalColumn.hidden = !_me.hasCustomerComm;
         playerCommColumn.hidden = !_me.hasCustomerComm;
-        LicenseeWlCommColumn.hidden = !_me.IsAllowBA && !_me.IsAllowRB;
+        LicenseeWlCommColumn.hidden = !_me.IsAllowBA;
         // Column hidden by level
         currencyColumn.formatter = level === 0 ? currencyFormatter : null;
         systemIdColumn.formatter = level === 1 ? systemIdFormatter : null;
@@ -5867,7 +5866,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 /***/ }),
 
-/***/ 31:
+/***/ 29:
 /*!************************************************************************************!*\
   !*** multi ./www/js/source/pages/report/winlossbyproduct/main-winlossbyproduct.js ***!
   \************************************************************************************/

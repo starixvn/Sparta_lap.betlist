@@ -1113,6 +1113,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 var popH = Math.min(parent.innerHeight - 100, 700), popW = 960;
 
                 Popup.updateCurrentPopup(url, { width: popW, height: popH, title: Site.getSingleResource("BetList") });
+                window.logOpenBetlistEvent && window.logOpenBetlistEvent();
             },
 
             setCurrentScore: function () {

@@ -2081,7 +2081,7 @@ function fromByteArray (uint8) {
 
   var Buffer;
   try {
-    Buffer = __webpack_require__(/*! buffer */ 9).Buffer;
+    Buffer = __webpack_require__(/*! buffer */ 10).Buffer;
   } catch (e) {
   }
 
@@ -5523,7 +5523,7 @@ if (typeof self === 'object') {
 } else {
   // Node.js or Web worker with no crypto support
   try {
-    var crypto = __webpack_require__(/*! crypto */ 10);
+    var crypto = __webpack_require__(/*! crypto */ 11);
     if (typeof crypto.randomBytes !== 'function')
       throw new Error('Not supported');
 
@@ -14921,10 +14921,10 @@ utils.intFromLE = intFromLE;
 /*!********************************************!*\
   !*** ./node_modules/elliptic/package.json ***!
   \********************************************/
-/*! exports provided: _args, _from, _id, _inCache, _location, _nodeVersion, _npmOperationalInternal, _npmUser, _npmVersion, _phantomChildren, _requested, _requiredBy, _resolved, _shasum, _shrinkwrap, _spec, _where, author, bugs, dependencies, description, devDependencies, directories, dist, files, gitHead, homepage, keywords, license, main, maintainers, name, optionalDependencies, readme, repository, scripts, version, default */
+/*! exports provided: _args, _development, _from, _id, _inBundle, _integrity, _location, _phantomChildren, _requested, _requiredBy, _resolved, _spec, _where, author, bugs, dependencies, description, devDependencies, files, homepage, keywords, license, main, name, repository, scripts, version, default */
 /***/ (function(module) {
 
-module.exports = {"_args":[[{"raw":"elliptic@^6.0.0","scope":null,"escapedName":"elliptic","name":"elliptic","rawSpec":"^6.0.0","spec":">=6.0.0 <7.0.0","type":"range"},"D:\\GITLab\\lrf\\Fanex.Athena\\Web\\Fanex.Athena\\node_modules\\browserify-sign"]],"_from":"elliptic@>=6.0.0 <7.0.0","_id":"elliptic@6.4.0","_inCache":true,"_location":"/elliptic","_nodeVersion":"7.0.0","_npmOperationalInternal":{"host":"packages-18-east.internal.npmjs.com","tmp":"tmp/elliptic-6.4.0.tgz_1487798866428_0.30510620190761983"},"_npmUser":{"name":"indutny","email":"fedor@indutny.com"},"_npmVersion":"3.10.8","_phantomChildren":{},"_requested":{"raw":"elliptic@^6.0.0","scope":null,"escapedName":"elliptic","name":"elliptic","rawSpec":"^6.0.0","spec":">=6.0.0 <7.0.0","type":"range"},"_requiredBy":["/browserify-sign","/create-ecdh"],"_resolved":"https://registry.npmjs.org/elliptic/-/elliptic-6.4.0.tgz","_shasum":"cac9af8762c85836187003c8dfe193e5e2eae5df","_shrinkwrap":null,"_spec":"elliptic@^6.0.0","_where":"D:\\GITLab\\lrf\\Fanex.Athena\\Web\\Fanex.Athena\\node_modules\\browserify-sign","author":{"name":"Fedor Indutny","email":"fedor@indutny.com"},"bugs":{"url":"https://github.com/indutny/elliptic/issues"},"dependencies":{"bn.js":"^4.4.0","brorand":"^1.0.1","hash.js":"^1.0.0","hmac-drbg":"^1.0.0","inherits":"^2.0.1","minimalistic-assert":"^1.0.0","minimalistic-crypto-utils":"^1.0.0"},"description":"EC cryptography","devDependencies":{"brfs":"^1.4.3","coveralls":"^2.11.3","grunt":"^0.4.5","grunt-browserify":"^5.0.0","grunt-cli":"^1.2.0","grunt-contrib-connect":"^1.0.0","grunt-contrib-copy":"^1.0.0","grunt-contrib-uglify":"^1.0.1","grunt-mocha-istanbul":"^3.0.1","grunt-saucelabs":"^8.6.2","istanbul":"^0.4.2","jscs":"^2.9.0","jshint":"^2.6.0","mocha":"^2.1.0"},"directories":{},"dist":{"shasum":"cac9af8762c85836187003c8dfe193e5e2eae5df","tarball":"https://registry.npmjs.org/elliptic/-/elliptic-6.4.0.tgz"},"files":["lib"],"gitHead":"6b0d2b76caae91471649c8e21f0b1d3ba0f96090","homepage":"https://github.com/indutny/elliptic","keywords":["EC","Elliptic","curve","Cryptography"],"license":"MIT","main":"lib/elliptic.js","maintainers":[{"name":"indutny","email":"fedor@indutny.com"}],"name":"elliptic","optionalDependencies":{},"readme":"ERROR: No README data found!","repository":{"type":"git","url":"git+ssh://git@github.com/indutny/elliptic.git"},"scripts":{"jscs":"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js","jshint":"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js","lint":"npm run jscs && npm run jshint","test":"npm run lint && npm run unit","unit":"istanbul test _mocha --reporter=spec test/index.js","version":"grunt dist && git add dist/"},"version":"6.4.0"};
+module.exports = {"_args":[["elliptic@6.4.0","D:\\GITLab\\lrf\\Fanex.Athena\\Web\\Fanex.Athena"]],"_development":true,"_from":"elliptic@6.4.0","_id":"elliptic@6.4.0","_inBundle":false,"_integrity":"sha1-ysmvh2LIWDYYcAPI3+GT5eLq5d8=","_location":"/elliptic","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"elliptic@6.4.0","name":"elliptic","escapedName":"elliptic","rawSpec":"6.4.0","saveSpec":null,"fetchSpec":"6.4.0"},"_requiredBy":["/browserify-sign","/create-ecdh"],"_resolved":"https://registry.npmjs.org/elliptic/-/elliptic-6.4.0.tgz","_spec":"6.4.0","_where":"D:\\GITLab\\lrf\\Fanex.Athena\\Web\\Fanex.Athena","author":{"name":"Fedor Indutny","email":"fedor@indutny.com"},"bugs":{"url":"https://github.com/indutny/elliptic/issues"},"dependencies":{"bn.js":"^4.4.0","brorand":"^1.0.1","hash.js":"^1.0.0","hmac-drbg":"^1.0.0","inherits":"^2.0.1","minimalistic-assert":"^1.0.0","minimalistic-crypto-utils":"^1.0.0"},"description":"EC cryptography","devDependencies":{"brfs":"^1.4.3","coveralls":"^2.11.3","grunt":"^0.4.5","grunt-browserify":"^5.0.0","grunt-cli":"^1.2.0","grunt-contrib-connect":"^1.0.0","grunt-contrib-copy":"^1.0.0","grunt-contrib-uglify":"^1.0.1","grunt-mocha-istanbul":"^3.0.1","grunt-saucelabs":"^8.6.2","istanbul":"^0.4.2","jscs":"^2.9.0","jshint":"^2.6.0","mocha":"^2.1.0"},"files":["lib"],"homepage":"https://github.com/indutny/elliptic","keywords":["EC","Elliptic","curve","Cryptography"],"license":"MIT","main":"lib/elliptic.js","name":"elliptic","repository":{"type":"git","url":"git+ssh://git@github.com/indutny/elliptic.git"},"scripts":{"jscs":"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js","jshint":"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js","lint":"npm run jscs && npm run jshint","test":"npm run lint && npm run unit","unit":"istanbul test _mocha --reporter=spec test/index.js","version":"grunt dist && git add dist/"},"version":"6.4.0"};
 
 /***/ }),
 
@@ -30310,7 +30310,7 @@ util.inherits = __webpack_require__(/*! inherits */ "./node_modules/inherits/inh
 /*</replacement>*/
 
 /*<replacement>*/
-var debugUtil = __webpack_require__(/*! util */ 7);
+var debugUtil = __webpack_require__(/*! util */ 8);
 var debug = void 0;
 if (debugUtil && debugUtil.debuglog) {
   debug = debugUtil.debuglog('stream');
@@ -32199,7 +32199,7 @@ Writable.prototype._destroy = function (err, cb) {
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Buffer = __webpack_require__(/*! safe-buffer */ "./node_modules/safe-buffer/index.js").Buffer;
-var util = __webpack_require__(/*! util */ 8);
+var util = __webpack_require__(/*! util */ 9);
 
 function copyBuffer(src, target, offset) {
   src.copy(target, offset);
@@ -46720,7 +46720,7 @@ var XLS = XLSX;
 
 /***/ 10:
 /*!************************!*\
-  !*** crypto (ignored) ***!
+  !*** buffer (ignored) ***!
   \************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
@@ -46729,10 +46729,10 @@ var XLS = XLSX;
 
 /***/ }),
 
-/***/ 7:
-/*!**********************!*\
-  !*** util (ignored) ***!
-  \**********************/
+/***/ 11:
+/*!************************!*\
+  !*** crypto (ignored) ***!
+  \************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -46752,9 +46752,9 @@ var XLS = XLSX;
 /***/ }),
 
 /***/ 9:
-/*!************************!*\
-  !*** buffer (ignored) ***!
-  \************************/
+/*!**********************!*\
+  !*** util (ignored) ***!
+  \**********************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 

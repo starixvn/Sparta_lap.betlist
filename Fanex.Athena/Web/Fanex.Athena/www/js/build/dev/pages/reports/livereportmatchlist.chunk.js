@@ -804,7 +804,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         }
         else {
             if (productCode === "ALL") {
-                productOptions = ["SB", "BA", "NG", "RB", "LC", "VS", "CS", "BG", "VS2"];
+                productOptions = ["SB", "BA", "NG", "LC", "VS", "CS", "VS2"];
             }
             else {
                 productOptions.push(productCode);

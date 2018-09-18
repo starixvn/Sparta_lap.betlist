@@ -1758,7 +1758,7 @@ var DateRange = function (_Component) {
     _this.styles = (0, _styles2.default)(theme);
     _this.calendarSelectionStep = 0;
     _this.locale = _extends({}, _defaultOptions2.default.locale, props.locale);
-    _this.ranges = _extends({}, _defaultOptions2.default.ranges(props.today, props.minDate, props.maxDate), props.ranges);
+    _this.ranges = _extends({}, _defaultOptions2.default.ranges(props.today, props.minDate, props.maxDate, props.limitedMonthRange), props.ranges);
 
     _this.isValid = true;
     _this.originalRange = { startDate: startDate, endDate: endDate };
@@ -2535,7 +2535,7 @@ var addDistanceDays = function addDistanceDays(rangeObj, name, start, end, min, 
 };
 
 exports.default = {
-    ranges: function ranges(today, min, max) {
+    ranges: function ranges(today, min, max, limitMonths) {
         today = !today ? (0, _moment2.default)() : !_moment2.default.isMoment(today) ? (0, _moment2.default)(today, _constants.MomentFormat.default) : today;
         max = !max ? today : !_moment2.default.isMoment(max) ? (0, _moment2.default)(max, _constants.MomentFormat.default) : max;
         min = !min ? today : !_moment2.default.isMoment(min) ? (0, _moment2.default)(min, _constants.MomentFormat.default) : min;
@@ -2567,9 +2567,11 @@ exports.default = {
         var endLastmonth = startLastmonth.clone().endOf('month');
         addDistanceDays(range, "Lastmonth", startLastmonth, endLastmonth, min, max);
 
-        var startSincelastmonth = today.clone().subtract(1, 'month').startOf('month');
-        var endSincelastmonth = today;
-        addDistanceDays(range, "Sincelastmonth", startSincelastmonth, endSincelastmonth, min, max);
+        if (limitMonths && limitMonths > 1) {
+            var startSincelastmonth = today.clone().subtract(1, 'month').startOf('month');
+            var endSincelastmonth = today;
+            addDistanceDays(range, "Sincelastmonth", startSincelastmonth, endSincelastmonth, min, max);
+        }
 
         return range;
     },
@@ -4629,6 +4631,15 @@ var LangHelper = function () {
             return langHandler && langHandler[key] || window[DEFAULT_RESOURCE_NAME] && window[DEFAULT_RESOURCE_NAME][key] || key;
         }
     }, {
+        key: "getResources",
+        value: function getResources(keys) {
+            var langHandler = window[resourceName];
+
+            return keys.map(function (key) {
+                return langHandler && langHandler[key] || window[DEFAULT_RESOURCE_NAME] && window[DEFAULT_RESOURCE_NAME][key] || key;
+            });
+        }
+    }, {
         key: "currentLanguage",
         get: function get() {
             return langCode;
@@ -5917,6 +5928,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
                 _service.Service.showErrorMsg();
                 _this.props.toggleLoader(false);
             });
+            window.logOpenBetlistEvent && window.logOpenBetlistEvent();
         };
 
         _this.closeBetListPopup = function () {
@@ -6356,6 +6368,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
     }, {
         key: '_renderNodata',
         value: function _renderNodata() {
+
             return _react2.default.createElement(
                 'div',
                 { className: 'result-content' },
@@ -6909,10 +6922,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _numberFormat = __webpack_require__(/*! ../../../lib/numberFormat */ "./www/js/source/reactpages/lib/numberFormat.js");
-
-var _numberFormat2 = _interopRequireDefault(_numberFormat);
 
 var _moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 

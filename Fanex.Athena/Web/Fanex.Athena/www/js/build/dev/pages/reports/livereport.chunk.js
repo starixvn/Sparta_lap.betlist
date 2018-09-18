@@ -1877,7 +1877,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         }
         else {
             if (productCode === "ALL") {
-                productOptions = ["SB", "BA", "NG", "RB", "LC", "VS", "CS", "BG", "VS2"];
+                productOptions = ["SB", "BA", "NG", "LC", "VS", "CS", "VS2"];
             }
             else {
                 productOptions.push(productCode);
@@ -2006,9 +2006,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 Key102: "LiveReportBetList/MixParlay?bettype=29",
                 Key103: "LiveReportBetList/Outright",
                 Key161: "LiveReportBetList/NumberGame",
-                Key151: "LiveReportBetList/Racing?SportType=151",
-                Key152: "LiveReportBetList/Racing?SportType=152",
-                Key153: "LiveReportBetList/Racing?SportType=153",
                 Key181: "LiveReportBetList/VirtualSports?SportType=181",
                 Key182: "LiveReportBetList/VirtualSports?SportType=182",
                 Key183: "LiveReportBetList/VirtualSports?SportType=183",

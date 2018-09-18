@@ -147,7 +147,7 @@
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push([40,"www/js/build/dev/pages/lib/common"]);
+/******/ 	deferredModules.push([37,"www/js/build/dev/pages/lib/common"]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
@@ -1210,20 +1210,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                  commissionOnChange($(this).val(), "ParlayComm");
              }).change();
 
-             $("#RCComm1").on("change", function () {
-                 commissionOnChange($(this).val(), "RCComm");
-             }).change();
-
              $("#NGComm1").on("change", function () {
                  commissionOnChange($(this).val(), "NGComm");
              }).change();
 
              $("#CSComm1").on("change", function () {
                  commissionOnChange($(this).val(), "CSComm");
-             }).change();
-
-             $("#ABComm1").on("change", function () {
-                 commissionOnChange($(this).val(), "ABComm");
              }).change();
          }
 
@@ -1308,10 +1300,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
          function submit(formId) {
              initCommParam("#SBComm");
              initCommParam("#ParlayComm");
-             initCommParam("#RCComm");
              initCommParam("#NGComm");
              initCommParam("#CSComm");
-             initCommParam("#ABComm");
 
              initDefaultParam(formId);
          }
@@ -1466,7 +1456,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 /***/ }),
 
-/***/ 40:
+/***/ 37:
 /*!*******************************************************************************!*\
   !*** multi ./www/js/source/pages/customer/customercomm/main-commgroupedit.js ***!
   \*******************************************************************************/
