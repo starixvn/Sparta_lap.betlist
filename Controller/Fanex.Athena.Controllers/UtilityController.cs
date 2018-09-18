@@ -223,6 +223,9 @@ namespace Fanex.Athena.Controllers
                 case OneAuthorizationErrorCode.NotFoundUser:
                     return ViewResources.UserNotExist;
 
+                case OneAuthorizationErrorCode.SubsidiaryNotHaveCurrency:
+                    return ViewResources.SubsidiaryNotHaveCurrencyMsg;
+
                 default:
                     return ViewResources.OneTokenRestrictionDefaultMsg;
             }
