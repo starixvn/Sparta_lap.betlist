@@ -122,7 +122,7 @@ namespace Fanex.Athena.Controllers.Customer
 
             var model = CreateCustomerViewModel(metaModel);
 
-            if (model.IsSubsidiary)
+            if (!model.IsSubsidiary)
             {
                 this.SetValueForBaStatus(model);
             }
