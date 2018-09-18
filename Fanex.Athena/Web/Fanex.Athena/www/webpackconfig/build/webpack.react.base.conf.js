@@ -37,7 +37,7 @@ function generateConfig(environment) {
             [`${cssPath}/licenseewlbytimezone/index`]: pathConfig.cssPaths.licenseewlbytimezone,
             [`${cssPath}/notification/index`]: pathConfig.cssPaths.notification,
             [`${cssPath}/exchangewl/index`]: pathConfig.cssPaths.exchangewl,
-            [`${cssPath}/speciallicenseewl/index`]: pathConfig.cssPaths.speciallicenseewl
+            [`${cssPath}/speciallicenseewl/index`]: pathConfig.cssPaths.speciallicenseewl,
             [`${cssPath}/bettingticketscenter/index`]: pathConfig.cssPaths.bettingticketscenter
         },
         output: {
