@@ -3630,8 +3630,8 @@ var ReportExcel = function () {
     function ReportExcel() {
         var gridData = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         var title = arguments[1];
-        var isCustomerLevel = arguments[2];
-        var baseCurrency = arguments[3];
+        var isCustomerLevel = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+        var baseCurrency = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : "";
         var fileName = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : "SubsidiaryPerformance";
 
         _classCallCheck(this, ReportExcel);
@@ -3706,7 +3706,7 @@ var ReportExcel = function () {
                 var item = mainData[i];
                 var details = item.Details;
 
-                this._createRowByColumnIndex({ Subsidiary: item.Subsidiary }, MAIN_SECTION_STYLE, SUBSIDIARY_COLUMN_INDEX, CURRENCY_COLUMN_INDEX);
+                this._createRowByColumnIndex({ Subsidiary: item.Subsidiary }, MAIN_SECTION_STYLE, SUBSIDIARY_COLUMN_INDEX, SUBSIDIARY_COLUMN_INDEX);
                 this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 0 }, e: { r: this.currentRowIndex + item.TotalItem - 1, c: 0 } });
 
                 var currencies = Object.keys(item.Details);
@@ -3714,7 +3714,7 @@ var ReportExcel = function () {
                     var currency = currencies[j];
                     var products = item.Details[currency];
 
-                    this._createRowByColumnIndex({ CurrencyName: currency }, MAIN_SECTION_STYLE, CURRENCY_COLUMN_INDEX, PRODUCT_COLUMN_INDEX);
+                    this._createRowByColumnIndex({ CurrencyName: currency }, MAIN_SECTION_STYLE, CURRENCY_COLUMN_INDEX, CURRENCY_COLUMN_INDEX);
                     this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 1 }, e: { r: this.currentRowIndex + products.length - 1, c: 1 } });
 
                     for (var k = 0; k < products.length; k++) {
@@ -3761,7 +3761,7 @@ var ReportExcel = function () {
             var subs = Object.keys(totalDataList);
             var rowSpan = subs.length;
 
-            this._createRowByColumnIndex({ Index: _service.TotalText.TotalIn + " " + this.baseCurrency }, TOTAL_SECTION_STYLE, INDEX_COLUM_INDEX, EXTERNALID_COLUM_INDEX);
+            this._createRowByColumnIndex({ Index: _service.TotalText.TotalIn + " " + this.baseCurrency }, TOTAL_SECTION_STYLE, INDEX_COLUM_INDEX, INDEX_COLUM_INDEX);
             this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 0 }, e: { r: this.currentRowIndex + rowSpan - 1, c: 2 } });
 
             for (var i = 0; i < rowSpan; i++) {
@@ -3786,7 +3786,7 @@ var ReportExcel = function () {
             this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 0 }, e: { r: this.currentRowIndex, c: 3 } });
             var grandTotal = this.gridData.GrandTotal;
 
-            this._createRowByColumnIndex({ Index: _service.TotalText.TotalIn + " " + this.baseCurrency }, GRAND_TOTAL_SECTION_STYLE, INDEX_COLUM_INDEX, EXTERNALID_COLUM_INDEX);
+            this._createRowByColumnIndex({ Index: _service.TotalText.TotalIn + " " + this.baseCurrency }, GRAND_TOTAL_SECTION_STYLE, INDEX_COLUM_INDEX, INDEX_COLUM_INDEX);
             this._createRowByColumnIndex(grandTotal, GRAND_TOTAL_SECTION_STYLE, BETCOUNT_DETAIL_COLUMN_INDEX, SUBSIDIARYWL_DETAIL_COLUMN_INDEX);
         }
     }, {
@@ -3860,7 +3860,7 @@ var ReportExcel = function () {
 
                 columns.push((_columns$push5 = {
                     field: fields.subsidiary
-                }, _defineProperty(_columns$push5, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.rowspan), _defineProperty(_columns$push5, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.rowspan), _defineProperty(_columns$push5, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.rowspan), _columns$push5), (_columns$push6 = {
+                }, _defineProperty(_columns$push5, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.rowspan), _defineProperty(_columns$push5, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.default), _defineProperty(_columns$push5, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.default), _columns$push5), (_columns$push6 = {
                     field: fields.currencyName
                 }, _defineProperty(_columns$push6, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.center), _defineProperty(_columns$push6, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.center), _defineProperty(_columns$push6, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.center), _columns$push6), _defineProperty({
                     field: fields.product

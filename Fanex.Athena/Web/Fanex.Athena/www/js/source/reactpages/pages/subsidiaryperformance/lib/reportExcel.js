@@ -37,7 +37,7 @@ const fields = {
 }
 
 export default class ReportExcel {
-    constructor(gridData = {}, title, isCustomerLevel, baseCurrency, fileName = "SubsidiaryPerformance") {
+    constructor(gridData = {}, title, isCustomerLevel = false, baseCurrency = "", fileName = "SubsidiaryPerformance") {
         this.worksheet = {};
         this.title = title;
         this.fileName = fileName;
@@ -101,7 +101,7 @@ export default class ReportExcel {
             const item = mainData[i];
             const details = item.Details;
 
-            this._createRowByColumnIndex({ Subsidiary: item.Subsidiary }, MAIN_SECTION_STYLE, SUBSIDIARY_COLUMN_INDEX, CURRENCY_COLUMN_INDEX);
+            this._createRowByColumnIndex({ Subsidiary: item.Subsidiary }, MAIN_SECTION_STYLE, SUBSIDIARY_COLUMN_INDEX, SUBSIDIARY_COLUMN_INDEX);
             this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 0 }, e: { r: this.currentRowIndex + item.TotalItem - 1, c: 0 } });
 
             const currencies = Object.keys(item.Details);
@@ -109,7 +109,7 @@ export default class ReportExcel {
                 const currency = currencies[j];
                 const products = item.Details[currency];
 
-                this._createRowByColumnIndex({ CurrencyName: currency }, MAIN_SECTION_STYLE, CURRENCY_COLUMN_INDEX, PRODUCT_COLUMN_INDEX);
+                this._createRowByColumnIndex({ CurrencyName: currency }, MAIN_SECTION_STYLE, CURRENCY_COLUMN_INDEX, CURRENCY_COLUMN_INDEX);
                 this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 1 }, e: { r: this.currentRowIndex + products.length - 1, c: 1 } });
                 
                 for (let k = 0; k < products.length; k++) {
@@ -153,7 +153,7 @@ export default class ReportExcel {
         const subs = Object.keys(totalDataList);
         const rowSpan = subs.length;
         
-        this._createRowByColumnIndex({ Index: TotalText.TotalIn + " " + this.baseCurrency }, TOTAL_SECTION_STYLE, INDEX_COLUM_INDEX, EXTERNALID_COLUM_INDEX);
+        this._createRowByColumnIndex({ Index: TotalText.TotalIn + " " + this.baseCurrency }, TOTAL_SECTION_STYLE, INDEX_COLUM_INDEX, INDEX_COLUM_INDEX);
         this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 0 }, e: { r: this.currentRowIndex + rowSpan - 1, c: 2 } });
 
         for (let i = 0; i < rowSpan; i++) {
@@ -176,7 +176,7 @@ export default class ReportExcel {
         this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 0 }, e: { r: this.currentRowIndex, c: 3 } });
         const grandTotal = this.gridData.GrandTotal;
 
-        this._createRowByColumnIndex({ Index: TotalText.TotalIn + " " + this.baseCurrency }, GRAND_TOTAL_SECTION_STYLE, INDEX_COLUM_INDEX, EXTERNALID_COLUM_INDEX);
+        this._createRowByColumnIndex({ Index: TotalText.TotalIn + " " + this.baseCurrency }, GRAND_TOTAL_SECTION_STYLE, INDEX_COLUM_INDEX, INDEX_COLUM_INDEX);
         this._createRowByColumnIndex(grandTotal, GRAND_TOTAL_SECTION_STYLE, BETCOUNT_DETAIL_COLUMN_INDEX, SUBSIDIARYWL_DETAIL_COLUMN_INDEX);
     }
 
@@ -254,8 +254,8 @@ export default class ReportExcel {
                 {
                     field: fields.subsidiary,
                     [MAIN_SECTION_STYLE]: bodyCellStyle.rowspan,
-                    [TOTAL_SECTION_STYLE]: totalCellStyle.rowspan,
-                    [GRAND_TOTAL_SECTION_STYLE]: grandTotalCellStyle.rowspan
+                    [TOTAL_SECTION_STYLE]: totalCellStyle.default,
+                    [GRAND_TOTAL_SECTION_STYLE]: grandTotalCellStyle.default
                 },
                 {
                     field: fields.currencyName,

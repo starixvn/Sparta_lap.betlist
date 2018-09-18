@@ -203,7 +203,7 @@ exports[`FormFilter  render methods render whole component match to snapshot 1`]
             checked={false}
             className="checkbox"
             id="IsConvertAll"
-            onClick={[Function]}
+            onChange={[Function]}
             type="checkbox"
           />
           <label
@@ -227,7 +227,7 @@ exports[`FormFilter  render methods render whole component match to snapshot 1`]
             checked={undefined}
             className="checkbox"
             id="IncludeDrawData"
-            onClick={[Function]}
+            onChange={[Function]}
             type="checkbox"
           />
           <label
@@ -251,7 +251,7 @@ exports[`FormFilter  render methods render whole component match to snapshot 1`]
             checked={undefined}
             className="checkbox"
             id="ExcludeTest"
-            onClick={[Function]}
+            onChange={[Function]}
             type="checkbox"
           />
           <label
