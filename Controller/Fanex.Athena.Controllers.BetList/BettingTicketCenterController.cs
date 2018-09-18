@@ -9,7 +9,6 @@
     using Model.Core.DataDomain;
     using Model.Core.MetaModel.Product;
     using Resources;
-    using Service.Core.Common;
     using Service.Core.Common.Interfaces;
     using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
@@ -19,11 +18,6 @@
     public class BettingTicketCenterController : BaseController
     {
         private readonly IProductService _productService;
-
-        public BettingTicketCenterController()
-        {
-            _productService = new ProductService();
-        }
 
         public BettingTicketCenterController(
             ILanguageService languageService,

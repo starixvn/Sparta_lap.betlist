@@ -8,14 +8,9 @@
     using NPOI.SS.UserModel;
     using Resources;
 
-    public class BettingTicketCenterExcel
+    public class BettingTicketCenterExcel : IBettingTicketCenterExcel
     {
         private readonly IBettingTicketCenterExcelBuilder _builder;
-
-        public BettingTicketCenterExcel()
-        {
-            _builder = new BettingTicketCenterExcelBuilder();
-        }
 
         protected internal BettingTicketCenterExcel(IBettingTicketCenterExcelBuilder builder)
         {

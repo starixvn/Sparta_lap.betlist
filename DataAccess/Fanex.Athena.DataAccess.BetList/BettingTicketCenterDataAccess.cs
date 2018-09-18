@@ -4,25 +4,25 @@
     using System.Data;
     using System.Linq;
     using Common;
-    using Core.Configuration;
     using Core.Configuration.Interfaces;
     using Core.Exception;
     using Data;
+    using Extension.Utility;
     using Interfaces;
     using Model.BetList.DTO;
     using Model.BetList.MetaModel;
     using Model.Core.DTO.Common;
+    using Session.Interfaces;
 
     public class BettingTicketCenterDataAccess : BaseBetListDataAccess, IBettingTicketCenterDataAccess
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
-        public BettingTicketCenterDataAccess()
-        {
-            _balanceUpDataAccess = new BalanceUpDataAccess();
-        }
-
-        public BettingTicketCenterDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
+        public BettingTicketCenterDataAccess(
+            IAppSettings appSetting,
+            ISessionStorage sessionStorage,
+            IBalanceUpDataAccess balanceUpDataAccess)
+            : base(appSetting, sessionStorage)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
         }

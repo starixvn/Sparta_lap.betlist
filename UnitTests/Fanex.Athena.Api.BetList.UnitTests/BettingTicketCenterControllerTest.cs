@@ -7,7 +7,6 @@
     using DataAccess.BetList.Interfaces;
     using DataAccess.Core.Configuration.Interfaces;
     using Excel.BetList;
-    using Excel.BetList.Builders;
     using Excel.BetList.Model;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
@@ -15,10 +14,8 @@
     using Model.BetList.MetaModel;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Configuration;
-    using NPOI.SS.UserModel;
     using NSubstitute;
     using NUnit.Framework;
-    using Resources;
     using Session.Model;
     using UnitTest.Common.Helpers;
     using VendorAdapter.Interfaces;
@@ -35,6 +32,8 @@
 
         private ITicketHelper _ticketHelper;
 
+        private IBettingTicketCenterExcel _bettingTicketCenterExcel;
+
         private BettingTicketCenterController _controller;
 
         [OneTimeSetUp]
@@ -47,6 +46,7 @@
             _betlistHtmlBuilder = Substitute.For<IBetListHTMLBuilder>();
             _cacheRefAdapter = Substitute.For<ICacheRefAdapter>();
             _ticketHelper = Substitute.For<ITicketHelper>();
+            _bettingTicketCenterExcel = Substitute.For<IBettingTicketCenterExcel>();
 
             var balanceUp = new BalanceUp { BalanceUpDay = new DateTime(2018, 1, 1), MoveBetsDay = new DateTime(2018, 1, 2) };
             _balanceUpDataAccess.GetBalanceUp().Returns(balanceUp);
@@ -60,7 +60,8 @@
                 _dataAccess,
                 _betlistHtmlBuilder,
                 _cacheRefAdapter,
-                _ticketHelper);
+                _ticketHelper,
+                _bettingTicketCenterExcel);
         }
 
         [OneTimeTearDown]
@@ -74,6 +75,12 @@
             _cacheRefAdapter = null;
             _ticketHelper = null;
             _controller = null;
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            _bettingTicketCenterExcel.ClearReceivedCalls();
         }
 
         [TestCase(0)]
@@ -130,13 +137,11 @@
             SessionService.LicenseeSession.Returns(new LicenseeSession { LicenseeId = FakeHelper.Create<int>() });
             _dataAccess.GetBetListByRefno(metaModel).Returns(new TicketResult());
 
-            var excel = SetUpForExporttingExcel();
-
             // Action
             var result = _controller.GetByRefno(metaModel);
 
             // Assert
-            excel.Received(1).Export(Arg.Is<BettingTicketCenterExcelModel>(x => !x.ShowTotal));
+            _bettingTicketCenterExcel.Received(1).Export(Arg.Is<BettingTicketCenterExcelModel>(x => !x.ShowTotal));
         }
 
         [Test]
@@ -266,8 +271,6 @@
                 }
             });
 
-            var excel = SetUpForExporttingExcel();
-
             var ticketResult = new TicketResult
             {
                 SumStake = FakeHelper.Create<int>(),
@@ -279,7 +282,7 @@
             var result = _controller.GetByRunning(metaModel);
 
             // Assert
-            excel.Received(1).Export(Arg.Is<BettingTicketCenterExcelModel>(x => x.ShowTotal && x.ShowSumStake));
+            _bettingTicketCenterExcel.Received(1).Export(Arg.Is<BettingTicketCenterExcelModel>(x => x.ShowTotal && x.ShowSumStake));
         }
 
         [Test]
@@ -497,8 +500,6 @@
                 }
             });
 
-            var excel = SetUpForExporttingExcel();
-
             var ticketResult = new TicketResult
             {
                 SumWinLoss = FakeHelper.Create<decimal>(),
@@ -514,7 +515,7 @@
             var result = _controller.GetBySingleCustomer(metaModel);
 
             // Assert
-            excel.Received(1).Export(Arg.Is<BettingTicketCenterExcelModel>(
+            _bettingTicketCenterExcel.Received(1).Export(Arg.Is<BettingTicketCenterExcelModel>(
                  x => x.ShowTotal
                      && x.ShowSumStake
                      && x.ShowWinLoss
@@ -641,8 +642,6 @@
                 }
             });
 
-            var excel = SetUpForExporttingExcel();
-
             var ticketResult = new TicketResult
             {
                 SumWinLoss = FakeHelper.Create<decimal>(),
@@ -658,21 +657,11 @@
             var result = _controller.GetByMultipleCustomers(metaModel);
 
             // Assert
-            excel.Received(1).Export(Arg.Is<BettingTicketCenterExcelModel>(
+            _bettingTicketCenterExcel.Received(1).Export(Arg.Is<BettingTicketCenterExcelModel>(
                  x => x.ShowTotal
                      && x.ShowSumStake
                      && x.ShowWinLoss
                      && x.ShowLicenseeWl));
-        }
-
-        private BettingTicketCenterExcel SetUpForExporttingExcel()
-        {
-            var excel = Substitute.ForPartsOf<BettingTicketCenterExcel>(Substitute.For<IBettingTicketCenterExcelBuilder>());
-            excel.When(x => x.Export(Arg.Any<BettingTicketCenterExcelModel>())).DoNotCallBase();
-            _controller.CreateExcel().Returns(excel);
-            _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();
-
-            return excel;
         }
     }
 }

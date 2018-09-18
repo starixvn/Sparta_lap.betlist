@@ -382,7 +382,7 @@
             Assert.Multiple(() =>
             {
                 _authService.Received(1).LoginOnUser(user, context.Session.SessionID, user.ServerId, context.Request.UserHostAddress);
-                _sessionService.Received(1).CreateNewSession(user.UserID, onUserId, user.Username, true, user.Licensee.Id, metaModel.LanguageCode, ClientViewType.Default);
+                _sessionService.Received(1).CreateNewSession(user.UserID, onUserId, user.Username, true, user.Licensee.Id, metaModel.LanguageCode, ClientViewType.Desktop);
                 _formsAuthenticationService.Received(1).SetAuthCookie(metaModel.IdentityName, false);
                 _httpContextService.Received(1).Redirect("~/Home/Index");
             });

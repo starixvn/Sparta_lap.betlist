@@ -2,11 +2,9 @@
 using Fanex.Athena.Model.BetList.DTO;
 using Fanex.Athena.Model.Core.DataDomain;
 using Fanex.Athena.Resources;
-using Fanex.Athena.VendorAdapter;
 using Fanex.Athena.VendorAdapter.Interfaces;
 using Fanex.BetList.Core.Builder;
 using Fanex.BetList.Core.Entities;
-using Fanex.BetList.Core.TicketHelper;
 using NPOI.HSSF.UserModel;
 using NPOI.HSSF.Util;
 using NPOI.SS.UserModel;
@@ -42,13 +40,6 @@ namespace Fanex.Athena.Excel.BetList.Builders
         private IFont _liveFont;
 
         private IFont _mixLiveFont;
-
-        public BettingTicketCenterExcelBuilder()
-        {
-            _builder = new BetListExcelBuilder();
-            _cacheRefAdapter = new CacheRefAdapter();
-            _ticketHelper = new TicketHelper();
-        }
 
         protected internal BettingTicketCenterExcelBuilder(
             IBetListExcelBuilder builder,
@@ -134,7 +125,7 @@ namespace Fanex.Athena.Excel.BetList.Builders
                 new HSSFRichTextString(sumStake.HasValue ? sumStake.Value.ToString(FormatKey.DecimalFormat) : string.Empty),
                 footerStyle);
 
-            var sumWinLossString = sumWinLoss.HasValue 
+            var sumWinLossString = sumWinLoss.HasValue
                 ? (sumPlayerComm.HasValue
                     ? string.Format("{0:#,##0.00}\n{1:#,##0.00}", sumWinLoss.Value, sumPlayerComm.Value)
                     : string.Format("{0:#,##0.00}", sumWinLoss.Value))

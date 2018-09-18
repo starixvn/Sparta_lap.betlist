@@ -4,14 +4,11 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Http;
-    using DataAccess.Core.Common;
     using DataAccess.Core.Common.Interfaces;
     using Model.Core.DataDomain;
     using Model.Core.MetaModel.Common;
     using ONEbook.UM.Filters;
-    using Service.Core.Common;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Users;
     using Service.Core.Users.Interfaces;
     using Web.ActionFilter;
 
@@ -30,15 +27,6 @@
         private readonly IMatchDataAccess _matchDataAccess;
 
         private readonly IBetTypeService _betTypeService;
-
-        public CommonDataApiController()
-        {
-            _sportTypeDataAccess = new SportTypeDataAccess();
-            _sessionService = new SessionService();
-            _leagueDataAccess = new LeagueDataAccess();
-            _matchDataAccess = new MatchDataAccess();
-            _betTypeService = new BetTypeService();
-        }
 
         public CommonDataApiController(
             ISportTypeDataAccess sportTypeDataAccess,
@@ -69,8 +57,8 @@
         public IEnumerable<object> GetBetTypes(string productCode)
         {
             var bettypes = _betTypeService.GetBettypesByProduct(
-                _sessionService.LicenseeSession.LicenseeId, 
-                productCode, 
+                _sessionService.LicenseeSession.LicenseeId,
+                productCode,
                 _sessionService.UserSession.Language);
 
             return bettypes.Select(x => new { value = x.ID, label = x.Name });

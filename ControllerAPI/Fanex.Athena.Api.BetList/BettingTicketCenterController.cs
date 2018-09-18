@@ -7,14 +7,12 @@
     using Base;
     using Base.Attributes;
     using Constant.DataDomain;
-    using DataAccess.BetList;
     using DataAccess.BetList.Interfaces;
     using DataAccess.Core.Configuration.Interfaces;
     using Excel.BetList;
     using Excel.BetList.Model;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
-    using Fanex.BetList.Core.TicketHelper;
     using Model.BetList.DTO;
     using Model.BetList.MetaModel;
     using Model.Core.DataDomain;
@@ -23,7 +21,6 @@
     using Service.BetList.Helpers;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
-    using VendorAdapter;
     using VendorAdapter.Interfaces;
 
     [ApiFunctionAuthorization(PermissionKeys.BettingTicketCenter)]
@@ -37,13 +34,7 @@
 
         private readonly ITicketHelper _ticketHelper;
 
-        public BettingTicketCenterController()
-        {
-            _dataAccess = new BettingTicketCenterDataAccess();
-            _betlistHtmlBuilder = new BetListHTMLBuilder();
-            _ticketHelper = new TicketHelper();
-            _cacheRefAdapter = new CacheRefAdapter();
-        }
+        private readonly IBettingTicketCenterExcel _bettingTicketCenterExcel;
 
 #pragma warning disable S107 // Methods should not have too many parameters
 
@@ -55,7 +46,8 @@
             IBettingTicketCenterDataAccess dataAccess,
             IBetListHTMLBuilder betlistHtmlBuilder,
             ICacheRefAdapter cacheRefAdapter,
-            ITicketHelper ticketHelper)
+            ITicketHelper ticketHelper,
+            IBettingTicketCenterExcel bettingTicketCenterExcel)
 #pragma warning restore S107 // Methods should not have too many parameters
             : base(sessionService, productService, langService)
         {
@@ -63,6 +55,7 @@
             _betlistHtmlBuilder = betlistHtmlBuilder;
             _cacheRefAdapter = cacheRefAdapter;
             _ticketHelper = ticketHelper;
+            _bettingTicketCenterExcel = bettingTicketCenterExcel;
         }
 
         [HttpPost]
@@ -223,11 +216,6 @@
             };
         }
 
-        protected internal virtual BettingTicketCenterExcel CreateExcel()
-        {
-            return new BettingTicketCenterExcel();
-        }
-
         private static string GetTitle(BaseBettingTicketMetaModel metaModel)
         {
             var date = metaModel.FromDate == DateTime.MinValue
@@ -248,8 +236,7 @@
 
         private HttpResponseMessage Export(BettingTicketCenterExcelModel excelModel)
         {
-            var excel = CreateExcel();
-            var workbook = excel.Export(excelModel);
+            var workbook = _bettingTicketCenterExcel.Export(excelModel);
             return ExcelStream(workbook, string.Empty);
         }
 
