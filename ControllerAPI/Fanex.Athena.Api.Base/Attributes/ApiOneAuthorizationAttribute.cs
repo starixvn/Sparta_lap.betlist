@@ -80,6 +80,7 @@
                 actionContext.ActionArguments["currencyIDList"] = string.Join(",", token.Currency.Select(i => i.CurrencyId).ToArray());
                 actionContext.ActionArguments["username"] = token.UserID;
                 actionContext.ActionArguments["sitename"] = token.SiteName;
+                actionContext.ActionArguments["language"] = token.Language;
 
                 return continuation?.Invoke();
             }
