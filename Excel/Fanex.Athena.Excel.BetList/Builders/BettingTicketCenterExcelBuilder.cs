@@ -41,7 +41,7 @@ namespace Fanex.Athena.Excel.BetList.Builders
 
         private IFont _mixLiveFont;
 
-        protected internal BettingTicketCenterExcelBuilder(
+        public BettingTicketCenterExcelBuilder(
             IBetListExcelBuilder builder,
             ICacheRefAdapter cacheRefAdapter,
             ITicketHelper ticketHelper)

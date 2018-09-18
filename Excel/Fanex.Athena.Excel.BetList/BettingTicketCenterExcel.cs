@@ -12,7 +12,7 @@
     {
         private readonly IBettingTicketCenterExcelBuilder _builder;
 
-        protected internal BettingTicketCenterExcel(IBettingTicketCenterExcelBuilder builder)
+        public BettingTicketCenterExcel(IBettingTicketCenterExcelBuilder builder)
         {
             _builder = builder;
         }
