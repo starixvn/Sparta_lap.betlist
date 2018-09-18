@@ -37,10 +37,13 @@ export class DataGrid extends Component {
                 if (mainData && mainData.length > 1) {
                     Service.sort(mainData, this.props.params.SortBy, this.props.params.SortOrder);
 
-                    var sortedResult = Object.assign({}, result, { Data: mainData })
+                    var sortedResult = Object.assign({}, result, { Data: mainData });
 
-                    this.setState({ gridData: sortedResult })
+                    this.setState({ gridData: sortedResult });
 
+                }
+                else {
+                    this.setState({ gridData: result });
                 }
 
                 this.props.setReportTitle(Service.getReportTitle(this.props.params.FromDate,
@@ -198,7 +201,7 @@ export class DataGrid extends Component {
             const reportBy = moment(item.Date).format(formatDate);
 
             rows.push(
-                <Row key={item.Ticks + item.CurrencyId}>
+                <Row key={`${item.Ticks}-${item.CurrencyId}`}>
                     <Cell title={i + 1} className='center-align'>{i + 1}</Cell>
                     <Cell title={reportBy} className='center-align'>{reportBy}</Cell>
                     <Cell title={item.CurrencyName} className='center-align'>{item.CurrencyName}</Cell>

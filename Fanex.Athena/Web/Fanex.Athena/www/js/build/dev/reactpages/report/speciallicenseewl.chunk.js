@@ -3426,6 +3426,8 @@ var DataGrid = exports.DataGrid = function (_Component) {
                     var sortedResult = Object.assign({}, result, { Data: mainData });
 
                     _this2.setState({ gridData: sortedResult });
+                } else {
+                    _this2.setState({ gridData: result });
                 }
 
                 _this2.props.setReportTitle(_service.Service.getReportTitle(_this2.props.params.FromDate, _this2.props.params.ToDate, _this2.props.params.CurrencyId, _this2.props.params.CurrencyName, _this2.props.params.BaseCurrency));
@@ -3645,7 +3647,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
 
                 rows.push(_react2.default.createElement(
                     _fixedTableHeader.Row,
-                    { key: item.Ticks + item.CurrencyId },
+                    { key: item.Ticks + '-' + item.CurrencyId },
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
                         { title: i + 1, className: 'center-align' },
