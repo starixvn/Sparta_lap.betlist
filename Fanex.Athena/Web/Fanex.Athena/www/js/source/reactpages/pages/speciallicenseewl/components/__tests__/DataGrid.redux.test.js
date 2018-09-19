@@ -23,7 +23,6 @@ describe('connect ', () => {
 
     it('props should be mapped correctly', () => {
         const expectedResult = {
-            gridData: [],
             params: [],
             xsrfToken: 'token'
         };

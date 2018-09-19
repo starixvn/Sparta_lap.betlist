@@ -111,7 +111,7 @@ describe('MultipleSelect ', () => {
         })
 
         it('_callBackToParent should be called with correct parameter', () => {
-            expect(multipleSelect._callBackToParent).toHaveBeenCalledWith(changedItem, newDataSource);
+            expect(multipleSelect._callBackToParent).toHaveBeenCalledWith(changedItem);
         })
 
         it('setState should be called with correct parameter', () => {
@@ -166,7 +166,7 @@ describe('MultipleSelect ', () => {
 
             testCheckAll(checked);
 
-            expect(multipleSelect._callBackToParent).toHaveBeenCalledWith(null, newDataSource);
+            expect(multipleSelect._callBackToParent).toHaveBeenCalledWith(null);
         })
 
         it('uncheck All - setState should be called with correct parameter', () => {
@@ -379,7 +379,7 @@ describe('MultipleSelect ', () => {
 
             multipleSelect.componentWillReceiveProps(nextProps);
 
-            expect(multipleSelect._callBackToParent).toHaveBeenCalledWith(null, defaultDataSource);
+            expect(multipleSelect._callBackToParent).toHaveBeenCalledWith(null);
         })
     })
 })
