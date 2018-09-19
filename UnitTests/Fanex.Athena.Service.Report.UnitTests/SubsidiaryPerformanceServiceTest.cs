@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using Constant.DataDomain;
     using Core.Users.Interfaces;
     using DataAccess.Report.Interfaces;
     using Interfaces;
@@ -108,11 +109,11 @@
                 FromDate = new DateTime(2017, 8, 30),
                 ToDate = new DateTime(2017, 8, 30),
                 ProductCodeList = "SB,BA",
-                SubsidiaryList = "123,143",
                 BaseCurrency = "EUR",
                 LicenseeName = LicenseeName
             };
 
+            _sessionService.UserSession.Returns(new Session.Model.UserSession { UserLevel = UserLevelType.Subsidiary, OperatorId = "123" });
             _subsidiaryService.GetSubsidiaryList().Returns(_subsidiaryList);
 
             var resultData = GetFakeEntityDataList();
@@ -187,6 +188,21 @@
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
+        }
+
+        [Test]
+        public void GetDetailData_WhenCall_CallDataAccess()
+        {
+            // Arrange
+            var metaModel = new SubsidiaryPerformanceMetaModel();
+
+            _dataAccess.GetDetailData(metaModel).Returns(new Model.Core.ResultModel.ReportResultModel<SubsidiaryPerformanceDetail>());
+
+            // Action
+            _service.GetDetailData(metaModel);
+
+            // Assert
+            _dataAccess.Received().GetDetailData(metaModel);
         }
 
         private static IEnumerable<SubsidiaryPerformance> GetFakeEntityDataList()

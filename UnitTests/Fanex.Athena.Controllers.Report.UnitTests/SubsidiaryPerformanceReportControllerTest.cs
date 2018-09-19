@@ -6,6 +6,7 @@
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Script.Serialization;
+    using Constant.DataDomain;
     using Fanex.Athena.Controllers.Base.UnitTests;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -44,13 +45,20 @@
         }
 
         [Test]
-        public void Index_SubsidiaryListHasData_ReturnCorrectViewResult()
+        public void Index_LicenseeView_CallServiceToGetSubsidiaryList()
         {
             using (var controller = CreateController())
             {
                 // Arrange
                 var operatorList = new List<string> { "New York", "India", "Irag", "China" };
                 _subsidiaryService.GetSubsidiaryNames().Returns(operatorList);
+
+                SessionService.UserSession.Returns(new Session.Model.UserSession
+                {
+                    UserLevel = UserLevelType.Licensee,
+                    ViewType = ClientViewType.Desktop,
+                    Language = DefaultUserSession.Language
+                });
 
                 var expectedViewModelData = new SubsidiaryPerformanceViewModel
                 {
@@ -59,6 +67,41 @@
                         new ProductOption { Code = FakeProductCode, Name = FakeProductName, Status = true }
                     },
                     SubsidiaryList = operatorList.Select(x => new CheckedItem { Name = x, Checked = true })
+                };
+
+                var expectedModel = _serializer.Serialize(expectedViewModelData);
+                var expectedViewName = "~/Views/Report/SubsidiaryPerformance/Main.cshtml";
+                HttpContext.Current = GetHttpContext();
+
+                // Action
+                var viewResult = controller.Index() as ViewResult;
+                var modelResult = _serializer.Serialize(viewResult.Model);
+
+                // Assert
+                Assert.That(viewResult.ViewName, Is.EqualTo(expectedViewName));
+                Assert.That(modelResult, Is.EqualTo(expectedModel));
+            }
+        }
+
+        [Test]
+        public void Index_SubsidiaryView_SubsidiaryListIsEmpty()
+        {
+            using (var controller = CreateController())
+            {
+                // Arrange
+                SessionService.UserSession.Returns(new Session.Model.UserSession
+                {
+                    UserLevel = UserLevelType.Subsidiary,
+                    ViewType = ClientViewType.Desktop,
+                    Language = DefaultUserSession.Language
+                });
+
+                var expectedViewModelData = new SubsidiaryPerformanceViewModel
+                {
+                    ProductOptionList = new List<ProductOption>
+                    {
+                        new ProductOption { Code = FakeProductCode, Name = FakeProductName, Status = true }
+                    }
                 };
 
                 var expectedModel = _serializer.Serialize(expectedViewModelData);

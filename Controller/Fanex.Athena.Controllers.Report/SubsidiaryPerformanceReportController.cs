@@ -54,7 +54,6 @@
                     Name = i.ProductName,
                     Status = true
                 }).ToList(),
-
                 SubsidiaryList = subsidiaryNames?.Select(x => new CheckedItem
                 {
                     Name = x,
