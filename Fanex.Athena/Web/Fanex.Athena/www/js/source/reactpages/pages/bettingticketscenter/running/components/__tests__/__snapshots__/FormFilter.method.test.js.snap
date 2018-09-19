@@ -123,7 +123,7 @@ exports[`FormFilter  render correctly 1`] = `
           cache={true}
           htmlAttributes={
             Object {
-              "placeholder": "All",
+              "placeholder": "ExternalIdOrSystemId",
             }
           }
           onInput={[Function]}

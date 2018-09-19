@@ -2,7 +2,6 @@
 {
     using System;
     using System.Data;
-    using Session.Interfaces;
     using Core.UnitTests.TestHelpers;
     using Forecast;
     using Model.Forecast.DTO.Forecast1X2;
@@ -12,6 +11,7 @@
     using Model.Forecast.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using Session.Interfaces;
     using UnitTest.Common.Helpers;
     using VendorAdapter.Interfaces;
 
@@ -25,6 +25,7 @@
                 Substitute.For<ISessionStorage>(),
                 Substitute.For<ICacheRefAdapter>());
         }
+
         [Test]
         public void GetForecastTopOddsByMatch_WhenCall_ParametersPassedCorrectly()
         {

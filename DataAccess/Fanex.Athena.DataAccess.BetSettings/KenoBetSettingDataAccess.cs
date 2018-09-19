@@ -15,7 +15,6 @@ namespace Fanex.Athena.DataAccess.BetSettings
     using Fanex.Common;
     using Interfaces;
     using Session.Interfaces;
-    using VendorAdapter;
     using VendorAdapter.Interfaces;
 
     public class KenoBetSettingDataAccess : BaseDataAccess, IKenoBetSettingDataAccess
@@ -30,7 +29,6 @@ namespace Fanex.Athena.DataAccess.BetSettings
         {
             _cacheRefAdapter = cacheRefAdapter;
         }
-        
 
         public IList<BetSetting> GetBetSettings(int custId)
         {
