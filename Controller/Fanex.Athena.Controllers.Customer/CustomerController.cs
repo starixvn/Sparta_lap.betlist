@@ -126,6 +126,7 @@ namespace Fanex.Athena.Controllers.Customer
             {
                 this.SetValueForBaStatus(model);
             }
+
             ViewBag.ProductList = productAccess.ProductList.Select(x => x.ProductCode);
             return View("~/Views/Customer/Customers.cshtml", model);
         }

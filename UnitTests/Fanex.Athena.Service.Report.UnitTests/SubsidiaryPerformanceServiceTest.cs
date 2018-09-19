@@ -16,6 +16,13 @@
     public class SubsidiaryPerformanceServiceTest
     {
         private const string LicenseeName = "12Bet";
+
+        private IList<Subsidiary> _subsidiaryList = new List<Subsidiary>
+        {
+            new Subsidiary { AgentId = 1234, CurrencyId = 1, OperatorId = "New York" },
+            new Subsidiary { AgentId = 1235, CurrencyId = 2, OperatorId = "India" }
+        };
+
         private ISubsidiaryPerformanceDataAccess _dataAccess;
         private SubsidiaryPerformanceService _service;
         private ISessionService _sessionService;
@@ -28,12 +35,16 @@
             _dataAccess = Substitute.For<ISubsidiaryPerformanceDataAccess>();
             _subsidiaryService = Substitute.For<ISubsidiaryService>();
             _service = new SubsidiaryPerformanceService(_sessionService, _subsidiaryService, _dataAccess);
+
+            _sessionService.UserSession.Returns(new Session.Model.UserSession());
         }
 
         [TearDown]
         public void TearDown()
         {
             _dataAccess = null;
+            _subsidiaryService = null;
+            _sessionService = null;
             _service = null;
         }
 
@@ -68,17 +79,12 @@
                 FromDate = new DateTime(2017, 8, 30),
                 ToDate = new DateTime(2017, 8, 30),
                 ProductCodeList = "SB,BA",
-                SubsidiaryList = "123,143",
+                SubsidiaryList = "New York,India",
                 BaseCurrency = "EUR",
                 LicenseeName = LicenseeName
             };
 
-            var operatorList = new List<Subsidiary>
-            {
-                new Subsidiary { AgentId = 1234, CurrencyId = 1, OperatorId = "New York" },
-                new Subsidiary { AgentId = 1235, CurrencyId = 2, OperatorId = "India" }
-            };
-            _subsidiaryService.GetSubsidiaryList().Returns(operatorList);
+            _subsidiaryService.GetSubsidiaryList().Returns(_subsidiaryList);
 
             var fakeEntityDataList = GetFakeEntityDataList();
 
@@ -107,11 +113,7 @@
                 LicenseeName = LicenseeName
             };
 
-            var operatorList = new List<Subsidiary>
-            {
-                new Subsidiary { AgentId = 1230, CurrencyId = 1, OperatorId = "New York" }
-            };
-            _subsidiaryService.GetSubsidiaryList().Returns(operatorList);
+            _subsidiaryService.GetSubsidiaryList().Returns(_subsidiaryList);
 
             var resultData = GetFakeEntityDataList();
 
@@ -136,17 +138,12 @@
                 FromDate = new DateTime(2017, 8, 30),
                 ToDate = new DateTime(2017, 8, 30),
                 ProductCodeList = "SB,BA",
-                SubsidiaryList = "123,143",
+                SubsidiaryList = "New York,India",
                 BaseCurrency = "EUR",
                 LicenseeName = LicenseeName
             };
 
-            var operatorList = new List<Subsidiary>
-            {
-                new Subsidiary { AgentId = 1234, CurrencyId = 1, OperatorId = "New York" },
-                new Subsidiary { AgentId = 1235, CurrencyId = 2, OperatorId = "India" }
-            };
-            _subsidiaryService.GetSubsidiaryList().Returns(operatorList);
+            _subsidiaryService.GetSubsidiaryList().Returns(_subsidiaryList);
 
             var resultData = GetFakeEntityDataList();
 
@@ -163,7 +160,7 @@
         }
 
         [Test]
-        public void GetData_TotalDataListIsNotEmpty_ReturnCorrectGrandTotalData()
+        public void GetData_WhenCall_ReturnCorrectGrandTotalData()
         {
             // Arrange
             var metaModel = new SubsidiaryPerformanceMetaModel
@@ -171,17 +168,12 @@
                 FromDate = new DateTime(2017, 8, 30),
                 ToDate = new DateTime(2017, 8, 30),
                 ProductCodeList = "SB,BA",
-                SubsidiaryList = "123,143",
+                SubsidiaryList = "New York,India",
                 BaseCurrency = "EUR",
                 LicenseeName = LicenseeName
             };
 
-            var operatorList = new List<Subsidiary>
-            {
-                new Subsidiary { AgentId = 1234, CurrencyId = 1, OperatorId = "New York" },
-                new Subsidiary { AgentId = 1235, CurrencyId = 2, OperatorId = "India" }
-            };
-            _subsidiaryService.GetSubsidiaryList().Returns(operatorList);
+            _subsidiaryService.GetSubsidiaryList().Returns(_subsidiaryList);
 
             var resultData = GetFakeEntityDataList();
 
@@ -197,76 +189,51 @@
             Assert.That(result, Is.EqualTo(expectedResult));
         }
 
-        [Test]
-        public void GetData_TotalDataListIsEmpty_GrandTotalIsNull()
-        {
-            // Arrange
-            var metaModel = new SubsidiaryPerformanceMetaModel
-            {
-                FromDate = new DateTime(2017, 8, 30),
-                ToDate = new DateTime(2017, 8, 30),
-                ProductCodeList = "SB,BA",
-                SubsidiaryList = "123,143",
-                BaseCurrency = "EUR",
-                LicenseeName = LicenseeName
-            };
-
-            var operatorList = new List<Subsidiary>
-            {
-                new Subsidiary { AgentId = 1234, CurrencyId = 1, OperatorId = "New York" },
-                new Subsidiary { AgentId = 1235, CurrencyId = 2, OperatorId = "India" }
-            };
-            _subsidiaryService.GetSubsidiaryList().Returns(operatorList);
-
-            var resultData = new List<SubsidiaryPerformance>();
-
-            _dataAccess.GetData(metaModel).Returns(resultData);
-
-            // Action
-            var result = _service.GetData(metaModel).GrandTotal;
-
-            // Assert
-            Assert.That(result, Is.Null);
-        }
-
         private static IEnumerable<SubsidiaryPerformance> GetFakeEntityDataList()
         {
             return new List<SubsidiaryPerformance>
             {
                 new SubsidiaryPerformance
                 {
-                    SubsidiaryId = 1234, Subsidiary = "New York", CurrencyId = 1, CurrencyName = "USD",
-                    Product = "SB", BetCount = 50, Turnover = 100m, CustomerWinLoss = 10m, SubsidiaryWinLoss = -10m
+                    SubsidiaryId = 1234, CurrencyId = 1, CurrencyName = "USD", ProductCode = "SB",
+                    BetCount = 50, Turnover = 100m, CustomerWinLoss = 10m, SubsidiaryWinLoss = -10m,
+                    BaseCurrencyData = new SubsidiaryPerformanceBase { BetCount = 50, Turnover = 101m, CustomerWinLoss = 11m, SubsidiaryWinLoss = -11m }
                 },
                 new SubsidiaryPerformance
                 {
-                    SubsidiaryId = 1234, Subsidiary = "New York", CurrencyId = 1, CurrencyName = "USD",
-                    Product = "BA", BetCount = 50, Turnover = 100m, CustomerWinLoss = 10m, SubsidiaryWinLoss = -10m
+                    SubsidiaryId = 1234, CurrencyId = 1, CurrencyName = "USD", ProductCode = "BA",
+                    BetCount = 50, Turnover = 100m, CustomerWinLoss = 10m, SubsidiaryWinLoss = -10m,
+                    BaseCurrencyData = new SubsidiaryPerformanceBase { BetCount = 50, Turnover = 101m, CustomerWinLoss = 11m, SubsidiaryWinLoss = -11m }
                 },
                 new SubsidiaryPerformance
                 {
-                    SubsidiaryId = 1234, Subsidiary = "New York", CurrencyId = 1, CurrencyName = "USD",
-                    Product = "RB", BetCount = 50, Turnover = 100m, CustomerWinLoss = 10m, SubsidiaryWinLoss = -10m
+                    SubsidiaryId = 1234, CurrencyId = 1, CurrencyName = "USD", ProductCode = "RB",
+                    BetCount = 50, Turnover = 100m, CustomerWinLoss = 10m, SubsidiaryWinLoss = -10m,
+                    BaseCurrencyData = new SubsidiaryPerformanceBase { BetCount = 50, Turnover = 101m, CustomerWinLoss = 11m, SubsidiaryWinLoss = -11m }
                 },
                 new SubsidiaryPerformance
                 {
-                    SubsidiaryId = 1235, Subsidiary = "India", CurrencyId = 1, CurrencyName = "USD",
-                    Product = "RB", BetCount = 50, Turnover = 100m, CustomerWinLoss = 100m, SubsidiaryWinLoss = -100m
+                    SubsidiaryId = 1235, CurrencyId = 1, CurrencyName = "USD", ProductCode = "RB",
+                    BetCount = 50, Turnover = 100m, CustomerWinLoss = 100m, SubsidiaryWinLoss = -100m,
+                    BaseCurrencyData = new SubsidiaryPerformanceBase { BetCount = 50, Turnover = 101m, CustomerWinLoss = 101m, SubsidiaryWinLoss = -101m }
                 },
                 new SubsidiaryPerformance
                 {
-                    SubsidiaryId = 1235, Subsidiary = "India", CurrencyId = 6, CurrencyName = "EUR",
-                    Product = "SB", BetCount = 50, Turnover = 100m, CustomerWinLoss = 100m, SubsidiaryWinLoss = -100m
+                    SubsidiaryId = 1235, CurrencyId = 6, CurrencyName = "EUR", ProductCode = "SB",
+                    BetCount = 50, Turnover = 100m, CustomerWinLoss = 100m, SubsidiaryWinLoss = -100m,
+                    BaseCurrencyData = new SubsidiaryPerformanceBase { BetCount = 50, Turnover = 101m, CustomerWinLoss = 101m, SubsidiaryWinLoss = -101m }
                 },
                 new SubsidiaryPerformance
                 {
-                    SubsidiaryId = 1235, Subsidiary = "India", CurrencyId = 1, CurrencyName = "USD",
-                    Product = "SB", BetCount = 50, Turnover = 100m, CustomerWinLoss = 100m, SubsidiaryWinLoss = -100m
+                    SubsidiaryId = 1235, CurrencyId = 1, CurrencyName = "USD", ProductCode = "SB",
+                    BetCount = 50, Turnover = 100m, CustomerWinLoss = 100m, SubsidiaryWinLoss = -100m,
+                    BaseCurrencyData = new SubsidiaryPerformanceBase { BetCount = 50, Turnover = 101m, CustomerWinLoss = 101m, SubsidiaryWinLoss = -101m }
                 },
                 new SubsidiaryPerformance
                 {
-                    SubsidiaryId = 1235, Subsidiary = "India", CurrencyId = 1, CurrencyName = "USD",
-                    Product = "SB", BetCount = 50, Turnover = 100m, CustomerWinLoss = 100m, SubsidiaryWinLoss = -100m
+                    SubsidiaryId = 1235, CurrencyId = 1, CurrencyName = "USD", ProductCode = "SB",
+                    BetCount = 50, Turnover = 100m, CustomerWinLoss = 100m, SubsidiaryWinLoss = -100m,
+                    BaseCurrencyData = new SubsidiaryPerformanceBase { BetCount = 50, Turnover = 101m, CustomerWinLoss = 101m, SubsidiaryWinLoss = -101m }
                 }
             };
         }
@@ -298,54 +265,53 @@
             {
                 new SubsidiaryPerformanceDataModel
                 {
-                    Subsidiary = "New York", Details = new Dictionary<string, IEnumerable<SubsidiaryPerformanceBase>> { { "USD", dataDetail1 } }
+                    Subsidiary = "New York", TotalItem = 4, Details = new Dictionary<string, IEnumerable<SubsidiaryPerformanceBase>> { { "USD", dataDetail1 } }
                 },
                 new SubsidiaryPerformanceDataModel
                 {
-                    Subsidiary = "India", Details = new Dictionary<string, IEnumerable<SubsidiaryPerformanceBase>> { { "USD", dataDetail2 } }
-                },
-                new SubsidiaryPerformanceDataModel
-                {
-                    Subsidiary = "India", Details = new Dictionary<string, IEnumerable<SubsidiaryPerformanceBase>> { { "EUR", dataDetail3 } }
+                    Subsidiary = "India", TotalItem = 5, Details = new Dictionary<string, IEnumerable<SubsidiaryPerformanceBase>> { { "USD", dataDetail2 }, { "EUR", dataDetail3 } }
                 }
             };
         }
 
-        private static IEnumerable<SubsidiaryPerformance> GetExpectedTotalDataList()
+        private static IDictionary<string, SubsidiaryPerformanceBase> GetExpectedTotalDataList()
         {
-            return new List<SubsidiaryPerformance>
+            return new Dictionary<string, SubsidiaryPerformanceBase>
             {
-                new SubsidiaryPerformance
                 {
-                    Subsidiary = "Total New York",
-                    CurrencyName = "Based EUR",
-                    BetCount = 150,
-                    Turnover = 300m,
-                    CustomerWinLoss = 30m,
-                    SubsidiaryWinLoss = -30m
+                    "New York",
+                    new SubsidiaryPerformanceBase
+                    {
+                        CurrencyName = "EUR",
+                        BetCount = 150,
+                        Turnover = 303m,
+                        CustomerWinLoss = 33m,
+                        SubsidiaryWinLoss = -33m
+                    }
                 },
-                new SubsidiaryPerformance
                 {
-                    Subsidiary = "Total India",
-                    CurrencyName = "Based EUR",
-                    BetCount = 200,
-                    Turnover = 400m,
-                    CustomerWinLoss = 400m,
-                    SubsidiaryWinLoss = -400m
+                    "India",
+                    new SubsidiaryPerformanceBase
+                    {
+                        CurrencyName = "EUR",
+                        BetCount = 200,
+                        Turnover = 404m,
+                        CustomerWinLoss = 404m,
+                        SubsidiaryWinLoss = -404m
+                    }
                 }
             };
         }
 
-        private static SubsidiaryPerformance GetExpectedGrandTotal()
+        private static SubsidiaryPerformanceBase GetExpectedGrandTotal()
         {
-            return new SubsidiaryPerformance
+            return new SubsidiaryPerformanceBase
             {
-                Subsidiary = "Total",
-                CurrencyName = "Based EUR",
+                CurrencyName = "EUR",
                 BetCount = 350,
-                Turnover = 700m,
-                CustomerWinLoss = 430m,
-                SubsidiaryWinLoss = -430
+                Turnover = 707m,
+                CustomerWinLoss = 437m,
+                SubsidiaryWinLoss = -437
             };
         }
     }

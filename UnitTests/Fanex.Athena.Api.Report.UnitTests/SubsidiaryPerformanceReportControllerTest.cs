@@ -2,11 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Web.Script.Serialization;
     using Base.UnitTests;
+    using Constant.DataDomain;
     using Fanex.Athena.Service.Report.Interfaces;
-    using Model.Report.DTO;
     using Model.Report.DTO.SubsidiaryPerformance;
     using Model.Report.MetaModel;
     using NSubstitute;
@@ -21,8 +19,6 @@
 
         private SubsidiaryPerformanceReportController _controller;
 
-        private JavaScriptSerializer _serializer;
-
         [OneTimeSetUp]
         public override void FixtureSetUp()
         {
@@ -30,7 +26,6 @@
             _subsidiaryService = Substitute.For<ISubsidiaryService>();
             _service = Substitute.For<ISubsidiaryPerformanceService>();
             _controller = Substitute.ForPartsOf<SubsidiaryPerformanceReportController>(SessionService, ProductService, LangService, _subsidiaryService, _service);
-            _serializer = new JavaScriptSerializer();
 
             MockSessionData();
         }
@@ -44,49 +39,25 @@
             _controller = null;
         }
 
-        [Test]
-        public void Index_WhenCall_ServiceIsCalledWithCorrectMetaModel()
+        [TearDown]
+        public void TearDown()
         {
-            // Arrange
-            const string AgentListXml = "<Root><Agent AgentId=\"1\" Currency=\"1\"/><Agent AgentId=\"2\" Currency=\"1\"/></Root>";
-            var metaModel = GetMetaModel();
-            metaModel.AgentListXml = AgentListXml;
-
-            SessionService.GenerateAgentListXml(Arg.Any<IEnumerable<int>>()).Returns(AgentListXml);
-            SubsidiaryPerformanceMetaModel passedMetaModel = null;
-            var resultData = new SubsidiaryResultViewModel
-            {
-                Total = new Dictionary<string, SubsidiaryPerformanceBase>()
-            };
-
-            _service.GetData(Arg.Do<SubsidiaryPerformanceMetaModel>(x => passedMetaModel = x)).Returns(resultData);
-
-            // Action
-            _controller.Index(metaModel);
-
-            // Assert
-            Assert.That(metaModel, Is.EqualTo(passedMetaModel));
+            SessionService.ClearReceivedCalls();
+            _subsidiaryService.ClearReceivedCalls();
+            _service.ClearReceivedCalls();
         }
 
         [Test]
-        public void Index_SubsidiaryListHasValue_GenerateAgentListXmlIsCalledWithCorrectParameter()
+        public void Index_SubsidiaryView_DoNotCallServiceToGetSubsidiaryList()
         {
             // Arrange
             var metaModel = GetMetaModel();
 
-            var operatorList = new List<Subsidiary>
-            {
-                new Subsidiary { AgentId = 1, OperatorId = "New York", CurrencyId = 1 },
-                new Subsidiary { AgentId = 3, OperatorId = "New York 2", CurrencyId = 1 },
-                new Subsidiary { AgentId = 2, OperatorId = "India", CurrencyId = 2 }
-            };
-            _subsidiaryService.GetSubsidiaryList().Returns(operatorList);
-            IDictionary<int, IEnumerable<int>> currencyAgentList = null;
-            SessionService.GenerateAgentListXml(Arg.Do<IDictionary<int, IEnumerable<int>>>(x => currencyAgentList = x));
+            SessionService.GenerateAgentListXml(Arg.Any<int>(), Arg.Any<bool>()).Returns("<Root></Root>");
+            SessionService.UserSession.Returns(new Session.Model.UserSession { UserLevel = UserLevelType.Subsidiary });
 
             var resultData = new SubsidiaryResultViewModel
             {
-                Data = new List<SubsidiaryPerformanceDataModel>(),
                 Total = new Dictionary<string, SubsidiaryPerformanceBase>()
             };
             _service.GetData(Arg.Any<SubsidiaryPerformanceMetaModel>()).Returns(resultData);
@@ -95,26 +66,40 @@
             _controller.Index(metaModel);
 
             // Assert
-            Assert.That(currencyAgentList.Count(), Is.EqualTo(2));
+            Assert.Multiple(() =>
+            {
+                SessionService.Received().GenerateAgentListXml(0, false);
+                _subsidiaryService.DidNotReceiveWithAnyArgs().GetCurrencyAgentList(Arg.Any<string>(), Arg.Any<bool>(), 0);
+            });
         }
 
         [Test]
-        public void Index_SubsidiaryListHasNoValue_ReturnEmptyResult()
+        public void Index_LicenseeView_CallServiceToGetSubsidiaryList()
         {
             // Arrange
             var metaModel = GetMetaModel();
 
-            var currencyIdList = new List<Subsidiary>();
-            _subsidiaryService.GetSubsidiaryList().Returns(currencyIdList);
-            var expectedResult = _serializer.Serialize(new SubsidiaryResultViewModel { Data = new List<SubsidiaryPerformanceDataModel>() });
+            SessionService.GenerateAgentListXml(Arg.Any<IDictionary<int, IEnumerable<int>>>()).Returns("<Root></Root>");
+            SessionService.UserSession.Returns(new Session.Model.UserSession { UserLevel = UserLevelType.Licensee });
+
+            var currencyAgentList = new Dictionary<int, IEnumerable<int>> { { 1, new[] { 1, 2, 3 } } };
+            _subsidiaryService.GetCurrencyAgentList(Arg.Any<string>(), Arg.Any<bool>(), Arg.Any<int>()).Returns(currencyAgentList);
+
+            var resultData = new SubsidiaryResultViewModel
+            {
+                Total = new Dictionary<string, SubsidiaryPerformanceBase>()
+            };
+            _service.GetData(Arg.Any<SubsidiaryPerformanceMetaModel>()).Returns(resultData);
 
             // Action
-            var resultData = _controller.Index(metaModel);
-            var result = _serializer.Serialize(resultData);
+            _controller.Index(metaModel);
 
             // Assert
-            SessionService.DidNotReceiveWithAnyArgs().GenerateAgentListXml(Arg.Any<IDictionary<int, IEnumerable<int>>>());
-            Assert.That(result, Is.EqualTo(expectedResult));
+            Assert.Multiple(() =>
+            {
+                SessionService.Received().GenerateAgentListXml(currencyAgentList);
+                _subsidiaryService.Received().GetCurrencyAgentList(metaModel.SubsidiaryList, metaModel.IsExcludeTest, 0);
+            });
         }
 
         [Test]
@@ -178,16 +163,32 @@
         {
             // Arrange
             var metaModel = new SubsidiaryPerformanceMetaModel();
-            var expectedResult = _serializer.Serialize(new SubsidiaryResultViewModel
-            {
-                Data = new List<SubsidiaryPerformanceDataModel>()
-            });
 
             // Action
-            var result = _serializer.Serialize(_controller.Index(metaModel));
+            var result = _controller.Index(metaModel);
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
+            Assert.That(result.Data, Is.Empty);
+        }
+
+        [Test]
+        public void Index_InvalidSubsidiaryList_ReturnEmptyList()
+        {
+            // Arrange
+            var metaModel = new SubsidiaryPerformanceMetaModel
+            {
+                FromDate = new DateTime(2017, 8, 30),
+                ToDate = new DateTime(2017, 8, 30),
+                ProductCodeList = "SB",
+                SubsidiaryList = string.Empty,
+                BaseCurrency = "USD"
+            };
+
+            // Action
+            var result = _controller.Index(metaModel);
+
+            // Assert
+            Assert.That(result.Data, Is.Empty);
         }
 
         private SubsidiaryPerformanceMetaModel GetMetaModel()

@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
     using Core.Configuration.Interfaces;
     using Core.UnitTests.TestHelpers;
     using Data;
@@ -64,9 +65,9 @@
 
             Reader.Read().Returns(true, false);
 
-            var readerDataMapping = GetReaderDataMapping(metaModel.BaseCurrency);
+            var readerDataMapping = GetReaderDataMapping();
             DataAccessTestHelper.MapReaderData(Reader, readerDataMapping);
-            var expectedResult = ObjectHelper.ToJson(GetExpectedResult(readerDataMapping));
+            var expectedResult = ObjectHelper.ToJson(GetExpectedResult(readerDataMapping, false));
 
             // Action
             var result = ObjectHelper.ToJson(DataAccess.GetData(metaModel));
@@ -86,9 +87,9 @@
 
             Reader.Read().Returns(true, false);
 
-            var readerDataMapping = GetReaderDataMapping(metaModel.BaseCurrency);
+            var readerDataMapping = GetReaderDataMapping();
             DataAccessTestHelper.MapReaderData(Reader, readerDataMapping);
-            var expectedResult = ObjectHelper.ToJson(GetExpectedResult(readerDataMapping, metaModel.BaseCurrency));
+            var expectedResult = ObjectHelper.ToJson(GetExpectedResult(readerDataMapping, true));
 
             // Action
             var result = ObjectHelper.ToJson(DataAccess.GetData(metaModel));
@@ -98,49 +99,128 @@
         }
 
         [Test]
-        public void GetData_WhenCall_ReturnCorrectTotalDataList()
+        public void GetDetailData_WhenCall_PassCorrectParams()
         {
             // Arrange
-            const string SpName = "Lrf_Rpt_SubsidiaryWinloss";
+            const string SpName = "Lrf_Rpt_SubsidiaryWinlossDetail";
+            DataAccess.GetObjectDb(Arg.Is(SpName)).Returns(ObjectDb);
+            Reader.Read().Returns(false);
+
+            var metaModel = GetDefaultMetaModel();
+
+            // Action
+            DataAccess.GetDetailData(metaModel);
+
+            // Assert
+            AssertParamsPassCorrectly(metaModel);
+        }
+
+        [Test]
+        public void GetDetailData_DoNotConvertToBasedCurrency_ReturnDataWithOriginalCurrency()
+        {
+            // Arrange
+            const string SpName = "Lrf_Rpt_SubsidiaryWinlossDetail";
             DataAccess.GetObjectDb(Arg.Is(SpName)).Returns(ObjectDb);
             var metaModel = GetDefaultMetaModel();
             metaModel.ConvertAll = false;
 
             Reader.Read().Returns(true, false);
 
-            var readerDataMapping = GetReaderDataMapping(metaModel.BaseCurrency);
+            var readerDataMapping = GetReaderDetailDataMapping();
             DataAccessTestHelper.MapReaderData(Reader, readerDataMapping);
 
-            var total = GetExpectedResult(readerDataMapping, metaModel.BaseCurrency);
-            var expectedResult = ObjectHelper.ToJson(total);
-
             // Action
-            var dataResult = DataAccess.GetData(metaModel);
-            var result = ObjectHelper.ToJson(dataResult);
+            var result = DataAccess.GetDetailData(metaModel);
+            var firstData = result.DataList.First();
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
+            Assert.Multiple(() =>
+            {
+                Assert.That(firstData.Turnover, Is.EqualTo(Convert.ToDecimal(readerDataMapping["Turnover"])));
+                Assert.That(firstData.CustomerWinLoss, Is.EqualTo(Convert.ToDecimal(readerDataMapping["Winlost"])));
+                Assert.That(firstData.SubsidiaryWinLoss, Is.EqualTo(Convert.ToDecimal(readerDataMapping["LicenseeWL"])));
+            });
         }
 
-        private static List<SubsidiaryPerformance> GetExpectedResult(IDictionary<string, object> readerDataMapping, string baseCurrency = "")
+        [Test]
+        public void GetDetailData_ConvertToBasedCurrency_ReturnDataWithBasedCurrency()
         {
+            // Arrange
+            const string SpName = "Lrf_Rpt_SubsidiaryWinlossDetail";
+            DataAccess.GetObjectDb(Arg.Is(SpName)).Returns(ObjectDb);
+            var metaModel = GetDefaultMetaModel();
+            metaModel.ConvertAll = true;
+
+            Reader.Read().Returns(true, false);
+
+            var readerDataMapping = GetReaderDetailDataMapping();
+            DataAccessTestHelper.MapReaderData(Reader, readerDataMapping);
+
+            // Action
+            var result = DataAccess.GetDetailData(metaModel);
+            var firstData = result.DataList.First();
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(firstData.Turnover, Is.EqualTo(Convert.ToDecimal(readerDataMapping["TurnoverBase"])));
+                Assert.That(firstData.CustomerWinLoss, Is.EqualTo(Convert.ToDecimal(readerDataMapping["WinlostBase"])));
+                Assert.That(firstData.SubsidiaryWinLoss, Is.EqualTo(Convert.ToDecimal(readerDataMapping["LicenseeWLBase"])));
+            });
+        }
+
+        [Test]
+        public void GetDetailData_WhenCall_ReturnTotalDataCorrectly()
+        {
+            // Arrange
+            const string SpName = "Lrf_Rpt_SubsidiaryWinlossDetail";
+            DataAccess.GetObjectDb(Arg.Is(SpName)).Returns(ObjectDb);
+            var metaModel = GetDefaultMetaModel();
+            metaModel.ConvertAll = true;
+
+            Reader.Read().Returns(true, false);
+
+            var readerDataMapping = GetReaderDetailDataMapping();
+            DataAccessTestHelper.MapReaderData(Reader, readerDataMapping);
+
+            // Action
+            var result = DataAccess.GetDetailData(metaModel);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.SummaryTotal.ContainsKey(CurrencyName), Is.True);
+                Assert.That(result.TotalData.CurrencyName, Is.EqualTo(metaModel.BaseCurrency.ToUpperInvariant()));
+            });
+        }
+
+        private static List<SubsidiaryPerformance> GetExpectedResult(IDictionary<string, object> readerDataMapping, bool isConvertAll)
+        {
+            var baseCurrencyColumn = isConvertAll ? "Base" : string.Empty;
             return new List<SubsidiaryPerformance>
             {
                 new SubsidiaryPerformance
                 {
+                    ProductCode = readerDataMapping["ProductCode"].ToString(),
                     SubsidiaryId = Convert.ToInt32(readerDataMapping["recommend"]),
                     CurrencyId = Convert.ToInt32(readerDataMapping["Currency"]),
                     CurrencyName = CurrencyName,
-                    Product = readerDataMapping["ProductCode"].ToString(),
                     BetCount = Convert.ToInt32(readerDataMapping["BetCount"]),
-                    Turnover = Convert.ToDecimal(readerDataMapping["Turnover" + baseCurrency]),
-                    CustomerWinLoss = Convert.ToDecimal(readerDataMapping["Winlost" + baseCurrency]),
-                    SubsidiaryWinLoss = Convert.ToDecimal(readerDataMapping["LicenseeWL" + baseCurrency])
+                    Turnover = Convert.ToDecimal(readerDataMapping["Turnover" + baseCurrencyColumn]),
+                    CustomerWinLoss = Convert.ToDecimal(readerDataMapping["Winlost" + baseCurrencyColumn]),
+                    SubsidiaryWinLoss = Convert.ToDecimal(readerDataMapping["LicenseeWL" + baseCurrencyColumn]),
+                    BaseCurrencyData = new SubsidiaryPerformanceBase
+                    {
+                        BetCount = Convert.ToInt32(readerDataMapping["BetCount"]),
+                        Turnover = Convert.ToDecimal(readerDataMapping["TurnoverBase"]),
+                        CustomerWinLoss = Convert.ToDecimal(readerDataMapping["WinlostBase"]),
+                        SubsidiaryWinLoss = Convert.ToDecimal(readerDataMapping["LicenseeWLBase"])
+                    }
                 }
             };
         }
 
-        private static IDictionary<string, object> GetReaderDataMapping(string baseCurrency)
+        private static IDictionary<string, object> GetReaderDataMapping()
         {
             return new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
             {
@@ -151,9 +231,27 @@
                 { "Turnover", 10000m },
                 { "Winlost", 5000m },
                 { "LicenseeWL", 2000m },
-                { "Turnover" + baseCurrency, 20000m },
-                { "Winlost" + baseCurrency, 50000m },
-                { "LicenseeWL" + baseCurrency, 20000m },
+                { "TurnoverBase", 20001m },
+                { "WinlostBase", 50001m },
+                { "LicenseeWLBase", 20001m }
+            };
+        }
+
+        private static IDictionary<string, object> GetReaderDetailDataMapping()
+        {
+            return new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
+            {
+                { "SystemId", "123" },
+                { "ExternalId", "456" },
+                { "Currency", CurrencyId },
+                { "ProductCode", "SB" },
+                { "BetCount", 10 },
+                { "Turnover", 10000m },
+                { "Winlost", 5000m },
+                { "LicenseeWL", 2000m },
+                { "TurnoverBase", 20001m },
+                { "WinlostBase", 50001m },
+                { "LicenseeWLBase", 20001m }
             };
         }
 
@@ -172,13 +270,13 @@
 
         private void AssertParamsPassCorrectly(SubsidiaryPerformanceMetaModel metaModel)
         {
-            ObjectDb.DidNotReceive().AddInParameter("BaseCurrency", Arg.Any<DbType>(), Arg.Any<object>());
-            ObjectDb.DidNotReceive().AddInParameter("ConvertAll", Arg.Any<DbType>(), Arg.Any<object>());
             ObjectDb.Received(1).AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
             ObjectDb.Received(1).AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
             ObjectDb.Received(1).AddInParameter("MoveBetsDay", DbType.DateTime, _balance.MoveBetsDay);
             ObjectDb.Received(1).AddInParameter("ProductList", DbType.String, metaModel.ProductCodeList);
             ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            ObjectDb.Received(1).AddInParameter("IncludeRaw", DbType.Boolean, metaModel.IncludeRaw);
+            ObjectDb.Received(1).AddInParameter("BaseCurrency", DbType.String, metaModel.BaseCurrency);
         }
     }
 }
