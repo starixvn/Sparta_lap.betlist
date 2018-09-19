@@ -13,6 +13,6 @@
     "ReportKey": "CustomerWinLoss29",
     "MinDateString": "",
     "MaxDateString": "today",
-    "MaximumSupportedDays": 90
+    "LimitRecentDays": 90
   }
 ]

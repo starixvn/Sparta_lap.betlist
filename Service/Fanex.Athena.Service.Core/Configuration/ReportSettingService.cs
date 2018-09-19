@@ -91,9 +91,9 @@ namespace Fanex.Athena.Service.Core.Configuration
                 reportSetting.MinDate = DateTimeHelper.GetMaxDate(reportSetting.MinDate, limitedMinDate);
             }
 
-            if (reportSetting.MaximumSupportedDays > 0)
+            if (reportSetting.LimitRecentDays > 0)
             {
-                var supportedMinDate = reportSetting.MaxDate.Date.AddDays(-reportSetting.MaximumSupportedDays);
+                var supportedMinDate = reportSetting.MaxDate.Date.AddDays(-reportSetting.LimitRecentDays);
                 reportSetting.MinDate = DateTimeHelper.GetMaxDate(reportSetting.MinDate, supportedMinDate);
             }
         }
