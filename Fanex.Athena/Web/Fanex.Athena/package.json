@@ -70,7 +70,7 @@
     "build-react-pro": "webpack --config www/webpackconfig/build/webpack.react.pro.conf.js",
     "build-react-both": "webpack --config www/webpackconfig/build/webpack.react.pro.conf.js && webpack --config www/webpackconfig/build/webpack.react.dev.conf.js",
     "test-react": "jest --coverage",
-    "test-react-one": "jest reportExcel11.test.js --watch --u",
+    "test-react-one": "jest **/*.test.js --watch --u",
     "test-react-watch": "jest --watch",
     "jest-install": "npm install jest-cli -g",
     "jest-up-ss": "jest --updateSnapshot",
@@ -96,8 +96,12 @@
   },
   "jest": {
     "testMatch": [
-      "**/__tests__/**/*.test.js?(x)",
-      "**/?(*.)(spec|test).js?(x)"
+      "<rootDir>/www/**/__tests__/**/*.test.js?(x)",
+      "<rootDir>/www/**/?(*.)(spec|test).js?(x)"
+    ],
+    "collectCoverageFrom": [
+      "www/js/source/reactpages/**/*.{js,jsx}",
+      "!www/js/source/reactpages/**/index.{js,jsx}"
     ]
   }
 }
