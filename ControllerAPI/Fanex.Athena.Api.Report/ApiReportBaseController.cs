@@ -33,20 +33,20 @@
                              || KeanOceanBusinessHelper.VerifyKeanOceanCurrencyRequest(currencyList, SessionService.LicenseeSession.LicenseeId, currencyId);
         }
 
-        protected void CheckValidProducts(string functionKey, BaseReportMetaModel metaModel)
+        protected internal virtual void CheckValidProducts(string functionKey, BaseReportMetaModel metaModel)
         {
             var passedProductCodes = string.IsNullOrEmpty(metaModel.ProductCodeList) ?
                 metaModel.ProductOptions.Select(x => x.Code) : metaModel.ProductCodeList.Split(',');
             CheckValidProducts(functionKey, passedProductCodes);
         }
 
-        protected void CheckValidProducts(string functionKey, string productCodeList)
+        protected internal virtual void CheckValidProducts(string functionKey, string productCodeList)
         {
             var passedProductCodes = productCodeList?.Split(',');
             CheckValidProducts(functionKey, passedProductCodes);
         }
 
-        protected void CheckValidProducts(string functionKey, IEnumerable<string> productCodes)
+        protected internal virtual void CheckValidProducts(string functionKey, IEnumerable<string> productCodes)
         {
             var allowedProductCodes = ProductService.GetSingleWalletProductAccess(
                 SessionService.LicenseeSession.LicenseeId,
