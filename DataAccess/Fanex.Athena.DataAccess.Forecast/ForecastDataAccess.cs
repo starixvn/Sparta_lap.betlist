@@ -341,8 +341,11 @@ namespace Fanex.Athena.DataAccess.Forecast
 
         private void AssignTeamNames(ForecastBase item)
         {
-            item.HomeTeamName = _cacheRefAdapter.GetTeamName(item.HomeId) + (item.IsNeutral ? " (N)" : string.Empty);
-            item.AwayTeamName = _cacheRefAdapter.GetTeamName(item.AwayId);
+            if (item != null)
+            {
+                item.HomeTeamName = _cacheRefAdapter.GetTeamName(item.HomeId) + (item.IsNeutral ? " (N)" : string.Empty);
+                item.AwayTeamName = _cacheRefAdapter.GetTeamName(item.AwayId);
+            }
         }
     }
 }

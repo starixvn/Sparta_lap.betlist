@@ -11,7 +11,6 @@
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using Service.Core.Common.Interfaces;
     using Service.Core.Configuration.Interfaces;
     using Service.Report.Interfaces;
     using UnitTest.Common.Helpers;
@@ -22,11 +21,11 @@
 
         private const string SiteName = "12bet";
 
+        private const string Language = "Cs";
+
         private const int MaximumMonthDistance = 5;
 
         private IMoveBetService _moveBetService;
-
-        private ILanguageService _languageService;
 
         private INotificationService _notificationService;
 
@@ -38,31 +37,25 @@
         public void SetUp()
         {
             _moveBetService = Substitute.For<IMoveBetService>();
-            _languageService = Substitute.For<ILanguageService>();
             _notificationService = Substitute.For<INotificationService>();
-            _apiController = GetControllerWithActionArguments(_moveBetService, _languageService, _notificationService);
+            _apiController = GetControllerWithActionArguments(_moveBetService, _notificationService);
         }
 
         [TearDown]
         public void TearDown()
         {
             _moveBetService = null;
-            _languageService = null;
             _notificationService = null;
         }
 
         [Test]
         public void Index_WhenCall_ServiceIsCalledWithCorrectParameter()
         {
-            // Arrange
-            const string CurrentLanguageCode = "en";
-            _languageService.GetCurrentLanguage().Returns(CurrentLanguageCode);
-
             // Action
             _apiController.Index();
 
             // Assert
-            _moveBetService.Received().GetMoveBetNotification(CurrentLanguageCode);
+            _moveBetService.Received(1).GetMoveBetNotification("zh-CN");
         }
 
         [Test]
@@ -204,7 +197,6 @@
 
         private NotificationApiController GetControllerWithActionArguments(
             IMoveBetService moveBetService,
-            ILanguageService languageService,
             INotificationService notificationService)
         {
             var mockActionContext = new HttpActionContext
@@ -212,12 +204,13 @@
                 ControllerContext = new HttpControllerContext(),
                 ActionArguments =
                 {
-                    { "username", "admin" },
-                    { "sitename", "12bet" }
+                    { "username", UserName },
+                    { "sitename", SiteName },
+                    { "language", Language }
                 }
             };
 
-            return new NotificationApiController(moveBetService, languageService, notificationService)
+            return new NotificationApiController(moveBetService, notificationService)
             {
                 ActionContext = mockActionContext
             };

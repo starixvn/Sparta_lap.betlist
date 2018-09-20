@@ -46,6 +46,24 @@ namespace Fanex.Athena.Extension.Utility
             }
         }
 
+        public static IDictionary<string, string> MapIetfLanguageCodes
+        {
+            get
+            {
+                return new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+                {
+                    { "en", "en-US" },
+                    { "ch", "zh-TW" },
+                    { "cs", "zh-CN" },
+                    { "zhcn", "zh-Hans" },
+                    { "jp", "ja-JP" },
+                    { "th", "th-TH" },
+                    { "ko", "ko-KR" },
+                    { "vn", "vi-VN" }
+                };
+            }
+        }
+
         [Obsolete]
         public static string RootPath
         {

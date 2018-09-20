@@ -4,9 +4,8 @@
     using System.Web.Http;
     using System.Web.Http.Cors;
     using Base.Attributes;
+    using Extension.Utility;
     using Model.Report.MetaModel;
-    using Service.Core.Common;
-    using Service.Core.Common.Interfaces;
     using Service.Core.Configuration;
     using Service.Core.Configuration.Interfaces;
     using Service.Report;
@@ -19,18 +18,15 @@
     {
         private readonly IMoveBetService _moveBetService;
 
-        private readonly ILanguageService _languageService;
-
         private readonly INotificationService _notificationService;
 
-        public NotificationApiController() : this(null, null, null)
+        public NotificationApiController() : this(null, null)
         {
         }
 
-        public NotificationApiController(IMoveBetService moveBetService, ILanguageService languageService, INotificationService notificationService)
+        public NotificationApiController(IMoveBetService moveBetService, INotificationService notificationService)
         {
             _moveBetService = moveBetService ?? new MoveBetService();
-            _languageService = languageService ?? new LanguageService();
             _notificationService = notificationService ?? new NotificationService();
         }
 
@@ -38,12 +34,14 @@
 
         private string SiteName => (string)ActionContext.ActionArguments["sitename"];
 
+        private string Language => (string)ActionContext.ActionArguments["language"];
+
         [HttpGet]
         public string Index()
         {
-            var language = _languageService.GetCurrentLanguage();
+            var langCode = Util.MapIetfLanguageCodes.GetValueOrDefault(Language, string.Empty);
 
-            return _moveBetService.GetMoveBetNotification(language);
+            return _moveBetService.GetMoveBetNotification(langCode);
         }
 
         [HttpGet]
