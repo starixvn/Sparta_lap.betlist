@@ -41,6 +41,7 @@
         [HttpPost]
         public SubsidiaryResultViewModel Index(SubsidiaryPerformanceMetaModel metaModel)
         {
+            CheckValidProducts(FunctionNames.SubsidiaryPerformance, metaModel.ProductCodeList);
             var isSubsidiary = SessionService.UserSession.UserLevel == UserLevelType.Subsidiary;
             var isValidSubsidiaryList = isSubsidiary || !string.IsNullOrWhiteSpace(metaModel.SubsidiaryList);
             if (!isValidSubsidiaryList || !metaModel.IsValid)
@@ -73,6 +74,7 @@
         {
             if (metaModel.IsValid)
             {
+                CheckValidProducts(FunctionNames.SubsidiaryPerformance, metaModel.ProductCodeList);
                 var licenseeName = SessionService.LicenseeSession.LicenseeName;
                 metaModel.LicenseeName = licenseeName;
                 var agentIdListByCurrency = _subsidiaryService.GetCurrencyAgentList(metaModel.SubsidiaryId, metaModel.IsExcludeTest);
