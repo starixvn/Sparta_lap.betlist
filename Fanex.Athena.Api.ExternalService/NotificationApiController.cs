@@ -22,7 +22,6 @@
         public NotificationApiController(IMoveBetService moveBetService, INotificationService notificationService)
         {
             _moveBetService = moveBetService;
-            _languageService = languageService;
             _notificationService = notificationService;
         }
 
