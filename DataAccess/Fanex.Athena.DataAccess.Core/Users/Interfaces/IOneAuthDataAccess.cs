@@ -4,6 +4,6 @@ namespace Fanex.Athena.DataAccess.Core.Users.Interfaces
 {
     public interface IOneAuthDataAccess
     {
-        OneAuthUserInfo GetUserInfo(int userSEQ);
+        OneAuthUserInfo GetUserInfo(int userSEQ, string vendorId);
     }
 }

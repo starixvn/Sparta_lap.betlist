@@ -18,14 +18,15 @@ namespace Fanex.Athena.DataAccess.Core.Users
 
     public class OneAuthDataAccess : BaseDataAccess, IOneAuthDataAccess
     {
-        public OneAuthUserInfo GetUserInfo(int userSEQ)
+        public OneAuthUserInfo GetUserInfo(int userSEQ, string vendorId)
         {
             const string UspName = "Lrf_GetUserLevelInfo";
             using (var db = this.GetObjectDb(UspName))
             {
+                db.AddInParameter("VendorID", DbType.String, vendorId);
                 db.AddInParameter("UserSEQ", DbType.Int32, userSEQ);
                 db.AddOutParameter("UserLevel", DbType.Byte, 0);
-                db.AddOutParameter("HasSubsidiary", DbType.Boolean, 0);
+                db.AddOutParameter("SubsidiaryEnabled", DbType.Boolean, 0);
                 db.AddOutParameter("OperatorID", DbType.String, 50);
 
                 var result = new OneAuthUserInfo();
@@ -52,7 +53,7 @@ namespace Fanex.Athena.DataAccess.Core.Users
                 }
 
                 result.UserLevel = Convert.ToByte(db.GetParameterValue("UserLevel"));
-                result.IsEnabledSubsidiary = Convert.ToBoolean(db.GetParameterValue("HasSubsidiary"));
+                result.IsEnabledSubsidiary = Convert.ToBoolean(db.GetParameterValue("SubsidiaryEnabled"));
                 result.OperatorID = Convert.ToString(db.GetParameterValue("OperatorID"));
                 return result;
             }

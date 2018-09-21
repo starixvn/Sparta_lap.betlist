@@ -191,7 +191,7 @@
 
         private OneAuthUserInfo GetUserInfo(OneAuthToken tokenInfo)
         {
-            var userInfo = _oneAuthDataAccess.GetUserInfo(tokenInfo.UserSEQ);
+            var userInfo = _oneAuthDataAccess.GetUserInfo(tokenInfo.UserSEQ, tokenInfo.VendorID);
 
             if (userInfo.UserLevel == UserLevelType.Subsidiary)
             {

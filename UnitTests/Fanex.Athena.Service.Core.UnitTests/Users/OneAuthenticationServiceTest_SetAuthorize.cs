@@ -32,7 +32,7 @@
             _oneBookSecurityWrapper = Substitute.For<IOneBookSecurityWrapper>();
             _oneAuthDataAccess = Substitute.For<IOneAuthDataAccess>();
 
-            _oneAuthDataAccess.GetUserInfo(Arg.Any<int>()).Returns(new OneAuthUserInfo());
+            _oneAuthDataAccess.GetUserInfo(Arg.Any<int>(), Arg.Any<string>()).Returns(new OneAuthUserInfo());
 
             _oneAuthenticationService = Substitute.ForPartsOf<OneAuthenticationService>(
                 _sessionService,
