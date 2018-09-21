@@ -31,9 +31,9 @@ describe('Month', () => {
         const value = {year: 2000};
         let component;
         const props = Object.assign({}, defaultProps);
+        props.onChange = jest.fn();
 
         beforeEach(() => {
-            props.onChange = jest.fn();
             component = new Month(props);
             component.setState = jest.fn();
             component._onChange(value);

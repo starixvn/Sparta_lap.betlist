@@ -4,6 +4,11 @@ exports[`Month render _renderOption() renders correctly 1`] = `
 <div>
   <li
     className="year"
+    style={
+      Object {
+        "font-weight": "bold",
+      }
+    }
   >
     <a
       href="javascript:;"

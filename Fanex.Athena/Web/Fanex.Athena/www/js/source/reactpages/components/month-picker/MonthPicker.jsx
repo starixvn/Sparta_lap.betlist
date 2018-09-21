@@ -66,7 +66,7 @@ class MonthPicker extends Component {
     }
 
     _formatDate(date, month, year) {
-        return `${month < 9 ? '0'+ (month + 1) : month + 1}/${date < 10 ? '0'+ date : date}/${year}`
+        return `${month < 9 ? '0'+ (month + 1) : month + 1}/${date < 10 ? '0'+ date : date}/${year}`;
     }
 
     _onFromDateChange = (value) => {

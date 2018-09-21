@@ -40,12 +40,11 @@ class Month extends Component {
 
     _renderOption(min, max, value) {
         let options = [];
-
         for (let i = min.year; i <= max.year; i++) {
             if (i === this.state.expandYear) {
 
                 options.push(
-                    <li key={i} className='year'>
+                    <li key={i} className='year' style={{'font-weight':'bold'}}>
                         <a href='javascript:;'>{i}</a>
                     </li>
                 );
@@ -58,15 +57,15 @@ class Month extends Component {
                     const valueItem = { year: i, month: j };
 
                     options.push(
-                        <li key={`${j}${i}`} className='monthWrap' onClick={() =>  this._onChange(valueItem) }>
-                            <a href='javascript:;' className={`${isSelected ? 'selected' : ''}`}>{this.fullMonths[j]}</a>
+                        <li key={`${j}${i}`} className='monthWrap' onClick={this._onChange.bind(this, valueItem) }>
+                           <a href='javascript:;' className={`${isSelected ? 'selected' : ''}`}>{this.fullMonths[j]}</a>
                         </li>
                     );
                 }
             }
             else {
                 options.push(
-                    <li key={i} className='year' onClick={() => this.setState({expandYear: i})}>
+                    <li key={i} className='year' onClick={this.setState.bind(this, {expandYear: i})}>
                             <a href='javascript:;'>{i}</a>
                     </li>
                 );
@@ -132,12 +131,12 @@ class Month extends Component {
                             <a href='javascript:;' className={`prev ${validPreMonth ? '' : 'disable'}`} onClick={(e) => validPreMonth && this._goToMonth(e, preMonth)}>
                                 <b></b>
                             </a>
-                            <span className='selectedMonth' onClick={() => {this.setState({showMonthDrop: true})}}>{this._formatString(value.month, value.year)}</span>
+                            <span className='selectedMonth' onClick={this.setState.bind(this, {showMonthDrop: true})}>{this._formatString(value.month, value.year)}</span>
                             <a href='javascript:;' className={`next ${validNexMonth ? '' : 'disable'}`} onClick={(e) => validNexMonth && this._goToMonth(e, nexMonth)}>
                                 <b></b>
                             </a>
                         </div>
-                        <Overlay isOpening={this.state.showMonthDrop} onClose={() => {this.setState({showMonthDrop: false})}}>
+                        <Overlay isOpening={this.state.showMonthDrop} onClose={this.setState.bind(this,{showMonthDrop: false})}>
                             {
                                 this.state.showMonthDrop && 
                                 <div className='monPickrDropDown'>
