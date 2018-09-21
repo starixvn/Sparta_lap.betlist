@@ -19,7 +19,7 @@ module.exports = __webpack_require__(401);
 "use strict";
 
 
-// Generated at: 5/31/2018 9:37:15 AM
+// Generated at: 9/21/2018 10:19:42 AM
 window._language_en_US = {
   AA: "AA",
   AB: "AB",
@@ -87,7 +87,6 @@ window._language_en_US = {
   BA: "BA",
   Back: "Back",
   BackToCurrentReport: "Back to current report",
-  BackToOldUI: "Back to old UI",
   BAComissionBalanceNote: "BA Commission: Licensee commission income for BA tickets.",
   BACommission: "BA Commission",
   Balance: "Balance",
@@ -423,6 +422,7 @@ window._language_en_US = {
   InternalSystem: "Internal System",
   InvalidCaptchaMsg: "You inputed an invalid code.",
   InvalidChargeCommission: "Invalid Charge Commission",
+  InvalidCurrencyPermission: "Invalid currency permissions.",
   InvalidParams: "Invalid parameters",
   InvalidRequestMsg: "Request is not valid",
   InvalidRequestOrNotAuthorizedMsg: "Invalid request or you are not authorized to access the requested resource!",
@@ -823,6 +823,7 @@ window._language_en_US = {
   Subject: "Subject",
   Submit: "Submit",
   Subsidiary: "Subsidiary",
+  SubsidiaryNotHaveCurrencyMsg: "Please contact admin to check your subsidiary name.",
   SubsidiaryPerformance: "Subsidiary Performance",
   SubsidiaryWL: "Subsidiary W/L",
   Summary: "Summary",
@@ -1748,7 +1749,7 @@ window._language_ko_KR = {
 "use strict";
 
 
-// Generated at: 5/31/2018 9:37:15 AM
+// Generated at: 9/21/2018 10:19:42 AM
 window._language_zh_CN = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -1804,7 +1805,6 @@ window._language_zh_CN = {
   AwayNoBet: "客队(不获胜球队)",
   BA: "BA",
   BackToCurrentReport: "回到现有报告",
-  BackToOldUI: "回到旧版本",
   BAComissionBalanceNote: "投注总计佣金: 承租公司佣金所得于投注总计注单。",
   BACommission: "BA佣金",
   Balance: "余额",
@@ -2444,6 +2444,9 @@ window._language_zh_CN = {
   Status: "状态",
   Su: "Su",
   Submit: "提交",
+  Subsidiary: "子网站",
+  SubsidiaryPerformance: "子网站报告",
+  SubsidiaryWL: "子网站输赢",
   Summary: "总结",
   Sunday: "星期六",
   SupportForOnlyNote: "报告仅支持",
@@ -2637,7 +2640,7 @@ exports.default = LangHelper;
 "use strict";
 
 
-// Generated at: 5/31/2018 9:37:15 AM
+// Generated at: 9/21/2018 10:19:42 AM
 window._language_zh_Hans = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -2693,7 +2696,6 @@ window._language_zh_Hans = {
   AwayNoBet: "客队(不获胜球队)",
   BA: "BA",
   BackToCurrentReport: "回到现有报告",
-  BackToOldUI: "回到旧版本",
   BAComissionBalanceNote: "投注总计佣金: 承租公司佣金所得于投注总计注单。",
   BACommission: "BA佣金",
   Balance: "余额",
@@ -3329,6 +3331,9 @@ window._language_zh_Hans = {
   Status: "状态",
   Su: "Su",
   Submit: "提交",
+  Subsidiary: "子网站",
+  SubsidiaryPerformance: "子网站报告",
+  SubsidiaryWL: "子网站输赢",
   Summary: "总结",
   Sunday: "星期六",
   SupportForOnlyNote: "报告仅支持",
@@ -3468,7 +3473,7 @@ window._language_zh_Hans = {
 "use strict";
 
 
-// Generated at: 5/31/2018 9:37:15 AM
+// Generated at: 9/21/2018 10:19:42 AM
 window._language_zh_TW = {
   AA: "客客",
   ABComm: "AllBet 佣金",
@@ -3524,7 +3529,6 @@ window._language_zh_TW = {
   AwayNoBet: "客隊(不獲胜球隊)",
   BA: "BA",
   BackToCurrentReport: "回到現有報告",
-  BackToOldUI: "回到舊版本",
   BAComissionBalanceNote: "投注總計佣金：承租公司金所得於投注總計注單。",
   BACommission: "BA佣金",
   Balance: "餘額",
@@ -4164,6 +4168,9 @@ window._language_zh_TW = {
   Status: "狀態",
   Su: "Su",
   Submit: "提交",
+  Subsidiary: "子網站",
+  SubsidiaryPerformance: "子網站報告",
+  SubsidiaryWL: "子網站輸贏",
   Summary: "總結",
   Sunday: "星期六",
   SupportForOnlyNote: "報告僅支持",
