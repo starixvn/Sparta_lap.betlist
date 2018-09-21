@@ -364,4 +364,8 @@
     <value>投注時區輸贏</value>
     <comment>84932</comment>
   </data>
+  <data name="Menu_73" xml:space="preserve">
+    <value>子網站報告</value>
+    <comment>Subsidiary Performance</comment>
+  </data>
 </root>

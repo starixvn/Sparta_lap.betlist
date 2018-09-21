@@ -364,4 +364,8 @@
     <value>即时兑现输赢</value>
     <comment>Cash Out Win Loss</comment>
   </data>
+  <data name="Menu_73" xml:space="preserve">
+    <value>子网站报告</value>
+    <comment>Subsidiary Performance</comment>
+  </data>
 </root>

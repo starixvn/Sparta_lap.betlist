@@ -1,4 +1,4 @@
-﻿// Generated at: 5/31/2018 9:32:25 AM
+﻿// Generated at: 9/21/2018 10:19:39 AM
 var _language_zh_CN = {
 AA:"客客",
 ABComm:"AllBet 佣金",
@@ -54,7 +54,6 @@ Away:"客队",
 AwayNoBet:"客队(不获胜球队)",
 BA:"BA",
 BackToCurrentReport:"回到现有报告",
-BackToOldUI:"回到旧版本",
 BAComissionBalanceNote:"投注总计佣金: 承租公司佣金所得于投注总计注单。",
 BACommission:"BA佣金",
 Balance:"余额",
@@ -694,6 +693,9 @@ Statement:"账目",
 Status:"状态",
 Su:"Su",
 Submit:"提交",
+Subsidiary:"子网站",
+SubsidiaryPerformance:"子网站报告",
+SubsidiaryWL:"子网站输赢",
 Summary:"总结",
 Sunday:"星期六",
 SupportForOnlyNote:"报告仅支持",

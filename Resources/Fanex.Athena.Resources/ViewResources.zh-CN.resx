@@ -2685,4 +2685,16 @@
     <value>注单结果+实际投注金额</value>
     <comment>93729</comment>
   </data>
+  <data name="Subsidiary" xml:space="preserve">
+    <value>子网站</value>
+    <comment>95177</comment>
+  </data>
+  <data name="SubsidiaryPerformance" xml:space="preserve">
+    <value>子网站报告</value>
+    <comment>95177</comment>
+  </data>
+  <data name="SubsidiaryWL" xml:space="preserve">
+    <value>子网站输赢</value>
+    <comment>95177</comment>
+  </data>
 </root>
