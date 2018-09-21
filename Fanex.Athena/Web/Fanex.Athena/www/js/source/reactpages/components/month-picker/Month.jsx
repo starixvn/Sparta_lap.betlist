@@ -76,15 +76,23 @@ class Month extends Component {
         return options;
     }
 
-    _addMonth(number) {
-        let month = this.props.value.month + number;
+    _getNextMonth() {
+        let month = this.props.value.month + 1;
         let year = this.props.value.year;
 
         if (month > 11) {
             month = 0;
             year += 1;
         }
-        else if (month < 0) {
+
+        return { year: year, month: month };
+    }
+
+     _getPrevMonth() {
+        let month = this.props.value.month - 1;
+        let year = this.props.value.year;
+
+        if (month < 0) {
             month = 11;
             year -= 1;
         }
@@ -95,7 +103,7 @@ class Month extends Component {
     _checkValidMonth(month, year) {
         const {min,max} = this.props;
 
-        return (year > min.year && year < max.year) || (year === min.year && month >= min.month ) || (year === max && month <= max.month);
+        return (year > min.year && year < max.year) || (year === min.year && month >= min.month ) || (year === max.year && month <= max.month);
     }
 
     _goToMonth(e, value) {
@@ -109,8 +117,8 @@ class Month extends Component {
     }
 
     render() {
-        const nexMonth = this._addMonth(1);
-        const preMonth = this._addMonth(-1);
+        const nexMonth = this._getNextMonth();
+        const preMonth = this._getPrevMonth();
         const validNexMonth = this._checkValidMonth(nexMonth.month, nexMonth.year);
         const validPreMonth = this._checkValidMonth(preMonth.month, preMonth.year);
         const value = this.props.value;

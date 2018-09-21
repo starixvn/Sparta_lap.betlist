@@ -11,7 +11,7 @@ describe('Month', () => {
         },
         min: {},
         max: {},
-        onChange: undefined
+        onChange: jest.fn()
     }
 
     afterAll(() => {
@@ -47,6 +47,93 @@ describe('Month', () => {
             expect(component.setState).toHaveBeenCalledWith({showMonthDrop: false})
         })
     });
+
+    describe('methods', () => {
+        it('_formatString()', () => {
+            const props = Object.assign({}, defaultProps);
+            const component = new Month(props);
+            const result = component._formatString(1, 1999);
+            expect(result).toEqual("Feb 1999");
+        });
+
+        it('_getNextMonth()', () => {
+            const testCases = [
+                { 
+                    props: {value: {month: 0, year: 2000}},
+                    expectedResult: {month: 1, year: 2000}
+                },
+                { 
+                    props: {value: {month: 11, year: 2000}},
+                    expectedResult: {month: 0, year: 2001}
+                }
+            ];
+
+            testCases.forEach(function(item){
+                const props = Object.assign({}, defaultProps, item.props);
+                const component = new Month(props);
+                const result = component._getNextMonth();
+                expect(result).toEqual(item.expectedResult);
+            });
+        });
+
+        it('_getPrevMonth()', () => {
+            const testCases = [
+                { 
+                    props: {value: {month: 0, year: 2000}},
+                    expectedResult: {month: 11, year: 1999}
+                },
+                { 
+                    props: {value: {month: 11, year: 2000}},
+                    expectedResult: {month: 10, year: 2000}
+                }
+            ];
+
+            testCases.forEach(function(item){
+                const props = Object.assign({}, defaultProps, item.props);
+                const component = new Month(props);
+                const result = component._getPrevMonth();
+                expect(result).toEqual(item.expectedResult);
+            });
+        });
+
+        it('_checkValidMonth()', () => {
+            const props = Object.assign({}, defaultProps, {
+                min: {month: 2, year: 2000},
+                max: {month: 3, year: 2001}
+            });
+
+            const testCases = [
+                { month: 1, year: 2000, expectedResult: false },
+                { month: 2, year: 2000, expectedResult: true },
+                { month: 6, year: 2000, expectedResult: true },
+                { month: 2, year: 2001, expectedResult: true },
+                { month: 6, year: 2001, expectedResult: false },
+            ];
+            const component = new Month(props);
+
+            testCases.forEach((item) => {
+                const result = component._checkValidMonth(item.month, item.year);
+                expect(result).toEqual(item.expectedResult);
+            });
+        });
+
+        it('_goToMonth()', () => {
+            const testCases = [
+                { month: 1, year: 2000, expectedResult: false },
+                { month: 2, year: 2000, expectedResult: true },
+                { month: 6, year: 2000, expectedResult: true },
+                { month: 2, year: 2001, expectedResult: true },
+                { month: 6, year: 2001, expectedResult: false },
+            ];
+            const component = new Month(Object.assign({}, defaultProps));
+            component.state = {expandYear: 2000};
+            component.setState = jest.fn();
+            
+            const result = component._goToMonth(new Event("xxx"), {year: 2001});
+
+            expect(component.setState).toHaveBeenCalledWith({expandYear: 2001});
+        });
+    })
 
     describe('render', () => {
         it('_renderOption() renders correctly', () => {
