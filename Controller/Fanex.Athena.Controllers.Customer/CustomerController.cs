@@ -238,7 +238,7 @@ namespace Fanex.Athena.Controllers.Customer
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             var isSubsidiary = userSession.UserLevel == UserLevelType.Subsidiary;
-            IEnumerable<string> subsidiaryNames = userSession.HasSubsidiary ? _subsidiaryService.GetSubsidiaryNames() : new string[] { };
+            IEnumerable<string> subsidiaryNames = userSession.IsManageableSubsidiary ? _subsidiaryService.GetSubsidiaryNames() : new string[] { };
 
             var model = new CustomerListViewModel
             {
@@ -250,7 +250,7 @@ namespace Fanex.Athena.Controllers.Customer
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 IsFakeLicensee = IsFakeLicensee(),
                 IsSubsidiary = isSubsidiary,
-                HasSubsidiary = userSession.HasSubsidiary,
+                HasSubsidiaryList = userSession.IsManageableSubsidiary,
                 SubsidiaryList = subsidiaryNames.Select(x => new CheckedItem
                 {
                     Name = x,
@@ -346,7 +346,7 @@ namespace Fanex.Athena.Controllers.Customer
 
         private string GetAgentListXml(string subsidiaryList, int currencyId)
         {
-            if (SessionService.UserSession.HasSubsidiary)
+            if (SessionService.UserSession.IsManageableSubsidiary)
             {
                 var currencyAgentList = _subsidiaryService.GetCurrencyAgentList(subsidiaryList, currencyId: currencyId);
                 return SessionService.GenerateAgentListXml(currencyAgentList);

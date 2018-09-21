@@ -38,7 +38,7 @@ namespace Fanex.Athena.Model.Customer.ViewModel
 
         public bool IsSubsidiary { get; set; }
 
-        public bool HasSubsidiary { get; set; }
+        public bool HasSubsidiaryList { get; set; }
 
         public IEnumerable<CheckedItem> SubsidiaryList { get; set; }
     }

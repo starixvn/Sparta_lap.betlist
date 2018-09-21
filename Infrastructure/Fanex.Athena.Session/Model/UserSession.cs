@@ -23,7 +23,7 @@ namespace Fanex.Athena.Session.Model
 
         public byte UserLevel { get; set; }
 
-        public bool HasSubsidiary { get; set; }
+        public bool IsManageableSubsidiary { get; set; }
 
         public string OperatorId { get; set; }
 

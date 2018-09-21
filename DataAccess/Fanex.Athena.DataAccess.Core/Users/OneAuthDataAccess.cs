@@ -52,7 +52,7 @@ namespace Fanex.Athena.DataAccess.Core.Users
                 }
 
                 result.UserLevel = Convert.ToByte(db.GetParameterValue("UserLevel"));
-                result.HasSubsidiary = Convert.ToBoolean(db.GetParameterValue("HasSubsidiary"));
+                result.IsEnabledSubsidiary = Convert.ToBoolean(db.GetParameterValue("HasSubsidiary"));
                 result.OperatorID = Convert.ToString(db.GetParameterValue("OperatorID"));
                 return result;
             }

@@ -184,7 +184,7 @@
 
             _sessionService.AssignCurrenciesToUserSession(userSession, licenseeId, userInfo.CurrencyUserList);
             userSession.UserLevel = userInfo.UserLevel;
-            userSession.HasSubsidiary = userInfo.HasSubsidiary;
+            userSession.IsManageableSubsidiary = userInfo.IsEnabledSubsidiary && userInfo.UserLevel!= UserLevelType.Subsidiary;
             userSession.OperatorId = userInfo.OperatorID;
             userSession.PortalFunctionList = GetPermissionList(tokenInfo);
         }
@@ -244,7 +244,7 @@
                 OnUserId = tokenInfo.UserSEQ,
                 UserName = tokenInfo.UserID,
                 UserLevel = userInfo.UserLevel,
-                HasSubsidiary = userInfo.HasSubsidiary,
+                IsManageableSubsidiary = userInfo.IsEnabledSubsidiary && userInfo.UserLevel != UserLevelType.Subsidiary,
                 OperatorId = userInfo.OperatorID,
                 IsInternal = true,
                 FunctionIdList = new List<int>(),

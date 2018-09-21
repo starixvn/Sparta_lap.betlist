@@ -109,7 +109,7 @@ namespace Fanex.Athena.Service.Core.Users
             var userSession = new UserSession
             {
                 UserLevel = UserLevelType.Licensee,
-                HasSubsidiary = false,
+                IsManageableSubsidiary = false,
                 UserId = userId,
                 OnUserId = onuserId,
                 UserName = userName,

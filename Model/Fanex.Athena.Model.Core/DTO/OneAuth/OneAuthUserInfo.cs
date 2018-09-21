@@ -7,7 +7,7 @@ namespace Fanex.Athena.Model.Core.DTO.OneAuth
     {
         public byte UserLevel { get; set; }
 
-        public bool HasSubsidiary { get; set; }
+        public bool IsEnabledSubsidiary { get; set; }
 
         public string OperatorID { get; set; }
 
