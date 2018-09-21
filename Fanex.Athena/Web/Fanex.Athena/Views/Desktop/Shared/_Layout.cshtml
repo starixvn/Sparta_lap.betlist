@@ -50,12 +50,12 @@
         @RenderBody()
     </div>
 
-    <script src="@Url.ContentLinkByEnv("/www/js/build/pages/lib/common.chunk.js")"></script>
     <script src="@Url.ContentLinkByEnv("/www/js/build/language.chunk.js")"></script>
     @if (langCode != "en-US")
     {
         <script src="@Url.ContentLinkByEnv("/www/js/build/language-" + langCode + ".chunk.js")"></script>
     }
+    <script src="@Url.ContentLinkByEnv("/www/js/build/pages/lib/common.chunk.js")"></script>
     @RenderSection("js", required: false)
     @if (isParasiticMode)
     {
