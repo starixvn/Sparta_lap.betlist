@@ -6,6 +6,8 @@
     {
         private string _baseCurrency = string.Empty;
 
+        private string _userName;
+
         public BaseBettingTicketMetaModel()
         {
             PageIndex = 1;
@@ -43,7 +45,18 @@
 
         public string ProductCodeList { get; set; }
 
-        public string UserName { get; set; }
+        public string UserName
+        {
+            get
+            {
+                return _userName;
+            }
+
+            set
+            {
+                _userName = value?.Trim();
+            }
+        }
 
         public bool IsExport { get; set; }
 
