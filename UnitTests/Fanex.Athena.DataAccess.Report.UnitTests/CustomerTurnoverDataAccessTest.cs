@@ -78,6 +78,7 @@
                 ObjectDb.Received(1).AddInParameter("reportby", DbType.Int32, _metaModel.ReportBy);
                 ObjectDb.Received(1).AddInParameter("username", DbType.String, expectedUser);
                 ObjectDb.Received(1).AddInParameter("movebetsday", DbType.DateTime, _balance.MoveBetsDay);
+                ObjectDb.Received(1).AddInParameter("balanceupday", DbType.DateTime, _balance.BalanceUpDay);
                 ObjectDb.Received(1).AddInParameter("Langkey", DbType.String, LanguageCode);
                 ObjectDb.Received(1).AddInParameter("PageSize", DbType.Int32, _metaModel.PageSize);
                 ObjectDb.Received(1).AddInParameter("PageIndex", DbType.Int32, _metaModel.PageIndex);
