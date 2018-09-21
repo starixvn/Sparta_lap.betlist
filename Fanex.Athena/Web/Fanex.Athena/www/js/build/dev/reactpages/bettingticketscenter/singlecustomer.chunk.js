@@ -6768,6 +6768,7 @@ var DataGrid = exports.DataGrid = function (_BaseDataGrid) {
         key: '_buildFooter',
         value: function _buildFooter() {
             var item = this.props.gridData.Total;
+            var isNegativeWL = item.SumLicenseeWL.substring(0, 1) === '-';
 
             return [_react2.default.createElement(
                 _fixedTableHeader.Row,
@@ -6785,7 +6786,7 @@ var DataGrid = exports.DataGrid = function (_BaseDataGrid) {
                 _react2.default.createElement(_fixedTableHeader.Cell, { className: 'right-align', dangerouslySetInnerHTML: { __html: item.SumWinLoss } }),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { className: 'right-align' },
+                    { className: 'right-align ' + (isNegativeWL ? "negative" : "") },
                     item.SumLicenseeWL
                 ),
                 _react2.default.createElement(_fixedTableHeader.Cell, { className: 'right-align', colSpan: 3 })
