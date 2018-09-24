@@ -198,6 +198,52 @@ describe('MultipleSelect ', () => {
         })
     })
 
+    describe('onChangeSearchText', () => {
+        let element;
+        let setStateCallback;
+        beforeEach(() => {
+            element = new MultipleSelect(defaultProps);
+            element.originalDataSource = [{value: "test123"}];
+            
+            element.setState = jest.fn((callback) => {
+                setStateCallback = callback;
+            });
+        });
+
+        it('input value does not match any value in data source: setState() with correct param', () => {
+            element.onChangeSearchText("xxx");
+            const result = setStateCallback();
+            
+            expect(result).toEqual({"dataSource": [], "searchText": "xxx"});
+        })
+
+        it('input value matches values in data source: setState() with correct param', () => {
+            element.onChangeSearchText("test");
+            const result = setStateCallback();
+            
+            expect(result).toEqual({"dataSource": [{"value": "test123"}], "searchText": "test"});
+        })
+    })
+
+    describe('onClearSearch', () => {
+        it('call setState() and onChangeSearchText() with correct parameters', () => {
+            const multipleSelect = new MultipleSelect(defaultProps);
+            let setStateData;
+            let setStateCallback;
+            multipleSelect.setState = jest.fn((data, callback) => {
+                setStateData = data;
+                setStateCallback = callback;
+            });
+            multipleSelect.onChangeSearchText = jest.fn();
+
+            multipleSelect.onClearSearch();
+            setStateCallback();
+
+            expect(setStateData).toEqual({searchText: ''});
+            expect(multipleSelect.onChangeSearchText).toHaveBeenCalledWith('');
+        })
+    })
+
     describe('_callBackToParent', () => {
         it('call onChange function in props with correct parameters', () => {
             const expectedSelectedItemKey = "SB,BA";

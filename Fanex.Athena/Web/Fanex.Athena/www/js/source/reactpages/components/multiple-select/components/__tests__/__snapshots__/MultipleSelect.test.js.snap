@@ -3,7 +3,7 @@
 exports[`MultipleSelect  render showOptionList = false - render component with "display: none" for dropdown list 1`] = `
 <div
   className="multiple-select-container"
-  id="multiple-select-20"
+  id="multiple-select-23"
 >
   <button
     className="multiple-select-default multiple-select-label"
@@ -37,13 +37,13 @@ exports[`MultipleSelect  render showOptionList = false - render component with "
         <input
           checked={true}
           className="option-checkbox"
-          id="multiple-select-20-optionItemAll"
+          id="multiple-select-23-optionItemAll"
           onChange={[Function]}
           type="checkbox"
         />
         <label
           className="option-label"
-          htmlFor="multiple-select-20-optionItemAll"
+          htmlFor="multiple-select-23-optionItemAll"
         >
           (All)
         </label>
@@ -63,7 +63,7 @@ exports[`MultipleSelect  render showOptionList = false - render component with "
 exports[`MultipleSelect  render showOptionList = true - render component with "display: block" for dropdown list 1`] = `
 <div
   className="multiple-select-container"
-  id="multiple-select-21"
+  id="multiple-select-24"
 >
   <button
     className="multiple-select-default multiple-select-label"
@@ -97,13 +97,13 @@ exports[`MultipleSelect  render showOptionList = true - render component with "d
         <input
           checked={true}
           className="option-checkbox"
-          id="multiple-select-21-optionItemAll"
+          id="multiple-select-24-optionItemAll"
           onChange={[Function]}
           type="checkbox"
         />
         <label
           className="option-label"
-          htmlFor="multiple-select-21-optionItemAll"
+          htmlFor="multiple-select-24-optionItemAll"
         >
           (All)
         </label>
