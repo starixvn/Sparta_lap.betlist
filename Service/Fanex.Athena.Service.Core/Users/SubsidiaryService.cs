@@ -16,7 +16,7 @@
 
     public class SubsidiaryService : ISubsidiaryService
     {
-        private const int CacheTimeoutSeconds = 300;
+        private const int CacheTimeoutSeconds = 60;
 
         private readonly ISessionService _sessionService;
 
