@@ -346,7 +346,8 @@ namespace Fanex.Athena.Controllers.Customer
 
         private string GetAgentListXml(string subsidiaryList, int currencyId)
         {
-            if (SessionService.UserSession.IsManageableSubsidiary)
+            var userSession = SessionService.UserSession;
+            if (userSession.IsManageableSubsidiary && userSession.UserLevel != UserLevelType.Subsidiary)
             {
                 var currencyAgentList = _subsidiaryService.GetCurrencyAgentList(subsidiaryList, currencyId: currencyId);
                 return SessionService.GenerateAgentListXml(currencyAgentList);
