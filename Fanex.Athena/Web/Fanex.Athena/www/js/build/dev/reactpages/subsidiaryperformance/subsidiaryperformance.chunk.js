@@ -3379,7 +3379,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
 
             var subsidiaryList = this.props.subsidiaryList;
 
-            var subsidiaryDropdown = null;
+            var subsidiaryDropdown = false;
             if (subsidiaryList) {
                 subsidiaryDropdown = _react2.default.createElement(
                     'div',
@@ -3406,7 +3406,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                     subsidiaryDropdown,
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-12 col-md-4 col-sm-6 col-lg-3 col-xl-3' },
+                        { className: 'col-12 col-md-4 ' + (subsidiaryDropdown ? 'col-sm-6' : 'col-sm-5') + ' col-lg-3 col-xl-3' },
                         _react2.default.createElement(
                             'div',
                             { className: 'form-group' },
@@ -3420,7 +3420,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                     ),
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-12 col-md-3 col-sm-5 col-lg-3 col-xl-3' },
+                        { className: 'col-12 col-md-3 ' + (subsidiaryDropdown ? 'col-sm-5' : 'col-sm-4') + ' col-lg-3 col-xl-3' },
                         _react2.default.createElement(
                             'div',
                             { className: 'form-group' },
@@ -3434,7 +3434,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                     ),
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-12 col-md-2 col-sm-4 col-lg-2 col-xl-2' },
+                        { className: 'col-12 ' + (subsidiaryDropdown ? 'col-sm-4 col-md-2' : 'col-sm-3 col-md-3') + ' col-lg-2 col-xl-2' },
                         _react2.default.createElement(
                             'div',
                             { className: 'form-group' },
@@ -3452,7 +3452,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                     { className: 'row' },
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-12 col-md-4 col-sm-5 col-lg-3 col-xl-3' },
+                        { className: 'col-12 ' + (subsidiaryDropdown ? 'col-md-3' : 'col-md-4') + ' col-sm-5 col-lg-3 col-xl-3' },
                         _react2.default.createElement(
                             'div',
                             { className: 'form-group' },
@@ -3473,7 +3473,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                     ),
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-12 col-md-3 col-sm-6 col-lg-2 col-xl-2' },
+                        { className: 'col-12 ' + (subsidiaryDropdown ? 'col-md-4 col-sm-6' : 'col-md-3 col-sm-4') + ' col-lg-3 col-xl-3' },
                         _react2.default.createElement(
                             'div',
                             { className: 'form-group' },
@@ -3494,7 +3494,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                     ),
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-12 col-md-3 col-sm-5 col-lg-2 col-xl-2' },
+                        { className: 'col-12 ' + (subsidiaryDropdown ? 'col-sm-5 col-lg-3 col-xl-3' : 'col-sm-3 col-lg-2 col-xl-2') + ' col-md-3' },
                         _react2.default.createElement(
                             'div',
                             { className: 'form-group' },

@@ -2929,16 +2929,13 @@ var Month = function (_Component) {
     }, {
         key: '_renderOption',
         value: function _renderOption(min, max, value) {
-            var _this2 = this;
-
             var options = [];
-
-            var _loop = function _loop(i) {
-                if (i === _this2.state.expandYear) {
+            for (var i = min.year; i <= max.year; i++) {
+                if (i === this.state.expandYear) {
 
                     options.push(_react2.default.createElement(
                         'li',
-                        { key: i, className: 'year' },
+                        { key: i, className: 'year', style: { 'font-weight': 'bold' } },
                         _react2.default.createElement(
                             'a',
                             { href: 'javascript:;' },
@@ -2949,32 +2946,24 @@ var Month = function (_Component) {
                     var minMonth = i === min.year ? min.month : 0;
                     var maxMonth = i === max.year ? max.month : 11;
 
-                    var _loop2 = function _loop2(j) {
+                    for (var j = minMonth; j <= maxMonth; j++) {
                         var isSelected = i === value.year && j === value.month;
                         var valueItem = { year: i, month: j };
 
                         options.push(_react2.default.createElement(
                             'li',
-                            { key: '' + j + i, className: 'monthWrap', onClick: function onClick() {
-                                    return _this2._onChange(valueItem);
-                                } },
+                            { key: '' + j + i, className: 'monthWrap', onClick: this._onChange.bind(this, valueItem) },
                             _react2.default.createElement(
                                 'a',
                                 { href: 'javascript:;', className: '' + (isSelected ? 'selected' : '') },
-                                _this2.fullMonths[j]
+                                this.fullMonths[j]
                             )
                         ));
-                    };
-
-                    for (var j = minMonth; j <= maxMonth; j++) {
-                        _loop2(j);
                     }
                 } else {
                     options.push(_react2.default.createElement(
                         'li',
-                        { key: i, className: 'year', onClick: function onClick() {
-                                return _this2.setState({ expandYear: i });
-                            } },
+                        { key: i, className: 'year', onClick: this.setState.bind(this, { expandYear: i }) },
                         _react2.default.createElement(
                             'a',
                             { href: 'javascript:;' },
@@ -2982,24 +2971,30 @@ var Month = function (_Component) {
                         )
                     ));
                 }
-            };
-
-            for (var i = min.year; i <= max.year; i++) {
-                _loop(i);
             }
 
             return options;
         }
     }, {
-        key: '_addMonth',
-        value: function _addMonth(number) {
-            var month = this.props.value.month + number;
+        key: '_getNextMonth',
+        value: function _getNextMonth() {
+            var month = this.props.value.month + 1;
             var year = this.props.value.year;
 
             if (month > 11) {
                 month = 0;
                 year += 1;
-            } else if (month < 0) {
+            }
+
+            return { year: year, month: month };
+        }
+    }, {
+        key: '_getPrevMonth',
+        value: function _getPrevMonth() {
+            var month = this.props.value.month - 1;
+            var year = this.props.value.year;
+
+            if (month < 0) {
                 month = 11;
                 year -= 1;
             }
@@ -3014,7 +3009,7 @@ var Month = function (_Component) {
                 max = _props.max;
 
 
-            return year > min.year && year < max.year || year === min.year && month >= min.month || year === max && month <= max.month;
+            return year > min.year && year < max.year || year === min.year && month >= min.month || year === max.year && month <= max.month;
         }
     }, {
         key: '_goToMonth',
@@ -3030,10 +3025,10 @@ var Month = function (_Component) {
     }, {
         key: 'render',
         value: function render() {
-            var _this3 = this;
+            var _this2 = this;
 
-            var nexMonth = this._addMonth(1);
-            var preMonth = this._addMonth(-1);
+            var nexMonth = this._getNextMonth();
+            var preMonth = this._getPrevMonth();
             var validNexMonth = this._checkValidMonth(nexMonth.month, nexMonth.year);
             var validPreMonth = this._checkValidMonth(preMonth.month, preMonth.year);
             var value = this.props.value;
@@ -3058,30 +3053,26 @@ var Month = function (_Component) {
                             _react2.default.createElement(
                                 'a',
                                 { href: 'javascript:;', className: 'prev ' + (validPreMonth ? '' : 'disable'), onClick: function onClick(e) {
-                                        return validPreMonth && _this3._goToMonth(e, preMonth);
+                                        return validPreMonth && _this2._goToMonth(e, preMonth);
                                     } },
                                 _react2.default.createElement('b', null)
                             ),
                             _react2.default.createElement(
                                 'span',
-                                { className: 'selectedMonth', onClick: function onClick() {
-                                        _this3.setState({ showMonthDrop: true });
-                                    } },
+                                { className: 'selectedMonth', onClick: this.setState.bind(this, { showMonthDrop: true }) },
                                 this._formatString(value.month, value.year)
                             ),
                             _react2.default.createElement(
                                 'a',
                                 { href: 'javascript:;', className: 'next ' + (validNexMonth ? '' : 'disable'), onClick: function onClick(e) {
-                                        return validNexMonth && _this3._goToMonth(e, nexMonth);
+                                        return validNexMonth && _this2._goToMonth(e, nexMonth);
                                     } },
                                 _react2.default.createElement('b', null)
                             )
                         ),
                         _react2.default.createElement(
                             _Overlay2.default,
-                            { isOpening: this.state.showMonthDrop, onClose: function onClose() {
-                                    _this3.setState({ showMonthDrop: false });
-                                } },
+                            { isOpening: this.state.showMonthDrop, onClose: this.setState.bind(this, { showMonthDrop: false }) },
                             this.state.showMonthDrop && _react2.default.createElement(
                                 'div',
                                 { className: 'monPickrDropDown' },
@@ -3229,26 +3220,18 @@ var Day = function (_Component) {
     _createClass(Day, [{
         key: '_renderOption',
         value: function _renderOption(min, max, value) {
-            var _this2 = this;
-
             var options = [];
 
-            var _loop = function _loop(i) {
+            for (var i = min; i <= max; i++) {
                 options.push(_react2.default.createElement(
                     'li',
-                    { key: i, onClick: function onClick() {
-                            return _this2._onChange(i);
-                        } },
+                    { key: i, onClick: this._onChange.bind(this, i) },
                     _react2.default.createElement(
                         'a',
                         { href: 'javascript:;' },
                         i
                     )
                 ));
-            };
-
-            for (var i = min; i <= max; i++) {
-                _loop(i);
             }
 
             return options;
@@ -3262,8 +3245,6 @@ var Day = function (_Component) {
     }, {
         key: 'render',
         value: function render() {
-            var _this3 = this;
-
             var value = this.props.value;
 
             return _react2.default.createElement(
@@ -3282,9 +3263,7 @@ var Day = function (_Component) {
                         { className: 'selectedDayWrap' },
                         _react2.default.createElement(
                             'div',
-                            { className: 'dayPickr', onClick: function onClick() {
-                                    return _this3.setState({ showDateDrop: true });
-                                } },
+                            { className: 'dayPickr', onClick: this.setState.bind(this, { showDateDrop: true }) },
                             _react2.default.createElement(
                                 'span',
                                 { className: 'selectedDay' },
@@ -3298,9 +3277,7 @@ var Day = function (_Component) {
                         ),
                         _react2.default.createElement(
                             _Overlay2.default,
-                            { isOpening: this.state.showDateDrop, onClose: function onClose() {
-                                    return _this3.setState({ showDateDrop: false });
-                                } },
+                            { isOpening: this.state.showDateDrop, onClose: this.setState.bind(this, { showDateDrop: false }) },
                             this.state.showDateDrop && _react2.default.createElement(
                                 'div',
                                 { className: 'dayPickrDropDown' },

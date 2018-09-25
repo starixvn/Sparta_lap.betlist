@@ -160,7 +160,7 @@ export class FormFilter extends Component {
 
     render() {
         const { subsidiaryList } = this.props;
-        let subsidiaryDropdown = null;
+        let subsidiaryDropdown = false;
         if(subsidiaryList) {
             subsidiaryDropdown = 
                 (<div className="col-12 col-md-3 col-sm-5 col-lg-3 col-xl-3">
@@ -177,21 +177,21 @@ export class FormFilter extends Component {
 
                     {subsidiaryDropdown}
 
-                    <div className="col-12 col-md-4 col-sm-6 col-lg-3 col-xl-3">
+                    <div className={`col-12 col-md-4 ${subsidiaryDropdown ? 'col-sm-6' : 'col-sm-5' } col-lg-3 col-xl-3`}>
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Date")}</label>
                             {this._renderDateRange()}
                         </div>
                     </div>
 
-                    <div className="col-12 col-md-3 col-sm-5 col-lg-3 col-xl-3">
+                    <div className={`col-12 col-md-3 ${subsidiaryDropdown ? 'col-sm-5' : 'col-sm-4' } col-lg-3 col-xl-3`}>
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Product")}</label>
                             {this._renderProductSelectList()}
                         </div>
                     </div>
 
-                    <div className="col-12 col-md-2 col-sm-4 col-lg-2 col-xl-2">
+                    <div className={`col-12 ${subsidiaryDropdown ? 'col-sm-4 col-md-2' : 'col-sm-3 col-md-3' } col-lg-2 col-xl-2`}>
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("BaseCurrency")}</label>
                             {this._renderBaseCurrencySelectList()}
@@ -200,7 +200,7 @@ export class FormFilter extends Component {
                 </div>
 
                 <div className="row">
-                    <div className="col-12 col-md-4 col-sm-5 col-lg-3 col-xl-3">
+                    <div className={`col-12 ${subsidiaryDropdown ? 'col-md-3' : 'col-md-4' } col-sm-5 col-lg-3 col-xl-3`}>
                         <div className="form-group">
                             <div className="checkbox-group">
                                 <input type="checkbox" className="checkbox" checked={this.props.convertAll} id="IsConvertAll"
@@ -210,7 +210,7 @@ export class FormFilter extends Component {
                         </div>
                     </div>
 
-                    <div className="col-12 col-md-3 col-sm-6 col-lg-2 col-xl-2">
+                    <div className={`col-12 ${subsidiaryDropdown ? 'col-md-4 col-sm-6' : 'col-md-3 col-sm-4' } col-lg-3 col-xl-3`}>
                         <div className="form-group">
                            <div className="checkbox-group">
                                 <input type="checkbox" className="checkbox" checked={this.props.includeDrawData} id="IncludeDrawData"
@@ -220,7 +220,7 @@ export class FormFilter extends Component {
                         </div>
                     </div>
 
-                    <div className="col-12 col-md-3 col-sm-5 col-lg-2 col-xl-2">
+                    <div className={`col-12 ${subsidiaryDropdown ? 'col-sm-5 col-lg-3 col-xl-3' : 'col-sm-3 col-lg-2 col-xl-2' } col-md-3`}>
                         <div className="form-group">
                            <div className="checkbox-group">
                                 <input type="checkbox" className="checkbox" checked={this.props.isExcludeTest} id="ExcludeTest"
