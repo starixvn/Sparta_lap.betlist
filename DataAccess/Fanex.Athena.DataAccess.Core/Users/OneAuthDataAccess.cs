@@ -30,28 +30,8 @@ namespace Fanex.Athena.DataAccess.Core.Users
                 db.AddOutParameter("OperatorID", DbType.String, 50);
 
                 var result = new OneAuthUserInfo();
-
-                using (var reader = db.ExecuteReader())
-                {
-                    var currencyList = new List<CurrencyUser>();
-                    while (reader.Read())
-                    {
-                        currencyList.Add(new CurrencyUser
-                        {
-                            AgentId = reader.ToInt("AgentId"),
-                            CurrencyId = reader.ToInt("Currency")
-                        });
-                    }
-
-                    result.CurrencyUserList = currencyList.GroupBy(x => x.CurrencyId)
-                        .Select(x => new CurrencyUser
-                        {
-                            CurrencyId = x.Key,
-                            AgentIdList = x.Select(y => y.AgentId).ToList(),
-                            IsActive = true
-                        }).ToList();
-                }
-
+                db.ExecuteNonQuery();
+        
                 result.UserLevel = Convert.ToByte(db.GetParameterValue("UserLevel"));
                 result.IsEnabledSubsidiary = Convert.ToBoolean(db.GetParameterValue("SubsidiaryEnabled"));
                 result.OperatorID = Convert.ToString(db.GetParameterValue("OperatorID"));

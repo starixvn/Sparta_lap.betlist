@@ -184,7 +184,7 @@
 
             _sessionService.AssignCurrenciesToUserSession(userSession, licenseeId, userInfo.CurrencyUserList);
             userSession.UserLevel = userInfo.UserLevel;
-            userSession.IsManageableSubsidiary = userInfo.IsEnabledSubsidiary && userInfo.UserLevel!= UserLevelType.Subsidiary;
+            userSession.IsManageableSubsidiary = userInfo.IsEnabledSubsidiary && userInfo.UserLevel != UserLevelType.Subsidiary;
             userSession.OperatorId = userInfo.OperatorID;
             userSession.PortalFunctionList = GetPermissionList(tokenInfo);
         }
@@ -193,33 +193,13 @@
         {
             var userInfo = _oneAuthDataAccess.GetUserInfo(tokenInfo.UserSEQ, tokenInfo.VendorID);
 
-            if (userInfo.UserLevel == UserLevelType.Subsidiary)
+            userInfo.CurrencyUserList = tokenInfo.Currency?.Select(x => new CurrencyUser
             {
-                if (tokenInfo.Currency != null)
-                {
-                    userInfo.CurrencyUserList = userInfo.CurrencyUserList.Join(
-                        tokenInfo.Currency,
-                        currencyUser => currencyUser.CurrencyId,
-                        oneAuthCurrency => oneAuthCurrency.CurrencyId,
-                        (currencyUser, oneAuthCurrency) => new CurrencyUser
-                        {
-                            IsActive = true,
-                            CurrencyId = currencyUser.CurrencyId,
-                            CurrencyName = oneAuthCurrency.Currency,
-                            AgentIdList = currencyUser.AgentIdList
-                        }).ToList();
-                }
-            }
-            else
-            {
-                userInfo.CurrencyUserList = tokenInfo.Currency?.Select(x => new CurrencyUser
-                {
-                    IsActive = true,
-                    CurrencyId = x.CurrencyId,
-                    CurrencyName = x.Currency,
-                    AgentIdList = x.AgentId
-                }).ToList();
-            }
+                IsActive = true,
+                CurrencyId = x.CurrencyId,
+                CurrencyName = x.Currency,
+                AgentIdList = x.AgentId
+            }).ToList();
 
             return userInfo;
         }
