@@ -43,9 +43,9 @@
         {
             var userSession = SessionService.UserSession;
             CheckValidProducts(FunctionNames.SubsidiaryPerformance, metaModel.ProductCodeList);
-            var isSubsidiary = userSession.IsManageableSubsidiary && userSession.UserLevel == UserLevelType.Subsidiary;
-            var isValidSubsidiaryList = isSubsidiary || !string.IsNullOrWhiteSpace(metaModel.SubsidiaryList);
-            if (!userSession.IsManageableSubsidiary || !isValidSubsidiaryList || !metaModel.IsValid)
+            var isSubsidiary = userSession.UserLevel == UserLevelType.Subsidiary;
+            var isValidSubsidiaryList = isSubsidiary || (userSession.IsManageableSubsidiary && !string.IsNullOrWhiteSpace(metaModel.SubsidiaryList));
+            if (!isValidSubsidiaryList || !metaModel.IsValid)
             {
                 return new SubsidiaryResultViewModel
                 {
