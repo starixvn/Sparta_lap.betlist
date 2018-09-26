@@ -41,10 +41,11 @@
         [HttpPost]
         public SubsidiaryResultViewModel Index(SubsidiaryPerformanceMetaModel metaModel)
         {
+            var userSession = SessionService.UserSession;
             CheckValidProducts(FunctionNames.SubsidiaryPerformance, metaModel.ProductCodeList);
-            var isSubsidiary = SessionService.UserSession.UserLevel == UserLevelType.Subsidiary;
+            var isSubsidiary = userSession.IsManageableSubsidiary && userSession.UserLevel == UserLevelType.Subsidiary;
             var isValidSubsidiaryList = isSubsidiary || !string.IsNullOrWhiteSpace(metaModel.SubsidiaryList);
-            if (!isValidSubsidiaryList || !metaModel.IsValid)
+            if (!userSession.IsManageableSubsidiary || !isValidSubsidiaryList || !metaModel.IsValid)
             {
                 return new SubsidiaryResultViewModel
                 {
