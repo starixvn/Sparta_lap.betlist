@@ -49,8 +49,9 @@
             var licenseeName = _sessionService.LicenseeSession.LicenseeName;
             var cacheKey = string.Format(CacheKey.MemorycacheSubsidiaryListByLicensee, licenseeName);
             var subsidiaryList = _cache.Get(cacheKey, () => _subLicenseeDataAccess.GetSubsidiaryList(licenseeName), CacheTimeoutSeconds);
-            var currencyList = _sessionService.UserSession.CurrencyList;
-            return subsidiaryList.Where(x => currencyList.ContainsKey(x.CurrencyId)).ToList();
+            var userAgentList = _sessionService.UserSession.CurrencyAgentList.SelectMany(i => i.Value);
+            return subsidiaryList.Where(i => userAgentList.Contains(i.AgentId));
+
         }
 
         public IDictionary<int, IEnumerable<int>> GetCurrencyAgentList(string subsidiaryNames, bool isExcludeTest = false, int currencyId = 0)
@@ -79,11 +80,8 @@
             {
                 var exceptedAgentList = subsidiaryData
                     .Where(x => !subsidiaryNameList.Contains(x.OperatorId)).Select(x => x.AgentId).ToList();
-                var otherAgentList = _sessionService.UserSession.CurrencyAgentList;
-                if (currencyId != CurrencyAll)
-                {
-                    otherAgentList = otherAgentList.Where(x => x.Key == currencyId).ToDictionary(x => x.Key, x => x.Value);
-                }
+                var otherAgentList = _sessionService.UserSession.CurrencyAgentList
+                    .Where(x => x.Key == currencyId || currencyId == CurrencyAll).ToDictionary(x => x.Key, x => x.Value);
 
                 currencyAgentList = currencyAgentList.Union(otherAgentList).GroupBy(x => x.Key)
                     .ToDictionary(x => x.Key, x => x.SelectMany(g => g.Value).Except(exceptedAgentList).Distinct());

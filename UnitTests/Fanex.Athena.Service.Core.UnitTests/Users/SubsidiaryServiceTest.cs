@@ -24,6 +24,8 @@
         [SetUp]
         public void SetUp()
         {
+            _dataAccess = Substitute.For<ISubsidiaryDataAccess>();
+            _cache = Substitute.For<IMemoryCacheService>();
             _sessionService = Substitute.For<ISessionService>();
             _sessionService.LicenseeSession.Returns(new LicenseeSession
             {
@@ -31,11 +33,14 @@
             });
             _sessionService.UserSession.Returns(new UserSession
             {
-                CurrencyList = new Dictionary<int, string>()
+                CurrencyList = new Dictionary<int, string>() { { 20, "UUS" }, { 51, "IDR" }, { 13, "CNY" } },
+                CurrencyAgentList = GetAgentByCurrencyData
             });
 
-            _dataAccess = Substitute.For<ISubsidiaryDataAccess>();
-            _cache = Substitute.For<IMemoryCacheService>();
+            _dataAccess.GetSubsidiaryList(Arg.Any<string>()).Returns(GetSubsidiaryData);
+            _cache.Get<IEnumerable<Subsidiary>>(Arg.Any<string>(), Arg.Any<Func<IEnumerable<Subsidiary>>>(), Arg.Any<int>())
+                .Returns(GetSubsidiaryData);
+
             _service = new SubsidiaryService(_sessionService, _dataAccess, _cache);
         }
 
@@ -52,15 +57,25 @@
         {
             // Arrange
             var cacheKey = $"SubsidiaryList_{LicenseeName}";
-            var subsidiaryList = new Dictionary<int, string>();
-
-            _cache.Get<IDictionary<int, string>>(cacheKey).Returns(subsidiaryList);
 
             // Action
             _service.GetSubsidiaryList();
 
             // Assert
             _dataAccess.DidNotReceiveWithAnyArgs().GetSubsidiaryList(LicenseeName);
+        }
+
+        [Test]
+        public void GetOperatorList_FilterOperatorByUserAgents_ReturnCorrectlyOperatorList()
+        {
+            // Arrange
+            var cacheKey = $"SubsidiaryList_{LicenseeName}";
+            var expectedResult = GetAgentByCurrencyData.SelectMany(i => i.Value);
+            // Action
+            var result = _service.GetSubsidiaryList().Select(i => i.AgentId);
+
+            // Assert
+            Assert.AreEqual(true, result.Except(expectedResult).Count() == 0);
         }
 
         [TestCase(null)]
@@ -82,9 +97,6 @@
         public void GetCurrencyAgentList_FilterTestData_ReturnCorrectlyAgentList(
             string subsidiaryNames, bool isExcludeTest, int currencyId = 0)
         {
-            // Arrange
-            SetUp_GetCurrencyAgentList();
-
             // Action
             var result = _service.GetCurrencyAgentList(subsidiaryNames, isExcludeTest, currencyId);
 
@@ -101,7 +113,6 @@
           string subsidiaryNames, int currencyId = 0)
         {
             // Arrange
-            SetUp_GetCurrencyAgentList();
             List<int> expectedResult = GetAgentListBySubsidairyNames(subsidiaryNames, currencyId);
             // Action
             var result = _service.GetCurrencyAgentList(subsidiaryNames, false, currencyId)
@@ -123,7 +134,6 @@
          string subsidiaryNames, int currencyId = 0)
         {
             // Arrange
-            SetUp_GetCurrencyAgentList();
             var expectedResult = GetAgentByCurrencyData.Where(i => i.Key == currencyId || currencyId == 0)
                 .SelectMany(i => i.Value).ToList()
                 .Except(GetSubsidiaryData.Select(i => i.AgentId))
@@ -138,18 +148,7 @@
             Assert.AreEqual(0, result.Except(expectedResult).Count());
 
         }
-        private void SetUp_GetCurrencyAgentList()
-        {
-            _sessionService.UserSession.Returns(new UserSession
-            {
-                CurrencyList = new Dictionary<int, string>() { { 20, "UUS" }, { 51, "IDR" }, { 13, "CNY" } },
-                CurrencyAgentList = GetAgentByCurrencyData
-            });
 
-            _dataAccess.GetSubsidiaryList(Arg.Any<string>()).Returns(GetSubsidiaryData);
-            _cache.Get<IEnumerable<Subsidiary>>(Arg.Any<string>(), Arg.Any<Func<IEnumerable<Subsidiary>>>(), Arg.Any<int>())
-                .Returns(GetSubsidiaryData);
-        }
         private static List<int> GetAgentListBySubsidairyNames(string subsidiaryNames, int currencyId)
         {
             var subList = subsidiaryNames.Split(new char[] { ',' });
@@ -217,6 +216,12 @@
                     AgentId = 516,
                     CurrencyId = 51,
                     OperatorId = "qc"
+                };
+                yield return new Subsidiary
+                {
+                    AgentId = 601,
+                    CurrencyId = 60,
+                    OperatorId = "alex"
                 };
             }
         }
