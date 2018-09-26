@@ -152,7 +152,7 @@
         private static string GetLasBetMonitoringStatus(ITicket ticket)
         {
             const string PatternStatusBetlist = "<label style='color:{0}'>{1}</label>";
-            if (ticket.BetTypeId == (int)BetType.MixParlay)
+            if (ticket.BetTypeId == (int)BetType.MixParlay || ticket.BetTypeId == (int)BetType.CombinationMixParlay)
             {
                 switch (ticket.LiveHomeScore)
                 {
