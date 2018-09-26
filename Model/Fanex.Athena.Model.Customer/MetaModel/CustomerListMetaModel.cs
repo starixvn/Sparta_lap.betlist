@@ -23,7 +23,7 @@ namespace Fanex.Athena.Model.Customer.MetaModel
             BAFilter = 0;
             CustStatus = string.Empty;
             SpecialLevel = -1;
-            GroupCommId = 0;
+            GroupCommId = -1;
         }
 
         public string Username { get; set; }
