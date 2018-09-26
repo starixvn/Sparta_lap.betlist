@@ -43,7 +43,7 @@
         }
 
         [Test]
-        public void Index_LicenseeView_CallServiceToGetSubsidiaryList()
+        public void Index_IsManageableSubsidiaryIsTrue_CallServiceToGetSubsidiaryList()
         {
             using (var controller = CreateController())
             {
@@ -53,7 +53,7 @@
 
                 SessionService.UserSession.Returns(new Session.Model.UserSession
                 {
-                    UserLevel = UserLevelType.Licensee,
+                    IsManageableSubsidiary = true,
                     ViewType = ClientViewType.Desktop,
                     Language = DefaultUserSession.Language
                 });
@@ -82,21 +82,21 @@
         }
 
         [Test]
-        public void Index_SubsidiaryView_SubsidiaryListIsEmpty()
+        public void Index_IsManageableSubsidiaryIsFalse_SubsidiaryListIsNull()
         {
             using (var controller = CreateController())
             {
                 // Arrange
                 SessionService.UserSession.Returns(new Session.Model.UserSession
                 {
-                    UserLevel = UserLevelType.Subsidiary,
+                    IsManageableSubsidiary = false,
                     ViewType = ClientViewType.Desktop,
                     Language = DefaultUserSession.Language
                 });
 
                 var expectedViewModelData = new SubsidiaryPerformanceViewModel
                 {
-                    SubsidiaryList = new CheckedItem[] { },
+                    SubsidiaryList = null,
                     ProductOptionList = new List<ProductOption>
                     {
                         new ProductOption { Code = FakeProductCode, Name = FakeProductName, Status = true }

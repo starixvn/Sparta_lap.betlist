@@ -44,8 +44,7 @@
                 licenseeSession.LicenseeId,
                 userSession.Language,
                 FunctionNames.SubsidiaryPerformance);
-            var subsidiaryNames = !userSession.IsManageableSubsidiary || userSession.UserLevel != UserLevelType.Licensee? null
-                : _subsidiaryService.GetSubsidiaryNames();
+            var subsidiaryNames = userSession.IsManageableSubsidiary ? _subsidiaryService.GetSubsidiaryNames() : null;
 
             var model = new SubsidiaryPerformanceViewModel
             {
