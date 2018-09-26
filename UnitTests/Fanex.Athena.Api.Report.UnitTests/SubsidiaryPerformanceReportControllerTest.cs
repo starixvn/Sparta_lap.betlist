@@ -54,7 +54,11 @@
             var metaModel = GetMetaModel();
 
             SessionService.GenerateAgentListXml(Arg.Any<int>(), Arg.Any<bool>()).Returns("<Root></Root>");
-            SessionService.UserSession.Returns(new Session.Model.UserSession { UserLevel = UserLevelType.Subsidiary });
+            SessionService.UserSession.Returns(new Session.Model.UserSession
+            {
+                IsManageableSubsidiary = true,
+                UserLevel = UserLevelType.Subsidiary
+            });
 
             var resultData = new SubsidiaryResultViewModel
             {
@@ -80,7 +84,11 @@
             var metaModel = GetMetaModel();
 
             SessionService.GenerateAgentListXml(Arg.Any<IDictionary<int, IEnumerable<int>>>()).Returns("<Root></Root>");
-            SessionService.UserSession.Returns(new Session.Model.UserSession { UserLevel = UserLevelType.Licensee });
+            SessionService.UserSession.Returns(new Session.Model.UserSession
+            {
+                IsManageableSubsidiary = true,
+                UserLevel = UserLevelType.Licensee
+            });
 
             var currencyAgentList = new Dictionary<int, IEnumerable<int>> { { 1, new[] { 1, 2, 3 } } };
             _subsidiaryService.GetCurrencyAgentList(Arg.Any<string>(), Arg.Any<bool>(), Arg.Any<int>()).Returns(currencyAgentList);

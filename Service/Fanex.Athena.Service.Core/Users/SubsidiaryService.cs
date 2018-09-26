@@ -51,7 +51,6 @@
             var subsidiaryList = _cache.Get(cacheKey, () => _subLicenseeDataAccess.GetSubsidiaryList(licenseeName), CacheTimeoutSeconds);
             var userAgentList = _sessionService.UserSession.CurrencyAgentList.SelectMany(i => i.Value);
             return subsidiaryList.Where(i => userAgentList.Contains(i.AgentId));
-
         }
 
         public IDictionary<int, IEnumerable<int>> GetCurrencyAgentList(string subsidiaryNames, bool isExcludeTest = false, int currencyId = 0)

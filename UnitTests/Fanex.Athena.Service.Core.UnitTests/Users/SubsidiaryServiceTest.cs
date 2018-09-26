@@ -1,6 +1,8 @@
 ﻿namespace Fanex.Athena.Service.Report.UnitTests
 {
+    using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Core.Users.Interfaces;
     using DataAccess.Core.Users.Interfaces;
     using Extension.Utility.Interfaces;
@@ -9,8 +11,6 @@
     using NSubstitute;
     using NUnit.Framework;
     using Session.Model;
-    using System.Linq;
-    using System;
 
     [TestFixture]
     public class SubsidiaryServiceTest
@@ -34,12 +34,12 @@
             _sessionService.UserSession.Returns(new UserSession
             {
                 CurrencyList = new Dictionary<int, string>() { { 20, "UUS" }, { 51, "IDR" }, { 13, "CNY" } },
-                CurrencyAgentList = GetAgentByCurrencyData
+                CurrencyAgentList = GetAgentByCurrencyData()
             });
 
-            _dataAccess.GetSubsidiaryList(Arg.Any<string>()).Returns(GetSubsidiaryData);
-            _cache.Get<IEnumerable<Subsidiary>>(Arg.Any<string>(), Arg.Any<Func<IEnumerable<Subsidiary>>>(), Arg.Any<int>())
-                .Returns(GetSubsidiaryData);
+            _dataAccess.GetSubsidiaryList(Arg.Any<string>()).Returns(GetSubsidiaryData());
+            _cache.Get(Arg.Any<string>(), Arg.Any<Func<IEnumerable<Subsidiary>>>(), Arg.Any<int>())
+                .Returns(GetSubsidiaryData());
 
             _service = new SubsidiaryService(_sessionService, _dataAccess, _cache);
         }
@@ -70,7 +70,8 @@
         {
             // Arrange
             var cacheKey = $"SubsidiaryList_{LicenseeName}";
-            var expectedResult = GetAgentByCurrencyData.SelectMany(i => i.Value);
+            var expectedResult = GetAgentByCurrencyData().SelectMany(i => i.Value);
+
             // Action
             var result = _service.GetSubsidiaryList().Select(i => i.AgentId);
 
@@ -102,7 +103,6 @@
 
             // Assert
             Assert.AreEqual(isExcludeTest, isExcludeTest && !result.Keys.Contains(20));
-
         }
 
         [TestCase("alex,qc", 0)]
@@ -114,17 +114,16 @@
         {
             // Arrange
             List<int> expectedResult = GetAgentListBySubsidairyNames(subsidiaryNames, currencyId);
+
             // Action
             var result = _service.GetCurrencyAgentList(subsidiaryNames, false, currencyId)
             .SelectMany(i => i.Value);
+
             // Assert
             Assert.AreEqual(expectedResult.Count(), result.Count());
 
             Assert.AreEqual(0, result.Except(expectedResult).Count());
-
-
         }
-
 
         [TestCase("(others)", 0)]
         [TestCase("(others),alex,qc", 0)]
@@ -134,10 +133,11 @@
          string subsidiaryNames, int currencyId = 0)
         {
             // Arrange
-            var expectedResult = GetAgentByCurrencyData.Where(i => i.Key == currencyId || currencyId == 0)
+            var expectedResult = GetAgentByCurrencyData().Where(i => i.Key == currencyId || currencyId == 0)
                 .SelectMany(i => i.Value).ToList()
-                .Except(GetSubsidiaryData.Select(i => i.AgentId))
+                .Except(GetSubsidiaryData().Select(i => i.AgentId))
                 .Union(GetAgentListBySubsidairyNames(subsidiaryNames, currencyId));
+
             // Action
             var result = _service.GetCurrencyAgentList(subsidiaryNames, false, currencyId)
             .SelectMany(i => i.Value);
@@ -146,84 +146,71 @@
             Assert.AreEqual(expectedResult.Count(), result.Count());
 
             Assert.AreEqual(0, result.Except(expectedResult).Count());
-
         }
 
         private static List<int> GetAgentListBySubsidairyNames(string subsidiaryNames, int currencyId)
         {
             var subList = subsidiaryNames.Split(new char[] { ',' });
-            var agentBySub = GetSubsidiaryData.Where(i =>
+            var agentBySub = GetSubsidiaryData().Where(i =>
               subList.Contains(i.OperatorId) && (currencyId == 0 || currencyId == i.CurrencyId)).Select(i => i.AgentId);
 
-            return agentBySub.Intersect(GetAgentByCurrencyData.SelectMany(i => i.Value)).ToList();
-
+            return agentBySub.Intersect(GetAgentByCurrencyData().SelectMany(i => i.Value)).ToList();
         }
 
-        private static IDictionary<int, IEnumerable<int>> GetAgentByCurrencyData
+        private static IDictionary<int, IEnumerable<int>> GetAgentByCurrencyData()
         {
-            get
-            {
-                var data = new Dictionary<int, IEnumerable<int>>
+            return new Dictionary<int, IEnumerable<int>>
                 {
-                    { 20, new List<int>{201, 202, 203,204,205 } },
-                    {
-                        51,new List<int>{511,512,513,514,515}
-                    },
-                    {
-                        13,new List<int>{131,132}
-                    }
+                    { 20, new List<int> { 201, 202, 203, 204, 205 } },
+                    { 51, new List<int> { 511, 512, 513, 514, 515 } },
+                    { 13, new List<int> { 131, 132 } }
                 };
-                return data;
-            }
-
         }
-        private static IEnumerable<Subsidiary> GetSubsidiaryData
+
+        private static IEnumerable<Subsidiary> GetSubsidiaryData()
         {
-            get
+            yield return new Subsidiary
             {
-                yield return new Subsidiary
-                {
-                    AgentId = 201,
-                    CurrencyId = 20,
-                    OperatorId = "alex"
-                };
-                yield return new Subsidiary
-                {
-                    AgentId = 203,
-                    CurrencyId = 20,
-                    OperatorId = "alex"
-                };
-                yield return new Subsidiary
-                {
-                    AgentId = 513,
-                    CurrencyId = 51,
-                    OperatorId = "qc"
-                };
-                yield return new Subsidiary
-                {
-                    AgentId = 512,
-                    CurrencyId = 51,
-                    OperatorId = "qc"
-                };
-                yield return new Subsidiary
-                {
-                    AgentId = 202,
-                    CurrencyId = 20,
-                    OperatorId = "qc"
-                };
-                yield return new Subsidiary
-                {
-                    AgentId = 516,
-                    CurrencyId = 51,
-                    OperatorId = "qc"
-                };
-                yield return new Subsidiary
-                {
-                    AgentId = 601,
-                    CurrencyId = 60,
-                    OperatorId = "alex"
-                };
-            }
+                AgentId = 201,
+                CurrencyId = 20,
+                OperatorId = "alex"
+            };
+            yield return new Subsidiary
+            {
+                AgentId = 203,
+                CurrencyId = 20,
+                OperatorId = "alex"
+            };
+            yield return new Subsidiary
+            {
+                AgentId = 513,
+                CurrencyId = 51,
+                OperatorId = "qc"
+            };
+            yield return new Subsidiary
+            {
+                AgentId = 512,
+                CurrencyId = 51,
+                OperatorId = "qc"
+            };
+            yield return new Subsidiary
+            {
+                AgentId = 202,
+                CurrencyId = 20,
+                OperatorId = "qc"
+            };
+            yield return new Subsidiary
+            {
+                AgentId = 516,
+                CurrencyId = 51,
+                OperatorId = "qc"
+            };
+            yield return new Subsidiary
+            {
+                AgentId = 601,
+                CurrencyId = 60,
+                OperatorId = "alex"
+            };
         }
     }
 }

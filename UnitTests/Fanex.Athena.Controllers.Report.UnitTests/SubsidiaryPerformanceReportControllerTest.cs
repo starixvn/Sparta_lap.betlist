@@ -31,11 +31,9 @@
         private ISubsidiaryPerformanceService _service;
         private JavaScriptSerializer _serializer;
 
-        [OneTimeSetUp]
-        public override void FixtureSetUp()
+        [SetUp]
+        public void SetUp()
         {
-            base.FixtureSetUp();
-
             SetUpDefaultFakeData();
             SessionService.UserSession.ViewType = ClientViewType.Desktop;
 
@@ -98,6 +96,7 @@
 
                 var expectedViewModelData = new SubsidiaryPerformanceViewModel
                 {
+                    SubsidiaryList = new CheckedItem[] { },
                     ProductOptionList = new List<ProductOption>
                     {
                         new ProductOption { Code = FakeProductCode, Name = FakeProductName, Status = true }
