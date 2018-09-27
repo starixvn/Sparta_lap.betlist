@@ -159,7 +159,7 @@
             total.BetCount += Convert.ToInt32(reader["BetCount"]);
             total.Turnover += Convert.ToDecimal(reader["TurnoverBase"]);
             total.CustomerWinLoss += Convert.ToDecimal(reader["WinlostBase"]);
-            total.SubsidiaryWinLoss = Convert.ToDecimal(reader["LicenseeWLBase"]);
+            total.SubsidiaryWinLoss += Convert.ToDecimal(reader["LicenseeWLBase"]);
         }
 
         private void CalculateDetailTotal(SubsidiaryPerformanceDetail detail, IDictionary<string, SubsidiaryPerformanceDetail> totalList)
@@ -174,7 +174,7 @@
             total.BetCount += detail.BetCount;
             total.Turnover += detail.Turnover;
             total.CustomerWinLoss += detail.CustomerWinLoss;
-            total.SubsidiaryWinLoss = detail.SubsidiaryWinLoss;
+            total.SubsidiaryWinLoss += detail.SubsidiaryWinLoss;
         }
 
         private SubsidiaryPerformanceDetail CalculateDetailGrandTotal(string baseCurrency, IEnumerable<SubsidiaryPerformanceDetail> total)
