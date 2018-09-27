@@ -452,4 +452,7 @@ input[type="checkbox"].checkbox {
   margin-left: 15px;
   margin-top: 0; }
 
+.multiple-select-options-container, .rdr-DateRange, .Select-menu-outer {
+  z-index: 2; }
+
 /*# sourceMappingURL=index.css.map*/

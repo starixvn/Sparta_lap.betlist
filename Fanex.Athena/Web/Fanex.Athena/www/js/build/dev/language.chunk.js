@@ -15,7 +15,7 @@ module.exports = __webpack_require__(82);
 /***/ 78:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 9/21/2018 10:19:42 AM
+﻿// Generated at: 9/26/2018 8:59:48 AM
 window._language_en_US = {
 AA:"AA",
 AB:"AB",
@@ -987,7 +987,7 @@ YouNotChooseAnyCustomerMsg:"You did not choose any customers."
 /***/ 79:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 9/21/2018 10:19:42 AM
+﻿// Generated at: 9/26/2018 8:59:48 AM
 window._language_zh_CN = {
 AA:"客客",
 ABComm:"AllBet 佣金",
@@ -1823,7 +1823,7 @@ YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
 /***/ 80:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 9/21/2018 10:19:42 AM
+﻿// Generated at: 9/26/2018 8:59:48 AM
 window._language_zh_TW = {
 AA:"客客",
 ABComm:"AllBet 佣金",
@@ -2659,7 +2659,7 @@ YouNotChooseAnyCustomerMsg:"您還沒有選擇任何會員"
 /***/ 81:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 9/21/2018 10:19:42 AM
+﻿// Generated at: 9/26/2018 8:59:48 AM
 window._language_zh_Hans = {
 AA:"客客",
 ABComm:"AllBet 佣金",
@@ -3490,7 +3490,7 @@ YouNotChooseAnyCustomerMsg:"您还没有选择任何会员"
 /***/ 82:
 /***/ (function(module, exports) {
 
-﻿// Generated at: 5/31/2018 9:37:15 AM
+﻿// Generated at: 9/26/2018 8:59:48 AM
 window._language_ko_KR = {
 AA:"AA",
 ABComm:"AllBet 수수료",
