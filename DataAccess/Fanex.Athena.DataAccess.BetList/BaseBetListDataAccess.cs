@@ -31,7 +31,7 @@ namespace Fanex.Athena.DataAccess.BetList
         [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         [CLSCompliant(false)]
-        protected internal SortableList<LrfTicket> ReadBetListTicket(IDataReader dataReader, string baseCurrency, long custId = 0)
+        protected internal SortableList<LrfTicket> ReadBetListTicket(IDataReader dataReader, string baseCurrency = "", long custId = 0)
         {
             var columnSuffix = SystemConstants.BaseCurrencyList.Contains(baseCurrency?.ToUpperInvariant()) ? baseCurrency : string.Empty;
 
