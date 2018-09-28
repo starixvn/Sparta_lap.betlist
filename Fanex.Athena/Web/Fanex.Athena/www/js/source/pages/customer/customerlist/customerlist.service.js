@@ -80,6 +80,10 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
                 }
             }
 
+            if ($("#subsidiary-multiselect").length > 0) {
+                data.SubsidiaryList = $("#subsidiary-multiselect").multiSelect('getCheckedItems').join();
+            }
+
             data.PageIndex = _state.pagingOption.pageindex;
             data.PageSize = _state.pagingOption.pagesize;
             data.CurrencyId = $("#CurrencyId").val();

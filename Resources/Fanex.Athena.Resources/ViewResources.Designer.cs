@@ -7279,6 +7279,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please contact admin to check your subsidiary name..
+        /// </summary>
+        public static string SubsidiaryNotHaveCurrencyMsg {
+            get {
+                return ResourceManager.GetString("SubsidiaryNotHaveCurrencyMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Subsidiary Performance.
         /// </summary>
         public static string SubsidiaryPerformance {

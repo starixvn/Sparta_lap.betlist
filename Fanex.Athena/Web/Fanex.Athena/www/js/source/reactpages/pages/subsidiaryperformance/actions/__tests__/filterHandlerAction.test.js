@@ -41,4 +41,28 @@ describe('filterHandlerAction', () => {
 
         expect(result).toEqual(expectedAction);
     })
+
+    it('changeIncludeDrawData - should create an correct action', () => {
+        const check = true;
+        const expectedAction = {
+            type: types.CHANGE_INCLUDE_DRAW_DATA,
+            data: check
+        }
+
+        const result = actions.changeIncludeDrawData(check);
+
+        expect(result).toEqual(expectedAction);
+    })
+
+    it('setParams - should create an correct action', () => {
+        const params = {};
+        const expectedAction = {
+            type: types.SET_PARAMS,
+            data: params
+        }
+
+        const result = actions.setParams(params);
+
+        expect(result).toEqual(expectedAction);
+    })
 })

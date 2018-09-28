@@ -2,6 +2,7 @@
 {
     using Core.Users.Interfaces;
     using Core.Utility.Interfaces;
+    using DataAccess.Core.Users.Interfaces;
     using Fanex.Athena.Service.Core.Users;
     using Model.Core.DTO.OneAuth;
     using NSubstitute;
@@ -23,7 +24,8 @@
                 null,
                 null,
                 _oneBookSecurityWrapper,
-                Substitute.For<ICoreLogger>());
+                Substitute.For<ICoreLogger>(),
+                Substitute.For<IOneAuthDataAccess>());
         }
 
         [TearDown]

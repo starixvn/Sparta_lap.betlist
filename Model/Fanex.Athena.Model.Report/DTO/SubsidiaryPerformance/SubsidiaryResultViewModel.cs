@@ -6,8 +6,8 @@ namespace Fanex.Athena.Model.Report.DTO.SubsidiaryPerformance
     {
         public IEnumerable<SubsidiaryPerformanceDataModel> Data { get; set; }
 
-        public IEnumerable<SubsidiaryPerformanceEntity> Total { get; set; }
+        public IDictionary<string, SubsidiaryPerformanceBase> Total { get; set; }
 
-        public SubsidiaryPerformanceEntity GrandTotal { get; set; }
+        public SubsidiaryPerformanceBase GrandTotal { get; set; }
     }
 }

@@ -10,7 +10,7 @@
     var selectedProductCode = string.Join(",", productOptions.Where(x => x.Status).Select(x => x.Code).ToArray());
     var baseCurrencyList = SystemConstants.NewBaseCurrencyList.Select(c => new { value = c, label = c }).ToList();
     var subsidiaryList = Model.SubsidiaryList;
-    var selectedSubsidiary = string.Join(",", subsidiaryList.Where(x => x.Checked).Select(x => x.Name).ToArray());
+    var selectedSubsidiary = subsidiaryList == null ? null : string.Join(",", subsidiaryList.Where(x => x.Checked).Select(x => x.Name).ToArray());
 
     var appSettings = new AppSettings();
     var minDate = appSettings.HistoryDate;
@@ -38,7 +38,9 @@
         dateRange: {fromDate: '@Model.FromDate.ToString("MM/dd/yyyy")', toDate: '@Model.ToDate.ToString("MM/dd/yyyy")'},
         xsrfToken: document.querySelector("input[name=__RequestVerificationToken]").value,
         isLoading: false,
-        dateConstraint: {minDate: '@minDate.ToString("MM/dd/yyyy")', maxDate: '@maxDate.ToString("MM/dd/yyyy")'}
+        dateConstraint: {minDate: '@minDate.ToString("MM/dd/yyyy")', maxDate: '@maxDate.ToString("MM/dd/yyyy")'},
+        includeDrawData: true,
+        isExcludeTest: true
     }
 }
 <div id="app-container">

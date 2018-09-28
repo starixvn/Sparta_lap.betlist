@@ -1,7 +1,6 @@
 ﻿namespace Fanex.Athena.Model.Core.DTO.OneAuth
 {
     using System;
-    using System.Collections.Generic;
 
     [Serializable]
     public class OneAuthToken

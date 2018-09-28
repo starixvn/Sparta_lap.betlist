@@ -133,6 +133,7 @@
     <Compile Include="Users\AuthDataAccessTest.cs" />
     <Compile Include="Users\AuthorizationDataAccessTest.cs" />
     <Compile Include="Users\LicenseeDataAccessTest.cs" />
+    <Compile Include="Users\SubsidiaryDataAccessTest.cs" />
     <Compile Include="Users\UserDataAccessTest.cs" />
     <Compile Include="Utilities\SafeDataReaderTest.cs" />
   </ItemGroup>

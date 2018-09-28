@@ -21,6 +21,12 @@ namespace Fanex.Athena.Session.Model
 
         public string UserName { get; set; }
 
+        public byte UserLevel { get; set; }
+
+        public bool IsManageableSubsidiary { get; set; }
+
+        public string OperatorId { get; set; }
+
         /// <summary>
         /// Gets or sets Language Code.
         /// Default: en-US.

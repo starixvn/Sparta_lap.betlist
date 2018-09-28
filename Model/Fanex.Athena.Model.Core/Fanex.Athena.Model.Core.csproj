@@ -118,8 +118,10 @@
     <Compile Include="DTO\Configuration\BalanceUp.cs" />
     <Compile Include="DTO\Configuration\CacheKey.cs" />
     <Compile Include="DTO\Configuration\MoveBetNotification.cs" />
+    <Compile Include="DTO\OneAuth\OneAuthUserInfo.cs" />
     <Compile Include="DTO\PortalSystemFunction.cs" />
     <Compile Include="DTO\Users\CurrencyUser.cs" />
+    <Compile Include="DTO\Users\Subsidiary.cs" />
     <Compile Include="DTO\Users\User.cs" />
     <Compile Include="DTO\Users\UserRole.cs" />
     <Compile Include="Helper\ProductHelper.cs" />

@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Web;
     using System.Web.Hosting;
+    using Constant.DataDomain;
     using DataAccess.Core.Users;
     using DataAccess.Core.Users.Interfaces;
     using Extension.Utility;
@@ -30,7 +31,9 @@
         private readonly IOneBookSecurityWrapper _oneBookSecurityWrapper;
         private readonly ICoreLogger _logger;
 
-        public OneAuthenticationService() : this(null, null, null, null, null)
+        private readonly IOneAuthDataAccess _oneAuthDataAccess;
+
+        public OneAuthenticationService() : this(null, null, null, null, null, null)
         {
         }
 
@@ -39,13 +42,15 @@
             ILicenseeDataAccess licenseeDataAccess,
             IFormsAuthenticationService formsAuthenticationService,
             IOneBookSecurityWrapper oneBookSecurityWrapper,
-            ICoreLogger logger)
+            ICoreLogger logger,
+            IOneAuthDataAccess oneAuthDataAccess)
         {
             _sessionService = sessionService ?? new SessionService();
             _licenseeDataAccess = licenseeDataAccess ?? new LicenseeDataAccess();
             _formsAuthenticationService = formsAuthenticationService ?? new FormsAuthenticationService();
             _oneBookSecurityWrapper = oneBookSecurityWrapper ?? new OneBookSecurityWrapper();
             _logger = logger ?? new CoreLogger();
+            _oneAuthDataAccess = oneAuthDataAccess ?? new OneAuthDataAccess();
         }
 
         protected internal virtual string GetStringFromFile(string path)
@@ -68,8 +73,8 @@
                 };
             }
 
-            var currencyList = GetCurrencyList(tokenInfo);
-            var result = ValidateCurrencyList(currencyList);
+            var userInfo = GetUserInfo(tokenInfo);
+            var result = ValidateCurrencyList(userInfo);
             if (!result.IsSuccessful)
             {
                 return result;
@@ -82,14 +87,14 @@
             if (IsAuthenticated(currentContext, userSession, licenseeSession) &&
                 IsSameSession(userSession, licenseeSession, tokenInfo, licensee.Id))
             {
-                UpdateUserSession(userSession, tokenInfo, licensee.Id, currencyList, language);
+                UpdateUserSession(userSession, tokenInfo, licensee.Id, userInfo, language);
                 return new ResultInfo
                 {
                     ExtendedData = tokenInfo.ActionLink
                 };
             }
 
-            CreateSession(language, tokenInfo, licensee, currencyList);
+            CreateSession(language, tokenInfo, licensee, userInfo);
             return SetAuthorize(tokenInfo);
         }
 
@@ -134,18 +139,24 @@
             };
         }
 
-        protected internal virtual IResultInfo ValidateCurrencyList(IEnumerable<CurrencyUser> currencyList)
+        protected internal virtual IResultInfo ValidateCurrencyList(OneAuthUserInfo userInfo)
         {
-            if (currencyList == null || !currencyList.Any())
+            if (userInfo.CurrencyUserList == null || !userInfo.CurrencyUserList.Any())
             {
-                return new ResultInfo
-                {
-                    Code = OneAuthorizationErrorCode.UserNotHaveCurrency,
-                    Message = ViewResources.UserNotHaveCurrency
-                };
+                return userInfo.UserLevel == UserLevelType.Subsidiary ?
+                    new ResultInfo
+                    {
+                        Code = OneAuthorizationErrorCode.SubsidiaryNotHaveCurrency,
+                        Message = ViewResources.SubsidiaryNotHaveCurrencyMsg
+                    }
+                    : new ResultInfo
+                    {
+                        Code = OneAuthorizationErrorCode.UserNotHaveCurrency,
+                        Message = ViewResources.UserNotHaveCurrency
+                    };
             }
 
-            foreach (var currency in currencyList)
+            foreach (var currency in userInfo.CurrencyUserList)
             {
                 var duplicateAgents = currency.AgentIdList.GroupBy(x => x).Where(x => x.Count() > 1).Select(x => x.Key).ToList();
                 if (duplicateAgents.Any())
@@ -164,33 +175,40 @@
             return new ResultInfo { Code = 0 };
         }
 
-        private void UpdateUserSession(UserSession userSession, OneAuthToken tokenInfo, int licenseeId, IEnumerable<CurrencyUser> currencyList, string language)
+        private void UpdateUserSession(UserSession userSession, OneAuthToken tokenInfo, int licenseeId, OneAuthUserInfo userInfo, string language)
         {
             if (!language.Equals(userSession.Language))
             {
                 _sessionService.UpdateLanguage(language);
             }
 
-            _sessionService.AssignCurrenciesToUserSession(userSession, licenseeId, currencyList);
+            _sessionService.AssignCurrenciesToUserSession(userSession, licenseeId, userInfo.CurrencyUserList);
+            userSession.UserLevel = userInfo.UserLevel;
+            userSession.IsManageableSubsidiary = userInfo.IsEnabledSubsidiary && userInfo.UserLevel != UserLevelType.Subsidiary;
+            userSession.OperatorId = userInfo.OperatorID;
             userSession.PortalFunctionList = GetPermissionList(tokenInfo);
         }
 
-        private IEnumerable<CurrencyUser> GetCurrencyList(OneAuthToken tokenInfo)
+        private OneAuthUserInfo GetUserInfo(OneAuthToken tokenInfo)
         {
-            return tokenInfo.Currency?.Select(x => new CurrencyUser
+            var userInfo = _oneAuthDataAccess.GetUserInfo(tokenInfo.UserSEQ, tokenInfo.VendorID);
+
+            userInfo.CurrencyUserList = tokenInfo.Currency?.Select(x => new CurrencyUser
             {
                 IsActive = true,
                 CurrencyId = x.CurrencyId,
                 CurrencyName = x.Currency,
                 AgentIdList = x.AgentId
             }).ToList();
+
+            return userInfo;
         }
 
         private void CreateSession(
             string languageCode,
             OneAuthToken tokenInfo,
             Licensee licenseeInfo,
-            IEnumerable<CurrencyUser> currencyByUser)
+            OneAuthUserInfo userInfo)
         {
             var licSession = new LicenseeSession
             {
@@ -205,6 +223,9 @@
                 UserId = tokenInfo.UserSEQ,
                 OnUserId = tokenInfo.UserSEQ,
                 UserName = tokenInfo.UserID,
+                UserLevel = userInfo.UserLevel,
+                IsManageableSubsidiary = userInfo.IsEnabledSubsidiary && userInfo.UserLevel != UserLevelType.Subsidiary,
+                OperatorId = userInfo.OperatorID,
                 IsInternal = true,
                 FunctionIdList = new List<int>(),
                 PortalFunctionList = GetPermissionList(tokenInfo),
@@ -216,7 +237,7 @@
                 ViewType = ClientViewType.Desktop,
             };
 
-            _sessionService.AssignCurrenciesToUserSession(userSession, licenseeInfo.Id, currencyByUser);
+            _sessionService.AssignCurrenciesToUserSession(userSession, licenseeInfo.Id, userInfo.CurrencyUserList);
 
             _sessionService.AssignSessions(userSession, licSession);
         }

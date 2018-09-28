@@ -1,14 +1,17 @@
 jest.mock('react-redux')
 jest.mock('redux')
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { ActionCreators } from '../../actions/index.js'
 
 describe('connect ', () => {
-    let mapStateToProps;
+    let mapStateToProps, mapDispatchToProps;
     const connectMock = jest.fn();
 
     beforeAll(() => {
-        connect.mockImplementation((mapStateToPropsFunc) => {
+        connect.mockImplementation((mapStateToPropsFunc, mapDispatchToPropsFunc) => {
             mapStateToProps = mapStateToPropsFunc;
+            mapDispatchToProps = mapDispatchToPropsFunc;
             return connectMock;
         });
         require('../AppContainer').default;
@@ -21,14 +24,12 @@ describe('connect ', () => {
     it('props should be mapped correctly', () => {
         const expectedResult = {
             isLoading: false,
-            dateRange: {},
-            selectedBaseCurrency: "UUS"
+            params: {}
         };
 
         const state = {
             isLoading: false,
-            dateRange: {},
-            selectedBaseCurrency: "UUS",
+            params: {},
             anotherProp: "Not included"
         }
 
@@ -41,5 +42,18 @@ describe('connect ', () => {
         const AppContainer = require('../AppContainer').AppContainer;
 
         expect(connectMock).toHaveBeenCalledWith(AppContainer);
+    })
+
+    it('bindActionCreators should be called with correct parameter', () => {
+        const mockBindAction = jest.fn();
+        bindActionCreators.mockImplementationOnce(mockBindAction);
+        const expectedActionCreator = {
+            setParams: ActionCreators.setParams
+        }
+
+        const dispatch = {};
+        mapDispatchToProps(dispatch);
+
+        expect(mockBindAction).toHaveBeenCalledWith(expectedActionCreator, dispatch);
     })
 })

@@ -2,14 +2,15 @@
 {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Linq;
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Script.Serialization;
+    using Constant.DataDomain;
     using Fanex.Athena.Controllers.Base.UnitTests;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Core.MetaModel.Product;
-    using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.ViewModel;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Service.Report.Interfaces;
@@ -26,86 +27,47 @@
         private static readonly ReadOnlyCollection<string> BaseCurrencyList = new ReadOnlyCollection<string>(
             new List<string> { "EUR", "USD", "GBP", "MYR", "CNY", "THB", "IDR" });
 
+        private ISubsidiaryService _subsidiaryService;
         private ISubsidiaryPerformanceService _service;
         private JavaScriptSerializer _serializer;
 
-        [OneTimeSetUp]
-        public override void FixtureSetUp()
+        [SetUp]
+        public void SetUp()
         {
-            base.FixtureSetUp();
-
             SetUpDefaultFakeData();
             SessionService.UserSession.ViewType = ClientViewType.Desktop;
 
+            _subsidiaryService = Substitute.For<ISubsidiaryService>();
             _service = Substitute.For<ISubsidiaryPerformanceService>();
             _serializer = new JavaScriptSerializer();
         }
 
         [Test]
-        public void Index_SubsidiaryListHasData_ReturnCorrectViewResult()
-        {
-            var expectedOperatorList = new List<Operator>
-            {
-                new Operator { AgentId = 1, OperatorName = "New York", CurrencyId = 1 },
-                new Operator { AgentId = 2, OperatorName = "New York", CurrencyId = 2 },
-                new Operator { AgentId = 3, OperatorName = "India", CurrencyId = 2 },
-                new Operator { AgentId = 4, OperatorName = "Irag", CurrencyId = 3 },
-                new Operator { AgentId = 4, OperatorName = "China", CurrencyId = 1 }
-            };
-            var expectedViewModelData = new SubsidiaryPerformanceViewModel
-            {
-                ProductOptionList = GetExpectedProductOptionList(),
-                SubsidiaryList = GetExpectedSubsidiaryList()
-            };
-
-            TestIndexViewModel(expectedOperatorList, expectedViewModelData);
-        }
-
-        [Test]
-        public void Index_SubsidiaryListHasNoData_ReturnCorrectViewResult()
-        {
-            var expectedOperatorList = new List<Operator>();
-            var expectedViewModelData = new SubsidiaryPerformanceViewModel
-            {
-                ProductOptionList = GetExpectedProductOptionList(),
-                SubsidiaryList = new List<CheckedItem>()
-            };
-
-            TestIndexViewModel(expectedOperatorList, expectedViewModelData);
-        }
-
-        private static IEnumerable<ProductOption> GetExpectedProductOptionList()
-        {
-            return new List<ProductOption>
-            {
-                new ProductOption { Code = FakeProductCode, Name = FakeProductName, Status = true }
-            };
-        }
-
-        private static IEnumerable<CheckedItem> GetExpectedSubsidiaryList()
-        {
-            return new List<CheckedItem>
-            {
-                new CheckedItem { Name = "New York", Checked = true },
-                new CheckedItem { Name = "China", Checked = true }
-            };
-        }
-
-        private static HttpContext GetHttpContext()
-        {
-            return new HttpContext(
-                new HttpRequest(null, "http://tempuri.org", null),
-                new HttpResponse(null));
-        }
-
-        private void TestIndexViewModel(IEnumerable<Operator> expectedOperatorList, SubsidiaryPerformanceViewModel viewModelData)
+        public void Index_IsManageableSubsidiaryIsTrue_CallServiceToGetSubsidiaryList()
         {
             using (var controller = CreateController())
             {
                 // Arrange
-                _service.GetOperatorList(SessionService.LicenseeSession.LicenseeName).Returns(expectedOperatorList);
+                var operatorList = new List<string> { "New York", "India", "Irag", "China" };
+                _subsidiaryService.GetSubsidiaryNames().Returns(operatorList);
 
-                var expectedModel = _serializer.Serialize(viewModelData);
+                SessionService.UserSession.Returns(new Session.Model.UserSession
+                {
+                    IsManageableSubsidiary = true,
+                    ViewType = ClientViewType.Desktop,
+                    Language = DefaultUserSession.Language
+                });
+
+                var expectedViewModelData = new SubsidiaryPerformanceViewModel
+                {
+                    ProductOptionList = new List<ProductOption>
+                    {
+                        new ProductOption { Code = FakeProductCode, Name = FakeProductName, Status = true }
+                    },
+                    SubsidiaryList = operatorList.Select(x => new CheckedItem { Name = x, Checked = true })
+                };
+
+                var expectedModel = _serializer.Serialize(expectedViewModelData);
                 var expectedViewName = "~/Views/Report/SubsidiaryPerformance/Main.cshtml";
                 HttpContext.Current = GetHttpContext();
 
@@ -117,6 +79,49 @@
                 Assert.That(viewResult.ViewName, Is.EqualTo(expectedViewName));
                 Assert.That(modelResult, Is.EqualTo(expectedModel));
             }
+        }
+
+        [Test]
+        public void Index_IsManageableSubsidiaryIsFalse_SubsidiaryListIsNull()
+        {
+            using (var controller = CreateController())
+            {
+                // Arrange
+                SessionService.UserSession.Returns(new Session.Model.UserSession
+                {
+                    IsManageableSubsidiary = false,
+                    ViewType = ClientViewType.Desktop,
+                    Language = DefaultUserSession.Language
+                });
+
+                var expectedViewModelData = new SubsidiaryPerformanceViewModel
+                {
+                    SubsidiaryList = null,
+                    ProductOptionList = new List<ProductOption>
+                    {
+                        new ProductOption { Code = FakeProductCode, Name = FakeProductName, Status = true }
+                    }
+                };
+
+                var expectedModel = _serializer.Serialize(expectedViewModelData);
+                var expectedViewName = "~/Views/Report/SubsidiaryPerformance/Main.cshtml";
+                HttpContext.Current = GetHttpContext();
+
+                // Action
+                var viewResult = controller.Index() as ViewResult;
+                var modelResult = _serializer.Serialize(viewResult.Model);
+
+                // Assert
+                Assert.That(viewResult.ViewName, Is.EqualTo(expectedViewName));
+                Assert.That(modelResult, Is.EqualTo(expectedModel));
+            }
+        }
+
+        private static HttpContext GetHttpContext()
+        {
+            return new HttpContext(
+                new HttpRequest(null, "http://tempuri.org", null),
+                new HttpResponse(null));
         }
 
         private SubsidiaryPerformanceReportController CreateController()
@@ -134,7 +139,7 @@
                 AppSettings,
                 ClientViewHelper,
                 productService,
-                _service);
+                _subsidiaryService);
         }
     }
 }

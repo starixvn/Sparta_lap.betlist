@@ -158,6 +158,6 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
     const { gridData, groupBy, selectedReportBy, selectedTimeZone, dateRange, selectedCurrency, selectedBaseCurrency, isLoading, isConvertAll } = state;
     return Object.assign({}, { gridData, groupBy, selectedReportBy, selectedTimeZone, dateRange, selectedCurrency, selectedBaseCurrency, isLoading, isConvertAll });
-                };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(DataGrid);

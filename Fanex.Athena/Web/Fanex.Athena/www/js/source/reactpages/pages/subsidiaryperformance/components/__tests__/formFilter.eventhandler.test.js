@@ -4,13 +4,12 @@ import { FormFilter } from '../FormFilter';
 
 import Site from '../../../../lib/site';
 import LangHelper from '../../../../lib/langHelper';
-import service from '../../lib/service';
+import { Service, Api } from '../../lib/service';
 import ReportExcel from '../../lib/reportExcel'
+import Report from '../../../../lib/report'
+import { ReportLevel } from '../../../../constants/report'
 
 import { defaultProps } from './fakeData';
-
-const { gridData, ...rest } = defaultProps;
-const formFilterPropsForEventHandler = { ...rest };
 
 jest.mock('../../lib/reportExcel');
 
@@ -24,64 +23,86 @@ describe('FormFilter ', () => {
             }
 
             return resource;
-        })
+        });
+
+        Site.convertDateToString = jest.fn((date) => date);
     })
     afterAll(() => {
         jest.resetAllMocks();
     })
 
     describe('Event handler', () => {
+        const findElementById = (children, id) => {
+            for (let i = 0; i < children.length; i++) {
+                const child = children[i];
+
+                if (child.props && child.props.id === id) {
+                    return child;
+                }
+
+                if (child.children && child.children.length) {
+                    const result = findElementById(child.children, id);
+
+                    if (result) {
+                        return result;
+                    }
+                }
+            }
+
+            return null;
+        }
+
         describe('onChange event fire on MultipleSelect component', () => {
             it('onChange in Product filter - setSelectedProduct should be called with correct parameter', () => {
-                const formFilter = new FormFilter(formFilterPropsForEventHandler);
-                formFilterPropsForEventHandler.setSelectedProduct = jest.fn();
+                const formFilter = new FormFilter(defaultProps);
+                defaultProps.setSelectedProduct = jest.fn();
 
                 const productFilter = formFilter._renderProductSelectList();
                 productFilter.props.onChange({}, "SB,BA");
 
-                expect(formFilterPropsForEventHandler.setSelectedProduct).toHaveBeenCalledWith("SB,BA");
+                expect(defaultProps.setSelectedProduct).toHaveBeenCalledWith("SB,BA");
             })
 
             it('onChange in Subsidiary filter - setSelectedSubsidiary should be called with correct parameter', () => {
-                const formFilter = new FormFilter(formFilterPropsForEventHandler);
-                formFilterPropsForEventHandler.setSelectedSubsidiary = jest.fn();
+                const formFilter = new FormFilter(defaultProps);
+                defaultProps.setSelectedSubsidiary = jest.fn();
 
                 const subsidiaryFilter = formFilter._renderSubsidiarySelectList();
                 subsidiaryFilter.props.onChange({}, "1,2,3,4");
 
-                expect(formFilterPropsForEventHandler.setSelectedSubsidiary).toHaveBeenCalledWith("1,2,3,4");
+                expect(defaultProps.setSelectedSubsidiary).toHaveBeenCalledWith("1,2,3,4");
             })
         })
 
         describe('onChange in Base Currency filter', () => {
             it('props.setSelectedBaseCurrency should be called with correct parameter', () => {
-                const formFilter = new FormFilter(formFilterPropsForEventHandler);
-                formFilterPropsForEventHandler.setSelectedBaseCurrency = jest.fn();
+                const formFilter = new FormFilter(defaultProps);
+                defaultProps.setSelectedBaseCurrency = jest.fn();
 
                 const expectedValue = "EUR";
                 const itemChange = { id: 1, value: expectedValue };
                 const subsidiaryFilter = formFilter._renderBaseCurrencySelectList();
                 subsidiaryFilter.props.onChange(itemChange);
 
-                expect(formFilterPropsForEventHandler.setSelectedBaseCurrency).toHaveBeenCalledWith(expectedValue);
+                expect(defaultProps.setSelectedBaseCurrency).toHaveBeenCalledWith(expectedValue);
             })
         });
 
         describe('onChange in DateRange', () => {
             it('date range is valid month range - setDateRange should be called with correct parameter', () => {
-                const formFilter = new FormFilter(formFilterPropsForEventHandler);
-                formFilterPropsForEventHandler.setDateRange = jest.fn();
+                const formFilter = new FormFilter(defaultProps);
+                defaultProps.setDateRange = jest.fn();
                 const date = "09/28/2017"
 
                 const dateRange = formFilter._renderDateRange();
                 dateRange.props.onChange(date);
 
-                expect(formFilterPropsForEventHandler.setDateRange).toHaveBeenCalledWith(date);
+                expect(defaultProps.setDateRange).toHaveBeenCalledWith(date);
             })
 
             it('date range is invalid month range - window.alert should be called with correct parameter', () => {
-                const formFilter = new FormFilter(formFilterPropsForEventHandler);
-                formFilterPropsForEventHandler.setDateRange = jest.fn();
+                const formFilter = new FormFilter(defaultProps);
+                defaultProps.setDateRange = jest.fn();
                 const date = "09/28/2017",
                     isValidMonthRange = false;
                 const expectedMessage = "Exceed 3 Months";
@@ -99,36 +120,35 @@ describe('FormFilter ', () => {
         })
 
         describe('ConvertAll checkbox fired click event - props.changeConvertAll should be called with correct parameter', () => {
-            const findCheckBoxElement = (children) => {
-                for (let i = 0; i < children.length; i++) {
-                    const child = children[i];
+            const formFilter = renderer.create(<FormFilter {...defaultProps} />).toJSON();
+            const checkBox = findElementById(formFilter.children, 'IsConvertAll');
 
-                    if (child.props && child.props.id === "IsConvertAll") {
-                        return child;
-                    }
+            checkBox.props.onChange();
 
-                    if (child.children && child.children.length) {
-                        const result = findCheckBoxElement(child.children);
+            expect(defaultProps.changeConvertAll).toHaveBeenCalledWith(true);
+        })
 
-                        if (result) {
-                            return result;
-                        }
-                    }
-                }
+        describe('IncludeDrawData checkbox fired click event - props.includeDrawData should be called with correct parameter', () => {
+            const formFilter = renderer.create(<FormFilter {...defaultProps} />).toJSON();
+            const checkBox = findElementById(formFilter.children, 'IncludeDrawData');
 
-                return null;
-            }
-            const formFilter = renderer.create(<FormFilter {...formFilterPropsForEventHandler} />).toJSON();
-            const checkBox = findCheckBoxElement(formFilter.children);
+            checkBox.props.onChange();
 
-            checkBox.props.onClick();
+            expect(defaultProps.changeIncludeDrawData).toHaveBeenCalledWith(false);
+        })
 
-            expect(formFilterPropsForEventHandler.changeConvertAll).toHaveBeenCalledWith(true);
+        describe('ExcludeTest checkbox fired click event - props.isExcludeTest should be called with correct parameter', () => {
+            const formFilter = renderer.create(<FormFilter {...defaultProps} />).toJSON();
+            const checkBox = findElementById(formFilter.children, 'ExcludeTest');
+
+            checkBox.props.onChange();
+
+            expect(defaultProps.changeIsExcludeTest).toHaveBeenCalledWith(false);
         })
 
         describe('isValidModel', () => {
             it('selectedSubsidiary and selectedProduct is not empty - return true', () => {
-                const formFilter = new FormFilter(formFilterPropsForEventHandler);
+                const formFilter = new FormFilter(defaultProps);
 
                 const result = formFilter.isValidModel;
 
@@ -136,7 +156,7 @@ describe('FormFilter ', () => {
             })
 
             it('selectedSubsidiary is empty - return false', () => {
-                const props = { ...formFilterPropsForEventHandler, selectedSubsidiary: "" };
+                const props = { ...defaultProps, selectedSubsidiary: "" };
                 const formFilter = new FormFilter(props);
 
                 const result = formFilter.isValidModel;
@@ -145,7 +165,7 @@ describe('FormFilter ', () => {
             })
 
             it('selectedProduct is empty - return false', () => {
-                const props = { ...formFilterPropsForEventHandler, selectedProduct: "" };
+                const props = { ...defaultProps, selectedProduct: "" };
                 const formFilter = new FormFilter(props);
 
                 const result = formFilter.isValidModel;
@@ -157,7 +177,7 @@ describe('FormFilter ', () => {
         describe('submit data', () => {
             describe('_getParams', () => {
                 it('props.xsrfToken has no value - return null', () => {
-                    const props = { ...formFilterPropsForEventHandler, xsrfToken: "" };
+                    const props = { ...defaultProps, xsrfToken: "" };
                     const formFilter = new FormFilter(props);
 
                     const result = formFilter._getParams();
@@ -166,7 +186,7 @@ describe('FormFilter ', () => {
                 })
 
                 it('filter data is invalid - return null', () => {
-                    const props = { ...formFilterPropsForEventHandler, selectedProduct: "" };
+                    const props = { ...defaultProps, selectedProduct: "" };
                     const formFilter = new FormFilter(props);
 
                     const result = formFilter._getParams();
@@ -175,34 +195,26 @@ describe('FormFilter ', () => {
                 })
 
                 it('props.xsrfToken has value and filter data is valid - return correct param data', () => {
-                    const { convertDateToString } = Site;
-                    Site.convertDateToString = jest.fn((date) => date);
-
-                    const expectedResult = {
-                        xsrfToken: formFilterPropsForEventHandler.xsrfToken,
-                        data: {
-                            BaseCurrency: formFilterPropsForEventHandler.selectedBaseCurrency,
-                            SubsidiaryList: formFilterPropsForEventHandler.selectedSubsidiary,
-                            ProductCodeList: formFilterPropsForEventHandler.selectedProduct,
-                            ConvertAll: formFilterPropsForEventHandler.convertAll,
-                            FromDate: formFilterPropsForEventHandler.dateRange.fromDate,
-                            ToDate: formFilterPropsForEventHandler.dateRange.toDate
-                        }
-                    }
-                    const formFilter = new FormFilter(formFilterPropsForEventHandler);
+                    const formFilter = new FormFilter(defaultProps);
 
                     const result = formFilter._getParams();
 
-                    expect(result).toEqual(expectedResult);
-
-                    Site.convertDateToString = convertDateToString;
+                    expect(result.BaseCurrency).toEqual(defaultProps.selectedBaseCurrency);
+                    expect(result.SubsidiaryList).toEqual(defaultProps.selectedSubsidiary);
+                    expect(result.ProductCodeList).toEqual(defaultProps.selectedProduct);
+                    expect(result.ConvertAll).toEqual(defaultProps.convertAll);
+                    expect(result.FromDate).toEqual(defaultProps.dateRange.fromDate);
+                    expect(result.ToDate).toEqual(defaultProps.dateRange.toDate);
+                    expect(result.IncludeRaw).toEqual(defaultProps.includeDrawData);
+                    expect(result.IsExcludeTest).toEqual(defaultProps.isExcludeTest);
+                    expect(result.Level).toEqual(ReportLevel.MAIN);
                 })
             })
 
             describe('submit', () => {
                 const event = { preventDefault: jest.fn() };
                 it('_getParams return null - do nothing', () => {
-                    const props = { ...formFilterPropsForEventHandler, selectedProduct: "" };
+                    const props = { ...defaultProps, selectedProduct: "" };
                     const formFilter = new FormFilter(props);
 
                     formFilter._getParams = jest.fn(() => null);
@@ -213,31 +225,16 @@ describe('FormFilter ', () => {
                     expect(formFilter.props.toggleLoader).not.toHaveBeenCalled();
                 })
 
-                it('props.toggleLoader should be called with correct parameter', () => {
-                    const props = formFilterPropsForEventHandler;
+                it('props.setParams should be called with correct parameter', () => {
+                    const props = defaultProps;
                     const formFilter = new FormFilter(props);
+                    const params = {};
 
-                    formFilter._getParams = jest.fn(() => { return {} });
-                    formFilter.props.toggleLoader = jest.fn();
-                    formFilter.props.getGridData = jest.fn();
+                    formFilter._getParams = jest.fn(() => { return params; });
 
                     formFilter.submit(event);
 
-                    expect(formFilter.props.toggleLoader).toHaveBeenCalledWith(true);
-                })
-
-                it('props.getGridData should be called with correct parameter', () => {
-                    const props = formFilterPropsForEventHandler;
-                    const expectedParams = {};
-                    const formFilter = new FormFilter(props);
-
-                    formFilter._getParams = jest.fn(() => expectedParams);
-                    formFilter.props.toggleLoader = jest.fn();
-                    formFilter.props.getGridData = jest.fn();
-
-                    formFilter.submit(event);
-
-                    expect(formFilter.props.getGridData).toHaveBeenCalledWith(expectedParams);
+                    expect(formFilter.props.setParams).toHaveBeenCalledWith(params);
                 })
             })
 
@@ -246,16 +243,16 @@ describe('FormFilter ', () => {
                 const fakeReportTitle = "Report Title";
 
                 beforeEach(() => {
-                    service.getReportTitle = jest.fn(() => fakeReportTitle);
+                    Service.getReportTitle = jest.fn(() => fakeReportTitle);
                 })
 
                 afterEach(() => {
                     ReportExcel.mockReset();
-                    service.getReportTitle.mockReset();
+                    Service.getReportTitle.mockReset();
                 })
 
                 it('_getParams return null - do nothing', () => {
-                    const props = { ...formFilterPropsForEventHandler, selectedProduct: "" };
+                    const props = { params: { Level: ReportLevel.MAIN } };
                     const formFilter = new FormFilter(props);
 
                     formFilter._getParams = jest.fn(() => null);
@@ -269,20 +266,21 @@ describe('FormFilter ', () => {
                 describe('_getParams return data ', () => {
                     const fakeResponse = { data: { Data: [1, 2] } };
                     const promise = Promise.resolve(fakeResponse);
+                    const props = { params: { Level: ReportLevel.CUSTOMER }, xsrfToken: 'token', toggleLoader: jest.fn() };
                     let formFilter;
 
                     beforeEach(() => {
-                        formFilter = new FormFilter(formFilterPropsForEventHandler);
+                        formFilter = new FormFilter(props);
                         formFilter._getParams = jest.fn(() => { return {} });
-                        formFilter.props.exportExcel = jest.fn(() => promise);
+                        Report.fetchGridData = jest.fn(() => promise);
                     })
 
-                    it('action return promise - props.exportExcel should be called with correct parameter', () => {
+                    it('action return promise - Report.fetchGridData should be called with correct parameter', () => {
                         const expectedParams = {};
 
                         formFilter.exportExcel(event);
 
-                        expect(formFilter.props.exportExcel).toHaveBeenCalledWith(expectedParams);
+                        expect(Report.fetchGridData).toHaveBeenCalledWith(Api.DetailUrl, { xsrfToken: props.xsrfToken, data: props.params  });
                     })
 
                     it('action return promise - Excel class should be instantiated with correct parameter', () => {
@@ -297,7 +295,7 @@ describe('FormFilter ', () => {
                     })
 
                     it('action return promise - export method of Excel class should be called', () => {
-                        const exportFnMock = jest.fn();
+                        const exportFnMock = jest.fn((callback) => callback());
                         ReportExcel.mockImplementation(() => {
                             return {
                                 export: exportFnMock
@@ -308,25 +306,36 @@ describe('FormFilter ', () => {
 
                         Promise.resolve().then(() => {
                             expect(exportFnMock.mock.calls.length).toBe(1);
+                            expect(props.toggleLoader).toHaveBeenCalledWith(false);
                         })
                     })
-                })
 
-                it('action return promise - no data - window.alert should be called with correct parameter', () => {
-                    const formFilter = new FormFilter(formFilterPropsForEventHandler);
-                    formFilter._getParams = jest.fn(() => { return {} });
-                    formFilter.props.exportExcel = jest.fn(() => Promise.resolve({ data: { Data: [] } }));
+                    it('action return promise - no data - window.alert should be called with correct parameter', () => {
+                        Report.fetchGridData = jest.fn(() => Promise.resolve({ data: { Data: [] } }));
 
-                    window.alert = jest.fn();
-                    formFilter.exportExcel(event);
+                        window.alert = jest.fn();
+                        formFilter.exportExcel(event);
 
-                    Promise.resolve().then(() => {
-                        expect(window.alert).toHaveBeenCalledWith("NoInfo");
-                        expect(service.getReportTitle).not.toHaveBeenCalled();
+                        Promise.resolve().then(() => {
+                            expect(window.alert).toHaveBeenCalledWith("NoInfo");
+                            expect(Service.getReportTitle).not.toHaveBeenCalled();
 
-                        window.alert = originalWindowAlert;
+                            window.alert = originalWindowAlert;
+                        })
                     })
-                })
+
+                    it('get data failed - export data with correct parameter', () => {
+                        const promise = Promise.reject('error');
+                        Report.fetchGridData = jest.fn(() => promise);
+                        
+                        formFilter.exportExcel(event);
+
+                        Promise.reject().catch(() => {
+                            expect(Service.showErrorMsg).toHaveBeenCalled();
+                            expect(props.toggleLoader).toHaveBeenCalledWith(false);
+                        });
+                    })
+                })           
             })
         })
     })

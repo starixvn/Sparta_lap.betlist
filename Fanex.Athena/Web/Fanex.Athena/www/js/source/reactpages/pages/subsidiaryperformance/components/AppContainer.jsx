@@ -7,19 +7,38 @@ import FormFilter from './FormFilter'
 import Loader from '../../../components/Loader'
 import AppLayout from '../../../layouts/AppLayout'
 import ReportTitle from '../../../components/ReportTitle'
-import service from '../lib/service'
+import { Service, BreadcrumbText } from '../lib/service'
+import Breadcrumb from '../../../components/breadcrumb/Breadcrumb'
+import { ReportLevel } from '../../../constants/report'
 
 export class AppContainer extends Component {
   constructor(props) {
     super(props);
     this.reportTitle = null;
+    this.breadcrumbItems = [{
+        label: BreadcrumbText.Main,
+        value: ReportLevel.MAIN,
+    }, {
+        label: BreadcrumbText.Customer,
+        value: ReportLevel.CUSTOMER,
+    }];
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.isLoading && !nextProps.isLoading) {
-      const { dateRange, selectedBaseCurrency } = nextProps;
-      this.reportTitle = service.getReportTitle(dateRange, selectedBaseCurrency);
+  componentDidUpdate(prevProps) {
+      if (prevProps.params.Timestamp !== this.props.params.Timestamp) {
+          const { FromDate, ToDate, BaseCurrency } = this.props.params;
+          this.reportTitle = Service.getReportTitle(FromDate, ToDate, BaseCurrency);
     }
+  }
+
+  _backToMain = () => {
+      let params = Object.assign({}, this.props.params);
+
+      params.Timestamp = new Date().getTime();
+      params.Level = ReportLevel.MAIN;
+      params.SubsidiaryId = 0;
+
+      this.props.setParams(params);
   }
 
   render() {
@@ -28,17 +47,23 @@ export class AppContainer extends Component {
         <Loader isLoading={this.props.isLoading} />
         <FormFilter />
         <div className="result-content">
-          {this.reportTitle && <ReportTitle content={this.reportTitle} />}
-          <DataGrid />
+            <Breadcrumb items={this.breadcrumbItems} value={this.props.params.Level} onChange={this._backToMain} />
+            {this.reportTitle && <ReportTitle content={this.reportTitle} />}
+            <DataGrid />
         </div>
       </AppLayout>
     );
   }
 }
 
-function mapStateToProps(state) {
-  const { isLoading, dateRange, selectedBaseCurrency } = state;
-  return { isLoading, dateRange, selectedBaseCurrency };
+function mapDispatchToProps(dispatch) {
+    const { setParams } = ActionCreators;
+    return bindActionCreators({ setParams }, dispatch);
 }
 
-export default connect(mapStateToProps)(AppContainer);
+function mapStateToProps(state) {
+  const { isLoading, params } = state;
+  return Object.assign({}, { isLoading, params });
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);

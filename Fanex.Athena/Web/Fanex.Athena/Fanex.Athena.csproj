@@ -698,6 +698,7 @@
     <Content Include="Scripts\Library\jquery.marquee.js" />
     <Content Include="Scripts\Plugin\Toast\toast.js" />
     <Content Include="Views\Desktop\Customer\BetSetting\GoldDeluxe.cshtml" />
+    <Content Include="www\assets\images\ajax-loader.gif" />
     <Content Include="www\assets\images\new-system.svg" />
     <Content Include="www\css\build\dev\reactpages\exchangewl\index.chunk.js" />
     <Content Include="www\css\build\dev\reactpages\exchangewl\index.css" />
@@ -953,18 +954,14 @@
     <Content Include="www\js\source\reactpages\pages\notification\reducers\resultAmendment\index.js" />
     <Content Include="www\js\source\reactpages\pages\notification\reducers\resultAmendment\__test__\dataHandlerReducer.test.js" />
     <Content Include="www\js\source\reactpages\pages\notification\reducers\resultAmendment\__test__\filterHandlerReducer.test.js" />
-    <Content Include="www\js\source\reactpages\pages\speciallicenseewl\actions\dataHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\speciallicenseewl\actions\filterHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\speciallicenseewl\actions\index.js" />
     <Content Include="www\js\source\reactpages\pages\speciallicenseewl\actions\types.js" />
     <Content Include="www\js\source\reactpages\pages\speciallicenseewl\lib\reportExcel.js" />
     <Content Include="www\js\source\reactpages\pages\speciallicenseewl\lib\service.js" />
-    <Content Include="www\js\source\reactpages\pages\speciallicenseewl\reducers\dataHandlerReducer.js" />
     <Content Include="www\js\source\reactpages\pages\speciallicenseewl\reducers\filterHandlerReducer.js" />
     <Content Include="www\js\source\reactpages\pages\speciallicenseewl\reducers\index.js" />
-    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\dataHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\filterHandlerAction.js" />
-    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\__tests__\dataHandlerAction.test.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\__tests__\filterHandlerAction.test.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\DataGrid.redux.test.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\DataGrid.test.js" />
@@ -977,9 +974,7 @@
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\lib\__tests__\fakeData.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\lib\__tests__\reportExcel.test.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\lib\__tests__\service.test.js" />
-    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\reducers\dataHandlerReducer.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\reducers\filterHandlerReducer.js" />
-    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\reducers\__tests__\dataHandlerReducer.test.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\reducers\__tests__\filterHandlerReducer.test.js" />
     <Content Include="www\js\source\reactpages\reducers\dateRangeReducer.js" />
     <Content Include="www\js\source\reactpages\reducers\excludeTestReducer.js" />
@@ -2182,7 +2177,9 @@
     <Content Include="Views\Desktop\Utility\LocationRestriction.cshtml" />
     <Content Include="Views\Desktop\Utility\SSODenyAccess.cshtml" />
     <Content Include="Views\Desktop\Utility\UnderMaintenance.cshtml" />
-    <Content Include="SiteConfig\Web.AppSettings.BACKUPMNL.config" />
+    <Content Include="SiteConfig\Web.AppSettings.BACKUPMNL.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="SiteConfig\Web.AppSettings.DEV.config" />
     <Content Include="SiteConfig\Web.AppSettings.LOCAL.config" />
     <Content Include="SiteConfig\Web.AppSettings.PRO.config">
@@ -2572,6 +2569,7 @@
     <Content Include="www\js\source\reactpages\components\month-picker\Month.jsx" />
     <Content Include="www\js\source\reactpages\components\month-picker\Day.jsx" />
     <Content Include="www\js\source\reactpages\components\month-picker\index.js" />
+    <Content Include="www\js\source\reactpages\components\Overlay.jsx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">

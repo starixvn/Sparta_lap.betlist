@@ -21,6 +21,18 @@
             return Contains(key) ? DeepClone((T)_instance.Get(key, REGIONNAME)) : default(T);
         }
 
+        public T Get<T>(string key, Func<T> action, int seconds = TIMEOUT) where T : class
+        {
+            var data = Get<T>(key);
+            if (data == null)
+            {
+                data = action();
+                Set(key, data, seconds);
+            }
+
+            return data;
+        }
+
         public void Set<T>(string key, T value, int seconds = TIMEOUT)
         {
             if (string.IsNullOrWhiteSpace(key))

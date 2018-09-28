@@ -11,6 +11,7 @@ namespace Fanex.Athena.Controllers.Customer
     using System.Globalization;
     using System.Linq;
     using System.Web.Mvc;
+    using Constant.DataDomain;
     using DataAccess.Core.Users;
     using DataAccess.Core.Users.Interfaces;
     using Excel.Base.Helpers;
@@ -30,6 +31,8 @@ namespace Fanex.Athena.Controllers.Customer
     using Resources;
     using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
+    using Service.Report;
+    using Service.Report.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.CustomerInfoCustomerList)]
     public class CustomerController : BaseController
@@ -62,6 +65,7 @@ namespace Fanex.Athena.Controllers.Customer
         private readonly IGroupComService _groupComService;
         private readonly ILicenseeDataAccess _licenseeDataAccess;
         private readonly IProductService _productService;
+        private readonly ISubsidiaryService _subsidiaryService;
 
         public CustomerController()
         {
@@ -69,6 +73,7 @@ namespace Fanex.Athena.Controllers.Customer
             _customerListService = new CustomerListService();
             _groupComService = new GroupComService();
             _productService = new ProductService();
+            _subsidiaryService = new SubsidiaryService();
         }
 
 #pragma warning disable S107 // Methods should not have too many parameters
@@ -81,7 +86,8 @@ namespace Fanex.Athena.Controllers.Customer
             ICustomerListService customerListService,
             IGroupComService groupComService,
             ILicenseeDataAccess licenseeDataAccess,
-            IProductService productService)
+            IProductService productService,
+            ISubsidiaryService subsidiaryService)
 #pragma warning restore S107 // Methods should not have too many parameters
             : base(languageService, sessionService, appSetting, clientViewHelper)
         {
@@ -89,6 +95,7 @@ namespace Fanex.Athena.Controllers.Customer
             _groupComService = groupComService;
             _licenseeDataAccess = licenseeDataAccess;
             _productService = productService;
+            _subsidiaryService = subsidiaryService;
         }
 
         #region Action
@@ -115,7 +122,11 @@ namespace Fanex.Athena.Controllers.Customer
 
             var model = CreateCustomerViewModel(metaModel);
 
-            this.SetValueForBaStatus(model);
+            if (!model.IsSubsidiary)
+            {
+                this.SetValueForBaStatus(model);
+            }
+
             ViewBag.ProductList = productAccess.ProductList.Select(x => x.ProductCode);
             return View("~/Views/Customer/Customers.cshtml", model);
         }
@@ -132,7 +143,8 @@ namespace Fanex.Athena.Controllers.Customer
 
             metaModel.IsShowStatusDropdown = AppSettings.LicenseeOfferStatusFunction.Contains(metaModel.LicenseeId);
             metaModel.Username = metaModel.Username == placeholderUsername ? string.Empty : metaModel.Username;
-            metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
+            metaModel.AgentListXml = GetAgentListXml(metaModel.SubsidiaryList, metaModel.CurrencyId);
+
             var result = _customerListService.Search(metaModel);
             return new JsonResult
             {
@@ -160,7 +172,7 @@ namespace Fanex.Athena.Controllers.Customer
                 var licenseeId = SessionService.LicenseeSession.LicenseeId;
                 metaModel.IsShowStatusDropdown = AppSettings.LicenseeOfferStatusFunction.Contains(licenseeId);
                 metaModel.LicenseeId = licenseeId;
-                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
+                metaModel.AgentListXml = GetAgentListXml(metaModel.SubsidiaryList, metaModel.CurrencyId);
 
                 if (metaModel.GridColumns.Any(i => i.Checked))
                 {
@@ -225,6 +237,9 @@ namespace Fanex.Athena.Controllers.Customer
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
+            var isSubsidiary = userSession.UserLevel == UserLevelType.Subsidiary;
+            IEnumerable<string> subsidiaryNames = userSession.IsManageableSubsidiary ? _subsidiaryService.GetSubsidiaryNames() : new string[] { };
+
             var model = new CustomerListViewModel
             {
                 Param = metaModel,
@@ -233,9 +248,16 @@ namespace Fanex.Athena.Controllers.Customer
                 IsAllowedUserEditComm = SessionService.IsAllowedEditCommission(userSession),
                 IsAllowedUserChangeBA = SessionService.IsAllowedSpecialBA(userSession),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
-                IsFakeLicensee = IsFakeLicensee()
+                IsFakeLicensee = IsFakeLicensee(),
+                IsSubsidiary = isSubsidiary,
+                HasSubsidiaryList = userSession.IsManageableSubsidiary,
+                SubsidiaryList = subsidiaryNames.Select(x => new CheckedItem
+                {
+                    Name = x,
+                    Checked = true
+                }).ToList()
             };
-            if (licenseeSession.IsAllowedCustomerComm)
+            if (!isSubsidiary && licenseeSession.IsAllowedCustomerComm)
             {
                 model.GroupCommDataList = _groupComService.GetAll(licenseeSession.LicenseeId);
                 model.CurrentGroupComm = _groupComService.GetById(metaModel.GroupCommId);
@@ -292,6 +314,7 @@ namespace Fanex.Athena.Controllers.Customer
         private IEnumerable<CheckedItem> InitGridColumns(bool isAllowBA, IEnumerable<int> allowLicensees)
         {
             var licenseeSession = SessionService.LicenseeSession;
+            var isSubsidiary = SessionService.UserSession.UserLevel == UserLevelType.Subsidiary;
             var isFakeLicensee = IsFakeLicensee();
             var gridColumns = isFakeLicensee ? GridColumnsForFakeLincesee : GridColumns;
             var items = new List<CheckedItem>();
@@ -300,12 +323,12 @@ namespace Fanex.Athena.Controllers.Customer
                 items.Add(new CheckedItem { Name = name, Checked = true });
             }
 
-            if (isAllowBA)
+            if (isAllowBA && !isSubsidiary)
             {
                 items.Add(new CheckedItem { Name = BASTATUS, Checked = true });
             }
 
-            if (licenseeSession.IsAllowedCustomerComm && !isFakeLicensee)
+            if (licenseeSession.IsAllowedCustomerComm && !isFakeLicensee && !isSubsidiary)
             {
                 items.Insert(0, new CheckedItem { Name = GROUP, Checked = true });
                 items.Add(new CheckedItem { Name = CUSTOMERCOMM, Checked = true });
@@ -320,5 +343,17 @@ namespace Fanex.Athena.Controllers.Customer
         }
 
         #endregion Ultilities
+
+        private string GetAgentListXml(string subsidiaryList, int currencyId)
+        {
+            var userSession = SessionService.UserSession;
+            if (userSession.IsManageableSubsidiary)
+            {
+                var currencyAgentList = _subsidiaryService.GetCurrencyAgentList(subsidiaryList, currencyId: currencyId);
+                return SessionService.GenerateAgentListXml(currencyAgentList);
+            }
+
+            return SessionService.GenerateAgentListXml(currencyId);
+        }
     }
 }

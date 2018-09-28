@@ -125,6 +125,8 @@
     <Compile Include="Configuration\ReportSettingService.cs" />
     <Compile Include="Configuration\LicenseeSettingService.cs" />
     <Compile Include="Configuration\Interfaces\ILicenseeSettingService.cs" />
+    <Compile Include="Users\Interfaces\ISubsidiaryService.cs" />
+    <Compile Include="Users\SubsidiaryService.cs" />
     <Compile Include="Utility\ClientViewHelper.cs" />
     <Compile Include="Users\AuthService.cs" />
     <Compile Include="Users\Interfaces\IAuthService.cs" />
@@ -177,6 +179,10 @@
     <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess.Core\Fanex.Athena.DataAccess.Core.csproj">
       <Project>{a6be21e8-6895-4863-ba3a-e6b21d3ce78d}</Project>
       <Name>Fanex.Athena.DataAccess.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\Fanex.Athena.Constant\Fanex.Athena.Constant.csproj">
+      <Project>{6B1431E0-E513-48BB-BE86-0756E5F6F405}</Project>
+      <Name>Fanex.Athena.Constant</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Infrastructure\Fanex.Athena.Session\Fanex.Athena.Session.csproj">
       <Project>{B41E38EF-54AD-4866-968F-C856DE9DC072}</Project>

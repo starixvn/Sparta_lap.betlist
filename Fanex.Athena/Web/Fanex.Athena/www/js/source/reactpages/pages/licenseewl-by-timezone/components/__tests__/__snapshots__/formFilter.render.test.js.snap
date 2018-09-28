@@ -138,6 +138,7 @@ exports[`FormFilter  render methods render whole component group by currency - I
             ]
           }
           hasAllOption={true}
+          hasSearchBox={false}
           id="ProductList"
           keyField="Code"
           noneSelectedLabel="SelectOptions"
@@ -734,6 +735,7 @@ exports[`FormFilter  render methods render whole component group by product - Is
             ]
           }
           hasAllOption={true}
+          hasSearchBox={false}
           id="ProductList"
           keyField="Code"
           noneSelectedLabel="SelectOptions"

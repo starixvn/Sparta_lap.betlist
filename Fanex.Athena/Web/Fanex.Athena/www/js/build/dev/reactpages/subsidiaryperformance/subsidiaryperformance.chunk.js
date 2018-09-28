@@ -1,88 +1,9 @@
 webpackJsonp([3],{
 
-/***/ 108:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 100:
+/***/ (function(module, exports) {
 
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var FETCH_DATA = exports.FETCH_DATA = 'FETCH_DATA';
-var SET_GRID_DATA = exports.SET_GRID_DATA = "SET_GRID_DATA";
-
-var GET_SUBSIDIARY = exports.GET_SUBSIDIARY = "GET_SUBSIDIARY";
-var SET_SUBSIDIARY = exports.SET_SUBSIDIARY = "SET_SUBSIDIARY";
-
-var SET_DATE_RANGE = exports.SET_DATE_RANGE = "SET_DATE_RANGE";
-var GET_DATE_CONSTRAINT = exports.GET_DATE_CONSTRAINT = "GET_DATE_CONSTRAINT";
-var CHANGE_CONVERT_ALL = exports.CHANGE_CONVERT_ALL = "CHANGE_CONVERT_ALL";
-
-var GET_XSRF_TOKEN = exports.GET_XSRF_TOKEN = "GET_XSRF_TOKEN";
-
-/***/ }),
-
-/***/ 109:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _langHelper = __webpack_require__(4);
-
-var _langHelper2 = _interopRequireDefault(_langHelper);
-
-var _site = __webpack_require__(14);
-
-var _site2 = _interopRequireDefault(_site);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var headerText = {
-    subsidiary: _langHelper2.default.getSingleResource("Subsidiary"),
-    currency: _langHelper2.default.getSingleResource("Currency"),
-    product: _langHelper2.default.getSingleResource("Product"),
-    betCount: _langHelper2.default.getSingleResource("BetCount"),
-    turnover: _langHelper2.default.getSingleResource("Turnover"),
-    customerWL: _langHelper2.default.getSingleResource("CustomerW_L"),
-    subsidiaryWL: '' + _langHelper2.default.getSingleResource("SubsidiaryWL"),
-    subsidiaryComm: _langHelper2.default.getSingleResource("Subsidiary") + ' ' + _langHelper2.default.getSingleResource("Comm")
-};
-
-var Service = function () {
-    function Service() {
-        _classCallCheck(this, Service);
-    }
-
-    _createClass(Service, null, [{
-        key: 'getReportTitle',
-        value: function getReportTitle(dateRange, selectedBaseCurrency) {
-            var fromDate = _site2.default.convertDateToString(dateRange.fromDate);
-            var toDate = _site2.default.convertDateToString(dateRange.toDate);
-            var baseCurrency = _langHelper2.default.getSingleResource("BaseCurrency") + ': ' + selectedBaseCurrency;
-
-            return _langHelper2.default.getSingleResource("SubsidiaryPerformance") + ', ' + fromDate + ' - ' + toDate + ', ' + baseCurrency;
-        }
-    }, {
-        key: 'getHeaderText',
-        value: function getHeaderText() {
-            return headerText;
-        }
-    }]);
-
-    return Service;
-}();
-
-exports.default = Service;
+module.exports = ods;
 
 /***/ }),
 
@@ -142,7 +63,356 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 /***/ }),
 
-/***/ 14:
+/***/ 110:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.Service = exports.Api = exports.BreadcrumbText = exports.TotalText = exports.HeaderText = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _langHelper = __webpack_require__(4);
+
+var _langHelper2 = _interopRequireDefault(_langHelper);
+
+var _site = __webpack_require__(15);
+
+var _site2 = _interopRequireDefault(_site);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var HeaderText = exports.HeaderText = {
+    Index: '#',
+    Subsidiary: _langHelper2.default.getSingleResource("Subsidiary"),
+    CurrencyName: _langHelper2.default.getSingleResource("Currency"),
+    Product: _langHelper2.default.getSingleResource("Product"),
+    BetCount: _langHelper2.default.getSingleResource("BetCount"),
+    Turnover: _langHelper2.default.getSingleResource("Turnover"),
+    CustomerWinLoss: _langHelper2.default.getSingleResource("CustomerW_L"),
+    SubsidiaryWinLoss: '' + _langHelper2.default.getSingleResource("SubsidiaryWL"),
+    ExternalId: _langHelper2.default.getSingleResource("ExternalId"),
+    SystemId: _langHelper2.default.getSingleResource("SystemId")
+};
+
+var TotalText = exports.TotalText = {
+    Total: _langHelper2.default.getSingleResource('Total'),
+    TotalIn: _langHelper2.default.getSingleResource('Totalin'),
+    Based: _langHelper2.default.getSingleResource('Based')
+};
+
+var BreadcrumbText = exports.BreadcrumbText = {
+    Main: _langHelper2.default.getSingleResource('Main'),
+    Customer: _langHelper2.default.getSingleResource('Customer')
+};
+
+var Api = exports.Api = {
+    Url: 'api/SubsidiaryPerformanceReport/Index',
+    DetailUrl: 'api/SubsidiaryPerformanceReport/Detail'
+};
+
+var Service = exports.Service = function () {
+    function Service() {
+        _classCallCheck(this, Service);
+    }
+
+    _createClass(Service, null, [{
+        key: 'getReportTitle',
+        value: function getReportTitle(fromDate, toDate, selectedBaseCurrency) {
+            var baseCurrency = _langHelper2.default.getSingleResource("BaseCurrency") + ': ' + selectedBaseCurrency;
+
+            return _langHelper2.default.getSingleResource("SubsidiaryPerformance") + ', ' + fromDate + ' - ' + toDate + ', ' + baseCurrency;
+        }
+    }, {
+        key: 'showErrorMsg',
+        value: function showErrorMsg() {
+            alert(_langHelper2.default.getSingleResource('ErrorProcessingMsg'));
+        }
+    }]);
+
+    return Service;
+}();
+
+/***/ }),
+
+/***/ 143:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.ActionCreators = undefined;
+
+var _filterHandlerAction = __webpack_require__(404);
+
+var filterHandlerAction = _interopRequireWildcard(_filterHandlerAction);
+
+var _productAction = __webpack_require__(86);
+
+var productAction = _interopRequireWildcard(_productAction);
+
+var _baseCurrencyAction = __webpack_require__(144);
+
+var baseCurrencyAction = _interopRequireWildcard(_baseCurrencyAction);
+
+var _loaderAction = __webpack_require__(34);
+
+var loaderAction = _interopRequireWildcard(_loaderAction);
+
+var _excludeTestAction = __webpack_require__(87);
+
+var excludeTestAction = _interopRequireWildcard(_excludeTestAction);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var ActionCreators = exports.ActionCreators = Object.assign({}, filterHandlerAction, productAction, baseCurrencyAction, loaderAction, excludeTestAction);
+
+/***/ }),
+
+/***/ 144:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.setSelectedBaseCurrency = undefined;
+
+var _types = __webpack_require__(5);
+
+var types = _interopRequireWildcard(_types);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var setSelectedBaseCurrency = exports.setSelectedBaseCurrency = function setSelectedBaseCurrency(baseCurrency) {
+    return {
+        type: types.SET_SELECTED_BASECURRENCY,
+        data: baseCurrency
+    };
+};
+
+/***/ }),
+
+/***/ 145:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(1);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _BreadcrumbItem = __webpack_require__(146);
+
+var _BreadcrumbItem2 = _interopRequireDefault(_BreadcrumbItem);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var BreadcrumbItem = function (_Component) {
+    _inherits(BreadcrumbItem, _Component);
+
+    function BreadcrumbItem(props) {
+        _classCallCheck(this, BreadcrumbItem);
+
+        return _possibleConstructorReturn(this, (BreadcrumbItem.__proto__ || Object.getPrototypeOf(BreadcrumbItem)).call(this, props));
+    }
+
+    _createClass(BreadcrumbItem, [{
+        key: 'onChange',
+        value: function onChange(item) {
+            if (this.props.value === item.value) {
+                return;
+            }
+
+            this.props.onChange && this.props.onChange(item);
+        }
+    }, {
+        key: '_renderItem',
+        value: function _renderItem() {
+            var _props = this.props,
+                value = _props.value,
+                items = _props.items;
+
+            var breadcrumbItems = [];
+
+            for (var i = 0; i < items.length; i++) {
+                var item = items[i];
+                var isActive = item.value === value;
+
+                breadcrumbItems.push(_react2.default.createElement(_BreadcrumbItem2.default, { key: 'breadcrumb-item' + i, isActive: isActive, label: item.label, onClick: this.onChange.bind(this, item) }));
+
+                if (isActive) {
+                    break;
+                }
+            }
+
+            return breadcrumbItems;
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var items = this._renderItem();
+            if (items.length === 1) {
+                return null;
+            }
+
+            return _react2.default.createElement(
+                'div',
+                { className: 'breadcrumb' },
+                items
+            );
+        }
+    }]);
+
+    return BreadcrumbItem;
+}(_react.Component);
+
+BreadcrumbItem.propTypes = {
+    items: _propTypes2.default.arrayOf(_propTypes2.default.shape({
+        label: _propTypes2.default.string,
+        value: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string])
+    })).isRequired,
+    value: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+    onChange: _propTypes2.default.func
+};
+exports.default = BreadcrumbItem;
+
+/***/ }),
+
+/***/ 146:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(1);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var BreadcrumbItem = function (_Component) {
+    _inherits(BreadcrumbItem, _Component);
+
+    function BreadcrumbItem(props) {
+        _classCallCheck(this, BreadcrumbItem);
+
+        return _possibleConstructorReturn(this, (BreadcrumbItem.__proto__ || Object.getPrototypeOf(BreadcrumbItem)).call(this, props));
+    }
+
+    _createClass(BreadcrumbItem, [{
+        key: 'render',
+        value: function render() {
+            var _props = this.props,
+                label = _props.label,
+                isActive = _props.isActive,
+                onClick = _props.onClick;
+
+
+            return _react2.default.createElement(
+                'a',
+                { className: 'breadcrumb-item ' + (isActive ? 'active' : ''), onClick: onClick, href: 'javascript:;' },
+                label
+            );
+        }
+    }]);
+
+    return BreadcrumbItem;
+}(_react.Component);
+
+BreadcrumbItem.propTypes = {
+    label: _propTypes2.default.string,
+    isActive: _propTypes2.default.bool,
+    onClick: _propTypes2.default.func
+};
+BreadcrumbItem.defaultProps = {
+    label: '',
+    isActive: false
+};
+exports.default = BreadcrumbItem;
+
+/***/ }),
+
+/***/ 147:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.baseCurrencyList = exports.selectedBaseCurrency = undefined;
+
+var _types = __webpack_require__(5);
+
+var types = _interopRequireWildcard(_types);
+
+var _createReducer3 = __webpack_require__(8);
+
+var _createReducer4 = _interopRequireDefault(_createReducer3);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var selectedBaseCurrency = exports.selectedBaseCurrency = (0, _createReducer4.default)({}, _defineProperty({}, types.SET_SELECTED_BASECURRENCY, function (state, action) {
+    return action.data;
+}));
+
+var baseCurrencyList = exports.baseCurrencyList = (0, _createReducer4.default)({}, _defineProperty({}, types.GET_BASECURRENCY, function (state, action) {
+    return action.data;
+}));
+
+/***/ }),
+
+/***/ 15:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -191,104 +461,6 @@ var Site = function () {
 }();
 
 exports.default = Site;
-
-/***/ }),
-
-/***/ 143:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.ActionCreators = undefined;
-
-var _dataHandlerAction = __webpack_require__(402);
-
-var dataHandlerAction = _interopRequireWildcard(_dataHandlerAction);
-
-var _filterHandlerAction = __webpack_require__(403);
-
-var filterHandlerAction = _interopRequireWildcard(_filterHandlerAction);
-
-var _productAction = __webpack_require__(86);
-
-var productAction = _interopRequireWildcard(_productAction);
-
-var _baseCurrencyAction = __webpack_require__(144);
-
-var baseCurrencyAction = _interopRequireWildcard(_baseCurrencyAction);
-
-var _loaderAction = __webpack_require__(33);
-
-var loaderAction = _interopRequireWildcard(_loaderAction);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-var ActionCreators = exports.ActionCreators = Object.assign({}, dataHandlerAction, filterHandlerAction, productAction, baseCurrencyAction, loaderAction);
-
-/***/ }),
-
-/***/ 144:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.setSelectedBaseCurrency = undefined;
-
-var _types = __webpack_require__(6);
-
-var types = _interopRequireWildcard(_types);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-var setSelectedBaseCurrency = exports.setSelectedBaseCurrency = function setSelectedBaseCurrency(baseCurrency) {
-    return {
-        type: types.SET_SELECTED_BASECURRENCY,
-        data: baseCurrency
-    };
-};
-
-/***/ }),
-
-/***/ 145:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.baseCurrencyList = exports.selectedBaseCurrency = undefined;
-
-var _types = __webpack_require__(6);
-
-var types = _interopRequireWildcard(_types);
-
-var _createReducer3 = __webpack_require__(8);
-
-var _createReducer4 = _interopRequireDefault(_createReducer3);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var selectedBaseCurrency = exports.selectedBaseCurrency = (0, _createReducer4.default)({}, _defineProperty({}, types.SET_SELECTED_BASECURRENCY, function (state, action) {
-    return action.data;
-}));
-
-var baseCurrencyList = exports.baseCurrencyList = (0, _createReducer4.default)({}, _defineProperty({}, types.GET_BASECURRENCY, function (state, action) {
-    return action.data;
-}));
 
 /***/ }),
 
@@ -660,7 +832,56 @@ var DEFAULT_COLUMN_WIDTH = exports.DEFAULT_COLUMN_WIDTH = 100;
 
 /***/ }),
 
-/***/ 27:
+/***/ 213:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var FETCH_DATA = exports.FETCH_DATA = 'FETCH_DATA';
+var SET_GRID_DATA = exports.SET_GRID_DATA = "SET_GRID_DATA";
+
+var GET_SUBSIDIARY = exports.GET_SUBSIDIARY = "GET_SUBSIDIARY";
+var SET_SUBSIDIARY = exports.SET_SUBSIDIARY = "SET_SUBSIDIARY";
+
+var SET_DATE_RANGE = exports.SET_DATE_RANGE = "SET_DATE_RANGE";
+var GET_DATE_CONSTRAINT = exports.GET_DATE_CONSTRAINT = "GET_DATE_CONSTRAINT";
+var CHANGE_CONVERT_ALL = exports.CHANGE_CONVERT_ALL = "CHANGE_CONVERT_ALL";
+
+var GET_XSRF_TOKEN = exports.GET_XSRF_TOKEN = "GET_XSRF_TOKEN";
+
+var CHANGE_INCLUDE_DRAW_DATA = exports.CHANGE_INCLUDE_DRAW_DATA = 'CHANGE_INCLUDE_DRAW_DATA';
+
+var SET_PARAMS = exports.SET_PARAMS = 'SET_PARAMS';
+
+/***/ }),
+
+/***/ 22:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var ReportLevel = exports.ReportLevel = {
+    MAIN: 0,
+    LICENSEE: 1,
+    CUSTOMER: 2
+};
+
+var ReportBy = exports.ReportBy = {
+    DAILY: 1,
+    MONTHLY: 2
+};
+
+/***/ }),
+
+/***/ 28:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -671,15 +892,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Cell = exports.Row = exports.Table = undefined;
 
-var _Table = __webpack_require__(37);
+var _Table = __webpack_require__(39);
 
 var _Table2 = _interopRequireDefault(_Table);
 
-var _Row = __webpack_require__(41);
+var _Row = __webpack_require__(43);
 
 var _Row2 = _interopRequireDefault(_Row);
 
-var _Cell = __webpack_require__(42);
+var _Cell = __webpack_require__(44);
 
 var _Cell2 = _interopRequireDefault(_Cell);
 
@@ -691,7 +912,7 @@ exports.Cell = _Cell2.default;
 
 /***/ }),
 
-/***/ 28:
+/***/ 29:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -750,7 +971,7 @@ exports.default = NoDataTitle;
 
 /***/ }),
 
-/***/ 29:
+/***/ 30:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -780,7 +1001,7 @@ var _parseInput = __webpack_require__(18);
 
 var _parseInput2 = _interopRequireDefault(_parseInput);
 
-var _DayCell = __webpack_require__(61);
+var _DayCell = __webpack_require__(62);
 
 var _DayCell2 = _interopRequireDefault(_DayCell);
 
@@ -1331,7 +1552,7 @@ exports.default = Calendar;
 
 /***/ }),
 
-/***/ 30:
+/***/ 31:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1351,7 +1572,7 @@ var _langHelper = __webpack_require__(4);
 
 var _langHelper2 = _interopRequireDefault(_langHelper);
 
-var _locale = __webpack_require__(63);
+var _locale = __webpack_require__(64);
 
 var _locale2 = _interopRequireDefault(_locale);
 
@@ -1428,7 +1649,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 33:
+/***/ 34:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1439,7 +1660,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.toggleLoader = undefined;
 
-var _types = __webpack_require__(6);
+var _types = __webpack_require__(5);
 
 var types = _interopRequireWildcard(_types);
 
@@ -1454,7 +1675,7 @@ var toggleLoader = exports.toggleLoader = function toggleLoader(show) {
 
 /***/ }),
 
-/***/ 34:
+/***/ 35:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1509,7 +1730,95 @@ exports.default = NumberFormat;
 
 /***/ }),
 
-/***/ 35:
+/***/ 36:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _report = __webpack_require__(22);
+
+var _site = __webpack_require__(15);
+
+var _site2 = _interopRequireDefault(_site);
+
+var _axios = __webpack_require__(57);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var fetchData = function fetchData(relativeUrl, params) {
+    var url = _site2.default.resolveClientUrl(relativeUrl);
+    return _axios2.default.post(url, params.data, {
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            '__RequestVerificationToken': params.xsrfToken
+        }
+    });
+};
+
+var Report = function () {
+    function Report() {
+        _classCallCheck(this, Report);
+    }
+
+    _createClass(Report, null, [{
+        key: 'getDrilldownDateRange',
+        value: function getDrilldownDateRange(reportBy, fromDate, toDate, drilldownDate) {
+            var fdate = typeof drilldownDate === "string" ? new Date(drilldownDate) : drilldownDate;
+            var tdate = fdate;
+
+            if (Number(reportBy) === _report.ReportBy.MONTHLY) {
+                var fday = 1;
+                var month = fdate.getMonth();
+                var year = fdate.getFullYear();
+                var orignalFDate = new Date(fromDate);
+
+                if (month === orignalFDate.getMonth()) {
+                    fday = orignalFDate.getDate();
+                }
+
+                fdate = new Date(year, month, fday, 0, 0, 0, 0);
+
+                var originalTDate = new Date(toDate);
+
+                if (month === originalTDate.getMonth()) {
+                    var tday = originalTDate.getDate();
+                    tdate = new Date(year, month, tday, 0, 0, 0, 0);
+                } else {
+                    tdate = new Date(year, month + 1, 0);
+                }
+            }
+
+            return {
+                fromDate: fdate,
+                toDate: tdate
+            };
+        }
+    }, {
+        key: 'fetchGridData',
+        value: function fetchGridData(relativeUrl, params, callBack, errorHandler) {
+            return fetchData(relativeUrl, params);
+        }
+    }]);
+
+    return Report;
+}();
+
+exports.default = Report;
+
+/***/ }),
+
+/***/ 37:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1666,7 +1975,7 @@ exports.default = Overlay;
 
 /***/ }),
 
-/***/ 37:
+/***/ 39:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1688,7 +1997,7 @@ var _reactDom = __webpack_require__(2);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _RowLayout = __webpack_require__(38);
+var _RowLayout = __webpack_require__(40);
 
 var _RowLayout2 = _interopRequireDefault(_RowLayout);
 
@@ -1696,13 +2005,13 @@ var _propTypes = __webpack_require__(1);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _tableSection = __webpack_require__(39);
+var _tableSection = __webpack_require__(41);
 
 var _tableSection2 = _interopRequireDefault(_tableSection);
 
 var _constants = __webpack_require__(21);
 
-var _Page = __webpack_require__(40);
+var _Page = __webpack_require__(42);
 
 var _Page2 = _interopRequireDefault(_Page);
 
@@ -1996,7 +2305,60 @@ exports.default = Table;
 
 /***/ }),
 
-/***/ 38:
+/***/ 4:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var DEFAULT_RESOURCE_NAME = "_language_en_US";
+var langCode = window.PageLanguage || "en-US";
+var resourceName = "_language_" + langCode.replace("-", "_");
+
+var LangHelper = function () {
+    function LangHelper() {
+        _classCallCheck(this, LangHelper);
+    }
+
+    _createClass(LangHelper, null, [{
+        key: "getSingleResource",
+        value: function getSingleResource(key) {
+            var langHandler = window[resourceName];
+
+            return langHandler && langHandler[key] || window[DEFAULT_RESOURCE_NAME] && window[DEFAULT_RESOURCE_NAME][key] || key;
+        }
+    }, {
+        key: "getResources",
+        value: function getResources(keys) {
+            var langHandler = window[resourceName];
+
+            return keys.map(function (key) {
+                return langHandler && langHandler[key] || window[DEFAULT_RESOURCE_NAME] && window[DEFAULT_RESOURCE_NAME][key] || key;
+            });
+        }
+    }, {
+        key: "currentLanguage",
+        get: function get() {
+            return langCode;
+        }
+    }]);
+
+    return LangHelper;
+}();
+
+exports.default = LangHelper;
+
+/***/ }),
+
+/***/ 40:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2066,7 +2428,1564 @@ exports.default = RowLayout;
 
 /***/ }),
 
-/***/ 39:
+/***/ 402:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(2);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _AppContainer = __webpack_require__(403);
+
+var _AppContainer2 = _interopRequireDefault(_AppContainer);
+
+var _reactRedux = __webpack_require__(13);
+
+var _index = __webpack_require__(408);
+
+var _index2 = _interopRequireDefault(_index);
+
+var _store = __webpack_require__(66);
+
+var _store2 = _interopRequireDefault(_store);
+
+var _report = __webpack_require__(22);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var defaultState = Object.assign({}, window.initialState, { params: { Level: _report.ReportLevel.MAIN } });
+var store = _store2.default.createStore(_index2.default, defaultState);
+
+var App = function (_React$Component) {
+  _inherits(App, _React$Component);
+
+  function App(props) {
+    _classCallCheck(this, App);
+
+    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+  }
+
+  _createClass(App, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        _reactRedux.Provider,
+        { store: store },
+        _react2.default.createElement(_AppContainer2.default, null)
+      );
+    }
+  }]);
+
+  return App;
+}(_react2.default.Component);
+
+exports.default = App;
+
+
+_reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById("app-container"));
+
+/***/ }),
+
+/***/ 403:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.AppContainer = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(13);
+
+var _redux = __webpack_require__(10);
+
+var _index = __webpack_require__(143);
+
+var _DataGrid = __webpack_require__(405);
+
+var _DataGrid2 = _interopRequireDefault(_DataGrid);
+
+var _FormFilter = __webpack_require__(406);
+
+var _FormFilter2 = _interopRequireDefault(_FormFilter);
+
+var _Loader = __webpack_require__(46);
+
+var _Loader2 = _interopRequireDefault(_Loader);
+
+var _AppLayout = __webpack_require__(47);
+
+var _AppLayout2 = _interopRequireDefault(_AppLayout);
+
+var _ReportTitle = __webpack_require__(48);
+
+var _ReportTitle2 = _interopRequireDefault(_ReportTitle);
+
+var _service = __webpack_require__(110);
+
+var _Breadcrumb = __webpack_require__(145);
+
+var _Breadcrumb2 = _interopRequireDefault(_Breadcrumb);
+
+var _report = __webpack_require__(22);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var AppContainer = exports.AppContainer = function (_Component) {
+  _inherits(AppContainer, _Component);
+
+  function AppContainer(props) {
+    _classCallCheck(this, AppContainer);
+
+    var _this = _possibleConstructorReturn(this, (AppContainer.__proto__ || Object.getPrototypeOf(AppContainer)).call(this, props));
+
+    _this._backToMain = function () {
+      var params = Object.assign({}, _this.props.params);
+
+      params.Timestamp = new Date().getTime();
+      params.Level = _report.ReportLevel.MAIN;
+      params.SubsidiaryId = 0;
+
+      _this.props.setParams(params);
+    };
+
+    _this.reportTitle = null;
+    _this.breadcrumbItems = [{
+      label: _service.BreadcrumbText.Main,
+      value: _report.ReportLevel.MAIN
+    }, {
+      label: _service.BreadcrumbText.Customer,
+      value: _report.ReportLevel.CUSTOMER
+    }];
+    return _this;
+  }
+
+  _createClass(AppContainer, [{
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate(prevProps) {
+      if (prevProps.params.Timestamp !== this.props.params.Timestamp) {
+        var _props$params = this.props.params,
+            FromDate = _props$params.FromDate,
+            ToDate = _props$params.ToDate,
+            BaseCurrency = _props$params.BaseCurrency;
+
+        this.reportTitle = _service.Service.getReportTitle(FromDate, ToDate, BaseCurrency);
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        _AppLayout2.default,
+        null,
+        _react2.default.createElement(_Loader2.default, { isLoading: this.props.isLoading }),
+        _react2.default.createElement(_FormFilter2.default, null),
+        _react2.default.createElement(
+          'div',
+          { className: 'result-content' },
+          _react2.default.createElement(_Breadcrumb2.default, { items: this.breadcrumbItems, value: this.props.params.Level, onChange: this._backToMain }),
+          this.reportTitle && _react2.default.createElement(_ReportTitle2.default, { content: this.reportTitle }),
+          _react2.default.createElement(_DataGrid2.default, null)
+        )
+      );
+    }
+  }]);
+
+  return AppContainer;
+}(_react.Component);
+
+function mapDispatchToProps(dispatch) {
+  var setParams = _index.ActionCreators.setParams;
+
+  return (0, _redux.bindActionCreators)({ setParams: setParams }, dispatch);
+}
+
+function mapStateToProps(state) {
+  var isLoading = state.isLoading,
+      params = state.params;
+
+  return Object.assign({}, { isLoading: isLoading, params: params });
+}
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(AppContainer);
+
+/***/ }),
+
+/***/ 404:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.setParams = exports.changeIncludeDrawData = exports.changeConvertAll = exports.setDateRange = exports.setSelectedSubsidiary = undefined;
+
+var _types = __webpack_require__(213);
+
+var types = _interopRequireWildcard(_types);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var setSelectedSubsidiary = exports.setSelectedSubsidiary = function setSelectedSubsidiary(subsidiaryKeys) {
+    return {
+        type: types.SET_SUBSIDIARY,
+        data: subsidiaryKeys
+    };
+};
+
+var setDateRange = exports.setDateRange = function setDateRange(dateRange) {
+    var range = {
+        fromDate: dateRange.startDate,
+        toDate: dateRange.endDate
+    };
+
+    return {
+        type: types.SET_DATE_RANGE,
+        data: range
+    };
+};
+
+var changeConvertAll = exports.changeConvertAll = function changeConvertAll(checked) {
+    return {
+        type: types.CHANGE_CONVERT_ALL,
+        data: checked
+    };
+};
+
+var changeIncludeDrawData = exports.changeIncludeDrawData = function changeIncludeDrawData(checked) {
+    return {
+        type: types.CHANGE_INCLUDE_DRAW_DATA,
+        data: checked
+    };
+};
+
+var setParams = exports.setParams = function setParams(params) {
+    return {
+        type: types.SET_PARAMS,
+        data: params
+    };
+};
+
+/***/ }),
+
+/***/ 405:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.DataGrid = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(13);
+
+var _index = __webpack_require__(143);
+
+var _redux = __webpack_require__(10);
+
+var _fixedTableHeader = __webpack_require__(28);
+
+var _langHelper = __webpack_require__(4);
+
+var _langHelper2 = _interopRequireDefault(_langHelper);
+
+var _numberFormat = __webpack_require__(35);
+
+var _numberFormat2 = _interopRequireDefault(_numberFormat);
+
+var _NoDataTitle = __webpack_require__(29);
+
+var _NoDataTitle2 = _interopRequireDefault(_NoDataTitle);
+
+var _service = __webpack_require__(110);
+
+var _report = __webpack_require__(36);
+
+var _report2 = _interopRequireDefault(_report);
+
+var _report3 = __webpack_require__(22);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var DataGrid = exports.DataGrid = function (_Component) {
+    _inherits(DataGrid, _Component);
+
+    function DataGrid(props) {
+        _classCallCheck(this, DataGrid);
+
+        var _this = _possibleConstructorReturn(this, (DataGrid.__proto__ || Object.getPrototypeOf(DataGrid)).call(this, props));
+
+        _this.state = { gridData: { Data: null } };
+        _this.level = _report3.ReportLevel.Main;
+        _this.baseCurrency = '';
+        return _this;
+    }
+
+    _createClass(DataGrid, [{
+        key: 'componentDidUpdate',
+        value: function componentDidUpdate(prevProps) {
+            if (prevProps.params.Timestamp !== this.props.params.Timestamp) {
+                this.level = _report3.ReportLevel.Main;
+                this.baseCurrency = this.props.params.BaseCurrency;
+                this._getGridData(_service.Api.Url, this.props.params);
+            }
+        }
+    }, {
+        key: '_getGridData',
+        value: function _getGridData(url, params) {
+            var _this2 = this;
+
+            this.props.toggleLoader(true);
+            _report2.default.fetchGridData(url, { xsrfToken: this.props.xsrfToken, data: params }).then(function (response) {
+                _this2.setState({ gridData: response.data });
+                _this2.props.toggleLoader(false);
+            }).catch(function (error) {
+                _service.Service.showErrorMsg();
+                _this2.props.toggleLoader(false);
+            });
+        }
+    }, {
+        key: '_drillDown',
+        value: function _drillDown(subsidiary) {
+            var params = Object.assign({}, this.props.params);
+
+            this.subsidiaryListMainLevel = params.SubsidiaryList;
+            params.SubsidiaryId = subsidiary;
+            params.Level = _report3.ReportLevel.CUSTOMER;
+
+            this.level = _report3.ReportLevel.CUSTOMER;
+
+            this._getGridData(_service.Api.DetailUrl, params);
+            this.props.setParams(params);
+        }
+    }, {
+        key: '_buildHeader',
+        value: function _buildHeader() {
+            var customerLevel = this.level === _report3.ReportLevel.CUSTOMER;
+
+            return _react2.default.createElement(
+                _fixedTableHeader.Row,
+                { style: { height: 32 } },
+                customerLevel && _react2.default.createElement(
+                    _fixedTableHeader.Cell,
+                    { colWidth: 30, header: true, title: _service.HeaderText.Index },
+                    _service.HeaderText.Index
+                ),
+                _react2.default.createElement(
+                    _fixedTableHeader.Cell,
+                    { colWidth: 150, header: true, title: customerLevel ? _service.HeaderText.ExternalId : _service.HeaderText.Subsidiary },
+                    customerLevel ? _service.HeaderText.ExternalId : _service.HeaderText.Subsidiary
+                ),
+                customerLevel && _react2.default.createElement(
+                    _fixedTableHeader.Cell,
+                    { colWidth: 150, header: true, title: _service.HeaderText.SystemId },
+                    _service.HeaderText.SystemId
+                ),
+                _react2.default.createElement(
+                    _fixedTableHeader.Cell,
+                    { colWidth: 150, header: true, title: _service.HeaderText.CurrencyName },
+                    _service.HeaderText.CurrencyName
+                ),
+                !customerLevel && _react2.default.createElement(
+                    _fixedTableHeader.Cell,
+                    { colWidth: 200, header: true, title: _service.HeaderText.Product },
+                    _service.HeaderText.Product
+                ),
+                _react2.default.createElement(
+                    _fixedTableHeader.Cell,
+                    { colWidth: 150, header: true, title: _service.HeaderText.BetCount },
+                    _service.HeaderText.BetCount
+                ),
+                _react2.default.createElement(
+                    _fixedTableHeader.Cell,
+                    { colWidth: 200, header: true, title: _service.HeaderText.Turnover },
+                    _service.HeaderText.Turnover
+                ),
+                _react2.default.createElement(
+                    _fixedTableHeader.Cell,
+                    { colWidth: 200, header: true, title: _service.HeaderText.CustomerWinLoss },
+                    _service.HeaderText.CustomerWinLoss
+                ),
+                _react2.default.createElement(
+                    _fixedTableHeader.Cell,
+                    { colWidth: 200, header: true, title: _service.HeaderText.SubsidiaryWinLoss },
+                    _service.HeaderText.SubsidiaryWinLoss
+                )
+            );
+        }
+    }, {
+        key: '_buildMainBody',
+        value: function _buildMainBody() {
+            var _this3 = this;
+
+            var data = this.state.gridData.Data;
+
+            var rows = [];
+            var key = 0;
+
+            var _loop = function _loop(sub) {
+                var item = data[sub];
+                var totalItem = item.TotalItem;
+                var currencies = Object.keys(item.Details);
+
+                for (var cur = 0; cur < currencies.length; cur++) {
+                    var currency = currencies[cur];
+                    var products = item.Details[currency];
+                    var rowSpan = products.length;
+
+                    for (var pro = 0; pro < rowSpan; pro++) {
+                        var product = products[pro];
+
+                        rows.push(_react2.default.createElement(
+                            _fixedTableHeader.Row,
+                            { key: key },
+                            cur === 0 && pro === 0 && _react2.default.createElement(
+                                _fixedTableHeader.Cell,
+                                { title: item.Subsidiary, rowSpan: totalItem },
+                                _react2.default.createElement(
+                                    'a',
+                                    { href: 'javascript:;', onClick: function onClick() {
+                                            return _this3._drillDown(item.Subsidiary);
+                                        } },
+                                    item.Subsidiary
+                                )
+                            ),
+                            pro === 0 && _react2.default.createElement(
+                                _fixedTableHeader.Cell,
+                                { title: currency, rowSpan: rowSpan, className: 'center-align' },
+                                currency
+                            ),
+                            _react2.default.createElement(
+                                _fixedTableHeader.Cell,
+                                { title: product.Product },
+                                product.Product
+                            ),
+                            _this3._buildCommonCells(product, key)
+                        ));
+
+                        key++;
+                    }
+                }
+            };
+
+            for (var sub = 0; sub < data.length; sub++) {
+                _loop(sub);
+            }
+
+            return rows;
+        }
+    }, {
+        key: '_buildDetailBody',
+        value: function _buildDetailBody() {
+            var _this4 = this;
+
+            var data = this.state.gridData.Data;
+
+            var rows = data.map(function (item, index) {
+                return _react2.default.createElement(
+                    _fixedTableHeader.Row,
+                    { key: index },
+                    _react2.default.createElement(
+                        _fixedTableHeader.Cell,
+                        { title: index + 1, className: 'center-align' },
+                        index + 1
+                    ),
+                    _react2.default.createElement(
+                        _fixedTableHeader.Cell,
+                        { title: item.ExternalId, className: 'center-align' },
+                        item.ExternalId
+                    ),
+                    _react2.default.createElement(
+                        _fixedTableHeader.Cell,
+                        { title: item.SystemId, className: 'center-align' },
+                        item.SystemId
+                    ),
+                    _react2.default.createElement(
+                        _fixedTableHeader.Cell,
+                        { title: item.CurrencyName, className: 'center-align' },
+                        item.CurrencyName
+                    ),
+                    _this4._buildCommonCells(item, index)
+                );
+            });
+
+            return rows;
+        }
+    }, {
+        key: '_buildBody',
+        value: function _buildBody() {
+            return this.level === _report3.ReportLevel.CUSTOMER ? this._buildDetailBody() : this._buildMainBody();
+        }
+    }, {
+        key: '_buildFooter',
+        value: function _buildFooter() {
+            return this.level === _report3.ReportLevel.CUSTOMER ? this._buildDetailFooter() : this._buildMainFooter();
+        }
+    }, {
+        key: '_buildMainFooter',
+        value: function _buildMainFooter() {
+            var totalData = this.state.gridData.Total;
+            var subs = Object.keys(totalData);
+
+            var footer = [];
+            for (var i = 0; i < subs.length; i++) {
+                var totalName = subs[i];
+                var _item = totalData[totalName];
+
+                footer.push(_react2.default.createElement(
+                    _fixedTableHeader.Row,
+                    { className: 'fixed-table-total', key: 'total' + i },
+                    _react2.default.createElement(
+                        _fixedTableHeader.Cell,
+                        { title: _service.TotalText.Total + ' ' + totalName },
+                        _service.TotalText.Total + ' ' + totalName
+                    ),
+                    _react2.default.createElement(
+                        _fixedTableHeader.Cell,
+                        { title: _service.TotalText.Based + ' ' + _item.CurrencyName, className: 'center-align', colSpan: '2' },
+                        _service.TotalText.Based + ' ' + _item.CurrencyName
+                    ),
+                    this._buildCommonCells(_item, 'total' + i)
+                ));
+            }
+
+            footer.push(this._buildMainGrandTotal());
+
+            return footer;
+        }
+    }, {
+        key: '_buildMainGrandTotal',
+        value: function _buildMainGrandTotal() {
+            var grandTotal = this.state.gridData.GrandTotal;
+            if (!grandTotal) {
+                return null;
+            }
+
+            return _react2.default.createElement(
+                _fixedTableHeader.Row,
+                { key: 'grandTotal', className: 'fixed-table-grant-total' },
+                _react2.default.createElement(
+                    _fixedTableHeader.Cell,
+                    { title: _service.TotalText.Total },
+                    _service.TotalText.Total
+                ),
+                _react2.default.createElement(
+                    _fixedTableHeader.Cell,
+                    { title: _service.TotalText.Based + ' ' + grandTotal.CurrencyName, className: 'center-align', colSpan: '2' },
+                    _service.TotalText.Based + ' ' + grandTotal.CurrencyName
+                ),
+                this._buildCommonCells(grandTotal, 'grandTotal')
+            );
+        }
+    }, {
+        key: '_buildDetailFooter',
+        value: function _buildDetailFooter() {
+            var totalData = this.state.gridData.Total;
+            var subs = Object.keys(totalData);
+            var rowSpan = subs.length;
+
+            var footer = [];
+            for (var i = 0; i < rowSpan; i++) {
+                var totalName = subs[i];
+                var _item2 = totalData[totalName];
+
+                footer.push(_react2.default.createElement(
+                    _fixedTableHeader.Row,
+                    { className: 'fixed-table-total', key: 'total' + i },
+                    i === 0 && _react2.default.createElement(
+                        _fixedTableHeader.Cell,
+                        { title: _service.TotalText.TotalIn + ' ' + this.baseCurrency, colSpan: '3', rowSpan: rowSpan, className: 'center-align' },
+                        _service.TotalText.TotalIn + ' ' + this.baseCurrency
+                    ),
+                    _react2.default.createElement(
+                        _fixedTableHeader.Cell,
+                        { title: _item2.CurrencyName, className: 'center-align', colSpan: '1' },
+                        _item2.CurrencyName
+                    ),
+                    this._buildCommonCells(_item2, 'total' + i)
+                ));
+            }
+
+            footer.push(this._buildDetailGrandTotal());
+
+            return footer;
+        }
+    }, {
+        key: '_buildDetailGrandTotal',
+        value: function _buildDetailGrandTotal() {
+            var grandTotal = this.state.gridData.GrandTotal;
+            if (!grandTotal) {
+                return null;
+            }
+
+            return _react2.default.createElement(
+                _fixedTableHeader.Row,
+                { key: 'grandTotal', className: 'fixed-table-grant-total' },
+                _react2.default.createElement(
+                    _fixedTableHeader.Cell,
+                    { title: _service.TotalText.TotalIn + ' ' + grandTotal.CurrencyName, className: 'center-align', colSpan: '4' },
+                    _service.TotalText.TotalIn + ' ' + grandTotal.CurrencyName
+                ),
+                this._buildCommonCells(grandTotal, 'grandTotal')
+            );
+        }
+    }, {
+        key: '_buildCommonCells',
+        value: function _buildCommonCells(data, index) {
+            var betcount = _numberFormat2.default.format(data.BetCount),
+                turnover = _numberFormat2.default.formatDecimal(data.Turnover),
+                customerWinLoss = _numberFormat2.default.formatDecimal(data.CustomerWinLoss),
+                subsidiaryWinLoss = _numberFormat2.default.formatDecimal(data.SubsidiaryWinLoss);
+
+            var cells = [_react2.default.createElement(
+                _fixedTableHeader.Cell,
+                { key: index + '-bc', title: betcount, className: 'right-align' },
+                betcount
+            ), _react2.default.createElement(
+                _fixedTableHeader.Cell,
+                { key: index + '-tn', title: turnover, className: 'right-align' },
+                turnover
+            ), _react2.default.createElement(
+                _fixedTableHeader.Cell,
+                { key: index + '-cw', title: customerWinLoss, className: 'right-align' },
+                customerWinLoss
+            ), _react2.default.createElement(
+                _fixedTableHeader.Cell,
+                { key: index + '-sw', title: subsidiaryWinLoss, className: 'right-align ' + (data.SubsidiaryWinLoss < 0 ? "negative" : "") },
+                subsidiaryWinLoss
+            )];
+
+            return cells;
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var Data = this.state.gridData.Data;
+
+            if (!Data) {
+                return null;
+            }
+
+            if (!Data.length) {
+                return _react2.default.createElement(_NoDataTitle2.default, null);
+            }
+
+            return _react2.default.createElement(_fixedTableHeader.Table, {
+                minWidth: 600,
+                autoWidth: true,
+                bodyHeight: 300,
+                header: this._buildHeader(),
+                body: this._buildBody(),
+                footer: this._buildFooter()
+            });
+        }
+    }]);
+
+    return DataGrid;
+}(_react.Component);
+
+function mapDispatchToProps(dispatch) {
+    var toggleLoader = _index.ActionCreators.toggleLoader,
+        setParams = _index.ActionCreators.setParams;
+
+    return (0, _redux.bindActionCreators)({ toggleLoader: toggleLoader, setParams: setParams }, dispatch);
+}
+
+function mapStateToProps(state) {
+    var xsrfToken = state.xsrfToken,
+        params = state.params;
+
+    return Object.assign({}, { xsrfToken: xsrfToken, params: params });
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(DataGrid);
+
+/***/ }),
+
+/***/ 406:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.FormFilter = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(13);
+
+var _index = __webpack_require__(143);
+
+var _redux = __webpack_require__(10);
+
+var _reactSelect = __webpack_require__(58);
+
+var _reactSelect2 = _interopRequireDefault(_reactSelect);
+
+var _multipleSelect = __webpack_require__(88);
+
+var _multipleSelect2 = _interopRequireDefault(_multipleSelect);
+
+var _index2 = __webpack_require__(60);
+
+var _langHelper = __webpack_require__(4);
+
+var _langHelper2 = _interopRequireDefault(_langHelper);
+
+var _reportExcel = __webpack_require__(407);
+
+var _reportExcel2 = _interopRequireDefault(_reportExcel);
+
+var _site = __webpack_require__(15);
+
+var _site2 = _interopRequireDefault(_site);
+
+var _service = __webpack_require__(110);
+
+var _report = __webpack_require__(22);
+
+var _report2 = __webpack_require__(36);
+
+var _report3 = _interopRequireDefault(_report2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var RANGE_MONTH_CONSTRAINT = 3;
+
+var FormFilter = exports.FormFilter = function (_Component) {
+    _inherits(FormFilter, _Component);
+
+    function FormFilter(props) {
+        _classCallCheck(this, FormFilter);
+
+        var _this = _possibleConstructorReturn(this, (FormFilter.__proto__ || Object.getPrototypeOf(FormFilter)).call(this, props));
+
+        _this.submit = function (event) {
+            event.preventDefault();
+            var params = _this._getParams();
+            if (!params) {
+                return;
+            }
+
+            _this.props.setParams(params);
+        };
+
+        _this.exportExcel = function (event) {
+            event.preventDefault();
+
+            var isCustomerLevel = _this.props.params.Level == _report.ReportLevel.CUSTOMER;
+            var params = isCustomerLevel ? _this.props.params : _this._getParams();
+            if (!params) {
+                return;
+            }
+
+            _this.props.toggleLoader(true);
+
+            _report3.default.fetchGridData(isCustomerLevel ? _service.Api.DetailUrl : _service.Api.Url, { xsrfToken: _this.props.xsrfToken, data: params }).then(function (response) {
+                if (!response.data.Data.length) {
+                    alert(_langHelper2.default.getSingleResource("NoInfo"));
+                    _this.props.toggleLoader(false);
+                    return;
+                }
+
+                var title = _service.Service.getReportTitle(params.FromDate, params.ToDate, params.BaseCurrency);
+                var excel = new _reportExcel2.default(response.data, title, isCustomerLevel, params.BaseCurrency);
+                excel.export(function () {
+                    _this.props.toggleLoader(false);
+                });
+            }).catch(function (error) {
+                _service.Service.showErrorMsg();
+                _this.props.toggleLoader(false);
+            });
+        };
+
+        _this.productChangeHandler = function (currentItem, selectedItemsKey) {
+            _this.props.setSelectedProduct(selectedItemsKey);
+        };
+
+        _this.subsidiaryChangeHandler = function (currentItem, selectedItemsKey) {
+            _this.props.setSelectedSubsidiary(selectedItemsKey);
+        };
+
+        _this.applyDateRangeHandler = function (date) {
+            var isValidMonthRange = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+
+            if (isValidMonthRange) {
+                _this.props.setDateRange(date);
+            } else {
+                var message = _langHelper2.default.getSingleResource("DateRangeExceedMsg").replace("{0}", RANGE_MONTH_CONSTRAINT);
+                alert(message);
+            }
+        };
+
+        return _this;
+    }
+
+    _createClass(FormFilter, [{
+        key: '_getParams',
+        value: function _getParams() {
+            if (!this.props.xsrfToken || !this.isValidModel) {
+                return null;
+            }
+
+            var _props$dateRange = this.props.dateRange,
+                fromDate = _props$dateRange.fromDate,
+                toDate = _props$dateRange.toDate;
+
+
+            return {
+                BaseCurrency: this.props.selectedBaseCurrency,
+                SubsidiaryList: this.props.selectedSubsidiary,
+                ProductCodeList: this.props.selectedProduct,
+                ConvertAll: this.props.convertAll,
+                FromDate: _site2.default.convertDateToString(fromDate),
+                ToDate: _site2.default.convertDateToString(toDate),
+                IncludeRaw: this.props.includeDrawData,
+                IsExcludeTest: this.props.isExcludeTest,
+                Timestamp: new Date().getTime(),
+                Level: _report.ReportLevel.MAIN
+            };
+        }
+    }, {
+        key: '_renderSubsidiarySelectList',
+        value: function _renderSubsidiarySelectList() {
+            var subsidiaryList = this.props.subsidiaryList;
+
+
+            return subsidiaryList && subsidiaryList.length ? _react2.default.createElement(_multipleSelect2.default, {
+                hasSearchBox: true,
+                dataSource: this.props.subsidiaryList,
+                keyField: "Name",
+                valueField: "Name",
+                statusField: "Checked",
+                optionAllLabel: _langHelper2.default.getSingleResource("All"),
+                noneSelectedLabel: _langHelper2.default.getSingleResource("SelectOptions"),
+                onChange: this.subsidiaryChangeHandler }) : null;
+        }
+    }, {
+        key: '_renderProductSelectList',
+        value: function _renderProductSelectList() {
+            var productOptions = this.props.productOptions;
+
+
+            return productOptions && productOptions.length ? _react2.default.createElement(_multipleSelect2.default, {
+                dataSource: this.props.productOptions,
+                keyField: "Code",
+                valueField: "Name",
+                statusField: "Status",
+                optionAllLabel: _langHelper2.default.getSingleResource("All"),
+                noneSelectedLabel: _langHelper2.default.getSingleResource("SelectOptions"),
+                onChange: this.productChangeHandler }) : null;
+        }
+    }, {
+        key: '_renderBaseCurrencySelectList',
+        value: function _renderBaseCurrencySelectList() {
+            var _this2 = this;
+
+            var _props = this.props,
+                baseCurrencyList = _props.baseCurrencyList,
+                selectedBaseCurrency = _props.selectedBaseCurrency;
+
+
+            return baseCurrencyList && baseCurrencyList.length ? _react2.default.createElement(_reactSelect2.default, { id: 'ddlBased',
+                name: 'form-field-name',
+                value: selectedBaseCurrency,
+                options: baseCurrencyList,
+                onChange: function onChange(item) {
+                    return _this2.props.setSelectedBaseCurrency(item.value);
+                } }) : null;
+        }
+    }, {
+        key: '_renderDateRange',
+        value: function _renderDateRange() {
+            var _props2 = this.props,
+                dateRange = _props2.dateRange,
+                dateConstraint = _props2.dateConstraint;
+
+
+            return _react2.default.createElement(_index2.DateRange, { startDate: dateRange.fromDate, endDate: dateRange.toDate,
+                minDate: dateConstraint.minDate, maxDate: dateConstraint.maxDate,
+                today: dateRange.toDate, limitedMonthRange: RANGE_MONTH_CONSTRAINT,
+                onChange: this.applyDateRangeHandler });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _this3 = this;
+
+            var subsidiaryList = this.props.subsidiaryList;
+
+            var subsidiaryDropdown = false;
+            if (subsidiaryList) {
+                subsidiaryDropdown = _react2.default.createElement(
+                    'div',
+                    { className: 'col-12 col-md-3 col-sm-5 col-lg-3 col-xl-3' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'form-group' },
+                        _react2.default.createElement(
+                            'label',
+                            { className: 'label-text' },
+                            _langHelper2.default.getSingleResource("Subsidiary")
+                        ),
+                        this._renderSubsidiarySelectList()
+                    )
+                );
+            }
+
+            return _react2.default.createElement(
+                'div',
+                { className: 'page-filter' },
+                _react2.default.createElement(
+                    'div',
+                    { className: 'row' },
+                    subsidiaryDropdown,
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-12 col-md-4 ' + (subsidiaryDropdown ? 'col-sm-6' : 'col-sm-5') + ' col-lg-3 col-xl-3' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'form-group' },
+                            _react2.default.createElement(
+                                'label',
+                                { className: 'label-text' },
+                                _langHelper2.default.getSingleResource("Date")
+                            ),
+                            this._renderDateRange()
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-12 col-md-3 ' + (subsidiaryDropdown ? 'col-sm-5' : 'col-sm-4') + ' col-lg-3 col-xl-3' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'form-group' },
+                            _react2.default.createElement(
+                                'label',
+                                { className: 'label-text' },
+                                _langHelper2.default.getSingleResource("Product")
+                            ),
+                            this._renderProductSelectList()
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-12 ' + (subsidiaryDropdown ? 'col-sm-4 col-md-2' : 'col-sm-3 col-md-3') + ' col-lg-2 col-xl-2' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'form-group' },
+                            _react2.default.createElement(
+                                'label',
+                                { className: 'label-text' },
+                                _langHelper2.default.getSingleResource("BaseCurrency")
+                            ),
+                            this._renderBaseCurrencySelectList()
+                        )
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'row' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-12 ' + (subsidiaryDropdown ? 'col-md-3' : 'col-md-4') + ' col-sm-5 col-lg-3 col-xl-3' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'form-group' },
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'checkbox-group' },
+                                _react2.default.createElement('input', { type: 'checkbox', className: 'checkbox', checked: this.props.convertAll, id: 'IsConvertAll',
+                                    onChange: function onChange() {
+                                        return _this3.props.changeConvertAll(!_this3.props.convertAll);
+                                    } }),
+                                _react2.default.createElement(
+                                    'label',
+                                    { htmlFor: 'IsConvertAll' },
+                                    _langHelper2.default.getSingleResource("ConvertAllFiguresToBaseCurrency")
+                                )
+                            )
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-12 ' + (subsidiaryDropdown ? 'col-md-4 col-sm-6' : 'col-md-3 col-sm-4') + ' col-lg-3 col-xl-3' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'form-group' },
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'checkbox-group' },
+                                _react2.default.createElement('input', { type: 'checkbox', className: 'checkbox', checked: this.props.includeDrawData, id: 'IncludeDrawData',
+                                    onChange: function onChange() {
+                                        return _this3.props.changeIncludeDrawData(!_this3.props.includeDrawData);
+                                    } }),
+                                _react2.default.createElement(
+                                    'label',
+                                    { htmlFor: 'IncludeDrawData' },
+                                    _langHelper2.default.getSingleResource("IncludeDrawData")
+                                )
+                            )
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-12 ' + (subsidiaryDropdown ? 'col-sm-5 col-lg-3 col-xl-3' : 'col-sm-3 col-lg-2 col-xl-2') + ' col-md-3' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'form-group' },
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'checkbox-group' },
+                                _react2.default.createElement('input', { type: 'checkbox', className: 'checkbox', checked: this.props.isExcludeTest, id: 'ExcludeTest',
+                                    onChange: function onChange() {
+                                        return _this3.props.changeIsExcludeTest(!_this3.props.isExcludeTest);
+                                    } }),
+                                _react2.default.createElement(
+                                    'label',
+                                    { htmlFor: 'ExcludeTest' },
+                                    _langHelper2.default.getSingleResource("ExcludeTestData")
+                                )
+                            )
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-12 col-md-2 col-sm-4 col-lg-2 col-xl-2' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'button-group' },
+                            _react2.default.createElement(
+                                'button',
+                                { disabled: !this.isValidModel, type: 'button', className: 'btn btn-submit', onClick: this.submit },
+                                _langHelper2.default.getSingleResource("Submit")
+                            )
+                        )
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'caret-block' },
+                    _react2.default.createElement('i', { className: 'icon-excel right', onClick: this.exportExcel, title: _langHelper2.default.getSingleResource("ExportToExcel") })
+                )
+            );
+        }
+    }, {
+        key: 'isValidModel',
+        get: function get() {
+            var _props3 = this.props,
+                subsidiaryList = _props3.subsidiaryList,
+                selectedSubsidiary = _props3.selectedSubsidiary,
+                selectedProduct = _props3.selectedProduct;
+
+            return (!subsidiaryList || selectedSubsidiary !== "") && selectedProduct !== "";
+        }
+    }]);
+
+    return FormFilter;
+}(_react.Component);
+
+function mapDispatchToProps(dispatch) {
+    return (0, _redux.bindActionCreators)(_index.ActionCreators, dispatch);
+}
+function mapStateToProps(state) {
+    var isLoading = state.isLoading,
+        rest = _objectWithoutProperties(state, ['isLoading']);
+
+    return Object.assign({}, rest);
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(FormFilter);
+
+/***/ }),
+
+/***/ 407:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _excel = __webpack_require__(45);
+
+var _excel2 = _interopRequireDefault(_excel);
+
+var _langHelper = __webpack_require__(4);
+
+var _langHelper2 = _interopRequireDefault(_langHelper);
+
+var _excelStyle = __webpack_require__(65);
+
+var _service = __webpack_require__(110);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var COLUMN_COUNT = 7;
+var COLUMN_DETAIL_COUNT = 8;
+var TITLE_ROW_INDEX = 0;
+var HEADER_ROW_INDEX = 1;
+var DATA_ROW_INDEX = 2;
+
+var INDEX_COLUM_INDEX = 0;
+var EXTERNALID_COLUM_INDEX = 1;
+var SUBSIDIARY_COLUMN_INDEX = 0;
+var CURRENCY_COLUMN_INDEX = 1;
+var CURRENCY_DETAIL_COLUMN_INDEX = 3;
+var PRODUCT_COLUMN_INDEX = 2;
+var BETCOUNT_COLUMN_INDEX = 3;
+var BETCOUNT_DETAIL_COLUMN_INDEX = 4;
+var SUBSIDIARYWL_COLUMN_INDEX = 6;
+var SUBSIDIARYWL_DETAIL_COLUMN_INDEX = 7;
+
+var MAIN_SECTION_STYLE = "mainSectionStyle";
+var TOTAL_SECTION_STYLE = "totalSectionStyle";
+var GRAND_TOTAL_SECTION_STYLE = "grandTotalSectionStyle";
+
+var fields = {
+    subsidiary: "Subsidiary",
+    currencyName: "CurrencyName",
+    product: "Product",
+    betCount: "BetCount",
+    turnover: "Turnover",
+    customerWinLoss: "CustomerWinLoss",
+    subsidiaryWinLoss: "SubsidiaryWinLoss",
+    externalId: "ExternalId",
+    systemId: "SystemId"
+};
+
+var ReportExcel = function () {
+    function ReportExcel() {
+        var gridData = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        var title = arguments[1];
+        var isCustomerLevel = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+        var baseCurrency = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : "";
+        var fileName = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : "SubsidiaryPerformance";
+
+        _classCallCheck(this, ReportExcel);
+
+        this.worksheet = {};
+        this.title = title;
+        this.fileName = fileName;
+        this.gridData = gridData;
+        this.currentRowIndex = DATA_ROW_INDEX;
+        this.mergeConfig = [];
+        this.columnConfigs = this._getcolumnConfigs(isCustomerLevel);
+        this.baseCurrency = baseCurrency;
+        this.isCustomerLevel = isCustomerLevel;
+    }
+
+    _createClass(ReportExcel, [{
+        key: 'export',
+        value: function _export(onFinished) {
+            var _this = this;
+
+            if (!this.gridData.Data || !this.gridData.Data.length) {
+                onFinished && onFinished();
+                return;
+            }
+
+            _excel2.default.process(function () {
+                _this._createTitle();
+                _this._createHeader();
+                _this._createSheetData();
+                _this._createExcelConfig();
+
+                _excel2.default.export(_this.worksheet, _this.fileName);
+                onFinished && onFinished();
+            });
+        }
+    }, {
+        key: '_createTitle',
+        value: function _createTitle() {
+            this.mergeConfig.push({ s: { r: TITLE_ROW_INDEX, c: 0 }, e: { r: TITLE_ROW_INDEX, c: this.isCustomerLevel ? COLUMN_DETAIL_COUNT - 1 : COLUMN_COUNT - 1 } });
+            var address = _excel2.default.getCellAddress({ c: 0, r: TITLE_ROW_INDEX });
+            this.worksheet[address] = { t: "s", v: this.title, s: _excelStyle.titleCellStyle };
+        }
+    }, {
+        key: '_createHeader',
+        value: function _createHeader() {
+            for (var i = 0; i < this.columnConfigs.length; i++) {
+                var fieldName = this.columnConfigs[i].field;
+                var address = _excel2.default.getCellAddress({ c: i, r: HEADER_ROW_INDEX });
+                var header = _service.HeaderText[fieldName];
+                this.worksheet[address] = { t: "s", v: header, s: _excelStyle.headerCellStyle };
+            }
+        }
+    }, {
+        key: '_createSheetData',
+        value: function _createSheetData() {
+            if (this.isCustomerLevel) {
+                this._createBodyDetailData();
+                this._createFooterDetailData();
+                this._createGrandTotalDetailData();
+            } else {
+                this._createBodyData();
+                this._createFooterData();
+                this._createGrandTotalData();
+            }
+        }
+    }, {
+        key: '_createBodyData',
+        value: function _createBodyData() {
+            var mainData = this.gridData.Data;
+
+            for (var i = 0; i < mainData.length; i++) {
+                var item = mainData[i];
+                var details = item.Details;
+
+                this._createRowByColumnIndex({ Subsidiary: item.Subsidiary }, MAIN_SECTION_STYLE, SUBSIDIARY_COLUMN_INDEX, SUBSIDIARY_COLUMN_INDEX);
+                this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 0 }, e: { r: this.currentRowIndex + item.TotalItem - 1, c: 0 } });
+
+                var currencies = Object.keys(item.Details);
+                for (var j = 0; j < currencies.length; j++) {
+                    var currency = currencies[j];
+                    var products = item.Details[currency];
+
+                    this._createRowByColumnIndex({ CurrencyName: currency }, MAIN_SECTION_STYLE, CURRENCY_COLUMN_INDEX, CURRENCY_COLUMN_INDEX);
+                    this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 1 }, e: { r: this.currentRowIndex + products.length - 1, c: 1 } });
+
+                    for (var k = 0; k < products.length; k++) {
+                        var product = products[k];
+
+                        this._createRowByColumnIndex(product, MAIN_SECTION_STYLE, PRODUCT_COLUMN_INDEX, SUBSIDIARYWL_COLUMN_INDEX);
+                        this.currentRowIndex++;
+                    }
+                }
+            }
+        }
+    }, {
+        key: '_createBodyDetailData',
+        value: function _createBodyDetailData() {
+            var mainData = this.gridData.Data;
+
+            for (var i = 0; i < mainData.length; i++) {
+                var item = mainData[i];
+                item.Index = i + 1;
+
+                this._createRowByColumnIndex(item, MAIN_SECTION_STYLE, INDEX_COLUM_INDEX, SUBSIDIARYWL_DETAIL_COLUMN_INDEX);
+                this.currentRowIndex++;
+            }
+        }
+    }, {
+        key: '_createFooterData',
+        value: function _createFooterData() {
+            var totalDataList = this.gridData.Total;
+            var subs = Object.keys(totalDataList);
+
+            for (var i = 0; i < subs.length; i++) {
+                var item = totalDataList[subs[i]];
+
+                this._createRowByColumnIndex({ Subsidiary: _service.TotalText.Total + " " + subs[i], CurrencyName: _service.TotalText.Based + " " + this.baseCurrency }, TOTAL_SECTION_STYLE, SUBSIDIARY_COLUMN_INDEX, CURRENCY_COLUMN_INDEX);
+                this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 1 }, e: { r: this.currentRowIndex, c: 2 } });
+                this._createRowByColumnIndex(item, TOTAL_SECTION_STYLE, BETCOUNT_COLUMN_INDEX, SUBSIDIARYWL_COLUMN_INDEX);
+                this.currentRowIndex++;
+            }
+        }
+    }, {
+        key: '_createFooterDetailData',
+        value: function _createFooterDetailData() {
+            var totalDataList = this.gridData.Total;
+            var subs = Object.keys(totalDataList);
+            var rowSpan = subs.length;
+
+            this._createRowByColumnIndex({ Index: _service.TotalText.TotalIn + " " + this.baseCurrency }, TOTAL_SECTION_STYLE, INDEX_COLUM_INDEX, INDEX_COLUM_INDEX);
+            this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 0 }, e: { r: this.currentRowIndex + rowSpan - 1, c: 2 } });
+
+            for (var i = 0; i < rowSpan; i++) {
+                var item = totalDataList[subs[i]];
+
+                this._createRowByColumnIndex(item, TOTAL_SECTION_STYLE, CURRENCY_DETAIL_COLUMN_INDEX, SUBSIDIARYWL_DETAIL_COLUMN_INDEX);
+                this.currentRowIndex++;
+            }
+        }
+    }, {
+        key: '_createGrandTotalData',
+        value: function _createGrandTotalData() {
+            this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 1 }, e: { r: this.currentRowIndex, c: 2 } });
+            var grandTotal = this.gridData.GrandTotal;
+
+            this._createRowByColumnIndex({ Subsidiary: _service.TotalText.Total, CurrencyName: _service.TotalText.Based + " " + this.baseCurrency }, GRAND_TOTAL_SECTION_STYLE, SUBSIDIARY_COLUMN_INDEX, CURRENCY_COLUMN_INDEX);
+            this._createRowByColumnIndex(grandTotal, GRAND_TOTAL_SECTION_STYLE, BETCOUNT_COLUMN_INDEX, SUBSIDIARYWL_COLUMN_INDEX);
+        }
+    }, {
+        key: '_createGrandTotalDetailData',
+        value: function _createGrandTotalDetailData() {
+            this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 0 }, e: { r: this.currentRowIndex, c: 3 } });
+            var grandTotal = this.gridData.GrandTotal;
+
+            this._createRowByColumnIndex({ Index: _service.TotalText.TotalIn + " " + this.baseCurrency }, GRAND_TOTAL_SECTION_STYLE, INDEX_COLUM_INDEX, INDEX_COLUM_INDEX);
+            this._createRowByColumnIndex(grandTotal, GRAND_TOTAL_SECTION_STYLE, BETCOUNT_DETAIL_COLUMN_INDEX, SUBSIDIARYWL_DETAIL_COLUMN_INDEX);
+        }
+    }, {
+        key: '_createExcelConfig',
+        value: function _createExcelConfig() {
+            var cellStart = _excel2.default.getCellAddress({ r: 0, c: 0 });
+            var cellEnd = _excel2.default.getCellAddress({ r: this.currentRowIndex, c: this.isCustomerLevel ? COLUMN_DETAIL_COUNT - 1 : COLUMN_COUNT - 1 });
+
+            this.worksheet["!merges"] = this.mergeConfig;
+            this.worksheet["!ref"] = cellStart + ':' + cellEnd;
+            var wscols = this.isCustomerLevel ? [{ wpx: 30 }, { wpx: 180 }, { wpx: 180 }, { wpx: 180 }, { wpx: 180 }, { wpx: 250 }, { wpx: 250 }, { wpx: 250 }] : [{ wpx: 150 }, { wpx: 120 }, { wpx: 180 }, { wpx: 120 }, { wpx: 250 }, { wpx: 250 }, { wpx: 250 }];
+
+            this.worksheet['!cols'] = wscols;
+        }
+    }, {
+        key: '_createRowByColumnIndex',
+        value: function _createRowByColumnIndex(item, sectionStyle, startIndex, endIndex) {
+            for (var i = startIndex; i <= endIndex; i++) {
+                var _getCellObject2 = this._getCellObject(item, sectionStyle, i),
+                    cellAddress = _getCellObject2.cellAddress,
+                    type = _getCellObject2.type,
+                    value = _getCellObject2.value,
+                    style = _getCellObject2.style;
+
+                if (cellAddress) {
+                    this.worksheet[cellAddress] = { t: type, v: value, s: style };
+                }
+            }
+        }
+    }, {
+        key: '_getCellObject',
+        value: function _getCellObject(item, sectionStyle, columnIndex) {
+            var columnConfig = this.columnConfigs[columnIndex];
+            if (!columnConfig) {
+                return { cellAddress: null };
+            }
+
+            var field = columnConfig.field;
+
+            var cellAddress = _excel2.default.getCellAddress({ c: columnIndex, r: this.currentRowIndex });
+            var type = typeof item[columnConfig.field] === "number" ? "n" : "s";
+            var value = item[field] !== null ? item[field] : "";
+
+            var style = columnConfig[sectionStyle];
+            if (field === fields.subsidiaryWinLoss) {
+                style = value < 0 ? style.negative : style.positive;
+            }
+
+            return { cellAddress: cellAddress, type: type, value: value, style: style };
+        }
+    }, {
+        key: '_getcolumnConfigs',
+        value: function _getcolumnConfigs(isCustomerLevel) {
+            var _columns$push8, _columns$push9, _columns$push10, _columns$push11;
+
+            var columns = [];
+            if (isCustomerLevel) {
+                var _columns$push, _columns$push4;
+
+                columns.push((_columns$push = {
+                    field: "Index"
+                }, _defineProperty(_columns$push, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.center), _defineProperty(_columns$push, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.center), _defineProperty(_columns$push, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.center), _columns$push), _defineProperty({
+                    field: fields.externalId
+                }, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.center), _defineProperty({
+                    field: fields.systemId
+                }, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.center), (_columns$push4 = {
+                    field: fields.currencyName
+                }, _defineProperty(_columns$push4, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.center), _defineProperty(_columns$push4, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.center), _columns$push4));
+            } else {
+                var _columns$push5, _columns$push6;
+
+                columns.push((_columns$push5 = {
+                    field: fields.subsidiary
+                }, _defineProperty(_columns$push5, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.rowspan), _defineProperty(_columns$push5, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.default), _defineProperty(_columns$push5, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.default), _columns$push5), (_columns$push6 = {
+                    field: fields.currencyName
+                }, _defineProperty(_columns$push6, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.center), _defineProperty(_columns$push6, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.center), _defineProperty(_columns$push6, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.center), _columns$push6), _defineProperty({
+                    field: fields.product
+                }, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.default));
+            }
+
+            columns.push((_columns$push8 = {
+                field: fields.betCount
+            }, _defineProperty(_columns$push8, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.number), _defineProperty(_columns$push8, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.number), _defineProperty(_columns$push8, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.number), _columns$push8), (_columns$push9 = {
+                field: fields.turnover
+            }, _defineProperty(_columns$push9, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.decimal), _defineProperty(_columns$push9, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.decimal), _defineProperty(_columns$push9, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.decimal), _columns$push9), (_columns$push10 = {
+                field: fields.customerWinLoss
+            }, _defineProperty(_columns$push10, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.decimal), _defineProperty(_columns$push10, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.decimal), _defineProperty(_columns$push10, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.decimal), _columns$push10), (_columns$push11 = {
+                field: fields.subsidiaryWinLoss
+            }, _defineProperty(_columns$push11, MAIN_SECTION_STYLE, { positive: _excelStyle.bodyCellStyle.decimal, negative: _excelStyle.bodyCellStyle.negativeDecimal }), _defineProperty(_columns$push11, TOTAL_SECTION_STYLE, { positive: _excelStyle.totalCellStyle.decimal, negative: _excelStyle.totalCellStyle.negativeDecimal }), _defineProperty(_columns$push11, GRAND_TOTAL_SECTION_STYLE, { positive: _excelStyle.grandTotalCellStyle.decimal, negative: _excelStyle.grandTotalCellStyle.negativeDecimal }), _columns$push11));
+
+            return columns;
+        }
+    }]);
+
+    return ReportExcel;
+}();
+
+exports.default = ReportExcel;
+
+/***/ }),
+
+/***/ 408:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _redux = __webpack_require__(10);
+
+var _filterHandlerReducer = __webpack_require__(409);
+
+var filterHandlerReducer = _interopRequireWildcard(_filterHandlerReducer);
+
+var _productReducer = __webpack_require__(93);
+
+var productReducer = _interopRequireWildcard(_productReducer);
+
+var _baseCurrencyReducer = __webpack_require__(147);
+
+var baseCurrencyReducer = _interopRequireWildcard(_baseCurrencyReducer);
+
+var _loaderReducer = __webpack_require__(49);
+
+var loaderReducer = _interopRequireWildcard(_loaderReducer);
+
+var _excludeTestReducer = __webpack_require__(94);
+
+var excludeTestReducer = _interopRequireWildcard(_excludeTestReducer);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+exports.default = (0, _redux.combineReducers)(Object.assign(filterHandlerReducer, productReducer, baseCurrencyReducer, loaderReducer, excludeTestReducer));
+
+/***/ }),
+
+/***/ 409:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.params = exports.includeDrawData = exports.dateConstraint = exports.xsrfToken = exports.convertAll = exports.dateRange = exports.selectedSubsidiary = exports.subsidiaryList = undefined;
+
+var _createReducer9 = __webpack_require__(8);
+
+var _createReducer10 = _interopRequireDefault(_createReducer9);
+
+var _types = __webpack_require__(213);
+
+var types = _interopRequireWildcard(_types);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var subsidiaryList = exports.subsidiaryList = (0, _createReducer10.default)({}, _defineProperty({}, types.GET_SUBSIDIARY, function (state, action) {
+    return action.data;
+}));
+
+var selectedSubsidiary = exports.selectedSubsidiary = (0, _createReducer10.default)({}, _defineProperty({}, types.SET_SUBSIDIARY, function (state, action) {
+    return action.data;
+}));
+
+var dateRange = exports.dateRange = (0, _createReducer10.default)({}, _defineProperty({}, types.SET_DATE_RANGE, function (state, action) {
+    return action.data;
+}));
+
+var convertAll = exports.convertAll = (0, _createReducer10.default)({}, _defineProperty({}, types.CHANGE_CONVERT_ALL, function (state, action) {
+    return action.data;
+}));
+
+var xsrfToken = exports.xsrfToken = (0, _createReducer10.default)({}, _defineProperty({}, types.GET_XSRF_TOKEN, function (state, action) {
+    return action.data;
+}));
+
+var dateConstraint = exports.dateConstraint = (0, _createReducer10.default)({}, _defineProperty({}, types.GET_DATE_CONSTRAINT, function (state, action) {
+    return action.data;
+}));
+
+var includeDrawData = exports.includeDrawData = (0, _createReducer10.default)({}, _defineProperty({}, types.CHANGE_INCLUDE_DRAW_DATA, function (state, action) {
+    return action.data;
+}));
+
+var params = exports.params = (0, _createReducer10.default)({}, _defineProperty({}, types.SET_PARAMS, function (state, action) {
+    return action.data;
+}));
+
+/***/ }),
+
+/***/ 41:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2208,60 +4127,7 @@ exports.default = createTableSection;
 
 /***/ }),
 
-/***/ 4:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var DEFAULT_RESOURCE_NAME = "_language_en_US";
-var langCode = window.PageLanguage || "en-US";
-var resourceName = "_language_" + langCode.replace("-", "_");
-
-var LangHelper = function () {
-    function LangHelper() {
-        _classCallCheck(this, LangHelper);
-    }
-
-    _createClass(LangHelper, null, [{
-        key: "getSingleResource",
-        value: function getSingleResource(key) {
-            var langHandler = window[resourceName];
-
-            return langHandler && langHandler[key] || window[DEFAULT_RESOURCE_NAME] && window[DEFAULT_RESOURCE_NAME][key] || key;
-        }
-    }, {
-        key: "getResources",
-        value: function getResources(keys) {
-            var langHandler = window[resourceName];
-
-            return keys.map(function (key) {
-                return langHandler && langHandler[key] || window[DEFAULT_RESOURCE_NAME] && window[DEFAULT_RESOURCE_NAME][key] || key;
-            });
-        }
-    }, {
-        key: "currentLanguage",
-        get: function get() {
-            return langCode;
-        }
-    }]);
-
-    return LangHelper;
-}();
-
-exports.default = LangHelper;
-
-/***/ }),
-
-/***/ 40:
+/***/ 42:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2475,1337 +4341,7 @@ exports.default = Page;
 
 /***/ }),
 
-/***/ 400:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(2);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-var _AppContainer = __webpack_require__(401);
-
-var _AppContainer2 = _interopRequireDefault(_AppContainer);
-
-var _reactRedux = __webpack_require__(13);
-
-var _index = __webpack_require__(407);
-
-var _index2 = _interopRequireDefault(_index);
-
-var _store = __webpack_require__(65);
-
-var _store2 = _interopRequireDefault(_store);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var defaultState = Object.assign({}, window.initialState);
-var store = _store2.default.createStore(_index2.default, defaultState);
-
-var App = function (_React$Component) {
-  _inherits(App, _React$Component);
-
-  function App(props) {
-    _classCallCheck(this, App);
-
-    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
-  }
-
-  _createClass(App, [{
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        _reactRedux.Provider,
-        { store: store },
-        _react2.default.createElement(_AppContainer2.default, null)
-      );
-    }
-  }]);
-
-  return App;
-}(_react2.default.Component);
-
-exports.default = App;
-
-
-_reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById("app-container"));
-
-/***/ }),
-
-/***/ 401:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.AppContainer = undefined;
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRedux = __webpack_require__(13);
-
-var _redux = __webpack_require__(10);
-
-var _index = __webpack_require__(143);
-
-var _DataGrid = __webpack_require__(404);
-
-var _DataGrid2 = _interopRequireDefault(_DataGrid);
-
-var _FormFilter = __webpack_require__(405);
-
-var _FormFilter2 = _interopRequireDefault(_FormFilter);
-
-var _Loader = __webpack_require__(44);
-
-var _Loader2 = _interopRequireDefault(_Loader);
-
-var _AppLayout = __webpack_require__(45);
-
-var _AppLayout2 = _interopRequireDefault(_AppLayout);
-
-var _ReportTitle = __webpack_require__(46);
-
-var _ReportTitle2 = _interopRequireDefault(_ReportTitle);
-
-var _service = __webpack_require__(109);
-
-var _service2 = _interopRequireDefault(_service);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var AppContainer = exports.AppContainer = function (_Component) {
-  _inherits(AppContainer, _Component);
-
-  function AppContainer(props) {
-    _classCallCheck(this, AppContainer);
-
-    var _this = _possibleConstructorReturn(this, (AppContainer.__proto__ || Object.getPrototypeOf(AppContainer)).call(this, props));
-
-    _this.reportTitle = null;
-    return _this;
-  }
-
-  _createClass(AppContainer, [{
-    key: 'componentWillReceiveProps',
-    value: function componentWillReceiveProps(nextProps) {
-      if (this.props.isLoading && !nextProps.isLoading) {
-        var dateRange = nextProps.dateRange,
-            selectedBaseCurrency = nextProps.selectedBaseCurrency;
-
-        this.reportTitle = _service2.default.getReportTitle(dateRange, selectedBaseCurrency);
-      }
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        _AppLayout2.default,
-        null,
-        _react2.default.createElement(_Loader2.default, { isLoading: this.props.isLoading }),
-        _react2.default.createElement(_FormFilter2.default, null),
-        _react2.default.createElement(
-          'div',
-          { className: 'result-content' },
-          this.reportTitle && _react2.default.createElement(_ReportTitle2.default, { content: this.reportTitle }),
-          _react2.default.createElement(_DataGrid2.default, null)
-        )
-      );
-    }
-  }]);
-
-  return AppContainer;
-}(_react.Component);
-
-function mapStateToProps(state) {
-  var isLoading = state.isLoading,
-      dateRange = state.dateRange,
-      selectedBaseCurrency = state.selectedBaseCurrency;
-
-  return { isLoading: isLoading, dateRange: dateRange, selectedBaseCurrency: selectedBaseCurrency };
-}
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps)(AppContainer);
-
-/***/ }),
-
-/***/ 402:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.getGridData = getGridData;
-exports.exportExcel = exportExcel;
-exports.setGridData = setGridData;
-
-var _types = __webpack_require__(108);
-
-var types = _interopRequireWildcard(_types);
-
-var _axios = __webpack_require__(56);
-
-var _axios2 = _interopRequireDefault(_axios);
-
-var _site = __webpack_require__(14);
-
-var _site2 = _interopRequireDefault(_site);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-var fetchData = function fetchData(params) {
-    var url = _site2.default.resolveClientUrl('api/SubsidiaryPerformanceReport/Index');
-    return _axios2.default.post(url, params.data, {
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-            '__RequestVerificationToken': params.xsrfToken
-        }
-    });
-};
-
-function getGridData(params) {
-    return function (dispatch) {
-        fetchData(params).then(function (response) {
-            dispatch(setGridData(response.data));
-        });
-    };
-}
-
-function exportExcel(params) {
-    return function () {
-        return fetchData(params);
-    };
-}
-
-function setGridData(data) {
-    return {
-        type: types.SET_GRID_DATA,
-        data: data
-    };
-}
-
-/***/ }),
-
-/***/ 403:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.changeConvertAll = exports.setDateRange = exports.setSelectedSubsidiary = undefined;
-
-var _types = __webpack_require__(108);
-
-var types = _interopRequireWildcard(_types);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-var setSelectedSubsidiary = exports.setSelectedSubsidiary = function setSelectedSubsidiary(subsidiaryKeys) {
-    return {
-        type: types.SET_SUBSIDIARY,
-        data: subsidiaryKeys
-    };
-};
-
-var setDateRange = exports.setDateRange = function setDateRange(dateRange) {
-    var range = {
-        fromDate: dateRange.startDate,
-        toDate: dateRange.endDate
-    };
-
-    return {
-        type: types.SET_DATE_RANGE,
-        data: range
-    };
-};
-
-var changeConvertAll = exports.changeConvertAll = function changeConvertAll(checked) {
-    return {
-        type: types.CHANGE_CONVERT_ALL,
-        data: checked
-    };
-};
-
-/***/ }),
-
-/***/ 404:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.DataGrid = undefined;
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRedux = __webpack_require__(13);
-
-var _index = __webpack_require__(143);
-
-var _redux = __webpack_require__(10);
-
-var _fixedTableHeader = __webpack_require__(27);
-
-var _langHelper = __webpack_require__(4);
-
-var _langHelper2 = _interopRequireDefault(_langHelper);
-
-var _numberFormat = __webpack_require__(34);
-
-var _numberFormat2 = _interopRequireDefault(_numberFormat);
-
-var _NoDataTitle = __webpack_require__(28);
-
-var _NoDataTitle2 = _interopRequireDefault(_NoDataTitle);
-
-var _service = __webpack_require__(109);
-
-var _service2 = _interopRequireDefault(_service);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var DataGrid = exports.DataGrid = function (_Component) {
-    _inherits(DataGrid, _Component);
-
-    function DataGrid(props) {
-        _classCallCheck(this, DataGrid);
-
-        return _possibleConstructorReturn(this, (DataGrid.__proto__ || Object.getPrototypeOf(DataGrid)).call(this, props));
-    }
-
-    _createClass(DataGrid, [{
-        key: 'componentWillReceiveProps',
-        value: function componentWillReceiveProps(nextProps) {
-            if (this.props.gridData !== nextProps.gridData) {
-                this.props.toggleLoader(false);
-            }
-        }
-    }, {
-        key: '_buildHeader',
-        value: function _buildHeader() {
-            var headerText = _service2.default.getHeaderText();
-
-            return _react2.default.createElement(
-                _fixedTableHeader.Row,
-                { style: { height: 32 } },
-                _react2.default.createElement(
-                    _fixedTableHeader.Cell,
-                    { colWidth: 150, header: true, title: headerText.subsidiary },
-                    headerText.subsidiary
-                ),
-                _react2.default.createElement(
-                    _fixedTableHeader.Cell,
-                    { colWidth: 150, header: true, title: headerText.currency },
-                    headerText.currency
-                ),
-                _react2.default.createElement(
-                    _fixedTableHeader.Cell,
-                    { colWidth: 200, header: true, title: headerText.product },
-                    headerText.product
-                ),
-                _react2.default.createElement(
-                    _fixedTableHeader.Cell,
-                    { colWidth: 150, header: true, title: headerText.betCount },
-                    headerText.betCount
-                ),
-                _react2.default.createElement(
-                    _fixedTableHeader.Cell,
-                    { colWidth: 200, header: true, title: headerText.turnover },
-                    headerText.turnover
-                ),
-                _react2.default.createElement(
-                    _fixedTableHeader.Cell,
-                    { colWidth: 200, header: true, title: headerText.customerWL },
-                    headerText.customerWL
-                ),
-                _react2.default.createElement(
-                    _fixedTableHeader.Cell,
-                    { colWidth: 200, header: true, title: headerText.subsidiaryWL },
-                    headerText.subsidiaryWL
-                ),
-                _react2.default.createElement(
-                    _fixedTableHeader.Cell,
-                    { colWidth: 150, header: true, title: headerText.subsidiaryComm },
-                    headerText.subsidiaryComm
-                )
-            );
-        }
-    }, {
-        key: '_buildBody',
-        value: function _buildBody() {
-            var data = this.props.gridData.Data;
-            var rows = [];
-            for (var i = 0; i < data.length; i++) {
-                var item = data[i];
-                var rowSpan = item.Details.length;
-
-                var isFirstRow = true;
-                for (var j = 0; j < item.Details.length; j++) {
-                    var detail = item.Details[j];
-                    var betcount = _numberFormat2.default.format(detail.BetCount),
-                        turnover = _numberFormat2.default.formatDecimal(detail.Turnover),
-                        customerWinLoss = _numberFormat2.default.formatDecimal(detail.CustomerWinLoss),
-                        subsidiaryWinLoss = _numberFormat2.default.formatDecimal(detail.SubsidiaryWinLoss),
-                        subsidiaryComm = _numberFormat2.default.formatDecimal(detail.SubsidiaryComm);
-
-                    rows.push(_react2.default.createElement(
-                        _fixedTableHeader.Row,
-                        { key: 'tr' + i + '-detail' + j },
-                        isFirstRow ? _react2.default.createElement(
-                            _fixedTableHeader.Cell,
-                            { title: item.Subsidiary, rowSpan: rowSpan },
-                            item.Subsidiary
-                        ) : undefined,
-                        isFirstRow ? _react2.default.createElement(
-                            _fixedTableHeader.Cell,
-                            { title: item.CurrencyName, rowSpan: rowSpan, className: 'center-align' },
-                            item.CurrencyName
-                        ) : undefined,
-                        _react2.default.createElement(
-                            _fixedTableHeader.Cell,
-                            { title: detail.Product },
-                            detail.Product
-                        ),
-                        _react2.default.createElement(
-                            _fixedTableHeader.Cell,
-                            { title: betcount, className: 'right-align' },
-                            betcount
-                        ),
-                        _react2.default.createElement(
-                            _fixedTableHeader.Cell,
-                            { title: turnover, className: 'right-align' },
-                            turnover
-                        ),
-                        _react2.default.createElement(
-                            _fixedTableHeader.Cell,
-                            { title: customerWinLoss, className: 'right-align' },
-                            customerWinLoss
-                        ),
-                        _react2.default.createElement(
-                            _fixedTableHeader.Cell,
-                            { title: subsidiaryWinLoss, className: 'right-align ' + (detail.SubsidiaryWinLoss < 0 ? "negative" : "") },
-                            subsidiaryWinLoss
-                        ),
-                        _react2.default.createElement(
-                            _fixedTableHeader.Cell,
-                            { title: subsidiaryComm, className: 'right-align' },
-                            subsidiaryComm
-                        )
-                    ));
-
-                    isFirstRow = false;
-                }
-            }
-
-            return rows;
-        }
-    }, {
-        key: '_buildFooter',
-        value: function _buildFooter() {
-            var totalData = this.props.gridData.Total;
-            var footer = totalData.map(function (item, index) {
-                var betcount = _numberFormat2.default.format(item.BetCount),
-                    turnover = _numberFormat2.default.formatDecimal(item.Turnover),
-                    customerWinLoss = _numberFormat2.default.formatDecimal(item.CustomerWinLoss),
-                    subsidiaryWinLoss = _numberFormat2.default.formatDecimal(item.SubsidiaryWinLoss),
-                    subsidiaryComm = _numberFormat2.default.formatDecimal(item.SubsidiaryComm);
-
-                return _react2.default.createElement(
-                    _fixedTableHeader.Row,
-                    { className: 'fixed-table-total', key: 'total' + index },
-                    _react2.default.createElement(
-                        _fixedTableHeader.Cell,
-                        { title: item.Subsidiary },
-                        item.Subsidiary
-                    ),
-                    _react2.default.createElement(
-                        _fixedTableHeader.Cell,
-                        { title: item.CurrencyName, className: 'center-align', colSpan: '2' },
-                        item.CurrencyName
-                    ),
-                    _react2.default.createElement(
-                        _fixedTableHeader.Cell,
-                        { title: betcount, className: 'right-align' },
-                        betcount
-                    ),
-                    _react2.default.createElement(
-                        _fixedTableHeader.Cell,
-                        { title: turnover, className: 'right-align' },
-                        turnover
-                    ),
-                    _react2.default.createElement(
-                        _fixedTableHeader.Cell,
-                        { title: customerWinLoss, className: 'right-align' },
-                        customerWinLoss
-                    ),
-                    _react2.default.createElement(
-                        _fixedTableHeader.Cell,
-                        { title: subsidiaryWinLoss, className: 'right-align ' + (item.SubsidiaryWinLoss < 0 ? "negative" : "") },
-                        subsidiaryWinLoss
-                    ),
-                    _react2.default.createElement(
-                        _fixedTableHeader.Cell,
-                        { title: subsidiaryComm, className: 'right-align' },
-                        subsidiaryComm
-                    )
-                );
-            });
-
-            footer.push(this._buildGrandTotal());
-
-            return footer;
-        }
-    }, {
-        key: '_buildGrandTotal',
-        value: function _buildGrandTotal() {
-            var grandTotal = this.props.gridData.GrandTotal;
-            if (!grandTotal) {
-                return null;
-            }
-
-            var betcount = _numberFormat2.default.format(grandTotal.BetCount),
-                turnover = _numberFormat2.default.formatDecimal(grandTotal.Turnover),
-                customerWinLoss = _numberFormat2.default.formatDecimal(grandTotal.CustomerWinLoss),
-                subsidiaryWinLoss = _numberFormat2.default.formatDecimal(grandTotal.SubsidiaryWinLoss),
-                subsidiaryComm = _numberFormat2.default.formatDecimal(grandTotal.SubsidiaryComm);
-
-            return _react2.default.createElement(
-                _fixedTableHeader.Row,
-                { key: 'grandTotal', className: 'fixed-table-grant-total' },
-                _react2.default.createElement(
-                    _fixedTableHeader.Cell,
-                    { title: grandTotal.Subsidiary },
-                    grandTotal.Subsidiary
-                ),
-                _react2.default.createElement(
-                    _fixedTableHeader.Cell,
-                    { title: grandTotal.CurrencyName, className: 'center-align', colSpan: '2' },
-                    grandTotal.CurrencyName
-                ),
-                _react2.default.createElement(
-                    _fixedTableHeader.Cell,
-                    { title: betcount, className: 'right-align' },
-                    betcount
-                ),
-                _react2.default.createElement(
-                    _fixedTableHeader.Cell,
-                    { title: turnover, className: 'right-align' },
-                    turnover
-                ),
-                _react2.default.createElement(
-                    _fixedTableHeader.Cell,
-                    { title: customerWinLoss, className: 'right-align' },
-                    customerWinLoss
-                ),
-                _react2.default.createElement(
-                    _fixedTableHeader.Cell,
-                    { title: subsidiaryWinLoss, className: 'right-align ' + (grandTotal.SubsidiaryWinLoss < 0 ? "negative" : "") },
-                    subsidiaryWinLoss
-                ),
-                _react2.default.createElement(
-                    _fixedTableHeader.Cell,
-                    { title: subsidiaryComm, className: 'right-align' },
-                    subsidiaryComm
-                )
-            );
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var Data = this.props.gridData.Data;
-
-            if (!Data) {
-                return null;
-            }
-
-            if (!Data.length) {
-                return _react2.default.createElement(_NoDataTitle2.default, null);
-            }
-
-            return _react2.default.createElement(_fixedTableHeader.Table, {
-                minWidth: 600,
-                autoWidth: true,
-                bodyHeight: 300,
-                header: this._buildHeader(),
-                body: this._buildBody(),
-                footer: this._buildFooter()
-            });
-        }
-    }]);
-
-    return DataGrid;
-}(_react.Component);
-
-function mapDispatchToProps(dispatch) {
-    var toggleLoader = _index.ActionCreators.toggleLoader;
-
-    return (0, _redux.bindActionCreators)({ toggleLoader: toggleLoader }, dispatch);
-}
-function mapStateToProps(state) {
-    var gridData = state.gridData;
-
-    return { gridData: gridData };
-};
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(DataGrid);
-
-/***/ }),
-
-/***/ 405:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.FormFilter = undefined;
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRedux = __webpack_require__(13);
-
-var _index = __webpack_require__(143);
-
-var _redux = __webpack_require__(10);
-
-var _reactSelect = __webpack_require__(57);
-
-var _reactSelect2 = _interopRequireDefault(_reactSelect);
-
-var _multipleSelect = __webpack_require__(87);
-
-var _multipleSelect2 = _interopRequireDefault(_multipleSelect);
-
-var _index2 = __webpack_require__(59);
-
-var _langHelper = __webpack_require__(4);
-
-var _langHelper2 = _interopRequireDefault(_langHelper);
-
-var _reportExcel = __webpack_require__(406);
-
-var _reportExcel2 = _interopRequireDefault(_reportExcel);
-
-var _site = __webpack_require__(14);
-
-var _site2 = _interopRequireDefault(_site);
-
-var _service = __webpack_require__(109);
-
-var _service2 = _interopRequireDefault(_service);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var RANGE_MONTH_CONSTRAINT = 3;
-
-var FormFilter = exports.FormFilter = function (_Component) {
-    _inherits(FormFilter, _Component);
-
-    function FormFilter(props) {
-        _classCallCheck(this, FormFilter);
-
-        var _this = _possibleConstructorReturn(this, (FormFilter.__proto__ || Object.getPrototypeOf(FormFilter)).call(this, props));
-
-        _this.submit = function (event) {
-            event.preventDefault();
-            var params = _this._getParams();
-            if (!params) {
-                return;
-            }
-
-            _this.props.toggleLoader(true);
-            _this.props.getGridData(params);
-        };
-
-        _this.exportExcel = function (event) {
-            event.preventDefault();
-            var _this$props = _this.props,
-                dateRange = _this$props.dateRange,
-                selectedBaseCurrency = _this$props.selectedBaseCurrency;
-
-            var params = _this._getParams();
-            if (!params) {
-                return;
-            }
-
-            _this.props.exportExcel(params).then(function (response) {
-                if (!response.data.Data.length) {
-                    alert(_langHelper2.default.getSingleResource("NoInfo"));
-                    return;
-                }
-
-                var title = _service2.default.getReportTitle(dateRange, selectedBaseCurrency);
-                var excel = new _reportExcel2.default(response.data, title);
-                excel.export(function () {
-                    _this.props.toggleLoader(false);
-                });
-            });
-        };
-
-        _this.productChangeHandler = function (currentItem, selectedItemsKey) {
-            _this.props.setSelectedProduct(selectedItemsKey);
-        };
-
-        _this.subsidiaryChangeHandler = function (currentItem, selectedItemsKey) {
-            _this.props.setSelectedSubsidiary(selectedItemsKey);
-        };
-
-        _this.applyDateRangeHandler = function (date) {
-            var isValidMonthRange = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
-
-            if (isValidMonthRange) {
-                _this.props.setDateRange(date);
-            } else {
-                var message = _langHelper2.default.getSingleResource("DateRangeExceedMsg").replace("{0}", RANGE_MONTH_CONSTRAINT);
-                alert(message);
-            }
-        };
-
-        return _this;
-    }
-
-    _createClass(FormFilter, [{
-        key: '_getParams',
-        value: function _getParams() {
-            if (!this.props.xsrfToken || !this.isValidModel) {
-                return null;
-            }
-
-            var _props$dateRange = this.props.dateRange,
-                fromDate = _props$dateRange.fromDate,
-                toDate = _props$dateRange.toDate;
-
-
-            return {
-                xsrfToken: this.props.xsrfToken,
-                data: {
-                    BaseCurrency: this.props.selectedBaseCurrency,
-                    SubsidiaryList: this.props.selectedSubsidiary,
-                    ProductCodeList: this.props.selectedProduct,
-                    ConvertAll: this.props.convertAll,
-                    FromDate: _site2.default.convertDateToString(fromDate),
-                    ToDate: _site2.default.convertDateToString(toDate)
-                }
-            };
-        }
-    }, {
-        key: '_renderSubsidiarySelectList',
-        value: function _renderSubsidiarySelectList() {
-            var subsidiaryList = this.props.subsidiaryList;
-
-
-            return subsidiaryList && subsidiaryList.length ? _react2.default.createElement(_multipleSelect2.default, {
-                dataSource: this.props.subsidiaryList,
-                keyField: "Name",
-                valueField: "Name",
-                statusField: "Checked",
-                optionAllLabel: _langHelper2.default.getSingleResource("All"),
-                noneSelectedLabel: _langHelper2.default.getSingleResource("SelectOptions"),
-                onChange: this.subsidiaryChangeHandler }) : null;
-        }
-    }, {
-        key: '_renderProductSelectList',
-        value: function _renderProductSelectList() {
-            var productOptions = this.props.productOptions;
-
-
-            return productOptions && productOptions.length ? _react2.default.createElement(_multipleSelect2.default, {
-                dataSource: this.props.productOptions,
-                keyField: "Code",
-                valueField: "Name",
-                statusField: "Status",
-                optionAllLabel: _langHelper2.default.getSingleResource("All"),
-                noneSelectedLabel: _langHelper2.default.getSingleResource("SelectOptions"),
-                onChange: this.productChangeHandler }) : null;
-        }
-    }, {
-        key: '_renderBaseCurrencySelectList',
-        value: function _renderBaseCurrencySelectList() {
-            var _this2 = this;
-
-            var _props = this.props,
-                baseCurrencyList = _props.baseCurrencyList,
-                selectedBaseCurrency = _props.selectedBaseCurrency;
-
-
-            return baseCurrencyList && baseCurrencyList.length ? _react2.default.createElement(_reactSelect2.default, { id: 'ddlBased',
-                name: 'form-field-name',
-                value: selectedBaseCurrency,
-                options: baseCurrencyList,
-                onChange: function onChange(item) {
-                    return _this2.props.setSelectedBaseCurrency(item.value);
-                } }) : null;
-        }
-    }, {
-        key: '_renderDateRange',
-        value: function _renderDateRange() {
-            var _props2 = this.props,
-                dateRange = _props2.dateRange,
-                dateConstraint = _props2.dateConstraint;
-
-
-            return _react2.default.createElement(_index2.DateRange, { startDate: dateRange.fromDate, endDate: dateRange.toDate,
-                minDate: dateConstraint.minDate, maxDate: dateConstraint.maxDate,
-                today: dateRange.toDate, limitedMonthRange: RANGE_MONTH_CONSTRAINT,
-                onChange: this.applyDateRangeHandler });
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var _this3 = this;
-
-            return _react2.default.createElement(
-                'div',
-                { className: 'page-filter' },
-                _react2.default.createElement(
-                    'div',
-                    { className: 'row' },
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'col-12 col-md-3 col-sm-5 col-lg-2 col-xl-2' },
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'form-group' },
-                            _react2.default.createElement(
-                                'label',
-                                { className: 'label-text' },
-                                _langHelper2.default.getSingleResource("Subsidiary")
-                            ),
-                            this._renderSubsidiarySelectList()
-                        )
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'col-12 col-md-4 col-sm-6 col-lg-3 col-xl-3' },
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'form-group' },
-                            _react2.default.createElement(
-                                'label',
-                                { className: 'label-text' },
-                                _langHelper2.default.getSingleResource("Date")
-                            ),
-                            this._renderDateRange()
-                        )
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'col-12 col-md-3 col-sm-5 col-lg-3 col-xl-3' },
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'form-group' },
-                            _react2.default.createElement(
-                                'label',
-                                { className: 'label-text' },
-                                _langHelper2.default.getSingleResource("Product")
-                            ),
-                            this._renderProductSelectList()
-                        )
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'col-12 col-md-2 col-sm-4 col-lg-2 col-xl-2' },
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'form-group' },
-                            _react2.default.createElement(
-                                'label',
-                                { className: 'label-text' },
-                                _langHelper2.default.getSingleResource("BaseCurrency")
-                            ),
-                            this._renderBaseCurrencySelectList()
-                        )
-                    )
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'row' },
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'col-12 col-md-12 col-sm-12 col-lg-6 col-xl-6' },
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'form-group' },
-                            _react2.default.createElement(
-                                'div',
-                                { className: 'checkbox-group' },
-                                _react2.default.createElement('input', { type: 'checkbox', className: 'checkbox', checked: this.props.convertAll, id: 'IsConvertAll',
-                                    onClick: function onClick() {
-                                        return _this3.props.changeConvertAll(!_this3.props.convertAll);
-                                    } }),
-                                _react2.default.createElement(
-                                    'label',
-                                    { htmlFor: 'IsConvertAll' },
-                                    _langHelper2.default.getSingleResource("ConvertAllFiguresToBaseCurrency")
-                                )
-                            ),
-                            _react2.default.createElement(
-                                'div',
-                                { className: 'button-group' },
-                                _react2.default.createElement(
-                                    'button',
-                                    { disabled: !this.isValidModel, type: 'button', className: 'btn btn-submit', onClick: this.submit },
-                                    _langHelper2.default.getSingleResource("Submit")
-                                )
-                            )
-                        )
-                    )
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'caret-block' },
-                    _react2.default.createElement('i', { className: 'icon-excel right', onClick: this.exportExcel, title: _langHelper2.default.getSingleResource("ExportToExcel") })
-                )
-            );
-        }
-    }, {
-        key: 'isValidModel',
-        get: function get() {
-            var _props3 = this.props,
-                selectedSubsidiary = _props3.selectedSubsidiary,
-                selectedProduct = _props3.selectedProduct;
-
-            return selectedSubsidiary !== "" && selectedProduct !== "";
-        }
-    }]);
-
-    return FormFilter;
-}(_react.Component);
-
-function mapDispatchToProps(dispatch) {
-    return (0, _redux.bindActionCreators)(_index.ActionCreators, dispatch);
-}
-function mapStateToProps(state) {
-    var gridData = state.gridData,
-        rest = _objectWithoutProperties(state, ['gridData']);
-
-    return rest;
-};
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(FormFilter);
-
-/***/ }),
-
-/***/ 406:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _ref, _ref2, _ref4, _ref5, _ref6, _ref7, _ref8;
-
-var _excel = __webpack_require__(43);
-
-var _excel2 = _interopRequireDefault(_excel);
-
-var _langHelper = __webpack_require__(4);
-
-var _langHelper2 = _interopRequireDefault(_langHelper);
-
-var _excelStyle = __webpack_require__(64);
-
-var _service = __webpack_require__(109);
-
-var _service2 = _interopRequireDefault(_service);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var COLUMN_COUNT = 8;
-var TITLE_ROW_INDEX = 0;
-var HEADER_ROW_INDEX = 1;
-var DATA_ROW_INDEX = 2;
-
-var SUBSIDIARY_COLUMN_INDEX = 0;
-var CURRENCY_COLUMN_INDEX = 1;
-var PRODUCT_COLUMN_INDEX = 2;
-var BETCOUNT_COLUMN_INDEX = 3;
-var TURNOVER_COLUMN_INDEX = 4;
-var CUSTOMERWL_COLUMN_INDEX = 5;
-var SUBSIDIARYWL_COLUMN_INDEX = 6;
-var SUBSIDIARYCOMM_COLUMN_INDEX = 7;
-
-var MAIN_SECTION_STYLE = "mainSectionStyle";
-var TOTAL_SECTION_STYLE = "totalSectionStyle";
-var GRAND_TOTAL_SECTION_STYLE = "grandTotalSectionStyle";
-
-var fields = {
-    subsidiary: "Subsidiary",
-    currencyName: "CurrencyName",
-    product: "Product",
-    betCount: "BetCount",
-    turnover: "Turnover",
-    customerWinLoss: "CustomerWinLoss",
-    subsidiaryWinLoss: "SubsidiaryWinLoss",
-    subsidiaryComm: "SubsidiaryComm"
-};
-
-var columnConfigs = [(_ref = {
-    field: fields.subsidiary
-}, _defineProperty(_ref, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.rowspan), _defineProperty(_ref, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.default), _defineProperty(_ref, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.default), _ref), (_ref2 = {
-    field: fields.currencyName
-}, _defineProperty(_ref2, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.center), _defineProperty(_ref2, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.center), _defineProperty(_ref2, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.center), _ref2), _defineProperty({
-    field: fields.product
-}, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.default), (_ref4 = {
-    field: fields.betCount
-}, _defineProperty(_ref4, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.number), _defineProperty(_ref4, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.number), _defineProperty(_ref4, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.number), _ref4), (_ref5 = {
-    field: fields.turnover
-}, _defineProperty(_ref5, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.decimal), _defineProperty(_ref5, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.decimal), _defineProperty(_ref5, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.decimal), _ref5), (_ref6 = {
-    field: fields.customerWinLoss
-}, _defineProperty(_ref6, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.decimal), _defineProperty(_ref6, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.decimal), _defineProperty(_ref6, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.decimal), _ref6), (_ref7 = {
-    field: fields.subsidiaryWinLoss
-}, _defineProperty(_ref7, MAIN_SECTION_STYLE, { positive: _excelStyle.bodyCellStyle.decimal, negative: _excelStyle.bodyCellStyle.negativeDecimal }), _defineProperty(_ref7, TOTAL_SECTION_STYLE, { positive: _excelStyle.totalCellStyle.decimal, negative: _excelStyle.totalCellStyle.negativeDecimal }), _defineProperty(_ref7, GRAND_TOTAL_SECTION_STYLE, { positive: _excelStyle.grandTotalCellStyle.decimal, negative: _excelStyle.grandTotalCellStyle.negativeDecimal }), _ref7), (_ref8 = {
-    field: fields.subsidiaryComm
-}, _defineProperty(_ref8, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.decimal), _defineProperty(_ref8, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.decimal), _defineProperty(_ref8, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.decimal), _ref8)];
-
-var ReportExcel = function () {
-    function ReportExcel() {
-        var gridData = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-        var title = arguments[1];
-        var fileName = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "SubsidiaryPerformance";
-
-        _classCallCheck(this, ReportExcel);
-
-        this.worksheet = {};
-        this.title = title;
-        this.fileName = fileName;
-        this.gridData = gridData;
-        this.currentRowIndex = DATA_ROW_INDEX;
-        this.mergeConfig = [];
-    }
-
-    _createClass(ReportExcel, [{
-        key: 'export',
-        value: function _export(onFinished) {
-            var _this = this;
-
-            if (!this.gridData.Data || !this.gridData.Data.length) {
-                onFinished && onFinished();
-                return;
-            }
-
-            _excel2.default.process(function () {
-                _this._createTitle();
-                _this._createHeader();
-                _this._createSheetData();
-                _this._createExcelConfig();
-
-                _excel2.default.export(_this.worksheet, _this.fileName);
-                onFinished && onFinished();
-            });
-        }
-    }, {
-        key: '_createTitle',
-        value: function _createTitle() {
-            this.mergeConfig.push({ s: { r: TITLE_ROW_INDEX, c: 0 }, e: { r: TITLE_ROW_INDEX, c: COLUMN_COUNT - 1 } });
-            var address = _excel2.default.getCellAddress({ c: 0, r: TITLE_ROW_INDEX });
-            this.worksheet[address] = { t: "s", v: this.title, s: _excelStyle.titleCellStyle };
-        }
-    }, {
-        key: '_createHeader',
-        value: function _createHeader() {
-            var headerText = _service2.default.getHeaderText();
-            var keys = Object.keys(headerText);
-            for (var i = 0; i < keys.length; i++) {
-                var address = _excel2.default.getCellAddress({ c: i, r: HEADER_ROW_INDEX });
-                var header = headerText[keys[i]];
-                this.worksheet[address] = { t: "s", v: header, s: _excelStyle.headerCellStyle };
-            }
-        }
-    }, {
-        key: '_createSheetData',
-        value: function _createSheetData() {
-            this._createMainData();
-            this._createFooterData();
-            this._createGrandTotalData();
-        }
-    }, {
-        key: '_createMainData',
-        value: function _createMainData() {
-            var mainData = this.gridData.Data;
-
-            for (var i = 0; i < mainData.length; i++) {
-                var item = mainData[i];
-                var details = item.Details;
-
-                this._createRowByColumnIndex(item, MAIN_SECTION_STYLE, SUBSIDIARY_COLUMN_INDEX, CURRENCY_COLUMN_INDEX);
-
-                this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 0 }, e: { r: this.currentRowIndex + details.length - 1, c: 0 } });
-                this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 1 }, e: { r: this.currentRowIndex + details.length - 1, c: 1 } });
-
-                for (var detailIndex = 0; detailIndex < details.length; detailIndex++) {
-                    var detail = details[detailIndex];
-                    this._createRowByColumnIndex(detail, MAIN_SECTION_STYLE, PRODUCT_COLUMN_INDEX, SUBSIDIARYCOMM_COLUMN_INDEX);
-                    this.currentRowIndex++;
-                }
-            }
-        }
-    }, {
-        key: '_createFooterData',
-        value: function _createFooterData() {
-            var totalDataList = this.gridData.Total;
-
-            for (var i = 0; i < totalDataList.length; i++) {
-                this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 1 }, e: { r: this.currentRowIndex, c: 2 } });
-                var item = totalDataList[i];
-                this._createRowByColumnIndex(item, TOTAL_SECTION_STYLE, SUBSIDIARY_COLUMN_INDEX, SUBSIDIARYCOMM_COLUMN_INDEX);
-                this.currentRowIndex++;
-            }
-        }
-    }, {
-        key: '_createGrandTotalData',
-        value: function _createGrandTotalData() {
-            this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 1 }, e: { r: this.currentRowIndex, c: 2 } });
-            var grandTotal = this.gridData.GrandTotal;
-            this._createRowByColumnIndex(grandTotal, GRAND_TOTAL_SECTION_STYLE, SUBSIDIARY_COLUMN_INDEX, SUBSIDIARYCOMM_COLUMN_INDEX);
-        }
-    }, {
-        key: '_createExcelConfig',
-        value: function _createExcelConfig() {
-            var cellStart = _excel2.default.getCellAddress({ r: 0, c: 0 });
-            var cellEnd = _excel2.default.getCellAddress({ r: this.currentRowIndex, c: COLUMN_COUNT - 1 });
-
-            this.worksheet["!merges"] = this.mergeConfig;
-            this.worksheet["!ref"] = cellStart + ':' + cellEnd;
-            var wscols = [{ wpx: 150 }, { wpx: 120 }, { wpx: 180 }, { wpx: 120 }, { wpx: 250 }, { wpx: 250 }, { wpx: 250 }, { wpx: 120 }];
-
-            this.worksheet['!cols'] = wscols;
-        }
-    }, {
-        key: '_createRowByColumnIndex',
-        value: function _createRowByColumnIndex(item, sectionStyle, startIndex, endIndex) {
-            for (var i = startIndex; i <= endIndex; i++) {
-                var _getCellObject2 = this._getCellObject(item, sectionStyle, i),
-                    cellAddress = _getCellObject2.cellAddress,
-                    type = _getCellObject2.type,
-                    value = _getCellObject2.value,
-                    style = _getCellObject2.style;
-
-                this.worksheet[cellAddress] = { t: type, v: value, s: style };
-            }
-        }
-    }, {
-        key: '_getCellObject',
-        value: function _getCellObject(item, sectionStyle, columnIndex) {
-            var columnConfig = columnConfigs[columnIndex];
-            var field = columnConfig.field;
-
-            var cellAddress = _excel2.default.getCellAddress({ c: columnIndex, r: this.currentRowIndex });
-            var type = typeof item[columnConfig.field] === "number" ? "n" : "s";
-            var value = item[field] !== null ? item[field] : "";
-
-            var style = columnConfig[sectionStyle];
-            if (field === fields.subsidiaryWinLoss) {
-                style = value < 0 ? style.negative : style.positive;
-            }
-
-            return { cellAddress: cellAddress, type: type, value: value, style: style };
-        }
-    }]);
-
-    return ReportExcel;
-}();
-
-exports.default = ReportExcel;
-
-/***/ }),
-
-/***/ 407:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _redux = __webpack_require__(10);
-
-var _dataHandlerReducer = __webpack_require__(408);
-
-var dataHandlerReducer = _interopRequireWildcard(_dataHandlerReducer);
-
-var _filterHandlerReducer = __webpack_require__(409);
-
-var filterHandlerReducer = _interopRequireWildcard(_filterHandlerReducer);
-
-var _productReducer = __webpack_require__(92);
-
-var productReducer = _interopRequireWildcard(_productReducer);
-
-var _baseCurrencyReducer = __webpack_require__(145);
-
-var baseCurrencyReducer = _interopRequireWildcard(_baseCurrencyReducer);
-
-var _loaderReducer = __webpack_require__(47);
-
-var loaderReducer = _interopRequireWildcard(_loaderReducer);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-exports.default = (0, _redux.combineReducers)(Object.assign(dataHandlerReducer, filterHandlerReducer, productReducer, baseCurrencyReducer, loaderReducer));
-
-/***/ }),
-
-/***/ 408:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.gridData = undefined;
-
-var _createReducer2 = __webpack_require__(8);
-
-var _createReducer3 = _interopRequireDefault(_createReducer2);
-
-var _types = __webpack_require__(108);
-
-var types = _interopRequireWildcard(_types);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var gridData = exports.gridData = (0, _createReducer3.default)({}, _defineProperty({}, types.SET_GRID_DATA, function (state, action) {
-    return action.data;
-}));
-
-/***/ }),
-
-/***/ 409:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.dateConstraint = exports.xsrfToken = exports.convertAll = exports.dateRange = exports.selectedSubsidiary = exports.subsidiaryList = undefined;
-
-var _createReducer7 = __webpack_require__(8);
-
-var _createReducer8 = _interopRequireDefault(_createReducer7);
-
-var _types = __webpack_require__(108);
-
-var types = _interopRequireWildcard(_types);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var subsidiaryList = exports.subsidiaryList = (0, _createReducer8.default)({}, _defineProperty({}, types.GET_SUBSIDIARY, function (state, action) {
-    return action.data;
-}));
-
-var selectedSubsidiary = exports.selectedSubsidiary = (0, _createReducer8.default)({}, _defineProperty({}, types.SET_SUBSIDIARY, function (state, action) {
-    return action.data;
-}));
-
-var dateRange = exports.dateRange = (0, _createReducer8.default)({}, _defineProperty({}, types.SET_DATE_RANGE, function (state, action) {
-    return action.data;
-}));
-
-var convertAll = exports.convertAll = (0, _createReducer8.default)({}, _defineProperty({}, types.CHANGE_CONVERT_ALL, function (state, action) {
-    return action.data;
-}));
-
-var xsrfToken = exports.xsrfToken = (0, _createReducer8.default)({}, _defineProperty({}, types.GET_XSRF_TOKEN, function (state, action) {
-    return action.data;
-}));
-
-var dateConstraint = exports.dateConstraint = (0, _createReducer8.default)({}, _defineProperty({}, types.GET_DATE_CONSTRAINT, function (state, action) {
-    return action.data;
-}));
-
-/***/ }),
-
-/***/ 41:
+/***/ 43:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3856,7 +4392,7 @@ exports.default = Row;
 
 /***/ }),
 
-/***/ 42:
+/***/ 44:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3947,7 +4483,7 @@ exports.default = Cell;
 
 /***/ }),
 
-/***/ 43:
+/***/ 45:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3978,7 +4514,7 @@ var Excel = function () {
     _createClass(Excel, null, [{
         key: "process",
         value: function process(callback) {
-            __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 95)).then(function (XLSX) {
+            __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 97)).then(function (XLSX) {
                 _XLSX = XLSX;
                 callback && callback();
             });
@@ -4047,7 +4583,7 @@ exports.default = Excel;
 
 /***/ }),
 
-/***/ 44:
+/***/ 46:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4113,7 +4649,7 @@ exports.default = Loader;
 
 /***/ }),
 
-/***/ 45:
+/***/ 47:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4168,7 +4704,7 @@ exports.default = AppLayout;
 
 /***/ }),
 
-/***/ 46:
+/***/ 48:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4227,7 +4763,7 @@ exports.default = ReportTitle;
 
 /***/ }),
 
-/***/ 47:
+/***/ 49:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4238,7 +4774,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.isLoading = undefined;
 
-var _types = __webpack_require__(6);
+var _types = __webpack_require__(5);
 
 var types = _interopRequireWildcard(_types);
 
@@ -4258,7 +4794,45 @@ var isLoading = exports.isLoading = (0, _createReducer3.default)({}, _defineProp
 
 /***/ }),
 
-/***/ 48:
+/***/ 5:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/* Product */
+var SET_SELECTED_PRODUCT = exports.SET_SELECTED_PRODUCT = "SET_SELECTED_PRODUCT";
+var SET_PRODUCT_OPTIONS = exports.SET_PRODUCT_OPTIONS = "SET_PRODUCT_OPTIONS";
+
+/* Base Currency */
+var SET_SELECTED_BASECURRENCY = exports.SET_SELECTED_BASECURRENCY = "SET_SELECTED_BASECURRENCY";
+var GET_BASECURRENCY = exports.GET_BASECURRENCY = "GET_BASECURRENCY";
+
+/* Currency */
+var SET_SELECTED_CURRENCY = exports.SET_SELECTED_CURRENCY = "SET_SELECTED_CURRENCY";
+var GET_CURRENCY = exports.GET_CURRENCY = "GET_CURRENCY";
+
+/* Loader */
+var TOGGLE_LOADER = exports.TOGGLE_LOADER = "TOGGLE_LOADER";
+
+/* Exclude Test Data */
+var CHANGE_IS_EXCLUDE_TEST = exports.CHANGE_IS_EXCLUDE_TEST = "CHANGE_IS_EXCLUDE_TEST";
+
+/* User mini guide */
+var USER_GUIDE_CONTENT = exports.USER_GUIDE_CONTENT = "USER_GUIDE_CONTENT;";
+
+/* Xsrf Token */
+var GET_XSRF_TOKEN = exports.GET_XSRF_TOKEN = "GET_XSRF_TOKEN";
+/* Date range */
+var SET_DATE_RANGE = exports.SET_DATE_RANGE = 'SET_DATE_RANGE';
+var GET_DATE_CONSTRAINT = exports.GET_DATE_CONSTRAINT = 'GET_DATE_CONSTRAINT';
+
+/***/ }),
+
+/***/ 50:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4274,7 +4848,7 @@ var debuggingConfig = exports.debuggingConfig = {
 
 /***/ }),
 
-/***/ 52:
+/***/ 54:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4372,7 +4946,7 @@ exports.default = Option;
 
 /***/ }),
 
-/***/ 57:
+/***/ 58:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4386,7 +4960,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "defaultArrowRenderer", function() { return arrowRenderer; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "defaultClearRenderer", function() { return clearRenderer; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "defaultFilterOptions", function() { return filterOptions; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_input_autosize__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_input_autosize__ = __webpack_require__(59);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_input_autosize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react_input_autosize__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_classnames__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_classnames___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_classnames__);
@@ -7063,7 +7637,7 @@ Select$1.Option = Option;
 
 /***/ }),
 
-/***/ 58:
+/***/ 59:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7338,7 +7912,7 @@ exports.default = AutosizeInput;
 
 /***/ }),
 
-/***/ 59:
+/***/ 60:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7349,11 +7923,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Calendar = exports.DateRange = undefined;
 
-var _DateRange = __webpack_require__(60);
+var _DateRange = __webpack_require__(61);
 
 var _DateRange2 = _interopRequireDefault(_DateRange);
 
-var _Calendar = __webpack_require__(29);
+var _Calendar = __webpack_require__(30);
 
 var _Calendar2 = _interopRequireDefault(_Calendar);
 
@@ -7364,45 +7938,7 @@ exports.Calendar = _Calendar2.default;
 
 /***/ }),
 
-/***/ 6:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-/* Product */
-var SET_SELECTED_PRODUCT = exports.SET_SELECTED_PRODUCT = "SET_SELECTED_PRODUCT";
-var SET_PRODUCT_OPTIONS = exports.SET_PRODUCT_OPTIONS = "SET_PRODUCT_OPTIONS";
-
-/* Base Currency */
-var SET_SELECTED_BASECURRENCY = exports.SET_SELECTED_BASECURRENCY = "SET_SELECTED_BASECURRENCY";
-var GET_BASECURRENCY = exports.GET_BASECURRENCY = "GET_BASECURRENCY";
-
-/* Currency */
-var SET_SELECTED_CURRENCY = exports.SET_SELECTED_CURRENCY = "SET_SELECTED_CURRENCY";
-var GET_CURRENCY = exports.GET_CURRENCY = "GET_CURRENCY";
-
-/* Loader */
-var TOGGLE_LOADER = exports.TOGGLE_LOADER = "TOGGLE_LOADER";
-
-/* Exclude Test Data */
-var CHANGE_IS_EXCLUDE_TEST = exports.CHANGE_IS_EXCLUDE_TEST = "CHANGE_IS_EXCLUDE_TEST";
-
-/* User mini guide */
-var USER_GUIDE_CONTENT = exports.USER_GUIDE_CONTENT = "USER_GUIDE_CONTENT;";
-
-/* Xsrf Token */
-var GET_XSRF_TOKEN = exports.GET_XSRF_TOKEN = "GET_XSRF_TOKEN";
-/* Date range */
-var SET_DATE_RANGE = exports.SET_DATE_RANGE = 'SET_DATE_RANGE';
-var GET_DATE_CONSTRAINT = exports.GET_DATE_CONSTRAINT = 'GET_DATE_CONSTRAINT';
-
-/***/ }),
-
-/***/ 60:
+/***/ 61:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7432,11 +7968,11 @@ var _parseInput = __webpack_require__(18);
 
 var _parseInput2 = _interopRequireDefault(_parseInput);
 
-var _Calendar = __webpack_require__(29);
+var _Calendar = __webpack_require__(30);
 
 var _Calendar2 = _interopRequireDefault(_Calendar);
 
-var _PredefinedRanges = __webpack_require__(62);
+var _PredefinedRanges = __webpack_require__(63);
 
 var _PredefinedRanges2 = _interopRequireDefault(_PredefinedRanges);
 
@@ -7450,11 +7986,11 @@ var _classnames2 = _interopRequireDefault(_classnames);
 
 var _constants = __webpack_require__(19);
 
-var _defaultOptions = __webpack_require__(30);
+var _defaultOptions = __webpack_require__(31);
 
 var _defaultOptions2 = _interopRequireDefault(_defaultOptions);
 
-var _Overlay = __webpack_require__(35);
+var _Overlay = __webpack_require__(37);
 
 var _Overlay2 = _interopRequireDefault(_Overlay);
 
@@ -7793,7 +8329,7 @@ exports.default = DateRange;
 
 /***/ }),
 
-/***/ 61:
+/***/ 62:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7997,7 +8533,7 @@ exports.default = DayCell;
 
 /***/ }),
 
-/***/ 62:
+/***/ 63:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8033,7 +8569,7 @@ var _parseInput2 = _interopRequireDefault(_parseInput);
 
 var _styles = __webpack_require__(16);
 
-var _defaultOptions = __webpack_require__(30);
+var _defaultOptions = __webpack_require__(31);
 
 var _defaultOptions2 = _interopRequireDefault(_defaultOptions);
 
@@ -8224,7 +8760,7 @@ exports.default = PredefinedRanges;
 
 /***/ }),
 
-/***/ 63:
+/***/ 64:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8252,7 +8788,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 64:
+/***/ 65:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8323,7 +8859,7 @@ var grandTotalCellStyle = exports.grandTotalCellStyle = {
 
 /***/ }),
 
-/***/ 65:
+/***/ 66:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8341,7 +8877,7 @@ var _reduxThunk = __webpack_require__(72);
 
 var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-var _logger = __webpack_require__(66);
+var _logger = __webpack_require__(67);
 
 var _logger2 = _interopRequireDefault(_logger);
 
@@ -8373,7 +8909,7 @@ exports.default = Store;
 
 /***/ }),
 
-/***/ 66:
+/***/ 67:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8387,7 +8923,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _reduxLogger = __webpack_require__(73);
 
-var _config = __webpack_require__(48);
+var _config = __webpack_require__(50);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -8455,7 +8991,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.setProductOptions = exports.setSelectedProduct = undefined;
 
-var _types = __webpack_require__(6);
+var _types = __webpack_require__(5);
 
 var types = _interopRequireWildcard(_types);
 
@@ -8483,10 +9019,36 @@ var setProductOptions = exports.setProductOptions = function setProductOptions(p
 
 
 Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.changeIsExcludeTest = undefined;
+
+var _types = __webpack_require__(5);
+
+var types = _interopRequireWildcard(_types);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var changeIsExcludeTest = exports.changeIsExcludeTest = function changeIsExcludeTest(checked) {
+    return {
+        type: types.CHANGE_IS_EXCLUDE_TEST,
+        data: checked
+    };
+};
+
+/***/ }),
+
+/***/ 88:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _MultipleSelect = __webpack_require__(88);
+var _MultipleSelect = __webpack_require__(89);
 
 var _MultipleSelect2 = _interopRequireDefault(_MultipleSelect);
 
@@ -8496,7 +9058,7 @@ exports.default = _MultipleSelect2.default;
 
 /***/ }),
 
-/***/ 88:
+/***/ 89:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8520,15 +9082,15 @@ var _propTypes = __webpack_require__(1);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _MultipleSelectLabel = __webpack_require__(89);
+var _MultipleSelectLabel = __webpack_require__(90);
 
 var _MultipleSelectLabel2 = _interopRequireDefault(_MultipleSelectLabel);
 
-var _MultipleSelectOptionList = __webpack_require__(90);
+var _MultipleSelectOptionList = __webpack_require__(91);
 
 var _MultipleSelectOptionList2 = _interopRequireDefault(_MultipleSelectOptionList);
 
-var _OptionAll = __webpack_require__(91);
+var _OptionAll = __webpack_require__(92);
 
 var _OptionAll2 = _interopRequireDefault(_OptionAll);
 
@@ -8573,7 +9135,7 @@ var MultipleSelect = function (_Component) {
             });
             itemToUpdate.checked = item.checked;
 
-            _this._callBackToParent(selectedItem, newDataSource);
+            _this._callBackToParent(selectedItem);
 
             _this.setState({ dataSource: newDataSource });
         };
@@ -8581,21 +9143,43 @@ var MultipleSelect = function (_Component) {
         _this.onToggle = function () {
             _this.setState(function (prevState) {
                 return { showOptionList: !prevState.showOptionList };
+            }, function () {
+                if (_this.searchInputBox && _this.state.showOptionList) {
+                    _this.searchInputBox.focus();
+                }
             });
         };
 
         _this.checkAllHandler = function (checked) {
-            var newDataSource = _this.state.dataSource.map(function (item) {
-                return {
-                    key: item.key,
-                    value: item.value,
-                    checked: checked
-                };
+            _this.originalDataSource.forEach(function (item) {
+                item.checked = checked;
             });
 
-            _this._callBackToParent(null, newDataSource);
+            var searchText = _this.state.searchText;
+            var dataSource = _this.originalDataSource.filter(function (item) {
+                return item[VALUE_NAME].startsWith(searchText);
+            });
+            _this.setState({ dataSource: dataSource });
+            _this._callBackToParent(null);
+        };
 
-            _this.setState({ dataSource: newDataSource });
+        _this.onChangeSearchText = function (value) {
+            _this.setState(function (prevState) {
+                var dataSource = _this.originalDataSource.filter(function (item) {
+                    return item[VALUE_NAME].startsWith(value);
+                });
+
+                return {
+                    searchText: value,
+                    dataSource: dataSource
+                };
+            });
+        };
+
+        _this.onClearSearch = function () {
+            _this.setState({ searchText: '' }, function () {
+                return _this.onChangeSearchText('');
+            });
         };
 
         _this._close = function () {
@@ -8604,17 +9188,19 @@ var MultipleSelect = function (_Component) {
 
         _this._handleDocumentClick = function (event) {
             var clickOutside = _this.wrapper && !_this.wrapper.contains(event.target);
-
             if (clickOutside && _this.state.showOptionList) {
                 _this._close();
             }
         };
 
+        _this.searchInputBox = null;
         _this.id = 'multiple-select-' + (props.id || id++);
+        _this.originalDataSource = _this._convertDataSourceToState(props);
 
         _this.state = {
+            searchText: '',
             showOptionList: false,
-            dataSource: _this._convertDataSourceToState(props)
+            dataSource: _this.originalDataSource
         };
         return _this;
     }
@@ -8633,17 +9219,17 @@ var MultipleSelect = function (_Component) {
         key: 'componentWillReceiveProps',
         value: function componentWillReceiveProps(nextProps) {
             if (this.props.dataSource != nextProps.dataSource) {
-                var newDataSource = this._convertDataSourceToState(nextProps);
+                this.originalDataSource = this._convertDataSourceToState(nextProps);
                 this.setState({
-                    dataSource: newDataSource
+                    dataSource: this.originalDataSource
                 });
-                this._callBackToParent(null, newDataSource);
+                this._callBackToParent(null);
             }
         }
     }, {
         key: '_callBackToParent',
-        value: function _callBackToParent(selectedItem, newDataSource) {
-            var selectedItemsKey = this._getSelectedItemKey(newDataSource);
+        value: function _callBackToParent(selectedItem) {
+            var selectedItemsKey = this._getSelectedItemKey(this.originalDataSource);
             this.props.onChange && this.props.onChange(selectedItem, selectedItemsKey);
         }
     }, {
@@ -8679,31 +9265,67 @@ var MultipleSelect = function (_Component) {
         key: '_renderOptionAll',
         value: function _renderOptionAll() {
             if (this.props.hasAllOption) {
-                var checkedItemCount = this.state.dataSource.filter(function (x) {
+                var checkedItemCount = this.originalDataSource.filter(function (x) {
                     return x.checked;
                 }).length;
-                var checkedAll = checkedItemCount === this.state.dataSource.length;
-
-                return _react2.default.createElement(_OptionAll2.default, { id: this.id, checked: checkedAll, label: this.props.optionAllLabel, onChange: this.checkAllHandler });
+                var checkedAll = checkedItemCount === this.originalDataSource.length;
+                var labelText = '(' + this.props.optionAllLabel + ')';
+                return _react2.default.createElement(_OptionAll2.default, { id: this.id, checked: checkedAll, label: labelText, onChange: this.checkAllHandler });
             }
 
             return null;
         }
     }, {
+        key: '_renderSearchBox',
+        value: function _renderSearchBox() {
+            var _this2 = this;
+
+            if (!this.props.hasSearchBox) {
+                return null;
+            }
+
+            var clearButtonStyle = {
+                position: "absolute",
+                right: "5px",
+                width: "20px",
+                height: "20px",
+                border: 0,
+                margin: "5px",
+                backgroundColor: "transparent",
+                cursor: "pointer" };
+
+            return _react2.default.createElement(
+                'div',
+                { style: { width: "100%" } },
+                _react2.default.createElement('input', { autoFocus: true, onChange: function onChange(e) {
+                        return _this2.onChangeSearchText(e.target.value);
+                    },
+                    ref: function ref(element) {
+                        return _this2.searchInputBox = element;
+                    },
+                    value: this.state.searchText, type: 'text', placeholder: 'Search data',
+                    style: { width: "100%", border: "1px solid #ccc", padding: "5px 10px" } }),
+                _react2.default.createElement(
+                    'button',
+                    { onClick: this.onClearSearch, style: clearButtonStyle },
+                    'X'
+                )
+            );
+        }
+    }, {
         key: 'render',
         value: function render() {
-            var _this2 = this;
+            var _this3 = this;
 
             var _props = this.props,
                 noneSelectedLabel = _props.noneSelectedLabel,
-                maxDisplayItemCount = _props.maxDisplayItemCount,
-                hasAllOption = _props.hasAllOption;
+                maxDisplayItemCount = _props.maxDisplayItemCount;
 
 
             return _react2.default.createElement(
                 'div',
                 { className: 'multiple-select-container', id: this.id, ref: function ref(element) {
-                        return _this2.wrapper = element;
+                        return _this3.wrapper = element;
                     } },
                 _react2.default.createElement(_MultipleSelectLabel2.default, {
                     selectedItems: this.selectedItems,
@@ -8714,6 +9336,7 @@ var MultipleSelect = function (_Component) {
                     'div',
                     { className: 'multiple-select-default multiple-select-options-container',
                         style: { display: this.state.showOptionList ? "block" : "none" } },
+                    this._renderSearchBox(),
                     this._renderOptionAll(),
                     _react2.default.createElement(_MultipleSelectOptionList2.default, { id: this.id,
                         dataSource: this.state.dataSource,
@@ -8724,7 +9347,7 @@ var MultipleSelect = function (_Component) {
     }, {
         key: 'selectedItems',
         get: function get() {
-            return this.state.dataSource.filter(function (item) {
+            return this.originalDataSource.filter(function (item) {
                 return item.checked;
             });
         }
@@ -8742,19 +9365,21 @@ MultipleSelect.propTypes = {
     optionAllLabel: _propTypes2.default.string,
     maxDisplayItemCount: _propTypes2.default.number,
     onChange: _propTypes2.default.func,
-    hasAllOption: _propTypes2.default.bool
+    hasAllOption: _propTypes2.default.bool,
+    hasSearchBox: _propTypes2.default.bool
 };
 MultipleSelect.defaultProps = {
     keyField: KEY_NAME,
     valueField: VALUE_NAME,
     statusField: STATUS_NAME,
-    hasAllOption: true
+    hasAllOption: true,
+    hasSearchBox: false
 };
 exports.default = MultipleSelect;
 
 /***/ }),
 
-/***/ 89:
+/***/ 90:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8859,7 +9484,7 @@ exports.default = MultipleSelectLabel;
 
 /***/ }),
 
-/***/ 90:
+/***/ 91:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8883,7 +9508,7 @@ var _propTypes = __webpack_require__(1);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _Option = __webpack_require__(52);
+var _Option = __webpack_require__(54);
 
 var _Option2 = _interopRequireDefault(_Option);
 
@@ -8911,6 +9536,14 @@ var MultipleSelectOptionList = function (_Component) {
                 dataSource = _props.dataSource,
                 onChange = _props.onChange,
                 id = _props.id;
+
+            if (!dataSource || !dataSource.length) {
+                return _react2.default.createElement(
+                    'span',
+                    null,
+                    'No information'
+                );
+            }
 
             var optionList = dataSource.map(function (item, index) {
                 return _react2.default.createElement(_Option2.default, {
@@ -8945,7 +9578,7 @@ exports.default = MultipleSelectOptionList;
 
 /***/ }),
 
-/***/ 91:
+/***/ 92:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8969,7 +9602,7 @@ var _propTypes = __webpack_require__(1);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _Option = __webpack_require__(52);
+var _Option = __webpack_require__(54);
 
 var _Option2 = _interopRequireDefault(_Option);
 
@@ -9042,7 +9675,7 @@ exports.default = OptionAll;
 
 /***/ }),
 
-/***/ 92:
+/***/ 93:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9053,7 +9686,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.productOptions = exports.selectedProduct = undefined;
 
-var _types = __webpack_require__(6);
+var _types = __webpack_require__(5);
 
 var types = _interopRequireWildcard(_types);
 
@@ -9077,26 +9710,50 @@ var productOptions = exports.productOptions = (0, _createReducer4.default)({}, _
 
 /***/ }),
 
-/***/ 96:
-/***/ (function(module, exports) {
+/***/ 94:
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = cptable;
+"use strict";
 
-/***/ }),
 
-/***/ 97:
-/***/ (function(module, exports) {
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.isExcludeTest = undefined;
 
-module.exports = jszip;
+var _types = __webpack_require__(5);
+
+var types = _interopRequireWildcard(_types);
+
+var _createReducer2 = __webpack_require__(8);
+
+var _createReducer3 = _interopRequireDefault(_createReducer2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var isExcludeTest = exports.isExcludeTest = (0, _createReducer3.default)({}, _defineProperty({}, types.CHANGE_IS_EXCLUDE_TEST, function (state, action) {
+    return action.data;
+}));
 
 /***/ }),
 
 /***/ 98:
 /***/ (function(module, exports) {
 
-module.exports = ods;
+module.exports = cptable;
+
+/***/ }),
+
+/***/ 99:
+/***/ (function(module, exports) {
+
+module.exports = jszip;
 
 /***/ })
 
-},[400]);
+},[402]);
 //# sourceMappingURL=subsidiaryperformance.chunk.js.map

@@ -111,7 +111,7 @@ describe('MultipleSelect ', () => {
         })
 
         it('_callBackToParent should be called with correct parameter', () => {
-            expect(multipleSelect._callBackToParent).toHaveBeenCalledWith(changedItem, newDataSource);
+            expect(multipleSelect._callBackToParent).toHaveBeenCalledWith(changedItem);
         })
 
         it('setState should be called with correct parameter', () => {
@@ -166,7 +166,7 @@ describe('MultipleSelect ', () => {
 
             testCheckAll(checked);
 
-            expect(multipleSelect._callBackToParent).toHaveBeenCalledWith(null, newDataSource);
+            expect(multipleSelect._callBackToParent).toHaveBeenCalledWith(null);
         })
 
         it('uncheck All - setState should be called with correct parameter', () => {
@@ -195,6 +195,52 @@ describe('MultipleSelect ', () => {
             testCheckAll(checked);
 
             expect(multipleSelect.setState).toHaveBeenCalledWith(newState);
+        })
+    })
+
+    describe('onChangeSearchText', () => {
+        let element;
+        let setStateCallback;
+        beforeEach(() => {
+            element = new MultipleSelect(defaultProps);
+            element.originalDataSource = [{value: "test123"}];
+            
+            element.setState = jest.fn((callback) => {
+                setStateCallback = callback;
+            });
+        });
+
+        it('input value does not match any value in data source: setState() with correct param', () => {
+            element.onChangeSearchText("xxx");
+            const result = setStateCallback();
+            
+            expect(result).toEqual({"dataSource": [], "searchText": "xxx"});
+        })
+
+        it('input value matches values in data source: setState() with correct param', () => {
+            element.onChangeSearchText("test");
+            const result = setStateCallback();
+            
+            expect(result).toEqual({"dataSource": [{"value": "test123"}], "searchText": "test"});
+        })
+    })
+
+    describe('onClearSearch', () => {
+        it('call setState() and onChangeSearchText() with correct parameters', () => {
+            const multipleSelect = new MultipleSelect(defaultProps);
+            let setStateData;
+            let setStateCallback;
+            multipleSelect.setState = jest.fn((data, callback) => {
+                setStateData = data;
+                setStateCallback = callback;
+            });
+            multipleSelect.onChangeSearchText = jest.fn();
+
+            multipleSelect.onClearSearch();
+            setStateCallback();
+
+            expect(setStateData).toEqual({searchText: ''});
+            expect(multipleSelect.onChangeSearchText).toHaveBeenCalledWith('');
         })
     })
 
@@ -379,7 +425,7 @@ describe('MultipleSelect ', () => {
 
             multipleSelect.componentWillReceiveProps(nextProps);
 
-            expect(multipleSelect._callBackToParent).toHaveBeenCalledWith(null, defaultDataSource);
+            expect(multipleSelect._callBackToParent).toHaveBeenCalledWith(null);
         })
     })
 })

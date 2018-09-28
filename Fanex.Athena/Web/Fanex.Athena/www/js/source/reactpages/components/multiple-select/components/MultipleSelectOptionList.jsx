@@ -16,6 +16,10 @@ export default class MultipleSelectOptionList extends Component {
 
     _renderOptionList() {
         const { dataSource, onChange, id } = this.props;
+        if(!dataSource || !dataSource.length){
+            return <span>No information</span>
+        }
+
         const optionList = dataSource.map((item, index) => {
             return (
                 <Option

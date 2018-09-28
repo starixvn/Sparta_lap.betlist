@@ -26,7 +26,7 @@ class Day extends Component {
 
         for (let i = min; i <= max; i++) {
             options.push(
-                <li key={i} onClick={() => this._onChange(i)}>
+                <li key={i} onClick={this._onChange.bind(this,i)}>
                     <a href='javascript:;'>{i}</a>
                 </li>
             );
@@ -48,11 +48,11 @@ class Day extends Component {
                 <label className='label-text'>{this.props.label}</label>
                 <div className='selectedDayWrapParent'>
                     <div className='selectedDayWrap'>
-                        <div className='dayPickr' onClick={() => this.setState({showDateDrop: true})}>
+                        <div className='dayPickr' onClick={this.setState.bind(this,{showDateDrop: true})}>
                             <span className='selectedDay'>{value}</span>
                             <a href='javascript:;' className='darr'><b></b></a>
                         </div>
-                        <Overlay isOpening={this.state.showDateDrop} onClose={() => this.setState({showDateDrop: false})}>
+                        <Overlay isOpening={this.state.showDateDrop} onClose={this.setState.bind(this,{showDateDrop: false})}>
                             {
                                 this.state.showDateDrop &&
                                 <div className='dayPickrDropDown'>

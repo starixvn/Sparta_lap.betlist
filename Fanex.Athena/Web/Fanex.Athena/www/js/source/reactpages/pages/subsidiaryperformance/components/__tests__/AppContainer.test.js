@@ -1,11 +1,12 @@
 import React from 'react'
 
-import service from '../../lib/service'
+import { Service } from '../../lib/service'
 import { AppContainer } from '../AppContainer'
+import { ReportLevel } from '../../../../constants/report'
 
 const defaultProps = {
     isLoading: false,
-    dateRange: {},
+    params: { Timestamp: 1, Level: ReportLevel.MAIN },
     selectedBaseCurrency: "UUS"
 };
 
@@ -16,37 +17,26 @@ describe('AppContainer ', () => {
         expect(appContainer.reportTitle).toBe(null);
     })
 
-    describe('componentWillReceiveProps', () => {
-        it('Is not loading data - do nothing', () => {
-            service.getReportTitle = jest.fn();
+    describe('componentDidUpdate', () => {
+        it('params is not changed - do nothing', () => {
+            Service.getReportTitle = jest.fn();
             const appContainer = new AppContainer(defaultProps);
 
-            const nextProps = Object.assign({}, defaultProps, { isLoading: false });
-            appContainer.componentWillReceiveProps(nextProps);
+            const prevProps = Object.assign({}, defaultProps, { params: { Timestamp: 1 } });
+            appContainer.componentDidUpdate(prevProps);
 
-            expect(service.getReportTitle).not.toHaveBeenCalled();
+            expect(Service.getReportTitle).not.toHaveBeenCalled();
         })
 
-        it('Is loading data but not complete yet - do nothing', () => {
-            service.getReportTitle = jest.fn();
-            const props = Object.assign({}, defaultProps, { isLoading: true });
+        it('params is changed - Service.getReportTitle should be called with correct parameter', () => {
+            Service.getReportTitle = jest.fn();
+            const props = Object.assign({}, defaultProps, { Timestamp: 1, FromDate: '01/01/2018', ToDate: '01/02/2018', BaseCurrency: 'USD' });
             const appContainer = new AppContainer(props);
 
-            const nextProps = Object.assign({}, defaultProps, { isLoading: true });
-            appContainer.componentWillReceiveProps(nextProps);
+            const prevProps = Object.assign({}, defaultProps, { Timestamp: 2 });
+            appContainer.componentDidUpdate(prevProps);
 
-            expect(service.getReportTitle).not.toHaveBeenCalled();
-        })
-
-        it('Complete loading data - service.getReportTitle should be called with correct parameter', () => {
-            service.getReportTitle = jest.fn();
-            const props = Object.assign({}, defaultProps, { isLoading: true });
-            const appContainer = new AppContainer(props);
-
-            const nextProps = Object.assign({}, defaultProps, { isLoading: false });
-            appContainer.componentWillReceiveProps(nextProps);
-
-            expect(service.getReportTitle).toHaveBeenCalledWith(nextProps.dateRange, nextProps.selectedBaseCurrency);
+            expect(Service.getReportTitle).not.toHaveBeenCalledWith(props.FromDate, props.ToDate, props.BaseCurrency);
         })
     })
 
@@ -81,12 +71,39 @@ describe('AppContainer ', () => {
             expect(result).toBe("result-content");
         })
 
+        it('Breadcrumb should has correct value', () => {
+            const appContainer = new AppContainer(defaultProps);
+            const tree = appContainer.render();
+
+            const resultContainer = tree.props.children[2];
+            const breadcrumb = resultContainer.props.children[0];
+
+            expect(breadcrumb.props.value).toBe(defaultProps.params.Level);
+        })
+
+        it('Breadcrumb - onChange - update params correctly', () => {
+            let actual = { };
+            const props = { 
+                params: { Level: ReportLevel.CUSTOMER }, 
+                setParams: jest.fn((params) => { actual = params; })
+            };
+            const appContainer = new AppContainer(props);
+            const tree = appContainer.render();
+
+            const resultContainer = tree.props.children[2];
+            const breadcrumb = resultContainer.props.children[0];
+            breadcrumb.props.onChange();
+
+            expect(actual.Level).toBe(ReportLevel.MAIN);
+            expect(actual.SubsidiaryId).toBe(0);
+        })
+
         it("reportTitle is null - first child in result container should be null", () => {
             const appContainer = new AppContainer(defaultProps);
             const tree = appContainer.render();
 
             const resultContainer = tree.props.children[2];
-            const reportTitle = resultContainer.props.children[0];
+            const reportTitle = resultContainer.props.children[1];
 
             expect(reportTitle).toBe(null);
         })
@@ -98,19 +115,19 @@ describe('AppContainer ', () => {
             const tree = appContainer.render();
 
             const resultContainer = tree.props.children[2];
-            const reportTitle = resultContainer.props.children[0];
+            const reportTitle = resultContainer.props.children[1];
             const content = reportTitle.props.content;
 
             expect(reportTitle).not.toBe(null);
             expect(content).toBe(expectedReportTitleContent);
         })
 
-        it("second child in result container should be DataGrid", () => {
+        it("third child in result container should be DataGrid", () => {
             const appContainer = new AppContainer(defaultProps);
             const tree = appContainer.render();
 
             const resultContainer = tree.props.children[2];
-            const dataGrid = resultContainer.props.children[1];
+            const dataGrid = resultContainer.props.children[2];
 
             const result = dataGrid.type.displayName;
 

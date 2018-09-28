@@ -32,6 +32,7 @@ define(["jquery", "common/site", "./customerlist.state", "./customerlist.service
 
                 _me.initGridColumnOption();
                 _me.initOddGroupOption();
+                _me.initSubsidiaryOption();
             },
 
             initGridColumnOption: function () {
@@ -126,14 +127,56 @@ define(["jquery", "common/site", "./customerlist.state", "./customerlist.service
                     listData: dataUI,
                     onCheck: function () {
                         var checkedItems = $("#odds-group-multiselect").multiSelect("getCheckedItems");
-                        if (checkedItems.length === 0) {
-                            $("#SubmitButton").prop("disabled", true);
-                            $("#odds-group-multiselect-null").removeClass("hide");
-                        }
-                        else {
-                            $("#SubmitButton").prop("disabled", false);
-                            $("#odds-group-multiselect-null").addClass("hide");
-                        }
+                        $("#SubmitButton").prop("disabled", checkedItems.length === 0);
+                    }
+                });
+            },
+
+            initSubsidiaryOption: function () {
+                var data = $("#SubsidiaryList").val();
+                if (!data) {
+                    return;
+                }
+
+                data = $.parseJSON(data);
+                var totalColumns = data.length;
+                var dataUI = [{
+                    Value: '(others)',
+                    Text: Site.getSingleResource('Others'),
+                    Checked: true,
+                    Enable: true
+                }];
+                var checkedCount = 0;
+                for (var i = 0; i < totalColumns; i++) {
+                    var isChecked = Site.asBool(data[i].Checked);
+                    if (isChecked) {
+                        checkedCount++;
+                    }
+
+                    dataUI.push({
+                        Value: data[i].Name,
+                        Text: data[i].Name,
+                        Checked: isChecked,
+                        Enable: true
+                    });
+                }
+
+                var ischeckAll = checkedCount === totalColumns;
+                $("#subsidiary-multiselect").multiSelect(
+                {
+                    minWidth: 100,
+                    maxHeight: 400,
+                    shadow: true,
+                    showSearchBox: true,
+                    showHeader: true,
+                    isCheckAll: ischeckAll,
+                    showFooter: false,
+                    checkAllText: Site.getSingleResource('All'),
+                    selectedText: Site.getSingleResource("SelectedItemCount"),
+                    listData: dataUI,
+                    onCheck: function () {
+                        var checkedItems = $("#subsidiary-multiselect").multiSelect("getCheckedItems");
+                        $("#SubmitButton").prop("disabled", checkedItems.length === 0);
                     }
                 });
             }

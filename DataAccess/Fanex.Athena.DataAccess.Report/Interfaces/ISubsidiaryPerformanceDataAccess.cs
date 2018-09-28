@@ -8,8 +8,8 @@
 
     public interface ISubsidiaryPerformanceDataAccess
     {
-        IEnumerable<Operator> GetOperatorList(string licenseeName);
+        IEnumerable<SubsidiaryPerformance> GetData(SubsidiaryPerformanceMetaModel metaModel);
 
-        ReportResultModel<SubsidiaryPerformanceEntity> GetData(SubsidiaryPerformanceMetaModel metaModel);
+        ReportResultModel<SubsidiaryPerformanceDetail> GetDetailData(SubsidiaryPerformanceMetaModel metaModel);
     }
 }

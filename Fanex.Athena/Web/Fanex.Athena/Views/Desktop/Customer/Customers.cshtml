@@ -15,7 +15,7 @@
 }
 @section Content
 {
-    @if (Model.IsAllowedUserEditComm && Model.IsAllowedCustomerCommission)
+    @if (Model.IsAllowedUserEditComm && Model.IsAllowedCustomerCommission && !Model.IsSubsidiary)
     {
         <div class="page-button">
             <input type="button" id="MoveToGroup" class="btn btn-back" value="@ViewResources.MoveToGroup" />
@@ -56,7 +56,7 @@
         </div>
     </div>
 
-    @if (Model.IsAllowedUserEditComm && Model.IsAllowedCustomerCommission)
+    @if (!Model.IsSubsidiary && Model.IsAllowedUserEditComm && Model.IsAllowedCustomerCommission)
     {
         <div id="MoveToGroupPopUp" title="@ViewResources.MoveToGroup" style="display: none">
             @{

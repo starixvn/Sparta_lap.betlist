@@ -23,7 +23,7 @@ namespace Fanex.Athena.Model.Customer.MetaModel
             BAFilter = 0;
             CustStatus = string.Empty;
             SpecialLevel = -1;
-            GroupCommId = 0;
+            GroupCommId = -1;
         }
 
         public string Username { get; set; }
@@ -50,5 +50,7 @@ namespace Fanex.Athena.Model.Customer.MetaModel
         public IEnumerable<CheckedItem> GridColumns { get; set; }
 
         public IEnumerable<CheckedItem> OddsGroups { get; set; }
+
+        public string SubsidiaryList { get; set; }
     }
 }

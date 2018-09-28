@@ -133,7 +133,11 @@
     <Compile Include="Users\AuthDataAccess.cs" />
     <Compile Include="Users\AuthorizationDataAccess.cs" />
     <Compile Include="Users\Interfaces\IAuthDataAccess.cs" />
+    <Compile Include="Users\Interfaces\IOneAuthDataAccess.cs" />
+    <Compile Include="Users\Interfaces\ISubsidiaryDataAccess.cs" />
     <Compile Include="Users\LicenseeDataAccess.cs" />
+    <Compile Include="Users\OneAuthDataAccess.cs" />
+    <Compile Include="Users\SubsidiaryDataAccess.cs" />
     <Compile Include="Users\UserDataAccess.cs" />
     <Compile Include="Users\Interfaces\IAthorizationDataAccess.cs" />
     <Compile Include="Users\Interfaces\ILicenseeDataAccess.cs" />

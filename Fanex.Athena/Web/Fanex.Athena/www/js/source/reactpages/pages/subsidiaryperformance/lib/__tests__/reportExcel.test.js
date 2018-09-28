@@ -1,16 +1,17 @@
 import Excel from '../../../../lib/excel'
 import LangHelper from '../../../../lib/langHelper'
 import { titleCellStyle, headerCellStyle, bodyCellStyle, totalCellStyle, grandTotalCellStyle } from '../../../../constants/excelStyle'
-import service from '../../lib/service'
 import ReportExcel from '../reportExcel'
 
-import { totalData, bodyData, grandTotalData } from './fakeData';
+import { totalData, bodyData, grandTotalData, bodyDetailData, totalDetailData } from './fakeData';
 
 const gridData = { Data: bodyData, Total: totalData, GrandTotal: grandTotalData };
+const gridDetailData = { Data: bodyDetailData, Total: totalDetailData, GrandTotal: grandTotalData };
 const title = "Report Title";
 const fileName = "SubsidiaryPerformance";
 
-const COLUMN_COUNT = 8;
+const COLUMN_COUNT = 7;
+const DETAIL_COLUMN_COUNT = 8;
 const TITLE_ROW_INDEX = 0;
 const HEADER_ROW_INDEX = 1;
 const DATA_ROW_INDEX = 2;
@@ -34,7 +35,7 @@ describe('reportExcel ', () => {
             expect(reportExcel._createTitle).not.toHaveBeenCalled();
         })
 
-        it('get data - _Create* functions and Excel.export should be called with correct parameter', () => {
+        it('get data - create functions and Excel.export should be called with correct parameter', () => {
             const expectedWorksheet = {};
             const reportExcel = new ReportExcel(gridData, title);
 
@@ -54,10 +55,20 @@ describe('reportExcel ', () => {
     })
 
     describe('_createTitle', () => {
-        it('mergeConfig should has correct value', () => {
+        it('Level MAIN - mergeConfig should has correct value', () => {
             const mergeConfig = [{ s: { r: TITLE_ROW_INDEX, c: 0 }, e: { r: TITLE_ROW_INDEX, c: COLUMN_COUNT - 1 } }];
 
             const reportExcel = new ReportExcel({}, title);
+
+            reportExcel._createTitle();
+
+            expect(reportExcel.mergeConfig).toEqual(mergeConfig);
+        })
+
+        it('Level CUSTOMER - mergeConfig should has correct value', () => {
+            const mergeConfig = [{ s: { r: TITLE_ROW_INDEX, c: 0 }, e: { r: TITLE_ROW_INDEX, c: DETAIL_COLUMN_COUNT - 1 } }];
+
+            const reportExcel = new ReportExcel({}, title, true);
 
             reportExcel._createTitle();
 
@@ -79,7 +90,7 @@ describe('reportExcel ', () => {
     })
 
     describe('_createHeader', () => {
-        it('worksheet should has correct value', () => {
+        it('Level MAIN - worksheet should has correct value', () => {
             const expectedWorksheet = {
                 A2: { t: "s", v: "Subsidiary", s: headerCellStyle },
                 B2: { t: "s", v: "Currency", s: headerCellStyle },
@@ -87,8 +98,7 @@ describe('reportExcel ', () => {
                 D2: { t: "s", v: "BetCount", s: headerCellStyle },
                 E2: { t: "s", v: "Turnover", s: headerCellStyle },
                 F2: { t: "s", v: "CustomerW_L", s: headerCellStyle },
-                G2: { t: "s", v: "SubsidiaryWL", s: headerCellStyle },
-                H2: { t: "s", v: "Subsidiary Comm", s: headerCellStyle }
+                G2: { t: "s", v: "SubsidiaryWL", s: headerCellStyle }
             };
 
             const reportExcel = new ReportExcel({}, title);
@@ -98,112 +108,230 @@ describe('reportExcel ', () => {
 
             expect(result).toEqual(expectedWorksheet);
         })
-    })
 
-    describe('_createMainData', () => {
-        it('mergeConfig should has correct value', () => {
-            const currentRowIndex = DATA_ROW_INDEX;
-
-            const mergeConfig = [
-                { s: { r: currentRowIndex, c: 0 }, e: { r: currentRowIndex + 1, c: 0 } },
-                { s: { r: currentRowIndex, c: 1 }, e: { r: currentRowIndex + 1, c: 1 } }
-            ];
-
-            const reportExcel = new ReportExcel(gridData, title);
-
-            reportExcel._createMainData();
-
-            expect(reportExcel.mergeConfig).toEqual(mergeConfig);
-        })
-
-        it('worksheet should has correct value', () => {
+        it('Level CUSTOMER - worksheet should has correct value', () => {
             const expectedWorksheet = {
-                A3: { t: "s", v: "916515", s: bodyCellStyle.rowspan },
-                B3: { t: "s", v: "UUS", s: bodyCellStyle.center },
-                C3: { t: "s", v: "All" },
-                D3: { t: "n", v: 52, s: bodyCellStyle.number },
-                E3: { t: "n", v: 322.0000, s: bodyCellStyle.decimal },
-                F3: { t: "n", v: 142.3210, s: bodyCellStyle.decimal },
-                G3: { t: "n", v: -141.7636, s: bodyCellStyle.negativeDecimal },
-                H3: { t: "n", v: 50, s: bodyCellStyle.decimal },
-                C4: { t: "s", v: "Cash Out" },
-                D4: { t: "n", v: 52, s: bodyCellStyle.number },
-                E4: { t: "n", v: 322.0000, s: bodyCellStyle.decimal },
-                F4: { t: "n", v: 142.3210, s: bodyCellStyle.decimal },
-                G4: { t: "n", v: 141.7636, s: bodyCellStyle.decimal },
-                H4: { t: "n", v: 10, s: bodyCellStyle.decimal }
+                A2: { t: "s", v: "#", s: headerCellStyle },
+                B2: { t: "s", v: "ExternalId", s: headerCellStyle },
+                C2: { t: "s", v: "SystemId", s: headerCellStyle },
+                D2: { t: "s", v: "Currency", s: headerCellStyle },
+                E2: { t: "s", v: "BetCount", s: headerCellStyle },
+                F2: { t: "s", v: "Turnover", s: headerCellStyle },
+                G2: { t: "s", v: "CustomerW_L", s: headerCellStyle },
+                H2: { t: "s", v: "SubsidiaryWL", s: headerCellStyle }
             };
 
-            const reportExcel = new ReportExcel(gridData, title);
+            const reportExcel = new ReportExcel({}, title, true);
 
-            reportExcel._createMainData();
+            reportExcel._createHeader();
             const result = reportExcel.worksheet;
 
             expect(result).toEqual(expectedWorksheet);
+        })
+    })
+
+    describe('_createBodyData', () => {
+        describe('Level MAIN', () => {
+            it('mergeConfig should has correct value', () => {
+                const currentRowIndex = DATA_ROW_INDEX;
+
+                const mergeConfig = [
+                    { s: { r: currentRowIndex, c: 0 }, e: { r: currentRowIndex + 3, c: 0 } },
+                    { s: { r: currentRowIndex, c: 1 }, e: { r: currentRowIndex + 1, c: 1 } },
+                    { s: { r: currentRowIndex + 2, c: 1 }, e: { r: currentRowIndex + 3, c: 1 } }
+                ];
+
+                const reportExcel = new ReportExcel(gridData, title);
+
+                reportExcel._createBodyData();
+
+                expect(reportExcel.mergeConfig).toEqual(mergeConfig);
+            })
+
+            it('worksheet should has correct value', () => {
+                const expectedWorksheet = {
+                    A3: { t: "s", v: "SUB1", s: bodyCellStyle.rowspan },
+                    B3: { t: "s", v: "EUR", s: bodyCellStyle.center },
+                    C3: { t: "s", v: "All" },
+                    D3: { t: "n", v: 52, s: bodyCellStyle.number },
+                    E3: { t: "n", v: 322.0000, s: bodyCellStyle.decimal },
+                    F3: { t: "n", v: 142.3210, s: bodyCellStyle.decimal },
+                    G3: { t: "n", v: -141.7636, s: bodyCellStyle.negativeDecimal },
+                    C4: { t: "s", v: "Product 1" },
+                    D4: { t: "n", v: 4, s: bodyCellStyle.number },
+                    E4: { t: "n", v: 0.0000, s: bodyCellStyle.decimal },
+                    F4: { t: "n", v: 0.0000, s: bodyCellStyle.decimal },
+                    G4: { t: "n", v: 0.5574, s: bodyCellStyle.decimal },
+                    B5: { t: "s", v: "USD", s: bodyCellStyle.center },
+                    C5: { t: "s", v: "All" },
+                    D5: { t: "n", v: 1, s: bodyCellStyle.number },
+                    E5: { t: "n", v: -111.0000, s: bodyCellStyle.decimal },
+                    F5: { t: "n", v: 45.258, s: bodyCellStyle.decimal },
+                    G5: { t: "n", v: -785.2569, s: bodyCellStyle.negativeDecimal },
+                    C6: { t: "s", v: "Product 2" },
+                    D6: { t: "n", v: 2, s: bodyCellStyle.number },
+                    E6: { t: "n", v: 0.0000, s: bodyCellStyle.decimal },
+                    F6: { t: "n", v: 0.0000, s: bodyCellStyle.decimal },
+                    G6: { t: "n", v: 0.2478, s: bodyCellStyle.decimal },
+                };
+
+                const reportExcel = new ReportExcel(gridData, title);
+
+                reportExcel._createBodyData();
+                const result = reportExcel.worksheet;
+
+                expect(result).toEqual(expectedWorksheet);
+            })
+        })
+
+        describe('Level CUSTOMER', () => {
+            it('mergeConfig should has correct value', () => {
+                const currentRowIndex = DATA_ROW_INDEX;
+
+                const mergeConfig = [];
+
+                const reportExcel = new ReportExcel(gridDetailData, title, true);
+                reportExcel._createBodyDetailData();
+
+                expect(reportExcel.mergeConfig).toEqual(mergeConfig);
+            })
+
+            it('worksheet should has correct value', () => {
+                const expectedWorksheet = {
+                    A3: { t: "n", v: 1, s: bodyCellStyle.center },
+                    B3: { t: "s", v: "Ex1", s: bodyCellStyle.center },
+                    C3: { t: "s", v: "Sys1", s: bodyCellStyle.center },
+                    D3: { t: "s", v: "USD", s: bodyCellStyle.center },
+                    E3: { t: "n", v: 52, s: bodyCellStyle.number },
+                    F3: { t: "n", v: 322.0000, s: bodyCellStyle.decimal },
+                    G3: { t: "n", v: 142.3210, s: bodyCellStyle.decimal },
+                    H3: { t: "n", v: -141.7636, s: bodyCellStyle.negativeDecimal },
+                    A4: { t: "n", v: 2, s: bodyCellStyle.center },
+                    B4: { t: "s", v: "Ex2", s: bodyCellStyle.center },
+                    C4: { t: "s", v: "Sys2", s: bodyCellStyle.center },
+                    D4: { t: "s", v: "EUR", s: bodyCellStyle.center },
+                    E4: { t: "n", v: 4, s: bodyCellStyle.number },
+                    F4: { t: "n", v: 0.0000, s: bodyCellStyle.decimal },
+                    G4: { t: "n", v: 0.0000, s: bodyCellStyle.decimal },
+                    H4: { t: "n", v: 0.5574, s: bodyCellStyle.decimal },
+                };
+
+                const reportExcel = new ReportExcel(gridDetailData, title, true);
+
+                reportExcel._createBodyDetailData();
+                const result = reportExcel.worksheet;
+
+                expect(result).toEqual(expectedWorksheet);
+            })
         })
     })
 
     describe('_createFooterData', () => {
-        it('worksheet should has correct value', () => {
+        describe('Level MAIN', () => {
+            it('worksheet should has correct value', () => {
+                const expectedWorksheet = {
+                    A3: { t: "s", v: "Total SUB1", s: totalCellStyle.default },
+                    B3: { t: "s", v: "Based EUR", s: totalCellStyle.center },
+                    D3: { t: "n", v: 3, s: totalCellStyle.number },
+                    E3: { t: "n", v: 276.469, s: totalCellStyle.decimal },
+                    F3: { t: "n", v: 224.7238, s: totalCellStyle.decimal },
+                    G3: { t: "n", v: -224.7238, s: totalCellStyle.negativeDecimal }
+                };
+
+                const reportExcel = new ReportExcel(gridData, title, false, 'EUR');
+
+                reportExcel._createFooterData();
+                const result = reportExcel.worksheet;
+
+                expect(result).toEqual(expectedWorksheet);
+            })
+
+            it('mergeConfig should has correct value', () => {
+                const currentRowIndex = DATA_ROW_INDEX;
+
+                const mergeConfig = [
+                    { s: { r: currentRowIndex, c: 1 }, e: { r: currentRowIndex, c: 2 } }
+                ];
+
+                const reportExcel = new ReportExcel(gridData, title);
+
+                reportExcel._createFooterData();
+
+                expect(reportExcel.mergeConfig).toEqual(mergeConfig);
+            })
+        })
+
+        describe('Level CUSTOMER', () => {
+            it('worksheet should has correct value', () => {
+                const expectedWorksheet = {
+                    A3: { t: "s", v: "Totalin EUR", s: totalCellStyle.center },
+                    D3: { t: "s", v: "USD", s: totalCellStyle.center },
+                    E3: { t: "n", v: 52, s: totalCellStyle.number },
+                    F3: { t: "n", v: 322.0000, s: totalCellStyle.decimal },
+                    G3: { t: "n", v: 142.3210, s: totalCellStyle.decimal },
+                    H3: { t: "n", v: -141.7636, s: totalCellStyle.negativeDecimal },
+                    D4: { t: "s", v: "EUR", s: totalCellStyle.center },
+                    E4: { t: "n", v: 4, s: totalCellStyle.number },
+                    F4: { t: "n", v: 0.0000, s: totalCellStyle.decimal },
+                    G4: { t: "n", v: 0.0000, s: totalCellStyle.decimal },
+                    H4: { t: "n", v: 0.5574, s: totalCellStyle.decimal }
+                };
+
+                const reportExcel = new ReportExcel(gridDetailData, title, true, 'EUR');
+
+                reportExcel._createFooterDetailData();
+                const result = reportExcel.worksheet;
+
+                expect(result).toEqual(expectedWorksheet);
+            })
+
+            it('mergeConfig should has correct value', () => {
+                const currentRowIndex = DATA_ROW_INDEX;
+
+                const mergeConfig = [
+                    { s: { r: currentRowIndex, c: 0 }, e: { r: currentRowIndex + 1, c: 2 } }
+                ];
+
+                const reportExcel = new ReportExcel(gridDetailData, title, true);
+
+                reportExcel._createFooterDetailData();
+
+                expect(reportExcel.mergeConfig).toEqual(mergeConfig);
+            })
+        })
+    })
+
+    describe('_createGrandTotalData', () => {
+        it('Level MAIN - worksheet should has correct value', () => {
             const expectedWorksheet = {
-                A3: { t: "s", v: "Total 858249", s: totalCellStyle.default },
-                B3: { t: "s", v: "Based EUR", s: totalCellStyle.center },
-                C3: { t: "s", v: "", s: undefined },
-                D3: { t: "n", v: 894, s: totalCellStyle.number },
-                E3: { t: "n", v: 0.0, s: totalCellStyle.decimal },
-                F3: { t: "n", v: 0.0, s: totalCellStyle.decimal },
-                G3: { t: "n", v: 0.0, s: totalCellStyle.decimal },
-                H3: { t: "n", v: 0, s: totalCellStyle.decimal },
-                A4: { t: "s", v: "Total 916515", s: totalCellStyle.default },
-                B4: { t: "s", v: "Based EUR", s: totalCellStyle.center },
-                C4: { t: "s", v: "", s: undefined },
-                D4: { t: "n", v: 99, s: totalCellStyle.number },
-                E4: { t: "n", v: 0.0, s: totalCellStyle.decimal },
-                F4: { t: "n", v: 0.0, s: totalCellStyle.decimal },
-                G4: { t: "n", v: -141.7636, s: totalCellStyle.negativeDecimal },
-                H4: { t: "n", v: 0, s: totalCellStyle.decimal }
+                A3: { t: "s", v: "Total", s: grandTotalCellStyle.default },
+                B3: { t: "s", v: "Based EUR", s: grandTotalCellStyle.center },
+                D3: { t: "n", v: 13286376, s: grandTotalCellStyle.number },
+                E3: { t: "n", v: 405367913.09429135, s: grandTotalCellStyle.decimal },
+                F3: { t: "n", v: -14046804.028517062, s: grandTotalCellStyle.decimal },
+                G3: { t: "n", v: 14046469.750504408, s: grandTotalCellStyle.decimal }
             };
 
-            const reportExcel = new ReportExcel(gridData, title);
+            const reportExcel = new ReportExcel(gridData, title, false, 'EUR');
 
-            reportExcel._createFooterData();
+            reportExcel._createGrandTotalData();
             const result = reportExcel.worksheet;
 
             expect(result).toEqual(expectedWorksheet);
         })
 
-        it('mergeConfig should has correct value', () => {
-            const currentRowIndex = DATA_ROW_INDEX;
-
-            const mergeConfig = [
-                { s: { r: currentRowIndex, c: 1 }, e: { r: currentRowIndex, c: 2 } },
-                { s: { r: currentRowIndex + 1, c: 1 }, e: { r: currentRowIndex + 1, c: 2 } }
-            ];
-
-            const reportExcel = new ReportExcel(gridData, title);
-
-            reportExcel._createFooterData();
-
-            expect(reportExcel.mergeConfig).toEqual(mergeConfig);
-        })
-    })
-
-    describe('_createGrandTotalData', () => {
-        it('worksheet should has correct value', () => {
+        it('Level CUSTOMER - worksheet should has correct value', () => {
             const expectedWorksheet = {
-                A3: { t: "s", v: "Total", s: grandTotalCellStyle.default },
-                B3: { t: "s", v: "Based EUR", s: grandTotalCellStyle.center },
-                C3: { t: "s", v: "", s: grandTotalCellStyle.default },
-                D3: { t: "n", v: 13286376, s: grandTotalCellStyle.number },
-                E3: { t: "n", v: 405367913.09429135, s: grandTotalCellStyle.decimal },
-                F3: { t: "n", v: -14046804.028517062, s: grandTotalCellStyle.decimal },
-                G3: { t: "n", v: 14046469.750504408, s: grandTotalCellStyle.decimal },
-                H3: { t: "n", v: 60, s: grandTotalCellStyle.decimal },
+                A3: { t: "s", v: "Totalin EUR", s: grandTotalCellStyle.center },
+                E3: { t: "n", v: 13286376, s: grandTotalCellStyle.number },
+                F3: { t: "n", v: 405367913.09429135, s: grandTotalCellStyle.decimal },
+                G3: { t: "n", v: -14046804.028517062, s: grandTotalCellStyle.decimal },
+                H3: { t: "n", v: 14046469.750504408, s: grandTotalCellStyle.decimal }
             };
 
-            const reportExcel = new ReportExcel(gridData, title);
+            const reportExcel = new ReportExcel(gridDetailData, title, true, 'EUR');
 
-            reportExcel._createGrandTotalData();
+            reportExcel._createGrandTotalDetailData();
             const result = reportExcel.worksheet;
 
             expect(result).toEqual(expectedWorksheet);
@@ -211,82 +339,92 @@ describe('reportExcel ', () => {
     })
 
     describe('_createSheetData', () => {
-        it('worksheet should has correct value', () => {
-            const expectedWorksheet = {
-                A3: { t: "s", v: "916515", s: bodyCellStyle.rowspan },
-                B3: { t: "s", v: "UUS", s: bodyCellStyle.center },
-                C3: { t: "s", v: "All" },
-                D3: { t: "n", v: 52, s: bodyCellStyle.number },
-                E3: { t: "n", v: 322.0000, s: bodyCellStyle.decimal },
-                F3: { t: "n", v: 142.3210, s: bodyCellStyle.decimal },
-                G3: { t: "n", v: -141.7636, s: bodyCellStyle.negativeDecimal },
-                H3: { t: "n", v: 50, s: bodyCellStyle.decimal },
-                C4: { t: "s", v: "Cash Out" },
-                D4: { t: "n", v: 52, s: bodyCellStyle.number },
-                E4: { t: "n", v: 322.0000, s: bodyCellStyle.decimal },
-                F4: { t: "n", v: 142.3210, s: bodyCellStyle.decimal },
-                G4: { t: "n", v: 141.7636, s: bodyCellStyle.decimal },
-                H4: { t: "n", v: 10, s: bodyCellStyle.decimal },
+        describe('Level MAIN', () => {
+            it('revelant functions should be called', () => {
+                const reportExcel = new ReportExcel(gridData, title, false, 'EUR');
+                reportExcel._createBodyData = jest.fn();
+                reportExcel._createFooterData = jest.fn();
+                reportExcel._createGrandTotalData = jest.fn();
 
-                A5: { t: "s", v: "Total 858249", s: totalCellStyle.default },
-                B5: { t: "s", v: "Based EUR", s: totalCellStyle.center },
-                C5: { t: "s", v: "", s: undefined },
-                D5: { t: "n", v: 894, s: totalCellStyle.number },
-                E5: { t: "n", v: 0.0, s: totalCellStyle.decimal },
-                F5: { t: "n", v: 0.0, s: totalCellStyle.decimal },
-                G5: { t: "n", v: 0.0, s: totalCellStyle.decimal },
-                H5: { t: "n", v: 0.0, s: totalCellStyle.decimal },
-                A6: { t: "s", v: "Total 916515", s: totalCellStyle.default },
-                B6: { t: "s", v: "Based EUR", s: totalCellStyle.center },
-                C6: { t: "s", v: "", s: undefined },
-                D6: { t: "n", v: 99, s: totalCellStyle.number },
-                E6: { t: "n", v: 0.0, s: totalCellStyle.decimal },
-                F6: { t: "n", v: 0.0, s: totalCellStyle.decimal },
-                G6: { t: "n", v: -141.7636, s: totalCellStyle.negativeDecimal },
-                H6: { t: "n", v: 0.0, s: totalCellStyle.decimal },
+                reportExcel._createSheetData();
+                const result = reportExcel.worksheet;
 
-                A7: { t: "s", v: "Total", s: grandTotalCellStyle.default },
-                B7: { t: "s", v: "Based EUR", s: grandTotalCellStyle.center },
-                C7: { t: "s", v: "", s: grandTotalCellStyle.default },
-                D7: { t: "n", v: 13286376, s: grandTotalCellStyle.number },
-                E7: { t: "n", v: 405367913.09429135, s: grandTotalCellStyle.decimal },
-                F7: { t: "n", v: -14046804.028517062, s: grandTotalCellStyle.decimal },
-                G7: { t: "n", v: 14046469.750504408, s: grandTotalCellStyle.decimal },
-                H7: { t: "n", v: 60, s: grandTotalCellStyle.decimal }
-            };
+                expect(reportExcel._createBodyData).toHaveBeenCalled();
+                expect(reportExcel._createFooterData).toHaveBeenCalled();
+                expect(reportExcel._createGrandTotalData).toHaveBeenCalled();
+            })
 
-            const reportExcel = new ReportExcel(gridData, title);
+            it('currentRowIndex should has correct value', () => {
+                const expectedCurrentRowIndex = 7;
+                const reportExcel = new ReportExcel(gridData, title, false, 'EUR');
 
-            reportExcel._createSheetData();
-            const result = reportExcel.worksheet;
+                reportExcel._createSheetData();
+                const result = reportExcel.currentRowIndex;
 
-            expect(result).toEqual(expectedWorksheet);
+                expect(result).toEqual(expectedCurrentRowIndex);
+            })
         })
 
-        it('currentRowIndex should has correct value', () => {
-            const expectedCurrentRowIndex = 6;
-            const reportExcel = new ReportExcel(gridData, title);
+        describe('Level CUSTOMER', () => {
+            it('revelant functions should be called', () => {
+                const reportExcel = new ReportExcel(gridDetailData, title, true, 'EUR');
+                reportExcel._createBodyDetailData = jest.fn();
+                reportExcel._createFooterDetailData = jest.fn();
+                reportExcel._createGrandTotalDetailData = jest.fn();
 
-            reportExcel._createSheetData();
-            const result = reportExcel.currentRowIndex;
+                reportExcel._createSheetData();
+                const result = reportExcel.worksheet;
 
-            expect(result).toEqual(expectedCurrentRowIndex);
+                expect(reportExcel._createBodyDetailData).toHaveBeenCalled();
+                expect(reportExcel._createFooterDetailData).toHaveBeenCalled();
+                expect(reportExcel._createGrandTotalDetailData).toHaveBeenCalled();
+            })
+
+            it('currentRowIndex should has correct value', () => {
+                const expectedCurrentRowIndex = 6;
+                const reportExcel = new ReportExcel(gridDetailData, title, true, 'EUR');
+
+                reportExcel._createSheetData();
+                const result = reportExcel.currentRowIndex;
+
+                expect(result).toEqual(expectedCurrentRowIndex);
+            })
         })
     })
 
     describe('_createExcelConfig', () => {
-        it('worksheet should has correct value', () => {
+        it('Level MAIN - worksheet should has correct value', () => {
             const mergeConfig = ["merge config"];
-            const wscols = [{ wpx: 150 }, { wpx: 120 }, { wpx: 180 }, { wpx: 120 }, { wpx: 250 }, { wpx: 250 }, { wpx: 250 }, { wpx: 120 }];
+            const wscols = [{ wpx: 150 }, { wpx: 120 }, { wpx: 180 }, { wpx: 120 }, { wpx: 250 }, { wpx: 250 }, { wpx: 250 }];
 
             const expectedWorksheet = {
                 "!merges": mergeConfig,
-                "!ref": "A1:H6",
+                "!ref": "A1:G6",
                 "!cols": wscols
             };
 
             const reportExcel = new ReportExcel(undefined, title);
             reportExcel.currentRowIndex = 5;
+            reportExcel.mergeConfig = mergeConfig;
+            reportExcel._createExcelConfig();
+
+            const result = reportExcel.worksheet;
+
+            expect(result).toEqual(expectedWorksheet);
+        })
+
+        it('Level CUSTOMER - worksheet should has correct value', () => {
+            const mergeConfig = ["merge config"];
+            const wscols = [{ wpx: 30 }, { wpx: 180 }, { wpx: 180 }, { wpx: 180 }, { wpx: 180 }, { wpx: 250 }, { wpx: 250 }, { wpx: 250 }];
+
+            const expectedWorksheet = {
+                "!merges": mergeConfig,
+                "!ref": "A1:H7",
+                "!cols": wscols
+            };
+
+            const reportExcel = new ReportExcel(undefined, title, true);
+            reportExcel.currentRowIndex = 6;
             reportExcel.mergeConfig = mergeConfig;
             reportExcel._createExcelConfig();
 

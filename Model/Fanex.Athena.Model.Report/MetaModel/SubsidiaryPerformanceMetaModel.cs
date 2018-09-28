@@ -14,15 +14,20 @@
 
         public string SubsidiaryList { get; set; } = string.Empty;
 
+        public string SubsidiaryId { get; set; }
+
         public string BaseCurrency { get; set; }
 
         public bool ConvertAll { get; set; }
 
         public string LicenseeName { get; set; }
 
+        public bool IncludeRaw { get; set; }
+
+        public bool IsExcludeTest { get; set; }
+
         public bool IsValid => FromDate <= ToDate &&
                                 !string.IsNullOrEmpty(ProductCodeList) &&
-                                !string.IsNullOrEmpty(BaseCurrency) &&
-                                !string.IsNullOrEmpty(SubsidiaryList);
+                                !string.IsNullOrEmpty(BaseCurrency);
     }
 }

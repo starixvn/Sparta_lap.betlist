@@ -1,0 +1,135 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MonthPicker render render correct content 1`] = `
+<div
+  className="month-picker"
+>
+  <div
+    className="month"
+  >
+    <label
+      className="label-text"
+    >
+      View data in month
+    </label>
+    <div
+      className="monPickrWrapParent"
+    >
+      <div
+        className="monPickrWrap"
+      >
+        <div
+          className="monPickr"
+        >
+          <a
+            className="prev "
+            href="javascript:;"
+            onClick={[Function]}
+          >
+            <b />
+          </a>
+          <span
+            className="selectedMonth"
+            onClick={[Function]}
+          >
+            Oct 2000
+          </span>
+          <a
+            className="next "
+            href="javascript:;"
+            onClick={[Function]}
+          >
+            <b />
+          </a>
+        </div>
+        <div
+          className="overlay"
+          style={
+            Object {
+              "display": "none",
+            }
+          }
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="date"
+  >
+    <label
+      className="label-text"
+    />
+    <div
+      className="selectedDayWrapParent"
+    >
+      <div
+        className="selectedDayWrap"
+      >
+        <div
+          className="dayPickr"
+          onClick={[Function]}
+        >
+          <span
+            className="selectedDay"
+          >
+            20
+          </span>
+          <a
+            className="darr"
+            href="javascript:;"
+          >
+            <b />
+          </a>
+        </div>
+        <div
+          className="overlay"
+          style={
+            Object {
+              "display": "none",
+            }
+          }
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="date"
+  >
+    <label
+      className="label-text"
+    />
+    <div
+      className="selectedDayWrapParent"
+    >
+      <div
+        className="selectedDayWrap"
+      >
+        <div
+          className="dayPickr"
+          onClick={[Function]}
+        >
+          <span
+            className="selectedDay"
+          >
+            29
+          </span>
+          <a
+            className="darr"
+            href="javascript:;"
+          >
+            <b />
+          </a>
+        </div>
+        <div
+          className="overlay"
+          style={
+            Object {
+              "display": "none",
+            }
+          }
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;

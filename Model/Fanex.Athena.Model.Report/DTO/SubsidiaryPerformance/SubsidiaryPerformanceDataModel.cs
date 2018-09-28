@@ -6,8 +6,8 @@
     {
         public string Subsidiary { get; set; }
 
-        public string CurrencyName { get; set; }
+        public int TotalItem { get; set; }
 
-        public IEnumerable<SubsidiaryPerformanceModelBase> Details { get; set; }
+        public IDictionary<string, IEnumerable<SubsidiaryPerformanceBase>> Details { get; set; }
     }
 }

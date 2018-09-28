@@ -4,7 +4,7 @@ import renderer from 'react-test-renderer';
 import ShallowRenderer from 'react-test-renderer/shallow';
 
 import LangHelper from '../../../../lib/langHelper';
-import service from '../../lib/service';
+import { Service } from '../../lib/service';
 
 import { defaultProps } from './fakeData';
 
@@ -17,7 +17,7 @@ const dateRangeComponentPath = '../../../../components/date-range/index';
 describe('FormFilter ', () => {
     beforeEach(() => {
         LangHelper.getSingleResource = jest.fn((resource) => resource);
-        service.getReportTitle = jest.fn(() => "Report Title");
+        Service.getReportTitle = jest.fn(() => "Report Title");
     })
     afterEach(() => {
         jest.resetAllMocks();

@@ -131,13 +131,13 @@
     <Compile Include="DTO\Notification.cs" />
     <Compile Include="DTO\NotificationMessage.cs" />
     <Compile Include="DTO\ResultAmendment.cs" />
-    <Compile Include="DTO\Operator.cs" />
     <Compile Include="DTO\PlatformWinLossSummary.cs" />
     <Compile Include="DTO\ColossusBetWinLoss.cs" />
     <Compile Include="DTO\LicenseeWinLossByTimeZone.cs" />
+    <Compile Include="DTO\SubsidiaryPerformance\SubsidiaryPerformanceDetail.cs" />
     <Compile Include="DTO\SubsidiaryPerformance\SubsidiaryPerformanceDataModel.cs" />
-    <Compile Include="DTO\SubsidiaryPerformance\SubsidiaryPerformanceEntity.cs" />
-    <Compile Include="DTO\SubsidiaryPerformance\SubsidiaryPerformanceModelBase.cs" />
+    <Compile Include="DTO\SubsidiaryPerformance\SubsidiaryPerformance.cs" />
+    <Compile Include="DTO\SubsidiaryPerformance\SubsidiaryPerformanceBase.cs" />
     <Compile Include="DTO\SubsidiaryPerformance\SubsidiaryResultViewModel.cs" />
     <Compile Include="DTO\ThirdPartyWinLoss.cs" />
     <Compile Include="DTO\WeeklyLiveMatch.cs" />

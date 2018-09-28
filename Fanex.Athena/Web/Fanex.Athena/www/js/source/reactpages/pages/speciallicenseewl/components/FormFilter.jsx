@@ -31,19 +31,6 @@ export class FormFilter extends Component {
             return;
         }
 
-        this.props.toggleLoader(true);
-        Report.fetchGridData(Url, { xsrfToken: this.props.xsrfToken, data: params })
-            .then(response => {
-                if (response.data.Data && response.data.Data.length > 1) {
-                    Service.sort(response.data.Data, params.SortBy, params.SortOrder);
-                }
-                this.props.setGridData(response.data);
-                this.props.setReportTitle(Service.getReportTitle(params.FromDate, params.ToDate, params.CurrencyId, params.CurrencyName, params.BaseCurrency));
-            })
-            .catch(error => {
-                Service.showErrorMsg();
-                this.props.toggleLoader(false);
-            });
         this.props.setParams(params);
     }
 
@@ -54,17 +41,17 @@ export class FormFilter extends Component {
         if (!params) {
             return;
         }
-     
+
         this.props.toggleLoader(true);
 
         Report.fetchGridData(Url, { xsrfToken: this.props.xsrfToken, data: params })
-        .then(response => {
-            this._doExportExcel(params, response.data)
-        })
-        .catch(error => {
-            Service.showErrorMsg();
-            this.props.toggleLoader(false);
-        });
+            .then(response => {
+                this._doExportExcel(params, response.data);
+            })
+            .catch(error => {
+                Service.showErrorMsg();
+                this.props.toggleLoader(false);
+            });
 
     }
 
@@ -83,7 +70,7 @@ export class FormFilter extends Component {
             params.FromDate,
             params.ToDate,
             params.CurrencyId,
-            params.CurrencyName, 
+            params.CurrencyName,
             params.BaseCurrency);
         const excel = new ReportExcel(gridData, title, parseInt(params.ReportBy), params.ProductCodeList);
         excel.export(() => {
@@ -107,7 +94,8 @@ export class FormFilter extends Component {
             ProductCodeList: this.props.selectedProduct.split(','),
             ReportBy: this.props.selectedReportBy,
             SortBy: this.props.params.SortBy,
-            SortOrder: this.props.params.SortOrder
+            SortOrder: this.props.params.SortOrder,
+            Timestamp : new Date().getTime()
         }
     }
 
@@ -154,9 +142,9 @@ export class FormFilter extends Component {
         const { currencyList, selectedCurrency } = this.props;
 
         return <Select instanceId="ddlCurrency"
-                value={selectedCurrency.value}
-                options={currencyList}
-                onChange={(item) => this.props.setSelectedCurrency(item)} />
+            value={selectedCurrency.value}
+            options={currencyList}
+            onChange={(item) => this.props.setSelectedCurrency(item)} />
     }
 
     _monthPickerHandle = (dateRange) => {
@@ -180,17 +168,17 @@ export class FormFilter extends Component {
             id: 'ToDateInput'
         };
 
-         return <MonthPicker
-               minDate={dateConstraint.minDate}
-               maxDate={dateConstraint.maxDate}
-               fromDate={dateRange.fromDate}
-               toDate={dateRange.toDate}
+        return <MonthPicker
+            minDate={dateConstraint.minDate}
+            maxDate={dateConstraint.maxDate}
+            fromDate={dateRange.fromDate}
+            toDate={dateRange.toDate}
 
-               onChange={this._monthPickerHandle}
+            onChange={this._monthPickerHandle}
 
-               monthOption={monthOption}
-               fromDateOption={fromDateOption}
-               toDateOption={toDateOption} />;        
+            monthOption={monthOption}
+            fromDateOption={fromDateOption}
+            toDateOption={toDateOption} />;
     }
 
     render() {
@@ -220,9 +208,9 @@ export class FormFilter extends Component {
                     <div className="col-12 col-md-3 col-sm-12 col-lg-2 col-xl-2">
                         <div className="form-group">
                             <div className="button-group">
-                            <button disabled={!this.isValidModel} type="button" className="btn btn-submit" onClick={this.submit}>{LangHelper.getSingleResource("Submit")}</button>
+                                <button disabled={!this.isValidModel} type="button" className="btn btn-submit" onClick={this.submit}>{LangHelper.getSingleResource("Submit")}</button>
                             </div>
-                        </div>                 
+                        </div>
                     </div>
                 </div>
 
@@ -231,7 +219,7 @@ export class FormFilter extends Component {
                         <i className="icon-excel right" onClick={this.exportExcel} title={LangHelper.getSingleResource("ExportToExcel")}></i>
                     </div>
                 </div>
-        </div>
+            </div>
         );
     }
 }

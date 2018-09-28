@@ -8,7 +8,9 @@ import { DateRange } from '../../../components/date-range/index'
 import LangHelper from '../../../lib/langHelper'
 import ReportExcel from '../lib/reportExcel'
 import Site from '../../../lib/site'
-import service from '../lib/service'
+import { Service, Api } from '../lib/service'
+import { ReportLevel } from '../../../constants/report'
+import Report from '../../../lib/report'
 
 const RANGE_MONTH_CONSTRAINT = 3;
 
@@ -18,8 +20,8 @@ export class FormFilter extends Component {
     }
 
     get isValidModel() {
-        const { selectedSubsidiary, selectedProduct } = this.props;
-        return selectedSubsidiary !== "" && selectedProduct !== "";
+        const { subsidiaryList, selectedSubsidiary, selectedProduct } = this.props;
+        return (!subsidiaryList || selectedSubsidiary !== "") && selectedProduct !== "";
     }
 
     submit = (event) => {
@@ -29,30 +31,38 @@ export class FormFilter extends Component {
             return;
         }
 
-        this.props.toggleLoader(true);
-        this.props.getGridData(params);
+        this.props.setParams(params);
     }
 
     exportExcel = (event) => {
         event.preventDefault();
-        const { dateRange, selectedBaseCurrency } = this.props;
-        const params = this._getParams();
+
+        const isCustomerLevel = this.props.params.Level == ReportLevel.CUSTOMER
+        const params = isCustomerLevel ? this.props.params : this._getParams();
         if (!params) {
             return;
         }
 
-        this.props.exportExcel(params).then(response => {
-            if (!response.data.Data.length) {
-                alert(LangHelper.getSingleResource("NoInfo"));
-                return;
-            }
+        this.props.toggleLoader(true);
 
-            const title = service.getReportTitle(dateRange, selectedBaseCurrency);
-            const excel = new ReportExcel(response.data, title);
-            excel.export(() =>{
+        Report.fetchGridData(isCustomerLevel ? Api.DetailUrl : Api.Url, { xsrfToken: this.props.xsrfToken, data: params })
+            .then(response => {
+                if (!response.data.Data.length) {
+                    alert(LangHelper.getSingleResource("NoInfo"));
+                    this.props.toggleLoader(false);
+                    return;
+                }
+
+                const title = Service.getReportTitle(params.FromDate, params.ToDate, params.BaseCurrency);
+                const excel = new ReportExcel(response.data, title, isCustomerLevel, params.BaseCurrency);
+                excel.export(() =>{
+                    this.props.toggleLoader(false);
+                });
+            })
+            .catch(error => {
+                Service.showErrorMsg();
                 this.props.toggleLoader(false);
             });
-        });
     }
 
     _getParams() {
@@ -63,15 +73,16 @@ export class FormFilter extends Component {
         const { fromDate, toDate } = this.props.dateRange;
 
         return {
-            xsrfToken: this.props.xsrfToken,
-            data: {
                 BaseCurrency: this.props.selectedBaseCurrency,
                 SubsidiaryList: this.props.selectedSubsidiary,
                 ProductCodeList: this.props.selectedProduct,
                 ConvertAll: this.props.convertAll,
                 FromDate: Site.convertDateToString(fromDate),
-                ToDate: Site.convertDateToString(toDate)
-            }
+                ToDate: Site.convertDateToString(toDate),
+                IncludeRaw: this.props.includeDrawData,
+                IsExcludeTest: this.props.isExcludeTest,
+                Timestamp: new Date().getTime(),
+                Level: ReportLevel.MAIN
         }
     }
 
@@ -98,6 +109,7 @@ export class FormFilter extends Component {
 
         return subsidiaryList && subsidiaryList.length ? (
             <MultipleSelect
+                hasSearchBox={true}
                 dataSource={this.props.subsidiaryList}
                 keyField={"Name"}
                 valueField={"Name"}
@@ -147,31 +159,39 @@ export class FormFilter extends Component {
     }
 
     render() {
+        const { subsidiaryList } = this.props;
+        let subsidiaryDropdown = false;
+        if(subsidiaryList) {
+            subsidiaryDropdown = 
+                (<div className="col-12 col-md-3 col-sm-5 col-lg-3 col-xl-3">
+                    <div className="form-group">
+                        <label className="label-text">{LangHelper.getSingleResource("Subsidiary")}</label>
+                    {this._renderSubsidiarySelectList()}
+                    </div>
+                </div>)
+        }
+
         return (
             <div className="page-filter">
                 <div className="row">
-                    <div className="col-12 col-md-3 col-sm-5 col-lg-2 col-xl-2">
-                        <div className="form-group">
-                            <label className="label-text">{LangHelper.getSingleResource("Subsidiary")}</label>
-                            {this._renderSubsidiarySelectList()}
-                        </div>
-                    </div>
 
-                    <div className="col-12 col-md-4 col-sm-6 col-lg-3 col-xl-3">
+                    {subsidiaryDropdown}
+
+                    <div className={`col-12 col-md-4 ${subsidiaryDropdown ? 'col-sm-6' : 'col-sm-5' } col-lg-3 col-xl-3`}>
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Date")}</label>
                             {this._renderDateRange()}
                         </div>
                     </div>
 
-                    <div className="col-12 col-md-3 col-sm-5 col-lg-3 col-xl-3">
+                    <div className={`col-12 col-md-3 ${subsidiaryDropdown ? 'col-sm-5' : 'col-sm-4' } col-lg-3 col-xl-3`}>
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Product")}</label>
                             {this._renderProductSelectList()}
                         </div>
                     </div>
 
-                    <div className="col-12 col-md-2 col-sm-4 col-lg-2 col-xl-2">
+                    <div className={`col-12 ${subsidiaryDropdown ? 'col-sm-4 col-md-2' : 'col-sm-3 col-md-3' } col-lg-2 col-xl-2`}>
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("BaseCurrency")}</label>
                             {this._renderBaseCurrencySelectList()}
@@ -180,17 +200,39 @@ export class FormFilter extends Component {
                 </div>
 
                 <div className="row">
-                    <div className="col-12 col-md-12 col-sm-12 col-lg-6 col-xl-6">
+                    <div className={`col-12 ${subsidiaryDropdown ? 'col-md-3' : 'col-md-4' } col-sm-5 col-lg-3 col-xl-3`}>
                         <div className="form-group">
                             <div className="checkbox-group">
                                 <input type="checkbox" className="checkbox" checked={this.props.convertAll} id="IsConvertAll"
-                                    onClick={() => this.props.changeConvertAll(!this.props.convertAll)} />
+                                    onChange={() => this.props.changeConvertAll(!this.props.convertAll)} />
                                 <label htmlFor="IsConvertAll">{LangHelper.getSingleResource("ConvertAllFiguresToBaseCurrency")}</label>
                             </div>
+                        </div>
+                    </div>
 
-                            <div className="button-group">
-                                <button disabled={!this.isValidModel} type="button" className="btn btn-submit" onClick={this.submit}>{LangHelper.getSingleResource("Submit")}</button>
+                    <div className={`col-12 ${subsidiaryDropdown ? 'col-md-4 col-sm-6' : 'col-md-3 col-sm-4' } col-lg-3 col-xl-3`}>
+                        <div className="form-group">
+                           <div className="checkbox-group">
+                                <input type="checkbox" className="checkbox" checked={this.props.includeDrawData} id="IncludeDrawData"
+                                    onChange={() => this.props.changeIncludeDrawData(!this.props.includeDrawData)} />
+                                <label htmlFor="IncludeDrawData">{LangHelper.getSingleResource("IncludeDrawData")}</label>
                             </div>
+                        </div>
+                    </div>
+
+                    <div className={`col-12 ${subsidiaryDropdown ? 'col-sm-5 col-lg-3 col-xl-3' : 'col-sm-3 col-lg-2 col-xl-2' } col-md-3`}>
+                        <div className="form-group">
+                           <div className="checkbox-group">
+                                <input type="checkbox" className="checkbox" checked={this.props.isExcludeTest} id="ExcludeTest"
+                                    onChange={() => this.props.changeIsExcludeTest(!this.props.isExcludeTest)} />
+                                <label htmlFor="ExcludeTest">{LangHelper.getSingleResource("ExcludeTestData")}</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="col-12 col-md-2 col-sm-4 col-lg-2 col-xl-2">
+                        <div className="button-group">
+                            <button disabled={!this.isValidModel} type="button" className="btn btn-submit" onClick={this.submit}>{LangHelper.getSingleResource("Submit")}</button>
                         </div>
                     </div>
                 </div>
@@ -206,8 +248,8 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    const { gridData, ...rest } = state;
-    return rest;
+    const { isLoading, ...rest } = state;
+    return Object.assign({}, rest);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormFilter);

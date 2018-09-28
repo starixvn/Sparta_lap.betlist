@@ -1,8 +1,8 @@
 ﻿namespace Fanex.Athena.Controllers.Report
 {
-    using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
+    using Constant.DataDomain;
     using Extension.Utility;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
@@ -18,7 +18,7 @@
     [FunctionAuthorization(PermissionKeys.ReportSubsidiaryPerformance)]
     public class SubsidiaryPerformanceReportController : ReportBaseController
     {
-        private readonly ISubsidiaryPerformanceService _service;
+        private readonly ISubsidiaryService _subsidiaryService;
 
         public SubsidiaryPerformanceReportController() : this(null, null, null, null, null, null)
         {
@@ -30,10 +30,10 @@
             IAppSettings appSetting,
             IClientViewHelper clientViewHelper,
             IProductService productService,
-            ISubsidiaryPerformanceService service)
+            ISubsidiaryService subsidiaryService)
             : base(languageService, sessionService, appSetting, clientViewHelper, productService)
         {
-            _service = service ?? new SubsidiaryPerformanceService();
+            _subsidiaryService = subsidiaryService ?? new SubsidiaryService();
         }
 
         public ActionResult Index()
@@ -44,10 +44,7 @@
                 licenseeSession.LicenseeId,
                 userSession.Language,
                 FunctionNames.SubsidiaryPerformance);
-            var subsidiaryList = _service.GetOperatorList(licenseeSession.LicenseeName);
-            var filteredSubsidiaryList = subsidiaryList.Where(x => userSession.CurrencyList.ContainsKey(x.CurrencyId));
-
-            var operatorNameList = filteredSubsidiaryList.Any() ? filteredSubsidiaryList.Select(x => x.OperatorName).Distinct() : new List<string>();
+            var subsidiaryNames = userSession.IsManageableSubsidiary ? _subsidiaryService.GetSubsidiaryNames() : null;
 
             var model = new SubsidiaryPerformanceViewModel
             {
@@ -57,8 +54,7 @@
                     Name = i.ProductName,
                     Status = true
                 }).ToList(),
-
-                SubsidiaryList = operatorNameList.Select(x => new CheckedItem
+                SubsidiaryList = subsidiaryNames?.Select(x => new CheckedItem
                 {
                     Name = x,
                     Checked = true
