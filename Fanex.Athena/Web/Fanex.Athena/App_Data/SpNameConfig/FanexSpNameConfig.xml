@@ -8,4 +8,27 @@
   <SpNameConfig Environment="BACKUPMNL" SpName="Lrf_CheckIn" EnvironmentText="_mnl"></SpNameConfig>
   <!--Do not delete this-->
   <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_CustomerSelUserSearch" EnvironmentText="_UAT4"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Licensee_UserPasswordUpd" EnvironmentText="_UAT4"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_CheckIn" EnvironmentText="_UAT4"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_CurrencyCustIns" EnvironmentText="_UAT4"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_CustomerMoveGroupComm" EnvironmentText="_UAT4"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_CustomerRemoveGroupComm" EnvironmentText="_UAT4"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_LicenseeCustCommUpd" EnvironmentText="_UAT4"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_LicenseeGroupCommDel" EnvironmentText="_UAT4"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_LicenseeGroupCommIns" EnvironmentText="_UAT4"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_LicenseeGroupCommUpd" EnvironmentText="_UAT4"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_LicenseeUserFunctionsDel" EnvironmentText="_UAT4"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_LicenseeUserFunctionsIns" EnvironmentText="_UAT4"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_ReCheckIn" EnvironmentText="_UAT4"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_UserLogout" EnvironmentText="_UAT4"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_UserPwdReset" EnvironmentText="_UAT4"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_UserUpdAccount" EnvironmentText="_UAT4"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_BATimeCheck" EnvironmentText="_UAT4"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_InternalLogin" EnvironmentText="_UAT4"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_SyncInternalUser" EnvironmentText="_UAT4"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_UserLogin" EnvironmentText="_UAT4"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_CustomerUpdCasinoStatus" EnvironmentText="_UAT4"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_CustomerUpdMemberBAStatus" EnvironmentText="_UAT4"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_CustomerUpdUgroup" EnvironmentText="_UAT4"></SpNameConfig>
+
 </Root>
