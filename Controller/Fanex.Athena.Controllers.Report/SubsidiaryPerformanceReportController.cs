@@ -28,7 +28,7 @@
             ISubsidiaryService subsidiaryService)
             : base(languageService, sessionService, appSetting, clientViewHelper, productService)
         {
-            _service = service;
+            _subsidiaryService = subsidiaryService;
         }
 
         public ActionResult Index()

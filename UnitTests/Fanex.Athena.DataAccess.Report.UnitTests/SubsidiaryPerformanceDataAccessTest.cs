@@ -21,9 +21,12 @@
         [OneTimeSetUp]
         public override void FixtureSetUp()
         {
-            MoveBetsDay = new DateTime(2017, 8, 25),
-            BalanceUpDay = new DateTime(2017, 8, 31)
-        };
+            _balance = new BalanceUp
+            {
+                MoveBetsDay = new DateTime(2017, 8, 25),
+                BalanceUpDay = new DateTime(2017, 8, 31)
+            };
+        }
 
         protected override void SetUpDataAccess()
         {

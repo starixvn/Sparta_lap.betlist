@@ -20,7 +20,6 @@
     using Resources;
     using Session.Enum;
     using Session.Model;
-    using Utility;
     using Utility.Interfaces;
 
     public class OneAuthenticationService : IOneAuthenticationService
@@ -30,7 +29,8 @@
         private readonly IFormsAuthenticationService _formsAuthenticationService;
         private readonly IOneBookSecurityWrapper _oneBookSecurityWrapper;
         private readonly ICoreLogger _logger;
-        
+        private readonly IOneAuthDataAccess _oneAuthDataAccess;
+
         public OneAuthenticationService(
             ISessionService sessionService,
             ILicenseeDataAccess licenseeDataAccess,
@@ -44,7 +44,7 @@
             _formsAuthenticationService = formsAuthenticationService;
             _oneBookSecurityWrapper = oneBookSecurityWrapper;
             _logger = logger;
-            _oneAuthDataAccess = oneAuthDataAccess ?? new OneAuthDataAccess();
+            _oneAuthDataAccess = oneAuthDataAccess;
         }
 
         protected internal virtual string GetStringFromFile(string path)

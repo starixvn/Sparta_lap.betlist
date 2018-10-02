@@ -49,10 +49,8 @@
                 SessionService.UserSession.Language,
                 functionKey).ProductList.Select(x => x.ProductCode);
 
-            var passedProductCodes = string.IsNullOrEmpty(metaModel.ProductCodeList) ?
-                metaModel.ProductOptions.Select(x => x.Code) : metaModel.ProductCodeList.Split(',');
+            var invalidProduct = productCodes.FirstOrDefault(x => !allowedProductCodes.Contains(x));
 
-            var invalidProduct = passedProductCodes.Except(allowedProductCodes).FirstOrDefault();
             if (invalidProduct != null)
             {
                 throw new ArgumentException($"Invalid product: {invalidProduct}");
