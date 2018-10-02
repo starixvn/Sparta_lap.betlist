@@ -1104,7 +1104,6 @@
     <Content Include="www\js\source\reactpages\pages\speciallicenseewl\reducers\filterHandlerReducer.js" />
     <Content Include="www\js\source\reactpages\pages\speciallicenseewl\reducers\index.js" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\multicustomer\reducers\index.js" />
-    <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\dataHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\filterHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\actions\__tests__\filterHandlerAction.test.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\DataGrid.redux.test.js" />
@@ -2631,7 +2630,6 @@
     <Content Include="www\js\source\reactpages\components\month-picker\Day.jsx" />
     <Content Include="www\js\source\reactpages\components\month-picker\index.js" />
     <Content Include="www\js\source\reactpages\components\Overlay.jsx" />
-    <Content Include="www\js\source\reactpages\pages\bettingticketscenter\components\index.jsx" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\multicustomer\components\index.jsx" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\multicustomer\components\FormFilter.jsx" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\multicustomer\components\DataGrid.jsx" />
@@ -5787,7 +5785,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Logs\" />
-    <Folder Include="www\js\source\reactpages\vendors\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\index.jsx" />
