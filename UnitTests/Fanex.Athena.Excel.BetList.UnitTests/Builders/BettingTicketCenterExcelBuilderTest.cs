@@ -323,6 +323,8 @@
         [TestCase(BetType.MixParlay, LiveStatusTypes.Live, false)]
         [TestCase(BetType.MixParlay, LiveStatusTypes.Live, true)]
         [TestCase(BetType.Handicap, LiveStatusTypes.All, true)]
+        [TestCase(BetType.CombinationMixParlay, LiveStatusTypes.Live, false)]
+        [TestCase(BetType.CombinationMixParlay, LiveStatusTypes.Live, true)]
         public void AssignRowData_AddLiveCell_BuildLiveCell(BetType bettype, int liveHomeScore, bool isLive)
         {
             // Arrange
@@ -352,6 +354,8 @@
         [TestCase(BetType.MixParlay, 0, false)]
         [TestCase(BetType.MixParlay, 0, true)]
         [TestCase(BetType.Handicap, LiveStatusTypes.All, false)]
+        [TestCase(BetType.CombinationMixParlay, 0, false)]
+        [TestCase(BetType.CombinationMixParlay, 0, true)]
         public void AssignRowData_AddLiveCell_BuildNonLiveCell(BetType bettype, int liveHomeScore, bool isLive)
         {
             // Arrange
@@ -387,7 +391,7 @@
             {
                 BetTypeId = (int)BetType.MixParlay,
                 Status = BetStatus.Won,
-                LiveHomeScore = LiveStatusTypes.All
+                LiveHomeScore = LiveStatusTypes.Mix
             };
             tickets.MainTicketList.Add(ticket);
 

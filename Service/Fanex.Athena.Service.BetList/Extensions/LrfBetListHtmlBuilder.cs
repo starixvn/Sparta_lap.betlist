@@ -126,7 +126,7 @@ namespace Fanex.Athena.Service.BetList.Extensions
                     case LiveStatusTypes.Live:
                         return string.Format(PatternStatusBetlist, "#cc0033", ViewResources.Live);
 
-                    case LiveStatusTypes.All:
+                    case LiveStatusTypes.Mix:
                         return string.Format(PatternStatusBetlist, "#0033ff", ViewResources.MixLiveAndNoneLive);
 
                     default:

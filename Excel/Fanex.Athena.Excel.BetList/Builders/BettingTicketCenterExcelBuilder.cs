@@ -203,7 +203,7 @@ namespace Fanex.Athena.Excel.BetList.Builders
 
         private void AddLiveCell(LrfTicket ticket)
         {
-            var liveStatus = ticket.BetTypeId == (int)BetType.MixParlay
+            var liveStatus = ticket.BetTypeId == (int)BetType.MixParlay || ticket.BetTypeId == (int)BetType.CombinationMixParlay
                 ? ticket.LiveHomeScore
                 : (ticket.IsLive ? LiveStatusTypes.Live : 0);
 
@@ -215,7 +215,7 @@ namespace Fanex.Athena.Excel.BetList.Builders
                     BuilDataAlignedCenterCell(rtfLive);
                     return;
 
-                case LiveStatusTypes.All:
+                case LiveStatusTypes.Mix:
                     var rtfMixLive = new HSSFRichTextString(ViewResources.MixLiveAndNoneLive);
                     rtfMixLive.ApplyFont(_mixLiveFont);
                     BuilDataAlignedCenterCell(rtfMixLive);
