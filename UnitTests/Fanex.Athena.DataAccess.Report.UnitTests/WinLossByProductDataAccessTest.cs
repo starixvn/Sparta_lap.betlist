@@ -57,7 +57,9 @@
                 CustomerId = 4,
                 ProductOptions = new List<ProductOption>
                 {
-                    new ProductOption { Code = "SB", Status = true }
+                    new ProductOption { Code = "SB", Status = true },
+                    new ProductOption { Code = "PP", Status = true },
+                    new ProductOption { Code = "BA", Status = false }
                 }
             };
 
@@ -276,10 +278,9 @@
             ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
             ObjectDb.Received(1).AddInParameter("fromdate", DbType.Date, isDrilldown ? _metaModel.DrillDownFromDate.Date : _metaModel.FromDate.Date);
             ObjectDb.Received(1).AddInParameter("todate", DbType.Date, isDrilldown ? _metaModel.DrillDownToDate.Date : _metaModel.ToDate.Date);
-            ObjectDb.Received(1).AddInParameter("isold", DbType.Boolean, _metaModel.IsOld);
             ObjectDb.Received(1).AddInParameter("drawfilter", DbType.Int32, _metaModel.DrawFilter);
             ObjectDb.Received(1).AddInParameter("movebetsday", DbType.DateTime, _balanceUp.MoveBetsDay);
-            ObjectDb.Received(1).AddInParameter("showSB", DbType.Boolean, true);
+            ObjectDb.Received(1).AddInParameter("productList", DbType.String, "SB,PP");
         }
     }
 }
