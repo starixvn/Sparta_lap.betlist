@@ -121,8 +121,9 @@
             return new Dictionary<int, string>
             {
                 { LiveStatusTypes.All, ViewResources.All },
+                { LiveStatusTypes.NonLive, ViewResources.NoneLive },
                 { LiveStatusTypes.Live, ViewResources.Live },
-                { LiveStatusTypes.NonLive, ViewResources.NoneLive }
+                { LiveStatusTypes.Mix, ViewResources.MixLiveAndNoneLive }
             };
         }
 
