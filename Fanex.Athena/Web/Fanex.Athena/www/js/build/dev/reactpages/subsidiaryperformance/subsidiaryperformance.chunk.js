@@ -4857,14 +4857,11 @@ Object.defineProperty(exports, "__esModule", {
 var FETCH_DATA = exports.FETCH_DATA = 'FETCH_DATA';
 var SET_GRID_DATA = exports.SET_GRID_DATA = "SET_GRID_DATA";
 
-var GET_SUBSIDIARY = exports.GET_SUBSIDIARY = "GET_SUBSIDIARY";
 var SET_SUBSIDIARY = exports.SET_SUBSIDIARY = "SET_SUBSIDIARY";
 
 var SET_DATE_RANGE = exports.SET_DATE_RANGE = "SET_DATE_RANGE";
-var GET_DATE_CONSTRAINT = exports.GET_DATE_CONSTRAINT = "GET_DATE_CONSTRAINT";
-var CHANGE_CONVERT_ALL = exports.CHANGE_CONVERT_ALL = "CHANGE_CONVERT_ALL";
 
-var GET_XSRF_TOKEN = exports.GET_XSRF_TOKEN = "GET_XSRF_TOKEN";
+var CHANGE_CONVERT_ALL = exports.CHANGE_CONVERT_ALL = "CHANGE_CONVERT_ALL";
 
 var CHANGE_INCLUDE_DRAW_DATA = exports.CHANGE_INCLUDE_DRAW_DATA = 'CHANGE_INCLUDE_DRAW_DATA';
 
@@ -4966,13 +4963,14 @@ var AppContainer = exports.AppContainer = function (_Component) {
 
   _createClass(AppContainer, [{
     key: 'componentDidUpdate',
-    value: function componentDidUpdate(prevProps, prevState) {
-      if (this.props.isLoading && !prevProps.isLoading) {
-        var _props = this.props,
-            dateRange = _props.dateRange,
-            selectedBaseCurrency = _props.selectedBaseCurrency;
+    value: function componentDidUpdate(prevProps) {
+      if (prevProps.params.Timestamp !== this.props.params.Timestamp) {
+        var _props$params = this.props.params,
+            FromDate = _props$params.FromDate,
+            ToDate = _props$params.ToDate,
+            BaseCurrency = _props$params.BaseCurrency;
 
-        this.reportTitle = service.getReportTitle(dateRange, selectedBaseCurrency);
+        this.reportTitle = _service.Service.getReportTitle(FromDate, ToDate, BaseCurrency);
       }
     }
   }, {
@@ -5636,12 +5634,11 @@ var FormFilter = exports.FormFilter = function (_Component) {
     }, {
         key: '_renderSubsidiarySelectList',
         value: function _renderSubsidiarySelectList() {
-            var subsidiaryList = this.props.subsidiaryList;
-
+            var subsidiaryList = _AppData2.default.subsidiaryList;
 
             return subsidiaryList && subsidiaryList.length ? _react2.default.createElement(_reactMultiselect2.default, {
                 hasSearchBox: true,
-                dataSource: this.props.subsidiaryList,
+                dataSource: subsidiaryList,
                 keyField: "Name",
                 valueField: "Name",
                 statusField: "Checked",
@@ -5681,10 +5678,8 @@ var FormFilter = exports.FormFilter = function (_Component) {
     }, {
         key: '_renderDateRange',
         value: function _renderDateRange() {
-            var _props = this.props,
-                dateRange = _props.dateRange,
-                dateConstraint = _props.dateConstraint;
-
+            var dateRange = this.props.dateRange;
+            var dateConstraint = _AppData2.default.dateConstraint;
 
             return _react2.default.createElement(_index2.DateRange, { startDate: dateRange.fromDate, endDate: dateRange.toDate,
                 minDate: dateConstraint.minDate, maxDate: dateConstraint.maxDate,
@@ -5696,10 +5691,8 @@ var FormFilter = exports.FormFilter = function (_Component) {
         value: function render() {
             var _this3 = this;
 
-            var subsidiaryList = this.props.subsidiaryList;
-
             var subsidiaryDropdown = false;
-            if (subsidiaryList) {
+            if (_AppData2.default.subsidiaryList) {
                 subsidiaryDropdown = _react2.default.createElement(
                     'div',
                     { className: 'col-12 col-md-3 col-sm-5 col-lg-3 col-xl-3' },
@@ -5856,12 +5849,11 @@ var FormFilter = exports.FormFilter = function (_Component) {
     }, {
         key: 'isValidModel',
         get: function get() {
-            var _props2 = this.props,
-                subsidiaryList = _props2.subsidiaryList,
-                selectedSubsidiary = _props2.selectedSubsidiary,
-                selectedProduct = _props2.selectedProduct;
+            var _props = this.props,
+                selectedSubsidiary = _props.selectedSubsidiary,
+                selectedProduct = _props.selectedProduct;
 
-            return (!subsidiaryList || selectedSubsidiary !== "") && selectedProduct !== "";
+            return (!_AppData2.default.subsidiaryList || selectedSubsidiary !== "") && selectedProduct !== "";
         }
     }]);
 
@@ -6387,11 +6379,11 @@ var Service = exports.Service = function () {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.params = exports.includeDrawData = exports.dateConstraint = exports.convertAll = exports.dateRange = exports.selectedSubsidiary = exports.subsidiaryList = undefined;
+exports.params = exports.includeDrawData = exports.convertAll = exports.dateRange = exports.selectedSubsidiary = undefined;
 
-var _createReducer8 = __webpack_require__(/*! ../../../lib/createReducer.js */ "./www/js/source/reactpages/lib/createReducer.js");
+var _createReducer6 = __webpack_require__(/*! ../../../lib/createReducer.js */ "./www/js/source/reactpages/lib/createReducer.js");
 
-var _createReducer9 = _interopRequireDefault(_createReducer8);
+var _createReducer7 = _interopRequireDefault(_createReducer6);
 
 var _types = __webpack_require__(/*! ../actions/types.js */ "./www/js/source/reactpages/pages/subsidiaryperformance/actions/types.js");
 
@@ -6403,31 +6395,23 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var subsidiaryList = exports.subsidiaryList = (0, _createReducer9.default)({}, _defineProperty({}, types.GET_SUBSIDIARY, function (state, action) {
+var selectedSubsidiary = exports.selectedSubsidiary = (0, _createReducer7.default)({}, _defineProperty({}, types.SET_SUBSIDIARY, function (state, action) {
     return action.data;
 }));
 
-var selectedSubsidiary = exports.selectedSubsidiary = (0, _createReducer9.default)({}, _defineProperty({}, types.SET_SUBSIDIARY, function (state, action) {
+var dateRange = exports.dateRange = (0, _createReducer7.default)({}, _defineProperty({}, types.SET_DATE_RANGE, function (state, action) {
     return action.data;
 }));
 
-var dateRange = exports.dateRange = (0, _createReducer9.default)({}, _defineProperty({}, types.SET_DATE_RANGE, function (state, action) {
+var convertAll = exports.convertAll = (0, _createReducer7.default)({}, _defineProperty({}, types.CHANGE_CONVERT_ALL, function (state, action) {
     return action.data;
 }));
 
-var convertAll = exports.convertAll = (0, _createReducer9.default)({}, _defineProperty({}, types.CHANGE_CONVERT_ALL, function (state, action) {
+var includeDrawData = exports.includeDrawData = (0, _createReducer7.default)({}, _defineProperty({}, types.CHANGE_INCLUDE_DRAW_DATA, function (state, action) {
     return action.data;
 }));
 
-var dateConstraint = exports.dateConstraint = (0, _createReducer9.default)({}, _defineProperty({}, types.GET_DATE_CONSTRAINT, function (state, action) {
-    return action.data;
-}));
-
-var includeDrawData = exports.includeDrawData = (0, _createReducer9.default)({}, _defineProperty({}, types.CHANGE_INCLUDE_DRAW_DATA, function (state, action) {
-    return action.data;
-}));
-
-var params = exports.params = (0, _createReducer9.default)({}, _defineProperty({}, types.SET_PARAMS, function (state, action) {
+var params = exports.params = (0, _createReducer7.default)({}, _defineProperty({}, types.SET_PARAMS, function (state, action) {
     return action.data;
 }));
 
