@@ -80,6 +80,6 @@
 
         public const string ResultAmendmentNotificationReport = "ResultAmendment_Recalculation75";
 
-        public const string BettingTicketCenter = "BettingTicketCenter79";
+        public const string BettingTicketCenter = "BTC79";
     }
 }
