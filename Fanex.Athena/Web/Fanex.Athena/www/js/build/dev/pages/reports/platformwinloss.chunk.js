@@ -4556,7 +4556,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
         };
 
         function getColConfigLevel0(cols, customerWL) {
-            var customerWlIndex = 3;
+            var customerWlIndex = 4;
 
             customerWL.forEach(function (item) {
                 cols.insertAfter(item, customerWlIndex);

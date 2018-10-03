@@ -281,7 +281,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
         };
 
         function getColConfigLevel0(cols, customerWL) {
-            var customerWlIndex = 3;
+            var customerWlIndex = 4;
 
             customerWL.forEach(function (item) {
                 cols.insertAfter(item, customerWlIndex);

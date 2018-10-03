@@ -105,7 +105,7 @@
                 it("Return three columns of customer win loss for level 0 when hasCustomerComm is true", function () {
                     PlatformWinLossOption.hasCustomerComm = true;
                     var level = 0;
-                    var customerWlIndex = 4;
+                    var customerWlIndex = 5;
 
                     var colModel = PlatformWinLossOption.getColModel(level, []);
 
@@ -117,7 +117,7 @@
                 it("Return one column of customer win loss for level 0 when hasCustomerComm is false", function () {
                     PlatformWinLossOption.hasCustomerComm = false;
                     var level = 0;
-                    var customerWlIndex = 4;
+                    var customerWlIndex = 5;
 
                     var colModel = PlatformWinLossOption.getColModel(level, []);
 
