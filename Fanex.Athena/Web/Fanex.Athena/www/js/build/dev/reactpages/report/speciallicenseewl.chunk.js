@@ -1756,26 +1756,18 @@ var Day = function (_Component) {
     _createClass(Day, [{
         key: '_renderOption',
         value: function _renderOption(min, max, value) {
-            var _this2 = this;
-
             var options = [];
 
-            var _loop = function _loop(i) {
+            for (var i = min; i <= max; i++) {
                 options.push(_react2.default.createElement(
                     'li',
-                    { key: i, onClick: function onClick() {
-                            return _this2._onChange(i);
-                        } },
+                    { key: i, onClick: this._onChange.bind(this, i) },
                     _react2.default.createElement(
                         'a',
                         { href: 'javascript:;' },
                         i
                     )
                 ));
-            };
-
-            for (var i = min; i <= max; i++) {
-                _loop(i);
             }
 
             return options;
@@ -1789,8 +1781,6 @@ var Day = function (_Component) {
     }, {
         key: 'render',
         value: function render() {
-            var _this3 = this;
-
             var value = this.props.value;
 
             return _react2.default.createElement(
@@ -1809,9 +1799,7 @@ var Day = function (_Component) {
                         { className: 'selectedDayWrap' },
                         _react2.default.createElement(
                             'div',
-                            { className: 'dayPickr', onClick: function onClick() {
-                                    return _this3.setState({ showDateDrop: true });
-                                } },
+                            { className: 'dayPickr', onClick: this.setState.bind(this, { showDateDrop: true }) },
                             _react2.default.createElement(
                                 'span',
                                 { className: 'selectedDay' },
@@ -1825,9 +1813,7 @@ var Day = function (_Component) {
                         ),
                         _react2.default.createElement(
                             _Overlay2.default,
-                            { isOpening: this.state.showDateDrop, onClose: function onClose() {
-                                    return _this3.setState({ showDateDrop: false });
-                                } },
+                            { isOpening: this.state.showDateDrop, onClose: this.setState.bind(this, { showDateDrop: false }) },
                             this.state.showDateDrop && _react2.default.createElement(
                                 'div',
                                 { className: 'dayPickrDropDown' },
@@ -1933,16 +1919,13 @@ var Month = function (_Component) {
     }, {
         key: '_renderOption',
         value: function _renderOption(min, max, value) {
-            var _this2 = this;
-
             var options = [];
-
-            var _loop = function _loop(i) {
-                if (i === _this2.state.expandYear) {
+            for (var i = min.year; i <= max.year; i++) {
+                if (i === this.state.expandYear) {
 
                     options.push(_react2.default.createElement(
                         'li',
-                        { key: i, className: 'year' },
+                        { key: i, className: 'year', style: { 'font-weight': 'bold' } },
                         _react2.default.createElement(
                             'a',
                             { href: 'javascript:;' },
@@ -1953,32 +1936,24 @@ var Month = function (_Component) {
                     var minMonth = i === min.year ? min.month : 0;
                     var maxMonth = i === max.year ? max.month : 11;
 
-                    var _loop2 = function _loop2(j) {
+                    for (var j = minMonth; j <= maxMonth; j++) {
                         var isSelected = i === value.year && j === value.month;
                         var valueItem = { year: i, month: j };
 
                         options.push(_react2.default.createElement(
                             'li',
-                            { key: '' + j + i, className: 'monthWrap', onClick: function onClick() {
-                                    return _this2._onChange(valueItem);
-                                } },
+                            { key: '' + j + i, className: 'monthWrap', onClick: this._onChange.bind(this, valueItem) },
                             _react2.default.createElement(
                                 'a',
                                 { href: 'javascript:;', className: '' + (isSelected ? 'selected' : '') },
-                                _this2.fullMonths[j]
+                                this.fullMonths[j]
                             )
                         ));
-                    };
-
-                    for (var j = minMonth; j <= maxMonth; j++) {
-                        _loop2(j);
                     }
                 } else {
                     options.push(_react2.default.createElement(
                         'li',
-                        { key: i, className: 'year', onClick: function onClick() {
-                                return _this2.setState({ expandYear: i });
-                            } },
+                        { key: i, className: 'year', onClick: this.setState.bind(this, { expandYear: i }) },
                         _react2.default.createElement(
                             'a',
                             { href: 'javascript:;' },
@@ -1986,24 +1961,30 @@ var Month = function (_Component) {
                         )
                     ));
                 }
-            };
-
-            for (var i = min.year; i <= max.year; i++) {
-                _loop(i);
             }
 
             return options;
         }
     }, {
-        key: '_addMonth',
-        value: function _addMonth(number) {
-            var month = this.props.value.month + number;
+        key: '_getNextMonth',
+        value: function _getNextMonth() {
+            var month = this.props.value.month + 1;
             var year = this.props.value.year;
 
             if (month > 11) {
                 month = 0;
                 year += 1;
-            } else if (month < 0) {
+            }
+
+            return { year: year, month: month };
+        }
+    }, {
+        key: '_getPrevMonth',
+        value: function _getPrevMonth() {
+            var month = this.props.value.month - 1;
+            var year = this.props.value.year;
+
+            if (month < 0) {
                 month = 11;
                 year -= 1;
             }
@@ -2018,7 +1999,7 @@ var Month = function (_Component) {
                 max = _props.max;
 
 
-            return year > min.year && year < max.year || year === min.year && month >= min.month || year === max && month <= max.month;
+            return year > min.year && year < max.year || year === min.year && month >= min.month || year === max.year && month <= max.month;
         }
     }, {
         key: '_goToMonth',
@@ -2034,10 +2015,10 @@ var Month = function (_Component) {
     }, {
         key: 'render',
         value: function render() {
-            var _this3 = this;
+            var _this2 = this;
 
-            var nexMonth = this._addMonth(1);
-            var preMonth = this._addMonth(-1);
+            var nexMonth = this._getNextMonth();
+            var preMonth = this._getPrevMonth();
             var validNexMonth = this._checkValidMonth(nexMonth.month, nexMonth.year);
             var validPreMonth = this._checkValidMonth(preMonth.month, preMonth.year);
             var value = this.props.value;
@@ -2062,30 +2043,26 @@ var Month = function (_Component) {
                             _react2.default.createElement(
                                 'a',
                                 { href: 'javascript:;', className: 'prev ' + (validPreMonth ? '' : 'disable'), onClick: function onClick(e) {
-                                        return validPreMonth && _this3._goToMonth(e, preMonth);
+                                        return validPreMonth && _this2._goToMonth(e, preMonth);
                                     } },
                                 _react2.default.createElement('b', null)
                             ),
                             _react2.default.createElement(
                                 'span',
-                                { className: 'selectedMonth', onClick: function onClick() {
-                                        _this3.setState({ showMonthDrop: true });
-                                    } },
+                                { className: 'selectedMonth', onClick: this.setState.bind(this, { showMonthDrop: true }) },
                                 this._formatString(value.month, value.year)
                             ),
                             _react2.default.createElement(
                                 'a',
                                 { href: 'javascript:;', className: 'next ' + (validNexMonth ? '' : 'disable'), onClick: function onClick(e) {
-                                        return validNexMonth && _this3._goToMonth(e, nexMonth);
+                                        return validNexMonth && _this2._goToMonth(e, nexMonth);
                                     } },
                                 _react2.default.createElement('b', null)
                             )
                         ),
                         _react2.default.createElement(
                             _Overlay2.default,
-                            { isOpening: this.state.showMonthDrop, onClose: function onClose() {
-                                    _this3.setState({ showMonthDrop: false });
-                                } },
+                            { isOpening: this.state.showMonthDrop, onClose: this.setState.bind(this, { showMonthDrop: false }) },
                             this.state.showMonthDrop && _react2.default.createElement(
                                 'div',
                                 { className: 'monPickrDropDown' },
@@ -2311,683 +2288,6 @@ var _MonthPicker2 = _interopRequireDefault(_MonthPicker);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = _MonthPicker2.default;
-
-/***/ }),
-
-/***/ "./www/js/source/reactpages/components/multiple-select/components/MultipleSelect.jsx":
-/*!*******************************************************************************************!*\
-  !*** ./www/js/source/reactpages/components/multiple-select/components/MultipleSelect.jsx ***!
-  \*******************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _MultipleSelectLabel = __webpack_require__(/*! ./MultipleSelectLabel */ "./www/js/source/reactpages/components/multiple-select/components/MultipleSelectLabel.jsx");
-
-var _MultipleSelectLabel2 = _interopRequireDefault(_MultipleSelectLabel);
-
-var _MultipleSelectOptionList = __webpack_require__(/*! ./MultipleSelectOptionList */ "./www/js/source/reactpages/components/multiple-select/components/MultipleSelectOptionList.jsx");
-
-var _MultipleSelectOptionList2 = _interopRequireDefault(_MultipleSelectOptionList);
-
-var _OptionAll = __webpack_require__(/*! ./OptionAll */ "./www/js/source/reactpages/components/multiple-select/components/OptionAll.jsx");
-
-var _OptionAll2 = _interopRequireDefault(_OptionAll);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var KEY_NAME = "key";
-var VALUE_NAME = "value";
-var STATUS_NAME = "checked";
-
-var id = 1;
-
-var MultipleSelect = function (_Component) {
-    _inherits(MultipleSelect, _Component);
-
-    function MultipleSelect(props) {
-        _classCallCheck(this, MultipleSelect);
-
-        var _this = _possibleConstructorReturn(this, (MultipleSelect.__proto__ || Object.getPrototypeOf(MultipleSelect)).call(this, props));
-
-        _this.onChangeHandler = function (item) {
-            var _selectedItem;
-
-            var _this$props = _this.props,
-                keyField = _this$props.keyField,
-                valueField = _this$props.valueField,
-                statusField = _this$props.statusField;
-
-
-            var selectedItem = (_selectedItem = {}, _defineProperty(_selectedItem, keyField, item.key), _defineProperty(_selectedItem, valueField, item.value), _defineProperty(_selectedItem, statusField, item.checked), _selectedItem);
-
-            var newDataSource = _this.state.dataSource.slice(0);
-            var itemToUpdate = newDataSource.find(function (x) {
-                return x.key === item.key;
-            });
-            itemToUpdate.checked = item.checked;
-
-            _this._callBackToParent(selectedItem, newDataSource);
-
-            _this.setState({ dataSource: newDataSource });
-        };
-
-        _this.onToggle = function () {
-            _this.setState(function (prevState) {
-                return { showOptionList: !prevState.showOptionList };
-            });
-        };
-
-        _this.checkAllHandler = function (checked) {
-            var newDataSource = _this.state.dataSource.map(function (item) {
-                return {
-                    key: item.key,
-                    value: item.value,
-                    checked: checked
-                };
-            });
-
-            _this._callBackToParent(null, newDataSource);
-
-            _this.setState({ dataSource: newDataSource });
-        };
-
-        _this._close = function () {
-            _this.setState({ showOptionList: false });
-        };
-
-        _this._handleDocumentClick = function (event) {
-            var clickOutside = _this.wrapper && !_this.wrapper.contains(event.target);
-
-            if (clickOutside && _this.state.showOptionList) {
-                _this._close();
-            }
-        };
-
-        _this.id = 'multiple-select-' + (props.id || id++);
-
-        _this.state = {
-            showOptionList: false,
-            dataSource: _this._convertDataSourceToState(props)
-        };
-        return _this;
-    }
-
-    _createClass(MultipleSelect, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            document.addEventListener('click', this._handleDocumentClick);
-        }
-    }, {
-        key: 'componentWillUnmount',
-        value: function componentWillUnmount() {
-            document.removeEventListener('click', this._handleDocumentClick);
-        }
-    }, {
-        key: '_callBackToParent',
-        value: function _callBackToParent(selectedItem, newDataSource) {
-            var selectedItemsKey = this._getSelectedItemKey(newDataSource);
-            this.props.onChange && this.props.onChange(selectedItem, selectedItemsKey);
-        }
-    }, {
-        key: '_convertDataSourceToState',
-        value: function _convertDataSourceToState(_ref) {
-            var keyField = _ref.keyField,
-                valueField = _ref.valueField,
-                statusField = _ref.statusField,
-                dataSource = _ref.dataSource;
-
-            return dataSource.map(function (item) {
-                var _ref2;
-
-                return _ref2 = {}, _defineProperty(_ref2, KEY_NAME, item[keyField]), _defineProperty(_ref2, VALUE_NAME, item[valueField]), _defineProperty(_ref2, STATUS_NAME, item[statusField]), _ref2;
-            });
-        }
-    }, {
-        key: '_getSelectedItemKey',
-        value: function _getSelectedItemKey(dataSource) {
-            var selectedItemKey = [];
-
-            for (var i = 0; i < dataSource.length; i++) {
-                var item = dataSource[i];
-
-                if (item.checked) {
-                    selectedItemKey.push(item.key);
-                }
-            }
-
-            return selectedItemKey.join(",");
-        }
-    }, {
-        key: '_renderOptionAll',
-        value: function _renderOptionAll() {
-            if (this.props.hasAllOption) {
-                var checkedItemCount = this.state.dataSource.filter(function (x) {
-                    return x.checked;
-                }).length;
-                var checkedAll = checkedItemCount === this.state.dataSource.length;
-
-                return _react2.default.createElement(_OptionAll2.default, { id: this.id, checked: checkedAll, label: this.props.optionAllLabel, onChange: this.checkAllHandler });
-            }
-
-            return null;
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var _this2 = this;
-
-            var _props = this.props,
-                noneSelectedLabel = _props.noneSelectedLabel,
-                maxDisplayItemCount = _props.maxDisplayItemCount,
-                hasAllOption = _props.hasAllOption;
-
-
-            return _react2.default.createElement(
-                'div',
-                { className: 'multiple-select-container', id: this.id, ref: function ref(element) {
-                        return _this2.wrapper = element;
-                    } },
-                _react2.default.createElement(_MultipleSelectLabel2.default, {
-                    selectedItems: this.selectedItems,
-                    onToggle: this.onToggle,
-                    noneSelectedLabel: noneSelectedLabel,
-                    maxDisplayItemCount: maxDisplayItemCount }),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'multiple-select-default multiple-select-options-container',
-                        style: { display: this.state.showOptionList ? "block" : "none" } },
-                    this._renderOptionAll(),
-                    _react2.default.createElement(_MultipleSelectOptionList2.default, { id: this.id,
-                        dataSource: this.state.dataSource,
-                        onChange: this.onChangeHandler })
-                )
-            );
-        }
-    }, {
-        key: 'selectedItems',
-        get: function get() {
-            return this.state.dataSource.filter(function (item) {
-                return item.checked;
-            });
-        }
-    }]);
-
-    return MultipleSelect;
-}(_react.Component);
-
-MultipleSelect.propTypes = {
-    dataSource: _propTypes2.default.arrayOf(_propTypes2.default.object).isRequired,
-    keyField: _propTypes2.default.string,
-    valueField: _propTypes2.default.string,
-    statusField: _propTypes2.default.string,
-    noneSelectedLabel: _propTypes2.default.string,
-    optionAllLabel: _propTypes2.default.string,
-    maxDisplayItemCount: _propTypes2.default.number,
-    onChange: _propTypes2.default.func,
-    hasAllOption: _propTypes2.default.bool
-};
-MultipleSelect.defaultProps = {
-    keyField: KEY_NAME,
-    valueField: VALUE_NAME,
-    statusField: STATUS_NAME,
-    hasAllOption: true
-};
-exports.default = MultipleSelect;
-
-/***/ }),
-
-/***/ "./www/js/source/reactpages/components/multiple-select/components/MultipleSelectLabel.jsx":
-/*!************************************************************************************************!*\
-  !*** ./www/js/source/reactpages/components/multiple-select/components/MultipleSelectLabel.jsx ***!
-  \************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var NO_SELECTED_LABEL = "Select options";
-var MAX_SELECTED_ITEM_FOR_DISPLAY = 3;
-
-var MultipleSelectLabel = function (_Component) {
-    _inherits(MultipleSelectLabel, _Component);
-
-    function MultipleSelectLabel(props) {
-        _classCallCheck(this, MultipleSelectLabel);
-
-        var _this = _possibleConstructorReturn(this, (MultipleSelectLabel.__proto__ || Object.getPrototypeOf(MultipleSelectLabel)).call(this, props));
-
-        _this.state = {
-            noneSelectedLabel: props.noneSelectedLabel
-        };
-        return _this;
-    }
-
-    _createClass(MultipleSelectLabel, [{
-        key: 'render',
-        value: function render() {
-            return _react2.default.createElement(
-                'button',
-                { type: 'button', className: 'multiple-select-default multiple-select-label',
-                    onClick: this.props.onToggle },
-                _react2.default.createElement(
-                    'span',
-                    { className: 'text-display', title: this.selectedItemsString },
-                    this.selectedItemsString
-                ),
-                _react2.default.createElement('b', { className: 'caret' })
-            );
-        }
-    }, {
-        key: 'selectedItemsString',
-        get: function get() {
-            var _props = this.props,
-                selectedItems = _props.selectedItems,
-                noneSelectedLabel = _props.noneSelectedLabel,
-                maxDisplayItemCount = _props.maxDisplayItemCount;
-
-            var selectedValues = selectedItems.map(function (item) {
-                return item.value;
-            });
-
-            var displayText = noneSelectedLabel;
-            var selectedItemCount = selectedValues.length;
-
-            if (selectedItemCount >= maxDisplayItemCount) {
-                displayText = selectedItemCount + ' selected';
-            } else if (selectedItemCount >= 1) {
-                displayText = selectedValues.join(", ");
-            }
-
-            return displayText;
-        }
-    }]);
-
-    return MultipleSelectLabel;
-}(_react.Component);
-
-MultipleSelectLabel.propTypes = {
-    selectedItems: _propTypes2.default.arrayOf(_propTypes2.default.object).isRequired,
-    noneSelectedLabel: _propTypes2.default.string,
-    maxDisplayItemCount: _propTypes2.default.number
-};
-MultipleSelectLabel.defaultProps = {
-    noneSelectedLabel: NO_SELECTED_LABEL,
-    maxDisplayItemCount: MAX_SELECTED_ITEM_FOR_DISPLAY
-};
-exports.default = MultipleSelectLabel;
-
-/***/ }),
-
-/***/ "./www/js/source/reactpages/components/multiple-select/components/MultipleSelectOptionList.jsx":
-/*!*****************************************************************************************************!*\
-  !*** ./www/js/source/reactpages/components/multiple-select/components/MultipleSelectOptionList.jsx ***!
-  \*****************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _Option = __webpack_require__(/*! ./Option */ "./www/js/source/reactpages/components/multiple-select/components/Option.jsx");
-
-var _Option2 = _interopRequireDefault(_Option);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var MultipleSelectOptionList = function (_Component) {
-    _inherits(MultipleSelectOptionList, _Component);
-
-    function MultipleSelectOptionList(props) {
-        _classCallCheck(this, MultipleSelectOptionList);
-
-        return _possibleConstructorReturn(this, (MultipleSelectOptionList.__proto__ || Object.getPrototypeOf(MultipleSelectOptionList)).call(this, props));
-    }
-
-    _createClass(MultipleSelectOptionList, [{
-        key: '_renderOptionList',
-        value: function _renderOptionList() {
-            var _props = this.props,
-                dataSource = _props.dataSource,
-                onChange = _props.onChange,
-                id = _props.id;
-
-            var optionList = dataSource.map(function (item, index) {
-                return _react2.default.createElement(_Option2.default, {
-                    id: id + '-optionItem-' + index,
-                    key: id + 'optionItem' + index,
-                    itemData: item,
-                    onChange: onChange });
-            });
-
-            return optionList;
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            return _react2.default.createElement(
-                'ul',
-                { className: 'multiple-select-options' },
-                this._renderOptionList()
-            );
-        }
-    }]);
-
-    return MultipleSelectOptionList;
-}(_react.Component);
-
-MultipleSelectOptionList.propTypes = {
-    dataSource: _propTypes2.default.arrayOf(_propTypes2.default.object).isRequired,
-    id: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]).isRequired,
-    onChange: _propTypes2.default.func
-};
-exports.default = MultipleSelectOptionList;
-
-/***/ }),
-
-/***/ "./www/js/source/reactpages/components/multiple-select/components/Option.jsx":
-/*!***********************************************************************************!*\
-  !*** ./www/js/source/reactpages/components/multiple-select/components/Option.jsx ***!
-  \***********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Option = function (_Component) {
-    _inherits(Option, _Component);
-
-    function Option(props) {
-        _classCallCheck(this, Option);
-
-        var _this = _possibleConstructorReturn(this, (Option.__proto__ || Object.getPrototypeOf(Option)).call(this, props));
-
-        _this.onChange = function (event) {
-            event.stopPropagation();
-
-            var _this$props = _this.props,
-                itemData = _this$props.itemData,
-                onChange = _this$props.onChange;
-
-
-            var newItemData = {
-                key: itemData.key,
-                value: itemData.value,
-                checked: !itemData.checked
-            };
-            onChange && onChange(newItemData);
-        };
-
-        return _this;
-    }
-
-    _createClass(Option, [{
-        key: 'render',
-        value: function render() {
-            var _props = this.props,
-                itemData = _props.itemData,
-                id = _props.id;
-
-
-            return _react2.default.createElement(
-                'li',
-                { className: 'multiple-select-item' },
-                _react2.default.createElement('input', {
-                    id: id,
-                    type: 'checkbox',
-                    className: 'option-checkbox',
-                    checked: itemData.checked,
-                    onChange: this.onChange
-                }),
-                _react2.default.createElement(
-                    'label',
-                    { className: 'option-label', htmlFor: id },
-                    itemData.value
-                )
-            );
-        }
-    }]);
-
-    return Option;
-}(_react.Component);
-
-Option.propTypes = {
-    itemData: _propTypes2.default.object.isRequired,
-    id: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]).isRequired,
-    onChange: _propTypes2.default.func
-};
-exports.default = Option;
-
-/***/ }),
-
-/***/ "./www/js/source/reactpages/components/multiple-select/components/OptionAll.jsx":
-/*!**************************************************************************************!*\
-  !*** ./www/js/source/reactpages/components/multiple-select/components/OptionAll.jsx ***!
-  \**************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _Option = __webpack_require__(/*! ./Option */ "./www/js/source/reactpages/components/multiple-select/components/Option.jsx");
-
-var _Option2 = _interopRequireDefault(_Option);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var LABEL = "All";
-var DEFAULT_CHECKED = false;
-
-var OptionAll = function (_Component) {
-    _inherits(OptionAll, _Component);
-
-    function OptionAll(props) {
-        _classCallCheck(this, OptionAll);
-
-        var _this = _possibleConstructorReturn(this, (OptionAll.__proto__ || Object.getPrototypeOf(OptionAll)).call(this, props));
-
-        _this.changeHandler = function (_ref) {
-            var checked = _ref.checked;
-
-            _this.props.onChange && _this.props.onChange(checked);
-        };
-
-        _this.itemData = {
-            key: "All",
-            value: props.label
-        };
-        return _this;
-    }
-
-    _createClass(OptionAll, [{
-        key: 'render',
-        value: function render() {
-            var _props = this.props,
-                id = _props.id,
-                checked = _props.checked;
-
-            this.itemData.checked = checked;
-
-            return _react2.default.createElement(
-                'ul',
-                { className: 'multiple-select-options multiple-select-option-all' },
-                _react2.default.createElement(_Option2.default, {
-                    id: id + '-optionItemAll',
-                    itemData: this.itemData,
-                    onChange: this.changeHandler })
-            );
-        }
-    }]);
-
-    return OptionAll;
-}(_react.Component);
-
-OptionAll.propTypes = {
-    onChange: _propTypes2.default.func,
-    id: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]).isRequired,
-    label: _propTypes2.default.string,
-    checked: _propTypes2.default.bool
-};
-OptionAll.defaultProps = {
-    label: LABEL,
-    checked: DEFAULT_CHECKED
-};
-exports.default = OptionAll;
-
-/***/ }),
-
-/***/ "./www/js/source/reactpages/components/multiple-select/index.jsx":
-/*!***********************************************************************!*\
-  !*** ./www/js/source/reactpages/components/multiple-select/index.jsx ***!
-  \***********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _MultipleSelect = __webpack_require__(/*! ./components/MultipleSelect */ "./www/js/source/reactpages/components/multiple-select/components/MultipleSelect.jsx");
-
-var _MultipleSelect2 = _interopRequireDefault(_MultipleSelect);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = _MultipleSelect2.default;
 
 /***/ }),
 
@@ -3693,36 +2993,6 @@ exports.default = Store;
 
 /***/ }),
 
-/***/ "./www/js/source/reactpages/pages/speciallicenseewl/actions/dataHandlerAction.js":
-/*!***************************************************************************************!*\
-  !*** ./www/js/source/reactpages/pages/speciallicenseewl/actions/dataHandlerAction.js ***!
-  \***************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.setGridData = setGridData;
-
-var _types = __webpack_require__(/*! ./types.js */ "./www/js/source/reactpages/pages/speciallicenseewl/actions/types.js");
-
-var types = _interopRequireWildcard(_types);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function setGridData(data) {
-    return {
-        type: types.SET_GRID_DATA,
-        data: data
-    };
-}
-
-/***/ }),
-
 /***/ "./www/js/source/reactpages/pages/speciallicenseewl/actions/filterHandlerAction.js":
 /*!*****************************************************************************************!*\
   !*** ./www/js/source/reactpages/pages/speciallicenseewl/actions/filterHandlerAction.js ***!
@@ -3794,10 +3064,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.ActionCreators = undefined;
 
-var _dataHandlerAction = __webpack_require__(/*! ./dataHandlerAction.js */ "./www/js/source/reactpages/pages/speciallicenseewl/actions/dataHandlerAction.js");
-
-var dataHandlerAction = _interopRequireWildcard(_dataHandlerAction);
-
 var _filterHandlerAction = __webpack_require__(/*! ./filterHandlerAction.js */ "./www/js/source/reactpages/pages/speciallicenseewl/actions/filterHandlerAction.js");
 
 var filterHandlerAction = _interopRequireWildcard(_filterHandlerAction);
@@ -3816,7 +3082,7 @@ var loaderAction = _interopRequireWildcard(_loaderAction);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-var ActionCreators = exports.ActionCreators = Object.assign({}, dataHandlerAction, filterHandlerAction, productAction, currencyAction, loaderAction);
+var ActionCreators = exports.ActionCreators = Object.assign({}, filterHandlerAction, productAction, currencyAction, loaderAction);
 
 /***/ }),
 
@@ -3977,9 +3243,9 @@ var _reactSelect = __webpack_require__(/*! react-select */ "./node_modules/react
 
 var _reactSelect2 = _interopRequireDefault(_reactSelect);
 
-var _multipleSelect = __webpack_require__(/*! ../../../components/multiple-select */ "./www/js/source/reactpages/components/multiple-select/index.jsx");
+var _reactMultiselect = __webpack_require__(/*! @9softstudio/react-multiselect */ "./node_modules/@9softstudio/react-multiselect/dist/index.js");
 
-var _multipleSelect2 = _interopRequireDefault(_multipleSelect);
+var _reactMultiselect2 = _interopRequireDefault(_reactMultiselect);
 
 var _langHelper = __webpack_require__(/*! ../../../lib/langHelper */ "./www/js/source/reactpages/lib/langHelper.js");
 
@@ -4032,17 +3298,6 @@ var FormFilter = exports.FormFilter = function (_Component) {
                 return;
             }
 
-            _this.props.toggleLoader(true);
-            _report2.default.fetchGridData(_service.Url, { xsrfToken: _this.props.xsrfToken, data: params }).then(function (response) {
-                if (response.data.Data && response.data.Data.length > 1) {
-                    _service.Service.sort(response.data.Data, params.SortBy, params.SortOrder);
-                }
-                _this.props.setGridData(response.data);
-                _this.props.setReportTitle(_service.Service.getReportTitle(params.FromDate, params.ToDate, params.CurrencyId, params.CurrencyName, params.BaseCurrency));
-            }).catch(function (error) {
-                _service.Service.showErrorMsg();
-                _this.props.toggleLoader(false);
-            });
             _this.props.setParams(params);
         };
 
@@ -4117,7 +3372,8 @@ var FormFilter = exports.FormFilter = function (_Component) {
                 ProductCodeList: this.props.selectedProduct.split(','),
                 ReportBy: this.props.selectedReportBy,
                 SortBy: this.props.params.SortBy,
-                SortOrder: this.props.params.SortOrder
+                SortOrder: this.props.params.SortOrder,
+                Timestamp: new Date().getTime()
             };
         }
     }, {
@@ -4161,7 +3417,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
         value: function _renderProductSelectList() {
             var productOptions = this.props.productOptions;
 
-            return productOptions && productOptions.length && _react2.default.createElement(_multipleSelect2.default, { id: 'ProductList',
+            return productOptions && productOptions.length && _react2.default.createElement(_reactMultiselect2.default, { id: 'ProductList',
                 dataSource: productOptions,
                 keyField: "Code",
                 valueField: "Name",
@@ -4375,10 +3631,6 @@ var _report3 = __webpack_require__(/*! ../../../constants/report */ "./www/js/so
 
 var _service = __webpack_require__(/*! ../lib/service */ "./www/js/source/reactpages/pages/speciallicenseewl/lib/service.js");
 
-var _site = __webpack_require__(/*! ../../../lib/site */ "./www/js/source/reactpages/lib/site.js");
-
-var _site2 = _interopRequireDefault(_site);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -4397,7 +3649,8 @@ var DataGrid = exports.DataGrid = function (_Component) {
 
         _this.state = {
             expandTurnover: false,
-            expandLicensee: false
+            expandLicensee: false,
+            gridData: {}
         };
         return _this;
     }
@@ -4405,22 +3658,61 @@ var DataGrid = exports.DataGrid = function (_Component) {
     _createClass(DataGrid, [{
         key: 'componentDidUpdate',
         value: function componentDidUpdate(prevProps) {
-            if (prevProps.gridData !== this.props.gridData || prevProps.params.SortBy !== this.props.params.SortBy || prevProps.params.SortOrder !== this.props.params.SortOrder) {
-                this.props.toggleLoader(false);
+            if (prevProps.params.Timestamp !== this.props.params.Timestamp) {
+                this._getGridData();
             }
         }
     }, {
-        key: '_onExpandColumn',
-        value: function _onExpandColumn(e, expandData) {
+        key: '_getGridData',
+        value: function _getGridData() {
+            var _this2 = this;
+
+            this.props.toggleLoader(true);
+            _report2.default.fetchGridData(_service.Url, { xsrfToken: this.props.xsrfToken, data: this.props.params }).then(function (response) {
+                var result = response.data;
+
+                var mainData = result.Data;
+                if (mainData && mainData.length > 1) {
+                    _service.Service.sort(mainData, _this2.props.params.SortBy, _this2.props.params.SortOrder);
+
+                    var sortedResult = Object.assign({}, result, { Data: mainData });
+
+                    _this2.setState({ gridData: sortedResult });
+                } else {
+                    _this2.setState({ gridData: result });
+                }
+
+                _this2.props.setReportTitle(_service.Service.getReportTitle(_this2.props.params.FromDate, _this2.props.params.ToDate, _this2.props.params.CurrencyId, _this2.props.params.CurrencyName, _this2.props.params.BaseCurrency));
+
+                _this2.props.toggleLoader(false);
+            }).catch(function (error) {
+                _service.Service.showErrorMsg();
+                _this2.props.toggleLoader(false);
+            });
+        }
+    }, {
+        key: '_onExpandTurnOverColumn',
+        value: function _onExpandTurnOverColumn(e) {
             e.stopPropagation();
-            this.setState(expandData);
+            this.setState(function (prevState) {
+                return { expandTurnover: !prevState.expandTurnover };
+            });
+        }
+    }, {
+        key: '_onExpandLicenseeColumn',
+        value: function _onExpandLicenseeColumn(e) {
+            e.stopPropagation();
+            this.setState(function (prevState) {
+                return { expandLicensee: !prevState.expandLicensee };
+            });
         }
     }, {
         key: '_sort',
         value: function _sort(sortBy) {
-            var param = Object.assign({}, this.props.params);
-            var data = Object.assign({}, this.props.gridData);
+            this.props.toggleLoader(true);
 
+            var param = Object.assign({}, this.props.params);
+            var mainData = this.state.gridData.Data;
             if (!param.SortBy || param.SortBy != sortBy) {
                 param.SortBy = sortBy;
                 param.SortOrder = 'asc';
@@ -4428,26 +3720,17 @@ var DataGrid = exports.DataGrid = function (_Component) {
                 param.SortOrder = param.SortOrder == 'asc' ? 'desc' : 'asc';
             }
 
-            this.props.toggleLoader(true);
+            if (mainData && mainData.length > 1) {
 
-            if (this.props.gridData.Data && this.props.gridData.Data.length > 1) {
-                _service.Service.sort(this.props.gridData.Data, param.SortBy, param.SortOrder);
+                _service.Service.sort(mainData, param.SortBy, param.SortOrder);
+
+                var sortedResult = Object.assign({}, this.state.gridData, { Data: mainData });
+
+                this.setState({ gridData: sortedResult });
             }
 
             this.props.setParams(param);
-        }
-    }, {
-        key: '_updateGridData',
-        value: function _updateGridData(params) {
-            var _this2 = this;
-
-            this.props.toggleLoader(true);
-            _report2.default.fetchGridData(_service.Url, { xsrfToken: this.props.xsrfToken, data: params }).then(function (response) {
-                _this2.props.setGridData(response.data);
-            }).catch(function (error) {
-                _service.Service.showErrorMsg();
-                _this2.props.toggleLoader(false);
-            });
+            this.props.toggleLoader(false);
         }
     }, {
         key: '_buildHeader',
@@ -4493,7 +3776,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
                     _react2.default.createElement(
                         'button',
                         { className: 'header-button btn ' + (expandTurnover ? 'btnCollapse' : ''), onClick: function onClick(e) {
-                                return _this3._onExpandColumn(e, { expandTurnover: !expandTurnover });
+                                return _this3._onExpandTurnOverColumn(e);
                             } },
                         _react2.default.createElement('i', { className: 'btn-icon icon-arrow' })
                     )
@@ -4528,7 +3811,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
                     _react2.default.createElement(
                         'button',
                         { className: 'header-button btn ' + (expandLicensee ? 'btnCollapse' : ''), onClick: function onClick(e) {
-                                return _this3._onExpandColumn(e, { expandLicensee: !expandLicensee });
+                                return _this3._onExpandLicenseeColumn(e);
                             } },
                         _react2.default.createElement('i', { className: 'btn-icon icon-arrow' })
                     )
@@ -4606,7 +3889,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
     }, {
         key: '_buildBody',
         value: function _buildBody(reportBy, selectedProductList) {
-            var data = this.props.gridData.Data,
+            var data = this.state.gridData.Data,
                 formatDate = reportBy === _report3.ReportBy.DAILY.toString() ? 'MM/DD/YYYY' : 'MM/YYYY';
 
             var rows = [];
@@ -4616,7 +3899,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
 
                 rows.push(_react2.default.createElement(
                     _fixedTableHeader.Row,
-                    { key: 'tr' + i },
+                    { key: item.Ticks + '-' + item.CurrencyId },
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
                         { title: i + 1, className: 'center-align' },
@@ -4643,7 +3926,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
         value: function _buildFooter(selectedProductList) {
             var totalRows = [];
 
-            var total = this.props.gridData.Total,
+            var total = this.state.gridData.Total,
                 colSpan = 2,
                 rowSpan = total.length;
 
@@ -4651,7 +3934,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
                 var item = total[i];
                 totalRows.push(_react2.default.createElement(
                     _fixedTableHeader.Row,
-                    { key: 'tr-total' + i, className: 'fixed-table-total' },
+                    { key: item.CurrencyName, className: 'fixed-table-total' },
                     i === 0 && _react2.default.createElement(
                         _fixedTableHeader.Cell,
                         { title: _service.TotalText.total, className: 'center-align', rowSpan: rowSpan, colSpan: colSpan },
@@ -4666,7 +3949,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
                 ));
             }
 
-            var dataSummary = this.props.gridData.SummaryTotal,
+            var dataSummary = this.state.gridData.SummaryTotal,
                 baseCurrencyList = Object.keys(dataSummary),
                 colSummarySpan = colSpan + 1;
 
@@ -4769,7 +4052,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
     }, {
         key: 'render',
         value: function render() {
-            var data = this.props.gridData.Data;
+            var data = this.state.gridData.Data;
             if (!data) {
                 return null;
             }
@@ -4799,11 +4082,10 @@ function mapDispatchToProps(dispatch) {
 }
 function mapStateToProps(state) {
     var params = state.params,
-        xsrfToken = state.xsrfToken,
-        gridData = state.gridData;
+        xsrfToken = state.xsrfToken;
 
-    return Object.assign({}, { params: params, xsrfToken: xsrfToken, gridData: gridData });
-};
+    return Object.assign({}, { params: params, xsrfToken: xsrfToken });
+}
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(DataGrid);
 
@@ -5267,6 +4549,7 @@ var Service = exports.Service = function () {
     }, {
         key: 'sort',
         value: function sort(data, sortBy, sortOrder) {
+
             sortBy = sortBy === 'Date' ? 'Ticks' : sortBy;
 
             var compareFunc = null;
@@ -5301,41 +4584,6 @@ var Service = exports.Service = function () {
 }();
 
 ;
-
-/***/ }),
-
-/***/ "./www/js/source/reactpages/pages/speciallicenseewl/reducers/dataHandlerReducer.js":
-/*!*****************************************************************************************!*\
-  !*** ./www/js/source/reactpages/pages/speciallicenseewl/reducers/dataHandlerReducer.js ***!
-  \*****************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.gridData = undefined;
-
-var _createReducer2 = __webpack_require__(/*! ../../../lib/createReducer.js */ "./www/js/source/reactpages/lib/createReducer.js");
-
-var _createReducer3 = _interopRequireDefault(_createReducer2);
-
-var _types = __webpack_require__(/*! ../actions/types.js */ "./www/js/source/reactpages/pages/speciallicenseewl/actions/types.js");
-
-var types = _interopRequireWildcard(_types);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var gridData = exports.gridData = (0, _createReducer3.default)({}, _defineProperty({}, types.SET_GRID_DATA, function (state, action) {
-    return action.data;
-}));
 
 /***/ }),
 
@@ -5414,10 +4662,6 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(/*! redux */ "./node_modules/redux/es/index.js");
 
-var _dataHandlerReducer = __webpack_require__(/*! ./dataHandlerReducer.js */ "./www/js/source/reactpages/pages/speciallicenseewl/reducers/dataHandlerReducer.js");
-
-var dataHandlerReducer = _interopRequireWildcard(_dataHandlerReducer);
-
 var _filterHandlerReducer = __webpack_require__(/*! ./filterHandlerReducer.js */ "./www/js/source/reactpages/pages/speciallicenseewl/reducers/filterHandlerReducer.js");
 
 var filterHandlerReducer = _interopRequireWildcard(_filterHandlerReducer);
@@ -5436,7 +4680,7 @@ var loaderReducer = _interopRequireWildcard(_loaderReducer);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-exports.default = (0, _redux.combineReducers)(Object.assign(dataHandlerReducer, filterHandlerReducer, productReducer, currencyReducer, loaderReducer));
+exports.default = (0, _redux.combineReducers)(Object.assign(filterHandlerReducer, productReducer, currencyReducer, loaderReducer));
 
 /***/ }),
 

@@ -291,6 +291,36 @@ var setBaseCurrencyList = exports.setBaseCurrencyList = function setBaseCurrency
 
 /***/ }),
 
+/***/ "./www/js/source/reactpages/actions/excludeTestAction.js":
+/*!***************************************************************!*\
+  !*** ./www/js/source/reactpages/actions/excludeTestAction.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.changeIsExcludeTest = undefined;
+
+var _types = __webpack_require__(/*! ./types */ "./www/js/source/reactpages/actions/types.js");
+
+var types = _interopRequireWildcard(_types);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var changeIsExcludeTest = exports.changeIsExcludeTest = function changeIsExcludeTest(checked) {
+    return {
+        type: types.CHANGE_IS_EXCLUDE_TEST,
+        data: checked
+    };
+};
+
+/***/ }),
+
 /***/ "./www/js/source/reactpages/actions/loaderAction.js":
 /*!**********************************************************!*\
   !*** ./www/js/source/reactpages/actions/loaderAction.js ***!
@@ -686,6 +716,187 @@ var ReportTitle = function ReportTitle(_ref) {
 };
 
 exports.default = ReportTitle;
+
+/***/ }),
+
+/***/ "./www/js/source/reactpages/components/breadcrumb/Breadcrumb.jsx":
+/*!***********************************************************************!*\
+  !*** ./www/js/source/reactpages/components/breadcrumb/Breadcrumb.jsx ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _BreadcrumbItem = __webpack_require__(/*! ./BreadcrumbItem */ "./www/js/source/reactpages/components/breadcrumb/BreadcrumbItem.jsx");
+
+var _BreadcrumbItem2 = _interopRequireDefault(_BreadcrumbItem);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var BreadcrumbItem = function (_Component) {
+    _inherits(BreadcrumbItem, _Component);
+
+    function BreadcrumbItem(props) {
+        _classCallCheck(this, BreadcrumbItem);
+
+        return _possibleConstructorReturn(this, (BreadcrumbItem.__proto__ || Object.getPrototypeOf(BreadcrumbItem)).call(this, props));
+    }
+
+    _createClass(BreadcrumbItem, [{
+        key: 'onChange',
+        value: function onChange(item) {
+            if (this.props.value === item.value) {
+                return;
+            }
+
+            this.props.onChange && this.props.onChange(item);
+        }
+    }, {
+        key: '_renderItem',
+        value: function _renderItem() {
+            var _props = this.props,
+                value = _props.value,
+                items = _props.items;
+
+            var breadcrumbItems = [];
+
+            for (var i = 0; i < items.length; i++) {
+                var item = items[i];
+                var isActive = item.value === value;
+
+                breadcrumbItems.push(_react2.default.createElement(_BreadcrumbItem2.default, { key: 'breadcrumb-item' + i, isActive: isActive, label: item.label, onClick: this.onChange.bind(this, item) }));
+
+                if (isActive) {
+                    break;
+                }
+            }
+
+            return breadcrumbItems;
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var items = this._renderItem();
+            if (items.length === 1) {
+                return null;
+            }
+
+            return _react2.default.createElement(
+                'div',
+                { className: 'breadcrumb' },
+                items
+            );
+        }
+    }]);
+
+    return BreadcrumbItem;
+}(_react.Component);
+
+BreadcrumbItem.propTypes = {
+    items: _propTypes2.default.arrayOf(_propTypes2.default.shape({
+        label: _propTypes2.default.string,
+        value: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string])
+    })).isRequired,
+    value: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+    onChange: _propTypes2.default.func
+};
+exports.default = BreadcrumbItem;
+
+/***/ }),
+
+/***/ "./www/js/source/reactpages/components/breadcrumb/BreadcrumbItem.jsx":
+/*!***************************************************************************!*\
+  !*** ./www/js/source/reactpages/components/breadcrumb/BreadcrumbItem.jsx ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var BreadcrumbItem = function (_Component) {
+    _inherits(BreadcrumbItem, _Component);
+
+    function BreadcrumbItem(props) {
+        _classCallCheck(this, BreadcrumbItem);
+
+        return _possibleConstructorReturn(this, (BreadcrumbItem.__proto__ || Object.getPrototypeOf(BreadcrumbItem)).call(this, props));
+    }
+
+    _createClass(BreadcrumbItem, [{
+        key: 'render',
+        value: function render() {
+            var _props = this.props,
+                label = _props.label,
+                isActive = _props.isActive,
+                onClick = _props.onClick;
+
+
+            return _react2.default.createElement(
+                'a',
+                { className: 'breadcrumb-item ' + (isActive ? 'active' : ''), onClick: onClick, href: 'javascript:;' },
+                label
+            );
+        }
+    }]);
+
+    return BreadcrumbItem;
+}(_react.Component);
+
+BreadcrumbItem.propTypes = {
+    label: _propTypes2.default.string,
+    isActive: _propTypes2.default.bool,
+    onClick: _propTypes2.default.func
+};
+BreadcrumbItem.defaultProps = {
+    label: '',
+    isActive: false
+};
+exports.default = BreadcrumbItem;
 
 /***/ }),
 
@@ -3807,683 +4018,6 @@ exports.Cell = _Cell2.default;
 
 /***/ }),
 
-/***/ "./www/js/source/reactpages/components/multiple-select/components/MultipleSelect.jsx":
-/*!*******************************************************************************************!*\
-  !*** ./www/js/source/reactpages/components/multiple-select/components/MultipleSelect.jsx ***!
-  \*******************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _MultipleSelectLabel = __webpack_require__(/*! ./MultipleSelectLabel */ "./www/js/source/reactpages/components/multiple-select/components/MultipleSelectLabel.jsx");
-
-var _MultipleSelectLabel2 = _interopRequireDefault(_MultipleSelectLabel);
-
-var _MultipleSelectOptionList = __webpack_require__(/*! ./MultipleSelectOptionList */ "./www/js/source/reactpages/components/multiple-select/components/MultipleSelectOptionList.jsx");
-
-var _MultipleSelectOptionList2 = _interopRequireDefault(_MultipleSelectOptionList);
-
-var _OptionAll = __webpack_require__(/*! ./OptionAll */ "./www/js/source/reactpages/components/multiple-select/components/OptionAll.jsx");
-
-var _OptionAll2 = _interopRequireDefault(_OptionAll);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var KEY_NAME = "key";
-var VALUE_NAME = "value";
-var STATUS_NAME = "checked";
-
-var id = 1;
-
-var MultipleSelect = function (_Component) {
-    _inherits(MultipleSelect, _Component);
-
-    function MultipleSelect(props) {
-        _classCallCheck(this, MultipleSelect);
-
-        var _this = _possibleConstructorReturn(this, (MultipleSelect.__proto__ || Object.getPrototypeOf(MultipleSelect)).call(this, props));
-
-        _this.onChangeHandler = function (item) {
-            var _selectedItem;
-
-            var _this$props = _this.props,
-                keyField = _this$props.keyField,
-                valueField = _this$props.valueField,
-                statusField = _this$props.statusField;
-
-
-            var selectedItem = (_selectedItem = {}, _defineProperty(_selectedItem, keyField, item.key), _defineProperty(_selectedItem, valueField, item.value), _defineProperty(_selectedItem, statusField, item.checked), _selectedItem);
-
-            var newDataSource = _this.state.dataSource.slice(0);
-            var itemToUpdate = newDataSource.find(function (x) {
-                return x.key === item.key;
-            });
-            itemToUpdate.checked = item.checked;
-
-            _this._callBackToParent(selectedItem, newDataSource);
-
-            _this.setState({ dataSource: newDataSource });
-        };
-
-        _this.onToggle = function () {
-            _this.setState(function (prevState) {
-                return { showOptionList: !prevState.showOptionList };
-            });
-        };
-
-        _this.checkAllHandler = function (checked) {
-            var newDataSource = _this.state.dataSource.map(function (item) {
-                return {
-                    key: item.key,
-                    value: item.value,
-                    checked: checked
-                };
-            });
-
-            _this._callBackToParent(null, newDataSource);
-
-            _this.setState({ dataSource: newDataSource });
-        };
-
-        _this._close = function () {
-            _this.setState({ showOptionList: false });
-        };
-
-        _this._handleDocumentClick = function (event) {
-            var clickOutside = _this.wrapper && !_this.wrapper.contains(event.target);
-
-            if (clickOutside && _this.state.showOptionList) {
-                _this._close();
-            }
-        };
-
-        _this.id = 'multiple-select-' + (props.id || id++);
-
-        _this.state = {
-            showOptionList: false,
-            dataSource: _this._convertDataSourceToState(props)
-        };
-        return _this;
-    }
-
-    _createClass(MultipleSelect, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            document.addEventListener('click', this._handleDocumentClick);
-        }
-    }, {
-        key: 'componentWillUnmount',
-        value: function componentWillUnmount() {
-            document.removeEventListener('click', this._handleDocumentClick);
-        }
-    }, {
-        key: '_callBackToParent',
-        value: function _callBackToParent(selectedItem, newDataSource) {
-            var selectedItemsKey = this._getSelectedItemKey(newDataSource);
-            this.props.onChange && this.props.onChange(selectedItem, selectedItemsKey);
-        }
-    }, {
-        key: '_convertDataSourceToState',
-        value: function _convertDataSourceToState(_ref) {
-            var keyField = _ref.keyField,
-                valueField = _ref.valueField,
-                statusField = _ref.statusField,
-                dataSource = _ref.dataSource;
-
-            return dataSource.map(function (item) {
-                var _ref2;
-
-                return _ref2 = {}, _defineProperty(_ref2, KEY_NAME, item[keyField]), _defineProperty(_ref2, VALUE_NAME, item[valueField]), _defineProperty(_ref2, STATUS_NAME, item[statusField]), _ref2;
-            });
-        }
-    }, {
-        key: '_getSelectedItemKey',
-        value: function _getSelectedItemKey(dataSource) {
-            var selectedItemKey = [];
-
-            for (var i = 0; i < dataSource.length; i++) {
-                var item = dataSource[i];
-
-                if (item.checked) {
-                    selectedItemKey.push(item.key);
-                }
-            }
-
-            return selectedItemKey.join(",");
-        }
-    }, {
-        key: '_renderOptionAll',
-        value: function _renderOptionAll() {
-            if (this.props.hasAllOption) {
-                var checkedItemCount = this.state.dataSource.filter(function (x) {
-                    return x.checked;
-                }).length;
-                var checkedAll = checkedItemCount === this.state.dataSource.length;
-
-                return _react2.default.createElement(_OptionAll2.default, { id: this.id, checked: checkedAll, label: this.props.optionAllLabel, onChange: this.checkAllHandler });
-            }
-
-            return null;
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var _this2 = this;
-
-            var _props = this.props,
-                noneSelectedLabel = _props.noneSelectedLabel,
-                maxDisplayItemCount = _props.maxDisplayItemCount,
-                hasAllOption = _props.hasAllOption;
-
-
-            return _react2.default.createElement(
-                'div',
-                { className: 'multiple-select-container', id: this.id, ref: function ref(element) {
-                        return _this2.wrapper = element;
-                    } },
-                _react2.default.createElement(_MultipleSelectLabel2.default, {
-                    selectedItems: this.selectedItems,
-                    onToggle: this.onToggle,
-                    noneSelectedLabel: noneSelectedLabel,
-                    maxDisplayItemCount: maxDisplayItemCount }),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'multiple-select-default multiple-select-options-container',
-                        style: { display: this.state.showOptionList ? "block" : "none" } },
-                    this._renderOptionAll(),
-                    _react2.default.createElement(_MultipleSelectOptionList2.default, { id: this.id,
-                        dataSource: this.state.dataSource,
-                        onChange: this.onChangeHandler })
-                )
-            );
-        }
-    }, {
-        key: 'selectedItems',
-        get: function get() {
-            return this.state.dataSource.filter(function (item) {
-                return item.checked;
-            });
-        }
-    }]);
-
-    return MultipleSelect;
-}(_react.Component);
-
-MultipleSelect.propTypes = {
-    dataSource: _propTypes2.default.arrayOf(_propTypes2.default.object).isRequired,
-    keyField: _propTypes2.default.string,
-    valueField: _propTypes2.default.string,
-    statusField: _propTypes2.default.string,
-    noneSelectedLabel: _propTypes2.default.string,
-    optionAllLabel: _propTypes2.default.string,
-    maxDisplayItemCount: _propTypes2.default.number,
-    onChange: _propTypes2.default.func,
-    hasAllOption: _propTypes2.default.bool
-};
-MultipleSelect.defaultProps = {
-    keyField: KEY_NAME,
-    valueField: VALUE_NAME,
-    statusField: STATUS_NAME,
-    hasAllOption: true
-};
-exports.default = MultipleSelect;
-
-/***/ }),
-
-/***/ "./www/js/source/reactpages/components/multiple-select/components/MultipleSelectLabel.jsx":
-/*!************************************************************************************************!*\
-  !*** ./www/js/source/reactpages/components/multiple-select/components/MultipleSelectLabel.jsx ***!
-  \************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var NO_SELECTED_LABEL = "Select options";
-var MAX_SELECTED_ITEM_FOR_DISPLAY = 3;
-
-var MultipleSelectLabel = function (_Component) {
-    _inherits(MultipleSelectLabel, _Component);
-
-    function MultipleSelectLabel(props) {
-        _classCallCheck(this, MultipleSelectLabel);
-
-        var _this = _possibleConstructorReturn(this, (MultipleSelectLabel.__proto__ || Object.getPrototypeOf(MultipleSelectLabel)).call(this, props));
-
-        _this.state = {
-            noneSelectedLabel: props.noneSelectedLabel
-        };
-        return _this;
-    }
-
-    _createClass(MultipleSelectLabel, [{
-        key: 'render',
-        value: function render() {
-            return _react2.default.createElement(
-                'button',
-                { type: 'button', className: 'multiple-select-default multiple-select-label',
-                    onClick: this.props.onToggle },
-                _react2.default.createElement(
-                    'span',
-                    { className: 'text-display', title: this.selectedItemsString },
-                    this.selectedItemsString
-                ),
-                _react2.default.createElement('b', { className: 'caret' })
-            );
-        }
-    }, {
-        key: 'selectedItemsString',
-        get: function get() {
-            var _props = this.props,
-                selectedItems = _props.selectedItems,
-                noneSelectedLabel = _props.noneSelectedLabel,
-                maxDisplayItemCount = _props.maxDisplayItemCount;
-
-            var selectedValues = selectedItems.map(function (item) {
-                return item.value;
-            });
-
-            var displayText = noneSelectedLabel;
-            var selectedItemCount = selectedValues.length;
-
-            if (selectedItemCount >= maxDisplayItemCount) {
-                displayText = selectedItemCount + ' selected';
-            } else if (selectedItemCount >= 1) {
-                displayText = selectedValues.join(", ");
-            }
-
-            return displayText;
-        }
-    }]);
-
-    return MultipleSelectLabel;
-}(_react.Component);
-
-MultipleSelectLabel.propTypes = {
-    selectedItems: _propTypes2.default.arrayOf(_propTypes2.default.object).isRequired,
-    noneSelectedLabel: _propTypes2.default.string,
-    maxDisplayItemCount: _propTypes2.default.number
-};
-MultipleSelectLabel.defaultProps = {
-    noneSelectedLabel: NO_SELECTED_LABEL,
-    maxDisplayItemCount: MAX_SELECTED_ITEM_FOR_DISPLAY
-};
-exports.default = MultipleSelectLabel;
-
-/***/ }),
-
-/***/ "./www/js/source/reactpages/components/multiple-select/components/MultipleSelectOptionList.jsx":
-/*!*****************************************************************************************************!*\
-  !*** ./www/js/source/reactpages/components/multiple-select/components/MultipleSelectOptionList.jsx ***!
-  \*****************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _Option = __webpack_require__(/*! ./Option */ "./www/js/source/reactpages/components/multiple-select/components/Option.jsx");
-
-var _Option2 = _interopRequireDefault(_Option);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var MultipleSelectOptionList = function (_Component) {
-    _inherits(MultipleSelectOptionList, _Component);
-
-    function MultipleSelectOptionList(props) {
-        _classCallCheck(this, MultipleSelectOptionList);
-
-        return _possibleConstructorReturn(this, (MultipleSelectOptionList.__proto__ || Object.getPrototypeOf(MultipleSelectOptionList)).call(this, props));
-    }
-
-    _createClass(MultipleSelectOptionList, [{
-        key: '_renderOptionList',
-        value: function _renderOptionList() {
-            var _props = this.props,
-                dataSource = _props.dataSource,
-                onChange = _props.onChange,
-                id = _props.id;
-
-            var optionList = dataSource.map(function (item, index) {
-                return _react2.default.createElement(_Option2.default, {
-                    id: id + '-optionItem-' + index,
-                    key: id + 'optionItem' + index,
-                    itemData: item,
-                    onChange: onChange });
-            });
-
-            return optionList;
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            return _react2.default.createElement(
-                'ul',
-                { className: 'multiple-select-options' },
-                this._renderOptionList()
-            );
-        }
-    }]);
-
-    return MultipleSelectOptionList;
-}(_react.Component);
-
-MultipleSelectOptionList.propTypes = {
-    dataSource: _propTypes2.default.arrayOf(_propTypes2.default.object).isRequired,
-    id: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]).isRequired,
-    onChange: _propTypes2.default.func
-};
-exports.default = MultipleSelectOptionList;
-
-/***/ }),
-
-/***/ "./www/js/source/reactpages/components/multiple-select/components/Option.jsx":
-/*!***********************************************************************************!*\
-  !*** ./www/js/source/reactpages/components/multiple-select/components/Option.jsx ***!
-  \***********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Option = function (_Component) {
-    _inherits(Option, _Component);
-
-    function Option(props) {
-        _classCallCheck(this, Option);
-
-        var _this = _possibleConstructorReturn(this, (Option.__proto__ || Object.getPrototypeOf(Option)).call(this, props));
-
-        _this.onChange = function (event) {
-            event.stopPropagation();
-
-            var _this$props = _this.props,
-                itemData = _this$props.itemData,
-                onChange = _this$props.onChange;
-
-
-            var newItemData = {
-                key: itemData.key,
-                value: itemData.value,
-                checked: !itemData.checked
-            };
-            onChange && onChange(newItemData);
-        };
-
-        return _this;
-    }
-
-    _createClass(Option, [{
-        key: 'render',
-        value: function render() {
-            var _props = this.props,
-                itemData = _props.itemData,
-                id = _props.id;
-
-
-            return _react2.default.createElement(
-                'li',
-                { className: 'multiple-select-item' },
-                _react2.default.createElement('input', {
-                    id: id,
-                    type: 'checkbox',
-                    className: 'option-checkbox',
-                    checked: itemData.checked,
-                    onChange: this.onChange
-                }),
-                _react2.default.createElement(
-                    'label',
-                    { className: 'option-label', htmlFor: id },
-                    itemData.value
-                )
-            );
-        }
-    }]);
-
-    return Option;
-}(_react.Component);
-
-Option.propTypes = {
-    itemData: _propTypes2.default.object.isRequired,
-    id: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]).isRequired,
-    onChange: _propTypes2.default.func
-};
-exports.default = Option;
-
-/***/ }),
-
-/***/ "./www/js/source/reactpages/components/multiple-select/components/OptionAll.jsx":
-/*!**************************************************************************************!*\
-  !*** ./www/js/source/reactpages/components/multiple-select/components/OptionAll.jsx ***!
-  \**************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _Option = __webpack_require__(/*! ./Option */ "./www/js/source/reactpages/components/multiple-select/components/Option.jsx");
-
-var _Option2 = _interopRequireDefault(_Option);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var LABEL = "All";
-var DEFAULT_CHECKED = false;
-
-var OptionAll = function (_Component) {
-    _inherits(OptionAll, _Component);
-
-    function OptionAll(props) {
-        _classCallCheck(this, OptionAll);
-
-        var _this = _possibleConstructorReturn(this, (OptionAll.__proto__ || Object.getPrototypeOf(OptionAll)).call(this, props));
-
-        _this.changeHandler = function (_ref) {
-            var checked = _ref.checked;
-
-            _this.props.onChange && _this.props.onChange(checked);
-        };
-
-        _this.itemData = {
-            key: "All",
-            value: props.label
-        };
-        return _this;
-    }
-
-    _createClass(OptionAll, [{
-        key: 'render',
-        value: function render() {
-            var _props = this.props,
-                id = _props.id,
-                checked = _props.checked;
-
-            this.itemData.checked = checked;
-
-            return _react2.default.createElement(
-                'ul',
-                { className: 'multiple-select-options multiple-select-option-all' },
-                _react2.default.createElement(_Option2.default, {
-                    id: id + '-optionItemAll',
-                    itemData: this.itemData,
-                    onChange: this.changeHandler })
-            );
-        }
-    }]);
-
-    return OptionAll;
-}(_react.Component);
-
-OptionAll.propTypes = {
-    onChange: _propTypes2.default.func,
-    id: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]).isRequired,
-    label: _propTypes2.default.string,
-    checked: _propTypes2.default.bool
-};
-OptionAll.defaultProps = {
-    label: LABEL,
-    checked: DEFAULT_CHECKED
-};
-exports.default = OptionAll;
-
-/***/ }),
-
-/***/ "./www/js/source/reactpages/components/multiple-select/index.jsx":
-/*!***********************************************************************!*\
-  !*** ./www/js/source/reactpages/components/multiple-select/index.jsx ***!
-  \***********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _MultipleSelect = __webpack_require__(/*! ./components/MultipleSelect */ "./www/js/source/reactpages/components/multiple-select/components/MultipleSelect.jsx");
-
-var _MultipleSelect2 = _interopRequireDefault(_MultipleSelect);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = _MultipleSelect2.default;
-
-/***/ }),
-
 /***/ "./www/js/source/reactpages/constants/config.js":
 /*!******************************************************!*\
   !*** ./www/js/source/reactpages/constants/config.js ***!
@@ -4575,6 +4109,32 @@ var grandTotalCellStyle = exports.grandTotalCellStyle = {
     decimal: decimalGrandTotalStyle,
     negativeDecimal: _extends({}, decimalGrandTotalStyle, { font: { bold: true, color: { rgb: "FF0000" } } }),
     percent: _extends({}, grandTotalTextStyle, { numFmt: "#,##0.00%" })
+};
+
+/***/ }),
+
+/***/ "./www/js/source/reactpages/constants/report.js":
+/*!******************************************************!*\
+  !*** ./www/js/source/reactpages/constants/report.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var ReportLevel = exports.ReportLevel = {
+    MAIN: 0,
+    LICENSEE: 1,
+    CUSTOMER: 2
+};
+
+var ReportBy = exports.ReportBy = {
+    DAILY: 1,
+    MONTHLY: 2
 };
 
 /***/ }),
@@ -4954,6 +4514,98 @@ exports.default = NumberFormat;
 
 /***/ }),
 
+/***/ "./www/js/source/reactpages/lib/report.js":
+/*!************************************************!*\
+  !*** ./www/js/source/reactpages/lib/report.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _report = __webpack_require__(/*! ../constants/report */ "./www/js/source/reactpages/constants/report.js");
+
+var _site = __webpack_require__(/*! ./site */ "./www/js/source/reactpages/lib/site.js");
+
+var _site2 = _interopRequireDefault(_site);
+
+var _axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var fetchData = function fetchData(relativeUrl, params) {
+    var url = _site2.default.resolveClientUrl(relativeUrl);
+    return _axios2.default.post(url, params.data, {
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            '__RequestVerificationToken': _site2.default.getXsrfToken()
+        }
+    });
+};
+
+var Report = function () {
+    function Report() {
+        _classCallCheck(this, Report);
+    }
+
+    _createClass(Report, null, [{
+        key: 'getDrilldownDateRange',
+        value: function getDrilldownDateRange(reportBy, fromDate, toDate, drilldownDate) {
+            var fdate = typeof drilldownDate === "string" ? new Date(drilldownDate) : drilldownDate;
+            var tdate = fdate;
+
+            if (Number(reportBy) === _report.ReportBy.MONTHLY) {
+                var fday = 1;
+                var month = fdate.getMonth();
+                var year = fdate.getFullYear();
+                var orignalFDate = new Date(fromDate);
+
+                if (month === orignalFDate.getMonth()) {
+                    fday = orignalFDate.getDate();
+                }
+
+                fdate = new Date(year, month, fday, 0, 0, 0, 0);
+
+                var originalTDate = new Date(toDate);
+
+                if (month === originalTDate.getMonth()) {
+                    var tday = originalTDate.getDate();
+                    tdate = new Date(year, month, tday, 0, 0, 0, 0);
+                } else {
+                    tdate = new Date(year, month + 1, 0);
+                }
+            }
+
+            return {
+                fromDate: fdate,
+                toDate: tdate
+            };
+        }
+    }, {
+        key: 'fetchGridData',
+        value: function fetchGridData(relativeUrl, params, callBack, errorHandler) {
+            return fetchData(relativeUrl, params);
+        }
+    }]);
+
+    return Report;
+}();
+
+exports.default = Report;
+
+/***/ }),
+
 /***/ "./www/js/source/reactpages/lib/site.js":
 /*!**********************************************!*\
   !*** ./www/js/source/reactpages/lib/site.js ***!
@@ -5085,72 +4737,6 @@ exports.default = Store;
 
 /***/ }),
 
-/***/ "./www/js/source/reactpages/pages/subsidiaryperformance/actions/dataHandlerAction.js":
-/*!*******************************************************************************************!*\
-  !*** ./www/js/source/reactpages/pages/subsidiaryperformance/actions/dataHandlerAction.js ***!
-  \*******************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.getGridData = getGridData;
-exports.exportExcel = exportExcel;
-exports.setGridData = setGridData;
-
-var _types = __webpack_require__(/*! ./types.js */ "./www/js/source/reactpages/pages/subsidiaryperformance/actions/types.js");
-
-var types = _interopRequireWildcard(_types);
-
-var _axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-
-var _axios2 = _interopRequireDefault(_axios);
-
-var _site = __webpack_require__(/*! ../../../lib/site */ "./www/js/source/reactpages/lib/site.js");
-
-var _site2 = _interopRequireDefault(_site);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-var fetchData = function fetchData(params) {
-    var url = _site2.default.resolveClientUrl('api/SubsidiaryPerformanceReport/Index');
-    return _axios2.default.post(url, params.data, {
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-            '__RequestVerificationToken': _site2.default.getXsrfToken()
-        }
-    });
-};
-
-function getGridData(params) {
-    return function (dispatch) {
-        fetchData(params).then(function (response) {
-            dispatch(setGridData(response.data));
-        });
-    };
-}
-
-function exportExcel(params) {
-    return function () {
-        return fetchData(params);
-    };
-}
-
-function setGridData(data) {
-    return {
-        type: types.SET_GRID_DATA,
-        data: data
-    };
-}
-
-/***/ }),
-
 /***/ "./www/js/source/reactpages/pages/subsidiaryperformance/actions/filterHandlerAction.js":
 /*!*********************************************************************************************!*\
   !*** ./www/js/source/reactpages/pages/subsidiaryperformance/actions/filterHandlerAction.js ***!
@@ -5164,7 +4750,7 @@ function setGridData(data) {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.changeConvertAll = exports.setDateRange = exports.setSelectedSubsidiary = undefined;
+exports.setParams = exports.changeIncludeDrawData = exports.changeConvertAll = exports.setDateRange = exports.setSelectedSubsidiary = undefined;
 
 var _types = __webpack_require__(/*! ./types.js */ "./www/js/source/reactpages/pages/subsidiaryperformance/actions/types.js");
 
@@ -5198,6 +4784,20 @@ var changeConvertAll = exports.changeConvertAll = function changeConvertAll(chec
     };
 };
 
+var changeIncludeDrawData = exports.changeIncludeDrawData = function changeIncludeDrawData(checked) {
+    return {
+        type: types.CHANGE_INCLUDE_DRAW_DATA,
+        data: checked
+    };
+};
+
+var setParams = exports.setParams = function setParams(params) {
+    return {
+        type: types.SET_PARAMS,
+        data: params
+    };
+};
+
 /***/ }),
 
 /***/ "./www/js/source/reactpages/pages/subsidiaryperformance/actions/index.js":
@@ -5215,10 +4815,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.ActionCreators = undefined;
 
-var _dataHandlerAction = __webpack_require__(/*! ./dataHandlerAction.js */ "./www/js/source/reactpages/pages/subsidiaryperformance/actions/dataHandlerAction.js");
-
-var dataHandlerAction = _interopRequireWildcard(_dataHandlerAction);
-
 var _filterHandlerAction = __webpack_require__(/*! ./filterHandlerAction.js */ "./www/js/source/reactpages/pages/subsidiaryperformance/actions/filterHandlerAction.js");
 
 var filterHandlerAction = _interopRequireWildcard(_filterHandlerAction);
@@ -5235,9 +4831,13 @@ var _loaderAction = __webpack_require__(/*! ../../../actions/loaderAction */ "./
 
 var loaderAction = _interopRequireWildcard(_loaderAction);
 
+var _excludeTestAction = __webpack_require__(/*! ../../../actions/excludeTestAction */ "./www/js/source/reactpages/actions/excludeTestAction.js");
+
+var excludeTestAction = _interopRequireWildcard(_excludeTestAction);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-var ActionCreators = exports.ActionCreators = Object.assign({}, dataHandlerAction, filterHandlerAction, productAction, baseCurrencyAction, loaderAction);
+var ActionCreators = exports.ActionCreators = Object.assign({}, filterHandlerAction, productAction, baseCurrencyAction, loaderAction, excludeTestAction);
 
 /***/ }),
 
@@ -5263,6 +4863,12 @@ var SET_SUBSIDIARY = exports.SET_SUBSIDIARY = "SET_SUBSIDIARY";
 var SET_DATE_RANGE = exports.SET_DATE_RANGE = "SET_DATE_RANGE";
 var GET_DATE_CONSTRAINT = exports.GET_DATE_CONSTRAINT = "GET_DATE_CONSTRAINT";
 var CHANGE_CONVERT_ALL = exports.CHANGE_CONVERT_ALL = "CHANGE_CONVERT_ALL";
+
+var GET_XSRF_TOKEN = exports.GET_XSRF_TOKEN = "GET_XSRF_TOKEN";
+
+var CHANGE_INCLUDE_DRAW_DATA = exports.CHANGE_INCLUDE_DRAW_DATA = 'CHANGE_INCLUDE_DRAW_DATA';
+
+var SET_PARAMS = exports.SET_PARAMS = 'SET_PARAMS';
 
 /***/ }),
 
@@ -5315,7 +4921,11 @@ var _ReportTitle2 = _interopRequireDefault(_ReportTitle);
 
 var _service = __webpack_require__(/*! ../lib/service */ "./www/js/source/reactpages/pages/subsidiaryperformance/lib/service.js");
 
-var _service2 = _interopRequireDefault(_service);
+var _Breadcrumb = __webpack_require__(/*! ../../../components/breadcrumb/Breadcrumb */ "./www/js/source/reactpages/components/breadcrumb/Breadcrumb.jsx");
+
+var _Breadcrumb2 = _interopRequireDefault(_Breadcrumb);
+
+var _report = __webpack_require__(/*! ../../../constants/report */ "./www/js/source/reactpages/constants/report.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5333,7 +4943,24 @@ var AppContainer = exports.AppContainer = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (AppContainer.__proto__ || Object.getPrototypeOf(AppContainer)).call(this, props));
 
+    _this._backToMain = function () {
+      var params = Object.assign({}, _this.props.params);
+
+      params.Timestamp = new Date().getTime();
+      params.Level = _report.ReportLevel.MAIN;
+      params.SubsidiaryId = 0;
+
+      _this.props.setParams(params);
+    };
+
     _this.reportTitle = null;
+    _this.breadcrumbItems = [{
+      label: _service.BreadcrumbText.Main,
+      value: _report.ReportLevel.MAIN
+    }, {
+      label: _service.BreadcrumbText.Customer,
+      value: _report.ReportLevel.CUSTOMER
+    }];
     return _this;
   }
 
@@ -5345,7 +4972,7 @@ var AppContainer = exports.AppContainer = function (_Component) {
             dateRange = _props.dateRange,
             selectedBaseCurrency = _props.selectedBaseCurrency;
 
-        this.reportTitle = _service2.default.getReportTitle(dateRange, selectedBaseCurrency);
+        this.reportTitle = service.getReportTitle(dateRange, selectedBaseCurrency);
       }
     }
   }, {
@@ -5359,6 +4986,7 @@ var AppContainer = exports.AppContainer = function (_Component) {
         _react2.default.createElement(
           'div',
           { className: 'result-content' },
+          _react2.default.createElement(_Breadcrumb2.default, { items: this.breadcrumbItems, value: this.props.params.Level, onChange: this._backToMain }),
           this.reportTitle && _react2.default.createElement(_ReportTitle2.default, { content: this.reportTitle }),
           _react2.default.createElement(_DataGrid2.default, null)
         )
@@ -5369,15 +4997,20 @@ var AppContainer = exports.AppContainer = function (_Component) {
   return AppContainer;
 }(_react.Component);
 
-function mapStateToProps(state) {
-  var isLoading = state.isLoading,
-      dateRange = state.dateRange,
-      selectedBaseCurrency = state.selectedBaseCurrency;
+function mapDispatchToProps(dispatch) {
+  var setParams = _index.ActionCreators.setParams;
 
-  return { isLoading: isLoading, dateRange: dateRange, selectedBaseCurrency: selectedBaseCurrency };
+  return (0, _redux.bindActionCreators)({ setParams: setParams }, dispatch);
 }
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps)(AppContainer);
+function mapStateToProps(state) {
+  var isLoading = state.isLoading,
+      params = state.params;
+
+  return Object.assign({}, { isLoading: isLoading, params: params });
+}
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(AppContainer);
 
 /***/ }),
 
@@ -5424,7 +5057,11 @@ var _NoDataTitle2 = _interopRequireDefault(_NoDataTitle);
 
 var _service = __webpack_require__(/*! ../lib/service */ "./www/js/source/reactpages/pages/subsidiaryperformance/lib/service.js");
 
-var _service2 = _interopRequireDefault(_service);
+var _report = __webpack_require__(/*! ../../../lib/report */ "./www/js/source/reactpages/lib/report.js");
+
+var _report2 = _interopRequireDefault(_report);
+
+var _report3 = __webpack_require__(/*! ../../../constants/report */ "./www/js/source/reactpages/constants/report.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5440,249 +5077,354 @@ var DataGrid = exports.DataGrid = function (_Component) {
     function DataGrid(props) {
         _classCallCheck(this, DataGrid);
 
-        return _possibleConstructorReturn(this, (DataGrid.__proto__ || Object.getPrototypeOf(DataGrid)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (DataGrid.__proto__ || Object.getPrototypeOf(DataGrid)).call(this, props));
+
+        _this.state = { gridData: { Data: null } };
+        _this.level = _report3.ReportLevel.Main;
+        _this.baseCurrency = '';
+        return _this;
     }
 
     _createClass(DataGrid, [{
         key: 'componentDidUpdate',
-        value: function componentDidUpdate(prevProps, prevState) {
-            if (this.props.gridData !== prevProps.gridData) {
-                this.props.toggleLoader(false);
+        value: function componentDidUpdate(prevProps) {
+            if (prevProps.params.Timestamp !== this.props.params.Timestamp) {
+                this.level = _report3.ReportLevel.Main;
+                this.baseCurrency = this.props.params.BaseCurrency;
+                this._getGridData(_service.Api.Url, this.props.params);
             }
+        }
+    }, {
+        key: '_getGridData',
+        value: function _getGridData(url, params) {
+            var _this2 = this;
+
+            this.props.toggleLoader(true);
+            _report2.default.fetchGridData(url, { xsrfToken: this.props.xsrfToken, data: params }).then(function (response) {
+                _this2.setState({ gridData: response.data });
+                _this2.props.toggleLoader(false);
+            }).catch(function (error) {
+                _service.Service.showErrorMsg();
+                _this2.props.toggleLoader(false);
+            });
+        }
+    }, {
+        key: '_drillDown',
+        value: function _drillDown(subsidiary) {
+            var params = Object.assign({}, this.props.params);
+
+            this.subsidiaryListMainLevel = params.SubsidiaryList;
+            params.SubsidiaryId = subsidiary;
+            params.Level = _report3.ReportLevel.CUSTOMER;
+
+            this.level = _report3.ReportLevel.CUSTOMER;
+
+            this._getGridData(_service.Api.DetailUrl, params);
+            this.props.setParams(params);
         }
     }, {
         key: '_buildHeader',
         value: function _buildHeader() {
-            var headerText = _service2.default.getHeaderText();
+            var customerLevel = this.level === _report3.ReportLevel.CUSTOMER;
 
             return _react2.default.createElement(
                 _fixedTableHeader.Row,
                 { style: { height: 32 } },
-                _react2.default.createElement(
+                customerLevel && _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { colWidth: 150, header: true, title: headerText.subsidiary },
-                    headerText.subsidiary
+                    { colWidth: 30, header: true, title: _service.HeaderText.Index },
+                    _service.HeaderText.Index
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { colWidth: 150, header: true, title: headerText.currency },
-                    headerText.currency
+                    { colWidth: 150, header: true, title: customerLevel ? _service.HeaderText.ExternalId : _service.HeaderText.Subsidiary },
+                    customerLevel ? _service.HeaderText.ExternalId : _service.HeaderText.Subsidiary
+                ),
+                customerLevel && _react2.default.createElement(
+                    _fixedTableHeader.Cell,
+                    { colWidth: 150, header: true, title: _service.HeaderText.SystemId },
+                    _service.HeaderText.SystemId
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { colWidth: 200, header: true, title: headerText.product },
-                    headerText.product
+                    { colWidth: 150, header: true, title: _service.HeaderText.CurrencyName },
+                    _service.HeaderText.CurrencyName
+                ),
+                !customerLevel && _react2.default.createElement(
+                    _fixedTableHeader.Cell,
+                    { colWidth: 200, header: true, title: _service.HeaderText.Product },
+                    _service.HeaderText.Product
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { colWidth: 150, header: true, title: headerText.betCount },
-                    headerText.betCount
+                    { colWidth: 150, header: true, title: _service.HeaderText.BetCount },
+                    _service.HeaderText.BetCount
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { colWidth: 200, header: true, title: headerText.turnover },
-                    headerText.turnover
+                    { colWidth: 200, header: true, title: _service.HeaderText.Turnover },
+                    _service.HeaderText.Turnover
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { colWidth: 200, header: true, title: headerText.customerWL },
-                    headerText.customerWL
+                    { colWidth: 200, header: true, title: _service.HeaderText.CustomerWinLoss },
+                    _service.HeaderText.CustomerWinLoss
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { colWidth: 200, header: true, title: headerText.subsidiaryWL },
-                    headerText.subsidiaryWL
-                ),
-                _react2.default.createElement(
-                    _fixedTableHeader.Cell,
-                    { colWidth: 150, header: true, title: headerText.subsidiaryComm },
-                    headerText.subsidiaryComm
+                    { colWidth: 200, header: true, title: _service.HeaderText.SubsidiaryWinLoss },
+                    _service.HeaderText.SubsidiaryWinLoss
                 )
             );
         }
     }, {
-        key: '_buildBody',
-        value: function _buildBody() {
-            var data = this.props.gridData.Data;
+        key: '_buildMainBody',
+        value: function _buildMainBody() {
+            var _this3 = this;
+
+            var data = this.state.gridData.Data;
+
             var rows = [];
-            for (var i = 0; i < data.length; i++) {
-                var item = data[i];
-                var rowSpan = item.Details.length;
+            var key = 0;
 
-                var isFirstRow = true;
-                for (var j = 0; j < item.Details.length; j++) {
-                    var detail = item.Details[j];
-                    var betcount = _numberFormat2.default.format(detail.BetCount),
-                        turnover = _numberFormat2.default.formatDecimal(detail.Turnover),
-                        customerWinLoss = _numberFormat2.default.formatDecimal(detail.CustomerWinLoss),
-                        subsidiaryWinLoss = _numberFormat2.default.formatDecimal(detail.SubsidiaryWinLoss),
-                        subsidiaryComm = _numberFormat2.default.formatDecimal(detail.SubsidiaryComm);
+            var _loop = function _loop(sub) {
+                var item = data[sub];
+                var totalItem = item.TotalItem;
+                var currencies = Object.keys(item.Details);
 
-                    rows.push(_react2.default.createElement(
-                        _fixedTableHeader.Row,
-                        { key: 'tr' + i + '-detail' + j },
-                        isFirstRow ? _react2.default.createElement(
-                            _fixedTableHeader.Cell,
-                            { title: item.Subsidiary, rowSpan: rowSpan },
-                            item.Subsidiary
-                        ) : undefined,
-                        isFirstRow ? _react2.default.createElement(
-                            _fixedTableHeader.Cell,
-                            { title: item.CurrencyName, rowSpan: rowSpan, className: 'center-align' },
-                            item.CurrencyName
-                        ) : undefined,
-                        _react2.default.createElement(
-                            _fixedTableHeader.Cell,
-                            { title: detail.Product },
-                            detail.Product
-                        ),
-                        _react2.default.createElement(
-                            _fixedTableHeader.Cell,
-                            { title: betcount, className: 'right-align' },
-                            betcount
-                        ),
-                        _react2.default.createElement(
-                            _fixedTableHeader.Cell,
-                            { title: turnover, className: 'right-align' },
-                            turnover
-                        ),
-                        _react2.default.createElement(
-                            _fixedTableHeader.Cell,
-                            { title: customerWinLoss, className: 'right-align' },
-                            customerWinLoss
-                        ),
-                        _react2.default.createElement(
-                            _fixedTableHeader.Cell,
-                            { title: subsidiaryWinLoss, className: 'right-align ' + (detail.SubsidiaryWinLoss < 0 ? "negative" : "") },
-                            subsidiaryWinLoss
-                        ),
-                        _react2.default.createElement(
-                            _fixedTableHeader.Cell,
-                            { title: subsidiaryComm, className: 'right-align' },
-                            subsidiaryComm
-                        )
-                    ));
+                for (var cur = 0; cur < currencies.length; cur++) {
+                    var currency = currencies[cur];
+                    var products = item.Details[currency];
+                    var rowSpan = products.length;
 
-                    isFirstRow = false;
+                    for (var pro = 0; pro < rowSpan; pro++) {
+                        var product = products[pro];
+
+                        rows.push(_react2.default.createElement(
+                            _fixedTableHeader.Row,
+                            { key: key },
+                            cur === 0 && pro === 0 && _react2.default.createElement(
+                                _fixedTableHeader.Cell,
+                                { title: item.Subsidiary, rowSpan: totalItem },
+                                _react2.default.createElement(
+                                    'a',
+                                    { href: 'javascript:;', onClick: function onClick() {
+                                            return _this3._drillDown(item.Subsidiary);
+                                        } },
+                                    item.Subsidiary
+                                )
+                            ),
+                            pro === 0 && _react2.default.createElement(
+                                _fixedTableHeader.Cell,
+                                { title: currency, rowSpan: rowSpan, className: 'center-align' },
+                                currency
+                            ),
+                            _react2.default.createElement(
+                                _fixedTableHeader.Cell,
+                                { title: product.Product },
+                                product.Product
+                            ),
+                            _this3._buildCommonCells(product, key)
+                        ));
+
+                        key++;
+                    }
                 }
+            };
+
+            for (var sub = 0; sub < data.length; sub++) {
+                _loop(sub);
             }
 
             return rows;
         }
     }, {
-        key: '_buildFooter',
-        value: function _buildFooter() {
-            var totalData = this.props.gridData.Total;
-            var footer = totalData.map(function (item, index) {
-                var betcount = _numberFormat2.default.format(item.BetCount),
-                    turnover = _numberFormat2.default.formatDecimal(item.Turnover),
-                    customerWinLoss = _numberFormat2.default.formatDecimal(item.CustomerWinLoss),
-                    subsidiaryWinLoss = _numberFormat2.default.formatDecimal(item.SubsidiaryWinLoss),
-                    subsidiaryComm = _numberFormat2.default.formatDecimal(item.SubsidiaryComm);
+        key: '_buildDetailBody',
+        value: function _buildDetailBody() {
+            var _this4 = this;
 
+            var data = this.state.gridData.Data;
+
+            var rows = data.map(function (item, index) {
                 return _react2.default.createElement(
                     _fixedTableHeader.Row,
-                    { className: 'fixed-table-total', key: 'total' + index },
+                    { key: index },
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
-                        { title: item.Subsidiary },
-                        item.Subsidiary
+                        { title: index + 1, className: 'center-align' },
+                        index + 1
                     ),
                     _react2.default.createElement(
                         _fixedTableHeader.Cell,
-                        { title: item.CurrencyName, className: 'center-align', colSpan: '2' },
+                        { title: item.ExternalId, className: 'center-align' },
+                        item.ExternalId
+                    ),
+                    _react2.default.createElement(
+                        _fixedTableHeader.Cell,
+                        { title: item.SystemId, className: 'center-align' },
+                        item.SystemId
+                    ),
+                    _react2.default.createElement(
+                        _fixedTableHeader.Cell,
+                        { title: item.CurrencyName, className: 'center-align' },
                         item.CurrencyName
                     ),
-                    _react2.default.createElement(
-                        _fixedTableHeader.Cell,
-                        { title: betcount, className: 'right-align' },
-                        betcount
-                    ),
-                    _react2.default.createElement(
-                        _fixedTableHeader.Cell,
-                        { title: turnover, className: 'right-align' },
-                        turnover
-                    ),
-                    _react2.default.createElement(
-                        _fixedTableHeader.Cell,
-                        { title: customerWinLoss, className: 'right-align' },
-                        customerWinLoss
-                    ),
-                    _react2.default.createElement(
-                        _fixedTableHeader.Cell,
-                        { title: subsidiaryWinLoss, className: 'right-align ' + (item.SubsidiaryWinLoss < 0 ? "negative" : "") },
-                        subsidiaryWinLoss
-                    ),
-                    _react2.default.createElement(
-                        _fixedTableHeader.Cell,
-                        { title: subsidiaryComm, className: 'right-align' },
-                        subsidiaryComm
-                    )
+                    _this4._buildCommonCells(item, index)
                 );
             });
 
-            footer.push(this._buildGrandTotal());
+            return rows;
+        }
+    }, {
+        key: '_buildBody',
+        value: function _buildBody() {
+            return this.level === _report3.ReportLevel.CUSTOMER ? this._buildDetailBody() : this._buildMainBody();
+        }
+    }, {
+        key: '_buildFooter',
+        value: function _buildFooter() {
+            return this.level === _report3.ReportLevel.CUSTOMER ? this._buildDetailFooter() : this._buildMainFooter();
+        }
+    }, {
+        key: '_buildMainFooter',
+        value: function _buildMainFooter() {
+            var totalData = this.state.gridData.Total;
+            var subs = Object.keys(totalData);
+
+            var footer = [];
+            for (var i = 0; i < subs.length; i++) {
+                var totalName = subs[i];
+                var _item = totalData[totalName];
+
+                footer.push(_react2.default.createElement(
+                    _fixedTableHeader.Row,
+                    { className: 'fixed-table-total', key: 'total' + i },
+                    _react2.default.createElement(
+                        _fixedTableHeader.Cell,
+                        { title: _service.TotalText.Total + ' ' + totalName },
+                        _service.TotalText.Total + ' ' + totalName
+                    ),
+                    _react2.default.createElement(
+                        _fixedTableHeader.Cell,
+                        { title: _service.TotalText.Based + ' ' + _item.CurrencyName, className: 'center-align', colSpan: '2' },
+                        _service.TotalText.Based + ' ' + _item.CurrencyName
+                    ),
+                    this._buildCommonCells(_item, 'total' + i)
+                ));
+            }
+
+            footer.push(this._buildMainGrandTotal());
 
             return footer;
         }
     }, {
-        key: '_buildGrandTotal',
-        value: function _buildGrandTotal() {
-            var grandTotal = this.props.gridData.GrandTotal;
+        key: '_buildMainGrandTotal',
+        value: function _buildMainGrandTotal() {
+            var grandTotal = this.state.gridData.GrandTotal;
             if (!grandTotal) {
                 return null;
             }
-
-            var betcount = _numberFormat2.default.format(grandTotal.BetCount),
-                turnover = _numberFormat2.default.formatDecimal(grandTotal.Turnover),
-                customerWinLoss = _numberFormat2.default.formatDecimal(grandTotal.CustomerWinLoss),
-                subsidiaryWinLoss = _numberFormat2.default.formatDecimal(grandTotal.SubsidiaryWinLoss),
-                subsidiaryComm = _numberFormat2.default.formatDecimal(grandTotal.SubsidiaryComm);
 
             return _react2.default.createElement(
                 _fixedTableHeader.Row,
                 { key: 'grandTotal', className: 'fixed-table-grant-total' },
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { title: grandTotal.Subsidiary },
-                    grandTotal.Subsidiary
+                    { title: _service.TotalText.Total },
+                    _service.TotalText.Total
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { title: grandTotal.CurrencyName, className: 'center-align', colSpan: '2' },
-                    grandTotal.CurrencyName
+                    { title: _service.TotalText.Based + ' ' + grandTotal.CurrencyName, className: 'center-align', colSpan: '2' },
+                    _service.TotalText.Based + ' ' + grandTotal.CurrencyName
                 ),
-                _react2.default.createElement(
-                    _fixedTableHeader.Cell,
-                    { title: betcount, className: 'right-align' },
-                    betcount
-                ),
-                _react2.default.createElement(
-                    _fixedTableHeader.Cell,
-                    { title: turnover, className: 'right-align' },
-                    turnover
-                ),
-                _react2.default.createElement(
-                    _fixedTableHeader.Cell,
-                    { title: customerWinLoss, className: 'right-align' },
-                    customerWinLoss
-                ),
-                _react2.default.createElement(
-                    _fixedTableHeader.Cell,
-                    { title: subsidiaryWinLoss, className: 'right-align ' + (grandTotal.SubsidiaryWinLoss < 0 ? "negative" : "") },
-                    subsidiaryWinLoss
-                ),
-                _react2.default.createElement(
-                    _fixedTableHeader.Cell,
-                    { title: subsidiaryComm, className: 'right-align' },
-                    subsidiaryComm
-                )
+                this._buildCommonCells(grandTotal, 'grandTotal')
             );
+        }
+    }, {
+        key: '_buildDetailFooter',
+        value: function _buildDetailFooter() {
+            var totalData = this.state.gridData.Total;
+            var subs = Object.keys(totalData);
+            var rowSpan = subs.length;
+
+            var footer = [];
+            for (var i = 0; i < rowSpan; i++) {
+                var totalName = subs[i];
+                var _item2 = totalData[totalName];
+
+                footer.push(_react2.default.createElement(
+                    _fixedTableHeader.Row,
+                    { className: 'fixed-table-total', key: 'total' + i },
+                    i === 0 && _react2.default.createElement(
+                        _fixedTableHeader.Cell,
+                        { title: _service.TotalText.TotalIn + ' ' + this.baseCurrency, colSpan: '3', rowSpan: rowSpan, className: 'center-align' },
+                        _service.TotalText.TotalIn + ' ' + this.baseCurrency
+                    ),
+                    _react2.default.createElement(
+                        _fixedTableHeader.Cell,
+                        { title: _item2.CurrencyName, className: 'center-align', colSpan: '1' },
+                        _item2.CurrencyName
+                    ),
+                    this._buildCommonCells(_item2, 'total' + i)
+                ));
+            }
+
+            footer.push(this._buildDetailGrandTotal());
+
+            return footer;
+        }
+    }, {
+        key: '_buildDetailGrandTotal',
+        value: function _buildDetailGrandTotal() {
+            var grandTotal = this.state.gridData.GrandTotal;
+            if (!grandTotal) {
+                return null;
+            }
+
+            return _react2.default.createElement(
+                _fixedTableHeader.Row,
+                { key: 'grandTotal', className: 'fixed-table-grant-total' },
+                _react2.default.createElement(
+                    _fixedTableHeader.Cell,
+                    { title: _service.TotalText.TotalIn + ' ' + grandTotal.CurrencyName, className: 'center-align', colSpan: '4' },
+                    _service.TotalText.TotalIn + ' ' + grandTotal.CurrencyName
+                ),
+                this._buildCommonCells(grandTotal, 'grandTotal')
+            );
+        }
+    }, {
+        key: '_buildCommonCells',
+        value: function _buildCommonCells(data, index) {
+            var betcount = _numberFormat2.default.format(data.BetCount),
+                turnover = _numberFormat2.default.formatDecimal(data.Turnover),
+                customerWinLoss = _numberFormat2.default.formatDecimal(data.CustomerWinLoss),
+                subsidiaryWinLoss = _numberFormat2.default.formatDecimal(data.SubsidiaryWinLoss);
+
+            var cells = [_react2.default.createElement(
+                _fixedTableHeader.Cell,
+                { key: index + '-bc', title: betcount, className: 'right-align' },
+                betcount
+            ), _react2.default.createElement(
+                _fixedTableHeader.Cell,
+                { key: index + '-tn', title: turnover, className: 'right-align' },
+                turnover
+            ), _react2.default.createElement(
+                _fixedTableHeader.Cell,
+                { key: index + '-cw', title: customerWinLoss, className: 'right-align' },
+                customerWinLoss
+            ), _react2.default.createElement(
+                _fixedTableHeader.Cell,
+                { key: index + '-sw', title: subsidiaryWinLoss, className: 'right-align ' + (data.SubsidiaryWinLoss < 0 ? "negative" : "") },
+                subsidiaryWinLoss
+            )];
+
+            return cells;
         }
     }, {
         key: 'render',
         value: function render() {
-            var Data = this.props.gridData.Data;
+            var Data = this.state.gridData.Data;
 
             if (!Data) {
                 return null;
@@ -5707,14 +5449,17 @@ var DataGrid = exports.DataGrid = function (_Component) {
 }(_react.Component);
 
 function mapDispatchToProps(dispatch) {
-    var toggleLoader = _index.ActionCreators.toggleLoader;
+    var toggleLoader = _index.ActionCreators.toggleLoader,
+        setParams = _index.ActionCreators.setParams;
 
-    return (0, _redux.bindActionCreators)({ toggleLoader: toggleLoader }, dispatch);
+    return (0, _redux.bindActionCreators)({ toggleLoader: toggleLoader, setParams: setParams }, dispatch);
 }
-function mapStateToProps(state) {
-    var gridData = state.gridData;
 
-    return { gridData: gridData };
+function mapStateToProps(state) {
+    var xsrfToken = state.xsrfToken,
+        params = state.params;
+
+    return Object.assign({}, { xsrfToken: xsrfToken, params: params });
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(DataGrid);
@@ -5752,9 +5497,9 @@ var _reactSelect = __webpack_require__(/*! react-select */ "./node_modules/react
 
 var _reactSelect2 = _interopRequireDefault(_reactSelect);
 
-var _multipleSelect = __webpack_require__(/*! @jsroot/components/multiple-select */ "./www/js/source/reactpages/components/multiple-select/index.jsx");
+var _reactMultiselect = __webpack_require__(/*! @9softstudio/react-multiselect */ "./node_modules/@9softstudio/react-multiselect/dist/index.js");
 
-var _multipleSelect2 = _interopRequireDefault(_multipleSelect);
+var _reactMultiselect2 = _interopRequireDefault(_reactMultiselect);
 
 var _index2 = __webpack_require__(/*! @jsroot/components/date-range/index */ "./www/js/source/reactpages/components/date-range/index.js");
 
@@ -5776,7 +5521,11 @@ var _AppData2 = _interopRequireDefault(_AppData);
 
 var _service = __webpack_require__(/*! ../lib/service */ "./www/js/source/reactpages/pages/subsidiaryperformance/lib/service.js");
 
-var _service2 = _interopRequireDefault(_service);
+var _report = __webpack_require__(/*! ../../../constants/report */ "./www/js/source/reactpages/constants/report.js");
+
+var _report2 = __webpack_require__(/*! ../../../lib/report */ "./www/js/source/reactpages/lib/report.js");
+
+var _report3 = _interopRequireDefault(_report2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5805,32 +5554,35 @@ var FormFilter = exports.FormFilter = function (_Component) {
                 return;
             }
 
-            _this.props.toggleLoader(true);
-            _this.props.getGridData(params);
+            _this.props.setParams(params);
         };
 
         _this.exportExcel = function (event) {
             event.preventDefault();
-            var _this$props = _this.props,
-                dateRange = _this$props.dateRange,
-                selectedBaseCurrency = _this$props.selectedBaseCurrency;
 
-            var params = _this._getParams();
+            var isCustomerLevel = _this.props.params.Level == _report.ReportLevel.CUSTOMER;
+            var params = isCustomerLevel ? _this.props.params : _this._getParams();
             if (!params) {
                 return;
             }
 
-            _this.props.exportExcel(params).then(function (response) {
+            _this.props.toggleLoader(true);
+
+            _report3.default.fetchGridData(isCustomerLevel ? _service.Api.DetailUrl : _service.Api.Url, { xsrfToken: _this.props.xsrfToken, data: params }).then(function (response) {
                 if (!response.data.Data.length) {
                     alert(_langHelper2.default.getSingleResource("NoInfo"));
+                    _this.props.toggleLoader(false);
                     return;
                 }
 
-                var title = _service2.default.getReportTitle(dateRange, selectedBaseCurrency);
-                var excel = new _reportExcel2.default(response.data, title);
+                var title = _service.Service.getReportTitle(params.FromDate, params.ToDate, params.BaseCurrency);
+                var excel = new _reportExcel2.default(response.data, title, isCustomerLevel, params.BaseCurrency);
                 excel.export(function () {
                     _this.props.toggleLoader(false);
                 });
+            }).catch(function (error) {
+                _service.Service.showErrorMsg();
+                _this.props.toggleLoader(false);
             });
         };
 
@@ -5869,14 +5621,16 @@ var FormFilter = exports.FormFilter = function (_Component) {
 
 
             return {
-                data: {
-                    BaseCurrency: this.props.selectedBaseCurrency,
-                    SubsidiaryList: this.props.selectedSubsidiary,
-                    ProductCodeList: this.props.selectedProduct,
-                    ConvertAll: this.props.convertAll,
-                    FromDate: _site2.default.convertDateToString(fromDate),
-                    ToDate: _site2.default.convertDateToString(toDate)
-                }
+                BaseCurrency: this.props.selectedBaseCurrency,
+                SubsidiaryList: this.props.selectedSubsidiary,
+                ProductCodeList: this.props.selectedProduct,
+                ConvertAll: this.props.convertAll,
+                FromDate: _site2.default.convertDateToString(fromDate),
+                ToDate: _site2.default.convertDateToString(toDate),
+                IncludeRaw: this.props.includeDrawData,
+                IsExcludeTest: this.props.isExcludeTest,
+                Timestamp: new Date().getTime(),
+                Level: _report.ReportLevel.MAIN
             };
         }
     }, {
@@ -5885,7 +5639,8 @@ var FormFilter = exports.FormFilter = function (_Component) {
             var subsidiaryList = this.props.subsidiaryList;
 
 
-            return subsidiaryList && subsidiaryList.length ? _react2.default.createElement(_multipleSelect2.default, {
+            return subsidiaryList && subsidiaryList.length ? _react2.default.createElement(_reactMultiselect2.default, {
+                hasSearchBox: true,
                 dataSource: this.props.subsidiaryList,
                 keyField: "Name",
                 valueField: "Name",
@@ -5898,7 +5653,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
         key: '_renderProductSelectList',
         value: function _renderProductSelectList() {
             var productOptions = _AppData2.default.productOptions;
-            return productOptions && productOptions.length && _react2.default.createElement(_multipleSelect2.default, {
+            return productOptions && productOptions.length && _react2.default.createElement(_reactMultiselect2.default, {
                 dataSource: productOptions,
                 keyField: "Code",
                 valueField: "Name",
@@ -5941,29 +5696,36 @@ var FormFilter = exports.FormFilter = function (_Component) {
         value: function render() {
             var _this3 = this;
 
+            var subsidiaryList = this.props.subsidiaryList;
+
+            var subsidiaryDropdown = false;
+            if (subsidiaryList) {
+                subsidiaryDropdown = _react2.default.createElement(
+                    'div',
+                    { className: 'col-12 col-md-3 col-sm-5 col-lg-3 col-xl-3' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'form-group' },
+                        _react2.default.createElement(
+                            'label',
+                            { className: 'label-text' },
+                            _langHelper2.default.getSingleResource("Subsidiary")
+                        ),
+                        this._renderSubsidiarySelectList()
+                    )
+                );
+            }
+
             return _react2.default.createElement(
                 'div',
                 { className: 'page-filter' },
                 _react2.default.createElement(
                     'div',
                     { className: 'row' },
+                    subsidiaryDropdown,
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-12 col-md-3 col-sm-5 col-lg-2 col-xl-2' },
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'form-group' },
-                            _react2.default.createElement(
-                                'label',
-                                { className: 'label-text' },
-                                _langHelper2.default.getSingleResource("Subsidiary")
-                            ),
-                            this._renderSubsidiarySelectList()
-                        )
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'col-12 col-md-4 col-sm-6 col-lg-3 col-xl-3' },
+                        { className: 'col-12 col-md-4 ' + (subsidiaryDropdown ? 'col-sm-6' : 'col-sm-5') + ' col-lg-3 col-xl-3' },
                         _react2.default.createElement(
                             'div',
                             { className: 'form-group' },
@@ -5977,7 +5739,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                     ),
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-12 col-md-3 col-sm-5 col-lg-3 col-xl-3' },
+                        { className: 'col-12 col-md-3 ' + (subsidiaryDropdown ? 'col-sm-5' : 'col-sm-4') + ' col-lg-3 col-xl-3' },
                         _react2.default.createElement(
                             'div',
                             { className: 'form-group' },
@@ -5991,7 +5753,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                     ),
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-12 col-md-2 col-sm-4 col-lg-2 col-xl-2' },
+                        { className: 'col-12 ' + (subsidiaryDropdown ? 'col-sm-4 col-md-2' : 'col-sm-3 col-md-3') + ' col-lg-2 col-xl-2' },
                         _react2.default.createElement(
                             'div',
                             { className: 'form-group' },
@@ -6009,7 +5771,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                     { className: 'row' },
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-12 col-md-12 col-sm-12 col-lg-6 col-xl-6' },
+                        { className: 'col-12 ' + (subsidiaryDropdown ? 'col-md-3' : 'col-md-4') + ' col-sm-5 col-lg-3 col-xl-3' },
                         _react2.default.createElement(
                             'div',
                             { className: 'form-group' },
@@ -6017,7 +5779,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                                 'div',
                                 { className: 'checkbox-group' },
                                 _react2.default.createElement('input', { type: 'checkbox', className: 'checkbox', checked: this.props.convertAll, id: 'IsConvertAll',
-                                    onClick: function onClick() {
+                                    onChange: function onChange() {
                                         return _this3.props.changeConvertAll(!_this3.props.convertAll);
                                     } }),
                                 _react2.default.createElement(
@@ -6025,15 +5787,61 @@ var FormFilter = exports.FormFilter = function (_Component) {
                                     { htmlFor: 'IsConvertAll' },
                                     _langHelper2.default.getSingleResource("ConvertAllFiguresToBaseCurrency")
                                 )
-                            ),
+                            )
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-12 ' + (subsidiaryDropdown ? 'col-md-4 col-sm-6' : 'col-md-3 col-sm-4') + ' col-lg-3 col-xl-3' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'form-group' },
                             _react2.default.createElement(
                                 'div',
-                                { className: 'button-group' },
+                                { className: 'checkbox-group' },
+                                _react2.default.createElement('input', { type: 'checkbox', className: 'checkbox', checked: this.props.includeDrawData, id: 'IncludeDrawData',
+                                    onChange: function onChange() {
+                                        return _this3.props.changeIncludeDrawData(!_this3.props.includeDrawData);
+                                    } }),
                                 _react2.default.createElement(
-                                    'button',
-                                    { disabled: !this.isValidModel, type: 'button', className: 'btn btn-submit', onClick: this.submit },
-                                    _langHelper2.default.getSingleResource("Submit")
+                                    'label',
+                                    { htmlFor: 'IncludeDrawData' },
+                                    _langHelper2.default.getSingleResource("IncludeDrawData")
                                 )
+                            )
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-12 ' + (subsidiaryDropdown ? 'col-sm-5 col-lg-3 col-xl-3' : 'col-sm-3 col-lg-2 col-xl-2') + ' col-md-3' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'form-group' },
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'checkbox-group' },
+                                _react2.default.createElement('input', { type: 'checkbox', className: 'checkbox', checked: this.props.isExcludeTest, id: 'ExcludeTest',
+                                    onChange: function onChange() {
+                                        return _this3.props.changeIsExcludeTest(!_this3.props.isExcludeTest);
+                                    } }),
+                                _react2.default.createElement(
+                                    'label',
+                                    { htmlFor: 'ExcludeTest' },
+                                    _langHelper2.default.getSingleResource("ExcludeTestData")
+                                )
+                            )
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-12 col-md-2 col-sm-4 col-lg-2 col-xl-2' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'button-group' },
+                            _react2.default.createElement(
+                                'button',
+                                { disabled: !this.isValidModel, type: 'button', className: 'btn btn-submit', onClick: this.submit },
+                                _langHelper2.default.getSingleResource("Submit")
                             )
                         )
                     )
@@ -6049,10 +5857,11 @@ var FormFilter = exports.FormFilter = function (_Component) {
         key: 'isValidModel',
         get: function get() {
             var _props2 = this.props,
+                subsidiaryList = _props2.subsidiaryList,
                 selectedSubsidiary = _props2.selectedSubsidiary,
                 selectedProduct = _props2.selectedProduct;
 
-            return selectedSubsidiary !== "" && selectedProduct !== "";
+            return (!subsidiaryList || selectedSubsidiary !== "") && selectedProduct !== "";
         }
     }]);
 
@@ -6063,10 +5872,10 @@ function mapDispatchToProps(dispatch) {
     return (0, _redux.bindActionCreators)(_index.ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    var gridData = state.gridData,
-        rest = _objectWithoutProperties(state, ['gridData']);
+    var isLoading = state.isLoading,
+        rest = _objectWithoutProperties(state, ['isLoading']);
 
-    return rest;
+    return Object.assign({}, rest);
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(FormFilter);
@@ -6111,6 +5920,8 @@ var _store = __webpack_require__(/*! ../../../lib/store */ "./www/js/source/reac
 
 var _store2 = _interopRequireDefault(_store);
 
+var _report = __webpack_require__(/*! ../../../constants/report */ "./www/js/source/reactpages/constants/report.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -6119,7 +5930,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var defaultState = Object.assign({}, window.initialState);
+var defaultState = Object.assign({}, window.initialState, { params: { Level: _report.ReportLevel.MAIN } });
 var store = _store2.default.createStore(_index2.default, defaultState);
 
 var App = function (_React$Component) {
@@ -6168,8 +5979,6 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _ref, _ref2, _ref4, _ref5, _ref6, _ref7, _ref8;
-
 var _excel = __webpack_require__(/*! ../../../lib/excel */ "./www/js/source/reactpages/lib/excel.js");
 
 var _excel2 = _interopRequireDefault(_excel);
@@ -6182,27 +5991,28 @@ var _excelStyle = __webpack_require__(/*! ../../../constants/excelStyle */ "./ww
 
 var _service = __webpack_require__(/*! ../lib/service */ "./www/js/source/reactpages/pages/subsidiaryperformance/lib/service.js");
 
-var _service2 = _interopRequireDefault(_service);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var COLUMN_COUNT = 8;
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var COLUMN_COUNT = 7;
+var COLUMN_DETAIL_COUNT = 8;
 var TITLE_ROW_INDEX = 0;
 var HEADER_ROW_INDEX = 1;
 var DATA_ROW_INDEX = 2;
 
+var INDEX_COLUM_INDEX = 0;
+var EXTERNALID_COLUM_INDEX = 1;
 var SUBSIDIARY_COLUMN_INDEX = 0;
 var CURRENCY_COLUMN_INDEX = 1;
+var CURRENCY_DETAIL_COLUMN_INDEX = 3;
 var PRODUCT_COLUMN_INDEX = 2;
 var BETCOUNT_COLUMN_INDEX = 3;
-var TURNOVER_COLUMN_INDEX = 4;
-var CUSTOMERWL_COLUMN_INDEX = 5;
+var BETCOUNT_DETAIL_COLUMN_INDEX = 4;
 var SUBSIDIARYWL_COLUMN_INDEX = 6;
-var SUBSIDIARYCOMM_COLUMN_INDEX = 7;
+var SUBSIDIARYWL_DETAIL_COLUMN_INDEX = 7;
 
 var MAIN_SECTION_STYLE = "mainSectionStyle";
 var TOTAL_SECTION_STYLE = "totalSectionStyle";
@@ -6216,32 +6026,17 @@ var fields = {
     turnover: "Turnover",
     customerWinLoss: "CustomerWinLoss",
     subsidiaryWinLoss: "SubsidiaryWinLoss",
-    subsidiaryComm: "SubsidiaryComm"
+    externalId: "ExternalId",
+    systemId: "SystemId"
 };
-
-var columnConfigs = [(_ref = {
-    field: fields.subsidiary
-}, _defineProperty(_ref, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.rowspan), _defineProperty(_ref, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.default), _defineProperty(_ref, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.default), _ref), (_ref2 = {
-    field: fields.currencyName
-}, _defineProperty(_ref2, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.center), _defineProperty(_ref2, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.center), _defineProperty(_ref2, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.center), _ref2), _defineProperty({
-    field: fields.product
-}, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.default), (_ref4 = {
-    field: fields.betCount
-}, _defineProperty(_ref4, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.number), _defineProperty(_ref4, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.number), _defineProperty(_ref4, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.number), _ref4), (_ref5 = {
-    field: fields.turnover
-}, _defineProperty(_ref5, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.decimal), _defineProperty(_ref5, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.decimal), _defineProperty(_ref5, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.decimal), _ref5), (_ref6 = {
-    field: fields.customerWinLoss
-}, _defineProperty(_ref6, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.decimal), _defineProperty(_ref6, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.decimal), _defineProperty(_ref6, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.decimal), _ref6), (_ref7 = {
-    field: fields.subsidiaryWinLoss
-}, _defineProperty(_ref7, MAIN_SECTION_STYLE, { positive: _excelStyle.bodyCellStyle.decimal, negative: _excelStyle.bodyCellStyle.negativeDecimal }), _defineProperty(_ref7, TOTAL_SECTION_STYLE, { positive: _excelStyle.totalCellStyle.decimal, negative: _excelStyle.totalCellStyle.negativeDecimal }), _defineProperty(_ref7, GRAND_TOTAL_SECTION_STYLE, { positive: _excelStyle.grandTotalCellStyle.decimal, negative: _excelStyle.grandTotalCellStyle.negativeDecimal }), _ref7), (_ref8 = {
-    field: fields.subsidiaryComm
-}, _defineProperty(_ref8, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.decimal), _defineProperty(_ref8, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.decimal), _defineProperty(_ref8, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.decimal), _ref8)];
 
 var ReportExcel = function () {
     function ReportExcel() {
         var gridData = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
         var title = arguments[1];
-        var fileName = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "SubsidiaryPerformance";
+        var isCustomerLevel = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+        var baseCurrency = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : "";
+        var fileName = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : "SubsidiaryPerformance";
 
         _classCallCheck(this, ReportExcel);
 
@@ -6251,6 +6046,9 @@ var ReportExcel = function () {
         this.gridData = gridData;
         this.currentRowIndex = DATA_ROW_INDEX;
         this.mergeConfig = [];
+        this.columnConfigs = this._getcolumnConfigs(isCustomerLevel);
+        this.baseCurrency = baseCurrency;
+        this.isCustomerLevel = isCustomerLevel;
     }
 
     _createClass(ReportExcel, [{
@@ -6276,58 +6074,104 @@ var ReportExcel = function () {
     }, {
         key: '_createTitle',
         value: function _createTitle() {
-            this.mergeConfig.push({ s: { r: TITLE_ROW_INDEX, c: 0 }, e: { r: TITLE_ROW_INDEX, c: COLUMN_COUNT - 1 } });
+            this.mergeConfig.push({ s: { r: TITLE_ROW_INDEX, c: 0 }, e: { r: TITLE_ROW_INDEX, c: this.isCustomerLevel ? COLUMN_DETAIL_COUNT - 1 : COLUMN_COUNT - 1 } });
             var address = _excel2.default.getCellAddress({ c: 0, r: TITLE_ROW_INDEX });
             this.worksheet[address] = { t: "s", v: this.title, s: _excelStyle.titleCellStyle };
         }
     }, {
         key: '_createHeader',
         value: function _createHeader() {
-            var headerText = _service2.default.getHeaderText();
-            var keys = Object.keys(headerText);
-            for (var i = 0; i < keys.length; i++) {
+            for (var i = 0; i < this.columnConfigs.length; i++) {
+                var fieldName = this.columnConfigs[i].field;
                 var address = _excel2.default.getCellAddress({ c: i, r: HEADER_ROW_INDEX });
-                var header = headerText[keys[i]];
+                var header = _service.HeaderText[fieldName];
                 this.worksheet[address] = { t: "s", v: header, s: _excelStyle.headerCellStyle };
             }
         }
     }, {
         key: '_createSheetData',
         value: function _createSheetData() {
-            this._createMainData();
-            this._createFooterData();
-            this._createGrandTotalData();
+            if (this.isCustomerLevel) {
+                this._createBodyDetailData();
+                this._createFooterDetailData();
+                this._createGrandTotalDetailData();
+            } else {
+                this._createBodyData();
+                this._createFooterData();
+                this._createGrandTotalData();
+            }
         }
     }, {
-        key: '_createMainData',
-        value: function _createMainData() {
+        key: '_createBodyData',
+        value: function _createBodyData() {
             var mainData = this.gridData.Data;
 
             for (var i = 0; i < mainData.length; i++) {
                 var item = mainData[i];
                 var details = item.Details;
 
-                this._createRowByColumnIndex(item, MAIN_SECTION_STYLE, SUBSIDIARY_COLUMN_INDEX, CURRENCY_COLUMN_INDEX);
+                this._createRowByColumnIndex({ Subsidiary: item.Subsidiary }, MAIN_SECTION_STYLE, SUBSIDIARY_COLUMN_INDEX, SUBSIDIARY_COLUMN_INDEX);
+                this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 0 }, e: { r: this.currentRowIndex + item.TotalItem - 1, c: 0 } });
 
-                this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 0 }, e: { r: this.currentRowIndex + details.length - 1, c: 0 } });
-                this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 1 }, e: { r: this.currentRowIndex + details.length - 1, c: 1 } });
+                var currencies = Object.keys(item.Details);
+                for (var j = 0; j < currencies.length; j++) {
+                    var currency = currencies[j];
+                    var products = item.Details[currency];
 
-                for (var detailIndex = 0; detailIndex < details.length; detailIndex++) {
-                    var detail = details[detailIndex];
-                    this._createRowByColumnIndex(detail, MAIN_SECTION_STYLE, PRODUCT_COLUMN_INDEX, SUBSIDIARYCOMM_COLUMN_INDEX);
-                    this.currentRowIndex++;
+                    this._createRowByColumnIndex({ CurrencyName: currency }, MAIN_SECTION_STYLE, CURRENCY_COLUMN_INDEX, CURRENCY_COLUMN_INDEX);
+                    this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 1 }, e: { r: this.currentRowIndex + products.length - 1, c: 1 } });
+
+                    for (var k = 0; k < products.length; k++) {
+                        var product = products[k];
+
+                        this._createRowByColumnIndex(product, MAIN_SECTION_STYLE, PRODUCT_COLUMN_INDEX, SUBSIDIARYWL_COLUMN_INDEX);
+                        this.currentRowIndex++;
+                    }
                 }
+            }
+        }
+    }, {
+        key: '_createBodyDetailData',
+        value: function _createBodyDetailData() {
+            var mainData = this.gridData.Data;
+
+            for (var i = 0; i < mainData.length; i++) {
+                var item = mainData[i];
+                item.Index = i + 1;
+
+                this._createRowByColumnIndex(item, MAIN_SECTION_STYLE, INDEX_COLUM_INDEX, SUBSIDIARYWL_DETAIL_COLUMN_INDEX);
+                this.currentRowIndex++;
             }
         }
     }, {
         key: '_createFooterData',
         value: function _createFooterData() {
             var totalDataList = this.gridData.Total;
+            var subs = Object.keys(totalDataList);
 
-            for (var i = 0; i < totalDataList.length; i++) {
+            for (var i = 0; i < subs.length; i++) {
+                var item = totalDataList[subs[i]];
+
+                this._createRowByColumnIndex({ Subsidiary: _service.TotalText.Total + " " + subs[i], CurrencyName: _service.TotalText.Based + " " + this.baseCurrency }, TOTAL_SECTION_STYLE, SUBSIDIARY_COLUMN_INDEX, CURRENCY_COLUMN_INDEX);
                 this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 1 }, e: { r: this.currentRowIndex, c: 2 } });
-                var item = totalDataList[i];
-                this._createRowByColumnIndex(item, TOTAL_SECTION_STYLE, SUBSIDIARY_COLUMN_INDEX, SUBSIDIARYCOMM_COLUMN_INDEX);
+                this._createRowByColumnIndex(item, TOTAL_SECTION_STYLE, BETCOUNT_COLUMN_INDEX, SUBSIDIARYWL_COLUMN_INDEX);
+                this.currentRowIndex++;
+            }
+        }
+    }, {
+        key: '_createFooterDetailData',
+        value: function _createFooterDetailData() {
+            var totalDataList = this.gridData.Total;
+            var subs = Object.keys(totalDataList);
+            var rowSpan = subs.length;
+
+            this._createRowByColumnIndex({ Index: _service.TotalText.TotalIn + " " + this.baseCurrency }, TOTAL_SECTION_STYLE, INDEX_COLUM_INDEX, INDEX_COLUM_INDEX);
+            this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 0 }, e: { r: this.currentRowIndex + rowSpan - 1, c: 2 } });
+
+            for (var i = 0; i < rowSpan; i++) {
+                var item = totalDataList[subs[i]];
+
+                this._createRowByColumnIndex(item, TOTAL_SECTION_STYLE, CURRENCY_DETAIL_COLUMN_INDEX, SUBSIDIARYWL_DETAIL_COLUMN_INDEX);
                 this.currentRowIndex++;
             }
         }
@@ -6336,17 +6180,28 @@ var ReportExcel = function () {
         value: function _createGrandTotalData() {
             this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 1 }, e: { r: this.currentRowIndex, c: 2 } });
             var grandTotal = this.gridData.GrandTotal;
-            this._createRowByColumnIndex(grandTotal, GRAND_TOTAL_SECTION_STYLE, SUBSIDIARY_COLUMN_INDEX, SUBSIDIARYCOMM_COLUMN_INDEX);
+
+            this._createRowByColumnIndex({ Subsidiary: _service.TotalText.Total, CurrencyName: _service.TotalText.Based + " " + this.baseCurrency }, GRAND_TOTAL_SECTION_STYLE, SUBSIDIARY_COLUMN_INDEX, CURRENCY_COLUMN_INDEX);
+            this._createRowByColumnIndex(grandTotal, GRAND_TOTAL_SECTION_STYLE, BETCOUNT_COLUMN_INDEX, SUBSIDIARYWL_COLUMN_INDEX);
+        }
+    }, {
+        key: '_createGrandTotalDetailData',
+        value: function _createGrandTotalDetailData() {
+            this.mergeConfig.push({ s: { r: this.currentRowIndex, c: 0 }, e: { r: this.currentRowIndex, c: 3 } });
+            var grandTotal = this.gridData.GrandTotal;
+
+            this._createRowByColumnIndex({ Index: _service.TotalText.TotalIn + " " + this.baseCurrency }, GRAND_TOTAL_SECTION_STYLE, INDEX_COLUM_INDEX, INDEX_COLUM_INDEX);
+            this._createRowByColumnIndex(grandTotal, GRAND_TOTAL_SECTION_STYLE, BETCOUNT_DETAIL_COLUMN_INDEX, SUBSIDIARYWL_DETAIL_COLUMN_INDEX);
         }
     }, {
         key: '_createExcelConfig',
         value: function _createExcelConfig() {
             var cellStart = _excel2.default.getCellAddress({ r: 0, c: 0 });
-            var cellEnd = _excel2.default.getCellAddress({ r: this.currentRowIndex, c: COLUMN_COUNT - 1 });
+            var cellEnd = _excel2.default.getCellAddress({ r: this.currentRowIndex, c: this.isCustomerLevel ? COLUMN_DETAIL_COUNT - 1 : COLUMN_COUNT - 1 });
 
             this.worksheet["!merges"] = this.mergeConfig;
             this.worksheet["!ref"] = cellStart + ':' + cellEnd;
-            var wscols = [{ wpx: 150 }, { wpx: 120 }, { wpx: 180 }, { wpx: 120 }, { wpx: 250 }, { wpx: 250 }, { wpx: 250 }, { wpx: 120 }];
+            var wscols = this.isCustomerLevel ? [{ wpx: 30 }, { wpx: 180 }, { wpx: 180 }, { wpx: 180 }, { wpx: 180 }, { wpx: 250 }, { wpx: 250 }, { wpx: 250 }] : [{ wpx: 150 }, { wpx: 120 }, { wpx: 180 }, { wpx: 120 }, { wpx: 250 }, { wpx: 250 }, { wpx: 250 }];
 
             this.worksheet['!cols'] = wscols;
         }
@@ -6360,13 +6215,19 @@ var ReportExcel = function () {
                     value = _getCellObject2.value,
                     style = _getCellObject2.style;
 
-                this.worksheet[cellAddress] = { t: type, v: value, s: style };
+                if (cellAddress) {
+                    this.worksheet[cellAddress] = { t: type, v: value, s: style };
+                }
             }
         }
     }, {
         key: '_getCellObject',
         value: function _getCellObject(item, sectionStyle, columnIndex) {
-            var columnConfig = columnConfigs[columnIndex];
+            var columnConfig = this.columnConfigs[columnIndex];
+            if (!columnConfig) {
+                return { cellAddress: null };
+            }
+
             var field = columnConfig.field;
 
             var cellAddress = _excel2.default.getCellAddress({ c: columnIndex, r: this.currentRowIndex });
@@ -6379,6 +6240,48 @@ var ReportExcel = function () {
             }
 
             return { cellAddress: cellAddress, type: type, value: value, style: style };
+        }
+    }, {
+        key: '_getcolumnConfigs',
+        value: function _getcolumnConfigs(isCustomerLevel) {
+            var _columns$push8, _columns$push9, _columns$push10, _columns$push11;
+
+            var columns = [];
+            if (isCustomerLevel) {
+                var _columns$push, _columns$push4;
+
+                columns.push((_columns$push = {
+                    field: "Index"
+                }, _defineProperty(_columns$push, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.center), _defineProperty(_columns$push, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.center), _defineProperty(_columns$push, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.center), _columns$push), _defineProperty({
+                    field: fields.externalId
+                }, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.center), _defineProperty({
+                    field: fields.systemId
+                }, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.center), (_columns$push4 = {
+                    field: fields.currencyName
+                }, _defineProperty(_columns$push4, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.center), _defineProperty(_columns$push4, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.center), _columns$push4));
+            } else {
+                var _columns$push5, _columns$push6;
+
+                columns.push((_columns$push5 = {
+                    field: fields.subsidiary
+                }, _defineProperty(_columns$push5, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.rowspan), _defineProperty(_columns$push5, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.default), _defineProperty(_columns$push5, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.default), _columns$push5), (_columns$push6 = {
+                    field: fields.currencyName
+                }, _defineProperty(_columns$push6, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.center), _defineProperty(_columns$push6, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.center), _defineProperty(_columns$push6, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.center), _columns$push6), _defineProperty({
+                    field: fields.product
+                }, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.default));
+            }
+
+            columns.push((_columns$push8 = {
+                field: fields.betCount
+            }, _defineProperty(_columns$push8, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.number), _defineProperty(_columns$push8, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.number), _defineProperty(_columns$push8, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.number), _columns$push8), (_columns$push9 = {
+                field: fields.turnover
+            }, _defineProperty(_columns$push9, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.decimal), _defineProperty(_columns$push9, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.decimal), _defineProperty(_columns$push9, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.decimal), _columns$push9), (_columns$push10 = {
+                field: fields.customerWinLoss
+            }, _defineProperty(_columns$push10, MAIN_SECTION_STYLE, _excelStyle.bodyCellStyle.decimal), _defineProperty(_columns$push10, TOTAL_SECTION_STYLE, _excelStyle.totalCellStyle.decimal), _defineProperty(_columns$push10, GRAND_TOTAL_SECTION_STYLE, _excelStyle.grandTotalCellStyle.decimal), _columns$push10), (_columns$push11 = {
+                field: fields.subsidiaryWinLoss
+            }, _defineProperty(_columns$push11, MAIN_SECTION_STYLE, { positive: _excelStyle.bodyCellStyle.decimal, negative: _excelStyle.bodyCellStyle.negativeDecimal }), _defineProperty(_columns$push11, TOTAL_SECTION_STYLE, { positive: _excelStyle.totalCellStyle.decimal, negative: _excelStyle.totalCellStyle.negativeDecimal }), _defineProperty(_columns$push11, GRAND_TOTAL_SECTION_STYLE, { positive: _excelStyle.grandTotalCellStyle.decimal, negative: _excelStyle.grandTotalCellStyle.negativeDecimal }), _columns$push11));
+
+            return columns;
         }
     }]);
 
@@ -6402,6 +6305,7 @@ exports.default = ReportExcel;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.Service = exports.Api = exports.BreadcrumbText = exports.TotalText = exports.HeaderText = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -6417,77 +6321,56 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var headerText = {
-    subsidiary: _langHelper2.default.getSingleResource("Subsidiary"),
-    currency: _langHelper2.default.getSingleResource("Currency"),
-    product: _langHelper2.default.getSingleResource("Product"),
-    betCount: _langHelper2.default.getSingleResource("BetCount"),
-    turnover: _langHelper2.default.getSingleResource("Turnover"),
-    customerWL: _langHelper2.default.getSingleResource("CustomerW_L"),
-    subsidiaryWL: '' + _langHelper2.default.getSingleResource("SubsidiaryWL"),
-    subsidiaryComm: _langHelper2.default.getSingleResource("Subsidiary") + ' ' + _langHelper2.default.getSingleResource("Comm")
+var HeaderText = exports.HeaderText = {
+    Index: '#',
+    Subsidiary: _langHelper2.default.getSingleResource("Subsidiary"),
+    CurrencyName: _langHelper2.default.getSingleResource("Currency"),
+    Product: _langHelper2.default.getSingleResource("Product"),
+    BetCount: _langHelper2.default.getSingleResource("BetCount"),
+    Turnover: _langHelper2.default.getSingleResource("Turnover"),
+    CustomerWinLoss: _langHelper2.default.getSingleResource("CustomerW_L"),
+    SubsidiaryWinLoss: '' + _langHelper2.default.getSingleResource("SubsidiaryWL"),
+    ExternalId: _langHelper2.default.getSingleResource("ExternalId"),
+    SystemId: _langHelper2.default.getSingleResource("SystemId")
 };
 
-var Service = function () {
+var TotalText = exports.TotalText = {
+    Total: _langHelper2.default.getSingleResource('Total'),
+    TotalIn: _langHelper2.default.getSingleResource('Totalin'),
+    Based: _langHelper2.default.getSingleResource('Based')
+};
+
+var BreadcrumbText = exports.BreadcrumbText = {
+    Main: _langHelper2.default.getSingleResource('Main'),
+    Customer: _langHelper2.default.getSingleResource('Customer')
+};
+
+var Api = exports.Api = {
+    Url: 'api/SubsidiaryPerformanceReport/Index',
+    DetailUrl: 'api/SubsidiaryPerformanceReport/Detail'
+};
+
+var Service = exports.Service = function () {
     function Service() {
         _classCallCheck(this, Service);
     }
 
     _createClass(Service, null, [{
         key: 'getReportTitle',
-        value: function getReportTitle(dateRange, selectedBaseCurrency) {
-            var fromDate = _site2.default.convertDateToString(dateRange.fromDate);
-            var toDate = _site2.default.convertDateToString(dateRange.toDate);
+        value: function getReportTitle(fromDate, toDate, selectedBaseCurrency) {
             var baseCurrency = _langHelper2.default.getSingleResource("BaseCurrency") + ': ' + selectedBaseCurrency;
 
             return _langHelper2.default.getSingleResource("SubsidiaryPerformance") + ', ' + fromDate + ' - ' + toDate + ', ' + baseCurrency;
         }
     }, {
-        key: 'getHeaderText',
-        value: function getHeaderText() {
-            return headerText;
+        key: 'showErrorMsg',
+        value: function showErrorMsg() {
+            alert(_langHelper2.default.getSingleResource('ErrorProcessingMsg'));
         }
     }]);
 
     return Service;
 }();
-
-exports.default = Service;
-
-/***/ }),
-
-/***/ "./www/js/source/reactpages/pages/subsidiaryperformance/reducers/dataHandlerReducer.js":
-/*!*********************************************************************************************!*\
-  !*** ./www/js/source/reactpages/pages/subsidiaryperformance/reducers/dataHandlerReducer.js ***!
-  \*********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.gridData = undefined;
-
-var _createReducer2 = __webpack_require__(/*! ../../../lib/createReducer.js */ "./www/js/source/reactpages/lib/createReducer.js");
-
-var _createReducer3 = _interopRequireDefault(_createReducer2);
-
-var _types = __webpack_require__(/*! ../actions/types.js */ "./www/js/source/reactpages/pages/subsidiaryperformance/actions/types.js");
-
-var types = _interopRequireWildcard(_types);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var gridData = exports.gridData = (0, _createReducer3.default)({}, _defineProperty({}, types.SET_GRID_DATA, function (state, action) {
-    return action.data;
-}));
 
 /***/ }),
 
@@ -6504,11 +6387,11 @@ var gridData = exports.gridData = (0, _createReducer3.default)({}, _defineProper
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.dateConstraint = exports.convertAll = exports.dateRange = exports.selectedSubsidiary = exports.subsidiaryList = undefined;
+exports.params = exports.includeDrawData = exports.dateConstraint = exports.convertAll = exports.dateRange = exports.selectedSubsidiary = exports.subsidiaryList = undefined;
 
-var _createReducer6 = __webpack_require__(/*! ../../../lib/createReducer.js */ "./www/js/source/reactpages/lib/createReducer.js");
+var _createReducer8 = __webpack_require__(/*! ../../../lib/createReducer.js */ "./www/js/source/reactpages/lib/createReducer.js");
 
-var _createReducer7 = _interopRequireDefault(_createReducer6);
+var _createReducer9 = _interopRequireDefault(_createReducer8);
 
 var _types = __webpack_require__(/*! ../actions/types.js */ "./www/js/source/reactpages/pages/subsidiaryperformance/actions/types.js");
 
@@ -6520,23 +6403,31 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var subsidiaryList = exports.subsidiaryList = (0, _createReducer7.default)({}, _defineProperty({}, types.GET_SUBSIDIARY, function (state, action) {
+var subsidiaryList = exports.subsidiaryList = (0, _createReducer9.default)({}, _defineProperty({}, types.GET_SUBSIDIARY, function (state, action) {
     return action.data;
 }));
 
-var selectedSubsidiary = exports.selectedSubsidiary = (0, _createReducer7.default)({}, _defineProperty({}, types.SET_SUBSIDIARY, function (state, action) {
+var selectedSubsidiary = exports.selectedSubsidiary = (0, _createReducer9.default)({}, _defineProperty({}, types.SET_SUBSIDIARY, function (state, action) {
     return action.data;
 }));
 
-var dateRange = exports.dateRange = (0, _createReducer7.default)({}, _defineProperty({}, types.SET_DATE_RANGE, function (state, action) {
+var dateRange = exports.dateRange = (0, _createReducer9.default)({}, _defineProperty({}, types.SET_DATE_RANGE, function (state, action) {
     return action.data;
 }));
 
-var convertAll = exports.convertAll = (0, _createReducer7.default)({}, _defineProperty({}, types.CHANGE_CONVERT_ALL, function (state, action) {
+var convertAll = exports.convertAll = (0, _createReducer9.default)({}, _defineProperty({}, types.CHANGE_CONVERT_ALL, function (state, action) {
     return action.data;
 }));
 
-var dateConstraint = exports.dateConstraint = (0, _createReducer7.default)({}, _defineProperty({}, types.GET_DATE_CONSTRAINT, function (state, action) {
+var dateConstraint = exports.dateConstraint = (0, _createReducer9.default)({}, _defineProperty({}, types.GET_DATE_CONSTRAINT, function (state, action) {
+    return action.data;
+}));
+
+var includeDrawData = exports.includeDrawData = (0, _createReducer9.default)({}, _defineProperty({}, types.CHANGE_INCLUDE_DRAW_DATA, function (state, action) {
+    return action.data;
+}));
+
+var params = exports.params = (0, _createReducer9.default)({}, _defineProperty({}, types.SET_PARAMS, function (state, action) {
     return action.data;
 }));
 
@@ -6558,10 +6449,6 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(/*! redux */ "./node_modules/redux/es/index.js");
 
-var _dataHandlerReducer = __webpack_require__(/*! ./dataHandlerReducer.js */ "./www/js/source/reactpages/pages/subsidiaryperformance/reducers/dataHandlerReducer.js");
-
-var dataHandlerReducer = _interopRequireWildcard(_dataHandlerReducer);
-
 var _filterHandlerReducer = __webpack_require__(/*! ./filterHandlerReducer.js */ "./www/js/source/reactpages/pages/subsidiaryperformance/reducers/filterHandlerReducer.js");
 
 var filterHandlerReducer = _interopRequireWildcard(_filterHandlerReducer);
@@ -6578,9 +6465,13 @@ var _loaderReducer = __webpack_require__(/*! ../../../reducers/loaderReducer */ 
 
 var loaderReducer = _interopRequireWildcard(_loaderReducer);
 
+var _excludeTestReducer = __webpack_require__(/*! ../../../reducers/excludeTestReducer */ "./www/js/source/reactpages/reducers/excludeTestReducer.js");
+
+var excludeTestReducer = _interopRequireWildcard(_excludeTestReducer);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-exports.default = (0, _redux.combineReducers)(Object.assign(dataHandlerReducer, filterHandlerReducer, productReducer, baseCurrencyReducer, loaderReducer));
+exports.default = (0, _redux.combineReducers)(Object.assign(filterHandlerReducer, productReducer, baseCurrencyReducer, loaderReducer, excludeTestReducer));
 
 /***/ }),
 
@@ -6618,6 +6509,41 @@ var selectedBaseCurrency = exports.selectedBaseCurrency = (0, _createReducer4.de
 }));
 
 var baseCurrencyList = exports.baseCurrencyList = (0, _createReducer4.default)({}, _defineProperty({}, types.SET_BASECURRENCY_LIST, function (state, action) {
+    return action.data;
+}));
+
+/***/ }),
+
+/***/ "./www/js/source/reactpages/reducers/excludeTestReducer.js":
+/*!*****************************************************************!*\
+  !*** ./www/js/source/reactpages/reducers/excludeTestReducer.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.isExcludeTest = undefined;
+
+var _types = __webpack_require__(/*! ../actions/types */ "./www/js/source/reactpages/actions/types.js");
+
+var types = _interopRequireWildcard(_types);
+
+var _createReducer2 = __webpack_require__(/*! ../lib/createReducer.js */ "./www/js/source/reactpages/lib/createReducer.js");
+
+var _createReducer3 = _interopRequireDefault(_createReducer2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var isExcludeTest = exports.isExcludeTest = (0, _createReducer3.default)({}, _defineProperty({}, types.CHANGE_IS_EXCLUDE_TEST, function (state, action) {
     return action.data;
 }));
 

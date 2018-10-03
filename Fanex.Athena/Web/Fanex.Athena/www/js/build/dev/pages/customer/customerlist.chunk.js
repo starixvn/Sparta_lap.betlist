@@ -4129,7 +4129,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/Mik
         //global variables
         var $original = $(select);
         var $select = $original,
-            $options, $header, $labels, $footer, $listGroupCheckBox, $body, $listItem, $listCollapse, $divHover,
+            $searchBox, $clearSearchButton, $options, $header, $labels, $footer, $listGroupCheckBox, $body, $listItem, $listCollapse, $divHover,
             $allLabel, $inputHeaderCheckBox, $selectinput, $headerCheckbox, $checkedInput, $dropdownlist,
             html = [],
             optgroups = [],
@@ -4139,6 +4139,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/Mik
             isShowGroup = false,
             isOpenning = false,
             numGroup = 0;
+
         //render MultiSleclect Interface
         var RenderInterface = function (id, idDisable, noneSelectedText, title) {
             //remove old
@@ -4164,10 +4165,17 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/Mik
                 }
             }
         }
+        var renderSearchBox = function () {
+            var html = [];
+            html.push('<div style="width:100%;height:30px">');
+            html.push('<input class="_SearchBox" type="text" placeholder="Search data" style="padding: 5px;width:calc(100% - 13px)"/>');
+            html.push('<span class="_ClearSearchButton" style="position:absolute;top:7px;right:10px;cursor:pointer">X</span>');
+            html.push('</div>');
+            return html.join('');
+        };
         var RenderHeader = function (id, checkAllText) {
             var tempHtml = [];
-            //html.push('<div class="ui-multiselect-widget-header ui-multiselect-helper-clearfix ui-multiselect-corner-all ui-multiselect-header">');
-            //html.push('<ul class="ui-multiselect-helper-reset ui-multiselect-checkboxes" style="overflow-y:hidden;">');
+
             tempHtml.push('<div class="ui-multiselect-widget-header ui-multiselect-helper-clearfix ui-multiselect-header custom-ui-widget-header">');
             tempHtml.push('<ul class="ui-multiselect-helper-reset ui-multiselect-checkboxes-head" style="overflow-y:hidden;">');
             tempHtml.push('<li style="display:inline;">');
@@ -4299,6 +4307,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/Mik
                 tempHtml.push(InsertRow(tempGroup, i, isChild, isLastChildItem, isNoGroup, siblingIsGroup, groupIdAttr, currentGroupId));
             }
             tempHtml.push('</ul>');
+            tempHtml.push('<div class="_NoItemText" style="display:none">' + o.noItemText + '</div>');
             return tempHtml.join('');
         };
         //render Footer
@@ -4395,6 +4404,28 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/Mik
         };
 
         var BindingEvent = function () {
+            // search box
+
+            if (o.showSearchBox) {
+                $searchBox.on('input', function () {
+                    var searchText = this.value.toLowerCase();
+                    if (searchText === '') {
+                        $body.find('li').show();
+                    } else {
+                        $body.find('li').each(function () {
+                            var itemText = $(this).find('label').text().toLowerCase();
+                            $(this).toggle(itemText.indexOf(searchText) === 0);
+                        });
+                    }
+
+                    $options.find('._NoItemText').toggle($body.find('li:visible').length === 0);
+                });
+
+                $clearSearchButton.click(function () {
+                    $searchBox.val('').trigger('input');
+                });
+            }
+
             // build header links
             if (o.showHeader) {
                 $header.find('input').click(function (e) {
@@ -4590,6 +4621,8 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/Mik
                         isOpenning = true;
                     }
                     //o.onOpen.call($options[0]);
+
+                    $searchBox.focus();
                 },
                 'toggle': function () {
                     var isHide = $(this).is(':hidden');
@@ -4694,6 +4727,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/Mik
             html.push(RenderInterface(id, isDisabled || o.disabled, o.noneSelectedText));
             html.push('<div class="ui-multiselect-options RadTreeView RadTreeView_Office2010Silver' + (o.shadow ? ' ui-multiselect-shadow' : '') + ' ui-multiselect-widget ui-multiselect-widget-content ui-multiselect-corner-all" >');
             if (o.listData.length != 0) {
+                o.showSearchBox && html.push(renderSearchBox());
                 html.push(RenderHeader(id, o.checkAllText));
                 html.push(RenderBody());
             }
@@ -4706,9 +4740,10 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/Mik
             html.push('</div>');
 
             //add global variable
-
             $select = $select.after(html.join('')).next('a.ui-multiselect');
             $options = $select.next('div.ui-multiselect-options');
+            $searchBox = $options.find('._SearchBox');
+            $clearSearchButton = $options.find('._ClearSearchButton');
             $options.attr('id', 'ui-multiselect-options-' + id);
             $options = $('#ui-multiselect-options-' + id);
             $header = $options.find('div.ui-multiselect-header');
@@ -4747,6 +4782,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/Mik
     });
     // default options
     $.fn.multiSelect.defaults = {
+        showSearchBox: false,
         showHeader: true,
         showFooter: true,
         showTooltip: false,
@@ -5620,6 +5656,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
                 _me.initGridColumnOption();
                 _me.initOddGroupOption();
+                _me.initSubsidiaryOption();
             },
 
             initGridColumnOption: function () {
@@ -5714,14 +5751,56 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     listData: dataUI,
                     onCheck: function () {
                         var checkedItems = $("#odds-group-multiselect").multiSelect("getCheckedItems");
-                        if (checkedItems.length === 0) {
-                            $("#SubmitButton").prop("disabled", true);
-                            $("#odds-group-multiselect-null").removeClass("hide");
-                        }
-                        else {
-                            $("#SubmitButton").prop("disabled", false);
-                            $("#odds-group-multiselect-null").addClass("hide");
-                        }
+                        $("#SubmitButton").prop("disabled", checkedItems.length === 0);
+                    }
+                });
+            },
+
+            initSubsidiaryOption: function () {
+                var data = $("#SubsidiaryList").val();
+                if (!data) {
+                    return;
+                }
+
+                data = $.parseJSON(data);
+                var totalColumns = data.length;
+                var dataUI = [{
+                    Value: '(others)',
+                    Text: Site.getSingleResource('Others'),
+                    Checked: true,
+                    Enable: true
+                }];
+                var checkedCount = 0;
+                for (var i = 0; i < totalColumns; i++) {
+                    var isChecked = Site.asBool(data[i].Checked);
+                    if (isChecked) {
+                        checkedCount++;
+                    }
+
+                    dataUI.push({
+                        Value: data[i].Name,
+                        Text: data[i].Name,
+                        Checked: isChecked,
+                        Enable: true
+                    });
+                }
+
+                var ischeckAll = checkedCount === totalColumns;
+                $("#subsidiary-multiselect").multiSelect(
+                {
+                    minWidth: 100,
+                    maxHeight: 400,
+                    shadow: true,
+                    showSearchBox: true,
+                    showHeader: true,
+                    isCheckAll: ischeckAll,
+                    showFooter: false,
+                    checkAllText: Site.getSingleResource('All'),
+                    selectedText: Site.getSingleResource("SelectedItemCount"),
+                    listData: dataUI,
+                    onCheck: function () {
+                        var checkedItems = $("#subsidiary-multiselect").multiSelect("getCheckedItems");
+                        $("#SubmitButton").prop("disabled", checkedItems.length === 0);
                     }
                 });
             }
@@ -6391,6 +6470,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 if (oddsGroupCount === 0) {
                     return;
                 }
+            }
+
+            if ($("#subsidiary-multiselect").length > 0) {
+                data.SubsidiaryList = $("#subsidiary-multiselect").multiSelect('getCheckedItems').join();
             }
 
             data.PageIndex = _state.pagingOption.pageindex;
