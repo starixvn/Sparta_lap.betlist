@@ -12,7 +12,7 @@ import { defaultProps, defaultAppData } from './fakeData';
 
 const formFilterPropsForRender = { ...defaultProps };
 
-const multipleSelectComponentPath = '../../../../components/multiple-select';
+const multipleSelectComponentPath = '@9softstudio/react-multiselect';
 const dateRangeComponentPath = '../../../../components/date-range/index';
 const userGuidePath = '../../../../components/UserGuide';
 

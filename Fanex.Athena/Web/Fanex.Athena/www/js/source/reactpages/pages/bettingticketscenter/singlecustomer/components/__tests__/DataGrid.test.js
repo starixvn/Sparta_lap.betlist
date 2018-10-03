@@ -104,7 +104,7 @@ describe('DataGrid ', () => {
     describe('_buildFooter ', () => {
         it('render correctly', () => {
             const props = {
-                gridData: { Total: {SumStake: 2232.23}}
+                gridData: { Total: {SumStake: '2232.23', SumLicenseeWL: '-1231' }}
             };
             const grid = new DataGrid(props);
             

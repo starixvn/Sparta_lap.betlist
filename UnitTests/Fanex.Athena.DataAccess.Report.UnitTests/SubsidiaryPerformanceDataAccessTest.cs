@@ -18,18 +18,14 @@
     {
         private BalanceUp _balance;
 
-        [OneTimeSetUp]
-        public override void FixtureSetUp()
+        protected override void SetUpDataAccess()
         {
             _balance = new BalanceUp
             {
                 MoveBetsDay = new DateTime(2017, 8, 25),
                 BalanceUpDay = new DateTime(2017, 8, 31)
             };
-        }
 
-        protected override void SetUpDataAccess()
-        {
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             balanceUpDataAccess.GetBalanceUp().Returns(_balance);
             DataAccess = Substitute.ForPartsOf<SubsidiaryPerformanceDataAccess>(

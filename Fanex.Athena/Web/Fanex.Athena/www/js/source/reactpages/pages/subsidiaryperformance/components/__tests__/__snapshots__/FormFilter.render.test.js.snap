@@ -18,7 +18,7 @@ exports[`FormFilter  render methods render whole component match to snapshot 1`]
         >
           Subsidiary
         </label>
-        <MultipleSelect
+        <t
           dataSource={
             Array [
               Object {
@@ -86,7 +86,7 @@ exports[`FormFilter  render methods render whole component match to snapshot 1`]
         >
           Product
         </label>
-        <MultipleSelect
+        <t
           dataSource={
             Array [
               Object {

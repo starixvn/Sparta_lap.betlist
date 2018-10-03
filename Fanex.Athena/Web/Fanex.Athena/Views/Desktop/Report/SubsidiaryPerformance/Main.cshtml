@@ -30,18 +30,18 @@
     window.initialState = {
         selectedProduct: '@(selectedProductCode)',
         selectedBaseCurrency: '@(baseCurrencyList.Any() ? baseCurrencyList.First().value : string.Empty)',
-        subsidiaryList: @Html.Raw(subsidiaryList.ToJson()),
         selectedSubsidiary: '@(selectedSubsidiary)',
         convertAll: false,
         dateRange: {fromDate: '@Model.FromDate.ToString("MM/dd/yyyy")', toDate: '@Model.ToDate.ToString("MM/dd/yyyy")'},
         isLoading: false,
-        dateConstraint: {minDate: '@minDate.ToString("MM/dd/yyyy")', maxDate: '@maxDate.ToString("MM/dd/yyyy")'},
         includeDrawData: true,
         isExcludeTest: true
     };
     window._AppData = {
         productOptions: @Html.Raw(productOptions.ToJson()),
-        baseCurrencyList: @Html.Raw(baseCurrencyList.ToJson())
+        baseCurrencyList: @Html.Raw(baseCurrencyList.ToJson()),
+        subsidiaryList: @Html.Raw(subsidiaryList.ToJson()),
+        dateConstraint: {minDate: '@minDate.ToString("MM/dd/yyyy")', maxDate: '@maxDate.ToString("MM/dd/yyyy")'}
     };
 }
 <div id="app-container">

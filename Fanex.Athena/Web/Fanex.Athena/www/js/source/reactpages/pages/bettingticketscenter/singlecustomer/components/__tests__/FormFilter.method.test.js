@@ -9,7 +9,6 @@ import Service from '../../../common/lib/Service';
 import renderer from 'react-test-renderer';
 import Select from 'react-select';
 import AutoComplete from '@jsroot/components/auto-complete';
-import MultipleSelect from '@jsroot/components/multiple-select'
 
 jest.mock('@jsroot/lib/AppData');
 

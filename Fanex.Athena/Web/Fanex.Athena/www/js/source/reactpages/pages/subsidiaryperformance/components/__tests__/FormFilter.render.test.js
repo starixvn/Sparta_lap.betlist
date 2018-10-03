@@ -10,9 +10,9 @@ import { Service } from '../../lib/service';
 import { defaultProps, defaultAppData } from './fakeData';
 
 const { subsidiaryList, productOptions, baseCurrencyList, selectedBaseCurrency, dateRange, dateConstraint } = defaultProps;
-const formFilterPropsForRender = { subsidiaryList, productOptions, baseCurrencyList, selectedBaseCurrency, dateRange, dateConstraint };
+const formFilterPropsForRender = { productOptions, baseCurrencyList, selectedBaseCurrency, dateRange };
 
-const multipleSelectComponentPath = '@jsroot/components/multiple-select';
+const multipleSelectComponentPath = '@9softstudio/react-multiselect';
 const dateRangeComponentPath = '@jsroot/components/date-range/index';
 
 jest.mock('@jsroot/lib/AppData');
@@ -42,7 +42,7 @@ describe('FormFilter ', () => {
                 const multipleSelectComponent = formFilter._renderSubsidiarySelectList();
 
                 const expectedResult = {
-                    dataSource: formFilterPropsForRender.subsidiaryList,
+                    dataSource: defaultAppData.subsidiaryList,
                     keyField: "Name",
                     valueField: "Name",
                     statusField: "Checked",
@@ -56,20 +56,12 @@ describe('FormFilter ', () => {
                 expect(result).toEqual(expectedResult);
             });
 
-            it("_renderSubsidiarySelectList - subsidiaryList is empty - return null", () => {
-                const props = { ...formFilterPropsForRender, subsidiaryList: [] };
-                const formFilter = new FormFilter(props);
-                const multipleSelectComponent = formFilter._renderSubsidiarySelectList();
-
-                expect(multipleSelectComponent).toBeNull();
-            });
-
             it("_renderProductSelectList - MultipleSelect props should be correct", () => {
                 const formFilter = new FormFilter(formFilterPropsForRender);
                 const multipleSelectComponent = formFilter._renderProductSelectList();
 
                 const expectedResult = {
-                    dataSource: AppData.productOptions,
+                    dataSource: defaultAppData.productOptions,
                     keyField: "Code",
                     valueField: "Name",
                     statusField: "Status",
@@ -81,13 +73,6 @@ describe('FormFilter ', () => {
                 const result = { dataSource, keyField, valueField, statusField, optionAllLabel, noneSelectedLabel };
 
                 expect(result).toEqual(expectedResult);
-            });
-
-            it("_renderProductSelectList - productOptions is empty - return null", () => {
-                AppData.productOptions = [];
-                const formFilter = new FormFilter(formFilterPropsForRender);
-                const multipleSelectComponent = formFilter._renderProductSelectList();
-                expect(multipleSelectComponent).toBe(0);
             });
         })
 
@@ -134,8 +119,8 @@ describe('FormFilter ', () => {
                 const expectedResult = {
                     startDate: formFilterPropsForRender.dateRange.fromDate,
                     endDate: formFilterPropsForRender.dateRange.toDate,
-                    minDate: formFilterPropsForRender.dateConstraint.minDate,
-                    maxDate: formFilterPropsForRender.dateConstraint.maxDate,
+                    minDate: defaultAppData.dateConstraint.minDate,
+                    maxDate: defaultAppData.dateConstraint.maxDate,
                     limitedMonthRange: 3
                 }
 

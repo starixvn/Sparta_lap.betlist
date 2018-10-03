@@ -24,11 +24,11 @@ export class AppContainer extends Component {
     }];
   }
 
-  componentDidUpdate(prevProps, prevState) {
-      if (this.props.isLoading && !prevProps.isLoading) {
-          const { dateRange, selectedBaseCurrency } = this.props;
-      this.reportTitle = service.getReportTitle(dateRange, selectedBaseCurrency);
-    }
+  componentDidUpdate(prevProps) {
+      if (prevProps.params.Timestamp !== this.props.params.Timestamp) {
+          const { FromDate, ToDate, BaseCurrency } = this.props.params;
+          this.reportTitle = Service.getReportTitle(FromDate, ToDate, BaseCurrency);
+      }
   }
 
   _backToMain = () => {

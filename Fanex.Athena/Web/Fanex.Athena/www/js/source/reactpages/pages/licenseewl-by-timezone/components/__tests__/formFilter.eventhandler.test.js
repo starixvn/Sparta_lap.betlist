@@ -25,7 +25,8 @@ describe('FormFilter ', () => {
             }
 
             return resource;
-        })
+        });
+
     })
     afterAll(() => {
         jest.resetAllMocks();

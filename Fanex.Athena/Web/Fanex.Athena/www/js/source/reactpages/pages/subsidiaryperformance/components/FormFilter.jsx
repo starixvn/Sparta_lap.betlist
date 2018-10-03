@@ -21,8 +21,8 @@ export class FormFilter extends Component {
     }
 
     get isValidModel() {
-        const { subsidiaryList, selectedSubsidiary, selectedProduct } = this.props;
-        return (!subsidiaryList || selectedSubsidiary !== "") && selectedProduct !== "";
+        const { selectedSubsidiary, selectedProduct } = this.props;
+        return (!AppData.subsidiaryList || selectedSubsidiary !== "") && selectedProduct !== "";
     }
 
     submit = (event) => {
@@ -106,12 +106,12 @@ export class FormFilter extends Component {
     }
 
     _renderSubsidiarySelectList() {
-        const { subsidiaryList } = this.props;
+        const subsidiaryList = AppData.subsidiaryList;
 
         return subsidiaryList && subsidiaryList.length ? (
             <MultipleSelect
                 hasSearchBox={true}
-                dataSource={this.props.subsidiaryList}
+                dataSource={subsidiaryList}
                 keyField={"Name"}
                 valueField={"Name"}
                 statusField={"Checked"}
@@ -148,7 +148,8 @@ export class FormFilter extends Component {
     }
 
     _renderDateRange() {
-        const { dateRange, dateConstraint } = this.props;
+        const dateRange = this.props.dateRange;
+        const dateConstraint = AppData.dateConstraint;
 
         return (
             <DateRange startDate={dateRange.fromDate} endDate={dateRange.toDate}
@@ -159,9 +160,8 @@ export class FormFilter extends Component {
     }
 
     render() {
-        const { subsidiaryList } = this.props;
         let subsidiaryDropdown = false;
-        if(subsidiaryList) {
+        if(AppData.subsidiaryList) {
             subsidiaryDropdown = 
                 (<div className="col-12 col-md-3 col-sm-5 col-lg-3 col-xl-3">
                     <div className="form-group">

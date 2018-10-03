@@ -1,9 +1,6 @@
 const defaultProps = {
-    subsidiaryList: [{ ID: 1, Name: "New York", Checked: true }, { ID: 2, Name: "India", Checked: false }],
     selectedBaseCurrency: "EUR",
     dateRange: { fromDate: '09/26/2017', toDate: '09/28/2017' },
-    dateConstraint: { minDate: '06/01/2012', maxDate: '09/28/2017' },
-    xsrfToken: "token",
     includeDrawData: true,
     isExcludeTest: true,
 
@@ -19,7 +16,9 @@ const defaultProps = {
 
 const defaultAppData = {
     productOptions: [{ Code: "SB", Name: "Sportsbook", Status: true }, { Code: "BA", Name: "BA", Status: true }],
-    baseCurrencyList: [{ "value": "EUR", "label": "EUR" }, { "value": "USD", "label": "USD" }]
+    baseCurrencyList: [{ "value": "EUR", "label": "EUR" }, { "value": "USD", "label": "USD" }],
+    subsidiaryList: [{ ID: 1, Name: "New York", Checked: true }, { ID: 2, Name: "India", Checked: false }],
+    dateConstraint: { minDate: '06/01/2012', maxDate: '09/28/2017' }
 }
 
 const bodyData = [{
@@ -108,4 +107,4 @@ const totalDetailData = {
     }
 }
 
-export { defaultProps, totalData, bodyData, grandTotalData, bodyDetailData, totalDetailData };
+export { defaultProps, totalData, bodyData, grandTotalData, bodyDetailData, totalDetailData, defaultAppData };

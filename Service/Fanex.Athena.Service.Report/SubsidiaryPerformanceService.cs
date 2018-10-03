@@ -3,9 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Constant.DataDomain;
-    using Core.Users;
     using Core.Users.Interfaces;
-    using DataAccess.Report;
     using DataAccess.Report.Interfaces;
     using Fanex.Athena.Model.Report.DTO.SubsidiaryPerformance;
     using Fanex.Athena.Model.Report.MetaModel;
@@ -21,10 +19,10 @@
         private readonly ISubsidiaryService _subsidiaryService;
 
         private readonly ISubsidiaryPerformanceDataAccess _subLicenseePerformanceDataAccess;
-        
+
         public SubsidiaryPerformanceService(
-            ISessionService sessionService, 
-            ISubsidiaryService subsidiaryService, 
+            ISessionService sessionService,
+            ISubsidiaryService subsidiaryService,
             ISubsidiaryPerformanceDataAccess subLicenseePerformanceDataAccess)
         {
             _sessionService = sessionService;

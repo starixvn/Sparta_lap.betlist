@@ -24,8 +24,10 @@ exports[`DataGrid  _buildFooter  render correctly 1`] = `
     }
   />
   <td
-    className="right-align"
-  />
+    className="right-align negative"
+  >
+    -1231
+  </td>
   <td
     className="right-align"
     colSpan={3}

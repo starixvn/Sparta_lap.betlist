@@ -35,32 +35,13 @@ describe('FormFilter ', () => {
     })
 
     describe('Event handler', () => {
-        const findElementById = (children, id) => {
-            for (let i = 0; i < children.length; i++) {
-                const child = children[i];
-
-                if (child.props && child.props.id === id) {
-                    return child;
-                }
-
-                if (child.children && child.children.length) {
-                    const result = findElementById(child.children, id);
-
-                    if (result) {
-                        return result;
-                    }
-                }
-            }
-
-            return null;
-        }
-
         describe('onChange event fire on MultipleSelect component', () => {
             it('onChange in Product filter - setSelectedProduct should be called with correct parameter', () => {
                 const formFilter = new FormFilter(defaultProps);
                 defaultProps.setSelectedProduct = jest.fn();
 
                 const productFilter = formFilter._renderProductSelectList();
+
                 productFilter.props.onChange({}, "SB,BA");
 
                 expect(defaultProps.setSelectedProduct).toHaveBeenCalledWith("SB,BA");
@@ -85,6 +66,7 @@ describe('FormFilter ', () => {
                 const expectedValue = "EUR";
                 const itemChange = { id: 1, value: expectedValue };
                 const subsidiaryFilter = formFilter._renderBaseCurrencySelectList();
+
                 subsidiaryFilter.props.onChange(itemChange);
 
                 expect(defaultProps.setSelectedBaseCurrency).toHaveBeenCalledWith(expectedValue);
@@ -122,31 +104,38 @@ describe('FormFilter ', () => {
             })
         })
 
-        describe('ConvertAll checkbox fired click event - props.changeConvertAll should be called with correct parameter', () => {
-            const formFilter = renderer.create(<FormFilter {...defaultProps} />).toJSON();
-            const checkBox = findElementById(formFilter.children, 'IsConvertAll');
+        describe('ConvertAll checkbox', () => {
+            it(' fired click event - props.changeConvertAll should be called with correct parameter', () => {
+                const formFilter = renderer.create(<FormFilter {...defaultProps} />);
 
-            checkBox.props.onChange();
+                const checkBox = formFilter.root.findByProps({ id: 'IsConvertAll'});
 
-            expect(defaultProps.changeConvertAll).toHaveBeenCalledWith(true);
+                checkBox.props.onChange();
+
+                expect(defaultProps.changeConvertAll).toHaveBeenCalledWith(true);
+            })
         })
 
-        describe('IncludeDrawData checkbox fired click event - props.includeDrawData should be called with correct parameter', () => {
-            const formFilter = renderer.create(<FormFilter {...defaultProps} />).toJSON();
-            const checkBox = findElementById(formFilter.children, 'IncludeDrawData');
+        describe('IncludeDrawData checkbox', () => {
+            it('fired click event - props.includeDrawData should be called with correct parameter', () => {
+                const formFilter = renderer.create(<FormFilter {...defaultProps} />);
+                const checkBox = formFilter.root.findByProps({ id: 'IncludeDrawData'});        
 
-            checkBox.props.onChange();
+                checkBox.props.onChange();
 
-            expect(defaultProps.changeIncludeDrawData).toHaveBeenCalledWith(false);
+                expect(defaultProps.changeIncludeDrawData).toHaveBeenCalledWith(false);
+            })
         })
 
-        describe('ExcludeTest checkbox fired click event - props.isExcludeTest should be called with correct parameter', () => {
-            const formFilter = renderer.create(<FormFilter {...defaultProps} />).toJSON();
-            const checkBox = findElementById(formFilter.children, 'ExcludeTest');
+        describe('ExcludeTest checkbox', () => {
+            it('fired click event - props.isExcludeTest should be called with correct parameter', () => {
+                const formFilter = renderer.create(<FormFilter {...defaultProps} />);
+                const checkBox = formFilter.root.findByProps({ id: 'ExcludeTest'});  
 
-            checkBox.props.onChange();
+                checkBox.props.onChange();
 
-            expect(defaultProps.changeIsExcludeTest).toHaveBeenCalledWith(false);
+                expect(defaultProps.changeIsExcludeTest).toHaveBeenCalledWith(false);
+            })
         })
 
         describe('isValidModel', () => {

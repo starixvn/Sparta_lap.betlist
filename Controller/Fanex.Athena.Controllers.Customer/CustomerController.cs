@@ -12,7 +12,6 @@ namespace Fanex.Athena.Controllers.Customer
     using System.Linq;
     using System.Web.Mvc;
     using Constant.DataDomain;
-    using DataAccess.Core.Users;
     using DataAccess.Core.Users.Interfaces;
     using Excel.Base.Helpers;
     using Extension.Utility;
@@ -29,7 +28,6 @@ namespace Fanex.Athena.Controllers.Customer
     using Resources;
     using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
-    using Service.Report;
     using Service.Report.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.CustomerInfoCustomerList)]
