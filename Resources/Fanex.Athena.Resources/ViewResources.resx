@@ -3175,4 +3175,8 @@
     <value>Please contact admin to check your subsidiary name.</value>
     <comment>#95177</comment>
   </data>
+  <data name="ProductPP" xml:space="preserve">
+    <value>PP</value>
+    <comment>92318</comment>
+  </data>
 </root>

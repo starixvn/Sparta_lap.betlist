@@ -120,6 +120,10 @@
       <HintPath>..\..\..\packages\Fanex.BetList.NumberGame.1.1.0\lib\net40\Fanex.BetList.NumberGame.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Fanex.BetList.PP, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.BetList.PP.1.0.0\lib\net40\Fanex.BetList.PP.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Fanex.BetList.RnGCasino, Version=1.0.1.5, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.BetList.RnGCasino.1.0.1.5\lib\net40\Fanex.BetList.RnGCasino.dll</HintPath>
       <Private>True</Private>
@@ -697,6 +701,8 @@
     <Content Include="Scripts\Helper\ProductListHelper.js" />
     <Content Include="Scripts\Library\jquery.marquee.js" />
     <Content Include="Scripts\Plugin\Toast\toast.js" />
+    <Content Include="Views\BetList\PragmaticPlayDetail\Main.cshtml" />
+    <Content Include="Views\Desktop\BetList\PragmaticPlayDetail\Main.cshtml" />
     <Content Include="Views\Desktop\Customer\BetSetting\GoldDeluxe.cshtml" />
     <Content Include="www\assets\images\ajax-loader.gif" />
     <Content Include="www\assets\images\new-system.svg" />
@@ -848,6 +854,8 @@
     <None Include="SiteConfig\Web.BACKUPMNLStatic.config" />
     <Content Include="Views\Desktop\Report\Result\Popup\Microgaming.cshtml" />
     <Content Include="Views\Desktop\Report\Result\Popup\AllBet.cshtml" />
+    <Content Include="Views\Desktop\Customer\BetSetting\PP.cshtml" />
+    <Content Include="Views\Customer\BetSetting\PP.cshtml" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Cell.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\Row.jsx" />
     <None Include="www\js\source\reactpages\components\fixed-table-header\components\RowLayout.jsx" />

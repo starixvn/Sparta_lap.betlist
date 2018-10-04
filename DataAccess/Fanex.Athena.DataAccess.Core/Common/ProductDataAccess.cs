@@ -8,7 +8,6 @@ namespace Fanex.Athena.DataAccess.Core.Common
 {
     using System.Collections.Generic;
     using System.Data;
-    using System.Diagnostics.CodeAnalysis;
     using Extension.Helper;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;

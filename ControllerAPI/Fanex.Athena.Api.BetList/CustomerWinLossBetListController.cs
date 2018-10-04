@@ -8,7 +8,6 @@ namespace Fanex.Athena.Api.BetList
 {
     #region Using
 
-    using System;
     using System.Web.Http;
     using Base.Attributes;
     using DataAccess.Core.Configuration.Interfaces;

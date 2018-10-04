@@ -56,7 +56,7 @@ namespace Fanex.Athena.Controllers.BetList
             var firstTicket = ticketResult.MainTicketList.FirstOrDefault();
             var leagueName = firstTicket != null ? CacheRefAdapter.GetLeagueName(firstTicket.LeagueId) : string.Empty;
 
-            var bettype = metaModel.BetType == 0 && !string.IsNullOrWhiteSpace(metaModel.MultipleBettype) 
+            var bettype = metaModel.BetType == 0 && !string.IsNullOrWhiteSpace(metaModel.MultipleBettype)
                 ? Converter.ToInt(metaModel.MultipleBettype.Split(',')[0])
                 : metaModel.BetType;
 

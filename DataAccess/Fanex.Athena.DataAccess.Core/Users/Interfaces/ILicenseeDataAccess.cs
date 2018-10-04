@@ -11,7 +11,6 @@ namespace Fanex.Athena.DataAccess.Core.Users.Interfaces
 {
     using System.Collections.Generic;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Model.Core.DTO.Users;
 
     public interface ILicenseeDataAccess
     {

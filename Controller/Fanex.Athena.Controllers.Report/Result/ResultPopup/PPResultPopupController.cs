@@ -1,0 +1,36 @@
+namespace Fanex.Athena.Controllers.Report.Result.ResultPopup
+{
+    using System.Web.Mvc;
+    using Extension.Utility;
+    using Fanex.Result.Core.PP;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
+    using Service.Core.Users.Interfaces;
+
+    public class PPResultPopupController : BaseController
+    {
+        private readonly IPPResult _resultApi;
+
+        public PPResultPopupController() : this(null, null, null, null, null)
+        {
+        }
+
+        public PPResultPopupController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
+            IPPResult resultApi)
+            : base(languageService, sessionService, appSetting, clientViewHelper)
+        {
+            _resultApi = resultApi ?? new PPResult();
+        }
+
+        [HttpGet]
+        public string Index(string custId, string gamePlayId)
+        {
+            var languageCode = SessionService.UserSession.Language;
+            return _resultApi.GetPPResult(custId, gamePlayId, languageCode);
+        }
+    }
+}

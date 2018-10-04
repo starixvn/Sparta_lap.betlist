@@ -459,7 +459,11 @@
         private IEnumerable<Function> CreateFakeFunctions(IEnumerable<int> functionIds, int parentId = -1, bool isMenu = false, bool isFunction = false)
             => functionIds.Select(x => new Function
             {
-                FunctionId = x, DisplayOrder = x, ParentId = parentId, IsMenu = isMenu, IsFunction = isFunction
+                FunctionId = x,
+                DisplayOrder = x,
+                ParentId = parentId,
+                IsMenu = isMenu,
+                IsFunction = isFunction
             });
     }
 }

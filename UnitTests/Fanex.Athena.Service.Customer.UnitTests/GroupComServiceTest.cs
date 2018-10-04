@@ -1,14 +1,15 @@
 ﻿namespace Fanex.Athena.Service.Customer.UnitTests
 {
     using System.Collections.Generic;
-    using System.Data;
     using Casino.Interfaces;
     using DataAccess.Customer.Interfaces;
+    using Model.Casino.MetaModel;
     using Model.Core.DTO.Common;
     using Model.Customer.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
     using Session.Model;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class GroupComServiceTest
@@ -35,48 +36,42 @@
         }
 
         [Test]
-        public void GetAll_WhenCall_ReturnCorrectData()
+        public void GetAll_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
-            const int LicenseeId = 1;
-            var expectedResult = new List<GroupCommMetaModel>();
-            _groupDataAccess.GetAll(LicenseeId).Returns(expectedResult);
+            var licenseeId = FakeHelper.Create<int>();
 
             // Action
-            var result = _groupComService.GetAll(LicenseeId);
+            var result = _groupComService.GetAll(licenseeId);
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
+            _groupDataAccess.Received().GetAll(licenseeId);
         }
 
         [Test]
-        public void GetDataForExcel_WhenCall_ReturnCorrectData()
+        public void GetDataForExcel_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
-            const int LicenseeId = 1;
-            var expectedResult = new DataTable();
-            _groupDataAccess.GetDataForExcel(LicenseeId).Returns(expectedResult);
+            var licenseeId = FakeHelper.Create<int>();
 
             // Action
-            var result = _groupComService.GetDataForExcel(LicenseeId);
+            var result = _groupComService.GetDataForExcel(licenseeId);
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
+            _groupDataAccess.Received().GetDataForExcel(licenseeId);
         }
 
         [Test]
-        public void GetById_WhenCall_ReturnCorrectData()
+        public void GetById_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
-            const int GroupCommId = 1;
-            var expectedResult = new GroupCommMetaModel();
-            _groupDataAccess.GetById(GroupCommId).Returns(expectedResult);
+            var groupCommId = FakeHelper.Create<int>();
 
             // Action
-            var result = _groupComService.GetById(GroupCommId);
+            var result = _groupComService.GetById(groupCommId);
 
             // Assert
-            Assert.That(result, Is.EqualTo(expectedResult));
+            _groupDataAccess.Received().GetById(groupCommId);
         }
 
         [Test]
@@ -105,90 +100,134 @@
         }
 
         [Test]
-        public void InsertGroup_WhenCall_ReturnCorrectData()
+        public void InsertGroup_WhenCall_ReturnDataFromDataAccess()
         {
             // Arrange
-            _groupDataAccess.InsertGroup(Arg.Any<GroupCommMetaModel>(), Arg.Any<IRequest>(), Arg.Any<int>())
-                .Returns(new ResultInfo());
+            var item = FakeHelper.Create<GroupCommMetaModel>();
+            var request = FakeHelper.Create<Request>();
+            var userId = FakeHelper.Create<int>();
 
             // Action
-            var result = _groupComService.InsertGroup(Arg.Any<GroupCommMetaModel>(), Arg.Any<IRequest>(), Arg.Any<int>());
+            var result = _groupComService.InsertGroup(item, request, userId);
 
             // Assert
-            Assert.That(result.IsSuccessful, Is.True);
+            _groupDataAccess.Received().InsertGroup(item, request, userId);
         }
 
         [Test]
-        public void UpdateGroup_IsUpdateCSIsFalse_ReturnCorrectData()
+        public void UpdateGroup_IsNotUpdateCS_NotCallCasinoApi()
         {
             // Arrange
             var groupCommMetaModel = new GroupCommMetaModel { IsUpdateCS = false };
-            var userSession = new UserSession { UserId = 1 };
-            _groupDataAccess.UpdateGroup(Arg.Any<GroupCommMetaModel>(), Arg.Any<IRequest>(), Arg.Any<int>())
-                .Returns(new ResultInfo());
+            var userSession = FakeHelper.Create<UserSession>();
+            var request = FakeHelper.Create<Request>();
+
+            var expectedResult = FakeHelper.Create<ResultInfo>();
+            _groupDataAccess.UpdateGroup(groupCommMetaModel, request, userSession.UserId)
+                .Returns(expectedResult);
 
             // Action
-            var result = _groupComService.UpdateGroup(groupCommMetaModel, Arg.Any<IRequest>(), userSession);
-
-            // Assert
-            Assert.That(result.IsSuccessful, Is.True);
-        }
-
-        [Test]
-        public void UpdateGroup_IsUpdateCSIsTrue_CallUpdateMemberCommissionApi()
-        {
-            // Arrange
-            var groupCommMetaModel = new GroupCommMetaModel { IsUpdateCS = true };
-            var userSession = new UserSession { UserId = 1 };
-            _groupDataAccess.UpdateGroup(Arg.Any<GroupCommMetaModel>(), Arg.Any<IRequest>(), Arg.Any<int>())
-                .Returns(new ResultInfo
-                {
-                    ExtendedData = "1,2,3"
-                });
-            _casinoCustomerService.UpdateCommission(null).ReturnsForAnyArgs(false);
-
-            // Action
-            var result = _groupComService.UpdateGroup(groupCommMetaModel, new Request(), userSession);
+            var result = _groupComService.UpdateGroup(groupCommMetaModel, request, userSession);
 
             // Assert
             Assert.Multiple(() =>
             {
-                _casinoCustomerService.ReceivedWithAnyArgs().UpdateCommission(null);
-                Assert.That(result.IsSuccessful, Is.False);
+                _casinoCustomerService.DidNotReceive().UpdateCommission(Arg.Any<RNGCasinoUpdateMemberComMetaModel>());
+                Assert.That(result, Is.EqualTo(expectedResult));
             });
         }
 
         [Test]
-        public void UpdateGroup_ExtendedDataIsEmpty_ReturnCorrectData()
+        public void UpdateGroup_IsUpdateCS_CustomerListIsEmpty_NotCallCasinoApi()
         {
             // Arrange
-            var groupCommMetaModel = new GroupCommMetaModel { IsUpdateCS = false };
-            var userSession = new UserSession { UserId = 1 };
-            _groupDataAccess.UpdateGroup(Arg.Any<GroupCommMetaModel>(), Arg.Any<IRequest>(), Arg.Any<int>())
-                .Returns(new ResultInfo());
+            var newItem = new GroupCommMetaModel { IsUpdateCS = true };
+            var userSession = FakeHelper.Create<UserSession>();
+            var request = FakeHelper.Create<Request>();
+
+            var expectedResult = new ResultInfo { ExtendedData = string.Empty };
+            _groupDataAccess.UpdateGroup(newItem, request, userSession.UserId)
+                .Returns(expectedResult);
 
             // Action
-            var result = _groupComService.UpdateGroup(groupCommMetaModel, Arg.Any<IRequest>(), userSession);
+            var result = _groupComService.UpdateGroup(newItem, request, userSession);
 
             // Assert
-            Assert.That(result.IsSuccessful, Is.True);
+            Assert.Multiple(() =>
+            {
+                _casinoCustomerService.DidNotReceive().UpdateCommission(Arg.Any<RNGCasinoUpdateMemberComMetaModel>());
+                Assert.That(result, Is.EqualTo(expectedResult));
+            });
         }
 
         [Test]
-        public void DeleteGroup_IsRemoveCommSettingIsFalse_ReturnCorrectData()
+        public void UpdateGroup_IsUpdateCS_CallCasinoApi()
         {
             // Arrange
-            var metaModel = new DeleteGroupMetaModel
+            var newItem = new GroupCommMetaModel { IsUpdateCS = true };
+            var userSession = FakeHelper.Create<UserSession>();
+            var request = FakeHelper.Create<Request>();
+
+            var expectedResult = new ResultInfo { ExtendedData = "1,2,3" };
+            _groupDataAccess.UpdateGroup(newItem, request, userSession.UserId)
+                .Returns(expectedResult);
+
+            _casinoCustomerService.UpdateCommission(Arg.Any<RNGCasinoUpdateMemberComMetaModel>()).Returns(true);
+
+            // Action
+            var result = _groupComService.UpdateGroup(newItem, request, userSession);
+
+            // Assert
+            Assert.Multiple(() =>
             {
-                GroupId = 1,
-                LicenseeId = 2,
-                UserId = 3,
-                Ip = "1.1.1.1",
-                Language = "en-US",
-                IsRemoveCommSetting = false,
-                IsResetDefault = true,
-                IsAllowedCSComm = true
+                _casinoCustomerService.Received().UpdateCommission(Arg.Is<RNGCasinoUpdateMemberComMetaModel>(
+                    x => x.Comm == newItem.CSComm
+                        && x.FromIp == request.Ip
+                        && string.Join(",", x.CustomerId) == expectedResult.ExtendedData
+                        && x.ModifyBy == userSession.UserId
+                        && x.ModifyUserName == userSession.UserName));
+                Assert.That(result, Is.EqualTo(expectedResult));
+            });
+        }
+
+        [Test]
+        public void UpdateGroup_IsUpdateCS_CallCasinoApiFailed_ReturnErrorResult()
+        {
+            // Arrange
+            var newItem = new GroupCommMetaModel { IsUpdateCS = true };
+            var userSession = FakeHelper.Create<UserSession>();
+            var request = FakeHelper.Create<Request>();
+
+            _groupDataAccess.UpdateGroup(newItem, request, userSession.UserId)
+                .Returns(new ResultInfo { ExtendedData = "1,2,3" });
+
+            _casinoCustomerService.UpdateCommission(Arg.Any<RNGCasinoUpdateMemberComMetaModel>()).Returns(false);
+
+            var expectedResult = new ResultInfo
+            {
+                Code = 1,
+                Message = "Having errors when calling CasinoAPI to update customer commission."
             };
+
+            // Action
+            var result = _groupComService.UpdateGroup(newItem, request, userSession);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Code, Is.EqualTo(expectedResult.Code));
+                Assert.That(result.Message, Is.EqualTo(expectedResult.Message));
+            });
+        }
+
+        [Test]
+        public void DeleteGroup_IsNotRemoveCommSettingIsFalse_NotCallCasinoApi()
+        {
+            // Arrange
+            var metaModel = FakeHelper.Create<DeleteGroupMetaModel>();
+            metaModel.IsRemoveCommSetting = false;
+
+            var expectedResult = FakeHelper.Create<ResultInfo>();
             _groupDataAccess.DeleteGroup(
                 metaModel.GroupId,
                 metaModel.LicenseeId,
@@ -197,7 +236,7 @@
                 metaModel.Language,
                 metaModel.IsRemoveCommSetting,
                 metaModel.IsResetDefault)
-                .Returns(new ResultInfo());
+            .Returns(expectedResult);
 
             // Action
             var result = _groupComService.DeleteGroup(metaModel);
@@ -205,25 +244,19 @@
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(result.IsSuccessful, Is.True);
+                _casinoCustomerService.DidNotReceive().UpdateCommission(Arg.Any<RNGCasinoUpdateMemberComMetaModel>());
+                Assert.That(result, Is.EqualTo(expectedResult));
             });
         }
 
         [Test]
-        public void DeleteGroup_IsAllowedCSCommIsFalse_ReturnCorrectData()
+        public void DeleteGroup_IsNotAllowedCSComm_NotCallCasinoApi()
         {
             // Arrange
-            var metaModel = new DeleteGroupMetaModel
-            {
-                GroupId = 1,
-                LicenseeId = 2,
-                UserId = 3,
-                Ip = "1.1.1.1",
-                Language = "en-US",
-                IsRemoveCommSetting = true,
-                IsResetDefault = true,
-                IsAllowedCSComm = false
-            };
+            var metaModel = FakeHelper.Create<DeleteGroupMetaModel>();
+            metaModel.IsAllowedCSComm = false;
+
+            var expectedResult = FakeHelper.Create<ResultInfo>();
             _groupDataAccess.DeleteGroup(
                 metaModel.GroupId,
                 metaModel.LicenseeId,
@@ -232,7 +265,7 @@
                 metaModel.Language,
                 metaModel.IsRemoveCommSetting,
                 metaModel.IsResetDefault)
-                .Returns(new ResultInfo());
+            .Returns(expectedResult);
 
             // Action
             var result = _groupComService.DeleteGroup(metaModel);
@@ -240,25 +273,29 @@
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(result.IsSuccessful, Is.True);
+                _casinoCustomerService.DidNotReceive().UpdateCommission(Arg.Any<RNGCasinoUpdateMemberComMetaModel>());
+                Assert.That(result, Is.EqualTo(expectedResult));
             });
         }
 
         [Test]
-        public void DeleteGroup_IsAllowedCSCommIsTrue_CallUpdateMemberCommissionApi()
+        public void DeleteGroup_CusttomerListIsEmpty_NotCallCasinoApi()
         {
             // Arrange
-            var metaModel = new DeleteGroupMetaModel
-            {
-                IsRemoveCommSetting = true,
-                IsAllowedCSComm = true
-            };
-            _groupDataAccess.DeleteGroup(0, 0, 0, null, null, false, false)
-                .ReturnsForAnyArgs(new ResultInfo
-                {
-                    ExtendedData = "1,2,3"
-                });
-            _casinoCustomerService.UpdateCommission(null).ReturnsForAnyArgs(false);
+            var metaModel = FakeHelper.Create<DeleteGroupMetaModel>();
+            metaModel.IsAllowedCSComm = true;
+            metaModel.IsRemoveCommSetting = true;
+
+            var expectedResult = new ResultInfo { ExtendedData = string.Empty };
+            _groupDataAccess.DeleteGroup(
+                metaModel.GroupId,
+                metaModel.LicenseeId,
+                metaModel.UserId,
+                metaModel.Ip,
+                metaModel.Language,
+                metaModel.IsRemoveCommSetting,
+                metaModel.IsResetDefault)
+            .Returns(expectedResult);
 
             // Action
             var result = _groupComService.DeleteGroup(metaModel);
@@ -266,24 +303,93 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _casinoCustomerService.ReceivedWithAnyArgs().UpdateCommission(null);
-                Assert.That(result.IsSuccessful, Is.False);
+                _casinoCustomerService.DidNotReceive().UpdateCommission(Arg.Any<RNGCasinoUpdateMemberComMetaModel>());
+                Assert.That(result, Is.EqualTo(expectedResult));
             });
         }
 
         [Test]
-        public void CheckByName_WhenCall_ReturnCorrectData()
+        public void DeleteGroup_IsUpdateCS_CallCasinoApi()
         {
             // Arrange
-            const int LicenseeId = 1;
-            const string GroupName = "Group1";
-            _groupDataAccess.CheckByName(LicenseeId, GroupName).Returns(true);
+            var metaModel = FakeHelper.Create<DeleteGroupMetaModel>();
+            metaModel.IsAllowedCSComm = true;
+            metaModel.IsRemoveCommSetting = true;
+
+            var expectedResult = new ResultInfo { ExtendedData = "1,2,3" };
+            _groupDataAccess.DeleteGroup(
+                metaModel.GroupId,
+                metaModel.LicenseeId,
+                metaModel.UserId,
+                metaModel.Ip,
+                metaModel.Language,
+                metaModel.IsRemoveCommSetting,
+                metaModel.IsResetDefault)
+            .Returns(expectedResult);
+
+            _casinoCustomerService.UpdateCommission(Arg.Any<RNGCasinoUpdateMemberComMetaModel>()).Returns(true);
 
             // Action
-            var result = _groupComService.CheckExistingGroupByName(LicenseeId, GroupName);
+            var result = _groupComService.DeleteGroup(metaModel);
 
             // Assert
-            Assert.That(result, Is.True);
+            Assert.Multiple(() =>
+            {
+                _casinoCustomerService.Received().UpdateCommission(Arg.Is<RNGCasinoUpdateMemberComMetaModel>(
+                    x => x.Comm == 0
+                        && string.Join(",", x.CustomerId) == expectedResult.ExtendedData
+                        && x.FromIp == metaModel.Ip
+                        && x.ModifyBy == metaModel.UserId
+                        && x.ModifyUserName == metaModel.UserName));
+                Assert.That(result, Is.EqualTo(expectedResult));
+            });
+        }
+
+        [Test]
+        public void DeleteGroup_IsUpdateCS_CallCasinoApiFailed_ReturnErrorResult()
+        {
+            // Arrange
+            var metaModel = FakeHelper.Create<DeleteGroupMetaModel>();
+            metaModel.IsAllowedCSComm = true;
+            metaModel.IsRemoveCommSetting = true;
+
+            _groupDataAccess.DeleteGroup(
+                metaModel.GroupId,
+                metaModel.LicenseeId,
+                metaModel.UserId,
+                metaModel.Ip,
+                metaModel.Language,
+                metaModel.IsRemoveCommSetting,
+                metaModel.IsResetDefault)
+            .Returns(new ResultInfo { ExtendedData = "1,2,3" });
+
+            _casinoCustomerService.UpdateCommission(Arg.Any<RNGCasinoUpdateMemberComMetaModel>()).Returns(false);
+
+            var expectedResult = new ResultInfo { Code = 1, Message = "Having errors when calling CasinoAPI to update customer commission." };
+
+            // Action
+            var result = _groupComService.DeleteGroup(metaModel);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Code, Is.EqualTo(expectedResult.Code));
+                Assert.That(result.Message, Is.EqualTo(expectedResult.Message));
+            });
+        }
+
+        [Test]
+        public void CheckByName_WhenCall_ReturnDataFromDataAccess()
+        {
+            // Arrange
+            var licenseeId = FakeHelper.Create<int>();
+            var groupName = FakeHelper.Create<string>();
+
+            // Action
+            var result = _groupComService.CheckExistingGroupByName(licenseeId, groupName);
+
+            // Assert
+            _groupDataAccess.Received().CheckByName(licenseeId, groupName);
         }
     }
 }

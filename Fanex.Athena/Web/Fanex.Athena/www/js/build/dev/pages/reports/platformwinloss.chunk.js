@@ -3844,7 +3844,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
     __webpack_require__(35)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, QueryString, Site, Report, PlatformWinLossOption, jqGridAdditional, MonthPicker, MultiSelect, Popup, ExcelHelper, DataHelper) {
         "use strict";
 
-        var BETLIST_IGNORED_PRODUCTS = ["AB"];
+        var BETLIST_IGNORED_PRODUCTS = ["AB","PP"];
         var _platformNameMap = {};
 
         var _cacheData = {};
@@ -4181,7 +4181,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             var productCodeList = [];
             for (var i = 0; i < onLevelData.ProductOptions.length; i++) {
                 var product = onLevelData.ProductOptions[i];
-                if (product.Status && $.inArray(product.Code, BETLIST_IGNORED_PRODUCTS)) {
+                if (product.Status && $.inArray(product.Code, BETLIST_IGNORED_PRODUCTS) < 0 ) {
                     productCodeList.push(product.Code);
                 }
             }
@@ -4494,21 +4494,21 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
         };
         var columnConfigLevel0 = {
             colNames: [
+                "Id",
                 "Platform",
                 "Turnover",
                 "%Turnover",
                 "TotalTransaction",
                 "LicenseeW_L",
-                "Id",
                 "CurrencyId",
                 "CustomerId"],
             colModels: [
+                idColumn,
                 platformNameColumn,
                 turnoverColumn,
                 turnoverPercentColumn,
                 totalTransColumn,
                 licenseeWlColumn,
-                idColumn,
                 currencyIdColumn,
                 customerIdColumn]
         };
@@ -4556,7 +4556,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
         };
 
         function getColConfigLevel0(cols, customerWL) {
-            var customerWlIndex = 3;
+            var customerWlIndex = 4;
 
             customerWL.forEach(function (item) {
                 cols.insertAfter(item, customerWlIndex);

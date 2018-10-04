@@ -117,12 +117,18 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="CustomerCommServiceTest.RemoveCustomersFromGroup.cs" />
-    <Compile Include="CustomerCommServiceTest.cs">
+    <Compile Include="CustomerCommServiceTest_MoveCustomersToGroup.cs" />
+    <Compile Include="CustomerCommServiceTest_RemoveCustomersFromGroup.cs" />
+    <Compile Include="CustomerCommServiceTest_UpdateCustomersCommission.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
+    <Compile Include="CustomerListServiceTest_UpdateSpecialLevel.cs" />
+    <Compile Include="CustomerListServiceTest_UpdateCustomerBAStatus.cs" />
+    <Compile Include="CustomerListServiceTest_UpdateCustStatus.cs" />
+    <Compile Include="CustomerListServiceTest_UpdateOddsGroup.cs" />
+    <Compile Include="CustomerListServiceTest_GetCustomerLoginInfo.cs" />
     <Compile Include="CustomerServiceTest.cs" />
-    <Compile Include="CustomerListServiceTest.cs" />
+    <Compile Include="CustomerListServiceTest_Search.cs" />
     <Compile Include="GroupComServiceTest.cs" />
     <Compile Include="Helpers\GroupCommSettingTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -135,6 +141,10 @@
     <ProjectReference Include="..\..\Fanex.Athena.Extension\Fanex.Athena.Extension.csproj">
       <Project>{71F95E53-36D0-4091-828D-ED14C9939C35}</Project>
       <Name>Fanex.Athena.Extension</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Fanex.Athena.UnitTest.Common\Fanex.Athena.UnitTest.Common.csproj">
+      <Project>{4a5bddbc-f707-409a-86ec-d9bc6e9d31c4}</Project>
+      <Name>Fanex.Athena.UnitTest.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Infrastructure\Fanex.Athena.Session\Fanex.Athena.Session.csproj">
       <Project>{B41E38EF-54AD-4866-968F-C856DE9DC072}</Project>
@@ -151,6 +161,10 @@
     <ProjectReference Include="..\..\Model\Fanex.Athena.Model.Customer\Fanex.Athena.Model.Customer.csproj">
       <Project>{3B212F2F-4DEB-449B-9AE0-36F6E4F49F5F}</Project>
       <Name>Fanex.Athena.Model.Customer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Resources\Fanex.Athena.Resources\Fanex.Athena.Resources.csproj">
+      <Project>{17b0022c-4902-4c61-908a-5db81568dc3a}</Project>
+      <Name>Fanex.Athena.Resources</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Service\Fanex.Athena.Service.Casino\Fanex.Athena.Service.Casino.csproj">
       <Project>{EFAB3719-796C-4B55-8873-D4573416F07A}</Project>

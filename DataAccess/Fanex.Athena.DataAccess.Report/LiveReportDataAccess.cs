@@ -48,7 +48,7 @@ namespace Fanex.Athena.DataAccess.Report
         public LiveReportDataAccess(
             IAppSettings appSetting,
             ISessionStorage sessionStorage,
-            IBalanceUpDataAccess balanceUpDataAccess, 
+            IBalanceUpDataAccess balanceUpDataAccess,
             ICacheRefAdapter cacheRefAdapter)
             : base(appSetting, sessionStorage)
         {

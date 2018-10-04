@@ -219,21 +219,21 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
         };
         var columnConfigLevel0 = {
             colNames: [
+                "Id",
                 "Platform",
                 "Turnover",
                 "%Turnover",
                 "TotalTransaction",
                 "LicenseeW_L",
-                "Id",
                 "CurrencyId",
                 "CustomerId"],
             colModels: [
+                idColumn,
                 platformNameColumn,
                 turnoverColumn,
                 turnoverPercentColumn,
                 totalTransColumn,
                 licenseeWlColumn,
-                idColumn,
                 currencyIdColumn,
                 customerIdColumn]
         };
@@ -281,7 +281,7 @@ define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional"],
         };
 
         function getColConfigLevel0(cols, customerWL) {
-            var customerWlIndex = 3;
+            var customerWlIndex = 4;
 
             customerWL.forEach(function (item) {
                 cols.insertAfter(item, customerWlIndex);

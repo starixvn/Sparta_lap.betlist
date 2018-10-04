@@ -706,6 +706,7 @@ window._language_en_US = {
   ProductMGCLC: "Microgaming-Live Casino",
   ProductMGCRNG: "Microgaming-RNG Casino",
   ProductNG: "Number Game",
+  ProductPP: "PP",
   ProductPTCS: "Playtech Casino",
   ProductRB: "Racing",
   ProductSB: "Sportsbook",

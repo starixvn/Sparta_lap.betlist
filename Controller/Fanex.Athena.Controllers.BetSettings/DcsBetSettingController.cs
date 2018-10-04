@@ -37,13 +37,14 @@ namespace Fanex.Athena.Controllers.BetSettings
             { ProductTypes.VirtualSports, "VirtualSports" },
             { ProductTypes.VirtualSports2, "VirtualSports2" },
             { ProductTypes.Lottery, "Lottery" },
-            { ProductTypes.Exchange, "Exchange" }
+            { ProductTypes.Exchange, "Exchange" },
+            { ProductTypes.PP, "PP" }
         };
 
         private static readonly IEnumerable<int> ProductsHasStatus = new[]
         {
              ProductTypes.AllBet, ProductTypes.Voidbridge, ProductTypes.FishingWorld,
-             ProductTypes.Lottery, ProductTypes.Exchange
+             ProductTypes.Lottery, ProductTypes.Exchange, ProductTypes.PP
         };
 
         private static readonly IEnumerable<int> ProductsHasBetLimit = new[]

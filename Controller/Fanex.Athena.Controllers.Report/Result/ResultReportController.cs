@@ -40,6 +40,19 @@ namespace Fanex.Athena.Controllers.Report.Result
         private const int ParlayBetType = 9;
         private const int SystemParlayBetType = 29;
 
+        private static readonly IEnumerable<SportType> ShowingMatchCodeSportTypes = new[] 
+        {
+            SportType.GoldDeluxe,
+            SportType.HorseRacing,
+            SportType.Greyhound,
+            SportType.Harness,
+            SportType.VirtualHorseRacing,
+            SportType.VirtualGreyhounds,
+            SportType.VirtualSpeedway,
+            SportType.VirtualMotorRacing,
+            SportType.VirtualCycling
+        };
+
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
         private readonly IParserService _microGamingParserService;
@@ -589,7 +602,7 @@ namespace Fanex.Athena.Controllers.Report.Result
                 VisibleDetailedLink = true,
                 VisibleFreeHeader = true,
                 EnableCheckScoreCalculated = sportType == SportType.Soccer,
-                VisibleMatchCodeIDColumn = IsShowMatchCodeIDColumn(sportType)
+                VisibleMatchCodeIDColumn = ShowingMatchCodeSportTypes.Contains(sportType)
             };
         }
 

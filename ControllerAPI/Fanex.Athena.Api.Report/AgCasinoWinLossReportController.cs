@@ -37,8 +37,8 @@ namespace Fanex.Athena.Api.Report
         }
 
         public AgCasinoWinLossReportController(
-            IThirdPartyWinLossService thirdPartyWinLossService, 
-            ISessionService sessionService, 
+            IThirdPartyWinLossService thirdPartyWinLossService,
+            ISessionService sessionService,
             IProductService productService,
             ILanguageService langService)
             : base(sessionService, productService, langService)

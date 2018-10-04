@@ -33,8 +33,8 @@ namespace Fanex.Athena.Api.BetList
         }
 
         public OutstandingDailyStatementBetListController(
-            ISessionService sessionService, 
-            IProductService productService, 
+            ISessionService sessionService,
+            IProductService productService,
             ILanguageService languageService,
             IAuthorizationService authorizationService,
             IDailyStatementBetListDataAccess dailyStatementBetListDataAccess)

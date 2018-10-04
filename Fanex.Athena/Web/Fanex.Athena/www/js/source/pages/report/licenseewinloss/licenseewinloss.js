@@ -204,7 +204,6 @@
 
                 var mainForm = $("#licenseewinloss");
                 var data = mainForm.serializeObject();
-
                 var option = {
                     type: "POST",
                     data: data,
@@ -218,8 +217,8 @@
                             DrawFilter: data.DrawFilter,
                             CurrencyId: data.CurrencyId,
                             ReportBy: Number(data.ReportBy),
-                            FromDate: new Date(data.FromDate),
-                            ToDate: new Date(data.ToDate),
+                            FromDate: data.FromDate,
+                            ToDate: data.ToDate,
                             CurrencyName: data.CurrencyName,
                             IsExcludedTestData: data.IsExcludedTestData
                         };
@@ -263,12 +262,9 @@
                     ToDate: _submitData.ToDate,
                     BaseCurrency: $("#BaseCurrency").attr("data-original")
                 };
-
                 var drilldownDate = new Date(datetime);
                 var dateRange = Report.GetDrilldownDateRange(param.ReportBy, param.FromDate, param.ToDate, drilldownDate);
-
                 var postData = JSON.stringify(param);
-
                 var option = {
                     type: "POST",
                     data: postData,
@@ -431,8 +427,8 @@
                     var month = dataDrillDown.DrillDownFromDate.getMonth();
                     var year = dataDrillDown.DrillDownFromDate.getFullYear();
 
-                    var orignalFDate = _submitData.FromDate;
-                    var originalTDate = _submitData.ToDate;
+                    var orignalFDate = new Date(_submitData.FromDate);
+                    var originalTDate = new Date(_submitData.ToDate);
 
                     if (month === orignalFDate.getMonth()) {
                         fday = orignalFDate.getDate();

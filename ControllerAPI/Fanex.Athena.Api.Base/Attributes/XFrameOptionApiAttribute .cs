@@ -6,7 +6,6 @@
     using System.Threading;
     using System.Threading.Tasks;
     using System.Web.Http.Filters;
-    using Model.Core.DataDomain;
     using Service.Core.Users;
     using Service.Core.Users.Interfaces;
     using Session.Enum;

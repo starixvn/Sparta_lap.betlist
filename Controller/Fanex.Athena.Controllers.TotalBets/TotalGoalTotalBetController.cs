@@ -11,7 +11,6 @@ namespace Fanex.Athena.Controllers.TotalBets
     using DataAccess.TotalBet;
     using DataAccess.TotalBet.Interfaces;
     using Extension.Utility;
-    using Fanex.Athena.Model.TotalBet.DTO;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
     using Model.TotalBet.MetaModel;

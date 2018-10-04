@@ -2,7 +2,7 @@
 /*global Site, QueryString,jqGridAdditional, BetListOption, moment*/
 /*exported showCombMP, showCombMPDetail, showMP, showNewCombMP, ViewBetSlip, ViewResult, showMicroGamingRnGBetsDetails,
 showAGCasinoDetails, showRnGCasinoDetails, showVoidBridgeDetails, showVoidbridgeResult, showTodayRunningBetsDetails,
-showColossusBetsDetails, showGlobalGaming, ViewCashOutHistory, ShowBonusDetails*/
+showColossusBetsDetails, showGlobalGaming, ViewCashOutHistory, ShowBonusDetails, showPPDetails, showPPResult*/
 
 var BetList = (function ($) {
     "use strict";
@@ -17,6 +17,7 @@ var BetList = (function ($) {
     var SPORT_RNG_MOBILE = 210;
     var SPORT_ALLBET = 211;
     var SPORT_VOIDBRIDGE = 212;
+    var SPORT_PP = 248;
     var SPORT_GLOBALGAMING = 219;
     var BETLIST_META_MODEL = "#BetListMetaModel";
 
@@ -409,6 +410,23 @@ var BetList = (function ($) {
             });
         },
 
+        viewPPResult: function (custId, gamePlayId) {
+            var url = Site.resolveClientUrl('PPResultPopup/Index');
+            Site.blockUI();
+            $.get(url + '?custid=' + custId + '&gamePlayId=' + gamePlayId, function (result) {
+                if (result !== '') {
+                    var dialogForm = '<div title="' + Site.getSingleResource("Result") +
+                        '"><iframe frameborder="0" style="width:100%; height:100%;" src="' + result + '" ></iframe></div></div>';
+                    $(dialogForm).dialog({
+                        modal: true,
+                        width: 800,
+                        height: 380
+                    });
+                    Site.unBlockUI();
+                }
+            });
+        },
+
         viewAllBetResult: function (trasdesc, betcheck, bettype) {
             var url = Site.resolveClientUrl('ResultReport/AllBetResult?transdesc=' +
                 encodeURIComponent(trasdesc) + '&betcheck=' + betcheck + '&bettype=' + bettype);
@@ -480,6 +498,9 @@ var BetList = (function ($) {
             }
             else if (sporttype === SPORT_VOIDBRIDGE) {
                 BetList.viewVoidbridgeResult(custid, extension2);
+            }
+            else if (sporttype === SPORT_PP) {
+                BetList.viewPPResult(custid, extension2);
             }
             else if (sporttype === SPORT_ALLBET) {
                 BetList.viewAllBetResult(transdecs, extension2, bettype);
@@ -772,6 +793,26 @@ var BetList = (function ($) {
             });
             window.logOpenBetlistEvent && window.logOpenBetlistEvent();
         },
+        showPPDetails: function (transId, winlostDate, custId, transType) {
+            var url = Site.resolveClientUrl('PragmaticPlayBetList/Detail');
+            url = QueryString.setParam(url, "transId", transId);
+            url = QueryString.setParam(url, "winlostDate", winlostDate);
+            url = QueryString.setParam(url, "custId", custId);
+            url = QueryString.setParam(url, "transType", transType);
+            url = QueryString.setParam(url, "BaseCurrency", getBaseCurrency());
+
+            var popH = Math.min($(window).height() - 100, 550), popW = 840;
+            var title = Site.getSingleResource("ProductPP") + " - " +
+                Site.getSingleResource("DetailedBetlist") + " - " + moment(new Date(winlostDate)).format("MM/DD/YYYY");
+            var dialogForm = '<div title="' + title + '"><iframe scrolling="no" frameborder="0" width="' +
+                             popW + '" height="100%" src="' + url + '" ></iframe></div>';
+
+            $(dialogForm).dialog({
+                modal: true,
+                width: popW + 50,
+                height: popH + 50
+            });
+        },
         ValidProducts: function () {
             var temp = true;
             if ($("#ProductList input:checked").length === 0) {
@@ -875,8 +916,10 @@ var showAGCasinoDetails = BetList.showAGCasinoDetails;
 var showRnGCasinoDetails = BetList.showRnGCasinoDetails;
 var showVoidBridgeDetails = BetList.showVoidBridgeDetails;
 var showVoidbridgeResult = BetList.viewVoidbridgeResult;
+var showPPResult = BetList.viewPPResult;
 var showTodayRunningBetsDetails = BetList.showAllBetDetails;
 var showColossusBetsDetails = BetList.showColossusBetsDetails;
 var showGlobalGaming = BetList.showGlobalGamingDetails;
 var ViewCashOutHistory = BetList.viewCashOutHistory;
 var ShowBonusDetails = BetList.showBonusDetails;
+var showPPDetails = BetList.showPPDetails;

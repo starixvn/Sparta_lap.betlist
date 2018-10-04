@@ -22,35 +22,44 @@
         { ProductTypes.CashOut, "ThirdParty" },
         { ProductTypes.VirtualSports2, "Dcs" },
         { ProductTypes.Lottery, "Dcs" },
-        { ProductTypes.Exchange, "ExchangeDcs" }
+        { ProductTypes.Exchange, "ExchangeDcs" },
+        { ProductTypes.PP, "Dcs" }
     };
 
     var metaModel = Model.Param;
-
-    const string ControllerSuffix = "BetSetting";
 }
 
 <select id="product-dropdown" class="select hide" data-can-search="1" data-can-enter="1">
     @foreach (var product in Model.BetSettingProducts)
     {
         var productName = product.ProductName;
-        var controllerName = string.Empty;
+
         if (productControllerNames.ContainsKey(product.ProductId))
         {
-            controllerName = productControllerNames[product.ProductId] + ControllerSuffix;
-        }
+            var controllerName = productControllerNames[product.ProductId] + "BetSetting";
 
         <option value="@product.ProductId" @(metaModel.ProductId == product.ProductId ? "selected" : string.Empty) 
                 data-href="@Url.Action("Index", controllerName, new
-                                      {
-                                          ProductId = product.ProductId,
-                                          CustId = metaModel.CustId,
-                                          UserName = metaModel.UserName,
-                                          NickName = metaModel.NickName,
-                                          BetSettingName = productName
-                                      })">
+                      {
+                          ProductId = product.ProductId,
+                          CustId = metaModel.CustId,
+                          UserName = metaModel.UserName,
+                          NickName = metaModel.NickName,
+                          BetSettingName = productName
+                      })">
             @productName
         </option>
+        }
+        else
+        {
+            <option value="@product.ProductId" @(metaModel.ProductId == product.ProductId ? "selected" : string.Empty)
+                    data-href="@Url.Action("Error", "Utility", new
+                      {
+                          Err = 404
+                      })">
+                @productName
+            </option>
+        }
     }
 </select>
 <label>@ViewResources.Product</label>

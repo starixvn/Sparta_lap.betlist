@@ -1,0 +1,35 @@
+﻿@{
+    Layout = "~/Views/Shared/_BetSettingLayout.cshtml";
+}
+@model Fanex.Athena.Model.BetSettings.ViewModel.BetSettingBaseViewModel
+
+@section pagecss
+{
+}
+
+@{Html.RenderPartial("~/Views/Customer/BetSetting/_Menu.cshtml", Model);}
+
+<div class="content-title" style="width: 855px">
+    @Model.Param.BetSettingName @ViewResources.BetSettings - @Model.Param.NickName @(Model.Param.IsFakeLicensee ? string.Empty : "(" + Model.Param.UserName + ")")
+</div>
+<!--Content-->
+<div class="data-content">
+    <div style="width: 885px!important; padding: 20px 0px 20px 0px">
+        <div>@String.Format(ViewResources.CannotUpdateBetLimitForProduct, ViewResources.ProductPP)</div>
+    </div>
+</div>
+<!--/Content-->
+<!--SubmitButton-->
+@if (Model.Editable && Model.IsEnabled.HasValue)
+{
+    var buttonText = Model.IsEnabled.Value ? ViewResources.DisableProduct : ViewResources.EnableProduct;
+    buttonText = string.Format(buttonText, ViewResources.ProductPP);
+    
+    <div style="width: 855px">
+        <input type="button" class="button" data-status="@(Model.IsEnabled.Value ? 0 : 1)"
+                   data-cust-id="@Model.Param.CustId"
+                   data-nick-name="@Model.Param.NickName" value="@buttonText"
+                   id="btnUpdateStatus" />
+    </div>
+}
+<!--/SubmitButton-->
