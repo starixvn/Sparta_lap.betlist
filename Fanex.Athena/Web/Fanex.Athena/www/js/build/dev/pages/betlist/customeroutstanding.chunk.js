@@ -4956,17 +4956,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 });
             },
 
-            viewPPResult: function (custId, gamePlayId, title) {
-                var url = Site.resolveClientUrl('PPResultPopup/Index');
-                Site.blockUI();
-                $.get(url + '?custid=' + custId + '&gamePlayId=' + gamePlayId, function (result) {
-                    if (result !== '') {
-                        showResultPopUp(result, { width: 800, height: 380, title: title });
-                        Site.unBlockUI();
-                    }
-                });
-            },
-
             viewAllBetResult: function (trasdesc, betcheck, bettype, title) {
                 var url = Site.resolveClientUrl('ResultReport/AllBetResult?transdesc=' +
                     encodeURIComponent(trasdesc) + '&betcheck=' + betcheck + '&bettype=' + bettype);

@@ -81,7 +81,6 @@
                 BetListHTMLBuilder);
 
             StubLicenseeSessionData(new LicenseeSession { LicenseeId = SessionLicenseeId });
-            SetUpForGetBetListResult();
         }
 
         [OneTimeTearDown]
@@ -286,7 +285,7 @@
                     testCaseData.ResultTotalPage,
                     testCaseData.SumLicenseeWLText);
             });
-            });
+            
         }
 
         private LiveReportBetListMetaModel CreateInvalidCurrencyMetaModel()
@@ -303,15 +302,7 @@
             return new LiveReportBetListMetaModel { CurrencyId = currency };
         }
 
-        private void SetUpForGetBetListResult()
-        {
-            SessionService.GenerateAgentListXml(Arg.Any<int>()).Returns("<Xml/>");
-
-            BetListService.GetBetListData(Arg.Any<LiveReportBetListMetaModel>(), Arg.Any<string>()).Returns(_ticketResult);
-
-            return new LiveReportBetListMetaModel { CurrencyId = currency };
-        }
-
+    
         private void SetUpForGetBetListResult()
         {
             SessionService.GenerateAgentListXml(Arg.Any<int>()).Returns("<Xml/>");

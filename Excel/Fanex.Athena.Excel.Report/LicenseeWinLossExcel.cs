@@ -26,22 +26,22 @@ namespace Fanex.Athena.Excel.Report
         private const int ColumnCurrency = 4;
 
         private const int ColumnTurnoverSportBook = 5;
-        private const int ColumnTurnoverTotal = 23;
+        private const int ColumnTurnoverTotal = 22;
 
-        private const int ColumnActualStake = 24;
+        private const int ColumnActualStake = 23;
 
-        private const int ColumnBuyBackAmountSportsbook = 25;
-        private const int ColumnBuyBackAmountBA = 26;
-        private const int ColumnBuyBackAmountTotal = 27;
+        private const int ColumnBuyBackAmountSportsbook = 24;
+        private const int ColumnBuyBackAmountBA = 25;
+        private const int ColumnBuyBackAmountTotal = 26;
 
-        private const int ColumnTotalTransaction = 28;
+        private const int ColumnTotalTransaction = 27;
 
-        private const int ColumnCustomerWl = 29;
-        private const int ColumnCustomerComm = 30;
-        private const int ColumnCustomerTotal = 31;
+        private const int ColumnCustomerWl = 28;
+        private const int ColumnCustomerComm = 29;
+        private const int ColumnCustomerTotal = 30;
 
-        private const int ColumnLicenseeWlSportsBook = 32;
-        private const int ColumnLicenseeWlTotal = 50;
+        private const int ColumnLicenseeWlSportsBook = 31;
+        private const int ColumnLicenseeWlTotal = 48;
 
         private const int ColumnBetTradeCommission = 49;
         private const int ColumnCashOutCommission = 50;

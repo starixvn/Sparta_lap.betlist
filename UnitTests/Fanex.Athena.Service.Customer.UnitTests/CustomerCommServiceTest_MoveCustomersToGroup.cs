@@ -59,9 +59,8 @@
         {
             // Arrange
             var metaModel = FakeHelper.Create<MoveToGroupComMetaModel>();
-            {
-                IsAllowedRNG = true
-            };
+            metaModel.IsAllowedRNG = true;
+
             _groupCommDataAccess.GetById(metaModel.GroupComId).Returns(FakeHelper.Create<GroupCommMetaModel>());
 
             var userSession = new UserSession { UserName = FakeHelper.Create<string>() };
