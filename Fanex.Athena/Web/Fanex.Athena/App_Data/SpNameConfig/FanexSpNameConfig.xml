@@ -24,9 +24,6 @@
   <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_Rpt_LicWinlossDetail_Ag" EnvironmentText="_UAT1"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_Rpt_LicWinlossDetail" EnvironmentText="_UAT1"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_Rpt_LicWinloss_BySourced" EnvironmentText="_UAT1"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_Rpt_WinlossByProduct" EnvironmentText="_UAT1"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_Rpt_WinlossByProductDetail_Ag" EnvironmentText="_UAT1"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_Rpt_WinlossByProductDetail" EnvironmentText="_UAT1"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_Rpt_PlatformWinloss" EnvironmentText="_UAT1"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_Rpt_PlatformWinlossDetail" EnvironmentText="_UAT1"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_Rpt_LiveReportSummary" EnvironmentText="_UAT1"></SpNameConfig>
@@ -38,11 +35,11 @@
   <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_Rpt_Outstanding" EnvironmentText="_UAT1"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_Rpt_CustomerBalance" EnvironmentText="_UAT1"></SpNameConfig>
 
-  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_BetList_RNG_Detail" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_BetList_CustomerList_Mem" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_BetList_SelByDayAll_Mem" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_BetList_SelByDayAll_Mem_Old" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_BetList_SelRunningByDate_Mem" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_BetList_SelWinloss_Mem" EnvironmentText="_xtest"></SpNameConfig>
-  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_BetList_SelWinLossByDate_Mem" EnvironmentText="_xtest"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_BetList_RNG_Detail" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_BetList_CustomerList_Mem" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_BetList_SelByDayAll_Mem" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_BetList_SelByDayAll_Mem_Old" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_BetList_SelRunningByDate_Mem" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_BetList_SelWinloss_Mem" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,SIT,UAT" SpName="Lrf_BetList_SelWinLossByDate_Mem" EnvironmentText="_UAT1"></SpNameConfig>
 </Root>
