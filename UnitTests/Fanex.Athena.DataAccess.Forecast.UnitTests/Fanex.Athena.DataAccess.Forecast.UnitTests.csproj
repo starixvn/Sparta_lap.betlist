@@ -122,9 +122,21 @@
       <Project>{3C68D0D6-442D-4366-AB29-A793BBE92F49}</Project>
       <Name>Fanex.Athena.DataAccess.Forecast</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Fanex.Athena.Extension\Fanex.Athena.Extension.csproj">
+      <Project>{71F95E53-36D0-4091-828D-ED14C9939C35}</Project>
+      <Name>Fanex.Athena.Extension</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\Fanex.Athena.Session\Fanex.Athena.Session.csproj">
+      <Project>{B41E38EF-54AD-4866-968F-C856DE9DC072}</Project>
+      <Name>Fanex.Athena.Session</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Infrastructure\Fanex.Athena.VendorAdapter\Fanex.Athena.VendorAdapter.csproj">
       <Project>{CE1F7641-A14D-4AF6-9BD3-CAD4873669B4}</Project>
       <Name>Fanex.Athena.VendorAdapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Fanex.Athena.UnitTest.Common\Fanex.Athena.UnitTest.Common.csproj">
+      <Project>{4A5BDDBC-F707-409A-86EC-D9BC6E9D31C4}</Project>
+      <Name>Fanex.Athena.UnitTest.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Model\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj">
       <Project>{5f410090-94c0-46a5-9fec-b6c3b745b7a0}</Project>
@@ -133,6 +145,10 @@
     <ProjectReference Include="..\..\Model\Fanex.Athena.Model.Forecast\Fanex.Athena.Model.Forecast.csproj">
       <Project>{c1417906-061a-4910-885f-6497a4ee8a15}</Project>
       <Name>Fanex.Athena.Model.Forecast</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.Athena.DataAccess.Core.UnitTests\Fanex.Athena.DataAccess.Core.UnitTests.csproj">
+      <Project>{08A991CD-D102-444F-9DAD-8992327306AC}</Project>
+      <Name>Fanex.Athena.DataAccess.Core.UnitTests</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,5 @@
 ﻿import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux'
 import DataGrid from './DataGrid'
 import FormFilter from './FormFilter'
 import Loader from '../../../../components/Loader'

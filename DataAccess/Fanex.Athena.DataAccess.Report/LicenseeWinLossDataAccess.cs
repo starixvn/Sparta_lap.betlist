@@ -4,7 +4,6 @@
     using System.Data;
     using System.Linq;
     using Core;
-    using Core.Configuration;
     using Core.Configuration.Interfaces;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Extensions;
@@ -23,15 +22,10 @@
 
     public class LicenseeWinLossDataAccess : BaseDataAccess, ILicenseeWinLossDataAccess
     {
-        private static readonly string[] IgnoredLicenseeWLProducts = new[] { Product.BA, Product.RB };
+        private static readonly string[] IgnoredLicenseeWLProducts = new[] { Product.BA };
         private static readonly string[] IgnoredTurnoverProducts = new[] { Product.BT, Product.CO };
 
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
-
-        public LicenseeWinLossDataAccess()
-        {
-            _balanceUpDataAccess = new BalanceUpDataAccess();
-        }
 
         public LicenseeWinLossDataAccess(
             IAppSettings appSetting,
@@ -167,13 +161,11 @@
                 summaryItem.CustomerWinLoss += reader.ToDecimal("winlost" + currency);
                 summaryItem.CustomerComm += reader.ToDecimal("playercomm" + currency);
                 summaryItem.TotalTransaction += reader.ToInt("betcount");
-                summaryItem.RacingRevenue += reader.ToDecimal("licenseewlrb" + currency) + reader.ToDecimal("commrb" + currency);
                 summaryItem.CashOutCommission += reader.ToDecimal("CashOutComm" + currency);
                 summaryItem.BACommission += reader.ToDecimal("commba" + currency);
                 summaryItem.BetTradeCommission += reader.ToDecimal("BetTradeComm" + currency);
                 summaryItem.AmtDueToBetTrade += reader.ToDecimal("amtduetoBT" + currency);
                 summaryItem.AmtDueToBA += reader.ToDecimal("amtduetoba" + currency);
-                summaryItem.AmtDueToRacing += reader.ToDecimal("amtduetorb" + currency);
                 summaryItem.ActualStake += reader.ToDecimal("BTActualStake" + currency);
                 summaryItem.BuyBackAmountSB += reader.ToDecimal("BuyBackAmtSB" + currency);
                 summaryItem.BuyBackAmountBA += reader.ToDecimal("BuyBackAmtBA" + currency);
@@ -226,10 +218,8 @@
                 BetTradeCommission = g.Sum(p => p.BetTradeCommission),
                 CashOutCommission = g.Sum(p => p.CashOutCommission),
                 BACommission = g.Sum(p => p.BACommission),
-                RacingRevenue = g.Sum(p => p.RacingRevenue),
                 AmtDueToBetTrade = g.Sum(p => p.AmtDueToBetTrade),
-                AmtDueToBA = g.Sum(p => p.AmtDueToBA),
-                AmtDueToRacing = g.Sum(p => p.AmtDueToRacing),
+                AmtDueToBA = g.Sum(p => p.AmtDueToBA)
             }).ToList();
         }
 
@@ -239,7 +229,6 @@
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             db.AddInParameter("fromdate", DbType.Date, drilldown ? metaModel.DrillDownFromDate : metaModel.FromDate.Date);
             db.AddInParameter("todate", DbType.Date, drilldown ? metaModel.DrillDownToDate : metaModel.ToDate.Date);
-            db.AddInParameter("isold", DbType.Boolean, metaModel.IsOld);
             db.AddInParameter("drawfilter", DbType.Int32, metaModel.DrawFilter);
             db.AddInParameter("movebetsday", DbType.DateTime, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
 
@@ -313,13 +302,11 @@
                     LicenseeWL = ReadLicenseeWinLossList(reader, licenseeWLColumns),
                     TurnOver = ReadTurnoverList(reader, turnoverColumns),
                     TotalTransaction = reader.ToInt("betcount"),
-                    RacingRevenue = reader.ToDecimal("licenseewlrb" + baseCurrency) + reader.ToDecimal("commrb" + baseCurrency),
                     BACommission = reader.ToDecimal("commba" + baseCurrency),
                     CashOutCommission = reader.ToDecimal("cashoutcomm" + baseCurrency),
                     BetTradeCommission = reader.ToDecimal("bettradecomm" + baseCurrency),
                     AmtDueToBetTrade = reader.ToDecimal("AmtDueToBT" + baseCurrency),
                     AmtDueToBA = reader.ToDecimal("amtduetoba" + baseCurrency),
-                    AmtDueToRacing = reader.ToDecimal("amtduetorb" + baseCurrency),
                     Date = drilldown ? metaModel.DrillDownFromDate : ConvertHelper.ToDateTime(reader.ToString("reporttype"), isMonthly)
                 };
 

@@ -11,15 +11,22 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Linq;
     using Core.Exception;
     using Data;
+    using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
     using Model.Core.ResultModel;
+    using Session.Interfaces;
 
     public class CustomerPendingFundsDataAccess : BaseDataAccess, ICustPendingFundsDataAccess
     {
+        public CustomerPendingFundsDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
+            : base(appSetting, sessionStorage)
+        {
+        }
+
         public ReportResultModel<CustPendingFunds> GetDataList(CustomerPendingFundsMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_Outstanding";

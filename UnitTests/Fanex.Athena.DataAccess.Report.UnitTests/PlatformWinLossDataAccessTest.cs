@@ -6,7 +6,6 @@
     using System.Linq;
     using Core.Configuration.Interfaces;
     using Core.UnitTests.TestHelpers;
-    using Data;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Configuration;
     using Model.Report.MetaModel;
@@ -20,44 +19,31 @@
         private const string GetSummaryDataSp = "Lrf_Rpt_PlatformWinloss";
         private const string GetMemberDataSp = "Lrf_Rpt_PlatformWinlossDetail";
 
-        private BalanceUp _balance;
-        private PlatformWinLossMetaModel _metaModel;
+        private readonly BalanceUp _balance = new BalanceUp
+        {
+            MoveBetsDay = new DateTime(2016, 8, 10),
+            BalanceUpDay = new DateTime(2016, 8, 31)
+        };
 
-        [OneTimeSetUp]
-        public override void FixtureSetUp()
+        private readonly PlatformWinLossMetaModel _metaModel = new PlatformWinLossMetaModel
+        {
+            LicenseeId = 1,
+            BaseCurrency = "USD",
+            AgentListXml = "<xml>",
+            Year = 2017,
+            Month = 1,
+            FromDay = 1,
+            ToDay = 2
+        };
+
+        protected override void SetUpDataAccess()
         {
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
-            _balance = new BalanceUp
-            {
-                MoveBetsDay = new DateTime(2016, 8, 10),
-                BalanceUpDay = new DateTime(2016, 8, 31)
-            };
             balanceUpDataAccess.GetBalanceUp().Returns(_balance);
-
-            ObjectDb = Substitute.For<IObjectDb>();
             DataAccess = Substitute.ForPartsOf<PlatformWinLossDataAccess>(
+                AppSetting,
                 CreateSessionStorage(),
                 balanceUpDataAccess);
-
-            _metaModel = new PlatformWinLossMetaModel
-            {
-                LicenseeId = 1,
-                BaseCurrency = "USD",
-                AgentListXml = "<xml>",
-                Year = 2017,
-                Month = 1,
-                FromDay = 1,
-                ToDay = 2
-            };
-        }
-
-        [OneTimeTearDown]
-        public override void FixtureTearDown()
-        {
-            _metaModel = null;
-            _balance = null;
-
-            base.FixtureTearDown();
         }
 
         [Test]

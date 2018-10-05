@@ -162,6 +162,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="BettingTicketCenterControllerTest.cs" />
     <Compile Include="ExchangeWinLossBetListControllerTest.cs" />
     <Compile Include="FakeApiBetListBaseController.cs" />
     <Compile Include="ApiBetListBaseControllerTest.cs" />
@@ -185,11 +186,9 @@
     <Compile Include="VoidbridgeBetListControllerTest.cs" />
     <Compile Include="RunningMatchChoiceBetListControllerTest.cs" />
     <Compile Include="RNGCasinoBetListControllerTest.cs" />
-    <Compile Include="RacingCommissionBetListControllerTest.cs" />
     <Compile Include="CorrectScoreBetListControllerTest.cs" />
     <Compile Include="CustomerWinLossBetListControllerTest.cs" />
     <Compile Include="DailyBetListControllerTest.cs" />
-    <Compile Include="DailyRacingWinLossBetListControllerTest.cs" />
     <Compile Include="DailyStatementBetListControllerTest.cs" />
     <Compile Include="GlobalGamingBetListControllerTest.cs" />
     <Compile Include="LastBetMonitoringBetListControllerTest.cs" />
@@ -220,6 +219,10 @@
     <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess.Core\Fanex.Athena.DataAccess.Core.csproj">
       <Project>{a6be21e8-6895-4863-ba3a-e6b21d3ce78d}</Project>
       <Name>Fanex.Athena.DataAccess.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Excel\Fanex.Athena.Excel.BetList\Fanex.Athena.Excel.BetList.csproj">
+      <Project>{673f1094-bbf7-4e48-95e2-b4050fceb8ef}</Project>
+      <Name>Fanex.Athena.Excel.BetList</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Fanex.Athena.Extension\Fanex.Athena.Extension.csproj">
       <Project>{71f95e53-36d0-4091-828d-ed14c9939c35}</Project>

@@ -104,7 +104,7 @@ else
         }
     </select>
 }
-<!--Example:@RazorHelper.Paging("WarehouseWinLossForm", 5000, 1)-->
+<!--Example:@RazorHelper.Paging("MainForm", 5000, 1)-->
 @helper Paging(string formId, int NoOfItems, int currentIndex = 1, int pageSize = 1000, string method = "POST")
 {
 var noOfPage = NoOfItems / pageSize + (NoOfItems % pageSize == 0 ? 0 : 1);

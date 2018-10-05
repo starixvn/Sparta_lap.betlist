@@ -1279,7 +1279,7 @@ ul.ui-multiselect-checkboxes {
     color: #3547E3; }
   .betlist-container .blue {
     color: #2673CE; }
-  .betlist-container .theme_jqGrid .ui-jqgrid-btable tr.jqgrow td .detail > .detail-link {
+  .betlist-container td .detail > .detail-link {
     color: #755200;
     font-weight: bold; }
   .betlist-container div.mx-parlay div.void span, .betlist-container div.mx-parlay div.void div {
@@ -1427,5 +1427,6 @@ ul.ui-multiselect-checkboxes {
     transform: rotate(0deg); }
   100% {
     transform: rotate(360deg); } }
+
 
 /*# sourceMappingURL=lastbetmonitoring.css.map*/

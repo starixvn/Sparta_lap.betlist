@@ -14,28 +14,15 @@
     {
         private const string SpName = "LRF_Rpt_MicroGamingWinloss";
 
-        private ThirdPartyWinLossMetaModel _metaModel;
-
-        protected override void SetUpDataAccess()
+        private readonly ThirdPartyWinLossMetaModel _metaModel = new ThirdPartyWinLossMetaModel
         {
-            DataAccess = Substitute.ForPartsOf<MicroGamingWinLossDataAccess>(CreateSessionStorage());
-        }
-
-        [OneTimeSetUp]
-        public override void FixtureSetUp()
-        {
-            base.FixtureSetUp();
-
-            _metaModel = new ThirdPartyWinLossMetaModel
-            {
-                LicenseeId = 1,
-                BaseCurrency = "USD",
-                AgentListXml = "<xml>",
-                FromDate = new DateTime(2017, 1, 1),
-                ToDate = new DateTime(2017, 2, 2),
-                ReportBy = 2
-            };
-        }
+            LicenseeId = 1,
+            BaseCurrency = "USD",
+            AgentListXml = "<xml>",
+            FromDate = new DateTime(2017, 1, 1),
+            ToDate = new DateTime(2017, 2, 2),
+            ReportBy = 2
+        };
 
         [Test]
         public void GetSummaryWinloss_WhenCall_ParametersPassedCorrectly()

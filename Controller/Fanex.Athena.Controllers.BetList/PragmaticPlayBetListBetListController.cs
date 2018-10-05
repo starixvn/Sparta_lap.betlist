@@ -18,11 +18,7 @@
 
         private readonly string _title =
             ViewResources.ProductPP + " - " + ViewResources.BetList + " - " + ViewResources.DetailTickets;
-
-        public PragmaticPlayBetListController()
-        {
-        }
-
+        
         public PragmaticPlayBetListController(
             ILanguageService languageService,
             ISessionService sessionService,

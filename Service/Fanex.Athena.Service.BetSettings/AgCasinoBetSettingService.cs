@@ -33,15 +33,7 @@ namespace Fanex.Athena.Service.BetSettings
         private readonly IAppSettings _appSettings;
 
         private readonly IWebClientService _webClientService;
-
-        public AgCasinoBetSettingService()
-        {
-            _logger = new CoreLogger();
-            _betSettingDataAccess = new AgCasinoBetSettingDataAccess();
-            _appSettings = new AppSettings();
-            _webClientService = new WebClientService();
-        }
-
+        
         public AgCasinoBetSettingService(
             IAuthorizationService authorizationService,
             ICoreLogger logger,

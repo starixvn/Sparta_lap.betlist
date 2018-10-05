@@ -157,6 +157,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="BettingTicketCenterControllerTest.cs" />
     <Compile Include="BonusBetListControllerTest.cs" />
     <Compile Include="PragmaticPlayBetListtControllerTest.cs" />
     <Compile Include="WinlossByLeagueBetListControllerTest.cs" />
@@ -166,7 +167,6 @@
     <Compile Include="RunningMatchBetListControllerTest.cs" />
     <Compile Include="RunningBettypesOfMatchBetListControllerTest.cs" />
     <Compile Include="RNGCasinoBetListControllerTest.cs" />
-    <Compile Include="RacingCommissionBetListControllerTest.cs" />
     <Compile Include="PlatformWinLossBetListControllerTest.cs" />
     <Compile Include="MicroGamingRngBetListControllerTest.cs" />
     <Compile Include="AGCasinoBetListControllerTest.cs" />
@@ -178,7 +178,6 @@
     <Compile Include="CorrectScoreBetListControllerTest.cs" />
     <Compile Include="CustomerOutstandingBetListControllerTest.cs" />
     <Compile Include="LicenseeWinLossBetListControllerTest.cs" />
-    <Compile Include="DailyRacingWinLossBetListControllerTest.cs" />
     <Compile Include="CustomerWinLossBetListControllerTest.cs" />
     <Compile Include="DailyBetListControllerTest.cs" />
     <Compile Include="GlobalGamingBetListControllerTest.cs" />
@@ -218,6 +217,10 @@
     <ProjectReference Include="..\..\Fanex.Athena.Extension\Fanex.Athena.Extension.csproj">
       <Project>{71f95e53-36d0-4091-828d-ed14c9939c35}</Project>
       <Name>Fanex.Athena.Extension</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Fanex.Athena.UnitTest.Common\Fanex.Athena.UnitTest.Common.csproj">
+      <Project>{4a5bddbc-f707-409a-86ec-d9bc6e9d31c4}</Project>
+      <Name>Fanex.Athena.UnitTest.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Infrastructure\Fanex.Athena.Constant\Fanex.Athena.Constant.csproj">
       <Project>{6b1431e0-e513-48bb-be86-0756e5f6f405}</Project>

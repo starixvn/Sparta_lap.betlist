@@ -7,9 +7,11 @@
 namespace Fanex.Athena.DataAccess.BetSettings
 {
     using Core;
+    using Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Interfaces;
     using Model.BetSettings.MetaModel;
+    using Session.Interfaces;
 
     public class RngCasinoBetSettingDataAccess : BaseDataAccess, IRngCasinoBetSettingDataAccess
     {
@@ -17,12 +19,11 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
         private readonly ICoreCasinoBetSettingDataAccess _coreCasinoBetSettingDataAccess;
 
-        public RngCasinoBetSettingDataAccess()
-        {
-            _coreCasinoBetSettingDataAccess = new CoreCasinoBetSettingDataAccess();
-        }
-
-        public RngCasinoBetSettingDataAccess(ICoreCasinoBetSettingDataAccess coreCasinoBetSettingDataAccess)
+        public RngCasinoBetSettingDataAccess(
+            IAppSettings appSetting,
+            ISessionStorage sessionStorage,
+            ICoreCasinoBetSettingDataAccess coreCasinoBetSettingDataAccess)
+            : base(appSetting, sessionStorage)
         {
             _coreCasinoBetSettingDataAccess = coreCasinoBetSettingDataAccess;
         }

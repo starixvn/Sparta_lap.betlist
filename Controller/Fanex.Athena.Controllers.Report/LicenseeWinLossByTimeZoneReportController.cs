@@ -12,10 +12,6 @@ namespace Fanex.Athena.Controllers.Report
     [FunctionAuthorization(PermissionKeys.ReportLicenseeWinLossByTimeZone)]
     public class LicenseeWinLossByTimeZoneReportController : ReportBaseController
     {
-        public LicenseeWinLossByTimeZoneReportController()
-        {
-        }
-
         public LicenseeWinLossByTimeZoneReportController(
             ILanguageService languageService,
             ISessionService sessionService,

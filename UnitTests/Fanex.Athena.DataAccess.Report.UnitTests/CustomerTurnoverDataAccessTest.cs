@@ -5,7 +5,6 @@
     using System.Linq;
     using Core.Configuration.Interfaces;
     using Core.UnitTests.TestHelpers;
-    using Data;
     using Model.Core.DTO.Configuration;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
@@ -18,42 +17,28 @@
     {
         private const string LanguageCode = "en-us";
 
-        private BalanceUp _balance;
-
-        private CustomerTurnoverMetaModel _metaModel;
-
-        [OneTimeSetUp]
-        public override void FixtureSetUp()
+        private readonly BalanceUp _balance = new BalanceUp
         {
-            ObjectDb = Substitute.For<IObjectDb>();
+            MoveBetsDay = new DateTime(2016, 8, 10),
+            BalanceUpDay = new DateTime(2016, 8, 31)
+        };
 
+        private readonly CustomerTurnoverMetaModel _metaModel = new CustomerTurnoverMetaModel
+        {
+            Username = "UsernameTest"
+        };
+
+        protected override void SetUpDataAccess()
+        {
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
-            _balance = new BalanceUp
-            {
-                MoveBetsDay = new DateTime(2016, 8, 10),
-                BalanceUpDay = new DateTime(2016, 8, 31)
-            };
             balanceUpDataAccess.GetBalanceUp().Returns(_balance);
 
             DataAccess = Substitute.ForPartsOf<CustomerTurnoverDataAccess>(
+                AppSetting,
                 CreateSessionStorage(),
                 balanceUpDataAccess,
                 Substitute.For<ICacheRefAdapter>());
             DataAccess.GetObjectDb(Arg.Is("Lrf_Rpt_CustomerTurnOver")).Returns(ObjectDb);
-
-            _metaModel = new CustomerTurnoverMetaModel
-            {
-                Username = "UsernameTest"
-            };
-        }
-
-        [OneTimeTearDown]
-        public override void FixtureTearDown()
-        {
-            _balance = null;
-            _metaModel = null;
-
-            base.FixtureTearDown();
         }
 
         [TestCase(null, null)]

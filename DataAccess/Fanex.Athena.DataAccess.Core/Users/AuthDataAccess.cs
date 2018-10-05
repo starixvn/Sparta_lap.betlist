@@ -2,8 +2,10 @@
 using System.Data;
 using Fanex.Athena.DataAccess.Core.Exception;
 using Fanex.Athena.DataAccess.Core.Users.Interfaces;
+using Fanex.Athena.Extension.Utility;
 using Fanex.Athena.Model.Core.DTO.Common;
 using Fanex.Athena.Model.Core.DTO.Users;
+using Fanex.Athena.Session.Interfaces;
 using Fanex.Common;
 using Fanex.Common.Extensions;
 using Fanex.Data;
@@ -12,6 +14,11 @@ namespace Fanex.Athena.DataAccess.Core.Users
 {
     public class AuthDataAccess : BaseDataAccess, IAuthDataAccess
     {
+        public AuthDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
+            : base(appSetting, sessionStorage)
+        {
+        }
+
         public int LoginOnUser(User requestUser, string netSessionId, int serverId)
         {
             const string UspName = "Lrf_CheckIn";

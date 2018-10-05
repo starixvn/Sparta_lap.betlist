@@ -145,10 +145,14 @@
     <Compile Include="DTO\ColossusBetDetail.cs" />
     <Compile Include="DTO\TicketText.cs" />
     <Compile Include="DTO\TicketResult.cs" />
+    <Compile Include="MetaModel\BaseBettingTicketMetaModel.cs" />
     <Compile Include="MetaModel\ExchangeBetListDetailMetaModel.cs" />
     <Compile Include="MetaModel\ExchangeBetListMetaModel.cs" />
     <Compile Include="MetaModel\BetListMetaModel.cs" />
     <Compile Include="MetaModel\BaseExchangeBetListMetaModel.cs" />
+    <Compile Include="MetaModel\MultipleCustomersBetListMetaModel.cs" />
+    <Compile Include="MetaModel\RefNoBetListMetaModel.cs" />
+    <Compile Include="MetaModel\SingleCustomersBetListMetaModel.cs" />
     <Compile Include="MetaModel\WinLossByLeagueBetListMetaModel.cs" />
     <Compile Include="MetaModel\DailyBetListMetaModel.cs" />
     <Compile Include="MetaModel\CashOutBetListDetailMetaModel.cs" />
@@ -163,6 +167,7 @@
     <Compile Include="ViewModel\ColossusBetDetailViewModel.cs" />
     <Compile Include="ViewModel\ExchangeBetListViewModel.cs" />
     <Compile Include="ViewModel\LastBetsMonitoringViewModel.cs" />
+    <Compile Include="ViewModel\BettingTicketCenterViewModel.cs" />
     <Compile Include="ViewModel\SystemParlayDetailViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

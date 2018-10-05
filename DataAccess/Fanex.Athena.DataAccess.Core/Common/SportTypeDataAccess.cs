@@ -11,17 +11,14 @@ namespace Fanex.Athena.DataAccess.Core.Common
     using System.Data;
     using System.Linq;
     using Constant.DataDomain;
+    using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Common.Extensions;
-    using Resources;
-    using VendorAdapter;
+    using Session.Interfaces;
     using VendorAdapter.Interfaces;
 
-    /// <summary>
-    ///     TODO: Update summary.
-    /// </summary>
     public class SportTypeDataAccess : BaseDataAccess, ISportTypeDataAccess
     {
         private static readonly int[] HiddenSports = new[]
@@ -32,17 +29,16 @@ namespace Fanex.Athena.DataAccess.Core.Common
 
         private readonly ICacheRefAdapter _cacheRefAdapter;
 
-        public SportTypeDataAccess()
-        {
-            _cacheRefAdapter = new CacheRefAdapter();
-        }
-
-        public SportTypeDataAccess(ICacheRefAdapter cacheRefAdapter)
+        public SportTypeDataAccess(
+            IAppSettings appSetting,
+            ISessionStorage sessionStorage,
+            ICacheRefAdapter cacheRefAdapter)
+            : base(appSetting, sessionStorage)
         {
             _cacheRefAdapter = cacheRefAdapter;
         }
 
-        public IEnumerable<SportProductItem> GetSportsAndProducts(int licenseeId, string languageCode, int? productId = null)
+        public IEnumerable<SportProductItem> GetSportsAndProducts(int licenseeId, string languageCode, string productCodes = "")
         {
             const string UspName = "Lrf_SelSportDetail";
 
@@ -50,26 +46,22 @@ namespace Fanex.Athena.DataAccess.Core.Common
             {
                 db.AddInParameter("licenseeId", DbType.Int32, licenseeId);
                 db.AddInParameter("langkey", DbType.String, languageCode);
+                db.AddInParameter("ProductCodes", DbType.String, productCodes);
                 using (var reader = db.ExecuteReader())
                 {
                     var result = new List<SportProductItem>();
                     while (reader.Read())
                     {
-                        var parentId = reader["ParentId"] != DBNull.Value ? reader.ToInt("ParentId") : -1;
-
-                        if (!productId.HasValue || productId == parentId)
+                        var id = reader.ToInt("ID");
+                        if (!HiddenSports.Contains(id))
                         {
-                            var id = reader.ToInt("ID");
-                            if (!HiddenSports.Contains(id))
+                            result.Add(new SportProductItem
                             {
-                                result.Add(new SportProductItem
-                                {
-                                    Checked = true,
-                                    ID = id,
-                                    Name = reader.ToString("Name"),
-                                    ParentId = parentId
-                                });
-                            }
+                                Checked = true,
+                                ID = id,
+                                Name = reader.ToString("Name"),
+                                ParentId = reader["ParentId"] != DBNull.Value ? reader.ToInt("ParentId") : -1
+                            });
                         }
                     }
 
@@ -104,39 +96,6 @@ namespace Fanex.Athena.DataAccess.Core.Common
             }
 
             return result;
-        }
-
-        public IList<Sport> GetAllWHSports()
-        {
-            const string UspName = "Lrf_SportSel";
-
-            using (var db = this.GetObjectDb(UspName))
-            {
-                var result = new List<Sport>();
-                using (var reader = db.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        var sportId = reader.ToInt("Sporttype");
-                        var sportName = _cacheRefAdapter.GetSportName(sportId);
-
-                        result.Add(new Sport
-                        {
-                            SportId = sportId,
-                            SportName = sportName
-                        });
-                    }
-                }
-
-                result.Insert(
-                    0, 
-                    new Sport
-                    {
-                        SportId = 0,
-                        SportName = ViewResources.All
-                    });
-                return result;
-            }
         }
     }
 }

@@ -20,7 +20,6 @@
     using Resources;
     using Session.Enum;
     using Session.Model;
-    using Utility;
     using Utility.Interfaces;
 
     public class OneAuthenticationService : IOneAuthenticationService
@@ -30,12 +29,7 @@
         private readonly IFormsAuthenticationService _formsAuthenticationService;
         private readonly IOneBookSecurityWrapper _oneBookSecurityWrapper;
         private readonly ICoreLogger _logger;
-
         private readonly IOneAuthDataAccess _oneAuthDataAccess;
-
-        public OneAuthenticationService() : this(null, null, null, null, null, null)
-        {
-        }
 
         public OneAuthenticationService(
             ISessionService sessionService,
@@ -45,12 +39,12 @@
             ICoreLogger logger,
             IOneAuthDataAccess oneAuthDataAccess)
         {
-            _sessionService = sessionService ?? new SessionService();
-            _licenseeDataAccess = licenseeDataAccess ?? new LicenseeDataAccess();
-            _formsAuthenticationService = formsAuthenticationService ?? new FormsAuthenticationService();
-            _oneBookSecurityWrapper = oneBookSecurityWrapper ?? new OneBookSecurityWrapper();
-            _logger = logger ?? new CoreLogger();
-            _oneAuthDataAccess = oneAuthDataAccess ?? new OneAuthDataAccess();
+            _sessionService = sessionService;
+            _licenseeDataAccess = licenseeDataAccess;
+            _formsAuthenticationService = formsAuthenticationService;
+            _oneBookSecurityWrapper = oneBookSecurityWrapper;
+            _logger = logger;
+            _oneAuthDataAccess = oneAuthDataAccess;
         }
 
         protected internal virtual string GetStringFromFile(string path)
@@ -227,10 +221,10 @@
                 IsManageableSubsidiary = userInfo.IsEnabledSubsidiary && userInfo.UserLevel != UserLevelType.Subsidiary,
                 OperatorId = userInfo.OperatorID,
                 IsInternal = true,
-                FunctionIdList = new List<int>(),
+                FunctionIdList = new int[0],
                 PortalFunctionList = GetPermissionList(tokenInfo),
                 Language = languageCode,
-                DefaultReportUrl = "BalanceReport",
+                DefaultReportUrl = "LicenseeWinLossReport",
                 ApplicationMode = AppMode.Parasitic,
                 VendorID = tokenInfo.VendorID,
                 VendorIdentityID = tokenInfo.UserID,
@@ -242,16 +236,16 @@
             _sessionService.AssignSessions(userSession, licSession);
         }
 
-        private IList<string> GetPermissionList(OneAuthToken tokenInfo)
+        private string[] GetPermissionList(OneAuthToken tokenInfo)
         {
-            return tokenInfo.IsAdminstrator ? GetFunctionList() : tokenInfo.Permissions.Select(x => x.FunctionKey).ToList();
+            return tokenInfo.IsAdminstrator ? GetFunctionList() : tokenInfo.Permissions.Select(x => x.FunctionKey).ToArray();
         }
 
         /// <summary>
         /// This function will be removed when integrating permission part with LAP.
         /// </summary>
         /// <returns>Return the list portal function.</returns>
-        private IList<string> GetFunctionList()
+        private string[] GetFunctionList()
         {
             const string FunctionFilePath = "~/App_Data/PortalSystemFunction.json";
             IList<PortalSystemFunction> result = null;
@@ -262,7 +256,7 @@
                 result = JsonConvert.DeserializeObject<IList<PortalSystemFunction>>(temp);
             }
 
-            return (result ?? new List<PortalSystemFunction>()).Select(x => x.FunctionKey).ToList();
+            return (result ?? new List<PortalSystemFunction>()).Select(x => x.FunctionKey).ToArray();
         }
     }
 }

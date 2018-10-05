@@ -9,7 +9,8 @@ define([
     "lib/jquery.marquee",
     "materialize-autocomplete",
     "components/selectlist",
-    "lib/jquery.jclock"],
+    "lib/jquery.jclock",
+    "vendor-materialize"],
     function (Site, Recheckin, AutoComplete, Notification) {
         var $searchBox;
 
@@ -100,7 +101,7 @@ define([
 
         function searchByUserName() {
             var userName = $searchBox.val();
-            if (!userName || userName === "") {
+            if (!userName) {
                 return;
             }
 

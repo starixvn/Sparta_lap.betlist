@@ -217,14 +217,6 @@
     <value>投注类别输赢</value>
     <comment>Win Loss By Bet Type</comment>
   </data>
-  <data name="Menu_34" xml:space="preserve">
-    <value>赛事佣金</value>
-    <comment>Racing Commission</comment>
-  </data>
-  <data name="Menu_35" xml:space="preserve">
-    <value>每日赛事输赢</value>
-    <comment>Daily Racing Win Loss</comment>
-  </data>
   <data name="Menu_36" xml:space="preserve">
     <value>作废/已删除注单</value>
     <comment>Cancelled Bets</comment>
@@ -261,14 +253,6 @@
     <value>会员列表</value>
     <comment>Customer List</comment>
   </data>
-  <data name="Menu_44" xml:space="preserve">
-    <value>輸贏</value>
-    <comment>Win Loss</comment>
-  </data>
-  <data name="Menu_45" xml:space="preserve">
-    <value>最大会员</value>
-    <comment>Top Customer</comment>
-  </data>
   <data name="Menu_46" xml:space="preserve">
     <value>管理帐户</value>
     <comment>Manage Account</comment>
@@ -284,10 +268,6 @@
   <data name="Menu_49" xml:space="preserve">
     <value>Assign Permission</value>
     <comment>Assign Permission</comment>
-  </data>
-  <data name="Menu_5" xml:space="preserve">
-    <value>数据仓库技术</value>
-    <comment>DATA WAREHOUSE</comment>
   </data>
   <data name="Menu_50" xml:space="preserve">
     <value>Reset Password</value>

@@ -144,36 +144,11 @@
             formatter: "currency",
             formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
         };
-
-        var racingRevenueColumn =
-        {
-            name: "RacingRevenue",
-            index: "RacingRevenue",
-            width: 100,
-            align: "right",
-            sortable: true,
-            resizable: false,
-            formatter: "currency",
-            formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
-        };
-
         var amtDueToBAColumn =
         {
             name: "AmtDueToBA",
             index: "AmtDueToBA",
             width: 100,
-            align: "right",
-            sortable: true,
-            resizable: false,
-            formatter: "currency",
-            formatoptions: jqGridAdditional.DECIMAL_FORMAT_OPTIONS
-        };
-
-        var amtDueToRacingColumn =
-        {
-            name: "AmtDueToRacing",
-            index: "AmtDueToRacing",
-            width: 90,
             align: "right",
             sortable: true,
             resizable: false,
@@ -193,9 +168,7 @@
             "EffectiveBettingValue",
             "LicenseeW_L",
             "BACommission",
-            "RacingRevenue",
-            "AmtDueToBA",
-            "AmtDueToRacing"
+            "AmtDueToBA"
         ];
 
         var colModelList = [
@@ -210,9 +183,7 @@
             betEffectiveColumn,
             licenseeWLColumn,
             bacommColumn,
-            racingRevenueColumn,
-            amtDueToBAColumn,
-            amtDueToRacingColumn
+            amtDueToBAColumn
         ];
 
         var _me =
@@ -221,7 +192,6 @@
             urlExcelData: "api/CustomerWinLossReport/Index",
             hasCustomerComm: true,
             isAllowBA: true,
-            isAllowRB: true,
             customerCommIndex: 11,
             productBAIndex: 13,
             customerWlIndex: 5,
@@ -281,8 +251,6 @@
                 playerCommColumn.hidden = !_me.hasCustomerComm;
                 bacommColumn.hidden = !_me.isAllowBA;
                 amtDueToBAColumn.hidden = !_me.isAllowBA;
-                racingRevenueColumn.hidden = !_me.isAllowRB;
-                amtDueToRacingColumn.hidden = !_me.isAllowRB;
                 systemIdColumn.hidden = Site.isFakeLicensee();
 
                 var colModels = Site.clone(colModelList);

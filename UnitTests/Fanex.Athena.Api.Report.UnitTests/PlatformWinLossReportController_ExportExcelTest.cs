@@ -15,8 +15,8 @@
 
     public partial class PlatformWinLossReportControllerTest
     {
-        [TestCase(true, new[] { Product.BA, Product.RB, Product.NG }, new[] { Product.BA, Product.RB })]
-        [TestCase(false, new[] { Product.SB, Product.VS, Product.CS, Product.KN }, new[] { Product.RB })]
+        [TestCase(true, new[] { Product.BA, Product.NG }, new[] { Product.BA })]
+        [TestCase(false, new[] { Product.SB, Product.VS, Product.CS, Product.KN }, new string[] { })]
         [TestCase(false, new string[0], new string[0])]
         public void Index_ExportExcelMemberWithLevel1_PassCorrectParamsToCreateExcel(
             bool hasLicenseeComm,
@@ -155,7 +155,6 @@
             var productOptions = new List<string>
             {
                 Product.BA,
-                Product.RB,
                 Product.NG,
                 Product.SB,
                 Product.VS,
@@ -176,7 +175,6 @@
                 Assert.IsTrue(expetedShowingOption.CSVisible == productOptions.Any(i => i.Code == Product.CS && i.Status));
                 Assert.IsTrue(expetedShowingOption.KNVisible == productOptions.Any(i => i.Code == Product.KN && i.Status));
                 Assert.IsTrue(expetedShowingOption.NGVisible == productOptions.Any(i => i.Code == Product.NG && i.Status));
-                Assert.IsTrue(expetedShowingOption.RBVisible == productOptions.Any(i => i.Code == Product.RB && i.Status));
                 Assert.IsTrue(expetedShowingOption.VSVisible == productOptions.Any(i => i.Code == Product.VS && i.Status));
             });
         }
@@ -186,11 +184,6 @@
             var expectedColSpan = 7;
 
             if (productAccess.Contains(Product.BA))
-            {
-                expectedColSpan += 2;
-            }
-
-            if (productAccess.Contains(Product.RB))
             {
                 expectedColSpan += 2;
             }

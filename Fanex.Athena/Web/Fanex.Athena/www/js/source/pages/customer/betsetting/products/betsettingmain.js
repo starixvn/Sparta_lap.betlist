@@ -4,25 +4,11 @@ define(["jquery", "common/site", "../common/constant", "../common/betsettingbase
     var Product = Constant.Product;
 
     function getConfirmMessage(productId) {
-        switch (productId) {
-            case Product.Sportsbook:
-                return "UpdateSportsbookBetSettings";
-            case Product.Racing:
-                return "UpdateRacingBetSettings";
-            default:
-                return "";
-        }
+        return productId == Product.Sportsbook ? "UpdateSportsbookBetSettings" : "";
     }
 
     function getUpdateUrl(productId) {
-        switch (productId) {
-            case Product.Sportsbook:
-                return "SportsbookBetSetting/UpdateBetSetting";
-            case Product.Racing:
-                return "RacingBetSetting/UpdateBetSetting";
-            default:
-                return null;
-        }
+        return productId == Product.Sportsbook ? "SportsbookBetSetting/UpdateBetSetting" : null;
     }
 
     var _me = {

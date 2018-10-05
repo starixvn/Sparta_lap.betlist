@@ -24,13 +24,6 @@
 
         private readonly ISubsidiaryDataAccess _subLicenseeDataAccess;
 
-        public SubsidiaryService()
-        {
-            _sessionService = new SessionService();
-            _cache = new MemoryCacheService();
-            _subLicenseeDataAccess = new SubsidiaryDataAccess();
-        }
-
         public SubsidiaryService(ISessionService sessionService, ISubsidiaryDataAccess subsidiaryDataAccess, IMemoryCacheService cache)
         {
             _sessionService = sessionService;
@@ -80,7 +73,7 @@
                 var exceptedAgentList = subsidiaryData
                     .Where(x => !subsidiaryNameList.Contains(x.OperatorId)).Select(x => x.AgentId).ToList();
                 var otherAgentList = _sessionService.UserSession.CurrencyAgentList
-                    .Where(x => x.Key == currencyId || currencyId == CurrencyAll).ToDictionary(x => x.Key, x => x.Value);
+                    .Where(x => x.Key == currencyId || currencyId == CurrencyAll).ToDictionary(x => x.Key, x => x.Value.AsEnumerable());
 
                 currencyAgentList = currencyAgentList.Union(otherAgentList).GroupBy(x => x.Key)
                     .ToDictionary(x => x.Key, x => x.SelectMany(g => g.Value).Except(exceptedAgentList).Distinct());

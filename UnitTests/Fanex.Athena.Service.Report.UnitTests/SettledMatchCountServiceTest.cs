@@ -62,15 +62,12 @@
             // Arrange
             var productList = new List<Product>
             {
-                new Product { ProductCode = Product.RB },
                 new Product { ProductCode = Product.NG },
                 new Product { ProductCode = Product.VS }
             };
             var productAccess = new ProductAccess(productList);
             var dataList = new List<SettledMatchCount>
             {
-                new SettledMatchCount { SportType = (int)SportType.HorseRacing, IsToday = 0, Entered = 1 },
-                new SettledMatchCount { SportType = (int)SportType.HorseRacing, IsToday = 0, NonEntered = 1 },
                 new SettledMatchCount { SportType = (int)SportType.NumberGame, IsToday = 0, Entered = 1 },
                 new SettledMatchCount { SportType = (int)SportType.NumberGame, IsToday = 0, NonEntered = 1 },
                 new SettledMatchCount { SportType = (int)SportType.LiveCasino, IsToday = 1, Entered = 1 },
@@ -81,7 +78,7 @@
 
             _dataAccess.GetDataList(false, 0).ReturnsForAnyArgs(dataList);
 
-            const int ExpectedToDayRecords = 5;
+            const int ExpectedToDayRecords = 3;
 
             // Action
             var result = _service.GetDataList(false, 0, productAccess);

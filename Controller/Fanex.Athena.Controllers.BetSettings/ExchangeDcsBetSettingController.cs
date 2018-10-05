@@ -15,7 +15,6 @@ namespace Fanex.Athena.Controllers.BetSettings
     using Model.BetSettings.MetaModel;
     using Model.BetSettings.ViewModel;
     using Resources;
-    using Service.BetSettings;
     using Service.BetSettings.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Helpers;
@@ -30,11 +29,6 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         private readonly IExchangeCommApiService _exchangeCommApiService;
 
-        public ExchangeDcsBetSettingController()
-        : this(null, null, null, null, null, null, null, null, null, null)
-        {
-        }
-
         public ExchangeDcsBetSettingController(
             ILanguageService languageService,
             ISessionService sessionService,
@@ -48,8 +42,8 @@ namespace Fanex.Athena.Controllers.BetSettings
             IExchangeCommApiService exchangeCommApiService)
         : base(languageService, sessionService, appSetting, clientViewHelper, authorizationService, coreBetSettingDataAccess, customerService, productService)
         {
-            _betSettingService = betSettingService ?? new DcsBetSettingService();
-            _exchangeCommApiService = exchangeCommApiService ?? new ExchangeCommApiService();
+            _betSettingService = betSettingService;
+            _exchangeCommApiService = exchangeCommApiService;
         }
 
         [HttpGet]

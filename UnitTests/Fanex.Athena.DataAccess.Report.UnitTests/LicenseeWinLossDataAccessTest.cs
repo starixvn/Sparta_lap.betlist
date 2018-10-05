@@ -42,9 +42,7 @@
                 CreateSessionStorage(),
                 balanceUpDataAccess);
 
-            var appSetting = Substitute.For<IAppSettings>();
-            appSetting.HistoryDate.Returns(new DateTime(2016, 8, 31));
-            _metaModel = new LicenseeWinLossMetaModel(appSetting)
+            _metaModel = new LicenseeWinLossMetaModel
             {
                 DrillDownCustomerId = 999,
                 DrillDownFromDate = new DateTime(2018, 1, 1),

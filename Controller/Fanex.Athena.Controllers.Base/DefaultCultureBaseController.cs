@@ -3,7 +3,6 @@
     using System.Web.Mvc;
     using System.Web.SessionState;
     using Extension.Utility;
-    using Fanex.Athena.Service.Core.Users;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using ONEbook.UM.Filters;
     using Service.Core.Helpers;
@@ -19,15 +18,11 @@
         private readonly IAppSettings _appSettings;
         private readonly IClientViewHelper _clientViewHelper;
 
-        public DefaultCultureBaseController() : this(null, null, null)
-        {
-        }
-
         public DefaultCultureBaseController(ISessionService sessionService, IAppSettings appSetting, IClientViewHelper clientViewHelper)
         {
-            _sessionService = sessionService ?? new SessionService();
-            _appSettings = appSetting ?? new AppSettings();
-            _clientViewHelper = clientViewHelper ?? new ClientViewHelper();
+            _sessionService = sessionService;
+            _appSettings = appSetting;
+            _clientViewHelper = clientViewHelper;
         }
 
         public ISessionService SessionService

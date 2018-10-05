@@ -7,7 +7,7 @@ const fetchData = (relativeUrl, params) => {
     return axios.post(url, params.data, {
         headers: {
             'X-Requested-With': 'XMLHttpRequest',
-            '__RequestVerificationToken': params.xsrfToken
+            '__RequestVerificationToken': Site.getXsrfToken()
         }
     });
 }

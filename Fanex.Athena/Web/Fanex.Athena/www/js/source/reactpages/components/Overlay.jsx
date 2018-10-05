@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 import classNames from "classnames"
 
-const Classes = {
+const wrapperClasses = {
     OVERLAY: "overlay",
     OVERLAY_OPEN: "overlay-open"
 }
@@ -35,11 +35,11 @@ export default class Overlay extends Component {
         isOpening: false
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (this.state.isOpening !== nextProps.isOpening) {
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.isOpening !== prevProps.isOpening) {
             const { onOpen } = this.props;
-            nextProps.isOpening && onOpen && onOpen();
-            this.setState({ isOpening: nextProps.isOpening });
+            this.props.isOpening && onOpen && onOpen();
+            this.setState({ isOpening: this.props.isOpening });
         }
     }
 
@@ -77,17 +77,15 @@ export default class Overlay extends Component {
 
     _close() {
         const { onClose } = this.props;
-        onClose && onClose();
-
-        this.setState({ isOpening: false })
+        this.setState({isOpening: false}, () => onClose && onClose());
     }
 
     render() {
         const { className, children } = this.props;
         const mergedClassName = classNames(
-            Classes.OVERLAY,
+            wrapperClasses.OVERLAY,
             {
-                [Classes.OVERLAY_OPEN]: this.state.isOpening
+                [wrapperClasses.OVERLAY_OPEN]: this.state.isOpening
             },
             className
         );

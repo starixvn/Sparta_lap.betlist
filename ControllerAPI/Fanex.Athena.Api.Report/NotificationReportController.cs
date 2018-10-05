@@ -22,11 +22,6 @@
     {
         private readonly INotificationService _notificationService;
 
-        public NotificationReportController()
-        {
-            _notificationService = new NotificationService();
-        }
-
         public NotificationReportController(
             INotificationService notificationService,
             ISessionService sessionService,

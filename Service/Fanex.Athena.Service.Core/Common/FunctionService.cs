@@ -9,7 +9,6 @@ namespace Fanex.Athena.Service.Core.Common
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
-    using Fanex.Athena.DataAccess.Core.Common;
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
@@ -24,17 +23,9 @@ namespace Fanex.Athena.Service.Core.Common
 
         private readonly IFunctionStorage _functionStorage;
 
-        public FunctionService()
+        public FunctionService(IFunctionDataAccess functionDataAccess, IFunctionStorage functionStorage)
         {
-            _functionDataAccess = new FunctionDataAccess();
-            _functionStorage = new FunctionStorage();
-        }
-
-        internal FunctionService(
-            IFunctionDataAccess functionDataAccess,
-            IFunctionStorage functionStorage)
-        {
-            this._functionDataAccess = functionDataAccess;
+            _functionDataAccess = functionDataAccess;
             _functionStorage = functionStorage;
         }
 

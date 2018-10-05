@@ -32,16 +32,13 @@ var cssPaths = {
 
     betlistdaily: ["./www/css/source/pages/betlist/betlistdaily.scss"],
     settledmatchcount: ["./www/css/source/pages/report/settledmatchcount.scss"],
-    balance: ["./www/css/source/pages/report/balance.scss"],
     weeklylivematch: ["./www/css/source/pages/report/weeklylivematch.scss"],
-    racingcommission: ["./www/css/source/pages/report/racingcommission.scss"],
     turnover: ["./www/css/source/pages/report/turnover.scss"],
     result: ["./www/css/source/pages/report/result.scss"],
     cashoutwinloss: ["./www/css/source/pages/report/cashoutwinloss.scss"],
     cashouthistory: ["./www/css/source/pages/betlist/cashouthistory.main.scss", "./www/css/source/extensions/popup-ex.scss"],
 
     winlossbyproduct: ["./www/css/source/pages/report/winlossbyproduct.scss"],
-    dailyracingwinloss: ["./www/css/source/pages/report/dailyracingwinloss.scss"],
     winlossbyleague: ["./www/css/source/pages/report/winlossbyleague.scss"],
     matchwinloss: ["./www/css/source/pages/report/matchwinloss.scss"],
     platformwinloss: ["./www/css/source/pages/report/platformwinloss.scss"],
@@ -67,7 +64,11 @@ var cssPaths = {
 var scriptPaths = {
     build: "www/js/build",
 
-    language: ["common/languages/ViewResources.js", "common/languages/ViewResources.zh-CN.js", "common/languages/ViewResources.zh-TW.js", "common/languages/ViewResources.zh-Hans.js", "common/languages/ViewResources.ko-KR.js"],
+    language: "common/languages/ViewResources.js",
+    languageCN: "common/languages/ViewResources.zh-CN.js", 
+    languageTW: "common/languages/ViewResources.zh-TW.js", 
+    languageHans: "common/languages/ViewResources.zh-Hans.js",
+    languageKR: "common/languages/ViewResources.ko-KR.js",
     home: ["./www/js/source/components/navbar.js", "./www/js/source/components/sidebar.js", "malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js", "./www/js/source/pages/home/main.js"],
     signin: ["./www/js/source/pages/signin/main.js"],
 
@@ -96,15 +97,12 @@ var scriptPaths = {
     newforecasthdpou: "./www/js/source/pages/forecast/forecast.newforecasthdpou.main.js",
 
     settledmatchcount: "./www/js/source/pages/report/settledmatchcount/main-settledmatchcount.js",
-    balance: "./www/js/source/pages/report/balance/main-balance.js",
     weeklylivematch: "./www/js/source/pages/report/weeklylivematch/main-weeklylivematch.js",
-    racingcommission: "./www/js/source/pages/report/racingcommission/main-racingcommission.js",
     turnover: "./www/js/source/pages/report/turnover/main.js",
     result: "./www/js/source/pages/report/result/main-result.js",
     cashoutwinloss: "./www/js/source/pages/report/cashoutwinloss/main.js",
 
     winlossbyproduct: "./www/js/source/pages/report/winlossbyproduct/main-winlossbyproduct.js",
-    dailyracingwinloss: "./www/js/source/pages/report/dailyracingwinloss/main-dailyracingwinloss.js",
     winlossbyleague: "./www/js/source/pages/report/winlossbyleague/main.js",
     matchwinloss: "./www/js/source/pages/report/matchwinloss/main.js",
     platformwinloss: "./www/js/source/pages/report/platformwinloss/main-platformwinloss.js",

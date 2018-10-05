@@ -2,12 +2,11 @@
 import axios from 'axios'
 import Site from '../lib/site'
 
-const fetchData = (params) => {
-    const url = Site.resolveClientUrl('UserGuide/Index?resourcename=' + params.resourceName) + "&_=" + (new Date().getTime());;
+const fetchData = (resourceName) => {
+    const url = Site.resolveClientUrl('UserGuide/Index?resourcename=' + resourceName) + "&_=" + (new Date().getTime());;
     return axios.get(url, {
         headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-            '__RequestVerificationToken': params.xsrfToken
+            'X-Requested-With': 'XMLHttpRequest'
         }
     });
 }

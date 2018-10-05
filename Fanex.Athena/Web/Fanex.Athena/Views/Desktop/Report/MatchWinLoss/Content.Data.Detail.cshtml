@@ -50,23 +50,8 @@
                 <td class="right-align">
                     @DesktopRazorHelper.NegativeFormat(matchWinloss.BACommission)
                 </td>
-            }
-            @if (Model.ProductAccess.IsAllowRB)
-            {
-                <td class="right-align">
-                    @DesktopRazorHelper.NegativeFormat(matchWinloss.RacingRevenue)
-                </td>
-            }
-            @if (Model.ProductAccess.IsAllowBA)
-            {
                 <td class="right-align">
                     @NumberHelper.DecFormat(matchWinloss.AmtDueToBA, 2)
-                </td>
-            }
-            @if (Model.ProductAccess.IsAllowRB)
-            {
-                <td class="right-align">
-                    @NumberHelper.DecFormat(matchWinloss.AmtDueToRacing, 2)
                 </td>
             }
         </tr>

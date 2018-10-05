@@ -21,14 +21,7 @@
         private readonly IExchangeBetListService _service;
 
         private readonly IAuthorizationService _authorizationService;
-
-        public ExchangeWinLossBetListController()
-        {
-            _service = new ExchangeBetListService();
-
-            _authorizationService = new AuthorizationService();
-        }
-
+        
         public ExchangeWinLossBetListController(
             ISessionService sessionService,
             IProductService productService,

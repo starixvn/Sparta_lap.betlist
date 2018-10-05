@@ -3,10 +3,6 @@
 // Copyright (c) . All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
-// <copyright file="MatchWinLossExcel.cs" company="">
-// Copyright (c) . All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
 
 namespace Fanex.Athena.Excel.Report
 {
@@ -35,10 +31,8 @@ namespace Fanex.Athena.Excel.Report
         private const int ColumnCustomerComm = 5;
         private const int ColumnCustomerTotal = 6;
         private const int ColumnBaCommission = 8;
-        private const int ColumnRacingRevenue = 9;
-        private const int ColumnAmtDueToBa = 10;
-        private const int ColumnAmtDueToRacing = 11;
-        private const int ColumnTemplateCount = 12;
+        private const int ColumnAmtDueToBa = 9;
+        private const int ColumnTemplateCount = 10;
 
         private const int RowTableHeaderTemplate = 1;
         private const int RowMatchTemplate = 3;
@@ -101,9 +95,7 @@ namespace Fanex.Athena.Excel.Report
                 ViewResources.CustomerW_L,
                 ViewResources.LicenseeW_L,
                 ViewResources.BACommission,
-                ViewResources.RacingRevenue,
-                ViewResources.AmtDueToBA,
-                ViewResources.AmtDueToRacing
+                ViewResources.AmtDueToBA
             };
             SetTextRowHeader(row, headerTextList);
 
@@ -215,11 +207,6 @@ namespace Fanex.Athena.Excel.Report
             {
                 sheet.HideColumn(ColumnBaCommission, ColumnAmtDueToBa);
             }
-
-            if (!ShowingOption.RBVisible)
-            {
-                sheet.HideColumn(ColumnRacingRevenue, ColumnAmtDueToRacing);
-            }
         }
 
         private static IList<string> GetCommonColumnNameList()
@@ -233,9 +220,7 @@ namespace Fanex.Athena.Excel.Report
                 "totalwl",
                 "licenseewl",
                 "commba",
-                "rbrevenue",
-                "amtduetoba",
-                "amtduetorb"
+                "amtduetoba"
             };
         }
 
@@ -256,10 +241,6 @@ namespace Fanex.Athena.Excel.Report
 
             switch ((int)exportRow["newproductid"])
             {
-                case ProductTypes.Racing:
-                    formatMatchName = matchName.Replace("Race", "Race ");
-                    break;
-
                 case ProductTypes.NumberGame:
                 case ProductTypes.VirtualSports:
                     formatMatchName = matchName;

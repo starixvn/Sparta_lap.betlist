@@ -3,14 +3,15 @@ import { connect } from 'react-redux'
 import { ActionCreators } from '../actions/index.js'
 import { bindActionCreators } from 'redux'
 import Select from 'react-select'
-import MultipleSelect from '../../../components/multiple-select'
-import { DateRange } from '../../../components/date-range/index'
-import LangHelper from '../../../lib/langHelper'
+import MultipleSelect from '@9softstudio/react-multiselect'
+import { DateRange } from '@jsroot/components/date-range/index'
+import LangHelper from '@jsroot/lib/langHelper'
 import ReportExcel from '../lib/reportExcel'
-import Site from '../../../lib/site'
+import Site from '@jsroot/lib/site'
 import service from '../lib/service'
 import { SettingConst } from '../constants/settingConst'
-import UserGuide from '../../../components/UserGuide'
+import UserGuide from '@jsroot/components/UserGuide'
+import AppData from '@jsroot/lib/AppData'
 
 const RANGE_MONTH_CONSTRAINT = 3;
 
@@ -60,17 +61,10 @@ export class FormFilter extends Component {
     }
 
     showUserGuide = () => {
-        const { userGuideContent, xsrfToken } = this.props;
+        const userGuideContent = this.props.userGuideContent;
 
         if (!userGuideContent || userGuideContent.length === 0) {
-            if (!xsrfToken) {
-                return;
-            }
-
-            this.props.getUserGuideContent({
-                xsrfToken: xsrfToken,  
-                resourceName: 'LicenseeWLByTimeZone'
-            });
+            this.props.getUserGuideContent('LicenseeWLByTimeZone');
         }
     }
 
@@ -83,14 +77,13 @@ export class FormFilter extends Component {
     }
 
     _getParams() {
-        if (!this.props.xsrfToken || !this.isValidModel) {
+        if (!this.isValidModel) {
             return null;
         }
 
         const { fromDate, toDate } = this.props.dateRange;
 
         return {
-            xsrfToken: this.props.xsrfToken,
             data: {
                 BaseCurrency: this.props.selectedBaseCurrency,
                 CurrencyId: this.props.selectedCurrency.value,
@@ -136,10 +129,10 @@ export class FormFilter extends Component {
     }
 
     _renderProductSelectList() {
-        const { productOptions } = this.props;
+        const productOptions = AppData.productOptions;
         return productOptions && productOptions.length ? (
             <MultipleSelect id="ProductList"
-                dataSource={this.props.productOptions}
+                dataSource={productOptions}
                 keyField={"Code"}
                 valueField={"Name"}
                 statusField={"Status"}
@@ -150,8 +143,8 @@ export class FormFilter extends Component {
     }
 
     _renderCurrencySelectList() {
-        const { currencyList, selectedCurrency } = this.props;
-        
+        const { selectedCurrency } = this.props;
+        const currencyList = AppData.currencyList;
         return <Select instanceId="ddlCurrency"
                 value={selectedCurrency.value}
                 options={currencyList}
@@ -159,8 +152,8 @@ export class FormFilter extends Component {
     }
 
     _renderBaseCurrencySelectList() {
-        const { baseCurrencyList, selectedBaseCurrency } = this.props;
-
+        const { selectedBaseCurrency } = this.props;
+        const baseCurrencyList = AppData.baseCurrencyList;
         return baseCurrencyList && baseCurrencyList.length ? (
             <Select instanceId="ddlBased"
                 value={selectedBaseCurrency}

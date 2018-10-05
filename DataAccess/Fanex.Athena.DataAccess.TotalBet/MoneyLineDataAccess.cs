@@ -11,13 +11,20 @@ namespace Fanex.Athena.DataAccess.TotalBet
     using Core;
     using DataAccess.TotalBet.Interfaces;
     using Extension.Helper;
+    using Extension.Utility;
     using Fanex.Common.Extensions;
     using Model.Core.ResultModel;
     using Model.TotalBet.DTO;
     using Model.TotalBet.MetaModel;
+    using Session.Interfaces;
 
     public class MoneyLineDataAccess : BaseDataAccess, IMoneyLineDataAccess
     {
+        public MoneyLineDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
+            : base(appSetting, sessionStorage)
+        {
+        }
+
         public ReportResultModel<MoneyLine> GetMoneyLineDataList(MoneyLineMetaModel metaModel)
         {
             const string SpName = "Lrf_TotalBets_Sel2021";

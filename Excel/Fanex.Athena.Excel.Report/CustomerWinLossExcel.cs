@@ -27,11 +27,9 @@ namespace Fanex.Athena.Excel.Report
         private const int ColumnBetEffective = 8;
         private const int ColumnLicenseeWl = 9;
         private const int ColumnBaCommission = 10;
-        private const int ColumnRacingRevenue = 11;
-        private const int ColumnAmtDueToBa = 12;
-        private const int ColumnAmtDueToRacing = 13;
+        private const int ColumnAmtDueToBa = 11;
 
-        private const int ColumnTemplateCount = 14;
+        private const int ColumnTemplateCount = 12;
 
         private const int RowContentTemplate = 3;
         private const int RowNoInfoTemplate = 5;
@@ -65,9 +63,7 @@ namespace Fanex.Athena.Excel.Report
                 ViewResources.EffectiveBettingValue,
                 ViewResources.LicenseeW_L,
                 ViewResources.BACommission,
-                ViewResources.RacingRevenue,
-                ViewResources.AmtDueToBA,
-                ViewResources.AmtDueToRacing
+                ViewResources.AmtDueToBA
             };
             SetTextRowHeader(row, headerTextList);
 
@@ -106,9 +102,7 @@ namespace Fanex.Athena.Excel.Report
                 row.Cells[ColumnBetEffective].SetCellValue(customerWinloss.BetEffective);
                 row.Cells[ColumnLicenseeWl].SetCellValue(customerWinloss.LicenseeWL);
                 row.Cells[ColumnBaCommission].SetCellValue(customerWinloss.BAComm);
-                row.Cells[ColumnRacingRevenue].SetCellValue(customerWinloss.RacingRevenue);
                 row.Cells[ColumnAmtDueToBa].SetCellValue(customerWinloss.AmtDueToBA);
-                row.Cells[ColumnAmtDueToRacing].SetCellValue(customerWinloss.AmtDueToRacing);
 
                 rowIndex++;
             }
@@ -158,11 +152,6 @@ namespace Fanex.Athena.Excel.Report
             {
                 sheet.HideColumn(ColumnBaCommission, ColumnAmtDueToBa);
             }
-
-            if (!_excelModel.RBVisible)
-            {
-                sheet.HideColumn(ColumnRacingRevenue, ColumnAmtDueToRacing);
-            }
         }
 
         protected internal virtual void AssignSumData(ISheet sheet, int startIndex)
@@ -179,9 +168,7 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnBetEffective].SetCellValue(_excelModel.TotalData.BetEffective);
             row.Cells[ColumnLicenseeWl].SetCellValue(_excelModel.TotalData.LicenseeWL);
             row.Cells[ColumnBaCommission].SetCellValue(_excelModel.TotalData.BAComm);
-            row.Cells[ColumnRacingRevenue].SetCellValue(_excelModel.TotalData.RacingRevenue);
             row.Cells[ColumnAmtDueToBa].SetCellValue(_excelModel.TotalData.AmtDueToBA);
-            row.Cells[ColumnAmtDueToRacing].SetCellValue(_excelModel.TotalData.AmtDueToRacing);
 
             MergeTotalCell(sheet, row, rowTotalNumber);
         }

@@ -5,6 +5,7 @@
     using System.Threading;
     using System.Web.Http.Controllers;
     using Attributes;
+    using Autofac;
     using DataAccess.Core.Users.Interfaces;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.OneAuth;
@@ -38,7 +39,7 @@
         public void ExecuteAuthorizationFilterAsync_TokenValueIsNull_UnauthorizeAccess()
         {
             // Arrange
-            var attribute = new ApiOneAuthorizationAttribute(_logger, _oneAuthenticationService, _licenseeDataAccess);
+            var attribute = new ApiOneAuthorizationAttribute();
             var actionContext = CreateActionContext();
 
             // Action
@@ -52,7 +53,7 @@
         public void ExecuteAuthorizationFilterAsync_AuthTokenNull_UnauthorizeAccess()
         {
             // Arrange
-            var attribute = new ApiOneAuthorizationAttribute(_logger, _oneAuthenticationService, _licenseeDataAccess);
+            var attribute = new ApiOneAuthorizationAttribute();
             var actionContext = CreateActionContext(hasAuthToken: true);
 
             // Action
@@ -70,7 +71,7 @@
         public void ExecuteAuthorizationFilterAsync_LicenseeIsNull_UnauthorizeAccess()
         {
             // Arrange
-            var attribute = new ApiOneAuthorizationAttribute(_logger, _oneAuthenticationService, _licenseeDataAccess);
+            var attribute = new ApiOneAuthorizationAttribute();
             var actionContext = CreateActionContext(hasAuthToken: true);
             var token = new OneAuthToken
             {
@@ -94,7 +95,7 @@
         public void ExecuteAuthorizationFilterAsync_LicenseeNotNull_UnauthorizeAccess()
         {
             // Arrange
-            var attribute = new ApiOneAuthorizationAttribute(_logger, _oneAuthenticationService, _licenseeDataAccess);
+            var attribute = new ApiOneAuthorizationAttribute();
             var actionContext = CreateActionContext(hasAuthToken: true);
             var token = new OneAuthToken
             {
@@ -126,7 +127,7 @@
         {
             // Arrange
             var exception = new Exception("123");
-            var attribute = new ApiOneAuthorizationAttribute(_logger, _oneAuthenticationService, _licenseeDataAccess);
+            var attribute = new ApiOneAuthorizationAttribute();
             var actionContext = CreateActionContext(hasAuthToken: true);
 
             _oneAuthenticationService.When(x => x.GetTokenInfo(TokenValue)).Throw(exception);
@@ -138,7 +139,7 @@
             _logger.Received(1).Error(exception);
         }
 
-        private static HttpActionContext CreateActionContext(bool hasAuthToken = false)
+        private HttpActionContext CreateActionContext(bool hasAuthToken = false)
         {
             var controllerContext = ApiControllerTestHelper.CreateControllerContext();
             if (hasAuthToken)
@@ -147,7 +148,13 @@
             }
 
             var descriptor = Substitute.ForPartsOf<HttpActionDescriptor>();
-            return new HttpActionContext(controllerContext, descriptor);
+            var actionContext = new HttpActionContext(controllerContext, descriptor);
+            var builder = new ContainerBuilder();
+            builder.RegisterInstance(_logger);
+            builder.RegisterInstance(_oneAuthenticationService);
+            builder.RegisterInstance(_licenseeDataAccess);
+            WebApiHelper.SetupResolver(builder, actionContext);
+            return actionContext;
         }
     }
 }

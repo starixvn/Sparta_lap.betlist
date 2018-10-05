@@ -5,9 +5,9 @@
     using System.Data;
     using System.Linq;
     using Core;
-    using Core.Configuration;
     using Core.Configuration.Interfaces;
     using Data;
+    using Extension.Utility;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Model.Core.ResultModel;
     using Model.Report.DTO;
@@ -19,13 +19,8 @@
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
-        public SubsidiaryPerformanceDataAccess()
-        {
-            _balanceUpDataAccess = new BalanceUpDataAccess();
-        }
-
-        public SubsidiaryPerformanceDataAccess(ISessionStorage sessionStorage, IBalanceUpDataAccess balanceUpDataAccess)
-            : base(null, sessionStorage)
+        public SubsidiaryPerformanceDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage, IBalanceUpDataAccess balanceUpDataAccess)
+            : base(appSetting, sessionStorage)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
         }

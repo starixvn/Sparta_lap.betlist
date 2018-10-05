@@ -1,15 +1,10 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react';
 import langHelper from '../lib/langHelper';
 
-export default class NoDataTitle extends Component {
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-        return (
+const NoDataTitle = () => {
+    return (
             <p className="no-info-row center-align">{langHelper.getSingleResource("NoInfo")}</p>
         )
     }
-}
+
+export default NoDataTitle;

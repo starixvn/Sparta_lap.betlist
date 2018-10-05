@@ -43,15 +43,13 @@ namespace Fanex.Athena.Excel.Report
         private const int ColumnLicenseeWlSportsBook = 32;
         private const int ColumnLicenseeWlTotal = 50;
 
-        private const int ColumnBetTradeCommission = 51;
-        private const int ColumnCashOutCommission = 52;
-        private const int ColumnBaCommission = 53;
-        private const int ColumnRacingRevenue = 54;
-        private const int ColumnAmtDueToBetTrade = 55;
-        private const int ColumnAmtDueToBa = 56;
-        private const int ColumnAmtDueToRacing = 57;
+        private const int ColumnBetTradeCommission = 49;
+        private const int ColumnCashOutCommission = 50;
+        private const int ColumnBaCommission = 51;
+        private const int ColumnAmtDueToBetTrade = 52;
+        private const int ColumnAmtDueToBa = 53;
 
-        private const int ColumnTemplateCount = 58;
+        private const int ColumnTemplateCount = 54;
 
         private const int RowContentTemplate = 3;
         private const int RowGrantTotal = 6;
@@ -62,7 +60,7 @@ namespace Fanex.Athena.Excel.Report
         private const int TotalLicenseeWlProductColumn = 20;
         private const int TotalTurnoverProductColumn = 20;
 
-        private static readonly string[] IgnoredLicenseeWLProducts = new[] { Product.RB, Product.BA };
+        private static readonly string[] IgnoredLicenseeWLProducts = new[] { Product.BA };
         private static readonly string[] IgnoredTurnoverProducts = new[] { Product.BT, Product.CO };
 
         private static readonly string[] OfferedProducts = new[]
@@ -70,7 +68,7 @@ namespace Fanex.Athena.Excel.Report
             Product.SB, Product.AB, Product.AGC, Product.BA,
             Product.BT, Product.FW, Product.KN,
             Product.VB, Product.MGCLC, Product.MGCRNG, Product.NG,
-            Product.RB, Product.CS, Product.VS, Product.CO, Product.VS2, Product.LT,
+            Product.CS, Product.VS, Product.CO, Product.VS2, Product.LT,
             Product.PP
         };
 
@@ -125,10 +123,8 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnCashOutCommission].SetCellValue(ViewResources.CashOutCommission);
             row.Cells[ColumnBetTradeCommission].SetCellValue(ViewResources.BetTradeCommission);
             row.Cells[ColumnBaCommission].SetCellValue(ViewResources.BACommission);
-            row.Cells[ColumnRacingRevenue].SetCellValue(ViewResources.RacingRevenue);
             row.Cells[ColumnAmtDueToBetTrade].SetCellValue(ViewResources.AmtDueToBetTrade);
             row.Cells[ColumnAmtDueToBa].SetCellValue(ViewResources.AmtDueToBA);
-            row.Cells[ColumnAmtDueToRacing].SetCellValue(ViewResources.AmtDueToRacing);
 
             // row 2
             var row2 = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
@@ -276,11 +272,6 @@ namespace Fanex.Athena.Excel.Report
                 sheet.HideColumn(ColumnBaCommission, ColumnAmtDueToBa);
             }
 
-            if (!_excelModel.RBVisible)
-            {
-                sheet.HideColumn(ColumnRacingRevenue, ColumnAmtDueToRacing);
-            }
-
             ProcessUITurnover(sheet);
 
             ProcessUILicenseeWinLoss(sheet);
@@ -332,10 +323,8 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnCashOutCommission].SetCellValue(data.CashOutCommission);
             row.Cells[ColumnBetTradeCommission].SetCellValue(data.BetTradeCommission);
             row.Cells[ColumnBaCommission].SetCellValue(data.BACommission);
-            row.Cells[ColumnRacingRevenue].SetCellValue(data.RacingRevenue);
             row.Cells[ColumnAmtDueToBetTrade].SetCellValue(data.AmtDueToBetTrade);
             row.Cells[ColumnAmtDueToBa].SetCellValue(data.AmtDueToBA);
-            row.Cells[ColumnAmtDueToRacing].SetCellValue(data.AmtDueToRacing);
         }
 
         protected internal virtual int AssignGrandTotalInEurData(ISheet sheet, int rowIndex)

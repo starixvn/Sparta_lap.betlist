@@ -7,7 +7,6 @@
         public const string GroupReport = "REPORTS3";
         public const string GroupCustomerReport = "CUSTOMERREPORTS52";
         public const string GroupCustomerInformation = "CUSTOMERINFORMATION4";
-        public const string GroupDataWarehouse = "DATAWAREHOUSE5";
         public const string GroupAccountManagement = "ACCOUNTMANAGEMENT6";
 
         /* Total Bet */
@@ -43,15 +42,12 @@
         public const string ReportMatchWinLoss = "MatchWinLoss31";
         public const string ReportWinLossByProduct = "WinLossByProducts32";
         public const string ReportWinLossByBetType = "WinLossByBetType33";
-        public const string ReportRacingCommission = "RacingCommission34";
-        public const string ReportDailyRacingWinLoss = "DailyRacingWinLoss35";
         public const string ReportCancelledBets = "CancelledBets36";
         public const string ReportDailyBetList = "DailyBetList37";
         public const string ReportLiveReport = "LiveReport38";
         public const string ReportTurnover = "Turnover39";
         public const string ReportCustomerBalance = "CustomerBalance40";
         public const string ReportResults = "Results41";
-        public const string ReportBalance = "Balance42";
         public const string ReportWinLossByLeague = "WinLossByLeague59";
         public const string ReportAGCasinoWinLoss = "AGCasinoWinLoss62";
         public const string ReportAGCasinoBalance = "AGCasinoBalance63";
@@ -68,11 +64,6 @@
         public const string ReportLicenseeWinLossByTimeZone = "LicenseeWinLossByTimeZone76";
         public const string ReportExchangeWinLoss = "ExchangeWinloss77";
 
-        /* Warehouse. */
-
-        public const string WarehouseWinLoss = "WinLoss44";
-        public const string WarehouseTopCustomer = "TopCustomer45";
-
         /* Customer Info. */
 
         public const string CustomerInfoCustomerList = "CustomerList43";
@@ -88,5 +79,7 @@
         /*Notification*/
 
         public const string ResultAmendmentNotificationReport = "ResultAmendment_Recalculation75";
+
+        public const string BettingTicketCenter = "BTC79";
     }
 }

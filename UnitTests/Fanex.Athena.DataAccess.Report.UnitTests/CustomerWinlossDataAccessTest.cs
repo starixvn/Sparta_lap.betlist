@@ -6,8 +6,6 @@
     using System.Linq;
     using Core.Configuration.Interfaces;
     using Core.UnitTests.TestHelpers;
-    using Data;
-    using Extension.Utility;
     using Model.Core.DTO.Configuration;
     using Model.Core.MetaModel.Product;
     using Model.Report.DTO;
@@ -23,42 +21,36 @@
 
         private const int PageSizeExcel = int.MaxValue - 1000;
 
-        private BalanceUp _balance;
+        private readonly BalanceUp _balance = new BalanceUp
+        {
+            MoveBetsDay = new DateTime(2016, 8, 10),
+            BalanceUpDay = new DateTime(2016, 8, 31)
+        };
 
         private CustomerWinLossMetaModel _metaModel;
 
         [OneTimeSetUp]
         public override void FixtureSetUp()
         {
-            ObjectDb = Substitute.For<IObjectDb>();
-
-            var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
-            _balance = new BalanceUp
-            {
-                MoveBetsDay = new DateTime(2016, 8, 10),
-                BalanceUpDay = new DateTime(2016, 8, 31)
-            };
-            balanceUpDataAccess.GetBalanceUp().Returns(_balance);
-
-            DataAccess = Substitute.ForPartsOf<CustomerWinlossDataAccess>(balanceUpDataAccess);
-            DataAccess.GetObjectDb(Arg.Is(SpName)).Returns(ObjectDb);
-
-            var appSetting = Substitute.For<IAppSettings>();
-            appSetting.HistoryDate.Returns(new DateTime(2016, 8, 31));
-            _metaModel = new CustomerWinLossMetaModel(appSetting)
+            base.FixtureSetUp();
+            AppSetting.HistoryDate.Returns(new DateTime(2016, 8, 31));
+            _metaModel = new CustomerWinLossMetaModel
             {
                 ProductOptions = GetProductOptions(),
                 BaseCurrency = "UUS"
             };
         }
 
-        [OneTimeTearDown]
-        public override void FixtureTearDown()
+        protected override void SetUpDataAccess()
         {
-            _balance = null;
-            _metaModel = null;
+            var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
+            balanceUpDataAccess.GetBalanceUp().Returns(_balance);
 
-            base.FixtureTearDown();
+            DataAccess = Substitute.ForPartsOf<CustomerWinlossDataAccess>(
+                AppSetting,
+                CreateSessionStorage(),
+                balanceUpDataAccess);
+            DataAccess.GetObjectDb(Arg.Is(SpName)).Returns(ObjectDb);
         }
 
         [TestCase(true, 5, PageSizeExcel)]
@@ -80,7 +72,6 @@
                 ObjectDb.Received(1).AddInParameter("pagesize", DbType.Int32, expectedPageSize);
                 ObjectDb.Received(1).AddInParameter("pageindex", DbType.Int32, _metaModel.PageIndex);
                 ObjectDb.Received(1).AddInParameter("movebetsday", DbType.DateTime, _balance.MoveBetsDay);
-                ObjectDb.Received(1).AddInParameter("isold", DbType.Boolean, _metaModel.IsOld);
                 ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
                 ObjectDb.Received(1).AddInParameter("showSB", DbType.Boolean, true);
                 ObjectDb.Received(1).AddInParameter("showNG", DbType.Boolean, false);
@@ -123,7 +114,6 @@
         private static void AssertCommonData(CustomerWinLoss actual, CustomerWinLoss expected)
         {
             Assert.That(actual.Turnover, Is.EqualTo(expected.Turnover));
-            Assert.That(actual.RacingRevenue, Is.EqualTo(expected.RacingRevenue));
             Assert.That(actual.TotalTransaction, Is.EqualTo(expected.TotalTransaction));
             Assert.That(actual.CustomerWL, Is.EqualTo(expected.CustomerWL));
             Assert.That(actual.PlayerComm, Is.EqualTo(expected.PlayerComm));
@@ -211,8 +201,6 @@
             var winlossrbColumn = prefix + "winlossrb" + _metaModel.BaseCurrency;
             var commrbColumn = prefix + "commrb" + _metaModel.BaseCurrency;
             var amtduetobaColumn = prefix + "amtduetoba" + _metaModel.BaseCurrency;
-            var amtduetorbColumn = prefix + "amtduetorb" + _metaModel.BaseCurrency;
-            var sumracingrevenueColumn = prefix + "racingrevenue" + _metaModel.BaseCurrency;
             var sumcustomertotalwlColumn = prefix + "customertotalwl" + _metaModel.BaseCurrency;
 
             Reader[turnoverColumn].Returns(expected.Turnover);
@@ -225,8 +213,6 @@
             Reader[winlossrbColumn].Returns(15m);
             Reader[commrbColumn].Returns(5m);
             Reader[amtduetobaColumn].Returns(expected.AmtDueToBA);
-            Reader[amtduetorbColumn].Returns(expected.AmtDueToRacing);
-            Reader[sumracingrevenueColumn].Returns(expected.RacingRevenue);
             Reader[sumcustomertotalwlColumn].Returns(expected.CustomerTotalWL);
         }
     }

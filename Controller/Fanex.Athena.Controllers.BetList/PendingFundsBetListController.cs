@@ -31,10 +31,6 @@ namespace Fanex.Athena.Controllers.BetList
         private static readonly int[] HiddenColList =
             new[] { ExternalIdColumn, SystemIdColumn, WinLostColumn, BetEffectiveColumn, LicenseeWLColumn };
 
-        public PendingFundsBetListController()
-        {
-        }
-
         public PendingFundsBetListController(
             ILanguageService languageService,
             ISessionService sessionService,

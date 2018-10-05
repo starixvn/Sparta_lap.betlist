@@ -220,11 +220,9 @@
 
         var PRODUCTS = [
             { Code: "SB", Display: "SB" },
-            { Code: "RB", Display: "RB" },
             { Code: "NG", Display: "NG" },
             { Code: "LC", Display: "LC" },
-            { Code: "CS", Display: "CS" },
-            { Code: "AB", Display: "ProductAB" }];
+            { Code: "CS", Display: "CS" }];
         var numOfProductColumns = 0;
         var firstProductCode;
 

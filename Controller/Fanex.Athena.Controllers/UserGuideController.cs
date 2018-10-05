@@ -19,7 +19,6 @@ namespace Fanex.Athena.Controllers
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
     using ONEbook.UM.Filters;
-    using Service.Core.Common;
     using Service.Core.Common.Interfaces;
     using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
@@ -38,12 +37,6 @@ namespace Fanex.Athena.Controllers
         private readonly IProductService _productService;
 
         private readonly IFileSystem _fileSystem;
-
-        public UserGuideController()
-        {
-            _productService = new ProductService();
-            _fileSystem = new FileSystem();
-        }
 
         public UserGuideController(
             ILanguageService languageService,

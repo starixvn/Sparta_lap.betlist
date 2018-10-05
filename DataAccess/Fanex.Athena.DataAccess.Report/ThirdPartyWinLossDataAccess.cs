@@ -24,12 +24,8 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class ThirdPartyWinLossDataAccess : BaseDataAccess, IThirdPartyWinLossDataAccess
     {
-        public ThirdPartyWinLossDataAccess() : this(null)
-        {
-        }
-
-        public ThirdPartyWinLossDataAccess(ISessionStorage sessionStorage)
-            : base(null, sessionStorage)
+        public ThirdPartyWinLossDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
+            : base(appSetting, sessionStorage)
         {
         }
 

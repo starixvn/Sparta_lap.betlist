@@ -59,6 +59,9 @@
         {
             // Arrange
             var metaModel = FakeHelper.Create<MoveToGroupComMetaModel>();
+            {
+                IsAllowedRNG = true
+            };
             _groupCommDataAccess.GetById(metaModel.GroupComId).Returns(FakeHelper.Create<GroupCommMetaModel>());
 
             var userSession = new UserSession { UserName = FakeHelper.Create<string>() };
@@ -75,7 +78,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _casinoCustomerService.Received().UpdateCommission(Arg.Any<RNGCasinoUpdateMemberComMetaModel>());
+                _casinoCustomerService.Received(1).UpdateCommission(Arg.Any<RNGCasinoUpdateMemberComMetaModel>());
                 Assert.That(result, Is.EqualTo(expectedResult));
             });
         }

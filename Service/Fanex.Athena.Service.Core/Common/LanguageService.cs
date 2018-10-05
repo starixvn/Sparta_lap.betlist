@@ -10,7 +10,6 @@ namespace Fanex.Athena.Service.Core.Common
     using System.Threading;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Service.Core.Common.Interfaces;
-    using Fanex.Athena.Service.Core.Users;
     using Fanex.Athena.Service.Core.Users.Interfaces;
 
     public class LanguageService : ILanguageService
@@ -18,11 +17,6 @@ namespace Fanex.Athena.Service.Core.Common
         private readonly string _cookieName = "risk_forcast_system";
         private readonly string _defaultLanguage = "en-US";
         private readonly ISessionService _sessionService;
-
-        public LanguageService()
-        {
-            _sessionService = new SessionService();
-        }
 
         public LanguageService(ISessionService sessionService)
         {

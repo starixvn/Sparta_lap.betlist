@@ -1,7 +1,7 @@
 ﻿import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class BreadcrumbItem extends Component {
+export default class BreadcrumbItem extends Component {
     constructor(props) {
         super(props);
     }
@@ -25,5 +25,3 @@ class BreadcrumbItem extends Component {
         );
     }
 }
-
-export default BreadcrumbItem;

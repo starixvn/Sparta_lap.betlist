@@ -11,7 +11,6 @@ namespace Fanex.Athena.Controllers.BetList
     using System;
     using System.Web.Mvc;
     using System.Web.UI;
-    using DataAccess.BetList;
     using DataAccess.BetList.Interfaces;
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;
@@ -22,7 +21,6 @@ namespace Fanex.Athena.Controllers.BetList
     using Service.Core.Common.Interfaces;
     using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
-    using Service.Core.Utility;
     using Service.Core.Utility.Interfaces;
     using VendorAdapter.Interfaces;
     using Web.ActionFilter;
@@ -37,13 +35,6 @@ namespace Fanex.Athena.Controllers.BetList
         private readonly IColossusBetBetListDataAccess _colossusBetBetListDataAccess;
 
         private readonly IWebClientService _webClientService;
-
-        public ColossusBetBetListController()
-        {
-            _logger = new CoreLogger();
-            _colossusBetBetListDataAccess = new ColossusBetBetListDataAccess();
-            _webClientService = new WebClientService();
-        }
 
         public ColossusBetBetListController(
             ILanguageService languageService,

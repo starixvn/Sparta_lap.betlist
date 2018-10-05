@@ -15,8 +15,8 @@ class PredefinedRanges extends Component {
     this.selectedItem = this._getSelectedRange();
   }
 
-  componentWillReceiveProps(nextProps){
-    if(this.props.range !== nextProps.range){
+    componentDidUpdate(prevProps, prevState) {
+     if(this.props.range !== prevProps.range){
       this.selectedItem = this._getSelectedRange();
     }
   }

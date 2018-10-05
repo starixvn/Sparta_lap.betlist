@@ -18,10 +18,6 @@ namespace Fanex.Athena.Api.BetList
 
     public class RNGCasinoBetListController : ApiBetListBaseController
     {
-        public RNGCasinoBetListController()
-        {
-        }
-
         public RNGCasinoBetListController(
             ISessionService sessionService,
             IProductService productService,

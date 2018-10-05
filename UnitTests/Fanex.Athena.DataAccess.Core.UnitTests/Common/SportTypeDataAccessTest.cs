@@ -5,6 +5,7 @@
     using System.Linq;
     using Constant.DataDomain;
     using Core.Common;
+    using Extension.Utility;
     using NSubstitute;
     using NUnit.Framework;
     using TestHelpers;
@@ -14,7 +15,10 @@
     {
         protected override void SetUpDataAccess()
         {
-            DataAccess = Substitute.ForPartsOf<SportTypeDataAccess>(Substitute.For<ICacheRefAdapter>());
+            DataAccess = Substitute.ForPartsOf<SportTypeDataAccess>(
+                Substitute.For<IAppSettings>(),
+                CreateSessionStorage(),
+                Substitute.For<ICacheRefAdapter>());
         }
 
         public override void FixtureSetUp()
@@ -37,55 +41,9 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("licenseeId", DbType.Int32, LicenseeId);
-                ObjectDb.Received().AddInParameter("langkey", DbType.String, LanguageCode);
+                ObjectDb.Received(1).AddInParameter("licenseeId", DbType.Int32, LicenseeId);
+                ObjectDb.Received(1).AddInParameter("langkey", DbType.String, LanguageCode);
             });
-        }
-
-        [TestCase(null, null, -1)]
-        [TestCase(1, null, 1)]
-        [TestCase(2, 2, 2)]
-        public void GetSportsAndProducts_ProductIdIsValid_DataReturnCorrectly(int? parentId, int? productId, int expectedParentId)
-        {
-            // Arrange
-            MapReaderData(new
-            {
-                ID = 0,
-                Name = string.Empty
-            });
-            if (parentId.HasValue)
-            {
-                Reader["ParentId"].Returns(parentId);
-            }
-            else
-            {
-                Reader["ParentId"].Returns(DBNull.Value);
-            }
-
-            Reader.Read().Returns(true, false);
-
-            // Action
-            var result = DataAccess.GetSportsAndProducts(0, string.Empty, productId);
-
-            // Assert
-            Assert.That(result.ElementAt(0).ParentId, Is.EqualTo(expectedParentId));
-        }
-
-        [TestCase(1, 3)]
-        public void GetSportsAndProducts_ProductIdIsInValid_ReturnEmptyData(int parentId, int? productId)
-        {
-            // Arrange
-            MapReaderData(new
-            {
-                ParentId = parentId
-            });
-            Reader.Read().Returns(true, false);
-
-            // Action
-            var result = DataAccess.GetSportsAndProducts(0, string.Empty, productId);
-
-            // Assert
-            Assert.That(result, Is.Empty);
         }
 
         [TestCase((int)SportType.UnknowThaiSport)]
@@ -117,41 +75,6 @@
 
             // Assert
             Assert.That(result.ContainsKey(SportType), Is.True);
-        }
-
-        [TestCase((int)SportType.UnknowThaiSport)]
-        [TestCase((int)SportType.Cricket)]
-        public void GetAllSports_HiddenSport_NotAddToResult(int sporttype)
-        {
-            // Arrange
-            MapReaderData(new { Sporttype = sporttype });
-            Reader.Read().Returns(true, false);
-
-            // Action
-            var result = DataAccess.GetAllSports();
-
-            // Assert
-            Assert.That(result, Is.Empty);
-        }
-
-        [Test]
-        public void GetAllWHSports_WhenCall_ReturnCorrectData()
-        {
-            // Arrange
-            const int SportType = 100;
-
-            MapReaderData(new { Sporttype = SportType });
-            Reader.Read().Returns(true, false);
-
-            // Action
-            var result = DataAccess.GetAllWHSports();
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(result.First().SportId, Is.EqualTo(0));
-                Assert.That(result.ElementAt(1).SportId, Is.EqualTo(SportType));
-            });
         }
     }
 }

@@ -29,14 +29,12 @@ namespace Fanex.Athena.DataAccess.Report
     public class CashOutWinLossDataAccess : BaseDataAccess, ICashOutWinLossDataAccess
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
-
-        public CashOutWinLossDataAccess()
-        {
-            _balanceUpDataAccess = new BalanceUpDataAccess();
-        }
-
-        public CashOutWinLossDataAccess(ISessionStorage sessionStorage, IBalanceUpDataAccess balanceUpDataAccess)
-            : base(null, sessionStorage)
+        
+        public CashOutWinLossDataAccess(
+            IAppSettings appSetting, 
+            ISessionStorage sessionStorage, 
+            IBalanceUpDataAccess balanceUpDataAccess)
+            : base(appSetting, sessionStorage)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
         }

@@ -4,11 +4,8 @@ const Data = [],
 const defaultProps = {
     gridData: { Data, Total },
     xsrfToken: "token",
-    productOptions: [{ "Code": "SB", "Name": "Sportsbook", "Status": true }, { "Code": "BA", "Name": "BA", "Status": true }],
     selectedProduct: 'SB,BA',
-    currencyList: [{ "value": 0, "label": "All" }, { "value": 9, "label": "AUD" }, { "value": 41, "label": "CHF" }, { "value": 6, "label": "EUR" }, { "value": 51, "label": "INH" }, { "value": 61, "label": "INR" }, { "value": 32, "label": "JPY" }, { "value": 45, "label": "KRW" }, { "value": 70, "label": "MKK" }, { "value": 4, "label": "THB" }, { "value": 3, "label": "USD" }, { "value": 20, "label": "UUS" }],
     selectedCurrency: { "value": 0, "label": "All" },
-    baseCurrencyList: [{ "value": "EUR", "label": "EUR" }, { "value": "USD", "label": "USD" }, { "value": "GBP", "label": "GBP" }, { "value": "MYR", "label": "MYR" }, { "value": "CNY", "label": "CNY" }, { "value": "THB", "label": "THB" }, { "value": "IDR", "label": "IDR" }],
     selectedBaseCurrency: 'EUR',
     timeZoneList: [{ "value": -4, "label": "GMT-4" }, { "value": 8, "label": "GMT+8" }],
     selectedTimeZone: -4,
@@ -33,6 +30,11 @@ const defaultProps = {
     changeIsExcludeTest: jest.fn()
 }
 
+const defaultAppData = {
+    productOptions: [{ "Code": "SB", "Name": "Sportsbook", "Status": true }, { "Code": "BA", "Name": "BA", "Status": true }],
+    currencyList: [{ "value": 0, "label": "All" }, { "value": 9, "label": "AUD" }, { "value": 41, "label": "CHF" }, { "value": 6, "label": "EUR" }, { "value": 51, "label": "INH" }, { "value": 61, "label": "INR" }, { "value": 32, "label": "JPY" }, { "value": 45, "label": "KRW" }, { "value": 70, "label": "MKK" }, { "value": 4, "label": "THB" }, { "value": 3, "label": "USD" }, { "value": 20, "label": "UUS" }],
+    baseCurrencyList: [{ "value": "EUR", "label": "EUR" }, { "value": "USD", "label": "USD" }, { "value": "GBP", "label": "GBP" }, { "value": "MYR", "label": "MYR" }, { "value": "CNY", "label": "CNY" }, { "value": "THB", "label": "THB" }, { "value": "IDR", "label": "IDR" }]
+};
 
 const bodyData = [{
     "ReportBy": "0001-01-01T00:00:00",
@@ -58,4 +60,4 @@ const totalData = {
     "Margin": 85.04230036246777026269571391
 }
 
-export { defaultProps, totalData, bodyData };
+export { defaultProps, defaultAppData, totalData, bodyData };

@@ -2,27 +2,26 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Core.UnitTests.TestHelpers;
     using Data;
     using Model.BetSettings.DTO;
     using NSubstitute;
     using NUnit.Framework;
 
     [TestFixture]
-    public class CoreBetSettingDataAccessTest
+    public class CoreBetSettingDataAccessTest : BaseDataAccessHelperTest<CoreBetSettingDataAccess>
     {
         [Test]
         public void GetBetSettingProducts_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            var objectDb = Substitute.For<IObjectDb>();
-            var dataAccess = Substitute.ForPartsOf<CoreBetSettingDataAccess>();
-            dataAccess.GetObjectDb(Arg.Is("Lrf_LicenseeProductSel")).Returns(objectDb);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_LicenseeProductSel")).Returns(ObjectDb);
             var licenseeId = 1;
             var expected = new BetSettingProduct { ProductId = 1, IsEnable = true, ProductCode = "CODE" };
-            objectDb.Query<BetSettingProduct>(Arg.Any<object>()).Returns(new List<BetSettingProduct> { expected });
+            ObjectDb.Query<BetSettingProduct>(Arg.Any<object>()).Returns(new List<BetSettingProduct> { expected });
 
             // Action
-            var result = dataAccess.GetBetSettingProducts(licenseeId).ElementAt(0);
+            var result = DataAccess.GetBetSettingProducts(licenseeId).ElementAt(0);
 
             // Assert
             Assert.Multiple(() =>

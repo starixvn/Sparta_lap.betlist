@@ -20,7 +20,6 @@
 
 @section globaljscode{
     window.initialState = {
-        currencyList: @Html.Raw(currencyList.ToJson()),
         selectedCurrency: @Html.Raw(currencyList.FirstOrDefault(x => x.value == Model.CurrencyId).ToJson()),
         dateRange: { fromDate: '@Model.FromDate.ToString("MM/dd/yyyy")', toDate: '@Model.ToDate.ToString("MM/dd/yyyy")'},
         reportByOption: @Html.Raw(reportByOption.ToJson()),
@@ -28,10 +27,12 @@
         isExcludeTest: true,
         isAllowedCustomerComm: @Model.IsAllowedCustomerComm.ToJson(),
         licenseeId: @Model.LicenseeId,
-        xsrfToken: document.querySelector("input[name=__RequestVerificationToken]").value,
-        isLoading: false,
+        isLoading: false
+    };
+    window._AppData = {
+        currencyList: @Html.Raw(currencyList.ToJson()),
         dateConstraint: { minDate: '@Model.MinDate.ToString("MM/dd/yyyy")', maxDate: '@Model.MaxDate.ToString("MM/dd/yyyy")', toDay: '@today'}
-    }
+    };
 }
 <div id="app-container">
 </div>

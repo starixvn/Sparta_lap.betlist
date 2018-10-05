@@ -3,8 +3,6 @@
     using System.Collections.Generic;
     using System.Data;
     using Core.Users;
-    using Data;
-    using Logging;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Users;
     using NSubstitute;
@@ -19,13 +17,6 @@
         private const string RecheckInSp = "Lrf_ReCheckIn";
         private const string ResetPasswordSp = "Lrf_UserPwdReset";
         private const string UpdateInfoSp = "Lrf_UserUpdAccount";
-
-        [OneTimeSetUp]
-        public override void FixtureSetUp()
-        {
-            DataAccess = Substitute.ForPartsOf<UserDataAccess>();
-            ObjectDb = Substitute.For<IObjectDb>();
-        }
 
         [Test]
         public void ChangePassword_WhenCall_ParametersPassedCorrectly()
@@ -44,11 +35,11 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("UserName", DbType.String, requestUser.Username);
-                ObjectDb.Received().AddInParameter("OldPwd", DbType.String, OldPassword);
-                ObjectDb.Received().AddInParameter("NewPwd", DbType.String, NewPassword);
-                ObjectDb.Received().AddInParameter("LoginIP", DbType.String, requestUser.Request.Ip);
-                ObjectDb.Received().AddInParameter("UserSalt", DbType.String, Salt);
+                ObjectDb.Received(1).AddInParameter("UserName", DbType.String, requestUser.Username);
+                ObjectDb.Received(1).AddInParameter("OldPwd", DbType.String, OldPassword);
+                ObjectDb.Received(1).AddInParameter("NewPwd", DbType.String, NewPassword);
+                ObjectDb.Received(1).AddInParameter("LoginIP", DbType.String, requestUser.Request.Ip);
+                ObjectDb.Received(1).AddInParameter("UserSalt", DbType.String, Salt);
             });
         }
 
@@ -137,7 +128,7 @@
             DataAccess.GetByUsername(UserName, isInternal, licenseeId);
 
             // Assert
-            ObjectDb.Received().Query<User>(Arg.Any<dynamic>());
+            ObjectDb.Received(1).Query<User>(Arg.Any<dynamic>());
         }
 
         [TestCase(true, 1)]
@@ -211,15 +202,15 @@
             const int UserId = 2;
 
             DataAccess.GetObjectDb(Arg.Is(RecheckInSp), Arg.Any<int>()).Returns(ObjectDb);
-            
+
             // Action
             DataAccess.RecheckIn(UserId);
 
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("On_Userid", DbType.Int32, UserId);
-                ObjectDb.Received().AddOutParameter("IsKickedOut", DbType.Boolean, 0);
+                ObjectDb.Received(1).AddInParameter("On_Userid", DbType.Int32, UserId);
+                ObjectDb.Received(1).AddOutParameter("IsKickedOut", DbType.Boolean, 0);
             });
         }
 
@@ -259,13 +250,13 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("LicenseeID", DbType.Int32, user.Licensee.Id);
-                ObjectDb.Received().AddInParameter("UserId", DbType.Int32, user.UserID);
-                ObjectDb.Received().AddInParameter("UpdateBy", DbType.Int32, ResetPwdBy);
-                ObjectDb.Received().AddInParameter("Pwd", DbType.String, user.Password);
-                ObjectDb.Received().AddInParameter("UserSalt", DbType.String, Salt);
-                ObjectDb.Received().AddInParameter("langkey", DbType.String, user.Request.Language);
-                ObjectDb.Received().AddInParameter("LoginIP", DbType.String, user.Request.Ip);
+                ObjectDb.Received(1).AddInParameter("LicenseeID", DbType.Int32, user.Licensee.Id);
+                ObjectDb.Received(1).AddInParameter("UserId", DbType.Int32, user.UserID);
+                ObjectDb.Received(1).AddInParameter("UpdateBy", DbType.Int32, ResetPwdBy);
+                ObjectDb.Received(1).AddInParameter("Pwd", DbType.String, user.Password);
+                ObjectDb.Received(1).AddInParameter("UserSalt", DbType.String, Salt);
+                ObjectDb.Received(1).AddInParameter("langkey", DbType.String, user.Request.Language);
+                ObjectDb.Received(1).AddInParameter("LoginIP", DbType.String, user.Request.Ip);
             });
         }
 
@@ -316,16 +307,16 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("LicenseeID", DbType.Int32, user.Licensee.Id);
-                ObjectDb.Received().AddInParameter("UserId", DbType.Int32, user.UserID);
-                ObjectDb.Received().AddInParameter("UpdateBy", DbType.Int32, UpdatedBy);
-                ObjectDb.Received().AddInParameter("FirstName", DbType.String, user.FirstName);
-                ObjectDb.Received().AddInParameter("LastName", DbType.String, user.LastName);
-                ObjectDb.Received().AddInParameter("Status", DbType.String, user.Status);
-                ObjectDb.Received().AddInParameter("langkey", DbType.String, user.Request.Language);
-                ObjectDb.Received().AddInParameter("LoginIP", DbType.String, user.Request.Ip);
-                ObjectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
-                ObjectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
+                ObjectDb.Received(1).AddInParameter("LicenseeID", DbType.Int32, user.Licensee.Id);
+                ObjectDb.Received(1).AddInParameter("UserId", DbType.Int32, user.UserID);
+                ObjectDb.Received(1).AddInParameter("UpdateBy", DbType.Int32, UpdatedBy);
+                ObjectDb.Received(1).AddInParameter("FirstName", DbType.String, user.FirstName);
+                ObjectDb.Received(1).AddInParameter("LastName", DbType.String, user.LastName);
+                ObjectDb.Received(1).AddInParameter("Status", DbType.String, user.Status);
+                ObjectDb.Received(1).AddInParameter("langkey", DbType.String, user.Request.Language);
+                ObjectDb.Received(1).AddInParameter("LoginIP", DbType.String, user.Request.Ip);
+                ObjectDb.Received(1).AddOutParameter("ErrCode", DbType.Int32, 4);
+                ObjectDb.Received(1).AddOutParameter("ErrMsg", DbType.String, 4000);
             });
         }
 

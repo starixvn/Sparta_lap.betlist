@@ -26,11 +26,7 @@ namespace Fanex.Athena.Api.BetList
     public class OutStandingCompletedBetListController : ApiBetListBaseController
     {
         private const string BetListCustomerOutstandingName = "BetList_CustomerOutstanding";
-
-        public OutStandingCompletedBetListController()
-        {
-        }
-
+        
         public OutStandingCompletedBetListController(
             ISessionService sessionService,
             IProductService productService,

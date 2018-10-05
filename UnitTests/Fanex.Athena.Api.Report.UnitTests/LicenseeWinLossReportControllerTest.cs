@@ -222,7 +222,6 @@
                 Assert.That(actualExcelModel.DataList.Count(), Is.EqualTo(expectedResult.DataList.Count()));
                 Assert.That(actualExcelModel.SBVisible, Is.True);
                 Assert.That(actualExcelModel.BAVisible, Is.False);
-                Assert.That(actualExcelModel.RBVisible, Is.False);
             });
         }
 
@@ -306,7 +305,7 @@
                 {
                     { model.CurrencyId, nameof(model.CurrencyId) }
                 },
-                FunctionIdList = new List<int>()
+                FunctionIdList = new int[0]
             });
             StubLicenseeSessionData(new LicenseeSession { LicenseeId = 1 });
             SessionService.GenerateAgentListXml(Arg.Any<int>(), Arg.Any<bool>()).Returns(string.Empty);

@@ -1,7 +1,6 @@
 ﻿namespace Fanex.Athena.DataAccess.BetSettings.UnitTests
 {
     using Core.UnitTests.TestHelpers;
-    using Data;
     using Interfaces;
     using Model.BetSettings.MetaModel;
     using NSubstitute;
@@ -16,8 +15,15 @@
         public override void FixtureSetUp()
         {
             _coreCasinoBetSettingDataAccess = Substitute.For<ICoreCasinoBetSettingDataAccess>();
-            DataAccess = Substitute.ForPartsOf<RngCasinoBetSettingDataAccess>(_coreCasinoBetSettingDataAccess);
-            ObjectDb = Substitute.For<IObjectDb>();
+            base.FixtureSetUp();
+        }
+
+        protected override void SetUpDataAccess()
+        {
+            DataAccess = Substitute.ForPartsOf<RngCasinoBetSettingDataAccess>(
+                AppSetting,
+                CreateSessionStorage(),
+                _coreCasinoBetSettingDataAccess);
         }
 
         [Test]

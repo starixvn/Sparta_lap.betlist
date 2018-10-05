@@ -10,16 +10,17 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
-    using Core.Configuration;
     using Core.Configuration.Interfaces;
     using Core.Exception;
     using Data;
+    using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
     using Model.Core.ResultModel;
+    using Session.Interfaces;
 
     public class CustomerWinlossDataAccess : BaseDataAccess, ICustWinlossDataAccess
     {
@@ -27,12 +28,11 @@ namespace Fanex.Athena.DataAccess.Report
 
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
-        public CustomerWinlossDataAccess()
-        {
-            _balanceUpDataAccess = new BalanceUpDataAccess();
-        }
-
-        public CustomerWinlossDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
+        public CustomerWinlossDataAccess(
+            IAppSettings appSetting, 
+            ISessionStorage sessionStorage,
+            IBalanceUpDataAccess balanceUpDataAccess)
+            : base(appSetting, sessionStorage)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
         }
@@ -96,9 +96,7 @@ namespace Fanex.Athena.DataAccess.Report
                 CustomerTotalWL = reader.ToDecimal("customertotalwl" + baseCurrency),
                 LicenseeWL = reader.ToDecimal("licenseewl" + baseCurrency),
                 BAComm = reader.ToDecimal("commba" + baseCurrency),
-                RacingRevenue = reader.ToDecimal("racingrevenue" + baseCurrency),
-                AmtDueToBA = reader.ToDecimal("amtduetoba" + baseCurrency),
-                AmtDueToRacing = reader.ToDecimal("amtduetorb" + baseCurrency)
+                AmtDueToBA = reader.ToDecimal("amtduetoba" + baseCurrency)
             };
         }
 
@@ -109,7 +107,6 @@ namespace Fanex.Athena.DataAccess.Report
             db.AddInParameter("pagesize", DbType.Int32, metaModel.IsExportExcel ? PageSizeExcel : metaModel.PageSize);
             db.AddInParameter("pageindex", DbType.Int32, metaModel.PageIndex);
             db.AddInParameter("movebetsday", DbType.DateTime, moveBetsDay);
-            db.AddInParameter("isold", DbType.Boolean, metaModel.IsOld);
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             db.AddInParameter("username", DbType.String, metaModel.Username);
             db.AddInParameter("OrderItem", DbType.Int16, metaModel.OrderItem);
@@ -131,9 +128,7 @@ namespace Fanex.Athena.DataAccess.Report
                 PlayerComm = reader.ToDecimal("sumplayercomm" + baseCurrency),
                 LicenseeWL = reader.ToDecimal("sumlicenseewl" + baseCurrency),
                 BAComm = reader.ToDecimal("sumcommba" + baseCurrency),
-                RacingRevenue = reader.ToDecimal("sumracingrevenue" + baseCurrency),
                 AmtDueToBA = reader.ToDecimal("sumamtduetoba" + baseCurrency),
-                AmtDueToRacing = reader.ToDecimal("sumamtduetorb" + baseCurrency),
                 BetEffective = reader.ToDecimal("sumbeteffective" + baseCurrency),
                 CustomerTotalWL = reader.ToDecimal("sumcustomertotalwl" + baseCurrency)
             };

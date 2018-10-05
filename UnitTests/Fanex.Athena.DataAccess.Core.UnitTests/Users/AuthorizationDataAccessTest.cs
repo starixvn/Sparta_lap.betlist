@@ -29,10 +29,10 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("licenseeid", DbType.Int32, LicenseeId);
-                ObjectDb.Received().AddInParameter("transid", DbType.Int64, TransId);
-                ObjectDb.Received().AddInParameter("custid", DbType.Int32, CustId);
-                ObjectDb.Received().AddOutParameter("status", DbType.Boolean, sizeof(bool));
+                ObjectDb.Received(1).AddInParameter("licenseeid", DbType.Int32, LicenseeId);
+                ObjectDb.Received(1).AddInParameter("transid", DbType.Int64, TransId);
+                ObjectDb.Received(1).AddInParameter("custid", DbType.Int32, CustId);
+                ObjectDb.Received(1).AddOutParameter("status", DbType.Boolean, sizeof(bool));
             });
         }
 

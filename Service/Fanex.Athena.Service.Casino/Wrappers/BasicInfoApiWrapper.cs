@@ -7,7 +7,7 @@
     public class BasicInfoApiWrapper : IBasicInfoApiWrapper
     {
         private readonly BasicInfo _basicInfoApi;
-
+        
         public BasicInfoApiWrapper()
         {
             _basicInfoApi = new BasicInfo();
@@ -16,14 +16,14 @@
         public DataTable GetGameKind(string casinoNo)
         {
             return new ApiMethodOperationHandler<DataTable>().Handle(
-                casinoNo, 
+                casinoNo,
                 (obj) => _basicInfoApi.GetGameKind(obj));
         }
 
         public DataTable GetGameType(GetGameTypeMetalModel input)
         {
-            return new ApiMethodOperationHandler<DataTable>().Handle<GetGameTypeMetalModel>(
-                input, 
+            return new ApiMethodOperationHandler<DataTable>().Handle(
+                input,
                 (obj) => _basicInfoApi.GetGameType(obj.GameKind, obj.SbCustID, obj.SbExchangeID));
         }
     }

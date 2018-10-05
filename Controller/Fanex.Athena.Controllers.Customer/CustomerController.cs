@@ -12,7 +12,6 @@ namespace Fanex.Athena.Controllers.Customer
     using System.Linq;
     using System.Web.Mvc;
     using Constant.DataDomain;
-    using DataAccess.Core.Users;
     using DataAccess.Core.Users.Interfaces;
     using Excel.Base.Helpers;
     using Extension.Utility;
@@ -20,9 +19,7 @@ namespace Fanex.Athena.Controllers.Customer
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Customer.MetaModel;
     using Fanex.Athena.Model.Customer.ViewModel;
-    using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
-    using Fanex.Athena.Service.Customer;
     using Fanex.Athena.Service.Customer.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
@@ -31,7 +28,6 @@ namespace Fanex.Athena.Controllers.Customer
     using Resources;
     using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
-    using Service.Report;
     using Service.Report.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.CustomerInfoCustomerList)]
@@ -66,15 +62,6 @@ namespace Fanex.Athena.Controllers.Customer
         private readonly ILicenseeDataAccess _licenseeDataAccess;
         private readonly IProductService _productService;
         private readonly ISubsidiaryService _subsidiaryService;
-
-        public CustomerController()
-        {
-            _licenseeDataAccess = new LicenseeDataAccess();
-            _customerListService = new CustomerListService();
-            _groupComService = new GroupComService();
-            _productService = new ProductService();
-            _subsidiaryService = new SubsidiaryService();
-        }
 
 #pragma warning disable S107 // Methods should not have too many parameters
 

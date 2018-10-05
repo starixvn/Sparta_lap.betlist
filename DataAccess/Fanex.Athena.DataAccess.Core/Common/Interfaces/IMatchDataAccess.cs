@@ -19,6 +19,6 @@ namespace Fanex.Athena.DataAccess.Core.Common.Interfaces
 
         IList<Match> GetAllRunningMatch(int sportId);
 
-        IList<Match> GetMatchesByLeague(int leagueId, DateTime fromDate, DateTime toDate);
+        IList<Match> GetMatchesByLeague(int leagueId, DateTime fromDate, DateTime toDate, int sportId = 0);
     }
 }

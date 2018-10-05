@@ -174,30 +174,24 @@
     <Compile Include="Interfaces\IThirdPartyWinLossDataAccess.cs" />
     <Compile Include="Interfaces\IWinLossByLeagueDataAccess.cs" />
     <Compile Include="Interfaces\IResultDataAccess.cs" />
-    <Compile Include="BalanceDataAccess.cs" />
     <Compile Include="CustomerBalanceDataAccess.cs" />
     <Compile Include="CustomerPendingFundsDataAccess.cs" />
     <Compile Include="CustomerTurnoverDataAccess.cs" />
     <Compile Include="CustomerWinlossDataAccess.cs" />
-    <Compile Include="DailyRacingWinLossDataAccess.cs" />
     <Compile Include="WinLossByProductDataAccess.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="LiveReportDataAccess.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
-    <Compile Include="RacingCommissionDataAccess.cs" />
     <Compile Include="SettledMatchCountDataAccess.cs" />
     <Compile Include="TurnoverDataAccess.cs" />
     <Compile Include="WinLossByBetTypeDataAccess.cs" />
     <Compile Include="MatchWinLossDataAccess.cs" />
-    <Compile Include="Interfaces\IBalanceDataAccess.cs" />
     <Compile Include="Interfaces\ICustBalanceDataAccess.cs" />
     <Compile Include="Interfaces\ICustPendingFundsDataAccess.cs" />
     <Compile Include="Interfaces\ICustomerTurnoverDataAccess.cs" />
     <Compile Include="Interfaces\ICustWinlossDataAccess.cs" />
-    <Compile Include="Interfaces\IDailyRacingWinLossDataAccess.cs" />
-    <Compile Include="Interfaces\IRacingCommissionDataAccess.cs" />
     <Compile Include="Interfaces\ISettledMatchCountDataAccess.cs" />
     <Compile Include="Interfaces\ITurnoverDataAccess.cs" />
     <Compile Include="Interfaces\ILicenseeWinLossDataAccess.cs" />

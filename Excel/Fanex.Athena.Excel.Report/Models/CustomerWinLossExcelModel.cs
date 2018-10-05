@@ -19,8 +19,6 @@
 
         public bool BAVisible { get; set; }
 
-        public bool RBVisible { get; set; }
-
         public bool SystemIdVisible { get; set; }
     }
 }

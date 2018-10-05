@@ -20,11 +20,7 @@
     public class OutstandingRunningBetListController : ApiBetListBaseController
     {
         private const string BetListCustomerOutstandingRunningName = "BetList_CustomerOutstandingRunning";
-
-        public OutstandingRunningBetListController()
-        {
-        }
-
+        
         public OutstandingRunningBetListController(
             ISessionService sessionService,
             IProductService productService,

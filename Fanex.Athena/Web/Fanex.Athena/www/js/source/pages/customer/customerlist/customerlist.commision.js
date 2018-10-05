@@ -31,10 +31,6 @@
                     _me.commissionOnChange($(this).val(), 'CustParlayComm');
                 });
 
-                $('#CustRBComm1').on('change', function () {
-                    _me.commissionOnChange($(this).val(), 'CustRBComm');
-                });
-
                 $('#CustNGComm1').on('change', function () {
                     _me.commissionOnChange($(this).val(), 'CustNGComm');
                 });
@@ -45,10 +41,6 @@
 
                 $('#CustCSComm1').on('change', function () {
                     _me.commissionOnChange($(this).val(), 'CustCSComm');
-                });
-
-                $('#CustABComm1').on('change', function () {
-                    _me.commissionOnChange($(this).val(), 'CustABComm');
                 });
             },
 
@@ -177,7 +169,7 @@
 
                             CustomerListGrid.updateGridGroupAndComm(groupid, groupNameText, result.ExtendedData.GroupColor,
                                                  result.ExtendedData.SBComm, result.ExtendedData.NGComm,
-                                                result.ExtendedData.RCComm, result.ExtendedData.RNGComm, result.ExtendedData.ABComm);
+                                                result.ExtendedData.RNGComm);
                         }
                         else {
                             _me.showMsg(result.ErrorMessage, result.Success);
@@ -253,22 +245,18 @@
 
                 var sbcom = _me.initCommissionParam('#CustSBComm');
                 var parlayCom = _me.initCommissionParam('#CustParlayComm');
-                var rbcom = _me.initCommissionParam('#CustRBComm');
                 var ngcom = _me.initCommissionParam('#CustNGComm');
                 var lccom = _me.initCommissionParam('#CustLCComm');
                 var cscom = _me.initCommissionParam('#CustCSComm');
-                var abcom = _me.initCommissionParam('#CustABComm');
                 var param =
                 {
                     GroupId: groupCommId,
                     CustomerIds: custList.toString(),
                     SBComm: sbcom,
                     ParlayComm: parlayCom,
-                    RCComm: rbcom,
                     NGComm: ngcom,
                     LCComm: lccom,
-                    CSComm: cscom,
-                    ABComm: abcom
+                    CSComm: cscom
                 };
 
                 $.ajax({
@@ -289,7 +277,7 @@
 
                             CustomerListGrid.updateGridGroupAndComm(0, result.ExtendedData.GroupName, result.ExtendedData.GroupColor,
                                                  result.ExtendedData.SBComm, result.ExtendedData.NGComm,
-                                                result.ExtendedData.RCComm, result.ExtendedData.RNGComm, result.ExtendedData.ABComm);
+                                                result.ExtendedData.RNGComm);
                         }
                         else {
                             _me.showMsg(result.ErrorMessage, result.Success);
@@ -382,7 +370,7 @@
                             if (param.isRemovePlayercomm) {
                                 CustomerListGrid.updateGridGroupAndComm(0, result.ExtendedData.GroupName, "",
                                                  result.ExtendedData.SBComm, result.ExtendedData.NGComm,
-                                                result.ExtendedData.RCComm, result.ExtendedData.RNGComm, result.ExtendedData.ABComm);
+                                                result.ExtendedData.RNGComm);
                             }
                             else {
                                 CustomerListGrid.updateGridGroup(0, result.ExtendedData.GroupName, result.ExtendedData.GroupColor);
@@ -430,11 +418,9 @@
                 var groupId = obj.options[obj.selectedIndex].value;
                 $('#NewSbComm').text($("#SBComm" + groupId).val());
                 $('#NewParlayComm').text($("#ParlayComm" + groupId).val());
-                $('#NewRbComm').text($("#RBComm" + groupId).val());
                 $('#NewNgComm').text($("#NGComm" + groupId).val());
                 $('#NewLcComm').text($("#LCComm" + groupId).val());
                 $('#NewCsComm').text($("#CSComm" + groupId).val());
-                $('#NewAbComm').text($("#ABComm" + groupId).val());
             }
         };
 

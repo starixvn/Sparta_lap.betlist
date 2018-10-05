@@ -8,9 +8,7 @@ namespace Fanex.Athena.Service.Core.Common
 {
     using System;
     using System.Collections.Generic;
-    using Extension.Utility;
     using Extension.Utility.Interfaces;
-    using Fanex.Athena.DataAccess.Core.Common;
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
@@ -25,12 +23,6 @@ namespace Fanex.Athena.Service.Core.Common
         private readonly IMatchDataAccess _matchDataAccess;
 
         private readonly IMemoryCacheService _cache;
-
-        public MatchService()
-        {
-            _matchDataAccess = new MatchDataAccess();
-            _cache = new MemoryCacheService();
-        }
 
         public MatchService(IMatchDataAccess matchDataAccess, IMemoryCacheService cache)
         {

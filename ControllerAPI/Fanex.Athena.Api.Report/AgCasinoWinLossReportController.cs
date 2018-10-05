@@ -31,11 +31,6 @@ namespace Fanex.Athena.Api.Report
     {
         private readonly IThirdPartyWinLossService _thirdPartyWinLossService;
 
-        public AgCasinoWinLossReportController()
-        {
-            _thirdPartyWinLossService = new ThirdPartyWinLossService();
-        }
-
         public AgCasinoWinLossReportController(
             IThirdPartyWinLossService thirdPartyWinLossService,
             ISessionService sessionService,

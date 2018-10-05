@@ -39,7 +39,7 @@
 
         IList<NumberGame> GetNumberGameMatches(ResultMetalModel metalModel);
 
-        IList<Racing> GetRacingMatches(ResultMetalModel metalModel);
+        IList<Racing> GetVirtualSportMatches(ResultMetalModel metalModel);
 
         #endregion Report
 
@@ -49,7 +49,7 @@
 
         IList<Sportsbook> GetPopUpMatch(ResultPopupMetalModel metalModel);
 
-        IList<Racing> GetPopUpRacingMatch(ResultPopupMetalModel metalModel);
+        IList<Racing> GetPopUpVirtualSportMatch(ResultPopupMetalModel metalModel);
 
         /// <summary>
         /// Select matches from BetTransM by reference no.

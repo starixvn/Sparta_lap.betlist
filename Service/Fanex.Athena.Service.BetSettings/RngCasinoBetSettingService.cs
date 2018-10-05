@@ -10,10 +10,8 @@ namespace Fanex.Athena.Service.BetSettings
     using Casino.Interfaces;
     using Casino.Wrappers;
     using Core.Users.Interfaces;
-    using DataAccess.BetSettings;
     using DataAccess.BetSettings.Interfaces;
     using Extension.Utility;
-    using Fanex.Athena.Service.Casino;
     using Interfaces;
     using Model.BetSettings.DTO.RngCasino;
     using Model.BetSettings.MetaModel;
@@ -32,10 +30,6 @@ namespace Fanex.Athena.Service.BetSettings
 
         private readonly IAppSettings _appSettings;
 
-        public RngCasinoBetSettingService() : this(null, null, null, null, null)
-        {
-        }
-
         public RngCasinoBetSettingService(
             IAuthorizationService authorizationService,
             IAppSettings appSettings,
@@ -44,10 +38,10 @@ namespace Fanex.Athena.Service.BetSettings
             IRngCasinoBetSettingDataAccess betSettingDataAccess)
             : base(authorizationService)
         {
-            _betSettingDataAccess = betSettingDataAccess ?? new RngCasinoBetSettingDataAccess();
-            _casinoSetting = casinoSetting ?? new CasinoSettingService();
-            _appSettings = appSettings ?? new AppSettings();
-            _customerApiWrapper = customerApiWrapper ?? new CustomerApiWrapper();
+            _betSettingDataAccess = betSettingDataAccess;
+            _casinoSetting = casinoSetting;
+            _appSettings = appSettings;
+            _customerApiWrapper = customerApiWrapper;
         }
 
         public RngCasinoBetSettingViewModel GetViewModel(int custId, CustomerInfo customer, string language)

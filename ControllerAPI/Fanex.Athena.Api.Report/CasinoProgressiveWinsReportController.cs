@@ -33,12 +33,6 @@ namespace Fanex.Athena.Api.Report
 
         private readonly ICacheRefAdapter _cacheRefAdapter;
 
-        public CasinoProgressiveWinsReportController()
-        {
-            _casinoProgressiveWinsDataAccess = new CasinoProgressiveWinsDataAccess();
-            _cacheRefAdapter = new CacheRefAdapter();
-        }
-
         public CasinoProgressiveWinsReportController(
             ICasinoProgressiveWinsDataAccess dataAccess,
             ISessionService sessionService,

@@ -17,15 +17,12 @@ namespace Fanex.Athena.Service.Core.Users
     using Constant.DataDomain;
     using DataAccess.Core.Common;
     using DataAccess.Core.Common.Interfaces;
-    using DataAccess.Core.Users;
     using DataAccess.Core.Users.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Users;
-    using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
-    using Session;
     using Session.Enum;
     using Session.Interfaces;
     using Session.Model;
@@ -35,7 +32,7 @@ namespace Fanex.Athena.Service.Core.Users
     {
         private const int ReportBalanceId = 42;
 
-        private const string ReportBalancePath = "BalanceReport";
+        private const string DefaultReportPath = "LicenseeWinLossReport";
 
         private const string UserSessionKey = "UserSessionKey";
 
@@ -44,14 +41,6 @@ namespace Fanex.Athena.Service.Core.Users
         private readonly ICurrencyDataAccess _currencyDataAccess;
 
         private readonly ISessionStorage _sessionStorage;
-
-        public SessionService()
-        {
-            _functionService = new FunctionService();
-            _licenseeDataAccess = new LicenseeDataAccess();
-            _currencyDataAccess = new CurrencyDataAccess();
-            _sessionStorage = new SessionStorage();
-        }
 
         public SessionService(
             IFunctionService functionService,
@@ -105,7 +94,7 @@ namespace Fanex.Athena.Service.Core.Users
         {
             var licenseeList = _licenseeDataAccess.GetByUser(userId);
             var functionList = _functionService.GetUserFunctionList(licenseeId, userId);
-            var functionIdList = functionList.Select(f => f.FunctionId).ToList();
+            var functionIdList = functionList.Select(f => f.FunctionId).ToArray();
             var userSession = new UserSession
             {
                 UserLevel = UserLevelType.Licensee,
@@ -137,7 +126,7 @@ namespace Fanex.Athena.Service.Core.Users
             {
                 var selectedLicensee = licenseeList.SingleOrDefault(i => i.Id == licenseeId);
                 var functionList = _functionService.GetUserFunctionList(licenseeId, userSession.UserId);
-                var functionIdList = functionList.Select(f => f.FunctionId).ToList();
+                var functionIdList = functionList.Select(f => f.FunctionId).ToArray();
 
                 userSession.FunctionIdList = functionIdList;
                 userSession.DefaultReportUrl = GetDefaultReportUrl(functionIdList, functionList);
@@ -254,7 +243,7 @@ namespace Fanex.Athena.Service.Core.Users
                 }
             }
 
-            return ReportBalancePath;
+            return DefaultReportPath;
         }
 
         private static LicenseeSession GenerateLicenseeInfo(Licensee selectedLicensee)
@@ -285,7 +274,7 @@ namespace Fanex.Athena.Service.Core.Users
             var currencyAgentList = currencyUsers
                 .Where(x => x.IsActive)
                 .Select(x => new { x.CurrencyId, x.AgentIdList })
-                .ToDictionary(x => x.CurrencyId, x => x.AgentIdList);
+                .ToDictionary(x => x.CurrencyId, x => x.AgentIdList.ToArray());
 
             userSession.CurrencyList = currencyList;
             userSession.CurrencyAgentList = currencyAgentList;

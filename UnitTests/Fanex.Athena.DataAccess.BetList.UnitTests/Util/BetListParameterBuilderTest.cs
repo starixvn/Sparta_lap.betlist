@@ -122,27 +122,6 @@
         }
 
         [Test]
-        public void CreateBetListParameters_CalledByRacingCommissionBetlist_ParametersPassedCorrectly()
-        {
-            // Arrange
-            const string UspKey = "Lrf_BetList_SelWinLossRacingByDate_Mem";
-
-            // Action
-            BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, _metaModel);
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                _objectDb.Received(1).AddInParameter("CustID", DbType.Int32, _metaModel.CustId);
-                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                AssertDateRangeParameters(_objectDb, _metaModel);
-                AssertMoveBetParams(_objectDb, _metaModel);
-                AssertPagingParameters(_objectDb, _metaModel);
-                AssertSummaryParameters(_objectDb);
-            });
-        }
-
-        [Test]
         public void CreateBetListParameters_CalledByDailyWLBetlist_ParametersPassedCorrectly()
         {
             // Arrange
@@ -163,31 +142,6 @@
                 AssertMoveBetParams(_objectDb, metaModel);
                 AssertPagingParameters(_objectDb, metaModel);
                 AssertSummaryParameters(_objectDb);
-            });
-        }
-
-        [Test]
-        public void CreateBetListParameters_CalledByDailyRacingWLBetlist_ParametersPassedCorrectly()
-        {
-            // Arrange
-            const string UspKey = "Lrf_BetList_SelWinlostRacing";
-
-            // Action
-            BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, _metaModel);
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                _objectDb.Received(1).AddInParameter("date", DbType.DateTime, _metaModel.Date);
-                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received(1).AddInParameter("leagueid", DbType.Int32, _metaModel.LeagueId);
-                _objectDb.Received(1).AddInParameter("raceNo", DbType.String, _metaModel.RaceNo);
-                AssertPagingParameters(_objectDb, _metaModel);
-                AssertSummaryParameters(_objectDb);
-                _objectDb.Received(1).AddOutParameter("SumStake", DbType.Currency, 8);
-                _objectDb.Received(1).AddOutParameter("SumStakeUSD", DbType.Currency, 8);
-                _objectDb.Received(1).AddOutParameter("SumStakeEUR", DbType.Currency, 8);
-                _objectDb.Received(1).AddOutParameter("SumStakeGBP", DbType.Currency, 8);
             });
         }
 
@@ -248,30 +202,6 @@
                 _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
                 _objectDb.Received(1).AddInParameter("bettype", DbType.String, _metaModel.MultipleBettype);
                 AssertPagingParameters(_objectDb, _metaModel);
-            });
-        }
-
-        [Test]
-        public void CreateBetListParameters_CalledByMatchWLRacingBetlist_ParametersPassedCorrectly()
-        {
-            // Arrange
-            const string UspKey = "Lrf_BetList_MatchWL_Racing";
-
-            // Action
-            BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, _metaModel);
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received(1).AddInParameter("Bettype", DbType.Int32, _metaModel.BetType);
-                _objectDb.Received(1).AddInParameter("LeagueId", DbType.Int32, _metaModel.LeagueId);
-                _objectDb.Received(1).AddInParameter("RaceNo", DbType.String, _metaModel.RaceNo);
-                AssertDateRangeParameters(_objectDb, _metaModel);
-                _objectDb.Received(1).AddInParameter("MoveBetsDay", DbType.DateTime, _metaModel.MoveBetsDay);
-                _objectDb.Received(1).AddInParameter("Sort", DbType.String, _metaModel.SortBy + _metaModel.BaseCurrency + " " + _metaModel.SortOrder);
-                AssertPagingParameters(_objectDb, _metaModel);
-                AssertSummaryParameters(_objectDb);
             });
         }
 
@@ -476,26 +406,6 @@
             });
         }
 
-        [Test]
-        public void CreateBetListParameters_CalledByMatchRunningBetListOfHR_ParametersPassedCorrectly()
-        {
-            // Arrange
-            const string UspKey = "Lrf_BetList_SelAllByDateHR";
-
-            // Action
-            BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, _metaModel);
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
-                _objectDb.Received(1).AddInParameter("bettype", DbType.Int32, _metaModel.BetType);
-                _objectDb.Received(1).AddInParameter("MatchID", DbType.Int32, _metaModel.MatchId);
-                AssertPagingParameters(_objectDb, _metaModel);
-                AssertSummaryParameters(_objectDb);
-            });
-        }
-
         [TestCase(2, 2)]
         [TestCase(null, -1)]
         public void CreateBetListParameters_CalledByMatchRunningBetLitByBettype_ParametersPassedCorrectly(int? liveIndicator, int expectedLiveIndicator)
@@ -680,6 +590,25 @@
             {
                 _objectDb.Received(1).AddInParameter("PageSize", DbType.Int32, expectedSize);
                 _objectDb.Received(1).AddInParameter("PageIndex", DbType.Int32, expectedIndex);
+            });
+        }
+
+        [Test]
+        public void CreateBetListParameters_CalledByBonusDetail_ParametersPassedCorrectly()
+        {
+            // Arrange
+            const string UspKey = "Lrf_BetList_LicenseeBonus_Detail";
+
+            // Action
+            BetListParameterBuilder.CreateBetListParameters(_objectDb, UspKey, _metaModel);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                _objectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
+                _objectDb.Received(1).AddInParameter("TransId", DbType.Int64, _metaModel.TransId);
+                _objectDb.Received(1).AddInParameter("RefCode", DbType.Int64, _metaModel.RefCode);
+                _objectDb.Received(1).AddInParameter("BaseCurrency", DbType.String, _metaModel.BaseCurrency);
             });
         }
 

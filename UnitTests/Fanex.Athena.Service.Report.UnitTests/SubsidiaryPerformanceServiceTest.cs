@@ -223,13 +223,13 @@
                 },
                 new SubsidiaryPerformance
                 {
-                    SubsidiaryId = 1234, CurrencyId = 1, CurrencyName = "USD", ProductCode = "RB",
+                    SubsidiaryId = 1234, CurrencyId = 1, CurrencyName = "USD", ProductCode = "PP",
                     BetCount = 50, Turnover = 100m, CustomerWinLoss = 10m, SubsidiaryWinLoss = -10m,
                     BaseCurrencyData = new SubsidiaryPerformanceBase { BetCount = 50, Turnover = 101m, CustomerWinLoss = 11m, SubsidiaryWinLoss = -11m }
                 },
                 new SubsidiaryPerformance
                 {
-                    SubsidiaryId = 1235, CurrencyId = 1, CurrencyName = "USD", ProductCode = "RB",
+                    SubsidiaryId = 1235, CurrencyId = 1, CurrencyName = "USD", ProductCode = "PP",
                     BetCount = 50, Turnover = 100m, CustomerWinLoss = 100m, SubsidiaryWinLoss = -100m,
                     BaseCurrencyData = new SubsidiaryPerformanceBase { BetCount = 50, Turnover = 101m, CustomerWinLoss = 101m, SubsidiaryWinLoss = -101m }
                 },
@@ -261,13 +261,13 @@
                 new SubsidiaryPerformanceBase { Product = "All", BetCount = 150, Turnover = 300m, CustomerWinLoss = 30m, SubsidiaryWinLoss = -30m },
                 new SubsidiaryPerformanceBase { Product = "Sportsbook", BetCount = 50, Turnover = 100m, CustomerWinLoss = 10m, SubsidiaryWinLoss = -10m },
                 new SubsidiaryPerformanceBase { Product = "BA", BetCount = 50, Turnover = 100m, CustomerWinLoss = 10m, SubsidiaryWinLoss = -10m },
-                new SubsidiaryPerformanceBase { Product = "Racing", BetCount = 50, Turnover = 100m, CustomerWinLoss = 10m, SubsidiaryWinLoss = -10m }
+                new SubsidiaryPerformanceBase { Product = "PP", BetCount = 50, Turnover = 100m, CustomerWinLoss = 10m, SubsidiaryWinLoss = -10m }
             };
 
             var dataDetail2 = new List<SubsidiaryPerformanceBase>
             {
                 new SubsidiaryPerformanceBase { Product = "All", BetCount = 150, Turnover = 300m, CustomerWinLoss = 300m, SubsidiaryWinLoss = -300m },
-                new SubsidiaryPerformanceBase { Product = "Racing", BetCount = 50, Turnover = 100m, CustomerWinLoss = 100m, SubsidiaryWinLoss = -100m },
+                new SubsidiaryPerformanceBase { Product = "PP", BetCount = 50, Turnover = 100m, CustomerWinLoss = 100m, SubsidiaryWinLoss = -100m },
                 new SubsidiaryPerformanceBase { Product = "Sportsbook", BetCount = 100, Turnover = 200m, CustomerWinLoss = 200m, SubsidiaryWinLoss = -200m }
             };
 

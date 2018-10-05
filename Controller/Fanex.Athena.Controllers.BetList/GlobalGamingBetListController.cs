@@ -19,10 +19,6 @@
         private readonly string _title =
             ViewResources.ProductFW + " - " + ViewResources.BetList + " - " + ViewResources.DetailTickets;
 
-        public GlobalGamingBetListController()
-        {
-        }
-
         public GlobalGamingBetListController(
             ILanguageService languageService,
             ISessionService sessionService,

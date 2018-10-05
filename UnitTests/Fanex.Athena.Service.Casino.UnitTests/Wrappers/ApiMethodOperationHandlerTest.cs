@@ -5,13 +5,14 @@
     using Casino.Wrappers;
     using CasinoLibrary.Model.UserException;
     using Core.Utility.Interfaces;
+    using Logging;
     using NSubstitute;
     using NUnit.Framework;
 
     [TestFixture]
     public class ApiMethodOperationHandlerTest
     {
-        private ICoreLogger _logger = Substitute.For<ICoreLogger>();
+        private ILogger _logger = Substitute.For<ILogger>();
 
         [TearDown]
         public void TearDown()
@@ -77,7 +78,7 @@
                 .Handle(new DataTable(), (obj) => ThrowErrorExceptionCodeBlock<DataTable>(obj));
 
             // Assert
-            _logger.Received(1).Error(Arg.Any<Exception>(), Arg.Any<string>());
+            _logger.Received(1).Error(Arg.Any<string>(), Arg.Any<Exception>());
         }
 
         private T SuccessCodeBlock<T>(object input, T expectedValue)

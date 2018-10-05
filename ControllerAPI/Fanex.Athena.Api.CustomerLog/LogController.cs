@@ -43,10 +43,8 @@ namespace Fanex.Athena.Api.CustomerLog
                 "GroupName",
                 "GroupColor",
                 "SBComm",
-                "RacingComm",
                 "NGComm",
-                "RNGComm",
-                "AllbetComm"
+                "RNGComm"
             };
 
         private readonly ICustomerLogDataAccess _customerLogDataAccess;
@@ -55,15 +53,7 @@ namespace Fanex.Athena.Api.CustomerLog
 
         private readonly IAppSettings _appSettings;
         private readonly IClientViewHelper _clientViewHelper;
-
-        public LogController()
-        {
-            _customerLogDataAccess = new CustomerLogDataAccess();
-            _logInLogDataAccess = new LogInLogDataAccess();
-            _appSettings = new AppSettings();
-            _clientViewHelper = new ClientViewHelper();
-        }
-
+        
         public LogController(
             ISessionService sessionService,
             IProductService productService,
@@ -211,10 +201,8 @@ namespace Fanex.Athena.Api.CustomerLog
                 { "GroupName", ViewResources.GroupName },
                 { "GroupColor", ViewResources.GroupColor },
                 { "SBComm", ViewResources.SBComm },
-                { "RBComm", ViewResources.RBComm },
                 { "NGComm", ViewResources.NGComm },
                 { "CSComm", ViewResources.CSComm },
-                { "ABComm", ViewResources.ABComm },
                 { "Yes", ViewResources.Yes },
                 { "No", ViewResources.No },
                 { "OldColor", ViewResources.OldColor }

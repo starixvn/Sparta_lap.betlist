@@ -25,13 +25,7 @@ namespace Fanex.Athena.Api.BetList
         private readonly IAuthorizationService _authorizationService;
 
         private readonly IDailyStatementBetListDataAccess _dailyStatementBetListDataAccess;
-
-        public OutstandingDailyStatementBetListController()
-        {
-            _authorizationService = new AuthorizationService();
-            _dailyStatementBetListDataAccess = new DailyStatementBetListDataAccess();
-        }
-
+        
         public OutstandingDailyStatementBetListController(
             ISessionService sessionService,
             IProductService productService,

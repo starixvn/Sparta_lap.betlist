@@ -181,7 +181,7 @@
         [TestCase(2)]
         [TestCase(3)]
         [TestCase(4)]
-        public void GetSetting_FakeLicenseeHasLimitMinDate_MinDateIsLessThanLimit_ReAssignMinDate(int limitRecentMonths)
+        public void GetSetting_FakeLicenseeHasLimitMinDate_MinDateIsLessThanLimit_ReAssignMinDate(byte limitRecentMonths)
         {
             // Arrange
             var reportKey = FakeHelper.Create<string>();

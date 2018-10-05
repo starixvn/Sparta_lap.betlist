@@ -330,6 +330,9 @@ a {
   a:hover {
     color: inherit; }
 
+ul {
+  padding: 0; }
+
 .wrapper {
   position: relative; }
 
@@ -675,6 +678,8 @@ a {
   .form-group .checkbox-group, .form-group .button-group {
     display: inline-block;
     margin-top: 15px; }
+  .form-group .button-group {
+    margin-top: 18px; }
 
 .input-text {
   background-color: transparent;
@@ -1209,5 +1214,6 @@ button:focus {
   border: 1px solid #ccc;
   padding: 5px;
   background: #fff; }
+
 
 /*# sourceMappingURL=vendor.css.map*/

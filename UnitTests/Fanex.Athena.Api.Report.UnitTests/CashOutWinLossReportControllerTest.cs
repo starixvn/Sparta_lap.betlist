@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Web.Script.Serialization;
     using Base.UnitTests;
     using DataAccess.Report.Interfaces;
     using Excel.Base.Entities;
@@ -17,12 +16,12 @@
     using NSubstitute;
     using NUnit.Framework;
     using Report;
+    using UnitTest.Common.Helpers;
 
     public class CashOutWinLossReportControllerTest : BaseApiControllerHelperTest
     {
         private ICashOutWinLossDataAccess _dataAccess;
         private CashOutWinLossReportController _controller;
-        private JavaScriptSerializer _serializer;
 
         [OneTimeSetUp]
         public override void FixtureSetUp()
@@ -33,7 +32,6 @@
 
             _dataAccess = Substitute.For<ICashOutWinLossDataAccess>();
             _controller = Substitute.ForPartsOf<CashOutWinLossReportController>(_dataAccess, SessionService, ProductService, LangService);
-            _serializer = new JavaScriptSerializer();
         }
 
         [OneTimeTearDown]
@@ -97,7 +95,7 @@
             var expectedResult = CreateResultData(dataListResult, totalDataResult, summaryTotalResult);
 
             // Action
-            var result = _serializer.Serialize(_controller.Index(metaModel, null, null, Level, CurrencyId, CustId));
+            var result = ObjectHelper.ToJson(_controller.Index(metaModel, null, null, Level, CurrencyId, CustId));
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -136,7 +134,7 @@
             var expectedResult = CreateResultData(dataListResult, totalDataResult, summaryTotalResult);
 
             // Action
-            var result = _serializer.Serialize(_controller.Index(metaModel, fromDate, toDate, Level, CurrencyId, CustId));
+            var result = ObjectHelper.ToJson(_controller.Index(metaModel, fromDate, toDate, Level, CurrencyId, CustId));
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -165,7 +163,7 @@
             var expectedResult = CreateResultData(new List<CashOutWinLoss>(), new List<CashOutWinLoss>(), new Dictionary<string, CashOutWinLoss>());
 
             // Action
-            var result = _serializer.Serialize(_controller.Index(metaModel, fromDate, toDate, Level, CurrencyId, CustId));
+            var result = ObjectHelper.ToJson(_controller.Index(metaModel, fromDate, toDate, Level, CurrencyId, CustId));
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -280,7 +278,7 @@
 
         private string CreateResultData(List<CashOutWinLoss> data, List<CashOutWinLoss> total, Dictionary<string, CashOutWinLoss> summaryTotal)
         {
-            return _serializer.Serialize(
+            return ObjectHelper.ToJson(
                 new
                 {
                     Data = data,

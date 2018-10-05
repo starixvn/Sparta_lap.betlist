@@ -6,8 +6,6 @@
     using System.Linq;
     using Core.Configuration.Interfaces;
     using Core.UnitTests.TestHelpers;
-    using Data;
-    using Extension.Utility;
     using Model.Core.DTO.Configuration;
     using Model.Core.MetaModel.Product;
     using Model.Report.MetaModel;
@@ -27,23 +25,14 @@
             MoveBetsDay = new DateTime(2018, 2, 2),
         };
 
-        private IAppSettings _appSetting;
-
         private WinLossByProductMetaModel _metaModel;
 
         [OneTimeSetUp]
         public override void FixtureSetUp()
         {
-            var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
-            balanceUpDataAccess.GetBalanceUp().Returns(_balanceUp);
-
-            _appSetting = Substitute.For<IAppSettings>();
-            _appSetting.HistoryDate.Returns(new DateTime(2016, 8, 31));
-            DataAccess = Substitute.ForPartsOf<WinLossByProductDataAccess>(
-                CreateSessionStorage(),
-                balanceUpDataAccess);
-
-            _metaModel = new WinLossByProductMetaModel(_appSetting)
+            base.FixtureSetUp();
+            
+            _metaModel = new WinLossByProductMetaModel
             {
                 ReportBy = 1,
                 Username = "abc",
@@ -62,16 +51,17 @@
                     new ProductOption { Code = "BA", Status = false }
                 }
             };
-
-            ObjectDb = Substitute.For<IObjectDb>();
         }
 
-        [OneTimeTearDown]
-        public override void FixtureTearDown()
+        protected override void SetUpDataAccess()
         {
-            _appSetting = null;
+            var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
+            balanceUpDataAccess.GetBalanceUp().Returns(_balanceUp);
 
-            base.FixtureTearDown();
+            DataAccess = Substitute.ForPartsOf<WinLossByProductDataAccess>(
+                AppSetting,
+                CreateSessionStorage(),
+                balanceUpDataAccess);
         }
 
         [Test]
@@ -111,7 +101,7 @@
 
             // Action
             var result = DataAccess.GetWinlossByProducts(
-                new WinLossByProductMetaModel(_appSetting)
+                new WinLossByProductMetaModel
                 {
                     BaseCurrency = "USD"
                 });
@@ -206,7 +196,7 @@
 
             // Action
             var result = DataAccess.GetWinlossByProductCustomers(
-                new WinLossByProductMetaModel(_appSetting)
+                new WinLossByProductMetaModel
                 {
                     BaseCurrency = string.Empty
                 });
@@ -235,7 +225,7 @@
 
             // Action
             var result = DataAccess.GetWinlossByProductCustomers(
-                new WinLossByProductMetaModel(_appSetting)
+                new WinLossByProductMetaModel
                 {
                     BaseCurrency = string.Empty
                 });
@@ -264,7 +254,7 @@
 
             // Action
             var result = DataAccess.GetWinlossByProductCustomers(
-                new WinLossByProductMetaModel(_appSetting)
+                new WinLossByProductMetaModel
                 {
                     BaseCurrency = string.Empty
                 });

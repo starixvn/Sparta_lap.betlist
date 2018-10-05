@@ -21,16 +21,14 @@ namespace Fanex.Athena.Excel.Report
     /// </summary>
     public class WinLossByBetTypeExcel : ReportBase
     {
-        private const int ColumnAmtDueToBa = 9;
-        private const int ColumnAmtDueToRacing = 10;
+        private const int ColumnAmtDueToBa = 8;
         private const int ColumnBaCommission = 7;
         private const int ColumnCustomerComm = 4;
         private const int ColumnCustomerTotal = 5;
         private const int ColumnCustomerWinLoss = 3;
         private const int ColumnGameTypeName = 1;
         private const int ColumnLicenseeWl = 6;
-        private const int ColumnRacingRevenue = 8;
-        private const int ColumnTemplateCount = 11;
+        private const int ColumnTemplateCount = 9;
         private const int ColumnTurnover = 2;
         private const int RowContentTemplate = 3;
         private const int RowNoInfoTemplate = 5;
@@ -74,9 +72,7 @@ namespace Fanex.Athena.Excel.Report
                 ViewResources.CustomerW_L,
                 ViewResources.LicenseeW_L,
                 ViewResources.BACommission,
-                ViewResources.RacingRevenue,
-                ViewResources.AmtDueToBA,
-                ViewResources.AmtDueToRacing
+                ViewResources.AmtDueToBA
             };
             SetTextRowHeader(row, headerTextList);
 
@@ -148,11 +144,6 @@ namespace Fanex.Athena.Excel.Report
             {
                 sheet.HideColumn(ColumnBaCommission, ColumnAmtDueToBa);
             }
-
-            if (!ShowingOption.RBVisible)
-            {
-                sheet.HideColumn(ColumnRacingRevenue, ColumnAmtDueToRacing);
-            }
         }
 
         private static void AssignCommonData(IRow row, WinLossByBetType dataItem)
@@ -163,9 +154,7 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnCustomerTotal].SetCellValue(dataItem.CustomerTotal);
             row.Cells[ColumnLicenseeWl].SetCellValue(dataItem.LicenseeWL);
             row.Cells[ColumnBaCommission].SetCellValue(dataItem.BACommission);
-            row.Cells[ColumnRacingRevenue].SetCellValue(dataItem.RacingWinLoss);
             row.Cells[ColumnAmtDueToBa].SetCellValue(dataItem.AmtDueToBA);
-            row.Cells[ColumnAmtDueToRacing].SetCellValue(dataItem.AmtDueToRacing);
         }
 
         /// <summary>
@@ -187,9 +176,7 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnCustomerTotal].SetCellValue(_total.CustomerTotal);
             row.Cells[ColumnLicenseeWl].SetCellValue(_total.LicenseeWL);
             row.Cells[ColumnBaCommission].SetCellValue(_total.BACommission);
-            row.Cells[ColumnRacingRevenue].SetCellValue(_total.RacingWinLoss);
             row.Cells[ColumnAmtDueToBa].SetCellValue(_total.AmtDueToBA);
-            row.Cells[ColumnAmtDueToRacing].SetCellValue(_total.AmtDueToRacing);
         }
     }
 }

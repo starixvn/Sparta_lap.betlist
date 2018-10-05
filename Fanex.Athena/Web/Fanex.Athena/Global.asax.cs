@@ -17,7 +17,6 @@ namespace Fanex.Athena
     using System.Web.Optimization;
     using System.Web.Routing;
     using Api.Base.Attributes;
-    using Api.Base.Logger;
     using Data.Configuration;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.RouterConfig;
@@ -27,6 +26,7 @@ namespace Fanex.Athena
     using Fanex.Result.Core.Base;
     using Fanex.Result.Core.RemotingRef;
     using Service.Core.Utility;
+    using Service.Core.Utility.Interfaces;
 
     public class MvcApplication : HttpApplication
     {
@@ -57,7 +57,7 @@ namespace Fanex.Athena
                     return;
                 }
 
-                var logger = new CoreLogger();
+                var logger = DependencyResolver.Current.GetService<ICoreLogger>();
                 logger.Error(exception);
             }
         }
@@ -68,6 +68,8 @@ namespace Fanex.Athena
             var deploymentMode = ConfigurationManager.AppSettings["DeploymentMode"];
             if (string.IsNullOrEmpty(deploymentMode) || !deploymentMode.Equals("Static"))
             {
+                DIConfig.Register();
+
                 ViewEngines.Engines.Clear();
                 ViewEngines.Engines.Add(new RazorViewEngine());
 
@@ -82,7 +84,6 @@ namespace Fanex.Athena
                 GlobalConfiguration.Configuration.EnableCors();
                 GlobalConfiguration.Configuration.Filters.Add(new CustomApiAuthorizeAttribute());
                 GlobalConfiguration.Configuration.Formatters.Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
-                GlobalConfiguration.Configuration.Services.Add(typeof(IExceptionLogger), new ApiExceptionLogger());
                 /*End Web API*/
 
                 AntiForgeryConfig.SuppressXFrameOptionsHeader = true;
@@ -95,6 +96,8 @@ namespace Fanex.Athena
                .FromApplication("Fanex.LAP");
                 BetListManager.RegisterRemotingRef(new CacheRef());
                 ResultCoreManager.RegisterRefDataHelper(new RefDataHelper());
+
+                DIConfig.Register();
             }
         }
 

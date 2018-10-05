@@ -18,11 +18,6 @@
 
         private ThirdPartyWinLossMetaModel _metaModel;
 
-        protected override void SetUpDataAccess()
-        {
-            DataAccess = Substitute.ForPartsOf<ThirdPartyWinLossDataAccess>(CreateSessionStorage());
-        }
-
         [SetUp]
         public override void SetUp()
         {

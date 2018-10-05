@@ -9,8 +9,8 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
-    using Core.Configuration;
     using Core.Configuration.Interfaces;
+    using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Extensions;
@@ -30,13 +30,11 @@ namespace Fanex.Athena.DataAccess.Report
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
-        public WinLossByProductDataAccess()
-        {
-            _balanceUpDataAccess = new BalanceUpDataAccess();
-        }
-
-        public WinLossByProductDataAccess(ISessionStorage sessionStorage, IBalanceUpDataAccess balanceUpDataAccess)
-            : base(null, sessionStorage)
+        public WinLossByProductDataAccess(
+            IAppSettings appSetting,
+            ISessionStorage sessionStorage,
+            IBalanceUpDataAccess balanceUpDataAccess)
+            : base(appSetting, sessionStorage)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
         }

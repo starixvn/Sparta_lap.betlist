@@ -166,7 +166,6 @@ describe('BetList ', () => {
     describe('_showTicketDetail ', () => {
         const props = {
             params : { CustId : 1, CurrencyId : 2, BaseCurrency : 3, ExcludeTestData : 4 },
-            xsrfToken : 'token',
             toggleLoader : jest.fn()
         };
         const betList = new BetList(props);
@@ -189,7 +188,6 @@ describe('BetList ', () => {
 
         it('fetch bet list data with correct parameters',() => {
             expect(Report.fetchGridData).toHaveBeenCalledWith('api/ExchangeWinLossBetList/Detail', {
-                xsrfToken: props.xsrfToken,
                 data: { 
                     CustId : props.params.CustId, 
                     CurrencyId : props.params.CurrencyId, 

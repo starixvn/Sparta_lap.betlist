@@ -34,12 +34,7 @@ namespace Fanex.Athena.Api.Report
     public class PlatformWinLossReportController : ApiReportBaseController
     {
         private readonly IPlatformWinLossDataAccess _platformWinLossDataAccess;
-
-        public PlatformWinLossReportController()
-        {
-            _platformWinLossDataAccess = new PlatformWinLossDataAccess();
-        }
-
+        
         public PlatformWinLossReportController(
             ISessionService sessionService,
             IProductService productService,
@@ -78,7 +73,6 @@ namespace Fanex.Athena.Api.Report
             return new ShowingOption
             {
                 BAVisible = productOptions.Any(p => p.Code == Product.BA && p.Status),
-                RBVisible = productOptions.Any(p => p.Code == Product.RB && p.Status),
                 NGVisible = productOptions.Any(p => p.Code == Product.NG && p.Status),
                 SBVisible = productOptions.Any(p => p.Code == Product.SB && p.Status),
                 VSVisible = productOptions.Any(p => p.Code == Product.VS && p.Status),
@@ -136,7 +130,7 @@ namespace Fanex.Athena.Api.Report
                 Param = metaModel,
                 CurrencyList = userSession.CurrencyList,
                 ProductAccess = productAccess,
-                Colspan = 7 + (productAccess.IsAllowBA ? 2 : 0) + (productAccess.IsAllowRB ? 2 : 0),
+                Colspan = 7 + (productAccess.IsAllowBA ? 2 : 0),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
             };
 

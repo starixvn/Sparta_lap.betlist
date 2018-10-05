@@ -14,13 +14,8 @@
     {
         private const string XFrameOptionHeaderName = "X-Frame-Options";
 
-        private readonly ISessionService _sessionService;
-
-        public XFrameOptionAttribute()
-        {
-            _sessionService = new SessionService();
-        }
-
+        public ISessionService SessionService { get; set; }
+        
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             AddXFrameOption(filterContext);
@@ -29,7 +24,7 @@
 
         private void AddXFrameOption(ActionExecutingContext actionContext)
         {
-            var user = _sessionService.UserSession;
+            var user = SessionService.UserSession;
 
             IEnumerable<string> headerValues = actionContext.HttpContext.Response.Headers.GetValues(XFrameOptionHeaderName);
 

@@ -6,9 +6,8 @@
     using Base.Attributes;
     using Extension.Utility;
     using Model.Report.MetaModel;
-    using Service.Core.Configuration;
+    using Service.Core.Common.Interfaces;
     using Service.Core.Configuration.Interfaces;
-    using Service.Report;
     using Service.Report.Interfaces;
 
     [AllowAnonymous]
@@ -20,14 +19,10 @@
 
         private readonly INotificationService _notificationService;
 
-        public NotificationApiController() : this(null, null)
-        {
-        }
-
         public NotificationApiController(IMoveBetService moveBetService, INotificationService notificationService)
         {
-            _moveBetService = moveBetService ?? new MoveBetService();
-            _notificationService = notificationService ?? new NotificationService();
+            _moveBetService = moveBetService;
+            _notificationService = notificationService;
         }
 
         private string UserName => (string)ActionContext.ActionArguments["username"];

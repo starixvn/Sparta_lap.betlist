@@ -14,10 +14,6 @@
 
     public class BonusBetListController : BetListBaseController
     {
-        public BonusBetListController()
-        {
-        }
-
         public BonusBetListController(
             ILanguageService languageService,
             ISessionService sessionService,

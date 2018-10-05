@@ -14,6 +14,7 @@ var excludeOption = ['reactpages'];
 module.exports = merge(baseConfigs,
     utils.setDefinePlugin('process.env.NODE_ENV', 'development'),
     {
+        mode: 'development',
         devtool: 'source-map',
         watch: true,
         plugins: [

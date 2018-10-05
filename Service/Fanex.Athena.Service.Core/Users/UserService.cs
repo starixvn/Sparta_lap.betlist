@@ -10,7 +10,6 @@
 namespace Fanex.Athena.Service.Core.Users
 {
     using System.Collections.Generic;
-    using Fanex.Athena.DataAccess.Core.Users;
     using Fanex.Athena.DataAccess.Core.Users.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Core.DTO.Users;
@@ -24,11 +23,6 @@ namespace Fanex.Athena.Service.Core.Users
         private const int UserNotExistError = 100;
 
         private readonly IUserDataAccess _userDataAccess;
-
-        public UserService()
-        {
-            this._userDataAccess = new UserDataAccess();
-        }
 
         public UserService(IUserDataAccess userDataAccess)
         {

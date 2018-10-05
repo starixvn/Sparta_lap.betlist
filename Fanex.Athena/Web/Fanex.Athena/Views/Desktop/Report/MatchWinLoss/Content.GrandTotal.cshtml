@@ -43,23 +43,8 @@
                 <td class="right-align text-bold">
                     @DesktopRazorHelper.NegativeFormat(dataGrandTotal.BACommission)
                 </td>
-            }
-            @if (Model.ProductAccess.IsAllowRB)
-            {
-                <td class="right-align text-bold">
-                    @DesktopRazorHelper.NegativeFormat(dataGrandTotal.RacingRevenue)
-                </td>
-            }
-            @if (Model.ProductAccess.IsAllowBA)
-            {
                 <td class="right-align text-bold">
                     @NumberHelper.DecFormat(@dataGrandTotal.AmtDueToBA)
-                </td>
-            }
-            @if (Model.ProductAccess.IsAllowRB)
-            {
-                <td class="right-align text-bold">
-                    @NumberHelper.DecFormat(@dataGrandTotal.AmtDueToRacing)
                 </td>
             }
         </tr>

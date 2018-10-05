@@ -3,11 +3,11 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { ActionCreators } from '../actions/index.js'
 import { bindActionCreators } from 'redux'
-import { Table, Row, Cell } from '../../../components/fixed-table-header'
-import LangHelper from '../../../lib/langHelper'
-import NumberFormat from '../../../lib/numberFormat'
-import ReportTitle from '../../../components/ReportTitle'
-import NoDataTitle from '../../../components/NoDataTitle'
+import { Table, Row, Cell } from '@jsroot/components/fixed-table-header'
+import LangHelper from '@jsroot/lib/langHelper'
+import NumberFormat from '@jsroot/lib/numberFormat'
+import ReportTitle from '@jsroot/components/ReportTitle'
+import NoDataTitle from '@jsroot/components/NoDataTitle'
 import service from '../lib/service'
 import { SettingConst } from '../constants/settingConst'
 
@@ -21,9 +21,9 @@ export class DataGrid extends Component {
         this.selectedReportBy = 0;
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (this.props.gridData !== nextProps.gridData) {
-            const { groupBy, selectedReportBy, selectedTimeZone, dateRange, selectedCurrency, selectedBaseCurrency, isConvertAll } = nextProps;
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.gridData !== prevProps.gridData) {
+            const { groupBy, selectedReportBy, selectedTimeZone, dateRange, selectedCurrency, selectedBaseCurrency, isConvertAll } = this.props;
             this.groupBy = groupBy;
             this.selectedReportBy = selectedReportBy;
             this.selectedBaseCurrency = selectedBaseCurrency;

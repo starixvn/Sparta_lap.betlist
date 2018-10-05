@@ -1,10 +1,10 @@
 ﻿namespace Fanex.Athena.Excel.BetList.UnitTests
 {
     using System.Linq;
+    using Athena.Model.BetList.DTO;
     using Constant.DataDomain;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
-    using Model.BetList.DTO;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
     using NSubstitute;
@@ -42,7 +42,7 @@
             _builder.Received(1).AddCell(Arg.Is<IRichTextString>(x => x.String == expectedValue));
         }
 
-        [TestCase("running", "-\n-")]
+        [TestCase("running", "-")]
         [TestCase("abc", "1,000.00\n2.99")]
         public void AddCustomerWL_Status_CallAddCell(string status, string expectedValue)
         {
@@ -219,7 +219,6 @@
 
         [TestCase(BetType.CashOutBought, false, "10,000.55\n1.44")]
         [TestCase(BetType.BetTradeBought, true, "-\n-")]
-        [TestCase(31, false, "10,000.55\n1.44")] // racing
         [TestCase(18000, false, "10,000.55\n1.44")] // colossus
         [TestCase(BetType.CorrectScore, true, "-")]
         [TestCase(BetType.CorrectScore, false, "10,001.99")]

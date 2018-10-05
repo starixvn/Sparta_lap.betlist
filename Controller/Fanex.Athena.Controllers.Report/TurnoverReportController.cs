@@ -17,7 +17,6 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
-    using Fanex.Athena.Service.Report;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
     using Resources;
@@ -32,10 +31,6 @@ namespace Fanex.Athena.Controllers.Report
     {
         private readonly ITurnoverService _turnoverService;
 
-        public TurnoverReportController() : this(null, null, null, null, null, null)
-        {
-        }
-
         public TurnoverReportController(
             ILanguageService languageService,
             ISessionService sessionService,
@@ -45,7 +40,7 @@ namespace Fanex.Athena.Controllers.Report
             ITurnoverService turnoverService)
             : base(languageService, sessionService, appSetting, clientViewHelper, productService)
         {
-            _turnoverService = turnoverService ?? new TurnoverService();
+            _turnoverService = turnoverService;
         }
 
         [HttpGet]

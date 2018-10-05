@@ -10,7 +10,6 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
     using Core;
-    using Core.Configuration;
     using Core.Configuration.Interfaces;
     using Core.Exception;
     using Extension.Helper;
@@ -27,15 +26,11 @@ namespace Fanex.Athena.DataAccess.Report
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
-        public PlatformWinLossDataAccess()
-        {
-            _balanceUpDataAccess = new BalanceUpDataAccess();
-        }
-
         public PlatformWinLossDataAccess(
+            IAppSettings appSetting,
             ISessionStorage sessionStorage,
             IBalanceUpDataAccess balanceUpDataAccess)
-            : base(null, sessionStorage)
+            : base(appSetting, sessionStorage)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
         }
@@ -174,9 +169,7 @@ namespace Fanex.Athena.DataAccess.Report
             totalData.CustomerComm += item.CustomerComm;
             totalData.LicenseeWL += item.LicenseeWL;
             totalData.BACommission += item.BACommission;
-            totalData.RacingRevenue += item.RacingRevenue;
             totalData.AmtDueToBA += item.AmtDueToBA;
-            totalData.AmtDueToRacing += item.AmtDueToRacing;
         }
 
         private SortableReportResultModel<PlatformWinLossMember> ReadMemberData(IDataReader reader, string baseCurrency)
@@ -189,10 +182,7 @@ namespace Fanex.Athena.DataAccess.Report
             var playerCommColumn = "PlayerComm" + baseCurrency;
             var licenseeWlColumn = "LicenseeWL" + baseCurrency;
             var commBaColumn = "CommBA" + baseCurrency;
-            var commRbColumn = "CommRB" + baseCurrency;
             var amtDueToBaComumn = "AmtDueToBA" + baseCurrency;
-            var amtDueToRbColumn = "AmtDueToRB" + baseCurrency;
-            var winLossRbColumn = "WinlossRB" + baseCurrency;
 
             var index = 1;
             while (reader.Read())
@@ -208,9 +198,7 @@ namespace Fanex.Athena.DataAccess.Report
                     CustomerComm = reader.ToDecimal(playerCommColumn),
                     LicenseeWL = reader.ToDecimal(licenseeWlColumn),
                     BACommission = reader.ToDecimal(commBaColumn),
-                    RacingRevenue = reader.ToDecimal(winLossRbColumn) + reader.ToDecimal(commRbColumn),
                     AmtDueToBA = reader.ToDecimal(amtDueToBaComumn),
-                    AmtDueToRacing = reader.ToDecimal(amtDueToRbColumn),
                     CurrencyId = reader.ToInt("Currency"),
                     SystemId = reader.ToString("username"),
                     CustomerId = reader.ToInt("custid"),

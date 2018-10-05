@@ -63,15 +63,14 @@ describe('PredefinedRanges', () => {
         })
     })
 
-    describe("componentWillReceiveProps", () => {
+    describe("componentDidUpdate", () => {
         it("Not change range - do nothing", () => {
-            const componentInstance = new PredefinedRanges(defaultProps);
+            const props = Object.assign({}, defaultProps);
+            const componentInstance = new PredefinedRanges(props);
             componentInstance._getSelectedRange = jest.fn();
             const expectedRangeName = componentInstance.selectedItem;
 
-            const nextProps = Object.assign({}, defaultProps);
-
-            componentInstance.componentWillReceiveProps(nextProps);
+            componentInstance.componentDidUpdate(defaultProps);
 
             expect(componentInstance._getSelectedRange).not.toHaveBeenCalled();
             expect(componentInstance.selectedItem).toBe(expectedRangeName);
@@ -80,12 +79,12 @@ describe('PredefinedRanges', () => {
         it("Range is changed - selectedItem value should be correct", () => {
             const expectedRangeName = "Yesterday";
 
-            const componentInstance = new PredefinedRanges(defaultProps);
+            const props = Object.assign({}, defaultProps);
+            const componentInstance = new PredefinedRanges(props);
             componentInstance._getSelectedRange = jest.fn(() => expectedRangeName);
 
-            const nextProps = Object.assign({}, defaultProps, { range: {} });
-
-            componentInstance.componentWillReceiveProps(nextProps);
+            props.range = {};
+            componentInstance.componentDidUpdate(defaultProps);
 
             expect(componentInstance.selectedItem).toBe(expectedRangeName);
         })

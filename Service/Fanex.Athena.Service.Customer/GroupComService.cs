@@ -10,9 +10,7 @@ namespace Fanex.Athena.Service.Customer
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
-    using Casino;
     using Casino.Interfaces;
-    using Fanex.Athena.DataAccess.Customer;
     using Fanex.Athena.DataAccess.Customer.Interfaces;
     using Fanex.Athena.Model.Casino.MetaModel;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -26,14 +24,10 @@ namespace Fanex.Athena.Service.Customer
 
         private readonly IGroupComDataAccess _groupDataAccess;
 
-        public GroupComService() : this(null, null)
-        {
-        }
-
         public GroupComService(ICasinoCustomerService casinoCustomerService, IGroupComDataAccess groupDataAccess)
         {
-            _casinoCustomerService = casinoCustomerService ?? new CasinoCustomerService();
-            _groupDataAccess = groupDataAccess ?? new GroupComDataAccess();
+            _casinoCustomerService = casinoCustomerService;
+            _groupDataAccess = groupDataAccess;
         }
 
         public IList<GroupCommMetaModel> GetAll(int licenseeId)

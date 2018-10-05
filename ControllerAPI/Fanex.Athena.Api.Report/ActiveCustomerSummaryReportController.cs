@@ -13,7 +13,6 @@ namespace Fanex.Athena.Api.Report
     using System.Web.Hosting;
     using System.Web.Http;
     using Base.Attributes;
-    using DataAccess.Report;
     using DataAccess.Report.Interfaces;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
@@ -32,11 +31,6 @@ namespace Fanex.Athena.Api.Report
     public class ActiveCustomerSummaryReportController : ApiReportBaseController
     {
         private readonly IActiveCustomerSummaryDataAccess _activeCustomerSummaryDataAccess;
-
-        public ActiveCustomerSummaryReportController()
-        {
-            _activeCustomerSummaryDataAccess = new ActiveCustomerSummaryDataAccess();
-        }
 
         public ActiveCustomerSummaryReportController(
             IActiveCustomerSummaryDataAccess activeCustomerSummaryDataAccess,
@@ -109,7 +103,6 @@ namespace Fanex.Athena.Api.Report
             var showingOption = new ShowingOption
             {
                 BAVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.BA) && productAccess.IsAllowBA,
-                RBVisible = metaModel.ProductOptions.Any(a => a.Status && a.Code == Product.RB) && productAccess.IsAllowRB,
                 CustomerCommVisible = licenseeSession.IsAllowedCustomerComm
             };
 

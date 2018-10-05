@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using Fanex.Athena.DataAccess.Report;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Report.MetaModel;
@@ -18,11 +17,6 @@
     public class ResultService : IResultService
     {
         private readonly IResultDataAccess _dataAccess;
-
-        public ResultService()
-        {
-            this._dataAccess = new ResultDataAccess();
-        }
 
         public ResultService(IResultDataAccess dataAccess)
         {
@@ -75,9 +69,9 @@
             return this._dataAccess.GetNumberGameMatches(metalModel);
         }
 
-        public IList<Racing> GetRacingMatches(ResultMetalModel metalModel)
+        public IList<Racing> GetVirtualSportMatches(ResultMetalModel metalModel)
         {
-            return this._dataAccess.GetRacingMatches(metalModel);
+            return this._dataAccess.GetVirtualSportMatches(metalModel);
         }
 
         #endregion Report
@@ -96,7 +90,7 @@
             return this._dataAccess.GetPopUpMatches<Sportsbook>(metalModel);
         }
 
-        public IList<Racing> GetPopUpRacingMatch(ResultPopupMetalModel metalModel)
+        public IList<Racing> GetPopUpVirtualSportMatch(ResultPopupMetalModel metalModel)
         {
             return this._dataAccess.GetPopUpMatches<Racing>(metalModel);
         }

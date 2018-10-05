@@ -10,7 +10,6 @@ namespace Fanex.Athena.Controllers
     using System.Web.Mvc;
     using Extension.Utility;
     using Fanex.Athena.Model.Core.ViewModel;
-    using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Model.Core.DataDomain;
     using Service.Core.Helpers;
@@ -22,11 +21,6 @@ namespace Fanex.Athena.Controllers
     public class MenuController : BaseController
     {
         private readonly IFunctionService _functionService;
-
-        public MenuController()
-        {
-            _functionService = new FunctionService();
-        }
 
         public MenuController(
             ILanguageService languageService,

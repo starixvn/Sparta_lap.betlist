@@ -44,13 +44,13 @@ namespace Fanex.Athena.Session.Model
 
         public bool IsInternal { get; set; }
 
-        public IList<int> FunctionIdList { get; set; }
+        public int[] FunctionIdList { get; set; }
 
-        public IList<string> PortalFunctionList { get; set; }
+        public string[] PortalFunctionList { get; set; }
 
         public IDictionary<int, string> CurrencyList { get; set; }
 
-        public IDictionary<int, IEnumerable<int>> CurrencyAgentList { get; set; }
+        public IDictionary<int, int[]> CurrencyAgentList { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Sonar Code Smell", "S3996:UriPropertiesShouldNotBeStrings",
             Justification = "Reviewed. Suppression is OK here.")]

@@ -23,12 +23,7 @@ namespace Fanex.Athena.Controllers.TotalBets
     public class MoneyLineTotalBetController : TotalBetBaseController
     {
         private readonly IMoneyLineDataAccess _moneyLineDataAccess;
-
-        public MoneyLineTotalBetController()
-        {
-            _moneyLineDataAccess = new MoneyLineDataAccess();
-        }
-
+        
         public MoneyLineTotalBetController(
             ILanguageService languageService,
             ISessionService sessionService,

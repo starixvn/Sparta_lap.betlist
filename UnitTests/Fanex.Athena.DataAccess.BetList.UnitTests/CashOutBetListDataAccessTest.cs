@@ -30,7 +30,8 @@
                 metaModel.RefNo,
                 metaModel.BetType,
                 OriginalTransId = metaModel.BetdaqId,
-                AgentList = metaModel.AgentListXml
+                AgentList = metaModel.AgentListXml,
+                metaModel.BaseCurrency
             };
 
             DataAccess.GetObjectDb(Arg.Is(UspName)).Returns(ObjectDb);
@@ -49,7 +50,7 @@
         {
             // Arrange
             const string UserName = "user1";
-            const int PlayerCommUsd = 999;
+            const int PlayerComm = 999;
 
             var safeReader = Substitute.For<ISafeDataReader>();
             DataAccess.GetObjectDb(Arg.Is(UspName)).Returns(ObjectDb);
@@ -58,19 +59,16 @@
             safeReader.Read().Returns(true, false);
 
             safeReader.GetString("username").Returns(UserName);
-            safeReader.GetDecimal("playercommusd").Returns(PlayerCommUsd);
+            safeReader.GetDecimal("playercomm").Returns(PlayerComm);
 
             // Action
-            var result = DataAccess.GetDetail(new CashOutBetListDetailMetaModel
-            {
-                BaseCurrency = "usd"
-            });
+            var result = DataAccess.GetDetail(new CashOutBetListDetailMetaModel());
 
             // Assert
             Assert.Multiple(() =>
             {
                 Assert.That(result.OriginalTicket.UserName, Is.EqualTo(UserName));
-                Assert.That(result.OriginalTicket.PlayerComm, Is.EqualTo(PlayerCommUsd));
+                Assert.That(result.OriginalTicket.PlayerComm, Is.EqualTo(PlayerComm));
             });
         }
 
@@ -86,15 +84,12 @@
             var dataReader = new
             {
                 BetType = 1,
-                StakeUsd = 2
+                Stake = 2
             };
             MapReaderData(dataReader);
 
             // Action
-            var result = DataAccess.GetDetail(new CashOutBetListDetailMetaModel
-            {
-                BaseCurrency = "usd"
-            });
+            var result = DataAccess.GetDetail(new CashOutBetListDetailMetaModel());
 
             var firstCashoutTicket = result.CashOutTicketList.First();
 
@@ -102,7 +97,7 @@
             Assert.Multiple(() =>
             {
                 Assert.That(firstCashoutTicket.BetType, Is.EqualTo(dataReader.BetType));
-                Assert.That(firstCashoutTicket.Stake, Is.EqualTo(dataReader.StakeUsd));
+                Assert.That(firstCashoutTicket.Stake, Is.EqualTo(dataReader.Stake));
             });
         }
 

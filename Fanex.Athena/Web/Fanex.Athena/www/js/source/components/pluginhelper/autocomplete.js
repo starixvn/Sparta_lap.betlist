@@ -1,5 +1,6 @@
 ﻿// require option properties: suggestionDropdown, url, target
-define(["jquery", "common/site", "materialize-autocomplete"], function ($, Site) {
+define(["jquery", "common/site", "vendor-materialize", "materialize-autocomplete"],
+    function ($, Site) {
     "use strict";
 
     var mainOption = {

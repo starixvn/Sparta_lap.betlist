@@ -1,6 +1,5 @@
 ﻿namespace Fanex.Athena.Api.BetList
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Http;
@@ -11,38 +10,18 @@
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
-    using Fanex.BetList.Core.TicketHelper;
-    using Resources;
-    using Service.BetList;
+    using Service.BetList.Extensions;
     using Service.BetList.Helpers;
     using Service.BetList.Interfaces;
     using Service.Core.Users.Interfaces;
-    using VendorAdapter;
     using VendorAdapter.Interfaces;
 
     [ApiFunctionAuthorization(PermissionKeys.ReportLastBetsMonitoring)]
     public class LastBetMonitoringBetListController : BaseApiController
     {
-        private static readonly IDictionary<string, string> MapPlatformCode = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
-        {
-            { "a", nameof(ViewResources.China) },
-            { "z", nameof(ViewResources.China) },
-            { "d", nameof(ViewResources.Asia) },
-            { "g", nameof(ViewResources.Asia) },
-            { "e", nameof(ViewResources.Euro) },
-            { "u", nameof(ViewResources.Euro) },
-            { "y", nameof(ViewResources.Euro) },
-            { "m", nameof(ViewResources.Wap) },
-            { "s", nameof(ViewResources.SmartSite) },
-            { "l", nameof(ViewResources.SmartSite) },
-            { "r", nameof(ViewResources.Tablet) },
-            { "x", nameof(ViewResources.NewAsia) }
-        };
-
         private static readonly IEnumerable<int> ConvertingDecimalOddsBetType = new[] { 1, 2, 3, 7, 8, 12, 20 };
 
         private readonly IMatchService _matchService;
@@ -52,14 +31,6 @@
         private readonly ITicketHelper _ticketHelper;
 
         private readonly ICacheRefAdapter _cacheRefAdapter;
-
-        public LastBetMonitoringBetListController()
-        {
-            _matchService = new MatchService();
-            _lastBetsMonitoringBetListService = new LastBetsMonitoringBetListService();
-            _ticketHelper = new TicketHelper();
-            _cacheRefAdapter = new CacheRefAdapter();
-        }
 
         public LastBetMonitoringBetListController(
             ISessionService sessionService,
@@ -141,37 +112,6 @@
             }
         }
 
-        private static string GetPlatformText(string platformCode)
-        {
-            var code = platformCode.Trim();
-            return MapPlatformCode.ContainsKey(code) ?
-                ViewResources.ResourceManager.GetString(MapPlatformCode[code]) :
-                ViewResources.Others;
-        }
-
-        private static string GetLasBetMonitoringStatus(ITicket ticket)
-        {
-            const string PatternStatusBetlist = "<label style='color:{0}'>{1}</label>";
-            if (ticket.BetTypeId == (int)BetType.MixParlay || ticket.BetTypeId == (int)BetType.CombinationMixParlay)
-            {
-                switch (ticket.LiveHomeScore)
-                {
-                    case 1:
-                        return string.Format(PatternStatusBetlist, "#cc0033", ViewResources.Live);
-
-                    case 2:
-                        return string.Format(PatternStatusBetlist, "#0033ff", ViewResources.MixLiveAndNoneLive);
-
-                    default:
-                        return string.Format(PatternStatusBetlist, "#000", ViewResources.NoneLive);
-                }
-            }
-
-            return ticket.IsLive
-                ? string.Format(PatternStatusBetlist, "#cc0033", ViewResources.Live)
-                : string.Format(PatternStatusBetlist, "#000", ViewResources.NoneLive);
-        }
-
         private string GetLastMonitorBetListContent(LastBetsMonitoringMetaModel metaModel, TicketResult ticketResult)
         {
             var builder = new BetListHTMLBuilder();
@@ -182,7 +122,7 @@
                 var row = $"<tr class='content-row monitor-hightlight' id='trans-{ticket.TransId}' data-transid='{ticket.TransId}'>";
                 builder.Append(row);
 
-                builder.Append($"<td data-name='Platform'>{GetPlatformText(ticket.BetFrom)}</td>");
+                builder.Append($"<td data-name='Platform'>{PlatformType.GetPlatformName(ticket.BetFrom.Trim())}</td>");
                 builder.Append($"<td data-name='ExternalId' class='special-color-{ticket.SpecialLevel}'>{ticket.ExternalId}</td>");
                 builder.Append($"<td data-name='SystemId' class='special-color-{ticket.SpecialLevel}'>{ticket.UserName}</td>");
                 builder.AddTrans(ticket, "<td data-name='TransTime' class='special-color-0'>", "</td>");
@@ -195,7 +135,7 @@
                     false);
                 BuildOdds(metaModel, ticketResult, ticket, builder);
                 builder.AddStake(ticket, "<td data-name='Stake' class='bl-stake'>", "</td>");
-                builder.Append($"<td data-name='Status' class='bl-status'>{GetLasBetMonitoringStatus(ticket)}</td></tr>");
+                builder.Append($"<td data-name='Status' class='bl-status'>{builder.BuildLiveStatus(ticket)}</td></tr>");
             }
 
             return builder.GetBetList();

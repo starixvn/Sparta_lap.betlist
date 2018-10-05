@@ -20,19 +20,13 @@ namespace Fanex.Athena.Model.Customer.MetaModel
         public MoveToGroupComMetaModel(ProductAccess productAccess)
         {
             IsAllowedNG = productAccess.IsAllowNG;
-            IsAllowedRC = productAccess.IsAllowRB;
             IsAllowedRNG = productAccess.IsAllowCS;
-            IsAllowedAB = productAccess.IsAllowAB;
         }
 
         public int GroupComId { get; set; }
 
         public bool IsAllowedNG { get; set; }
 
-        public bool IsAllowedRC { get; set; }
-
         public bool IsAllowedRNG { get; set; }
-
-        public bool IsAllowedAB { get; set; }
     }
 }

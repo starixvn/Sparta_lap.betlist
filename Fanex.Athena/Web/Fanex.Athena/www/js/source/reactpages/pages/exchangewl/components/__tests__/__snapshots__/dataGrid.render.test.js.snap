@@ -679,7 +679,7 @@ exports[`Render DataGrid components  Render grid No data gridData length is 0 - 
     <p
       className="report-title"
     >
-      ExchangeWinLoss
+      
     </p>
   </div>
   <p

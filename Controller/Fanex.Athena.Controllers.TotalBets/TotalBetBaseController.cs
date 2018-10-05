@@ -18,10 +18,6 @@ namespace Fanex.Athena.Controllers.TotalBets
     [CheckUMFilter]
     public class TotalBetBaseController : BaseController
     {
-        public TotalBetBaseController()
-        {
-        }
-
         public TotalBetBaseController(
             ILanguageService languageService,
             ISessionService sessionService,

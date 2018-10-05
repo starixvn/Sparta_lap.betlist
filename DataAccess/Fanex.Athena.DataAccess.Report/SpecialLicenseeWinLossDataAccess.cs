@@ -17,10 +17,6 @@
 
     public class SpecialLicenseeWinLossDataAccess : BaseDataAccess, ISpecialLicenseeWinLossDataAccess
     {
-        public SpecialLicenseeWinLossDataAccess()
-        {
-        }
-
         public SpecialLicenseeWinLossDataAccess(
             IAppSettings appSetting,
             ISessionStorage sessionStorage)
@@ -28,8 +24,7 @@
         {
         }
 
-        public ReportResultModel<LicenseeWinLoss> GetData(
-            SpecialLicenseeWinLossMetaModel metaModel)
+        public ReportResultModel<LicenseeWinLoss> GetData(SpecialLicenseeWinLossMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_LicWinloss_FromAPI";
             try

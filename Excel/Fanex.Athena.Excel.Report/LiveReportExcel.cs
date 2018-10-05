@@ -154,7 +154,7 @@ namespace Fanex.Athena.Excel.Report
                 sheet.HideRow(SummarySectionRowIndex + 2);
             }
 
-            if (!ShowingOption.BAVisible && !ShowingOption.RBVisible)
+            if (!ShowingOption.BAVisible)
             {
                 sheet.HideColumn(ColumnLicenseeComm);
             }

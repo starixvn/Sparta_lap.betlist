@@ -9,23 +9,14 @@ namespace Fanex.Athena.Model.Report.MetaModel
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.MetaModel.Product;
     using Model.Core.MetaModel;
 
     public class BaseReportMetaModel : BaseMetaModel
     {
-        private readonly IAppSettings _appSettings;
-
         public BaseReportMetaModel()
-            : this(new AppSettings())
         {
-        }
-
-        public BaseReportMetaModel(IAppSettings appSetting)
-        {
-            _appSettings = appSetting;
             ProductOptions = new List<ProductOption>();
             FromDate = DateTime.Today;
             ToDate = DateTime.Today;
@@ -63,14 +54,6 @@ namespace Fanex.Athena.Model.Report.MetaModel
             {
                 return FromDate <= ToDate
                     && ProductOptions.Any(p => p.Status);
-            }
-        }
-
-        public bool IsOld
-        {
-            get
-            {
-                return FromDate < _appSettings.HistoryDate;
             }
         }
     }

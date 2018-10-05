@@ -7,7 +7,6 @@ namespace Fanex.Athena.Service.Report
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Fanex.Athena.DataAccess.Report;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
@@ -17,11 +16,6 @@ namespace Fanex.Athena.Service.Report
     public class ColossusBetsWinLossService : IColossusBetsWinLossService
     {
         private readonly IColossusBetsWinLossDataAccess _colossusBetsWinLossDataAccess;
-
-        public ColossusBetsWinLossService()
-        {
-            this._colossusBetsWinLossDataAccess = new ColossusBetsWinLossDataAccess();
-        }
 
         public ColossusBetsWinLossService(IColossusBetsWinLossDataAccess dataAccess)
         {

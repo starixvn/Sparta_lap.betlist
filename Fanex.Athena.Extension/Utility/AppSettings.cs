@@ -92,7 +92,7 @@ namespace Fanex.Athena.Extension.Utility
             get { return int.Parse(GetValue("EnableSessionValidatingService")) != 0; }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Sonar Code Smell", "S3996:UriPropertiesShouldNotBeStrings",
+        [SuppressMessage("Sonar Code Smell", "S3996:UriPropertiesShouldNotBeStrings",
             Justification = "Reviewed. Suppression is OK here.")]
         public string RemoteRefUrl
         {

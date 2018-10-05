@@ -159,12 +159,6 @@
   <data name="AmtDueTo" xml:space="preserve">
     <value>Amt Due To</value>
   </data>
-  <data name="AmtDueToBABalanceNote" xml:space="preserve">
-    <value>Amt Due To BA: BA settlement amount Licensee needs to pay or receive for BA.</value>
-  </data>
-  <data name="AmtDueToRacingBalanceNote" xml:space="preserve">
-    <value>Amt Due To Racing: Racing settlement amount Licensee needs to pay or receive for Racing products</value>
-  </data>
   <data name="April" xml:space="preserve">
     <value>April</value>
   </data>
@@ -193,20 +187,11 @@
   <data name="BackToCurrentReport" xml:space="preserve">
     <value>Back to current report</value>
   </data>
-  <data name="BAComissionBalanceNote" xml:space="preserve">
-    <value>BA Commission: Licensee commission income for BA tickets.</value>
-  </data>
   <data name="BACommission" xml:space="preserve">
     <value>BA Commission</value>
   </data>
   <data name="Balance" xml:space="preserve">
     <value>Balance</value>
-  </data>
-  <data name="BalanceInformation" xml:space="preserve">
-    <value>Balance Information</value>
-  </data>
-  <data name="BalanceTitle" xml:space="preserve">
-    <value>Balance Information - {0}</value>
   </data>
   <data name="BANote" xml:space="preserve">
     <value>BA status can only be changed on Monday from 1PM to 5PM (GMT+8)</value>
@@ -316,9 +301,6 @@
   <data name="ConvertTo" xml:space="preserve">
     <value>Convert to</value>
   </data>
-  <data name="CopyBetSettingFromRacing" xml:space="preserve">
-    <value>Copy All Bet Setting from Racing</value>
-  </data>
   <data name="CopyBetSettingFromSoccer" xml:space="preserve">
     <value>Copy All Bet Setting from Soccer</value>
   </data>
@@ -364,9 +346,6 @@
   <data name="CustomerOption" xml:space="preserve">
     <value>Customer Option</value>
   </data>
-  <data name="CustomerOverall" xml:space="preserve">
-    <value>Customer (Overall)</value>
-  </data>
   <data name="CustomerPedingFunds" xml:space="preserve">
     <value>Customer Pending Funds</value>
   </data>
@@ -390,18 +369,6 @@
   </data>
   <data name="DailyBetList" xml:space="preserve">
     <value>Daily Bet List</value>
-  </data>
-  <data name="DailyRacing12BetTitle" xml:space="preserve">
-    <value>12Bet Daily Racing Win Loss on {0} - {1}</value>
-  </data>
-  <data name="DailyRacingTitle" xml:space="preserve">
-    <value>Daily Racing Win Loss on {1} - {2}</value>
-  </data>
-  <data name="DailyRacingWinLoss" xml:space="preserve">
-    <value>Daily Racing Win Loss</value>
-  </data>
-  <data name="DataWareHouse" xml:space="preserve">
-    <value>Data Warehouse</value>
   </data>
   <data name="Date" xml:space="preserve">
     <value>Date</value>
@@ -429,9 +396,6 @@
   </data>
   <data name="DisableSSOMsg" xml:space="preserve">
     <value>Single Sign On to LRF is disabled.</value>
-  </data>
-  <data name="DividendWon" xml:space="preserve">
-    <value>Dividend Won</value>
   </data>
   <data name="Dontshowagain" xml:space="preserve">
     <value>Don't show again</value>
@@ -658,9 +622,6 @@
   <data name="KickOffTime" xml:space="preserve">
     <value>Kick Off. Time</value>
   </data>
-  <data name="LastActivityDate" xml:space="preserve">
-    <value>Last Activity Date</value>
-  </data>
   <data name="LastBetsMonitoring" xml:space="preserve">
     <value>Last Bets Monitoring</value>
   </data>
@@ -705,9 +666,6 @@
   </data>
   <data name="Licensee" xml:space="preserve">
     <value>Licensee</value>
-  </data>
-  <data name="Licensee12Bet" xml:space="preserve">
-    <value>12Bet Licensee</value>
   </data>
   <data name="LicenseeFee" xml:space="preserve">
     <value>Licensee Fee</value>
@@ -1040,9 +998,6 @@
   <data name="Place" xml:space="preserve">
     <value>Place</value>
   </data>
-  <data name="PlaceTO" xml:space="preserve">
-    <value>Place TO</value>
-  </data>
   <data name="Postponed" xml:space="preserve">
     <value>Postponed</value>
   </data>
@@ -1072,25 +1027,6 @@
   </data>
   <data name="Race" xml:space="preserve">
     <value>Race</value>
-  </data>
-  <data name="ProductRB" xml:space="preserve">
-    <value>Racing</value>
-    <comment>#49196</comment>
-  </data>
-  <data name="RacingComm" xml:space="preserve">
-    <value>Racing Comm</value>
-  </data>
-  <data name="RacingCommission" xml:space="preserve">
-    <value>Racing Commission</value>
-  </data>
-  <data name="RacingCommissionTitle" xml:space="preserve">
-    <value>Racing Commission, {0} --&gt; {1} - {2}</value>
-  </data>
-  <data name="RacingRevenue" xml:space="preserve">
-    <value>Racing Revenue</value>
-  </data>
-  <data name="RacingRevenueBalanceNote" xml:space="preserve">
-    <value>Racing Revenue: Horse racing Revenue.</value>
   </data>
   <data name="RCCommission" xml:space="preserve">
     <value>RC Commission</value>
@@ -1274,9 +1210,6 @@
   <data name="Team" xml:space="preserve">
     <value>Team</value>
   </data>
-  <data name="TermDefinition" xml:space="preserve">
-    <value>Term Definition</value>
-  </data>
   <data name="TF" xml:space="preserve">
     <value>TF</value>
   </data>
@@ -1316,9 +1249,6 @@
   <data name="TotalBets" xml:space="preserve">
     <value>Total Bets</value>
   </data>
-  <data name="TotalCustomerActiveClosedSuspended" xml:space="preserve">
-    <value>Total Customer active/closed/suspended</value>
-  </data>
   <data name="TotalGames" xml:space="preserve">
     <value>Total Games</value>
   </data>
@@ -1339,9 +1269,6 @@
   </data>
   <data name="TotalSet" xml:space="preserve">
     <value>Total Set</value>
-  </data>
-  <data name="TotalTO" xml:space="preserve">
-    <value>Total TO</value>
   </data>
   <data name="TotalTransaction" xml:space="preserve">
     <value>Total Transaction</value>
@@ -1384,9 +1311,6 @@
   </data>
   <data name="UpdateNumberGameBetSettingSuccessMsg" xml:space="preserve">
     <value>The Number Game bet setting of {0} was updated successfully</value>
-  </data>
-  <data name="UpdateRacingBetSettingSuccessMsg" xml:space="preserve">
-    <value>The Racing bet setting of {0} was updated successfully</value>
   </data>
   <data name="UpdateSportsbookBetSettingSuccessMsg" xml:space="preserve">
     <value>The Sportsbook bet setting of {0} was updated successfully</value>
@@ -1446,9 +1370,6 @@
   <data name="WinPlace" xml:space="preserve">
     <value>Win Place</value>
   </data>
-  <data name="WinTO" xml:space="preserve">
-    <value>Win TO</value>
-  </data>
   <data name="Withdrawal" xml:space="preserve">
     <value>Withdrawal</value>
   </data>
@@ -1457,9 +1378,6 @@
   </data>
   <data name="WorstWinLoss" xml:space="preserve">
     <value>Worst Win Loss</value>
-  </data>
-  <data name="WPTO" xml:space="preserve">
-    <value>W/P TO</value>
   </data>
   <data name="Year" xml:space="preserve">
     <value>Year</value>
@@ -1893,12 +1811,6 @@
   <data name="AmtDueToBA" xml:space="preserve">
     <value>Amt Due To BA</value>
   </data>
-  <data name="AmtDueToRacing" xml:space="preserve">
-    <value>Amt Due To Racing</value>
-  </data>
-  <data name="Licenseegrossrevenuefor" xml:space="preserve">
-    <value>Licensee gross revenue for {0}</value>
-  </data>
   <data name="CS" xml:space="preserve">
     <value>CS</value>
   </data>
@@ -1949,9 +1861,6 @@
   </data>
   <data name="UpdateNumberGameBetSettings" xml:space="preserve">
     <value>Are you sure you want to update all Number Game bet settings?</value>
-  </data>
-  <data name="UpdateRacingBetSettings" xml:space="preserve">
-    <value>Are you sure you want to update all Racing bet settings?</value>
   </data>
   <data name="UpdateSportsbookBetSettings" xml:space="preserve">
     <value>Are you sure you want to update all Sportsbook bet settings?</value>
@@ -2592,12 +2501,6 @@
   <data name="BetTradeCommission" xml:space="preserve">
     <value>Bet Trade Commission</value>
   </data>
-  <data name="AmtDueToBetTradeBalanceNote" xml:space="preserve">
-    <value>Amt Due To BetTrade: BetTrade settlement amount Licensee needs to pay or receive for BetTrade.</value>
-  </data>
-  <data name="BetTradeComissionBalanceNote" xml:space="preserve">
-    <value>BetTrade Commission: Licensee commission income for BetTrade tickets.</value>
-  </data>
   <data name="MicrogamingWinLoss" xml:space="preserve">
     <value>Microgaming Win Loss</value>
   </data>
@@ -3008,10 +2911,6 @@
     <value>New Asia</value>
     <comment>#85203</comment>
   </data>
-  <data name="ABComm" xml:space="preserve">
-    <value>AllBet Comm</value>
-    <comment>82036</comment>
-  </data>
   <data name="AB" xml:space="preserve">
     <value>AB</value>
     <comment>82036</comment>
@@ -3174,6 +3073,34 @@
   <data name="SubsidiaryNotHaveCurrencyMsg" xml:space="preserve">
     <value>Please contact admin to check your subsidiary name.</value>
     <comment>#95177</comment>
+  </data>
+  <data name="BettingTicketCenter" xml:space="preserve">
+    <value>Betting Ticket Center</value>
+    <comment>80941</comment>
+  </data>
+  <data name="Reject" xml:space="preserve">
+    <value>Reject</value>
+    <comment>80941</comment>
+  </data>
+  <data name="Void" xml:space="preserve">
+    <value>Void</value>
+    <comment>80941</comment>
+  </data>
+  <data name="BettingTicketCenter_MultiCustomersTabNote" xml:space="preserve">
+    <value>Note: Sport/ Bettype/ League/ Match can be selected all for 1 selected date.</value>
+    <comment>80941</comment>
+  </data>
+  <data name="BettingTicketCenter_RefnoTabNote" xml:space="preserve">
+    <value>Note: For Sportsbook, the search result includes the related Bonus/Cash tickets.</value>
+    <comment>80941</comment>
+  </data>
+  <data name="MultipleCustomers" xml:space="preserve">
+    <value>Multiple Customers</value>
+    <comment>80941</comment>
+  </data>
+  <data name="SingleCustomer" xml:space="preserve">
+    <value>Single Customer</value>
+    <comment>80941</comment>
   </data>
   <data name="ProductPP" xml:space="preserve">
     <value>PP</value>

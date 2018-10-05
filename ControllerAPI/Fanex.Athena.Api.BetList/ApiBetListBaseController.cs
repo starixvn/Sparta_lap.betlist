@@ -13,30 +13,24 @@ namespace Fanex.Athena.Api.BetList
     using System.Linq;
     using Base;
     using Constant.DataDomain;
-    using DataAccess.Core.Configuration;
     using DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Model.BetList.DTO;
     using Fanex.Athena.Model.BetList.MetaModel;
-    using Fanex.Athena.Service.BetList;
     using Fanex.Athena.Service.BetList.Extensions;
     using Fanex.Athena.Service.BetList.Interfaces;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
-    using Fanex.BetList.Core.TicketHelper;
     using Model.Core.DTO.Configuration;
     using Service.BetList.Helpers;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
-    using VendorAdapter;
     using VendorAdapter.Interfaces;
 
     #endregion Using
 
     public class ApiBetListBaseController : BaseApiController
     {
-        private static readonly int[] RacingBetType = { 31, 32, 33, 41, 42, 43 };
-
         private readonly IBetListService _betListService;
 
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
@@ -47,11 +41,8 @@ namespace Fanex.Athena.Api.BetList
 
         private readonly IBetListHTMLBuilder _betlistHtmlBuilder;
 
-        public ApiBetListBaseController() : this(null, null, null, null, null, null, null, null)
-        {
-        }
-
 #pragma warning disable S107 // Methods should not have too many parameters
+
         public ApiBetListBaseController(
             ISessionService sessionService,
             IProductService productService,
@@ -64,11 +55,11 @@ namespace Fanex.Athena.Api.BetList
 #pragma warning restore S107 // Methods should not have too many parameters
         : base(sessionService, productService, languageService)
         {
-            _betListService = betListService ?? new BetListService();
-            _balanceUpDataAccess = balanceUpDataAccess ?? new BalanceUpDataAccess();
-            _ticketHelper = ticketHelper ?? new TicketHelper();
-            _cacheRefAdapter = cacheRefAdapter ?? new CacheRefAdapter();
-            _betlistHtmlBuilder = betlistHtmlBuilder ?? new BetListHTMLBuilder();
+            _betListService = betListService;
+            _balanceUpDataAccess = balanceUpDataAccess;
+            _ticketHelper = ticketHelper;
+            _cacheRefAdapter = cacheRefAdapter;
+            _betlistHtmlBuilder = betlistHtmlBuilder;
         }
 
         protected IBetListService BetListService
@@ -79,11 +70,6 @@ namespace Fanex.Athena.Api.BetList
         protected ICacheRefAdapter CacheRefAdapter
         {
             get { return _cacheRefAdapter; }
-        }
-
-        protected static bool IsRacing(int betType)
-        {
-            return RacingBetType.Contains(betType);
         }
 
         protected BalanceUp GetBalanceUp()

@@ -20,7 +20,7 @@
             DataAccess.GetCustomerInfo(CustId);
 
             // Assert
-            ObjectDb.Received().AddInParameter("custid", DbType.Int32, CustId);
+            ObjectDb.Received(1).AddInParameter("custid", DbType.Int32, CustId);
         }
     }
 }

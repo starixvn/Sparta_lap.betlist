@@ -77,11 +77,11 @@ describe('DateRange ', () => {
             const dateRange = new DateRange(defaultProps);
 
             expect(dateRange.styles).toEqual(expectedStyle);
-            expect(dateRange.step).toEqual(0);
+            expect(dateRange.calendarSelectionStep).toEqual(0);
             expect(dateRange.locale).toEqual(locale);
             expect(dateRange.ranges).toEqual({});
             expect(dateRange.isValid).toEqual(true);
-            expect(dateRange.currentRange).toEqual(defaultRange);
+            expect(dateRange.originalRange).toEqual(defaultRange);
         })
 
         it('State should be correct', () => {
@@ -108,14 +108,14 @@ describe('DateRange ', () => {
             const props = Object.assign({}, defaultProps, { startDate });
             const dateRange = new DateRange(props);
 
-            expect(dateRange.currentRange.startDate).toEqual(expectedStartDate);
+            expect(dateRange.originalRange.startDate).toEqual(expectedStartDate);
         })
 
         it('date is object but not moment - return null', () => {
             const props = Object.assign({}, defaultProps, { startDate: {} });
             const dateRange = new DateRange(props);
 
-            expect(dateRange.currentRange.startDate).toEqual(null);
+            expect(dateRange.originalRange.startDate).toEqual(null);
         })
     })
 
@@ -146,7 +146,7 @@ describe('DateRange ', () => {
         it('show - step should be 0', () => {
             dateRange.show();
 
-            expect(dateRange.step).toBe(0);
+            expect(dateRange.calendarSelectionStep).toBe(0);
         })
 
         it('show - setState should be called with correct parameter', () => {
@@ -215,62 +215,19 @@ describe('DateRange ', () => {
             function assertSetRangeWithValidMonthRange(show) {
                 const dateRange = new DateRange(defaultProps);
                 dateRange.isValidMonthRange = jest.fn(() => true);
-                let stateToUpdate;
-                dateRange.setState = jest.fn((newState) => { stateToUpdate = newState });
+                dateRange.setState = jest.fn();
 
                 const range = Object.assign({}, defaultRange);
                 const expectedState = show === undefined ? { range } : { range, show };
-                const triggerChange = false;
 
-                dateRange.setRange(range, triggerChange, show);
+                dateRange.setRange(range, show);
 
-                expect(stateToUpdate).toEqual(expectedState);
+                expect(dateRange.setState).toHaveBeenCalledWith(expectedState);
             }
 
             assertSetRangeWithValidMonthRange();
             assertSetRangeWithValidMonthRange(true);
             assertSetRangeWithValidMonthRange(false);
-        })
-
-        it('valid month range - trigger change is true - callback should be called with correct parameter', () => {
-            const onChange = jest.fn();
-
-            const props = Object.assign({}, defaultProps, { onChange });
-            const dateRange = new DateRange(props);
-            dateRange.isValidMonthRange = jest.fn(() => true);
-            let callback;
-            dateRange.setState = jest.fn((newState, callbackFunc) => { callback = callbackFunc });
-
-            const range = Object.assign({}, defaultRange);
-            const triggerChange = true,
-                show = true,
-                isValid = true;
-
-            dateRange.setRange(range, triggerChange, show);
-
-            callback();
-
-            expect(onChange).toHaveBeenCalledWith(range, isValid);
-        })
-
-        it('valid month range - trigger change is false - callback should not be called', () => {
-            const onChange = jest.fn();
-
-            const props = Object.assign({}, defaultProps, { onChange });
-            const dateRange = new DateRange(props);
-            dateRange.isValidMonthRange = jest.fn(() => true);
-            let callback;
-            dateRange.setState = jest.fn((newState, callbackFunc) => { callback = callbackFunc });
-
-            const range = Object.assign({}, defaultRange);
-            const triggerChange = false,
-                show = true;
-
-            dateRange.setRange(range, triggerChange, show);
-
-            callback();
-
-            expect(onChange).not.toHaveBeenCalled();
         })
 
         it('invalid month range - setState should not be called', () => {
@@ -282,10 +239,9 @@ describe('DateRange ', () => {
             dateRange.setState = jest.fn();
 
             const range = Object.assign({}, defaultRange);
-            const triggerChange = false,
-                show = true;
+            const show = true;
 
-            dateRange.setRange(range, triggerChange, show);
+            dateRange.setRange(range, show);
 
             expect(dateRange.setState).not.toHaveBeenCalled();
         })
@@ -299,77 +255,60 @@ describe('DateRange ', () => {
             dateRange.setState = jest.fn();
 
             const range = Object.assign({}, defaultRange);
-            const triggerChange = false,
-                show = true,
-                isValid = false;
+            const show = true, isValid = false;
 
-            dateRange.setRange(range, triggerChange, show);
+            dateRange.setRange(range, show);
 
             expect(onChange).toHaveBeenCalledWith(range, isValid);
         })
     })
 
-    describe('handleSelect', () => {
-        it('select ranges which are defined - step should be 0 and setRange should be called with correct parameter', () => {
+    describe('handleCalendarSelect', () => {
+        it('calendarSelectionStep is 0 - setRange should be called with correct parameter', () => {
             const dateRange = new DateRange(defaultProps);
             dateRange.setRange = jest.fn();
-            const showDaterange = false,
-                triggerChange = true;
+            dateRange.calendarSelectionStep = 0;
 
-            dateRange.handleSelect(defaultRange);
+            const selectedDate = '2018-01-01';
 
-            expect(dateRange.step).toBe(0);
-            expect(dateRange.setRange).toHaveBeenCalledWith(defaultRange, triggerChange, showDaterange);
+            dateRange.handleCalendarSelect(selectedDate);
+
+            expect(dateRange.calendarSelectionStep).toBe(1);
+            expect(dateRange.setRange).toHaveBeenCalledWith( {
+                startDate: selectedDate,
+                endDate: selectedDate
+            });
         })
 
-        it('select start date - setRange should be called with correct parameter', () => {
+        it('calendarSelectionStep is 1 - setRange should be called with correct parameter', () => {
             const dateRange = new DateRange(defaultProps);
             dateRange.setRange = jest.fn();
-            const triggerChange = true;
-            const expectedRange = {
-                startDate: defaultStartDateMoment,
-                endDate: defaultStartDateMoment
-            }
+            dateRange.calendarSelectionStep = 1;
 
-            dateRange.handleSelect(defaultStartDateMoment);
+            const selectedDate = '2018-01-01';
 
-            expect(dateRange.step).toBe(1);
-            expect(dateRange.setRange).toHaveBeenCalledWith(expectedRange, triggerChange);
+            dateRange.handleCalendarSelect(selectedDate);
+
+            expect(dateRange.calendarSelectionStep).toBe(0);
+            expect(dateRange.setRange).toHaveBeenCalledWith( {
+                startDate: dateRange.state.range.startDate,
+                endDate: selectedDate
+            });
         })
+    })
 
-        it('select end date - setRange should be called with correct parameter', () => {
-            const dateRange = new DateRange(defaultProps);
-            dateRange.step = 1;
-            dateRange.setRange = jest.fn();
-            const triggerChange = true;
-
-            dateRange.handleSelect(defaultEndDateMoment);
-
-            expect(dateRange.step).toBe(0);
-            expect(dateRange.setRange).toHaveBeenCalledWith(defaultRange, triggerChange);
-        })
-
-        it('enable twoStepChange - select start date - triggerChange should be false', () => {
-            const props = Object.assign({}, defaultProps, { twoStepChange: true });
+    describe('handlePredefinedRangesSelect', () => {
+        it('setRange should be called with correct parameter', () => {
+            const range = { from: 1, to: 2 };
+            const props = { onChange: jest.fn() };
             const dateRange = new DateRange(props);
-            let trigerChangeResult;
-            dateRange.setRange = jest.fn((range, triggerChange) => trigerChangeResult = triggerChange);
+            dateRange.setRange = jest.fn();
 
-            dateRange.handleSelect(defaultEndDateMoment);
+            dateRange.handlePredefinedRangesSelect(range);
 
-            expect(trigerChangeResult).toBe(false);
-        })
-
-        it('enable twoStepChange - select end date - triggerChange should be true', () => {
-            const props = Object.assign({}, defaultProps, { twoStepChange: true });
-            const dateRange = new DateRange(props);
-            dateRange.step = 1;
-            let trigerChangeResult;
-            dateRange.setRange = jest.fn((range, triggerChange) => trigerChangeResult = triggerChange);
-
-            dateRange.handleSelect(defaultEndDateMoment);
-
-            expect(trigerChangeResult).toBe(true);
+            expect(dateRange.setRange).toHaveBeenCalledWith(range, false);
+            expect(props.onChange).toHaveBeenCalledWith(range, true);
+            expect(dateRange.originalRange).toEqual(range);
         })
     })
 
@@ -460,13 +399,14 @@ describe('DateRange ', () => {
     describe('handleApply', () => {
         it('onClickApplyButton should be called with correct parameter', () => {
             const onClickApplyButton = jest.fn();
-            const props = Object.assign({}, defaultProps, { onClickApplyButton });
+            const props = Object.assign({}, defaultProps, { onClickApplyButton, onChange: jest.fn() });
             const dateRange = new DateRange(props);
             dateRange.close = jest.fn();
 
             dateRange.handleApply();
 
             expect(onClickApplyButton).toHaveBeenCalledWith(defaultRange, true);
+            expect(props.onChange).toHaveBeenCalledWith(defaultRange, dateRange.isValid);
         })
 
         it('currentRange should be correct', () => {
@@ -480,7 +420,7 @@ describe('DateRange ', () => {
 
             dateRange.handleApply();
 
-            expect(dateRange.currentRange).toEqual(selectedRange);
+            expect(dateRange.originalRange).toEqual(selectedRange);
         })
 
         it('close should be called', () => {
@@ -495,57 +435,15 @@ describe('DateRange ', () => {
 
     describe("handleCancel", () => {
         it("setRange should be called with correct parameter", () => {
-            const expectedCurrentRange = {},
-                show = false,
-                triggerChange = true;
+            const expectedCurrentRange = {};
+
             const dateRange = new DateRange(defaultProps);
-            dateRange.currentRange = {};
+            dateRange.originalRange = {};
             dateRange.setRange = jest.fn();
 
             dateRange.handleCancel();
 
-            expect(dateRange.setRange).toHaveBeenCalledWith(expectedCurrentRange, triggerChange, show);
-        })
-    })
-
-    describe('componentWillReceiveProps', () => {
-        it('selected start date and end date is same with old start date - do nothing', () => {
-            var newProps = {
-                startDate: defaultStartDateMoment.clone(),
-                endDate: defaultEndDateMoment.clone()
-            }
-
-            const dateRange = new DateRange(defaultProps);
-            dateRange.setRange = jest.fn();
-
-            dateRange.componentWillReceiveProps(newProps);
-
-            expect(dateRange.setRange).not.toHaveBeenCalled();
-        })
-
-        it('selected start date and end date is not same with old start date - setRange should be called with correct parameter', () => {
-            var newProps = {
-                startDate: defaultStartDateMoment.clone().month(1),
-                endDate: defaultEndDateMoment.clone().month(1)
-            }
-
-            const dateRange = new DateRange(defaultProps);
-            dateRange.setRange = jest.fn();
-
-            dateRange.componentWillReceiveProps(newProps);
-
-            expect(dateRange.setRange).toHaveBeenCalledWith(newProps);
-        })
-
-        it('Do not change range - do nothing', () => {
-            var newProps = {}
-
-            const dateRange = new DateRange(defaultProps);
-            dateRange.setRange = jest.fn();
-
-            dateRange.componentWillReceiveProps(newProps);
-
-            expect(dateRange.setRange).not.toHaveBeenCalled();
+            expect(dateRange.setRange).toHaveBeenCalledWith(expectedCurrentRange, false);
         })
     })
 
@@ -575,6 +473,19 @@ describe('DateRange ', () => {
             const result = component.toJSON();
 
             expect(result).toMatchSnapshot();
+        })
+
+        it("on select on PredefinedRanges - call handlePredefinedRangesSelect method", () => {
+            const props = Object.assign({}, defaultProps, { showRange: true });
+
+            const dateRange = new DateRange(defaultProps);
+            dateRange.handlePredefinedRangesSelect = jest.fn();
+            const component = renderer.create(dateRange.render());
+
+            const predefinedRanges = component.root.findByType(PredefinedRanges);
+            predefinedRanges.props.onSelect();
+
+            expect(dateRange.handlePredefinedRangesSelect).toHaveBeenCalled();
         })
     })
 })

@@ -14,16 +14,14 @@ namespace Fanex.Athena.Excel.Customer.UnitTests
     [TestFixture]
     public class CustomerCommGroupExcelTest
     {
-        private const int ColumnDefaultGroup = 2;
         private const int ColumnGroupName = 1;
-        private const int ColumnNgCommission = 6;
-        private const int ColumnCsCommission = 7;
+        private const int ColumnDefaultGroup = 2;
         private const int ColumnNoOfCustomer = 3;
-        private const int ColumnRbCommission = 5;
         private const int ColumnSbCommission = 4;
-        private const int ColumnAbCommission = 8;
+        private const int ColumnNgCommission = 5;
+        private const int ColumnCsCommission = 6;
 
-        private const int ColumnCount = 10;
+        private const int ColumnCount = 7;
         private ISheet _sheet;
 
         [SetUp]
@@ -47,14 +45,12 @@ namespace Fanex.Athena.Excel.Customer.UnitTests
             {
                 _sheet.Received().CopyRow(excel.TemplateSheet, ReportBase.RowHeaderTemplate, ReportBase.RowHeaderTemplate);
                 row.Cells[0].Received(1).SetCellValue("#");
-                row.Cells[1].Received(1).SetCellValue(ViewResources.GroupName);
-                row.Cells[2].Received(1).SetCellValue(ViewResources.DefaultGroup);
-                row.Cells[3].Received(1).SetCellValue(ViewResources.NoOfCustmer);
-                row.Cells[4].Received(1).SetCellValue(ViewResources.SBComm + " (%)");
-                row.Cells[5].Received(1).SetCellValue(ViewResources.RacingComm + " (%)");
-                row.Cells[6].Received(1).SetCellValue(ViewResources.NGComm + " (%)");
-                row.Cells[7].Received(1).SetCellValue(ViewResources.CSComm + " (%)");
-                row.Cells[8].Received(1).SetCellValue(ViewResources.ABComm + " (%)");
+                row.Cells[ColumnGroupName].Received(1).SetCellValue(ViewResources.GroupName);
+                row.Cells[ColumnDefaultGroup].Received(1).SetCellValue(ViewResources.DefaultGroup);
+                row.Cells[ColumnNoOfCustomer].Received(1).SetCellValue(ViewResources.NoOfCustmer);
+                row.Cells[ColumnSbCommission].Received(1).SetCellValue(ViewResources.SBComm + " (%)");
+                row.Cells[ColumnNgCommission].Received(1).SetCellValue(ViewResources.NGComm + " (%)");
+                row.Cells[ColumnCsCommission].Received(1).SetCellValue(ViewResources.CSComm + " (%)");
             });
         }
 
@@ -75,10 +71,8 @@ namespace Fanex.Athena.Excel.Customer.UnitTests
                 row.Cells[ColumnDefaultGroup].Received(1).SetCellValue("X");
                 row.Cells[ColumnNoOfCustomer].Received(1).SetCellValue(100);
                 row.Cells[ColumnSbCommission].Received(1).SetCellValue("100.00");
-                row.Cells[ColumnRbCommission].Received(1).SetCellValue("200.00");
-                row.Cells[ColumnNgCommission].Received(1).SetCellValue("300.00");
-                row.Cells[ColumnCsCommission].Received(1).SetCellValue("400.00");
-                row.Cells[ColumnAbCommission].Received(1).SetCellValue("500.00");
+                row.Cells[ColumnNgCommission].Received(1).SetCellValue("200.00");
+                row.Cells[ColumnCsCommission].Received(1).SetCellValue("300.00");
             });
         }
 
@@ -119,7 +113,7 @@ namespace Fanex.Athena.Excel.Customer.UnitTests
             // Assert
             Assert.Multiple(() =>
             {
-                _sheet.ReceivedWithAnyArgs(5).HideColumn(0);
+                _sheet.ReceivedWithAnyArgs(3).HideColumn(0);
             });
         }
 
@@ -130,10 +124,8 @@ namespace Fanex.Athena.Excel.Customer.UnitTests
             var excel = CreateExcel(new ShowingOption
             {
                 SBVisible = true,
-                RBVisible = true,
                 NGVisible = true,
-                CSVisible = true,
-                ABVisible = true
+                CSVisible = true
             });
 
             // Action
@@ -162,14 +154,12 @@ namespace Fanex.Athena.Excel.Customer.UnitTests
             var table = new DataTable();
             table.Columns.Add("IsDefault", typeof(bool));
             table.Columns.Add("SBComm", typeof(decimal));
-            table.Columns.Add("RacingComm", typeof(decimal));
             table.Columns.Add("NGComm", typeof(decimal));
             table.Columns.Add("RNGComm", typeof(decimal));
-            table.Columns.Add("AllbetComm", typeof(decimal));
 
             table.Columns.Add("GroupName", typeof(string));
             table.Columns.Add("NumberOfCustomer", typeof(int));
-            table.Rows.Add(true, 1, 2, 3, 4, 5, "GroupA", 100);
+            table.Rows.Add(true, 1, 2, 3, "GroupA", 100);
             return table;
         }
     }

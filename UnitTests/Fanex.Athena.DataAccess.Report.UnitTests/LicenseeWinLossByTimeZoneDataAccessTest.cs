@@ -5,7 +5,6 @@
     using System.Linq;
     using Core.Configuration.Interfaces;
     using Core.UnitTests.TestHelpers;
-    using Data;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Configuration;
     using Model.Report.DTO;
@@ -23,35 +22,23 @@
 
         private const int ReportByMonthly = 3;
 
-        private BalanceUp _balance;
-
-        [OneTimeSetUp]
-        public override void FixtureSetUp()
+        private readonly BalanceUp _balance = new BalanceUp
         {
-            _balance = new BalanceUp
-            {
-                MoveBetsDay = new DateTime(2017, 8, 25),
-                BalanceUpDay = new DateTime(2017, 8, 31)
-            };
+            MoveBetsDay = new DateTime(2017, 8, 25),
+            BalanceUpDay = new DateTime(2017, 8, 31)
+        };
 
+        protected override void SetUpDataAccess()
+        {
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             balanceUpDataAccess.GetBalanceUp().Returns(_balance);
             DataAccess = Substitute.ForPartsOf<LicenseeWinLossByTimeZoneDataAccess>(
+                AppSetting,
                 CreateSessionStorage(),
                 balanceUpDataAccess);
 
-            ObjectDb = Substitute.For<IObjectDb>();
-
             const string SpName = "Lrf_Rpt_LicWinlossByTimeZone";
             DataAccess.GetObjectDb(Arg.Is(SpName)).Returns(ObjectDb);
-        }
-
-        [OneTimeTearDown]
-        public override void FixtureTearDown()
-        {
-            _balance = null;
-
-            base.FixtureTearDown();
         }
 
         [Test]

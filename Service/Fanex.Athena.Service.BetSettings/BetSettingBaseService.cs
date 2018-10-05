@@ -6,7 +6,6 @@
 
 namespace Fanex.Athena.Service.BetSettings
 {
-    using Fanex.Athena.Service.Core.Users;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Model.Core.DTO.Common;
 
@@ -14,13 +13,9 @@ namespace Fanex.Athena.Service.BetSettings
     {
         private readonly IAuthorizationService _authorizationService;
 
-        public BetSettingBaseService() : this(null)
-        {
-        }
-
         public BetSettingBaseService(IAuthorizationService authorizationService)
         {
-            _authorizationService = authorizationService ?? new AuthorizationService();
+            _authorizationService = authorizationService;
         }
 
         protected static IResultInfo ErrorResult(string message)

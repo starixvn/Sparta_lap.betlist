@@ -1,16 +1,11 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react';
 
-export default class ReportTitle extends Component {
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-        return (
+const ReportTitle = ({content}) => {
+    return (
             <div className="report-title-container">
-                <p className="report-title">{this.props.content}</p>
+                <p className="report-title">{content}</p>
             </div>
         )
-    }
-}
+ }
+
+export default ReportTitle;

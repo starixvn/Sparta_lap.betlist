@@ -24,12 +24,7 @@ namespace Fanex.Athena.Controllers.BetSettings
     public class AgCasinoBetSettingController : BetSettingBaseController
     {
         private readonly IAgCasinoBetSettingService _betSettingService;
-
-        public AgCasinoBetSettingController()
-        {
-            _betSettingService = new AgCasinoBetSettingService();
-        }
-
+        
         public AgCasinoBetSettingController(
             ILanguageService languageService,
             ISessionService sessionService,

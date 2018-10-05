@@ -1,7 +1,7 @@
 ﻿th {
     &.sortable {
         cursor: pointer;
-        
+
         &.sorting {
             text-decoration: underline;
         }
@@ -20,5 +20,5 @@
         .desc {
             border-top: 5px solid;
         }
-    }    
+    }
 }

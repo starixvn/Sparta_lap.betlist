@@ -4,6 +4,7 @@
     using System.Data;
     using System.Globalization;
     using System.Linq;
+    using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Customer.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -14,9 +15,15 @@
     using Fanex.Data;
     using Model.Core.ResultModel;
     using Resources;
+    using Session.Interfaces;
 
     public class CustomerListDataAccess : BaseDataAccess, ICustomerListDataAccess
     {
+        public CustomerListDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
+            : base(appSetting, sessionStorage)
+        {
+        }
+
         #region Read
 
         public IEnumerable<string> SearchCustomers(int userId, string userName, string agentListXml)
@@ -215,10 +222,8 @@
                         Group = reader.ToString("GroupName"),
                         OddsGroup = reader.ToString("OddsGroup"),
                         SBComm = reader.ToDecimal("SBComm") * 100,
-                        RBComm = reader.ToDecimal("RacingComm") * 100,
                         NGComm = reader.ToDecimal("NGComm") * 100,
-                        CSComm = reader.ToDecimal("RNGComm") * 100,
-                        ABComm = reader.ToDecimal("AllbetComm") * 100
+                        CSComm = reader.ToDecimal("RNGComm") * 100
                     };
 
                     customer.Status = customer.IsClosed ? ViewResources.Closed : customer.IsSuspended ? ViewResources.Suspended : ViewResources.Open;

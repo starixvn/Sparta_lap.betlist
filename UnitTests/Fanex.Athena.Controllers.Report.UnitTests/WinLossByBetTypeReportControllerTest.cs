@@ -75,11 +75,8 @@
 
         [TestCase(null, false, 6)]
         [TestCase("BA", false, 8)]
-        [TestCase("RB", false, 8)]
         [TestCase(null, true, 8)]
         [TestCase("BA", true, 10)]
-        [TestCase("RB", true, 10)]
-        [TestCase("BA,RB", true, 12)]
         public void IndexPost_NotExportExcel_ReturnCorrectViewResult(
             string productCodeList,
             bool isAllowedCustomerComm,
@@ -117,7 +114,7 @@
         }
 
         [TestCase(null, false, false)]
-        [TestCase("BA,RB,NG,SB,VS", true, true)]
+        [TestCase("BA,NG,SB,VS", true, true)]
         public void IndexPost_ExportExcel_ReturnCorrectResult(
             string productCodeList, bool expectedProductVisible, bool isAllowCustomerComm)
         {
@@ -150,7 +147,6 @@
                             x.BaseCurrency == metaModel.BaseCurrency &&
                             x.CurrencyName == metaModel.CurrencyName),
                         Arg.Is<ShowingOption>(x =>
-                            x.RBVisible == expectedProductVisible &&
                             x.BAVisible == expectedProductVisible &&
                             x.NGVisible == expectedProductVisible &&
                             x.SBVisible == expectedProductVisible &&

@@ -10,7 +10,6 @@ namespace Fanex.Athena.Service.Report
     using System.Collections.Generic;
     using System.Globalization;
     using Extension.Helper;
-    using Fanex.Athena.DataAccess.Report;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
@@ -25,11 +24,6 @@ namespace Fanex.Athena.Service.Report
         private const int DaysInWeek = 7;
 
         private readonly IWeeklyLiveMatchDataAccess _weeklyLiveMatchDataAccess;
-
-        public WeeklyLiveMatchService()
-        {
-            this._weeklyLiveMatchDataAccess = new WeeklyLiveMatchDataAccess();
-        }
 
         public WeeklyLiveMatchService(IWeeklyLiveMatchDataAccess dataAccess)
         {
@@ -56,7 +50,7 @@ namespace Fanex.Athena.Service.Report
             var nextDate = firstDate.AddDays(DaysInWeek - 1);
 
             var headers = new List<string>();
-            headers.Add(DateTimeHelper.GetMaxDate(firstDate, fromDate).ToString("dd MMM", culture) + " - " + 
+            headers.Add(DateTimeHelper.GetMaxDate(firstDate, fromDate).ToString("dd MMM", culture) + " - " +
                 DateTimeHelper.GetMinDate(nextDate, toDate).ToString("dd MMM yyyy", culture));
             for (int i = 1; i < numberOfWeeks; i++)
             {

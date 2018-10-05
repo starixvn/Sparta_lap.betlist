@@ -11,9 +11,7 @@ namespace Fanex.Athena.Controllers.Report
     using System.Linq;
     using System.Web.Hosting;
     using System.Web.Mvc;
-    using DataAccess.Core.Configuration;
     using DataAccess.Core.Configuration.Interfaces;
-    using DataAccess.Report;
     using DataAccess.Report.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Excel.Base.Entities;
@@ -36,10 +34,6 @@ namespace Fanex.Athena.Controllers.Report
 
         private readonly IWinLossByBetTypeDataAccess _winLossByBetTypeDataAccess;
 
-        public WinLossByBetTypeReportController() : this(null, null, null, null, null, null, null)
-        {
-        }
-
         public WinLossByBetTypeReportController(
             ILanguageService languageService,
             ISessionService sessionService,
@@ -50,8 +44,8 @@ namespace Fanex.Athena.Controllers.Report
             IWinLossByBetTypeDataAccess winLossByBetTypeDataAccess)
             : base(languageService, sessionService, appSetting, clientViewHelper, productService)
         {
-            _balanceUpDataAccess = balanceUpDataAccess ?? new BalanceUpDataAccess();
-            _winLossByBetTypeDataAccess = winLossByBetTypeDataAccess ?? new WinLossByBetTypeDataAccess();
+            _balanceUpDataAccess = balanceUpDataAccess;
+            _winLossByBetTypeDataAccess = winLossByBetTypeDataAccess;
         }
 
         [HttpGet]
@@ -125,9 +119,6 @@ namespace Fanex.Athena.Controllers.Report
                 CustomerComm = dataList.Sum(item => item.CustomerComm),
                 BACommission = dataList.Sum(item => item.BACommission),
                 AmtDueToBA = dataList.Sum(item => item.AmtDueToBA),
-                RacingRevenue = dataList.Sum(item => item.RacingRevenue),
-                RBComm = dataList.Sum(item => item.RBComm),
-                AmtDueToRacing = dataList.Sum(item => item.AmtDueToRacing),
                 LicenseeWL = dataList.Sum(i => i.LicenseeWL),
             };
         }
@@ -136,11 +127,6 @@ namespace Fanex.Athena.Controllers.Report
         {
             var columnCount = 6;
             if (productAccess.IsAllowBA)
-            {
-                columnCount += 2;
-            }
-
-            if (productAccess.IsAllowRB)
             {
                 columnCount += 2;
             }
@@ -170,7 +156,6 @@ namespace Fanex.Athena.Controllers.Report
 
             var showingOption = new ShowingOption
             {
-                RBVisible = productAccess.IsAllowRB,
                 BAVisible = productAccess.IsAllowBA,
                 NGVisible = productAccess.IsAllowNG,
                 SBVisible = productAccess.IsAllowSB,

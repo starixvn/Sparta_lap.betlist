@@ -5,31 +5,29 @@
     using System.Linq;
     using Core.UnitTests.TestHelpers;
     using Data;
-    using Extension.Utility;
     using Model.BetSettings.DTO;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
     using NSubstitute;
     using NUnit.Framework;
+    using Session.Interfaces;
     using Utility;
 
     [TestFixture]
     public class SportsbookBetSettingDataAccessTest : BaseDataAccessHelperTest<SportsbookBetSettingDataAccess>
     {
-        private IAppSettings _appSetting;
-        
-        [OneTimeSetUp]
-        public override void FixtureSetUp()
+        protected override void SetUpDataAccess()
         {
-            _appSetting = Substitute.For<IAppSettings>();
             var betSettingReader = Substitute.For<IBetSettingReader>();
             betSettingReader.ReadForSport(Arg.Any<IDataReader>(), Arg.Any<string>(), Arg.Any<bool>())
                 .Returns(x => new BetSetting
                 {
                     SportId = x[1].ToString()
                 });
-            ObjectDb = Substitute.For<IObjectDb>();
-            DataAccess = Substitute.ForPartsOf<SportsbookBetSettingDataAccess>(_appSetting, betSettingReader);
+            DataAccess = Substitute.ForPartsOf<SportsbookBetSettingDataAccess>(
+                AppSetting,
+                Substitute.For<ISessionStorage>(),
+                betSettingReader);
         }
 
         [Test]
@@ -43,14 +41,14 @@
             DataAccess.GetBetSetting(CustId);
 
             // Assert
-            ObjectDb.Received().AddInParameter("CustID", DbType.Int32, CustId);
+            ObjectDb.Received(1).AddInParameter("CustID", DbType.Int32, CustId);
         }
 
         [Test]
         public void GetBetSetting_ReaderNotHaveData_ReturnDefaultResult()
         {
             // Arrange
-            _appSetting.IsShowMixedSport.Returns(true);
+            AppSetting.IsShowMixedSport.Returns(true);
 
             DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerSelEditCustomer")).Returns(ObjectDb);
             Reader.Read().Returns(false);
@@ -72,7 +70,7 @@
         public void GetBetSetting_WhenCall_DataReturnCorrectly(bool hasDisableEsportsColumn, EsportSettingType expectedEsportSetting, bool isShowMixedSport)
         {
             // Arrange
-            _appSetting.IsShowMixedSport.Returns(isShowMixedSport);
+            AppSetting.IsShowMixedSport.Returns(isShowMixedSport);
 
             DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerSelEditCustomer")).Returns(ObjectDb);
             Reader.Read().Returns(true);
@@ -125,14 +123,14 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("licenseeid", DbType.Int32, data.LicenseeId);
-                ObjectDb.Received().AddInParameter("ip", DbType.String, data.Ip);
-                ObjectDb.Received().AddInParameter("language", DbType.String, data.Language);
-                ObjectDb.Received().AddInParameter("userid", DbType.Int32, data.UserId);
-                ObjectDb.Received().AddInParameter("custid", DbType.Int32, data.CustId);
-                ObjectDb.Received().AddInParameter(paramterName, expectedType, parameterValue);
-                ObjectDb.Received().AddOutParameter("ErrCode", DbType.String, 600);
-                ObjectDb.Received().AddOutParameter("ErrMsg", DbType.String, 8000);
+                ObjectDb.Received(1).AddInParameter("licenseeid", DbType.Int32, data.LicenseeId);
+                ObjectDb.Received(1).AddInParameter("ip", DbType.String, data.Ip);
+                ObjectDb.Received(1).AddInParameter("language", DbType.String, data.Language);
+                ObjectDb.Received(1).AddInParameter("userid", DbType.Int32, data.UserId);
+                ObjectDb.Received(1).AddInParameter("custid", DbType.Int32, data.CustId);
+                ObjectDb.Received(1).AddInParameter(paramterName, expectedType, parameterValue);
+                ObjectDb.Received(1).AddOutParameter("ErrCode", DbType.String, 600);
+                ObjectDb.Received(1).AddOutParameter("ErrMsg", DbType.String, 8000);
             });
         }
 
@@ -190,13 +188,13 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("ip", DbType.String, setting.Ip);
-                ObjectDb.Received().AddInParameter("Langkey", DbType.String, setting.Language);
-                ObjectDb.Received().AddInParameter("userid", DbType.Int32, setting.UserId);
-                ObjectDb.Received().AddInParameter("custid", DbType.Int32, setting.CustId);
-                ObjectDb.Received().AddInParameter("DisableEsports", DbType.Boolean, IsDisabled);
-                ObjectDb.Received().AddOutParameter("ErrCode", DbType.String, 600);
-                ObjectDb.Received().AddOutParameter("ErrMsg", DbType.String, 8000);
+                ObjectDb.Received(1).AddInParameter("ip", DbType.String, setting.Ip);
+                ObjectDb.Received(1).AddInParameter("Langkey", DbType.String, setting.Language);
+                ObjectDb.Received(1).AddInParameter("userid", DbType.Int32, setting.UserId);
+                ObjectDb.Received(1).AddInParameter("custid", DbType.Int32, setting.CustId);
+                ObjectDb.Received(1).AddInParameter("DisableEsports", DbType.Boolean, IsDisabled);
+                ObjectDb.Received(1).AddOutParameter("ErrCode", DbType.String, 600);
+                ObjectDb.Received(1).AddOutParameter("ErrMsg", DbType.String, 8000);
             });
         }
 

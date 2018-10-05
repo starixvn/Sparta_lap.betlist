@@ -13,6 +13,8 @@ jest.mock('../../../../lib/site')
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
+const XsrfToken = "XXXX_TOKEN";
+
 const fakeResponse = {
     data: {
         Data: [],
@@ -22,15 +24,14 @@ const fakeResponse = {
 }
 
 const params = {
-    data: { Abc: "1,2,3", ProductList: "SB,BA" },
-    xsrfToken: "token"
+    data: { Abc: "1,2,3", ProductList: "SB,BA" }
 }
 
 const expectedUrl = "api/LicenseeWinLossByTimeZoneReport/Index";
 const expectedData = params.data;
 const expectedHeader = {
     'X-Requested-With': 'XMLHttpRequest',
-    '__RequestVerificationToken': params.xsrfToken
+    '__RequestVerificationToken': XsrfToken
 }
 
 describe('dataHandlerAction', () => {
@@ -38,6 +39,7 @@ describe('dataHandlerAction', () => {
         const promise = Promise.resolve(fakeResponse);
         axios.post = jest.fn(() => promise);
         Site.resolveClientUrl = jest.fn((url) => url);
+        Site.getXsrfToken = jest.fn(() => XsrfToken);
     })
 
     afterAll(() => {

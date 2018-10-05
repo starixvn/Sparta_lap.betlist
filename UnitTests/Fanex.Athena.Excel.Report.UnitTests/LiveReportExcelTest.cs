@@ -532,7 +532,7 @@
         }
 
         [Test]
-        public void ProcessUI_BAVisibleAndRBVisibleAreFalse_HideLicenseeColumn()
+        public void ProcessUI_BAVisibleIsFalse_HideLicenseeColumn()
         {
             // Arrange
             ExcelTestHelper.MockGetRow(FakeSheet, ColumnTemplateCount, 0);
@@ -541,7 +541,6 @@
             FakeSheet.LastRowNum.Returns(0);
             _showingOpt.CustomerCommVisible = true;
             _showingOpt.BAVisible = false;
-            _showingOpt.RBVisible = false;
 
             var excel = CreateExcel();
 

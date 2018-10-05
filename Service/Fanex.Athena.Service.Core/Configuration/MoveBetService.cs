@@ -27,14 +27,7 @@ namespace Fanex.Athena.Service.Core.Configuration
         private readonly IMoveBetDataAccess _moveBetDataAccess;
 
         private readonly IMemoryCacheService _cache;
-
-        public MoveBetService()
-        {
-            _logger = new CoreLogger();
-            _moveBetDataAccess = new MoveBetDataAccess();
-            _cache = new MemoryCacheService();
-        }
-
+        
         public MoveBetService(ICoreLogger logger, IMoveBetDataAccess moveBetDataAccess, IMemoryCacheService cache)
         {
             _logger = logger;

@@ -2,27 +2,31 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import { FormFilter } from '../formFilter';
 
-import Site from '../../../../lib/site';
-import LangHelper from '../../../../lib/langHelper';
+import Site from '@jsroot/lib/site';
+import AppData from '@jsroot/lib/AppData';
+import LangHelper from '@jsroot/lib/langHelper';
 import service from '../../lib/service';
 import ReportExcel from '../../lib/reportExcel'
 
-import { defaultProps } from './fakeData';
+import { defaultProps, defaultAppData } from './fakeData';
 
 const { gridData, ...rest } = defaultProps;
 const formFilterPropsForEventHandler = {...rest };
 
 jest.mock('../../lib/reportExcel');
+jest.mock('@jsroot/lib/AppData');
 
 describe('FormFilter ', () => {
     beforeAll(() => {
+        Object.assign(AppData, defaultAppData);
         LangHelper.getSingleResource = jest.fn(resource => {
             if (resource === "DateRangeExceedMsg") {
                 return "Exceed {0} Months";
             }
 
             return resource;
-        })
+        });
+
     })
     afterAll(() => {
         jest.resetAllMocks();
@@ -152,15 +156,6 @@ describe('FormFilter ', () => {
 
         describe('submit data', () => {
             describe('_getParams', () => {
-                it('props.xsrfToken has no value - return null', () => {
-                    const props = {...formFilterPropsForEventHandler, xsrfToken: "" };
-                    const formFilter = new FormFilter(props);
-
-                    const result = formFilter._getParams();
-
-                    expect(result).toBeNull();
-                })
-
                 it('filter data is invalid - return null', () => {
                     const props = {...formFilterPropsForEventHandler, selectedProduct: "" };
                     const formFilter = new FormFilter(props);
@@ -170,11 +165,10 @@ describe('FormFilter ', () => {
                     expect(result).toBeNull();
                 })
 
-                it('props.xsrfToken has value and filter data is valid - return correct param data', () => {
+                it('filter data is valid - return correct param data', () => {
                     const { convertDateToString } = Site;
                     Site.convertDateToString = jest.fn((date) => date);
                     const expectedResult =  { 
-                        xsrfToken: formFilterPropsForEventHandler.xsrfToken,
                         data: {
                             BaseCurrency: formFilterPropsForEventHandler.selectedBaseCurrency,
                             CurrencyId: formFilterPropsForEventHandler.selectedCurrency.value,
@@ -348,19 +342,6 @@ describe('FormFilter ', () => {
             it('userGuideContent is not empty - do nothing', () => {
                 const props = {
                     userGuideContent: '<hr/>',
-                    xsrfToken: 'token',
-                    getUserGuideContent: jest.fn()
-                };
-                const formFilter = new FormFilter(props);
-
-                formFilter.showUserGuide();
-
-                expect(props.getUserGuideContent).not.toHaveBeenCalled();
-            })
-
-            it('userGuideContent is empty - xsrfToken is null - do nothing', () => {
-                const props = {
-                    userGuideContent: '',
                     getUserGuideContent: jest.fn()
                 };
                 const formFilter = new FormFilter(props);
@@ -373,17 +354,13 @@ describe('FormFilter ', () => {
             it('userGuideContent is empty - get UserGuideContent', () => {
                 const props = {
                     userGuideContent: '',
-                    getUserGuideContent: jest.fn(),
-                    xsrfToken: 'token',
+                    getUserGuideContent: jest.fn()
                 };
                 const formFilter = new FormFilter(props);
 
                 formFilter.showUserGuide();
 
-                expect(props.getUserGuideContent).toHaveBeenCalledWith({
-                    xsrfToken: props.xsrfToken,  
-                    resourceName: 'LicenseeWLByTimeZone'
-                });
+                expect(props.getUserGuideContent).toHaveBeenCalledWith('LicenseeWLByTimeZone');
             })
         })
 

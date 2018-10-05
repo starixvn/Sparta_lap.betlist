@@ -9,9 +9,10 @@
     using System.Threading.Tasks;
     using System.Web.Helpers;
     using System.Web.Http.Controllers;
+    using System.Web.Http.Dependencies;
     using System.Web.Http.Filters;
     using Extension.Utility;
-    using Fanex.Athena.Service.Core.Users;
+    using Extensions;
     using Resources;
     using Service.Core.Users.Interfaces;
     using Session.Enum;
@@ -21,34 +22,16 @@
     {
         private const string KeyName = "__RequestVerificationToken";
 
-        private readonly IAntiForgeryService _antiForgeryService;
-
-        private readonly ISessionService _sessionService;
-
-        private readonly IAuthorizationService _authorizationService;
+        private readonly string[] _permissionKeys;
 
         public ApiFunctionAuthorizationAttribute()
         {
         }
 
-        [CLSCompliant(false)]
         public ApiFunctionAuthorizationAttribute(params string[] permissionKeys)
-            : this(antiForgeryService: null, sessionService: null, authorizationService: null)
         {
-            PermissionKeys = permissionKeys;
+            _permissionKeys = permissionKeys;
         }
-
-        public ApiFunctionAuthorizationAttribute(
-            IAntiForgeryService antiForgeryService,
-            ISessionService sessionService,
-            IAuthorizationService authorizationService)
-        {
-            _antiForgeryService = antiForgeryService ?? new AntiForgeryService();
-            _sessionService = sessionService ?? new SessionService();
-            _authorizationService = authorizationService ?? new AuthorizationService();
-        }
-
-        public string[] PermissionKeys { get; set; }
 
         public Task<HttpResponseMessage> ExecuteAuthorizationFilterAsync(
             HttpActionContext actionContext,
@@ -58,7 +41,8 @@
             try
             {
                 var headers = actionContext.Request.Headers;
-
+                var scope = actionContext.Request.GetDependencyScope();
+                var antiForgeryService = scope.Resolve<IAntiForgeryService>();
                 if (IsAjaxRequest(headers))
                 {
                     if (!headers.Contains(KeyName))
@@ -72,19 +56,20 @@
                         .FirstOrDefault();
 
                     var crfsKey = headers.GetValues(KeyName).FirstOrDefault();
-                    _antiForgeryService.Validate(cookie != null ? cookie.Value : null, crfsKey);
+
+                    antiForgeryService.Validate(cookie != null ? cookie.Value : null, crfsKey);
                 }
                 else
                 {
-                    _antiForgeryService.Validate();
+                    antiForgeryService.Validate();
                 }
             }
-            catch (Exception)
+            catch
             {
                 return UnauthorizeAccessHandlerAsync(actionContext);
             }
 
-            if (!AuthorizeRequest())
+            if (!AuthorizeRequest(actionContext.Request.GetDependencyScope()))
             {
                 return UnauthorizeAccessHandlerAsync(actionContext);
             }
@@ -116,16 +101,18 @@
             return FromResultAsync(actionContext.Response);
         }
 
-        private bool AuthorizeRequest()
+        private bool AuthorizeRequest(IDependencyScope scope)
         {
-            var licenseeSession = _sessionService.LicenseeSession;
-            var userSession = _sessionService.UserSession;
+            var sessionService = scope.Resolve<ISessionService>();
+            var licenseeSession = sessionService.LicenseeSession;
+            var userSession = sessionService.UserSession;
             var authorized = userSession != null && licenseeSession != null;
             if (authorized)
             {
+                var authorizationService = scope.Resolve<IAuthorizationService>();
                 authorized = userSession.ApplicationMode == AppMode.Parasitic ?
-                    _authorizationService.HasPermissions(userSession.PortalFunctionList, PermissionKeys) :
-                    _authorizationService.HasPermissions(userSession.FunctionIdList, PermissionKeys);
+                    authorizationService.HasPermissions(userSession.PortalFunctionList, _permissionKeys) :
+                    authorizationService.HasPermissions(userSession.FunctionIdList, _permissionKeys);
             }
 
             return authorized;

@@ -11,8 +11,8 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using Core.Configuration;
     using Core.Configuration.Interfaces;
+    using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Report.Interfaces;
@@ -21,7 +21,7 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common;
     using Fanex.Common.Extensions;
-    using VendorAdapter;
+    using Session.Interfaces;
     using VendorAdapter.Interfaces;
 
     public class MatchWinLossDataAccess : BaseDataAccess, IMatchWinLossDataAccess
@@ -30,13 +30,12 @@ namespace Fanex.Athena.DataAccess.Report
 
         private readonly ICacheRefAdapter _cacheRefAdapter;
 
-        public MatchWinLossDataAccess()
-        {
-            _balanceUpDataAccess = new BalanceUpDataAccess();
-            _cacheRefAdapter = new CacheRefAdapter();
-        }
-
-        public MatchWinLossDataAccess(IBalanceUpDataAccess balanceUpDataAccess, ICacheRefAdapter cacheRefAdapter)
+        public MatchWinLossDataAccess(
+            IAppSettings appSetting,
+            ISessionStorage sessionStorage,
+            IBalanceUpDataAccess balanceUpDataAccess,
+            ICacheRefAdapter cacheRefAdapter)
+            : base(appSetting, sessionStorage)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
             _cacheRefAdapter = cacheRefAdapter;
@@ -141,10 +140,7 @@ namespace Fanex.Athena.DataAccess.Report
             var custCommColumn = "PlayerComm" + baseCurrency;
             var licenseeWlColumn = "LicenseeWL" + baseCurrency;
             var commBaColumn = "CommBA" + baseCurrency;
-            var commRbColumn = "CommRB" + baseCurrency;
             var amtDueToBaComumn = "AmtDueToBA" + baseCurrency;
-            var amtDueToRbColumn = "AmtDueToRB" + baseCurrency;
-            var winLossRbColumn = "WinlossRB" + baseCurrency;
             var hasCustComm = reader.HasColumn(custCommColumn);
             var hasBetType = reader.HasColumn("bettype");
             var hasProductName = reader.HasColumn("productname");
@@ -171,9 +167,7 @@ namespace Fanex.Athena.DataAccess.Report
                     CustomerComm = hasCustComm ? reader.ToDecimal(custCommColumn) : 0,
                     LicenseeWL = reader.ToDecimal(licenseeWlColumn),
                     BACommission = reader.ToDecimal(commBaColumn),
-                    RacingRevenue = reader.ToDecimal(winLossRbColumn) + reader.ToDecimal(commRbColumn),
                     AmtDueToBA = reader.ToDecimal(amtDueToBaComumn),
-                    AmtDueToRacing = reader.ToDecimal(amtDueToRbColumn),
                     RaceNo = reader.ToString("race"),
                     BetType = betType,
                     BettypeName = _cacheRefAdapter.GetBettype(betType, isLive),

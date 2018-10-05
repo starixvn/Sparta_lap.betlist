@@ -1,325 +1,769 @@
-webpackJsonp([53],{
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// install a JSONP callback for chunk loading
+/******/ 	function webpackJsonpCallback(data) {
+/******/ 		var chunkIds = data[0];
+/******/ 		var moreModules = data[1];
+/******/ 		var executeModules = data[2];
+/******/
+/******/ 		// add "moreModules" to the modules object,
+/******/ 		// then flag all "chunkIds" as loaded and fire callback
+/******/ 		var moduleId, chunkId, i = 0, resolves = [];
+/******/ 		for(;i < chunkIds.length; i++) {
+/******/ 			chunkId = chunkIds[i];
+/******/ 			if(installedChunks[chunkId]) {
+/******/ 				resolves.push(installedChunks[chunkId][0]);
+/******/ 			}
+/******/ 			installedChunks[chunkId] = 0;
+/******/ 		}
+/******/ 		for(moduleId in moreModules) {
+/******/ 			if(Object.prototype.hasOwnProperty.call(moreModules, moduleId)) {
+/******/ 				modules[moduleId] = moreModules[moduleId];
+/******/ 			}
+/******/ 		}
+/******/ 		if(parentJsonpFunction) parentJsonpFunction(data);
+/******/
+/******/ 		while(resolves.length) {
+/******/ 			resolves.shift()();
+/******/ 		}
+/******/
+/******/ 		// add entry modules from loaded chunk to deferred list
+/******/ 		deferredModules.push.apply(deferredModules, executeModules || []);
+/******/
+/******/ 		// run deferred modules when all chunks ready
+/******/ 		return checkDeferredModules();
+/******/ 	};
+/******/ 	function checkDeferredModules() {
+/******/ 		var result;
+/******/ 		for(var i = 0; i < deferredModules.length; i++) {
+/******/ 			var deferredModule = deferredModules[i];
+/******/ 			var fulfilled = true;
+/******/ 			for(var j = 1; j < deferredModule.length; j++) {
+/******/ 				var depId = deferredModule[j];
+/******/ 				if(installedChunks[depId] !== 0) fulfilled = false;
+/******/ 			}
+/******/ 			if(fulfilled) {
+/******/ 				deferredModules.splice(i--, 1);
+/******/ 				result = __webpack_require__(__webpack_require__.s = deferredModule[0]);
+/******/ 			}
+/******/ 		}
+/******/ 		return result;
+/******/ 	}
+/******/
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// object to store loaded and loading chunks
+/******/ 	// undefined = chunk not loaded, null = chunk preloaded/prefetched
+/******/ 	// Promise = chunk loading, 0 = chunk loaded
+/******/ 	var installedChunks = {
+/******/ 		"www/js/build/dev/pages/customer/commgroupadd": 0
+/******/ 	};
+/******/
+/******/ 	var deferredModules = [];
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	var jsonpArray = window["webpackJsonp"] = window["webpackJsonp"] || [];
+/******/ 	var oldJsonpFunction = jsonpArray.push.bind(jsonpArray);
+/******/ 	jsonpArray.push = webpackJsonpCallback;
+/******/ 	jsonpArray = jsonpArray.slice();
+/******/ 	for(var i = 0; i < jsonpArray.length; i++) webpackJsonpCallback(jsonpArray[i]);
+/******/ 	var parentJsonpFunction = oldJsonpFunction;
+/******/
+/******/
+/******/ 	// add entry module to deferred list
+/******/ 	deferredModules.push([36,"www/js/build/dev/pages/lib/common"]);
+/******/ 	// run deferred modules when ready
+/******/ 	return checkDeferredModules();
+/******/ })
+/************************************************************************/
+/******/ ({
 
-/***/ 238:
+/***/ "./www/js/source/components/jquery.flatpopup.js":
+/*!******************************************************!*\
+  !*** ./www/js/source/components/jquery.flatpopup.js ***!
+  \******************************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(239);
+"use strict";
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
+    var $blockBody;
+    var DEFAULT_MODAL = true;
 
+    var _methods = {
+        init: function (options) {
+            var defaultOptions = {
+                width: 640,
+                height: 480,
+                padding: 0,
+                id: "popup-content",
+                className: "",
+                title: "&nbsp;",
+                container: "body",
+                modal: DEFAULT_MODAL,
+                onOpen: null,
+                onOpened: null,
+                onClose: null
+            };
 
-/***/ }),
+            $blockBody = $(".popup-block-body");
+            options = $.extend(defaultOptions, options || {});
+            return this.each(function () {
+                var $self = $(this);
+                var $container = $(options.container);
 
-/***/ 239:
-/***/ (function(module, exports, __webpack_require__) {
+                if (options.modal && $blockBody.length === 0) {
+                    $blockBody = $('<div class="popup-block-body" style="display: none"></div>');
+                    $container.append($blockBody);
+                }
+                
+                var $popupElement = $("#" + options.id);
+                if ($popupElement.length === 0 || $popupElement.hasClass('flat-popup') === false) {
+                    $self.attr("id", options.id);
+                    $self.addClass("flat-popup " + options.className);
+                    $self.children().wrapAll("<div class='wrapContent' style='padding:" + options.padding + "px'></div>");
+                    $self.hide()
+                         .prepend('<div class="title-bar popup-title"><div class="txt-title">'
+                             + options.title
+                             + '</div><a class="popup-close" href="javascript:;"><i class="icon-close"></i></a></div>');
 
-/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(240)], __WEBPACK_AMD_DEFINE_RESULT__ = (function (CustomerCommGroupAdd) {
-    "use strict";
+                    $self.find('a.popup-close').on('click', function () {
+                        if (options.onClose) {
+                            options.onClose.apply($self);
+                        }
 
-    $(CustomerCommGroupAdd.initialize);
-}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+                        if ($self.find("iframe").length > 0) {
+                            $self.find(".wrapContent").empty();
+                        }
+                        _methods.hide.apply($self);
+                    });
 
-/***/ }),
+                    $container.append($self);
+                }
+                else {
+                    $self = $("#" + options.id);
+                    $self.find(".txt-title").text(options.title);
+                    var $wrapContent = $self.find(".wrapContent");
+                    $wrapContent.append($self.children().not(".popup-title"));
+                }
 
-/***/ 240:
-/***/ (function(module, exports, __webpack_require__) {
+                $self.width(options.width);
+                $self.height(options.height);
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(55)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, CommGroupDetail) {
-         "use strict";
+                if (options.onOpen) {
+                    options.onOpen.apply($self);
+                }
 
-         var FORM_SELECTOR = "#customer-comm-group-add";
-         var TITLE = "CreateNewGroup";
+                _methods.show.call($self, options.modal);
 
-         function initialize() {
-             CommGroupDetail.initialize(TITLE);
+                if (options.onOpened) {
+                    setTimeout(options.onOpened.apply($self), 350);
+                }
+            });
+        },
 
-             _me.initEvent();
-         }
+        show: function (modal) {
+            var $self = this;
+            //Set the center alignment padding + border see css style
+            var left = ($(window).width() - $self.width()) / 2;
+            var top = ($(window).height() - $self.height()) / 2;
 
-         function initEvent() {
-             $("#Validate").click(function () {
-                 var groupName = $("#GroupName").val();
-                 CommGroupDetail.checkAvailableGroup(groupName);
-             });
+            if (top > 300) {
+                top -= 100;
+            }
 
-             $("#Submit").click(function () {
-                 CommGroupDetail.submit(FORM_SELECTOR);
-             });
-         }
+            $self.css({
+                'top': (top < 0 ? 0 : top) + "px",
+                'left': (left < 0 ? 0 : left) + "px"
+            });
 
-         var _me = {
-             initialize: initialize,
-             initEvent: initEvent
-         };
+            if (modal === true || modal === undefined) {
+                $blockBody.show();
+            }
 
-         return _me;
-     }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+            $self.fadeIn(300);
+        },
 
-/***/ }),
-
-/***/ 45:
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site) {
-    "use strict";
-
-    function goToCustomerList(groupCommId) {
-        if (isParentSameOrigin()) {
-            // Deactive Commission Group menu (55) and active Customer list menu (43)
-            $("li>#MenuItem55", window.parent.document).parent().removeClass("active");
-            $("li>#MenuItem43", window.parent.document).parent().addClass("active");
-            _me.setPageTitle(Site.getSingleResource("CustomerList"));
+        hide: function () {
+            $(this).fadeOut(300);
+            $blockBody.hide();
+            return false;
         }
-        Site.redirect(Site.resolveClientUrl("Customer/CustomerList?groupId=" + groupCommId));
-    }
-
-    function setPageTitle(title) {
-        if (isParentSameOrigin()) {
-            $("#page-title", window.parent.document).text(title);
-        }
-    }
-
-    function isParentSameOrigin() {
-        var sameOrigin;
-        try {
-            sameOrigin = window.parent.location.host === window.location.host;
-        }
-        catch (e) {
-            sameOrigin = false;
-        }
-        return sameOrigin;
-    }
-
-    var _me = {
-        goToCustomerList: goToCustomerList,
-        setPageTitle: setPageTitle
     };
 
-    return _me;
+    $.fn.flatPopup = function (methodOrOptions) {
+        if (_methods[methodOrOptions]) {
+            return _methods[methodOrOptions].apply(this, Array.prototype.slice.call(arguments, 1));
+        } else if (typeof methodOrOptions === 'object' || !methodOrOptions) {
+            // Default to "init"
+            return _methods.init.apply(this, arguments);
+        } else {
+            $.error('Method ' + methodOrOptions + ' does not exist on jQuery.flatPopup');
+        }
+    };
 }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
 
-/***/ 55:
+/***/ "./www/js/source/components/selectlist.js":
+/*!************************************************!*\
+  !*** ./www/js/source/components/selectlist.js ***!
+  \************************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(1), __webpack_require__(5), __webpack_require__(45), __webpack_require__(56)], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Popup, CustomerCommGroup) {
-         "use strict";
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($) {
+    "use strict";
 
-         function initialize(titleResource) {
-             Site.initialize();
-          
-             initColorPicker();
-             CustomerCommGroup.setPageTitle(Site.getSingleResource(titleResource));
-             _me.initEvent();
-         }
+    var CONTAINER_SELECTOR = ".select-list-container";
+    var DISABLED_CLASS = "disabled";
+    var HIGHLIGHT_CLASS = "highlighted";
 
-         function initEvent() {
-             $("#GroupName").keyup(function () {
-                 $("#GroupName").removeClass("invalid valid");
-                 $("#Submit").prop("disabled", false);
-             });
+    function getLabelHtml(option) {
+        var targetDropdownId = option.selectionId + "-result-container";
+        var className = option.isDisabled ? "selection disabled" : "selection";
+        return '<div class="select-list-container">' +
+                '<div class="' + className + '" id="' + option.selectionId + '" aria-targetDropdown="' + targetDropdownId + '">' +
+                    '<div class="selection-label">' + option.labelText + '</div>' +
+                    '<div class="selection-icon"><span class="selection-icon-arrow"></span></div>' +
+                '</div>' +
+            '</div>';
+    }
 
-             $("#Cancel").click(function () {
-                 CustomerCommGroup.setPageTitle(Site.getSingleResource("CommissionGroupList"));
-                 Site.redirect(Site.resolveClientUrl("CustomerComGroup/Index"));
-             });
+    function getSearchBoxHtml(isShow) {
+        return isShow ? '<div class="select-list-dropdown-search"><input class="select-list-search-results" autocomplete="off" /></div>' : '';
+    }
 
-             // Commission dropdownlist change
-             $("#SBComm1").on("change", function () {
-                 commissionOnChange($(this).val(), "SBComm");
-             }).change();
-             
-             $("#ParlayComm1").on("change", function () {
-                 commissionOnChange($(this).val(), "ParlayComm");
-             }).change();
+    function getOptionItemHtml(dataItem) {
+        return '<li class="option-item ' + dataItem.className + '" data-key="' + dataItem.key + '">' + dataItem.value + '</li>';
+    }
 
-             $("#RCComm1").on("change", function () {
-                 commissionOnChange($(this).val(), "RCComm");
-             }).change();
+    function getOptionListHtml(dataList) {
+        var htmlArray = ['<div class="select-list-dropdown-results"><ul class="option-list">'];
 
-             $("#NGComm1").on("change", function () {
-                 commissionOnChange($(this).val(), "NGComm");
-             }).change();
+        for (var i = 0; i < dataList.length; i++) {
+            var dataItem = dataList[i];
+            htmlArray.push(getOptionItemHtml(dataItem));
+        }
 
-             $("#CSComm1").on("change", function () {
-                 commissionOnChange($(this).val(), "CSComm");
-             }).change();
+        htmlArray.push('</ul></div>');
 
-             $("#ABComm1").on("change", function () {
-                 commissionOnChange($(this).val(), "ABComm");
-             }).change();
-         }
+        return htmlArray.join("");
+    }
 
-         function checkAvailableGroup(groupName) {
-             if (groupName.length < 1) {
-                 displayGroupNameError(Site.getSingleResource("GroupNameNotEmptyMsg"));
-                 return;
-             }
+    function scrollToHighLightItem($container, $item, index) {
+        var itemTop = $item.offset().top;
+        var itemHeight = $item.outerHeight();
+        var containerTop = $container.offset().top;
+        var scrollUp = null;
+        if (itemTop <= containerTop) {
+            scrollUp = true;
+        }
+        else if (itemTop >= containerTop + $container.height()) {
+            scrollUp = false;
+        }
+        if (scrollUp === null) {
+            return;
+        }
+        if (scrollUp) {
+            $container.scrollTop(itemHeight * (index - 1) - $container.height());
+        }
+        else {
+            $container.scrollTop(itemHeight * index);
+        }
+    }
 
-             if (groupName.length >= 100) {
-                 displayGroupNameError(Site.getSingleResource("GroupNameNotExceed100CharactersMsg"));
-                 return;
-             }
+    function keyUp($element) {
+        var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
+        var showOptionList = $selectList.find(".option-item:visible");
+        var $highlightItem = $selectList.find(".option-item." + HIGHLIGHT_CLASS + ":visible").first();
+        var index = showOptionList.index($highlightItem);
 
-             if ($.trim(groupName).toLowerCase() === "none") {
-                 displayGroupNameError(Site.getSingleResource("ChooseGroupNameMsg"));
-                 return;
-             }
+        $highlightItem.removeClass(HIGHLIGHT_CLASS);
+        if ($highlightItem.length > 0 && index !== 0) {
+            var $preItem = showOptionList.eq(index - 1);
+            $preItem.addClass(HIGHLIGHT_CLASS);
+            scrollToHighLightItem($selectList, $preItem, index - 1);
+        }
+        else {
+            showOptionList.last().addClass(HIGHLIGHT_CLASS);
+            $selectList.scrollTop(showOptionList.length * $highlightItem.outerHeight());
+        }
+    }
 
-             if (!groupName.match("^[a-zA-Z0-9 ]+$")) {
-                 displayGroupNameError(Site.getSingleResource("GroupNameOnlyContainCharactersAndNumberMsg"));
-                 return;
-             }
+    function keyDown($element) {
+        var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
+        var showOptionList = $selectList.find(".option-item:visible");
+        var $highlightItem = $selectList.find(".option-item." + HIGHLIGHT_CLASS + ":visible").first();
+        var index = showOptionList.index($highlightItem);
 
-             validateGroupName($.trim(groupName));
-         }
+        $highlightItem.removeClass(HIGHLIGHT_CLASS);
+        if ($highlightItem.length > 0 && index !== (showOptionList.length - 1)) {
+            var $nextItem = showOptionList.eq(index + 1);
+            $nextItem.addClass(HIGHLIGHT_CLASS);
+            scrollToHighLightItem($selectList, $nextItem, index + 1);
+        }
+        else {
+            showOptionList.first().addClass(HIGHLIGHT_CLASS);
+            $selectList.scrollTop(0);
+        }
+    }
 
-         function validateGroupName(groupName) {
-             var url = "CustomerComGroup/Validate?groupName=" + groupName;
+    function keySearch($element, canEnter) {
+        setTimeout(function () {
+            var query = $element.val().toUpperCase();
+            var $selectList = $element.closest(".select-list-dropdown").find(".select-list-dropdown-results");
+            var optionList = $selectList.find(".option-item");
+            var isFirstItem = canEnter;
+            if (canEnter) {
+                optionList.removeClass(HIGHLIGHT_CLASS);
+            }
+            optionList.each(function (index, item) {
+                var $item = $(item);
+                var currentText = $item.text().toUpperCase();
+                if (currentText.indexOf(query) === -1) {
+                    $item.hide();
+                }
+                else {
+                    if (isFirstItem) {
+                        $item.addClass(HIGHLIGHT_CLASS);
+                        isFirstItem = false;
+                        $selectList.scrollTop(0);
+                    }
+                    $item.show();
+                }
+            });
+        }, 100);
+    }
 
-             $.ajax({
-                 url: Site.resolveClientUrl(url),
-                 type: "GET",
-                 dataType: "html",
-                 cache: false,
-                 beforeSend: function () {
-                     Site.blockUI();
-                 },
-                 success: function (result) {
-                     if (result === "OK") {
-                         $("#GroupName").removeClass("invalid").addClass("valid");
-                         $("label[for=GroupName]").attr("data-success", "");
-                         $("#Submit").prop("disabled", false);
-                     }
-                     else {
-                         displayGroupNameError(Site.getSingleResource("GroupNameExistedMsg"));
-                     }
+    function enter($element) {
+        var $highlightItem = $element.closest(".select-list-dropdown").find(".option-item." + HIGHLIGHT_CLASS + ":visible");
+        $highlightItem.click();
+    }
 
-                     Site.unBlockUI();
-                 }
-             });
-         }
+    function getDropdownList(resultContainerId, canSearch, canEnter) {
+        /*jshint validthis: true*/
+        var $originalSelectElement = $(this);
+        var dataList = $originalSelectElement.find("option").map(function (index, item) {
+            var key = item.value;
+            var text = item.text;
 
-         function displayGroupNameError(errorMsg) {
-             $('label[for="GroupName"]').attr("data-error", errorMsg);
-             $("#GroupName").addClass("invalid").focus();
-             $("#Submit").prop("disabled", true);
-         }
+            return { key: key, value: text, className: item.className };
+        });
+        var selectedValue = $originalSelectElement.val();
 
-         function commissionOnChange(value, idName) {
-             var comm2 = "#" + idName + "2", comm3 = "#" + idName + "3";
+        var dropdownListHtml = '<div id="' + resultContainerId + '" class="select-list-result-container"><div class="select-list-dropdown">' +
+                                getSearchBoxHtml(canSearch) + getOptionListHtml(dataList) +
+                            '</div></div>';
+        var $dropdown = $(dropdownListHtml);
+        $dropdown.find('.option-item[data-key="' + selectedValue + '"]').addClass(HIGHLIGHT_CLASS);
 
-             if (Number(value) === 15) {
-                 $(comm2).val(0);
-                 $(comm2).selectList("update", {
-                     isDisabled: true,
-                     selectionId: "select-list-" + idName + "2",
-                     labelText: "0"
-                 });
-                 $(comm3).val(0);
-                 $(comm3).selectList("update", {
-                     isDisabled: true,
-                     selectionId: "select-list-" + idName + "3",
-                     labelText: "0"
-                 });
-             } else {
-                 $(comm2).selectList("disabled", false);
-                 $(comm3).selectList("disabled", false);
-             }
-         }      
+        $dropdown.on("click", ".option-item", function () {
+            $(".option-item").removeClass(HIGHLIGHT_CLASS);
+            $(this).addClass(HIGHLIGHT_CLASS);
+            var selectedKey = $(this).data("key");
+            $originalSelectElement.val(selectedKey);
 
-         function submit(formId) {
-             initCommParam("#SBComm");
-             initCommParam("#ParlayComm");
-             initCommParam("#RCComm");
-             initCommParam("#NGComm");
-             initCommParam("#CSComm");
-             initCommParam("#ABComm");
+            $originalSelectElement.trigger("change");
+        });
 
-             initDefaultParam(formId);
-         }
+        var $searchBox = $dropdown.find(".select-list-search-results");
 
-         function initCommParam(id) {
-             var comm1 = parseInt($(id + "1").val());
-             var comm2 = parseInt($(id + "2").val());
-             var comm3 = parseInt($(id + "3").val());
+        $searchBox.on("click", function (e) {
+            e.stopPropagation();
+        });
 
-             var comm = parseFloat((comm1 + comm2 / 10 + comm3 / 100) / 100).toFixed(4);
-             comm = isNaN(comm) ? 0 : comm;
+        if (canEnter) {
+            $searchBox.on("keyup", function (e) {
+                var $this = $(this);
+                if (e.keyCode === 40) {
+                    keyDown($this);
+                }
+                else if (e.keyCode === 38) {
+                    keyUp($this);
+                }
+                else if (e.keyCode === 13) {
+                    enter($this);
+                }
+                else {
+                    keySearch($this, true);
+                }
+            });
+        }
+        else {
+            $searchBox.on("keyup", function () {
+                var $this = $(this);
+                keySearch($this, false);
+            });
+        }
 
-             $(id).val(comm);
-         }         
+        return $dropdown;
+    }
 
-         function initDefaultParam(formId) {
-             var isDefault = $("#IsDefaultGroup").is(":checked");
-             var defaultGroupId = parseInt($('#DefaultGroupId').val());
-             var currentGroupId = parseFloat($('#GroupCommId').val());
-             $("#IsDefaultGroup").val(isDefault);
-             $("#IsResetDefault").val(false);
-             if (isDefault && defaultGroupId !== currentGroupId && defaultGroupId !== 0) {
-                 showConfirmAction(Site.getSingleResource('GroupSetAsDefaultMsg'), function () {
-                     $("#IsResetDefault").val(true);
-                     Site.blockUI();
-                     $(formId).submit();
-                 });
-             } else {
-                 Site.blockUI();
-                 $(formId).submit();
-             }
-         }
+    function generateId($element) {
+        var id = '';
 
-         function goToCustomerList(groupCommId) {
-             CustomerCommGroup.goToCustomerList(groupCommId);
-         }
+        if ($element.attr('id') !== null) {
+            id = $element.attr('id');
+        } else if ($element.attr('name') !== null) {
+            id = $element.attr('name') + '-' + generateChars(2);
+        } else {
+            id = generateChars(4);
+        }
 
-         function showConfirmAction(message, callback) {
-             var options = {
-                 modal: true,
-                 title: Site.getSingleResource("Confirm"),
-                 height: "auto",
-                 id: "confirm-action",
-                 width: 450
-             };
+        id = id.replace(/(:|\.|\[|\]|,)/g, '');
+        id = 'select-list-' + id;
 
-             var buttons = [
-                 {
-                     text: Site.getSingleResource("OK"),
-                     isClosedOnClick: true,
-                     click: callback,
-                     classes: "btn btn-submit"
-                 }, {
-                     text: Site.getSingleResource("Cancel"),
-                     isClosedOnClick: true,
-                     classes: "btn btn-cancel"
-                 }];
+        return id;
+    }
 
-             Popup.openPopupWithButton('<div><p>' + message + '</p></div>', options, buttons);
-         }
+    function generateChars(length) {
+        var chars = '';
 
-         function initColorPicker() {
-             $("#GroupColor").colorPicker({
-                 transparency: true
-             });
-         }
+        for (var i = 0; i < length; i++) {
+            var randomChar = Math.floor(Math.random() * 36);
+            chars += randomChar.toString(36);
+        }
 
-         var _me = {
-             initialize: initialize,
-             initEvent: initEvent,
-             submit: submit,
-             checkAvailableGroup: checkAvailableGroup,
-             goToCustomerList: goToCustomerList
-         };
+        return chars;
+    }
 
-         return _me;
-     }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+    function closeAll() {
+        $(".select-list-result-container").remove();
+    }
+
+    var defaultOption = {
+        canSearch: false,
+        canEnter: false,
+        isDisabled: false,
+        beforeOpen: function () { },
+        afterOpen: function () { }
+    };
+
+    var _methods = {
+        init: function (options) {
+            var selectListOption = $.extend({}, defaultOption, options || {});
+
+            return this.each(function () {
+                var self = this;
+                var $element = $(self);
+                if (!selectListOption.canSearch) {
+                    selectListOption.canSearch = $element.attr("data-can-search") === "1";
+                }
+                if (!selectListOption.canEnter) {
+                    selectListOption.canEnter = $element.attr("data-can-enter") === "1";
+                }
+
+                _methods.buildLabel.call(self);
+
+                var $container = $element.parent();
+                $container.off("click", ".selection");
+                $container.on("click", ".selection", function () {
+                    var $selection = $(this);
+                    if (!$selection.hasClass(DISABLED_CLASS)) {
+                        _methods.toggle.call(self, selectListOption);
+                    }
+                });
+
+                $element.on("change", function () {
+                    _methods.update.call(self);
+                });
+
+                $("html").on("click", function (e) {
+                    var $target = $(e.target);
+
+                    if (!$target.closest(CONTAINER_SELECTOR).length) {
+                        closeAll();
+                    }
+                });
+            });
+        },
+
+        buildLabel: function (option) {
+            option = option || {};
+            var $self = $(this);
+            $self.siblings(CONTAINER_SELECTOR).remove();
+            var optionSelected = $self.find("option:selected");
+            var labelText = optionSelected.length ? optionSelected.text() : "";
+            var selectionId = generateId($self);
+
+            option.labelText = labelText;
+            option.selectionId = selectionId;
+            var $selectionLabel = $(getLabelHtml(option));
+
+            $self.hide().parent().append($selectionLabel);
+        },
+
+        open: function (resultContainerId, canSearch, canEnter) {
+            closeAll();
+
+            var $self = $(this);
+            var $dropdown = getDropdownList.call(this, resultContainerId, canSearch, canEnter);
+
+            var $selection = $self.siblings(CONTAINER_SELECTOR).find(".selection");
+            var offset = $selection.offset();
+            $dropdown.css({ top: (offset.top + 26) + 'px', left: offset.left + 'px', width: $selection.width() + 'px' });
+
+            $("body").append($dropdown);
+            $dropdown.find(".select-list-search-results").focus();
+        },
+
+        close: function () {
+            var $this = $(this);
+            var $selection = $this.siblings(CONTAINER_SELECTOR).find(".selection");
+            var resultContainerId = $selection.attr("aria-targetDropdown");
+            $("#" + resultContainerId).remove();
+        },
+
+        toggle: function (option) {
+            var $this = $(this);
+            var $selection = $this.siblings(CONTAINER_SELECTOR).find(".selection");
+            var resultContainerId = $selection.attr("aria-targetDropdown");
+
+            if (resultContainerId && resultContainerId.length > 0) {
+                var $currentDropdown = $("#" + resultContainerId);
+                var isShowing = $currentDropdown.length > 0;
+
+                if (isShowing) {
+                    $currentDropdown.remove();
+                }
+                else {
+                    if (typeof option.beforeOpen === "function") {
+                        option.beforeOpen.call(this);
+                    }
+
+                    _methods.open.call(this, resultContainerId, option.canSearch, option.canEnter);
+
+                    if (typeof option.afterOpen === "function") {
+                        option.afterOpen.call(this);
+                    }
+                }
+            }
+        },
+
+        update: function (option) {
+            _methods.buildLabel.call(this, option);
+        },
+
+        disabled: function (isDisabled) {
+            var $selection = $(this).siblings(CONTAINER_SELECTOR).find(".selection");
+            $selection.toggleClass(DISABLED_CLASS, !!isDisabled);
+        }
+    };
+
+    $.fn.selectList = function (methodOrOptions) {
+        if (_methods[methodOrOptions]) {
+            return _methods[methodOrOptions].apply(this, Array.prototype.slice.call(arguments, 1));
+        } else if (typeof methodOrOptions === 'object' || !methodOrOptions) {
+            return _methods.init.apply(this, arguments);
+        } else {
+            $.error('Method ' + methodOrOptions + ' does not exist on selectList');
+        }
+    };
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
 
-/***/ 56:
+/***/ "./www/js/source/extensions/prototype.js":
+/*!***********************************************!*\
+  !*** ./www/js/source/extensions/prototype.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+﻿/// <reference path="/@JSense.js" />
+///
+/*
+* @Alex-1/11/2013
+* The below function will work adequatly for the six simple types I mentioned,
+* as long as data in the objects and arrays form a tree structure.That is, there isn't
+* more than one reference to the same data in the object.
+*
+*/
+
+//#region String Prototype
+
+/* jshint ignore:start */
+String.prototype.format = function () {
+    /// <summary>
+    /// simply format method
+    /// </summary>
+    /// <returns type="string">formated string</returns>
+    var formatted = this;
+    for (var i = 0; i < arguments.length; i++) {
+        formatted = formatted.replace("{" + i + "}", arguments[i]);
+    }
+    return formatted;
+};
+String.prototype.trim = function () {
+    return this.replace(/(^\s*)|(\s*$)/g, '');
+};
+
+String.prototype.ltrim = function () {
+    return this.replace(/^\s*/g, '');
+};
+
+String.prototype.rtrim = function () {
+    return this.replace(/\s*$/g, '');
+};
+String.prototype.replaceAll = function (token, newToken, ignoreCase) {
+    var _token;
+    var str = this + "";
+    var i = -1;
+
+    if (typeof token === "string") {
+        if (ignoreCase) {
+            _token = token.toLowerCase();
+
+            while ((
+                i = str.toLowerCase().indexOf(
+                    token, i >= 0 ? i + newToken.length : 0
+                )) !== -1
+            ) {
+                str = str.substring(0, i) +
+                    newToken +
+                    str.substring(i + token.length);
+            }
+        } else {
+            return this.split(token).join(newToken);
+        }
+    }
+    return str;
+};
+
+//#endregion
+
+//#region Array prototype
+
+Array.prototype.remove = function (value, fieldName) {
+    /// <summary>
+    ///
+    /// Remove specific element in array
+    /// </summary>
+    /// <param name="value"> element or value of field in object</param>
+    /// <param name="fieldName">Name of a field in object</param>
+    for (var i = 0; i < this.length; ++i) {
+        if (typeof this[i] == 'object' && fieldName !== undefined) {
+            if (this[i][fieldName] !== undefined && this[i][fieldName] == value) {
+                this.splice(i, 1);
+                return;
+            }
+        } else {
+            if (this[i] == value) {
+                this.splice(i, 1);
+                return;
+            }
+        }
+    }
+};
+Array.prototype.insertAfter = function (value, after) {
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="value">element</param>
+    /// <param name="after">position</param>
+    this.splice(after + 1, 0, value);
+};
+Array.prototype.insertBefore = function (value, before) {
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="value">element</param>
+    /// <param name="before">position</param>
+    this.splice(before, 0, value);
+};
+
+//#endregion
+
+/* jshint ignore:end */
+
+/***/ }),
+
+/***/ "./www/js/source/lib/jquery.colorpicker.js":
+/*!*************************************************!*\
+  !*** ./www/js/source/lib/jquery.colorpicker.js ***!
+  \*************************************************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {﻿/**
@@ -676,9 +1120,338 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 })(jQuery);
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57")))
+
+/***/ }),
+
+/***/ "./www/js/source/pages/customer/customercomm/commgroup.js":
+/*!****************************************************************!*\
+  !*** ./www/js/source/pages/customer/customercomm/commgroup.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site) {
+    "use strict";
+
+    function goToCustomerList(groupCommId) {
+        if (isParentSameOrigin()) {
+            // Deactive Commission Group menu (55) and active Customer list menu (43)
+            $("li>#MenuItem55", window.parent.document).parent().removeClass("active");
+            $("li>#MenuItem43", window.parent.document).parent().addClass("active");
+            _me.setPageTitle(Site.getSingleResource("CustomerList"));
+        }
+        Site.redirect(Site.resolveClientUrl("Customer/CustomerList?groupId=" + groupCommId));
+    }
+
+    function setPageTitle(title) {
+        if (isParentSameOrigin()) {
+            $("#page-title", window.parent.document).text(title);
+        }
+    }
+
+    function isParentSameOrigin() {
+        var sameOrigin;
+        try {
+            sameOrigin = window.parent.location.host === window.location.host;
+        }
+        catch (e) {
+            sameOrigin = false;
+        }
+        return sameOrigin;
+    }
+
+    var _me = {
+        goToCustomerList: goToCustomerList,
+        setPageTitle: setPageTitle
+    };
+
+    return _me;
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ "./www/js/source/pages/customer/customercomm/commgroupadd.js":
+/*!*******************************************************************!*\
+  !*** ./www/js/source/pages/customer/customercomm/commgroupadd.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! ./commgroupdetail */ "./www/js/source/pages/customer/customercomm/commgroupdetail.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, CommGroupDetail) {
+         "use strict";
+
+         var FORM_SELECTOR = "#customer-comm-group-add";
+         var TITLE = "CreateNewGroup";
+
+         function initialize() {
+             CommGroupDetail.initialize(TITLE);
+
+             _me.initEvent();
+         }
+
+         function initEvent() {
+             $("#Validate").click(function () {
+                 var groupName = $("#GroupName").val();
+                 CommGroupDetail.checkAvailableGroup(groupName);
+             });
+
+             $("#Submit").click(function () {
+                 CommGroupDetail.submit(FORM_SELECTOR);
+             });
+         }
+
+         var _me = {
+             initialize: initialize,
+             initEvent: initEvent
+         };
+
+         return _me;
+     }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ "./www/js/source/pages/customer/customercomm/commgroupdetail.js":
+/*!**********************************************************************!*\
+  !*** ./www/js/source/pages/customer/customercomm/commgroupdetail.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! common/popup */ "./www/js/source/common/popup.js"), __webpack_require__(/*! ./commgroup */ "./www/js/source/pages/customer/customercomm/commgroup.js"), __webpack_require__(/*! lib/jquery.colorpicker */ "./www/js/source/lib/jquery.colorpicker.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Popup, CustomerCommGroup) {
+         "use strict";
+
+         function initialize(titleResource) {
+             Site.initialize();
+          
+             initColorPicker();
+             CustomerCommGroup.setPageTitle(Site.getSingleResource(titleResource));
+             _me.initEvent();
+         }
+
+         function initEvent() {
+             $("#GroupName").keyup(function () {
+                 $("#GroupName").removeClass("invalid valid");
+                 $("#Submit").prop("disabled", false);
+             });
+
+             $("#Cancel").click(function () {
+                 CustomerCommGroup.setPageTitle(Site.getSingleResource("CommissionGroupList"));
+                 Site.redirect(Site.resolveClientUrl("CustomerComGroup/Index"));
+             });
+
+             // Commission dropdownlist change
+             $("#SBComm1").on("change", function () {
+                 commissionOnChange($(this).val(), "SBComm");
+             }).change();
+             
+             $("#ParlayComm1").on("change", function () {
+                 commissionOnChange($(this).val(), "ParlayComm");
+             }).change();
+
+             $("#NGComm1").on("change", function () {
+                 commissionOnChange($(this).val(), "NGComm");
+             }).change();
+
+             $("#CSComm1").on("change", function () {
+                 commissionOnChange($(this).val(), "CSComm");
+             }).change();
+         }
+
+         function checkAvailableGroup(groupName) {
+             if (groupName.length < 1) {
+                 displayGroupNameError(Site.getSingleResource("GroupNameNotEmptyMsg"));
+                 return;
+             }
+
+             if (groupName.length >= 100) {
+                 displayGroupNameError(Site.getSingleResource("GroupNameNotExceed100CharactersMsg"));
+                 return;
+             }
+
+             if ($.trim(groupName).toLowerCase() === "none") {
+                 displayGroupNameError(Site.getSingleResource("ChooseGroupNameMsg"));
+                 return;
+             }
+
+             if (!groupName.match("^[a-zA-Z0-9 ]+$")) {
+                 displayGroupNameError(Site.getSingleResource("GroupNameOnlyContainCharactersAndNumberMsg"));
+                 return;
+             }
+
+             validateGroupName($.trim(groupName));
+         }
+
+         function validateGroupName(groupName) {
+             var url = "CustomerComGroup/Validate?groupName=" + groupName;
+
+             $.ajax({
+                 url: Site.resolveClientUrl(url),
+                 type: "GET",
+                 dataType: "html",
+                 cache: false,
+                 beforeSend: function () {
+                     Site.blockUI();
+                 },
+                 success: function (result) {
+                     if (result === "OK") {
+                         $("#GroupName").removeClass("invalid").addClass("valid");
+                         $("label[for=GroupName]").attr("data-success", "");
+                         $("#Submit").prop("disabled", false);
+                     }
+                     else {
+                         displayGroupNameError(Site.getSingleResource("GroupNameExistedMsg"));
+                     }
+
+                     Site.unBlockUI();
+                 }
+             });
+         }
+
+         function displayGroupNameError(errorMsg) {
+             $('label[for="GroupName"]').attr("data-error", errorMsg);
+             $("#GroupName").addClass("invalid").focus();
+             $("#Submit").prop("disabled", true);
+         }
+
+         function commissionOnChange(value, idName) {
+             var comm2 = "#" + idName + "2", comm3 = "#" + idName + "3";
+
+             if (Number(value) === 15) {
+                 $(comm2).val(0);
+                 $(comm2).selectList("update", {
+                     isDisabled: true,
+                     selectionId: "select-list-" + idName + "2",
+                     labelText: "0"
+                 });
+                 $(comm3).val(0);
+                 $(comm3).selectList("update", {
+                     isDisabled: true,
+                     selectionId: "select-list-" + idName + "3",
+                     labelText: "0"
+                 });
+             } else {
+                 $(comm2).selectList("disabled", false);
+                 $(comm3).selectList("disabled", false);
+             }
+         }      
+
+         function submit(formId) {
+             initCommParam("#SBComm");
+             initCommParam("#ParlayComm");
+             initCommParam("#NGComm");
+             initCommParam("#CSComm");
+
+             initDefaultParam(formId);
+         }
+
+         function initCommParam(id) {
+             var comm1 = parseInt($(id + "1").val());
+             var comm2 = parseInt($(id + "2").val());
+             var comm3 = parseInt($(id + "3").val());
+
+             var comm = parseFloat((comm1 + comm2 / 10 + comm3 / 100) / 100).toFixed(4);
+             comm = isNaN(comm) ? 0 : comm;
+
+             $(id).val(comm);
+         }         
+
+         function initDefaultParam(formId) {
+             var isDefault = $("#IsDefaultGroup").is(":checked");
+             var defaultGroupId = parseInt($('#DefaultGroupId').val());
+             var currentGroupId = parseFloat($('#GroupCommId').val());
+             $("#IsDefaultGroup").val(isDefault);
+             $("#IsResetDefault").val(false);
+             if (isDefault && defaultGroupId !== currentGroupId && defaultGroupId !== 0) {
+                 showConfirmAction(Site.getSingleResource('GroupSetAsDefaultMsg'), function () {
+                     $("#IsResetDefault").val(true);
+                     Site.blockUI();
+                     $(formId).submit();
+                 });
+             } else {
+                 Site.blockUI();
+                 $(formId).submit();
+             }
+         }
+
+         function goToCustomerList(groupCommId) {
+             CustomerCommGroup.goToCustomerList(groupCommId);
+         }
+
+         function showConfirmAction(message, callback) {
+             var options = {
+                 modal: true,
+                 title: Site.getSingleResource("Confirm"),
+                 height: "auto",
+                 id: "confirm-action",
+                 width: 450
+             };
+
+             var buttons = [
+                 {
+                     text: Site.getSingleResource("OK"),
+                     isClosedOnClick: true,
+                     click: callback,
+                     classes: "btn btn-submit"
+                 }, {
+                     text: Site.getSingleResource("Cancel"),
+                     isClosedOnClick: true,
+                     classes: "btn btn-cancel"
+                 }];
+
+             Popup.openPopupWithButton('<div><p>' + message + '</p></div>', options, buttons);
+         }
+
+         function initColorPicker() {
+             $("#GroupColor").colorPicker({
+                 transparency: true
+             });
+         }
+
+         var _me = {
+             initialize: initialize,
+             initEvent: initEvent,
+             submit: submit,
+             checkAvailableGroup: checkAvailableGroup,
+             goToCustomerList: goToCustomerList
+         };
+
+         return _me;
+     }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ "./www/js/source/pages/customer/customercomm/main-commgroupadd.js":
+/*!************************************************************************!*\
+  !*** ./www/js/source/pages/customer/customercomm/main-commgroupadd.js ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function($) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! ./commgroupadd.js */ "./www/js/source/pages/customer/customercomm/commgroupadd.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (CustomerCommGroupAdd) {
+    "use strict";
+
+    $(CustomerCommGroupAdd.initialize);
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57")))
+
+/***/ }),
+
+/***/ 36:
+/*!******************************************************************************!*\
+  !*** multi ./www/js/source/pages/customer/customercomm/main-commgroupadd.js ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! ./www/js/source/pages/customer/customercomm/main-commgroupadd.js */"./www/js/source/pages/customer/customercomm/main-commgroupadd.js");
+
 
 /***/ })
 
-},[238]);
+/******/ });
 //# sourceMappingURL=commgroupadd.chunk.js.map

@@ -10,14 +10,10 @@
     public class TurnoverByPlatformController : BaseDashboardApiController
     {
         private readonly ILicenseeDataByPlatformDataAccess _dataAccess;
-
-        public TurnoverByPlatformController() : this(null)
-        {
-        }
-
+        
         public TurnoverByPlatformController(ILicenseeDataByPlatformDataAccess licenseeDataByPlatformService)
         {
-            this._dataAccess = licenseeDataByPlatformService ?? new LicenseeDataByPlatformDataAccess();
+            this._dataAccess = licenseeDataByPlatformService;
         }
 
         [HttpGet]

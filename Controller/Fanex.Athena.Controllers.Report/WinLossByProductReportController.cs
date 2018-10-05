@@ -20,10 +20,6 @@ namespace Fanex.Athena.Controllers.Report
     [FunctionAuthorization(PermissionKeys.ReportWinLossByProduct)]
     public class WinLossByProductReportController : ReportBaseController
     {
-        public WinLossByProductReportController()
-        {
-        }
-
         public WinLossByProductReportController(
             ILanguageService languageService,
             ISessionService sessionService,

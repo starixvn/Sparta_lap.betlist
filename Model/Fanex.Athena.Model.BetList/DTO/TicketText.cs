@@ -29,5 +29,9 @@ namespace Fanex.Athena.Model.BetList.DTO
         public string LicenseeWL { get; set; }
 
         public string Status { get; set; }
+
+        public string Platform { get; set; }
+
+        public string Live { get; set; }
     }
 }

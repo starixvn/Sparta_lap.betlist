@@ -10,23 +10,14 @@ namespace Fanex.Athena.Service.Core.Users
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
-    using Fanex.Athena.DataAccess.Core.Users;
     using Fanex.Athena.DataAccess.Core.Users.Interfaces;
-    using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Service.Core.Users.Interfaces;
-    using Model.Core.DTO;
 
     public class AuthorizationService : IAuthorizationService
     {
         private readonly IAthorizationDataAccess _authorizationDataAccess;
         private readonly IFunctionService _functionService;
-
-        public AuthorizationService()
-        {
-            _authorizationDataAccess = new AuthorizationDataAccess();
-            _functionService = new FunctionService();
-        }
 
         public AuthorizationService(IAthorizationDataAccess authorizationDataAccess, IFunctionService functionService)
         {

@@ -146,7 +146,6 @@
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Threading.Tasks.Extensions.4.3.0\lib\portable-net45+win8+wp8+wpa81\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.AspNet.Razor.3.2.6\lib\net45\System.Web.Razor.dll</HintPath>
     </Reference>
@@ -162,7 +161,6 @@
     <Compile Include="CashOutWinLossDataAccessTest.cs" />
     <Compile Include="ColossusBetsWinLossDataAccessTest.cs" />
     <Compile Include="CasinoProgressiveWinsDataAccessTest.cs" />
-    <Compile Include="BalanceDataAccessTest.cs" />
     <Compile Include="CustomerBalanceDataAccessTest.cs" />
     <Compile Include="CustomerPendingFundsDataAccessTest.cs" />
     <Compile Include="CustomerTurnoverDataAccessTest.cs" />
@@ -182,13 +180,11 @@
     <Compile Include="ThirdPartyWinLossDataAccessTest.cs" />
     <Compile Include="SettledMatchCountDataAccessTest.cs" />
     <Compile Include="ResultDataAccessTest.cs" />
-    <Compile Include="RacingCommissionDataAccessTest.cs" />
     <Compile Include="PlatformWinLossDataAccessTest.cs" />
     <Compile Include="MicroGamingWinLossDataAccessTest.cs" />
     <Compile Include="MatchWinLossDataAccessTest.cs" />
     <Compile Include="LiveReportDataAccessTest.cs" />
     <Compile Include="LicenseeWinLossDataAccessTest.cs" />
-    <Compile Include="DailyRacingWinLossDataAccessTest.cs" />
     <Compile Include="CustomerWinlossDataAccessTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

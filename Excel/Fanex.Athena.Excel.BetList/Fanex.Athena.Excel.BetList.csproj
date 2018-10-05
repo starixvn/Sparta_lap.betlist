@@ -154,6 +154,11 @@
   <ItemGroup>
     <Compile Include="BetListExcel.cs" />
     <Compile Include="BetListExcelBuilderExtension.cs" />
+    <Compile Include="BettingTicketCenterExcel.cs" />
+    <Compile Include="Builders\BettingTicketCenterExcelBuilder.cs" />
+    <Compile Include="Builders\IBettingTicketCenterExcelBuilder.cs" />
+    <Compile Include="IBettingTicketCenterExcel.cs" />
+    <Compile Include="Model\BettingTicketCenterExcelModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

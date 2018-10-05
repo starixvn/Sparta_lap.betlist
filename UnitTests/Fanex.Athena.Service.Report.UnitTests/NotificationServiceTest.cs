@@ -17,7 +17,7 @@
 
     public class NotificationServiceTest
     {
-        private ILogger _logger;
+        private ICoreLogger _logger;
 
         private IAppSettings _appSettings;
 
@@ -28,7 +28,7 @@
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            _logger = Substitute.For<ILogger>();
+            _logger = Substitute.For<ICoreLogger>();
             _appSettings = Substitute.For<IAppSettings>();
             _webClientService = Substitute.For<IWebClientService>();
             _notificationService = new NotificationService(_logger, _appSettings, _webClientService);
@@ -363,7 +363,7 @@
 
         private void AssertWriteLogException(string exceptionMsg, string api)
         {
-            _logger.Received().Error($"{exceptionMsg}\nApiUrl: {api}", Arg.Any<Exception>());
+            _logger.Received().Error(Arg.Any<Exception>(), $"{exceptionMsg}\nApiUrl: {api}");
         }
     }
 }

@@ -60,12 +60,6 @@ class Calendar extends Component {
     onInit && onInit(this.state.date);
   }
 
-  componentWillReceiveProps(newProp) {
-    if (newProp.shownDate !== this.state.shownDate) {
-      this.setState({ shownDate: newProp.shownDate });
-    }
-  }
-
   get limitedDate() {
     const { minDate, maxDate } = this.props;
     const m = moment();

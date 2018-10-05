@@ -102,7 +102,6 @@ export class BetList extends Component {
         const { CustId, CurrencyId, BaseCurrency, ExcludeTestData } = this.props.params;
         const url = "api/ExchangeWinLossBetList/Detail";
         const params = {
-            xsrfToken: this.props.xsrfToken,
             data: { CustId, CurrencyId, BaseCurrency, ExcludeTestData, betId, type }
         }
 
@@ -130,8 +129,8 @@ export class BetList extends Component {
                 <Cell colSpan='9' className="right-align">{LangHelper.getSingleResource("GrandTotal")}</Cell>
                 <Cell title={GrandTotalString} className={`right-align ${this.props.data.GrandTotal < 0 && "negative"}`}>{GrandTotalString}</Cell>
             </Row >
-        ]
-    }
+                ]
+                }
 
     render() {
         const { showDetail, detailData } = this.state;
@@ -140,7 +139,7 @@ export class BetList extends Component {
         return (
             <div>
                 <BetListPopupLayout title={this.props.title}>
-                    {
+                {
                         MainData && MainData.length ?
                             (<Table
                                 autoWidth={false}
@@ -152,7 +151,7 @@ export class BetList extends Component {
                                 footer={this._buildFooter()}
                             />) :
                             <NoDataTitle />
-                    }
+                }
                 </BetListPopupLayout>
                 {
                     showDetail &&
@@ -162,16 +161,15 @@ export class BetList extends Component {
                 }
             </div>
         )
-    }
-}
+                }
+                }
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({ toggleLoader }, dispatch);
-};
+                };
 
 function mapStateToProps(state) {
-    const { xsrfToken } = state;
-    return Object.assign({}, { xsrfToken });
+    return {};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BetList);

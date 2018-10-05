@@ -157,13 +157,13 @@
             return agentBySub.Intersect(GetAgentByCurrencyData().SelectMany(i => i.Value)).ToList();
         }
 
-        private static IDictionary<int, IEnumerable<int>> GetAgentByCurrencyData()
+        private static IDictionary<int, int[]> GetAgentByCurrencyData()
         {
-            return new Dictionary<int, IEnumerable<int>>
+            return new Dictionary<int, int[]>
                 {
-                    { 20, new List<int> { 201, 202, 203, 204, 205 } },
-                    { 51, new List<int> { 511, 512, 513, 514, 515 } },
-                    { 13, new List<int> { 131, 132 } }
+                    { 20, new[] { 201, 202, 203, 204, 205 } },
+                    { 51, new[] { 511, 512, 513, 514, 515 } },
+                    { 13, new[] { 131, 132 } }
                 };
         }
 

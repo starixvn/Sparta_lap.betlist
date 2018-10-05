@@ -161,6 +161,7 @@
     <Compile Include="Attributes\ApiFunctionAuthorizationAttribute.cs" />
     <Compile Include="Attributes\ApiOneAuthorizationAttribute.cs" />
     <Compile Include="Attributes\CustomApiAuthorizeAttribute.cs" />
+    <Compile Include="Attributes\Extensions\DependencyScopeExtension.cs" />
     <Compile Include="Attributes\XFrameOptionApiAttribute .cs" />
     <Compile Include="BaseApiController.cs" />
     <Compile Include="Logger\ApiExceptionLogger.cs" />

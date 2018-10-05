@@ -6,7 +6,6 @@
     using System.Globalization;
     using Core.Configuration.Interfaces;
     using Core.UnitTests.TestHelpers;
-    using Data;
     using Model.BetList.DTO;
     using Model.BetList.MetaModel;
     using Model.Core.DTO.Configuration;
@@ -100,18 +99,16 @@
         [OneTimeSetUp]
         public override void FixtureSetUp()
         {
+            base.FixtureSetUp();
             _metaModel = FakeHelper.Create<BetListMetaModel>();
+        }
+
+        protected override void SetUpDataAccess()
+        {
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             balanceUpDataAccess.GetBalanceUp().Returns(BalanceUp);
 
-            ObjectDb = Substitute.For<IObjectDb>();
-            DataAccess = Substitute.ForPartsOf<DailyStatementBetListDataAccess>(balanceUpDataAccess);
-        }
-
-        [OneTimeTearDown]
-        public override void FixtureTearDown()
-        {
-            base.FixtureTearDown();
+            DataAccess = Substitute.ForPartsOf<DailyStatementBetListDataAccess>(AppSetting, CreateSessionStorage(), balanceUpDataAccess);
         }
 
         [Test]

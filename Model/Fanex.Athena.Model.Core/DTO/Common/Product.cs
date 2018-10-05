@@ -6,7 +6,6 @@
 namespace Fanex.Athena.Model.Core.DTO.Common
 {
     using System;
-    using Fanex.Athena.Model.Core.Helper;
 
     [Serializable]
     public class Product
@@ -14,8 +13,6 @@ namespace Fanex.Athena.Model.Core.DTO.Common
         #region Field
 
         public const string SB = "SB";
-
-        public const string RB = "RB";
 
         public const string NG = "NG";
 

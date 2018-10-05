@@ -5,13 +5,10 @@
     using Extension.Helper;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
-    using Fanex.Athena.Service.Core.Users;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Model.Core.DTO.OneAuth;
     using Newtonsoft.Json;
     using ONEbook.UM.Services;
-    using ONEbook.UM.Services.Impl;
-    using Service.Core.Utility;
     using Service.Core.Utility.Interfaces;
 
     public class OneAuthorizationController : Controller
@@ -21,20 +18,16 @@
         private readonly IAppSettings _appSetting;
         private readonly ICoreLogger _logger;
 
-        public OneAuthorizationController() : this(null, null, null, null)
-        {
-        }
-
         public OneAuthorizationController(
             IMaintenanceService maintenanceService,
             IOneAuthenticationService oneAuthenticationService,
             IAppSettings appSetting,
             ICoreLogger logger)
         {
-            _maintenanceService = maintenanceService ?? new MaintenanceService();
-            _oneAuthenticationService = oneAuthenticationService ?? new OneAuthenticationService();
-            _appSetting = appSetting ?? new AppSettings();
-            _logger = logger ?? new CoreLogger();
+            _maintenanceService = maintenanceService;
+            _oneAuthenticationService = oneAuthenticationService;
+            _appSetting = appSetting;
+            _logger = logger;
         }
 
         [AllowAnonymous]
