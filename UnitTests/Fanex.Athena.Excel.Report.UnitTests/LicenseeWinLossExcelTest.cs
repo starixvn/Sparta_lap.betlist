@@ -49,7 +49,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         private const int ColumnAmtDueToBetTrade = 52;
         private const int ColumnAmtDueToBa = 53;
 
-        private const int ColumnTemplateCount = 53;
+        private const int ColumnTemplateCount = 54;
 
         private const int RowContentTemplate = 3;
 
