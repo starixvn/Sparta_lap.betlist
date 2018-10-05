@@ -1,4 +1,4 @@
-﻿// Generated at: 10/5/2018 3:40:48 PM
+﻿// Generated at: 10/5/2018 4:33:17 PM
 window._language_zh_Hans = {
 AA:"客客",
 AccessDeniedMsg:"对不起, 您没有权限访问此页面。",
