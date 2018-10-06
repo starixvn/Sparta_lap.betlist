@@ -44,9 +44,11 @@
   <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_Rpt_MatchSelResultEntered" EnvironmentText="_UAT1"></SpNameConfig>
   <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_Rpt_MatchWinLoss" EnvironmentText="_UAT1"></SpNameConfig>
   <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_Rpt_MatchWinLossByOutrightParlay" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_Rpt_MatchWinLossByBettype" EnvironmentText="_UAT1"></SpNameConfig>
   <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_Rpt_MatchWinLossDetail" EnvironmentText="_UAT1"></SpNameConfig>
   <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_Rpt_WinLossByBettype" EnvironmentText="_UAT1"></SpNameConfig>
   <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_Rpt_WinlostByLeague" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_Rpt_WinlossByLeagueDetail" EnvironmentText="_UAT1"></SpNameConfig>
   <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_Rpt_LiveReportSummary" EnvironmentText="_UAT1"></SpNameConfig>
   <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_Rpt_LiveReportSummaryDetail" EnvironmentText="_UAT1"></SpNameConfig>
   <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_Rpt_LiveReportBySport" EnvironmentText="_UAT1"></SpNameConfig>
@@ -55,18 +57,21 @@
   <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_Rpt_PlatformWinloss" EnvironmentText="_UAT1"></SpNameConfig>
   <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_Rpt_PlatformWinlossDetail" EnvironmentText="_UAT1"></SpNameConfig>
   <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_Rpt_SubsidiaryWinloss" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_Rpt_SubsidiaryWinloss_Detail" EnvironmentText="_UAT1"></SpNameConfig>
   <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_Rpt_WinLoss" EnvironmentText="_UAT1"></SpNameConfig>
   <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_Rpt_CustomerBalance" EnvironmentText="_UAT1"></SpNameConfig>
-  <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_LicenseeGroupCommSel" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_Rpt_WinlossByProduct" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_Rpt_WinlossByProductDetail" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_Rpt_WinlossByProductDetail_Ag" EnvironmentText="_UAT1"></SpNameConfig>
+
   <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_GroupCommGetById" EnvironmentText="_UAT1"></SpNameConfig>
-  <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_LicenseeGroupCommIns" EnvironmentText="_UAT1"></SpNameConfig>
-  <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_LicenseeGroupCommDel" EnvironmentText="_UAT1"></SpNameConfig>
-  <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_LicenseeGroupCommUpd" EnvironmentText="_UAT1"></SpNameConfig>
   <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_CustomerSel" EnvironmentText="_UAT1"></SpNameConfig>
   <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_LicenseeCustCommUpd" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_LicenseeGroupCommSel" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_LicenseeGroupCommDel" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_LicenseeGroupCommUpd" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_LicenseeGroupCommIns" EnvironmentText="_UAT1"></SpNameConfig>
   <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_CustomerRemoveGroupComm" EnvironmentText="_UAT1"></SpNameConfig>
   <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_CustomerMoveGroupComm" EnvironmentText="_UAT1"></SpNameConfig>
   <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_CustomerSelStatus" EnvironmentText="_UAT1"></SpNameConfig>
-
-
 </Root>
