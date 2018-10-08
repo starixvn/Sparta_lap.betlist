@@ -130,7 +130,7 @@
   </Function>
 
   <Function Name="GroupComm">
-    <Setting Key="Lrf_LicenseeGroupCommSel" SpName="Lrf_LicenseeGroupCommSel" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet">
+    <Setting Key="Lrf_LicenseeGroupCommSel" SpName="Lrf_LicenseeGroupCommSel_UAT4" DbName="DBCUST.bodb_Licensee.bodbLicenseeNet">
       <Mapping DataField="Parlaycomm" ObjectProperty="ParlayComm" />
       <Mapping DataField="RNGComm" ObjectProperty="CSComm" />
       <Mapping DataField="IsDefault" ObjectProperty="IsDefaultGroup" />
