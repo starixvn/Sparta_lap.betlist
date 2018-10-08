@@ -10,7 +10,8 @@ var cssPaths = {
     notification: "./www/css/source/reactpages/pages/notification/index.scss",
     exchangewl: "./www/css/source/reactpages/pages/exchangewl/index.scss",
     speciallicenseewl: "./www/css/source/reactpages/pages/speciallicenseewl/index.scss",
-    bettingticketscenter: "./www/css/source/reactpages/pages/bettingticketscenter/index.scss"
+    bettingticketscenter: "./www/css/source/reactpages/pages/bettingticketscenter/index.scss",
+    betlist: "./www/css/source/reactpages/pages/betlist/index.scss"
 };
 
 var scriptPaths = {
