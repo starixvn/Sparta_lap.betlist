@@ -11,8 +11,6 @@ namespace Fanex.Athena.Controllers.Report.Result.ResultPopup
     {
         private readonly IPPResult _resultApi;
 
-      
-
         public PPResultPopupController(
             ILanguageService languageService,
             ISessionService sessionService,
