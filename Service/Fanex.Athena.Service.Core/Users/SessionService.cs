@@ -30,7 +30,7 @@ namespace Fanex.Athena.Service.Core.Users
 
     public class SessionService : ISessionService
     {
-        private const int ReportBalanceId = 42;
+        private const int ReportLicenseeWinLossId = 27;
 
         private const string DefaultReportPath = "LicenseeWinLossReport";
 
@@ -234,7 +234,7 @@ namespace Fanex.Athena.Service.Core.Users
             Justification = "Reviewed. Suppression is OK here.")]
         private static string GetDefaultReportUrl(IEnumerable<int> functionIdList, IEnumerable<Function> functionList)
         {
-            if (!functionIdList.Contains(ReportBalanceId))
+            if (!functionIdList.Contains(ReportLicenseeWinLossId))
             {
                 var firstFunction = functionList.FirstOrDefault(x => x.ParentId > 0 && x.IsActive);
                 if (firstFunction != null)
