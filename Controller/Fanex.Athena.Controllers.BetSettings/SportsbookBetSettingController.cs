@@ -112,7 +112,6 @@ namespace Fanex.Athena.Controllers.BetSettings
             GetParams("44", sportsBookParam);
             GetParams("99", sportsBookParam);
             GetParams("99mp", sportsBookParam);
-            GetParams("154", sportsBookParam);
 
             return sportsBookParam;
         }
