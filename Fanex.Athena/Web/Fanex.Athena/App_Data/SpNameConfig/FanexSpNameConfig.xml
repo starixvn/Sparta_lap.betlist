@@ -74,4 +74,6 @@
   <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_CustomerRemoveGroupComm" EnvironmentText="_UAT1"></SpNameConfig>
   <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_CustomerMoveGroupComm" EnvironmentText="_UAT1"></SpNameConfig>
   <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_CustomerSelStatus" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_CustomerUpdMember_All" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_CustomerSelEditCustomer" EnvironmentText="_UAT1"></SpNameConfig>
 </Root>

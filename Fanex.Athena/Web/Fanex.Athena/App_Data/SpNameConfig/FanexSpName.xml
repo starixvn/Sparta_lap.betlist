@@ -148,11 +148,11 @@
 
   <Function Name="CustomerSettings">
     <Setting Key="Lrf_CustomerUpdCasinoStatus" SpName="Lrf_CustomerUpdCasinoStatus" DbName="DBCUST.CustDB.bodbLicenseeNet" />
-    <Setting Key="Lrf_CustomerSelEditCustomer" SpName="Lrf_CustomerSelEditCustomer" DbName="DBCUST.CustDB.bodbLicenseeNet" />
+    <Setting Key="Lrf_CustomerSelEditCustomer" SpName="Lrf_CustomerSelEditCustomer_UAT1" DbName="DBCUST.CustDB.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerUpdEsportStatus" SpName="Lrf_CustomerUpdEsportStatus" DbName="DBCUST.CustDB.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerSelEditNG" SpName="Lrf_CustomerSelEditNG" DbName="DBCUST.CustDB.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerSelEditKN" SpName="Lrf_CustomerSelEditKN" DbName="DBCUST.CustDB.bodbLicenseeNet" />
-    <Setting Key="Lrf_CustomerUpdMember_All" SpName="Lrf_CustomerUpdMember_All" DbName="DBCUST.CustDB.bodbLicenseeNet" />
+    <Setting Key="Lrf_CustomerUpdMember_All" SpName="Lrf_CustomerUpdMember_All_UAT1" DbName="DBCUST.CustDB.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerUpdMember_MinMaxBet161" SpName="Lrf_CustomerUpdMember_MinMaxBet161" DbName="DBCUST.CustDB.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerUpdMember_MinMaxBetKN" SpName="Lrf_CustomerUpdMember_MinMaxBetKN" DbName="DBCUST.CustDB.bodbLicenseeNet" />
     <Setting Key="WriteLog_UserLog_RunSP" SpName="WriteLog_UserLog_RunSP" DbName="DBLOG.bodb_CustomerLog.bodbLicenseeNet" />
