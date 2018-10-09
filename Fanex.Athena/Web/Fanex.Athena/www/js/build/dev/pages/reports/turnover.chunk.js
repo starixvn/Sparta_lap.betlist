@@ -283,6 +283,104 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 /***/ }),
 
+/***/ "./www/js/source/components/pluginhelper/autocomplete.js":
+/*!***************************************************************!*\
+  !*** ./www/js/source/components/pluginhelper/autocomplete.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿// require option properties: suggestionDropdown, url, target
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! vendor-materialize */ "./www/js/source/vendors/materialize/materialize.js"), __webpack_require__(/*! materialize-autocomplete */ "./node_modules/materialize-autocomplete/jquery.materialize-autocomplete.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site) {
+    "use strict";
+
+    var mainOption = {
+        suggestionDropdown: '#suggestionDropdown',
+        url: null,
+        target: null
+    };
+
+    var DELAY_MILLISECOND = 600;
+
+    var _autoComplete;
+
+    var _me = {
+        initialize: function (option) {
+            _me.initAutoComplete(option);
+            _me.initEvent();
+        },
+
+        initEvent: function () {
+            $('body').click(function () {
+                _me.hideDropdown();
+            });
+
+            $(mainOption.target).keyup(function (e) {
+                if (e.keyCode === 13) {
+                    _me.hideDropdown();
+                }
+            });
+        },
+
+        initAutoComplete: function (option) {
+            $.extend(mainOption, option);
+            if (!mainOption.url || !mainOption.target) {
+                throw Error("Missing data in option");
+            }
+
+            _autoComplete = $(mainOption.target).materialize_autocomplete({ // jshint ignore:line
+                ignoreCase: false,
+                dropdown: {
+                    el: mainOption.suggestionDropdown
+                },
+                getData: Site.debounce(_me.search, DELAY_MILLISECOND),
+            });       
+        },
+
+        search: function (value, callback) {
+            var url = mainOption.url + "?query=" + value;
+
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: url,
+                success: function (response) {
+                    var suggestions = response.suggestions;
+
+                    if (suggestions && suggestions.length > 0) {
+                        var data = suggestions.map(function (item) {
+                            return { id: item, text: item };
+                        });
+
+                        _me.updateWidthOfSuggestionDropdown();
+                        callback(value, data);
+                    }
+                    else {
+                        _me.hideDropdown();
+                    }
+                }
+            });
+        },
+
+        updateWidthOfSuggestionDropdown: function () {
+            var $autoCompleteTarget = $(mainOption.target);
+            var $suggestionDropdown = $(mainOption.suggestionDropdown);
+            if ($suggestionDropdown.innerWidth() !== $autoCompleteTarget.innerWidth()) {
+                $suggestionDropdown.innerWidth($autoCompleteTarget.innerWidth());
+            }
+        },
+
+        hideDropdown: function () {
+            _autoComplete.$dropdown.html('').hide();
+        }
+    };
+
+    return _me;
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
 /***/ "./www/js/source/components/pluginhelper/monthpicker.js":
 /*!**************************************************************!*\
   !*** ./www/js/source/components/pluginhelper/monthpicker.js ***!
@@ -5557,19 +5655,20 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*! bignumber.js v2.4.0 https://github.com/Mik
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! ./turnover.option */ "./www/js/source/pages/report/turnover/turnover.option.js"),
         __webpack_require__(/*! lib/jqgrid/jquery.jqgrid.additional */ "./www/js/source/lib/jqgrid/jquery.jqgrid.additional.js"), __webpack_require__(/*! moment */ "./node_modules/moment/moment.js"), __webpack_require__(/*! components/pluginhelper/monthpicker */ "./www/js/source/components/pluginhelper/monthpicker.js"), __webpack_require__(/*! components/pluginhelper/multiselect */ "./www/js/source/components/pluginhelper/multiselect.js"),
-        __webpack_require__(/*! lib/jqgrid/jquery.jqGrid.en */ "./www/js/source/lib/jqgrid/jquery.jqGrid.en.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqGrid.min */ "./www/js/source/lib/jqgrid/jquery.jqGrid.min.js"), __webpack_require__(/*! extensions/jquery.extension */ "./www/js/source/extensions/jquery.extension.js"), __webpack_require__(/*! materialize-autocomplete */ "./node_modules/materialize-autocomplete/jquery.materialize-autocomplete.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, TurnoverOption, jqGridAdditional, moment, MonthPicker, MultiSelect) {
+        __webpack_require__(/*! components/pluginhelper/autocomplete */ "./www/js/source/components/pluginhelper/autocomplete.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqGrid.en */ "./www/js/source/lib/jqgrid/jquery.jqGrid.en.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqGrid.min */ "./www/js/source/lib/jqgrid/jquery.jqGrid.min.js"), __webpack_require__(/*! extensions/jquery.extension */ "./www/js/source/extensions/jquery.extension.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, TurnoverOption, jqGridAdditional, moment, MonthPicker, MultiSelect, AutoComplete) {
         "use strict";
     var ajaxRequest = null;
-    var _fromDate, _toDate, _currencyName, _currencyId;
-    var _autocomplete, $autoCompleteTarget;
+    var _fromDate, _toDate, _currencyId;
 
     var _me = {
         defaultUserName: "",
         initialize: function () {
             Site.initialize();
             _me.initEvent();
-            $autoCompleteTarget = $('#Username');
-            _me.initAutoComplete();
+            AutoComplete.initialize({
+                url: Site.resolveClientUrl("SearchCustomerAPI/SearchCustomer"),
+                target: "#Username"
+            });
             MonthPicker.initMonthPicker();
 
             TurnoverOption.hasCustomerComm = Site.asBool($("#IsAllowedCustomerCommission").val());
@@ -5587,7 +5686,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 if (e.keyCode === 13) {
                     $('#IsExportExcel').val(false);
                     _me.submit();
-                    _autocomplete.$dropdown.html('').hide();
                 }
             });
 
@@ -5608,56 +5706,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
             $(window).on("resize", function () {
                 _me.resizeGrid();
-                _me.updateWidthOfAutoCompleteDropdown();
             });
 
             $(window).on("unload", function () {
                 $(window).off("resize");
             });
-
-            $('body').click(function () {
-                _autocomplete.$dropdown.html('').hide();
-            });
-        },
-
-        initAutoComplete: function () {            
-            _autocomplete = $autoCompleteTarget.materialize_autocomplete({ // jshint ignore:line
-                ignoreCase: false,
-                multiple: {
-                    enable: false
-                },
-                dropdown: {
-                    el: '#suggestionDropdown'
-                },
-                getData: function (value, callback) {
-                    var url = Site.resolveClientUrl("SearchCustomerAPI/SearchCustomer?query=" + value);
-
-                    $.ajax({
-                        type: "GET",
-                        dataType: "json",
-                        url: url,
-                        success: function (response) {
-                            var suggestions = response.suggestions;
-
-                            if (suggestions && suggestions.length > 0) {
-                                var data = suggestions.map(function (item) {
-                                    return { id: item, text: item };
-                                });
-
-                                callback(value, data);
-                            }
-                        }
-                    });
-                }
-            });
-
-            _me.updateWidthOfAutoCompleteDropdown();
-        },
-
-        updateWidthOfAutoCompleteDropdown: function () {
-            if ($("#suggestionDropdown").width() !== $autoCompleteTarget.width()) {
-                $("#suggestionDropdown").width($autoCompleteTarget.width());
-            }
         },
 
         setReportTitle: function () {
@@ -5711,7 +5764,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             }
 
             _me.setDateParam();
-            _currencyName = $("#CurrencyName").val().toUpperCase();
             _currencyId = $("#CurrencyId").val();
 
             var mainForm = $("#TurnoverForm");
@@ -5751,7 +5803,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         bindData: function (response) {
             jqGridAdditional.clearGrid("ReportGrid");
             var numOfRow = response.Data.length;
-            if (response === null || numOfRow === 0) {
+            if (!response || numOfRow === 0) {
                 jqGridAdditional.setNoInfo();
                 return;
             }
