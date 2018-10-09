@@ -1995,7 +1995,6 @@
     <Content Include="www\js\tests\pages\report\activecustomersummary\activecustomersummary.option-spec.js" />
     <Content Include="www\js\tests\pages\report\agcasinowinloss\agcasinowinloss-spec.js" />
     <Content Include="www\js\tests\pages\report\agcasinowinloss\agcasinowinloss.option-spec.js" />
-    <Content Include="www\js\tests\pages\report\balance\balance-spec.js" />
     <Content Include="www\js\tests\pages\report\cashoutwinloss\cashoutwinloss-spec.js" />
     <Content Include="www\js\tests\pages\report\cashoutwinloss\cashoutwinloss.option-spec.js" />
     <Content Include="www\js\tests\pages\report\customerbalance\customerbalance-spec.js" />

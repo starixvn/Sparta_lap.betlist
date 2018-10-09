@@ -2479,7 +2479,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     __webpack_require__(/*! ./notification */ "./www/js/source/pages/home/notification.js"),
     __webpack_require__(/*! lib/jquery.cookie */ "./www/js/source/lib/jquery.cookie.js"),
     __webpack_require__(/*! lib/jquery.marquee */ "./www/js/source/lib/jquery.marquee.js"),
-    __webpack_require__(/*! materialize-autocomplete */ "./node_modules/materialize-autocomplete/jquery.materialize-autocomplete.js"),
     __webpack_require__(/*! components/selectlist */ "./www/js/source/components/selectlist.js"),
     __webpack_require__(/*! lib/jquery.jclock */ "./www/js/source/lib/jquery.jclock.js"),
     __webpack_require__(/*! vendor-materialize */ "./www/js/source/vendors/materialize/materialize.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function (Site, Recheckin, AutoComplete, Notification) {

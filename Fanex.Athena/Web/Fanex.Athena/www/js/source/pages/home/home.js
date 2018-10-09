@@ -7,7 +7,6 @@ define([
     "./notification",
     "lib/jquery.cookie",
     "lib/jquery.marquee",
-    "materialize-autocomplete",
     "components/selectlist",
     "lib/jquery.jclock",
     "vendor-materialize"],

@@ -1,11 +1,13 @@
 ﻿define(["jquery", "common/site", "pages/report/turnover/turnover.option", "lib/jqgrid/jquery.jqgrid.additional",
-        "moment", "components/pluginhelper/monthpicker", "components/pluginhelper/multiselect", "pages/report/turnover/turnover",
-        "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min", "extensions/jquery.extension", "materialize-autocomplete"],
-    function ($, Site, TurnoverOption, jqGridAdditional, moment, MonthPicker, MultiSelect, Turnover) {
+        "moment", "components/pluginhelper/monthpicker", "components/pluginhelper/multiselect",
+        "components/pluginhelper/autocomplete", "pages/report/turnover/turnover",
+        "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min", "extensions/jquery.extension"],
+    function ($, Site, TurnoverOption, jqGridAdditional, moment, MonthPicker, MultiSelect, AutoComplete, Turnover) {
         describe("Turnover", function () {
             beforeAll(function () {
                 spyOn(Site, "getSingleResource").and.callFake(function (resource) { if (resource === "Viewin") { return resource + " EUR"; } return resource; });
                 spyOn(Site, "resolveClientUrl").and.callFake(function (url) { return url; });
+                spyOn(AutoComplete, "initialize");
             });
 
             it("defaultUserName should be correct", function () {
@@ -22,7 +24,6 @@
                     spyOn(MonthPicker, "initMonthPicker");
                     spyOn(MultiSelect, "initProductList");
                     spyOn(Site, "addUserGuide");
-                    spyOn(Turnover, "initAutoComplete");
                     Turnover.initialize();
                 });
 
@@ -32,8 +33,11 @@
                 it("Turnover.initEvent() should be called", function () {
                     expect(Turnover.initEvent).toHaveBeenCalled();
                 });
-                it("Turnover.initAutoComplete() should be called", function () {
-                    expect(Turnover.initAutoComplete).toHaveBeenCalled();
+                it("AutoComplete.initialize() should be called", function () {
+                    expect(AutoComplete.initialize).toHaveBeenCalledWith({
+                            url: Site.resolveClientUrl("SearchCustomerAPI/SearchCustomer"),
+                            target: "#Username"
+                        });
                 });
                 it("MonthPicker.initMonthPicker() should be called", function () {
                     expect(MonthPicker.initMonthPicker).toHaveBeenCalled();
@@ -66,65 +70,46 @@
                     $("*").off();
                 });
 
-                describe("Events relate with autocomplete", function () {
-                    var $autocomplete, $dropdown;
+                describe("'#TurnoverForm input' fire keypress event", function () {
                     beforeEach(function () {
                         spyOn(Site, "initialize");
                         spyOn(MonthPicker, "initMonthPicker");
                         spyOn(MultiSelect, "initProductList");
                         spyOn(Site, "addUserGuide");
 
-                        $autocomplete = $("#Username");
-                        $dropdown = $("#dropdown");
-                        $autocomplete.$dropdown = $dropdown;
-                        spyOn($.fn, "materialize_autocomplete").and.returnValue($autocomplete);
                         Turnover.initialize();
                     });
 
-                    describe("'#TurnoverForm input' fire keypress event", function () {
-                        describe("when keyCode is 13 (Enter)", function () {
-                            beforeEach(function () {
-                                var e = $.Event('keypress', { keyCode: 13, which: 13 });
-                                spyOn(Turnover, "submit");
-
-                                $("#TurnoverForm input").trigger(e);
-                            });
-
-                            it("'#IsExportExcel' has value is false", function () {
-                                expect($("#IsExportExcel").val()).toBe("false");
-                            });
-
-                            it("Turnover.submit() should be called", function () {
-                                expect(Turnover.submit).toHaveBeenCalled();
-                            });
-
-                            it("Dropdown of auto complete should be hidden", function () {
-                                expect($dropdown).toBeHidden();
-                            });
-                        });
-
-                        it("Nothing happen if keyCode not equal 13 (Enter)", function () {
-                            var e = $.Event('keypress', { keyCode: 17, which: 17 });
+                    describe("when keyCode is 13 (Enter)", function () {
+                        beforeEach(function () {
+                            var e = $.Event('keypress', { keyCode: 13, which: 13 });
                             spyOn(Turnover, "submit");
-                            $("#IsExportExcel").val(true);
 
                             $("#TurnoverForm input").trigger(e);
+                        });
 
-                            expect(Turnover.submit).not.toHaveBeenCalled();
-                            expect($("#IsExportExcel").val()).not.toBe("false");
-                            expect($dropdown).toBeVisible();
+                        it("'#IsExportExcel' has value is false", function () {
+                            expect($("#IsExportExcel").val()).toBe("false");
+                        });
+
+                        it("Turnover.submit() should be called", function () {
+                            expect(Turnover.submit).toHaveBeenCalled();
                         });
                     });
 
-                    describe("body fire click event", function () {
-                        it("Dropdown of auto complete should be hidden", function () {
-                            $("body").click();
-                            expect($dropdown).toBeHidden();
-                        });
+                    it("Nothing happen if keyCode not equal 13 (Enter)", function () {
+                        var e = $.Event('keypress', { keyCode: 17, which: 17 });
+                        spyOn(Turnover, "submit");
+                        $("#IsExportExcel").val(true);
+
+                        $("#TurnoverForm input").trigger(e);
+
+                        expect(Turnover.submit).not.toHaveBeenCalled();
+                        expect($("#IsExportExcel").val()).not.toBe("false");
                     });
                 });
 
-                describe("Events that not relate with autocomplete", function () {
+                describe("Other events", function () {
                     beforeEach(function () {
                         Turnover.initEvent();
                         $("body").off("click");
@@ -171,16 +156,12 @@
                     describe("window fire resize event", function () {
                         beforeEach(function () {
                             spyOn(Turnover, "resizeGrid");
-                            spyOn(Turnover, "updateWidthOfAutoCompleteDropdown");
 
                             $(window).resize();
                         });
 
                         it("Turnover.resizeGrid() should be called", function () {
                             expect(Turnover.resizeGrid).toHaveBeenCalled();
-                        });
-                        it("Turnover.updateWidthOfAutoCompleteDropdown() should be called", function () {
-                            expect(Turnover.updateWidthOfAutoCompleteDropdown).toHaveBeenCalled();
                         });
                     });
 
@@ -191,114 +172,6 @@
 
                         expect($.fn.off).toHaveBeenCalledWith("resize");
                     });
-                });
-            });
-
-            describe("initAutoComplete()", function () {
-                var option;
-                beforeEach(function () {
-                    spyOn($.fn, "materialize_autocomplete").and.callFake(function (opt) { option = opt; });
-                    spyOn(Turnover, "updateWidthOfAutoCompleteDropdown");
-
-                    Turnover.initAutoComplete();
-                });
-
-                it("Auto complete should be called with correct parameter", function () {
-                    expect(option.ignoreCase).toBe(false);
-                    expect(option.multiple).toEqual({ enable: false });
-                    expect(option.dropdown).toEqual({ el: "#suggestionDropdown" });
-                });
-
-                it("Turnover.updateWidthOfAutoCompleteDropdown() should be called", function () {
-                    expect(Turnover.updateWidthOfAutoCompleteDropdown).toHaveBeenCalled();
-                });
-
-                describe("option.getData(value, callback)", function () {
-                    var request, callback;
-                    var value = "a";
-
-                    beforeEach(function () {
-                        callback = jasmine.createSpy('callback');
-                        jasmine.Ajax.install();
-                    });
-
-                    afterEach(function () {
-                        jasmine.Ajax.uninstall();
-                    });
-
-                    it("Ajax option should be correct", function (done) {
-                        jasmine.Ajax.stubRequest(/.*SearchCustomerAPI\/SearchCustomer\?query=a.*/);
-                        option.getData(value, callback);
-                        request = jasmine.Ajax.requests.mostRecent();
-                        setTimeout(done, 10);
-
-                        var url = "SearchCustomerAPI/SearchCustomer?query=a";
-                        expect(request.method).toBe("GET");
-                        expect(request.url.indexOf(url) > -1).toBe(true);
-                    });
-
-                    it("callback function should be called with correct parameter", function (done) {
-                        jasmine.Ajax
-                        .stubRequest(/.*SearchCustomerAPI\/SearchCustomer\?query=a.*/)
-                        .andReturn({
-                            'status': 200,
-                            'contentType': 'application/json',
-                            'responseText': '{ "suggestions": ["abc", "asd"] }'
-                        });
-                        option.getData(value, callback);
-                        request = jasmine.Ajax.requests.mostRecent();
-                        setTimeout(done, 10);
-
-                        expect(callback).toHaveBeenCalledWith("a", [{ id: "abc", text: "abc" }, { id: "asd", text: "asd" }]);
-                    });
-
-                    it("callback function should not be called when data response is null", function (done) {
-                        jasmine.Ajax
-                        .stubRequest(/.*SearchCustomerAPI\/SearchCustomer\?query=a.*/)
-                        .andReturn({
-                            'status': 200,
-                            'contentType': 'application/json',
-                            'responseText': '{ "suggestions": null }'
-                        });
-                        option.getData(value, callback);
-                        request = jasmine.Ajax.requests.mostRecent();
-                        setTimeout(done, 10);
-
-                        expect(callback).not.toHaveBeenCalled();
-                    });
-                });
-            });
-
-            describe("updateWidthOfAutoCompleteDropdown()", function () {
-                beforeEach(function () {
-                    spyOn(Site, "initialize");
-                    spyOn(Turnover, "initEvent");
-                    spyOn(Turnover, "initAutoComplete");
-                    spyOn(MonthPicker, "initMonthPicker");
-                    spyOn(MultiSelect, "initProductList");
-                    spyOn(Site, "addUserGuide");
-
-                    setFixtures('<div id="suggestionDropdown" style="width: 200px;"></div> <input id="Username" />');
-                });
-
-                it("'#suggestionDropdown' should has correct width value when its width not equal $autoCompleteTarget width", function () {
-                    $("#Username").width(300);
-                    Turnover.initialize();
-                    Turnover.updateWidthOfAutoCompleteDropdown();
-
-                    var result = $("#suggestionDropdown").width();
-
-                    expect(result).toBe(300);
-                });
-
-                it("'#suggestionDropdown' should has correct width value when its width equal $autoCompleteTarget width", function () {
-                    $("#Username").width(200);
-                    Turnover.initialize();
-                    Turnover.updateWidthOfAutoCompleteDropdown();
-
-                    var result = $("#suggestionDropdown").width();
-
-                    expect(result).toBe(200);
                 });
             });
 
