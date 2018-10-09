@@ -129,8 +129,6 @@ namespace Fanex.Athena.DataAccess.BetSettings
                 sportList.Add(_betSettingReader.ReadForSport(reader, MixedSportId));
             }
 
-            sportList.Add(_betSettingReader.ReadForSport(reader, ((int)SportType.HorseRacingFixedOdds).ToString()));
-
             return sportList;
         }
     }
