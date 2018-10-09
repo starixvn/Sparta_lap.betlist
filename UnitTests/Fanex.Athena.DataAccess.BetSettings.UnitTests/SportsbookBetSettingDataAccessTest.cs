@@ -83,7 +83,7 @@
             }
 
             const int CustId = 1;
-            var expectedSportIds = "1,2,3,5,8,10,11,99,99MP,154";
+            var expectedSportIds = "1,2,3,5,8,10,11,99,99MP";
             if (!isShowMixedSport)
             {
                 expectedSportIds = expectedSportIds.Replace(",99MP", string.Empty);
