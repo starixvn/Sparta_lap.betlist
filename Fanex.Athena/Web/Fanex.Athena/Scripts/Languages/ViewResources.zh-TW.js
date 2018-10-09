@@ -1,4 +1,4 @@
-﻿// Generated at: 10/5/2018 4:33:12 PM
+﻿// Generated at: 10/9/2018 4:34:52 PM
 var _language_zh_TW = {
 AA:"客客",
 AccessDeniedMsg:"對不起，您沒有權限訪問此頁面。",
@@ -73,6 +73,7 @@ BetSettingGroups:"Bet Setting Groups",
 BetSettings:"投注設定",
 BetTaken:"匹配時間",
 BettingLimit:"投注限額",
+BettingTicketCenter:"注單中心",
 BetType:"投注類別",
 BONTeamToScore:"雙方/一方/兩者皆不得分",
 Bonus:"紅利",

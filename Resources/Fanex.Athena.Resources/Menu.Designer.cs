@@ -349,15 +349,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Balance.
-        /// </summary>
-        public static string Menu_42 {
-            get {
-                return ResourceManager.GetString("Menu_42", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Customer List.
         /// </summary>
         public static string Menu_43 {

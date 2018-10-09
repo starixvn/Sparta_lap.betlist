@@ -245,10 +245,6 @@
     <value>결과</value>
     <comment>Results</comment>
   </data>
-  <data name="Menu_42" xml:space="preserve">
-    <value>잔액</value>
-    <comment>Balance</comment>
-  </data>
   <data name="Menu_43" xml:space="preserve">
     <value>고객 목록</value>
     <comment>Customer List</comment>

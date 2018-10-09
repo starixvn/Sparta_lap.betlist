@@ -245,10 +245,6 @@
     <value>賽果</value>
     <comment>Results</comment>
   </data>
-  <data name="Menu_42" xml:space="preserve">
-    <value>餘額</value>
-    <comment>Balance</comment>
-  </data>
   <data name="Menu_43" xml:space="preserve">
     <value>會員列表</value>
     <comment>Customer List</comment>
@@ -347,5 +343,9 @@
   <data name="Menu_73" xml:space="preserve">
     <value>子網站報告</value>
     <comment>Subsidiary Performance</comment>
+  </data>
+  <data name="Menu_79" xml:space="preserve">
+    <value>注單中心</value>
+    <comment>80941</comment>
   </data>
 </root>

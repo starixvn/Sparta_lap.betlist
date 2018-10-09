@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-﻿// Generated at: 10/5/2018 4:33:17 PM
+﻿// Generated at: 10/9/2018 4:34:45 PM
 window._language_zh_CN = {
 AA:"客客",
 AccessDeniedMsg:"对不起, 您没有权限访问此页面。",
@@ -168,6 +168,7 @@ BetSettingGroups:"Bet Setting Groups",
 BetSettings:"投注设定",
 BetTaken:"匹配时间",
 BettingLimit:"投注限额",
+BettingTicketCenter:"注单中心",
 BetType:"投注类别",
 BONTeamToScore:"双方/一方/两者皆不得分",
 Bonus:"红利",

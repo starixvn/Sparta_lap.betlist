@@ -2583,4 +2583,8 @@
     <value>子网站输赢</value>
     <comment>95177</comment>
   </data>
+  <data name="BettingTicketCenter" xml:space="preserve">
+    <value>注单中心</value>
+    <comment>80941</comment>
+  </data>
 </root>
