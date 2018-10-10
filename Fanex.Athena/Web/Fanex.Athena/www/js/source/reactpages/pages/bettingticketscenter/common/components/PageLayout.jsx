@@ -44,12 +44,20 @@ export class PageLayout extends Component {
             const title = LangHelper.getSingleResource(isCashOut ? "CashOutDetails" : "BoughtDetails");
             this._openPopup(url, title);
         }
+
+        window.ShowBonusDetails = (refCode, transId) => {
+            const url = BetList.getBonusDetailUrl(refCode, transId, this.props.requestParam.BaseCurrency);
+
+            const title = LangHelper.getSingleResource("TransactionDetail");
+            this._openPopup(url, title);
+        }
     }
     componentWillUnmount() {
         window.ViewResult = undefined;
         window.showNewCombMP = undefined;
         window.showCombMPDetail = undefined;
         window.ViewCashOutHistory = undefined;
+        window.ShowBonusDetails = undefined;
     }
     
     _showNewParlayDetail (transId, transIndex, refNo, handicap1, handicap2, betcheck, betteam) {

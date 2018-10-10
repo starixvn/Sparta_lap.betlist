@@ -113,6 +113,15 @@ class BetList {
             isCashOut : isCashOut
         };
     }
+
+    getBonusDetailUrl(refCode, transId, baseCurrency) {
+        let url = Site.resolveClientUrl('BonusBetList/Detail');
+        url = QueryString.setParam(url, "RefCode", refCode);
+        url = QueryString.setParam(url, "TransId", transId);
+        url = QueryString.setParam(url, "BaseCurrency", baseCurrency);
+
+        return url;
+    }
 }
 
 export default new BetList();
