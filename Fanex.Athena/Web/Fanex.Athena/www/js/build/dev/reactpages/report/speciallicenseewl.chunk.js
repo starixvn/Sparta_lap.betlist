@@ -1781,6 +1781,8 @@ var Day = function (_Component) {
     }, {
         key: 'render',
         value: function render() {
+            var _this2 = this;
+
             var value = this.props.value;
 
             return _react2.default.createElement(
@@ -1799,7 +1801,9 @@ var Day = function (_Component) {
                         { className: 'selectedDayWrap' },
                         _react2.default.createElement(
                             'div',
-                            { className: 'dayPickr', onClick: this.setState.bind(this, { showDateDrop: true }) },
+                            { className: 'dayPickr', onClick: function onClick() {
+                                    return _this2.setState({ showDateDrop: true });
+                                } },
                             _react2.default.createElement(
                                 'span',
                                 { className: 'selectedDay' },
@@ -1925,7 +1929,7 @@ var Month = function (_Component) {
 
                     options.push(_react2.default.createElement(
                         'li',
-                        { key: i, className: 'year', style: { 'font-weight': 'bold' } },
+                        { key: i, className: 'year', style: { fontWeight: 'bold' } },
                         _react2.default.createElement(
                             'a',
                             { href: 'javascript:;' },
@@ -2049,7 +2053,9 @@ var Month = function (_Component) {
                             ),
                             _react2.default.createElement(
                                 'span',
-                                { className: 'selectedMonth', onClick: this.setState.bind(this, { showMonthDrop: true }) },
+                                { className: 'selectedMonth', onClick: function onClick() {
+                                        return _this2.setState({ showMonthDrop: true });
+                                    } },
                                 this._formatString(value.month, value.year)
                             ),
                             _react2.default.createElement(
@@ -2468,6 +2474,23 @@ var AppLayout = function (_Component) {
 }(_react.Component);
 
 exports.default = AppLayout;
+
+/***/ }),
+
+/***/ "./www/js/source/reactpages/lib/AppData.js":
+/*!*************************************************!*\
+  !*** ./www/js/source/reactpages/lib/AppData.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = window._AppData || {};
 
 /***/ }),
 
@@ -3247,15 +3270,15 @@ var _reactMultiselect = __webpack_require__(/*! @9softstudio/react-multiselect *
 
 var _reactMultiselect2 = _interopRequireDefault(_reactMultiselect);
 
-var _langHelper = __webpack_require__(/*! ../../../lib/langHelper */ "./www/js/source/reactpages/lib/langHelper.js");
+var _langHelper = __webpack_require__(/*! @jsroot/lib/langHelper */ "./www/js/source/reactpages/lib/langHelper.js");
 
 var _langHelper2 = _interopRequireDefault(_langHelper);
 
-var _site = __webpack_require__(/*! ../../../lib/site */ "./www/js/source/reactpages/lib/site.js");
+var _site = __webpack_require__(/*! @jsroot/lib/site */ "./www/js/source/reactpages/lib/site.js");
 
 var _site2 = _interopRequireDefault(_site);
 
-var _report = __webpack_require__(/*! ../../../lib/report */ "./www/js/source/reactpages/lib/report.js");
+var _report = __webpack_require__(/*! @jsroot/lib/report */ "./www/js/source/reactpages/lib/report.js");
 
 var _report2 = _interopRequireDefault(_report);
 
@@ -3265,9 +3288,13 @@ var _reportExcel = __webpack_require__(/*! ../lib/reportExcel */ "./www/js/sourc
 
 var _reportExcel2 = _interopRequireDefault(_reportExcel);
 
-var _index2 = __webpack_require__(/*! ../../../components/month-picker/index */ "./www/js/source/reactpages/components/month-picker/index.js");
+var _index2 = __webpack_require__(/*! @jsroot/components/month-picker/index */ "./www/js/source/reactpages/components/month-picker/index.js");
 
 var _index3 = _interopRequireDefault(_index2);
+
+var _AppData = __webpack_require__(/*! @jsroot/lib/AppData */ "./www/js/source/reactpages/lib/AppData.js");
+
+var _AppData2 = _interopRequireDefault(_AppData);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3415,8 +3442,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
     }, {
         key: '_renderProductSelectList',
         value: function _renderProductSelectList() {
-            var productOptions = this.props.productOptions;
-
+            var productOptions = _AppData2.default.productOptions;
             return productOptions && productOptions.length && _react2.default.createElement(_reactMultiselect2.default, { id: 'ProductList',
                 dataSource: productOptions,
                 keyField: "Code",
@@ -3431,11 +3457,9 @@ var FormFilter = exports.FormFilter = function (_Component) {
         value: function _renderCurrencySelectList() {
             var _this4 = this;
 
-            var _props2 = this.props,
-                currencyList = _props2.currencyList,
-                selectedCurrency = _props2.selectedCurrency;
+            var selectedCurrency = this.props.selectedCurrency;
 
-
+            var currencyList = _AppData2.default.currencyList;
             return _react2.default.createElement(_reactSelect2.default, { instanceId: 'ddlCurrency',
                 value: selectedCurrency.value,
                 options: currencyList,
@@ -3446,10 +3470,9 @@ var FormFilter = exports.FormFilter = function (_Component) {
     }, {
         key: '_renderMonthPicker',
         value: function _renderMonthPicker() {
-            var _props3 = this.props,
-                dateRange = _props3.dateRange,
-                dateConstraint = _props3.dateConstraint;
+            var dateRange = this.props.dateRange;
 
+            var dateConstraint = _AppData2.default.dateConstraint;
 
             var monthOption = {
                 label: _langHelper2.default.getSingleResource('ViewDataInMonth')

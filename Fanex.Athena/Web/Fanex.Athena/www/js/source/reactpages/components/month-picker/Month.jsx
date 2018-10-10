@@ -44,7 +44,7 @@ class Month extends Component {
             if (i === this.state.expandYear) {
 
                 options.push(
-                    <li key={i} className='year' style={{'font-weight':'bold'}}>
+                    <li key={i} className='year' style={{fontWeight:'bold'}}>
                         <a href='javascript:;'>{i}</a>
                     </li>
                 );
@@ -131,7 +131,7 @@ class Month extends Component {
                             <a href='javascript:;' className={`prev ${validPreMonth ? '' : 'disable'}`} onClick={(e) => validPreMonth && this._goToMonth(e, preMonth)}>
                                 <b></b>
                             </a>
-                            <span className='selectedMonth' onClick={this.setState.bind(this, {showMonthDrop: true})}>{this._formatString(value.month, value.year)}</span>
+                            <span className='selectedMonth' onClick={() => this.setState({showMonthDrop: true})}>{this._formatString(value.month, value.year)}</span>
                             <a href='javascript:;' className={`next ${validNexMonth ? '' : 'disable'}`} onClick={(e) => validNexMonth && this._goToMonth(e, nexMonth)}>
                                 <b></b>
                             </a>

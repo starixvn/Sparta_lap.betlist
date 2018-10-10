@@ -4,12 +4,13 @@ import { ActionCreators } from '../actions/index.js'
 import { bindActionCreators } from 'redux'
 import Select from 'react-select'
 import MultipleSelect from '@9softstudio/react-multiselect'
-import LangHelper from '../../../lib/langHelper'
-import Site from '../../../lib/site'
-import Report from '../../../lib/report'
+import LangHelper from '@jsroot/lib/langHelper'
+import Site from '@jsroot/lib/site'
+import Report from '@jsroot/lib/report'
 import { Service, Url } from '../lib/service'
 import ReportExcel from '../lib/reportExcel'
-import MonthPicker from '../../../components/month-picker/index'
+import MonthPicker from '@jsroot/components/month-picker/index'
+import AppData from '@jsroot/lib/AppData'
 
 export class FormFilter extends Component {
     constructor(props) {
@@ -119,13 +120,13 @@ export class FormFilter extends Component {
                                 <label htmlFor={key}>{option.label}</label>
                             </span>)
                     })
-                }
+                    }
             </div>
         );
-    }
+                    }
 
     _renderProductSelectList() {
-        const { productOptions } = this.props;
+        const productOptions = AppData.productOptions;
         return productOptions && productOptions.length && (
             <MultipleSelect id="ProductList"
                 dataSource={productOptions}
@@ -136,24 +137,24 @@ export class FormFilter extends Component {
                 noneSelectedLabel={LangHelper.getSingleResource("SelectOptions")}
                 onChange={this.productChangeHandler} />
         );
-    }
+                    }
 
     _renderCurrencySelectList() {
-        const { currencyList, selectedCurrency } = this.props;
-
+        const { selectedCurrency } = this.props;
+        const currencyList = AppData.currencyList;
         return <Select instanceId="ddlCurrency"
             value={selectedCurrency.value}
             options={currencyList}
             onChange={(item) => this.props.setSelectedCurrency(item)} />
-    }
+                    }
 
     _monthPickerHandle = (dateRange) => {
         this.props.setDateRange(dateRange);
-    }
-
+                    }
 
     _renderMonthPicker() {
-        const { dateRange, dateConstraint } = this.props;
+        const { dateRange } = this.props;
+        const dateConstraint = AppData.dateConstraint;
 
         const monthOption = {
             label: LangHelper.getSingleResource('ViewDataInMonth')
