@@ -24,9 +24,9 @@ namespace Fanex.Athena.Excel.Report
     {
         private const int ColumnDate = 0;
         private const int ColumnFirstProduct = 1;
-        private const int ColumnLastProduct = 18;
-        private const int ColumnTotalTransaction = 19;
-        private const int ColumnTemplateCount = 20;
+        private const int ColumnLastProduct = 17;
+        private const int ColumnTotalTransaction = 18;
+        private const int ColumnTemplateCount = 19;
 
         private const int RowTableHeader = 1;
         private const int RowContentTemplate = 3;
