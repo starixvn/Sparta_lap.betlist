@@ -25,12 +25,6 @@ export const xsrfToken = createReducer({}, {
     }
 })
 
-export const dateConstraint = createReducer({}, {
-    [types.GET_DATE_CONSTRAINT](state, action) {
-        return action.data;
-    }
-})
-
 export const params = createReducer({}, {
     [types.SET_PARAMS](state, action) {
         return action.data;

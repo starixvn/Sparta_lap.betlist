@@ -4623,11 +4623,11 @@ var Service = exports.Service = function () {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.reportTitle = exports.params = exports.dateConstraint = exports.xsrfToken = exports.dateRange = exports.selectedReportBy = exports.reportByList = undefined;
+exports.reportTitle = exports.params = exports.xsrfToken = exports.dateRange = exports.selectedReportBy = exports.reportByList = undefined;
 
-var _createReducer8 = __webpack_require__(/*! ../../../lib/createReducer.js */ "./www/js/source/reactpages/lib/createReducer.js");
+var _createReducer7 = __webpack_require__(/*! ../../../lib/createReducer.js */ "./www/js/source/reactpages/lib/createReducer.js");
 
-var _createReducer9 = _interopRequireDefault(_createReducer8);
+var _createReducer8 = _interopRequireDefault(_createReducer7);
 
 var _types = __webpack_require__(/*! ../actions/types.js */ "./www/js/source/reactpages/pages/speciallicenseewl/actions/types.js");
 
@@ -4639,31 +4639,27 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var reportByList = exports.reportByList = (0, _createReducer9.default)({}, _defineProperty({}, types.GET_REPORTBY, function (state, action) {
+var reportByList = exports.reportByList = (0, _createReducer8.default)({}, _defineProperty({}, types.GET_REPORTBY, function (state, action) {
     return action.data;
 }));
 
-var selectedReportBy = exports.selectedReportBy = (0, _createReducer9.default)({}, _defineProperty({}, types.SET_REPORTBY, function (state, action) {
+var selectedReportBy = exports.selectedReportBy = (0, _createReducer8.default)({}, _defineProperty({}, types.SET_REPORTBY, function (state, action) {
     return action.data;
 }));
 
-var dateRange = exports.dateRange = (0, _createReducer9.default)({}, _defineProperty({}, types.SET_DATE_RANGE, function (state, action) {
+var dateRange = exports.dateRange = (0, _createReducer8.default)({}, _defineProperty({}, types.SET_DATE_RANGE, function (state, action) {
     return action.data;
 }));
 
-var xsrfToken = exports.xsrfToken = (0, _createReducer9.default)({}, _defineProperty({}, types.GET_XSRF_TOKEN, function (state, action) {
+var xsrfToken = exports.xsrfToken = (0, _createReducer8.default)({}, _defineProperty({}, types.GET_XSRF_TOKEN, function (state, action) {
     return action.data;
 }));
 
-var dateConstraint = exports.dateConstraint = (0, _createReducer9.default)({}, _defineProperty({}, types.GET_DATE_CONSTRAINT, function (state, action) {
+var params = exports.params = (0, _createReducer8.default)({}, _defineProperty({}, types.SET_PARAMS, function (state, action) {
     return action.data;
 }));
 
-var params = exports.params = (0, _createReducer9.default)({}, _defineProperty({}, types.SET_PARAMS, function (state, action) {
-    return action.data;
-}));
-
-var reportTitle = exports.reportTitle = (0, _createReducer9.default)({}, _defineProperty({}, types.SET_REPORT_TITLE, function (state, action) {
+var reportTitle = exports.reportTitle = (0, _createReducer8.default)({}, _defineProperty({}, types.SET_REPORT_TITLE, function (state, action) {
     return action.data;
 }));
 
