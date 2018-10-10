@@ -259,15 +259,11 @@ namespace Fanex.Athena.Excel.Report
 
         private void AddExtraColumns()
         {
-            var racebookRevenueExpression = string.Format("{0} + {1}", GetCurrencyColumn("commrb"), GetCurrencyColumn("winlossrb"));
-            var revenueExpression = string.Format("{0} + {1}", GetCurrencyColumn("sumcommrb"), GetCurrencyColumn("sumwinlossrb"));
             var totalExpression = string.Format("{0} + {1}", GetCurrencyColumn("memberwinlost"), GetCurrencyColumn("playercomm"));
             var sumtotal = string.Format("{0} + {1}", GetCurrencyColumn("summemberwinlost"), GetCurrencyColumn("sumplayercomm"));
 
-            _exportData.Columns.Add("rbrevenue", typeof(decimal), racebookRevenueExpression);
             _exportData.Columns.Add(GetCurrencyColumn("totalwl"), typeof(decimal), totalExpression);
             _totalData.Columns.Add(GetCurrencyColumn("sumtotalwl"), typeof(decimal), sumtotal);
-            _totalData.Columns.Add(GetCurrencyColumn("sumrbrevenue"), typeof(decimal), revenueExpression);
         }
 
         protected internal virtual void AssignGrandTotalSummary(ISheet sheet, int currentRow)
@@ -408,7 +404,7 @@ namespace Fanex.Athena.Excel.Report
         {
             var currencyColumnList = GetCommonColumnNameList();
 
-            return currencyColumnList.Select(name => (name == "rbrevenue" || name == "betcount") ? name : GetCurrencyColumn(name))
+            return currencyColumnList.Select(name => name == "betcount" ? name : GetCurrencyColumn(name))
                    .ToList();
         }
 
