@@ -8491,6 +8491,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             };
         }
 
+        function getSubmitData(){
+            var data = $("#platformwinloss").serializeObject();
+            data.Level = 0;
+            addDateParam(data);
+            return data;
+        }
+
         function submit() {
             var validProduct = Report.ValidProducts();
             if (!validProduct) {
@@ -8498,9 +8505,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             }
 
             gridControl.level = 0;
-            var data = $("#platformwinloss").serializeObject();
-            data.Level = gridControl.level;
-            addDateParam(data);
+            var data = getSubmitData();
 
             getData(data, Site.resolveClientUrl(PlatformWinLossOption.urlData), function (response) {
                 var submitData = {
@@ -8529,7 +8534,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         }
 
         function exportToExcel(level, sortBy, sortOrder) {
-            var data = Site.clone(_filterData[level]);
+            var data = _filterData[level] ? Site.clone(_filterData[level]) : getSubmitData();
+
             data.IsExportExcel = true;
             data.Level = level;
             if (level === 1 && sortBy) {
