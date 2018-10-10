@@ -21,8 +21,8 @@ namespace Fanex.Athena.Excel.Report.UnitTests
     [TestFixture]
     public class ActiveCustomerSummaryExcelTest : BaseReportExcelTest
     {
-        private const int ColumnTotalTransaction = 19;
-        private const int ColumnCount = 20;
+        private const int ColumnTotalTransaction = 18;
+        private const int ColumnCount = 19;
 
         private static readonly ActiveCustomer DataItem = new ActiveCustomer
         {
