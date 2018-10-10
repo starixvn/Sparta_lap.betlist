@@ -192,7 +192,7 @@
         hasCustomerComm: true,
         IsAllowBA: true,
         pageSize: 50,
-        nonePagingSize: 2000,
+        nonePagingSize: 3000,
         rowNum: 50,
         totalColspan: [1, 2, 3],
         totalColspanFakeLicensee: [1, 2, 2],

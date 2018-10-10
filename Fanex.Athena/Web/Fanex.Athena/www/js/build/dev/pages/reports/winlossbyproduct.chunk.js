@@ -5797,7 +5797,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         hasCustomerComm: true,
         IsAllowBA: true,
         pageSize: 50,
-        nonePagingSize: 2000,
+        nonePagingSize: 3000,
         rowNum: 50,
         totalColspan: [1, 2, 3],
         totalColspanFakeLicensee: [1, 2, 2],
