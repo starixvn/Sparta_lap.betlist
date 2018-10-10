@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Linq;
 using System.Reflection;
 using System.Web.Compilation;
@@ -8,6 +9,7 @@ using System.Web.Mvc;
 using Autofac;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
+using CitiXchangeLibrary;
 using Fanex.Athena.Api.Base.Logger;
 using Fanex.Athena.Extension.Utility.Internal;
 using Fanex.BetList.Core.Builder;
@@ -61,6 +63,9 @@ namespace Fanex.Athena
 
             builder.RegisterInstance(ParserService.Instance).As<IParserService>();
             builder.RegisterInstance(Logger.Log).As<Logging.ILogger>();
+
+            builder.Register<ICitiXchangeClient>(x => (ICitiXchangeClient)Activator.GetObject(typeof(ICitiXchangeClient), ConfigurationManager.AppSettings["ExchangeProductApiHost"]))
+                .ExternallyOwned();
         }
 
         private static Assembly[] GetAssemblies()

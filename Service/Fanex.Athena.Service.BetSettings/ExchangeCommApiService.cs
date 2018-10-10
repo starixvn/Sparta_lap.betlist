@@ -11,9 +11,7 @@ namespace Fanex.Athena.Service.BetSettings
     using CitiXchangeLibrary;
     using Constant.DataDomain;
     using Core.Users.Interfaces;
-    using DataAccess.BetSettings;
     using DataAccess.BetSettings.Interfaces;
-    using DataAccess.Core.Common;
     using DataAccess.Core.Common.Constants;
     using DataAccess.Core.Common.Interfaces;
     using Extension.Utility;
@@ -43,7 +41,7 @@ namespace Fanex.Athena.Service.BetSettings
         private readonly ICitiXchangeClient _apiClient;
 
         private readonly IDcsBetSettingDataAccess _betSettingDataAccess;
-        
+
         public ExchangeCommApiService(
             IAuthorizationService authorizationService,
             ILogger logger,
@@ -57,7 +55,7 @@ namespace Fanex.Athena.Service.BetSettings
             _userLogDataAccess = userLogDataAccess;
             _betSettingDataAccess = betSettingDataAccess;
             _appSetting = appSetting;
-            _apiClient = apiClient ?? (ICitiXchangeClient)Activator.GetObject(typeof(ICitiXchangeClient), _appSetting.ExchangeProductApiHost);
+            _apiClient = apiClient;
         }
 
         public IResultInfo<double> GetCommission(int licenseeId, int custId)
