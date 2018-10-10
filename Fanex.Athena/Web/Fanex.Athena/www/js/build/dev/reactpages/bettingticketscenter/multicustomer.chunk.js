@@ -5548,6 +5548,13 @@ var PageLayout = exports.PageLayout = function (_Component) {
                 var title = _langHelper2.default.getSingleResource(isCashOut ? "CashOutDetails" : "BoughtDetails");
                 _this2._openPopup(url, title);
             };
+
+            window.ShowBonusDetails = function (refCode, transId) {
+                var url = _BetList2.default.getBonusDetailUrl(refCode, transId, _this2.props.requestParam.BaseCurrency);
+
+                var title = _langHelper2.default.getSingleResource("TransactionDetail");
+                _this2._openPopup(url, title);
+            };
         }
     }, {
         key: 'componentWillUnmount',
@@ -5556,6 +5563,7 @@ var PageLayout = exports.PageLayout = function (_Component) {
             window.showNewCombMP = undefined;
             window.showCombMPDetail = undefined;
             window.ViewCashOutHistory = undefined;
+            window.ShowBonusDetails = undefined;
         }
     }, {
         key: '_showNewParlayDetail',
@@ -5823,6 +5831,16 @@ var BetList = function () {
                 url: url,
                 isCashOut: isCashOut
             };
+        }
+    }, {
+        key: 'getBonusDetailUrl',
+        value: function getBonusDetailUrl(refCode, transId, baseCurrency) {
+            var url = _site2.default.resolveClientUrl('BonusBetList/Detail');
+            url = _QueryString2.default.setParam(url, "RefCode", refCode);
+            url = _QueryString2.default.setParam(url, "TransId", transId);
+            url = _QueryString2.default.setParam(url, "BaseCurrency", baseCurrency);
+
+            return url;
         }
     }]);
 
