@@ -29,13 +29,11 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         private const int ColumnBetEffective = 8;
         private const int ColumnLicenseeWl = 9;
         private const int ColumnBaCommission = 10;
-        private const int ColumnRacingRevenue = 11;
-        private const int ColumnAmtDueToBa = 12;
-        private const int ColumnAmtDueToRacing = 13;
+        private const int ColumnAmtDueToBa = 11;
 
         private const string FormatDate = "MM/dd/yyyy";
 
-        private const int ColumnCount = 15;
+        private const int ColumnCount = 12;
 
         private static readonly CustomerWinLoss DataItem = FakeHelper.Create<CustomerWinLoss>();
 
@@ -63,8 +61,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
                 "#", ViewResources.ExternalId, ViewResources.SystemId, ViewResources.Turnover,
                 ViewResources.TotalTransaction, ViewResources.CustomerW_L, ViewResources.CustomerW_L,
                 ViewResources.CustomerW_L, ViewResources.EffectiveBettingValue, ViewResources.LicenseeW_L,
-                ViewResources.BACommission, ViewResources.RacingRevenue, ViewResources.AmtDueToBA,
-                ViewResources.AmtDueToRacing
+                ViewResources.BACommission, ViewResources.AmtDueToBA
             };
 
             // Action
@@ -156,13 +153,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             excel.Public_ProcessUI(FakeSheet);
 
             // Assert
-            Assert.Multiple(() =>
-            {
-                AssertHideColumns(FakeSheet, 2);
-                AssertHideColumns(FakeSheet, 7, 6);
-                AssertHideColumns(FakeSheet, 10, 12);
-                AssertHideColumns(FakeSheet, 11, 13);
-            });
+            AssertHideColumns(FakeSheet, ColumnSystemId, ColumnCustomerTotal, ColumnCustomerComm, ColumnBaCommission, ColumnAmtDueToBa);
         }
 
         [Test]
@@ -204,9 +195,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             row.Cells[ColumnBetEffective].Received(1).SetCellValue(item.BetEffective);
             row.Cells[ColumnLicenseeWl].Received(1).SetCellValue(item.LicenseeWL);
             row.Cells[ColumnBaCommission].Received(1).SetCellValue(item.BAComm);
-            row.Cells[ColumnRacingRevenue].Received(1).SetCellValue(item.RacingRevenue);
             row.Cells[ColumnAmtDueToBa].Received(1).SetCellValue(item.AmtDueToBA);
-            row.Cells[ColumnAmtDueToRacing].Received(1).SetCellValue(item.AmtDueToRacing);
         }
     }
 }

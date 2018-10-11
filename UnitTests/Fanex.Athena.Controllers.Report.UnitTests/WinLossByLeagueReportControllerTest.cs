@@ -44,7 +44,7 @@
                 const int LeagueId = 2;
                 var sports = new List<SportProductItem>
                 {
-                    new SportProductItem { ID = 1, Name = "A" }
+                    new SportProductItem { ID = 1, Name = "A", ParentId = 0 }
                 };
                 var leagues = new List<League>
                 {
@@ -57,7 +57,7 @@
                 _sportTypeDataAccess.GetSportsAndProducts(
                     SessionService.LicenseeSession.LicenseeId,
                     SessionService.UserSession.Language,
-                    ProductTypes.Sportsbook).Returns(sports);
+                    Product.SB).Returns(sports);
 
                 _leagueDataAccess.GetLeaguesBySport(Arg.Any<LeagueMetaModel>()).Returns(leagues);
                 _matchService.GetMatchesByLeague(LeagueId, Arg.Any<DateTime>(), Arg.Any<DateTime>()).Returns(matches);

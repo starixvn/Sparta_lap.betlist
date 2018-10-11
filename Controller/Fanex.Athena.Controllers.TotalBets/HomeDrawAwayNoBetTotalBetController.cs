@@ -22,12 +22,7 @@ namespace Fanex.Athena.Controllers.TotalBets
     public class HomeDrawAwayNoBetTotalBetController : TotalBetBaseController
     {
         private readonly IHomeDrawAwayNoBetDataAccess _homeDrawAwayNoBetDataAccess;
-
-        public HomeDrawAwayNoBetTotalBetController()
-        {
-            _homeDrawAwayNoBetDataAccess = new HomeDrawAwayNoBetDataAccess();
-        }
-
+        
         public HomeDrawAwayNoBetTotalBetController(
             ILanguageService languageService,
             ISessionService sessionService,

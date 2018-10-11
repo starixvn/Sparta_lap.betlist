@@ -112,10 +112,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BettingTicketCenterExcelTest.cs" />
     <Compile Include="BetListExcelTest_AssignSheetsData.cs" />
     <Compile Include="BetListExcelTest_BuildTicket.cs" />
     <Compile Include="BetListExcelTest.cs" />
     <Compile Include="BetListExcelBuilderExtensionTest.cs" />
+    <Compile Include="Builders\BettingTicketCenterExcelBuilderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

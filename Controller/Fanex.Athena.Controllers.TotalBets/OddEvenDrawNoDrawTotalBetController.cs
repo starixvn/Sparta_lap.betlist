@@ -23,12 +23,7 @@ namespace Fanex.Athena.Controllers.TotalBets
     public class OddEvenDrawNoDrawTotalBetController : TotalBetBaseController
     {
         private readonly IOddEvenDrawNoDrawDataAccess _oddEvenDrawNoDrawDataAccess;
-
-        public OddEvenDrawNoDrawTotalBetController()
-        {
-            _oddEvenDrawNoDrawDataAccess = new OddEvenDrawNoDrawDataAccess();
-        }
-
+        
         public OddEvenDrawNoDrawTotalBetController(
             ILanguageService languageService,
             ISessionService sessionService,

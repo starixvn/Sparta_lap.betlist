@@ -15,17 +15,17 @@ class DateRange extends Component {
   constructor(props, context) {
     super(props, context);
 
-    const { format, linkedCalendars, theme, locale } = props;
+    const { format, linkedCalendars, theme } = props;
 
     const startDate = parseInput(props.startDate, format, 'startOf');
     const endDate = parseInput(props.endDate, format, 'endOf');
     this.styles = getTheme(theme);
-    this.step = 0;
+    this.calendarSelectionStep = 0;
     this.locale = { ...defaultOptions.locale, ...props.locale };
     this.ranges = { ...defaultOptions.ranges(props.today, props.minDate, props.maxDate, props.limitedMonthRange), ...props.ranges };
 
     this.isValid = true;
-    this.currentRange = { startDate, endDate };
+    this.originalRange = { startDate, endDate };
 
     this.state = {
       range: { startDate, endDate },
@@ -45,7 +45,7 @@ class DateRange extends Component {
   }
 
   show = () => {
-    this.step = 0;
+    this.calendarSelectionStep = 0;
     this.setState({ show: true });
   }
 
@@ -69,32 +69,31 @@ class DateRange extends Component {
       endDate: startDate
     }
   }
-
-  setRange(range, triggerChange, show) {
-    const { onChange } = this.props
+  
+  setRange(range, show) {
     range = this.orderRange(range);
     this.isValid = this.isValidMonthRange(range);
 
-    const callback = () => {
-      triggerChange && onChange && onChange(range, this.isValid);
-    }
-
     if (this.isValid) {
-      const newState = show === undefined ? { range } : { range, show };
-      this.setState(newState, callback);
+       const newState = show === undefined ? { range } : { range, show };
+      this.setState(newState);
     }
-    else {
-      onChange && onChange(range, this.isValid);
+    else
+    {
+        const { onChange } = this.props
+        onChange && onChange(range, false);
     }
   }
 
-  handleSelect(date) {
-    if (date.startDate && date.endDate) { //Select in range
-      this.step = 0;
-      const showDaterange = false, triggerChange = true;
-      return this.setRange(date, triggerChange, showDaterange);
-    }
+  handlePredefinedRangesSelect(range){
+      this.setRange(range, false);
+      
+      this.originalRange = Object.assign({}, range);
+      const { onChange } = this.props;
+      onChange && onChange(range, true);
+  }
 
+  handleCalendarSelect(date) {
     const { startDate, endDate } = this.state.range;
 
     const range = {
@@ -102,21 +101,20 @@ class DateRange extends Component {
       endDate: endDate
     };
 
-    switch (this.step) {
+    switch (this.calendarSelectionStep) {
       case 0:
         range['startDate'] = date;
         range['endDate'] = date;
-        this.step = 1;
+        this.calendarSelectionStep = 1;
         break;
 
       case 1:
         range['endDate'] = date;
-        this.step = 0;
+        this.calendarSelectionStep = 0;
         break;
     }
 
-    const triggerChange = !this.props.twoStepChange || this.step === 0 && this.props.twoStepChange;
-    this.setRange(range, triggerChange);
+    this.setRange(range);
   }
 
   isValidMonthRange(date) {
@@ -140,33 +138,16 @@ class DateRange extends Component {
   }
 
   handleApply = () => {
-    const { onClickApplyButton } = this.props;
+    const { onClickApplyButton, onChange } = this.props;
     const range = this.state.range;
-    this.currentRange = Object.assign({}, range);
+    this.originalRange = Object.assign({}, range);
     onClickApplyButton && onClickApplyButton(range, this.isValid);
+    onChange && onChange(range, this.isValid);
     this.close();
   }
 
   handleCancel = () => {
-    const show = false, triggerChange = true;
-    this.setRange(this.currentRange, triggerChange, show);
-  }
-
-  componentWillReceiveProps(newProps) {
-    // Whenever date props changes, update state with parsed variant
-    if (newProps.startDate || newProps.endDate) {
-      const format = newProps.format || this.props.format;
-      const startDate = newProps.startDate && parseInput(newProps.startDate, format, 'startOf');
-      const endDate = newProps.endDate && parseInput(newProps.endDate, format, 'endOf');
-      const oldStartDate = this.props.startDate && parseInput(this.props.startDate, format, 'startOf');
-      const oldEndDate = this.props.endDate && parseInput(this.props.endDate, format, 'endOf');
-
-      if (!startDate.isSame(oldStartDate) || !endDate.isSame(oldEndDate)) {
-        const range = { startDate, endDate };
-
-        this.setRange(range);
-      }
-    }
+      this.setRange(this.originalRange, false);
   }
 
   render() {
@@ -174,7 +155,6 @@ class DateRange extends Component {
       showRange,
       format,
       linkedCalendars,
-      style,
       calendars,
       firstDayOfWeek,
       minDate,
@@ -213,7 +193,7 @@ class DateRange extends Component {
                 ranges={this.ranges}
                 range={range}
                 theme={styles}
-                onSelect={this.handleSelect.bind(this)}
+                onSelect={(range) => this.handlePredefinedRangesSelect(range)}
                 onlyClasses={onlyClasses}
                 classNames={classes}
                 locale={this.locale}
@@ -242,7 +222,7 @@ class DateRange extends Component {
                     onlyClasses={onlyClasses}
                     specialDays={specialDays}
                     classNames={classes}
-                    onChange={this.handleSelect.bind(this)}
+                    onChange={this.handleCalendarSelect.bind(this)}
                     locale={this.locale} />
                 );
               }

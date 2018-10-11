@@ -30,20 +30,16 @@ namespace Fanex.Athena.Controllers
         private readonly IAppSettings _appSettings;
         private readonly IClientViewHelper _clientViewHelper;
 
-        public BaseController() : this(null, null, null, null)
-        {
-        }
-
         protected BaseController(
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
             IClientViewHelper clientViewHelper)
         {
-            _langService = languageService ?? new LanguageService();
-            _sessionService = sessionService ?? new SessionService();
-            _appSettings = appSetting ?? new AppSettings();
-            _clientViewHelper = clientViewHelper ?? new ClientViewHelper();
+            _langService = languageService;
+            _sessionService = sessionService;
+            _appSettings = appSetting;
+            _clientViewHelper = clientViewHelper;
         }
 
         public ILanguageService LangService

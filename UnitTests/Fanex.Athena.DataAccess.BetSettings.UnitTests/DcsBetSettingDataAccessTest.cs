@@ -14,6 +14,8 @@
         protected override void SetUpDataAccess()
         {
             DataAccess = Substitute.ForPartsOf<DcsBetSettingDataAccess>(
+                AppSetting,
+                CreateSessionStorage(),
                 Substitute.For<ICoreLogger>(),
                 Substitute.For<ICacheRefAdapter>());
         }
@@ -32,8 +34,8 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("CustID", DbType.Int32, CustId);
-                ObjectDb.Received().AddInParameter("ProductId", DbType.Int32, ProductId);
+                ObjectDb.Received(1).AddInParameter("CustID", DbType.Int32, CustId);
+                ObjectDb.Received(1).AddInParameter("ProductId", DbType.Int32, ProductId);
             });
         }
 
@@ -78,12 +80,12 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("custid", DbType.Int32, custId);
-                ObjectDb.Received().AddInParameter("userid", DbType.Int32, userId);
-                ObjectDb.Received().AddInParameter("IsDisabled", DbType.String, ExpectedIsDisabledParam);
-                ObjectDb.Received().AddInParameter("ip", DbType.String, ip);
-                ObjectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 8);
-                ObjectDb.Received().AddOutParameter("ErrMsg", DbType.String, 8000);
+                ObjectDb.Received(1).AddInParameter("custid", DbType.Int32, custId);
+                ObjectDb.Received(1).AddInParameter("userid", DbType.Int32, userId);
+                ObjectDb.Received(1).AddInParameter("IsDisabled", DbType.String, ExpectedIsDisabledParam);
+                ObjectDb.Received(1).AddInParameter("ip", DbType.String, ip);
+                ObjectDb.Received(1).AddOutParameter("ErrCode", DbType.Int32, 8);
+                ObjectDb.Received(1).AddOutParameter("ErrMsg", DbType.String, 8000);
             });
         }
 
@@ -125,12 +127,12 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("custid", DbType.Int32, CustId);
-                ObjectDb.Received().AddInParameter("userid", DbType.Int32, UserId);
-                ObjectDb.Received().AddInParameter("ip", DbType.String, Ip);
-                ObjectDb.Received().AddInParameter("betlimit", DbType.String, XmlData);
-                ObjectDb.Received().AddOutParameter("errcode", DbType.Int32, 4);
-                ObjectDb.Received().AddOutParameter("errmsg", DbType.String, 8000);
+                ObjectDb.Received(1).AddInParameter("custid", DbType.Int32, CustId);
+                ObjectDb.Received(1).AddInParameter("userid", DbType.Int32, UserId);
+                ObjectDb.Received(1).AddInParameter("ip", DbType.String, Ip);
+                ObjectDb.Received(1).AddInParameter("betlimit", DbType.String, XmlData);
+                ObjectDb.Received(1).AddOutParameter("errcode", DbType.Int32, 4);
+                ObjectDb.Received(1).AddOutParameter("errmsg", DbType.String, 8000);
             });
         }
 

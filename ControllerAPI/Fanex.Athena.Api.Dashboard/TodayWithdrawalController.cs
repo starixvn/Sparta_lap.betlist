@@ -9,14 +9,10 @@
     public class TodayWithdrawalController : BaseDashboardApiController
     {
         private readonly ISingleValueDataAccess _dataAccess;
-
-        public TodayWithdrawalController() : this(null)
-        {
-        }
-
+        
         public TodayWithdrawalController(ISingleValueDataAccess todayWithdrawal)
         {
-            _dataAccess = todayWithdrawal ?? new SingleValueDataAccess();
+            _dataAccess = todayWithdrawal;
         }
 
         public decimal GetData([FromUri] DashboardBaseModel metaModel)

@@ -102,17 +102,14 @@
                     expect(dateColumn.formatoptions.newformat).toBe("m/d/Y");
                 });
 
-                it("LicenseeWlCommColumn should be hidden when IsAllowBA and IsAllowRB are false", function () {
+                it("LicenseeWlCommColumn should be hidden when IsAllowBA is false", function () {
                     var originalIsAllowBA = WinLossByProductOption.IsAllowBA;
-                    var originalIsAllowRB = WinLossByProductOption.IsAllowRB;
 
                     WinLossByProductOption.IsAllowBA = false;
-                    WinLossByProductOption.IsAllowRB = false;
                     var colModel = WinLossByProductOption.getColModel(0, 1);
                     var LicenseeWlCommColumn = colModel[12];
 
                     WinLossByProductOption.IsAllowBA = originalIsAllowBA;
-                    WinLossByProductOption.IsAllowRB = originalIsAllowRB;
 
                     expect(LicenseeWlCommColumn.hidden).toBe(true);
                 });

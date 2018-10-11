@@ -26,10 +26,6 @@ namespace Fanex.Athena.Api.BetList
     [ApiFunctionAuthorization(PermissionKeys.ReportDailyBetList)]
     public class DailyBetListController : ApiBetListBaseController
     {
-        public DailyBetListController()
-        {
-        }
-
         public DailyBetListController(
             ISessionService sessionService,
             IProductService productService,

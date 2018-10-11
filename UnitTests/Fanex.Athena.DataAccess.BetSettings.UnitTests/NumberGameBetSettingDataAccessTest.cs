@@ -7,6 +7,7 @@
     using Model.Core.DTO.Common;
     using NSubstitute;
     using NUnit.Framework;
+    using Session.Interfaces;
     using Utility;
 
     [TestFixture]
@@ -20,7 +21,10 @@
                 {
                     SportId = x[1].ToString()
                 });
-            DataAccess = Substitute.ForPartsOf<NumberGameBetSettingDataAccess>(betSettingReader);
+            DataAccess = Substitute.ForPartsOf<NumberGameBetSettingDataAccess>(
+                AppSetting,
+                Substitute.For<ISessionStorage>(),
+                betSettingReader);
         }
 
         [Test]
@@ -34,7 +38,7 @@
             DataAccess.GetBetSetting(custId);
 
             // Assert
-            ObjectDb.Received().AddInParameter("CustID", DbType.Int32, custId);
+            ObjectDb.Received(1).AddInParameter("CustID", DbType.Int32, custId);
         }
 
         [Test]
@@ -81,16 +85,16 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("custid", DbType.Int32, param.CustId);
-                ObjectDb.Received().AddInParameter("userid", DbType.Int32, param.UserId);
-                ObjectDb.Received().AddInParameter("minbetv161", DbType.Decimal, param.MinBet);
-                ObjectDb.Received().AddInParameter("maxbetv161", DbType.Decimal, param.MaxBet);
-                ObjectDb.Received().AddInParameter("maxpermatchv161", DbType.Decimal, param.MaxPerMatch);
-                ObjectDb.Received().AddInParameter("maxperballv161", DbType.Decimal, param.MaxPerBall);
-                ObjectDb.Received().AddInParameter("language", DbType.String, param.Language);
-                ObjectDb.Received().AddInParameter("ip", DbType.String, param.Ip);
-                ObjectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
-                ObjectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
+                ObjectDb.Received(1).AddInParameter("custid", DbType.Int32, param.CustId);
+                ObjectDb.Received(1).AddInParameter("userid", DbType.Int32, param.UserId);
+                ObjectDb.Received(1).AddInParameter("minbetv161", DbType.Decimal, param.MinBet);
+                ObjectDb.Received(1).AddInParameter("maxbetv161", DbType.Decimal, param.MaxBet);
+                ObjectDb.Received(1).AddInParameter("maxpermatchv161", DbType.Decimal, param.MaxPerMatch);
+                ObjectDb.Received(1).AddInParameter("maxperballv161", DbType.Decimal, param.MaxPerBall);
+                ObjectDb.Received(1).AddInParameter("language", DbType.String, param.Language);
+                ObjectDb.Received(1).AddInParameter("ip", DbType.String, param.Ip);
+                ObjectDb.Received(1).AddOutParameter("ErrCode", DbType.Int32, 4);
+                ObjectDb.Received(1).AddOutParameter("ErrMsg", DbType.String, 4000);
             });
         }
 

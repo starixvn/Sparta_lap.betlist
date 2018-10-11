@@ -43,7 +43,7 @@ var amountDue = data.AmountDue.ToStringExt();
     <td class="right-align" title="@betCount">@betCount</td>
     <td class="right-align" title="@licenseeWL.ToStringExt()">@DesktopRazorHelper.HighlightNegativeFormat(licenseeWL)</td>
 
-if (model.ProductAccess.IsAllowRB || model.ProductAccess.IsAllowBA)
+if (model.ProductAccess.IsAllowBA)
 {
     var licenseeComm = data.LicenseeComm.ToStringExt();
         <td class="right-align" title="@licenseeComm">@licenseeComm</td>
@@ -63,7 +63,7 @@ var colspanText = model.IsAllowedCustomerCommission ? "colspan=3" : "";
         <th @rowspanText>@ViewResources.Turnover</th>
         <th class="header-small" @rowspanText>@ViewResources.BetCount</th>
         <th @rowspanText>@ViewResources.LicenseeW_L</th>
-        @if (model.ProductAccess.IsAllowRB || model.ProductAccess.IsAllowBA)
+        @if (model.ProductAccess.IsAllowBA)
         {
             <th class="header-small" @rowspanText>@ViewResources.Comm</th>
         }

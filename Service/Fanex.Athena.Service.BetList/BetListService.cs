@@ -6,14 +6,11 @@
 
 namespace Fanex.Athena.Service.BetList
 {
-    using DataAccess.Core.Configuration;
     using DataAccess.Core.Configuration.Interfaces;
-    using Fanex.Athena.DataAccess.BetList;
     using Fanex.Athena.DataAccess.BetList.Interfaces;
     using Fanex.Athena.Model.BetList.DTO;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Service.BetList.Interfaces;
-    using Fanex.Athena.Service.Core.Users;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Fanex.BetList.Core.Entities;
 
@@ -24,13 +21,6 @@ namespace Fanex.Athena.Service.BetList
         private readonly IBetListDataAccess _betlistDataAccess;
 
         private readonly IAuthorizationService _authorizationService;
-
-        public BetListService()
-        {
-            _balanceUpDataAccess = new BalanceUpDataAccess();
-            _betlistDataAccess = new BetListDataAccess();
-            _authorizationService = new AuthorizationService();
-        }
 
         [System.CLSCompliant(false)]
         public BetListService(

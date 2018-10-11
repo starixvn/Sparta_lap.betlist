@@ -7,7 +7,6 @@
     using System.Web.Hosting;
     using System.Web.Mvc;
     using Constant.DataDomain;
-    using DataAccess.Core.Configuration;
     using DataAccess.Core.Configuration.Interfaces;
     using Excel.Base.Helpers;
     using Extension.Utility;
@@ -19,7 +18,6 @@
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
-    using Fanex.Athena.Service.Report;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
     using Fanex.Common;
@@ -28,7 +26,6 @@
     using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Service.Report.Interfaces;
-    using VendorAdapter;
     using VendorAdapter.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.ReportMatchWinLoss)]
@@ -40,10 +37,6 @@
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
         private readonly ICacheRefAdapter _cacheRefAdapter;
         private readonly IMatchWinLossService _matchWinLossService;
-
-        public MatchWinLossReportController() : this(null, null, null, null, null, null, null, null)
-        {
-        }
 
 #pragma warning disable S107 // Methods should not have too many parameters
 
@@ -59,9 +52,9 @@
 #pragma warning restore S107 // Methods should not have too many parameters
             : base(languageService, sessionService, appSetting, clientViewHelper, productService)
         {
-            _balanceUpDataAccess = balanceUpDataAccess ?? new BalanceUpDataAccess();
-            _cacheRefAdapter = cacheRefAdapter ?? new CacheRefAdapter();
-            _matchWinLossService = matchWinLossService ?? new MatchWinLossService();
+            _balanceUpDataAccess = balanceUpDataAccess;
+            _cacheRefAdapter = cacheRefAdapter;
+            _matchWinLossService = matchWinLossService;
         }
 
         [HttpGet]
@@ -172,7 +165,6 @@
             var showingOption = new ShowingOption
             {
                 BAVisible = productAccess.IsAllowBA,
-                RBVisible = productAccess.IsAllowRB,
                 NGVisible = productAccess.IsAllowNG,
                 SBVisible = productAccess.IsAllowSB,
                 VSVisible = productAccess.IsAllowVS,
@@ -230,9 +222,7 @@
                 CustomerComm = dataList.Sum(item => item.CustomerComm),
                 LicenseeWL = dataList.Sum(item => item.LicenseeWL),
                 BACommission = dataList.Sum(item => item.BACommission),
-                AmtDueToBA = dataList.Sum(item => item.AmtDueToBA),
-                RacingRevenue = dataList.Sum(item => item.RacingRevenue),
-                AmtDueToRacing = dataList.Sum(item => item.AmtDueToRacing)
+                AmtDueToBA = dataList.Sum(item => item.AmtDueToBA)
             };
 
             return totalMatchWinLoss;
@@ -248,9 +238,7 @@
                 CustomerComm = dataListOutright.Sum(item => item.CustomerComm) + total.CustomerComm,
                 LicenseeWL = dataListOutright.Sum(item => item.LicenseeWL) + total.LicenseeWL,
                 BACommission = dataListOutright.Sum(item => item.BACommission) + total.BACommission,
-                AmtDueToBA = dataListOutright.Sum(item => item.AmtDueToBA) + total.AmtDueToBA,
-                RacingRevenue = dataListOutright.Sum(item => item.RacingRevenue) + total.RacingRevenue,
-                AmtDueToRacing = dataListOutright.Sum(item => item.AmtDueToRacing) + total.AmtDueToRacing
+                AmtDueToBA = dataListOutright.Sum(item => item.AmtDueToBA) + total.AmtDueToBA
             };
         }
 
@@ -258,11 +246,6 @@
         {
             var columnCount = 6;
             if (productAccess.IsAllowBA)
-            {
-                columnCount += 2;
-            }
-
-            if (productAccess.IsAllowRB)
             {
                 columnCount += 2;
             }
@@ -296,54 +279,36 @@
 
         protected internal virtual void AssignMatchName(DataRow row, int betType)
         {
-            switch ((int)row[NewProductIdColumnName])
+            if ((int)row[NewProductIdColumnName] == ProductTypes.NumberGame)
             {
-                case ProductTypes.Racing:
-                    row["matchname"] = ViewResources.Race + Converter.ToString2(row["race"]);
-                    break;
-
-                case ProductTypes.NumberGame:
-                    row["matchname"] = string.Format("{0} {1}", ViewResources.NumberGameNo, row["matchcode"]);
-                    break;
-
-                default:
-
-                    if (VirtualHrBettypes.Contains(betType))
-                    {
-                        var culture = new CultureInfo("en-US");
-                        const string TimeFormatter = "{0:MM/dd/yyyy hh:mm:ss tt}";
-                        var kickOffTime = Converter.ToDateTime(row["KickoffTime"]);
-                        row["matchname"] = string.Format(culture, TimeFormatter, kickOffTime);
-                        break;
-                    }
-
+                row["matchname"] = string.Format("{0} {1}", ViewResources.NumberGameNo, row["matchcode"]);
+            }
+            else
+            {
+                if (VirtualHrBettypes.Contains(betType))
+                {
+                    var culture = new CultureInfo("en-US");
+                    const string TimeFormatter = "{0:MM/dd/yyyy hh:mm:ss tt}";
+                    var kickOffTime = Converter.ToDateTime(row["KickoffTime"]);
+                    row["matchname"] = string.Format(culture, TimeFormatter, kickOffTime);
+                }
+                else
+                {
                     var homeName = _cacheRefAdapter.GetTeamName(row["homeid"]) +
                                    (Converter.ToBool(row["isneutral"])
                                         ? " " + ViewResources.IsNeutral
                                         : string.Empty);
                     var awayName = _cacheRefAdapter.GetTeamName(row["awayid"]);
                     row["matchname"] = homeName + "-vs-" + awayName;
-
-                    break;
+                }
             }
         }
 
         protected internal virtual void AssignLeagueName(DataRow row)
         {
-            switch ((int)row[NewProductIdColumnName])
-            {
-                case ProductTypes.Racing:
-                    row["leaguename"] = ViewResources.ProductRB + "-" + _cacheRefAdapter.GetLeagueName(row["leagueid"]);
-                    break;
-
-                case ProductTypes.NumberGame:
-                    row["leaguename"] = ViewResources.ProductNG;
-                    break;
-
-                default:
-                    row["leaguename"] = _cacheRefAdapter.GetLeagueName(row["leagueid"]);
-                    break;
-            }
+            row["leaguename"] = (int)row[NewProductIdColumnName] == ProductTypes.NumberGame ?
+                        ViewResources.ProductNG :
+                        _cacheRefAdapter.GetLeagueName(row["leagueid"]);
         }
     }
 }

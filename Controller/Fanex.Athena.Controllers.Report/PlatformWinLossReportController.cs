@@ -19,10 +19,6 @@ namespace Fanex.Athena.Controllers.Report
     [FunctionAuthorization(PermissionKeys.ReportPlatformWinLoss)]
     public class PlatformWinLossReportController : ReportBaseController
     {
-        public PlatformWinLossReportController()
-        {
-        }
-
         public PlatformWinLossReportController(
             ILanguageService languageService,
             ISessionService sessionService,

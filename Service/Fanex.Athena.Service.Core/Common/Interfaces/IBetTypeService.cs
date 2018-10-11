@@ -15,5 +15,7 @@ namespace Fanex.Athena.Service.Core.Common.Interfaces
     public interface IBetTypeService
     {
         IList<CheckedItem> GetBettypes(int licenseeId, IList<SportProductItem> sports, string languageCode);
+
+        IList<CheckedItem> GetBettypesByProduct(int licenseeId, string productCode, string languageCode);
     }
 }

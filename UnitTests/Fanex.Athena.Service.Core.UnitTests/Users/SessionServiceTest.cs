@@ -140,7 +140,7 @@
             _sessionService.UpdateLiceseeSession(NewLicenseeId);
 
             // Assert
-            Assert.That(_sessionService.UserSession.DefaultReportUrl, Is.EqualTo("BalanceReport"));
+            Assert.That(_sessionService.UserSession.DefaultReportUrl, Is.EqualTo("LicenseeWinLossReport"));
         }
 
         [Test]
@@ -186,7 +186,7 @@
             _sessionService.UpdateLiceseeSession(NewLicenseeId);
 
             // Assert
-            Assert.That(_sessionService.UserSession.DefaultReportUrl, Is.EqualTo("BalanceReport"));
+            Assert.That(_sessionService.UserSession.DefaultReportUrl, Is.EqualTo("LicenseeWinLossReport"));
         }
 
         [Test]
@@ -209,7 +209,7 @@
             _sessionService.UpdateLiceseeSession(NewLicenseeId);
 
             // Assert
-            Assert.That(_sessionService.UserSession.DefaultReportUrl, Is.EqualTo("BalanceReport"));
+            Assert.That(_sessionService.UserSession.DefaultReportUrl, Is.EqualTo("LicenseeWinLossReport"));
         }
 
         [Test]
@@ -257,7 +257,7 @@
         public void IsAllowedEditCommission_ApplicationModeIsParasiticAndPortalFunctionListContainCorrectKey_ReturnTrue()
         {
             // Arrange
-            var functionList = new List<string> { "CommissionGroupList55" };
+            var functionList = new string[] { "CommissionGroupList55" };
             var userSession = new UserSession { PortalFunctionList = functionList, ApplicationMode = AppMode.Parasitic };
 
             // Action
@@ -271,7 +271,7 @@
         public void IsAllowedEditCommission_ApplicationModeIsParasiticAndPortalFunctionListNotContainCorrectKey_ReturnFalse()
         {
             // Arrange
-            var functionList = new List<string> { "CommissionGroupList56" };
+            var functionList = new string[] { "CommissionGroupList56" };
             var userSession = new UserSession { PortalFunctionList = functionList, ApplicationMode = AppMode.Parasitic };
 
             // Action
@@ -285,7 +285,7 @@
         public void IsAllowedEditCommission_ApplicationModeIsNotParasiticAndFunctionIdListContainCorrectKey_ReturnTrue()
         {
             // Arrange
-            var functionIdList = new List<int> { 55 };
+            var functionIdList = new int[] { 55 };
             var userSession = new UserSession { FunctionIdList = functionIdList, ApplicationMode = AppMode.Self };
 
             // Action
@@ -299,7 +299,7 @@
         public void IsAllowedEditCommission_ApplicationModeIsNotParasiticAndFunctionIdListNotContainCorrectKey_ReturnFalse()
         {
             // Arrange
-            var functionIdList = new List<int> { 56 };
+            var functionIdList = new int[] { 56 };
             var userSession = new UserSession { FunctionIdList = functionIdList, ApplicationMode = AppMode.Self };
 
             // Action
@@ -313,7 +313,7 @@
         public void IsAllowedSpecialBA_ApplicationModeIsParasiticAndPortalFunctionListContainCorrectKey_ReturnTrue()
         {
             // Arrange
-            var functionList = new List<string> { "SpecialBA54" };
+            var functionList = new string[] { "SpecialBA54" };
             var userSession = new UserSession { PortalFunctionList = functionList, ApplicationMode = AppMode.Parasitic };
 
             // Action
@@ -327,7 +327,7 @@
         public void IsAllowedSpecialBA_ApplicationModeIsParasiticAndPortalFunctionListNotContainCorrectKey_ReturnFalse()
         {
             // Arrange
-            var functionList = new List<string> { "SpecialBA55" };
+            var functionList = new string[] { "SpecialBA55" };
             var userSession = new UserSession { PortalFunctionList = functionList, ApplicationMode = AppMode.Parasitic };
 
             // Action
@@ -341,7 +341,7 @@
         public void IsAllowedSpecialBA_ApplicationModeIsNotParasiticAndFunctionIdListContainCorrectKey_ReturnTrue()
         {
             // Arrange
-            var functionIdList = new List<int> { 54 };
+            var functionIdList = new int[] { 54 };
             var userSession = new UserSession { FunctionIdList = functionIdList, ApplicationMode = AppMode.Self };
 
             // Action
@@ -355,7 +355,7 @@
         public void IsAllowedSpecialBA_ApplicationModeIsNotParasiticAndFunctionIdListNotContainCorrectKey_ReturnFalse()
         {
             // Arrange
-            var functionIdList = new List<int> { 55 };
+            var functionIdList = new int[] { 55 };
             var userSession = new UserSession { FunctionIdList = functionIdList, ApplicationMode = AppMode.Self };
 
             // Action

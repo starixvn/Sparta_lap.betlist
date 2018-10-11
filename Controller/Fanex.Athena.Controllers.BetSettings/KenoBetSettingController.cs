@@ -25,12 +25,7 @@ namespace Fanex.Athena.Controllers.BetSettings
     public class KenoBetSettingController : BetSettingBaseController
     {
         private readonly IKenoBetSettingService _betSettingService;
-
-        public KenoBetSettingController()
-        {
-            _betSettingService = new KenoBetSettingService();
-        }
-
+        
         public KenoBetSettingController(
             ILanguageService languageService,
             ISessionService sessionService,

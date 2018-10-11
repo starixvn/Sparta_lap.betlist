@@ -6,7 +6,7 @@ var alias = require('../config/alias');
 var rules = require('../config/rule');
 var pluginGenerator = require('../config/plugin');
 var exposeLoader = require('expose-loader');
-var utils = require('./utils');
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 function generateConfig(environment) {
     var jsPath = `${pathConfig.scriptPaths.build}/${environment}`;
@@ -21,9 +21,11 @@ function generateConfig(environment) {
            ]
         },
         entry: {
-            common: ["jquery", "vendor-materialize", "common/site", "common/querystring"],
-
             [`${jsPath}/language`]: pathConfig.scriptPaths.language,
+            [`${jsPath}/language-zh-CN`]: pathConfig.scriptPaths.languageCN,
+            [`${jsPath}/language-zh-TW`]: pathConfig.scriptPaths.languageTW,
+            [`${jsPath}/language-zh-Hans`]: pathConfig.scriptPaths.languageHans,
+            [`${jsPath}/language-ko-KR`]: pathConfig.scriptPaths.languageKR,
             [`${jsPath}/pages/home/home`]: pathConfig.scriptPaths.home,
             [`${jsPath}/pages/signin/signin`]: pathConfig.scriptPaths.signin,
             [`${jsPath}/pages/reports/livereport`]: [pathConfig.scriptPaths.livereport],
@@ -49,14 +51,11 @@ function generateConfig(environment) {
             [`${jsPath}/pages/betlist/betlistcancelledbets`]: [pathConfig.scriptPaths.betlistcancelledbets],
             [`${jsPath}/pages/betlist/betlistdaily`]: [pathConfig.scriptPaths.betlistdaily],
             [`${jsPath}/pages/reports/settledmatchcount`]: [pathConfig.scriptPaths.settledmatchcount],
-            [`${jsPath}/pages/reports/balance`]: [pathConfig.scriptPaths.balance],
             [`${jsPath}/pages/reports/weeklylivematch`]: [pathConfig.scriptPaths.weeklylivematch],
-            [`${jsPath}/pages/reports/racingcommission`]: [pathConfig.scriptPaths.racingcommission],
             [`${jsPath}/pages/reports/turnover`]: [pathConfig.scriptPaths.turnover],
             [`${jsPath}/pages/reports/result`]: [pathConfig.scriptPaths.result],
             [`${jsPath}/pages/reports/cashoutwinloss`]: [pathConfig.scriptPaths.cashoutwinloss],
             [`${jsPath}/pages/reports/winlossbyproduct`]: [pathConfig.scriptPaths.winlossbyproduct],
-            [`${jsPath}/pages/reports/dailyracingwinloss`]: [pathConfig.scriptPaths.dailyracingwinloss],
             [`${jsPath}/pages/reports/winlossbyleague`]: [pathConfig.scriptPaths.winlossbyleague],
             [`${jsPath}/pages/reports/matchwinloss`]: [pathConfig.scriptPaths.matchwinloss],
             [`${jsPath}/pages/reports/platformwinloss`]: [pathConfig.scriptPaths.platformwinloss],
@@ -110,15 +109,12 @@ function generateConfig(environment) {
             [`${cssPath}/pages/forecast/newforecast`]: pathConfig.cssPaths.newforecast,
             [`${cssPath}/pages/betlist/betlistdaily`]: pathConfig.cssPaths.betlistdaily,
             [`${cssPath}/pages/reports/settledmatchcount`]: pathConfig.cssPaths.settledmatchcount,
-            [`${cssPath}/pages/reports/balance`]: pathConfig.cssPaths.balance,
             [`${cssPath}/pages/reports/weeklylivematch`]: pathConfig.cssPaths.weeklylivematch,
-            [`${cssPath}/pages/reports/racingcommission`]: pathConfig.cssPaths.racingcommission,
             [`${cssPath}/pages/reports/turnover`]: pathConfig.cssPaths.turnover,
             [`${cssPath}/pages/reports/result`]: pathConfig.cssPaths.result,
             [`${cssPath}/pages/reports/cashoutwinloss`]: pathConfig.cssPaths.cashoutwinloss,
             [`${cssPath}/pages/betlist/cashouthistory`]: pathConfig.cssPaths.cashouthistory,
             [`${cssPath}/pages/reports/winlossbyproduct`]: pathConfig.cssPaths.winlossbyproduct,
-            [`${cssPath}/pages/reports/dailyracingwinloss`]: pathConfig.cssPaths.dailyracingwinloss,
             [`${cssPath}/pages/reports/winlossbyleague`]: pathConfig.cssPaths.winlossbyleague,
             [`${cssPath}/pages/reports/matchwinloss`]: pathConfig.cssPaths.matchwinloss,
             [`${cssPath}/pages/reports/platformwinloss`]: pathConfig.cssPaths.platformwinloss,
@@ -157,6 +153,40 @@ function generateConfig(environment) {
             chunks: false,
             chunkModules: false,
             children: false
+        },
+        optimization: {
+            minimizer: [
+             new UglifyJsPlugin({
+                    sourceMap: true
+                })
+            ],
+            splitChunks: {
+                chunks: 'all',
+                minSize: 30000,
+                maxSize: 0,
+                minChunks: 2,
+                maxAsyncRequests: 5,
+                maxInitialRequests: 3,
+                automaticNameDelimiter: '~',
+                name: true,
+                cacheGroups: {
+                    // disable default cache group
+                    default: false,
+                    vendors: false,
+                    common: {
+                       name: `${jsPath}/pages/lib/common`,
+                       test: /(node_modules|www[\\/]js[\\/]source[\\/]vendors|www[\\/]js[\\/]source[\\/]common)/,
+                       minChunks: 2,
+                       priority: -10
+                    },
+                    jqgrid: {
+                        name: `${jsPath}/pages/lib/jqgrid`,
+                        test: /(www[\\/]js[\\/]source[\\/]lib[\\/]jqgrid)/,
+                        minChunks: 2,
+                        priority: -15
+                    }
+                }
+            }
         }
     };
 

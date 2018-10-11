@@ -7,7 +7,6 @@
     using Model.Core.DataDomain;
     using Resources;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Configuration;
     using Service.Core.Configuration.Interfaces;
     using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
@@ -18,11 +17,6 @@
     {
         private readonly IReportSettingService _reportSettingService;
 
-        public ExchangeWinLossReportController()
-        {
-            _reportSettingService = new ReportSettingService();
-        }
-
         public ExchangeWinLossReportController(
             ILanguageService languageService,
             ISessionService sessionService,
@@ -32,7 +26,7 @@
             IReportSettingService reportSettingService)
         : base(languageService, sessionService, appSetting, clientViewHelper, productService)
         {
-            _reportSettingService = reportSettingService ?? new ReportSettingService();
+            _reportSettingService = reportSettingService;
         }
 
         public ActionResult Index()

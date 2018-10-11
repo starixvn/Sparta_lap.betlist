@@ -24,10 +24,6 @@ namespace Fanex.Athena.Controllers.BetList
     {
         private static readonly int[] HiddenColumns = new[] { ExternalIdColumn, SystemIdColumn };
 
-        public CustomerWinLossBetListController()
-        {
-        }
-
         public CustomerWinLossBetListController(
             ILanguageService languageService,
             ISessionService sessionService,

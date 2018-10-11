@@ -19,8 +19,10 @@
 
         protected override void SetUpDataAccess()
         {
-            var cacheRefAdapter = Substitute.For<ICacheRefAdapter>();
-            DataAccess = Substitute.ForPartsOf<WinLossByLeagueDataAccess>(cacheRefAdapter);
+            DataAccess = Substitute.ForPartsOf<WinLossByLeagueDataAccess>(
+                AppSetting,
+                CreateSessionStorage(),
+                Substitute.For<ICacheRefAdapter>());
         }
 
         [TestCase(true, true)]

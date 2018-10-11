@@ -7,13 +7,20 @@ import * as types from '../types'
 import Site from '../../../../../lib/site'
 import axios from 'axios'
 
+const XsrfToken = "XXXX_TOKEN";
+
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
+
+const expectedHeader = {
+    'X-Requested-With': 'XMLHttpRequest',
+    '__RequestVerificationToken': XsrfToken
+}
 
 describe('dataHandlerAction', () => {
     beforeAll(() => {
         Site.resolveClientUrl = jest.fn((url) => url);
-        
+        Site.getXsrfToken = jest.fn(() => XsrfToken);
         jest.mock('axios');
     });
 
@@ -30,14 +37,9 @@ describe('dataHandlerAction', () => {
             }
         }
         const params = {
-            data: { FromDate: '01/01/2017', ToDate: '01/10/2017' },
-            xsrfToken: 'token'
+            data: { FromDate: '01/01/2017', ToDate: '01/10/2017' }
         }
-        const expectedHeader = {
-            'X-Requested-With': 'XMLHttpRequest',
-            '__RequestVerificationToken': params.xsrfToken
-        }
-
+        
         beforeAll(() => {
             const promise = Promise.resolve(fakeDataResponse);
             axios.post = jest.fn(() => promise);
@@ -97,12 +99,7 @@ describe('dataHandlerAction', () => {
             Type: 2,
             Index: 0,
             Data: [{ Id: 1 }],
-            Total: 1,
-            xsrfToken: 'token'
-        };
-        const expectedHeader = {
-            'X-Requested-With': 'XMLHttpRequest',
-            '__RequestVerificationToken': params.xsrfToken
+            Total: 1
         };
 
         it('axios.post should be called with correct parameters', () => {
@@ -152,13 +149,8 @@ describe('dataHandlerAction', () => {
         it('axios.post should be called with correct parameters', () => {
             const expectedUrl = 'api/NotificationReport/DownLoadFileAttachment';
             const params = {
-                xsrfToken: 'token',
                 api: 'api',
                 fileName: 'fileName'
-            };
-            const expectedHeader = {
-                'X-Requested-With': 'XMLHttpRequest',
-                '__RequestVerificationToken': params.xsrfToken
             };
             const promise = Promise.resolve({ data: {} });
             axios.post = jest.fn(() => promise);

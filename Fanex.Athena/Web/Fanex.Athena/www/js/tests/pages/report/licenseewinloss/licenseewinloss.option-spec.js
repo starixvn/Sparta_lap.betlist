@@ -35,7 +35,7 @@
             describe("getColName(productOptions)", function () {
                 var productOptions;
                 beforeEach(function () {
-                    productOptions = [{ Code: "SB", Name: "Sportsbook", Status: true }, { Code: "KN", Name: "Keno", Status: true }, { Code: "RB", Name: "RB", Status: false }];
+                    productOptions = [{ Code: "SB", Name: "Sportsbook", Status: true }, { Code: "KN", Name: "Keno", Status: true }];
                 });
 
                 afterEach(function () {
@@ -48,14 +48,14 @@
 
                     expect(columnNames).toEqual(['#', 'Date', 'ExternalId', 'SystemId', 'Currency', 'Total', 'Turnover', 'ActualStake', 'BuyBackAmount', 'TotalTransaction',
                         '@[Win]/@[Loss]', 'Comm', 'Total', 'Total', 'LicenseeW_L', '@[ProductBT]<br/>@[Commission]', '@[ProductCO]<br/>@[Commission]', 'BA<br/>@[Commission]',
-                        '@[RacingRevenue]', '@[AmtDueToBetTrade]', '@[AmtDueToBA]', '@[AmtDueToRacing]', 'CurrencyId', 'CustomerId']);
+                        '@[AmtDueToBetTrade]', '@[AmtDueToBA]', 'CurrencyId', 'CustomerId']);
                 });
 
                 it("gridOption.colNames should has correct value when we pass data of productOptions", function () {
                     LicenseeWinLossOption.hasCustomerComm = false;
                     var columnNames = LicenseeWinLossOption.getColName(productOptions);
 
-                    expect(columnNames.length).toBe(28);
+                    expect(columnNames.length).toBe(26);
                     expect(columnNames[5]).toBe("Keno");
                     expect(columnNames[6]).toBe("Sportsbook");
                     expect(columnNames[7]).toBe("Total");
@@ -69,7 +69,7 @@
                     productOptions.push({ Code: "BA", Status: true });
                     var columnNames = LicenseeWinLossOption.getColName(productOptions);
 
-                    expect(columnNames.length).toBe(32);
+                    expect(columnNames.length).toBe(30);
                     expect(columnNames[11]).toBe("Sportsbook");
                     expect(columnNames[12]).toBe("BA");
                     expect(columnNames[13]).toBe("Total");
@@ -79,7 +79,7 @@
                     productOptions.push({ Code: "BT", Status: true });
                     var columnNames = LicenseeWinLossOption.getColName(productOptions);
 
-                    expect(columnNames.length).toBe(29);
+                    expect(columnNames.length).toBe(27);
                 });
             });
 
@@ -199,7 +199,7 @@
                 describe("Add more product columns to grid", function () {
                     var productOptions;
                     beforeEach(function () {
-                        productOptions = [{ Code: "SB", Status: true }, { Code: "KN", Status: true }, { Code: "RB", Status: false }];
+                        productOptions = [{ Code: "SB", Status: true }, { Code: "KN", Status: true }];
                     });
 
                     afterEach(function () {
@@ -308,7 +308,7 @@
                         '</div>';
                     setFixtures(gridHtml);
                     $grid = $("#ReportGrid");
-                    productOptions = [{ Code: "SB", Status: true }, { Code: "KN", Status: true }, { Code: "RB", Status: false }];
+                    productOptions = [{ Code: "SB", Status: true }, { Code: "KN", Status: true }];
                 });
 
                 afterEach(function () {
@@ -539,7 +539,7 @@
                     var _method, _option;
                     spyOn($.fn, "jqGrid").and.callFake(function (method, option) { _method = method; _option = option; });
                     LicenseeWinLossOption.hasCustomerComm = true;
-                    var productOptions = [{ Code: "SB", Status: true }, { Code: "KN", Status: true }, { Code: "RB", Status: false }];
+                    var productOptions = [{ Code: "SB", Status: true }, { Code: "KN", Status: true }];
                     LicenseeWinLossOption.setGroupHeaderColumns($("#ReportGrid"), productOptions);
                     var groupHeaders = [
                         {
@@ -576,7 +576,7 @@
                     var _method, _option;
                     spyOn($.fn, "jqGrid").and.callFake(function (method, option) { _method = method; _option = option; });
                     LicenseeWinLossOption.hasCustomerComm = false;
-                    var productOptions = [{ Code: "SB", Status: false }, { Code: "KN", Status: false }, { Code: "RB", Status: false }];
+                    var productOptions = [{ Code: "SB", Status: false }, { Code: "KN", Status: false }];
                     LicenseeWinLossOption.setGroupHeaderColumns($("#ReportGrid"), productOptions);
                     var groupHeaders = [{}, {}, {}, {}];
 

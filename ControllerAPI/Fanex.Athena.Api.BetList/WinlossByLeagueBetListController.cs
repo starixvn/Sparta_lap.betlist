@@ -25,10 +25,6 @@ namespace Fanex.Athena.Api.BetList
     [ApiFunctionAuthorization(PermissionKeys.ReportWinLossByLeague)]
     public class WinlossByLeagueBetListController : ApiBetListBaseController
     {
-        public WinlossByLeagueBetListController()
-        {
-        }
-
         public WinlossByLeagueBetListController(
             ISessionService sessionService,
             IProductService productService,

@@ -1,6 +1,5 @@
 ﻿// -----------------------------------------------------------------------
 // <copyright file="OddEvenDrawNoDrawViewModel.cs" company="">
-// warehouse winloss form parameters
 // </copyright>
 // -----------------------------------------------------------------------
 

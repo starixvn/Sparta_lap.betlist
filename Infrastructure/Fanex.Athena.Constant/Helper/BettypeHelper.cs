@@ -4,8 +4,6 @@
     {
         private const int NGMinBetType = 81;
         private const int NGMaxBetType = 119;
-        private const int RBMinBetType = 31;
-        private const int RBMaxBetType = 33;
         private const int VSMinBetType = 1201;
         private const int VSMaxBetType = 1299;
         private const int VS2MinBetType = 2700;
@@ -16,11 +14,6 @@
         public static bool IsNumberGame(int bettype)
         {
             return IsInRange(bettype, NGMinBetType, NGMaxBetType);
-        }
-
-        public static bool IsRacing(int bettype)
-        {
-            return IsInRange(bettype, RBMinBetType, RBMaxBetType);
         }
 
         public static bool IsVirtualSports(int bettype)

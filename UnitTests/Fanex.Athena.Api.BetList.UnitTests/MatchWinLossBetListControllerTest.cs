@@ -78,30 +78,6 @@
             Assert.That(result, Is.Null);
         }
 
-        [TestCase(0, 31)]
-        [TestCase(1, 32)]
-        [TestCase(2, 33)]
-        [TestCase(3, 41)]
-        [TestCase(4, 42)]
-        [TestCase(5, 43)]
-        public void MatchBetType_IsRacing_GetBetListResultWithCorrectParameter(int currencyId, int betType)
-        {
-            // Arrange
-            const string UspKey = "Lrf_BetList_MatchWL_Racing";
-
-            var metaModel = SetUpForGetBetListResult(currencyId, new Dictionary<int, string> { { currencyId, "Currency" } });
-            metaModel.BetType = betType;
-
-            // Action
-            _controller.MatchBetType(Page, Rows, metaModel);
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                _controller.Received().GetPagingBetListResult(metaModel, UspKey, Page, Rows);
-            });
-        }
-
         [TestCase(0, 1)]
         [TestCase(1, 2)]
         [TestCase(2, 3)]

@@ -1,6 +1,5 @@
 ﻿// -----------------------------------------------------------------------
 // <copyright file="LiveReportDetailViewModel.cs" company="">
-// warehouse winloss form parameters
 // </copyright>
 // -----------------------------------------------------------------------
 

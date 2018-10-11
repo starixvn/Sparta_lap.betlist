@@ -43,24 +43,8 @@
                 <td class="right-align text-bold">
                     @DesktopRazorHelper.NegativeFormat(dataTotal.BACommission)
                 </td>
-            }
-
-            @if (Model.ProductAccess.IsAllowRB)
-            {
-                <td class="right-align text-bold">
-                    @DesktopRazorHelper.NegativeFormat(dataTotal.RacingRevenue)
-                </td>
-            }
-            @if (Model.ProductAccess.IsAllowBA)
-            {
                 <td class="right-align text-bold">
                     @NumberHelper.DecFormat(@dataTotal.AmtDueToBA, 2)
-                </td>
-            }
-            @if (Model.ProductAccess.IsAllowRB)
-            {
-                <td class="right-align text-bold">
-                    @NumberHelper.DecFormat(@dataTotal.AmtDueToRacing, 2)
                 </td>
             }
         </tr>
@@ -108,23 +92,8 @@
                 <td class="right-align text-bold">
                     @DesktopRazorHelper.NegativeFormat(itemOutRight.BACommission)
                 </td>
-            }
-            @if (Model.ProductAccess.IsAllowRB)
-            {
-                <td class="right-align text-bold">
-                    @DesktopRazorHelper.NegativeFormat(itemOutRight.RacingRevenue)
-                </td>
-            }
-            @if (Model.ProductAccess.IsAllowBA)
-            {
                 <td class="right-align text-bold">
                     @NumberHelper.DecFormat(itemOutRight.AmtDueToBA)
-                </td>
-            }
-            @if (Model.ProductAccess.IsAllowRB)
-            {
-                <td class="right-align text-bold">
-                    @NumberHelper.DecFormat(itemOutRight.AmtDueToRacing)
                 </td>
             }
         </tr>

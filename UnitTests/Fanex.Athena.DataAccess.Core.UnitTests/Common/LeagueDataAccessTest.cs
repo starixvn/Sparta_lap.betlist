@@ -6,10 +6,20 @@
     using Model.Core.MetaModel.Common;
     using NSubstitute;
     using NUnit.Framework;
+    using Session.Interfaces;
     using TestHelpers;
+    using VendorAdapter.Interfaces;
 
     public class LeagueDataAccessTest : BaseDataAccessHelperTest<LeagueDataAccess>
     {
+        protected override void SetUpDataAccess()
+        {
+            DataAccess = Substitute.ForPartsOf<LeagueDataAccess>(
+                AppSetting,
+                Substitute.For<ISessionStorage>(),
+                Substitute.For<ICacheRefAdapter>());
+        }
+
         [Test]
         public void GetLeaguesBySport_WhenCall_ParametersPassedCorrectly()
         {
@@ -29,10 +39,10 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("sportId", DbType.Int32, metaModel.SportId);
-                ObjectDb.Received().AddInParameter("Fromdate", DbType.DateTime, metaModel.FromDate);
-                ObjectDb.Received().AddInParameter("Todate", DbType.DateTime, metaModel.ToDate);
-                ObjectDb.Received().AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+                ObjectDb.Received(1).AddInParameter("sportId", DbType.Int32, metaModel.SportId);
+                ObjectDb.Received(1).AddInParameter("Fromdate", DbType.DateTime, metaModel.FromDate);
+                ObjectDb.Received(1).AddInParameter("Todate", DbType.DateTime, metaModel.ToDate);
+                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             });
         }
 

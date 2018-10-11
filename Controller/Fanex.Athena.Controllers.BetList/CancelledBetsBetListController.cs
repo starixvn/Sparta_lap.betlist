@@ -11,7 +11,6 @@ namespace Fanex.Athena.Controllers.BetList
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
-    using DataAccess.BetList;
     using DataAccess.BetList.Interfaces;
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;
@@ -25,7 +24,6 @@ namespace Fanex.Athena.Controllers.BetList
     using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Helpers;
-    using Service.Core.Users;
     using Service.Core.Users.Interfaces;
     using VendorAdapter.Interfaces;
 
@@ -37,12 +35,6 @@ namespace Fanex.Athena.Controllers.BetList
         private readonly IAuthorizationService _authorizationService;
 
         private readonly ICancelledBetListDataAccess _cancelledBetListDataAccess;
-
-        public CancelledBetsBetListController()
-        {
-            _authorizationService = new AuthorizationService();
-            _cancelledBetListDataAccess = new CancelledBetListDataAccess();
-        }
 
         public CancelledBetsBetListController(
             ILanguageService languageService,

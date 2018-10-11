@@ -8,8 +8,8 @@ namespace Fanex.Athena.DataAccess.Report
 {
     using System.Collections.Generic;
     using System.Data;
-    using Core.Configuration;
     using Core.Configuration.Interfaces;
+    using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Extension.Helper;
@@ -20,7 +20,6 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Data;
     using Model.Core.ResultModel;
     using Session.Interfaces;
-    using VendorAdapter;
     using VendorAdapter.Interfaces;
 
     public class CustomerTurnoverDataAccess : BaseDataAccess, ICustomerTurnoverDataAccess
@@ -29,17 +28,12 @@ namespace Fanex.Athena.DataAccess.Report
 
         private readonly ICacheRefAdapter _cacheRefAdapter;
 
-        public CustomerTurnoverDataAccess()
-        {
-            _balanceUpDataAccess = new BalanceUpDataAccess();
-            _cacheRefAdapter = new CacheRefAdapter();
-        }
-
         public CustomerTurnoverDataAccess(
+            IAppSettings appSetting,
             ISessionStorage sessionStorage,
             IBalanceUpDataAccess balanceUpDataAccess,
             ICacheRefAdapter cacheRefAdapter)
-            : base(null, sessionStorage)
+            : base(appSetting, sessionStorage)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
             _cacheRefAdapter = cacheRefAdapter;

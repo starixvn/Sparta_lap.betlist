@@ -562,7 +562,7 @@
                 && newUser.UserName == token.UserID
                 && newUser.IsInternal
                 && !newUser.FunctionIdList.Any()
-                && newUser.DefaultReportUrl == "BalanceReport"
+                && newUser.DefaultReportUrl == "LicenseeWinLossReport"
                 && newUser.ApplicationMode == AppMode.Parasitic
                 && newUser.VendorID == token.VendorID
                 && newUser.VendorIdentityID == token.UserID

@@ -1,7 +1,6 @@
 ﻿namespace Fanex.Athena.Api.Dashboard
 {
     using System.Web.Http;
-    using DataAccess.Dashboard;
     using DataAccess.Dashboard.Interfaces;
     using Model.Dashboard.MetaModel;
 
@@ -9,13 +8,9 @@
     {
         private readonly ISingleValueDataAccess _dataAccess;
 
-        public PendingFundController() : this(null)
-        {
-        }
-
         public PendingFundController(ISingleValueDataAccess dataAccess)
         {
-            _dataAccess = dataAccess ?? new SingleValueDataAccess();
+            _dataAccess = dataAccess;
         }
 
         public decimal GetData([FromUri] DashboardBaseModel metaModel)

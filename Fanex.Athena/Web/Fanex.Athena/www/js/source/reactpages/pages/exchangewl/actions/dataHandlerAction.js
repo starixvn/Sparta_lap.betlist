@@ -1,5 +1,5 @@
 ﻿import * as types from './types.js'
-import Report from '../../../lib/report'
+import Report from '@jsroot/lib/report'
 
 const relativeUrl = 'api/ExchangeWinLossReport/Index';
 

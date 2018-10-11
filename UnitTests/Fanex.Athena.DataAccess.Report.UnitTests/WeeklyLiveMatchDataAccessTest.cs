@@ -4,6 +4,7 @@
     using System.Data;
     using System.Linq;
     using Core.UnitTests.TestHelpers;
+    using Extension.Utility;
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
@@ -14,8 +15,10 @@
     {
         protected override void SetUpDataAccess()
         {
-            var cacheRefAdapter = Substitute.For<ICacheRefAdapter>();
-            DataAccess = Substitute.ForPartsOf<WeeklyLiveMatchDataAccess>(cacheRefAdapter);
+            DataAccess = Substitute.ForPartsOf<WeeklyLiveMatchDataAccess>(
+                Substitute.For<IAppSettings>(),
+                CreateSessionStorage(),
+                Substitute.For<ICacheRefAdapter>());
         }
 
         [Test]

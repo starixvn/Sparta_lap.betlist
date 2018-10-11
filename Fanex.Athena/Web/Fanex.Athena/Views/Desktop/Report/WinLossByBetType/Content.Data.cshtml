@@ -20,18 +20,7 @@
         @if (Model.ProductAccess.IsAllowBA)
         {
             <td class="right-align">@DesktopRazorHelper.HighlightNegativeFormat(item.BACommission)</td>
-        }
-        @if (Model.ProductAccess.IsAllowRB)
-        {
-            <td class="right-align">@DesktopRazorHelper.HighlightNegativeFormat(item.RacingWinLoss)</td>
-        }
-        @if (Model.ProductAccess.IsAllowBA)
-        {
             <td class="right-align">@item.AmtDueToBA.ToStringExt()</td>
-        }
-        @if (Model.ProductAccess.IsAllowRB)
-        {
-            <td class="right-align">@item.AmtDueToRacing.ToStringExt()</td>
         }
     </tr>
 }

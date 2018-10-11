@@ -5,7 +5,6 @@
     using System.Data;
     using Core.Configuration.Interfaces;
     using Core.UnitTests.TestHelpers;
-    using Data;
     using Fanex.Athena.UnitTest.Common.NUnitExtensions;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Configuration;
@@ -15,6 +14,7 @@
     using Result.Core.NumberGame.DTO;
     using Result.Core.Racing.DTO;
     using Result.Core.Sportsbook.DTO;
+    using Session.Interfaces;
     using VendorAdapter.Interfaces;
 
     [TestFixture]
@@ -24,7 +24,7 @@
         private const string GetSportsSp = "Lrf_Result_SportSelByDate";
         private const string GetLeaguesSp = "Lrf_Result_LeagueSelByDate";
         private const string GetNumberGameMatchesSp = "Lrf_Result_MatchSelNumberGameByLeague";
-        private const string GetRacingMatchesSp = "Lrf_Result_RaceSelByMeeting";
+        private const string GetVirtualSportMatchesSp = "Lrf_Result_RaceSelByMeeting";
         private const string GetPopUpMatchesSp = "Lrf_BetList_SelMatchResult";
         private const string GetPopUpParalayMatchSp = "Lrf_BetList_SelMatchResultParlay";
         private const string GetPopUpNumberGameMatchSp = "Lrf_BetList_SelMatchResultNumberGame";
@@ -35,37 +35,28 @@
         private const int BettypeId = 5;
         private const long BetId = 6;
 
-        private BalanceUp _balance;
-        private ResultMetalModel _metaModel;
+        private readonly BalanceUp _balance = new BalanceUp
+        {
+            MoveBetsDay = new DateTime(2016, 8, 10),
+            BalanceUpDay = new DateTime(2016, 8, 31)
+        };
 
-        [OneTimeSetUp]
-        public override void FixtureSetUp()
+        private readonly ResultMetalModel _metaModel = new ResultMetalModel
+        {
+            FromDate = new DateTime(2017, 1, 1),
+            ToDate = new DateTime(2017, 2, 2)
+        };
+
+        protected override void SetUpDataAccess()
         {
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
-            _balance = new BalanceUp
-            {
-                MoveBetsDay = new DateTime(2016, 8, 10),
-                BalanceUpDay = new DateTime(2016, 8, 31)
-            };
             balanceUpDataAccess.GetBalanceUp().Returns(_balance);
             var cacheRefAdapter = Substitute.For<ICacheRefAdapter>();
-            DataAccess = Substitute.ForPartsOf<ResultDataAccess>(balanceUpDataAccess, cacheRefAdapter);
-            ObjectDb = Substitute.For<IObjectDb>();
-
-            _metaModel = new ResultMetalModel
-            {
-                FromDate = new DateTime(2017, 1, 1),
-                ToDate = new DateTime(2017, 2, 2)
-            };
-        }
-
-        [OneTimeTearDown]
-        public override void FixtureTearDown()
-        {
-            _metaModel = null;
-            _balance = null;
-
-            base.FixtureTearDown();
+            DataAccess = Substitute.ForPartsOf<ResultDataAccess>(
+                AppSetting,
+                Substitute.For<ISessionStorage>(),
+                balanceUpDataAccess,
+                cacheRefAdapter);
         }
 
         [Test]
@@ -336,7 +327,7 @@
         public void GetRacingMatches_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            DataAccess.GetObjectDb(Arg.Is(GetRacingMatchesSp)).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is(GetVirtualSportMatchesSp)).Returns(ObjectDb);
             dynamic param = null;
             ObjectDb.ExecuteReader(Arg.Do<dynamic>(x => param = x));
             _metaModel.SportId = 1;
@@ -345,12 +336,11 @@
             {
                 fromdate = _metaModel.FromDate,
                 leagueid = _metaModel.LeagueId,
-                sporttype = _metaModel.SportId,
-                isshowall = true
+                sporttype = _metaModel.SportId
             };
 
             // Action
-            DataAccess.GetRacingMatches(_metaModel);
+            DataAccess.GetVirtualSportMatches(_metaModel);
             var result = param;
 
             // Assert
@@ -361,7 +351,7 @@
         public void GetRacingMatches_WhenCall_ReturnCorrectData()
         {
             // Arrange
-            DataAccess.GetObjectDb(Arg.Is(GetRacingMatchesSp)).Returns(ObjectDb);
+            DataAccess.GetObjectDb(Arg.Is(GetVirtualSportMatchesSp)).Returns(ObjectDb);
 
             Reader.Read().Returns(true, false);
 
@@ -373,10 +363,10 @@
             };
             MapReaderData(readerDataMapping);
 
-            var expectedResult = GetExpectedRacingData();
+            var expectedResult = GetExpectedVirtualSportData();
 
             // Action
-            var result = DataAccess.GetRacingMatches(_metaModel);
+            var result = DataAccess.GetVirtualSportMatches(_metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -390,8 +380,8 @@
         public void GetRacingMatches_WhenReceiveObjectDbException_ThrowDataAccessException()
         {
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetRacingMatchesSp,
-                () => DataAccess.GetRacingMatches(_metaModel));
+                GetVirtualSportMatchesSp,
+                () => DataAccess.GetVirtualSportMatches(_metaModel));
         }
 
         [Test]
@@ -523,7 +513,7 @@
             };
         }
 
-        private static List<Racing> GetExpectedRacingData()
+        private static List<Racing> GetExpectedVirtualSportData()
         {
             return new List<Racing>
             {

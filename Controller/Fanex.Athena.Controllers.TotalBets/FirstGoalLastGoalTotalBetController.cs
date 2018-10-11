@@ -23,12 +23,7 @@ namespace Fanex.Athena.Controllers.TotalBets
     public class FirstGoalLastGoalTotalBetController : TotalBetBaseController
     {
         private readonly IFirstGoalLastGoalDataAccess _firstGoalLastGoalDataAccess;
-
-        public FirstGoalLastGoalTotalBetController()
-        {
-            _firstGoalLastGoalDataAccess = new FirstGoalLastGoalDataAccess();
-        }
-
+        
         public FirstGoalLastGoalTotalBetController(
             ILanguageService languageService,
             ISessionService sessionService,

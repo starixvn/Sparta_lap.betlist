@@ -28,10 +28,6 @@ namespace Fanex.Athena.Controllers.BetList
     [FunctionAuthorization(PermissionKeys.TotalBetCorrectScore)]
     public class CorrectScoreBetListController : BetListBaseController
     {
-        public CorrectScoreBetListController()
-        {
-        }
-
         public CorrectScoreBetListController(
             ILanguageService languageService,
             ISessionService sessionService,

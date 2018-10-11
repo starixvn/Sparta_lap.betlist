@@ -1,6 +1,5 @@
 ﻿// -----------------------------------------------------------------------
 // <copyright file="CustomerBalanceViewModel.cs" company="">
-// warehouse winloss form parameters
 // </copyright>
 // -----------------------------------------------------------------------
 

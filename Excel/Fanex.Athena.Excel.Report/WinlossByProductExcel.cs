@@ -168,7 +168,7 @@ namespace Fanex.Athena.Excel.Report
                 sheet.HideRow(RowTableHeaderTemplate + 1);
             }
 
-            if (!_excelModel.BAVisible && !_excelModel.RBVisible)
+            if (!_excelModel.BAVisible)
             {
                 sheet.HideColumn(ColumnComm);
             }

@@ -1,20 +1,21 @@
 ﻿define(
     ["jquery", "common/site", "./turnover.option",
         "lib/jqgrid/jquery.jqgrid.additional", "moment", "components/pluginhelper/monthpicker", "components/pluginhelper/multiselect",
-        "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min", "extensions/jquery.extension", "materialize-autocomplete"],
-    function ($, Site, TurnoverOption, jqGridAdditional, moment, MonthPicker, MultiSelect) {
+        "components/pluginhelper/autocomplete", "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min", "extensions/jquery.extension"],
+    function ($, Site, TurnoverOption, jqGridAdditional, moment, MonthPicker, MultiSelect, AutoComplete) {
         "use strict";
     var ajaxRequest = null;
-    var _fromDate, _toDate, _currencyName, _currencyId;
-    var _autocomplete, $autoCompleteTarget;
+    var _fromDate, _toDate, _currencyId;
 
     var _me = {
         defaultUserName: "",
         initialize: function () {
             Site.initialize();
             _me.initEvent();
-            $autoCompleteTarget = $('#Username');
-            _me.initAutoComplete();
+            AutoComplete.initialize({
+                url: Site.resolveClientUrl("SearchCustomerAPI/SearchCustomer"),
+                target: "#Username"
+            });
             MonthPicker.initMonthPicker();
 
             TurnoverOption.hasCustomerComm = Site.asBool($("#IsAllowedCustomerCommission").val());
@@ -32,7 +33,6 @@
                 if (e.keyCode === 13) {
                     $('#IsExportExcel').val(false);
                     _me.submit();
-                    _autocomplete.$dropdown.html('').hide();
                 }
             });
 
@@ -53,56 +53,11 @@
 
             $(window).on("resize", function () {
                 _me.resizeGrid();
-                _me.updateWidthOfAutoCompleteDropdown();
             });
 
             $(window).on("unload", function () {
                 $(window).off("resize");
             });
-
-            $('body').click(function () {
-                _autocomplete.$dropdown.html('').hide();
-            });
-        },
-
-        initAutoComplete: function () {            
-            _autocomplete = $autoCompleteTarget.materialize_autocomplete({ // jshint ignore:line
-                ignoreCase: false,
-                multiple: {
-                    enable: false
-                },
-                dropdown: {
-                    el: '#suggestionDropdown'
-                },
-                getData: function (value, callback) {
-                    var url = Site.resolveClientUrl("SearchCustomerAPI/SearchCustomer?query=" + value);
-
-                    $.ajax({
-                        type: "GET",
-                        dataType: "json",
-                        url: url,
-                        success: function (response) {
-                            var suggestions = response.suggestions;
-
-                            if (suggestions && suggestions.length > 0) {
-                                var data = suggestions.map(function (item) {
-                                    return { id: item, text: item };
-                                });
-
-                                callback(value, data);
-                            }
-                        }
-                    });
-                }
-            });
-
-            _me.updateWidthOfAutoCompleteDropdown();
-        },
-
-        updateWidthOfAutoCompleteDropdown: function () {
-            if ($("#suggestionDropdown").width() !== $autoCompleteTarget.width()) {
-                $("#suggestionDropdown").width($autoCompleteTarget.width());
-            }
         },
 
         setReportTitle: function () {
@@ -156,7 +111,6 @@
             }
 
             _me.setDateParam();
-            _currencyName = $("#CurrencyName").val().toUpperCase();
             _currencyId = $("#CurrencyId").val();
 
             var mainForm = $("#TurnoverForm");
@@ -196,7 +150,7 @@
         bindData: function (response) {
             jqGridAdditional.clearGrid("ReportGrid");
             var numOfRow = response.Data.length;
-            if (response === null || numOfRow === 0) {
+            if (!response || numOfRow === 0) {
                 jqGridAdditional.setNoInfo();
                 return;
             }

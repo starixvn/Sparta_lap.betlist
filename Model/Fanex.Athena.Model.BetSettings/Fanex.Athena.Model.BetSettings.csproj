@@ -77,7 +77,6 @@
     <Compile Include="DTO\KenoBetSetting.cs" />
     <Compile Include="DTO\LogParam.cs" />
     <Compile Include="DTO\NumberGameBetSetting.cs" />
-    <Compile Include="DTO\RacingBetSetting.cs" />
     <Compile Include="DTO\RngCasino\GameKind.cs" />
     <Compile Include="DTO\RngCasino\GameType.cs" />
     <Compile Include="DTO\RngCasino\StakeLevel.cs" />

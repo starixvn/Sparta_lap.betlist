@@ -13,4 +13,17 @@ describe('baseCurrencyAction ', () => {
 
         expect(result).toEqual(expectedAction)
     })
+
+    it('setBaseCurrencyList - should create correct action', () => {
+        const baseCurrencyList = ['EUR', 'USD'];
+        const expectedAction = {
+            type: types.SET_BASECURRENCY_LIST,
+            data: baseCurrencyList
+        }
+
+        const result = actions.setBaseCurrencyList(baseCurrencyList);
+
+        expect(result).toEqual(expectedAction)
+    })
+
 })

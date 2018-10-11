@@ -6,23 +6,32 @@
     using System.Linq;
     using Core.Configuration.Interfaces;
     using Core.UnitTests.TestHelpers;
-    using Data;
     using Model.Core.DTO.Configuration;
     using Model.Core.MetaModel.Product;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class CasinoProgressiveWinsDataAccessTest : BaseDataAccessHelperTest<CasinoProgressiveWinsDataAccess>
     {
         private const string SpName = "Lrf_Rpt_CasinoProgressiveWins";
 
-        private BaseReportMetaModel _metaModel;
+        private readonly BaseReportMetaModel _metaModel = new BaseReportMetaModel
+        {
+            LicenseeId = 1,
+            UserId = 2,
+            CurrencyId = 3,
+            ProductOptions = new List<ProductOption>
+            {
+                new ProductOption { Code = "SB", Status = true },
+                new ProductOption { Code = "NG", Status = false }
+            }
+        };
 
-        [OneTimeSetUp]
-        public override void FixtureSetUp()
+        protected override void SetUpDataAccess()
         {
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             var balanceUp = new BalanceUp
@@ -32,17 +41,11 @@
             };
             balanceUpDataAccess.GetBalanceUp().Returns(balanceUp);
 
-            ObjectDb = Substitute.For<IObjectDb>();
-            DataAccess = Substitute.ForPartsOf<CasinoProgressiveWinsDataAccess>(balanceUpDataAccess);
+            DataAccess = Substitute.ForPartsOf<CasinoProgressiveWinsDataAccess>(
+                AppSetting,
+                CreateSessionStorage(),
+                balanceUpDataAccess);
             DataAccess.GetObjectDb(Arg.Is(SpName)).Returns(ObjectDb);
-
-            _metaModel = new BaseReportMetaModel
-            {
-                LicenseeId = 1,
-                UserId = 2,
-                CurrencyId = 3,
-                ProductOptions = GetProductOptions()
-            };
         }
 
         [Test]
@@ -68,19 +71,7 @@
         public void GetDataList_WhenCall_DateReturnedCorrectly()
         {
             // Arrange
-            var expected = new CasinoProgressiveWins
-            {
-                SystemId = "SystemIdTest",
-                ExternalId = "ExternalIdTest",
-                RefNo = 1,
-                WinAmount = 10m,
-                BetType = 2,
-                SportType = 3,
-                TransDesc = "TransDescTest",
-                CurrencyId = 4,
-                CustId = 5,
-                GameId = "GameIdTest"
-            };
+            var expected = FakeHelper.Create<CasinoProgressiveWins>();
             ConfigureReaderForGetDataListMethod(expected);
 
             // Action
@@ -108,15 +99,6 @@
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
                 SpName,
                 () => DataAccess.GetDataList(_metaModel));
-        }
-
-        private IList<ProductOption> GetProductOptions()
-        {
-            return new List<ProductOption>
-            {
-                new ProductOption { Code = "SB", Status = true },
-                new ProductOption { Code = "NG", Status = false }
-            };
         }
 
         private void ConfigureReaderForGetDataListMethod(CasinoProgressiveWins expected)

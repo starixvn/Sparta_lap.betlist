@@ -9,7 +9,6 @@ namespace Fanex.Athena.Service.BetSettings
     using System.Collections.Generic;
     using System.Text;
     using Core.Users.Interfaces;
-    using DataAccess.BetSettings;
     using DataAccess.BetSettings.Interfaces;
     using Interfaces;
     using Model.BetSettings.DTO;
@@ -19,11 +18,6 @@ namespace Fanex.Athena.Service.BetSettings
     public class DcsBetSettingService : BetSettingBaseService, IDcsBetSettingService
     {
         private readonly IDcsBetSettingDataAccess _betSettingDataAccess;
-
-        public DcsBetSettingService()
-        {
-            _betSettingDataAccess = new DcsBetSettingDataAccess();
-        }
 
         public DcsBetSettingService(IDcsBetSettingDataAccess betSettingDataAccess, IAuthorizationService authorizationService)
             : base(authorizationService)

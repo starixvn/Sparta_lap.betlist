@@ -5,10 +5,8 @@
     using System.Linq;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Resources;
-    using Fanex.Athena.Service.Core.Utility;
     using Fanex.Athena.Service.Core.Utility.Interfaces;
     using Interfaces;
-    using Logging;
     using Model.Core.DTO.Common;
     using Model.Core.ResultModel;
     using Model.Report.DTO;
@@ -30,25 +28,21 @@
             { "zhcn", "Cs" }
         };
 
-        private readonly ILogger _logger;
+        private readonly ICoreLogger _logger;
 
         private readonly IAppSettings _appSetting;
 
         private readonly IWebClientService _webClientService;
 
-        public NotificationService() : this(null, null, null)
-        {
-        }
-
         [CLSCompliant(false)]
         public NotificationService(
-            ILogger logger,
+            ICoreLogger logger,
             IAppSettings appSetting,
             IWebClientService webClientService)
         {
-            _logger = logger ?? Logger.Log;
-            _appSetting = appSetting ?? new AppSettings();
-            _webClientService = webClientService ?? new WebClientService();
+            _logger = logger;
+            _appSetting = appSetting;
+            _webClientService = webClientService;
         }
 
         public ReportResultModel<NotificationMessage> GetNotificationMessages(NotificationMetaModel metaModel)
@@ -104,7 +98,7 @@
 
                     totalRecords = jobject["TotalItems"].Value<int>();
 
-                    dataList.AddRange(jobject["Data"].Children().Select(x => MapToResultAmendment(x, subjectKey, contentKey)));                   
+                    dataList.AddRange(jobject["Data"].Children().Select(x => MapToResultAmendment(x, subjectKey, contentKey)));
                 }
             }
             catch (Exception e)
@@ -204,7 +198,7 @@
         }
 
         private ResultAmendment MapToResultAmendment(JToken token, string subjectKey, string contentKey)
-        {           
+        {
             return new ResultAmendment
             {
                 Id = token["MessageId"].Value<int>(),
@@ -219,7 +213,7 @@
 
         private void LogError(string api, Exception exception)
         {
-            _logger.Error(exception.Message + "\nApiUrl: " + api, exception);
+            _logger.Error(exception, exception.Message + "\nApiUrl: " + api);
         }
     }
 }

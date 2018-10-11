@@ -10,6 +10,7 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Data;
     using Core.Configuration;
     using Core.Configuration.Interfaces;
+    using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Report.Interfaces;
@@ -17,17 +18,17 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Common.Extensions;
     using Fanex.Data;
+    using Session.Interfaces;
 
     public class CasinoProgressiveWinsDataAccess : BaseDataAccess, ICasinoProgressiveWinsDataAccess
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
-
-        public CasinoProgressiveWinsDataAccess()
-        {
-            _balanceUpDataAccess = new BalanceUpDataAccess();
-        }
-
-        public CasinoProgressiveWinsDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
+        
+        public CasinoProgressiveWinsDataAccess(
+            IAppSettings appSetting, 
+            ISessionStorage sessionStorage,
+            IBalanceUpDataAccess balanceUpDataAccess)
+            : base(appSetting, sessionStorage)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
         }

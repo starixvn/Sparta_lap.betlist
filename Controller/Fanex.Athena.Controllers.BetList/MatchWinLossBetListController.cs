@@ -28,11 +28,7 @@ namespace Fanex.Athena.Controllers.BetList
     public class MatchWinLossBetListController : BetListBaseController
     {
         private static readonly int[] HiddenColumns = new[] { BetEffectiveColumn };
-
-        public MatchWinLossBetListController()
-        {
-        }
-
+        
         public MatchWinLossBetListController(
             ILanguageService languageService,
             ISessionService sessionService,
@@ -82,9 +78,7 @@ namespace Fanex.Athena.Controllers.BetList
             metaModel.PageIndex = 1;
             metaModel.PageSize = PageSizeExcel;
 
-            var uspName = string.IsNullOrEmpty(uspKey)
-                ? (IsRacing(metaModel.BetType) ? "Lrf_BetList_MatchWL_Racing" : "Lrf_BetList_MatchWL_Bettype")
-                : uspKey;
+            var uspName = string.IsNullOrEmpty(uspKey) ? "Lrf_BetList_MatchWL_Bettype" : uspKey;
             var ticketResult = BetListService.GetBetListData(metaModel, uspName);
 
             var showingOption = new ShowingOption

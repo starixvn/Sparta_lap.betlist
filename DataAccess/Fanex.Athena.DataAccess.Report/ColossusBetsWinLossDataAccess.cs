@@ -9,7 +9,6 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Collections.Generic;
     using System.Data;
     using Core;
-    using Core.Configuration;
     using Core.Configuration.Interfaces;
     using Extension.Helper;
     using Fanex.Athena.DataAccess.Core.Exception;
@@ -28,13 +27,11 @@ namespace Fanex.Athena.DataAccess.Report
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
-        public ColossusBetsWinLossDataAccess()
-        {
-            _balanceUpDataAccess = new BalanceUpDataAccess();
-        }
-
-        public ColossusBetsWinLossDataAccess(ISessionStorage sessionStorage, IBalanceUpDataAccess balanceUpDataAccess)
-            : base(null, sessionStorage)
+        public ColossusBetsWinLossDataAccess(
+            IAppSettings appSetting,
+            ISessionStorage sessionStorage,
+            IBalanceUpDataAccess balanceUpDataAccess)
+            : base(appSetting, sessionStorage)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
         }

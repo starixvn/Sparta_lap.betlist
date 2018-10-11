@@ -12,7 +12,6 @@ namespace Fanex.Athena.Controllers
     using System.Web.Mvc;
     using Extension.Utility;
     using Extension.Utility.Interfaces;
-    using Service.Core.Users;
     using Service.Core.Users.Interfaces;
     using Web.ActionFilter;
 
@@ -25,18 +24,14 @@ namespace Fanex.Athena.Controllers
         private readonly IAppSettings _appSettings;
         private readonly IMemoryCacheService _cache;
 
-        public AdminController() : this(null, null, null)
-        {
-        }
-
         public AdminController(
             ISessionService sessionService,
             IAppSettings appSetting,
             IMemoryCacheService cache)
         {
-            _sessionService = sessionService ?? new SessionService();
-            _appSettings = appSetting ?? new AppSettings();
-            _cache = cache ?? new MemoryCacheService();
+            _sessionService = sessionService;
+            _appSettings = appSetting;
+            _cache = cache;
         }
 
         public ActionResult ClearCache()

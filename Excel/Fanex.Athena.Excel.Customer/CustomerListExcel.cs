@@ -33,17 +33,15 @@ namespace Fanex.Athena.Excel.Customer
         private const int SpecialLevelColumn = 8;
         private const int OddsGroupColumn = 9;
         private const int SBCommColumn = 10;
-        private const int RCCommColumn = 11;
-        private const int NGCommColumn = 12;
-        private const int CSCommColumn = 13;
-        private const int ABCommColumn = 14;
+        private const int NGCommColumn = 11;
+        private const int CSCommColumn = 12;
 
         private const string GROUP = "Group";
 
         private const string BASTATUS = "BAStatus";
         private const string CUSTOMERCOMM = "Commission";
 
-        private const int ColumnTemplateCount = 14;
+        private const int ColumnTemplateCount = 13;
 
         private readonly IDictionary<int, string> _gridCommonColumNames = new Dictionary<int, string>
         {
@@ -103,10 +101,8 @@ namespace Fanex.Athena.Excel.Customer
             row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate + 1, RowHeaderTemplate + 1);
 
             row.Cells[SBCommColumn].SetCellValue(ViewResources.SB);
-            row.Cells[RCCommColumn].SetCellValue(ViewResources.RB);
             row.Cells[NGCommColumn].SetCellValue(ViewResources.NG);
             row.Cells[CSCommColumn].SetCellValue(ViewResources.CS);
-            row.Cells[ABCommColumn].SetCellValue(ViewResources.ProductAB);
         }
 
         protected override void AssignNoInfoRow(ISheet sheet)
@@ -178,19 +174,9 @@ namespace Fanex.Athena.Excel.Customer
                     row.Cells[NGCommColumn].SetCellValue(item.NGComm.ToStringExt(2));
                 }
 
-                if (_viewModel.ProductAccess.IsAllowRB)
-                {
-                    row.Cells[RCCommColumn].SetCellValue(item.RBComm.ToStringExt(2));
-                }
-
                 if (_viewModel.ProductAccess.IsAllowCS)
                 {
                     row.Cells[CSCommColumn].SetCellValue(item.CSComm.ToStringExt(2));
-                }
-
-                if (_viewModel.ProductAccess.IsAllowAB)
-                {
-                    row.Cells[ABCommColumn].SetCellValue(item.ABComm.ToStringExt(2));
                 }
             }
         }
@@ -212,7 +198,7 @@ namespace Fanex.Athena.Excel.Customer
             /*commission and group columns*/
             if (!_viewModel.IsAllowedCustomerCommission || !_showedGridColumns.Contains(CUSTOMERCOMM))
             {
-                sheet.HideColumn(SBCommColumn, NGCommColumn, RCCommColumn, CSCommColumn, ABCommColumn);
+                sheet.HideColumn(SBCommColumn, NGCommColumn, CSCommColumn);
                 sheet.HideRow(RowHeaderTemplate + 1);
             }
             else
@@ -255,19 +241,9 @@ namespace Fanex.Athena.Excel.Customer
                 hidedColumns.Add(NGCommColumn);
             }
 
-            if (!_viewModel.ProductAccess.IsAllowRB)
-            {
-                hidedColumns.Add(RCCommColumn);
-            }
-
             if (!_viewModel.ProductAccess.IsAllowCS)
             {
                 hidedColumns.Add(CSCommColumn);
-            }
-
-            if (!_viewModel.ProductAccess.IsAllowAB)
-            {
-                hidedColumns.Add(ABCommColumn);
             }
         }
     }

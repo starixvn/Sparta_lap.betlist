@@ -48,7 +48,7 @@ class Day extends Component {
                 <label className='label-text'>{this.props.label}</label>
                 <div className='selectedDayWrapParent'>
                     <div className='selectedDayWrap'>
-                        <div className='dayPickr' onClick={this.setState.bind(this,{showDateDrop: true})}>
+                        <div className='dayPickr' onClick={() => this.setState({showDateDrop: true})}>
                             <span className='selectedDay'>{value}</span>
                             <a href='javascript:;' className='darr'><b></b></a>
                         </div>

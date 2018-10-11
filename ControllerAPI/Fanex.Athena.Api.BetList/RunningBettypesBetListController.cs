@@ -37,11 +37,7 @@ namespace Fanex.Athena.Api.BetList
         private const string DoubleChangeBettypes = "24,151,186,431,410";
 
         private const string BONTeamToScoreBettypes = "26,145,146,433,170,188,427";
-
-        public RunningBettypesBetListController()
-        {
-        }
-
+        
         public RunningBettypesBetListController(
             ISessionService sessionService,
             IProductService productService,

@@ -195,15 +195,6 @@
   <data name="AmtDueToBA" xml:space="preserve">
     <value>BA에 지불예정 금액</value>
   </data>
-  <data name="AmtDueToBABalanceNote" xml:space="preserve">
-    <value>BA에 지불 예정금액: 라이선스 사용자가가 지불해야할 BA 정산금액 혹은 BA에 대해 지불받는 것</value>
-  </data>
-  <data name="AmtDueToRacing" xml:space="preserve">
-    <value>레이싱에 지불할 금액</value>
-  </data>
-  <data name="AmtDueToRacingBalanceNote" xml:space="preserve">
-    <value>레이싱에 지불할 금액: 라이선스 사용자가 지불할 레이싱 정산 금액 혹은 레이싱 상품에 대해 받을 금액</value>
-  </data>
   <data name="Apr" xml:space="preserve">
     <value>4월</value>
   </data>
@@ -243,20 +234,11 @@
   <data name="BackToCurrentReport" xml:space="preserve">
     <value>현재 보고서로 돌아가기</value>
   </data>
-  <data name="BAComissionBalanceNote" xml:space="preserve">
-    <value>BA 수수료: BA 티켓에 대한 라이선스 사용자 수수료 수익</value>
-  </data>
   <data name="BACommission" xml:space="preserve">
     <value>BA 수수료 </value>
   </data>
   <data name="Balance" xml:space="preserve">
     <value>잔액</value>
-  </data>
-  <data name="BalanceInformation" xml:space="preserve">
-    <value>잔액 정보</value>
-  </data>
-  <data name="BalanceTitle" xml:space="preserve">
-    <value>잔액 정보 - {0}</value>
   </data>
   <data name="BANote" xml:space="preserve">
     <value>BA 현황은 월요일 오후 1시에서 5시사이(표준시각 + 8)에만 변경됩니다. </value>
@@ -411,9 +393,6 @@
   <data name="ConvertTo" xml:space="preserve">
     <value>로 전환</value>
   </data>
-  <data name="CopyBetSettingFromRacing" xml:space="preserve">
-    <value>레이싱에서 모든 배팅 설정 복사하기 </value>
-  </data>
   <data name="CopyBetSettingFromSoccer" xml:space="preserve">
     <value>축구에서 모든 배팅 설정 복사하기</value>
   </data>
@@ -483,9 +462,6 @@
   <data name="CustomerOption" xml:space="preserve">
     <value>고객 옵션</value>
   </data>
-  <data name="CustomerOverall" xml:space="preserve">
-    <value>고객(전체)</value>
-  </data>
   <data name="CustomerPedingFunds" xml:space="preserve">
     <value>고객 미처리 기금</value>
   </data>
@@ -525,23 +501,11 @@
   <data name="DailyBetList" xml:space="preserve">
     <value>일일 배팅 목록</value>
   </data>
-  <data name="DailyRacing12BetTitle" xml:space="preserve">
-    <value>{0} - {1} 상의 12 배팅 일일 경주 승리 패배</value>
-  </data>
-  <data name="DailyRacingTitle" xml:space="preserve">
-    <value>{0} - {1} 상의 일일 경주 승리 패배</value>
-  </data>
-  <data name="DailyRacingWinLoss" xml:space="preserve">
-    <value>일일 경주 승리 패배</value>
-  </data>
   <data name="DailyStatement" xml:space="preserve">
     <value>일일 결산서</value>
   </data>
   <data name="DailyStatementMsg" xml:space="preserve">
     <value>데이터는 4개월까지만 지원됩니다 </value>
-  </data>
-  <data name="DataWareHouse" xml:space="preserve">
-    <value>데이터 창고</value>
   </data>
   <data name="Date" xml:space="preserve">
     <value>날짜</value>
@@ -605,9 +569,6 @@
   </data>
   <data name="DisableSSOMsg" xml:space="preserve">
     <value>SSO기능을 사용할 수 없습니다</value>
-  </data>
-  <data name="DividendWon" xml:space="preserve">
-    <value>배당금을 획득했습니다</value>
   </data>
   <data name="Dontshowagain" xml:space="preserve">
     <value>다시 보지않기</value>
@@ -1137,9 +1098,6 @@
   <data name="Last" xml:space="preserve">
     <value>마지막</value>
   </data>
-  <data name="LastActivityDate" xml:space="preserve">
-    <value>마지막 수행일</value>
-  </data>
   <data name="LastBetsMonitoring" xml:space="preserve">
     <value>마지막 배팅 모니터링</value>
   </data>
@@ -1275,14 +1233,8 @@
   <data name="Licensee" xml:space="preserve">
     <value>라이선스 사용자</value>
   </data>
-  <data name="Licensee12Bet" xml:space="preserve">
-    <value>12 배팅 라이선스 사용자 </value>
-  </data>
   <data name="LicenseeFee" xml:space="preserve">
     <value>라이선스 사용자 요금</value>
-  </data>
-  <data name="Licenseegrossrevenuefor" xml:space="preserve">
-    <value>{0}에 대한 라이선스 사용자 총 수입</value>
   </data>
   <data name="LicenseeWinLoss" xml:space="preserve">
     <value>라이선스 사용자 승리 패배</value>
@@ -1671,9 +1623,6 @@
   <data name="Place" xml:space="preserve">
     <value>장소 </value>
   </data>
-  <data name="PlaceTO" xml:space="preserve">
-    <value>로 위치시키기</value>
-  </data>
   <data name="Postponed" xml:space="preserve">
     <value>연기되었습니다</value>
   </data>
@@ -1703,21 +1652,6 @@
   </data>
   <data name="Racing" xml:space="preserve">
     <value>경주하기</value>
-  </data>
-  <data name="RacingComm" xml:space="preserve">
-    <value>경주 수수료</value>
-  </data>
-  <data name="RacingCommission" xml:space="preserve">
-    <value>경주 수수료</value>
-  </data>
-  <data name="RacingCommissionTitle" xml:space="preserve">
-    <value>경주 수수료 {0} --&gt; {1} - {2}</value>
-  </data>
-  <data name="RacingRevenue" xml:space="preserve">
-    <value>경주 매출</value>
-  </data>
-  <data name="RacingRevenueBalanceNote" xml:space="preserve">
-    <value>경주 매출: 승마경기 매출.</value>
   </data>
   <data name="RBComm" xml:space="preserve">
     <value>RB 수수료</value>
@@ -1944,9 +1878,6 @@
   <data name="Team" xml:space="preserve">
     <value>팀</value>
   </data>
-  <data name="TermDefinition" xml:space="preserve">
-    <value>팀 정의</value>
-  </data>
   <data name="TF" xml:space="preserve">
     <value>TF</value>
   </data>
@@ -1986,9 +1917,6 @@
   <data name="TotalBets" xml:space="preserve">
     <value>총 배팅</value>
   </data>
-  <data name="TotalCustomerActiveClosedSuspended" xml:space="preserve">
-    <value>활성/묶임/탈퇴된 총 고객</value>
-  </data>
   <data name="TotalGames" xml:space="preserve">
     <value>총 게임</value>
   </data>
@@ -2009,9 +1937,6 @@
   </data>
   <data name="TotalSet" xml:space="preserve">
     <value>총 세트</value>
-  </data>
-  <data name="TotalTO" xml:space="preserve">
-    <value>총 TO</value>
   </data>
   <data name="TotalTransaction" xml:space="preserve">
     <value>총 거래금액</value>
@@ -2084,12 +2009,6 @@
   </data>
   <data name="UpdateNumberGameBetSettingSuccessMsg" xml:space="preserve">
     <value>{0}의 숫자게임 배팅 설정이 성공적으로 업데이트 되었습니다. 모든 경주 배팅 설정을 업데이트하시렵니까?</value>
-  </data>
-  <data name="UpdateRacingBetSettings" xml:space="preserve">
-    <value>모든 경주 배팅 설정들을 업데이트하시렵니까?</value>
-  </data>
-  <data name="UpdateRacingBetSettingSuccessMsg" xml:space="preserve">
-    <value>{0}의 경주 배팅 설정이 성공적으로 업데이트 되었습니다.</value>
   </data>
   <data name="UpdateSpecialLevelMsg" xml:space="preserve">
     <value>유효하지 않은 변수입니다. 유효하지 않은 고객 아이디입니다.</value>
@@ -2169,9 +2088,6 @@
   <data name="WinPlace" xml:space="preserve">
     <value>승리 장소 </value>
   </data>
-  <data name="WinTO" xml:space="preserve">
-    <value>승리 TO</value>
-  </data>
   <data name="Withdrawal" xml:space="preserve">
     <value>철회</value>
   </data>
@@ -2180,9 +2096,6 @@
   </data>
   <data name="WorstWinLoss" xml:space="preserve">
     <value>최악의 승리 패배</value>
-  </data>
-  <data name="WPTO" xml:space="preserve">
-    <value>W/P TO</value>
   </data>
   <data name="Year" xml:space="preserve">
     <value>연도 </value>
@@ -2345,10 +2258,6 @@
     <value>숫자 게임</value>
     <comment>#49196</comment>
   </data>
-  <data name="ProductRB" xml:space="preserve">
-    <value>경주하기</value>
-    <comment>#49196</comment>
-  </data>
   <data name="ProductVS" xml:space="preserve">
     <value>가상의 스포츠</value>
     <comment>#49196</comment>
@@ -2360,9 +2269,5 @@
   <data name="ProductSB" xml:space="preserve">
     <value>스포츠북</value>
     <comment>#49196</comment>
-  </data>
-  <data name="ABComm" xml:space="preserve">
-    <value>AllBet 수수료</value>
-    <comment>82036</comment>
   </data>
 </root>

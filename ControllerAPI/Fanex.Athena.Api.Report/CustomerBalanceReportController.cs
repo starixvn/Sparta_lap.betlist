@@ -22,11 +22,6 @@
         private const int PageSizeExcel = int.MaxValue - 1000;
         private readonly ICustBalanceDataAccess _custBalanceDataAccess;
 
-        public CustomerBalanceReportController()
-        {
-            _custBalanceDataAccess = new CustomerBalanceDataAccess();
-        }
-
         public CustomerBalanceReportController(
             ICustBalanceDataAccess custBalanceDataAccess,
             ISessionService sessionService,

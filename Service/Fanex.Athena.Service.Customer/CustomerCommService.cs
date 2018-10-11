@@ -6,14 +6,11 @@
 
 namespace Fanex.Athena.Service.Customer
 {
-    using Casino;
     using Casino.Interfaces;
     using DataAccess.Customer.Interfaces;
-    using Fanex.Athena.DataAccess.Customer;
     using Fanex.Athena.Model.Casino.MetaModel;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Customer.MetaModel;
-    using Fanex.Athena.Service.Core.Users;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Fanex.Athena.Service.Customer.Interfaces;
 
@@ -27,20 +24,16 @@ namespace Fanex.Athena.Service.Customer
 
         private readonly IGroupComDataAccess _groupComDataAccess;
 
-        public CustomerCommService() : this(null, null, null, null)
-        {
-        }
-
         public CustomerCommService(
             ICasinoCustomerService casinoCustomerService,
             ICustomerCommDataAccess customerCommDataAccess,
             ISessionService sessionService,
             IGroupComDataAccess groupComDataAccess)
         {
-            _casinoCustomerService = casinoCustomerService ?? new CasinoCustomerService();
-            _customerCommDataAccess = customerCommDataAccess ?? new CustomerCommDataAccess();
-            _sessionService = sessionService ?? new SessionService();
-            _groupComDataAccess = groupComDataAccess ?? new GroupComDataAccess();
+            _casinoCustomerService = casinoCustomerService;
+            _customerCommDataAccess = customerCommDataAccess;
+            _sessionService = sessionService;
+            _groupComDataAccess = groupComDataAccess;
         }
 
         public IResultInfo UpdateCustomersCommission(UpdatedCustomerComMetaModel metaModel, bool isSyncCSComm = false)

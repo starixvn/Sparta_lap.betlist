@@ -15,18 +15,7 @@
     @if (Model.ProductAccess.IsAllowBA)
     {
         <th rowspan="@rowSpan">@ViewResources.BACommission</th>
-    }
-    @if (Model.ProductAccess.IsAllowRB)
-    {
-        <th rowspan="@rowSpan">@ViewResources.RacingRevenue</th>
-    }
-    @if (Model.ProductAccess.IsAllowBA)
-    {
         <th rowspan="@rowSpan">@ViewResources.AmtDueToBA</th>
-    }
-    @if (Model.ProductAccess.IsAllowRB)
-    {
-        <th rowspan="@rowSpan">@ViewResources.AmtDueToRacing</th>
     }
 </tr>
 

@@ -1,69 +1,51 @@
 ﻿namespace Fanex.Athena.DataAccess.BetSettings.UnitTests
 {
     using System.Data;
-    using Data;
+    using Core.UnitTests.TestHelpers;
     using Model.BetSettings.DTO;
     using Model.Core.DTO.Common;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
     using VendorAdapter.Interfaces;
 
     [TestFixture]
-    public class KenoBetSettingDataAccessTest
+    public class KenoBetSettingDataAccessTest : BaseDataAccessHelperTest<KenoBetSettingDataAccess>
     {
-        private IObjectDb _objectDb;
-        private KenoBetSettingDataAccess _dataAccess;
-
-        [SetUp]
-        public void SetUp()
+        protected override void SetUpDataAccess()
         {
-            _objectDb = Substitute.For<IObjectDb>();
-            var cacheRefAdapter = Substitute.For<ICacheRefAdapter>();
-            _dataAccess = Substitute.ForPartsOf<KenoBetSettingDataAccess>(cacheRefAdapter);
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            _objectDb = null;
-            _dataAccess = null;
+            DataAccess = Substitute.ForPartsOf<KenoBetSettingDataAccess>(
+                AppSetting,
+                CreateSessionStorage(),
+                Substitute.For<ICacheRefAdapter>());
         }
 
         [Test]
         public void GetBetSettings_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_CustomerSelEditKN")).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerSelEditKN")).Returns(ObjectDb);
             var custId = 1;
 
             // Action
-            _dataAccess.GetBetSettings(custId);
+            DataAccess.GetBetSettings(custId);
 
             // Assert
-            _objectDb.Received(1).AddInParameter("CustID", DbType.Int32, custId);
+            ObjectDb.Received(1).AddInParameter("CustID", DbType.Int32, custId);
         }
 
         [Test]
         public void GetBetSettings_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_CustomerSelEditKN")).Returns(_objectDb);
-            var reader = Substitute.For<IDataReader>();           
+            DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerSelEditKN")).Returns(ObjectDb);
+            var reader = Substitute.For<IDataReader>();
             var custId = 1;
-            var expected = new BetSetting
-            {
-                MaxBet = 100.5m,
-                MinBet = 10m,
-                MaxPerMatchMax = 60m,
-                MaxPerMatch = 40m,
-                BetValueMax = 20m,
-                BetValueMin = 15m,
-                SportId = "SportIdTest"
-            };
+            var expected = FakeHelper.Create<BetSetting>();
             ConfigureReaderForReadBetSettingMethod(reader, expected);
 
             // Action
-            var result = _dataAccess.GetBetSettings(custId)[0];
+            var result = DataAccess.GetBetSettings(custId)[0];
 
             // Assert
             Assert.That(result.MaxBet, Is.EqualTo(expected.MaxBet));
@@ -79,7 +61,7 @@
         public void UpdateBetSetting_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_CustomerUpdMember_MinMaxBetKN")).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerUpdMember_MinMaxBetKN")).Returns(ObjectDb);
             var custId = 1;
             var userId = 2;
             var language = "LanguageTest";
@@ -87,23 +69,23 @@
             var xmlData = "XMLDataTest";
 
             // Action
-            _dataAccess.UpdateBetSetting(custId, userId, language, ip, xmlData);
+            DataAccess.UpdateBetSetting(custId, userId, language, ip, xmlData);
 
             // Assert
-            _objectDb.Received(1).AddInParameter("custid", DbType.Int32, custId);
-            _objectDb.Received(1).AddInParameter("userid", DbType.Int32, userId);
-            _objectDb.Received(1).AddInParameter("language", DbType.String, language);
-            _objectDb.Received(1).AddInParameter("ip", DbType.String, ip);
-            _objectDb.Received(1).AddInParameter("dataxml", DbType.String, xmlData);
-            _objectDb.Received(1).AddOutParameter("errcode", DbType.Int32, 4);
-            _objectDb.Received(1).AddOutParameter("errmsg", DbType.String, 8000);
+            ObjectDb.Received(1).AddInParameter("custid", DbType.Int32, custId);
+            ObjectDb.Received(1).AddInParameter("userid", DbType.Int32, userId);
+            ObjectDb.Received(1).AddInParameter("language", DbType.String, language);
+            ObjectDb.Received(1).AddInParameter("ip", DbType.String, ip);
+            ObjectDb.Received(1).AddInParameter("dataxml", DbType.String, xmlData);
+            ObjectDb.Received(1).AddOutParameter("errcode", DbType.Int32, 4);
+            ObjectDb.Received(1).AddOutParameter("errmsg", DbType.String, 8000);
         }
 
         [Test]
         public void UpdateBetSetting_WhenCall_DataReturnedCorrectly()
         {
             // Arrange
-            _dataAccess.GetObjectDb(Arg.Is("Lrf_CustomerUpdMember_MinMaxBetKN")).Returns(_objectDb);
+            DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerUpdMember_MinMaxBetKN")).Returns(ObjectDb);
             var custId = 1;
             var userId = 2;
             var language = "LanguageTest";
@@ -114,11 +96,11 @@
                 Code = 100,
                 Message = "Success"
             };
-            _objectDb.GetParameterValue("ErrCode").Returns(expected.Code);
-            _objectDb.GetParameterValue("ErrMsg").Returns(expected.Message);
+            ObjectDb.GetParameterValue("ErrCode").Returns(expected.Code);
+            ObjectDb.GetParameterValue("ErrMsg").Returns(expected.Message);
 
             // Action
-            var result = _dataAccess.UpdateBetSetting(custId, userId, language, ip, xmlData);
+            var result = DataAccess.UpdateBetSetting(custId, userId, language, ip, xmlData);
 
             // Assert
             Assert.That(result.Code, Is.EqualTo(expected.Code));
@@ -127,7 +109,7 @@
 
         private void ConfigureReaderForReadBetSettingMethod(IDataReader reader, BetSetting expected)
         {
-            _objectDb.ExecuteReader().Returns(reader);
+            ObjectDb.ExecuteReader().Returns(reader);
             reader.Read().Returns(true, false);
 
             reader["GameTypeID"].Returns(expected.SportId);

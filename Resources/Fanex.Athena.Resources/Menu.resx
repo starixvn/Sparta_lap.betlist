@@ -192,12 +192,6 @@
   <data name="Menu_33" xml:space="preserve">
     <value>Win Loss By Bet Type</value>
   </data>
-  <data name="Menu_34" xml:space="preserve">
-    <value>Racing Commission</value>
-  </data>
-  <data name="Menu_35" xml:space="preserve">
-    <value>Daily Racing Win Loss</value>
-  </data>
   <data name="Menu_36" xml:space="preserve">
     <value>Cancelled Bets</value>
   </data>
@@ -219,17 +213,8 @@
   <data name="Menu_41" xml:space="preserve">
     <value>Results</value>
   </data>
-  <data name="Menu_42" xml:space="preserve">
-    <value>Balance</value>
-  </data>
   <data name="Menu_43" xml:space="preserve">
     <value>Customer List</value>
-  </data>
-  <data name="Menu_44" xml:space="preserve">
-    <value>Win Loss</value>
-  </data>
-  <data name="Menu_45" xml:space="preserve">
-    <value>Top Customer</value>
   </data>
   <data name="Menu_46" xml:space="preserve">
     <value>Manage Account</value>
@@ -242,9 +227,6 @@
   </data>
   <data name="Menu_49" xml:space="preserve">
     <value>Assign Permission</value>
-  </data>
-  <data name="Menu_5" xml:space="preserve">
-    <value>DATA WAREHOUSE</value>
   </data>
   <data name="Menu_50" xml:space="preserve">
     <value>Reset Password</value>
@@ -337,5 +319,9 @@
   <data name="Menu_77" xml:space="preserve">
     <value>Exchange Win Loss</value>
     <comment>86640</comment>
+  </data>
+  <data name="Menu_79" xml:space="preserve">
+    <value>Betting Ticket Center</value>
+    <comment>80941</comment>
   </data>
 </root>

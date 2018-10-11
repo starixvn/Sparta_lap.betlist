@@ -4,6 +4,7 @@
     using Core.Configuration;
     using Core.Exception;
     using Data;
+    using Extension.Utility;
     using Extension.Utility.Interfaces;
     using Logging;
     using Model.Core.DTO.Configuration;
@@ -23,7 +24,11 @@
         {
             _logger = Substitute.For<ILogger>();
             _cache = Substitute.For<IMemoryCacheService>();
-            DataAccess = Substitute.ForPartsOf<BalanceUpDataAccess>(_logger, _cache);
+            DataAccess = Substitute.ForPartsOf<BalanceUpDataAccess>(
+                Substitute.For<IAppSettings>(), 
+                CreateSessionStorage(),
+                _logger, 
+                _cache);
             ObjectDb = Substitute.For<IObjectDb>();
         }
 

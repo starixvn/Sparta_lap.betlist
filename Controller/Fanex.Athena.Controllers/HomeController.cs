@@ -18,10 +18,6 @@ namespace Fanex.Athena.Controllers
     [CheckUMFilter]
     public class HomeController : BaseController
     {
-        public HomeController()
-        {
-        }
-
         public HomeController(
             ILanguageService languageService,
             ISessionService sessionService,

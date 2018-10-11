@@ -197,15 +197,6 @@
   <data name="AmtDueToBA" xml:space="preserve">
     <value>BA金额</value>
   </data>
-  <data name="AmtDueToBABalanceNote" xml:space="preserve">
-    <value>BA金额: 在BA合作上，承租公司需支付或应获得的金额</value>
-  </data>
-  <data name="AmtDueToRacing" xml:space="preserve">
-    <value>赛事金额</value>
-  </data>
-  <data name="AmtDueToRacingBalanceNote" xml:space="preserve">
-    <value>赛事金额: 在赛事产品上，承租公司需支付或应获得的金额</value>
-  </data>
   <data name="Apr" xml:space="preserve">
     <value>四月</value>
   </data>
@@ -239,20 +230,11 @@
   <data name="BackToCurrentReport" xml:space="preserve">
     <value>回到现有报告</value>
   </data>
-  <data name="BAComissionBalanceNote" xml:space="preserve">
-    <value>投注总计佣金: 承租公司佣金所得于投注总计注单。</value>
-  </data>
   <data name="BACommission" xml:space="preserve">
     <value>BA佣金</value>
   </data>
   <data name="Balance" xml:space="preserve">
     <value>余额</value>
-  </data>
-  <data name="BalanceInformation" xml:space="preserve">
-    <value>余额信息</value>
-  </data>
-  <data name="BalanceTitle" xml:space="preserve">
-    <value>余额信息 - {0}</value>
   </data>
   <data name="BANote" xml:space="preserve">
     <value>投注总计状态只能在周一下午1点至下午5点 (GMT +8) 进行更改</value>
@@ -394,9 +376,6 @@
   <data name="ConvertTo" xml:space="preserve">
     <value>转换为</value>
   </data>
-  <data name="CopyBetSettingFromRacing" xml:space="preserve">
-    <value>从赛马赛事复制所有投注设定</value>
-  </data>
   <data name="CopyBetSettingFromSoccer" xml:space="preserve">
     <value>从足球复制所有投注设定</value>
   </data>
@@ -464,10 +443,6 @@
     <value>会员选项</value>
     <comment>#27974</comment>
   </data>
-  <data name="CustomerOverall" xml:space="preserve">
-    <value>会员 (整体)</value>
-    <comment>#27974</comment>
-  </data>
   <data name="CustomerPedingFunds" xml:space="preserve">
     <value>会员待定资金</value>
   </data>
@@ -513,20 +488,8 @@
   <data name="DailyBetList" xml:space="preserve">
     <value>每日投注历史</value>
   </data>
-  <data name="DailyRacing12BetTitle" xml:space="preserve">
-    <value>12Bet每日赛马赛事输赢于{0} - {1}</value>
-  </data>
-  <data name="DailyRacingTitle" xml:space="preserve">
-    <value>每日赛马赛事输赢于{1} - {2}</value>
-  </data>
-  <data name="DailyRacingWinLoss" xml:space="preserve">
-    <value>每日赛事佣金</value>
-  </data>
   <data name="DailyStatement" xml:space="preserve">
     <value>每日账目</value>
-  </data>
-  <data name="DataWareHouse" xml:space="preserve">
-    <value>数据仓库技术</value>
   </data>
   <data name="Date" xml:space="preserve">
     <value>日期</value>
@@ -584,9 +547,6 @@
   </data>
   <data name="DisableSSOMsg" xml:space="preserve">
     <value>SSO功能被禁用</value>
-  </data>
-  <data name="DividendWon" xml:space="preserve">
-    <value>赢得分红</value>
   </data>
   <data name="Dontshowagain" xml:space="preserve">
     <value>不再显示</value>
@@ -902,9 +862,6 @@
   <data name="Last" xml:space="preserve">
     <value>最后</value>
   </data>
-  <data name="LastActivityDate" xml:space="preserve">
-    <value>最后活跃日期</value>
-  </data>
   <data name="LastBetsMonitoring" xml:space="preserve">
     <value>最后投注监测</value>
   </data>
@@ -1043,14 +1000,8 @@
   <data name="Licensee" xml:space="preserve">
     <value>承租公司</value>
   </data>
-  <data name="Licensee12Bet" xml:space="preserve">
-    <value>12Bet Licensee</value>
-  </data>
   <data name="LicenseeFee" xml:space="preserve">
     <value>承租公司费用</value>
-  </data>
-  <data name="Licenseegrossrevenuefor" xml:space="preserve">
-    <value>承租公司总收益为{0}</value>
   </data>
   <data name="LicenseeWinLoss" xml:space="preserve">
     <value>承租公司輸贏</value>
@@ -1462,9 +1413,6 @@
   <data name="Place" xml:space="preserve">
     <value>位置</value>
   </data>
-  <data name="PlaceTO" xml:space="preserve">
-    <value>位置交易额</value>
-  </data>
   <data name="Postponed" xml:space="preserve">
     <value>改期</value>
   </data>
@@ -1497,21 +1445,6 @@
   </data>
   <data name="Racing" xml:space="preserve">
     <value>赛事</value>
-  </data>
-  <data name="RacingComm" xml:space="preserve">
-    <value>赛马佣金</value>
-  </data>
-  <data name="RacingCommission" xml:space="preserve">
-    <value>赛事佣金</value>
-  </data>
-  <data name="RacingCommissionTitle" xml:space="preserve">
-    <value>赛事佣金,{0} --&gt; {1} - {2}</value>
-  </data>
-  <data name="RacingRevenue" xml:space="preserve">
-    <value>赛事所得</value>
-  </data>
-  <data name="RacingRevenueBalanceNote" xml:space="preserve">
-    <value>赛事所得:赛事相关产品所得</value>
   </data>
   <data name="RBComm" xml:space="preserve">
     <value>赛马佣金</value>
@@ -1747,9 +1680,6 @@
   <data name="Team" xml:space="preserve">
     <value>队伍</value>
   </data>
-  <data name="TermDefinition" xml:space="preserve">
-    <value>术语定义</value>
-  </data>
   <data name="TF" xml:space="preserve">
     <value>大热门</value>
   </data>
@@ -1793,9 +1723,6 @@
   <data name="TotalBets" xml:space="preserve">
     <value>总投注</value>
   </data>
-  <data name="TotalCustomerActiveClosedSuspended" xml:space="preserve">
-    <value>总数 "活跃/关闭/暫停"</value>
-  </data>
   <data name="TotalGames" xml:space="preserve">
     <value>游戏总计</value>
   </data>
@@ -1816,9 +1743,6 @@
   </data>
   <data name="TotalSet" xml:space="preserve">
     <value>总盘数</value>
-  </data>
-  <data name="TotalTO" xml:space="preserve">
-    <value>总交易额</value>
   </data>
   <data name="TotalTransaction" xml:space="preserve">
     <value>总交易数</value>
@@ -1895,12 +1819,6 @@
   </data>
   <data name="UpdateNumberGameBetSettingSuccessMsg" xml:space="preserve">
     <value>{0}的百练赛投注设定已成功更新</value>
-  </data>
-  <data name="UpdateRacingBetSettings" xml:space="preserve">
-    <value>您确定您要更新所有竞赛的赌注设置吗？</value>
-  </data>
-  <data name="UpdateRacingBetSettingSuccessMsg" xml:space="preserve">
-    <value>赛马赛事的投注设定{0}已更新成功</value>
   </data>
   <data name="UpdateSpecialLevelMsg" xml:space="preserve">
     <value>无效的参数.无效的会员识别</value>
@@ -1981,9 +1899,6 @@
   <data name="WinPlace" xml:space="preserve">
     <value>独赢 位置</value>
   </data>
-  <data name="WinTO" xml:space="preserve">
-    <value>独赢交易额</value>
-  </data>
   <data name="Withdrawal" xml:space="preserve">
     <value>提款</value>
   </data>
@@ -1992,9 +1907,6 @@
   </data>
   <data name="WorstWinLoss" xml:space="preserve">
     <value>最差的输赢</value>
-  </data>
-  <data name="WPTO" xml:space="preserve">
-    <value>独赢/位置交易额</value>
   </data>
   <data name="Year" xml:space="preserve">
     <value>年份</value>
@@ -2411,10 +2323,6 @@
     <value>百练赛</value>
     <comment>#49196</comment>
   </data>
-  <data name="ProductRB" xml:space="preserve">
-    <value>赛马</value>
-    <comment>#49196</comment>
-  </data>
   <data name="ProductVS" xml:space="preserve">
     <value>虚拟运动</value>
     <comment>#49196</comment>
@@ -2481,10 +2389,6 @@
   </data>
   <data name="NewAsia" xml:space="preserve">
     <value>新亚洲版</value>
-  </data>
-  <data name="ABComm" xml:space="preserve">
-    <value>AllBet 佣金</value>
-    <comment>82036</comment>
   </data>
   <data name="ParlayComm" xml:space="preserve">
     <value>Parlay 佣金</value>
@@ -2678,5 +2582,9 @@
   <data name="SubsidiaryWL" xml:space="preserve">
     <value>子网站输赢</value>
     <comment>95177</comment>
+  </data>
+  <data name="BettingTicketCenter" xml:space="preserve">
+    <value>注单中心</value>
+    <comment>80941</comment>
   </data>
 </root>

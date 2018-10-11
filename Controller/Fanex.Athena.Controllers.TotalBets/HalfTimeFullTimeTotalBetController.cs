@@ -23,12 +23,7 @@ namespace Fanex.Athena.Controllers.TotalBets
     public class HalfTimeFullTimeTotalBetController : TotalBetBaseController
     {
         private readonly IHalfTimeFullTimeDataAccess _halfTimeFullTimeDataAccess;
-
-        public HalfTimeFullTimeTotalBetController()
-        {
-            _halfTimeFullTimeDataAccess = new HalfTimeFullTimeDataAccess();
-        }
-
+        
         public HalfTimeFullTimeTotalBetController(
             ILanguageService languageService,
             ISessionService sessionService,

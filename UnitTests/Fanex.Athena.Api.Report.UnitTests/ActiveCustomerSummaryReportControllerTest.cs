@@ -64,7 +64,7 @@
             {
                 CurrencyList = new Dictionary<int, string>(),
                 ApplicationMode = AppMode.Self,
-                FunctionIdList = new List<int>()
+                FunctionIdList = new int[0]
             });
             StubLicenseeSessionData(new LicenseeSession { LicenseeId = 0 });
 
@@ -173,12 +173,9 @@
             Assert.That(result.GrantTotalCustomer, Is.EqualTo(expectedResult.TotalCustomer));
         }
 
-        [TestCase(new[] { Product.BA }, Product.BA, true, false)]
-        [TestCase(new[] { Product.RB }, Product.BA, false, false)]
-        [TestCase(new[] { Product.BA, Product.RB }, Product.SB, false, false)]
-        [TestCase(new[] { Product.RB }, Product.RB, false, true)]
-        [TestCase(new[] { Product.BA }, Product.RB, false, false)]
-        public void Index_ExportToExcel_ExportWithCorrectData(string[] productCodeOption, string productCode, bool visibleBa, bool visibleRb)
+        [TestCase(new[] { Product.BA }, Product.BA, true)]
+        [TestCase(new[] { Product.BA }, Product.SB, false)]
+        public void Index_ExportToExcel_ExportWithCorrectData(string[] productCodeOption, string productCode, bool visibleBa)
         {
             // Arrange
             var metaModel = CreateValidMetaModel(productCodeOption);
@@ -223,7 +220,6 @@
             {
                 Assert.That(actualViewModel.MainResult, Is.EqualTo(expectedResult.DataList.ToList()));
                 Assert.That(actualShowingOption.BAVisible, Is.EqualTo(visibleBa));
-                Assert.That(actualShowingOption.RBVisible, Is.EqualTo(visibleRb));
             });
         }
 
@@ -269,7 +265,7 @@
                     { model.CurrencyId, nameof(model.CurrencyId) }
                 },
                 ApplicationMode = AppMode.Self,
-                FunctionIdList = new List<int>()
+                FunctionIdList = new int[0]
             });
             StubLicenseeSessionData(new LicenseeSession { LicenseeId = 0 });
             SessionService.GenerateAgentListXml(Arg.Any<int>(), Arg.Any<bool>()).Returns(string.Empty);

@@ -34,11 +34,6 @@ namespace Fanex.Athena.Model.Core.DataDomain
         CustomerInformation = 4,
 
         /// <summary>
-        /// DataWarehouse function, value = 5.
-        /// </summary>
-        DataWarehouse = 5,
-
-        /// <summary>
         /// AccountManagement function, value = 6.
         /// </summary>
         AccountManagement = 6,
@@ -177,16 +172,6 @@ namespace Fanex.Athena.Model.Core.DataDomain
         /// WinLossByBetType function, value = 33.
         /// </summary>
         WinLossByBetType = 33,
-
-        /// <summary>
-        /// RacingCommission function, value = 34.
-        /// </summary>
-        RacingCommission = 34,
-
-        /// <summary>
-        /// DailyRacingWinLoss function, value = 35.
-        /// </summary>
-        DailyRacingWinLoss = 35,
 
         /// <summary>
         /// CancelledBets function, value = 36.

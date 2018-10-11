@@ -11,7 +11,6 @@
     using Fanex.BetList.Core.Entities;
     using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Configuration;
     using Service.Core.Configuration.Interfaces;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility;
@@ -23,12 +22,8 @@
     {
         private readonly IReportSettingService _reportSettingService;
 
-        public LicenseeWinLossBetListController()
-        {
-            _reportSettingService = new ReportSettingService();
-        }
-
 #pragma warning disable S107 // Methods should not have too many parameters
+
         public LicenseeWinLossBetListController(
             ISessionService sessionService,
             IProductService productService,
@@ -42,7 +37,7 @@
 #pragma warning restore S107 // Methods should not have too many parameters
         : base(sessionService, productService, languageService, betListService, balanceUpDataAccess, ticketHelper, cacheRefAdapter, betlistHtmlBuilder)
         {
-            _reportSettingService = reportSettingService ?? new ReportSettingService();
+            _reportSettingService = reportSettingService;
         }
 
         [HttpPost]

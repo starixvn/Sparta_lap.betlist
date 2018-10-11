@@ -10,7 +10,6 @@ namespace Fanex.Athena.Service.BetSettings
     using System.Collections.Generic;
     using BetSettings.Interfaces;
     using Core.Users.Interfaces;
-    using DataAccess.BetSettings;
     using DataAccess.BetSettings.Interfaces;
     using Model.BetSettings.DTO;
     using Model.BetSettings.ViewModel;
@@ -20,11 +19,6 @@ namespace Fanex.Athena.Service.BetSettings
     public class NumberGameBetSettingService : BetSettingBaseService, INumberGameBetSettingService
     {
         private readonly INumberGameBetSettingDataAccess _betSettingDataAccess;
-
-        public NumberGameBetSettingService()
-        {
-            _betSettingDataAccess = new NumberGameBetSettingDataAccess();
-        }
 
         public NumberGameBetSettingService(
             IAuthorizationService authorizationService,

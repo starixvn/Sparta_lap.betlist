@@ -35,16 +35,19 @@
 @section globaljscode{
     window.initialState = {
         dateRange: {fromDate: '@Model.Param.FromDate.ToString("MM/dd/yyyy")', toDate: '@Model.Param.ToDate.ToString("MM/dd/yyyy")'},
-        dateConstraint: {minDate: '@Model.ReportSetting.MinDate.ToString("MM/dd/yyyy")', maxDate: '@Model.ReportSetting.MaxDate.ToString("MM/dd/yyyy")', limitedMonthRange: 1},
-        currencyList: @Html.Raw(currencyList.ToJson()),
         selectedCurrency: @Html.Raw(currencyList.FirstOrDefault(x => x.value == Model.Param.CurrencyId).ToJson()),
-        productOptions: @Html.Raw(productOptions.ToJson()),
         selectedProduct: '@(selectedProductCode)',
         reportByList: @Html.Raw(reportByList.ToJson()),
         selectedReportBy: '@(Model.Param.ReportBy)',
         xsrfToken: document.querySelector("input[name=__RequestVerificationToken]").value,
         isLoading: false
-    }
+    };
+
+    window._AppData = {
+        currencyList: @Html.Raw(currencyList.ToJson()),
+        productOptions: @Html.Raw(productOptions.ToJson()),
+        dateConstraint: {minDate: '@Model.ReportSetting.MinDate.ToString("MM/dd/yyyy")', maxDate: '@Model.ReportSetting.MaxDate.ToString("MM/dd/yyyy")', limitedMonthRange: 1}
+     };
 }
 <div id="app-container">
 </div>

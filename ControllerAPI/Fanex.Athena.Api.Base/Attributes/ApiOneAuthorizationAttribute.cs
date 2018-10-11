@@ -10,12 +10,10 @@
     using System.Threading.Tasks;
     using System.Web.Http.Controllers;
     using System.Web.Http.Filters;
-    using DataAccess.Core.Users;
     using DataAccess.Core.Users.Interfaces;
-    using Fanex.Athena.Service.Core.Users;
+    using Extensions;
     using Resources;
     using Service.Core.Users.Interfaces;
-    using Service.Core.Utility;
     using Service.Core.Utility.Interfaces;
 
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
@@ -23,53 +21,37 @@
     {
         private const string KeyName = "X-Auth-Token";
 
-        private readonly ICoreLogger _logger;
-
-        private readonly IOneAuthenticationService _oneAuthenticationService;
-
-        private readonly ILicenseeDataAccess _licenseeDataAccess;
-
-        public ApiOneAuthorizationAttribute()
-        {
-            _logger = new CoreLogger();
-            _oneAuthenticationService = new OneAuthenticationService();
-            _licenseeDataAccess = new LicenseeDataAccess();
-        }
-
-        [CLSCompliant(false)]
-        public ApiOneAuthorizationAttribute(ICoreLogger logger, IOneAuthenticationService oneAuthenticationService, ILicenseeDataAccess licenseeDataAccess)
-        {
-            _logger = logger ?? new CoreLogger();
-            _oneAuthenticationService = oneAuthenticationService ?? new OneAuthenticationService();
-            _licenseeDataAccess = licenseeDataAccess ?? new LicenseeDataAccess();
-        }
-
         public Task<HttpResponseMessage> ExecuteAuthorizationFilterAsync(
             HttpActionContext actionContext,
             CancellationToken cancellationToken,
             Func<Task<HttpResponseMessage>> continuation)
         {
+            var scope = actionContext.Request.GetDependencyScope();
+            var logger = scope.Resolve<ICoreLogger>();
+
             try
             {
                 var tokenValue = GetAuthToken(actionContext.Request);
                 if (string.IsNullOrEmpty(tokenValue))
                 {
-                    LogInfo(actionContext.Request, "Auth Token is null");
+                    LogInfo(logger, actionContext.Request, "Auth Token is null");
                     return UnauthorizeAccessHandlerAsync(actionContext);
                 }
 
-                var token = _oneAuthenticationService.GetTokenInfo(tokenValue);
+                var oneAuthenticationService = scope.Resolve<IOneAuthenticationService>();
+                var token = oneAuthenticationService.GetTokenInfo(tokenValue);
 
                 if (token == null || string.IsNullOrWhiteSpace(token.SiteName) || token.UserSEQ <= 0)
                 {
-                    LogInfo(actionContext.Request, "TokenInfo is null");
+                    LogInfo(logger, actionContext.Request, "TokenInfo is null");
                     return UnauthorizeAccessHandlerAsync(actionContext);
                 }
 
-                var licensee = _licenseeDataAccess.GetLicenseeByName(token.SiteName);
+                var licenseeDataAccess = scope.Resolve<ILicenseeDataAccess>();
+                var licensee = licenseeDataAccess.GetLicenseeByName(token.SiteName);
                 if (licensee == null)
                 {
-                    LogInfo(actionContext.Request, "Licensee is null");
+                    LogInfo(logger, actionContext.Request, "Licensee is null");
                     return UnauthorizeAccessHandlerAsync(actionContext);
                 }
 
@@ -84,7 +66,7 @@
             }
             catch (Exception exception)
             {
-                _logger.Error(exception);
+                logger.Error(exception);
                 return UnauthorizeAccessHandlerAsync(actionContext);
             }
         }
@@ -114,12 +96,12 @@
             return source.Task;
         }
 
-        private void LogInfo(HttpRequestMessage request, string message)
+        private static void LogInfo(ICoreLogger logger, HttpRequestMessage request, string message)
         {
             var content = new StringBuilder("ApiOneAuthorization: ");
             content.AppendLine(message);
             content.AppendLine("Url: " + request.RequestUri);
-            _logger.Info(content.ToString());
+            logger.Info(content.ToString());
         }
     }
 }

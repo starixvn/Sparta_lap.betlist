@@ -5,13 +5,20 @@
     using Core;
     using Core.Exception;
     using Data;
+    using Extension.Utility;
     using Fanex.Athena.DataAccess.Dashboard.Interfaces;
     using Fanex.Common.Extensions;
     using Model.Dashboard.MetaModel;
     using Model.Dashboard.ViewModel;
+    using Session.Interfaces;
 
     public class LicenseeDataByPlatformDataAccess : BaseDataAccess, ILicenseeDataByPlatformDataAccess
     {
+        public LicenseeDataByPlatformDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
+            : base(appSetting, sessionStorage)
+        {
+        }
+
         public WidgetByPlatformViewModel GetWinLoss(DashboardBaseModel metaModel)
         {
             return GetData(metaModel, "Lrf_GetLicenseeWLByPlatform", "LicenseeWL");

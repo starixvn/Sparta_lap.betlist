@@ -13,7 +13,6 @@ const mockStore = configureMockStore(middlewares);
 describe('userGuideAction', () => {
     beforeAll(() => {
         Site.resolveClientUrl = jest.fn((url) => url);
-
         jest.mock('axios');
     });
 
@@ -25,15 +24,12 @@ describe('userGuideAction', () => {
         const expectedUrl = 'UserGuide/Index?resourcename=';
         const fakeDataResponse = {
             data: '<div></div>'
-        }
-        const params = {
-            resourceName: 'resourceName',
-            xsrfToken: 'token'
-        }
+        };
+        const resourceName = 'resourceName';
+
         const expectedHeader = {
-            'X-Requested-With': 'XMLHttpRequest',
-            '__RequestVerificationToken': params.xsrfToken
-        }
+            'X-Requested-With': 'XMLHttpRequest'
+        };
 
         beforeAll(() => {
             const promise = Promise.resolve(fakeDataResponse);
@@ -45,7 +41,7 @@ describe('userGuideAction', () => {
                 { type: types.USER_GUIDE_CONTENT, data: fakeDataResponse.data }
             ];
             const store = mockStore({ userGuideContent: '' });
-            store.dispatch(actions.getUserGuideContent(params));
+            store.dispatch(actions.getUserGuideContent(resourceName));
 
             Promise.resolve().then(() => {
                 expect(store.getActions()).toEqual(expectedActions);
@@ -54,11 +50,11 @@ describe('userGuideAction', () => {
 
         it('axios.get should be called with correct parameters', () => {
             const store = mockStore({ userGuideContent: '' });
-            store.dispatch(actions.getUserGuideContent(params));
+            store.dispatch(actions.getUserGuideContent(resourceName));
 
             Promise.resolve().then(() => {
                 expect(axios.get.mock.calls[0][1]).toEqual({ headers: expectedHeader });
-                expect(axios.get.mock.calls[0][0]).toContain(expectedUrl + params.resourceName + '&_=');
+                expect(axios.get.mock.calls[0][0]).toContain(expectedUrl + resourceName + '&_=');
                 expect(axios.get).toHaveBeenCalled();
             })
         })

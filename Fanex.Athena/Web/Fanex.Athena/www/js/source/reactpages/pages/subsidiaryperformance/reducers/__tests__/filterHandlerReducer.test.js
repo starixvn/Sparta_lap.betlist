@@ -4,12 +4,9 @@ import * as types from '../../actions/types'
 const emptyState = {};
 
 const reducerList = [
-    { name: "subsidiaryList", actionType: types.GET_SUBSIDIARY, expected: "1,2,3" },
     { name: "selectedSubsidiary", actionType: types.SET_SUBSIDIARY, expected: "1,2,3,4,5" },
     { name: "dateRange", actionType: types.SET_DATE_RANGE, expected: { fromDate: "09/01/2017", toDate: "09/26/2017" } },
     { name: "convertAll", actionType: types.CHANGE_CONVERT_ALL, expected: true },
-    { name: "xsrfToken", actionType: types.GET_XSRF_TOKEN, expected: "token" },
-    { name: "dateConstraint", actionType: types.GET_DATE_CONSTRAINT, expected: { fromDate: "01/01/2017", toDate: "09/30/2017" } },
     { name: "includeDrawData", actionType: types.CHANGE_INCLUDE_DRAW_DATA, expected: true },
     { name: "params", actionType: types.SET_PARAMS, expected: { fromDate: "01/01/2017", toDate: "09/30/2017" } }
 ]
@@ -29,13 +26,13 @@ describe('filterHandlerReducer ', () => {
     })
 
     it("return default state when no match action type", () => {
-        const initialState = { subsidiaryList: "1", convertAll: true };
+        const initialState = { selectedSubsidiary: "1", convertAll: true };
         const action = {
             type: "Action no match",
             data: "1,2,3"
         }
 
-        const result = filterHandlerReducer.subsidiaryList(initialState, action)
+        const result = filterHandlerReducer.selectedSubsidiary(initialState, action)
 
         expect(result).toEqual(initialState);
     })

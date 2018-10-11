@@ -7,22 +7,9 @@
 namespace Fanex.Athena.Model.Report.MetaModel
 {
     using System;
-    using Extension.Utility;
 
     public class WinLossByProductMetaModel : BaseReportMetaModel
     {
-        public WinLossByProductMetaModel()
-            : this(new AppSettings())
-        {
-        }
-
-        public WinLossByProductMetaModel(IAppSettings appSetting)
-            : base(appSetting)
-        {
-        }
-
-        #region Members
-
         public int DrillDownCurrencyId { get; set; }
 
         public string DrillDownCurrencyName { get; set; }
@@ -54,7 +41,5 @@ namespace Fanex.Athena.Model.Report.MetaModel
         public DateTime DrillDownToDate { get; set; }
 
         public string Username { get; set; }
-
-        #endregion Members
     }
 }

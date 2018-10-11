@@ -9,14 +9,14 @@ namespace Fanex.Athena.Excel.BetList
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Athena.Model.BetList.DTO;
+    using Athena.Model.Core.DataDomain;
     using Base.Extension;
     using Excel.Base.Entities;
     using Extension.Utility;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
     using Fanex.BetList.Core.TicketHelper;
-    using Model.BetList.DTO;
-    using Model.Core.DataDomain;
     using NPOI.HSSF.UserModel;
     using NPOI.HSSF.Util;
     using NPOI.SS.UserModel;

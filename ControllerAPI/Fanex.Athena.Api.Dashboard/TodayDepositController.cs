@@ -2,7 +2,6 @@
 {
     using System;
     using System.Web.Http;
-    using DataAccess.Dashboard;
     using DataAccess.Dashboard.Interfaces;
     using Model.Dashboard.MetaModel;
 
@@ -10,13 +9,9 @@
     {
         private readonly ISingleValueDataAccess _dataAccess;
 
-        public TodayDepositController() : this(null)
-        {
-        }
-
         public TodayDepositController(ISingleValueDataAccess dataAccess)
         {
-            this._dataAccess = dataAccess ?? new SingleValueDataAccess();
+            this._dataAccess = dataAccess;
         }
 
         public decimal GetData([FromUri] DashboardBaseModel metaModel)

@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using DataAccess.BetList;
     using DataAccess.BetList.Interfaces;
     using Model.BetList.DTO;
     using Model.BetList.MetaModel;
@@ -12,11 +11,6 @@
     public class ExchangeBetListService : IExchangeBetListService
     {
         private readonly IExchangeBetListDataAccess _dataAccess;
-
-        public ExchangeBetListService()
-        {
-            _dataAccess = new ExchangeBetListDataAccess();
-        }
 
         public ExchangeBetListService(IExchangeBetListDataAccess dataAccess)
         {

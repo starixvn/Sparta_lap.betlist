@@ -22,10 +22,8 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         private const int ColumnCustomerComm = 5;
         private const int ColumnCustomerTotal = 6;
         private const int ColumnBaCommission = 8;
-        private const int ColumnRacingRevenue = 9;
-        private const int ColumnAmtDueToBa = 10;
-        private const int ColumnAmtDueToRacing = 11;
-        private const int ColumnTemplateCount = 12;
+        private const int ColumnAmtDueToBa = 9;
+        private const int ColumnTemplateCount = 10;
 
         private const int RowMatchTemplate = 3;
 
@@ -90,9 +88,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
                 ViewResources.CustomerW_L,
                 ViewResources.LicenseeW_L,
                 ViewResources.BACommission,
-                ViewResources.RacingRevenue,
-                ViewResources.AmtDueToBA,
-                ViewResources.AmtDueToRacing
+                ViewResources.AmtDueToBA
             };
 
             // Action
@@ -156,9 +152,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
                 ColumnCustomerTotal,
                 ColumnCustomerComm,
                 ColumnBaCommission,
-                ColumnAmtDueToBa,
-                ColumnRacingRevenue,
-                ColumnAmtDueToRacing);
+                ColumnAmtDueToBa);
         }
 
         [Test]
@@ -168,8 +162,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             var excel = CreateExcel(new ShowingOption
             {
                 CustomerCommVisible = true,
-                BAVisible = true,
-                RBVisible = true
+                BAVisible = true
             });
 
             // Action
@@ -189,7 +182,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             var columns = new[]
             {
                "sumturnover", "sumbetcount", "summemberwinlost", "sumplayercomm", "sumtotalwl", "sumlicenseewl",
-               "sumcommba", "sumrbrevenue", "sumamtduetoba", "sumamtduetorb"
+               "sumcommba", "sumamtduetoba"
             };
             var cellIndex = 2;
 

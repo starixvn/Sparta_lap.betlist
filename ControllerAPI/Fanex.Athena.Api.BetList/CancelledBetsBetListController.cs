@@ -25,10 +25,6 @@ namespace Fanex.Athena.Api.BetList
     [ApiFunctionAuthorization(PermissionKeys.ReportCancelledBets)]
     public class CancelledBetsBetListController : ApiBetListBaseController
     {
-        public CancelledBetsBetListController()
-        {
-        }
-
         public CancelledBetsBetListController(
             ISessionService sessionService,
             IProductService productService,

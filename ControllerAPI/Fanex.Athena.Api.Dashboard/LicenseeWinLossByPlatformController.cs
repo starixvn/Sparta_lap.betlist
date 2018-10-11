@@ -10,14 +10,10 @@
     public class LicenseeWinLossByPlatformController : BaseDashboardApiController
     {
         private readonly ILicenseeDataByPlatformDataAccess _dataAccess;
-
-        public LicenseeWinLossByPlatformController() : this(null)
-        {
-        }
-
+        
         public LicenseeWinLossByPlatformController(ILicenseeDataByPlatformDataAccess dataAccess)
         {
-            this._dataAccess = dataAccess ?? new LicenseeDataByPlatformDataAccess();
+            this._dataAccess = dataAccess;
         }
 
         [HttpGet]

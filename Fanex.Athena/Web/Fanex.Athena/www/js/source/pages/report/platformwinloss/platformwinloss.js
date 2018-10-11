@@ -119,6 +119,13 @@
             };
         }
 
+        function getSubmitData(){
+            var data = $("#platformwinloss").serializeObject();
+            data.Level = 0;
+            addDateParam(data);
+            return data;
+        }
+
         function submit() {
             var validProduct = Report.ValidProducts();
             if (!validProduct) {
@@ -126,9 +133,7 @@
             }
 
             gridControl.level = 0;
-            var data = $("#platformwinloss").serializeObject();
-            data.Level = gridControl.level;
-            addDateParam(data);
+            var data = getSubmitData();
 
             getData(data, Site.resolveClientUrl(PlatformWinLossOption.urlData), function (response) {
                 var submitData = {
@@ -157,7 +162,8 @@
         }
 
         function exportToExcel(level, sortBy, sortOrder) {
-            var data = Site.clone(_filterData[level]);
+            var data = _filterData[level] ? Site.clone(_filterData[level]) : getSubmitData();
+
             data.IsExportExcel = true;
             data.Level = level;
             if (level === 1 && sortBy) {

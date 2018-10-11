@@ -9,14 +9,21 @@ namespace Fanex.Athena.DataAccess.Customer
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Customer.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Customer.MetaModel;
     using Fanex.Common;
+    using Session.Interfaces;
 
     public class GroupComDataAccess : BaseDataAccess, IGroupComDataAccess
     {
+        public GroupComDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
+            : base(appSetting, sessionStorage)
+        {
+        }
+
         public IList<GroupCommMetaModel> GetAll(int licenseeId)
         {
             const string UspName = "Lrf_LicenseeGroupCommSel";
@@ -64,10 +71,8 @@ namespace Fanex.Athena.DataAccess.Customer
                 db.AddInParameter("GroupName", DbType.String, item.GroupName);
                 db.AddInParameter("SBComm", DbType.Decimal, item.SBComm);
                 db.AddInParameter("ParlayComm", DbType.Decimal, item.ParlayComm);
-                db.AddInParameter("RacingComm", DbType.Decimal, item.RCComm);
                 db.AddInParameter("NGComm", DbType.Decimal, item.NGComm);
                 db.AddInParameter("RNGComm", DbType.Decimal, item.CSComm);
-                db.AddInParameter("AllbetComm", DbType.Decimal, item.ABComm);
                 db.AddInParameter("GroupColor", DbType.String, item.GroupColor);
                 db.AddInParameter("UserID", DbType.Int32, userId);
                 db.AddInParameter("IP", DbType.String, request.Ip);
@@ -97,13 +102,9 @@ namespace Fanex.Athena.DataAccess.Customer
                 db.AddInParameter("SbComm", DbType.Decimal, newItem.SBComm);
                 db.AddInParameter("ParlayComm", DbType.Decimal, newItem.ParlayComm);
                 db.AddInParameter("NGComm", DbType.Decimal, newItem.NGComm);
-                db.AddInParameter("RacingComm", DbType.Decimal, newItem.RCComm);
                 db.AddInParameter("RNGComm", DbType.Decimal, newItem.CSComm);
-                db.AddInParameter("AllbetComm", DbType.Decimal, newItem.ABComm);
                 db.AddInParameter("IsUpdateNG", DbType.Boolean, newItem.IsUpdateNG);
-                db.AddInParameter("IsUpdateRacing", DbType.Boolean, newItem.IsUpdateRacing);
                 db.AddInParameter("IsUpdateRNG", DbType.Boolean, newItem.IsUpdateCS);
-                db.AddInParameter("IsUpdateAllbet", DbType.Boolean, newItem.IsUpdateAB);
                 db.AddInParameter("GroupColor", DbType.String, newItem.GroupColor);
                 db.AddInParameter("UserId", DbType.Int32, userId);
                 db.AddInParameter("Ip", DbType.String, request.Ip);

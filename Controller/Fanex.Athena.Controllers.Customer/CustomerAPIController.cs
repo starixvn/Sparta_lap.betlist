@@ -14,16 +14,13 @@ namespace Fanex.Athena.Controllers.Customer
     using System.Net;
     using System.Web.Mvc;
     using System.Web.SessionState;
-    using DataAccess.Core.Users;
     using DataAccess.Core.Users.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Extension.Helper;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Customer.MetaModel;
-    using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Service.Core.Helpers;
-    using Fanex.Athena.Service.Customer;
     using Fanex.Athena.Service.Customer.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
@@ -31,7 +28,6 @@ namespace Fanex.Athena.Controllers.Customer
     using ONEbook.UM.Filters;
     using Resources;
     using Service.Core.Users.Interfaces;
-    using Service.Core.Utility;
     using Service.Core.Utility.Interfaces;
     using Service.Customer.Helpers;
 
@@ -75,16 +71,6 @@ namespace Fanex.Athena.Controllers.Customer
             _customerListService = customerListService;
             _groupComService = groupComService;
             _productService = productService;
-        }
-
-        public CustomerApiController()
-        {
-            _logger = new CoreLogger();
-            _customerCommService = new CustomerCommService();
-            _licenseeDataAccess = new LicenseeDataAccess();
-            _customerListService = new CustomerListService();
-            _groupComService = new GroupComService();
-            _productService = new ProductService();
         }
 
         #endregion Constructor
@@ -336,10 +322,8 @@ namespace Fanex.Athena.Controllers.Customer
                 var isvalid = GroupCommHelper.IsAllValid(
                                 metaModel.SBComm,
                                 metaModel.ParlayComm,
-                                metaModel.RCComm,
                                 metaModel.NGComm,
-                                metaModel.CSComm,
-                                metaModel.ABComm);
+                                metaModel.CSComm);
                 var userSession = SessionService.UserSession;
 
                 var productAccess = _productService.GetProductAccess(licenseeSession.LicenseeId, userSession.Language);
@@ -349,9 +333,7 @@ namespace Fanex.Athena.Controllers.Customer
                     metaModel.UserId = userSession.UserId;
                     metaModel.Ip = this.Request.UserHostAddress;
                     metaModel.IsAllowedNG = productAccess.IsAllowNG;
-                    metaModel.IsAllowedRC = productAccess.IsAllowRB;
                     metaModel.IsAllowedCS = productAccess.IsAllowCS;
-                    metaModel.IsAllowedAB = productAccess.IsAllowAB;
                     metaModel.Language = userSession.Language;
                     /* Get oldGroup Commission to compare with new group commission.
                      * Check data for Update group commission
@@ -487,10 +469,8 @@ namespace Fanex.Athena.Controllers.Customer
             return new
             {
                 SBComm = NumberHelper.DecFormat(newGroup.SBComm * 100, 2),
-                RCComm = NumberHelper.DecFormat(newGroup.RCComm * 100, 2),
                 NGComm = NumberHelper.DecFormat(newGroup.NGComm * 100, 2),
                 RNGComm = NumberHelper.DecFormat(newGroup.CSComm * 100, 2),
-                ABComm = NumberHelper.DecFormat(newGroup.ABComm * 100, 2),
                 newGroup.GroupName,
                 newGroup.GroupColor,
             };
@@ -511,8 +491,7 @@ namespace Fanex.Athena.Controllers.Customer
             var oldGroup = this._groupComService.GetById(metaModel.GroupId);
 #pragma warning disable S1067 // Expressions should not be too complex
             return oldGroup.NGComm == metaModel.NGComm && oldGroup.SBComm == metaModel.SBComm &&
-                               oldGroup.RCComm == metaModel.RCComm &&
-                               oldGroup.CSComm == metaModel.CSComm && oldGroup.ABComm == metaModel.ABComm;
+                               oldGroup.CSComm == metaModel.CSComm;
 #pragma warning restore S1067 // Expressions should not be too complex
         }
 
@@ -532,10 +511,8 @@ namespace Fanex.Athena.Controllers.Customer
             result.ExtendedData = new
             {
                 SBComm = NumberHelper.DecFormat(metaModel.SBComm * 100, 2),
-                RCComm = NumberHelper.DecFormat(metaModel.RCComm * 100, 2),
                 NGComm = NumberHelper.DecFormat(metaModel.NGComm * 100, 2),
                 RNGComm = NumberHelper.DecFormat(metaModel.CSComm * 100, 2),
-                ABComm = NumberHelper.DecFormat(metaModel.ABComm * 100, 2),
                 GroupName = ViewResources.None,
                 GroupColor = "#ffffff",
             };

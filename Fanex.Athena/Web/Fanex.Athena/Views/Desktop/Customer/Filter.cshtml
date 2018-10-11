@@ -156,9 +156,7 @@
             @Html.Hidden("GroupCommId", Model.Param.GroupCommId)
             @Html.Hidden("Username", Model.Param.Username)
             @Html.Hidden("OldSbComm", oldGroup.SBComm)
-            @Html.Hidden("OldRbComm", oldGroup.RCComm)
             @Html.Hidden("OldNgComm", oldGroup.NGComm)
-            @Html.Hidden("OldAbComm", oldGroup.ABComm)
             @if (Model.Param.IsShowStatusDropdown)
             {
                 <input type="hidden" name="CustStatusOption" id="CustStatusOption" value="" />

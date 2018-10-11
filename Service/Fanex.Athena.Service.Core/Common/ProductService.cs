@@ -17,7 +17,6 @@ namespace Fanex.Athena.Service.Core.Common
     using System.Web.Hosting;
     using System.Xml.Linq;
     using Extension.Utility.Interfaces;
-    using Fanex.Athena.DataAccess.Core.Common;
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -35,14 +34,6 @@ namespace Fanex.Athena.Service.Core.Common
         private readonly IXDocumentWrapper _xmlWrapper;
 
         private readonly IMemoryCacheService _cache;
-
-        public ProductService()
-        {
-            _appSettings = new AppSettings();
-            _productDataAccess = new ProductDataAccess();
-            _xmlWrapper = new XDocumentWrapper();
-            _cache = new MemoryCacheService();
-        }
 
         public ProductService(IAppSettings appSettings, IProductDataAccess productDataAccess, IXDocumentWrapper xmlWrapper, IMemoryCacheService cache)
         {

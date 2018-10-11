@@ -7,7 +7,6 @@
     using Extension.Utility;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Service.Core.Helpers;
-    using Fanex.Athena.Service.Customer;
     using Fanex.Athena.Service.Customer.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
@@ -23,7 +22,8 @@
         PermissionKeys.ReportWinLossByProduct,
         PermissionKeys.ReportCustomerWinLoss,
         PermissionKeys.CustomerInfoCustomerLog,
-        PermissionKeys.CustomerInfoCustomerList)]
+        PermissionKeys.CustomerInfoCustomerList,
+        PermissionKeys.BettingTicketCenter)]
     public class SearchCustomerAPIController : BaseController
     {
         private readonly ICustomerListService _customerListService;
@@ -37,11 +37,6 @@
             : base(languageService, sessionService, appSetting, clientViewHelper)
         {
             _customerListService = customerListService;
-        }
-
-        public SearchCustomerAPIController()
-        {
-            _customerListService = new CustomerListService();
         }
 
         [AjaxRequest]

@@ -111,22 +111,19 @@
             }
         }
 
-        [TestCase(Result.Core.Base.SportType.HorseRacing)]
-        [TestCase(Result.Core.Base.SportType.Greyhound)]
-        [TestCase(Result.Core.Base.SportType.Harness)]
         [TestCase(Result.Core.Base.SportType.VirtualHorseRacing)]
         [TestCase(Result.Core.Base.SportType.VirtualMotorRacing)]
         [TestCase(Result.Core.Base.SportType.VirtualGreyhounds)]
         [TestCase(Result.Core.Base.SportType.VirtualSpeedway)]
         [TestCase(Result.Core.Base.SportType.VirtualCycling)]
-        public void ResultPopup_RacingSport_ResultIsCorrect(Result.Core.Base.SportType sportType)
+        public void ResultPopup_VirtualSport_ResultIsCorrect(Result.Core.Base.SportType sportType)
         {
             using (var controller = CreateController())
             {
                 // Arrange
                 var metaModel = CreateResultPopupMetaModel(sportType);
                 var dataList = new List<Racing> { new Racing() };
-                _resultService.GetPopUpRacingMatch(metaModel).Returns(dataList);
+                _resultService.GetPopUpVirtualSportMatch(metaModel).Returns(dataList);
                 _resultService.HtmlParser(dataList, Arg.Any<ResultSetting>()).Returns(HtmlResult);
 
                 // Action

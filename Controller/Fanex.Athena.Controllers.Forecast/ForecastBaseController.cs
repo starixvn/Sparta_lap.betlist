@@ -25,10 +25,6 @@ namespace Fanex.Athena.Controllers.Forecast
     {
         private readonly IForecastService _forecastService;
 
-        public ForecastBaseController() : this(null, null, null, null, null)
-        {
-        }
-
         protected ForecastBaseController(
             ILanguageService languageService,
             ISessionService sessionService,
@@ -37,7 +33,7 @@ namespace Fanex.Athena.Controllers.Forecast
             IForecastService forecastService)
         : base(languageService, sessionService, appSetting, clientViewHelper)
         {
-            _forecastService = forecastService ?? new ForecastService();
+            _forecastService = forecastService;
         }
 
         protected IForecastService ForecastService

@@ -104,15 +104,12 @@
             }
         }
 
-        [TestCase((int)SportType.HorseRacing)]
-        [TestCase((int)SportType.Greyhound)]
-        [TestCase((int)SportType.Harness)]
         [TestCase((int)SportType.VirtualHorseRacing)]
         [TestCase((int)SportType.VirtualGreyhounds)]
         [TestCase((int)SportType.VirtualMotorRacing)]
         [TestCase((int)SportType.VirtualCycling)]
         [TestCase((int)SportType.VirtualSpeedway)]
-        public void IndexPost_Racing_ResultContentIsCorrect(int sportId)
+        public void IndexPost_VirtualSport_ResultContentIsCorrect(int sportId)
         {
             using (var controller = CreateController())
             {
@@ -123,7 +120,7 @@
                     IsOutRight = false
                 };
                 var dataList = new List<Racing> { new Racing() };
-                _resultService.GetRacingMatches(metaModel).Returns(dataList);
+                _resultService.GetVirtualSportMatches(metaModel).Returns(dataList);
                 _resultService.HtmlParser(Arg.Any<IList<Racing>>(), Arg.Any<ResultSetting>()).Returns(HtmlResult);
 
                 // Action

@@ -32,12 +32,6 @@ namespace Fanex.Athena.Api.Report
 
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
-        public WinLossByLeagueReportController()
-        {
-            _winlossByLeagueDataAccess = new WinLossByLeagueDataAccess();
-            _balanceUpDataAccess = new BalanceUpDataAccess();
-        }
-
         public WinLossByLeagueReportController(
             ISessionService sessionService,
             IProductService productService,

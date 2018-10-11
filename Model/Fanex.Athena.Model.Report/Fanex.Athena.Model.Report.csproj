@@ -142,14 +142,10 @@
     <Compile Include="DTO\ThirdPartyWinLoss.cs" />
     <Compile Include="DTO\WeeklyLiveMatch.cs" />
     <Compile Include="DTO\WinLossByLeague.cs" />
-    <Compile Include="DTO\Balance.cs" />
-    <Compile Include="DTO\BalanceDetails.cs" />
-    <Compile Include="DTO\DailyRacingWinLossData.cs" />
     <Compile Include="DTO\CustBalance.cs" />
     <Compile Include="DTO\CustPendingFunds.cs" />
     <Compile Include="DTO\CustTurnover.cs" />
     <Compile Include="DTO\CustomerWinLoss.cs" />
-    <Compile Include="DTO\DailyRacingWinLoss.cs" />
     <Compile Include="DTO\ICustomerWinLoss.cs" />
     <Compile Include="DTO\ILicenseeWL.cs" />
     <Compile Include="DTO\ITurnOver.cs" />
@@ -159,7 +155,6 @@
     <Compile Include="DTO\LiveReports\LiveReportWinLossByMatch.cs" />
     <Compile Include="DTO\MatchWinLoss.cs" />
     <Compile Include="DTO\PlatformWinLossMember.cs" />
-    <Compile Include="DTO\RacingCommission.cs" />
     <Compile Include="DTO\SettledMatchCount.cs" />
     <Compile Include="DTO\WinLossByBetType.cs" />
     <Compile Include="DTO\TurnoverDTO.cs" />
@@ -167,7 +162,6 @@
     <Compile Include="MetaModel\BaseDrilldownReportMetaModel.cs" />
     <Compile Include="MetaModel\ExchangeWinLossMetaModel.cs" />
     <Compile Include="MetaModel\Keno\KenoResultMetaModel.cs" />
-    <Compile Include="MetaModel\BalanceMetaModel.cs" />
     <Compile Include="MetaModel\BaseReportMetaModel.cs" />
     <Compile Include="MetaModel\ActiveCustomerMetaModel.cs" />
     <Compile Include="MetaModel\LicenseeWinLossByTimeZoneMetaModel.cs" />
@@ -188,12 +182,10 @@
     <Compile Include="MetaModel\CustomerPendingFundsMetaModel.cs" />
     <Compile Include="MetaModel\CustomerTurnoverMetaModel.cs" />
     <Compile Include="MetaModel\CustomerWinlossMetaModel.cs" />
-    <Compile Include="MetaModel\DailyRacingWinLossMetaModel.cs" />
     <Compile Include="MetaModel\LicenseeWinLossMetaModel.cs" />
     <Compile Include="MetaModel\LiveReportMetaModel.cs" />
     <Compile Include="MetaModel\MatchWinLossMetaModel.cs" />
     <Compile Include="MetaModel\PlatformWinLossMetaModel.cs" />
-    <Compile Include="MetaModel\RacingCommissionMetaModel.cs" />
     <Compile Include="MetaModel\TurnoverMetaModel.cs" />
     <Compile Include="MetaModel\WinLossByBetTypeMetaModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -207,7 +199,6 @@
     <Compile Include="ViewModel\SpecialLicenseeWinLossGridViewModel.cs" />
     <Compile Include="ViewModel\SpecialLicenseeWinLossViewModel.cs" />
     <Compile Include="ViewModel\Note\NoteViewModel.cs" />
-    <Compile Include="ViewModel\BalanceViewModel.cs" />
     <Compile Include="ViewModel\ActiveCustomerViewModel.cs" />
     <Compile Include="ViewModel\CasinoProgressiveWinsViewModel.cs" />
     <Compile Include="ViewModel\CasinoProgressiveWinsGridViewModel.cs" />
@@ -226,13 +217,11 @@
     <Compile Include="ViewModel\CustomerPendingFundsViewModel.cs" />
     <Compile Include="ViewModel\CustomerTurnoverViewModel.cs" />
     <Compile Include="ViewModel\LicenseeWinLossViewModel.cs" />
-    <Compile Include="ViewModel\DailyRacingWinLossViewModel.cs" />
     <Compile Include="ViewModel\LiveReports\LiveReportDetailViewModel.cs" />
     <Compile Include="ViewModel\LiveReports\LiveReportMatchListViewModel.cs" />
     <Compile Include="ViewModel\LiveReports\LiveReportViewModel.cs" />
     <Compile Include="ViewModel\MatchWinLossViewModel.cs" />
     <Compile Include="ViewModel\PlatformWinLossViewModel.cs" />
-    <Compile Include="ViewModel\RacingCommissionViewModel.cs" />
     <Compile Include="ViewModel\SettledMatchCountViewModel.cs" />
     <Compile Include="ViewModel\WinLossByBetTypeViewModel.cs" />
     <Compile Include="ViewModel\TurnoverViewModel.cs" />

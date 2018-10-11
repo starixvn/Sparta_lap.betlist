@@ -30,20 +30,12 @@
                  commissionOnChange($(this).val(), "ParlayComm");
              }).change();
 
-             $("#RCComm1").on("change", function () {
-                 commissionOnChange($(this).val(), "RCComm");
-             }).change();
-
              $("#NGComm1").on("change", function () {
                  commissionOnChange($(this).val(), "NGComm");
              }).change();
 
              $("#CSComm1").on("change", function () {
                  commissionOnChange($(this).val(), "CSComm");
-             }).change();
-
-             $("#ABComm1").on("change", function () {
-                 commissionOnChange($(this).val(), "ABComm");
              }).change();
          }
 
@@ -128,10 +120,8 @@
          function submit(formId) {
              initCommParam("#SBComm");
              initCommParam("#ParlayComm");
-             initCommParam("#RCComm");
              initCommParam("#NGComm");
              initCommParam("#CSComm");
-             initCommParam("#ABComm");
 
              initDefaultParam(formId);
          }

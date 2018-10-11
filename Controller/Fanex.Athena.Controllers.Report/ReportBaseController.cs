@@ -20,12 +20,7 @@
         public const int PageSizeExcel = int.MaxValue - 1000;
 
         private readonly IProductService _productService;
-
-        public ReportBaseController()
-        {
-            _productService = new ProductService();
-        }
-
+        
         public ReportBaseController(
             ILanguageService languageService,
             ISessionService sessionService,
@@ -34,7 +29,7 @@
             IProductService productService)
         : base(languageService, sessionService, appSetting, clientViewHelper)
         {
-            _productService = productService ?? new ProductService();
+            _productService = productService;
         }
 
         protected IProductService ProductService

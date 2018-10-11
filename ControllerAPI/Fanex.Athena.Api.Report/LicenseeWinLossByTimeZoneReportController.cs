@@ -16,11 +16,6 @@
     {
         private readonly ILicenseeWinLossByTimeZoneDataAccess _licenseeWinLossByTimeZoneDataAccess;
 
-        public LicenseeWinLossByTimeZoneReportController()
-        {
-            _licenseeWinLossByTimeZoneDataAccess = new LicenseeWinLossByTimeZoneDataAccess();
-        }
-
         public LicenseeWinLossByTimeZoneReportController(
             ISessionService sessionService,
             IProductService productService,

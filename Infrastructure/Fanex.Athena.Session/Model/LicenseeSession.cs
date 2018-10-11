@@ -18,7 +18,5 @@ namespace Fanex.Athena.Session.Model
         public bool IsAllowedCustomerComm { get; set; }
 
         public bool IsEnableBA { get; set; }
-
-        public FakeLicenseeSetting FakeLicenseeSetting { get; set; }
     }
 }

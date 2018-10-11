@@ -186,16 +186,16 @@
             });
         }
 
-        [TestCase("Lrf_BetList_LiveReport_SelWinlossRacing")]
-        [TestCase("Lrf_BetList_LiveReport_SelWinlossVHRacing")]
-        public void GetBetListData_CalledByLiveReportParlayBetlist_ParametersPassedCorrectly(string uspKey)
+        [Test]
+        public void GetBetListData_CalledByLiveReportVHRacingBetlist_ParametersPassedCorrectly()
         {
             // Arrange
-            DataAccess.GetObjectDb(Arg.Is<string>(key => key.Equals(uspKey))).Returns(ObjectDb);
+            const string UspKey = "Lrf_BetList_LiveReport_SelWinlossVHRacing";
+            DataAccess.GetObjectDb(Arg.Is<string>(key => key.Equals(UspKey))).Returns(ObjectDb);
             var metaModel = GetLiveReportBetListMetaModel();
 
             // Action
-            DataAccess.GetBetListData(metaModel, uspKey);
+            DataAccess.GetBetListData(metaModel, UspKey);
 
             // Assert
             Assert.Multiple(() =>

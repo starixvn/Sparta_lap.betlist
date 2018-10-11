@@ -20,7 +20,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             {
                 TurnOver = new Dictionary<string, decimal>
                 {
-                    { Product.SB, 1 }, { Product.RB, 2 }, { Product.BA, 3 }
+                    { Product.SB, 1 }, { Product.BA, 3 }
                 },
                 LicenseeWL = new Dictionary<string, decimal>
                 {
@@ -29,7 +29,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             };
 
             var row = ExcelTestHelper.MockGetRow(FakeSheet, ColumnTemplateCount, 0);
-            var excel = CreateExcel(productCodes: new[] { Product.SB, Product.BT, Product.RB, Product.BA });
+            var excel = CreateExcel(productCodes: new[] { Product.SB, Product.BT, Product.BA });
 
             // Action
             excel.AssignCommonData(row, item);
@@ -39,13 +39,11 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             {
                 row.Cells[ColumnTurnoverSportBook].Received(1).SetCellValue(item.TurnOver[Product.SB]);
                 row.Cells[ColumnTurnoverSportBook + 1].DidNotReceiveWithAnyArgs().SetCellValue(0);
-                row.Cells[ColumnTurnoverSportBook + 2].Received(1).SetCellValue(item.TurnOver[Product.RB]);
-                row.Cells[ColumnTurnoverSportBook + 3].Received(1).SetCellValue(item.TurnOver[Product.BA]);
+                row.Cells[ColumnTurnoverSportBook + 2].Received(1).SetCellValue(item.TurnOver[Product.BA]);
 
                 row.Cells[ColumnLicenseeWlSportsBook].Received(1).SetCellValue(item.LicenseeWL[Product.SB]);
                 row.Cells[ColumnLicenseeWlSportsBook + 1].Received(1).SetCellValue(item.LicenseeWL[Product.BT]);
                 row.Cells[ColumnLicenseeWlSportsBook + 2].DidNotReceiveWithAnyArgs().SetCellValue(0);
-                row.Cells[ColumnLicenseeWlSportsBook + 3].DidNotReceiveWithAnyArgs().SetCellValue(0);
             });
         }
 
@@ -79,10 +77,8 @@ namespace Fanex.Athena.Excel.Report.UnitTests
                 row.Cells[ColumnCashOutCommission].Received(1).SetCellValue(DataItem.CashOutCommission);
                 row.Cells[ColumnBetTradeCommission].Received(1).SetCellValue(DataItem.BetTradeCommission);
                 row.Cells[ColumnBaCommission].Received(1).SetCellValue(DataItem.BACommission);
-                row.Cells[ColumnRacingRevenue].Received(1).SetCellValue(DataItem.RacingRevenue);
                 row.Cells[ColumnAmtDueToBetTrade].Received(1).SetCellValue(DataItem.AmtDueToBetTrade);
                 row.Cells[ColumnAmtDueToBa].Received(1).SetCellValue(DataItem.AmtDueToBA);
-                row.Cells[ColumnAmtDueToRacing].Received(1).SetCellValue(DataItem.AmtDueToRacing);
             });
         }
     }

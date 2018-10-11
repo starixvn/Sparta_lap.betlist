@@ -19,10 +19,6 @@ namespace Fanex.Athena.Api.BetList
 
     public class MixParlayBetListController : ApiBetListBaseController
     {
-        public MixParlayBetListController()
-        {
-        }
-
         public MixParlayBetListController(
             ISessionService sessionService,
             IProductService productService,

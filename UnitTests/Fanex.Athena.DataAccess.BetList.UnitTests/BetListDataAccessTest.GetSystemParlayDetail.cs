@@ -6,6 +6,7 @@
     using Model.BetList.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
     using UnitTest.Common.NUnitExtensions;
 
     public partial class BetListDataAccessTest
@@ -31,11 +32,9 @@
                 ObjectDb.Received(1).AddInParameter("refno", DbType.Int64, metaModel.RefNo);
                 ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                 ObjectDb.Received(1).AddInParameter("movebetsday", DbType.DateTime, metaModel.MoveBetsDay);
-                ObjectDb.Received(1).AddInParameter("balanceupday", DbType.DateTime, metaModel.BalanceUpDay);
+                ObjectDb.Received(1).AddInParameter("balanceupday", DbType.DateTime, metaModel.BalanceUpDay);            
+                ObjectDb.Received(1).AddInParameter("BaseCurrency", DbType.String, metaModel.BaseCurrency);
                 ObjectDb.Received(1).AddOutParameter("outstanding", DbType.Currency, 8);
-                ObjectDb.Received(1).AddOutParameter("outstandingeur", DbType.Currency, 8);
-                ObjectDb.Received(1).AddOutParameter("outstandingusd", DbType.Currency, 8);
-                ObjectDb.Received(1).AddOutParameter("outstandinggbp", DbType.Currency, 8);
             });
         }
 
@@ -43,23 +42,10 @@
         public void GetSystemParlayDetail_WhenCall_GetTicketDataCorrectly()
         {
             // Arrange
-            const string BaseCurrency = "uus";
-            var expectedResult = new SystemParlayTicket
-            {
-                Comm = 1,
-                MOdds = 2,
-                PlayerComm = 3,
-                Serial = 4,
-                Stake = 5,
-                Status = "Fun",
-                StatusId = 6,
-                TransId = 7,
-                WinLost = 8,
-                WinLostDate = new DateTime(2017, 1, 1)
-            };
-            var metaModel = GetSystemParlayDetailMetaModel(BaseCurrency);
+            var expectedResult = FakeHelper.Create<SystemParlayTicket>();
+            var metaModel = GetSystemParlayDetailMetaModel();
             DataAccess.GetObjectDb(Arg.Is(GetSystemParlayDetailSp)).Returns(ObjectDb);
-            ObjectDb.ExecuteDataSet().Returns(CreateFakeDataSetForSystemParlayTickeData(BaseCurrency, expectedResult));
+            ObjectDb.ExecuteDataSet().Returns(CreateFakeDataSetForSystemParlayTickeData(expectedResult));
 
             // Action
             var result = DataAccess.GetSystemParlayDetail(metaModel);
@@ -97,20 +83,20 @@
                 () => DataAccess.GetSystemParlayDetail(new SystemParlayDetailMetaModel()));
         }
 
-        private static DataSet CreateFakeDataSetForSystemParlayTickeData(string baseCurrency, SystemParlayTicket data)
+        private static DataSet CreateFakeDataSetForSystemParlayTickeData(SystemParlayTicket data)
         {
             var dataSet = new DataSet();
             var table = new DataTable();
             dataSet.Tables.Add(table);
-            table.Columns.Add("comm" + baseCurrency, typeof(decimal));
+            table.Columns.Add("comm", typeof(decimal));
             table.Columns.Add("modds", typeof(decimal));
-            table.Columns.Add("playercomm" + baseCurrency, typeof(decimal));
+            table.Columns.Add("playercomm", typeof(decimal));
             table.Columns.Add("serial", typeof(long));
-            table.Columns.Add("stake" + baseCurrency, typeof(decimal));
+            table.Columns.Add("stake", typeof(decimal));
             table.Columns.Add("status", typeof(string));
             table.Columns.Add("statusid", typeof(int));
             table.Columns.Add("transid", typeof(long));
-            table.Columns.Add("winlost" + baseCurrency, typeof(decimal));
+            table.Columns.Add("winlost", typeof(decimal));
             table.Columns.Add("winlostdate", typeof(DateTime));
 
             table.Rows.Add(

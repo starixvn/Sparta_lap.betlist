@@ -63,6 +63,8 @@
     <Compile Include="DataDomain\ProductTypes.cs" />
     <Compile Include="DataDomain\SportType.cs" />
     <Compile Include="DataDomain\UserLevelType.cs" />
+    <Compile Include="DataDomain\LiveStatusTypes.cs" />
+    <Compile Include="DataDomain\StatusTypes.cs" />
     <Compile Include="Helper\BettypeHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

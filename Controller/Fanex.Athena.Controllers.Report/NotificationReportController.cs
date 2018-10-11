@@ -14,10 +14,6 @@
     [FunctionAuthorization(PermissionKeys.ResultAmendmentNotificationReport)]
     public class NotificationReportController : ReportBaseController
     {
-        public NotificationReportController()
-        {
-        }
-
         public NotificationReportController(
             ILanguageService languageService,
             ISessionService sessionService,

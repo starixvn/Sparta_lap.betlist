@@ -1,10 +1,8 @@
 ﻿namespace Fanex.Athena.Service.Customer
 {
-    using DataAccess.Customer;
     using Fanex.Athena.DataAccess.Customer.Interfaces;
     using Interfaces;
     using Model.Customer.DTO;
-    using Service.Core.Users;
     using Service.Core.Users.Interfaces;
 
     public class CustomerService : ICustomerService
@@ -12,12 +10,6 @@
         private readonly ICustomerDataAccess _customerDataAccess;
 
         private readonly IAuthorizationService _authorizationService;
-
-        public CustomerService()
-        {
-            _customerDataAccess = new CustomerDataAccess();
-            _authorizationService = new AuthorizationService();
-        }
 
         public CustomerService(ICustomerDataAccess customerDataAccess, IAuthorizationService authorizationService)
         {

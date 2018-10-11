@@ -10,6 +10,7 @@ namespace Fanex.Athena.DataAccess.Core.Users
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Users.Interfaces;
@@ -18,9 +19,15 @@ namespace Fanex.Athena.DataAccess.Core.Users
     using Fanex.Common;
     using Fanex.Common.Extensions;
     using Fanex.Data;
+    using Session.Interfaces;
 
     public class UserDataAccess : BaseDataAccess, IUserDataAccess
     {
+        public UserDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
+            : base(appSetting, sessionStorage)
+        {
+        }
+
         public IResultInfo ChangePassword(User requestUser, string oldPassword, string newPassword, string salt)
         {
             const string UspName = "Licensee_UserPasswordUpd";

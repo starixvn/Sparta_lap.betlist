@@ -4,7 +4,6 @@
     using System.Linq;
     using System.Web.Http;
     using Base.Attributes;
-    using DataAccess.Report;
     using DataAccess.Report.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Extension.Helper;
@@ -15,7 +14,6 @@
     using Model.Core.DTO.Configuration;
     using Model.Report.DTO;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Configuration;
     using Service.Core.Configuration.Interfaces;
     using Service.Core.Users.Interfaces;
 
@@ -31,12 +29,6 @@
             { LicenseeIdentity.IvoryBet, "ivorysport" },
             { LicenseeIdentity.Opal88, "opal88" }
         };
-
-        public SpecialLicenseeWinLossReportController()
-        {
-            _reportSettingService = new ReportSettingService();
-            _licenseeWinLossDataAccess = new SpecialLicenseeWinLossDataAccess();
-        }
 
         public SpecialLicenseeWinLossReportController(
             ISessionService sessionService,
@@ -97,7 +89,7 @@
 
             if (IsValidParams(metaModel, setting))
             {
-                metaModel.BaseCurrencies = string.IsNullOrWhiteSpace(setting.BaseCurrencies) 
+                metaModel.BaseCurrencies = string.IsNullOrWhiteSpace(setting.BaseCurrencies)
                     ? SystemConstants.BaseCurrencyList.ToArray()
                     : setting.BaseCurrencies.Split(',').Intersect(SystemConstants.BaseCurrencyList).ToArray();
                 metaModel.SiteName = _siteNameList[SessionService.LicenseeSession.LicenseeId];

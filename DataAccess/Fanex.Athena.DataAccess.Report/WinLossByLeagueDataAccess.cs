@@ -9,6 +9,7 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Extensions;
@@ -20,19 +21,18 @@ namespace Fanex.Athena.DataAccess.Report
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Model.Core.ResultModel;
-    using VendorAdapter;
+    using Session.Interfaces;
     using VendorAdapter.Interfaces;
 
     public class WinLossByLeagueDataAccess : BaseDataAccess, IWinLossByLeagueDataAccess
     {
         private readonly ICacheRefAdapter _cacheRefAdapter;
 
-        public WinLossByLeagueDataAccess()
-        {
-            _cacheRefAdapter = new CacheRefAdapter();
-        }
-
-        public WinLossByLeagueDataAccess(ICacheRefAdapter cacheRefAdapter)
+        public WinLossByLeagueDataAccess(
+            IAppSettings appSetting,
+            ISessionStorage sessionStorage,
+            ICacheRefAdapter cacheRefAdapter)
+            : base(appSetting, sessionStorage)
         {
             _cacheRefAdapter = cacheRefAdapter;
         }

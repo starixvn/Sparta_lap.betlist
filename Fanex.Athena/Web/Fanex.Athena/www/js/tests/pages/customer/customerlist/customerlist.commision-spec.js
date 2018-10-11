@@ -95,16 +95,6 @@
                     expect(CustomerListCommision.commissionOnChange).toHaveBeenCalledWith("1", "CustParlayComm");
                 });
 
-                it("commissionOnChange() should be called when #CustRBComm1 is change", function () {
-                    setFixtures('<select id="CustRBComm1"><option value="1" selected>1<option></select>');
-                    spyOn(CustomerListCommision, "commissionOnChange");
-
-                    CustomerListCommision.initialize();
-                    $("#CustRBComm1").change();
-
-                    expect(CustomerListCommision.commissionOnChange).toHaveBeenCalledWith("1", "CustRBComm");
-                });
-
                 it("commissionOnChange() should be called when #CustNGComm1 is change", function () {
                     setFixtures('<select id="CustNGComm1"><option value="1" selected>1<option></select>');
                     spyOn(CustomerListCommision, "commissionOnChange");
@@ -133,16 +123,6 @@
                     $("#CustCSComm1").change();
 
                     expect(CustomerListCommision.commissionOnChange).toHaveBeenCalledWith("1", "CustCSComm");
-                });
-
-                it("commissionOnChange() should be called when #CustABComm1 is change", function () {
-                    setFixtures('<select id="CustABComm1"><option value="1" selected>1<option></select>');
-                    spyOn(CustomerListCommision, "commissionOnChange");
-
-                    CustomerListCommision.initialize();
-                    $("#CustABComm1").change();
-
-                    expect(CustomerListCommision.commissionOnChange).toHaveBeenCalledWith("1", "CustABComm");
                 });
             });
 
@@ -202,28 +182,6 @@
 
                     expect($("#CustParlayComm2").val()).toEqual('1');
                     expect($("#CustParlayComm3").val()).toEqual('1');
-                    expect(actualMethod).toEqual("disabled");
-                    expect(actualOptions).toEqual(false);
-                });
-
-                it("set CustRBComm2 and CustRBComm3 to Zero and disable CustRBComm2 and CustRBComm3 selection when CustRBComm1 value is changed to 15", function () {
-                    setFixturesForCommGroup("CustRBComm", 15);
-
-                    CustomerListCommision.commissionOnChange("15", "CustRBComm");
-
-                    expect($("#CustRBComm2").val()).toEqual('0');
-                    expect($("#CustRBComm3").val()).toEqual('0');
-                    expect(actualMethod).toEqual("update");
-                    expect(actualOptions.isDisabled).toEqual(true);
-                });
-
-                it("enable CustRBComm2 and CustRBComm3 selection when CustRBComm1 value is not changed to 15", function () {
-                    setFixturesForCommGroup("CustRBComm", 1);
-
-                    CustomerListCommision.commissionOnChange("1", "CustRBComm");
-
-                    expect($("#CustRBComm2").val()).toEqual('1');
-                    expect($("#CustRBComm3").val()).toEqual('1');
                     expect(actualMethod).toEqual("disabled");
                     expect(actualOptions).toEqual(false);
                 });
@@ -290,28 +248,6 @@
 
                     expect($("#CustCSComm2").val()).toEqual('1');
                     expect($("#CustCSComm3").val()).toEqual('1');
-                    expect(actualMethod).toEqual("disabled");
-                    expect(actualOptions).toEqual(false);
-                });
-
-                it("set CustABComm2 and CustABComm3 to Zero and disable CustABComm2 and CustABComm3 selection when CustABComm1 value is changed to 15", function () {
-                    setFixturesForCommGroup("CustABComm", 15);
-
-                    CustomerListCommision.commissionOnChange("15", "CustABComm");
-
-                    expect($("#CustABComm2").val()).toEqual('0');
-                    expect($("#CustABComm3").val()).toEqual('0');
-                    expect(actualMethod).toEqual("update");
-                    expect(actualOptions.isDisabled).toEqual(true);
-                });
-
-                it("enable CustABComm2 and CustABComm3 selection when CustABComm1 value is not changed to 15", function () {
-                    setFixturesForCommGroup("CustABComm", 1);
-
-                    CustomerListCommision.commissionOnChange("1", "CustABComm");
-
-                    expect($("#CustABComm2").val()).toEqual('1');
-                    expect($("#CustABComm3").val()).toEqual('1');
                     expect(actualMethod).toEqual("disabled");
                     expect(actualOptions).toEqual(false);
                 });
@@ -478,9 +414,7 @@
                         GroupColor: "GroupColor",
                         SBComm: "SBComm",
                         NGComm: "NGComm",
-                        RCComm: "RCComm",
-                        RNGComm: "RNGComm",
-                        ABComm: "ABComm"
+                        RNGComm: "RNGComm"
                     };
                     mockAjax("CustomerAPI/MoveToGroupCom", {
                         Success: true,
@@ -496,9 +430,7 @@
                         extendedData.GroupColor,
                         extendedData.SBComm,
                         extendedData.NGComm,
-                        extendedData.RCComm,
-                        extendedData.RNGComm,
-                        extendedData.ABComm);
+                        extendedData.RNGComm);
                     jasmine.Ajax.uninstall();
                 });
             });
@@ -675,9 +607,7 @@
                         GroupColor: "GroupColor",
                         SBComm: "SBComm",
                         NGComm: "NGComm",
-                        RCComm: "RCComm",
-                        RNGComm: "RNGComm",
-                        ABComm: "ABComm"
+                        RNGComm: "RNGComm"
                     };
                     mockAjax("CustomerAPI/UpdateCustomerCom", {
                         Success: true,
@@ -693,9 +623,7 @@
                         extendedData.GroupColor,
                         extendedData.SBComm,
                         extendedData.NGComm,
-                        extendedData.RCComm,
-                        extendedData.RNGComm,
-                        extendedData.ABComm);
+                        extendedData.RNGComm);
                     jasmine.Ajax.uninstall();
                 });
             });
@@ -999,12 +927,10 @@
                     setFixtures('<select id="GroupListSelect" selectedIndex="0"><option value="1" selected>1<option></select>');
                     appendSetFixtures('<div id="NewSbComm"></div>'
                         + '<div id="NewParlayComm"></div>'
-                        + '<div id="NewRbComm"></div>'
                         + '<div id="NewNgComm"></div>'
                         + '<div id="NewCsComm"></div>'
                         + '<input id="SBComm1" value="SBComm1">'
                         + '<input id="ParlayComm1" value="ParlayComm1">'
-                        + '<input id="RBComm1" value="RBComm1">'
                         + '<input id="NGComm1" value="NGComm1">'
                         + '<input id="CSComm1" value="CSComm1">');
 
@@ -1019,7 +945,6 @@
 
                     expect($("#NewSbComm").text()).toEqual("SBComm1");
                     expect($("#NewParlayComm").text()).toEqual("ParlayComm1");
-                    expect($("#NewRbComm").text()).toEqual("RBComm1");
                     expect($("#NewNgComm").text()).toEqual("NGComm1");
                     expect($("#NewCsComm").text()).toEqual("CSComm1");
                 });

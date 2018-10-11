@@ -11,10 +11,6 @@
 
     internal class FakeApiBetListBaseController : ApiBetListBaseController
     {
-        internal FakeApiBetListBaseController()
-        {
-        }
-
         internal FakeApiBetListBaseController(
             ISessionService sessionService,
             IProductService productService,

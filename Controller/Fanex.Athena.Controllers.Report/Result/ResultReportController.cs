@@ -8,13 +8,11 @@ namespace Fanex.Athena.Controllers.Report.Result
     using System.Web;
     using System.Web.Hosting;
     using System.Web.Mvc;
-    using DataAccess.Core.Configuration;
     using DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel;
-    using Fanex.Athena.Service.Casino;
     using Fanex.Athena.Service.Casino.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Result.Core.AllBetCasino;
@@ -29,7 +27,6 @@ namespace Fanex.Athena.Controllers.Report.Result
     using Service.Core.Common.Interfaces;
     using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
-    using Service.Report.Result;
     using Service.Result.Interfaces;
     using VendorAdapter;
     using VendorAdapter.Interfaces;
@@ -68,10 +65,6 @@ namespace Fanex.Athena.Controllers.Report.Result
 
         #region Result-Page
 
-        public ResultReportController() : this(null, null, null, null, null, null, null, null, null, null)
-        {
-        }
-
 #pragma warning disable S107 // Methods should not have too many parameters
 
         public ResultReportController(
@@ -88,10 +81,10 @@ namespace Fanex.Athena.Controllers.Report.Result
 #pragma warning restore S107 // Methods should not have too many parameters
             : base(languageService, sessionService, appSetting, clientViewHelper, productService)
         {
-            _balanceUpDataAccess = balanceUpDataAccess ?? new BalanceUpDataAccess();
-            _microGamingParserService = microGamingParserService ?? ParserService.Instance;
-            _resultService = resultService ?? new ResultService();
-            _rngCasinoSingleWalletService = rngCasinoSingleWalletService ?? new RngCasinoSingleWalletService();
+            _balanceUpDataAccess = balanceUpDataAccess;
+            _microGamingParserService = microGamingParserService;
+            _resultService = resultService;
+            _rngCasinoSingleWalletService = rngCasinoSingleWalletService;
             _cacheRefAdapter = cacheRefAdapter ?? new CacheRefAdapter();
         }
 
@@ -307,33 +300,12 @@ namespace Fanex.Athena.Controllers.Report.Result
             return betType == ParlayBetType || betType == SystemParlayBetType || betType == (int)Constant.DataDomain.BetType.VirtualSports2MixParlay;
         }
 
-        private static bool IsShowMatchCodeIDColumn(SportType sportType)
-        {
-#pragma warning disable S1067 // Expressions should not be too complex
-            return sportType == SportType.GoldDeluxe
-                || sportType == SportType.HorseRacing
-                || sportType == SportType.Greyhound
-                || sportType == SportType.Harness
-                || sportType == SportType.VirtualHorseRacing
-                || sportType == SportType.VirtualGreyhounds
-                || sportType == SportType.VirtualSpeedway
-                || sportType == SportType.VirtualMotorRacing
-                || sportType == SportType.VirtualCycling;
-#pragma warning restore S1067 // Expressions should not be too complex
-        }
-
         private static IEnumerable<Sport> RemoveNotAllowedSports(IEnumerable<Sport> sports, ProductAccess productAccess)
         {
             var limitedSports = sports;
             if (!productAccess.IsAllowNG)
             {
                 limitedSports = limitedSports.Where(i => i.SportId != (int)SportType.NumberGame);
-            }
-
-            if (!productAccess.IsAllowRB)
-            {
-                limitedSports = limitedSports.Where(i => i.SportId != (int)SportType.HorseRacing
-                && i.SportId != (int)SportType.Greyhound && i.SportId != (int)SportType.Harness);
             }
 
             if (!productAccess.IsAllowVS)
@@ -382,9 +354,6 @@ namespace Fanex.Athena.Controllers.Report.Result
         {
             switch (sportType)
             {
-                case SportType.HorseRacing:
-                case SportType.Greyhound:
-                case SportType.Harness:
                 case SportType.VirtualHorseRacing:
                 case SportType.VirtualMotorRacing:
                 case SportType.VirtualGreyhounds:
@@ -392,7 +361,7 @@ namespace Fanex.Athena.Controllers.Report.Result
                 case SportType.VirtualCycling:
                     if (metalModel.RaceNo != null)
                     {
-                        var dataRc = _resultService.GetPopUpRacingMatch(metalModel);
+                        var dataRc = _resultService.GetPopUpVirtualSportMatch(metalModel);
                         if (dataRc != null)
                         {
                             this._htmlResult = _resultService.HtmlParser(dataRc, setting);
@@ -435,8 +404,7 @@ namespace Fanex.Athena.Controllers.Report.Result
                     licenseeSession.LicenseeId,
                     SessionService.UserSession.Language,
                     ResultPageGetNormalSportsName);
-                var isAllowAllProducts =
-                    productAccess.IsAllowRB && productAccess.IsAllowNG && productAccess.IsAllowVS;
+                var isAllowAllProducts = productAccess.IsAllowNG && productAccess.IsAllowVS;
 
                 var limitedSports = isAllowAllProducts ? sports : RemoveNotAllowedSports(sports, productAccess);
 
@@ -524,15 +492,12 @@ namespace Fanex.Athena.Controllers.Report.Result
             var setting = GetNormalResultSetting(metalModel);
             switch (setting.SportType)
             {
-                case SportType.HorseRacing:
-                case SportType.Greyhound:
-                case SportType.Harness:
                 case SportType.VirtualHorseRacing:
                 case SportType.VirtualGreyhounds:
                 case SportType.VirtualMotorRacing:
                 case SportType.VirtualCycling:
                 case SportType.VirtualSpeedway:
-                    var dataRc = _resultService.GetRacingMatches(metalModel);
+                    var dataRc = _resultService.GetVirtualSportMatches(metalModel);
                     ParseResult(dataRc, setting, metalModel.IsExportExcel);
                     break;
 

@@ -4,6 +4,7 @@
     Layout = "~/Views/Shared/_BetListLayout.cshtml";
 }
 @using Fanex.Athena.Session.Enum
+@using Fanex.Athena.Service.Core.Users.Interfaces;
 @model Fanex.Athena.Model.BetList.ViewModel.BetListBaseViewModel
 @section pagecss {
 }
@@ -11,7 +12,8 @@
     <script src="@Url.ContentLink("/Scripts/BetList/correctscorebetlist.js")" type="text/javascript"></script>
 }
 @{
-    var userSession = new Fanex.Athena.Service.Core.Users.SessionService().UserSession;
+    var sessionService = DependencyResolver.Current.GetService<ISessionService>();
+    var userSession = sessionService.UserSession;
     var isAppModeSelf = userSession == null ? true : userSession.ApplicationMode == AppMode.Self;
 }
 @if (isAppModeSelf)

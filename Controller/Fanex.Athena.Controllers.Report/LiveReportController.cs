@@ -11,14 +11,12 @@ namespace Fanex.Athena.Controllers.Report
     using System.Linq;
     using System.Web.Hosting;
     using System.Web.Mvc;
-    using DataAccess.Core.Configuration;
     using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Model.Report.MetaModel;
     using Fanex.Athena.Model.Report.ViewModel.LiveReports;
-    using Fanex.Athena.Service.Report;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
     using Model.Core.DataDomain;
@@ -37,10 +35,6 @@ namespace Fanex.Athena.Controllers.Report
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
         private readonly ILiveReportService _liveReportService;
 
-        public LiveReportController() : this(null, null, null, null, null, null, null)
-        {
-        }
-
         public LiveReportController(
             ILanguageService languageService,
             ISessionService sessionService,
@@ -51,8 +45,8 @@ namespace Fanex.Athena.Controllers.Report
             ILiveReportService liveReportService)
             : base(languageService, sessionService, appSetting, clientViewHelper, productService)
         {
-            _balanceUpDataAccess = balanceUpDataAccess ?? new BalanceUpDataAccess();
-            _liveReportService = liveReportService ?? new LiveReportService();
+            _balanceUpDataAccess = balanceUpDataAccess;
+            _liveReportService = liveReportService;
         }
 
         [HttpGet]
@@ -197,8 +191,7 @@ namespace Fanex.Athena.Controllers.Report
             var showingOption = new ShowingOption
             {
                 CustomerCommVisible = licenseeSession.IsAllowedCustomerComm,
-                BAVisible = productAccess.IsAllowBA,
-                RBVisible = productAccess.IsAllowRB
+                BAVisible = productAccess.IsAllowBA
             };
             var convertingOption = new ConvertingOption
             {

@@ -8,35 +8,24 @@ namespace Fanex.Athena.DataAccess.Core.Common
 {
     using System;
     using System.Collections.Generic;
+    using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Common.Extensions;
-    using VendorAdapter;
+    using Session.Interfaces;
     using VendorAdapter.Interfaces;
 
-    /// <summary>
-    ///     TODO: Update summary.
-    /// </summary>
     public class MatchDataAccess : BaseDataAccess, IMatchDataAccess
     {
         private readonly ICacheRefAdapter _cacheRefAdapter;
 
-        public MatchDataAccess()
-        {
-            _cacheRefAdapter = new CacheRefAdapter();
-        }
-
-        public MatchDataAccess(ICacheRefAdapter cacheRefAdapter)
+        public MatchDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage, ICacheRefAdapter cacheRefAdapter)
+            : base(appSetting, sessionStorage)
         {
             _cacheRefAdapter = cacheRefAdapter;
         }
 
-        /// <summary>
-        /// Get match list by league.
-        /// </summary>
-        /// <param name="leagueId">League ID value.</param>
-        /// <returns>The result value.</returns>
         public IList<Match> GetForecastMatchListByLeague(int leagueId)
         {
             const string UspName = "Lrf_Forecast_MatchList";
@@ -111,13 +100,9 @@ namespace Fanex.Athena.DataAccess.Core.Common
         }
 
         /// <summary>
-        /// Get matches by league id.
+        /// Get matches by league id (only for SB)
         /// </summary>
-        /// <param name="leagueId">League id.</param>
-        /// <param name="fromDate">From date value.</param>
-        /// <param name="toDate">To date value.</param>
-        /// <returns>List of match.</returns>
-        public IList<Match> GetMatchesByLeague(int leagueId, DateTime fromDate, DateTime toDate)
+        public IList<Match> GetMatchesByLeague(int leagueId, DateTime fromDate, DateTime toDate, int sportId = 0)
         {
             var result = new List<Match>();
 
@@ -125,6 +110,7 @@ namespace Fanex.Athena.DataAccess.Core.Common
             {
                 var uspParam = new
                 {
+                    SportId = sportId,
                     LeagueID = leagueId,
                     FromDate = fromDate,
                     ToDate = toDate

@@ -26,24 +26,7 @@
 
             base.FixtureSetUp();
         }
-
-        [Test]
-        public void AssignMatchName_Racing_AssignCorrectMatchName()
-        {
-            using (var controller = CreateController())
-            {
-                // Arrange
-                var row = CreateDataRow(ProductTypes.Racing);
-                row["race"] = FakeHelper.Create<string>();
-
-                // Action
-                controller.AssignMatchName(row, ProductTypes.Racing);
-
-                // Assert
-                Assert.That(row["matchname"], Is.EqualTo(ViewResources.Race + row["race"]));
-            }
-        }
-
+        
         [Test]
         public void AssignMatchName_NumberGame_AssignCorrectMatchName()
         {

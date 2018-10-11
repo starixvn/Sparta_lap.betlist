@@ -27,6 +27,18 @@ describe('Popup ', () => {
             expect(result.props.className).toContain('show');
         });
 
+        it('has iframeUrl - popup adds an iframe element', () => {
+            const props = {
+                iframeUrl: "www.fake.com"
+            };
+
+            const component = renderer.create(<Popup {...props}><div></div></Popup>);
+
+            const result = component.toJSON();
+        
+            expect(result).toMatchSnapshot();
+        });
+
         it('isHtml is false - popup component shows content as text', () => {
             const props = {
                 isShow: true
@@ -50,19 +62,6 @@ describe('Popup ', () => {
             const result = component.toJSON();
         
             expect(result).toMatchSnapshot();
-        });
-    });
-
-    describe('onCloseHandler', () => {
-        it('onClick prop is called', () => {
-            const props = {
-                onClose: jest.fn()
-            };
-            const component = new Popup(props);
-
-            component.onCloseHandler();
-
-            expect(props.onClose).toHaveBeenCalled();
         });
     });
 });

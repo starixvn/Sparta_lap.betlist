@@ -7,6 +7,7 @@
     using System.Threading.Tasks;
     using System.Web.Http.Controllers;
     using Attributes;
+    using Autofac;
     using NSubstitute;
     using NUnit.Framework;
     using Service.Core.Configuration.Interfaces;
@@ -18,22 +19,27 @@
 
         private ApiBetListAuthorizationAttribute _attribute;
 
+        private HttpActionContext _actionContext;
+
         [SetUp]
         public void SetUp()
         {
             _licenseeSettingService = Substitute.For<ILicenseeSettingService>();
-            _attribute = new ApiBetListAuthorizationAttribute(_licenseeSettingService);
+            _attribute = new ApiBetListAuthorizationAttribute();
+            _actionContext = CreateActionContext();
+            var builder = new ContainerBuilder();
+            builder.RegisterInstance(_licenseeSettingService);
+            WebApiHelper.SetupResolver(builder, _actionContext);
         }
 
         [Test]
         public void ExecuteAuthorizationFilterAsync_NotAuthorized_UnauthorizeAccessResult()
         {
             // Arrange
-            var actionContext = CreateActionContext();
             _licenseeSettingService.IsAuthorizedOnBetList().Returns(false);
 
             // Action
-            var result = _attribute.ExecuteAuthorizationFilterAsync(actionContext, new CancellationToken(), null);
+            var result = _attribute.ExecuteAuthorizationFilterAsync(_actionContext, new CancellationToken(), null);
 
             // Assert
             Assert.That(result.Result.StatusCode, Is.EqualTo(HttpStatusCode.Forbidden));
@@ -43,12 +49,11 @@
         public void ExecuteAuthorizationFilterAsync_Authorized_InvokeContinuationFunc()
         {
             // Arrange
-            var actionContext = CreateActionContext();
             _licenseeSettingService.IsAuthorizedOnBetList().Returns(true);
             var continuation = Substitute.For<Func<Task<HttpResponseMessage>>>();
 
             // Action
-            var result = _attribute.ExecuteAuthorizationFilterAsync(actionContext, new CancellationToken(), continuation);
+            var result = _attribute.ExecuteAuthorizationFilterAsync(_actionContext, new CancellationToken(), continuation);
 
             // Assert
             continuation.Received(1).Invoke();

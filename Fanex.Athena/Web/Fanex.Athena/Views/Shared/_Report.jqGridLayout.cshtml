@@ -1,7 +1,8 @@
-@{
+﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @using Fanex.Athena.Extension.Helper;
+﻿@using Fanex.Athena.Service.Core.Users.Interfaces;
 @section css
 {
     @System.Web.Optimization.Styles.Render("~/bundles/jqGridLayoutStyles")
@@ -13,7 +14,8 @@
     @RenderSection("pagejs", required: false)
 }
 @{
-    var userSession = new Fanex.Athena.Service.Core.Users.SessionService().UserSession;
+    var sessionService = DependencyResolver.Current.GetService<ISessionService>();
+    var userSession = sessionService.UserSession;
     var isAppModeSelf = userSession == null ? true : userSession.ApplicationMode == Fanex.Athena.Session.Enum.AppMode.Self;
 }
 <div class="container_26">

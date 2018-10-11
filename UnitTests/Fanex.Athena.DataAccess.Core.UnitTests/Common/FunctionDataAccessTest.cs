@@ -29,7 +29,7 @@
         public override void FixtureSetUp()
         {
             _appSetting = Substitute.For<IAppSettings>();
-            DataAccess = Substitute.ForPartsOf<FunctionDataAccess>(_appSetting);
+            DataAccess = Substitute.ForPartsOf<FunctionDataAccess>(_appSetting, CreateSessionStorage());
             ObjectDb = Substitute.For<Data.IObjectDb>();
         }
 
@@ -94,7 +94,7 @@
             DataAccess.GetLicenseeFunctionList(LicenseeId);
 
             // Assert
-            ObjectDb.Received().AddInParameter("licenseeid", DbType.Int32, LicenseeId);
+            ObjectDb.Received(1).AddInParameter("licenseeid", DbType.Int32, LicenseeId);
         }
 
         [Test]
@@ -130,8 +130,8 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("LicenseeId", DbType.Int32, LicenseeId);
-                ObjectDb.Received().AddInParameter("UserId", DbType.Int32, UserId);
+                ObjectDb.Received(1).AddInParameter("LicenseeId", DbType.Int32, LicenseeId);
+                ObjectDb.Received(1).AddInParameter("UserId", DbType.Int32, UserId);
             });
         }
 
@@ -168,14 +168,14 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("UserID", DbType.Int32, UserId);
-                ObjectDb.Received().AddInParameter("LicenseeID", DbType.Int32, LicenseeId);
-                ObjectDb.Received().AddInParameter("FunctionID", DbType.Int32, FunctionId);
-                ObjectDb.Received().AddInParameter("CustID", DbType.Int32, CustId);
-                ObjectDb.Received().AddInParameter("LangKey", DbType.String, LangKey);
-                ObjectDb.Received().AddInParameter("IP", DbType.String, Ip);
-                ObjectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
-                ObjectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
+                ObjectDb.Received(1).AddInParameter("UserID", DbType.Int32, UserId);
+                ObjectDb.Received(1).AddInParameter("LicenseeID", DbType.Int32, LicenseeId);
+                ObjectDb.Received(1).AddInParameter("FunctionID", DbType.Int32, FunctionId);
+                ObjectDb.Received(1).AddInParameter("CustID", DbType.Int32, CustId);
+                ObjectDb.Received(1).AddInParameter("LangKey", DbType.String, LangKey);
+                ObjectDb.Received(1).AddInParameter("IP", DbType.String, Ip);
+                ObjectDb.Received(1).AddOutParameter("ErrCode", DbType.Int32, 4);
+                ObjectDb.Received(1).AddOutParameter("ErrMsg", DbType.String, 4000);
             });
         }
 
@@ -209,14 +209,14 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received().AddInParameter("UserID", DbType.Int32, UserId);
-                ObjectDb.Received().AddInParameter("LicenseeID", DbType.Int32, LicenseeId);
-                ObjectDb.Received().AddInParameter("FunctionID", DbType.Int32, FunctionId);
-                ObjectDb.Received().AddInParameter("CustID", DbType.Int32, CustId);
-                ObjectDb.Received().AddInParameter("LangKey", DbType.String, LangKey);
-                ObjectDb.Received().AddInParameter("IP", DbType.String, Ip);
-                ObjectDb.Received().AddOutParameter("ErrCode", DbType.Int32, 4);
-                ObjectDb.Received().AddOutParameter("ErrMsg", DbType.String, 4000);
+                ObjectDb.Received(1).AddInParameter("UserID", DbType.Int32, UserId);
+                ObjectDb.Received(1).AddInParameter("LicenseeID", DbType.Int32, LicenseeId);
+                ObjectDb.Received(1).AddInParameter("FunctionID", DbType.Int32, FunctionId);
+                ObjectDb.Received(1).AddInParameter("CustID", DbType.Int32, CustId);
+                ObjectDb.Received(1).AddInParameter("LangKey", DbType.String, LangKey);
+                ObjectDb.Received(1).AddInParameter("IP", DbType.String, Ip);
+                ObjectDb.Received(1).AddOutParameter("ErrCode", DbType.Int32, 4);
+                ObjectDb.Received(1).AddOutParameter("ErrMsg", DbType.String, 4000);
             });
         }
 

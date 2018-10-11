@@ -17,17 +17,13 @@ namespace Fanex.Athena.Service.Core.Users
         private readonly IUserDataAccess _userDataAccess;
 
         private readonly IAuthDataAccess _authenticationDataAccess;
-
-        public AuthService() : this(null, null)
-        {
-        }
-
+        
         public AuthService(
             IUserDataAccess userDataAccess,
             IAuthDataAccess authenticationDataAccess)
         {
-            _userDataAccess = userDataAccess ?? new UserDataAccess();
-            _authenticationDataAccess = authenticationDataAccess ?? new AuthDataAccess();
+            _userDataAccess = userDataAccess;
+            _authenticationDataAccess = authenticationDataAccess;
         }
 
         public int LoginOnUser(User requestUser, string netSessionId, int serverId, string ip)

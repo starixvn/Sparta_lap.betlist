@@ -5,6 +5,7 @@
     using Model.Dashboard.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class SingleValueDataAccessTest : BaseDataAccessHelperTest<SingleValueDataAccess>
@@ -133,13 +134,7 @@
         public void GetCustomerBalance_WhenCall_PassCorrectParam()
         {
             // Arrange
-            var metaModel = new DashboardBaseModel
-            {
-                LicenseeId = 1,
-                CurrencyIDList = "1,2,3",
-                BaseCurrency = "EUR",
-                FromDate = new System.DateTime(2017, 1, 1)
-            };
+            var metaModel = FakeHelper.Create<DashboardBaseModel>();
             Hashtable passedParam = null;
             ObjectDb.When(x => x.ExecuteReader(Arg.Any<Hashtable>())).Do(x => passedParam = (Hashtable)x[0]);
 
@@ -186,13 +181,7 @@
         public void GetTodayDeposit_WhenCall_PassCorrectParam()
         {
             // Arrange
-            var metaModel = new DashboardBaseModel
-            {
-                LicenseeId = 1,
-                CurrencyIDList = "1,2,3",
-                BaseCurrency = "EUR",
-                FromDate = new System.DateTime(2017, 1, 1)
-            };
+            var metaModel = FakeHelper.Create<DashboardBaseModel>();
             Hashtable passedParam = null;
             ObjectDb.When(x => x.ExecuteReader(Arg.Any<Hashtable>())).Do(x => passedParam = (Hashtable)x[0]);
 

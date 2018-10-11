@@ -10,7 +10,6 @@
     using Model.Report.MetaModel;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
-    using Service.Report;
     using Service.Report.Interfaces;
 
     [ApiFunctionAuthorization(PermissionKeys.ReportSubsidiaryPerformance)]
@@ -19,12 +18,6 @@
         private readonly ISubsidiaryService _subsidiaryService;
 
         private readonly ISubsidiaryPerformanceService _subsidiaryPerformanceService;
-
-        public SubsidiaryPerformanceReportController()
-        {
-            _subsidiaryService = new SubsidiaryService();
-            _subsidiaryPerformanceService = new SubsidiaryPerformanceService();
-        }
 
         public SubsidiaryPerformanceReportController(
             ISessionService sessionService,

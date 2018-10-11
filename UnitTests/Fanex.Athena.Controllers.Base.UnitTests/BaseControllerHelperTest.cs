@@ -24,7 +24,7 @@
             Language = "lan",
             UserName = "alex.vn",
             OnUserId = 999,
-            FunctionIdList = new List<int>()
+            FunctionIdList = new int[0]
         };
 
         protected static readonly LicenseeSession DefaultLicenseeSession = new LicenseeSession

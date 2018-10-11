@@ -25,7 +25,6 @@ describe('connect ', () => {
         const expectedResult = {
             gridData: [],
             params: [],
-            xsrfToken: 'token',
             licenseeId: 1,
             isAllowedCustomerComm: false
         };
@@ -33,7 +32,6 @@ describe('connect ', () => {
         const state = {
             gridData: [],
             params: [],
-            xsrfToken: 'token',
             licenseeId: 1,
             isAllowedCustomerComm: false,
             anotherProp: "Not included"

@@ -34,16 +34,7 @@
     const int EsportSportId = 43;
     const string FormatDecimal = "#,###,##0.##";
 
-    var betSettingType = string.Empty;
-    switch (Model.Param.ProductId)
-    {
-        case ProductTypes.Sportsbook:
-            betSettingType = ViewResources.Sport;
-            break;
-        case ProductTypes.Racing:
-            betSettingType = ViewResources.ProductRB;
-            break;
-    }
+    var betSettingType = ViewResources.Sport;
 }
 
 @if (Model.Param.ProductId == ProductTypes.Sportsbook && Model.Editable)
@@ -51,7 +42,7 @@
     <!--Check box-->
     <div id="copy-settting" class="copy-setting">
         <input id="chkCopyAll" name="chkCopyAll" type="checkbox">
-        <label for="chkCopyAll" class="text-bold">@(Model.Param.ProductId == ProductTypes.Sportsbook ? ViewResources.CopyBetSettingFromSoccer : ViewResources.CopyBetSettingFromRacing)</label>
+        <label for="chkCopyAll" class="text-bold">@ViewResources.CopyBetSettingFromSoccer</label>
     </div>
     <!--Check box-->
 }

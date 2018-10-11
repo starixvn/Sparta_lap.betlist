@@ -23,12 +23,7 @@ namespace Fanex.Athena.Controllers.TotalBets
     public class TotalGoalTotalBetController : TotalBetBaseController
     {
         private readonly ITotalGoalDataAccess _totalGoalDataAccess;
-
-        public TotalGoalTotalBetController()
-        {
-            _totalGoalDataAccess = new TotalGoalDataAccess();
-        }
-
+        
         public TotalGoalTotalBetController(
             ILanguageService languageService,
             ISessionService sessionService,

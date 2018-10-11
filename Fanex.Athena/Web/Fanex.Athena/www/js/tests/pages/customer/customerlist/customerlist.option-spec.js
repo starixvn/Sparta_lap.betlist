@@ -12,30 +12,15 @@
 
             describe("getGridOption(productAccess, isAllowedCustomerCommission)", function () {
                 it("adds 2 columns of product to colModel and colNames if 2 product and customer commission are allowed", function () {
-                    var productList = ["SB", "RB"];
+                    var productList = ["SB","NG"];
 
                     CustomerListOption.getGridOption(productList, true);
 
                     expect(CustomerListOption.gridOption.colNames.indexOf("SB")).toBeGreaterThan(-1);
-                    expect(CustomerListOption.gridOption.colNames.indexOf("RB")).toBeGreaterThan(-1);
                     expect(CustomerListOption.gridOption.colNames.indexOf("CS")).toBe(-1);
 
                     var length = CustomerListOption.gridOption.colModel.length;
-                    expect(CustomerListOption.gridOption.colModel[length - 1].name).toEqual("RBComm");
                     expect(CustomerListOption.gridOption.colModel[length - 2].name).toEqual("SBComm");
-                });
-
-                it("does not add any columns of product to colModel and colNames if 2 product are allowed but not customer commission", function () {
-                    var productList = ["SB", "RB"];
-
-                    CustomerListOption.getGridOption(productList, false);
-
-                    expect(CustomerListOption.gridOption.colNames.indexOf("SB")).toBe(-1);
-                    expect(CustomerListOption.gridOption.colNames.indexOf("RB")).toBe(-1);
-                    expect(CustomerListOption.gridOption.colNames.indexOf("CS")).toBe(-1);
-
-                    var length = CustomerListOption.gridOption.colModel.length;
-                    expect(CustomerListOption.gridOption.colModel[length - 1].name).not.toEqual("RBComm");
                 });
             });
 
@@ -43,7 +28,7 @@
                 it("jqGrid header should be grouped with correct option with 2 product columns", function () {
                     var grid = jasmine.createSpyObj("grid", ["jqGrid"]);
 
-                    var productList = ["SB", "RB"];
+                    var productList = ["SB", "NG"];
 
                     CustomerListOption.getGridOption(productList, true);
                     CustomerListOption.setGroupHeaderColumns(grid);

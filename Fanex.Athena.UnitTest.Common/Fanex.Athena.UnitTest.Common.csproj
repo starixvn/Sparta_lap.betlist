@@ -35,6 +35,14 @@
     <CodeAnalysisRuleSet>Fanex.Athena.UnitTest.Common.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.8.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Autofac.Integration.WebApi, Version=4.1.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.WebApi2.4.1.0\lib\net45\Autofac.Integration.WebApi.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="AutoFixture, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoFixture.4.0.1\lib\net452\AutoFixture.dll</HintPath>
       <Private>True</Private>
@@ -139,6 +147,7 @@
     <Compile Include="Helpers\FakeHelper.cs" />
     <Compile Include="Helpers\MvcHelper.cs" />
     <Compile Include="Helpers\ObjectHelper.cs" />
+    <Compile Include="Helpers\WebApiHelper.cs" />
     <Compile Include="NUnitExtensions\CustomConstraintExtensions.cs" />
     <Compile Include="NUnitExtensions\Tobe.cs" />
     <Compile Include="Helpers\DataAccessTestHelper.cs" />
@@ -156,6 +165,10 @@
     <ProjectReference Include="..\DataAccess\Fanex.Athena.DataAccess.Core\Fanex.Athena.DataAccess.Core.csproj">
       <Project>{A6BE21E8-6895-4863-BA3A-E6B21D3CE78D}</Project>
       <Name>Fanex.Athena.DataAccess.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.Athena.Extension\Fanex.Athena.Extension.csproj">
+      <Project>{71F95E53-36D0-4091-828D-ED14C9939C35}</Project>
+      <Name>Fanex.Athena.Extension</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fanex.Athena.Web\Fanex.Athena.Web.csproj">
       <Project>{DD931ADB-A994-49C0-95A3-72BCB6E22679}</Project>

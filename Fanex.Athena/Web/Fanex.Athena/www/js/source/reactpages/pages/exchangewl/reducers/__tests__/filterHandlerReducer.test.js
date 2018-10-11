@@ -6,7 +6,6 @@ const emptyState = {};
 const reducerList = [
     { name: 'reportByOption', actionType: types.GET_REPORTBY, expected: [{ value: 1 }, { value: 2 }] },
     { name: 'selectedReportBy', actionType: types.SET_REPORTBY, expected: { value: 1 } },
-    { name: 'xsrfToken', actionType: types.GET_XSRF_TOKEN, expected: 'xsrfToken' },
     { name: 'licenseeId', actionType: types.GET_LICENSEE, expected: 1 },
     { name: 'isAllowedCustomerComm', actionType: types.GET_ISALLOWED_CUSTOMERCOMM, expected: false },
     { name: 'params', actionType: types.SET_PARAM, expected: [{ value: 1 }] }

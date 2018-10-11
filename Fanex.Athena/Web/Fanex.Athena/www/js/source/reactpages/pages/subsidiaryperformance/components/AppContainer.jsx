@@ -28,7 +28,7 @@ export class AppContainer extends Component {
       if (prevProps.params.Timestamp !== this.props.params.Timestamp) {
           const { FromDate, ToDate, BaseCurrency } = this.props.params;
           this.reportTitle = Service.getReportTitle(FromDate, ToDate, BaseCurrency);
-    }
+      }
   }
 
   _backToMain = () => {

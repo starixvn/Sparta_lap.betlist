@@ -42,11 +42,8 @@
 
 @section globaljscode{
     window.initialState = {
-        productOptions: @Html.Raw(productOptions.ToJson()),
         selectedProduct: '@(selectedProductCode)',
-        currencyList: @Html.Raw(currencyList.ToJson()),
         selectedCurrency: @Html.Raw(currencyList.First().ToJson()),
-        baseCurrencyList: @Html.Raw(baseCurrencyList.ToJson()),
         selectedBaseCurrency: '@(baseCurrencyList.Any() ? baseCurrencyList.First().value : string.Empty)',
         timeZoneList: @Html.Raw(timeZoneList.ToJson()),
         selectedTimeZone: 8,
@@ -57,10 +54,14 @@
         isIncludeDrawData: true,
         isExcludeTest: true,
         dateRange: {fromDate: '@Model.FromDate.ToString("MM/dd/yyyy")', toDate: '@Model.ToDate.ToString("MM/dd/yyyy")'},
-        xsrfToken: document.querySelector("input[name=__RequestVerificationToken]").value,
         isLoading: false,
         dateConstraint: {minDate: '@minDate.ToString("MM/dd/yyyy")', maxDate: '@maxDate.ToString("MM/dd/yyyy")'}
     }
+    window._AppData = {
+        productOptions: @Html.Raw(productOptions.ToJson()),
+        currencyList: @Html.Raw(currencyList.ToJson()),
+        baseCurrencyList: @Html.Raw(baseCurrencyList.ToJson())
+    };
 }
 <div id="app-container">
 

@@ -28,15 +28,11 @@ namespace Fanex.Athena.Service.Core.Configuration
 
         private readonly ILicenseeSettingService _licenseeSettingService;
 
-        public ReportSettingService() : this(null, null, null)
-        {
-        }
-
         public ReportSettingService(IMemoryCacheService cache, IAppSettings appSettings, ILicenseeSettingService licenseeSettingService)
         {
-            _cache = cache ?? new MemoryCacheService();
-            _appSettings = appSettings ?? new AppSettings();
-            _licenseeSettingService = licenseeSettingService ?? new LicenseeSettingService();
+            _cache = cache;
+            _appSettings = appSettings;
+            _licenseeSettingService = licenseeSettingService;
         }
 
         public ReportSetting GetSetting(string reportKey)
@@ -95,9 +91,9 @@ namespace Fanex.Athena.Service.Core.Configuration
                 reportSetting.MinDate = DateTimeHelper.GetMaxDate(reportSetting.MinDate, limitedMinDate);
             }
 
-            if (reportSetting.MaximumSupportedDays > 0)
+            if (reportSetting.LimitRecentDays > 0)
             {
-                var supportedMinDate = reportSetting.MaxDate.Date.AddDays(-reportSetting.MaximumSupportedDays);
+                var supportedMinDate = reportSetting.MaxDate.Date.AddDays(-reportSetting.LimitRecentDays);
                 reportSetting.MinDate = DateTimeHelper.GetMaxDate(reportSetting.MinDate, supportedMinDate);
             }
         }

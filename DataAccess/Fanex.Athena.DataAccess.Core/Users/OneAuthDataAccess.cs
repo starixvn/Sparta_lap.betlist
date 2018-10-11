@@ -7,17 +7,20 @@
 namespace Fanex.Athena.DataAccess.Core.Users
 {
     using System;
-    using System.Collections.Generic;
     using System.Data;
-    using System.Linq;
+    using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
-    using Fanex.Athena.Model.Core.DTO.Users;
-    using Fanex.Common.Extensions;
     using Interfaces;
     using Model.Core.DTO.OneAuth;
+    using Session.Interfaces;
 
     public class OneAuthDataAccess : BaseDataAccess, IOneAuthDataAccess
     {
+        public OneAuthDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
+            : base(appSetting, sessionStorage)
+        {
+        }
+
         public OneAuthUserInfo GetUserInfo(int userSEQ, string vendorId)
         {
             const string UspName = "Lrf_GetUserLevelInfo";
@@ -31,7 +34,7 @@ namespace Fanex.Athena.DataAccess.Core.Users
 
                 var result = new OneAuthUserInfo();
                 db.ExecuteNonQuery();
-        
+
                 result.UserLevel = Convert.ToByte(db.GetParameterValue("UserLevel"));
                 result.IsEnabledSubsidiary = Convert.ToBoolean(db.GetParameterValue("SubsidiaryEnabled"));
                 result.OperatorID = Convert.ToString(db.GetParameterValue("OperatorID"));

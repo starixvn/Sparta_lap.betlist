@@ -5,6 +5,7 @@
     using System.Data;
     using System.Linq;
     using Core.UnitTests.TestHelpers;
+    using Extension.Utility;
     using Model.Core.MetaModel.Product;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
@@ -18,6 +19,11 @@
         private const string SpName = "Lrf_Rpt_ActiveMember";
 
         private ActiveCustomerMetaModel _metaModel;
+
+        protected override void SetUpDataAccess()
+        {
+            DataAccess = Substitute.ForPartsOf<ActiveCustomerSummaryDataAccess>(Substitute.For<IAppSettings>(), CreateSessionStorage());
+        }
 
         [OneTimeSetUp]
         public override void FixtureSetUp()

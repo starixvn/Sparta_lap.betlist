@@ -5,7 +5,6 @@
     using System.Data;
     using Core.Configuration.Interfaces;
     using Core.UnitTests.TestHelpers;
-    using Data;
     using Model.Core.DTO.Configuration;
     using Model.Core.MetaModel.Product;
     using Model.Report.MetaModel;
@@ -21,45 +20,37 @@
         private const string GetDetailDataListSp = "Lrf_Rpt_MatchWinLossByBettype";
         private const string GetOutrightParlayListSp = "Lrf_Rpt_MatchWinLossByOutrightParlay";
 
-        private BalanceUp _balance;
-        private MatchWinLossMetaModel _metaModel;
-
-        [OneTimeSetUp]
-        public override void FixtureSetUp()
+        private readonly BalanceUp _balance = new BalanceUp
         {
-            var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
-            _balance = new BalanceUp
-            {
-                MoveBetsDay = new DateTime(2016, 8, 10),
-                BalanceUpDay = new DateTime(2016, 8, 31)
-            };
-            balanceUpDataAccess.GetBalanceUp().Returns(_balance);
+            MoveBetsDay = new DateTime(2016, 8, 10),
+            BalanceUpDay = new DateTime(2016, 8, 31)
+        };
 
-            ObjectDb = Substitute.For<IObjectDb>();
-            DataAccess = Substitute.ForPartsOf<MatchWinLossDataAccess>(balanceUpDataAccess, Substitute.For<ICacheRefAdapter>());
-
-            _metaModel = new MatchWinLossMetaModel
-            {
-                BaseCurrency = "USD",
-                ProductCodeList = "SB",
-                ProductOptions = new List<ProductOption>
+        private readonly MatchWinLossMetaModel _metaModel = new MatchWinLossMetaModel
+        {
+            BaseCurrency = "USD",
+            ProductCodeList = "SB",
+            ProductOptions = new List<ProductOption>
                 {
                     new ProductOption { Code = "SB", Status = true },
                     new ProductOption { Code = "NG", Status = false }
                 },
-                AgentListXml = "<xml>",
-                Date = new DateTime(2017, 1, 1),
-                PageSize = 100
-            };
-        }
+            AgentListXml = "<xml>",
+            Date = new DateTime(2017, 1, 1),
+            PageSize = 100
+        };
 
-        [OneTimeTearDown]
-        public override void FixtureTearDown()
+        protected override void SetUpDataAccess()
         {
-            _balance = null;
-            _metaModel = null;
+            var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
 
-            base.FixtureTearDown();
+            balanceUpDataAccess.GetBalanceUp().Returns(_balance);
+
+            DataAccess = Substitute.ForPartsOf<MatchWinLossDataAccess>(
+                AppSetting,
+                CreateSessionStorage(),
+                balanceUpDataAccess, 
+                Substitute.For<ICacheRefAdapter>());
         }
 
         [Test]

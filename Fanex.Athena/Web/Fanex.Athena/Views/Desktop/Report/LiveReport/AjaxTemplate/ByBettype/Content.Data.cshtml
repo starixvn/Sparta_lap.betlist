@@ -3,7 +3,7 @@
 @{ 
     var columnCount = Model.IsAllowedCustomerCommission ? 8 : 6;
 
-    if (Model.ProductAccess.IsAllowRB || Model.ProductAccess.IsAllowBA)
+    if (Model.ProductAccess.IsAllowBA)
     {
         columnCount += 1;
     }

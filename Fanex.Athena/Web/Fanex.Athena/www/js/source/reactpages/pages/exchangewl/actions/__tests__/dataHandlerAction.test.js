@@ -23,8 +23,7 @@ describe('dataHandlerAction', () => {
     }
 
     const params = {
-        data: { Level: 1 },
-        xsrfToken: "token"
+        data: { Level: 1 }
     }
 
     const fakeReportLib = {
@@ -38,7 +37,7 @@ describe('dataHandlerAction', () => {
         Report.fetchGridData = jest.fn(() => fakeReportLib);
         Site.resolveClientUrl = jest.fn((url) => url);
     })
-
+    
     afterAll(() => {
         jest.resetAllMocks();
     })

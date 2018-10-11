@@ -11,6 +11,7 @@ namespace Fanex.Athena.DataAccess.Forecast
     using Core;
     using Core.Extensions;
     using Extension.Helper;
+    using Extension.Utility;
     using Fanex.Athena.Model.Forecast.DTO.ForecastHdou;
     using Fanex.Athena.Model.Forecast.ViewModel;
     using Fanex.Common;
@@ -23,34 +24,21 @@ namespace Fanex.Athena.DataAccess.Forecast
     using Model.Forecast.DTO.NewForecastHdpOu;
     using Model.Forecast.MetaModel;
     using Resources;
-    using VendorAdapter;
+    using Session.Interfaces;
     using VendorAdapter.Interfaces;
 
-    /// <summary>
-    /// Forecast Data Access.
-    /// </summary>
     public class ForecastDataAccess : BaseDataAccess, IForecastDataAccess
     {
         private readonly ICacheRefAdapter _cacheRefAdapter;
 
-        public ForecastDataAccess()
-        {
-            _cacheRefAdapter = new CacheRefAdapter();
-        }
-
-        public ForecastDataAccess(ICacheRefAdapter cacheRefAdapter)
+        public ForecastDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage, ICacheRefAdapter cacheRefAdapter)
+            : base(appSetting, sessionStorage)
         {
             _cacheRefAdapter = cacheRefAdapter;
         }
 
         #region Forecast AH
 
-        /// <summary>
-        /// Get Forecast top odds by match.
-        /// </summary>
-        /// <param name="matchId">The match's id..</param>
-        /// <param name="betType">The bet type..</param>
-        /// <returns>Forecast AH data..</returns>
         public ForecastAH GetForecastTopOddsByMatch(int matchId, int betType)
         {
             const string UspName = "Lrf_Forecast_OddsSelTopByMatch";

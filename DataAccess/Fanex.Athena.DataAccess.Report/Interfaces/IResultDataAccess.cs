@@ -31,7 +31,7 @@ namespace Fanex.Athena.DataAccess.Report.Interfaces
 
         IList<T> GetMatches<T>(ResultMetalModel metalModel);
 
-        IList<Racing> GetRacingMatches(ResultMetalModel metalModel);
+        IList<Racing> GetVirtualSportMatches(ResultMetalModel metalModel);
 
         IList<NumberGame> GetNumberGameMatches(ResultMetalModel metalModel);
 

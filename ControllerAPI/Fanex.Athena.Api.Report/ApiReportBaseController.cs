@@ -21,10 +21,6 @@
         {
         }
 
-        protected ApiReportBaseController()
-        {
-        }
-
         protected bool IsValidRequest(BaseMetaModel metaModel, int currencyId = 0)
         {
             var currencyList = SessionService.UserSession.CurrencyList;
@@ -54,6 +50,7 @@
                 functionKey).ProductList.Select(x => x.ProductCode);
 
             var invalidProduct = productCodes.FirstOrDefault(x => !allowedProductCodes.Contains(x));
+
             if (invalidProduct != null)
             {
                 throw new ArgumentException($"Invalid product: {invalidProduct}");

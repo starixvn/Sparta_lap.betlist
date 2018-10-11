@@ -26,10 +26,6 @@ namespace Fanex.Athena.Api.BetList
     [ApiFunctionAuthorization(PermissionKeys.ReportMatchWinLoss)]
     public class MatchWinLossBetListController : ApiBetListBaseController
     {
-        public MatchWinLossBetListController()
-        {
-        }
-
         public MatchWinLossBetListController(
             ISessionService sessionService,
             IProductService productService,
@@ -54,11 +50,9 @@ namespace Fanex.Athena.Api.BetList
                 return null;
             }
 
-            var uspKey = IsRacing(metaModel.BetType)
-                ? "Lrf_BetList_MatchWL_Racing"
-                : "Lrf_BetList_MatchWL_Bettype";
+            const string UspKey = "Lrf_BetList_MatchWL_Bettype";
 
-            return GetPagingBetListResult(metaModel, uspKey, page, rows);
+            return GetPagingBetListResult(metaModel, UspKey, page, rows);
         }
 
         /// <summary>

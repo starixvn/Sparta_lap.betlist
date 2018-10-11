@@ -2,9 +2,7 @@
     Layout = null;
 
     var isAllowNg = ViewBag.IsAllowNG;
-    var isAllowRc = ViewBag.IsAllowRC;
     var isAllowCs = ViewBag.IsAllowCS;
-    var isAllowAb = ViewBag.IsAllowAB;
 }
 <div class="page-results">
     <div class="result-content">
@@ -24,10 +22,6 @@
                             <th class="col-child medium">@ViewResources.DefaultGroup</th>
                             <th class="col-child medium">@ViewResources.NoOfCustmer</th>
                             <th class="col-child medium">@ViewResources.SBComm (%)</th>
-                            @if (isAllowRc)
-                            {
-                                <th class="col-child medium">@ViewResources.RacingComm (%)</th>
-                            }
                             @if (isAllowNg)
                             {
                                 <th class="col-child medium">@ViewResources.NGComm (%)</th>
@@ -35,10 +29,6 @@
                             @if (isAllowCs)
                             {
                                 <th class="col-child medium">@ViewResources.CSComm (%)</th>
-                            }
-                            @if (isAllowAb)
-                            {
-                                <th class="col-child medium">@ViewResources.ABComm (%)</th>
                             }
                             <th class="col-child medium">@ViewResources.GroupColor</th>
                             <th class="col-child medium">@ViewResources.EditGroup</th>
@@ -66,12 +56,6 @@
                                     <td class="center-align">
                                         @(groupComm.SBComm.ToString("P2"))
                                     </td>
-                                    @if (isAllowRc)
-                                    {
-                                        <td class="center-align">
-                                            @(groupComm.RCComm.ToString("P2"))
-                                        </td>
-                                    }
                                     @if (isAllowNg)
                                     {
                                         <td class="center-align">
@@ -82,12 +66,6 @@
                                     {
                                         <td class="center-align">
                                             @(groupComm.CSComm.ToString("P2"))
-                                        </td>
-                                    }
-                                    @if (isAllowAb)
-                                    {
-                                        <td class="center-align">
-                                            @(groupComm.ABComm.ToString("P2"))
                                         </td>
                                     }
                                     <td class="center-align">

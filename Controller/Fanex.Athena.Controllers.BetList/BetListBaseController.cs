@@ -7,7 +7,6 @@
     using System.Collections.ObjectModel;
     using System.Web.Mvc;
     using System.Web.SessionState;
-    using DataAccess.Core.Configuration;
     using DataAccess.Core.Configuration.Interfaces;
     using Excel.Base.Entities;
     using Excel.Base.Helpers;
@@ -15,9 +14,7 @@
     using Extension.Utility;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.Core.DataDomain;
-    using Fanex.Athena.Service.BetList;
     using Fanex.Athena.Service.BetList.Interfaces;
-    using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Model.BetList.DTO;
     using Model.Core.DTO.Configuration;
@@ -26,7 +23,6 @@
     using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility;
-    using VendorAdapter;
     using VendorAdapter.Interfaces;
     using Web.ResultExtension;
 
@@ -47,9 +43,6 @@
         protected static readonly ReadOnlyCollection<int> HiddenColumnIndexes =
             new ReadOnlyCollection<int>(new[] { WinLostColumn, BetEffectiveColumn, LicenseeWLColumn });
 
-        protected static readonly ReadOnlyCollection<int> RacingBetType =
-            new ReadOnlyCollection<int>(new[] { 31, 32, 33, 41, 42, 43 });
-
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
         private readonly ICacheRefAdapter _cacheRefAdapter;
@@ -57,14 +50,6 @@
         private readonly IProductService _productService;
 
         private readonly IBetListService _betListService;
-
-        public BetListBaseController()
-        {
-            _productService = new ProductService();
-            _betListService = new BetListService();
-            _balanceUpDataAccess = new BalanceUpDataAccess();
-            _cacheRefAdapter = new CacheRefAdapter();
-        }
 
 #pragma warning disable S107 // Methods should not have too many parameters
 
@@ -99,11 +84,6 @@
         protected IBetListService BetListService
         {
             get { return _betListService; }
-        }
-
-        protected static bool IsRacing(int betType)
-        {
-            return RacingBetType.Contains(betType);
         }
 
         protected static string GetTitleByTransType(string productTitle, long transType)

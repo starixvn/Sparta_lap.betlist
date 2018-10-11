@@ -23,7 +23,6 @@
                 var productList = new List<Product>
                 {
                     new Product { ProductCode = Product.NG },
-                    new Product { ProductCode = Product.RB },
                     new Product { ProductCode = Product.CS },
                     new Product { ProductCode = Product.AB },
                 };
@@ -50,9 +49,7 @@
 
                     Assert.That(model.LicenseeId, Is.EqualTo(licenseeId));
                     Assert.That(model.IsUpdateNG, Is.True);
-                    Assert.That(model.IsUpdateRacing, Is.True);
                     Assert.That(model.IsUpdateCS, Is.True);
-                    Assert.That(model.IsUpdateAB, Is.True);
                     Assert.That(model.DefaultGroupId, Is.EqualTo(DefaultGroupId));
                     Assert.That(model.OriginalGroupName, Is.Null);
                 });

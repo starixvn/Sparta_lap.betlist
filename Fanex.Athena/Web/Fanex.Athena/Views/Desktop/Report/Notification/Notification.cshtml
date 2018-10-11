@@ -22,8 +22,7 @@
         dateRange: {fromDate: '@Model.FromDate.ToString("MM/dd/yyyy")', toDate: '@Model.ToDate.ToString("MM/dd/yyyy")'},
         dateConstraint: {minDate: '@minDate.ToString("MM/dd/yyyy")', maxDate: '@maxDate.ToString("MM/dd/yyyy")'},
         licenseeName: '@Model.LicenseeName',
-        isLoading: false,
-        xsrfToken: document.querySelector("input[name=__RequestVerificationToken]").value
+        isLoading: false
     }
 }
 <div id="app-container">

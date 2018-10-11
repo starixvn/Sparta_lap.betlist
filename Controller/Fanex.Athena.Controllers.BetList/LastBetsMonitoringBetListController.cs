@@ -12,7 +12,6 @@ namespace Fanex.Athena.Controllers.BetList
     using System.Linq;
     using System.Web.Mvc;
     using System.Web.SessionState;
-    using DataAccess.Core.Common;
     using DataAccess.Core.Common.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Model.BetList.MetaModel;
@@ -33,11 +32,6 @@ namespace Fanex.Athena.Controllers.BetList
     public class LastBetsMonitoringBetListController : BaseController
     {
         private readonly ISportTypeDataAccess _sportTypeDataAccess;
-
-        public LastBetsMonitoringBetListController()
-        {
-            _sportTypeDataAccess = new SportTypeDataAccess();
-        }
 
         public LastBetsMonitoringBetListController(
             ILanguageService languageService,

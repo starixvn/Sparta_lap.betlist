@@ -8,16 +8,12 @@ namespace Fanex.Athena.Service.Customer
 {
     using System.Collections.Generic;
     using DataAccess.Customer.Interfaces;
-    using Fanex.Athena.DataAccess.Customer;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Customer.DTO;
     using Fanex.Athena.Model.Customer.MetaModel;
-    using Fanex.Athena.Service.Casino;
     using Fanex.Athena.Service.Casino.Interfaces;
-    using Fanex.Athena.Service.Core.Common;
     using Fanex.Athena.Service.Core.Common.Interfaces;
-    using Fanex.Athena.Service.Core.Users;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Fanex.Athena.Service.Customer.Interfaces;
     using Model.Core.ResultModel;
@@ -36,16 +32,6 @@ namespace Fanex.Athena.Service.Customer
         private readonly IProductService _productService;
 
         private readonly IAppSettings _appSettings;
-
-        public CustomerListService()
-        {
-            _customerDataAccess = new CustomerDataAccess();
-            _customerListDataAccess = new CustomerListDataAccess();
-            _casinoCustomerService = new CasinoCustomerService();
-            _authorizationService = new AuthorizationService();
-            _productService = new ProductService();
-            _appSettings = new AppSettings();
-        }
 
         public CustomerListService(
             ICustomerDataAccess customerDataAccess,

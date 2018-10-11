@@ -27,10 +27,6 @@ namespace Fanex.Athena.Api.BetList
     [ApiFunctionAuthorization(PermissionKeys.ReportLiveReport)]
     public class LiveReportBetListController : ApiBetListBaseController
     {
-        public LiveReportBetListController()
-        {
-        }
-
         public LiveReportBetListController(
             ISessionService sessionService,
             IProductService productService,
@@ -95,20 +91,6 @@ namespace Fanex.Athena.Api.BetList
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
                 return GetPagingData(metaModel, UspKey, page, rows);
-            }
-
-            return null;
-        }
-
-        [HttpGet]
-        public dynamic Racing([FromUri] LiveReportBetListMetaModel metaModel, int page, int rows)
-        {
-            if (IsValidCurrencyId(metaModel.CurrencyId))
-            {
-                const string UspName = "Lrf_BetList_LiveReport_SelWinlossRacing";
-
-                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-                return GetPagingData(metaModel, UspName, page, rows);
             }
 
             return null;

@@ -10,7 +10,7 @@ namespace Fanex.Athena.Excel.Report
     using System.Linq;
     using Base;
     using Base.Entities;
-    using Fanex.Athena.Excel.Base.Extension;
+    using Base.Extension;
     using Helpers;
     using Model.Core.DTO.Common;
     using Model.Core.MetaModel.Product;
@@ -24,9 +24,9 @@ namespace Fanex.Athena.Excel.Report
     {
         private const int ColumnDate = 0;
         private const int ColumnFirstProduct = 1;
-        private const int ColumnLastProduct = 18;
-        private const int ColumnTotalTransaction = 19;
-        private const int ColumnTemplateCount = 20;
+        private const int ColumnLastProduct = 17;
+        private const int ColumnTotalTransaction = 18;
+        private const int ColumnTemplateCount = 19;
 
         private const int RowTableHeader = 1;
         private const int RowContentTemplate = 3;
@@ -35,7 +35,7 @@ namespace Fanex.Athena.Excel.Report
 
         private static readonly IEnumerable<string> OfferedProducts = new[]
         {
-            Product.SB, Product.RB, Product.NG, Product.BA, Product.VS, Product.CS, Product.KN, Product.PTCS,
+            Product.SB, Product.NG, Product.BA, Product.VS, Product.CS, Product.KN, Product.PTCS,
             Product.AGC, Product.MGCLC, Product.CB, Product.MGCRNG, Product.AB, Product.VB, Product.FW, Product.VS2, Product.LT, Product.PP
         };
 

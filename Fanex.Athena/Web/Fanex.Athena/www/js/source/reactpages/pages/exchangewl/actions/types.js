@@ -4,8 +4,6 @@ export const SET_GRID_DATA = 'SET_GRID_DATA'
 export const GET_REPORTBY = 'GET_REPORTBY'
 export const SET_REPORTBY = 'SET_REPORTBY'
 
-export const GET_XSRF_TOKEN = 'GET_XSRF_TOKEN'
-
 export const SET_PARAM = 'SET_PARAM'
 
 export const GET_LICENSEE = 'GET_LICENSEE'

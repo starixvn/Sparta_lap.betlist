@@ -50,10 +50,8 @@ namespace Fanex.Athena.Excel.Report.UnitTests
                 row1.Cells[ColumnCashOutCommission].Received(1).SetCellValue(ViewResources.CashOutCommission);
                 row1.Cells[ColumnBetTradeCommission].Received(1).SetCellValue(ViewResources.BetTradeCommission);
                 row1.Cells[ColumnBaCommission].Received(1).SetCellValue(ViewResources.BACommission);
-                row1.Cells[ColumnRacingRevenue].Received(1).SetCellValue(ViewResources.RacingRevenue);
                 row1.Cells[ColumnAmtDueToBetTrade].Received(1).SetCellValue(ViewResources.AmtDueToBetTrade);
                 row1.Cells[ColumnAmtDueToBa].Received(1).SetCellValue(ViewResources.AmtDueToBA);
-                row1.Cells[ColumnAmtDueToRacing].Received(1).SetCellValue(ViewResources.AmtDueToRacing);
 
                 row2.Cells[ColumnCustomerWl].Received(1).SetCellValue(ViewResources.WinLoss);
                 row2.Cells[ColumnCustomerComm].Received(1).SetCellValue(ViewResources.Comm);

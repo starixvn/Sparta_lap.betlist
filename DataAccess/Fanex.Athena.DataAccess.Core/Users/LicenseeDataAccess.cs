@@ -10,14 +10,21 @@ namespace Fanex.Athena.DataAccess.Core.Users
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Users.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Data;
+    using Session.Interfaces;
 
     public class LicenseeDataAccess : BaseDataAccess, ILicenseeDataAccess
     {
+        public LicenseeDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
+            : base(appSetting, sessionStorage)
+        {
+        }
+
         public IResultInfo<bool> IsAllowUpdateMemberBAStatus(Request request, int licenseeId)
         {
             const string UspName = "Lrf_BATimeCheck";

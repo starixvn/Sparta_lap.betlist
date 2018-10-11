@@ -25,12 +25,8 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class AgCasinoBalanceDataAccess : BaseDataAccess, IAgCasinoBalanceDataAccess
     {
-        public AgCasinoBalanceDataAccess() : this(null)
-        {
-        }
-
-        public AgCasinoBalanceDataAccess(ISessionStorage sessionStorage)
-            : base(null, sessionStorage)
+        public AgCasinoBalanceDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
+            : base(appSetting, sessionStorage)
         {
         }
 

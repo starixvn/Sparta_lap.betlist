@@ -10,23 +10,40 @@ namespace Fanex.Athena.Controllers.BetList
 
     using System;
     using System.Web.Mvc;
+    using DataAccess.Core.Configuration.Interfaces;
+    using Extension.Utility;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Model.BetList.ViewModel;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
-    using Fanex.BetList.Core.TicketHelper;
+    using Service.BetList.Interfaces;
+    using Service.Core.Common.Interfaces;
+    using Service.Core.Helpers;
+    using Service.Core.Users.Interfaces;
+    using VendorAdapter.Interfaces;
 
     #endregion Using
 
     public class SystemParlayBetListController : BetListBaseController
     {
         private readonly ITicketHelper _ticketHelper;
-        private readonly BetListHTMLBuilder _betListBuilder;
+        private readonly IBetListHTMLBuilder _betListBuilder;
 
-        public SystemParlayBetListController()
+        public SystemParlayBetListController(
+            ILanguageService languageService,
+            ISessionService sessionService,
+            IAppSettings appSetting,
+            IClientViewHelper clientViewHelper,
+            IProductService productService,
+            IBetListService betListService,
+            IBalanceUpDataAccess balanceUpDataAccess,
+            ICacheRefAdapter cacheRefAdapter,
+            ITicketHelper ticketHelper,
+            IBetListHTMLBuilder betListBuilder)
+        : base(languageService, sessionService, appSetting, clientViewHelper, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
         {
-            this._ticketHelper = new TicketHelper();
-            _betListBuilder = new BetListHTMLBuilder();
+            _ticketHelper = ticketHelper;
+            _betListBuilder = betListBuilder;
         }
 
         [HttpGet]

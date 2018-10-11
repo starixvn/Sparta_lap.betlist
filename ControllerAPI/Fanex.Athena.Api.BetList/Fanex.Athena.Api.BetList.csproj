@@ -76,8 +76,8 @@
       <HintPath>..\..\packages\Fanex.BetList.NumberGame.1.1.0\lib\net40\Fanex.BetList.NumberGame.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.BetList.PP, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.BetList.PP.1.0.0\lib\net40\Fanex.BetList.PP.dll</HintPath>
+    <Reference Include="Fanex.BetList.PP, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.BetList.PP.1.1.0\lib\net40\Fanex.BetList.PP.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.BetList.RnGCasino, Version=1.0.1.5, Culture=neutral, processorArchitecture=MSIL">
@@ -213,6 +213,7 @@
   <ItemGroup>
     <Compile Include="ApiBetListBaseController.cs" />
     <Compile Include="AGCasinoBetListController.cs" />
+    <Compile Include="BettingTicketCenterController.cs" />
     <Compile Include="BonusBetListController.cs" />
     <Compile Include="DailyStatementBetListController.cs" />
     <Compile Include="ExchangeWinLossBetListController.cs" />
@@ -227,13 +228,11 @@
     <Compile Include="WinlossByLeagueBetListController.cs" />
     <Compile Include="RunningBettypesOfMatchBetListController.cs" />
     <Compile Include="RunningBettypesBetListController.cs" />
-    <Compile Include="RacingCommissionBetListController.cs" />
     <Compile Include="MicroGamingRngBetListController.cs" />
     <Compile Include="CancelledBetsBetListController.cs" />
     <Compile Include="OutstandingDailyStatementBetListController.cs" />
     <Compile Include="RunningMatchBetListController.cs" />
     <Compile Include="LicenseeWinLossBetListController.cs" />
-    <Compile Include="DailyRacingWinLossBetListController.cs" />
     <Compile Include="MatchWinLossBetListController.cs" />
     <Compile Include="CustomerWinLossBetListController.cs" />
     <Compile Include="LiveReportBetListController.cs" />
@@ -254,6 +253,10 @@
     <ProjectReference Include="..\..\DataAccess\Fanex.Athena.DataAccess.Core\Fanex.Athena.DataAccess.Core.csproj">
       <Project>{A6BE21E8-6895-4863-BA3A-E6B21D3CE78D}</Project>
       <Name>Fanex.Athena.DataAccess.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Excel\Fanex.Athena.Excel.BetList\Fanex.Athena.Excel.BetList.csproj">
+      <Project>{673f1094-bbf7-4e48-95e2-b4050fceb8ef}</Project>
+      <Name>Fanex.Athena.Excel.BetList</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Infrastructure\Fanex.Athena.Constant\Fanex.Athena.Constant.csproj">
       <Project>{6B1431E0-E513-48BB-BE86-0756E5F6F405}</Project>

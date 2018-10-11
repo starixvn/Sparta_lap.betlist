@@ -29,16 +29,12 @@ namespace Fanex.Athena.Service.Casino
         private readonly ICustomerApiWrapper _customerApiWrapper;
 
         private readonly IBasicInfoApiWrapper _basicInfoApiWrapper;
-
-        public CasinoSettingService() : this(null, null, null)
-        {
-        }
-
+        
         public CasinoSettingService(ICoreLogger logger, ICustomerApiWrapper customerApiWrapper, IBasicInfoApiWrapper basicInfoApiWrapper)
         {
-            _logger = logger ?? new CoreLogger();
-            _customerApiWrapper = customerApiWrapper ?? new CustomerApiWrapper();
-            _basicInfoApiWrapper = basicInfoApiWrapper ?? new BasicInfoApiWrapper();
+            _logger = logger;
+            _customerApiWrapper = customerApiWrapper;
+            _basicInfoApiWrapper = basicInfoApiWrapper;
         }
 
         public IList<GameKind> GetRngCasinoSettings(int custId, int currencyId, string language)

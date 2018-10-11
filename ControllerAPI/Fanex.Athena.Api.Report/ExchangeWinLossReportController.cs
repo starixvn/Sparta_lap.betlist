@@ -23,12 +23,6 @@
 
         private readonly IExchangeWinLossDataAccess _dataAccess;
 
-        public ExchangeWinLossReportController()
-        {
-            _dataAccess = new ExchangeWinLossDataAccess();
-            _reportSettingService = new ReportSettingService();
-        }
-
         public ExchangeWinLossReportController(
             ISessionService sessionService,
             IProductService productService,

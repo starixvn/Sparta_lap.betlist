@@ -19,29 +19,14 @@
         <a class="sort-heading" data-column-name="LicenseeWL">@ViewResources.LicenseeW_L</a>
     </th>
 
-    @*Check BA, RB commission*@
+    @*Check BA commission*@
     @if (Model.ProductAccess.IsAllowBA)
     {
         <th rowspan="@rowspan" class="sortable">
             <a class="sort-heading" data-column-name="BACommission">@ViewResources.BACommission</a>
         </th>
-    }
-    @if (Model.ProductAccess.IsAllowRB)
-    {
-        <th rowspan="@rowspan" class="sortable">
-            <a class="sort-heading" data-column-name="RacingWinLoss">@ViewResources.RacingRevenue</a>
-        </th>
-    }
-    @if (Model.ProductAccess.IsAllowBA)
-    {
         <th rowspan="@rowspan" class="sortable">
             <a class="sort-heading" data-column-name="AmtDueToBA">@ViewResources.AmtDueToBA</a>
-        </th>
-    }
-    @if (Model.ProductAccess.IsAllowRB)
-    {
-        <th rowspan="@rowspan" class="sortable">
-            <a class="sort-heading" data-column-name="AmtDueToRacing">@ViewResources.AmtDueToRacing</a>
         </th>
     }
 </tr>

@@ -7,18 +7,10 @@
 namespace Fanex.Athena.Model.Report.MetaModel
 {
     using System;
-    using Extension.Utility;
-    using Fanex.Athena.Model.Core.DataDomain;
 
     public class CustomerWinLossMetaModel : BaseReportMetaModel
     {
         public CustomerWinLossMetaModel()
-            : this(new AppSettings())
-        {
-        }
-
-        public CustomerWinLossMetaModel(IAppSettings appSetting)
-            : base(appSetting)
         {
             FromDate = DateTime.Today;
             ToDate = DateTime.Today;

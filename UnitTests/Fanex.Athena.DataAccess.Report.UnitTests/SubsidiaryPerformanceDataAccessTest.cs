@@ -6,7 +6,6 @@
     using System.Linq;
     using Core.Configuration.Interfaces;
     using Core.UnitTests.TestHelpers;
-    using Data;
     using Model.Core.DTO.Configuration;
     using Model.Report.DTO.SubsidiaryPerformance;
     using Model.Report.MetaModel;
@@ -19,8 +18,7 @@
     {
         private BalanceUp _balance;
 
-        [OneTimeSetUp]
-        public override void FixtureSetUp()
+        protected override void SetUpDataAccess()
         {
             _balance = new BalanceUp
             {
@@ -28,11 +26,10 @@
                 BalanceUpDay = new DateTime(2017, 8, 31)
             };
 
-            ObjectDb = Substitute.For<IObjectDb>();
-
             var balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
             balanceUpDataAccess.GetBalanceUp().Returns(_balance);
             DataAccess = Substitute.ForPartsOf<SubsidiaryPerformanceDataAccess>(
+                AppSetting,
                 CreateSessionStorage(),
                 balanceUpDataAccess);
         }

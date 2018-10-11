@@ -9,16 +9,21 @@
     {
         private const int TIMEOUT = 900; // 15 minutes.
         private const string REGIONNAME = "LAP_MAIN_MEMORY";
-        private static ICustomMemoryCache _instance = new CustomMemoryCache();
+        private readonly ICustomMemoryCache _cache;
+
+        public MemoryCacheService(ICustomMemoryCache cache)
+        {
+            _cache = cache;
+        }
 
         public bool Contains(string key)
         {
-            return _instance.Contains(key, REGIONNAME);
+            return _cache.Contains(key, REGIONNAME);
         }
 
         public T Get<T>(string key)
         {
-            return Contains(key) ? DeepClone((T)_instance.Get(key, REGIONNAME)) : default(T);
+            return Contains(key) ? DeepClone((T)_cache.Get(key, REGIONNAME)) : default(T);
         }
 
         public T Get<T>(string key, Func<T> action, int seconds = TIMEOUT) where T : class
@@ -42,13 +47,13 @@
 
             if (!Equals(value, default(T)))
             {
-                _instance.Set(key, DeepClone(value), DateTime.Now.AddSeconds(seconds), REGIONNAME);
+                _cache.Set(key, DeepClone(value), DateTime.Now.AddSeconds(seconds), REGIONNAME);
             }
         }
 
         public void Clear()
         {
-            _instance.Clear(REGIONNAME);
+            _cache.Clear(REGIONNAME);
         }
 
         private static T DeepClone<T>(T source)

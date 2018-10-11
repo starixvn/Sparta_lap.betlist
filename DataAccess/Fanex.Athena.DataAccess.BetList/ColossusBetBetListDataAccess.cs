@@ -8,16 +8,17 @@ namespace Fanex.Athena.DataAccess.BetList
 {
     using System.Collections.Generic;
     using System.Data;
+    using Extension.Utility;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.Model.BetList.DTO;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.BetList.ColossusBets.Builder;
     using Fanex.BetList.Core.Entities;
-    using Fanex.BetList.Core.TicketHelper;
     using Fanex.Common.Extensions;
     using Fanex.Data;
     using Interfaces;
     using Model.BetList.ViewModel;
+    using Session.Interfaces;
 
     public class ColossusBetBetListDataAccess : BaseBetListDataAccess, IColossusBetBetListDataAccess
     {
@@ -25,13 +26,10 @@ namespace Fanex.Athena.DataAccess.BetList
 
         private readonly ITicketHelper _ticketHelper;
 
-        public ColossusBetBetListDataAccess()
-        {
-            _ticketHelper = new TicketHelper();
-        }
-
 #pragma warning disable CS3001 // Argument type is not CLS-compliant
-        public ColossusBetBetListDataAccess(ITicketHelper ticketHelper)
+
+        public ColossusBetBetListDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage, ITicketHelper ticketHelper)
+            : base(appSetting, sessionStorage)
 #pragma warning restore CS3001 // Argument type is not CLS-compliant
         {
             _ticketHelper = ticketHelper;

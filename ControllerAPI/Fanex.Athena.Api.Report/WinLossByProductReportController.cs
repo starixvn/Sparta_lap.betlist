@@ -38,12 +38,6 @@ namespace Fanex.Athena.Api.Report
 
         private readonly IWinLossByProductDataAccess _winlossByProductDataAccess;
 
-        public WinLossByProductReportController()
-        {
-            _appSettings = new AppSettings();
-            _winlossByProductDataAccess = new WinLossByProductDataAccess();
-        }
-
         public WinLossByProductReportController(
             ISessionService sessionService,
             IProductService productService,
@@ -205,7 +199,6 @@ namespace Fanex.Athena.Api.Report
                 TotalData = resultModel.TotalData,
                 CustomerCommVisible = licenseeSession.IsAllowedCustomerComm,
                 BAVisible = productAccess.IsAllowBA,
-                RBVisible = productAccess.IsAllowRB,
                 SystemIdVisible = !_appSettings.FakeLicenseeList.Contains(licenseeSession.LicenseeId)
             };
 

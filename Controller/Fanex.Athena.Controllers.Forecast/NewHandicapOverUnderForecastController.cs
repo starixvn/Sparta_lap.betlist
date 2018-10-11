@@ -18,13 +18,10 @@ namespace Fanex.Athena.Controllers.Forecast
     using Model.Forecast.DTO.NewForecastHdpOu;
     using Model.Forecast.MetaModel;
     using Model.Forecast.ViewModel;
-    using Service.Core.Common;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
-    using Service.Core.Utility;
     using Service.Core.Utility.Interfaces;
     using Service.Forecast.Interfaces;
-    using VendorAdapter;
     using VendorAdapter.Interfaces;
     using Web.ActionFilter;
 
@@ -36,13 +33,6 @@ namespace Fanex.Athena.Controllers.Forecast
         private readonly ICacheRefAdapter _cacheRefAdapter;
 
         private readonly IMatchService _matchService;
-
-        public NewHandicapOverUnderForecastController()
-        {
-            _logger = new CoreLogger();
-            _cacheRefAdapter = new CacheRefAdapter();
-            _matchService = new MatchService();
-        }
 
 #pragma warning disable S107 // Methods should not have too many parameters
 
