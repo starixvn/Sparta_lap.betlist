@@ -64,7 +64,8 @@ namespace Fanex.Athena
             builder.RegisterInstance(ParserService.Instance).As<IParserService>();
             builder.RegisterInstance(Logger.Log).As<Logging.ILogger>();
 
-            builder.Register<ICitiXchangeClient>(x => (ICitiXchangeClient)Activator.GetObject(typeof(ICitiXchangeClient), ConfigurationManager.AppSettings["ExchangeProductApiHost"]))
+            builder.Register(x => (ICitiXchangeClient)Activator.GetObject(typeof(ICitiXchangeClient), ConfigurationManager.AppSettings["ExchangeProductApiHost"]))
+                .As<ICitiXchangeClient>()
                 .ExternallyOwned();
         }
 
