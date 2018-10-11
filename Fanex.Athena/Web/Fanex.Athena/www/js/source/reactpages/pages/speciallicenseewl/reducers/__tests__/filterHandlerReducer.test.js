@@ -8,7 +8,6 @@ const reducerList = [
     { name: 'selectedReportBy', actionType: types.SET_REPORTBY, expected: { value: 1 } },
     { name: 'dateRange', actionType: types.SET_DATE_RANGE, expected: { fromDate: '01/01/2018', toDate: '01/02/2018' } },
     { name: 'xsrfToken', actionType: types.GET_XSRF_TOKEN, expected: 'xsrfToken' },
-    { name: 'dateConstraint', actionType: types.GET_DATE_CONSTRAINT, expected: { minDate: '01/01/2018', maxDate: '01/02/2018' } },
     { name: 'reportTitle', actionType: types.SET_REPORT_TITLE, expected: 'reportTitle' },
     { name: 'params', actionType: types.SET_PARAMS, expected: [{ value: 1 }] }
 ]

@@ -6,7 +6,7 @@ exports[`Month render _renderOption() renders correctly 1`] = `
     className="year"
     style={
       Object {
-        "font-weight": "bold",
+        "fontWeight": "bold",
       }
     }
   >
