@@ -8,7 +8,6 @@
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Model.Report.ViewModel;
     using Fanex.Athena.Service.Report.Interfaces;
-    using Model.Core.DTO.Users;
     using Model.Core.ResultModel;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
@@ -227,24 +226,6 @@
                 Assert.That(result.Total, Is.EqualTo(expectedTotal));
                 Assert.That(result.SummaryTotal, Is.EqualTo(expectedData.SummaryTotal));
             });
-        }
-
-        [Test]
-        public void Index_InvalidLevel_ThrowArgumentException()
-        {
-            // Arrange
-            const int Level = 100;
-
-            var model = new ThirdPartyWinLossMetaModel
-            {
-                CurrencyId = -1
-            };
-
-            // Action
-            TestDelegate testDelegate = () => _controller.Index(model, DateTime.Now, DateTime.Now.AddDays(1), Level);
-
-            // Assert
-            Assert.Throws<ArgumentException>(testDelegate, Arg.Is<string>(x => x.EndsWith(model.DrillDownLevel.ToString())));
         }
 
         [Test]

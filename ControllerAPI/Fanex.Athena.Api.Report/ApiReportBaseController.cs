@@ -21,7 +21,7 @@
         {
         }
 
-        protected bool IsValidRequest(BaseMetaModel metaModel, int currencyId = 0)
+        protected internal virtual bool IsValidRequest(BaseMetaModel metaModel, int currencyId = 0)
         {
             var currencyList = SessionService.UserSession.CurrencyList;
             return (metaModel.CurrencyId <= 0 && metaModel.CurrencyId >= SystemConstants.MinBaseCurrencyType)
@@ -38,12 +38,17 @@
 
         protected internal virtual void CheckValidProducts(string functionKey, string productCodeList)
         {
-            var passedProductCodes = productCodeList?.Split(',');
+            var passedProductCodes = productCodeList?.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
             CheckValidProducts(functionKey, passedProductCodes);
         }
 
         protected internal virtual void CheckValidProducts(string functionKey, IEnumerable<string> productCodes)
         {
+            if (productCodes == null || !productCodes.Any())
+            {
+                throw new ArgumentNullException(nameof(productCodes));
+            }
+
             var allowedProductCodes = ProductService.GetSingleWalletProductAccess(
                 SessionService.LicenseeSession.LicenseeId,
                 SessionService.UserSession.Language,
