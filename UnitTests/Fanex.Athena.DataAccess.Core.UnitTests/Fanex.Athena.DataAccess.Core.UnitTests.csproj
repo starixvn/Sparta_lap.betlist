@@ -130,6 +130,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestHelpers\BaseDataAccessHelperTest.cs" />
     <Compile Include="TestHelpers\ResultInfoHelper.cs" />
+    <Compile Include="Users\OneAuthDataAccessTest.cs" />
     <Compile Include="Users\AuthDataAccessTest.cs" />
     <Compile Include="Users\AuthorizationDataAccessTest.cs" />
     <Compile Include="Users\LicenseeDataAccessTest.cs" />
