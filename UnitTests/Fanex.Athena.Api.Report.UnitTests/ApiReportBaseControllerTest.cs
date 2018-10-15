@@ -75,7 +75,7 @@
             TestDelegate testDelegate = () => _controller.CheckValidProducts(FunctionKey, productCodeList);
 
             // Assert
-            Assert.DoesNotThrow(testDelegate);
+            Assert.That(testDelegate, Throws.Nothing);
         }
 
         [TestCase("SBX,NGX,XXX")]
