@@ -338,6 +338,7 @@
         public void GetBetListData_CallSpHaveOutPutParamBaseOnCurrency_GetSummaryFromOutputParamsWithBaseCurrency(string uspName)
         {
             // Arrange
+            const string BaseCurrency = "usd";
             var expectSummaryResult = new Hashtable
             {
                 { "totalrows", 6 },
@@ -367,27 +368,20 @@
 
             ObjectDb.GetOuputParams().Returns(expectSummaryResult);
 
-            var metaModel = new BetListMetaModel { BaseCurrency = "usd" };
+            var metaModel = new BetListMetaModel { BaseCurrency = BaseCurrency };
 
             // Action
             var result = DataAccess.GetBetListData(metaModel, uspName);
 
             // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(result.TotalRows, Is.EqualTo(expectSummaryResult["totalrows"]));
-                Assert.That(result.SumWinLoss, Is.EqualTo(expectSummaryResult["sumwinlostusd"]));
-                Assert.That(result.SumBetEffective, Is.EqualTo(expectSummaryResult["sumbeteffectiveusd"]));
-                Assert.That(result.SumLicenseeWL, Is.EqualTo(expectSummaryResult["sumlicenseewlusd"]));
-                Assert.That(result.SumComm, Is.EqualTo(expectSummaryResult["sumcommusd"]));
-                Assert.That(result.SumPlayerComm, Is.EqualTo(expectSummaryResult["sumplayercommusd"]));
-            });
+            AssertTicketResult(result, expectSummaryResult, BaseCurrency);
         }
 
         [TestCase("Lrf_BetList_CustomerList_Mem")]
         public void GetBetListData_CallSpHaveOnlyOriginalOutPutParam_GetSummaryFromOriginalOutputParams(string uspName)
         {
             // Arrange
+            const string BaseCurrency = "usd";
             var expectSummaryResult = new Hashtable
             {
                 { "totalrows", 6 },
@@ -412,20 +406,25 @@
 
             ObjectDb.GetOuputParams().Returns(expectSummaryResult);
 
-            var metaModel = new BetListMetaModel { BaseCurrency = "usd" };
+            var metaModel = new BetListMetaModel { BaseCurrency = BaseCurrency };
 
             // Action
             var result = DataAccess.GetBetListData(metaModel, uspName);
 
             // Assert
+            AssertTicketResult(result, expectSummaryResult);
+        }
+
+        private static void AssertTicketResult(TicketResult result, Hashtable expectSummaryResult, string baseCurrency = "")
+        {
             Assert.Multiple(() =>
             {
                 Assert.That(result.TotalRows, Is.EqualTo(expectSummaryResult["totalrows"]));
-                Assert.That(result.SumWinLoss, Is.EqualTo(expectSummaryResult["sumwinlost"]));
-                Assert.That(result.SumBetEffective, Is.EqualTo(expectSummaryResult["sumbeteffective"]));
-                Assert.That(result.SumLicenseeWL, Is.EqualTo(expectSummaryResult["sumlicenseewl"]));
-                Assert.That(result.SumComm, Is.EqualTo(expectSummaryResult["sumcomm"]));
-                Assert.That(result.SumPlayerComm, Is.EqualTo(expectSummaryResult["sumplayercomm"]));
+                Assert.That(result.SumWinLoss, Is.EqualTo(expectSummaryResult["sumwinlost" + baseCurrency]));
+                Assert.That(result.SumBetEffective, Is.EqualTo(expectSummaryResult["sumbeteffective" + baseCurrency]));
+                Assert.That(result.SumLicenseeWL, Is.EqualTo(expectSummaryResult["sumlicenseewl" + baseCurrency]));
+                Assert.That(result.SumComm, Is.EqualTo(expectSummaryResult["sumcomm" + baseCurrency]));
+                Assert.That(result.SumPlayerComm, Is.EqualTo(expectSummaryResult["sumplayercomm" + baseCurrency]));
             });
         }
 
