@@ -114,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseDataAccessTest.cs" />
+    <Compile Include="Common\BetTypeDataAccessTest_GetBettypesByProduct.cs" />
     <Compile Include="Common\BetTypeDataAccessTest.cs" />
     <Compile Include="Common\CurrencyDataAccessTest.cs" />
     <Compile Include="Common\ExChangeRateDataAccessTest.cs" />
