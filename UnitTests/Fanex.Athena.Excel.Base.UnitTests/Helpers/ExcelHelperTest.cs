@@ -51,15 +51,15 @@
             Assert.That(result, Is.EqualTo(expected));
         }
 
-        private static DataTable GetDataTable(string[] columnName)
+        private static DataTable GetDataTable(string[] columnNames)
         {
             var dataTable = new DataTable();
-            dataTable.Columns.Add(columnName[0]);
-            dataTable.Columns.Add(columnName[1]);
+            dataTable.Columns.Add(columnNames[0]);
+            dataTable.Columns.Add(columnNames[1]);
 
             var dr = dataTable.NewRow();
-            dr[columnName[0]] = "Data1";
-            dr[columnName[1]] = "Data2";
+            dr[columnNames[0]] = "Data1";
+            dr[columnNames[1]] = "Data2";
             dataTable.Rows.Add(dr);
 
             return dataTable;

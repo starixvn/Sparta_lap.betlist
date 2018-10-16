@@ -1,8 +1,6 @@
 ﻿namespace Fanex.Athena.DataAccess.Core.UnitTests.Common
 {
-    using System;
     using System.Data;
-    using System.Linq;
     using Constant.DataDomain;
     using Core.Common;
     using Extension.Utility;
@@ -59,6 +57,20 @@
 
             // Assert
             Assert.That(result, Is.Empty);
+        }
+
+        [Test]
+        public void GetSportsAndProducts_NotHiddenSport_AddToResult()
+        {
+            // Arrange
+            MapReaderData(new { ID = SportType.AllBet });
+            Reader.Read().Returns(true, false);
+
+            // Action
+            var result = DataAccess.GetSportsAndProducts(0, string.Empty);
+
+            // Assert
+            Assert.That(result, Is.Not.Empty);
         }
 
         [Test]

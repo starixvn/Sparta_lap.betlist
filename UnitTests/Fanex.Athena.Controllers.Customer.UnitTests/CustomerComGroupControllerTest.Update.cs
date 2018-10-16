@@ -146,5 +146,31 @@
                 });
             }
         }
+
+        [Test]
+        public void UpdatePost_InvalidComm_ReturnErrorResult()
+        {
+            using (var controller = CreateController())
+            {
+                // Arrange
+                var metaModel = new GroupCommMetaModel
+                {
+                    GroupCommId = 999,
+                    GroupName = "abc",
+                    SBComm = 9999
+                };
+
+                // Action
+                controller.Update(metaModel);
+                var resultInfo = controller.ViewBag.Result as ResultInfo;
+
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    Assert.That(resultInfo.Code, Is.EqualTo(2));
+                    Assert.That(resultInfo.Message, Is.EqualTo(ViewResources.MessageInvalidCommValue));
+                });
+            }
+        }
     }
 }

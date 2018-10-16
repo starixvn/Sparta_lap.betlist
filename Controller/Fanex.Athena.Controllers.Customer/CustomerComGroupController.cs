@@ -1,7 +1,6 @@
 ﻿namespace Fanex.Athena.Controllers.Customer
 {
     using System;
-    using System.Collections.Generic;
     using System.Data;
     using System.Globalization;
     using System.Linq;
@@ -17,33 +16,18 @@
     using Fanex.Athena.Service.Customer.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
+    using Helpers;
     using Model.Core.DataDomain;
     using ONEbook.UM.Filters;
     using Resources;
     using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
-    using Service.Customer.Helpers;
 
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CheckUMFilter]
     [FunctionAuthorization(PermissionKeys.CustomerInfoCommissionGroupList)]
     public class CustomerComGroupController : BaseController
     {
-        private static readonly IDictionary<int, string> UpdatingErrorMap = new Dictionary<int, string>
-        {
-            { 100, nameof(ViewResources.MessageCommCannotGreaterThan) },
-            { 101, nameof(ViewResources.MessageGroupDoesNotExistMsg) },
-            { 102, nameof(ViewResources.MessageGroupHasAlreadyChoosen) },
-            { 103, nameof(ViewResources.GroupSetAsDefaultMsg) },
-        };
-
-        private static readonly IDictionary<int, string> CreatingErrorMap = new Dictionary<int, string>
-        {
-            { 100, nameof(ViewResources.MessageCommCannotGreaterThan) },
-            { 101, nameof(ViewResources.MessageGroupCreationFail) },
-            { 102, nameof(ViewResources.GroupNameExistedMsg) }
-        };
-
         private readonly IGroupComService _groupComService;
         private readonly IProductService _productService;
 
@@ -105,7 +89,7 @@
                     result.Code = 1;
                     result.Message = ViewResources.ChooseGroupNameMsg;
                 }
-                else if (IsValidCommissions(metaModel))
+                else if (CustomerComGroupHelper.IsValidCommissions(metaModel))
                 {
                     var request = new Request
                     {
@@ -114,12 +98,12 @@
                     };
                     result = _groupComService.InsertGroup(metaModel, request, userSession.UserId);
 
-                    result.Message = GetCreateGroupErrorMessage(result.Code);
+                    result.Message = CustomerComGroupHelper.GetCreateGroupErrorMessage(result.Code);
 
                     if (result.IsSuccessful)
                     {
                         result.Message = ViewResources.MessageSuccess;
-                        UpdateMetaModelAfterProcessSuccessfully(metaModel);
+                        CustomerComGroupHelper.UpdateMetaModelAfterProcessSuccessfully(metaModel);
                     }
                 }
                 else
@@ -154,13 +138,9 @@
         {
             var model = _groupComService.GetById(groupId);
 
-            if (model != null)
-            {
-                CreateMetaModel(model);
-            }
-
-            /*Convert decimal of each comm to int value to display in web.*/
-            SetDropDownListComm(model);
+            CreateMetaModel(model);
+            
+            CustomerComGroupHelper.SetDropDownListComm(model);
 
             return View("~/Views/Customer/CustomerComm/UpdateGroup.cshtml", model);
         }
@@ -179,7 +159,7 @@
                     result.Code = 1;
                     result.Message = ViewResources.ChooseGroupNameMsg;
                 }
-                else if (IsValidCommissions(metaModel))
+                else if (CustomerComGroupHelper.IsValidCommissions(metaModel))
                 {
                     result = UpdateGroupComm(metaModel);
                 }
@@ -287,120 +267,6 @@
 
         #region Utility
 
-        private static bool IsValidCommissions(GroupCommMetaModel metaModel)
-        {
-            return GroupCommHelper.IsAllValid(
-                                metaModel.SBComm,
-                                metaModel.ParlayComm,
-                                metaModel.NGComm,
-                                metaModel.CSComm);
-        }
-
-        private static string GetUpdateGroupErrorMessage(int errorCode)
-        {
-            if (!UpdatingErrorMap.ContainsKey(errorCode))
-            {
-                return string.Empty;
-            }
-
-            return ViewResources.ResourceManager.GetString(UpdatingErrorMap[errorCode]);
-        }
-
-        private static string GetCreateGroupErrorMessage(int errorCode)
-        {
-            if (!CreatingErrorMap.ContainsKey(errorCode))
-            {
-                return string.Empty;
-            }
-
-            return ViewResources.ResourceManager.GetString(CreatingErrorMap[errorCode]);
-        }
-
-        private static int SetComm(decimal comm, int position)
-        {
-            var actualComm = comm * 10000;
-            switch (position)
-            {
-                case 1:
-                    return (int)(actualComm / 100);
-
-                case 2:
-                    return (int)(actualComm % 100) / 10;
-
-                case 3:
-                    return (int)actualComm % 10;
-
-                default:
-                    return 0;
-            }
-        }
-
-        /// <summary>
-        ///  Repair commission values in order to binding them to drop down list control.
-        /// </summary>
-        /// <param name="model">The group commission metal model.</param>
-        private static void SetDropDownListComm(GroupCommMetaModel model)
-        {
-            var decSbComm = model.SBComm;
-            var decParlayComm = model.ParlayComm;
-            var decNgComm = model.NGComm;
-            var decCsComm = model.CSComm;
-
-            model.SBComm1 = SetComm(decSbComm, 1);
-            model.SBComm2 = SetComm(decSbComm, 2);
-            model.SBComm3 = SetComm(decSbComm, 3);
-
-            model.ParlayComm1 = SetComm(decParlayComm, 1);
-            model.ParlayComm2 = SetComm(decParlayComm, 2);
-            model.ParlayComm3 = SetComm(decParlayComm, 3);
-
-            model.NGComm1 = SetComm(decNgComm, 1);
-            model.NGComm2 = SetComm(decNgComm, 2);
-            model.NGComm3 = SetComm(decNgComm, 3);
-
-            model.CSComm1 = SetComm(decCsComm, 1);
-            model.CSComm2 = SetComm(decCsComm, 2);
-            model.CSComm3 = SetComm(decCsComm, 3);
-        }
-
-        private static void UpdateMetaModelAfterProcessSuccessfully(GroupCommMetaModel metaModel)
-        {
-            metaModel.IsResetDefault = false;
-            metaModel.DefaultGroupId = metaModel.IsDefaultGroup ? metaModel.GroupCommId : metaModel.DefaultGroupId;
-            metaModel.OriginalGroupName = metaModel.GroupName;
-        }
-
-        private static decimal[] BuildCommissionList(GroupCommMetaModel groupComm)
-        {
-            return new[]
-           {
-                groupComm.SBComm,
-                groupComm.ParlayComm,
-                groupComm.NGComm,
-                groupComm.CSComm,
-            };
-        }
-
-        private static bool IsSameGroup(GroupCommMetaModel currentGroup, GroupCommMetaModel editedGroup)
-        {
-            var currentComm = BuildCommissionList(currentGroup);
-
-            var editedComm = BuildCommissionList(editedGroup);
-
-            for (var i = 0; i < currentComm.Count(); i++)
-            {
-                if (currentComm[i] != editedComm[i])
-                {
-                    return false;
-                }
-            }
-
-            return currentGroup.GroupColor.Equals(editedGroup.GroupColor, StringComparison.OrdinalIgnoreCase)
-                && currentGroup.GroupCommId == editedGroup.GroupCommId
-                && currentGroup.GroupName.Equals(editedGroup.GroupName)
-                && currentGroup.IsDefaultGroup == editedGroup.IsDefaultGroup;
-        }
-
         private void CreateMetaModel(GroupCommMetaModel metaModel)
         {
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
@@ -419,7 +285,7 @@
         {
             var userSession = SessionService.UserSession;
             var currentGroup = _groupComService.GetById(metaModel.GroupCommId);
-            if (currentGroup != null && !IsSameGroup(currentGroup, metaModel))
+            if (currentGroup != null && !CustomerComGroupHelper.IsSameGroup(currentGroup, metaModel))
             {
                 var request = new Request
                 {
@@ -429,13 +295,13 @@
                 var result = _groupComService.UpdateGroup(metaModel, request, userSession);
                 if (string.IsNullOrWhiteSpace(result.Message))
                 {
-                    result.Message = GetUpdateGroupErrorMessage(result.Code);
+                    result.Message = CustomerComGroupHelper.GetUpdateGroupErrorMessage(result.Code);
                 }
 
                 if (result.IsSuccessful)
                 {
                     result.Message = ViewResources.MessageSuccess;
-                    UpdateMetaModelAfterProcessSuccessfully(metaModel);
+                    CustomerComGroupHelper.UpdateMetaModelAfterProcessSuccessfully(metaModel);
                 }
 
                 return result;

@@ -518,7 +518,7 @@ namespace Fanex.Athena.Controllers.Customer
             };
         }
 
-        private ActionResult CreateUpdatingBaResult(bool isAllowBA, bool isSuccessful, string message, string oddsGroup = null)
+        protected internal virtual ActionResult CreateUpdatingBaResult(bool isAllowBA, bool isSuccessful, string message, string oddsGroup = null)
         {
             return Json(new
             {

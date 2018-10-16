@@ -139,6 +139,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\CustomerComGroupHelper.cs" />
     <Compile Include="SearchCustomerAPIController.cs" />
     <Compile Include="CustomerAPIController.cs" />
     <Compile Include="CustomerComGroupController.cs" />

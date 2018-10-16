@@ -27,14 +27,13 @@
         public void ReadLrfTicket_WhenCall_DataReturnedCorrectly(string baseCurrency)
         {
             // Arrange
-            var currency = "USD";
             var expected = GetFakeTicket();
-            var dataList = GetFakeBetListData(currency, expected);
+            var dataList = GetFakeBetListData(baseCurrency, expected);
             Reader.Read().Returns(true, false);
             ConfigureReader(dataList);
 
             // Action
-            var result = DataAccess.ReadBetListTicket(Reader, currency)[0];
+            var result = DataAccess.ReadBetListTicket(Reader, baseCurrency)[0];
 
             // Assert
             Assert.That(result, Tobe.SameProperties(expected));
@@ -44,7 +43,7 @@
             Justification = "Reviewed. Suppression is OK here.")]
         private static IDictionary<string, object> GetFakeBetListData(string baseCurrency, LrfTicket ticket)
         {
-            var columnSuffix = SystemConstants.BaseCurrencyList.Contains(baseCurrency?.ToUpperInvariant()) ? baseCurrency : string.Empty;
+            var columnSuffix = SystemConstants.BaseCurrencyList.Contains(baseCurrency) ? baseCurrency : string.Empty;
 
             var playerCommCol = "playercomm" + columnSuffix;
             var commCol = "comm" + columnSuffix;
