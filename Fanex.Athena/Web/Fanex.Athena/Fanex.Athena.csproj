@@ -2151,8 +2151,6 @@
     <Content Include="jasmine-specs\BetList\customer.outstandingbetlist-test.js" />
     <Content Include="jasmine-specs\BetList\runningbetlist-test.js" />
     <Content Include="jasmine-specs\BetList\runningbetlist.multiplebettypes-test.js" />
-    <Content Include="jasmine-specs\Casino\RNGCasinoResult-test.js" />
-    <Content Include="jasmine-specs\Casino\RNGCasinoResult.option-test.js" />
     <Content Include="jasmine-specs\Extension\jquery.extension-test.js" />
     <Content Include="jasmine-specs\Global\jquery.jqgrid.additional-test.js" />
     <Content Include="jasmine-specs\Global\paging-test.js" />
