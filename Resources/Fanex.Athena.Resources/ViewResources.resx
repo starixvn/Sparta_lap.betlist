@@ -1946,20 +1946,8 @@
   <data name="Bet" xml:space="preserve">
     <value>Bet</value>
   </data>
-  <data name="EndBalance" xml:space="preserve">
-    <value>End Balance</value>
-  </data>
   <data name="GameGroup" xml:space="preserve">
     <value>Game Group</value>
-  </data>
-  <data name="PlayerHistoryNo" xml:space="preserve">
-    <value>Player History No</value>
-  </data>
-  <data name="RollingComm" xml:space="preserve">
-    <value>Rolling Comm</value>
-  </data>
-  <data name="StartBalance" xml:space="preserve">
-    <value>Start Balance</value>
   </data>
   <data name="StartDate" xml:space="preserve">
     <value>Start Date</value>

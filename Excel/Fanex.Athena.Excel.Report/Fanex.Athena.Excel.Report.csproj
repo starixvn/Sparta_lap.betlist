@@ -144,7 +144,6 @@
     <Compile Include="LiveReportExcel.cs" />
     <Compile Include="PlatformWinLossMemberExcel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RNGCasino\HandHistoryExcel.cs" />
     <Compile Include="TurnoverExcel.cs" />
     <Compile Include="WinLossByBetTypeExcel.cs" />
     <Compile Include="WinlossByProductExcel.cs" />

@@ -1954,9 +1954,6 @@
   <data name="DecimalOdds" xml:space="preserve">
     <value>欧洲盘赔率</value>
   </data>
-  <data name="EndBalance" xml:space="preserve">
-    <value>结束余额</value>
-  </data>
   <data name="FinalHand" xml:space="preserve">
     <value>结果</value>
   </data>
@@ -2047,9 +2044,6 @@
   <data name="Player" xml:space="preserve">
     <value>玩家</value>
   </data>
-  <data name="PlayerHistoryNo" xml:space="preserve">
-    <value>玩家历史号码</value>
-  </data>
   <data name="RefNo" xml:space="preserve">
     <value>参考号码</value>
   </data>
@@ -2070,9 +2064,6 @@
   </data>
   <data name="Show" xml:space="preserve">
     <value>显示</value>
-  </data>
-  <data name="StartBalance" xml:space="preserve">
-    <value>开始余额</value>
   </data>
   <data name="StartDate" xml:space="preserve">
     <value>开始日期</value>
@@ -2148,9 +2139,6 @@
   <data name="Columns" xml:space="preserve">
     <value>Columns</value>
     <comment>#7730</comment>
-  </data>
-  <data name="RollingComm" xml:space="preserve">
-    <value>Rolling Comm</value>
   </data>
   <data name="Lose" xml:space="preserve">
     <value>输</value>

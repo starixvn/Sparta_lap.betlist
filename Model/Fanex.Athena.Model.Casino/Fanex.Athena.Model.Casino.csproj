@@ -64,17 +64,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DTO\RNGCasinoResult.cs" />
-    <Compile Include="DTO\RNGResultDetail\CasinoGameType.cs" />
-    <Compile Include="DTO\RNGResultDetail\CasinoWinLossDetail.cs" />
-    <Compile Include="DTO\RNGResultDetail\CasinoWinLossDetailHeader.cs" />
     <Compile Include="MetaModel\ApiInputParameter\GetGameTypeMetalModel.cs" />
-    <Compile Include="MetaModel\RNGCasinoResultDetailMetaModel.cs" />
-    <Compile Include="MetaModel\RNGCasinoResultMetaModel.cs" />
     <Compile Include="MetaModel\RNGCasinoUpdateMemberComMetaModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModel\RNGCasinoResultViewModel.cs" />
-    <Compile Include="ViewModel\CasinoHandHistoryDetailViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fanex.Athena.Model.Core\Fanex.Athena.Model.Core.csproj">
