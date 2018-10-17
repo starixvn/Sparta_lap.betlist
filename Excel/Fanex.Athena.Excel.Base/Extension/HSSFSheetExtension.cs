@@ -5,16 +5,9 @@
 
 namespace Fanex.Athena.Excel.Base.Extension
 {
-    #region Using
-
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
 
-    #endregion Using
-
-    /// <summary>
-    /// HSSFSheetExtensions class, define some extension method for HSSFSheet such as Copy Row, Copy Cell, ..
-    /// </summary>
     public static class HSSFSheetExtension
     {
         public static void SetTextRowValue(
