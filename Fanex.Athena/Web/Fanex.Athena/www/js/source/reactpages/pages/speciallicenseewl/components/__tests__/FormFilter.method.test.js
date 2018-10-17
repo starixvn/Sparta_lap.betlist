@@ -175,6 +175,23 @@ describe('FormFilter ', () => {
             expect(Service.sort).toHaveBeenCalledWith(gridData.Data, params.SortBy, params.SortOrder);
         })
 
+        it('action return promise - export method of Excel class should be called', () => {
+            const fakeResponse = { data: { Data: [1, 2] } };
+            const promise = Promise.resolve(fakeResponse);
+            Report.fetchGridData = jest.fn(() => promise);
+
+            const props = { toggleLoader: jest.fn() };
+            
+            const formFilter = new FormFilter(props);
+            formFilter._getParams = jest.fn(() => { return { Id: 1 }; });
+            formFilter.exportExcel({ preventDefault: jest.fn() });
+
+            Promise.resolve().then(() => {
+                expect(exportFnMock.mock.calls.length).toBe(1);
+                expect(props.toggleLoader).toHaveBeenCalledWith(false);
+            })
+        })
+
         it('data is not empty - call export function', () => {
             const props = { toggleLoader: jest.fn() };
             const gridData = { Data: [{ Id: 1 }] };

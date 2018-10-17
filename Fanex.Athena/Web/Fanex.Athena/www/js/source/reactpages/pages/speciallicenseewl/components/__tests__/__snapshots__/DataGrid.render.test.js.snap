@@ -371,10 +371,10 @@ exports[`DataGrid   gridData length is greater than 0 - expand licensee wl colum
                 30.00
               </td>
               <td
-                className="right-align "
-                title="10.00"
+                className="right-align negative"
+                title="-10.00"
               >
-                10.00
+                -10.00
               </td>
             </tr>
             <tr>
@@ -428,9 +428,9 @@ exports[`DataGrid   gridData length is greater than 0 - expand licensee wl colum
               </td>
               <td
                 className="right-align "
-                title="10.00"
+                title="20.00"
               >
-                10.00
+                20.00
               </td>
             </tr>
           </tbody>
@@ -1044,10 +1044,10 @@ exports[`DataGrid   gridData length is greater than 0 - expand turnover columns 
                 -5.00
               </td>
               <td
-                className="right-align "
-                title="10.00"
+                className="right-align negative"
+                title="-10.00"
               >
-                10.00
+                -10.00
               </td>
             </tr>
             <tr>
@@ -1101,9 +1101,9 @@ exports[`DataGrid   gridData length is greater than 0 - expand turnover columns 
               </td>
               <td
                 className="right-align "
-                title="10.00"
+                title="20.00"
               >
-                10.00
+                20.00
               </td>
             </tr>
           </tbody>
@@ -1629,10 +1629,10 @@ exports[`DataGrid   gridData length is greater than 0 - have 1 product only - re
                 -5.00
               </td>
               <td
-                className="right-align "
-                title="10.00"
+                className="right-align negative"
+                title="-10.00"
               >
-                10.00
+                -10.00
               </td>
             </tr>
             <tr>
@@ -1674,9 +1674,9 @@ exports[`DataGrid   gridData length is greater than 0 - have 1 product only - re
               </td>
               <td
                 className="right-align "
-                title="10.00"
+                title="20.00"
               >
-                10.00
+                20.00
               </td>
             </tr>
           </tbody>
@@ -2170,10 +2170,10 @@ exports[`DataGrid   gridData length is greater than 0 - have more than 1 product
                 -5.00
               </td>
               <td
-                className="right-align "
-                title="10.00"
+                className="right-align negative"
+                title="-10.00"
               >
-                10.00
+                -10.00
               </td>
             </tr>
             <tr>
@@ -2215,9 +2215,9 @@ exports[`DataGrid   gridData length is greater than 0 - have more than 1 product
               </td>
               <td
                 className="right-align "
-                title="10.00"
+                title="20.00"
               >
-                10.00
+                20.00
               </td>
             </tr>
           </tbody>
