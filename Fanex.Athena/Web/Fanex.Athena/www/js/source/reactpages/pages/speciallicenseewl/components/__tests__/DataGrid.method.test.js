@@ -1,0 +1,170 @@
+﻿import React from 'react';
+import renderer from 'react-test-renderer';
+import { DataGrid } from '../DataGrid';
+import { Service } from '../../lib/service';
+import Report from '@jsroot/lib/report';
+import { defaultGridProps } from './TestData';
+
+describe('DataGrid ', () => {
+    beforeEach(() => {
+        Service.sort = jest.fn();
+        Service.showErrorMsg = jest.fn();
+        Service.setReportTitle = jest.fn();
+    })
+
+    describe('componentDidUpdate', () => {
+        it('previous timestamp is difference from the current one - call _getGridData', () => {
+            const props = { params: { Timestamp: 1 } };
+            const prevProps = { params: { Timestamp: 2 } };
+
+            const dataGrid = new DataGrid(props);
+            dataGrid._getGridData = jest.fn();
+            dataGrid.componentDidUpdate(prevProps);
+            
+            expect(dataGrid._getGridData).toHaveBeenCalled();
+        })
+
+        it('previous timestamp is the same with the current one - do not call _getGridData', () => {
+            const props = { params: { Timestamp: 1 } };
+            const prevProps = { params: { Timestamp: 1 } };
+
+            const dataGrid = new DataGrid(props);
+            dataGrid._getGridData = jest.fn();
+            dataGrid.componentDidUpdate(prevProps);
+            
+            expect(dataGrid._getGridData).not.toHaveBeenCalled();
+        })
+    })
+
+    describe('_getGridData', () => {
+        it('fetch data successfully - response data has one row - do not call sort function', () => {
+            const props = { params: { SortBy: 'Id', SortOrder: 'asc' }, xsrfToken: '123', ...defaultGridProps };
+            const fakeResponse = { data: { Data: [{ Id: 1 }]} };
+            const promise = Promise.resolve(fakeResponse);
+            Report.fetchGridData = jest.fn(() => promise);
+
+            const dataGrid = new DataGrid(props);
+            dataGrid.setState = jest.fn();
+
+            dataGrid._getGridData();
+            
+            Promise.resolve().then(()=>{
+                expect(Service.sort).not.toHaveBeenCalled();
+                expect(Service.setReportTitle).toHaveBeenCalled();
+            });
+        })
+
+        it('fetch data successfully - response data has one row - call sort function', () => {
+            const props = { params: { SortBy: 'Id', SortOrder: 'asc' }, xsrfToken: '123', ...defaultGridProps };
+            const fakeResponse = { data: { Data: [{ Id: 1 }, { Id: 2 }]} };
+            const promise = Promise.resolve(fakeResponse);
+            Report.fetchGridData = jest.fn(() => promise);
+
+            const dataGrid = new DataGrid(props);
+            dataGrid.setState = jest.fn();
+
+            dataGrid._getGridData();
+            
+            Promise.resolve().then(()=>{
+                expect(Service.sort).toHaveBeenCalled();
+                expect(Service.setReportTitle).toHaveBeenCalled();
+            });
+        })
+
+        it('fetch data failed - show error', () => {
+            const props = { params: { SortBy: 'Id', SortOrder: 'asc' }, xsrfToken: '123', ...defaultGridProps };
+            const promise = Promise.reject('error');
+            Report.fetchGridData = jest.fn(() => promise);
+
+            const dataGrid = new DataGrid(props);
+            dataGrid.setState = jest.fn();
+
+            dataGrid._getGridData();
+            
+            Promise.reject().catch(()=>{
+                expect(Service.showErrorMsg).toHaveBeenCalled();
+            });
+        })
+    })
+
+    describe('_onExpandTurnOverColumn', () => {
+        it('when call - update state', () => {
+            const dataGrid = new DataGrid(defaultGridProps);
+            dataGrid.setState = jest.fn();
+            dataGrid._onExpandTurnOverColumn({ stopPropagation: jest.fn })
+            
+            expect(dataGrid.setState).toHaveBeenCalled();
+        })
+    })
+
+    describe('_onExpandLicenseeColumn', () => {
+        it('when call - update state', () => {
+            const dataGrid = new DataGrid(defaultGridProps);
+            dataGrid.setState = jest.fn();
+            dataGrid._onExpandLicenseeColumn({ stopPropagation: jest.fn })
+            
+            expect(dataGrid.setState).toHaveBeenCalled();
+        })
+    })
+
+    describe('_sort', () => {
+        it('param.SortBy is null - update sort infor for param', () => {
+            const props = { params: {}, ...defaultGridProps };
+            const sortBy = 'col1';
+
+            const dataGrid = new DataGrid(props);
+            dataGrid._sort(sortBy);
+            
+            expect(props.setParams).toHaveBeenCalledWith({ SortBy: sortBy, SortOrder: 'asc' });
+        })
+
+        it('sort with desc order - update SortOrder infor for param', () => {
+            const sortBy = 'col1';
+            const props = { params: { SortBy: sortBy, SortOrder: 'asc' }, ...defaultGridProps };
+
+            const dataGrid = new DataGrid(props);
+            dataGrid._sort(sortBy);
+            
+            expect(props.setParams).toHaveBeenCalledWith({ SortBy: sortBy, SortOrder: 'desc' });
+        })
+
+        it('sort with asc order - update SortOrder infor for param', () => {
+            const sortBy = 'col1';
+            const props = { params: { SortBy: sortBy, SortOrder: 'desc' }, ...defaultGridProps };
+
+            const dataGrid = new DataGrid(props);
+            dataGrid._sort(sortBy);
+            
+            expect(props.setParams).toHaveBeenCalledWith({ SortBy: sortBy, SortOrder: 'asc' });
+        })
+
+        it('no data - do not call sort function', () => {
+            const sortBy = 'col1';
+            const props = { params: { SortBy: sortBy, SortOrder: 'desc' }, ...defaultGridProps };
+
+            const dataGrid = new DataGrid(props);
+            dataGrid._sort(sortBy);
+            
+            expect(Service.sort).not.toHaveBeenCalled();
+        })
+
+        it('griddata has more than 1 row - call sort function', () => {
+            const sortBy = 'col1';
+            const props = { params: { SortBy: sortBy, SortOrder: 'desc' }, ...defaultGridProps };
+
+            const dataGrid = new DataGrid(props);
+            dataGrid.setState = jest.fn((data) => { this.state.gridData = data });
+            
+            const fakeResponse = { data: { Data: [{ Id: 1 }, { Id: 2 } ]} };
+            const promise = Promise.resolve(fakeResponse);
+            Report.fetchGridData = jest.fn(() => promise);
+
+            dataGrid._getGridData();
+            
+            Promise.resolve().then(()=>{
+                dataGrid._sort(sortBy);
+                expect(Service.sort).toHaveBeenCalled();
+            }).catch(()=>{});
+        })
+    })
+})
