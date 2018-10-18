@@ -52,6 +52,7 @@
             var beteffectiveCol = "beteffective" + columnSuffix;
             var stakeCol = "stake" + columnSuffix;
             var actualStakeCol = "actual_stake" + columnSuffix;
+            var originalStakeCol = "originalstake" + columnSuffix;
 
             var dataList = new Dictionary<string, object>();
             dataList.Add("username", ticket.UserName);
@@ -103,6 +104,13 @@
             dataList.Add("transdesc", ticket.TransDesc);
             dataList.Add("currency", ticket.Currency);
 
+            dataList.Add("betdaqid", ticket.BetdaqId);
+            dataList.Add("extrainfo", ticket.ExtraInfo);
+            dataList.Add(originalStakeCol, ticket.OriginalStake);
+            dataList.Add("originalbettype", ticket.OriginalBetType);
+            dataList.Add("oddsspread", ticket.OddsSpread);
+            dataList.Add("SettlementStatus", ticket.SettlementStatus);
+
             return dataList;
         }
 
@@ -120,6 +128,8 @@
             }
         }
 
+        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
         private LrfTicket GetFakeTicket()
         {
             return new LrfTicket
@@ -166,7 +176,13 @@
                 Handicap1 = 200.11m,
                 Handicap2 = 200.12m,
                 TransDesc = "TransDescTest",
-                Currency = CurrencyName
+                Currency = CurrencyName,
+                BetdaqId = 4534,
+                ExtraInfo = "sdfsdf",
+                OriginalStake = 3434.23m,
+                OriginalBetType = 234,
+                OddsSpread = 934.23m,
+                SettlementStatus = 23
             };
         }
     }

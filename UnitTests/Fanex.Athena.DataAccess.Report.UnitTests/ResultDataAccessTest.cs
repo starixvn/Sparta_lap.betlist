@@ -296,6 +296,7 @@
                     MatchId = 2,
                     EventStatus = "win",
                     EventDate = new DateTime(2017, 3, 16),
+                    IsPending = true,
                     KickOffTime = new DateTime(2017, 1, 1),
                     MatchCode = "test",
                     Seg = new List<int> { 3, 3 },
