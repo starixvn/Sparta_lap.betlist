@@ -21,5 +21,7 @@
         object GetValue(string column, object defaultValue = null);
 
         bool Read();
+
+        byte GetByte(string column, byte defaultValue = 0);
     }
 }

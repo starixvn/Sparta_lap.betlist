@@ -22,7 +22,6 @@
             MatchId = 222,
             EventStatus = "win",
             EventDate = new DateTime(2017, 3, 16),
-            IsPending = false,
             KickOffTime = new DateTime(2017, 1, 1),
             MatchCode = "test",
             Seg = new List<int> { 3, 3 },
@@ -59,7 +58,6 @@
             Reader.GetName(0).Returns("isrefund");
 
             MapReaderData(_readerDataMapping);
-            _dataItem.IsPending = true;
             var expectedResult = new List<NumberGame> { _dataItem };
 
             // Action
@@ -77,7 +75,6 @@
 
             Reader.Read().Returns(true, true, false);
             MapReaderData(_readerDataMapping);
-            _dataItem.IsPending = false;
             var expectedResult = new List<NumberGame> { _dataItem };
 
             // Action
