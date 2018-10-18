@@ -167,7 +167,6 @@
     <Compile Include="Users\OneAuthenticationServiceTest_SignIn.cs" />
     <Compile Include="Users\SessionServiceTest.CreateNewSession.cs" />
     <Compile Include="Users\SessionServiceTest.cs" />
-    <Compile Include="Users\SSOServiceTest.cs" />
     <Compile Include="Users\AuthServiceTest.cs" />
     <Compile Include="Users\SubsidiaryServiceTest.cs" />
     <Compile Include="Users\UserServiceTest.cs" />

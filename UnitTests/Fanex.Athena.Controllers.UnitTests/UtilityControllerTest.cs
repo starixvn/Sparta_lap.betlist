@@ -211,31 +211,6 @@
             }
         }
 
-        [TestCase(null, "InvalidRequestMsg")]
-        [TestCase("Invalid", "InvalidRequestMsg")]
-        [TestCase("1", "SSOLinkIncorrectMsg")]
-        [TestCase("2", "DisableSSOMsg")]
-        [TestCase("100", "SSOLinkExpiredMsg")]
-        [TestCase("101", "WrongUserNamePassword")]
-        [TestCase("102", "UserNotActive")]
-        [TestCase("103", "UserTooManyLicensees")]
-        [TestCase("104", "UserNoLicensee")]
-        [TestCase("999", "InvalidRequestMsg")]
-        public void SSODenyAccess_WhenCall_ReturnCorrectMessageAccordingtoCode(string code, string returnedMessageResourceKey)
-        {
-            using (var controller = CreateController())
-            {
-                // Arrange
-                controller.ControllerContext.HttpContext.Request.QueryString.Returns(HttpUtility.ParseQueryString(code == null ? string.Empty : $"code={code}"));
-
-                // Action
-                var result = controller.SSODenyAccess() as ViewResult;
-
-                // Assert
-                Assert.That(result.ViewBag.Message, Is.EqualTo(ViewResources.ResourceManager.GetString(returnedMessageResourceKey)));
-            }
-        }
-
         [Test]
         public void LocationRestriction_IsInternalUrl_RedirectToSignInPage()
         {

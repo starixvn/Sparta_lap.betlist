@@ -79,10 +79,6 @@
     <Reference Include="ONEbook.Security">
       <HintPath>..\..\DLLs\ONEbook.Security\ONEbook.Security.dll</HintPath>
     </Reference>
-    <Reference Include="RSACryptoPad, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.RSACryptoPad.1.0\lib\net40\RSACryptoPad.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="SPSRemoting, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\SPSRemoting.1.0.0\lib\net40\SPSRemoting.dll</HintPath>
       <Private>True</Private>
@@ -145,9 +141,7 @@
     <Compile Include="Common\Interfaces\IMatchService.cs" />
     <Compile Include="Common\Interfaces\IProductService.cs" />
     <Compile Include="Configuration\Interfaces\IMoveBetService.cs" />
-    <Compile Include="Users\Interfaces\ISSOService.cs" />
     <Compile Include="Users\OneAuthenticationService.cs" />
-    <Compile Include="Users\SSOService.cs" />
     <Compile Include="Users\Interfaces\IAuthorizationService.cs" />
     <Compile Include="Users\Interfaces\ISessionService.cs" />
     <Compile Include="Users\Interfaces\IUserService.cs" />
@@ -159,9 +153,7 @@
     <Compile Include="Utility\Interfaces\ICoreLogger.cs" />
     <Compile Include="Utility\Interfaces\IClientViewHelper.cs" />
     <Compile Include="Utility\Interfaces\IWebClientService.cs" />
-    <Compile Include="Utility\Interfaces\IRSAEncryptor.cs" />
     <Compile Include="Utility\KeanOceanBusinessHelper.cs" />
-    <Compile Include="Utility\RSAEncryptor.cs" />
     <Compile Include="Utility\WebClientService.cs" />
   </ItemGroup>
   <ItemGroup>

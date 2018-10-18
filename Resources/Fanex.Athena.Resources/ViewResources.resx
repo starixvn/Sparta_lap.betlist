@@ -394,9 +394,6 @@
   <data name="Deposit" xml:space="preserve">
     <value>Deposit</value>
   </data>
-  <data name="DisableSSOMsg" xml:space="preserve">
-    <value>Single Sign On to LRF is disabled.</value>
-  </data>
   <data name="Dontshowagain" xml:space="preserve">
     <value>Don't show again</value>
   </data>
@@ -594,9 +591,6 @@
   </data>
   <data name="InvalidCaptchaMsg" xml:space="preserve">
     <value>You inputed an invalid code.</value>
-  </data>
-  <data name="SSOLinkIncorrectMsg" xml:space="preserve">
-    <value>Single Sign On link is not correct. Please try again.</value>
   </data>
   <data name="InvalidRequestMsg" xml:space="preserve">
     <value>Request is not valid</value>
@@ -2331,10 +2325,6 @@
   </data>
   <data name="UserNotExist" xml:space="preserve">
     <value>Not found user</value>
-  </data>
-  <data name="SSOLinkExpiredMsg" xml:space="preserve">
-    <value>Single Sign On link is expired. Please log in again.</value>
-    <comment>#27258</comment>
   </data>
   <data name="UserNoLicensee" xml:space="preserve">
     <value>This account is not assigned to any licensee.</value>

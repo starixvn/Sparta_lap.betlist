@@ -2194,15 +2194,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Single Sign On to LRF is disabled..
-        /// </summary>
-        public static string DisableSSOMsg {
-            get {
-                return ResourceManager.GetString("DisableSSOMsg", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Don&apos;t show again.
         /// </summary>
         public static string Dontshowagain {
@@ -6960,24 +6951,6 @@ namespace Fanex.Athena.Resources {
         public static string Sportsbook {
             get {
                 return ResourceManager.GetString("Sportsbook", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Single Sign On link is expired. Please log in again..
-        /// </summary>
-        public static string SSOLinkExpiredMsg {
-            get {
-                return ResourceManager.GetString("SSOLinkExpiredMsg", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Single Sign On link is not correct. Please try again..
-        /// </summary>
-        public static string SSOLinkIncorrectMsg {
-            get {
-                return ResourceManager.GetString("SSOLinkIncorrectMsg", resourceCulture);
             }
         }
         

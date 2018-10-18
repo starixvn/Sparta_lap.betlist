@@ -2099,12 +2099,6 @@
     <None Include="img\Slot\S0007\old image backup\20x20\icon_20x20_doubleWild.jpg.exclude" />
     <None Include="img\Slot\S0007\old image backup\40x40\icon_40x40_doubleWild.jpg.exclude" />
     <None Include="img\Slot\S0026\Thumbs.db" />
-    <Compile Include="sso.aspx.cs">
-      <DependentUpon>sso.aspx</DependentUpon>
-      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
-      <ExcludeFromSourceAnalysis>true</ExcludeFromSourceAnalysis>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Content Include="Gruntfile.js" />
     <Content Include="img\Slot8\S8003\01.jpg" />
     <Content Include="img\Slot8\S8003\02.jpg" />
@@ -2304,7 +2298,6 @@
     <Content Include="Views\Desktop\Utility\AccessDenied.cshtml" />
     <Content Include="Views\Desktop\Utility\Error.cshtml" />
     <Content Include="Views\Desktop\Utility\LocationRestriction.cshtml" />
-    <Content Include="Views\Desktop\Utility\SSODenyAccess.cshtml" />
     <Content Include="Views\Desktop\Utility\UnderMaintenance.cshtml" />
     <Content Include="SiteConfig\Web.AppSettings.BACKUPMNL.config">
       <SubType>Designer</SubType>
@@ -5558,9 +5551,6 @@
     <Content Include="Scripts\Plugin\Note\note.js" />
     <Content Include="Scripts\Plugin\Refresh\refreshcountdown.js" />
     <Content Include="Scripts\Report\report.js" />
-    <Content Include="sso.aspx">
-      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
-    </Content>
     <Content Include="under-maintenance.gif" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -5604,7 +5594,6 @@
     <Content Include="App_Data\Template\Reports\WinLossByBetType.xls" />
     <Content Include="App_Data\Template\Reports\WinLossByProducts.xls" />
     <Content Include="Content\Web.config" />
-    <Content Include="Integrate\RSAPrivateKey\12bet.snk" />
     <None Include="Properties\PublishProfiles\Profile1.pubxml" />
     <Content Include="Views\Desktop\Customer\CustomerDialog\RemoveFromGroup.cshtml" />
     <Content Include="Views\Desktop\Customer\CustomerDialog\LogInfo.cshtml" />

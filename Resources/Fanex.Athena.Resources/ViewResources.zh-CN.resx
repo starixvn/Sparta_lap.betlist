@@ -545,9 +545,6 @@
   <data name="DH" xml:space="preserve">
     <value>和主</value>
   </data>
-  <data name="DisableSSOMsg" xml:space="preserve">
-    <value>SSO功能被禁用</value>
-  </data>
   <data name="Dontshowagain" xml:space="preserve">
     <value>不再显示</value>
   </data>
