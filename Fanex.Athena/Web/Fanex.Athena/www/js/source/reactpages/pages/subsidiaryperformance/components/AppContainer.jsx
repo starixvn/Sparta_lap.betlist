@@ -8,7 +8,7 @@ import Loader from '../../../components/Loader'
 import AppLayout from '../../../layouts/AppLayout'
 import ReportTitle from '../../../components/ReportTitle'
 import { Service, BreadcrumbText } from '../lib/service'
-import Breadcrumb from '../../../components/breadcrumb/Breadcrumb'
+import { Breadcrumb } from '@9softstudio/react-breadcrumb'
 import { ReportLevel } from '../../../constants/report'
 
 export class AppContainer extends Component {

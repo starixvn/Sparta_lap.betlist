@@ -859,8 +859,6 @@
     <Content Include="www\js\source\reactpages\actions\__tests__\loaderAction.test.js" />
     <Content Include="www\js\source\reactpages\actions\__tests__\productAction.test.js" />
     <Content Include="www\js\source\reactpages\actions\__tests__\userGuideAction.test.js" />
-    <Content Include="www\js\source\reactpages\components\breadcrumb\__tests__\Breadcrumb.test.js" />
-    <Content Include="www\js\source\reactpages\components\breadcrumb\__tests__\BreadcrumbItem.test.js" />
     <Content Include="www\js\source\reactpages\components\date-range\Calendar.js" />
     <Content Include="www\js\source\reactpages\components\date-range\constants.js" />
     <Content Include="www\js\source\reactpages\components\date-range\DateRange.js" />
@@ -901,8 +899,6 @@
     <Content Include="Views\Desktop\Customer\BetSetting\Exchange.cshtml" />
     <Content Include="Views\Desktop\Report\ExchangeWinLoss\Main.cshtml" />
     <Content Include="www\css\source\reactpages\pages\exchangewl\index.scss" />
-    <Content Include="www\js\source\reactpages\components\breadcrumb\Breadcrumb.jsx" />
-    <Content Include="www\js\source\reactpages\components\breadcrumb\BreadcrumbItem.jsx" />
     <Content Include="www\css\source\reactpages\components\_breadcrumb.scss" />
     <Content Include="www\js\build\dev\reactpages\exchangewl\exchangewl.chunk.js.map" />
     <Content Include="www\css\build\dev\reactpages\exchangewl\index.chunk.js.map" />
