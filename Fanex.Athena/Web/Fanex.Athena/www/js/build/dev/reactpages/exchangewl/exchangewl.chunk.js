@@ -5752,9 +5752,8 @@ var DataGrid = exports.DataGrid = function (_Component) {
             _this.setState({ showBetList: false, betListData: null });
         };
 
-        _this.reportTitle = '';
-        _this.isAllowedCustomerComm = _this.props.isAllowedCustomerComm;
-        _this.licenseeId = _this.props.licenseeId;
+        _this.isAllowedCustomerComm = props.isAllowedCustomerComm;
+        _this.licenseeId = props.licenseeId;
 
         _this.levelGridData = [];
         _this.drillDownParams = [];
@@ -5773,9 +5772,6 @@ var DataGrid = exports.DataGrid = function (_Component) {
         value: function componentDidUpdate(prevProps, prevState) {
             if (this.props.params !== prevProps.params) {
                 this.drillDownParams[_report.ReportLevel.MAIN] = this.props.params;
-
-                var params = this.drillDownParams[this.props.gridData.level || 0];
-                this.reportTitle = _service.Service.getReportTitle({ fromDate: params.FromDate, toDate: params.ToDate }, params.BaseCurrency ? params.BaseCurrency : params.CurrencyName, params.CurrencyId === 0);
             }
 
             if (this.props.gridData !== prevProps.gridData) {
@@ -6184,13 +6180,12 @@ var DataGrid = exports.DataGrid = function (_Component) {
         }
     }, {
         key: '_renderNodata',
-        value: function _renderNodata() {
-
+        value: function _renderNodata(title) {
             return _react2.default.createElement(
                 'div',
                 { className: 'result-content' },
                 this._renderBreadcrumb(),
-                _react2.default.createElement(_ReportTitle2.default, { content: this.reportTitle }),
+                _react2.default.createElement(_ReportTitle2.default, { content: title }),
                 _react2.default.createElement(_NoDataTitle2.default, null)
             );
         }
@@ -6215,13 +6210,15 @@ var DataGrid = exports.DataGrid = function (_Component) {
                 return null;
             }
 
+            var reportLevel = gridData.level;
+            var params = this.drillDownParams[reportLevel];
+            var title = _service.Service.getReportTitle({ fromDate: params.FromDate, toDate: params.ToDate }, params.BaseCurrency ? params.BaseCurrency : params.CurrencyName, reportLevel === _report.ReportLevel.MAIN ? params.CurrencyId === 0 : false);
+
             if (!gridData.data.DataList.length) {
-                return this._renderNodata();
+                return this._renderNodata(title);
             }
 
-            var reportLevel = gridData.level;
             var reportBy = this.props.params.ReportBy;
-
             var _state = this.state,
                 showBetList = _state.showBetList,
                 betListData = _state.betListData;
@@ -6231,7 +6228,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
                 'div',
                 { className: 'result-content' },
                 this._renderBreadcrumb(),
-                _react2.default.createElement(_ReportTitle2.default, { content: this.reportTitle }),
+                _react2.default.createElement(_ReportTitle2.default, { content: title }),
                 _react2.default.createElement(_fixedTableHeader.Table, {
                     minWidth: 1000,
                     autoWidth: true,
@@ -6437,7 +6434,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                 };
             }
 
-            var title = _service.Service.getReportTitle({ fromDate: excelData.FromDate, toDate: excelData.ToDate }, excelData.BaseCurrency ? excelData.BaseCurrency : excelData.CurrencyName, excelData.CurrencyId === 0);
+            var title = _service.Service.getReportTitle({ fromDate: excelData.FromDate, toDate: excelData.ToDate }, excelData.BaseCurrency ? excelData.BaseCurrency : excelData.CurrencyName, level === _report.ReportLevel.MAIN ? excelData.CurrencyId === 0 : false);
             var excel = new _reportExcel2.default(gridData, title, level, isAllowedCustomerComm, excelData.ReportBy);
             excel.export(function () {
                 _this2.props.toggleLoader(false);
