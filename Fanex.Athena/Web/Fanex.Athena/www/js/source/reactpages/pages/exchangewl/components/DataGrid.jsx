@@ -23,9 +23,8 @@ export class DataGrid extends Component {
     constructor(props) {
         super(props);
 
-        this.reportTitle = '';
-        this.isAllowedCustomerComm = this.props.isAllowedCustomerComm;
-        this.licenseeId = this.props.licenseeId;
+        this.isAllowedCustomerComm = props.isAllowedCustomerComm;
+        this.licenseeId = props.licenseeId;
 
         this.levelGridData = [];
         this.drillDownParams = [];
@@ -41,9 +40,6 @@ export class DataGrid extends Component {
     componentDidUpdate(prevProps, prevState) {
         if (this.props.params !== prevProps.params) {
             this.drillDownParams[ReportLevel.MAIN] = this.props.params;
-        
-            const params = this.drillDownParams[this.props.gridData.level || 0];
-            this.reportTitle = Service.getReportTitle({ fromDate: params.FromDate, toDate: params.ToDate }, params.BaseCurrency ? params.BaseCurrency : params.CurrencyName, params.CurrencyId === 0);
         }
 
         if (this.props.gridData !== prevProps.gridData) {
@@ -304,12 +300,11 @@ export class DataGrid extends Component {
         return <Breadcrumb items={items} value={this.props.gridData.level} onChange={(item) => this._drillDownData(item.value)} />
     }
 
-    _renderNodata() {
-
+    _renderNodata(title) {
         return (
             <div className="result-content">
                 {this._renderBreadcrumb()}
-                <ReportTitle content={this.reportTitle} />
+                <ReportTitle content={title} />
                 <NoDataTitle />
             </div>
         )
@@ -364,20 +359,25 @@ export class DataGrid extends Component {
             return null;
         }
 
+        const reportLevel = gridData.level;
+        const params = this.drillDownParams[reportLevel];
+        const title = Service.getReportTitle(
+            { fromDate: params.FromDate, toDate: params.ToDate }, 
+            params.BaseCurrency ? params.BaseCurrency : params.CurrencyName, 
+            reportLevel === ReportLevel.MAIN ? params.CurrencyId === 0 : false);
+
         if (!gridData.data.DataList.length) {
-            return this._renderNodata();
+            return this._renderNodata(title);
         }
 
-        const reportLevel = gridData.level;
         const reportBy = this.props.params.ReportBy;
-
         const { showBetList, betListData } = this.state;
 
         return (
             <div className='result-content'>
                 {this._renderBreadcrumb()}
 
-                <ReportTitle content={this.reportTitle} />
+                <ReportTitle content={title} />
 
                 <Table
                     minWidth={1000}
