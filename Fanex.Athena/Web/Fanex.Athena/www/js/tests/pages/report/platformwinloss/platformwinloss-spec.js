@@ -214,7 +214,7 @@
                 });
 
                 it("PlatformWinLoss.drillDown(level, data) should be called if .drilldown is clicked with correct param", function () {
-                    setFixtures('<a class="drilldown" href="javascript:;" data-drill-down="{PlatformType:1,ProductCode:SB}">Sportsbook</a>');
+                    setFixtures('<div class="main-content"><a class="drilldown" href="javascript:;" data-drill-down="{PlatformType:1,ProductCode:SB}">Sportsbook</a></div>');
                     spyOn(PlatformWinLoss, "drillDown");
 
                     PlatformWinLoss.initEvent();
@@ -272,7 +272,7 @@
                 });
 
                 it("PlatformWinLoss.openBetlistPopUp(onlevel, dataDrillDown) should be called if .bet-list-link is clicked.", function () {
-                    setFixtures('<div class="bet-list-link"></div>');
+                    setFixtures('<div class="main-content"><div class="bet-list-link"></div></div>');
                     spyOn(PlatformWinLoss, "openBetlistPopUp");
 
                     PlatformWinLoss.initEvent();

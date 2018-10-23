@@ -2,20 +2,15 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.IO;
     using System.Linq;
-    using System.Net;
-    using System.Text;
     using System.Web.Mvc;
     using Base.UnitTests;
     using DataAccess.Core.Configuration.Interfaces;
     using Model.Core.DTO.Common;
     using Model.Core.DTO.Configuration;
-    using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
     using Report.Result;
-    using Resources;
     using Result.Core.Base;
     using Result.Core.MicroGaming;
     using Result.Core.MicroGaming.DTO;
@@ -60,53 +55,6 @@
             _microGamingParserService = Substitute.For<IParserService>();
             _resultService = Substitute.For<IResultService>();
             _rngCasinoSingleWalletService = Substitute.For<IRNGCasinoSingleWalletService>();
-        }
-
-        [Test]
-        public void ResultExcel_InvalidModelState_ReturnBadRequestResponse()
-        {
-            using (var controller = CreateController())
-            {
-                // Arrange
-                controller.ModelState.AddModelError("error", "hihi");
-                var response = controller.HttpContext.Response;
-
-                // Action
-                controller.ResultExcel(new ResultMetalModel());
-
-                // Assert
-                Assert.Multiple(() =>
-                {
-                    Assert.That(response.StatusCode, Is.EqualTo((int)HttpStatusCode.BadRequest));
-                    Assert.That(response.StatusDescription, Is.EqualTo(ViewResources.InvalidParams));
-                });
-            }
-        }
-
-        [Test]
-        public void ResultExcel_ValidModelState_ReturnCorrectResponse()
-        {
-            // Arrange
-            const string ExpectedStreamData = "Hello everyone";
-            using (var controller = CreateController())
-            using (var excelStream = new MemoryStream(Encoding.UTF8.GetBytes(ExpectedStreamData)))
-            using (var outputStream = new MemoryStream())
-            {
-                var response = controller.HttpContext.Response;
-                response.OutputStream.Returns(outputStream);
-                _resultService.ExcelParser(new List<Sportsbook>(), null).ReturnsForAnyArgs(excelStream);
-
-                // Action
-                controller.ResultExcel(new ResultMetalModel());
-
-                // Assert
-                Assert.Multiple(() =>
-                {
-                    response.Received(1).AddHeader("Content-disposition", "attachment; filename=LRF-Result.xls");
-                    Assert.That(response.ContentType, Is.EqualTo("application/vnd.ms-excel"));
-                    Assert.That(Encoding.UTF8.GetString(((MemoryStream)response.OutputStream).ToArray()), Is.EqualTo(ExpectedStreamData));
-                });
-            }
         }
 
         [Test]

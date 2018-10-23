@@ -1,6 +1,6 @@
-﻿define(['jquery', 'common/site', 'common/querystring', 'components/refreshcountdown', 'lib/jquery.cookie'], function ($, Site, QueryString, RefreshCountDown) {
+﻿define(['jquery', 'common/site', 'common/querystring', 'components/refreshcountdown', 'lib/jquery.cookie'],
+    function ($, Site, QueryString, RefreshCountDown) {
     describe("RefreshCountDown", function () {
-        var _cookieName = "RefeshCountDowntest";
         beforeEach(function () {
             setFixtures('<div id="count-down-of" name="test" data-default-value="100"></div>');
         });

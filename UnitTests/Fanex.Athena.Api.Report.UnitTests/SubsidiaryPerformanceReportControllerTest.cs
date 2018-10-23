@@ -9,10 +9,9 @@
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using UnitTest.Common.Helpers;
 
     [TestFixture]
-    public class SubsidiaryPerformanceReportControllerTest : BaseApiControllerHelperTest
+    public partial class SubsidiaryPerformanceReportControllerTest : BaseApiControllerHelperTest
     {
         private ISubsidiaryService _subsidiaryService;
 

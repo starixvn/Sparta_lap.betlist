@@ -3169,9 +3169,9 @@ var _FormFilter = __webpack_require__(/*! ./FormFilter */ "./www/js/source/react
 
 var _FormFilter2 = _interopRequireDefault(_FormFilter);
 
-var _datagrid = __webpack_require__(/*! ./datagrid */ "./www/js/source/reactpages/pages/speciallicenseewl/components/datagrid.jsx");
+var _DataGrid = __webpack_require__(/*! ./DataGrid */ "./www/js/source/reactpages/pages/speciallicenseewl/components/DataGrid.jsx");
 
-var _datagrid2 = _interopRequireDefault(_datagrid);
+var _DataGrid2 = _interopRequireDefault(_DataGrid);
 
 var _Loader = __webpack_require__(/*! ../../../components/Loader */ "./www/js/source/reactpages/components/Loader.jsx");
 
@@ -3214,7 +3214,7 @@ var AppContainer = exports.AppContainer = function (_Component) {
           'div',
           { className: 'result-content' },
           this.props.reportTitle && _react2.default.createElement(_ReportTitle2.default, { content: this.props.reportTitle }),
-          _react2.default.createElement(_datagrid2.default, null)
+          _react2.default.createElement(_DataGrid2.default, null)
         )
       );
     }
@@ -3235,379 +3235,9 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(
 
 /***/ }),
 
-/***/ "./www/js/source/reactpages/pages/speciallicenseewl/components/FormFilter.jsx":
-/*!************************************************************************************!*\
-  !*** ./www/js/source/reactpages/pages/speciallicenseewl/components/FormFilter.jsx ***!
-  \************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.FormFilter = undefined;
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-
-var _index = __webpack_require__(/*! ../actions/index.js */ "./www/js/source/reactpages/pages/speciallicenseewl/actions/index.js");
-
-var _redux = __webpack_require__(/*! redux */ "./node_modules/redux/es/index.js");
-
-var _reactSelect = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/react-select.es.js");
-
-var _reactSelect2 = _interopRequireDefault(_reactSelect);
-
-var _reactMultiselect = __webpack_require__(/*! @9softstudio/react-multiselect */ "./node_modules/@9softstudio/react-multiselect/dist/index.js");
-
-var _reactMultiselect2 = _interopRequireDefault(_reactMultiselect);
-
-var _langHelper = __webpack_require__(/*! @jsroot/lib/langHelper */ "./www/js/source/reactpages/lib/langHelper.js");
-
-var _langHelper2 = _interopRequireDefault(_langHelper);
-
-var _site = __webpack_require__(/*! @jsroot/lib/site */ "./www/js/source/reactpages/lib/site.js");
-
-var _site2 = _interopRequireDefault(_site);
-
-var _report = __webpack_require__(/*! @jsroot/lib/report */ "./www/js/source/reactpages/lib/report.js");
-
-var _report2 = _interopRequireDefault(_report);
-
-var _service = __webpack_require__(/*! ../lib/service */ "./www/js/source/reactpages/pages/speciallicenseewl/lib/service.js");
-
-var _reportExcel = __webpack_require__(/*! ../lib/reportExcel */ "./www/js/source/reactpages/pages/speciallicenseewl/lib/reportExcel.js");
-
-var _reportExcel2 = _interopRequireDefault(_reportExcel);
-
-var _index2 = __webpack_require__(/*! @jsroot/components/month-picker/index */ "./www/js/source/reactpages/components/month-picker/index.js");
-
-var _index3 = _interopRequireDefault(_index2);
-
-var _AppData = __webpack_require__(/*! @jsroot/lib/AppData */ "./www/js/source/reactpages/lib/AppData.js");
-
-var _AppData2 = _interopRequireDefault(_AppData);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var FormFilter = exports.FormFilter = function (_Component) {
-    _inherits(FormFilter, _Component);
-
-    function FormFilter(props) {
-        _classCallCheck(this, FormFilter);
-
-        var _this = _possibleConstructorReturn(this, (FormFilter.__proto__ || Object.getPrototypeOf(FormFilter)).call(this, props));
-
-        _this.submit = function (event) {
-            event.preventDefault();
-            if (!_this.isValidModel) {
-                return;
-            }
-
-            var params = _this._getParams();
-            if (!params) {
-                return;
-            }
-
-            _this.props.setParams(params);
-        };
-
-        _this.exportExcel = function (event) {
-            event.preventDefault();
-
-            var params = _this._getParams();
-            if (!params) {
-                return;
-            }
-
-            _this.props.toggleLoader(true);
-
-            _report2.default.fetchGridData(_service.Url, { xsrfToken: _this.props.xsrfToken, data: params }).then(function (response) {
-                _this._doExportExcel(params, response.data);
-            }).catch(function (error) {
-                _service.Service.showErrorMsg();
-                _this.props.toggleLoader(false);
-            });
-        };
-
-        _this.productChangeHandler = function (currentItem, selectedItemsKey) {
-            _this.props.setSelectedProduct(selectedItemsKey);
-        };
-
-        _this._monthPickerHandle = function (dateRange) {
-            _this.props.setDateRange(dateRange);
-        };
-
-        return _this;
-    }
-
-    _createClass(FormFilter, [{
-        key: '_doExportExcel',
-        value: function _doExportExcel(params, gridData) {
-            var _this2 = this;
-
-            if (!gridData.Data || !gridData.Data.length) {
-                this.props.toggleLoader(false);
-                alert(_langHelper2.default.getSingleResource("NoInfo"));
-                return;
-            }
-
-            if (gridData.Data.length > 1) {
-                _service.Service.sort(gridData.Data, params.SortBy, params.SortOrder);
-            }
-
-            var title = _service.Service.getReportTitle(params.FromDate, params.ToDate, params.CurrencyId, params.CurrencyName, params.BaseCurrency);
-            var excel = new _reportExcel2.default(gridData, title, parseInt(params.ReportBy), params.ProductCodeList);
-            excel.export(function () {
-                _this2.props.toggleLoader(false);
-            });
-        }
-    }, {
-        key: '_getParams',
-        value: function _getParams() {
-            if (!this.props.xsrfToken) {
-                return null;
-            }
-
-            var _props$dateRange = this.props.dateRange,
-                fromDate = _props$dateRange.fromDate,
-                toDate = _props$dateRange.toDate;
-
-
-            return {
-                FromDate: _site2.default.convertDateToString(fromDate),
-                ToDate: _site2.default.convertDateToString(toDate),
-                CurrencyName: this.props.selectedCurrency.label,
-                CurrencyId: this.props.selectedCurrency.value,
-                BaseCurrency: this.props.selectedCurrency.baseCurrency,
-                ProductCodeList: this.props.selectedProduct.split(','),
-                ReportBy: this.props.selectedReportBy,
-                SortBy: this.props.params.SortBy,
-                SortOrder: this.props.params.SortOrder,
-                Timestamp: new Date().getTime()
-            };
-        }
-    }, {
-        key: '_renderReportByOption',
-        value: function _renderReportByOption() {
-            var _this3 = this;
-
-            var _props = this.props,
-                reportByList = _props.reportByList,
-                selectedReportBy = _props.selectedReportBy;
-
-
-            return _react2.default.createElement(
-                'div',
-                { className: 'form-group' },
-                _react2.default.createElement(
-                    'label',
-                    { className: 'label-text' },
-                    _langHelper2.default.getSingleResource('ReportBy')
-                ),
-                reportByList.map(function (option, i) {
-                    var key = 'ReportBy' + i;
-                    return _react2.default.createElement(
-                        'span',
-                        { key: 'Group' + key },
-                        _react2.default.createElement('input', { type: 'radio', value: option.value, checked: selectedReportBy === option.value, id: key,
-                            onChange: function onChange(event) {
-                                return _this3.props.setSelectedReportBy(event.target.value);
-                            } }),
-                        _react2.default.createElement(
-                            'label',
-                            { htmlFor: key },
-                            option.label
-                        )
-                    );
-                })
-            );
-        }
-    }, {
-        key: '_renderProductSelectList',
-        value: function _renderProductSelectList() {
-            var productOptions = _AppData2.default.productOptions;
-            return productOptions && productOptions.length && _react2.default.createElement(_reactMultiselect2.default, { id: 'ProductList',
-                dataSource: productOptions,
-                keyField: "Code",
-                valueField: "Name",
-                statusField: "Status",
-                optionAllLabel: _langHelper2.default.getSingleResource("All"),
-                noneSelectedLabel: _langHelper2.default.getSingleResource("SelectOptions"),
-                onChange: this.productChangeHandler });
-        }
-    }, {
-        key: '_renderCurrencySelectList',
-        value: function _renderCurrencySelectList() {
-            var _this4 = this;
-
-            var selectedCurrency = this.props.selectedCurrency;
-
-            var currencyList = _AppData2.default.currencyList;
-            return _react2.default.createElement(_reactSelect2.default, { instanceId: 'ddlCurrency',
-                value: selectedCurrency.value,
-                options: currencyList,
-                onChange: function onChange(item) {
-                    return _this4.props.setSelectedCurrency(item);
-                } });
-        }
-    }, {
-        key: '_renderMonthPicker',
-        value: function _renderMonthPicker() {
-            var dateRange = this.props.dateRange;
-
-            var dateConstraint = _AppData2.default.dateConstraint;
-
-            var monthOption = {
-                label: _langHelper2.default.getSingleResource('ViewDataInMonth')
-            };
-
-            var fromDateOption = {
-                label: _langHelper2.default.getSingleResource('From'),
-                id: 'FromDateInput'
-            };
-            var toDateOption = {
-                label: _langHelper2.default.getSingleResource('To'),
-                id: 'ToDateInput'
-            };
-
-            return _react2.default.createElement(_index3.default, {
-                minDate: dateConstraint.minDate,
-                maxDate: dateConstraint.maxDate,
-                fromDate: dateRange.fromDate,
-                toDate: dateRange.toDate,
-
-                onChange: this._monthPickerHandle,
-
-                monthOption: monthOption,
-                fromDateOption: fromDateOption,
-                toDateOption: toDateOption });
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            return _react2.default.createElement(
-                'div',
-                { className: 'page-filter' },
-                _react2.default.createElement(
-                    'div',
-                    { className: 'row' },
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'col-12 col-md-5 col-sm-12 col-lg-5 col-xl-5' },
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'form-group' },
-                            this._renderMonthPicker()
-                        )
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'col-12 col-md-3 col-sm-12 col-lg-2 col-xl-2' },
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'form-group' },
-                            _react2.default.createElement(
-                                'label',
-                                { className: 'label-text' },
-                                _langHelper2.default.getSingleResource("Currency")
-                            ),
-                            this._renderCurrencySelectList()
-                        )
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'col-12 col-md-4 col-sm-12 col-lg-3 col-xl-2' },
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'form-group' },
-                            _react2.default.createElement(
-                                'label',
-                                { className: 'label-text' },
-                                _langHelper2.default.getSingleResource("Product")
-                            ),
-                            this._renderProductSelectList()
-                        )
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'col-12 col-md-5 col-sm-12 col-lg-2 col-xl-3' },
-                        this._renderReportByOption()
-                    ),
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'col-12 col-md-3 col-sm-12 col-lg-2 col-xl-2' },
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'form-group' },
-                            _react2.default.createElement(
-                                'div',
-                                { className: 'button-group' },
-                                _react2.default.createElement(
-                                    'button',
-                                    { disabled: !this.isValidModel, type: 'button', className: 'btn btn-submit', onClick: this.submit },
-                                    _langHelper2.default.getSingleResource("Submit")
-                                )
-                            )
-                        )
-                    )
-                ),
-                _react2.default.createElement(
-                    'div',
-                    { className: 'row' },
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'caret-block' },
-                        _react2.default.createElement('i', { className: 'icon-excel right', onClick: this.exportExcel, title: _langHelper2.default.getSingleResource("ExportToExcel") })
-                    )
-                )
-            );
-        }
-    }, {
-        key: 'isValidModel',
-        get: function get() {
-            return this.props.selectedProduct !== "";
-        }
-    }]);
-
-    return FormFilter;
-}(_react.Component);
-
-function mapDispatchToProps(dispatch) {
-    return (0, _redux.bindActionCreators)(_index.ActionCreators, dispatch);
-}
-function mapStateToProps(state) {
-    var gridData = state.gridData,
-        reportTitle = state.reportTitle,
-        isLoading = state.isLoading,
-        rest = _objectWithoutProperties(state, ['gridData', 'reportTitle', 'isLoading']);
-
-    return Object.assign({}, rest);
-};
-
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(FormFilter);
-
-/***/ }),
-
-/***/ "./www/js/source/reactpages/pages/speciallicenseewl/components/datagrid.jsx":
+/***/ "./www/js/source/reactpages/pages/speciallicenseewl/components/DataGrid.jsx":
 /*!**********************************************************************************!*\
-  !*** ./www/js/source/reactpages/pages/speciallicenseewl/components/datagrid.jsx ***!
+  !*** ./www/js/source/reactpages/pages/speciallicenseewl/components/DataGrid.jsx ***!
   \**********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -4111,6 +3741,376 @@ function mapStateToProps(state) {
 }
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(DataGrid);
+
+/***/ }),
+
+/***/ "./www/js/source/reactpages/pages/speciallicenseewl/components/FormFilter.jsx":
+/*!************************************************************************************!*\
+  !*** ./www/js/source/reactpages/pages/speciallicenseewl/components/FormFilter.jsx ***!
+  \************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.FormFilter = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+var _index = __webpack_require__(/*! ../actions/index.js */ "./www/js/source/reactpages/pages/speciallicenseewl/actions/index.js");
+
+var _redux = __webpack_require__(/*! redux */ "./node_modules/redux/es/index.js");
+
+var _reactSelect = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/react-select.es.js");
+
+var _reactSelect2 = _interopRequireDefault(_reactSelect);
+
+var _reactMultiselect = __webpack_require__(/*! @9softstudio/react-multiselect */ "./node_modules/@9softstudio/react-multiselect/dist/index.js");
+
+var _reactMultiselect2 = _interopRequireDefault(_reactMultiselect);
+
+var _langHelper = __webpack_require__(/*! @jsroot/lib/langHelper */ "./www/js/source/reactpages/lib/langHelper.js");
+
+var _langHelper2 = _interopRequireDefault(_langHelper);
+
+var _site = __webpack_require__(/*! @jsroot/lib/site */ "./www/js/source/reactpages/lib/site.js");
+
+var _site2 = _interopRequireDefault(_site);
+
+var _report = __webpack_require__(/*! @jsroot/lib/report */ "./www/js/source/reactpages/lib/report.js");
+
+var _report2 = _interopRequireDefault(_report);
+
+var _service = __webpack_require__(/*! ../lib/service */ "./www/js/source/reactpages/pages/speciallicenseewl/lib/service.js");
+
+var _reportExcel = __webpack_require__(/*! ../lib/reportExcel */ "./www/js/source/reactpages/pages/speciallicenseewl/lib/reportExcel.js");
+
+var _reportExcel2 = _interopRequireDefault(_reportExcel);
+
+var _index2 = __webpack_require__(/*! @jsroot/components/month-picker/index */ "./www/js/source/reactpages/components/month-picker/index.js");
+
+var _index3 = _interopRequireDefault(_index2);
+
+var _AppData = __webpack_require__(/*! @jsroot/lib/AppData */ "./www/js/source/reactpages/lib/AppData.js");
+
+var _AppData2 = _interopRequireDefault(_AppData);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var FormFilter = exports.FormFilter = function (_Component) {
+    _inherits(FormFilter, _Component);
+
+    function FormFilter(props) {
+        _classCallCheck(this, FormFilter);
+
+        var _this = _possibleConstructorReturn(this, (FormFilter.__proto__ || Object.getPrototypeOf(FormFilter)).call(this, props));
+
+        _this.submit = function (event) {
+            event.preventDefault();
+            if (!_this.isValidModel) {
+                return;
+            }
+
+            var params = _this._getParams();
+            if (!params) {
+                return;
+            }
+
+            _this.props.setParams(params);
+        };
+
+        _this.exportExcel = function (event) {
+            event.preventDefault();
+
+            var params = _this._getParams();
+            if (!params) {
+                return;
+            }
+
+            _this.props.toggleLoader(true);
+
+            _report2.default.fetchGridData(_service.Url, { xsrfToken: _this.props.xsrfToken, data: params }).then(function (response) {
+                _this._doExportExcel(params, response.data);
+            }).catch(function (error) {
+                _service.Service.showErrorMsg();
+                _this.props.toggleLoader(false);
+            });
+        };
+
+        _this.productChangeHandler = function (currentItem, selectedItemsKey) {
+            _this.props.setSelectedProduct(selectedItemsKey);
+        };
+
+        _this._monthPickerHandle = function (dateRange) {
+            _this.props.setDateRange(dateRange);
+        };
+
+        return _this;
+    }
+
+    _createClass(FormFilter, [{
+        key: '_doExportExcel',
+        value: function _doExportExcel(params, gridData) {
+            var _this2 = this;
+
+            if (!gridData.Data || !gridData.Data.length) {
+                this.props.toggleLoader(false);
+                alert(_langHelper2.default.getSingleResource("NoInfo"));
+                return;
+            }
+
+            if (gridData.Data.length > 1) {
+                _service.Service.sort(gridData.Data, params.SortBy, params.SortOrder);
+            }
+
+            var title = _service.Service.getReportTitle(params.FromDate, params.ToDate, params.CurrencyId, params.CurrencyName, params.BaseCurrency);
+            var excel = new _reportExcel2.default(gridData, title, parseInt(params.ReportBy), params.ProductCodeList);
+            excel.export(function () {
+                _this2.props.toggleLoader(false);
+            });
+        }
+    }, {
+        key: '_getParams',
+        value: function _getParams() {
+            if (!this.props.xsrfToken) {
+                return null;
+            }
+
+            var _props$dateRange = this.props.dateRange,
+                fromDate = _props$dateRange.fromDate,
+                toDate = _props$dateRange.toDate;
+
+
+            return {
+                FromDate: _site2.default.convertDateToString(fromDate),
+                ToDate: _site2.default.convertDateToString(toDate),
+                CurrencyName: this.props.selectedCurrency.label,
+                CurrencyId: this.props.selectedCurrency.value,
+                BaseCurrency: this.props.selectedCurrency.baseCurrency,
+                ProductCodeList: this.props.selectedProduct.split(','),
+                ReportBy: this.props.selectedReportBy,
+                SortBy: this.props.params.SortBy,
+                SortOrder: this.props.params.SortOrder,
+                Timestamp: new Date().getTime()
+            };
+        }
+    }, {
+        key: '_renderReportByOption',
+        value: function _renderReportByOption() {
+            var _this3 = this;
+
+            var _props = this.props,
+                reportByList = _props.reportByList,
+                selectedReportBy = _props.selectedReportBy;
+
+
+            return _react2.default.createElement(
+                'div',
+                { className: 'form-group' },
+                _react2.default.createElement(
+                    'label',
+                    { className: 'label-text' },
+                    _langHelper2.default.getSingleResource('ReportBy')
+                ),
+                reportByList.map(function (option, i) {
+                    var key = 'ReportBy' + i;
+                    return _react2.default.createElement(
+                        'span',
+                        { key: 'Group' + key },
+                        _react2.default.createElement('input', { type: 'radio', value: option.value, checked: selectedReportBy === option.value, id: key,
+                            onChange: function onChange(event) {
+                                return _this3.props.setSelectedReportBy(event.target.value);
+                            } }),
+                        _react2.default.createElement(
+                            'label',
+                            { htmlFor: key },
+                            option.label
+                        )
+                    );
+                })
+            );
+        }
+    }, {
+        key: '_renderProductSelectList',
+        value: function _renderProductSelectList() {
+            var productOptions = _AppData2.default.productOptions;
+            return productOptions && productOptions.length && _react2.default.createElement(_reactMultiselect2.default, { id: 'ProductList',
+                dataSource: productOptions,
+                keyField: "Code",
+                valueField: "Name",
+                statusField: "Status",
+                optionAllLabel: _langHelper2.default.getSingleResource("All"),
+                noneSelectedLabel: _langHelper2.default.getSingleResource("SelectOptions"),
+                onChange: this.productChangeHandler });
+        }
+    }, {
+        key: '_renderCurrencySelectList',
+        value: function _renderCurrencySelectList() {
+            var _this4 = this;
+
+            var selectedCurrency = this.props.selectedCurrency;
+
+            var currencyList = _AppData2.default.currencyList;
+            return _react2.default.createElement(_reactSelect2.default, { instanceId: 'ddlCurrency',
+                value: selectedCurrency.value,
+                options: currencyList,
+                onChange: function onChange(item) {
+                    return _this4.props.setSelectedCurrency(item);
+                } });
+        }
+    }, {
+        key: '_renderMonthPicker',
+        value: function _renderMonthPicker() {
+            var dateRange = this.props.dateRange;
+
+            var dateConstraint = _AppData2.default.dateConstraint;
+
+            var monthOption = {
+                label: _langHelper2.default.getSingleResource('ViewDataInMonth')
+            };
+
+            var fromDateOption = {
+                label: _langHelper2.default.getSingleResource('From'),
+                id: 'FromDateInput'
+            };
+            var toDateOption = {
+                label: _langHelper2.default.getSingleResource('To'),
+                id: 'ToDateInput'
+            };
+
+            return _react2.default.createElement(_index3.default, {
+                minDate: dateConstraint.minDate,
+                maxDate: dateConstraint.maxDate,
+                fromDate: dateRange.fromDate,
+                toDate: dateRange.toDate,
+
+                onChange: this._monthPickerHandle,
+
+                monthOption: monthOption,
+                fromDateOption: fromDateOption,
+                toDateOption: toDateOption });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'div',
+                { className: 'page-filter' },
+                _react2.default.createElement(
+                    'div',
+                    { className: 'row' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-12 col-md-5 col-sm-12 col-lg-5 col-xl-5' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'form-group' },
+                            this._renderMonthPicker()
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-12 col-md-3 col-sm-12 col-lg-2 col-xl-2' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'form-group' },
+                            _react2.default.createElement(
+                                'label',
+                                { className: 'label-text' },
+                                _langHelper2.default.getSingleResource("Currency")
+                            ),
+                            this._renderCurrencySelectList()
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-12 col-md-4 col-sm-12 col-lg-3 col-xl-2' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'form-group' },
+                            _react2.default.createElement(
+                                'label',
+                                { className: 'label-text' },
+                                _langHelper2.default.getSingleResource("Product")
+                            ),
+                            this._renderProductSelectList()
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-12 col-md-5 col-sm-12 col-lg-2 col-xl-3' },
+                        this._renderReportByOption()
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'col-12 col-md-3 col-sm-12 col-lg-2 col-xl-2' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'form-group' },
+                            _react2.default.createElement(
+                                'div',
+                                { className: 'button-group' },
+                                _react2.default.createElement(
+                                    'button',
+                                    { disabled: !this.isValidModel, type: 'button', className: 'btn btn-submit', onClick: this.submit },
+                                    _langHelper2.default.getSingleResource("Submit")
+                                )
+                            )
+                        )
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'row' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'caret-block' },
+                        _react2.default.createElement('i', { className: 'icon-excel right', onClick: this.exportExcel, title: _langHelper2.default.getSingleResource("ExportToExcel") })
+                    )
+                )
+            );
+        }
+    }, {
+        key: 'isValidModel',
+        get: function get() {
+            return this.props.selectedProduct !== "";
+        }
+    }]);
+
+    return FormFilter;
+}(_react.Component);
+
+function mapDispatchToProps(dispatch) {
+    return (0, _redux.bindActionCreators)(_index.ActionCreators, dispatch);
+}
+function mapStateToProps(state) {
+    var gridData = state.gridData,
+        reportTitle = state.reportTitle,
+        isLoading = state.isLoading,
+        rest = _objectWithoutProperties(state, ['gridData', 'reportTitle', 'isLoading']);
+
+    return Object.assign({}, rest);
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(FormFilter);
 
 /***/ }),
 

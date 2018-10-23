@@ -47,7 +47,21 @@
             workbook.RemoveSheet(sheetName);
 
             // Assert
-            workbook.Received().RemoveSheetAt(sheetIndex);
+            workbook.Received(1).RemoveSheetAt(sheetIndex);
+        }
+
+        [Test]
+        public void RemoveSheet_SheetIsNull_NotCallRemoveSheet()
+        {
+            // Arrange
+            var workbook = Substitute.For<IWorkbook>();
+            workbook.GetSheet(Arg.Any<string>()).Returns(x => null);
+            
+            // Action
+            workbook.RemoveSheet("xxx");
+
+            // Assert
+            workbook.DidNotReceive().RemoveSheetAt(Arg.Any<int>());
         }
     }
 }

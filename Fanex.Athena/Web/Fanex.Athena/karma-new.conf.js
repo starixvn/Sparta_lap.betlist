@@ -47,7 +47,10 @@ module.exports = function (config) {
         },
         coverageReporter: {
             type: 'html',
-            dir: 'junit/coverage-new/'
+            dir: 'junit/coverage-new/',
+            reporters: [
+                { type: 'html', subdir: 'report-html' }
+            ]
         },
         concurrency: Infinity,
         phantomjsLauncher: {

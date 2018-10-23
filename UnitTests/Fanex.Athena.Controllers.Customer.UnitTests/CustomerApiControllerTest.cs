@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Controllers.UnitTests
 {
+    using System;
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Base.UnitTests;
@@ -20,6 +21,7 @@
     [TestFixture]
     public partial class CustomerApiControllerTest : BaseControllerHelperTest
     {
+        private ICoreLogger _logger;
         private ICustomerCommService _customerCommService;
         private ICustomerListService _customerListService;
         private IGroupComService _groupComService;
@@ -31,6 +33,7 @@
         {
             base.FixtureSetUp();
             SetUpDefaultFakeData();
+            _logger = Substitute.For<ICoreLogger>();
             _customerCommService = Substitute.For<ICustomerCommService>();
             _customerListService = Substitute.For<ICustomerListService>();
             _groupComService = Substitute.For<IGroupComService>();
@@ -106,6 +109,32 @@
                         x.ModifyByUsername == SessionService.UserSession.UserName &&
                         x.Ip == controller.Request.UserHostAddress),
                         SessionService.UserSession.Language);
+                });
+            }
+        }
+
+        [Test]
+        public void UpdateCustStatus_HasException_WriteLogAndReturnError()
+        {
+            using (var controller = CreateController())
+            {
+                // Arrange
+                var exception = new Exception("Sdf");
+                var licenseeId = SessionService.LicenseeSession.LicenseeId;
+                AppSettings.LicenseeOfferStatusFunction.Returns(new[] { licenseeId });
+                _customerListService.When(x => x.UpdateCustClosed(Arg.Any<CustomerStatusMetaModel>(), Arg.Any<string>()))
+                    .Throw(exception);
+
+                // Action
+                var result = controller.UpdateCustStatus(0, false, false) as JsonResult;
+                var resultInfo = result.Data as ResultInfo;
+
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    _logger.Received(1).Error(exception);
+                    Assert.That(resultInfo.Code, Is.EqualTo(1));
+                    Assert.That(resultInfo.Message, Is.EqualTo(ViewResources.HttpError_Default));
                 });
             }
         }
@@ -264,22 +293,75 @@
             }
         }
 
+        [Test]
+        public void CreateUpdatingBaResult_AllowBA_ReturnCorrectResult()
+        {
+            using (var controller = CreateController())
+            {
+                // Arrange
+                const bool IsAllowBA = true;
+                const bool IsSuccess = true;
+                const string Message = "lcvkl";
+                const string OddsGroup = "dklfjgljdlfg";
+
+                // Action
+                var result = controller.CreateUpdatingBaResult(IsAllowBA, IsSuccess, Message, OddsGroup) as JsonResult;
+                var resultData = result.Data as dynamic;
+
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    Assert.That(resultData.IsSuccessful, Is.EqualTo(IsSuccess));
+                    Assert.That(resultData.Message, Is.EqualTo(Message));
+                    Assert.That(resultData.IsBA, Is.EqualTo(IsAllowBA));
+                    Assert.That(resultData.BAStatus, Is.EqualTo("On"));
+                    Assert.That(resultData.ConfirmMessage, Is.EqualTo(ViewResources.AlertTurnOffBAMsg));
+                    Assert.That(resultData.Tooltip, Is.EqualTo(ViewResources.TurnOffBaTooltip));
+                    Assert.That(resultData.OddsGroup, Is.EqualTo(OddsGroup));
+                });
+            }
+        }
+
+        [Test]
+        public void CreateUpdatingBaResult_NotAllowBA_ReturnCorrectResult()
+        {
+            using (var controller = CreateController())
+            {
+                // Arrange
+                const bool IsAllowBA = false;
+                const bool IsSuccess = false;
+
+                // Action
+                var result = controller.CreateUpdatingBaResult(IsAllowBA, IsSuccess, string.Empty) as JsonResult;
+                var resultData = result.Data as dynamic;
+
+                // Assert
+                Assert.Multiple(() =>
+                {
+                    Assert.That(resultData.IsSuccessful, Is.EqualTo(IsSuccess));
+                    Assert.That(resultData.IsBA, Is.EqualTo(IsAllowBA));
+                    Assert.That(resultData.BAStatus, Is.EqualTo("Off"));
+                    Assert.That(resultData.ConfirmMessage, Is.EqualTo(ViewResources.AlertTurnOnBAMsg));
+                    Assert.That(resultData.Tooltip, Is.EqualTo(ViewResources.TurnOnBaTooltip));
+                });
+            }
+        }
+
         private CustomerApiController CreateController()
         {
-            return new CustomerApiController(
+            var controller = Substitute.ForPartsOf<CustomerApiController>(
                LangService,
                SessionService,
                AppSettings,
                ClientViewHelper,
-               Substitute.For<ICoreLogger>(),
+               _logger,
                _customerCommService,
                _customerListService,
                _groupComService,
                _licenseeDataAccess,
-               _productService)
-            {
-                ControllerContext = ControllerContext
-            };
+               _productService);
+            controller.ControllerContext = ControllerContext;
+            return controller;
         }
     }
 }

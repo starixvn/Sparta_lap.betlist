@@ -1,4 +1,5 @@
-﻿define(['jquery', 'common/site', 'common/querystring', 'lib/jquery.cookie'], function ($, Site, QueryString) {
+﻿define(['jquery', 'common/site', 'common/querystring', 'lib/jquery.cookie', 'vendor-materialize'],
+    function ($, Site, QueryString) {
     "use strict";
 
     var curCountDown = 0;

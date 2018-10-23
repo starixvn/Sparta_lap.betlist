@@ -2,6 +2,7 @@
 {
     using System;
     using System.Data;
+    using System.Linq;
     using Core.Common;
     using Model.Core.MetaModel.Common;
     using NSubstitute;
@@ -12,12 +13,15 @@
 
     public class LeagueDataAccessTest : BaseDataAccessHelperTest<LeagueDataAccess>
     {
+        private ICacheRefAdapter _cacheRef;
+
         protected override void SetUpDataAccess()
         {
+            _cacheRef = Substitute.For<ICacheRefAdapter>();
             DataAccess = Substitute.ForPartsOf<LeagueDataAccess>(
                 AppSetting,
                 Substitute.For<ISessionStorage>(),
-                Substitute.For<ICacheRefAdapter>());
+                _cacheRef);
         }
 
         [Test]
@@ -43,6 +47,32 @@
                 ObjectDb.Received(1).AddInParameter("Fromdate", DbType.DateTime, metaModel.FromDate);
                 ObjectDb.Received(1).AddInParameter("Todate", DbType.DateTime, metaModel.ToDate);
                 ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            });
+        }
+
+        [Test]
+        public void GetLeaguesBySport_WhenCall_ReturnData()
+        {
+            // Arrange
+            const int LeagueId = 1234;
+            const string LeagueName = "League 1234 xxx";
+            DataAccess.GetObjectDb(Arg.Is("Lrf_SelLeagueBySport")).Returns(ObjectDb);
+            Reader.Read().Returns(true, false);
+            MapReaderData(new
+            {
+                leagueid = LeagueId
+            });
+            _cacheRef.GetLeagueName(LeagueId).Returns(LeagueName);
+
+            // Action
+            var result = DataAccess.GetLeaguesBySport(new LeagueMetaModel());
+            var firstItem = result.First();
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(firstItem.LeagueId, Is.EqualTo(LeagueId));
+                Assert.That(firstItem.LeagueName, Is.EqualTo(LeagueName));
             });
         }
 

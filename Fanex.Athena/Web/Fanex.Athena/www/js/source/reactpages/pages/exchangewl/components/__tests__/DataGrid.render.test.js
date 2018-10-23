@@ -7,8 +7,6 @@ import { ReportLevel, ReportBy } from '../../../../constants/report';
 import { Licensee } from '../../../../constants/licensee';
 import LangHelper from '../../../../lib/langHelper';
 
-const breadCrumbPath = '../../../../components/breadcrumb/Breadcrumb';
-
 describe('Render DataGrid components ', () => {
     describe('Render Bread crumb', () => {
         const breadcrumbText = {
@@ -21,12 +19,6 @@ describe('Render DataGrid components ', () => {
             LangHelper.getSingleResource = jest.fn((resource) => {
                 return resource;
             });
-
-            jest.mock(breadCrumbPath, (props) => (<div {...props}></div>));
-        });
-
-        afterAll(() => {
-            jest.unmock(breadCrumbPath);
         });
 
         it('licensee is 12Bet - build customer level link', () => {
@@ -106,7 +98,7 @@ describe('Render DataGrid components ', () => {
         beforeAll(() => {
             NumberFormat.formatDecimal = jest.fn((value) => value);
             NumberFormat.format = jest.fn((value) => value);
-            Service.getReportTitle = jest.fn(() => 'ExchangeWinLoss');
+            Service.getReportTitle = jest.fn((date, currencyName, isAll) => date.fromDate + ' ' + date.toDate + ' ' + currencyName + ' ' + isAll);
         });
 
         describe('No data', () => {
@@ -119,23 +111,27 @@ describe('Render DataGrid components ', () => {
                 expect(result).toBeNull();
             })
 
+
             it('gridData length is 0 - render correct content', () => {
-                const props = { gridData: { level: 1, data: { DataList: [] }, params: [{}, {}] }, toggleLoader: jest.fn() };
-                const dataGrid = renderer.create(<DataGrid {...props} />);
+                const props = { 
+                    gridData: { level: 0, data: { DataList: [] } },
+                    params: { FromDate: '2018/01/01', ToDate: '2018/01/01', BaseCurrency: 'All', CurrencyName: 'EUR', CurrencyId: 0 },
+                    toggleLoader: jest.fn() };
 
-                const result = dataGrid.toJSON();
+                const dataGrid = new DataGrid(props);
+                dataGrid.drillDownParams[ReportLevel.MAIN] = props.params;
 
-                expect(result).toMatchSnapshot();
-            })
+                const content = dataGrid.render();
 
-            it('gridData length is 0 - update state - render container with correct report title content', () => {
-                const props = { gridData: { level: 1, data: { DataList: [] } }, params: [{}, {}], toggleLoader: jest.fn() };
-
-                const dataGrid = renderer.create(<DataGrid {...props} />);
-                const nextProps = { gridData: { level: 0, data: { DataList: [] } }, params: [{}, {}], toggleLoader: jest.fn() };
-                dataGrid.update(<DataGrid {...nextProps} />);
-
-                const result = dataGrid.toJSON();
+                const options = {
+                    createNodeMock: (element) => {
+                        return {
+                            offsetHeight: 1,
+                            offsetTop: 1
+                        };
+                    }
+                };
+                const result = renderer.create(content, options).toJSON();
 
                 expect(result).toMatchSnapshot();
             })

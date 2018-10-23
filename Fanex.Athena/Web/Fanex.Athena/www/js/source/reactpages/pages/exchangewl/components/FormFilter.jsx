@@ -89,7 +89,7 @@ export class FormFilter extends Component {
         const title = Service.getReportTitle(
             { fromDate: excelData.FromDate, toDate: excelData.ToDate }, 
             excelData.BaseCurrency ? excelData.BaseCurrency : excelData.CurrencyName , 
-            excelData.CurrencyId === 0);
+            level === ReportLevel.MAIN ? excelData.CurrencyId === 0 : false);
         const excel = new ReportExcel(gridData, title, level, isAllowedCustomerComm, excelData.ReportBy);
         excel.export(() => {
             this.props.toggleLoader(false);

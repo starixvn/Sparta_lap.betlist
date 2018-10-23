@@ -1,0 +1,2419 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DataGrid   gridData length is 0 - render no content 1`] = `
+<p
+  className="no-info-row center-align"
+>
+  NoInfo
+</p>
+`;
+
+exports[`DataGrid   gridData length is greater than 0 - expand licensee wl columns - render correctly 1`] = `
+<div>
+  <div
+    className="table-container"
+    style={
+      Object {
+        "maxWidth": -30,
+      }
+    }
+  >
+    <div
+      className="header-content"
+      style={
+        Object {
+          "maxHeight": undefined,
+          "minWidth": 800,
+          "width": -30,
+        }
+      }
+    >
+      <div
+        className="table-wrapper"
+      >
+        <table
+          className="table"
+          style={
+            Object {
+              "width": 781,
+            }
+          }
+        >
+          <thead>
+            <tr
+              className="first-row"
+            >
+              <td
+                style={
+                  Object {
+                    "width": "-1.7132867132867133px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-5.13986013986014px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-3.4265734265734267px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-6.853146853146853px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-4.454545454545455px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-6.853146853146853px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-6.853146853146853px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-6.853146853146853px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-6.853146853146853px",
+                  }
+                }
+              />
+            </tr>
+            <tr
+              style={
+                Object {
+                  "height": 32,
+                }
+              }
+            >
+              <th
+                rowSpan={2}
+              >
+                #
+              </th>
+              <th
+                className="sortable "
+                onClick={[Function]}
+                rowSpan={2}
+              >
+                Date
+                <span
+                  className=""
+                />
+              </th>
+              <th
+                className="sortable "
+                onClick={[Function]}
+                rowSpan={2}
+              >
+                Currency
+                <span
+                  className=""
+                />
+              </th>
+              <th
+                className="sortable "
+                colSpan={1}
+                onClick={[Function]}
+                rowSpan={2}
+              >
+                Turnover
+                <button
+                  className="header-button btn "
+                  onClick={[Function]}
+                >
+                  <i
+                    className="btn-icon icon-arrow"
+                  />
+                </button>
+                <span
+                  className=""
+                />
+              </th>
+              <th
+                className="sortable "
+                onClick={[Function]}
+                rowSpan={2}
+              >
+                TotalTransaction
+                <span
+                  className=""
+                />
+              </th>
+              <th
+                className="sortable "
+                onClick={[Function]}
+                rowSpan={2}
+              >
+                CustomerW_L
+                <span
+                  className=""
+                />
+              </th>
+              <th
+                colSpan={3}
+                rowSpan={1}
+              >
+                LicenseeW_L
+                <button
+                  className="header-button btn btnCollapse"
+                  onClick={[Function]}
+                >
+                  <i
+                    className="btn-icon icon-arrow"
+                  />
+                </button>
+              </th>
+            </tr>
+            <tr
+              style={
+                Object {
+                  "height": 32,
+                }
+              }
+            >
+              <th
+                className="sortable "
+                onClick={[Function]}
+              >
+                ProductSB
+                <span
+                  className=""
+                />
+              </th>
+              <th
+                className="sortable "
+                onClick={[Function]}
+              >
+                ProductNG
+                <span
+                  className=""
+                />
+              </th>
+              <th
+                className="sortable "
+                onClick={[Function]}
+              >
+                Total
+                <span
+                  className=""
+                />
+              </th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+    <div
+      className="body-content"
+      style={
+        Object {
+          "maxHeight": 300,
+          "minWidth": 800,
+          "width": -30,
+        }
+      }
+    >
+      <div
+        className="table-wrapper"
+      >
+        <table
+          className="table"
+          style={
+            Object {
+              "width": 781,
+            }
+          }
+        >
+          <tbody>
+            <tr
+              className="first-row"
+            >
+              <td
+                style={
+                  Object {
+                    "width": "-1.7132867132867133px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-5.13986013986014px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-3.4265734265734267px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-6.853146853146853px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-4.454545454545455px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-6.853146853146853px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-6.853146853146853px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-6.853146853146853px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-6.853146853146853px",
+                  }
+                }
+              />
+            </tr>
+            <tr>
+              <td
+                className="center-align"
+                title={1}
+              >
+                1
+              </td>
+              <td
+                className="center-align"
+                title="08/2018"
+              >
+                08/2018
+              </td>
+              <td
+                className="center-align"
+                title="UUS"
+              >
+                UUS
+              </td>
+              <td
+                className="right-align"
+                title="15.00"
+              >
+                15.00
+              </td>
+              <td
+                className="right-align"
+                title="1"
+              >
+                1
+              </td>
+              <td
+                className="right-align"
+                title="-5.00"
+              >
+                -5.00
+              </td>
+              <td
+                className="right-align negative"
+                title="-20.00"
+              >
+                -20.00
+              </td>
+              <td
+                className="right-align "
+                title="30.00"
+              >
+                30.00
+              </td>
+              <td
+                className="right-align negative"
+                title="-10.00"
+              >
+                -10.00
+              </td>
+            </tr>
+            <tr>
+              <td
+                className="center-align"
+                title={2}
+              >
+                2
+              </td>
+              <td
+                className="center-align"
+                title="08/2018"
+              >
+                08/2018
+              </td>
+              <td
+                className="center-align"
+                title="UUS"
+              >
+                UUS
+              </td>
+              <td
+                className="right-align"
+                title="15.00"
+              >
+                15.00
+              </td>
+              <td
+                className="right-align"
+                title="1"
+              >
+                1
+              </td>
+              <td
+                className="right-align"
+                title="-5.00"
+              >
+                -5.00
+              </td>
+              <td
+                className="right-align negative"
+                title="-20.00"
+              >
+                -20.00
+              </td>
+              <td
+                className="right-align "
+                title="30.00"
+              >
+                30.00
+              </td>
+              <td
+                className="right-align "
+                title="20.00"
+              >
+                20.00
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div
+      className="footer-content"
+      style={
+        Object {
+          "maxHeight": undefined,
+          "minWidth": 800,
+          "width": -30,
+        }
+      }
+    >
+      <div
+        className="table-wrapper"
+      >
+        <table
+          className="table"
+          style={
+            Object {
+              "width": 781,
+            }
+          }
+        >
+          <tbody>
+            <tr
+              className="first-row"
+            >
+              <td
+                style={
+                  Object {
+                    "width": "-1.7132867132867133px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-5.13986013986014px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-3.4265734265734267px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-6.853146853146853px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-4.454545454545455px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-6.853146853146853px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-6.853146853146853px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-6.853146853146853px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-6.853146853146853px",
+                  }
+                }
+              />
+            </tr>
+            <tr
+              className="fixed-table-total"
+            >
+              <td
+                className="center-align"
+                colSpan={2}
+                rowSpan={2}
+                title="Total"
+              >
+                Total
+              </td>
+              <td
+                className="center-align"
+                title="USD"
+              >
+                USD
+              </td>
+              <td
+                className="right-align"
+                title="3.00"
+              >
+                3.00
+              </td>
+              <td
+                className="right-align"
+                title="2"
+              >
+                2
+              </td>
+              <td
+                className="right-align"
+                title="-1.00"
+              >
+                -1.00
+              </td>
+              <td
+                className="right-align negative"
+                title="-4.00"
+              >
+                -4.00
+              </td>
+              <td
+                className="right-align "
+                title="6.00"
+              >
+                6.00
+              </td>
+              <td
+                className="right-align "
+                title="2.00"
+              >
+                2.00
+              </td>
+            </tr>
+            <tr
+              className="fixed-table-total"
+            >
+              <td
+                className="center-align"
+                title="UUS"
+              >
+                UUS
+              </td>
+              <td
+                className="right-align"
+                title="30.00"
+              >
+                30.00
+              </td>
+              <td
+                className="right-align"
+                title="2"
+              >
+                2
+              </td>
+              <td
+                className="right-align"
+                title="-10.00"
+              >
+                -10.00
+              </td>
+              <td
+                className="right-align negative"
+                title="-40.00"
+              >
+                -40.00
+              </td>
+              <td
+                className="right-align "
+                title="60.00"
+              >
+                60.00
+              </td>
+              <td
+                className="right-align "
+                title="20.00"
+              >
+                20.00
+              </td>
+            </tr>
+            <tr
+              className="fixed-table-grant-total"
+            >
+              <td
+                className="center-align"
+                colSpan={3}
+                title="Totalin USD"
+              >
+                Totalin USD
+              </td>
+              <td
+                className="right-align"
+                title="3.00"
+              >
+                3.00
+              </td>
+              <td
+                className="right-align"
+                title="2"
+              >
+                2
+              </td>
+              <td
+                className="right-align"
+                title="-1.00"
+              >
+                -1.00
+              </td>
+              <td
+                className="right-align negative"
+                title="-4.00"
+              >
+                -4.00
+              </td>
+              <td
+                className="right-align "
+                title="6.00"
+              >
+                6.00
+              </td>
+              <td
+                className="right-align "
+                title="2.00"
+              >
+                2.00
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`DataGrid   gridData length is greater than 0 - expand turnover columns - render correctly 1`] = `
+<div>
+  <div
+    className="table-container"
+    style={
+      Object {
+        "maxWidth": -30,
+      }
+    }
+  >
+    <div
+      className="header-content"
+      style={
+        Object {
+          "maxHeight": undefined,
+          "minWidth": 800,
+          "width": -30,
+        }
+      }
+    >
+      <div
+        className="table-wrapper"
+      >
+        <table
+          className="table"
+          style={
+            Object {
+              "width": 781,
+            }
+          }
+        >
+          <thead>
+            <tr
+              className="first-row"
+            >
+              <td
+                style={
+                  Object {
+                    "width": "-1.7132867132867133px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-5.13986013986014px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-3.4265734265734267px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-6.853146853146853px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-6.853146853146853px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-6.853146853146853px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-4.454545454545455px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-6.853146853146853px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-6.853146853146853px",
+                  }
+                }
+              />
+            </tr>
+            <tr
+              style={
+                Object {
+                  "height": 32,
+                }
+              }
+            >
+              <th
+                rowSpan={2}
+              >
+                #
+              </th>
+              <th
+                className="sortable "
+                onClick={[Function]}
+                rowSpan={2}
+              >
+                Date
+                <span
+                  className=""
+                />
+              </th>
+              <th
+                className="sortable "
+                onClick={[Function]}
+                rowSpan={2}
+              >
+                Currency
+                <span
+                  className=""
+                />
+              </th>
+              <th
+                colSpan={3}
+                rowSpan={1}
+              >
+                Turnover
+                <button
+                  className="header-button btn btnCollapse"
+                  onClick={[Function]}
+                >
+                  <i
+                    className="btn-icon icon-arrow"
+                  />
+                </button>
+              </th>
+              <th
+                className="sortable "
+                onClick={[Function]}
+                rowSpan={2}
+              >
+                TotalTransaction
+                <span
+                  className=""
+                />
+              </th>
+              <th
+                className="sortable "
+                onClick={[Function]}
+                rowSpan={2}
+              >
+                CustomerW_L
+                <span
+                  className=""
+                />
+              </th>
+              <th
+                className="sortable "
+                colSpan={1}
+                onClick={[Function]}
+                rowSpan={2}
+              >
+                LicenseeW_L
+                <button
+                  className="header-button btn "
+                  onClick={[Function]}
+                >
+                  <i
+                    className="btn-icon icon-arrow"
+                  />
+                </button>
+                <span
+                  className=""
+                />
+              </th>
+            </tr>
+            <tr
+              style={
+                Object {
+                  "height": 32,
+                }
+              }
+            >
+              <th
+                className="sortable "
+                onClick={[Function]}
+              >
+                ProductSB
+                <span
+                  className=""
+                />
+              </th>
+              <th
+                className="sortable "
+                onClick={[Function]}
+              >
+                ProductNG
+                <span
+                  className=""
+                />
+              </th>
+              <th
+                className="sortable "
+                onClick={[Function]}
+              >
+                Total
+                <span
+                  className=""
+                />
+              </th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+    <div
+      className="body-content"
+      style={
+        Object {
+          "maxHeight": 300,
+          "minWidth": 800,
+          "width": -30,
+        }
+      }
+    >
+      <div
+        className="table-wrapper"
+      >
+        <table
+          className="table"
+          style={
+            Object {
+              "width": 781,
+            }
+          }
+        >
+          <tbody>
+            <tr
+              className="first-row"
+            >
+              <td
+                style={
+                  Object {
+                    "width": "-1.7132867132867133px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-5.13986013986014px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-3.4265734265734267px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-6.853146853146853px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-6.853146853146853px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-6.853146853146853px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-4.454545454545455px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-6.853146853146853px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-6.853146853146853px",
+                  }
+                }
+              />
+            </tr>
+            <tr>
+              <td
+                className="center-align"
+                title={1}
+              >
+                1
+              </td>
+              <td
+                className="center-align"
+                title="08/2018"
+              >
+                08/2018
+              </td>
+              <td
+                className="center-align"
+                title="UUS"
+              >
+                UUS
+              </td>
+              <td
+                className="right-align"
+                title="5.00"
+              >
+                5.00
+              </td>
+              <td
+                className="right-align"
+                title="10.00"
+              >
+                10.00
+              </td>
+              <td
+                className="right-align"
+                title="15.00"
+              >
+                15.00
+              </td>
+              <td
+                className="right-align"
+                title="1"
+              >
+                1
+              </td>
+              <td
+                className="right-align"
+                title="-5.00"
+              >
+                -5.00
+              </td>
+              <td
+                className="right-align negative"
+                title="-10.00"
+              >
+                -10.00
+              </td>
+            </tr>
+            <tr>
+              <td
+                className="center-align"
+                title={2}
+              >
+                2
+              </td>
+              <td
+                className="center-align"
+                title="08/2018"
+              >
+                08/2018
+              </td>
+              <td
+                className="center-align"
+                title="UUS"
+              >
+                UUS
+              </td>
+              <td
+                className="right-align"
+                title="5.00"
+              >
+                5.00
+              </td>
+              <td
+                className="right-align"
+                title="10.00"
+              >
+                10.00
+              </td>
+              <td
+                className="right-align"
+                title="15.00"
+              >
+                15.00
+              </td>
+              <td
+                className="right-align"
+                title="1"
+              >
+                1
+              </td>
+              <td
+                className="right-align"
+                title="-5.00"
+              >
+                -5.00
+              </td>
+              <td
+                className="right-align "
+                title="20.00"
+              >
+                20.00
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div
+      className="footer-content"
+      style={
+        Object {
+          "maxHeight": undefined,
+          "minWidth": 800,
+          "width": -30,
+        }
+      }
+    >
+      <div
+        className="table-wrapper"
+      >
+        <table
+          className="table"
+          style={
+            Object {
+              "width": 781,
+            }
+          }
+        >
+          <tbody>
+            <tr
+              className="first-row"
+            >
+              <td
+                style={
+                  Object {
+                    "width": "-1.7132867132867133px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-5.13986013986014px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-3.4265734265734267px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-6.853146853146853px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-6.853146853146853px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-6.853146853146853px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-4.454545454545455px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-6.853146853146853px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-6.853146853146853px",
+                  }
+                }
+              />
+            </tr>
+            <tr
+              className="fixed-table-total"
+            >
+              <td
+                className="center-align"
+                colSpan={2}
+                rowSpan={2}
+                title="Total"
+              >
+                Total
+              </td>
+              <td
+                className="center-align"
+                title="USD"
+              >
+                USD
+              </td>
+              <td
+                className="right-align"
+                title="1.00"
+              >
+                1.00
+              </td>
+              <td
+                className="right-align"
+                title="2.00"
+              >
+                2.00
+              </td>
+              <td
+                className="right-align"
+                title="3.00"
+              >
+                3.00
+              </td>
+              <td
+                className="right-align"
+                title="2"
+              >
+                2
+              </td>
+              <td
+                className="right-align"
+                title="-1.00"
+              >
+                -1.00
+              </td>
+              <td
+                className="right-align "
+                title="2.00"
+              >
+                2.00
+              </td>
+            </tr>
+            <tr
+              className="fixed-table-total"
+            >
+              <td
+                className="center-align"
+                title="UUS"
+              >
+                UUS
+              </td>
+              <td
+                className="right-align"
+                title="10.00"
+              >
+                10.00
+              </td>
+              <td
+                className="right-align"
+                title="20.00"
+              >
+                20.00
+              </td>
+              <td
+                className="right-align"
+                title="30.00"
+              >
+                30.00
+              </td>
+              <td
+                className="right-align"
+                title="2"
+              >
+                2
+              </td>
+              <td
+                className="right-align"
+                title="-10.00"
+              >
+                -10.00
+              </td>
+              <td
+                className="right-align "
+                title="20.00"
+              >
+                20.00
+              </td>
+            </tr>
+            <tr
+              className="fixed-table-grant-total"
+            >
+              <td
+                className="center-align"
+                colSpan={3}
+                title="Totalin USD"
+              >
+                Totalin USD
+              </td>
+              <td
+                className="right-align"
+                title="1.00"
+              >
+                1.00
+              </td>
+              <td
+                className="right-align"
+                title="2.00"
+              >
+                2.00
+              </td>
+              <td
+                className="right-align"
+                title="3.00"
+              >
+                3.00
+              </td>
+              <td
+                className="right-align"
+                title="2"
+              >
+                2
+              </td>
+              <td
+                className="right-align"
+                title="-1.00"
+              >
+                -1.00
+              </td>
+              <td
+                className="right-align "
+                title="2.00"
+              >
+                2.00
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`DataGrid   gridData length is greater than 0 - have 1 product only - render grid without expandable columns 1`] = `
+<div>
+  <div
+    className="table-container"
+    style={
+      Object {
+        "maxWidth": -30,
+      }
+    }
+  >
+    <div
+      className="header-content"
+      style={
+        Object {
+          "maxHeight": undefined,
+          "minWidth": 800,
+          "width": -30,
+        }
+      }
+    >
+      <div
+        className="table-wrapper"
+      >
+        <table
+          className="table"
+          style={
+            Object {
+              "width": 781,
+            }
+          }
+        >
+          <thead>
+            <tr
+              className="first-row"
+            >
+              <td
+                style={
+                  Object {
+                    "width": "-2.378640776699029px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-7.135922330097087px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-4.757281553398058px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-9.514563106796116px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-6.184466019417475px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-9.514563106796116px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-9.514563106796116px",
+                  }
+                }
+              />
+            </tr>
+            <tr
+              style={
+                Object {
+                  "height": 32,
+                }
+              }
+            >
+              <th
+                rowSpan={1}
+              >
+                #
+              </th>
+              <th
+                className="sortable "
+                onClick={[Function]}
+                rowSpan={1}
+              >
+                Date
+                <span
+                  className=""
+                />
+              </th>
+              <th
+                className="sortable "
+                onClick={[Function]}
+                rowSpan={1}
+              >
+                Currency
+                <span
+                  className=""
+                />
+              </th>
+              <th
+                className="sortable "
+                onClick={[Function]}
+                rowSpan={1}
+              >
+                Turnover
+                <span
+                  className=""
+                />
+              </th>
+              <th
+                className="sortable "
+                onClick={[Function]}
+                rowSpan={1}
+              >
+                TotalTransaction
+                <span
+                  className=""
+                />
+              </th>
+              <th
+                className="sortable "
+                onClick={[Function]}
+                rowSpan={1}
+              >
+                CustomerW_L
+                <span
+                  className=""
+                />
+              </th>
+              <th
+                className="sortable "
+                onClick={[Function]}
+                rowSpan={1}
+              >
+                LicenseeW_L
+                <span
+                  className=""
+                />
+              </th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+    <div
+      className="body-content"
+      style={
+        Object {
+          "maxHeight": 300,
+          "minWidth": 800,
+          "width": -30,
+        }
+      }
+    >
+      <div
+        className="table-wrapper"
+      >
+        <table
+          className="table"
+          style={
+            Object {
+              "width": 781,
+            }
+          }
+        >
+          <tbody>
+            <tr
+              className="first-row"
+            >
+              <td
+                style={
+                  Object {
+                    "width": "-2.378640776699029px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-7.135922330097087px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-4.757281553398058px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-9.514563106796116px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-6.184466019417475px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-9.514563106796116px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-9.514563106796116px",
+                  }
+                }
+              />
+            </tr>
+            <tr>
+              <td
+                className="center-align"
+                title={1}
+              >
+                1
+              </td>
+              <td
+                className="center-align"
+                title="08/2018"
+              >
+                08/2018
+              </td>
+              <td
+                className="center-align"
+                title="UUS"
+              >
+                UUS
+              </td>
+              <td
+                className="right-align"
+                title="15.00"
+              >
+                15.00
+              </td>
+              <td
+                className="right-align"
+                title="1"
+              >
+                1
+              </td>
+              <td
+                className="right-align"
+                title="-5.00"
+              >
+                -5.00
+              </td>
+              <td
+                className="right-align negative"
+                title="-10.00"
+              >
+                -10.00
+              </td>
+            </tr>
+            <tr>
+              <td
+                className="center-align"
+                title={2}
+              >
+                2
+              </td>
+              <td
+                className="center-align"
+                title="08/2018"
+              >
+                08/2018
+              </td>
+              <td
+                className="center-align"
+                title="UUS"
+              >
+                UUS
+              </td>
+              <td
+                className="right-align"
+                title="15.00"
+              >
+                15.00
+              </td>
+              <td
+                className="right-align"
+                title="1"
+              >
+                1
+              </td>
+              <td
+                className="right-align"
+                title="-5.00"
+              >
+                -5.00
+              </td>
+              <td
+                className="right-align "
+                title="20.00"
+              >
+                20.00
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div
+      className="footer-content"
+      style={
+        Object {
+          "maxHeight": undefined,
+          "minWidth": 800,
+          "width": -30,
+        }
+      }
+    >
+      <div
+        className="table-wrapper"
+      >
+        <table
+          className="table"
+          style={
+            Object {
+              "width": 781,
+            }
+          }
+        >
+          <tbody>
+            <tr
+              className="first-row"
+            >
+              <td
+                style={
+                  Object {
+                    "width": "-2.378640776699029px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-7.135922330097087px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-4.757281553398058px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-9.514563106796116px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-6.184466019417475px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-9.514563106796116px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-9.514563106796116px",
+                  }
+                }
+              />
+            </tr>
+            <tr
+              className="fixed-table-total"
+            >
+              <td
+                className="center-align"
+                colSpan={2}
+                rowSpan={2}
+                title="Total"
+              >
+                Total
+              </td>
+              <td
+                className="center-align"
+                title="USD"
+              >
+                USD
+              </td>
+              <td
+                className="right-align"
+                title="3.00"
+              >
+                3.00
+              </td>
+              <td
+                className="right-align"
+                title="2"
+              >
+                2
+              </td>
+              <td
+                className="right-align"
+                title="-1.00"
+              >
+                -1.00
+              </td>
+              <td
+                className="right-align "
+                title="2.00"
+              >
+                2.00
+              </td>
+            </tr>
+            <tr
+              className="fixed-table-total"
+            >
+              <td
+                className="center-align"
+                title="UUS"
+              >
+                UUS
+              </td>
+              <td
+                className="right-align"
+                title="30.00"
+              >
+                30.00
+              </td>
+              <td
+                className="right-align"
+                title="2"
+              >
+                2
+              </td>
+              <td
+                className="right-align"
+                title="-10.00"
+              >
+                -10.00
+              </td>
+              <td
+                className="right-align "
+                title="20.00"
+              >
+                20.00
+              </td>
+            </tr>
+            <tr
+              className="fixed-table-grant-total"
+            >
+              <td
+                className="center-align"
+                colSpan={3}
+                title="Totalin USD"
+              >
+                Totalin USD
+              </td>
+              <td
+                className="right-align"
+                title="3.00"
+              >
+                3.00
+              </td>
+              <td
+                className="right-align"
+                title="2"
+              >
+                2
+              </td>
+              <td
+                className="right-align"
+                title="-1.00"
+              >
+                -1.00
+              </td>
+              <td
+                className="right-align "
+                title="2.00"
+              >
+                2.00
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`DataGrid   gridData length is greater than 0 - have more than 1 product - render grid with expandable columns 1`] = `
+<div>
+  <div
+    className="table-container"
+    style={
+      Object {
+        "maxWidth": -30,
+      }
+    }
+  >
+    <div
+      className="header-content"
+      style={
+        Object {
+          "maxHeight": undefined,
+          "minWidth": 800,
+          "width": -30,
+        }
+      }
+    >
+      <div
+        className="table-wrapper"
+      >
+        <table
+          className="table"
+          style={
+            Object {
+              "width": 781,
+            }
+          }
+        >
+          <thead>
+            <tr
+              className="first-row"
+            >
+              <td
+                style={
+                  Object {
+                    "width": "-2.378640776699029px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-7.135922330097087px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-4.757281553398058px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-9.514563106796116px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-6.184466019417475px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-9.514563106796116px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-9.514563106796116px",
+                  }
+                }
+              />
+            </tr>
+            <tr
+              style={
+                Object {
+                  "height": 32,
+                }
+              }
+            >
+              <th
+                rowSpan={1}
+              >
+                #
+              </th>
+              <th
+                className="sortable "
+                onClick={[Function]}
+                rowSpan={1}
+              >
+                Date
+                <span
+                  className=""
+                />
+              </th>
+              <th
+                className="sortable "
+                onClick={[Function]}
+                rowSpan={1}
+              >
+                Currency
+                <span
+                  className=""
+                />
+              </th>
+              <th
+                className="sortable "
+                colSpan={1}
+                onClick={[Function]}
+                rowSpan={1}
+              >
+                Turnover
+                <button
+                  className="header-button btn "
+                  onClick={[Function]}
+                >
+                  <i
+                    className="btn-icon icon-arrow"
+                  />
+                </button>
+                <span
+                  className=""
+                />
+              </th>
+              <th
+                className="sortable "
+                onClick={[Function]}
+                rowSpan={1}
+              >
+                TotalTransaction
+                <span
+                  className=""
+                />
+              </th>
+              <th
+                className="sortable "
+                onClick={[Function]}
+                rowSpan={1}
+              >
+                CustomerW_L
+                <span
+                  className=""
+                />
+              </th>
+              <th
+                className="sortable "
+                colSpan={1}
+                onClick={[Function]}
+                rowSpan={1}
+              >
+                LicenseeW_L
+                <button
+                  className="header-button btn "
+                  onClick={[Function]}
+                >
+                  <i
+                    className="btn-icon icon-arrow"
+                  />
+                </button>
+                <span
+                  className=""
+                />
+              </th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+    <div
+      className="body-content"
+      style={
+        Object {
+          "maxHeight": 300,
+          "minWidth": 800,
+          "width": -30,
+        }
+      }
+    >
+      <div
+        className="table-wrapper"
+      >
+        <table
+          className="table"
+          style={
+            Object {
+              "width": 781,
+            }
+          }
+        >
+          <tbody>
+            <tr
+              className="first-row"
+            >
+              <td
+                style={
+                  Object {
+                    "width": "-2.378640776699029px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-7.135922330097087px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-4.757281553398058px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-9.514563106796116px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-6.184466019417475px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-9.514563106796116px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-9.514563106796116px",
+                  }
+                }
+              />
+            </tr>
+            <tr>
+              <td
+                className="center-align"
+                title={1}
+              >
+                1
+              </td>
+              <td
+                className="center-align"
+                title="08/2018"
+              >
+                08/2018
+              </td>
+              <td
+                className="center-align"
+                title="UUS"
+              >
+                UUS
+              </td>
+              <td
+                className="right-align"
+                title="15.00"
+              >
+                15.00
+              </td>
+              <td
+                className="right-align"
+                title="1"
+              >
+                1
+              </td>
+              <td
+                className="right-align"
+                title="-5.00"
+              >
+                -5.00
+              </td>
+              <td
+                className="right-align negative"
+                title="-10.00"
+              >
+                -10.00
+              </td>
+            </tr>
+            <tr>
+              <td
+                className="center-align"
+                title={2}
+              >
+                2
+              </td>
+              <td
+                className="center-align"
+                title="08/2018"
+              >
+                08/2018
+              </td>
+              <td
+                className="center-align"
+                title="UUS"
+              >
+                UUS
+              </td>
+              <td
+                className="right-align"
+                title="15.00"
+              >
+                15.00
+              </td>
+              <td
+                className="right-align"
+                title="1"
+              >
+                1
+              </td>
+              <td
+                className="right-align"
+                title="-5.00"
+              >
+                -5.00
+              </td>
+              <td
+                className="right-align "
+                title="20.00"
+              >
+                20.00
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div
+      className="footer-content"
+      style={
+        Object {
+          "maxHeight": undefined,
+          "minWidth": 800,
+          "width": -30,
+        }
+      }
+    >
+      <div
+        className="table-wrapper"
+      >
+        <table
+          className="table"
+          style={
+            Object {
+              "width": 781,
+            }
+          }
+        >
+          <tbody>
+            <tr
+              className="first-row"
+            >
+              <td
+                style={
+                  Object {
+                    "width": "-2.378640776699029px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-7.135922330097087px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-4.757281553398058px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-9.514563106796116px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-6.184466019417475px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-9.514563106796116px",
+                  }
+                }
+              />
+              <td
+                style={
+                  Object {
+                    "width": "-9.514563106796116px",
+                  }
+                }
+              />
+            </tr>
+            <tr
+              className="fixed-table-total"
+            >
+              <td
+                className="center-align"
+                colSpan={2}
+                rowSpan={2}
+                title="Total"
+              >
+                Total
+              </td>
+              <td
+                className="center-align"
+                title="USD"
+              >
+                USD
+              </td>
+              <td
+                className="right-align"
+                title="3.00"
+              >
+                3.00
+              </td>
+              <td
+                className="right-align"
+                title="2"
+              >
+                2
+              </td>
+              <td
+                className="right-align"
+                title="-1.00"
+              >
+                -1.00
+              </td>
+              <td
+                className="right-align "
+                title="2.00"
+              >
+                2.00
+              </td>
+            </tr>
+            <tr
+              className="fixed-table-total"
+            >
+              <td
+                className="center-align"
+                title="UUS"
+              >
+                UUS
+              </td>
+              <td
+                className="right-align"
+                title="30.00"
+              >
+                30.00
+              </td>
+              <td
+                className="right-align"
+                title="2"
+              >
+                2
+              </td>
+              <td
+                className="right-align"
+                title="-10.00"
+              >
+                -10.00
+              </td>
+              <td
+                className="right-align "
+                title="20.00"
+              >
+                20.00
+              </td>
+            </tr>
+            <tr
+              className="fixed-table-grant-total"
+            >
+              <td
+                className="center-align"
+                colSpan={3}
+                title="Totalin USD"
+              >
+                Totalin USD
+              </td>
+              <td
+                className="right-align"
+                title="3.00"
+              >
+                3.00
+              </td>
+              <td
+                className="right-align"
+                title="2"
+              >
+                2
+              </td>
+              <td
+                className="right-align"
+                title="-1.00"
+              >
+                -1.00
+              </td>
+              <td
+                className="right-align "
+                title="2.00"
+              >
+                2.00
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+`;

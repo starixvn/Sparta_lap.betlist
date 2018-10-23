@@ -35,7 +35,7 @@
                     expect(WinLossByProductOption.customerWlIndex).toBe(8);
 
                     expect(WinLossByProductOption.pageSize).toBe(50);
-                    expect(WinLossByProductOption.nonePagingSize).toBe(2000);
+                    expect(WinLossByProductOption.nonePagingSize).toBe(3000);
                     expect(WinLossByProductOption.rowNum).toBe(50);
                     expect(WinLossByProductOption.totalColspan).toEqual([1, 2, 3]);
                     expect(WinLossByProductOption.urlData).toBe("api/WinLossByProductReport/Index");

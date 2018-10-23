@@ -2455,15 +2455,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to End Balance.
-        /// </summary>
-        public static string EndBalance {
-            get {
-                return ResourceManager.GetString("EndBalance", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to End Date.
         /// </summary>
         public static string EndDate {
@@ -5884,15 +5875,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Player History No.
-        /// </summary>
-        public static string PlayerHistoryNo {
-            get {
-                return ResourceManager.GetString("PlayerHistoryNo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Postponed.
         /// </summary>
         public static string Postponed {
@@ -6532,15 +6514,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rolling Comm.
-        /// </summary>
-        public static string RollingComm {
-            get {
-                return ResourceManager.GetString("RollingComm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Round Type.
         /// </summary>
         public static string RoundType {
@@ -7023,15 +6996,6 @@ namespace Fanex.Athena.Resources {
         public static string StakeFrom {
             get {
                 return ResourceManager.GetString("StakeFrom", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Start Balance.
-        /// </summary>
-        public static string StartBalance {
-            get {
-                return ResourceManager.GetString("StartBalance", resourceCulture);
             }
         }
         

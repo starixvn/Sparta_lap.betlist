@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 import { ActionCreators } from '../actions/index'
 import FormFilter from './FormFilter'
-import DataGrid from './datagrid'
+import DataGrid from './DataGrid'
 import Loader from '../../../components/Loader'
 import AppLayout from '../../../layouts/AppLayout'
 import ReportTitle from '../../../components/ReportTitle'

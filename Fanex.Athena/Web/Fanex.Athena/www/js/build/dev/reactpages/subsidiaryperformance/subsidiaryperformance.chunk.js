@@ -719,187 +719,6 @@ exports.default = ReportTitle;
 
 /***/ }),
 
-/***/ "./www/js/source/reactpages/components/breadcrumb/Breadcrumb.jsx":
-/*!***********************************************************************!*\
-  !*** ./www/js/source/reactpages/components/breadcrumb/Breadcrumb.jsx ***!
-  \***********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _BreadcrumbItem = __webpack_require__(/*! ./BreadcrumbItem */ "./www/js/source/reactpages/components/breadcrumb/BreadcrumbItem.jsx");
-
-var _BreadcrumbItem2 = _interopRequireDefault(_BreadcrumbItem);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var BreadcrumbItem = function (_Component) {
-    _inherits(BreadcrumbItem, _Component);
-
-    function BreadcrumbItem(props) {
-        _classCallCheck(this, BreadcrumbItem);
-
-        return _possibleConstructorReturn(this, (BreadcrumbItem.__proto__ || Object.getPrototypeOf(BreadcrumbItem)).call(this, props));
-    }
-
-    _createClass(BreadcrumbItem, [{
-        key: 'onChange',
-        value: function onChange(item) {
-            if (this.props.value === item.value) {
-                return;
-            }
-
-            this.props.onChange && this.props.onChange(item);
-        }
-    }, {
-        key: '_renderItem',
-        value: function _renderItem() {
-            var _props = this.props,
-                value = _props.value,
-                items = _props.items;
-
-            var breadcrumbItems = [];
-
-            for (var i = 0; i < items.length; i++) {
-                var item = items[i];
-                var isActive = item.value === value;
-
-                breadcrumbItems.push(_react2.default.createElement(_BreadcrumbItem2.default, { key: 'breadcrumb-item' + i, isActive: isActive, label: item.label, onClick: this.onChange.bind(this, item) }));
-
-                if (isActive) {
-                    break;
-                }
-            }
-
-            return breadcrumbItems;
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var items = this._renderItem();
-            if (items.length === 1) {
-                return null;
-            }
-
-            return _react2.default.createElement(
-                'div',
-                { className: 'breadcrumb' },
-                items
-            );
-        }
-    }]);
-
-    return BreadcrumbItem;
-}(_react.Component);
-
-BreadcrumbItem.propTypes = {
-    items: _propTypes2.default.arrayOf(_propTypes2.default.shape({
-        label: _propTypes2.default.string,
-        value: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string])
-    })).isRequired,
-    value: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
-    onChange: _propTypes2.default.func
-};
-exports.default = BreadcrumbItem;
-
-/***/ }),
-
-/***/ "./www/js/source/reactpages/components/breadcrumb/BreadcrumbItem.jsx":
-/*!***************************************************************************!*\
-  !*** ./www/js/source/reactpages/components/breadcrumb/BreadcrumbItem.jsx ***!
-  \***************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var BreadcrumbItem = function (_Component) {
-    _inherits(BreadcrumbItem, _Component);
-
-    function BreadcrumbItem(props) {
-        _classCallCheck(this, BreadcrumbItem);
-
-        return _possibleConstructorReturn(this, (BreadcrumbItem.__proto__ || Object.getPrototypeOf(BreadcrumbItem)).call(this, props));
-    }
-
-    _createClass(BreadcrumbItem, [{
-        key: 'render',
-        value: function render() {
-            var _props = this.props,
-                label = _props.label,
-                isActive = _props.isActive,
-                onClick = _props.onClick;
-
-
-            return _react2.default.createElement(
-                'a',
-                { className: 'breadcrumb-item ' + (isActive ? 'active' : ''), onClick: onClick, href: 'javascript:;' },
-                label
-            );
-        }
-    }]);
-
-    return BreadcrumbItem;
-}(_react.Component);
-
-BreadcrumbItem.propTypes = {
-    label: _propTypes2.default.string,
-    isActive: _propTypes2.default.bool,
-    onClick: _propTypes2.default.func
-};
-BreadcrumbItem.defaultProps = {
-    label: '',
-    isActive: false
-};
-exports.default = BreadcrumbItem;
-
-/***/ }),
-
 /***/ "./www/js/source/reactpages/components/date-range/Calendar.js":
 /*!********************************************************************!*\
   !*** ./www/js/source/reactpages/components/date-range/Calendar.js ***!
@@ -4918,9 +4737,7 @@ var _ReportTitle2 = _interopRequireDefault(_ReportTitle);
 
 var _service = __webpack_require__(/*! ../lib/service */ "./www/js/source/reactpages/pages/subsidiaryperformance/lib/service.js");
 
-var _Breadcrumb = __webpack_require__(/*! ../../../components/breadcrumb/Breadcrumb */ "./www/js/source/reactpages/components/breadcrumb/Breadcrumb.jsx");
-
-var _Breadcrumb2 = _interopRequireDefault(_Breadcrumb);
+var _reactBreadcrumb = __webpack_require__(/*! @9softstudio/react-breadcrumb */ "./node_modules/@9softstudio/react-breadcrumb/dist/index.js");
 
 var _report = __webpack_require__(/*! ../../../constants/report */ "./www/js/source/reactpages/constants/report.js");
 
@@ -4984,7 +4801,7 @@ var AppContainer = exports.AppContainer = function (_Component) {
         _react2.default.createElement(
           'div',
           { className: 'result-content' },
-          _react2.default.createElement(_Breadcrumb2.default, { items: this.breadcrumbItems, value: this.props.params.Level, onChange: this._backToMain }),
+          _react2.default.createElement(_reactBreadcrumb.Breadcrumb, { items: this.breadcrumbItems, value: this.props.params.Level, onChange: this._backToMain }),
           this.reportTitle && _react2.default.createElement(_ReportTitle2.default, { content: this.reportTitle }),
           _react2.default.createElement(_DataGrid2.default, null)
         )

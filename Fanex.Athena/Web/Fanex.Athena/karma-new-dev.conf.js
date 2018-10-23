@@ -3,16 +3,20 @@
         basePath: '',
         frameworks: ['jasmine-jquery', 'jasmine', 'requirejs'],
         files: [
-            'bower_components/jasmine-ajax/lib/mock-ajax.js',
+            'node_modules/jasmine-ajax/lib/mock-ajax.js',
             { pattern: "node_modules/squirejs/src/Squire.js", included: false },
             { pattern: "node_modules/hammerjs/hammer.js", included: false },
             { pattern: "node_modules/moment/**/*.js", included: false },
             { pattern: "node_modules/bootstrap-daterangepicker/*.js", included: false },
             { pattern: "node_modules/materialize-autocomplete/**/*.js", included: false },
             { pattern: 'www/js/source/**/*.js', included: false },
-
-            { pattern: 'www/js/tests/pages/customer/betsetting/products/thirdparty-spec.js', included: false
-        },
+            {
+                pattern: 'www/js/tests/pages/report/winlossbyleague/winlossbyleague-spec.js', included: false
+            },
+            {
+                pattern: 'www/js/tests/pages/report/platformwinloss/platformwinloss-spec.js', included: false
+            },
+            
             'www/js/tests/test-main.js'
         ],
         proxies: {

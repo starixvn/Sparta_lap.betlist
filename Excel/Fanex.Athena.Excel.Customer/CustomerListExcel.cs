@@ -16,9 +16,6 @@ namespace Fanex.Athena.Excel.Customer
     using NPOI.SS.UserModel;
     using Resources;
 
-    /// <summary>
-    /// TODO: Update summary.
-    /// </summary>
     public class CustomerListExcel : ReportBase
     {
         private const int RowNoInfoTemp = 4;

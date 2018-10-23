@@ -14,9 +14,10 @@
         /// </summary>
         public static int AssignRowContent(IRow row, DataRow data, IEnumerable<string> columnNameList, int columnStart = 0)
         {
+            var tableColumns = data.Table.Columns;
             foreach (string columnName in columnNameList)
             {
-                if (data.Table.Columns.Contains(columnName))
+                if (tableColumns.Contains(columnName))
                 {
                     row.Cells[columnStart].SetCellValue(data[columnName]);
                 }

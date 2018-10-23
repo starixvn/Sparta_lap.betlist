@@ -5403,7 +5403,7 @@ var _Loader = __webpack_require__(/*! @jsroot/components/Loader */ "./www/js/sou
 
 var _Loader2 = _interopRequireDefault(_Loader);
 
-var _simpleReactTab = __webpack_require__(/*! @9softstudio/simple-react-tab */ "./node_modules/@9softstudio/simple-react-tab/dist/index.js");
+var _reactSimpleTab = __webpack_require__(/*! @9softstudio/react-simple-tab */ "./node_modules/@9softstudio/react-simple-tab/dist/index.js");
 
 var _langHelper = __webpack_require__(/*! @jsroot/lib/langHelper */ "./www/js/source/reactpages/lib/langHelper.js");
 
@@ -5546,13 +5546,13 @@ var PageLayout = exports.PageLayout = function (_Component) {
                 null,
                 _react2.default.createElement(_Loader2.default, { isLoading: this.props.isLoading }),
                 _react2.default.createElement(
-                    _simpleReactTab.Tabs,
+                    _reactSimpleTab.Tabs,
                     null,
-                    _react2.default.createElement(_simpleReactTab.Tab, { isActive: this.props.selectedTabIndex == 1, label: _langHelper2.default.getSingleResource("SingleCustomer"),
+                    _react2.default.createElement(_reactSimpleTab.Tab, { isActive: this.props.selectedTabIndex == 1, label: _langHelper2.default.getSingleResource("SingleCustomer"),
                         url: _site2.default.resolveClientUrl("BettingTicketCenter/SingleCustomer") }),
-                    _react2.default.createElement(_simpleReactTab.Tab, { isActive: this.props.selectedTabIndex == 2, label: _langHelper2.default.getSingleResource("RefNo"),
+                    _react2.default.createElement(_reactSimpleTab.Tab, { isActive: this.props.selectedTabIndex == 2, label: _langHelper2.default.getSingleResource("RefNo"),
                         url: _site2.default.resolveClientUrl("BettingTicketCenter/RefNo") }),
-                    _react2.default.createElement(_simpleReactTab.Tab, { isActive: this.props.selectedTabIndex == 3, label: _langHelper2.default.getSingleResource("Running"),
+                    _react2.default.createElement(_reactSimpleTab.Tab, { isActive: this.props.selectedTabIndex == 3, label: _langHelper2.default.getSingleResource("Running"),
                         url: _site2.default.resolveClientUrl("BettingTicketCenter/Running") })
                 ),
                 _react2.default.createElement(

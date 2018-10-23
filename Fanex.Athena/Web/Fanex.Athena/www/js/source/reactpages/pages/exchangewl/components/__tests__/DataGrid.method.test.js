@@ -14,30 +14,27 @@ describe('DataGrid methods ', () => {
     });
 
     describe('componentDidUpdate ', () => {
-        it('params update - view in base currency - get title report with correct parameter', () => {
+        it('params update - update drill down params', () => {
             const level = ReportLevel.MAIN;
             const dataGridProps = { 
                 gridData: { level: level },                
-                toggleLoader: jest.fn() 
+                toggleLoader: jest.fn(),
+                params : { FromDate: '01/01/2017', ToDate: '02/01/2017', BaseCurrency: 'EUR', CurrencyName: 'USD', CurrencyId: 0 }
+            };
+            const prevProps = {
+                params : { FromDate: '01/01/2017', ToDate: '02/01/2017', BaseCurrency: 'USD', CurrencyName: 'USD', CurrencyId: 0 },
+                gridData: dataGridProps.gridData
             };
 
             const dataGrid = new DataGrid(dataGridProps);
-            dataGrid.drillDownParams = [dataGridProps.params];
-            const newparams = { FromDate: '01/01/2017', ToDate: '02/01/2017', BaseCurrency: 'EUR', CurrencyName: 'USD', CurrencyId: 0 };
+            dataGrid.drillDownParams = [prevProps.params];
 
-            dataGridProps.params = newparams;
-            dataGrid.componentDidUpdate({});
+            dataGrid.componentDidUpdate(prevProps);
 
-            expect(dataGrid.drillDownParams[ReportLevel.MAIN]).toEqual(newparams);
-
-            expect(Service.getReportTitle).toHaveBeenCalledWith({ 
-                fromDate: dataGrid.drillDownParams[level].FromDate, 
-                toDate: dataGrid.drillDownParams[level].ToDate }, 
-                dataGrid.drillDownParams[level].BaseCurrency, 
-                dataGrid.drillDownParams[level].CurrencyId === 0);
+            expect(dataGrid.drillDownParams[ReportLevel.MAIN]).toEqual(dataGridProps.params);
         })
 
-        it('params update - view in selected currency - get title report with correct parameter', () => {
+        it('params do not update - do not update drill down params', () => {
             const level = ReportLevel.LICENSEE;
             const dataGridProps = { 
                 gridData: { level: level },                
@@ -47,16 +44,10 @@ describe('DataGrid methods ', () => {
 
             const dataGrid = new DataGrid(dataGridProps);
             dataGrid.drillDownParams = [dataGridProps.params, dataGridProps.params];
-            const newparams = { FromDate: '01/01/2017', ToDate: '02/01/2017', BaseCurrency: '', CurrencyName: 'EUR', CurrencyId: 0 }
 
-            dataGridProps.params = newparams;
-            dataGrid.componentDidUpdate({});
+            dataGrid.componentDidUpdate(dataGridProps);
 
-            expect(Service.getReportTitle).toHaveBeenCalledWith({ 
-                fromDate: dataGrid.drillDownParams[level].FromDate, 
-                toDate: dataGrid.drillDownParams[level].ToDate }, 
-                dataGrid.drillDownParams[level].CurrencyName, 
-                dataGrid.drillDownParams[level].CurrencyId === 0);
+            expect(dataGrid.drillDownParams[ReportLevel.MAIN]).toEqual(dataGridProps.params);
         })
 
         it('gridData do not update - do not call toggleLoader', () => {

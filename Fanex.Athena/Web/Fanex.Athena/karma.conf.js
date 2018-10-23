@@ -8,7 +8,6 @@ module.exports = function (config) {
     files: [
 		'Scripts/Library/jquery.min.js',
 		'Scripts/Library/jquery.jqGrid.min.js',
-		'node_modules/jasmine/lib/jasmine-core/jasmine-html.js',
 		'node_modules/jasmine-jquery/lib/jasmine-jquery.js',
 		'node_modules/jasmine-fixture/dist/jasmine-fixture.min.js',
 		'node_modules/jasmine-ajax/lib/mock-ajax.js',
@@ -57,10 +56,6 @@ module.exports = function (config) {
 		'jasmine-specs/BetList/customer.outstandingbetlist-test.js',
 		 'jasmine-specs/BetList/runningbetlist-test.js',
 		'jasmine-specs/BetList/runningbetlist.multiplebettypes-test.js',
-		
-		// --------- Casino --------- //
-		'Scripts/Casino/**.js',
-		 'jasmine-specs/Casino/*-test.js',
 
 		 // --------- Extension --------- //
 		'Scripts/Extension/*.js',
@@ -106,7 +101,10 @@ module.exports = function (config) {
         },
         coverageReporter: {
             type: 'html',
-            dir: 'junit/coverage/'
+            dir: 'junit/coverage/',
+            reporters: [
+                { type: 'html', subdir: 'report-html' }
+            ]
         },
         concurrency: Infinity,
         phantomjsLauncher: {

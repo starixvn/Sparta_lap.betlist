@@ -54,7 +54,6 @@ namespace Fanex.Athena.Controllers.Report
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
-            var balanceUp = _balanceUpDataAccess.GetBalanceUp();
             var metaModel = new LiveReportMetaModel
             {
                 FromDate = DateTime.Now,
@@ -76,7 +75,7 @@ namespace Fanex.Athena.Controllers.Report
                 Param = metaModel,
                 CurrencyList = userSession.CurrencyList,
                 IsAllowedNumberGame = productAccess.IsAllowNG,
-                BalanceUpDate = balanceUp != null ? balanceUp.BalanceUpDay : DateTime.Now,
+                BalanceUpDate = GetBalanceUpDay(),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 ProductAccess = productAccess,
                 IsFakeLicensee = IsFakeLicensee()
@@ -91,8 +90,6 @@ namespace Fanex.Athena.Controllers.Report
         {
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
-
-            var balanceUp = _balanceUpDataAccess.GetBalanceUp();
             metaModel.LicenseeId = licenseeSession.LicenseeId;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
 
@@ -103,7 +100,7 @@ namespace Fanex.Athena.Controllers.Report
                 Param = metaModel,
                 CurrencyList = userSession.CurrencyList,
                 IsAllowedNumberGame = productAccess.IsAllowNG,
-                BalanceUpDate = balanceUp != null ? balanceUp.BalanceUpDay : DateTime.Now,
+                BalanceUpDate = GetBalanceUpDay(),
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,
                 ProductAccess = productAccess,
                 MainResult = _liveReportService.GetLiveReportSummary(metaModel),
@@ -228,5 +225,11 @@ namespace Fanex.Athena.Controllers.Report
         }
 
         protected ProductAccess GetProductAccess(int licenseeId, string language) => ProductService.GetProductAccess(licenseeId, language, FunctionNames.LiveReport);
+
+        private DateTime GetBalanceUpDay()
+        {
+            var balanceUp = _balanceUpDataAccess.GetBalanceUp();
+            return balanceUp != null ? balanceUp.BalanceUpDay : DateTime.Now;
+        }
     }
 }

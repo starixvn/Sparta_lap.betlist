@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
     using Base.Helpers;
     using Model.Core.MetaModel.Product;
     using NPOI.SS.UserModel;
@@ -16,8 +17,9 @@
         public void AssignRowContent_WhenCall_SetCellValueMethodIsCalled()
         {
             // Arrange
-            var columns = new[] { "Row0", "Row1" };
-            var dataRow = GetDataTable(columns).Rows[0];
+            var columns = new[] { "Row0", "Row1", "Row2" };
+            var dataRow = GetDataTable(columns.Take(2).ToArray()).Rows[0];
+            
             var excelRow = Substitute.For<IRow>();
             var cell = Substitute.For<ICell>();
             excelRow.Cells.Returns(new List<ICell> { cell, cell });
@@ -51,15 +53,15 @@
             Assert.That(result, Is.EqualTo(expected));
         }
 
-        private static DataTable GetDataTable(string[] columnName)
+        private static DataTable GetDataTable(string[] columnNames)
         {
             var dataTable = new DataTable();
-            dataTable.Columns.Add(columnName[0]);
-            dataTable.Columns.Add(columnName[1]);
+            dataTable.Columns.Add(columnNames[0]);
+            dataTable.Columns.Add(columnNames[1]);
 
             var dr = dataTable.NewRow();
-            dr[columnName[0]] = "Data1";
-            dr[columnName[1]] = "Data2";
+            dr[columnNames[0]] = "Data1";
+            dr[columnNames[1]] = "Data2";
             dataTable.Rows.Add(dr);
 
             return dataTable;
