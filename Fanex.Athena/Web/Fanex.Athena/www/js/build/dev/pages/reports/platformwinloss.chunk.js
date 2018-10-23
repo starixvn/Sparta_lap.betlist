@@ -8443,12 +8443,12 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 _me.submit();
             });
 
-            $("body").on("click", ".drilldown", function () {
+            $(".main-content").on("click", ".drilldown", function () {
                 var dataDrillDown = $(this).data("drill-down");
                 _me.drillDown(1, dataDrillDown);
             });
 
-            $("body").on("click", ".bet-list-link", function () {
+            $(".main-content").on("click", ".bet-list-link", function () {
                 var dataDrillDown = $(this).data("drill-down");
                 _me.openBetlistPopUp(gridControl.level, dataDrillDown);
             });
