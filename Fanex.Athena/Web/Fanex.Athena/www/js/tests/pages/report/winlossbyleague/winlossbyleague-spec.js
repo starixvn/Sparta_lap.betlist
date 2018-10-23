@@ -54,9 +54,9 @@
 
                     beforeEach(function () {
                         setFixtures("<input type='button' id='SubmitButton' />");
-                        appendSetFixtures("<div id='leagueHeader' data-leagueid='1'>League Name Here</div>");
                         appendSetFixtures("<div id='level-link-container'><div class='level-link' data-level='0'></div></div>");
-                        appendSetFixtures("<div class='drilldown' data-custid='1' data-externalid='2' data-systemid='3' />");
+                        appendSetFixtures("<div class='main-content'><div id='leagueHeader' data-leagueid='1'>League Name Here</div>" + 
+                                            "<div class='drilldown' data-custid='1' data-externalid='2' data-systemid='3' /></div>");
                         appendSetFixtures("<div id='ExportToExcel'></div>");
                         $submitButton = $('#SubmitButton');
 

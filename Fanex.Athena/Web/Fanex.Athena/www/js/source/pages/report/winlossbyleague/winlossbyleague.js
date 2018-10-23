@@ -40,13 +40,13 @@
                     _me.submit();
                 });
 
-                $("body").on("click", "#leagueHeader", function () {
+                $(".main-content").on("click", "#leagueHeader", function () {
                     _pagingOption.pageindex = 1;
                     var leaguename = $(this).html();
                     _me.drillDown($(this).data("leagueid"), leaguename);
                 });
 
-                $("body").on("click", ".drilldown", function () {
+                $(".main-content").on("click", ".drilldown", function () {
                     var custid = $(this).data("custid");
                     var externalid = $(this).data("externalid");
                     var systemid = $(this).data("systemid");
