@@ -1047,6 +1047,11 @@
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\singlecustomer\reducers\index.js" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\running\actions\index.js" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\running\reducers\index.js" />
+    <Content Include="www\js\source\reactpages\pages\casinoturnover\actions\filterHandlerAction.js" />
+    <Content Include="www\js\source\reactpages\pages\casinoturnover\actions\index.js" />
+    <Content Include="www\js\source\reactpages\pages\casinoturnover\actions\type.js" />
+    <Content Include="www\js\source\reactpages\pages\casinoturnover\reducers\filterHandlerReducer.js" />
+    <Content Include="www\js\source\reactpages\pages\casinoturnover\reducers\index.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\AppContainer.redux.test.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\AppContainer.test.js" />
     <Content Include="www\js\source\reactpages\reducers\convertAllReducer.js" />
@@ -2636,6 +2641,9 @@
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\singlecustomer\components\FormFilter.jsx" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\singlecustomer\components\index.jsx" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\multicustomer\components\AppContainer.jsx" />
+    <Content Include="www\js\source\reactpages\pages\casinoturnover\components\AppContainer.jsx" />
+    <Content Include="www\js\source\reactpages\pages\casinoturnover\components\FormFilter.jsx" />
+    <Content Include="www\js\source\reactpages\pages\casinoturnover\components\index.jsx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">
@@ -5655,6 +5663,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Logs\" />
+    <Folder Include="www\js\source\reactpages\pages\casinoturnover\lib\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\index.jsx" />

@@ -140,7 +140,7 @@ export class FormFilter extends Component {
         const baseCurrencyList = AppData.baseCurrencyList;
         return baseCurrencyList && baseCurrencyList.length && (
             <Select id="ddlBased"
-                name="form-field-name"
+                name="BaseCurrency"
                 value={selectedBaseCurrency}
                 options={baseCurrencyList}
                 onChange={(item) => this.props.setSelectedBaseCurrency(item.value)} />

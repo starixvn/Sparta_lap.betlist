@@ -1,12 +1,15 @@
 ﻿namespace Fanex.Athena.Controllers.Report
 {
     using System;
+    using System.Collections.Generic;
     using System.Web.Mvc;
+    using Constant.DataDomain;
     using Extension.Utility;
     using Model.Core.DataDomain;
+    using Model.Core.DTO.Common;
     using Model.Report.ViewModel;
+    using Resources;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Configuration;
     using Service.Core.Configuration.Interfaces;
     using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
@@ -14,11 +17,6 @@
     public class CasinoTurnoverReportController : ReportBaseController
     {
         private readonly IReportSettingService _reportSettingService;
-
-        public CasinoTurnoverReportController()
-        {
-            _reportSettingService = new ReportSettingService();
-        }
 
         public CasinoTurnoverReportController(
             ILanguageService languageService,
@@ -29,7 +27,7 @@
             IReportSettingService reportSettingService)
         : base(languageService, sessionService, appSetting, clientViewHelper, productService)
         {
-            _reportSettingService = reportSettingService ?? new ReportSettingService();
+            _reportSettingService = reportSettingService;
         }
 
         [HttpGet]
@@ -48,11 +46,23 @@
                 CurrencyList = SessionService.UserSession.CurrencyList,
                 BaseCurrencies = SystemConstants.NewBaseCurrencyList,
                 ProductOptions = ToProductOptions(productAccess.ProductList),
+                Status = GetStatusList(),
                 MinDate = setting.MinDate,
                 MaxDate = setting.MaxDate
             };
 
             return View("~/Views/Report/CasinoTurnover/Main.cshtml", viewModel);
+        }
+
+        private static List<CheckedItem> GetStatusList()
+        {
+            return new List<CheckedItem>
+            {
+                new CheckedItem { ID = 0, Name = ViewResources.All },
+                new CheckedItem { ID = StatusTypes.Won, Name = ViewResources.Won, Checked = true },
+                new CheckedItem { ID = StatusTypes.Lose, Name = ViewResources.Lose, Checked = true },
+                new CheckedItem { ID = StatusTypes.Draw, Name = ViewResources.Draw }
+            };
         }
     }
 }

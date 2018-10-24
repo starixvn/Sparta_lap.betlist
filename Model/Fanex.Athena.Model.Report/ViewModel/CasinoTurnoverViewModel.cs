@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using Core.DTO.Common;
     using Core.MetaModel.Product;
     using Core.ViewModel;
 
@@ -15,7 +16,7 @@
 
         public DateTime MaxDate { get; set; }
 
-        public IDictionary<int, string> Status { get; set; }
+        public IEnumerable<CheckedItem> Status { get; set; }
 
         public IEnumerable<string> BaseCurrencies { get; set; }
 

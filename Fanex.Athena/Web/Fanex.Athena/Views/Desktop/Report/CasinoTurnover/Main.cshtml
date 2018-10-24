@@ -15,40 +15,36 @@
         value = 0, label = ViewResources.All
     });
 
-    var statusList = Model.Status.Select(x => new { value = x.Key, label = x.Value }).ToList();
-    statusList.Insert(0, new
-    {
-        value = 0,
-        label = ViewResources.All
-    });
+    var statusList = Model.Status.Select(x => new { Code = x.ID, Name = x.Name, Status = x.Checked }).ToList();
 }
 
 @section pagecss {
 
-<link href="@Url.ContentLinkByEnv("/www/css/build/reactpages/licenseewlbytimezone/index.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.ContentLinkByEnv("/www/css/build/reactpages/casinoturnover/index.css")" rel="stylesheet" type="text/css" />
 
 }
 @section pagejs {
-    <script src="@Url.ContentLinkByEnv("/www/js/build/reactpages/report/licenseewlbytimezone.chunk.js")"></script>
+    <script src="@Url.ContentLinkByEnv("/www/js/build/reactpages/report/casinoturnover.chunk.js")"></script>
 }
 
 @section globaljscode{
     window.initialState = {
         dateRange: {fromDate: '@Model.FromDate.ToString("MM/dd/yyyy")', toDate: '@Model.ToDate.ToString("MM/dd/yyyy")'},
-        dateConstraint: {minDate: '@Model.MinDate.ToString("MM/dd/yyyy")', maxDate: '@Model.MaxDate.ToString("MM/dd/yyyy")'}
-        currencyList: @Html.Raw(currencyList.ToJson()),
         selectedCurrency: @Html.Raw(currencyList.First().ToJson()),
-        baseCurrencyList: @Html.Raw(baseCurrencyList.ToJson()),
         selectedBaseCurrency: '@(baseCurrencyList.Any() ? baseCurrencyList.First().value : string.Empty)',
         isConvertAll: true,    
-        productOptions: @Html.Raw(Model.ProductOptions.ToJson()),
         selectedProduct: '@(selectedProductCode)',
-        userName: '',
-        statusList: @Html.Raw(statusList.ToJson()),
-        selectedStatus: @Html.Raw(statusList.First().ToJson()),
-        xsrfToken: document.querySelector("input[name=__RequestVerificationToken]").value,
+        username: '',
         isLoading: false 
     }
+
+    window._AppData = {
+        dateConstraint: {minDate: '@Model.MinDate.ToString("MM/dd/yyyy")', maxDate: '@Model.MaxDate.ToString("MM/dd/yyyy")'},
+        currencyList: @Html.Raw(currencyList.ToJson()),     
+        baseCurrencyList: @Html.Raw(baseCurrencyList.ToJson()),
+        productOptions: @Html.Raw(Model.ProductOptions.ToJson()),
+        statusList: @Html.Raw(statusList.ToJson())
+     };
 }
 <div id="app-container">
 
