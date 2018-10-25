@@ -23,8 +23,8 @@
     <Setting Key="Lrf_FunctionsSel" SpName="Lrf_FunctionsSel" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_LicenseeFunctionsSel" SpName="LRF_LicenseeFunctionsSel" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_LicenseeUserFunctionsSel" SpName="LRF_LicenseeUserFunctionsSel" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
-    <Setting Key="Lrf_LicenseeUserFunctionsDel" SpName="Lrf_LicenseeUserFunctionsDel_UAT4" DbName="DBCUST.bodb_Licensee.bodbLicenseeNet" />
-    <Setting Key="Lrf_LicenseeUserFunctionsIns" SpName="Lrf_LicenseeUserFunctionsIns_UAT4" DbName="DBCUST.bodb_Licensee.bodbLicenseeNet" />
+    <Setting Key="Lrf_LicenseeUserFunctionsDel" SpName="Lrf_LicenseeUserFunctionsDel" DbName="DBCUST.bodb_Licensee.bodbLicenseeNet" />
+    <Setting Key="Lrf_LicenseeUserFunctionsIns" SpName="Lrf_LicenseeUserFunctionsIns" DbName="DBCUST.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerSelCheckBelonging" SpName="Lrf_CustomerSelCheckBelonging" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_LicenseeProductSel" SpName="Lrf_LicenseeProductSel" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_LicenseeSelBySiteName" SpName="Lrf_LicenseeSelBySiteName" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet">
@@ -33,22 +33,22 @@
       <Mapping DataField="IsAllowedMemberComm" ObjectProperty="IsAllowedCustomerComm"/>
       <Mapping DataField="EnableBA" ObjectProperty="IsEnableBA"/>
     </Setting>
-    <Setting Key="Lrf_SyncInternalUser" SpName="Lrf_SyncInternalUser_UAT4" DbName="DBCUST.bodb_Licensee.bodbLicenseeNet" />
+    <Setting Key="Lrf_SyncInternalUser" SpName="Lrf_SyncInternalUser" DbName="DBCUST.bodb_Licensee.bodbLicenseeNet" />
   </Function>
 
   <Function Name="Authorization">
     <Setting Key="Licensee_UserSaltSel" SpName="Licensee_UserSaltSel" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
-    <Setting Key="Lrf_UserLogin" SpName="Lrf_UserLogin_UAT4" DbName="DBCUST.bodb_Licensee.bodbLicenseeNet" />
-    <Setting Key="Lrf_CheckIn" SpName="Lrf_CheckIn_UAT4" DbName="DBCUST.bodb_Licensee.bodbLicenseeNet" />
-    <Setting Key="Lrf_UserLogout" SpName="Lrf_UserLogout_UAT4" DbName="DBCUST.bodb_Licensee.bodbLicenseeNet" />
-    <Setting Key="Lrf_ReCheckIn" SpName="Lrf_ReCheckIn_UAT4" DbName="DBCUST.bodb_Licensee.bodbLicenseeNet" />
+    <Setting Key="Lrf_UserLogin" SpName="Lrf_UserLogin" DbName="DBCUST.bodb_Licensee.bodbLicenseeNet" />
+    <Setting Key="Lrf_CheckIn" SpName="Lrf_CheckIn" DbName="DBCUST.bodb_Licensee.bodbLicenseeNet" />
+    <Setting Key="Lrf_UserLogout" SpName="Lrf_UserLogout" DbName="DBCUST.bodb_Licensee.bodbLicenseeNet" />
+    <Setting Key="Lrf_ReCheckIn" SpName="Lrf_ReCheckIn" DbName="DBCUST.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_UserInfoSel" SpName="Lrf_UserInfoSel" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
-    <Setting Key="Lrf_UserUpdAccount" SpName="Lrf_UserUpdAccount_UAT4" DbName="DBCUST.bodb_Licensee.bodbLicenseeNet" />
+    <Setting Key="Lrf_UserUpdAccount" SpName="Lrf_UserUpdAccount" DbName="DBCUST.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_UserAccessSel" SpName="Lrf_UserAccessSel" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
-    <Setting Key="Lrf_UserPwdReset" SpName="Lrf_UserPwdReset_UAT4" DbName="DBCUST.bodb_Licensee.bodbLicenseeNet" />
-    <Setting Key="Lrf_InternalLogin" SpName="Lrf_InternalLogin_UAT4" DbName="DBCUST.bodb_Licensee.bodbLicenseeNet" />
-    <Setting Key="Licensee_UserPasswordUpd" SpName="Licensee_UserPasswordUpd_UAT4" DbName="DBCUST.bodb_Licensee.bodbLicenseeNet" />
-    <Setting Key="Lrf_CurrencyCustIns" SpName="Lrf_CurrencyCustIns_UAT4" DbName="DBCUST.bodb_Licensee.bodbLicenseeNet" />
+    <Setting Key="Lrf_UserPwdReset" SpName="Lrf_UserPwdReset" DbName="DBCUST.bodb_Licensee.bodbLicenseeNet" />
+    <Setting Key="Lrf_InternalLogin" SpName="Lrf_InternalLogin" DbName="DBCUST.bodb_Licensee.bodbLicenseeNet" />
+    <Setting Key="Licensee_UserPasswordUpd" SpName="Licensee_UserPasswordUpd" DbName="DBCUST.bodb_Licensee.bodbLicenseeNet" />
+    <Setting Key="Lrf_CurrencyCustIns" SpName="Lrf_CurrencyCustIns" DbName="DBCUST.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_UserInfoSelByUserName" SpName="Lrf_UserInfoSelByUserName" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
   </Function>
 
@@ -114,30 +114,30 @@
   </Function>
 
   <Function Name="CustomerInformation">
-    <Setting Key="Lrf_BATimeCheck" SpName="Lrf_BATimeCheck_UAT4" DbName="DBCUST.CustDB.bodbLicenseeNet" />
-    <Setting Key="Lrf_CustomerUpdMemberBAStatus" SpName="Lrf_CustomerUpdMemberBAStatus_UAT4" DbName="DBCUST.CustDB.bodbLicenseeNet" />
+    <Setting Key="Lrf_BATimeCheck" SpName="Lrf_BATimeCheck" DbName="DBCUST.CustDB.bodbLicenseeNet" />
+    <Setting Key="Lrf_CustomerUpdMemberBAStatus" SpName="Lrf_CustomerUpdMemberBAStatus" DbName="DBCUST.CustDB.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerSel" SpName="Lrf_CustomerSel" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerUpdClosed" SpName="Lrf_CustomerUpdClosed" DbName="DBCUST.CustDB.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerUpdSuspended" SpName="Lrf_CustomerUpdSuspended" DbName="DBCUST.CustDB.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerUpdSpecialLevel" SpName="Lrf_CustomerUpdSpecialLevel" DbName="DBCUST.CustDB.bodbLicenseeNet" />
-    <Setting Key="Lrf_LicenseeCustCommUpd" SpName="Lrf_LicenseeCustCommUpd_UAT4" DbName="DBCUST.bodb_Licensee.bodbLicenseeNet" TimeOut="240" />
-    <Setting Key="Lrf_CustomerRemoveGroupComm" SpName="Lrf_CustomerRemoveGroupComm_UAT4" DbName="DBCUST.bodb_Licensee.bodbLicenseeNet" TimeOut="240" />
-    <Setting Key="Lrf_CustomerMoveGroupComm" SpName="Lrf_CustomerMoveGroupComm_UAT4" DbName="DBCUST.bodb_Licensee.bodbLicenseeNet" TimeOut="240" />
-    <Setting Key="Lrf_CustomerSelUserSearch" SpName="Lrf_CustomerSelUserSearch_UAT4" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
-    <Setting Key="Lrf_CustomerLoginInfo" SpName="Lrf_CustomerLoginInfo_UAT4" DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_LicenseeCustCommUpd" SpName="Lrf_LicenseeCustCommUpd" DbName="DBCUST.bodb_Licensee.bodbLicenseeNet" TimeOut="240" />
+    <Setting Key="Lrf_CustomerRemoveGroupComm" SpName="Lrf_CustomerRemoveGroupComm" DbName="DBCUST.bodb_Licensee.bodbLicenseeNet" TimeOut="240" />
+    <Setting Key="Lrf_CustomerMoveGroupComm" SpName="Lrf_CustomerMoveGroupComm" DbName="DBCUST.bodb_Licensee.bodbLicenseeNet" TimeOut="240" />
+    <Setting Key="Lrf_CustomerSelUserSearch" SpName="Lrf_CustomerSelUserSearch" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
+    <Setting Key="Lrf_CustomerLoginInfo" SpName="Lrf_CustomerLoginInfo" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerSelStatus" SpName="Lrf_CustomerSelStatus" DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_CustomerUpdUgroup" SpName="Lrf_CustomerUpdUgroup_UAT4" DbName="DBCUST.CustDB.bodbLicenseeNet" />
+    <Setting Key="Lrf_CustomerUpdUgroup" SpName="Lrf_CustomerUpdUgroup" DbName="DBCUST.CustDB.bodbLicenseeNet" />
   </Function>
 
   <Function Name="GroupComm">
-    <Setting Key="Lrf_LicenseeGroupCommSel" SpName="Lrf_LicenseeGroupCommSel_UAT4" DbName="DBCUST.bodb_Licensee.bodbLicenseeNet">
+    <Setting Key="Lrf_LicenseeGroupCommSel" SpName="Lrf_LicenseeGroupCommSel" DbName="DBCUST.bodb_Licensee.bodbLicenseeNet">
       <Mapping DataField="Parlaycomm" ObjectProperty="ParlayComm" />
       <Mapping DataField="RNGComm" ObjectProperty="CSComm" />
       <Mapping DataField="IsDefault" ObjectProperty="IsDefaultGroup" />
     </Setting>
-    <Setting Key="Lrf_LicenseeGroupCommIns" SpName="Lrf_LicenseeGroupCommIns_UAT4" DbName="DBCUST.bodb_Licensee.bodbLicenseeNet" />
-    <Setting Key="Lrf_LicenseeGroupCommDel" SpName="Lrf_LicenseeGroupCommDel_UAT4" DbName="DBCUST.bodb_Licensee.bodbLicenseeNet" />
-    <Setting Key="Lrf_LicenseeGroupCommUpd" SpName="Lrf_LicenseeGroupCommUpd_UAT4" DbName="DBCUST.bodb_Licensee.bodbLicenseeNet" TimeOut="240" />
+    <Setting Key="Lrf_LicenseeGroupCommIns" SpName="Lrf_LicenseeGroupCommIns" DbName="DBCUST.bodb_Licensee.bodbLicenseeNet" />
+    <Setting Key="Lrf_LicenseeGroupCommDel" SpName="Lrf_LicenseeGroupCommDel" DbName="DBCUST.bodb_Licensee.bodbLicenseeNet" />
+    <Setting Key="Lrf_LicenseeGroupCommUpd" SpName="Lrf_LicenseeGroupCommUpd" DbName="DBCUST.bodb_Licensee.bodbLicenseeNet" TimeOut="240" />
     <Setting Key="Lrf_GroupCommGetById" SpName="Lrf_GroupCommGetById" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet">
       <Mapping DataField="Parlaycomm" ObjectProperty="ParlayComm" />
       <Mapping DataField="RNGComm" ObjectProperty="CSComm" />
@@ -147,12 +147,12 @@
   </Function>
 
   <Function Name="CustomerSettings">
-    <Setting Key="Lrf_CustomerUpdCasinoStatus" SpName="Lrf_CustomerUpdCasinoStatus_UAT4" DbName="DBCUST.CustDB.bodbLicenseeNet" />
+    <Setting Key="Lrf_CustomerUpdCasinoStatus" SpName="Lrf_CustomerUpdCasinoStatus" DbName="DBCUST.CustDB.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerSelEditCustomer" SpName="Lrf_CustomerSelEditCustomer" DbName="DBCUST.CustDB.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerUpdEsportStatus" SpName="Lrf_CustomerUpdEsportStatus" DbName="DBCUST.CustDB.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerSelEditNG" SpName="Lrf_CustomerSelEditNG" DbName="DBCUST.CustDB.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerSelEditKN" SpName="Lrf_CustomerSelEditKN" DbName="DBCUST.CustDB.bodbLicenseeNet" />
-    <Setting Key="Lrf_CustomerUpdMember_All" SpName="Lrf_CustomerUpdMember_All_UAT4" DbName="DBCUST.CustDB.bodbLicenseeNet" />
+    <Setting Key="Lrf_CustomerUpdMember_All" SpName="Lrf_CustomerUpdMember_All" DbName="DBCUST.CustDB.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerUpdMember_MinMaxBet161" SpName="Lrf_CustomerUpdMember_MinMaxBet161" DbName="DBCUST.CustDB.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerUpdMember_MinMaxBetKN" SpName="Lrf_CustomerUpdMember_MinMaxBetKN" DbName="DBCUST.CustDB.bodbLicenseeNet" />
     <Setting Key="WriteLog_UserLog_RunSP" SpName="WriteLog_UserLog_RunSP" DbName="DBLOG.bodb_CustomerLog.bodbLicenseeNet" />
