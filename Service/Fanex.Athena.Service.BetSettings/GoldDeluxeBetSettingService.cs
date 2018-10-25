@@ -114,6 +114,10 @@ namespace Fanex.Athena.Service.BetSettings
                 {
                     return new ResultInfo();
                 }
+                else
+                {
+                    _logger.Error("Error Updating Gold Deluxe Bet Setting: " + rootElement);
+                }
             }
             catch (Exception exception)
             {

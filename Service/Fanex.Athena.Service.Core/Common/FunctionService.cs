@@ -108,8 +108,8 @@ namespace Fanex.Athena.Service.Core.Common
         {
             var correctFunctionIdList = functionIdList.Where(f => Functions.Any(l => l.FunctionId == f)).ToList();
             var userFunctionList = GetUserFunctionList(licenseeId, custId).Select(f => f.FunctionId);
-            var addingIdList = correctFunctionIdList.Where(f => userFunctionList.All(u => u != f));
-            var removingIdList = userFunctionList.Where(f => correctFunctionIdList.All(c => c != f));
+            var addingIdList = correctFunctionIdList.Except(userFunctionList);
+            var removingIdList = userFunctionList.Except(correctFunctionIdList);
 
             var addingResult = AddUserToFunction(licenseeId, custId, userId, ip, langKey, addingIdList);
 
