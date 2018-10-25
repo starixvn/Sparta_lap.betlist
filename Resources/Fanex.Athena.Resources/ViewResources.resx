@@ -3127,4 +3127,8 @@
     <value>Casino Turnover</value>
     <comment>95178</comment>
   </data>
+  <data name="ValidBetAmount" xml:space="preserve">
+    <value>Valid Bet Amount</value>
+    <comment>95178</comment>
+  </data>
 </root>

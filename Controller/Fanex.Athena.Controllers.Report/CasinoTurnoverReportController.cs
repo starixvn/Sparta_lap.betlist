@@ -13,7 +13,9 @@
     using Service.Core.Configuration.Interfaces;
     using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
+    using Web.ActionFilter;
 
+    //[FunctionAuthorization(PermissionKeys.ReportCasinoTurnover)]
     public class CasinoTurnoverReportController : ReportBaseController
     {
         private readonly IReportSettingService _reportSettingService;

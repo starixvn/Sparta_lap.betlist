@@ -8,3 +8,9 @@
 .table {
     line-height: inherit;
 }
+
+.invalid {
+    .multiple-select-label {
+        border-bottom: 2px solid #d91a1a;
+    }
+}

@@ -17,6 +17,7 @@ export default combineReducers(Object.assign(
     convertAllReducer,
     productReducer,
     usernameReducer,
+    statusReducer,
     reportTitleReducer,
     loaderReducer,
     filterHandlerReducer

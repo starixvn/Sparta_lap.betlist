@@ -16,6 +16,7 @@
     });
 
     var statusList = Model.Status.Select(x => new { Code = x.ID, Name = x.Name, Status = x.Checked }).ToList();
+    var selectedStatus = string.Join(",", Model.Status.Where(x => x.Checked).Select(x => x.ID));
 }
 
 @section pagecss {
@@ -35,6 +36,7 @@
         isConvertAll: true,    
         selectedProduct: '@(selectedProductCode)',
         username: '',
+        selectedStatus: '@(selectedStatus)',
         isLoading: false 
     }
 

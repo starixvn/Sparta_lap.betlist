@@ -1,6 +1,7 @@
 ﻿import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import FormFilter from './FormFilter'
+import DataGrid from './DataGrid'
 import Loader from '@jsroot/components/Loader'
 import AppLayout from '@jsroot/layouts/AppLayout'
 import ReportTitle from '@jsroot/components/ReportTitle'
@@ -18,6 +19,7 @@ export class AppContainer extends Component {
         <div className='result-content'>
             { this.props.reportTitle && <ReportTitle content={this.props.reportTitle} /> }
         </div>
+        <DataGrid />
       </AppLayout>
     );
   }

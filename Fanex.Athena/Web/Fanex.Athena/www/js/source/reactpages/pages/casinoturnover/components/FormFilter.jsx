@@ -20,7 +20,14 @@ export class FormFilter extends Component {
     }
 
     get isValidModel() {
-        return true;
+        return this.props.selectedProduct && this.props.selectedStatus;
+    }
+
+    onSubmit = () => {
+        if (this.isValidModel) {
+            const params = this._getParams();
+            this.props.setParams(params);
+        }
     }
 
     onDateRangeChange = (date, isValidMonthRange = true) => {
@@ -37,8 +44,25 @@ export class FormFilter extends Component {
         this.props.setSelectedProduct(selectedItemsKey)
     }
 
-    onProductChange = (currentItem, selectedItemsKey) => {
+    onStatusChange = (currentItem, selectedItemsKey) => {
         this.props.setSelectedStatus(selectedItemsKey)
+    }
+
+    _getParams() {
+        const { dateRange, selectedCurrency, selectedBaseCurrency, isConvertAll, selectedProduct, username, selectedStatus } = this.props;
+
+        return {
+            FromDate: Site.convertDateToString(dateRange.fromDate),
+            ToDate: Site.convertDateToString(dateRange.toDate),
+            CurrencyId: selectedCurrency.value,
+            CurrencyName: selectedCurrency.label,
+            BaseCurrency: selectedBaseCurrency,
+            IsConvertAll: isConvertAll,
+            ProductCodeList: selectedProduct.split(','),
+            UserName: username,
+            StatusList: selectedStatus.split(','),
+            Timestamp: new Date().getTime()
+        }
     }
 
     _renderDateRange() {
@@ -125,11 +149,13 @@ export class FormFilter extends Component {
                 statusField={'Status'}
                 optionAllLabel={LangHelper.getSingleResource('All')}
                 noneSelectedLabel={LangHelper.getSingleResource('SelectOptions')}
-                onChange={this.setSelectedStatus} />
+                onChange={this.onStatusChange} />
         );
     }
 
     render() {
+        const { selectedProduct, selectedStatus } = this.props;
+
         return (
             <div className='page-filter'>
                 <div className='row'>
@@ -157,8 +183,8 @@ export class FormFilter extends Component {
                         </div>    
                     </div>
                     <div className='col-12 col-md-4 col-sm-12 col-lg-3 col-xl-3'>
-                        <div className='form-group'>
-                            <label className='label-text'>{LangHelper.getSingleResource('Product')}</label>
+                        <div className={`form-group ${selectedProduct ? '' : 'invalid'}`}>
+                            <label className='label-text'>{LangHelper.getSingleResource('Product')} *</label>
                             {this._renderProduct()}
                         </div>
                     </div>
@@ -169,15 +195,17 @@ export class FormFilter extends Component {
                         </div>
                     </div>
                     <div className='col-12 col-md-4 col-sm-12 col-lg-3 col-xl-2'>
-                        <div className='form-group'>
-                            <label className='label-text'>{LangHelper.getSingleResource('Status')}</label>
+                        <div className={`form-group ${selectedStatus ? '' : 'invalid'}`}>
+                            <label className='label-text'>{LangHelper.getSingleResource('Status')} *</label>
                             {this._renderStatus()}
                         </div>
                     </div>
                     <div className='col-12 col-md-3 col-sm-12 col-lg-3 col-xl-3'>
                         <div className='form-group'>
                             <div className='button-group'>
-                                <button disabled={!this.isValidModel} type='button' className='btn btn-submit' onClick={this.submit}>{LangHelper.getSingleResource('Submit')}</button>
+                                <button disabled={!this.isValidModel} type='button' className='btn btn-submit' onClick={this.onSubmit}>
+                                    {LangHelper.getSingleResource('Submit')}
+                                </button>
                             </div>
                         </div>
                     </div>

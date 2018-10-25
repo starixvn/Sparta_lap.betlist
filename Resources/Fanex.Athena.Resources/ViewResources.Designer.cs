@@ -8098,6 +8098,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Valid Bet Amount.
+        /// </summary>
+        public static string ValidBetAmount {
+            get {
+                return ResourceManager.GetString("ValidBetAmount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to View.
         /// </summary>
         public static string View {
