@@ -28,7 +28,7 @@
 
             set
             {
-                _productCode = value == null ? new string[0] : value;
+                _productCode = value ?? new string[0];
             }
         }
 
@@ -43,7 +43,7 @@
 
             set
             {
-                _status = value == null ? new int[0] : value;
+                _status = value ?? new int[0];
             }
         }
 
