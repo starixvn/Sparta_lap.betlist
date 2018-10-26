@@ -49,7 +49,7 @@ export class FormFilter extends Component {
     }
 
     _getParams() {
-        const { dateRange, selectedCurrency, selectedBaseCurrency, isConvertAll, selectedProduct, username, selectedStatus } = this.props;
+        const { dateRange, selectedCurrency, selectedBaseCurrency, isConvertAll, selectedProduct, username, selectedStatus, params } = this.props;
 
         return {
             FromDate: Site.convertDateToString(dateRange.fromDate),
@@ -58,9 +58,11 @@ export class FormFilter extends Component {
             CurrencyName: selectedCurrency.label,
             BaseCurrency: selectedBaseCurrency,
             IsConvertAll: isConvertAll,
-            ProductCodeList: selectedProduct.split(','),
+            ProductCode: selectedProduct.split(','),
             UserName: username,
-            StatusList: selectedStatus.split(','),
+            Status: selectedStatus.split(','),
+            PageIndex: 1,
+            PageSize: params.PageSize ? params.PageSize : 50,
             Timestamp: new Date().getTime()
         }
     }

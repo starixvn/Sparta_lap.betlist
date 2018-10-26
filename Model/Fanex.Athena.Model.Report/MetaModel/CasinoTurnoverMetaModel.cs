@@ -5,6 +5,10 @@
 
     public class CasinoTurnoverMetaModel
     {
+        private string[] _productCode;
+
+        private int[] _status;
+
         public DateTime FromDate { get; set; }
 
         public DateTime ToDate { get; set; }
@@ -15,11 +19,39 @@
 
         public bool IsConvertAll { get; set; }
 
-        public string[] ProductCode { get; set; }
+        public string[] ProductCode
+        {
+            get
+            {
+                return _productCode;
+            }
+
+            set
+            {
+                _productCode = value == null ? new string[0] : value;
+            }
+        }
 
         public string UserName { get; set; }
 
-        public int[] Status { get; set; }
+        public int[] Status
+        {
+            get
+            {
+                return _status;
+            }
+
+            set
+            {
+                _status = value == null ? new int[0] : value;
+            }
+        }
+
+        public string AgentListXml { get; set; }
+
+        public int PageSize { get; set; }
+
+        public int PageIndex { get; set; }
 
         public bool IsValid => FromDate <= ToDate && ProductCode.Any() && Status.Any();
     }

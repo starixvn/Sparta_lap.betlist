@@ -7,37 +7,30 @@ import { Table, Row, Cell } from '@jsroot/components/fixed-table-header'
 import LangHelper from '@jsroot/lib/langHelper'
 import NoDataTitle from '@jsroot/components/NoDataTitle'
 import NumberFormat from '@jsroot/lib/numberFormat'
-import { HeaderText, Service } from '../lib/service'
+import { HeaderText, Service, Url } from '../lib/service'
 import DataService from '@jsroot/lib/DataService.js'
+import Site from '@jsroot/lib/site'
+
+const URL = Site.resolveClientUrl("api/CasinoTurnoverReport/GetData");
 
 export class DataGrid extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            gridData: { 
-                Data: [{
-                        Date: '01/01/2018',
-                        SystemId: 'SystemId',
-                        ExternalId: 'ExternalId',
-                        Product: 'Product',
-                        BetCount: 1000,
-                        Turnover: 125874,
-                        ValidBetAmount: 75,
-                        CustomerWL: 164646.844
-                }],
-                Total: {
-                    BetCount: 1000,
-                    Turnover: 125874,
-                    ValidBetAmount: 75,
-                    CustomerWL: 164646.844
-                }}
+            gridData: {},
+            page: {
+                PageIndex: 1,
+                PageSize: 50,
+                TotalItem: 100,
+                PageList: [50, 100, 200, 300, 400, 500, 1000, 2000]
+            }
         }
     }
 
     componentDidUpdate(prevProps) {
         if (prevProps.params.Timestamp !== this.props.params.Timestamp) {
-            this._getGridData();
+            this._getGridData(this.props.params);
             this.props.setReportTitle(Service.getReportTitle(
                 this.props.params.FromDate,
                 this.props.params.ToDate,
@@ -45,18 +38,31 @@ export class DataGrid extends Component {
                 this.props.params.BaseCurrency));
         }
     }
-    
-    _getGridData() {
-        //this.props.toggleLoader(true);
-        //DataService.postData(Url, this.props.params)
-        //    .then(response => {
-        //        this.setState({ gridData: response.data });
-        //        this.props.toggleLoader(false);
-        //    })
-        //    .catch(error => {
-        //        Service.showErrorMsg();
-        //        this.props.toggleLoader(false);
-        //});
+
+    onPaging = (index, size) => {
+        let paramData = Object.assign({}, this.props.params);
+        paramData.PageIndex = index;
+        paramData.PageSize = size;
+        paramData.Timestamp = new Date().getTime();
+
+        this.props.setParams(paramData);
+    }
+
+    _getGridData(params) {
+        this.props.toggleLoader(true);
+        DataService.postData(URL, params)
+            .then(response => {
+                let page = Object.assign({}, this.state.page);
+                page.PageIndex = params.PageIndex;
+                page.PageSize = params.PageSize;
+
+                this.setState({ gridData: response.data, page: page });
+                this.props.toggleLoader(false);
+            })
+            .catch(error => {
+                Service.showErrorMsg();
+                this.props.toggleLoader(false);
+        });
     }
 
     _buildHeader() {
@@ -123,12 +129,12 @@ export class DataGrid extends Component {
     }
 
     render() {
-        const data = this.state.gridData;
-        if (!data.Data) {
+        const { gridData, page } = this.state;
+        if (!gridData.Data) {
             return null;
         }
 
-        if (!data.Data.length) {
+        if (!gridData.Data.length) {
             return <NoDataTitle />;
         }
 
@@ -138,8 +144,11 @@ export class DataGrid extends Component {
                 autoWidth={true}
                 bodyHeight={300}
                 header={this._buildHeader()}
-                body={this._buildBody(data.Data)}
-                footer={this._buildFooter(data.Total, this.props.params.BaseCurrency)}
+                body={this._buildBody(gridData.Data)}
+                footer={this._buildFooter(gridData.Total, this.props.params.BaseCurrency)}
+                isPaging={true}
+                pageOption={page}
+                onPaging={this.onPaging}
             />
         );
     }

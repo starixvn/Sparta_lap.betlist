@@ -324,4 +324,8 @@
     <value>Betting Ticket Center</value>
     <comment>80941</comment>
   </data>
+  <data name="Menu_80" xml:space="preserve">
+    <value>Casino Turnover</value>
+    <comment>95178</comment>
+  </data>
 </root>

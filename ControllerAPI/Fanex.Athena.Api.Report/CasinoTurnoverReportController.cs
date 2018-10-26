@@ -2,14 +2,16 @@
 {
     using System.Linq;
     using System.Web.Http;
+    using Base.Attributes;
     using DataAccess.Report.Interfaces;
     using Model.Core.DataDomain;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
+    using Service.Core.Utility;
 
-    //[ApiFunctionAuthorization(PermissionKeys.ReportCasinoTurnover)]
+    [ApiFunctionAuthorization(PermissionKeys.ReportCasinoTurnover)]
     public class CasinoTurnoverReportController : ApiReportBaseController
     {
         private readonly ICasinoTurnoverDataAccess _casinoTurnoverDataAccess;
@@ -24,14 +26,12 @@
             _casinoTurnoverDataAccess = dataAccess;
         }
 
-        [HttpGet]
+        [HttpPost]
         public dynamic GetData(CasinoTurnoverMetaModel metaModel)
         {
-            if (metaModel.IsValid)
+            if (IsValidMetaModel(metaModel))
             {
-                CheckValidProducts(FunctionNames.CasinoTurnover, metaModel.ProductCode);
-
-                var result =  _casinoTurnoverDataAccess.GetData(metaModel);
+                var result = _casinoTurnoverDataAccess.GetData(metaModel);
                 return new
                 {
                     Data = result.DataList,
@@ -44,6 +44,19 @@
                 Data = Enumerable.Empty<CasinoTurnover>(),
                 Total = new CasinoTurnover()
             };
+        }
+
+        private bool IsValidMetaModel(CasinoTurnoverMetaModel metaModel)
+        {
+            var result = metaModel.IsValid
+                && KeanOceanBusinessHelper.VerifyKeanOceanCurrencyRequest(
+                    SessionService.UserSession.CurrencyList,
+                    SessionService.LicenseeSession.LicenseeId,
+                    metaModel.CurrencyId);
+
+            CheckValidProducts(FunctionNames.CasinoTurnover, metaModel.ProductCode);
+
+            return result;
         }
     }
 }
