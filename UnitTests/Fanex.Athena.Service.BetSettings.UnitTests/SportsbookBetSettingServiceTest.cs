@@ -7,10 +7,11 @@
     using DataAccess.BetSettings.Interfaces;
     using Model.BetSettings.DTO;
     using Model.BetSettings.ViewModel;
-    using Model.Core.DataDomain;
+    using Model.Core.DTO.Common;
     using NSubstitute;
     using NUnit.Framework;
     using Resources;
+    using UnitTest.Common.Helpers;
 
     [TestFixture]
     public class SportsbookBetSettingServiceTest
@@ -23,7 +24,7 @@
         private ISportsbookBetSettingService _service;
         private IDcsBetSettingService _dcsBetSettingService;
 
-        [OneTimeSetUp]
+        [SetUp]
         public void SetUp()
         {
             _authorizationService = Substitute.For<IAuthorizationService>();
@@ -32,12 +33,17 @@
             _service = new SportsbookBetSettingService(_authorizationService, _dataAccess, _dcsBetSettingService);
         }
 
-        [OneTimeTearDown]
-        public void TearDown()
+        [Test]
+        public void GetViewModel_HaveNoPermission_ReturnEmptyData()
         {
-            _authorizationService = null;
-            _dataAccess = null;
-            _service = null;
+            // Arrange
+            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(false);
+
+            // Action
+            var result = _service.GetViewModel(LicenseeId, CustId);
+
+            // Assert
+            Assert.That(result.MainData, Is.Empty);
         }
 
         [Test]
@@ -66,16 +72,55 @@
         }
 
         [Test]
-        public void UpdateBetSetting_WhenCall_CallDataAccessWithCorrectParameters()
+        public void UpdateBetSetting_WhenCall_CallUpdateBetSettingMethods()
         {
             // Arrange
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
+            _dataAccess.UpdateBetSetting(Arg.Any<CommonBetSetting>(), Arg.Any<Dictionary<string, object>>()).Returns(new ResultInfo());
+            var commonBetSetting = FakeHelper.Create<CommonBetSetting>();
+
+            // Action
+            var result = _service.UpdateBetSetting(commonBetSetting, new Dictionary<string, object>(), new DcsBetSetting());
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                _dataAccess.Received(1).UpdateBetSetting(commonBetSetting, Arg.Any<Dictionary<string, object>>());
+                _dcsBetSettingService.Received(1).UpdateBetSetting(
+                    commonBetSetting.LicenseeId,
+                    commonBetSetting.CustId,
+                    commonBetSetting.UserId,
+                    commonBetSetting.Ip,
+                    Arg.Any<IEnumerable<DcsBetSetting>>());
+            });
+        }
+
+        [Test]
+        public void UpdateBetSetting_UpdateSportsbookFail_DoNotCallUpdateEsport()
+        {
+            // Arrange
+            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
+            _dataAccess.UpdateBetSetting(Arg.Any<CommonBetSetting>(), Arg.Any<Dictionary<string, object>>()).Returns(
+                new ResultInfo
+                {
+                    Code = 1,
+                    Message = "Error"
+                });
 
             // Action
             var result = _service.UpdateBetSetting(new CommonBetSetting(), new Dictionary<string, object>(), new DcsBetSetting());
 
             // Assert
-            _dataAccess.Received().UpdateBetSetting(Arg.Any<CommonBetSetting>(), Arg.Any<Dictionary<string, object>>());
+            Assert.Multiple(() =>
+            {
+                _dataAccess.Received(1).UpdateBetSetting(Arg.Any<CommonBetSetting>(), Arg.Any<Dictionary<string, object>>());
+                _dcsBetSettingService.DidNotReceive().UpdateBetSetting(
+                    Arg.Any<int>(),
+                    Arg.Any<int>(),
+                    Arg.Any<int>(),
+                    Arg.Any<string>(),
+                    Arg.Any<IEnumerable<DcsBetSetting>>());
+            });
         }
 
         [Test]
