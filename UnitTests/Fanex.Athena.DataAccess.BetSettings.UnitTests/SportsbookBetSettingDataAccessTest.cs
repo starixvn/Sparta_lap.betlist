@@ -4,7 +4,6 @@
     using System.Data;
     using System.Linq;
     using Core.UnitTests.TestHelpers;
-    using Data;
     using Model.BetSettings.DTO;
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
@@ -159,69 +158,6 @@
             var result = DataAccess.UpdateBetSetting(data, setting);
 
             // Assert
-            // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.That(result.Code, Is.EqualTo(expected.Code));
-                Assert.That(result.Message, Is.EqualTo(expected.Message));
-            });
-        }
-
-        [Test]
-        public void UpdateEsportStatus_WhenCall_ParametersPassedCorrectly()
-        {
-            // Arrange
-            DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerUpdEsportStatus")).Returns(ObjectDb);
-            var setting = new CommonBetSetting
-            {
-                LicenseeId = 1,
-                UserId = 2,
-                CustId = 3,
-                Ip = "IP",
-                Language = "LanguageTest"
-            };
-            const bool IsDisabled = true;
-
-            // Action
-            DataAccess.UpdateEsportStatus(setting, IsDisabled);
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                ObjectDb.Received(1).AddInParameter("ip", DbType.String, setting.Ip);
-                ObjectDb.Received(1).AddInParameter("Langkey", DbType.String, setting.Language);
-                ObjectDb.Received(1).AddInParameter("userid", DbType.Int32, setting.UserId);
-                ObjectDb.Received(1).AddInParameter("custid", DbType.Int32, setting.CustId);
-                ObjectDb.Received(1).AddInParameter("DisableEsports", DbType.Boolean, IsDisabled);
-                ObjectDb.Received(1).AddOutParameter("ErrCode", DbType.String, 600);
-                ObjectDb.Received(1).AddOutParameter("ErrMsg", DbType.String, 8000);
-            });
-        }
-
-        [Test]
-        public void UpdateEsportStatus_WhenCall_DataReturnedCorrectly()
-        {
-            // Arrange
-            DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerUpdEsportStatus")).Returns(ObjectDb);
-            var setting = new CommonBetSetting
-            {
-                LicenseeId = 1,
-                UserId = 2,
-                CustId = 3,
-                Ip = "IP",
-                Language = "LanguageTest"
-            };
-            var isDisabled = true;
-            var expected = new ResultInfo
-            {
-                Code = 100,
-                Message = "Success"
-            };
-            StubGetResultInfo(expected.Code, expected.Message);
-
-            // Action
-            var result = DataAccess.UpdateEsportStatus(setting, isDisabled);
-
             // Assert
             Assert.Multiple(() =>
             {

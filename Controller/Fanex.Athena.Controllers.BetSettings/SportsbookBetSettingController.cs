@@ -71,33 +71,6 @@ namespace Fanex.Athena.Controllers.BetSettings
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost]
-        [CustomValidateAntiForgery]
-        public JsonResult UpdateEsportStatus(bool isDisabled)
-        {
-            if (AppSettings.GetValue("EnableEsportSettingStatus") == "false")
-            {
-                var resultInfo = new ResultInfo { Code = -1, Message = ViewResources.FunctionIsUnderMaintenance };
-                return Json(resultInfo, JsonRequestBehavior.AllowGet);
-            }
-
-            if (!ProductAccess.IsAllow(Product.SB) || !IsBetSettingEditable())
-            {
-                return AccessDenied();
-            }
-
-            var sportsBook = GetBetSettingCommonParam();
-            var result = _betSettingService.UpdateEsportStatus(sportsBook, isDisabled);
-
-            if (result.Code == 0)
-            {
-                var enableText = isDisabled ? "disabled" : "enable";
-                result.Message = string.Format(ViewResources.UpdateMemberEsportsSuccessMsg, enableText);
-            }
-
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
-
         private IDictionary<string, object> GetSportsBookParam()
         {
             var sportsBookParam = new Dictionary<string, object>();

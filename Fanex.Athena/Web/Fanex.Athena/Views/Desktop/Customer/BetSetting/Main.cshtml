@@ -129,14 +129,6 @@ else
                 @ViewResources.Submit
             </button>
             <button type="button" id="btnReset" class="btn btn-cancel">@ViewResources.Reset</button>
-
-            @if (ConfigurationManager.AppSettings["EnableEsportSettingStatus"] == "true" && Model.EsportSetting != EsportSettingType.NoneOffering)
-            {
-                var buttonText = (Model.EsportSetting == EsportSettingType.NoneMemberOffering ? ViewResources.Enable : ViewResources.Disable) + " " + _cacheRefAdapter.GetSportName(43);
-                var esportStatus = Model.EsportSetting == EsportSettingType.NoneMemberOffering;
-                <input type="hidden" id="esport-text-from-remotingref" value="@_cacheRefAdapter.GetSportName(43)" />
-                <button type="button" id="btnDisableEsports" class="btn btn-submit" data-cust-id="@Model.Param.CustId" data-current-status="@esportStatus">@buttonText</button>
-            }
         </div>
     }
     <!--/SubmitButton-->

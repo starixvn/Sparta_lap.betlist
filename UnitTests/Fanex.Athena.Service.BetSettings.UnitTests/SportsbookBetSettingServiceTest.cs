@@ -105,34 +105,5 @@
             Assert.That(result.Code, Is.EqualTo(1));
             Assert.That(result.Message, Is.EqualTo(ViewResources.AccessDeniedMsg));
         }
-
-        [Test]
-        public void UpdateEsportStatus_WhenCall_CallDataAccessWithCorrectParameters()
-        {
-            // Arrange
-            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
-            var isDisabled = true;
-
-            // Action
-            var result = _service.UpdateEsportStatus(new CommonBetSetting(), isDisabled);
-
-            // Assert
-            _dataAccess.Received().UpdateEsportStatus(Arg.Any<CommonBetSetting>(), isDisabled);
-        }
-
-        [Test]
-        public void UpdateEsportStatus_SettingParamIsNull_ReturnCorrectErrorResult()
-        {
-            // Arrange
-            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
-            var isDisabled = true;
-
-            // Action
-            var result = _service.UpdateEsportStatus(null, isDisabled);
-
-            // Assert
-            Assert.That(result.Code, Is.EqualTo(1));
-            Assert.That(result.Message, Is.EqualTo("Invalid parameter. sportsBook is null"));
-        }
     }
 }

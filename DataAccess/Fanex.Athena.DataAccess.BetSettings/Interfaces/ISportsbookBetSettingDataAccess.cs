@@ -15,8 +15,6 @@ namespace Fanex.Athena.DataAccess.BetSettings.Interfaces
     {
         BetSettingViewModel GetBetSetting(int custId);
 
-        IResultInfo UpdateEsportStatus(CommonBetSetting setting, bool isDisabled);
-
         IResultInfo UpdateBetSetting(CommonBetSetting data, IDictionary<string, object> setting);
     }
 }

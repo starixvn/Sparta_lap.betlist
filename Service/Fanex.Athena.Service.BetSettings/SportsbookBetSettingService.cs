@@ -53,15 +53,5 @@ namespace Fanex.Athena.Service.BetSettings
 
             return _betSettingDataAccess.UpdateBetSetting(setting, hashParam);
         }
-
-        public IResultInfo UpdateEsportStatus(CommonBetSetting setting, bool isDisabled)
-        {
-            if (setting == null)
-            {
-                return ErrorResult("Invalid parameter. sportsBook is null");
-            }
-
-            return _betSettingDataAccess.UpdateEsportStatus(setting, isDisabled);
-        }
     }
 }

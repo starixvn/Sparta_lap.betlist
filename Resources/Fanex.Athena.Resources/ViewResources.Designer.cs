@@ -7837,15 +7837,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The E-Sports is {0} successfully..
-        /// </summary>
-        public static string UpdateMemberEsportsSuccessMsg {
-            get {
-                return ResourceManager.GetString("UpdateMemberEsportsSuccessMsg", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to update all Number Game bet settings?.
         /// </summary>
         public static string UpdateNumberGameBetSettings {
