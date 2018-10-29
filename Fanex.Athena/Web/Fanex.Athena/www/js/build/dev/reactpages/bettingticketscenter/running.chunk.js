@@ -5401,7 +5401,9 @@ var PageLayout = exports.PageLayout = function (_Component) {
                     _react2.default.createElement(_reactSimpleTab.Tab, { isActive: this.props.selectedTabIndex == 2, label: _langHelper2.default.getSingleResource("RefNo"),
                         url: _site2.default.resolveClientUrl("BettingTicketCenter/RefNo") }),
                     _react2.default.createElement(_reactSimpleTab.Tab, { isActive: this.props.selectedTabIndex == 3, label: _langHelper2.default.getSingleResource("Running"),
-                        url: _site2.default.resolveClientUrl("BettingTicketCenter/Running") })
+                        url: _site2.default.resolveClientUrl("BettingTicketCenter/Running") }),
+                    _react2.default.createElement(_reactSimpleTab.Tab, { isActive: this.props.selectedTabIndex == 4, label: _langHelper2.default.getSingleResource("MultiCustomer"),
+                        url: _site2.default.resolveClientUrl("BettingTicketCenter/MultipleCustomers") })
                 ),
                 _react2.default.createElement(
                     'div',

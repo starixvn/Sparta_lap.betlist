@@ -108,6 +108,9 @@ export class PageLayout extends Component {
                     <Tab isActive={this.props.selectedTabIndex == 3} label={LangHelper.getSingleResource("Running")}
                         url={Site.resolveClientUrl("BettingTicketCenter/Running")}>
                     </Tab>
+                    <Tab isActive={this.props.selectedTabIndex == 4} label={LangHelper.getSingleResource("MultiCustomer")}
+                        url={Site.resolveClientUrl("BettingTicketCenter/MultipleCustomers")}>
+                    </Tab>
                 </Tabs>
                 <div>
                     {this.props.children}
