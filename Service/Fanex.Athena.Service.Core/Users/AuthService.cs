@@ -1,5 +1,4 @@
 ﻿using System;
-using Fanex.Athena.DataAccess.Core.Users;
 using Fanex.Athena.DataAccess.Core.Users.Interfaces;
 using Fanex.Athena.Model.Core.DTO.Common;
 using Fanex.Athena.Model.Core.DTO.Users;
@@ -17,7 +16,7 @@ namespace Fanex.Athena.Service.Core.Users
         private readonly IUserDataAccess _userDataAccess;
 
         private readonly IAuthDataAccess _authenticationDataAccess;
-        
+
         public AuthService(
             IUserDataAccess userDataAccess,
             IAuthDataAccess authenticationDataAccess)
@@ -35,11 +34,6 @@ namespace Fanex.Athena.Service.Core.Users
         public void Logout(int onuserId)
         {
             this._authenticationDataAccess.Logout(onuserId);
-        }
-
-        public IResultInfo<User> ValidateInternalUser(User requestUser, string licenseeName, long timeStamp)
-        {
-            return _authenticationDataAccess.ValidateInternalUser(requestUser, timeStamp, licenseeName);
         }
 
         public IResultInfo<User> ValidateUserForLrfSystem(User requestUser, string loginToken)

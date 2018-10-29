@@ -59,32 +59,6 @@ namespace Fanex.Athena.DataAccess.Core.Users
             }
         }
 
-        public IResultInfo<User> ValidateInternalUser(User requestUser, long timeStamp, string licenseeName)
-        {
-            const string UspName = "Lrf_InternalLogin";
-            try
-            {
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    AddCommonParameters(requestUser, db);
-
-                    db.AddInParameter("EncryptedPassword", DbType.String, requestUser.Password);
-                    db.AddInParameter("LicenseeName", DbType.String, licenseeName);
-                    db.AddInParameter("LoginTime", DbType.DateTime, new DateTime(timeStamp));
-                    db.AddInParameter("Language", DbType.String, requestUser.Request.Language);
-
-                    var user = ReadUser(db);
-                    var resultInfo = GetResult<User>(db);
-                    resultInfo.ExtendedData = user;
-                    return resultInfo;
-                }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName, requestUser);
-            }
-        }
-
         public IResultInfo<User> ValidateUserForLrfSystem(User requestUser)
         {
             const string UspName = "Lrf_UserLogin";

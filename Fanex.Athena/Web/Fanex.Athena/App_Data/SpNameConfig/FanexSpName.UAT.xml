@@ -46,7 +46,6 @@
     <Setting Key="Lrf_UserUpdAccount" SpName="Lrf_UserUpdAccount" DbName="DBCUST.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_UserAccessSel" SpName="Lrf_UserAccessSel" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_UserPwdReset" SpName="Lrf_UserPwdReset" DbName="DBCUST.bodb_Licensee.bodbLicenseeNet" />
-    <Setting Key="Lrf_InternalLogin" SpName="Lrf_InternalLogin" DbName="DBCUST.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Licensee_UserPasswordUpd" SpName="Licensee_UserPasswordUpd" DbName="DBCUST.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_CurrencyCustIns" SpName="Lrf_CurrencyCustIns" DbName="DBCUST.bodb_Licensee.bodbLicenseeNet" />
     <Setting Key="Lrf_UserInfoSelByUserName" SpName="Lrf_UserInfoSelByUserName" DbName="DBLIC.bodb_Licensee.bodbLicenseeNet" />

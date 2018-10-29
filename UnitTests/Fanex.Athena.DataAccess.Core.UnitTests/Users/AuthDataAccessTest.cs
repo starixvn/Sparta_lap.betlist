@@ -1,6 +1,5 @@
 ﻿namespace Fanex.Athena.DataAccess.Core.UnitTests.Users
 {
-    using System;
     using System.Data;
     using Core.Users;
     using Data;
@@ -85,59 +84,6 @@
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
                 "Lrf_UserLogout",
                 () => DataAccess.Logout(0));
-        }
-
-        [Test]
-        public void ValidateInternalUser_WhenCall_ParametersPassedCorrectly()
-        {
-            // Arrange
-            DataAccess.GetObjectDb(Arg.Is("Lrf_InternalLogin")).Returns(ObjectDb);
-
-            const string LicenseeName = "TestName";
-            var requestUser = GetFakeRequestUserData();
-            var timeStamp = TimeSpan.TicksPerMillisecond;
-
-            // Action
-            DataAccess.ValidateInternalUser(requestUser, timeStamp, LicenseeName);
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                AssertPassedCommonParams(ObjectDb, requestUser);
-                ObjectDb.Received(1).AddInParameter("EncryptedPassword", DbType.String, requestUser.Password);
-                ObjectDb.Received(1).AddInParameter("LicenseeName", DbType.String, LicenseeName);
-                ObjectDb.Received(1).AddInParameter("LoginTime", DbType.DateTime, new DateTime(timeStamp));
-                ObjectDb.Received(1).AddInParameter("Language", DbType.String, requestUser.Request.Language);
-            });
-        }
-
-        [Test]
-        public void ValidateInternalUser_WhenCall_DataReturnedCorrectly()
-        {
-            // Arrange
-            DataAccess.GetObjectDb(Arg.Is("Lrf_InternalLogin")).Returns(ObjectDb);
-
-            const string LicenseeName = "TestName";
-            var timeStamp = TimeSpan.TicksPerMillisecond;
-
-            var requestUser = GetFakeRequestUserData();
-            var expected = GetFakeUserData();
-
-            ConfigureDataReader(expected);
-
-            // Action
-            var user = DataAccess.ValidateInternalUser(requestUser, timeStamp, LicenseeName).ExtendedData;
-
-            // Assert
-            AssertExpectedUser(expected, user);
-        }
-
-        [Test]
-        public void ValidateInternalUser_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                "Lrf_InternalLogin",
-                () => DataAccess.ValidateInternalUser(new User(), 0, string.Empty));
         }
 
         [Test]
