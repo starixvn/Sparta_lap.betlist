@@ -48,15 +48,10 @@ namespace Fanex.Athena.DataAccess.BetSettings
                 {
                     if (reader.Read())
                     {
-                        var esportSetting = reader.HasColumn("DisableEsports") ?
-                            (EsportSettingType)System.Convert.ToInt32(reader["DisableEsports"])
-                            : EsportSettingType.NoneOffering;
-
                         var dataList = GetBetSettings(reader, _appSettings.IsShowMixedSport);
                         return new BetSettingViewModel
                         {
-                            MainData = dataList,
-                            EsportSetting = esportSetting
+                            MainData = dataList
                         };
                     }
                 }
@@ -64,8 +59,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
             return new BetSettingViewModel
             {
-                MainData = new List<BetSetting>(),
-                EsportSetting = EsportSettingType.NoneOffering
+                MainData = new List<BetSetting>()
             };
         }
 

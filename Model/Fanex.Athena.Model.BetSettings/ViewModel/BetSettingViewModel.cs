@@ -18,7 +18,5 @@ namespace Fanex.Athena.Model.BetSettings.ViewModel
         }
 
         public IList<BetSetting> MainData { get; set; }
-
-        public EsportSettingType EsportSetting { get; set; }
     }
 }

@@ -6,18 +6,11 @@
 
 namespace Fanex.Athena.Model.BetSettings.DTO
 {
-    using Fanex.Athena.Model.Core.DataDomain;
-
     /// <summary>
     /// BetSetting class.
     /// </summary>
     public class BetSetting
     {
-        public BetSetting()
-        {
-            this.EsportSetting = EsportSettingType.NoneOffering;
-        }
-
         public decimal MinBet { get; set; }
 
         public decimal MaxBet { get; set; }
@@ -41,7 +34,5 @@ namespace Fanex.Athena.Model.BetSettings.DTO
         public string SportId { get; set; }
 
         public int BetType { get; set; }
-
-        public EsportSettingType EsportSetting { get; set; }
     }
 }

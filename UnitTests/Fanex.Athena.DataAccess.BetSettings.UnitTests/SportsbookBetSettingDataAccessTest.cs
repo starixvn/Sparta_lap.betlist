@@ -5,7 +5,6 @@
     using System.Linq;
     using Core.UnitTests.TestHelpers;
     using Model.BetSettings.DTO;
-    using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
     using NSubstitute;
     using NUnit.Framework;
@@ -59,14 +58,12 @@
             Assert.Multiple(() =>
             {
                 Assert.That(result.MainData.Any(), Is.False);
-                Assert.That(result.EsportSetting, Is.EqualTo(EsportSettingType.NoneOffering));
             });
         }
 
-        [TestCase(false, EsportSettingType.NoneOffering, true)]
-        [TestCase(true, EsportSettingType.LicenseeOffering, false)]
-        [TestCase(true, EsportSettingType.NoneMemberOffering, true)]
-        public void GetBetSetting_WhenCall_DataReturnCorrectly(bool hasDisableEsportsColumn, EsportSettingType expectedEsportSetting, bool isShowMixedSport)
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GetBetSetting_WhenCall_DataReturnCorrectly(bool isShowMixedSport)
         {
             // Arrange
             AppSetting.IsShowMixedSport.Returns(isShowMixedSport);
@@ -75,11 +72,6 @@
             Reader.Read().Returns(true);
             Reader.FieldCount.Returns(1);
             Reader[Arg.Any<string>()].Returns(string.Empty);
-            Reader["DisableEsports"].Returns(expectedEsportSetting);
-            if (hasDisableEsportsColumn)
-            {
-                Reader.GetName(Arg.Any<int>()).Returns("DisableEsports");
-            }
 
             const int CustId = 1;
             var expectedSportIds = "1,2,3,5,8,10,11,99,99MP";
@@ -96,7 +88,6 @@
             Assert.Multiple(() =>
             {
                 Assert.That(sportIdList, Is.EqualTo(expectedSportIds));
-                Assert.That(result.EsportSetting, Is.EqualTo(expectedEsportSetting));
             });
         }
 

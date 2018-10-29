@@ -51,8 +51,7 @@
                 MainData = new List<BetSetting>
                 {
                     new BetSetting()
-                },
-                EsportSetting = EsportSettingType.NoneMemberOffering
+                }
             };
             _dataAccess.GetBetSetting(CustId).Returns(viewModel);
 
@@ -63,7 +62,6 @@
             Assert.Multiple(() =>
             {
                 Assert.That(result.MainData.Count, Is.EqualTo(viewModel.MainData.Count));
-                Assert.That(result.EsportSetting, Is.EqualTo(viewModel.EsportSetting));
             });
         }
 
@@ -91,7 +89,7 @@
 
             // Assert
             Assert.That(result.Code, Is.EqualTo(1));
-            Assert.That(result.Message, Is.EqualTo("Invalid parameter. sportsBook is null"));
+            Assert.That(result.Message, Is.EqualTo("Invalid parameters. bet setting is null"));
         }
 
         [Test]
