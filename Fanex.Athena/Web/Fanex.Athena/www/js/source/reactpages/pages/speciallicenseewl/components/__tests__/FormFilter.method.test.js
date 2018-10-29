@@ -150,6 +150,7 @@ describe('FormFilter ', () => {
         })
 
         afterEach(()=>{
+            exportFnMock.mockReset();
             window.alert = alert;
         })
 
@@ -177,8 +178,7 @@ describe('FormFilter ', () => {
 
         it('action return promise - export method of Excel class should be called', () => {
             const fakeResponse = { data: { Data: [1, 2] } };
-            const promise = Promise.resolve(fakeResponse);
-            Report.fetchGridData = jest.fn(() => promise);
+            Report.fetchGridData = jest.fn(() => Promise.resolve(fakeResponse));
 
             const props = { toggleLoader: jest.fn() };
             
@@ -188,7 +188,6 @@ describe('FormFilter ', () => {
 
             Promise.resolve().then(() => {
                 expect(exportFnMock.mock.calls.length).toBe(1);
-                expect(props.toggleLoader).toHaveBeenCalledWith(false);
             })
         })
 

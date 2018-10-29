@@ -227,6 +227,7 @@ describe('FormFilter ', () => {
 
                 beforeEach(() => {
                     Service.getReportTitle = jest.fn(() => fakeReportTitle);
+                    Service.showErrorMsg = jest.fn();
                 })
 
                 afterEach(() => {
@@ -248,18 +249,17 @@ describe('FormFilter ', () => {
 
                 describe('_getParams return data ', () => {
                     const fakeResponse = { data: { Data: [1, 2] } };
-                    const promise = Promise.resolve(fakeResponse);
-                    const props = { params: { Level: ReportLevel.CUSTOMER }, xsrfToken: 'token', toggleLoader: jest.fn() };
+                    const props = { params: { Level: ReportLevel.CUSTOMER, BaseCurrency: 'USD' }, xsrfToken: 'token', toggleLoader: jest.fn() };
                     let formFilter;
 
                     beforeEach(() => {
                         formFilter = new FormFilter(props);
                         formFilter._getParams = jest.fn(() => { return {} });
-                        Report.fetchGridData = jest.fn(() => promise);
                     })
 
                     it('action return promise - Report.fetchGridData should be called with correct parameter', () => {
                         const expectedParams = {};
+                        Report.fetchGridData = jest.fn(() => Promise.resolve({}));
 
                         formFilter.exportExcel(event);
 
@@ -269,11 +269,12 @@ describe('FormFilter ', () => {
                     it('action return promise - Excel class should be instantiated with correct parameter', () => {
                         const reportExcelMock = jest.fn();
                         ReportExcel.mockImplementation(reportExcelMock);
+                        Report.fetchGridData = jest.fn(() => Promise.resolve(fakeResponse));
 
                         formFilter.exportExcel(event);
 
                         Promise.resolve().then(() => {
-                            expect(reportExcelMock).toHaveBeenCalledWith(fakeResponse.data, fakeReportTitle);
+                            expect(reportExcelMock).toHaveBeenCalledWith(fakeResponse.data, fakeReportTitle, true, props.params.BaseCurrency);
                         })
                     })
 
@@ -284,6 +285,7 @@ describe('FormFilter ', () => {
                                 export: exportFnMock
                             }
                         });
+                        Report.fetchGridData = jest.fn(() => Promise.resolve(fakeResponse));
 
                         formFilter.exportExcel(event);
 
@@ -308,12 +310,11 @@ describe('FormFilter ', () => {
                     })
 
                     it('get data failed - export data with correct parameter', () => {
-                        const promise = Promise.reject('error');
-                        Report.fetchGridData = jest.fn(() => promise);
+                        Report.fetchGridData = jest.fn(() => Promise.reject('error'));
                         
                         formFilter.exportExcel(event);
 
-                        Promise.reject().catch(() => {
+                        Promise.reject().then().catch((e) => {
                             expect(Service.showErrorMsg).toHaveBeenCalled();
                             expect(props.toggleLoader).toHaveBeenCalledWith(false);
                         });
