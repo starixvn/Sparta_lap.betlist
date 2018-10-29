@@ -8,10 +8,12 @@ namespace Fanex.Athena.Controllers.BetSettings
 {
     using System.Collections.Generic;
     using System.Web.Mvc;
+    using Constant.DataDomain;
     using DataAccess.BetSettings.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Model.BetSettings.MetaModel;
     using Fanex.Athena.Web.ActionFilter;
+    using Model.BetSettings.DTO;
     using Model.Core.DTO.Common;
     using Resources;
     using Service.BetSettings.Interfaces;
@@ -59,9 +61,10 @@ namespace Fanex.Athena.Controllers.BetSettings
                 return AccessDenied();
             }
 
-            var sportsBook = GetBetSettingCommonParam();
+            var commonParam = GetBetSettingCommonParam();
             var param = GetSportsBookParam();
-            var result = _betSettingService.UpdateBetSetting(sportsBook, param);
+            var esportSetting = GetESportSetting();
+            var result = _betSettingService.UpdateBetSetting(commonParam, param, esportSetting);
 
             if (result.Code == 0)
             {
@@ -113,6 +116,19 @@ namespace Fanex.Athena.Controllers.BetSettings
             var value = HttpContext.Request[name].ToLowerInvariant();
 
             return value == "1" || value == "on" || value == "true";
+        }
+
+        private DcsBetSetting GetESportSetting()
+        {
+            var sportType = (int)SportType.Esports;
+            return new DcsBetSetting
+            {
+                MaxBet = GetDecimalRequest("maxbet" + sportType, 0),
+                MinBet = GetDecimalRequest("minbet" + sportType, 0),
+                MaxPerMatch = GetDecimalRequest("maxpermatch" + sportType, 0),
+                SportId = sportType.ToString(),
+                BetType = GetIntRequest("bettype" + sportType, 0),
+            };
         }
     }
 }

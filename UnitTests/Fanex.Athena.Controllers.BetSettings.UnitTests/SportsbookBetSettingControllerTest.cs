@@ -90,7 +90,8 @@
 
                 _betSettingService.UpdateBetSetting(
                    Arg.Any<CommonBetSetting>(),
-                   Arg.Any<IDictionary<string, object>>()).Returns(new ResultInfo { Code = 0 });
+                   Arg.Any<IDictionary<string, object>>(),
+                   Arg.Any<DcsBetSetting>()).Returns(new ResultInfo { Code = 0 });
 
                 // Action
                 var result = controller.UpdateBetSetting(string.Empty) as JsonResult;
@@ -120,7 +121,8 @@
 
                 _betSettingService.UpdateBetSetting(
                    Arg.Any<CommonBetSetting>(),
-                   Arg.Any<IDictionary<string, object>>()).Returns(new ResultInfo { Code = 1, Message = "Error" });
+                   Arg.Any<IDictionary<string, object>>(),
+                   Arg.Any<DcsBetSetting>()).Returns(new ResultInfo { Code = 1, Message = "Error" });
 
                 // Action
                 var result = controller.UpdateBetSetting(string.Empty) as JsonResult;
@@ -158,7 +160,8 @@
                 IDictionary<string, object> param = null;
                 _betSettingService.UpdateBetSetting(
                    Arg.Any<CommonBetSetting>(),
-                   Arg.Do<IDictionary<string, object>>(x => param = x)).Returns(new ResultInfo { Code = 1, Message = "Error" });
+                   Arg.Do<IDictionary<string, object>>(x => param = x),
+                   Arg.Any<DcsBetSetting>()).Returns(new ResultInfo { Code = 1, Message = "Error" });
 
                 // Action
                 controller.UpdateBetSetting(string.Empty);

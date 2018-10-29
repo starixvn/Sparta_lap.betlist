@@ -15,6 +15,6 @@ namespace Fanex.Athena.Service.BetSettings.Interfaces
     {
         BetSettingViewModel GetViewModel(int licenseeId, int custId);
 
-        IResultInfo UpdateBetSetting(CommonBetSetting setting, IDictionary<string, object> hashParam);
+        IResultInfo UpdateBetSetting(CommonBetSetting setting, IDictionary<string, object> hashParam, DcsBetSetting esportSetting);
     }
 }

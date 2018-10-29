@@ -21,13 +21,15 @@
         private IAuthorizationService _authorizationService;
         private ISportsbookBetSettingDataAccess _dataAccess;
         private ISportsbookBetSettingService _service;
+        private IDcsBetSettingService _dcsBetSettingService;
 
         [OneTimeSetUp]
         public void SetUp()
         {
             _authorizationService = Substitute.For<IAuthorizationService>();
             _dataAccess = Substitute.For<ISportsbookBetSettingDataAccess>();
-            _service = new SportsbookBetSettingService(_authorizationService, _dataAccess);
+            _dcsBetSettingService = Substitute.For<IDcsBetSettingService>();
+            _service = new SportsbookBetSettingService(_authorizationService, _dataAccess, _dcsBetSettingService);
         }
 
         [OneTimeTearDown]
@@ -72,7 +74,7 @@
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
 
             // Action
-            var result = _service.UpdateBetSetting(new CommonBetSetting(), new Dictionary<string, object>());
+            var result = _service.UpdateBetSetting(new CommonBetSetting(), new Dictionary<string, object>(), new DcsBetSetting());
 
             // Assert
             _dataAccess.Received().UpdateBetSetting(Arg.Any<CommonBetSetting>(), Arg.Any<Dictionary<string, object>>());
@@ -85,7 +87,7 @@
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
 
             // Action
-            var result = _service.UpdateBetSetting(null, new Dictionary<string, object>());
+            var result = _service.UpdateBetSetting(null, new Dictionary<string, object>(), new DcsBetSetting());
 
             // Assert
             Assert.That(result.Code, Is.EqualTo(1));
@@ -99,7 +101,7 @@
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(false);
 
             // Action
-            var result = _service.UpdateBetSetting(new CommonBetSetting(), new Dictionary<string, object>());
+            var result = _service.UpdateBetSetting(new CommonBetSetting(), new Dictionary<string, object>(), new DcsBetSetting());
 
             // Assert
             Assert.That(result.Code, Is.EqualTo(1));
