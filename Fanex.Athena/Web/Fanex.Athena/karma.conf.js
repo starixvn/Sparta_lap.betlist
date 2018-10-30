@@ -35,26 +35,6 @@ module.exports = function (config) {
 		 'Scripts/Account/*.js',
 		 'jasmine-specs/Account/*-test.js',
 		
-		// --------- BetList --------- //
-		'Scripts/BetList/betlist.js',
-		'Scripts/BetList/betlist.option.js',
-		'Scripts/BetList/commonbetlist.js',
-		'Scripts/BetList/correctscorebetlist.js',
-		'Scripts/BetList/customer.dailystatement.js',
-		'Scripts/BetList/customer.dailystatement.option.js',
-		'Scripts/BetList/customer.outstandingbetlist.js',
-		'Scripts/BetList/runningbetlist.js',
-		'Scripts/BetList/runningbetlist.multiplebettypes.js',
-		
-		'jasmine-specs/BetList/betlist-test.js',
-		'jasmine-specs/BetList/commonbetlist-test.js',
-		'jasmine-specs/BetList/correctscorebetlist-test.js',
-		'jasmine-specs/BetList/customer.dailystatement-test.js',
-		'jasmine-specs/BetList/customer.dailystatement.option-test.js',
-		'jasmine-specs/BetList/customer.outstandingbetlist-test.js',
-		 'jasmine-specs/BetList/runningbetlist-test.js',
-		'jasmine-specs/BetList/runningbetlist.multiplebettypes-test.js',
-
 		 // --------- Extension --------- //
 		'Scripts/Extension/*.js',
 		 'jasmine-specs/Extension/*-test.js',
