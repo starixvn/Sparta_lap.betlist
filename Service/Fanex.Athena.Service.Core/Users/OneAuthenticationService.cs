@@ -6,7 +6,6 @@
     using System.Web;
     using System.Web.Hosting;
     using Constant.DataDomain;
-    using DataAccess.Core.Users;
     using DataAccess.Core.Users.Interfaces;
     using Extension.Utility;
     using Extension.Utility.Interfaces;
@@ -68,6 +67,16 @@
             }
 
             var userInfo = GetUserInfo(tokenInfo);
+            if (userInfo.UserLevel == UserLevelType.Subsidiary &&
+                string.IsNullOrWhiteSpace(userInfo.OperatorID))
+            {
+                return new ResultInfo
+                {
+                    Code = OneAuthorizationErrorCode.InvalidSubsidiaryNameMsg,
+                    Message = ViewResources.InvalidSubsidiaryNameMsg
+                };
+            }
+
             var result = ValidateCurrencyList(userInfo);
             if (!result.IsSuccessful)
             {
@@ -137,17 +146,11 @@
         {
             if (userInfo.CurrencyUserList == null || !userInfo.CurrencyUserList.Any())
             {
-                return userInfo.UserLevel == UserLevelType.Subsidiary ?
-                    new ResultInfo
-                    {
-                        Code = OneAuthorizationErrorCode.SubsidiaryNotHaveCurrency,
-                        Message = ViewResources.SubsidiaryNotHaveCurrencyMsg
-                    }
-                    : new ResultInfo
-                    {
-                        Code = OneAuthorizationErrorCode.UserNotHaveCurrency,
-                        Message = ViewResources.UserNotHaveCurrency
-                    };
+                return new ResultInfo
+                {
+                    Code = OneAuthorizationErrorCode.UserNotHaveCurrency,
+                    Message = ViewResources.UserNotHaveCurrency
+                };
             }
 
             foreach (var currency in userInfo.CurrencyUserList)

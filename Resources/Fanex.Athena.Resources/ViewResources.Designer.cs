@@ -3571,6 +3571,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please contact admin to check your subsidiary name..
+        /// </summary>
+        public static string InvalidSubsidiaryNameMsg {
+            get {
+                return ResourceManager.GetString("InvalidSubsidiaryNameMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to (N).
         /// </summary>
         public static string IsNeutral {
@@ -7041,15 +7050,6 @@ namespace Fanex.Athena.Resources {
         public static string Subsidiary {
             get {
                 return ResourceManager.GetString("Subsidiary", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Please contact admin to check your subsidiary name..
-        /// </summary>
-        public static string SubsidiaryNotHaveCurrencyMsg {
-            get {
-                return ResourceManager.GetString("SubsidiaryNotHaveCurrencyMsg", resourceCulture);
             }
         }
         

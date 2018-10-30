@@ -3048,7 +3048,7 @@
   <data name="InvalidCurrencyPermission" xml:space="preserve">
     <value>Invalid currency permissions.</value>
   </data>
-  <data name="SubsidiaryNotHaveCurrencyMsg" xml:space="preserve">
+  <data name="InvalidSubsidiaryNameMsg" xml:space="preserve">
     <value>Please contact admin to check your subsidiary name.</value>
     <comment>#95177</comment>
   </data>

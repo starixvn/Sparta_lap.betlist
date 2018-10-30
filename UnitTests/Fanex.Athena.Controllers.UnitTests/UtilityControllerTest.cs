@@ -93,7 +93,7 @@
             "You do not have any currency permissions to view this report, please contact your administrator account.")]
         [TestCase(OneAuthorizationErrorCode.YouAreNotAllowToAccessThisPage, "You are not allowed to access this page, please contact your administrator account.")]
         [TestCase(OneAuthorizationErrorCode.NotFoundUser, "Not found user")]
-        [TestCase(OneAuthorizationErrorCode.SubsidiaryNotHaveCurrency, "Please contact admin to check your subsidiary name.")]
+        [TestCase(OneAuthorizationErrorCode.InvalidSubsidiaryNameMsg, "Please contact admin to check your subsidiary name.")]
         public void OneTokenRestriction_ValidCode_ReturnMsgByCode(int code, string msg)
         {
             using (var controller = CreateController())
