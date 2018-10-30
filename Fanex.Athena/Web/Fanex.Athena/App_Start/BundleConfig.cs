@@ -8,15 +8,8 @@
     /// </summary>
     public static class BundleConfig
     {
-        /// <summary>
-        /// The CSS rewrite URL transform.
-        /// </summary>
         private static IItemTransform cssRewriteUrlTransform;
 
-        /// <summary>
-        /// Registers the bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         public static void RegisterBundles(BundleCollection bundles)
         {
             cssRewriteUrlTransform = new CssRewriteUrlTransformWrapper();
@@ -26,31 +19,19 @@
             BundleTable.EnableOptimizations = WebConfigurationManager.AppSettings["EnableBundle"] == "1";
         }
 
-        /// <summary>
-        /// Registers the view bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterViewBundles(BundleCollection bundles)
         {
             RegisterEditAccountViewStyles(bundles);
             RegisterResetPasswordViewStyles(bundles);
         }
 
-        /// <summary>
-        /// Registers the layout bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterLayoutBundles(BundleCollection bundles)
         {
             RegisterLayoutScripts(bundles);
             RegisterAccountLayoutScripts(bundles);
             RegisterJqgridLayoutScripts(bundles);
-            RegisterBetListLayoutScripts(bundles);
-            RegisterBetListSimpleLayoutScripts(bundles);
 
             RegisterAccountLayoutStyles(bundles);
-            RegisterBetListLayoutStyles(bundles);
-            RegisterBetListSimpleLayoutStyles(bundles);
 
             RegisterjqGridLayoutStyles(bundles);
 
@@ -86,21 +67,12 @@
             AddNewScriptBundle(bundles, bundle);
         }
 
-        /// <summary>
-        /// Adds the new bundle.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
-        /// <param name="bundle">The bundle.</param>
         private static void AddNewScriptBundle(BundleCollection bundles, Bundle bundle)
         {
             bundle.Orderer = new NonOrderingBundleOrderer();
             bundles.Add(bundle);
         }
 
-        /// <summary>
-        /// Registers the account layout scripts.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterAccountLayoutScripts(BundleCollection bundles)
         {
             var bundle = new ScriptBundle("~/bundles/AccountLayoutScripts")
@@ -110,10 +82,6 @@
             AddNewScriptBundle(bundles, bundle);
         }
 
-        /// <summary>
-        /// Registers the jQuery grid layout scripts.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterJqgridLayoutScripts(BundleCollection bundles)
         {
             var bundle = new ScriptBundle("~/bundles/jqGridLayoutScripts")
@@ -127,63 +95,7 @@
                         "~/Scripts/Plugin/MultiSelect/jquery.multiselect.js",
                         "~/Scripts/Plugin/LinqJs/JSLINQ.js",
                         "~/Scripts/Report/report.js",
-                        "~/Scripts/global/prototype.js",
-                        "~/Scripts/Plugin/FlatPopup/jquery.custom-scrollbar.js",
-                        "~/Scripts/Plugin/FlatPopup/jquery.flatpopup.js",
-                        "~/Scripts/Extension/ajaxBinaryTransporting.js",
-                        "~/Scripts/Helper/downloader.js",
-                        "~/Scripts/Plugin/Toast/toast.js",
-                        "~/Scripts/Helper/datahelper.js");
-            AddNewScriptBundle(bundles, bundle);
-        }
-
-        /// <summary>
-        /// Registers the bet list layout scripts.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
-        private static void RegisterBetListLayoutScripts(BundleCollection bundles)
-        {
-            var bundle = new ScriptBundle("~/bundles/BetListLayoutScripts")
-                .Include(
-                        "~/Scripts/global/jquery.jqgrid.additional.js",
-                        "~/Scripts/Library/jquery.jqGrid.en.js",
-                        "~/Scripts/Library/jquery.jqGrid.min.js",
-                        "~/Scripts/Library/moment.min.js",
-                        "~/Scripts/Plugin/MonthPickr/monpickr.js",
-                        "~/Scripts/Plugin/FlatPopup/jquery.custom-scrollbar.js",
-                        "~/Scripts/Plugin/FlatPopup/jquery.flatpopup.js",
-                        "~/Scripts/Report/report.js",
-                        "~/scripts/global/Paging.js",
-                        "~/Scripts/Plugin/DateRangePicker/date.min.js",
-                        "~/Scripts/Plugin/DateRangePicker/daterangepicker.js",
-                        "~/Scripts/Plugin/MultiSelect/jquery.multiselect.js",
-                        "~/Scripts/BetList/voidbridge-result.js",
-                        "~/Scripts/BetList/betlist.option.js",
-                        "~/Scripts/BetList/betlist.js");
-            AddNewScriptBundle(bundles, bundle);
-        }
-
-        /// <summary>
-        /// Registers the bet list simple layout scripts.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
-        private static void RegisterBetListSimpleLayoutScripts(BundleCollection bundles)
-        {
-            var bundle = new ScriptBundle("~/bundles/BetListSimpleLayoutScripts")
-                .Include(
-                        "~/Scripts/global/jquery.jqgrid.additional.js",
-                        "~/Scripts/Library/jquery.jqGrid.en.js",
-                        "~/Scripts/Library/jquery.jqGrid.min.js",
-                        "~/Scripts/Library/moment.min.js",
-                        "~/Scripts/Plugin/MonthPickr/monpickr.js",
-                        "~/Scripts/Report/report.js",
-                        "~/scripts/global/Paging.js",
-                        "~/Scripts/Plugin/DateRangePicker/date.min.js",
-                        "~/Scripts/Plugin/DateRangePicker/daterangepicker.js",
-                        "~/Scripts/BetList/voidbridge-result.js",
-                        "~/Scripts/BetList/betlist.option.js",
-                        "~/Scripts/BetList/betlist.js",
-                        "~/Scripts/BetList/commonbetlist.js");
+                        "~/Scripts/global/prototype.js");
             AddNewScriptBundle(bundles, bundle);
         }
 
@@ -191,10 +103,6 @@
 
         #region CSS Shared Layout
 
-        /// <summary>
-        /// Registers the account layout styles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterAccountLayoutStyles(BundleCollection bundles)
         {
             AddStyleBundle(
@@ -206,61 +114,6 @@
                 "~/Content/FlatPopup/jquery.flatpopup.css");
         }
 
-        /// <summary>
-        /// Registers the bet list layout styles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
-        private static void RegisterBetListLayoutStyles(BundleCollection bundles)
-        {
-            AddStyleBundle(
-                bundles,
-                "~/bundles/BetListLayoutStyles",
-                "~/Content/Library/smoothness/jqgrid-custom.css",
-                "~/Content/Library/ui.jqgrid/jqgrid.extension.css",
-                "~/Content/Library/start/jquery-ui.min.css",
-                "~/Content/Library/ui.jqgrid/ui.jqgrid.css",
-                "~/Content/Global/grid26.css",
-                "~/Content/Global/lrf.global.content.css",
-                "~/Content/Plugin/MonthPickr/monPickr.css",
-                "~/Content/Global/Paging.css",
-                "~/Content/Plugin/DateRangePicker/daterangepicker.css",
-                "~/Content/BetList/betlist.core.css",
-                "~/Content/BetList/Microgaming.css",
-                "~/Content/BetList/AGCasino.css",
-                "~/Content/BetList/Allbet.css",
-                "~/Content/FlatPopup/jquery.custom-scrollbar.css",
-                "~/Content/FlatPopup/jquery.flatpopup.css",
-                "~/Content/Plugin/MultiSelect/jquery.multiselect.css");
-        }
-
-        /// <summary>
-        /// Registers the bet list simple layout styles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
-        private static void RegisterBetListSimpleLayoutStyles(BundleCollection bundles)
-        {
-            AddStyleBundle(
-                bundles,
-                "~/bundles/BetListSimpleLayoutStyles",
-                "~/Content/Library/smoothness/jqgrid-custom.css",
-                "~/Content/Library/ui.jqgrid/jqgrid.extension.css",
-                "~/Content/Library/start/jquery-ui.min.css",
-                "~/Content/Library/ui.jqgrid/ui.jqgrid.css",
-                "~/Content/Global/grid26.css",
-                "~/Content/Global/lrf.global.content.css",
-                "~/Content/Plugin/MonthPickr/monPickr.css",
-                "~/Content/Global/Paging.css",
-                "~/Content/Plugin/DateRangePicker/daterangepicker.css",
-                "~/Content/BetList/betlist.core.css",
-                "~/Content/BetList/Microgaming.css",
-                "~/Content/BetList/AGCasino.css",
-                "~/Content/BetList/Allbet.css");
-        }
-
-        /// <summary>
-        /// Register jQuery Grid layout styles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterjqGridLayoutStyles(BundleCollection bundles)
         {
             AddStyleBundle(
@@ -274,10 +127,7 @@
                 "~/Content/Global/lrf.global.content.css",
                 "~/Content/Plugin/MonthPickr/monPickr.css",
                 "~/Content/Plugin/DateRangePicker/daterangepicker.css",
-                "~/Content/FlatPopup/jquery.custom-scrollbar.css",
-                "~/Content/FlatPopup/jquery.flatpopup.css",
-                "~/Content/Plugin/MultiSelect/jquery.multiselect.css",
-                "~/Content/Plugin/Toast/toast.min.css");
+                "~/Content/Plugin/MultiSelect/jquery.multiselect.css");
         }
 
         #endregion CSS Shared Layout
@@ -305,10 +155,6 @@
 
         #region CSS Views
 
-        /// <summary>
-        /// Registers the edit account view styles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterEditAccountViewStyles(BundleCollection bundles)
         {
             AddStyleBundle(
@@ -321,10 +167,6 @@
                 "~/Content/Account/AccountManagement.css");
         }
 
-        /// <summary>
-        /// Registers the reset password view styles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterResetPasswordViewStyles(BundleCollection bundles)
         {
             AddStyleBundle(
@@ -341,12 +183,6 @@
 
         #region Private Utility Functions
 
-        /// <summary>
-        /// Adds the style bundle.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
-        /// <param name="bundleVirtualPath">The bundle virtual path.</param>
-        /// <param name="virtualPaths">The virtual paths.</param>
         private static void AddStyleBundle(BundleCollection bundles, string bundleVirtualPath, params string[] virtualPaths)
         {
             var styleBundle = new StyleBundle(bundleVirtualPath);

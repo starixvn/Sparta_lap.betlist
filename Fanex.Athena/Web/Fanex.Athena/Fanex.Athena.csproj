@@ -416,7 +416,6 @@
     <Content Include="App_Data\UserGuide\WeeklyLiveMatches\zh-TW.htm" />
     <Content Include="Content\Account\AccountManagement.css" />
     <Content Include="Content\Account\Permission.css" />
-    <Content Include="Content\BetList\Allbet.css" />
     <Content Include="App_Data\SpNameConfig\FanexSpName.BACKUPMNL.xml">
       <DependentUpon>FanexSpName.xml.tt</DependentUpon>
     </Content>
@@ -562,10 +561,6 @@
     <Content Include="App_Data\UserGuide\WinLossByProduct\zh-TW.htm" />
     <Content Include="App_Data\UserGuide\WinLossByProduct\zh-CN.htm" />
     <Content Include="CodeAnalysis\CodeAnalysisConfiguration.xml" />
-    <Content Include="Content\BetList\AGCasino.css" />
-    <Content Include="Content\BetList\colossusbetdetail.css" />
-    <Content Include="Content\BetList\images\bonus.png" />
-    <Content Include="Content\BetList\Microgaming.css" />
     <Content Include="Content\Fanex.Result\Allbet\css\button.css" />
     <Content Include="Content\Fanex.Result\Allbet\css\images\layout\btn_UI04.png" />
     <Content Include="Content\Fanex.Result\Allbet\css\images\layout\icon_UI02.png" />
@@ -708,18 +703,13 @@
     <Content Include="Content\Utility\images\UM.png" />
     <Content Include="robots.txt" />
     <Content Include="jasmine-specs\Helper\ProductListHelper-test.js" />
-    <Content Include="jasmine-specs\Helper\downloader-test.js" />
-    <Content Include="jasmine-specs\Plugin\Toast\toast-test.js" />
     <Content Include="Jasmine\NewUI\SpecRunner.html" />
     <Content Include="karma-new-dev.conf.js" />
     <Content Include="karma-new.conf.js" />
     <Content Include="karma.conf-dev.js" />
     <Content Include="Scripts\Extension\ajaxBinaryTransporting.js" />
-    <Content Include="Scripts\Helper\downloader.js" />
-    <Content Include="Scripts\Helper\datahelper.js" />
     <Content Include="Scripts\Helper\ProductListHelper.js" />
     <Content Include="Scripts\Library\jquery.marquee.js" />
-    <Content Include="Scripts\Plugin\Toast\toast.js" />
     <Content Include="Views\Desktop\BetList\PragmaticPlayDetail\Main.cshtml" />
     <Content Include="Views\Desktop\Customer\BetSetting\GoldDeluxe.cshtml" />
     <Content Include="www\assets\images\ajax-loader.gif" />
@@ -2127,15 +2117,6 @@
     <Content Include="jasmine-specs\Account\EditAccount-test.js" />
     <Content Include="jasmine-specs\Account\EditPermission-test.js" />
     <Content Include="jasmine-specs\Account\ManageAccount-test.js" />
-    <Content Include="jasmine-specs\BetList\betlist-test.js" />
-    <Content Include="jasmine-specs\BetList\betlist.option-test.js" />
-    <Content Include="jasmine-specs\BetList\commonbetlist-test.js" />
-    <Content Include="jasmine-specs\BetList\correctscorebetlist-test.js" />
-    <Content Include="jasmine-specs\BetList\customer.dailystatement-test.js" />
-    <Content Include="jasmine-specs\BetList\customer.dailystatement.option-test.js" />
-    <Content Include="jasmine-specs\BetList\customer.outstandingbetlist-test.js" />
-    <Content Include="jasmine-specs\BetList\runningbetlist-test.js" />
-    <Content Include="jasmine-specs\BetList\runningbetlist.multiplebettypes-test.js" />
     <Content Include="jasmine-specs\Extension\jquery.extension-test.js" />
     <Content Include="jasmine-specs\Global\jquery.jqgrid.additional-test.js" />
     <Content Include="jasmine-specs\Global\paging-test.js" />
@@ -2659,8 +2640,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\BetList\betlist.core.css" />
-    <Content Include="Content\BetList\dailystatement.css" />
     <Content Include="Content\Fanex.Result\images\tab_topbg.gif" />
     <Content Include="Content\Global\Global.css" />
     <Content Include="Content\Global\images\arrow-back.png" />
@@ -2677,13 +2656,6 @@
     <Content Include="Content\Global\images\mu_hdl.gif" />
     <Content Include="Content\Global\images\new_icon.gif" />
     <Content Include="Content\Global\images\up.png" />
-    <Content Include="Content\Layout\images\Checked.png" />
-    <Content Include="Content\Layout\images\Chrome.png" />
-    <Content Include="Content\Layout\images\close_hover.png" />
-    <Content Include="Content\Layout\images\close_icon.png" />
-    <Content Include="Content\Layout\images\Firefox.png" />
-    <Content Include="Content\Layout\images\IE.png" />
-    <Content Include="Content\Layout\master.css" />
     <Content Include="Content\Library\smoothness\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\Library\smoothness\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\Library\smoothness\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -5204,24 +5176,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\BetList\images\1F.gif" />
-    <Content Include="Content\BetList\images\1L.gif" />
-    <Content Include="Content\BetList\systemparlaydetail.css" />
-    <Content Include="Content\BetList\images\ajax-loader.gif" />
-    <Content Include="Content\BetList\images\firstGoal.gif" />
-    <Content Include="Content\BetList\images\lastGoal.gif" />
-    <Content Include="Content\BetList\images\q_Icon2_1.png" />
-    <Content Include="Content\BetList\images\q_Icon_2.png" />
-    <Content Include="Content\BetList\images\tab_topbg.gif" />
-    <Content Include="Content\BetList\images\undo.png" />
     <Content Include="Content\Fanex.Result\images\tab_topbg.gif" />
-    <Content Include="Content\Layout\images\Checked.png" />
-    <Content Include="Content\Layout\images\Chrome.png" />
-    <Content Include="Content\Layout\images\close_hover.png" />
-    <Content Include="Content\Layout\images\close_icon.png" />
-    <Content Include="Content\Layout\images\Firefox.png" />
-    <Content Include="Content\Layout\images\IE.png" />
-    <Content Include="Content\Layout\master.css" />
     <Content Include="Content\Library\smoothness\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\Library\smoothness\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\Library\smoothness\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -5290,7 +5245,6 @@
     <Content Include="Content\Utility\images\succ_3_2.gif" />
     <Content Include="Content\Utility\images\succ_3_3.gif" />
     <Content Include="Content\Utility\images\valid.png" />
-    <Content Include="Scripts\BetList\runningbetlist.multiplebettypes.js" />
     <Content Include="Scripts\ChangePass.js" />
     <Content Include="Scripts\Library\jquery.jclock.js" />
     <Content Include="Scripts\Plugin\MultiSelect\jquery.multiselect.nlevel.js" />
@@ -5326,15 +5280,6 @@
     <Content Include="Content\Library\start\images\ui-icons_f5e175_256x240.png" />
     <Content Include="Content\Library\start\images\ui-icons_f7a50d_256x240.png" />
     <Content Include="Content\Library\start\images\ui-icons_fcd113_256x240.png" />
-    <Content Include="Content\MemberInfo\images\arrow.gif" />
-    <Content Include="Content\MemberInfo\images\bgDIVIDER.gif" />
-    <Content Include="Content\MemberInfo\images\bgOFF.gif" />
-    <Content Include="Content\MemberInfo\images\bgON.gif" />
-    <Content Include="Content\MemberInfo\images\bg_button.jpg" />
-    <Content Include="Content\MemberInfo\images\more.gif" />
-    <Content Include="Content\MemberInfo\images\off-on_hr.png" />
-    <Content Include="Content\MemberInfo\images\shadow.png" />
-    <Content Include="Content\MemberInfo\MemberInfo.css" />
     <Content Include="Content\Plugin\Calendar\border-radius.css" />
     <Content Include="Content\Plugin\Calendar\img\cool-bg-hard-inv.png" />
     <Content Include="Content\Plugin\Calendar\img\cool-bg-hard.png" />
@@ -5464,14 +5409,6 @@
     <Content Include="Scripts\Account\EditAccount.js" />
     <Content Include="Scripts\Account\ResetPassword.js" />
     <Content Include="Scripts\Account\ManageAccount.js" />
-    <Content Include="Scripts\BetList\betlist.js" />
-    <Content Include="Scripts\BetList\commonbetlist.js" />
-    <Content Include="Scripts\BetList\correctscorebetlist.js" />
-    <Content Include="Scripts\BetList\customer.dailystatement.js" />
-    <Content Include="Scripts\BetList\customer.dailystatement.option.js" />
-    <Content Include="Scripts\BetList\betlist.option.js" />
-    <Content Include="Scripts\BetList\customer.outstandingbetlist.js" />
-    <Content Include="Scripts\BetList\runningbetlist.js" />
     <Content Include="Scripts\Global\jquery.jqgrid.additional.js" />
     <Content Include="Scripts\Extension\jquery.extension.js" />
     <Content Include="Scripts\Global\prototype.js" />

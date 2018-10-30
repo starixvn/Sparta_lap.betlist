@@ -27,9 +27,7 @@ module.exports = function (config) {
 		'Scripts/Plugin/MonthPickr/monpickr.js',
 		'Scripts/Plugin/Refresh/refreshcountdown.js',
 		'Scripts/Plugin/DateRangePicker/date.min.js',
-        'Scripts/Plugin/Toast/toast.js',
         'Scripts/Helper/ProductListHelper.js',
-        'Scripts/Helper/downloader.js',
 		'jasmine-specs/setup.js',
 		'Scripts/Report/report.js',        
 		
@@ -79,10 +77,7 @@ module.exports = function (config) {
 		 'jasmine-specs/Report/report*-test.js',
 		
         // --------- Helper --------- //
-	    'jasmine-specs/Helper/*-test.js',
-
-         // --------- Plugin --------- //
-		 'jasmine-specs/Plugin/Toast/*-test.js',
+	    'jasmine-specs/Helper/*-test.js'
         ],
         exclude: [
         ],
