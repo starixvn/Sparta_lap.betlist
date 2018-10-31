@@ -30,7 +30,6 @@ module.exports = function (config) {
 		'Scripts/Plugin/DateRangePicker/date.min.js',
         'Scripts/Plugin/Toast/toast.js',
         'Scripts/Helper/ProductListHelper.js',
-        'Scripts/Helper/downloader.js',
 		'jasmine-specs/setup.js',
 		'Scripts/Report/report.js',
 

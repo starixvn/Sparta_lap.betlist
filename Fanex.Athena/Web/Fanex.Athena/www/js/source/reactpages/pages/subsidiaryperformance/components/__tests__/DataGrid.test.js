@@ -133,14 +133,11 @@ describe('DataGrid ', () => {
             const dataGrid = new DataGrid(props);
             dataGrid.setState = jest.fn();
 
-            const promise = Promise.reject('error').catch((err)=>{
-                expect(err).toBe('error');
-            });
-            Report.fetchGridData = jest.fn(() => promise);
+            Report.fetchGridData = jest.fn(() => Promise.reject('error'));
 
             dataGrid._getGridData(url, params);
 
-            Promise.reject().catch(()=>{
+            Promise.reject().then().catch(()=>{
                 expect(props.toggleLoader).toHaveBeenCalledWith(false);
                 expect(Service.showErrorMsg).toHaveBeenCalled();
             });

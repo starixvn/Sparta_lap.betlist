@@ -118,7 +118,7 @@ describe('FormFilter ', () => {
             expect(props.toggleLoader).toHaveBeenCalledWith(true);
             expect(DataService.getFile).toHaveBeenCalledWith(ApiUrl.SINGLECUSTOMER_DATA_URL, params);
             Promise.resolve().then(() => {
-                expect(Site.downloadFile).toHaveBeenCalledWith(response.data, 'BettingTicketsCenter_Running.xls');
+                expect(Site.downloadFile).toHaveBeenCalledWith(response.data, 'BettingTicketsCenter_SingleCustomer.xls');
                 expect(props.toggleLoader).toHaveBeenCalledWith(false);
             })
         });

@@ -174,8 +174,9 @@
       <HintPath>..\..\..\packages\Fanex.Logging.Extensions.Web.1.0.5\lib\net40\Fanex.Logging.Extensions.Web.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.RemotingRef, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.RemotingRef.1.2.0\lib\net461\Fanex.RemotingRef.dll</HintPath>
+    <Reference Include="Fanex.RemotingRef, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.RemotingRef.1.3.0\lib\net461\Fanex.RemotingRef.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.Result.Core, Version=2.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Result.Core-NPOI.2.0.6.2.1.1\lib\net40\Fanex.Result.Core.dll</HintPath>
@@ -416,7 +417,6 @@
     <Content Include="App_Data\UserGuide\WeeklyLiveMatches\zh-TW.htm" />
     <Content Include="Content\Account\AccountManagement.css" />
     <Content Include="Content\Account\Permission.css" />
-    <Content Include="Content\BetList\Allbet.css" />
     <Content Include="App_Data\SpNameConfig\FanexSpName.BACKUPMNL.xml">
       <DependentUpon>FanexSpName.xml.tt</DependentUpon>
     </Content>
@@ -562,10 +562,6 @@
     <Content Include="App_Data\UserGuide\WinLossByProduct\zh-TW.htm" />
     <Content Include="App_Data\UserGuide\WinLossByProduct\zh-CN.htm" />
     <Content Include="CodeAnalysis\CodeAnalysisConfiguration.xml" />
-    <Content Include="Content\BetList\AGCasino.css" />
-    <Content Include="Content\BetList\colossusbetdetail.css" />
-    <Content Include="Content\BetList\images\bonus.png" />
-    <Content Include="Content\BetList\Microgaming.css" />
     <Content Include="Content\Fanex.Result\Allbet\css\button.css" />
     <Content Include="Content\Fanex.Result\Allbet\css\images\layout\btn_UI04.png" />
     <Content Include="Content\Fanex.Result\Allbet\css\images\layout\icon_UI02.png" />
@@ -708,19 +704,13 @@
     <Content Include="Content\Utility\images\UM.png" />
     <Content Include="robots.txt" />
     <Content Include="jasmine-specs\Helper\ProductListHelper-test.js" />
-    <Content Include="jasmine-specs\Helper\downloader-test.js" />
-    <Content Include="jasmine-specs\Plugin\Toast\toast-test.js" />
     <Content Include="Jasmine\NewUI\SpecRunner.html" />
     <Content Include="karma-new-dev.conf.js" />
     <Content Include="karma-new.conf.js" />
     <Content Include="karma.conf-dev.js" />
     <Content Include="Scripts\Extension\ajaxBinaryTransporting.js" />
-    <Content Include="Scripts\Helper\downloader.js" />
-    <Content Include="Scripts\Helper\datahelper.js" />
     <Content Include="Scripts\Helper\ProductListHelper.js" />
     <Content Include="Scripts\Library\jquery.marquee.js" />
-    <Content Include="Scripts\Plugin\Toast\toast.js" />
-    <Content Include="Views\BetList\PragmaticPlayDetail\Main.cshtml" />
     <Content Include="Views\Desktop\BetList\PragmaticPlayDetail\Main.cshtml" />
     <Content Include="Views\Desktop\Customer\BetSetting\GoldDeluxe.cshtml" />
     <Content Include="www\assets\images\ajax-loader.gif" />
@@ -957,7 +947,6 @@
     <Content Include="www\js\build\dev\reactpages\lib\common.chunk.js.map" />
     <Content Include="www\js\build\dev\reactpages\lib\xlsx-style-sparta.chunk.js.map" />
     <Content Include="Views\Desktop\Customer\BetSetting\PP.cshtml" />
-    <Content Include="Views\Customer\BetSetting\PP.cshtml" />
     <Content Include="www\css\source\reactpages\components\_tab.scss" />
     <Content Include="www\css\source\reactpages\components\_react-multiselect.scss" />
     <Content Include="www\css\source\reactpages\pages\betlist\index.scss" />
@@ -1380,7 +1369,6 @@
     <Content Include="www\css\build\dev\pages\utility\licenseelist.css.map" />
     <Content Include="Views\Desktop\Customer\BetSetting\VirtualSports2.cshtml" />
     <Content Include="Views\Desktop\Customer\BetSetting\VirtualSports.cshtml" />
-    <Content Include="Views\BetList\LiveReport\VirtualSports.cshtml" />
     <Content Include="Views\Desktop\BetList\LiveReport\VirtualSports.cshtml" />
     <Content Include="Views\Desktop\Customer\BetSetting\Lottery.cshtml" />
     <Content Include="Views\Desktop\Report\ActiveCustomerSummary\Content.cshtml" />
@@ -1460,7 +1448,6 @@
     <Content Include="www\css\source\pages\report\customerpendingfunds.scss" />
     <Content Include="www\css\source\pages\report\customerturnover.scss" />
     <Content Include="www\css\source\pages\report\customerwinloss.scss" />
-    <Content Include="Views\BetList\BonusDetail\Main.cshtml" />
     <Content Include="Views\Desktop\BetList\BonusDetail\Main.cshtml" />
     <None Include="www\css\source\pages\utility\um.scss" />
     <Content Include="www\css\build\images\bg-login.jpg" />
@@ -1535,7 +1522,6 @@
     <Content Include="www\css\source\pages\report\cashoutwinloss.scss" />
     <Content Include="www\css\build\dev\pages\reports\cashoutwinloss.chunk.js.map" />
     <Content Include="www\css\build\dev\pages\reports\cashoutwinloss.css.map" />
-    <Content Include="Views\BetList\CashOutDetail\Main.cshtml" />
     <Content Include="Views\Desktop\BetList\CashOutDetail\Main.cshtml" />
     <Content Include="www\css\source\pages\betlist\cashouthistory.main.scss" />
     <Content Include="www\css\build\dev\pages\betlist\cashouthistory.chunk.js.map" />
@@ -2099,12 +2085,6 @@
     <None Include="img\Slot\S0007\old image backup\20x20\icon_20x20_doubleWild.jpg.exclude" />
     <None Include="img\Slot\S0007\old image backup\40x40\icon_40x40_doubleWild.jpg.exclude" />
     <None Include="img\Slot\S0026\Thumbs.db" />
-    <Compile Include="sso.aspx.cs">
-      <DependentUpon>sso.aspx</DependentUpon>
-      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
-      <ExcludeFromSourceAnalysis>true</ExcludeFromSourceAnalysis>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Content Include="Gruntfile.js" />
     <Content Include="img\Slot8\S8003\01.jpg" />
     <Content Include="img\Slot8\S8003\02.jpg" />
@@ -2138,15 +2118,6 @@
     <Content Include="jasmine-specs\Account\EditAccount-test.js" />
     <Content Include="jasmine-specs\Account\EditPermission-test.js" />
     <Content Include="jasmine-specs\Account\ManageAccount-test.js" />
-    <Content Include="jasmine-specs\BetList\betlist-test.js" />
-    <Content Include="jasmine-specs\BetList\betlist.option-test.js" />
-    <Content Include="jasmine-specs\BetList\commonbetlist-test.js" />
-    <Content Include="jasmine-specs\BetList\correctscorebetlist-test.js" />
-    <Content Include="jasmine-specs\BetList\customer.dailystatement-test.js" />
-    <Content Include="jasmine-specs\BetList\customer.dailystatement.option-test.js" />
-    <Content Include="jasmine-specs\BetList\customer.outstandingbetlist-test.js" />
-    <Content Include="jasmine-specs\BetList\runningbetlist-test.js" />
-    <Content Include="jasmine-specs\BetList\runningbetlist.multiplebettypes-test.js" />
     <Content Include="jasmine-specs\Extension\jquery.extension-test.js" />
     <Content Include="jasmine-specs\Global\jquery.jqgrid.additional-test.js" />
     <Content Include="jasmine-specs\Global\paging-test.js" />
@@ -2225,8 +2196,6 @@
     <Content Include="Views\Report\MicrogamingWinLoss\Content.cshtml" />
     <Content Include="Views\Report\MicrogamingWinLoss\Main.cshtml" />
     <Content Include="Views\Report\MicrogamingWinLoss\Filter.cshtml" />
-    <Content Include="Views\BetList\MicroGamingRngDetail\Main.cshtml" />
-    <Content Include="Views\BetList\AGCasinoDetail\Main.cshtml" />
     <Content Include="Views\Report\CasinoProgressiveWins\Content.cshtml" />
     <Content Include="Views\Report\CasinoProgressiveWins\Filter.cshtml" />
     <Content Include="Views\Report\CasinoProgressiveWins\Main.cshtml" />
@@ -2235,8 +2204,6 @@
     <Content Include="SiteConfig\WebConfigTransforms\PRO.config" />
     <Content Include="SiteConfig\WebConfigTransforms\SANDBOX.config" />
     <Content Include="SiteConfig\WebConfigTransforms\UAT.config" />
-    <Content Include="Views\BetList\RunningBettypesOfMatchBetList\Main.cshtml" />
-    <Content Include="Views\BetList\ColossusBetDetail\Main.cshtml" />
     <Content Include="Views\Desktop\Report\LiveReport\Content.cshtml" />
     <Content Include="Views\Desktop\Report\LiveReport\Content.Data.cshtml" />
     <Content Include="Views\Desktop\Report\LiveReport\Content.Header.cshtml" />
@@ -2304,7 +2271,6 @@
     <Content Include="Views\Desktop\Utility\AccessDenied.cshtml" />
     <Content Include="Views\Desktop\Utility\Error.cshtml" />
     <Content Include="Views\Desktop\Utility\LocationRestriction.cshtml" />
-    <Content Include="Views\Desktop\Utility\SSODenyAccess.cshtml" />
     <Content Include="Views\Desktop\Utility\UnderMaintenance.cshtml" />
     <Content Include="SiteConfig\Web.AppSettings.BACKUPMNL.config">
       <SubType>Designer</SubType>
@@ -2487,7 +2453,6 @@
     <Content Include="www\css\source\scss\layout\sidebar.scss" />
     <Content Include="www\js\tests\pages\betlist\betlist.option-spec.js" />
     <Content Include="www\css\source\pages\utility\error.scss" />
-    <Content Include="Views\BetList\GlobalGamingDetail\Main.cshtml" />
     <Content Include="www\css\source\pages\totalbet\totalbet.scss" />
     <Content Include="www\css\source\pages\forecast\forecast.ah.scss" />
     <Content Include="www\js\source\pages\forecast\forecast.ah.js" />
@@ -2674,13 +2639,8 @@
     <Content Include="SiteConfig\WebConfigTransforms\SIT.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Views\BetList\RngCasinoDetail\Main.cshtml" />
-    <Content Include="Views\BetList\WinlossByBetType\Main.cshtml" />
-    <Content Include="Views\BetList\VoidbridgeDetail\Main.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\BetList\betlist.core.css" />
-    <Content Include="Content\BetList\dailystatement.css" />
     <Content Include="Content\Fanex.Result\images\tab_topbg.gif" />
     <Content Include="Content\Global\Global.css" />
     <Content Include="Content\Global\images\arrow-back.png" />
@@ -2697,13 +2657,6 @@
     <Content Include="Content\Global\images\mu_hdl.gif" />
     <Content Include="Content\Global\images\new_icon.gif" />
     <Content Include="Content\Global\images\up.png" />
-    <Content Include="Content\Layout\images\Checked.png" />
-    <Content Include="Content\Layout\images\Chrome.png" />
-    <Content Include="Content\Layout\images\close_hover.png" />
-    <Content Include="Content\Layout\images\close_icon.png" />
-    <Content Include="Content\Layout\images\Firefox.png" />
-    <Content Include="Content\Layout\images\IE.png" />
-    <Content Include="Content\Layout\master.css" />
     <Content Include="Content\Library\smoothness\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\Library\smoothness\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\Library\smoothness\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -5222,27 +5175,9 @@
     <Content Include="App_Data\FunctionAllowedProduct.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Views\UserGuide\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\BetList\images\1F.gif" />
-    <Content Include="Content\BetList\images\1L.gif" />
-    <Content Include="Content\BetList\systemparlaydetail.css" />
-    <Content Include="Content\BetList\images\ajax-loader.gif" />
-    <Content Include="Content\BetList\images\firstGoal.gif" />
-    <Content Include="Content\BetList\images\lastGoal.gif" />
-    <Content Include="Content\BetList\images\q_Icon2_1.png" />
-    <Content Include="Content\BetList\images\q_Icon_2.png" />
-    <Content Include="Content\BetList\images\tab_topbg.gif" />
-    <Content Include="Content\BetList\images\undo.png" />
     <Content Include="Content\Fanex.Result\images\tab_topbg.gif" />
-    <Content Include="Content\Layout\images\Checked.png" />
-    <Content Include="Content\Layout\images\Chrome.png" />
-    <Content Include="Content\Layout\images\close_hover.png" />
-    <Content Include="Content\Layout\images\close_icon.png" />
-    <Content Include="Content\Layout\images\Firefox.png" />
-    <Content Include="Content\Layout\images\IE.png" />
-    <Content Include="Content\Layout\master.css" />
     <Content Include="Content\Library\smoothness\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\Library\smoothness\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\Library\smoothness\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -5311,7 +5246,6 @@
     <Content Include="Content\Utility\images\succ_3_2.gif" />
     <Content Include="Content\Utility\images\succ_3_3.gif" />
     <Content Include="Content\Utility\images\valid.png" />
-    <Content Include="Scripts\BetList\runningbetlist.multiplebettypes.js" />
     <Content Include="Scripts\ChangePass.js" />
     <Content Include="Scripts\Library\jquery.jclock.js" />
     <Content Include="Scripts\Plugin\MultiSelect\jquery.multiselect.nlevel.js" />
@@ -5347,15 +5281,6 @@
     <Content Include="Content\Library\start\images\ui-icons_f5e175_256x240.png" />
     <Content Include="Content\Library\start\images\ui-icons_f7a50d_256x240.png" />
     <Content Include="Content\Library\start\images\ui-icons_fcd113_256x240.png" />
-    <Content Include="Content\MemberInfo\images\arrow.gif" />
-    <Content Include="Content\MemberInfo\images\bgDIVIDER.gif" />
-    <Content Include="Content\MemberInfo\images\bgOFF.gif" />
-    <Content Include="Content\MemberInfo\images\bgON.gif" />
-    <Content Include="Content\MemberInfo\images\bg_button.jpg" />
-    <Content Include="Content\MemberInfo\images\more.gif" />
-    <Content Include="Content\MemberInfo\images\off-on_hr.png" />
-    <Content Include="Content\MemberInfo\images\shadow.png" />
-    <Content Include="Content\MemberInfo\MemberInfo.css" />
     <Content Include="Content\Plugin\Calendar\border-radius.css" />
     <Content Include="Content\Plugin\Calendar\img\cool-bg-hard-inv.png" />
     <Content Include="Content\Plugin\Calendar\img\cool-bg-hard.png" />
@@ -5485,14 +5410,6 @@
     <Content Include="Scripts\Account\EditAccount.js" />
     <Content Include="Scripts\Account\ResetPassword.js" />
     <Content Include="Scripts\Account\ManageAccount.js" />
-    <Content Include="Scripts\BetList\betlist.js" />
-    <Content Include="Scripts\BetList\commonbetlist.js" />
-    <Content Include="Scripts\BetList\correctscorebetlist.js" />
-    <Content Include="Scripts\BetList\customer.dailystatement.js" />
-    <Content Include="Scripts\BetList\customer.dailystatement.option.js" />
-    <Content Include="Scripts\BetList\betlist.option.js" />
-    <Content Include="Scripts\BetList\customer.outstandingbetlist.js" />
-    <Content Include="Scripts\BetList\runningbetlist.js" />
     <Content Include="Scripts\Global\jquery.jqgrid.additional.js" />
     <Content Include="Scripts\Extension\jquery.extension.js" />
     <Content Include="Scripts\Global\prototype.js" />
@@ -5558,9 +5475,6 @@
     <Content Include="Scripts\Plugin\Note\note.js" />
     <Content Include="Scripts\Plugin\Refresh\refreshcountdown.js" />
     <Content Include="Scripts\Report\report.js" />
-    <Content Include="sso.aspx">
-      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
-    </Content>
     <Content Include="under-maintenance.gif" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -5573,7 +5487,6 @@
     </Content>
     <Content Include="Scripts\Library\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\Library\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
@@ -5604,38 +5517,14 @@
     <Content Include="App_Data\Template\Reports\WinLossByBetType.xls" />
     <Content Include="App_Data\Template\Reports\WinLossByProducts.xls" />
     <Content Include="Content\Web.config" />
-    <Content Include="Integrate\RSAPrivateKey\12bet.snk" />
     <None Include="Properties\PublishProfiles\Profile1.pubxml" />
     <Content Include="Views\Desktop\Customer\CustomerDialog\RemoveFromGroup.cshtml" />
     <Content Include="Views\Desktop\Customer\CustomerDialog\LogInfo.cshtml" />
-    <Content Include="Views\Shared\_NoteLayout.cshtml" />
-    <Content Include="Views\Note\WinLossByProduct.cshtml" />
     <Content Include="Views\Shared\_Report.jqGridLayout.cshtml" />
-    <Content Include="Views\Shared\_BetListLayout.cshtml" />
-    <Content Include="Views\BetList\SystemParlayDetail\Main.cshtml" />
-    <Content Include="Views\BetList\RunningBetList\Main.cshtml" />
-    <Content Include="Views\BetList\RunningBetList\Filter.cshtml" />
-    <Content Include="Views\BetList\CorrectScoreBetList\Main.cshtml" />
-    <Content Include="Views\BetList\CorrectScoreBetList\Filter.cshtml" />
-    <Content Include="Views\BetList\RunningBetListOfMatch\Main.cshtml" />
-    <Content Include="Views\BetList\CustomerOutstanding\Filter.cshtml" />
-    <Content Include="Views\BetList\CustomerOutstanding\Main.cshtml" />
-    <Content Include="Views\BetList\LicenseeWl\Main.cshtml" />
-    <Content Include="Views\BetList\CustomerWl\Main.cshtml" />
-    <Content Include="Views\Shared\_BetListSimpleLayout.cshtml" />
-    <Content Include="Views\BetList\LiveReport\Match.cshtml" />
-    <Content Include="Views\BetList\LiveReport\NumberGame.cshtml" />
-    <Content Include="Views\BetList\LiveReport\Outright.cshtml" />
-    <Content Include="Views\BetList\LiveReport\MixParlay.cshtml" />
-    <Content Include="Views\BetList\PendingFunds\Main.cshtml" />
-    <Content Include="Views\BetList\MatchWl\Outright.cshtml" />
-    <Content Include="Views\BetList\MatchWl\MatchBetType.cshtml" />
-    <Content Include="Views\BetList\MatchWl\MixParlay.cshtml" />
     <None Include="Scripts\Languages\ViewResources.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ViewResources.txt</LastGenOutput>
     </None>
-    <Content Include="Views\BetList\PlatformWinLoss\Main.cshtml" />
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Account\EditAccount.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
@@ -5643,13 +5532,8 @@
     <Content Include="Views\Account\AssignCurrency.cshtml" />
     <Content Include="Views\Account\PermissionPage.cshtml" />
     <Content Include="Views\Shared\_AccountLayout.cshtml" />
-    <Content Include="Views\BetList\NewForecastBetlist\Main.cshtml" />
-    <Content Include="Views\Note\DailyStatement.cshtml" />
     <Content Include="Scripts\Web.config" />
-    <Content Include="Views\BetList\WinlossByLeague\Main.cshtml" />
     <Content Include="Views\Authorization\ChangePass.cshtml" />
-    <Content Include="Views\BetList\RunningBetListMultipleBettypes\Filter.cshtml" />
-    <Content Include="Views\BetList\RunningBetListMultipleBettypes\Main.cshtml" />
     <Content Include="SiteConfig\Web.BACKUPMNL.config">
       <DependentUpon>Web.config.tt</DependentUpon>
     </Content>
@@ -5757,9 +5641,6 @@
       <Project>{DD931ADB-A994-49C0-95A3-72BCB6E22679}</Project>
       <Name>Fanex.Athena.Web</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\_ReportLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

@@ -11,9 +11,7 @@ namespace Fanex.Athena.Controllers
     using Extension.Utility;
     using Model.Core.DataDomain;
     using ONEbook.UM.Services;
-    using ONEbook.UM.Services.Impl;
     using Resources;
-    using Service.Core.Common;
     using Service.Core.Common.Interfaces;
 
     /// <summary>
@@ -51,56 +49,6 @@ namespace Fanex.Athena.Controllers
             ViewBag.Message = GetMessageRestriction(code);
 
             return View("~/Views/Desktop/Utility/OneTokenRestriction.cshtml");
-        }
-
-        public ActionResult SSODenyAccess()
-        {
-            int code;
-            var message = string.Empty;
-
-            if (!int.TryParse(Request.QueryString["Code"] ?? "0", out code))
-            {
-                code = -1;
-            }
-
-            switch (code)
-            {
-                case 1:
-                    message = ViewResources.SSOLinkIncorrectMsg;
-                    break;
-
-                case 2:
-                    message = ViewResources.DisableSSOMsg;
-                    break;
-
-                case 100:
-
-                    message = ViewResources.SSOLinkExpiredMsg;
-                    break;
-
-                case 101:
-                    message = ViewResources.WrongUserNamePassword;
-                    break;
-
-                case 102:
-                    message = ViewResources.UserNotActive;
-                    break;
-
-                case 103:
-                    message = ViewResources.UserTooManyLicensees;
-                    break;
-
-                case 104:
-                    message = ViewResources.UserNoLicensee;
-                    break;
-
-                default:
-                    message = ViewResources.InvalidRequestMsg;
-                    break;
-            }
-
-            ViewBag.Message = message;
-            return View("~/Views/Desktop/Utility/SSODenyAccess.cshtml");
         }
 
         public ActionResult LocationRestriction()
@@ -216,8 +164,8 @@ namespace Fanex.Athena.Controllers
                 case OneAuthorizationErrorCode.NotFoundUser:
                     return ViewResources.UserNotExist;
 
-                case OneAuthorizationErrorCode.SubsidiaryNotHaveCurrency:
-                    return ViewResources.SubsidiaryNotHaveCurrencyMsg;
+                case OneAuthorizationErrorCode.InvalidSubsidiaryNameMsg:
+                    return ViewResources.InvalidSubsidiaryNameMsg;
 
                 default:
                     return ViewResources.OneTokenRestrictionDefaultMsg;

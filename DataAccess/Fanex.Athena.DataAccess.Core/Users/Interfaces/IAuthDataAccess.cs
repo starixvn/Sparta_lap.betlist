@@ -9,8 +9,6 @@ namespace Fanex.Athena.DataAccess.Core.Users.Interfaces
 
         void Logout(int userId);
 
-        IResultInfo<User> ValidateInternalUser(User requestUser, long timeStamp, string licenseeName);
-
         IResultInfo<User> ValidateUserForLrfSystem(User requestUser);
     }
 }

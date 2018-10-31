@@ -18,10 +18,7 @@
     <div class="grid_3 filter-input">
         @RazorHelper.CurrencyList(Model.CurrencyList, "currency-list", Model.Param.CurrencyId, true, true)
     </div>
-    <div class="grid_5 userguide-group">
-        <div>
-            <div class="userguide-icon hide" id="UserGuide" title="@ViewResources.UserGuide"></div>
-        </div>        
+    <div class="grid_2 note-group">     
         <div>            
             <input alt="@ViewResources.ExportToExcel" src="@Url.ContentLink("/Content/Global/Images/excel.gif")"
                type="image" id="ExportToExcel" name="exporttoexcel"

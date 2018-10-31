@@ -2194,15 +2194,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Single Sign On to LRF is disabled..
-        /// </summary>
-        public static string DisableSSOMsg {
-            get {
-                return ResourceManager.GetString("DisableSSOMsg", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Don&apos;t show again.
         /// </summary>
         public static string Dontshowagain {
@@ -3576,6 +3567,15 @@ namespace Fanex.Athena.Resources {
         public static string InvalidRequestOrNotAuthorizedMsg {
             get {
                 return ResourceManager.GetString("InvalidRequestOrNotAuthorizedMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please contact admin to check your subsidiary name..
+        /// </summary>
+        public static string InvalidSubsidiaryNameMsg {
+            get {
+                return ResourceManager.GetString("InvalidSubsidiaryNameMsg", resourceCulture);
             }
         }
         
@@ -6964,24 +6964,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Single Sign On link is expired. Please log in again..
-        /// </summary>
-        public static string SSOLinkExpiredMsg {
-            get {
-                return ResourceManager.GetString("SSOLinkExpiredMsg", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Single Sign On link is not correct. Please try again..
-        /// </summary>
-        public static string SSOLinkIncorrectMsg {
-            get {
-                return ResourceManager.GetString("SSOLinkIncorrectMsg", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Stake.
         /// </summary>
         public static string Stake {
@@ -7068,15 +7050,6 @@ namespace Fanex.Athena.Resources {
         public static string Subsidiary {
             get {
                 return ResourceManager.GetString("Subsidiary", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Please contact admin to check your subsidiary name..
-        /// </summary>
-        public static string SubsidiaryNotHaveCurrencyMsg {
-            get {
-                return ResourceManager.GetString("SubsidiaryNotHaveCurrencyMsg", resourceCulture);
             }
         }
         

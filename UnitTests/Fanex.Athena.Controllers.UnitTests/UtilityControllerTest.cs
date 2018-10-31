@@ -93,7 +93,7 @@
             "You do not have any currency permissions to view this report, please contact your administrator account.")]
         [TestCase(OneAuthorizationErrorCode.YouAreNotAllowToAccessThisPage, "You are not allowed to access this page, please contact your administrator account.")]
         [TestCase(OneAuthorizationErrorCode.NotFoundUser, "Not found user")]
-        [TestCase(OneAuthorizationErrorCode.SubsidiaryNotHaveCurrency, "Please contact admin to check your subsidiary name.")]
+        [TestCase(OneAuthorizationErrorCode.InvalidSubsidiaryNameMsg, "Please contact admin to check your subsidiary name.")]
         public void OneTokenRestriction_ValidCode_ReturnMsgByCode(int code, string msg)
         {
             using (var controller = CreateController())
@@ -208,31 +208,6 @@
 
                 // Assert
                 Assert.That(result.Url, Is.EqualTo(FormsAuthentication.LoginUrl));
-            }
-        }
-
-        [TestCase(null, "InvalidRequestMsg")]
-        [TestCase("Invalid", "InvalidRequestMsg")]
-        [TestCase("1", "SSOLinkIncorrectMsg")]
-        [TestCase("2", "DisableSSOMsg")]
-        [TestCase("100", "SSOLinkExpiredMsg")]
-        [TestCase("101", "WrongUserNamePassword")]
-        [TestCase("102", "UserNotActive")]
-        [TestCase("103", "UserTooManyLicensees")]
-        [TestCase("104", "UserNoLicensee")]
-        [TestCase("999", "InvalidRequestMsg")]
-        public void SSODenyAccess_WhenCall_ReturnCorrectMessageAccordingtoCode(string code, string returnedMessageResourceKey)
-        {
-            using (var controller = CreateController())
-            {
-                // Arrange
-                controller.ControllerContext.HttpContext.Request.QueryString.Returns(HttpUtility.ParseQueryString(code == null ? string.Empty : $"code={code}"));
-
-                // Action
-                var result = controller.SSODenyAccess() as ViewResult;
-
-                // Assert
-                Assert.That(result.ViewBag.Message, Is.EqualTo(ViewResources.ResourceManager.GetString(returnedMessageResourceKey)));
             }
         }
 

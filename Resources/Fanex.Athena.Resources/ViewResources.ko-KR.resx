@@ -567,9 +567,6 @@
   <data name="Disable" xml:space="preserve">
     <value>불능시킴</value>
   </data>
-  <data name="DisableSSOMsg" xml:space="preserve">
-    <value>SSO기능을 사용할 수 없습니다</value>
-  </data>
   <data name="Dontshowagain" xml:space="preserve">
     <value>다시 보지않기</value>
   </data>

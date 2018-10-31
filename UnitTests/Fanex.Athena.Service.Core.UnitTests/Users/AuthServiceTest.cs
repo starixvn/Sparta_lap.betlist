@@ -73,33 +73,6 @@
         }
 
         [Test]
-        public void ValidateInternalUser_WhenCall_ReturnResultFromDataAccess()
-        {
-            // Arrange
-            var resultInfo = new ResultInfo<User>
-            {
-                ExtendedData = new User
-                {
-                    UserID = FakeHelper.Create<int>()
-                }
-            };
-            var requestUser = new User
-            {
-                Request = new Request()
-            };
-
-            var licenseeName = FakeHelper.Create<string>();
-            long timeStamp = FakeHelper.Create<int>();
-            _authDataAccess.ValidateInternalUser(requestUser, timeStamp, licenseeName).Returns(resultInfo);
-
-            // Action
-            var result = _authService.ValidateInternalUser(requestUser, licenseeName, timeStamp);
-
-            // Assert
-            Assert.That(result, Is.EqualTo(resultInfo));
-        }
-
-        [Test]
         public void ValidateUserForLrfSystem_WhenCall_ReturnResultFromDataAccess()
         {
             // Arrange

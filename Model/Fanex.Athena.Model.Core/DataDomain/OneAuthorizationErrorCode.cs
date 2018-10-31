@@ -8,7 +8,7 @@
         public const int LocationRestrictionMsg = 400;
         public const int InvalidCurrencyPermission = 500;
         public const int UserNotHaveCurrency = 600;
-        public const int SubsidiaryNotHaveCurrency = 601;
+        public const int InvalidSubsidiaryNameMsg = 601;
         public const int YouAreNotAllowToAccessThisPage = 700;
         public const int NotFoundUser = 800;
     }

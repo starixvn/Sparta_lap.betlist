@@ -46,7 +46,7 @@ export default class Report {
         };
     }
 
-    static fetchGridData(relativeUrl, params, callBack, errorHandler) {
+    static fetchGridData(relativeUrl, params) {
         return fetchData(relativeUrl, params);
     }
 }

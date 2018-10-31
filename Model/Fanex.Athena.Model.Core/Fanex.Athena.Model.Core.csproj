@@ -130,7 +130,6 @@
     <Compile Include="MetaModel\Account\EditPermissionMetaModel.cs" />
     <Compile Include="MetaModel\Account\ResetPasswordMetaModel.cs" />
     <Compile Include="MetaModel\Authorization\LoginMetalModel.cs" />
-    <Compile Include="MetaModel\Authorization\SsoMetaModel.cs" />
     <Compile Include="MetaModel\BaseMetaModel.cs" />
     <Compile Include="MetaModel\Common\LeagueMetaModel.cs" />
     <Compile Include="MetaModel\Common\UserLogMetaModel.cs" />
