@@ -1270,16 +1270,16 @@
             });
 
             describe("registerBetListGlobalFunctions()", function () {
-                describe("showMP(transId)", function () {
+                describe("showMP(transId, refNo, custId)", function () {
                     it("showMixParlayDetail should be called with correct params", function () {
-                        var transId = 1;
+                        var transId = 1, custId = 3;
                         setFixtures('<div id="divEvent_1">');
                         spyOn(BetList, "showMixParlayDetail");
 
                         BetList.registerBetListGlobalFunctions();
-                        window.showMP(transId);
+                        window.showMP(transId, '', custId);
 
-                        expect(BetList.showMixParlayDetail).toHaveBeenCalledWith(transId, $("#divEvent_1"));
+                        expect(BetList.showMixParlayDetail).toHaveBeenCalledWith(transId, $("#divEvent_1"), custId);
                     });
                 });
 

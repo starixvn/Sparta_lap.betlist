@@ -733,10 +733,10 @@
             registerBetListGlobalFunctions: function () {
                 window.ViewResult = _me.viewResult;
 
-                window.showMP = function (transId) {
+                window.showMP = function (transId, refNo, custId) {
                     var divEvent = $('#divEvent_' + transId);
                     divEvent.addClass("mx-parlay"); //to make line-through for void-parlay-ticket
-                    _me.showMixParlayDetail(transId, divEvent);
+                    _me.showMixParlayDetail(transId, divEvent, custId);
                 };
 
                 window.showCombMP = function (transId, index, refNo, custId) {
