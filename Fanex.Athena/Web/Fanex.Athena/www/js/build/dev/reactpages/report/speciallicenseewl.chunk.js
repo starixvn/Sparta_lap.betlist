@@ -2873,7 +2873,7 @@ var Report = function () {
         }
     }, {
         key: 'fetchGridData',
-        value: function fetchGridData(relativeUrl, params, callBack, errorHandler) {
+        value: function fetchGridData(relativeUrl, params) {
             return fetchData(relativeUrl, params);
         }
     }]);
