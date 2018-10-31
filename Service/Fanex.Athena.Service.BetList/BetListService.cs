@@ -33,10 +33,10 @@ namespace Fanex.Athena.Service.BetList
             _authorizationService = authorizationService;
         }
 
-        public TicketResult GetMixParlayDetailTicket(int licenseeId, long transId)
+        public TicketResult GetMixParlayDetailTicket(int licenseeId, long transId, int custId)
         {
-            return _authorizationService.HasPermissionOnData(licenseeId, 0, transId)
-                        ? _betlistDataAccess.GetMixParlayDetailTicket(transId)
+            return _authorizationService.HasPermissionOnData(licenseeId, custId, transId)
+                        ? _betlistDataAccess.GetMixParlayDetailTicket(transId, custId)
                         : new TicketResult();
         }
 

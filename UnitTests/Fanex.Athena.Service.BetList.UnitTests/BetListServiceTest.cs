@@ -46,11 +46,12 @@
             var expectedResult = FakeHelper.Create<TicketResult>();
             const int LicenseeId = 1;
             const long TransId = 1;
+            const int CustId = 2;
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
-            _betlistDataAccess.GetMixParlayDetailTicket(TransId).Returns(expectedResult);
+            _betlistDataAccess.GetMixParlayDetailTicket(TransId, CustId).Returns(expectedResult);
 
             // Action
-            var result = _betListService.GetMixParlayDetailTicket(LicenseeId, TransId);
+            var result = _betListService.GetMixParlayDetailTicket(LicenseeId, TransId, CustId);
 
             // Assert
             Assert.That(result.TotalRows, Is.EqualTo(expectedResult.TotalRows));
@@ -63,10 +64,11 @@
             var expectedResult = new TicketResult();
             const int LicenseeId = 1;
             const long TransId = 1;
+            const int CustId = 2;
             _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(false);
 
             // Action
-            var result = _betListService.GetMixParlayDetailTicket(LicenseeId, TransId);
+            var result = _betListService.GetMixParlayDetailTicket(LicenseeId, TransId, CustId);
 
             // Assert
             Assert.That(result, Tobe.SameProperties(expectedResult));

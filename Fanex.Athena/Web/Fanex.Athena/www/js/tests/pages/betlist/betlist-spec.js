@@ -758,13 +758,13 @@
                 });
             });
 
-            describe("showMixParlayDetail(transId, divEvent)", function () {
+            describe("showMixParlayDetail(transId, divEvent, custId)", function () {
                 describe("'divEvent' element is visible", function () {
                     var $div;
                     beforeEach(function () {
                         $div = $('<div><div></div></div>');
                         setFixtures($div);
-                        BetList.showMixParlayDetail(0, $div);
+                        BetList.showMixParlayDetail(0, $div, 0);
                     });
 
                     afterEach(function () {
@@ -788,14 +788,14 @@
                         jasmine.Ajax.install();
 
                         jasmine.Ajax
-                        .stubRequest(/api\/MixParlayBetList\/Detail\?transId=0/)
+                        .stubRequest(/api\/MixParlayBetList\/Detail\?transId=0\&custId=0/)
                         .andReturn({
                             'status': 200,
                             'contentType': 'application/json',
                             'responseText': '[{ "Choice": 1 }, { "Choice": 2 }, { "Choice": 3 }]'
                         });
 
-                        BetList.showMixParlayDetail(0, $div);
+                        BetList.showMixParlayDetail(0, $div, 0);
                         request = jasmine.Ajax.requests.mostRecent();
 
                         setTimeout(function () {
@@ -809,7 +809,7 @@
                     });
 
                     it("request url should be correct", function () {
-                        expect(request.url).toMatch(/api\/MixParlayBetList\/Detail\?transId=0/);
+                        expect(request.url).toMatch(/api\/MixParlayBetList\/Detail\?transId=0\&custId=0/);
                     });
 
                     it("'divEvent' element should be visible", function () {
@@ -1283,16 +1283,16 @@
                     });
                 });
 
-                describe("showCombMP(transId)", function () {
+                describe("showCombMP(transId, index, refNo, custId)", function () {
                     it("showMixParlayDetail should be called with correct params", function () {
-                        var transId = 1, index = 2;
+                        var transId = 1, index = 2, custId = 3;
                         setFixtures('<div id="divEvent_12">');
                         spyOn(BetList, "showMixParlayDetail");
 
                         BetList.registerBetListGlobalFunctions();
-                        window.showCombMP(transId, index);
+                        window.showCombMP(transId, index, '', custId);
 
-                        expect(BetList.showMixParlayDetail).toHaveBeenCalledWith(transId, $("#divEvent_12"));
+                        expect(BetList.showMixParlayDetail).toHaveBeenCalledWith(transId, $("#divEvent_12"), custId);
                     });
                 });
             });
