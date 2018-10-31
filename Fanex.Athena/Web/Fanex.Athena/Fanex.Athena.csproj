@@ -665,9 +665,6 @@
     <Content Include="Content\Fanex.Result\Allbet\template\public\game_result\Sicbo\ScoreBoard_d4.png" />
     <Content Include="Content\Fanex.Result\Allbet\template\public\game_result\Sicbo\ScoreBoard_d5.png" />
     <Content Include="Content\Fanex.Result\Allbet\template\public\game_result\Sicbo\ScoreBoard_d6.png" />
-    <Content Include="Content\Fanex.Result\fanex.result.css" />
-    <Content Include="Content\Fanex.Result\images\bg_header03.jpg" />
-    <Content Include="Content\Fanex.Result\images\goal-icon.png" />
     <Content Include="Content\FlatPopup\book.png" />
     <Content Include="Content\FlatPopup\close_pop.png" />
     <Content Include="Content\FlatPopup\jquery.custom-scrollbar.css" />
@@ -911,6 +908,7 @@
     <Content Include="www\css\build\dev\reactpages\speciallicenseewl\index.css.map" />
     <Content Include="www\css\source\reactpages\components\month-picker.scss" />
     <Content Include="App_Data\Template\Customers\DormantCustomerList.xls" />
+    <Content Include="App_Data\Fanex.Result\ESport.xls" />
     <None Include="SiteConfig\Web.AppSettings.BACKUPMNLStatic.config" />
     <None Include="SiteConfig\Web.ConnectionStrings.BACKUPMNLStatic.config">
       <SubType>Designer</SubType>
@@ -2644,7 +2642,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Fanex.Result\images\tab_topbg.gif" />
     <Content Include="Content\Global\Global.css" />
     <Content Include="Content\Global\images\arrow-back.png" />
     <Content Include="Content\Global\images\bg_clock.jpg" />
@@ -5180,7 +5177,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Fanex.Result\images\tab_topbg.gif" />
     <Content Include="Content\Library\smoothness\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\Library\smoothness\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\Library\smoothness\images\ui-bg_glass_55_fbf9ee_1x400.png" />
