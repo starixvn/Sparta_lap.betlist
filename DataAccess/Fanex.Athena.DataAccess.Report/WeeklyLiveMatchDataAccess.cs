@@ -42,8 +42,6 @@ namespace Fanex.Athena.DataAccess.Report
 
             using (var db = this.GetObjectDb(UspName))
             {
-                db.AddInParameter("LicenseeId", DbType.Int32, metaModel.LicenseeId);
-                db.AddInParameter("UserId", DbType.Int32, metaModel.UserId);
                 db.AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
                 db.AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
 

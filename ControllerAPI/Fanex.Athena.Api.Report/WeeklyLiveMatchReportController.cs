@@ -39,8 +39,6 @@ namespace Fanex.Athena.Api.Report
         {
             if (IsValidRequest(metaModel))
             {
-                metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-                metaModel.UserId = SessionService.UserSession.UserId;
                 var result = _weeklyLiveMatchService.GetData(metaModel);
 
                 var weekHeaders = _weeklyLiveMatchService.GetWeekHeaders(metaModel.FromDate, metaModel.ToDate, result.NumberOfWeeks);

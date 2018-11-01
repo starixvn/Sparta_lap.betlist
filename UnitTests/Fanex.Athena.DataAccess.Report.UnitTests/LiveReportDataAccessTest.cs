@@ -402,7 +402,6 @@
 
         private void AssertCommonAddInParameters()
         {
-            ObjectDb.Received(1).AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
             ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, _metaModel.AgentListXml);
             ObjectDb.Received(1).AddInParameter("fromdate", DbType.DateTime, _metaModel.FromDate.Date);
             ObjectDb.Received(1).AddInParameter("todate", DbType.DateTime, _metaModel.ToDate.Date);

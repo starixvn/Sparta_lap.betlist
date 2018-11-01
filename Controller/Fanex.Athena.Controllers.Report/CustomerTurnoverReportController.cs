@@ -92,8 +92,6 @@ namespace Fanex.Athena.Controllers.Report
             var licenseeSession = SessionService.LicenseeSession;
             var userSession = SessionService.UserSession;
             var metaModel = JsonConvert.DeserializeObject<CustomerTurnoverMetaModel>(excelParam);
-            metaModel.LicenseeId = licenseeSession.LicenseeId;
-            metaModel.UserId = userSession.UserId;
             metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
             if (!metaModel.IsValid)
             {
