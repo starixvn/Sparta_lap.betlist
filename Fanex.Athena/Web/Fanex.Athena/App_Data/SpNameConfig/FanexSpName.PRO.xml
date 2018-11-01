@@ -253,6 +253,7 @@
     <Setting Key="Lrf_BetList_RefNo_Mem" SpName="Lrf_BetList_RefNo_Mem" DbName="DBACC.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_Running" SpName="Lrf_BetList_Running" DbName="DB042.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_BetList_Mem" SpName="Lrf_BetList_Mem" DbName="DBACC.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_BetList_Licensee" SpName="Lrf_BetList_Licensee" DbName="DBEXT.bodb02.bodbLicenseeNet" />
   </Function>
 
   <Function Name="CustomerLog">
