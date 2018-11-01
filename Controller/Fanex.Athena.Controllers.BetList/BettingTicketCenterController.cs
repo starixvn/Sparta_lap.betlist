@@ -30,7 +30,7 @@
 
         public ActionResult Index()
         {
-            return SingleCustomer();
+            return MultipleCustomers();
         }
 
         public ActionResult MultipleCustomers()

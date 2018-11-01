@@ -29,7 +29,35 @@
 
         public TicketResult GetBetListForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel)
         {
-            return new TicketResult();
+            const string UspKey = "Lrf_BetList_Licensee";
+
+            var ticketResult = new TicketResult();
+            try
+            {
+                using (var db = GetObjectDb(UspKey))
+                {
+                    AddMultiCustomerParameters(db, metaModel);
+
+                    using (var reader = db.ExecuteReader())
+                    {
+                        ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader));
+                    }
+
+                    var outSqlParams = db.GetOuputParams();
+                    ticketResult.SumStake = Converter.ToDecimal(outSqlParams["sumstake"]);
+                    ticketResult.SumWinLoss = Converter.ToDecimal(outSqlParams["sumwinlost"]);
+                    ticketResult.SumLicenseeWL = Converter.ToDecimal(outSqlParams["sumlicenseewl"]);
+                    ticketResult.SumComm = Converter.ToDecimal(outSqlParams["sumcomm"]);
+                    ticketResult.SumPlayerComm = Converter.ToDecimal(outSqlParams["sumplayercomm"]);
+                    ticketResult.TotalRows = Converter.ToInt(outSqlParams["totalrows"]);
+                }
+            }
+            catch (Exception sqlException)
+            {
+                throw new DataAccessException(sqlException, UspKey, metaModel);
+            }
+
+            return ticketResult;
         }
 
         public TicketResult GetBetListForSingleCustomer(SingleCustomersBetListMetaModel metaModel)
@@ -41,7 +69,7 @@
             {
                 using (var db = GetObjectDb(UspKey))
                 {
-                    AddSingleCustomerBetListSpParameters(db, metaModel);
+                    AddSingleCustomerParameters(db, metaModel);
 
                     using (var reader = db.ExecuteReader())
                     {
@@ -149,7 +177,7 @@
             }
         }
 
-        private void AddSingleCustomerBetListSpParameters(IObjectDb db, SingleCustomersBetListMetaModel metaModel)
+        private void AddSingleCustomerParameters(IObjectDb db, SingleCustomersBetListMetaModel metaModel)
         {
             var productCodes = metaModel.ProductCodeList.Split(',');
             var productList = string.Join(",", productCodes.Except(new[] { Product.BA }));
@@ -168,6 +196,37 @@
             db.AddInParameter("BaseCurrency", DbType.String, metaModel.BaseCurrency);
             db.AddInParameter("PageSize", DbType.Int32, metaModel.IsExport ? int.MaxValue - 1 : metaModel.PageSize);
             db.AddInParameter("PageIndex", DbType.Int32, metaModel.IsExport ? 1 : metaModel.PageIndex);
+            db.AddOutParameter("TotalRows", DbType.Int32, 4);
+            db.AddOutParameter("SumStake", DbType.Currency, 8);
+            db.AddOutParameter("SumWinLost", DbType.Currency, 8);
+            db.AddOutParameter("SumLicenseeWL", DbType.Currency, 8);
+            db.AddOutParameter("SumComm", DbType.Currency, 8);
+            db.AddOutParameter("SumPlayerComm", DbType.Currency, 8);
+            AddSortParameter(db, metaModel.SortBy, metaModel.SortOrder);
+        }
+
+        private void AddMultiCustomerParameters(IObjectDb db, MultipleCustomersBetListMetaModel metaModel)
+        {
+            var productCodes = metaModel.ProductCodeList.Split(',');
+            var productList = string.Join(",", productCodes.Except(new[] { Product.BA }));
+            var balanceUp = _balanceUpDataAccess.GetBalanceUp();
+            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            db.AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
+            db.AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
+            db.AddInParameter("MoveBetsDay", DbType.DateTime, balanceUp.MoveBetsDay);
+            db.AddInParameter("SportType", DbType.Int32, metaModel.SportId);
+            db.AddInParameter("BetType", DbType.Int32, metaModel.BetTypeId);
+            db.AddInParameter("LeagueId", DbType.Int32, metaModel.SportId);
+            db.AddInParameter("MatchId", DbType.Int32, metaModel.BetTypeId);
+            db.AddInParameter("BaseCurrency", DbType.String, metaModel.BaseCurrency);
+            db.AddInParameter("StatusIdList", DbType.String, metaModel.StatusList);
+            db.AddInParameter("Platform", DbType.Byte, metaModel.Platform);
+            db.AddInParameter("LiveIndicator", DbType.Byte, metaModel.LiveStatus);
+            db.AddInParameter("PageSize", DbType.Int32, metaModel.IsExport ? int.MaxValue - 1 : metaModel.PageSize);
+            db.AddInParameter("PageIndex", DbType.Int32, metaModel.IsExport ? 1 : metaModel.PageIndex);
+            db.AddInParameter("ShowBA", DbType.Boolean, productCodes.Contains(Product.BA));
+            db.AddInParameter("ProductList", DbType.String, productList);
+            
             db.AddOutParameter("TotalRows", DbType.Int32, 4);
             db.AddOutParameter("SumStake", DbType.Currency, 8);
             db.AddOutParameter("SumWinLost", DbType.Currency, 8);

@@ -15,9 +15,7 @@ import Site from '@jsroot/lib/site'
 import AppData from '@jsroot/lib/AppData'
 import DataService from '@jsroot/lib/DataService.js'
 import Service from '../../common/lib/Service'
-
-const CUSTOMER_SEARCHING_URL = Site.resolveClientUrl("SearchCustomerAPI/SearchCustomer");
-const DATA_URL = Site.resolveClientUrl('api/BettingTicketCenter/GetBySingleCustomer');
+import ApiUrl from '../../common/constants/apiUrl'
 
 export class FormFilter extends Component {
     constructor(props) {
@@ -48,7 +46,7 @@ export class FormFilter extends Component {
         this.props.setReportTitle(title);
         this.props.setRequestParam(params);
         this.props.toggleLoader(true);
-        this.props.getGridData(DATA_URL, params);
+        this.props.getGridData(ApiUrl.MULTICUSTOMER_DATA_URL, params);
     }
 
     _getParams() {
@@ -65,7 +63,7 @@ export class FormFilter extends Component {
             Username: this.props.username,
             BaseCurrency: this.props.selectedBaseCurrency,
             IsConvertAll: this.props.isConvertAll,
-            Status: this.props.selectedStatus,
+            StatusList: this.props.selectedStatus,
             LiveStatus: this.props.selectedLiveStatus,
             Platform: this.props.selectedPlatform
         }
@@ -81,7 +79,7 @@ export class FormFilter extends Component {
 
         params.IsExport = true;
         this.props.toggleLoader(true);
-        DataService.getFile(DATA_URL, params).then((response) => {
+        DataService.getFile(ApiUrl.MULTICUSTOMER_DATA_URL, params).then((response) => {
             Site.downloadFile(response.data, 'BettingTicketsCenter_Running.xls');
             this.props.toggleLoader(false);
         });

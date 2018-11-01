@@ -99,6 +99,9 @@ export class PageLayout extends Component {
             <AppLayout>
                 <Loader isLoading={this.props.isLoading} />
                 <Tabs>
+                     <Tab isActive={this.props.selectedTabIndex == 0} label={LangHelper.getSingleResource("MultiCustomer")}
+                        url={Site.resolveClientUrl("BettingTicketCenter/MultipleCustomers")}>
+                    </Tab>
                     <Tab isActive={this.props.selectedTabIndex == 1} label={LangHelper.getSingleResource("SingleCustomer")}
                         url={Site.resolveClientUrl("BettingTicketCenter/SingleCustomer")}>
                     </Tab>
@@ -107,9 +110,6 @@ export class PageLayout extends Component {
                     </Tab>
                     <Tab isActive={this.props.selectedTabIndex == 3} label={LangHelper.getSingleResource("Running")}
                         url={Site.resolveClientUrl("BettingTicketCenter/Running")}>
-                    </Tab>
-                    <Tab isActive={this.props.selectedTabIndex == 4} label={LangHelper.getSingleResource("MultiCustomer")}
-                        url={Site.resolveClientUrl("BettingTicketCenter/MultipleCustomers")}>
                     </Tab>
                 </Tabs>
                 <div>

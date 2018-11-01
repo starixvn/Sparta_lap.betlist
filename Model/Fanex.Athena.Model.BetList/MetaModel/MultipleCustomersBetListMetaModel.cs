@@ -4,7 +4,7 @@
     {
         public int LiveStatus { get; set; }
 
-        public int Status { get; set; }
+        public string StatusList { get; set; }
 
         public int SportId { get; set; }
 
