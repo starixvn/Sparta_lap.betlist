@@ -5614,14 +5614,14 @@ var PageLayout = exports.PageLayout = function (_Component) {
                 _react2.default.createElement(
                     _reactSimpleTab.Tabs,
                     null,
+                    _react2.default.createElement(_reactSimpleTab.Tab, { isActive: this.props.selectedTabIndex == 0, label: _langHelper2.default.getSingleResource("MultiCustomer"),
+                        url: _site2.default.resolveClientUrl("BettingTicketCenter/MultipleCustomers") }),
                     _react2.default.createElement(_reactSimpleTab.Tab, { isActive: this.props.selectedTabIndex == 1, label: _langHelper2.default.getSingleResource("SingleCustomer"),
                         url: _site2.default.resolveClientUrl("BettingTicketCenter/SingleCustomer") }),
                     _react2.default.createElement(_reactSimpleTab.Tab, { isActive: this.props.selectedTabIndex == 2, label: _langHelper2.default.getSingleResource("RefNo"),
                         url: _site2.default.resolveClientUrl("BettingTicketCenter/RefNo") }),
                     _react2.default.createElement(_reactSimpleTab.Tab, { isActive: this.props.selectedTabIndex == 3, label: _langHelper2.default.getSingleResource("Running"),
-                        url: _site2.default.resolveClientUrl("BettingTicketCenter/Running") }),
-                    _react2.default.createElement(_reactSimpleTab.Tab, { isActive: this.props.selectedTabIndex == 4, label: _langHelper2.default.getSingleResource("MultiCustomer"),
-                        url: _site2.default.resolveClientUrl("BettingTicketCenter/MultipleCustomers") })
+                        url: _site2.default.resolveClientUrl("BettingTicketCenter/Running") })
                 ),
                 _react2.default.createElement(
                     'div',
@@ -5679,6 +5679,37 @@ var loaderAction = _interopRequireWildcard(_loaderAction);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 var ActionCreators = exports.ActionCreators = Object.assign({}, loaderAction);
+
+/***/ }),
+
+/***/ "./www/js/source/reactpages/pages/bettingticketscenter/common/constants/apiUrl.js":
+/*!****************************************************************************************!*\
+  !*** ./www/js/source/reactpages/pages/bettingticketscenter/common/constants/apiUrl.js ***!
+  \****************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _site = __webpack_require__(/*! @jsroot/lib/site */ "./www/js/source/reactpages/lib/site.js");
+
+var _site2 = _interopRequireDefault(_site);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ApiUrl = {
+    CUSTOMER_SEARCH_URL: _site2.default.resolveClientUrl("SearchCustomerAPI/SearchCustomer"),
+    RUNNING_DATA_URL: _site2.default.resolveClientUrl('api/BettingTicketCenter/GetByRunning'),
+    REFNO_DATA_URL: _site2.default.resolveClientUrl('api/BettingTicketCenter/GetByRefNo'),
+    SINGLECUSTOMER_DATA_URL: _site2.default.resolveClientUrl('api/BettingTicketCenter/GetBySingleCustomer'),
+    MULTICUSTOMER_DATA_URL: _site2.default.resolveClientUrl('api/BettingTicketCenter/GetByMultipleCustomers')
+};
+exports.default = ApiUrl;
 
 /***/ }),
 
@@ -6689,6 +6720,10 @@ var _Service = __webpack_require__(/*! ../../common/lib/Service */ "./www/js/sou
 
 var _Service2 = _interopRequireDefault(_Service);
 
+var _apiUrl = __webpack_require__(/*! ../../common/constants/apiUrl */ "./www/js/source/reactpages/pages/bettingticketscenter/common/constants/apiUrl.js");
+
+var _apiUrl2 = _interopRequireDefault(_apiUrl);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -6696,9 +6731,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var CUSTOMER_SEARCHING_URL = _site2.default.resolveClientUrl("SearchCustomerAPI/SearchCustomer");
-var DATA_URL = _site2.default.resolveClientUrl('api/BettingTicketCenter/GetBySingleCustomer');
 
 var FormFilter = exports.FormFilter = function (_Component) {
     _inherits(FormFilter, _Component);
@@ -6727,7 +6759,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
             _this.props.setReportTitle(title);
             _this.props.setRequestParam(params);
             _this.props.toggleLoader(true);
-            _this.props.getGridData(DATA_URL, params);
+            _this.props.getGridData(_apiUrl2.default.MULTICUSTOMER_DATA_URL, params);
         };
 
         _this.exportExcel = function (event) {
@@ -6740,7 +6772,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
 
             params.IsExport = true;
             _this.props.toggleLoader(true);
-            _DataService2.default.getFile(DATA_URL, params).then(function (response) {
+            _DataService2.default.getFile(_apiUrl2.default.MULTICUSTOMER_DATA_URL, params).then(function (response) {
                 _site2.default.downloadFile(response.data, 'BettingTicketsCenter_Running.xls');
                 _this.props.toggleLoader(false);
             });
@@ -6825,7 +6857,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                 Username: this.props.username,
                 BaseCurrency: this.props.selectedBaseCurrency,
                 IsConvertAll: this.props.isConvertAll,
-                Status: this.props.selectedStatus,
+                StatusList: this.props.selectedStatus,
                 LiveStatus: this.props.selectedLiveStatus,
                 Platform: this.props.selectedPlatform
             };

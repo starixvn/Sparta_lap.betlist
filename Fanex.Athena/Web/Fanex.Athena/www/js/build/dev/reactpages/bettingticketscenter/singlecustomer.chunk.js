@@ -5548,14 +5548,14 @@ var PageLayout = exports.PageLayout = function (_Component) {
                 _react2.default.createElement(
                     _reactSimpleTab.Tabs,
                     null,
+                    _react2.default.createElement(_reactSimpleTab.Tab, { isActive: this.props.selectedTabIndex == 0, label: _langHelper2.default.getSingleResource("MultiCustomer"),
+                        url: _site2.default.resolveClientUrl("BettingTicketCenter/MultipleCustomers") }),
                     _react2.default.createElement(_reactSimpleTab.Tab, { isActive: this.props.selectedTabIndex == 1, label: _langHelper2.default.getSingleResource("SingleCustomer"),
                         url: _site2.default.resolveClientUrl("BettingTicketCenter/SingleCustomer") }),
                     _react2.default.createElement(_reactSimpleTab.Tab, { isActive: this.props.selectedTabIndex == 2, label: _langHelper2.default.getSingleResource("RefNo"),
                         url: _site2.default.resolveClientUrl("BettingTicketCenter/RefNo") }),
                     _react2.default.createElement(_reactSimpleTab.Tab, { isActive: this.props.selectedTabIndex == 3, label: _langHelper2.default.getSingleResource("Running"),
-                        url: _site2.default.resolveClientUrl("BettingTicketCenter/Running") }),
-                    _react2.default.createElement(_reactSimpleTab.Tab, { isActive: this.props.selectedTabIndex == 4, label: _langHelper2.default.getSingleResource("MultiCustomer"),
-                        url: _site2.default.resolveClientUrl("BettingTicketCenter/MultipleCustomers") })
+                        url: _site2.default.resolveClientUrl("BettingTicketCenter/Running") })
                 ),
                 _react2.default.createElement(
                     'div',
