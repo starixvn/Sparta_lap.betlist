@@ -95,7 +95,7 @@
 
         private ReportResultModel<CustPendingFunds> GetData(CustomerPendingFundsMetaModel metaModel)
         {
-            if (!metaModel.IsValid || !IsValidRequest(metaModel))
+            if (!metaModel.IsValid || !IsValidRequest(metaModel.CurrencyId))
             {
                 return new ReportResultModel<CustPendingFunds>
                 {

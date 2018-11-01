@@ -162,7 +162,7 @@ namespace Fanex.Athena.Api.Report
 
         private dynamic ProcessRequest(ThirdPartyWinLossMetaModel metaModel)
         {
-            if (IsValidRequest(metaModel, metaModel.DrillDownCurrencyId))
+            if (IsValidRequest(metaModel.CurrencyId, metaModel.DrillDownCurrencyId))
             {
                 metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
                 var result = GetData(metaModel);

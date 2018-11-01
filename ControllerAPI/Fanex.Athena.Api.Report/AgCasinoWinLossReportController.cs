@@ -118,7 +118,7 @@ namespace Fanex.Athena.Api.Report
             int currencyId = 0,
             int custId = 0)
         {
-            if (IsValidRequest(metaModel, currencyId))
+            if (IsValidRequest(metaModel.CurrencyId, currencyId))
             {
                 metaModel.DrillDownCurrencyId = currencyId;
                 metaModel.DrillDownLevel = level;

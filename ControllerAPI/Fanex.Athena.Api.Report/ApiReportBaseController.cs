@@ -21,12 +21,12 @@
         {
         }
 
-        protected internal virtual bool IsValidRequest(BaseMetaModel metaModel, int currencyId = 0)
+        protected internal virtual bool IsValidRequest(int currencyId, int drillDownCurrencyId = 0)
         {
             var currencyList = SessionService.UserSession.CurrencyList;
-            return (metaModel.CurrencyId <= 0 && metaModel.CurrencyId >= SystemConstants.MinBaseCurrencyType)
-                             || currencyList.ContainsKey(metaModel.CurrencyId)
-                             || KeanOceanBusinessHelper.VerifyKeanOceanCurrencyRequest(currencyList, SessionService.LicenseeSession.LicenseeId, currencyId);
+            return (currencyId <= 0 && currencyId >= SystemConstants.MinBaseCurrencyType)
+                             || currencyList.ContainsKey(currencyId)
+                             || KeanOceanBusinessHelper.VerifyKeanOceanCurrencyRequest(currencyList, SessionService.LicenseeSession.LicenseeId, drillDownCurrencyId);
         }
 
         protected internal virtual void CheckValidProducts(string functionKey, BaseReportMetaModel metaModel)
