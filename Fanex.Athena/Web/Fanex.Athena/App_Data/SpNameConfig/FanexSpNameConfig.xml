@@ -9,4 +9,11 @@
   <!--Do not delete this-->
 
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_BetList_SelParlayDetail" EnvironmentText="_UAT3"></SpNameConfig>
+
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_CustomerTurnOver" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_LiveMatchWeekly" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_LiveReportBySport" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_LiveReportSummary" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_LiveReportSummaryDetail" EnvironmentText="_UAT1"></SpNameConfig>
+
 </Root>
