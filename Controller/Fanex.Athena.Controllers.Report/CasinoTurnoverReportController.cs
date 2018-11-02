@@ -56,14 +56,13 @@
             return View("~/Views/Report/CasinoTurnover/Main.cshtml", viewModel);
         }
 
-        private static List<CheckedItem> GetStatusList()
+        private static IList<CheckedItem> GetStatusList()
         {
             return new List<CheckedItem>
             {
-                new CheckedItem { ID = 0, Name = ViewResources.All },
                 new CheckedItem { ID = StatusTypes.Won, Name = ViewResources.Won, Checked = true },
                 new CheckedItem { ID = StatusTypes.Lose, Name = ViewResources.Lose, Checked = true },
-                new CheckedItem { ID = StatusTypes.Draw, Name = ViewResources.Draw }
+                new CheckedItem { ID = StatusTypes.Draw, Name = ViewResources.Draw, Checked = true }
             };
         }
     }

@@ -9,7 +9,6 @@
     using Model.Report.MetaModel;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
-    using Service.Core.Utility;
 
     [ApiFunctionAuthorization(PermissionKeys.ReportCasinoTurnover)]
     public class CasinoTurnoverReportController : ApiReportBaseController
@@ -29,7 +28,8 @@
         [HttpPost]
         public dynamic GetData(CasinoTurnoverMetaModel metaModel)
         {
-            if (IsValidMetaModel(metaModel))
+            CheckValidProducts(FunctionNames.CasinoTurnover, metaModel.ProductCode);
+            if (IsValidRequest(metaModel.CurrencyId))
             {
                 var result = _casinoTurnoverDataAccess.GetData(metaModel);
                 return new
@@ -44,19 +44,6 @@
                 Data = Enumerable.Empty<CasinoTurnover>(),
                 Total = new CasinoTurnover()
             };
-        }
-
-        private bool IsValidMetaModel(CasinoTurnoverMetaModel metaModel)
-        {
-            var result = metaModel.IsValid
-                && KeanOceanBusinessHelper.VerifyKeanOceanCurrencyRequest(
-                    SessionService.UserSession.CurrencyList,
-                    SessionService.LicenseeSession.LicenseeId,
-                    metaModel.CurrencyId);
-
-            CheckValidProducts(FunctionNames.CasinoTurnover, metaModel.ProductCode);
-
-            return result;
         }
     }
 }
