@@ -3,9 +3,11 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import { ActionCreators } from '../actions'
+import { Row, Cell } from '@jsroot/components/fixed-table-header'
 import LangHelper from '../../../../lib/langHelper'
 import BaseDataGrid from '../../common/components/BaseDataGrid'
 import Service from '../../common/lib/Service'
+import AppData from '@jsroot/lib/AppData'
 
 export class DataGrid extends BaseDataGrid {
     constructor(props) {

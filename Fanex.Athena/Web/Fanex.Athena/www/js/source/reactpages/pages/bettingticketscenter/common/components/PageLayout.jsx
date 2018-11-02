@@ -28,6 +28,18 @@ export class PageLayout extends Component {
             this._openPopup(url, LangHelper.getSingleResource("Result"));
         };
 
+        window.showMP = (transId) => {
+            var divEvent = document.querySelector('#divEvent_' + transId);
+            divEvent.classList.add("mx-parlay"); //to make line-through for void-parlay-ticket
+            this._showMixParlayDetail(transId, divEvent);
+        };
+
+        window.showCombMP = (transId, index) => {
+            var divEvent = document.querySelector('#divEvent_' + transId + "" + index);
+            divEvent.classList.add("mx-parlay"); //to make line-through for void-parlay-ticket
+            this._showMixParlayDetail(transId, divEvent);
+        };
+
         // expand choice content
         window.showNewCombMP = (...args) => {
             this._showNewParlayDetail.apply(this, args);
@@ -53,6 +65,8 @@ export class PageLayout extends Component {
         }
     }
     componentWillUnmount() {
+        window.showMP = undefined;
+        window.showCombMP = undefined;
         window.ViewResult = undefined;
         window.showNewCombMP = undefined;
         window.showCombMPDetail = undefined;
@@ -60,6 +74,34 @@ export class PageLayout extends Component {
         window.ShowBonusDetails = undefined;
     }
     
+    _showMixParlayDetail(transId, divEvent) {
+        if (divEvent.style.display === 'none') {
+            this.props.toggleLoader(true);
+            var url = Site.resolveClientUrl('api/MixParlayBetList/Detail?transId=' + transId);
+            axios.get(url)
+               .then((result) => {               
+                   let choice = "";
+                   const length = result.data.length;
+                   for(let i = 0; i < length; i++) {
+                       choice += result.data[i].Choice;
+                       if (i < length - 1) {
+                           choice += "<div class='line'></div>";
+                       }
+                   }
+
+                   divEvent.innerHTML = choice;
+                   divEvent.style.display = 'block';
+                   this.props.toggleLoader(false);
+               }).catch(function (error) {
+                   console.log(error);
+               });
+        }
+        else {
+            divEvent.style.display = 'none';
+            divEvent.innerHTML = "";
+        }
+    }
+
     _showNewParlayDetail (transId, transIndex, refNo, handicap1, handicap2, betcheck, betteam, custId) {
         let divEvent = document.querySelector('#divEvent_' + transId + "" + transIndex);
         let nameDiv = document.querySelector('#combinationOfferName_' + transId + transIndex);

@@ -26,6 +26,10 @@ export class FormFilter extends Component {
         this._onChangeProduct(this.props.selectedProduct);
     }
 
+    get dataUrl(){
+        return ApiUrl.MULTICUSTOMER_DATA_URL;
+    }
+
     get isValidModel() {
         return !!this.props.selectedProduct;
     }
@@ -55,8 +59,11 @@ export class FormFilter extends Component {
         }
 
         const { fromDate, toDate } = this.props.dateRange;
+        const { PageSize, SortBy, SortOrder } = this.props.requestParam;
 
         return {
+            PageSize: PageSize,
+            PageIndex: 1,
             FromDate: Site.convertDateToString(fromDate),
             ToDate: Site.convertDateToString(toDate),
             ProductCodeList: this.props.selectedProduct,
@@ -80,7 +87,7 @@ export class FormFilter extends Component {
         params.IsExport = true;
         this.props.toggleLoader(true);
         DataService.getFile(ApiUrl.MULTICUSTOMER_DATA_URL, params).then((response) => {
-            Site.downloadFile(response.data, 'BettingTicketsCenter_Running.xls');
+            Site.downloadFile(response.data, 'BettingTicketsCenter_MultiCustomer.xls');
             this.props.toggleLoader(false);
         });
     }
@@ -352,7 +359,7 @@ export class FormFilter extends Component {
                     </div>
                </div>
                <div className="row">
-                    <div className="col-12">
+                    <div className="col-9">
                         {LangHelper.getSingleResource('BettingTicketCenter_MultiCustomersTabNote')}
                     </div>
                </div>
@@ -365,9 +372,9 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    const { dateRange, selectedProduct, sportList, selectedSport, selectedBettype, bettypeList, selectedLeague, leagueList, selectedMatch, matchList,
+    const { requestParam, dateRange, selectedProduct, sportList, selectedSport, selectedBettype, bettypeList, selectedLeague, leagueList, selectedMatch, matchList,
         selectedCurrency, baseCurrencyList, selectedBaseCurrency, selectedStatus, selectedPlatform, selectedLiveStatus } = state;
-        return Object.assign({}, { dateRange, selectedProduct, sportList, selectedSport, selectedBettype, bettypeList, selectedLeague, leagueList, selectedMatch, matchList,
+        return Object.assign({}, { requestParam, dateRange, selectedProduct, sportList, selectedSport, selectedBettype, bettypeList, selectedLeague, leagueList, selectedMatch, matchList,
             selectedCurrency, baseCurrencyList, selectedBaseCurrency, selectedStatus, selectedPlatform, selectedLiveStatus });
 };
 
