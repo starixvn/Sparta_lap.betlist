@@ -26,10 +26,6 @@ export class FormFilter extends Component {
         this._onChangeProduct(this.props.selectedProduct);
     }
 
-    get dataUrl(){
-        return ApiUrl.MULTICUSTOMER_DATA_URL;
-    }
-
     get isValidModel() {
         return !!this.props.selectedProduct;
     }

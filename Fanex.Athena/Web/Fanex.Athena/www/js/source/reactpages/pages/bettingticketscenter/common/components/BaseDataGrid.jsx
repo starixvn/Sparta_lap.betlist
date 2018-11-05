@@ -34,6 +34,7 @@ export default class BaseDataGrid extends Component {
     
     _getData(param){
         this.props.toggleLoader(true);
+        console.log(this.dataUrl);
         this.props.getGridData(this.dataUrl, param);
         this.props.setRequestParam(param);
     }
