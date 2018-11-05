@@ -5525,6 +5525,18 @@ var PageLayout = exports.PageLayout = function (_Component) {
                 _this2._openPopup(url, _langHelper2.default.getSingleResource("Result"));
             };
 
+            window.showMP = function (transId) {
+                var divEvent = document.querySelector('#divEvent_' + transId);
+                divEvent.classList.add("mx-parlay"); //to make line-through for void-parlay-ticket
+                _this2._showMixParlayDetail(transId, divEvent);
+            };
+
+            window.showCombMP = function (transId, index) {
+                var divEvent = document.querySelector('#divEvent_' + transId + "" + index);
+                divEvent.classList.add("mx-parlay"); //to make line-through for void-parlay-ticket
+                _this2._showMixParlayDetail(transId, divEvent);
+            };
+
             // expand choice content
             window.showNewCombMP = function () {
                 for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
@@ -5559,6 +5571,8 @@ var PageLayout = exports.PageLayout = function (_Component) {
     }, {
         key: 'componentWillUnmount',
         value: function componentWillUnmount() {
+            window.showMP = undefined;
+            window.showCombMP = undefined;
             window.ViewResult = undefined;
             window.showNewCombMP = undefined;
             window.showCombMPDetail = undefined;
@@ -5566,23 +5580,52 @@ var PageLayout = exports.PageLayout = function (_Component) {
             window.ShowBonusDetails = undefined;
         }
     }, {
-        key: '_showNewParlayDetail',
-        value: function _showNewParlayDetail(transId, transIndex, refNo, handicap1, handicap2, betcheck, betteam, custId) {
+        key: '_showMixParlayDetail',
+        value: function _showMixParlayDetail(transId, divEvent) {
             var _this3 = this;
+
+            if (divEvent.style.display === 'none') {
+                this.props.toggleLoader(true);
+                var url = _site2.default.resolveClientUrl('api/MixParlayBetList/Detail?transId=' + transId);
+                _axios2.default.get(url).then(function (result) {
+                    var choice = "";
+                    var length = result.data.length;
+                    for (var i = 0; i < length; i++) {
+                        choice += result.data[i].Choice;
+                        if (i < length - 1) {
+                            choice += "<div class='line'></div>";
+                        }
+                    }
+
+                    divEvent.innerHTML = choice;
+                    divEvent.style.display = 'block';
+                    _this3.props.toggleLoader(false);
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            } else {
+                divEvent.style.display = 'none';
+                divEvent.innerHTML = "";
+            }
+        }
+    }, {
+        key: '_showNewParlayDetail',
+        value: function _showNewParlayDetail(transId, transIndex, refNo, handicap1, handicap2, betcheck, betteam) {
+            var _this4 = this;
 
             var divEvent = document.querySelector('#divEvent_' + transId + "" + transIndex);
             var nameDiv = document.querySelector('#combinationOfferName_' + transId + transIndex);
             divEvent.classList.add("mx-parlay"); //to make line-through for void-parlay-ticket
 
             if (divEvent.style.display == "none") {
-                var url = _BetList2.default.getChoiceParlayDetailUrl(transId, refNo, handicap1, handicap2, betcheck, betteam, custId);
+                var url = _BetList2.default.getChoiceParlayDetailUrl(transId, refNo, handicap1, handicap2, betcheck, betteam);
                 this.props.toggleLoader(true);
                 _axios2.default.get(url).then(function (result) {
                     var choice = _BetList2.default.buildChoiceParlayDetail(result.data);
                     divEvent.innerHTML = choice;
                     divEvent.style.display = 'block';
                     nameDiv.style.display = 'none';
-                    _this3.props.toggleLoader(false);
+                    _this4.props.toggleLoader(false);
                 }).catch(function (error) {
                     console.log(error);
                 });
@@ -5605,7 +5648,7 @@ var PageLayout = exports.PageLayout = function (_Component) {
     }, {
         key: 'render',
         value: function render() {
-            var _this4 = this;
+            var _this5 = this;
 
             return _react2.default.createElement(
                 _AppLayout2.default,
@@ -5633,7 +5676,7 @@ var PageLayout = exports.PageLayout = function (_Component) {
                     title: this.state.popupTitle,
                     width: 900, height: 600,
                     onClose: function onClose() {
-                        return _this4._closePopup();
+                        return _this5._closePopup();
                     }
                 })
             );
@@ -5800,7 +5843,7 @@ var BetList = function () {
         }
     }, {
         key: 'getChoiceParlayDetailUrl',
-        value: function getChoiceParlayDetailUrl(transId, refNo, handicap1, handicap2, betcheck, betteam, custId) {
+        value: function getChoiceParlayDetailUrl(transId, refNo, handicap1, handicap2, betcheck, betteam) {
             var url = _site2.default.resolveClientUrl('api/MixParlayBetList/NewParlayDetail');
             url = _QueryString2.default.setParam(url, "transId", transId);
             url = _QueryString2.default.setParam(url, "refNo", refNo);
@@ -5808,7 +5851,6 @@ var BetList = function () {
             url = _QueryString2.default.setParam(url, "handicap2", handicap2);
             url = _QueryString2.default.setParam(url, "betcheck", betcheck);
             url = _QueryString2.default.setParam(url, "betteam", betteam);
-            url = _QueryString2.default.setParam(url, "custId", custId);
 
             return url;
         }
@@ -6510,6 +6552,8 @@ var _redux = __webpack_require__(/*! redux */ "./node_modules/redux/es/index.js"
 
 var _actions = __webpack_require__(/*! ../actions */ "./www/js/source/reactpages/pages/bettingticketscenter/multicustomer/actions/index.js");
 
+var _fixedTableHeader = __webpack_require__(/*! @jsroot/components/fixed-table-header */ "./www/js/source/reactpages/components/fixed-table-header/index.jsx");
+
 var _langHelper = __webpack_require__(/*! ../../../../lib/langHelper */ "./www/js/source/reactpages/lib/langHelper.js");
 
 var _langHelper2 = _interopRequireDefault(_langHelper);
@@ -6521,6 +6565,14 @@ var _BaseDataGrid3 = _interopRequireDefault(_BaseDataGrid2);
 var _Service = __webpack_require__(/*! ../../common/lib/Service */ "./www/js/source/reactpages/pages/bettingticketscenter/common/lib/Service.js");
 
 var _Service2 = _interopRequireDefault(_Service);
+
+var _apiUrl = __webpack_require__(/*! ../../common/constants/apiUrl */ "./www/js/source/reactpages/pages/bettingticketscenter/common/constants/apiUrl.js");
+
+var _apiUrl2 = _interopRequireDefault(_apiUrl);
+
+var _AppData = __webpack_require__(/*! @jsroot/lib/AppData */ "./www/js/source/reactpages/lib/AppData.js");
+
+var _AppData2 = _interopRequireDefault(_AppData);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -6547,13 +6599,41 @@ var DataGrid = exports.DataGrid = function (_BaseDataGrid) {
             }
         }
     }, {
+        key: '_buildFooter',
+        value: function _buildFooter() {
+            var item = this.props.gridData.Total;
+            var isNegativeWL = item.SumLicenseeWL.substring(0, 1) === '-';
+
+            return [_react2.default.createElement(
+                _fixedTableHeader.Row,
+                { className: 'fixed-table-grant-total', key: 1 },
+                _react2.default.createElement(
+                    _fixedTableHeader.Cell,
+                    { className: 'right-align', colSpan: 6 },
+                    _langHelper2.default.getSingleResource("Total")
+                ),
+                _react2.default.createElement(
+                    _fixedTableHeader.Cell,
+                    { className: 'right-align' },
+                    item.SumStake
+                ),
+                _react2.default.createElement(_fixedTableHeader.Cell, { className: 'right-align', dangerouslySetInnerHTML: { __html: item.SumWinLoss } }),
+                _react2.default.createElement(
+                    _fixedTableHeader.Cell,
+                    { className: 'right-align ' + (isNegativeWL ? "negative" : "") },
+                    item.SumLicenseeWL
+                ),
+                _react2.default.createElement(_fixedTableHeader.Cell, { className: 'right-align', colSpan: 3 })
+            )];
+        }
+    }, {
         key: '_buildHeader',
         value: function _buildHeader() {
             var _this2 = this;
 
             var headerText = _Service2.default.getHeaderText();
             var licenseeWLText = headerText.LicenseeWL + '/' + headerText.Comm;
-            var winlossText = AppData.isAllowedCustomerComm ? headerText.WinLoss + '/' + headerText.Comm : headerText.WinLoss;
+            var winlossText = _AppData2.default.isAllowedCustomerComm ? headerText.WinLoss + '/' + headerText.Comm : headerText.WinLoss;
 
             var _props$requestParam = this.props.requestParam,
                 SortBy = _props$requestParam.SortBy,
@@ -6561,75 +6641,80 @@ var DataGrid = exports.DataGrid = function (_BaseDataGrid) {
 
 
             return _react2.default.createElement(
-                Row,
+                _fixedTableHeader.Row,
                 { style: { height: 32 } },
                 _react2.default.createElement(
-                    Cell,
+                    _fixedTableHeader.Cell,
                     { colWidth: 40, header: true, title: headerText.Index },
                     headerText.Index
                 ),
                 _react2.default.createElement(
-                    Cell,
+                    _fixedTableHeader.Cell,
                     { colWidth: 120, header: true, title: headerText.ExternalId },
                     headerText.ExternalId
                 ),
                 _react2.default.createElement(
-                    Cell,
+                    _fixedTableHeader.Cell,
                     { colWidth: 120, header: true, title: headerText.SystemId },
                     headerText.SystemId
                 ),
                 _react2.default.createElement(
-                    Cell,
+                    _fixedTableHeader.Cell,
                     { colWidth: 150, header: true, title: headerText.TransTime },
                     headerText.TransTime
                 ),
                 _react2.default.createElement(
-                    Cell,
+                    _fixedTableHeader.Cell,
                     { colWidth: 400, header: true, title: headerText.Choice },
                     headerText.Choice
                 ),
                 _react2.default.createElement(
-                    Cell,
+                    _fixedTableHeader.Cell,
                     { colWidth: 70, header: true, title: headerText.Odds },
                     headerText.Odds
                 ),
                 _react2.default.createElement(
-                    Cell,
+                    _fixedTableHeader.Cell,
                     { colWidth: 100, header: true, title: headerText.Stake, sortable: true, sorting: SortBy == 'Stake', asc: SortOrder == 'asc', onClick: function onClick() {
                             return _this2._sort('Stake');
                         } },
                     headerText.Stake
                 ),
                 _react2.default.createElement(
-                    Cell,
+                    _fixedTableHeader.Cell,
                     { colWidth: 100, header: true, title: winlossText, sortable: true, sorting: SortBy == 'WinLost', asc: SortOrder == 'asc', onClick: function onClick() {
                             return _this2._sort('WinLost');
                         } },
                     winlossText
                 ),
                 _react2.default.createElement(
-                    Cell,
+                    _fixedTableHeader.Cell,
                     { colWidth: 100, header: true, title: licenseeWLText, sortable: true, sorting: SortBy == 'LicenseeWL', asc: SortOrder == 'asc', onClick: function onClick() {
                             return _this2._sort('LicenseeWL');
                         } },
                     licenseeWLText
                 ),
                 _react2.default.createElement(
-                    Cell,
+                    _fixedTableHeader.Cell,
                     { colWidth: 80, header: true, title: headerText.Status },
                     headerText.Status
                 ),
                 _react2.default.createElement(
-                    Cell,
+                    _fixedTableHeader.Cell,
                     { colWidth: 80, header: true, title: headerText.Platform },
                     headerText.Platform
                 ),
                 _react2.default.createElement(
-                    Cell,
+                    _fixedTableHeader.Cell,
                     { colWidth: 80, header: true, title: headerText.Live },
                     headerText.Live
                 )
             );
+        }
+    }, {
+        key: 'dataUrl',
+        get: function get() {
+            return _apiUrl2.default.MULTICUSTOMER_DATA_URL;
         }
     }]);
 
@@ -6773,7 +6858,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
             params.IsExport = true;
             _this.props.toggleLoader(true);
             _DataService2.default.getFile(_apiUrl2.default.MULTICUSTOMER_DATA_URL, params).then(function (response) {
-                _site2.default.downloadFile(response.data, 'BettingTicketsCenter_Running.xls');
+                _site2.default.downloadFile(response.data, 'BettingTicketsCenter_MultiCustomer.xls');
                 _this.props.toggleLoader(false);
             });
         };
@@ -6848,9 +6933,15 @@ var FormFilter = exports.FormFilter = function (_Component) {
             var _props$dateRange = this.props.dateRange,
                 fromDate = _props$dateRange.fromDate,
                 toDate = _props$dateRange.toDate;
+            var _props$requestParam = this.props.requestParam,
+                PageSize = _props$requestParam.PageSize,
+                SortBy = _props$requestParam.SortBy,
+                SortOrder = _props$requestParam.SortOrder;
 
 
             return {
+                PageSize: PageSize,
+                PageIndex: 1,
                 FromDate: _site2.default.convertDateToString(fromDate),
                 ToDate: _site2.default.convertDateToString(toDate),
                 ProductCodeList: this.props.selectedProduct,
@@ -7209,7 +7300,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                     { className: 'row' },
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-12' },
+                        { className: 'col-9' },
                         _langHelper2.default.getSingleResource('BettingTicketCenter_MultiCustomersTabNote')
                     )
                 )
@@ -7229,7 +7320,8 @@ function mapDispatchToProps(dispatch) {
     return (0, _redux.bindActionCreators)(_index2.ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    var dateRange = state.dateRange,
+    var requestParam = state.requestParam,
+        dateRange = state.dateRange,
         selectedProduct = state.selectedProduct,
         sportList = state.sportList,
         selectedSport = state.selectedSport,
@@ -7246,7 +7338,7 @@ function mapStateToProps(state) {
         selectedPlatform = state.selectedPlatform,
         selectedLiveStatus = state.selectedLiveStatus;
 
-    return Object.assign({}, { dateRange: dateRange, selectedProduct: selectedProduct, sportList: sportList, selectedSport: selectedSport, selectedBettype: selectedBettype, bettypeList: bettypeList, selectedLeague: selectedLeague, leagueList: leagueList, selectedMatch: selectedMatch, matchList: matchList,
+    return Object.assign({}, { requestParam: requestParam, dateRange: dateRange, selectedProduct: selectedProduct, sportList: sportList, selectedSport: selectedSport, selectedBettype: selectedBettype, bettypeList: bettypeList, selectedLeague: selectedLeague, leagueList: leagueList, selectedMatch: selectedMatch, matchList: matchList,
         selectedCurrency: selectedCurrency, baseCurrencyList: baseCurrencyList, selectedBaseCurrency: selectedBaseCurrency, selectedStatus: selectedStatus, selectedPlatform: selectedPlatform, selectedLiveStatus: selectedLiveStatus });
 };
 

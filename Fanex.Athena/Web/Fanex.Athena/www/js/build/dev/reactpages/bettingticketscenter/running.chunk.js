@@ -5307,6 +5307,18 @@ var PageLayout = exports.PageLayout = function (_Component) {
                 _this2._openPopup(url, _langHelper2.default.getSingleResource("Result"));
             };
 
+            window.showMP = function (transId) {
+                var divEvent = document.querySelector('#divEvent_' + transId);
+                divEvent.classList.add("mx-parlay"); //to make line-through for void-parlay-ticket
+                _this2._showMixParlayDetail(transId, divEvent);
+            };
+
+            window.showCombMP = function (transId, index) {
+                var divEvent = document.querySelector('#divEvent_' + transId + "" + index);
+                divEvent.classList.add("mx-parlay"); //to make line-through for void-parlay-ticket
+                _this2._showMixParlayDetail(transId, divEvent);
+            };
+
             // expand choice content
             window.showNewCombMP = function () {
                 for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
@@ -5341,6 +5353,8 @@ var PageLayout = exports.PageLayout = function (_Component) {
     }, {
         key: 'componentWillUnmount',
         value: function componentWillUnmount() {
+            window.showMP = undefined;
+            window.showCombMP = undefined;
             window.ViewResult = undefined;
             window.showNewCombMP = undefined;
             window.showCombMPDetail = undefined;
@@ -5348,23 +5362,52 @@ var PageLayout = exports.PageLayout = function (_Component) {
             window.ShowBonusDetails = undefined;
         }
     }, {
-        key: '_showNewParlayDetail',
-        value: function _showNewParlayDetail(transId, transIndex, refNo, handicap1, handicap2, betcheck, betteam, custId) {
+        key: '_showMixParlayDetail',
+        value: function _showMixParlayDetail(transId, divEvent) {
             var _this3 = this;
+
+            if (divEvent.style.display === 'none') {
+                this.props.toggleLoader(true);
+                var url = _site2.default.resolveClientUrl('api/MixParlayBetList/Detail?transId=' + transId);
+                _axios2.default.get(url).then(function (result) {
+                    var choice = "";
+                    var length = result.data.length;
+                    for (var i = 0; i < length; i++) {
+                        choice += result.data[i].Choice;
+                        if (i < length - 1) {
+                            choice += "<div class='line'></div>";
+                        }
+                    }
+
+                    divEvent.innerHTML = choice;
+                    divEvent.style.display = 'block';
+                    _this3.props.toggleLoader(false);
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            } else {
+                divEvent.style.display = 'none';
+                divEvent.innerHTML = "";
+            }
+        }
+    }, {
+        key: '_showNewParlayDetail',
+        value: function _showNewParlayDetail(transId, transIndex, refNo, handicap1, handicap2, betcheck, betteam) {
+            var _this4 = this;
 
             var divEvent = document.querySelector('#divEvent_' + transId + "" + transIndex);
             var nameDiv = document.querySelector('#combinationOfferName_' + transId + transIndex);
             divEvent.classList.add("mx-parlay"); //to make line-through for void-parlay-ticket
 
             if (divEvent.style.display == "none") {
-                var url = _BetList2.default.getChoiceParlayDetailUrl(transId, refNo, handicap1, handicap2, betcheck, betteam, custId);
+                var url = _BetList2.default.getChoiceParlayDetailUrl(transId, refNo, handicap1, handicap2, betcheck, betteam);
                 this.props.toggleLoader(true);
                 _axios2.default.get(url).then(function (result) {
                     var choice = _BetList2.default.buildChoiceParlayDetail(result.data);
                     divEvent.innerHTML = choice;
                     divEvent.style.display = 'block';
                     nameDiv.style.display = 'none';
-                    _this3.props.toggleLoader(false);
+                    _this4.props.toggleLoader(false);
                 }).catch(function (error) {
                     console.log(error);
                 });
@@ -5387,7 +5430,7 @@ var PageLayout = exports.PageLayout = function (_Component) {
     }, {
         key: 'render',
         value: function render() {
-            var _this4 = this;
+            var _this5 = this;
 
             return _react2.default.createElement(
                 _AppLayout2.default,
@@ -5415,7 +5458,7 @@ var PageLayout = exports.PageLayout = function (_Component) {
                     title: this.state.popupTitle,
                     width: 900, height: 600,
                     onClose: function onClose() {
-                        return _this4._closePopup();
+                        return _this5._closePopup();
                     }
                 })
             );
@@ -5582,7 +5625,7 @@ var BetList = function () {
         }
     }, {
         key: 'getChoiceParlayDetailUrl',
-        value: function getChoiceParlayDetailUrl(transId, refNo, handicap1, handicap2, betcheck, betteam, custId) {
+        value: function getChoiceParlayDetailUrl(transId, refNo, handicap1, handicap2, betcheck, betteam) {
             var url = _site2.default.resolveClientUrl('api/MixParlayBetList/NewParlayDetail');
             url = _QueryString2.default.setParam(url, "transId", transId);
             url = _QueryString2.default.setParam(url, "refNo", refNo);
@@ -5590,7 +5633,6 @@ var BetList = function () {
             url = _QueryString2.default.setParam(url, "handicap2", handicap2);
             url = _QueryString2.default.setParam(url, "betcheck", betcheck);
             url = _QueryString2.default.setParam(url, "betteam", betteam);
-            url = _QueryString2.default.setParam(url, "custId", custId);
 
             return url;
         }
