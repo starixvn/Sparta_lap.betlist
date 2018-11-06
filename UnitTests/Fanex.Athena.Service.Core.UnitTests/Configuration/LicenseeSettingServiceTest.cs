@@ -115,7 +115,7 @@
         }
 
         [Test]
-        public void IsFakeLicensee_SettingIsNull_ReturnTrue()
+        public void IsFakeLicensee_SettingIsNotNull_ReturnFalse()
         {
             // Arrange
             _sessionStorage.LicenseeSession.Returns(x => { return null; });
@@ -124,7 +124,7 @@
             var result = _licenseeSettingService.IsFakeLicensee();
 
             // Assert
-            Assert.That(result, Is.True);
+            Assert.That(result, Is.False);
         }
     }
 }

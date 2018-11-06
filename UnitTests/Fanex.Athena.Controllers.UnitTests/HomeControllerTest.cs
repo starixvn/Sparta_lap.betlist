@@ -4,6 +4,7 @@
     using Base.UnitTests;
     using NSubstitute;
     using NUnit.Framework;
+    using Service.Core.Configuration.Interfaces;
     using Session.Enum;
     using Session.Model;
 
@@ -259,7 +260,12 @@
 
         private HomeController CreateController()
         {
-            return new HomeController(LangService, SessionService, AppSettings, ClientViewHelper)
+            return new HomeController(
+                LangService,
+                SessionService,
+                AppSettings,
+                ClientViewHelper,
+                Substitute.For<ILicenseeSettingService>())
             {
                 ControllerContext = ControllerContext
             };
