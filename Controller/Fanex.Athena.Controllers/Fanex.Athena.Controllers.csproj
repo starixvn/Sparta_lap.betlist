@@ -151,7 +151,6 @@
   <ItemGroup>
     <Compile Include="Account\AccountController.cs" />
     <Compile Include="AuthorizationController.cs" />
-    <Compile Include="FooterController.cs" />
     <Compile Include="HeaderController.cs" />
     <Compile Include="AdminController.cs" />
     <Compile Include="MenuController.cs" />
