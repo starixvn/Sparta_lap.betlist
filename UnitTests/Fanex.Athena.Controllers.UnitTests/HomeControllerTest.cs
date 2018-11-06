@@ -11,12 +11,13 @@
     [TestFixture]
     public partial class HomeControllerTest : BaseControllerHelperTest
     {
+        private ILicenseeSettingService _licenseeSettingService;
+
         [OneTimeSetUp]
         public override void FixtureSetUp()
         {
             base.FixtureSetUp();
-
-            StubGetValueAppSettings("IsEnabledMoveBetNotification", "0");
+            _licenseeSettingService = Substitute.For<ILicenseeSettingService>();
         }
 
         [SetUp]
@@ -196,6 +197,24 @@
             }
         }
 
+        [TestCase(true, false)]
+        [TestCase(false, true)]
+        public void Index_AssignViewBagData_AssignIsEnabledMoveBetNotification(bool isFakeLicensee, bool expectedValue)
+        {
+            using (var controller = CreateController())
+            {
+                // Arrange
+                AppSettings.IsEnabledMoveBetNotification.Returns(true);
+                _licenseeSettingService.IsFakeLicensee().Returns(isFakeLicensee);
+
+                // Action
+                var result = controller.Index() as ViewResult;
+
+                // Assert
+                Assert.That(result.ViewBag.IsEnabledMoveBetNotification, Is.EqualTo(expectedValue));
+            }
+        }
+
         [Test]
         public void IndexIpad_InvalidSessionUser_RedirectToLocationRestriction()
         {
@@ -265,7 +284,7 @@
                 SessionService,
                 AppSettings,
                 ClientViewHelper,
-                Substitute.For<ILicenseeSettingService>())
+                _licenseeSettingService)
             {
                 ControllerContext = ControllerContext
             };

@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using Core.Configuration;
-    using Core.Users.Interfaces;
     using Extension.Utility.Interfaces;
     using Fanex.Athena.UnitTest.Common.Helpers;
     using NSubstitute;
