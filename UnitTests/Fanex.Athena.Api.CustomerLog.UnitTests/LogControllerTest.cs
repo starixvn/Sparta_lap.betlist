@@ -6,6 +6,7 @@
     using Base.UnitTests;
     using DataAccess.Customer.Interfaces;
     using Extension.Utility;
+    using Extension.Utility.Interfaces;
     using Model.Customer.DTO.CustomerLog;
     using Model.Customer.MetaModel.CustomerLog;
     using NSubstitute;
@@ -38,7 +39,8 @@
                 LangService,
                 _customerLogDataAccess,
                 _logInLogDataAccess,
-                _appSettings);
+                _appSettings,
+                Substitute.For<IFileSystem>());
         }
 
         [OneTimeTearDown]

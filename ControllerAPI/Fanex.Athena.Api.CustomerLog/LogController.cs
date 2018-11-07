@@ -16,6 +16,7 @@ namespace Fanex.Athena.Api.CustomerLog
     using Base.Attributes;
     using DataAccess.Customer.Interfaces;
     using Extension.Utility;
+    using Extension.Utility.Interfaces;
     using Fanex.Athena.Model.Customer.DTO.CustomerLog;
     using Fanex.Athena.Model.Customer.ViewModel.CustomerLog;
     using Model.Core.DataDomain;
@@ -49,18 +50,22 @@ namespace Fanex.Athena.Api.CustomerLog
 
         private readonly IAppSettings _appSettings;
 
+        private readonly IFileSystem _fileSystem;
+
         public LogController(
             ISessionService sessionService,
             IProductService productService,
             ILanguageService languageService,
             ICustomerLogDataAccess customerLogDataAccess,
             ILogInLogDataAccess logInLogDataAccess,
-            IAppSettings appSettings)
+            IAppSettings appSettings,
+            IFileSystem fileSystem)
         : base(sessionService, productService, languageService)
         {
             _customerLogDataAccess = customerLogDataAccess;
             _logInLogDataAccess = logInLogDataAccess;
             _appSettings = appSettings;
+            _fileSystem = fileSystem;
         }
 
         #region Remove HTML tag
@@ -143,12 +148,12 @@ namespace Fanex.Athena.Api.CustomerLog
 
         #endregion Get XML attribute
 
-        private static string GenerateDetailedValue(int actionId, ActionViewModel viewModel)
+        private string GenerateDetailedValue(int actionId, ActionViewModel viewModel)
         {
             var viewPath = $"~/Views/Desktop/Customer/CustomerLog/Action/{actionId}.cshtml";
 
             var templatePath = HostingEnvironment.MapPath(viewPath);
-            var template = File.ReadAllText(templatePath);
+            var template = _fileSystem.ReadFile(templatePath);
             return Engine.Razor.RunCompile(template, viewPath, model: viewModel);
         }
 
