@@ -1573,5 +1573,8 @@ tr.ui-search-toolbar select {
 .allbet-bet-type-name {
   color: #696969; }
 
+.betlist-container .status {
+  white-space: normal; }
+
 
 /*# sourceMappingURL=betlistLayout.css.map*/
