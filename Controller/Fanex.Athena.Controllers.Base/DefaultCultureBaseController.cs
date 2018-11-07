@@ -4,7 +4,6 @@
     using System.Web.SessionState;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using ONEbook.UM.Filters;
-    using Service.Core.Helpers;
     using Web.ActionFilter;
 
     [CustomAuthorize]
@@ -13,24 +12,15 @@
     public class DefaultCultureBaseController : Controller
     {
         private readonly ISessionService _sessionService;
-        private readonly IClientViewHelper _clientViewHelper;
 
-        public DefaultCultureBaseController(ISessionService sessionService, IClientViewHelper clientViewHelper)
+        public DefaultCultureBaseController(ISessionService sessionService)
         {
             _sessionService = sessionService;
-            _clientViewHelper = clientViewHelper;
         }
 
         public ISessionService SessionService
         {
             get { return _sessionService; }
-        }
-
-        protected override ViewResult View(string viewName, string masterName, object model)
-        {
-            var viewPath = _clientViewHelper.GetViewPath(viewName);
-
-            return base.View(viewPath, masterName, model);
         }
     }
 }

@@ -23,7 +23,6 @@ namespace Fanex.Athena.Api.CustomerLog
     using RazorEngine.Templating;
     using Resources;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
 
     [ApiFunctionAuthorization(PermissionKeys.CustomerInfoCustomerLog)]
@@ -49,7 +48,6 @@ namespace Fanex.Athena.Api.CustomerLog
         private readonly ILogInLogDataAccess _logInLogDataAccess;
 
         private readonly IAppSettings _appSettings;
-        private readonly IClientViewHelper _clientViewHelper;
 
         public LogController(
             ISessionService sessionService,
@@ -57,14 +55,12 @@ namespace Fanex.Athena.Api.CustomerLog
             ILanguageService languageService,
             ICustomerLogDataAccess customerLogDataAccess,
             ILogInLogDataAccess logInLogDataAccess,
-            IAppSettings appSettings,
-            IClientViewHelper clientViewHelper)
+            IAppSettings appSettings)
         : base(sessionService, productService, languageService)
         {
             _customerLogDataAccess = customerLogDataAccess;
             _logInLogDataAccess = logInLogDataAccess;
             _appSettings = appSettings;
-            _clientViewHelper = clientViewHelper;
         }
 
         #region Utility

@@ -146,7 +146,6 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                ClientViewHelper,
                 productService,
                 _sportTypeDataAccess,
                 _leagueDataAccess,

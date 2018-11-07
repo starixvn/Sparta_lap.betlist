@@ -13,7 +13,6 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Model.Report.ViewModel.Note;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using ONEbook.UM.Filters;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
 
     [SessionState(SessionStateBehavior.ReadOnly)]
@@ -28,10 +27,9 @@ namespace Fanex.Athena.Controllers.Report
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             IProductService productService,
             IBalanceUpDataAccess balanceUpDataAccess)
-            : base(languageService, sessionService, appSetting, clientViewHelper)
+            : base(languageService, sessionService, appSetting)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
             _productService = productService;

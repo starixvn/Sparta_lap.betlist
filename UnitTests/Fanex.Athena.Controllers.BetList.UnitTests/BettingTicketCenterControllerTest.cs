@@ -230,7 +230,6 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                ClientViewHelper,
                 _productService);
             return controller;
         }

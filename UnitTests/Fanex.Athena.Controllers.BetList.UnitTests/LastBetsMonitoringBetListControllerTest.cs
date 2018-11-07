@@ -74,7 +74,6 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                ClientViewHelper,
                 _sportTypeDataAccess);
             return controller;
         }

@@ -20,7 +20,6 @@
     using Model.Core.DataDomain;
     using ONEbook.UM.Filters;
     using Resources;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
 
     [SessionState(SessionStateBehavior.ReadOnly)]
@@ -35,10 +34,9 @@
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             IGroupComService groupComService,
             IProductService productService)
-        : base(languageService, sessionService, appSetting, clientViewHelper)
+        : base(languageService, sessionService, appSetting)
         {
             _groupComService = groupComService;
             _productService = productService;
@@ -139,7 +137,7 @@
             var model = _groupComService.GetById(groupId);
 
             CreateMetaModel(model);
-            
+
             CustomerComGroupHelper.SetDropDownListComm(model);
 
             return View("~/Views/Customer/CustomerComm/UpdateGroup.cshtml", model);

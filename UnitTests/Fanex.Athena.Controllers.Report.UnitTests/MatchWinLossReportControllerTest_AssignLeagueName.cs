@@ -79,7 +79,6 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                ClientViewHelper,
                 Substitute.For<IProductService>(),
                 Substitute.For<IBalanceUpDataAccess>(),
                 _cacheRefAdapter,

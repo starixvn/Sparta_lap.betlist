@@ -6,7 +6,6 @@
     using System.Web.SessionState;
     using Extension.Utility;
     using Fanex.Athena.Service.Core.Common.Interfaces;
-    using Fanex.Athena.Service.Core.Helpers;
     using Fanex.Athena.Service.Customer.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
@@ -32,9 +31,8 @@
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             ICustomerListService customerListService)
-            : base(languageService, sessionService, appSetting, clientViewHelper)
+            : base(languageService, sessionService, appSetting)
         {
             _customerListService = customerListService;
         }

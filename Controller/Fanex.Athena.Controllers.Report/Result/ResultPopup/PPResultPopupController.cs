@@ -4,7 +4,6 @@ namespace Fanex.Athena.Controllers.Report.Result.ResultPopup
     using Extension.Utility;
     using Fanex.Result.Core.PP;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
 
     public class PPResultPopupController : BaseController
@@ -15,9 +14,8 @@ namespace Fanex.Athena.Controllers.Report.Result.ResultPopup
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             IPPResult resultApi)
-            : base(languageService, sessionService, appSetting, clientViewHelper)
+            : base(languageService, sessionService, appSetting)
         {
             _resultApi = resultApi;
         }

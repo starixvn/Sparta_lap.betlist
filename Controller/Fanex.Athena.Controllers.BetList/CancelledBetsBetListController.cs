@@ -23,7 +23,6 @@ namespace Fanex.Athena.Controllers.BetList
     using Resources;
     using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using VendorAdapter.Interfaces;
 
@@ -36,18 +35,19 @@ namespace Fanex.Athena.Controllers.BetList
 
         private readonly ICancelledBetListDataAccess _cancelledBetListDataAccess;
 
+#pragma warning disable S107 // Methods should not have too many parameters
         public CancelledBetsBetListController(
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             IProductService productService,
             IBetListService betListService,
             IBalanceUpDataAccess balanceUpDataAccess,
             ICacheRefAdapter cacheRefAdapter,
             IAuthorizationService authorizationService,
             ICancelledBetListDataAccess cancelledBetListDataAccess)
-        : base(languageService, sessionService, appSetting, clientViewHelper, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
+#pragma warning restore S107 // Methods should not have too many parameters
+        : base(languageService, sessionService, appSetting, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
         {
             _authorizationService = authorizationService;
             _cancelledBetListDataAccess = cancelledBetListDataAccess;

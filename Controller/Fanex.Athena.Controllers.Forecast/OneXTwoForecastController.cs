@@ -13,7 +13,6 @@ namespace Fanex.Athena.Controllers.Forecast
     using Model.Forecast.MetaModel;
     using Model.Forecast.ViewModel;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Service.Forecast.Interfaces;
 
@@ -24,9 +23,8 @@ namespace Fanex.Athena.Controllers.Forecast
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             IForecastService forecastService)
-        : base(languageService, sessionService, appSetting, clientViewHelper, forecastService)
+        : base(languageService, sessionService, appSetting, forecastService)
         {
         }
 

@@ -379,7 +379,6 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                ClientViewHelper,
                 _forecastService,
                 Substitute.For<ICoreLogger>(),
                 _cacheRefAdapter,

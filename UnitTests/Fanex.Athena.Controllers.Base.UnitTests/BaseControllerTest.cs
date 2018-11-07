@@ -13,7 +13,7 @@
         [SetUp]
         public void SetUp()
         {
-            _controller = new FakeBaseController(LangService, SessionService, AppSettings, ClientViewHelper)
+            _controller = new FakeBaseController(LangService, SessionService, AppSettings)
             {
                 ControllerContext = ControllerContext
             };
@@ -113,21 +113,6 @@
 
             // Assert
             LangService.Received().SetPageCulture(Language);
-        }
-
-        [Test]
-        public void View_WhenCall_ReturnViewPath()
-        {
-            // Arrange
-            const string InputView = "TestView";
-            const string ExpectedView = "Abc/TestView";
-            ClientViewHelper.GetViewPath(InputView).Returns(ExpectedView);
-
-            // Action
-            var actual = _controller.View(InputView, string.Empty, null);
-
-            // Assert
-            Assert.That(actual.ViewName, Is.EqualTo(ExpectedView));
         }
     }
 }

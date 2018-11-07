@@ -3,7 +3,6 @@ using Fanex.Athena.Extension.Utility;
 using Fanex.Athena.Model.Core.DataDomain;
 using Fanex.Athena.Model.Report.ViewModel;
 using Fanex.Athena.Service.Core.Common.Interfaces;
-using Fanex.Athena.Service.Core.Helpers;
 using Fanex.Athena.Service.Core.Users.Interfaces;
 using Fanex.Athena.Web.ActionFilter;
 
@@ -16,9 +15,8 @@ namespace Fanex.Athena.Controllers.Report
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             IProductService productService)
-            : base(languageService, sessionService, appSetting, clientViewHelper, productService)
+            : base(languageService, sessionService, appSetting, productService)
         {
         }
 

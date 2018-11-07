@@ -58,7 +58,6 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                ClientViewHelper,
                 productService);
             return controller;
         }

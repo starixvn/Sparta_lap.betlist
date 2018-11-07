@@ -353,7 +353,6 @@
                LangService,
                SessionService,
                AppSettings,
-               ClientViewHelper,
                _logger,
                _customerCommService,
                _customerListService,

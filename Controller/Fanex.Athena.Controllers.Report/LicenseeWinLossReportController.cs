@@ -20,7 +20,6 @@ namespace Fanex.Athena.Controllers.Report
     using Model.Core.DTO.Configuration;
     using Service.Core.Common.Interfaces;
     using Service.Core.Configuration.Interfaces;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.ReportLicenseeWinLoss)]
@@ -32,10 +31,9 @@ namespace Fanex.Athena.Controllers.Report
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             IProductService productService,
             IReportSettingService reportSettingService)
-        : base(languageService, sessionService, appSetting, clientViewHelper, productService)
+        : base(languageService, sessionService, appSetting, productService)
         {
             _reportSettingService = reportSettingService;
         }

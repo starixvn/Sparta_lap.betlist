@@ -369,7 +369,6 @@
                LangService,
                SessionService,
                AppSettings,
-               ClientViewHelper,
                _maintenanceService,
                _userService,
                _authService,

@@ -25,7 +25,6 @@ namespace Fanex.Athena.Controllers.Report.Result
     using Fanex.Result.Core.Voidbridge;
     using Resources;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Service.Result.Interfaces;
     using VendorAdapter;
@@ -37,7 +36,7 @@ namespace Fanex.Athena.Controllers.Report.Result
         private const int ParlayBetType = 9;
         private const int SystemParlayBetType = 29;
 
-        private static readonly IEnumerable<SportType> ShowingMatchCodeSportTypes = new[] 
+        private static readonly IEnumerable<SportType> ShowingMatchCodeSportTypes = new[]
         {
             SportType.GoldDeluxe,
             SportType.HorseRacing,
@@ -71,7 +70,6 @@ namespace Fanex.Athena.Controllers.Report.Result
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             IProductService productService,
             IBalanceUpDataAccess balanceUpDataAccess,
             IParserService microGamingParserService,
@@ -79,7 +77,7 @@ namespace Fanex.Athena.Controllers.Report.Result
             IRNGCasinoSingleWalletService rngCasinoSingleWalletService,
             ICacheRefAdapter cacheRefAdapter)
 #pragma warning restore S107 // Methods should not have too many parameters
-            : base(languageService, sessionService, appSetting, clientViewHelper, productService)
+            : base(languageService, sessionService, appSetting, productService)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
             _microGamingParserService = microGamingParserService;

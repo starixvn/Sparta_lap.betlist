@@ -26,7 +26,6 @@ namespace Fanex.Athena.Controllers.Customer
     using Model.Core.DataDomain;
     using Newtonsoft.Json;
     using Resources;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Service.Report.Interfaces;
 
@@ -69,14 +68,13 @@ namespace Fanex.Athena.Controllers.Customer
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             ICustomerListService customerListService,
             IGroupComService groupComService,
             ILicenseeDataAccess licenseeDataAccess,
             IProductService productService,
             ISubsidiaryService subsidiaryService)
 #pragma warning restore S107 // Methods should not have too many parameters
-            : base(languageService, sessionService, appSetting, clientViewHelper)
+            : base(languageService, sessionService, appSetting)
         {
             _customerListService = customerListService;
             _groupComService = groupComService;

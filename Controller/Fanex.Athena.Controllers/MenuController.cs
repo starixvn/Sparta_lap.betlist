@@ -12,7 +12,6 @@ namespace Fanex.Athena.Controllers
     using Fanex.Athena.Model.Core.ViewModel;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Model.Core.DataDomain;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Session.Enum;
     using Web.ActionFilter;
@@ -26,9 +25,8 @@ namespace Fanex.Athena.Controllers
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             IFunctionService functionService)
-        : base(languageService, sessionService, appSetting, clientViewHelper)
+        : base(languageService, sessionService, appSetting)
         {
             _functionService = functionService;
         }

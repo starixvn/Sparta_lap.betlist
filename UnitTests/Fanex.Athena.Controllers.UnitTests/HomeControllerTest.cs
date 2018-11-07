@@ -261,7 +261,6 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                ClientViewHelper,
                 _licenseeSettingService)
             {
                 ControllerContext = ControllerContext

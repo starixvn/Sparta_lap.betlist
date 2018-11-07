@@ -14,9 +14,7 @@ namespace Fanex.Athena.Controllers.Forecast
     using Model.Core.DTO.Common;
     using ONEbook.UM.Filters;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
-    using Service.Forecast;
     using Service.Forecast.Interfaces;
 
     [SessionState(SessionStateBehavior.ReadOnly)]
@@ -29,9 +27,8 @@ namespace Fanex.Athena.Controllers.Forecast
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             IForecastService forecastService)
-        : base(languageService, sessionService, appSetting, clientViewHelper)
+        : base(languageService, sessionService, appSetting)
         {
             _forecastService = forecastService;
         }

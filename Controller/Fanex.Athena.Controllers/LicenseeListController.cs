@@ -4,7 +4,6 @@
     using DataAccess.Core.Users.Interfaces;
     using Extension.Utility;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Session.Enum;
     using Web.ActionFilter;
@@ -18,9 +17,8 @@
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             ILicenseeDataAccess licenseeDataAccess)
-        : base(languageService, sessionService, appSetting, clientViewHelper)
+        : base(languageService, sessionService, appSetting)
         {
             _licenseeDataAccess = licenseeDataAccess;
         }

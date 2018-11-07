@@ -134,7 +134,6 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                ClientViewHelper,
                 productService,
                 _subsidiaryService);
         }

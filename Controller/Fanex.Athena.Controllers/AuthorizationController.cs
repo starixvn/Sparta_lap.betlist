@@ -31,7 +31,6 @@ namespace Fanex.Athena.Controllers
     using ONEbook.UM.Services;
     using Resources;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Helpers;
 
     public class AuthorizationController : BaseController
     {
@@ -54,12 +53,11 @@ namespace Fanex.Athena.Controllers
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             IMaintenanceService maintenanceService,
             IUserService userService,
             IAuthService authService,
             IFormsAuthenticationService formAuthenticationService)
-            : base(languageService, sessionService, appSetting, clientViewHelper)
+            : base(languageService, sessionService, appSetting)
 #pragma warning restore S107 // Methods should not have too many parameters
         {
             _maintenanceService = maintenanceService;
@@ -85,7 +83,7 @@ namespace Fanex.Athena.Controllers
 
             SetErrorForView(0, string.Empty);
             ViewBag.LogInToken = CreateToken();
-            return View("~/Views/Authorization/SignIn.cshtml");
+            return View("~/Views/Desktop/Authorization/SignIn.cshtml");
         }
 
         [CheckUMFilter]
@@ -140,7 +138,7 @@ namespace Fanex.Athena.Controllers
             }
 
             ViewBag.LogInToken = CreateToken();
-            return View("~/Views/Authorization/SignIn.cshtml");
+            return View("~/Views/Desktop/Authorization/SignIn.cshtml");
         }
 
         [HttpGet]
@@ -244,7 +242,7 @@ namespace Fanex.Athena.Controllers
             { "alertPasswordRequire", ViewResources.PasswordNoteMsg },
             { "alertPasswordSucc", ViewResources.PasswordChangedMsg }
             };
-            return View("~/Views/Authorization/ChangePass.cshtml");
+            return View("~/Views/Desktop/Authorization/ChangePass.cshtml");
         }
 
         [HttpPost]

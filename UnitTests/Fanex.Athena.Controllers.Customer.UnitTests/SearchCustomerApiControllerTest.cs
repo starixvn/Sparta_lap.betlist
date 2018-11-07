@@ -19,7 +19,6 @@
                LangService,
                SessionService,
                AppSettings,
-               ClientViewHelper,
                customerListService))
             {
                 // Arrange

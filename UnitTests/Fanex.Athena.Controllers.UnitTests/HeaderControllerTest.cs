@@ -178,7 +178,7 @@
 
         private HeaderController CreateController()
         {
-            return new HeaderController(LangService, SessionService, AppSettings, ClientViewHelper, _licenseeDataAccess);
+            return new HeaderController(LangService, SessionService, AppSettings, _licenseeDataAccess);
         }
     }
 }

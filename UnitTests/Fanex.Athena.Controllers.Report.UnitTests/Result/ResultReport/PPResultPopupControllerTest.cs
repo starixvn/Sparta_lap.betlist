@@ -25,7 +25,7 @@
 
             resultApi.GetPPResult(CustId, GamePlayId, SessionService.UserSession.Language)
                 .Returns(ExpectedResult);
-            using (var controller = new PPResultPopupController(LangService, SessionService, AppSettings, ClientViewHelper, resultApi))
+            using (var controller = new PPResultPopupController(LangService, SessionService, AppSettings, resultApi))
             {
                 // Action
                 var result = controller.Index(CustId, GamePlayId);

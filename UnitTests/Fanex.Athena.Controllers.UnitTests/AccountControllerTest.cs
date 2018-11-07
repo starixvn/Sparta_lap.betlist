@@ -209,7 +209,6 @@
             LangService,
             SessionService,
             AppSettings,
-            ClientViewHelper,
             _functionService,
             _userService,
             _currencyDataAccess)

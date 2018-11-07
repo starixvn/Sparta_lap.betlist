@@ -18,7 +18,6 @@ namespace Fanex.Athena.Controllers.BetList
     using Fanex.BetList.Core.Entities;
     using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using VendorAdapter.Interfaces;
 
@@ -29,18 +28,19 @@ namespace Fanex.Athena.Controllers.BetList
         private readonly ITicketHelper _ticketHelper;
         private readonly IBetListHTMLBuilder _betListBuilder;
 
+#pragma warning disable S107 // Methods should not have too many parameters
         public SystemParlayBetListController(
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             IProductService productService,
             IBetListService betListService,
             IBalanceUpDataAccess balanceUpDataAccess,
             ICacheRefAdapter cacheRefAdapter,
             ITicketHelper ticketHelper,
             IBetListHTMLBuilder betListBuilder)
-        : base(languageService, sessionService, appSetting, clientViewHelper, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
+#pragma warning restore S107 // Methods should not have too many parameters
+        : base(languageService, sessionService, appSetting, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
         {
             _ticketHelper = ticketHelper;
             _betListBuilder = betListBuilder;

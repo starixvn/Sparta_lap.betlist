@@ -19,7 +19,6 @@ namespace Fanex.Athena.Controllers.BetList
     using Newtonsoft.Json.Linq;
     using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility.Interfaces;
     using VendorAdapter.Interfaces;
@@ -36,11 +35,11 @@ namespace Fanex.Athena.Controllers.BetList
 
         private readonly IWebClientService _webClientService;
 
+#pragma warning disable S107 // Methods should not have too many parameters
         public ColossusBetBetListController(
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             IProductService productService,
             IBetListService betListService,
             IBalanceUpDataAccess balanceUpDataAccess,
@@ -48,7 +47,8 @@ namespace Fanex.Athena.Controllers.BetList
             ICoreLogger logger,
             IWebClientService webClientService,
             IColossusBetBetListDataAccess colossusBetBetListDataAccess)
-        : base(languageService, sessionService, appSetting, clientViewHelper, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
+#pragma warning restore S107 // Methods should not have too many parameters
+        : base(languageService, sessionService, appSetting, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
         {
             _logger = logger;
             _colossusBetBetListDataAccess = colossusBetBetListDataAccess;

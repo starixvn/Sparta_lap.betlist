@@ -75,7 +75,6 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                ClientViewHelper,
                 productService,
                 reportSettingService);
         }

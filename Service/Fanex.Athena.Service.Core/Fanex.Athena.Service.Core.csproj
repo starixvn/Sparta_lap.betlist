@@ -123,7 +123,6 @@
     <Compile Include="Configuration\Interfaces\ILicenseeSettingService.cs" />
     <Compile Include="Users\Interfaces\ISubsidiaryService.cs" />
     <Compile Include="Users\SubsidiaryService.cs" />
-    <Compile Include="Utility\ClientViewHelper.cs" />
     <Compile Include="Users\AuthService.cs" />
     <Compile Include="Users\Interfaces\IAuthService.cs" />
     <Compile Include="Users\Interfaces\IOneBookSecurityWrapper.cs" />
@@ -151,7 +150,6 @@
     <Compile Include="Users\UserService.cs" />
     <Compile Include="Utility\CoreLogger.cs" />
     <Compile Include="Utility\Interfaces\ICoreLogger.cs" />
-    <Compile Include="Utility\Interfaces\IClientViewHelper.cs" />
     <Compile Include="Utility\Interfaces\IWebClientService.cs" />
     <Compile Include="Utility\KeanOceanBusinessHelper.cs" />
     <Compile Include="Utility\WebClientService.cs" />

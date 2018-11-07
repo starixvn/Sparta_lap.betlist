@@ -11,7 +11,6 @@ namespace Fanex.Athena.Controllers
     using ONEbook.UM.Filters;
     using Service.Core.Common.Interfaces;
     using Service.Core.Configuration.Interfaces;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Session.Enum;
     using Web.ActionFilter;
@@ -25,9 +24,8 @@ namespace Fanex.Athena.Controllers
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             ILicenseeSettingService licenseeSettingService)
-        : base(languageService, sessionService, appSetting, clientViewHelper)
+        : base(languageService, sessionService, appSetting)
         {
             _licenseeSettingService = licenseeSettingService;
         }
@@ -36,7 +34,7 @@ namespace Fanex.Athena.Controllers
         public ActionResult Index()
         {
             AssignViewBagData();
-            return ReAuthorize("~/Views/Home/Index.cshtml");
+            return ReAuthorize("~/Views/Desktop/Home/Index.cshtml");
         }
 
         [AuthorizeRestriction(AppMode.Self)]

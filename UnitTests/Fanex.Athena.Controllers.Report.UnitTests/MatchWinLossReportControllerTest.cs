@@ -104,7 +104,6 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                ClientViewHelper,
                 productService,
                 _balanceUpDataAccess,
                 Substitute.For<ICacheRefAdapter>(),

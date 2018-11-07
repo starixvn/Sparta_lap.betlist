@@ -10,7 +10,6 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Extension.Utility;
     using Model.Core.DataDomain;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Service.Report.Interfaces;
     using Web.ActionFilter;
@@ -24,10 +23,9 @@ namespace Fanex.Athena.Controllers.Report
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             IProductService productService,
             ISettledMatchCountService settledMatchCountService)
-            : base(languageService, sessionService, appSetting, clientViewHelper, productService)
+            : base(languageService, sessionService, appSetting, productService)
         {
             _settledMatchCountService = settledMatchCountService;
         }

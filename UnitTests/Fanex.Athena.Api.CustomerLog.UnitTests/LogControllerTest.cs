@@ -10,7 +10,6 @@
     using Model.Customer.MetaModel.CustomerLog;
     using NSubstitute;
     using NUnit.Framework;
-    using Service.Core.Helpers;
 
     [TestFixture]
     public class LogControllerTest : BaseApiControllerHelperTest
@@ -20,8 +19,6 @@
         private ILogInLogDataAccess _logInLogDataAccess;
 
         private IAppSettings _appSettings;
-
-        private IClientViewHelper _clientViewHelper;
 
         private LogController _controller;
 
@@ -34,7 +31,6 @@
             _customerLogDataAccess = Substitute.For<ICustomerLogDataAccess>();
             _appSettings = Substitute.For<IAppSettings>();
             _logInLogDataAccess = Substitute.For<ILogInLogDataAccess>();
-            _clientViewHelper = Substitute.For<IClientViewHelper>();
 
             _controller = Substitute.ForPartsOf<LogController>(
                 SessionService,
@@ -42,8 +38,7 @@
                 LangService,
                 _customerLogDataAccess,
                 _logInLogDataAccess,
-                _appSettings,
-                _clientViewHelper);
+                _appSettings);
         }
 
         [OneTimeTearDown]

@@ -44,7 +44,7 @@
 
         private CustomerLogController CreateController()
         {
-            return new CustomerLogController(LangService, SessionService, AppSettings, ClientViewHelper, _productService);
+            return new CustomerLogController(LangService, SessionService, AppSettings, _productService);
         }
     }
 }

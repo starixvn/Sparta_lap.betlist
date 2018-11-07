@@ -134,7 +134,6 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                ClientViewHelper,
                 _forecastService)
             {
                 ControllerContext = ControllerContext

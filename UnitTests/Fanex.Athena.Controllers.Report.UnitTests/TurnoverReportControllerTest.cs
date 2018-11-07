@@ -161,7 +161,6 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                ClientViewHelper,
                 productService,
                 _turnoverService);
             controller.WhenForAnyArgs(x => x.CreateExcel(string.Empty, null, null, null, false)).DoNotCallBase();

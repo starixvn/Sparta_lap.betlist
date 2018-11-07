@@ -13,7 +13,6 @@ namespace Fanex.Athena.Controllers.Forecast
     using System.Web.Mvc;
     using Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Service.Core.Helpers;
     using Model.Core.DataDomain;
     using Model.Forecast.DTO.NewForecastHdpOu;
     using Model.Forecast.MetaModel;
@@ -40,13 +39,12 @@ namespace Fanex.Athena.Controllers.Forecast
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             IForecastService forecastService,
             ICoreLogger logger,
             ICacheRefAdapter cacheRefAdapter,
             IMatchService matchService)
 #pragma warning restore S107 // Methods should not have too many parameters
-        : base(languageService, sessionService, appSetting, clientViewHelper, forecastService)
+        : base(languageService, sessionService, appSetting, forecastService)
         {
             _logger = logger;
             _cacheRefAdapter = cacheRefAdapter;

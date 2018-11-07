@@ -10,7 +10,6 @@
     using Model.Core.MetaModel.Product;
     using Resources;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Web.ActionFilter;
 
@@ -23,13 +22,8 @@
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             IProductService productService)
-        : base(
-            languageService,
-            sessionService,
-            appSetting,
-            clientViewHelper)
+        : base(languageService, sessionService, appSetting)
         {
             _productService = productService;
         }

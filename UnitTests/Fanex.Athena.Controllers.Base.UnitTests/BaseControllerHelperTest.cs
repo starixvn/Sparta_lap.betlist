@@ -6,7 +6,6 @@
     using NSubstitute;
     using NUnit.Framework;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Session.Model;
     using UnitTest.Common.Helpers;
@@ -40,16 +39,12 @@
 
         protected IAppSettings AppSettings { get; set; }
 
-        protected IClientViewHelper ClientViewHelper { get; set; }
-
         [OneTimeSetUp]
         public virtual void FixtureSetUp()
         {
             LangService = Substitute.For<ILanguageService>();
             SessionService = Substitute.For<ISessionService>();
             AppSettings = Substitute.For<IAppSettings>();
-            ClientViewHelper = Substitute.For<IClientViewHelper>();
-            ClientViewHelper.GetViewPath(Arg.Any<string>()).Returns(x => (string)x[0]);
             SetUpForContexts();
         }
 
@@ -61,7 +56,6 @@
             LangService = null;
             SessionService = null;
             AppSettings = null;
-            ClientViewHelper = null;
         }
 
         protected void SetUpDefaultFakeData()

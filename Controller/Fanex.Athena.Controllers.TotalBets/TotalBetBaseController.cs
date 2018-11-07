@@ -12,7 +12,6 @@ namespace Fanex.Athena.Controllers.TotalBets
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using ONEbook.UM.Filters;
-    using Service.Core.Helpers;
 
     [SessionState(SessionStateBehavior.ReadOnly)]
     [CheckUMFilter]
@@ -21,9 +20,8 @@ namespace Fanex.Athena.Controllers.TotalBets
         public TotalBetBaseController(
             ILanguageService languageService,
             ISessionService sessionService,
-            IAppSettings appSetting,
-            IClientViewHelper clientViewHelper)
-        : base(languageService, sessionService, appSetting, clientViewHelper)
+            IAppSettings appSetting)
+        : base(languageService, sessionService, appSetting)
         {
         }
     }

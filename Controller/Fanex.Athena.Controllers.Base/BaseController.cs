@@ -15,7 +15,6 @@ namespace Fanex.Athena.Controllers
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.MetaModel;
-    using Service.Core.Helpers;
 
     [CustomAuthorize]
     [XFrameOption]
@@ -25,18 +24,15 @@ namespace Fanex.Athena.Controllers
         private readonly ILanguageService _langService;
         private readonly ISessionService _sessionService;
         private readonly IAppSettings _appSettings;
-        private readonly IClientViewHelper _clientViewHelper;
 
         protected BaseController(
             ILanguageService languageService,
             ISessionService sessionService,
-            IAppSettings appSetting,
-            IClientViewHelper clientViewHelper)
+            IAppSettings appSetting)
         {
             _langService = languageService;
             _sessionService = sessionService;
             _appSettings = appSetting;
-            _clientViewHelper = clientViewHelper;
         }
 
         public ILanguageService LangService
@@ -80,13 +76,6 @@ namespace Fanex.Athena.Controllers
             base.Initialize(requestContext);
             var currentLanguage = LangService.GetCurrentLanguage();
             LangService.SetPageCulture(currentLanguage);
-        }
-
-        protected override ViewResult View(string viewName, string masterName, object model)
-        {
-            var viewPath = _clientViewHelper.GetViewPath(viewName);
-
-            return base.View(viewPath, masterName, model);
         }
 
         private IEnumerable<string> GetBaseUsdLicensees()

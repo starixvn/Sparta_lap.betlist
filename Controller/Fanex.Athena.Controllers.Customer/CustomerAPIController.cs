@@ -20,7 +20,6 @@ namespace Fanex.Athena.Controllers.Customer
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Customer.MetaModel;
     using Fanex.Athena.Service.Core.Common.Interfaces;
-    using Fanex.Athena.Service.Core.Helpers;
     using Fanex.Athena.Service.Customer.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
@@ -55,7 +54,6 @@ namespace Fanex.Athena.Controllers.Customer
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             ICoreLogger logger,
             ICustomerCommService customerCommService,
             ICustomerListService customerListService,
@@ -63,7 +61,7 @@ namespace Fanex.Athena.Controllers.Customer
             ILicenseeDataAccess licenseeDataAccess,
             IProductService productService)
 #pragma warning restore S107 // Methods should not have too many parameters
-            : base(languageService, sessionService, appSetting, clientViewHelper)
+            : base(languageService, sessionService, appSetting)
         {
             _logger = logger;
             _customerCommService = customerCommService;

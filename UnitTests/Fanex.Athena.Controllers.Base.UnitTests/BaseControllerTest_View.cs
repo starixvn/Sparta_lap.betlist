@@ -5,14 +5,11 @@
     using Extension.Utility.Interfaces;
     using NSubstitute;
     using NUnit.Framework;
-    using Service.Core.Helpers;
     using UnitTest.Common.Helpers;
 
     public class BaseControllerTest_View : BaseControllerHelperTest
     {
         private FakeBaseController _controller;
-
-        private ClientViewHelper _clientViewHelper;
 
         private IFileSystem _fileSystem;
 
@@ -22,7 +19,6 @@
             base.FixtureSetUp();
 
             _fileSystem = Substitute.For<IFileSystem>();
-            _clientViewHelper = new ClientViewHelper(_fileSystem);
 
             var fakeHttpContext = new HttpContext(
                 new HttpRequest(null, MvcHelper.TestingRequestDomain, null),
@@ -35,14 +31,13 @@
         public override void FixtureTearDown()
         {
             _fileSystem = null;
-            _clientViewHelper = null;
             base.FixtureTearDown();
         }
 
         [SetUp]
         public void SetUp()
         {
-            _controller = new FakeBaseController(LangService, SessionService, AppSettings, _clientViewHelper)
+            _controller = new FakeBaseController(LangService, SessionService, AppSettings)
             {
                 ControllerContext = ControllerContext
             };
