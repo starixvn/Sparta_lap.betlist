@@ -55,22 +55,22 @@ namespace Fanex.Athena.Controllers.BetSettings
             switch (metaModel.ProductId)
             {
                 case ProductTypes.Macau:
-                    return View("~/Views/Customer/BetSetting/Macau.cshtml", viewModel);
+                    return View("~/Views/Desktop/Customer/BetSetting/Macau.cshtml", viewModel);
 
                 case ProductTypes.MicroGamingLiveCasino:
-                    return View("~/Views/Customer/BetSetting/MicroGamingLiveCasino.cshtml", viewModel);
+                    return View("~/Views/Desktop/Customer/BetSetting/MicroGamingLiveCasino.cshtml", viewModel);
 
                 case ProductTypes.MicrogamingRNGCasino:
-                    return View("~/Views/Customer/BetSetting/MicroGamingRNGCasino.cshtml", viewModel);
+                    return View("~/Views/Desktop/Customer/BetSetting/MicroGamingRNGCasino.cshtml", viewModel);
 
                 case ProductTypes.BetTrade:
-                    return View("~/Views/Customer/BetSetting/BetTrade.cshtml", viewModel);
+                    return View("~/Views/Desktop/Customer/BetSetting/BetTrade.cshtml", viewModel);
 
                 case ProductTypes.ColossusBets:
-                    return View("~/Views/Customer/BetSetting/ColossusBets.cshtml", viewModel);
+                    return View("~/Views/Desktop/Customer/BetSetting/ColossusBets.cshtml", viewModel);
 
                 case ProductTypes.CashOut:
-                    return View("~/Views/Customer/BetSetting/CashOut.cshtml", viewModel);
+                    return View("~/Views/Desktop/Customer/BetSetting/CashOut.cshtml", viewModel);
 
                 default:
                     throw new ArgumentException("Not a thirdparty product.");

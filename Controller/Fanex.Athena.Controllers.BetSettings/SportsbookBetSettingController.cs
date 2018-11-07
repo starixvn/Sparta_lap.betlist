@@ -47,7 +47,7 @@ namespace Fanex.Athena.Controllers.BetSettings
 
             AssignRequiredProperties(viewModel, metaModel);
 
-            return View("~/Views/Customer/BetSetting/Main.cshtml", viewModel);
+            return View("~/Views/Desktop/Customer/BetSetting/Main.cshtml", viewModel);
         }
 
         [HttpPost]

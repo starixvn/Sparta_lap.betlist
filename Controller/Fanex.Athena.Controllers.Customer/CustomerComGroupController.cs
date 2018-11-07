@@ -54,7 +54,7 @@
             ViewBag.IsAllowNG = productAccess.IsAllowNG;
             ViewBag.IsAllowCS = productAccess.IsAllowCS;
 
-            return View("~/Views/Customer/CustomerComm/GroupCommList.cshtml", model);
+            return View("~/Views/Desktop/Customer/CustomerComm/GroupCommList.cshtml", model);
         }
 
         #endregion Get data
@@ -68,7 +68,7 @@
 
             CreateMetaModel(model);
 
-            return View("~/Views/Customer/CustomerComm/CreateNewGroup.cshtml", model);
+            return View("~/Views/Desktop/Customer/CustomerComm/CreateNewGroup.cshtml", model);
         }
 
         [HttpPost]
@@ -117,7 +117,7 @@
             }
 
             ViewBag.Result = result;
-            return View("~/Views/Customer/CustomerComm/CreateNewGroup.cshtml", metaModel);
+            return View("~/Views/Desktop/Customer/CustomerComm/CreateNewGroup.cshtml", metaModel);
         }
 
         [HttpGet]
@@ -140,7 +140,7 @@
 
             CustomerComGroupHelper.SetDropDownListComm(model);
 
-            return View("~/Views/Customer/CustomerComm/UpdateGroup.cshtml", model);
+            return View("~/Views/Desktop/Customer/CustomerComm/UpdateGroup.cshtml", model);
         }
 
         [HttpPost]
@@ -175,7 +175,7 @@
 
             ViewBag.Result = result;
 
-            return View("~/Views/Customer/CustomerComm/UpdateGroup.cshtml", metaModel);
+            return View("~/Views/Desktop/Customer/CustomerComm/UpdateGroup.cshtml", metaModel);
         }
 
         #endregion Update group

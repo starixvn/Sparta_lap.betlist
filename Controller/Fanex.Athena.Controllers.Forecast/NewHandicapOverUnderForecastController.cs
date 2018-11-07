@@ -75,7 +75,7 @@ namespace Fanex.Athena.Controllers.Forecast
                     metaModel.BaseCurrency = baseCurrency;
                 }
 
-                return View("~/Views/Forecast/NewForecastHdpOu/Main.cshtml", this.GetViewModel(metaModel));
+                return View("~/Views/Desktop/Forecast/NewForecastHdpOu/Main.cshtml", this.GetViewModel(metaModel));
             }
             else
             {
@@ -90,7 +90,7 @@ namespace Fanex.Athena.Controllers.Forecast
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             metaModel.UserId = SessionService.UserSession.UserId;
 
-            return View("~/Views/Forecast/NewForecastHdpOu/Main.cshtml", this.GetViewModel(metaModel));
+            return View("~/Views/Desktop/Forecast/NewForecastHdpOu/Main.cshtml", this.GetViewModel(metaModel));
         }
 
         [HttpPost]
@@ -98,7 +98,7 @@ namespace Fanex.Athena.Controllers.Forecast
         public ViewResult GetMatchListByLeague(int leagueId)
         {
             var matchList = _matchService.GetForecastMatchListByLeague(leagueId).OrderBy(x => x.MatchName).ToList();
-            return View("~/Views/Forecast/NewForecastHdpOu/MatchOptionList.cshtml", matchList);
+            return View("~/Views/Desktop/Forecast/NewForecastHdpOu/MatchOptionList.cshtml", matchList);
         }
 
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]

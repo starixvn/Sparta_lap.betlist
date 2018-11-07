@@ -61,7 +61,7 @@ namespace Fanex.Athena.Controllers.Forecast
         {
             var model = GetViewModel(metaModel);
 
-            return View("~/Views/Forecast/Forecast1X2/Main.cshtml", model);
+            return View("~/Views/Desktop/Forecast/Forecast1X2/Main.cshtml", model);
         }
 
         private ForecastOneXTwoViewModel GetViewModel(ForecastOneXTwoMetaModel metaModel)

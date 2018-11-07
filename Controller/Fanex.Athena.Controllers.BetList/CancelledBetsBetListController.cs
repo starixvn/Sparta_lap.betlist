@@ -62,7 +62,7 @@ namespace Fanex.Athena.Controllers.BetList
 
             var model = CreateViewModel(viewParam);
 
-            return View("~/Views/BetList/CancelledBetsBetList/Main.cshtml", model);
+            return View("~/Views/Desktop/BetList/CancelledBetsBetList/Main.cshtml", model);
         }
 
         [HttpPost]
@@ -78,7 +78,7 @@ namespace Fanex.Athena.Controllers.BetList
 
             var model = CreateViewModel(viewParam);
 
-            return View("~/Views/BetList/CancelledBetsBetList/Main.cshtml", model);
+            return View("~/Views/Desktop/BetList/CancelledBetsBetList/Main.cshtml", model);
         }
 
         private CancelledBetsBetListViewModel CreateViewModel(BetListMetaModel viewParam)

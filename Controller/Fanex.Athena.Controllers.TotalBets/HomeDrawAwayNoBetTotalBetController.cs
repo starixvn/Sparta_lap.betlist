@@ -66,7 +66,7 @@ namespace Fanex.Athena.Controllers.TotalBets
                     CurrencyList = currencies
                 };
 
-                return View("~/Views/TotalBets/HomeDrawAwayNoBet/Main.cshtml", model);
+                return View("~/Views/Desktop/TotalBets/HomeDrawAwayNoBet/Main.cshtml", model);
             }
 
             return Redirect("~/Utility/AccessDenied");

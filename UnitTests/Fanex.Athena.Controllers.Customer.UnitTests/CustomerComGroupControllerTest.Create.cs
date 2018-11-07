@@ -45,7 +45,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Customer/CustomerComm/CreateNewGroup.cshtml"));
+                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/Customer/CustomerComm/CreateNewGroup.cshtml"));
 
                     Assert.That(model.LicenseeId, Is.EqualTo(licenseeId));
                     Assert.That(model.IsUpdateNG, Is.True);
@@ -71,7 +71,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Customer/CustomerComm/CreateNewGroup.cshtml"));
+                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/Customer/CustomerComm/CreateNewGroup.cshtml"));
                     Assert.That(resultInfo.Code, Is.Not.Zero);
                     Assert.That(resultInfo.Message, Is.EqualTo(ViewResources.InvalidParams));
                 });

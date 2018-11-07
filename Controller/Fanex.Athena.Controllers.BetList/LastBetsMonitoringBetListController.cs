@@ -56,7 +56,7 @@ namespace Fanex.Athena.Controllers.BetList
                 Param = metaModel
             };
 
-            return View("~/Views/BetList/LastBetsMonitoringNew/Main.cshtml", model);
+            return View("~/Views/Desktop/BetList/LastBetsMonitoringNew/Main.cshtml", model);
         }
 
         private IEnumerable<SelectListItem> GetSports()

@@ -49,12 +49,12 @@
             }
         }
 
-        [TestCase(ProductTypes.Macau, "~/Views/Customer/BetSetting/Macau.cshtml")]
-        [TestCase(ProductTypes.MicroGamingLiveCasino, "~/Views/Customer/BetSetting/MicroGamingLiveCasino.cshtml")]
-        [TestCase(ProductTypes.MicrogamingRNGCasino, "~/Views/Customer/BetSetting/MicroGamingRNGCasino.cshtml")]
-        [TestCase(ProductTypes.BetTrade, "~/Views/Customer/BetSetting/BetTrade.cshtml")]
-        [TestCase(ProductTypes.ColossusBets, "~/Views/Customer/BetSetting/ColossusBets.cshtml")]
-        [TestCase(ProductTypes.CashOut, "~/Views/Customer/BetSetting/CashOut.cshtml")]
+        [TestCase(ProductTypes.Macau, "~/Views/Desktop/Customer/BetSetting/Macau.cshtml")]
+        [TestCase(ProductTypes.MicroGamingLiveCasino, "~/Views/Desktop/Customer/BetSetting/MicroGamingLiveCasino.cshtml")]
+        [TestCase(ProductTypes.MicrogamingRNGCasino, "~/Views/Desktop/Customer/BetSetting/MicroGamingRNGCasino.cshtml")]
+        [TestCase(ProductTypes.BetTrade, "~/Views/Desktop/Customer/BetSetting/BetTrade.cshtml")]
+        [TestCase(ProductTypes.ColossusBets, "~/Views/Desktop/Customer/BetSetting/ColossusBets.cshtml")]
+        [TestCase(ProductTypes.CashOut, "~/Views/Desktop/Customer/BetSetting/CashOut.cshtml")]
         public void Index_HasPermission_ReturnCorrectViewResult(int productId, string viewName)
         {
             using (var controller = CreateController())

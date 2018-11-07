@@ -83,7 +83,7 @@
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
             };
 
-            return View("~/Views/Report/MatchWinLoss/Main.cshtml", model);
+            return View("~/Views/Desktop/Report/MatchWinLoss/Main.cshtml", model);
         }
 
         [HttpPost]
@@ -129,7 +129,7 @@
                 GrandTotal = grandTotal,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
             };
-            return View("~/Views/Report/MatchWinLoss/Main.cshtml", model);
+            return View("~/Views/Desktop/Report/MatchWinLoss/Main.cshtml", model);
         }
 
         [HttpPost]
@@ -146,7 +146,7 @@
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
             };
 
-            return View("~/Views/Report/MatchWinLoss/Content.data.Detail.cshtml", model);
+            return View("~/Views/Desktop/Report/MatchWinLoss/Content.data.Detail.cshtml", model);
         }
 
         [HttpPost]

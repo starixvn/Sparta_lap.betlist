@@ -31,7 +31,7 @@
         {
             var viewModel = CreateViewModel();
 
-            return View("~/Views/Report/ExchangeWinLoss/Main.cshtml", viewModel);
+            return View("~/Views/Desktop/Report/ExchangeWinLoss/Main.cshtml", viewModel);
         }
 
         private ExchangeWinLossViewModel CreateViewModel()

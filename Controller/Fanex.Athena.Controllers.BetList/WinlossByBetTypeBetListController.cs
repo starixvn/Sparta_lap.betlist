@@ -36,7 +36,7 @@
         public ActionResult Index(BetListMetaModel metaModel)
         {
             var model = CreateDefaultMetaModel(metaModel);
-            return ProcessDefaultRequest(model, "~/Views/BetList/WinlossByBetType/Main.cshtml", "Lrf_BetList_SelWinLossByBetType");
+            return ProcessDefaultRequest(model, "~/Views/Desktop/BetList/WinlossByBetType/Main.cshtml", "Lrf_BetList_SelWinLossByBetType");
         }
 
         protected override bool IsValidExportExcel(BetListMetaModel model)

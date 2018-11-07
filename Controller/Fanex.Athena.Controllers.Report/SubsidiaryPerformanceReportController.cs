@@ -54,7 +54,7 @@
                 }).ToList()
             };
 
-            return View("~/Views/Report/SubsidiaryPerformance/Main.cshtml", model);
+            return View("~/Views/Desktop/Report/SubsidiaryPerformance/Main.cshtml", model);
         }
     }
 }

@@ -58,7 +58,7 @@ namespace Fanex.Athena.Controllers.BetList
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
             };
 
-            return View("~/Views/BetList/CorrectScoreBetList/Main.cshtml", model);
+            return View("~/Views/Desktop/BetList/CorrectScoreBetList/Main.cshtml", model);
         }
 
         [HttpPost]

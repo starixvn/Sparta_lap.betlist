@@ -56,7 +56,7 @@ namespace Fanex.Athena.Controllers.Report
                 ProductAccess = productAccess
             };
 
-            return View("~/Views/Report/CustomerBalance/Main.cshtml", model);
+            return View("~/Views/Desktop/Report/CustomerBalance/Main.cshtml", model);
         }
     }
 }

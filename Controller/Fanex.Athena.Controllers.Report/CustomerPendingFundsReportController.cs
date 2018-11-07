@@ -52,7 +52,7 @@ namespace Fanex.Athena.Controllers.Report
                 IsFakeLicensee = IsFakeLicensee()
             };
 
-            return View("~/Views/Report/CustomerPendingFunds/Main.cshtml", model);
+            return View("~/Views/Desktop/Report/CustomerPendingFunds/Main.cshtml", model);
         }
     }
 }

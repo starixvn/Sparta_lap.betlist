@@ -37,7 +37,7 @@
                 var result = controller.Index(metaModel) as ViewResult;
 
                 // Assert
-                Assert.That(result.ViewName, Is.EqualTo("~/Views/Forecast/ForecastAH/Main.cshtml"));
+                Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/Forecast/ForecastAH/Main.cshtml"));
             }
         }
 

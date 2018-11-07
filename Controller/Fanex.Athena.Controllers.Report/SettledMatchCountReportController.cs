@@ -37,7 +37,7 @@ namespace Fanex.Athena.Controllers.Report
             var producAccess = ProductService.GetProductAccess(licenseeId, SessionService.UserSession.Language);
             var model = _settledMatchCountService.GetDataList(AppSettings.IsShowAllDataForSettleMatchCountReport, licenseeId, producAccess);
 
-            return View("~/Views/Report/SettledMatchCount/Main.cshtml", model);
+            return View("~/Views/Desktop/Report/SettledMatchCount/Main.cshtml", model);
         }
     }
 }

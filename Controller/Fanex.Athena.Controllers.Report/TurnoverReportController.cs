@@ -71,7 +71,7 @@ namespace Fanex.Athena.Controllers.Report
                 IsFakeLicensee = IsFakeLicensee()
             };
 
-            return View("~/Views/Report/Turnover/Main.cshtml", model);
+            return View("~/Views/Desktop/Report/Turnover/Main.cshtml", model);
         }
 
         [HttpPost]

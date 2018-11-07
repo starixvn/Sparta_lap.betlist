@@ -48,7 +48,7 @@ namespace Fanex.Athena.Controllers.BetList
             var model = CreateDefaultMetaModel(metaModel);
             model.FromDate = DateTime.Today.AddYears(-10);
             model.ToDate = DateTime.Today.AddYears(10);
-            return ProcessDefaultRequest(model, "~/Views/BetList/PendingFunds/Main.cshtml", "Lrf_BetList_SelRunningByDate_Mem");
+            return ProcessDefaultRequest(model, "~/Views/Desktop/BetList/PendingFunds/Main.cshtml", "Lrf_BetList_SelRunningByDate_Mem");
         }
 
         protected override bool IsValidExportExcel(BetListMetaModel model)

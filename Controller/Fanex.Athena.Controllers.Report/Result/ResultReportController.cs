@@ -106,7 +106,7 @@ namespace Fanex.Athena.Controllers.Report.Result
             ViewBag.IsAllowedRNG = productAccess.IsAllowCS;
             ViewBag.IsAllowedKeno = productAccess.IsAllowKN;
             ViewBag.IsAllowedLottery = productAccess.IsAllow(Product.LT);
-            return View("~/Views/Report/Result/Main.cshtml", model);
+            return View("~/Views/Desktop/Report/Result/Main.cshtml", model);
         }
 
         [FunctionAuthorization(Model.Core.DataDomain.PermissionKeys.ReportResults)]
@@ -199,7 +199,7 @@ namespace Fanex.Athena.Controllers.Report.Result
             {
                 GetPopUpData(metalModel);
                 ViewBag.Data = _htmlResult;
-                return View("~/Views/Report/Result/Popup/Main.cshtml");
+                return View("~/Views/Desktop/Report/Result/Popup/Main.cshtml");
             }
 
             return Redirect("~/Utility/Error?err=400");
@@ -216,7 +216,7 @@ namespace Fanex.Athena.Controllers.Report.Result
                     SiteName = SessionService.LicenseeSession.LicenseeName,
                     GameId = gameId
                 });
-                return View("~/Views/Report/Result/Popup/Microgaming.cshtml");
+                return View("~/Views/Desktop/Report/Result/Popup/Microgaming.cshtml");
             }
 
             return Redirect("~/Utility/Error?err=400");
@@ -244,7 +244,7 @@ namespace Fanex.Athena.Controllers.Report.Result
         {
             var allbetResultService = new AllbetResultBuilder();
             ViewBag.Data = allbetResultService.Render(transDesc, betCheck, betType, SessionService.UserSession.Language);
-            return View("~/Views/Report/Result/Popup/AllBet.cshtml");
+            return View("~/Views/Desktop/Report/Result/Popup/AllBet.cshtml");
         }
 
         [HttpGet]
@@ -281,7 +281,7 @@ namespace Fanex.Athena.Controllers.Report.Result
                     LanguageCode = SessionService.UserSession.Language
                 });
 
-                return View("~/Views/Report/Result/Popup/Main.cshtml");
+                return View("~/Views/Desktop/Report/Result/Popup/Main.cshtml");
             }
 
             return this.Redirect("~/Utility/Error?err=400");

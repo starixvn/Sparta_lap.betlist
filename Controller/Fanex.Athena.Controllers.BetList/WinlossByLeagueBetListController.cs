@@ -40,7 +40,7 @@ namespace Fanex.Athena.Controllers.BetList
         public ActionResult Index(WinLossByLeagueBetListMetaModel metaModel)
         {
             var model = CreateDefaultMetaModel(metaModel);
-            return ProcessDefaultRequest(model, "~/Views/BetList/WinlossByLeague/Main.cshtml", "Lrf_BetList_WinlostByLeague_Mem");
+            return ProcessDefaultRequest(model, "~/Views/Desktop/BetList/WinlossByLeague/Main.cshtml", "Lrf_BetList_WinlostByLeague_Mem");
         }
 
         protected override ActionResult ExportExcel(BetListMetaModel metaModel, string uspKey)

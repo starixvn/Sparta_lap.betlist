@@ -76,7 +76,7 @@ namespace Fanex.Athena.Controllers.BetList
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
             };
 
-            return View("~/Views/BetList/DailyBetList/Main.cshtml", model);
+            return View("~/Views/Desktop/BetList/DailyBetList/Main.cshtml", model);
         }
 
         private ActionResult Excel(BetListMetaModel metaModel)

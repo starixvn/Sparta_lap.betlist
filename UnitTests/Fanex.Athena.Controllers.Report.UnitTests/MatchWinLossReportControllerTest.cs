@@ -73,7 +73,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Report/MatchWinLoss/Content.data.Detail.cshtml"));
+                    Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Desktop/Report/MatchWinLoss/Content.data.Detail.cshtml"));
                     Assert.That(viewModel.MainResult, Is.EqualTo(dataList));
                     Assert.That(metaModel.AgentListXml, Is.EqualTo(AgentListXml));
                 });

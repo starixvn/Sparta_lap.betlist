@@ -26,7 +26,7 @@
                 var viewResult = controller.Index() as ViewResult;
 
                 // Assert
-                Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Report/WeeklyLiveMatch/Main.cshtml"));
+                Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Desktop/Report/WeeklyLiveMatch/Main.cshtml"));
             }
         }
 

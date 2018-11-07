@@ -44,7 +44,7 @@
                 var result = controller.Detail(new BetListMetaModel()) as ViewResult;
 
                 // Assert
-                Assert.That(result.ViewName, Is.EqualTo("~/Views/BetList/RngCasinoDetail/Main.cshtml"));
+                Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/RngCasinoDetail/Main.cshtml"));
             }
         }
 

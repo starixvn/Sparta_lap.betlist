@@ -48,7 +48,7 @@ namespace Fanex.Athena.Controllers.Forecast
 
             var model = this.GetViewModel(metaModel);
 
-            return View("~/Views/Forecast/ForecastHDPOU/Main.cshtml", model);
+            return View("~/Views/Desktop/Forecast/ForecastHDPOU/Main.cshtml", model);
         }
 
         [HttpPost]
@@ -57,7 +57,7 @@ namespace Fanex.Athena.Controllers.Forecast
         {
             var model = this.GetViewModel(metaModel);
 
-            return View("~/Views/Forecast/ForecastHDPOU/Main.cshtml", model);
+            return View("~/Views/Desktop/Forecast/ForecastHDPOU/Main.cshtml", model);
         }
 
         private ForecastHdpOuViewModel GetViewModel(ForecastHandicapOverUnderMetaModel metaModel)

@@ -39,7 +39,7 @@
                 var result = controller.Index() as ViewResult;
 
                 // Assert
-                Assert.That(result.ViewName, Is.EqualTo("~/Views/Header/Index.cshtml"));
+                Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/Header/Index.cshtml"));
             }
         }
 
@@ -60,7 +60,7 @@
                 var model = (HeaderPageViewModel)result.Model;
 
                 // Assert
-                Assert.That(result.ViewName, Is.EqualTo("~/Views/Header/Index.cshtml"));
+                Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/Header/Index.cshtml"));
                 Assert.Multiple(() =>
                 {
                     Assert.That(model.Language, Is.EqualTo(DefaultUserSession.Language));

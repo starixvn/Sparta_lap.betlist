@@ -57,7 +57,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Report/Turnover/Main.cshtml"));
+                    Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Desktop/Report/Turnover/Main.cshtml"));
                     Assert.That(viewModel.Param.LicenseeId, Is.EqualTo(SessionService.LicenseeSession.LicenseeId));
                     Assert.That(viewModel.Param.UserId, Is.EqualTo(SessionService.UserSession.UserId));
                     Assert.That(viewModel.Param.ProductOptions.Any(x => x.Code == Product.BA), Is.False);

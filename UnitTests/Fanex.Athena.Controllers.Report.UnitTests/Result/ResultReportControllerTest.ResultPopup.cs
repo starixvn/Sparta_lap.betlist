@@ -45,7 +45,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Report/Result/Popup/Main.cshtml"));
+                    Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Desktop/Report/Result/Popup/Main.cshtml"));
                     Assert.That(viewResult.ViewBag.Data, Is.EqualTo(HtmlResult));
                 });
             }

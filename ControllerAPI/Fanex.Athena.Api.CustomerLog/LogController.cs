@@ -63,8 +63,6 @@ namespace Fanex.Athena.Api.CustomerLog
             _appSettings = appSettings;
         }
 
-        #region Utility
-
         #region Remove HTML tag
 
         /// <summary>
@@ -145,7 +143,14 @@ namespace Fanex.Athena.Api.CustomerLog
 
         #endregion Get XML attribute
 
-        #endregion Utility
+        private static string GenerateDetailedValue(int actionId, ActionViewModel viewModel)
+        {
+            var viewPath = $"~/Views/Desktop/Customer/CustomerLog/Action/{actionId}.cshtml";
+
+            var templatePath = HostingEnvironment.MapPath(viewPath);
+            var template = File.ReadAllText(templatePath);
+            return Engine.Razor.RunCompile(template, viewPath, model: viewModel);
+        }
 
         #region Get detail data
 
@@ -185,14 +190,5 @@ namespace Fanex.Athena.Api.CustomerLog
         }
 
         #endregion Get detail data
-
-        private static string GenerateDetailedValue(int actionId, ActionViewModel viewModel)
-        {
-            var viewPath = $"~/Views/Desktop/Customer/CustomerLog/Action/{actionId}.cshtml";
-
-            var templatePath = HostingEnvironment.MapPath(viewPath);
-            var template = File.ReadAllText(templatePath);
-            return Engine.Razor.RunCompile(template, viewPath, model: viewModel);
-        }
     }
 }

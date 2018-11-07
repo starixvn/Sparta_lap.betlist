@@ -33,7 +33,7 @@
         [HttpGet]
         public ActionResult Detail(BetListMetaModel metaModel)
         {
-            return ProcessDefaultRequest(CreateDefaultMetaModel(metaModel), "~/Views/BetList/GlobalGamingDetail/Main.cshtml", "Lrf_BetList_RNG_Detail");
+            return ProcessDefaultRequest(CreateDefaultMetaModel(metaModel), "~/Views/Desktop/BetList/GlobalGamingDetail/Main.cshtml", "Lrf_BetList_RNG_Detail");
         }
 
         protected override void AssignViewBag(BetListMetaModel model)

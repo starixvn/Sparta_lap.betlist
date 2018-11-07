@@ -55,7 +55,7 @@ namespace Fanex.Athena.Controllers.BetSettings
                 CommissionList = ValidComms
             };
             AssignRequiredProperties(viewModel, metaModel);
-            const string ViewPath = "~/Views/Customer/BetSetting/Exchange.cshtml";
+            const string ViewPath = "~/Views/Desktop/Customer/BetSetting/Exchange.cshtml";
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
             viewModel.IsEnabled = _betSettingService.GetStatus(licenseeId, metaModel.CustId, metaModel.ProductId);
             var apiResult = _exchangeCommApiService.GetCommission(licenseeId, metaModel.CustId);

@@ -113,7 +113,7 @@ namespace Fanex.Athena.Controllers.Customer
             }
 
             ViewBag.ProductList = productAccess.ProductList.Select(x => x.ProductCode);
-            return View("~/Views/Customer/Customers.cshtml", model);
+            return View("~/Views/Desktop/Customer/Customers.cshtml", model);
         }
 
         [HttpPost]
@@ -192,7 +192,7 @@ namespace Fanex.Athena.Controllers.Customer
                 ProductAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language)
             };
 
-            return View("~/Views/Customer/CustomerDialog/LogInfo.cshtml", model);
+            return View("~/Views/Desktop/Customer/CustomerDialog/LogInfo.cshtml", model);
         }
 
         #endregion Action

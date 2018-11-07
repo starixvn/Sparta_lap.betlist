@@ -28,7 +28,7 @@
         [HttpGet]
         public ActionResult Detail(BetListMetaModel metaModel)
         {
-            return ProcessDefaultRequest(CreateDefaultMetaModel(metaModel), "~/Views/BetList/BonusDetail/Main.cshtml", "Lrf_BetList_LicenseeBonus_Detail");
+            return ProcessDefaultRequest(CreateDefaultMetaModel(metaModel), "~/Views/Desktop/BetList/BonusDetail/Main.cshtml", "Lrf_BetList_LicenseeBonus_Detail");
         }
 
         protected override ActionResult ExportExcel(BetListMetaModel metaModel, string uspKey)

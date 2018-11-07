@@ -65,7 +65,7 @@ namespace Fanex.Athena.Controllers.Report
                 CurrencyList = userSession.CurrencyList
             };
 
-            return View("~/Views/Report/GoldDeluxeWinLoss/Main.cshtml", model);
+            return View("~/Views/Desktop/Report/GoldDeluxeWinLoss/Main.cshtml", model);
         }
     }
 }

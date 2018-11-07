@@ -38,7 +38,7 @@ namespace Fanex.Athena.Controllers.BetList
         [HttpGet]
         public ActionResult Index(BetListMetaModel metaModel)
         {
-            return ProcessDefaultRequest(CreateDefaultMetaModel(metaModel), "~/Views/BetList/CustomerWl/Main.cshtml", "Lrf_BetList_SelWinLossByDate_Mem");
+            return ProcessDefaultRequest(CreateDefaultMetaModel(metaModel), "~/Views/Desktop/BetList/CustomerWl/Main.cshtml", "Lrf_BetList_SelWinLossByDate_Mem");
         }
 
         protected override ActionResult ExportExcel(BetListMetaModel metaModel, string uspKey)

@@ -69,7 +69,7 @@ namespace Fanex.Athena.Controllers.TotalBets
                     TotalData = result.TotalData
                 };
 
-                return View("~/Views/TotalBets/FirstGoalLastGoal/Main.cshtml", model);
+                return View("~/Views/Desktop/TotalBets/FirstGoalLastGoal/Main.cshtml", model);
             }
 
             return Redirect("~/Utility/AccessDenied");

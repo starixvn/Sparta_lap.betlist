@@ -45,7 +45,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Forecast/Forecast1X2/Main.cshtml"));
+                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/Forecast/Forecast1X2/Main.cshtml"));
                     AssertViewModel(
                         viewModel,
                         new ForecastOneXTwoMetaModel(),
@@ -80,7 +80,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Forecast/Forecast1X2/Main.cshtml"));
+                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/Forecast/Forecast1X2/Main.cshtml"));
                     AssertViewModel(
                         viewModel,
                         metaModel,
@@ -115,7 +115,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Forecast/Forecast1X2/Main.cshtml"));
+                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/Forecast/Forecast1X2/Main.cshtml"));
                     AssertViewModel(
                         viewModel,
                         metaModel,

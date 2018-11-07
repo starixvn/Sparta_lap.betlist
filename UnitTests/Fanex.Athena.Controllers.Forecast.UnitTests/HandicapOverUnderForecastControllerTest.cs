@@ -65,7 +65,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Forecast/ForecastHDPOU/Main.cshtml"));
+                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/Forecast/ForecastHDPOU/Main.cshtml"));
                     AssertViewModel(
                         viewModel,
                         new ForecastHandicapOverUnderMetaModel { LicenseeId = DefaultLicenseeSession.LicenseeId, UserId = DefaultUserSession.UserId },
@@ -100,7 +100,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Forecast/ForecastHDPOU/Main.cshtml"));
+                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/Forecast/ForecastHDPOU/Main.cshtml"));
                     AssertViewModel(
                         viewModel,
                         metaModel,

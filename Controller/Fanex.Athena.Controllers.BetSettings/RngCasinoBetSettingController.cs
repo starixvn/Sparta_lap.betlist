@@ -47,7 +47,7 @@ namespace Fanex.Athena.Controllers.BetSettings
             var viewModel = _betSettingService.GetViewModel(metaModel.CustId, customer, SessionService.UserSession.Language);
             AssignRequiredProperties(viewModel, metaModel);
 
-            return View("~/Views/Customer/BetSetting/RngCasino.cshtml", viewModel);
+            return View("~/Views/Desktop/Customer/BetSetting/RngCasino.cshtml", viewModel);
         }
 
         [HttpPost]

@@ -29,7 +29,7 @@ namespace Fanex.Athena.Controllers.Customer.CustomerLog
             model.Param.IsAllowBA = productOption.IsAllowBA;
             model.Param.IsAllowCustComm = licenseeSession.IsAllowedCustomerComm;
 
-            return View("~/Views/Customer/CustomerLog/CustomerSettingLog/Main.cshtml", model);
+            return View("~/Views/Desktop/Customer/CustomerLog/CustomerSettingLog/Main.cshtml", model);
         }
     }
 }

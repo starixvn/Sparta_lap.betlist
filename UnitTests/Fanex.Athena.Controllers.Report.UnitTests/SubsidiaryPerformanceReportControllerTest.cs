@@ -66,7 +66,7 @@
                 };
 
                 var expectedModel = _serializer.Serialize(expectedViewModelData);
-                var expectedViewName = "~/Views/Report/SubsidiaryPerformance/Main.cshtml";
+                var expectedViewName = "~/Views/Desktop/Report/SubsidiaryPerformance/Main.cshtml";
                 HttpContext.Current = GetHttpContext();
 
                 // Action
@@ -101,7 +101,7 @@
                 };
 
                 var expectedModel = _serializer.Serialize(expectedViewModelData);
-                var expectedViewName = "~/Views/Report/SubsidiaryPerformance/Main.cshtml";
+                var expectedViewName = "~/Views/Desktop/Report/SubsidiaryPerformance/Main.cshtml";
                 HttpContext.Current = GetHttpContext();
 
                 // Action

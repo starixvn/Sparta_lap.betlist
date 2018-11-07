@@ -39,7 +39,7 @@ namespace Fanex.Athena.Controllers.Forecast
 
             var model = GetViewModel(metaModel);
 
-            return View("~/Views/Forecast/ForecastAH/Main.cshtml", model);
+            return View("~/Views/Desktop/Forecast/ForecastAH/Main.cshtml", model);
         }
 
         private static IList<string> RenderForecastLink(int betType, int currentScore)

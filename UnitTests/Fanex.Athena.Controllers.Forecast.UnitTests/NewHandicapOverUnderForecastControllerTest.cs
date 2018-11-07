@@ -58,7 +58,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Forecast/NewForecastHdpOu/Main.cshtml"));
+                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/Forecast/NewForecastHdpOu/Main.cshtml"));
                     AssertViewModel(viewModel, TeamName, TeamName, mainData, headerInfo);
                     Assert.That(viewModel.Param.BaseCurrency, Is.EqualTo(expectedBaseCurrency));
                 });
@@ -319,7 +319,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Forecast/NewForecastHdpOu/Main.cshtml"));
+                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/Forecast/NewForecastHdpOu/Main.cshtml"));
 
                     AssertViewModel(viewModel, expectedHomeName, AwayTeamName, mainData, headerInfo);
                 });
@@ -348,7 +348,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Forecast/NewForecastHdpOu/MatchOptionList.cshtml"));
+                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/Forecast/NewForecastHdpOu/MatchOptionList.cshtml"));
                     Assert.That(string.Join(",", viewModel.Select(x => x.MatchName)), Is.EqualTo(expectedMatchNames));
                 });
             }

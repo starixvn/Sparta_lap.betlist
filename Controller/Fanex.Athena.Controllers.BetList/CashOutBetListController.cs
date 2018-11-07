@@ -57,7 +57,7 @@
             viewModel.CashOutTicketTextList = BuildCashOutTicketTextList(viewModel.CashOutTicketList, metaModel.TransId);
 
             viewModel.IsCashOut = metaModel.IsCashOut;
-            return this.View("~/Views/BetList/CashOutDetail/Main.cshtml", viewModel);
+            return this.View("~/Views/Desktop/BetList/CashOutDetail/Main.cshtml", viewModel);
         }
 
         private static bool IsCashOutBetTicket(long betdaqid, int bettype)

@@ -30,7 +30,7 @@ namespace Fanex.Athena.Controllers.Report
         public ActionResult Index()
         {
             var metaModel = new WeeklyLiveMatchMetaModel();
-            return View("~/Views/Report/WeeklyLiveMatch/Main.cshtml", metaModel);
+            return View("~/Views/Desktop/Report/WeeklyLiveMatch/Main.cshtml", metaModel);
         }
     }
 }

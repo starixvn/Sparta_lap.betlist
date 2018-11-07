@@ -70,7 +70,7 @@ namespace Fanex.Athena.Controllers.TotalBets
                     CurrencyList = currencies,
                     TotalData = result.TotalData
                 };
-                return View("~/Views/TotalBets/MoneyLine/Main.cshtml", model);
+                return View("~/Views/Desktop/TotalBets/MoneyLine/Main.cshtml", model);
             }
 
             return Redirect("~/Utility/AccessDenied");

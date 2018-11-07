@@ -92,7 +92,7 @@ namespace Fanex.Athena.Controllers.Report
                 Matches = matches.ToDictionary(x => x.MatchId, y => y.MatchName)
             };
 
-            return View("~/Views/Report/WinLossByLeague/Main.cshtml", viewModel);
+            return View("~/Views/Desktop/Report/WinLossByLeague/Main.cshtml", viewModel);
         }
 
         [HttpPost]

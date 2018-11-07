@@ -48,7 +48,7 @@
                 {
                     AssertRequiredProperties(viewModel, metaModel);
 
-                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Customer/BetSetting/Main.cshtml"));
+                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/Customer/BetSetting/Main.cshtml"));
                 });
             }
         }

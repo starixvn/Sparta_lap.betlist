@@ -34,7 +34,7 @@
                 var result = controller.Detail(metaModel) as ViewResult;
 
                 // Assert
-                Assert.That(result.ViewName, Is.EqualTo("~/Views/BetList/SystemParlayDetail/Main.cshtml"));
+                Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/SystemParlayDetail/Main.cshtml"));
             }
         }
 

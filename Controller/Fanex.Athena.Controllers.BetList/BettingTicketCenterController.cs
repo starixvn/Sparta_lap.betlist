@@ -45,7 +45,7 @@
                 MinDate = AppSettings.HistoryDate,
                 IsAllowedCustomerComm = SessionService.LicenseeSession.IsAllowedCustomerComm
             };
-            return View("~/Views/BetList/BettingTicketCenter/MultiCustomer.cshtml", viewModel);
+            return View("~/Views/Desktop/BetList/BettingTicketCenter/MultiCustomer.cshtml", viewModel);
         }
 
         public ActionResult SingleCustomer()
@@ -59,13 +59,13 @@
                 MinDate = AppSettings.HistoryDate,
                 IsAllowedCustomerComm = SessionService.LicenseeSession.IsAllowedCustomerComm
             };
-            return View("~/Views/BetList/BettingTicketCenter/SingleCustomer.cshtml", viewModel);
+            return View("~/Views/Desktop/BetList/BettingTicketCenter/SingleCustomer.cshtml", viewModel);
         }
 
         public ActionResult RefNo()
         {
             return View(
-                "~/Views/BetList/BettingTicketCenter/RefNo.cshtml",
+                "~/Views/Desktop/BetList/BettingTicketCenter/RefNo.cshtml",
                 SessionService.LicenseeSession.IsAllowedCustomerComm);
         }
 
@@ -79,7 +79,7 @@
                 IsAllowedCustomerComm = SessionService.LicenseeSession.IsAllowedCustomerComm
             };
 
-            return View("~/Views/BetList/BettingTicketCenter/Running.cshtml", viewModel);
+            return View("~/Views/Desktop/BetList/BettingTicketCenter/Running.cshtml", viewModel);
         }
 
         private static IDictionary<int, string> GetStatusList()

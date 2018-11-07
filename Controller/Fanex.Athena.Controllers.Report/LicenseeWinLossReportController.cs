@@ -106,7 +106,7 @@ namespace Fanex.Athena.Controllers.Report
                 ProductAccess = productAccess,
                 ReportSetting = reportSetting
             };
-            return View("~/Views/Report/LicenseeWinLoss/Main.cshtml", model);
+            return View("~/Views/Desktop/Report/LicenseeWinLoss/Main.cshtml", model);
         }
 
         private ActionResult MapToFakeView()
@@ -133,7 +133,7 @@ namespace Fanex.Athena.Controllers.Report
                 BaseCurrencyList = GetFakeBaseCurrencies(reportSetting.BaseCurrencies)
             };
 
-            return View("~/Views/Report/SpecialLicenseeWinLoss/Main.cshtml", model);
+            return View("~/Views/Desktop/Report/SpecialLicenseeWinLoss/Main.cshtml", model);
         }
     }
 }

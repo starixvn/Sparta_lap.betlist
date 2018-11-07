@@ -71,7 +71,7 @@ namespace Fanex.Athena.Controllers.Report
 
             ViewBag.IsShowCustComm = licenseeSession.IsAllowedCustomerComm;
 
-            return View("~/Views/Report/WinLossByBetType/Main.cshtml", model);
+            return View("~/Views/Desktop/Report/WinLossByBetType/Main.cshtml", model);
         }
 
         [HttpPost]
@@ -105,7 +105,7 @@ namespace Fanex.Athena.Controllers.Report
 
             return metaModel.IsExportExcel ?
                 Excel(model) :
-                View("~/Views/Report/WinLossByBetType/Main.cshtml", model);
+                View("~/Views/Desktop/Report/WinLossByBetType/Main.cshtml", model);
         }
 
         private static WinLossByBetType GetTotal(IEnumerable<WinLossByBetType> dataList)

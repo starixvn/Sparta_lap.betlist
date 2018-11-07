@@ -52,7 +52,7 @@ namespace Fanex.Athena.Controllers.Report
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
             };
 
-            return View("~/Views/Report/PlatformWinLoss/Main.cshtml", model);
+            return View("~/Views/Desktop/Report/PlatformWinLoss/Main.cshtml", model);
         }
     }
 }

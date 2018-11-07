@@ -57,7 +57,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Report/GoldDeluxeWinLoss/Main.cshtml"));
+                    Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Desktop/Report/GoldDeluxeWinLoss/Main.cshtml"));
                     Assert.That(viewModel.Param.ProductId, Is.EqualTo(product.ProductID));
                     Assert.That(viewModel.Param.ProductCode, Is.EqualTo(product.ProductCode));
                     Assert.That(viewModel.Param.ProductName, Is.EqualTo(product.ProductName));

@@ -41,7 +41,7 @@ namespace Fanex.Athena.Controllers.BetList
         public ActionResult Detail(BetListMetaModel metaModel)
         {
             var model = CreateDefaultMetaModel(metaModel);
-            return ProcessDefaultRequest(model, "~/Views/BetList/AGCasinoDetail/Main.cshtml", "Lrf_BetList_LC_Detail");
+            return ProcessDefaultRequest(model, "~/Views/Desktop/BetList/AGCasinoDetail/Main.cshtml", "Lrf_BetList_LC_Detail");
         }
 
         protected override void AssignViewBag(BetListMetaModel model)

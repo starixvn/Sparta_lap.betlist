@@ -32,7 +32,7 @@
                 LicenseeName = SessionService.LicenseeSession.LicenseeName
             };
 
-            return View("~/Views/Report/Notification/Notification.cshtml", model);
+            return View("~/Views/Desktop/Report/Notification/Notification.cshtml", model);
         }
     }
 }

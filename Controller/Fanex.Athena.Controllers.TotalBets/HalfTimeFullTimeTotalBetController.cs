@@ -70,7 +70,7 @@ namespace Fanex.Athena.Controllers.TotalBets
                     TotalRunningStake = totalData.HomeHome + totalData.HomeDraw + totalData.HomeAway + totalData.DrawHome +
                                         totalData.DrawDraw + totalData.DrawAway + totalData.AwayHome + totalData.AwayAway
                 };
-                return View("~/Views/TotalBets/HalfTimeFullTime/Main.cshtml", model);
+                return View("~/Views/Desktop/TotalBets/HalfTimeFullTime/Main.cshtml", model);
             }
 
             return Redirect("~/Utility/AccessDenied");

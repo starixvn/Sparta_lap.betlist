@@ -1,6 +1,5 @@
 ﻿namespace Fanex.Athena.Controllers.Base.UnitTests
 {
-    using System.Web.Mvc;
     using Extension.Utility;
     using Fanex.Athena.Service.Core.Common.Interfaces;
     using Model.Core.MetaModel;
@@ -26,11 +25,6 @@
         internal new void Initialize(System.Web.Routing.RequestContext requestContext)
         {
             base.Initialize(requestContext);
-        }
-
-        internal new ViewResult View(string viewName, string masterName, object model)
-        {
-            return base.View(viewName, masterName, model);
         }
     }
 }

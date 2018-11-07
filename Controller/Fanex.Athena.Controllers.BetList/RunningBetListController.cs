@@ -108,7 +108,7 @@ namespace Fanex.Athena.Controllers.BetList
                 IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm
             };
 
-            return View("~/Views/BetList/RunningBetList/Main.cshtml", model);
+            return View("~/Views/Desktop/BetList/RunningBetList/Main.cshtml", model);
         }
 
         private ActionResult Excel(BetListMetaModel metaModel, string uspKey)

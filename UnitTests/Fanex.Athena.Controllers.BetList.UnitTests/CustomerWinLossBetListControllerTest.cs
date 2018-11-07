@@ -30,7 +30,7 @@
                 var result = controller.Index(new BetListMetaModel()) as ViewResult;
 
                 // Assert
-                Assert.That(result.ViewName, Is.EqualTo("~/Views/BetList/CustomerWl/Main.cshtml"));
+                Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/CustomerWl/Main.cshtml"));
             }
         }
 

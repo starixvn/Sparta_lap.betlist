@@ -76,7 +76,7 @@ namespace Fanex.Athena.Controllers.TotalBets
                     "ContentDataBodog.cshtml" :
                     "ContentData.cshtml";
 
-                return View("~/Views/TotalBets/HandicapOverUnder/Main.cshtml", model);
+                return View("~/Views/Desktop/TotalBets/HandicapOverUnder/Main.cshtml", model);
             }
 
             return Redirect("~/Utility/AccessDenied");

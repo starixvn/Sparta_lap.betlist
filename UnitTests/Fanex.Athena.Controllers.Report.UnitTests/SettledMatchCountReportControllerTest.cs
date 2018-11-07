@@ -47,7 +47,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Report/SettledMatchCount/Main.cshtml"));
+                    Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Desktop/Report/SettledMatchCount/Main.cshtml"));
                     Assert.That(viewModel, Is.EqualTo(expectedData));
                 });
             }

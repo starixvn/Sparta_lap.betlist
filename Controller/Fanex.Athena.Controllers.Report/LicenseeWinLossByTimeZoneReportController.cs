@@ -35,7 +35,7 @@ namespace Fanex.Athena.Controllers.Report
                 ProductOptionList = ToProductOptions(productAccess.ProductList)
             };
 
-            return View("~/Views/Report/LicenseeWinLossByTimeZone/Main.cshtml", model);
+            return View("~/Views/Desktop/Report/LicenseeWinLossByTimeZone/Main.cshtml", model);
         }
     }
 }

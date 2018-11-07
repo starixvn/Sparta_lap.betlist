@@ -43,7 +43,7 @@
                 var result = controller.RefNo() as ViewResult;
 
                 // Assert
-                Assert.That(result.ViewName, Is.EqualTo("~/Views/BetList/BettingTicketCenter/RefNo.cshtml"));
+                Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/BettingTicketCenter/RefNo.cshtml"));
             }
         }
 
@@ -79,7 +79,7 @@
                 var result = controller.Running() as ViewResult;
 
                 // Assert
-                Assert.That(result.ViewName, Is.EqualTo("~/Views/BetList/BettingTicketCenter/Running.cshtml"));
+                Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/BettingTicketCenter/Running.cshtml"));
             }
         }
 
@@ -132,7 +132,7 @@
                 var result = controller.SingleCustomer() as ViewResult;
 
                 // Assert
-                Assert.That(result.ViewName, Is.EqualTo("~/Views/BetList/BettingTicketCenter/SingleCustomer.cshtml"));
+                Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/BettingTicketCenter/SingleCustomer.cshtml"));
             }
         }
 
@@ -187,7 +187,7 @@
                 var result = controller.MultipleCustomers() as ViewResult;
 
                 // Assert
-                Assert.That(result.ViewName, Is.EqualTo("~/Views/BetList/BettingTicketCenter/MultiCustomer.cshtml"));
+                Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/BettingTicketCenter/MultiCustomer.cshtml"));
             }
         }
 

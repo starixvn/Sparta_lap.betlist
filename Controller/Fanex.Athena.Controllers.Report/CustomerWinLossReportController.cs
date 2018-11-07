@@ -76,7 +76,7 @@ namespace Fanex.Athena.Controllers.Report
                 MaxDate = reportSetting.MaxDate
             };
 
-            return View("~/Views/Report/CustomerWinLoss/Main.cshtml", model);
+            return View("~/Views/Desktop/Report/CustomerWinLoss/Main.cshtml", model);
         }
     }
 }

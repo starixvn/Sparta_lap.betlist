@@ -62,7 +62,7 @@ namespace Fanex.Athena.Controllers.BetList
                 DetailText = systemParlayText
             };
 
-            return View("~/Views/BetList/SystemParlayDetail/Main.cshtml", viewModel);
+            return View("~/Views/Desktop/BetList/SystemParlayDetail/Main.cshtml", viewModel);
         }
     }
 }

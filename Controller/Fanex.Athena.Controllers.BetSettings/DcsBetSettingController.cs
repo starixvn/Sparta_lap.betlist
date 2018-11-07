@@ -88,7 +88,7 @@ namespace Fanex.Athena.Controllers.BetSettings
             AssignRequiredProperties(viewModel, metaModel);
 
             var viewName = ProductViewNameMap[metaModel.ProductId];
-            var viewPath = $"~/Views/Customer/BetSetting/{viewName}.cshtml";
+            var viewPath = $"~/Views/Desktop/Customer/BetSetting/{viewName}.cshtml";
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
             if (ProductsHasStatus.Contains(metaModel.ProductId))
             {

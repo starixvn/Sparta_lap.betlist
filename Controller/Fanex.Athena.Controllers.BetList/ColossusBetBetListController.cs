@@ -64,7 +64,7 @@ namespace Fanex.Athena.Controllers.BetList
 
             var iframeUrl = GetIframeUrl(metaModel.BetCheck, metaModel.CustId);
             viewModel.IframeUrl = iframeUrl;
-            return this.View("~/Views/BetList/ColossusBetDetail/Main.cshtml", viewModel);
+            return this.View("~/Views/Desktop/BetList/ColossusBetDetail/Main.cshtml", viewModel);
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Sonar Code Smell", "S3995:UriReturnValuesShouldNotBeStrings",

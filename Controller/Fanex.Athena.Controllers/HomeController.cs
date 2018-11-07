@@ -41,7 +41,7 @@ namespace Fanex.Athena.Controllers
         public ActionResult IndexIpad()
         {
             AssignViewBagData();
-            return ReAuthorize("~/Views/Home/IndexIpad.cshtml");
+            return ReAuthorize("~/Views/Desktop/Home/IndexIpad.cshtml");
         }
 
         /// <summary>

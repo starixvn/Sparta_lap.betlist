@@ -49,7 +49,7 @@
                 Assert.Multiple(() =>
                 {
                     AssertRequiredProperties(viewModel, metaModel);
-                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Customer/BetSetting/Keno.cshtml"));
+                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/Customer/BetSetting/Keno.cshtml"));
                 });
             }
         }
