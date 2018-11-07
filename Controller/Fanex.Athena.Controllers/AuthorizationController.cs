@@ -25,16 +25,13 @@ namespace Fanex.Athena.Controllers
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Core.DTO.Users;
     using Fanex.Athena.Model.Core.MetaModel.Authorization;
-    using Fanex.Athena.Service.Core.Users;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
     using ONEbook.UM.Filters;
     using ONEbook.UM.Services;
-    using ONEbook.UM.Services.Impl;
     using Resources;
     using Service.Core.Common.Interfaces;
     using Service.Core.Helpers;
-    using Session.Enum;
 
     public class AuthorizationController : BaseController
     {
@@ -194,12 +191,8 @@ namespace Fanex.Athena.Controllers
             var code = CreateRandomCaptchaCode();
 
             SessionService.CaptchaCode = code;
-            var userSession = SessionService.UserSession;
-            FileContentResult img = null;
-            var viewType = userSession != null && userSession.ViewType != ClientViewType.None ? userSession.ViewType :
-                        (ClientViewType)int.Parse(AppSettings.GetValue(nameof(ClientViewType)));
 
-            img = viewType == ClientViewType.Desktop ? CreateCaptchaForNewViewType(code) : CreateCaptchaForOldViewType(code);
+            FileContentResult img = CreateCaptchaForNewViewType(code);
 
             return File(img.FileContents, img.ContentType);
         }
@@ -389,11 +382,6 @@ namespace Fanex.Athena.Controllers
         private FileContentResult CreateCaptchaForNewViewType(string code)
         {
             return CreateCaptcha(code, 25, Color.Black, Color.LightGray, Color.LightGray);
-        }
-
-        private FileContentResult CreateCaptchaForOldViewType(string code)
-        {
-            return CreateCaptcha(code, 20, Color.White, Color.DimGray, Color.Black);
         }
 
         private FileContentResult CreateCaptcha(string code, int height, Color brushColor, Color backgroundColor, Color penColor)

@@ -156,14 +156,6 @@ namespace Fanex.Athena.Extension.Utility
             get { return bool.Parse(GetValue("EnableAssignCurrency")); }
         }
 
-        public string ClientViewType
-        {
-            get
-            {
-                return ConfigurationManager.AppSettings["ClientViewType"];
-            }
-        }
-
         #endregion Assign Currency
 
         public string GetValue(string key)

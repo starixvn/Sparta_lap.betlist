@@ -29,7 +29,7 @@ namespace Fanex.Athena.Controllers.Report
             IBetTypeService betTypeService,
             ICustomerTurnoverService customerTurnoverService,
             ITurnoverService turnoverService)
-            : base(sessionService, appSettings, clientViewHelper)
+            : base(sessionService, clientViewHelper)
         {
             _betTypeService = betTypeService;
             _appSettings = appSettings;

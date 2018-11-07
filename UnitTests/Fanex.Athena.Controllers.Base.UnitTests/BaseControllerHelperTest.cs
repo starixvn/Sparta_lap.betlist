@@ -3,13 +3,11 @@
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Extension.Utility;
-    using Model.Core.DTO.Common;
     using NSubstitute;
     using NUnit.Framework;
     using Service.Core.Common.Interfaces;
     using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
-    using Session.Enum;
     using Session.Model;
     using UnitTest.Common.Helpers;
 
@@ -19,7 +17,6 @@
         protected static readonly UserSession DefaultUserSession = new UserSession
         {
             CurrencyList = new Dictionary<int, string> { { 1, "UUS" } },
-            ViewType = ClientViewType.Default,
             UserId = 1,
             Language = "lan",
             UserName = "alex.vn",
@@ -52,11 +49,7 @@
             SessionService = Substitute.For<ISessionService>();
             AppSettings = Substitute.For<IAppSettings>();
             ClientViewHelper = Substitute.For<IClientViewHelper>();
-            ClientViewHelper.GetViewPath(Arg.Any<string>(), Arg.Any<ClientViewType>()).Returns(x => new ViewByOption
-            {
-                IsNavigationView = false,
-                ViewPath = (string)x[0]
-            });
+            ClientViewHelper.GetViewPath(Arg.Any<string>()).Returns(x => (string)x[0]);
             SetUpForContexts();
         }
 
@@ -78,8 +71,6 @@
             StubLicenseeSessionData(DefaultLicenseeSession);
 
             SessionService.GenerateAgentListXml(Arg.Any<int>(), Arg.Any<bool>()).Returns(string.Empty);
-
-            AppSettings.ClientViewType.Returns(DefaultUserSession.ViewType.ToString("d"));
         }
 
         protected void StubUserSessionData(UserSession fakeUserSession)

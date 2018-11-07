@@ -46,13 +46,6 @@ namespace Fanex.Athena.Controllers
             return ReAuthorize("~/Views/Home/IndexIpad.cshtml");
         }
 
-        public ActionResult SwitchView(ClientViewType type = ClientViewType.Default, string returnPath = null)
-        {
-            SessionService.UserSession.ViewType = type;
-            TempData["ReturnPath"] = returnPath;
-            return RedirectToAction(nameof(Index), "Home");
-        }
-
         /// <summary>
         /// Checking existing user in the system.
         /// </summary>

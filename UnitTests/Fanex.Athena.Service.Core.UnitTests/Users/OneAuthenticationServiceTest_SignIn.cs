@@ -565,8 +565,7 @@
                 && newUser.DefaultReportUrl == "LicenseeWinLossReport"
                 && newUser.ApplicationMode == AppMode.Parasitic
                 && newUser.VendorID == token.VendorID
-                && newUser.VendorIdentityID == token.UserID
-                && newUser.ViewType == ClientViewType.Desktop;
+                && newUser.VendorIdentityID == token.UserID;
 
         private bool AssertNewLicenseeSession(LicenseeSession newLicensee, Licensee licenseeInfo)
         => newLicensee.LicenseeId == licenseeInfo.Id

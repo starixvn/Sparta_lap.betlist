@@ -11,7 +11,6 @@
     using NSubstitute;
     using NUnit.Framework;
     using Service.Core.Helpers;
-    using Session.Enum;
 
     [TestFixture]
     public class LogControllerTest : BaseApiControllerHelperTest
@@ -86,9 +85,6 @@
         public void GroupCommission_WhenCall_ReturnEmptyResult()
         {
             // Arrrange
-            _clientViewHelper.GetViewPath(Arg.Any<string>(), Arg.Any<ClientViewType>()).Returns(new Model.Core.DTO.Common.ViewByOption { IsNavigationView = true });
-            _appSettings.ClientViewType.Returns("0");
-
             var dataList = new List<CustomerLog>
             {
                 new CustomerLog { LogId = 2, ActionId = 1, TrackingValue = "<doc <GroupName=\"Group\"/> />", TrackingValueOld = "<doc <GroupName=\"OldGroup\"/> />" },
@@ -127,10 +123,6 @@
         {
             // Arrrange
             const string UserName = "Test";
-
-            _clientViewHelper.GetViewPath(Arg.Any<string>(), Arg.Any<ClientViewType>()).Returns(new Model.Core.DTO.Common.ViewByOption { IsNavigationView = true });
-            _appSettings.ClientViewType.Returns("0");
-
             var dataList = new List<CustomerLog>
             {
                 new CustomerLog { LogId = 2, ActionId = 1, TrackingValue = string.Empty, TrackingValueOld = string.Empty },

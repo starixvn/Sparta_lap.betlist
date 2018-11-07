@@ -5,7 +5,6 @@
     using NSubstitute;
     using NUnit.Framework;
     using Service.Core.Configuration.Interfaces;
-    using Session.Enum;
     using Session.Model;
 
     [TestFixture]
@@ -253,27 +252,6 @@
 
                 // Assert
                 StringAssert.Contains("Home/IndexIpad.cshtml", result.ViewName);
-            }
-        }
-
-        [Test]
-        public void SwitchView_WhenCall_AssignViewTypeCorrectly()
-        {
-            using (var controller = CreateController())
-            {
-                // Arrange
-                SessionService.UserSession.ViewType = ClientViewType.None;
-
-                // Action
-                var result = controller.SwitchView(ClientViewType.Desktop) as RedirectToRouteResult;
-
-                // Assert
-                Assert.Multiple(() =>
-                {
-                    Assert.That(SessionService.UserSession.ViewType, Is.EqualTo(ClientViewType.Desktop));
-                    Assert.That(result.RouteValues["action"], Is.EqualTo("Index"));
-                    Assert.That(result.RouteValues["controller"], Is.EqualTo("Home"));
-                });
             }
         }
 

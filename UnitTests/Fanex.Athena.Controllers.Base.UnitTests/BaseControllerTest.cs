@@ -4,8 +4,6 @@
     using Model.Core.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using Session.Enum;
-    using Session.Model;
 
     [TestFixture]
     public class BaseControllerTest : BaseControllerHelperTest
@@ -118,58 +116,18 @@
         }
 
         [Test]
-        public void View_ClientViewTypeIsNone_ReturnViewNameBaseOnAppSetting()
+        public void View_WhenCall_ReturnViewPath()
         {
             // Arrange
-            AppSettings.ClientViewType.Returns(ClientViewType.Default.ToString("d"));
-
-            StubUserSessionData(new UserSession
-            {
-                ViewType = ClientViewType.None
-            });
-
-            const string ViewName = "TestView";
+            const string InputView = "TestView";
+            const string ExpectedView = "Abc/TestView";
+            ClientViewHelper.GetViewPath(InputView).Returns(ExpectedView);
 
             // Action
-            var actual = _controller.View(ViewName, string.Empty, null);
+            var actual = _controller.View(InputView, string.Empty, null);
 
             // Assert
-            Assert.That(actual.ViewName, Is.EqualTo(ViewName));
-        }
-
-        [Test]
-        public void View_UserSessionIsNull_ReturnViewNameBaseOnAppSetting()
-        {
-            // Arrange
-            AppSettings.ClientViewType.Returns(ClientViewType.Default.ToString("d"));
-
-            StubUserSessionData(null);
-
-            const string ViewName = "TestView";
-
-            // Action
-            var actual = _controller.View(ViewName, string.Empty, null);
-
-            // Assert
-            Assert.That(actual.ViewName, Is.EqualTo(ViewName));
-        }
-
-        [Test]
-        public void View_ClientViewTypeIsNotNone_ReturnViewNameBaseOnUserSession()
-        {
-            // Arrange
-            StubUserSessionData(new UserSession
-            {
-                ViewType = ClientViewType.Desktop
-            });
-
-            const string ViewName = "";
-
-            // Action
-            var actual = _controller.View(ViewName, string.Empty, null);
-
-            // Assert
-            Assert.That(actual.ViewName, Is.EqualTo(ViewName));
+            Assert.That(actual.ViewName, Is.EqualTo(ExpectedView));
         }
     }
 }

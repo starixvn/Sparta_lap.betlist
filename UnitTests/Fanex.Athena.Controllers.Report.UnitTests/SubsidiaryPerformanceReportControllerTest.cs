@@ -35,7 +35,6 @@
         public void SetUp()
         {
             SetUpDefaultFakeData();
-            SessionService.UserSession.ViewType = ClientViewType.Desktop;
 
             _subsidiaryService = Substitute.For<ISubsidiaryService>();
             _service = Substitute.For<ISubsidiaryPerformanceService>();
@@ -54,7 +53,6 @@
                 SessionService.UserSession.Returns(new Session.Model.UserSession
                 {
                     IsManageableSubsidiary = true,
-                    ViewType = ClientViewType.Desktop,
                     Language = DefaultUserSession.Language
                 });
 
@@ -90,7 +88,6 @@
                 SessionService.UserSession.Returns(new Session.Model.UserSession
                 {
                     IsManageableSubsidiary = false,
-                    ViewType = ClientViewType.Desktop,
                     Language = DefaultUserSession.Language
                 });
 

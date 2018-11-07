@@ -281,7 +281,7 @@
                 }) as RedirectToRouteResult;
 
                 // Assert
-                SessionService.Received().CreateNewSession(111, Arg.Any<int>(), Arg.Any<string>(), Arg.Any<bool>(), Arg.Any<int>());
+                SessionService.Received(1).CreateNewSession(111, Arg.Any<int>(), Arg.Any<string>(), Arg.Any<bool>());
             }
         }
     }

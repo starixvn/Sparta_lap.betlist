@@ -15,10 +15,7 @@ namespace Fanex.Athena.Controllers
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.MetaModel;
-    using Service.Core.Common;
     using Service.Core.Helpers;
-    using Service.Core.Users;
-    using Session.Enum;
 
     [CustomAuthorize]
     [XFrameOption]
@@ -87,16 +84,9 @@ namespace Fanex.Athena.Controllers
 
         protected override ViewResult View(string viewName, string masterName, object model)
         {
-            var viewType = GetViewType();
+            var viewPath = _clientViewHelper.GetViewPath(viewName);
 
-            var viewByOption = _clientViewHelper.GetViewPath(viewName, viewType);
-            if (viewByOption.IsNavigationView)
-            {
-                var returnPath = RouteData.Values["Controller"] + "/" + RouteData.Values["Action"];
-                return base.View(viewByOption.ViewPath, null, returnPath);
-            }
-
-            return base.View(viewByOption.ViewPath, masterName, model);
+            return base.View(viewPath, masterName, model);
         }
 
         private IEnumerable<string> GetBaseUsdLicensees()
@@ -108,13 +98,6 @@ namespace Fanex.Athena.Controllers
             }
 
             return new string[] { };
-        }
-
-        protected ClientViewType GetViewType()
-        {
-            var userSession = SessionService.UserSession;
-            return userSession != null && userSession.ViewType != ClientViewType.None ?
-                userSession.ViewType : (ClientViewType)int.Parse(AppSettings.ClientViewType);
         }
     }
 }
