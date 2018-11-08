@@ -64,6 +64,8 @@ export class FormFilter extends Component {
             ToDate: Site.convertDateToString(toDate),
             ProductCodeList: this.props.selectedProduct,
             Username: this.props.username,
+            CurrencyId: this.props.selectedCurrency.value,
+            CurrencyName: this.props.selectedCurrency.label,
             BaseCurrency: this.props.selectedBaseCurrency,
             IsConvertAll: this.props.isConvertAll,
             StatusList: this.props.selectedStatus,
