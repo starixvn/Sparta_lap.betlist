@@ -105,8 +105,6 @@ namespace Fanex.Athena.DataAccess.Report
         {
             var balanceUp = _balanceUpDataAccess.GetBalanceUp();
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
-            db.AddInParameter("userid", DbType.Int32, metaModel.UserId);
             db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
             db.AddInParameter("todate", DbType.DateTime, metaModel.ToDate);
             db.AddInParameter("odds", DbType.Decimal, metaModel.Odds);

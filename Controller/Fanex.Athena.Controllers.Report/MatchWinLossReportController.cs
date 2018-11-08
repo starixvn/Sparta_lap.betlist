@@ -23,7 +23,6 @@
     using Fanex.Common;
     using Resources;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Service.Report.Interfaces;
     using VendorAdapter.Interfaces;
@@ -44,13 +43,12 @@
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             IProductService productService,
             IBalanceUpDataAccess balanceUpDataAccess,
             ICacheRefAdapter cacheRefAdapter,
             IMatchWinLossService matchWinLossService)
 #pragma warning restore S107 // Methods should not have too many parameters
-            : base(languageService, sessionService, appSetting, clientViewHelper, productService)
+            : base(languageService, sessionService, appSetting, productService)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
             _cacheRefAdapter = cacheRefAdapter;
@@ -85,7 +83,7 @@
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
             };
 
-            return View("~/Views/Report/MatchWinLoss/Main.cshtml", model);
+            return View("~/Views/Desktop/Report/MatchWinLoss/Main.cshtml", model);
         }
 
         [HttpPost]
@@ -131,7 +129,7 @@
                 GrandTotal = grandTotal,
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
             };
-            return View("~/Views/Report/MatchWinLoss/Main.cshtml", model);
+            return View("~/Views/Desktop/Report/MatchWinLoss/Main.cshtml", model);
         }
 
         [HttpPost]
@@ -148,7 +146,7 @@
                 IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm
             };
 
-            return View("~/Views/Report/MatchWinLoss/Content.data.Detail.cshtml", model);
+            return View("~/Views/Desktop/Report/MatchWinLoss/Content.data.Detail.cshtml", model);
         }
 
         [HttpPost]

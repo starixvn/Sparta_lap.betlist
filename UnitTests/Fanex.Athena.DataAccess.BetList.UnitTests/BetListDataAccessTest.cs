@@ -31,11 +31,12 @@
         {
             // Arrange
             const long TransId = 1;
+            const int CustId = 2;
 
             DataAccess.GetObjectDb(Arg.Is(GetMixParlayDetailTicketSp)).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetMixParlayDetailTicket(TransId);
+            DataAccess.GetMixParlayDetailTicket(TransId, CustId);
 
             // Assert
             ObjectDb.Received(1).AddInParameter("TransId", DbType.Int64, TransId);
@@ -46,7 +47,7 @@
         {
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
                 GetMixParlayDetailTicketSp,
-                () => DataAccess.GetMixParlayDetailTicket(1));
+                () => DataAccess.GetMixParlayDetailTicket(1, 1));
         }
     }
 }

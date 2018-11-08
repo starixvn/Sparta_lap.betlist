@@ -13,7 +13,6 @@ namespace Fanex.Athena.Controllers.Forecast
     using System.Web.Mvc;
     using Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
-    using Fanex.Athena.Service.Core.Helpers;
     using Model.Core.DataDomain;
     using Model.Forecast.DTO.NewForecastHdpOu;
     using Model.Forecast.MetaModel;
@@ -40,13 +39,12 @@ namespace Fanex.Athena.Controllers.Forecast
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             IForecastService forecastService,
             ICoreLogger logger,
             ICacheRefAdapter cacheRefAdapter,
             IMatchService matchService)
 #pragma warning restore S107 // Methods should not have too many parameters
-        : base(languageService, sessionService, appSetting, clientViewHelper, forecastService)
+        : base(languageService, sessionService, appSetting, forecastService)
         {
             _logger = logger;
             _cacheRefAdapter = cacheRefAdapter;
@@ -77,7 +75,7 @@ namespace Fanex.Athena.Controllers.Forecast
                     metaModel.BaseCurrency = baseCurrency;
                 }
 
-                return View("~/Views/Forecast/NewForecastHdpOu/Main.cshtml", this.GetViewModel(metaModel));
+                return View("~/Views/Desktop/Forecast/NewForecastHdpOu/Main.cshtml", this.GetViewModel(metaModel));
             }
             else
             {
@@ -92,7 +90,7 @@ namespace Fanex.Athena.Controllers.Forecast
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
             metaModel.UserId = SessionService.UserSession.UserId;
 
-            return View("~/Views/Forecast/NewForecastHdpOu/Main.cshtml", this.GetViewModel(metaModel));
+            return View("~/Views/Desktop/Forecast/NewForecastHdpOu/Main.cshtml", this.GetViewModel(metaModel));
         }
 
         [HttpPost]
@@ -100,7 +98,7 @@ namespace Fanex.Athena.Controllers.Forecast
         public ViewResult GetMatchListByLeague(int leagueId)
         {
             var matchList = _matchService.GetForecastMatchListByLeague(leagueId).OrderBy(x => x.MatchName).ToList();
-            return View("~/Views/Forecast/NewForecastHdpOu/MatchOptionList.cshtml", matchList);
+            return View("~/Views/Desktop/Forecast/NewForecastHdpOu/MatchOptionList.cshtml", matchList);
         }
 
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed.")]

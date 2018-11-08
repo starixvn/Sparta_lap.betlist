@@ -13,7 +13,6 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Model.Report.ViewModel;
     using Model.Core.DataDomain;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Web.ActionFilter;
 
@@ -24,9 +23,8 @@ namespace Fanex.Athena.Controllers.Report
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             IProductService productService)
-        : base(languageService, sessionService, appSetting, clientViewHelper, productService)
+        : base(languageService, sessionService, appSetting, productService)
         {
         }
 
@@ -54,7 +52,7 @@ namespace Fanex.Athena.Controllers.Report
                 CurrencyList = userSession.CurrencyList
             };
 
-            return View("~/Views/Report/CashOutWinLoss/Main.cshtml", model);
+            return View("~/Views/Desktop/Report/CashOutWinLoss/Main.cshtml", model);
         }
     }
 }

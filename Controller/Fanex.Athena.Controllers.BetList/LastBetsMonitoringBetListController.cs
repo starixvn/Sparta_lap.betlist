@@ -21,7 +21,6 @@ namespace Fanex.Athena.Controllers.BetList
     using ONEbook.UM.Filters;
     using Resources;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
 
     #endregion Using
@@ -37,13 +36,8 @@ namespace Fanex.Athena.Controllers.BetList
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             ISportTypeDataAccess sportTypeDataAccess)
-        : base(
-            languageService,
-            sessionService,
-            appSetting,
-            clientViewHelper)
+        : base(languageService, sessionService, appSetting)
         {
             _sportTypeDataAccess = sportTypeDataAccess;
         }
@@ -62,7 +56,7 @@ namespace Fanex.Athena.Controllers.BetList
                 Param = metaModel
             };
 
-            return View("~/Views/BetList/LastBetsMonitoringNew/Main.cshtml", model);
+            return View("~/Views/Desktop/BetList/LastBetsMonitoringNew/Main.cshtml", model);
         }
 
         private IEnumerable<SelectListItem> GetSports()

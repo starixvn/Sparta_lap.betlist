@@ -460,8 +460,8 @@
                 }
             },
 
-            showMixParlayDetail: function (transId, divEvent) {
-                var url = Site.resolveClientUrl('api/MixParlayBetList/Detail?transId=' + transId);
+            showMixParlayDetail: function (transId, divEvent, custid) {
+                var url = Site.resolveClientUrl('api/MixParlayBetList/Detail?transId=' + transId + '&custId=' + custid);
                 if (divEvent.css("display") === 'none') {
                     $.ajax({
                         type: "GET",
@@ -497,7 +497,7 @@
                 }
             },
 
-            showNewParlayDetail: function (transId, transIndex, refNo, handicap1, handicap2, betcheck, betteam) {
+            showNewParlayDetail: function (transId, transIndex, refNo, handicap1, handicap2, betcheck, betteam, custId) {
                 var $divEvent = $('#divEvent_' + transId + "" + transIndex);
                 var $nameDiv = $('#combinationOfferName_' + transId + transIndex);
                 $divEvent.addClass("mx-parlay"); //to make line-through for void-parlay-ticket
@@ -510,6 +510,7 @@
                     url = QueryString.setParam(url, "handicap2", handicap2);
                     url = QueryString.setParam(url, "betcheck", betcheck);
                     url = QueryString.setParam(url, "betteam", betteam);
+                    url = QueryString.setParam(url, "custId", custId);
 
                     $.ajax({
                         type: "GET",
@@ -732,16 +733,16 @@
             registerBetListGlobalFunctions: function () {
                 window.ViewResult = _me.viewResult;
 
-                window.showMP = function (transId) {
+                window.showMP = function (transId, refNo, custId) {
                     var divEvent = $('#divEvent_' + transId);
                     divEvent.addClass("mx-parlay"); //to make line-through for void-parlay-ticket
-                    _me.showMixParlayDetail(transId, divEvent);
+                    _me.showMixParlayDetail(transId, divEvent, custId);
                 };
 
-                window.showCombMP = function (transId, index) {
+                window.showCombMP = function (transId, index, refNo, custId) {
                     var divEvent = $('#divEvent_' + transId + "" + index);
                     divEvent.addClass("mx-parlay"); //to make line-through for void-parlay-ticket
-                    _me.showMixParlayDetail(transId, divEvent);
+                    _me.showMixParlayDetail(transId, divEvent, custId);
                 };
 
                 window.showNewCombMP = _me.showNewParlayDetail;

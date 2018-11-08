@@ -14,20 +14,17 @@ namespace Fanex.Athena.Api.CustomerLog
     using System.Xml;
     using Base;
     using Base.Attributes;
-    using DataAccess.Customer;
     using DataAccess.Customer.Interfaces;
     using Extension.Utility;
+    using Extension.Utility.Interfaces;
     using Fanex.Athena.Model.Customer.DTO.CustomerLog;
     using Fanex.Athena.Model.Customer.ViewModel.CustomerLog;
     using Model.Core.DataDomain;
-    using Model.Core.DTO.Common;
     using RazorEngine;
     using RazorEngine.Templating;
     using Resources;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
-    using Session.Enum;
 
     [ApiFunctionAuthorization(PermissionKeys.CustomerInfoCustomerLog)]
     public partial class LogController : BaseApiController
@@ -52,8 +49,9 @@ namespace Fanex.Athena.Api.CustomerLog
         private readonly ILogInLogDataAccess _logInLogDataAccess;
 
         private readonly IAppSettings _appSettings;
-        private readonly IClientViewHelper _clientViewHelper;
-        
+
+        private readonly IFileSystem _fileSystem;
+
         public LogController(
             ISessionService sessionService,
             IProductService productService,
@@ -61,16 +59,14 @@ namespace Fanex.Athena.Api.CustomerLog
             ICustomerLogDataAccess customerLogDataAccess,
             ILogInLogDataAccess logInLogDataAccess,
             IAppSettings appSettings,
-            IClientViewHelper clientViewHelper)
+            IFileSystem fileSystem)
         : base(sessionService, productService, languageService)
         {
             _customerLogDataAccess = customerLogDataAccess;
             _logInLogDataAccess = logInLogDataAccess;
             _appSettings = appSettings;
-            _clientViewHelper = clientViewHelper;
+            _fileSystem = fileSystem;
         }
-
-        #region Utility
 
         #region Remove HTML tag
 
@@ -152,41 +148,14 @@ namespace Fanex.Athena.Api.CustomerLog
 
         #endregion Get XML attribute
 
-        #region Parse dictonary to razor view
-
-        /// <summary>
-        /// Parse dictionary to razor view.
-        /// </summary>
-        /// <param name="actionId">Action id.</param>
-        /// <param name="viewModel">View Model.</param>
-        /// <returns> HTML string.</returns>
         private string GenerateDetailedValue(int actionId, ActionViewModel viewModel)
         {
-            var viewOption = GetActionViewName(actionId);
-            if (viewOption.IsNavigationView)
-            {
-                return string.Empty;
-            }
+            var viewPath = $"~/Views/Desktop/Customer/CustomerLog/Action/{actionId}.cshtml";
 
-            var templatePath = HostingEnvironment.MapPath(viewOption.ViewPath);
-            var template = File.ReadAllText(templatePath);
-            return Engine.Razor.RunCompile(template, viewOption.ViewPath, model: viewModel);
+            var templatePath = HostingEnvironment.MapPath(viewPath);
+            var template = _fileSystem.ReadFile(templatePath);
+            return Engine.Razor.RunCompile(template, viewPath, model: viewModel);
         }
-
-        private ViewByOption GetActionViewName(int actionId)
-        {
-            var actionView = $"~/Views/Customer/CustomerLog/Action/{actionId}.cshtml";
-            var userSession = SessionService.UserSession;
-
-            var option = userSession != null && userSession.ViewType != ClientViewType.None ?
-                userSession.ViewType : (ClientViewType)int.Parse(_appSettings.ClientViewType);
-
-            return _clientViewHelper.GetViewPath(actionView, option);
-        }
-
-        #endregion Parse dictonary to razor view
-
-        #endregion Utility
 
         #region Get detail data
 

@@ -38,7 +38,7 @@
                 var result = controller.Detail(metaModel) as ViewResult;
 
                 // Assert
-                Assert.That(result.ViewName, Is.EqualTo("~/Views/BetList/BonusDetail/Main.cshtml"));
+                Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/BonusDetail/Main.cshtml"));
                 Assert.That(result.Model, Is.EqualTo(metaModel));
             }
         }
@@ -90,7 +90,6 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                ClientViewHelper,
                 ProductService,
                 BetListService,
                 BalanceUpDataAccess,

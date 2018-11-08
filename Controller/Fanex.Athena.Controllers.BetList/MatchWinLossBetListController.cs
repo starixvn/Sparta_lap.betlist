@@ -17,7 +17,6 @@ namespace Fanex.Athena.Controllers.BetList
     using Resources;
     using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using VendorAdapter.Interfaces;
     using Web.ActionFilter;
@@ -28,36 +27,35 @@ namespace Fanex.Athena.Controllers.BetList
     public class MatchWinLossBetListController : BetListBaseController
     {
         private static readonly int[] HiddenColumns = new[] { BetEffectiveColumn };
-        
+
         public MatchWinLossBetListController(
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             IProductService productService,
             IBetListService betListService,
             IBalanceUpDataAccess balanceUpDataAccess,
             ICacheRefAdapter cacheRefAdapter)
-        : base(languageService, sessionService, appSetting, clientViewHelper, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
+        : base(languageService, sessionService, appSetting, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
         {
         }
 
         [HttpGet]
         public ActionResult MatchBetType(BetListMetaModel metaModel)
         {
-            return ProcessRequest(metaModel, null, "~/Views/BetList/MatchWl/MatchBetType.cshtml");
+            return ProcessRequest(metaModel, null, "~/Views/Desktop/BetList/MatchWl/MatchBetType.cshtml");
         }
 
         [HttpGet]
         public ActionResult MixParlay(BetListMetaModel metaModel)
         {
-            return ProcessRequest(metaModel, "Lrf_BetList_MatchWL_Parlay", "~/Views/BetList/MatchWl/MixParlay.cshtml");
+            return ProcessRequest(metaModel, "Lrf_BetList_MatchWL_Parlay", "~/Views/Desktop/BetList/MatchWl/MixParlay.cshtml");
         }
 
         [HttpGet]
         public ActionResult Outright(BetListMetaModel metaModel)
         {
-            return ProcessRequest(metaModel, "Lrf_BetList_MatchWL_Outright", "~/Views/BetList/MatchWl/Outright.cshtml");
+            return ProcessRequest(metaModel, "Lrf_BetList_MatchWL_Outright", "~/Views/Desktop/BetList/MatchWl/Outright.cshtml");
         }
 
         private ActionResult ProcessRequest(BetListMetaModel metaModel, string uspKey, string viewPath)

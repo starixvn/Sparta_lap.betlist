@@ -230,8 +230,7 @@
                 DefaultReportUrl = "LicenseeWinLossReport",
                 ApplicationMode = AppMode.Parasitic,
                 VendorID = tokenInfo.VendorID,
-                VendorIdentityID = tokenInfo.UserID,
-                ViewType = ClientViewType.Desktop,
+                VendorIdentityID = tokenInfo.UserID
             };
 
             _sessionService.AssignCurrenciesToUserSession(userSession, licenseeInfo.Id, userInfo.CurrencyUserList);

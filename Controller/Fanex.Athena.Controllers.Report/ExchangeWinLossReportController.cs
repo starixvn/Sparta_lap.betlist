@@ -8,7 +8,6 @@
     using Resources;
     using Service.Core.Common.Interfaces;
     using Service.Core.Configuration.Interfaces;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Web.ActionFilter;
 
@@ -21,10 +20,9 @@
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             IProductService productService,
             IReportSettingService reportSettingService)
-        : base(languageService, sessionService, appSetting, clientViewHelper, productService)
+        : base(languageService, sessionService, appSetting, productService)
         {
             _reportSettingService = reportSettingService;
         }
@@ -33,7 +31,7 @@
         {
             var viewModel = CreateViewModel();
 
-            return View("~/Views/Report/ExchangeWinLoss/Main.cshtml", viewModel);
+            return View("~/Views/Desktop/Report/ExchangeWinLoss/Main.cshtml", viewModel);
         }
 
         private ExchangeWinLossViewModel CreateViewModel()

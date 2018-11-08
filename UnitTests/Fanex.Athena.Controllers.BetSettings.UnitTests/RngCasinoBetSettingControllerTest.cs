@@ -52,7 +52,7 @@
                 {
                     AssertRequiredProperties(viewModel, metaModel);
 
-                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Customer/BetSetting/RngCasino.cshtml"));
+                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/Customer/BetSetting/RngCasino.cshtml"));
                 });
             }
         }
@@ -321,7 +321,6 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                ClientViewHelper,
                 AuthorizationService,
                 CoreBetSettingDataAccess,
                 CustomerService,

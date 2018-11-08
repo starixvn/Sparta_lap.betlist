@@ -157,7 +157,6 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="FooterControllerTest.cs" />
     <Compile Include="HeaderControllerTest.cs" />
     <Compile Include="HomeControllerTest.cs" />
     <Compile Include="LicenseeListControllerTest.cs" />

@@ -163,7 +163,6 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                ClientViewHelper,
                 Substitute.For<IProductService>(),
                 _logger,
                 _kenoApi);

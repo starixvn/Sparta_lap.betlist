@@ -8,7 +8,6 @@ namespace Fanex.Athena.Controllers.TotalBets
 {
     using System.Linq;
     using System.Web.Mvc;
-    using DataAccess.TotalBet;
     using DataAccess.TotalBet.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Web.ActionFilter;
@@ -16,21 +15,19 @@ namespace Fanex.Athena.Controllers.TotalBets
     using Model.TotalBet.MetaModel;
     using Model.TotalBet.ViewModel;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.TotalBetMoneyLine)]
     public class MoneyLineTotalBetController : TotalBetBaseController
     {
         private readonly IMoneyLineDataAccess _moneyLineDataAccess;
-        
+
         public MoneyLineTotalBetController(
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             IMoneyLineDataAccess moneyLineDataAccess)
-        : base(languageService, sessionService, appSetting, clientViewHelper)
+        : base(languageService, sessionService, appSetting)
         {
             _moneyLineDataAccess = moneyLineDataAccess;
         }
@@ -73,7 +70,7 @@ namespace Fanex.Athena.Controllers.TotalBets
                     CurrencyList = currencies,
                     TotalData = result.TotalData
                 };
-                return View("~/Views/TotalBets/MoneyLine/Main.cshtml", model);
+                return View("~/Views/Desktop/TotalBets/MoneyLine/Main.cshtml", model);
             }
 
             return Redirect("~/Utility/AccessDenied");

@@ -13,7 +13,7 @@ namespace Fanex.Athena.DataAccess.BetList.Interfaces
     [System.CLSCompliant(false)]
     public interface IBetListDataAccess
     {
-        TicketResult GetMixParlayDetailTicket(long transId);
+        TicketResult GetMixParlayDetailTicket(long transId, int custId);
 
         SystemParlayData GetSystemParlayDetail(SystemParlayDetailMetaModel metaModel);
 

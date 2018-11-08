@@ -19,7 +19,6 @@ namespace Fanex.Athena.Controllers.BetList
     using Model.Core.DTO.Common;
     using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using VendorAdapter.Interfaces;
     using Web.ActionFilter;
@@ -34,12 +33,11 @@ namespace Fanex.Athena.Controllers.BetList
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             IProductService productService,
             IBetListService betListService,
             IBalanceUpDataAccess balanceUpDataAccess,
             ICacheRefAdapter cacheRefAdapter)
-        : base(languageService, sessionService, appSetting, clientViewHelper, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
+        : base(languageService, sessionService, appSetting, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
         {
         }
 
@@ -60,7 +58,7 @@ namespace Fanex.Athena.Controllers.BetList
                 Param = viewParam,
                 ProductOptions = GetProductOptions(viewParam.ProductCodeList, productAccess.ProductList)
             };
-            return View("~/Views/BetList/CustomerOutstanding/Main.cshtml", viewModel);
+            return View("~/Views/Desktop/BetList/CustomerOutstanding/Main.cshtml", viewModel);
         }
 
         private static IEnumerable<ProductOption> GetProductOptions(string productCodeList, IEnumerable<Product> allProducts)

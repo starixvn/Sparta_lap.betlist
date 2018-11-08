@@ -66,7 +66,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Report/LiveReport/Main.cshtml"));
+                    Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Desktop/Report/LiveReport/Main.cshtml"));
                     Assert.That(viewModel.CurrencyList, Is.EqualTo(SessionService.UserSession.CurrencyList));
                     Assert.That(viewModel.BalanceUpDate, Is.EqualTo(BalanceUpDate));
                     Assert.That(viewModel.Param.LicenseeId, Is.EqualTo(SessionService.LicenseeSession.LicenseeId));
@@ -103,7 +103,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Report/LiveReport/Main.cshtml"));
+                    Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Desktop/Report/LiveReport/Main.cshtml"));
                     Assert.That(viewModel.Param, Is.EqualTo(metaModel));
                     Assert.That(viewModel.BalanceUpDate, Is.EqualTo(BalanceUpDate));
                     Assert.That(viewModel.Param.AgentListXml, Is.EqualTo(AgentListXml));
@@ -180,7 +180,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Report/LiveReport/MatchList/Content.cshtml"));
+                    Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Desktop/Report/LiveReport/MatchList/Content.cshtml"));
                     Assert.That(viewModel.MainResult, Is.EqualTo(dataList));
                     Assert.That(viewModel.Param, Is.EqualTo(metaModel));
                     Assert.That(viewModel.CurrencyName, Is.EqualTo(metaModel.CurrencyName));
@@ -216,7 +216,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Report/LiveReport/AjaxTemplate/LiveReportDetail.cshtml"));
+                    Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Desktop/Report/LiveReport/AjaxTemplate/LiveReportDetail.cshtml"));
                     Assert.That(viewModel.BySports, Is.EqualTo(resultModel.DataBySport));
                     Assert.That(viewModel.ByCurrencies, Is.EqualTo(resultModel.DataByCurrency));
                     Assert.That(viewModel.ByBetType, Is.EqualTo(resultModel.DataByBetType));
@@ -250,7 +250,6 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                ClientViewHelper,
                 productService,
                 _balanceUpDataAccess,
                 _liveReportService);

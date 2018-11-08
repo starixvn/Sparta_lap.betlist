@@ -23,7 +23,6 @@ namespace Fanex.Athena.Controllers.Report
     using Model.Core.DTO.Common;
     using Model.Report.ResultModel;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Service.Report.Interfaces;
 
@@ -39,11 +38,10 @@ namespace Fanex.Athena.Controllers.Report
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             IProductService productService,
             IBalanceUpDataAccess balanceUpDataAccess,
             ILiveReportService liveReportService)
-            : base(languageService, sessionService, appSetting, clientViewHelper, productService)
+            : base(languageService, sessionService, appSetting, productService)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
             _liveReportService = liveReportService;
@@ -81,7 +79,7 @@ namespace Fanex.Athena.Controllers.Report
                 IsFakeLicensee = IsFakeLicensee()
             };
 
-            return View("~/Views/Report/LiveReport/Main.cshtml", model);
+            return View("~/Views/Desktop/Report/LiveReport/Main.cshtml", model);
         }
 
         [HttpPost]
@@ -109,7 +107,7 @@ namespace Fanex.Athena.Controllers.Report
 
             return metaModel.IsExportExcel
                        ? Excel(model)
-                       : View("~/Views/Report/LiveReport/Main.cshtml", model);
+                       : View("~/Views/Desktop/Report/LiveReport/Main.cshtml", model);
         }
 
         [HttpGet]
@@ -130,7 +128,7 @@ namespace Fanex.Athena.Controllers.Report
                 CurrencyName = metaModel.CurrencyName,
             };
 
-            return View("~/Views/Report/LiveReport/MatchList/Content.cshtml", model);
+            return View("~/Views/Desktop/Report/LiveReport/MatchList/Content.cshtml", model);
         }
 
         [HttpPost]
@@ -148,7 +146,7 @@ namespace Fanex.Athena.Controllers.Report
             var resultModel = GetDetailResult(metaModel, productAccess, productCode);
 
             return View(
-                "~/Views/Report/LiveReport/AjaxTemplate/LiveReportDetail.cshtml",
+                "~/Views/Desktop/Report/LiveReport/AjaxTemplate/LiveReportDetail.cshtml",
                 new LiveReportDetailViewModel
                 {
                     IsAllowedCustomerCommission = licenseeSession.IsAllowedCustomerComm,

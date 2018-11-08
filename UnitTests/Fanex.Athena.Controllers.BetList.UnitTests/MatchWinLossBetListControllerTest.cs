@@ -42,7 +42,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(result.ViewName, Is.EqualTo("~/Views/BetList/MatchWl/MatchBetType.cshtml"));
+                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/MatchWl/MatchBetType.cshtml"));
                     Assert.That(model.IsServerPaging, Is.True);
                     AssertDefaultBetListViewModel(model, metaModel);
                 });
@@ -69,7 +69,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(result.ViewName, Is.EqualTo("~/Views/BetList/MatchWl/MixParlay.cshtml"));
+                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/MatchWl/MixParlay.cshtml"));
                     Assert.That(model.IsServerPaging, Is.True);
                     AssertDefaultBetListViewModel(model, metaModel);
                 });
@@ -96,7 +96,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(result.ViewName, Is.EqualTo("~/Views/BetList/MatchWl/Outright.cshtml"));
+                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/MatchWl/Outright.cshtml"));
                     Assert.That(model.IsServerPaging, Is.True);
                     AssertDefaultBetListViewModel(model, metaModel);
                 });
@@ -261,7 +261,6 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                ClientViewHelper,
                 ProductService,
                 BetListService,
                 BalanceUpDataAccess,

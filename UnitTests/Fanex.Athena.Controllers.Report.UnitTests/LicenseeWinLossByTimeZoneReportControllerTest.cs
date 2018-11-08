@@ -34,7 +34,7 @@
                 var viewResult = controller.Index() as ViewResult;
 
                 // Assert
-                Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Report/LicenseeWinLossByTimeZone/Main.cshtml"));
+                Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Desktop/Report/LicenseeWinLossByTimeZone/Main.cshtml"));
             }
         }
 
@@ -74,7 +74,6 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                ClientViewHelper,
                 _productService);
             return controller;
         }

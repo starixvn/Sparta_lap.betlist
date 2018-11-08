@@ -28,7 +28,7 @@
                 var viewResult = controller.Index() as ViewResult;
 
                 // Assert
-                Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Report/Notification/Notification.cshtml"));
+                Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Desktop/Report/Notification/Notification.cshtml"));
             }
         }
 
@@ -58,7 +58,6 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                ClientViewHelper,
                 productService);
             return controller;
         }

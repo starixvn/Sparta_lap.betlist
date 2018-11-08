@@ -77,7 +77,7 @@
                     _microGamingParserService.Received(1).Parser(Arg.Is<MicroGaming>(x =>
                         x.GameId == GameId && x.CustId == CustId &&
                         x.SiteName == SessionService.LicenseeSession.LicenseeName));
-                    Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Report/Result/Popup/Microgaming.cshtml"));
+                    Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Desktop/Report/Result/Popup/Microgaming.cshtml"));
                     Assert.That(viewResult.ViewBag.Data, Is.EqualTo(ExpectedData));
                 });
             }
@@ -157,7 +157,7 @@
                         Arg.Is<ResultSetting>(x =>
                             x.SportType == (SportType)SportId &&
                             x.LanguageCode == SessionService.UserSession.Language));
-                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Report/Result/Popup/Main.cshtml"));
+                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/Report/Result/Popup/Main.cshtml"));
                 });
             }
         }
@@ -179,7 +179,6 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                ClientViewHelper,
                 productService,
                 _balanceUpDataAccess,
                 _microGamingParserService,

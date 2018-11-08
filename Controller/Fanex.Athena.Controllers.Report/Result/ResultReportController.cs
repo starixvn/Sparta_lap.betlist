@@ -25,7 +25,6 @@ namespace Fanex.Athena.Controllers.Report.Result
     using Fanex.Result.Core.Voidbridge;
     using Resources;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Service.Result.Interfaces;
     using VendorAdapter;
@@ -37,7 +36,7 @@ namespace Fanex.Athena.Controllers.Report.Result
         private const int ParlayBetType = 9;
         private const int SystemParlayBetType = 29;
 
-        private static readonly IEnumerable<SportType> ShowingMatchCodeSportTypes = new[] 
+        private static readonly IEnumerable<SportType> ShowingMatchCodeSportTypes = new[]
         {
             SportType.GoldDeluxe,
             SportType.HorseRacing,
@@ -71,7 +70,6 @@ namespace Fanex.Athena.Controllers.Report.Result
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             IProductService productService,
             IBalanceUpDataAccess balanceUpDataAccess,
             IParserService microGamingParserService,
@@ -79,7 +77,7 @@ namespace Fanex.Athena.Controllers.Report.Result
             IRNGCasinoSingleWalletService rngCasinoSingleWalletService,
             ICacheRefAdapter cacheRefAdapter)
 #pragma warning restore S107 // Methods should not have too many parameters
-            : base(languageService, sessionService, appSetting, clientViewHelper, productService)
+            : base(languageService, sessionService, appSetting, productService)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
             _microGamingParserService = microGamingParserService;
@@ -108,7 +106,7 @@ namespace Fanex.Athena.Controllers.Report.Result
             ViewBag.IsAllowedRNG = productAccess.IsAllowCS;
             ViewBag.IsAllowedKeno = productAccess.IsAllowKN;
             ViewBag.IsAllowedLottery = productAccess.IsAllow(Product.LT);
-            return View("~/Views/Report/Result/Main.cshtml", model);
+            return View("~/Views/Desktop/Report/Result/Main.cshtml", model);
         }
 
         [FunctionAuthorization(Model.Core.DataDomain.PermissionKeys.ReportResults)]
@@ -201,7 +199,7 @@ namespace Fanex.Athena.Controllers.Report.Result
             {
                 GetPopUpData(metalModel);
                 ViewBag.Data = _htmlResult;
-                return View("~/Views/Report/Result/Popup/Main.cshtml");
+                return View("~/Views/Desktop/Report/Result/Popup/Main.cshtml");
             }
 
             return Redirect("~/Utility/Error?err=400");
@@ -218,7 +216,7 @@ namespace Fanex.Athena.Controllers.Report.Result
                     SiteName = SessionService.LicenseeSession.LicenseeName,
                     GameId = gameId
                 });
-                return View("~/Views/Report/Result/Popup/Microgaming.cshtml");
+                return View("~/Views/Desktop/Report/Result/Popup/Microgaming.cshtml");
             }
 
             return Redirect("~/Utility/Error?err=400");
@@ -246,7 +244,7 @@ namespace Fanex.Athena.Controllers.Report.Result
         {
             var allbetResultService = new AllbetResultBuilder();
             ViewBag.Data = allbetResultService.Render(transDesc, betCheck, betType, SessionService.UserSession.Language);
-            return View("~/Views/Report/Result/Popup/AllBet.cshtml");
+            return View("~/Views/Desktop/Report/Result/Popup/AllBet.cshtml");
         }
 
         [HttpGet]
@@ -283,7 +281,7 @@ namespace Fanex.Athena.Controllers.Report.Result
                     LanguageCode = SessionService.UserSession.Language
                 });
 
-                return View("~/Views/Report/Result/Popup/Main.cshtml");
+                return View("~/Views/Desktop/Report/Result/Popup/Main.cshtml");
             }
 
             return this.Redirect("~/Utility/Error?err=400");

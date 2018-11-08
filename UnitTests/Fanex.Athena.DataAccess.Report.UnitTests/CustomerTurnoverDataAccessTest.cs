@@ -55,8 +55,6 @@
             // Assert
             Assert.Multiple(() =>
             {
-                ObjectDb.Received(1).AddInParameter("licenseeid", DbType.Int32, _metaModel.LicenseeId);
-                ObjectDb.Received(1).AddInParameter("userid", DbType.Int32, _metaModel.UserId);
                 ObjectDb.Received(1).AddInParameter("fromdate", DbType.DateTime, _metaModel.FromDate);
                 ObjectDb.Received(1).AddInParameter("todate", DbType.DateTime, _metaModel.ToDate);
                 ObjectDb.Received(1).AddInParameter("odds", DbType.Decimal, _metaModel.Odds);

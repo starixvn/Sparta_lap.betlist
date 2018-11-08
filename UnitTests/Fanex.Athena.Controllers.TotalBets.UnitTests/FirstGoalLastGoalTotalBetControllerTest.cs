@@ -103,7 +103,6 @@
                             LangService,
                             SessionService,
                             AppSettings,
-                            ClientViewHelper,
                             _firstGoalLastGoalDataAccess);
         }
     }

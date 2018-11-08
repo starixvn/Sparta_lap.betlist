@@ -4,18 +4,19 @@
     using Base.UnitTests;
     using NSubstitute;
     using NUnit.Framework;
-    using Session.Enum;
+    using Service.Core.Configuration.Interfaces;
     using Session.Model;
 
     [TestFixture]
     public partial class HomeControllerTest : BaseControllerHelperTest
     {
+        private ILicenseeSettingService _licenseeSettingService;
+
         [OneTimeSetUp]
         public override void FixtureSetUp()
         {
             base.FixtureSetUp();
-
-            StubGetValueAppSettings("IsEnabledMoveBetNotification", "0");
+            _licenseeSettingService = Substitute.For<ILicenseeSettingService>();
         }
 
         [SetUp]
@@ -195,6 +196,24 @@
             }
         }
 
+        [TestCase(true, false)]
+        [TestCase(false, true)]
+        public void Index_AssignViewBagData_AssignIsEnabledMoveBetNotification(bool isFakeLicensee, bool expectedValue)
+        {
+            using (var controller = CreateController())
+            {
+                // Arrange
+                AppSettings.IsEnabledMoveBetNotification.Returns(true);
+                _licenseeSettingService.IsFakeLicensee().Returns(isFakeLicensee);
+
+                // Action
+                var result = controller.Index() as ViewResult;
+
+                // Assert
+                Assert.That(result.ViewBag.IsEnabledMoveBetNotification, Is.EqualTo(expectedValue));
+            }
+        }
+
         [Test]
         public void IndexIpad_InvalidSessionUser_RedirectToLocationRestriction()
         {
@@ -236,30 +255,13 @@
             }
         }
 
-        [Test]
-        public void SwitchView_WhenCall_AssignViewTypeCorrectly()
-        {
-            using (var controller = CreateController())
-            {
-                // Arrange
-                SessionService.UserSession.ViewType = ClientViewType.None;
-
-                // Action
-                var result = controller.SwitchView(ClientViewType.Desktop) as RedirectToRouteResult;
-
-                // Assert
-                Assert.Multiple(() =>
-                {
-                    Assert.That(SessionService.UserSession.ViewType, Is.EqualTo(ClientViewType.Desktop));
-                    Assert.That(result.RouteValues["action"], Is.EqualTo("Index"));
-                    Assert.That(result.RouteValues["controller"], Is.EqualTo("Home"));
-                });
-            }
-        }
-
         private HomeController CreateController()
         {
-            return new HomeController(LangService, SessionService, AppSettings, ClientViewHelper)
+            return new HomeController(
+                LangService,
+                SessionService,
+                AppSettings,
+                _licenseeSettingService)
             {
                 ControllerContext = ControllerContext
             };

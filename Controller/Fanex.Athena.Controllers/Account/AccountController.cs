@@ -20,7 +20,6 @@ namespace Fanex.Athena.Controllers.Account
     using ONEbook.UM.Filters;
     using Resources;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility;
     using Session.Enum;
@@ -48,11 +47,10 @@ namespace Fanex.Athena.Controllers.Account
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             IFunctionService functionService,
             IUserService userService,
             ICurrencyDataAccess currencyDataAccess)
-        : base(languageService, sessionService, appSetting, clientViewHelper)
+        : base(languageService, sessionService, appSetting)
         {
             _functionService = functionService;
             _userService = userService;

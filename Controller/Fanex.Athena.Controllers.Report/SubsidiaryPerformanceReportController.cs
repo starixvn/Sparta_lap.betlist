@@ -9,7 +9,6 @@
     using Model.Core.MetaModel.Product;
     using Model.Report.ViewModel;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Service.Report.Interfaces;
     using Web.ActionFilter;
@@ -23,10 +22,9 @@
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             IProductService productService,
             ISubsidiaryService subsidiaryService)
-            : base(languageService, sessionService, appSetting, clientViewHelper, productService)
+            : base(languageService, sessionService, appSetting, productService)
         {
             _subsidiaryService = subsidiaryService;
         }
@@ -56,7 +54,7 @@
                 }).ToList()
             };
 
-            return View("~/Views/Report/SubsidiaryPerformance/Main.cshtml", model);
+            return View("~/Views/Desktop/Report/SubsidiaryPerformance/Main.cshtml", model);
         }
     }
 }

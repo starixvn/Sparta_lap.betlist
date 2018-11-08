@@ -69,7 +69,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Report/WinLossByLeague/Main.cshtml"));
+                    Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Desktop/Report/WinLossByLeague/Main.cshtml"));
                     Assert.That(viewModel.Sports, Is.EqualTo(sports.ToDictionary(x => x.ID, y => y.Name)));
                     Assert.That(viewModel.Leagues, Is.EqualTo(leagues.ToDictionary(x => x.LeagueId, y => y.LeagueName)));
                     Assert.That(viewModel.Matches, Is.EqualTo(matches.ToDictionary(x => x.MatchId, y => y.MatchName)));
@@ -146,7 +146,6 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                ClientViewHelper,
                 productService,
                 _sportTypeDataAccess,
                 _leagueDataAccess,

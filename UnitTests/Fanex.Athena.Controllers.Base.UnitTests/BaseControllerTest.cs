@@ -4,8 +4,6 @@
     using Model.Core.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
-    using Session.Enum;
-    using Session.Model;
 
     [TestFixture]
     public class BaseControllerTest : BaseControllerHelperTest
@@ -15,7 +13,7 @@
         [SetUp]
         public void SetUp()
         {
-            _controller = new FakeBaseController(LangService, SessionService, AppSettings, ClientViewHelper)
+            _controller = new FakeBaseController(LangService, SessionService, AppSettings)
             {
                 ControllerContext = ControllerContext
             };
@@ -115,61 +113,6 @@
 
             // Assert
             LangService.Received().SetPageCulture(Language);
-        }
-
-        [Test]
-        public void View_ClientViewTypeIsNone_ReturnViewNameBaseOnAppSetting()
-        {
-            // Arrange
-            AppSettings.ClientViewType.Returns(ClientViewType.Default.ToString("d"));
-
-            StubUserSessionData(new UserSession
-            {
-                ViewType = ClientViewType.None
-            });
-
-            const string ViewName = "TestView";
-
-            // Action
-            var actual = _controller.View(ViewName, string.Empty, null);
-
-            // Assert
-            Assert.That(actual.ViewName, Is.EqualTo(ViewName));
-        }
-
-        [Test]
-        public void View_UserSessionIsNull_ReturnViewNameBaseOnAppSetting()
-        {
-            // Arrange
-            AppSettings.ClientViewType.Returns(ClientViewType.Default.ToString("d"));
-
-            StubUserSessionData(null);
-
-            const string ViewName = "TestView";
-
-            // Action
-            var actual = _controller.View(ViewName, string.Empty, null);
-
-            // Assert
-            Assert.That(actual.ViewName, Is.EqualTo(ViewName));
-        }
-
-        [Test]
-        public void View_ClientViewTypeIsNotNone_ReturnViewNameBaseOnUserSession()
-        {
-            // Arrange
-            StubUserSessionData(new UserSession
-            {
-                ViewType = ClientViewType.Desktop
-            });
-
-            const string ViewName = "";
-
-            // Action
-            var actual = _controller.View(ViewName, string.Empty, null);
-
-            // Assert
-            Assert.That(actual.ViewName, Is.EqualTo(ViewName));
         }
     }
 }

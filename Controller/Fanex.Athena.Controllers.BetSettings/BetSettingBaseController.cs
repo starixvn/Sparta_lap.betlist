@@ -23,7 +23,6 @@ namespace Fanex.Athena.Controllers.BetSettings
     using ONEbook.UM.Filters;
     using Resources;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Service.Customer.Interfaces;
     using Session.Enum;
@@ -40,19 +39,15 @@ namespace Fanex.Athena.Controllers.BetSettings
         private readonly IProductService _productService;
         private readonly Lazy<ProductAccess> _productAccess;
 
-#pragma warning disable S107 // Methods should not have too many parameters
-
         protected BetSettingBaseController(
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             IAuthorizationService authorizationService,
             ICoreBetSettingDataAccess coreBetSettingDataAccess,
             ICustomerService customerService,
             IProductService productService)
-#pragma warning restore S107 // Methods should not have too many parameters
-        : base(languageService, sessionService, appSetting, clientViewHelper)
+        : base(languageService, sessionService, appSetting)
         {
             _authorizationService = authorizationService;
             _coreBetSettingDataAccess = coreBetSettingDataAccess;

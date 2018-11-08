@@ -8,7 +8,6 @@
     using Model.BetSettings.ViewModel;
     using Model.Customer.DTO;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Service.Customer.Interfaces;
 
@@ -18,13 +17,12 @@
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             IAuthorizationService authorizationService,
             ICoreBetSettingDataAccess coreBetSettingDataAccess,
             ICustomerService customerService,
             IProductService productService)
 #pragma warning restore S107 // Methods should not have too many parameters
-        : base(languageService, sessionService, appSetting, clientViewHelper, authorizationService, coreBetSettingDataAccess, customerService, productService)
+        : base(languageService, sessionService, appSetting, authorizationService, coreBetSettingDataAccess, customerService, productService)
         {
         }
 

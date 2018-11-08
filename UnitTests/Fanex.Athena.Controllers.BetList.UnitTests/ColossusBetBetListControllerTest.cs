@@ -43,7 +43,7 @@
                 var result = controller.Detail(metaModel) as ViewResult;
 
                 // Assert
-                Assert.That(result.ViewName, Is.EqualTo("~/Views/BetList/ColossusBetDetail/Main.cshtml"));
+                Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/ColossusBetDetail/Main.cshtml"));
             }
         }
 
@@ -115,7 +115,6 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                ClientViewHelper,
                 ProductService,
                 BetListService,
                 BalanceUpDataAccess,

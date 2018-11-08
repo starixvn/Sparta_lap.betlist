@@ -35,7 +35,6 @@
         public void SetUp()
         {
             SetUpDefaultFakeData();
-            SessionService.UserSession.ViewType = ClientViewType.Desktop;
 
             _subsidiaryService = Substitute.For<ISubsidiaryService>();
             _service = Substitute.For<ISubsidiaryPerformanceService>();
@@ -54,7 +53,6 @@
                 SessionService.UserSession.Returns(new Session.Model.UserSession
                 {
                     IsManageableSubsidiary = true,
-                    ViewType = ClientViewType.Desktop,
                     Language = DefaultUserSession.Language
                 });
 
@@ -68,7 +66,7 @@
                 };
 
                 var expectedModel = _serializer.Serialize(expectedViewModelData);
-                var expectedViewName = "~/Views/Report/SubsidiaryPerformance/Main.cshtml";
+                var expectedViewName = "~/Views/Desktop/Report/SubsidiaryPerformance/Main.cshtml";
                 HttpContext.Current = GetHttpContext();
 
                 // Action
@@ -90,7 +88,6 @@
                 SessionService.UserSession.Returns(new Session.Model.UserSession
                 {
                     IsManageableSubsidiary = false,
-                    ViewType = ClientViewType.Desktop,
                     Language = DefaultUserSession.Language
                 });
 
@@ -104,7 +101,7 @@
                 };
 
                 var expectedModel = _serializer.Serialize(expectedViewModelData);
-                var expectedViewName = "~/Views/Report/SubsidiaryPerformance/Main.cshtml";
+                var expectedViewName = "~/Views/Desktop/Report/SubsidiaryPerformance/Main.cshtml";
                 HttpContext.Current = GetHttpContext();
 
                 // Action
@@ -137,7 +134,6 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                ClientViewHelper,
                 productService,
                 _subsidiaryService);
         }

@@ -6,7 +6,6 @@
     using Model.Core.DataDomain;
     using Model.Report.MetaModel.Keno;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility.Interfaces;
     using Service.Report.Result.Interfaces;
@@ -23,11 +22,10 @@
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             IProductService productService,
             ICoreLogger logger,
             IKenoApi kenoApi)
-            : base(languageService, sessionService, appSetting, clientViewHelper, productService)
+            : base(languageService, sessionService, appSetting, productService)
         {
             _logger = logger;
             _kenoApi = kenoApi;

@@ -202,7 +202,6 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                ClientViewHelper,
                 _customerListService,
                 _groupComService,
                 _licenseeDataAccess,

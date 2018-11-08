@@ -30,8 +30,7 @@ namespace Fanex.Athena.Service.Core.Users.Interfaces
             string userName,
             bool isInternal,
             int licenseeId = 0,
-            string language = "en-US",
-             ClientViewType viewType = ClientViewType.None);
+            string language = "en-US");
 
         void UpdateLiceseeSession(int licenseeId);
 

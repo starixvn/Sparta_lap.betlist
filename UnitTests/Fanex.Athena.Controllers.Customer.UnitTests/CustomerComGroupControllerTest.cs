@@ -186,7 +186,6 @@
                LangService,
                SessionService,
                AppSettings,
-               ClientViewHelper,
                _groupComService,
                _productService);
             controller.ControllerContext = ControllerContext;

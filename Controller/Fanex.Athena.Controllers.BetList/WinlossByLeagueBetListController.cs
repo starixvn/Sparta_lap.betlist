@@ -6,8 +6,6 @@
 
 namespace Fanex.Athena.Controllers.BetList
 {
-    #region Using
-
     using System.Web.Mvc;
     using DataAccess.Core.Configuration.Interfaces;
     using Excel.Base.Entities;
@@ -17,28 +15,24 @@ namespace Fanex.Athena.Controllers.BetList
     using Resources;
     using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using VendorAdapter.Interfaces;
     using Web.ActionFilter;
-
-    #endregion Using
 
     [FunctionAuthorization(PermissionKeys.ReportWinLossByLeague)]
     public class WinlossByLeagueBetListController : BetListBaseController
     {
         private static readonly int[] HiddenColumns = new[] { ExternalIdColumn, SystemIdColumn, BetEffectiveColumn };
-        
+
         public WinlossByLeagueBetListController(
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             IProductService productService,
             IBetListService betListService,
             IBalanceUpDataAccess balanceUpDataAccess,
             ICacheRefAdapter cacheRefAdapter)
-        : base(languageService, sessionService, appSetting, clientViewHelper, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
+        : base(languageService, sessionService, appSetting, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
         {
         }
 
@@ -46,7 +40,7 @@ namespace Fanex.Athena.Controllers.BetList
         public ActionResult Index(WinLossByLeagueBetListMetaModel metaModel)
         {
             var model = CreateDefaultMetaModel(metaModel);
-            return ProcessDefaultRequest(model, "~/Views/BetList/WinlossByLeague/Main.cshtml", "Lrf_BetList_WinlostByLeague_Mem");
+            return ProcessDefaultRequest(model, "~/Views/Desktop/BetList/WinlossByLeague/Main.cshtml", "Lrf_BetList_WinlostByLeague_Mem");
         }
 
         protected override ActionResult ExportExcel(BetListMetaModel metaModel, string uspKey)

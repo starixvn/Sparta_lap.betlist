@@ -105,8 +105,6 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(metaModel.LicenseeId, Is.EqualTo(SessionService.LicenseeSession.LicenseeId));
-                    Assert.That(metaModel.UserId, Is.EqualTo(SessionService.UserSession.UserId));
                     Assert.That(metaModel.AgentListXml, Is.EqualTo(AgentListXml));
                     Assert.That(resultData["Data"], Is.EqualTo(data.DataList));
                     Assert.That(resultData["Total"], Is.EqualTo(data.TotalData));
@@ -120,7 +118,6 @@
             return new ReportAPIController(
                 SessionService,
                 AppSettings,
-                ClientViewHelper,
                 _betTypeService,
                 _customerTurnoverService,
                 _turnoverService);

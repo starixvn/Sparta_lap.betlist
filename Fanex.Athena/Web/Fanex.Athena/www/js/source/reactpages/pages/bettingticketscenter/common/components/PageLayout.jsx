@@ -60,13 +60,13 @@ export class PageLayout extends Component {
         window.ShowBonusDetails = undefined;
     }
     
-    _showNewParlayDetail (transId, transIndex, refNo, handicap1, handicap2, betcheck, betteam) {
+    _showNewParlayDetail (transId, transIndex, refNo, handicap1, handicap2, betcheck, betteam, custId) {
         let divEvent = document.querySelector('#divEvent_' + transId + "" + transIndex);
         let nameDiv = document.querySelector('#combinationOfferName_' + transId + transIndex);
         divEvent.classList.add("mx-parlay"); //to make line-through for void-parlay-ticket
         
         if (divEvent.style.display == "none") {
-            let url = BetList.getChoiceParlayDetailUrl(transId, refNo, handicap1, handicap2, betcheck, betteam);
+            let url = BetList.getChoiceParlayDetailUrl(transId, refNo, handicap1, handicap2, betcheck, betteam, custId);
             this.props.toggleLoader(true);
             axios.get(url)
                .then((result) => {               

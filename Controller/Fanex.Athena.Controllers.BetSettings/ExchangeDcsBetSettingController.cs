@@ -17,7 +17,6 @@ namespace Fanex.Athena.Controllers.BetSettings
     using Resources;
     using Service.BetSettings.Interfaces;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Service.Customer.Interfaces;
 
@@ -29,18 +28,19 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         private readonly IExchangeCommApiService _exchangeCommApiService;
 
+#pragma warning disable S107 // Methods should not have too many parameters
         public ExchangeDcsBetSettingController(
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             IAuthorizationService authorizationService,
             ICoreBetSettingDataAccess coreBetSettingDataAccess,
             ICustomerService customerService,
             IProductService productService,
             IDcsBetSettingService betSettingService,
             IExchangeCommApiService exchangeCommApiService)
-        : base(languageService, sessionService, appSetting, clientViewHelper, authorizationService, coreBetSettingDataAccess, customerService, productService)
+#pragma warning restore S107 // Methods should not have too many parameters
+        : base(languageService, sessionService, appSetting, authorizationService, coreBetSettingDataAccess, customerService, productService)
         {
             _betSettingService = betSettingService;
             _exchangeCommApiService = exchangeCommApiService;
@@ -55,7 +55,7 @@ namespace Fanex.Athena.Controllers.BetSettings
                 CommissionList = ValidComms
             };
             AssignRequiredProperties(viewModel, metaModel);
-            const string ViewPath = "~/Views/Customer/BetSetting/Exchange.cshtml";
+            const string ViewPath = "~/Views/Desktop/Customer/BetSetting/Exchange.cshtml";
             var licenseeId = SessionService.LicenseeSession.LicenseeId;
             viewModel.IsEnabled = _betSettingService.GetStatus(licenseeId, metaModel.CustId, metaModel.ProductId);
             var apiResult = _exchangeCommApiService.GetCommission(licenseeId, metaModel.CustId);

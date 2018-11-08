@@ -13,7 +13,6 @@ namespace Fanex.Athena.Controllers
     using Fanex.Athena.Model.Core.ViewModel;
     using Model.Core.DataDomain;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Session.Enum;
     using Web.ActionFilter;
@@ -27,9 +26,8 @@ namespace Fanex.Athena.Controllers
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             ILicenseeDataAccess licenseeDataAccess)
-        : base(languageService, sessionService, appSetting, clientViewHelper)
+        : base(languageService, sessionService, appSetting)
         {
             _licenseeDataAccess = licenseeDataAccess;
         }
@@ -56,7 +54,7 @@ namespace Fanex.Athena.Controllers
                 IsFakeLicensee = IsFakeLicensee(),
                 IsAllowedNotification = userSession.FunctionIdList.Contains((int)FunctionType.ResultAmendment_Recalculation)
             };
-            return View("~/Views/Header/Index.cshtml", viewModel);
+            return View("~/Views/Desktop/Header/Index.cshtml", viewModel);
         }
 
         public ActionResult ChangeLicensee(int? licenseeId)

@@ -47,7 +47,7 @@
                 var result = controller.Index() as ViewResult;
 
                 // Assert
-                Assert.That(result.ViewName, Is.EqualTo("~/Views/BetList/CancelledBetsBetList/Main.cshtml"));
+                Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/CancelledBetsBetList/Main.cshtml"));
             }
         }
 
@@ -114,7 +114,7 @@
                 var result = controller.Index(new BetListMetaModel()) as ViewResult;
 
                 // Assert
-                Assert.That(result.ViewName, Is.EqualTo("~/Views/BetList/CancelledBetsBetList/Main.cshtml"));
+                Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/CancelledBetsBetList/Main.cshtml"));
             }
         }
 
@@ -227,7 +227,6 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                ClientViewHelper,
                 ProductService,
                 BetListService,
                 BalanceUpDataAccess,

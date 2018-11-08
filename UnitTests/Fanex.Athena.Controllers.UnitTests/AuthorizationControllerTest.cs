@@ -14,7 +14,6 @@
     using NUnit.Framework;
     using ONEbook.UM.Services;
     using Resources;
-    using Session.Enum;
     using Session.Model;
 
     [TestFixture]
@@ -58,6 +57,7 @@
             AppSettings.ClearReceivedCalls();
             _userService.ClearReceivedCalls();
             _authService.ClearReceivedCalls();
+            SessionService.ClearReceivedCalls();
         }
 
         [Test]
@@ -83,49 +83,12 @@
             {
                 // Arrange
                 SessionService.CaptchaCode = null;
-                StubUserSessionData(new UserSession { ViewType = ClientViewType.Desktop });
 
                 // Action
                 controller.Captcha();
 
                 // Assert
                 Assert.That(SessionService.CaptchaCode.Length, Is.EqualTo(4));
-            }
-        }
-
-        [Test]
-        public void Captcha_NoneView_CreateCaptchaBaseOnAppSettingViewType()
-        {
-            using (var controller = CreateController())
-            {
-                // Arrange
-                SessionService.CaptchaCode = null;
-                StubUserSessionData(null);
-                StubGetValueAppSettings(nameof(ClientViewType), ClientViewType.Default.ToString("d"));
-
-                // Action
-                controller.Captcha();
-
-                // Assert
-                AppSettings.Received().GetValue(nameof(ClientViewType));
-            }
-        }
-
-        [Test]
-        public void Captcha_UserSessionIsNull_CreateCaptchaBaseOnAppSettingViewType()
-        {
-            using (var controller = CreateController())
-            {
-                // Arrange
-                SessionService.CaptchaCode = null;
-                StubUserSessionData(new UserSession { ViewType = ClientViewType.None });
-                StubGetValueAppSettings(nameof(ClientViewType), ClientViewType.Default.ToString("d"));
-
-                // Action
-                controller.Captcha();
-
-                // Assert
-                AppSettings.Received().GetValue(nameof(ClientViewType));
             }
         }
 
@@ -406,7 +369,6 @@
                LangService,
                SessionService,
                AppSettings,
-               ClientViewHelper,
                _maintenanceService,
                _userService,
                _authService,

@@ -30,7 +30,7 @@
                 var result = controller.Index(new WinLossByLeagueBetListMetaModel()) as ViewResult;
 
                 // Assert
-                Assert.That(result.ViewName, Is.EqualTo("~/Views/BetList/WinlossByLeague/Main.cshtml"));
+                Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/WinlossByLeague/Main.cshtml"));
             }
         }
 
@@ -139,7 +139,6 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                ClientViewHelper,
                 ProductService,
                 BetListService,
                 BalanceUpDataAccess,

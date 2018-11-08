@@ -66,7 +66,7 @@
                 Assert.Multiple(() =>
                 {
                     AssertRequiredProperties((BetSettingBaseViewModel)result.Model, metaModel);
-                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Customer/BetSetting/GoldDeluxe.cshtml"));
+                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/Customer/BetSetting/GoldDeluxe.cshtml"));
                 });
             }
         }
@@ -239,7 +239,6 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                ClientViewHelper,
                 AuthorizationService,
                 CoreBetSettingDataAccess,
                 CustomerService,

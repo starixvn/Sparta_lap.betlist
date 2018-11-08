@@ -12,7 +12,6 @@
     using Resources;
     using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using VendorAdapter.Interfaces;
     using Web.ActionFilter;
@@ -26,12 +25,11 @@
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             IProductService productService,
             IBetListService betListService,
             IBalanceUpDataAccess balanceUpDataAccess,
             ICacheRefAdapter cacheRefAdapter)
-        : base(languageService, sessionService, appSetting, clientViewHelper, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
+        : base(languageService, sessionService, appSetting, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
         {
         }
 
@@ -41,7 +39,7 @@
             return ProcessRequest(
                 metaModel,
                 "Lrf_BetList_LiveReport_SelWinlossByMatch",
-                "~/Views/BetList/LiveReport/Match.cshtml");
+                "~/Views/Desktop/BetList/LiveReport/Match.cshtml");
         }
 
         [HttpGet]
@@ -50,7 +48,7 @@
             return ProcessRequest(
                 metaModel,
                 "Lrf_BetList_LiveReport_SelWinlossParlay",
-                "~/Views/BetList/LiveReport/MixParlay.cshtml");
+                "~/Views/Desktop/BetList/LiveReport/MixParlay.cshtml");
         }
 
         [HttpGet]
@@ -59,7 +57,7 @@
             return ProcessRequest(
                 metaModel,
                 "Lrf_BetList_LiveReport_SelWinlossOutright",
-                "~/Views/BetList/LiveReport/Outright.cshtml",
+                "~/Views/Desktop/BetList/LiveReport/Outright.cshtml",
                 ViewResources.Outright);
         }
 
@@ -69,7 +67,7 @@
             return ProcessRequest(
                 metaModel,
                 "Lrf_BetList_LiveReport_SelWinlossNumberGame",
-                "~/Views/BetList/LiveReport/NumberGame.cshtml",
+                "~/Views/Desktop/BetList/LiveReport/NumberGame.cshtml",
                 ViewResources.ProductNG);
         }
 
@@ -80,7 +78,7 @@
             return ProcessRequest(
                 metaModel,
                 "Lrf_BetList_LiveReport_SelWinlossVHRacing",
-                "~/Views/BetList/LiveReport/VirtualSports.cshtml",
+                "~/Views/Desktop/BetList/LiveReport/VirtualSports.cshtml",
                 sportName,
                 sportName);
         }

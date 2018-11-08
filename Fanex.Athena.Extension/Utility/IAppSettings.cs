@@ -55,8 +55,6 @@
             Justification = "Reviewed. Suppression is OK here.")]
         string RemoteRefUrl { get; }
 
-        string ClientViewType { get; }
-
         string GetValue(string key);
     }
 }

@@ -43,7 +43,6 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                ClientViewHelper,
                 Substitute.For<IProductService>());
         }
     }

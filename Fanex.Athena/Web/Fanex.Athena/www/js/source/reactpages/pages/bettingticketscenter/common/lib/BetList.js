@@ -52,7 +52,7 @@ class BetList {
             return url;
     }
 
-    getChoiceParlayDetailUrl (transId, refNo, handicap1, handicap2, betcheck, betteam){
+    getChoiceParlayDetailUrl (transId, refNo, handicap1, handicap2, betcheck, betteam, custId){
         var url = Site.resolveClientUrl('api/MixParlayBetList/NewParlayDetail');
         url = QueryString.setParam(url, "transId", transId);
         url = QueryString.setParam(url, "refNo", refNo);
@@ -60,6 +60,7 @@ class BetList {
         url = QueryString.setParam(url, "handicap2", handicap2);
         url = QueryString.setParam(url, "betcheck", betcheck);
         url = QueryString.setParam(url, "betteam", betteam);
+        url = QueryString.setParam(url, "custId", custId);
 
         return url;
     }

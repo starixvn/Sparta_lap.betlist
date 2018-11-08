@@ -12,7 +12,6 @@ namespace Fanex.Athena.Controllers.Report
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.ReportWeeklyLiveMatches)]
@@ -22,9 +21,8 @@ namespace Fanex.Athena.Controllers.Report
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             IProductService productService)
-        : base(languageService, sessionService, appSetting, clientViewHelper, productService)
+        : base(languageService, sessionService, appSetting, productService)
         {
         }
 
@@ -32,7 +30,7 @@ namespace Fanex.Athena.Controllers.Report
         public ActionResult Index()
         {
             var metaModel = new WeeklyLiveMatchMetaModel();
-            return View("~/Views/Report/WeeklyLiveMatch/Main.cshtml", metaModel);
+            return View("~/Views/Desktop/Report/WeeklyLiveMatch/Main.cshtml", metaModel);
         }
     }
 }

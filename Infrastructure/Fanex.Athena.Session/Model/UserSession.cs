@@ -56,8 +56,6 @@ namespace Fanex.Athena.Session.Model
             Justification = "Reviewed. Suppression is OK here.")]
         public string DefaultReportUrl { get; set; }
 
-        public ClientViewType ViewType { get; set; }
-
         public AppMode ApplicationMode { get; set; }
     }
 }

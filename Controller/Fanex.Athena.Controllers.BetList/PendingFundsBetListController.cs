@@ -18,7 +18,6 @@ namespace Fanex.Athena.Controllers.BetList
     using Resources;
     using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using VendorAdapter.Interfaces;
     using Web.ActionFilter;
@@ -35,12 +34,11 @@ namespace Fanex.Athena.Controllers.BetList
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             IProductService productService,
             IBetListService betListService,
             IBalanceUpDataAccess balanceUpDataAccess,
             ICacheRefAdapter cacheRefAdapter)
-        : base(languageService, sessionService, appSetting, clientViewHelper, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
+        : base(languageService, sessionService, appSetting, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
         {
         }
 
@@ -50,7 +48,7 @@ namespace Fanex.Athena.Controllers.BetList
             var model = CreateDefaultMetaModel(metaModel);
             model.FromDate = DateTime.Today.AddYears(-10);
             model.ToDate = DateTime.Today.AddYears(10);
-            return ProcessDefaultRequest(model, "~/Views/BetList/PendingFunds/Main.cshtml", "Lrf_BetList_SelRunningByDate_Mem");
+            return ProcessDefaultRequest(model, "~/Views/Desktop/BetList/PendingFunds/Main.cshtml", "Lrf_BetList_SelRunningByDate_Mem");
         }
 
         protected override bool IsValidExportExcel(BetListMetaModel model)

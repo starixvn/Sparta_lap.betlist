@@ -15,28 +15,27 @@ namespace Fanex.Athena.Controllers.BetSettings
     using Model.BetSettings.MetaModel;
     using Model.Core.DTO.Common;
     using Resources;
-    using Service.BetSettings;
     using Service.BetSettings.Interfaces;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Service.Customer.Interfaces;
 
     public class ThirdPartyBetSettingController : BetSettingBaseController
     {
         private readonly IThirdPartyBetSettingService _betSettingService;
-        
+
+#pragma warning disable S107 // Methods should not have too many parameters
         public ThirdPartyBetSettingController(
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             IAuthorizationService authorizationService,
             ICoreBetSettingDataAccess coreBetSettingDataAccess,
             ICustomerService customerService,
             IProductService productService,
             IThirdPartyBetSettingService betSettingService)
-        : base(languageService, sessionService, appSetting, clientViewHelper, authorizationService, coreBetSettingDataAccess, customerService, productService)
+#pragma warning restore S107 // Methods should not have too many parameters
+        : base(languageService, sessionService, appSetting, authorizationService, coreBetSettingDataAccess, customerService, productService)
         {
             _betSettingService = betSettingService;
         }
@@ -56,22 +55,22 @@ namespace Fanex.Athena.Controllers.BetSettings
             switch (metaModel.ProductId)
             {
                 case ProductTypes.Macau:
-                    return View("~/Views/Customer/BetSetting/Macau.cshtml", viewModel);
+                    return View("~/Views/Desktop/Customer/BetSetting/Macau.cshtml", viewModel);
 
                 case ProductTypes.MicroGamingLiveCasino:
-                    return View("~/Views/Customer/BetSetting/MicroGamingLiveCasino.cshtml", viewModel);
+                    return View("~/Views/Desktop/Customer/BetSetting/MicroGamingLiveCasino.cshtml", viewModel);
 
                 case ProductTypes.MicrogamingRNGCasino:
-                    return View("~/Views/Customer/BetSetting/MicroGamingRNGCasino.cshtml", viewModel);
+                    return View("~/Views/Desktop/Customer/BetSetting/MicroGamingRNGCasino.cshtml", viewModel);
 
                 case ProductTypes.BetTrade:
-                    return View("~/Views/Customer/BetSetting/BetTrade.cshtml", viewModel);
+                    return View("~/Views/Desktop/Customer/BetSetting/BetTrade.cshtml", viewModel);
 
                 case ProductTypes.ColossusBets:
-                    return View("~/Views/Customer/BetSetting/ColossusBets.cshtml", viewModel);
+                    return View("~/Views/Desktop/Customer/BetSetting/ColossusBets.cshtml", viewModel);
 
                 case ProductTypes.CashOut:
-                    return View("~/Views/Customer/BetSetting/CashOut.cshtml", viewModel);
+                    return View("~/Views/Desktop/Customer/BetSetting/CashOut.cshtml", viewModel);
 
                 default:
                     throw new ArgumentException("Not a thirdparty product.");

@@ -24,7 +24,6 @@ namespace Fanex.Athena.Controllers.Report
     using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.ReportWinLossByBetType)]
@@ -38,11 +37,10 @@ namespace Fanex.Athena.Controllers.Report
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             IProductService productService,
             IBalanceUpDataAccess balanceUpDataAccess,
             IWinLossByBetTypeDataAccess winLossByBetTypeDataAccess)
-            : base(languageService, sessionService, appSetting, clientViewHelper, productService)
+            : base(languageService, sessionService, appSetting, productService)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
             _winLossByBetTypeDataAccess = winLossByBetTypeDataAccess;
@@ -73,7 +71,7 @@ namespace Fanex.Athena.Controllers.Report
 
             ViewBag.IsShowCustComm = licenseeSession.IsAllowedCustomerComm;
 
-            return View("~/Views/Report/WinLossByBetType/Main.cshtml", model);
+            return View("~/Views/Desktop/Report/WinLossByBetType/Main.cshtml", model);
         }
 
         [HttpPost]
@@ -107,7 +105,7 @@ namespace Fanex.Athena.Controllers.Report
 
             return metaModel.IsExportExcel ?
                 Excel(model) :
-                View("~/Views/Report/WinLossByBetType/Main.cshtml", model);
+                View("~/Views/Desktop/Report/WinLossByBetType/Main.cshtml", model);
         }
 
         private static WinLossByBetType GetTotal(IEnumerable<WinLossByBetType> dataList)

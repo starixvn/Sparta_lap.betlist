@@ -29,7 +29,7 @@
                 var result = controller.Index(new BetListMetaModel()) as ViewResult;
 
                 // Assert
-                Assert.That(result.ViewName, Is.EqualTo("~/Views/BetList/RunningBettypesOfMatchBetList/Main.cshtml"));
+                Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/RunningBettypesOfMatchBetList/Main.cshtml"));
             }
         }
 
@@ -150,7 +150,6 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                ClientViewHelper,
                 ProductService,
                 BetListService,
                 BalanceUpDataAccess,

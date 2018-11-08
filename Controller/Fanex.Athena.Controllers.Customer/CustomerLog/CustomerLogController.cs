@@ -13,7 +13,6 @@ namespace Fanex.Athena.Controllers.Customer.CustomerLog
     using Model.Core.DataDomain;
     using ONEbook.UM.Filters;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
 
     [SessionState(SessionStateBehavior.ReadOnly)]
@@ -27,9 +26,8 @@ namespace Fanex.Athena.Controllers.Customer.CustomerLog
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             IProductService productService)
-        : base(languageService, sessionService, appSetting, clientViewHelper)
+        : base(languageService, sessionService, appSetting)
         {
             _productService = productService;
         }

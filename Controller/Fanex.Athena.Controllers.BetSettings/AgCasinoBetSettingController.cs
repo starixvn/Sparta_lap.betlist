@@ -14,28 +14,27 @@ namespace Fanex.Athena.Controllers.BetSettings
     using Model.BetSettings.MetaModel;
     using Model.Core.DTO.Common;
     using Resources;
-    using Service.BetSettings;
     using Service.BetSettings.Interfaces;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Service.Customer.Interfaces;
 
     public class AgCasinoBetSettingController : BetSettingBaseController
     {
         private readonly IAgCasinoBetSettingService _betSettingService;
-        
+
+#pragma warning disable S107 // Methods should not have too many parameters
         public AgCasinoBetSettingController(
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             IAuthorizationService authorizationService,
             ICoreBetSettingDataAccess coreBetSettingDataAccess,
             ICustomerService customerService,
             IProductService productService,
             IAgCasinoBetSettingService betSettingService)
-        : base(languageService, sessionService, appSetting, clientViewHelper, authorizationService, coreBetSettingDataAccess, customerService, productService)
+#pragma warning restore S107 // Methods should not have too many parameters
+        : base(languageService, sessionService, appSetting, authorizationService, coreBetSettingDataAccess, customerService, productService)
         {
             _betSettingService = betSettingService;
         }
@@ -52,7 +51,7 @@ namespace Fanex.Athena.Controllers.BetSettings
             }
 
             AssignRequiredProperties(viewModel, metaModel);
-            return View("~/Views/Customer/BetSetting/AgCasino.cshtml", viewModel);
+            return View("~/Views/Desktop/Customer/BetSetting/AgCasino.cshtml", viewModel);
         }
 
         [HttpPost]

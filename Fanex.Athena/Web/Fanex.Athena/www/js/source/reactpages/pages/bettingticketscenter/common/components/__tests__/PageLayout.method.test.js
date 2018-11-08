@@ -120,6 +120,7 @@ describe('PageLayout methods ', () => {
         const handicap2 = 333;
         const betcheck = 444;
         const betteam = 555;
+        const custId = 123;
         document.body.innerHTML = `<div id='divEvent_${transId}${transIndex}'></div><div id='combinationOfferName_${transId}${transIndex}'></div>`;
         let divEvent = document.querySelector('#divEvent_' + transId + "" + transIndex);
         let nameDiv = document.querySelector('#combinationOfferName_' + transId + transIndex);
@@ -135,7 +136,7 @@ describe('PageLayout methods ', () => {
         });
 
         it('Assign class .mx-parlay to divEvent',() =>{
-            pageLayout._showNewParlayDetail(transId, transIndex, refNo, handicap1, handicap2, betcheck, betteam);
+            pageLayout._showNewParlayDetail(transId, transIndex, refNo, handicap1, handicap2, betcheck, betteam, custId);
 
             expect(divEvent.classList.toString()).toBe('mx-parlay');
         });
@@ -146,7 +147,7 @@ describe('PageLayout methods ', () => {
             const promise = Promise.reject("error");
             axios.get = jest.fn((url, option) => promise);
 
-            pageLayout._showNewParlayDetail(transId, transIndex, refNo, handicap1, handicap2, betcheck, betteam);
+            pageLayout._showNewParlayDetail(transId, transIndex, refNo, handicap1, handicap2, betcheck, betteam, custId);
 
             Promise.reject().catch(() => {
                 expect(pageLayout.props.toggleLoader).not.toHaveBeenCalledWith(false);
@@ -166,9 +167,9 @@ describe('PageLayout methods ', () => {
             BetList.getChoiceParlayDetailUrl = jest.fn(() => expectedParlayDetailUrl);
             BetList.buildChoiceParlayDetail = jest.fn(() => "abc");
 
-            pageLayout._showNewParlayDetail(transId, transIndex, refNo, handicap1, handicap2, betcheck, betteam);
+            pageLayout._showNewParlayDetail(transId, transIndex, refNo, handicap1, handicap2, betcheck, betteam, custId);
 
-            expect(BetList.getChoiceParlayDetailUrl).toHaveBeenCalledWith(transId, refNo, handicap1, handicap2, betcheck, betteam);
+            expect(BetList.getChoiceParlayDetailUrl).toHaveBeenCalledWith(transId, refNo, handicap1, handicap2, betcheck, betteam, custId);
             expect(axios.get).toHaveBeenCalledWith(expectedParlayDetailUrl);
             promise.then((result) => {
                 expect(BetList.buildChoiceParlayDetail).toHaveBeenCalledWith('<div>KimJongUn</div>');
@@ -182,7 +183,7 @@ describe('PageLayout methods ', () => {
         it('divEvent is show - hide divEvent and show nameDiv',() =>{
             divEvent.style.display = "block";
 
-            pageLayout._showNewParlayDetail(transId, transIndex, refNo, handicap1, handicap2, betcheck, betteam);
+            pageLayout._showNewParlayDetail(transId, transIndex, refNo, handicap1, handicap2, betcheck, betteam, custId);
 
             expect(divEvent.innerHTML).toBe("");
             expect(divEvent.style.display).toBe('none');

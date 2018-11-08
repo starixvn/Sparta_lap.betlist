@@ -37,7 +37,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(result.ViewName, Is.EqualTo("~/Views/BetList/LiveReport/Match.cshtml"));
+                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/LiveReport/Match.cshtml"));
                     Assert.That(result.ViewBag.SportName, Is.Null);
                     AssertDefaultBetListViewModel(model, metaModel);
                 });
@@ -56,7 +56,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(result.ViewName, Is.EqualTo("~/Views/BetList/LiveReport/MixParlay.cshtml"));
+                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/LiveReport/MixParlay.cshtml"));
                     Assert.That(result.ViewBag.SportName, Is.Null);
                     AssertDefaultBetListViewModel(model, new BetListMetaModel());
                 });
@@ -78,7 +78,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(result.ViewName, Is.EqualTo("~/Views/BetList/LiveReport/Outright.cshtml"));
+                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/LiveReport/Outright.cshtml"));
                     Assert.That(result.ViewBag.SportName, Is.Null);
                     AssertDefaultBetListViewModel(model, metaModel);
                 });
@@ -100,7 +100,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(result.ViewName, Is.EqualTo("~/Views/BetList/LiveReport/NumberGame.cshtml"));
+                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/LiveReport/NumberGame.cshtml"));
                     Assert.That(result.ViewBag.SportName, Is.Null);
                     AssertDefaultBetListViewModel(model, metaModel);
                 });
@@ -125,7 +125,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(result.ViewName, Is.EqualTo("~/Views/BetList/LiveReport/VirtualSports.cshtml"));
+                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/LiveReport/VirtualSports.cshtml"));
                     Assert.That(result.ViewBag.SportName, Is.EqualTo(SportName));
                     AssertDefaultBetListViewModel(model, metaModel);
                 });
@@ -379,7 +379,6 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                ClientViewHelper,
                 ProductService,
                 BetListService,
                 BalanceUpDataAccess,

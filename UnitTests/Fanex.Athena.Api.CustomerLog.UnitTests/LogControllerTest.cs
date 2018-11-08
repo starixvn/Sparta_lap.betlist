@@ -6,12 +6,11 @@
     using Base.UnitTests;
     using DataAccess.Customer.Interfaces;
     using Extension.Utility;
+    using Extension.Utility.Interfaces;
     using Model.Customer.DTO.CustomerLog;
     using Model.Customer.MetaModel.CustomerLog;
     using NSubstitute;
     using NUnit.Framework;
-    using Service.Core.Helpers;
-    using Session.Enum;
 
     [TestFixture]
     public class LogControllerTest : BaseApiControllerHelperTest
@@ -21,8 +20,6 @@
         private ILogInLogDataAccess _logInLogDataAccess;
 
         private IAppSettings _appSettings;
-
-        private IClientViewHelper _clientViewHelper;
 
         private LogController _controller;
 
@@ -35,7 +32,6 @@
             _customerLogDataAccess = Substitute.For<ICustomerLogDataAccess>();
             _appSettings = Substitute.For<IAppSettings>();
             _logInLogDataAccess = Substitute.For<ILogInLogDataAccess>();
-            _clientViewHelper = Substitute.For<IClientViewHelper>();
 
             _controller = Substitute.ForPartsOf<LogController>(
                 SessionService,
@@ -44,7 +40,7 @@
                 _customerLogDataAccess,
                 _logInLogDataAccess,
                 _appSettings,
-                _clientViewHelper);
+                Substitute.For<IFileSystem>());
         }
 
         [OneTimeTearDown]
@@ -86,9 +82,6 @@
         public void GroupCommission_WhenCall_ReturnEmptyResult()
         {
             // Arrrange
-            _clientViewHelper.GetViewPath(Arg.Any<string>(), Arg.Any<ClientViewType>()).Returns(new Model.Core.DTO.Common.ViewByOption { IsNavigationView = true });
-            _appSettings.ClientViewType.Returns("0");
-
             var dataList = new List<CustomerLog>
             {
                 new CustomerLog { LogId = 2, ActionId = 1, TrackingValue = "<doc <GroupName=\"Group\"/> />", TrackingValueOld = "<doc <GroupName=\"OldGroup\"/> />" },
@@ -127,10 +120,6 @@
         {
             // Arrrange
             const string UserName = "Test";
-
-            _clientViewHelper.GetViewPath(Arg.Any<string>(), Arg.Any<ClientViewType>()).Returns(new Model.Core.DTO.Common.ViewByOption { IsNavigationView = true });
-            _appSettings.ClientViewType.Returns("0");
-
             var dataList = new List<CustomerLog>
             {
                 new CustomerLog { LogId = 2, ActionId = 1, TrackingValue = string.Empty, TrackingValueOld = string.Empty },

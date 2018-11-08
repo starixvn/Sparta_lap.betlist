@@ -32,7 +32,7 @@ namespace Fanex.Athena.DataAccess.BetList
         {
         }
 
-        public TicketResult GetMixParlayDetailTicket(long transId)
+        public TicketResult GetMixParlayDetailTicket(long transId, int custId)
         {
             const string UspName = "Lrf_BetList_SelParlayDetail";
             try
@@ -40,6 +40,7 @@ namespace Fanex.Athena.DataAccess.BetList
                 using (var db = this.GetObjectDb(UspName))
                 {
                     db.AddInParameter("TransId", DbType.Int64, transId);
+                    db.AddInParameter("CustId", DbType.Int32, custId);
                     using (var reader = db.ExecuteReader())
                     {
                         var result = new TicketResult();

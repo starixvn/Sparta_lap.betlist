@@ -15,10 +15,6 @@ namespace Fanex.Athena.Controllers
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.MetaModel;
-    using Service.Core.Common;
-    using Service.Core.Helpers;
-    using Service.Core.Users;
-    using Session.Enum;
 
     [CustomAuthorize]
     [XFrameOption]
@@ -28,18 +24,15 @@ namespace Fanex.Athena.Controllers
         private readonly ILanguageService _langService;
         private readonly ISessionService _sessionService;
         private readonly IAppSettings _appSettings;
-        private readonly IClientViewHelper _clientViewHelper;
 
         protected BaseController(
             ILanguageService languageService,
             ISessionService sessionService,
-            IAppSettings appSetting,
-            IClientViewHelper clientViewHelper)
+            IAppSettings appSetting)
         {
             _langService = languageService;
             _sessionService = sessionService;
             _appSettings = appSetting;
-            _clientViewHelper = clientViewHelper;
         }
 
         public ILanguageService LangService
@@ -85,20 +78,6 @@ namespace Fanex.Athena.Controllers
             LangService.SetPageCulture(currentLanguage);
         }
 
-        protected override ViewResult View(string viewName, string masterName, object model)
-        {
-            var viewType = GetViewType();
-
-            var viewByOption = _clientViewHelper.GetViewPath(viewName, viewType);
-            if (viewByOption.IsNavigationView)
-            {
-                var returnPath = RouteData.Values["Controller"] + "/" + RouteData.Values["Action"];
-                return base.View(viewByOption.ViewPath, null, returnPath);
-            }
-
-            return base.View(viewByOption.ViewPath, masterName, model);
-        }
-
         private IEnumerable<string> GetBaseUsdLicensees()
         {
             var items = _appSettings.GetValue("BaseUsdLicensees");
@@ -108,13 +87,6 @@ namespace Fanex.Athena.Controllers
             }
 
             return new string[] { };
-        }
-
-        protected ClientViewType GetViewType()
-        {
-            var userSession = SessionService.UserSession;
-            return userSession != null && userSession.ViewType != ClientViewType.None ?
-                userSession.ViewType : (ClientViewType)int.Parse(AppSettings.ClientViewType);
         }
     }
 }

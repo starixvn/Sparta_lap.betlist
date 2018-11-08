@@ -26,7 +26,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Report/MatchWinLoss/Main.cshtml"));
+                    Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Desktop/Report/MatchWinLoss/Main.cshtml"));
                     Assert.That(viewModel.CurrencyList, Is.EqualTo(SessionService.UserSession.CurrencyList));
                     Assert.That(viewModel.Param.BalanceUpDay, Is.EqualTo(BalanceUpDate.ToShortDateString()));
                     Assert.That(viewModel.Param.LicenseeId, Is.EqualTo(SessionService.LicenseeSession.LicenseeId));
@@ -65,7 +65,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Report/MatchWinLoss/Main.cshtml"));
+                    Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Desktop/Report/MatchWinLoss/Main.cshtml"));
                     Assert.That(viewModel.Param, Is.EqualTo(metaModel));
                     Assert.That(viewModel.Param.AgentListXml, Is.EqualTo(AgentListXml));
                     Assert.That(viewModel.MainResult, Is.EqualTo(expectedData));

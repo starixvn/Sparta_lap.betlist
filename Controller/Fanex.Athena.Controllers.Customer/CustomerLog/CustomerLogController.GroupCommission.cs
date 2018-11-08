@@ -19,7 +19,7 @@ namespace Fanex.Athena.Controllers.Customer.CustomerLog
         {
             var model = new CustomerLogViewModel { Param = new CustomerLogMetaModel(), MainData = new List<CustomerLog>() };
 
-            return View("~/Views/Customer/CustomerLog/GroupCommLog/Main.cshtml", model);
+            return View("~/Views/Desktop/Customer/CustomerLog/GroupCommLog/Main.cshtml", model);
         }
     }
 }

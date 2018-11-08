@@ -8,7 +8,6 @@ namespace Fanex.Athena.Controllers.TotalBets
 {
     using System.Linq;
     using System.Web.Mvc;
-    using DataAccess.TotalBet;
     using DataAccess.TotalBet.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Web.ActionFilter;
@@ -16,21 +15,19 @@ namespace Fanex.Athena.Controllers.TotalBets
     using Model.TotalBet.MetaModel;
     using Model.TotalBet.ViewModel;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
 
     [FunctionAuthorization(PermissionKeys.TotalBetFirstGoalLastGoal)]
     public class FirstGoalLastGoalTotalBetController : TotalBetBaseController
     {
         private readonly IFirstGoalLastGoalDataAccess _firstGoalLastGoalDataAccess;
-        
+
         public FirstGoalLastGoalTotalBetController(
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             IFirstGoalLastGoalDataAccess firstGoalLastGoalDataAccess)
-        : base(languageService, sessionService, appSetting, clientViewHelper)
+        : base(languageService, sessionService, appSetting)
         {
             _firstGoalLastGoalDataAccess = firstGoalLastGoalDataAccess;
         }
@@ -72,7 +69,7 @@ namespace Fanex.Athena.Controllers.TotalBets
                     TotalData = result.TotalData
                 };
 
-                return View("~/Views/TotalBets/FirstGoalLastGoal/Main.cshtml", model);
+                return View("~/Views/Desktop/TotalBets/FirstGoalLastGoal/Main.cshtml", model);
             }
 
             return Redirect("~/Utility/AccessDenied");

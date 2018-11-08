@@ -236,7 +236,7 @@
 
             Assert.Multiple(() =>
             {
-                Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/BetList/RunningBetList/Main.cshtml"));
+                Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Desktop/BetList/RunningBetList/Main.cshtml"));
                 Assert.That(viewModel.ShowEmptyContent, Is.True);
                 Assert.That(viewModel.Param.BetType, Is.EqualTo(metaModel.BetType));
                 Assert.That(viewModel.Param.MultipleBettype, Is.EqualTo(metaModel.MultipleBettype));
@@ -252,7 +252,6 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                ClientViewHelper,
                 ProductService,
                 BetListService,
                 BalanceUpDataAccess,

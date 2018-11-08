@@ -19,7 +19,7 @@ namespace Fanex.Athena.Service.Core.Configuration
 
     public class LicenseeSettingService : ILicenseeSettingService
     {
-        private const string CacheKey = "LRF_FakeLicenseeSettings";
+        private const string FakeLicenseeSettingsCacheKey = "LRF_FakeLicenseeSettings";
 
         private readonly IMemoryCacheService _cache;
 
@@ -33,7 +33,7 @@ namespace Fanex.Athena.Service.Core.Configuration
 
         public bool IsFakeLicensee()
         {
-            return GetFakeLicenseeSetting() == null;
+            return GetFakeLicenseeSetting() != null;
         }
 
         public bool IsAuthorizedOnBetList()
@@ -58,11 +58,11 @@ namespace Fanex.Athena.Service.Core.Configuration
                 return null;
             }
 
-            var settings = _cache.Get<IEnumerable<FakeLicenseeSetting>>(CacheKey);
+            var settings = _cache.Get<IEnumerable<FakeLicenseeSetting>>(FakeLicenseeSettingsCacheKey);
             if (settings == null)
             {
                 settings = GetFakeLicenseeSettingList();
-                _cache.Set(CacheKey, settings);
+                _cache.Set(FakeLicenseeSettingsCacheKey, settings);
             }
 
             var licenseeName = _sessionStorage.LicenseeSession.LicenseeName;

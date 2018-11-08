@@ -47,7 +47,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Report/CustomerTurnover/Main.cshtml"));
+                    Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Desktop/Report/CustomerTurnover/Main.cshtml"));
                     Assert.That(viewModel.Param.LicenseeId, Is.EqualTo(SessionService.LicenseeSession.LicenseeId));
                     Assert.That(viewModel.CurrencyList, Is.EqualTo(SessionService.UserSession.CurrencyList));
                 });
@@ -158,7 +158,6 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                ClientViewHelper,
                 Substitute.For<IProductService>(),
                 _sportTypeDataAccess,
                 _customerTurnoverService);

@@ -91,7 +91,6 @@
                             LangService,
                             SessionService,
                             AppSettings,
-                            ClientViewHelper,
                             _oddEvenDrawNoDrawDataAccess);
         }
 

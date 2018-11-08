@@ -26,7 +26,6 @@ namespace Fanex.Athena.Controllers.Customer
     using Model.Core.DataDomain;
     using Newtonsoft.Json;
     using Resources;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Service.Report.Interfaces;
 
@@ -69,14 +68,13 @@ namespace Fanex.Athena.Controllers.Customer
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             ICustomerListService customerListService,
             IGroupComService groupComService,
             ILicenseeDataAccess licenseeDataAccess,
             IProductService productService,
             ISubsidiaryService subsidiaryService)
 #pragma warning restore S107 // Methods should not have too many parameters
-            : base(languageService, sessionService, appSetting, clientViewHelper)
+            : base(languageService, sessionService, appSetting)
         {
             _customerListService = customerListService;
             _groupComService = groupComService;
@@ -115,7 +113,7 @@ namespace Fanex.Athena.Controllers.Customer
             }
 
             ViewBag.ProductList = productAccess.ProductList.Select(x => x.ProductCode);
-            return View("~/Views/Customer/Customers.cshtml", model);
+            return View("~/Views/Desktop/Customer/Customers.cshtml", model);
         }
 
         [HttpPost]
@@ -194,7 +192,7 @@ namespace Fanex.Athena.Controllers.Customer
                 ProductAccess = this._productService.GetProductAccess(licenseeSession.LicenseeId, SessionService.UserSession.Language)
             };
 
-            return View("~/Views/Customer/CustomerDialog/LogInfo.cshtml", model);
+            return View("~/Views/Desktop/Customer/CustomerDialog/LogInfo.cshtml", model);
         }
 
         #endregion Action

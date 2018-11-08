@@ -55,7 +55,7 @@
                 Assert.Multiple(() =>
                 {
                     AssertRequiredProperties(viewModel, metaModel);
-                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Customer/BetSetting/Exchange.cshtml"));
+                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/Customer/BetSetting/Exchange.cshtml"));
                     Assert.That(viewModel.IsEnabled, Is.EqualTo(isEnabled));
                     Assert.That(viewModel.Commission, Is.EqualTo(ExtendedData));
                 });
@@ -85,7 +85,7 @@
                 Assert.Multiple(() =>
                 {
                     AssertRequiredProperties(viewModel, metaModel);
-                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Customer/BetSetting/Exchange.cshtml"));
+                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/Customer/BetSetting/Exchange.cshtml"));
                     Assert.That(viewModel.IsEnabled, Is.EqualTo(isEnabled));
                     Assert.That(viewModel.IsNoInfo, Is.True);
                 });
@@ -148,7 +148,6 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                ClientViewHelper,
                 AuthorizationService,
                 CoreBetSettingDataAccess,
                 CustomerService,

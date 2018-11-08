@@ -64,7 +64,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Report/WinLossByBetType/Main.cshtml"));
+                    Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Desktop/Report/WinLossByBetType/Main.cshtml"));
                     Assert.That(viewModel.Param.LicenseeId, Is.EqualTo(SessionService.LicenseeSession.LicenseeId));
                     Assert.That(viewModel.Param.UserId, Is.EqualTo(SessionService.UserSession.UserId));
                     Assert.That(viewModel.BalanceUpDay, Is.EqualTo(BalanceUpDate));
@@ -102,7 +102,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Report/WinLossByBetType/Main.cshtml"));
+                    Assert.That(viewResult.ViewName, Is.EqualTo("~/Views/Desktop/Report/WinLossByBetType/Main.cshtml"));
                     Assert.That(viewModel.Param, Is.EqualTo(metaModel));
                     Assert.That(viewModel.BalanceUpDay, Is.EqualTo(BalanceUpDate));
                     Assert.That(viewModel.Param.AgentListXml, Is.EqualTo(AgentListXml));
@@ -180,7 +180,6 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                ClientViewHelper,
                 productService,
                 _balanceUpDataAccess,
                 _winLossByBetTypeDataAccess);

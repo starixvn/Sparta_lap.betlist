@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using Core.Configuration;
-    using Core.Users.Interfaces;
     using Extension.Utility.Interfaces;
     using Fanex.Athena.UnitTest.Common.Helpers;
     using NSubstitute;
@@ -115,7 +114,7 @@
         }
 
         [Test]
-        public void IsFakeLicensee_SettingIsNull_ReturnTrue()
+        public void IsFakeLicensee_SettingIsNotNull_ReturnFalse()
         {
             // Arrange
             _sessionStorage.LicenseeSession.Returns(x => { return null; });
@@ -124,7 +123,7 @@
             var result = _licenseeSettingService.IsFakeLicensee();
 
             // Assert
-            Assert.That(result, Is.True);
+            Assert.That(result, Is.False);
         }
     }
 }

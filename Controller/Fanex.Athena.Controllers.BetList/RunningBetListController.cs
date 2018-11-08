@@ -19,7 +19,6 @@ namespace Fanex.Athena.Controllers.BetList
     using Resources;
     using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using VendorAdapter.Interfaces;
     using Web.ActionFilter;
@@ -42,12 +41,11 @@ namespace Fanex.Athena.Controllers.BetList
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             IProductService productService,
             IBetListService betListService,
             IBalanceUpDataAccess balanceUpDataAccess,
             ICacheRefAdapter cacheRefAdapter)
-        : base(languageService, sessionService, appSetting, clientViewHelper, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
+        : base(languageService, sessionService, appSetting, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
         {
         }
 
@@ -110,7 +108,7 @@ namespace Fanex.Athena.Controllers.BetList
                 IsAllowedCustomerCommission = SessionService.LicenseeSession.IsAllowedCustomerComm
             };
 
-            return View("~/Views/BetList/RunningBetList/Main.cshtml", model);
+            return View("~/Views/Desktop/BetList/RunningBetList/Main.cshtml", model);
         }
 
         private ActionResult Excel(BetListMetaModel metaModel, string uspKey)

@@ -41,19 +41,20 @@
         {
             // Arrange
             const long TransId = 1;
+            const int CustId = 2;
 
             var ticketResult = new TicketResult();
-            BetListService.GetMixParlayDetailTicket(SessionLicenseeId, TransId).Returns(ticketResult);
+            BetListService.GetMixParlayDetailTicket(SessionLicenseeId, TransId, CustId).Returns(ticketResult);
 
             _controller.When(x => x.Ticket(ticketResult, null, 1, true)).DoNotCallBase();
 
             // Action
-            _controller.Detail(TransId);
+            _controller.Detail(TransId, CustId);
 
             // Assert
             Assert.Multiple(() =>
             {
-                BetListService.Received().GetMixParlayDetailTicket(SessionLicenseeId, TransId);
+                BetListService.Received().GetMixParlayDetailTicket(SessionLicenseeId, TransId, CustId);
                 _controller.Received().Ticket(ticketResult, null, 1, true);
             });
         }
@@ -67,19 +68,20 @@
             const string BetCheck = "Check";
             const decimal Handicap1 = 1;
             const decimal Handicap2 = 2;
+            const int CustId = 2;
 
             var combinationTypeCombo = new[] { "OrginalText" };
             CacheRefAdapter.GetCombinationTypeCombo(BetTeam, BetCheck, Handicap1, Handicap2).Returns(combinationTypeCombo);
 
             var ticketResult = new TicketResult();
-            BetListService.GetMixParlayDetailTicket(SessionLicenseeId, TransId).Returns(ticketResult);
+            BetListService.GetMixParlayDetailTicket(SessionLicenseeId, TransId, CustId).Returns(ticketResult);
 
             var ticketText = new List<TicketText>();
             _controller.When(x => x.Ticket(ticketResult, null, 1, true)).DoNotCallBase();
             _controller.Ticket(ticketResult, null, 1, true).Returns(ticketText);
 
             // Action
-            var result = _controller.NewParlayDetail(TransId, BetTeam, BetCheck, Handicap1, Handicap2);
+            var result = _controller.NewParlayDetail(TransId, BetTeam, BetCheck, Handicap1, Handicap2, CustId);
 
             // Assert
             Assert.Multiple(() =>
@@ -98,6 +100,7 @@
             const string BetCheck = "Check";
             const decimal Handicap1 = 0;
             const decimal Handicap2 = 2;
+            const int CustId = 2;
 
             var combinationTypeCombo = new[] { "CombinationTypeCombo" };
             CacheRefAdapter.GetCombinationTypeCombo(BetTeam, BetCheck, Handicap1, Handicap2).Returns(combinationTypeCombo);
@@ -105,7 +108,7 @@
             var ticketResult = new TicketResult();
             var lrfTicket = new LrfTicket { Stake = 1, Currency = "usd" };
             ticketResult.MainTicketList.Add(lrfTicket);
-            BetListService.GetMixParlayDetailTicket(SessionLicenseeId, TransId).Returns(ticketResult);
+            BetListService.GetMixParlayDetailTicket(SessionLicenseeId, TransId, CustId).Returns(ticketResult);
 
             var ticketText = new List<TicketText>();
             _controller.When(x => x.Ticket(ticketResult, null, 1, true)).DoNotCallBase();
@@ -117,7 +120,7 @@
                                 + "</p>";
 
             // Action
-            var result = _controller.NewParlayDetail(TransId, BetTeam, BetCheck, Handicap1, Handicap2);
+            var result = _controller.NewParlayDetail(TransId, BetTeam, BetCheck, Handicap1, Handicap2, CustId);
 
             // Assert
             Assert.Multiple(() =>
@@ -136,6 +139,7 @@
             const string BetCheck = "Check";
             const decimal Handicap1 = 1;
             const decimal Handicap2 = 2;
+            const int CustId = 2;
 
             var combinationTypeCombo = new[] { "CombinationTypeCombo" };
             CacheRefAdapter.GetCombinationTypeCombo(BetTeam, BetCheck, Handicap1, Handicap2).Returns(combinationTypeCombo);
@@ -145,7 +149,7 @@
             ticketResult.MainTicketList.Add(lrfTicket1);
             var lrfTicket2 = new LrfTicket { Stake = 1, Currency = "usd", MatchId = 1 };
             ticketResult.MainTicketList.Add(lrfTicket2);
-            BetListService.GetMixParlayDetailTicket(SessionLicenseeId, TransId).Returns(ticketResult);
+            BetListService.GetMixParlayDetailTicket(SessionLicenseeId, TransId, CustId).Returns(ticketResult);
 
             var ticketText = new List<TicketText>();
             _controller.When(x => x.Ticket(ticketResult, null, 1, true)).DoNotCallBase();
@@ -157,7 +161,7 @@
                                 + "</p>";
 
             // Action
-            var result = _controller.NewParlayDetail(TransId, BetTeam, BetCheck, Handicap1, Handicap2);
+            var result = _controller.NewParlayDetail(TransId, BetTeam, BetCheck, Handicap1, Handicap2, CustId);
 
             // Assert
             Assert.Multiple(() =>

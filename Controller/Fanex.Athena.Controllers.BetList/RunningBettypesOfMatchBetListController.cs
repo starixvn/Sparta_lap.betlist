@@ -17,7 +17,6 @@ namespace Fanex.Athena.Controllers.BetList
     using Fanex.Common;
     using Service.BetList.Interfaces;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using VendorAdapter.Interfaces;
 
@@ -29,12 +28,11 @@ namespace Fanex.Athena.Controllers.BetList
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             IProductService productService,
             IBetListService betListService,
             IBalanceUpDataAccess balanceUpDataAccess,
             ICacheRefAdapter cacheRefAdapter)
-        : base(languageService, sessionService, appSetting, clientViewHelper, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
+        : base(languageService, sessionService, appSetting, productService, betListService, balanceUpDataAccess, cacheRefAdapter)
         {
         }
 
@@ -42,7 +40,7 @@ namespace Fanex.Athena.Controllers.BetList
         public ActionResult Index(BetListMetaModel metaModel)
         {
             var model = CreateDefaultMetaModel(metaModel);
-            return ProcessDefaultRequest(model, "~/Views/BetList/RunningBettypesOfMatchBetList/Main.cshtml", "Lrf_BetList_SelRunningByMultipleBettypeMatch");
+            return ProcessDefaultRequest(model, "~/Views/Desktop/BetList/RunningBettypesOfMatchBetList/Main.cshtml", "Lrf_BetList_SelRunningByMultipleBettypeMatch");
         }
 
         protected override ActionResult ExportExcel(BetListMetaModel metaModel, string uspKey)

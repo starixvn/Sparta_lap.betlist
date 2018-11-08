@@ -42,7 +42,7 @@
                 var result = controller.SignIn() as ViewResult;
 
                 // Assert
-                Assert.That(result.ViewName, Is.EqualTo("~/Views/Authorization/SignIn.cshtml"));
+                Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/Authorization/SignIn.cshtml"));
             }
         }
 
@@ -89,7 +89,7 @@
                 {
                     Assert.That(SessionService.CaptchaCode, Is.Not.EqualTo("OriginalCaptcha"));
                     Assert.That(result.ViewBag.errCode, Is.EqualTo(101));
-                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Authorization/SignIn.cshtml"));
+                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/Authorization/SignIn.cshtml"));
                 });
             }
         }
@@ -113,7 +113,7 @@
                 Assert.Multiple(() =>
                 {
                     Assert.That(result.ViewBag.errCode, Is.EqualTo(102));
-                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Authorization/SignIn.cshtml"));
+                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/Authorization/SignIn.cshtml"));
                 });
             }
         }
@@ -138,7 +138,7 @@
                 Assert.Multiple(() =>
                 {
                     Assert.That(result.ViewBag.errCode, Is.EqualTo(103));
-                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Authorization/SignIn.cshtml"));
+                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/Authorization/SignIn.cshtml"));
                 });
             }
         }
@@ -170,7 +170,7 @@
                 Assert.Multiple(() =>
                 {
                     Assert.That(result.ViewBag.errCode, Is.EqualTo(999));
-                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Authorization/SignIn.cshtml"));
+                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/Authorization/SignIn.cshtml"));
                 });
             }
         }
@@ -281,7 +281,7 @@
                 }) as RedirectToRouteResult;
 
                 // Assert
-                SessionService.Received().CreateNewSession(111, Arg.Any<int>(), Arg.Any<string>(), Arg.Any<bool>(), Arg.Any<int>());
+                SessionService.Received(1).CreateNewSession(111, Arg.Any<int>(), Arg.Any<string>(), Arg.Any<bool>());
             }
         }
     }

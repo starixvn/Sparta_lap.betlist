@@ -90,7 +90,7 @@
                 Assert.Multiple(() =>
                 {
                     AssertRequiredProperties(viewModel, metaModel);
-                    Assert.That(result.ViewName, Is.EqualTo($"~/Views/Customer/BetSetting/{viewName}.cshtml"));
+                    Assert.That(result.ViewName, Is.EqualTo($"~/Views/Desktop/Customer/BetSetting/{viewName}.cshtml"));
                     Assert.That(viewModel.IsEnabled, Is.EqualTo(expectedStatus));
                     Assert.That(viewModel.MainData.Count, Is.EqualTo(expectedNumberOfMainData));
                 });
@@ -381,7 +381,6 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                ClientViewHelper,
                 AuthorizationService,
                 CoreBetSettingDataAccess,
                 CustomerService,

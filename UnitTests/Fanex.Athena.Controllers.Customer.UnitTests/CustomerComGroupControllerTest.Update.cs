@@ -36,7 +36,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Customer/CustomerComm/UpdateGroup.cshtml"));
+                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/Customer/CustomerComm/UpdateGroup.cshtml"));
                     Assert.That(metaModel.SBComm1, Is.EqualTo(3));
                     Assert.That(metaModel.SBComm2, Is.EqualTo(6));
                     Assert.That(metaModel.SBComm3, Is.EqualTo(5));
@@ -63,7 +63,7 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Customer/CustomerComm/UpdateGroup.cshtml"));
+                    Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/Customer/CustomerComm/UpdateGroup.cshtml"));
                     Assert.That(resultInfo.IsSuccessful, Is.False);
                     Assert.That(resultInfo.Message, Is.EqualTo(ViewResources.InvalidParams));
                 });

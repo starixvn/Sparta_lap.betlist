@@ -89,7 +89,6 @@
                             LangService,
                             SessionService,
                             AppSettings,
-                            ClientViewHelper,
                             _outrightDataAccess);
         }
 

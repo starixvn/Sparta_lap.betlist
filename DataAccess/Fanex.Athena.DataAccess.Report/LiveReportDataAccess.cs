@@ -208,7 +208,6 @@ namespace Fanex.Athena.DataAccess.Report
         private static void AddParameters(IObjectDb db, LiveReportMetaModel metaModel, DateTime moveBetsDate)
         {
             db.AddInParameter("ProductCodes", DbType.String, metaModel.ProductCodeList);
-            db.AddInParameter("licenseeid", DbType.Int32, metaModel.LicenseeId);
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             db.AddInParameter("fromdate", DbType.DateTime, metaModel.FromDate);
             db.AddInParameter("todate", DbType.DateTime, metaModel.ToDate);

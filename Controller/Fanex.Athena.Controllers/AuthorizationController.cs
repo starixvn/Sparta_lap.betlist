@@ -25,16 +25,12 @@ namespace Fanex.Athena.Controllers
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Core.DTO.Users;
     using Fanex.Athena.Model.Core.MetaModel.Authorization;
-    using Fanex.Athena.Service.Core.Users;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
     using ONEbook.UM.Filters;
     using ONEbook.UM.Services;
-    using ONEbook.UM.Services.Impl;
     using Resources;
     using Service.Core.Common.Interfaces;
-    using Service.Core.Helpers;
-    using Session.Enum;
 
     public class AuthorizationController : BaseController
     {
@@ -57,12 +53,11 @@ namespace Fanex.Athena.Controllers
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             IMaintenanceService maintenanceService,
             IUserService userService,
             IAuthService authService,
             IFormsAuthenticationService formAuthenticationService)
-            : base(languageService, sessionService, appSetting, clientViewHelper)
+            : base(languageService, sessionService, appSetting)
 #pragma warning restore S107 // Methods should not have too many parameters
         {
             _maintenanceService = maintenanceService;
@@ -88,7 +83,7 @@ namespace Fanex.Athena.Controllers
 
             SetErrorForView(0, string.Empty);
             ViewBag.LogInToken = CreateToken();
-            return View("~/Views/Authorization/SignIn.cshtml");
+            return View("~/Views/Desktop/Authorization/SignIn.cshtml");
         }
 
         [CheckUMFilter]
@@ -143,7 +138,7 @@ namespace Fanex.Athena.Controllers
             }
 
             ViewBag.LogInToken = CreateToken();
-            return View("~/Views/Authorization/SignIn.cshtml");
+            return View("~/Views/Desktop/Authorization/SignIn.cshtml");
         }
 
         [HttpGet]
@@ -194,12 +189,8 @@ namespace Fanex.Athena.Controllers
             var code = CreateRandomCaptchaCode();
 
             SessionService.CaptchaCode = code;
-            var userSession = SessionService.UserSession;
-            FileContentResult img = null;
-            var viewType = userSession != null && userSession.ViewType != ClientViewType.None ? userSession.ViewType :
-                        (ClientViewType)int.Parse(AppSettings.GetValue(nameof(ClientViewType)));
 
-            img = viewType == ClientViewType.Desktop ? CreateCaptchaForNewViewType(code) : CreateCaptchaForOldViewType(code);
+            var img = CreateCaptcha(code);
 
             return File(img.FileContents, img.ContentType);
         }
@@ -386,18 +377,11 @@ namespace Fanex.Athena.Controllers
             }
         }
 
-        private FileContentResult CreateCaptchaForNewViewType(string code)
+        private FileContentResult CreateCaptcha(string code, int height = 25)
         {
-            return CreateCaptcha(code, 25, Color.Black, Color.LightGray, Color.LightGray);
-        }
+            var brushColor = Color.Black;
+            var backgroundColor = Color.LightGray;
 
-        private FileContentResult CreateCaptchaForOldViewType(string code)
-        {
-            return CreateCaptcha(code, 20, Color.White, Color.DimGray, Color.Black);
-        }
-
-        private FileContentResult CreateCaptcha(string code, int height, Color brushColor, Color backgroundColor, Color penColor)
-        {
             var iwidth = (code.Length * 12) + 10;
             using (var mem = new MemoryStream())
             using (var bmp = new Bitmap(iwidth, height))
@@ -412,12 +396,11 @@ namespace Fanex.Athena.Controllers
                 gfx.Clear(backgroundColor);
 
                 gfx.DrawString(code, f, b, random.Next(2, 12), random.Next(-1, 1));
-                gfx.DrawRectangle(new Pen(penColor), 0, 0, bmp.Width - 1, bmp.Height - 1);
 
                 for (int i = 0; i < 50; i++)
                 {
-                    int x = random.Next(bmp.Width);
-                    int y = random.Next(bmp.Height);
+                    int x = random.Next(iwidth);
+                    int y = random.Next(height);
                     bmp.SetPixel(x, y, Color.FromArgb(random.Next()));
                 }
 

@@ -37,7 +37,7 @@
                 var result = controller.Index() as ViewResult;
 
                 // Assert
-                Assert.That(result.ViewName, Is.EqualTo("~/Views/BetList/LastBetsMonitoringNew/Main.cshtml"));
+                Assert.That(result.ViewName, Is.EqualTo("~/Views/Desktop/BetList/LastBetsMonitoringNew/Main.cshtml"));
             }
         }
 
@@ -74,7 +74,6 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                ClientViewHelper,
                 _sportTypeDataAccess);
             return controller;
         }

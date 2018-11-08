@@ -20,7 +20,6 @@
     using Model.Core.DTO.Configuration;
     using ONEbook.UM.Filters;
     using Resources;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Service.Core.Utility;
     using VendorAdapter.Interfaces;
@@ -57,13 +56,12 @@
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             IProductService productService,
             IBetListService betListService,
             IBalanceUpDataAccess balanceUpDataAccess,
             ICacheRefAdapter cacheRefAdapter)
 #pragma warning restore S107 // Methods should not have too many parameters
-        : base(languageService, sessionService, appSetting, clientViewHelper)
+        : base(languageService, sessionService, appSetting)
         {
             _productService = productService;
             _betListService = betListService;
