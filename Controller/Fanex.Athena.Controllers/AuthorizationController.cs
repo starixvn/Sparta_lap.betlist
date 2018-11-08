@@ -190,7 +190,7 @@ namespace Fanex.Athena.Controllers
 
             SessionService.CaptchaCode = code;
 
-            FileContentResult img = CreateCaptchaForNewViewType(code);
+            var img = CreateCaptcha(code);
 
             return File(img.FileContents, img.ContentType);
         }
@@ -377,13 +377,11 @@ namespace Fanex.Athena.Controllers
             }
         }
 
-        private FileContentResult CreateCaptchaForNewViewType(string code)
+        private FileContentResult CreateCaptcha(string code, int height = 25)
         {
-            return CreateCaptcha(code, 25, Color.Black, Color.LightGray, Color.LightGray);
-        }
+            var brushColor = Color.Black;
+            var backgroundColor = Color.LightGray;
 
-        private FileContentResult CreateCaptcha(string code, int height, Color brushColor, Color backgroundColor, Color penColor)
-        {
             var iwidth = (code.Length * 12) + 10;
             using (var mem = new MemoryStream())
             using (var bmp = new Bitmap(iwidth, height))
@@ -398,12 +396,11 @@ namespace Fanex.Athena.Controllers
                 gfx.Clear(backgroundColor);
 
                 gfx.DrawString(code, f, b, random.Next(2, 12), random.Next(-1, 1));
-                gfx.DrawRectangle(new Pen(penColor), 0, 0, bmp.Width - 1, bmp.Height - 1);
 
                 for (int i = 0; i < 50; i++)
                 {
-                    int x = random.Next(bmp.Width);
-                    int y = random.Next(bmp.Height);
+                    int x = random.Next(iwidth);
+                    int y = random.Next(height);
                     bmp.SetPixel(x, y, Color.FromArgb(random.Next()));
                 }
 
