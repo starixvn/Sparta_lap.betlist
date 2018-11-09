@@ -1582,15 +1582,6 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This currency is not supported to play Gold Deluxe. Please check again later..
-        /// </summary>
-        public static string CurrencyNotSupportedForGoldDeluxe {
-            get {
-                return ResourceManager.GetString("CurrencyNotSupportedForGoldDeluxe", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Current Group.
         /// </summary>
         public static string CurrentGroup {
@@ -7815,15 +7806,6 @@ namespace Fanex.Athena.Resources {
         public static string UpdateGoldDeluxeBetSettings {
             get {
                 return ResourceManager.GetString("UpdateGoldDeluxeBetSettings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The Gold Deluxe bet setting of {0} was updated successfully.
-        /// </summary>
-        public static string UpdateGoldDeluxeBetSettingSuccessMsg {
-            get {
-                return ResourceManager.GetString("UpdateGoldDeluxeBetSettingSuccessMsg", resourceCulture);
             }
         }
         

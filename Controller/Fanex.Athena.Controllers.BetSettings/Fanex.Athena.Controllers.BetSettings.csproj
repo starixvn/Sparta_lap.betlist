@@ -136,7 +136,6 @@
     <Compile Include="RngCasinoBetSettingController.cs" />
     <Compile Include="BetSettingBaseController.cs" />
     <Compile Include="SportsbookBetSettingController.cs" />
-    <Compile Include="GoldDeluxeBetSettingController.cs" />
     <Compile Include="AgCasinoBetSettingController.cs" />
     <Compile Include="ThirdPartyBetSettingController.cs" />
     <Compile Include="NumberGameBetSettingController.cs" />

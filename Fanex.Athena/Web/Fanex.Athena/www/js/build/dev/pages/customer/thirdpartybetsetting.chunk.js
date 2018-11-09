@@ -1881,6 +1881,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/* Macau, Mgc
         var CHECKBOX_SELECTOR = "#enable-product";
         var PRODUCT_CONTAIN_CHECKBOX = [Product.MgcLiveCasino, Product.MgcRngCasino, Product.BetTrade, Product.Cashout];
 
+        var ProductUpdateStatusUrlMap = {
+            [Product.Macau]: "ThirdPartyBetSetting/UpdateMacauStatus",
+            [Product.MgcLiveCasino]: "ThirdPartyBetSetting/UpdateMicroGamingLiveCasinoStatus",
+            [Product.Colossusbets]: "ThirdPartyBetSetting/UpdateColossusBetsStatus",
+            [Product.MgcRngCasino]: "ThirdPartyBetSetting/UpdateMicroGamingRNGCasinoStatus",
+            [Product.BetTrade]: "ThirdPartyBetSetting/UpdateBetTradeStatus",
+            [Product.Cashout]: "ThirdPartyBetSetting/UpdateCashOutStatus",
+            [Product.GoldDeluxe]: "ThirdPartyBetSetting/UpdateGoldDeluxeStatus"
+        };
+
         var _me = {
             initialize: function () {
                 Site.initialize();
@@ -1903,11 +1913,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/* Macau, Mgc
 
             updateStatus: function ($context) {
                 var productId = parseInt($("#ProductId").val());
-                var url = _me.getUrlByProduct(productId);
-                if (url === null) {
-                    return;
+                var url = ProductUpdateStatusUrlMap[productId];
+                if (!url) {
+                    throw "Invalid product id: " + productId;
                 }
-
+                
                 var params = BetSettingStatus.getCommonPostData($context);
 
                 if (PRODUCT_CONTAIN_CHECKBOX.indexOf(productId) > -1) {
@@ -1915,32 +1925,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/* Macau, Mgc
                 }
 
                 BetSettingStatus.update(Site.resolveClientUrl(url), params);
-            },
-
-            getUrlByProduct: function (productId) {
-                var url = null;
-                switch (productId) {
-                    case Product.Macau:
-                        url = "ThirdPartyBetSetting/UpdateMacauStatus";
-                        break;
-                    case Product.MgcLiveCasino:
-                        url = "ThirdPartyBetSetting/UpdateMicroGamingLiveCasinoStatus";
-                        break;
-                    case Product.Colossusbets:
-                        url = "ThirdPartyBetSetting/UpdateColossusBetsStatus";
-                        break;
-                    case Product.MgcRngCasino:
-                        url = "ThirdPartyBetSetting/UpdateMicroGamingRNGCasinoStatus";
-                        break;
-                    case Product.BetTrade:
-                        url = "ThirdPartyBetSetting/UpdateBetTradeStatus";
-                        break;
-                    case Product.Cashout:
-                        url = "ThirdPartyBetSetting/UpdateCashOutStatus";
-                        break;
-                }
-
-                return url;
             },
 
             getStatus: function () {

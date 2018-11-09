@@ -110,13 +110,11 @@
     <Compile Include="BetSettingBaseService.cs" />
     <Compile Include="SportsbookBetSettingService.cs" />
     <Compile Include="Interfaces\IAgCasinoBetSettingService.cs" />
-    <Compile Include="Interfaces\IGoldDeluxeBetSettingService.cs" />
     <Compile Include="Interfaces\ISportsbookBetSettingService.cs" />
     <Compile Include="Interfaces\ICoreBetSettingService.cs" />
     <Compile Include="Interfaces\IThirdPartyBetSettingService.cs" />
     <Compile Include="Interfaces\INumberGameBetSettingService.cs" />
     <Compile Include="Interfaces\IDcsBetSettingService.cs" />
-    <Compile Include="GoldDeluxeBetSettingService.cs" />
     <Compile Include="AgCasinoBetSettingService.cs" />
     <Compile Include="ThirdPartyBetSettingService.cs" />
     <Compile Include="NumberGameBetSettingService.cs" />
