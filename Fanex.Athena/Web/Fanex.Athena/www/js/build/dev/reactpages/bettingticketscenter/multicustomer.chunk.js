@@ -5610,7 +5610,7 @@ var PageLayout = exports.PageLayout = function (_Component) {
         }
     }, {
         key: '_showNewParlayDetail',
-        value: function _showNewParlayDetail(transId, transIndex, refNo, handicap1, handicap2, betcheck, betteam) {
+        value: function _showNewParlayDetail(transId, transIndex, refNo, handicap1, handicap2, betcheck, betteam, custId) {
             var _this4 = this;
 
             var divEvent = document.querySelector('#divEvent_' + transId + "" + transIndex);
@@ -5618,7 +5618,7 @@ var PageLayout = exports.PageLayout = function (_Component) {
             divEvent.classList.add("mx-parlay"); //to make line-through for void-parlay-ticket
 
             if (divEvent.style.display == "none") {
-                var url = _BetList2.default.getChoiceParlayDetailUrl(transId, refNo, handicap1, handicap2, betcheck, betteam);
+                var url = _BetList2.default.getChoiceParlayDetailUrl(transId, refNo, handicap1, handicap2, betcheck, betteam, custId);
                 this.props.toggleLoader(true);
                 _axios2.default.get(url).then(function (result) {
                     var choice = _BetList2.default.buildChoiceParlayDetail(result.data);
@@ -5843,7 +5843,7 @@ var BetList = function () {
         }
     }, {
         key: 'getChoiceParlayDetailUrl',
-        value: function getChoiceParlayDetailUrl(transId, refNo, handicap1, handicap2, betcheck, betteam) {
+        value: function getChoiceParlayDetailUrl(transId, refNo, handicap1, handicap2, betcheck, betteam, custId) {
             var url = _site2.default.resolveClientUrl('api/MixParlayBetList/NewParlayDetail');
             url = _QueryString2.default.setParam(url, "transId", transId);
             url = _QueryString2.default.setParam(url, "refNo", refNo);
@@ -5851,6 +5851,7 @@ var BetList = function () {
             url = _QueryString2.default.setParam(url, "handicap2", handicap2);
             url = _QueryString2.default.setParam(url, "betcheck", betcheck);
             url = _QueryString2.default.setParam(url, "betteam", betteam);
+            url = _QueryString2.default.setParam(url, "custId", custId);
 
             return url;
         }
@@ -6946,6 +6947,8 @@ var FormFilter = exports.FormFilter = function (_Component) {
                 ToDate: _site2.default.convertDateToString(toDate),
                 ProductCodeList: this.props.selectedProduct,
                 Username: this.props.username,
+                CurrencyId: this.props.selectedCurrency.value,
+                CurrencyName: this.props.selectedCurrency.label,
                 BaseCurrency: this.props.selectedBaseCurrency,
                 IsConvertAll: this.props.isConvertAll,
                 StatusList: this.props.selectedStatus,
