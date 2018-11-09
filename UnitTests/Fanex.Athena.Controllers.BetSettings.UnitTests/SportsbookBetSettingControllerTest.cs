@@ -84,7 +84,7 @@
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
                     .Returns(new ProductAccess(new List<Product> { new Product { ProductCode = Product.SB } }));
 
-                SetUpForBetSettingEditable(true);
+                CoreBetSettingService.IsBetSettingEditable().Returns(true);
 
                 controller.HttpContext.Request[Arg.Any<string>()].Returns("1");
 
@@ -115,7 +115,7 @@
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
                     .Returns(new ProductAccess(new List<Product> { new Product { ProductCode = Product.SB } }));
 
-                SetUpForBetSettingEditable(true);
+                CoreBetSettingService.IsBetSettingEditable().Returns(true);
 
                 controller.HttpContext.Request[Arg.Any<string>()].Returns("1");
 
@@ -142,7 +142,7 @@
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
                     .Returns(new ProductAccess(new List<Product> { new Product { ProductCode = Product.SB } }));
 
-                SetUpForBetSettingEditable(true);
+                CoreBetSettingService.IsBetSettingEditable().Returns(true);
 
                 const decimal MinBet1 = 2.5m;
                 const decimal MaxBet1 = 3.552m;
@@ -193,9 +193,7 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                AuthorizationService,
-                CoreBetSettingDataAccess,
-                CustomerService,
+                CoreBetSettingService,
                 ProductService,
                 _betSettingService)
             {

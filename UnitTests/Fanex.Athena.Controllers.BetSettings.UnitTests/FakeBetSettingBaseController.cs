@@ -1,15 +1,14 @@
 ﻿namespace Fanex.Athena.Controllers.BetSettings.UnitTests
 {
     using System.Web.Mvc;
-    using DataAccess.BetSettings.Interfaces;
     using Extension.Utility;
     using Model.BetSettings.DTO;
     using Model.BetSettings.MetaModel;
     using Model.BetSettings.ViewModel;
     using Model.Customer.DTO;
+    using Service.BetSettings.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
-    using Service.Customer.Interfaces;
 
     internal class FakeBetSettingBaseController : BetSettingBaseController
     {
@@ -17,12 +16,9 @@
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IAuthorizationService authorizationService,
-            ICoreBetSettingDataAccess coreBetSettingDataAccess,
-            ICustomerService customerService,
+            ICoreBetSettingService coreBetSettingService,
             IProductService productService)
-#pragma warning restore S107 // Methods should not have too many parameters
-        : base(languageService, sessionService, appSetting, authorizationService, coreBetSettingDataAccess, customerService, productService)
+        : base(languageService, sessionService, appSetting, coreBetSettingService, productService)
         {
         }
 
@@ -31,9 +27,9 @@
             return base.AccessDenied();
         }
 
-        internal new CustomerInfo GetCustomerInfo(int licenseeId, int custId)
+        internal new CustomerInfo GetCustomerInfo(int custId)
         {
-            return base.GetCustomerInfo(licenseeId, custId);
+            return base.GetCustomerInfo(custId);
         }
 
         internal new void AssignRequiredProperties(BetSettingBaseViewModel viewModel, BetSettingMetaModel metaModel)

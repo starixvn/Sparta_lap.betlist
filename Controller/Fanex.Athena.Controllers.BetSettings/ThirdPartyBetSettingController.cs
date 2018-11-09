@@ -10,7 +10,6 @@ namespace Fanex.Athena.Controllers.BetSettings
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Constant.DataDomain;
-    using DataAccess.BetSettings.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Web.ActionFilter;
     using Model.BetSettings.MetaModel;
@@ -19,7 +18,6 @@ namespace Fanex.Athena.Controllers.BetSettings
     using Service.BetSettings.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
-    using Service.Customer.Interfaces;
 
     public class ThirdPartyBetSettingController : BetSettingBaseController
     {
@@ -36,19 +34,14 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         private readonly IThirdPartyBetSettingService _betSettingService;
 
-#pragma warning disable S107 // Methods should not have too many parameters
-
         public ThirdPartyBetSettingController(
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IAuthorizationService authorizationService,
-            ICoreBetSettingDataAccess coreBetSettingDataAccess,
-            ICustomerService customerService,
+            ICoreBetSettingService coreBetSettingService,
             IProductService productService,
             IThirdPartyBetSettingService betSettingService)
-#pragma warning restore S107 // Methods should not have too many parameters
-        : base(languageService, sessionService, appSetting, authorizationService, coreBetSettingDataAccess, customerService, productService)
+        : base(languageService, sessionService, appSetting, coreBetSettingService, productService)
         {
             _betSettingService = betSettingService;
         }
@@ -69,7 +62,7 @@ namespace Fanex.Athena.Controllers.BetSettings
             }
 
             AssignRequiredProperties(viewModel, metaModel);
-            var viewPath = $"~/Views/Desktop/Customer/BetSetting/${ProductViewFileMap[metaModel.ProductId]}.cshtml";
+            var viewPath = $"~/Views/Desktop/Customer/BetSetting/{ProductViewFileMap[metaModel.ProductId]}.cshtml";
             return View(viewPath, viewModel);
         }
 

@@ -87,7 +87,7 @@
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
                     .Returns(new ProductAccess(new List<Product> { new Product { ProductCode = Product.KN } }));
 
-                SetUpForBetSettingEditable(true);
+                CoreBetSettingService.IsBetSettingEditable().Returns(true);
 
                 controller.HttpContext.Request["id"].Returns(id);
                 controller.HttpContext.Request["custid"].Returns(custid);
@@ -114,7 +114,7 @@
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
                     .Returns(new ProductAccess(new List<Product> { new Product { ProductCode = Product.KN } }));
 
-                SetUpForBetSettingEditable(true);
+                CoreBetSettingService.IsBetSettingEditable().Returns(true);
 
                 controller.HttpContext.Request[Arg.Any<string>()].Returns("1");
 
@@ -148,7 +148,7 @@
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
                     .Returns(new ProductAccess(new List<Product> { new Product { ProductCode = Product.KN } }));
 
-                SetUpForBetSettingEditable(true);
+                CoreBetSettingService.IsBetSettingEditable().Returns(true);
 
                 const string Id = "1";
                 const string CustId = "2";
@@ -194,7 +194,7 @@
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
                     .Returns(new ProductAccess(new List<Product> { new Product { ProductCode = Product.KN } }));
 
-                SetUpForBetSettingEditable(true);
+                CoreBetSettingService.IsBetSettingEditable().Returns(true);
 
                 controller.HttpContext.Request[Arg.Any<string>()].Returns("1");
 
@@ -221,9 +221,7 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                AuthorizationService,
-                CoreBetSettingDataAccess,
-                CustomerService,
+                CoreBetSettingService,
                 ProductService,
                 _betSettingService)
             {

@@ -7,14 +7,11 @@
     using Model.BetSettings.DTO;
     using Model.BetSettings.MetaModel;
     using Model.BetSettings.ViewModel;
-    using Model.Core.DataDomain;
     using Model.Core.DTO.Common;
     using Model.Customer.DTO;
     using NSubstitute;
     using NUnit.Framework;
     using Resources;
-    using Session.Enum;
-    using Session.Model;
 
     public class BetSettingBaseControllerTest : BetSettingBaseControllerHelperTest
     {
@@ -48,14 +45,13 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                const int LicenseeId = 1;
                 const int CustId = 2;
 
                 // Action
-                controller.GetCustomerInfo(LicenseeId, CustId);
+                controller.GetCustomerInfo(CustId);
 
                 // Assert
-                CustomerService.Received().GetCustomerInfo(LicenseeId, CustId);
+                CoreBetSettingService.Received(1).GetCustomerInfo(CustId);
             }
         }
 
@@ -87,10 +83,10 @@
                 var viewModel = new BetSettingBaseViewModel();
                 var metaModel = new BetSettingMetaModel();
 
-                CustomerService.GetCustomerInfo(DefaultLicenseeSession.LicenseeId, metaModel.CustId)
+                CoreBetSettingService.GetCustomerInfo(metaModel.CustId)
                     .Returns(new CustomerInfo { SyncCasino = false });
 
-                CoreBetSettingDataAccess.GetBetSettingProducts(DefaultLicenseeSession.LicenseeId)
+                CoreBetSettingService.GetBetSettingProducts(DefaultLicenseeSession.LicenseeId)
                     .Returns(new List<BetSettingProduct> { new BetSettingProduct { ProductId = ProductTypes.RngCasino, IsEnable = isEnableRngCasino } });
 
                 // Action
@@ -125,48 +121,6 @@
                     Assert.That(result.UserId, Is.EqualTo(DefaultUserSession.UserId));
                     Assert.That(result.CustId, Is.EqualTo(CustId));
                 });
-            }
-        }
-
-        [Test]
-        public void IsBetSettingEditable_IsParasiticMode_GetPermissionFromPortalFunctionList()
-        {
-            using (var controller = CreateController())
-            {
-                // Arrange
-                StubUserSessionData(new UserSession
-                {
-                    ApplicationMode = AppMode.Parasitic,
-                    UserId = DefaultUserSession.UserId,
-                    PortalFunctionList = DefaultUserSession.PortalFunctionList
-                });
-
-                // Action
-                controller.IsBetSettingEditable();
-
-                // Assert
-                AuthorizationService.Received().HasPermissions(DefaultUserSession.PortalFunctionList, PermissionKeys.CustomerInfoEditBetSetting);
-            }
-        }
-
-        [Test]
-        public void IsBetSettingEditable_IsNotParasiticMode_GetPermissionFromFunctionIdList()
-        {
-            using (var controller = CreateController())
-            {
-                // Arrange
-                StubUserSessionData(new UserSession
-                {
-                    ApplicationMode = AppMode.Self,
-                    UserId = DefaultUserSession.UserId,
-                    PortalFunctionList = DefaultUserSession.PortalFunctionList
-                });
-
-                // Action
-                controller.IsBetSettingEditable();
-
-                // Assert
-                AuthorizationService.Received().HasPermissions(DefaultUserSession.FunctionIdList, PermissionKeys.CustomerInfoEditBetSetting);
             }
         }
 
@@ -284,9 +238,7 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                AuthorizationService,
-                CoreBetSettingDataAccess,
-                CustomerService,
+                CoreBetSettingService,
                 ProductService)
             {
                 ControllerContext = ControllerContext

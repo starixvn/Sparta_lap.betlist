@@ -1,5 +1,4 @@
-﻿/* Macau, MgcLiveCasino, Colossusbets, MgcRngCasino, BetTrade, Cashout */
-"use strict";
+﻿"use strict";
 define(["jquery", "common/site", "../common/constant", "../common/betsettingbase", "../common/betsetting.status"],
     function ($, Site, Constant, BetSettingBase, BetSettingStatus) {
         var Product = Constant.Product;

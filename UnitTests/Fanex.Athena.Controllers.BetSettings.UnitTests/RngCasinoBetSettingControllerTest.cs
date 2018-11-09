@@ -39,7 +39,7 @@
                 var metaModel = new BetSettingMetaModel { CustId = 100 };
 
                 var customer = FakeHelper.Create<CustomerInfo>();
-                CustomerService.GetCustomerInfo(SessionService.LicenseeSession.LicenseeId, metaModel.CustId).Returns(customer);
+                CoreBetSettingService.GetCustomerInfo(metaModel.CustId).Returns(customer);
 
                 _betSettingService.GetViewModel(metaModel.CustId, customer, DefaultUserSession.Language).Returns(new RngCasinoBetSettingViewModel());
 
@@ -88,7 +88,7 @@
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
                     .Returns(new ProductAccess(new List<Product> { new Product { ProductCode = Product.CS } }));
 
-                CustomerService.GetCustomerInfo(SessionService.LicenseeSession.LicenseeId, 0).Returns(new CustomerInfo { SyncCasino = false });
+                CoreBetSettingService.GetCustomerInfo(0).Returns(new CustomerInfo { SyncCasino = false });
 
                 // Action
                 var result = controller.UpdateBetSetting(0, string.Empty) as JsonResult;
@@ -112,9 +112,9 @@
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
                     .Returns(new ProductAccess(new List<Product> { new Product { ProductCode = Product.CS } }));
 
-                CustomerService.GetCustomerInfo(SessionService.LicenseeSession.LicenseeId, 0).Returns(new CustomerInfo { SyncCasino = true });
+                CoreBetSettingService.GetCustomerInfo(0).Returns(new CustomerInfo { SyncCasino = true });
 
-                SetUpForBetSettingEditable(true);
+                CoreBetSettingService.IsBetSettingEditable().Returns(true);
 
                 controller.HttpContext.Request[Arg.Any<string>()].Returns("1");
 
@@ -146,9 +146,9 @@
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
                     .Returns(new ProductAccess(new List<Product> { new Product { ProductCode = Product.CS } }));
 
-                CustomerService.GetCustomerInfo(SessionService.LicenseeSession.LicenseeId, 0).Returns(new CustomerInfo { SyncCasino = true });
+                CoreBetSettingService.GetCustomerInfo(0).Returns(new CustomerInfo { SyncCasino = true });
 
-                SetUpForBetSettingEditable(true);
+                CoreBetSettingService.IsBetSettingEditable().Returns(true);
 
                 controller.HttpContext.Request[Arg.Any<string>()].Returns("1");
 
@@ -180,9 +180,9 @@
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
                     .Returns(new ProductAccess(new List<Product> { new Product { ProductCode = Product.CS } }));
 
-                CustomerService.GetCustomerInfo(SessionService.LicenseeSession.LicenseeId, 0).Returns(new CustomerInfo { SyncCasino = true });
+                CoreBetSettingService.GetCustomerInfo(0).Returns(new CustomerInfo { SyncCasino = true });
 
-                SetUpForBetSettingEditable(true);
+                CoreBetSettingService.IsBetSettingEditable().Returns(true);
 
                 const int CustId = 1;
                 var gameTypes = new[] { 1, 2 };
@@ -246,7 +246,7 @@
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
                     .Returns(new ProductAccess(new List<Product> { new Product { ProductCode = Product.CS } }));
 
-                CustomerService.GetCustomerInfo(SessionService.LicenseeSession.LicenseeId, 0).Returns(new CustomerInfo { SyncCasino = false });
+                CoreBetSettingService.GetCustomerInfo(0).Returns(new CustomerInfo { SyncCasino = false });
 
                 // Action
                 var result = controller.UpdateStatus(0, string.Empty, 0) as JsonResult;
@@ -270,9 +270,9 @@
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
                     .Returns(new ProductAccess(new List<Product> { new Product { ProductCode = Product.CS } }));
 
-                CustomerService.GetCustomerInfo(SessionService.LicenseeSession.LicenseeId, 0).Returns(new CustomerInfo { SyncCasino = true });
+                CoreBetSettingService.GetCustomerInfo(0).Returns(new CustomerInfo { SyncCasino = true });
 
-                SetUpForBetSettingEditable(true);
+                CoreBetSettingService.IsBetSettingEditable().Returns(true);
 
                 _betSettingService.UpdateStatus(Arg.Any<BetSettingCasinoStatusMetaModel>()).Returns(new ResultInfo { Code = 0 });
 
@@ -298,9 +298,9 @@
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
                     .Returns(new ProductAccess(new List<Product> { new Product { ProductCode = Product.CS } }));
 
-                CustomerService.GetCustomerInfo(SessionService.LicenseeSession.LicenseeId, 0).Returns(new CustomerInfo { SyncCasino = true });
+                CoreBetSettingService.GetCustomerInfo(0).Returns(new CustomerInfo { SyncCasino = true });
 
-                SetUpForBetSettingEditable(true);
+                CoreBetSettingService.IsBetSettingEditable().Returns(true);
 
                 _betSettingService.UpdateStatus(Arg.Any<BetSettingCasinoStatusMetaModel>()).Returns(new ResultInfo { Code = 1, Message = "Error" });
 
@@ -321,9 +321,7 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                AuthorizationService,
-                CoreBetSettingDataAccess,
-                CustomerService,
+                CoreBetSettingService,
                 ProductService,
                 _betSettingService)
             {

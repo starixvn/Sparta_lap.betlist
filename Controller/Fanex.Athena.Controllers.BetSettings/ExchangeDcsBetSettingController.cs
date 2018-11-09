@@ -8,7 +8,6 @@ namespace Fanex.Athena.Controllers.BetSettings
 {
     using System.Linq;
     using System.Web.Mvc;
-    using DataAccess.BetSettings.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Web.ActionFilter;
@@ -18,7 +17,6 @@ namespace Fanex.Athena.Controllers.BetSettings
     using Service.BetSettings.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
-    using Service.Customer.Interfaces;
 
     public class ExchangeDcsBetSettingController : BetSettingBaseController
     {
@@ -28,19 +26,15 @@ namespace Fanex.Athena.Controllers.BetSettings
 
         private readonly IExchangeCommApiService _exchangeCommApiService;
 
-#pragma warning disable S107 // Methods should not have too many parameters
         public ExchangeDcsBetSettingController(
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IAuthorizationService authorizationService,
-            ICoreBetSettingDataAccess coreBetSettingDataAccess,
-            ICustomerService customerService,
+            ICoreBetSettingService coreBetSettingService,
             IProductService productService,
             IDcsBetSettingService betSettingService,
             IExchangeCommApiService exchangeCommApiService)
-#pragma warning restore S107 // Methods should not have too many parameters
-        : base(languageService, sessionService, appSetting, authorizationService, coreBetSettingDataAccess, customerService, productService)
+        : base(languageService, sessionService, appSetting, coreBetSettingService, productService)
         {
             _betSettingService = betSettingService;
             _exchangeCommApiService = exchangeCommApiService;
