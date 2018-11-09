@@ -36,4 +36,6 @@
   <!--Setting-->
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_CustomerUpdMemberBAStatus" EnvironmentText="_UAT2"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_CustomerSelEditCustomer" EnvironmentText="_UAT2"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Acc_Dep_CustSetting_BetLimitSettingSelect" EnvironmentText="_UAT2"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Acc_Dep_CustSetting_BetLimitUpd" EnvironmentText="_UAT2"></SpNameConfig>
 </Root>
