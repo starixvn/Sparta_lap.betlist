@@ -146,6 +146,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="CoreBetSettingServiceTest.cs" />
     <Compile Include="ExchangeCommApiServiceTest.cs" />
     <Compile Include="DcsBetSettingServiceTest.cs" />
     <Compile Include="DcsBetSettingServiceTest_BetLimit.cs" />
@@ -182,6 +183,10 @@
       <Project>{6B1431E0-E513-48BB-BE86-0756E5F6F405}</Project>
       <Name>Fanex.Athena.Constant</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\Fanex.Athena.Session\Fanex.Athena.Session.csproj">
+      <Project>{B41E38EF-54AD-4866-968F-C856DE9DC072}</Project>
+      <Name>Fanex.Athena.Session</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Model\Fanex.Athena.Model.BetSettings\Fanex.Athena.Model.BetSettings.csproj">
       <Project>{ac255686-6654-4a34-8f56-f18c502b5b0a}</Project>
       <Name>Fanex.Athena.Model.BetSettings</Name>
@@ -209,6 +214,10 @@
     <ProjectReference Include="..\..\Service\Fanex.Athena.Service.Core\Fanex.Athena.Service.Core.csproj">
       <Project>{FCFD7434-085B-4C93-848F-E1CBCEDCC5A0}</Project>
       <Name>Fanex.Athena.Service.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Service\Fanex.Athena.Service.Customer\Fanex.Athena.Service.Customer.csproj">
+      <Project>{EC87B5F7-32CA-485B-A3FF-52A5D0EDCE42}</Project>
+      <Name>Fanex.Athena.Service.Customer</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>
