@@ -136,7 +136,7 @@ namespace Fanex.Athena.Controllers
             if (content.Contains(PlaceHolder))
             {
                 var date = _balanceUpDataAccess.GetBalanceUp().BalanceUpDay;
-                return content.Replace(PlaceHolder, date.ToShortDateString());
+                return content.Replace(PlaceHolder, date.ToString("MM/dd/yyyy"));
             }
 
             return content;

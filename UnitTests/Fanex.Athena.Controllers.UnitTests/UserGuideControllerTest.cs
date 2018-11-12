@@ -182,7 +182,7 @@
                 var result = controller.Index(string.Empty) as ViewResult;
 
                 // Assert
-                Assert.That(result.Model, Is.EqualTo("xxx2/3/2018xxx"));
+                Assert.That(result.Model, Is.EqualTo("xxx02/03/2018xxx"));
             }
         }
 
