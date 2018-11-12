@@ -7,6 +7,11 @@ exports[`PageLayout  render with correct active tab 1`] = `
   />
   <t>
     <t
+      isActive={false}
+      label="MultiCustomer"
+      url="BettingTicketCenter/MultipleCustomers"
+    />
+    <t
       isActive={true}
       label="SingleCustomer"
       url="BettingTicketCenter/SingleCustomer"
@@ -32,6 +37,11 @@ exports[`PageLayout  show loader 1`] = `
     isLoading={true}
   />
   <t>
+    <t
+      isActive={false}
+      label=""
+      url="javascript:;"
+    />
     <t
       isActive={true}
       label=""
@@ -89,6 +99,17 @@ exports[`PageLayout  show popup 1`] = `
         <ul
           className="tabs"
         >
+          <li
+            className="tab"
+          >
+            <a
+              className=""
+              href="javascript:;"
+              onClick={[Function]}
+            >
+              
+            </a>
+          </li>
           <li
             className="tab"
           >

@@ -7,12 +7,12 @@ import * as types from './types'
 const Url = Site.resolveClientUrl('api/CommonDataApi/GetBettypes');
 const BETTYPE_CACHE_KEY = "BETTYPE_CACHE_KEY";
 
-function dispatchBettypeList(dispatch, data, selectedBettype, hasItemAll){
+function dispatchBettypeList(dispatch, data, selectedBettype, hasItemAll) {
     // Remove Item All
     data.length && data[0].value == 0 && data.shift();
     const itemAll = { value: 0, label: LangHelper.getSingleResource('All') };
 
-    if(hasItemAll){
+    if(hasItemAll) {
         data.unshift(itemAll);
     }
 
