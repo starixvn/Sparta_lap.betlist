@@ -1,11 +1,14 @@
 ﻿namespace Fanex.Athena.Controllers.UnitTests
 {
+    using System;
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Base.UnitTests;
     using Constant.DataDomain;
+    using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility.Interfaces;
     using Model.Core.DTO.Common;
+    using Model.Core.DTO.Configuration;
     using NSubstitute;
     using NUnit.Framework;
     using Service.Core.Common.Interfaces;
@@ -18,6 +21,8 @@
         private IProductService _productService;
 
         private IFileSystem _fileSystem;
+
+        private IBalanceUpDataAccess _balanceUpDataAccess;
 
         [OneTimeSetUp]
         public override void FixtureSetUp()
@@ -32,6 +37,7 @@
         {
             _productService = Substitute.For<IProductService>();
             _fileSystem = Substitute.For<IFileSystem>();
+            _balanceUpDataAccess = Substitute.For<IBalanceUpDataAccess>();
         }
 
         [TearDown]
@@ -152,6 +158,31 @@
 
                 // Assert
                 Assert.That(result.Model, Is.EqualTo(ExpectedContent));
+            }
+        }
+
+        [Test]
+        public void Index_WhenCall_ReplaceBalanceUpDate()
+        {
+            using (var controller = CreateController())
+            {
+                // Arrange
+                var balanceUpDate = new DateTime(2018, 2, 3);
+                _balanceUpDataAccess.GetBalanceUp().Returns(new BalanceUp
+                {
+                    BalanceUpDay = balanceUpDate
+                });
+
+                controller.Url = Url;
+
+                _fileSystem.Exists(Arg.Any<string>()).Returns(false);
+                _fileSystem.ReadFile(Arg.Any<string>()).Returns("xxx{balance-up-date}xxx");
+
+                // Action
+                var result = controller.Index(string.Empty) as ViewResult;
+
+                // Assert
+                Assert.That(result.Model, Is.EqualTo("xxx2/3/2018xxx"));
             }
         }
 
@@ -327,7 +358,13 @@
 
         private UserGuideController CreateController()
         {
-            var controller = new UserGuideController(LangService, SessionService, AppSettings, _fileSystem, _productService)
+            var controller = new UserGuideController(
+                LangService, 
+                SessionService, 
+                AppSettings, 
+                _fileSystem, 
+                _productService,
+                _balanceUpDataAccess)
             {
                 ControllerContext = ControllerContext
             };
