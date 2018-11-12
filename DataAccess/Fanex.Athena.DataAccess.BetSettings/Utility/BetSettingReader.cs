@@ -5,7 +5,6 @@
     using Common;
     using Model.BetSettings.DTO;
     using Resources;
-    using VendorAdapter;
     using VendorAdapter.Interfaces;
 
     public class BetSettingReader : IBetSettingReader
@@ -16,11 +15,6 @@
         };
 
         private readonly ICacheRefAdapter _cacheRefAdapter;
-
-        public BetSettingReader()
-        {
-            _cacheRefAdapter = new CacheRefAdapter();
-        }
 
         public BetSettingReader(ICacheRefAdapter cacheRefAdapter)
         {
