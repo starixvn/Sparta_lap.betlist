@@ -13,7 +13,8 @@ namespace Fanex.Athena.DataAccess.Dashboard
             { Wap, nameof(Wap) },
             { SmartSite, nameof(SmartSite) },
             { Tablet, nameof(Tablet) },
-            { NewAsia, nameof(NewAsia) }
+            { NewAsia, nameof(NewAsia) },
+            { MobileApp, nameof(MobileApp) }
         };
 
         public const int All = 0;
@@ -31,6 +32,8 @@ namespace Fanex.Athena.DataAccess.Dashboard
         public const int Tablet = 6;
 
         public const int NewAsia = 7;
+
+        public const int MobileApp = 8;
 
         public static string GetPlatformName(int type)
         {

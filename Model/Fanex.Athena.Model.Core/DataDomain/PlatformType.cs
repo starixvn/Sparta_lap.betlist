@@ -2,6 +2,9 @@
 {
     using Fanex.Athena.Resources;
 
+    /// <summary>
+    ///  Update dataaccess\fanex.athena.dataaccess.dashboard\platformkey.cs
+    /// </summary>
     public static class PlatformType
     {
         public const int All = 0;
