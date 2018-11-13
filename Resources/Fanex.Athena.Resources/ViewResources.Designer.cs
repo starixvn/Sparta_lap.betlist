@@ -4858,6 +4858,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mobile App.
+        /// </summary>
+        public static string MobileApp {
+            get {
+                return ResourceManager.GetString("MobileApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mode.
         /// </summary>
         public static string Mode {
