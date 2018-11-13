@@ -871,7 +871,6 @@
     <Content Include="www\css\build\dev\reactpages\subsidiaryperformance\index.chunk.js.map" />
     <Content Include="www\css\source\components\toast\toast.scss" />
     <Content Include="Content\Plugin\Toast\toast.scss" />
-    <Content Include="App_Code\GroupCommRazorHelper.cshtml" />
     <Content Include="App_Code\DesktopGroupCommRazorHelper.cshtml" />
     <Content Include="Views\Desktop\Report\LicenseeWinLossByTimeZone\Main.cshtml" />
     <Content Include="www\js\build\dev\reactpages\report\licenseewlbytimezone.chunk.js.map" />
@@ -5495,7 +5494,6 @@
     <Content Include="Views\Desktop\Customer\CustomerDialog\MoveToGroup.cshtml" />
     <Content Include="Views\Desktop\Customer\CustomerDialog\UpdateCustComm.cshtml" />
     <Content Include="App_Code\DatePickerHelper.cshtml" />
-    <Content Include="App_Code\SplitingProductHelper.cshtml" />
     <Content Include="WhoAmI.aspx" />
     <Content Include="packages.config">
       <SubType>Designer</SubType>

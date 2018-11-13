@@ -9,7 +9,7 @@
 @section ContentTitle
 {
     @ViewResources.BetListRunning - @Model.ExternalId@(Model.IsFakeLicensee ? string.Empty : " (" + Model.SystemId + ")") - 
-    <span class="base-currency">@RazorHelper.ViewBaseCurrency(Model.CurrencyName, Model.BaseCurrency)</span>
+    <span class="base-currency">@DesktopRazorHelper.ViewBaseCurrency(Model.CurrencyName, Model.BaseCurrency)</span>
         
 }
 @{

@@ -16,7 +16,7 @@
                 @ViewResources.CreatedDate
             </td>
             <td class="right-align text-bold">
-                @RazorHelper.FullDateFormat(logInfo.CreateDate)
+                @DesktopRazorHelper.FullDateFormat(logInfo.CreateDate)
             </td>
         </tr>
         <tr>
@@ -24,7 +24,7 @@
                 @ViewResources.LastLogin
             </td>
             <td class="right-align text-bold">
-                @RazorHelper.FullDateFormat(logInfo.LastLogged)
+                @DesktopRazorHelper.FullDateFormat(logInfo.LastLogged)
             </td>
         </tr>
         <tr>
@@ -32,7 +32,7 @@
                 @ViewResources.LastTxn
             </td>
             <td class="right-align text-bold">
-                @RazorHelper.FullDateFormat(logInfo.LastTransferDate)
+                @DesktopRazorHelper.FullDateFormat(logInfo.LastTransferDate)
             </td>
         </tr>
         @if (Model.ProductAccess.IsAllowBA)
@@ -50,7 +50,7 @@
                     @ViewResources.LastUpdatedBA
                 </td>
                 <td class="right-align text-bold">
-                    @RazorHelper.FullDateFormat(logInfo.LastUpdateBA)
+                    @DesktopRazorHelper.FullDateFormat(logInfo.LastUpdateBA)
                 </td>
             </tr>
         }
@@ -67,7 +67,7 @@
                 @ViewResources.LastUpdatedMsg
             </td>
             <td class="right-align text-bold">
-                @RazorHelper.FullDateFormat(logInfo.SpecialLevelUpdateDate)
+                @DesktopRazorHelper.FullDateFormat(logInfo.SpecialLevelUpdateDate)
             </td>
         </tr>
     </table>

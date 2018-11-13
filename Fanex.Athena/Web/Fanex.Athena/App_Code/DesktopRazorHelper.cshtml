@@ -443,5 +443,10 @@ productCodeList = string.IsNullOrEmpty(productCodeList) ? string.Empty : string.
 
     @productCodeList
 }
-
-
+@helper FullDateFormat(DateTime? date)
+{
+if (date != null)
+{
+        @(date.Value.ToString("MM/dd/yyyy hh:mm:ss tt"))
+}
+}
