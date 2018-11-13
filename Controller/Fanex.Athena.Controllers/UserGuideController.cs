@@ -13,6 +13,7 @@ namespace Fanex.Athena.Controllers
     using System.Web.Mvc;
     using System.Web.SessionState;
     using Constant.DataDomain;
+    using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;
     using Extension.Utility.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
@@ -37,16 +38,20 @@ namespace Fanex.Athena.Controllers
 
         private readonly IFileSystem _fileSystem;
 
+        private readonly IBalanceUpDataAccess _balanceUpDataAccess;
+
         public UserGuideController(
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
             IFileSystem fileSystem,
-            IProductService productService)
+            IProductService productService,
+            IBalanceUpDataAccess balanceUpDataAccess)
         : base(languageService, sessionService, appSetting)
         {
             _productService = productService;
             _fileSystem = fileSystem;
+            _balanceUpDataAccess = balanceUpDataAccess;
         }
 
         [AjaxRequest]
@@ -56,6 +61,7 @@ namespace Fanex.Athena.Controllers
 
             content = content.Replace("{rooturl}", Url.Content("~"));
             content = AddSpecialProducts(content);
+            content = AddBalanceUpDate(content);
 
             return View("~/Views/UserGuide/Index.cshtml", null, content);
         }
@@ -122,6 +128,18 @@ namespace Fanex.Athena.Controllers
             }
 
             return customContent;
+        }
+
+        private string AddBalanceUpDate(string content)
+        {
+            const string PlaceHolder = "{balance-up-date}";
+            if (content.Contains(PlaceHolder))
+            {
+                var date = _balanceUpDataAccess.GetBalanceUp().BalanceUpDay;
+                return content.Replace(PlaceHolder, date.ToString("MM/dd/yyyy"));
+            }
+
+            return content;
         }
 
         private string AddSpecialProducts(string content)
