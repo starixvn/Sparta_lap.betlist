@@ -18,10 +18,12 @@ describe('FormFilter ', () => {
         LangHelper.getSingleResource = jest.fn((resource) => resource);
         Object.assign(AppData, 
             { 
+                originalBaseCurrencyList: ['USD', 'EUR'],
+                currencyList: ['USD', 'EUR'],
                 statusList: ["Win", "Lose", "Draw"],
                 platformList: ["Asia", "China", "US"],
                 liveStatusList: ["Live", "NonLive"],
-                productOptions: ["SB", "BA"],
+                productList: [{value: "SB"}, {value:"BA"}],
                 baseCurrencyList: ['EUR'],
                 dateConstraint: { minDate: '06/01/2012', maxDate: '07/27/2018', limitedMonthRange: 3 }
             });
@@ -134,19 +136,27 @@ describe('FormFilter ', () => {
 
         it('model is valid - return correct result' ,() => {
             const props = {
-                isConvertAll: true,
-                selectedProduct: "BA,SB",
-                dateRange: DateRange,
                 requestParam: {
                     PageSize: 1,
                     SortBy: 'col1',
                     SortOrder: 'asc'
                 },
-                username: "tester",
+                dateRange: DateRange,
+                selectedProduct: 'BA',
+                sportList: "1234",
+                selectedSport: 1,
+                selectedBettype: 2,
+                bettypeList: 3,
+                selectedLeague: "5",
+                leagueList: 6546,
+                selectedMatch: 5,
+                matchList: 987,
+                selectedCurrency: "sd",
+                baseCurrencyList: "sdfsdfsdfsdf",
                 selectedBaseCurrency: 'USD',
-                selectedStatus: "All",
-                selectedLiveStatus: "Live",
-                selectedPlatform: "EU"
+                selectedStatus: 'status',
+                selectedPlatform: 'Asia',
+                selectedLiveStatus: 'Live'
             };
 
             const expected = {
@@ -155,9 +165,8 @@ describe('FormFilter ', () => {
                 ToDate: Site.convertDateToString(DateRange.toDate),
                 PageSize: props.requestParam.PageSize,
                 PageIndex: 1,
-                Username: props.username,
                 BaseCurrency: props.selectedBaseCurrency,
-                Status: props.selectedStatus,
+                StatusList: props.selectedStatus,
                 LiveStatus: props.selectedLiveStatus,
                 Platform: props.selectedPlatform,
                 SortBy: props.requestParam.SortBy,
@@ -170,9 +179,29 @@ describe('FormFilter ', () => {
         });
     })
 
+    
+    describe('_renderCurrencySelectList ', () => {
+        it('onChange - update setSelectedCurrency' ,() => {
+            const props = { 
+                selectedCurrency: 'EUR', 
+                setSelectedCurrency: jest.fn(), 
+                setBaseCurrencyList: jest.fn(), 
+                setSelectedBaseCurrency: jest.fn() };
+
+            const filter = new FormFilter(props);
+            const selectComponent = renderer.create(filter._renderCurrencySelectList());
+
+            const newValue = { value: 'USD' }
+            const selectedInstance = selectComponent.root.findByType(Select);
+            selectedInstance.props.onChange(newValue);
+
+            expect(props.setSelectedCurrency).toHaveBeenCalledWith(newValue);
+        });
+    })
+
     describe('_renderBaseCurrencySelectList ', () => {
         it('onChange - update setSelectedBaseCurrency' ,() => {
-            const props = { selectedBaseCurrency: 'EUR', setSelectedBaseCurrency: jest.fn() };
+            const props = { baseCurrencyList: ['EUR', 'USD'], selectedBaseCurrency: 'EUR', setSelectedBaseCurrency: jest.fn() };
 
             const filter = new FormFilter(props);
             const selectComponent = renderer.create(filter._renderBaseCurrencySelectList());
@@ -218,7 +247,7 @@ describe('FormFilter ', () => {
         })
 
         it('onChange - is valid month range - change date range state', () => {
-            const props = { dateRange: DateRange, setDateRange: jest.fn() };
+            const props = { dateRange: DateRange, setDateRange: jest.fn(), getBettypeList: jest.fn() };
             const formFilter = new FormFilter(props);
             const newDate = { fromDate: '02/02/2017', toDate: '12/12/2017' };
 
@@ -232,13 +261,38 @@ describe('FormFilter ', () => {
     describe('Event handler ', () => {
         
         it('onChange in Product filter - setSelectedProduct should be called with correct parameter', () => {
-            const props = {setSelectedProduct: jest.fn()};
+            const props = { 
+                dateRange: DateRange, 
+                setSelectedProduct: jest.fn(), 
+                getSportList: jest.fn(),
+                getBettypeList: jest.fn()
+            };
             const formFilter = new FormFilter(props);
             
             const productFilter = formFilter._renderProductSelectList();
-            productFilter.props.onChange({}, "SB,BA");
+            productFilter.props.onChange({value: "SB"});
 
-            expect(props.setSelectedProduct).toHaveBeenCalledWith("SB,BA");
+            expect(props.setSelectedProduct).toHaveBeenCalledWith("SB");
+        });
+
+        it('onChange in Sport filter - setSelectedSport should be called with correct parameter', () => {
+            const props = { dateRange: DateRange, sportList: [{value: 1}, {value:2}], setSelectedSport: jest.fn()};
+            const formFilter = new FormFilter(props);
+            
+            const selectList = formFilter._renderSportSelectList();
+            selectList.props.onChange({value: 2});
+
+            expect(props.setSelectedSport).toHaveBeenCalledWith(2);
+        });
+
+        it('onChange in Bettype filter - setSelectedBettype should be called with correct parameter', () => {
+            const props = { dateRange: DateRange, bettypeList: [{value: 1}, {value:2}], setSelectedBettype: jest.fn()};
+            const formFilter = new FormFilter(props);
+            
+            const selectList = formFilter._renderBettypeSelectList();
+            selectList.props.onChange({value: 2});
+
+            expect(props.setSelectedBettype).toHaveBeenCalledWith({value: 2});
         });
 
         it('onChange in Status filter - setSelectedStatus should be called with correct parameter', () => {
@@ -251,7 +305,7 @@ describe('FormFilter ', () => {
             expect(props.setSelectedStatus).toHaveBeenCalledWith("newItem");
         });
 
-        it('onChange in Platform filter - setSelectedStatus should be called with correct parameter', () => {
+        it('onChange in Platform filter - setSelectedPlatform should be called with correct parameter', () => {
             const props = {setSelectedPlatform: jest.fn()};
             const formFilter = new FormFilter(props);
             

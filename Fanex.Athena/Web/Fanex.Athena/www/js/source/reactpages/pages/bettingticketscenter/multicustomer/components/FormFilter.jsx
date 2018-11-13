@@ -63,14 +63,14 @@ export class FormFilter extends Component {
             FromDate: Site.convertDateToString(fromDate),
             ToDate: Site.convertDateToString(toDate),
             ProductCodeList: this.props.selectedProduct,
-            Username: this.props.username,
             CurrencyId: this.props.selectedCurrency.value,
             CurrencyName: this.props.selectedCurrency.label,
             BaseCurrency: this.props.selectedBaseCurrency,
-            IsConvertAll: this.props.isConvertAll,
             StatusList: this.props.selectedStatus,
             LiveStatus: this.props.selectedLiveStatus,
-            Platform: this.props.selectedPlatform
+            Platform: this.props.selectedPlatform,
+            SortBy: SortBy,
+            SortOrder: SortOrder
         }
     }
 
@@ -118,6 +118,7 @@ export class FormFilter extends Component {
 
     _renderProductSelectList() {
         const productList = AppData.productList;
+
         return productList && productList.length && (
            <Select instanceId="ProductList"
                 value={this.props.selectedProduct}

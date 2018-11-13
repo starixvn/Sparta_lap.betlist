@@ -6474,9 +6474,9 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 
-var _Datagrid = __webpack_require__(/*! ./Datagrid */ "./www/js/source/reactpages/pages/bettingticketscenter/multicustomer/components/Datagrid.jsx");
+var _DataGrid = __webpack_require__(/*! ./DataGrid */ "./www/js/source/reactpages/pages/bettingticketscenter/multicustomer/components/DataGrid.jsx");
 
-var _Datagrid2 = _interopRequireDefault(_Datagrid);
+var _DataGrid2 = _interopRequireDefault(_DataGrid);
 
 var _FormFilter = __webpack_require__(/*! ./FormFilter */ "./www/js/source/reactpages/pages/bettingticketscenter/multicustomer/components/FormFilter.jsx");
 
@@ -6510,7 +6510,7 @@ var AppContainer = exports.AppContainer = function (_Component) {
                 _PageLayout2.default,
                 { selectedTabIndex: '0', isLoading: this.props.isLoading },
                 _react2.default.createElement(_FormFilter2.default, null),
-                _react2.default.createElement(_Datagrid2.default, null)
+                _react2.default.createElement(_DataGrid2.default, null)
             );
         }
     }]);
@@ -6526,9 +6526,9 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps)(AppContainer);
 
 /***/ }),
 
-/***/ "./www/js/source/reactpages/pages/bettingticketscenter/multicustomer/components/Datagrid.jsx":
+/***/ "./www/js/source/reactpages/pages/bettingticketscenter/multicustomer/components/DataGrid.jsx":
 /*!***************************************************************************************************!*\
-  !*** ./www/js/source/reactpages/pages/bettingticketscenter/multicustomer/components/Datagrid.jsx ***!
+  !*** ./www/js/source/reactpages/pages/bettingticketscenter/multicustomer/components/DataGrid.jsx ***!
   \***************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -6946,14 +6946,14 @@ var FormFilter = exports.FormFilter = function (_Component) {
                 FromDate: _site2.default.convertDateToString(fromDate),
                 ToDate: _site2.default.convertDateToString(toDate),
                 ProductCodeList: this.props.selectedProduct,
-                Username: this.props.username,
                 CurrencyId: this.props.selectedCurrency.value,
                 CurrencyName: this.props.selectedCurrency.label,
                 BaseCurrency: this.props.selectedBaseCurrency,
-                IsConvertAll: this.props.isConvertAll,
                 StatusList: this.props.selectedStatus,
                 LiveStatus: this.props.selectedLiveStatus,
-                Platform: this.props.selectedPlatform
+                Platform: this.props.selectedPlatform,
+                SortBy: SortBy,
+                SortOrder: SortOrder
             };
         }
     }, {
@@ -6973,6 +6973,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
             var _this2 = this;
 
             var productList = _AppData2.default.productList;
+
             return productList && productList.length && _react2.default.createElement(_reactSelect2.default, { instanceId: 'ProductList',
                 value: this.props.selectedProduct,
                 options: productList,
