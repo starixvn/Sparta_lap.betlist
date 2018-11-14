@@ -1,5 +1,6 @@
 ﻿var webpack = require('webpack');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
+var WebpackBuildNotifierPlugin = require('webpack-build-notifier');
 var pathConfig =require('./pathReact');
 var cssRootPath = pathConfig.cssPaths.build;
 
@@ -11,6 +12,10 @@ function generatePlugins(environment) {
             exclude: ['fonts', 'images', 'dev', 'pro']
         }),
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+        new WebpackBuildNotifierPlugin({
+            title: "React Webpack Build",
+            suppressSuccess: true
+        }),
          function () {
              this.plugin('done', function (stats) {
                  setTimeout(function () {
