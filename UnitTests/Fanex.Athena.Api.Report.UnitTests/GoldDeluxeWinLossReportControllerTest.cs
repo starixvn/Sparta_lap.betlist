@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using Base.UnitTests;
     using Constant.DataDomain;
     using DataAccess.Report.Interfaces;
@@ -124,7 +123,6 @@
             var model = CreateValidMetaModel();
 
             var expectedResult = SetUpForGettingData();
-            var expectedTotal = expectedResult.DataList.AsEnumerable();
 
             // Action
             var result = _controller.Index(model);
@@ -133,7 +131,7 @@
             Assert.Multiple(() =>
             {
                 Assert.That(result.Data, Is.EqualTo(expectedResult.DataList));
-                Assert.That(result.Total, Is.EqualTo(expectedTotal));
+                Assert.That(result.Total, Is.EqualTo(expectedResult.TotalDataList));
                 Assert.That(result.SummaryTotal, Is.EqualTo(expectedResult.SummaryTotal));
             });
         }
@@ -203,7 +201,7 @@
             var model = CreateValidMetaModel(currencyId, drilldownCurrencyId);
             model.IsExportExcel = true;
 
-            var expectedFileName = $"{model.ProductCode}WinLoss_{model.FromDate:ddMMMyyyy}_All.xls";
+            var expectedFileName = $"GDWinLoss_{model.FromDate:ddMMMyyyy}_All.xls";
 
             SetUpForGettingData();
             SetUpForExportExcel();
@@ -233,7 +231,7 @@
             var tdate = DateTime.Now.AddDays(1);
             var custId = 4;
 
-            var expectedFileName = $"{model.ProductCode}WinLoss_{fdate:ddMMMyyyy}_{nameof(ThirdPartyWinLossMetaModel.DrillDownCurrencyId)}.xls";
+            var expectedFileName = $"GDWinLoss_{fdate:ddMMMyyyy}_{nameof(ThirdPartyWinLossMetaModel.DrillDownCurrencyId)}.xls";
 
             SetUpForGettingData(level);
             SetUpForExportExcel();
@@ -313,7 +311,7 @@
             var excel = Substitute.ForPartsOf<GoldDeluxeWinLossExcel>(
                    Arg.Any<string>(),
                    Arg.Any<ConvertingOption>(),
-                   Arg.Any<ThirdPartyWinLossMetaModel>(),
+                   new ThirdPartyWinLossMetaModel(),
                    new ReportResultModel<GoldDeluxeWinLoss>
                    {
                        DataList = new List<GoldDeluxeWinLoss>(),
@@ -325,7 +323,7 @@
             _controller.CreateExcel(
                    Arg.Any<string>(),
                    Arg.Any<ConvertingOption>(),
-                   Arg.Any<ThirdPartyWinLossMetaModel>(),
+                   new ThirdPartyWinLossMetaModel(),
                    new ReportResultModel<GoldDeluxeWinLoss>()).ReturnsForAnyArgs(excel);
         }
     }

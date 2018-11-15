@@ -114,7 +114,7 @@
             {
                 Assert.That(model.DrillDownLevel, Is.Zero);
                 Assert.That(model.DrillDownCustomerId, Is.Zero);
-                _service.ReceivedWithAnyArgs().GetSummaryWinloss(model);
+                _service.Received().GetSummaryWinloss(model, "Lrf_Rpt_AGCasinoWinloss");
             });
         }
 
@@ -146,7 +146,7 @@
         public void Index_ValidModelLevel1_CallServiceWithCorrectParameter()
         {
             // Arrange
-            var level = 2;
+            var level = 1;
             var fdate = DateTime.Now;
             var tdate = DateTime.Now.AddDays(1);
             var currencyId = 2;
@@ -165,7 +165,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _service.ReceivedWithAnyArgs().GetAgentWinlossDetail(model);
+                _service.Received().GetAgentWinlossDetail(model, "LRF_Rpt_AGCasinoWinloss_Ag");
                 SessionService.Received().GenerateAgentListXml(currencyId, Arg.Any<bool>());
                 Assert.That(model.DrillDownCurrencyId, Is.EqualTo(currencyId));
                 Assert.That(model.DrillDownLevel, Is.EqualTo(level));
@@ -221,7 +221,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _service.ReceivedWithAnyArgs().GetCustomerWinlossDetail(model);
+                _service.ReceivedWithAnyArgs().GetCustomerWinlossDetail(model, "LRF_Rpt_AGCasinoWinloss_Mem");
                 Assert.That(result.Data, Is.EqualTo(expectedData.DataList));
                 Assert.That(result.Total, Is.EqualTo(expectedTotal));
                 Assert.That(result.SummaryTotal, Is.EqualTo(expectedData.SummaryTotal));

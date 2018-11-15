@@ -25,21 +25,21 @@ namespace Fanex.Athena.Service.Report
 
         public SortableReportResultModel<ThirdPartyWinLoss> GetAgentWinlossDetail(
             ThirdPartyWinLossMetaModel metaModel,
-            string spname = null)
+            string spname)
         {
             return _thirdPartyWinLossDataAccess.GetAgentWinlossDetail(metaModel, spname);
         }
 
         public SortableReportResultModel<ThirdPartyWinLoss> GetCustomerWinlossDetail(
             ThirdPartyWinLossMetaModel metaModel,
-            string spname = null)
+            string spname)
         {
             return _thirdPartyWinLossDataAccess.GetCustomerWinlossDetail(metaModel, spname);
         }
 
         public SortableReportResultModel<ThirdPartyWinLoss> GetSummaryWinloss(
             ThirdPartyWinLossMetaModel metaModel,
-            string spname = null)
+            string spname)
         {
             var result = this._thirdPartyWinLossDataAccess.GetSummaryWinloss(metaModel, spname);
             var date = new System.DateTime();

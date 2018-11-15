@@ -74,7 +74,7 @@
             var expectedRowSpan = new[] { 2, -1, 1 };
 
             // Action
-            var result = _service.GetSummaryWinloss(metaModel);
+            var result = _service.GetSummaryWinloss(metaModel, SpName);
 
             // Assert
             Assert.Multiple(() =>

@@ -15,15 +15,15 @@ namespace Fanex.Athena.Service.Report.Interfaces
     {
         SortableReportResultModel<ThirdPartyWinLoss> GetAgentWinlossDetail(
             ThirdPartyWinLossMetaModel metaModel,
-            string spname = null);
+            string spname);
 
         SortableReportResultModel<ThirdPartyWinLoss> GetCustomerWinlossDetail(
             ThirdPartyWinLossMetaModel metaModel,
-            string spname = null);
+            string spname);
 
         SortableReportResultModel<ThirdPartyWinLoss> GetSummaryWinloss(
             ThirdPartyWinLossMetaModel metaModel,
-            string spname = null);
+            string spname);
 
         IList<ThirdPartyWinLoss> TotalCalc(IEnumerable<ThirdPartyWinLoss> dataList);
     }
