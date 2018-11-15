@@ -5,15 +5,14 @@ define(["jquery", "common/site", "../common/constant", "../common/betsettingbase
         var CHECKBOX_SELECTOR = "#enable-product";
         var PRODUCT_CONTAIN_CHECKBOX = [Product.MgcLiveCasino, Product.MgcRngCasino, Product.BetTrade, Product.Cashout];
 
-        var ProductUpdateStatusUrlMap = {
-            [Product.Macau]: "ThirdPartyBetSetting/UpdateMacauStatus",
-            [Product.MgcLiveCasino]: "ThirdPartyBetSetting/UpdateMicroGamingLiveCasinoStatus",
-            [Product.Colossusbets]: "ThirdPartyBetSetting/UpdateColossusBetsStatus",
-            [Product.MgcRngCasino]: "ThirdPartyBetSetting/UpdateMicroGamingRNGCasinoStatus",
-            [Product.BetTrade]: "ThirdPartyBetSetting/UpdateBetTradeStatus",
-            [Product.Cashout]: "ThirdPartyBetSetting/UpdateCashOutStatus",
-            [Product.GoldDeluxe]: "ThirdPartyBetSetting/UpdateGoldDeluxeStatus"
-        };
+        var ProductUpdateStatusUrlMap = {};
+        ProductUpdateStatusUrlMap[Product.Macau] = "ThirdPartyBetSetting/UpdateMacauStatus";
+        ProductUpdateStatusUrlMap[Product.MgcLiveCasino] = "ThirdPartyBetSetting/UpdateMicroGamingLiveCasinoStatus";
+        ProductUpdateStatusUrlMap[Product.Colossusbets] = "ThirdPartyBetSetting/UpdateColossusBetsStatus";
+        ProductUpdateStatusUrlMap[Product.MgcRngCasino] = "ThirdPartyBetSetting/UpdateMicroGamingRNGCasinoStatus";
+        ProductUpdateStatusUrlMap[Product.BetTrade] = "ThirdPartyBetSetting/UpdateBetTradeStatus";
+        ProductUpdateStatusUrlMap[Product.Cashout] = "ThirdPartyBetSetting/UpdateCashOutStatus";
+        ProductUpdateStatusUrlMap[Product.GoldDeluxe] = "ThirdPartyBetSetting/UpdateGoldDeluxeStatus";
 
         var _me = {
             initialize: function () {

@@ -35,6 +35,8 @@
                 LangService);
 
             _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();
+
+            MockSessionData();
         }
 
         [OneTimeTearDown]
@@ -61,7 +63,6 @@
                 ApplicationMode = AppMode.Self,
                 FunctionIdList = new int[0]
             });
-            StubLicenseeSessionData(new LicenseeSession { LicenseeId = 0 });
 
             // Action
             var result = _controller.Index(model);
@@ -112,6 +113,7 @@
             {
                 Assert.That(model.DrillDownLevel, Is.Zero);
                 Assert.That(model.DrillDownCustomerId, Is.Zero);
+                Assert.That(model.LicenseeId, Is.EqualTo(SessionLicenseeId));
                 _dataAccess.ReceivedWithAnyArgs().GetSummaryWinloss(model);
             });
         }
@@ -159,6 +161,7 @@
                 Assert.That(model.DrillDownCustomerId, Is.EqualTo(custId));
                 Assert.That(model.DrillDownFromDate, Is.EqualTo(fdate));
                 Assert.That(model.DrillDownToDate, Is.EqualTo(tdate));
+                Assert.That(model.LicenseeId, Is.EqualTo(SessionLicenseeId));
                 SessionService.Received().GenerateAgentListXml(currencyId, Arg.Any<bool>());
                 _dataAccess.ReceivedWithAnyArgs().GetAgentWinlossDetail(model);
             });
@@ -187,6 +190,7 @@
                 Assert.That(model.DrillDownCustomerId, Is.EqualTo(custId));
                 Assert.That(model.DrillDownFromDate, Is.EqualTo(fdate));
                 Assert.That(model.DrillDownToDate, Is.EqualTo(tdate));
+                Assert.That(model.LicenseeId, Is.EqualTo(SessionLicenseeId));
                 SessionService.Received().GenerateAgentListXml(currencyId, Arg.Any<bool>());
                 _dataAccess.ReceivedWithAnyArgs().GetCustomerWinlossDetail(model);
             });
@@ -271,7 +275,6 @@
                 ApplicationMode = AppMode.Self,
                 FunctionIdList = new int[0]
             });
-            StubLicenseeSessionData(new LicenseeSession { LicenseeId = 0 });
             SessionService.GenerateAgentListXml(Arg.Any<int>(), Arg.Any<bool>()).Returns(string.Empty);
 
             return model;

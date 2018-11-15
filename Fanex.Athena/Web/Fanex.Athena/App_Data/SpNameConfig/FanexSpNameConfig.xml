@@ -14,4 +14,7 @@
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_BetList_PlatformWinLoss_Mem" EnvironmentText="_UAT2"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_BetList_Mem" EnvironmentText="_UAT2"></SpNameConfig>
   <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Monitor_BetlistSel_New" EnvironmentText="_UAT2"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_Rpt_GoldDeluxeWinloss" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_Rpt_GoldDeluxeWinloss_Ag" EnvironmentText="_UAT1"></SpNameConfig>
+  <SpNameConfig Environment="LOCAL,DEV,UAT,SIT" SpName="Lrf_Rpt_GoldDeluxeWinloss_Mem" EnvironmentText="_UAT1"></SpNameConfig>
 </Root>

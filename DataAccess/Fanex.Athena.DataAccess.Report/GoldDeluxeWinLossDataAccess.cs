@@ -28,7 +28,7 @@
 
         public ReportResultModel<GoldDeluxeWinLoss> GetSummaryWinloss(ThirdPartyWinLossMetaModel metaModel)
         {
-            const string UspName = "Lrf_Rpt_ThirdPartyWinloss";
+            const string UspName = "Lrf_Rpt_GoldDeluxeWinloss";
             try
             {
                 using (var db = this.GetObjectDb(UspName))
@@ -38,7 +38,7 @@
 
                     using (var reader = db.ExecuteReader())
                     {
-                        return GetData(reader, metaModel);
+                        return GetSummaryWinloss(reader, metaModel);
                     }
                 }
             }
@@ -50,7 +50,7 @@
 
         public ReportResultModel<GoldDeluxeWinLoss> GetCustomerWinlossDetail(ThirdPartyWinLossMetaModel metaModel)
         {
-            const string UspName = "LRF_Rpt_ThirdPartyWinloss_Mem";
+            const string UspName = "Lrf_Rpt_GoldDeluxeWinloss_Mem";
             try
             {
                 using (var db = this.GetObjectDb(UspName))
@@ -71,7 +71,7 @@
 
         public ReportResultModel<GoldDeluxeWinLoss> GetAgentWinlossDetail(ThirdPartyWinLossMetaModel metaModel)
         {
-            const string UspName = "LRF_Rpt_ThirdPartyWinloss_Ag";
+            const string UspName = "Lrf_Rpt_GoldDeluxeWinloss_Ag";
             try
             {
                 using (var db = this.GetObjectDb(UspName))
@@ -98,7 +98,7 @@
                 summaryTotal[currency].LicenseeWL += reader.ToDecimal("licenseewinlost" + currency);
                 summaryTotal[currency].TurnOver += reader.ToDecimal("turnover" + currency);
                 summaryTotal[currency].TipsAmount += reader.ToDecimal("tipsamount" + currency);
-                summaryTotal[currency].TipsShare += reader.ToDecimal("tipsshare" + currency);
+                summaryTotal[currency].TipsShare += reader.ToDecimal("tipssharing" + currency);
                 summaryTotal[currency].AmountDue += reader.ToDecimal("amountdue" + currency);
             }
         }
@@ -108,12 +108,10 @@
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             db.AddInParameter("fromdate", DbType.Date, drilldown ? metaModel.DrillDownFromDate : metaModel.FromDate.Date);
             db.AddInParameter("todate", DbType.Date, drilldown ? metaModel.DrillDownToDate : metaModel.ToDate.Date);
-            db.AddInParameter("productid", DbType.Int32, ProductTypes.GoldDeluxe);
+            db.AddInParameter("licenseeId", DbType.Int32, metaModel.LicenseeId);
         }
 
-        [SuppressMessage("StyleCop.CSharp.StylecopPlus.Rules", "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
-        private ReportResultModel<GoldDeluxeWinLoss> GetData(IDataReader reader, ThirdPartyWinLossMetaModel metaModel)
+        private ReportResultModel<GoldDeluxeWinLoss> GetData(IDataReader reader, ThirdPartyWinLossMetaModel metaModel, int rowSpan = 0)
         {
             var result = new List<GoldDeluxeWinLoss>();
             var summaryTotal = SystemConstants.BaseCurrencyList.ToDictionary(x => x, x => new GoldDeluxeWinLoss());
@@ -121,6 +119,9 @@
             var winlostColumn = "winlost" + metaModel.BaseCurrency;
             var licenseewlColumn = "licenseewinlost" + metaModel.BaseCurrency;
             var turnoverColumn = "turnover" + metaModel.BaseCurrency;
+            var tipsAmountColumn = "tipsamount" + metaModel.BaseCurrency;
+            var tipsShareColumn = "tipssharing" + metaModel.BaseCurrency;
+            var amountDueColumn = "amountdue" + metaModel.BaseCurrency;
 
             var hasSystemId = reader.HasColumn("username");
             var hasExternalId = reader.HasColumn("nickname");
@@ -128,29 +129,12 @@
             var hasWinlostDate = reader.HasColumn("winlostdate");
 
             var index = 1;
-            var date = new DateTime();
-            var rowSpan = -1;
             while (reader.Read())
             {
                 var currencyId = reader.ToInt("currency");
-                var winlostDate = hasWinlostDate ? (DateTime?)reader.ToDateTime("winlostdate") : metaModel.DrillDownFromDate;
-                if (hasWinlostDate)
-                {
-                    if (date != winlostDate)
-                    {
-                        index++;
-                        date = winlostDate ?? date;
-                        rowSpan = 1;
-                    }
-                    else
-                    {
-                        rowSpan++;
-                    }
-                }
-
                 var item = new GoldDeluxeWinLoss
                 {
-                    Index = index,
+                    Index = index++,
                     SystemId = hasSystemId ? reader.ToString("username") : string.Empty,
                     ExternalId = hasExternalId ? reader.ToString("nickname") : string.Empty,
                     CustomerId = hasCustomerId ? reader.ToInt("custid") : 0,
@@ -160,10 +144,10 @@
                     LicenseeWL = reader.ToDecimal(licenseewlColumn),
                     TurnOver = reader.ToDecimal(turnoverColumn),
                     TotalTransaction = reader.ToInt("totaltrans"),
-                    Date = winlostDate,
-                    TipsAmount = reader.ToDecimal("tipsamount"),
-                    TipsShare = reader.ToDecimal("tipsshare"),
-                    AmountDue = reader.ToDecimal("amountdue"),
+                    Date = hasWinlostDate ? (DateTime?)reader.ToDateTime("winlostdate") : metaModel.DrillDownFromDate,
+                    TipsAmount = reader.ToDecimal(tipsAmountColumn),
+                    TipsShare = reader.ToDecimal(tipsShareColumn),
+                    AmountDue = reader.ToDecimal(amountDueColumn),
                     RowSpan = rowSpan
                 };
 
@@ -197,6 +181,30 @@
                 TipsShare = g.Sum(p => p.TipsShare),
                 AmountDue = g.Sum(p => p.AmountDue)
             }).ToList();
+        }
+
+        public ReportResultModel<GoldDeluxeWinLoss> GetSummaryWinloss(IDataReader reader, ThirdPartyWinLossMetaModel metaModel)
+        {
+            var result = GetData(reader, metaModel, -1);
+            DateTime? date = new DateTime();
+            var index = 1;
+            var dataList = result.DataList;
+            var i = 0;
+            var total = dataList.Count();
+            
+            while (i < total)
+            {
+                var item = dataList.ElementAt(i);
+                date = item.Date;
+
+                item.RowSpan = dataList.Count(x => x.Date == date);
+                item.Index = index;
+
+                index++;
+                i += item.RowSpan;
+            }
+
+            return result;
         }
     }
 }
