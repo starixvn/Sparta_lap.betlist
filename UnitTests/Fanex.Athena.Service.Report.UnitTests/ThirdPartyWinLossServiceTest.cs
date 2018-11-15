@@ -60,6 +60,7 @@
         public void GetSummaryWinloss_WhenCall_ReturnCorrectData()
         {
             // Arrange
+            const string SpName = "SPTest";
             var metaModel = new ThirdPartyWinLossMetaModel();
 
             var dataList = new SortableList<ThirdPartyWinLoss>
@@ -68,7 +69,7 @@
                 new ThirdPartyWinLoss { Date = new DateTime(2017, 1, 1) },
                 new ThirdPartyWinLoss { Date = null },
             };
-            _dataAccess.GetSummaryWinloss(metaModel).Returns(new SortableReportResultModel<ThirdPartyWinLoss> { DataList = dataList });
+            _dataAccess.GetSummaryWinloss(metaModel, SpName).Returns(new SortableReportResultModel<ThirdPartyWinLoss> { DataList = dataList });
 
             var expectedRowSpan = new[] { 2, -1, 1 };
 

@@ -2135,9 +2135,6 @@
     <Content Include="jasmine-specs\Report\microgamingwinloss-test.js" />
     <Content Include="jasmine-specs\Report\microgamingwinloss.option-test.js" />
     <Content Include="jasmine-specs\Report\report-test.js" />
-    <Content Include="jasmine-specs\Report\Result-test.js" />
-    <Content Include="jasmine-specs\Report\thirdpartywinloss-test.js" />
-    <Content Include="jasmine-specs\Report\thirdpartywinloss.option-test.js" />
     <Content Include="jasmine-specs\setup.js" />
     <Content Include="Jasmine\SpecRunner.html" />
     <Content Include="Jasmine\SpecRunnerReport.html" />

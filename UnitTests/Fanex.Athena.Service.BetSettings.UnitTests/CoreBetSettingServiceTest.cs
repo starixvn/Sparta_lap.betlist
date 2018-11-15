@@ -135,7 +135,6 @@
                 Is.EqualTo(new[] { ProductTypes.Sportsbook, ProductTypes.Macau }));
         }
 
-
         private static IEnumerable<BetSettingProduct> GetSampleBetSettingProducts()
         {
             return new[]

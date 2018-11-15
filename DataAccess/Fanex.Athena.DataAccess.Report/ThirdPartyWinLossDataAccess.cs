@@ -29,12 +29,11 @@ namespace Fanex.Athena.DataAccess.Report
         {
         }
 
-        public SortableReportResultModel<ThirdPartyWinLoss> GetSummaryWinloss(ThirdPartyWinLossMetaModel metaModel, string spname = null)
+        public SortableReportResultModel<ThirdPartyWinLoss> GetSummaryWinloss(ThirdPartyWinLossMetaModel metaModel, string spname)
         {
-            var uspName = spname ?? "Lrf_Rpt_ThirdPartyWinloss";
             try
             {
-                using (var db = this.GetObjectDb(uspName))
+                using (var db = this.GetObjectDb(spname))
                 {
                     UpdateUspParams(db, metaModel, false);
                     db.AddInParameter("ReportType", DbType.Int32, metaModel.ReportBy);
@@ -47,16 +46,15 @@ namespace Fanex.Athena.DataAccess.Report
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException, uspName, metaModel);
+                throw new DataAccessException(sqlException, spname, metaModel);
             }
         }
 
-        public SortableReportResultModel<ThirdPartyWinLoss> GetCustomerWinlossDetail(ThirdPartyWinLossMetaModel metaModel, string spname = null)
+        public SortableReportResultModel<ThirdPartyWinLoss> GetCustomerWinlossDetail(ThirdPartyWinLossMetaModel metaModel, string spname)
         {
-            var uspName = spname ?? "LRF_Rpt_ThirdPartyWinloss_Mem";
             try
             {
-                using (var db = this.GetObjectDb(uspName))
+                using (var db = this.GetObjectDb(spname))
                 {
                     db.AddInParameter("custid", DbType.Int32, metaModel.DrillDownCustomerId);
                     UpdateUspParams(db, metaModel, true);
@@ -68,16 +66,15 @@ namespace Fanex.Athena.DataAccess.Report
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException, uspName, metaModel);
+                throw new DataAccessException(sqlException, spname, metaModel);
             }
         }
 
-        public SortableReportResultModel<ThirdPartyWinLoss> GetAgentWinlossDetail(ThirdPartyWinLossMetaModel metaModel, string spname = null)
+        public SortableReportResultModel<ThirdPartyWinLoss> GetAgentWinlossDetail(ThirdPartyWinLossMetaModel metaModel, string spname)
         {
-            var uspName = spname ?? "LRF_Rpt_ThirdPartyWinloss_Ag";
             try
             {
-                using (var db = this.GetObjectDb(uspName))
+                using (var db = this.GetObjectDb(spname))
                 {
                     UpdateUspParams(db, metaModel, true);
                     using (var reader = db.ExecuteReader())
@@ -88,7 +85,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
             catch (ObjectDbException sqlException)
             {
-                throw new DataAccessException(sqlException, uspName, metaModel);
+                throw new DataAccessException(sqlException, spname, metaModel);
             }
         }
 
