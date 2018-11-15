@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Service.BetSettings
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Constant.DataDomain;
@@ -13,7 +14,6 @@ namespace Fanex.Athena.Service.BetSettings
     using DataAccess.BetSettings.Interfaces;
     using Fanex.Athena.Model.BetSettings.DTO;
     using Fanex.Athena.Model.BetSettings.ViewModel;
-    using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Service.BetSettings.Interfaces;
     using Resources;
@@ -76,7 +76,12 @@ namespace Fanex.Athena.Service.BetSettings
         private BetSetting GetESportsSetting(int licenseeId, int custId)
         {
             var dataList = _dcsBetSettingService.GetBetSettings(licenseeId, custId, ProductTypes.Sportsbooks2);
-            return dataList.FirstOrDefault();
+            if (!dataList.Any())
+            {
+                throw new InvalidOperationException("There is no E-sport setting data.");
+            }
+
+            return dataList.First();
         }
     }
 }

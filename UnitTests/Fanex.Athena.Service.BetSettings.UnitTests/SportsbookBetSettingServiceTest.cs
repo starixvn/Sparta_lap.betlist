@@ -60,6 +60,10 @@
                 }
             };
             _dataAccess.GetBetSetting(CustId).Returns(viewModel);
+            _dcsBetSettingService.GetBetSettings(LicenseeId, CustId, Arg.Any<int>()).Returns(new List<BetSetting>
+            {
+                new BetSetting()
+            });
 
             // Action
             var result = _service.GetViewModel(LicenseeId, CustId);
@@ -69,6 +73,25 @@
             {
                 Assert.That(result.MainData.Count, Is.EqualTo(viewModel.MainData.Count));
             });
+        }
+
+        [Test]
+        public void GetViewModel_NoEsportData_ThrowException()
+        {
+            // Arrange
+            _authorizationService.HasPermissionOnData(Arg.Any<int>(), Arg.Any<int>(), Arg.Any<long>()).Returns(true);
+            var viewModel = new BetSettingViewModel
+            {
+                MainData = new List<BetSetting>()
+            };
+            _dataAccess.GetBetSetting(CustId).Returns(viewModel);
+            _dcsBetSettingService.GetBetSettings(LicenseeId, CustId, Arg.Any<int>()).Returns(new List<BetSetting>());
+
+            // Action
+            TestDelegate testDelegate = () => _service.GetViewModel(LicenseeId, CustId);
+
+            // Assert
+            Assert.Throws<System.InvalidOperationException>(testDelegate, "sdfsdf");
         }
 
         [Test]
