@@ -1,9 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Web;
 using System.Web.Script.Serialization;
-using Fanex.Athena.DataAccess.Core.Exception;
 using Fanex.Athena.Service.Core.Utility.Interfaces;
-using Fanex.Athena.Session;
 using Fanex.Athena.Session.Interfaces;
 using Fanex.Logging;
 
@@ -24,16 +21,8 @@ namespace Fanex.Athena.Service.Core.Utility
 
         public void Error(System.Exception exception, string additionalMessage = null)
         {
-            var data = GetCustomInfo(string.IsNullOrEmpty(additionalMessage) ? exception.GetType().ToString() : additionalMessage);
-            var dataAccessException = exception as DataAccessException;
-            if (dataAccessException != null)
-            {
-                data.Add("DataAccess Param", dataAccessException.JsonParam);
-            }
-
-            var jsonData = new JavaScriptSerializer().Serialize(data);
-
-            _logger.Error(jsonData, exception);
+            var data = GetCustomInfo(additionalMessage);
+            Logging.Extensions.Web.ExceptionHandler.Handle(exception, data);
         }
 
         public void Error(string message)
@@ -63,10 +52,6 @@ namespace Fanex.Athena.Service.Core.Utility
                 dictionary.Add("Licensee", licenseeSession.LicenseeId + "-" + licenseeSession.LicenseeName);
                 dictionary.Add("User", userSession.UserId + "-" + userSession.UserName);
             }
-
-            var request = HttpContext.Current.Request;
-            dictionary.Add("RawUrl", request.RawUrl);
-            dictionary.Add("UrlReferrer", request.UrlReferrer);
 
             return dictionary;
         }

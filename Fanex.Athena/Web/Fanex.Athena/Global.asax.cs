@@ -25,6 +25,8 @@ namespace Fanex.Athena
     using Fanex.RemotingRef;
     using Fanex.Result.Core.Base;
     using Fanex.Result.Core.RemotingRef;
+    using Logging.Extensions.Database;
+    using Logging.Extensions.Web;
     using Service.Core.Utility;
     using Service.Core.Utility.Interfaces;
 
@@ -39,16 +41,10 @@ namespace Fanex.Athena
                 // Code that runs when an unhandled error occurs
                 var exception = Server.GetLastError();
 
-                if (exception is HttpAntiForgeryException)
-                {
-                    return;
-                }
-
-                var httpException = exception as HttpException;
-                if (httpException != null && httpException.GetHttpCode() == 404)
-                {
-                    return;
-                }
+                Logging.Extensions.Web.ExceptionHandler.UseConfig(new LoggingConfiguration())
+                    .IgnoreException<HttpAntiForgeryException>()
+                    .GetHttpHeaderInfo()
+                    .UseGetDbExceptionInfo(DatabaseInfoGetters.GetDbExceptionInfo);
 
                 // Exception when passing wrong data type to action method
                 if (exception.TargetSite.DeclaringType == typeof(ActionDescriptor) &&
@@ -96,6 +92,11 @@ namespace Fanex.Athena
                .FromApplication("Fanex.LAP");
                 BetListManager.RegisterRemotingRef(new CacheRef());
                 ResultCoreManager.RegisterRefDataHelper(new RefDataHelper());
+
+                Logging.Extensions.Web.ExceptionHandler.UseConfig(new LoggingConfiguration())
+                    .IgnoreException<HttpAntiForgeryException>()
+                    .GetHttpHeaderInfo()
+                    .UseGetDbExceptionInfo(DatabaseInfoGetters.GetDbExceptionInfo);
 
                 DIConfig.Register();
             }
