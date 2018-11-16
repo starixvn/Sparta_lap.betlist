@@ -328,20 +328,21 @@
 
         private void SetUpForExportExcel()
         {
-            var excel = Substitute.ForPartsOf<ThirdPartyWinLossExcel>(
+            var excel = Substitute.ForPartsOf<ThirdPartyWinLossExcel<ThirdPartyWinLoss>>(
                    Arg.Any<string>(),
                    Arg.Any<ConvertingOption>(),
                    new ThirdPartyWinLossMetaModel(),
-                   new ThirdPartyWinLossViewModel
+                   new ReportResultModel<ThirdPartyWinLoss>()
                    {
-                       MainResult = new ThirdPartyWinLoss[] { }
+                       DataList = new ThirdPartyWinLoss[] { }
                    });
             excel.When(x => x.Export()).DoNotCallBase();
 
             _controller.CreateExcel(
                    Arg.Any<string>(),
                    Arg.Any<ConvertingOption>(),
-                   new ThirdPartyWinLossViewModel()).ReturnsForAnyArgs(excel);
+                   new ThirdPartyWinLossMetaModel(),
+                   new ReportResultModel<ThirdPartyWinLoss>()).ReturnsForAnyArgs(excel);
         }
     }
 }

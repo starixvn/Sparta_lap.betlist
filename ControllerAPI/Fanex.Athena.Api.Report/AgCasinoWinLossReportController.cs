@@ -58,15 +58,13 @@ namespace Fanex.Athena.Api.Report
             return ProcessRequest(metaModel, null, null);
         }
 
-        protected internal virtual ThirdPartyWinLossExcel CreateExcel(
+        protected internal virtual ThirdPartyWinLossExcel<ThirdPartyWinLoss> CreateExcel(
             string templatePath,
             ConvertingOption convertingOption,
-            ThirdPartyWinLossViewModel excelModel)
+            ThirdPartyWinLossMetaModel metaModel,
+            ReportResultModel<ThirdPartyWinLoss> resultData)
         {
-            return new ThirdPartyWinLossExcel(templatePath, convertingOption, excelModel.Param, excelModel)
-            {
-                Level = excelModel.Param.DrillDownLevel
-            };
+            return new ThirdPartyWinLossExcel<ThirdPartyWinLoss>(templatePath, convertingOption, metaModel, resultData);
         }
 
         private static dynamic GetEmptyResult()
@@ -81,8 +79,7 @@ namespace Fanex.Athena.Api.Report
 
         private HttpResponseMessage ExportExcel(
             ThirdPartyWinLossMetaModel metaModel,
-            IEnumerable<ThirdPartyWinLoss> dataList,
-            IDictionary<string, ThirdPartyWinLoss> summaryTotal)
+            ReportResultModel<ThirdPartyWinLoss> resultData)
         {
             var userSession = SessionService.UserSession;
             var templatePath = HostingEnvironment.MapPath(@"~/App_Data/Template/Reports/ThirdPartyWinLoss.xls");
@@ -105,14 +102,8 @@ namespace Fanex.Athena.Api.Report
             }
 
             metaModel.ProductName = ViewResources.ProductAGC;
-            var excelModel = new ThirdPartyWinLossViewModel
-            {
-                MainResult = dataList.ToList(),
-                SummaryTotal = summaryTotal,
-                Param = metaModel
-            };
-
-            var excel = CreateExcel(templatePath, convertingOption, excelModel);
+            
+            var excel = CreateExcel(templatePath, convertingOption, metaModel, resultData);
 
             excel.Export();
 
@@ -140,7 +131,7 @@ namespace Fanex.Athena.Api.Report
 
                 if (metaModel.IsExportExcel)
                 {
-                    return ExportExcel(metaModel, data.DataList, data.SummaryTotal);
+                    return ExportExcel(metaModel, data);
                 }
 
                 if (data.DataList != null && data.DataList.Any())

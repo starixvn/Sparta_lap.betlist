@@ -5,6 +5,7 @@ using Fanex.Athena.Excel.Base.Entities;
 using Fanex.Athena.Excel.Base.Extension;
 using Fanex.Athena.Excel.Report.UnitTests.TestableClasses;
 using Fanex.Athena.Model.Core.MetaModel.Product;
+using Fanex.Athena.Model.Core.ResultModel;
 using Fanex.Athena.Model.Report.DTO;
 using Fanex.Athena.Model.Report.MetaModel;
 using Fanex.Athena.Model.Report.ViewModel;
@@ -49,9 +50,13 @@ namespace Fanex.Athena.Excel.Report.UnitTests
                 }
         };
 
-        private static readonly ThirdPartyWinLossViewModel ViewModel = new ThirdPartyWinLossViewModel
+        private static readonly ReportResultModel<ThirdPartyWinLoss> ResultData = new ReportResultModel<ThirdPartyWinLoss>
         {
-            MainResult = new List<ThirdPartyWinLoss>
+            DataList = new List<ThirdPartyWinLoss>
+            {
+                DataItem
+            },
+            TotalDataList = new List<ThirdPartyWinLoss>
             {
                 DataItem
             },
@@ -206,12 +211,12 @@ namespace Fanex.Athena.Excel.Report.UnitTests
 
         private static ThirdPartyWinLossExcelTestable CreateExcel(int level = 0)
         {
+            MetaModel.DrillDownLevel = level;
             var excel = Substitute.ForPartsOf<ThirdPartyWinLossExcelTestable>(
                 string.Empty,
                 new ConvertingOption(),
                 MetaModel,
-                ViewModel);
-            excel.Level = level;
+                ResultData);
             excel.TemplateSheet.Returns(Substitute.For<ISheet>());
             return excel;
         }
