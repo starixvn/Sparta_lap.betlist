@@ -4695,6 +4695,45 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             formatter: jqGridAdditional.formatLicenseeWl
         };
 
+        var tipsAmountColumn =
+        {
+            name: 'TipsAmount',
+            index: 'TipsAmount',
+            width: 100,
+            align: 'right',
+            sortable: false,
+            resizable: false,
+            hidden: false,
+            title: true,
+            formatter: jqGridAdditional.formatDecimal
+        };
+
+        var tipsShareColumn =
+        {
+            name: 'TipsShare',
+            index: 'TipsShare',
+            width: 100,
+            align: 'right',
+            sortable: false,
+            resizable: false,
+            hidden: false,
+            title: true,
+            formatter: jqGridAdditional.formatDecimal
+        };
+
+        var amountDueColumn =
+        {
+            name: 'AmountDue',
+            index: 'AmountDue',
+            width: 100,
+            align: 'right',
+            sortable: false,
+            resizable: false,
+            hidden: false,
+            title: true,
+            formatter: jqGridAdditional.formatDecimal
+        };
+
         var currencyIdColumn =
         {
             name: 'CurrencyId',
@@ -4718,15 +4757,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
         };
 
         var colNameList = ['#', 'Date', 'ExternalId', "SystemId", "Currency",
-            'Turnover', 'TotalTransaction', 'CustomerW_L', 'LicenseeW_L', 'CurrencyId', 'CustomerId'];
+            'Turnover', 'TotalTransaction', 'CustomerW_L', 'LicenseeW_L',
+            'TipsAmount', 'TipsShare', 'AmountDue', 'CurrencyId', 'CustomerId'];
 
         var colModelList = [indexColumn, dateColumn, externalIdColumn, systemIdColumn, currencyColumn,
-            turnoverColumn, totalTransColumn, customerWlColumn, licenseeWlColumn, currencyIdColumn, customerIdColumn];
+            turnoverColumn, totalTransColumn, customerWlColumn, licenseeWlColumn,
+            tipsAmountColumn, tipsShareColumn, amountDueColumn, currencyIdColumn, customerIdColumn];
 
         var _me = new ThirdPartyWinLossOption({
             TotalColspan: [2, 2, 3],
-            UrlData: 'api/ThirdPartyWinLossReport/Index',
-            UrlExcelData: 'api/ThirdPartyWinLossReport/Index',
+            UrlData: 'api/GoldDeluxeWinLossReport/Index',
+            UrlExcelData: 'api/GoldDeluxeWinLossReport/Index',
             ColNameList: colNameList,
             ColModelList: colModelList
         });

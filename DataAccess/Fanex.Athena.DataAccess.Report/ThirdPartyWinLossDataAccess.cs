@@ -9,6 +9,7 @@ namespace Fanex.Athena.DataAccess.Report
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
     using Core;
     using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Extensions;
@@ -22,14 +23,14 @@ namespace Fanex.Athena.DataAccess.Report
     using Model.Core.ResultModel;
     using Session.Interfaces;
 
-    public class ThirdPartyWinLossDataAccess : BaseDataAccess, IThirdPartyWinLossDataAccess
+    public class ThirdPartyWinLossDataAccess<T> : BaseDataAccess, IThirdPartyWinLossDataAccess<T> where T : ThirdPartyWinLoss
     {
         public ThirdPartyWinLossDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
             : base(appSetting, sessionStorage)
         {
         }
 
-        public SortableReportResultModel<ThirdPartyWinLoss> GetSummaryWinloss(ThirdPartyWinLossMetaModel metaModel, string spname)
+        public ReportResultModel<T> GetSummaryWinloss(ThirdPartyWinLossMetaModel metaModel, string spname)
         {
             try
             {
@@ -40,7 +41,9 @@ namespace Fanex.Athena.DataAccess.Report
 
                     using (var reader = db.ExecuteReader())
                     {
-                        return GetData(reader, metaModel);
+                        var result = GetData(reader, metaModel, -1);
+                        AddRowSpan(result.DataList);
+                        return result;
                     }
                 }
             }
@@ -50,7 +53,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        public SortableReportResultModel<ThirdPartyWinLoss> GetCustomerWinlossDetail(ThirdPartyWinLossMetaModel metaModel, string spname)
+        public ReportResultModel<T> GetCustomerWinlossDetail(ThirdPartyWinLossMetaModel metaModel, string spname)
         {
             try
             {
@@ -70,7 +73,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        public SortableReportResultModel<ThirdPartyWinLoss> GetAgentWinlossDetail(ThirdPartyWinLossMetaModel metaModel, string spname)
+        public ReportResultModel<T> GetAgentWinlossDetail(ThirdPartyWinLossMetaModel metaModel, string spname)
         {
             try
             {
@@ -89,18 +92,28 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        private static void ReadSummaryTotal(IDataReader reader, IDictionary<string, ThirdPartyWinLoss> summaryTotal)
+        private static void AddRowSpan(IEnumerable<T> dataList)
         {
-            foreach (var currency in SystemConstants.BaseCurrencyList)
+            DateTime? date = new DateTime();
+            var index = 1;
+            var i = 0;
+            var total = dataList.Count();
+
+            while (i < total)
             {
-                summaryTotal[currency].CustomerWinLoss += reader.ToDecimal("winlost" + currency);
-                summaryTotal[currency].TotalTransaction += reader.ToInt("totaltrans");
-                summaryTotal[currency].LicenseeWL += reader.ToDecimal("licenseewinlost" + currency);
-                summaryTotal[currency].TurnOver += reader.ToDecimal("turnover" + currency);
+                var item = dataList.ElementAt(i);
+                date = item.Date;
+
+                item.RowSpan = dataList.Count(x => x.Date == date);
+                item.Index = index;
+
+                index++;
+                i += item.RowSpan;
             }
         }
 
-        private static void UpdateUspParams(IObjectDb db, ThirdPartyWinLossMetaModel metaModel, bool drilldown)
+        [CLSCompliant(false)]
+        protected virtual void UpdateUspParams(IObjectDb db, ThirdPartyWinLossMetaModel metaModel, bool drilldown)
         {
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
             db.AddInParameter("fromdate", DbType.Date, drilldown ? metaModel.DrillDownFromDate : metaModel.FromDate.Date);
@@ -111,14 +124,26 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        private SortableReportResultModel<ThirdPartyWinLoss> GetData(IDataReader reader, ThirdPartyWinLossMetaModel metaModel)
+        protected virtual void ReadSummaryTotal(IDataReader reader, IDictionary<string, T> summaryTotal)
         {
-            var result = new SortableList<ThirdPartyWinLoss>();
-
-            var summaryTotal = new Dictionary<string, ThirdPartyWinLoss>();
             foreach (var currency in SystemConstants.BaseCurrencyList)
             {
-                summaryTotal.Add(currency, new ThirdPartyWinLoss());
+                var item = summaryTotal[currency];
+                item.CustomerWinLoss += reader.ToDecimal("winlost" + currency);
+                item.TotalTransaction += reader.ToInt("totaltrans");
+                item.LicenseeWL += reader.ToDecimal("licenseewinlost" + currency);
+                item.TurnOver += reader.ToDecimal("turnover" + currency);
+            }
+        }
+
+        private ReportResultModel<T> GetData(IDataReader reader, ThirdPartyWinLossMetaModel metaModel, int rowSpan = 0)
+        {
+            var result = new SortableList<T>();
+
+            var summaryTotal = new Dictionary<string, T>();
+            foreach (var currency in SystemConstants.BaseCurrencyList)
+            {
+                summaryTotal.Add(currency, Activator.CreateInstance<T>());
             }
 
             var winlostColumn = "winlost" + metaModel.BaseCurrency;
@@ -134,30 +159,56 @@ namespace Fanex.Athena.DataAccess.Report
             while (reader.Read())
             {
                 var currencyId = reader.ToInt("currency");
-                var item = new ThirdPartyWinLoss
-                {
-                    Index = index++,
-                    SystemId = hasSystemId ? reader.ToString("username") : string.Empty,
-                    ExternalId = hasExternalId ? reader.ToString("nickname") : string.Empty,
-                    CustomerId = hasCustomerId ? reader.ToInt("custid") : 0,
-                    CurrencyId = currencyId,
-                    CurrencyName = GetCurrencyName(currencyId),
-                    CustomerWinLoss = reader.ToDecimal(winlostColumn),
-                    LicenseeWL = reader.ToDecimal(licenseewlColumn),
-                    TurnOver = reader.ToDecimal(turnoverColumn),
-                    TotalTransaction = reader.ToInt("totaltrans"),
-                    Date = hasWinlostDate ? (DateTime?)reader.ToDateTime("winlostdate") : metaModel.DrillDownFromDate
-                };
+                var item = Activator.CreateInstance<T>();
+
+                item.Index = index++;
+                item.SystemId = hasSystemId ? reader.ToString("username") : string.Empty;
+                item.ExternalId = hasExternalId ? reader.ToString("nickname") : string.Empty;
+                item.CustomerId = hasCustomerId ? reader.ToInt("custid") : 0;
+                item.CurrencyId = currencyId;
+                item.CurrencyName = GetCurrencyName(currencyId);
+                item.CustomerWinLoss = reader.ToDecimal(winlostColumn);
+                item.LicenseeWL = reader.ToDecimal(licenseewlColumn);
+                item.TurnOver = reader.ToDecimal(turnoverColumn);
+                item.TotalTransaction = reader.ToInt("totaltrans");
+                item.Date = hasWinlostDate ? (DateTime?)reader.ToDateTime("winlostdate") : metaModel.DrillDownFromDate;
+                item.RowSpan = rowSpan;
+                PostReadItem(reader, item, metaModel.BaseCurrency);
 
                 result.Add(item);
                 ReadSummaryTotal(reader, summaryTotal);
             }
 
-            return new SortableReportResultModel<ThirdPartyWinLoss>
+            return new ReportResultModel<T>
             {
                 DataList = result,
+                TotalDataList = CalculateTotal(result),
                 SummaryTotal = summaryTotal
             };
+        }
+
+        protected virtual void PostReadItem(IDataReader reader, T item, string baseCurrency)
+        {
+            // Read other columns for other products.
+        }
+
+        protected virtual IEnumerable<T> CalculateTotal(IEnumerable<T> dataList)
+        {
+            if (dataList == null || !dataList.Any())
+            {
+                return new List<T>();
+            }
+
+            return dataList.GroupBy(d => d.CurrencyName).Select(g =>
+            {
+                var item = Activator.CreateInstance<T>();
+                item.CurrencyName = g.Key;
+                item.TurnOver = g.Sum(p => p.TurnOver);
+                item.TotalTransaction = g.Sum(p => p.TotalTransaction);
+                item.CustomerWinLoss = g.Sum(p => p.CustomerWinLoss);
+                item.LicenseeWL = g.Sum(p => p.LicenseeWL);
+                return item;
+            }).ToList();
         }
     }
 }

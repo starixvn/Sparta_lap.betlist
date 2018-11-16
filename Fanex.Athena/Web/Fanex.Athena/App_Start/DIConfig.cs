@@ -11,7 +11,10 @@ using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
 using CitiXchangeLibrary;
 using Fanex.Athena.Api.Base.Logger;
+using Fanex.Athena.DataAccess.Report;
+using Fanex.Athena.DataAccess.Report.Interfaces;
 using Fanex.Athena.Extension.Utility.Internal;
+using Fanex.Athena.Model.Report.DTO;
 using Fanex.BetList.Core.Builder;
 using Fanex.BetList.Core.Entities;
 using Fanex.BetList.Core.TicketHelper;
@@ -41,6 +44,10 @@ namespace Fanex.Athena
             builder.RegisterWebApiFilterProvider(config);
 
             RegisterThirdpartyServices(builder);
+
+            // generic types
+            builder.RegisterGeneric(typeof(ThirdPartyWinLossDataAccess<>))
+                .As(typeof(IThirdPartyWinLossDataAccess<>));
 
             // static services
             builder.RegisterInstance(new CustomMemoryCache()).As<ICustomMemoryCache>();

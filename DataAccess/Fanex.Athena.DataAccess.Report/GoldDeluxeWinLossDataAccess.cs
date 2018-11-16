@@ -3,12 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using Constant.DataDomain;
-    using Core;
-    using Fanex.Athena.DataAccess.Core.Exception;
-    using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.DataAccess.Report.Interfaces;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DataDomain;
@@ -19,7 +14,7 @@
     using Model.Core.ResultModel;
     using Session.Interfaces;
 
-    public class GoldDeluxeWinLossDataAccess : BaseDataAccess, IGoldDeluxeWinLossDataAccess
+    public class GoldDeluxeWinLossDataAccess : ThirdPartyWinLossDataAccess<GoldDeluxeWinLoss>, IGoldDeluxeWinLossDataAccess
     {
         public GoldDeluxeWinLossDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
             : base(appSetting, sessionStorage)
@@ -28,142 +23,49 @@
 
         public ReportResultModel<GoldDeluxeWinLoss> GetSummaryWinloss(ThirdPartyWinLossMetaModel metaModel)
         {
-            const string UspName = "Lrf_Rpt_GoldDeluxeWinloss";
-            try
-            {
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    UpdateUspParams(db, metaModel, false);
-                    db.AddInParameter("ReportType", DbType.Int32, metaModel.ReportBy);
-
-                    using (var reader = db.ExecuteReader())
-                    {
-                        return GetSummaryWinloss(reader, metaModel);
-                    }
-                }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName, metaModel);
-            }
+            return GetSummaryWinloss(metaModel, "Lrf_Rpt_GoldDeluxeWinloss");
         }
 
         public ReportResultModel<GoldDeluxeWinLoss> GetCustomerWinlossDetail(ThirdPartyWinLossMetaModel metaModel)
         {
-            const string UspName = "Lrf_Rpt_GoldDeluxeWinloss_Mem";
-            try
-            {
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    db.AddInParameter("custid", DbType.Int32, metaModel.DrillDownCustomerId);
-                    UpdateUspParams(db, metaModel, true);
-                    using (var reader = db.ExecuteReader())
-                    {
-                        return GetData(reader, metaModel);
-                    }
-                }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName, metaModel);
-            }
+            return GetCustomerWinlossDetail(metaModel, "Lrf_Rpt_GoldDeluxeWinloss_Mem");
         }
 
         public ReportResultModel<GoldDeluxeWinLoss> GetAgentWinlossDetail(ThirdPartyWinLossMetaModel metaModel)
         {
-            const string UspName = "Lrf_Rpt_GoldDeluxeWinloss_Ag";
-            try
-            {
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    UpdateUspParams(db, metaModel, true);
-                    using (var reader = db.ExecuteReader())
-                    {
-                        return GetData(reader, metaModel);
-                    }
-                }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName, metaModel);
-            }
+            return GetAgentWinlossDetail(metaModel, "Lrf_Rpt_GoldDeluxeWinloss_Ag");
         }
 
-        private static void ReadSummaryTotal(IDataReader reader, IDictionary<string, GoldDeluxeWinLoss> summaryTotal)
+        protected override void ReadSummaryTotal(IDataReader reader, IDictionary<string, GoldDeluxeWinLoss> summaryTotal)
         {
             foreach (var currency in SystemConstants.BaseCurrencyList)
             {
-                summaryTotal[currency].CustomerWinLoss += reader.ToDecimal("winlost" + currency);
-                summaryTotal[currency].TotalTransaction += reader.ToInt("totaltrans");
-                summaryTotal[currency].LicenseeWL += reader.ToDecimal("licenseewinlost" + currency);
-                summaryTotal[currency].TurnOver += reader.ToDecimal("turnover" + currency);
-                summaryTotal[currency].TipsAmount += reader.ToDecimal("tipsamount" + currency);
-                summaryTotal[currency].TipsShare += reader.ToDecimal("tipssharing" + currency);
-                summaryTotal[currency].AmountDue += reader.ToDecimal("amountdue" + currency);
+                var item = summaryTotal[currency];
+                item.CustomerWinLoss += reader.ToDecimal("winlost" + currency);
+                item.TotalTransaction += reader.ToInt("totaltrans");
+                item.LicenseeWL += reader.ToDecimal("licenseewinlost" + currency);
+                item.TurnOver += reader.ToDecimal("turnover" + currency);
+                item.TipsAmount += reader.ToDecimal("tipsamount" + currency);
+                item.TipsShare += reader.ToDecimal("tipssharing" + currency);
+                item.AmountDue += reader.ToDecimal("amountdue" + currency);
             }
         }
 
-        private static void UpdateUspParams(IObjectDb db, ThirdPartyWinLossMetaModel metaModel, bool drilldown)
+        [CLSCompliant(false)]
+        protected override void UpdateUspParams(IObjectDb db, ThirdPartyWinLossMetaModel metaModel, bool drilldown)
         {
-            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-            db.AddInParameter("fromdate", DbType.Date, drilldown ? metaModel.DrillDownFromDate : metaModel.FromDate.Date);
-            db.AddInParameter("todate", DbType.Date, drilldown ? metaModel.DrillDownToDate : metaModel.ToDate.Date);
+            base.UpdateUspParams(db, metaModel, drilldown);
             db.AddInParameter("licenseeId", DbType.Int32, metaModel.LicenseeId);
         }
 
-        private ReportResultModel<GoldDeluxeWinLoss> GetData(IDataReader reader, ThirdPartyWinLossMetaModel metaModel, int rowSpan = 0)
+        protected override void PostReadItem(IDataReader reader, GoldDeluxeWinLoss item, string baseCurrency)
         {
-            var result = new List<GoldDeluxeWinLoss>();
-            var summaryTotal = SystemConstants.BaseCurrencyList.ToDictionary(x => x, x => new GoldDeluxeWinLoss());
-
-            var winlostColumn = "winlost" + metaModel.BaseCurrency;
-            var licenseewlColumn = "licenseewinlost" + metaModel.BaseCurrency;
-            var turnoverColumn = "turnover" + metaModel.BaseCurrency;
-            var tipsAmountColumn = "tipsamount" + metaModel.BaseCurrency;
-            var tipsShareColumn = "tipssharing" + metaModel.BaseCurrency;
-            var amountDueColumn = "amountdue" + metaModel.BaseCurrency;
-
-            var hasSystemId = reader.HasColumn("username");
-            var hasExternalId = reader.HasColumn("nickname");
-            var hasCustomerId = reader.HasColumn("custid");
-            var hasWinlostDate = reader.HasColumn("winlostdate");
-
-            var index = 1;
-            while (reader.Read())
-            {
-                var currencyId = reader.ToInt("currency");
-                var item = new GoldDeluxeWinLoss
-                {
-                    Index = index++,
-                    SystemId = hasSystemId ? reader.ToString("username") : string.Empty,
-                    ExternalId = hasExternalId ? reader.ToString("nickname") : string.Empty,
-                    CustomerId = hasCustomerId ? reader.ToInt("custid") : 0,
-                    CurrencyId = currencyId,
-                    CurrencyName = GetCurrencyName(currencyId),
-                    CustomerWinLoss = reader.ToDecimal(winlostColumn),
-                    LicenseeWL = reader.ToDecimal(licenseewlColumn),
-                    TurnOver = reader.ToDecimal(turnoverColumn),
-                    TotalTransaction = reader.ToInt("totaltrans"),
-                    Date = hasWinlostDate ? (DateTime?)reader.ToDateTime("winlostdate") : metaModel.DrillDownFromDate,
-                    TipsAmount = reader.ToDecimal(tipsAmountColumn),
-                    TipsShare = reader.ToDecimal(tipsShareColumn),
-                    AmountDue = reader.ToDecimal(amountDueColumn),
-                    RowSpan = rowSpan
-                };
-
-                result.Add(item);
-                ReadSummaryTotal(reader, summaryTotal);
-            }
-
-            return new ReportResultModel<GoldDeluxeWinLoss>
-            {
-                DataList = result,
-                SummaryTotal = summaryTotal,
-                TotalDataList = CalculationTotal(result)
-            };
+            item.TipsAmount = reader.ToDecimal("tipsamount" + baseCurrency);
+            item.TipsShare = reader.ToDecimal("tipssharing" + baseCurrency);
+            item.AmountDue = reader.ToDecimal("amountdue" + baseCurrency);
         }
 
-        private IList<GoldDeluxeWinLoss> CalculationTotal(IList<GoldDeluxeWinLoss> dataList)
+        protected override IEnumerable<GoldDeluxeWinLoss> CalculateTotal(IEnumerable<GoldDeluxeWinLoss> dataList)
         {
             if (dataList == null || !dataList.Any())
             {
@@ -181,30 +83,6 @@
                 TipsShare = g.Sum(p => p.TipsShare),
                 AmountDue = g.Sum(p => p.AmountDue)
             }).ToList();
-        }
-
-        public ReportResultModel<GoldDeluxeWinLoss> GetSummaryWinloss(IDataReader reader, ThirdPartyWinLossMetaModel metaModel)
-        {
-            var result = GetData(reader, metaModel, -1);
-            DateTime? date = new DateTime();
-            var index = 1;
-            var dataList = result.DataList;
-            var i = 0;
-            var total = dataList.Count();
-            
-            while (i < total)
-            {
-                var item = dataList.ElementAt(i);
-                date = item.Date;
-
-                item.RowSpan = dataList.Count(x => x.Date == date);
-                item.Index = index;
-
-                index++;
-                i += item.RowSpan;
-            }
-
-            return result;
         }
     }
 }

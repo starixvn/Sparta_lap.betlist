@@ -5597,6 +5597,10 @@
       <Project>{9d448f82-18c4-47f0-ab07-85da01fe2edc}</Project>
       <Name>Fanex.Athena.Controllers.TotalBets</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\DataAccess\Fanex.Athena.DataAccess.Report\Fanex.Athena.DataAccess.Report.csproj">
+      <Project>{5653BC29-0843-4D75-9140-5B370DF2F88C}</Project>
+      <Name>Fanex.Athena.DataAccess.Report</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Fanex.Athena.Api.ExternalService\Fanex.Athena.Api.ExternalService.csproj">
       <Project>{33283837-a60b-44aa-815d-f61f70774de2}</Project>
       <Name>Fanex.Athena.Api.ExternalService</Name>

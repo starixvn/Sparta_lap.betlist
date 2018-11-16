@@ -4,13 +4,14 @@
     using System.Data;
     using System.Linq;
     using Core.UnitTests.TestHelpers;
+    using Model.Report.DTO;
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
     using Report;
 
     [TestFixture]
-    public class ThirdPartyWinLosDataAccessTest : BaseDataAccessHelperTest<ThirdPartyWinLossDataAccess>
+    public class ThirdPartyWinLosDataAccessTest : BaseDataAccessHelperTest<ThirdPartyWinLossDataAccess<ThirdPartyWinLoss>>
     {
         private ThirdPartyWinLossMetaModel _metaModel;
 
