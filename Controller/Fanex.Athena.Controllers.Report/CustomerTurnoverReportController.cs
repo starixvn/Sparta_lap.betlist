@@ -132,8 +132,8 @@ namespace Fanex.Athena.Controllers.Report
             var reportTitle = string.Format(
                 "{0}, {1} --> {2} - {3}: {4} - {5}: {6} {7}",
                                             ViewResources.Customer + " " + ViewResources.Turnover,
-                                            metaModel.FromDate.ToShortDateString(),
-                                            metaModel.ToDate.ToShortDateString(),
+                                            metaModel.FromDate.ToString("MM/dd/yyyy"),
+                                            metaModel.ToDate.ToString("MM/dd/yyyy"),
                                             ViewResources.Currency,
                                             currencyName,
                                             ViewResources.MinimumOdds,
