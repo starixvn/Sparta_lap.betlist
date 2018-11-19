@@ -3099,8 +3099,8 @@
     <value>Tips Amount</value>
     <comment>101599</comment>
   </data>
-  <data name="TipsShare" xml:space="preserve">
-    <value>Tips Share</value>
+  <data name="TipsSharing" xml:space="preserve">
+    <value>Tips Sharing</value>
     <comment>101599</comment>
   </data>
 </root>

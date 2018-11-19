@@ -7324,11 +7324,11 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tips Share.
+        ///   Looks up a localized string similar to Tips Sharing.
         /// </summary>
-        public static string TipsShare {
+        public static string TipsSharing {
             get {
-                return ResourceManager.GetString("TipsShare", resourceCulture);
+                return ResourceManager.GetString("TipsSharing", resourceCulture);
             }
         }
         

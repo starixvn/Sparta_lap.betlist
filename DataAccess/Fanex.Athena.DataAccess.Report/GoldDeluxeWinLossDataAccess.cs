@@ -46,7 +46,7 @@
                 item.LicenseeWL += reader.ToDecimal("licenseewinlost" + currency);
                 item.TurnOver += reader.ToDecimal("turnover" + currency);
                 item.TipsAmount += reader.ToDecimal("tipsamount" + currency);
-                item.TipsShare += reader.ToDecimal("tipssharing" + currency);
+                item.TipsSharing += reader.ToDecimal("tipssharing" + currency);
                 item.AmountDue += reader.ToDecimal("amountdue" + currency);
             }
         }
@@ -61,7 +61,7 @@
         protected override void PostReadItem(IDataReader reader, GoldDeluxeWinLoss item, string baseCurrency)
         {
             item.TipsAmount = reader.ToDecimal("tipsamount" + baseCurrency);
-            item.TipsShare = reader.ToDecimal("tipssharing" + baseCurrency);
+            item.TipsSharing = reader.ToDecimal("tipssharing" + baseCurrency);
             item.AmountDue = reader.ToDecimal("amountdue" + baseCurrency);
         }
 
@@ -80,7 +80,7 @@
                 CustomerWinLoss = g.Sum(p => p.CustomerWinLoss),
                 LicenseeWL = g.Sum(p => p.LicenseeWL),
                 TipsAmount = g.Sum(p => p.TipsAmount),
-                TipsShare = g.Sum(p => p.TipsShare),
+                TipsSharing = g.Sum(p => p.TipsSharing),
                 AmountDue = g.Sum(p => p.AmountDue)
             }).ToList();
         }

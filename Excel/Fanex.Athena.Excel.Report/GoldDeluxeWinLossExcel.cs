@@ -11,7 +11,7 @@
     public class GoldDeluxeWinLossExcel : ThirdPartyWinLossExcel<GoldDeluxeWinLoss>
     {
         private const int ColumnTipsAmount = 9;
-        private const int ColumnTipsShare = 10;
+        private const int ColumnTipsSharing = 10;
         private const int ColumnAmountDue = 11;
 
         public GoldDeluxeWinLossExcel(
@@ -27,7 +27,7 @@
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
             row.Cells[ColumnTipsAmount].SetCellValue(ViewResources.TipsAmount);
-            row.Cells[ColumnTipsShare].SetCellValue(ViewResources.TipsShare);
+            row.Cells[ColumnTipsSharing].SetCellValue(ViewResources.TipsSharing);
             row.Cells[ColumnAmountDue].SetCellValue(ViewResources.AmountDue);
         }
 
@@ -36,7 +36,7 @@
             base.AssignCommonData(row, data);
 
             row.Cells[ColumnTipsAmount].SetCellValue(data.TipsAmount);
-            row.Cells[ColumnTipsShare].SetCellValue(data.TipsShare);
+            row.Cells[ColumnTipsSharing].SetCellValue(data.TipsSharing);
             row.Cells[ColumnAmountDue].SetCellValue(data.AmountDue);
         }
     }

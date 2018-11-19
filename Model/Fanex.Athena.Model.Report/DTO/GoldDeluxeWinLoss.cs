@@ -4,7 +4,7 @@
     {
         public decimal TipsAmount { get; set; }
 
-        public decimal TipsShare { get; set; }
+        public decimal TipsSharing { get; set; }
 
         public decimal AmountDue { get; set; }
     }
