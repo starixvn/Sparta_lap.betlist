@@ -65,6 +65,12 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnTotalTransaction].SetCellValue(ViewResources.TotalTransaction);
             row.Cells[ColumnCustomerWl].SetCellValue(ViewResources.CustomerW_L);
             row.Cells[ColumnLicenseeWl].SetCellValue(ViewResources.LicenseeW_L);
+            PostAssignHeader(sheet);
+        }
+
+        protected virtual void PostAssignHeader(ISheet sheet)
+        {
+            // implement in children
         }
 
         protected override void AssignNoInfoRow(ISheet sheet)
@@ -77,11 +83,12 @@ namespace Fanex.Athena.Excel.Report
         {
             var rowIndex = 1;
             int index;
-            var rowCount = _resultData.DataList.Count();
+            var dataList = _resultData.DataList;
+            var rowCount = dataList.Count();
 
             for (index = 0; index < rowCount; index++)
             {
-                var item = _resultData.DataList.ElementAt(index);
+                var item = dataList.ElementAt(index);
 
                 var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, index + RowContentTemplate);
 
@@ -139,7 +146,7 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        private static void AssignCommonData(IRow row, ThirdPartyWinLoss data)
+        protected virtual void AssignCommonData(IRow row, T data)
         {
             row.Cells[ColumnTurnover].SetCellValue(data.TurnOver);
             row.Cells[ColumnTotalTransaction].SetCellValue(data.TotalTransaction);
@@ -176,7 +183,7 @@ namespace Fanex.Athena.Excel.Report
             var beginTotalRow = rowIndex;
             var totalCurrencyList = _resultData.TotalDataList;
 
-            foreach (ThirdPartyWinLoss totalCurrency in totalCurrencyList)
+            foreach (T totalCurrency in totalCurrencyList)
             {
                 // Copy template
                 var row = sheet.CopyRow(TemplateSheet, RowTotalNoSolidBorder, rowIndex);
