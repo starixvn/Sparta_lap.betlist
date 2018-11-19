@@ -20,7 +20,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
         private const int ColumnCount = 12;
 
         private const int ColumnTipsAmount = 9;
-        private const int ColumnTipsShare = 10;
+        private const int ColumnTipsSharing = 10;
         private const int ColumnAmountDue = 11;
 
         [Test]
@@ -38,7 +38,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             {
                 FakeSheet.Received().CopyRow(excel.TemplateSheet, ReportBase.RowHeaderTemplate, ReportBase.RowHeaderTemplate);
                 row.Cells[ColumnTipsAmount].Received(1).SetCellValue(ViewResources.TipsAmount);
-                row.Cells[ColumnTipsShare].Received(1).SetCellValue(ViewResources.TipsShare);
+                row.Cells[ColumnTipsSharing].Received(1).SetCellValue(ViewResources.TipsSharing);
                 row.Cells[ColumnAmountDue].Received(1).SetCellValue(ViewResources.AmountDue);
             });
         }
@@ -52,7 +52,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             var data = new GoldDeluxeWinLoss
             {
                 TipsAmount = 12.45m,
-                TipsShare = 232.34m,
+                TipsSharing = 232.34m,
                 AmountDue = 4324
             };
 
@@ -63,7 +63,7 @@ namespace Fanex.Athena.Excel.Report.UnitTests
             Assert.Multiple(() =>
             {
                 row.Cells[ColumnTipsAmount].Received(1).SetCellValue(data.TipsAmount);
-                row.Cells[ColumnTipsShare].Received(1).SetCellValue(data.TipsShare);
+                row.Cells[ColumnTipsSharing].Received(1).SetCellValue(data.TipsSharing);
                 row.Cells[ColumnAmountDue].Received(1).SetCellValue(data.AmountDue);
             });
         }
