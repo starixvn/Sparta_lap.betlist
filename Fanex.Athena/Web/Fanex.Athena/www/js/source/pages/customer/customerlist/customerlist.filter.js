@@ -21,6 +21,7 @@ define(["jquery", "common/site", "./customerlist.state", "./customerlist.service
                 $('#SubmitButton').click(function () {
                     _state.pagingOption.pageindex = 1;
                     CustomerListService.submit();
+                    $(".page-results").show();
                 });
 
                 $("#Username").on('keyup', function (e) {

@@ -23,10 +23,16 @@
             <input type="button" id="RemoveFromGroup" value="@ViewResources.RemoveFromGroup" class="btn btn-back" />
         </div>
     }
+    
+    <div class="page-results" style="display:none">
+        <div class="tab">
+            <button class="tablinks active" data-tab="tab1" >@ViewResources.ActiveCustomers</button>
+            <button class="tablinks"  data-tab="tab2">@ViewResources.DormantCustomers</button>
+        </div>
 
-    <div class="page-results">
-        <div class="result-content">
-            <div class="panel-heading active hide">
+        @*Tab 1*@
+        <div class="result-content tabcontent"  id="tab1" style="margin: 0">
+            <div class="panel-heading active">
                 <div class="panel-title">
                     <div class="report-title" style="">
                         @ViewResources.SearchResult:
@@ -46,15 +52,22 @@
             <div class="main-content" id="report-content">
                 <div class="theme_jqGrid">
                     <div style="width: 100%">
-                        <table id="ReportGrid" class="table" data-hidden-column="">
-                        </table>
+                        <table id="ReportGrid" class="table" data-hidden-column=""></table>
                         <div class="paging">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        @*Tab 2*@
+        <div id="tab2" class="tabcontent"  style="margin: 0; display: none">
+            <p>Hello</p>
+        </div>
+
     </div>
+
+
 
     @if (!Model.IsSubsidiary && Model.IsAllowedUserEditComm && Model.IsAllowedCustomerCommission)
     {
@@ -73,7 +86,7 @@
                 Html.RenderPartial("~/Views/Desktop/Customer/CustomerDialog/RemoveFromGroup.cshtml");
             }
         </div>
-    }
+                }
     @if (Model.DataList != null)
     {
         @Html.Hidden("NumOfCheckBox", Model.DataList.Count())
