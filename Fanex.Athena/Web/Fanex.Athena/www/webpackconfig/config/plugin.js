@@ -2,6 +2,7 @@
 var pathConfig = require('../config/path');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
 var WebpackBuildNotifierPlugin = require('webpack-build-notifier');
+var Visualizer = require('webpack-visualizer-plugin');
 
 var cssRootPath = pathConfig.cssPaths.build;
 
@@ -34,6 +35,10 @@ function generatePlugins(environment) {
              title: "New UI Webpack Build",
              suppressSuccess: true
          })
+        }),
+        new Visualizer({
+            filename: './webpack-stats-newui.html'
+        })
     ];
 
     return commonPlugins;
