@@ -14,26 +14,6 @@
 
     public class CustomerListDataAccessTest : BaseDataAccessHelperTest<CustomerListDataAccess>
     {
-        [Test]
-        public void SearchCustomers_WhenCall_ParametersPassedCorrectly()
-        {
-            // Arrange
-            DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerSelUserSearch")).Returns(ObjectDb);
-            const int UserId = 0;
-            const string UserName = "";
-
-            // Action
-            DataAccess.SearchCustomers(UserId, UserName, string.Empty);
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                ObjectDb.Received(1).AddInParameter("userid", DbType.Int32, UserId);
-                ObjectDb.Received(1).AddInParameter("username", DbType.String, UserName);
-                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, string.Empty);
-            });
-        }
-
         [TestCase("New", "New")]
         [TestCase(null, "")]
         public void Search_WhenCall_ParametersPassedCorrectly(string custStatus, string expectedStatusParam)

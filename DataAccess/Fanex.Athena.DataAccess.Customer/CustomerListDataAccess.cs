@@ -26,18 +26,6 @@
 
         #region Read
 
-        public IEnumerable<string> SearchCustomers(int userId, string userName, string agentListXml)
-        {
-            using (var db = this.GetObjectDb("Lrf_CustomerSelUserSearch"))
-            {
-                db.AddInParameter("userid", DbType.Int32, userId);
-                db.AddInParameter("username", DbType.String, userName);
-                db.AddInParameter("AgentList", DbType.String, agentListXml);
-
-                return db.Query<string>();
-            }
-        }
-
         public ReportResultModel<CustomerDTO> GetActiveCustomers(CustomerListMetaModel metaModel)
         {
             const string UspName = "Lrf_CustomerSel";

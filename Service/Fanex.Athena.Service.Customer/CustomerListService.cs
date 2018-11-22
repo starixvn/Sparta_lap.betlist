@@ -6,7 +6,6 @@
 
 namespace Fanex.Athena.Service.Customer
 {
-    using System.Collections.Generic;
     using DataAccess.Customer.Interfaces;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -47,11 +46,6 @@ namespace Fanex.Athena.Service.Customer
             _authorizationService = authorizationService;
             _productService = productService;
             _appSettings = appSettings;
-        }
-
-        public IEnumerable<string> SearchCustomers(int userId, string userName, string agentListXml)
-        {
-            return _customerListDataAccess.SearchCustomers(userId, userName, agentListXml);
         }
 
         public ReportResultModel<CustomerDTO> GetActiveCustomers(CustomerListMetaModel metaModel)

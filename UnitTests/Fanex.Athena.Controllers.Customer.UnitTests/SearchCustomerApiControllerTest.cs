@@ -3,9 +3,9 @@
     using System.Web.Mvc;
     using Base.UnitTests;
     using Customer;
+    using DataAccess.Customer.Interfaces;
     using NSubstitute;
     using NUnit.Framework;
-    using Service.Customer.Interfaces;
     using UnitTest.Common.Extensions;
 
     [TestFixture]
@@ -14,12 +14,12 @@
         [Test]
         public void SearchCustomer_WhenCall_ReturnCorrectData()
         {
-            var customerListService = Substitute.For<ICustomerListService>();
+            var searchCustomerDataAccess = Substitute.For<ISearchCustomerDataAccess>();
             using (var controller = new SearchCustomerAPIController(
                LangService,
                SessionService,
                AppSettings,
-               customerListService))
+               searchCustomerDataAccess))
             {
                 // Arrange
                 const string Query = " test   ";
@@ -28,7 +28,7 @@
 
                 SetUpDefaultFakeData();
                 SessionService.GenerateAgentListXml().Returns(AgentListXml);
-                customerListService.SearchCustomers(0, string.Empty, string.Empty)
+                searchCustomerDataAccess.SearchCustomers(0, string.Empty, string.Empty, false)
                     .ReturnsForAnyArgs(expectedCustomerNames);
 
                 // Action
@@ -38,10 +38,11 @@
                 // Assert
                 Assert.Multiple(() =>
                 {
-                    customerListService.Received(1).SearchCustomers(
+                    searchCustomerDataAccess.Received(1).SearchCustomers(
                         SessionService.UserSession.UserId,
                         Query.Trim(),
-                        AgentListXml);
+                        AgentListXml,
+                        false);
                     Assert.That(resultData.GetValue("query"), Is.EqualTo(Query.Trim()));
                     Assert.That(resultData.GetValue("suggestions"), Is.EqualTo(expectedCustomerNames));
                 });

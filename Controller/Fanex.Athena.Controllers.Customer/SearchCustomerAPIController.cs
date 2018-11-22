@@ -4,9 +4,9 @@
 
     using System.Web.Mvc;
     using System.Web.SessionState;
+    using DataAccess.Customer.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Service.Core.Common.Interfaces;
-    using Fanex.Athena.Service.Customer.Interfaces;
     using Fanex.Athena.Web.ActionFilter;
     using Model.Core.DataDomain;
     using ONEbook.UM.Filters;
@@ -25,25 +25,37 @@
         PermissionKeys.BettingTicketCenter)]
     public class SearchCustomerAPIController : BaseController
     {
-        private readonly ICustomerListService _customerListService;
+        private readonly ISearchCustomerDataAccess _searchCustomerDataAccess;
 
         public SearchCustomerAPIController(
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            ICustomerListService customerListService)
+            ISearchCustomerDataAccess searchCustomerDataAccess)
             : base(languageService, sessionService, appSetting)
         {
-            _customerListService = customerListService;
+            _searchCustomerDataAccess = searchCustomerDataAccess;
         }
 
         [AjaxRequest]
         [HttpGet]
         public JsonResult SearchCustomer(string query)
         {
+            return Search(query, false);
+        }
+
+        [AjaxRequest]
+        [HttpGet]
+        public JsonResult SearchActiveAndDormantCustomer(string query)
+        {
+            return Search(query, true);
+        }
+
+        private JsonResult Search(string query, bool isIncludeDormant)
+        {
             var userName = query.Trim();
             var userId = SessionService.UserSession.UserId;
-            var customerNames = _customerListService.SearchCustomers(userId, userName, SessionService.GenerateAgentListXml());
+            var customerNames = _searchCustomerDataAccess.SearchCustomers(userId, userName, SessionService.GenerateAgentListXml(), isIncludeDormant);
 
             var searchResult = new
             {

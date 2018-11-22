@@ -1,6 +1,5 @@
 ﻿namespace Fanex.Athena.DataAccess.Customer.Interfaces
 {
-    using System.Collections.Generic;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Customer.DTO;
     using Fanex.Athena.Model.Customer.MetaModel;
@@ -8,12 +7,9 @@
 
     public interface ICustomerListDataAccess
     {
-        IEnumerable<string> SearchCustomers(int userId, string userName, string agentListXml);
-
         ReportResultModel<CustomerDTO> GetActiveCustomers(CustomerListMetaModel metaModel);
 
         ReportResultModel<DormantCustomer> GetDormantCustomers(CustomerListMetaModel metaModel);
-
 
         #region LogInfo
 
