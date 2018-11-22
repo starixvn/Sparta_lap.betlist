@@ -121,34 +121,49 @@ namespace Fanex.Athena.Controllers.Customer
         [CustomValidateAntiForgery]
         public dynamic CustomerList(CustomerListMetaModel metaModel)
         {
+            AssignMetaModelData(metaModel);
+
+            var result = _customerListService.GetActiveCustomers(metaModel);
+            return new JsonResult
+            {
+                Data = new
+                {
+                    Data = result.DataList,
+                    TotalRows = result.TotalRows
+                },
+                MaxJsonLength = int.MaxValue
+            };
+        }
+
+        [HttpPost]
+        [AjaxRequest]
+        [CustomValidateAntiForgery]
+        public dynamic DormantCustomerList(CustomerListMetaModel metaModel)
+        {
+            AssignMetaModelData(metaModel);
+
+            var result = _customerListService.GetDormantCustomers(metaModel);
+            return new JsonResult
+            {
+                Data = new
+                {
+                    Data = result.DataList,
+                    TotalRows = result.TotalRows
+                },
+                MaxJsonLength = int.MaxValue
+            };
+        }
+
+        private void AssignMetaModelData(CustomerListMetaModel metaModel)
+        {
             var placeholderUsername = IsFakeLicensee() ?
-                ViewResources.ExternalId :
-                ViewResources.ExternalIdOrSystemId;
+                            ViewResources.ExternalId :
+                            ViewResources.ExternalIdOrSystemId;
             metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
 
             metaModel.IsShowStatusDropdown = AppSettings.LicenseeOfferStatusFunction.Contains(metaModel.LicenseeId);
             metaModel.Username = metaModel.Username == placeholderUsername ? string.Empty : metaModel.Username;
             metaModel.AgentListXml = GetAgentListXml(metaModel.SubsidiaryList, metaModel.CurrencyId);
-
-            var activeCustomers = _customerListService.GetActiveCustomers(metaModel);
-            var dormantCustomers = _customerListService.GetDormantCustomers(metaModel); 
-            return new JsonResult
-            {
-                Data = new
-                {
-                    ActiveCustomer = new
-                    {
-                        Data = activeCustomers.DataList,
-                        TotalRows = activeCustomers.TotalRows
-                    },
-                    DormantCustomer = new
-                    {
-                        Data = dormantCustomers.DataList,
-                        TotalRows = dormantCustomers.TotalRows
-                    }
-                },
-                MaxJsonLength = int.MaxValue
-            };
         }
 
         [HttpPost]
