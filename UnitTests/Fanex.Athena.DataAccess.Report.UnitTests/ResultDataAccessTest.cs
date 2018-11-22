@@ -452,7 +452,6 @@
                 HtHomeScore = 8,
                 EventDate = new DateTime(2017, 3, 16),
                 IsNeutral = true,
-                IsPending = true,
                 KickOffTime = new DateTime(2017, 3, 16),
                 MatchCode = "matchcode",
                 GoalRecord = "goalrecord",

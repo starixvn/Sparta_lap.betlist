@@ -341,13 +341,13 @@ namespace Fanex.Athena.DataAccess.Report
                 HtHomeScore = reader.ToNullableInt("hthomescore"),
                 EventDate = DateTime.Parse(reader.ToString("eventdate")),
                 IsNeutral = reader.ToBool("IsNeutral"),
-                IsPending = reader.ToBool("IsPending"),
                 KickOffTime = DateTime.Parse(reader.ToString("kickofftime")),
                 MatchCode = reader.ToString("matchcode"),
                 GoalRecord = reader.ToString("goalrecord"),
                 IsHTCal = reader.ToBool("IsHTCal"),
                 Calculate = reader.ToBool("Calculate"),
                 RefNo = refNo.ToString(CultureInfo.InvariantCulture),
+                SettlementStatus = reader.ToByte("SettlementStatus")
             };
         }
 
@@ -503,7 +503,6 @@ namespace Fanex.Athena.DataAccess.Report
                 HtHomeScore = reader.ToNullableInt("hthomescore"),
                 EventDate = DateTime.Parse(reader.ToString("eventdate")),
                 IsNeutral = reader.ToBool("IsNeutral"),
-                IsPending = reader.ToBool("IsPending"),
                 KickOffTime = DateTime.Parse(reader.ToString("kickofftime")),
                 MatchCode = reader.ToString("matchcode"),
                 GoalRecord = reader.ToString("goalrecord"),
@@ -511,7 +510,8 @@ namespace Fanex.Athena.DataAccess.Report
                 Calculate = reader.ToBool("Calculate"),
                 RefNo = string.Empty,
                 LiveAwayScore = reader.HasColumn("LiveAwayScore") ? reader.ToNullableInt("LiveAwayScore") : null,
-                LiveHomeScore = reader.HasColumn("LiveHomeScore") ? reader.ToNullableInt("LiveHomeScore") : null
+                LiveHomeScore = reader.HasColumn("LiveHomeScore") ? reader.ToNullableInt("LiveHomeScore") : null,
+                SettlementStatus = reader.ToByte("SettlementStatus")
             };
         }
 

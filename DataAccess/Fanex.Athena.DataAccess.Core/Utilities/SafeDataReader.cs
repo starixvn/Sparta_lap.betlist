@@ -126,5 +126,15 @@
 
             return defaultValue;
         }
+
+        public byte GetByte(string column, byte defaultValue = 0)
+        {
+            if (_existingColumns.Contains(column))
+            {
+                return _reader.ToByte(column);
+            }
+
+            return defaultValue;
+        }
     }
 }

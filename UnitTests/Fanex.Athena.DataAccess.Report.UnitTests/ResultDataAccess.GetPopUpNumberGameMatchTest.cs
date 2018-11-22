@@ -16,19 +16,6 @@
                 { "kickofftime", "1/1/2017" }, { "matchcode", "test" }, { "seq", 3 }, { "number", 4 }
             };
 
-        private readonly NumberGame _dataItem = new NumberGame
-        {
-            LeagueId = 111,
-            MatchId = 222,
-            EventStatus = "win",
-            EventDate = new DateTime(2017, 3, 16),
-            IsPending = false,
-            KickOffTime = new DateTime(2017, 1, 1),
-            MatchCode = "test",
-            Seg = new List<int> { 3, 3 },
-            Ball = new List<int> { 4, 4 }
-        };
-
         [Test]
         public void GetPopUpNumberGameMatch_WhenCall_ParameterPassedCorrectly()
         {
@@ -59,8 +46,9 @@
             Reader.GetName(0).Returns("isrefund");
 
             MapReaderData(_readerDataMapping);
-            _dataItem.IsPending = true;
-            var expectedResult = new List<NumberGame> { _dataItem };
+            var dataItem = GetSampleDataItem();
+            dataItem.IsPending = true;
+            var expectedResult = new List<NumberGame> { dataItem };
 
             // Action
             var result = DataAccess.GetPopUpNumberGameMatch(222);
@@ -77,8 +65,9 @@
 
             Reader.Read().Returns(true, true, false);
             MapReaderData(_readerDataMapping);
-            _dataItem.IsPending = false;
-            var expectedResult = new List<NumberGame> { _dataItem };
+            var dataItem = GetSampleDataItem();
+            dataItem.IsPending = false;
+            var expectedResult = new List<NumberGame> { dataItem };
 
             // Action
             var result = DataAccess.GetPopUpNumberGameMatch(222);
@@ -93,6 +82,22 @@
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
                 GetPopUpNumberGameMatchSp,
                 () => DataAccess.GetPopUpNumberGameMatch(0));
+        }
+
+        private static NumberGame GetSampleDataItem()
+        {
+            return new NumberGame
+            {
+                LeagueId = 111,
+                MatchId = 222,
+                EventStatus = "win",
+                EventDate = new DateTime(2017, 3, 16),
+                IsPending = true,
+                KickOffTime = new DateTime(2017, 1, 1),
+                MatchCode = "test",
+                Seg = new List<int> { 3, 3 },
+                Ball = new List<int> { 4, 4 }
+            };
         }
     }
 }

@@ -49,7 +49,7 @@ namespace Fanex.Athena.DataAccess.BetList
                 "SpecialLevel", "StatusId", "transid", "betid", "winlostdate", "transdate",
                 playerCommCol, commCol, licenseeWlCol, winlostCol, beteffectiveCol, stakeCol, actualStakeCol,
                 "odds", "modds", "hdp1", "hdp2", "transdesc", "currency", "betdaqid", "extrainfo", originalStakeCol, "originalbettype",
-                "refcode", "wallettype", "oddsspread"
+                "refcode", "wallettype", "oddsspread", "SettlementStatus"
             };
 
             var reader = this.GetSafeDataReader(dataReader, columns);
@@ -120,7 +120,8 @@ namespace Fanex.Athena.DataAccess.BetList
                     ExtraInfo = reader.GetString("extrainfo"),
                     OriginalStake = reader.GetDecimal(originalStakeCol, -1),
                     OriginalBetType = reader.GetInt("originalbettype"),
-                    OddsSpread = reader.GetDecimal("oddsspread")
+                    OddsSpread = reader.GetDecimal("oddsspread"),
+                    SettlementStatus = reader.GetByte("SettlementStatus")
                 };
 
                 tickets.Add(ticket);
