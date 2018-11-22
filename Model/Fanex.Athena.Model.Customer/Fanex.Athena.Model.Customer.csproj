@@ -65,6 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\DormantCustomer.cs" />
     <Compile Include="DTO\CustomerDTO.cs" />
     <Compile Include="DTO\CustomerInfo.cs" />
     <Compile Include="DTO\CustomerLog\CustomerLog.cs" />

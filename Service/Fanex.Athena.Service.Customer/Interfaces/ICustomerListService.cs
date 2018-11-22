@@ -18,13 +18,11 @@ namespace Fanex.Athena.Service.Customer.Interfaces
 
     public interface ICustomerListService
     {
-        #region Read
-
         IEnumerable<string> SearchCustomers(int userId, string userName, string agentListXml);
 
-        ReportResultModel<CustomerDTO> Search(CustomerListMetaModel metaModel);
+        ReportResultModel<CustomerDTO> GetActiveCustomers(CustomerListMetaModel metaModel);
 
-        #endregion Read
+        ReportResultModel<DormantCustomer> GetDormantCustomers(CustomerListMetaModel metaModel);
 
         #region LogInfo
 

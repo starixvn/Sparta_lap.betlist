@@ -52,7 +52,7 @@
             };
 
             // Action
-            DataAccess.Search(metaModel);
+            DataAccess.GetActiveCustomers(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -96,7 +96,7 @@
             var metaModel = new CustomerListMetaModel();
 
             // Action
-            var result = DataAccess.Search(metaModel);
+            var result = DataAccess.GetActiveCustomers(metaModel);
             var firstItem = result.DataList.First();
 
             // Assert

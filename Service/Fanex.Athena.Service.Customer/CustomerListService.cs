@@ -54,9 +54,14 @@ namespace Fanex.Athena.Service.Customer
             return _customerListDataAccess.SearchCustomers(userId, userName, agentListXml);
         }
 
-        public ReportResultModel<CustomerDTO> Search(CustomerListMetaModel metaModel)
+        public ReportResultModel<CustomerDTO> GetActiveCustomers(CustomerListMetaModel metaModel)
         {
-            return _customerListDataAccess.Search(metaModel);
+            return _customerListDataAccess.GetActiveCustomers(metaModel);
+        }
+
+        public ReportResultModel<DormantCustomer> GetDormantCustomers(CustomerListMetaModel metaModel)
+        {
+            return _customerListDataAccess.GetDormantCustomers(metaModel);
         }
 
         public LogInfo GetCustomerLoginInfo(int custId, int licenseeId, string siteName)

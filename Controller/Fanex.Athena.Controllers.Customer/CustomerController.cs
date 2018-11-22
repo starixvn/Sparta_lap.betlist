@@ -130,13 +130,22 @@ namespace Fanex.Athena.Controllers.Customer
             metaModel.Username = metaModel.Username == placeholderUsername ? string.Empty : metaModel.Username;
             metaModel.AgentListXml = GetAgentListXml(metaModel.SubsidiaryList, metaModel.CurrencyId);
 
-            var result = _customerListService.Search(metaModel);
+            var activeCustomers = _customerListService.GetActiveCustomers(metaModel);
+            var dormantCustomers = _customerListService.GetDormantCustomers(metaModel); 
             return new JsonResult
             {
                 Data = new
                 {
-                    Data = result.DataList,
-                    TotalRows = result.TotalRows
+                    ActiveCustomer = new
+                    {
+                        Data = activeCustomers.DataList,
+                        TotalRows = activeCustomers.TotalRows
+                    },
+                    DormantCustomer = new
+                    {
+                        Data = dormantCustomers.DataList,
+                        TotalRows = dormantCustomers.TotalRows
+                    }
                 },
                 MaxJsonLength = int.MaxValue
             };
@@ -255,7 +264,7 @@ namespace Fanex.Athena.Controllers.Customer
         {
             var model = CreateCustomerViewModel(metaModel);
 
-            var result = _customerListService.Search(model.Param);
+            var result = _customerListService.GetActiveCustomers(model.Param);
             model.DataList = result.DataList;
             model.TotalRows = result.TotalRows;
 

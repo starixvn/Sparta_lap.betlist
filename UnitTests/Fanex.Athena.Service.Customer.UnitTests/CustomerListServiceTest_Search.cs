@@ -87,10 +87,10 @@
                 DataList = FakeHelper.CreateMany<CustomerDTO>(10),
                 TotalRows = FakeHelper.Create<int>()
             };
-            _customerListDataAccess.Search(metaModel).Returns(expectedResult);
+            _customerListDataAccess.GetActiveCustomers(metaModel).Returns(expectedResult);
 
             // Action
-            var result = _customerListService.Search(metaModel);
+            var result = _customerListService.GetActiveCustomers(metaModel);
 
             // Assert
             Assert.Multiple(() =>
