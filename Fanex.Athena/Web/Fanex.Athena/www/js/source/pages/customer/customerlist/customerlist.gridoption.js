@@ -62,7 +62,7 @@
             formatteroptions: { decimalSeparator: ".", thousandsSeparator: " ", decimalPlaces: 2, defaultValue: '0.00' },
             frozen: true
         };
-        var pedingFundColumn = {
+        var pendingFundColumn = {
             name: 'PendingFunds',
             index: 'PendindFunds',
             resizable: false,
@@ -183,7 +183,7 @@
          'Status', 'BAStatus', 'SpecialLevel', 'OddsGroup', 'CustomerOption'];
 
         var colModelList = [indexColumn, externalIdColumn, systemIdColumn, availableFundColumn,
-                        pedingFundColumn, statusColumn, baStatusColumn, specialLevelColumn, oddsGroupColumn, customerOptionColumn];
+                        pendingFundColumn, statusColumn, baStatusColumn, specialLevelColumn, oddsGroupColumn, customerOptionColumn];
 
         var me = {
             urlData: 'Customer/CustomerList',

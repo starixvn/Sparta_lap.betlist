@@ -5,6 +5,7 @@ define([
     "common/querystring",
     "./customerlist.state",
     "./customerlist.service",
+    "./customerlist.service.dormant",
     "./customerlist.bastatus",
     "./customerlist.speciallevel",
     "./customerlist.oddsgroup",
@@ -18,6 +19,7 @@ define([
         QueryString,
         CustomerListState,
         CustomerListService,
+        CustomerListServiceDormant,
         CustomerListBAStatus,
         CustomerListSpecialLevel,
         CustomerListOddsGroup,
@@ -26,7 +28,7 @@ define([
         Popup,
         jqGridAdditional) {
         var _state;
-
+        var _dormantState;
         function updateGroupForCheckCustomerArray(groupid) {
             var selectedCustomers = _state.selectedCustomers;
             for (var custId in selectedCustomers) {
@@ -39,8 +41,10 @@ define([
         var _me = {
             initialize: function () {
                 _state = CustomerListState.getState();
+                _dormantState = CustomerListState.getDormantState();
                 window.CustomerList = {
-                    ajaxPaging: _me.ajaxPaging
+                    ajaxPaging: _me.ajaxPaging,
+                    ajaxPagingDormant: _me.ajaxPagingDormant,
                 };
 
                 $("#SubmitButton").prop("disabled", true);
@@ -59,6 +63,11 @@ define([
                 CustomerListService.submit();
             },
 
+            ajaxPagingDormant: function () {
+             //   _dormantState.pagingOption = PagingHelper.getSetting();
+                CustomerListServiceDormant.submit();
+            },
+
             initEvent: function () {
                 $('#ExportToExcel').click(function () {
                     $(this).closest('form').submit();
@@ -66,7 +75,7 @@ define([
 
                 _me.registerCheckboxEvent();
 
-                $("#report-content").on("click", ".pendingFunds", function () {
+                $("#active-customer-report-content").on("click", ".pendingFunds", function () {
                     var $this = $(this);
                     var custId = $this.data("custid");
                     var systemId = $this.data("systemid");
@@ -76,7 +85,8 @@ define([
                 });
 
                 $(window).on("resize", function () {
-                    _me.resizeGrid();
+                    CustomerListService.resizeGrid("#ReportGrid");
+                    jqGridAdditional.updateGridHeight($("#tabDormantCustomer"));
                 });
 
                 $(window).on("unload", function () {
@@ -85,7 +95,7 @@ define([
             },
 
             registerCheckboxEvent: function () {
-                $("#report-content").on("change", "#CheckAll", function () {
+                $("#active-customer-report-content").on("change", "#CheckAll", function () {
                     var isCheckedAll = this.checked;
                     var selectedCustomers = {};
 
@@ -97,10 +107,10 @@ define([
 
                     _state.selectedCustomers = selectedCustomers;
                     _state.checkedAllRows = isCheckedAll;
-                    CustomerListService.bindData(_state.cachedData);
+                    CustomerListService.bindActiveCustomerData(_state.cachedData);
                 });
 
-                $("#report-content").on("change", ".select-cust-checkbox", function () {
+                $("#active-customer-report-content").on("change", ".select-cust-checkbox", function () {
                     var custid = Number(this.id);
                     var group = $(this).data("group-comm-id");
                     var selectedCustomers = _state.selectedCustomers;
@@ -150,7 +160,7 @@ define([
                 });
 
                 updateGroupForCheckCustomerArray(groupid);
-                CustomerListService.bindData(_state.cachedData);
+                CustomerListService.bindActiveCustomerData(_state.cachedData);
             },
 
             updateGridGroup: function (groupid, groupName, groupColor) {
@@ -170,13 +180,7 @@ define([
                 });
 
                 updateGroupForCheckCustomerArray(groupid);
-                CustomerListService.bindData(_state.cachedData);
-            },
-
-            resizeGrid: function () {
-                var reportGrid = $("#ReportGrid");
-                jqGridAdditional.updateGridHeight();
-                jqGridAdditional.updateGridWidth(reportGrid);
+                CustomerListService.bindActiveCustomerData(_state.cachedData);
             }
         };
 

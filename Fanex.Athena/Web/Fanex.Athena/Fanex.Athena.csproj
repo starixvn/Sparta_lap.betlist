@@ -819,6 +819,8 @@
     <Content Include="www\js\source\extensions\ajaxBinaryTransporting.js" />
     <Content Include="www\js\source\helpers\datahelper.js" />
     <Content Include="www\js\source\helpers\downloader.js" />
+    <Content Include="www\js\source\pages\customer\customerlist\customerlist.gridoption.dormant.js" />
+    <Content Include="www\js\source\pages\customer\customerlist\customerlist.service.dormant.js" />
     <Content Include="www\js\source\reactpages\actions\reportTitleAction.js" />
     <Content Include="www\js\source\reactpages\actions\requestParamAction.js" />
     <Content Include="www\js\source\reactpages\actions\dateRangeAction.js" />
@@ -1814,7 +1816,7 @@
     <Content Include="www\js\source\pages\customer\customerlist\customerlist.commision.js" />
     <Content Include="www\js\source\pages\customer\customerlist\customerlist.custoption.js" />
     <Content Include="www\js\source\pages\customer\customerlist\customerlist.oddsgroup.js" />
-    <Content Include="www\js\source\pages\customer\customerlist\customerlist.option.js" />
+    <Content Include="www\js\source\pages\customer\customerlist\customerlist.gridoption.js" />
     <Content Include="www\js\source\pages\customer\customerlist\customerlist.state.js" />
     <Content Include="www\js\source\pages\customer\customerlist\customerlist.service.js" />
     <Content Include="www\js\source\pages\customer\customerlist\customerlist.speciallevel.js" />
