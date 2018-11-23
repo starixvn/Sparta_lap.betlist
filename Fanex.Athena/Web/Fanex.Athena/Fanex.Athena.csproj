@@ -874,7 +874,6 @@
     <Content Include="Views\Desktop\Report\LicenseeWinLossByTimeZone\Main.cshtml" />
     <Content Include="www\js\build\dev\reactpages\report\licenseewlbytimezone.chunk.js.map" />
     <Content Include="www\css\source\reactpages\pages\licenseewl-by-timezone\index.scss" />
-    <Content Include="Views\Shared\FunctionNotAvailableOldUI.cshtml" />
     <Content Include="www\css\build\dev\reactpages\licenseewlbytimezone\index.chunk.js.map" />
     <Content Include="www\css\build\dev\reactpages\licenseewlbytimezone\index.css.map" />
     <Content Include="www\css\source\reactpages\components\forms\_radio-buttons.scss" />
