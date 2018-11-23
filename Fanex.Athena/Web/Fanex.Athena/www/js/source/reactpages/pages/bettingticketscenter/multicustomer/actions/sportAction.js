@@ -5,10 +5,10 @@ import * as types from './types'
 import { getLeagueList } from './leagueAction'
 
 const Url = Site.resolveClientUrl('api/CommonDataApi/GetSports');
-export const setSelectedSport = (item) => {
+export const setSelectedSport = (sportId) => {
     return {
         type: types.SET_SELECTED_SPORT,
-        data: item
+        data: sportId
     };
 }
 
@@ -28,7 +28,7 @@ export function getSportList(productCode, date) {
                 let itemAll = { value: 0, label: LangHelper.getSingleResource('All') };
                 data.unshift(itemAll);
                 dispatch(setSportList(data));
-                dispatch(setSelectedSport(itemAll));
+                dispatch(setSelectedSport(itemAll.value));
                 if(date){
                     dispatch(getLeagueList(0, date));
                 }

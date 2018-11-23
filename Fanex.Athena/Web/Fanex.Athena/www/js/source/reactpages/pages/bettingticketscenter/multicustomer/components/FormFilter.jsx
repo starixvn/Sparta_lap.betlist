@@ -65,9 +65,13 @@ export class FormFilter extends Component {
             ProductCodeList: this.props.selectedProduct,
             CurrencyId: this.props.selectedCurrency.value,
             CurrencyName: this.props.selectedCurrency.label,
-            BaseCurrency: this.props.selectedBaseCurrency,
+            BaseCurrency: this.props.selectedBaseCurrency.value,
             StatusList: this.props.selectedStatus,
             LiveStatus: this.props.selectedLiveStatus,
+            SportId: this.props.selectedSport,
+            BetTypeId: this.props.selectedBettype,
+            LeagueId: this.props.selectedLeague,
+            MatchId: this.props.selectedMatch,
             SortBy: SortBy,
             SortOrder: SortOrder
         }
@@ -104,7 +108,7 @@ export class FormFilter extends Component {
     _onChangeDateRange = (date, isValidMonthRange = true) => {
         if (isValidMonthRange) {
             this.props.setDateRange(date);
-            this.props.getBettypeList(this.props.selectedProduct, this.props.selectedBettype, this.isSingleDate({fromDate: date.startDate, toDate: date.endDate}));
+            this.props.getBettypeList(this.props.selectedProduct, this.isSingleDate({fromDate: date.startDate, toDate: date.endDate}));
             if(this.isSingleDate()){
                 this.props.getLeagueList(this.props.selectedSport.value, this.props.dateRange.fromDate);
             }
@@ -129,7 +133,7 @@ export class FormFilter extends Component {
     _onChangeProduct = (productCode) => {
         this.props.setSelectedProduct(productCode);
         this.props.getSportList(productCode, this.isSingleDate() && this.props.dateRange.fromDate);
-        this.props.getBettypeList(productCode, this.props.selectedBettype, this.isSingleDate());
+        this.props.getBettypeList(productCode, this.isSingleDate());
     }
 
    _renderSportSelectList() {
@@ -157,7 +161,7 @@ export class FormFilter extends Component {
             <Select instanceId="BettypeList"
                 value={this.props.selectedBettype}
                 options={bettypeList}
-                onChange={(item) => this.props.setSelectedBettype(item)} />
+                onChange={(item) => this.props.setSelectedBettype(item.value)} />
         );
     }
 
@@ -209,7 +213,7 @@ export class FormFilter extends Component {
         }
             
         this.props.setBaseCurrencyList(baseCurrencyList);
-        this.props.setSelectedBaseCurrency(baseCurrency);
+        this.props.setSelectedBaseCurrency(baseCurrency.value);
     }
 
     _renderBaseCurrencySelectList() {

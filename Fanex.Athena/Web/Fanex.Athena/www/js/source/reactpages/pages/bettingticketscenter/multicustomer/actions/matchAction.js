@@ -8,19 +8,18 @@ const Url = Site.resolveClientUrl('api/CommonDataApi/GetMatches');
 const MATCH_CACHE_KEY = "MATCH_CACHE_KEY";
 
 function dispatchMatchList(dispatch, data){
-    dispatch(setMatchList(data));
     if(data.length == 0 || data[0].value != 0)
     {
         data.unshift({value: 0, label: LangHelper.getSingleResource('All')});
     }
-
-    dispatch(setSelectedMatch(data[0]));
+    dispatch(setMatchList(data));
+    dispatch(setSelectedMatch(data[0].value));
 }
 
-export const setSelectedMatch = (item) => {
+export const setSelectedMatch = (matchid) => {
     return {
         type: types.SET_SELECTED_MATCH,
-        data: item
+        data: matchid
     };
 }
 
@@ -41,7 +40,13 @@ export function getMatchList(sportId, leagueId, date) {
             return;
         }
 
-        DataService.getData(Url, { sportId: sportId, leagueId: leagueId, fromDate: date, toDate: date})
+        DataService.getData(Url, 
+            { 
+                sportId: sportId, 
+                leagueId: leagueId, 
+                fromDate: Site.convertDateToString(date), 
+                toDate: Site.convertDateToString(date)
+            })
             .then(response => {
                 var data = response.data;
                 Cache.set(cacheKey, data);

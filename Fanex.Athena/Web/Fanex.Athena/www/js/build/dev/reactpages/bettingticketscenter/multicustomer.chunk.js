@@ -6013,7 +6013,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Url = _site2.default.resolveClientUrl('api/CommonDataApi/GetBettypes');
 var BETTYPE_CACHE_KEY = "BETTYPE_CACHE_KEY";
 
-function dispatchBettypeList(dispatch, data, selectedBettype, hasItemAll) {
+function dispatchBettypeList(dispatch, data, hasItemAll) {
     // Remove Item All
     data.length && data[0].value == 0 && data.shift();
     var itemAll = { value: 0, label: _langHelper2.default.getSingleResource('All') };
@@ -6024,15 +6024,15 @@ function dispatchBettypeList(dispatch, data, selectedBettype, hasItemAll) {
 
     dispatch(setBettypeList(data));
     if (data.length > 0) {
-        var bettype = hasItemAll ? itemAll : data[0];
-        dispatch(setSelectedBettype(bettype || data[0]));
+        var bettype = hasItemAll ? itemAll.value : data[0].value;
+        dispatch(setSelectedBettype(bettype || data[0].value));
     }
 }
 
-var setSelectedBettype = exports.setSelectedBettype = function setSelectedBettype(item) {
+var setSelectedBettype = exports.setSelectedBettype = function setSelectedBettype(bettypeId) {
     return {
         type: types.SET_SELECTED_BETTYPE,
-        data: item
+        data: bettypeId
     };
 };
 
@@ -6043,21 +6043,21 @@ var setBettypeList = exports.setBettypeList = function setBettypeList(list) {
     };
 };
 
-function getBettypeList(productCode, selectedBettype) {
-    var hasItemAll = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+function getBettypeList(productCode) {
+    var hasItemAll = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
 
     var cacheKey = BETTYPE_CACHE_KEY + productCode;
     return function (dispatch) {
         var cacheData = _Cache2.default.get(cacheKey);
         if (cacheData) {
-            dispatchBettypeList(dispatch, cacheData, selectedBettype, hasItemAll);
+            dispatchBettypeList(dispatch, cacheData, hasItemAll);
             return;
         }
 
         _DataService2.default.getData(Url, { productCode: productCode }).then(function (response) {
             var data = response.data;
             _Cache2.default.set(cacheKey, data);
-            dispatchBettypeList(dispatch, data, selectedBettype, hasItemAll);
+            dispatchBettypeList(dispatch, data, hasItemAll);
         });
     };
 }
@@ -6191,18 +6191,18 @@ var Url = _site2.default.resolveClientUrl('api/CommonDataApi/GetLeagues');
 var LEAGUE_CACHE_KEY = "LEAGUE_CACHE_KEY";
 
 function dispatchLeagueList(dispatch, data, date, sportId) {
-    dispatch(setLeagueList(data));
     if (data.length == 0 || data[0].value != 0) {
         data.unshift({ value: 0, label: _langHelper2.default.getSingleResource('All') });
     }
-    dispatch(setSelectedLeague(data[0]));
+    dispatch(setLeagueList(data));
+    dispatch(setSelectedLeague(data[0].value));
     dispatch((0, _matchAction.getMatchList)(sportId, data[0].value, date, date));
 }
 
-var setSelectedLeague = exports.setSelectedLeague = function setSelectedLeague(item) {
+var setSelectedLeague = exports.setSelectedLeague = function setSelectedLeague(leagueid) {
     return {
         type: types.SET_SELECTED_LEAGUE,
-        data: item
+        data: leagueid
     };
 };
 
@@ -6278,18 +6278,17 @@ var Url = _site2.default.resolveClientUrl('api/CommonDataApi/GetMatches');
 var MATCH_CACHE_KEY = "MATCH_CACHE_KEY";
 
 function dispatchMatchList(dispatch, data) {
-    dispatch(setMatchList(data));
     if (data.length == 0 || data[0].value != 0) {
         data.unshift({ value: 0, label: _langHelper2.default.getSingleResource('All') });
     }
-
-    dispatch(setSelectedMatch(data[0]));
+    dispatch(setMatchList(data));
+    dispatch(setSelectedMatch(data[0].value));
 }
 
-var setSelectedMatch = exports.setSelectedMatch = function setSelectedMatch(item) {
+var setSelectedMatch = exports.setSelectedMatch = function setSelectedMatch(matchid) {
     return {
         type: types.SET_SELECTED_MATCH,
-        data: item
+        data: matchid
     };
 };
 
@@ -6309,7 +6308,12 @@ function getMatchList(sportId, leagueId, date) {
             return;
         }
 
-        _DataService2.default.getData(Url, { sportId: sportId, leagueId: leagueId, fromDate: date, toDate: date }).then(function (response) {
+        _DataService2.default.getData(Url, {
+            sportId: sportId,
+            leagueId: leagueId,
+            fromDate: _site2.default.convertDateToString(date),
+            toDate: _site2.default.convertDateToString(date)
+        }).then(function (response) {
             var data = response.data;
             _Cache2.default.set(cacheKey, data);
             dispatchMatchList(dispatch, data);
@@ -6358,10 +6362,10 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Url = _site2.default.resolveClientUrl('api/CommonDataApi/GetSports');
-var setSelectedSport = exports.setSelectedSport = function setSelectedSport(item) {
+var setSelectedSport = exports.setSelectedSport = function setSelectedSport(sportId) {
     return {
         type: types.SET_SELECTED_SPORT,
-        data: item
+        data: sportId
     };
 };
 
@@ -6380,7 +6384,7 @@ function getSportList(productCode, date) {
             var itemAll = { value: 0, label: _langHelper2.default.getSingleResource('All') };
             data.unshift(itemAll);
             dispatch(setSportList(data));
-            dispatch(setSelectedSport(itemAll));
+            dispatch(setSelectedSport(itemAll.value));
             if (date) {
                 dispatch((0, _leagueAction.getLeagueList)(0, date));
             }
@@ -6835,7 +6839,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
 
             if (isValidMonthRange) {
                 _this.props.setDateRange(date);
-                _this.props.getBettypeList(_this.props.selectedProduct, _this.props.selectedBettype, _this.isSingleDate({ fromDate: date.startDate, toDate: date.endDate }));
+                _this.props.getBettypeList(_this.props.selectedProduct, _this.isSingleDate({ fromDate: date.startDate, toDate: date.endDate }));
                 if (_this.isSingleDate()) {
                     _this.props.getLeagueList(_this.props.selectedSport.value, _this.props.dateRange.fromDate);
                 }
@@ -6848,7 +6852,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
         _this._onChangeProduct = function (productCode) {
             _this.props.setSelectedProduct(productCode);
             _this.props.getSportList(productCode, _this.isSingleDate() && _this.props.dateRange.fromDate);
-            _this.props.getBettypeList(productCode, _this.props.selectedBettype, _this.isSingleDate());
+            _this.props.getBettypeList(productCode, _this.isSingleDate());
         };
 
         _this._onChangeSport = function (sportId) {
@@ -6879,7 +6883,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
             }
 
             _this.props.setBaseCurrencyList(baseCurrencyList);
-            _this.props.setSelectedBaseCurrency(baseCurrency);
+            _this.props.setSelectedBaseCurrency(baseCurrency.value);
         };
 
         return _this;
@@ -6914,9 +6918,13 @@ var FormFilter = exports.FormFilter = function (_Component) {
                 ProductCodeList: this.props.selectedProduct,
                 CurrencyId: this.props.selectedCurrency.value,
                 CurrencyName: this.props.selectedCurrency.label,
-                BaseCurrency: this.props.selectedBaseCurrency,
+                BaseCurrency: this.props.selectedBaseCurrency.value,
                 StatusList: this.props.selectedStatus,
                 LiveStatus: this.props.selectedLiveStatus,
+                SportId: this.props.selectedSport,
+                BetTypeId: this.props.selectedBettype,
+                LeagueId: this.props.selectedLeague,
+                MatchId: this.props.selectedMatch,
                 SortBy: SortBy,
                 SortOrder: SortOrder
             };
@@ -6971,7 +6979,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                 value: this.props.selectedBettype,
                 options: bettypeList,
                 onChange: function onChange(item) {
-                    return _this4.props.setSelectedBettype(item);
+                    return _this4.props.setSelectedBettype(item.value);
                 } });
         }
     }, {

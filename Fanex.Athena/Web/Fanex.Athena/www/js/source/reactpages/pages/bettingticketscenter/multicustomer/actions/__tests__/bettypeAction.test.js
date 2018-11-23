@@ -43,11 +43,10 @@ describe('bettypeAction ', () => {
         Cache.set = jest.fn();
         
         const productCode = "BG";
-        const selectedBettype = 99;
         const hasItemAll = true;
         const store = mockStore({ });
 
-        store.dispatch(actions.getBettypeList(productCode, selectedBettype, hasItemAll));
+        store.dispatch(actions.getBettypeList(productCode, hasItemAll));
         
         promise.then(() => {
             expect(DataService.getData).toHaveBeenCalledWith('/api/CommonDataApi/GetBettypes', { productCode: productCode });
