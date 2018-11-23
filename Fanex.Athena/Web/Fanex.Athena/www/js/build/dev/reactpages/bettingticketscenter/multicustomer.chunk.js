@@ -365,36 +365,6 @@ var toggleLoader = exports.toggleLoader = function toggleLoader(show) {
 
 /***/ }),
 
-/***/ "./www/js/source/reactpages/actions/platformAction.js":
-/*!************************************************************!*\
-  !*** ./www/js/source/reactpages/actions/platformAction.js ***!
-  \************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.setSelectedPlatform = undefined;
-
-var _types = __webpack_require__(/*! ./types */ "./www/js/source/reactpages/actions/types.js");
-
-var types = _interopRequireWildcard(_types);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-var setSelectedPlatform = exports.setSelectedPlatform = function setSelectedPlatform(item) {
-    return {
-        type: types.SET_SELECTED_PLATFORM,
-        data: item
-    };
-};
-
-/***/ }),
-
 /***/ "./www/js/source/reactpages/actions/productAction.js":
 /*!***********************************************************!*\
   !*** ./www/js/source/reactpages/actions/productAction.js ***!
@@ -6129,10 +6099,6 @@ var _statusAction = __webpack_require__(/*! @jsroot/actions/statusAction */ "./w
 
 var statusAction = _interopRequireWildcard(_statusAction);
 
-var _platformAction = __webpack_require__(/*! @jsroot/actions/platformAction */ "./www/js/source/reactpages/actions/platformAction.js");
-
-var platformAction = _interopRequireWildcard(_platformAction);
-
 var _liveStatusAction = __webpack_require__(/*! @jsroot/actions/liveStatusAction */ "./www/js/source/reactpages/actions/liveStatusAction.js");
 
 var liveStatusAction = _interopRequireWildcard(_liveStatusAction);
@@ -6171,7 +6137,7 @@ var matchAction = _interopRequireWildcard(_matchAction);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-var ActionCreators = exports.ActionCreators = Object.assign({}, gridDataAction, productAction, currencyAction, baseCurrencyAction, statusAction, platformAction, liveStatusAction, loaderAction, dateRangeAction, requestParamAction, reportTitleAction, sportAction, bettypeAction, leagueAction, matchAction);
+var ActionCreators = exports.ActionCreators = Object.assign({}, gridDataAction, productAction, currencyAction, baseCurrencyAction, statusAction, liveStatusAction, loaderAction, dateRangeAction, requestParamAction, reportTitleAction, sportAction, bettypeAction, leagueAction, matchAction);
 
 /***/ }),
 
@@ -6951,7 +6917,6 @@ var FormFilter = exports.FormFilter = function (_Component) {
                 BaseCurrency: this.props.selectedBaseCurrency,
                 StatusList: this.props.selectedStatus,
                 LiveStatus: this.props.selectedLiveStatus,
-                Platform: this.props.selectedPlatform,
                 SortBy: SortBy,
                 SortOrder: SortOrder
             };
@@ -7078,23 +7043,9 @@ var FormFilter = exports.FormFilter = function (_Component) {
                 } });
         }
     }, {
-        key: '_renderPlatformSelectList',
-        value: function _renderPlatformSelectList() {
-            var _this9 = this;
-
-            var platformList = _AppData2.default.platformList;
-
-            return platformList && platformList.length && _react2.default.createElement(_reactSelect2.default, { instanceId: 'PlatformList',
-                value: this.props.selectedPlatform,
-                options: platformList,
-                onChange: function onChange(item) {
-                    return _this9.props.setSelectedPlatform(item.value);
-                } });
-        }
-    }, {
         key: '_renderLiveStatusSelectList',
         value: function _renderLiveStatusSelectList() {
-            var _this10 = this;
+            var _this9 = this;
 
             var liveStatusList = _AppData2.default.liveStatusList;
 
@@ -7102,7 +7053,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                 value: this.props.selectedLiveStatus,
                 options: liveStatusList,
                 onChange: function onChange(item) {
-                    return _this10.props.setSelectedLiveStatus(item.value);
+                    return _this9.props.setSelectedLiveStatus(item.value);
                 } });
         }
     }, {
@@ -7246,20 +7197,6 @@ var FormFilter = exports.FormFilter = function (_Component) {
                     ),
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-12 col-md-3 col-sm-3 col-lg-2 col-xl-2' },
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'form-group' },
-                            _react2.default.createElement(
-                                'label',
-                                { className: 'label-text' },
-                                _langHelper2.default.getSingleResource("Platform")
-                            ),
-                            this._renderPlatformSelectList()
-                        )
-                    ),
-                    _react2.default.createElement(
-                        'div',
                         { className: 'col-12 col-md-2 col-sm-3 col-lg-2 col-xl-2' },
                         _react2.default.createElement(
                             'div',
@@ -7339,11 +7276,10 @@ function mapStateToProps(state) {
         baseCurrencyList = state.baseCurrencyList,
         selectedBaseCurrency = state.selectedBaseCurrency,
         selectedStatus = state.selectedStatus,
-        selectedPlatform = state.selectedPlatform,
         selectedLiveStatus = state.selectedLiveStatus;
 
     return Object.assign({}, { requestParam: requestParam, dateRange: dateRange, selectedProduct: selectedProduct, sportList: sportList, selectedSport: selectedSport, selectedBettype: selectedBettype, bettypeList: bettypeList, selectedLeague: selectedLeague, leagueList: leagueList, selectedMatch: selectedMatch, matchList: matchList,
-        selectedCurrency: selectedCurrency, baseCurrencyList: baseCurrencyList, selectedBaseCurrency: selectedBaseCurrency, selectedStatus: selectedStatus, selectedPlatform: selectedPlatform, selectedLiveStatus: selectedLiveStatus });
+        selectedCurrency: selectedCurrency, baseCurrencyList: baseCurrencyList, selectedBaseCurrency: selectedBaseCurrency, selectedStatus: selectedStatus, selectedLiveStatus: selectedLiveStatus });
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(FormFilter);
@@ -7504,10 +7440,6 @@ var _statusReducer = __webpack_require__(/*! @jsroot/reducers/statusReducer */ "
 
 var statusReducer = _interopRequireWildcard(_statusReducer);
 
-var _platformReducer = __webpack_require__(/*! @jsroot/reducers/platformReducer */ "./www/js/source/reactpages/reducers/platformReducer.js");
-
-var platformReducer = _interopRequireWildcard(_platformReducer);
-
 var _liveStatusReducer = __webpack_require__(/*! @jsroot/reducers/liveStatusReducer */ "./www/js/source/reactpages/reducers/liveStatusReducer.js");
 
 var liveStatusReducer = _interopRequireWildcard(_liveStatusReducer);
@@ -7546,7 +7478,7 @@ var matchReducer = _interopRequireWildcard(_matchReducer);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-exports.default = (0, _redux.combineReducers)(Object.assign(gridDataReducer, productReducer, currencyReducer, baseCurrencyReducer, statusReducer, platformReducer, liveStatusReducer, loaderReducer, dateRangeReducer, requestParamReducer, reportTitleReducer, sportReducer, bettypeReducer, leagueReducer, matchReducer));
+exports.default = (0, _redux.combineReducers)(Object.assign(gridDataReducer, productReducer, currencyReducer, baseCurrencyReducer, statusReducer, liveStatusReducer, loaderReducer, dateRangeReducer, requestParamReducer, reportTitleReducer, sportReducer, bettypeReducer, leagueReducer, matchReducer));
 
 /***/ }),
 
@@ -7876,41 +7808,6 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var isLoading = exports.isLoading = (0, _createReducer3.default)({}, _defineProperty({}, types.TOGGLE_LOADER, function (state, action) {
-    return action.data;
-}));
-
-/***/ }),
-
-/***/ "./www/js/source/reactpages/reducers/platformReducer.js":
-/*!**************************************************************!*\
-  !*** ./www/js/source/reactpages/reducers/platformReducer.js ***!
-  \**************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.selectedPlatform = undefined;
-
-var _types = __webpack_require__(/*! ../actions/types */ "./www/js/source/reactpages/actions/types.js");
-
-var types = _interopRequireWildcard(_types);
-
-var _createReducer2 = __webpack_require__(/*! ../lib/createReducer.js */ "./www/js/source/reactpages/lib/createReducer.js");
-
-var _createReducer3 = _interopRequireDefault(_createReducer2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var selectedPlatform = exports.selectedPlatform = (0, _createReducer3.default)({}, _defineProperty({}, types.SET_SELECTED_PLATFORM, function (state, action) {
     return action.data;
 }));
 
