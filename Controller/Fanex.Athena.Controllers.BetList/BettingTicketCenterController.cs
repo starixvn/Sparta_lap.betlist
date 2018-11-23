@@ -40,7 +40,6 @@
                 CurrencyList = GetCurrencyList(),
                 LiveStatusList = GetLiveStatusList(),
                 StatusList = GetStatusList(),
-                PlatformList = GetPlatformList(),
                 ProductOptionList = GetProductOptionList(),
                 MinDate = AppSettings.HistoryDate,
                 IsAllowedCustomerComm = SessionService.LicenseeSession.IsAllowedCustomerComm

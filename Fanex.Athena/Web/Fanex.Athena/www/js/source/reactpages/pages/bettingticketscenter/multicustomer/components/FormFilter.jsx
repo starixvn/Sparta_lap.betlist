@@ -68,7 +68,6 @@ export class FormFilter extends Component {
             BaseCurrency: this.props.selectedBaseCurrency,
             StatusList: this.props.selectedStatus,
             LiveStatus: this.props.selectedLiveStatus,
-            Platform: this.props.selectedPlatform,
             SortBy: SortBy,
             SortOrder: SortOrder
         }
@@ -238,17 +237,6 @@ export class FormFilter extends Component {
                     onChange={(currentItem, selectedItemsKey) => this.props.setSelectedStatus(selectedItemsKey)} />);
     }
 
-    _renderPlatformSelectList() {
-        const platformList = AppData.platformList;
-
-        return platformList && platformList.length && (
-            <Select instanceId="PlatformList"
-                value={this.props.selectedPlatform}
-                options={platformList}
-                onChange={(item) => this.props.setSelectedPlatform(item.value)} />
-        );
-    }
-
       _renderLiveStatusSelectList() {
           const liveStatusList = AppData.liveStatusList;
 
@@ -330,13 +318,6 @@ export class FormFilter extends Component {
                         </div>
                     </div>
 
-                    <div className="col-12 col-md-3 col-sm-3 col-lg-2 col-xl-2">
-                        <div className="form-group">
-                            <label className="label-text">{LangHelper.getSingleResource("Platform")}</label>
-                        {this._renderPlatformSelectList()}
-                        </div>
-                    </div>
-
                     <div className="col-12 col-md-2 col-sm-3 col-lg-2 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Live")}</label>
@@ -372,9 +353,9 @@ function mapDispatchToProps(dispatch) {
 }
 function mapStateToProps(state) {
     const { requestParam, dateRange, selectedProduct, sportList, selectedSport, selectedBettype, bettypeList, selectedLeague, leagueList, selectedMatch, matchList,
-        selectedCurrency, baseCurrencyList, selectedBaseCurrency, selectedStatus, selectedPlatform, selectedLiveStatus } = state;
+        selectedCurrency, baseCurrencyList, selectedBaseCurrency, selectedStatus, selectedLiveStatus } = state;
         return Object.assign({}, { requestParam, dateRange, selectedProduct, sportList, selectedSport, selectedBettype, bettypeList, selectedLeague, leagueList, selectedMatch, matchList,
-            selectedCurrency, baseCurrencyList, selectedBaseCurrency, selectedStatus, selectedPlatform, selectedLiveStatus });
+            selectedCurrency, baseCurrencyList, selectedBaseCurrency, selectedStatus, selectedLiveStatus });
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormFilter);

@@ -34,7 +34,6 @@ describe('connect ', () => {
             baseCurrencyList: "sdfsdfsdfsdf",
             selectedBaseCurrency: 'USD',
             selectedStatus: 'status',
-            selectedPlatform: 'Asia',
             selectedLiveStatus: 'Live',
             otherProps: 'xxxxxxxxxxxxxxxxxxxx'
         }
@@ -55,7 +54,6 @@ describe('connect ', () => {
             baseCurrencyList: "sdfsdfsdfsdf",
             selectedBaseCurrency: 'USD',
             selectedStatus: 'status',
-            selectedPlatform: 'Asia',
             selectedLiveStatus: 'Live' }
 
         const result = mapStateToProps(state);

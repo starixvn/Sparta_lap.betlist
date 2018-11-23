@@ -21,7 +21,6 @@ describe('FormFilter ', () => {
                 originalBaseCurrencyList: ['USD', 'EUR'],
                 currencyList: ['USD', 'EUR'],
                 statusList: ["Win", "Lose", "Draw"],
-                platformList: ["Asia", "China", "US"],
                 liveStatusList: ["Live", "NonLive"],
                 productList: [{value: "SB"}, {value:"BA"}],
                 baseCurrencyList: ['EUR'],
@@ -155,7 +154,6 @@ describe('FormFilter ', () => {
                 baseCurrencyList: "sdfsdfsdfsdf",
                 selectedBaseCurrency: 'USD',
                 selectedStatus: 'status',
-                selectedPlatform: 'Asia',
                 selectedLiveStatus: 'Live'
             };
 
@@ -168,7 +166,6 @@ describe('FormFilter ', () => {
                 BaseCurrency: props.selectedBaseCurrency,
                 StatusList: props.selectedStatus,
                 LiveStatus: props.selectedLiveStatus,
-                Platform: props.selectedPlatform,
                 SortBy: props.requestParam.SortBy,
                 SortOrder: props.requestParam.SortOrder
             }
@@ -303,16 +300,6 @@ describe('FormFilter ', () => {
             selectList.props.onChange("oldItem", "newItem");
 
             expect(props.setSelectedStatus).toHaveBeenCalledWith("newItem");
-        });
-
-        it('onChange in Platform filter - setSelectedPlatform should be called with correct parameter', () => {
-            const props = {setSelectedPlatform: jest.fn()};
-            const formFilter = new FormFilter(props);
-            
-            const selectList = formFilter._renderPlatformSelectList();
-            selectList.props.onChange({value: "123"});
-
-            expect(props.setSelectedPlatform).toHaveBeenCalledWith("123");
         });
 
         it('onChange in LiveStatus filter - setSelectedLiveStatus should be called with correct parameter', () => {

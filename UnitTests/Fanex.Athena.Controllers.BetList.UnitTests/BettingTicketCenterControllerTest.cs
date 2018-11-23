@@ -216,7 +216,6 @@
                     Assert.That(viewModel.CurrencyList, Is.EqualTo(DefaultUserSession.CurrencyList));
                     Assert.That(viewModel.LiveStatusList, Is.Not.Empty);
                     Assert.That(viewModel.StatusList, Is.Not.Empty);
-                    Assert.That(viewModel.PlatformList, Is.Not.Empty);
                     Assert.That(viewModel.ProductOptionList.Count(), Is.EqualTo(productCodes.Count));
                     Assert.That(viewModel.MinDate, Is.EqualTo(historyDate));
                     Assert.That(viewModel.IsAllowedCustomerComm, Is.EqualTo(DefaultLicenseeSession.IsAllowedCustomerComm));

@@ -216,11 +216,10 @@
             db.AddInParameter("MoveBetsDay", DbType.DateTime, balanceUp.MoveBetsDay);
             db.AddInParameter("SportType", DbType.Int32, metaModel.SportId);
             db.AddInParameter("BetType", DbType.Int32, metaModel.BetTypeId);
-            db.AddInParameter("LeagueId", DbType.Int32, metaModel.SportId);
-            db.AddInParameter("MatchId", DbType.Int32, metaModel.BetTypeId);
+            db.AddInParameter("LeagueId", DbType.Int32, metaModel.LeagueId);
+            db.AddInParameter("MatchId", DbType.Int32, metaModel.MatchId);
             db.AddInParameter("BaseCurrency", DbType.String, metaModel.BaseCurrency);
             db.AddInParameter("StatusIdList", DbType.String, metaModel.StatusList);
-            db.AddInParameter("Platform", DbType.Byte, metaModel.Platform);
             db.AddInParameter("LiveIndicator", DbType.Byte, metaModel.LiveStatus);
             db.AddInParameter("PageSize", DbType.Int32, metaModel.IsExport ? int.MaxValue - 1 : metaModel.PageSize);
             db.AddInParameter("PageIndex", DbType.Int32, metaModel.IsExport ? 1 : metaModel.PageIndex);
