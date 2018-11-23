@@ -6918,7 +6918,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                 ProductCodeList: this.props.selectedProduct,
                 CurrencyId: this.props.selectedCurrency.value,
                 CurrencyName: this.props.selectedCurrency.label,
-                BaseCurrency: this.props.selectedBaseCurrency.value,
+                BaseCurrency: this.props.selectedBaseCurrency,
                 StatusList: this.props.selectedStatus,
                 LiveStatus: this.props.selectedLiveStatus,
                 SportId: this.props.selectedSport,

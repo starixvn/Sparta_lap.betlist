@@ -150,7 +150,7 @@ describe('FormFilter ', () => {
                 leagueList: 6546,
                 selectedMatch: 5,
                 matchList: 987,
-                selectedCurrency: "sd",
+                selectedCurrency: { value: "1", label: "sd" },
                 baseCurrencyList: "sdfsdfsdfsdf",
                 selectedBaseCurrency: 'USD',
                 selectedStatus: 'status',
@@ -163,9 +163,15 @@ describe('FormFilter ', () => {
                 ToDate: Site.convertDateToString(DateRange.toDate),
                 PageSize: props.requestParam.PageSize,
                 PageIndex: 1,
+                CurrencyId: props.selectedCurrency.value,
+                CurrencyName: props.selectedCurrency.label,
                 BaseCurrency: props.selectedBaseCurrency,
                 StatusList: props.selectedStatus,
                 LiveStatus: props.selectedLiveStatus,
+                SportId: props.selectedSport,
+                BetTypeId: props.selectedBettype,
+                LeagueId: props.selectedLeague,
+                MatchId: props.selectedMatch,
                 SortBy: props.requestParam.SortBy,
                 SortOrder: props.requestParam.SortOrder
             }
@@ -289,7 +295,7 @@ describe('FormFilter ', () => {
             const selectList = formFilter._renderBettypeSelectList();
             selectList.props.onChange({value: 2});
 
-            expect(props.setSelectedBettype).toHaveBeenCalledWith({value: 2});
+            expect(props.setSelectedBettype).toHaveBeenCalledWith(2);
         });
 
         it('onChange in Status filter - setSelectedStatus should be called with correct parameter', () => {
