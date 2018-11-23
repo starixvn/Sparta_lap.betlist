@@ -110,7 +110,7 @@ export class FormFilter extends Component {
             this.props.setDateRange(date);
             this.props.getBettypeList(this.props.selectedProduct, this.isSingleDate({fromDate: date.startDate, toDate: date.endDate}));
             if(this.isSingleDate()){
-                this.props.getLeagueList(this.props.selectedSport.value, this.props.dateRange.fromDate);
+                this.props.getLeagueList(this.props.selectedSport.value, date.startDate);
             }
         }
         else {

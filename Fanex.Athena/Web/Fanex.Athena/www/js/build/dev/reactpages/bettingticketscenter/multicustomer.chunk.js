@@ -6841,7 +6841,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                 _this.props.setDateRange(date);
                 _this.props.getBettypeList(_this.props.selectedProduct, _this.isSingleDate({ fromDate: date.startDate, toDate: date.endDate }));
                 if (_this.isSingleDate()) {
-                    _this.props.getLeagueList(_this.props.selectedSport.value, _this.props.dateRange.fromDate);
+                    _this.props.getLeagueList(_this.props.selectedSport.value, date.startDate);
                 }
             } else {
                 var message = _langHelper2.default.getSingleResource("DateRangeExceedMsg").replace("{0}", _AppData2.default.dateConstraint.limitedMonthRange);
