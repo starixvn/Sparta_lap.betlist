@@ -59,12 +59,12 @@ define([
             },
 
             ajaxPaging: function () {
-                _state.pagingOption = PagingHelper.getSetting();
+                _state.pagingOption = PagingHelper.getSetting("#ActiveCustomerPager");
                 CustomerListService.submit();
             },
 
             ajaxPagingDormant: function () {
-             //   _dormantState.pagingOption = PagingHelper.getSetting();
+                _dormantState.pagingOption = PagingHelper.getSetting("#DormantCustomerPager");
                 CustomerListServiceDormant.submit();
             },
 

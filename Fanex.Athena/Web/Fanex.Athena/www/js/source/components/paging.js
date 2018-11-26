@@ -1,10 +1,9 @@
 ﻿"use strict";
 define(["jquery", "common/site", "common/querystring"], function ($, Site, QueryString) {
-    var $pagingContainer, $pageIndex, $pageSize;
-
     var me = {};
+    var _settings = {}; // store multi setting instances by "elementcontainer" as key
 
-    var setting = {
+    var defaultSetting = {
         pageindex: 1,
         pagesize: 50,
         pagelist: [50, 100, 1000],
@@ -16,10 +15,15 @@ define(["jquery", "common/site", "common/querystring"], function ($, Site, Query
         alwayshow: false
     };
 
-    function goToPage(method, index) {
+    function getByName($pagerContainer, name){
+        return $("input[name='" + name + "']", $pagerContainer);
+    }
+
+    function goToPage($pagerContainer, method, index) {
+        var $pageSize = getByName($pagerContainer, "PageSize");
         if (method === "POST") {
             $("#IsExportExcel").val(false);
-            var formName = $("input[name='FormName']", $pagingContainer).val();
+            var formName = getByName($pagerContainer, "FormName").val();
             var form = $("#" + formName);
             var pageIndex = '<input type="hidden" value="' + index + '" name="PageIndex" />';
             var pageSize = '<input type="hidden" value="' + $pageSize.val() + '" name="PageSize" />';
@@ -29,8 +33,9 @@ define(["jquery", "common/site", "common/querystring"], function ($, Site, Query
             form.submit();
         }
         else if (method === "AJAX") {
+            var $pageIndex = getByName($pagerContainer, "PageIndex");
             $pageIndex.val(index);
-            var fc = $("input[name='AjaxPagingFunction']", $pagingContainer).val();
+            var fc = getByName($pagerContainer, "AjaxPagingFunction").val();
             eval(fc); // jshint ignore:line
         } else {
             var url = Site.getCurrentUrl();
@@ -55,7 +60,8 @@ define(["jquery", "common/site", "common/querystring"], function ($, Site, Query
         /// <param name="elementcontainer">ex: "#page"</param>
         /// <param name="method">POST or GET or AJAX</param>
         var pageHtml = "";
-        $.extend(setting, option);
+        var setting = $.extend({}, defaultSetting, option);
+        _settings[setting.elementcontainer] = setting;
         var noOfPage = 1;
         var pagingVisible = setting.totalrow > setting.pagesize;
 
@@ -106,46 +112,57 @@ define(["jquery", "common/site", "common/querystring"], function ($, Site, Query
             pageHtml = pageControl.join("");
         }
 
-        $(setting.elementcontainer).html(pageHtml);
-        me.initialize();
+        var $pagerContainer = $(setting.elementcontainer);
+        $pagerContainer.html(pageHtml);
+        me._bindEvent(setting);
     };
-    me.getSetting = function () {
+    me.getSetting = function (elementcontainer) {
+        var elementcontainer = elementcontainer || Object.keys(_settings)[0];
+        var setting = _settings[elementcontainer];
+        var $pagerContainer = $(elementcontainer);
+        var $pageIndex = getByName($pagerContainer, "PageIndex");
+        var $pageSize = getByName($pagerContainer, "PageSize");
         setting.pageindex = parseInt($pageIndex.val(), 10);
         setting.pagesize = $pageSize.val();
         return setting;
     };
-    me.bindEvent = function () {
-        var method = $('input[name="Method"]', $pagingContainer).val();
-        var noOfPage = parseInt($('input[name="NoOfPage"]', $pagingContainer).val(), 10);
 
-        $(".pagingFirst", $pagingContainer).on("click", function () {
+    // private methods
+    me._bindEvent = function (setting) {
+        var $pagerContainer = $(setting.elementcontainer);
+        var $pageIndex = getByName($pagerContainer, "PageIndex");
+        var method = getByName($pagerContainer, "Method").val();
+        var noOfPage = parseInt($('input[name="NoOfPage"]', $pagerContainer).val(), 10);
+
+        $(".pagingFirst", $pagerContainer).on("click", function () {
             if (isVisible(this)) {
-                goToPage(method, 1);
+                goToPage($pagerContainer, method, 1);
             }
         });
-        $(".pagingPrev", $pagingContainer).on("click", function () {
+        $(".pagingPrev", $pagerContainer).on("click", function () {
             var currentPage = parseInt($pageIndex.val(), 10);
             if (isVisible(this) && currentPage > 1) {
-                goToPage(method, currentPage - 1);
+                goToPage($pagerContainer, method, currentPage - 1);
             }
         });
-        $(".pagingLast", $pagingContainer).on("click", function () {
+        $(".pagingLast", $pagerContainer).on("click", function () {
             if (isVisible(this)) {
-                goToPage(method, noOfPage);
+                goToPage($pagerContainer, method, noOfPage);
             }
         });
-        $(".pagingNext", $pagingContainer).on("click", function () {
+        $(".pagingNext", $pagerContainer).on("click", function () {
             if (isVisible(this)) {
                 var currentPage = parseInt($pageIndex.val(), 10);
-                goToPage(method, currentPage + 1);
+                goToPage($pagerContainer, method, currentPage + 1);
             }
         });
 
-        $("select.pageSizeSelected", $pagingContainer).on("change", function () {
+        $("select.pageSizeSelected", $pagerContainer).on("change", function () {
+            var $pageSize = getByName($pagerContainer, "PageSize");
             var pageSize = $(this).val();
             $pageSize.val(pageSize);
             setting.pagesize = pageSize;
-            goToPage(method, 1);
+            goToPage($pagerContainer, method, 1);
         });
 
         $pageIndex.on("keyup", function (e) {
@@ -154,19 +171,10 @@ define(["jquery", "common/site", "common/querystring"], function ($, Site, Query
                 var value = parseInt($(this).val());
                 if (value > 0 && value <= noOfPage) {
                     $(this).val(value);
-                    goToPage(method, value);
+                    goToPage($pagerContainer, method, value);
                 }
             }
         });
     };
-
-    me.initialize = function () {
-        $pagingContainer = $(".pagingContainer");
-        $pageIndex = $("input[name='PageIndex']", $pagingContainer);
-        $pageSize = $("input[name='PageSize']", $pagingContainer);
-
-        me.bindEvent();
-    };
-
     return me;
 });
