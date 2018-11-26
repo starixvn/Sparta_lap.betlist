@@ -3096,4 +3096,8 @@
     <value>Dormant Customers</value>
     <comment>102680</comment>
   </data>
+  <data name="ArchivedDate" xml:space="preserve">
+    <value>Archived Date</value>
+    <comment>102680</comment>
+  </data>
 </root>

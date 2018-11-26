@@ -502,6 +502,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Archived Date.
+        /// </summary>
+        public static string ArchivedDate {
+            get {
+                return ResourceManager.GetString("ArchivedDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to procceed?.
         /// </summary>
         public static string AreYouSure {

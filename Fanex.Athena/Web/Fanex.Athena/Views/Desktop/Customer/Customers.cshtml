@@ -70,11 +70,11 @@
                     </div>
                 </div>
                 <div class="excel-container">
-                    @using (Html.BeginForm("ExportExcel", "Customer", FormMethod.Post, new { @id = "CustomerExcelForm" }))
+                    @using (Html.BeginForm("ExportExcelDormantCustomer", "Customer", FormMethod.Post, new { @id = "DormantCustomerExcelForm" }))
                     {
                         @Html.AntiForgeryToken()
-                        <input type="hidden" name="excelParam" id="excelParam" value="@Model.Param.ToJson()" />
-                        <i class="icon-excel" title="@ViewResources.ExportToExcel" id="ExportToExcel"></i>
+                        <input type="hidden" name="excelParam" id="excelDormantParam" value="@Model.Param.ToJson()" />
+                        <i class="icon-excel" title="@ViewResources.ExportToExcel" id="ExportToExcelDormantCustomer"></i>
                     }
                 </div>
             </div>

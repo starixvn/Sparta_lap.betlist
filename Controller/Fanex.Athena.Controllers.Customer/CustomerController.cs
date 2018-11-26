@@ -24,6 +24,7 @@ namespace Fanex.Athena.Controllers.Customer
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
     using Model.Core.DataDomain;
+    using Model.Customer.DTO;
     using Newtonsoft.Json;
     using Resources;
     using Service.Core.Users.Interfaces;
@@ -203,6 +204,38 @@ namespace Fanex.Athena.Controllers.Customer
             return File(ExcelHelper.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
         }
 
+        [HttpPost]
+        [CustomValidateAntiForgery]
+        public ActionResult ExportExcelDormantCustomer(string excelParam)
+        {
+            if (string.IsNullOrEmpty(excelParam))
+            {
+                return null;
+            }
+
+            var metaModel = JsonConvert.DeserializeObject<CustomerListMetaModel>(excelParam);
+            if (metaModel != null)
+            {
+                metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
+                metaModel.AgentListXml = GetAgentListXml(metaModel.SubsidiaryList, metaModel.CurrencyId);
+
+                var templatePath = Server.MapPath(@"~/App_Data/Template/Customers/DormantCustomerList.xls");
+
+                var resultModel = _customerListService.GetDormantCustomers(metaModel);
+                var fileName = "DormantCustomerList_" + DateTime.Now.ToString("MM-dd-yyyy");
+                var reportTitle = ViewResources.DormantCustomers + " - "
+                    + string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper(CultureInfo.CurrentCulture) : metaModel.CurrencyName);
+
+                var excel = CreateDormantCustomerExcel(templatePath, reportTitle, resultModel.DataList);
+
+                excel.Export();
+
+                return new ExcelResult(excel.Workbook, fileName);
+            }
+
+            return File(ExcelHelper.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
+        }
+
         [CustomValidateAntiForgery]
         public ActionResult LogInfo(int custId)
         {
@@ -229,6 +262,14 @@ namespace Fanex.Athena.Controllers.Customer
             CustomerListViewModel model)
         {
             return new CustomerListExcel(templatePath, reportTitle, model);
+        }
+
+        protected internal virtual DormantCustomerListExcel CreateDormantCustomerExcel(
+            string templatePath,
+            string reportTitle,
+            IEnumerable<DormantCustomer> dataList)
+        {
+            return new DormantCustomerListExcel(templatePath, reportTitle, dataList);
         }
 
         private static IEnumerable<CheckedItem> GetOddsGroups()

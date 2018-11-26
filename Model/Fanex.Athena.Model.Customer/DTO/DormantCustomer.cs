@@ -4,6 +4,8 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using System;
+
 namespace Fanex.Athena.Model.Customer.DTO
 {
     public class DormantCustomer
@@ -17,5 +19,7 @@ namespace Fanex.Athena.Model.Customer.DTO
         public string SystemId { get; set; }
 
         public decimal Balance { get; set; }
+
+        public DateTime ArchivedDate { get; set; }
     }
 }
