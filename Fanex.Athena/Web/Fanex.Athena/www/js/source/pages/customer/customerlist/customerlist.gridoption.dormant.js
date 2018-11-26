@@ -7,7 +7,7 @@
             name: 'ExternalId',
             index: 'ExternalId',
             resizable: false,
-            width: 120,
+            width: 200,
             align: 'left',
             sortable: false
         };
@@ -17,7 +17,7 @@
             name: 'SystemId',
             index: 'SystemId',
             resizable: false,
-            width: 120,
+            width: 200,
             align: 'left',
             sortable: false
         };
@@ -25,7 +25,7 @@
         var balanceColumn = {
             name: 'Balance',
             index: 'Balance',
-            width: 120,
+            width: 150,
             align: 'right',
             sortable: false,
             resizable: false,

@@ -19,6 +19,9 @@ define(["jquery", "common/site", "common/querystring", "lib/jqgrid/jquery.jqgrid
                 $(".page-button input[type=button]").prop('disabled', isDormantTab);
                 if (isDormantTab) {
                     jqGridAdditional.updateGridHeight($tab);
+                }else
+                {
+                    CustomerListService.resizeGrid("#ReportGrid");
                 }
             });
 

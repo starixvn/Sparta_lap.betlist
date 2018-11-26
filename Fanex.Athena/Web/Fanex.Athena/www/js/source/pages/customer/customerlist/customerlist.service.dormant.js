@@ -87,7 +87,7 @@ function ($, Site, CustomerListOptionDormant, jqGridAdditional, PagingHelper, Cu
             $reportGrid.jqGrid(gridOption);
 
             jqGridAdditional.updateGridHeight($container);
-            var width = 518;
+            var width = 708;
             $("#DormantCustomerGrid").jqGrid('setGridWidth', width);
             $container.find(".panel-heading").width(width)
             $("#DormantCustomerPager").width(width);
