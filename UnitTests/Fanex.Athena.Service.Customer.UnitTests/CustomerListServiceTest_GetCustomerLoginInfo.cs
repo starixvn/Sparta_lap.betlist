@@ -17,6 +17,8 @@
 
         private ICustomerListDataAccess _customerListDataAccess;
 
+        private IDormantCustomerListDataAccess _dormantCustomerListDataAccess;
+
         private ICasinoCustomerService _casinoCustomerService;
 
         private IAuthorizationService _authorizationService;
@@ -32,6 +34,7 @@
         {
             _customerDataAccess = Substitute.For<ICustomerDataAccess>();
             _customerListDataAccess = Substitute.For<ICustomerListDataAccess>();
+            _dormantCustomerListDataAccess = Substitute.For<IDormantCustomerListDataAccess>();
             _casinoCustomerService = Substitute.For<ICasinoCustomerService>();
             _authorizationService = Substitute.For<IAuthorizationService>();
             _productService = Substitute.For<IProductService>();
@@ -40,6 +43,7 @@
             _customerListService = new CustomerListService(
                 _customerDataAccess,
                 _customerListDataAccess,
+                _dormantCustomerListDataAccess,
                 _casinoCustomerService,
                 _authorizationService,
                 _productService,

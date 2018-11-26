@@ -72,7 +72,9 @@ define([
                 $('#ExportToExcel').click(function () {
                     $(this).closest('form').submit();
                 });
-
+                $('#ExportToExcelDormantCustomer').click(function () {
+                    $(this).closest('form').submit();
+                });
                 _me.registerCheckboxEvent();
 
                 $("#active-customer-report-content").on("click", ".pendingFunds", function () {

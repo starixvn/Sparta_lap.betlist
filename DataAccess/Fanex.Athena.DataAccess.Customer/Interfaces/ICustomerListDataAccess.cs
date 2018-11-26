@@ -9,8 +9,6 @@
     {
         ReportResultModel<CustomerDTO> GetActiveCustomers(CustomerListMetaModel metaModel);
 
-        ReportResultModel<DormantCustomer> GetDormantCustomers(CustomerListMetaModel metaModel);
-
         #region LogInfo
 
         LogInfo GetCustomerLoginInfo(int custId, int licenseeId, string siteName);

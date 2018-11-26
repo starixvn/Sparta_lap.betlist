@@ -15,7 +15,9 @@ define(["jquery", "common/site", "common/querystring", "lib/jqgrid/jquery.jqgrid
                 $tab.show();
                 $(this).addClass("active");
 
-                if (tabId == 'tabDormantCustomer') {
+                var isDormantTab = tabId == 'tabDormantCustomer';
+                $(".page-button input[type=button]").prop('disabled', isDormantTab);
+                if (isDormantTab) {
                     jqGridAdditional.updateGridHeight($tab);
                 }
             });

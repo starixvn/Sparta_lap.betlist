@@ -46,29 +46,6 @@
             }
         }
 
-        public ReportResultModel<DormantCustomer> GetDormantCustomers(CustomerListMetaModel metaModel)
-        {
-            const string UspName = "Lrf_DormantCustomerSel";
-
-            using (var db = this.GetObjectDb(UspName))
-            {
-                db.AddInParameter("username", DbType.String, metaModel.Username);
-                db.AddInParameter("PageSize", DbType.Int32, metaModel.PageSize);
-                db.AddInParameter("PageIndex ", DbType.Int32, metaModel.PageIndex);
-                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                db.AddOutParameter("TotalRows", DbType.Int32, 4);
-
-                var dataList = ReadDormantCustomerList(db, metaModel);
-                var totalRows = Converter.ToInt(db.GetParameterValue("TotalRows"));
-
-                return new ReportResultModel<DormantCustomer>
-                {
-                    DataList = dataList,
-                    TotalRows = totalRows
-                };
-            }
-        }
-
         #endregion Read
 
         #region LogInfo
@@ -239,29 +216,6 @@
 
                     customer.Status = customer.IsClosed ? ViewResources.Closed : customer.IsSuspended ? ViewResources.Suspended : ViewResources.Open;
                     dataList.Add(customer);
-                }
-            }
-
-            return dataList;
-        }
-
-        private IList<DormantCustomer> ReadDormantCustomerList(IObjectDb objectDb, CustomerListMetaModel metaModel)
-        {
-            var dataList = new List<DormantCustomer>();
-            using (var reader = objectDb.ExecuteReader())
-            {
-                var balanceColumn = "Balance";
-                var startIndex = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;
-                while (reader.Read())
-                {
-                    dataList.Add(new DormantCustomer
-                    {
-                        Index = startIndex++,
-                        CustId = reader.ToInt("custid"),
-                        SystemId = reader.ToString("username"),
-                        ExternalId = reader.ToString("nickname"),
-                        Balance = reader.ToDecimal(balanceColumn)
-                    });
                 }
             }
 

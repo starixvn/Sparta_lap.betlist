@@ -909,6 +909,7 @@
     <Content Include="www\css\build\dev\reactpages\speciallicenseewl\index.chunk.js.map" />
     <Content Include="www\css\build\dev\reactpages\speciallicenseewl\index.css.map" />
     <Content Include="www\css\source\reactpages\components\month-picker.scss" />
+    <Content Include="App_Data\Template\Customers\DormantCustomerList.xls" />
     <None Include="SiteConfig\Web.AppSettings.BACKUPMNLStatic.config" />
     <None Include="SiteConfig\Web.ConnectionStrings.BACKUPMNLStatic.config">
       <SubType>Designer</SubType>

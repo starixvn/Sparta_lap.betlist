@@ -22,7 +22,6 @@ function ($, Site, CustomerListOptionDormant, jqGridAdditional, PagingHelper, Cu
                 cache: false,
                 url: Site.resolveClientUrl(CustomerListOptionDormant.urlData),
                 success: function (response) {
-                    _state.cachedData = response;
                     _me.bindData(response);
                 },
                 beforeSend: function () {
@@ -49,7 +48,7 @@ function ($, Site, CustomerListOptionDormant, jqGridAdditional, PagingHelper, Cu
             data.CurrencyName = $("#CurrencyName").val();
             data.BaseCurrency = $("#BaseCurrency").val();
 
-            $("#excelParam").val(JSON.stringify(data));
+            $("#excelDormantParam").val(JSON.stringify(data));
 
             $("#CurrencyId").attr('data-original', data.CurrencyId);
             $("#BaseCurrency").attr('data-original', data.BaseCurrency);

@@ -30,7 +30,6 @@ define([], function () {
     };
 
     var dormantState = {
-        cachedData: {},
         pagingOption: _dormantPagingOption
     };
 

@@ -24,6 +24,8 @@ namespace Fanex.Athena.Service.Customer
 
         private readonly ICustomerListDataAccess _customerListDataAccess;
 
+        private readonly IDormantCustomerListDataAccess _dormantCustomerListDataAccess;
+
         private readonly ICasinoCustomerService _casinoCustomerService;
 
         private readonly IAuthorizationService _authorizationService;
@@ -35,6 +37,7 @@ namespace Fanex.Athena.Service.Customer
         public CustomerListService(
             ICustomerDataAccess customerDataAccess,
             ICustomerListDataAccess customerListDataAccess,
+            IDormantCustomerListDataAccess dormantCustomerListDataAccess,
             ICasinoCustomerService casinoCustomerService,
             IAuthorizationService authorizationService,
             IProductService productService,
@@ -42,6 +45,7 @@ namespace Fanex.Athena.Service.Customer
         {
             _customerDataAccess = customerDataAccess;
             _customerListDataAccess = customerListDataAccess;
+            _dormantCustomerListDataAccess = dormantCustomerListDataAccess;
             _casinoCustomerService = casinoCustomerService;
             _authorizationService = authorizationService;
             _productService = productService;
@@ -55,7 +59,7 @@ namespace Fanex.Athena.Service.Customer
 
         public ReportResultModel<DormantCustomer> GetDormantCustomers(CustomerListMetaModel metaModel)
         {
-            return _customerListDataAccess.GetDormantCustomers(metaModel);
+            return _dormantCustomerListDataAccess.GetDormantCustomers(metaModel);
         }
 
         public LogInfo GetCustomerLoginInfo(int custId, int licenseeId, string siteName)

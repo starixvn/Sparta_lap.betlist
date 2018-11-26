@@ -38,7 +38,8 @@
             name: 'ArchivedDate',
             index: 'ArchivedDate',
             width: 140,
-            align: 'left',
+            align: 'center',
+            formatter: "date",
             sortable: false,
             resizable: false
         };
@@ -49,7 +50,6 @@
 
         var me = {
             urlData: 'Customer/DormantCustomerList',
-            urlExcelData: 'Customer/ExportExcel',
             gridOption: {
                 datatype: 'local',
                 colNames: [],
