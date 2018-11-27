@@ -119,7 +119,7 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
                 return;
             }
 
-            var oldScrollTop = $("#active-customer-report-content .ui-jqgrid-bdiv").scrollTop();
+            var oldScrollTop = $("#report-content .ui-jqgrid-bdiv").scrollTop();
             $("#num-of-customer, #num-of-customer-header").html(gridData.TotalRows);
 
             var pagingOption = _state.pagingOption;
@@ -148,7 +148,7 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
             _me.resizeGrid("#ReportGrid");
 
             if (keepScrollPosition === true) {
-                $("#active-customer-report-content .ui-jqgrid-bdiv").scrollTop(oldScrollTop);
+                $("#report-content .ui-jqgrid-bdiv").scrollTop(oldScrollTop);
             }
 
             if ($.active <= 1) {

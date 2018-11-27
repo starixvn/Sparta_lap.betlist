@@ -77,7 +77,7 @@ define([
                 });
                 _me.registerCheckboxEvent();
 
-                $("#active-customer-report-content").on("click", ".pendingFunds", function () {
+                $("#report-content").on("click", ".pendingFunds", function () {
                     var $this = $(this);
                     var custId = $this.data("custid");
                     var systemId = $this.data("systemid");
@@ -97,7 +97,7 @@ define([
             },
 
             registerCheckboxEvent: function () {
-                $("#active-customer-report-content").on("change", "#CheckAll", function () {
+                $("#report-content").on("change", "#CheckAll", function () {
                     var isCheckedAll = this.checked;
                     var selectedCustomers = {};
 
@@ -112,7 +112,7 @@ define([
                     CustomerListService.bindData(_state.cachedData);
                 });
 
-                $("#active-customer-report-content").on("change", ".select-cust-checkbox", function () {
+                $("#report-content").on("change", ".select-cust-checkbox", function () {
                     var custid = Number(this.id);
                     var group = $(this).data("group-comm-id");
                     var selectedCustomers = _state.selectedCustomers;

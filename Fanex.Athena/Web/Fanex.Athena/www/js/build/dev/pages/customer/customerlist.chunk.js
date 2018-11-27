@@ -5914,7 +5914,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 });
                 _me.registerCheckboxEvent();
 
-                $("#active-customer-report-content").on("click", ".pendingFunds", function () {
+                $("#report-content").on("click", ".pendingFunds", function () {
                     var $this = $(this);
                     var custId = $this.data("custid");
                     var systemId = $this.data("systemid");
@@ -5934,7 +5934,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             },
 
             registerCheckboxEvent: function () {
-                $("#active-customer-report-content").on("change", "#CheckAll", function () {
+                $("#report-content").on("change", "#CheckAll", function () {
                     var isCheckedAll = this.checked;
                     var selectedCustomers = {};
 
@@ -5949,7 +5949,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     CustomerListService.bindData(_state.cachedData);
                 });
 
-                $("#active-customer-report-content").on("change", ".select-cust-checkbox", function () {
+                $("#report-content").on("change", ".select-cust-checkbox", function () {
                     var custid = Number(this.id);
                     var group = $(this).data("group-comm-id");
                     var selectedCustomers = _state.selectedCustomers;
@@ -6767,7 +6767,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 return;
             }
 
-            var oldScrollTop = $("#active-customer-report-content .ui-jqgrid-bdiv").scrollTop();
+            var oldScrollTop = $("#report-content .ui-jqgrid-bdiv").scrollTop();
             $("#num-of-customer, #num-of-customer-header").html(gridData.TotalRows);
 
             var pagingOption = _state.pagingOption;
@@ -6796,7 +6796,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             _me.resizeGrid("#ReportGrid");
 
             if (keepScrollPosition === true) {
-                $("#active-customer-report-content .ui-jqgrid-bdiv").scrollTop(oldScrollTop);
+                $("#report-content .ui-jqgrid-bdiv").scrollTop(oldScrollTop);
             }
 
             if ($.active <= 1) {
