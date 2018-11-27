@@ -74,7 +74,6 @@
             {
                 CurrencyList = GetCurrencyList(),
                 ProductOptionList = GetProductOptionList(),
-                MinDate = AppSettings.HistoryDate,
                 IsAllowedCustomerComm = SessionService.LicenseeSession.IsAllowedCustomerComm
             };
 

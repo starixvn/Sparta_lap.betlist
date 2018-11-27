@@ -89,9 +89,6 @@
             using (var controller = CreateController())
             {
                 // Arrange
-                var historyDate = FakeHelper.Create<DateTime>();
-                AppSettings.HistoryDate.Returns(historyDate);
-
                 var productCodes = FakeHelper.CreateMany<Product>(3).ToList();
                 _productService.GetSingleWalletProductAccess(
                     DefaultLicenseeSession.LicenseeId,
@@ -107,7 +104,6 @@
                 {
                     Assert.That(viewModel.CurrencyList, Is.EqualTo(DefaultUserSession.CurrencyList));
                     Assert.That(viewModel.ProductOptionList.Count(), Is.EqualTo(productCodes.Count));
-                    Assert.That(viewModel.MinDate, Is.EqualTo(historyDate));
                     Assert.That(viewModel.IsAllowedCustomerComm, Is.EqualTo(DefaultLicenseeSession.IsAllowedCustomerComm));
                 });
             }
