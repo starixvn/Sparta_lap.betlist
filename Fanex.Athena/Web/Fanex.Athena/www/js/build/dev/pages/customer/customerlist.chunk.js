@@ -6621,8 +6621,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             $("#DormantCustomerGrid").jqGrid('setGridWidth', width);
             $container.find(".panel-heading").width(width)
             $("#DormantCustomerPager").width(width);
-
-            Site.unBlockUI();
+            if ($.active === 1) {
+                Site.unBlockUI();
+            }
         },
 
         resizeGrid: function (gridSelector) {
@@ -6795,7 +6796,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 $("#active-customer-report-content .ui-jqgrid-bdiv").scrollTop(oldScrollTop);
             }
 
-            Site.unBlockUI();
+            if ($.active === 1) {
+                Site.unBlockUI();
+            }
 
             _me.addGridScrollEventToHidePopups();
         },

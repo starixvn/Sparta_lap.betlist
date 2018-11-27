@@ -148,7 +148,9 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
                 $("#active-customer-report-content .ui-jqgrid-bdiv").scrollTop(oldScrollTop);
             }
 
-            Site.unBlockUI();
+            if ($.active === 1) {
+                Site.unBlockUI();
+            }
 
             _me.addGridScrollEventToHidePopups();
         },
