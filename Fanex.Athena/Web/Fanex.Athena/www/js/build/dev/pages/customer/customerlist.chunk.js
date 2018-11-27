@@ -293,11 +293,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! common/querystring */ "./www/js/source/common/querystring.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, QueryString) {
-    var $pagingContainer, $pageIndex, $pageSize;
-
     var me = {};
+    var _settings = {}; // store multi setting instances by "elementcontainer" as key
 
-    var setting = {
+    var defaultSetting = {
         pageindex: 1,
         pagesize: 50,
         pagelist: [50, 100, 1000],
@@ -309,10 +308,15 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         alwayshow: false
     };
 
-    function goToPage(method, index) {
+    function getByName($pagerContainer, name){
+        return $("input[name='" + name + "']", $pagerContainer);
+    }
+
+    function goToPage($pagerContainer, method, index) {
+        var $pageSize = getByName($pagerContainer, "PageSize");
         if (method === "POST") {
             $("#IsExportExcel").val(false);
-            var formName = $("input[name='FormName']", $pagingContainer).val();
+            var formName = getByName($pagerContainer, "FormName").val();
             var form = $("#" + formName);
             var pageIndex = '<input type="hidden" value="' + index + '" name="PageIndex" />';
             var pageSize = '<input type="hidden" value="' + $pageSize.val() + '" name="PageSize" />';
@@ -322,8 +326,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             form.submit();
         }
         else if (method === "AJAX") {
+            var $pageIndex = getByName($pagerContainer, "PageIndex");
             $pageIndex.val(index);
-            var fc = $("input[name='AjaxPagingFunction']", $pagingContainer).val();
+            var fc = getByName($pagerContainer, "AjaxPagingFunction").val();
             eval(fc); // jshint ignore:line
         } else {
             var url = Site.getCurrentUrl();
@@ -348,7 +353,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         /// <param name="elementcontainer">ex: "#page"</param>
         /// <param name="method">POST or GET or AJAX</param>
         var pageHtml = "";
-        $.extend(setting, option);
+        var setting = $.extend({}, defaultSetting, option);
+        _settings[setting.elementcontainer] = setting;
         var noOfPage = 1;
         var pagingVisible = setting.totalrow > setting.pagesize;
 
@@ -399,46 +405,57 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             pageHtml = pageControl.join("");
         }
 
-        $(setting.elementcontainer).html(pageHtml);
-        me.initialize();
+        var $pagerContainer = $(setting.elementcontainer);
+        $pagerContainer.html(pageHtml);
+        me._bindEvent(setting);
     };
-    me.getSetting = function () {
+    me.getSetting = function (elementcontainer) {
+        var elementcontainer = elementcontainer || Object.keys(_settings)[0];
+        var setting = _settings[elementcontainer];
+        var $pagerContainer = $(elementcontainer);
+        var $pageIndex = getByName($pagerContainer, "PageIndex");
+        var $pageSize = getByName($pagerContainer, "PageSize");
         setting.pageindex = parseInt($pageIndex.val(), 10);
         setting.pagesize = $pageSize.val();
         return setting;
     };
-    me.bindEvent = function () {
-        var method = $('input[name="Method"]', $pagingContainer).val();
-        var noOfPage = parseInt($('input[name="NoOfPage"]', $pagingContainer).val(), 10);
 
-        $(".pagingFirst", $pagingContainer).on("click", function () {
+    // private methods
+    me._bindEvent = function (setting) {
+        var $pagerContainer = $(setting.elementcontainer);
+        var $pageIndex = getByName($pagerContainer, "PageIndex");
+        var method = getByName($pagerContainer, "Method").val();
+        var noOfPage = parseInt($('input[name="NoOfPage"]', $pagerContainer).val(), 10);
+
+        $(".pagingFirst", $pagerContainer).on("click", function () {
             if (isVisible(this)) {
-                goToPage(method, 1);
+                goToPage($pagerContainer, method, 1);
             }
         });
-        $(".pagingPrev", $pagingContainer).on("click", function () {
+        $(".pagingPrev", $pagerContainer).on("click", function () {
             var currentPage = parseInt($pageIndex.val(), 10);
             if (isVisible(this) && currentPage > 1) {
-                goToPage(method, currentPage - 1);
+                goToPage($pagerContainer, method, currentPage - 1);
             }
         });
-        $(".pagingLast", $pagingContainer).on("click", function () {
+        $(".pagingLast", $pagerContainer).on("click", function () {
             if (isVisible(this)) {
-                goToPage(method, noOfPage);
+                goToPage($pagerContainer, method, noOfPage);
             }
         });
-        $(".pagingNext", $pagingContainer).on("click", function () {
+        $(".pagingNext", $pagerContainer).on("click", function () {
             if (isVisible(this)) {
                 var currentPage = parseInt($pageIndex.val(), 10);
-                goToPage(method, currentPage + 1);
+                goToPage($pagerContainer, method, currentPage + 1);
             }
         });
 
-        $("select.pageSizeSelected", $pagingContainer).on("change", function () {
+        $("select.pageSizeSelected", $pagerContainer).on("change", function () {
+            var $pageSize = getByName($pagerContainer, "PageSize");
             var pageSize = $(this).val();
             $pageSize.val(pageSize);
             setting.pagesize = pageSize;
-            goToPage(method, 1);
+            goToPage($pagerContainer, method, 1);
         });
 
         $pageIndex.on("keyup", function (e) {
@@ -447,20 +464,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 var value = parseInt($(this).val());
                 if (value > 0 && value <= noOfPage) {
                     $(this).val(value);
-                    goToPage(method, value);
+                    goToPage($pagerContainer, method, value);
                 }
             }
         });
     };
-
-    me.initialize = function () {
-        $pagingContainer = $(".pagingContainer");
-        $pageIndex = $("input[name='PageIndex']", $pagingContainer);
-        $pageSize = $("input[name='PageSize']", $pagingContainer);
-
-        me.bindEvent();
-    };
-
     return me;
 }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -5624,18 +5632,21 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/* This colum
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! ./customerlist.state */ "./www/js/source/pages/customer/customerlist/customerlist.state.js"), __webpack_require__(/*! ./customerlist.service */ "./www/js/source/pages/customer/customerlist/customerlist.service.js"), __webpack_require__(/*! components/pluginhelper/autocomplete */ "./www/js/source/components/pluginhelper/autocomplete.js"), __webpack_require__(/*! lib/jquery.multiselect */ "./www/js/source/lib/jquery.multiselect.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, CustomerListState, CustomerListService, AutoComplete) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! ./customerlist.state */ "./www/js/source/pages/customer/customerlist/customerlist.state.js"), __webpack_require__(/*! ./customerlist.service */ "./www/js/source/pages/customer/customerlist/customerlist.service.js"), __webpack_require__(/*! ./customerlist.service.dormant */ "./www/js/source/pages/customer/customerlist/customerlist.service.dormant.js"),
+    __webpack_require__(/*! components/pluginhelper/autocomplete */ "./www/js/source/components/pluginhelper/autocomplete.js"), __webpack_require__(/*! lib/jquery.multiselect */ "./www/js/source/lib/jquery.multiselect.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, CustomerListState, CustomerListService, CustomerListServiceDormant, AutoComplete) {
         var _state;
+        var _dormantState;
 
         var _me = {
             initialize: function () {
                 _state = CustomerListState.getState();
+                _dormantState = CustomerListState.getDormantState();
                 Site.addUserGuide({
                     resourceName: "CustomerList",
                     title: Site.getSingleResource("CustomerList")
                 });
                 AutoComplete.initialize({
-                    url: Site.resolveClientUrl("SearchCustomerAPI/SearchCustomer"),
+                    url: Site.resolveClientUrl("SearchCustomerAPI/SearchActiveAndDormantCustomer"),
                     target: "#Username"
                 });
                 _me.initEvent();
@@ -5644,13 +5655,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             initEvent: function () {
                 $('#SubmitButton').click(function () {
                     _state.pagingOption.pageindex = 1;
+                    _dormantState.pagingOption.pageindex = 1;
                     CustomerListService.submit();
+                    CustomerListServiceDormant.submit();
+                    $(".page-results").show();
                 });
 
                 $("#Username").on('keyup', function (e) {
                     if (e.keyCode === 13) {
                         _state.pagingOption.pageindex = 1;
+                        _dormantState.pagingOption.pageindex = 1;
                         CustomerListService.submit();
+                        CustomerListServiceDormant.submit();
                     }
                 });
 
@@ -5827,6 +5843,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
     __webpack_require__(/*! common/querystring */ "./www/js/source/common/querystring.js"),
     __webpack_require__(/*! ./customerlist.state */ "./www/js/source/pages/customer/customerlist/customerlist.state.js"),
     __webpack_require__(/*! ./customerlist.service */ "./www/js/source/pages/customer/customerlist/customerlist.service.js"),
+    __webpack_require__(/*! ./customerlist.service.dormant */ "./www/js/source/pages/customer/customerlist/customerlist.service.dormant.js"),
     __webpack_require__(/*! ./customerlist.bastatus */ "./www/js/source/pages/customer/customerlist/customerlist.bastatus.js"),
     __webpack_require__(/*! ./customerlist.speciallevel */ "./www/js/source/pages/customer/customerlist/customerlist.speciallevel.js"),
     __webpack_require__(/*! ./customerlist.oddsgroup */ "./www/js/source/pages/customer/customerlist/customerlist.oddsgroup.js"),
@@ -5839,6 +5856,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         QueryString,
         CustomerListState,
         CustomerListService,
+        CustomerListServiceDormant,
         CustomerListBAStatus,
         CustomerListSpecialLevel,
         CustomerListOddsGroup,
@@ -5847,7 +5865,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         Popup,
         jqGridAdditional) {
         var _state;
-
+        var _dormantState;
         function updateGroupForCheckCustomerArray(groupid) {
             var selectedCustomers = _state.selectedCustomers;
             for (var custId in selectedCustomers) {
@@ -5860,8 +5878,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         var _me = {
             initialize: function () {
                 _state = CustomerListState.getState();
+                _dormantState = CustomerListState.getDormantState();
                 window.CustomerList = {
-                    ajaxPaging: _me.ajaxPaging
+                    ajaxPaging: _me.ajaxPaging,
+                    ajaxPagingDormant: _me.ajaxPagingDormant,
                 };
 
                 $("#SubmitButton").prop("disabled", true);
@@ -5876,18 +5896,25 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             },
 
             ajaxPaging: function () {
-                _state.pagingOption = PagingHelper.getSetting();
+                _state.pagingOption = PagingHelper.getSetting("#ActiveCustomerPager");
                 CustomerListService.submit();
+            },
+
+            ajaxPagingDormant: function () {
+                _dormantState.pagingOption = PagingHelper.getSetting("#DormantCustomerPager");
+                CustomerListServiceDormant.submit();
             },
 
             initEvent: function () {
                 $('#ExportToExcel').click(function () {
                     $(this).closest('form').submit();
                 });
-
+                $('#ExportToExcelDormantCustomer').click(function () {
+                    $(this).closest('form').submit();
+                });
                 _me.registerCheckboxEvent();
 
-                $("#report-content").on("click", ".pendingFunds", function () {
+                $("#active-customer-report-content").on("click", ".pendingFunds", function () {
                     var $this = $(this);
                     var custId = $this.data("custid");
                     var systemId = $this.data("systemid");
@@ -5897,7 +5924,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 });
 
                 $(window).on("resize", function () {
-                    _me.resizeGrid();
+                    CustomerListService.resizeGrid("#ReportGrid");
+                    jqGridAdditional.updateGridHeight($("#tabDormantCustomer"));
                 });
 
                 $(window).on("unload", function () {
@@ -5906,7 +5934,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             },
 
             registerCheckboxEvent: function () {
-                $("#report-content").on("change", "#CheckAll", function () {
+                $("#active-customer-report-content").on("change", "#CheckAll", function () {
                     var isCheckedAll = this.checked;
                     var selectedCustomers = {};
 
@@ -5921,7 +5949,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                     CustomerListService.bindData(_state.cachedData);
                 });
 
-                $("#report-content").on("change", ".select-cust-checkbox", function () {
+                $("#active-customer-report-content").on("change", ".select-cust-checkbox", function () {
                     var custid = Number(this.id);
                     var group = $(this).data("group-comm-id");
                     var selectedCustomers = _state.selectedCustomers;
@@ -5992,12 +6020,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
                 updateGroupForCheckCustomerArray(groupid);
                 CustomerListService.bindData(_state.cachedData);
-            },
-
-            resizeGrid: function () {
-                var reportGrid = $("#ReportGrid");
-                jqGridAdditional.updateGridHeight();
-                jqGridAdditional.updateGridWidth(reportGrid);
             }
         };
 
@@ -6007,78 +6029,122 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 /***/ }),
 
-/***/ "./www/js/source/pages/customer/customerlist/customerlist.oddsgroup.js":
-/*!*****************************************************************************!*\
-  !*** ./www/js/source/pages/customer/customerlist/customerlist.oddsgroup.js ***!
-  \*****************************************************************************/
+/***/ "./www/js/source/pages/customer/customerlist/customerlist.gridoption.dormant.js":
+/*!**************************************************************************************!*\
+  !*** ./www/js/source/pages/customer/customerlist/customerlist.gridoption.dormant.js ***!
+  \**************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! ./customerlist.service */ "./www/js/source/pages/customer/customerlist/customerlist.service.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, CustomerListService) {
-    var _$oddsGroupCell;
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqgrid.additional */ "./www/js/source/lib/jqgrid/jquery.jqgrid.additional.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, jqGridAdditional) {
+        "use strict";
 
-    var _me = {
-        initialize: function () {
+        var externalIdColumn =
+        {
+            name: 'ExternalId',
+            index: 'ExternalId',
+            resizable: false,
+            width: 200,
+            align: 'left',
+            sortable: false
+        };
 
-            $("#report-content").on("click", ".oddsGroup", function () {
-                _$oddsGroupCell = $(this);
-                _me.showGridDropdown();
-            });
+        var systemIdColumn =
+        {
+            name: 'SystemId',
+            index: 'SystemId',
+            resizable: false,
+            width: 200,
+            align: 'left',
+            sortable: false
+        };
 
-            $("#report-content").on("blur", ".oddsGroup", function () {
-                setTimeout(function () {
-                    $("#OddsGroupListContainer").hide();
-                }, 300);
-            });
+        var balanceColumn = {
+            name: 'Balance',
+            index: 'Balance',
+            width: 150,
+            align: 'right',
+            sortable: false,
+            resizable: false,
+            formatter: 'number',
+            formatteroptions: { decimalSeparator: ".", thousandsSeparator: " ", decimalPlaces: 2, defaultValue: '0.00' },
+            frozen: true
+        };
+        var archivedDateColumn =
+        {
+            name: 'ArchivedDate',
+            index: 'ArchivedDate',
+            width: 140,
+            align: 'center',
+            formatter: "date",
+            sortable: false,
+            resizable: false
+        };
+        //#endregion
+        var colNameList = ['ExternalId', "SystemId", "Balance", 'ArchivedDate'];
 
-            $("#OddsGroupListContainer").on("click", ".oddsGroupLink", function () {
-                var group = $(this).data("group");
-                _me.setValue(group);
-            });
-        },
+        var colModelList = [externalIdColumn, systemIdColumn, balanceColumn, archivedDateColumn];
 
-        showGridDropdown: function () {
-            if (_$oddsGroupCell.hasClass("disabled")) {
-                return;
-            }
-
-            CustomerListService.showGridDropdownById("OddsGroupListContainer", _$oddsGroupCell);
-        },
-
-        setValue: function (oddsGroup) {
-            var confirmMessage = Site.getSingleResource('AlertSetOddsGroupForCustomerMsg');
-            confirmMessage = confirmMessage.replace("{0}", oddsGroup);
-
-            var option = {
-                dataField: "OddsGroup",
-                popUpSelector: "#OddsGroupListContainer",
-                $context: _$oddsGroupCell,
-                param: {
-                    custId: _$oddsGroupCell.data("custid"),
-                    oddsGroup: oddsGroup
+        var me = {
+            urlData: 'Customer/DormantCustomerList',
+            gridOption: {
+                datatype: 'local',
+                colNames: [],
+                colModel: [],
+                data: [],
+                height: 'auto',
+                viewrecords: false,
+                autowidth: false,
+                forceFit: true,
+                shrinkToFit: false,
+                minWidth: 300,
+                loadtext: '',
+                loadui: 'disable',
+                loadonce: true,
+                gridview: true,
+                footerrow: false,
+                userDataOnFooter: true,
+                scroll: 1,
+                rowNum: 40,
+                cmTemplate: { title: true }, //enable tooltip
+                userData: [],
+                beforeSelectRow: function () {
+                    return false;
                 },
-                url: Site.resolveClientUrl("CustomerAPI/UpdateOddsGroup"),
-                oldValue: _$oddsGroupCell.data("group"),
-                newValue: oddsGroup,
-                confirmMessage: confirmMessage
-            };
+                onRightClickRow: function () {
+                    return false;
+                }
+            }
+        };
 
-            CustomerListService.updateGridData(option);
-        }
-    };
+        
+        var getColName = function () {
+            var temp = Site.clone(colNameList);
+            return Site.getResources(temp);
+        };
 
-    return _me;
-}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+        var getColModel = function () {
+            var temp = Site.clone(colModelList);
+
+            return temp;
+        };
+
+        me.getGridOption = function () {
+            me.gridOption.colNames = getColName();
+            me.gridOption.colModel = getColModel();
+            return me.gridOption;
+        };
+
+        return me;
+    }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
 
-/***/ "./www/js/source/pages/customer/customerlist/customerlist.option.js":
-/*!**************************************************************************!*\
-  !*** ./www/js/source/pages/customer/customerlist/customerlist.option.js ***!
-  \**************************************************************************/
+/***/ "./www/js/source/pages/customer/customerlist/customerlist.gridoption.js":
+/*!******************************************************************************!*\
+  !*** ./www/js/source/pages/customer/customerlist/customerlist.gridoption.js ***!
+  \******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -6145,7 +6211,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             formatteroptions: { decimalSeparator: ".", thousandsSeparator: " ", decimalPlaces: 2, defaultValue: '0.00' },
             frozen: true
         };
-        var pedingFundColumn = {
+        var pendingFundColumn = {
             name: 'PendingFunds',
             index: 'PendindFunds',
             resizable: false,
@@ -6266,7 +6332,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
          'Status', 'BAStatus', 'SpecialLevel', 'OddsGroup', 'CustomerOption'];
 
         var colModelList = [indexColumn, externalIdColumn, systemIdColumn, availableFundColumn,
-                        pedingFundColumn, statusColumn, baStatusColumn, specialLevelColumn, oddsGroupColumn, customerOptionColumn];
+                        pendingFundColumn, statusColumn, baStatusColumn, specialLevelColumn, oddsGroupColumn, customerOptionColumn];
 
         var me = {
             urlData: 'Customer/CustomerList',
@@ -6383,6 +6449,195 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 /***/ }),
 
+/***/ "./www/js/source/pages/customer/customerlist/customerlist.oddsgroup.js":
+/*!*****************************************************************************!*\
+  !*** ./www/js/source/pages/customer/customerlist/customerlist.oddsgroup.js ***!
+  \*****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! ./customerlist.service */ "./www/js/source/pages/customer/customerlist/customerlist.service.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, CustomerListService) {
+    var _$oddsGroupCell;
+
+    var _me = {
+        initialize: function () {
+
+            $("#report-content").on("click", ".oddsGroup", function () {
+                _$oddsGroupCell = $(this);
+                _me.showGridDropdown();
+            });
+
+            $("#report-content").on("blur", ".oddsGroup", function () {
+                setTimeout(function () {
+                    $("#OddsGroupListContainer").hide();
+                }, 300);
+            });
+
+            $("#OddsGroupListContainer").on("click", ".oddsGroupLink", function () {
+                var group = $(this).data("group");
+                _me.setValue(group);
+            });
+        },
+
+        showGridDropdown: function () {
+            if (_$oddsGroupCell.hasClass("disabled")) {
+                return;
+            }
+
+            CustomerListService.showGridDropdownById("OddsGroupListContainer", _$oddsGroupCell);
+        },
+
+        setValue: function (oddsGroup) {
+            var confirmMessage = Site.getSingleResource('AlertSetOddsGroupForCustomerMsg');
+            confirmMessage = confirmMessage.replace("{0}", oddsGroup);
+
+            var option = {
+                dataField: "OddsGroup",
+                popUpSelector: "#OddsGroupListContainer",
+                $context: _$oddsGroupCell,
+                param: {
+                    custId: _$oddsGroupCell.data("custid"),
+                    oddsGroup: oddsGroup
+                },
+                url: Site.resolveClientUrl("CustomerAPI/UpdateOddsGroup"),
+                oldValue: _$oddsGroupCell.data("group"),
+                newValue: oddsGroup,
+                confirmMessage: confirmMessage
+            };
+
+            CustomerListService.updateGridData(option);
+        }
+    };
+
+    return _me;
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
+/***/ "./www/js/source/pages/customer/customerlist/customerlist.service.dormant.js":
+/*!***********************************************************************************!*\
+  !*** ./www/js/source/pages/customer/customerlist/customerlist.service.dormant.js ***!
+  \***********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! ./customerlist.gridoption.dormant */ "./www/js/source/pages/customer/customerlist/customerlist.gridoption.dormant.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqgrid.additional */ "./www/js/source/lib/jqgrid/jquery.jqgrid.additional.js"),
+    __webpack_require__(/*! components/paging */ "./www/js/source/components/paging.js"), __webpack_require__(/*! ./customerlist.state */ "./www/js/source/pages/customer/customerlist/customerlist.state.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqGrid.en */ "./www/js/source/lib/jqgrid/jquery.jqGrid.en.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqGrid.min */ "./www/js/source/lib/jqgrid/jquery.jqGrid.min.js"), __webpack_require__(/*! extensions/jquery.extension */ "./www/js/source/extensions/jquery.extension.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, CustomerListOptionDormant, jqGridAdditional, PagingHelper, CustomerListState) {
+    var _ajaxRequest = null;
+
+    var _state;
+    
+    var _me = {
+        initialize: function () {
+            _state = CustomerListState.getDormantState();
+        },
+
+        submit: function () {
+            
+            var data = _me.getPostData();
+            var option = {
+                type: "POST",
+                data: data,
+                dataType: "json",
+                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                cache: false,
+                url: Site.resolveClientUrl(CustomerListOptionDormant.urlData),
+                success: function (response) {
+                    _me.bindData(response);
+                },
+                beforeSend: function () {
+                    Site.blockUI();
+                },
+                error: function () {
+                    Site.unBlockUI();
+                }
+            };
+
+            if (_ajaxRequest !== null) {
+                _ajaxRequest.abort();
+            }
+            _ajaxRequest = $.ajax(option);
+        },
+
+        getPostData: function () {
+            var data = {};
+
+            data.PageIndex = _state.pagingOption.pageindex;
+            data.PageSize = _state.pagingOption.pagesize;
+            data.CurrencyId = $("#CurrencyId").val();
+            data.Username = Site.asNull($("#Username").val());
+            data.CurrencyName = $("#CurrencyName").val();
+            data.BaseCurrency = $("#BaseCurrency").val();
+
+            $("#excelDormantParam").val(JSON.stringify(data));
+
+            $("#CurrencyId").attr('data-original', data.CurrencyId);
+            $("#BaseCurrency").attr('data-original', data.BaseCurrency);
+
+            return data;
+        },
+
+        bindData: function (gridData) {
+            var width = 708;
+            var $container = $("#tabDormantCustomer");
+            jqGridAdditional.clearGrid("DormantCustomerGrid");
+
+            var hasData = gridData && gridData.TotalRows > 0;
+            $("#DormantCustomerPager").toggle(hasData);
+
+            if (!hasData) {
+                jqGridAdditional.setNoInfo();
+                $container.find(".panel-heading").width(width);
+                $container.find("#noInfoRow").width(width - 10);
+                $("#num-of-dormant-customer").html("0 ");
+                Site.unBlockUI();
+                return;
+            }
+
+            $("#num-of-dormant-customer").html(gridData.TotalRows + " ");
+
+            var pagingOption = _state.pagingOption;
+            pagingOption.totalrow = parseInt(gridData.TotalRows);
+            PagingHelper.render(pagingOption);
+
+            var $reportGrid = $("#DormantCustomerGrid");
+            
+            var gridOption = CustomerListOptionDormant.getGridOption();
+            gridOption.data = gridData.Data;
+            gridOption.gridComplete = function () {
+                jqGridAdditional.gridComplete($container);
+            };
+
+            // Show the grid
+            $reportGrid.jqGrid(gridOption);
+
+            jqGridAdditional.updateGridHeight($container);
+            
+            $("#DormantCustomerGrid").jqGrid('setGridWidth', width);
+            $container.find(".panel-heading").width(width)
+            $("#DormantCustomerPager").width(width);
+
+            Site.unBlockUI();
+        },
+
+        resizeGrid: function (gridSelector) {
+            var $reportGrid = $(gridSelector);
+            jqGridAdditional.updateGridHeight($reportGrid.closest(".theme_jqGrid"));
+            jqGridAdditional.updateGridWidth($reportGrid);
+        }
+    };
+
+    return _me;
+}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+
 /***/ "./www/js/source/pages/customer/customerlist/customerlist.service.js":
 /*!***************************************************************************!*\
   !*** ./www/js/source/pages/customer/customerlist/customerlist.service.js ***!
@@ -6392,7 +6647,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! ./customerlist.option */ "./www/js/source/pages/customer/customerlist/customerlist.option.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqgrid.additional */ "./www/js/source/lib/jqgrid/jquery.jqgrid.additional.js"), __webpack_require__(/*! components/paging */ "./www/js/source/components/paging.js"), __webpack_require__(/*! ./customerlist.state */ "./www/js/source/pages/customer/customerlist/customerlist.state.js"),
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! ./customerlist.gridoption */ "./www/js/source/pages/customer/customerlist/customerlist.gridoption.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqgrid.additional */ "./www/js/source/lib/jqgrid/jquery.jqgrid.additional.js"), __webpack_require__(/*! components/paging */ "./www/js/source/components/paging.js"), __webpack_require__(/*! ./customerlist.state */ "./www/js/source/pages/customer/customerlist/customerlist.state.js"),
     __webpack_require__(/*! lib/jqgrid/jquery.jqGrid.en */ "./www/js/source/lib/jqgrid/jquery.jqGrid.en.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqGrid.min */ "./www/js/source/lib/jqgrid/jquery.jqGrid.min.js"), __webpack_require__(/*! extensions/jquery.extension */ "./www/js/source/extensions/jquery.extension.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerListState) {
     var _POPUP_LIST = ["#ViewOptionList", "#update-cust-status-popup", "#LevelListContainer", "#OddsGroupListContainer"];
     var _isAllowedCustomerCommission, _isAllowedUserEditComm;
@@ -6495,13 +6750,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             return data;
         },
 
-        bindData: function (response, keepScrollPosition) {
+        bindData: function (gridData, keepScrollPosition) {
             jqGridAdditional.clearGrid("ReportGrid");
-            //show report title
-            $(".panel-heading").removeClass("hide");
-
-            var hasData = response && response.TotalRows > 0;
-            $("div.paging").toggle(hasData);
+            
+            var hasData = gridData && gridData.TotalRows > 0;
+            $("#ActiveCustomerPager").toggle(hasData);
 
             if (!hasData) {
                 jqGridAdditional.setNoInfo();
@@ -6510,24 +6763,24 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 return;
             }
 
-            var oldScrollTop = $(".ui-jqgrid-bdiv").scrollTop();
-            $("#num-of-customer").html(response.TotalRows + " ");
+            var oldScrollTop = $("#active-customer-report-content .ui-jqgrid-bdiv").scrollTop();
+            $("#num-of-customer").html(gridData.TotalRows + " ");
 
             var pagingOption = _state.pagingOption;
-            pagingOption.totalrow = parseInt(response.TotalRows);
+            pagingOption.totalrow = parseInt(gridData.TotalRows);
             PagingHelper.render(pagingOption);
 
             var showingColumns = $("#ui-multiselect-options-grid-columns-multiselect input").serializeObject();
             var gridOption = _me.processGridOption(showingColumns);
-            gridOption.data = response.Data;
+            gridOption.data = gridData.Data;
             gridOption.gridComplete = function () {
                 jqGridAdditional.gridComplete();
             };
 
             // Show the grid
-            var reportGrid = $("#ReportGrid");
-            reportGrid.jqGrid(gridOption);
-            CustomerListOption.setGroupHeaderColumns(reportGrid);
+            var $reportGrid = $("#ReportGrid");
+            $reportGrid.jqGrid(gridOption);
+            CustomerListOption.setGroupHeaderColumns($reportGrid);
 
             if (_isAllowedCustomerCommission && showingColumns["Group"] !== undefined && _isAllowedUserEditComm) {
                 $("#jqgh_ReportGrid_Index").attr("class", "").html("<input type='checkbox' id='CheckAll' /><label for='CheckAll'></label>");
@@ -6536,10 +6789,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             }
 
             $("#CheckAll").prop("checked", _state.checkedAllRows);
-            _me.resizeGrid();
+            _me.resizeGrid("#ReportGrid");
 
             if (keepScrollPosition === true) {
-                $(".ui-jqgrid-bdiv").scrollTop(oldScrollTop);
+                $("#active-customer-report-content .ui-jqgrid-bdiv").scrollTop(oldScrollTop);
             }
 
             Site.unBlockUI();
@@ -6547,10 +6800,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             _me.addGridScrollEventToHidePopups();
         },
 
-        resizeGrid: function () {
-            var reportGrid = $("#ReportGrid");
-            jqGridAdditional.updateGridHeight();
-            jqGridAdditional.updateGridWidth(reportGrid);
+        resizeGrid: function (gridSelector) {
+            var $reportGrid = $(gridSelector);
+            jqGridAdditional.updateGridHeight($reportGrid.closest(".theme_jqGrid"));
+            jqGridAdditional.updateGridWidth($reportGrid);
         },
 
         addGridScrollEventToHidePopups: function () {
@@ -6760,35 +7013,45 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function () {
-    var state;
-
     var _pagingOption = {
         pageindex: 1,
         pagesize: 1000,
         pagelist: [1000, 2000, 3000, 4000],
         totalrow: 1,
-        elementcontainer: ".paging",
+        elementcontainer: "#ActiveCustomerPager",
         method: "AJAX",
         ajaxfunction: "CustomerList.ajaxPaging()",
         alwayshow: true
     };
 
-    function initState() {
-        return {
-            cachedData: {},
-            selectedCustomers: {},
-            checkedAllRows: false,
-            pagingOption: _pagingOption
-        };
-    }
+    var _dormantPagingOption = {
+        pageindex: 1,
+        pagesize: 1000,
+        pagelist: [1000, 2000, 3000, 4000],
+        totalrow: 1,
+        elementcontainer: "#DormantCustomerPager",
+        method: "AJAX",
+        ajaxfunction: "CustomerList.ajaxPagingDormant()",
+        alwayshow: true
+    };
+
+    var state = {
+        cachedData: {},
+        selectedCustomers: {},
+        checkedAllRows: false,
+        pagingOption: _pagingOption
+    };
+
+    var dormantState = {
+        pagingOption: _dormantPagingOption
+    };
 
     return {
         getState: function () {
-            if (!state) {
-                state = initState();
-            }
-
             return state;
+        },
+        getDormantState: function () {
+            return dormantState;
         }
     };
 }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
@@ -6805,11 +7068,33 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! common/querystring */ "./www/js/source/common/querystring.js"), __webpack_require__(/*! ./customerlist.filter */ "./www/js/source/pages/customer/customerlist/customerlist.filter.js"), __webpack_require__(/*! ./customerlist.grid */ "./www/js/source/pages/customer/customerlist/customerlist.grid.js"),
-    __webpack_require__(/*! ./customerlist.service */ "./www/js/source/pages/customer/customerlist/customerlist.service.js"), __webpack_require__(/*! ./customerlist.commision */ "./www/js/source/pages/customer/customerlist/customerlist.commision.js"), __webpack_require__(/*! ./customerlist.custoption */ "./www/js/source/pages/customer/customerlist/customerlist.custoption.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, QueryString, CustomerListFilter, CustomerListGrid, CustomerListService, CustomerComm, CustomerListViewOption) {
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! common/querystring */ "./www/js/source/common/querystring.js"), __webpack_require__(/*! lib/jqgrid/jquery.jqgrid.additional */ "./www/js/source/lib/jqgrid/jquery.jqgrid.additional.js"), __webpack_require__(/*! ./customerlist.filter */ "./www/js/source/pages/customer/customerlist/customerlist.filter.js"), __webpack_require__(/*! ./customerlist.grid */ "./www/js/source/pages/customer/customerlist/customerlist.grid.js"),
+    __webpack_require__(/*! ./customerlist.service */ "./www/js/source/pages/customer/customerlist/customerlist.service.js"), __webpack_require__(/*! ./customerlist.service.dormant */ "./www/js/source/pages/customer/customerlist/customerlist.service.dormant.js"), __webpack_require__(/*! ./customerlist.commision */ "./www/js/source/pages/customer/customerlist/customerlist.commision.js"), __webpack_require__(/*! ./customerlist.custoption */ "./www/js/source/pages/customer/customerlist/customerlist.custoption.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, QueryString, jqGridAdditional, CustomerListFilter, CustomerListGrid,
+        CustomerListService, CustomerListServiceDormant, CustomerComm, CustomerListViewOption) {
+
         $(document).ready(function () {
             Site.initialize();
+            $(".tablinks").click(function () {
+                var tabId = $(this).data('tab');
+                var $tab = $("#" + tabId);
+                $(".tabcontent").hide();
+                $(".tablinks").removeClass('active');
+
+                $tab.show();
+                $(this).addClass("active");
+
+                var isDormantTab = tabId == 'tabDormantCustomer';
+                $(".page-button input[type=button]").prop('disabled', isDormantTab);
+                if (isDormantTab) {
+                    jqGridAdditional.updateGridHeight($tab);
+                }else
+                {
+                    CustomerListService.resizeGrid("#ReportGrid");
+                }
+            });
+
             CustomerListService.initialize();
+            CustomerListServiceDormant.initialize();
             CustomerListFilter.initialize();
             CustomerListGrid.initialize();
             CustomerListViewOption.initialize();
@@ -6818,6 +7103,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             if (QueryString.getParam(url, "userName") ||
                 QueryString.getParam(url, "groupId")) {
                 CustomerListService.submit();
+                CustomerListServiceDormant.submit();
             } else {
                 Site.unBlockUI();
             }
