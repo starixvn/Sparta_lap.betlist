@@ -6621,7 +6621,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             $("#DormantCustomerGrid").jqGrid('setGridWidth', width);
             $container.find(".panel-heading").width(width)
             $("#DormantCustomerPager").width(width);
-            if ($.active === 1) {
+            if ($.active <= 1) {
                 Site.unBlockUI();
             }
         },
@@ -6796,7 +6796,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 $("#active-customer-report-content .ui-jqgrid-bdiv").scrollTop(oldScrollTop);
             }
 
-            if ($.active === 1) {
+            if ($.active <= 1) {
                 Site.unBlockUI();
             }
 

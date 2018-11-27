@@ -148,7 +148,7 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
                 $("#active-customer-report-content .ui-jqgrid-bdiv").scrollTop(oldScrollTop);
             }
 
-            if ($.active === 1) {
+            if ($.active <= 1) {
                 Site.unBlockUI();
             }
 
