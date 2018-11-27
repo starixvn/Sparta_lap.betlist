@@ -48,7 +48,7 @@ namespace Fanex.Athena.DataAccess.Customer
             var dataList = new List<DormantCustomer>();
             using (var reader = objectDb.ExecuteReader())
             {
-                var balanceColumn = "Balance";
+                var balanceColumn = "Balance" + metaModel.BaseCurrency;
                 var startIndex = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;
                 while (reader.Read())
                 {
