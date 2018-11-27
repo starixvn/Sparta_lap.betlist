@@ -109,7 +109,7 @@ define([
 
                     _state.selectedCustomers = selectedCustomers;
                     _state.checkedAllRows = isCheckedAll;
-                    CustomerListService.bindActiveCustomerData(_state.cachedData);
+                    CustomerListService.bindData(_state.cachedData);
                 });
 
                 $("#active-customer-report-content").on("change", ".select-cust-checkbox", function () {
@@ -162,7 +162,7 @@ define([
                 });
 
                 updateGroupForCheckCustomerArray(groupid);
-                CustomerListService.bindActiveCustomerData(_state.cachedData);
+                CustomerListService.bindData(_state.cachedData);
             },
 
             updateGridGroup: function (groupid, groupName, groupColor) {
@@ -182,7 +182,7 @@ define([
                 });
 
                 updateGroupForCheckCustomerArray(groupid);
-                CustomerListService.bindActiveCustomerData(_state.cachedData);
+                CustomerListService.bindData(_state.cachedData);
             }
         };
 

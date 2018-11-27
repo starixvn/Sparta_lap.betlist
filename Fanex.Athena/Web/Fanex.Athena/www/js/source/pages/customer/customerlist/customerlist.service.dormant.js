@@ -57,6 +57,8 @@ function ($, Site, CustomerListOptionDormant, jqGridAdditional, PagingHelper, Cu
         },
 
         bindData: function (gridData) {
+            var width = 708;
+            var $container = $("#tabDormantCustomer");
             jqGridAdditional.clearGrid("DormantCustomerGrid");
 
             var hasData = gridData && gridData.TotalRows > 0;
@@ -64,6 +66,8 @@ function ($, Site, CustomerListOptionDormant, jqGridAdditional, PagingHelper, Cu
 
             if (!hasData) {
                 jqGridAdditional.setNoInfo();
+                $container.find(".panel-heading").width(width);
+                $container.find("#noInfoRow").width(width - 10);
                 $("#num-of-dormant-customer").html("0 ");
                 Site.unBlockUI();
                 return;
@@ -76,7 +80,7 @@ function ($, Site, CustomerListOptionDormant, jqGridAdditional, PagingHelper, Cu
             PagingHelper.render(pagingOption);
 
             var $reportGrid = $("#DormantCustomerGrid");
-            var $container = $("#tabDormantCustomer");
+            
             var gridOption = CustomerListOptionDormant.getGridOption();
             gridOption.data = gridData.Data;
             gridOption.gridComplete = function () {
@@ -87,7 +91,7 @@ function ($, Site, CustomerListOptionDormant, jqGridAdditional, PagingHelper, Cu
             $reportGrid.jqGrid(gridOption);
 
             jqGridAdditional.updateGridHeight($container);
-            var width = 708;
+            
             $("#DormantCustomerGrid").jqGrid('setGridWidth', width);
             $container.find(".panel-heading").width(width)
             $("#DormantCustomerPager").width(width);

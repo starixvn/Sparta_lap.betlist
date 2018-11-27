@@ -40,7 +40,7 @@
 
             beforeAll(function () {
                 spyOn(CustomerListState, "getState").and.returnValue(_state);
-                spyOn(CustomerListGrid, "resizeGrid");
+                spyOn(CustomerListService, "resizeGrid");
                 spyOn(jqGridAdditional, "updateGridHeight");
                 spyOn(jqGridAdditional, "updateGridWidth");
                 spyOn(Site, "getSingleResource").and.callFake(function (str) {
@@ -105,20 +105,13 @@
                 });
 
                 it("viewRunningBetlist(custId, systemId, externalId) should be called if .pendingFunds is clicked", function () {
-                    setFixtures('<div id="report-content"><a class="pendingFunds" data-custid="custid" data-systemid="systemid" data-externalid="externalid"><a><div>');
+                    setFixtures('<div id="active-customer-report-content"><a class="pendingFunds" data-custid="custid" data-systemid="systemid" data-externalid="externalid"><a><div>');
                     spyOn(CustomerListGrid, "viewRunningBetlist");
 
                     CustomerListGrid.initEvent();
                     $(".pendingFunds").click();
 
                     expect(CustomerListGrid.viewRunningBetlist).toHaveBeenCalledWith("custid", "systemid", "externalid");
-                });
-
-                it("resizeGrid function should be called when window fire resize event", function () {
-                    CustomerListGrid.initEvent();
-                    $(window).resize();
-
-                    expect(CustomerListGrid.resizeGrid).toHaveBeenCalled();
                 });
 
                 it("off() jquery function should be called with correct parameter when window fire unload event", function () {
@@ -141,7 +134,7 @@
                 });
 
                 it("CustomerListService.bindData should be called when CheckAll is changed", function () {
-                    setFixtures('<div id="report-content"><input type="checkbox" id="CheckAll"><div>');
+                    setFixtures('<div id="active-customer-report-content"><input type="checkbox" id="CheckAll"><div>');
                     spyOn(CustomerListService, "bindData");
 
                     CustomerListGrid.registerCheckboxEvent();
@@ -151,7 +144,7 @@
                 });
 
                 it("updates _state.selectedCustomers with all customers if CheckAll is checked", function () {
-                    setFixtures('<div id="report-content"><input type="checkbox" id="CheckAll" checked><div>');
+                    setFixtures('<div id="active-customer-report-content"><input type="checkbox" id="CheckAll" checked><div>');
                     spyOn(CustomerListService, "bindData");
 
                     CustomerListGrid.registerCheckboxEvent();
@@ -163,7 +156,7 @@
                 });
 
                 it("adds selected customer to _state.selectedCustomers if a .select-cust-checkbox is checked", function () {
-                    setFixtures('<div id="report-content">'
+                    setFixtures('<div id="active-customer-report-content">'
                         + '<input type="checkbox" id="CheckAll" checked>'
                         + '<input class="select-cust-checkbox" data-group-comm-id="3" id="3" checked>'
                         + '<div>');
@@ -176,7 +169,7 @@
                 });
 
                 it("removes selected customer to _state.selectedCustomers if a .select-cust-checkbox is unchecked", function () {
-                    setFixtures('<div id="report-content">'
+                    setFixtures('<div id="active-customer-report-content">'
                         + '<input type="checkbox" id="CheckAll" checked>'
                         + '<input class="select-cust-checkbox" data-group-comm-id="1" id="1">'
                         + '<div>');
