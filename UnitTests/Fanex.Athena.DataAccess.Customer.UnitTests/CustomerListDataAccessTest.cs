@@ -16,7 +16,7 @@
     {
         [TestCase("New", "New")]
         [TestCase(null, "")]
-        public void Search_WhenCall_ParametersPassedCorrectly(string custStatus, string expectedStatusParam)
+        public void GetActiveCustomers_WhenCall_ParametersPassedCorrectly(string custStatus, string expectedStatusParam)
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerSel")).Returns(ObjectDb);
@@ -55,7 +55,7 @@
         [TestCase(true, false)]
         [TestCase(false, true)]
         [TestCase(false, false)]
-        public void Search_WhenCall_ReturnCorrectData(bool isClosed, bool isSuspended)
+        public void GetActiveCustomers_WhenCall_ReturnCorrectData(bool isClosed, bool isSuspended)
         {
             // Arrange
             const int ExpectedCustId = 999;

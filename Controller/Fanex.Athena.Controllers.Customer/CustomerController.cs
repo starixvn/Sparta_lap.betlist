@@ -64,7 +64,6 @@ namespace Fanex.Athena.Controllers.Customer
         private readonly ISubsidiaryService _subsidiaryService;
 
 #pragma warning disable S107 // Methods should not have too many parameters
-
         public CustomerController(
             ILanguageService languageService,
             ISessionService sessionService,
@@ -222,15 +221,18 @@ namespace Fanex.Athena.Controllers.Customer
                 var templatePath = Server.MapPath(@"~/App_Data/Template/Customers/DormantCustomerList.xls");
 
                 var resultModel = _customerListService.GetDormantCustomers(metaModel);
-                var fileName = "DormantCustomerList_" + DateTime.Now.ToString("MM-dd-yyyy");
-                var reportTitle = ViewResources.DormantCustomers + " - "
-                    + string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper(CultureInfo.CurrentCulture) : metaModel.CurrencyName);
+                if (resultModel.DataList.Any())
+                {
+                    var fileName = "DormantCustomerList_" + DateTime.Now.ToString("MM-dd-yyyy");
+                    var reportTitle = ViewResources.DormantCustomers + " - "
+                        + string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper(CultureInfo.CurrentCulture) : metaModel.CurrencyName);
 
-                var excel = CreateDormantCustomerExcel(templatePath, reportTitle, resultModel.DataList);
+                    var excel = CreateDormantCustomerExcel(templatePath, reportTitle, resultModel.DataList);
 
-                excel.Export();
+                    excel.Export();
 
-                return new ExcelResult(excel.Workbook, fileName);
+                    return new ExcelResult(excel.Workbook, fileName);
+                }
             }
 
             return File(ExcelHelper.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");

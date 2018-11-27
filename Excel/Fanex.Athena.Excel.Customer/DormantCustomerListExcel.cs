@@ -16,7 +16,6 @@ namespace Fanex.Athena.Excel.Customer
 
     public class DormantCustomerListExcel : ReportBase
     {
-        private const int RowNoInfoTemp = 4;
         private const int RowContentTemplate = 3;
         private const int ExternalIDColumn = 0;
         private const int SystemIDColumn = 1;
@@ -52,12 +51,6 @@ namespace Fanex.Athena.Excel.Customer
             {
                 row.Cells[i].SetCellValue(_headerTexts[i]);
             }
-        }
-
-        protected override void AssignNoInfoRow(ISheet sheet)
-        {
-            sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemp, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
-            ProcessUI(sheet);
         }
 
         protected override void AssignSheetData(ISheet sheet)
