@@ -102,7 +102,10 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
 
             return data;
         },
-
+        // virtual scrolling not work after hide and show
+        bindDataFromCache: function() { 
+            _me.bindData(_state.cachedData, true);
+        },
         bindData: function (gridData, keepScrollPosition) {
             jqGridAdditional.clearGrid("ReportGrid");
             

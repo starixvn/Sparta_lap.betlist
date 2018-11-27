@@ -83,6 +83,7 @@ function ($, Site, CustomerListOptionDormant, jqGridAdditional, PagingHelper, Cu
             
             var gridOption = CustomerListOptionDormant.getGridOption();
             gridOption.data = gridData.Data;
+            gridOption.rowNum = gridData.Data.length;
             gridOption.gridComplete = function () {
                 jqGridAdditional.gridComplete($container);
             };
