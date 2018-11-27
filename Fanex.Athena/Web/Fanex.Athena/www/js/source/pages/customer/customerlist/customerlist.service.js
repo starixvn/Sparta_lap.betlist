@@ -110,17 +110,17 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
             jqGridAdditional.clearGrid("ReportGrid");
             
             var hasData = gridData && gridData.TotalRows > 0;
-            $("#ActiveCustomerPager").toggle(hasData);
+            $("#ActiveCustomerPager, #tabActiveCustomer .excel-container").toggle(hasData);
 
             if (!hasData) {
                 jqGridAdditional.setNoInfo();
-                $("#num-of-customer").html("0 ");
+                $("#num-of-customer, #num-of-customer-header").html("0");
                 Site.unBlockUI();
                 return;
             }
 
             var oldScrollTop = $("#active-customer-report-content .ui-jqgrid-bdiv").scrollTop();
-            $("#num-of-customer").html(gridData.TotalRows + " ");
+            $("#num-of-customer, #num-of-customer-header").html(gridData.TotalRows);
 
             var pagingOption = _state.pagingOption;
             pagingOption.totalrow = parseInt(gridData.TotalRows);
@@ -153,6 +153,8 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
 
             if ($.active <= 1) {
                 Site.unBlockUI();
+            } else {
+                setTimeout(Site.unBlockUI, 500);
             }
 
             _me.addGridScrollEventToHidePopups();

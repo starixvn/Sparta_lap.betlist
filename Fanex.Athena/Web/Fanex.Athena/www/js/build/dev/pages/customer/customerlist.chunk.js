@@ -6104,8 +6104,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 gridview: true,
                 footerrow: false,
                 userDataOnFooter: true,
-                scroll: 1,
-                rowNum: 40,
                 cmTemplate: { title: true }, //enable tooltip
                 userData: [],
                 beforeSelectRow: function () {
@@ -6588,18 +6586,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             jqGridAdditional.clearGrid("DormantCustomerGrid");
 
             var hasData = gridData && gridData.TotalRows > 0;
-            $("#DormantCustomerPager").toggle(hasData);
+            $("#DormantCustomerPager, #tabDormantCustomer .excel-container").toggle(hasData);
 
             if (!hasData) {
                 jqGridAdditional.setNoInfo();
                 $container.find(".panel-heading").width(width);
                 $container.find("#noInfoRow").width(width - 10);
-                $("#num-of-dormant-customer").html("0 ");
+                $("#num-of-dormant-customer, #num-of-dormant-customer-header").html("0");
                 Site.unBlockUI();
                 return;
             }
 
-            $("#num-of-dormant-customer").html(gridData.TotalRows + " ");
+            $("#num-of-dormant-customer, #num-of-dormant-customer-header").html(gridData.TotalRows);
 
             var pagingOption = _state.pagingOption;
             pagingOption.totalrow = parseInt(gridData.TotalRows);
@@ -6609,6 +6607,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             
             var gridOption = CustomerListOptionDormant.getGridOption();
             gridOption.data = gridData.Data;
+            gridOption.rowNum = gridData.Data.length;
             gridOption.gridComplete = function () {
                 jqGridAdditional.gridComplete($container);
             };
@@ -6621,6 +6620,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             $("#DormantCustomerGrid").jqGrid('setGridWidth', width);
             $container.find(".panel-heading").width(width)
             $("#DormantCustomerPager").width(width);
+            
             if ($.active <= 1) {
                 Site.unBlockUI();
             }
@@ -6750,22 +6750,25 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
             return data;
         },
-
+        // virtual scrolling not work after hide and show
+        bindDataFromCache: function() { 
+            _me.bindData(_state.cachedData, true);
+        },
         bindData: function (gridData, keepScrollPosition) {
             jqGridAdditional.clearGrid("ReportGrid");
             
             var hasData = gridData && gridData.TotalRows > 0;
-            $("#ActiveCustomerPager").toggle(hasData);
+            $("#ActiveCustomerPager, #tabActiveCustomer .excel-container").toggle(hasData);
 
             if (!hasData) {
                 jqGridAdditional.setNoInfo();
-                $("#num-of-customer").html("0 ");
+                $("#num-of-customer, #num-of-customer-header").html("0");
                 Site.unBlockUI();
                 return;
             }
 
             var oldScrollTop = $("#active-customer-report-content .ui-jqgrid-bdiv").scrollTop();
-            $("#num-of-customer").html(gridData.TotalRows + " ");
+            $("#num-of-customer, #num-of-customer-header").html(gridData.TotalRows);
 
             var pagingOption = _state.pagingOption;
             pagingOption.totalrow = parseInt(gridData.TotalRows);
@@ -6798,6 +6801,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
             if ($.active <= 1) {
                 Site.unBlockUI();
+            } else {
+                setTimeout(Site.unBlockUI, 500);
             }
 
             _me.addGridScrollEventToHidePopups();
@@ -7090,9 +7095,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 $(".page-button input[type=button]").prop('disabled', isDormantTab);
                 if (isDormantTab) {
                     jqGridAdditional.updateGridHeight($tab);
-                }else
+                }
+                else
                 {
-                    CustomerListService.resizeGrid("#ReportGrid");
+                    CustomerListService.bindDataFromCache();
                 }
             });
 

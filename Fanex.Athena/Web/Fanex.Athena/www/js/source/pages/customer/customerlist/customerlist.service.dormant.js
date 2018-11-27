@@ -62,18 +62,18 @@ function ($, Site, CustomerListOptionDormant, jqGridAdditional, PagingHelper, Cu
             jqGridAdditional.clearGrid("DormantCustomerGrid");
 
             var hasData = gridData && gridData.TotalRows > 0;
-            $("#DormantCustomerPager").toggle(hasData);
+            $("#DormantCustomerPager, #tabDormantCustomer .excel-container").toggle(hasData);
 
             if (!hasData) {
                 jqGridAdditional.setNoInfo();
                 $container.find(".panel-heading").width(width);
                 $container.find("#noInfoRow").width(width - 10);
-                $("#num-of-dormant-customer").html("0 ");
+                $("#num-of-dormant-customer, #num-of-dormant-customer-header").html("0");
                 Site.unBlockUI();
                 return;
             }
 
-            $("#num-of-dormant-customer").html(gridData.TotalRows + " ");
+            $("#num-of-dormant-customer, #num-of-dormant-customer-header").html(gridData.TotalRows);
 
             var pagingOption = _state.pagingOption;
             pagingOption.totalrow = parseInt(gridData.TotalRows);
@@ -96,6 +96,7 @@ function ($, Site, CustomerListOptionDormant, jqGridAdditional, PagingHelper, Cu
             $("#DormantCustomerGrid").jqGrid('setGridWidth', width);
             $container.find(".panel-heading").width(width)
             $("#DormantCustomerPager").width(width);
+            
             if ($.active <= 1) {
                 Site.unBlockUI();
             }

@@ -26,8 +26,8 @@
     
     <div class="page-results" style="display:none">
         <div class="tab">
-            <button class="tablinks active" data-tab="tabActiveCustomer" >@ViewResources.ActiveCustomers</button>
-            <button class="tablinks"  data-tab="tabDormantCustomer">@ViewResources.DormantCustomers</button>
+            <button class="tablinks active" data-tab="tabActiveCustomer" >@ViewResources.ActiveCustomers (<span id="num-of-customer-header">0</span>)</button>
+            <button class="tablinks"  data-tab="tabDormantCustomer">@ViewResources.DormantCustomers (<span id="num-of-dormant-customer-header">0</span>)</button>
         </div>
 
         @*Tab 1*@
@@ -36,7 +36,7 @@
                 <div class="panel-title">
                     <div class="report-title" style="">
                         @ViewResources.SearchResult:
-                        <span id="num-of-customer" class="num-of-customer">0 </span>@ViewResources.Customers.ToLower()
+                        <span id="num-of-customer" class="num-of-customer"></span> @ViewResources.Customers.ToLower()
                         <p class="ba-time-notice">@Model.BATimeCheck</p>
                     </div>
                 </div>
@@ -66,7 +66,7 @@
                 <div class="panel-title">
                     <div class="report-title" style="">
                         @ViewResources.SearchResult:
-                        <span id="num-of-dormant-customer" class="num-of-customer">0 </span>@ViewResources.Customers.ToLower()
+                        <span id="num-of-dormant-customer" class="num-of-customer"></span> @ViewResources.Customers.ToLower()
                     </div>
                 </div>
                 <div class="excel-container">
