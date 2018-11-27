@@ -18,7 +18,6 @@ namespace Fanex.Athena.Excel.Customer
 
     public class CustomerListExcel : ReportBase
     {
-        private const int RowNoInfoTemp = 4;
         private const int RowContentTemplate = 3;
         private const int GroupColumn = 1;
         private const int ExternalIDColumn = 2;
@@ -100,12 +99,6 @@ namespace Fanex.Athena.Excel.Customer
             row.Cells[SBCommColumn].SetCellValue(ViewResources.SB);
             row.Cells[NGCommColumn].SetCellValue(ViewResources.NG);
             row.Cells[CSCommColumn].SetCellValue(ViewResources.CS);
-        }
-
-        protected override void AssignNoInfoRow(ISheet sheet)
-        {
-            sheet.SetTextRowValue(TemplateSheet, RowNoInfoTemp, RowContentTemplate, ColumnTemplateCount, ViewResources.NoInfo);
-            ProcessUI(sheet);
         }
 
         protected override void AssignSheetData(ISheet sheet)
