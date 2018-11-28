@@ -5,6 +5,8 @@
             GoldDeluxeWinLossOption.licenseeId = parseInt($("#drillDownLicenseeId").val());
 
             ThirdPartyWinLoss.initialize({
+                UserGuideResourceName: "GoldDeluxeWL",
+                UserGuideTitle: "GoldDeluxeWinLoss",
                 ValidMonthRange: 3,
                 ReportTitle: "GoldDeluxeWinLoss",
                 GridOption: GoldDeluxeWinLossOption
