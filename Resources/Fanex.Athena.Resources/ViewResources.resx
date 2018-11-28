@@ -3051,8 +3051,8 @@
     <value>Void</value>
     <comment>80941</comment>
   </data>
-  <data name="BettingTicketCenter_MultiCustomersTabNote" xml:space="preserve">
-    <value>Note: Sport/ Bettype/ League/ Match can be selected all for 1 selected date.</value>
+  <data name="BettingTicketCenter_MultiCustomersTabNote1" xml:space="preserve">
+    <value>League and Match filter support only 1 selected day</value>
     <comment>80941</comment>
   </data>
   <data name="BettingTicketCenter_RefnoTabNote" xml:space="preserve">
@@ -3102,5 +3102,9 @@
   <data name="VirtualSoccerAsianCup" xml:space="preserve">
     <value>Virtual Soccer Asian Cup</value>
     <comment>105409</comment>
+  </data>
+  <data name="BettingTicketCenter_MultiCustomersTabNote2" xml:space="preserve">
+    <value>Data is available from {0}</value>
+    <comment>103046</comment>
   </data>
 </root>

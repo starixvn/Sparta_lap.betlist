@@ -844,11 +844,20 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Note: Sport/ Bettype/ League/ Match can be selected all for 1 selected date..
+        ///   Looks up a localized string similar to League and Match filter support only 1 selected day.
         /// </summary>
-        public static string BettingTicketCenter_MultiCustomersTabNote {
+        public static string BettingTicketCenter_MultiCustomersTabNote1 {
             get {
-                return ResourceManager.GetString("BettingTicketCenter_MultiCustomersTabNote", resourceCulture);
+                return ResourceManager.GetString("BettingTicketCenter_MultiCustomersTabNote1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data is available from {0}.
+        /// </summary>
+        public static string BettingTicketCenter_MultiCustomersTabNote2 {
+            get {
+                return ResourceManager.GetString("BettingTicketCenter_MultiCustomersTabNote2", resourceCulture);
             }
         }
         

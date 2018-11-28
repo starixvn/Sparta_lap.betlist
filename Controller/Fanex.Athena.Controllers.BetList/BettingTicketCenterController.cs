@@ -4,6 +4,7 @@
     using System.Linq;
     using System.Web.Mvc;
     using Constant.DataDomain;
+    using DataAccess.Core.Configuration.Interfaces;
     using Extension.Utility;
     using Model.BetList.ViewModel;
     using Model.Core.DataDomain;
@@ -18,14 +19,18 @@
     {
         private readonly IProductService _productService;
 
+        private readonly IBalanceUpDataAccess _balanceUpDataAccess;
+
         public BettingTicketCenterController(
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IProductService productService)
+            IProductService productService,
+            IBalanceUpDataAccess balanceUpDataAccess)
         : base(languageService, sessionService, appSetting)
         {
             _productService = productService;
+            _balanceUpDataAccess = balanceUpDataAccess;
         }
 
         public ActionResult Index()
@@ -41,7 +46,7 @@
                 LiveStatusList = GetLiveStatusList(),
                 StatusList = GetStatusList(),
                 ProductOptionList = GetProductOptionList(),
-                MinDate = AppSettings.HistoryDate,
+                MinDate = _balanceUpDataAccess.GetBalanceUp().BalanceUpDay,
                 IsAllowedCustomerComm = SessionService.LicenseeSession.IsAllowedCustomerComm
             };
             return View("~/Views/Desktop/BetList/BettingTicketCenter/MultiCustomer.cshtml", viewModel);
@@ -55,7 +60,6 @@
                 StatusList = GetStatusList(),
                 PlatformList = GetPlatformList(),
                 ProductOptionList = GetProductOptionList(),
-                MinDate = AppSettings.HistoryDate,
                 IsAllowedCustomerComm = SessionService.LicenseeSession.IsAllowedCustomerComm
             };
             return View("~/Views/Desktop/BetList/BettingTicketCenter/SingleCustomer.cshtml", viewModel);

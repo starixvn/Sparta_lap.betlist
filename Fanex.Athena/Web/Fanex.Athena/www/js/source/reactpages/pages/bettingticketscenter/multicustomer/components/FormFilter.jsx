@@ -343,8 +343,13 @@ export class FormFilter extends Component {
                     </div>
                </div>
                <div className="row">
+                   <div className="col-1" style={{flex: "0 0 3%"}}>
+                       {LangHelper.getSingleResource('Note')}:
+                    </div>
                     <div className="col-9">
-                        {LangHelper.getSingleResource('BettingTicketCenter_MultiCustomersTabNote')}
+                        * {LangHelper.getSingleResource('BettingTicketCenter_MultiCustomersTabNote1')}
+                        <br />
+                        * {LangHelper.getSingleResource('BettingTicketCenter_MultiCustomersTabNote2').replace("{0}", AppData.dateConstraint.minDate)}
                     </div>
                </div>
             </div>

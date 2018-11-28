@@ -2599,4 +2599,13 @@
   <data name="MobileLiteVersion" xml:space="preserve">
     <value>手机轻量版</value>
   </data>
+  <data name="BettingTicketCenter_MultiCustomersTabNote2" xml:space="preserve">
+    <value>显示从{0}开始的资料</value>
+  </data>
+  <data name="BettingTicketCenter_MultiCustomersTabNote1" xml:space="preserve">
+    <value>联赛和比赛过滤器仅支援1个选定日期</value>
+  </data>
+  <data name="BettingTicketCenter_RefnoTabNote" xml:space="preserve">
+    <value>注意: 在体育的搜寻结果将包含相关的红利与现金注单</value>
+  </data>
 </root>
