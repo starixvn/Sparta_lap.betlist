@@ -4552,6 +4552,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
             GoldDeluxeWinLossOption.licenseeId = parseInt($("#drillDownLicenseeId").val());
 
             ThirdPartyWinLoss.initialize({
+                UserGuideResourceName: "GoldDeluxeWL",
+                UserGuideTitle: "GoldDeluxeWinLoss",
                 ValidMonthRange: 3,
                 ReportTitle: "GoldDeluxeWinLoss",
                 GridOption: GoldDeluxeWinLossOption
@@ -4697,8 +4699,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
         var tipsAmountColumn =
         {
-            name: 'TipsAmount',
-            index: 'TipsAmount',
+            name: 'TipAmount',
+            index: 'TipAmount',
             width: 100,
             align: 'right',
             sortable: false,
@@ -4710,8 +4712,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
         var tipsSharingColumn =
         {
-            name: 'TipsSharing',
-            index: 'TipsSharing',
+            name: 'TipSharing',
+            index: 'TipSharing',
             width: 100,
             align: 'right',
             sortable: false,
@@ -4758,7 +4760,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
 
         var colNameList = ['#', 'Date', 'ExternalId', "SystemId", "Currency",
             'Turnover', 'TotalTransaction', 'CustomerW_L', 'LicenseeW_L',
-            'TipsAmount', 'TipsSharing', 'AmountDue', 'CurrencyId', 'CustomerId'];
+            'TipAmount', 'TipSharing', 'AmountDue', 'CurrencyId', 'CustomerId'];
 
         var colModelList = [indexColumn, dateColumn, externalIdColumn, systemIdColumn, currencyColumn,
             turnoverColumn, totalTransColumn, customerWlColumn, licenseeWlColumn,
