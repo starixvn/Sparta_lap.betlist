@@ -1,4 +1,4 @@
-﻿// Generated at: 11/20/2018 11:38:58 AM
+﻿// Generated at: 11/28/2018 9:27:55 AM
 window._language_en_US = {
 AA:"AA",
 AB:"AB",
@@ -805,8 +805,8 @@ TicketPayout:"Ticket Payout",
 TicketType:"Ticket Type",
 Time:"Time",
 TimeZone:"Time Zone",
-TipsAmount:"Tips Amount",
-TipsSharing:"Tips Sharing",
+TipAmount:"Tip Amount",
+TipSharing:"Tip Sharing",
 To:"To",
 Todate:"To date",
 Today:"Today",

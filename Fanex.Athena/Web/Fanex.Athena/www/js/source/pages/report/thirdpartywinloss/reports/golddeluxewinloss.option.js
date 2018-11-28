@@ -121,8 +121,8 @@
 
         var tipsAmountColumn =
         {
-            name: 'TipsAmount',
-            index: 'TipsAmount',
+            name: 'TipAmount',
+            index: 'TipAmount',
             width: 100,
             align: 'right',
             sortable: false,
@@ -134,8 +134,8 @@
 
         var tipsSharingColumn =
         {
-            name: 'TipsSharing',
-            index: 'TipsSharing',
+            name: 'TipSharing',
+            index: 'TipSharing',
             width: 100,
             align: 'right',
             sortable: false,
@@ -182,7 +182,7 @@
 
         var colNameList = ['#', 'Date', 'ExternalId', "SystemId", "Currency",
             'Turnover', 'TotalTransaction', 'CustomerW_L', 'LicenseeW_L',
-            'TipsAmount', 'TipsSharing', 'AmountDue', 'CurrencyId', 'CustomerId'];
+            'TipAmount', 'TipSharing', 'AmountDue', 'CurrencyId', 'CustomerId'];
 
         var colModelList = [indexColumn, dateColumn, externalIdColumn, systemIdColumn, currencyColumn,
             turnoverColumn, totalTransColumn, customerWlColumn, licenseeWlColumn,

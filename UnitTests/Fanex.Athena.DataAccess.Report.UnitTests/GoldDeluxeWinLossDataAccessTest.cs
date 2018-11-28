@@ -78,8 +78,8 @@
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(item.TipsAmount, Is.EqualTo(1.5m));
-                Assert.That(item.TipsSharing, Is.EqualTo(2.4m));
+                Assert.That(item.TipAmount, Is.EqualTo(1.5m));
+                Assert.That(item.TipSharing, Is.EqualTo(2.4m));
                 Assert.That(item.AmountDue, Is.EqualTo(3.3m));
             });
         }
@@ -103,9 +103,9 @@
             // Arrange
             var dataList = new List<GoldDeluxeWinLoss>
             {
-                new GoldDeluxeWinLoss { CurrencyName = "1", TipsAmount = 2 },
-                new GoldDeluxeWinLoss { CurrencyName = "1", TipsAmount = 3 },
-                new GoldDeluxeWinLoss { CurrencyName = "2", TipsAmount = 4 }
+                new GoldDeluxeWinLoss { CurrencyName = "1", TipAmount = 2 },
+                new GoldDeluxeWinLoss { CurrencyName = "1", TipAmount = 3 },
+                new GoldDeluxeWinLoss { CurrencyName = "2", TipAmount = 4 }
             };
             
             // Action
@@ -115,8 +115,8 @@
             Assert.Multiple(() =>
             {
                 Assert.That(result.Count(), Is.EqualTo(2));
-                Assert.That(result.ElementAt(0).TipsAmount, Is.EqualTo(5));
-                Assert.That(result.ElementAt(1).TipsAmount, Is.EqualTo(4));
+                Assert.That(result.ElementAt(0).TipAmount, Is.EqualTo(5));
+                Assert.That(result.ElementAt(1).TipAmount, Is.EqualTo(4));
             });
         }
     }

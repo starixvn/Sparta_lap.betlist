@@ -3095,12 +3095,12 @@
     <value>Mobile China View</value>
     <comment>106088</comment>
   </data>
-  <data name="TipsAmount" xml:space="preserve">
-    <value>Tips Amount</value>
+  <data name="TipAmount" xml:space="preserve">
+    <value>Tip Amount</value>
     <comment>101599</comment>
   </data>
-  <data name="TipsSharing" xml:space="preserve">
-    <value>Tips Sharing</value>
+  <data name="TipSharing" xml:space="preserve">
+    <value>Tip Sharing</value>
     <comment>101599</comment>
   </data>
 </root>

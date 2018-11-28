@@ -2,9 +2,9 @@
 {
     public class GoldDeluxeWinLoss : ThirdPartyWinLoss
     {
-        public decimal TipsAmount { get; set; }
+        public decimal TipAmount { get; set; }
 
-        public decimal TipsSharing { get; set; }
+        public decimal TipSharing { get; set; }
 
         public decimal AmountDue { get; set; }
     }

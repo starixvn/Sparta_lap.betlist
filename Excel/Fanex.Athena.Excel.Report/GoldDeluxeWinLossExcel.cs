@@ -26,8 +26,8 @@
         protected override void PostAssignHeader(ISheet sheet)
         {
             var row = sheet.CopyRow(TemplateSheet, RowHeaderTemplate, RowHeaderTemplate);
-            row.Cells[ColumnTipsAmount].SetCellValue(ViewResources.TipsAmount);
-            row.Cells[ColumnTipsSharing].SetCellValue(ViewResources.TipsSharing);
+            row.Cells[ColumnTipsAmount].SetCellValue(ViewResources.TipAmount);
+            row.Cells[ColumnTipsSharing].SetCellValue(ViewResources.TipSharing);
             row.Cells[ColumnAmountDue].SetCellValue(ViewResources.AmountDue);
         }
 
@@ -35,8 +35,8 @@
         {
             base.AssignCommonData(row, data);
 
-            row.Cells[ColumnTipsAmount].SetCellValue(data.TipsAmount);
-            row.Cells[ColumnTipsSharing].SetCellValue(data.TipsSharing);
+            row.Cells[ColumnTipsAmount].SetCellValue(data.TipAmount);
+            row.Cells[ColumnTipsSharing].SetCellValue(data.TipSharing);
             row.Cells[ColumnAmountDue].SetCellValue(data.AmountDue);
         }
     }
