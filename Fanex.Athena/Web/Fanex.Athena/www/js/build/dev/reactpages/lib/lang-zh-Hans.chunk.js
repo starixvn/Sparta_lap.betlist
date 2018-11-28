@@ -96,7 +96,7 @@
 "use strict";
 
 
-// Generated at: 12/19/2018 4:04:42 PM
+// Generated at: 11/28/2018 5:23:13 PM
 window._language_zh_Hans = {
   AA: "客客",
   AccessDeniedMsg: "对不起, 您没有权限访问此页面。",
@@ -172,6 +172,8 @@ window._language_zh_Hans = {
   BetTaken: "匹配时间",
   BettingLimit: "投注限额",
   BettingTicketCenter: "注单中心",
+  BettingTicketCenter_MultiCustomersTabNote1: "联赛和比赛过滤器仅支援1个选定日期",
+  BettingTicketCenter_MultiCustomersTabNote2: "显示从{0}开始的资料",
   BetType: "投注类别",
   BONTeamToScore: "双方/一方/两者皆不得分",
   Bonus: "红利",
@@ -744,6 +746,7 @@ window._language_zh_Hans = {
   Sincelastmonth: "自上个月",
   Site: "网页",
   SixMonth: "6 months",
+  SmartSite: "行动装置版",
   SortBy: "排序由",
   Sorting: "排序",
   SpecialLevel: "特殊层级",
@@ -782,8 +785,6 @@ window._language_zh_Hans = {
   TicketType: "注单类型",
   Time: "时间",
   TimeZone: "时区",
-  TipAmount: "打赏金额",
-  TipSharing: "打赏分成",
   To: "至",
   Todate: "至日期",
   Today: "今日",

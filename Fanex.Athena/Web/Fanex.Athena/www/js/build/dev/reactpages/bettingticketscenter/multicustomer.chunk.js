@@ -7249,8 +7249,18 @@ var FormFilter = exports.FormFilter = function (_Component) {
                     { className: 'row' },
                     _react2.default.createElement(
                         'div',
+                        { className: 'col-1', style: { flex: "0 0 3%" } },
+                        _langHelper2.default.getSingleResource('Note'),
+                        ':'
+                    ),
+                    _react2.default.createElement(
+                        'div',
                         { className: 'col-9' },
-                        _langHelper2.default.getSingleResource('BettingTicketCenter_MultiCustomersTabNote')
+                        '* ',
+                        _langHelper2.default.getSingleResource('BettingTicketCenter_MultiCustomersTabNote1'),
+                        _react2.default.createElement('br', null),
+                        '* ',
+                        _langHelper2.default.getSingleResource('BettingTicketCenter_MultiCustomersTabNote2').replace("{0}", _AppData2.default.dateConstraint.minDate)
                     )
                 )
             );

@@ -96,7 +96,7 @@
 "use strict";
 
 
-// Generated at: 12/19/2018 4:04:42 PM
+// Generated at: 11/28/2018 5:23:13 PM
 window._language_zh_TW = {
   AA: "客客",
   AccessDeniedMsg: "對不起，您沒有權限訪問此頁面。",
@@ -172,6 +172,9 @@ window._language_zh_TW = {
   BetTaken: "匹配時間",
   BettingLimit: "投注限額",
   BettingTicketCenter: "注單中心",
+  BettingTicketCenter_MultiCustomersTabNote1: "聯賽和比賽過濾器僅支援1個選定日期",
+  BettingTicketCenter_MultiCustomersTabNote2: "顯示從{0}開始的資料",
+  BettingTicketCenter_RefnoTabNote: "注意: 在體育的搜尋結果將包含相關的紅利與現金注單",
   BetType: "投注類別",
   BONTeamToScore: "雙方/一方/兩者皆不得分",
   Bonus: "紅利",
@@ -748,6 +751,7 @@ window._language_zh_TW = {
   Sincelastmonth: "從上個月",
   Site: "網頁",
   SixMonth: "6 months",
+  SmartSite: "行動裝置版",
   SortBy: "排序由",
   Sorting: "排序",
   SpecialLevel: "特殊層級",
@@ -786,8 +790,6 @@ window._language_zh_TW = {
   TicketType: "注單類型",
   Time: "時間",
   TimeZone: "時區",
-  TipAmount: "打賞金額",
-  TipSharing: "打賞抽成",
   To: "至",
   Todate: "至日期",
   Today: "今日",

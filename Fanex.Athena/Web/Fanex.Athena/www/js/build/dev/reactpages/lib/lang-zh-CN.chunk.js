@@ -96,7 +96,7 @@
 "use strict";
 
 
-// Generated at: 12/19/2018 4:04:42 PM
+// Generated at: 11/28/2018 5:23:13 PM
 window._language_zh_CN = {
   AA: "客客",
   AccessDeniedMsg: "对不起, 您没有权限访问此页面。",
@@ -137,7 +137,7 @@ window._language_zh_CN = {
   Apr: "四月",
   April: "四月",
   AreYouSure: "您确定要继续吗?",
-  Asia: "亚洲版",
+  Asia: "亚洲",
   AssignPermissionSuccessful: "分配权限成功",
   Aug: "八月",
   August: "八月",
@@ -172,6 +172,9 @@ window._language_zh_CN = {
   BetTaken: "匹配时间",
   BettingLimit: "投注限额",
   BettingTicketCenter: "注单中心",
+  BettingTicketCenter_MultiCustomersTabNote1: "联赛和比赛过滤器仅支援1个选定日期",
+  BettingTicketCenter_MultiCustomersTabNote2: "显示从{0}开始的资料",
+  BettingTicketCenter_RefnoTabNote: "注意: 在体育的搜寻结果将包含相关的红利与现金注单",
   BetType: "投注类别",
   BONTeamToScore: "双方/一方/两者皆不得分",
   Bonus: "红利",
@@ -207,7 +210,7 @@ window._language_zh_CN = {
   Characters: "文字",
   CheckAll: "Check All",
   Checkavailability: "检查可用性",
-  China: "中国版",
+  China: "中国",
   Choice: "选择",
   ChooseGroupMsg: "请选择一个组",
   ChooseGroupNameMsg: "请选择其他组名",
@@ -324,7 +327,7 @@ window._language_zh_CN = {
   Error: "误差",
   ErrorProcessingMsg: "对不起, 处理您的请求时有错误发生。",
   EUR: "EUR",
-  Euro: "欧洲版",
+  Euro: "欧洲",
   Even: "双",
   Event: "项目",
   EventDate: "赛事日期",
@@ -556,9 +559,7 @@ window._language_zh_CN = {
   MixParlay: "混合过关",
   MixSportsParlay: "混合过关",
   Mo: "Mo",
-  Mobile: "手机版",
-  MobileApp: "手机 APP",
-  MobileLiteVersion: "手机轻量版",
+  Mobile: "移动",
   Mode: "模式",
   Monday: "星期一",
   Money: "金额",
@@ -750,6 +751,7 @@ window._language_zh_CN = {
   Sincelastmonth: "自上个月",
   Site: "网页",
   SixMonth: "6 months",
+  SmartSite: "行动装置版",
   SortBy: "排序由",
   Sorting: "排序",
   SpecialLevel: "特殊层级",
@@ -788,8 +790,6 @@ window._language_zh_CN = {
   TicketType: "注单类型",
   Time: "时间",
   TimeZone: "时区",
-  TipAmount: "打赏金额",
-  TipSharing: "打赏分成",
   To: "至",
   Todate: "至日期",
   Today: "今日",
