@@ -5627,7 +5627,7 @@ var PageLayout = exports.PageLayout = function (_Component) {
                 _react2.default.createElement(
                     _reactSimpleTab.Tabs,
                     null,
-                    _react2.default.createElement(_reactSimpleTab.Tab, { isActive: this.props.selectedTabIndex == 0, label: _langHelper2.default.getSingleResource("MultiCustomer"),
+                    _react2.default.createElement(_reactSimpleTab.Tab, { isActive: this.props.selectedTabIndex == 0, label: _langHelper2.default.getSingleResource("MultiCustomers"),
                         url: _site2.default.resolveClientUrl("BettingTicketCenter/MultipleCustomers") }),
                     _react2.default.createElement(_reactSimpleTab.Tab, { isActive: this.props.selectedTabIndex == 1, label: _langHelper2.default.getSingleResource("SingleCustomer"),
                         url: _site2.default.resolveClientUrl("BettingTicketCenter/SingleCustomer") }),
@@ -7249,7 +7249,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
                     { className: 'row' },
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-1', style: { flex: "0 0 3%" } },
+                        { className: 'col-1', style: { flex: "0 0 4%" } },
                         _langHelper2.default.getSingleResource('Note'),
                         ':'
                     ),

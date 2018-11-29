@@ -96,7 +96,7 @@
 "use strict";
 
 
-// Generated at: 11/28/2018 5:23:13 PM
+// Generated at: 11/29/2018 10:26:52 AM
 window._language_zh_Hans = {
   AA: "客客",
   AccessDeniedMsg: "对不起, 您没有权限访问此页面。",
@@ -564,6 +564,7 @@ window._language_zh_Hans = {
   Monthly: "每月",
   MoveSuccessfullyMsg: "成功移动",
   MoveToGroup: "转移至组",
+  MultiCustomers: "多个会员",
   Multiplier: "倍增",
   Name: "姓名",
   NetGaming: "Net Gaming",
@@ -592,6 +593,7 @@ window._language_zh_Hans = {
   Normal: "正常",
   NotAllowBA: "此Licensee不允许投注总计",
   NotAuthorizedMsg: "您没有被授权于此功能",
+  Note: "注意",
   NotIdenticalPasswordMsg: "密码不相同",
   Notification: "通知",
   NotificationDateRangeLimitNote: "最多可以检索六个月前的资料",
@@ -744,6 +746,7 @@ window._language_zh_Hans = {
   ShowAllLeagues: "显示所有联赛",
   ShowOldValue: "显示旧值",
   Sincelastmonth: "自上个月",
+  SingleCustomer: "单一会员",
   Site: "网页",
   SixMonth: "6 months",
   SmartSite: "行动装置版",

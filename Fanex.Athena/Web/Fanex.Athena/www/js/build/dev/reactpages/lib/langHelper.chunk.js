@@ -96,7 +96,7 @@
 "use strict";
 
 
-// Generated at: 11/28/2018 5:23:13 PM
+// Generated at: 11/29/2018 10:26:52 AM
 window._language_en_US = {
   AA: "AA",
   AB: "AB",
@@ -642,6 +642,7 @@ window._language_en_US = {
   MoreThanOneCustomerFoundMsg: "More than 1 customer found. Please search for 1 customer only.",
   MoveSuccessfullyMsg: "Successfully moved.",
   MoveToGroup: "Move to Group",
+  MultiCustomers: "Multi-Customers",
   MultipleCustomers: "Multiple Customers",
   Multiplier: "Multiplier",
   MYR: "MYR",

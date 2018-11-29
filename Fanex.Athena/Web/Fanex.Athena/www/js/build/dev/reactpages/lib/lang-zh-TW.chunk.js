@@ -96,7 +96,7 @@
 "use strict";
 
 
-// Generated at: 11/28/2018 5:23:13 PM
+// Generated at: 11/29/2018 10:26:52 AM
 window._language_zh_TW = {
   AA: "客客",
   AccessDeniedMsg: "對不起，您沒有權限訪問此頁面。",
@@ -569,6 +569,7 @@ window._language_zh_TW = {
   Monthly: "每月",
   MoveSuccessfullyMsg: "成功移動",
   MoveToGroup: "轉移至組",
+  MultiCustomers: "多個會員",
   Multiplier: "倍增",
   Name: "姓名",
   NetGaming: "Net Gaming",
@@ -597,6 +598,7 @@ window._language_zh_TW = {
   Normal: "正常",
   NotAllowBA: "此被許可不允許投注總計",
   NotAuthorizedMsg: "您沒有被授權於此功能",
+  Note: "注意",
   NotIdenticalPasswordMsg: "密碼不相同",
   Notification: "通知",
   NotificationDateRangeLimitNote: "最多可以檢索六個月前的資料",
@@ -749,6 +751,7 @@ window._language_zh_TW = {
   ShowAllLeagues: "顯示所有聯賽",
   ShowOldValue: "顯示舊值",
   Sincelastmonth: "從上個月",
+  SingleCustomer: "單一會員",
   Site: "網頁",
   SixMonth: "6 months",
   SmartSite: "行動裝置版",
