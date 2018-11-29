@@ -141,7 +141,7 @@ export class PageLayout extends Component {
             <AppLayout>
                 <Loader isLoading={this.props.isLoading} />
                 <Tabs>
-                     <Tab isActive={this.props.selectedTabIndex == 0} label={LangHelper.getSingleResource("MultiCustomer")}
+                     <Tab isActive={this.props.selectedTabIndex == 0} label={LangHelper.getSingleResource("MultiCustomers")}
                         url={Site.resolveClientUrl("BettingTicketCenter/MultipleCustomers")}>
                     </Tab>
                     <Tab isActive={this.props.selectedTabIndex == 1} label={LangHelper.getSingleResource("SingleCustomer")}

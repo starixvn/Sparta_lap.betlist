@@ -4993,6 +4993,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Multi-Customers.
+        /// </summary>
+        public static string MultiCustomers {
+            get {
+                return ResourceManager.GetString("MultiCustomers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Multiple Customers.
         /// </summary>
         public static string MultipleCustomers {

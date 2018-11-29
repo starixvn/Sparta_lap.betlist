@@ -2599,4 +2599,13 @@
   <data name="BettingTicketCenter_RefnoTabNote" xml:space="preserve">
     <value>注意: 在體育的搜尋結果將包含相關的紅利與現金注單</value>
   </data>
+  <data name="Note" xml:space="preserve">
+    <value>注意</value>
+  </data>
+  <data name="SingleCustomer" xml:space="preserve">
+    <value>單一會員</value>
+  </data>
+  <data name="MultiCustomers" xml:space="preserve">
+    <value>多個會員</value>
+  </data>
 </root>

@@ -2608,4 +2608,13 @@
   <data name="BettingTicketCenter_RefnoTabNote" xml:space="preserve">
     <value>注意: 在体育的搜寻结果将包含相关的红利与现金注单</value>
   </data>
+  <data name="Note" xml:space="preserve">
+    <value>注意</value>
+  </data>
+  <data name="SingleCustomer" xml:space="preserve">
+    <value>单一会员</value>
+  </data>
+  <data name="MultiCustomers" xml:space="preserve">
+    <value>多个会员</value>
+  </data>
 </root>

@@ -3107,4 +3107,8 @@
     <value>Data is available from {0}</value>
     <comment>103046</comment>
   </data>
+  <data name="MultiCustomers" xml:space="preserve">
+    <value>Multi-Customers</value>
+    <comment>103046</comment>
+  </data>
 </root>
