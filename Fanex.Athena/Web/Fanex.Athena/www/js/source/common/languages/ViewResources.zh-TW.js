@@ -1,4 +1,4 @@
-﻿// Generated at: 11/20/2018 11:38:58 AM
+﻿// Generated at: 11/30/2018 10:34:01 AM
 window._language_zh_TW = {
 AA:"客客",
 AccessDeniedMsg:"對不起，您沒有權限訪問此頁面。",
@@ -689,6 +689,8 @@ TicketPayout:"注單結果+實際投注金額",
 TicketType:"注單類型",
 Time:"時間",
 TimeZone:"時區",
+TipAmount:"打賞金額",
+TipSharing:"打賞抽成",
 To:"至",
 Todate:"至日期",
 Today:"今日",
