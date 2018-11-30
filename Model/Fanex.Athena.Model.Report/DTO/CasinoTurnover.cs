@@ -4,6 +4,10 @@
 
     public class CasinoTurnover
     {
+        public int Index { get; set; }
+
+        public int RowSpan { get; set; }
+
         public DateTime Date { get; set; }
 
         public string ExternalId { get; set; }

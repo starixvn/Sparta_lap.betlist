@@ -11,7 +11,6 @@
     using Resources;
     using Service.Core.Common.Interfaces;
     using Service.Core.Configuration.Interfaces;
-    using Service.Core.Helpers;
     using Service.Core.Users.Interfaces;
     using Web.ActionFilter;
 
@@ -24,10 +23,9 @@
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IClientViewHelper clientViewHelper,
             IProductService productService,
             IReportSettingService reportSettingService)
-        : base(languageService, sessionService, appSetting, clientViewHelper, productService)
+        : base(languageService, sessionService, appSetting, productService)
         {
             _reportSettingService = reportSettingService;
         }
@@ -53,7 +51,7 @@
                 MaxDate = setting.MaxDate
             };
 
-            return View("~/Views/Report/CasinoTurnover/Main.cshtml", viewModel);
+            return View("~/Views/Desktop/Report/CasinoTurnover/Main.cshtml", viewModel);
         }
 
         private static IList<CheckedItem> GetStatusList()
@@ -62,7 +60,7 @@
             {
                 new CheckedItem { ID = StatusTypes.Won, Name = ViewResources.Won, Checked = true },
                 new CheckedItem { ID = StatusTypes.Lose, Name = ViewResources.Lose, Checked = true },
-                new CheckedItem { ID = StatusTypes.Draw, Name = ViewResources.Draw, Checked = true }
+                new CheckedItem { ID = StatusTypes.Draw, Name = ViewResources.Draw, Checked = false }
             };
         }
     }

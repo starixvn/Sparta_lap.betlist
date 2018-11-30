@@ -7,7 +7,7 @@ import { Table, Row, Cell } from '@jsroot/components/fixed-table-header'
 import LangHelper from '@jsroot/lib/langHelper'
 import NoDataTitle from '@jsroot/components/NoDataTitle'
 import NumberFormat from '@jsroot/lib/numberFormat'
-import { HeaderText, Service, Url } from '../lib/service'
+import { HeaderText, Service } from '../lib/service'
 import DataService from '@jsroot/lib/DataService.js'
 import Site from '@jsroot/lib/site'
 
@@ -82,21 +82,32 @@ export class DataGrid extends Component {
     }
 
     _buildBody(data) {
-        let rows = [];
-        for (let i = 0; i < data.length; i++) {
-            const item = data[i];
-            const reportBy = moment(item.ReportBy).format("MM/DD/YYYY"),
-                    betcount = NumberFormat.format(item.BetCount),
-                    turnover = NumberFormat.formatDecimal(item.Turnover),
-                    validBetAmount= NumberFormat.formatDecimal(item.ValidBetAmount),
-                    customerWL = NumberFormat.formatDecimal(item.CustomerWL);
-
-            rows.push(
-                <Row key={`tr${i}`}>
-                    <Cell title={i + 1} className="center-align">{i + 1}</Cell>
-                    <Cell title={reportBy} className='center-align'>{reportBy}</Cell>
-                    <Cell title={item.SystemId} className='center-align'>{item.SystemId}</Cell>
-                    <Cell title={item.ExternalId} className="center-align">{item.ExternalId}</Cell>
+            let rows = [];
+            for (let i = 0; i < data.length; i++) {
+                const item = data[i];
+                const reportBy = moment(item.ReportBy).format("MM/DD/YYYY"),
+                        betcount = NumberFormat.format(item.BetCount),
+                        turnover = NumberFormat.formatDecimal(item.Turnover),
+                        validBetAmount= NumberFormat.formatDecimal(item.ValidBetAmount),
+                        customerWL = NumberFormat.formatDecimal(item.CustomerWL);
+                let indexCell = null;
+                let dateCell = null;
+                let systemIdCell = null;
+                let externalIdCell = null;
+                if(item.RowSpan > 0)
+                {
+                    indexCell = <Cell title={i + 1} rowSpan={item.RowSpan} className="center-align">{i + 1}</Cell>;
+                    dateCell = <Cell title={reportBy} rowSpan={item.RowSpan} className='center-align'>{reportBy}</Cell>;
+                    systemIdCell = <Cell title={item.SystemId} rowSpan={item.RowSpan} className='center-align'>{item.SystemId}</Cell>;
+                    externalIdCell = <Cell title={item.ExternalId} rowSpan={item.RowSpan} className="center-align">{item.ExternalId}</Cell>;
+                }
+                    
+                rows.push(
+                    <Row key={`tr${i}`}>
+                    {indexCell}
+                    {dateCell}
+                    {systemIdCell}
+                    {externalIdCell}
                     <Cell title={item.Product}>{item.Product}</Cell>
                     <Cell title={betcount} className='right-align'>{betcount}</Cell>
                     <Cell title={turnover} className='right-align'>{turnover}</Cell>
@@ -104,10 +115,10 @@ export class DataGrid extends Component {
                     <Cell title={customerWL} className="right-align">{customerWL}</Cell>
                 </Row>
             );
-        }
+                }
 
         return rows;
-    }
+                }
 
     _buildFooter(data, baseCurrency) {
         const item = data;
@@ -126,17 +137,17 @@ export class DataGrid extends Component {
                 <Cell title={customerWL} className={"right-align"}>{customerWL}</Cell>
             </Row>
         )]
-    }
+                }
 
     render() {
         const { gridData, page } = this.state;
         if (!gridData.Data) {
             return null;
-        }
+                }
 
         if (!gridData.Data.length) {
             return <NoDataTitle />;
-        }
+                }
 
         return (
             <Table
@@ -151,16 +162,16 @@ export class DataGrid extends Component {
                 onPaging={this.onPaging}
             />
         );
-    }
-}
+                }
+                }
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
-}
+                }
 
 function mapStateToProps(state) {
     const { params } = state;
     return Object.assign({}, { params });
-}
+                }
 
 export default connect(mapStateToProps, mapDispatchToProps)(DataGrid);

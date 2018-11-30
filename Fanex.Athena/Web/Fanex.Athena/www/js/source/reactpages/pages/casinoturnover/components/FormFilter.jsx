@@ -11,9 +11,14 @@ import Select from 'react-select'
 import MultipleSelect from '@9softstudio/react-multiselect'
 import AutoComplete from '@jsroot/components/auto-complete'
 import CheckBox from '@jsroot/components/CheckBox'
+import DataService from '@jsroot/lib/DataService.js'
+import { Service } from '../lib/service'
 
-const RANGE_MONTH_CONSTRAINT = 3;
+const RANGE_MONTH_CONSTRAINT = 1;
 const CUSTOMER_SEARCH_URL = Site.resolveClientUrl("SearchCustomerAPI/SearchCustomer");
+
+const EXCEL_DATA_URL = Site.resolveClientUrl("api/CasinoTurnoverReport/GetData");
+
 export class FormFilter extends Component {
     constructor(props) {
         super(props);
@@ -28,6 +33,32 @@ export class FormFilter extends Component {
             const params = this._getParams();
             this.props.setParams(params);
         }
+    }
+
+    exportExcel = (event) => {
+        event.preventDefault();
+        const { dateRange, selectedCurrency, selectedBaseCurrency } = this.props;
+        const params = this._getParams();
+        if (!params) {
+            return;
+        }
+
+        this.props.toggleLoader(true);
+        DataService.postData(EXCEL_DATA_URL, params).then(response => {
+            if(response.data.Data.length === 0)
+            {
+                alert(LangHelper.getSingleResource("NoInfo"));
+                this.props.toggleLoader(false);
+                return;
+            }
+
+            const title = Service.getReportTitle(params.FromDate, params.ToDate, 
+                params.CurrencyName,params.BaseCurrency);
+            const excel = new ReportExcel(response.data, title, this.props.selectedReportBy, this.props.groupBy, selectedBaseCurrency);
+            excel.export(() =>{
+                this.props.toggleLoader(false);
+            });
+        });
     }
 
     onDateRangeChange = (date, isValidMonthRange = true) => {
