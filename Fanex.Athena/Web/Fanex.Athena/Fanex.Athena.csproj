@@ -1055,6 +1055,7 @@
     <Content Include="www\js\source\reactpages\pages\casinoturnover\actions\filterHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\casinoturnover\actions\index.js" />
     <Content Include="www\js\source\reactpages\pages\casinoturnover\actions\type.js" />
+    <Content Include="www\js\source\reactpages\pages\casinoturnover\lib\reportExcel.js" />
     <Content Include="www\js\source\reactpages\pages\casinoturnover\lib\service.js" />
     <Content Include="www\js\source\reactpages\pages\casinoturnover\reducers\filterHandlerReducer.js" />
     <Content Include="www\js\source\reactpages\pages\casinoturnover\reducers\index.js" />

@@ -13,6 +13,7 @@ import AutoComplete from '@jsroot/components/auto-complete'
 import CheckBox from '@jsroot/components/CheckBox'
 import DataService from '@jsroot/lib/DataService.js'
 import { Service } from '../lib/service'
+import ReportExcel from '../lib/reportExcel'
 
 const RANGE_MONTH_CONSTRAINT = 1;
 const CUSTOMER_SEARCH_URL = Site.resolveClientUrl("SearchCustomerAPI/SearchCustomer");
@@ -54,7 +55,7 @@ export class FormFilter extends Component {
 
             const title = Service.getReportTitle(params.FromDate, params.ToDate, 
                 params.CurrencyName,params.BaseCurrency);
-            const excel = new ReportExcel(response.data, title, this.props.selectedReportBy, this.props.groupBy, selectedBaseCurrency);
+            const excel = new ReportExcel(response.data, title, selectedBaseCurrency);
             excel.export(() =>{
                 this.props.toggleLoader(false);
             });
