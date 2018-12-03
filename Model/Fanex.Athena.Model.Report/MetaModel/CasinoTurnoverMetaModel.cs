@@ -53,6 +53,8 @@
 
         public int PageIndex { get; set; }
 
+        public bool IsExportExcel { get; set; }
+
         public bool IsValid => FromDate <= ToDate && ProductCode.Any() && Status.Any();
     }
 }
