@@ -15,7 +15,7 @@
 {
     @ViewResources.BetList - @_cacheRefAdapter.GetBettype(Model.BetType) - @Model.FromDate.ToShortDateString()<span class="header-title-arrow">
         →
-    </span>@Model.ToDate.ToShortDateString() - <span class="base-currency">@RazorHelper.ViewBaseCurrency(Model.CurrencyName, Model.BaseCurrency)</span>
+    </span>@Model.ToDate.ToShortDateString() - <span class="base-currency">@DesktopRazorHelper.ViewBaseCurrency(Model.CurrencyName, Model.BaseCurrency)</span>
 
 }
 @section BackButton

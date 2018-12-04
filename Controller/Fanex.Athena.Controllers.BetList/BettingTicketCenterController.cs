@@ -107,6 +107,7 @@
                 { PlatformType.SmartSite, ViewResources.SmartSite },
                 { PlatformType.Tablet, ViewResources.Tablet },
                 { PlatformType.NewAsia, ViewResources.NewAsia },
+                { PlatformType.MobileApp, ViewResources.MobileApp },
             };
         }
 

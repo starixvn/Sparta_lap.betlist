@@ -1,6 +1,7 @@
 ﻿var webpack = require('webpack');
 var pathConfig = require('../config/path');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
+var WebpackBuildNotifierPlugin = require('webpack-build-notifier');
 
 var cssRootPath = pathConfig.cssPaths.build;
 
@@ -28,7 +29,11 @@ function generatePlugins(environment) {
             'window.$': 'jquery',
             "window.jQuery": 'jquery',
             "root.jQuery": 'jquery'
-        })
+        }),
+         new WebpackBuildNotifierPlugin({
+             title: "New UI Webpack Build",
+             suppressSuccess: true
+         })
     ];
 
     return commonPlugins;

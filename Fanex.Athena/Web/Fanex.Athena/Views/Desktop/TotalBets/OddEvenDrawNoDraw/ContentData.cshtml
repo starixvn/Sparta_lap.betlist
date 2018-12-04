@@ -48,7 +48,7 @@
                 @if (match.BetCountOddEven != 0)
                 {
                     <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="@match.Bettype" href="javascript:;">
-                        @RazorHelper.NegativeFormat(match.OddEvenFt, true, false)
+                        @DesktopRazorHelper.NegativeFormat(match.OddEvenFt, true, false)
                     </a>
                 }
             </td>
@@ -58,7 +58,7 @@
                 @if (match.BetCountOneXTwo != 0)
                 {
                     <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="@match.Bettype" href="javascript:;">
-                        @RazorHelper.DecFormat(match.OneXTwoFt, true)
+                        @DesktopRazorHelper.DecFormat(match.OneXTwoFt, true)
                     </a>
                     <a class="icon-plus button-add" data-match-id="@match.MatchId" data-bet-type="@match.Bettype" href="javascript:;"></a>
                 }
@@ -69,7 +69,7 @@
                 @if (match.BetCountDrawNoDraw != 0)
                 {
                     <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="@match.Bettype" href="javascript:;">
-                        @RazorHelper.NegativeFormat(match.DrawNoDraw, true, false)
+                        @DesktopRazorHelper.NegativeFormat(match.DrawNoDraw, true, false)
                     </a>
                 }
             </td>
@@ -80,7 +80,7 @@
                 @if (match.BetCountOddEven1StHalf != 0)
                 {
                     <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="@(match.Bettype == 2 ? 12 : match.Bettype)" href="javascript:;">
-                        @RazorHelper.NegativeFormat(match.OddEvenFirstHalf, true, false)
+                        @DesktopRazorHelper.NegativeFormat(match.OddEvenFirstHalf, true, false)
                     </a>
                 }
             </td>
@@ -90,7 +90,7 @@
                 @if (match.BetCountOneXTow1StHalf != 0)
                 {
                     <a class="forcast-number" data-match-id="@match.MatchId" data-bet-type="@(match.Bettype == 5 ? 15 : match.Bettype)" href="javascript:;">
-                        @RazorHelper.DecFormat(match.OneXTwoFirstHalf, true)
+                        @DesktopRazorHelper.DecFormat(match.OneXTwoFirstHalf, true)
                     </a>
                     <a class="icon-plus button-add" data-match-id="@match.MatchId" data-bet-type="@(match.Bettype == 5 ? 15 : match.Bettype)" href="javascript:;"></a>
                 }

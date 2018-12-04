@@ -31,6 +31,9 @@
         <option value="@PlatformType.NewAsia">
             @ViewResources.NewAsia
         </option>
+        <option value="@PlatformType.MobileApp">
+            @ViewResources.MobileApp
+        </option>
     </select>
 }
 @helper DateRangePicker(DateTime fromDate, DateTime toDate, DateTime minDate, DateTime maxDate)
@@ -443,5 +446,10 @@ productCodeList = string.IsNullOrEmpty(productCodeList) ? string.Empty : string.
 
     @productCodeList
 }
-
-
+@helper FullDateFormat(DateTime? date)
+{
+if (date != null)
+{
+        @(date.Value.ToString("MM/dd/yyyy hh:mm:ss tt"))
+}
+}

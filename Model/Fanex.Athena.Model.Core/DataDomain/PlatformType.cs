@@ -2,6 +2,9 @@
 {
     using Fanex.Athena.Resources;
 
+    /// <summary>
+    ///  Update dataaccess\fanex.athena.dataaccess.dashboard\platformkey.cs
+    /// </summary>
     public static class PlatformType
     {
         public const int All = 0;
@@ -20,6 +23,8 @@
 
         public const int NewAsia = 7;
 
+        public const int MobileApp = 8;
+
         public static string GetPlatformName(int type)
         {
             switch (type)
@@ -31,6 +36,7 @@
                 case SmartSite: return ViewResources.SmartSite;
                 case Tablet: return ViewResources.Tablet;
                 case NewAsia: return ViewResources.NewAsia;
+                case MobileApp: return ViewResources.MobileApp;
                 default: return ViewResources.All;
             }
         }
@@ -54,13 +60,14 @@
                 case "l": return ViewResources.SmartSite;
                 case "r": return ViewResources.Tablet;
                 case "x": return ViewResources.NewAsia;
+                case "o": return ViewResources.MobileApp;
                 default: return ViewResources.Others;
             }
         }
 
         public static bool IsValidPlatform(int type)
         {
-            return type >= All && type <= NewAsia;
+            return type >= All && type <= MobileApp;
         }
     }
 }

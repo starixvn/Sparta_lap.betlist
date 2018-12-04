@@ -12,7 +12,7 @@
 @section pagejs {}
 @section ContentTitle
 {
-    <span class="league-name-title"></span>@(Model.BetType == 0 ? ViewResources.AllBetTypes : _cacheRefAdapter.GetBettype(Model.BetType)) <span class="base-currency">-@RazorHelper.ViewBaseCurrency(Model.CurrencyName, Model.BaseCurrency)</span>
+    <span class="league-name-title"></span>@(Model.BetType == 0 ? ViewResources.AllBetTypes : _cacheRefAdapter.GetBettype(Model.BetType)) <span class="base-currency">-@DesktopRazorHelper.ViewBaseCurrency(Model.CurrencyName, Model.BaseCurrency)</span>
 }
 @section BackButton
 {

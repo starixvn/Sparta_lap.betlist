@@ -8417,7 +8417,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿!(__WEBPACK_A
                 "4": Site.getSingleResource("Wap"),
                 "5": Site.getSingleResource("SmartSite"),
                 "6": Site.getSingleResource("Tablet"),
-                "7": Site.getSingleResource("NewAsia")
+                "7": Site.getSingleResource("NewAsia"),
+                "8": Site.getSingleResource("MobileApp")
             };
 
             _me.initEvent();
