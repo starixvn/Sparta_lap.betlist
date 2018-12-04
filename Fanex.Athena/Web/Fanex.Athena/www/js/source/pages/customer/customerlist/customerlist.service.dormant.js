@@ -65,7 +65,7 @@ function ($, Site, CustomerListOptionDormant, jqGridAdditional, PagingHelper, Cu
             $("#DormantCustomerPager, #tabDormantCustomer .excel-container").toggle(hasData);
 
             if (!hasData) {
-                jqGridAdditional.setNoInfo();
+                jqGridAdditional.setNoInfo(null, $container);
                 $container.find(".panel-heading").width(width);
                 $container.find("#noInfoRow").width(width - 10);
                 $("#num-of-dormant-customer, #num-of-dormant-customer-header").html("0");

@@ -19,14 +19,16 @@ define(["jquery", "common/site", "./customerlist.state", "./customerlist.service
                 });
                 _me.initEvent();
             },
-
+            submit: function(){
+                _state.pagingOption.pageindex = 1;
+                _dormantState.pagingOption.pageindex = 1;
+                CustomerListService.submit();
+                CustomerListServiceDormant.submit();
+                $(".page-results").show();
+            },
             initEvent: function () {
                 $('#SubmitButton').click(function () {
-                    _state.pagingOption.pageindex = 1;
-                    _dormantState.pagingOption.pageindex = 1;
-                    CustomerListService.submit();
-                    CustomerListServiceDormant.submit();
-                    $(".page-results").show();
+                    _me.submit();
                 });
 
                 $("#Username").on('keyup', function (e) {

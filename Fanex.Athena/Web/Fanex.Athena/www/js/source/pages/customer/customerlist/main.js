@@ -35,8 +35,7 @@ define(["jquery", "common/site", "common/querystring", "lib/jqgrid/jquery.jqgrid
             var url = Site.getCurrentUrl();
             if (QueryString.getParam(url, "userName") ||
                 QueryString.getParam(url, "groupId")) {
-                CustomerListService.submit();
-                CustomerListServiceDormant.submit();
+                CustomerListFilter.submit();
             } else {
                 Site.unBlockUI();
             }

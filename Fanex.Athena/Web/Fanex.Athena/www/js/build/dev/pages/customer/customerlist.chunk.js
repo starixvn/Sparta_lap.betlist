@@ -5651,14 +5651,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 });
                 _me.initEvent();
             },
-
+            submit: function(){
+                _state.pagingOption.pageindex = 1;
+                _dormantState.pagingOption.pageindex = 1;
+                CustomerListService.submit();
+                CustomerListServiceDormant.submit();
+                $(".page-results").show();
+            },
             initEvent: function () {
                 $('#SubmitButton').click(function () {
-                    _state.pagingOption.pageindex = 1;
-                    _dormantState.pagingOption.pageindex = 1;
-                    CustomerListService.submit();
-                    CustomerListServiceDormant.submit();
-                    $(".page-results").show();
+                    _me.submit();
                 });
 
                 $("#Username").on('keyup', function (e) {
@@ -6589,7 +6591,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             $("#DormantCustomerPager, #tabDormantCustomer .excel-container").toggle(hasData);
 
             if (!hasData) {
-                jqGridAdditional.setNoInfo();
+                jqGridAdditional.setNoInfo(null, $container);
                 $container.find(".panel-heading").width(width);
                 $container.find("#noInfoRow").width(width - 10);
                 $("#num-of-dormant-customer, #num-of-dormant-customer-header").html("0");
@@ -6761,7 +6763,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             $("#ActiveCustomerPager, #tabActiveCustomer .excel-container").toggle(hasData);
 
             if (!hasData) {
-                jqGridAdditional.setNoInfo();
+                jqGridAdditional.setNoInfo(null, $("#tabActiveCustomer"));
                 $("#num-of-customer, #num-of-customer-header").html("0");
                 Site.unBlockUI();
                 return;
@@ -7111,8 +7113,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             var url = Site.getCurrentUrl();
             if (QueryString.getParam(url, "userName") ||
                 QueryString.getParam(url, "groupId")) {
-                CustomerListService.submit();
-                CustomerListServiceDormant.submit();
+                CustomerListFilter.submit();
             } else {
                 Site.unBlockUI();
             }

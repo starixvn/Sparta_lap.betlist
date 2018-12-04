@@ -266,18 +266,20 @@ define(['jquery', 'common/site', 'lib/bignumber'], function ($, Site, BigNumber)
                 }
             },
 
-            setNoInfo: function (message) {
+            setNoInfo: function (message, $container) {
+                $container = $container || $("body");
                 var noInfoText = message || Site.getSingleResource("NoInfo");
                 var htmlNoInfor = '<p id="noInfoRow" class="no-info-row">' + noInfoText + '</p>';
 
-                var $noInforRow = $('#noInfoRow');
+                var $noInforRow = $container.find('#noInfoRow');
+                
                 if ($noInforRow.length) {
                     $noInforRow.html(noInfoText);
                 }
                 else {
-                    $('.theme_jqGrid').append(htmlNoInfor);
+                    $container.find('.theme_jqGrid').append(htmlNoInfor);
                 }
-                $("div.ui-jqgrid-sdiv").hide();
+                $container.find("div.ui-jqgrid-sdiv").hide();
             },
 
             setNoInfoWithColspan: function (colspan) {

@@ -113,7 +113,7 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
             $("#ActiveCustomerPager, #tabActiveCustomer .excel-container").toggle(hasData);
 
             if (!hasData) {
-                jqGridAdditional.setNoInfo();
+                jqGridAdditional.setNoInfo(null, $("#tabActiveCustomer"));
                 $("#num-of-customer, #num-of-customer-header").html("0");
                 Site.unBlockUI();
                 return;
