@@ -557,7 +557,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
             },
             updateGridHeight: function ($container) {
                 $container = $container || $("body");
-                
+                if ($container.find(".no-info-row").length) {
+                    return;
+                }
                 var $bdiv = $container.find(".ui-jqgrid-bdiv");
                 if ($bdiv.length === 0) {
                     return;

@@ -11,7 +11,9 @@ define(['jquery', 'common/site', 'lib/bignumber'], function ($, Site, BigNumber)
             },
             updateGridHeight: function ($container) {
                 $container = $container || $("body");
-                
+                if ($container.find(".no-info-row").length) {
+                    return;
+                }
                 var $bdiv = $container.find(".ui-jqgrid-bdiv");
                 if ($bdiv.length === 0) {
                     return;

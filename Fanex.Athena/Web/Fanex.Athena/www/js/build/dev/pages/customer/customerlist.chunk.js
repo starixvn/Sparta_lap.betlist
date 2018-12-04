@@ -6761,9 +6761,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             
             var hasData = gridData && gridData.TotalRows > 0;
             $("#ActiveCustomerPager, #tabActiveCustomer .excel-container").toggle(hasData);
-
+            var $container = $("#tabActiveCustomer");
             if (!hasData) {
-                jqGridAdditional.setNoInfo(null, $("#tabActiveCustomer"));
+                jqGridAdditional.setNoInfo(null, $container);
                 $("#num-of-customer, #num-of-customer-header").html("0");
                 Site.unBlockUI();
                 return;
@@ -6780,7 +6780,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
             var gridOption = _me.processGridOption(showingColumns);
             gridOption.data = gridData.Data;
             gridOption.gridComplete = function () {
-                jqGridAdditional.gridComplete();
+                jqGridAdditional.gridComplete($container);
             };
 
             // Show the grid
