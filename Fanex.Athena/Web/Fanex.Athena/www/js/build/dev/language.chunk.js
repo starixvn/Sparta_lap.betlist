@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-﻿// Generated at: 12/4/2018 2:05:48 PM
+﻿// Generated at: 12/4/2018 4:33:19 PM
 window._language_en_US = {
 AA:"AA",
 AB:"AB",
@@ -631,6 +631,7 @@ MixParlay:"Mix Parlay",
 MixSportsParlay:"Mix Sports Parlay",
 Mo:"Mo",
 Mobile:"Mobile",
+MobileApp:"Mobile App",
 Mode:"Mode",
 Monday:"Monday",
 Money:"Money",

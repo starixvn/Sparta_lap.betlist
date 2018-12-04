@@ -34,7 +34,6 @@ function generatePlugins(environment) {
          new WebpackBuildNotifierPlugin({
              title: "New UI Webpack Build",
              suppressSuccess: true
-         })
         }),
         new Visualizer({
             filename: './webpack-stats-newui.html'
