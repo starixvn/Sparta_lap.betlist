@@ -36,6 +36,7 @@ namespace Fanex.Athena.Service.BetSettings
 
         public BetSettingViewModel GetViewModel(int licenseeId, int custId)
         {
+            const int EsportIndex = 2;
             if (!HasPermissionOnData(licenseeId, custId))
             {
                 return new BetSettingViewModel
@@ -45,7 +46,9 @@ namespace Fanex.Athena.Service.BetSettings
             }
 
             var viewModel = _betSettingDataAccess.GetBetSetting(custId);
-            viewModel.MainData.Add(GetESportsSetting(licenseeId, custId));
+
+            // Esport must be inserted in this "Feng Shui" position.
+            viewModel.MainData.Insert(EsportIndex, GetESportsSetting(licenseeId, custId));
             return viewModel;
         }
 

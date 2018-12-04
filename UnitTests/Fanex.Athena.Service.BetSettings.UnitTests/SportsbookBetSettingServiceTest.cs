@@ -56,6 +56,8 @@
             {
                 MainData = new List<BetSetting>
                 {
+                    new BetSetting(),
+                    new BetSetting(),
                     new BetSetting()
                 }
             };
