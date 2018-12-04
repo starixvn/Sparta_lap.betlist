@@ -85,7 +85,7 @@ export class DataGrid extends Component {
             let rows = [];
             for (let i = 0; i < data.length; i++) {
                 const item = data[i];
-                const reportBy = moment(item.ReportBy).format("MM/DD/YYYY"),
+                const reportBy = moment(item.Date).format("MM/DD/YYYY"),
                         betcount = NumberFormat.format(item.BetCount),
                         turnover = NumberFormat.formatDecimal(item.Turnover),
                         validBetAmount= NumberFormat.formatDecimal(item.ValidBetAmount),

@@ -31,6 +31,7 @@
             CheckValidProducts(FunctionNames.CasinoTurnover, metaModel.ProductCode);
             if (IsValidRequest(metaModel.CurrencyId))
             {
+                metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
                 var result = _casinoTurnoverDataAccess.GetData(metaModel);
                 return new
                 {

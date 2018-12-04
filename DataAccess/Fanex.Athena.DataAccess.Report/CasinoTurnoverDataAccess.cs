@@ -34,6 +34,8 @@
         {
             const string UspName = "Lrf_Rpt_CasinoTurnover";
 
+            var dataList = new List<CasinoTurnover>();
+            var totalData = new CasinoTurnover();
             try
             {
                 using (var db = GetObjectDb(UspName))
@@ -41,19 +43,19 @@
                     AddParams(metaModel, db);
                     using (var reader = db.ExecuteReader())
                     {
-                        var dataList = new List<CasinoTurnover>();
                         var turnoverColumn = "Turnover" + (metaModel.IsConvertAll ? "Base" : string.Empty);
                         var validBetAmountColumn = "ValidBetAmount" + (metaModel.IsConvertAll ? "Base" : string.Empty);
                         var winlostColumn = "Winlost" + (metaModel.IsConvertAll ? "Base" : string.Empty);
                         while (reader.Read())
                         {
-                            var productCode = reader.ToString("ProducCode");
+                            var productCode = reader.ToString("ProductCode");
                             dataList.Add(new CasinoTurnover
                             {
                                 Date = reader.ToDateTime("Date"),
                                 SystemId = reader.ToString("UserName"),
                                 ExternalId = reader.ToString("NickName"),
                                 Product = ProductHelper.GetProductName(productCode),
+                                BetCount = reader.ToInt("BetCount"),
                                 Turnover = reader.ToDecimal(turnoverColumn),
                                 ValidBetAmount = reader.ToDecimal(validBetAmountColumn),
                                 CustomerWL = reader.ToDecimal(winlostColumn)
@@ -61,22 +63,26 @@
                         }
 
                         AddRowSpan(dataList);
-
-                        var totalRows = (int)db.GetParameterValue("TotalRows");
-
-                        return new ReportResultModel<CasinoTurnover>
+                        if (dataList.Any())
                         {
-                            DataList = dataList,
-                            TotalRows = totalRows,
-                            TotalData = new CasinoTurnover
+                            reader.NextResult();
+                            if (reader.Read())
                             {
-                                BetCount = 10000,
-                                Turnover = 34343m,
-                                ValidBetAmount = 45645m,
-                                CustomerWL = 934534m
-                            },
-                        };
+                                totalData.BetCount = reader.ToInt("BetCount");
+                                totalData.Turnover = reader.ToInt("BetCount");
+                                totalData.ValidBetAmount = reader.ToInt("ValidBetAmount");
+                                totalData.CustomerWL = reader.ToInt("Winlost");
+                            }
+                        }
                     }
+
+                    var totalRows = (int)db.GetParameterValue("TotalRows");
+                    return new ReportResultModel<CasinoTurnover>
+                    {
+                        DataList = dataList,
+                        TotalData = totalData,
+                        TotalRows = totalRows
+                    };
                 }
             }
             catch (ObjectDbException sqlException)
@@ -91,7 +97,7 @@
             db.AddInParameter("todate", DbType.Date, metaModel.ToDate.Date);
             db.AddInParameter("basecurrency", DbType.String, metaModel.BaseCurrency);
             db.AddInParameter("UserName", DbType.String, metaModel.UserName);
-            db.AddInParameter("Statuses", DbType.String, metaModel.UserName);
+            db.AddInParameter("StatusList", DbType.String, string.Join(",", metaModel.Status));
             db.AddInParameter("ProductCodes", DbType.String, string.Join(",", metaModel.ProductCode));
             db.AddInParameter("MoveBetsDay", DbType.Date, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
             db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
