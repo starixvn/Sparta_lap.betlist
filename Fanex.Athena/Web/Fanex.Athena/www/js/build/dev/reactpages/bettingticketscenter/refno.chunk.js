@@ -258,6 +258,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 function getGridData(url, params) {
     return function (dispatch) {
         _DataService2.default.postData(url, params).then(function (response) {
+            response.data.timestamp = new Date().getTime();
             dispatch(setGridData(response.data));
         }).catch(function (error) {
             alert("Sorry, an error occurred while processing your request.");
