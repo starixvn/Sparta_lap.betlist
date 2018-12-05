@@ -14,6 +14,11 @@ namespace Fanex.Athena.DataAccess.Core
 
     public class BaseDataAccess
     {
+        public ISessionStorage SessionStorage
+        {
+            get { return _sessionStorage; }
+        }
+
         [CLSCompliant(false)]
         protected static void AddResultParam(IObjectDb db)
         {

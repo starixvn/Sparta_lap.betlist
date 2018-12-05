@@ -2,15 +2,28 @@
 {
     using System.Data;
     using Core.UnitTests.TestHelpers;
+    using Extension.Utility;
     using Model.Core.DTO.Common;
     using Model.Customer.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
+    using Session.Interfaces;
+    using Session.Model;
 
     public class GroupComDataAccessTest : BaseDataAccessHelperTest<GroupComDataAccess>
     {
         private const string GetLicenseeGroupCommSp = "Lrf_LicenseeGroupCommSel";
-        private const int LicenseeId = 0;
+        private const int LicenseeId = 23340;
+
+        protected override void SetUpDataAccess()
+        {
+            var sessionStorage = Substitute.For<ISessionStorage>();
+            sessionStorage.LicenseeSession.Returns(new LicenseeSession
+            {
+                LicenseeId = LicenseeId
+            });
+            DataAccess = Substitute.ForPartsOf<GroupComDataAccess>(Substitute.For<IAppSettings>(), sessionStorage);
+        }
 
         [Test]
         public void GetAll_WhenCall_ParametersPassedCorrectly()
@@ -68,7 +81,11 @@
             DataAccess.GetById(GroupCommId);
 
             // Assert
-            ObjectDb.Received(1).AddInParameter("GroupCommID", DbType.Int32, GroupCommId);
+            Assert.Multiple(() =>
+            {
+                ObjectDb.Received(1).AddInParameter("LicenseeId", DbType.Int32, LicenseeId);
+                ObjectDb.Received(1).AddInParameter("GroupCommID", DbType.Int32, GroupCommId);
+            });
         }
 
         [Test]

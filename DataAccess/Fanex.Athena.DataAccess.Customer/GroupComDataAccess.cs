@@ -48,6 +48,7 @@ namespace Fanex.Athena.DataAccess.Customer
 
             using (var db = GetObjectDb(UspName))
             {
+                db.AddInParameter("LicenseeId", DbType.Int32, SessionStorage.LicenseeSession.LicenseeId);
                 db.AddInParameter("GroupCommID", DbType.Int32, groupCommId);
 
                 return db.QueryEntity<GroupCommMetaModel>();
