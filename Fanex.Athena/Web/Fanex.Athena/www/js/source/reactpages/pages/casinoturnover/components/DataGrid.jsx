@@ -13,56 +13,40 @@ import Site from '@jsroot/lib/site'
 
 const URL = Site.resolveClientUrl("api/CasinoTurnoverReport/GetData");
 
+const DEFAULT_PAGE_SIZE = 1;
+
 export class DataGrid extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            gridData: {},
-            page: {
-                PageIndex: 1,
-                PageSize: 50,
-                TotalItem: 100,
-                PageList: [50, 100, 200, 300, 400, 500, 1000, 2000]
-            }
+            gridData: {}
         }
     }
 
+    componentDidMount() {
+        const param = this.props.requestParam;
+        param.PageSize = DEFAULT_PAGE_SIZE;
+        this.props.setRequestParam(param);
+    }
+
     componentDidUpdate(prevProps) {
-        if (prevProps.params.Timestamp !== this.props.params.Timestamp) {
-            this._getGridData(this.props.params);
-            this.props.setReportTitle(Service.getReportTitle(
-                this.props.params.FromDate,
-                this.props.params.ToDate,
-                this.props.params.CurrencyName,
-                this.props.params.BaseCurrency));
+        if (prevProps.gridData.timestamp !== this.props.gridData.timestamp) {
+            this.props.toggleLoader(false);
         }
     }
 
     onPaging = (index, size) => {
-        let paramData = Object.assign({}, this.props.params);
-        paramData.PageIndex = index;
-        paramData.PageSize = size;
-        paramData.Timestamp = new Date().getTime();
-
-        this.props.setParams(paramData);
+        let param = this.props.requestParam;
+        param.PageIndex = index;
+        param.PageSize = size;
+        this._getData(param);
     }
 
-    _getGridData(params) {
+    _getData(param){
         this.props.toggleLoader(true);
-        DataService.postData(URL, params)
-            .then(response => {
-                let page = Object.assign({}, this.state.page);
-                page.PageIndex = params.PageIndex;
-                page.PageSize = params.PageSize;
-
-                this.setState({ gridData: response.data, page: page });
-                this.props.toggleLoader(false);
-            })
-            .catch(error => {
-                Service.showErrorMsg();
-                this.props.toggleLoader(false);
-        });
+        this.props.getGridData(URL, param);
+        this.props.setRequestParam(param);
     }
 
     _buildHeader() {
@@ -104,10 +88,10 @@ export class DataGrid extends Component {
                     
                 rows.push(
                     <Row key={`tr${i}`}>
-                    {indexCell}
-                    {dateCell}
-                    {systemIdCell}
-                    {externalIdCell}
+        {indexCell}
+        {dateCell}
+        {systemIdCell}
+        {externalIdCell}
                     <Cell title={item.Product}>{item.Product}</Cell>
                     <Cell title={betcount} className='right-align'>{betcount}</Cell>
                     <Cell title={turnover} className='right-align'>{turnover}</Cell>
@@ -115,10 +99,10 @@ export class DataGrid extends Component {
                     <Cell title={customerWL} className="right-align">{customerWL}</Cell>
                 </Row>
             );
-                }
+        }
 
         return rows;
-                }
+        }
 
     _buildFooter(data, baseCurrency) {
         const item = data;
@@ -137,41 +121,63 @@ export class DataGrid extends Component {
                 <Cell title={customerWL} className={"right-align"}>{customerWL}</Cell>
             </Row>
         )]
-                }
+        }
+
+    _renderNoData(){
+        return (
+            <div className='result-content'>
+           
+            
+            </div>
+            )
+    }
 
     render() {
-        const { gridData, page } = this.state;
-        if (!gridData.Data) {
+        if (!this.props.gridData || !this.props.gridData.Data) {
             return null;
-                }
+        }
 
-        if (!gridData.Data.length) {
-            return <NoDataTitle />;
-                }
+        const { Data } = this.props.gridData;
+        
+        if (!Data) {
+            return null;
+        }
+
+        if (!Data.length) {
+            return <NoDataTitle />
+        }
+
+        const param = this.props.requestParam;
+        const pageOption = {
+            PageIndex: param.PageIndex,
+            PageSize: param.PageSize,
+            TotalItem: this.props.gridData.TotalRows,
+            PageList: [DEFAULT_PAGE_SIZE, 100, 200, 300, 400, 500, 1000, 2000]
+        };
 
         return (
-            <Table
+             <Table
                 minWidth={800}
                 autoWidth={true}
                 bodyHeight={300}
                 header={this._buildHeader()}
-                body={this._buildBody(gridData.Data)}
-                footer={this._buildFooter(gridData.Total, this.props.params.BaseCurrency)}
+                body={this._buildBody(Data)}
+                footer={this._buildFooter(this.props.gridData.Total, this.props.requestParam.BaseCurrency)}
                 isPaging={true}
-                pageOption={page}
+                pageOption={pageOption}
                 onPaging={this.onPaging}
             />
         );
-                }
-                }
+      }
+      }
 
 function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
                 }
 
 function mapStateToProps(state) {
-    const { params } = state;
-    return Object.assign({}, { params });
+    const { requestParam, gridData } = state;
+    return Object.assign({}, { requestParam, gridData });
                 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(DataGrid);

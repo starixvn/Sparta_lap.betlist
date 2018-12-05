@@ -19,6 +19,7 @@ const RANGE_MONTH_CONSTRAINT = 1;
 const CUSTOMER_SEARCH_URL = Site.resolveClientUrl("SearchCustomerAPI/SearchCustomer");
 
 const EXCEL_DATA_URL = Site.resolveClientUrl("api/CasinoTurnoverReport/GetData");
+const URL = Site.resolveClientUrl("api/CasinoTurnoverReport/GetData");
 
 export class FormFilter extends Component {
     constructor(props) {
@@ -31,15 +32,20 @@ export class FormFilter extends Component {
 
     onSubmit = () => {
         if (this.isValidModel) {
+            this.props.toggleLoader(true);
             const params = this._getParams();
-            this.props.setParams(params);
+            const reportTitle = Service.getReportTitle(params.FromDate, params.ToDate, 
+                params.CurrencyName,params.BaseCurrency);
+            this.props.setReportTitle(reportTitle);
+            this.props.setRequestParam(params);
+            this.props.getGridData(URL, params);
         }
     }
 
     exportExcel = (event) => {
         event.preventDefault();
         const { dateRange, selectedCurrency, selectedBaseCurrency } = this.props;
-        const params = this._getParams();
+        const params = Object.assign({ IsExportExcel: true }, this._getParams());
         if (!params) {
             return;
         }
@@ -81,7 +87,7 @@ export class FormFilter extends Component {
     }
 
     _getParams() {
-        const { dateRange, selectedCurrency, selectedBaseCurrency, isConvertAll, selectedProduct, username, selectedStatus, params } = this.props;
+        const { dateRange, selectedCurrency, selectedBaseCurrency, isConvertAll, selectedProduct, username, selectedStatus, requestParam } = this.props;
 
         return {
             FromDate: Site.convertDateToString(dateRange.fromDate),
@@ -94,8 +100,7 @@ export class FormFilter extends Component {
             UserName: username,
             Status: selectedStatus.split(','),
             PageIndex: 1,
-            PageSize: params.PageSize ? params.PageSize : 50,
-            Timestamp: new Date().getTime()
+            PageSize: requestParam.PageSize ? requestParam.PageSize : 50
         }
     }
 
@@ -258,8 +263,8 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(ActionCreators, dispatch);
 }
 function mapStateToProps(state) {
-    const { reportTitle, isLoading, ...rest } = state;
-    return Object.assign({}, rest);
+    const { ...rest } = state;
+    return Object.assign({}, rest );
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormFilter);

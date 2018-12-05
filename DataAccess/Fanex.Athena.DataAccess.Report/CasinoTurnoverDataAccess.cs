@@ -34,8 +34,8 @@
         {
             const string UspName = "Lrf_Rpt_CasinoTurnover";
 
-            var dataList = new List<CasinoTurnover>();
-            var totalData = new CasinoTurnover();
+            IEnumerable<CasinoTurnover> dataList = null;
+            CasinoTurnover totalData = null;
             try
             {
                 using (var db = GetObjectDb(UspName))
@@ -43,35 +43,13 @@
                     AddParams(metaModel, db);
                     using (var reader = db.ExecuteReader())
                     {
-                        var turnoverColumn = "Turnover" + (metaModel.IsConvertAll ? "Base" : string.Empty);
-                        var validBetAmountColumn = "ValidBetAmount" + (metaModel.IsConvertAll ? "Base" : string.Empty);
-                        var winlostColumn = "Winlost" + (metaModel.IsConvertAll ? "Base" : string.Empty);
-                        while (reader.Read())
-                        {
-                            var productCode = reader.ToString("ProductCode");
-                            dataList.Add(new CasinoTurnover
-                            {
-                                Date = reader.ToDateTime("Date"),
-                                SystemId = reader.ToString("UserName"),
-                                ExternalId = reader.ToString("NickName"),
-                                Product = ProductHelper.GetProductName(productCode),
-                                BetCount = reader.ToInt("BetCount"),
-                                Turnover = reader.ToDecimal(turnoverColumn),
-                                ValidBetAmount = reader.ToDecimal(validBetAmountColumn),
-                                CustomerWL = reader.ToDecimal(winlostColumn)
-                            });
-                        }
-
-                        AddRowSpan(dataList);
+                        dataList = ReadData(reader, metaModel.IsConvertAll);
                         if (dataList.Any())
                         {
                             reader.NextResult();
                             if (reader.Read())
                             {
-                                totalData.BetCount = reader.ToInt("BetCount");
-                                totalData.Turnover = reader.ToInt("BetCount");
-                                totalData.ValidBetAmount = reader.ToInt("ValidBetAmount");
-                                totalData.CustomerWL = reader.ToInt("Winlost");
+                                totalData = ReadTotalData(reader);
                             }
                         }
                     }
@@ -80,7 +58,7 @@
                     return new ReportResultModel<CasinoTurnover>
                     {
                         DataList = dataList,
-                        TotalData = totalData,
+                        TotalData = totalData ?? new CasinoTurnover(),
                         TotalRows = totalRows
                     };
                 }
@@ -91,20 +69,41 @@
             }
         }
 
-        private void AddParams(CasinoTurnoverMetaModel metaModel, IObjectDb db)
+        private static IEnumerable<CasinoTurnover> ReadData(IDataReader reader, bool isConvertAll)
         {
-            db.AddInParameter("fromdate", DbType.Date, metaModel.FromDate.Date);
-            db.AddInParameter("todate", DbType.Date, metaModel.ToDate.Date);
-            db.AddInParameter("basecurrency", DbType.String, metaModel.BaseCurrency);
-            db.AddInParameter("UserName", DbType.String, metaModel.UserName);
-            db.AddInParameter("StatusList", DbType.String, string.Join(",", metaModel.Status));
-            db.AddInParameter("ProductCodes", DbType.String, string.Join(",", metaModel.ProductCode));
-            db.AddInParameter("MoveBetsDay", DbType.Date, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
-            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+            var dataList = new List<CasinoTurnover>();
+            var turnoverColumn = "Turnover" + (isConvertAll ? "Base" : string.Empty);
+            var validBetAmountColumn = "ValidBetAmount" + (isConvertAll ? "Base" : string.Empty);
+            var winlostColumn = "Winlost" + (isConvertAll ? "Base" : string.Empty);
+            while (reader.Read())
+            {
+                var productCode = reader.ToString("ProductCode");
+                dataList.Add(new CasinoTurnover
+                {
+                    Date = reader.ToDateTime("Date"),
+                    SystemId = reader.ToString("UserName"),
+                    ExternalId = reader.ToString("NickName"),
+                    Product = ProductHelper.GetProductName(productCode),
+                    BetCount = reader.ToInt("BetCount"),
+                    Turnover = reader.ToDecimal(turnoverColumn),
+                    ValidBetAmount = reader.ToDecimal(validBetAmountColumn),
+                    CustomerWL = reader.ToDecimal(winlostColumn)
+                });
+            }
 
-            db.AddInParameter("PageSize", DbType.Int32, metaModel.IsExportExcel ? SystemConstants.MaxDataTotalRow : metaModel.PageSize);
-            db.AddInParameter("PageIndex", DbType.Int32, metaModel.IsExportExcel ? 1 : metaModel.PageIndex);
-            db.AddOutParameter("TotalRows", DbType.Int32, 10);
+            AddRowSpan(dataList);
+            return dataList;
+        }
+
+        private static CasinoTurnover ReadTotalData(IDataReader reader)
+        {
+            return new CasinoTurnover
+            {
+                BetCount = reader.ToInt("BetCount"),
+                Turnover = reader.ToInt("Turnover"),
+                ValidBetAmount = reader.ToInt("ValidBetAmount"),
+                CustomerWL = reader.ToInt("Winlost")
+            };
         }
 
         private static void AddRowSpan(IEnumerable<CasinoTurnover> dataList)
@@ -124,6 +123,22 @@
                 index++;
                 i += item.RowSpan;
             }
+        }
+
+        private void AddParams(CasinoTurnoverMetaModel metaModel, IObjectDb db)
+        {
+            db.AddInParameter("fromdate", DbType.Date, metaModel.FromDate.Date);
+            db.AddInParameter("todate", DbType.Date, metaModel.ToDate.Date);
+            db.AddInParameter("basecurrency", DbType.String, metaModel.BaseCurrency);
+            db.AddInParameter("UserName", DbType.String, metaModel.UserName);
+            db.AddInParameter("StatusList", DbType.String, string.Join(",", metaModel.Status));
+            db.AddInParameter("ProductCodes", DbType.String, string.Join(",", metaModel.ProductCode));
+            db.AddInParameter("MoveBetsDay", DbType.Date, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
+            db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+
+            db.AddInParameter("PageSize", DbType.Int32, metaModel.IsExportExcel ? SystemConstants.MaxDataTotalRow : metaModel.PageSize);
+            db.AddInParameter("PageIndex", DbType.Int32, metaModel.IsExportExcel ? 1 : metaModel.PageIndex);
+            db.AddOutParameter("TotalRows", DbType.Int32, 10);
         }
     }
 }

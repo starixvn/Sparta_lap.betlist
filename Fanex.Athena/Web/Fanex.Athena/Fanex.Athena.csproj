@@ -1052,12 +1052,9 @@
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\singlecustomer\reducers\index.js" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\running\actions\index.js" />
     <Content Include="www\js\source\reactpages\pages\bettingticketscenter\running\reducers\index.js" />
-    <Content Include="www\js\source\reactpages\pages\casinoturnover\actions\filterHandlerAction.js" />
     <Content Include="www\js\source\reactpages\pages\casinoturnover\actions\index.js" />
-    <Content Include="www\js\source\reactpages\pages\casinoturnover\actions\type.js" />
     <Content Include="www\js\source\reactpages\pages\casinoturnover\lib\reportExcel.js" />
     <Content Include="www\js\source\reactpages\pages\casinoturnover\lib\service.js" />
-    <Content Include="www\js\source\reactpages\pages\casinoturnover\reducers\filterHandlerReducer.js" />
     <Content Include="www\js\source\reactpages\pages\casinoturnover\reducers\index.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\AppContainer.redux.test.js" />
     <Content Include="www\js\source\reactpages\pages\subsidiaryperformance\components\__tests__\AppContainer.test.js" />

@@ -36,7 +36,8 @@
                 return new
                 {
                     Data = result.DataList,
-                    Total = result.TotalData
+                    Total = result.TotalData,
+                    TotalRows = result.TotalRows
                 };
             }
 
