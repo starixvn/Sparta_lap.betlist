@@ -5079,6 +5079,13 @@ var BaseDataGrid = function (_Component) {
             this.props.setRequestParam(param);
         }
     }, {
+        key: 'componentDidUpdate',
+        value: function componentDidUpdate(prevProps, prevState) {
+            if (this.props.gridData !== prevProps.gridData) {
+                this.props.toggleLoader(false);
+            }
+        }
+    }, {
         key: '_getData',
         value: function _getData(param) {
             this.props.toggleLoader(true);
@@ -5981,13 +5988,6 @@ var DataGrid = exports.DataGrid = function (_BaseDataGrid) {
     }
 
     _createClass(DataGrid, [{
-        key: 'componentDidUpdate',
-        value: function componentDidUpdate(prevProps, prevState) {
-            if (this.props.gridData !== prevProps.gridData) {
-                this.props.toggleLoader(false);
-            }
-        }
-    }, {
         key: '_buildFooter',
         value: function _buildFooter() {
             var item = this.props.gridData.Total;
