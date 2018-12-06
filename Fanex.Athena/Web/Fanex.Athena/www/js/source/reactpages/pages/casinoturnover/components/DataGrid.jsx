@@ -80,7 +80,7 @@ export class DataGrid extends Component {
                 let externalIdCell = null;
                 if(item.RowSpan > 0)
                 {
-                    indexCell = <Cell title={i + 1} rowSpan={item.RowSpan} className="center-align">{i + 1}</Cell>;
+                    indexCell = <Cell title={item.Index} rowSpan={item.RowSpan} className="center-align">{item.Index}</Cell>;
                     dateCell = <Cell title={reportBy} rowSpan={item.RowSpan} className='center-align'>{reportBy}</Cell>;
                     systemIdCell = <Cell title={item.SystemId} rowSpan={item.RowSpan} className='center-align'>{item.SystemId}</Cell>;
                     externalIdCell = <Cell title={item.ExternalId} rowSpan={item.RowSpan} className="center-align">{item.ExternalId}</Cell>;

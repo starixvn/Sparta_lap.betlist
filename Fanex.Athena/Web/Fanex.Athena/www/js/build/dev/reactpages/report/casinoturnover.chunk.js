@@ -5531,8 +5531,8 @@ var DataGrid = exports.DataGrid = function (_Component) {
                 if (item.RowSpan > 0) {
                     indexCell = _react2.default.createElement(
                         _fixedTableHeader.Cell,
-                        { title: i + 1, rowSpan: item.RowSpan, className: 'center-align' },
-                        i + 1
+                        { title: item.Index, rowSpan: item.RowSpan, className: 'center-align' },
+                        item.Index
                     );
                     dateCell = _react2.default.createElement(
                         _fixedTableHeader.Cell,
