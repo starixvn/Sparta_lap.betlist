@@ -18,6 +18,12 @@ export default class BaseDataGrid extends Component {
         param.PageSize = DEFAULT_PAGE_SIZE;
         this.props.setRequestParam(param);
     }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.gridData !== prevProps.gridData) {
+            this.props.toggleLoader(false);
+        }
+    }
     
     get dataUrl(){
         // This property should be override in child class.

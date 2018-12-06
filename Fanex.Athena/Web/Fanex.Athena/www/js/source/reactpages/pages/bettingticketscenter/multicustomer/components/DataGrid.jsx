@@ -19,12 +19,6 @@ export class DataGrid extends BaseDataGrid {
         return ApiUrl.MULTICUSTOMER_DATA_URL;
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        if (this.props.gridData !== prevProps.gridData) {
-            this.props.toggleLoader(false);
-        }
-    }
-
     _buildFooter() {
         const item = this.props.gridData.Total;
         const isNegativeWL = item.SumLicenseeWL.substring(0, 1) === '-';

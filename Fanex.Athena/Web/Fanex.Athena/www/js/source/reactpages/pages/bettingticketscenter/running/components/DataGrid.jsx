@@ -15,12 +15,6 @@ export class DataGrid extends BaseDataGrid {
         super(props);
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        if (this.props.gridData !== prevProps.gridData) {
-            this.props.toggleLoader(false);
-        }
-    }
-
     get dataUrl(){
         return ApiUrl.RUNNING_DATA_URL;
     }

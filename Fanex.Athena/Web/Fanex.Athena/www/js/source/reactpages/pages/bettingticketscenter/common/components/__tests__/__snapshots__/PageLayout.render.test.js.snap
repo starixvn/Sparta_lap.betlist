@@ -8,7 +8,7 @@ exports[`PageLayout  render with correct active tab 1`] = `
   <t>
     <t
       isActive={false}
-      label="MultiCustomer"
+      label="MultiCustomers"
       url="BettingTicketCenter/MultipleCustomers"
     />
     <t
