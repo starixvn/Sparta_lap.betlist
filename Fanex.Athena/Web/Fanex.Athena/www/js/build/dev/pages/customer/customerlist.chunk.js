@@ -6567,6 +6567,10 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
         getPostData: function () {
             var data = {};
 
+            if ($("#subsidiary-multiselect").length > 0) {
+                data.SubsidiaryList = $("#subsidiary-multiselect").multiSelect('getCheckedItems').join();
+            }
+
             data.PageIndex = _state.pagingOption.pageindex;
             data.PageSize = _state.pagingOption.pagesize;
             data.CurrencyId = $("#CurrencyId").val();
