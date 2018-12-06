@@ -96,7 +96,7 @@
 "use strict";
 
 
-// Generated at: 11/29/2018 10:26:52 AM
+// Generated at: 12/6/2018 2:42:08 PM
 window._language_en_US = {
   AA: "AA",
   AB: "AB",
@@ -183,7 +183,7 @@ window._language_en_US = {
   BetTaken: "Bet Taken",
   BettingLimit: "Betting Limit",
   BettingTicketCenter: "Betting Ticket Center",
-  BettingTicketCenter_MultiCustomersTabNote1: "League and Match filter support only 1 selected day",
+  BettingTicketCenter_MultiCustomersTabNote1: "All bettypes, League, and Match filter available only when 1 day is selected",
   BettingTicketCenter_MultiCustomersTabNote2: "Data is available from {0}",
   BettingTicketCenter_RefnoTabNote: "Note: For Sportsbook, the search result includes the related Bonus/Cash tickets.",
   BetTrade: "Bet Trade",
@@ -632,6 +632,7 @@ window._language_en_US = {
   MixSportsParlay: "Mix Sports Parlay",
   Mo: "Mo",
   Mobile: "Mobile",
+  MobileApp: "Mobile App",
   Mode: "Mode",
   Monday: "Monday",
   Money: "Money",

@@ -3052,7 +3052,7 @@
     <comment>80941</comment>
   </data>
   <data name="BettingTicketCenter_MultiCustomersTabNote1" xml:space="preserve">
-    <value>League and Match filter support only 1 selected day</value>
+    <value>All bettypes, League, and Match filter available only when 1 day is selected</value>
     <comment>80941</comment>
   </data>
   <data name="BettingTicketCenter_RefnoTabNote" xml:space="preserve">

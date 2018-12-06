@@ -2593,9 +2593,6 @@
   <data name="BettingTicketCenter_MultiCustomersTabNote2" xml:space="preserve">
     <value>顯示從{0}開始的資料</value>
   </data>
-  <data name="BettingTicketCenter_MultiCustomersTabNote1" xml:space="preserve">
-    <value>聯賽和比賽過濾器僅支援1個選定日期</value>
-  </data>
   <data name="BettingTicketCenter_RefnoTabNote" xml:space="preserve">
     <value>注意: 在體育的搜尋結果將包含相關的紅利與現金注單</value>
   </data>
