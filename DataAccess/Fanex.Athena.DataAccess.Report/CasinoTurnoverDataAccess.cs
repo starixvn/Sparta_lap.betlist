@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using Common;
     using Common.Extensions;
     using Core;
     using Core.Configuration.Interfaces;
@@ -54,11 +55,11 @@
                         }
                     }
 
-                    var totalRows = (int)db.GetParameterValue("TotalRows");
+                    var totalRows = Converter.ToInt(db.GetParameterValue("TotalRows"));
                     return new ReportResultModel<CasinoTurnover>
                     {
                         DataList = dataList,
-                        TotalData = totalData ?? new CasinoTurnover(),
+                        TotalData = totalData,
                         TotalRows = totalRows
                     };
                 }
