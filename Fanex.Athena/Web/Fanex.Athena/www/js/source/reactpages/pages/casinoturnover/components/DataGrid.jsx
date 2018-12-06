@@ -13,7 +13,7 @@ import Site from '@jsroot/lib/site'
 
 const URL = Site.resolveClientUrl("api/CasinoTurnoverReport/GetData");
 
-const DEFAULT_PAGE_SIZE = 1;
+const DEFAULT_PAGE_SIZE = 50;
 
 export class DataGrid extends Component {
     constructor(props) {
@@ -55,7 +55,7 @@ export class DataGrid extends Component {
                 <Cell colWidth={50} header={true} title="#">{HeaderText.Index}</Cell>
                 <Cell colWidth={150} header={true} title={HeaderText.Date}>{HeaderText.Date}</Cell>
                 <Cell colWidth={150} header={true} title={HeaderText.SystemId}>{HeaderText.SystemId}</Cell>
-                <Cell colWidth={200} header={true} title={HeaderText.ExternalId}>{HeaderText.ExternalId}</Cell>
+                <Cell colWidth={150} header={true} title={HeaderText.ExternalId}>{HeaderText.ExternalId}</Cell>
                 <Cell colWidth={200} header={true} title={HeaderText.Product}>{HeaderText.Product}</Cell>
                 <Cell colWidth={200} header={true} title={HeaderText.TotalTransaction}>{HeaderText.TotalTransaction}</Cell>
                 <Cell colWidth={200} header={true} title={HeaderText.Turnover}>{HeaderText.Turnover}</Cell>

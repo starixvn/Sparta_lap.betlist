@@ -5416,7 +5416,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var URL = _site2.default.resolveClientUrl("api/CasinoTurnoverReport/GetData");
 
-var DEFAULT_PAGE_SIZE = 1;
+var DEFAULT_PAGE_SIZE = 50;
 
 var DataGrid = exports.DataGrid = function (_Component) {
     _inherits(DataGrid, _Component);
@@ -5483,7 +5483,7 @@ var DataGrid = exports.DataGrid = function (_Component) {
                 ),
                 _react2.default.createElement(
                     _fixedTableHeader.Cell,
-                    { colWidth: 200, header: true, title: _service.HeaderText.ExternalId },
+                    { colWidth: 150, header: true, title: _service.HeaderText.ExternalId },
                     _service.HeaderText.ExternalId
                 ),
                 _react2.default.createElement(
