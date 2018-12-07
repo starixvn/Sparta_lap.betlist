@@ -13,5 +13,18 @@
         public int LeagueId { get; set; }
 
         public int MatchId { get; set; }
+
+        public override bool IsValid
+        {
+            get
+            {
+                if (FromDate.Date != ToDate.Date && (BetTypeId == 0 || LeagueId != 0 || MatchId != 0))
+                {
+                    return false;
+                }
+
+                return base.IsValid;
+            }
+        }
     }
 }
