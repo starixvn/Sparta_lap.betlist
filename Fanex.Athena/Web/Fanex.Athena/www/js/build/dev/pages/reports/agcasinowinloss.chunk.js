@@ -4192,8 +4192,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 
                 var reportGrid = $("#ReportGrid");
 
-                var numOfTotalRow = response.Total.length;
-
                 var gridOption = AgCasinoWinLossOption.getGridOption(level);
                 gridOption.data = response.Data;
                 gridOption.rowTotal = numOfRow;
@@ -4201,7 +4199,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
                 gridOption.gridComplete = function () {
                     level = Number(level);
 
-                    jqGridAdditional.gridComplete(this, gridOption, numOfTotalRow + 1);
+                    jqGridAdditional.gridComplete();
                     $("#pg_ppdata").hide();
 
                     _me.bindTotal(level, response.Total, response.SummaryTotal);
