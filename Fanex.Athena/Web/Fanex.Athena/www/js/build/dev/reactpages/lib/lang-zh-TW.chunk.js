@@ -96,7 +96,7 @@
 "use strict";
 
 
-// Generated at: 12/6/2018 2:42:08 PM
+// Generated at: 12/10/2018 10:11:47 AM
 window._language_zh_TW = {
   AA: "客客",
   AccessDeniedMsg: "對不起，您沒有權限訪問此頁面。",
@@ -172,6 +172,7 @@ window._language_zh_TW = {
   BetTaken: "匹配時間",
   BettingLimit: "投注限額",
   BettingTicketCenter: "注單中心",
+  BettingTicketCenter_MultiCustomersTabNote1: "所有投注類別，聯賽和比賽過濾器僅支援1個選定日期",
   BettingTicketCenter_MultiCustomersTabNote2: "顯示從{0}開始的資料",
   BettingTicketCenter_RefnoTabNote: "注意: 在體育的搜尋結果將包含相關的紅利與現金注單",
   BetType: "投注類別",

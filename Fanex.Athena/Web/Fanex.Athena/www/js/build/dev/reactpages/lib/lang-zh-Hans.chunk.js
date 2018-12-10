@@ -96,7 +96,7 @@
 "use strict";
 
 
-// Generated at: 12/6/2018 2:42:08 PM
+// Generated at: 12/10/2018 10:11:47 AM
 window._language_zh_Hans = {
   AA: "客客",
   AccessDeniedMsg: "对不起, 您没有权限访问此页面。",
@@ -172,6 +172,7 @@ window._language_zh_Hans = {
   BetTaken: "匹配时间",
   BettingLimit: "投注限额",
   BettingTicketCenter: "注单中心",
+  BettingTicketCenter_MultiCustomersTabNote1: "所有投注类别，联赛和比赛过滤器仅支援1个选定日期",
   BettingTicketCenter_MultiCustomersTabNote2: "显示从{0}开始的资料",
   BetType: "投注类别",
   BONTeamToScore: "双方/一方/两者皆不得分",
