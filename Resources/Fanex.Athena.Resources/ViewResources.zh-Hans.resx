@@ -2587,4 +2587,7 @@
   <data name="MultiCustomers" xml:space="preserve">
     <value>多个会员</value>
   </data>
+  <data name="BettingTicketCenter_MultiCustomersTabNote1" xml:space="preserve">
+    <value>所有投注类别，联赛和比赛过滤器仅支援1个选定日期</value>
+  </data>
 </root>
