@@ -64,6 +64,7 @@ namespace Fanex.Athena.Controllers.Customer
         private readonly ISubsidiaryService _subsidiaryService;
 
 #pragma warning disable S107 // Methods should not have too many parameters
+
         public CustomerController(
             ILanguageService languageService,
             ISessionService sessionService,
@@ -152,18 +153,6 @@ namespace Fanex.Athena.Controllers.Customer
                 },
                 MaxJsonLength = int.MaxValue
             };
-        }
-
-        private void AssignMetaModelData(CustomerListMetaModel metaModel)
-        {
-            var placeholderUsername = IsFakeLicensee() ?
-                            ViewResources.ExternalId :
-                            ViewResources.ExternalIdOrSystemId;
-            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
-
-            metaModel.IsShowStatusDropdown = AppSettings.LicenseeOfferStatusFunction.Contains(metaModel.LicenseeId);
-            metaModel.Username = metaModel.Username == placeholderUsername ? string.Empty : metaModel.Username;
-            metaModel.AgentListXml = GetAgentListXml(metaModel.SubsidiaryList, metaModel.CurrencyId);
         }
 
         [HttpPost]
@@ -283,6 +272,18 @@ namespace Fanex.Athena.Controllers.Customer
                 new CheckedItem { Name = "C", Checked = true },
                 new CheckedItem { Name = "D", Checked = true },
             };
+        }
+
+        private void AssignMetaModelData(CustomerListMetaModel metaModel)
+        {
+            var placeholderUsername = IsFakeLicensee() ?
+                            ViewResources.ExternalId :
+                            ViewResources.ExternalIdOrSystemId;
+            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
+
+            metaModel.IsShowStatusDropdown = AppSettings.LicenseeOfferStatusFunction.Contains(metaModel.LicenseeId);
+            metaModel.Username = metaModel.Username == placeholderUsername ? string.Empty : metaModel.Username;
+            metaModel.AgentListXml = GetAgentListXml(metaModel.SubsidiaryList, metaModel.CurrencyId);
         }
 
         private CustomerListViewModel CreateCustomerViewModel(CustomerListMetaModel metaModel)
