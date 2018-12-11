@@ -108,6 +108,7 @@
                 { PlatformType.Tablet, ViewResources.Tablet },
                 { PlatformType.NewAsia, ViewResources.NewAsia },
                 { PlatformType.MobileApp, ViewResources.MobileApp },
+                { PlatformType.MobileChinaView, ViewResources.MobileChinaView }
             };
         }
 

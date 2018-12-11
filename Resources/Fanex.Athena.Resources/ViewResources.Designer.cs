@@ -4894,6 +4894,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mobile China View.
+        /// </summary>
+        public static string MobileChinaView {
+            get {
+                return ResourceManager.GetString("MobileChinaView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mode.
         /// </summary>
         public static string Mode {

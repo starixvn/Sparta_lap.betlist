@@ -25,6 +25,8 @@
 
         public const int MobileApp = 8;
 
+        public const int MobileChinaView = 9;
+
         public static string GetPlatformName(int type)
         {
             switch (type)
@@ -37,6 +39,7 @@
                 case Tablet: return ViewResources.Tablet;
                 case NewAsia: return ViewResources.NewAsia;
                 case MobileApp: return ViewResources.MobileApp;
+                case MobileChinaView: return ViewResources.MobileChinaView;
                 default: return ViewResources.All;
             }
         }
@@ -61,13 +64,14 @@
                 case "r": return ViewResources.Tablet;
                 case "x": return ViewResources.NewAsia;
                 case "o": return ViewResources.MobileApp;
+                case "c": return ViewResources.MobileChinaView;
                 default: return ViewResources.Others;
             }
         }
 
         public static bool IsValidPlatform(int type)
         {
-            return type >= All && type <= MobileApp;
+            return type >= All && type <= MobileChinaView;
         }
     }
 }
