@@ -14,29 +14,9 @@
 
     public class CustomerListDataAccessTest : BaseDataAccessHelperTest<CustomerListDataAccess>
     {
-        [Test]
-        public void SearchCustomers_WhenCall_ParametersPassedCorrectly()
-        {
-            // Arrange
-            DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerSelUserSearch")).Returns(ObjectDb);
-            const int UserId = 0;
-            const string UserName = "";
-
-            // Action
-            DataAccess.SearchCustomers(UserId, UserName, string.Empty);
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                ObjectDb.Received(1).AddInParameter("userid", DbType.Int32, UserId);
-                ObjectDb.Received(1).AddInParameter("username", DbType.String, UserName);
-                ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, string.Empty);
-            });
-        }
-
         [TestCase("New", "New")]
         [TestCase(null, "")]
-        public void Search_WhenCall_ParametersPassedCorrectly(string custStatus, string expectedStatusParam)
+        public void GetActiveCustomers_WhenCall_ParametersPassedCorrectly(string custStatus, string expectedStatusParam)
         {
             // Arrange
             DataAccess.GetObjectDb(Arg.Is("Lrf_CustomerSel")).Returns(ObjectDb);
@@ -52,7 +32,7 @@
             };
 
             // Action
-            DataAccess.Search(metaModel);
+            DataAccess.GetActiveCustomers(metaModel);
 
             // Assert
             Assert.Multiple(() =>
@@ -75,7 +55,7 @@
         [TestCase(true, false)]
         [TestCase(false, true)]
         [TestCase(false, false)]
-        public void Search_WhenCall_ReturnCorrectData(bool isClosed, bool isSuspended)
+        public void GetActiveCustomers_WhenCall_ReturnCorrectData(bool isClosed, bool isSuspended)
         {
             // Arrange
             const int ExpectedCustId = 999;
@@ -96,7 +76,7 @@
             var metaModel = new CustomerListMetaModel();
 
             // Action
-            var result = DataAccess.Search(metaModel);
+            var result = DataAccess.GetActiveCustomers(metaModel);
             var firstItem = result.DataList.First();
 
             // Assert

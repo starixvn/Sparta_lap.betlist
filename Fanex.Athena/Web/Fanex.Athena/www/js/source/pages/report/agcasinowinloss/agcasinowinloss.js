@@ -255,8 +255,6 @@ define(["jquery", "common/site", "./agcasinowinloss.option", "../report", "lib/j
 
                 var reportGrid = $("#ReportGrid");
 
-                var numOfTotalRow = response.Total.length;
-
                 var gridOption = AgCasinoWinLossOption.getGridOption(level);
                 gridOption.data = response.Data;
                 gridOption.rowTotal = numOfRow;
@@ -264,7 +262,7 @@ define(["jquery", "common/site", "./agcasinowinloss.option", "../report", "lib/j
                 gridOption.gridComplete = function () {
                     level = Number(level);
 
-                    jqGridAdditional.gridComplete(this, gridOption, numOfTotalRow + 1);
+                    jqGridAdditional.gridComplete();
                     $("#pg_ppdata").hide();
 
                     _me.bindTotal(level, response.Total, response.SummaryTotal);

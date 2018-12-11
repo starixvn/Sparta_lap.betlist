@@ -97,8 +97,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomerCommGroupExcelTest.cs" />
+    <Compile Include="DormantCustomerListExcelTest.cs" />
     <Compile Include="CustomerListExcelTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestableClasses\DormantCustomerListExcelTestable.cs" />
     <Compile Include="TestableClasses\CustomerListExcelTestable.cs" />
     <Compile Include="TestableClasses\CustomerCommGroupExcelTestable.cs" />
   </ItemGroup>

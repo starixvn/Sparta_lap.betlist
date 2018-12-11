@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-﻿// Generated at: 11/13/2018 3:03:10 PM
+﻿// Generated at: 12/4/2018 4:33:19 PM
 window._language_en_US = {
 AA:"AA",
 AB:"AB",
@@ -102,6 +102,7 @@ Account:"Account",
 AccountManagement:"Account Management",
 Action:"Action",
 ActiveCustomer:"Active Customer",
+ActiveCustomers:"Active Customers",
 ActiveCustomerSummary:"Active Customer Summary",
 ActualStake:"Actual Stake",
 AD:"AD",
@@ -143,6 +144,7 @@ AmtGreaterThan30kGBP:"Amt ≥ 30K GBP",
 AmtLessThan30kGBP:"Amt &lt; 30K GBP",
 Apr:"Apr",
 April:"April",
+ArchivedDate:"Archived Date",
 AreYouSure:"Are you sure you want to procceed?",
 Asia:"Asia",
 AssignPermissionSuccessful:"Assign Permission Successful.",
@@ -333,6 +335,7 @@ DisableMicrogaming:"Disable Microgaming",
 DisableProduct:"Disable {0}",
 DisableRNGCasino:"Disable RNG Casino",
 Dontshowagain:"Don&apos;t show again",
+DormantCustomers:"Dormant Customers",
 DoubleChance:"Double Chance",
 Download:"Download",
 Draw:"Draw",

@@ -24,6 +24,7 @@ namespace Fanex.Athena.Controllers.Customer
     using Fanex.Athena.Web.ActionFilter;
     using Fanex.Athena.Web.ResultExtension;
     using Model.Core.DataDomain;
+    using Model.Customer.DTO;
     using Newtonsoft.Json;
     using Resources;
     using Service.Core.Users.Interfaces;
@@ -121,16 +122,28 @@ namespace Fanex.Athena.Controllers.Customer
         [CustomValidateAntiForgery]
         public dynamic CustomerList(CustomerListMetaModel metaModel)
         {
-            var placeholderUsername = IsFakeLicensee() ?
-                ViewResources.ExternalId :
-                ViewResources.ExternalIdOrSystemId;
-            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
+            AssignMetaModelData(metaModel);
 
-            metaModel.IsShowStatusDropdown = AppSettings.LicenseeOfferStatusFunction.Contains(metaModel.LicenseeId);
-            metaModel.Username = metaModel.Username == placeholderUsername ? string.Empty : metaModel.Username;
-            metaModel.AgentListXml = GetAgentListXml(metaModel.SubsidiaryList, metaModel.CurrencyId);
+            var result = _customerListService.GetActiveCustomers(metaModel);
+            return new JsonResult
+            {
+                Data = new
+                {
+                    Data = result.DataList,
+                    TotalRows = result.TotalRows
+                },
+                MaxJsonLength = int.MaxValue
+            };
+        }
 
-            var result = _customerListService.Search(metaModel);
+        [HttpPost]
+        [AjaxRequest]
+        [CustomValidateAntiForgery]
+        public dynamic DormantCustomerList(CustomerListMetaModel metaModel)
+        {
+            AssignMetaModelData(metaModel);
+
+            var result = _customerListService.GetDormantCustomers(metaModel);
             return new JsonResult
             {
                 Data = new
@@ -179,6 +192,41 @@ namespace Fanex.Athena.Controllers.Customer
             return File(ExcelHelper.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
         }
 
+        [HttpPost]
+        [CustomValidateAntiForgery]
+        public ActionResult ExportExcelDormantCustomer(string excelParam)
+        {
+            if (string.IsNullOrEmpty(excelParam))
+            {
+                return null;
+            }
+
+            var metaModel = JsonConvert.DeserializeObject<CustomerListMetaModel>(excelParam);
+            if (metaModel != null)
+            {
+                metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
+                metaModel.AgentListXml = GetAgentListXml(metaModel.SubsidiaryList, metaModel.CurrencyId);
+
+                var templatePath = Server.MapPath(@"~/App_Data/Template/Customers/DormantCustomerList.xls");
+
+                var resultModel = _customerListService.GetDormantCustomers(metaModel);
+                if (resultModel.DataList.Any())
+                {
+                    var fileName = "DormantCustomerList_" + DateTime.Now.ToString("MM-dd-yyyy");
+                    var reportTitle = ViewResources.DormantCustomers + " - "
+                        + string.Format(ViewResources.Viewin, metaModel.IsConvert ? metaModel.BaseCurrency.ToUpper(CultureInfo.CurrentCulture) : metaModel.CurrencyName);
+
+                    var excel = CreateDormantCustomerExcel(templatePath, reportTitle, resultModel.DataList);
+
+                    excel.Export();
+
+                    return new ExcelResult(excel.Workbook, fileName);
+                }
+            }
+
+            return File(ExcelHelper.ExportEmptyFile(), "application/vnd.ms-excel", "Empty.xls");
+        }
+
         [CustomValidateAntiForgery]
         public ActionResult LogInfo(int custId)
         {
@@ -207,6 +255,14 @@ namespace Fanex.Athena.Controllers.Customer
             return new CustomerListExcel(templatePath, reportTitle, model);
         }
 
+        protected internal virtual DormantCustomerListExcel CreateDormantCustomerExcel(
+            string templatePath,
+            string reportTitle,
+            IEnumerable<DormantCustomer> dataList)
+        {
+            return new DormantCustomerListExcel(templatePath, reportTitle, dataList);
+        }
+
         private static IEnumerable<CheckedItem> GetOddsGroups()
         {
             return new List<CheckedItem>
@@ -216,6 +272,18 @@ namespace Fanex.Athena.Controllers.Customer
                 new CheckedItem { Name = "C", Checked = true },
                 new CheckedItem { Name = "D", Checked = true },
             };
+        }
+
+        private void AssignMetaModelData(CustomerListMetaModel metaModel)
+        {
+            var placeholderUsername = IsFakeLicensee() ?
+                            ViewResources.ExternalId :
+                            ViewResources.ExternalIdOrSystemId;
+            metaModel.LicenseeId = SessionService.LicenseeSession.LicenseeId;
+
+            metaModel.IsShowStatusDropdown = AppSettings.LicenseeOfferStatusFunction.Contains(metaModel.LicenseeId);
+            metaModel.Username = metaModel.Username == placeholderUsername ? string.Empty : metaModel.Username;
+            metaModel.AgentListXml = GetAgentListXml(metaModel.SubsidiaryList, metaModel.CurrencyId);
         }
 
         private CustomerListViewModel CreateCustomerViewModel(CustomerListMetaModel metaModel)
@@ -255,7 +323,7 @@ namespace Fanex.Athena.Controllers.Customer
         {
             var model = CreateCustomerViewModel(metaModel);
 
-            var result = _customerListService.Search(model.Param);
+            var result = _customerListService.GetActiveCustomers(model.Param);
             model.DataList = result.DataList;
             model.TotalRows = result.TotalRows;
 

@@ -1,5 +1,5 @@
 ﻿"use strict";
-define(["jquery", "common/site", "./customerlist.option", "lib/jqgrid/jquery.jqgrid.additional", "components/paging", "./customerlist.state",
+define(["jquery", "common/site", "./customerlist.gridoption", "lib/jqgrid/jquery.jqgrid.additional", "components/paging", "./customerlist.state",
     "lib/jqgrid/jquery.jqGrid.en", "lib/jqgrid/jquery.jqGrid.min", "extensions/jquery.extension"],
 function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerListState) {
     var _POPUP_LIST = ["#ViewOptionList", "#update-cust-status-popup", "#LevelListContainer", "#OddsGroupListContainer"];
@@ -102,40 +102,41 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
 
             return data;
         },
-
-        bindData: function (response, keepScrollPosition) {
+        // virtual scrolling not work after hide and show
+        bindDataFromCache: function() { 
+            _me.bindData(_state.cachedData, true);
+        },
+        bindData: function (gridData, keepScrollPosition) {
             jqGridAdditional.clearGrid("ReportGrid");
-            //show report title
-            $(".panel-heading").removeClass("hide");
-
-            var hasData = response && response.TotalRows > 0;
-            $("div.paging").toggle(hasData);
-
+            
+            var hasData = gridData && gridData.TotalRows > 0;
+            $("#ActiveCustomerPager, #tabActiveCustomer .excel-container").toggle(hasData);
+            var $container = $("#tabActiveCustomer");
             if (!hasData) {
-                jqGridAdditional.setNoInfo();
-                $("#num-of-customer").html("0 ");
+                jqGridAdditional.setNoInfo(null, $container);
+                $("#num-of-customer, #num-of-customer-header").html("0");
                 Site.unBlockUI();
                 return;
             }
 
-            var oldScrollTop = $(".ui-jqgrid-bdiv").scrollTop();
-            $("#num-of-customer").html(response.TotalRows + " ");
+            var oldScrollTop = $("#report-content .ui-jqgrid-bdiv").scrollTop();
+            $("#num-of-customer, #num-of-customer-header").html(gridData.TotalRows);
 
             var pagingOption = _state.pagingOption;
-            pagingOption.totalrow = parseInt(response.TotalRows);
+            pagingOption.totalrow = parseInt(gridData.TotalRows);
             PagingHelper.render(pagingOption);
 
             var showingColumns = $("#ui-multiselect-options-grid-columns-multiselect input").serializeObject();
             var gridOption = _me.processGridOption(showingColumns);
-            gridOption.data = response.Data;
+            gridOption.data = gridData.Data;
             gridOption.gridComplete = function () {
-                jqGridAdditional.gridComplete();
+                jqGridAdditional.gridComplete($container);
             };
 
             // Show the grid
-            var reportGrid = $("#ReportGrid");
-            reportGrid.jqGrid(gridOption);
-            CustomerListOption.setGroupHeaderColumns(reportGrid);
+            var $reportGrid = $("#ReportGrid");
+            $reportGrid.jqGrid(gridOption);
+            CustomerListOption.setGroupHeaderColumns($reportGrid);
 
             if (_isAllowedCustomerCommission && showingColumns["Group"] !== undefined && _isAllowedUserEditComm) {
                 $("#jqgh_ReportGrid_Index").attr("class", "").html("<input type='checkbox' id='CheckAll' /><label for='CheckAll'></label>");
@@ -144,21 +145,25 @@ function ($, Site, CustomerListOption, jqGridAdditional, PagingHelper, CustomerL
             }
 
             $("#CheckAll").prop("checked", _state.checkedAllRows);
-            _me.resizeGrid();
+            _me.resizeGrid("#ReportGrid");
 
             if (keepScrollPosition === true) {
-                $(".ui-jqgrid-bdiv").scrollTop(oldScrollTop);
+                $("#report-content .ui-jqgrid-bdiv").scrollTop(oldScrollTop);
             }
 
-            Site.unBlockUI();
+            if ($.active <= 1) {
+                Site.unBlockUI();
+            } else {
+                setTimeout(Site.unBlockUI, 500);
+            }
 
             _me.addGridScrollEventToHidePopups();
         },
 
-        resizeGrid: function () {
-            var reportGrid = $("#ReportGrid");
-            jqGridAdditional.updateGridHeight();
-            jqGridAdditional.updateGridWidth(reportGrid);
+        resizeGrid: function (gridSelector) {
+            var $reportGrid = $(gridSelector);
+            jqGridAdditional.updateGridHeight($reportGrid.closest(".theme_jqGrid"));
+            jqGridAdditional.updateGridWidth($reportGrid);
         },
 
         addGridScrollEventToHidePopups: function () {

@@ -3088,4 +3088,16 @@
     <value>Mobile App</value>
     <comment>104587</comment>
   </data>
+  <data name="ActiveCustomers" xml:space="preserve">
+    <value>Active Customers</value>
+    <comment>102680</comment>
+  </data>
+  <data name="DormantCustomers" xml:space="preserve">
+    <value>Dormant Customers</value>
+    <comment>102680</comment>
+  </data>
+  <data name="ArchivedDate" xml:space="preserve">
+    <value>Archived Date</value>
+    <comment>102680</comment>
+  </data>
 </root>

@@ -1,34 +1,44 @@
 ﻿"use strict";
 define([], function () {
-    var state;
-
     var _pagingOption = {
         pageindex: 1,
         pagesize: 1000,
         pagelist: [1000, 2000, 3000, 4000],
         totalrow: 1,
-        elementcontainer: ".paging",
+        elementcontainer: "#ActiveCustomerPager",
         method: "AJAX",
         ajaxfunction: "CustomerList.ajaxPaging()",
         alwayshow: true
     };
 
-    function initState() {
-        return {
-            cachedData: {},
-            selectedCustomers: {},
-            checkedAllRows: false,
-            pagingOption: _pagingOption
-        };
-    }
+    var _dormantPagingOption = {
+        pageindex: 1,
+        pagesize: 1000,
+        pagelist: [1000, 2000, 3000, 4000],
+        totalrow: 1,
+        elementcontainer: "#DormantCustomerPager",
+        method: "AJAX",
+        ajaxfunction: "CustomerList.ajaxPagingDormant()",
+        alwayshow: true
+    };
+
+    var state = {
+        cachedData: {},
+        selectedCustomers: {},
+        checkedAllRows: false,
+        pagingOption: _pagingOption
+    };
+
+    var dormantState = {
+        pagingOption: _dormantPagingOption
+    };
 
     return {
         getState: function () {
-            if (!state) {
-                state = initState();
-            }
-
             return state;
+        },
+        getDormantState: function () {
+            return dormantState;
         }
     };
 });

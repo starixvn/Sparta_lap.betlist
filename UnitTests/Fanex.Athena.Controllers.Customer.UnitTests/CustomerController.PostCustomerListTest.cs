@@ -23,7 +23,7 @@
                 };
 
                 AppSettings.FakeLicenseeList.Returns(Enumerable.Empty<int>());
-                _customerListService.Search(metaModel).Returns(new ReportResultModel<CustomerDTO>
+                _customerListService.GetActiveCustomers(metaModel).Returns(new ReportResultModel<CustomerDTO>
                 {
                     DataList = new List<CustomerDTO>(),
                     TotalRows = 0
@@ -51,7 +51,7 @@
 
                 StubLicenseeSessionData(DefaultLicenseeSession);
                 AppSettings.FakeLicenseeList.Returns(new[] { DefaultLicenseeSession.LicenseeId });
-                _customerListService.Search(metaModel).Returns(new ReportResultModel<CustomerDTO>
+                _customerListService.GetActiveCustomers(metaModel).Returns(new ReportResultModel<CustomerDTO>
                 {
                     DataList = new List<CustomerDTO>(),
                     TotalRows = 0
@@ -78,7 +78,7 @@
                 };
 
                 AppSettings.FakeLicenseeList.Returns(Enumerable.Empty<int>());
-                _customerListService.Search(metaModel).Returns(new ReportResultModel<CustomerDTO>
+                _customerListService.GetActiveCustomers(metaModel).Returns(new ReportResultModel<CustomerDTO>
                 {
                     DataList = new List<CustomerDTO>(),
                     TotalRows = 0
@@ -101,7 +101,7 @@
                 var metaModel = new CustomerListMetaModel();
 
                 AppSettings.FakeLicenseeList.Returns(Enumerable.Empty<int>());
-                _customerListService.Search(metaModel).Returns(new ReportResultModel<CustomerDTO>
+                _customerListService.GetActiveCustomers(metaModel).Returns(new ReportResultModel<CustomerDTO>
                 {
                     DataList = new List<CustomerDTO>(),
                     TotalRows = 0
@@ -111,7 +111,7 @@
                 var result = controller.CustomerList(metaModel);
 
                 // Assert
-                _customerListService.Received().Search(metaModel);
+                _customerListService.Received().GetActiveCustomers(metaModel);
             }
         }
     }

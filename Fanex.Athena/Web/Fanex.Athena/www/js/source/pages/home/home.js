@@ -30,7 +30,7 @@ define([
             }
 
             AutoComplete.initialize({
-                url: Site.resolveClientUrl("SearchCustomerAPI/SearchCustomer"),
+                url: Site.resolveClientUrl("SearchCustomerAPI/SearchActiveAndDormantCustomer"),
                 target: "#searchbox"
             });
         }

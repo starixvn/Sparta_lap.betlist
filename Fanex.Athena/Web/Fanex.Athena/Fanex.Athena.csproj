@@ -819,6 +819,8 @@
     <Content Include="www\js\source\extensions\ajaxBinaryTransporting.js" />
     <Content Include="www\js\source\helpers\datahelper.js" />
     <Content Include="www\js\source\helpers\downloader.js" />
+    <Content Include="www\js\source\pages\customer\customerlist\customerlist.gridoption.dormant.js" />
+    <Content Include="www\js\source\pages\customer\customerlist\customerlist.service.dormant.js" />
     <Content Include="www\js\source\reactpages\actions\reportTitleAction.js" />
     <Content Include="www\js\source\reactpages\actions\requestParamAction.js" />
     <Content Include="www\js\source\reactpages\actions\dateRangeAction.js" />
@@ -907,6 +909,7 @@
     <Content Include="www\css\build\dev\reactpages\speciallicenseewl\index.chunk.js.map" />
     <Content Include="www\css\build\dev\reactpages\speciallicenseewl\index.css.map" />
     <Content Include="www\css\source\reactpages\components\month-picker.scss" />
+    <Content Include="App_Data\Template\Customers\DormantCustomerList.xls" />
     <None Include="SiteConfig\Web.AppSettings.BACKUPMNLStatic.config" />
     <None Include="SiteConfig\Web.ConnectionStrings.BACKUPMNLStatic.config">
       <SubType>Designer</SubType>
@@ -1814,7 +1817,7 @@
     <Content Include="www\js\source\pages\customer\customerlist\customerlist.commision.js" />
     <Content Include="www\js\source\pages\customer\customerlist\customerlist.custoption.js" />
     <Content Include="www\js\source\pages\customer\customerlist\customerlist.oddsgroup.js" />
-    <Content Include="www\js\source\pages\customer\customerlist\customerlist.option.js" />
+    <Content Include="www\js\source\pages\customer\customerlist\customerlist.gridoption.js" />
     <Content Include="www\js\source\pages\customer\customerlist\customerlist.state.js" />
     <Content Include="www\js\source\pages\customer\customerlist\customerlist.service.js" />
     <Content Include="www\js\source\pages\customer\customerlist\customerlist.speciallevel.js" />
@@ -1962,7 +1965,7 @@
     <Content Include="www\js\tests\pages\customer\customerlist\customerlist.filter-spec.js" />
     <Content Include="www\js\tests\pages\customer\customerlist\customerlist.grid-spec.js" />
     <Content Include="www\js\tests\pages\customer\customerlist\customerlist.oddsgroup-spec.js" />
-    <Content Include="www\js\tests\pages\customer\customerlist\customerlist.option-spec.js" />
+    <Content Include="www\js\tests\pages\customer\customerlist\customerlist.gridoption-spec.js" />
     <Content Include="www\js\tests\pages\customer\customerlist\customerlist.service-spec.js" />
     <Content Include="www\js\tests\pages\customer\customerlist\customerlist.speciallevel-spec.js" />
     <Content Include="www\js\tests\pages\customer\customerlist\customerlist.state-spec.js" />

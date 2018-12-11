@@ -6,7 +6,6 @@
 
 namespace Fanex.Athena.Service.Customer
 {
-    using System.Collections.Generic;
     using DataAccess.Customer.Interfaces;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Common;
@@ -25,6 +24,8 @@ namespace Fanex.Athena.Service.Customer
 
         private readonly ICustomerListDataAccess _customerListDataAccess;
 
+        private readonly IDormantCustomerListDataAccess _dormantCustomerListDataAccess;
+
         private readonly ICasinoCustomerService _casinoCustomerService;
 
         private readonly IAuthorizationService _authorizationService;
@@ -36,6 +37,7 @@ namespace Fanex.Athena.Service.Customer
         public CustomerListService(
             ICustomerDataAccess customerDataAccess,
             ICustomerListDataAccess customerListDataAccess,
+            IDormantCustomerListDataAccess dormantCustomerListDataAccess,
             ICasinoCustomerService casinoCustomerService,
             IAuthorizationService authorizationService,
             IProductService productService,
@@ -43,20 +45,21 @@ namespace Fanex.Athena.Service.Customer
         {
             _customerDataAccess = customerDataAccess;
             _customerListDataAccess = customerListDataAccess;
+            _dormantCustomerListDataAccess = dormantCustomerListDataAccess;
             _casinoCustomerService = casinoCustomerService;
             _authorizationService = authorizationService;
             _productService = productService;
             _appSettings = appSettings;
         }
 
-        public IEnumerable<string> SearchCustomers(int userId, string userName, string agentListXml)
+        public ReportResultModel<CustomerDTO> GetActiveCustomers(CustomerListMetaModel metaModel)
         {
-            return _customerListDataAccess.SearchCustomers(userId, userName, agentListXml);
+            return _customerListDataAccess.GetActiveCustomers(metaModel);
         }
 
-        public ReportResultModel<CustomerDTO> Search(CustomerListMetaModel metaModel)
+        public ReportResultModel<DormantCustomer> GetDormantCustomers(CustomerListMetaModel metaModel)
         {
-            return _customerListDataAccess.Search(metaModel);
+            return _dormantCustomerListDataAccess.GetDormantCustomers(metaModel);
         }
 
         public LogInfo GetCustomerLoginInfo(int custId, int licenseeId, string siteName)

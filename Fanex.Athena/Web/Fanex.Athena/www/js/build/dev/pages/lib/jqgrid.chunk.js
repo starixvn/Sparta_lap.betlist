@@ -555,17 +555,21 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
                 thousandsSeparator: ",",
                 decimalPlaces: 2
             },
-            updateGridHeight: function () {
-                var $bdiv = $(".ui-jqgrid-bdiv");
+            updateGridHeight: function ($container) {
+                $container = $container || $("body");
+                if ($container.find(".no-info-row").length) {
+                    return;
+                }
+                var $bdiv = $container.find(".ui-jqgrid-bdiv");
                 if ($bdiv.length === 0) {
                     return;
                 }
 
                 var gridTop = $bdiv.offset().top;
-                var pagingHeight = $(".paging:visible").length ? $(".paging:visible").height() : 0;
-                pagingHeight = pagingHeight || ($("#paging:visible").length ? $("#paging:visible").height() : 0);
-                var footerHeight = $(".ui-jqgrid-sdiv:visible").length ? $(".ui-jqgrid-sdiv:visible").height() : 0;
-                var jqgridPagerHeight = $(".ui-jqgrid-pager:visible").length ? $(".ui-jqgrid-pager:visible").outerHeight(true) : 0;
+                var pagingHeight = $container.find(".paging:visible").length ? $container.find(".paging:visible").height() : 0;
+                pagingHeight = pagingHeight || ($container.find("#paging:visible").length ? $container.find("#paging:visible").height() : 0);
+                var footerHeight = $container.find(".ui-jqgrid-sdiv:visible").length ? $container.find(".ui-jqgrid-sdiv:visible").height() : 0;
+                var jqgridPagerHeight = $container.find(".ui-jqgrid-pager:visible").length ? $container.find(".ui-jqgrid-pager:visible").outerHeight(true) : 0;
                 var footerSite = 18;
 
                 var gridHeight = window.innerHeight - gridTop - footerHeight - jqgridPagerHeight - pagingHeight - footerSite - 15;
@@ -573,31 +577,34 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
 
                 $bdiv.css("max-height", gridHeight);
             },
-            updateGridWidth: function (grid) {
-                if ($("div.ui-jqgrid-hbox").length === 0) {
+            updateGridWidth: function ($grid) {
+                var $container = $grid.closest(".theme_jqGrid");
+                if ($container.find(".ui-jqgrid-hbox").length === 0) {
                     return;
                 }
 
-                grid.setGridParam({
+                $grid.setGridParam({
                     shrinkToFit: false
                 });
 
-                var parentWidth = grid.closest(".theme_jqGrid").width();
-                grid.jqGrid('setGridWidth', parentWidth);
+                var parentWidth = $container.width();
+                
+                $grid.jqGrid('setGridWidth', parentWidth);
 
                 var tableWidth = parentWidth - 20;
-                grid.css("width", tableWidth + "px");
-                $(".theme_jqGrid .ui-jqgrid-hdiv table.ui-jqgrid-htable").css("width", tableWidth + "px");
-                $(".theme_jqGrid .ui-jqgrid-sdiv table.ui-jqgrid-ftable").css("width", tableWidth + "px");
+                
+                $grid.css("width", tableWidth + "px");
+                $container.find(".ui-jqgrid-hdiv table.ui-jqgrid-htable").css("width", tableWidth + "px");
+                $container.find(".ui-jqgrid-sdiv table.ui-jqgrid-ftable").css("width", tableWidth + "px");
 
-                jqGridAdditional.updateFooterWidth();
+                jqGridAdditional.updateFooterWidth($container);
             },
 
-            updateFooterWidth: function () {
-                $(".footer-firstrow").remove();
-                var settingWidthRow = $(".ui-jqgrid-bdiv table.ui-jqgrid-btable tr.jqgfirstrow").clone();
+            updateFooterWidth: function ($container) {
+                $container.find(".footer-firstrow").remove();
+                var settingWidthRow = $container.find(".ui-jqgrid-bdiv table.ui-jqgrid-btable tr.jqgfirstrow").clone();
                 settingWidthRow.addClass("footer-firstrow").removeClass("jqgfirstrow")
-                                .prependTo($("tbody", "table.ui-jqgrid-ftable"));
+                                .prependTo($container.find("table.ui-jqgrid-ftable tbody"));
             },
 
             formatInteger: function (value) {
@@ -714,16 +721,18 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
                 return temp;
             },
 
-            gridComplete: function () {
-                $(".ui-jqgrid-titlebar").hide();
-                $(".ui-jqgrid-hdiv").css("clear", "both");
+            gridComplete: function ($container) {
+                $container = $container || $('body');
+                $container.find(".ui-jqgrid-titlebar").hide();
+                $container.find(".ui-jqgrid-hdiv").css("clear", "both");
 
-                $('#noInfoRow').remove();
+                $container.find('#noInfoRow').remove();
             },
 
             clearGrid: function (reportId) {
-                $('#' + reportId).jqGrid('GridUnload');
-                $("div.theme_jqGrid > div").css('width', '');
+                var $grid = $('#' + reportId);
+                $grid.jqGrid('GridUnload');
+                $grid.closest(".theme_jqGrid > div").css('width', '');
             },
 
             rowSpanSetting: function (rowId, val, rawObject) {
@@ -805,18 +814,20 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/// <referenc
                 }
             },
 
-            setNoInfo: function (message) {
+            setNoInfo: function (message, $container) {
+                $container = $container || $("body");
                 var noInfoText = message || Site.getSingleResource("NoInfo");
                 var htmlNoInfor = '<p id="noInfoRow" class="no-info-row">' + noInfoText + '</p>';
 
-                var $noInforRow = $('#noInfoRow');
+                var $noInforRow = $container.find('#noInfoRow');
+                
                 if ($noInforRow.length) {
                     $noInforRow.html(noInfoText);
                 }
                 else {
-                    $('.theme_jqGrid').append(htmlNoInfor);
+                    $container.find('.theme_jqGrid').append(htmlNoInfor);
                 }
-                $("div.ui-jqgrid-sdiv").hide();
+                $container.find("div.ui-jqgrid-sdiv").hide();
             },
 
             setNoInfoWithColspan: function (colspan) {

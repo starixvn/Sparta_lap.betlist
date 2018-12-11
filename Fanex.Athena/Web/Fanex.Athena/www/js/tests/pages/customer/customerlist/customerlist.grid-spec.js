@@ -40,7 +40,7 @@
 
             beforeAll(function () {
                 spyOn(CustomerListState, "getState").and.returnValue(_state);
-                spyOn(CustomerListGrid, "resizeGrid");
+                spyOn(CustomerListService, "resizeGrid");
                 spyOn(jqGridAdditional, "updateGridHeight");
                 spyOn(jqGridAdditional, "updateGridWidth");
                 spyOn(Site, "getSingleResource").and.callFake(function (str) {
@@ -112,13 +112,6 @@
                     $(".pendingFunds").click();
 
                     expect(CustomerListGrid.viewRunningBetlist).toHaveBeenCalledWith("custid", "systemid", "externalid");
-                });
-
-                it("resizeGrid function should be called when window fire resize event", function () {
-                    CustomerListGrid.initEvent();
-                    $(window).resize();
-
-                    expect(CustomerListGrid.resizeGrid).toHaveBeenCalled();
                 });
 
                 it("off() jquery function should be called with correct parameter when window fire unload event", function () {

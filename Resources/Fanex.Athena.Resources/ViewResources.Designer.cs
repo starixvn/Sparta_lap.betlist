@@ -124,6 +124,15 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Active Customers.
+        /// </summary>
+        public static string ActiveCustomers {
+            get {
+                return ResourceManager.GetString("ActiveCustomers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Active Customer Summary.
         /// </summary>
         public static string ActiveCustomerSummary {
@@ -489,6 +498,15 @@ namespace Fanex.Athena.Resources {
         public static string April {
             get {
                 return ResourceManager.GetString("April", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Archived Date.
+        /// </summary>
+        public static string ArchivedDate {
+            get {
+                return ResourceManager.GetString("ArchivedDate", resourceCulture);
             }
         }
         
@@ -2199,6 +2217,15 @@ namespace Fanex.Athena.Resources {
         public static string Dontshowagain {
             get {
                 return ResourceManager.GetString("Dontshowagain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dormant Customers.
+        /// </summary>
+        public static string DormantCustomers {
+            get {
+                return ResourceManager.GetString("DormantCustomers", resourceCulture);
             }
         }
         

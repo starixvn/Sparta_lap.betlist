@@ -60,3 +60,5 @@ stats.json
 /Fanex.Athena/Web/Fanex.Athena/coverage
 /Fanex.Athena/Web/Fanex.Athena/yarn.lock
 /Fanex.Athena/Web/Fanex.Athena/package-lock.json
+/Fanex.Athena/Web/Fanex.Athena/webpack-stats-*
+

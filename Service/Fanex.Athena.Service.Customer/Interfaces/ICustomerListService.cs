@@ -8,7 +8,6 @@ namespace Fanex.Athena.Service.Customer.Interfaces
 {
     #region Using
 
-    using System.Collections.Generic;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Model.Customer.DTO;
     using Fanex.Athena.Model.Customer.MetaModel;
@@ -18,13 +17,9 @@ namespace Fanex.Athena.Service.Customer.Interfaces
 
     public interface ICustomerListService
     {
-        #region Read
+        ReportResultModel<CustomerDTO> GetActiveCustomers(CustomerListMetaModel metaModel);
 
-        IEnumerable<string> SearchCustomers(int userId, string userName, string agentListXml);
-
-        ReportResultModel<CustomerDTO> Search(CustomerListMetaModel metaModel);
-
-        #endregion Read
+        ReportResultModel<DormantCustomer> GetDormantCustomers(CustomerListMetaModel metaModel);
 
         #region LogInfo
 

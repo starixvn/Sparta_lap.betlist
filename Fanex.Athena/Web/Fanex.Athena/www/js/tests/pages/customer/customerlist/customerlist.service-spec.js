@@ -1,6 +1,6 @@
 ﻿define(["jquery",
     "common/site",
-    "pages/customer/customerlist/customerlist.option",
+    "pages/customer/customerlist/customerlist.gridoption",
     "lib/jqgrid/jquery.jqgrid.additional",
     "components/paging",
     "pages/customer/customerlist/customerlist.state",

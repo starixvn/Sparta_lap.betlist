@@ -128,7 +128,6 @@
     <Compile Include="CustomerListServiceTest_UpdateOddsGroup.cs" />
     <Compile Include="CustomerListServiceTest_GetCustomerLoginInfo.cs" />
     <Compile Include="CustomerServiceTest.cs" />
-    <Compile Include="CustomerListServiceTest_Search.cs" />
     <Compile Include="GroupComServiceTest.cs" />
     <Compile Include="Helpers\GroupCommSettingTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

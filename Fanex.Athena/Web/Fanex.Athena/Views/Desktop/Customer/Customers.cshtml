@@ -23,14 +23,20 @@
             <input type="button" id="RemoveFromGroup" value="@ViewResources.RemoveFromGroup" class="btn btn-back" />
         </div>
     }
+    
+    <div class="page-results" style="display:none">
+        <div class="tab">
+            <button class="tablinks active" data-tab="tabActiveCustomer" >@ViewResources.ActiveCustomers (<span id="num-of-customer-header">0</span>)</button>
+            <button class="tablinks"  data-tab="tabDormantCustomer">@ViewResources.DormantCustomers (<span id="num-of-dormant-customer-header">0</span>)</button>
+        </div>
 
-    <div class="page-results">
-        <div class="result-content">
-            <div class="panel-heading active hide">
+        @*Tab 1*@
+        <div class="result-content tabcontent"  id="tabActiveCustomer" style="margin: 0">
+            <div class="panel-heading active">
                 <div class="panel-title">
                     <div class="report-title" style="">
                         @ViewResources.SearchResult:
-                        <span id="num-of-customer" class="num-of-customer">0 </span>@ViewResources.Customers.ToLower()
+                        <span id="num-of-customer" class="num-of-customer"></span> @ViewResources.Customers.ToLower()
                         <p class="ba-time-notice">@Model.BATimeCheck</p>
                     </div>
                 </div>
@@ -43,18 +49,49 @@
                     }
                 </div>
             </div>
-            <div class="main-content" id="report-content">
+            <div class="main-content"  id="report-content">
                 <div class="theme_jqGrid">
                     <div style="width: 100%">
-                        <table id="ReportGrid" class="table" data-hidden-column="">
-                        </table>
-                        <div class="paging">
+                        <table id="ReportGrid" class="table" data-hidden-column=""></table>
+                        <div class="paging" id="ActiveCustomerPager">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        @*Tab 2*@
+        <div id="tabDormantCustomer" class="tabcontent"  style="margin: 0; display: none">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <div class="report-title" style="">
+                        @ViewResources.SearchResult:
+                        <span id="num-of-dormant-customer" class="num-of-customer"></span> @ViewResources.Customers.ToLower()
+                    </div>
+                </div>
+                <div class="excel-container">
+                    @using (Html.BeginForm("ExportExcelDormantCustomer", "Customer", FormMethod.Post, new { @id = "DormantCustomerExcelForm" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="excelParam" id="excelDormantParam" value="@Model.Param.ToJson()" />
+                        <i class="icon-excel" title="@ViewResources.ExportToExcel" id="ExportToExcelDormantCustomer"></i>
+                    }
+                </div>
+            </div>
+            <div class="main-content">
+                <div class="theme_jqGrid">
+                    <div style="width: 100%">
+                        <table id="DormantCustomerGrid" class="table" data-hidden-column=""></table>
+                        <div class="paging"  id="DormantCustomerPager">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
+
+
 
     @if (!Model.IsSubsidiary && Model.IsAllowedUserEditComm && Model.IsAllowedCustomerCommission)
     {
@@ -73,7 +110,7 @@
                 Html.RenderPartial("~/Views/Desktop/Customer/CustomerDialog/RemoveFromGroup.cshtml");
             }
         </div>
-    }
+                }
     @if (Model.DataList != null)
     {
         @Html.Hidden("NumOfCheckBox", Model.DataList.Count())

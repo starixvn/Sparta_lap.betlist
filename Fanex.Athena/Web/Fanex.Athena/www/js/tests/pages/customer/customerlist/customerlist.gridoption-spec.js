@@ -1,4 +1,4 @@
-﻿define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", "pages/customer/customerlist/customerlist.option"],
+﻿define(["jquery", "common/site", "lib/jqgrid/jquery.jqgrid.additional", "pages/customer/customerlist/customerlist.gridoption"],
     function ($, Site, jqGridAdditional, CustomerListOption) {
         describe("CustomerListOption", function () {
             beforeAll(function () {

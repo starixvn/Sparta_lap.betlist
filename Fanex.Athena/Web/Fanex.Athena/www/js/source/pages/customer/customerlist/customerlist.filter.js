@@ -1,32 +1,42 @@
 ﻿"use strict";
-define(["jquery", "common/site", "./customerlist.state", "./customerlist.service", "components/pluginhelper/autocomplete", "lib/jquery.multiselect"],
-    function ($, Site, CustomerListState, CustomerListService, AutoComplete) {
+define(["jquery", "common/site", "./customerlist.state", "./customerlist.service", "./customerlist.service.dormant",
+    "components/pluginhelper/autocomplete", "lib/jquery.multiselect"],
+    function ($, Site, CustomerListState, CustomerListService, CustomerListServiceDormant, AutoComplete) {
         var _state;
+        var _dormantState;
 
         var _me = {
             initialize: function () {
                 _state = CustomerListState.getState();
+                _dormantState = CustomerListState.getDormantState();
                 Site.addUserGuide({
                     resourceName: "CustomerList",
                     title: Site.getSingleResource("CustomerList")
                 });
                 AutoComplete.initialize({
-                    url: Site.resolveClientUrl("SearchCustomerAPI/SearchCustomer"),
+                    url: Site.resolveClientUrl("SearchCustomerAPI/SearchActiveAndDormantCustomer"),
                     target: "#Username"
                 });
                 _me.initEvent();
             },
-
+            submit: function(){
+                _state.pagingOption.pageindex = 1;
+                _dormantState.pagingOption.pageindex = 1;
+                CustomerListService.submit();
+                CustomerListServiceDormant.submit();
+                $(".page-results").show();
+            },
             initEvent: function () {
                 $('#SubmitButton').click(function () {
-                    _state.pagingOption.pageindex = 1;
-                    CustomerListService.submit();
+                    _me.submit();
                 });
 
                 $("#Username").on('keyup', function (e) {
                     if (e.keyCode === 13) {
                         _state.pagingOption.pageindex = 1;
+                        _dormantState.pagingOption.pageindex = 1;
                         CustomerListService.submit();
+                        CustomerListServiceDormant.submit();
                     }
                 });
 

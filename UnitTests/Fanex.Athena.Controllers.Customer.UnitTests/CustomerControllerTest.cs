@@ -161,7 +161,7 @@
                 _productService.GetProductAccess(Arg.Any<int>(), Arg.Any<string>()).Returns(new ProductAccess(new List<Product>()));
                 SessionService.IsAllowedEditCommission(DefaultUserSession).Returns(false);
                 SessionService.IsAllowedSpecialBA(DefaultUserSession).Returns(false);
-                _customerListService.Search(Arg.Any<CustomerListMetaModel>()).Returns(new ReportResultModel<CustomerDTO>
+                _customerListService.GetActiveCustomers(Arg.Any<CustomerListMetaModel>()).Returns(new ReportResultModel<CustomerDTO>
                 {
                     DataList = new List<CustomerDTO>(),
                     TotalRows = 0

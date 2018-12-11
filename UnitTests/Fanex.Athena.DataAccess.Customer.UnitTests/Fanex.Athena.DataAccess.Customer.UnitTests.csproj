@@ -107,6 +107,8 @@
   <ItemGroup>
     <Compile Include="CustomerDataAccessTest.cs" />
     <Compile Include="CustomerCommDataAccessTest.cs" />
+    <Compile Include="DormantCustomerListDataAccessTest.cs" />
+    <Compile Include="SearchCustomerDataAccessTest.cs" />
     <Compile Include="CustomerListDataAccessTest.cs" />
     <Compile Include="CustomerLogDataAccessTest.cs" />
     <Compile Include="GroupComDataAccessTest.cs" />

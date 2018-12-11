@@ -2,9 +2,10 @@
     "common/site",
     "pages/customer/customerlist/customerlist.state",
     "pages/customer/customerlist/customerlist.service",
+    "pages/customer/customerlist/customerlist.service.dormant",
     "components/pluginhelper/autocomplete",
     "pages/customer/customerlist/customerlist.filter", ],
-    function ($, Site, CustomerListState, CustomerListService, AutoComplete, CustomerListFilter) {
+    function ($, Site, CustomerListState, CustomerListService, CustomerListServiceDormant, AutoComplete, CustomerListFilter) {
         describe("CustomerListFilter", function () {
             beforeAll(function () {
                 spyOn(Site, "getSingleResource").and.callFake(function (str) {
@@ -21,6 +22,7 @@
                 it("initializes components for the page", function () {
                     spyOn(CustomerListFilter, "initEvent");
                     spyOn(CustomerListState, "getState");
+                    spyOn(CustomerListState, "getDormantState");
 
                     CustomerListFilter.initialize();
 
@@ -36,7 +38,9 @@
                     spyOn(CustomerListFilter, "initGridColumnOption");
                     spyOn(CustomerListFilter, "initOddGroupOption");
                     spyOn(CustomerListService, "submit");
+                    spyOn(CustomerListServiceDormant, "submit");
                     spyOn(CustomerListState, "getState").and.returnValue({ pagingOption: { pageindex: 1 } });
+                    spyOn(CustomerListState, "getDormantState").and.returnValue({ pagingOption: { pageindex: 1 } });;
                 });
 
                 it("initializes Grid column option and Odd group option", function () {

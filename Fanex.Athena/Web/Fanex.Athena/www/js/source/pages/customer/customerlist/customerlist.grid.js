@@ -5,6 +5,7 @@ define([
     "common/querystring",
     "./customerlist.state",
     "./customerlist.service",
+    "./customerlist.service.dormant",
     "./customerlist.bastatus",
     "./customerlist.speciallevel",
     "./customerlist.oddsgroup",
@@ -18,6 +19,7 @@ define([
         QueryString,
         CustomerListState,
         CustomerListService,
+        CustomerListServiceDormant,
         CustomerListBAStatus,
         CustomerListSpecialLevel,
         CustomerListOddsGroup,
@@ -26,7 +28,7 @@ define([
         Popup,
         jqGridAdditional) {
         var _state;
-
+        var _dormantState;
         function updateGroupForCheckCustomerArray(groupid) {
             var selectedCustomers = _state.selectedCustomers;
             for (var custId in selectedCustomers) {
@@ -39,8 +41,10 @@ define([
         var _me = {
             initialize: function () {
                 _state = CustomerListState.getState();
+                _dormantState = CustomerListState.getDormantState();
                 window.CustomerList = {
-                    ajaxPaging: _me.ajaxPaging
+                    ajaxPaging: _me.ajaxPaging,
+                    ajaxPagingDormant: _me.ajaxPagingDormant,
                 };
 
                 $("#SubmitButton").prop("disabled", true);
@@ -55,15 +59,22 @@ define([
             },
 
             ajaxPaging: function () {
-                _state.pagingOption = PagingHelper.getSetting();
+                _state.pagingOption = PagingHelper.getSetting("#ActiveCustomerPager");
                 CustomerListService.submit();
+            },
+
+            ajaxPagingDormant: function () {
+                _dormantState.pagingOption = PagingHelper.getSetting("#DormantCustomerPager");
+                CustomerListServiceDormant.submit();
             },
 
             initEvent: function () {
                 $('#ExportToExcel').click(function () {
                     $(this).closest('form').submit();
                 });
-
+                $('#ExportToExcelDormantCustomer').click(function () {
+                    $(this).closest('form').submit();
+                });
                 _me.registerCheckboxEvent();
 
                 $("#report-content").on("click", ".pendingFunds", function () {
@@ -76,7 +87,8 @@ define([
                 });
 
                 $(window).on("resize", function () {
-                    _me.resizeGrid();
+                    CustomerListService.resizeGrid("#ReportGrid");
+                    jqGridAdditional.updateGridHeight($("#tabDormantCustomer"));
                 });
 
                 $(window).on("unload", function () {
@@ -171,12 +183,6 @@ define([
 
                 updateGroupForCheckCustomerArray(groupid);
                 CustomerListService.bindData(_state.cachedData);
-            },
-
-            resizeGrid: function () {
-                var reportGrid = $("#ReportGrid");
-                jqGridAdditional.updateGridHeight();
-                jqGridAdditional.updateGridWidth(reportGrid);
             }
         };
 
