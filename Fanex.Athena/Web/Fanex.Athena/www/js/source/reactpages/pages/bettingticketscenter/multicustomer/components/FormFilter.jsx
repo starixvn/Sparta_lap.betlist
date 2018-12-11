@@ -20,6 +20,8 @@ import ApiUrl from '../../common/constants/apiUrl'
 export class FormFilter extends Component {
     constructor(props) {
         super(props);
+        this.baseCurrencyList = AppData.baseCurrencyList;
+        this.defaultBaseCurrency = props.selectedBaseCurrency;
     }
 
     componentDidMount() {
@@ -202,22 +204,26 @@ export class FormFilter extends Component {
     }
 
     _onChangeCurrency = (currency) => {
-        this.props.setSelectedCurrency(currency);
+        const currencyName = currency.label;
+        let baseCurrency = currencyName;
 
-        const baseCurrencyList = AppData.originalBaseCurrencyList.slice(0); // clone array
-
-        var baseCurrency = baseCurrencyList.find((item) => item.label == currency.label);
-        if(!baseCurrency) {
-            baseCurrency = { value: currency.label, label: currency.label }
-            baseCurrencyList.push(baseCurrency);
+        if (currency.value == 0) {
+            this.baseCurrencyList = AppData.baseCurrencyList;
+            baseCurrency = this.baseCurrencyList.find(x => x.label === this.props.selectedBaseCurrency) ?
+                            this.props.selectedBaseCurrency :
+                            this.defaultBaseCurrency;
         }
-            
-        this.props.setBaseCurrencyList(baseCurrencyList);
-        this.props.setSelectedBaseCurrency(baseCurrency.value);
+        else if(!this.baseCurrencyList.find(x => x.label === currencyName)){
+            this.baseCurrencyList = AppData.baseCurrencyList.slice(0);
+            this.baseCurrencyList.push({value: currencyName, label: currencyName});      
+        }
+
+        this.props.setSelectedCurrency(currency)
+        this.props.setSelectedBaseCurrency(baseCurrency);
     }
 
     _renderBaseCurrencySelectList() {
-        const baseCurrencyList = this.props.baseCurrencyList;
+        const baseCurrencyList = this.baseCurrencyList;
 
         return baseCurrencyList && baseCurrencyList.length && (
             <Select instanceId="ddlBased"

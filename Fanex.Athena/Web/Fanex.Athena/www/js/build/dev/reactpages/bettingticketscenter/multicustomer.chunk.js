@@ -6870,22 +6870,27 @@ var FormFilter = exports.FormFilter = function (_Component) {
         };
 
         _this._onChangeCurrency = function (currency) {
-            _this.props.setSelectedCurrency(currency);
+            var currencyName = currency.label;
+            var baseCurrency = currencyName;
 
-            var baseCurrencyList = _AppData2.default.originalBaseCurrencyList.slice(0); // clone array
-
-            var baseCurrency = baseCurrencyList.find(function (item) {
-                return item.label == currency.label;
-            });
-            if (!baseCurrency) {
-                baseCurrency = { value: currency.label, label: currency.label };
-                baseCurrencyList.push(baseCurrency);
+            if (currency.value == 0) {
+                _this.baseCurrencyList = _AppData2.default.baseCurrencyList;
+                baseCurrency = _this.baseCurrencyList.find(function (x) {
+                    return x.label === _this.props.selectedBaseCurrency;
+                }) ? _this.props.selectedBaseCurrency : _this.defaultBaseCurrency;
+            } else if (!_this.baseCurrencyList.find(function (x) {
+                return x.label === currencyName;
+            })) {
+                _this.baseCurrencyList = _AppData2.default.baseCurrencyList.slice(0);
+                _this.baseCurrencyList.push({ value: currencyName, label: currencyName });
             }
 
-            _this.props.setBaseCurrencyList(baseCurrencyList);
-            _this.props.setSelectedBaseCurrency(baseCurrency.value);
+            _this.props.setSelectedCurrency(currency);
+            _this.props.setSelectedBaseCurrency(baseCurrency);
         };
 
+        _this.baseCurrencyList = _AppData2.default.baseCurrencyList;
+        _this.defaultBaseCurrency = props.selectedBaseCurrency;
         return _this;
     }
 
@@ -7023,7 +7028,7 @@ var FormFilter = exports.FormFilter = function (_Component) {
         value: function _renderBaseCurrencySelectList() {
             var _this7 = this;
 
-            var baseCurrencyList = this.props.baseCurrencyList;
+            var baseCurrencyList = this.baseCurrencyList;
 
             return baseCurrencyList && baseCurrencyList.length && _react2.default.createElement(_reactSelect2.default, { instanceId: 'ddlBased',
                 value: this.props.selectedBaseCurrency,
