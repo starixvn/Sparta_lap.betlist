@@ -7,4 +7,11 @@
   <SpNameConfig Environment="BACKUPMNL" SpName="Lrf_ReCheckIn" EnvironmentText="_mnl"></SpNameConfig>
   <SpNameConfig Environment="BACKUPMNL" SpName="Lrf_CheckIn" EnvironmentText="_mnl"></SpNameConfig>
   <!--Do not delete this-->
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_PlatformWinloss" EnvironmentText="_UAT2"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Rpt_PlatformWinlossDetail" EnvironmentText="_UAT2"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_GetLicenseeTurnoverByPlatform" EnvironmentText="_UAT2"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_GetLicenseeWLByPlatform" EnvironmentText="_UAT2"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_BetList_PlatformWinLoss_Mem" EnvironmentText="_UAT2"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_BetList_Mem" EnvironmentText="_UAT2"></SpNameConfig>
+  <SpNameConfig Environment="DEV,LOCAL,UAT,SIT" SpName="Lrf_Monitor_BetlistSel_New" EnvironmentText="_UAT2"></SpNameConfig>
 </Root>

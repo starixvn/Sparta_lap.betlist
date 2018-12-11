@@ -1,10 +1,8 @@
 ﻿namespace Fanex.Athena.Model.Core.DataDomain
 {
+    using System.Collections.Generic;
     using Fanex.Athena.Resources;
 
-    /// <summary>
-    ///  Update dataaccess\fanex.athena.dataaccess.dashboard\platformkey.cs
-    /// </summary>
     public static class PlatformType
     {
         public const int All = 0;
@@ -26,6 +24,25 @@
         public const int MobileApp = 8;
 
         public const int MobileChinaView = 9;
+
+        private static readonly IDictionary<int, string> MapPlatformKeys = new Dictionary<int, string>
+        {
+            { All, nameof(All) },
+            { Asia, nameof(Asia) },
+            { China, nameof(China) },
+            { Euro, nameof(Euro) },
+            { Wap, nameof(Wap) },
+            { SmartSite, nameof(SmartSite) },
+            { Tablet, nameof(Tablet) },
+            { NewAsia, nameof(NewAsia) },
+            { MobileApp, nameof(MobileApp) },
+            { MobileChinaView, nameof(MobileChinaView) }
+        };
+
+        public static string GetPlatformKey(int type)
+        {
+            return MapPlatformKeys.ContainsKey(type) ? MapPlatformKeys[type] : "All";
+        }
 
         public static string GetPlatformName(int type)
         {

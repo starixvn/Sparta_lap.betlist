@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using Core.UnitTests.TestHelpers;
+    using Model.Core.DataDomain;
     using Model.Dashboard.MetaModel;
     using Model.Dashboard.ViewModel;
     using NSubstitute;
@@ -52,12 +53,12 @@
             {
                 Data = new List<KeyValuePair<string, decimal>>
                 {
-                    new KeyValuePair<string, decimal>(nameof(PlatformKey.Asia), 100M),
+                    new KeyValuePair<string, decimal>(nameof(PlatformType.Asia), 100M),
                 }
             };
             var metaModel = new DashboardBaseModel { BaseCurrency = "EUR" };
             Reader.Read().Returns(true, false);
-            Reader["PlatformType"].Returns(PlatformKey.Asia);
+            Reader["PlatformType"].Returns(PlatformType.Asia);
             Reader["LicenseeWLEUR"].Returns(100M);
 
             // Action
@@ -108,12 +109,12 @@
             {
                 Data = new List<KeyValuePair<string, decimal>>
                 {
-                    new KeyValuePair<string, decimal>(nameof(PlatformKey.Asia), 100M),
+                    new KeyValuePair<string, decimal>(nameof(PlatformType.Asia), 100M),
                 }
             };
             var metaModel = new DashboardBaseModel { BaseCurrency = "EUR" };
             Reader.Read().Returns(true, false);
-            Reader["PlatformType"].Returns(PlatformKey.Asia);
+            Reader["PlatformType"].Returns(PlatformType.Asia);
             Reader["TurnoverEUR"].Returns(100M);
 
             // Action
