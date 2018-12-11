@@ -96,7 +96,7 @@
 "use strict";
 
 
-// Generated at: 12/11/2018 2:34:39 PM
+// Generated at: 12/4/2018 4:12:54 PM
 window._language_en_US = {
   AA: "AA",
   AB: "AB",
@@ -267,7 +267,6 @@ window._language_en_US = {
   CSComm: "CS Comm",
   Currencies: "Currencies",
   Currency: "Currency",
-  CurrencyNotSupportedForGoldDeluxe: "This currency is not supported to play Gold Deluxe. Please check again later.",
   CurrentGroup: "Current Group",
   Currentmonth: "Current month",
   CurrentReport: "Current Report",
@@ -635,7 +634,6 @@ window._language_en_US = {
   Mo: "Mo",
   Mobile: "Mobile",
   MobileApp: "Mobile App",
-  MobileChinaView: "Mobile China View",
   Mode: "Mode",
   Monday: "Monday",
   Money: "Money",
@@ -905,6 +903,8 @@ window._language_en_US = {
   TicketType: "Ticket Type",
   Time: "Time",
   TimeZone: "Time Zone",
+  TipAmount: "Tip Amount",
+  TipSharing: "Tip Sharing",
   To: "To",
   Todate: "To date",
   Today: "Today",
@@ -960,7 +960,6 @@ window._language_en_US = {
   UpdateCustomerCommission: "Update Customer Commission",
   UpdateFunctionSuccessfulMsg: "Updating Functions is successul.",
   UpdateGoldDeluxeBetSettings: "Are you sure you want to update all Gold Deluxe bet settings?",
-  UpdateGoldDeluxeBetSettingSuccessMsg: "The Gold Deluxe bet setting of {0} was updated successfully",
   UpdateKenoBetSettings: "Are you sure you want to update all Keno bet settings?",
   UpdateKenoBetSettingSuccessMsg: "The Keno bet setting of {0} was updated successfully",
   UpdateMemberEsportsSuccessMsg: "The E-Sports is {0} successfully.",

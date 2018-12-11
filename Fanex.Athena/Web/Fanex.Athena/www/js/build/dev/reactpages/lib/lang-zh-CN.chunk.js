@@ -96,7 +96,7 @@
 "use strict";
 
 
-// Generated at: 12/11/2018 2:34:39 PM
+// Generated at: 12/4/2018 4:12:54 PM
 window._language_zh_CN = {
   AA: "客客",
   AccessDeniedMsg: "对不起, 您没有权限访问此页面。",
@@ -787,6 +787,8 @@ window._language_zh_CN = {
   TicketType: "注单类型",
   Time: "时间",
   TimeZone: "时区",
+  TipAmount: "打赏金额",
+  TipSharing: "打赏分成",
   To: "至",
   Todate: "至日期",
   Today: "今日",
