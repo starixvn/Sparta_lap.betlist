@@ -96,7 +96,7 @@
 "use strict";
 
 
-// Generated at: 10/9/2018 4:34:45 PM
+// Generated at: 12/11/2018 2:34:39 PM
 window._language_zh_TW = {
   AA: "客客",
   AccessDeniedMsg: "對不起，您沒有權限訪問此頁面。",
@@ -301,7 +301,6 @@ window._language_zh_TW = {
   Disable: "Disable",
   DisableAgCasino: "Disable AG Casino",
   DisableRNGCasino: "停用娛樂城",
-  DisableSSOMsg: "SSO功能被禁用",
   Dontshowagain: "不再顯示",
   DoubleChance: "雙重機會",
   Download: "下載",
@@ -320,7 +319,6 @@ window._language_zh_TW = {
   EnableAgCasino: "Enable AG Casino",
   EnableCashOut: "開啟即時兌現",
   EnableRNGCasino: "Enable RNG Casino",
-  EndBalance: "結束餘額",
   EndDate: "結束日期",
   Entered: "成績已輸入場數",
   Error: "誤差",
@@ -661,7 +659,6 @@ window._language_zh_TW = {
   Place: "位置",
   Platform: "平台",
   Player: "玩家",
-  PlayerHistoryNo: "玩家歷史號碼",
   Postponed: "改期",
   PreGame: "遊戲開始前",
   Prev: "上個",
@@ -710,7 +707,6 @@ window._language_zh_TW = {
   RngCasinoAndBingoExcludedNote: "此報告不包含娛樂城及賓果",
   RngCasinoAndKenoExcludedNote: "RNG Casino and Keno are not included in the report",
   RNGCasinoUpdateSettingUnAvailableMsg: "RNG Casino Database is not currently available. Please try again later.",
-  RollingComm: "Rolling Comm",
   RoundType: "每局類型",
   Running: "進行中",
   S1: "1S",
@@ -761,7 +757,6 @@ window._language_zh_TW = {
   Sportsbook: "體育博彩",
   Stake: "投注額",
   StakeFrom: "投注額從",
-  StartBalance: "開始餘額",
   StartDate: "開始日期",
   StartTime: "開始時間",
   Statement: "賬目",

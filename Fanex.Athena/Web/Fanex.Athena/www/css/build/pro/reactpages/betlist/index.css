@@ -214,3 +214,6 @@
   .betlist-container .bonus-icon:hover {
     cursor: pointer; }
 
+.betlist-container .status {
+  white-space: normal; }
+

@@ -96,7 +96,7 @@
 "use strict";
 
 
-// Generated at: 10/5/2018 4:33:17 PM
+// Generated at: 12/11/2018 2:34:39 PM
 window._language_ko_KR = {
   AA: "AA",
   AccessDeniedMsg: "죄송합니다. 이 페이지에 접근할 권한이 없습니다.",
@@ -260,7 +260,6 @@ window._language_ko_KR = {
   Disable: "불능시킴",
   DisableAgCasino: "Disable AG Casino",
   DisableRNGCasino: "Disable RNG Casino",
-  DisableSSOMsg: "SSO기능을 사용할 수 없습니다",
   Dontshowagain: "다시 보지않기",
   DoubleChance: "더블 찬스",
   Download: "다운로드",
@@ -277,7 +276,6 @@ window._language_ko_KR = {
   Enable: "활성화시킴",
   EnableAgCasino: "Enable AG Casino",
   EnableRNGCasino: "Enable RNG Casino",
-  EndBalance: "최종 잔액",
   EndDate: "종료일",
   Entered: "입력되었습니다",
   Error: "오류",
@@ -598,7 +596,6 @@ window._language_ko_KR = {
   Place: "장소",
   Platform: "플랫폼",
   Player: "경기자",
-  PlayerHistoryNo: "경기자 이력 번호",
   Postponed: "연기되었습니다",
   PreGame: "예선전",
   Prev: "이전",
@@ -645,7 +642,6 @@ window._language_ko_KR = {
   RngCasinoAndBingoExcludedNote: "RNG 카지노와 빙고는 이 보고서에 포함되지 않습니다",
   RngCasinoAndKenoExcludedNote: "RNG Casino and Keno are not included in the report",
   RNGCasinoUpdateSettingUnAvailableMsg: "RNG 카지노 데이터베이스를 현재 사용할 수 없습니다. 나중에 다시 시도해주십시오.",
-  RollingComm: "수수료 롤링",
   RoundType: "라운드 유형",
   Running: "달리기",
   S1: "1S",
@@ -693,7 +689,6 @@ window._language_ko_KR = {
   Sportsbook: "스포츠북",
   Stake: "지분",
   StakeFrom: "의 지분",
-  StartBalance: "시작  잔액",
   StartDate: "시작일",
   StartTime: "시작시간",
   Statement: "명세서",
