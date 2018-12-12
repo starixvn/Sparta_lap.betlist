@@ -1243,7 +1243,7 @@ var SuggestionList = function (_Component) {
                 return _react2.default.createElement(
                     'li',
                     { key: 'ac-item-' + index, className: className, onClick: _this2.onSelect.bind(_this2, item) },
-                    (typeof item === 'undefined' ? 'undefined' : _typeof(item)) === "object" ? item.value : item
+                    item && (typeof item === 'undefined' ? 'undefined' : _typeof(item)) === "object" ? item.value : item
                 );
             });
         }
