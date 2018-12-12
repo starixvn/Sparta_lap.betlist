@@ -47,6 +47,11 @@ define(["jquery", "common/site", "vendor-materialize", "materialize-autocomplete
         },
 
         search: function (value, callback) {
+            if ($.trim(value) === "")
+            {
+                return;
+            }
+
             var url = mainOption.url + "?query=" + value;
 
             $.ajax({
