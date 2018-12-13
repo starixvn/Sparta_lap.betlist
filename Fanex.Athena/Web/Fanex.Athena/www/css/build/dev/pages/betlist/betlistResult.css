@@ -266,6 +266,12 @@ body {
     border-top: 0;
     text-align: center;
     padding: 4px; }
+  .result-container .width-40 {
+    width: 40%; }
+  .result-container .width-30 {
+    width: 30%; }
+  .result-container .color-blue {
+    color: #4169E1; }
 
 
 /*# sourceMappingURL=betlistResult.css.map*/

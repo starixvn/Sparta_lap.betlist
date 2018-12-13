@@ -86,7 +86,7 @@
     <Setting Key="Lrf_Rpt_WinlossByProductDetail_Ag" SpName="Lrf_Rpt_WinlossByProductDetail_Ag" DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_WinlostByLeague" SpName="Lrf_Rpt_WinlostByLeague"  DbName="DBEXT.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_WinlossByLeagueDetail" SpName="Lrf_Rpt_WinlossByLeagueDetail"  DbName="DBEXT.bodb02.bodbLicenseeNet" />
-    <Setting Key="Lrf_BetList_WinlostByLeague_Mem" SpName="Lrf_BetList_WinlostByLeague_Mem"  DbName="DBEXT.bodb02.bodbLicenseeNet" />
+    <Setting Key="Lrf_BetList_WinlostByLeague_Mem" SpName="Lrf_BetList_WinlostByLeague_Mem"  DbName="DBACC.bodb02.bodbLicenseeNet" />
     <Setting Key="Lrf_Rpt_AGCasinoWinloss" SpName="Lrf_Rpt_AGCasinoWinloss" DbName="DBACC.bodb02.bodbLicenseeNet" />
     <Setting Key="LRF_Rpt_AGCasinoWinloss_Ag" SpName="LRF_Rpt_AGCasinoWinloss_Ag" DbName="DBACC.bodb02.bodbLicenseeNet" />
     <Setting Key="LRF_Rpt_AGCasinoWinloss_Mem" SpName="LRF_Rpt_AGCasinoWinloss_Mem" DbName="DBACC.bodb02.bodbLicenseeNet" />
@@ -149,7 +149,6 @@
   <Function Name="CustomerSettings">
     <Setting Key="Lrf_CustomerUpdCasinoStatus" SpName="Lrf_CustomerUpdCasinoStatus" DbName="DBCUST.CustDB.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerSelEditCustomer" SpName="Lrf_CustomerSelEditCustomer" DbName="DBCUST.CustDB.bodbLicenseeNet" />
-    <Setting Key="Lrf_CustomerUpdEsportStatus" SpName="Lrf_CustomerUpdEsportStatus" DbName="DBCUST.CustDB.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerSelEditNG" SpName="Lrf_CustomerSelEditNG" DbName="DBCUST.CustDB.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerSelEditKN" SpName="Lrf_CustomerSelEditKN" DbName="DBCUST.CustDB.bodbLicenseeNet" />
     <Setting Key="Lrf_CustomerUpdMember_All" SpName="Lrf_CustomerUpdMember_All" DbName="DBCUST.CustDB.bodbLicenseeNet" />

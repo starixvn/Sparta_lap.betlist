@@ -90,7 +90,8 @@
 
                 _betSettingService.UpdateBetSetting(
                    Arg.Any<CommonBetSetting>(),
-                   Arg.Any<IDictionary<string, object>>()).Returns(new ResultInfo { Code = 0 });
+                   Arg.Any<IDictionary<string, object>>(),
+                   Arg.Any<DcsBetSetting>()).Returns(new ResultInfo { Code = 0 });
 
                 // Action
                 var result = controller.UpdateBetSetting(string.Empty) as JsonResult;
@@ -120,7 +121,8 @@
 
                 _betSettingService.UpdateBetSetting(
                    Arg.Any<CommonBetSetting>(),
-                   Arg.Any<IDictionary<string, object>>()).Returns(new ResultInfo { Code = 1, Message = "Error" });
+                   Arg.Any<IDictionary<string, object>>(),
+                   Arg.Any<DcsBetSetting>()).Returns(new ResultInfo { Code = 1, Message = "Error" });
 
                 // Action
                 var result = controller.UpdateBetSetting(string.Empty) as JsonResult;
@@ -158,7 +160,8 @@
                 IDictionary<string, object> param = null;
                 _betSettingService.UpdateBetSetting(
                    Arg.Any<CommonBetSetting>(),
-                   Arg.Do<IDictionary<string, object>>(x => param = x)).Returns(new ResultInfo { Code = 1, Message = "Error" });
+                   Arg.Do<IDictionary<string, object>>(x => param = x),
+                   Arg.Any<DcsBetSetting>()).Returns(new ResultInfo { Code = 1, Message = "Error" });
 
                 // Action
                 controller.UpdateBetSetting(string.Empty);
@@ -179,108 +182,6 @@
                     Assert.That(param["updateminmaxbetv3"], Is.True);
                     Assert.That(param["updateminmaxbetv5"], Is.False);
                 });
-            }
-        }
-
-        [Test]
-        public void UpdateEsportStatus_DoNotEnableEsportSettingStatus_ReturnFailResultInfo()
-        {
-            using (var controller = CreateController())
-            {
-                // Arrange
-                StubGetValueAppSettings("EnableEsportSettingStatus", "false");
-
-                // Action
-                var result = controller.UpdateEsportStatus(false) as JsonResult;
-                var resultInfo = (ResultInfo)result.Data;
-
-                // Assert
-                Assert.Multiple(() =>
-                {
-                    Assert.That(resultInfo.Code, Is.EqualTo(-1));
-                    Assert.That(resultInfo.Message, Is.EqualTo(ViewResources.FunctionIsUnderMaintenance));
-                });
-            }
-        }
-
-        [Test]
-        public void UpdateEsportStatus_NoPermission_ReturnAccessDeniedResult()
-        {
-            using (var controller = CreateController())
-            {
-                // Arrange
-                ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(new ProductAccess(new List<Product>()));
-
-                StubGetValueAppSettings("EnableEsportSettingStatus", "true");
-
-                // Action
-                var result = controller.UpdateEsportStatus(false) as JsonResult;
-                var resultInfo = (ResultInfo)result.Data;
-
-                // Assert
-                Assert.Multiple(() =>
-                {
-                    Assert.That(resultInfo.Code, Is.EqualTo(-1));
-                    Assert.That(resultInfo.Message, Is.EqualTo(ViewResources.AccessDeniedMsg));
-                });
-            }
-        }
-
-        [TestCase(true, "disabled")]
-        [TestCase(false, "enable")]
-        public void UpdateEsportStatus_UpdateSuccessfully_ReturnSuccessfullResultInfo(bool isDisabled, string enableText)
-        {
-            using (var controller = CreateController())
-            {
-                // Arrange
-                StubGetValueAppSettings("EnableEsportSettingStatus", "true");
-
-                ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(new ProductAccess(new List<Product> { new Product { ProductCode = Product.SB } }));
-
-                SetUpForBetSettingEditable(true);
-
-                _betSettingService.UpdateEsportStatus(
-                   Arg.Any<CommonBetSetting>(),
-                   Arg.Any<bool>()).Returns(new ResultInfo { Code = 0 });
-
-                // Action
-                var result = controller.UpdateEsportStatus(isDisabled) as JsonResult;
-                var resultInfo = (ResultInfo)result.Data;
-
-                // Assert
-                Assert.Multiple(() =>
-                {
-                    Assert.That(resultInfo.Code, Is.EqualTo(0));
-                    Assert.That(resultInfo.Message, Is.EqualTo(string.Format(ViewResources.UpdateMemberEsportsSuccessMsg, enableText)));
-                });
-            }
-        }
-
-        [Test]
-        public void UpdateEsportStatus_UpdateFailed_ReturnFailedResultInfo()
-        {
-            using (var controller = CreateController())
-            {
-                // Arrange
-                StubGetValueAppSettings("EnableEsportSettingStatus", "true");
-
-                ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
-                    .Returns(new ProductAccess(new List<Product> { new Product { ProductCode = Product.SB } }));
-
-                SetUpForBetSettingEditable(true);
-
-                _betSettingService.UpdateEsportStatus(
-                   Arg.Any<CommonBetSetting>(),
-                   Arg.Any<bool>()).Returns(new ResultInfo { Code = 1, Message = "Error" });
-
-                // Action
-                var result = controller.UpdateEsportStatus(false) as JsonResult;
-                var resultInfo = (ResultInfo)result.Data;
-
-                // Assert
-                Assert.That(resultInfo.IsSuccessful, Is.False);
             }
         }
 

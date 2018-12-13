@@ -116,6 +116,10 @@
       <HintPath>..\..\..\packages\Fanex.BetList.Core.RemotingRef.1.0.0\lib\net461\Fanex.BetList.Core.RemotingRef.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Fanex.BetList.ESports, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.BetList.ESports.1.0.0\lib\net40\Fanex.BetList.ESports.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Fanex.BetList.GlobalGaming, Version=1.0.0.6, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.BetList.GlobalGaming.1.0.0.6\lib\net40\Fanex.BetList.GlobalGaming.dll</HintPath>
       <Private>True</Private>
@@ -178,16 +182,16 @@
       <HintPath>..\..\..\packages\Fanex.RemotingRef.1.3.0\lib\net461\Fanex.RemotingRef.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.Result.Core, Version=2.1.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.Result.Core-NPOI.2.0.6.2.1.3\lib\net40\Fanex.Result.Core.dll</HintPath>
+    <Reference Include="Fanex.Result.Core, Version=2.1.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Result.Core-NPOI.2.0.6.2.1.6\lib\net40\Fanex.Result.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.Result.Core.AllBetCasino, Version=1.0.1.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Result.Core.AllBetCasino.1.0.1.2\lib\net40\Fanex.Result.Core.AllBetCasino.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.Result.Core.Base, Version=2.1.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.Result.Core-NPOI.2.0.6.2.1.3\lib\net40\Fanex.Result.Core.Base.dll</HintPath>
+    <Reference Include="Fanex.Result.Core.Base, Version=2.1.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Result.Core-NPOI.2.0.6.2.1.6\lib\net40\Fanex.Result.Core.Base.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.Result.Core.MicroGaming, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
@@ -209,8 +213,8 @@
     <Reference Include="Fanex.Result.Core.RemotingRef, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Result.Core.RemotingRef.1.0.1\lib\net461\Fanex.Result.Core.RemotingRef.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.Result.Core.Sportsbook, Version=1.1.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.Result.Core-Sportsbook.1.1.3\lib\net40\Fanex.Result.Core.Sportsbook.dll</HintPath>
+    <Reference Include="Fanex.Result.Core.Sportsbook, Version=1.1.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Result.Core-Sportsbook.1.1.5\lib\net40\Fanex.Result.Core.Sportsbook.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="IBCCrypt, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -665,9 +669,6 @@
     <Content Include="Content\Fanex.Result\Allbet\template\public\game_result\Sicbo\ScoreBoard_d4.png" />
     <Content Include="Content\Fanex.Result\Allbet\template\public\game_result\Sicbo\ScoreBoard_d5.png" />
     <Content Include="Content\Fanex.Result\Allbet\template\public\game_result\Sicbo\ScoreBoard_d6.png" />
-    <Content Include="Content\Fanex.Result\fanex.result.css" />
-    <Content Include="Content\Fanex.Result\images\bg_header03.jpg" />
-    <Content Include="Content\Fanex.Result\images\goal-icon.png" />
     <Content Include="Content\FlatPopup\book.png" />
     <Content Include="Content\FlatPopup\close_pop.png" />
     <Content Include="Content\FlatPopup\jquery.custom-scrollbar.css" />
@@ -910,6 +911,7 @@
     <Content Include="www\css\build\dev\reactpages\speciallicenseewl\index.css.map" />
     <Content Include="www\css\source\reactpages\components\month-picker.scss" />
     <Content Include="App_Data\Template\Customers\DormantCustomerList.xls" />
+    <Content Include="App_Data\Fanex.Result\ESport.xls" />
     <None Include="SiteConfig\Web.AppSettings.BACKUPMNLStatic.config" />
     <None Include="SiteConfig\Web.ConnectionStrings.BACKUPMNLStatic.config">
       <SubType>Designer</SubType>
@@ -2643,7 +2645,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Fanex.Result\images\tab_topbg.gif" />
     <Content Include="Content\Global\Global.css" />
     <Content Include="Content\Global\images\arrow-back.png" />
     <Content Include="Content\Global\images\bg_clock.jpg" />
@@ -5179,7 +5180,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Fanex.Result\images\tab_topbg.gif" />
     <Content Include="Content\Library\smoothness\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\Library\smoothness\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\Library\smoothness\images\ui-bg_glass_55_fbf9ee_1x400.png" />

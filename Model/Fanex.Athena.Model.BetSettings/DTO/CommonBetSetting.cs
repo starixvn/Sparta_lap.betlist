@@ -6,18 +6,11 @@
 
 namespace Fanex.Athena.Model.BetSettings.DTO
 {
-    using Fanex.Athena.Model.Core.DTO.Common;
-
     /// <summary>
     /// CommonBetSetting class.
     /// </summary>
     public class CommonBetSetting
     {
-        public CommonBetSetting()
-        {
-            ResultInfo = new ResultInfo { Code = 0, Message = string.Empty };
-        }
-
         public int LicenseeId { get; set; }
 
         public string Ip { get; set; }
@@ -33,7 +26,5 @@ namespace Fanex.Athena.Model.BetSettings.DTO
         public decimal MaxPerMatch { get; set; }
 
         public int CustId { get; set; }
-
-        public IResultInfo ResultInfo { get; set; }
     }
 }

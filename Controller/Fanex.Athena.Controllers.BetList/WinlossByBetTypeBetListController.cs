@@ -63,8 +63,11 @@
                 metaModel.FromDate.ToString(FormatKey.ShortDateFormat),
                 metaModel.ToDate.ToString(FormatKey.ShortDateFormat),
                 viewinCurrency);
-
-            return ProcessExportExcel(new ShowingOption(), metaModel, ticketResult, new List<int> { BetEffectiveColumn }, title, "WinLossByBetTypeBetList");
+            var showingOption = new ShowingOption
+            {
+                CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm
+            };
+            return ProcessExportExcel(showingOption, metaModel, ticketResult, new List<int> { BetEffectiveColumn }, title, "WinLossByBetTypeBetList");
         }
     }
 }

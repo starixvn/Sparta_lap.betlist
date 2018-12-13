@@ -10,6 +10,8 @@ namespace Fanex.Athena.Constant.DataDomain
     {
         public const int Sportsbook = 0;
 
+        public const int Sportsbooks2 = 16; // feature #100721 - Esports2
+
         public const int NumberGame = 2;
 
         public const int BA = 3;

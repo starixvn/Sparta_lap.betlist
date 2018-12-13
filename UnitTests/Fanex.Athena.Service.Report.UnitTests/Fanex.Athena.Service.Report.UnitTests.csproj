@@ -45,12 +45,12 @@
     <Reference Include="Fanex.Logging, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\lrf\packages\Fanex.Logging.1.0.0.0\lib\net40\Fanex.Logging.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.Result.Core, Version=2.1.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.Result.Core-NPOI.2.0.6.2.1.3\lib\net40\Fanex.Result.Core.dll</HintPath>
+    <Reference Include="Fanex.Result.Core, Version=2.1.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.Result.Core-NPOI.2.0.6.2.1.6\lib\net40\Fanex.Result.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.Result.Core.Base, Version=2.1.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.Result.Core-NPOI.2.0.6.2.1.3\lib\net40\Fanex.Result.Core.Base.dll</HintPath>
+    <Reference Include="Fanex.Result.Core.Base, Version=2.1.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.Result.Core-NPOI.2.0.6.2.1.6\lib\net40\Fanex.Result.Core.Base.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.Result.Core.NumberGame, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
@@ -61,8 +61,8 @@
       <HintPath>..\..\packages\Fanex.Result.Core-Racing.1.1.0\lib\net40\Fanex.Result.Core.Racing.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.Result.Core.Sportsbook, Version=1.1.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.Result.Core-Sportsbook.1.1.3\lib\net40\Fanex.Result.Core.Sportsbook.dll</HintPath>
+    <Reference Include="Fanex.Result.Core.Sportsbook, Version=1.1.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.Result.Core-Sportsbook.1.1.5\lib\net40\Fanex.Result.Core.Sportsbook.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="IBCFile, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">

@@ -6,12 +6,14 @@
 
 namespace Fanex.Athena.Service.BetSettings
 {
+    using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using Constant.DataDomain;
     using Core.Users.Interfaces;
     using DataAccess.BetSettings.Interfaces;
     using Fanex.Athena.Model.BetSettings.DTO;
     using Fanex.Athena.Model.BetSettings.ViewModel;
-    using Fanex.Athena.Model.Core.DataDomain;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Athena.Service.BetSettings.Interfaces;
     using Resources;
@@ -20,30 +22,44 @@ namespace Fanex.Athena.Service.BetSettings
     {
         private readonly ISportsbookBetSettingDataAccess _betSettingDataAccess;
 
+        private readonly IDcsBetSettingService _dcsBetSettingService;
+
         public SportsbookBetSettingService(
             IAuthorizationService authorizationService,
-            ISportsbookBetSettingDataAccess betSettingDataAccess)
+            ISportsbookBetSettingDataAccess betSettingDataAccess,
+            IDcsBetSettingService dcsBetSettingService)
             : base(authorizationService)
         {
             _betSettingDataAccess = betSettingDataAccess;
+            _dcsBetSettingService = dcsBetSettingService;
         }
 
         public BetSettingViewModel GetViewModel(int licenseeId, int custId)
         {
-            return HasPermissionOnData(licenseeId, custId)
-                        ? _betSettingDataAccess.GetBetSetting(custId)
-                        : new BetSettingViewModel
-                        {
-                            MainData = new List<BetSetting>(),
-                            EsportSetting = EsportSettingType.NoneOffering
-                        };
+            const int EsportIndex = 2;
+            if (!HasPermissionOnData(licenseeId, custId))
+            {
+                return new BetSettingViewModel
+                {
+                    MainData = new List<BetSetting>()
+                };
+            }
+
+            var viewModel = _betSettingDataAccess.GetBetSetting(custId);
+
+            // Esport must be inserted in this "Feng Shui" position.
+            viewModel.MainData.Insert(EsportIndex, GetESportsSetting(licenseeId, custId));
+            return viewModel;
         }
 
-        public IResultInfo UpdateBetSetting(CommonBetSetting setting, IDictionary<string, object> hashParam)
+        public IResultInfo UpdateBetSetting(
+            CommonBetSetting setting,
+            IDictionary<string, object> hashParam,
+            DcsBetSetting esportSetting)
         {
-            if (setting == null)
+            if (setting == null || esportSetting == null)
             {
-                return ErrorResult("Invalid parameter. sportsBook is null");
+                return ErrorResult("Invalid parameters. bet setting is null");
             }
 
             if (!HasPermissionOnData(setting.LicenseeId, setting.CustId))
@@ -51,17 +67,24 @@ namespace Fanex.Athena.Service.BetSettings
                 return ErrorResult(ViewResources.AccessDeniedMsg);
             }
 
-            return _betSettingDataAccess.UpdateBetSetting(setting, hashParam);
-        }
-
-        public IResultInfo UpdateEsportStatus(CommonBetSetting setting, bool isDisabled)
-        {
-            if (setting == null)
+            var result = _betSettingDataAccess.UpdateBetSetting(setting, hashParam);
+            if (result.IsSuccessful)
             {
-                return ErrorResult("Invalid parameter. sportsBook is null");
+                return _dcsBetSettingService.UpdateBetSetting(setting.LicenseeId, setting.CustId, setting.UserId, setting.Ip, new[] { esportSetting });
             }
 
-            return _betSettingDataAccess.UpdateEsportStatus(setting, isDisabled);
+            return result;
+        }
+
+        private BetSetting GetESportsSetting(int licenseeId, int custId)
+        {
+            var dataList = _dcsBetSettingService.GetBetSettings(licenseeId, custId, ProductTypes.Sportsbooks2);
+            if (!dataList.Any())
+            {
+                throw new InvalidOperationException("There is no E-sport setting data.");
+            }
+
+            return dataList.First();
         }
     }
 }

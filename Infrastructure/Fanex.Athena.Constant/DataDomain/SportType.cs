@@ -233,6 +233,8 @@ namespace Fanex.Athena.Constant.DataDomain
         /// </summary>
         Wrestling = 42,
 
+        Esports = 43,
+
         UnknowThaiSport = 46,
 
         /// <summary>
@@ -308,6 +310,7 @@ namespace Fanex.Athena.Constant.DataDomain
         Exchange = 221,
 
         VirtualBasketball = 193,
+
         PP = 248
     }
 }

@@ -986,6 +986,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿// require op
         },
 
         search: function (value, callback) {
+            if ($.trim(value) === "")
+            {
+                return;
+            }
+
             var url = mainOption.url + "?query=" + value;
 
             $.ajax({

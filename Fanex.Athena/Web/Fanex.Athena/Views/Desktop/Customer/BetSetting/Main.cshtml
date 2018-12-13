@@ -31,7 +31,6 @@
 }
 
 @{
-    const int EsportSportId = 43;
     const string FormatDecimal = "#,###,##0.##";
 
     var betSettingType = ViewResources.Sport;
@@ -78,15 +77,9 @@ else
 
                     @foreach (var item in Model.MainData)
                     {
-                        var esportText = string.Empty;
-                        if (item.SportId == ((int)SportType.OtherSports).ToString() && Model.EsportSetting != EsportSettingType.NoneOffering)
-                        {
-                            esportText = "& " + _cacheRefAdapter.GetSportName(EsportSportId);
-                        }
-
                         <tr>
                             <td>
-                                @item.BetSettingType @esportText
+                                @item.BetSettingType
                                 <input id="bet-type-@(item.SportId)" type="hidden" value="@item.BetType" />
                             </td>
                             <td>
@@ -129,14 +122,6 @@ else
                 @ViewResources.Submit
             </button>
             <button type="button" id="btnReset" class="btn btn-cancel">@ViewResources.Reset</button>
-
-            @if (ConfigurationManager.AppSettings["EnableEsportSettingStatus"] == "true" && Model.EsportSetting != EsportSettingType.NoneOffering)
-            {
-                var buttonText = (Model.EsportSetting == EsportSettingType.NoneMemberOffering ? ViewResources.Enable : ViewResources.Disable) + " " + _cacheRefAdapter.GetSportName(43);
-                var esportStatus = Model.EsportSetting == EsportSettingType.NoneMemberOffering;
-                <input type="hidden" id="esport-text-from-remotingref" value="@_cacheRefAdapter.GetSportName(43)" />
-                <button type="button" id="btnDisableEsports" class="btn btn-submit" data-cust-id="@Model.Param.CustId" data-current-status="@esportStatus">@buttonText</button>
-            }
         </div>
     }
     <!--/SubmitButton-->

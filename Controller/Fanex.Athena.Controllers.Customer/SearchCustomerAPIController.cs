@@ -53,6 +53,11 @@
 
         private JsonResult Search(string query, bool isIncludeDormant)
         {
+            if (string.IsNullOrWhiteSpace(query))
+            {
+                return null;
+            }
+
             var userName = query.Trim();
             var userId = SessionService.UserSession.UserId;
             var customerNames = _searchCustomerDataAccess.SearchCustomers(userId, userName, SessionService.GenerateAgentListXml(), isIncludeDormant);

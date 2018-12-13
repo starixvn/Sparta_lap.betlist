@@ -28,7 +28,10 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
         private readonly IBetSettingReader _betSettingReader;
 
-        public SportsbookBetSettingDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage, IBetSettingReader betSettingReader)
+        public SportsbookBetSettingDataAccess(
+            IAppSettings appSetting,
+            ISessionStorage sessionStorage,
+            IBetSettingReader betSettingReader)
             : base(appSetting, sessionStorage)
         {
             _appSettings = appSetting;
@@ -45,15 +48,10 @@ namespace Fanex.Athena.DataAccess.BetSettings
                 {
                     if (reader.Read())
                     {
-                        var esportSetting = reader.HasColumn("DisableEsports") ?
-                            (EsportSettingType)System.Convert.ToInt32(reader["DisableEsports"])
-                            : EsportSettingType.NoneOffering;
-
                         var dataList = GetBetSettings(reader, _appSettings.IsShowMixedSport);
                         return new BetSettingViewModel
                         {
-                            MainData = dataList,
-                            EsportSetting = esportSetting
+                            MainData = dataList
                         };
                     }
                 }
@@ -61,8 +59,7 @@ namespace Fanex.Athena.DataAccess.BetSettings
 
             return new BetSettingViewModel
             {
-                MainData = new List<BetSetting>(),
-                EsportSetting = EsportSettingType.NoneOffering
+                MainData = new List<BetSetting>()
             };
         }
 
@@ -91,26 +88,6 @@ namespace Fanex.Athena.DataAccess.BetSettings
             }
         }
 
-        public IResultInfo UpdateEsportStatus(CommonBetSetting setting, bool isDisabled)
-        {
-            var uspName = "Lrf_CustomerUpdEsportStatus";
-
-            using (var db = this.GetObjectDb(uspName))
-            {
-                db.AddInParameter("ip", DbType.String, setting.Ip);
-                db.AddInParameter("Langkey", DbType.String, setting.Language);
-                db.AddInParameter("userid", DbType.Int32, setting.UserId);
-                db.AddInParameter("custid", DbType.Int32, setting.CustId);
-                db.AddInParameter("DisableEsports", DbType.Boolean, isDisabled);
-                db.AddOutParameter("ErrCode", DbType.String, 600);
-                db.AddOutParameter("ErrMsg", DbType.String, 8000);
-
-                db.ExecuteNonQuery();
-
-                return GetResult(db);
-            }
-        }
-
         private IList<BetSetting> GetBetSettings(IDataReader reader, bool isShowMixedSport)
         {
             var sportList = new List<BetSetting>();
@@ -123,7 +100,6 @@ namespace Fanex.Athena.DataAccess.BetSettings
             sportList.Add(_betSettingReader.ReadForSport(reader, ((int)SportType.Golf).ToString()));
             sportList.Add(_betSettingReader.ReadForSport(reader, ((int)SportType.Motorsports).ToString()));
             sportList.Add(_betSettingReader.ReadForSport(reader, ((int)SportType.OtherSports).ToString()));
-
             if (isShowMixedSport)
             {
                 sportList.Add(_betSettingReader.ReadForSport(reader, MixedSportId));
