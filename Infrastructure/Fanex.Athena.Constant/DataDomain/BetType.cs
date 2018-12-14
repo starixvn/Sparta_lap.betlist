@@ -257,6 +257,8 @@ namespace Fanex.Athena.Constant.DataDomain
 
         VirtualBasketballOverUnder = 2803,
 
-        VirtualBasketballFirstHalfHandicap = 2806
+        VirtualBasketballFirstHalfHandicap = 2806,
+
+        NumberGameHappy5OddEven = 8102
     }
 }

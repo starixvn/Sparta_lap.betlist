@@ -287,6 +287,8 @@
             db.AddInParameter("MoveBetsDay", DbType.DateTime, metaModel.MoveBetsDay);
             AddLiveReportPagingParams(db, metaModel);
             db.AddInParameter("LiveIndicator", DbType.Int32, metaModel.LiveIndicator);
+            db.AddInParameter("SportType", DbType.Int32, metaModel.SportType);
+            db.AddInParameter("BaseCurrency", DbType.String, metaModel.BaseCurrency);
         }
 
         private static void CreateLiveReportBetListByMatchParameters(IObjectDb db, BetListMetaModel betlistMetaModel)

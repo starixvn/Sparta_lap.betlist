@@ -4,6 +4,9 @@
     {
         private const int NGMinBetType = 81;
         private const int NGMaxBetType = 119;
+        private const int NGHappy5MinBetType = 8101;
+        private const int NGHappy5MaxBetType = 8120;
+
         private const int VSMinBetType = 1201;
         private const int VSMaxBetType = 1299;
         private const int VS2MinBetType = 2700;
@@ -14,6 +17,11 @@
         public static bool IsNumberGame(int bettype)
         {
             return IsInRange(bettype, NGMinBetType, NGMaxBetType);
+        }
+
+        public static bool IsNumberGameHappy5(int bettype)
+        {
+            return IsInRange(bettype, NGHappy5MinBetType, NGHappy5MaxBetType);
         }
 
         public static bool IsVirtualSports(int bettype)

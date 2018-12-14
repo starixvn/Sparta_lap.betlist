@@ -260,6 +260,11 @@ namespace Fanex.Athena.Constant.DataDomain
         Greyhound = 152,
 
         /// <summary>
+        /// Number Game
+        /// </summary>
+        NumberGameHappy5= 164,
+
+        /// <summary>
         /// VirtualSport, value = 180.
         /// </summary>
         VirtualSport = 180,

@@ -7,6 +7,7 @@
     using System.Web.Hosting;
     using System.Web.Mvc;
     using Constant.DataDomain;
+    using Constant.Helper;
     using DataAccess.Core.Configuration.Interfaces;
     using Excel.Base.Helpers;
     using Extension.Utility;
@@ -279,7 +280,8 @@
         {
             if ((int)row[NewProductIdColumnName] == ProductTypes.NumberGame)
             {
-                row["matchname"] = string.Format("{0} {1}", ViewResources.NumberGameNo, row["matchcode"]);
+                var prefix = BetTypeHelper.IsNumberGameHappy5(betType) ? ViewResources.No + "." : ViewResources.NumberGameNo;
+                row["matchname"] = string.Format("{0} {1}", prefix, row["matchcode"]);
             }
             else
             {
