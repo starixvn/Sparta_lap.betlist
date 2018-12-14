@@ -3091,7 +3091,8 @@ var Pager = function (_Component) {
             var _props = this.props,
                 isShowPagingInfo = _props.isShowPagingInfo,
                 isAllowInputPageIndex = _props.isAllowInputPageIndex,
-                pageOption = _props.pageOption;
+                pageOption = _props.pageOption,
+                alwaysVisible = _props.alwaysVisible;
             var PageIndex = pageOption.PageIndex,
                 PageSize = pageOption.PageSize,
                 TotalItem = pageOption.TotalItem,
@@ -3101,7 +3102,7 @@ var Pager = function (_Component) {
 
             var isDisable = isNaN(parseInt(inputValue));
 
-            var isShow = TotalItem > PageList[0];
+            var isShow = alwaysVisible || TotalItem > PageList[0];
             var totalPage = Math.ceil(TotalItem / PageSize);
 
             return _react2.default.createElement(
@@ -3138,7 +3139,8 @@ Pager.propTypes = {
     }),
     onPaging: _propTypes2.default.func,
     isShowPagingInfo: _propTypes2.default.bool,
-    isAllowInputPageIndex: _propTypes2.default.bool
+    isAllowInputPageIndex: _propTypes2.default.bool,
+    alwaysVisible: _propTypes2.default.bool
 };
 Pager.defaultProps = {
     pageOption: {
@@ -3148,7 +3150,8 @@ Pager.defaultProps = {
         TotalItem: 0
     },
     isShowPagingInfo: true,
-    isAllowInputPageIndex: true
+    isAllowInputPageIndex: true,
+    alwaysVisible: false
 };
 exports.default = Pager;
 
@@ -3524,7 +3527,8 @@ var Table = function (_Component) {
                 footer = _props2.footer,
                 isPaging = _props2.isPaging,
                 pageOption = _props2.pageOption,
-                onPaging = _props2.onPaging;
+                onPaging = _props2.onPaging,
+                alwaysVisiblePager = _props2.alwaysVisiblePager;
 
             var maxWidth = this.state.maxWidth;
 
@@ -3566,7 +3570,7 @@ var Table = function (_Component) {
                         footer
                     )
                 ),
-                isPaging && pageOption && _react2.default.createElement(_Pager2.default, { pageOption: pageOption, onPaging: onPaging })
+                isPaging && pageOption && _react2.default.createElement(_Pager2.default, { alwaysVisible: alwaysVisiblePager, pageOption: pageOption, onPaging: onPaging })
             );
         }
     }, {
@@ -3597,7 +3601,8 @@ Table.propTypes = {
     isPaging: _propTypes2.default.bool,
     onPaging: _propTypes2.default.func,
     pageOption: _propTypes2.default.object,
-    adjustedHeight: _propTypes2.default.number
+    adjustedHeight: _propTypes2.default.number,
+    alwaysVisiblePager: _propTypes2.default.bool
 };
 Table.defaultProps = {
     width: _constants.MAX_WIDTH,
@@ -3606,7 +3611,8 @@ Table.defaultProps = {
     isPaging: false,
     adjustedHeight: 0,
     bodyHeight: 0,
-    autoHeight: true
+    autoHeight: true,
+    alwaysVisiblePager: false
 };
 
 var _initialiseProps = function _initialiseProps() {
