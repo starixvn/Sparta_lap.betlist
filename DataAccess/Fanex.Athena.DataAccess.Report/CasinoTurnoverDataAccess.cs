@@ -101,9 +101,9 @@
             return new CasinoTurnover
             {
                 BetCount = reader.ToInt("BetCount"),
-                Turnover = reader.ToInt("Turnover"),
-                ValidBetAmount = reader.ToInt("ValidBetAmount"),
-                CustomerWL = reader.ToInt("Winlost")
+                Turnover = reader.ToDecimal("Turnover"),
+                ValidBetAmount = reader.ToDecimal("ValidBetAmount"),
+                CustomerWL = reader.ToDecimal("Winlost")
             };
         }
 
