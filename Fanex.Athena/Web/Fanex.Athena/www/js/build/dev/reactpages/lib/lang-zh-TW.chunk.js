@@ -96,7 +96,7 @@
 "use strict";
 
 
-// Generated at: 12/4/2018 4:12:54 PM
+// Generated at: 12/17/2018 4:03:59 PM
 window._language_zh_TW = {
   AA: "客客",
   AccessDeniedMsg: "對不起，您沒有權限訪問此頁面。",

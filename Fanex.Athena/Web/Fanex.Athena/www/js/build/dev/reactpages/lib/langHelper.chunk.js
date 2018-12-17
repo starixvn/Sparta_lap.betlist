@@ -96,7 +96,7 @@
 "use strict";
 
 
-// Generated at: 12/4/2018 4:12:54 PM
+// Generated at: 12/17/2018 4:03:59 PM
 window._language_en_US = {
   AA: "AA",
   AB: "AB",
@@ -634,6 +634,7 @@ window._language_en_US = {
   Mo: "Mo",
   Mobile: "Mobile",
   MobileApp: "Mobile App",
+  MobileChinaView: "Mobile China View",
   Mode: "Mode",
   Monday: "Monday",
   Money: "Money",
@@ -962,7 +963,6 @@ window._language_en_US = {
   UpdateGoldDeluxeBetSettings: "Are you sure you want to update all Gold Deluxe bet settings?",
   UpdateKenoBetSettings: "Are you sure you want to update all Keno bet settings?",
   UpdateKenoBetSettingSuccessMsg: "The Keno bet setting of {0} was updated successfully",
-  UpdateMemberEsportsSuccessMsg: "The E-Sports is {0} successfully.",
   UpdateNumberGameBetSettings: "Are you sure you want to update all Number Game bet settings?",
   UpdateNumberGameBetSettingSuccessMsg: "The Number Game bet setting of {0} was updated successfully",
   UpdateProductBetSettings: "Are you sure you want to update all {0} bet settings?",
