@@ -3103,4 +3103,8 @@
     <value>Tip Sharing</value>
     <comment>101599</comment>
   </data>
+  <data name="VirtualSoccerAsianCup" xml:space="preserve">
+    <value>Virtual Soccer Asian Cup</value>
+    <comment>105409</comment>
+  </data>
 </root>
