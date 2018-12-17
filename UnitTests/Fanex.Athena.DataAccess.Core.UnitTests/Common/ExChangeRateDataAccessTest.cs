@@ -51,13 +51,5 @@
                 Assert.That(result.GBP, Is.EqualTo(3));
             });
         }
-
-        [Test]
-        public void GetExChangeRate_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                UspName,
-                () => DataAccess.GetExChangeRate(string.Empty, DateTime.Today));
-        }
     }
 }

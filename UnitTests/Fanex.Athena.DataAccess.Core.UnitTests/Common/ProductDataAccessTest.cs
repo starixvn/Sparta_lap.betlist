@@ -63,14 +63,6 @@
             });
         }
 
-        [Test]
-        public void GetProductAccessList_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                SpName,
-                () => DataAccess.GetProductAccessList(LicenseeId));
-        }
-
         private Product GetFakeProductAccess()
         {
             return new Product

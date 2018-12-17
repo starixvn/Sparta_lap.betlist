@@ -57,14 +57,6 @@
         }
 
         [Test]
-        public void LoginOnUser_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                "Lrf_CheckIn",
-                () => DataAccess.LoginOnUser(new User(), string.Empty, 0));
-        }
-
-        [Test]
         public void Logout_WhenCall_ExecuteNonQueryMethodIsCalled()
         {
             // Arrange

@@ -178,14 +178,6 @@
         }
 
         [Test]
-        public void GetSports_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetSportsSp,
-                () => DataAccess.GetSports(new DateTime(), 0));
-        }
-
-        [Test]
         public void GetLeagues_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange

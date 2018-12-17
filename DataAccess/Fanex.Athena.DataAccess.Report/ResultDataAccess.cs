@@ -90,33 +90,26 @@ namespace Fanex.Athena.DataAccess.Report
         {
             const string UspName = "Lrf_Result_SportSelByDate";
 
-            try
+            using (var db = this.GetObjectDb(UspName))
             {
-                using (var db = this.GetObjectDb(UspName))
+                db.AddInParameter("eventdate", DbType.DateTime, dateValue);
+                db.AddInParameter("licenseeid", DbType.Int32, licenseeId);
+                db.AddInParameter("movebetsday", DbType.DateTime, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
+                using (var reader = db.ExecuteReader())
                 {
-                    db.AddInParameter("eventdate", DbType.DateTime, dateValue);
-                    db.AddInParameter("licenseeid", DbType.Int32, licenseeId);
-                    db.AddInParameter("movebetsday", DbType.DateTime, _balanceUpDataAccess.GetBalanceUp().MoveBetsDay);
-                    using (var reader = db.ExecuteReader())
+                    var data = new List<Sport>();
+                    while (reader.Read())
                     {
-                        var data = new List<Sport>();
-                        while (reader.Read())
+                        var sportId = reader.ToInt("sporttype");
+                        data.Add(new Sport
                         {
-                            var sportId = reader.ToInt("sporttype");
-                            data.Add(new Sport
-                            {
-                                SportId = sportId,
-                                SportName = _cacheRefAdapter.GetSportName(sportId)
-                            });
-                        }
-
-                        return data;
+                            SportId = sportId,
+                            SportName = _cacheRefAdapter.GetSportName(sportId)
+                        });
                     }
+
+                    return data;
                 }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName);
             }
         }
 

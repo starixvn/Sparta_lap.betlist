@@ -2,7 +2,6 @@
 {
     using System;
     using Core.Configuration;
-    using Core.Exception;
     using Data;
     using Extension.Utility;
     using Extension.Utility.Interfaces;
@@ -25,9 +24,9 @@
             _logger = Substitute.For<ILogger>();
             _cache = Substitute.For<IMemoryCacheService>();
             DataAccess = Substitute.ForPartsOf<BalanceUpDataAccess>(
-                Substitute.For<IAppSettings>(), 
+                Substitute.For<IAppSettings>(),
                 CreateSessionStorage(),
-                _logger, 
+                _logger,
                 _cache);
             ObjectDb = Substitute.For<IObjectDb>();
         }
@@ -114,15 +113,16 @@
         public void GetBalanceUpDay_WhenObjectDbThrowsException_WriteLog()
         {
             // Arrange
+            var exception = new ObjectDbException();
             _cache.Get<BalanceUp>(Arg.Any<string>()).Returns(x => { return null; });
 
-            DataAccess.GetObjectDb(Arg.Is(UspName)).Returns(x => { throw new ObjectDbException(); });
+            DataAccess.GetObjectDb(Arg.Is(UspName)).Returns(x => { throw exception; });
 
             // Action
             DataAccess.GetBalanceUp();
 
             // Assert
-            _logger.Received().Error(Arg.Is<string>(x => x.Contains(UspName)), Arg.Any<DataAccessException>());
+            _logger.Received(1).Error(Arg.Any<string>(), exception);
         }
     }
 }

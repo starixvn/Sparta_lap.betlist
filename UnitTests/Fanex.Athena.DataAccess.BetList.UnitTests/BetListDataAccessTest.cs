@@ -41,13 +41,5 @@
             // Assert
             ObjectDb.Received(1).AddInParameter("TransId", DbType.Int64, TransId);
         }
-
-        [Test]
-        public void GetMixParlayDetailTicket_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetMixParlayDetailTicketSp,
-                () => DataAccess.GetMixParlayDetailTicket(1, 1));
-        }
     }
 }
