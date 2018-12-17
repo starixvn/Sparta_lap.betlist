@@ -16,13 +16,17 @@
     public class NotificationApiController : ApiController
     {
         private readonly IMoveBetService _moveBetService;
+        private readonly ILicenseeSettingService _licenseeSettingService;
 
         private readonly INotificationService _notificationService;
+        private readonly IAppSettings _appSettings;
 
-        public NotificationApiController(IMoveBetService moveBetService, INotificationService notificationService)
+        public NotificationApiController(IMoveBetService moveBetService, INotificationService notificationService, IAppSettings appSettings, ILicenseeSettingService licenseeSettingService)
         {
             _moveBetService = moveBetService;
             _notificationService = notificationService;
+            _appSettings = appSettings;
+            _licenseeSettingService = licenseeSettingService;
         }
 
         private string UserName => (string)ActionContext.ActionArguments["username"];
@@ -34,9 +38,11 @@
         [HttpGet]
         public string Index()
         {
+            var isEnabledMoveBetNotification = _appSettings.IsEnabledMoveBetNotification && !_licenseeSettingService.IsFakeLicensee();
+
             var langCode = Util.MapIetfLanguageCodes.GetValueOrDefault(Language, string.Empty);
 
-            return _moveBetService.GetMoveBetNotification(langCode);
+            return isEnabledMoveBetNotification ? _moveBetService.GetMoveBetNotification(langCode) : string.Empty;
         }
 
         [HttpGet]
