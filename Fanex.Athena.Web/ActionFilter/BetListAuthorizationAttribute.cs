@@ -17,7 +17,9 @@ namespace Fanex.Athena.Web.ActionFilter
     public sealed class BetListAuthorizationAttribute : ActionFilterAttribute
     {
         public ILicenseeSettingService LicenseeSettingService { get; set; }
+
         public ISessionService SessionService { get; set; }
+
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var context = filterContext.HttpContext;

@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using Fanex.Athena.Service.Core.Configuration.Interfaces;
+using Fanex.Athena.Service.Core.Users.Interfaces;
+using Fanex.Athena.Session.Model;
 using Fanex.Athena.UnitTest.Common.Helpers;
 using Fanex.Athena.UnitTest.Common.NUnitExtensions;
 using Fanex.Athena.Web.ActionFilter;
@@ -11,11 +13,15 @@ namespace Fanex.Athena.Web.UnitTests.ActionFilter
 {
     public class BetListAuthorizationAttributeTest
     {
+        private const string LicenseeName = "Sdfsdfsdfsdf";
+
         private readonly ControllerContext _controllerContext = MvcHelper.CreateControllerContext();
 
         private ActionExecutingContext _filterContext;
 
         private ILicenseeSettingService _licenseeSettingService;
+
+        private ISessionService _sessionService;
 
         private BetListAuthorizationAttribute _attribute;
 
@@ -24,15 +30,22 @@ namespace Fanex.Athena.Web.UnitTests.ActionFilter
         {
             _filterContext = CreateFilterContext();
             _licenseeSettingService = Substitute.For<ILicenseeSettingService>();
+            _sessionService = Substitute.For<ISessionService>();
+            _sessionService.LicenseeSession.Returns(new LicenseeSession
+            {
+                LicenseeName = LicenseeName
+            });
+
             _attribute = new BetListAuthorizationAttribute();
             _attribute.LicenseeSettingService = _licenseeSettingService;
+            _attribute.SessionService = _sessionService;
         }
 
         [Test]
         public void OnActionExecuting_IsAuthorized_FilterContextResultNull()
         {
             // Arrange
-            _licenseeSettingService.IsAuthorizedOnBetList().Returns(true);
+            _licenseeSettingService.IsAuthorizedOnBetList(LicenseeName).Returns(true);
 
             // Action
             _attribute.OnActionExecuting(_filterContext);
@@ -45,7 +58,7 @@ namespace Fanex.Athena.Web.UnitTests.ActionFilter
         public void OnActionExecuting_NotAuthorizedAjaxRequest_CorrectFilterContextResult()
         {
             // Arrange
-            _licenseeSettingService.IsAuthorizedOnBetList().Returns(false);
+            _licenseeSettingService.IsAuthorizedOnBetList(LicenseeName).Returns(false);
             _filterContext.RequestContext.HttpContext.Request.Headers["X-Requested-With"] = "XMLHttpRequest";
 
             // Action
@@ -60,7 +73,7 @@ namespace Fanex.Athena.Web.UnitTests.ActionFilter
         public void OnActionExecuting_NotAuthorized_CorrectFilterContextResult()
         {
             // Arrange
-            _licenseeSettingService.IsAuthorizedOnBetList().Returns(false);
+            _licenseeSettingService.IsAuthorizedOnBetList(LicenseeName).Returns(false);
 
             // Action
             _attribute.OnActionExecuting(_filterContext);

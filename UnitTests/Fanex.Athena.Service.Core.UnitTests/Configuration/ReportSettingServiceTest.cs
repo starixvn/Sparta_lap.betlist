@@ -10,7 +10,7 @@
     using Newtonsoft.Json;
     using NSubstitute;
     using NUnit.Framework;
-    using Session.Model;
+    using Session.Interfaces;
     using UnitTest.Common.Helpers;
 
     [TestFixture]
@@ -24,13 +24,20 @@
 
         private ILicenseeSettingService _fakeLicenseeSettingService;
 
+        private ISessionStorage _sessionStorage;
+
         [SetUp]
         public void SetUp()
         {
             _cache = Substitute.For<IMemoryCacheService>();
             _appSettings = Substitute.For<IAppSettings>();
             _fakeLicenseeSettingService = Substitute.For<ILicenseeSettingService>();
-            _reportSettingService = Substitute.ForPartsOf<ReportSettingService>(_cache, _appSettings, _fakeLicenseeSettingService);
+            _sessionStorage = Substitute.For<ISessionStorage>();
+            _reportSettingService = Substitute.ForPartsOf<ReportSettingService>(
+                _cache, 
+                _appSettings, 
+                _fakeLicenseeSettingService,
+                _sessionStorage);
             _reportSettingService.When(x => x.GetSettingFileContent()).DoNotCallBase();
         }
 
@@ -61,7 +68,7 @@
 
             _reportSettingService.GetSettingFileContent().Returns(jsonContent);
             _cache.Get<IEnumerable<ReportSetting>>(string.Empty).ReturnsForAnyArgs((IEnumerable<ReportSetting>)null);
-            _fakeLicenseeSettingService.GetFakeLicenseeSetting().Returns(x => { return null; });
+            _fakeLicenseeSettingService.GetFakeLicenseeSetting(Arg.Any<string>()).Returns(x => { return null; });
 
             // Action
             var result = _reportSettingService.GetSetting(reportKey);
@@ -131,7 +138,7 @@
                 LimitRecentMonths = 0
             };
             _cache.Get<IEnumerable<ReportSetting>>(string.Empty).ReturnsForAnyArgs(fakeData);
-            _fakeLicenseeSettingService.GetFakeLicenseeSetting().Returns(fakeLicenseeSetting);
+            _fakeLicenseeSettingService.GetFakeLicenseeSetting(Arg.Any<string>()).Returns(fakeLicenseeSetting);
 
             // Action
             var result = _reportSettingService.GetSetting(reportKey);
@@ -164,7 +171,7 @@
                 LimitRecentMonths = 0
             };
             _cache.Get<IEnumerable<ReportSetting>>(string.Empty).ReturnsForAnyArgs(fakeData);
-            _fakeLicenseeSettingService.GetFakeLicenseeSetting().Returns(fakeLicenseeSetting);
+            _fakeLicenseeSettingService.GetFakeLicenseeSetting(Arg.Any<string>()).Returns(fakeLicenseeSetting);
 
             // Action
             var result = _reportSettingService.GetSetting(reportKey);
@@ -196,7 +203,7 @@
                 LimitRecentMonths = limitRecentMonths
             };
             _cache.Get<IEnumerable<ReportSetting>>(string.Empty).ReturnsForAnyArgs(fakeData);
-            _fakeLicenseeSettingService.GetFakeLicenseeSetting().Returns(fakeLicenseeSetting);
+            _fakeLicenseeSettingService.GetFakeLicenseeSetting(Arg.Any<string>()).Returns(fakeLicenseeSetting);
 
             var expectedMinDate = DateTime.Today.AddMonths(-limitRecentMonths + 1).ToString("yyyy/M/1");
 

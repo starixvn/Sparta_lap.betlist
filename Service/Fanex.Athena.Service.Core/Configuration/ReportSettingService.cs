@@ -28,8 +28,14 @@ namespace Fanex.Athena.Service.Core.Configuration
         private readonly IAppSettings _appSettings;
 
         private readonly ILicenseeSettingService _licenseeSettingService;
+
         private readonly ISessionStorage _sessionStorage;
-        public ReportSettingService(IMemoryCacheService cache, IAppSettings appSettings, ILicenseeSettingService licenseeSettingService, ISessionStorage sessionStorage)
+
+        public ReportSettingService(
+            IMemoryCacheService cache, 
+            IAppSettings appSettings, 
+            ILicenseeSettingService licenseeSettingService, 
+            ISessionStorage sessionStorage)
         {
             _cache = cache;
             _appSettings = appSettings;

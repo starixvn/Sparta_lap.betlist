@@ -204,7 +204,7 @@
             {
                 // Arrange
                 AppSettings.IsEnabledMoveBetNotification.Returns(true);
-                _licenseeSettingService.IsFakeLicensee().Returns(isFakeLicensee);
+                _licenseeSettingService.IsFakeLicensee(Arg.Any<string>()).Returns(isFakeLicensee);
 
                 // Action
                 var result = controller.Index() as ViewResult;

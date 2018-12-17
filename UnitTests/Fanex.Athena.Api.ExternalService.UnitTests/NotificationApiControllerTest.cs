@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Web.Http.Controllers;
     using System.Web.Script.Serialization;
+    using Extension.Utility;
     using ExternalService;
     using Model.Core.DTO.Common;
     using Model.Core.ResultModel;
@@ -29,6 +30,10 @@
 
         private INotificationService _notificationService;
 
+        private IAppSettings _appSettings;
+
+        private ILicenseeSettingService _licenseeSettingService;
+
         private NotificationApiController _apiController;
 
         private JavaScriptSerializer _serializer = new JavaScriptSerializer();
@@ -38,7 +43,12 @@
         {
             _moveBetService = Substitute.For<IMoveBetService>();
             _notificationService = Substitute.For<INotificationService>();
-            _apiController = GetControllerWithActionArguments(_moveBetService, _notificationService);
+            _appSettings = Substitute.For<IAppSettings>();
+            _licenseeSettingService = Substitute.For<ILicenseeSettingService>();
+            _apiController = GetControllerWithActionArguments();
+
+            _appSettings.IsEnabledMoveBetNotification.Returns(true);
+            _licenseeSettingService.IsFakeLicensee(Arg.Any<string>()).Returns(false);
         }
 
         [TearDown]
@@ -51,6 +61,8 @@
         [Test]
         public void Index_WhenCall_ServiceIsCalledWithCorrectParameter()
         {
+            // Arrange
+
             // Action
             _apiController.Index();
 
@@ -195,9 +207,7 @@
             Assert.That(result, Is.EqualTo(expectedResult));
         }
 
-        private NotificationApiController GetControllerWithActionArguments(
-            IMoveBetService moveBetService,
-            INotificationService notificationService)
+        private NotificationApiController GetControllerWithActionArguments()
         {
             var mockActionContext = new HttpActionContext
             {
@@ -210,7 +220,7 @@
                 }
             };
 
-            return new NotificationApiController(moveBetService, notificationService)
+            return new NotificationApiController(_moveBetService, _notificationService, _appSettings, _licenseeSettingService)
             {
                 ActionContext = mockActionContext
             };

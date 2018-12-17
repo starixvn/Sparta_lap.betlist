@@ -47,7 +47,6 @@ namespace Fanex.Athena.Service.Core.Configuration
             return authorized;
         }
 
-
         public FakeLicenseeSetting GetFakeLicenseeSetting(string licenseeName)
         {
             return GetAndCacheFakeLicenseeSettingList()?.FirstOrDefault(x => x.SiteName.Equals(licenseeName, StringComparison.OrdinalIgnoreCase));
@@ -89,7 +88,5 @@ namespace Fanex.Athena.Service.Core.Configuration
                 return reader.ReadToEnd();
             }
         }
-
-
     }
 }

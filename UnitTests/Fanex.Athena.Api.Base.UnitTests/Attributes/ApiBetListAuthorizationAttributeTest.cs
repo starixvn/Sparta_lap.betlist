@@ -11,11 +11,17 @@
     using NSubstitute;
     using NUnit.Framework;
     using Service.Core.Configuration.Interfaces;
+    using Service.Core.Users.Interfaces;
+    using Session.Model;
     using UnitTest.Common.Helpers;
 
     public class ApiBetListAuthorizationAttributeTest
     {
+        private const string LicenseeName = "sponXXX";
+
         private ILicenseeSettingService _licenseeSettingService;
+
+        private ISessionService _sessionService;
 
         private ApiBetListAuthorizationAttribute _attribute;
 
@@ -25,10 +31,17 @@
         public void SetUp()
         {
             _licenseeSettingService = Substitute.For<ILicenseeSettingService>();
+            _sessionService = Substitute.For<ISessionService>();
+            _sessionService.LicenseeSession.Returns(new LicenseeSession
+            {
+                LicenseeName = LicenseeName
+            });
+
             _attribute = new ApiBetListAuthorizationAttribute();
             _actionContext = CreateActionContext();
             var builder = new ContainerBuilder();
             builder.RegisterInstance(_licenseeSettingService);
+            builder.RegisterInstance(_sessionService);
             WebApiHelper.SetupResolver(builder, _actionContext);
         }
 
@@ -36,7 +49,7 @@
         public void ExecuteAuthorizationFilterAsync_NotAuthorized_UnauthorizeAccessResult()
         {
             // Arrange
-            _licenseeSettingService.IsAuthorizedOnBetList().Returns(false);
+            _licenseeSettingService.IsAuthorizedOnBetList(Arg.Any<string>()).Returns(false);
 
             // Action
             var result = _attribute.ExecuteAuthorizationFilterAsync(_actionContext, new CancellationToken(), null);
@@ -49,7 +62,7 @@
         public void ExecuteAuthorizationFilterAsync_Authorized_InvokeContinuationFunc()
         {
             // Arrange
-            _licenseeSettingService.IsAuthorizedOnBetList().Returns(true);
+            _licenseeSettingService.IsAuthorizedOnBetList(LicenseeName).Returns(true);
             var continuation = Substitute.For<Func<Task<HttpResponseMessage>>>();
 
             // Action

@@ -9,6 +9,5 @@ namespace Fanex.Athena.Service.Core.Configuration.Interfaces
         bool IsAuthorizedOnBetList(string licenseeName);
 
         FakeLicenseeSetting GetFakeLicenseeSetting(string licenseeName);
-
     }
 }

@@ -20,7 +20,11 @@
         private readonly INotificationService _notificationService;
         private readonly IAppSettings _appSettings;
 
-        public NotificationApiController(IMoveBetService moveBetService, INotificationService notificationService, IAppSettings appSettings, ILicenseeSettingService licenseeSettingService)
+        public NotificationApiController(
+            IMoveBetService moveBetService, 
+            INotificationService notificationService, 
+            IAppSettings appSettings, 
+            ILicenseeSettingService licenseeSettingService)
         {
             _moveBetService = moveBetService;
             _notificationService = notificationService;
@@ -39,9 +43,14 @@
         {
             var isEnabledMoveBetNotification = _appSettings.IsEnabledMoveBetNotification && !_licenseeSettingService.IsFakeLicensee(SiteName);
 
+            if (!isEnabledMoveBetNotification)
+            {
+                return string.Empty;
+            }
+
             var langCode = Util.MapIetfLanguageCodes.GetValueOrDefault(Language, string.Empty);
 
-            return isEnabledMoveBetNotification ? _moveBetService.GetMoveBetNotification(langCode) : string.Empty;
+            return _moveBetService.GetMoveBetNotification(langCode);
         }
 
         [HttpGet]
