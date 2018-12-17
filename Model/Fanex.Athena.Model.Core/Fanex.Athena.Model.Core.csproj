@@ -103,6 +103,7 @@
     <Compile Include="DTO\Common\Licensee.cs" />
     <Compile Include="DTO\Common\Match.cs" />
     <Compile Include="DTO\Common\ResultInfoGeneric.cs" />
+    <Compile Include="DTO\Configuration\FakeLicenseeSetting.cs" />
     <Compile Include="DTO\Configuration\ReportSetting.cs" />
     <Compile Include="DTO\OneAuth\OneAuthCurrency.cs" />
     <Compile Include="DTO\OneAuth\OneAuthPermission.cs" />

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Fanex.Athena.Session.Model
+namespace Fanex.Athena.Model.Core.DTO.Configuration
 {
     [Serializable]
     public class FakeLicenseeSetting

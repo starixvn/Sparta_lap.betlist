@@ -8,6 +8,7 @@
     using System.Web.Http.Controllers;
     using System.Web.Http.Filters;
     using Extensions;
+    using Fanex.Athena.Service.Core.Users.Interfaces;
     using Resources;
     using Service.Core.Configuration.Interfaces;
 
@@ -20,8 +21,9 @@
             Func<Task<HttpResponseMessage>> continuation)
         {
             var scope = actionContext.Request.GetDependencyScope();
+            var sessionService = scope.Resolve<ISessionService>();
             var licenseeSettingService = scope.Resolve<ILicenseeSettingService>();
-            if (!licenseeSettingService.IsAuthorizedOnBetList())
+            if (!licenseeSettingService.IsAuthorizedOnBetList(sessionService.LicenseeSession?.LicenseeName))
             {
                 return UnauthorizeAccessHandlerAsync(actionContext);
             }

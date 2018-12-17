@@ -15,6 +15,7 @@ namespace Fanex.Athena.Service.Core.Configuration
     using Extension.Utility.Interfaces;
     using Fanex.Athena.Extension.Utility;
     using Fanex.Athena.Model.Core.DTO.Configuration;
+    using Fanex.Athena.Session.Interfaces;
     using Interfaces;
     using Newtonsoft.Json;
 
@@ -27,12 +28,13 @@ namespace Fanex.Athena.Service.Core.Configuration
         private readonly IAppSettings _appSettings;
 
         private readonly ILicenseeSettingService _licenseeSettingService;
-
-        public ReportSettingService(IMemoryCacheService cache, IAppSettings appSettings, ILicenseeSettingService licenseeSettingService)
+        private readonly ISessionStorage _sessionStorage;
+        public ReportSettingService(IMemoryCacheService cache, IAppSettings appSettings, ILicenseeSettingService licenseeSettingService, ISessionStorage sessionStorage)
         {
             _cache = cache;
             _appSettings = appSettings;
             _licenseeSettingService = licenseeSettingService;
+            _sessionStorage = sessionStorage;
         }
 
         public ReportSetting GetSetting(string reportKey)
@@ -100,7 +102,7 @@ namespace Fanex.Athena.Service.Core.Configuration
 
         private void AssignFakeLicenseeSetting(ReportSetting reportSetting)
         {
-            var fakeLicenseeSetting = _licenseeSettingService.GetFakeLicenseeSetting();
+            var fakeLicenseeSetting = _licenseeSettingService.GetFakeLicenseeSetting(_sessionStorage.LicenseeSession?.LicenseeName);
             if (fakeLicenseeSetting != null)
             {
                 reportSetting.MinDateString = fakeLicenseeSetting.MinDate;

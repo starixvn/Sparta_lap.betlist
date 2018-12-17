@@ -62,7 +62,6 @@
   <ItemGroup>
     <Compile Include="Enum\AppMode.cs" />
     <Compile Include="Interfaces\ISessionStorage.cs" />
-    <Compile Include="Model\FakeLicenseeSetting.cs" />
     <Compile Include="Model\LicenseeSession.cs" />
     <Compile Include="Model\UserSession.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

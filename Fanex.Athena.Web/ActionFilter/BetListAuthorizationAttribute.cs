@@ -10,18 +10,19 @@ namespace Fanex.Athena.Web.ActionFilter
     using System.Net;
     using System.Web.Mvc;
     using System.Web.Routing;
+    using Fanex.Athena.Service.Core.Users.Interfaces;
     using Service.Core.Configuration.Interfaces;
 
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
     public sealed class BetListAuthorizationAttribute : ActionFilterAttribute
     {
         public ILicenseeSettingService LicenseeSettingService { get; set; }
-
+        public ISessionService SessionService { get; set; }
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var context = filterContext.HttpContext;
 
-            if (!LicenseeSettingService.IsAuthorizedOnBetList())
+            if (!LicenseeSettingService.IsAuthorizedOnBetList(SessionService.LicenseeSession?.LicenseeName))
             {
                 if (context.Request.IsAjaxRequest())
                 {
