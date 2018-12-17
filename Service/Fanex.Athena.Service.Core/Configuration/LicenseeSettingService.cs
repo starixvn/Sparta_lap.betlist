@@ -12,10 +12,9 @@ namespace Fanex.Athena.Service.Core.Configuration
     using System.Linq;
     using System.Web.Hosting;
     using Extension.Utility.Interfaces;
+    using Fanex.Athena.Model.Core.DTO.Configuration;
     using Interfaces;
     using Newtonsoft.Json;
-    using Session.Interfaces;
-    using Session.Model;
 
     public class LicenseeSettingService : ILicenseeSettingService
     {
@@ -23,25 +22,22 @@ namespace Fanex.Athena.Service.Core.Configuration
 
         private readonly IMemoryCacheService _cache;
 
-        private readonly ISessionStorage _sessionStorage;
-
-        public LicenseeSettingService(IMemoryCacheService cache, ISessionStorage sessionStorage)
+        public LicenseeSettingService(IMemoryCacheService cache)
         {
             _cache = cache;
-            _sessionStorage = sessionStorage;
         }
 
-        public bool IsFakeLicensee()
+        public bool IsFakeLicensee(string licenseeName)
         {
-            return GetFakeLicenseeSetting() != null;
+            return GetFakeLicenseeSetting(licenseeName) != null;
         }
 
-        public bool IsAuthorizedOnBetList()
+        public bool IsAuthorizedOnBetList(string licenseeName)
         {
-            var authorized = _sessionStorage.LicenseeSession != null;
+            var authorized = !string.IsNullOrEmpty(licenseeName);
             if (authorized)
             {
-                var setting = GetFakeLicenseeSetting();
+                var setting = GetFakeLicenseeSetting(licenseeName);
                 if (setting != null)
                 {
                     authorized = !setting.DisableBetList;
@@ -51,22 +47,25 @@ namespace Fanex.Athena.Service.Core.Configuration
             return authorized;
         }
 
-        public FakeLicenseeSetting GetFakeLicenseeSetting()
-        {
-            if (_sessionStorage.LicenseeSession == null)
-            {
-                return null;
-            }
 
+        public FakeLicenseeSetting GetFakeLicenseeSetting(string licenseeName)
+        {
+            return GetAndCacheFakeLicenseeSettingList()?.FirstOrDefault(x => x.SiteName.Equals(licenseeName, StringComparison.OrdinalIgnoreCase));
+        }
+
+        private IEnumerable<FakeLicenseeSetting> GetAndCacheFakeLicenseeSettingList()
+        {
             var settings = _cache.Get<IEnumerable<FakeLicenseeSetting>>(FakeLicenseeSettingsCacheKey);
             if (settings == null)
             {
                 settings = GetFakeLicenseeSettingList();
-                _cache.Set(FakeLicenseeSettingsCacheKey, settings);
+                if (settings.Any())
+                {
+                    _cache.Set(FakeLicenseeSettingsCacheKey, settings);
+                }
             }
 
-            var licenseeName = _sessionStorage.LicenseeSession.LicenseeName;
-            return settings.FirstOrDefault(x => x.SiteName.Equals(licenseeName, StringComparison.OrdinalIgnoreCase));
+            return settings;
         }
 
         private IEnumerable<FakeLicenseeSetting> GetFakeLicenseeSettingList()
@@ -90,5 +89,7 @@ namespace Fanex.Athena.Service.Core.Configuration
                 return reader.ReadToEnd();
             }
         }
+
+
     }
 }

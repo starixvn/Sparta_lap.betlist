@@ -1,13 +1,14 @@
-﻿using Fanex.Athena.Session.Model;
+﻿using Fanex.Athena.Model.Core.DTO.Configuration;
 
 namespace Fanex.Athena.Service.Core.Configuration.Interfaces
 {
     public interface ILicenseeSettingService
     {
-        bool IsFakeLicensee();
+        bool IsFakeLicensee(string licenseeName);
 
-        bool IsAuthorizedOnBetList();
+        bool IsAuthorizedOnBetList(string licenseeName);
 
-        FakeLicenseeSetting GetFakeLicenseeSetting();
+        FakeLicenseeSetting GetFakeLicenseeSetting(string licenseeName);
+
     }
 }

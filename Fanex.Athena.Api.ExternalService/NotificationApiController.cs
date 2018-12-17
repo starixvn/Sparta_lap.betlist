@@ -6,7 +6,6 @@
     using Base.Attributes;
     using Extension.Utility;
     using Model.Report.MetaModel;
-    using Service.Core.Common.Interfaces;
     using Service.Core.Configuration.Interfaces;
     using Service.Report.Interfaces;
 
@@ -38,7 +37,7 @@
         [HttpGet]
         public string Index()
         {
-            var isEnabledMoveBetNotification = _appSettings.IsEnabledMoveBetNotification && !_licenseeSettingService.IsFakeLicensee();
+            var isEnabledMoveBetNotification = _appSettings.IsEnabledMoveBetNotification && !_licenseeSettingService.IsFakeLicensee(SiteName);
 
             var langCode = Util.MapIetfLanguageCodes.GetValueOrDefault(Language, string.Empty);
 
