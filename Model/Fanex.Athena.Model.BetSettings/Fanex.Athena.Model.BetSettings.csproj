@@ -71,9 +71,6 @@
     <Compile Include="DTO\BetSettingProduct.cs" />
     <Compile Include="DTO\BetSettingWriteLog.cs" />
     <Compile Include="DTO\CommonBetSetting.cs" />
-    <Compile Include="DTO\GoldDeluxe\GoldDeluxeBetSetting.cs" />
-    <Compile Include="DTO\GoldDeluxe\GoldDeluxeGame.cs" />
-    <Compile Include="DTO\GoldDeluxe\GoldDeluxeGroup.cs" />
     <Compile Include="DTO\KenoBetSetting.cs" />
     <Compile Include="DTO\LogParam.cs" />
     <Compile Include="DTO\NumberGameBetSetting.cs" />
@@ -91,7 +88,6 @@
     <Compile Include="ViewModel\BetSettingBaseViewModel.cs" />
     <Compile Include="ViewModel\ExchangeBetSettingViewModel.cs" />
     <Compile Include="ViewModel\BetSettingViewModel.cs" />
-    <Compile Include="ViewModel\GoldDeluxeBetSettingViewModel.cs" />
     <Compile Include="ViewModel\RngCasinoBetSettingViewModel.cs" />
     <Compile Include="ViewModel\ThirdPartyBetSettingViewModel.cs" />
   </ItemGroup>

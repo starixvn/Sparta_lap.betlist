@@ -28,31 +28,25 @@ namespace Fanex.Athena.DataAccess.Core.Users
         public IResultInfo<bool> IsAllowUpdateMemberBAStatus(Request request, int licenseeId)
         {
             const string UspName = "Lrf_BATimeCheck";
-            try
+
+            var isAllow = false;
+            using (var db = this.GetObjectDb(UspName))
             {
-                var isAllow = false;
-                using (var db = this.GetObjectDb(UspName))
+                db.AddInParameter("langkey", DbType.String, request.Language);
+                db.AddInParameter("LicenseeID", DbType.Int32, licenseeId);
+                db.AddOutParameter("isallow", DbType.Boolean, sizeof(bool));
+
+                AddResultParam(db);
+                db.ExecuteNonQuery();
+
+                isAllow = Convert.ToBoolean(db.GetParameterValue("isallow"));
+                var result = GetResult(db);
+                return new ResultInfo<bool>
                 {
-                    db.AddInParameter("langkey", DbType.String, request.Language);
-                    db.AddInParameter("LicenseeID", DbType.Int32, licenseeId);
-                    db.AddOutParameter("isallow", DbType.Boolean, sizeof(bool));
-
-                    AddResultParam(db);
-                    db.ExecuteNonQuery();
-
-                    isAllow = Convert.ToBoolean(db.GetParameterValue("isallow"));
-                    var result = GetResult(db);
-                    return new ResultInfo<bool>
-                    {
-                        Code = result.Code,
-                        Message = result.Message,
-                        ExtendedData = isAllow
-                    };
-                }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName);
+                    Code = result.Code,
+                    Message = result.Message,
+                    ExtendedData = isAllow
+                };
             }
         }
 

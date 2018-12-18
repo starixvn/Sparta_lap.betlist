@@ -11,7 +11,6 @@ namespace Fanex.Athena.DataAccess.Report
     using System.Diagnostics.CodeAnalysis;
     using Core;
     using Core.Configuration.Interfaces;
-    using Core.Exception;
     using Extension.Helper;
     using Extension.Utility;
     using Fanex.Athena.DataAccess.Report.Interfaces;
@@ -38,40 +37,28 @@ namespace Fanex.Athena.DataAccess.Report
         public ReportResultModel<PlatformWinLossSummary> GetSummaryData(PlatformWinLossMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_PlatformWinloss";
-            try
+
+            using (var db = this.GetObjectDb(UspName))
             {
-                using (var db = this.GetObjectDb(UspName))
+                UpdateUspParams(db, metaModel);
+                using (var reader = db.ExecuteReader())
                 {
-                    UpdateUspParams(db, metaModel);
-                    using (var reader = db.ExecuteReader())
-                    {
-                        return ReadSummaryData(reader, metaModel);
-                    }
+                    return ReadSummaryData(reader, metaModel);
                 }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName);
             }
         }
 
         public SortableReportResultModel<PlatformWinLossMember> GetMemberData(PlatformWinLossMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_PlatformWinlossDetail";
-            try
+
+            using (var db = this.GetObjectDb(UspName))
             {
-                using (var db = this.GetObjectDb(UspName))
+                UpdateUspParams(db, metaModel);
+                using (var reader = db.ExecuteReader())
                 {
-                    UpdateUspParams(db, metaModel);
-                    using (var reader = db.ExecuteReader())
-                    {
-                        return ReadMemberData(reader, metaModel.BaseCurrency);
-                    }
+                    return ReadMemberData(reader, metaModel.BaseCurrency);
                 }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName);
             }
         }
 

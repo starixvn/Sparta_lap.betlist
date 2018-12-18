@@ -8,7 +8,6 @@ namespace Fanex.Athena.Controllers.BetSettings
 {
     using System.Web.Mvc;
     using Constant.DataDomain;
-    using DataAccess.BetSettings.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Web.ActionFilter;
     using Model.BetSettings.MetaModel;
@@ -17,24 +16,19 @@ namespace Fanex.Athena.Controllers.BetSettings
     using Service.BetSettings.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
-    using Service.Customer.Interfaces;
 
     public class AgCasinoBetSettingController : BetSettingBaseController
     {
         private readonly IAgCasinoBetSettingService _betSettingService;
 
-#pragma warning disable S107 // Methods should not have too many parameters
         public AgCasinoBetSettingController(
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IAuthorizationService authorizationService,
-            ICoreBetSettingDataAccess coreBetSettingDataAccess,
-            ICustomerService customerService,
+            ICoreBetSettingService coreBetSettingService,
             IProductService productService,
             IAgCasinoBetSettingService betSettingService)
-#pragma warning restore S107 // Methods should not have too many parameters
-        : base(languageService, sessionService, appSetting, authorizationService, coreBetSettingDataAccess, customerService, productService)
+        : base(languageService, sessionService, appSetting, coreBetSettingService, productService)
         {
             _betSettingService = betSettingService;
         }

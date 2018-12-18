@@ -2412,18 +2412,12 @@
   <data name="UpdateGoldDeluxeBetSettings" xml:space="preserve">
     <value>Are you sure you want to update all Gold Deluxe bet settings?</value>
   </data>
-  <data name="UpdateGoldDeluxeBetSettingSuccessMsg" xml:space="preserve">
-    <value>The Gold Deluxe bet setting of {0} was updated successfully</value>
-  </data>
   <data name="CannotUpdateBetLimitForProduct" xml:space="preserve">
     <value>You cannot update member bet limit for product {0}.</value>
     <comment>#32647</comment>
   </data>
   <data name="GoldDeluxeWinLoss" xml:space="preserve">
     <value>Gold Deluxe Win Loss</value>
-  </data>
-  <data name="CurrencyNotSupportedForGoldDeluxe" xml:space="preserve">
-    <value>This currency is not supported to play Gold Deluxe. Please check again later.</value>
   </data>
   <data name="AGClosingBalance" xml:space="preserve">
     <value>AG Closing Balance</value>
@@ -3096,5 +3090,17 @@
   <data name="ArchivedDate" xml:space="preserve">
     <value>Archived Date</value>
     <comment>102680</comment>
+  </data>
+  <data name="MobileChinaView" xml:space="preserve">
+    <value>Mobile China View</value>
+    <comment>106088</comment>
+  </data>
+  <data name="TipAmount" xml:space="preserve">
+    <value>Tip Amount</value>
+    <comment>101599</comment>
+  </data>
+  <data name="TipSharing" xml:space="preserve">
+    <value>Tip Sharing</value>
+    <comment>101599</comment>
   </data>
 </root>

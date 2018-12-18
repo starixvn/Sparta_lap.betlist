@@ -3,11 +3,10 @@
     using System;
     using System.Collections.Generic;
     using Base.UnitTests;
-    using Extension.Utility;
+    using DataAccess.Report.Interfaces;
     using Fanex.Athena.Excel.Base.Entities;
     using Fanex.Athena.Excel.Report;
     using Fanex.Athena.Model.Report.ViewModel;
-    using Fanex.Athena.Service.Report.Interfaces;
     using Model.Core.ResultModel;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
@@ -18,7 +17,7 @@
 
     public class AgCasinoWinLossReportControllerTest : BaseApiControllerHelperTest
     {
-        private IThirdPartyWinLossService _service;
+        private IThirdPartyWinLossDataAccess<ThirdPartyWinLoss> _dataAccess;
         private AgCasinoWinLossReportController _controller;
 
         [OneTimeSetUp]
@@ -28,8 +27,8 @@
 
             MockSessionData();
 
-            _service = Substitute.For<IThirdPartyWinLossService>();
-            _controller = Substitute.ForPartsOf<AgCasinoWinLossReportController>(_service, SessionService, ProductService, LangService);
+            _dataAccess = Substitute.For<IThirdPartyWinLossDataAccess<ThirdPartyWinLoss>>();
+            _controller = Substitute.ForPartsOf<AgCasinoWinLossReportController>(_dataAccess, SessionService, ProductService, LangService);
 
             _controller.When(x => x.ExcelStream(Arg.Any<IWorkbook>(), Arg.Any<string>())).DoNotCallBase();
         }
@@ -39,7 +38,7 @@
         {
             base.FixtureTearDown();
 
-            _service = null;
+            _dataAccess = null;
             _controller = null;
         }
 
@@ -78,7 +77,7 @@
                 CurrencyId = -1
             };
 
-            _service.GetSummaryWinloss(Arg.Any<ThirdPartyWinLossMetaModel>(), string.Empty).ReturnsForAnyArgs(x =>
+            _dataAccess.GetSummaryWinloss(Arg.Any<ThirdPartyWinLossMetaModel>(), string.Empty).ReturnsForAnyArgs(x =>
             {
                 return new SortableReportResultModel<ThirdPartyWinLoss>();
             });
@@ -114,7 +113,7 @@
             {
                 Assert.That(model.DrillDownLevel, Is.Zero);
                 Assert.That(model.DrillDownCustomerId, Is.Zero);
-                _service.ReceivedWithAnyArgs().GetSummaryWinloss(model);
+                _dataAccess.Received().GetSummaryWinloss(model, "Lrf_Rpt_AGCasinoWinloss");
             });
         }
 
@@ -128,7 +127,6 @@
             };
 
             var expectedData = SetUpForGettingData();
-            var expectedTotal = expectedData.DataList;
 
             // Action
             var result = _controller.Index(model);
@@ -137,7 +135,7 @@
             Assert.Multiple(() =>
             {
                 Assert.That(result.Data, Is.EqualTo(expectedData.DataList));
-                Assert.That(result.Total, Is.EqualTo(expectedTotal));
+                Assert.That(result.Total, Is.EqualTo(expectedData.TotalDataList));
                 Assert.That(result.SummaryTotal, Is.EqualTo(expectedData.SummaryTotal));
             });
         }
@@ -146,7 +144,7 @@
         public void Index_ValidModelLevel1_CallServiceWithCorrectParameter()
         {
             // Arrange
-            var level = 2;
+            var level = 1;
             var fdate = DateTime.Now;
             var tdate = DateTime.Now.AddDays(1);
             var currencyId = 2;
@@ -165,7 +163,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _service.ReceivedWithAnyArgs().GetAgentWinlossDetail(model);
+                _dataAccess.Received().GetAgentWinlossDetail(model, "LRF_Rpt_AGCasinoWinloss_Ag");
                 SessionService.Received().GenerateAgentListXml(currencyId, Arg.Any<bool>());
                 Assert.That(model.DrillDownCurrencyId, Is.EqualTo(currencyId));
                 Assert.That(model.DrillDownLevel, Is.EqualTo(level));
@@ -187,7 +185,6 @@
             };
 
             var expectedData = SetUpForGettingData(1);
-            var expectedTotal = expectedData.DataList;
 
             // Action
             var result = _controller.Index(model, DateTime.Now, DateTime.Now.AddDays(1), Level);
@@ -196,7 +193,7 @@
             Assert.Multiple(() =>
             {
                 Assert.That(result.Data, Is.EqualTo(expectedData.DataList));
-                Assert.That(result.Total, Is.EqualTo(expectedTotal));
+                Assert.That(result.Total, Is.EqualTo(expectedData.TotalDataList));
                 Assert.That(result.SummaryTotal, Is.EqualTo(expectedData.SummaryTotal));
             });
         }
@@ -213,7 +210,6 @@
             };
 
             var expectedData = SetUpForGettingData(2);
-            var expectedTotal = expectedData.DataList;
 
             // Action
             var result = _controller.Index(model, DateTime.Now, DateTime.Now.AddDays(1), Level);
@@ -221,9 +217,9 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _service.ReceivedWithAnyArgs().GetCustomerWinlossDetail(model);
+                _dataAccess.ReceivedWithAnyArgs().GetCustomerWinlossDetail(model, "LRF_Rpt_AGCasinoWinloss_Mem");
                 Assert.That(result.Data, Is.EqualTo(expectedData.DataList));
-                Assert.That(result.Total, Is.EqualTo(expectedTotal));
+                Assert.That(result.Total, Is.EqualTo(expectedData.TotalDataList));
                 Assert.That(result.SummaryTotal, Is.EqualTo(expectedData.SummaryTotal));
             });
         }
@@ -305,48 +301,48 @@
             });
         }
 
-        private SortableReportResultModel<ThirdPartyWinLoss> SetUpForGettingData(int level = 0)
+        private ReportResultModel<ThirdPartyWinLoss> SetUpForGettingData(int level = 0)
         {
-            var expectedData = new SortableReportResultModel<ThirdPartyWinLoss>
+            var expectedData = new ReportResultModel<ThirdPartyWinLoss>
             {
-                DataList = new SortableList<ThirdPartyWinLoss> { new ThirdPartyWinLoss { Index = 1 } },
+                DataList = new List<ThirdPartyWinLoss> { new ThirdPartyWinLoss { Index = 1 } },
+                TotalDataList = new List<ThirdPartyWinLoss> { new ThirdPartyWinLoss() },
                 SummaryTotal = new Dictionary<string, ThirdPartyWinLoss> { { nameof(ThirdPartyWinLoss), new ThirdPartyWinLoss() } }
             };
 
             if (level == 0)
             {
-                _service.GetSummaryWinloss(Arg.Any<ThirdPartyWinLossMetaModel>(), "Lrf_Rpt_AGCasinoWinloss").Returns(expectedData);
+                _dataAccess.GetSummaryWinloss(Arg.Any<ThirdPartyWinLossMetaModel>(), "Lrf_Rpt_AGCasinoWinloss").Returns(expectedData);
             }
             else if (level == 1)
             {
-                _service.GetAgentWinlossDetail(Arg.Any<ThirdPartyWinLossMetaModel>(), "LRF_Rpt_AGCasinoWinloss_Ag").Returns(expectedData);
+                _dataAccess.GetAgentWinlossDetail(Arg.Any<ThirdPartyWinLossMetaModel>(), "LRF_Rpt_AGCasinoWinloss_Ag").Returns(expectedData);
             }
             else
             {
-                _service.GetCustomerWinlossDetail(Arg.Any<ThirdPartyWinLossMetaModel>(), "LRF_Rpt_AGCasinoWinloss_Mem").Returns(expectedData);
+                _dataAccess.GetCustomerWinlossDetail(Arg.Any<ThirdPartyWinLossMetaModel>(), "LRF_Rpt_AGCasinoWinloss_Mem").Returns(expectedData);
             }
-
-            _service.TotalCalc(Arg.Any<IEnumerable<ThirdPartyWinLoss>>()).Returns(expectedData.DataList);
 
             return expectedData;
         }
 
         private void SetUpForExportExcel()
         {
-            var excel = Substitute.ForPartsOf<ThirdPartyWinLossExcel>(
+            var excel = Substitute.ForPartsOf<ThirdPartyWinLossExcel<ThirdPartyWinLoss>>(
                    Arg.Any<string>(),
                    Arg.Any<ConvertingOption>(),
                    new ThirdPartyWinLossMetaModel(),
-                   new ThirdPartyWinLossViewModel
+                   new ReportResultModel<ThirdPartyWinLoss>()
                    {
-                       MainResult = new ThirdPartyWinLoss[] { }
+                       DataList = new ThirdPartyWinLoss[] { }
                    });
             excel.When(x => x.Export()).DoNotCallBase();
 
             _controller.CreateExcel(
                    Arg.Any<string>(),
                    Arg.Any<ConvertingOption>(),
-                   new ThirdPartyWinLossViewModel()).ReturnsForAnyArgs(excel);
+                   new ThirdPartyWinLossMetaModel(),
+                   new ReportResultModel<ThirdPartyWinLoss>()).ReturnsForAnyArgs(excel);
         }
     }
 }

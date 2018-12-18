@@ -6,22 +6,18 @@
 
 namespace Fanex.Athena.Excel.Report
 {
-    using System.Collections.Generic;
     using System.Linq;
     using Base;
     using Base.Entities;
     using Fanex.Athena.Excel.Base.Extension;
     using Helpers;
+    using Model.Core.ResultModel;
     using Model.Report.DTO;
     using Model.Report.MetaModel;
-    using Model.Report.ViewModel;
     using NPOI.SS.UserModel;
     using Resources;
 
-    /// <summary>
-    ///  Third party Win Loss - Export excel.
-    /// </summary>
-    public class ThirdPartyWinLossExcel : ReportBase
+    public class ThirdPartyWinLossExcel<T> : ReportBase where T : ThirdPartyWinLoss
     {
         private const int ColumnTemplateCount = 9;
 
@@ -40,11 +36,8 @@ namespace Fanex.Athena.Excel.Report
         private const int RowGrantTotal = 5;
         private const int RowNoInfoTemplate = 6;
 
-        // This is drill down of report
-        private readonly IList<ThirdPartyWinLoss> _dataList;
-
         private readonly ThirdPartyWinLossMetaModel _metaModel;
-        private readonly IDictionary<string, ThirdPartyWinLoss> _summaryTotal;
+        private readonly ReportResultModel<T> _resultData;
 
         private readonly ConvertingOption _convertingOption;
 
@@ -52,19 +45,12 @@ namespace Fanex.Athena.Excel.Report
                 string templatePath,
                 ConvertingOption convertingOption,
                 ThirdPartyWinLossMetaModel metaModel,
-                ThirdPartyWinLossViewModel viewModel)
-            : base(templatePath, viewModel.MainResult.Count())
+                ReportResultModel<T> resultData)
+            : base(templatePath, resultData.DataList.Count())
         {
             _convertingOption = convertingOption;
             _metaModel = metaModel;
-            _dataList = viewModel.MainResult;
-            _summaryTotal = viewModel.SummaryTotal;
-        }
-
-        public int Level
-        {
-            get;
-            set;
+            _resultData = resultData;
         }
 
         protected override void AssignHeader(ISheet sheet)
@@ -79,6 +65,12 @@ namespace Fanex.Athena.Excel.Report
             row.Cells[ColumnTotalTransaction].SetCellValue(ViewResources.TotalTransaction);
             row.Cells[ColumnCustomerWl].SetCellValue(ViewResources.CustomerW_L);
             row.Cells[ColumnLicenseeWl].SetCellValue(ViewResources.LicenseeW_L);
+            PostAssignHeader(sheet);
+        }
+
+        protected virtual void PostAssignHeader(ISheet sheet)
+        {
+            // implement in children
         }
 
         protected override void AssignNoInfoRow(ISheet sheet)
@@ -91,11 +83,12 @@ namespace Fanex.Athena.Excel.Report
         {
             var rowIndex = 1;
             int index;
-            var rowCount = _dataList.Count;
+            var dataList = _resultData.DataList;
+            var rowCount = dataList.Count();
 
             for (index = 0; index < rowCount; index++)
             {
-                var item = _dataList[index];
+                var item = dataList.ElementAt(index);
 
                 var row = sheet.CopyRow(TemplateSheet, RowContentTemplate, index + RowContentTemplate);
 
@@ -135,13 +128,9 @@ namespace Fanex.Athena.Excel.Report
             ClearTemplate(sheet, RowContentTemplate);
         }
 
-        /// <summary>
-        /// Process UI, hide redundant row and column.
-        /// </summary>
-        /// <param name="sheet">Excel sheet.</param>
         protected override void ProcessUI(ISheet sheet)
         {
-            switch (Level)
+            switch (_metaModel.DrillDownLevel)
             {
                 case 0:
                     sheet.HideColumn(ColumnExternalId, ColumnSystemId);
@@ -157,7 +146,7 @@ namespace Fanex.Athena.Excel.Report
             }
         }
 
-        private static void AssignCommonData(IRow row, ThirdPartyWinLoss data)
+        protected virtual void AssignCommonData(IRow row, T data)
         {
             row.Cells[ColumnTurnover].SetCellValue(data.TurnOver);
             row.Cells[ColumnTotalTransaction].SetCellValue(data.TotalTransaction);
@@ -167,7 +156,7 @@ namespace Fanex.Athena.Excel.Report
 
         protected internal virtual void AssignGrandTotalInEurData(ISheet sheet, int rowIndex)
         {
-            var currencyList = _summaryTotal.Keys.ToList();
+            var currencyList = _resultData.SummaryTotal.Keys.ToList();
             currencyList.Reverse();
 
             foreach (string currency in currencyList)
@@ -175,7 +164,7 @@ namespace Fanex.Athena.Excel.Report
                 // Copy template
                 var row = sheet.CopyRow(TemplateSheet, RowGrantTotal, rowIndex);
                 row.Cells[ColumnIndex].SetCellValue(ViewResources.Totalin + " " + currency.ToUpperInvariant());
-                AssignCommonData(row, _summaryTotal[currency]);
+                AssignCommonData(row, _resultData.SummaryTotal[currency]);
 
                 // Merge first two column
                 sheet.MergeCells(rowIndex, ColumnIndex, rowIndex, ColumnCurrency);
@@ -192,9 +181,9 @@ namespace Fanex.Athena.Excel.Report
         protected internal virtual int AssignTotalData(ISheet sheet, int rowIndex)
         {
             var beginTotalRow = rowIndex;
-            var totalCurrencyList = GetTotalCurrency(_dataList);
+            var totalCurrencyList = _resultData.TotalDataList;
 
-            foreach (ThirdPartyWinLoss totalCurrency in totalCurrencyList)
+            foreach (T totalCurrency in totalCurrencyList)
             {
                 // Copy template
                 var row = sheet.CopyRow(TemplateSheet, RowTotalNoSolidBorder, rowIndex);
@@ -213,29 +202,9 @@ namespace Fanex.Athena.Excel.Report
             }
 
             // Merge first two column
-            sheet.MergeCells(rowIndex - totalCurrencyList.Count, 0, rowIndex - 1, 3);
+            sheet.MergeCells(rowIndex - totalCurrencyList.Count(), 0, rowIndex - 1, 3);
 
             return rowIndex;
-        }
-
-        /// <summary>
-        /// Get total currency data.
-        /// </summary>
-        /// <param name="dataList">Report data.</param>
-        /// <returns>List of third party WinLoss entity.</returns>
-        private static List<ThirdPartyWinLoss> GetTotalCurrency(IEnumerable<ThirdPartyWinLoss> dataList)
-        {
-            var listTotalCurrency = dataList.GroupBy(x => new { x.CurrencyName })
-                    .Select(group => new ThirdPartyWinLoss
-                    {
-                        CurrencyName = group.Key.CurrencyName,
-                        TurnOver = group.Sum(a => a.TurnOver),
-                        TotalTransaction = group.Sum(a => a.TotalTransaction),
-                        CustomerWinLoss = group.Sum(a => a.CustomerWinLoss),
-                        LicenseeWL = group.Sum(a => a.LicenseeWL),
-                    }).ToList();
-
-            return listTotalCurrency;
         }
     }
 }

@@ -132,6 +132,7 @@
     <Compile Include="Models\WinLossByProductExcelModel.cs" />
     <Compile Include="PlatformWinLossSummaryExcel.cs" />
     <Compile Include="ColossusBetsWinLossExcel.cs" />
+    <Compile Include="GoldDeluxeWinLossExcel.cs" />
     <Compile Include="ThirdPartyWinLossExcel.cs" />
     <Compile Include="WeeklyLiveMatchExcel.cs" />
     <Compile Include="WinlossByLeagueExcel.cs" />

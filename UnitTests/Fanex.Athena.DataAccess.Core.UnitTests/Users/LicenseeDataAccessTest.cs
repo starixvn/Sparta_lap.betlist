@@ -57,14 +57,6 @@
             });
         }
 
-        [Test]
-        public void IsAllowUpdateMemberBAStatus_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                IsAllowUpdateMemberBAStatusSp,
-                () => DataAccess.IsAllowUpdateMemberBAStatus(new Request(), 0));
-        }
-
         [TestCase(1, true)]
         [TestCase(2, false)]
         public void IsLicenseeBelongToUser_WhenCall_ValueReturnedCorrectly(int licenseeId, bool expectedResult)

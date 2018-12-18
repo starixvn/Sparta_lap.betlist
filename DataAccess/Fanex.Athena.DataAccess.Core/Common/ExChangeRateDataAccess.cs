@@ -10,10 +10,8 @@ namespace Fanex.Athena.DataAccess.Core.Common
     using System.Data;
     using Extension.Utility;
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
-    using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Common.Extensions;
-    using Fanex.Data;
     using Session.Interfaces;
 
     public class ExChangeRateDataAccess : BaseDataAccess, IExChangeRateDataAccess
@@ -26,30 +24,23 @@ namespace Fanex.Athena.DataAccess.Core.Common
         public ExChangeRate GetExChangeRate(string currenyCode, DateTime datetime)
         {
             const string UspName = "Lrf_GetExchangeRateByDate";
-            try
+            using (var db = this.GetObjectDb(UspName))
             {
-                using (var db = this.GetObjectDb(UspName))
+                db.AddInParameter("CurrencyCode", DbType.String, currenyCode);
+                db.AddInParameter("Date", DbType.DateTime, datetime);
+
+                using (var reader = db.ExecuteReader())
                 {
-                    db.AddInParameter("CurrencyCode", DbType.String, currenyCode);
-                    db.AddInParameter("Date", DbType.DateTime, datetime);
-
-                    using (var reader = db.ExecuteReader())
+                    var item = new ExChangeRate();
+                    if (reader.Read())
                     {
-                        var item = new ExChangeRate();
-                        if (reader.Read())
-                        {
-                            item.USD = reader.ToDecimal("USD");
-                            item.EUR = reader.ToDecimal("EUR");
-                            item.GBP = reader.ToDecimal("GBP");
-                        }
-
-                        return item;
+                        item.USD = reader.ToDecimal("USD");
+                        item.EUR = reader.ToDecimal("EUR");
+                        item.GBP = reader.ToDecimal("GBP");
                     }
+
+                    return item;
                 }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName);
             }
         }
     }

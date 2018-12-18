@@ -148,9 +148,7 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                AuthorizationService,
-                CoreBetSettingDataAccess,
-                CustomerService,
+                CoreBetSettingService,
                 ProductService,
                 _betSettingService,
                 _exchangeCommApiService);

@@ -16,12 +16,6 @@ namespace Fanex.Athena.DataAccess.Core.Exception
         private readonly string _uspName;
         private readonly object _uspParams;
 
-        public DataAccessException(Exception exception, string uspName)
-            : base(exception.Message, exception.InnerException)
-        {
-            _uspName = uspName;
-        }
-
         public DataAccessException(Exception exception, string uspName, object uspParams)
             : base(exception.Message, exception.InnerException)
         {

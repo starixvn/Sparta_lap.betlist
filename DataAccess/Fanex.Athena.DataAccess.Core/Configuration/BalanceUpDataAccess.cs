@@ -11,10 +11,8 @@ namespace Fanex.Athena.DataAccess.Core.Configuration
     using Extension.Utility.Interfaces;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Configuration.Interfaces;
-    using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.Model.Core.DTO.Configuration;
     using Fanex.Common.Extensions;
-    using Fanex.Data;
     using Logging;
     using Session.Interfaces;
 
@@ -64,26 +62,20 @@ namespace Fanex.Athena.DataAccess.Core.Configuration
         private BalanceUp GetBalanceUpDayFromDb()
         {
             const string UspName = "Lrf_SelBalanceUpDay";
-            try
-            {
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    var balanceUp = new BalanceUp();
-                    using (var reader = db.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            balanceUp.BalanceUpDay = reader.ToDateTime("balanceupday");
-                            balanceUp.MoveBetsDay = reader.ToDateTime("movebetsday");
-                        }
 
-                        return balanceUp;
-                    }
-                }
-            }
-            catch (ObjectDbException sqlException)
+            using (var db = this.GetObjectDb(UspName))
             {
-                throw new DataAccessException(sqlException, UspName);
+                var balanceUp = new BalanceUp();
+                using (var reader = db.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        balanceUp.BalanceUpDay = reader.ToDateTime("balanceupday");
+                        balanceUp.MoveBetsDay = reader.ToDateTime("movebetsday");
+                    }
+
+                    return balanceUp;
+                }
             }
         }
     }

@@ -277,15 +277,6 @@
             Assert.That(metaModel.SortBy, Is.EqualTo(expectedSortedProp));
         }
 
-        [Test]
-        public void GetBetListData_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            const string UspName = "GetBetListData_Sp";
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                UspName,
-                () => DataAccess.GetBetListData(new BetListMetaModel(), UspName));
-        }
-
         [TestCase("Lrf_BetList_RNG_Detail")]
         [TestCase("Lrf_BetList_LicenseeBonus_Detail")]
         public void GetBetListData_CallSpDoesNotHaveOutPutParam_SumDataToGetSummaryResult(string uspName)

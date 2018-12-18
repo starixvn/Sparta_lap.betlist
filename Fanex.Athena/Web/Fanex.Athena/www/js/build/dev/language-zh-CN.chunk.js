@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-﻿// Generated at: 12/4/2018 4:33:19 PM
+﻿// Generated at: 12/17/2018 4:03:59 PM
 window._language_zh_CN = {
 AA:"客客",
 AccessDeniedMsg:"对不起, 您没有权限访问此页面。",
@@ -784,6 +784,8 @@ TicketPayout:"注单结果+实际投注金额",
 TicketType:"注单类型",
 Time:"时间",
 TimeZone:"时区",
+TipAmount:"打赏金额",
+TipSharing:"打赏分成",
 To:"至",
 Todate:"至日期",
 Today:"今日",

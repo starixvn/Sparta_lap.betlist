@@ -19,24 +19,19 @@ namespace Fanex.Athena.Controllers.BetSettings
     using Service.BetSettings.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
-    using Service.Customer.Interfaces;
 
     public class SportsbookBetSettingController : BetSettingBaseController
     {
         private readonly ISportsbookBetSettingService _betSettingService;
 
-#pragma warning disable S107 // Methods should not have too many parameters
         public SportsbookBetSettingController(
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IAuthorizationService authorizationService,
-            ICoreBetSettingDataAccess coreBetSettingDataAccess,
-            ICustomerService customerService,
+            ICoreBetSettingService coreBetSettingService,
             IProductService productService,
             ISportsbookBetSettingService betSettingService)
-#pragma warning restore S107 // Methods should not have too many parameters
-        : base(languageService, sessionService, appSetting, authorizationService, coreBetSettingDataAccess, customerService, productService)
+        : base(languageService, sessionService, appSetting, coreBetSettingService, productService)
         {
             _betSettingService = betSettingService;
         }

@@ -188,10 +188,10 @@
                 CustId = metaModel.CustId,
                 ExternalId = testCaseData.ExpectedExternalId,
                 SystemId = testCaseData.ExpectedSystemId,
-                FullStatementDate = "Friday <br/> 8/19/2016 12:00:00 AM",
+                FullStatementDate = "Friday <br/> 08/19/2016 02:04:02 PM",
                 TransTypeHasBetList = testCaseData.ExpectedTransTypeHasBetList,
                 Index = 1,
-                Date = "8/19/2016",
+                Date = "08/19/2016",
                 Remark = $"<span class='bl-underdog'>{testCaseData.TransType.ToUpper(CultureInfo.CurrentCulture)} <br/>- {testCaseData.TransDesc}</span>",
                 Turnover = "<span class='bl-underdog'>11.50</span>",
                 CreditDebit = $"<span class='bl-underdog'>{testCaseData.ExpectedCreditDebit:#,##0.00}</span>",
@@ -206,7 +206,7 @@
             var totalAmtColumn = "totalamt" + metaModel.BaseCurrency;
             var turnoverColumn = "turnover" + metaModel.BaseCurrency;
 
-            Reader["winlostdate"].Returns(new DateTime(2016, 8, 19));
+            Reader["winlostdate"].Returns(new DateTime(2016, 8, 19, 14, 4, 2));
             Reader["transtype"].Returns((string)testCaseData.TransType);
             Reader["transdesc"].Returns((string)testCaseData.TransDesc);
             Reader[commissionColumn].Returns((decimal)testCaseData.Commission);

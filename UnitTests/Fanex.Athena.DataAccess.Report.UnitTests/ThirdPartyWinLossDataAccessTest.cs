@@ -4,18 +4,15 @@
     using System.Data;
     using System.Linq;
     using Core.UnitTests.TestHelpers;
+    using Model.Report.DTO;
     using Model.Report.MetaModel;
     using NSubstitute;
     using NUnit.Framework;
     using Report;
 
     [TestFixture]
-    public class ThirdPartyWinLosDataAccessTest : BaseDataAccessHelperTest<ThirdPartyWinLossDataAccess>
+    public class ThirdPartyWinLosDataAccessTest : BaseDataAccessHelperTest<ThirdPartyWinLossDataAccess<ThirdPartyWinLoss>>
     {
-        private const string GetSummaryWinlossSp = "Lrf_Rpt_ThirdPartyWinloss";
-        private const string GetCustomerWinlossDetailSp = "LRF_Rpt_ThirdPartyWinloss_Mem";
-        private const string GetAgentWinlossDetailSp = "LRF_Rpt_ThirdPartyWinloss_Ag";
-
         private ThirdPartyWinLossMetaModel _metaModel;
 
         [SetUp]
@@ -37,7 +34,6 @@
             base.SetUp();
         }
 
-        [TestCase(null, GetSummaryWinlossSp)]
         [TestCase("Test", "Test")]
         public void GetSummaryWinloss_WhenCall_ParametersPassedCorrectly(string spname, string expectedSpName)
         {
@@ -63,7 +59,8 @@
         public void GetSummaryWinloss_WhenCall_ReturnCorrectResult()
         {
             // Arrange
-            DataAccess.GetObjectDb(Arg.Is(GetSummaryWinlossSp)).Returns(ObjectDb);
+            const string SpName = "Summary1";
+            DataAccess.GetObjectDb(Arg.Is(SpName)).Returns(ObjectDb);
 
             Reader.Read().Returns(true, false);
             var readerDataMapping = new
@@ -74,7 +71,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetSummaryWinloss(_metaModel);
+            var result = DataAccess.GetSummaryWinloss(_metaModel, SpName);
 
             // Assert
             Assert.Multiple(() =>
@@ -89,12 +86,12 @@
         [Test]
         public void GetSummaryWinloss_WhenReceiveObjectDbException_ThrowDataAccessException()
         {
+            const string SpName = "Summary2";
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetSummaryWinlossSp,
-                () => DataAccess.GetSummaryWinloss(_metaModel));
+                SpName,
+                () => DataAccess.GetSummaryWinloss(_metaModel, SpName));
         }
 
-        [TestCase(null, GetCustomerWinlossDetailSp)]
         [TestCase("Test", "Test")]
         public void GetCustomerWinlossDetail_WhenCall_ParametersPassedCorrectly(string spname, string expectedSpName)
         {
@@ -120,7 +117,8 @@
         public void GetCustomerWinlossDetail_WhenCall_ReturnCorrectResult()
         {
             // Arrange
-            DataAccess.GetObjectDb(Arg.Is(GetAgentWinlossDetailSp)).Returns(ObjectDb);
+            const string SpName = "Detail1";
+            DataAccess.GetObjectDb(Arg.Is(SpName)).Returns(ObjectDb);
 
             Reader.Read().Returns(true, false);
             var readerDataMapping = new
@@ -131,7 +129,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetCustomerWinlossDetail(_metaModel);
+            var result = DataAccess.GetCustomerWinlossDetail(_metaModel, SpName);
 
             // Assert
             Assert.Multiple(() =>
@@ -144,12 +142,12 @@
         [Test]
         public void GetCustomerWinlossDetail_WhenReceiveObjectDbException_ThrowDataAccessException()
         {
+            const string SpName = "Detail2";
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetCustomerWinlossDetailSp,
-                () => DataAccess.GetCustomerWinlossDetail(_metaModel));
+                SpName,
+                () => DataAccess.GetCustomerWinlossDetail(_metaModel, SpName));
         }
 
-        [TestCase(null, GetAgentWinlossDetailSp)]
         [TestCase("Test", "Test")]
         public void GetAgentWinlossDetail_WhenCall_ParametersPassedCorrectly(string spname, string expectedSpName)
         {
@@ -175,7 +173,8 @@
         public void GetAgentWinlossDetail_WhenCall_ReturnCorrectResult()
         {
             // Arrange
-            DataAccess.GetObjectDb(Arg.Is(GetAgentWinlossDetailSp)).Returns(ObjectDb);
+            const string SpName = "Agent1";
+            DataAccess.GetObjectDb(Arg.Is(SpName)).Returns(ObjectDb);
 
             Reader.Read().Returns(true, false);
             var readerDataMapping = new
@@ -186,7 +185,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetAgentWinlossDetail(_metaModel);
+            var result = DataAccess.GetAgentWinlossDetail(_metaModel, SpName);
 
             // Assert
             Assert.Multiple(() =>
@@ -200,7 +199,8 @@
         public void GetData_HasSystemIdColumn_ReturnCorrectData()
         {
             // Arrange
-            DataAccess.GetObjectDb(Arg.Is(GetAgentWinlossDetailSp)).Returns(ObjectDb);
+            const string SpName = "Agent2";
+            DataAccess.GetObjectDb(Arg.Is(SpName)).Returns(ObjectDb);
 
             Reader.Read().Returns(true, false);
             Reader.FieldCount.Returns(1);
@@ -213,7 +213,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetAgentWinlossDetail(_metaModel);
+            var result = DataAccess.GetAgentWinlossDetail(_metaModel, SpName);
 
             // Assert
             Assert.That(result.DataList.First().SystemId, Is.EqualTo(readerDataMapping.username));
@@ -223,7 +223,8 @@
         public void GetData_HasExternalIdColumn_ReturnCorrectData()
         {
             // Arrange
-            DataAccess.GetObjectDb(Arg.Is(GetAgentWinlossDetailSp)).Returns(ObjectDb);
+            const string SpName = "Agent3";
+            DataAccess.GetObjectDb(Arg.Is(SpName)).Returns(ObjectDb);
 
             Reader.Read().Returns(true, false);
             Reader.FieldCount.Returns(1);
@@ -236,7 +237,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetAgentWinlossDetail(_metaModel);
+            var result = DataAccess.GetAgentWinlossDetail(_metaModel, SpName);
 
             // Assert
             Assert.That(result.DataList.First().ExternalId, Is.EqualTo(readerDataMapping.nickname));
@@ -246,7 +247,8 @@
         public void GetData_HasCustomerIdColumn_ReturnCorrectData()
         {
             // Arrange
-            DataAccess.GetObjectDb(Arg.Is(GetAgentWinlossDetailSp)).Returns(ObjectDb);
+            const string SpName = "Agent4";
+            DataAccess.GetObjectDb(Arg.Is(SpName)).Returns(ObjectDb);
 
             Reader.Read().Returns(true, false);
             Reader.FieldCount.Returns(1);
@@ -259,7 +261,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetAgentWinlossDetail(_metaModel);
+            var result = DataAccess.GetAgentWinlossDetail(_metaModel, SpName);
 
             // Assert
             Assert.That(result.DataList.First().CustomerId, Is.EqualTo(readerDataMapping.custid));
@@ -269,7 +271,8 @@
         public void GetData_HasWinlostDateColumn_ReturnCorrectData()
         {
             // Arrange
-            DataAccess.GetObjectDb(Arg.Is(GetAgentWinlossDetailSp)).Returns(ObjectDb);
+            const string SpName = "Agent5";
+            DataAccess.GetObjectDb(Arg.Is(SpName)).Returns(ObjectDb);
 
             Reader.Read().Returns(true, false);
             Reader.FieldCount.Returns(1);
@@ -282,7 +285,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetAgentWinlossDetail(_metaModel);
+            var result = DataAccess.GetAgentWinlossDetail(_metaModel, SpName);
 
             // Assert
             Assert.That(result.DataList.First().Date, Is.EqualTo(readerDataMapping.winlostdate));
@@ -291,9 +294,10 @@
         [Test]
         public void GetAgentWinlossDetail_WhenReceiveObjectDbException_ThrowDataAccessException()
         {
+            const string SpName = "Agent6";
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetAgentWinlossDetailSp,
-                () => DataAccess.GetAgentWinlossDetail(_metaModel));
+                SpName,
+                () => DataAccess.GetAgentWinlossDetail(_metaModel, SpName));
         }
     }
 }

@@ -7,9 +7,9 @@
 namespace Fanex.Athena.Controllers.BetSettings
 {
     using System;
+    using System.Collections.Generic;
     using System.Web.Mvc;
     using Constant.DataDomain;
-    using DataAccess.BetSettings.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Web.ActionFilter;
     using Model.BetSettings.MetaModel;
@@ -18,24 +18,30 @@ namespace Fanex.Athena.Controllers.BetSettings
     using Service.BetSettings.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
-    using Service.Customer.Interfaces;
 
     public class ThirdPartyBetSettingController : BetSettingBaseController
     {
+        private static readonly IDictionary<int, string> ProductViewFileMap = new Dictionary<int, string>
+            {
+                { ProductTypes.Macau, "Macau" },
+                { ProductTypes.MicroGamingLiveCasino, "MicroGamingLiveCasino" },
+                { ProductTypes.MicrogamingRNGCasino, "MicroGamingRNGCasino" },
+                { ProductTypes.BetTrade, "BetTrade" },
+                { ProductTypes.ColossusBets, "ColossusBets" },
+                { ProductTypes.CashOut, "CashOut" },
+                { ProductTypes.GoldDeluxe, "GoldDeluxe" },
+            };
+
         private readonly IThirdPartyBetSettingService _betSettingService;
 
-#pragma warning disable S107 // Methods should not have too many parameters
         public ThirdPartyBetSettingController(
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IAuthorizationService authorizationService,
-            ICoreBetSettingDataAccess coreBetSettingDataAccess,
-            ICustomerService customerService,
+            ICoreBetSettingService coreBetSettingService,
             IProductService productService,
             IThirdPartyBetSettingService betSettingService)
-#pragma warning restore S107 // Methods should not have too many parameters
-        : base(languageService, sessionService, appSetting, authorizationService, coreBetSettingDataAccess, customerService, productService)
+        : base(languageService, sessionService, appSetting, coreBetSettingService, productService)
         {
             _betSettingService = betSettingService;
         }
@@ -44,6 +50,11 @@ namespace Fanex.Athena.Controllers.BetSettings
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult Index(BetSettingMetaModel metaModel)
         {
+            if (!ProductViewFileMap.ContainsKey(metaModel.ProductId))
+            {
+                throw new ArgumentException("Not a thirdparty product.");
+            }
+
             var viewModel = _betSettingService.GetViewModel(SessionService.LicenseeSession.LicenseeId, metaModel.CustId, metaModel.ProductId);
             if (viewModel == null)
             {
@@ -51,30 +62,8 @@ namespace Fanex.Athena.Controllers.BetSettings
             }
 
             AssignRequiredProperties(viewModel, metaModel);
-
-            switch (metaModel.ProductId)
-            {
-                case ProductTypes.Macau:
-                    return View("~/Views/Desktop/Customer/BetSetting/Macau.cshtml", viewModel);
-
-                case ProductTypes.MicroGamingLiveCasino:
-                    return View("~/Views/Desktop/Customer/BetSetting/MicroGamingLiveCasino.cshtml", viewModel);
-
-                case ProductTypes.MicrogamingRNGCasino:
-                    return View("~/Views/Desktop/Customer/BetSetting/MicroGamingRNGCasino.cshtml", viewModel);
-
-                case ProductTypes.BetTrade:
-                    return View("~/Views/Desktop/Customer/BetSetting/BetTrade.cshtml", viewModel);
-
-                case ProductTypes.ColossusBets:
-                    return View("~/Views/Desktop/Customer/BetSetting/ColossusBets.cshtml", viewModel);
-
-                case ProductTypes.CashOut:
-                    return View("~/Views/Desktop/Customer/BetSetting/CashOut.cshtml", viewModel);
-
-                default:
-                    throw new ArgumentException("Not a thirdparty product.");
-            }
+            var viewPath = $"~/Views/Desktop/Customer/BetSetting/{ProductViewFileMap[metaModel.ProductId]}.cshtml";
+            return View(viewPath, viewModel);
         }
 
         [HttpPost]
@@ -117,6 +106,13 @@ namespace Fanex.Athena.Controllers.BetSettings
         public JsonResult UpdateCashOutStatus(int custId, string nickName, int status)
         {
             return UpdateThirdPartyProductStatus(ProductTypes.CashOut, custId, nickName, status);
+        }
+
+        [HttpPost]
+        [CustomValidateAntiForgery]
+        public JsonResult UpdateGoldDeluxeStatus(int custId, string nickName, int status)
+        {
+            return UpdateThirdPartyProductStatus(ProductTypes.GoldDeluxe, custId, nickName, status);
         }
 
         private JsonResult UpdateThirdPartyProductStatus(int productId, int custId, string nickName, int status)

@@ -1874,12 +1874,20 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/* Macau, MgcLiveCasino, Colossusbets, MgcRngCasino, BetTrade, Cashout */
-
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿
 !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js?fe57"), __webpack_require__(/*! common/site */ "./www/js/source/common/site.js"), __webpack_require__(/*! ../common/constant */ "./www/js/source/pages/customer/betsetting/common/constant.js"), __webpack_require__(/*! ../common/betsettingbase */ "./www/js/source/pages/customer/betsetting/common/betsettingbase.js"), __webpack_require__(/*! ../common/betsetting.status */ "./www/js/source/pages/customer/betsetting/common/betsetting.status.js")], __WEBPACK_AMD_DEFINE_RESULT__ = (function ($, Site, Constant, BetSettingBase, BetSettingStatus) {
         var Product = Constant.Product;
         var CHECKBOX_SELECTOR = "#enable-product";
         var PRODUCT_CONTAIN_CHECKBOX = [Product.MgcLiveCasino, Product.MgcRngCasino, Product.BetTrade, Product.Cashout];
+
+        var ProductUpdateStatusUrlMap = {};
+        ProductUpdateStatusUrlMap[Product.Macau] = "ThirdPartyBetSetting/UpdateMacauStatus";
+        ProductUpdateStatusUrlMap[Product.MgcLiveCasino] = "ThirdPartyBetSetting/UpdateMicroGamingLiveCasinoStatus";
+        ProductUpdateStatusUrlMap[Product.Colossusbets] = "ThirdPartyBetSetting/UpdateColossusBetsStatus";
+        ProductUpdateStatusUrlMap[Product.MgcRngCasino] = "ThirdPartyBetSetting/UpdateMicroGamingRNGCasinoStatus";
+        ProductUpdateStatusUrlMap[Product.BetTrade] = "ThirdPartyBetSetting/UpdateBetTradeStatus";
+        ProductUpdateStatusUrlMap[Product.Cashout] = "ThirdPartyBetSetting/UpdateCashOutStatus";
+        ProductUpdateStatusUrlMap[Product.GoldDeluxe] = "ThirdPartyBetSetting/UpdateGoldDeluxeStatus";
 
         var _me = {
             initialize: function () {
@@ -1903,11 +1911,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/* Macau, Mgc
 
             updateStatus: function ($context) {
                 var productId = parseInt($("#ProductId").val());
-                var url = _me.getUrlByProduct(productId);
-                if (url === null) {
-                    return;
+                var url = ProductUpdateStatusUrlMap[productId];
+                if (!url) {
+                    throw "Invalid product id: " + productId;
                 }
-
+                
                 var params = BetSettingStatus.getCommonPostData($context);
 
                 if (PRODUCT_CONTAIN_CHECKBOX.indexOf(productId) > -1) {
@@ -1915,32 +1923,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;﻿/* Macau, Mgc
                 }
 
                 BetSettingStatus.update(Site.resolveClientUrl(url), params);
-            },
-
-            getUrlByProduct: function (productId) {
-                var url = null;
-                switch (productId) {
-                    case Product.Macau:
-                        url = "ThirdPartyBetSetting/UpdateMacauStatus";
-                        break;
-                    case Product.MgcLiveCasino:
-                        url = "ThirdPartyBetSetting/UpdateMicroGamingLiveCasinoStatus";
-                        break;
-                    case Product.Colossusbets:
-                        url = "ThirdPartyBetSetting/UpdateColossusBetsStatus";
-                        break;
-                    case Product.MgcRngCasino:
-                        url = "ThirdPartyBetSetting/UpdateMicroGamingRNGCasinoStatus";
-                        break;
-                    case Product.BetTrade:
-                        url = "ThirdPartyBetSetting/UpdateBetTradeStatus";
-                        break;
-                    case Product.Cashout:
-                        url = "ThirdPartyBetSetting/UpdateCashOutStatus";
-                        break;
-                }
-
-                return url;
             },
 
             getStatus: function () {

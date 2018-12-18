@@ -117,12 +117,10 @@ define(modulePath, function ($, Site, BetSettingBase, BetSettingStatus, ThirdPar
                 assertByProductAndUrl(CASHOUT_PRODUCT, expectedUrl);
             });
 
-            it("url is null - BetSettingStatus.update() should not be called", function () {
+            it("url is null - throw exception", function () {
                 initialize(1);
 
-                ThirdPartyBetSetting.updateStatus();
-
-                expect(BetSettingStatus.update).not.toHaveBeenCalled();
+                expect(ThirdPartyBetSetting.updateStatus).toThrow("Invalid product id: 1");
             });
 
             it("Product is MgcLiveCasino - param has more status property - BetSettingStatus.update() should be called with correct parameter", function () {

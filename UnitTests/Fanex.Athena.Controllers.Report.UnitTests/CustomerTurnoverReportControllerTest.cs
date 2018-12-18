@@ -139,7 +139,7 @@
                         expectedFormatDate,
                         Arg.Any<ShowingOption>(),
                         resultModel,
-                        "Customer Turnover, 11/1/2017 --> 11/30/2017 - Currency:  - Minimum odds: 0 ");
+                        "Customer Turnover, 11/01/2017 --> 11/30/2017 - Currency:  - Minimum odds: 0 ");
                     Assert.That(result, Is.Not.Null);
                 });
             }

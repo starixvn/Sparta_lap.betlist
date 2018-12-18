@@ -21,14 +21,14 @@
         {
             base.FixtureSetUp();
 
-            SetUpDefaultFakeData();         
+            SetUpDefaultFakeData();
         }
 
         [SetUp]
         public void SetUp()
         {
             SetUpDefaultFakeBetSettingData();
-        } 
+        }
 
         [Test]
         public void Index_NoPermission_RedirectToAccessDeniedPage()
@@ -57,7 +57,6 @@
                 // Arrange
                 var metaModel = new BetSettingMetaModel { CustId = 100 };
 
-                AuthorizationService.HasPermissionOnData(DefaultLicenseeSession.LicenseeId, metaModel.CustId, 0).Returns(true);
                 _betSettingService.GetViewModel(DefaultLicenseeSession.LicenseeId, metaModel.CustId, DefaultLicenseeSession.LicenseeName)
                     .Returns(new AgCasinoBetSettingViewModel());
 
@@ -104,7 +103,7 @@
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
                     .Returns(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.AgCasino } }));
 
-                SetUpForBetSettingEditable(true);
+                CoreBetSettingService.IsBetSettingEditable().Returns(true);
 
                 _betSettingService.UpdateStatus(
                    DefaultLicenseeSession.LicenseeId,
@@ -136,7 +135,7 @@
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
                     .Returns(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.AgCasino } }));
 
-                SetUpForBetSettingEditable(true);
+                CoreBetSettingService.IsBetSettingEditable().Returns(true);
 
                 _betSettingService.UpdateStatus(
                    DefaultLicenseeSession.LicenseeId,
@@ -186,7 +185,7 @@
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
                     .Returns(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.AgCasino } }));
 
-                SetUpForBetSettingEditable(true);
+                CoreBetSettingService.IsBetSettingEditable().Returns(true);
 
                 _betSettingService.UpdateAgCasinoBetSetting(
                    Arg.Any<CommonBetSetting>(),
@@ -214,7 +213,7 @@
                 ProductService.GetProductAccess(DefaultLicenseeSession.LicenseeId, DefaultUserSession.Language)
                     .Returns(new ProductAccess(new List<Product> { new Product { ProductID = ProductTypes.AgCasino } }));
 
-                SetUpForBetSettingEditable(true);
+                CoreBetSettingService.IsBetSettingEditable().Returns(true);
 
                 _betSettingService.UpdateAgCasinoBetSetting(
                    Arg.Any<CommonBetSetting>(),
@@ -237,9 +236,7 @@
                 LangService,
                 SessionService,
                 AppSettings,
-                AuthorizationService,
-                CoreBetSettingDataAccess,
-                CustomerService,
+                CoreBetSettingService,
                 ProductService,
                 _betSettingService)
             {

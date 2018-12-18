@@ -14,14 +14,12 @@ namespace Fanex.Athena.DataAccess.BetList
     using System.Linq;
     using Extension.Utility;
     using Fanex.Athena.DataAccess.BetList.Interfaces;
-    using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.DataAccess.Core.Extensions;
     using Fanex.Athena.Model.BetList.DTO;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.BetList.Core.Entities;
     using Fanex.Common;
     using Fanex.Common.Extensions;
-    using Fanex.Data;
     using Session.Interfaces;
     using Util;
 
@@ -35,23 +33,17 @@ namespace Fanex.Athena.DataAccess.BetList
         public TicketResult GetMixParlayDetailTicket(long transId, int custId)
         {
             const string UspName = "Lrf_BetList_SelParlayDetail";
-            try
+
+            using (var db = this.GetObjectDb(UspName))
             {
-                using (var db = this.GetObjectDb(UspName))
+                db.AddInParameter("TransId", DbType.Int64, transId);
+                db.AddInParameter("CustId", DbType.Int32, custId);
+                using (var reader = db.ExecuteReader())
                 {
-                    db.AddInParameter("TransId", DbType.Int64, transId);
-                    db.AddInParameter("CustId", DbType.Int32, custId);
-                    using (var reader = db.ExecuteReader())
-                    {
-                        var result = new TicketResult();
-                        result.MainTicketList.AddRange(ReadBetListTicket(reader, string.Empty));
-                        return result;
-                    }
+                    var result = new TicketResult();
+                    result.MainTicketList.AddRange(ReadBetListTicket(reader, string.Empty));
+                    return result;
                 }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName);
             }
         }
 
@@ -61,108 +53,96 @@ namespace Fanex.Athena.DataAccess.BetList
         public SystemParlayData GetSystemParlayDetail(SystemParlayDetailMetaModel metaModel)
         {
             const string UspName = "Lrf_BetList_SelCombinationParlayDetail";
-            try
+
+            using (var db = this.GetObjectDb(UspName))
             {
-                using (var db = this.GetObjectDb(UspName))
+                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+                db.AddInParameter("refno", DbType.Int64, metaModel.RefNo);
+                db.AddInParameter("movebetsday", DbType.DateTime, metaModel.MoveBetsDay);
+                db.AddInParameter("balanceupday", DbType.DateTime, metaModel.BalanceUpDay);
+                db.AddInParameter("BaseCurrency", DbType.String, metaModel.BaseCurrency);
+                db.AddOutParameter("outstanding", DbType.Currency, 8);
+                var dataSet = db.ExecuteDataSet();
+                var systemParlayData = new SystemParlayData
                 {
-                    db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
-                    db.AddInParameter("refno", DbType.Int64, metaModel.RefNo);
-                    db.AddInParameter("movebetsday", DbType.DateTime, metaModel.MoveBetsDay);
-                    db.AddInParameter("balanceupday", DbType.DateTime, metaModel.BalanceUpDay);
-                    db.AddInParameter("BaseCurrency", DbType.String, metaModel.BaseCurrency);
-                    db.AddOutParameter("outstanding", DbType.Currency, 8);
-                    var dataSet = db.ExecuteDataSet();
-                    var systemParlayData = new SystemParlayData
+                    TicketList = new List<ISystemParlayTicket>(),
+                    SerialList = new List<ISystemParlaySerial>()
+                };
+                using (var ticketData = dataSet.Tables.Count > 0 ? dataSet.Tables[0] : new DataTable())
+                {
+                    foreach (DataRow row in ticketData.Rows)
                     {
-                        TicketList = new List<ISystemParlayTicket>(),
-                        SerialList = new List<ISystemParlaySerial>()
-                    };
-                    using (var ticketData = dataSet.Tables.Count > 0 ? dataSet.Tables[0] : new DataTable())
-                    {
-                        foreach (DataRow row in ticketData.Rows)
+                        ISystemParlayTicket ticket = new SystemParlayTicket
                         {
-                            ISystemParlayTicket ticket = new SystemParlayTicket
-                            {
-                                Comm = Converter.ToDecimal(row["comm"]),
-                                MOdds = Converter.ToDecimal(row["modds"]),
-                                PlayerComm = Converter.ToDecimal(row["playercomm"]),
-                                Serial = Convert.ToInt64(row["serial"]),
-                                Stake = Converter.ToDecimal(row["stake"]),
-                                Status = Converter.ToString2(row["status"]),
-                                StatusId = Converter.ToInt(row["statusid"]),
-                                TransId = Convert.ToInt64(row["transid"]),
-                                WinLost = Converter.ToDecimal(row["winlost"]),
-                                WinLostDate = Converter.ToDateTime(row["winlostdate"])
-                            };
+                            Comm = Converter.ToDecimal(row["comm"]),
+                            MOdds = Converter.ToDecimal(row["modds"]),
+                            PlayerComm = Converter.ToDecimal(row["playercomm"]),
+                            Serial = Convert.ToInt64(row["serial"]),
+                            Stake = Converter.ToDecimal(row["stake"]),
+                            Status = Converter.ToString2(row["status"]),
+                            StatusId = Converter.ToInt(row["statusid"]),
+                            TransId = Convert.ToInt64(row["transid"]),
+                            WinLost = Converter.ToDecimal(row["winlost"]),
+                            WinLostDate = Converter.ToDateTime(row["winlostdate"])
+                        };
 
-                            systemParlayData.TicketList.Add(ticket);
-                        }
+                        systemParlayData.TicketList.Add(ticket);
                     }
-
-                    using (var serialData = dataSet.Tables.Count > 1 ? dataSet.Tables[1] : new DataTable())
-                    {
-                        foreach (DataRow row in serialData.Rows)
-                        {
-                            ISystemParlaySerial serial = new SystemParlaySerial
-                            {
-                                Serial = Convert.ToInt64(row["serial"]),
-                                HomeId = Converter.ToInt(row["homeid"]),
-                                AwayId = Converter.ToInt(row["awayid"])
-                            };
-
-                            systemParlayData.SerialList.Add(serial);
-                        }
-                    }
-
-                    systemParlayData.Outstanding = Converter.ToDecimal(db.GetParameterValue("outstanding"));
-
-                    return systemParlayData;
                 }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName, metaModel);
+
+                using (var serialData = dataSet.Tables.Count > 1 ? dataSet.Tables[1] : new DataTable())
+                {
+                    foreach (DataRow row in serialData.Rows)
+                    {
+                        ISystemParlaySerial serial = new SystemParlaySerial
+                        {
+                            Serial = Convert.ToInt64(row["serial"]),
+                            HomeId = Converter.ToInt(row["homeid"]),
+                            AwayId = Converter.ToInt(row["awayid"])
+                        };
+
+                        systemParlayData.SerialList.Add(serial);
+                    }
+                }
+
+                systemParlayData.Outstanding = Converter.ToDecimal(db.GetParameterValue("outstanding"));
+
+                return systemParlayData;
             }
         }
 
         public TicketResult GetBetListData(BetListMetaModel metaModel, string uspKey)
         {
             var ticketResult = new TicketResult();
-            try
+
+            using (var db = GetObjectDb(uspKey))
             {
-                using (var db = GetObjectDb(uspKey))
+                BetListParameterBuilder.CreateBetListParameters(db, uspKey, metaModel);
+                var baseCurrency = BetListParameterBuilder.HasBaseCurrencyOutputColumn(uspKey) ?
+                    metaModel.BaseCurrency :
+                    string.Empty;
+
+                using (var reader = db.ExecuteReader())
                 {
-                    BetListParameterBuilder.CreateBetListParameters(db, uspKey, metaModel);
-                    var baseCurrency = BetListParameterBuilder.HasBaseCurrencyOutputColumn(uspKey) ?
-                        metaModel.BaseCurrency :
-                        string.Empty;
-
-                    using (var reader = db.ExecuteReader())
+                    ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader, baseCurrency, metaModel.CustId));
+                    if (reader.NextResult())
                     {
-                        ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader, baseCurrency, metaModel.CustId));
-                        if (reader.NextResult())
-                        {
-                            ticketResult.TicketDataList.AddRange(ReadLrfReferneceTicket(reader, baseCurrency).ToList());
-                        }
-
-                        SortData(metaModel, ticketResult.MainTicketList);
+                        ticketResult.TicketDataList.AddRange(ReadLrfReferneceTicket(reader, baseCurrency).ToList());
                     }
 
-                    var outSqlParams = db.GetOuputParams();
-
-                    if (outSqlParams == null)
-                    {
-                        outSqlParams = new Hashtable();
-                    }
-
-                    UpdateSummaryData(ticketResult, outSqlParams, baseCurrency);
-
-                    return ticketResult;
+                    SortData(metaModel, ticketResult.MainTicketList);
                 }
-            }
-            catch (Exception sqlException)
-            {
-                throw new DataAccessException(sqlException, uspKey, metaModel);
+
+                var outSqlParams = db.GetOuputParams();
+
+                if (outSqlParams == null)
+                {
+                    outSqlParams = new Hashtable();
+                }
+
+                UpdateSummaryData(ticketResult, outSqlParams, baseCurrency);
+
+                return ticketResult;
             }
         }
 

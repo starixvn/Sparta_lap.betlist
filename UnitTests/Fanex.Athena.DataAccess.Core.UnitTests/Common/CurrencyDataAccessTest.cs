@@ -112,14 +112,6 @@
         }
 
         [Test]
-        public void AssignCurrenciesByUser_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                AssignCurrenciesByUserSp,
-                () => DataAccess.AssignCurrenciesByUser(new AssignCurrencyMetaModel()));
-        }
-
-        [Test]
         public void GetCurrenciesByUser_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
@@ -158,14 +150,6 @@
                 Assert.That(currencyList.Count, Is.EqualTo(1));
                 Assert.That(currencyList[0].AgentIdList.Count(), Is.EqualTo(2));
             });
-        }
-
-        [Test]
-        public void GetCurrenciesByUser_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetCurrenciesByUser,
-                () => DataAccess.GetCurrenciesByUser(0, 0));
         }
     }
 }

@@ -46,6 +46,7 @@
                 <button type="button" id="SubmitButton" class="btn btn-primary">@ViewResources.Submit</button>
             </div>
             <div class="col right icon-block">
+                <i class="icon-book right" id="UserGuide" title="@ViewResources.UserGuide"></i>
                 <i class="icon-excel right" title="@ViewResources.ExportToExcel" id="ExportToExcel"></i>
             </div>
         </div>
@@ -57,8 +58,6 @@
             </div>
         </div>
         @Html.Hidden("IsExportExcel", Model.Param.IsExportExcel)
-        @Html.Hidden("ProductId", Model.Param.ProductId)
-        @Html.Hidden("ProductCode", Model.Param.ProductCode)
         @Html.Hidden("ProductName", Model.Param.ProductName)
     </form>
     @Html.Hidden("drillDownLicenseeId", Model.Param.LicenseeId)

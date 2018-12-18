@@ -156,6 +156,7 @@
     <Compile Include="Interfaces\ILicenseeWinLossByTimeZoneDataAccess.cs" />
     <Compile Include="Interfaces\ISpecialLicenseeWinLossDataAccess.cs" />
     <Compile Include="Interfaces\ISubsidiaryPerformanceDataAccess.cs" />
+    <Compile Include="Interfaces\IGoldDeluxeWinLossDataAccess.cs" />
     <Compile Include="Interfaces\IWeeklyLiveMatchDataAccess.cs" />
     <Compile Include="SpecialLicenseeWinLossDataAccess.cs" />
     <Compile Include="MicroGamingWinLossDataAccess.cs" />
@@ -163,6 +164,7 @@
     <Compile Include="ColossusBetsWinLossDataAccess.cs" />
     <Compile Include="LicenseeWinLossByTimeZoneDataAccess.cs" />
     <Compile Include="SubsidiaryPerformanceDataAccess.cs" />
+    <Compile Include="GoldDeluxeWinLossDataAccess.cs" />
     <Compile Include="ThirdPartyWinLossDataAccess.cs" />
     <Compile Include="WeeklyLiveMatchDataAccess.cs" />
     <Compile Include="WinLossByLeagueDataAccess.cs" />

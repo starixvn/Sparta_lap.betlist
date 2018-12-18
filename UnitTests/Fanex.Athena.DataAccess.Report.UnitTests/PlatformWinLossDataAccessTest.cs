@@ -97,14 +97,6 @@
         }
 
         [Test]
-        public void GetSummaryData_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetSummaryDataSp,
-                () => DataAccess.GetSummaryData(_metaModel));
-        }
-
-        [Test]
         public void GetMemberData_WhenCall_ParametersPassedCorrectly()
         {
             // Arrange
@@ -144,14 +136,6 @@
 
                 Assert.That(result.TotalData.Turnover, Is.EqualTo(100));
             });
-        }
-
-        [Test]
-        public void GetMemberData_WhenReceiveObjectDbException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetMemberDataSp,
-                () => DataAccess.GetMemberData(_metaModel));
         }
 
         private void AssertSpParameters()

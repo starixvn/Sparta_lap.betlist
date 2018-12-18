@@ -2590,4 +2590,10 @@
     <value>注单中心</value>
     <comment>80941</comment>
   </data>
+  <data name="TipAmount" xml:space="preserve">
+    <value>打赏金额</value>
+  </data>
+  <data name="TipSharing" xml:space="preserve">
+    <value>打赏分成</value>
+  </data>
 </root>

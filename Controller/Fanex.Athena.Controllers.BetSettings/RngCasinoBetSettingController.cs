@@ -8,7 +8,6 @@ namespace Fanex.Athena.Controllers.BetSettings
 {
     using System.Data;
     using System.Web.Mvc;
-    using DataAccess.BetSettings.Interfaces;
     using Extension.Utility;
     using Fanex.Athena.Web.ActionFilter;
     using Model.BetSettings.MetaModel;
@@ -17,24 +16,19 @@ namespace Fanex.Athena.Controllers.BetSettings
     using Service.BetSettings.Interfaces;
     using Service.Core.Common.Interfaces;
     using Service.Core.Users.Interfaces;
-    using Service.Customer.Interfaces;
 
     public class RngCasinoBetSettingController : BetSettingBaseController
     {
         private readonly IRngCasinoBetSettingService _betSettingService;
 
-#pragma warning disable S107 // Methods should not have too many parameters
         public RngCasinoBetSettingController(
             ILanguageService languageService,
             ISessionService sessionService,
             IAppSettings appSetting,
-            IAuthorizationService authorizationService,
-            ICoreBetSettingDataAccess coreBetSettingDataAccess,
-            ICustomerService customerService,
+            ICoreBetSettingService coreBetSettingService,
             IProductService productService,
             IRngCasinoBetSettingService betSettingService)
-#pragma warning restore S107 // Methods should not have too many parameters
-        : base(languageService, sessionService, appSetting, authorizationService, coreBetSettingDataAccess, customerService, productService)
+        : base(languageService, sessionService, appSetting, coreBetSettingService, productService)
         {
             _betSettingService = betSettingService;
         }
@@ -43,7 +37,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult Index(BetSettingMetaModel metaModel)
         {
-            var customer = GetCustomerInfo(SessionService.LicenseeSession.LicenseeId, metaModel.CustId);
+            var customer = GetCustomerInfo(metaModel.CustId);
             var viewModel = _betSettingService.GetViewModel(metaModel.CustId, customer, SessionService.UserSession.Language);
             AssignRequiredProperties(viewModel, metaModel);
 
@@ -54,8 +48,7 @@ namespace Fanex.Athena.Controllers.BetSettings
         [CustomValidateAntiForgery]
         public JsonResult UpdateBetSetting(int custId, string gameTypeChangedList)
         {
-            var licenseeSession = SessionService.LicenseeSession;
-            var customer = ProductAccess.IsAllowCS ? GetCustomerInfo(licenseeSession.LicenseeId, custId) : null;
+            var customer = ProductAccess.IsAllowCS ? GetCustomerInfo(custId) : null;
             if (customer == null || !customer.SyncCasino || !IsBetSettingEditable())
             {
                 return AccessDenied();
@@ -63,6 +56,7 @@ namespace Fanex.Athena.Controllers.BetSettings
 
             try
             {
+                var licenseeSession = SessionService.LicenseeSession;
                 var userSession = SessionService.UserSession;
 
                 var metaModel = new RngCasinoBetSettingMetaModel
@@ -93,15 +87,15 @@ namespace Fanex.Athena.Controllers.BetSettings
         [CustomValidateAntiForgery]
         public JsonResult UpdateStatus(int custId, string nickName, int status)
         {
-            var licenseeId = SessionService.LicenseeSession.LicenseeId;
             if (!ProductAccess.IsAllowCS ||
-                !GetCustomerInfo(licenseeId, custId).SyncCasino ||
+                !GetCustomerInfo(custId).SyncCasino ||
                 !IsBetSettingEditable())
             {
                 return AccessDenied();
             }
 
-            var customer = GetCustomerInfo(licenseeId, custId);
+            var licenseeId = SessionService.LicenseeSession.LicenseeId;
+            var customer = GetCustomerInfo(custId);
             var userSession = SessionService.UserSession;
             var metaModel = new BetSettingCasinoStatusMetaModel
             {

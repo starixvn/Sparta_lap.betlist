@@ -61,13 +61,5 @@
                 Assert.That(result[0].Name, Is.EqualTo(expected.Name));
             });
         }
-
-        [Test]
-        public void GetBettypesByProduct_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                UspName,
-                () => DataAccess.GetBettypesByProduct(0, string.Empty, string.Empty));
-        }
     }
 }

@@ -2587,4 +2587,10 @@
     <value>注單中心</value>
     <comment>80941</comment>
   </data>
+  <data name="TipAmount" xml:space="preserve">
+    <value>打賞金額</value>
+  </data>
+  <data name="TipSharing" xml:space="preserve">
+    <value>打賞抽成</value>
+  </data>
 </root>

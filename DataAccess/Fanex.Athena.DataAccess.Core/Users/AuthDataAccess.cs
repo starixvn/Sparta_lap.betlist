@@ -22,23 +22,17 @@ namespace Fanex.Athena.DataAccess.Core.Users
         public int LoginOnUser(User requestUser, string netSessionId, int serverId)
         {
             const string UspName = "Lrf_CheckIn";
-            try
-            {
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    db.AddInParameter("CustID", DbType.Int32, requestUser.UserID);
-                    db.AddInParameter("NetSessionID", DbType.String, netSessionId);
-                    db.AddInParameter("ServerID", DbType.Int32, serverId);
-                    db.AddOutParameter("On_UserID", DbType.Int32, 4);
-                    db.AddInParameter("IP", DbType.String, requestUser.Request.Ip);
-                    db.ExecuteNonQuery();
 
-                    return Convert.ToInt32(db.GetParameterValue("On_UserID"));
-                }
-            }
-            catch (ObjectDbException sqlException)
+            using (var db = this.GetObjectDb(UspName))
             {
-                throw new DataAccessException(sqlException, UspName);
+                db.AddInParameter("CustID", DbType.Int32, requestUser.UserID);
+                db.AddInParameter("NetSessionID", DbType.String, netSessionId);
+                db.AddInParameter("ServerID", DbType.Int32, serverId);
+                db.AddOutParameter("On_UserID", DbType.Int32, 4);
+                db.AddInParameter("IP", DbType.String, requestUser.Request.Ip);
+                db.ExecuteNonQuery();
+
+                return Convert.ToInt32(db.GetParameterValue("On_UserID"));
             }
         }
 

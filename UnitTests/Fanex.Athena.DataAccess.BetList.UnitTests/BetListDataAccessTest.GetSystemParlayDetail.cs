@@ -32,7 +32,7 @@
                 ObjectDb.Received(1).AddInParameter("refno", DbType.Int64, metaModel.RefNo);
                 ObjectDb.Received(1).AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
                 ObjectDb.Received(1).AddInParameter("movebetsday", DbType.DateTime, metaModel.MoveBetsDay);
-                ObjectDb.Received(1).AddInParameter("balanceupday", DbType.DateTime, metaModel.BalanceUpDay);            
+                ObjectDb.Received(1).AddInParameter("balanceupday", DbType.DateTime, metaModel.BalanceUpDay);
                 ObjectDb.Received(1).AddInParameter("BaseCurrency", DbType.String, metaModel.BaseCurrency);
                 ObjectDb.Received(1).AddOutParameter("outstanding", DbType.Currency, 8);
             });
@@ -73,14 +73,6 @@
 
             // Assert
             Assert.That(result.SerialList[0], Tobe.SameProperties(expectedResult));
-        }
-
-        [Test]
-        public void GetSystemParlayDetail_WhenObjectDbThrowsException_ThrowDataAccessException()
-        {
-            TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
-                GetSystemParlayDetailSp,
-                () => DataAccess.GetSystemParlayDetail(new SystemParlayDetailMetaModel()));
         }
 
         private static DataSet CreateFakeDataSetForSystemParlayTickeData(SystemParlayTicket data)

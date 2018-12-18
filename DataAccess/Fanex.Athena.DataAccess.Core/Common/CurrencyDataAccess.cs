@@ -52,26 +52,19 @@ namespace Fanex.Athena.DataAccess.Core.Common
         {
             const string UspName = "Lrf_CurrencyCustIns";
 
-            try
+            using (var db = this.GetObjectDb(UspName))
             {
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    db.AddInParameter("UserID", DbType.Int32, request.UserId);
-                    db.AddInParameter("LicenseeID", DbType.Int32, request.LicenseeId);
-                    db.AddInParameter("CurrencyXML", DbType.String, request.CurrencyList);
-                    db.AddInParameter("ModifyBy", DbType.Int32, request.ModifyBy);
-                    db.AddInParameter("LangKey", DbType.String, request.LangKey);
-                    db.AddInParameter("IP", DbType.String, request.IP);
+                db.AddInParameter("UserID", DbType.Int32, request.UserId);
+                db.AddInParameter("LicenseeID", DbType.Int32, request.LicenseeId);
+                db.AddInParameter("CurrencyXML", DbType.String, request.CurrencyList);
+                db.AddInParameter("ModifyBy", DbType.Int32, request.ModifyBy);
+                db.AddInParameter("LangKey", DbType.String, request.LangKey);
+                db.AddInParameter("IP", DbType.String, request.IP);
 
-                    AddResultParam(db);
-                    db.ExecuteNonQuery();
+                AddResultParam(db);
+                db.ExecuteNonQuery();
 
-                    return GetResult(db);
-                }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName);
+                return GetResult(db);
             }
         }
 
@@ -79,19 +72,12 @@ namespace Fanex.Athena.DataAccess.Core.Common
         {
             const string UspName = "Lrf_SelCurrencyByLicenseeUser";
 
-            try
+            using (var db = this.GetObjectDb(UspName))
             {
-                using (var db = this.GetObjectDb(UspName))
-                {
-                    db.AddInParameter("UserID", DbType.Int32, userId);
-                    db.AddInParameter("LicenseeID", DbType.Int32, licenseeId);
+                db.AddInParameter("UserID", DbType.Int32, userId);
+                db.AddInParameter("LicenseeID", DbType.Int32, licenseeId);
 
-                    return BindCurrencyUser(db);
-                }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, UspName);
+                return BindCurrencyUser(db);
             }
         }
 

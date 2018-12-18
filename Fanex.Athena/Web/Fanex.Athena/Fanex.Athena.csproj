@@ -410,6 +410,7 @@
     <Content Include="App_Data\UserGuide\CashOutWL\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\CashOutWL\zh-TW.htm" />
     <Content Include="App_Data\UserGuide\CashOutWL\en-US.htm" />
+    <Content Include="App_Data\UserGuide\GoldDeluxeWL\en-US.htm" />
     <Content Include="App_Data\UserGuide\ColossusBetsWL\en-US.htm" />
     <Content Include="App_Data\UserGuide\ColossusBetsWL\zh-CN.htm" />
     <Content Include="App_Data\UserGuide\ColossusBetsWL\zh-TW.htm" />
@@ -2135,9 +2136,6 @@
     <Content Include="jasmine-specs\Report\microgamingwinloss-test.js" />
     <Content Include="jasmine-specs\Report\microgamingwinloss.option-test.js" />
     <Content Include="jasmine-specs\Report\report-test.js" />
-    <Content Include="jasmine-specs\Report\Result-test.js" />
-    <Content Include="jasmine-specs\Report\thirdpartywinloss-test.js" />
-    <Content Include="jasmine-specs\Report\thirdpartywinloss.option-test.js" />
     <Content Include="jasmine-specs\setup.js" />
     <Content Include="Jasmine\SpecRunner.html" />
     <Content Include="Jasmine\SpecRunnerReport.html" />
@@ -5599,6 +5597,10 @@
     <ProjectReference Include="..\..\..\Controller\Fanex.Athena.Controllers.TotalBets\Fanex.Athena.Controllers.TotalBets.csproj">
       <Project>{9d448f82-18c4-47f0-ab07-85da01fe2edc}</Project>
       <Name>Fanex.Athena.Controllers.TotalBets</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\DataAccess\Fanex.Athena.DataAccess.Report\Fanex.Athena.DataAccess.Report.csproj">
+      <Project>{5653BC29-0843-4D75-9140-5B370DF2F88C}</Project>
+      <Name>Fanex.Athena.DataAccess.Report</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Fanex.Athena.Api.ExternalService\Fanex.Athena.Api.ExternalService.csproj">
       <Project>{33283837-a60b-44aa-815d-f61f70774de2}</Project>

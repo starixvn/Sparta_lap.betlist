@@ -96,7 +96,7 @@
 "use strict";
 
 
-// Generated at: 10/9/2018 4:34:45 PM
+// Generated at: 12/17/2018 4:03:59 PM
 window._language_zh_Hans = {
   AA: "客客",
   AccessDeniedMsg: "对不起, 您没有权限访问此页面。",
@@ -299,7 +299,6 @@ window._language_zh_Hans = {
   Disable: "Disable",
   DisableAgCasino: "Disable AG Casino",
   DisableRNGCasino: "停用娱乐城",
-  DisableSSOMsg: "SSO功能被禁用",
   Dontshowagain: "不再显示",
   DoubleChance: "双重机会",
   Download: "下载",
@@ -318,7 +317,6 @@ window._language_zh_Hans = {
   EnableAgCasino: "Enable AG Casino",
   EnableCashOut: "开启即时兑现",
   EnableRNGCasino: "Enable RNG Casino",
-  EndBalance: "结束余额",
   EndDate: "结束日期",
   Entered: "成绩已输入场数",
   Error: "误差",
@@ -657,7 +655,6 @@ window._language_zh_Hans = {
   Place: "位置",
   Platform: "平台",
   Player: "玩家",
-  PlayerHistoryNo: "玩家历史号码",
   Postponed: "改期",
   PreGame: "游戏开始前",
   Prev: "上个月",
@@ -706,7 +703,6 @@ window._language_zh_Hans = {
   RngCasinoAndBingoExcludedNote: "此报告不包含娱乐城及宾果",
   RngCasinoAndKenoExcludedNote: "RNG Casino and Keno are not included in the report",
   RNGCasinoUpdateSettingUnAvailableMsg: "RNG Casino Database is not currently available. Please try again later.",
-  RollingComm: "Rolling Comm",
   RoundType: "每局类型",
   Running: "进行中",
   S1: "1S",
@@ -757,7 +753,6 @@ window._language_zh_Hans = {
   Sportsbook: "体育博彩",
   Stake: "投注额",
   StakeFrom: "投注额从",
-  StartBalance: "开始余额",
   StartDate: "开始日期",
   StartTime: "开始时间",
   Statement: "账目",
@@ -788,6 +783,8 @@ window._language_zh_Hans = {
   TicketType: "注单类型",
   Time: "时间",
   TimeZone: "时区",
+  TipAmount: "打赏金额",
+  TipSharing: "打赏分成",
   To: "至",
   Todate: "至日期",
   Today: "今日",

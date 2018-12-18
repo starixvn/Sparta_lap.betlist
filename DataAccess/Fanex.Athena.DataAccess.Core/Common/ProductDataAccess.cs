@@ -12,10 +12,8 @@ namespace Fanex.Athena.DataAccess.Core.Common
     using Extension.Utility;
     using Fanex.Athena.DataAccess.Core;
     using Fanex.Athena.DataAccess.Core.Common.Interfaces;
-    using Fanex.Athena.DataAccess.Core.Exception;
     using Fanex.Athena.Model.Core.DTO.Common;
     using Fanex.Common;
-    using Fanex.Data;
     using Resources;
     using Session.Interfaces;
 
@@ -33,34 +31,27 @@ namespace Fanex.Athena.DataAccess.Core.Common
             // All licensees have product Sb
             var allowedProducts = new List<Product> { new Product { IsOfferedSingleWallet = true, ProductCode = "SB", ProductName = ViewResources.Sportsbook } };
 
-            try
+            using (var db = this.GetObjectDb(uspName))
             {
-                using (var db = this.GetObjectDb(uspName))
+                db.AddInParameter("licenseeid", DbType.Int32, licenseeId);
+
+                using (var reader = db.ExecuteReader())
                 {
-                    db.AddInParameter("licenseeid", DbType.Int32, licenseeId);
-
-                    using (var reader = db.ExecuteReader())
+                    while (reader.Read())
                     {
-                        while (reader.Read())
+                        allowedProducts.Add(new Product
                         {
-                            allowedProducts.Add(new Product
-                            {
-                                ProductID = Converter.ToInt(reader["ProductID"]),
-                                ProductName = DataHelper.GetProductName(Converter.ToString2(reader["productprefix"])),
-                                ProductCode = Converter.ToString2(reader["productprefix"]),
-                                AllowCommission = Converter.ToBool(reader["comm"]),
-                                AllowWinloss = Converter.ToBool(reader["winloss"]),
-                                IsOfferedSingleWallet = Converter.ToBool(reader["IsOfferedSingleWallet"])
-                            });
-                        }
+                            ProductID = Converter.ToInt(reader["ProductID"]),
+                            ProductName = DataHelper.GetProductName(Converter.ToString2(reader["productprefix"])),
+                            ProductCode = Converter.ToString2(reader["productprefix"]),
+                            AllowCommission = Converter.ToBool(reader["comm"]),
+                            AllowWinloss = Converter.ToBool(reader["winloss"]),
+                            IsOfferedSingleWallet = Converter.ToBool(reader["IsOfferedSingleWallet"])
+                        });
                     }
-
-                    return allowedProducts;
                 }
-            }
-            catch (ObjectDbException sqlException)
-            {
-                throw new DataAccessException(sqlException, uspName);
+
+                return allowedProducts;
             }
         }
     }
