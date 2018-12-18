@@ -96,7 +96,7 @@
 "use strict";
 
 
-// Generated at: 12/17/2018 4:03:59 PM
+// Generated at: 12/18/2018 3:25:51 PM
 window._language_en_US = {
   AA: "AA",
   AB: "AB",
@@ -998,6 +998,7 @@ window._language_en_US = {
   VirtualHorseRacing: "Virtual Horse Racing",
   VirtualMotoRacing: "Virtual Moto Racing",
   VirtualSoccer: "Virtual Soccer",
+  VirtualSoccerAsianCup: "Virtual Soccer Asian Cup",
   VirtualSoccerLeague: "Virtual Soccer League",
   VirtualSoccerNation: "Virtual Soccer Nation",
   VirtualSoccerWorldCup: "Virtual Soccer World Cup",
