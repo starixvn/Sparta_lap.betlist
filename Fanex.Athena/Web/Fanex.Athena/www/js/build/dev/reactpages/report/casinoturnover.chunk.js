@@ -6379,6 +6379,11 @@ var ReportExcel = function () {
                 var cellAddress = _excel2.default.getCellAddress({ c: INDEX_COLUMN_INDEX, r: this.currentRowIndex });
                 this.worksheet[cellAddress] = { t: "s", v: i + 1, s: _excelStyle.bodyCellStyle.center };
                 this._createRowByColumnIndex(item, MAIN_SECTION_STYLE, DATE_COLUMN_INDEX, CUSTOMERWL_COLUMN_INDEX);
+                if (item.RowSpan > 1) {
+                    for (var column = 0; column <= 3; column++) {
+                        this.mergeConfig.push({ s: { r: this.currentRowIndex, c: column }, e: { r: this.currentRowIndex + item.RowSpan - 1, c: column } });
+                    }
+                }
                 this.currentRowIndex++;
             }
         }
