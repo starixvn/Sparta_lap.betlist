@@ -3,7 +3,7 @@
     "pages/report/thirdpartywinloss/reports/golddeluxewinloss",
     "pages/report/thirdpartywinloss/reports/golddeluxewinloss.option"],
     function (ThirdPartyWinLoss, GoldDeluxeWinLoss, GoldDeluxeWinLossOption) {
-        describe("ColossusBetsWinLoss", function () {
+        describe("GoldDeluxeWinLoss", function () {
             beforeAll(function () {
                 spyOn(ThirdPartyWinLoss, "initialize");
             });
@@ -13,6 +13,8 @@
                     GoldDeluxeWinLoss.initialize();
 
                     expect(ThirdPartyWinLoss.initialize).toHaveBeenCalledWith({
+                        UserGuideResourceName: "GoldDeluxeWL",
+                        UserGuideTitle: "GoldDeluxeWinLoss",
                         ValidMonthRange: 3,
                         ReportTitle: "GoldDeluxeWinLoss",
                         GridOption: GoldDeluxeWinLossOption
