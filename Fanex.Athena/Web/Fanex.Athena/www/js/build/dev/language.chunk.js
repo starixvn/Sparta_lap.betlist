@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-﻿// Generated at: 12/18/2018 3:25:51 PM
+﻿// Generated at: 12/19/2018 3:44:31 PM
 window._language_en_US = {
 AA:"AA",
 AB:"AB",
@@ -631,7 +631,7 @@ MixSportsParlay:"Mix Sports Parlay",
 Mo:"Mo",
 Mobile:"Mobile",
 MobileApp:"Mobile App",
-MobileChinaView:"Mobile China View",
+MobileLiteVersion:"Mobile Lite Version",
 Mode:"Mode",
 Monday:"Monday",
 Money:"Money",
@@ -859,7 +859,6 @@ Sincelastmonth:"Since last month",
 SingleCustomer:"Single Customer",
 Site:"Site",
 SixMonth:"6 months",
-SmartSite:"Smart Site",
 SortBy:"Sort by",
 Sorting:"Sorting",
 SpecialLevel:"Special Level",
