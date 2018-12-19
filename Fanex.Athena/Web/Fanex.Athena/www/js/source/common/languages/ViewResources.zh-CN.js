@@ -1,4 +1,4 @@
-﻿// Generated at: 12/19/2018 3:44:31 PM
+﻿// Generated at: 12/19/2018 4:04:42 PM
 window._language_zh_CN = {
 AA:"客客",
 AccessDeniedMsg:"对不起, 您没有权限访问此页面。",
@@ -226,7 +226,7 @@ Entered:"成绩已输入场数",
 Error:"误差",
 ErrorProcessingMsg:"对不起, 处理您的请求时有错误发生。",
 EUR:"EUR",
-Euro:"欧洲",
+Euro:"欧洲版",
 Even:"双",
 Event:"项目",
 EventDate:"赛事日期",
