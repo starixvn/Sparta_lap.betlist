@@ -83,7 +83,7 @@
         [TestCase("USD", "usd", "USD", true, PlatformType.China, nameof(PlatformType.China))]        
         [TestCase("USD", "gbp", "GBP", true, PlatformType.Euro, nameof(PlatformType.Euro))]
         [TestCase("USD", null, "USD", true, PlatformType.Wap, nameof(PlatformType.Wap))]
-        [TestCase("USD", null, "USD", true, PlatformType.SmartSite, nameof(PlatformType.SmartSite))]
+        [TestCase("USD", null, "USD", true, PlatformType.Mobile, nameof(PlatformType.Mobile))]
         [TestCase("USD", null, "USD", true, PlatformType.Tablet, nameof(PlatformType.Tablet))]
         [TestCase("USD", null, "USD", true, PlatformType.NewAsia, nameof(PlatformType.NewAsia))]
         [TestCase("USD", null, "USD", true, PlatformType.All, nameof(PlatformType.All))]

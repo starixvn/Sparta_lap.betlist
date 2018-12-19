@@ -4885,11 +4885,11 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mobile China View.
+        ///   Looks up a localized string similar to Mobile Lite Version.
         /// </summary>
-        public static string MobileChinaView {
+        public static string MobileLiteVersion {
             get {
-                return ResourceManager.GetString("MobileChinaView", resourceCulture);
+                return ResourceManager.GetString("MobileLiteVersion", resourceCulture);
             }
         }
         
@@ -6933,15 +6933,6 @@ namespace Fanex.Athena.Resources {
         public static string SixMonth {
             get {
                 return ResourceManager.GetString("SixMonth", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Smart Site.
-        /// </summary>
-        public static string SmartSite {
-            get {
-                return ResourceManager.GetString("SmartSite", resourceCulture);
             }
         }
         

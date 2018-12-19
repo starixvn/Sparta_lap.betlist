@@ -43,11 +43,11 @@
                 "2": Site.getSingleResource("China"),
                 "3": Site.getSingleResource("Euro"),
                 "4": Site.getSingleResource("Wap"),
-                "5": Site.getSingleResource("SmartSite"),
+                "5": Site.getSingleResource("Mobile"),
                 "6": Site.getSingleResource("Tablet"),
                 "7": Site.getSingleResource("NewAsia"),
                 "8": Site.getSingleResource("MobileApp"),
-                "9": Site.getSingleResource("MobileChinaView")
+                "9": Site.getSingleResource("MobileLiteVersion")
             };
 
             _me.initEvent();

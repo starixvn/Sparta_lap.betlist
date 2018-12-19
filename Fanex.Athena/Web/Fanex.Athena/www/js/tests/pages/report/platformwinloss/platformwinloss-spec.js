@@ -70,7 +70,7 @@
                     expect(Site.getSingleResource).toHaveBeenCalledWith("China");
                     expect(Site.getSingleResource).toHaveBeenCalledWith("Euro");
                     expect(Site.getSingleResource).toHaveBeenCalledWith("Wap");
-                    expect(Site.getSingleResource).toHaveBeenCalledWith("SmartSite");
+                    expect(Site.getSingleResource).toHaveBeenCalledWith("Mobile");
                 });
 
                 it("PlatformWinLossOption.hasCustomerComm should be assigned data from #IsAllowedCustomerCommission.", function () {

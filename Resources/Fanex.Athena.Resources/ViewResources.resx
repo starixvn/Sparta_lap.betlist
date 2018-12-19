@@ -1158,10 +1158,6 @@
   <data name="SixMonth" xml:space="preserve">
     <value>6 months</value>
   </data>
-  <data name="SmartSite" xml:space="preserve">
-    <value>Smart Site</value>
-    <comment>#54802</comment>
-  </data>
   <data name="SortBy" xml:space="preserve">
     <value>Sort by</value>
   </data>
@@ -3091,8 +3087,8 @@
     <value>Archived Date</value>
     <comment>102680</comment>
   </data>
-  <data name="MobileChinaView" xml:space="preserve">
-    <value>Mobile China View</value>
+  <data name="MobileLiteVersion" xml:space="preserve">
+    <value>Mobile Lite Version</value>
     <comment>106088</comment>
   </data>
   <data name="TipAmount" xml:space="preserve">
