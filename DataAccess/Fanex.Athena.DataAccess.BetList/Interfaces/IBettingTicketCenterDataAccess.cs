@@ -7,6 +7,8 @@
     {
         TicketResult GetBetListForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel);
 
+        int GetTotalRowForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel);
+
         TicketResult GetBetListForSingleCustomer(SingleCustomersBetListMetaModel metaModel);
 
         TicketResult GetBetListByRefno(RefNoBetListMetaModel metaModel);

@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Net;
     using System.Net.Http;
     using System.Web.Http;
     using Base;
@@ -69,6 +70,14 @@
             else
             {
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
+                if (metaModel.IsExport)
+                {
+                    if (_dataAccess.GetTotalRowForMultipleCustomers(metaModel) > 10)
+                    {
+                        return new HttpResponseMessage(HttpStatusCode.NoContent);
+                    }
+                }
+
                 ticketResult = _dataAccess.GetBetListForMultipleCustomers(metaModel);
             }
 

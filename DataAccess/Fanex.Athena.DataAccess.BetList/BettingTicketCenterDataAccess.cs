@@ -60,6 +60,37 @@
             return ticketResult;
         }
 
+        public int GetTotalRowForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel)
+        {
+            const string UspKey = "Lrf_BetList_Licensee_TotalRows";
+
+            using (var db = GetObjectDb(UspKey))
+            {
+                var productCodes = metaModel.ProductCodeList.Split(',');
+                var productList = string.Join(",", productCodes.Except(new[] { Product.BA }));
+                var balanceUp = _balanceUpDataAccess.GetBalanceUp();
+                db.AddInParameter("AgentList", DbType.String, metaModel.AgentListXml);
+                db.AddInParameter("FromDate", DbType.DateTime, metaModel.FromDate);
+                db.AddInParameter("ToDate", DbType.DateTime, metaModel.ToDate);
+                db.AddInParameter("MoveBetsDay", DbType.DateTime, balanceUp.MoveBetsDay);
+                db.AddInParameter("SportType", DbType.Int32, metaModel.SportId);
+                db.AddInParameter("BetType", DbType.Int32, metaModel.BetTypeId);
+                db.AddInParameter("LeagueId", DbType.Int32, metaModel.LeagueId);
+                db.AddInParameter("MatchId", DbType.Int32, metaModel.MatchId);
+                db.AddInParameter("StatusIdList", DbType.String, metaModel.StatusList);
+                db.AddInParameter("LiveIndicator", DbType.Byte, metaModel.LiveStatus);
+                db.AddInParameter("ShowBA", DbType.Boolean, productCodes.Contains(Product.BA));
+                db.AddInParameter("ProductList", DbType.String, productList);
+
+                db.AddOutParameter("TotalRows", DbType.Int32, 4);
+
+                db.ExecuteNonQuery();
+
+                var outSqlParams = db.GetOuputParams();
+                return Converter.ToInt(outSqlParams["totalrows"]);
+            }
+        }
+
         public TicketResult GetBetListForSingleCustomer(SingleCustomersBetListMetaModel metaModel)
         {
             const string UspKey = "Lrf_BetList_Mem";
@@ -225,7 +256,7 @@
             db.AddInParameter("PageIndex", DbType.Int32, metaModel.IsExport ? 1 : metaModel.PageIndex);
             db.AddInParameter("ShowBA", DbType.Boolean, productCodes.Contains(Product.BA));
             db.AddInParameter("ProductList", DbType.String, productList);
-            
+
             db.AddOutParameter("TotalRows", DbType.Int32, 4);
             db.AddOutParameter("SumStake", DbType.Currency, 8);
             db.AddOutParameter("SumWinLost", DbType.Currency, 8);

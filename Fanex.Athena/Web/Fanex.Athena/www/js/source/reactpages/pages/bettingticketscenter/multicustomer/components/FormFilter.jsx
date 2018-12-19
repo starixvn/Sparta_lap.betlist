@@ -90,7 +90,18 @@ export class FormFilter extends Component {
         params.IsExport = true;
         this.props.toggleLoader(true);
         DataService.getFile(ApiUrl.MULTICUSTOMER_DATA_URL, params).then((response) => {
-            Site.downloadFile(response.data, 'BettingTicketsCenter_MultiCustomer.xls');
+            const NoContentStatusCode = 204;
+            if(response.status === NoContentStatusCode)
+            {
+                alert("Error! Please limit your filter!");
+            }
+            else {
+                Site.downloadFile(response.data, 'BettingTicketsCenter_MultiCustomer.xls');
+            }
+            
+            this.props.toggleLoader(false);
+        }).catch(error => {
+            alert(LangHelper.getSingleResource("ErrorProcessingMsg"));
             this.props.toggleLoader(false);
         });
     }
