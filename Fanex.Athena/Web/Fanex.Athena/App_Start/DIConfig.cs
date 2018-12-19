@@ -63,9 +63,9 @@ namespace Fanex.Athena
         private static void RegisterThirdpartyServices(ContainerBuilder builder)
         {
             builder.RegisterType<MaintenanceService>().As<IMaintenanceService>();
-            builder.RegisterType<TicketHelper>().As<ITicketHelper>();
-            builder.RegisterType<BetListHTMLBuilder>().As<IBetListHTMLBuilder>();
-            builder.RegisterType<BetListExcelBuilder>().As<IBetListExcelBuilder>();
+            builder.RegisterType<TicketHelper>().As<ITicketHelper>().InstancePerRequest();
+            builder.RegisterType<BetListHTMLBuilder>().As<IBetListHTMLBuilder>().InstancePerRequest();
+            builder.RegisterType<BetListExcelBuilder>().As<IBetListExcelBuilder>().InstancePerRequest();
             builder.RegisterType<PPResult>().As<IPPResult>();
 
             builder.RegisterInstance(ParserService.Instance).As<IParserService>();

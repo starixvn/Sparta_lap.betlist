@@ -9,16 +9,17 @@ using NPOI.HSSF.UserModel;
 using NPOI.HSSF.Util;
 using NPOI.SS.UserModel;
 using NPOI.SS.Util;
+using System;
 
 namespace Fanex.Athena.Excel.BetList.Builders
 {
-    public class BettingTicketCenterExcelBuilder : IBettingTicketCenterExcelBuilder
+    public class BettingTicketCenterExcelBuilder : IBettingTicketCenterExcelBuilder, IDisposable
     {
         private const int NumberOfColumns = 12;
 
         private const int ColumnTotalStart = 6;
 
-        private readonly IBetListExcelBuilder _builder;
+        private IBetListExcelBuilder _builder;
 
         private readonly ITicketHelper _ticketHelper;
 
@@ -241,5 +242,17 @@ namespace Fanex.Athena.Excel.BetList.Builders
             cellStyle.WrapText = true;
             return cellStyle;
         }
+
+        public void Dispose()
+        {
+            if (_builder != null)
+            {
+                (_builder as IDisposable)?.Dispose();
+                _builder = null;
+            }
+            GC.SuppressFinalize(this);
+        }
+
+
     }
 }
