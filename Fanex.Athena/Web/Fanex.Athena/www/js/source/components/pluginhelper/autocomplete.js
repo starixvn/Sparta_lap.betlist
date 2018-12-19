@@ -47,7 +47,8 @@ define(["jquery", "common/site", "vendor-materialize", "materialize-autocomplete
         },
 
         search: function (value, callback) {
-            if ($.trim(value) === "")
+            var query = $.trim(value);
+            if (query.length < 3)
             {
                 return;
             }
