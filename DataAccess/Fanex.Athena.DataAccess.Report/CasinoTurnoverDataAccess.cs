@@ -116,9 +116,9 @@
             while (i < total)
             {
                 var item = dataList.ElementAt(i);
-                var key = item.Date.ToString("MM/dd/yyyy") + item.ExternalId;
+                var key = item.Date.ToString("MM/dd/yyyy") + item.SystemId;
 
-                item.RowSpan = dataList.Count(x => x.Date.ToString("MM/dd/yyyy") + x.ExternalId == key);
+                item.RowSpan = dataList.Count(x => x.Date.ToString("MM/dd/yyyy") + x.SystemId == key);
                 item.Index = index;
 
                 index++;
