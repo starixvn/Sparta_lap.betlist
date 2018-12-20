@@ -703,15 +703,6 @@
     </Content>
     <Content Include="Content\Report\microgamingwinLoss.css" />
     <Content Include="Content\Utility\images\UM.png" />
-    <Content Include="fanex.result.css" />
-    <Content Include="img\btn-close.png" />
-    <Content Include="img\favicon.ico" />
-    <Content Include="img\icon-calendar.png" />
-    <Content Include="img\icon-question.png" />
-    <Content Include="img\loading.gif" />
-    <Content Include="img\lotto_ball.png" />
-    <Content Include="img\sprites.png" />
-    <Content Include="img\user.png" />
     <Content Include="robots.txt" />
     <Content Include="jasmine-specs\Helper\ProductListHelper-test.js" />
     <Content Include="Jasmine\NewUI\SpecRunner.html" />
