@@ -72,8 +72,8 @@
       <HintPath>..\..\packages\Fanex.BetList.Microgaming.2.0.0.7\lib\net40\Fanex.BetList.Microgaming.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.BetList.NumberGame, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.BetList.NumberGame.1.1.0\lib\net40\Fanex.BetList.NumberGame.dll</HintPath>
+    <Reference Include="Fanex.BetList.NumberGame, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.BetList.NumberGame.1.2.0-beta4\lib\net40\Fanex.BetList.NumberGame.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.BetList.PP, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">

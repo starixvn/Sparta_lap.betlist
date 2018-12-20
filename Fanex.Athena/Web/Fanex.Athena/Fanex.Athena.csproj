@@ -136,8 +136,8 @@
       <HintPath>..\..\..\packages\Fanex.BetList.Microgaming.2.0.0.7\lib\net40\Fanex.BetList.Microgaming.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.BetList.NumberGame, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.BetList.NumberGame.1.1.0\lib\net40\Fanex.BetList.NumberGame.dll</HintPath>
+    <Reference Include="Fanex.BetList.NumberGame, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.BetList.NumberGame.1.2.0-beta4\lib\net40\Fanex.BetList.NumberGame.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.BetList.PP, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -183,16 +183,20 @@
       <HintPath>..\..\..\packages\Fanex.RemotingRef.1.3.0\lib\net461\Fanex.RemotingRef.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.Result.Core, Version=2.1.7.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.Result.Core-NPOI.2.0.6.2.1.7\lib\net40\Fanex.Result.Core.dll</HintPath>
+    <Reference Include="Fanex.Result.Core, Version=2.1.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Result.Core-NPOI.2.0.6.2.1.8-beta02\lib\net40\Fanex.Result.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.Result.Core.AllBetCasino, Version=1.0.1.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Fanex.Result.Core.AllBetCasino.1.0.1.2\lib\net40\Fanex.Result.Core.AllBetCasino.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.Result.Core.Base, Version=2.1.7.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Fanex.Result.Core-NPOI.2.0.6.2.1.7\lib\net40\Fanex.Result.Core.Base.dll</HintPath>
+    <Reference Include="Fanex.Result.Core.Base, Version=2.1.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Result.Core-NPOI.2.0.6.2.1.8-beta02\lib\net40\Fanex.Result.Core.Base.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Fanex.Result.Core.Happy5, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Fanex.Result.Core.Happy5.1.0.0.0-beta3\lib\net40\Fanex.Result.Core.Happy5.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.Result.Core.MicroGaming, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
@@ -699,6 +703,15 @@
     </Content>
     <Content Include="Content\Report\microgamingwinLoss.css" />
     <Content Include="Content\Utility\images\UM.png" />
+    <Content Include="fanex.result.css" />
+    <Content Include="img\btn-close.png" />
+    <Content Include="img\favicon.ico" />
+    <Content Include="img\icon-calendar.png" />
+    <Content Include="img\icon-question.png" />
+    <Content Include="img\loading.gif" />
+    <Content Include="img\lotto_ball.png" />
+    <Content Include="img\sprites.png" />
+    <Content Include="img\user.png" />
     <Content Include="robots.txt" />
     <Content Include="jasmine-specs\Helper\ProductListHelper-test.js" />
     <Content Include="Jasmine\NewUI\SpecRunner.html" />
@@ -712,8 +725,10 @@
     <Content Include="Views\Desktop\Customer\BetSetting\GoldDeluxe.cshtml" />
     <Content Include="www\assets\images\ajax-loader.gif" />
     <Content Include="www\assets\images\new-system.svg" />
+    <Content Include="www\css\build\dev\pages\betlist\images\lotto_ball.png" />
     <Content Include="www\css\build\dev\reactpages\betlist\images\bonus.png" />
     <Content Include="www\css\build\dev\reactpages\betlist\images\goal-icon.png" />
+    <Content Include="www\css\build\dev\reactpages\betlist\images\lotto_ball.png" />
     <Content Include="www\css\build\dev\reactpages\betlist\images\q_Icon2_1.png" />
     <Content Include="www\css\build\dev\reactpages\betlist\images\q_Icon_2.png" />
     <Content Include="www\css\build\dev\reactpages\betlist\images\tab_topbg.gif" />
@@ -738,6 +753,7 @@
     <Content Include="www\css\build\dev\reactpages\vendor.chunk.js" />
     <Content Include="www\css\build\images\BottomLine.png" />
     <Content Include="www\css\build\images\FirstNodeSpan.png" />
+    <Content Include="www\css\build\pro\pages\betlist\images\lotto_ball.png" />
     <Content Include="www\css\build\images\MiddleLine.png" />
     <Content Include="www\css\build\images\new_icon.gif" />
     <Content Include="www\css\build\images\NodeSpan.png" />
@@ -749,6 +765,7 @@
     <Content Include="www\css\build\images\ui-icons_2e83ff_256x240.png" />
     <Content Include="www\css\build\pro\reactpages\betlist\images\bonus.png" />
     <Content Include="www\css\build\pro\reactpages\betlist\images\goal-icon.png" />
+    <Content Include="www\css\build\pro\reactpages\betlist\images\lotto_ball.png" />
     <Content Include="www\css\build\pro\reactpages\betlist\images\q_Icon2_1.png" />
     <Content Include="www\css\build\pro\reactpages\betlist\images\q_Icon_2.png" />
     <Content Include="www\css\build\pro\reactpages\betlist\images\tab_topbg.gif" />
@@ -766,6 +783,7 @@
     <Content Include="www\css\build\pro\reactpages\speciallicenseewl\index.css" />
     <Content Include="www\css\build\pro\reactpages\subsidiaryperformance\index.css" />
     <None Include="www\css\source\reactpages\components\custom3rd\react-toastify.scss" />
+    <None Include="www\css\source\pages\betlist\result\result.happy5.scss" />
     <Content Include="www\css\source\reactpages\pages\betlist\images\bonus.png" />
     <Content Include="www\css\source\reactpages\pages\betlist\images\goal-icon.png" />
     <Content Include="www\css\source\reactpages\pages\betlist\images\q_Icon2_1.png" />
@@ -915,6 +933,7 @@
     <Content Include="www\css\source\reactpages\components\month-picker.scss" />
     <Content Include="App_Data\Template\Customers\DormantCustomerList.xls" />
     <Content Include="App_Data\Fanex.Result\ESport.xls" />
+    <Content Include="App_Data\Fanex.Result\Happy5.xls" />
     <None Include="SiteConfig\Web.AppSettings.BACKUPMNLStatic.config" />
     <None Include="SiteConfig\Web.ConnectionStrings.BACKUPMNLStatic.config">
       <SubType>Designer</SubType>
