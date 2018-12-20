@@ -96,7 +96,7 @@
 "use strict";
 
 
-// Generated at: 12/17/2018 4:03:59 PM
+// Generated at: 12/19/2018 4:04:42 PM
 window._language_en_US = {
   AA: "AA",
   AB: "AB",
@@ -634,7 +634,7 @@ window._language_en_US = {
   Mo: "Mo",
   Mobile: "Mobile",
   MobileApp: "Mobile App",
-  MobileChinaView: "Mobile China View",
+  MobileLiteVersion: "Mobile Lite Version",
   Mode: "Mode",
   Monday: "Monday",
   Money: "Money",
@@ -862,7 +862,6 @@ window._language_en_US = {
   SingleCustomer: "Single Customer",
   Site: "Site",
   SixMonth: "6 months",
-  SmartSite: "Smart Site",
   SortBy: "Sort by",
   Sorting: "Sorting",
   SpecialLevel: "Special Level",
@@ -998,6 +997,7 @@ window._language_en_US = {
   VirtualHorseRacing: "Virtual Horse Racing",
   VirtualMotoRacing: "Virtual Moto Racing",
   VirtualSoccer: "Virtual Soccer",
+  VirtualSoccerAsianCup: "Virtual Soccer Asian Cup",
   VirtualSoccerLeague: "Virtual Soccer League",
   VirtualSoccerNation: "Virtual Soccer Nation",
   VirtualSoccerWorldCup: "Virtual Soccer World Cup",

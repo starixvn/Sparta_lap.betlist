@@ -1,4 +1,4 @@
-﻿// Generated at: 12/17/2018 4:03:59 PM
+﻿// Generated at: 12/19/2018 4:04:42 PM
 window._language_zh_TW = {
 AA:"客客",
 AccessDeniedMsg:"對不起，您沒有權限訪問此頁面。",
@@ -650,7 +650,6 @@ ShowOldValue:"顯示舊值",
 Sincelastmonth:"從上個月",
 Site:"網頁",
 SixMonth:"6 months",
-SmartSite:"行動裝置版",
 SortBy:"排序由",
 Sorting:"排序",
 SpecialLevel:"特殊層級",

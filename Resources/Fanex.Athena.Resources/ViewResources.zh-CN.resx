@@ -1179,7 +1179,7 @@
     <value>Mo</value>
   </data>
   <data name="Mobile" xml:space="preserve">
-    <value>移动</value>
+    <value>手机版</value>
   </data>
   <data name="Monday" xml:space="preserve">
     <value>星期一</value>
@@ -2320,9 +2320,6 @@
     <value>体育博彩</value>
     <comment>#49196</comment>
   </data>
-  <data name="SmartSite" xml:space="preserve">
-    <value>行动装置版</value>
-  </data>
   <data name="GoldDeluxeWinLossGuidelineContent" xml:space="preserve">
     <value>在GMT-4下午4点之前的任何查询将依据前一天下午4点的数据。您每次查询可以过滤最多3个月内的数据。</value>
     <comment>#71725</comment>
@@ -2413,13 +2410,13 @@
     <value>平板</value>
   </data>
   <data name="Asia" xml:space="preserve">
-    <value>亚洲</value>
+    <value>亚洲版</value>
   </data>
   <data name="China" xml:space="preserve">
-    <value>中国</value>
+    <value>中国版</value>
   </data>
   <data name="Euro" xml:space="preserve">
-    <value>欧洲</value>
+    <value>欧洲版</value>
   </data>
   <data name="ProductVS2" xml:space="preserve">
     <value>虚拟运动2</value>
@@ -2595,5 +2592,11 @@
   </data>
   <data name="TipSharing" xml:space="preserve">
     <value>打赏分成</value>
+  </data>
+  <data name="MobileApp" xml:space="preserve">
+    <value>手机 APP</value>
+  </data>
+  <data name="MobileLiteVersion" xml:space="preserve">
+    <value>手机轻量版</value>
   </data>
 </root>

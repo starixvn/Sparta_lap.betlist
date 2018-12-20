@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-﻿// Generated at: 12/17/2018 4:03:59 PM
+﻿// Generated at: 12/19/2018 4:04:42 PM
 window._language_en_US = {
 AA:"AA",
 AB:"AB",
@@ -631,7 +631,7 @@ MixSportsParlay:"Mix Sports Parlay",
 Mo:"Mo",
 Mobile:"Mobile",
 MobileApp:"Mobile App",
-MobileChinaView:"Mobile China View",
+MobileLiteVersion:"Mobile Lite Version",
 Mode:"Mode",
 Monday:"Monday",
 Money:"Money",
@@ -859,7 +859,6 @@ Sincelastmonth:"Since last month",
 SingleCustomer:"Single Customer",
 Site:"Site",
 SixMonth:"6 months",
-SmartSite:"Smart Site",
 SortBy:"Sort by",
 Sorting:"Sorting",
 SpecialLevel:"Special Level",
@@ -995,6 +994,7 @@ VirtualGreyhounds:"Virtual Greyhounds",
 VirtualHorseRacing:"Virtual Horse Racing",
 VirtualMotoRacing:"Virtual Moto Racing",
 VirtualSoccer:"Virtual Soccer",
+VirtualSoccerAsianCup:"Virtual Soccer Asian Cup",
 VirtualSoccerLeague:"Virtual Soccer League",
 VirtualSoccerNation:"Virtual Soccer Nation",
 VirtualSoccerWorldCup:"Virtual Soccer World Cup",

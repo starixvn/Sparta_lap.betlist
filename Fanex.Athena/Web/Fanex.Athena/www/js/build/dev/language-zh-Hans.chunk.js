@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-﻿// Generated at: 12/17/2018 4:03:59 PM
+﻿// Generated at: 12/19/2018 4:04:42 PM
 window._language_zh_Hans = {
 AA:"客客",
 AccessDeniedMsg:"对不起, 您没有权限访问此页面。",
@@ -741,7 +741,6 @@ ShowOldValue:"显示旧值",
 Sincelastmonth:"自上个月",
 Site:"网页",
 SixMonth:"6 months",
-SmartSite:"行动装置版",
 SortBy:"排序由",
 Sorting:"排序",
 SpecialLevel:"特殊层级",

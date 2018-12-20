@@ -55,7 +55,7 @@
                    new KeyValuePair<string, decimal>("Asia", 100M),
                    new KeyValuePair<string, decimal>("China", 300M),
                    new KeyValuePair<string, decimal>("WAP", 800M),
-                   new KeyValuePair<string, decimal>("Smartsite", 700M),
+                   new KeyValuePair<string, decimal>("Mobile", 700M),
                    new KeyValuePair<string, decimal>("Others", 1700M)
                 }
             };

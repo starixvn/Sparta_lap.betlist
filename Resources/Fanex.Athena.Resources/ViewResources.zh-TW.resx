@@ -2319,9 +2319,6 @@
     <value>體育博彩</value>
     <comment>#49196</comment>
   </data>
-  <data name="SmartSite" xml:space="preserve">
-    <value>行動裝置版</value>
-  </data>
   <data name="GoldDeluxeWinLossGuidelineContent" xml:space="preserve">
     <value>在GMT-4下午4點之前的任何查詢將依據前一天下午4點的數據。您每次查詢可以過濾最多3個月內的數據。</value>
     <comment>#71725</comment>

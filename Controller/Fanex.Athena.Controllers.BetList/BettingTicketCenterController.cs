@@ -104,11 +104,11 @@
                 { PlatformType.China, ViewResources.China },
                 { PlatformType.Euro, ViewResources.Euro },
                 { PlatformType.Wap, ViewResources.Wap },
-                { PlatformType.SmartSite, ViewResources.SmartSite },
+                { PlatformType.Mobile, ViewResources.Mobile },
                 { PlatformType.Tablet, ViewResources.Tablet },
                 { PlatformType.NewAsia, ViewResources.NewAsia },
                 { PlatformType.MobileApp, ViewResources.MobileApp },
-                { PlatformType.MobileChinaView, ViewResources.MobileChinaView }
+                { PlatformType.MobileLiteVersion, ViewResources.MobileLiteVersion }
             };
         }
 
