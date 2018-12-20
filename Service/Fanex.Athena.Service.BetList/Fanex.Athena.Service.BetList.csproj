@@ -176,8 +176,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BettingTicketCenterService.cs" />
     <Compile Include="ExchangeBetListService.cs" />
     <Compile Include="Helpers\BetListHelper.cs" />
+    <Compile Include="Interfaces\IBettingTicketCenterService.cs" />
     <Compile Include="Interfaces\IExchangeBetListService.cs" />
     <Compile Include="Interfaces\ILastBetsMonitoringBetListService.cs" />
     <Compile Include="LastBetsMonitoringBetListService.cs" />
@@ -202,6 +204,14 @@
     <ProjectReference Include="..\..\Infrastructure\Fanex.Athena.Constant\Fanex.Athena.Constant.csproj">
       <Project>{6B1431E0-E513-48BB-BE86-0756E5F6F405}</Project>
       <Name>Fanex.Athena.Constant</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\Fanex.Athena.Session\Fanex.Athena.Session.csproj">
+      <Project>{B41E38EF-54AD-4866-968F-C856DE9DC072}</Project>
+      <Name>Fanex.Athena.Session</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Infrastructure\Fanex.Athena.VendorAdapter\Fanex.Athena.VendorAdapter.csproj">
+      <Project>{CE1F7641-A14D-4AF6-9BD3-CAD4873669B4}</Project>
+      <Name>Fanex.Athena.VendorAdapter</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Model\Fanex.Athena.Model.BetList\Fanex.Athena.Model.BetList.csproj">
       <Project>{4956fbd7-5f68-4e7b-af6c-db5fb1f255f0}</Project>

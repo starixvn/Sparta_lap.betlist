@@ -1,0 +1,135 @@
+﻿using System;
+using System.Collections.Generic;
+using Fanex.Athena.Constant.DataDomain;
+using Fanex.Athena.DataAccess.BetList.Interfaces;
+using Fanex.Athena.Model.BetList.DTO;
+using Fanex.Athena.Model.BetList.MetaModel;
+using Fanex.Athena.Model.Core.DataDomain;
+using Fanex.Athena.Resources;
+using Fanex.Athena.Service.BetList.Extensions;
+using Fanex.Athena.Service.BetList.Helpers;
+using Fanex.Athena.Service.BetList.Interfaces;
+using Fanex.Athena.Service.Core.Users.Interfaces;
+using Fanex.Athena.VendorAdapter.Interfaces;
+using Fanex.BetList.Core.Builder;
+using Fanex.BetList.Core.Entities;
+
+namespace Fanex.Athena.Service.BetList
+{
+    public class BettingTicketCenterService : IBettingTicketCenterService
+    {
+        private readonly ISessionService _sessionService;
+
+        private readonly IBettingTicketCenterDataAccess _dataAccess;
+
+        private readonly IBetListHTMLBuilder _betlistHtmlBuilder;
+
+        private readonly ICacheRefAdapter _cacheRefAdapter;
+
+        private readonly ITicketHelper _ticketHelper;
+
+#pragma warning disable CS3001 // Argument type is not CLS-compliant
+
+        public BettingTicketCenterService(
+            ISessionService sessionService,
+            IBettingTicketCenterDataAccess dataAccess,
+            IBetListHTMLBuilder betlistHtmlBuilder,
+            ICacheRefAdapter cacheRefAdapter,
+            ITicketHelper ticketHelper)
+#pragma warning restore CS3001 // Argument type is not CLS-compliant
+        {
+            _sessionService = sessionService;
+            _dataAccess = dataAccess;
+            _betlistHtmlBuilder = betlistHtmlBuilder;
+            _cacheRefAdapter = cacheRefAdapter;
+            _ticketHelper = ticketHelper;
+        }
+
+        public TicketResult GetBetListForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel)
+        {
+            return _dataAccess.GetBetListForMultipleCustomers(metaModel);
+        }
+
+        public int GetTotalRowForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel)
+        {
+            return _dataAccess.GetTotalRowForMultipleCustomers(metaModel);
+        }
+
+        public TicketResult GetBetListForSingleCustomer(SingleCustomersBetListMetaModel metaModel)
+        {
+            return _dataAccess.GetBetListForSingleCustomer(metaModel);
+        }
+
+        public TicketResult GetBetListByRefno(RefNoBetListMetaModel metaModel)
+        {
+            return _dataAccess.GetBetListByRefno(metaModel);
+        }
+
+        public TicketResult GetRunningBetList(BaseBettingTicketMetaModel metaModel)
+        {
+            return _dataAccess.GetRunningBetList(metaModel);
+        }
+
+        public bool IsValidCurrencyId(int currencyId)
+        {
+            return currencyId == BaseCurrencyType.All || _sessionService.UserSession.CurrencyList.ContainsKey(currencyId);
+        }
+
+        public string BuildSumWinLoss(TicketResult ticketResult)
+        {
+            var ticket = new LrfTicket { Winlost = ticketResult.SumWinLoss, PlayerComm = ticketResult.SumPlayerComm };
+            return _betlistHtmlBuilder.BuildCustomerWL(ticket, _sessionService.LicenseeSession.IsAllowedCustomerComm);
+        }
+
+        public IList<TicketText> BuildTicketText(TicketResult ticketResult, BaseBettingTicketMetaModel metaModel)
+        {
+            var startIndex = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;
+            var ticketTextList = new List<TicketText>();
+            var isAllowedCustomerComm = _sessionService.LicenseeSession.IsAllowedCustomerComm;
+            foreach (var ticket in ticketResult.MainTicketList)
+            {
+                if (ticket.BetTypeId == (int)BetType.CombinationMixParlay)
+                {
+                    _ticketHelper.ClientDetailSystemParlayFunction = BetListHelper.GenerateClientDetailSystemParlayFunction(
+                        _ticketHelper,
+                        metaModel.BaseCurrency,
+                        ticket,
+                        ticket.CustId);
+                }
+
+                var ticketText = new TicketText
+                {
+                    Index = startIndex++,
+                    ExternalId = ticket.ExternalId,
+                    SystemId = ticket.UserName,
+                    TransTime = _betlistHtmlBuilder.BuildTrans(ticket),
+                    Choice = _betlistHtmlBuilder.BuildChoice(ticket, _ticketHelper, ticketResult.TicketDataList, false),
+                    Odds = _betlistHtmlBuilder.BuildOdds(ticket, ticketResult.TicketDataList, _cacheRefAdapter.GetOddsTypeName),
+                    Stake = _betlistHtmlBuilder.BuildStake(ticket),
+                    LicenseeWL = _betlistHtmlBuilder.BuildLicenseeWL(ticket),
+                    WinLoss = _betlistHtmlBuilder.BuildCustomerWL(ticket, isAllowedCustomerComm),
+                    Status = _betlistHtmlBuilder.BuildLrfStatus(ticket, _ticketHelper, ticketResult.TicketDataList, new BetListMetaModel()),
+                    Platform = PlatformType.GetPlatformName(ticket.BetFrom),
+                    Live = _betlistHtmlBuilder.BuildLiveStatus(ticket)
+                };
+
+                ticketTextList.Add(ticketText);
+            }
+
+            return ticketTextList;
+        }
+
+        public string GetTitle(BaseBettingTicketMetaModel metaModel)
+        {
+            var date = metaModel.FromDate == DateTime.MinValue
+                ? string.Empty
+                : ", " + metaModel.FromDate.ToString(FormatKey.DateFormat) + "-->" + metaModel.ToDate.ToString(FormatKey.DateFormat);
+            var currency = string.IsNullOrWhiteSpace(metaModel.CurrencyName) ? string.Empty : ", " + ViewResources.Currency + ": " + metaModel.CurrencyName;
+            var baseCurrency = string.IsNullOrWhiteSpace(metaModel.BaseCurrency)
+                ? string.Empty
+                : ", " + ViewResources.BaseCurrency + ": " + metaModel.BaseCurrency.ToUpperInvariant();
+
+            return ViewResources.BettingTicketCenter + date + currency + baseCurrency;
+        }
+    }
+}
