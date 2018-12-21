@@ -1,4 +1,5 @@
-﻿using Fanex.Athena.Constant.DataDomain;
+﻿using System;
+using Fanex.Athena.Constant.DataDomain;
 using Fanex.Athena.Model.BetList.DTO;
 using Fanex.Athena.Model.Core.DataDomain;
 using Fanex.Athena.Resources;
@@ -9,7 +10,6 @@ using NPOI.HSSF.UserModel;
 using NPOI.HSSF.Util;
 using NPOI.SS.UserModel;
 using NPOI.SS.Util;
-using System;
 
 namespace Fanex.Athena.Excel.BetList.Builders
 {
@@ -18,6 +18,8 @@ namespace Fanex.Athena.Excel.BetList.Builders
         private const int NumberOfColumns = 12;
 
         private const int ColumnTotalStart = 6;
+
+        private bool disposed;
 
         private IBetListExcelBuilder _builder;
 
@@ -245,14 +247,24 @@ namespace Fanex.Athena.Excel.BetList.Builders
 
         public void Dispose()
         {
-            if (_builder != null)
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposed)
+            {
+                return;
+            }
+
+            if (disposing && _builder != null)
             {
                 (_builder as IDisposable)?.Dispose();
                 _builder = null;
             }
-            GC.SuppressFinalize(this);
+
+            disposed = true;
         }
-
-
     }
 }

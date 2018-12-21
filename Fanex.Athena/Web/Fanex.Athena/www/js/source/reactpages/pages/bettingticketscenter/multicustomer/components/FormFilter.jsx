@@ -91,12 +91,16 @@ export class FormFilter extends Component {
         this.props.toggleLoader(true);
         DataService.getFile(ApiUrl.MULTICUSTOMER_DATA_URL, params).then((response) => {
             const NoContentStatusCode = 204;
+            
             if(response.status === NoContentStatusCode)
             {
-                alert("Error! Please limit your filter!");
+                alert("File is too béo! Please limit your filter!");
             }
             else {
-                Site.downloadFile(response.data, 'BettingTicketsCenter_MultiCustomer.xls');
+                const fileName = "BettingTicketsCenter_MultiCustomer." +
+                    (response.headers["content-type"] === "application/zip" ? "zip" : "xls");
+                
+                Site.downloadFile(response.data, fileName);
             }
             
             this.props.toggleLoader(false);

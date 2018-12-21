@@ -65,7 +65,7 @@ namespace Fanex.Athena
             builder.RegisterType<MaintenanceService>().As<IMaintenanceService>();
             builder.RegisterType<TicketHelper>().As<ITicketHelper>().InstancePerRequest();
             builder.RegisterType<BetListHTMLBuilder>().As<IBetListHTMLBuilder>().InstancePerRequest();
-            builder.RegisterType<BetListExcelBuilder>().As<IBetListExcelBuilder>().InstancePerRequest();
+            builder.RegisterType<BetListExcelBuilder>().As<IBetListExcelBuilder>().InstancePerDependency();
             builder.RegisterType<PPResult>().As<IPPResult>();
 
             builder.RegisterInstance(ParserService.Instance).As<IParserService>();

@@ -1,15 +1,18 @@
 ﻿namespace Fanex.Athena.Api.BetList
 {
+    using System;
     using System.IO;
+    using System.Linq;
     using System.Net;
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Web;
-    using System.Web.Http;
+    using System.Web.Mvc;
     using Base;
     using Base.Attributes;
     using Excel.BetList;
     using Excel.BetList.Model;
+    using Ionic.Zip;
     using Model.BetList.DTO;
     using Model.BetList.MetaModel;
     using Model.Core.DataDomain;
@@ -20,26 +23,24 @@
     [ApiFunctionAuthorization(PermissionKeys.BettingTicketCenter)]
     public class BettingTicketCenterMultiCustomerController : BaseApiController
     {
-        private const int MaxRowSupportExportExcel = 30;
+        private const int MaxRowSupportExportExcel = 200000;
+
+        private const int MaxRowPerFile = 65000;
 
         private readonly IBettingTicketCenterService _service;
-
-        private readonly IBettingTicketCenterExcel _bettingTicketCenterExcel;
 
         public BettingTicketCenterMultiCustomerController(
             ISessionService sessionService,
             IProductService productService,
             ILanguageService langService,
-            IBettingTicketCenterService service,
-            IBettingTicketCenterExcel bettingTicketCenterExcel)
+            IBettingTicketCenterService service)
             : base(sessionService, productService, langService)
         {
             _service = service;
-            _bettingTicketCenterExcel = bettingTicketCenterExcel;
         }
 
-        [HttpPost]
-        public dynamic GetByMultipleCustomers(MultipleCustomersBetListMetaModel metaModel)
+        [System.Web.Http.HttpPost]
+        public dynamic GetData(MultipleCustomersBetListMetaModel metaModel)
         {
             TicketResult ticketResult;
             if (!metaModel.IsValid || !_service.IsValidCurrencyId(metaModel.CurrencyId))
@@ -58,21 +59,9 @@
                 ticketResult = _service.GetBetListForMultipleCustomers(metaModel);
             }
 
-            var showPlayerComm = SessionService.LicenseeSession.IsAllowedCustomerComm;
-
             if (metaModel.IsExport)
             {
-                var excelModel = new BettingTicketCenterExcelModel
-                {
-                    Data = ticketResult,
-                    ShowTotal = true,
-                    ShowSumStake = true,
-                    ShowLicenseeWl = true,
-                    ShowWinLoss = true,
-                    CustomerCommVisible = showPlayerComm,
-                    Title = _service.GetTitle(metaModel)
-                };
-                return Export(excelModel);
+                return Export(ticketResult, _service.GetTitle(metaModel));
             }
 
             return new
@@ -88,16 +77,89 @@
             };
         }
 
-        private HttpResponseMessage Export(BettingTicketCenterExcelModel excelModel)
+        private HttpResponseMessage Export(TicketResult ticketResult, string title)
         {
-            var filePath = HttpContext.Current.Server.MapPath("~/tmp/abc");
-            Directory.CreateDirectory(filePath);
-            filePath += "/excel.xls";
-            var workbook = _bettingTicketCenterExcel.Export(excelModel);
-            FileStream xfile = new FileStream(filePath, FileMode.Create, System.IO.FileAccess.Write);
-            workbook.Write(xfile);
-            xfile.Close();
-            return ExcelStreamFromFile(filePath, string.Empty);
+            return ticketResult.MainTicketList.Count > MaxRowPerFile ?
+                ExportZip(ticketResult, title) :
+                ExportXls(ticketResult, title);
+        }
+
+        private HttpResponseMessage ExportXls(TicketResult ticketResult, string title)
+        {
+            var excelModel = new BettingTicketCenterExcelModel
+            {
+                Data = ticketResult,
+                ShowTotal = true,
+                ShowSumStake = true,
+                ShowLicenseeWl = true,
+                ShowWinLoss = true,
+                CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
+                Title = title
+            };
+
+            var excel = DependencyResolver.Current.GetService<IBettingTicketCenterExcel>();
+            var workbook = excel.Export(excelModel);
+            return ExcelStream(workbook, string.Empty);
+        }
+
+        private HttpResponseMessage ExportZip(TicketResult ticketResult, string title)
+        {
+            var dataList = ticketResult.MainTicketList.ToList();
+            ticketResult.MainTicketList.Clear();
+            var excelModel = new BettingTicketCenterExcelModel
+            {
+                Data = ticketResult,
+                ShowTotal = true,
+                ShowSumStake = true,
+                ShowLicenseeWl = true,
+                ShowWinLoss = true,
+                CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
+                Title = title
+            };
+
+            var path = HttpContext.Current.Server.MapPath("~/tmp/BTC/" + Guid.NewGuid());
+            Directory.CreateDirectory(path);
+
+            var numOfFile = (int)Math.Ceiling((double)dataList.Count / MaxRowPerFile);
+            for (int i = 0; i < numOfFile; i++)
+            {
+                var startIndex = i * MaxRowPerFile;
+
+                ticketResult.MainTicketList.Clear();
+                ticketResult.MainTicketList.AddRange(dataList.Skip(startIndex).Take(MaxRowPerFile));
+                var excel = DependencyResolver.Current.GetService<IBettingTicketCenterExcel>();
+
+                var filePath = path + $"/sheet{i}.xls";
+                var workbook = excel.Export(excelModel);
+                using (var xfile = new FileStream(filePath, FileMode.Create, System.IO.FileAccess.Write))
+                {
+                    workbook.Write(xfile);
+                    xfile.Close();
+                }
+            }
+
+            using (ZipFile zip = new ZipFile())
+            {
+                for (int i = 0; i < numOfFile; i++)
+                {
+                    var filePath = path + $"/excel{i}.xls";
+                    zip.AddEntry(Path.GetFileName(filePath), new FileStream(filePath, FileMode.Open, FileAccess.Read));
+                }
+
+                return ZipContentResult(zip, path);
+            }
+        }
+
+        protected HttpResponseMessage ZipContentResult(ZipFile zipFile, string path)
+        {
+            var pushStreamContent = new PushStreamContent((stream, content, context) =>
+            {
+                zipFile.Save(stream);
+                stream.Close(); // After save we close the stream to signal that we are done writing.
+                Directory.Delete(path, true);
+            }, "application/zip");
+
+            return new HttpResponseMessage(HttpStatusCode.OK) { Content = pushStreamContent };
         }
 
         private HttpResponseMessage ExcelStreamFromFile(string filePath, string exportFileName)

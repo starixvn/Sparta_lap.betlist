@@ -98,6 +98,10 @@
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\..\packages\NPOI.2.0.6\lib\net40\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
+    <Reference Include="Ionic.Zip, Version=1.9.1.5, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\DotNetZip.1.9.1.5\lib\net40\Ionic.Zip.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EnterpriseLibrary.Common.5.0.414.0\lib\net40\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
       <Private>True</Private>
