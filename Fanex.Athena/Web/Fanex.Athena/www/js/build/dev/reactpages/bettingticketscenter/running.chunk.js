@@ -284,6 +284,8 @@ var _site = __webpack_require__(/*! @jsroot/lib/site */ "./www/js/source/reactpa
 
 var _site2 = _interopRequireDefault(_site);
 
+var _loaderAction = __webpack_require__(/*! @jsroot/actions/loaderAction */ "./www/js/source/reactpages/actions/loaderAction.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
@@ -292,6 +294,9 @@ function getGridData(url, params) {
     return function (dispatch) {
         _DataService2.default.postData(url, params).then(function (response) {
             dispatch(setGridData(response.data));
+        }).catch(function (error) {
+            alert("Sorry, an error occurred while processing your request.");
+            dispatch((0, _loaderAction.toggleLoader)(false));
         });
     };
 }
@@ -902,12 +907,13 @@ var AutoComplete = function (_Component) {
         };
 
         _this._onChange = function (event) {
-            var value = _this.input.value;
+            var value = (_this.input.value || "").trim();
+
             var onInput = _this.props.onInput;
 
             onInput && onInput(value);
 
-            if (value === "") {
+            if (value.length < 3) {
                 _this._clearState();
                 return;
             }
@@ -5547,7 +5553,7 @@ var ApiUrl = {
     RUNNING_DATA_URL: _site2.default.resolveClientUrl('api/BettingTicketCenter/GetByRunning'),
     REFNO_DATA_URL: _site2.default.resolveClientUrl('api/BettingTicketCenter/GetByRefNo'),
     SINGLECUSTOMER_DATA_URL: _site2.default.resolveClientUrl('api/BettingTicketCenter/GetBySingleCustomer'),
-    MULTICUSTOMER_DATA_URL: _site2.default.resolveClientUrl('api/BettingTicketCenter/GetByMultipleCustomers')
+    MULTICUSTOMER_DATA_URL: _site2.default.resolveClientUrl('api/BettingTicketCenterMultiCustomer/GetData')
 };
 exports.default = ApiUrl;
 
