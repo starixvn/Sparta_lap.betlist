@@ -156,7 +156,7 @@
             {
                 zipFile.Save(stream);
                 stream.Close(); // After save we close the stream to signal that we are done writing.
-                Directory.Delete(path, true);
+              //  Directory.Delete(path, true);
             }, "application/zip");
 
             return new HttpResponseMessage(HttpStatusCode.OK) { Content = pushStreamContent };
