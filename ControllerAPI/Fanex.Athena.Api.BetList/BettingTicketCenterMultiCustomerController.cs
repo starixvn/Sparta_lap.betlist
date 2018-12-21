@@ -23,7 +23,7 @@
     [ApiFunctionAuthorization(PermissionKeys.BettingTicketCenter)]
     public class BettingTicketCenterMultiCustomerController : BaseApiController
     {
-        private const int MaxRowSupportExportExcel = 200000;
+        private const int MaxRowSupportExportExcel = 300000;
 
         private const int MaxRowPerFile = 65000;
 
@@ -118,35 +118,51 @@
             };
 
             var path = HttpContext.Current.Server.MapPath("~/tmp/BTC/" + Guid.NewGuid());
-            Directory.CreateDirectory(path);
 
-            var numOfFile = (int)Math.Ceiling((double)dataList.Count / MaxRowPerFile);
-            for (int i = 0; i < numOfFile; i++)
-            {
-                var startIndex = i * MaxRowPerFile;
+            try
+            {    
+                Directory.CreateDirectory(path);
 
-                ticketResult.MainTicketList.Clear();
-                ticketResult.MainTicketList.AddRange(dataList.Skip(startIndex).Take(MaxRowPerFile));
-                var excel = DependencyResolver.Current.GetService<IBettingTicketCenterExcel>();
-
-                var filePath = path + $"/sheet{i}.xls";
-                var workbook = excel.Export(excelModel);
-                using (var xfile = new FileStream(filePath, FileMode.Create, System.IO.FileAccess.Write))
-                {
-                    workbook.Write(xfile);
-                    xfile.Close();
-                }
-            }
-
-            using (ZipFile zip = new ZipFile())
-            {
+                var numOfFile = (int)Math.Ceiling((double)dataList.Count / MaxRowPerFile);
                 for (int i = 0; i < numOfFile; i++)
                 {
-                    var filePath = path + $"/excel{i}.xls";
-                    zip.AddEntry(Path.GetFileName(filePath), new FileStream(filePath, FileMode.Open, FileAccess.Read));
+                    var startIndex = i * MaxRowPerFile;
+
+                    ticketResult.MainTicketList.Clear();
+                    ticketResult.MainTicketList.AddRange(dataList.Skip(startIndex).Take(MaxRowPerFile));
+                    var excel = DependencyResolver.Current.GetService<IBettingTicketCenterExcel>();
+
+                    var filePath = path + $"/sheet{i}.xls";
+                    var workbook = excel.Export(excelModel);
+                    using (var stream = new FileStream(filePath, FileMode.Create, System.IO.FileAccess.Write))
+                    {
+                        workbook.Write(stream);
+                        stream.Close();
+                    }
+
+                    GC.Collect();
+                    GC.WaitForPendingFinalizers();
                 }
 
-                return ZipContentResult(zip, path);
+                using (ZipFile zip = new ZipFile())
+                {
+                    for (int i = 0; i < numOfFile; i++)
+                    {
+                        var filePath = path + $"/sheet{i}.xls";
+                        zip.AddEntry(Path.GetFileName(filePath), new FileStream(filePath, FileMode.Open, FileAccess.Read));
+                    }
+
+                    return ZipContentResult(zip, path);
+                }
+            }
+            catch (Exception)
+            {
+                if (Directory.Exists(path))
+                {
+                    Directory.Delete(path);
+                }
+
+                throw;
             }
         }
 
@@ -156,23 +172,10 @@
             {
                 zipFile.Save(stream);
                 stream.Close(); // After save we close the stream to signal that we are done writing.
-              //  Directory.Delete(path, true);
+                Directory.Delete(path, true);
             }, "application/zip");
 
             return new HttpResponseMessage(HttpStatusCode.OK) { Content = pushStreamContent };
-        }
-
-        private HttpResponseMessage ExcelStreamFromFile(string filePath, string exportFileName)
-        {
-            var result = new HttpResponseMessage(HttpStatusCode.OK);
-            var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-            result.Content = new StreamContent(stream);
-            result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
-            result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
-            {
-                FileName = exportFileName
-            };
-            return result;
         }
     }
 }
