@@ -2,6 +2,7 @@
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import moment from 'moment'
+import { ToastContainer, toast, Flip } from 'react-toastify';
 
 import Select from 'react-select'
 import MultipleSelect from '@9softstudio/react-multiselect'
@@ -17,6 +18,13 @@ import DataService from '@jsroot/lib/DataService.js'
 import Service from '../../common/lib/Service'
 import ApiUrl from '../../common/constants/apiUrl'
 
+const ToastMsg = () => (
+  <div>
+    <div>{LangHelper.getSingleResource("BTCExportExcelMsg1")}</div>
+    <div>{LangHelper.getSingleResource("BTCExportExcelMsg2")}</div>
+  </div>
+)
+
 export class FormFilter extends Component {
     constructor(props) {
         super(props);
@@ -26,6 +34,10 @@ export class FormFilter extends Component {
 
     componentDidMount() {
         this._onChangeProduct(this.props.selectedProduct);
+    }
+
+    _showExportWarning = () => {
+        toast.success(<ToastMsg />);
     }
 
     get isValidModel() {
@@ -43,7 +55,7 @@ export class FormFilter extends Component {
         if (!params) {
             return;
         }
-
+        
         const title = Service.getTitle(params.FromDate, params.ToDate, params.CurrencyName, params.BaseCurrency);
         this.props.setReportTitle(title);
         this.props.setRequestParam(params);
@@ -91,10 +103,10 @@ export class FormFilter extends Component {
         this.props.toggleLoader(true);
         DataService.getFile(ApiUrl.MULTICUSTOMER_DATA_URL, params).then((response) => {
             const NoContentStatusCode = 204;
-            
+            toast.dismiss();
             if(response.status === NoContentStatusCode)
             {
-                alert("File is too béo! Please limit your filter!");
+                this._showExportWarning();
             }
             else {
                 const fileName = "BettingTicketsCenter_MultiCustomer." +
@@ -277,7 +289,11 @@ export class FormFilter extends Component {
         return (
             <div className="page-filter">
                 <div className="row">
-
+                    <ToastContainer 
+                            autoClose={10000} 
+                            pauseOnFocusLoss={false} 
+                            style={{width:"500px"}}
+                            transition={Flip}/>
                      <div className="col-12 col-md-3 col-sm-3 col-lg-4 col-xl-2">
                         <div className="form-group">
                             <label className="label-text">{LangHelper.getSingleResource("Date")}</label>

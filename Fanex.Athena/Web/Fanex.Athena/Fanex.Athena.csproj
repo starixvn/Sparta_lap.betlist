@@ -766,6 +766,7 @@
     <Content Include="www\css\build\pro\reactpages\speciallicenseewl\index.chunk.js" />
     <Content Include="www\css\build\pro\reactpages\speciallicenseewl\index.css" />
     <Content Include="www\css\build\pro\reactpages\subsidiaryperformance\index.css" />
+    <None Include="www\css\source\reactpages\components\custom3rd\react-toastify.scss" />
     <Content Include="www\css\source\reactpages\pages\betlist\images\bonus.png" />
     <Content Include="www\css\source\reactpages\pages\betlist\images\goal-icon.png" />
     <Content Include="www\css\source\reactpages\pages\betlist\images\q_Icon2_1.png" />

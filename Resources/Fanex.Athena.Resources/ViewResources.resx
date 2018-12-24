@@ -3111,4 +3111,12 @@
     <value>Multi-Customers</value>
     <comment>103046</comment>
   </data>
+  <data name="BTCExportExcelMsg1" xml:space="preserve">
+    <value>Your search result exceeds our set limits to get it downloaded.</value>
+    <comment>103046</comment>
+  </data>
+  <data name="BTCExportExcelMsg2" xml:space="preserve">
+    <value>Please try reducing date range, selecting individual currency/ bet type, etc.</value>
+    <comment>103046</comment>
+  </data>
 </root>

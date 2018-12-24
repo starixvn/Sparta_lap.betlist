@@ -961,6 +961,24 @@ namespace Fanex.Athena.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your search result exceeds our set limits to get it downloaded..
+        /// </summary>
+        public static string BTCExportExcelMsg1 {
+            get {
+                return ResourceManager.GetString("BTCExportExcelMsg1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please try reducing date range, selecting individual currency/ bet type, etc..
+        /// </summary>
+        public static string BTCExportExcelMsg2 {
+            get {
+                return ResourceManager.GetString("BTCExportExcelMsg2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Buy Back Amount.
         /// </summary>
         public static string BuyBackAmount {
