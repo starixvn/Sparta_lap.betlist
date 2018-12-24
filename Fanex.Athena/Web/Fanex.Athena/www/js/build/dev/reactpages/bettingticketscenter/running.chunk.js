@@ -6268,7 +6268,13 @@ var FormFilter = exports.FormFilter = function (_Component) {
             params.IsExport = true;
             _this.props.toggleLoader(true);
             _DataService2.default.getFile(_apiUrl2.default.RUNNING_DATA_URL, params).then(function (response) {
-                _site2.default.downloadFile(response.data, 'BettingTicketsCenter_Running.xls');
+                var NoContentStatusCode = 204;
+
+                if (response.status === NoContentStatusCode) {
+                    alert(_langHelper2.default.getSingleResource("NoInfo"));
+                } else {
+                    _site2.default.downloadFile(response.data, 'BettingTicketsCenter_Running.xls');
+                }
                 _this.props.toggleLoader(false);
             });
         };

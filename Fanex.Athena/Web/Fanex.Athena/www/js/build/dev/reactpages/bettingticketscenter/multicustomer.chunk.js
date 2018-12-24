@@ -10973,9 +10973,10 @@ var FormFilter = exports.FormFilter = function (_Component) {
             _this.props.toggleLoader(true);
             _DataService2.default.getFile(_apiUrl2.default.MULTICUSTOMER_DATA_URL, params).then(function (response) {
                 var NoContentStatusCode = 204;
+
                 _reactToastify.toast.dismiss();
                 if (response.status === NoContentStatusCode) {
-                    _this._showExportWarning();
+                    alert(_langHelper2.default.getSingleResource("NoInfo"));
                 } else {
                     var fileName = "BettingTicketsCenter_MultiCustomer." + (response.headers["content-type"] === "application/zip" ? "zip" : "xls");
 
@@ -10984,7 +10985,12 @@ var FormFilter = exports.FormFilter = function (_Component) {
 
                 _this.props.toggleLoader(false);
             }).catch(function (error) {
-                alert(_langHelper2.default.getSingleResource("ErrorProcessingMsg"));
+                var RequestedRangeNotSatisfiable = 416;
+                if (error.response && error.response.status == RequestedRangeNotSatisfiable) {
+                    _this._showExportWarning();
+                } else {
+                    alert(_langHelper2.default.getSingleResource("ErrorProcessingMsg"));
+                }
                 _this.props.toggleLoader(false);
             });
         };

@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Athena.Api.BetList
 {
+    using System.Net;
     using System.Net.Http;
     using System.Web.Http;
     using Base;
@@ -146,6 +147,11 @@
 
         private HttpResponseMessage Export(BettingTicketCenterExcelModel excelModel)
         {
+            if (excelModel.Data.MainTicketList.Count == 0)
+            {
+                return new HttpResponseMessage(HttpStatusCode.NoContent);
+            }
+
             var workbook = _bettingTicketCenterExcel.Export(excelModel);
             return ExcelStream(workbook, string.Empty);
         }

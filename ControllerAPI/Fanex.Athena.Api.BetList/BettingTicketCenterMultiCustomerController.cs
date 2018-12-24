@@ -53,7 +53,7 @@
 
                 if (metaModel.IsExport && _service.GetTotalRowForMultipleCustomers(metaModel) > MaxRowSupportExportExcel)
                 {
-                    return new HttpResponseMessage(HttpStatusCode.NoContent);
+                    return new HttpResponseMessage(HttpStatusCode.RequestedRangeNotSatisfiable);
                 }
 
                 ticketResult = _service.GetBetListForMultipleCustomers(metaModel);
@@ -79,6 +79,11 @@
 
         private HttpResponseMessage Export(TicketResult ticketResult, string title)
         {
+            if (ticketResult.MainTicketList.Count == 0)
+            {
+                return new HttpResponseMessage(HttpStatusCode.NoContent);
+            }
+
             return ticketResult.MainTicketList.Count > MaxRowPerFile ?
                 ExportZip(ticketResult, title) :
                 ExportXls(ticketResult, title);

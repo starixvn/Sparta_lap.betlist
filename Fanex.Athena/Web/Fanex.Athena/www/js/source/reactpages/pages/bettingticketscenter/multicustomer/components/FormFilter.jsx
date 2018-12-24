@@ -103,10 +103,10 @@ export class FormFilter extends Component {
         this.props.toggleLoader(true);
         DataService.getFile(ApiUrl.MULTICUSTOMER_DATA_URL, params).then((response) => {
             const NoContentStatusCode = 204;
+
             toast.dismiss();
-            if(response.status === NoContentStatusCode)
-            {
-                this._showExportWarning();
+            if(response.status === NoContentStatusCode){
+                alert(LangHelper.getSingleResource("NoInfo"));
             }
             else {
                 const fileName = "BettingTicketsCenter_MultiCustomer." +
@@ -117,7 +117,12 @@ export class FormFilter extends Component {
             
             this.props.toggleLoader(false);
         }).catch(error => {
-            alert(LangHelper.getSingleResource("ErrorProcessingMsg"));
+            const RequestedRangeNotSatisfiable = 416;
+            if (error.response && error.response.status == RequestedRangeNotSatisfiable) {
+                this._showExportWarning();
+            }else {
+                alert(LangHelper.getSingleResource("ErrorProcessingMsg"));
+            }
             this.props.toggleLoader(false);
         });
     }

@@ -83,7 +83,13 @@ export class FormFilter extends Component {
         params.IsExport = true;
         this.props.toggleLoader(true);
         DataService.getFile(ApiUrl.SINGLECUSTOMER_DATA_URL, params).then((response) => {
-            Site.downloadFile(response.data, 'BettingTicketsCenter_SingleCustomer.xls');
+            const NoContentStatusCode = 204;
+
+            if(response.status === NoContentStatusCode){
+                alert(LangHelper.getSingleResource("NoInfo"));
+            } else {
+                Site.downloadFile(response.data, 'BettingTicketsCenter_SingleCustomer.xls');
+            }
             this.props.toggleLoader(false);
         });
     }
