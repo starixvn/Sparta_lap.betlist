@@ -75,7 +75,7 @@
                 DataList = new SortableList<AgCasinoBalance>(),
                 SummaryTotal = new Dictionary<string, AgCasinoBalance>()
             };
-            _dataAccess.GetSummaryBalance(metaModel).Returns(resultModel);
+            _dataAccess.GetSummaryBalance(metaModel, UserCurrencyList).Returns(resultModel);
 
             var expectedResult = GetSerializationData();
 
@@ -112,7 +112,7 @@
                 },
                 SummaryTotal = new Dictionary<string, AgCasinoBalance>()
             };
-            _dataAccess.GetSummaryBalance(metaModel).Returns(resultModel);
+            _dataAccess.GetSummaryBalance(metaModel, UserCurrencyList).Returns(resultModel);
 
             var expectedDataList = new SortableList<AgCasinoBalance>
                 {
@@ -149,7 +149,7 @@
                 DataList = new SortableList<AgCasinoBalance> { new AgCasinoBalance() },
                 SummaryTotal = new Dictionary<string, AgCasinoBalance>()
             };
-            _dataAccess.GetAgentBalanceDetail(metaModel).Returns(resultModel);
+            _dataAccess.GetAgentBalanceDetail(metaModel, UserCurrencyList).Returns(resultModel);
             var expectedResult = GetSerializationData(resultModel);
 
             // Action
@@ -180,7 +180,7 @@
                 DataList = new SortableList<AgCasinoBalance> { new AgCasinoBalance() },
                 SummaryTotal = new Dictionary<string, AgCasinoBalance>()
             };
-            _dataAccess.GetCustomerBalanceDetail(metaModel).Returns(resultModel);
+            _dataAccess.GetCustomerBalanceDetail(metaModel, UserCurrencyList).Returns(resultModel);
 
             var expectedResult = GetSerializationData(resultModel);
 
@@ -240,7 +240,7 @@
             });
         }
 
-        private static void MockDataAccess(IAgCasinoBalanceDataAccess dataAccess, ThirdPartyWinLossMetaModel metaModel)
+        private void MockDataAccess(IAgCasinoBalanceDataAccess dataAccess, ThirdPartyWinLossMetaModel metaModel)
         {
             var resultModel = new SortableReportResultModel<AgCasinoBalance>
             {
@@ -248,9 +248,9 @@
                 DataList = new SortableList<AgCasinoBalance> { new AgCasinoBalance() },
                 SummaryTotal = new Dictionary<string, AgCasinoBalance>()
             };
-            dataAccess.GetSummaryBalance(metaModel).Returns(resultModel);
-            dataAccess.GetAgentBalanceDetail(metaModel).Returns(resultModel);
-            dataAccess.GetCustomerBalanceDetail(metaModel).Returns(resultModel);
+            dataAccess.GetSummaryBalance(metaModel, UserCurrencyList).Returns(resultModel);
+            dataAccess.GetAgentBalanceDetail(metaModel, UserCurrencyList).Returns(resultModel);
+            dataAccess.GetCustomerBalanceDetail(metaModel, UserCurrencyList).Returns(resultModel);
         }
 
         private static string GetSerializationData(SortableReportResultModel<AgCasinoBalance> data = null)

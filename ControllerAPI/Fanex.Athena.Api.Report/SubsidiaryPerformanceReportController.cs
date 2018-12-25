@@ -60,7 +60,7 @@
             }
 
             metaModel.AgentListXml = agentListXml;
-            return _subsidiaryPerformanceService.GetData(metaModel);
+            return _subsidiaryPerformanceService.GetData(metaModel, userSession.CurrencyList);
         }
 
         [HttpPost]
@@ -77,7 +77,7 @@
                 {
                     metaModel.AgentListXml = SessionService.GenerateAgentListXml(agentIdListByCurrency);
 
-                    var result = _subsidiaryPerformanceService.GetDetailData(metaModel);
+                    var result = _subsidiaryPerformanceService.GetDetailData(metaModel, SessionService.UserSession.CurrencyList);
 
                     return new
                     {

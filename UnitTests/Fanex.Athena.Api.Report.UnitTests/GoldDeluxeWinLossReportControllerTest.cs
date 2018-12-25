@@ -82,7 +82,7 @@
             // Arrange
             var metaModel = CreateValidMetaModel();
 
-            _dataAccess.GetSummaryWinloss(Arg.Any<ThirdPartyWinLossMetaModel>()).Returns(
+            _dataAccess.GetSummaryWinloss(Arg.Any<ThirdPartyWinLossMetaModel>(), UserCurrencyList).Returns(
                 new ReportResultModel<GoldDeluxeWinLoss>());
 
             // Action
@@ -114,7 +114,7 @@
                 Assert.That(model.DrillDownLevel, Is.Zero);
                 Assert.That(model.DrillDownCustomerId, Is.Zero);
                 Assert.That(model.LicenseeId, Is.EqualTo(SessionLicenseeId));
-                _dataAccess.ReceivedWithAnyArgs().GetSummaryWinloss(model);
+                _dataAccess.ReceivedWithAnyArgs().GetSummaryWinloss(model, UserCurrencyList);
             });
         }
 
@@ -163,7 +163,7 @@
                 Assert.That(model.DrillDownToDate, Is.EqualTo(tdate));
                 Assert.That(model.LicenseeId, Is.EqualTo(SessionLicenseeId));
                 SessionService.Received().GenerateAgentListXml(currencyId, Arg.Any<bool>());
-                _dataAccess.ReceivedWithAnyArgs().GetAgentWinlossDetail(model);
+                _dataAccess.ReceivedWithAnyArgs().GetAgentWinlossDetail(model, UserCurrencyList);
             });
         }
 
@@ -192,7 +192,7 @@
                 Assert.That(model.DrillDownToDate, Is.EqualTo(tdate));
                 Assert.That(model.LicenseeId, Is.EqualTo(SessionLicenseeId));
                 SessionService.Received().GenerateAgentListXml(currencyId, Arg.Any<bool>());
-                _dataAccess.ReceivedWithAnyArgs().GetCustomerWinlossDetail(model);
+                _dataAccess.ReceivedWithAnyArgs().GetCustomerWinlossDetail(model, UserCurrencyList);
             });
         }
 
@@ -295,15 +295,15 @@
 
             if (level == 0)
             {
-                _dataAccess.GetSummaryWinloss(Arg.Any<ThirdPartyWinLossMetaModel>()).Returns(expectedResult);
+                _dataAccess.GetSummaryWinloss(Arg.Any<ThirdPartyWinLossMetaModel>(), UserCurrencyList).Returns(expectedResult);
             }
             else if (level == 1)
             {
-                _dataAccess.GetAgentWinlossDetail(Arg.Any<ThirdPartyWinLossMetaModel>()).Returns(expectedResult);
+                _dataAccess.GetAgentWinlossDetail(Arg.Any<ThirdPartyWinLossMetaModel>(), UserCurrencyList).Returns(expectedResult);
             }
             else
             {
-                _dataAccess.GetCustomerWinlossDetail(Arg.Any<ThirdPartyWinLossMetaModel>()).Returns(expectedResult);
+                _dataAccess.GetCustomerWinlossDetail(Arg.Any<ThirdPartyWinLossMetaModel>(), UserCurrencyList).Returns(expectedResult);
             }
 
             return expectedResult;

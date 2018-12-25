@@ -31,9 +31,10 @@
         {
             if (metaModel.IsValid)
             {
+                var userCurrencyList = SessionService.UserSession.CurrencyList;
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId, metaModel.IsExcludeTestData);
 
-                var result = _licenseeWinLossByTimeZoneDataAccess.GetData(metaModel);
+                var result = _licenseeWinLossByTimeZoneDataAccess.GetData(metaModel, userCurrencyList);
 
                 return new
                 {
