@@ -173,7 +173,7 @@ namespace Fanex.Athena.Controllers.Report
                 metaModel.ProductCodeList = productCode;
             }
 
-            return _liveReportService.GetLiveReportSumaryDetail(metaModel, productList);
+            return _liveReportService.GetLiveReportSumaryDetail(metaModel, SessionService.UserSession.CurrencyList, productList);
         }
 
         private ActionResult Excel(LiveReportViewModel viewModel)
