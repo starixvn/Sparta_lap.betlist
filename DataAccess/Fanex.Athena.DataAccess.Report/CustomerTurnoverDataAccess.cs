@@ -29,17 +29,14 @@ namespace Fanex.Athena.DataAccess.Report
         private readonly ICacheRefAdapter _cacheRefAdapter;
 
         public CustomerTurnoverDataAccess(
-            IAppSettings appSetting,
-            ISessionStorage sessionStorage,
             IBalanceUpDataAccess balanceUpDataAccess,
             ICacheRefAdapter cacheRefAdapter)
-            : base(appSetting, sessionStorage)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
             _cacheRefAdapter = cacheRefAdapter;
         }
 
-        public ReportResultModel<CustTurnover> GetDataList(CustomerTurnoverMetaModel metaModel, string languageCode)
+        public ReportResultModel<CustTurnover> GetDataList(CustomerTurnoverMetaModel metaModel, IDictionary<int, string> currencyList, string languageCode)
         {
             using (var db = this.GetObjectDb("Lrf_Rpt_CustomerTurnOver"))
             {
@@ -57,7 +54,7 @@ namespace Fanex.Athena.DataAccess.Report
                             Index = reader.ToInt("RowNo"),
                             ReportBy = ConvertHelper.ToDateTime(reader.ToString("ReportBy"), metaModel.ReportBy == ReportByType.Monthly),
                             UserName = reader.ToString("username"),
-                            Currency = GetCurrencyName(currencyid),
+                            Currency = currencyList?.GetValueOrDefault(currencyid, currencyid.ToString()),
                             SportId = sportId,
                             SportType = _cacheRefAdapter.GetSportName(sportId, languageCode),
                             TotalTransactions = reader.ToInt("BetCount"),

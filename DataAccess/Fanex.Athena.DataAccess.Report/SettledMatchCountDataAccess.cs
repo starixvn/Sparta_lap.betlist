@@ -16,11 +16,6 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class SettledMatchCountDataAccess : BaseDataAccess, ISettledMatchCountDataAccess
     {
-        public SettledMatchCountDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
-
         public IList<SettledMatchCount> GetDataList(bool isShowAll, int licenseeId)
         {
             var uspParams = new

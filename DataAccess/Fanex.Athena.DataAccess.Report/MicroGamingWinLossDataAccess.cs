@@ -23,12 +23,7 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class MicroGamingWinLossDataAccess : BaseDataAccess, IMicroGamingWinLossDataAccess
     {
-        public MicroGamingWinLossDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
-
-        public ReportResultModel<MicroGamingWinLoss> GetSummaryWinloss(ThirdPartyWinLossMetaModel metaModel)
+        public ReportResultModel<MicroGamingWinLoss> GetSummaryWinloss(ThirdPartyWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             var uspName = "LRF_Rpt_MicroGamingWinloss";
             try
@@ -42,7 +37,7 @@ namespace Fanex.Athena.DataAccess.Report
                     db.AddInParameter("ReportType", DbType.Int32, metaModel.ReportBy);
                     using (var reader = db.ExecuteReader())
                     {
-                        return GetData(reader, metaModel);
+                        return GetData(reader, currencyList, metaModel);
                     }
                 }
             }
@@ -70,6 +65,7 @@ namespace Fanex.Athena.DataAccess.Report
 
         private ReportResultModel<MicroGamingWinLoss> GetData(
             IDataReader reader,
+             IDictionary<int, string> currencyList,
             ThirdPartyWinLossMetaModel metaModel)
         {
             var result = new List<MicroGamingWinLoss>();
@@ -99,7 +95,7 @@ namespace Fanex.Athena.DataAccess.Report
                     TypeName = reader.ToString("typename"),
                     Date = ConvertHelper.ToDateTime(reader.ToString("winlostdate"), metaModel.ReportBy == ReportByType.Monthly),
                     CurrencyID = currencyID,
-                    CurrencyName = GetCurrencyName(currencyID),
+                    CurrencyName = currencyList?.GetValueOrDefault(currencyID, currencyID.ToString()),
                     TurnOver = reader.ToDecimal(turnoverColumn),
                     TotalTransaction = reader.ToInt("totaltrans"),
                     CustomerWinLoss = reader.ToDecimal(winlostColumn),

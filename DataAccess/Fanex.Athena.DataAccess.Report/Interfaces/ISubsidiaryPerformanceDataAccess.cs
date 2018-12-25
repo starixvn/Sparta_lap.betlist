@@ -8,8 +8,8 @@
 
     public interface ISubsidiaryPerformanceDataAccess
     {
-        IEnumerable<SubsidiaryPerformance> GetData(SubsidiaryPerformanceMetaModel metaModel);
+        IEnumerable<SubsidiaryPerformance> GetData(SubsidiaryPerformanceMetaModel metaModel, IDictionary<int, string> currencyList);
 
-        ReportResultModel<SubsidiaryPerformanceDetail> GetDetailData(SubsidiaryPerformanceMetaModel metaModel);
+        ReportResultModel<SubsidiaryPerformanceDetail> GetDetailData(SubsidiaryPerformanceMetaModel metaModel, IDictionary<int, string> currencyList);
     }
 }

@@ -25,12 +25,9 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class AgCasinoBalanceDataAccess : BaseDataAccess, IAgCasinoBalanceDataAccess
     {
-        public AgCasinoBalanceDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
 
-        public SortableReportResultModel<AgCasinoBalance> GetSummaryBalance(ThirdPartyWinLossMetaModel metaModel)
+        public SortableReportResultModel<AgCasinoBalance> GetSummaryBalance(ThirdPartyWinLossMetaModel metaModel,
+            IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_AGCasinoBalance";
             try
@@ -41,7 +38,7 @@ namespace Fanex.Athena.DataAccess.Report
 
                     using (var reader = db.ExecuteReader())
                     {
-                        return GetData(reader, metaModel);
+                        return GetData(reader, currencyList, metaModel);
                     }
                 }
             }
@@ -51,7 +48,8 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        public SortableReportResultModel<AgCasinoBalance> GetCustomerBalanceDetail(ThirdPartyWinLossMetaModel metaModel)
+        public SortableReportResultModel<AgCasinoBalance> GetCustomerBalanceDetail(ThirdPartyWinLossMetaModel metaModel, 
+            IDictionary<int, string> currencyList)
         {
             const string UspName = "LRF_Rpt_AGCasinoBalance_Mem";
             try
@@ -67,7 +65,7 @@ namespace Fanex.Athena.DataAccess.Report
                     SortableReportResultModel<AgCasinoBalance> result;
                     using (var reader = db.ExecuteReader())
                     {
-                        result = GetData(reader, metaModel);
+                        result = GetData(reader, currencyList, metaModel);
                     }
 
                     result.TotalRows = (int)db.GetParameterValue("TotalRows");
@@ -81,7 +79,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        public SortableReportResultModel<AgCasinoBalance> GetAgentBalanceDetail(ThirdPartyWinLossMetaModel metaModel)
+        public SortableReportResultModel<AgCasinoBalance> GetAgentBalanceDetail(ThirdPartyWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspName = "LRF_Rpt_AGCasinoBalance_Ag";
             try
@@ -91,7 +89,7 @@ namespace Fanex.Athena.DataAccess.Report
                     UpdateUspParams(db, metaModel, true);
                     using (var reader = db.ExecuteReader())
                     {
-                        return GetData(reader, metaModel);
+                        return GetData(reader, currencyList, metaModel);
                     }
                 }
             }
@@ -125,6 +123,7 @@ namespace Fanex.Athena.DataAccess.Report
 
         private SortableReportResultModel<AgCasinoBalance> GetData(
             IDataReader reader,
+            IDictionary<int, string> currencyList,
             ThirdPartyWinLossMetaModel metaModel)
         {
             var dataList = new SortableList<AgCasinoBalance>();
@@ -154,7 +153,7 @@ namespace Fanex.Athena.DataAccess.Report
                     ExternalId = hasExternalIdColumn ? reader.ToString("nickname") : string.Empty,
                     CustomerId = hasCustomerIdColumn ? reader.ToInt("custid") : 0,
                     CurrencyId = currencyId,
-                    CurrencyName = GetCurrencyName(currencyId),
+                    CurrencyName = currencyList?.GetValueOrDefault(currencyId, currencyId.ToString()),
                     CustomerWinLoss = reader.ToDecimal(winlostColumn),
                     LicenseeWL = reader.ToDecimal(licenseewlColumn),
                     TurnOver = reader.ToDecimal(turnoverColumn),

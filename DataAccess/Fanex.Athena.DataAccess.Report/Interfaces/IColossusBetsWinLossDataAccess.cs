@@ -9,11 +9,12 @@ namespace Fanex.Athena.DataAccess.Report.Interfaces
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Model.Core.ResultModel;
+    using System.Collections.Generic;
 
     public interface IColossusBetsWinLossDataAccess
     {
-        SortableReportResultModel<ColossusBetWinLoss> GetWinlossDetail(ColossusBetsWinLossMetaModel metaModel);
+        SortableReportResultModel<ColossusBetWinLoss> GetWinlossDetail(ColossusBetsWinLossMetaModel metaModel, IDictionary<int, string> currencyList);
 
-        SortableReportResultModel<ColossusBetWinLoss> GetSummaryWinloss(ColossusBetsWinLossMetaModel metaModel);
+        SortableReportResultModel<ColossusBetWinLoss> GetSummaryWinloss(ColossusBetsWinLossMetaModel metaModel, IDictionary<int, string> currencyList);
     }
 }

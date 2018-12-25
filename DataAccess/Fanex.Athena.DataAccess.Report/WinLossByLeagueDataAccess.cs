@@ -29,10 +29,7 @@ namespace Fanex.Athena.DataAccess.Report
         private readonly ICacheRefAdapter _cacheRefAdapter;
 
         public WinLossByLeagueDataAccess(
-            IAppSettings appSetting,
-            ISessionStorage sessionStorage,
             ICacheRefAdapter cacheRefAdapter)
-            : base(appSetting, sessionStorage)
         {
             _cacheRefAdapter = cacheRefAdapter;
         }

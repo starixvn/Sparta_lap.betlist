@@ -29,10 +29,7 @@ namespace Fanex.Athena.DataAccess.Report
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
         public CustomerWinlossDataAccess(
-            IAppSettings appSetting, 
-            ISessionStorage sessionStorage,
             IBalanceUpDataAccess balanceUpDataAccess)
-            : base(appSetting, sessionStorage)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
         }

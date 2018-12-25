@@ -24,11 +24,6 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class ActiveCustomerSummaryDataAccess : BaseDataAccess, IActiveCustomerSummaryDataAccess
     {
-        public ActiveCustomerSummaryDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
-
         public ActiveCustomerSummaryResultModel GetActiveCustomers(ActiveCustomerMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_ActiveMember";

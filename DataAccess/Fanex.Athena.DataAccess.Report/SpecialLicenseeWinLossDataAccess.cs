@@ -17,14 +17,7 @@
 
     public class SpecialLicenseeWinLossDataAccess : BaseDataAccess, ISpecialLicenseeWinLossDataAccess
     {
-        public SpecialLicenseeWinLossDataAccess(
-            IAppSettings appSetting,
-            ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
-
-        public ReportResultModel<LicenseeWinLoss> GetData(SpecialLicenseeWinLossMetaModel metaModel)
+        public ReportResultModel<LicenseeWinLoss> GetData(SpecialLicenseeWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_LicWinloss_FromAPI";
             try
@@ -35,7 +28,7 @@
 
                     using (var reader = db.ExecuteReader())
                     {
-                        return ReadData(reader, metaModel);
+                        return ReadData(reader, currencyList, metaModel);
                     }
                 }
             }
@@ -173,6 +166,7 @@
 
         private ReportResultModel<LicenseeWinLoss> ReadData(
             IDataReader reader,
+             IDictionary<int, string> currencyList,
             SpecialLicenseeWinLossMetaModel metaModel)
         {
             var dataList = new List<LicenseeWinLoss>();
@@ -186,7 +180,7 @@
                 var item = new LicenseeWinLoss
                 {
                     CurrencyId = currencyId,
-                    CurrencyName = GetCurrencyName(currencyId),
+                    CurrencyName = currencyList?.GetValueOrDefault(currencyId, currencyId.ToString()),
                     CustomerWinLoss = reader.ToDecimal("winlost" + metaModel.BaseCurrency),
                     LicenseeWL = ReadLicenseeWinLossList(reader, licenseeWLColumns),
                     TurnOver = ReadTurnoverList(reader, turnoverColumns),

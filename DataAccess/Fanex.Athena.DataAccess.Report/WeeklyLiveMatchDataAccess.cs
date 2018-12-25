@@ -28,10 +28,7 @@ namespace Fanex.Athena.DataAccess.Report
         private readonly ICacheRefAdapter _cacheRefAdapter;
 
         public WeeklyLiveMatchDataAccess(
-            IAppSettings appSetting,
-            ISessionStorage sessionStorage,
             ICacheRefAdapter cacheRefAdapter)
-            : base(appSetting, sessionStorage)
         {
             _cacheRefAdapter = cacheRefAdapter;
         }

@@ -19,13 +19,12 @@
     {
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
-        public SubsidiaryPerformanceDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage, IBalanceUpDataAccess balanceUpDataAccess)
-            : base(appSetting, sessionStorage)
+        public SubsidiaryPerformanceDataAccess(IBalanceUpDataAccess balanceUpDataAccess)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public IEnumerable<SubsidiaryPerformance> GetData(SubsidiaryPerformanceMetaModel metaModel)
+        public IEnumerable<SubsidiaryPerformance> GetData(SubsidiaryPerformanceMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string SpName = "Lrf_Rpt_SubsidiaryWinloss";
             var dataList = new List<SubsidiaryPerformance>();
@@ -38,7 +37,7 @@
                 {
                     while (reader.Read())
                     {
-                        var data = MapData(reader, metaModel.ConvertAll);
+                        var data = MapData(reader, currencyList, metaModel.ConvertAll);
 
                         dataList.Add(data);
                     }
@@ -48,7 +47,7 @@
             return dataList;
         }
 
-        public ReportResultModel<SubsidiaryPerformanceDetail> GetDetailData(SubsidiaryPerformanceMetaModel metaModel)
+        public ReportResultModel<SubsidiaryPerformanceDetail> GetDetailData(SubsidiaryPerformanceMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string SpName = "Lrf_Rpt_SubsidiaryWinlossDetail";
             var dataList = new List<SubsidiaryPerformanceDetail>();
@@ -64,7 +63,7 @@
 
                     while (reader.Read())
                     {
-                        var data = MapDetailData(reader, baseColumnSuffix);
+                        var data = MapDetailData(reader, currencyList, baseColumnSuffix);
                         data.SystemId = reader["username"].ToString();
                         data.ExternalId = reader["nickname"].ToString();
                         dataList.Add(data);
@@ -89,14 +88,14 @@
             };
         }
 
-        private SubsidiaryPerformance MapData(IDataReader reader, bool isConvert)
+        private SubsidiaryPerformance MapData(IDataReader reader, IDictionary<int, string> currencyList, bool isConvert)
         {
             var currencyId = Convert.ToInt32(reader["Currency"]);
             var result = new SubsidiaryPerformance
             {
                 ProductCode = reader["ProductCode"].ToString(),
                 SubsidiaryId = Convert.ToInt32(reader["recommend"]),
-                CurrencyName = GetCurrencyName(currencyId),
+                CurrencyName = currencyList?.GetValueOrDefault(currencyId, currencyId.ToString()),
                 CurrencyId = currencyId,
                 BaseCurrencyData = new SubsidiaryPerformanceBase
                 {
@@ -124,14 +123,14 @@
             return result;
         }
 
-        private SubsidiaryPerformanceDetail MapDetailData(IDataReader reader, string baseColumnSuffix = "Base")
+        private SubsidiaryPerformanceDetail MapDetailData(IDataReader reader, IDictionary<int, string> currencyList, string baseColumnSuffix = "Base")
         {
             var currencyId = Convert.ToInt32(reader["Currency"]);
             var result = new SubsidiaryPerformanceDetail
             {
                 SystemId = reader["username"].ToString(),
                 ExternalId = reader["nickname"].ToString(),
-                CurrencyName = GetCurrencyName(currencyId),
+                CurrencyName = currencyList?.GetValueOrDefault(currencyId, currencyId.ToString()),
                 CurrencyId = currencyId,
                 BetCount = Convert.ToInt32(reader["BetCount"]),
                 Turnover = Convert.ToDecimal(reader["Turnover" + baseColumnSuffix]),

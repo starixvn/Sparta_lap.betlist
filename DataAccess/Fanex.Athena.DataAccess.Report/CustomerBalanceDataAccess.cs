@@ -19,11 +19,6 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class CustomerBalanceDataAccess : BaseDataAccess, ICustBalanceDataAccess
     {
-        public CustomerBalanceDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
-
         public ReportResultModel<CustBalance> GetDataList(CustomerBalanceMetaModel metaModel)
         {
             using (var db = this.GetObjectDb("Lrf_Rpt_CustomerBalance"))

@@ -20,6 +20,7 @@ namespace Fanex.Athena.DataAccess.Report.Interfaces
 
         Tuple<IList<LiveReport>, IList<LiveReportByBetType>> GetDetailByCurrencyAndBettype(
             LiveReportMetaModel metaModel,
+                        IDictionary<int, string> currencyList,
             IEnumerable<Product> products);
 
         IList<LiveReportWinLossByMatch> GetLiveReportWinlossByMatch(LiveReportMatchListMetalModel metaModel);

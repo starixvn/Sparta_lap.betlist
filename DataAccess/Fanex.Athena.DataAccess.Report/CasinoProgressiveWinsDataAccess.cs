@@ -25,10 +25,7 @@ namespace Fanex.Athena.DataAccess.Report
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
         
         public CasinoProgressiveWinsDataAccess(
-            IAppSettings appSetting, 
-            ISessionStorage sessionStorage,
             IBalanceUpDataAccess balanceUpDataAccess)
-            : base(appSetting, sessionStorage)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
         }

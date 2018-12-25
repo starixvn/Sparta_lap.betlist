@@ -19,11 +19,6 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class TurnoverDataAccess : BaseDataAccess, ITurnoverDataAccess
     {
-        public TurnoverDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
-
         public IList<TurnoverDTO> GetDataList(TurnoverMetaModel metaModel)
         {
             var result = new List<TurnoverDTO>();

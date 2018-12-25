@@ -8,13 +8,14 @@ namespace Fanex.Athena.DataAccess.Report.Interfaces
 {
     using Fanex.Athena.Model.Report.MetaModel;
     using Model.Core.ResultModel;
+    using System.Collections.Generic;
 
     public interface IThirdPartyWinLossDataAccess<T>
     {
-        ReportResultModel<T> GetAgentWinlossDetail(ThirdPartyWinLossMetaModel metaModel, string spname);
+        ReportResultModel<T> GetAgentWinlossDetail(ThirdPartyWinLossMetaModel metaModel, IDictionary<int, string> currencyList, string spname);
 
-        ReportResultModel<T> GetCustomerWinlossDetail(ThirdPartyWinLossMetaModel metaModel, string spname);
+        ReportResultModel<T> GetCustomerWinlossDetail(ThirdPartyWinLossMetaModel metaModel, IDictionary<int, string> currencyList, string spname);
 
-        ReportResultModel<T> GetSummaryWinloss(ThirdPartyWinLossMetaModel metaModel, string spname);
+        ReportResultModel<T> GetSummaryWinloss(ThirdPartyWinLossMetaModel metaModel, IDictionary<int, string> currencyList, string spname);
     }
 }

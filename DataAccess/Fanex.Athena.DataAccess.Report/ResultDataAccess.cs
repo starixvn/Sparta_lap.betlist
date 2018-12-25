@@ -34,13 +34,9 @@ namespace Fanex.Athena.DataAccess.Report
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
         private readonly ICacheRefAdapter _cacheRefAdapter;
-
         public ResultDataAccess(
-            IAppSettings appSetting,
-            ISessionStorage sessionStorage,
             IBalanceUpDataAccess balanceUpDataAccess,
             ICacheRefAdapter cacheRefAdapter)
-            : base(appSetting, sessionStorage)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
             _cacheRefAdapter = cacheRefAdapter;

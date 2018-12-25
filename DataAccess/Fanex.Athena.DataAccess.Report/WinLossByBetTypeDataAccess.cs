@@ -27,11 +27,8 @@ namespace Fanex.Athena.DataAccess.Report
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
         public WinLossByBetTypeDataAccess(
-            IAppSettings appSetting,
-            ISessionStorage sessionStorage,
             ICacheRefAdapter cacheRefAdapter,
             IBalanceUpDataAccess balanceUpDataAccess)
-            : base(appSetting, sessionStorage)
         {
             _cacheRefAdapter = cacheRefAdapter;
             _balanceUpDataAccess = balanceUpDataAccess;

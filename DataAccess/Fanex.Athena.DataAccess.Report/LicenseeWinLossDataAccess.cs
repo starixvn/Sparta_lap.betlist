@@ -28,16 +28,13 @@
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
         public LicenseeWinLossDataAccess(
-            IAppSettings appSetting,
-            ISessionStorage sessionStorage,
             IBalanceUpDataAccess balanceUpDataAccess)
-            : base(appSetting, sessionStorage)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
         public SortableReportResultModel<LicenseeWinLoss> GetSummaryWinloss(
-            LicenseeWinLossMetaModel metaModel)
+            LicenseeWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             var uspName = "Lrf_Rpt_LicWinloss";
             try
@@ -49,7 +46,7 @@
 
                     using (var reader = db.ExecuteReader())
                     {
-                        return GetData(reader, metaModel, false);
+                        return GetData(reader, currencyList, metaModel, false);
                     }
                 }
             }
@@ -59,7 +56,7 @@
             }
         }
 
-        public SortableReportResultModel<LicenseeWinLoss> GetCustomerWinlossDetail(LicenseeWinLossMetaModel metaModel)
+        public SortableReportResultModel<LicenseeWinLoss> GetCustomerWinlossDetail(LicenseeWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_LicWinlossDetail";
             try
@@ -70,7 +67,7 @@
                     UpdateUspParams(db, metaModel, true);
                     using (var reader = db.ExecuteReader())
                     {
-                        return GetData(reader, metaModel, true);
+                        return GetData(reader, currencyList, metaModel, true);
                     }
                 }
             }
@@ -80,7 +77,7 @@
             }
         }
 
-        public SortableReportResultModel<LicenseeWinLoss> GetAgentWinlossDetail(LicenseeWinLossMetaModel metaModel)
+        public SortableReportResultModel<LicenseeWinLoss> GetAgentWinlossDetail(LicenseeWinLossMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspName = "Lrf_Rpt_LicWinlossDetail_Ag";
             try
@@ -90,7 +87,7 @@
                     UpdateUspParams(db, metaModel, true);
                     using (var reader = db.ExecuteReader())
                     {
-                        return GetData(reader, metaModel, true);
+                        return GetData(reader, currencyList, metaModel, true);
                     }
                 }
             }
@@ -240,6 +237,7 @@
 
         private SortableReportResultModel<LicenseeWinLoss> GetData(
             IDataReader reader,
+            IDictionary<int, string> currencyList,
             LicenseeWinLossMetaModel metaModel,
             bool drilldown)
         {
@@ -265,11 +263,12 @@
                 }
             }
 
-            return ReadData(reader, metaModel, licenseeWLColumns, turnoverColumns, drilldown);
+            return ReadData(reader, currencyList, metaModel, licenseeWLColumns, turnoverColumns, drilldown);
         }
 
         private SortableReportResultModel<LicenseeWinLoss> ReadData(
             IDataReader reader,
+             IDictionary<int, string> currencyList,
             LicenseeWinLossMetaModel metaModel,
             IDictionary<string, string> licenseeWLColumns,
             IDictionary<string, string> turnoverColumns,
@@ -293,7 +292,7 @@
                     ExternalId = hasExternalId ? reader.ToString("nickname") : string.Empty,
                     CustomerId = hasCustomerId ? reader.ToInt("custid") : 0,
                     CurrencyId = currencyId,
-                    CurrencyName = GetCurrencyName(currencyId),
+                    CurrencyName = currencyList?.GetValueOrDefault(currencyId, currencyId.ToString()),
                     CustomerWinLoss = reader.ToDecimal("winlost" + baseCurrency),
                     CustomerComm = reader.ToDecimal("playercomm" + baseCurrency),
                     ActualStake = reader.ToDecimal("BTActualStake" + baseCurrency),

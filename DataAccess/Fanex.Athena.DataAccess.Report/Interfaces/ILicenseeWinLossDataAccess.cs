@@ -9,13 +9,17 @@ namespace Fanex.Athena.DataAccess.Report.Interfaces
     using Fanex.Athena.Model.Report.DTO;
     using Fanex.Athena.Model.Report.MetaModel;
     using Model.Core.ResultModel;
+    using System.Collections.Generic;
 
     public interface ILicenseeWinLossDataAccess
     {
-        SortableReportResultModel<LicenseeWinLoss> GetAgentWinlossDetail(LicenseeWinLossMetaModel metaModel);
+        SortableReportResultModel<LicenseeWinLoss> GetAgentWinlossDetail(LicenseeWinLossMetaModel metaModel,
+            IDictionary<int, string> currencyList);
 
-        SortableReportResultModel<LicenseeWinLoss> GetCustomerWinlossDetail(LicenseeWinLossMetaModel metaModel);
+        SortableReportResultModel<LicenseeWinLoss> GetCustomerWinlossDetail(LicenseeWinLossMetaModel metaModel,
+            IDictionary<int, string> currencyList);
 
-        SortableReportResultModel<LicenseeWinLoss> GetSummaryWinloss(LicenseeWinLossMetaModel metaModel);
+        SortableReportResultModel<LicenseeWinLoss> GetSummaryWinloss(LicenseeWinLossMetaModel metaModel,
+            IDictionary<int, string> currencyList);
     }
 }

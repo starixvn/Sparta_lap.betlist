@@ -25,12 +25,7 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class ThirdPartyWinLossDataAccess<T> : BaseDataAccess, IThirdPartyWinLossDataAccess<T> where T : ThirdPartyWinLoss
     {
-        public ThirdPartyWinLossDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
-
-        public ReportResultModel<T> GetSummaryWinloss(ThirdPartyWinLossMetaModel metaModel, string spname)
+        public ReportResultModel<T> GetSummaryWinloss(ThirdPartyWinLossMetaModel metaModel, IDictionary<int, string> currencyList, string spname)
         {
             try
             {
@@ -41,7 +36,7 @@ namespace Fanex.Athena.DataAccess.Report
 
                     using (var reader = db.ExecuteReader())
                     {
-                        var result = GetData(reader, metaModel, -1);
+                        var result = GetData(reader, currencyList, metaModel, -1);
                         AddRowSpan(result.DataList);
                         return result;
                     }
@@ -53,7 +48,8 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        public ReportResultModel<T> GetCustomerWinlossDetail(ThirdPartyWinLossMetaModel metaModel, string spname)
+        public ReportResultModel<T> GetCustomerWinlossDetail(ThirdPartyWinLossMetaModel metaModel, 
+            IDictionary<int, string> currencyList, string spname)
         {
             try
             {
@@ -63,7 +59,7 @@ namespace Fanex.Athena.DataAccess.Report
                     UpdateUspParams(db, metaModel, true);
                     using (var reader = db.ExecuteReader())
                     {
-                        return GetData(reader, metaModel);
+                        return GetData(reader, currencyList, metaModel);
                     }
                 }
             }
@@ -73,7 +69,8 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        public ReportResultModel<T> GetAgentWinlossDetail(ThirdPartyWinLossMetaModel metaModel, string spname)
+        public ReportResultModel<T> GetAgentWinlossDetail(ThirdPartyWinLossMetaModel metaModel,
+            IDictionary<int, string> currencyList, string spname)
         {
             try
             {
@@ -82,7 +79,7 @@ namespace Fanex.Athena.DataAccess.Report
                     UpdateUspParams(db, metaModel, true);
                     using (var reader = db.ExecuteReader())
                     {
-                        return GetData(reader, metaModel);
+                        return GetData(reader, currencyList, metaModel);
                     }
                 }
             }
@@ -136,7 +133,7 @@ namespace Fanex.Athena.DataAccess.Report
             }
         }
 
-        private ReportResultModel<T> GetData(IDataReader reader, ThirdPartyWinLossMetaModel metaModel, int rowSpan = 0)
+        private ReportResultModel<T> GetData(IDataReader reader, IDictionary<int, string> currencyList, ThirdPartyWinLossMetaModel metaModel, int rowSpan = 0)
         {
             var result = new SortableList<T>();
 
@@ -166,7 +163,7 @@ namespace Fanex.Athena.DataAccess.Report
                 item.ExternalId = hasExternalId ? reader.ToString("nickname") : string.Empty;
                 item.CustomerId = hasCustomerId ? reader.ToInt("custid") : 0;
                 item.CurrencyId = currencyId;
-                item.CurrencyName = GetCurrencyName(currencyId);
+                item.CurrencyName = currencyList?.GetValueOrDefault(currencyId, currencyId.ToString());
                 item.CustomerWinLoss = reader.ToDecimal(winlostColumn);
                 item.LicenseeWL = reader.ToDecimal(licenseewlColumn);
                 item.TurnOver = reader.ToDecimal(turnoverColumn);

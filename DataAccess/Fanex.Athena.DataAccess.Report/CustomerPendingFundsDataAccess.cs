@@ -22,11 +22,6 @@ namespace Fanex.Athena.DataAccess.Report
 
     public class CustomerPendingFundsDataAccess : BaseDataAccess, ICustPendingFundsDataAccess
     {
-        public CustomerPendingFundsDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
-
         public ReportResultModel<CustPendingFunds> GetDataList(CustomerPendingFundsMetaModel metaModel)
         {
             const string UspName = "Lrf_Rpt_Outstanding";

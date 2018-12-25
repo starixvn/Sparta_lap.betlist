@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.DataAccess.Report
 {
     using System;
+    using System.Collections.Generic;
     using System.Data;
     using Common.Extensions;
     using Core;
@@ -20,15 +21,13 @@
         private readonly IBalanceUpDataAccess _balanceUpDataAccess;
 
         public LicenseeWinLossByTimeZoneDataAccess(
-            IAppSettings appSetting,
-            ISessionStorage sessionStorage, 
             IBalanceUpDataAccess balanceUpDataAccess)
-            : base(appSetting, sessionStorage)
         {
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public ReportResultModel<LicenseeWinLossByTimeZone> GetData(LicenseeWinLossByTimeZoneMetaModel metaModel)
+        public ReportResultModel<LicenseeWinLossByTimeZone> GetData(LicenseeWinLossByTimeZoneMetaModel metaModel,
+            IDictionary<int, string> currencyList)
         {
             const string SpName = "Lrf_Rpt_LicWinlossByTimeZone";
             var dataList = new SortableList<LicenseeWinLossByTimeZone>();
@@ -41,7 +40,7 @@
                 {
                     while (reader.Read())
                     {
-                        var item = ReadDataInBaseCurrency(reader, metaModel);
+                        var item = ReadDataInBaseCurrency(reader, currencyList, metaModel);
                         totalData.BetCount += item.BetCount;
                         totalData.Turnover += item.Turnover;
                         totalData.CustomerComm += item.CustomerComm;
@@ -68,7 +67,7 @@
             };
         }
 
-        private LicenseeWinLossByTimeZone ReadDataInBaseCurrency(IDataReader reader, LicenseeWinLossByTimeZoneMetaModel metaModel)
+        private LicenseeWinLossByTimeZone ReadDataInBaseCurrency(IDataReader reader, IDictionary<int, string> currencyList, LicenseeWinLossByTimeZoneMetaModel metaModel)
         {
             const byte GroupByProduct = 1;
             const int ReportBySummary = 1;
@@ -90,7 +89,8 @@
 
             item.GroupBy = metaModel.GroupBy == GroupByProduct ?
                         ProductHelper.GetProductName(item.GroupBy) :
-                        GetCurrencyName(Convert.ToInt32(item.GroupBy));
+                        currencyList?.GetValueOrDefault(Convert.ToInt32(item.GroupBy), item.GroupBy);
+
 
             return item;
         }
