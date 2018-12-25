@@ -101,7 +101,7 @@
 
             SessionService.GenerateAgentListXml(0, false).Returns(AgentListXml);
 
-            _service.GetLastBetsMonitoringData(metaModel).Returns(new TicketResult());
+            _service.GetLastBetsMonitoringData(metaModel, UserCurrencyList).Returns(new TicketResult());
 
             // Action
             _controller.Index(metaModel);
@@ -120,7 +120,7 @@
 
             SessionService.GenerateAgentListXml(Arg.Any<IEnumerable<int>>(), false).Returns(AgentListXml);
 
-            _service.GetLastBetsMonitoringData(metaModel).Returns(new TicketResult());
+            _service.GetLastBetsMonitoringData(metaModel, UserCurrencyList).Returns(new TicketResult());
 
             // Action
             _controller.Index(metaModel);
@@ -367,7 +367,7 @@
 
             SessionService.GenerateAgentListXml(Arg.Any<IEnumerable<int>>(), false).Returns(AgentListXml);
 
-            _service.GetLastBetsMonitoringData(metaModel).Returns(ticketResult);
+            _service.GetLastBetsMonitoringData(metaModel, UserCurrencyList).Returns(ticketResult);
         }
     }
 }

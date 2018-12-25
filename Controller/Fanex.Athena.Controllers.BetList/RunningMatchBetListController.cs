@@ -46,7 +46,7 @@ namespace Fanex.Athena.Controllers.BetList
         {
             const string UspName = "Lrf_BetList_SelRunningByBettypeMatch";
 
-            var ticketResult = BetListService.GetBetListData(metaModel, UspName);
+            var ticketResult = BetListService.GetBetListData(metaModel, UserCurrencyList, UspName);
 
             var firstTicket = ticketResult.MainTicketList.FirstOrDefault();
             var leagueName = firstTicket != null ? CacheRefAdapter.GetLeagueName(firstTicket.LeagueId) : string.Empty;

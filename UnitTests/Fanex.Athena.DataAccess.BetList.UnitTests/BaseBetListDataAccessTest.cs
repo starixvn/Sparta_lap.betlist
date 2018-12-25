@@ -16,7 +16,7 @@
     {
         protected override void SetUpDataAccess()
         {
-            DataAccess = Substitute.ForPartsOf<BaseBetListDataAccess>(null, CreateSessionStorage());
+            DataAccess = Substitute.ForPartsOf<BaseBetListDataAccess>();
         }
 
         [TestCase("")]
@@ -33,7 +33,7 @@
             ConfigureReader(dataList);
 
             // Action
-            var result = DataAccess.ReadBetListTicket(Reader, baseCurrency)[0];
+            var result = DataAccess.ReadBetListTicket(Reader, UserCurrencyList, baseCurrency)[0];
 
             // Assert
             Assert.That(result, Tobe.SameProperties(expected));

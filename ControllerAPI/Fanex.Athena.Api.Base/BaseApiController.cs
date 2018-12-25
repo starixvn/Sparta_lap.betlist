@@ -7,6 +7,7 @@
 namespace Fanex.Athena.Api.Base
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Net;
@@ -35,6 +36,7 @@ namespace Fanex.Athena.Api.Base
             _langService = languageService;
         }
 
+        protected IDictionary<int, string> UserCurrencyList => _sessionService.UserSession.CurrencyList;
         protected IProductService ProductService
         {
             get

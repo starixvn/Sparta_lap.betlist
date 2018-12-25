@@ -22,8 +22,7 @@
 
         protected override void SetUpDataAccess()
         {
-            var session = CreateSessionStorage();
-            DataAccess = Substitute.ForPartsOf<BetListDataAccess>(Substitute.For<IAppSettings>(), session);
+            DataAccess = Substitute.ForPartsOf<BetListDataAccess>();
         }
 
         [Test]
@@ -36,7 +35,7 @@
             DataAccess.GetObjectDb(Arg.Is(GetMixParlayDetailTicketSp)).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetMixParlayDetailTicket(TransId, CustId);
+            DataAccess.GetMixParlayDetailTicket(UserCurrencyList, TransId, CustId);
 
             // Assert
             ObjectDb.Received(1).AddInParameter("TransId", DbType.Int64, TransId);

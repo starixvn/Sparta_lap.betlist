@@ -35,6 +35,7 @@
         private IBettingTicketCenterExcel _bettingTicketCenterExcel;
 
         private BettingTicketCenterController _controller;
+        protected IDictionary<int, string> UserCurrencyList => SessionService.UserSession.CurrencyList;
 
         [OneTimeSetUp]
         public override void FixtureSetUp()
@@ -111,7 +112,7 @@
             };
 
             SessionService.LicenseeSession.Returns(new LicenseeSession { LicenseeId = FakeHelper.Create<int>() });
-            _dataAccess.GetBetListByRefno(metaModel).Returns(new TicketResult());
+            _dataAccess.GetBetListByRefno(metaModel, UserCurrencyList).Returns(new TicketResult());
 
             // Action
             var result = _controller.GetByRefno(metaModel);
@@ -119,7 +120,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _dataAccess.Received(1).GetBetListByRefno(metaModel);
+                _dataAccess.Received(1).GetBetListByRefno(metaModel, UserCurrencyList);
                 Assert.That(result.Data, Is.Not.Null);
             });
         }
@@ -135,7 +136,7 @@
             };
 
             SessionService.LicenseeSession.Returns(new LicenseeSession { LicenseeId = FakeHelper.Create<int>() });
-            _dataAccess.GetBetListByRefno(metaModel).Returns(new TicketResult());
+            _dataAccess.GetBetListByRefno(metaModel, UserCurrencyList).Returns(new TicketResult());
 
             // Action
             var result = _controller.GetByRefno(metaModel);
@@ -234,7 +235,7 @@
                 SumStake = FakeHelper.Create<int>(),
                 TotalRows = FakeHelper.Create<int>()
             };
-            _dataAccess.GetRunningBetList(metaModel).Returns(ticketResult);
+            _dataAccess.GetRunningBetList(metaModel, UserCurrencyList).Returns(ticketResult);
 
             // Action
             var result = _controller.GetByRunning(metaModel);
@@ -242,7 +243,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _dataAccess.Received(1).GetRunningBetList(metaModel);
+                _dataAccess.Received(1).GetRunningBetList(metaModel, UserCurrencyList);
                 Assert.That(result.Data, Is.Not.Null);
                 Assert.That(result.Total.SumStake, Is.EqualTo(ticketResult.SumStake.ToString(FormatKey.DecimalFormat)));
                 Assert.That(result.TotalRows, Is.EqualTo(ticketResult.TotalRows));
@@ -276,7 +277,7 @@
                 SumStake = FakeHelper.Create<int>(),
                 TotalRows = FakeHelper.Create<int>()
             };
-            _dataAccess.GetRunningBetList(metaModel).Returns(ticketResult);
+            _dataAccess.GetRunningBetList(metaModel, UserCurrencyList).Returns(ticketResult);
 
             // Action
             var result = _controller.GetByRunning(metaModel);
@@ -298,7 +299,7 @@
             ticketResult.MainTicketList.Add(ticket);
 
             SessionService.LicenseeSession.Returns(new LicenseeSession { LicenseeId = FakeHelper.Create<int>() });
-            _dataAccess.GetBetListByRefno(metaModel).Returns(ticketResult);
+            _dataAccess.GetBetListByRefno(metaModel, UserCurrencyList).Returns(ticketResult);
             _ticketHelper.ClientDetailSystemParlayFunction.Returns(string.Empty);
 
             // Action
@@ -321,7 +322,7 @@
             ticketResult.MainTicketList.Add(ticket);
 
             SessionService.LicenseeSession.Returns(new LicenseeSession { LicenseeId = FakeHelper.Create<int>() });
-            _dataAccess.GetBetListByRefno(metaModel).Returns(ticketResult);
+            _dataAccess.GetBetListByRefno(metaModel, UserCurrencyList).Returns(ticketResult);
 
             // Action
             var result = _controller.GetByRefno(metaModel);
@@ -349,7 +350,7 @@
             ticketResult.MainTicketList.Add(ticket);
 
             SessionService.LicenseeSession.Returns(new LicenseeSession { LicenseeId = FakeHelper.Create<int>() });
-            _dataAccess.GetBetListByRefno(metaModel).Returns(ticketResult);
+            _dataAccess.GetBetListByRefno(metaModel, UserCurrencyList).Returns(ticketResult);
 
             // Action
             var result = _controller.GetByRefno(metaModel);
@@ -457,7 +458,7 @@
                 SumStake = FakeHelper.Create<decimal>(),
                 TotalRows = FakeHelper.Create<int>()
             };
-            _dataAccess.GetBetListForSingleCustomer(metaModel).Returns(ticketResult);
+            _dataAccess.GetBetListForSingleCustomer(metaModel, UserCurrencyList).Returns(ticketResult);
 
             // Action
             var result = _controller.GetBySingleCustomer(metaModel);
@@ -465,7 +466,7 @@
             // Assert
             Assert.Multiple(() =>
             {
-                _dataAccess.Received(1).GetBetListForSingleCustomer(metaModel);
+                _dataAccess.Received(1).GetBetListForSingleCustomer(metaModel, UserCurrencyList);
                 Assert.That(result.Data, Is.Not.Null);
                 Assert.That(
                     result.Total.SumWinLoss.Contains(ticketResult.SumWinLoss.ToString(FormatKey.DecimalFormat))
@@ -509,7 +510,7 @@
                 SumStake = FakeHelper.Create<decimal>(),
                 TotalRows = FakeHelper.Create<int>()
             };
-            _dataAccess.GetBetListForSingleCustomer(metaModel).Returns(ticketResult);
+            _dataAccess.GetBetListForSingleCustomer(metaModel, UserCurrencyList).Returns(ticketResult);
 
             // Action
             var result = _controller.GetBySingleCustomer(metaModel);

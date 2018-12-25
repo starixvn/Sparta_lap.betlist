@@ -117,7 +117,7 @@ namespace Fanex.Athena.Controllers.BetList
 
         private ActionResult Excel(BetListMetaModel metaModel)
         {
-            var ticketResult = BetListService.GetBetListData(metaModel, "Lrf_BetList_SelRunningByBettypeList");
+            var ticketResult = BetListService.GetBetListData(metaModel, UserCurrencyList, "Lrf_BetList_SelRunningByBettypeList");
 
             var showingOption = new ShowingOption
             {

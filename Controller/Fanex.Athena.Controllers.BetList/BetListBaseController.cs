@@ -68,7 +68,7 @@
             _balanceUpDataAccess = balanceUpDataAccess;
             _cacheRefAdapter = cacheRefAdapter;
         }
-
+        protected IDictionary<int, string> UserCurrencyList => SessionService.UserSession.CurrencyList;
         protected IProductService ProductService
         {
             get { return _productService; }

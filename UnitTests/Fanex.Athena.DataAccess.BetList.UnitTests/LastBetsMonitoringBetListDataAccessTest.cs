@@ -12,7 +12,6 @@
     public class LastBetsMonitoringBetListDataAccessTest : BaseDataAccessHelperTest<LastBetsMonitoringBetListDataAccess>
     {
         private const string UspKey = "Lrf_Monitor_BetlistSel_New";
-
         [Test]
         public void GetLastBetsMonitoringData_WhenCall_ParametersPassedCorrectly()
         {
@@ -21,7 +20,7 @@
             var metaModel = FakeHelper.Create<LastBetsMonitoringMetaModel>();
 
             // Action
-            DataAccess.GetLastBetsMonitoringData(metaModel);
+            DataAccess.GetLastBetsMonitoringData(metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -48,7 +47,7 @@
         {
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
                 UspKey,
-                () => DataAccess.GetLastBetsMonitoringData(new LastBetsMonitoringMetaModel()));
+                () => DataAccess.GetLastBetsMonitoringData(new LastBetsMonitoringMetaModel(), UserCurrencyList));
         }
 
         [Test]

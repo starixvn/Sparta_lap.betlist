@@ -163,7 +163,7 @@
 
         private TicketResult GetTicketResult(BetListMetaModel metaModel, string uspKey)
         {
-            var ticketResult = BetListService.GetBetListData(metaModel, uspKey);
+            var ticketResult = BetListService.GetBetListData(metaModel, UserCurrencyList, uspKey);
 
             ticketResult.SumWinLoss = ticketResult.MainTicketList.Sum(x => x.Winlost);
             ticketResult.SumLicenseeWL = ticketResult.MainTicketList.Sum(x => x.LicenseeWL);

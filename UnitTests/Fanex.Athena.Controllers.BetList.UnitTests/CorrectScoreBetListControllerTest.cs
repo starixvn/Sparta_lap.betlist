@@ -100,7 +100,7 @@
                 var expectedTitle = $"{ViewResources.CorrectScore} - {currencyTitle}";
 
                 var ticketResult = new TicketResult();
-                BetListService.GetBetListData(Arg.Any<BetListMetaModel>(), "Lrf_TotalBets_Sel430").Returns(ticketResult);
+                BetListService.GetBetListData(Arg.Any<BetListMetaModel>(), UserCurrencyList, "Lrf_TotalBets_Sel430").Returns(ticketResult);
 
                 SessionService.GenerateAgentListXml(metaModel.CurrencyId, false).Returns(AgentListXml);
 

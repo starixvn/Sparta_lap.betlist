@@ -77,7 +77,7 @@ namespace Fanex.Athena.Controllers.BetList
             metaModel.PageSize = PageSizeExcel;
 
             var uspName = string.IsNullOrEmpty(uspKey) ? "Lrf_BetList_MatchWL_Bettype" : uspKey;
-            var ticketResult = BetListService.GetBetListData(metaModel, uspName);
+            var ticketResult = BetListService.GetBetListData(metaModel, UserCurrencyList, uspName);
 
             var showingOption = new ShowingOption
             {

@@ -1,6 +1,7 @@
 ﻿namespace Fanex.Athena.Api.BetList.UnitTests
 {
     using System;
+    using System.Collections.Generic;
     using DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.Api.Base.UnitTests;
     using Fanex.BetList.Core.Builder;
@@ -24,7 +25,7 @@
         protected ICacheRefAdapter CacheRefAdapter { get; private set; }
 
         protected IBetListHTMLBuilder BetListHTMLBuilder { get; private set; }
-
+        protected IDictionary<int, string> UserCurrencyList => SessionService.UserSession.CurrencyList;
         [OneTimeSetUp]
         public override void FixtureSetUp()
         {

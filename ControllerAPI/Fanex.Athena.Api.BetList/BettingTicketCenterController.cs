@@ -113,7 +113,7 @@
             else
             {
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-                ticketResult = _dataAccess.GetBetListForSingleCustomer(metaModel);
+                ticketResult = _dataAccess.GetBetListForSingleCustomer(metaModel, UserCurrencyList);
             }
 
             var showPlayerComm = SessionService.LicenseeSession.IsAllowedCustomerComm;
@@ -157,7 +157,7 @@
             else
             {
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-                ticketResult = _dataAccess.GetBetListByRefno(metaModel);
+                ticketResult = _dataAccess.GetBetListByRefno(metaModel, UserCurrencyList);
             }
 
             if (metaModel.IsExport)
@@ -189,7 +189,7 @@
             else
             {
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-                ticketResult = _dataAccess.GetRunningBetList(metaModel);
+                ticketResult = _dataAccess.GetRunningBetList(metaModel, UserCurrencyList);
             }
 
             if (metaModel.IsExport)
