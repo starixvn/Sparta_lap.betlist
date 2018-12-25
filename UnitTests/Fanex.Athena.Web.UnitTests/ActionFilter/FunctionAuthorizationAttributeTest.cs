@@ -32,7 +32,7 @@ namespace Fanex.Athena.Web.UnitTests.ActionFilter
             _authorizationService = Substitute.For<IAuthorizationService>();
             _attribute = new FunctionAuthorizationAttribute();
             _attribute.SessionStorage = _sessionStorage;
-            _attribute.AuthorizationService = _authorizationService;
+            _attribute.AuthorizationServiceInstance = _authorizationService;
         }
 
         [TestCase(AppMode.Parasitic)]

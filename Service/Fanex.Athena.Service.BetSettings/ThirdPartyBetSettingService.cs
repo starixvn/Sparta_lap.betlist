@@ -7,8 +7,8 @@
 namespace Fanex.Athena.Service.BetSettings
 {
     using BetSettings.Interfaces;
-    using Core.Users.Interfaces;
     using DataAccess.BetSettings.Interfaces;
+    using Fanex.Athena.Service.StatelessCore.Interfaces;
     using Model.BetSettings.ViewModel;
     using Model.Core.DTO.Common;
     using Resources;

@@ -12,7 +12,7 @@ namespace Fanex.Athena.Service.BetList
     using Fanex.Athena.Model.BetList.DTO;
     using Fanex.Athena.Model.BetList.MetaModel;
     using Fanex.Athena.Service.BetList.Interfaces;
-    using Fanex.Athena.Service.Core.Users.Interfaces;
+    using Fanex.Athena.Service.StatelessCore.Interfaces;
     using Fanex.BetList.Core.Entities;
 
     public class BetListService : IBetListService

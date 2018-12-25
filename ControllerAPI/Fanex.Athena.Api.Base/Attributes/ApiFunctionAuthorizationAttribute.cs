@@ -13,6 +13,7 @@
     using System.Web.Http.Filters;
     using Extension.Utility;
     using Extensions;
+    using Fanex.Athena.Service.StatelessCore.Interfaces;
     using Resources;
     using Service.Core.Users.Interfaces;
     using Session.Enum;

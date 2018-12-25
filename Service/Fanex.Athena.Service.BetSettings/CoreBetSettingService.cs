@@ -8,6 +8,7 @@ using Fanex.Athena.Model.Customer.DTO;
 using Fanex.Athena.Service.BetSettings.Interfaces;
 using Fanex.Athena.Service.Core.Users.Interfaces;
 using Fanex.Athena.Service.Customer.Interfaces;
+using Fanex.Athena.Service.StatelessCore.Interfaces;
 using Fanex.Athena.Session.Enum;
 
 namespace Fanex.Athena.Service.BetSettings

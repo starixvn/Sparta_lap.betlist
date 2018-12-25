@@ -1,9 +1,9 @@
 ﻿namespace Fanex.Athena.Service.Customer
 {
     using Fanex.Athena.DataAccess.Customer.Interfaces;
+    using Fanex.Athena.Service.StatelessCore.Interfaces;
     using Interfaces;
     using Model.Customer.DTO;
-    using Service.Core.Users.Interfaces;
 
     public class CustomerService : ICustomerService
     {

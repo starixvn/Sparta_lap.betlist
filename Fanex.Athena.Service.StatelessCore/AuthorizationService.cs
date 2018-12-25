@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Athena.Service.Core.Users
+namespace Fanex.Athena.Service.StatelessCore
 {
     using System;
     using System.Collections.Generic;
@@ -12,7 +12,7 @@ namespace Fanex.Athena.Service.Core.Users
     using System.Linq;
     using Fanex.Athena.DataAccess.Core.Users.Interfaces;
     using Fanex.Athena.Service.Core.Common.Interfaces;
-    using Fanex.Athena.Service.Core.Users.Interfaces;
+    using Fanex.Athena.Service.StatelessCore.Interfaces;
 
     public class AuthorizationService : IAuthorizationService
     {
