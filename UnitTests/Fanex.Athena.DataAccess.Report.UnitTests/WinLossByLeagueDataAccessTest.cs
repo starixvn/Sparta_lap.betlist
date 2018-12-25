@@ -20,8 +20,6 @@
         protected override void SetUpDataAccess()
         {
             DataAccess = Substitute.ForPartsOf<WinLossByLeagueDataAccess>(
-                AppSetting,
-                CreateSessionStorage(),
                 Substitute.For<ICacheRefAdapter>());
         }
 

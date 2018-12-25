@@ -31,7 +31,7 @@
             DataAccess.GetObjectDb(Arg.Is(SpName)).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetSummaryWinloss(_metaModel);
+            DataAccess.GetSummaryWinloss(_metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -61,7 +61,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetSummaryWinloss(_metaModel);
+            var result = DataAccess.GetSummaryWinloss(_metaModel, UserCurrencyList);
             var firstItem = result.DataList.First();
 
             // Assert
@@ -81,7 +81,7 @@
         {
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
                 SpName,
-                () => DataAccess.GetSummaryWinloss(_metaModel));
+                () => DataAccess.GetSummaryWinloss(_metaModel, UserCurrencyList));
         }
     }
 }

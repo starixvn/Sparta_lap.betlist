@@ -21,10 +21,7 @@
         public override void FixtureSetUp()
         {
             ObjectDb = Substitute.For<IObjectDb>();
-            DataAccess = Substitute.ForPartsOf<SpecialLicenseeWinLossDataAccess>(
-                Substitute.For<IAppSettings>(),
-                CreateSessionStorage());
-
+            DataAccess = Substitute.ForPartsOf<SpecialLicenseeWinLossDataAccess>();
             _metaModel = new SpecialLicenseeWinLossMetaModel
             {
                 CurrencyId = 1,
@@ -54,7 +51,7 @@
             DataAccess.GetObjectDb(Arg.Is(Sp)).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetData(_metaModel);
+            DataAccess.GetData(_metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -73,7 +70,7 @@
         {
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
                 Sp,
-                () => DataAccess.GetData(_metaModel));
+                () => DataAccess.GetData(_metaModel, UserCurrencyList));
         }
 
         [Test]
@@ -97,7 +94,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetData(_metaModel);
+            var result = DataAccess.GetData(_metaModel, UserCurrencyList);
             var firstItem = result.DataList.First();
             var firstTotalItem = result.TotalDataList.First();
 

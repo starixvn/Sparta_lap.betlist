@@ -52,7 +52,7 @@
         public void GetMainWinloss_WhenCall_ParametersPassedCorrectly()
         {
             // Action
-            DataAccess.GetMainWinloss(_metaModel);
+            DataAccess.GetMainWinloss(_metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -68,7 +68,7 @@
         {
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
                 GetMainWinlossSp,
-                () => DataAccess.GetMainWinloss(_metaModel));
+                () => DataAccess.GetMainWinloss(_metaModel, UserCurrencyList));
         }
 
         [Test]
@@ -84,7 +84,7 @@
             ConfigureReaderForMainResult(firstExpected, expectedList);
 
             // Action
-            var result = DataAccess.GetMainWinloss(_metaModel);
+            var result = DataAccess.GetMainWinloss(_metaModel, UserCurrencyList);
             var firstItem = result.DataList.First();
 
             // Assert
@@ -122,7 +122,7 @@
             ConvertExpectedValueToBaseCurrency(expectedList, model.BaseCurrency.ToUpperInvariant());
 
             // Action
-            var result = DataAccess.GetMainWinloss(model);
+            var result = DataAccess.GetMainWinloss(model, UserCurrencyList);
             var firstItem = result.DataList.First();
 
             // Assert
@@ -139,7 +139,7 @@
         public void GetLicenseeWinloss_WhenCall_ParametersPassedCorrectly()
         {
             // Action
-            DataAccess.GetLicenseeWinloss(_metaModel);
+            DataAccess.GetLicenseeWinloss(_metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -154,7 +154,7 @@
         {
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
                 GetLicenseeWinlossSp,
-                () => DataAccess.GetLicenseeWinloss(_metaModel));
+                () => DataAccess.GetLicenseeWinloss(_metaModel, UserCurrencyList));
         }
 
         [Test]
@@ -170,7 +170,7 @@
             ConfigureReaderForLicenseeResult(firstExpected, expectedList);
 
             // Action
-            var result = DataAccess.GetLicenseeWinloss(_metaModel);
+            var result = DataAccess.GetLicenseeWinloss(_metaModel, UserCurrencyList);
             var firstItem = result.DataList.First();
 
             firstExpected.Date = _metaModel.ToDate;
@@ -189,7 +189,7 @@
         public void GetCustomerWinloss_WhenCall_ParametersPassedCorrectly()
         {
             // Action
-            DataAccess.GetCustomerWinloss(_metaModel);
+            DataAccess.GetCustomerWinloss(_metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -205,7 +205,7 @@
         {
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
                 GetCustomerWinlossSp,
-                () => DataAccess.GetCustomerWinloss(_metaModel));
+                () => DataAccess.GetCustomerWinloss(_metaModel, UserCurrencyList));
         }
 
         [Test]
@@ -221,7 +221,7 @@
             ConfigureReaderForCustomerResult(firstExpected, expectedList);
 
             // Action
-            var result = DataAccess.GetCustomerWinloss(_metaModel);
+            var result = DataAccess.GetCustomerWinloss(_metaModel, UserCurrencyList);
             var firstItem = result.DataList.First();
 
             firstExpected.Date = _metaModel.ToDate;

@@ -16,8 +16,6 @@
         protected override void SetUpDataAccess()
         {
             DataAccess = Substitute.ForPartsOf<WeeklyLiveMatchDataAccess>(
-                Substitute.For<IAppSettings>(),
-                CreateSessionStorage(),
                 Substitute.For<ICacheRefAdapter>());
         }
 

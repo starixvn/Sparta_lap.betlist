@@ -10,11 +10,6 @@ namespace Fanex.Athena.DataAccess.Report.UnitTests.Testable
 {
     public class GoldDeluxeWinLossDataAccessTestable : GoldDeluxeWinLossDataAccess
     {
-        public GoldDeluxeWinLossDataAccessTestable(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
-
         public void Public_ReadSummaryTotal(IDataReader reader, IDictionary<string, GoldDeluxeWinLoss> summaryTotal)
         {
             ReadSummaryTotal(reader, summaryTotal);

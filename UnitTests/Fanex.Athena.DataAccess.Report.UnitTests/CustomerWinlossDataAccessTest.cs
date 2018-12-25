@@ -33,7 +33,6 @@
         public override void FixtureSetUp()
         {
             base.FixtureSetUp();
-            AppSetting.HistoryDate.Returns(new DateTime(2016, 8, 31));
             _metaModel = new CustomerWinLossMetaModel
             {
                 ProductOptions = GetProductOptions(),
@@ -47,8 +46,6 @@
             balanceUpDataAccess.GetBalanceUp().Returns(_balance);
 
             DataAccess = Substitute.ForPartsOf<CustomerWinlossDataAccess>(
-                AppSetting,
-                CreateSessionStorage(),
                 balanceUpDataAccess);
             DataAccess.GetObjectDb(Arg.Is(SpName)).Returns(ObjectDb);
         }

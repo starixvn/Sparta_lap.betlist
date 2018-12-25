@@ -32,8 +32,6 @@
             balanceUpDataAccess.GetBalanceUp().Returns(balanceUp);
 
             DataAccess = Substitute.ForPartsOf<ColossusBetsWinLossDataAccess>(
-                AppSetting,
-                CreateSessionStorage(),
                 balanceUpDataAccess);
         }
 
@@ -45,7 +43,7 @@
             var metaModel = CreateMetaModel();
 
             // Action
-            DataAccess.GetSummaryWinloss(metaModel);
+            DataAccess.GetSummaryWinloss(metaModel, UserCurrencyList);
 
             // Assert
             AssertUspParameters(metaModel);
@@ -67,7 +65,7 @@
             ConfigureReader(expected);
 
             // Action
-            var result = DataAccess.GetSummaryWinloss(metaModel).DataList[0];
+            var result = DataAccess.GetSummaryWinloss(metaModel, UserCurrencyList).DataList[0];
 
             // Assert
             AssertDataReturned(result, expected);
@@ -78,7 +76,7 @@
         {
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
                 GetSummaryWinlossSp,
-                () => DataAccess.GetSummaryWinloss(new ColossusBetsWinLossMetaModel()));
+                () => DataAccess.GetSummaryWinloss(new ColossusBetsWinLossMetaModel(), UserCurrencyList));
         }
 
         [Test]
@@ -90,7 +88,7 @@
             metaModel.DrillDownLevel = 1;
 
             // Action
-            DataAccess.GetWinlossDetail(metaModel);
+            DataAccess.GetWinlossDetail(metaModel, UserCurrencyList);
 
             // Assert
             AssertUspParameters(metaModel);
@@ -113,7 +111,7 @@
             ConfigureReader(expected);
 
             // Action
-            var result = DataAccess.GetWinlossDetail(metaModel).DataList[0];
+            var result = DataAccess.GetWinlossDetail(metaModel, UserCurrencyList).DataList[0];
 
             // Assert
             AssertDataReturned(result, expected);
@@ -124,7 +122,7 @@
         {
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
                 GetWinlossDetailSp,
-                () => DataAccess.GetWinlossDetail(new ColossusBetsWinLossMetaModel()));
+                () => DataAccess.GetWinlossDetail(new ColossusBetsWinLossMetaModel(), UserCurrencyList));
         }
 
         [Test]
@@ -148,7 +146,7 @@
             Reader["systemid"].Returns(expected.SystemId);
 
             // Action
-            var result = DataAccess.GetWinlossDetail(metaModel).DataList[0];
+            var result = DataAccess.GetWinlossDetail(metaModel, UserCurrencyList).DataList[0];
 
             // Assert
             Assert.That(result.SystemId, Is.EqualTo(expected.SystemId));
@@ -175,7 +173,7 @@
             Reader["externalid"].Returns(expected.ExternalId);
 
             // Action
-            var result = DataAccess.GetWinlossDetail(metaModel).DataList[0];
+            var result = DataAccess.GetWinlossDetail(metaModel, UserCurrencyList).DataList[0];
 
             // Assert
             Assert.That(result.ExternalId, Is.EqualTo(expected.ExternalId));
@@ -203,7 +201,7 @@
             Reader["custid"].Returns(expected.CustomerId);
 
             // Action
-            var result = DataAccess.GetWinlossDetail(metaModel).DataList[0];
+            var result = DataAccess.GetWinlossDetail(metaModel, UserCurrencyList).DataList[0];
 
             // Assert
             Assert.That(result.CustomerId, Is.EqualTo(expected.CustomerId));
@@ -226,7 +224,7 @@
             ConfigureReader(expected);
 
             // Action
-            var result = DataAccess.GetWinlossDetail(metaModel).DataList[0];
+            var result = DataAccess.GetWinlossDetail(metaModel, UserCurrencyList).DataList[0];
 
             // Assert
             Assert.That(
@@ -252,7 +250,7 @@
             ConfigureReader(expected);
 
             // Action
-            var result = DataAccess.GetWinlossDetail(metaModel).DataList[0];
+            var result = DataAccess.GetWinlossDetail(metaModel, UserCurrencyList).DataList[0];
 
             // Assert
             Assert.That(

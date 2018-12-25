@@ -38,8 +38,6 @@
 
             ObjectDb = Substitute.For<IObjectDb>();
             DataAccess = Substitute.ForPartsOf<LicenseeWinLossDataAccess>(
-                Substitute.For<IAppSettings>(),
-                CreateSessionStorage(),
                 balanceUpDataAccess);
 
             _metaModel = new LicenseeWinLossMetaModel
@@ -73,7 +71,7 @@
             DataAccess.GetObjectDb(Arg.Is(GetSummaryWinlossSp)).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetSummaryWinloss(_metaModel);
+            DataAccess.GetSummaryWinloss(_metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -86,10 +84,9 @@
         [Test]
         public void GetSummaryWinloss_WhenReceiveObjectDbException_ThrowDataAccessException()
         {
-            DataAccess.GetSpNameForFakeLicensee(Arg.Is(_metaModel.LicenseeId), Arg.Is(GetSummaryWinlossSp)).Returns(GetSummaryWinlossSp);
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
                 GetSummaryWinlossSp,
-                () => DataAccess.GetSummaryWinloss(_metaModel));
+                () => DataAccess.GetSummaryWinloss(_metaModel, UserCurrencyList));
         }
 
         [Test]
@@ -118,7 +115,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetSummaryWinloss(_metaModel);
+            var result = DataAccess.GetSummaryWinloss(_metaModel, UserCurrencyList);
             var firstItem = result.DataList.First();
 
             // Assert
@@ -153,7 +150,7 @@
             MapReaderData(readerDataMapping);
 
             // Action
-            var result = DataAccess.GetSummaryWinloss(_metaModel);
+            var result = DataAccess.GetSummaryWinloss(_metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -170,7 +167,7 @@
             DataAccess.GetObjectDb(Arg.Is(GetCustomerWinlossDetailSp)).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetCustomerWinlossDetail(_metaModel);
+            DataAccess.GetCustomerWinlossDetail(_metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -185,7 +182,7 @@
         {
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
                 GetCustomerWinlossDetailSp,
-                () => DataAccess.GetCustomerWinlossDetail(_metaModel));
+                () => DataAccess.GetCustomerWinlossDetail(_metaModel, UserCurrencyList));
         }
 
         [Test]
@@ -195,7 +192,7 @@
             DataAccess.GetObjectDb(Arg.Is(GetAgentWinlossDetailSp)).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetAgentWinlossDetail(_metaModel);
+            DataAccess.GetAgentWinlossDetail(_metaModel, UserCurrencyList);
 
             // Assert
             AssertCommonSpParameters(isDrilldown: true);
@@ -206,7 +203,7 @@
         {
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
                 GetAgentWinlossDetailSp,
-                () => DataAccess.GetAgentWinlossDetail(_metaModel));
+                () => DataAccess.GetAgentWinlossDetail(_metaModel, UserCurrencyList));
         }
 
         private void AssertCommonSpParameters(bool isDrilldown)

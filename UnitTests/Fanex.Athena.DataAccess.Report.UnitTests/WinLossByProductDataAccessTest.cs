@@ -31,7 +31,7 @@
         public override void FixtureSetUp()
         {
             base.FixtureSetUp();
-            
+
             _metaModel = new WinLossByProductMetaModel
             {
                 ReportBy = 1,
@@ -59,8 +59,6 @@
             balanceUpDataAccess.GetBalanceUp().Returns(_balanceUp);
 
             DataAccess = Substitute.ForPartsOf<WinLossByProductDataAccess>(
-                AppSetting,
-                CreateSessionStorage(),
                 balanceUpDataAccess);
         }
 
@@ -71,7 +69,7 @@
             DataAccess.GetObjectDb(Arg.Is(GetWinlossByProductsSp)).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetWinlossByProducts(_metaModel);
+            DataAccess.GetWinlossByProducts(_metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -104,7 +102,7 @@
                 new WinLossByProductMetaModel
                 {
                     BaseCurrency = "USD"
-                });
+                }, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -122,7 +120,7 @@
         {
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
                 GetWinlossByProductsSp,
-                () => DataAccess.GetWinlossByProducts(_metaModel));
+                () => DataAccess.GetWinlossByProducts(_metaModel, UserCurrencyList));
         }
 
         [Test]
@@ -132,7 +130,7 @@
             DataAccess.GetObjectDb(Arg.Is(GetWinlossByProductAgentsSp)).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetWinlossByProductAgents(_metaModel);
+            DataAccess.GetWinlossByProductAgents(_metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -147,7 +145,7 @@
         {
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
                 GetWinlossByProductAgentsSp,
-                () => DataAccess.GetWinlossByProductAgents(_metaModel));
+                () => DataAccess.GetWinlossByProductAgents(_metaModel, UserCurrencyList));
         }
 
         [Test]
@@ -157,7 +155,7 @@
             DataAccess.GetObjectDb(Arg.Is(GetWinlossByProductCustomersSp)).Returns(ObjectDb);
 
             // Action
-            DataAccess.GetWinlossByProductCustomers(_metaModel);
+            DataAccess.GetWinlossByProductCustomers(_metaModel, UserCurrencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -173,7 +171,7 @@
         {
             TestException_WhenObjectDbThrowsException_ThrowDataAccessException(
                 GetWinlossByProductCustomersSp,
-                () => DataAccess.GetWinlossByProductCustomers(_metaModel));
+                () => DataAccess.GetWinlossByProductCustomers(_metaModel, UserCurrencyList));
         }
 
         [Test]
@@ -199,7 +197,7 @@
                 new WinLossByProductMetaModel
                 {
                     BaseCurrency = string.Empty
-                });
+                }, UserCurrencyList);
 
             // Assert
             Assert.That(result.DataList.ElementAt(0).SystemId, Is.EqualTo(readerDataMapping.username));
@@ -228,7 +226,7 @@
                 new WinLossByProductMetaModel
                 {
                     BaseCurrency = string.Empty
-                });
+                }, UserCurrencyList);
 
             // Assert
             Assert.That(result.DataList.ElementAt(0).ExternalId, Is.EqualTo(readerDataMapping.nickname));
@@ -257,7 +255,7 @@
                 new WinLossByProductMetaModel
                 {
                     BaseCurrency = string.Empty
-                });
+                }, UserCurrencyList);
 
             // Assert
             Assert.That(result.DataList.ElementAt(0).CustomerId, Is.EqualTo(readerDataMapping.custid));

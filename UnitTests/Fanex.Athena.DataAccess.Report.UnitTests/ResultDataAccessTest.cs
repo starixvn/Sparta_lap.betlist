@@ -53,8 +53,6 @@
             balanceUpDataAccess.GetBalanceUp().Returns(_balance);
             var cacheRefAdapter = Substitute.For<ICacheRefAdapter>();
             DataAccess = Substitute.ForPartsOf<ResultDataAccess>(
-                AppSetting,
-                Substitute.For<ISessionStorage>(),
                 balanceUpDataAccess,
                 cacheRefAdapter);
         }

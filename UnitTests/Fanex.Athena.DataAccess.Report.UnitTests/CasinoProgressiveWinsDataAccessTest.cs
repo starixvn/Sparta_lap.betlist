@@ -42,8 +42,7 @@
             balanceUpDataAccess.GetBalanceUp().Returns(balanceUp);
 
             DataAccess = Substitute.ForPartsOf<CasinoProgressiveWinsDataAccess>(
-                AppSetting,
-                CreateSessionStorage(),
+
                 balanceUpDataAccess);
             DataAccess.GetObjectDb(Arg.Is(SpName)).Returns(ObjectDb);
         }

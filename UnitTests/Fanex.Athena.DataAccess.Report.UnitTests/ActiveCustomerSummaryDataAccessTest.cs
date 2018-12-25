@@ -22,7 +22,7 @@
 
         protected override void SetUpDataAccess()
         {
-            DataAccess = Substitute.ForPartsOf<ActiveCustomerSummaryDataAccess>(Substitute.For<IAppSettings>(), CreateSessionStorage());
+            DataAccess = Substitute.ForPartsOf<ActiveCustomerSummaryDataAccess>();
         }
 
         [OneTimeSetUp]
