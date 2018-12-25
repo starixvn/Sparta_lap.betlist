@@ -23,6 +23,7 @@
             new Subsidiary { AgentId = 1234, CurrencyId = 1, OperatorId = "New York" },
             new Subsidiary { AgentId = 1235, CurrencyId = 2, OperatorId = "India" }
         };
+        private readonly IDictionary<int, string> _currencyList = new Dictionary<int, string> { { 20, "UUS" } };
 
         private ISubsidiaryPerformanceDataAccess _dataAccess;
         private SubsidiaryPerformanceService _service;
@@ -62,13 +63,13 @@
                 BaseCurrency = "EUR"
             };
             var resultData = new List<SubsidiaryPerformance>();
-            _dataAccess.GetData(metaModel).Returns(resultData);
+            _dataAccess.GetData(metaModel, _currencyList).Returns(resultData);
 
             // Action
-            _service.GetData(metaModel);
+            _service.GetData(metaModel, _currencyList);
 
             // Assert
-            _dataAccess.ReceivedWithAnyArgs().GetData(metaModel);
+            _dataAccess.ReceivedWithAnyArgs().GetData(metaModel, _currencyList);
         }
 
         [Test]
@@ -91,10 +92,10 @@
 
             var expectedResult = ObjectHelper.ToJson(GetExpectedDataModelList());
 
-            _dataAccess.GetData(metaModel).Returns(fakeEntityDataList);
+            _dataAccess.GetData(metaModel, _currencyList).Returns(fakeEntityDataList);
 
             // Action
-            var result = ObjectHelper.ToJson(_service.GetData(metaModel).Data);
+            var result = ObjectHelper.ToJson(_service.GetData(metaModel, _currencyList).Data);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -121,10 +122,10 @@
             var expectedData = new List<SubsidiaryPerformanceDataModel>();
             var expectedResult = ObjectHelper.ToJson(expectedData);
 
-            _dataAccess.GetData(metaModel).Returns(resultData);
+            _dataAccess.GetData(metaModel, _currencyList).Returns(resultData);
 
             // Action
-            var result = ObjectHelper.ToJson(_service.GetData(metaModel).Data);
+            var result = ObjectHelper.ToJson(_service.GetData(metaModel, _currencyList).Data);
 
             // Assert
             Assert.That(result, Is.EqualTo(expectedResult));
@@ -150,10 +151,10 @@
 
             var expectedResult = ObjectHelper.ToJson(GetExpectedTotalDataList());
 
-            _dataAccess.GetData(metaModel).Returns(resultData);
+            _dataAccess.GetData(metaModel, _currencyList).Returns(resultData);
 
             // Action
-            var totalDataList = _service.GetData(metaModel).Total;
+            var totalDataList = _service.GetData(metaModel, _currencyList).Total;
             var result = ObjectHelper.ToJson(totalDataList);
 
             // Assert
@@ -180,10 +181,10 @@
 
             var expectedResult = ObjectHelper.ToJson(GetExpectedGrandTotal());
 
-            _dataAccess.GetData(metaModel).Returns(resultData);
+            _dataAccess.GetData(metaModel, _currencyList).Returns(resultData);
 
             // Action
-            var grandTotalDataList = _service.GetData(metaModel).GrandTotal;
+            var grandTotalDataList = _service.GetData(metaModel, _currencyList).GrandTotal;
             var result = ObjectHelper.ToJson(grandTotalDataList);
 
             // Assert
@@ -196,13 +197,13 @@
             // Arrange
             var metaModel = new SubsidiaryPerformanceMetaModel();
 
-            _dataAccess.GetDetailData(metaModel).Returns(new Model.Core.ResultModel.ReportResultModel<SubsidiaryPerformanceDetail>());
+            _dataAccess.GetDetailData(metaModel, _currencyList).Returns(new Model.Core.ResultModel.ReportResultModel<SubsidiaryPerformanceDetail>());
 
             // Action
-            _service.GetDetailData(metaModel);
+            _service.GetDetailData(metaModel, _currencyList);
 
             // Assert
-            _dataAccess.Received().GetDetailData(metaModel);
+            _dataAccess.Received().GetDetailData(metaModel, _currencyList);
         }
 
         private static IEnumerable<SubsidiaryPerformance> GetFakeEntityDataList()

@@ -15,6 +15,7 @@
     {
         private IColossusBetsWinLossDataAccess _dataAccess;
         private ColossusBetsWinLossService _service;
+        private readonly IDictionary<int, string> _currencyList = new Dictionary<int, string> { { 20, "UUS" } };
 
         [SetUp]
         public void SetUp()
@@ -42,12 +43,12 @@
                 new ColossusBetWinLoss { Date = new DateTime(2017, 1, 1) },
                 new ColossusBetWinLoss { Date = new DateTime(2017, 1, 2) },
             };
-            _dataAccess.GetSummaryWinloss(metaModel).Returns(new SortableReportResultModel<ColossusBetWinLoss> { DataList = dataList });
+            _dataAccess.GetSummaryWinloss(metaModel, _currencyList).Returns(new SortableReportResultModel<ColossusBetWinLoss> { DataList = dataList });
 
             var expectedRowSpan = new[] { 2, -1, 1 };
 
             // Action
-            var result = _service.GetSummaryWinloss(metaModel);
+            var result = _service.GetSummaryWinloss(metaModel, _currencyList);
 
             // Assert
             Assert.Multiple(() =>
@@ -66,10 +67,10 @@
             var metaModel = new ColossusBetsWinLossMetaModel();
 
             // Action
-            _service.GetWinlossDetail(metaModel);
+            _service.GetWinlossDetail(metaModel, _currencyList);
 
             // Assert
-            _dataAccess.Received().GetWinlossDetail(metaModel);
+            _dataAccess.Received().GetWinlossDetail(metaModel, _currencyList);
         }
 
         [Test]
