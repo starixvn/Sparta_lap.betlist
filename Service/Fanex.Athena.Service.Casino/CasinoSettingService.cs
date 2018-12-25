@@ -10,7 +10,6 @@ namespace Fanex.Athena.Service.Casino
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
-    using Core.Utility;
     using Core.Utility.Interfaces;
     using Extension.Helper;
     using Fanex.Athena.Model.BetSettings.DTO.RngCasino;

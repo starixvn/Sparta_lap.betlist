@@ -6,6 +6,7 @@
 
 namespace Fanex.Athena.Service.BetList
 {
+    using System.Collections.Generic;
     using DataAccess.Core.Configuration.Interfaces;
     using Fanex.Athena.DataAccess.BetList.Interfaces;
     using Fanex.Athena.Model.BetList.DTO;
@@ -13,7 +14,6 @@ namespace Fanex.Athena.Service.BetList
     using Fanex.Athena.Service.BetList.Interfaces;
     using Fanex.Athena.Service.Core.Users.Interfaces;
     using Fanex.BetList.Core.Entities;
-    using System.Collections.Generic;
 
     public class BetListService : IBetListService
     {
