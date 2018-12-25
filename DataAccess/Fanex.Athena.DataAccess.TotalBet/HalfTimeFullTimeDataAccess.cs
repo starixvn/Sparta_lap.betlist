@@ -20,11 +20,6 @@ namespace Fanex.Athena.DataAccess.TotalBet
 
     public class HalfTimeFullTimeDataAccess : BaseDataAccess, IHalfTimeFullTimeDataAccess
     {
-        public HalfTimeFullTimeDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
-
         public ReportResultModel<HalfTimeFullTime> GetHalfTimeFullTimeDataList(HalfTimeFullTimeMetaModel metaModel)
         {
             const string SpName = "Lrf_TotalBets_Sel16";

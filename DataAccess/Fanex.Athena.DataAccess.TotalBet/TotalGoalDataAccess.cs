@@ -21,11 +21,6 @@ namespace Fanex.Athena.DataAccess.TotalBet
 
     public class TotalGoalDataAccess : BaseDataAccess, ITotalGoalDataAccess
     {
-        public TotalGoalDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
-
         public ReportResultModel<TotalGoal> GetTotalGoalDataList(TotalGoalMetaModel metaModel)
         {
             const string UspName = "Lrf_TotalBets_Sel6";

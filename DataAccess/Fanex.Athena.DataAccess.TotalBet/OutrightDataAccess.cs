@@ -19,11 +19,6 @@ namespace Fanex.Athena.DataAccess.TotalBet
 
     public class OutrightDataAccess : BaseDataAccess, IOutrightDataAccess
     {
-        public OutrightDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
-
         public IList<Outright> GetOutrightDataList(OutrightMetaModel metaModel)
         {
             const string SpName = "Lrf_TotalBets_Sel10";

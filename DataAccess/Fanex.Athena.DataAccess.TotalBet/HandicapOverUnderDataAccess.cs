@@ -20,11 +20,6 @@ namespace Fanex.Athena.DataAccess.TotalBet
 
     public class HandicapOverUnderDataAccess : BaseDataAccess, IHandicapOverUnderDataAccess
     {
-        public HandicapOverUnderDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
-
         public ReportResultModel<HandicapOverUnder> GetHandicapOverUnderDataList(HandicapOverUnderMetaModel metaModel)
         {
             const string SpName = "Lrf_TotalBets_Sel1378";

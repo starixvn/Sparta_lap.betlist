@@ -19,11 +19,6 @@ namespace Fanex.Athena.DataAccess.TotalBet
 
     public class HomeDrawAwayNoBetDataAccess : BaseDataAccess, IHomeDrawAwayNoBetDataAccess
     {
-        public HomeDrawAwayNoBetDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
-
         public IList<HomeDrawAwayNoBet> GetHomeDrawAwayNoBetDataList(HomeDrawAwayNoBetMetaModel metaModel)
         {
             const string SpName = "Lrf_TotalBets_Sel121";

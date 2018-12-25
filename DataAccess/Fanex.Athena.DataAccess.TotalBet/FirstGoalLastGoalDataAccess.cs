@@ -21,11 +21,6 @@ namespace Fanex.Athena.DataAccess.TotalBet
 
     public class FirstGoalLastGoalDataAccess : BaseDataAccess, IFirstGoalLastGoalDataAccess
     {
-        public FirstGoalLastGoalDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
-
         public ReportResultModel<FirstGoalLastGoal> GetFirstGoalLastGoalDataList(FirstGoalLastGoalMetaModel metaModel)
         {
             const string SpName = "Lrf_TotalBets_Sel14";
