@@ -15,7 +15,6 @@ namespace Fanex.Athena.Service.Core.Users
     using System.Text;
     using System.Web;
     using Constant.DataDomain;
-    using DataAccess.Core.Common;
     using DataAccess.Core.Common.Interfaces;
     using DataAccess.Core.Users.Interfaces;
     using Fanex.Athena.Model.Core.DTO.Users;
