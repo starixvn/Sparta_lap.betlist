@@ -12,11 +12,6 @@
 
     public class SingleValueDataAccess : BaseDataAccess, ISingleValueDataAccess
     {
-        public SingleValueDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
-
         public decimal GetCustomerBalance(DashboardBaseModel metaModel)
         {
             return GetData(metaModel, "Lrf_GetCustomerBalance", "ClosingBalance");

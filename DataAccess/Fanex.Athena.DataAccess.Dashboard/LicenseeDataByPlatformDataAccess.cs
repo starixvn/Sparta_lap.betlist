@@ -15,11 +15,6 @@
 
     public class LicenseeDataByPlatformDataAccess : BaseDataAccess, ILicenseeDataByPlatformDataAccess
     {
-        public LicenseeDataByPlatformDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage)
-            : base(appSetting, sessionStorage)
-        {
-        }
-
         public WidgetByPlatformViewModel GetWinLoss(DashboardBaseModel metaModel)
         {
             return GetData(metaModel, "Lrf_GetLicenseeWLByPlatform", "LicenseeWL");
