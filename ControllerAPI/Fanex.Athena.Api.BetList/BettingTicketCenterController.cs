@@ -36,15 +36,17 @@
         [HttpPost]
         public dynamic GetBySingleCustomer(SingleCustomersBetListMetaModel metaModel)
         {
+            var userCurrencyList = SessionService.UserSession.CurrencyList;
+            var isAllowedCustomerComm = SessionService.LicenseeSession.IsAllowedCustomerComm;
             TicketResult ticketResult;
-            if (!metaModel.IsValid || !_service.IsValidCurrencyId(metaModel.CurrencyId))
+            if (!metaModel.IsValid || !_service.IsValidCurrencyId(metaModel.CurrencyId, userCurrencyList))
             {
                 ticketResult = new TicketResult();
             }
             else
             {
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-                ticketResult = _service.GetBetListForSingleCustomer(metaModel);
+                ticketResult = _service.GetBetListForSingleCustomer(metaModel, userCurrencyList);
             }
 
             if (metaModel.IsExport)
@@ -56,7 +58,7 @@
                     ShowSumStake = true,
                     ShowLicenseeWl = true,
                     ShowWinLoss = true,
-                    CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
+                    CustomerCommVisible = isAllowedCustomerComm,
                     Title = _service.GetTitle(metaModel)
                 };
                 return Export(excelModel);
@@ -64,10 +66,10 @@
 
             return new
             {
-                Data = _service.BuildTicketText(ticketResult, metaModel),
+                Data = _service.BuildTicketText(ticketResult, metaModel, isAllowedCustomerComm),
                 Total = new
                 {
-                    SumWinLoss = _service.BuildSumWinLoss(ticketResult),
+                    SumWinLoss = _service.BuildSumWinLoss(ticketResult, isAllowedCustomerComm),
                     SumLicenseeWL = (ticketResult.SumLicenseeWL + ticketResult.SumComm).ToString(FormatKey.DecimalFormat),
                     SumStake = ticketResult.SumStake.ToString(FormatKey.DecimalFormat)
                 },
@@ -79,6 +81,8 @@
         public dynamic GetByRefno(RefNoBetListMetaModel metaModel)
         {
             TicketResult ticketResult;
+            var userCurrencyList = SessionService.UserSession.CurrencyList;
+
             if (!metaModel.IsValid)
             {
                 ticketResult = new TicketResult();
@@ -86,7 +90,7 @@
             else
             {
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-                ticketResult = _service.GetBetListByRefno(metaModel);
+                ticketResult = _service.GetBetListByRefno(metaModel, userCurrencyList);
             }
 
             if (metaModel.IsExport)
@@ -103,7 +107,7 @@
 
             return new
             {
-                Data = _service.BuildTicketText(ticketResult, metaModel)
+                Data = _service.BuildTicketText(ticketResult, metaModel, SessionService.LicenseeSession.IsAllowedCustomerComm)
             };
         }
 
@@ -111,14 +115,17 @@
         public dynamic GetByRunning(BaseBettingTicketMetaModel metaModel)
         {
             TicketResult ticketResult;
-            if (!metaModel.IsValid || !_service.IsValidCurrencyId(metaModel.CurrencyId))
+            var userCurrencyList = SessionService.UserSession.CurrencyList;
+            var isAllowedCustomerComm = SessionService.LicenseeSession.IsAllowedCustomerComm;
+
+            if (!metaModel.IsValid || !_service.IsValidCurrencyId(metaModel.CurrencyId, userCurrencyList))
             {
                 ticketResult = new TicketResult();
             }
             else
             {
                 metaModel.AgentListXml = SessionService.GenerateAgentListXml(metaModel.CurrencyId);
-                ticketResult = _service.GetRunningBetList(metaModel);
+                ticketResult = _service.GetRunningBetList(metaModel, userCurrencyList);
             }
 
             if (metaModel.IsExport)
@@ -128,7 +135,7 @@
                     Data = ticketResult,
                     ShowTotal = true,
                     ShowSumStake = true,
-                    CustomerCommVisible = SessionService.LicenseeSession.IsAllowedCustomerComm,
+                    CustomerCommVisible = isAllowedCustomerComm,
                     Title = _service.GetTitle(metaModel)
                 };
                 return Export(excelModel);
@@ -136,7 +143,7 @@
 
             return new
             {
-                Data = _service.BuildTicketText(ticketResult, metaModel),
+                Data = _service.BuildTicketText(ticketResult, metaModel, isAllowedCustomerComm),
                 Total = new
                 {
                     SumStake = ticketResult.SumStake.ToString(FormatKey.DecimalFormat)

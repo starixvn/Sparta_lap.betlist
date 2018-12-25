@@ -43,7 +43,9 @@
         public dynamic GetData(MultipleCustomersBetListMetaModel metaModel)
         {
             TicketResult ticketResult;
-            if (!metaModel.IsValid || !_service.IsValidCurrencyId(metaModel.CurrencyId))
+            var userCurrencyList = SessionService.UserSession.CurrencyList;
+            var isAllowedCustomerComm = SessionService.LicenseeSession.IsAllowedCustomerComm;
+            if (!metaModel.IsValid || !_service.IsValidCurrencyId(metaModel.CurrencyId, userCurrencyList))
             {
                 ticketResult = new TicketResult();
             }
@@ -56,7 +58,7 @@
                     return new HttpResponseMessage(HttpStatusCode.RequestedRangeNotSatisfiable);
                 }
 
-                ticketResult = _service.GetBetListForMultipleCustomers(metaModel);
+                ticketResult = _service.GetBetListForMultipleCustomers(metaModel, userCurrencyList);
             }
 
             if (metaModel.IsExport)
@@ -66,10 +68,10 @@
 
             return new
             {
-                Data = _service.BuildTicketText(ticketResult, metaModel),
+                Data = _service.BuildTicketText(ticketResult, metaModel, isAllowedCustomerComm),
                 Total = new
                 {
-                    SumWinLoss = _service.BuildSumWinLoss(ticketResult),
+                    SumWinLoss = _service.BuildSumWinLoss(ticketResult, isAllowedCustomerComm),
                     SumLicenseeWL = (ticketResult.SumLicenseeWL + ticketResult.SumComm).ToString(FormatKey.DecimalFormat),
                     SumStake = ticketResult.SumStake.ToString(FormatKey.DecimalFormat)
                 },
@@ -125,7 +127,7 @@
             var path = HttpContext.Current.Server.MapPath("~/tmp/BTC/" + Guid.NewGuid());
 
             try
-            {    
+            {
                 Directory.CreateDirectory(path);
 
                 var numOfFile = (int)Math.Ceiling((double)dataList.Count / MaxRowPerFile);
@@ -145,8 +147,8 @@
                         stream.Close();
                     }
 
-                    GC.Collect();
-                    GC.WaitForPendingFinalizers();
+                    /* GC.Collect();
+                     GC.WaitForPendingFinalizers();*/
                 }
 
                 using (ZipFile zip = new ZipFile())

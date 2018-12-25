@@ -24,7 +24,7 @@
             _balanceUpDataAccess = balanceUpDataAccess;
         }
 
-        public TicketResult GetBetListForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel)
+        public TicketResult GetBetListForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel, IDictionary<int, string> currencyList)
         {
             const string UspKey = "Lrf_BetList_Licensee";
 
@@ -37,7 +37,7 @@
 
                     using (var reader = db.ExecuteReader())
                     {
-                        ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader));
+                        ticketResult.MainTicketList.AddRange(ReadBetListTicket(reader, currencyList));
                     }
 
                     var outSqlParams = db.GetOuputParams();

@@ -9,7 +9,6 @@ using Fanex.Athena.Resources;
 using Fanex.Athena.Service.BetList.Extensions;
 using Fanex.Athena.Service.BetList.Helpers;
 using Fanex.Athena.Service.BetList.Interfaces;
-using Fanex.Athena.Service.Core.Users.Interfaces;
 using Fanex.Athena.VendorAdapter.Interfaces;
 using Fanex.BetList.Core.Builder;
 using Fanex.BetList.Core.Entities;
@@ -18,8 +17,6 @@ namespace Fanex.Athena.Service.BetList
 {
     public class BettingTicketCenterService : IBettingTicketCenterService
     {
-        private readonly ISessionService _sessionService;
-
         private readonly IBettingTicketCenterDataAccess _dataAccess;
 
         private readonly IBetListHTMLBuilder _betlistHtmlBuilder;
@@ -31,23 +28,21 @@ namespace Fanex.Athena.Service.BetList
 #pragma warning disable CS3001 // Argument type is not CLS-compliant
 
         public BettingTicketCenterService(
-            ISessionService sessionService,
             IBettingTicketCenterDataAccess dataAccess,
             IBetListHTMLBuilder betlistHtmlBuilder,
             ICacheRefAdapter cacheRefAdapter,
             ITicketHelper ticketHelper)
 #pragma warning restore CS3001 // Argument type is not CLS-compliant
         {
-            _sessionService = sessionService;
             _dataAccess = dataAccess;
             _betlistHtmlBuilder = betlistHtmlBuilder;
             _cacheRefAdapter = cacheRefAdapter;
             _ticketHelper = ticketHelper;
         }
 
-        public TicketResult GetBetListForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel)
+        public TicketResult GetBetListForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel, IDictionary<int, string> currencyList)
         {
-            return _dataAccess.GetBetListForMultipleCustomers(metaModel);
+            return _dataAccess.GetBetListForMultipleCustomers(metaModel, currencyList);
         }
 
         public int GetTotalRowForMultipleCustomers(MultipleCustomersBetListMetaModel metaModel)
@@ -55,37 +50,36 @@ namespace Fanex.Athena.Service.BetList
             return _dataAccess.GetTotalRowForMultipleCustomers(metaModel);
         }
 
-        public TicketResult GetBetListForSingleCustomer(SingleCustomersBetListMetaModel metaModel)
+        public TicketResult GetBetListForSingleCustomer(SingleCustomersBetListMetaModel metaModel, IDictionary<int, string> currencyList)
         {
-            return _dataAccess.GetBetListForSingleCustomer(metaModel);
+            return _dataAccess.GetBetListForSingleCustomer(metaModel, currencyList);
         }
 
-        public TicketResult GetBetListByRefno(RefNoBetListMetaModel metaModel)
+        public TicketResult GetBetListByRefno(RefNoBetListMetaModel metaModel, IDictionary<int, string> currencyList)
         {
-            return _dataAccess.GetBetListByRefno(metaModel);
+            return _dataAccess.GetBetListByRefno(metaModel, currencyList);
         }
 
-        public TicketResult GetRunningBetList(BaseBettingTicketMetaModel metaModel)
+        public TicketResult GetRunningBetList(BaseBettingTicketMetaModel metaModel, IDictionary<int, string> currencyList)
         {
-            return _dataAccess.GetRunningBetList(metaModel);
+            return _dataAccess.GetRunningBetList(metaModel, currencyList);
         }
 
-        public bool IsValidCurrencyId(int currencyId)
+        public bool IsValidCurrencyId(int currencyId, IDictionary<int, string> currencyList)
         {
-            return currencyId == BaseCurrencyType.All || _sessionService.UserSession.CurrencyList.ContainsKey(currencyId);
+            return currencyId == BaseCurrencyType.All || currencyList.ContainsKey(currencyId);
         }
 
-        public string BuildSumWinLoss(TicketResult ticketResult)
+        public string BuildSumWinLoss(TicketResult ticketResult, bool isAllowedCustomerComm)
         {
             var ticket = new LrfTicket { Winlost = ticketResult.SumWinLoss, PlayerComm = ticketResult.SumPlayerComm };
-            return _betlistHtmlBuilder.BuildCustomerWL(ticket, _sessionService.LicenseeSession.IsAllowedCustomerComm);
+            return _betlistHtmlBuilder.BuildCustomerWL(ticket, isAllowedCustomerComm);
         }
 
-        public IList<TicketText> BuildTicketText(TicketResult ticketResult, BaseBettingTicketMetaModel metaModel)
+        public IList<TicketText> BuildTicketText(TicketResult ticketResult, BaseBettingTicketMetaModel metaModel, bool isAllowedCustomerComm)
         {
             var startIndex = ((metaModel.PageIndex - 1) * metaModel.PageSize) + 1;
             var ticketTextList = new List<TicketText>();
-            var isAllowedCustomerComm = _sessionService.LicenseeSession.IsAllowedCustomerComm;
             foreach (var ticket in ticketResult.MainTicketList)
             {
                 if (ticket.BetTypeId == (int)BetType.CombinationMixParlay)
