@@ -31,8 +31,7 @@ namespace Fanex.Athena.DataAccess.Forecast
     {
         private readonly ICacheRefAdapter _cacheRefAdapter;
 
-        public ForecastDataAccess(IAppSettings appSetting, ISessionStorage sessionStorage, ICacheRefAdapter cacheRefAdapter)
-            : base(appSetting, sessionStorage)
+        public ForecastDataAccess(ICacheRefAdapter cacheRefAdapter)
         {
             _cacheRefAdapter = cacheRefAdapter;
         }

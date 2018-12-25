@@ -21,8 +21,6 @@
         protected override void SetUpDataAccess()
         {
             DataAccess = Substitute.ForPartsOf<ForecastDataAccess>(
-                AppSetting,
-                Substitute.For<ISessionStorage>(),
                 Substitute.For<ICacheRefAdapter>());
         }
 
